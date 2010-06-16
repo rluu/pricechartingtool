@@ -2,13 +2,23 @@
 # PriceChartingTool
 ##############################################################################
 
-Author:           Ryan Luu
+Author:  Ryan Luu
+Email:   ryanluu@gmail.com
 
-Date created:     2010-05-30 01:26:51 -0400 (Sun, 30 May 2010)
 
-Initial import:   2010-05-30 01:49:38 -0400 (Sun, 30 May 2010)
+Google code project creation:
 
-Location created: Chantilly, VA
+         2010-05-30 01:26:51 -0400 (Sun, 30 May 2010)
+
+Google code Subversion repository initial import:   
+
+         2010-05-30 01:49:38 -0400 (Sun, 30 May 2010)
+
+Codesion Subversion repository initial import: 
+
+         2010-06-16 01:40:06 -0400 (Wed, 16 Jun 2010)
+
+Location of creation and initial imports: Chantilly, VA
 
 ##############################################################################
 

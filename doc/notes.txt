@@ -179,6 +179,7 @@ Pyjamas (Python port of the Google Web Toolkit)
 
 Web server backend:
 
+Django
 Twisted http://twistedmatrix.com/trac/wiki/TwistedProjects
 Google App Engine http://code.google.com/appengine/docs/whatisgoogleappengine.html
 (Note: Google App Engine is proprietary, so I will have a dependency on them)
