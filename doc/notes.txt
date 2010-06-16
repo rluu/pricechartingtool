@@ -1,0 +1,242 @@
+
+##############################################################################
+# Start Notes added June 2, 2010.
+##############################################################################
+
+# So, formulas with variables including the below will be needed.
+
+# Planets of which I have access to good data:
+# - Sun
+# - Moon
+# - Mars
+# - Mercury
+# - Jupiter
+# - Venus
+# - Saturn
+# - North Node
+# - (South Node)
+# - Uranus
+# - Neptune
+# - Pluto
+# - Lunar Apogee
+# - Lunar Perigee
+# - Earth Aphelion
+# - Earth Perihelion
+
+# For intraday research:
+# - House cusps of Placidus, Porphyry, and Equal house systems.
+# - Gulika and Mandi
+
+
+# Geocentric phenomenon that I have good data for:
+# - Planet Longitude
+# - Planet Latitude
+# - Planet Longitude speed
+# - Planet Latitude speed
+# - Distance
+# - Distance speed
+# - Rectascension
+# - Declination
+# - Declination speed
+
+# Heliocentric phenomenon that I have good data for:
+# - Planet Longitude
+# - Planet Latitude
+# - Planet Longitude speed
+# - Planet Latitude speed
+# - Distance (Aphelion and Perihelion)
+
+# Other things to consider:
+# - Shad balas (which strengths are stronger for each trading entity?)
+# - Astakavarga (how to approach this?)
+# - Vaiseshikamsa
+# - Real-time bhava arudha pada degree locations (a.k.a. Bayer's reflex points)
+# - Real-time graha arudha pada degree locations (a.k.a. Bayer's reflex points)
+# - Aspects:
+#    - Western aspects (with certain orb)
+#    - Graha dristi via rasi dristi in EVERY varga chart
+#    - Nakshatra aspects
+# - Ingress:
+#    - Sign ingress (geo/helio sidereal)
+#    - Sign ingress (geo tropical)
+#    - Ingress into own sign/mulatrikona/exaltation/etc. in EVERY varga chart
+# - Despositor strength:
+#    - Rasi despositor strength
+#    - Nakshatra despositor strength
+#    - Nakshatra sub-lord despositor strength
+# - Ways to combine planets:
+#    - Average of planetary indication (longitude degree, etc.)
+#    - Sum of planetary indication (longitude traversed, etc.)
+# - Movement/location of the traversal of great cycles:
+#    - Precession of the equinoxes
+#    - Other long-term cycles spoken about in the bible
+# - Dasas of planets (fractically scaled to different time frames):
+#    - Vimsottari
+#    - ... (all other Parasara dasas)
+# - Functional malefics and functional benefics for each trading entity's lagna
+# - Length of Lifecycle changes (Jyotish charts).  (Is this the same as what Cowan is talking about regarding rotating faces of geometric objects?)
+
+
+# Other things that are probably not as important right now:
+# 
+# - Rectascension speed (geocentric)
+# - Distance speed (heliocentric)
+# - Nodes of other planets.
+# - Apsis of other (2, 3, etc.) planets in relation to their synodic position
+# - Chara Karaka significance?
+
+
+##############################################################################
+
+Some thoughts on how things must work in the universe:
+
+Relationship between numbers and geometric shapes
+
+Numbers:              Geometrical shape
+1 ^ 1 = 1             point
+1 squared is 1        point
+1 cubed is 1          point
+1^4 is 1              point
+1^5 is 1              point
+...etc.
+
+
+All are points in all 5 dimensions.  The number one represents unity (in the spirtual evolutionary sense as well).
+
+Numbers:              Geometrical shape
+2 ^ 1                 line
+2 squared is 4        square (2-d)
+2 cubed is 8          cube (3-d)
+2^4 is 16             cube in 4d
+2^5 is 32             ...
+etc.
+
+The number two represents duality (in the spiritual evolutionary sense as well).  Music is harmonious to us because we are in duality.  This is why dividing a string in half produces the same note an octave higher, and dividing it by 3 produces a perfect fifth.  This point is important as we take into account the tones in music (different tuning temperments, their ratios, and why) and how that should be applied to the markets, from a pure numerical perspective, and then a planetary trendline perspective, which is just the same thing but adapting the phenomena to space-time distortions.
+
+
+Numbers:              Geometrical shape
+3 ^ 1 = 3             
+3 ^ 2 = 9             triangle
+3 ^ 3 = 27            triangular pyramid
+3 ^ 4 = 81            ...
+3 ^ 5 = 243            ...
+3 ^ 6 = 729            ...
+3 ^ 7 = 2187            ...
+
+Numbers:              Geometrical shape
+9 squared is 81       ?
+9 cubed is 729        ?
+9 ^4 is 6561          ?
+9 ^5 is 59049          ?
+
+9 is a special number:
+If you add the digits of the squared number, they sum up to 9, which was the original root number.  So there is a DIFFERENT KIND OF RELATIONSHIP (exponent to exponent or square to square) going on here.  
+
+Hence, 3 is much more tightly coupled to 9, 81, and 729 than 27, 243, 2187.
+
+
+In the above, 2 ^ 2 is 2 times 2, and the reproduction produced 4, a different quality.  If you keep incrementing the exponent, the result can be deduced to one of: 1, 2, 4, 5, 7, 8.  It can not reproduce a number that reduces to a 3 or a 9.  Hence, in reproduction, a 2 yields a reduced 2 every so often (in a pattern).  We should note that 2 ^ x (x incrementing) does produce 3's and 9's in the results at different place digits.  How does this factor into the reproduction of child/derivative numbers?
+
+
+The above exercise should all be done again for numbers in different radixes.  How does this influence what they get reduced to?
+
+
+Special numbers:
+pi, phi, square roots because squaring them comes to a whole numbers, same with cube-roots, etc.  What are the geometric shapes for these numbers, and then also, what are the geometric shape relationships between the original shape and the ones with one less dimension and one more dimension?
+
+
+
+Application:
+Trading entities are 'born' in a certain dimension (as are humans).  They have components of each number that make it up, and hence they each have to some degree influences from each geometric shape.  
+
+As noted in the Cowan books, these are actually trying to transcend the current dimension and move to the next.  They try to build the next dimensional object.  There are various ways this is done, depending on the dimension being looked at.  For example, if you have a square and you are trying to build a cube, it is filling up the volume of the cube with something.  The mass contained within teh cube as the cube is being built is not uniform in weight distribution.  So if we know the structure and method at which the square gets built into a cube, we can fractically extrapolate what the end volume and weight will be!  This concept and idea is is how I believe Gann was able to say that a certain trading entity will go to a certain price by a certain time.  
+
+All these ideas in number or geometric shape/solid have their equivalent representation in planetary position, as they are all the same.  So when there are posts by Alblak about translating planetary position to price and back, he is basically doing it for the dominant planet(s), and thus also the dominate geometric shapes/solids that apply to that trading entity.
+
+So at the current moment, I think that the planets in our solar system are just a representation that is equivalent to several different geometric X-dimensional shapes/solids centered at the Sun.  As these shapes/solids build and assemble itself it is what may be the 'tunnel through the air'.   What I should do is calculate the rate of expansion of planetary orbital radiuses, then see how that comes out relative to the mass of the planets/objects in the universe.  Then compare these numbers to the speed at which 'space' is expanding.  In Indian vedic literature, akasa is the space/ether element, and it may have some connection to amritha/soma and other such necters churned from the gods.
+
+
+Other thoughts:
+
+There must be some special relationship between pi and our universe.  Many of the movements and 3d objects in the universe are spherical.  How and why is this the case???  What is the connection here.  This is a key missing piece.
+
+Could wolf frequencies or pythagorean coma be the phenomena that causes the planets to revolve around the sun, and the sun to revolve around the galactic center?  These MUST play some role in how everything comes together...
+
+How to connect this all with the arrangement of the periodic table and the atomic composition of the elements?
+
+##############################################################################
+# End Notes added June 2, 2010.
+##############################################################################
+
+
+##############################################################################
+# Start Notes added June 9, 2010.
+##############################################################################
+
+
+Resources for Web UI: 
+Pyjamas (Python port of the Google Web Toolkit)
+
+Web server backend:
+
+Twisted http://twistedmatrix.com/trac/wiki/TwistedProjects
+Google App Engine http://code.google.com/appengine/docs/whatisgoogleappengine.html
+(Note: Google App Engine is proprietary, so I will have a dependency on them)
+
+Resources for scientific processing:
+http://wiki.python.org/moin/NumericAndScientific
+
+Number processing:
+NumPy http://numpy.scipy.org/
+SciPy http://www.scipy.org/
+
+
+(Has stuff for 3-d shapes bisection and modeling)
+See:
+- PyGTS and GTS
+- VTK
+- WrapITK
+
+
+
+Resources for parallel processing:
+
+http://wiki.python.org/moin/DistributedProgramming
+
+Some promising ones (from checking out description, website):
+http://www.parallelpython.com/
+http://papy.googlecode.com/svn/trunk/doc/html/index.html
+http://dirac.cnrs-orleans.fr/ScientificPython/
+http://code.google.com/p/superpy/
+
+
+
+Resources for geocoding:
+
+Geonames (For finding coordinates and converting from coordinates to elevation and timezone):
+http://www.geonames.org/
+
+The whole database can be exported, or access is available through web
+services.
+
+Via export:
+http://download.geonames.org/export/dump/readme.txt
+http://download.geonames.org/export/dump/
+
+Via web services:
+http://www.geonames.org/export/ws-overview.html
+http://www.geonames.org/export/web-services.html#timezone
+
+Library APIs for Geonames (web service):
+http://www.geonames.org/export/client-libraries.html
+
+Python library:
+http://www.zindep.com/blog-zindep/Geoname-python/
+
+
+
+##############################################################################
+# End Notes added June 9, 2010.
+##############################################################################
+
+

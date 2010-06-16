@@ -1,0 +1,46 @@
+paste.png
+open.png
+cut.png
+copy.png
+save.png
+print.png
+new.png
+from:
+/Trolltech/Qt-4.3.0/examples/mainwindows/mdi/images/
+Qt licensed for use from Trolltech.
+
+linepointer.png
+from:
+/Trolltech/Qt-4.3.0/examples/graphicsview/diagramscene/images/
+Qt licensed for use from Trolltech.
+
+play.png
+pause.png
+stop.png
+from:
+/Trolltech/Qt-4.3.3/examples/widgets/movie/images/
+Qt licensed for use from Trolltech.
+
+
+
+Plus.png
+Minus.png
+Edit.png
+Doc.png
+Sound.png
+Redo2.png
+from:
+http://www.mouserunner.com/Spheres_ColoCons1_Free_Icons.html
+Under Creative Commons license.
+
+
+handClosed.png
+handOpen.png
+pointer.png
+zoomIn.png
+zoomOut.png
+
+gears.png
+from:
+http://www.buzzard.me.uk/jonathan/kde-icons.html
+under GNU Library license.

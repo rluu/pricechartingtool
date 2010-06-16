@@ -1,0 +1,26 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+    <file>images/copy.png</file>
+    <file>images/cut.png</file>
+    <file>images/new.png</file>
+    <file>images/open.png</file>
+    <file>images/paste.png</file>
+    <file>images/save.png</file>
+    <file>images/Plus.png</file>
+    <file>images/Minus.png</file>
+    <file>images/Edit.png</file>
+    <file>images/Doc.png</file>
+    <file>images/Sound.png</file>
+    <file>images/Redo2.png</file>
+    <file>images/handClosed.png</file>
+    <file>images/handOpen.png</file>
+    <file>images/pointer.png</file>
+    <file>images/zoomIn.png</file>
+    <file>images/zoomOut.png</file>
+    <file>images/linepointer.png</file>
+    <file>images/play.png</file>
+    <file>images/pause.png</file>
+    <file>images/stop.png</file>
+    <file>images/gears.png</file>
+</qresource>
+</RCC>
