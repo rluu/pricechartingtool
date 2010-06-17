@@ -2,8 +2,8 @@
 # For logging.
 import logging
 
-from PyQt4.QtGui import *
 from PyQt4.QtCore import QSignalMapper
+from PyQt4.QtGui import *
 
 # For icon images, etc.
 import resources
@@ -45,6 +45,7 @@ class MainWindow(QMainWindow):
         self.readSettings()
 
         self.setWindowTitle(self.appName)
+        self.setWindowIcon(self.appIcon)
 
 
     def createActions(self):

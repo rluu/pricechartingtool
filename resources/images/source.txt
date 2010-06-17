@@ -1,3 +1,5 @@
+------------------------------------------------------------------------------
+
 paste.png
 open.png
 cut.png
@@ -9,10 +11,14 @@ from:
 /Trolltech/Qt-4.3.0/examples/mainwindows/mdi/images/
 Qt licensed for use from Trolltech.
 
+------------------------------------------------------------------------------
+
 linepointer.png
 from:
 /Trolltech/Qt-4.3.0/examples/graphicsview/diagramscene/images/
 Qt licensed for use from Trolltech.
+
+------------------------------------------------------------------------------
 
 play.png
 pause.png
@@ -21,7 +27,7 @@ from:
 /Trolltech/Qt-4.3.3/examples/widgets/movie/images/
 Qt licensed for use from Trolltech.
 
-
+------------------------------------------------------------------------------
 
 Plus.png
 Minus.png
@@ -33,14 +39,46 @@ from:
 http://www.mouserunner.com/Spheres_ColoCons1_Free_Icons.html
 Under Creative Commons license.
 
+------------------------------------------------------------------------------
 
 handClosed.png
 handOpen.png
 pointer.png
 zoomIn.png
 zoomOut.png
+logo_ryan_d1.png
+ryan_d1.png
+Created by Ryan Luu
+
+------------------------------------------------------------------------------
+
+sqof9.png
+HowToMakeProfitsInCommodities.png
+From: W.D. Gann
+Out of copyright
+
+------------------------------------------------------------------------------
 
 gears.png
 from:
 http://www.buzzard.me.uk/jonathan/kde-icons.html
 under GNU Library license.
+
+------------------------------------------------------------------------------
+
+banners/grad21.gif
+banners/grad22.gif
+banners/grad23.gif
+banners/grad24.gif
+banners/grad25.gif
+banners/grad26.gif
+banners/grad27.gif
+from:
+http://www.aaa-banners.com/cgi-bin/banndisp1.pl?grad2,7
+Copyright statement from the main webpage:
+http://www.aaa-banners.com/
+Copyright
+All of the banners contained on the AAA - Banners site are our own creations, they are free to use on any personal or business webpage provided that a link is provided back to AAA - Banners.
+
+------------------------------------------------------------------------------
+
