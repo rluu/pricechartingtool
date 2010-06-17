@@ -109,9 +109,10 @@ class PriceChartDocumentLoadDataFileWizardPage(QWizardPage):
         self.sep.setFrameShadow(QFrame.Sunken)
 
         # Filename selection widgets.
-        self.filenameLabel = QLabel("Filename:")
+        self.filenameLabel = QLabel("&Filename:")
         self.filenameLineEdit = QLineEdit()
-        self.browseButton = QPushButton(QIcon(":/images/open.png"), "Browse")
+        self.filenameLabel.setBuddy(self.filenameLineEdit)
+        self.browseButton = QPushButton(QIcon(":/images/open.png"), "Br&owse")
 
         fileBrowseLayout = QHBoxLayout()
         fileBrowseLayout.addWidget(self.filenameLineEdit)
@@ -119,10 +120,11 @@ class PriceChartDocumentLoadDataFileWizardPage(QWizardPage):
 
 
         # Lines skipped selection widgets.
-        self.skipLinesLabel = QLabel("Number of lines to skip before reading data:")
+        self.skipLinesLabel = QLabel("N&umber of lines to skip before reading data:")
         self.skipLinesSpinBox = QSpinBox()
         self.skipLinesSpinBox.setMinimum(0)
         self.skipLinesSpinBox.setValue(1)
+        self.skipLinesLabel.setBuddy(self.skipLinesSpinBox)
 
         skipLinesLayout = QHBoxLayout()
         skipLinesLayout.addWidget(self.skipLinesLabel)
