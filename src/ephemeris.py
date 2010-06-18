@@ -753,6 +753,8 @@ class Ephemeris:
             Ephemeris.log.debug(debugStr.\
                     format("Speed in distance (AU/day):", arg6))
     
+    # TODO:  need to add functions for getting house cusp locations for different house systems.  
+
     @staticmethod
     def getPlanetaryInfo(planet, dt):
         """Returns a PlanetaryInfo object with a bunch of information about a

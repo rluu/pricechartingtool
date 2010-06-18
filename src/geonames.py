@@ -33,7 +33,7 @@ class GeoNames:
 
     # Country bias for search results.
     # Default is "US" (United States of America).
-    COUNTRY_BIAS = "US"
+    COUNTRY_BIAS_DEFAULT = "US"
 
     # Logger object for this class.
     log = logging.getLogger("geonames.GeoNames")
@@ -69,11 +69,11 @@ class GeoNames:
         urlOpener = urllib.request.build_opener()
         request = urllib.request.Request(url)
 
-        GeoNames.log.log(5, "Opening HTTP request.")
+        GeoNames.log.debug("Opening HTTP request.")
         try:
             response = urlOpener.open(request)
 
-            GeoNames.log.log(5, "Reading HTTP response.")
+            GeoNames.log.debug("Reading HTTP response.")
             data = response.read()
 
             # Parse the results.
@@ -96,7 +96,7 @@ class GeoNames:
 
 
     def search(placename="", searchStr="", country="", maxRows="100", 
-               lang=LANGUAGE_DEFAULT, fuzzy="1"):
+               countryBias=COUNTRY_BIAS_DEFAULT, lang=LANGUAGE_DEFAULT, fuzzy="1"):
         """Does a query for locations matching various search parameters.
         It uses the 'search' function of the GeoNames web service.
 
@@ -122,6 +122,8 @@ class GeoNames:
                     to return.  Per the web service documentation, if this
                     is not specified, then 100 is the default.  Maximum
                     allowable value is 1000.
+        countryBias - String holding the country code that search results 
+                    will be biased towards.  Default is 'US'.
         lang      - String containing the language to return the results in.  
                     The string should be a ISO-636 2-letter language code.
         fuzzy     - String containing a floating point value between 0 and 1.
@@ -244,7 +246,11 @@ class GeoNames:
             url += "&country={}".format(country)
 
         # Append the country bias.
-        url += "&countryBias={}".format(GeoNames.COUNTRY_BIAS)
+        if countryBias != None and countryBias != "":
+            # Escape any characters that aren't valid in a URL. 
+            countryBias = urllib.parse.quote(countryBias.strip())
+
+            url += "&countryBias={}".format(countryBias)
 
         # Append the language default.
         lang = urllib.parse.quote(lang.strip())
@@ -256,7 +262,7 @@ class GeoNames:
 
         # Append style.  This is the verbosity of the XML document returned.
         # Valid values are 'SHORT', 'MEDIUM', 'LONG', 'FULL'. 
-        url += "&style={}".format("LONG")
+        url += "&style={}".format("FULL")
 
         # Append charset.  This specifies the encoding used for the document
         # returned by the web service.
@@ -273,10 +279,10 @@ class GeoNames:
         urlOpener = urllib.request.build_opener()
         request = urllib.request.Request(url)
 
-        GeoNames.log.log(5, "Opening HTTP request.")
+        GeoNames.log.debug("Opening HTTP request.")
         response = urlOpener.open(request)
 
-        GeoNames.log.log(5, "Reading HTTP response.")
+        GeoNames.log.debug("Reading HTTP response.")
         data = response.read()
 
         # Parse the results and extract GeoInfo objects out of it.
@@ -378,16 +384,48 @@ class GeoNames:
                                       "'{}' to an int".format(population)
                             GeoNames.log.warn(warnStr)
                             geoInfo.population = 0
+                    elif e.tag == "alternateNames":
+                        ignoreStr = e.text
+                    elif e.tag == "elevation":
+                        elevationStr = e.text
+                        # Try to convert the string 'elevationStr' to number.
+                        try:
+                            if elevationStr != None:
+                                geoInfo.elevation = float(elevationStr)
+                            else:
+                                geoInfo.elevation = None
+                        except ValueError:
+                            warnStr = "Couldn't parse elevation string " + \
+                                    "'{}' to float".format(elevationStr)
+                            GeoNames.log.warn(warnStr)
+                            geoInfo.elevation = None
+                    elif e.tag == "continentCode":
+                        geoInfo.continentCode = e.text
+                    elif e.tag == "adminCode1":
+                        geoInfo.adminCode1 = e.text
+                    elif e.tag == "adminName1":
+                        geoInfo.adminName1 = e.text
+                    elif e.tag == "adminCode2":
+                        geoInfo.adminCode2 = e.text
+                    elif e.tag == "adminName2":
+                        geoInfo.adminName2 = e.text
+                    elif e.tag == "alternateName":
+                        ignoreStr = e.text
+                    elif e.tag == "timezone":
+                        geoInfo.timezone = e.text
+                    elif e.tag == "score":
+                        ignoreStr = e.text
                     else:
-                        warnStr = \
-                            "Found an unknown element tag under 'geoname':" + \
+                        debugStr = \
+                            "FYI: Found an unknown element tag under 'geoname':" + \
                             " {}".format(e.text)
-                        GeoNames.log.warn(warnStr)
-                GeoNames.log.log(5, "Adding GeoInfo: {}".format(geoInfo))
+                        GeoNames.log.debug(debugStr)
+                GeoNames.log.debug("Adding GeoInfo: {}".format(geoInfo))
                 geoInfos.append(geoInfo)
             else:
-                warnStr = "Found an unknown element tag under 'geonames':" + \
+                debugStr = "FYI: Found an unknown element tag under 'geonames':" + \
                     " {}".format(e.text)
+                GeoNames.log.debug(debugStr)
 
         # Return the list of GeoInfo objects parsed from the XML.
         return geoInfos
@@ -464,10 +502,10 @@ class GeoNames:
         urlOpener = urllib.request.build_opener()
         request = urllib.request.Request(url)
 
-        GeoNames.log.log(5, "getTimezone(): Opening HTTP request.")
+        GeoNames.log.debug("getTimezone(): Opening HTTP request.")
         response = urlOpener.open(request)
 
-        GeoNames.log.log(5, "getTimezone(): Reading HTTP response.")
+        GeoNames.log.debug("getTimezone(): Reading HTTP response.")
         data = response.read()
 
 
@@ -707,23 +745,23 @@ class GeoNames:
         urlOpener = urllib.request.build_opener()
         request = urllib.request.Request(url)
 
-        GeoNames.log.log(5, "getElevation(): Opening HTTP request.")
+        GeoNames.log.debug("getElevation(): Opening HTTP request.")
         response = urlOpener.open(request)
 
-        GeoNames.log.log(5, "getElevation(): Reading HTTP response.")
+        GeoNames.log.debug("getElevation(): Reading HTTP response.")
         data = response.read()
 
-        GeoNames.log.log(5, "getElevation(): Data from the response is: {}".\
+        GeoNames.log.debug("getElevation(): Data from the response is: {}".\
                          format(data))
 
         # Decode to a string. 
         dataString = data.decode('utf-8').strip()
-        GeoNames.log.log(5, "getElevation(): Data stripped as a str is: {}".\
+        GeoNames.log.debug("getElevation(): Data stripped as a str is: {}".\
                          format(dataString))
 
         dataInt = int(dataString)
         dataFloat = float(dataString)
-        GeoNames.log.log(5, "getElevation(): Data as an int " + \
+        GeoNames.log.debug("getElevation(): Data as an int " + \
                          "({}) and as a float ({})".\
                          format(dataInt, dataFloat))
 
@@ -757,7 +795,14 @@ class GeoInfo:
                  fclName="",
                  fcode="",
                  fcodeName="",
-                 population=0):
+                 population=0,
+                 elevation=None,
+                 continentCode="",
+                 adminCode1="",
+                 adminName1="",
+                 adminCode2="",
+                 adminName2="",
+                 timezone=""):
         """Initializes the GeoInfo object with the arguments provided.
 
         Arguments:
@@ -780,6 +825,18 @@ class GeoInfo:
         fcode       - String containing the feature code.
         fcodeName   - String containing the name of the feature code.
         population  - Integer containing the population of the GeoInfo place.
+        elevation   - Float value for the elevation in meters.
+        continentCode - String holding the code for the Continent of the place.
+        adminCode1  - String holding the admin code for this location.
+                      In the United States this is "VA" for Virginia.
+        adminName1  - String holding the admin name for this location.
+                      In the United States this is the state (e.g., "Virginia")
+        adminCode2  - String holding the second admin code for this location.
+                      In the United States this is the County number code.
+        adminName2  - String holding the second admin name for this location.
+                      In the United States this is the County 
+                      (e.g., "Arlington County")
+        timezone    - Timezone string for a lookup in the Olson database.
         """
 
         self.name = name
@@ -794,6 +851,75 @@ class GeoInfo:
         self.fcode = fcode
         self.fcodeName = fcodeName
         self.population = population
+        self.elevation = elevation
+        self.continentCode = continentCode
+        self.adminCode1 = adminCode1
+        self.adminName1 = adminName1
+        self.adminCode2 = adminCode2
+        self.adminName2 = adminName2
+        self.timezone = timezone
+
+    def latitudeBreakdown(self):
+        """Returns a tuple of (degrees, minutes, seconds, string) for the latitude
+        in this GeoInfo object.  
+
+        degrees, minutes, and seconds are int values, and string is 'N' or 'S'.
+        """
+
+        string = ""
+        if self.latitude >= 0:
+            string = "N"
+        else:
+            string = "S"
+
+        degrees = int(abs(self.latitude))
+        minutesFloat = (abs(self.latitude) - float(degrees)) / 60.0
+        minutes = int(minutesFloat)
+        secondsFloat = (minutesFloat - float(minutes)) / 60.0
+        seconds = round(secondsFloat)
+
+        return (degrees, minutes, seconds, string)
+
+
+    def longitudeBreakdown(self):
+        """Returns a tuple of (degrees, minutes, seconds, string) for the longitude
+        in this GeoInfo object.  
+
+        degrees, minutes, and seconds are int values, and string is 'E' or 'W'.
+        """
+
+        string = ""
+        if self.longitude < 0:
+            string = 'W'
+        else:
+            string = 'E'
+
+        degrees = int(abs(self.longitude))
+        minutesFloat = (abs(self.latitude) - float(degrees)) / 60.0
+        minutes = int(minutesFloat)
+        secondsFloat = (minutesFloat - float(minutes)) / 60.0
+        seconds = round(secondsFloat)
+        
+        return (degrees, minutes, seconds, string)
+
+
+    def latitudeStr(self):
+        """Returns a string of the latitude in the form: 28° 14' 23" N
+        """
+
+        (degrees, minutes, seconds, string) = self.latitudeBreakdown()
+        retVal = "{}\xb0 {}' {}\" {}".format(degrees, minutes, seconds, string)
+        return retVal
+
+    def longitudeStr(self):
+        """Returns a string of the longitude in the form: 28° 14' 23" E
+        """
+
+        (degrees, minutes, seconds, string) = self.longitudeBreakdown()
+        retVal = "{}\xb0 {}' {}\" {}".format(degrees, minutes, seconds, string)
+        return retVal
+
+
 
     def __str__(self):
         """Returns the string representation of this class."""
@@ -814,7 +940,14 @@ class GeoInfo:
              "fclName={}, ".format(self.fclName) + \
              "fcode={}, ".format(self.fcode) + \
              "fcodeName={}, ".format(self.fcodeName) + \
-             "population={}]".format(self.population)
+             "population={}, ".format(self.population) + \
+             "elevation={}, ".format(self.elevation) + \
+             "continentCode={}, ".format(self.continentCode) + \
+             "adminCode1={}, ".format(self.adminCode1) + \
+             "adminName1={}, ".format(self.adminName1) + \
+             "adminCode2={}, ".format(self.adminCode2) + \
+             "adminName2={}, ".format(self.adminName2) + \
+             "timezone={}]".format(self.timezone)
 
         return rv
 

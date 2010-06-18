@@ -6,7 +6,6 @@ import os
 import sys
 import io
 
-
 # For logging.
 import logging
 import logging.config
@@ -15,8 +14,15 @@ import logging.config
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+# For timezone lookup.
+import pytz
+
 # Import image resources.
 import resources
+
+# For geocoding.
+from geonames import GeoNames
+from geonames import GeoInfo
 
 class PriceChartDocumentWizard(QWizard):
     """QWizard for creating a new PriceChartDocument."""
@@ -35,6 +41,7 @@ class PriceChartDocumentWizard(QWizard):
         # Add QWizardPages.
         self.addPage(PriceChartDocumentIntroWizardPage())
         self.addPage(PriceChartDocumentLoadDataFileWizardPage())
+        self.addPage(PriceChartDocumentLocationTimezoneWizardPage())
         self.addPage(PriceChartDocumentConclusionWizardPage())
 
         # Set the pictures used in the QWizard.
@@ -118,9 +125,6 @@ class PriceChartDocumentLoadDataFileWizardPage(QWizardPage):
         sep2 = QFrame()
         sep2.setFrameShape(QFrame.HLine)
         sep2.setFrameShadow(QFrame.Sunken)
-        sep3 = QFrame()
-        sep3.setFrameShape(QFrame.HLine)
-        sep3.setFrameShadow(QFrame.Sunken)
 
         # Filename selection widgets.
         filenameLabel = QLabel("Filename:")
@@ -157,8 +161,9 @@ class PriceChartDocumentLoadDataFileWizardPage(QWizardPage):
         validateLayout.addWidget(self.validateButton)
 
         self.validationStatusLabel = QLabel("")
+        self.validationStatusLabel.setWordWrap(True)
         font = self.validationStatusLabel.font()
-        font.setPointSize(6)
+        font.setPointSize(8)
         self.validationStatusLabel.setFont(font)
 
         # Setup the layout.
@@ -334,9 +339,9 @@ class PriceChartDocumentLoadDataFileWizardPage(QWizardPage):
         # If the validFlag is still True, then allow the user to 
         # click the 'Next' button.
         if validFlag == True:
-            validationStr = "Validated data file {}".format(filename)
-            self.log.info(validationStr)
-            validationStr = self.toGreenString(validationStr)
+            infoStr = "Validated data file {}".format(filename)
+            self.log.info(infoStr)
+            validationStr = self.toGreenString("Validated")
             self.validationStatusLabel.setText(validationStr)
             self.validatedFlag = True
             self.completeChanged.emit()
@@ -374,8 +379,10 @@ class PriceChartDocumentLoadDataFileWizardPage(QWizardPage):
 
         # Check the number of fields.
         fields = line.split(",")
-        if len(fields) != 7:
-            return (False, "Line does not have enough data fields.")
+        numFieldsExpected = 7
+        if len(fields) != numFieldsExpected:
+            return (False, "Line does not have {} data fields".\
+                    format(numFieldsExpected))
 
         dateStr = fields[0] 
         openStr = fields[1]
@@ -462,6 +469,217 @@ class PriceChartDocumentLoadDataFileWizardPage(QWizardPage):
 
         return self.validatedFlag
 
+
+class PriceChartDocumentLocationTimezoneWizardPage(QWizardPage):
+    """A QWizardPage for setting the location of the trading exchange
+    and the timezone that the exchange is in.
+    """
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger("dialogs.PriceChartDocumentLocationTimezoneWizardPage")
+
+        # Flag to determine if we have an internet connection and can reach
+        # GeoNames web service.
+        self.geoNamesEnabled = GeoNames.canConnectToWebService()
+
+        # Validated flag that indicates the file and number of 
+        # lines skipped is valid.
+        self.validatedFlag = False
+
+        # Set the title strings.
+        self.setTitle("Exchange Timezone")
+        self.setSubTitle(" ")
+
+        # Create the contents.
+
+        # Informational labels.
+        descriptionLabel = \
+            QLabel("Enter a search phrase for the location of the " + \
+                   "trading exchange.  " + os.linesep + os.linesep + \
+                   "Timezone information will be " + \
+                   "determined from the selected search result." + \
+                   os.linesep)
+        descriptionLabel.setWordWrap(True)
+
+        # Label that is displayed if we can't get to GeoNames.
+        geoNamesStatus = \
+            "<font color=\"red\">" + \
+            "Search functionality is disabled due to failed " + \
+            "network connection to GeoNames web service." + \
+            "</font>"
+        geoNamesStatusLabel = QLabel(geoNamesStatus)
+        geoNamesStatusLabel.setWordWrap(True)
+
+        # Frame as a separator.
+        sep1 = QFrame()
+        sep1.setFrameShape(QFrame.HLine)
+        sep1.setFrameShadow(QFrame.Sunken)
+        sep2 = QFrame()
+        sep2.setFrameShape(QFrame.HLine)
+        sep2.setFrameShadow(QFrame.Sunken)
+
+        # Location search widgets.
+        searchLocationLabel = QLabel("Search for &location:")
+        self.searchLocationLineEdit = QLineEdit()
+        searchLocationLabel.setBuddy(self.searchLocationLineEdit)
+        self.searchButton = QPushButton("&Search")
+        self.searchLocationLineEdit.returnPressed.\
+            connect(self.searchButton.click)
+
+        searchLayout = QHBoxLayout()
+        searchLayout.addWidget(self.searchLocationLineEdit)
+        searchLayout.addWidget(self.searchButton)
+
+        # Results selection widgets.
+        resultsLabel = QLabel("Search &results:")
+        self.resultsComboBox = QComboBox()
+        self.resultsComboBox.setDuplicatesEnabled(True)
+        resultsLabel.setBuddy(self.resultsComboBox)
+        # Disable the QComboBox until the results come in.
+        self.resultsComboBox.setEnabled(False)
+
+        # Timezone widgets.
+        timezoneLabel = QLabel("Timezone name:")
+        self.timezoneComboBox = QComboBox()
+        self.timezoneComboBox.addItems(pytz.common_timezones)
+
+        # If GeoNames is not enabled, then disable some widgets.
+        if self.geoNamesEnabled == False:
+            self.searchLocationLineEdit.setEnabled(False)
+            self.searchButton.setEnabled(False)
+            self.resultsComboBox.setEnabled(False)
+
+        # Setup the layout.
+        layout = QVBoxLayout()
+        layout.addWidget(descriptionLabel)
+        if self.geoNamesEnabled == False:
+            layout.addWidget(geoNamesStatusLabel)
+        layout.addWidget(sep1)
+        layout.addWidget(searchLocationLabel)
+        layout.addLayout(searchLayout)
+        layout.addWidget(resultsLabel)
+        layout.addWidget(self.resultsComboBox)
+        layout.addWidget(sep2)
+        layout.addWidget(timezoneLabel)
+        layout.addWidget(self.timezoneComboBox)
+        self.setLayout(layout)
+
+        # Register the fields.
+        self.registerField("timezone*", self.timezoneComboBox)
+
+        # Connect signals and slots.
+        self.searchButton.clicked.connect(self.doLocationSearch)
+        self.resultsComboBox.currentIndexChanged[int].\
+            connect(self.handleSearchResultSelected)
+
+    def doLocationSearch(self):
+        """Uses GeoNames to do a lookup of a location based on the search
+        string in self.searchLocationLineEdit.  Results that are returned are
+        populated in the self.resultsComboBox.  If there is any error in doing
+        the search, a pop-up dialog is displayed with the error description, 
+        and the error is logged.
+        """
+
+        self.log.debug("Entered doLocationSearch()")
+
+        searchString = str(self.searchLocationLineEdit.text())
+        self.log.debug("searchString=" + searchString)
+
+        geoInfos = GeoNames.search(searchStr=searchString, countryBias="")
+
+        self.log.debug("Got {} results back from GeoNames".\
+                       format(len(geoInfos)))
+
+
+        # Prepare the self.resultsComboBox if there are new results to 
+        # populate it with.
+        if len(geoInfos) > 0:
+            self.log.debug("Clearing resultsComboBox...")
+            # Clear the QComboBox of search results.
+            self.resultsComboBox.clear()
+
+            self.log.debug("Enabling resultsComboBox...")
+            # If the self.resultsComboBox is disabled, then enable it.
+            if self.resultsComboBox.isEnabled() == False:
+                self.resultsComboBox.setEnabled(True)
+
+        # Populate the self.resultsComboBox.
+        for i in range(len(geoInfos)):
+            geoInfo = geoInfos[i]
+
+            displayStr = geoInfo.name
+            if geoInfo.adminName1 != None and geoInfo.adminName1 != "":
+                displayStr += ", " + geoInfo.adminName1
+            if geoInfo.countryName != None and geoInfo.countryName != "":
+                displayStr += ", " + geoInfo.countryName
+            displayStr += " ({}, {})".format(geoInfo.latitudeStr(), 
+                                             geoInfo.longitudeStr()) 
+            if geoInfo.population != None and geoInfo.population != 0:
+                displayStr += " (pop. {})".format(geoInfo.population)
+
+            self.log.debug("Display name is: {}".format(displayStr))
+            self.resultsComboBox.addItem(displayStr, geoInfo)
+
+        self.log.debug("Leaving doLocationSearch()")
+
+
+    def handleSearchResultSelected(self, index):
+        """Determines which search result was selected, and populates
+        the timezone QComboBox for that location.
+        """
+
+        self.log.debug("Entered handleSearchResultSelected(index={})".\
+                       format(index))
+
+        # Only makes sense if the index selected is valid.  
+        # Theoretically index should only be -1 on the very first load.
+        if index == -1:
+            return
+
+        qvariant = self.resultsComboBox.itemData(index)
+        geoInfo = qvariant.toPyObject()
+
+        # Make sure geoInfo is not None.  We need it in order to get the
+        # timezone information.  It should never be None.
+        if geoInfo == None:
+            self.log.error("GeoInfo is None, when it should have " + \
+                           "been an actual object!")
+            return
+
+        # Try to use the timezone in geoInfo first.  If that doesn't 
+        # work, then the do a query for the timezone using the latitude and
+        # longitude.
+        if geoInfo.timezone != None and geoInfo.timezone != "":
+            index = self.timezoneComboBox.findText(geoInfo.timezone)
+            if index != -1:
+                self.timezoneComboBox.setCurrentIndex(index)
+            else:
+                errStr = "Couldn't find timezone '" + geoInfo.timezone + \
+                     "' returned by GeoNames in the pytz " + \
+                     "list of timezones."
+                self.log.error(errStr)
+        else:
+            # Try to do the query ourselves from GeoNames.getTimezone().
+            timezone = GeoNames.getTimezone(geoInfo.latitude,
+                                            geoInfo.longitude)
+            if timezone != None and timezone != "":
+                index = self.timezoneComboBox.findText(geoInfo.timezone)
+                if index != -1:
+                    self.timezoneComboBox.setCurrentIndex(index)
+                else:
+                    errStr = "Couldn't find timezone '" + timezone + \
+                         "' returned by GeoNames in the pytz " + \
+                         "list of timezones."
+                    self.log.error(errStr)
+            else:
+                errStr = "GeoNames returned a null or empty timezone."
+                self.log.error(errStr)
+
+        self.log.debug("Leaving handleSearchResultSelected()")
 
 
 class PriceChartDocumentConclusionWizardPage(QWizardPage):
