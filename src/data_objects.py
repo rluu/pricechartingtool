@@ -283,6 +283,9 @@ if __name__=="__main__":
     print("Printing out PriceChartDocumentData ...")
     print("{}".format(pcdd.toString()))
 
+    # Shutdown logging so all the file handles get flushed and 
+    # cleanup can happen.
+    logging.shutdown()
 
     print("")
     print("Exiting.")

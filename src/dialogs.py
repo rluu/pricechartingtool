@@ -716,6 +716,7 @@ if __name__=="__main__":
     wizard.show()
 
     # Exit the app when all windows are closed.
+    app.connect(app, SIGNAL("lastWindowClosed()"), logging.shutdown)
     app.connect(app, SIGNAL("lastWindowClosed()"), app, SLOT("quit()"))
     app.exec_()
     

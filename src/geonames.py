@@ -1006,6 +1006,11 @@ if __name__=="__main__":
         print("Couldn't connect.")
 
     print("------------------------")
+
+    # Shutdown logging so all the file handles get flushed and 
+    # cleanup can happen.
+    logging.shutdown()
+
     print("Exiting.")
      
 

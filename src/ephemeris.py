@@ -290,8 +290,6 @@ class Ephemeris:
         Using the ephemeris after calling this yields undefined results.  
         """
 
-        # TODO:  make sure this function is called when the mainwindow of the ui closes.
-
         Ephemeris.log.debug("Entered closeEphemeris()")
 
         # Call close on the Swiss Ephemeris so it can cleanup files and
@@ -1570,7 +1568,12 @@ if __name__=="__main__":
 
     print("------------------------")
 
+    # Close the Ephemeris so it can do necessary cleanups.
     Ephemeris.closeEphemeris()
+
+    # Shutdown logging so all the file handles get flushed and 
+    # cleanup can happen.
+    logging.shutdown()
 
     print("Exiting.")
 

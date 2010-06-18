@@ -9,7 +9,6 @@ from PyQt4.QtGui import *
 import resources
 
 
-
 class MainWindow(QMainWindow):
     """The QMainWindow class that is a multiple document interface (MDI)."""
 
@@ -240,6 +239,11 @@ class MainWindow(QMainWindow):
 
     def exitApp(self):
         self.log.debug("DEBUG: exitApp()")
+
+        # Hmm, it appears that Alt-F4 does not cause this exitApp function to
+        # get called.
+
+
         # TODO:  add here some checking to save open unsaved files, and also settings.
 
         qApp.closeAllWindows()

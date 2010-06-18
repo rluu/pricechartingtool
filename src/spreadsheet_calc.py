@@ -49,7 +49,7 @@ class SpreadsheetCalcFormula:
 
     def toString(self):
         """Returns the info about the class in String form."""
-        return "[Name={}, ShortName={}, Description={}, Units={}]".
+        return "[Name={}, ShortName={}, Description={}, Units={}]".\
             format(self.name, self.shortName, self.description, self.units)
 
 class SunLocationHeliocentricSiderealCalcFormula(SpreadsheetCalcFormula):

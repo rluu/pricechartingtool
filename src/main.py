@@ -16,12 +16,12 @@ import logging.config
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-# Import Swiss Ephemeris
-import swisseph as swe
-
 # Import from this project.
-from data_objects import *
 from ui import MainWindow
+
+# To initialize and shutdown the Ephemeris.
+from ephemeris import *
+
 
 ##############################################################################
 
@@ -71,12 +71,22 @@ def main():
     app = QApplication(sys.argv)
     app.setApplicationName(APP_NAME)
 
+    # Initialize the Ephemeris.
+    Ephemeris.initialize()
+
+    # Set a default location (required).
+    Ephemeris.setGeographicPosition(-77.084444, 38.890277)
+    
+
     # Create the main window for the app and show it.
     mainWindow = MainWindow(APP_NAME, APP_VERSION, APP_DATE)
     mainWindow.show()
 
-    # Exit the app when all windows are closed.
-    app.connect(app, SIGNAL("lastWindowClosed()"), app, SLOT("quit()"))
+    # Cleanup and close the application when the last window is closed.
+    app.lastWindowClosed.connect(Ephemeris.closeEphemeris)
+    app.lastWindowClosed.connect(logging.shutdown)
+    app.lastWindowClosed.connect(app.quit)
+
     app.exec_()
 
 
