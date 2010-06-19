@@ -20,6 +20,9 @@ import pytz
 # Import image resources.
 import resources
 
+# For PriceBars
+from data_objects import PriceBar
+
 # For geocoding.
 from geonames import GeoNames
 from geonames import GeoInfo
@@ -80,6 +83,20 @@ class PriceChartDocumentIntroWizardPage(QWizardPage):
 
 
 class PriceChartDocumentLoadDataFileWizardPage(QWizardPage):
+    """A QWizardPage for loading price data from a file."""
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger("dialogs.PriceChartDocumentLoadDataFileWizardPage")
+
+        # TODO:  utilize the LoadDataFileWidget internally.
+
+
+# TODO:  remove this OLD_ class eventually (after verifying the new version works).
+class OLD_PriceChartDocumentLoadDataFileWizardPage(QWizardPage):
     """A QWizardPage for loading price data from a file."""
 
     def __init__(self, parent=None):
@@ -240,7 +257,7 @@ class PriceChartDocumentLoadDataFileWizardPage(QWizardPage):
 
     def handleSkipLinesSpinBoxChanged(self):
         """Sets that the information entered has not been validated.
-        The validatedFlag is set to False, and the QTableView is cleared.
+        The validatedFlag is set to False if it is not already False.
         """
 
         if (self.validatedFlag != False):
@@ -282,7 +299,7 @@ class PriceChartDocumentLoadDataFileWizardPage(QWizardPage):
     def handleValidateButtonClicked(self):
         """Opens the filename in self.filenameLineEdit and tries to validate
         that the file is a text file and has the expected fields.  
-        It also populates the QTableView with the data found in the file.
+        It also populates the QPlainTextEdit with the data found in the file.
         """
 
         # Assume a valid file unless it's not.
@@ -702,6 +719,577 @@ class PriceChartDocumentConclusionWizardPage(QWizardPage):
         self.setLayout(layout)
 
 
+class LoadDataFileWidget(QWidget):
+    """A widget for loading and verifying CSV text files containing 
+    price data.
+    """
+
+
+    # Signal emitted when the data file to be loaded has been 
+    # validated or becomes unvalidated.
+    validationStateChanged = QtCore.pyqtSignal(bool)
+
+    # Signal emitted when the Load button is clicked.
+    loadButtonClicked = QtCore.pyqtSignal()
+
+    # Signal emitted when the Cancel button is clicked.
+    cancelButtonClicked = QtCore.pyqtSignal()
+
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger("dialogs.LoadDataFileWidget")
+
+        # Validated flag that indicates the file and number of 
+        # lines skipped is valid.
+        self.validatedFlag = False
+
+        # Internally stored list of pricebars.
+        self.priceBars = []
+
+        # Create the contents.
+
+        # Informational labels.
+        descriptionLabel = \
+            QLabel("Please select a file for loading price data." + \
+                   os.linesep + os.linesep + \
+                   "The selected file must be in CSV format with each " + \
+                   "line of text having fields in the following order: " + \
+                   os.linesep)
+        descriptionLabel.setWordWrap(True)
+
+        fileInfoDataDescStr = \
+                      "<MM/DD/YYYY>," + \
+                      "<OpenPrice>,<HighPrice>,<LowPrice>,<ClosePrice>," + \
+                      "<Volume>,<OpenInterest>" + os.linesep
+        fileInfoLabel = QLabel(fileInfoDataDescStr)
+        font = fileInfoLabel.font()
+        font.setPointSize(7)
+        fileInfoLabel.setFont(font)
+        
+        # Frame as a separator.
+        sep1 = QFrame()
+        sep1.setFrameShape(QFrame.HLine)
+        sep1.setFrameShadow(QFrame.Sunken)
+        sep2 = QFrame()
+        sep2.setFrameShape(QFrame.HLine)
+        sep2.setFrameShadow(QFrame.Sunken)
+        self.sep3 = QFrame()
+        self.sep3.setFrameShape(QFrame.HLine)
+        self.sep3.setFrameShadow(QFrame.Sunken)
+
+        # Filename selection widgets.
+        filenameLabel = QLabel("Filename:")
+        self.filenameLineEdit = QLineEdit()
+        self.filenameLineEdit.setReadOnly(True)
+        self.browseButton = QPushButton(QIcon(":/images/open.png"), 
+                                        "Br&owse")
+
+        fileBrowseLayout = QHBoxLayout()
+        fileBrowseLayout.addWidget(self.filenameLineEdit)
+        fileBrowseLayout.addWidget(self.browseButton)
+
+        self.filePreviewLabel = QLabel("File Preview:")
+        self.textViewer = QPlainTextEdit()
+        self.textViewer.setReadOnly(True)
+        self.textViewer.setLineWrapMode(QPlainTextEdit.NoWrap)
+
+        # Lines skipped selection widgets.
+        self.skipLinesLabel = \
+            QLabel("N&umber of lines to skip before reading data:")
+        self.skipLinesSpinBox = QSpinBox()
+        self.skipLinesSpinBox.setMinimum(0)
+        self.skipLinesSpinBox.setValue(1)
+        self.skipLinesLabel.setBuddy(self.skipLinesSpinBox)
+
+        skipLinesLayout = QHBoxLayout()
+        skipLinesLayout.addWidget(self.skipLinesLabel)
+        skipLinesLayout.addWidget(self.skipLinesSpinBox)
+        skipLinesLayout.addStretch()
+
+        # Validation widgets.
+        validateLabel = QLabel("Click to validate: " )
+        self.validateButton = QPushButton("&Validate")
+        validateLayout = QHBoxLayout()
+        validateLayout.addWidget(validateLabel)
+        validateLayout.addWidget(self.validateButton)
+
+        self.validationStatusLabel = QLabel("")
+        self.validationStatusLabel.setWordWrap(True)
+        font = self.validationStatusLabel.font()
+        font.setPointSize(8)
+        self.validationStatusLabel.setFont(font)
+
+        # Load / Cancel buttons.
+        self.loadButton = QPushButton("&Load")
+        self.cancelButton = QPushButton("&Cancel")
+        bottomButtonsLayout = QHBoxLayout()
+        bottomButtonsLayout.addStretch()
+        bottomButtonsLayout.addWidget(loadButton)
+        bottomButtonsLayout.addWidget(cancelButton)
+
+        # Setup the layout.
+        layout = QVBoxLayout()
+        layout.addWidget(descriptionLabel)
+        layout.addWidget(fileInfoLabel)
+        layout.addWidget(sep1)
+        layout.addWidget(filenameLabel)
+        layout.addLayout(fileBrowseLayout)
+        layout.addWidget(self.filePreviewLabel)
+        layout.addWidget(self.textViewer)
+        layout.addLayout(skipLinesLayout)
+        layout.addWidget(sep2)
+        layout.addLayout(validateLayout)
+        layout.addWidget(self.validationStatusLabel)
+        layout.addWidget(self.sep3)
+        layout.addLayout(bottomButtonsLayout)
+
+        self.setLayout(layout)
+
+        # Connect signals and slots.
+        self.filenameLineEdit.textChanged.\
+            connect(self.handleFilenameLineEditChanged)
+
+        self.skipLinesSpinBox.valueChanged.\
+            connect(self.handleSkipLinesSpinBoxChanged)
+
+        self.browseButton.clicked.\
+            connect(self.handleBrowseButtonClicked)
+
+        self.validateButton.clicked.\
+            connect(self.handleValidateButtonClicked)
+
+        self.validationStateChanged.\
+            connect(self.setLoadButtonEnabled)
+
+        self.loadButton.clicked.\
+            connect(self.loadButtonClicked)
+
+        self.cancelButton.clicked.\
+            connect(self.cancelButtonClicked)
+
+    def setLoadButtonEnabled(self, flag):
+        """Sets the 'Load' button to be enabled or disabled.
+        Argument:
+        flag - Boolean for whether or not the button should be enabled.
+        """
+
+        self.log.debug("setLoadButtonEnabled(flag={})".format(flag))
+
+        if type(flag) == bool:
+            self.loadButton.setEnabled(flag)
+
+
+    def setBottomButtonsVisible(self, flag):
+        """Sets the bottom buttons for accepting and canceling to 
+        be visible or not.
+
+        Arguments:
+        flag  - Boolean value for setting the widgets visible.
+        """
+
+        self.log.debug("setBottomButtonsVisible(flag={})".format(flag))
+
+        if type(flag) == bool:
+            self.sep3.setVisible(flag)
+            self.loadButton.setVisible(flag)
+            self.cancelButton.setVisible(flag)
+
+
+    def handleFilenameLineEditChanged(self, filename):
+        """Sets that the information entered has not been validated.
+        """
+
+        self.log.debug("handleFilenameLineEditChanged(filename={})".\
+            format(filename))
+
+        if (self.validatedFlag != False):
+            self.validatedFlag = False
+            self.validationStateChanged.emit(self.validatedFlag)
+
+        # Convert to Python string type.
+        filename = str(filename)
+
+        # Clear any text in the file preview viewer.
+        self.textViewer.setPlainText("")
+
+        # Clear any text set in the validationStatusLabel.
+        self.validationStatusLabel.setText("")
+
+
+        if filename != "":
+            with io.open(filename, "r") as file:
+                try:
+                    fileText = file.read()
+                    self.textViewer.setPlainText(fileText)
+                except UnicodeDecodeError as e:
+                    errStr = "Error while trying to read file '" + \
+                        str(filename) + "'.  Only text files are supported!"
+                    self.log.error(errStr)
+                    errMsgDialog = QErrorMessage(self)
+                    errMsgDialog.setWindowTitle("Error reading file")
+                    errMsgDialog.showMessage(errStr)
+                    self.filenameLineEdit.setText("")
+                    self.textViewer.setPlainText("")
+                except IOError as e:
+                    errStr = "I/O Error while trying to read file '" + \
+                        filename + "':" + os.linesep + e
+                    self.log.error(errStr)
+                    errMsgDialog = QErrorMessage(self)
+                    errMsgDialog.setWindowTitle("Error reading file")
+                    errMsgDialog.showMessage(errStr)
+                    self.filenameLineEdit.setText("")
+                    self.textViewer.setPlainText("")
+
+
+    def handleSkipLinesSpinBoxChanged(self):
+        """Sets that the information entered has not been validated.
+        The validatedFlag is set to False if it is not already False.
+        """
+
+        self.log.debug("handleSkipLinesSpinBoxChanged()")
+
+        if (self.validatedFlag != False):
+            self.validatedFlag = False
+
+            self.log.debug("Emitting validationStateChanged({})".\
+                format(self.validatedFlag))
+
+            self.validationStateChanged.emit(self.validatedFlag)
+
+    def handleBrowseButtonClicked(self):
+        """Opens a QFileDialog for selecting a file.  If a file is selected,
+        self.filenameLineEdit will be populated with the selected filename.
+        """
+
+        self.log.debug("Entering handleBrowseButtonClicked()")
+
+        # Create a file dialog.
+        dialog = QFileDialog();
+
+        # Setup file filters.
+        filters = QStringList()
+        csvTextFilesFilter = "Text files (*.txt)"
+        allFilesFilter = "All files (*)"
+        filters.append(csvTextFilesFilter)
+        filters.append(allFilesFilter)
+
+        # Apply settings to the dialog.
+        dialog.setFileMode(QFileDialog.ExistingFile);
+        dialog.setNameFilters(filters)
+        dialog.selectNameFilter(csvTextFilesFilter)
+
+        # Run the dialog.
+        if dialog.exec() == QDialog.Accepted:
+            # Get the selected files.
+            selectedFiles = dialog.selectedFiles()
+            if selectedFiles.isEmpty() == False:
+                # Set the QLineEdit with the filename.
+                self.filenameLineEdit.setText(selectedFiles.first())
+
+        self.log.debug("Leaving handleBrowseButtonClicked()")
+
+    def handleValidateButtonClicked(self):
+        """Opens the filename in self.filenameLineEdit and tries to validate
+        that the file is a text file and has the expected fields.  
+        It also populates the QPlainTextEdit with the data found in the file.
+
+        This is also where the list of PriceBar objects are read and stored.
+        """
+
+        self.log.debug("handleValidateButtonClicked()")
+
+        # Assume a valid file unless it's not.
+        validFlag = True
+        self.validationStatusLabel.setText("")
+
+        # Create a new empty list for PriceBars.  
+        # (We do this instead of emptying the list in case someone 
+        # grabbed a copy of self.priceBars at some point earlier).
+        # We will add to this list as we read valid lines in the file.
+        self.priceBars = []
+
+        # Get the fields from which we'll get info to read the file with.
+        # Here casting to Python str type is required because 
+        # QLineEdits return QString, not str.
+        filename = str(self.filenameLineEdit.text())
+        numLinesToSkip = self.skipLinesSpinBox.value()
+
+        if filename == "":
+            validFlag = False
+            validationStr = "Validation failed because" + \
+                " the filename cannot be empty."
+            self.log.warn(validationStr)
+            validationStr = self.toRedString(validationStr)
+            self.validationStatusLabel.setText(validationStr)
+        else:
+            with io.open(filename, "r") as file:
+                try:
+                    # Go through each line of the file.
+                    i = 0
+                    for line in file:
+                        i += 1
+
+                        # Skip over empty lines and lines before 
+                        # line number 'numLinesToSkip'.
+                        if i > numLinesToSkip and line.strip() != "":
+                            (lineValid, reason) = self.validateLine(line)
+                            if lineValid == False:
+                                # Invalid line in the file.
+                                validFlag = False
+                                validationStr = \
+                                    "Validation failed on line " + \
+                                    "{} because: {}".format(i, reason)
+                                self.log.warn(validationStr)
+                                validationStr = self.toRedString(validationStr)
+                                self.validationStatusLabel.\
+                                    setText(validationStr)
+                                break
+                            else:
+                                # Valid line in the file.
+
+                                # Create a PriceBar and append it to 
+                                # the PriceBar list.
+                                pb = convertLineToPriceBar(line)
+                                self.priceBars.append(pb)
+
+                except IOError as e:
+                    errStr = "I/O Error while trying to read file '" + \
+                        filename + "':" + os.linesep + e
+                    self.log.error(errStr)
+                    errMsgDialog = QErrorMessage(self)
+                    errMsgDialog.setWindowitle("Error reading file")
+                    errMsgDialog.showMessage(errStr)
+
+                    validationStr = \
+                        "Validation failed due to a I/O error.  " + \
+                        "Please try again later."
+                    self.log.error(validationStr)
+                    validationStr = self.toRedString(validationStr)
+                    self.validationStatusLabel.setText(validationStr)
+
+        # If the validFlag is still True, then allow the user to 
+        # click the 'Next' button.
+        if validFlag == True:
+            infoStr = "Validated data file {}".format(filename)
+            self.log.info(infoStr)
+            validationStr = self.toGreenString("Validated")
+            self.validationStatusLabel.setText(validationStr)
+            if self.validatedFlag == False:
+                self.validatedFlag = True
+                self.validationStateChanged.emit(self.validatedFlag)
+
+        self.log.debug("Leaving handleValidateButtonClicked()")
+
+    def toRedString(self, string):
+        """Wraps the input str with HTML tags to turn it red."""
+
+        return "<font color=\"red\">" + string + "</font>"
+
+    def toGreenString(self, string):
+        """Wraps the input str with HTML tags to turn it green."""
+
+        return "<font color=\"green\">" + string + "</font>"
+
+
+    def validateLine(self, line):
+        """Returns a tuple of (boolean, str) that represents if the line
+        of text was parsed to be a valid CSV data line.
+
+        If the line of text is valid, the boolean part of the tuple 
+        returned is True and the string is returned is empty.
+
+        If the line of text is found to be not valid, the tuple returns
+        False and a string explaining why the validation failed.
+
+        The expected format of 'line' is:
+        <MM/DD/YYYY>,<OpenPrice>,<HighPrice>,<LowPrice>,<ClosePrice>,<Volume>,<OpenInterest>
+        """
+
+        self.log.debug("validateLine(line='{}')".format(line))
+
+        # Check the number of fields.
+        fields = line.split(",")
+        numFieldsExpected = 7
+        if len(fields) != numFieldsExpected:
+            return (False, "Line does not have {} data fields".\
+                    format(numFieldsExpected))
+
+        dateStr = fields[0] 
+        openStr = fields[1]
+        highStr = fields[2]
+        lowStr = fields[3]
+        closeStr = fields[4]
+        volumeStr = fields[5]
+        openIntStr = fields[6]
+
+        dateStrSplit = dateStr.split("/")
+        if len(dateStrSplit) != 3:
+            return (False, "Format of the date was not MM/DD/YYYY")
+
+        monthStr = dateStrSplit[0]
+        dayStr = dateStrSplit[1]
+        yearStr = dateStrSplit[2]
+
+        if len(monthStr) != 2:
+            return (False, "Month in the date is not two characters long")
+        if len(dayStr) != 2:
+            return (False, "Day in the date is not two characters long")
+        if len(yearStr) != 4:
+            return (False, "Year in the date is not four characters long")
+
+        try:
+            monthInt = int(monthStr)
+            if monthInt < 1 or monthInt > 12:
+                return (False, "Month in the date is not between 1 and 12")
+        except ValueError as e:
+            return (False, "Month in the date is not a number")
+
+        try:
+            dayInt = int(dayStr)
+            if dayInt < 1 or dayInt > 31:
+                return (False, "Day in the date is not between 1 and 31")
+        except ValueError as e:
+            return (False, "Day in the date is not a number")
+
+        try:
+            yearInt = int(yearStr)
+        except ValueError as e:
+            return (False, "Year in the date is not a number")
+                
+        try:
+            openFloat = float(openStr)
+        except ValueError as e:
+            return (False, "OpenPrice is not a number")
+
+        try:
+            highFloat = float(highStr)
+        except ValueError as e:
+            return (False, "HighPrice is not a number")
+
+        try:
+            lowFloat = float(lowStr)
+        except ValueError as e:
+            return (False, "LowPrice is not a number")
+
+        try:
+            closeFloat = float(closeStr)
+        except ValueError as e:
+            return (False, "ClosePrice is not a number")
+
+        try:
+            volumeFloat = float(volumeStr)
+        except ValueError as e:
+            return (False, "Volume is not a number")
+
+        try:
+            openIntFloat = float(openIntStr)
+        except ValueError as e:
+            return (False, "OpenInterest is not a number")
+
+
+        # If it got this far without returning, then everything 
+        # checked out fine.
+        return (True, "")
+
+
+    def convertLineToPriceBar(self, line):
+        """Convert a line of text from a CSV file to a PriceBar.
+
+        The expected format of 'line' is:
+        <MM/DD/YYYY>,<OpenPrice>,<HighPrice>,<LowPrice>,<ClosePrice>,<Volume>,<OpenInterest>
+
+        Returns:
+        PriceBar object from the line of text.  If the text was incorrectly
+        formatted, then None is returned.  
+        """
+
+        self.log.debug("convertLineToPriceBar(line='{}')".format(line))
+
+        # Return value.
+        retVal = None
+
+        # Do validation on the line first.
+        (validFlag, reasonStr) = validateLine(line)
+
+        if validFlag == False:
+            self.log.debug("Line conversion failed because: {}" + reasonStr)
+            retVal = None
+        else:
+            # Although we already validated the line, we wrap the parsing 
+            # here in a try block just in case something unexpected 
+            # was thrown at us.
+            try:
+                dateStr = fields[0] 
+                openPrice = float(fields[1])
+                highPrice = float(fields[2])
+                lowPrice = float(fields[3])
+                closePrice = float(fields[4])
+                volume = float(fields[5])
+                openInt = float(fields[6])
+
+                dateStrSplit = dateStr.split("/")
+                month = int(dateStrSplit[0])
+                day = int(dateStrSplit[1])
+                year = int(dateStrSplit[2])
+
+                # Datetime object is assumed to be in UTC, and the
+                # timestamps will have a midnight time (i.e., the 
+                # very start of the day).
+                timestamp = datetime.datetime(year, month, day, 
+                                                tzinfo=pytz.utc)
+
+                # Create the PriceBar with the parsed data.
+                retVal = PriceBar(timestamp, 
+                                  open=openPrice,
+                                  high=highPrice,
+                                  low=lowPrice,
+                                  close=closePrice,
+                                  oi=openInt,
+                                  vol=volume)
+
+            except IndexError as e:
+                self.log.error("While converting line of text to " + \
+                               "PriceBar, got an IndexError: " + e)
+            except UnicodeDecodeError as e:
+                self.log.error("While converting line of text to " + \
+                               "PriceBar, got an UnicodeDecodeError: " + e)
+            except ValueError as e:
+                self.log.error("While converting line of text to " + \
+                               "PriceBar, got an ValueError: " + e)
+            except TypeError as e:
+                self.log.error("While converting line of text to " + \
+                               "PriceBar, got an TypeError: " + e)
+
+        # Return the PriceBar created (or None if an error occurred).
+        return retVal
+
+
+    def isValidated(self):
+        """Returns True if validation succeeded, otherwise returns False.
+        This function overrides the QWizardPage.isComplete() virtual
+        function.
+        """
+
+        return self.validatedFlag
+
+    def getPriceBars(self):
+        """Returns a list of PriceBars if the opened file has been validated
+        successfully (i.e., isValidated() returns True).  If the opened file
+        failed validation, this function will return an empty list.
+        """
+        
+        if isValidated():
+            self.log.debug("getPriceBars(): returning list of PriceBars " + \
+                           "with length {}".format(len(self.priceBars)))
+            return self.priceBars
+        else:
+            self.log.debug("getPriceBars(): File was not validated. " + \
+                           "Returning an empty list.")
+            return []
 
 # For debugging the module during development.  
 if __name__=="__main__":
@@ -712,8 +1300,14 @@ if __name__=="__main__":
     # Create the Qt application.
     app = QApplication(sys.argv)
 
-    wizard = PriceChartDocumentWizard()
-    wizard.show()
+    #wizard = PriceChartDocumentWizard()
+    #wizard.show()
+
+    #loadDataFileWizardPage = PriceChartDocumentLoadDataFileWizardPage()
+    #loadDataFileWizardPage.show()
+
+    locationTimezoneWizardPage = PriceChartDocumentLocationTimezoneWizardPage()
+    locationTimezoneWizardPage.show()
 
     # Exit the app when all windows are closed.
     app.connect(app, SIGNAL("lastWindowClosed()"), logging.shutdown)

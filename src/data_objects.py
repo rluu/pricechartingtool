@@ -12,10 +12,10 @@ class PriceBar:
     PriceBar can include the following information: 
 
     - timestamp as a datetime.datetime object.
-    - open, high, low and close prices
-    - open interest
-    - volume
-    - tags
+    - open, high, low and close prices as floats
+    - open interest as float
+    - volume as float
+    - tags as list of str
 
      
     The 'tags' is a list of strings to tag a bar as holding a certain
@@ -31,11 +31,18 @@ class PriceBar:
     def __init__(self, timestamp, open=None, high=None, low=None, close=None, 
             oi=None, vol=None, tags=[]):
         """Initializes the PriceBar object.  
-        Parameters are as follows:
+
+        Arguments are as follows:
+        - open is the open price for the PriceBar, as a float
+        - high is the high price for the PriceBar, as a float
+        - low is the low price for the PriceBar, as a float
+        - close is the close price for the PriceBar, as a float
+        - oi is the open interest for the PriceBar, as a float
+        - vol is the volume of trade for the PriceBar, as a float
         - timestamp is a datetime.datetime object
         - tags is a list of strings.
-        - Other parameters are floats or integer numbers.
         """
+
         self.log = logging.getLogger("data_objects.PriceBar")
 
         self.timestamp = timestamp
