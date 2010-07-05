@@ -6,6 +6,187 @@ import logging
 import datetime
 import pytz
 
+class BirthInfo:
+    """Contains data related to the birth of an entity or person.
+    See the documentation for the '__init__()' function to see what
+    data it holds.
+    """
+
+    def __init__(self,
+                 year=2,
+                 month=1,
+                 day=1,
+                 calendar='Gregorian',
+                 hour=0,
+                 minute=0,
+                 second=0,
+                 locationName="",
+                 longitudeDegrees=0,
+                 latitudeDegrees=0,
+                 elevation=0,
+                 timezoneName='UTC',
+                 timezoneOffsetAbbreviation='UTC',
+                 timezoneOffsetValueStr='+0000',
+                 timezoneManualEntryHours=0,
+                 timezoneManualEntryMinutes=0,
+                 timezoneManualEntryEastWestComboBoxValue='W',
+                 timeOffsetAutodetectedRadioButtonState=True,
+                 timeOffsetManualEntryRadioButtonState=False,
+                 timeOffsetLMTRadioButtonState=False):
+        """Initializes the member variables to the values specified
+        as arguments.
+
+        Arguments:
+
+        year             - int value for the birth year.
+        month            - int value for the birth month.
+        day              - int value for the birth day.
+        calendar         - str value for the calendar system used.  
+                           Can be 'Gregorian' or 'Julian'.
+        hour             - int value for the birth hour.
+        minute           - int value for the birth minute.
+        second           - int value for the birth second.
+        locationName     - str value for the birth location name.
+        longitudeDegrees - float value for the geographical longitude 
+                           location of birth. 
+        latitudeDegrees  - float value for the geographical latitude 
+                           location of birth.
+        elevation        - int value for the birth location elevation 
+                           in meters.
+        timezoneName     - str value holding the name of the timezone.  
+                           This is a string like "US/Eastern" or "Asia/Tokyo".
+        timezoneOffsetAbbreviation 
+                         - str value holding the abbreviation for the time 
+                           offset used.  This is a string like "EST" or "EDT".
+        timezoneOffsetValueStr 
+                         - str value for the time offset.  It is a string 
+                           in the defined format like "+0500" or "-0200".
+        timezoneManualEntryHours 
+                         - int value for the manual time offset 'hours' value.
+        timezoneManualEntryMinutes 
+                         - int value for the manual time offset 
+                           'minutes' value.
+        timezoneManualEntryEastWestComboBoxValue 
+                         - str value for whether the manual time offset 
+                           spinbox is west of UTC or east of UTC.  
+                           Valid values for this are 'W' and 'E'.
+        timeOffsetAutodetectedRadioButtonState 
+                         - bool value for whether or not the radio button 
+                           for autodetected time offset is checked.
+        timeOffsetManualEntryRadioButtonState 
+                         - bool value for whether or not the radio button 
+                           for manual entry time offset is checked.
+        timeOffsetLMTRadioButtonState 
+                         - bool value for whether or not the radio button 
+                           for local mean time is checked.
+        """
+
+        # Set the version of this class (used for pickling and unpickling
+        # different versions of this class).
+        self.classVersion = 1
+
+        # Create the logger.
+        self.log = logging.getLogger("data_objects.BirthInfo")
+
+        self.year = year
+        self.month = month
+        self.day = day
+        self.calendar = calendar
+        self.hour = hour
+        self.minute = minute
+        self.second = second
+        self.locationName = locationName
+        self.longitudeDegrees = longitudeDegrees
+        self.latitudeDegrees = latitudeDegrees
+        self.elevation = elevation
+        self.timezoneName = timezoneName
+        self.timezoneOffsetAbbreviation = timezoneOffsetAbbreviation
+        self.timezoneOffsetValueStr = timezoneOffsetValueStr
+        self.timezoneManualEntryHours = timezoneManualEntryHours
+        self.timezoneManualEntryMinutes = timezoneManualEntryMinutes
+        self.timezoneManualEntryEastWestComboBoxValue = \
+                timezoneManualEntryEastWestComboBoxValue
+        self.timeOffsetAutodetectedRadioButtonState = \
+                timeOffsetAutodetectedRadioButtonState
+        self.timeOffsetManualEntryRadioButtonState = \
+                timeOffsetManualEntryRadioButtonState
+        self.timeOffsetLMTRadioButtonState = \
+                timeOffsetLMTRadioButtonState
+
+    def getBirthUtcDatetime(self):
+        """Takes the date, time and timezone information in this 
+        object and converts it to a UTC datetime.datetime object,
+        such that it represents the same moment in time.
+        """
+        self.log.debug("Entered getBirthUtcDatetime()")
+
+        # TODO:  write this function.
+
+        self.log.debug("Leaving getBirthUtcDatetime()")
+
+    def __str__(self):
+        """Returns the string representation of this object."""
+
+        rv = "[year={}, ".format(self.year) + \
+             "month={}, ".format(self.month) + \
+             "day={}, ".format(self.day) + \
+             "calendar={}, ".format(self.calendar) + \
+             "hour={}, ".format(self.hour) + \
+             "minute={}, ".format(self.minute) + \
+             "second={}, ".format(self.second) + \
+             "locationName={}, ".format(self.locationName) + \
+             "longitudeDegrees={}, ".format(self.longitude)+ \
+             "elevation={}, ".format(self.elevation) + \
+             "timezoneName={}, ".format(self.timezoneName) + \
+             "timezoneOffsetAbbreviation={}, ".\
+                format(self.timezoneOffsetAbbreviation) + \
+             "timezoneOffsetValueStr={}, ".\
+                format(self.timezoneOffsetValueStr) + \
+             "timezoneManualEntryHours={}, ".\
+                format(self.timezoneManualEntryHours) + \
+             "timezoneManualEntryMinutes={}, ".\
+                format(self.timezoneManualEntryMinutes) + \
+             "timezoneManualEntryEastWestComboBoxValue={}, ".\
+                format(self.timezoneManualEntryEastWestComboBoxValue) + \
+             "timeOffsetAutodetectedRadioButtonState={}, ".\
+                format(self.timeOffsetAutodetectedRadioButtonState) + \
+             "timeOffsetManualEntryRadioButtonState={}, ".\
+                format(self.timeOffsetManualEntryRadioButtonState) + \
+             "timeOffsetLMTRadioButtonState={}]".\
+                format(self.timeOffsetLMTRadioButtonState)
+
+        return rv
+
+
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = logging.getLogger("data_objects.BirthInfo")
+
+        # Log that we set the state of this object.
+        self.log.info("Set state of a " + BirthInfo.__name__ +
+                      " object of version " + self.classVersion)
+
+
+
 
 class PriceBar:
     """Contains price information for a single interval of time.  
@@ -155,14 +336,15 @@ class PriceChartDocumentData:
         self.settingsLocationLatitude = 0
 
         # Configuration for the timezone used.  
-        # This is the pytz.timezone object that is a subclass of datetime.tzinfo.
+        # This is the pytz.timezone object that is a subclass of 
+        # datetime.tzinfo.
         self.settingsLocationTimezone = pytz.utc
 
         # Index in self.priceBars of the last PriceBar that was selected.  
         # If none were selected at the time the application last closed, it
         # will be default to index 0 if self.priceBars is non-empty, and -1
-        # if self.priceBars is empty.  This information allows the UI to center
-        # on the same PriceBar the next time the application is opened.
+        # if self.priceBars is empty.  This information allows the UI to 
+        # center on the same PriceBar the next time the application is opened.
         self.settingsLastPriceBarIndexSelected = -1
 
 

@@ -1057,7 +1057,7 @@ class BirthInfoEditWidget(QWidget):
                            "is available.")
         else:
             self.log.info("Internet connection to GeoNames web service " + \
-                           "is not available.")
+                          "is not available.")
 
         # Spacing amount for indenting inwards for some widgets.
         self.indentSpacing = 60
@@ -1410,11 +1410,16 @@ class BirthInfoEditWidget(QWidget):
             setBuddy(self.birthPlaceSearchResultsComboBox)
         # Disable the QComboBox until the results come in.
         self.birthPlaceSearchResultsComboBox.setEnabled(False)
-        self.geoNamesStatusLabel = \
-            QLabel("<font color=\"red\">" + \
-                   "Search functionality is disabled due to failed " + \
-                   "network connection to GeoNames web service." + \
-                   "</font>")
+
+        if self.geoNamesEnabled == False:
+            self.geoNamesStatusLabel = \
+                QLabel("<font color=\"red\">" + \
+                       "Search functionality is disabled due to failed " + \
+                       "network connection to GeoNames web service." + \
+                       "</font>")
+        else:
+            self.geoNamesStatusLabel = QLabel("")
+
         self.geoNamesStatusLabel.setWordWrap(True)
         self.birthPlaceSearchResultsLayout = QVBoxLayout()
         self.birthPlaceSearchResultsLayout.addSpacing(20)
@@ -1423,16 +1428,16 @@ class BirthInfoEditWidget(QWidget):
         self.birthPlaceSearchResultsLayout.\
             addWidget(self.birthPlaceSearchResultsComboBox)
         self.birthPlaceSearchResultsLayout.addSpacing(20)
-        if self.geoNamesEnabled == False:
-            self.birthPlaceSearchResultsLayout.\
-                addWidget(self.geoNamesStatusLabel)
+        self.birthPlaceSearchResultsLayout.\
+            addWidget(self.geoNamesStatusLabel)
 
-        # If GeoNames is not enabled, then disable some widgets.
-        if self.geoNamesEnabled == False:
-            self.searchInUsaButton.setEnabled(False)
-            self.searchInAllCountriesButton.setEnabled(False)
-            self.searchInSpecifiedCountryButton.setEnabled(False)
-            self.countriesComboBox.setEnabled(False)
+        # Do I want to disable search widgets if the initial connect test
+        # failed?  Maybe the second attempt via the search button will work.
+        #if self.geoNamesEnabled == False:
+        #    self.searchInUsaButton.setEnabled(False)
+        #    self.searchInAllCountriesButton.setEnabled(False)
+        #    self.searchInSpecifiedCountryButton.setEnabled(False)
+        #    self.countriesComboBox.setEnabled(False)
 
         self.longitudeLabel = QLabel("&Longitude:")
         self.longitudeDegreesLabel = QLabel("Degrees (0-180)")
@@ -1512,9 +1517,12 @@ class BirthInfoEditWidget(QWidget):
         self.elevationLabel = QLabel("Ele&vation:")
         self.elevationSpinBox = QSpinBox()
         self.elevationLabel.setBuddy(self.elevationSpinBox)
-        # TODO:  Find out if the ephemeris allows for negative elevations.
-        self.elevationSpinBox.setMinimum(0)
+        # The dead sea is about -400 meters above sea level 
+        # and mount everest is about 8850, so these settings should
+        # cover just about all scenarios except for in-flight births.
+        self.elevationSpinBox.setMinimum(-400)
         self.elevationSpinBox.setMaximum(10000)
+        self.elevationSpinBox.setValue(0)
         self.elevationUnitsLabel = QLabel("meters above sea level")
 
         self.elevationLayout = QHBoxLayout()
@@ -1721,25 +1729,160 @@ class BirthInfoEditWidget(QWidget):
 
 
     def setBirthTimeWidgetValues(self, 
-                                 year=1,
-                                 day=1,
-                                 month=1,
-                                 calendar="Gregorian",
-                                 hour=0,
-                                 minute=0,
-                                 second=0):
-        # TODO: write the comment and this function.
+                                 year,
+                                 month,
+                                 day,
+                                 hour,
+                                 minute,
+                                 second,
+                                 calendar="Gregorian"):
+        """Fills the birth time edit widgets with the values specified.
+
+        Arguments:
+        year    - int value for the year
+        month   - int value for the month
+        day     - int value for the day
+        hour    - int value for the hour
+        minute  - int value for the minute
+        second  - int value for the second
+        calendar - str value, for the calendar system used.
+                   This is either 'Gregorian' or 'Julian'.
+        """
+
+        # Verify nothing is None.
+        if (year == None or \
+            month == None or \
+            day == None or \
+            hour == None or \
+            minute == None or \
+            second == None or \
+            calendar == None):
+
+            self.log.error("Parameters to setBirthTimeWidgetValues() " + 
+                           "cannot be None.")
+            return
+        
+        # These are int QSpinBoxes so force values to ints.
+        year = int(year)
+        month = int(month)
+        day = int(day)
+        hour = int(hour)
+        minute = int(minute)
+        second = int(second)
+        
+        # Year.
+        if (year >= self.yearSpinBox.minimum() and \
+            year <= self.yearSpinBox.maximum()):
+
+            self.yearSpinBox.setValue(year)
+        else:
+            self.log.warn("Year {} is outside the expected range [{}, {}].".\
+                          format(year, 
+                                 self.yearSpinBox.minimum(),
+                                 self.yearSpinBox.maximum()) + \
+                          "  Forcing it to be within the range.")
+
+            # The QSpinBox will force the value to be within range.
+            self.yearSpinBox.setValue(year)
+
+        # Month.
+        if (month >= self.monthSpinBox.minimum() and \
+            month <= self.monthSpinBox.maximum()):
+
+            self.monthSpinBox.setValue(month)
+        else:
+            self.log.warn("Month {} is outside the expected range [{}, {}].".\
+                          format(month, 
+                                 self.monthSpinBox.minimum(),
+                                 self.monthSpinBox.maximum()) + \
+                          "  Forcing it to be within the range.")
+
+            # The QSpinBox will force the value to be within range.
+            self.monthSpinBox.setValue(month)
+
+        # Day.
+        if (day >= self.daySpinBox.minimum() and \
+            day <= self.daySpinBox.maximum()):
+
+            self.daySpinBox.setValue(day)
+        else:
+            self.log.warn("Day {} is outside the expected range [{}, {}].".\
+                          format(day, 
+                                 self.daySpinBox.minimum(),
+                                 self.daySpinBox.maximum()) + \
+                          "  Forcing it to be within the range.")
+
+            # The QSpinBox will force the value to be within range.
+            self.daySpinBox.setValue(day)
+
+        # Hour.
+        if (hour >= self.hourSpinBox.minimum() and \
+            hour <= self.hourSpinBox.maximum()):
+
+            self.hourSpinBox.setValue(hour)
+        else:
+            self.log.warn("Hour {} is outside the expected range [{}, {}].".\
+                          format(hour, 
+                                 self.hourSpinBox.minimum(),
+                                 self.hourSpinBox.maximum()) + \
+                          "  Forcing it to be within the range.")
+
+            # The QSpinBox will force the value to be within range.
+            self.hourSpinBox.setValue(hour)
+
+        # Minute.
+        if (minute >= self.minuteSpinBox.minimum() and \
+            minute <= self.minuteSpinBox.maximum()):
+
+            self.minuteSpinBox.setValue(minute)
+        else:
+            warnStr = "Minute {} is outside the expected range [{}, {}].".\
+                      format(minute, 
+                             self.minuteSpinBox.minimum(),
+                             self.minuteSpinBox.maximum()) + \
+                      "  Forcing it to be within the range."
+
+            self.log.warn(warnStr)
+
+            # The QSpinBox will force the value to be within range.
+            self.minuteSpinBox.setValue(minute)
+
+        # Second.
+        if (second >= self.secondSpinBox.minimum() and \
+            second <= self.secondSpinBox.maximum()):
+
+            self.secondSpinBox.setValue(second)
+        else:
+            warnStr = "Second {} is outside the expected range [{}, {}].".\
+                      format(second, 
+                             self.secondSpinBox.minimum(),
+                             self.secondSpinBox.maximum()) + \
+                      "  Forcing it to be within the range."
+
+            self.log.warn(warnStr)
+
+            # The QSpinBox will force the value to be within range.
+            self.secondSpinBox.setValue(second)
+
+        # Calendar.
+        index = self.calendarComboBox.findText(calendar)
+        if (index != -1):
+            self.calendarComboBox.setCurrentIndex(index)
+        else:
+            # Unrecognized calendar system specified.  
+            warnStr = "Calendar system specified ({}) is not recognized.".\
+                format(calendar)
+            
+            # Don't change anything in the widgets.
+
+
+    def loadBirthInfo(self, birthInfoObj):
+        # TODO:  write this function.
         pass
 
-
-    def getBirthTimeWidgetValues(self):
-        # TODO: write the comment and this function.
+    def getBirthInfo(self):
+        # TODO:  write this function.
         pass
-
-
-    # TODO:  add set functions for setting birth time, birth location, and time offset.
-    # TODO:  add get functions for getting the current info in this widget.
-
 
     def _handleSearchInAllCountriesButtonClicked(self):
         """Uses GeoNames to do a lookup of a location based on the search
@@ -1987,7 +2130,7 @@ class BirthInfoEditWidget(QWidget):
         
         # Set the longitude.
         (lonDegrees, lonMinutes, lonSeconds, lonPolarity) = \
-            geoInfo.longitudeBreakdown()
+            GeoInfo.longitudeToDegMinSec(geoInfo.longitude)
         self.longitudeDegreesSpinBox.setValue(lonDegrees)
         index = self.longitudeEastWestComboBox.findText(lonPolarity)
         self.longitudeEastWestComboBox.setCurrentIndex(index)
@@ -1996,7 +2139,7 @@ class BirthInfoEditWidget(QWidget):
 
         # Set the latitude.
         (latDegrees, latMinutes, latSeconds, latPolarity) = \
-            geoInfo.latitudeBreakdown()
+            GeoInfo.latitudeToDegMinSec(geoInfo.latitude)
         self.latitudeDegreesSpinBox.setValue(latDegrees)
         index = self.latitudeNorthSouthComboBox.findText(latPolarity)
         self.latitudeNorthSouthComboBox.setCurrentIndex(index)
@@ -2004,54 +2147,14 @@ class BirthInfoEditWidget(QWidget):
         self.latitudeSecondsSpinBox.setValue(latSeconds)
 
         # Set the elevation.
+        elevation = 0
         if geoInfo.elevation != None:
-            # Set the spinbox.
-            self.elevationSpinBox.setValue(int(geoInfo.elevation))
+            elevation = geoInfo.elevation
         else:
             # Try to obtain elevation via the GeoNames.getElevation() method.
             try:
                 elevation = GeoNames.getElevation(geoInfo.latitude,
                                                   geoInfo.longitude)
-                if elevation == -9999.0:
-                    # Elevation is -9999.0 when it is in the ocean or if 
-                    # there was no data for this location.  Here we'll 
-                    # just force the elevation to zero.
-
-                    logStr = "Elevation returned for " + \
-                       "lat={}, lon={} was {}.".\
-                       format(geoInfo.latitude, 
-                              geoInfo.longitude, 
-                              elevation) + \
-                       "  Forcing elevation to be zero."
-
-                    self.log.info(logStr)
-
-                    # Just set to zero.
-                    elevation = 0
-
-                elif elevation < 0:
-                    # We've set the minimum for the self.elevationSpinBox 
-                    # to be 0 so this is just making it so that the value 
-                    # is within the range.
-
-                    logStr = "Elevation returned for " + \
-                       "lat={}, lon={} was {}.".\
-                       format(geoInfo.latitude, 
-                              geoInfo.longitude, 
-                              elevation) + \
-                       "  Forcing elevation to be zero."
-
-                    self.log.info(logStr)
-
-                    # Just set to zero.
-                    elevation = 0
-
-                # Truncate to an int since the value returned is a float.
-                elevationInt = int(elevation)
-
-                # Set the spinbox.
-                self.elevationSpinBox.setValue(elevationInt)
-
             except urllib.error.URLError as e:
                 errStr = "Couldn't get the elevation for lat={}, lon={} ".\
                         format(geoInfo.latitude, geoInfo.longitude) + \
@@ -2060,7 +2163,52 @@ class BirthInfoEditWidget(QWidget):
                 QMessageBox.warning(None, "Error", errStr)
 
                 # Set the elevation to 0.
-                self.elevationSpinBox.setValue(0)
+                elevation = 0
+
+        # Set the spinbox.
+        if elevation == None or elevation == -9999.0:
+            # Elevation is -9999.0 when it is in the ocean or if 
+            # there was no data for this location.  
+            
+            # Here we'll just force the elevation to zero.
+
+            logStr = "Elevation for lat={}, lon={} was {}.".\
+               format(geoInfo.latitude, 
+                      geoInfo.longitude, 
+                      elevation) + \
+               "  Forcing elevation to be zero."
+
+            self.log.info(logStr)
+
+            elevation = 0
+
+        elif elevation < self.elevationSpinBox.minimum():
+            # Set it to the minimum.
+            logStr = "Elevation returned for " + \
+               "lat={}, lon={} was {}.".\
+               format(geoInfo.latitude, 
+                      geoInfo.longitude, 
+                      elevation) + \
+               "  Forcing elevation to the minimum."
+            self.log.info(logStr)
+
+            elevation = self.elevationSpinBox.minimum()
+
+        elif elevation > self.elevationSpinBox.maximum():
+            # Set it to the maximum.
+            logStr = "Elevation returned for " + \
+               "lat={}, lon={} was {}.".\
+               format(geoInfo.latitude, 
+                      geoInfo.longitude, 
+                      elevation) + \
+               "  Forcing elevation to the maximum."
+
+            self.log.info(logStr)
+
+            elevation = self.elevationSpinBox.maximum()
+
+        # Set the spinbox.
+        self.elevationSpinBox.setValue(int(elevation))
 
         self.log.debug("Leaving _handleSearchResultSelected()")
 
@@ -2074,24 +2222,16 @@ class BirthInfoEditWidget(QWidget):
         self.log.debug("Entered _handleLongitudeEditWidgetChanged()")
 
         degreesInt = self.longitudeDegreesSpinBox.value()
-        polarityMultiplier = 1.0
-
-        if str(self.longitudeEastWestComboBox.currentText()) == "E":
-            polarityMultiplier = 1.0
-        elif str(self.longitudeEastWestComboBox.currentText()) == "W":
-            polarityMultiplier = -1.0
-        else: 
-            # This should never happen.
-            self.log.error("Longitude QComboBox value wasn't 'E' or 'W'")
-            polarityMultiplier = 1.0
-
         minutesInt = self.longitudeMinutesSpinBox.value()
         secondsInt = self.longitudeSecondsSpinBox.value()
+        polarityStr = str(self.longitudeEastWestComboBox.currentText()) 
 
         # Do the calculation.
         longitudeFloat = \
-            polarityMultiplier * \
-            (float(degreesInt) + (minutesInt / 60.0) + (secondsInt / 3600.0))
+            GeoInfo.longitudeToDegrees(degreesInt,
+                                       minutesInt,
+                                       secondsInt,
+                                       polarityStr)
 
         # Set the QLabel widget.
         self.longitudeDecimalFormatValueLabel.\
@@ -2108,24 +2248,16 @@ class BirthInfoEditWidget(QWidget):
         self.log.debug("Entered _handleLatitudeEditWidgetChanged()")
 
         degreesInt = self.latitudeDegreesSpinBox.value()
-        polarityMultiplier = 1.0
-
-        if str(self.latitudeNorthSouthComboBox.currentText()) == "N":
-            polarityMultiplier = 1.0
-        elif str(self.latitudeNorthSouthComboBox.currentText()) == "S":
-            polarityMultiplier = -1.0
-        else: 
-            # This should never happen.
-            self.log.error("Latitude QComboBox value wasn't 'N' or 'S'")
-            polarityMultiplier = 1.0
-
         minutesInt = self.latitudeMinutesSpinBox.value()
         secondsInt = self.latitudeSecondsSpinBox.value()
+        polarityStr = str(self.latitudeNorthSouthComboBox.currentText()) 
 
         # Do the calculation.
         latitudeFloat = \
-            polarityMultiplier * \
-            (float(degreesInt) + (minutesInt / 60.0) + (secondsInt / 3600.0))
+            GeoInfo.latitudeToDegrees(degreesInt,
+                                       minutesInt,
+                                       secondsInt,
+                                       polarityStr)
 
         # Set the QLabel widget.
         self.latitudeDecimalFormatValueLabel.\
@@ -2291,7 +2423,7 @@ if __name__=="__main__":
     #parent = None
     #QMessageBox.warning(parent, "Error", msgStr)
 
-
+    
     bew = BirthInfoEditWidget()
     bew.show()
 

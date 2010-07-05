@@ -40,9 +40,13 @@ class GeoNames:
 
 
     def canConnectToWebService():
-        """Returns true if we are able to make a connection to the 
-        web service.  Returns false otherwise.
+        """Returns True if we are able to make a connection to the 
+        web service.  Returns False otherwise.
+
         This is useful for testing for an internet connection.
+
+        The timeout for the connection attempt is hardcoded in this 
+        function to 4 seconds.
         """
 
         # Here we just do a HTTP Get on:
@@ -65,13 +69,19 @@ class GeoNames:
         GeoNames.log.debug("GeoNames.canConnectToWebService(): " + \
                            "request URL is: " + url)
 
-        # Open the URL and read the returned results.
-        urlOpener = urllib.request.build_opener()
-        request = urllib.request.Request(url)
 
-        GeoNames.log.debug("Opening HTTP request.")
+        # Timeout for testing for a connection.
+        timeoutSec = 4
+
+        # Data to send.
+        dataToSend = None
+
+        # Open the URL and read the returned results.
+        GeoNames.log.debug("Opening HTTP request (timeoutSec={}).".\
+            format(timeoutSec))
+
         try:
-            response = urlOpener.open(request)
+            response = urllib.request.urlopen(url, dataToSend, timeoutSec)
 
             GeoNames.log.debug("Reading HTTP response.")
             data = response.read()
@@ -88,9 +98,8 @@ class GeoNames:
 
         except urllib.error.URLError as e:
             GeoNames.log.error("Couldn't open the URL due to the " + \
-                               "following reason: " + e.reason.strerror)
+                               "following reason: " + str(e.reason))
             retVal = False
-
 
         return retVal
 
@@ -866,59 +875,15 @@ class GeoInfo:
         self.adminName2 = adminName2
         self.timezone = timezone
 
-    def latitudeBreakdown(self):
-        """Returns a tuple of (degrees, minutes, seconds, string) for the
-        latitude in this GeoInfo object.  
-
-        degrees, minutes, and seconds are int values, and string is 
-        'N' or 'S'.
-        """
-
-        string = ""
-        if self.latitude >= 0:
-            string = "N"
-        else:
-            string = "S"
-
-        degrees = int(abs(self.latitude))
-        minutesFloat = (abs(self.latitude) - float(degrees)) * 60.0
-        minutes = int(minutesFloat)
-        secondsFloat = (minutesFloat - float(minutes)) * 60.0
-        seconds = round(secondsFloat)
-
-        return (degrees, minutes, seconds, string)
-
-
-    def longitudeBreakdown(self):
-        """Returns a tuple of (degrees, minutes, seconds, string) for 
-        the longitude in this GeoInfo object.  
-
-        degrees, minutes, and seconds are int values, and 
-        string is 'E' or 'W'.
-        """
-
-        string = ""
-        if self.longitude < 0:
-            string = 'W'
-        else:
-            string = 'E'
-
-        degrees = int(abs(self.longitude))
-        minutesFloat = (abs(self.longitude) - float(degrees)) * 60.0
-        minutes = int(minutesFloat)
-        secondsFloat = (minutesFloat - float(minutes)) * 60.0
-        seconds = round(secondsFloat)
-        
-        return (degrees, minutes, seconds, string)
-
-
     def latitudeStr(self):
         """Returns a string of the latitude in the form: 28° 14' 23" N
         """
 
-        (degrees, minutes, seconds, string) = self.latitudeBreakdown()
+        (degrees, minutes, seconds, polarity) = \
+            GeoInfo.latitudeToDegMinSec(self.latitude)
+
         retVal = "{}\xb0 {}' {}\" {}".\
-            format(degrees, minutes, seconds, string)
+            format(degrees, minutes, seconds, polarity)
 
         return retVal
 
@@ -926,12 +891,13 @@ class GeoInfo:
         """Returns a string of the longitude in the form: 28° 14' 23" E
         """
 
-        (degrees, minutes, seconds, string) = self.longitudeBreakdown()
+        (degrees, minutes, seconds, polarity) = \
+            GeoInfo.longitudeToDegMinSec(self.longitude)
+
         retVal = "{}\xb0 {}' {}\" {}".\
-            format(degrees, minutes, seconds, string)
+            format(degrees, minutes, seconds, polarity)
 
         return retVal
-
 
 
     def __str__(self):
@@ -964,6 +930,169 @@ class GeoInfo:
 
         return rv
 
+
+    def latitudeToDegMinSec(latitudeDegrees):
+        """Static class function for converting the latitude from a float
+        degrees to a tuple of degrees, minutes, seconds, and polarity string.
+
+        Argument:
+        latitudeDegrees - 
+                  float value holding the degrees of the latitude as 
+                  positive or negative number.
+
+        Returns:
+
+          tuple (degrees, minutes, seconds, polarity)
+          where:
+
+             degrees - int value of the degrees (positive value).
+             minutes - int value of the number of minutes.
+             seconds - int value of the number of seconds.
+             polarity - str value of either "N" or "S".
+        """
+
+        polarity = ""
+        if latitudeDegrees >= 0:
+            polarity = "N"
+        else:
+            polarity = "S"
+
+        degrees = int(abs(latitudeDegrees))
+        minutesFloat = (abs(latitudeDegrees) - float(degrees)) * 60.0
+        minutes = int(minutesFloat)
+        secondsFloat = (minutesFloat - float(minutes)) * 60.0
+        seconds = int(round(secondsFloat))
+
+        return (degrees, minutes, seconds, polarity)
+    
+    def latitudeToDegrees(degrees, minutes, seconds, polarity):
+        """Static class function for converting from 
+        degrees, minutes, seconds, polarity to a float value of degrees.
+
+        Arguments:
+
+        degrees - int value of the degrees (positive value).
+        minutes - int value of the number of minutes.
+        seconds - int value of the number of seconds.
+        polarity - str value of either "N" or "S".
+
+        Returns:
+
+        latitudeDegrees - 
+                  float value holding the degrees of the latitude as 
+                  positive or negative number.
+        """
+
+        # Input checking.
+        if degrees < 0 or type(degrees) != int:
+            raise ValueError("Expected a positive degrees int value.")
+        if minutes < 0 or type(minutes) != int:
+            raise ValueError("Expected a positive minutes int value.")
+        if seconds < 0 or type(seconds) != int:
+            raise ValueError("Expected a positive seconds int value.")
+
+        degreesInt = int(degrees)
+        minutesInt = int(minutes)
+        secondsInt = int(seconds)
+
+        polarityMultiplier = 1.0
+
+        if str(polarity) == "N":
+            polarityMultiplier = 1.0
+        elif str(polarity) == "S":
+            polarityMultiplier = -1.0
+        else: 
+            # Input is invalid.
+            raise ValueError("Latitude polarity value wasn't 'N' or 'S'")
+
+        # Do the calculation.
+        latitudeDegrees = \
+            polarityMultiplier * \
+            (float(degreesInt) + (minutesInt / 60.0) + (secondsInt / 3600.0))
+
+        return latitudeDegrees
+
+
+    def longitudeToDegMinSec(longitudeDegrees):
+        """Static class function for converting the longitude from a float
+        degrees to a tuple of degrees, minutes, seconds, and polarity string.
+
+        Argument:
+        longitudeDegrees - float value holding the degrees of the 
+                  longitude as positive or negative number.
+                  Positive numbers are East, Negative numbers are West.
+
+        Returns:
+
+          tuple (degrees, minutes, seconds, polarity)
+          where:
+
+             degrees - int value of the degrees (positive value).
+             minutes - int vlaue of the number of minutes.
+             seconds - int value of the number of seconds.
+             polarity - str value of either "E" or "W".
+        """
+
+        polarity = ""
+        if longitudeDegrees < 0:
+            polarity = 'W'
+        else:
+            polarity = 'E'
+
+        degrees = int(abs(longitudeDegrees))
+        minutesFloat = (abs(longitudeDegrees) - float(degrees)) * 60.0
+        minutes = int(minutesFloat)
+        secondsFloat = (minutesFloat - float(minutes)) * 60.0
+        seconds = int(round(secondsFloat))
+        
+        return (degrees, minutes, seconds, polarity)
+    
+    def longitudeToDegrees(degrees, minutes, seconds, polarity):
+        """Static class function for converting from 
+        degrees, minutes, seconds, polarity to a float value of degrees.
+
+        Arguments:
+
+        degrees - float value of the degrees (positive value).
+        minutes - float vlaue of the number of minutes.
+        seconds - float value of the number of seconds.
+        polarity - str value of either "E" or "W".
+
+        Returns:
+
+        longitudeDegrees - float value holding the degrees of the 
+                  longitude as positive or negative number.
+                  Positive numbers are East, Negative numbers are West.
+        """
+
+        # Input checking.
+        if degrees < 0 or type(degrees) != int:
+            raise ValueError("Expected a positive degrees int value.")
+        if minutes < 0 or type(minutes) != int:
+            raise ValueError("Expected a positive minutes int value.")
+        if seconds < 0 or type(seconds) != int:
+            raise ValueError("Expected a positive seconds int value.")
+
+        degreesInt = int(degrees)
+        minutesInt = int(minutes)
+        secondsInt = int(seconds)
+
+        polarityMultiplier = 1.0
+
+        if str(polarity) == "E":
+            polarityMultiplier = 1.0
+        elif str(polarity) == "W":
+            polarityMultiplier = -1.0
+        else: 
+            # Input is invalid.
+            raise ValueError("Longitude polarity value wasn't 'E' or 'W'")
+
+        # Do the calculation.
+        longitudeDegrees = \
+            polarityMultiplier * \
+            (float(degreesInt) + (minutesInt / 60.0) + (secondsInt / 3600.0))
+
+        return longitudeDegrees
 
 
 # For debugging the classes during development.  

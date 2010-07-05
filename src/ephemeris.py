@@ -254,6 +254,18 @@ class Ephemeris:
     # We make mods to this variable to add options.
     iflag = 0
 
+    # Holds the longitude, latitude, and altitude representing the 
+    # geographic positions to use in calculations of houses 
+    # (and in topocentric calculations).
+    #
+    # Note: 
+    # Positive longitude degrees refer to East, and 
+    # negative longitude degrees refer to West.
+    geoLongitudeDeg = 0
+    geoLatitudeDeg = 0
+    geoAltitudeMeters = 0
+    
+
     @staticmethod
     def initialize():
         """Initializes the Ephemeris with default settings."""
@@ -302,7 +314,8 @@ class Ephemeris:
         """Sets the position for planetary calculations.
 
         Parameters:
-        geoLongitudeDeg - Longitude in degrees.  West longitudes are negative,
+        geoLongitudeDeg - Longitude in degrees.  
+                          West longitudes are negative,
                           East longitudes are positive.
                           Value should be in the range of -180 to 180.
         geoLatitudeDeg  - Latitude in degrees.  North latitudes are positive, 
@@ -323,7 +336,20 @@ class Ephemeris:
             Ephemeris.log.warn("Latitude specified was not between " + \
                                "-90 and 90.")
 
+        # Set the topo values for use in topo calculations.
         swe.set_topo(geoLatitudeDeg, geoLatitudeDeg, altitudeMeters)
+
+        # Save off the values for future use (when getting house positions).
+        Ephemeris.geoLongitudeDeg = geoLongitudeDeg
+        Ephemeris.geoLatitudeDeg = geoLatitudeDeg
+        Ephemeris.geoAltitudeMeters = altitudeMeters
+
+        infoStr = "Setting geographic location to: " + \
+            "(lon={}, lat={}, alt={})".\
+            format(Ephemeris.geoLongitudeDeg,
+                   Ephemeris.geoLatitudeDeg,
+                   Ephemeris.geoAltitudeMeters)
+        Ephemeris.log.info(infoStr)
 
         Ephemeris.log.debug("Leaving setGeographicPosition()")
 
@@ -1541,7 +1567,8 @@ if __name__=="__main__":
     Ephemeris.initialize()
 
     # Set the Location (required).
-    Ephemeris.setGeographicPosition(-77.084444, 38.890277)
+    #Ephemeris.setGeographicPosition(-77.084444, 38.890277)
+    Ephemeris.setGeographicPosition(-77.084444, 38.890277, -68)
 
     # Get the current time, which we will use to get planetary info.
     #now = datetime.datetime.utcnow()
