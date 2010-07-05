@@ -195,15 +195,12 @@ class PlanetaryInfo:
     def toString(self):
         """Returns a string representation of this object."""
 
-        # Datetime format to datetime.strftime().
-        fmt = "%Y-%m-%d %H:%M:%S.%f %Z%z"
-
         formatStr = "[name={}, id={}, datetime={}, julianDay={}, " + \
                     "geocentric={}, topocentric={}, heliocentric={}]"
 
         returnStr = formatStr.format(self.name, 
                                      self.id, 
-                                     self.dt.strftime(fmt),
+                                     Ephemeris.datetimeToStr(self.dt),
                                      self.julianDay,
                                      self.geocentric,
                                      self.topocentric,
@@ -307,7 +304,10 @@ class Ephemeris:
         Parameters:
         geoLongitudeDeg - Longitude in degrees.  West longitudes are negative,
                           East longitudes are positive.
-        geoLatitudeDeg  - Latitude in degrees.
+                          Value should be in the range of -180 to 180.
+        geoLatitudeDeg  - Latitude in degrees.  North latitudes are positive, 
+                          south latitudes are negative.  
+                          Value should be in the range of -90 to 90.
         altitudeMeters  - Altitude in meters.
         """
 
@@ -315,6 +315,13 @@ class Ephemeris:
         Ephemeris.log.debug(debugStr.format(geoLongitudeDeg, 
                                             geoLatitudeDeg,
                                             altitudeMeters))
+
+        if geoLongitudeDeg < -180 or geoLongitudeDeg > 180:
+            Ephemeris.log.warn("Longitude specified was not between " + \
+                               "-180 and 180.")
+        if geoLatitudeDeg < -90 or geoLatitudeDeg > 90:
+            Ephemeris.log.warn("Latitude specified was not between " + \
+                               "-90 and 90.")
 
         swe.set_topo(geoLatitudeDeg, geoLatitudeDeg, altitudeMeters)
 
@@ -411,6 +418,72 @@ class Ephemeris:
                             "jd={} to datetime={}".format(jd, dt))
 
         return dt
+
+    def datetimeToStr(datetimeObj):
+        """Returns a string representation of a datetime.datetime object.
+        Normally we wouldn't need to do this, but the datetime.strftime()
+        does not work on years less than 1900. 
+
+        Arguments:
+        datetimeObj - datetime.datetime object with a tzinfo defined.
+
+        Returns:
+        String holding the info about the datetime.datetime object, in 
+        the datetime.strftime() format:  "%Y-%m-%d %H:%M:%S.%f %Z%z"
+        """
+
+        # Timezone name string, extracted from datetime.tzname().
+        # This accounts for the fact that datetime.tzname() can return None.
+        tznameStr = datetimeObj.tzname()
+        if tznameStr == None:
+            tznameStr = ""
+
+        # Return the formatted string.
+        return "{:04}-{:02}-{:02} {:02}:{:02}:{:02}.{:06} {}{}".\
+            format(datetimeObj.year,
+                   datetimeObj.month,
+                   datetimeObj.day,
+                   datetimeObj.hour,
+                   datetimeObj.minute,
+                   datetimeObj.second,
+                   datetimeObj.microsecond,
+                   tznameStr,
+                   Ephemeris.getTimezoneOffsetFromDatetime(datetimeObj))
+
+
+    def getTimezoneOffsetFromDatetime(datetimeObj):
+        """Extracts the string that holds the time offset from UTC from 
+        the given datetime object.  This is the string that would be 
+        outputted from a call to datetime.strftime("%z"), in the format 
+        that is the exact same (e.g., "+0230", "-0500", etc.).   
+        We have to extract this information manually because 
+        datetime.strftime() raises a ValueError exception if the year 
+        in the datetime object is less than 1900.
+
+        Arguments: 
+        datetimeObj - datetime.datetime object with a tzinfo defined.
+
+        Returns:
+        String holding the time offset from UTC.
+        """
+
+        offsetStr = ""
+
+        timeDelta = datetimeObj.utcoffset()
+        offsetSeconds = (timeDelta.days * (24 * 60 * 60)) + timeDelta.seconds
+
+        if offsetSeconds < 0:
+            offsetStr += "-"
+        else:
+            offsetStr += "+"
+
+        offsetHours = abs(offsetSeconds) // (60 * 60)
+        offsetMinutes = (abs(offsetSeconds) - (offsetHours * 60 * 60)) // 60
+
+        offsetStr += "{:02}".format(offsetHours)
+        offsetStr += "{:02}".format(offsetMinutes)
+
+        return offsetStr
 
 
     @staticmethod
@@ -1555,9 +1628,8 @@ if __name__=="__main__":
     amsterdam = pytz.timezone('Europe/Amsterdam')
     dt = Ephemeris.julianDayToDatetime(jd, amsterdam)
     print("jd to asterdam datetime is: {}".format(dt))
-    fmt = '%Y-%m-%d %H:%M:%S %Z%z'
     print("jd to asterdam datetime formatted is: {}".\
-          format(dt.strftime(fmt)))
+          format(Ephemeris.datetimeToStr(dt)))
 
 
     dt = Ephemeris.julianDayToDatetime(jd, pytz.utc)

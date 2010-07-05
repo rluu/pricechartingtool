@@ -88,15 +88,20 @@ class GeoNames:
 
         except urllib.error.URLError as e:
             GeoNames.log.error("Couldn't open the URL due to the " + \
-                               "following reason: " + e)
+                               "following reason: " + e.reason.strerror)
             retVal = False
 
 
         return retVal
 
 
-    def search(placename="", searchStr="", country="", maxRows="100", 
-               countryBias=COUNTRY_BIAS_DEFAULT, lang=LANGUAGE_DEFAULT, fuzzy="1"):
+    def search(placename="", 
+               searchStr="", 
+               country="", 
+               maxRows="100", 
+               countryBias=COUNTRY_BIAS_DEFAULT, 
+               lang=LANGUAGE_DEFAULT, 
+               fuzzy="1"):
         """Does a query for locations matching various search parameters.
         It uses the 'search' function of the GeoNames web service.
 
@@ -826,11 +831,13 @@ class GeoInfo:
         fcodeName   - String containing the name of the feature code.
         population  - Integer containing the population of the GeoInfo place.
         elevation   - Float value for the elevation in meters.
-        continentCode - String holding the code for the Continent of the place.
+        continentCode - String holding the code for the Continent of the 
+                        place.
         adminCode1  - String holding the admin code for this location.
                       In the United States this is "VA" for Virginia.
         adminName1  - String holding the admin name for this location.
-                      In the United States this is the state (e.g., "Virginia")
+                      In the United States this is the state 
+                      (e.g., "Virginia")
         adminCode2  - String holding the second admin code for this location.
                       In the United States this is the County number code.
         adminName2  - String holding the second admin name for this location.
@@ -860,10 +867,11 @@ class GeoInfo:
         self.timezone = timezone
 
     def latitudeBreakdown(self):
-        """Returns a tuple of (degrees, minutes, seconds, string) for the latitude
-        in this GeoInfo object.  
+        """Returns a tuple of (degrees, minutes, seconds, string) for the
+        latitude in this GeoInfo object.  
 
-        degrees, minutes, and seconds are int values, and string is 'N' or 'S'.
+        degrees, minutes, and seconds are int values, and string is 
+        'N' or 'S'.
         """
 
         string = ""
@@ -873,19 +881,20 @@ class GeoInfo:
             string = "S"
 
         degrees = int(abs(self.latitude))
-        minutesFloat = (abs(self.latitude) - float(degrees)) / 60.0
+        minutesFloat = (abs(self.latitude) - float(degrees)) * 60.0
         minutes = int(minutesFloat)
-        secondsFloat = (minutesFloat - float(minutes)) / 60.0
+        secondsFloat = (minutesFloat - float(minutes)) * 60.0
         seconds = round(secondsFloat)
 
         return (degrees, minutes, seconds, string)
 
 
     def longitudeBreakdown(self):
-        """Returns a tuple of (degrees, minutes, seconds, string) for the longitude
-        in this GeoInfo object.  
+        """Returns a tuple of (degrees, minutes, seconds, string) for 
+        the longitude in this GeoInfo object.  
 
-        degrees, minutes, and seconds are int values, and string is 'E' or 'W'.
+        degrees, minutes, and seconds are int values, and 
+        string is 'E' or 'W'.
         """
 
         string = ""
@@ -895,9 +904,9 @@ class GeoInfo:
             string = 'E'
 
         degrees = int(abs(self.longitude))
-        minutesFloat = (abs(self.latitude) - float(degrees)) / 60.0
+        minutesFloat = (abs(self.longitude) - float(degrees)) * 60.0
         minutes = int(minutesFloat)
-        secondsFloat = (minutesFloat - float(minutes)) / 60.0
+        secondsFloat = (minutesFloat - float(minutes)) * 60.0
         seconds = round(secondsFloat)
         
         return (degrees, minutes, seconds, string)
@@ -908,7 +917,9 @@ class GeoInfo:
         """
 
         (degrees, minutes, seconds, string) = self.latitudeBreakdown()
-        retVal = "{}\xb0 {}' {}\" {}".format(degrees, minutes, seconds, string)
+        retVal = "{}\xb0 {}' {}\" {}".\
+            format(degrees, minutes, seconds, string)
+
         return retVal
 
     def longitudeStr(self):
@@ -916,7 +927,9 @@ class GeoInfo:
         """
 
         (degrees, minutes, seconds, string) = self.longitudeBreakdown()
-        retVal = "{}\xb0 {}' {}\" {}".format(degrees, minutes, seconds, string)
+        retVal = "{}\xb0 {}' {}\" {}".\
+            format(degrees, minutes, seconds, string)
+
         return retVal
 
 
