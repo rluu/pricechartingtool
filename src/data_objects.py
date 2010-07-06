@@ -88,6 +88,7 @@ class BirthInfo:
         # Create the logger.
         self.log = logging.getLogger("data_objects.BirthInfo")
 
+        # Store values.
         self.year = year
         self.month = month
         self.day = day
@@ -113,16 +114,118 @@ class BirthInfo:
         self.timeOffsetLMTRadioButtonState = \
                 timeOffsetLMTRadioButtonState
 
+        # Check inputs.
+        # Only one of the following flags should be True,
+        # and they should not all be False.
+        #
+        #     timeOffsetAutodetectedRadioButtonState
+        #     timeOffsetManualEntryRadioButtonState
+        #     timeOffsetLMTRadioButtonState
+        trueCount = 0
+        if timeOffsetAutodetectedRadioButtonState == True:
+            trueCount += 1
+        if timeOffsetManualEntryRadioButtonState == True:
+            trueCount += 1
+        if timeOffsetLMTRadioButtonState == True:
+            trueCount += 1
+
+        if trueCount == 0:
+            # Log an error.  One of the three options should have been chosen.
+            errStr = "Invalid arguments specified.  One of the " + \
+                     "radio buttons should be checked."
+            self.log.error(errStr)
+            raise ValueError(errStr)
+        elif trueCount > 1:
+            # Log an error.  More than one can't be True.
+            errStr = "Invalid arguments specified.  Only one of the " + \
+                     "radio buttons can be checked."
+            self.log.error(errStr)
+            raise ValueError(errStr)
+
+
     def getBirthUtcDatetime(self):
         """Takes the date, time and timezone information in this 
         object and converts it to a UTC datetime.datetime object,
         such that it represents the same moment in time.
+        This datetime.datetime object is returned.
+
+        Returns:
+        datetime.datetime that represents the birth time, in UTC time.
         """
+
         self.log.debug("Entered getBirthUtcDatetime()")
 
-        # TODO:  write this function.
+        # Return value.
+        datetimeObj = None
+
+        # Create a native datetime.datetime object first.
+        nativeDatetimeObj = \
+            datetime.datetime(self.year,
+                              self.month,
+                              self.day,
+                              self.hour,
+                              self.minute,
+                              self.second)
+
+        # See which timezone mode is specified.
+
+        if self.timeOffsetAutodetectedRadioButtonState == True:
+            # Create a timezone object to be used.
+            timezone = pytz.timezone(self.timezoneName)
+
+            # Localize the datetime.datetime to the timezone specified.
+            localizedDatetimeObj = timezone.localize(nativeDatetimeObj)
+
+            # Get the datetime.datetime in UTC.
+            datetimeObj = localizedDatetimeObj.astimezone(pytz.utc)
+
+        elif self.timeOffsetManualEntryRadioButtonState == True:
+            # Localize the datetime.datetime as UTC.
+            utcDatetimeObj = pytz.utc.localize(nativeDatetimeObj)
+
+            # Add the offset.  We can do this type of arithmetic
+            # because the datetime.datetime is now in UTC and there
+            # are no daylight savings shifts to worry about.
+            numSeconds = \
+                (self.timezoneManualEntryHours * 60 * 60) + \
+                (self.timezoneManualEntryMinutes * 60)
+
+            if self.timezoneManualEntryEastWestComboBoxValue == 'E':
+                numSeconds *= -1
+
+            datetimeObj = \
+                utcDatetimeObj + datetime.timedelta(seconds=numSeconds)
+            
+        elif self.timeOffsetLMTRadioButtonState == True:
+            # For the LMT conversion to UTC, should I be
+            # taking into account the axis tilt of the Earth (23.5
+            # degrees) and the precession of the equinoxes for the
+            # calculation of the time offset from UTC?
+
+            # Perhaps that's the right way to do it, but I'm lazy
+            # and will just do the technique advocated and used by
+            # everyone else, which is a simple 4 minutes of time for
+            # each 1 arc degree of longitude.
+
+
+            # Localize the datetime.datetime as UTC.
+            utcDatetimeObj = pytz.utc.localize(nativeDatetimeObj)
+
+            # Use 4 minutes of time offset for each longitude degree away
+            # from 0.
+            timeShiftMinutes = self.longitudeDegrees * -4.0
+
+            # Add the time delta and use that as the datetime.
+            datetimeObj = \
+                utcDatetimeObj + datetime.timedelta(minutes=timeShiftMinutes)
+        else:
+            # Log an error.  This should never happen since we checked
+            # the inputs in __init__().
+            self.log.warn("None of the radio buttons were checked!")
 
         self.log.debug("Leaving getBirthUtcDatetime()")
+        return datetimeObj
+
 
     def __str__(self):
         """Returns the string representation of this object."""

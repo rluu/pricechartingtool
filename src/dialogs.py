@@ -1541,8 +1541,6 @@ class BirthInfoEditWidget(QWidget):
         
 
         # Timezone widgets.
-        self.timeOffsetLabel = QLabel("Time Offset:")
-
         self.autodetectedOffsetRadioButton = \
             QRadioButton("Autodetected time&zone time offset")
         self.autodetectedOffsetRadioButton.setChecked(True)
@@ -1598,7 +1596,6 @@ class BirthInfoEditWidget(QWidget):
             QRadioButton("Local Mean &Time (for really old dates)")
         
         self.timeOffsetLayout = QVBoxLayout()
-        self.timeOffsetLayout.addWidget(self.timeOffsetLabel)
         self.timeOffsetLayout.addWidget(self.autodetectedOffsetRadioButton)
         self.timeOffsetLayout.addLayout(self.timezoneLayout)
         self.timeOffsetLayout.addLayout(self.timeOffsetValueLayout)
@@ -1877,10 +1874,27 @@ class BirthInfoEditWidget(QWidget):
 
 
     def loadBirthInfo(self, birthInfoObj):
+        """Loads the edit widgets with the data contained in the given
+        BirthInfo object.
+
+        Arguments:
+        birthInfoObj - BirthInfo object containing data attributes for
+        all the birth info fields that can be editted with this widget.
+        """
+
         # TODO:  write this function.
         pass
 
     def getBirthInfo(self):
+        """Extracts from all the widgets, the edit widget state and
+        the birth information, and returns this information as 
+        a BirthInfo object.
+
+        Returns:
+        BirthInfo - Fully populated BirthInfo object, holding the
+        fields and state of this edit widget.
+        """
+
         # TODO:  write this function.
         pass
 
