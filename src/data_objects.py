@@ -21,6 +21,7 @@ class BirthInfo:
                  minute=0,
                  second=0,
                  locationName="",
+                 countryName="",
                  longitudeDegrees=0,
                  latitudeDegrees=0,
                  elevation=0,
@@ -46,11 +47,14 @@ class BirthInfo:
         hour             - int value for the birth hour.
         minute           - int value for the birth minute.
         second           - int value for the birth second.
-        locationName     - str value for the birth location name.
+        locationName     - str value for the birth location (city, etc.).
+        countryName      - str value containing country name.
         longitudeDegrees - float value for the geographical longitude 
-                           location of birth. 
+                           location of birth.  Positive longitudes refer
+                           to East, and negative longitudes refer to West.
         latitudeDegrees  - float value for the geographical latitude 
-                           location of birth.
+                           location of birth.  Positive latitudes refer to
+                           North, and negative latitudes refer to South.
         elevation        - int value for the birth location elevation 
                            in meters.
         timezoneName     - str value holding the name of the timezone.  
@@ -97,6 +101,7 @@ class BirthInfo:
         self.minute = minute
         self.second = second
         self.locationName = locationName
+        self.countryName = countryName
         self.longitudeDegrees = longitudeDegrees
         self.latitudeDegrees = latitudeDegrees
         self.elevation = elevation
@@ -238,6 +243,7 @@ class BirthInfo:
              "minute={}, ".format(self.minute) + \
              "second={}, ".format(self.second) + \
              "locationName={}, ".format(self.locationName) + \
+             "countryName={}, ".format(self.countryName) + \
              "longitudeDegrees={}, ".format(self.longitude)+ \
              "elevation={}, ".format(self.elevation) + \
              "timezoneName={}, ".format(self.timezoneName) + \

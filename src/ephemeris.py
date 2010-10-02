@@ -490,7 +490,7 @@ class Ephemeris:
         datetimeObj - datetime.datetime object with a tzinfo defined.
 
         Returns:
-        String holding the time offset from UTC.
+        str holding the time offset from UTC.
         """
 
         offsetStr = ""

@@ -200,7 +200,6 @@ class LoadDataFileWidget(QWidget):
     price data.
     """
 
-
     # Signal emitted when the data file to be loaded has been 
     # validated or becomes unvalidated.  
     # Emitting True means the data file was found to be valid.  
@@ -972,8 +971,17 @@ class LocationTimezoneEditWidget(QWidget):
         if index == -1:
             return
 
-        qvariant = self.resultsComboBox.itemData(index)
-        geoInfo = qvariant.toPyObject()
+        # This part is a bit tricky because PyQt has been changing how
+        # QVariant data is stored and converted in combo boxes.
+        # So here we do some extra checks before casting.
+        maybeQVariant = self.resultsComboBox.itemData(index)
+        geoInfo = GeoInfo()
+        if isinstance(maybeQVariant, QVariant):
+            # This is really a QVariant, so use toPyObject().
+            geoInfo = maybeQVariant.toPyObject()
+        else:
+            # PyQt converted it already for us.
+            geoInfo = maybeQVariant
 
         # Make sure geoInfo is not None.  We need it in order to get the
         # timezone information.  It should never be None.
@@ -1626,7 +1634,7 @@ class BirthInfoEditWidget(QWidget):
 
         # Connect signals and slots.
         self.okayButton.clicked.connect(self._handleOkayButtonClicked)
-        self.cancelButton.clicked.connect(self.cancelButtonClicked)
+        self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
 
         self.searchInAllCountriesButton.clicked.\
             connect(self._handleSearchInAllCountriesButtonClicked)
@@ -1882,8 +1890,112 @@ class BirthInfoEditWidget(QWidget):
         all the birth info fields that can be editted with this widget.
         """
 
-        # TODO:  write this function.
-        pass
+        self.monthSpinBox.setValue(birthInfoObj.month)
+        self.daySpinBox.setValue(birthInfoObj.day)
+        self.yearSpinBox.setValue(birthInfoObj.year)
+
+        # Try to find the index that matches the calendar string that is
+        # stored in the BirthInfo object.
+        indexToSet = \
+            self.calendarComboBox.findText(birthInfoObj.calendar)
+
+        # If the calendar type is not found, then default to whatever the
+        # default is at widget creation.
+        if indexToSet == -1:
+            errStr = "Calendar type '" + birthInfoObj.calendar + \
+                     "' is not supported.  Defaulting to " + \
+                     self.calendarComboBox.currentText()
+            self.log.error(errStr)
+            QMessageBox.warning(None, "Error", errStr)
+        else:
+            # Valid index, so set the combo box.
+            self.calendarComboBox.setCurrentIndex(indexToSet)
+
+        self.hourSpinBox.setValue(birthInfoObj.hour)
+        self.minuteSpinBox.setValue(birthInfoObj.minute)
+        self.secondSpinBox.setValue(birthInfoObj.second)
+
+        self.cityNameLineEdit.setText(birthInfoObj.locationName)
+
+        # Try to find the index that matches the countryName string that is
+        # stored in the BirthInfo object.
+        indexToSet = \
+            self.countriesComboBox.findText(birthInfoObj.countryName)
+
+        if indexToSet == -1:
+            # Couldn't find a match for the country name string.
+            errStr = "Attempted to load an unknown country name: " + \
+                birthInfoObj.countryName
+            self.log.error(errStr)
+            QMessageBox.warning(None, "Error", errStr)
+        else:
+            # Valid index, so set the combo box.
+            self.countriesComboBox.setCurrentIndex(indexToSet)
+
+        # No need to load anything into the
+        # birthPlaceSearchResultsComboBox.
+
+        # Convert longitude from a float value to degrees,
+        # minutes, seconds and East/West polarity.
+        (lonDegrees, lonMinutes, lonSeconds, lonPolarity) = \
+            GeoInfo.longitudeToDegMinSec(birthInfoObj.longitudeDegrees)
+        self.longitudeDegreesSpinBox.setValue(lonDegrees)
+        index = self.longitudeEastWestComboBox.findText(lonPolarity)
+        self.longitudeEastWestComboBox.setCurrentIndex(index)
+        self.longitudeMinutesSpinBox.setValue(lonMinutes)
+        self.longitudeSecondsSpinBox.setValue(lonSeconds)
+
+        # Need to convert latitude from float value to degrees, minutes,
+        # seconds and North/South polarity.
+        (latDegrees, latMinutes, latSeconds, latPolarity) = \
+            GeoInfo.latitudeToDegMinSec(birthInfoObj.latitudeDegrees)
+        self.latitudeDegreesSpinBox.setValue(latDegrees)
+        index = self.latitudeNorthSouthComboBox.findText(latPolarity)
+        self.latitudeNorthSouthComboBox.setCurrentIndex(index)
+        self.latitudeMinutesSpinBox.setValue(latMinutes)
+        self.latitudeSecondsSpinBox.setValue(latSeconds)
+
+        # Elevation.
+        self.elevationSpinBox.setValue(birthInfoObj.elevation)
+
+        # Timezone widgets.
+        self.autodetectedOffsetRadioButton.\
+            setChecked(birthInfoObj.timeOffsetAutodetectedRadioButtonState)
+        self.manualEntryRadioButton.\
+            setChecked(birthInfoObj.timeOffsetManualEntryRadioButtonState)
+        self.lmtRadioButton.\
+            setChecked(birthInfoObj.timeOffsetLMTRadioButtonState)
+
+        index = self.timezoneComboBox.findText(birthInfoObj.timezoneName)
+        if index != -1:
+            self.timezoneComboBox.setCurrentIndex(index)
+        else:
+            errStr = "Couldn't find the following timezone to load: '" + \
+                birthInfoObj.timezoneName + "'"
+            self.log.error(errStr)
+            QMessageBox.warning(None, "Error", errStr)
+
+        # Create and set the string for the timezone offset label.
+        self.timezoneOffsetValueLabel.\
+            setText(birthInfoObj.timezoneOffsetAbbreviation + " " + \
+                    birthInfoObj.timezoneOffsetValueStr)
+
+        # Set the manual entry widgets.
+        self.timeOffsetHoursSpinBox.\
+            setValue(birthInfoObj.timezoneManualEntryHours)
+        self.timeOffsetMinutesSpinBox.\
+            setValue(birthInfoObj.timezoneManualEntryMinutes)
+        index = self.timeOffsetEastWestComboBox.\
+            findData(birthInfoObj.timezoneManualEntryEastWestComboBoxValue)
+        if index != -1:
+            self.timeOffsetEastWestComboBox.setCurrentIndex(index)
+        else:
+            errStr = "Couldn't find the following manual entry timezone " + \
+                "offset east/west text to load: '" + \
+                birthInfoObj.timezoneManualEntryEastWestComboBoxValue + "'"
+            self.log.error(errStr)
+            QMessageBox.warning(None, "Error", errStr)
+
 
     def getBirthInfo(self):
         """Extracts from all the widgets, the edit widget state and
@@ -1895,8 +2007,78 @@ class BirthInfoEditWidget(QWidget):
         fields and state of this edit widget.
         """
 
-        # TODO:  write this function.
-        pass
+        # Do some conversions first before creating the returned BirthInfo
+        # object.
+
+        # Get the longitude in degrees float value.
+        longitudeDegrees = \
+            GeoInfo.\
+            longitudeToDegrees(self.longitudeDegreesSpinBox.value(),
+                               self.longitudeMinutesSpinBox.value(),
+                               self.longitudeSecondsSpinBox.value(),
+                               str(self.longitudeEastWestComboBox.\
+                                       currentText()))
+
+
+        # Get the latitude in degrees float value.
+        latitudeDegrees = \
+            GeoInfo.\
+            latitudeToDegrees(self.latitudeDegreesSpinBox.value(),
+                              self.latitudeMinutesSpinBox.value(),
+                              self.latitudeSecondsSpinBox.value(),
+                              str(self.latitudeNorthSouthComboBox.\
+                                      currentText()))
+
+        # Get the timezone abbreviation and timezone offset.  We have to
+        # jump through a bunch of hoops to get this.
+
+        timezoneString = str(self.timezoneComboBox.currentText())
+        # Create a timezone object.
+        tzinfoObj = pytz.timezone(timezoneString)
+        # Get int values from the QSpinBox widgets.
+        year = self.yearSpinBox.value()
+        day = self.daySpinBox.value()
+        month = self.monthSpinBox.value()
+        hour = self.hourSpinBox.value()
+        minute = self.minuteSpinBox.value()
+        second = self.secondSpinBox.value()
+        # Create the localized datetime object.
+        datetimeObj = \
+            datetime.datetime(year, month, day, hour, minute, second)
+        localizedDatetimeObj = tzinfoObj.localize(datetimeObj)
+
+        timezoneOffsetValueStr = \
+            Ephemeris.getTimezoneOffsetFromDatetime(localizedDatetimeObj)
+        # Here tzname() won't return None because we explicitly specified a
+        # pytz tzinfo to the datetime above.
+        timezoneOffsetAbbreviation = localizedDatetimeObj.tzname()
+
+        # Finally, create the BirthInfo object with all the required
+        # inputs.
+        rv = BirthInfo(self.yearSpinBox.value(),
+                       self.monthSpinBox.value(),
+                       self.yearSpinBox.value(),
+                       str(self.calendarComboBox.currentText()),
+                       self.hourSpinBox.value(),
+                       self.minuteSpinBox.value(),
+                       self.secondSpinBox.value(),
+                       str(self.cityNameLineEdit.text()),
+                       str(self.countriesComboBox.currentText()),
+                       longitudeDegrees,
+                       latitudeDegrees,
+                       self.elevationSpinBox.value(),
+                       str(self.timezoneComboBox.currentText()),
+                       timezoneOffsetAbbreviation,
+                       timezoneOffsetValueStr,
+                       self.timeOffsetHoursSpinBox.value(),
+                       self.timeOffsetMinutesSpinBox.value(),
+                       str(self.timeOffsetEastWestComboBox.currentText()),
+                       self.autodetectedOffsetRadioButton.isChecked(),
+                       self.manualEntryRadioButton.isChecked(),
+                       self.lmtRadioButton.isChecked())
+
+        return rv
+
 
     def _handleSearchInAllCountriesButtonClicked(self):
         """Uses GeoNames to do a lookup of a location based on the search
@@ -2000,10 +2182,21 @@ class BirthInfoEditWidget(QWidget):
         currIndex = self.countriesComboBox.currentIndex()
         countryName = self.countriesComboBox.itemText(currIndex)
 
-        # Must convert the country code from QString to Python str.
-        countryCodeQString = \
-            self.countriesComboBox.itemData(currIndex).toPyObject()
-        countryCode = str(countryCodeQString)
+        # This part is a bit tricky because PyQt has been changing how
+        # QVariant data is stored and converted in combo boxes.
+        # So here we do some extra checks before casting.
+        countryCode = ""
+        countryCodeQVariant = \
+            self.countriesComboBox.itemData(currIndex)
+        # Country code returned may be a QVariant storing a str 
+        # or QString.
+        if isinstance(countryCodeQVariant, QVariant):
+            # This is a QVariant, so turn it into a PyObject first before
+            # casting to str.
+            countryCode = str(countryCodeQVariant.toPyObject())
+        else:
+            # It is just a str.  Wrap it again for safety's sake.
+            countryCode = str(countryCodeQVariant)
 
         self.log.debug("countryName={}, countryCode={}".\
                        format(countryName, countryCode))
@@ -2091,8 +2284,17 @@ class BirthInfoEditWidget(QWidget):
         if index == -1:
             return
 
-        qvariant = self.birthPlaceSearchResultsComboBox.itemData(index)
-        geoInfo = qvariant.toPyObject()
+        # This part is a bit tricky because PyQt has been changing how
+        # QVariant data is stored and converted in combo boxes.
+        # So here we do some extra checks before casting.
+        maybeQVariant = self.birthPlaceSearchResultsComboBox.itemData(index)
+        geoInfo = GeoInfo()
+        if isinstance(maybeQVariant, QVariant):
+            # This is really a QVariant, so use toPyObject().
+            geoInfo = maybeQVariant.toPyObject()
+        else:
+            # PyQt converted it already for us.
+            geoInfo = maybeQVariant
 
         # Make sure geoInfo is not None.  We need it in order to get the
         # timezone information.  It should never be None.
@@ -2403,6 +2605,33 @@ class BirthInfoEditWidget(QWidget):
 
         if self.validate() == True:
             self.okayButtonClicked.emit()
+
+    def _handleCancelButtonClicked(self):
+        """Called when the cancel button is clicked.
+        This function does nothing but emit the 
+        self.cancelButtonClicked signal.
+        """
+
+        self.cancelButtonClicked.emit()
+
+class BirthInfoEditDialog(QDialog):
+    """QDialog for editing a birth time of defining a new birth time."""
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger("dialogs.BirthInfoEditDialog")
+
+        # TODO:  add code here for having an internal
+        # BirthInfoEditWidget.
+
+    # TODO:  add some functions to implement dialog functionality
+    # for what would be accept, rejected, etc. for the birth info edit
+    # dialog (according to actions taken in the internal 
+    # BirthInfoEditWidget object).
+
 
 
 # For debugging the module during development.  
