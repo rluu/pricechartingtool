@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 
 # For logging.
 import logging

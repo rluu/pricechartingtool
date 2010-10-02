@@ -27,6 +27,7 @@ import resources
 
 # For PriceBars
 from data_objects import PriceBar
+from data_objects import BirthInfo
 
 # For geocoding.
 from geonames import GeoNames
@@ -2617,22 +2618,38 @@ class BirthInfoEditWidget(QWidget):
 class BirthInfoEditDialog(QDialog):
     """QDialog for editing a birth time of defining a new birth time."""
 
-    def __init__(self, parent=None):
+    def __init__(self, birthInfo=BirthInfo(), parent=None):
+        """Initializes the QDialog with the info from birthInfo.
+
+        Paraters:
+        birthInfo - BirthInfo object to load the widgets with.
+        parent    - QWidget parent.
+        """
+
         super().__init__(parent)
 
         # Logger object for this class.
         self.log = logging.\
             getLogger("dialogs.BirthInfoEditDialog")
 
-        # TODO:  add code here for having an internal
-        # BirthInfoEditWidget.
+        # Create the contents.
+        self.birthInfoEditWidget = BirthInfoEditWidget()
+        self.birthInfoEditWidget.loadBirthInfo(birthInfo)
 
-    # TODO:  add some functions to implement dialog functionality
-    # for what would be accept, rejected, etc. for the birth info edit
-    # dialog (according to actions taken in the internal 
-    # BirthInfoEditWidget object).
+        # Setup the layout.
+        layout = QVBoxLayout()
+        layout.addWidget(self.birthInfoEditWidget)
+        self.setLayout(layout)
+
+        self.birthInfoEditWidget.okayButtonClicked.connect(self.accept)
+        self.birthInfoEditWidget.cancelButtonClicked.connect(self.reject)
 
 
+    def getBirthInfo(self):
+        """Returns the BirthInfo object as is/was displayed in the widgets.
+        """
+
+        return self.birthInfoEditWidget.getBirthInfo()
 
 # For debugging the module during development.  
 if __name__=="__main__":
@@ -2667,9 +2684,15 @@ if __name__=="__main__":
     #QMessageBox.warning(parent, "Error", msgStr)
 
     
-    bew = BirthInfoEditWidget()
-    bew.show()
+    #bew = BirthInfoEditWidget()
+    #bew.show()
 
+    #bied = BirthInfoEditDialog()
+    #if bied.exec() == QDialog.Accepted:
+    #    print("Accepted!")
+    #    print("BirthInfo accepted is: " + bied.getBirthInfo().toString())
+    #else:
+    #    print("Rejected!")
 
     # Exit the app when all windows are closed.
     app.connect(app, SIGNAL("lastWindowClosed()"), logging.shutdown)

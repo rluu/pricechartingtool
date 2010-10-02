@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 
 # For logging.
 import logging
@@ -235,6 +236,11 @@ class BirthInfo:
     def __str__(self):
         """Returns the string representation of this object."""
 
+        return self.toString()
+
+    def toString(self):
+        """Returns the string representation of this object."""
+
         rv = "[year={}, ".format(self.year) + \
              "month={}, ".format(self.month) + \
              "day={}, ".format(self.day) + \
@@ -244,7 +250,8 @@ class BirthInfo:
              "second={}, ".format(self.second) + \
              "locationName={}, ".format(self.locationName) + \
              "countryName={}, ".format(self.countryName) + \
-             "longitudeDegrees={}, ".format(self.longitude)+ \
+             "longitudeDegrees={}, ".format(self.longitudeDegrees) + \
+             "latitudeDegrees={}, ".format(self.latitudeDegrees) + \
              "elevation={}, ".format(self.elevation) + \
              "timezoneName={}, ".format(self.timezoneName) + \
              "timezoneOffsetAbbreviation={}, ".\
@@ -413,6 +420,10 @@ class PriceBar:
                "OpenInterest={}, ".format(self.oi) + \
                "Volume={}, ".format(self.vol) + \
                "Tags={}]".format(self.tags)
+    def __str__(self):
+        """Returns the string representation of the PriceBar data"""
+
+        return self.toString()
 
 
 class PriceChartDocumentData:
@@ -508,6 +519,13 @@ class PriceChartDocumentData:
                    format(self.settingsLocationTimezone) + \
                "settingsLastPriceBarIndexSelected={}]".\
                    format(self.settingsLastPriceBarIndexSelected)
+
+    def __str__(self):
+        """Returns the string representation of most of the attributes in this
+        PriceChartDocumentData object.
+        """
+
+        return self.toString()
 
     def __getstate__(self):
         """Returns the object's state for pickling purposes."""
