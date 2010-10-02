@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 
 # For directory and file access.
 import os
@@ -172,9 +170,17 @@ class PriceChartDocumentLocationTimezoneWizardPage(QWizardPage):
 
         # Register the fields.
         self.registerField("timezone*", \
-                           self.locationTimezoneEditWidget.timezoneComboBox)
+                           self.locationTimezoneEditWidget.timezoneComboBox,
+                           "currentText")
 
+    def isComplete(self):
+        """Returns True if inputs are all entered, otherwise returns False.
+        This function overrides the QWizardPage.isComplete() virtual
+        function.
+        """
 
+        # Combo box always has something valid.
+        return True
 
 class PriceChartDocumentConclusionWizardPage(QWizardPage):
     """A QWizardPage for presenting the conclusion to the QWizard."""
@@ -449,9 +455,12 @@ class LoadDataFileWidget(QWidget):
         dialog = QFileDialog();
 
         # Setup file filters.
-        filters = QStringList()
-        csvTextFilesFilter = "Text files (*.txt)"
-        allFilesFilter = "All files (*)"
+        csvTextFilesFilter = "Text files (*.txt)(*.txt)"
+        allFilesFilter = "All files (*)(*)"
+        #filters = QStringList()
+        #filters.append(csvTextFilesFilter)
+        #filters.append(allFilesFilter)
+        filters = []
         filters.append(csvTextFilesFilter)
         filters.append(allFilesFilter)
 
@@ -462,11 +471,13 @@ class LoadDataFileWidget(QWidget):
 
         # Run the dialog.
         if dialog.exec() == QDialog.Accepted:
-            # Get the selected files.
+            # Get the selected files. Note PyQt 4.7.5 returns QStringList
+            # as a Python list of str objects now.  This is different from
+            # the PyQt 4.6.
             selectedFiles = dialog.selectedFiles()
-            if selectedFiles.isEmpty() == False:
+            if len(selectedFiles) != 0:
                 # Set the QLineEdit with the filename.
-                self.filenameLineEdit.setText(selectedFiles.first())
+                self.filenameLineEdit.setText(selectedFiles[0])
 
         self.log.debug("Leaving handleBrowseButtonClicked()")
 
@@ -2660,9 +2671,26 @@ if __name__=="__main__":
     # Create the Qt application.
     app = QApplication(sys.argv)
 
-    #wizard = PriceChartDocumentWizard()
-    #wizard.show()
+    # Exit the app when all windows are closed.
+    app.connect(app, SIGNAL("lastWindowClosed()"), logging.shutdown)
+    app.connect(app, SIGNAL("lastWindowClosed()"), app, SLOT("quit()"))
 
+    wizard = PriceChartDocumentWizard()
+    returnVal = wizard.exec()
+
+    if returnVal == QDialog.Accepted:
+        print("Accepted!");
+        print("Data filename is: " + wizard.field("dataFilename"))
+        print("Data num lines to skip is: {}".\
+            format(wizard.field("dataNumLinesToSkip")))
+        print("Timezone is: " + wizard.field("timezone"))
+    else:
+        print("Rejected!")
+
+    # Quit.
+    print("Exiting.")
+    import sys
+    sys.exit()
 
     #loadDataFileWizardPage = \
     #    PriceChartDocumentLoadDataFileWizardPage()
@@ -2694,9 +2722,7 @@ if __name__=="__main__":
     #else:
     #    print("Rejected!")
 
-    # Exit the app when all windows are closed.
-    app.connect(app, SIGNAL("lastWindowClosed()"), logging.shutdown)
-    app.connect(app, SIGNAL("lastWindowClosed()"), app, SLOT("quit()"))
-    app.exec_()
+
+    #app.exec_()
     
 

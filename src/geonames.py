@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 
 # For opening the logging config file.
 import os

@@ -1,4 +1,3 @@
-#!/usr/bin/env python3 
 
 # For directory access.
 import os
