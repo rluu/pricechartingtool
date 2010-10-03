@@ -444,27 +444,93 @@ class PriceChartDocumentData:
         # List of PriceBar objects, sorted by timestamp.
         self.priceBars = []
 
+        # BirthInfo object for natal birth information.
+        self.birthInfo = BirthInfo()
+
         # Dictionary of str tag to QColor object.
         self.settingsSpreadsheetTagColors = {}
 
         # List of the class names of SpreadsheetCalcFormulas utilized.
         self.settingsSpreadsheetCalcFormulas = []
 
-        # Configuration for location.
-        self.settingsLocationLongitude = 0
-        self.settingsLocationLatitude = 0
+
+        
+        # Settings information for the PriceBarChartWidget.
+        self.priceBarChartSettings = PriceBarChartSettings()
+
+        # Settings information for the PriceBarSpreadsheetWidget.
+        self.priceBarSpreadsheetSettings = PriceBarSpreadsheetSettings()
+
 
         # Configuration for the timezone used.  
         # This is the pytz.timezone object that is a subclass of 
         # datetime.tzinfo.
-        self.settingsLocationTimezone = pytz.utc
+        self.locationTimezone = pytz.utc
 
-        # Index in self.priceBars of the last PriceBar that was selected.  
-        # If none were selected at the time the application last closed, it
-        # will be default to index 0 if self.priceBars is non-empty, and -1
-        # if self.priceBars is empty.  This information allows the UI to 
-        # center on the same PriceBar the next time the application is opened.
-        self.settingsLastPriceBarIndexSelected = -1
+        # Configuration for the filename that holds the source price bar
+        # data.
+        self.priceBarsFileFilename = ""
+
+        # Configuration for the number of lines to skip in the file.
+        self.priceBarsFileNumLinesToSkip = 0
+
+
+    def setBirthInfo(self, birthInfo):
+        """Sets the birth natal information for this trading entity.
+        Parameters:
+            
+        birthInfo - BirthInfo object holding the birth information.
+        """
+
+        self.log.debug("Entered PricechartDocumentData.setBirthInfo()")
+
+        self.birthInfo = birthInfo
+
+        self.log.debug("Exiting PricechartDocumentData.setBirthInfo()")
+
+
+    def getBirthInfo(self):
+        """Returns the birth info used for this trading entity."""
+
+        return self.birthInfo
+
+
+    def loadWizardData(self, 
+                       priceBarsFileFilename, 
+                       priceBarsFileNumLinesToSkip,
+                       locationTimezone):
+        """Loads data into this class object from the information provided
+        in the parameters.
+
+        Parameters:
+
+        priceBarsFileFilename - str holding the filename of a CSV text
+                                file with price bar data.
+
+        priceBarsFileNumLinesToSkip - int holding number of lines to skip
+                                      in the file above before reading CSV 
+                                      pricebar data.
+
+        locationTimezone - Timezone name as a string, like "US/Eastern" or
+                           "UTC"
+        """
+
+        self.log.debug("Entered PricechartDocumentData.load()")
+
+        # Open the file and get the PriceBars.
+        # TODO: write this part.
+        priceBars = []
+
+
+        # Everything succeeded and passed validation.
+        # Store the data into variables in this class.
+        self.priceBars = priceBars
+        self.priceBarsFileFilename = priceBarsFileFilename
+        self.priceBarsFileNumLinesToSkip = priceBarsFileNumLinesToSkip
+        self.locationTimezone = locationTimezone
+
+
+        self.log.debug("Exiting PricechartDocumentData.load()")
 
 
     def getUniquePriceBarTags(self):
@@ -510,10 +576,6 @@ class PriceChartDocumentData:
                    format(self.settingsSpreadsheetTagColors) + \
                "settingsSpreadsheetCalcFormulas={}, ".\
                    format(self.settingsSpreadsheetCalcFormulas)+ \
-               "settingsLocationLongitude={}, ".\
-                   format(self.settingsLocationLongitude) + \
-               "settingsLocationLatitude={}, ".\
-                   format(self.settingsLocationLatitude) + \
                "settingsLocationTimezone={}, ".\
                    format(self.settingsLocationTimezone) + \
                "settingsLastPriceBarIndexSelected={}]".\
@@ -554,16 +616,62 @@ class PriceChartDocumentData:
                       " object of version " + self.classVersion)
 
 
-class GlobalDefaultSettings:
-    """Class that holds the default settings used in the PriceChartingTool.
+class DefaultSettingsFactory:
+    """Class that creates initial default settings to be used in 
+    the PriceChartingTool.
     """
-    # TODO:  determine if I should use this class and pickle it to a file in the conf directory, or if I should use the Qt QSettings object to save the settings.
-
-    # TODO:  determine what attributes/members should be part of this class.
+    # TODO:  determine what functions should be part of this class.
 
     def __init__(self):
         # TODO:  write this method
         pass
+
+class PriceBarChartSettings:
+    """Class that holds the default settings used in the
+    PriceBarChartWidget.
+    """
+
+    # TODO:  make this class pickle-able.
+
+    def __init__(self):
+        # Index in self.priceBars of the last PriceBar that was selected.  
+        # If none were selected at the time the application last closed, it
+        # will be default to index 0 if self.priceBars is non-empty, and -1
+        # if self.priceBars is empty.  This information allows the UI to 
+        # center on the same PriceBar the next time the application is opened.
+        self.settingsLastPriceBarIndexSelected = -1
+
+        # TODO:  fill this info in.
+        pass
+
+    def toString(self):
+        # Prints the string representation of this object.
+        # TODO:  write this method.
+        pass
+
+    def __str__(self):
+        # Prints the string representation of this object.
+        return self.toString()
+
+class PriceBarSpreadsheetSettings:
+    """Class that holds the default settings used in the
+    PriceBarSpreadsheetWidget.
+    """
+
+    # TODO:  make this class pickle-able.
+
+    def __init__(self):
+        # TODO:  fill this info in.
+        pass
+
+    def toString(self):
+        # Prints the string representation of this object.
+        # TODO:  write this method.
+        pass
+
+    def __str__(self):
+        # Prints the string representation of this object.
+        return self.toString()
 
 
 # For debugging during development.  

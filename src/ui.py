@@ -8,12 +8,23 @@ from PyQt4.QtGui import *
 # For icon images, etc.
 import resources
 
+# For dialogs for user input.
+from dialogs import *
+
+# For data objects manipulated in the ui.
+from data_objects import BirthInfo
+from data_objects import PriceChartDocumentData
+
+# For widgets used in the ui.
+from pricebarchart import *
+from pricebarspreadsheet import *
+
 
 class MainWindow(QMainWindow):
     """The QMainWindow class that is a multiple document interface (MDI)."""
 
     def __init__(self, appName, appVersion, appDate, parent=None):
-        super(MainWindow, self).__init__(parent)
+        super().__init__(parent)
 
         self.log = logging.getLogger("ui.MainWindow")
 
@@ -89,13 +100,13 @@ class MainWindow(QMainWindow):
         ####################
         # Create actions for the Edit Menu.
 
-        # Create the editBirthDataAction.
-        self.editBirthDataAction = QAction(QIcon(":/images/Edit.png"),
+        # Create the editBirthInfoAction.
+        self.editBirthInfoAction = QAction(QIcon(":/images/Edit.png"),
                 "&Edit Birth Data", self)
-        self.editBirthDataAction.setShortcut("Ctrl+e")
-        self.editBirthDataAction.setStatusTip(
+        self.editBirthInfoAction.setShortcut("Ctrl+e")
+        self.editBirthInfoAction.setStatusTip(
                 "Edit the name, birth time, and birth place")
-        self.editBirthDataAction.triggered.connect(self.editBirthData)
+        self.editBirthInfoAction.triggered.connect(self.editBirthInfo)
 
 
         # Create the editAppPreferencesAction.
@@ -168,7 +179,7 @@ class MainWindow(QMainWindow):
 
         # Create the Edit menu.
         self.editMenu = self.menuBar().addMenu("&Edit")
-        self.editMenu.addAction(self.editBirthDataAction)
+        self.editMenu.addAction(self.editBirthInfoAction)
         self.editMenu.addAction(self.editAppPreferencesAction)
 
         # Create the Window menu.
@@ -198,7 +209,7 @@ class MainWindow(QMainWindow):
 
         # Create the Edit toolbar.
         self.editToolBar = self.addToolBar("Edit")
-        self.editToolBar.addAction(self.editBirthDataAction)
+        self.editToolBar.addAction(self.editBirthInfoAction)
         self.editToolBar.addAction(self.editAppPreferencesAction)
 
     def createStatusBar(self):
@@ -222,8 +233,43 @@ class MainWindow(QMainWindow):
         pass
 
     def newChart(self):
-        self.log.debug("DEBUG: newChart()")
-        pass
+        """Opens a PriceChartDocumentWizard to load information for a new
+        price chart.
+        """
+
+        self.log.debug("Entered MainWindow.newChart()")
+
+        wizard = PriceChartDocumentWizard()
+        returnVal = wizard.exec() 
+
+        if returnVal == QDialog.Accepted:
+            self.log.debug("PriceChartDocumentWizard accepted");
+
+            self.log.debug("Data filename is: " + wizard.field("dataFilename"))
+            self.log.debug("Data num lines to skip is: {}".\
+                format(wizard.field("dataNumLinesToSkip")))
+            self.log.debug("Timezone is: " + wizard.field("timezone"))
+
+
+            priceChartDocumentData = PriceChartDocumentData()
+
+            priceChartDocumentData.\
+                loadWizardData(wizard.field("dataFilename"),
+                               wizard.field("dataNumLinesToSkip"),
+                               wizard.field("timezone"))
+
+            # Create a PriceChartDocument with the data.
+            priceChartDocument = \
+                PriceChartDocument(priceChartDocumentData)
+
+            # Add this priceChartDocument to the list of subwindows
+            # TODO:  write this part of the code.
+
+        else:
+            self.log.debug("PriceChartDocumentWizard rejected");
+
+
+        self.log.debug("Exiting MainWindow.newChart()")
 
     def openChart(self):
         self.log.debug("DEBUG: openChart()")
@@ -238,6 +284,7 @@ class MainWindow(QMainWindow):
         pass
 
     def exitApp(self):
+        self.log.debug("Entered MainWindow.exitApp()")
         self.log.debug("DEBUG: exitApp()")
 
         # Hmm, it appears that Alt-F4 does not cause this exitApp function to
@@ -246,11 +293,34 @@ class MainWindow(QMainWindow):
 
         # TODO:  add here some checking to save open unsaved files, and also settings.
 
+        self.log.debug("Exiting MainWindow.exitApp()")
         qApp.closeAllWindows()
 
-    def editBirthData(self):
-        self.log.debug("DEBUG: editBirthData()")
-        pass
+
+    def editBirthInfo(self):
+        """Opens up a BirthInfoEditDialog for editing the BirthInfo of the
+        current active PriceChartDocument.
+        """
+
+        self.log.debug("Entered MainWindow.editBirthInfo()")
+
+        # Get current active PriceChartDocument.
+        priceChartDocument = None # TODO: get the active price chart document.
+
+        # Get the BirthInfo.
+        birthInfo = priceChartDocument.priceChartDocumentData.getBirthInfo()
+
+        # Create a dialog to edit the birth info.
+        dialog = BirthInfoEditDialog(birthInfo)
+
+        if dialog.exec() == QDialog.Accepted:
+            self.log.debug("BirthInfoEditDialog accepted.  Data is: " + \
+                           dialog.getBirthInfo().toString())
+            priceChartDocument.priceChartDocumentData.setBirthInfo(birthInfo)
+        else:
+            self.log.debug("BirthInfoEditDialog rejected. Doing nothing more.")
+
+        self.log.debug("Exiting MainWindow.editBirthInfo()")
 
 
     def editAppPreferences(self):
@@ -263,16 +333,75 @@ class MainWindow(QMainWindow):
         pass
 
 
-class NewPriceChartDocumentDialog(QDialog):
-    """Dialog for creating a new PriceChartDocument."""
-
-    def __init__(self, parent=None, f=None):
-        self.log.debug("DEBUG: setting up NewChartDialog")
-        pass
-
 
 class PriceChartDocument(QMdiSubWindow):
     """QMdiSubWindow in the QMdiArea.  This window allows a user to 
     view and edit the data contained in a PriceChartDocumentData object.
     """
 
+    def __init__(self, 
+                 priceChartDocumentData=PriceChartDocumentData(), 
+                 parent=None):
+        """Creates the QMdiSubWindow with the internal widgets,
+        and loads the given PriceChartDocumentData object.
+        """
+        super().__init__(parent)
+
+        self.log = logging.getLogger("ui.PriceChartDocument")
+        self.log.debug("Entered PriceChartDocument()")
+
+        self.widgets = PriceChartDocumentWidget()
+        self.setWidget(self.widgets)
+
+        self.loadPriceChartDocumentData(priceChartDocumentData)
+
+        self.log.debug("Exiting PriceChartDocument()")
+
+    def getPriceChartDocumentData(self):
+        """Obtains all the data in the widgets and puts it into the
+        internal PriceChartDocumentData object, then returns that object.
+        """
+        self.log.\
+            debug("Entered PriceChartDocument.getPriceChartDocumentData()")
+
+        # TODO:  write this method.
+
+        self.log.\
+            debug("Exiting PriceChartDocument.getPriceChartDocumentData()")
+
+    def loadPriceChartDocumentData(self, priceChartDocumentData):
+        """Stores the PriceChartDocumentData and sets the widgets with the
+        information it requires.
+        """
+
+        self.log.\
+            debug("Entered PriceChartDocument.loadPriceChartDocumentData()")
+
+        self.priceChartDocumentData = priceChartDocumentData
+        # TODO:  write this method.
+
+        self.log.\
+            debug("Exiting PriceChartDocument.loadPriceChartDocumentData()")
+        
+
+class PriceChartDocumentWidget(QWidget):
+    """Internal widget within a PriceChartDocument (QMdiSubWindow) that
+    holds all the other widgets.  This basically serves as a QLayout
+    for the PriceChartDocument.
+    """
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        self.log = logging.getLogger("ui.PriceChartDocumentWidget")
+
+        # Create the internal widgets displayed.
+        self.priceBarChartWidget = PriceBarChartWidget()
+        self.priceBarSpreadsheetWidget = PriceBarSpreadsheetWidget()
+
+        # Setup the layout.
+        layout = QVBoxLayout()
+        layout.addWidget(self.priceBarChartWidget)
+        layout.addWidget(self.priceBarSpreadsheetWidget)
+        self.setLayout(layout)
+        

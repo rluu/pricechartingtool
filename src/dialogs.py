@@ -42,7 +42,6 @@ class PriceChartDocumentWizard(QWizard):
         PriceChartDocument."""
 
         super().__init__(parent)
-        #super().__init__(self, parent, f)
         #super(PriceChartDocumentWizard, self).__init__(parent)
 
         # Logger object for this class.
