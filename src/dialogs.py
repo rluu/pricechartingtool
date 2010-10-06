@@ -469,7 +469,7 @@ class LoadDataFileWidget(QWidget):
         dialog.selectNameFilter(csvTextFilesFilter)
 
         # Run the dialog.
-        if dialog.exec() == QDialog.Accepted:
+        if dialog.exec_() == QDialog.Accepted:
             # Get the selected files. Note PyQt 4.7.5 returns QStringList
             # as a Python list of str objects now.  This is different from
             # the PyQt 4.6.
@@ -2675,7 +2675,7 @@ if __name__=="__main__":
     app.connect(app, SIGNAL("lastWindowClosed()"), app, SLOT("quit()"))
 
     wizard = PriceChartDocumentWizard()
-    returnVal = wizard.exec()
+    returnVal = wizard.exec_()
 
     if returnVal == QDialog.Accepted:
         print("Accepted!");
@@ -2715,7 +2715,7 @@ if __name__=="__main__":
     #bew.show()
 
     #bied = BirthInfoEditDialog()
-    #if bied.exec() == QDialog.Accepted:
+    #if bied.exec_() == QDialog.Accepted:
     #    print("Accepted!")
     #    print("BirthInfo accepted is: " + bied.getBirthInfo().toString())
     #else:

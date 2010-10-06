@@ -300,7 +300,7 @@ class MainWindow(QMainWindow):
         self.log.debug("Entered MainWindow.newChart()")
 
         wizard = PriceChartDocumentWizard()
-        returnVal = wizard.exec() 
+        returnVal = wizard.exec_() 
 
         if returnVal == QDialog.Accepted:
             self.log.debug("PriceChartDocumentWizard accepted");
@@ -379,7 +379,7 @@ class MainWindow(QMainWindow):
         # Create a dialog to edit the birth info.
         dialog = BirthInfoEditDialog(birthInfo)
 
-        if dialog.exec() == QDialog.Accepted:
+        if dialog.exec_() == QDialog.Accepted:
             self.log.debug("BirthInfoEditDialog accepted.  Data is: " + \
                            dialog.getBirthInfo().toString())
             priceChartDocument.priceChartDocumentData.setBirthInfo(birthInfo)
