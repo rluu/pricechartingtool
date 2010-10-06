@@ -1,4 +1,7 @@
 
+# For obtaining the line separator.
+import os
+
 # For logging.
 import logging
 
@@ -34,6 +37,9 @@ class MainWindow(QMainWindow):
         self.appDate = appDate
         self.appIcon = QIcon(":/images/appIcon.png")
         
+        # Initialize the sequence number for untitled documents.
+        self.untitledDocSequenceNum = 1
+
         self.mdiArea = QMdiArea()
         self.setCentralWidget(self.mdiArea)
 
@@ -103,9 +109,8 @@ class MainWindow(QMainWindow):
         # Create the editBirthInfoAction.
         self.editBirthInfoAction = QAction(QIcon(":/images/Edit.png"),
                 "&Edit Birth Data", self)
-        self.editBirthInfoAction.setShortcut("Ctrl+e")
         self.editBirthInfoAction.setStatusTip(
-                "Edit the name, birth time, and birth place")
+                "Edit the birth time and birth location")
         self.editBirthInfoAction.triggered.connect(self.editBirthInfo)
 
 
@@ -221,8 +226,63 @@ class MainWindow(QMainWindow):
         """Updates the menu by enabling various QActions depending on the
         current state of the application."""
 
-        self.log.debug("updateMenus()")
+        self.log.debug("Entered updateMenus()")
+        print("DEBUG: Entered updateMenus()")
+
+        self.updateFileMenu()
+        self.updateEditMenu()
+        self.updateWindowMenu()
+
+        self.log.debug("Exiting updateMenus()")
+
+
+    def updateFileMenu(self):
+        """Updates the File menu according to the state of the current
+        document.
+        """
+
+        self.log.debug("Entered updateFileMenu()")
         # TODO:  write this funciton out.
+        self.log.debug("Exiting updateFileMenu()")
+
+
+    def updateEditMenu(self):
+        """Updates the Edit menu according to the state of the current
+        document.
+        """
+
+        self.log.debug("Entered updateEditMenu()")
+        # TODO:  write this funciton out.
+        self.log.debug("Exiting updateEditMenu()")
+
+    def updateWindowMenu(self):
+        """Updates the Window menu according to which documents are open
+        currently.
+        """
+
+        self.log.debug("Entered updateWindowMenu()")
+        # TODO:  write this funciton out.
+        self.log.debug("Exiting updateWindowMenu()")
+
+    def addSubWindow(self, widget):
+        """Adds a subwindow to the QMdiArea.  This subwindow is a
+        QMdiSubwindow created with the given QWidget 'widget'.
+        'widget' may be a QWidget or a QMdiSubWindow.
+        After adding the subwindow, the menus are updated appropriately.
+        """
+
+        self.log.debug("Entered addSubWindow()")
+
+        mdiSubWindow = self.mdiArea.addSubWindow(widget)
+        mdiSubWindow.show()
+
+        # Note: Setting the active window here will also cause updateMenus()
+        # to be called, which is what we want.
+        self.mdiArea.setActiveSubWindow(mdiSubWindow)
+
+        self.log.debug("Exiting addSubWindow()")
+
+
 
     def readSettings(self):
         self.log.debug("readSettings()")
@@ -262,9 +322,16 @@ class MainWindow(QMainWindow):
             priceChartDocument = \
                 PriceChartDocument(priceChartDocumentData)
 
-            # Add this priceChartDocument to the list of subwindows
-            # TODO:  write this part of the code.
+            # TODO:  Perhaps title-setting should be done in the
+            # PriceChartDocument class itself?  If so, remove
+            # self.untitledDocSequenceNum and use a class variable in
+            # PriceChartDocument.
+            title = "Untitled{}".format(self.untitledDocSequenceNum)
+            self.untitledDocSequenceNum += 1
+            priceChartDocument.setWindowTitle(title)
 
+            # Add this priceChartDocument to the list of subwindows
+            self.addSubWindow(priceChartDocument)
         else:
             self.log.debug("PriceChartDocumentWizard rejected");
 
@@ -285,7 +352,6 @@ class MainWindow(QMainWindow):
 
     def exitApp(self):
         self.log.debug("Entered MainWindow.exitApp()")
-        self.log.debug("DEBUG: exitApp()")
 
         # Hmm, it appears that Alt-F4 does not cause this exitApp function to
         # get called.
@@ -305,7 +371,7 @@ class MainWindow(QMainWindow):
         self.log.debug("Entered MainWindow.editBirthInfo()")
 
         # Get current active PriceChartDocument.
-        priceChartDocument = None # TODO: get the active price chart document.
+        priceChartDocument = None # TODO: get the active price chart document, error out if none exist.
 
         # Get the BirthInfo.
         birthInfo = priceChartDocument.priceChartDocumentData.getBirthInfo()
@@ -330,6 +396,21 @@ class MainWindow(QMainWindow):
 
     def about(self):
         self.log.debug("DEBUG: about()")
+
+        endl = os.linesep
+
+        title = "About"
+
+        message = self.appName + endl + \
+                  endl + \
+                  "Version: " + self.appVersion + endl + \
+                  "Released: " + self.appDate + endl + \
+                  endl + \
+                  "Author: Ryan Luu" + endl + \
+                  "Email: ryanluu@gmail.com"
+
+        QMessageBox.about(self, title, message);
+
         pass
 
 
@@ -352,6 +433,15 @@ class PriceChartDocument(QMdiSubWindow):
 
         self.widgets = PriceChartDocumentWidget()
         self.setWidget(self.widgets)
+
+        # According to the Qt QMdiArea documentation:
+        # 
+        #   When you create your own subwindow, you must set the
+        #   Qt.WA_DeleteOnClose  widget attribute if you want the window to
+        #   be deleted when closed in the MDI area. If not, the window will
+        #   be hidden and the MDI area will not activate the next subwindow.
+        #
+        self.setAttribute(Qt.WA_DeleteOnClose);
 
         self.loadPriceChartDocumentData(priceChartDocumentData)
 
@@ -392,7 +482,6 @@ class PriceChartDocumentWidget(QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
-
         self.log = logging.getLogger("ui.PriceChartDocumentWidget")
 
         # Create the internal widgets displayed.

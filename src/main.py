@@ -22,6 +22,8 @@ from ui import MainWindow
 # To initialize and shutdown the Ephemeris.
 from ephemeris import *
 
+# Import resources for the icon image.
+import resources
 
 ##############################################################################
 
@@ -70,6 +72,7 @@ def main():
     # Create the Qt application.
     app = QApplication(sys.argv)
     app.setApplicationName(APP_NAME)
+    app.setWindowIcon(QIcon(":/images/appIcon.png"))
 
     # Initialize the Ephemeris.
     Ephemeris.initialize()
@@ -77,7 +80,6 @@ def main():
     # Set a default location (required).
     Ephemeris.setGeographicPosition(-77.084444, 38.890277)
     
-
     # Create the main window for the app and show it.
     mainWindow = MainWindow(APP_NAME, APP_VERSION, APP_DATE)
     mainWindow.show()
