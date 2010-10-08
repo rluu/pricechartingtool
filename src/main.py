@@ -81,7 +81,11 @@ def main():
     Ephemeris.setGeographicPosition(-77.084444, 38.890277)
     
     # Create the main window for the app and show it.
-    mainWindow = MainWindow(APP_NAME, APP_VERSION, APP_DATE)
+    mainWindow = MainWindow(APP_NAME, 
+                            APP_VERSION, 
+                            APP_DATE, 
+                            APP_AUTHOR, 
+                            APP_AUTHOR_EMAIL)
     mainWindow.show()
 
     # Cleanup and close the application when the last window is closed.
@@ -89,7 +93,7 @@ def main():
     app.lastWindowClosed.connect(logging.shutdown)
     app.lastWindowClosed.connect(app.quit)
 
-    app.exec_()
+    return app.exec_()
 
 
 def parseCommandlineArgs():
@@ -124,7 +128,8 @@ def parseCommandlineArgs():
 ##############################################################################
 
 if __name__=="__main__":
-    main()
+    exitCode = main()
+    sys.exit(exitCode)
 
 ##############################################################################
 

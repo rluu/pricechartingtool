@@ -454,11 +454,8 @@ class LoadDataFileWidget(QWidget):
         dialog = QFileDialog();
 
         # Setup file filters.
-        csvTextFilesFilter = "Text files (*.txt)(*.txt)"
-        allFilesFilter = "All files (*)(*)"
-        #filters = QStringList()
-        #filters.append(csvTextFilesFilter)
-        #filters.append(allFilesFilter)
+        csvTextFilesFilter = "CSV Text files (*.txt)"
+        allFilesFilter = "All files (*)"
         filters = []
         filters.append(csvTextFilesFilter)
         filters.append(allFilesFilter)
