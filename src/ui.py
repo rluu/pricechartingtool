@@ -1,5 +1,5 @@
 
-# For obtaining the line separator.
+# For obtaining the line separator and directory separator.
 import os
 
 # For serializing and unserializing objects.
@@ -29,6 +29,13 @@ from pricebarspreadsheet import *
 class MainWindow(QMainWindow):
     """The QMainWindow class that is a multiple document interface (MDI)."""
 
+    # Filter for opening files of all types of file extensions.
+    allFilesFileFilter = "All files (*)"
+
+    # Default timeout for showing a message in the QStatusBar.
+    defaultStatusBarMessageTimeMsec = 4000
+
+    
     def __init__(self, 
                  appName, 
                  appVersion, 
@@ -49,7 +56,8 @@ class MainWindow(QMainWindow):
         self.appIcon = QIcon(":/images/appIcon.png")
         
         # Settings attributes that are set when _readSettings() is called.
-        self.defaultPriceChartDocumentDirectory = ""
+        self.defaultPriceChartDocumentOpenDirectory = ""
+        self.defaultPriceChartDocumentSaveDirectory = ""
         self.defaultPriceBarDataDirectory = ""
 
         # Set application details so the we can use QSettings default
@@ -244,14 +252,22 @@ class MainWindow(QMainWindow):
         """Updates the menu by enabling various QActions depending on the
         current state of the application."""
 
-        self.log.debug("Entered MainWindow._updateMenus()")
-        print("DEBUG: Entered _updateMenus()")
+        self.log.debug("Entered _updateMenus()")
+
+        # For debugging:
+        priceChartDocument = self.getActivePriceChartDocument()
+        if priceChartDocument == None:
+            print("DEBUG: Entered _updateMenus() with currently active " +
+                   "subwindow: == None")
+        else:
+            print("DEBUG: Entered _updateMenus() with currently active " +
+                   "subwindow: == " + priceChartDocument.toString())
 
         self._updateFileMenu()
         self._updateEditMenu()
         self._updateWindowMenu()
 
-        self.log.debug("Exiting MainWindow._updateMenus()")
+        self.log.debug("Exiting _updateMenus()")
 
 
     def _updateFileMenu(self):
@@ -269,18 +285,18 @@ class MainWindow(QMainWindow):
         document.
         """
 
-        self.log.debug("Entered MainWindow._updateEditMenu()")
+        self.log.debug("Entered _updateEditMenu()")
         # TODO:  write this funciton out.
-        self.log.debug("Exiting MainWindow._updateEditMenu()")
+        self.log.debug("Exiting _updateEditMenu()")
 
     def _updateWindowMenu(self):
         """Updates the Window menu according to which documents are open
         currently.
         """
 
-        self.log.debug("Entered MainWindow._updateWindowMenu()")
+        self.log.debug("Entered _updateWindowMenu()")
         # TODO:  write this funciton out.
-        self.log.debug("Exiting MainWindow._updateWindowMenu()")
+        self.log.debug("Exiting _updateWindowMenu()")
 
     def _addSubWindow(self, widget):
         """Adds a subwindow to the QMdiArea.  This subwindow is a
@@ -289,7 +305,7 @@ class MainWindow(QMainWindow):
         After adding the subwindow, the menus are updated appropriately.
         """
 
-        self.log.debug("Entered MainWindow._addSubWindow()")
+        self.log.debug("Entered _addSubWindow()")
 
         mdiSubWindow = self.mdiArea.addSubWindow(widget)
         mdiSubWindow.show()
@@ -298,7 +314,7 @@ class MainWindow(QMainWindow):
         # to be called, which is what we want.
         self.mdiArea.setActiveSubWindow(mdiSubWindow)
 
-        self.log.debug("Exiting MainWindow._addSubWindow()")
+        self.log.debug("Exiting _addSubWindow()")
 
     def getActivePriceChartDocument(self):
         """Returns a reference to the currently selected
@@ -320,28 +336,29 @@ class MainWindow(QMainWindow):
         TODO:  add documentation here.
         """
 
-        self.log.debug("Entered MainWindow._readSettings()")
+        self.log.debug("Entered _readSettings()")
 
         # Preference settings.
         settings = QSettings() 
 
-        # TODO:  write this function.
-        self.defaultPriceChartDocumentDirectory = ""
+        # TODO:  write this function to read these values in.
+        self.defaultPriceChartDocumentOpenDirectory = ""
+        self.defaultPriceChartDocumentSaveDirectory = ""
         self.defaultPriceBarDataDirectory = ""
 
-        self.log.debug("Exiting MainWindow._readSettings()")
+        self.log.debug("Exiting _readSettings()")
 
     def _writeSettings(self):
-        self.log.debug("Entered MainWindow._writeSettings()")
+        self.log.debug("Entered _writeSettings()")
         # TODO:  write this function.
-        self.log.debug("Exiting MainWindow._writeSettings()")
+        self.log.debug("Exiting _writeSettings()")
 
     def _newChart(self):
         """Opens a PriceChartDocumentWizard to load information for a new
         price chart.
         """
 
-        self.log.debug("Entered MainWindow._newChart()")
+        self.log.debug("Entered _newChart()")
 
         wizard = PriceChartDocumentWizard()
         returnVal = wizard.exec_() 
@@ -373,12 +390,37 @@ class MainWindow(QMainWindow):
             self.log.debug("PriceChartDocumentWizard rejected");
 
 
-        self.log.debug("Exiting MainWindow._newChart()")
+        self.log.debug("Exiting _newChart()")
 
     def _openChart(self):
-        self.log.debug("Entered MainWindow._openChartj()")
-        self.log.debug("Exiting MainWindow._openChart()")
-        pass
+        self.log.debug("Entered _openChart()")
+
+        # Set filters for what files are displayed.
+        filters = \
+            PriceChartDocument.fileFilter + ";;" + \
+            MainWindow.allFilesFileFilter
+
+        filename = \
+            QFileDialog.\
+                getOpenFileName(self, 
+                                "Open PriceChartDocument File",
+                                self.defaultPriceChartDocumentOpenDirectory,
+                                filters)
+
+        if filename != "":
+            # TODO:  write this part.
+            # Load the file.
+
+            # Update the statusbar to tell what file was opened.
+
+            # Set the directory where filename is to be the new
+            # self.defaultPriceChartDocumentOpenDirectory if it is
+            # different.
+        else:
+            self.log.debug("_openChart(): " +
+                           "No filename was selected for opening.")
+
+        self.log.debug("Exiting _openChart()")
 
     def _saveChart(self):
         """Saves the current subwindow to file.  If the document has not
@@ -388,7 +430,7 @@ class MainWindow(QMainWindow):
         Returns: True if the save action succeeded.
         """
 
-        self.log.debug("Entered MainWindow._saveChart()")
+        self.log.debug("Entered _saveChart()")
 
         # Return value.
         rv = True
@@ -434,23 +476,35 @@ class MainWindow(QMainWindow):
                     _picklePriceChartDocumentToFile(priceChartDocumentData,
                                                     filename)
 
-            # Clear the dirty flag if the operation was successful.
-            if rv == True:
-                self.log.debug("The file was saved.  " + \
-                               "Clearing the dirty flag...")
-                # Filename shouldn't have changed, so there's no need to
-                # set it again.
-                priceChartDocument.setDirtyFlag(False)
+                # Clear the dirty flag if the operation was successful.
+                if rv == True:
+                    # TODO:  add a better log message to info for what got
+                    # saved and to what file.
+
+                    self.log.debug("The file was saved.  " + \
+                                   "Clearing the dirty flag...")
+
+                    # Filename shouldn't have changed, so there's no need to
+                    # set it again.
+                    priceChartDocument.setDirtyFlag(False)
+
+                    self.statusBar().\
+                        showMessage("PriceChartDocument saved.",
+                                    MainWindow.defaultStatusBarMessageTimeMsec)
+
+                    # Update the self.defaultPriceChartDocumentSaveDirectory
+                    # with the directory where filename is, if the directory
+                    # is different.
 
         else:
-            self.log.debug("MainWindow._saveChart(): " + 
-                           "No subwindow is selected, or the selected " + 
-                           "subwindow is not a supported document type " +
-                           "that can be saved.")
+            self.log.warn("_saveChart(): " + 
+                          "No subwindow is selected, or the selected " + 
+                          "subwindow is not a supported document type " +
+                          "for saving.")
             rv = False
 
 
-        self.log.debug("Exiting MainWindow._saveChart().  Returning " + rv)
+        self.log.debug("Exiting _saveChart().  Returning {}".format(rv))
         return rv
 
     def _saveAsChart(self):
@@ -461,7 +515,7 @@ class MainWindow(QMainWindow):
         Returns: True if the saveAs action succeeded.
         """
 
-        self.log.debug("Entered MainWindow._saveAsChart()")
+        self.log.debug("Entered _saveAsChart()")
 
         # Return value.
         rv = True
@@ -481,15 +535,14 @@ class MainWindow(QMainWindow):
             # Set filters for what files are displayed.
             filters = \
                 PriceChartDocument.fileFilter + ";;" + \
-                "All files (*)"
+                MainWindow.allFilesFileFilter
 
             # Prompt for what filename to save the data to.
-            filename = \
-                QFileDialog.\
-                    getSaveFileName(self, 
-                                    "Save As", 
-                                    self.defaultPriceChartDocumentDirectory, 
-                                    filters)
+            filename = QFileDialog.\
+                getSaveFileName(self, 
+                                "Save As", 
+                                self.defaultPriceChartDocumentSaveDirectory, 
+                                filters)
 
             # Convert filename from QString to str.
             filename = str(filename)
@@ -502,74 +555,45 @@ class MainWindow(QMainWindow):
                 # The user must of clicked cancel at the file dialog prompt.
                 rv = False
             else:
-                # If the file doesn't have a dot that signifies an extension,
-                # then append the extension to the filename.
-                if filename.find(".") == -1:
-                    self.log.debug("_saveAsChart(): No extension was found " +
-                        "in the filename so we will append the default " + 
-                        "file extension. ")
-                    filename += PriceChartDocument.fileExtension 
-                    self.log.debug("_saveAsChart(): New filename is: " +
-                                   filename)
-
-                # Check to see if the file exists already.  If yes, then
-                # prompt to verify that the user wants to overwrite the
-                # existing file.
-                if os.path.exists(filename):
-                    self.log.debug("_saveAsChart(): File " + filename + 
-                                   " already exists.  Verifying overwrite.")
-
-                    msg = "The file specified already exists.  " + \
-                          "Overwrite this file while saving?"
-
-                    buttonChoices = QMessageBox.Yes | QMessageBox.No
-                    defaultButton = QMessageBox.NoButton
-
-                    buttonClicked = \
-                        QMessageBox.warning(self, 
-                                            "Overwrite existing file?",
-                                            msg, 
-                                            buttonChoices,
-                                            defaultButton)
-                                 
-                    if buttonClicked == QMessageBox.Yes:
-                        # Pickle to file.
-                        rv = self.\
-                            _picklePriceChartDocumentToFile(\
-                                 priceChartDocumentData, filename)
-                    else:
-                        # The user selected the Cancel button
-                        rv = False
-
-                else:
-                    self.log.debug("_saveAsChart(): File did not exist " +
-                                   "previously.  This is expected.")
-
-                    # Pickle to file.
-                    rv = self.\
-                        _picklePriceChartDocumentToFile(priceChartDocumentData,
-                                                        filename)
+                # Pickle to file.
+                rv = self.\
+                    _picklePriceChartDocumentToFile(\
+                         priceChartDocumentData, filename)
 
             # If the save operation was successful, then update the
             # filename and clear the dirty flag.
             if rv == True:
+                # TODO:  add a better log message to info for what got
+                # saved and to what file.
+
                 self.log.debug("The file was saved.  " + \
                                "Setting the filename and clearing the " + \
                                "dirty flag...")
                 priceChartDocument.setFilename(filename)
                 priceChartDocument.setDirtyFlag(False)
 
+                self.statusBar().\
+                    showMessage("PriceChartDocument saved.",
+                                MainWindow.defaultStatusBarMessageTimeMsec)
+
+                # TODO:  add this below.
+                # Update the self.defaultPriceChartDocumentSaveDirectory
+                # with the directory where filename is, if the directory
+                # is different.
+
         else:
-            self.log.debug("MainWindow._saveAsChart(): " + 
-                           "No subwindow is selected or the " + 
-                           "subwindow is not a supported document type " +
-                           "that can be saved.")
+            self.log.warn("_saveAsChart(): " + 
+                           "No subwindow was selected or the " + 
+                           "subwindow selected is not a supported " + 
+                           "document type for saving.")
             rv = False
 
-        self.log.debug("Exiting MainWindow._saveAsChart()")
+        self.log.debug("Exiting _saveAsChart().  Returning {}".format(rv))
         return rv
 
-    def _picklePriceChartDocumentToFile(self, priceChartDocument, filename):
+    def _picklePriceChartDocumentToFile(self, 
+                                        priceChartDocumentData, 
+                                        filename):
         """Pickles the given PriceChartDocument object to the given
         filename.  If the file currently exists, it will be overwritten.
 
@@ -596,7 +620,7 @@ class MainWindow(QMainWindow):
         return rv
 
     def _exitApp(self):
-        self.log.debug("Entered MainWindow._exitApp()")
+        self.log.debug("Entered _exitApp()")
 
         # Hmm, it appears that Alt-F4 does not cause this _exitApp function to
         # get called.
@@ -604,7 +628,7 @@ class MainWindow(QMainWindow):
 
         # TODO:  add here some checking to save open unsaved files, and also settings.
 
-        self.log.debug("Exiting MainWindow._exitApp()")
+        self.log.debug("Exiting _exitApp()")
         qApp.closeAllWindows()
 
 
@@ -613,7 +637,7 @@ class MainWindow(QMainWindow):
         current active PriceChartDocument.
         """
 
-        self.log.debug("Entered MainWindow._editBirthInfo()")
+        self.log.debug("Entered _editBirthInfo()")
 
         # Get current active PriceChartDocument.
         priceChartDocument = self.getActivePriceChartDocument()
@@ -638,12 +662,12 @@ class MainWindow(QMainWindow):
                            "PriceChartDocument is selected, or some " +
                            "other unsupported subwindow was selected.")
 
-        self.log.debug("Exiting MainWindow._editBirthInfo()")
+        self.log.debug("Exiting _editBirthInfo()")
 
 
     def _editAppPreferences(self):
-        self.log.debug("Entered MainWindow._editAppPreferences()")
-        self.log.debug("Exiting MainWindow._editAppPreferences()")
+        self.log.debug("Entered _editAppPreferences()")
+        self.log.debug("Exiting _editAppPreferences()")
         pass
 
 
@@ -652,7 +676,7 @@ class MainWindow(QMainWindow):
         application.
         """
 
-        self.log.debug("Entered MainWindow._about()")
+        self.log.debug("Entered _about()")
 
         endl = os.linesep
 
@@ -668,7 +692,7 @@ class MainWindow(QMainWindow):
 
         QMessageBox.about(self, title, message);
 
-        self.log.debug("Exiting MainWindow._about()")
+        self.log.debug("Exiting _about()")
 
 
 class PriceChartDocument(QMdiSubWindow):
@@ -685,9 +709,9 @@ class PriceChartDocument(QMdiSubWindow):
     # File filter.
     fileFilter = "PriceChartDocument files (*" + fileExtension + ")"
 
-    # Modified file string that is displayed in the window title after the
+    # Modified-file string that is displayed in the window title after the
     # filename.
-    modifiedFileStr = "[*]"
+    modifiedFileStr = " (*)"
 
     def __init__(self, parent=None):
         """Creates the QMdiSubWindow with the internal widgets,
@@ -734,7 +758,7 @@ class PriceChartDocument(QMdiSubWindow):
         title as well.
         """
 
-        self.log.debug("Entered PriceChartDocument.setFilename()")
+        self.log.debug("Entered setFilename()")
 
         if self.filename != filename:
             self.log.debug("Updating filename to: " + filename)
@@ -743,12 +767,16 @@ class PriceChartDocument(QMdiSubWindow):
 
             self.isUntitled = False
 
-            self.title = self.filename
+            # The title is set to the filename without the path.
+            loc = self.filename.rfind(os.sep)
+            loc += len(os.sep)
+
+            self.title = self.filename[loc:]
             self.setWindowTitle(self.title)
         else:
             self.log.debug("Filename didn't change.  No need to update.")
 
-        self.log.debug("Exiting PriceChartDocument.setFilename()")
+        self.log.debug("Exiting setFilename()")
 
     def getFilename(self):
         """Returns the currently set filename.  This is an empty str if
@@ -767,12 +795,12 @@ class PriceChartDocument(QMdiSubWindow):
         """
 
         self.log.\
-            debug("Entered PriceChartDocument.getPriceChartDocumentData()")
+            debug("Entered getPriceChartDocumentData()")
 
         # TODO:  write this method.
 
         self.log.\
-            debug("Exiting PriceChartDocument.getPriceChartDocumentData()")
+            debug("Exiting getPriceChartDocumentData()")
 
     def setPriceChartDocumentData(self, priceChartDocumentData):
         """Stores the PriceChartDocumentData and sets the widgets with the
@@ -780,7 +808,7 @@ class PriceChartDocument(QMdiSubWindow):
         """
 
         self.log.\
-            debug("Entered PriceChartDocument.setPriceChartDocumentData()")
+            debug("Entered setPriceChartDocumentData()")
 
         self.priceChartDocumentData = priceChartDocumentData
 
@@ -789,15 +817,15 @@ class PriceChartDocument(QMdiSubWindow):
         self.setDirtyFlag(True)
 
         self.log.\
-            debug("Exiting PriceChartDocument.setPriceChartDocumentData()")
+            debug("Exiting setPriceChartDocumentData()")
         
     def getBirthInfo(self):
         """Returns the internal BirthInfo object from the internal
         PriceChartDocumentData object.
         """
 
-        self.log.debug("Entered PriceChartDocument.getBirthInfo()")
-        self.log.debug("Exiting PriceChartDocument.getBirthInfo()")
+        self.log.debug("Entered getBirthInfo()")
+        self.log.debug("Exiting getBirthInfo()")
         return self.priceChartDocumentData.getBirthInfo()
 
     def setBirthInfo(self, birthInfo):
@@ -806,12 +834,12 @@ class PriceChartDocument(QMdiSubWindow):
         be set on the document.
         """
 
-        self.log.debug("Entered PriceChartDocument.setBirthInfo()")
+        self.log.debug("Entered setBirthInfo()")
 
         self.priceChartDocumentData.setBirthInfo(birthInfo)
         self.setDirtyFlag(True)
 
-        self.log.debug("Exiting PriceChartDocument.setBirthInfo()")
+        self.log.debug("Exiting setBirthInfo()")
 
     def getDirtyFlag(self):
         """Returns the dirty flag value."""
@@ -828,7 +856,7 @@ class PriceChartDocument(QMdiSubWindow):
         there are modifications not saved yet.
         """
 
-        self.log.debug("Entered PriceChartDocument.setDirtyFlag()")
+        self.log.debug("Entered setDirtyFlag({})".format(dirtyFlag))
 
         # Set the flag first.
         self.dirtyFlag = dirtyFlag
@@ -836,10 +864,8 @@ class PriceChartDocument(QMdiSubWindow):
         modFileStr = PriceChartDocument.modifiedFileStr
         modFileStrLen = len(PriceChartDocument.modifiedFileStr)
 
-        # Modify the title if needed.
         if self.dirtyFlag == True:
-            # Add the modified-file string in the title if it's not
-            # already there.
+            # Modify the title, but only if it isn't already there.
             if self.title[(-1 * modFileStrLen):] != modFileStr:
                 self.title += modFileStr
         else:
@@ -855,7 +881,22 @@ class PriceChartDocument(QMdiSubWindow):
         if self.title != str(self.windowTitle()):
             self.setWindowTitle(self.title)
 
-        self.log.debug("Exiting PriceChartDocument.setDirtyFlag()")
+        self.log.debug("Exiting setDirtyFlag({})".format(dirtyFlag))
+
+    def toString(self):
+        """
+        Returns the str representation of this class object.
+        """
+
+        # TODO:  write this.
+        return self.title 
+
+    def __str__(self):
+        """
+        Returns the str representation of this class object.
+        """
+
+        return self.toString() 
 
 class PriceChartDocumentWidget(QWidget):
     """Internal widget within a PriceChartDocument (QMdiSubWindow) that
