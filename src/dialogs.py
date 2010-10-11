@@ -203,7 +203,11 @@ class PriceChartDocumentConclusionWizardPage(QWizardPage):
 
 class LoadDataFileWidget(QWidget):
     """A widget for loading and verifying CSV text files containing 
-    price data.
+    price data.  This class uses QSettings and assumes that the calls to
+    QCoreApplication.setOrganizationName(), and
+    QCoreApplication.setApplicationName() have been called previously
+    (so that the QSettings constructor can be called without 
+    any parameters specified).
     """
 
     # Signal emitted when the data file to be loaded has been 
@@ -232,6 +236,17 @@ class LoadDataFileWidget(QWidget):
 
         # Internally stored list of pricebars.
         self.priceBars = []
+
+        # QSettings key for the defaultPriceBarDataOpenDirectory.
+        self.defaultPriceBarDataOpenDirectorySettingsKey = \
+            "ui/defaultPriceBarDataOpenDirectory"
+
+        # Value for the defaultPriceBarDataOpenDirectory.  It is a setting
+        # read in via readSettings().
+        self.defaultPriceBarDataOpenDirectory = ""
+
+        # Read in settings value for this widget.
+        self.readSettings()
 
         # Create the contents.
 
@@ -354,6 +369,50 @@ class LoadDataFileWidget(QWidget):
         self.cancelButton.clicked.\
             connect(self.cancelButtonClicked)
 
+    def readSettings(self):
+        """Reads settings from QSettings.  
+        This function assumes that the calls to 
+        QCoreApplication.setOrganizationName(), and
+        QCoreApplication.setApplicationName() have been called previously
+        (so that the QSettings constructor can be called without 
+        any parameters specified).
+        """
+
+        self.log.debug("Entered readSettings()")
+
+        settings = QSettings()
+
+        # Default directory to start the file open dialog.
+        key = self.defaultPriceBarDataOpenDirectorySettingsKey
+        self.defaultPriceBarDataOpenDirectory = settings.value(key, "")
+
+        self.log.debug("Exiting readSettings()")
+
+    def writeSettings(self):
+        """Writes any changed settings to QSettings.
+        This function assumes that the calls to 
+        QCoreApplication.setOrganizationName(), and
+        QCoreApplication.setApplicationName() have been called previously
+        (so that the QSettings constructor can be called without 
+        any parameters specified).
+        """
+
+        self.log.debug("Entered writeSettings()")
+
+        settings = QSettings()
+
+        # Only set values if they have changed from what is in QSettings.
+
+        # Default directory to start the file open dialog.
+        key = self.defaultPriceBarDataOpenDirectorySettingsKey
+        settingsValue = settings.value(key, "")
+
+        if self.defaultPriceBarDataOpenDirectory != settingsValue:
+            newValue = self.defaultPriceBarDataOpenDirectory
+            settings.setValue(key, newValue)
+
+        self.log.debug("Exiting writeSettings()")
+
     def setLoadButtonEnabled(self, flag):
         """Sets the 'Load' button to be enabled or disabled.
         Argument:
@@ -451,7 +510,7 @@ class LoadDataFileWidget(QWidget):
         self.log.debug("Entering handleBrowseButtonClicked()")
 
         # Create a file dialog.
-        dialog = QFileDialog();
+        dialog = QFileDialog()
 
         # Setup file filters.
         csvTextFilesFilter = "CSV Text files (*.txt)"
@@ -460,8 +519,11 @@ class LoadDataFileWidget(QWidget):
         filters.append(csvTextFilesFilter)
         filters.append(allFilesFilter)
 
+        if self.defaultPriceBarDataOpenDirectory != "":
+            dialog.setDirectory(self.defaultPriceBarDataOpenDirectory)
+
         # Apply settings to the dialog.
-        dialog.setFileMode(QFileDialog.ExistingFile);
+        dialog.setFileMode(QFileDialog.ExistingFile)
         dialog.setNameFilters(filters)
         dialog.selectNameFilter(csvTextFilesFilter)
 
@@ -472,8 +534,21 @@ class LoadDataFileWidget(QWidget):
             # the PyQt 4.6.
             selectedFiles = dialog.selectedFiles()
             if len(selectedFiles) != 0:
+                filename = str(selectedFiles[0])
+
                 # Set the QLineEdit with the filename.
-                self.filenameLineEdit.setText(selectedFiles[0])
+                self.filenameLineEdit.setText(filename)
+
+                # Get the directory where this file lives.
+                loc = filename.rfind(os.sep)
+                directory = filename[:loc]
+
+                # If the directory of the file chosen is different
+                # from the directory of the file chosen last time, 
+                # then update the defaultPriceBarDataOpenDirectory.
+                if directory != self.defaultPriceBarDataOpenDirectory:
+                    self.defaultPriceBarDataOpenDirectory = directory
+                    self.writeSettings()
 
         self.log.debug("Leaving handleBrowseButtonClicked()")
 

@@ -474,6 +474,12 @@ class PriceChartDocumentData:
         # Configuration for the number of lines to skip in the file.
         self.priceBarsFileNumLinesToSkip = 0
 
+        # Index in self.priceBars of the last PriceBar that was selected.  
+        # If none were selected at the time the application last closed, it
+        # will be default to index 0 if self.priceBars is non-empty, and -1
+        # if self.priceBars is empty.  This information allows the UI to 
+        # center on the same PriceBar the next time the application is opened.
+        self.settingsLastPriceBarIndexSelected = -1
 
     def setBirthInfo(self, birthInfo):
         """Sets the birth natal information for this trading entity.
@@ -566,19 +572,27 @@ class PriceChartDocumentData:
 
         return "[classVersion={}, ".\
                    format(self.classVersion) + \
-               "numPriceBars={}, ".\
-                   format(len(self.priceBars)) + \
-               "firstPriceBarTimestamp={}, ".\
-                   format(firstPriceBarTimestamp) + \
-               "lastPriceBarTimestamp={}, ".\
-                   format(lastPriceBarTimestamp) + \
-               "settingsSpreadsheetTagColors={}, ".\
-                   format(self.settingsSpreadsheetTagColors) + \
-               "settingsSpreadsheetCalcFormulas={}, ".\
-                   format(self.settingsSpreadsheetCalcFormulas)+ \
-               "settingsLocationTimezone={}, ".\
-                   format(self.settingsLocationTimezone) + \
-               "settingsLastPriceBarIndexSelected={}]".\
+                "numPriceBars={}, ".\
+                    format(len(self.priceBars)) + \
+                "firstPriceBarTimestamp={}, ".\
+                    format(firstPriceBarTimestamp) + \
+                "lastPriceBarTimestamp={}, ".\
+                    format(lastPriceBarTimestamp) + \
+                "settingsSpreadsheetTagColors={}, ".\
+                    format(self.settingsSpreadsheetTagColors) + \
+                "settingsSpreadsheetCalcFormulas={}, ".\
+                    format(self.settingsSpreadsheetCalcFormulas) + \
+                "priceBarChartSettings={}, ".\
+                    format(self.priceBarChartSettings.toString()) + \
+                "priceBarSpreadsheetSettings={}, ".\
+                    format(self.priceBarSpreadsheetSettings.toString()) + \
+                "locationTimezone={}, ".\
+                    format(self.locationTimezone) + \
+                "priceBarsFileFilename={}, ".\
+                    format(self.priceBarsFileFilename) + \
+                "priceBarsFileNumLinesToSkip={}, ".\
+                    format(self.priceBarsFileNumLinesToSkip) + \
+                "settingsLastPriceBarIndexSelected={}]".\
                    format(self.settingsLastPriceBarIndexSelected)
 
     def __str__(self):

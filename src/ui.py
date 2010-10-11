@@ -55,15 +55,17 @@ class MainWindow(QMainWindow):
         self.appAuthorEmail = appAuthorEmail
         self.appIcon = QIcon(":/images/appIcon.png")
         
-        # Settings attributes that are set when _readSettings() is called.
-        self.defaultPriceChartDocumentOpenDirectory = ""
-        self.defaultPriceChartDocumentSaveDirectory = ""
-        self.defaultPriceBarDataDirectory = ""
-
         # Set application details so the we can use QSettings default
         # constructor later.
         QCoreApplication.setOrganizationName(appAuthor);
         QCoreApplication.setApplicationName(appName);
+
+        # Settings attributes that are set when _readSettings() is called.
+        self.defaultPriceChartDocumentOpenDirectory = ""
+        self.defaultPriceChartDocumentSaveDirectory = ""
+        self.defaultPriceBarDataOpenDirectory = ""
+        self.windowGeometry = QByteArray()
+        self.windowState = QByteArray()
 
         # Create and set up the widgets.
         self.mdiArea = QMdiArea()
@@ -85,6 +87,9 @@ class MainWindow(QMainWindow):
         self._updateMenus()
 
         self._readSettings()
+
+        self.restoreGeometry(self.windowGeometry);
+        self.restoreState(self.windowState);
 
         self.setWindowTitle(self.appName)
         self.setWindowIcon(self.appIcon)
@@ -258,10 +263,10 @@ class MainWindow(QMainWindow):
         priceChartDocument = self.getActivePriceChartDocument()
         if priceChartDocument == None:
             print("DEBUG: Entered _updateMenus() with currently active " +
-                   "subwindow: == None")
+                  "subwindow: == None")
         else:
             print("DEBUG: Entered _updateMenus() with currently active " +
-                   "subwindow: == " + priceChartDocument.toString())
+                  "subwindow title: == " + priceChartDocument.title)
 
         self._updateFileMenu()
         self._updateEditMenu()
@@ -333,7 +338,15 @@ class MainWindow(QMainWindow):
 
     def _readSettings(self):
         """
-        TODO:  add documentation here.
+        Reads in QSettings values for preferences and default values.
+        This includes default directories to open to when the user
+        open/saves files, and also the window geometry, etc.
+
+        This function uses QSettings and assumes that the calls to
+        QCoreApplication.setOrganizationName(), and 
+        QCoreApplication.setApplicationName() have been called 
+        previously (so that the QSettings constructor can be called 
+        without any parameters specified).
         """
 
         self.log.debug("Entered _readSettings()")
@@ -341,16 +354,81 @@ class MainWindow(QMainWindow):
         # Preference settings.
         settings = QSettings() 
 
-        # TODO:  write this function to read these values in.
-        self.defaultPriceChartDocumentOpenDirectory = ""
-        self.defaultPriceChartDocumentSaveDirectory = ""
-        self.defaultPriceBarDataDirectory = ""
+        # Directory location default for the file open dialogs for
+        # PriceChartDocument.
+        self.defaultPriceChartDocumentOpenDirectory = \
+            settings.value("ui/defaultPriceChartDocumentOpenDirectory", "")
+
+        # Directory location default for the file save dialogs for
+        # PriceChartDocument.
+        self.defaultPriceChartDocumentSaveDirectory = \
+            settings.value("ui/defaultPriceChartDocumentSaveDirectory", "")
+
+        # Window geometry.
+        self.windowGeometry = \
+            settings.value("ui/MainWindow/windowGeometry")
+        if self.windowGeometry == None:
+            self.windowGeometry = QByteArray()
+            
+        # Window state.
+        self.windowState = \
+            settings.value("ui/MainWindow/windowState")
+        if self.windowState == None:
+            self.windowState = QByteArray()
+
 
         self.log.debug("Exiting _readSettings()")
 
     def _writeSettings(self):
+        """
+        Writes current settings values to the QSettings object.
+        This includes default directories to open to when the user
+        open/saves files, and also the window geometry, etc.
+
+        This function uses QSettings and assumes that the calls to
+        QCoreApplication.setOrganizationName(), and 
+        QCoreApplication.setApplicationName() have been called 
+        previously (so that the QSettings constructor can be called 
+        without any parameters specified).
+        """
+
         self.log.debug("Entered _writeSettings()")
-        # TODO:  write this function.
+
+        # Preference settings.
+        settings = QSettings() 
+
+        # Only write the settings if the value has changed.
+
+        # Directory location default for the file open dialogs for
+        # PriceChartDocument.
+        if (self.defaultPriceChartDocumentOpenDirectory != 
+            settings.value("ui/defaultPriceChartDocumentOpenDirectory", "")):
+
+            settings.setValue("ui/defaultPriceChartDocumentOpenDirectory",
+                              self.defaultPriceChartDocumentOpenDirectory)
+
+        # Directory location default for the file save dialogs for
+        # PriceChartDocument.
+        if (self.defaultPriceChartDocumentSaveDirectory !=
+            settings.value("ui/defaultPriceChartDocumentSaveDirectory", "")):
+
+            settings.setValue("ui/defaultPriceChartDocumentSaveDirectory",
+                              self.defaultPriceChartDocumentSaveDirectory)
+
+        # Window geometry.
+        if (settings.value("ui/MainWindow/windowGeometry").toByteArray() !=
+            self.saveGeometry()):
+
+            settings.setValue("ui/MainWindow/windowGeometry", 
+                              self.saveGeometry())
+
+        # Window state.
+        if (settings.value("ui/MainWindow/windowState").toByteArray() !=
+            self.saveState()):
+
+            settings.setValue("ui/MainWindow/windowState", self.saveState())
+
+
         self.log.debug("Exiting _writeSettings()")
 
     def _newChart(self):
@@ -408,14 +486,31 @@ class MainWindow(QMainWindow):
                                 filters)
 
         if filename != "":
-            # TODO:  write this part.
             # Load the file.
+            # TODO:  write this part to create a subwindow, add it to the
+            # window list, and to load the file.  We need to make sure the
+            # dirty flag is false after doing this file loading and
+            # subwindow creation.
 
             # Update the statusbar to tell what file was opened.
+            statusBarMessage = \
+                "Opened PriceChartDocument {}.".format(filename)
+            statusBarTimeoutMsec = \
+                MainWindow.defaultStatusBarMessageTimeMsec
 
-            # Set the directory where filename is to be the new
-            # self.defaultPriceChartDocumentOpenDirectory if it is
-            # different.
+            self.statusBar().showMessage(statusBarMessage,
+                                         statusBarTimeoutMsec)
+
+            # Get the directory where this file lives.
+            loc = filename.rfind(os.sep)
+            directory = filename[:loc]
+
+            # Update the self.defaultPriceChartDocumentOpenDirectory
+            # with the directory where filename is, if the directory
+            # is different.
+            if directory != self.defaultPriceChartDocumentOpenDirectory:
+                self.defaultPriceChartDocumentOpenDirectory = directory
+
         else:
             self.log.debug("_openChart(): " +
                            "No filename was selected for opening.")
@@ -478,11 +573,16 @@ class MainWindow(QMainWindow):
 
                 # Clear the dirty flag if the operation was successful.
                 if rv == True:
-                    # TODO:  add a better log message to info for what got
-                    # saved and to what file.
+                    self.log.info("PriceChartDocumentData saved to file: " + 
+                                  filename)
 
-                    self.log.debug("The file was saved.  " + \
-                                   "Clearing the dirty flag...")
+                    debugMsg = \
+                        "File '{}' ".format(filename) + \
+                        "now holds the following " + \
+                        "PriceChartDocumentData: " + \
+                        priceChartDocumentData.toString()
+
+                    self.log.debug(debugMsg)
 
                     # Filename shouldn't have changed, so there's no need to
                     # set it again.
@@ -492,9 +592,18 @@ class MainWindow(QMainWindow):
                         showMessage("PriceChartDocument saved.",
                                     MainWindow.defaultStatusBarMessageTimeMsec)
 
+                    # Get the directory where this file lives.
+                    loc = filename.rfind(os.sep)
+                    directory = filename[:loc]
+
                     # Update the self.defaultPriceChartDocumentSaveDirectory
                     # with the directory where filename is, if the directory
                     # is different.
+                    if directory != \
+                        self.defaultPriceChartDocumentSaveDirectory:
+
+                        self.defaultPriceChartDocumentSaveDirectory = \
+                            directory
 
         else:
             self.log.warn("_saveChart(): " + 
@@ -563,23 +672,37 @@ class MainWindow(QMainWindow):
             # If the save operation was successful, then update the
             # filename and clear the dirty flag.
             if rv == True:
-                # TODO:  add a better log message to info for what got
-                # saved and to what file.
+                self.log.info("PriceChartDocumentData saved to new file: " + 
+                              filename)
 
-                self.log.debug("The file was saved.  " + \
-                               "Setting the filename and clearing the " + \
-                               "dirty flag...")
+                debugMsg = \
+                    "File '{}' ".format(filename) + \
+                    "now holds the following " + \
+                    "PriceChartDocumentData: " + \
+                    priceChartDocumentData.toString()
+
+                self.log.debug(debugMsg)
+
                 priceChartDocument.setFilename(filename)
                 priceChartDocument.setDirtyFlag(False)
 
-                self.statusBar().\
-                    showMessage("PriceChartDocument saved.",
-                                MainWindow.defaultStatusBarMessageTimeMsec)
+                statusBarMessage = \
+                    "PriceChartDocument saved to file {}.".format(filename)
+                statusBarTimeoutMsec = \
+                    MainWindow.defaultStatusBarMessageTimeMsec
 
-                # TODO:  add this below.
+                self.statusBar().showMessage(statusBarMessage,
+                                             statusBarTimeoutMsec)
+
+                # Get the directory where this file lives.
+                loc = filename.rfind(os.sep)
+                directory = filename[:loc]
+
                 # Update the self.defaultPriceChartDocumentSaveDirectory
                 # with the directory where filename is, if the directory
                 # is different.
+                if directory != self.defaultPriceChartDocumentSaveDirectory:
+                    self.defaultPriceChartDocumentSaveDirectory = directory
 
         else:
             self.log.warn("_saveAsChart(): " + 
@@ -622,8 +745,9 @@ class MainWindow(QMainWindow):
     def _exitApp(self):
         self.log.debug("Entered _exitApp()")
 
-        # Hmm, it appears that Alt-F4 does not cause this _exitApp function to
-        # get called.
+        # TODO:  need to create/overwrite the closeEvent() function.  This
+        # function should do similar functionality.
+        #
 
 
         # TODO:  add here some checking to save open unsaved files, and also settings.
@@ -884,16 +1008,22 @@ class PriceChartDocument(QMdiSubWindow):
         self.log.debug("Exiting setDirtyFlag({})".format(dirtyFlag))
 
     def toString(self):
-        """
-        Returns the str representation of this class object.
+        """Returns the str representation of this class object.
         """
 
-        # TODO:  write this.
-        return self.title 
+        # Return value.
+        rv = \
+            "[title={}, ".format(self.title) + \
+            "filename={}, ".format(self.filename) + \
+            "isUntitled={}, ".format(self.isUntitled) + \
+            "dirtyFlag={}, ".format(self.dirtyFlag) + \
+            "priceChartDocumentData={}]".\
+                format(self.priceChartDocumentData.toString())
+
+        return rv
 
     def __str__(self):
-        """
-        Returns the str representation of this class object.
+        """Returns the str representation of this class object.
         """
 
         return self.toString() 
