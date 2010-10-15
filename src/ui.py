@@ -33,7 +33,7 @@ class MainWindow(QMainWindow):
     allFilesFileFilter = "All files (*)"
 
     # Default timeout for showing a message in the QStatusBar.
-    defaultStatusBarMessageTimeMsec = 4000
+    defaultStatusBarMsgTimeMsec = 4000
 
     
     def __init__(self, 
@@ -487,30 +487,48 @@ class MainWindow(QMainWindow):
 
         if filename != "":
             # Load the file.
-            # TODO:  write this part to create a subwindow, add it to the
-            # window list, and to load the file.  We need to make sure the
-            # dirty flag is false after doing this file loading and
-            # subwindow creation.
 
-            # Update the statusbar to tell what file was opened.
-            statusBarMessage = \
-                "Opened PriceChartDocument {}.".format(filename)
-            statusBarTimeoutMsec = \
-                MainWindow.defaultStatusBarMessageTimeMsec
+            # Create the subwindow.
+            priceChartDocument = PriceChartDocument()
 
-            self.statusBar().showMessage(statusBarMessage,
-                                         statusBarTimeoutMsec)
+            # Try to load the file data into the subwindow.
+            loadSuccess = \
+                priceChartDocument.\
+                    unpicklePriceChartDocumentDataFromFile(filename)
 
-            # Get the directory where this file lives.
-            loc = filename.rfind(os.sep)
-            directory = filename[:loc]
+            if loadSuccess == True:
+                # Load into the object was successful.  
+                # Now Add this priceChartDocument to the list of subwindows
+                self._addSubWindow(priceChartDocument)
 
-            # Update the self.defaultPriceChartDocumentOpenDirectory
-            # with the directory where filename is, if the directory
-            # is different.
-            if directory != self.defaultPriceChartDocumentOpenDirectory:
-                self.defaultPriceChartDocumentOpenDirectory = directory
+                # Update the statusbar to tell what file was opened.
+                statusBarMessage = \
+                    "Opened PriceChartDocument {}.".format(filename)
+                statusBarTimeoutMsec = \
+                    MainWindow.defaultStatusBarMsgTimeMsec
 
+                self.statusBar().showMessage(statusBarMessage,
+                                             statusBarTimeoutMsec)
+
+                # Get the directory where this file lives.
+                loc = filename.rfind(os.sep)
+                directory = filename[:loc]
+
+                # Update the self.defaultPriceChartDocumentOpenDirectory
+                # with the directory where filename is, if the directory
+                # is different.
+                if directory != self.defaultPriceChartDocumentOpenDirectory:
+                    self.defaultPriceChartDocumentOpenDirectory = directory
+            else:
+                # Load failed.  Tell the user via the statusbar.
+                statusBarMessage = \
+                    "Open operation failed.  " + \
+                    "Please see the log file for why."
+                statusBarTimeoutMsec = \
+                    MainWindow.defaultStatusBarMsgTimeMsec
+
+                self.statusBar().showMessage(statusBarMessage,
+                                             statusBarTimeoutMsec)
         else:
             self.log.debug("_openChart(): " +
                            "No filename was selected for opening.")
@@ -538,10 +556,6 @@ class MainWindow(QMainWindow):
             # A PriceChartDocument is selected.
             priceChartDocument = subwindow
 
-            # Get the data object to be pickled.
-            priceChartDocumentData = \
-                priceChartDocument.getPriceChartDocumentData()
-
             # See if it has been saved before and has a filename,
             # of it is untitled and never been saved before.
             filename = priceChartDocument.getFilename()
@@ -567,22 +581,26 @@ class MainWindow(QMainWindow):
                                   "saved to the given filename.")
 
                 # Pickle to file.
-                rv = self.\
-                    _picklePriceChartDocumentToFile(priceChartDocumentData,
-                                                    filename)
+                rv = priceChartDocument.\
+                        picklePriceChartDocumentDataToFile(filename)
 
                 # Clear the dirty flag if the operation was successful.
                 if rv == True:
                     self.log.info("PriceChartDocumentData saved to file: " + 
                                   filename)
 
-                    debugMsg = \
-                        "File '{}' ".format(filename) + \
-                        "now holds the following " + \
-                        "PriceChartDocumentData: " + \
-                        priceChartDocumentData.toString()
+                    if self.log.isEnabledFor(logging.DEBUG):
+                        # Get the data object for debugging messages.
+                        priceChartDocumentData = \
+                            priceChartDocument.getPriceChartDocumentData()
 
-                    self.log.debug(debugMsg)
+                        debugMsg = \
+                            "File '{}' ".format(filename) + \
+                            "now holds the following " + \
+                            "PriceChartDocumentData: " + \
+                            priceChartDocumentData.toString()
+
+                        self.log.debug(debugMsg)
 
                     # Filename shouldn't have changed, so there's no need to
                     # set it again.
@@ -590,7 +608,7 @@ class MainWindow(QMainWindow):
 
                     self.statusBar().\
                         showMessage("PriceChartDocument saved.",
-                                    MainWindow.defaultStatusBarMessageTimeMsec)
+                                    MainWindow.defaultStatusBarMsgTimeMsec)
 
                     # Get the directory where this file lives.
                     loc = filename.rfind(os.sep)
@@ -604,6 +622,12 @@ class MainWindow(QMainWindow):
 
                         self.defaultPriceChartDocumentSaveDirectory = \
                             directory
+                else:
+                    # Save failure.
+                    self.statusBar().\
+                        showMessage("Save failed.  " + 
+                                    "Please check the log file for why.",
+                                    MainWindow.defaultStatusBarMsgTimeMsec)
 
         else:
             self.log.warn("_saveChart(): " + 
@@ -637,10 +661,6 @@ class MainWindow(QMainWindow):
             # A PriceChartDocument is selected.
             priceChartDocument = subwindow
 
-            # Get the data object to be pickled.
-            priceChartDocumentData = \
-                priceChartDocument.getPriceChartDocumentData()
-                
             # Set filters for what files are displayed.
             filters = \
                 PriceChartDocument.fileFilter + ";;" + \
@@ -665,45 +685,58 @@ class MainWindow(QMainWindow):
                 rv = False
             else:
                 # Pickle to file.
-                rv = self.\
-                    _picklePriceChartDocumentToFile(\
-                         priceChartDocumentData, filename)
+                rv = priceChartDocument.\
+                        picklePriceChartDocumentDataToFile(filename)
 
-            # If the save operation was successful, then update the
-            # filename and clear the dirty flag.
-            if rv == True:
-                self.log.info("PriceChartDocumentData saved to new file: " + 
-                              filename)
+                # If the save operation was successful, then update the
+                # filename and clear the dirty flag.
+                if rv == True:
+                    self.log.info("PriceChartDocumentData saved to " + 
+                                  "new file: " + filename)
 
-                debugMsg = \
-                    "File '{}' ".format(filename) + \
-                    "now holds the following " + \
-                    "PriceChartDocumentData: " + \
-                    priceChartDocumentData.toString()
+                    if self.log.isEnabledFor(logging.DEBUG):
+                        # Get the data object for debugging messages.
+                        priceChartDocumentData = \
+                            priceChartDocument.getPriceChartDocumentData()
 
-                self.log.debug(debugMsg)
+                        debugMsg = \
+                            "File '{}' ".format(filename) + \
+                            "now holds the following " + \
+                            "PriceChartDocumentData: " + \
+                            priceChartDocumentData.toString()
 
-                priceChartDocument.setFilename(filename)
-                priceChartDocument.setDirtyFlag(False)
+                        self.log.debug(debugMsg)
 
-                statusBarMessage = \
-                    "PriceChartDocument saved to file {}.".format(filename)
-                statusBarTimeoutMsec = \
-                    MainWindow.defaultStatusBarMessageTimeMsec
+                    priceChartDocument.setFilename(filename)
+                    priceChartDocument.setDirtyFlag(False)
 
-                self.statusBar().showMessage(statusBarMessage,
-                                             statusBarTimeoutMsec)
+                    statusBarMessage = \
+                        "PriceChartDocument saved to file {}.".\
+                        format(filename)
+                    statusBarTimeoutMsec = \
+                        MainWindow.defaultStatusBarMsgTimeMsec
 
-                # Get the directory where this file lives.
-                loc = filename.rfind(os.sep)
-                directory = filename[:loc]
+                    self.statusBar().showMessage(statusBarMessage,
+                                                 statusBarTimeoutMsec)
 
-                # Update the self.defaultPriceChartDocumentSaveDirectory
-                # with the directory where filename is, if the directory
-                # is different.
-                if directory != self.defaultPriceChartDocumentSaveDirectory:
-                    self.defaultPriceChartDocumentSaveDirectory = directory
+                    # Get the directory where this file lives.
+                    loc = filename.rfind(os.sep)
+                    directory = filename[:loc]
 
+                    # Update the self.defaultPriceChartDocumentSaveDirectory
+                    # with the directory where filename is, if the directory
+                    # is different.
+                    if directory != \
+                            self.defaultPriceChartDocumentSaveDirectory:
+
+                        self.defaultPriceChartDocumentSaveDirectory = \
+                                directory
+                else:
+                    # Save failure.
+                    self.statusBar().\
+                        showMessage("Save failed.  " + 
+                                    "Please check the log file for why.",
+                                    MainWindow.defaultStatusBarMsgTimeMsec)
         else:
             self.log.warn("_saveAsChart(): " + 
                            "No subwindow was selected or the " + 
@@ -712,34 +745,6 @@ class MainWindow(QMainWindow):
             rv = False
 
         self.log.debug("Exiting _saveAsChart().  Returning {}".format(rv))
-        return rv
-
-    def _picklePriceChartDocumentToFile(self, 
-                                        priceChartDocumentData, 
-                                        filename):
-        """Pickles the given PriceChartDocument object to the given
-        filename.  If the file currently exists, it will be overwritten.
-
-        Returns True if the write operation succeeded without problems.
-        """
-
-        # Return value.
-        rv = True
-        
-        # Pickle to file.
-        with open(filename, "wb") as fh:
-            try:
-                pickle.dump(priceChartDocumentData, fh) 
-                rv = True
-            except pickle.PickleError as pe:
-                self.log.error("Error while pickling a " +
-                               "PriceChartDocumentData to file " + 
-                               filename + \
-                               ".  PriceChartDocumentData object " + 
-                               "has the following info: " + 
-                               priceChartDocumentData.toString())
-                rv = False
-
         return rv
 
     def _exitApp(self):
@@ -876,6 +881,72 @@ class PriceChartDocument(QMdiSubWindow):
         self.setWindowTitle(self.title)
 
         self.log.debug("Exiting PriceChartDocument()")
+
+    def picklePriceChartDocumentDataToFile(self, filename):
+        """Pickles the internal PriceChartDocumentData object to the given
+        filename.  If the file currently exists, it will be overwritten.
+
+        Returns True if the write operation succeeded without problems.
+        """
+
+        # Return value.
+        rv = True
+
+        # Get the internal PriceChartDocumentData.
+        priceChartDocumentData = self.getPriceChartDocumentData()
+
+        # Pickle to file.
+        with open(filename, "wb") as fh:
+            try:
+                pickle.dump(priceChartDocumentData, fh) 
+                rv = True
+            except pickle.PickleError as pe:
+                self.log.error("Error while pickling a " +
+                               "PriceChartDocumentData to file " + 
+                               filename + 
+                               ".  PriceChartDocumentData object " + 
+                               "has the following info: " + 
+                               priceChartDocumentData.toString())
+                rv = False
+
+        return rv
+
+    def unpicklePriceChartDocumentDataFromFile(self, filename):
+        """Un-Pickles a PriceChartDocumentData object from file.
+        The PriceChartDocumentData obtained is then set to the internal
+        PriceChartDocumentData.
+
+        Returns True if the operation succeeded without problems.
+        """
+
+        # Return value.
+        rv = False
+
+        # Get the PriceChartDocumentData from filename.
+        with open(filename, "rb") as fh:
+            try:
+                priceChartDocumentData = pickle.load(fh)
+
+                # Verify it is a PriceChartDocumentData object.
+                if isinstance(priceChartDocumentData, 
+                              PriceChartDocumentData) == True:
+                    self.setPriceChartDocumentData(priceChartDocumentData)
+                    self.setDirtyFlag(False)
+                    rv = True
+                else:
+                    # Print error message.
+                    self.log.error("Cannot load this object.  " + 
+                                   "The object unpickled from file " + 
+                                   filename + " is not a " + 
+                                   "PriceChartDocumentData.")
+                    rv = False
+            except pickle.UnpicklingError as upe:
+                self.log.error("Error while unpickling a " +
+                               "PriceChartDocumentData from file " + 
+                               filename)
+                rv = False
+
+        return rv
 
     def setFilename(self, filename):
         """Sets the filename of the document.  This also sets the window
