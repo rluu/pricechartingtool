@@ -1,3 +1,9 @@
+
+qt-logo.png
+from:
+/qt-everywhere-opensource-src-4.6.3/examples/painting/basicdrawing/images/
+Qt licensed for use from Trolltech.
+
 ------------------------------------------------------------------------------
 
 paste.png
@@ -13,9 +19,28 @@ Qt licensed for use from Trolltech.
 
 ------------------------------------------------------------------------------
 
-linepointer.png
+bringtofront.png 
+delete.png 
+italic.png 
+linecolor.png 
+linepointer.png 
+pointer.png 
+sendtoback.png 
+textpointer.png 
+underline.png
 from:
-/Trolltech/Qt-4.3.0/examples/graphicsview/diagramscene/images/
+/qt-everywhere-opensource-src-4.6.3/examples/graphicsview/diagramscene/images/
+Qt licensed for use from Trolltech.
+
+------------------------------------------------------------------------------
+
+kontact_contacts.png 
+kontact_journal.png 
+kontact_mail.png 
+kontact_notes.png 
+minitools.png
+from:
+/qt-everywhere-opensource-src-4.6.3/examples/graphicsview/padnavigator/images/
 Qt licensed for use from Trolltech.
 
 ------------------------------------------------------------------------------
@@ -43,7 +68,6 @@ Under Creative Commons license.
 
 handClosed.png
 handOpen.png
-pointer.png
 zoomIn.png
 zoomOut.png
 logo_ryan_d1.png
@@ -81,4 +105,13 @@ Copyright
 All of the banners contained on the AAA - Banners site are our own creations, they are free to use on any personal or business webpage provided that a link is provided back to AAA - Banners.
 
 ------------------------------------------------------------------------------
+
+document-print.png
+document-print-preview.png
+from:
+tango-icon-theme-0.8.90.tar.gz
+http://tango.freedesktop.org/Tango_Icon_Library
+
+Also some icons here too:
+qt-everywhere-opensource-src-4.6.3/examples/network/torrent/icons
 
