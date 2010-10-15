@@ -72,7 +72,7 @@ def main():
     # Create the Qt application.
     app = QApplication(sys.argv)
     app.setApplicationName(APP_NAME)
-    app.setWindowIcon(QIcon(":/images/appIcon.png"))
+    app.setWindowIcon(QIcon(":/images/rluu/appIcon.png"))
 
     # Initialize the Ephemeris.
     Ephemeris.initialize()

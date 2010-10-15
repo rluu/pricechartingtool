@@ -64,10 +64,10 @@ class PriceChartDocumentWizard(QWizard):
         self.log.debug("Setting up Pixmaps ...")
 
         # Set the pictures used in the QWizard.
-        watermarkPic = QPixmap(":/images/HowToMakeProfitsInCommodities.png")
-        backgroundPic = QPixmap(":/images/HowToMakeProfitsInCommodities.png")
-        logoPic = QPixmap(":/images/logo_ryan_d1.png").scaled(64, 64)
-        bannerPic = QPixmap(":/images/banners/grad23.gif").scaled(640, 72)
+        watermarkPic = QPixmap(":/images/gann/HowToMakeProfitsInCommodities.png")
+        backgroundPic = QPixmap(":/images/gann/HowToMakeProfitsInCommodities.png")
+        logoPic = QPixmap(":/images/rluu/logo_ryan_d1.png").scaled(64, 64)
+        bannerPic = QPixmap(":/images/aaa-banners/grad23.gif").scaled(640, 72)
 
         self.setPixmap(QWizard.WatermarkPixmap, watermarkPic)
         self.setPixmap(QWizard.BackgroundPixmap, backgroundPic)
@@ -283,8 +283,7 @@ class LoadDataFileWidget(QWidget):
         filenameLabel = QLabel("Filename:")
         self.filenameLineEdit = QLineEdit()
         self.filenameLineEdit.setReadOnly(True)
-        self.browseButton = QPushButton(QIcon(":/images/open.png"), 
-                                        "Br&owse")
+        self.browseButton = QPushButton(QIcon(":/images/tango-icon-theme-0.8.90/32x32/actions/document-open.png"), "Br&owse")
 
         fileBrowseLayout = QHBoxLayout()
         fileBrowseLayout.addWidget(self.filenameLineEdit)

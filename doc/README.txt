@@ -34,9 +34,9 @@ Requirements:
 Dependencies to build/run this project are:
 
   - Python 3.1
-  - PyQt 4.5.2
-  - Qt 4.5.2
-  - pyswisseph 1.76 
+  - PyQt 4.7.5
+  - Qt 4.6.3
+  - pyswisseph 1.76
       (Uses Swiss Ephemeris version 1.76.00, which was released Aug. 4, 2009)
   - pytz 2010h 
       (Modified version of this release that is compatible with Python 3)
@@ -79,6 +79,8 @@ pricechartingtool
   |- doc:  Holds some documentation.
   |
   |- resources:  Holds image files that are processed into a resource .py file.
+  |              See file resources/images/source.txt for more details on the
+  |              images used.
   |
   |- src:  Holds the Python source code.
   |

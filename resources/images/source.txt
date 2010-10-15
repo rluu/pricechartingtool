@@ -1,34 +1,13 @@
 ------------------------------------------------------------------------------
-
-qt/qt-logo.png
-from:
-qt-everywhere-opensource-src-4.6.3/examples/painting/basicdrawing/images/
-
-qt/pointer.png 
-from:
-qt-everywhere-opensource-src-4.6.3/examples/graphicsview/diagramscene/images/
-
-Qt licensed for use from Trolltech.
-
 ------------------------------------------------------------------------------
 
-rluu/handClosed.png
-rluu/handOpen.png
-rluu/zoomIn.png
-rluu/zoomOut.png
-rluu/logo_ryan_d1.png
-rluu/ryan_d1.png
+File: 
+    source.txt
 
-Created by Ryan Luu.
+Description:
+    This file lists source of the image files contained in this directory.
 
 ------------------------------------------------------------------------------
-
-gann/sqof9.png
-gann/HowToMakeProfitsInCommodities.png
-
-From: W.D. Gann
-Out of copyright
-
 ------------------------------------------------------------------------------
 
 aaa-banners/grad21.gif
@@ -38,12 +17,57 @@ aaa-banners/grad24.gif
 aaa-banners/grad25.gif
 aaa-banners/grad26.gif
 aaa-banners/grad27.gif
+
 from:
 http://www.aaa-banners.com/cgi-bin/banndisp1.pl?grad2,7
+
 Copyright statement from the main webpage:
 http://www.aaa-banners.com/
 Copyright
-All of the banners contained on the AAA - Banners site are our own creations, they are free to use on any personal or business webpage provided that a link is provided back to AAA - Banners.
+All of the banners contained on the AAA - Banners site are our own
+creations, they are free to use on any personal or business webpage
+provided that a link is provided back to AAA - Banners.
+
+------------------------------------------------------------------------------
+
+gann/HowToMakeProfitsInCommodities.png
+gann/sqof9.png
+
+From: W.D. Gann
+Out of copyright
+
+------------------------------------------------------------------------------
+
+iconspedia/office3_32.png
+
+from:
+http://www.iconspedia.com/icon/pencil-10-3.html
+Author: IconShock
+License: Free for non-commercial use.
+
+------------------------------------------------------------------------------
+
+qt/pointer.png 
+from:
+qt-everywhere-opensource-src-4.6.3/examples/graphicsview/diagramscene/images/
+
+qt/qt-logo.png
+from:
+qt-everywhere-opensource-src-4.6.3/examples/painting/basicdrawing/images/
+
+Qt licensed for use from Trolltech.
+
+------------------------------------------------------------------------------
+
+rluu/appIcon.png
+rluu/handClosed.png
+rluu/handOpen.png
+rluu/logo_ryan_d1.png
+rluu/ryan_d1.png
+rluu/zoomIn.png
+rluu/zoomOut.png
+
+Created by Ryan Luu.
 
 ------------------------------------------------------------------------------
 
@@ -52,10 +76,14 @@ from:
 tango-icon-theme-0.8.90.tar.gz
 http://tango.freedesktop.org/Tango_Icon_Library
 
+License: Public Domain (free).
+
+------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
 
-Notes:
 
+
+rluu note:
 I may want to include icons from here too:
 qt-everywhere-opensource-src-4.6.3/examples/network/torrent/icons
 

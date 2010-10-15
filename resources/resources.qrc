@@ -1,40 +1,32 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource>
-    <file>images/copy.png</file>
-    <file>images/cut.png</file>
-    <file>images/new.png</file>
-    <file>images/open.png</file>
-    <file>images/paste.png</file>
-    <file>images/save.png</file>
-    <file>images/print.png</file>
-    <file>images/Plus.png</file>
-    <file>images/Minus.png</file>
-    <file>images/Edit.png</file>
-    <file>images/Doc.png</file>
-    <file>images/Sound.png</file>
-    <file>images/Redo2.png</file>
-    <file>images/handClosed.png</file>
-    <file>images/handOpen.png</file>
-    <file>images/pointer.png</file>
-    <file>images/zoomIn.png</file>
-    <file>images/zoomOut.png</file>
-    <file>images/linepointer.png</file>
-    <file>images/play.png</file>
-    <file>images/pause.png</file>
-    <file>images/stop.png</file>
-    <file>images/gears.png</file>
-    <file>images/appIcon.png</file>
-    <file>images/logo_ryan_d1.png</file>
-    <file>images/ryan_d1.png</file>
-    <file>images/sqof9.png</file>
-    <file>images/qt-logo.png</file>
-    <file>images/HowToMakeProfitsInCommodities.png</file>
-    <file>images/banners/grad21.gif</file>
-    <file>images/banners/grad22.gif</file>
-    <file>images/banners/grad23.gif</file>
-    <file>images/banners/grad24.gif</file>
-    <file>images/banners/grad25.gif</file>
-    <file>images/banners/grad26.gif</file>
-    <file>images/banners/grad27.gif</file>
+    <file>images/aaa-banners/grad23.gif</file>
+
+    <file>images/gann/HowToMakeProfitsInCommodities.png</file>
+    <file>images/gann/sqof9.png</file>
+
+    <file>images/iconspedia/office3_32.png</file>
+
+    <file>images/qt/pointer.png</file>
+    <file>images/qt/qt-logo.png</file>
+
+    <file>images/rluu/appIcon.png</file>
+    <file>images/rluu/handClosed.png</file>
+    <file>images/rluu/handOpen.png</file>
+    <file>images/rluu/logo_ryan_d1.png</file>
+    <file>images/rluu/zoomIn.png</file>
+    <file>images/rluu/zoomOut.png</file>
+
+    <file>images/tango-icon-theme-0.8.90/32x32/actions/document-new.png</file>
+    <file>images/tango-icon-theme-0.8.90/32x32/actions/document-open.png</file>
+    <file>images/tango-icon-theme-0.8.90/32x32/actions/document-print.png</file>
+    <file>images/tango-icon-theme-0.8.90/32x32/actions/document-print-preview.png</file>
+    <file>images/tango-icon-theme-0.8.90/32x32/actions/document-save-as.png</file>
+    <file>images/tango-icon-theme-0.8.90/32x32/actions/document-save.png</file>
+    <file>images/tango-icon-theme-0.8.90/32x32/actions/system-log-out.png</file>
+    <file>images/tango-icon-theme-0.8.90/32x32/apps/internet-web-browser.png</file>
+    <file>images/tango-icon-theme-0.8.90/32x32/categories/preferences-system.png</file>
+    <file>images/tango-icon-theme-0.8.90/32x32/status/image-missing.png</file>
+
 </qresource>
 </RCC>
