@@ -24,8 +24,8 @@ Location of creation and initial imports: Chantilly, VA
 
 Description:
 
-This is a Python PyQt project that is used to assist in my learning
-and research about future prices of Futures, Currencies and Stocks.
+This is a Python PyQt project that is used to assist in learning
+and research about the price movements of Futures, Currencies and Stocks.
 
 ##############################################################################
 

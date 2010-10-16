@@ -298,7 +298,7 @@ class BirthInfo:
 
         # Log that we set the state of this object.
         self.log.info("Set state of a " + BirthInfo.__name__ +
-                      " object of version " + self.classVersion)
+                      " object of version {}".format(self.classVersion))
 
 
 
@@ -627,7 +627,7 @@ class PriceChartDocumentData:
 
         # Log that we set the state of this object.
         self.log.info("Set state of a " + PriceChartDocumentData.__name__ +
-                      " object of version " + self.classVersion)
+                      " object of version {}".format(self.classVersion))
 
 
 class DefaultSettingsFactory:

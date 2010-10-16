@@ -57,8 +57,8 @@ class MainWindow(QMainWindow):
         
         # Set application details so the we can use QSettings default
         # constructor later.
-        QCoreApplication.setOrganizationName(appAuthor);
-        QCoreApplication.setApplicationName(appName);
+        QCoreApplication.setOrganizationName(appAuthor)
+        QCoreApplication.setApplicationName(appName)
 
         # Settings attributes that are set when _readSettings() is called.
         self.defaultPriceChartDocumentOpenDirectory = ""
@@ -73,7 +73,7 @@ class MainWindow(QMainWindow):
 
         # Maps actions in the window menu to changing active document windows.
         self.windowMapper = QSignalMapper(self)
-        self.windowMapper.mapped.connect(self.mdiArea.setActiveSubWindow)
+        self.windowMapper.mapped[QWidget].connect(self.mdiArea.setActiveSubWindow)
 
         # Any updates in window activation will update action objects and
         # the window menu.
@@ -91,8 +91,8 @@ class MainWindow(QMainWindow):
 
         self._readSettings()
 
-        self.restoreGeometry(self.windowGeometry);
-        self.restoreState(self.windowState);
+        self.restoreGeometry(self.windowGeometry)
+        self.restoreState(self.windowState)
 
         self.setWindowTitle(self.appName)
         self.setWindowIcon(self.appIcon)
@@ -106,42 +106,52 @@ class MainWindow(QMainWindow):
         # Create actions for the File Menu.
 
         # Create the newChartAction.
-        self.newChartAction = QAction(QIcon(":/images/tango-icon-theme-0.8.90/32x32/actions/document-new.png"), "&New", self)
+        icon = QIcon(":/images/tango-icon-theme-0.8.90/32x32/actions/document-new.png")
+        self.newChartAction = QAction(icon, "&New", self)
         self.newChartAction.setShortcut("Ctrl+n")
         self.newChartAction.setStatusTip("Create a new Chart file")
         self.newChartAction.triggered.connect(self._newChart)
 
         # Create the openChartAction.
-        self.openChartAction = QAction(QIcon(":/images/tango-icon-theme-0.8.90/32x32/actions/document-open.png"), "&Open", self)
+        icon = QIcon(":/images/tango-icon-theme-0.8.90/32x32/actions/document-open.png")
+        self.openChartAction = QAction(icon, "&Open", self)
         self.openChartAction.setShortcut("Ctrl+o")
         self.openChartAction.setStatusTip("Open an existing Chart file")
         self.openChartAction.triggered.connect(self._openChart)
 
+        # The closeChartAction is used in the File menu, but created below
+        # in the section for the Window menu.
+
         # Create the saveChartAction.
-        self.saveChartAction = QAction(QIcon(":/images/tango-icon-theme-0.8.90/32x32/actions/document-save.png"), "&Save", self)
+        icon = QIcon(":/images/tango-icon-theme-0.8.90/32x32/actions/document-save.png")
+        self.saveChartAction = QAction(icon, "&Save", self)
         self.saveChartAction.setShortcut("Ctrl+s")
         self.saveChartAction.setStatusTip("Save the Chart to disk")
         self.saveChartAction.triggered.connect(self._saveChart)
 
         # Create the saveAsChartAction.
-        self.saveAsChartAction = QAction(QIcon(":/images/tango-icon-theme-0.8.90/32x32/actions/document-save-as.png"), "Save &As...", self)
+        icon = QIcon(":/images/tango-icon-theme-0.8.90/32x32/actions/document-save-as.png")
+        self.saveAsChartAction = QAction(icon, "Save &As...", self)
         self.saveAsChartAction.setStatusTip("Save the Chart as a new file")
         self.saveAsChartAction.triggered.connect(self._saveAsChart)
 
         # Create the printAction.
-        self.printAction = QAction(QIcon(":/images/tango-icon-theme-0.8.90/32x32/actions/document-print.png"), "&Print", self)
+        icon = QIcon(":/images/tango-icon-theme-0.8.90/32x32/actions/document-print.png")
+        self.printAction = QAction(icon, "&Print", self)
         self.printAction.setShortcut("Ctrl+p")
         self.printAction.setStatusTip("Print the Chart")
         self.printAction.triggered.connect(self._print)
 
         # Create the printPreviewAction.
-        self.printPreviewAction = QAction(QIcon(":/images/tango-icon-theme-0.8.90/32x32/actions/document-print-preview.png"), "Print Pre&view", self)
+        icon = QIcon(":/images/tango-icon-theme-0.8.90/32x32/actions/document-print-preview.png")
+        self.printPreviewAction = QAction(icon, "Print Pre&view", self)
         self.printPreviewAction.\
             setStatusTip("Preview the document before printing")
         self.printPreviewAction.triggered.connect(self._printPreview)
 
         # Create the exitAppAction.
-        self.exitAppAction = QAction(QIcon(":/images/tango-icon-theme-0.8.90/32x32/actions/system-log-out.png"), "E&xit", self)
+        icon = QIcon(":/images/tango-icon-theme-0.8.90/32x32/actions/system-log-out.png")
+        self.exitAppAction = QAction(icon, "E&xit", self)
         self.exitAppAction.setShortcut("Ctrl+q")
         self.exitAppAction.setStatusTip("Exit the application")
         self.exitAppAction.triggered.connect(self._exitApp)
@@ -150,24 +160,28 @@ class MainWindow(QMainWindow):
         # Create actions for the Edit Menu.
 
         # Create the editBirthInfoAction.
-        self.editBirthInfoAction = QAction(QIcon(":/images/tango-icon-theme-0.8.90/32x32/apps/internet-web-browser.png"), "&Edit Birth Data", self)
+        icon = QIcon(":/images/tango-icon-theme-0.8.90/32x32/apps/internet-web-browser.png")
+        self.editBirthInfoAction = QAction(icon, "&Edit Birth Data", self)
         self.editBirthInfoAction.setStatusTip(
                 "Edit the birth time and birth location")
         self.editBirthInfoAction.triggered.connect(self._editBirthInfo)
 
 
         # Create the editAppPreferencesAction.
-        self.editAppPreferencesAction = QAction(QIcon(":/images/tango-icon-theme-0.8.90/32x32/categories/preferences-system.png"), "Edit &Preferences", self)
+        icon = QIcon(":/images/tango-icon-theme-0.8.90/32x32/categories/preferences-system.png")
+        self.editAppPreferencesAction = \
+            QAction(icon, "Edit &Preferences", self)
         self.editAppPreferencesAction.setStatusTip("Edit Preferences")
-        self.editAppPreferencesAction.triggered.connect(
-                self._editAppPreferences)
+        self.editAppPreferencesAction.triggered.\
+            connect(self._editAppPreferences)
 
 
         ####################
         # Create actions for the Window menu.
 
         # Create the closeChartAction.
-        self.closeChartAction = QAction(QIcon(":/images/tango-icon-theme-0.8.90/32x32/status/image-missing.png"), "Cl&ose", self)
+        icon = QIcon(":/images/tango-icon-theme-0.8.90/32x32/status/image-missing.png")
+        self.closeChartAction = QAction(icon, "&Close", self)
         self.closeChartAction.setShortcut("Ctrl+F4")
         self.closeChartAction.setStatusTip("Close the active window")
         self.closeChartAction.triggered.connect(
@@ -186,7 +200,7 @@ class MainWindow(QMainWindow):
                 self.mdiArea.tileSubWindows)
 
         # Create the cascadeSubWindowsAction.
-        self.cascadeSubWindowsAction = QAction("&Cascade", self)
+        self.cascadeSubWindowsAction = QAction("Ca&scade", self)
         self.cascadeSubWindowsAction.setStatusTip("Cascade the windows")
         self.cascadeSubWindowsAction.triggered.connect(
                 self.mdiArea.cascadeSubWindows)
@@ -205,6 +219,14 @@ class MainWindow(QMainWindow):
         self.previousSubWindowAction.triggered.connect(
                 self.mdiArea.activatePreviousSubWindow)
 
+        # Create a separator for the Window menu.
+        self.windowMenuSeparator = QAction(self)
+        self.windowMenuSeparator.setSeparator(True)
+
+        # Create a QActionGroup for the list of windows.
+        self.windowMenuActionGroup = QActionGroup(self)
+        self.windowMenuActionGroup.setExclusive(True)
+
         ####################
         # Create actions for the Help menu.
         self.aboutAction = QAction(self.appIcon, "&About", self)
@@ -216,6 +238,7 @@ class MainWindow(QMainWindow):
             QAction(QIcon(":/images/qt/qt-logo.png"), "About &Qt", self)
         self.aboutQtAction.setStatusTip("Show information about Qt.")
         self.aboutQtAction.triggered.connect(self._aboutQt)
+
 
     def _createMenus(self):
         """Creates the QMenus and adds them to the QMenuBar of the
@@ -242,14 +265,7 @@ class MainWindow(QMainWindow):
 
         # Create the Window menu.
         self.windowMenu = self.menuBar().addMenu("&Window")
-        self.windowMenu.addAction(self.closeChartAction)
-        self.windowMenu.addAction(self.closeAllChartsAction)
-        self.windowMenu.addSeparator()
-        self.windowMenu.addAction(self.tileSubWindowsAction)
-        self.windowMenu.addAction(self.cascadeSubWindowsAction)
-        self.windowMenu.addSeparator()
-        self.windowMenu.addAction(self.nextSubWindowAction)
-        self.windowMenu.addAction(self.previousSubWindowAction)
+        self._updateWindowMenu()
 
         # Add a separator between the Window menu and the Help menu.
         self.menuBar().addSeparator()
@@ -321,6 +337,7 @@ class MainWindow(QMainWindow):
         self.closeAllChartsAction.setEnabled(isActive)
         self.tileSubWindowsAction.setEnabled(isActive)
         self.cascadeSubWindowsAction.setEnabled(isActive)
+        self.nextSubWindowAction.setEnabled(isActive)
         self.previousSubWindowAction.setEnabled(isActive)
 
         self.aboutAction.setEnabled(True)
@@ -334,7 +351,83 @@ class MainWindow(QMainWindow):
         """
 
         self.log.debug("Entered _updateWindowMenu()")
-        # TODO:  write this funciton out.
+        print("DEBUG: Entered _updateWindowMenu()")
+
+        for action in self.windowMenuActionGroup.actions():
+            self.windowMenuActionGroup.removeAction(action)
+
+        # Clear the Window menu and re-add all the standard actions that
+        # always show up.
+        self.windowMenu.clear()
+
+        self.windowMenu.addAction(self.nextSubWindowAction)
+        self.windowMenu.addAction(self.previousSubWindowAction)
+        self.windowMenu.addSeparator()
+        self.windowMenu.addAction(self.closeChartAction)
+        self.windowMenu.addAction(self.closeAllChartsAction)
+        self.windowMenu.addSeparator()
+        self.windowMenu.addAction(self.tileSubWindowsAction)
+        self.windowMenu.addAction(self.cascadeSubWindowsAction)
+        self.windowMenu.addAction(self.windowMenuSeparator)
+
+        # Get the list of subwindows.
+        subwindows = self.mdiArea.subWindowList()
+
+        if len(subwindows) > 0:
+            self.windowMenuSeparator.setVisible(True)
+        else:
+            self.windowMenuSeparator.setVisible(False)
+
+        # j is the counter for the document list in the Menu.
+        j = 1
+
+        # i is the index into the subwindows available.
+        # Some of these subwindows may not be PriceChartDocuments, or
+        # things we know how to get a name/title/filename for.
+        for i in range(len(subwindows)):
+            subwindow = subwindows[i]
+
+            # Number windows only if it is a PriceChartDocument.
+            if isinstance(subwindow, PriceChartDocument) == True:
+                priceChartDocument = subwindow
+
+                # Build the text that will go in the menu's QAction.
+                # Here we will have a short-cut (underscore) only if
+                # the window count is single digits.
+                text = ""
+                if j < 10:
+                    text += "&"
+                text += "{} {}".format(j, priceChartDocument.title)
+
+                # Create the action.
+                action = QAction(text, self)
+                action.setCheckable(True)
+
+                # Add the action to the QActionGroup.
+                self.windowMenuActionGroup.addAction(action)
+
+                # Add the action to the menu.
+                self.windowMenu.addAction(action)
+
+                # Set the action as checked if it is the active
+                # PriceChartDocument.
+                if priceChartDocument == self.getActivePriceChartDocument():
+                    action.setChecked(True)
+                else:
+                    action.setChecked(False)
+
+                # Add the action to the signal mapper that will connect
+                # this action being triggered to the related 
+                # priceChartDocument.
+                self.windowMapper.setMapping(action, priceChartDocument)
+                action.triggered.connect(self.windowMapper.map)
+                
+                # Increment counter for the window number in the Window menu.
+                j += 1
+            else:
+                self.log.debug("Currently only supporting windows that " + 
+                               "are PriceChartDocument types only.")
+
         self.log.debug("Exiting _updateWindowMenu()")
 
     def _addSubWindow(self, widget):
@@ -476,7 +569,7 @@ class MainWindow(QMainWindow):
         returnVal = wizard.exec_() 
 
         if returnVal == QDialog.Accepted:
-            self.log.debug("PriceChartDocumentWizard accepted");
+            self.log.debug("PriceChartDocumentWizard accepted")
 
             self.log.debug("Data filename is: " + wizard.field("dataFilename"))
             self.log.debug("Data num lines to skip is: {}".\
@@ -499,7 +592,7 @@ class MainWindow(QMainWindow):
             # Add this priceChartDocument to the list of subwindows
             self._addSubWindow(priceChartDocument)
         else:
-            self.log.debug("PriceChartDocumentWizard rejected");
+            self.log.debug("PriceChartDocumentWizard rejected")
 
 
         self.log.debug("Exiting _newChart()")
@@ -520,6 +613,13 @@ class MainWindow(QMainWindow):
                                 filters)
 
         if filename != "":
+            # Okay, so the person chose a file that is non-empty.  
+            # See if this filename has already been opened in another
+            # PriceChartDocument.  If this is so, prompt to make sure the
+            # user wants to open two PriceChartDocuments that point to the
+            # same file.  
+            # TODO:  wrie this part for the comment above.
+            
             # Load the file.
 
             # Create the subwindow.
@@ -532,6 +632,9 @@ class MainWindow(QMainWindow):
 
             if loadSuccess == True:
                 # Load into the object was successful.  
+
+                # Set the title to what the filename is.
+
                 # Now Add this priceChartDocument to the list of subwindows
                 self._addSubWindow(priceChartDocument)
 
@@ -601,8 +704,8 @@ class MainWindow(QMainWindow):
             else:
                 # The document has been saved before and has a filename
                 # associated with it.
-                self.log.debug("_saveChart(): Filename associated with the " + 
-                               "PriceChartDocument is: " + filename)
+                self.log.debug("_saveChart(): Filename associated with " +
+                               "the PriceChartDocument is: " + filename)
 
                 if os.path.exists(filename):
                     self.log.debug("_saveChart(): Updating existing file: " + 
@@ -855,10 +958,12 @@ class MainWindow(QMainWindow):
 
         title = "About"
 
-        # TODO:  add after teh appName a description of this application
-        # and what it does.
-
         message = self.appName + endl + \
+                  endl + \
+                  self.appName + " is a PyQt application that " + \
+                  "is used as a research tool to study the " + \
+                  "price movements of Futures, Currencies and Stocks." + \
+                  endl + \
                   endl + \
                   "Version: " + self.appVersion + endl + \
                   "Released: " + self.appDate + endl + \
@@ -929,7 +1034,7 @@ class PriceChartDocument(QMdiSubWindow):
         #   be deleted when closed in the MDI area. If not, the window will
         #   be hidden and the MDI area will not activate the next subwindow.
         #
-        self.setAttribute(Qt.WA_DeleteOnClose);
+        self.setAttribute(Qt.WA_DeleteOnClose)
 
         self.setWindowTitle(self.title)
 
@@ -984,6 +1089,7 @@ class PriceChartDocument(QMdiSubWindow):
                 if isinstance(priceChartDocumentData, 
                               PriceChartDocumentData) == True:
                     self.setPriceChartDocumentData(priceChartDocumentData)
+                    self.setFilename(filename)
                     self.setDirtyFlag(False)
                     rv = True
                 else:
@@ -1046,9 +1152,9 @@ class PriceChartDocument(QMdiSubWindow):
             debug("Entered getPriceChartDocumentData()")
 
         # TODO:  write this method.
-
         self.log.\
             debug("Exiting getPriceChartDocumentData()")
+        return PriceChartDocumentData()
 
     def setPriceChartDocumentData(self, priceChartDocumentData):
         """Stores the PriceChartDocumentData and sets the widgets with the
