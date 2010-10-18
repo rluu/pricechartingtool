@@ -297,8 +297,8 @@ class BirthInfo:
         self.log = logging.getLogger("data_objects.BirthInfo")
 
         # Log that we set the state of this object.
-        self.log.info("Set state of a " + BirthInfo.__name__ +
-                      " object of version {}".format(self.classVersion))
+        self.log.debug("Set state of a " + BirthInfo.__name__ +
+                       " object of version {}".format(self.classVersion))
 
 
 
@@ -626,8 +626,8 @@ class PriceChartDocumentData:
         self.log = logging.getLogger("data_objects.PriceChartDocumentData")
 
         # Log that we set the state of this object.
-        self.log.info("Set state of a " + PriceChartDocumentData.__name__ +
-                      " object of version {}".format(self.classVersion))
+        self.log.debug("Set state of a " + PriceChartDocumentData.__name__ +
+                       " object of version {}".format(self.classVersion))
 
 
 class DefaultSettingsFactory:

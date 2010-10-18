@@ -61,8 +61,6 @@ class MainWindow(QMainWindow):
         QCoreApplication.setApplicationName(appName)
 
         # Settings attributes that are set when _readSettings() is called.
-        self.defaultPriceChartDocumentOpenDirectory = ""
-        self.defaultPriceChartDocumentSaveDirectory = ""
         self.defaultPriceBarDataOpenDirectory = ""
         self.windowGeometry = QByteArray()
         self.windowState = QByteArray()
@@ -184,8 +182,7 @@ class MainWindow(QMainWindow):
         self.closeChartAction = QAction(icon, "&Close", self)
         self.closeChartAction.setShortcut("Ctrl+F4")
         self.closeChartAction.setStatusTip("Close the active window")
-        self.closeChartAction.triggered.connect(
-                self.mdiArea.closeActiveSubWindow)
+        self.closeChartAction.triggered.connect(self._closeChart)
 
         # Create the closeAllChartsAction.
         self.closeAllChartsAction = QAction("Close &All", self)
@@ -281,6 +278,7 @@ class MainWindow(QMainWindow):
 
         # Create the File toolbar.
         self.fileToolBar = self.addToolBar("File")
+        self.fileToolBar.setObjectName("fileToolBar")
         self.fileToolBar.addAction(self.newChartAction)
         self.fileToolBar.addAction(self.openChartAction)
         self.fileToolBar.addAction(self.saveChartAction)
@@ -290,6 +288,7 @@ class MainWindow(QMainWindow):
 
         # Create the Edit toolbar.
         self.editToolBar = self.addToolBar("Edit")
+        self.editToolBar.setObjectName("editToolBar")
         self.editToolBar.addAction(self.editBirthInfoAction)
         self.editToolBar.addAction(self.editAppPreferencesAction)
 
@@ -307,18 +306,19 @@ class MainWindow(QMainWindow):
         priceChartDocument = self.getActivePriceChartDocument()
 
         # Flag for whether or not a PriceChartDocument is active or not.
-        # Initialize to True.
-        isActive = True
+        # Initialize to False.
+        isActive = False
 
         if priceChartDocument == None:
-            print("DEBUG: Entered _updateActions() with currently active " +
-                  "subwindow: == None")
             isActive = False
+            self.log.debug("Currently active subwindow is: None")
         else:
-            print("DEBUG: Entered _updateActions() with currently active " +
-                  "subwindow title: == " + priceChartDocument.title)
             isActive = True
+            self.log.debug("Currently active subwindow title is: " + 
+                           priceChartDocument.title)
 
+        # Set the QActions according to whether it is always True, always
+        # False, or dependent on whether a PriceChartDocument is selected.
         self.newChartAction.setEnabled(True)
         self.openChartAction.setEnabled(True)
 
@@ -351,7 +351,6 @@ class MainWindow(QMainWindow):
         """
 
         self.log.debug("Entered _updateWindowMenu()")
-        print("DEBUG: Entered _updateWindowMenu()")
 
         for action in self.windowMenuActionGroup.actions():
             self.windowMenuActionGroup.removeAction(action)
@@ -466,8 +465,6 @@ class MainWindow(QMainWindow):
     def _readSettings(self):
         """
         Reads in QSettings values for preferences and default values.
-        This includes default directories to open to when the user
-        open/saves files, and also the window geometry, etc.
 
         This function uses QSettings and assumes that the calls to
         QCoreApplication.setOrganizationName(), and 
@@ -480,16 +477,6 @@ class MainWindow(QMainWindow):
 
         # Preference settings.
         settings = QSettings() 
-
-        # Directory location default for the file open dialogs for
-        # PriceChartDocument.
-        self.defaultPriceChartDocumentOpenDirectory = \
-            settings.value("ui/defaultPriceChartDocumentOpenDirectory", "")
-
-        # Directory location default for the file save dialogs for
-        # PriceChartDocument.
-        self.defaultPriceChartDocumentSaveDirectory = \
-            settings.value("ui/defaultPriceChartDocumentSaveDirectory", "")
 
         # Window geometry.
         self.windowGeometry = \
@@ -509,8 +496,6 @@ class MainWindow(QMainWindow):
     def _writeSettings(self):
         """
         Writes current settings values to the QSettings object.
-        This includes default directories to open to when the user
-        open/saves files, and also the window geometry, etc.
 
         This function uses QSettings and assumes that the calls to
         QCoreApplication.setOrganizationName(), and 
@@ -526,33 +511,15 @@ class MainWindow(QMainWindow):
 
         # Only write the settings if the value has changed.
 
-        # Directory location default for the file open dialogs for
-        # PriceChartDocument.
-        if (self.defaultPriceChartDocumentOpenDirectory != 
-            settings.value("ui/defaultPriceChartDocumentOpenDirectory", "")):
-
-            settings.setValue("ui/defaultPriceChartDocumentOpenDirectory",
-                              self.defaultPriceChartDocumentOpenDirectory)
-
-        # Directory location default for the file save dialogs for
-        # PriceChartDocument.
-        if (self.defaultPriceChartDocumentSaveDirectory !=
-            settings.value("ui/defaultPriceChartDocumentSaveDirectory", "")):
-
-            settings.setValue("ui/defaultPriceChartDocumentSaveDirectory",
-                              self.defaultPriceChartDocumentSaveDirectory)
-
         # Window geometry.
-        if (settings.value("ui/MainWindow/windowGeometry").toByteArray() !=
-            self.saveGeometry()):
+        if settings.value("ui/MainWindow/windowGeometry") != \
+                self.saveGeometry():
 
             settings.setValue("ui/MainWindow/windowGeometry", 
                               self.saveGeometry())
 
         # Window state.
-        if (settings.value("ui/MainWindow/windowState").toByteArray() !=
-            self.saveState()):
-
+        if settings.value("ui/MainWindow/windowState") != self.saveState():
             settings.setValue("ui/MainWindow/windowState", self.saveState())
 
 
@@ -589,8 +556,13 @@ class MainWindow(QMainWindow):
             priceChartDocument.\
                 setPriceChartDocumentData(priceChartDocumentData)
 
+            # Connect the signal for updating the status bar message.
+            priceChartDocument.statusMessageUpdate[str].\
+                connect(self.showInStatusBar)
+
             # Add this priceChartDocument to the list of subwindows
             self._addSubWindow(priceChartDocument)
+
         else:
             self.log.debug("PriceChartDocumentWizard rejected")
 
@@ -598,6 +570,15 @@ class MainWindow(QMainWindow):
         self.log.debug("Exiting _newChart()")
 
     def _openChart(self):
+        """Interactive dialogs to open an existing PriceChartDocument.
+
+        This function uses QSettings and assumes that the calls to
+        QCoreApplication.setOrganizationName(), and 
+        QCoreApplication.setApplicationName() have been called 
+        previously (so that the QSettings constructor can be called 
+        without any parameters specified).
+        """
+
         self.log.debug("Entered _openChart()")
 
         # Set filters for what files are displayed.
@@ -605,11 +586,17 @@ class MainWindow(QMainWindow):
             PriceChartDocument.fileFilter + ";;" + \
             MainWindow.allFilesFileFilter
 
+        # Directory location default for the file open dialogs for
+        # PriceChartDocument.
+        settings = QSettings()
+        defaultPriceChartDocumentOpenDirectory = \
+            settings.value("ui/defaultPriceChartDocumentOpenDirectory", "")
+
         filename = \
             QFileDialog.\
                 getOpenFileName(self, 
                                 "Open PriceChartDocument File",
-                                self.defaultPriceChartDocumentOpenDirectory,
+                                defaultPriceChartDocumentOpenDirectory,
                                 filters)
 
         if filename != "":
@@ -618,7 +605,42 @@ class MainWindow(QMainWindow):
             # PriceChartDocument.  If this is so, prompt to make sure the
             # user wants to open two PriceChartDocuments that point to the
             # same file.  
-            # TODO:  wrie this part for the comment above.
+            filenameAlreadyOpened = False
+
+            # Get the list of subwindows.
+            subwindows = self.mdiArea.subWindowList()
+
+            # i is the index into the subwindows available.
+            # Some of these subwindows may not be PriceChartDocuments, or
+            # things we know how to get a name/title/filename for.
+            for i in range(len(subwindows)):
+                subwindow = subwindows[i]
+
+                if isinstance(subwindow, PriceChartDocument) == True:
+                    priceChartDocument = subwindow
+
+                    if priceChartDocument.filename == filename:
+                        filenameAlreadyOpened = True
+
+            if filenameAlreadyOpened == True:
+                # Prompt to make sure the user wants to open
+                # another PriceChartDocument with the same
+                # filename.
+                title = "File Already Open"
+                text = "The filename you have selected is already open " + \
+                       "in another subwindow." + os.linesep + os.linesep + \
+                       "Do you still want to open this file?"
+                buttons = (QMessageBox.Yes | QMessageBox.No)
+                defaultButton = QMessageBox.No
+
+                buttonClicked = \
+                    QMessageBox.warning(self, title, text, buttons, 
+                                        defaultButton)
+
+                if buttonClicked == QMessageBox.No:
+                    # The user doesn't want to load this file.
+                    # Exit this function.
+                    return
             
             # Load the file.
 
@@ -633,7 +655,9 @@ class MainWindow(QMainWindow):
             if loadSuccess == True:
                 # Load into the object was successful.  
 
-                # Set the title to what the filename is.
+                # Connect the signal for updating the status bar message.
+                priceChartDocument.statusMessageUpdate[str].\
+                    connect(self.showInStatusBar)
 
                 # Now Add this priceChartDocument to the list of subwindows
                 self._addSubWindow(priceChartDocument)
@@ -641,273 +665,171 @@ class MainWindow(QMainWindow):
                 # Update the statusbar to tell what file was opened.
                 statusBarMessage = \
                     "Opened PriceChartDocument {}.".format(filename)
-                statusBarTimeoutMsec = \
-                    MainWindow.defaultStatusBarMsgTimeMsec
 
-                self.statusBar().showMessage(statusBarMessage,
-                                             statusBarTimeoutMsec)
+                self.showInStatusBar(statusBarMessage)
 
                 # Get the directory where this file lives.
                 loc = filename.rfind(os.sep)
                 directory = filename[:loc]
 
-                # Update the self.defaultPriceChartDocumentOpenDirectory
-                # with the directory where filename is, if the directory
-                # is different.
-                if directory != self.defaultPriceChartDocumentOpenDirectory:
-                    self.defaultPriceChartDocumentOpenDirectory = directory
+                # Compare the directory of the file chosen with the
+                # QSettings value for the default open location.  
+                # If they are different, then set a new default.
+                if directory != defaultPriceChartDocumentOpenDirectory:
+                    settings.\
+                        setValue("ui/defaultPriceChartDocumentOpenDirectory",
+                                 directory)
             else:
                 # Load failed.  Tell the user via the statusbar.
                 statusBarMessage = \
                     "Open operation failed.  " + \
                     "Please see the log file for why."
-                statusBarTimeoutMsec = \
-                    MainWindow.defaultStatusBarMsgTimeMsec
 
-                self.statusBar().showMessage(statusBarMessage,
-                                             statusBarTimeoutMsec)
+                self.showInStatusBar(statusBarMessage)
         else:
             self.log.debug("_openChart(): " +
                            "No filename was selected for opening.")
 
         self.log.debug("Exiting _openChart()")
 
-    def _saveChart(self):
-        """Saves the current subwindow to file.  If the document has not
-        been saved before, then a prompt will be brought up for the user
-        to specify a filename to save as.
+    def _closeChart(self):
+        """Attempts to closes the current QMdiSubwindow.  If things should
+        be saved, dialogs will be brought up to get that to happen.
+        """
 
-        Returns: True if the save action succeeded.
+        self.log.debug("Entered _closeChart()")
+
+        subwindow = self.mdiArea.currentSubWindow()
+
+        subwindow.close()
+
+        self.log.debug("Exiting _closeChart()")
+
+    def _saveChart(self):
+        """Saves the current QMdiSubwindow.
+        
+        Returns True if the save action suceeded, False otherwise.
         """
 
         self.log.debug("Entered _saveChart()")
 
         # Return value.
-        rv = True
+        rv = False
 
-        # Get the active subwindow.
         subwindow = self.mdiArea.currentSubWindow()
 
-        # If it is a PriceChartDocument, we'll save it as one.
         if isinstance(subwindow, PriceChartDocument) == True:
-            # A PriceChartDocument is selected.
             priceChartDocument = subwindow
 
-            # See if it has been saved before and has a filename,
-            # of it is untitled and never been saved before.
-            filename = priceChartDocument.getFilename()
-
-            if filename == "":
-                # The document has never been saved before.
-                # Bring up the Save As prompt for file.
-                rv = self._saveAsChart()
-            else:
-                # The document has been saved before and has a filename
-                # associated with it.
-                self.log.debug("_saveChart(): Filename associated with " +
-                               "the PriceChartDocument is: " + filename)
-
-                if os.path.exists(filename):
-                    self.log.debug("_saveChart(): Updating existing file: " + 
-                                   filename)
-                else:
-                    self.log.warn("_saveChart(): Filename was non-empty " +
-                                  "and set to a file that does not exist!  " +
-                                  "This is an invalid state.  Filenames " + 
-                                  "should only be set if it was previously " +
-                                  "saved to the given filename.")
-
-                # Pickle to file.
-                rv = priceChartDocument.\
-                        picklePriceChartDocumentDataToFile(filename)
-
-                # Clear the dirty flag if the operation was successful.
-                if rv == True:
-                    self.log.info("PriceChartDocumentData saved to file: " + 
-                                  filename)
-
-                    if self.log.isEnabledFor(logging.DEBUG):
-                        # Get the data object for debugging messages.
-                        priceChartDocumentData = \
-                            priceChartDocument.getPriceChartDocumentData()
-
-                        debugMsg = \
-                            "File '{}' ".format(filename) + \
-                            "now holds the following " + \
-                            "PriceChartDocumentData: " + \
-                            priceChartDocumentData.toString()
-
-                        self.log.debug(debugMsg)
-
-                    # Filename shouldn't have changed, so there's no need to
-                    # set it again.
-                    priceChartDocument.setDirtyFlag(False)
-
-                    self.statusBar().\
-                        showMessage("PriceChartDocument saved.",
-                                    MainWindow.defaultStatusBarMsgTimeMsec)
-
-                    # Get the directory where this file lives.
-                    loc = filename.rfind(os.sep)
-                    directory = filename[:loc]
-
-                    # Update the self.defaultPriceChartDocumentSaveDirectory
-                    # with the directory where filename is, if the directory
-                    # is different.
-                    if directory != \
-                        self.defaultPriceChartDocumentSaveDirectory:
-
-                        self.defaultPriceChartDocumentSaveDirectory = \
-                            directory
-                else:
-                    # Save failure.
-                    self.statusBar().\
-                        showMessage("Save failed.  " + 
-                                    "Please check the log file for why.",
-                                    MainWindow.defaultStatusBarMsgTimeMsec)
-
+            rv = priceChartDocument.saveChart()
         else:
-            self.log.warn("_saveChart(): " + 
-                          "No subwindow is selected, or the selected " + 
-                          "subwindow is not a supported document type " +
-                          "for saving.")
+            self.log.warn("Saving this QMdiSubwindow type is not supported.")
             rv = False
-
-
-        self.log.debug("Exiting _saveChart().  Returning {}".format(rv))
+            
+        self.log.debug("Exiting _saveChart() with rv == {}".format(rv))
         return rv
 
     def _saveAsChart(self):
-        """Brings up a prompt for the user to saves the current subwindow 
-        to a new file.  After the user selects the file, it will be saved
-        to that file.
-
-        Returns: True if the saveAs action succeeded.
+        """Saves the current QMdiSubwindow to a new file.
+        
+        Returns True if the save action suceeded, False otherwise.
         """
 
         self.log.debug("Entered _saveAsChart()")
 
         # Return value.
-        rv = True
+        rv = False
 
-        # Get the active subwindow.
         subwindow = self.mdiArea.currentSubWindow()
 
-        # If it is a PriceChartDocument, we'll save it as one.
         if isinstance(subwindow, PriceChartDocument) == True:
-            # A PriceChartDocument is selected.
             priceChartDocument = subwindow
 
-            # Set filters for what files are displayed.
-            filters = \
-                PriceChartDocument.fileFilter + ";;" + \
-                MainWindow.allFilesFileFilter
-
-            # Prompt for what filename to save the data to.
-            filename = QFileDialog.\
-                getSaveFileName(self, 
-                                "Save As", 
-                                self.defaultPriceChartDocumentSaveDirectory, 
-                                filters)
-
-            # Convert filename from QString to str.
-            filename = str(filename)
-
-            self.log.debug("_saveAsChart(): The user selected filename: " +
-                           filename + " as what they wanted to save to.")
-
-            # Verify input.
-            if filename == "":
-                # The user must of clicked cancel at the file dialog prompt.
-                rv = False
-            else:
-                # Pickle to file.
-                rv = priceChartDocument.\
-                        picklePriceChartDocumentDataToFile(filename)
-
-                # If the save operation was successful, then update the
-                # filename and clear the dirty flag.
-                if rv == True:
-                    self.log.info("PriceChartDocumentData saved to " + 
-                                  "new file: " + filename)
-
-                    if self.log.isEnabledFor(logging.DEBUG):
-                        # Get the data object for debugging messages.
-                        priceChartDocumentData = \
-                            priceChartDocument.getPriceChartDocumentData()
-
-                        debugMsg = \
-                            "File '{}' ".format(filename) + \
-                            "now holds the following " + \
-                            "PriceChartDocumentData: " + \
-                            priceChartDocumentData.toString()
-
-                        self.log.debug(debugMsg)
-
-                    priceChartDocument.setFilename(filename)
-                    priceChartDocument.setDirtyFlag(False)
-
-                    statusBarMessage = \
-                        "PriceChartDocument saved to file {}.".\
-                        format(filename)
-                    statusBarTimeoutMsec = \
-                        MainWindow.defaultStatusBarMsgTimeMsec
-
-                    self.statusBar().showMessage(statusBarMessage,
-                                                 statusBarTimeoutMsec)
-
-                    # Get the directory where this file lives.
-                    loc = filename.rfind(os.sep)
-                    directory = filename[:loc]
-
-                    # Update the self.defaultPriceChartDocumentSaveDirectory
-                    # with the directory where filename is, if the directory
-                    # is different.
-                    if directory != \
-                            self.defaultPriceChartDocumentSaveDirectory:
-
-                        self.defaultPriceChartDocumentSaveDirectory = \
-                                directory
-                else:
-                    # Save failure.
-                    self.statusBar().\
-                        showMessage("Save failed.  " + 
-                                    "Please check the log file for why.",
-                                    MainWindow.defaultStatusBarMsgTimeMsec)
+            rv = priceChartDocument.saveAsChart()
         else:
-            self.log.warn("_saveAsChart(): " + 
-                           "No subwindow was selected or the " + 
-                           "subwindow selected is not a supported " + 
-                           "document type for saving.")
+            self.log.warn("'Save As' for this QMdiSubwindow type " + 
+                          "is not supported.")
             rv = False
-
-        self.log.debug("Exiting _saveAsChart().  Returning {}".format(rv))
+            
+        self.log.debug("Exiting _saveAsChart() with rv == {}".format(rv))
         return rv
+
+    def showInStatusBar(self, text):
+        """Shows the given text in the MainWindow status bar for
+        timeoutMSec milliseconds.
+        """
+
+        self.statusBar().showMessage(text, 
+                                     MainWindow.defaultStatusBarMsgTimeMsec)
 
     def _print(self):
         """Opens up a dialog for printing the current selected document."""
 
+        self.log.debug("Entered _print()")
         # TODO: write this function.
+        QMessageBox.information(self, 
+                                "Not yet implemented", 
+                                "This feature has not yet been implemented.")
+        self.log.debug("Exiting _print()")
+
 
     def _printPreview(self):
         """Opens up a dialog for previewing the current selected document
         for printing.
         """
 
+        self.log.debug("Entered _printPreview()")
         # TODO: write this function.
+        QMessageBox.information(self, 
+                                "Not yet implemented", 
+                                "This feature has not yet been implemented.")
+        self.log.debug("Exiting _printPreview()")
+
+    def closeEvent(self, closeEvent):
+        """Attempts to close the QMainWindow.  Does any cleanup necessary."""
+
+        self.log.debug("Entered closeEvent()")
+
+        # Flag that indicates that we should exit. 
+        shouldExit = True
+        
+        # Get the list of subwindows.
+        subwindows = self.mdiArea.subWindowList()
+
+        # Go through each subwindow and try to close each.
+        for subwindow in subwindows:
+            subwindowClosed = subwindow.close()
+
+            # If a subwindow is not closed (i.e., the user clicked
+            # cancel), then we will not exit the application.
+            if subwindowClosed == False:
+                shouldExit = False
+                break
+
+
+        # Accept the close event if the flag is set.
+        if shouldExit == True:
+            self.log.debug("Accepting close event.")
+
+            # Save application settings/preferences.
+            self._writeSettings()
+
+            closeEvent.accept()
+        else:
+            self.log.debug("Ignoring close event.")
+
+            closeEvent.ignore()
+
+        self.log.debug("Exiting closeEvent()")
 
     def _exitApp(self):
+        """Exits the app by trying to close all windows."""
+
         self.log.debug("Entered _exitApp()")
 
-        # TODO:  need to create/overwrite the closeEvent() function.  This
-        # function should do similar functionality.
-        #
-
-
-        # TODO:  add here some checking to save open unsaved files, and also settings.
+        qApp.closeAllWindows()
 
         self.log.debug("Exiting _exitApp()")
-        qApp.closeAllWindows()
 
 
     def _editBirthInfo(self):
@@ -945,8 +867,11 @@ class MainWindow(QMainWindow):
 
     def _editAppPreferences(self):
         self.log.debug("Entered _editAppPreferences()")
+        # TODO:  implement this function.
+        QMessageBox.information(self, 
+                                "Not yet implemented", 
+                                "This feature has not yet been implemented.")
         self.log.debug("Exiting _editAppPreferences()")
-        pass
 
 
     def _about(self):
@@ -961,8 +886,8 @@ class MainWindow(QMainWindow):
         message = self.appName + endl + \
                   endl + \
                   self.appName + " is a PyQt application that " + \
-                  "is used as a research tool to study the " + \
-                  "price movements of Futures, Currencies and Stocks." + \
+                  "is a research tool for the study of the financial " + \
+                  "markets." + \
                   endl + \
                   endl + \
                   "Version: " + self.appVersion + endl + \
@@ -975,7 +900,7 @@ class MainWindow(QMainWindow):
 
     def _aboutQt(self):
         """Opens a popup window displaying information about the Qt
-        used in this application.
+        toolkit used in this application.
         """
 
         title = "About Qt"
@@ -1000,6 +925,10 @@ class PriceChartDocument(QMdiSubWindow):
     # filename.
     modifiedFileStr = " (*)"
 
+    # Signal emitted when the object wants to display something to the
+    # status bar.
+    statusMessageUpdate = QtCore.pyqtSignal(str)
+    
     def __init__(self, parent=None):
         """Creates the QMdiSubWindow with the internal widgets,
         and loads the given PriceChartDocumentData object.
@@ -1236,6 +1165,265 @@ class PriceChartDocument(QMdiSubWindow):
             self.setWindowTitle(self.title)
 
         self.log.debug("Exiting setDirtyFlag({})".format(dirtyFlag))
+
+    def closeEvent(self, closeEvent):
+        """Closes this QMdiSubWindow.
+        If there are unsaved modifications, then the user will be prompted
+        for saving.
+        """
+        
+        self.log.debug("Entered closeEvent()")
+
+        priceChartDocument = self
+
+        # Prompt for saving if there are unsaved modifications.
+        if priceChartDocument.getDirtyFlag() == True:
+            title = "Save before closing?"
+            text = "This PriceChartDocument has not been saved yet." + \
+                   os.linesep + os.linesep + \
+                   "Save before closing?"
+            buttons = (QMessageBox.Save | 
+                       QMessageBox.Discard | 
+                       QMessageBox.Cancel)
+
+            defaultButton = QMessageBox.Save 
+
+            buttonClicked = \
+                QMessageBox.question(self, title, text, 
+                                     buttons, defaultButton)
+
+            # Check what button was clicked in the prompt.
+            if buttonClicked == QMessageBox.Save:
+                # Save the document before closing.
+                debugMsg = "closeEvent(): " + \
+                    "User chose to save mods to PriceChartDocument: " + \
+                    priceChartDocument.toString()
+
+                self.log.debug(debugMsg)
+
+                # Only close if the save action succeeded.
+                # We can always prompt again and they can click discard if
+                # they really don't want to save.
+                if self.saveChart() == True:
+                    self.log.debug("Save was successful.  " + \
+                                   "Now closing PriceChartDocument.")
+                    closeEvent.accept()
+                else:
+                    self.log.debug("Save was not successful.  " + \
+                                   "Ignoring close event.")
+                    closeEvent.ignore()
+
+            elif buttonClicked == QMessageBox.Discard:
+                # Discard modifications.  Here we just send a close event.
+                debugMsg = "closeEvent(): " + \
+                    "Discarding modifications to PriceChartDocument: " + \
+                    priceChartDocument.toString()
+
+                self.log.debug(debugMsg)
+
+                closeEvent.accept()
+
+            elif buttonClicked == QMessageBox.Cancel:
+                # Use clicked cancel, meaning he doesn't want to close the
+                # chart after all.
+                debugMsg = "closeEvent(): " + \
+                    "Canceled closeChart for PriceChartDocument: " + \
+                    priceChartDocument.toString()
+
+                self.log.debug(debugMsg)
+
+                closeEvent.ignore()
+        else:
+            # Document is not dirty (it has been saved).  Just close.
+            self.log.debug("Document has no unsaved mods.  " + \
+                           "Just closing the PriceChartDocument: " + \
+                           priceChartDocument.toString())
+
+            closeEvent.accept()
+
+        self.log.debug("Exiting closeEvent()")
+
+    def saveChart(self):
+        """Saves this PriceChartDocument.
+        If the document has not been saved before, then a prompt 
+        will be brought up for the user to specify a filename 
+        to save as.
+
+        Returns: True if the save action succeeded.
+        """
+
+        self.log.debug("Entered saveChart()")
+
+        # Return value.
+        rv = True
+
+        priceChartDocument = self
+
+        # See if it has been saved before and has a filename,
+        # of it is untitled and never been saved before.
+        filename = priceChartDocument.getFilename()
+
+        if filename == "":
+            # The document has never been saved before.
+            # Bring up the Save As prompt for file.
+            rv = self.saveAsChart()
+        else:
+            # The document has been saved before and has a filename
+            # associated with it.
+            self.log.debug("saveChart(): " + 
+                           "Filename associated with " +
+                           "the PriceChartDocument is: " + filename)
+
+            if os.path.exists(filename):
+                self.log.debug("saveChart(): " + 
+                               "Updating existing file: " + 
+                               filename)
+            else:
+                self.log.warn("saveChart(): " +
+                              "Filename was non-empty " +
+                              "and set to a file that does not exist!  " +
+                              "This is an invalid state.  Filenames " + 
+                              "should only be set if it was previously " +
+                              "saved to the given filename.")
+
+            # Pickle to file.
+            rv = priceChartDocument.\
+                    picklePriceChartDocumentDataToFile(filename)
+
+            # Clear the dirty flag if the operation was successful.
+            if rv == True:
+                self.log.info("PriceChartDocumentData saved to file: " + 
+                              filename)
+
+                if self.log.isEnabledFor(logging.DEBUG):
+                    # Get the data object for debugging messages.
+                    priceChartDocumentData = \
+                        priceChartDocument.getPriceChartDocumentData()
+
+                    debugMsg = \
+                        "File '{}' ".format(filename) + \
+                        "now holds the following " + \
+                        "PriceChartDocumentData: " + \
+                        priceChartDocumentData.toString()
+
+                    self.log.debug(debugMsg)
+
+                # Filename shouldn't have changed, so there's no need to
+                # set it again.
+                priceChartDocument.setDirtyFlag(False)
+
+                self.statusMessageUpdate.emit("PriceChartDocument saved.")
+            else:
+                # Save failure.
+                self.statusMessageUpdate.emit("Save failed.  " + 
+                                "Please check the log file for why.")
+
+        self.log.debug("Exiting saveChart().  Returning {}".format(rv))
+        return rv
+
+
+    def saveAsChart(self):
+        """Brings up a prompt for the user to save this 
+        PriceChartDocument to a new file.  After the 
+        user selects the file, it will be saved
+        to that file.
+
+        This function uses QSettings and assumes that the calls to
+        QCoreApplication.setOrganizationName(), and 
+        QCoreApplication.setApplicationName() have been called 
+        previously (so that the QSettings constructor can be called 
+        without any parameters specified).
+
+        Returns: True if the saveAs action succeeded.
+        """
+
+        self.log.debug("Entered saveAsChart()")
+
+        # Return value.
+        rv = True
+
+        priceChartDocument = self
+
+        # Set filters for what files are displayed.
+        filters = \
+            PriceChartDocument.fileFilter + ";;" + \
+            MainWindow.allFilesFileFilter
+
+        # Directory location default for the file save dialogs for
+        # PriceChartDocument.
+        settings = QSettings()
+        defaultPriceChartDocumentSaveDirectory = \
+            settings.value("ui/defaultPriceChartDocumentSaveDirectory", "")
+
+        # Prompt for what filename to save the data to.
+        filename = QFileDialog.\
+            getSaveFileName(self, 
+                            "Save As", 
+                            defaultPriceChartDocumentSaveDirectory, 
+                            filters)
+
+        # Convert filename from QString to str.
+        filename = str(filename)
+
+        self.log.debug("saveAsChart(): The user selected filename: " +
+                       filename + " as what they wanted to save to.")
+
+        # Verify input.
+        if filename == "":
+            # The user must of clicked cancel at the file dialog prompt.
+            rv = False
+        else:
+            # Pickle to file.
+            rv = priceChartDocument.\
+                    picklePriceChartDocumentDataToFile(filename)
+
+            # If the save operation was successful, then update the
+            # filename and clear the dirty flag.
+            if rv == True:
+                self.log.info("PriceChartDocumentData saved to " + 
+                              "new file: " + filename)
+
+                if self.log.isEnabledFor(logging.DEBUG):
+                    # Get the data object for debugging messages.
+                    priceChartDocumentData = \
+                        priceChartDocument.getPriceChartDocumentData()
+
+                    debugMsg = \
+                        "File '{}' ".format(filename) + \
+                        "now holds the following " + \
+                        "PriceChartDocumentData: " + \
+                        priceChartDocumentData.toString()
+
+                    self.log.debug(debugMsg)
+
+                priceChartDocument.setFilename(filename)
+                priceChartDocument.setDirtyFlag(False)
+ 
+                statusBarMessage = \
+                    "PriceChartDocument saved to file {}.".\
+                    format(filename)
+
+                self.statusMessageUpdate.emit(statusBarMessage)
+
+                # Get the directory where this file lives.
+                loc = filename.rfind(os.sep)
+                directory = filename[:loc]
+
+                # Update the self.defaultPriceChartDocumentSaveDirectory
+                # with the directory where filename is, if the directory
+                # is different.
+                if directory != defaultPriceChartDocumentSaveDirectory:
+                    settings.\
+                        setValue("ui/defaultPriceChartDocumentSaveDirectory",
+                                 directory)
+            else:
+                # Save failure.
+                self.statusMessageUpdate.emit("Save failed.  " + 
+                                "Please check the log file for why.")
+
+        self.log.debug("Exiting saveAsChart().  Returning {}".format(rv))
+        return rv
+
 
     def toString(self):
         """Returns the str representation of this class object.
