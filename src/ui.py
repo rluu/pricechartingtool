@@ -547,7 +547,8 @@ class MainWindow(QMainWindow):
             priceChartDocumentData = PriceChartDocumentData()
 
             priceChartDocumentData.\
-                loadWizardData(wizard.field("dataFilename"),
+                loadWizardData(wizard.priceBars,
+                               wizard.field("dataFilename"),
                                wizard.field("dataNumLinesToSkip"),
                                wizard.field("timezone"))
 

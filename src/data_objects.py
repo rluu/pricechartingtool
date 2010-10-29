@@ -501,7 +501,8 @@ class PriceChartDocumentData:
         return self.birthInfo
 
 
-    def loadWizardData(self, 
+    def loadWizardData(self,
+                       priceBars,
                        priceBarsFileFilename, 
                        priceBarsFileNumLinesToSkip,
                        locationTimezone):
@@ -509,6 +510,8 @@ class PriceChartDocumentData:
         in the parameters.
 
         Parameters:
+
+        priceBars - list of PriceBar objects.
 
         priceBarsFileFilename - str holding the filename of a CSV text
                                 file with price bar data.
@@ -523,18 +526,11 @@ class PriceChartDocumentData:
 
         self.log.debug("Entered PricechartDocumentData.load()")
 
-        # Open the file and get the PriceBars.
-        # TODO: write this part.
-        priceBars = []
-
-
-        # Everything succeeded and passed validation.
         # Store the data into variables in this class.
         self.priceBars = priceBars
         self.priceBarsFileFilename = priceBarsFileFilename
         self.priceBarsFileNumLinesToSkip = priceBarsFileNumLinesToSkip
         self.locationTimezone = locationTimezone
-
 
         self.log.debug("Exiting PricechartDocumentData.load()")
 
@@ -645,9 +641,16 @@ class PriceBarChartSettings:
     PriceBarChartWidget.
     """
 
-    # TODO:  make this class pickle-able.
-
     def __init__(self):
+        """"Initializes the PriceChartSettings to default values."""
+
+        # Logger
+        self.log = logging.getLogger("data_objects.PriceBarChartSettings")
+
+        # Set the version of this class (used for pickling and unpickling
+        # different versions of this class).
+        self.classVersion = 1
+
         # Index in self.priceBars of the last PriceBar that was selected.  
         # If none were selected at the time the application last closed, it
         # will be default to index 0 if self.priceBars is non-empty, and -1
@@ -658,35 +661,106 @@ class PriceBarChartSettings:
         # TODO:  fill this info in.
         pass
 
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = logging.getLogger("data_objects.PriceBarChartSettings")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " + PriceBarChartSettings.__name__ +
+                       " object of version {}".format(self.classVersion))
+
     def toString(self):
-        # Prints the string representation of this object.
-        # TODO:  write this method.
-        pass
+        """Prints the string representation of this object."""
+
+        return "[classVersion={}, ".\
+                   format(self.classVersion) + \
+                "settingsLastPriceBarIndexSelected={}]".\
+                   format(self.settingsLastPriceBarIndexSelected)
 
     def __str__(self):
-        # Prints the string representation of this object.
+        """Returns the string representation of this object."""
+
         return self.toString()
+
 
 class PriceBarSpreadsheetSettings:
     """Class that holds the default settings used in the
     PriceBarSpreadsheetWidget.
     """
 
-    # TODO:  make this class pickle-able.
-
     def __init__(self):
+        """"Initializes the PriceChartSettings to default values."""
+
+        # Logger
+        self.log = \
+            logging.getLogger("data_objects.PriceBarSpreadsheetSettings")
+
+        # Set the version of this class (used for pickling and unpickling
+        # different versions of this class).
+        self.classVersion = 1
+
         # TODO:  fill this info in.
         pass
 
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = \
+            logging.getLogger("data_objects.PriceBarSpreadsheetSettings")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " + 
+                       PriceBarSpreadsheetSettings.__name__ +
+                       " object of version {}".format(self.classVersion))
+
     def toString(self):
-        # Prints the string representation of this object.
-        # TODO:  write this method.
-        pass
+        """Prints the string representation of this object."""
+
+        return "[classVersion={}".\
+                   format(self.classVersion) + \
+                "]"
 
     def __str__(self):
-        # Prints the string representation of this object.
-        return self.toString()
+        """Returns the string representation of this object."""
 
+        return self.toString()
 
 # For debugging during development.  
 if __name__=="__main__":

@@ -849,7 +849,11 @@ class Ephemeris:
             Ephemeris.log.debug(debugStr.\
                     format("Speed in distance (AU/day):", arg6))
     
-    # TODO:  need to add functions for getting house cusp locations for different house systems.  
+    # TODO:  need to add functions for getting cusp locations for the
+    # porphyry (sripathi) house system.  
+    
+    # TODO:  add functions for getting locations of gulika and mandi and
+    # other upagrahas.
 
     @staticmethod
     def getPlanetaryInfo(planet, dt):
