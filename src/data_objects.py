@@ -2,6 +2,9 @@
 # For logging.
 import logging
 
+# For generation of unique PriceBarChartArtifact identifiers.
+import uuid
+
 # For timestamps and timezone information.
 import datetime
 import pytz
@@ -424,6 +427,89 @@ class PriceBar:
 
         return self.toString()
 
+class PriceBarChartArtifact:
+    """Base class for user-added artifacts in the PriceBarChartWidget.
+    Sub-classes to this must be pickleable.
+    """
+    
+    def __init__(self):
+        """Initializes attributes and members common to all 
+        PriceBarChartArtifacts.
+        """
+        
+        # UUID.
+        self.uuid = uuid.uuid1()
+        
+        self.internalName = "UntypedArtifact_" + str(uuid.uuid1())
+        
+        # Anchor location.
+        self.x = 0
+        self.y = 0
+        
+    def setLocation(self, x, y):
+        self.x = x
+        self.y = y
+    
+    def getInternalName(self):
+        return self.internalName
+    
+class PriceBarChartTextArtifact(PriceBarChartArtifact):
+    """PriceBarChartArtifact that is a piece of text in the 
+    PriceBarChartWidget.
+    """
+    
+    def __init__(self, text=""):
+        """Initializes the PriceBarChartTextArtifact with
+        the given values.
+        """
+        super().__init__()
+        
+        # Update the internal name so it is the artifact type plus the uuid.
+        self.internalName = "Text_" + str(self.uuid)
+    
+        self.text = text
+        self.font = None
+        self.color = None
+    
+class PriceBarChartGannFanUpperRightArtifact(PriceBarChartArtifact):
+    """PriceBarChartArtifact that is the GannFann pointing in 
+    the upper right direction."""
+    
+    def __init__(self):
+        super().__init__()
+        
+        # Update the internal name so it is the artifact type plus the uuid.
+        self.internalName = "GannFanUpperRight_" + str(self.uuid)
+    
+class PriceBarChartGannFanLowerRightArtifact(PriceBarChartArtifact):
+    """PriceBarChartArtifact that is the GannFann pointing in 
+    the lower right direction.
+    """
+    
+    def __init__(self):
+        super().__init__()
+        
+        # Update the internal name so it is the artifact type plus the uuid.
+        self.internalName = "GannFanLowerRight_" + str(self.uuid)
+   
+    
+class PriceBarChartBarCountArtifact(PriceBarChartArtifact):
+    """PriceBarChartArtifact that indicates bar counts starting 
+    at the given PriceBar timestamp and the given Y offset from the 
+    center of the bar.
+    """
+    
+    def __init__(self):
+        super().__init__()
+        
+        # Update the internal name so it is the artifact type plus the uuid.
+        self.internalName = "BarCount_" + str(self.uuid)
+
+        self.startingPriceBar = None
+        self.font = QFont()
+        self.color = QColor(Qt.black)
+        self.maxBarCount = 1000
+        
 
 class PriceChartDocumentData:
     """Contains all the data about the price chart and price data.
@@ -441,8 +527,14 @@ class PriceChartDocumentData:
         # different versions of this class).
         self.classVersion = 1
 
+        # Description label.
+        self.description = ""
+        
         # List of PriceBar objects, sorted by timestamp.
         self.priceBars = []
+        
+        # List of PriceBarChartArtifact objects.
+        self.priceBarChartArtifacts = []
 
         # BirthInfo object for natal birth information.
         self.birthInfo = BirthInfo()
@@ -568,6 +660,8 @@ class PriceChartDocumentData:
 
         return "[classVersion={}, ".\
                    format(self.classVersion) + \
+                "description={}, ".\
+                    format(self.description) + \
                 "numPriceBars={}, ".\
                     format(len(self.priceBars)) + \
                 "firstPriceBarTimestamp={}, ".\
