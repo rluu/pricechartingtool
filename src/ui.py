@@ -538,16 +538,19 @@ class MainWindow(QMainWindow):
         if returnVal == QDialog.Accepted:
             self.log.debug("PriceChartDocumentWizard accepted")
 
-            self.log.debug("Data filename is: " + wizard.field("dataFilename"))
+            self.log.debug("Data filename is: " + \
+                           wizard.field("dataFilename"))
+
             self.log.debug("Data num lines to skip is: {}".\
                 format(wizard.field("dataNumLinesToSkip")))
+
             self.log.debug("Timezone is: " + wizard.field("timezone"))
 
 
             priceChartDocumentData = PriceChartDocumentData()
 
             priceChartDocumentData.\
-                loadWizardData(wizard.priceBars,
+                loadWizardData(wizard.getPriceBars(),
                                wizard.field("dataFilename"),
                                wizard.field("dataNumLinesToSkip"),
                                wizard.field("timezone"))
@@ -977,6 +980,8 @@ class PriceChartDocument(QMdiSubWindow):
         Returns True if the write operation succeeded without problems.
         """
 
+        self.log.debug("Entered picklePriceChartDocumentDataToFile()")
+
         # Return value.
         rv = True
 
@@ -997,6 +1002,8 @@ class PriceChartDocument(QMdiSubWindow):
                                priceChartDocumentData.toString())
                 rv = False
 
+        self.log.debug("Exiting picklePriceChartDocumentDataToFile(), " + \
+                       "rv = {}".format(rv))
         return rv
 
     def unpicklePriceChartDocumentDataFromFile(self, filename):
@@ -1006,6 +1013,8 @@ class PriceChartDocument(QMdiSubWindow):
 
         Returns True if the operation succeeded without problems.
         """
+
+        self.log.debug("Entered unpicklePriceChartDocumentDataFromFile()")
 
         # Return value.
         rv = False
@@ -1035,6 +1044,8 @@ class PriceChartDocument(QMdiSubWindow):
                                filename)
                 rv = False
 
+        self.log.debug("Exiting unpicklePriceChartDocumentDataFromFile(), " +
+                       "rv = {}".format(rv))
         return rv
 
     def setFilename(self, filename):
@@ -1095,8 +1106,15 @@ class PriceChartDocument(QMdiSubWindow):
             debug("Entered setPriceChartDocumentData()")
 
         self.priceChartDocumentData = priceChartDocumentData
+            
+        self.log.debug("Number of priceBars is: {}".\
+                format(len(self.priceChartDocumentData.priceBars)))
 
+
+        self.widgets.loadPriceBars(self.priceChartDocumentData.priceBars)
         # TODO:  write this method to set (load) everything into the widgets.
+
+        # TODO:  also load the artifacts.
 
         self.setDirtyFlag(True)
 
@@ -1467,3 +1485,46 @@ class PriceChartDocumentWidget(QWidget):
         layout.addWidget(self.priceBarSpreadsheetWidget)
         self.setLayout(layout)
         
+    def loadPriceBars(self, priceBars):
+        """Loads the price bars into the widgets.
+        
+        Arguments:
+            
+        priceBars - list of PriceBar objects with the price data.
+        """
+
+        self.log.debug("Entered loadPriceBars({} pricebars)".\
+                       format(len(priceBars)))
+
+        # TODO:  Decide if we should be doing things by explicit time
+        # frames or if we should be loading things generically.
+
+        # Load PriceBars into the PriceBarChart.
+        self.priceBarChartWidget.loadDayPriceBars(priceBars)
+
+        # Load PriceBars into the PriceBarSpreadsheet.
+        # TODO:  add that stuff.
+
+        self.log.debug("Leaving loadPriceBars({} pricebars)".\
+                       format(len(priceBars)))
+
+    def loadPriceBarChartArtifacts(self, priceBarChartArtifacts):
+        """Loads the PriceBarChart artifacts.
+
+        Arguments:
+
+        priceBarChartArtifacts - list of PriceBarArtifact objects.
+        """
+
+        self.log.debug("Entered loadPriceBarChartArtifacts({} artifacts)".\
+                       format(len(priceBarChartArtifacts)))
+
+        self.priceBarChartWidget.loadArtifacts(priceBarChartArtifacts)
+
+        self.log.debug("Leaving loadPriceBarChartArtifacts({} artifacts)".\
+                       format(len(priceBarChartArtifacts)))
+
+    # TODO:  add the same names of functions that are in
+    # PriceBarChartWidget to here so we can call them.
+    
+

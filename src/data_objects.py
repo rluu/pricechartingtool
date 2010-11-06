@@ -359,6 +359,16 @@ class PriceBar:
                 self.log.warn("Created a PriceBar with a high price lower " +
                               "than the low price.") 
 
+    def midPrice(self):
+        """Returns the average of the high and low.  I.e., ((high+low)/2.0)
+        If high is None or low is None, then None is returned.
+        """
+
+        if self.high == None or self.low == None:
+            return None
+        else:
+            return (self.high + self.low) / 2.0
+
     def addTag(self, tagToAdd):
         """Adds a given tag string to the tags for this PriceBar"""
 
@@ -468,7 +478,12 @@ class PriceBarChartTextArtifact(PriceBarChartArtifact):
         self.internalName = "Text_" + str(self.uuid)
     
         self.text = text
+        
+        # TODO: QFont cannot be pickled, but we can utilize
+        # QFont.toString() and then QFont.fromString()
         self.font = None
+        
+        # TODO: QColor can be pickled   
         self.color = None
     
 class PriceBarChartGannFanUpperRightArtifact(PriceBarChartArtifact):
@@ -624,6 +639,10 @@ class PriceChartDocumentData:
         self.priceBarsFileNumLinesToSkip = priceBarsFileNumLinesToSkip
         self.locationTimezone = locationTimezone
 
+        
+        self.log.debug("Number of priceBars loaded is: {}".\
+                       format(len(priceBars)))
+
         self.log.debug("Exiting PricechartDocumentData.load()")
 
 
@@ -724,11 +743,38 @@ class DefaultSettingsFactory:
     """Class that creates initial default settings to be used in 
     the PriceChartingTool.
     """
-    # TODO:  determine what functions should be part of this class.
 
-    def __init__(self):
-        # TODO:  write this method
-        pass
+    def generatePriceBarChartSettings(priceBars):
+        """Generates a good working default PriceBarChartSettings 
+        object for use to create the PriceBarChart.  
+
+        Arguments:
+
+        priceBars - list of PriceBar objects, sorted by time.
+        """
+
+        # See if we can determine if the bars are one of the following:
+        #  - 5-min
+        #  - Hourly
+        #  - Daily
+        #  - Weekly
+        #  - Monthly
+        #  - Yearly.
+
+        # TODO:  adjust the scaling and pricebar width and/or what X and Y
+        # sizes to use for dates/prices.
+
+    def generatePriceBarSpreadsheetSettings(priceBars):
+        """Generates a good working default PriceBarSpreadsheetSettings 
+        object for use to create the PriceBarSpreadsheet.  
+
+        Arguments:
+
+        priceBars - list of PriceBar objects, sorted by time.
+        """
+
+        # TODO:  write this function.
+
 
 class PriceBarChartSettings:
     """Class that holds the default settings used in the
@@ -745,15 +791,52 @@ class PriceBarChartSettings:
         # different versions of this class).
         self.classVersion = 1
 
-        # Index in self.priceBars of the last PriceBar that was selected.  
-        # If none were selected at the time the application last closed, it
-        # will be default to index 0 if self.priceBars is non-empty, and -1
-        # if self.priceBars is empty.  This information allows the UI to 
-        # center on the same PriceBar the next time the application is opened.
-        self.settingsLastPriceBarIndexSelected = -1
+        # Reference to the last PriceBar that was selected.  
+        # Selection is based on the timestamp of the PriceBar.
+        self.settingsLastPriceBarSelected = None
 
-        # TODO:  fill this info in.
-        pass
+        # QGraphicsScene rectangle.
+        self.sceneSpaceQRect = None
+
+        # Viewable part of the QGraphicsScene that is displayed in the
+        # QGraphicsView.
+        self.viewableSpaceQRect = None
+
+
+        # Zoom in scale factor default.
+        self.zoomInScaleFactorDefault = 1.1
+
+        # Zoom in scale factor custom.
+        self.zoomInScaleFactorCustom = 1.1
+
+        # Zoom out scale factor default.
+        self.zoomOutScaleFactorDefault = 0.9
+
+        # Zoom out scale factor custom.
+        self.zoomOutScaleFactorCustom = 0.9
+        
+
+        # Price tick size (major) on the Y axis label.
+        self.priceTickSizeMajor = 10
+        
+        # Price tick size (minor) on the Y axis label.
+        self.priceTickSizeMinor = 2
+
+        # Price tick size (minor) minimum pixel separation.
+        self.priceTickSizeMinorMinPixelSep = 4
+
+
+        # Time ticks are not always displayed.  These are boolean values
+        # for whether or not they are displayed.
+        self.timeYearTicksEnabled = True
+        self.timeMonthTicksEnabled = True
+        self.timeWeekTicksEnabled = True
+        self.timeDayTicksEnabled = True
+        self.timeHourTicksEnabled = True
+
+        # Time tick size (smallest displayed) minimum pixel separation.
+        self.timeTickSizeMinPixelSep = 4
+
 
     def __getstate__(self):
         """Returns the object's state for pickling purposes."""
@@ -787,8 +870,38 @@ class PriceBarChartSettings:
 
         return "[classVersion={}, ".\
                    format(self.classVersion) + \
-                "settingsLastPriceBarIndexSelected={}]".\
-                   format(self.settingsLastPriceBarIndexSelected)
+                "settingsLastPriceBarSelected={}, ".\
+                    format(self.settingsLastPriceBarSelected) + \
+                "sceneSpaceQRect={}, ".\
+                    format(self.sceneSpaceQRect) + \
+                "viewableSpaceQRect={}, ".\
+                    format(self.viewableSpaceQRect) + \
+                "zoomInScaleFactorDefault={}, ".\
+                    format(self.zoomInScaleFactorDefault) + \
+                "zoomInScaleFactorCustom={}, ".\
+                    format(self.zoomInScaleFactorCustom) + \
+                "zoomOutScaleFactorDefault={}, ".\
+                    format(self.zoomOutScaleFactorDefault) + \
+                "zoomOutScaleFactorCustom={}, ".\
+                    format(self.zoomOutScaleFactorCustom) + \
+                "priceTickSizeMajor={}, ".\
+                    format(self.priceTickSizeMajor) + \
+                "priceTickSizeMinor={}, ".\
+                    format(self.priceTickSizeMinor) + \
+                "priceTickSizeMinorMinPixelSep={}, ".\
+                    format(self.priceTickSizeMinorMinPixelSep) + \
+                "timeYearTicksEnabled={}, ".\
+                    format(self.timeYearTicksEnabled) + \
+                "timeMonthTicksEnabled={}, ".\
+                    format(self.timeMonthTicksEnabled) + \
+                "timeWeekTicksEnabled={}, ".\
+                    format(self.timeWeekTicksEnabled) + \
+                "timeDayTicksEnabled={}, ".\
+                    format(self.timeDayTicksEnabled) + \
+                "timeHourTicksEnabled={}, ".\
+                    format(self.timeHourTicksEnabled) + \
+                "timeTickSizeMinPixelSep={}]".\
+                    format(self.timeTickSizeMinPixelSep)
 
     def __str__(self):
         """Returns the string representation of this object."""
@@ -813,7 +926,6 @@ class PriceBarSpreadsheetSettings:
         self.classVersion = 1
 
         # TODO:  fill this info in.
-        pass
 
     def __getstate__(self):
         """Returns the object's state for pickling purposes."""

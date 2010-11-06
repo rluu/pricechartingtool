@@ -50,22 +50,32 @@ class PriceChartDocumentWizard(QWizard):
 
         # Add QWizardPages.
         self.log.debug("Creating PriceChartDocumentIntroWizardPage ...")
-        self.addPage(PriceChartDocumentIntroWizardPage())
+        self.priceChartDocumentIntroWizardPage = \
+            PriceChartDocumentIntroWizardPage()
+        self.addPage(self.priceChartDocumentIntroWizardPage)
         self.log.debug("Creating " + \
                        "PriceChartDocumentLoadDataFileWizardPage ...")
-        self.addPage(PriceChartDocumentLoadDataFileWizardPage())
+        self.priceChartDocumentLoadDataFileWizardPage = \
+            PriceChartDocumentLoadDataFileWizardPage()
+        self.addPage(self.priceChartDocumentLoadDataFileWizardPage)
         self.log.debug("Creating " + \
                        "PriceChartDocumentLocationTimezoneWizardPage ...")
-        self.addPage(PriceChartDocumentLocationTimezoneWizardPage())
+        self.priceChartDocumentLocationTimezoneWizardPage = \
+            PriceChartDocumentLocationTimezoneWizardPage()
+        self.addPage(self.priceChartDocumentLocationTimezoneWizardPage)
         self.log.debug("Creating " + \
                        "PriceChartDocumentConclusionWizardPage ...")
-        self.addPage(PriceChartDocumentConclusionWizardPage())
+        self.priceChartDocumentConclusionWizardPage = \
+            PriceChartDocumentConclusionWizardPage()
+        self.addPage(self.priceChartDocumentConclusionWizardPage)
 
         self.log.debug("Setting up Pixmaps ...")
 
         # Set the pictures used in the QWizard.
-        watermarkPic = QPixmap(":/images/gann/HowToMakeProfitsInCommodities.png")
-        backgroundPic = QPixmap(":/images/gann/HowToMakeProfitsInCommodities.png")
+        watermarkPic = \
+            QPixmap(":/images/gann/HowToMakeProfitsInCommodities.png")
+        backgroundPic = \
+            QPixmap(":/images/gann/HowToMakeProfitsInCommodities.png")
         logoPic = QPixmap(":/images/rluu/logo_ryan_d1.png").scaled(64, 64)
         bannerPic = QPixmap(":/images/aaa-banners/grad23.gif").scaled(640, 72)
 
@@ -79,6 +89,18 @@ class PriceChartDocumentWizard(QWizard):
         # Set the title of the window.
         self.setWindowTitle("New Price Chart")
 
+
+    def getPriceBars(self):
+        """Obtains the PriceBars from a finished wizard setup.
+        The PriceBars from a file must have been successfully 
+        validated
+        """
+
+        priceBars = \
+            self.priceChartDocumentLoadDataFileWizardPage.\
+            loadDataFileWidget.getPriceBars()
+
+        return priceBars
 
 class PriceChartDocumentIntroWizardPage(QWizardPage):
     """A QWizardPage that displays an introduction message to the QWizard."""
@@ -840,7 +862,7 @@ class LoadDataFileWidget(QWidget):
         failed validation, this function will return an empty list.
         """
         
-        if isValidated():
+        if self.isValidated():
             self.log.debug("getPriceBars(): returning list of PriceBars " + \
                            "with length {}".format(len(self.priceBars)))
             return self.priceBars
@@ -870,7 +892,13 @@ class LocationTimezoneEditWidget(QWidget):
 
         # Flag to determine if we have an internet connection and can reach
         # GeoNames web service.
-        self.geoNamesEnabled = GeoNames.canConnectToWebService()
+
+        # TODO: Uncomment the line below after testing of the app is
+        # fixed.  I have it commented because I don't want to spam their
+        # server while testing my own app.  Also, remove the line below
+        # that that # sets the flag to True.
+        #self.geoNamesEnabled = GeoNames.canConnectToWebService()
+        self.geoNamesEnabled = True
 
         if self.geoNamesEnabled:
             self.log.debug("Internet connection to the web service is " + \

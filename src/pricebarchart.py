@@ -36,6 +36,7 @@ class PriceBarChartWidget(QWidget):
 
         # Logger
         self.log = logging.getLogger("pricebarchart.PriceBarChartWidget")
+        self.log.debug("Entered __init__()")
 
         # Create the contents.
         self.priceBarChartSettings = PriceBarChartSettings()
@@ -64,8 +65,9 @@ class PriceBarChartWidget(QWidget):
         self.selectedPriceBarClosePriceLabel.setFont(smallFont)
         
         # Create the QGraphicsView and QGraphicsScene for the display portion.
-        self.graphicsScene = QGraphicsScene()
-        self.graphicsView = QGraphicsView()
+        self.graphicsScene = PriceBarChartGraphicsScene()
+        self.graphicsView = PriceBarChartGraphicsView()
+        self.graphicsView.setScene(self.graphicsScene)
         
         # Setup the layouts.
         dataTimeRangeLayout = QVBoxLayout()
@@ -89,18 +91,104 @@ class PriceBarChartWidget(QWidget):
         layout.addWidget(self.graphicsView)
         self.setLayout(layout)
 
-    def loadPriceBars(self, priceBars):
+        self.graphicsView.show()
+
+        self.log.debug("Leaving __init__()")
+
+    def loadDayPriceBars(self, priceBars):
         """Loads the given PriceBars list into this widget as
         PriceBarGraphicsItems.
         """
-    
-        # TODO:  write this part.
-        pass
+        
+        self.log.debug("Entered loadDayPriceBars({} pricebars)".\
+                       format(len(priceBars)))
 
-    def loadArtifacts(self, priceBarChartArtifact):
+        for priceBar in priceBars:
+
+            # Create the QGraphicsItem
+            item = DayPriceBarGraphicsItem()
+            item.setPriceBar(priceBar)
+
+            # X location will be the proleptic Gregorian ordinal
+            # of the date of the PriceBar.
+            ordinateDate = priceBar.timestamp.toordinal()
+            x = ordinateDate
+
+            # Y location will be the mid price of the bar.
+            y = priceBar.midPrice()
+
+            # Set the position, in parent coordinates.
+            item.setPos(QPointF(x, y))
+
+            # Add the item.
+            self.graphicsScene.addItem(item)
+
+        self.log.debug("Leaving loadDayPriceBars({} pricebars)".\
+                       format(len(priceBars)))
+
+    def loadWeekPriceBars(self, priceBars):
+        """Loads the given PriceBars list into this widget as
+        PriceBarGraphicsItems.
+        """
+        
+        self.log.debug("Entered loadWeekPriceBars({} pricebars)".\
+                       format(len(priceBars)))
+        
+        for priceBar in priceBars:
+
+            # Create the QGraphicsItem
+            item = WeekPriceBarGraphicsItem()
+            item.setScene(self.graphicsScene)
+            item.setPriceBar(priceBar)
+
+            # X location will be the proleptic Gregorian ordinal
+            # of the date of the PriceBar.
+            ordinateDate = priceBar.timestamp.toordinal()
+            x = ordinateDate
+
+            # Y location will be the mid price of the bar.
+            y = priceBar.midPrice()
+
+            # Set the position, in parent coordinates.
+            item.setPos(QPointF(x, y))
+
+            # Add the item.
+            self.graphicsScene.addItem(item)
+
+        self.log.debug("Leaving loadWeekPriceBars({} pricebars)".\
+                       format(len(priceBars)))
+
+    def clearAllPriceBars(self):
+        """Clears all the PriceBar QGraphicsItems from the 
+        QGraphicsScene."""
+
+        # Get all the QGraphicsItems.
+        graphicsItems = self.graphicsScene.items()
+
+        # Only remove the PriceBarGraphicsItem items.
+        for item in graphicsItems:
+            if isinstance(item, PriceBarGraphicsItem):
+                self.graphicsScene.removeItem(item)
+
+
+    def loadArtifacts(self, priceBarChartArtifacts):
         """Loads the given list of PriceBarChartArtifact objects 
         into this widget as QGraphicsItems."""
         
+        # TODO:  write this part.
+        pass
+        
+    def addArtifact(self, priceBarChartArtifact):
+        """Adds the given PriceBarChartArtifact objects 
+        into this widget as QGraphicsItems."""
+        
+        # TODO:  write this part.
+        pass
+        
+    def clearAllArtifacts(self):
+        """Clears all the artifact QGraphicsItems from the 
+        QGraphicsScene."""
+
         # TODO:  write this part.
         pass
         
@@ -111,7 +199,7 @@ class PriceBarChartWidget(QWidget):
         
         self.priceBarChartSettings = priceBarChartSettings
         
-        # TODO:  add code here for selected bar, scaling, etc. 
+        # TODO:  add code here to set all the settings (scaling, etc. )
         
     
     def getPriceBarChartSettings(self):
@@ -119,13 +207,357 @@ class PriceBarChartWidget(QWidget):
         
         return self.priceBarChartSettings
 
+class PriceBarChartGraphicsScene(QGraphicsScene):
+    """QGraphicsScene holding all the pricebars and artifacts.
+    We subclass the QGraphicsScene to allow for future feature additions.
+    """
+
+    def __init__(self, parent=None):
+        """Pass-through to the QGraphicsView constructor."""
+
+        super().__init__(parent)
+    
+
+class PriceBarChartGraphicsView(QGraphicsView):
+    """QGraphicsView that visualizes the main QGraphicsScene.
+    We subclass the QGraphicsView because we may want to add 
+    custom syncrhonized functionality in other widgets later."""
+
+
+    def __init__(self, parent=None):
+        """Pass-through to the QGraphicsView constructor."""
+
+        super().__init__(parent)
+    
+
+
+
 class PriceBarGraphicsItem(QGraphicsItem):
-    """QGraphicsItem that visualizes a PriceBar object."""
+    """QGraphicsItem that visualizes a PriceBar object.
+
+    There exists two kinds of standard PriceBar drawings:
+        - Candle
+        - Bar with open and close
+
+    This class draws the second one.  It is displayed as a bar with open
+    and close ticks on the left and right side.  The bar is drawn with a
+    green pen if the high is higher than or equal the low, and drawn as
+    red otherwise.
+    """
     
-    def __init__(self, parent=None, scene=None, priceBar=None):
-        # TODO:  write this function.
+    def __init__(self, parent=None, scene=None):
+        # Logger
+        self.log = logging.getLogger("pricebarchart.PriceBarGraphicsItem")
+        self.log.debug("Entered __init__().")
+
+        super().__init__(parent, scene)
+
+        # Pen width for standard PriceBars (not highlighted or not bold)
+        self.penWidth = 1.0
+
+        # Pen width for use on highlighted (bold) PriceBars.
+        self.boldPenWidth = 2.0
+
+        # Width of the left extension drawn that represents the open price.
+        self.leftExtensionWidth = 1.0
+
+        # Width of the stem drawn that represents the price range.
+        self.stemWidth = 1.0
+
+        # Width of the right extension drawn that represents the close price.
+        self.rightExtensionWidth = 1.0
+
+        # Internally stored PriceBar.
+        self.priceBar = None
+
+        # Pen which is used to do the painting.
+        self.pen = QPen()
+        self.pen.setColor(QColor(Qt.black))
+        self.pen.setWidthF(self.penWidth)
+
+        # Flag for bold (highlighted) PriceBar.
+        self.bolded = False
+
+        self.log.debug("Leaving __init__().")
+
+    def setPriceBar(self, priceBar):
+        """Sets the internally used priceBar.  
+        This has an effect on the color of the pricebar.
+        """
+
+        self.log.debug("Entered setPriceBar().  priceBar={}".\
+                       format(priceBar.toString()))
+
         self.priceBar = priceBar
+
+        # Set if it is a green or red pricebar.
+        if self.priceBar != None:
+            if self.priceBar.open <= self.priceBar.close:
+                self.setPriceBarColor(Qt.green)
+            else:
+                self.setPriceBarColor(Qt.red)
+        else:
+            # PriceBar is None.  Just use a black bar.
+            self.setPriceBarColor(Qt.black)
+
+        self.setBolded(False)
+
+        
+        # Schedule an update to redraw the QGraphicsItem.
+        self.update()
+
+        self.log.debug("Leaving setPriceBar().")
+
+    def setPriceBarColor(self, color):
+        """Sets the color of the price bar."""
+
+        self.log.debug("Entered setPriceBarColor().")
+
+        if self.pen.color() != color:
+            self.log.debug("Updating pen color.")
+            self.pen.setColor(color)
+            self.update()
+
+        self.log.debug("Leaving setPriceBarColor().")
+
+    def setBolded(self, bolded):
+        """Sets whether or not the PriceBar is displayed as bolded. 
+        This means it is highlighted in some way and has a thicker pen.
+
+        Arguments: 
+
+        bolded - bool, True if the PriceBar should be bold (highlighted),
+        False, if it should be drawn regularly.
+        """
+
+        self.log.debug("Entered setBolded({}).".format(bolded))
+
+        # Only update if the new value is different from the current
+        # value.
+        if self.bolded != bolded:
+            self.bolded = bolded
+
+            if self.bolded:
+                self.pen.setWidthF(self.boldPenWidth)
+            else:
+                self.pen.setWidthF(self.penWidth)
+            
+            # Schedule a redraw.
+            self.update()
+
+        self.log.debug("Leaving setBolded().")
+
+    def getPriceBarHighScenePoint(self):
+        """Returns the scene coordinates of the high point of this
+        PriceBar.
+
+        Returns: QPointF in scene coordinates of where the high of this
+        pricebar is.
+        """
+
+        self.log.debug("Entered getPriceBarHighScenePoint().")
+
+        high = 0.0
+        low = 0.0
+
+        if self.priceBar != None:
+            high = self.priceBar.high
+            low = self.priceBar.low
+
+        priceMidpoint = (high + low) / 2.0
+
+        x = 0.0
+        yHigh = high - priceMidpoint
+        yLow = low - priceMidpoint
+
+        # Return value.
+        rv = self.mapToScene(QPointF(x, yHigh))
+
+        self.log.debug("Leaving getPriceBarHighScenePoint().")
+
+        return rv
+
+
+    def getPriceBarLowScenePoint(self):
+        """Returns the scene coordinates of the low point of this
+        PriceBar.
+
+        Returns: QPointF in scene coordinates of where the high of this
+        pricebar is.
+        """
+
+        self.log.debug("Entered getPriceBarLowScenePoint().")
+
+        high = 0.0
+        low = 0.0
+
+        if self.priceBar != None:
+            high = self.priceBar.high
+            low = self.priceBar.low
+
+        priceMidpoint = (high + low) / 2.0
+
+        x = 0.0
+        yHigh = high - priceMidpoint
+        yLow = low - priceMidpoint
+
+        # Return value.
+        rv = self.mapToScene(QPointF(x, yLow))
+
+        self.log.debug("Leaving getPriceBarLowScenePoint().")
+
+        return rv
+
+    def boundingRect(self):
+        """Returns the bounding rectangle for this graphicsitem."""
+
+        self.log.debug("Entered boundingRect().")
+
+        # Coordinates (0, 0) is the center of the widget.  
+        # The QRectF returned should be related to this point as the
+        # center.
+
+        halfPenWidth = self.boldPenWidth / 2.0
+
+        open = 0.0
+        high = 0.0
+        low = 0.0
+        close = 0.0
+
+        if self.priceBar != None:
+            open = self.priceBar.open
+            high = self.priceBar.high
+            low = self.priceBar.low
+            close = self.priceBar.close
+
+        # For X we have:
+        #     leftExtensionWidth units for the left extension (open price)
+        #     stemWidth units for the stem (price range)
+        #     rightExtensionWidth units for the right extension (close price)
+        #     halfPenWidth on the left side
+        #     halfPenWidth on the right side
+
+        # For Y we have:
+        #     halfPenWidth for the bottom side.
+        #     priceRange units
+        #     halfPenWidth for the top side
+
+        priceRange = high - low
+
+        x = -1 * (self.leftExtensionWidth + halfPenWidth)
+        y = -1 * ((priceRange / 2.0) + halfPenWidth)
+
+        height = halfPenWidth + priceRange + halfPenWidth
+
+        width = \
+                halfPenWidth + \
+                self.leftExtensionWidth + \
+                self.stemWidth + \
+                self.rightExtensionWidth + \
+                halfPenWidth
+
+        self.log.debug("Leaving boundingRect().")
+        return QRectF(x, y, height, width)
+
+    def paint(self, painter, option, widget):
+        """Paints this QGraphicsItem.  Assumes that self.pen is set
+        to what we want for the drawing style.
+        """
+
+        self.log.debug("Entered paint()")
+
+        if painter.pen() != self.pen:
+            painter.setPen(self.pen)
+
+        open = 0.0
+        high = 0.0
+        low = 0.0
+        close = 0.0
+
+        if self.priceBar != None:
+            open = self.priceBar.open
+            high = self.priceBar.high
+            low = self.priceBar.low
+            close = self.priceBar.close
+
+        priceRange = high - low
+
+        priceMidpoint = (high + low) / 2.0
+
+        # Draw the stem.
+        x1 = 0.0
+        y1 = -1.0 * (priceRange / 2.0)
+        x2 = 0.0
+        y2 = 1.0 * (priceRange / 2.0)
+        painter.drawLine(x1, y1, x2, y2)
+
+        # Draw the left extension (open price).
+        x1 = 0.0
+        y1 = high - priceMidpoint
+        x2 = -1.0 * self.leftExtensionWidth
+        y2 = y1
+        painter.drawLine(x1, y1, x2, y2)
+
+        # Draw the right extension (close price).
+        x1 = 0.0
+        y1 = low - priceMidpoint
+        x2 = 1.0 * self.rightExtensionWidth
+        y2 = y1
+        painter.drawLine(x1, y1, x2, y2)
+
+        self.log.debug("Leaving paint()")
     
+class DayPriceBarGraphicsItem(PriceBarGraphicsItem):
+    """QGraphicsItem that visualizes a PriceBar over a Day timeframe.
+
+    This class exists to customize internal size settings.
+    """
+    
+    def __init__(self, parent=None, scene=None):
+        super().__init__(parent, scene)
+
+        # Pen width for standard PriceBars (not highlighted or not bold)
+        self.penWidth = 1.0
+
+        # Pen width for use on highlighted (bold) PriceBars.
+        self.boldPenWidth = 2.0
+
+        # Width of the left extension drawn that represents the open price.
+        self.leftExtensionWidth = 1.0
+
+        # Width of the stem drawn that represents the price range.
+        self.stemWidth = 1.0
+
+        # Width of the right extension drawn that represents the close price.
+        self.rightExtensionWidth = 1.0
+
+class WeekPriceBarGraphicsItem(PriceBarGraphicsItem):
+    """QGraphicsItem that visualizes a PriceBar over a Week timeframe.
+
+    This class exists to customize internal size settings.
+    """
+    
+    def __init__(self, parent=None, scene=None):
+        super().__init__(parent, scene)
+
+        # Pen width for standard PriceBars (not highlighted or not bold)
+        self.penWidth = 7.0
+
+        # Pen width for use on highlighted (bold) PriceBars.
+        self.boldPenWidth = 14.0
+
+        # Width of the left extension drawn that represents the open price.
+        self.leftExtensionWidth = 7.0
+
+        # Width of the stem drawn that represents the price range.
+        self.stemWidth = 7.0
+
+        # Width of the right extension drawn that represents the close price.
+        self.rightExtensionWidth = 7.0
+
+
+
+
 class TextGraphicsItem(QGraphicsTextItem):
     """QGraphicsItem that visualizes a PriceBarChartTextArtifact."""
     
