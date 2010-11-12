@@ -17,7 +17,7 @@ import resources
 # For PriceBars
 from data_objects import PriceBar
 from data_objects import BirthInfo
-
+from data_objects import PriceBarSpreadsheetSettings
 
 
 

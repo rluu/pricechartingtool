@@ -997,6 +997,7 @@ class PriceChartDocument(QMdiSubWindow):
                 self.log.error("Error while pickling a " +
                                "PriceChartDocumentData to file " + 
                                filename + 
+                               ".  Error is: {}".format(pe) +
                                ".  PriceChartDocumentData object " + 
                                "has the following info: " + 
                                priceChartDocumentData.toString())
@@ -1041,7 +1042,8 @@ class PriceChartDocument(QMdiSubWindow):
             except pickle.UnpicklingError as upe:
                 self.log.error("Error while unpickling a " +
                                "PriceChartDocumentData from file " + 
-                               filename)
+                               filename + 
+                               ".  Error is: {}".format(upe))
                 rv = False
 
         self.log.debug("Exiting unpicklePriceChartDocumentDataFromFile(), " +
@@ -1146,7 +1148,7 @@ class PriceChartDocument(QMdiSubWindow):
             self.priceChartDocumentData.priceBarSpreadsheetSettings
         self.widgets.applyPriceBarChartSettings(priceBarChartSettings)
         self.widgets.\
-            applyPriceBarSpreadsheetSettings(priceBarSpreadsheetSettings))
+            applyPriceBarSpreadsheetSettings(priceBarSpreadsheetSettings)
 
         # By default, set the flag as dirty.  
         # If this was an open/load from file, the caller of this 

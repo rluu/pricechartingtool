@@ -344,6 +344,9 @@ class PriceBar:
 
         self.log = logging.getLogger("data_objects.PriceBar")
 
+        # Class version stored for pickling and unpickling.
+        self.classVersion = 1
+
         self.timestamp = timestamp
         self.open = open
         self.high = high
@@ -444,10 +447,39 @@ class PriceBar:
                "OpenInterest={}, ".format(self.oi) + \
                "Volume={}, ".format(self.vol) + \
                "Tags={}]".format(self.tags)
+
     def __str__(self):
         """Returns the string representation of the PriceBar data"""
 
         return self.toString()
+
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = logging.getLogger("data_objects.PriceBar")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " + PriceBar.__name__ +
+                       " object of version {}".format(self.classVersion))
+
 
 class PriceBarChartArtifact:
     """Base class for user-added artifacts in the PriceBarChartWidget.
