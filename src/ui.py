@@ -1089,13 +1089,30 @@ class PriceChartDocument(QMdiSubWindow):
         information about this document as stored in the widgets.
         """
 
-        self.log.\
-            debug("Entered getPriceChartDocumentData()")
+        self.log.debug("Entered getPriceChartDocumentData()")
 
-        # TODO:  write this method.
-        self.log.\
-            debug("Exiting getPriceChartDocumentData()")
-        return PriceChartDocumentData()
+        
+        # The PriceBars reference in self.priceChartDocumentData
+        # should hold the internal bars, since this is the reference that
+        # passed into the child widgets to load stuff.  If there are bars
+        # added (via dialogs or some other means), the list that 
+        # the reference is pointing to should have those new bars.  
+        # The same should be true with the BirthInfo.
+        # Therefore, all we need to retrieve is the pricebarchart
+        # artifacts and the settings objects.
+
+        self.priceChartDocumentData.priceBarChartArtifacts = \
+            self.widgets.getPriceBarChartArtifacts()
+
+        self.priceChartDocumentData.priceBarChartSettings = \
+            self.widgets.getPriceBarChartSettings()
+
+        self.priceChartDocumentData.priceBarSpreadsheetSettings = \
+            self.widgets.getPriceBarSpreadsheetSettings()
+
+        self.log.debug("Exiting getPriceChartDocumentData()")
+
+        return self.priceChartDocumentData
 
     def setPriceChartDocumentData(self, priceChartDocumentData):
         """Stores the PriceChartDocumentData and sets the widgets with the
@@ -1105,17 +1122,36 @@ class PriceChartDocument(QMdiSubWindow):
         self.log.\
             debug("Entered setPriceChartDocumentData()")
 
+        # Store the object reference.
         self.priceChartDocumentData = priceChartDocumentData
             
         self.log.debug("Number of priceBars is: {}".\
                 format(len(self.priceChartDocumentData.priceBars)))
 
+        # Clear all the old data.
+        self.widgets.clearAllPriceBars()
+        self.widgets.clearAllPriceBarChartArtifacts()
 
-        self.widgets.loadPriceBars(self.priceChartDocumentData.priceBars)
-        # TODO:  write this method to set (load) everything into the widgets.
+        # Load pricebars and chart artifacts.
+        priceBars = self.priceChartDocumentData.priceBars
+        priceBarChartArtifacts = \
+            self.priceChartDocumentData.priceBarChartArtifacts
+        self.widgets.loadPriceBars(priceBars)
+        self.widgets.loadPriceBarChartArtifacts(priceBarChartArtifacts)
 
-        # TODO:  also load the artifacts.
+        # Apply the settings objecdts.
+        priceBarChartSettings = \
+            self.priceChartDocumentData.priceBarChartSettings
+        priceBarSpreadsheetSettings = \
+            self.priceChartDocumentData.priceBarSpreadsheetSettings
+        self.widgets.applyPriceBarChartSettings(priceBarChartSettings)
+        self.widgets.\
+            applyPriceBarSpreadsheetSettings(priceBarSpreadsheetSettings))
 
+        # By default, set the flag as dirty.  
+        # If this was an open/load from file, the caller of this 
+        # function should themselves call the function to set the flag to
+        # be not dirty.
         self.setDirtyFlag(True)
 
         self.log.\
@@ -1419,8 +1455,7 @@ class PriceChartDocument(QMdiSubWindow):
                 priceChartDocument.setDirtyFlag(False)
  
                 statusBarMessage = \
-                    "PriceChartDocument saved to file {}.".\
-                    format(filename)
+                    "PriceChartDocument saved to file {}.".format(filename)
 
                 self.statusMessageUpdate.emit(statusBarMessage)
 
@@ -1485,6 +1520,30 @@ class PriceChartDocumentWidget(QWidget):
         layout.addWidget(self.priceBarSpreadsheetWidget)
         self.setLayout(layout)
         
+    def clearAllPriceBars(self):
+        """Clears all PriceBars from all the internal widgets.
+        This is called if a full reload is desired.
+        After this call, one can then call loadPriceBars(priceBars) 
+        with all the pricebars to be loaded.
+        """
+
+        self.log.debug("Entered clearAllPriceBars()")
+
+        # PriceBars in the PriceBarChart.
+        self.priceBarChartWidget.clearAllPriceBars()
+
+        # PriceBars in the PriceBarSpreadsheet.
+        self.priceBarSpreadsheetWidget.clearAllPriceBars()
+
+        self.log.debug("Leaving clearAllPriceBars()")
+        
+    def clearAllPriceBarChartArtifacts(self):
+        """Clears all the PriceBarChartArtifact objects from the 
+        PriceBarChartWidget."""
+
+        self.priceBarChartWidget.clearAllPriceBarChartArtifacts()
+
+
     def loadPriceBars(self, priceBars):
         """Loads the price bars into the widgets.
         
@@ -1503,7 +1562,7 @@ class PriceChartDocumentWidget(QWidget):
         self.priceBarChartWidget.loadDayPriceBars(priceBars)
 
         # Load PriceBars into the PriceBarSpreadsheet.
-        # TODO:  add that stuff.
+        self.priceBarSpreadsheetWidget.loadPriceBars(priceBars)
 
         self.log.debug("Leaving loadPriceBars({} pricebars)".\
                        format(len(priceBars)))
@@ -1519,12 +1578,48 @@ class PriceChartDocumentWidget(QWidget):
         self.log.debug("Entered loadPriceBarChartArtifacts({} artifacts)".\
                        format(len(priceBarChartArtifacts)))
 
-        self.priceBarChartWidget.loadArtifacts(priceBarChartArtifacts)
+        self.priceBarChartWidget.\
+            loadPriceBarChartArtifacts(priceBarChartArtifacts)
 
         self.log.debug("Leaving loadPriceBarChartArtifacts({} artifacts)".\
                        format(len(priceBarChartArtifacts)))
 
-    # TODO:  add the same names of functions that are in
-    # PriceBarChartWidget to here so we can call them.
-    
+    def applyPriceBarChartSettings(self, priceBarChartSettings):
+        """Applies the given PriceBarChartSettings object to the
+        internal PriceBarChartWidget.
+        """
+
+        self.priceBarChartWidget.\
+            applyPriceBarChartSettings(priceBarChartSettings)
+
+    def applyPriceBarSpreadsheetSettings(self, priceBarSpreadsheetSettings):
+        """Applies the given PriceBarSpreadsheetSettings object to the
+        internal PriceBarSpreadsheetWidget.
+        """
+
+        self.priceBarSpreadsheetWidget.\
+            applyPriceBarSpreadsheetSettings(priceBarSpreadsheetSettings)
+
+    def getPriceBarChartArtifacts(self):
+        """Returns the list of PriceBarChartArtifacts that are used in the
+        PriceBarChartWidget.
+        """
+
+        return self.priceBarChartWidget.getPriceBarChartArtifacts()
+
+    def getPriceBarChartSettings(self):
+        """Obtains the current PriceBarChartSettings object from the
+        PriceBarChartWidget.
+        """
+
+        return self.priceBarChartWidget.getPriceBarChartSettings()
+
+    def getPriceBarSpreadsheetSettings(self):
+        """Obtains the current PriceBarSpreadsheetsettings object from the
+        PriceBarSpreadsheetWidget.
+        """
+
+        return self.priceBarSpreadsheetWidget.\
+                getPriceBarSpreadsheetSettings()
+
 

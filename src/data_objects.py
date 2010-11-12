@@ -388,6 +388,18 @@ class PriceBar:
         else:
             return False
 
+    def clearTags(self):
+        """Clears all the tags associated with this PriceBar."""
+
+        self.tags = []
+
+    def removeTag(self, tagToRemove):
+        """Removes a given tag string from the tags in this PriceBar."""
+
+        while tagToRemove in self.tags:
+            self.tags.remove(tagToRemove)
+
+
     def hasHigherHighThan(self, anotherPriceBar):
         """Returns True if this PriceBar has a higher high price than pricebar
         'anotherPriceBar'

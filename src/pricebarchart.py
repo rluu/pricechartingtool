@@ -31,6 +31,11 @@ class PriceBarChartWidget(QWidget):
     tools.
     """
 
+    # TODO:  I need to determine what functionality causes the
+    # 'priceChartDocumentData' types of internal info to change, and when
+    # that happens emit that, so a higher-up parent can set the document
+    # as 'dirty', so that the user knows to save to capture these changes.
+
     def __init__(self, parent=None):
         super().__init__(parent)
 
@@ -171,22 +176,31 @@ class PriceBarChartWidget(QWidget):
                 self.graphicsScene.removeItem(item)
 
 
-    def loadArtifacts(self, priceBarChartArtifacts):
+    def getPriceBarChartArtifacts(self):
+        """Returns the list of PriceBarChartArtifacts that have been used
+        to draw the the artifacts in the QGraphicsScene.
+        """
+
+        # TODO:  write this part.
+        return []
+
+
+    def loadPriceBarChartArtifacts(self, priceBarChartArtifacts):
         """Loads the given list of PriceBarChartArtifact objects 
         into this widget as QGraphicsItems."""
         
         # TODO:  write this part.
         pass
         
-    def addArtifact(self, priceBarChartArtifact):
+    def addPriceBarChartArtifact(self, priceBarChartArtifact):
         """Adds the given PriceBarChartArtifact objects 
         into this widget as QGraphicsItems."""
         
         # TODO:  write this part.
         pass
         
-    def clearAllArtifacts(self):
-        """Clears all the artifact QGraphicsItems from the 
+    def clearAllPriceBarChartArtifacts(self):
+        """Clears all the PriceBarChartArtifact objects from the 
         QGraphicsScene."""
 
         # TODO:  write this part.
