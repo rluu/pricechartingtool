@@ -78,6 +78,12 @@ class MainWindow(QMainWindow):
         self.mdiArea.subWindowActivated.connect(self._updateActions)
         self.mdiArea.subWindowActivated.connect(self._updateWindowMenu)
 
+        # TODO:  Here I may need to add a connection from
+        # subWindowActivated signal to a slot that will look
+        # into the currently active PriceChartDocument and see 
+        # what tool mode it thinks is activated, so that the appropriate
+        # qaction can be selected/activated.
+
         # Create actions, menus, toolbars, statusbar, widgets, etc.
         self._createActions()
         self._createMenus()
@@ -164,7 +170,6 @@ class MainWindow(QMainWindow):
                 "Edit the birth time and birth location")
         self.editBirthInfoAction.triggered.connect(self._editBirthInfo)
 
-
         # Create the editAppPreferencesAction.
         icon = QIcon(":/images/tango-icon-theme-0.8.90/32x32/categories/preferences-system.png")
         self.editAppPreferencesAction = \
@@ -173,6 +178,63 @@ class MainWindow(QMainWindow):
         self.editAppPreferencesAction.triggered.\
             connect(self._editAppPreferences)
 
+        # Create the editPriceBarChartScalingAction.
+        icon = QIcon(":/images/rluu/triangleRuler.png")
+        self.editPriceBarChartScalingAction = \
+            QAction(icon, "Edit PriceBar Chart &Scaling", self)
+        self.editPriceBarChartScalingAction.\
+            setStatusTip("Edit PriceBar Chart Scaling")
+        self.editPriceBarChartScalingAction.triggered.\
+            connect(self._editPriceBarChartScaling)
+        
+
+        ####################
+        # Create actions for the Tools Menu.
+
+        # TODO:  These should not all be connected to independent
+        # slot functions but instead all the actions added to an action
+        # group and all the actions here triggering one function, and in
+        # that function checking to see what action was triggered and
+        # taking the appropriate action.
+
+        # TODO:  I may want to create new tools' icons here to add a
+        # little bit of color (blue?), so that we can tell if the qaction
+        # is disabled or not.  We probably want to keep the current png
+        # files of course, so we can use them when changing the pointer
+        # image (if that's what I want to do).
+
+        # Create the PointerToolAction.
+        icon = QIcon(":/images/qt/pointer.png")
+        self.pointerToolAction = QAction(icon, "Pointer Tool", self)
+        self.pointerToolAction.setStatusTip("Pointer Tool")
+        self.pointerToolAction.triggered.\
+            connect(self._pointerToolModeTriggered)
+
+        # Create the HandToolAction.
+        icon = QIcon(":/images/rluu/handOpen.png")
+        self.handToolAction = QAction(icon, "Hand Tool", self)
+        self.handToolAction.setStatusTip("Hand Tool")
+        self.handToolAction.triggered.connect(self._handToolModeTriggered)
+
+        # Create the ZoomInToolAction.
+        icon = QIcon(":/images/rluu/zoomIn.png")
+        self.zoomInToolAction = QAction(icon, "Zoom In Tool", self)
+        self.zoomInToolAction.setStatusTip("Zoom In Tool")
+        self.zoomInToolAction.triggered.\
+            connect(self._zoomInToolModeTriggered)
+
+        # Create the ZoomOutToolAction.
+        icon = QIcon(":/images/rluu/zoomOut.png")
+        self.zoomOutToolAction = QAction(icon, "Zoom Out Tool", self)
+        self.zoomOutToolAction.setStatusTip("Zoom Out Tool")
+        self.zoomOutToolAction.triggered.\
+            connect(self._zoomOutToolModeTriggered)
+
+
+    
+        # TODO:  Should I create an action that brings up a dialog to set
+        # which subwindows are displayed in the currently active
+        # PriceChartDocument?
 
         ####################
         # Create actions for the Window menu.
@@ -259,6 +321,14 @@ class MainWindow(QMainWindow):
         self.editMenu = self.menuBar().addMenu("&Edit")
         self.editMenu.addAction(self.editBirthInfoAction)
         self.editMenu.addAction(self.editAppPreferencesAction)
+        self.editMenu.addAction(self.editPriceBarChartScalingAction)
+
+        # Create the Tools menu
+        self.toolsMenu = self.menuBar().addMenu("&Tools")
+        self.toolsMenu.addAction(self.pointerToolAction)
+        self.toolsMenu.addAction(self.handToolAction)
+        self.toolsMenu.addAction(self.zoomInToolAction)
+        self.toolsMenu.addAction(self.zoomOutToolAction)
 
         # Create the Window menu.
         self.windowMenu = self.menuBar().addMenu("&Window")
@@ -291,6 +361,15 @@ class MainWindow(QMainWindow):
         self.editToolBar.setObjectName("editToolBar")
         self.editToolBar.addAction(self.editBirthInfoAction)
         self.editToolBar.addAction(self.editAppPreferencesAction)
+        self.editToolBar.addAction(self.editPriceBarChartScalingAction)
+
+        # Create the Tools toolbar.
+        self.toolsToolBar = self.addToolBar("Tools")
+        self.toolsToolBar.setObjectName("toolsToolBar")
+        self.toolsToolBar.addAction(self.pointerToolAction)
+        self.toolsToolBar.addAction(self.handToolAction)
+        self.toolsToolBar.addAction(self.zoomInToolAction)
+        self.toolsToolBar.addAction(self.zoomOutToolAction)
 
     def _createStatusBar(self):
         """Creates the QStatusBar by showing the message "Ready"."""
@@ -326,12 +405,16 @@ class MainWindow(QMainWindow):
         self.saveAsChartAction.setEnabled(isActive)
         self.printAction.setEnabled(isActive)
         self.printPreviewAction.setEnabled(isActive)
-
         self.exitAppAction.setEnabled(True)
 
         self.editBirthInfoAction.setEnabled(isActive)
-
         self.editAppPreferencesAction.setEnabled(True)
+        self.editPriceBarChartScalingAction.setEnabled(isActive)
+
+        self.pointerToolAction.setEnabled(isActive)
+        self.handToolAction.setEnabled(isActive)
+        self.zoomInToolAction.setEnabled(isActive)
+        self.zoomOutToolAction.setEnabled(isActive)
 
         self.closeChartAction.setEnabled(isActive)
         self.closeAllChartsAction.setEnabled(isActive)
@@ -870,6 +953,7 @@ class MainWindow(QMainWindow):
 
 
     def _editAppPreferences(self):
+        """TODO:  write this comment"""
         self.log.debug("Entered _editAppPreferences()")
         # TODO:  implement this function.
         QMessageBox.information(self, 
@@ -877,6 +961,50 @@ class MainWindow(QMainWindow):
                                 "This feature has not yet been implemented.")
         self.log.debug("Exiting _editAppPreferences()")
 
+    def _editPriceBarChartScaling(self):
+        """TODO:  write this comment"""
+        self.log.debug("Entered _editPriceBarChartScaling()")
+        # TODO:  implement this function.
+        QMessageBox.information(self, 
+                                "Not yet implemented", 
+                                "This feature has not yet been implemented.")
+        self.log.debug("Exiting _editPriceBarChartScaling()")
+
+    def _pointerToolModeTriggered(self):
+        """TODO:  write this comment"""
+        self.log.debug("Entered _pointerToolModeTriggered()")
+        # TODO:  implement this function.
+        QMessageBox.information(self, 
+                                "Not yet implemented", 
+                                "This feature has not yet been implemented.")
+        self.log.debug("Exiting _pointerToolModeTriggered()")
+
+    def _handToolModeTriggered(self):
+        """TODO:  write this comment"""
+        self.log.debug("Entered _handToolModeTriggered()")
+        # TODO:  implement this function.
+        QMessageBox.information(self, 
+                                "Not yet implemented", 
+                                "This feature has not yet been implemented.")
+        self.log.debug("Exiting _handToolModeTriggered()")
+
+    def _zoomInToolModeTriggered(self):
+        """TODO:  write this comment"""
+        self.log.debug("Entered _zoomInToolModeTriggered()")
+        # TODO:  implement this function.
+        QMessageBox.information(self, 
+                                "Not yet implemented", 
+                                "This feature has not yet been implemented.")
+        self.log.debug("Exiting _zoomInToolModeTriggered()")
+
+    def _zoomOutToolModeTriggered(self):
+        """TODO:  write this comment"""
+        self.log.debug("Entered _zoomOutToolModeTriggered()")
+        # TODO:  implement this function.
+        QMessageBox.information(self, 
+                                "Not yet implemented", 
+                                "This feature has not yet been implemented.")
+        self.log.debug("Exiting _zoomOutToolModeTriggered()")
 
     def _about(self):
         """Opens a popup window displaying information about this

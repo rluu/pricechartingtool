@@ -66,6 +66,7 @@ rluu/logo_ryan_d1.png
 rluu/ryan_d1.png
 rluu/zoomIn.png
 rluu/zoomOut.png
+rluu/triangleRuler.png (Modified an image in Tango Icon Library)
 
 Created by Ryan Luu.
 

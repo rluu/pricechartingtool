@@ -1,4 +1,5 @@
-<!DOCTYPE RCC><RCC version="1.0">
+<!DOCTYPE RCC>
+<RCC version="1.0">
 <qresource>
     <file>images/aaa-banners/grad23.gif</file>
 
@@ -14,6 +15,7 @@
     <file>images/rluu/handClosed.png</file>
     <file>images/rluu/handOpen.png</file>
     <file>images/rluu/logo_ryan_d1.png</file>
+    <file>images/rluu/triangleRuler.png</file>
     <file>images/rluu/zoomIn.png</file>
     <file>images/rluu/zoomOut.png</file>
 
@@ -30,3 +32,4 @@
 
 </qresource>
 </RCC>
+
