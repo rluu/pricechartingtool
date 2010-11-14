@@ -65,8 +65,10 @@ rluu/handOpen.png
 rluu/logo_ryan_d1.png
 rluu/ryan_d1.png
 rluu/zoomIn.png
+rluu/zoomInBlue.png      (Modified an image from Tango Icon Library)
 rluu/zoomOut.png
-rluu/triangleRuler.png (Modified an image in Tango Icon Library)
+rluu/zoomOutBlue.png     (Modified an image from Tango Icon Library)
+rluu/triangleRuler.png   (Modified an image from Tango Icon Library)
 
 Created by Ryan Luu.
 

@@ -217,14 +217,14 @@ class MainWindow(QMainWindow):
         self.handToolAction.triggered.connect(self._handToolModeTriggered)
 
         # Create the ZoomInToolAction.
-        icon = QIcon(":/images/rluu/zoomIn.png")
+        icon = QIcon(":/images/rluu/zoomInBlue.png")
         self.zoomInToolAction = QAction(icon, "Zoom In Tool", self)
         self.zoomInToolAction.setStatusTip("Zoom In Tool")
         self.zoomInToolAction.triggered.\
             connect(self._zoomInToolModeTriggered)
 
         # Create the ZoomOutToolAction.
-        icon = QIcon(":/images/rluu/zoomOut.png")
+        icon = QIcon(":/images/rluu/zoomOutBlue.png")
         self.zoomOutToolAction = QAction(icon, "Zoom Out Tool", self)
         self.zoomOutToolAction.setStatusTip("Zoom Out Tool")
         self.zoomOutToolAction.triggered.\
