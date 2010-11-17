@@ -231,6 +231,10 @@ class PriceBarChartWidget(QWidget):
         
         return self.priceBarChartSettings
 
+
+    # TODO:  move enterEvent() and leaveEvent() that is currently in this
+    # class into the QGraphicsScene or QGraphicsView class... whichever
+    # makes sense.  
     def enterEvent(self, qevent):
         """Overwrites the QWidget.enterEvent() function.  
 
@@ -253,10 +257,10 @@ class PriceBarChartWidget(QWidget):
         elif self.toolMode == PriceBarChartWidget.ToolMode['HandTool']:
             self.setCursor(QCursor(Qt.OpenHandCursor))
         elif self.toolMode == PriceBarChartWidget.ToolMode['ZoomInTool']:
-            pixmap = QPixMap(":/images/rluu/zoomIn.png")
+            pixmap = QPixmap(":/images/rluu/zoomIn.png")
             self.setCursor(QCursor(pixmap))
         elif self.toolMode == PriceBarChartWidget.ToolMode['ZoomOutTool']:
-            pixmap = QPixMap(":/images/rluu/zoomOut.png")
+            pixmap = QPixmap(":/images/rluu/zoomOut.png")
             self.setCursor(QCursor(pixmap))
         else:
             self.warn.debug("Unknown toolMode while in enterEvent().")
@@ -339,7 +343,7 @@ class PriceBarChartWidget(QWidget):
             # If it is, then we need to change the pointer type
             # to the pointer that represents the ZoomInToolMode.
             if self.underMouse():
-                pixmap = QPixMap(":/images/rluu/zoomIn.png")
+                pixmap = QPixmap(":/images/rluu/zoomIn.png")
                 self.setCursor(QCursor(pixmap))
 
         self.log.debug("Exiting toZoomInToolMode()")
@@ -358,7 +362,7 @@ class PriceBarChartWidget(QWidget):
             # If it is, then we need to change the pointer type
             # to the pointer that represents the ZoomOutToolMode.
             if self.underMouse():
-                pixmap = QPixMap(":/images/rluu/zoomOut.png")
+                pixmap = QPixmap(":/images/rluu/zoomOut.png")
                 self.setCursor(QCursor(pixmap))
 
         self.log.debug("Exiting toZoomOutToolMode()")
@@ -370,7 +374,7 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
     """
 
     def __init__(self, parent=None):
-        """Pass-through to the QGraphicsView constructor."""
+        """Pass-through to the QGraphicsScene constructor."""
 
         super().__init__(parent)
     
