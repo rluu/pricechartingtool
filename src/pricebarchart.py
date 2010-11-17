@@ -36,6 +36,13 @@ class PriceBarChartWidget(QWidget):
     # that happens emit that, so a higher-up parent can set the document
     # as 'dirty', so that the user knows to save to capture these changes.
 
+
+    # Tool modes that this widget can be in.
+    ToolMode = {"PointerTool" : 0,
+                "HandTool"    : 1,
+                "ZoomInTool"  : 2,
+                "ZoomOutTool" : 3 }
+
     def __init__(self, parent=None):
         super().__init__(parent)
 
@@ -46,6 +53,9 @@ class PriceBarChartWidget(QWidget):
         # Create the contents.
         self.priceBarChartSettings = PriceBarChartSettings()
         
+        # Holds the tool mode that this widget is currently in.
+        self.toolMode = PriceBarChartWidget.ToolMode['PointerTool']
+
         # These are the label widgets at the top of the PriceBarChartWidget.
         self.descriptionLabel = QLabel("")
         
@@ -220,6 +230,139 @@ class PriceBarChartWidget(QWidget):
         """Returns the current settings used in this PriceBarChartWidget."""
         
         return self.priceBarChartSettings
+
+    def enterEvent(self, qevent):
+        """Overwrites the QWidget.enterEvent() function.  
+
+        Whenever the mouse enters the area of this widget, this function
+        is called.  I've overwritten this function to change the mouse
+        cursor according to what tool mode is currently active.
+
+        Arguments:
+
+        qevent - QEvent object that triggered this function call.
+        """
+
+        self.log.debug("Entered enterEvent()")
+
+        # Set the cursor shape/image according to what tool mode the
+        # pricebarchart is in.
+
+        if self.toolMode == PriceBarChartWidget.ToolMode['PointerTool']:
+            self.setCursor(QCursor(Qt.ArrowCursor))
+        elif self.toolMode == PriceBarChartWidget.ToolMode['HandTool']:
+            self.setCursor(QCursor(Qt.OpenHandCursor))
+        elif self.toolMode == PriceBarChartWidget.ToolMode['ZoomInTool']:
+            pixmap = QPixMap(":/images/rluu/zoomIn.png")
+            self.setCursor(QCursor(pixmap))
+        elif self.toolMode == PriceBarChartWidget.ToolMode['ZoomOutTool']:
+            pixmap = QPixMap(":/images/rluu/zoomOut.png")
+            self.setCursor(QCursor(pixmap))
+        else:
+            self.warn.debug("Unknown toolMode while in enterEvent().")
+
+        # Allow any other super classes to process the event as well.
+        super().enterEvent(qevent)
+
+        self.log.debug("Exiting enterEvent()")
+
+    def leaveEvent(self, qevent):
+        """Overwrites the QWidget.leaveEvent() function.  
+
+        Whenever the mouse leaves the area of this widget, this function
+        is called.  I've overwritten this function to change the mouse
+        cursor from whatever it is currently set to, back to the original
+        pointer cursor.
+
+        Arguments:
+
+        qevent - QEvent object that triggered this function call.
+        """
+
+        self.log.debug("Entered leaveEvent()")
+
+        # Set the cursor shape/image to the ArrowCursor.
+        self.setCursor(QCursor(Qt.ArrowCursor))
+
+        # Allow any other super classes to process the event as well.
+        super().enterEvent(qevent)
+
+        self.log.debug("Exiting leaveEvent()")
+
+    def toPointerToolMode(self):
+        """Changes the tool mode to be the PointerTool."""
+
+        self.log.debug("Entered toPointerToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != PriceBarChartWidget.ToolMode['PointerTool']:
+
+            self.toolMode = PriceBarChartWidget.ToolMode['PointerTool']
+
+            # See if the pointer location is currently in this widget. 
+            # If it is, then we need to change the pointer type
+            # to the pointer that represents the PointerToolMode.
+            if self.underMouse():
+                self.setCursor(QCursor(Qt.ArrowCursor))
+
+        self.log.debug("Exiting toPointerToolMode()")
+
+    def toHandToolMode(self):
+        """Changes the tool mode to be the HandTool."""
+
+        self.log.debug("Entered toHandToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != PriceBarChartWidget.ToolMode['HandTool']:
+
+            self.toolMode = PriceBarChartWidget.ToolMode['HandTool']
+
+            # See if the pointer location is currently in this widget. 
+            # If it is, then we need to change the pointer type
+            # to the pointer that represents the HandToolMode.
+            if self.underMouse():
+                self.setCursor(QCursor(Qt.OpenHandCursor))
+
+        self.log.debug("Exiting toHandToolMode()")
+
+    def toZoomInToolMode(self):
+        """Changes the tool mode to be the ZoomInTool."""
+
+        self.log.debug("Entered toZoomInToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != PriceBarChartWidget.ToolMode['ZoomInTool']:
+
+            self.toolMode = PriceBarChartWidget.ToolMode['ZoomInTool']
+
+            # See if the pointer location is currently in this widget. 
+            # If it is, then we need to change the pointer type
+            # to the pointer that represents the ZoomInToolMode.
+            if self.underMouse():
+                pixmap = QPixMap(":/images/rluu/zoomIn.png")
+                self.setCursor(QCursor(pixmap))
+
+        self.log.debug("Exiting toZoomInToolMode()")
+
+    def toZoomOutToolMode(self):
+        """Changes the tool mode to be the ZoomOutTool."""
+
+        self.log.debug("Entered toZoomOutToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != PriceBarChartWidget.ToolMode['ZoomOutTool']:
+
+            self.toolMode = PriceBarChartWidget.ToolMode['ZoomOutTool']
+
+            # See if the pointer location is currently in this widget. 
+            # If it is, then we need to change the pointer type
+            # to the pointer that represents the ZoomOutToolMode.
+            if self.underMouse():
+                pixmap = QPixMap(":/images/rluu/zoomOut.png")
+                self.setCursor(QCursor(pixmap))
+
+        self.log.debug("Exiting toZoomOutToolMode()")
+
 
 class PriceBarChartGraphicsScene(QGraphicsScene):
     """QGraphicsScene holding all the pricebars and artifacts.

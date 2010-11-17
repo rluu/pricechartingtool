@@ -78,12 +78,6 @@ class MainWindow(QMainWindow):
         self.mdiArea.subWindowActivated.connect(self._updateActions)
         self.mdiArea.subWindowActivated.connect(self._updateWindowMenu)
 
-        # TODO:  Here I may need to add a connection from
-        # subWindowActivated signal to a slot that will look
-        # into the currently active PriceChartDocument and see 
-        # what tool mode it thinks is activated, so that the appropriate
-        # qaction can be selected/activated.
-
         # Create actions, menus, toolbars, statusbar, widgets, etc.
         self._createActions()
         self._createMenus()
@@ -191,47 +185,43 @@ class MainWindow(QMainWindow):
         ####################
         # Create actions for the Tools Menu.
 
-        # TODO:  These should not all be connected to independent
-        # slot functions but instead all the actions added to an action
-        # group and all the actions here triggering one function, and in
-        # that function checking to see what action was triggered and
-        # taking the appropriate action.
-
-        # TODO:  I may want to create new tools' icons here to add a
-        # little bit of color (blue?), so that we can tell if the qaction
-        # is disabled or not.  We probably want to keep the current png
-        # files of course, so we can use them when changing the pointer
-        # image (if that's what I want to do).
-
         # Create the PointerToolAction.
         icon = QIcon(":/images/qt/pointer.png")
         self.pointerToolAction = QAction(icon, "Pointer Tool", self)
         self.pointerToolAction.setStatusTip("Pointer Tool")
-        self.pointerToolAction.triggered.\
-            connect(self._pointerToolModeTriggered)
+        self.pointerToolAction.setCheckable(True)
 
         # Create the HandToolAction.
         icon = QIcon(":/images/rluu/handOpen.png")
         self.handToolAction = QAction(icon, "Hand Tool", self)
         self.handToolAction.setStatusTip("Hand Tool")
-        self.handToolAction.triggered.connect(self._handToolModeTriggered)
+        self.handToolAction.setCheckable(True)
 
         # Create the ZoomInToolAction.
         icon = QIcon(":/images/rluu/zoomInBlue.png")
         self.zoomInToolAction = QAction(icon, "Zoom In Tool", self)
         self.zoomInToolAction.setStatusTip("Zoom In Tool")
-        self.zoomInToolAction.triggered.\
-            connect(self._zoomInToolModeTriggered)
+        self.zoomInToolAction.setCheckable(True)
 
         # Create the ZoomOutToolAction.
         icon = QIcon(":/images/rluu/zoomOutBlue.png")
         self.zoomOutToolAction = QAction(icon, "Zoom Out Tool", self)
         self.zoomOutToolAction.setStatusTip("Zoom Out Tool")
-        self.zoomOutToolAction.triggered.\
-            connect(self._zoomOutToolModeTriggered)
+        self.zoomOutToolAction.setCheckable(True)
 
+        # Create a QActionGroup because all these tool modes should be
+        # exclusive.  
+        self.toolActionGroup = QActionGroup(self)
+        self.toolActionGroup.setExclusive(True)
+        self.toolActionGroup.addAction(self.pointerToolAction)
+        self.toolActionGroup.addAction(self.handToolAction)
+        self.toolActionGroup.addAction(self.zoomInToolAction)
+        self.toolActionGroup.addAction(self.zoomOutToolAction)
+        self.toolActionGroup.triggered.connect(self._toolsActionTriggered)
+            
+        # Default to the PointerTool being checked by default.
+        self.pointerToolAction.setChecked(True)
 
-    
         # TODO:  Should I create an action that brings up a dialog to set
         # which subwindows are displayed in the currently active
         # PriceChartDocument?
@@ -426,6 +416,21 @@ class MainWindow(QMainWindow):
         self.aboutAction.setEnabled(True)
         self.aboutQtAction.setEnabled(True)
 
+        # Depending on what ToolMode QAction is checked,
+        # set the priceChartDocument to be in that mode.
+        if isActive:
+            if self.pointerToolAction.isChecked():
+                priceChartDocument.toPointerToolMode()
+            elif self.handToolAction.isChecked():
+                priceChartDocument.toHandToolMode()
+            elif self.zoomInToolAction.isChecked():
+                priceChartDocument.toZoomInToolMode()
+            elif self.zoomOutToolAction.isChecked():
+                priceChartDocument.toZoomOutToolMode()
+            else:
+                self.log.warn("No ToolMode QAction is currently selected!")
+
+
         self.log.debug("Exiting _updateActions()")
 
     def _updateWindowMenu(self):
@@ -504,7 +509,8 @@ class MainWindow(QMainWindow):
                 self.windowMapper.setMapping(action, priceChartDocument)
                 action.triggered.connect(self.windowMapper.map)
                 
-                # Increment counter for the window number in the Window menu.
+                # Increment counter for the window number in the Window
+                # menu.
                 j += 1
             else:
                 self.log.debug("Currently only supporting windows that " + 
@@ -970,41 +976,42 @@ class MainWindow(QMainWindow):
                                 "This feature has not yet been implemented.")
         self.log.debug("Exiting _editPriceBarChartScaling()")
 
-    def _pointerToolModeTriggered(self):
-        """TODO:  write this comment"""
-        self.log.debug("Entered _pointerToolModeTriggered()")
-        # TODO:  implement this function.
-        QMessageBox.information(self, 
-                                "Not yet implemented", 
-                                "This feature has not yet been implemented.")
-        self.log.debug("Exiting _pointerToolModeTriggered()")
+    def _toolsActionTriggered(self, qaction):
+        """Slot function that is called when a Tools menu QAction is
+        selected/activated.  This changes the Tools mode to whatever the
+        new selection is.
+        
+        Arguments:
+        qaction - Reference to the QAction that was triggered.
+        """
 
-    def _handToolModeTriggered(self):
-        """TODO:  write this comment"""
-        self.log.debug("Entered _handToolModeTriggered()")
-        # TODO:  implement this function.
-        QMessageBox.information(self, 
-                                "Not yet implemented", 
-                                "This feature has not yet been implemented.")
-        self.log.debug("Exiting _handToolModeTriggered()")
+        self.log.debug("Entered _toolsActionTriggered()")
 
-    def _zoomInToolModeTriggered(self):
-        """TODO:  write this comment"""
-        self.log.debug("Entered _zoomInToolModeTriggered()")
-        # TODO:  implement this function.
-        QMessageBox.information(self, 
-                                "Not yet implemented", 
-                                "This feature has not yet been implemented.")
-        self.log.debug("Exiting _zoomInToolModeTriggered()")
+        # Tool actions only make sense to be triggered if there is a
+        # PriceChartDocument open and active.  
+        # Check to make sure that is true.
+        pcd = self.getActivePriceChartDocument()
+        if pcd == None:
+            return
 
-    def _zoomOutToolModeTriggered(self):
-        """TODO:  write this comment"""
-        self.log.debug("Entered _zoomOutToolModeTriggered()")
-        # TODO:  implement this function.
-        QMessageBox.information(self, 
-                                "Not yet implemented", 
-                                "This feature has not yet been implemented.")
-        self.log.debug("Exiting _zoomOutToolModeTriggered()")
+        if qaction == self.pointerToolAction:
+            self.log.debug("pointerToolAction triggered.")
+            pcd.toPointerToolMode()
+        elif qaction == self.handToolAction:
+            self.log.debug("handToolAction triggered.")
+            pcd.toHandToolMode()
+        elif qaction == self.zoomInToolAction:
+            self.log.debug("zoomInToolAction triggered.")
+            pcd.toZoomInToolMode()
+        elif qaction == self.zoomOutToolAction:
+            self.log.debug("zoomOutToolAction triggered.")
+            pcd.toZoomOutToolMode()
+        else:
+            self.log.warn("Unknown Tools QAction selected!  " + \
+                "There might be something wrong with the code, or " + \
+                "I maybe forgot to add a qaction type.")
+            
+        self.log.debug("Exiting _toolsActionTriggered()")
 
     def _about(self):
         """Opens a popup window displaying information about this
@@ -1079,7 +1086,8 @@ class PriceChartDocument(QMdiSubWindow):
         self.filename = ""
 
         self.title = \
-            "Untitled{}".format(PriceChartDocument.untitledDocSequenceNum) + \
+            "Untitled{}".\
+                format(PriceChartDocument.untitledDocSequenceNum) + \
             PriceChartDocument.fileExtension +  \
             PriceChartDocument.modifiedFileStr 
         PriceChartDocument.untitledDocSequenceNum += 1
@@ -1608,6 +1616,25 @@ class PriceChartDocument(QMdiSubWindow):
         self.log.debug("Exiting saveAsChart().  Returning {}".format(rv))
         return rv
 
+    def toPointerToolMode(self):
+        """Changes the tool mode to be the PointerTool."""
+
+        self.widgets.toPointerToolMode()
+
+    def toHandToolMode(self):
+        """Changes the tool mode to be the HandTool."""
+
+        self.widgets.toHandToolMode()
+
+    def toZoomInToolMode(self):
+        """Changes the tool mode to be the ZoomInTool."""
+
+        self.widgets.toZoomInToolMode()
+
+    def toZoomOutToolMode(self):
+        """Changes the tool mode to be the ZoomOutTool."""
+
+        self.widgets.toZoomOutToolMode()
 
     def toString(self):
         """Returns the str representation of this class object.
@@ -1751,5 +1778,25 @@ class PriceChartDocumentWidget(QWidget):
 
         return self.priceBarSpreadsheetWidget.\
                 getPriceBarSpreadsheetSettings()
+
+    def toPointerToolMode(self):
+        """Changes the tool mode to be the PointerTool."""
+
+        self.priceBarChartWidget.toPointerToolMode()
+
+    def toHandToolMode(self):
+        """Changes the tool mode to be the HandTool."""
+
+        self.priceBarChartWidget.toHandToolMode()
+
+    def toZoomInToolMode(self):
+        """Changes the tool mode to be the ZoomInTool."""
+
+        self.priceBarChartWidget.toZoomInToolMode()
+
+    def toZoomOutToolMode(self):
+        """Changes the tool mode to be the ZoomOutTool."""
+
+        self.priceBarChartWidget.toZoomOutToolMode()
 
 
