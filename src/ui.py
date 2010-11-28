@@ -959,12 +959,20 @@ class MainWindow(QMainWindow):
 
 
     def _editAppPreferences(self):
-        """TODO:  write this comment"""
+        """Opens up a dialog for editing the application-wide preferences.
+        These values are saved via QSettings."""
+
         self.log.debug("Entered _editAppPreferences()")
-        # TODO:  implement this function.
-        QMessageBox.information(self, 
-                                "Not yet implemented", 
-                                "This feature has not yet been implemented.")
+
+        dialog = AppPreferencesEditDialog()
+
+        retVal = dialog.exec_()
+
+        if retVal == QDialog.Accepted:
+            self.log.debug("AppPreferencesDialog accepted")
+        else:
+            self.log.debug("AppPreferencesDialog rejected")
+
         self.log.debug("Exiting _editAppPreferences()")
 
     def _editPriceBarChartScaling(self):

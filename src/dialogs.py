@@ -2760,6 +2760,186 @@ class BirthInfoEditDialog(QDialog):
 
         return self.birthInfoEditWidget.getBirthInfo()
 
+class AppPreferencesEditWidget(QWidget):
+    """QWidget for editing some of the app-wide preferences.
+    These values are retrieved and stored from the QSettings.
+    """
+
+    # Signal emitted when the Okay button is clicked and 
+    # validation succeeded.
+    okayButtonClicked = QtCore.pyqtSignal()
+
+    # Signal emitted when the Cancel button is clicked.
+    cancelButtonClicked = QtCore.pyqtSignal()
+
+    def __init__(self, parent=None):
+        """Sets the internal widgets and loads the widgets with values
+        from QSettings.  This class uses QSettings and assumes that the
+        calls to QCoreApplication.setOrganizationName(), and
+        QCoreApplication.setApplicationName() have been called previously
+        (so that the QSettings constructor can be called without 
+        any parameters specified)
+        """
+
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger("dialogs.AppPreferencesEditWidget")
+
+        # QSettings keys for where these app preference values are saved.
+        self.zoomInPercentageSettingsKey = "ui/zoomInPercentage"
+        self.zoomOutPercentageSettingsKey = "ui/zoomOutPercentage"
+
+        # Zoom in percentage.
+        self.zoomInPercentageLabel = QLabel("Zoom-in percentage:")
+        self.zoomInPercentageSpinBox = QSpinBox()
+        self.zoomInPercentageSpinBox.setMinimum(100)
+        self.zoomInPercentageSpinBox.setMaximum(1000)
+        self.zoomInPercentageSpinBox.setSuffix(" %")
+
+        # Zoom out percentage.
+        self.zoomOutPercentageLabel = QLabel("Zoom-out percentage:")
+        self.zoomOutPercentageSpinBox = QSpinBox()
+        self.zoomOutPercentageSpinBox.setMinimum(1)
+        self.zoomOutPercentageSpinBox.setMaximum(100)
+        self.zoomOutPercentageSpinBox.setSuffix(" %")
+
+        # Form layout.
+        self.formLayout = QFormLayout()
+        self.formLayout.addRow(self.zoomInPercentageLabel,
+                               self.zoomInPercentageSpinBox)
+        self.formLayout.addRow(self.zoomOutPercentageLabel,
+                               self.zoomOutPercentageSpinBox)
+
+        # Buttons at bottom.
+        self.okayButton = QPushButton("&Okay")
+        self.cancelButton = QPushButton("&Cancel")
+        self.buttonsAtBottomLayout = QHBoxLayout()
+        self.buttonsAtBottomLayout.addStretch()
+        self.buttonsAtBottomLayout.addWidget(self.okayButton)
+        self.buttonsAtBottomLayout.addWidget(self.cancelButton)
+
+        # Put all layouts/groupboxes together into the widget.
+        self.mainLayout = QVBoxLayout()
+        self.mainLayout.addLayout(self.formLayout) 
+        self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
+
+        self.setLayout(self.mainLayout)
+
+        # Connect signals and slots.
+        self.okayButton.clicked.connect(self._handleOkayButtonClicked)
+        self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
+
+        # Load the widgets with values from QSettings.
+        self.loadValuesFromSettings()
+
+
+    def loadValuesFromSettings(self):
+        """Loads the widgets with values from the QSettings object.
+
+        This method uses QSettings and assumes that the
+        calls to QCoreApplication.setOrganizationName(), and
+        QCoreApplication.setApplicationName() have been called previously
+        (so that the QSettings constructor can be called without 
+        any parameters specified)
+        """
+
+        self.log.debug("Entered loadValuesFromSettings()")
+
+        settings = QSettings()
+    
+        # Zoom in percentage.
+        key = self.zoomInPercentageSettingsKey
+        value = settings.value(key, 110)
+        self.zoomInPercentageSpinBox.setValue(value)
+
+        # Zoom out percentage.
+        key = self.zoomOutPercentageSettingsKey
+        value = settings.value(key, 90)
+        self.zoomOutPercentageSpinBox.setValue(value)
+
+        self.log.debug("Exiting loadValuesFromSettings()")
+        
+    def saveValuesToSettings(self):
+        """Saves the values in the widgets to the QSettings object.
+
+        This method uses QSettings and assumes that the
+        calls to QCoreApplication.setOrganizationName(), and
+        QCoreApplication.setApplicationName() have been called previously
+        (so that the QSettings constructor can be called without 
+        any parameters specified)
+        """
+    
+        self.log.debug("Entered saveValuesToSettings()")
+
+        settings = QSettings()
+    
+        # Zoom in percentage.
+        key = self.zoomInPercentageSettingsKey
+        newValue = self.zoomInPercentageSpinBox.value()
+        if settings.contains(key):
+            # Only change the value if it has changed.
+            oldValue = settings.value(key, 110)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Zoom out percentage.
+        key = self.zoomOutPercentageSettingsKey
+        newValue = self.zoomOutPercentageSpinBox.value()
+        if settings.contains(key):
+            # Only change the value if it has changed.
+            oldValue = settings.value(key, 90)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+
+        self.log.debug("Exiting saveValuesToSettings()")
+
+    def _handleOkayButtonClicked(self):
+        """Called when the okay button is clicked."""
+
+        self.saveValuesToSettings()
+        self.okayButtonClicked.emit()
+
+    def _handleCancelButtonClicked(self):
+        """Called when the cancel button is clicked."""
+
+        self.cancelButtonClicked.emit()
+
+
+
+class AppPreferencesEditDialog(QDialog):
+    """QDialog for editing some of the app-wide preferenes.
+    These values are retrieved and stored from the QSettings.
+    """
+
+    def __init__(self, parent=None):
+        """Initializes the dialog and internal widget with the current
+        settings."""
+
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger("dialogs.AppPreferencesEditDialog")
+
+        # Create the contents.
+        self.appPreferencesEditWidget = AppPreferencesEditWidget()
+
+        # Setup the layout.
+        layout = QVBoxLayout()
+        layout.addWidget(self.appPreferencesEditWidget)
+        self.setLayout(layout)
+
+        self.appPreferencesEditWidget.okayButtonClicked.connect(self.accept)
+        self.appPreferencesEditWidget.cancelButtonClicked.connect(self.reject)
+
+
 # For debugging the module during development.  
 if __name__=="__main__":
     # Initialize Logging for the Ephemeris class (required).
