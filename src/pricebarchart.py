@@ -313,11 +313,28 @@ class PriceBarChartGraphicsView(QGraphicsView):
         super().__init__(parent)
 
         # Logger
-        self.log = logging.getLogger("pricebarchart.PriceBarChartGraphicsView")
+        self.log = \
+            logging.getLogger("pricebarchart.PriceBarChartGraphicsView")
         self.log.debug("Entered __init__()")
 
         # Holds the tool mode that this widget is currently in.
         self.toolMode = PriceBarChartGraphicsView.ToolMode['PointerTool']
+
+        # Anchor variable we will use for click-drag, etc.
+        self.dragAnchorPointF = QPointF()
+
+        # Get the QSetting key for the zoom scaling amounts.
+        appPrefsWidget = AppPreferencesEditWidget()
+        self.zoomScaleFactorSettingsKey = \
+            appPrefsWidget.zoomScaleFactorSettingsKey 
+
+        # Set the QGraphicsView for no anchors.  We manage it ourselves.
+        self.setTransformationAnchor(QGraphicsView.NoAnchor)
+        self.setResizeAnchor(QGraphicsView.NoAnchor)
+
+        # Set some rendering settings so things draw nicely.
+        self.setRenderHints(QPainter.Antialiasing | 
+                            QPainter.SmoothPixmapTransform)
 
     def toPointerToolMode(self):
         """Changes the tool mode to be the PointerTool."""
@@ -325,10 +342,14 @@ class PriceBarChartGraphicsView(QGraphicsView):
         self.log.debug("Entered toPointerToolMode()")
 
         # Only do something if it is not currently in this mode.
-        if self.toolMode != PriceBarChartWidget.ToolMode['PointerTool']:
+        if self.toolMode != PriceBarChartGraphicsView.ToolMode['PointerTool']:
+            self.toolMode = PriceBarChartGraphicsView.ToolMode['PointerTool']
 
-            self.toolMode = PriceBarChartWidget.ToolMode['PointerTool']
-            self.setDragMode(QGraphicsView.NoDrag)
+            # See if the pointer location is currently in this widget. 
+            # If it is, then we need to change the pointer type
+            # to the pointer that represents the PointerTool.
+            if self.underMouse():
+                self.setCursor(QCursor(Qt.ArrowCursor))
 
         self.log.debug("Exiting toPointerToolMode()")
 
@@ -338,10 +359,14 @@ class PriceBarChartGraphicsView(QGraphicsView):
         self.log.debug("Entered toHandToolMode()")
 
         # Only do something if it is not currently in this mode.
-        if self.toolMode != PriceBarChartWidget.ToolMode['HandTool']:
+        if self.toolMode != PriceBarChartGraphicsView.ToolMode['HandTool']:
+            self.toolMode = PriceBarChartGraphicsView.ToolMode['HandTool']
 
-            self.toolMode = PriceBarChartWidget.ToolMode['HandTool']
-            self.setDragMode(QGraphicsView.ScrollHandDrag)
+            # See if the pointer location is currently in this widget. 
+            # If it is, then we need to change the pointer type
+            # to the pointer that represents the PointerTool.
+            if self.underMouse():
+                self.setCursor(QCursor(Qt.OpenHandCursor))
 
         self.log.debug("Exiting toHandToolMode()")
 
@@ -351,10 +376,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         self.log.debug("Entered toZoomInToolMode()")
 
         # Only do something if it is not currently in this mode.
-        if self.toolMode != PriceBarChartWidget.ToolMode['ZoomInTool']:
-
-            self.toolMode = PriceBarChartWidget.ToolMode['ZoomInTool']
-            self.setDragMode(QGraphicsView.NoDrag)
+        if self.toolMode != PriceBarChartGraphicsView.ToolMode['ZoomInTool']:
+            self.toolMode = PriceBarChartGraphicsView.ToolMode['ZoomInTool']
 
             # See if the pointer location is currently in this widget. 
             # If it is, then we need to change the pointer type
@@ -371,10 +394,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         self.log.debug("Entered toZoomOutToolMode()")
 
         # Only do something if it is not currently in this mode.
-        if self.toolMode != PriceBarChartWidget.ToolMode['ZoomOutTool']:
-
-            self.toolMode = PriceBarChartWidget.ToolMode['ZoomOutTool']
-            self.setDragMode(QGraphicsView.NoDrag)
+        if self.toolMode != PriceBarChartGraphicsView.ToolMode['ZoomOutTool']:
+            self.toolMode = PriceBarChartGraphicsView.ToolMode['ZoomOutTool']
 
             # See if the pointer location is currently in this widget. 
             # If it is, then we need to change the pointer type
@@ -385,52 +406,94 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
         self.log.debug("Exiting toZoomOutToolMode()")
 
+    def zoomToFullScene(self):
+        """Zooms the QGraphicsView so that the whole QGraphicsScene is
+        viewable.  This keeps the aspect ratio.
+        """
+
+        scene = self.scene()
+        if scene != None:
+            self.fitInView(scene.sceneRect(), Qt.KeepAspectRatio)
+
     def mousePressEvent(self, qmouseevent):
         """Triggered when the mouse is pressed in this widget."""
 
         self.log.debug("Entered mousePressEvent()")
 
-        if self.toolMode == PriceBarChartWidget.ToolMode['ZoomInTool']:
+        scene = self.scene()
+
+        if self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['PointerTool']:
+
+            # Handle if the mouse press is on top of multiple
+            # QGraphicsItems.
+
+            # TODO:  add some code here.
+            if qmouseevent.button() & Qt.LeftButton:
+                if scene != None:
+                    scene.clearSelection()
+                super().mousePressEvent(qmouseevent)
+
+            elif qmouseevent.button() & Qt.RightButton:
+                pass
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['HandTool']:
+            # Panning the QGraphicsView.
+
+            if qmouseevent.button() & Qt.LeftButton:
+                self.setCursor(QCursor(Qt.ClosedHandCursor))
+
+                # Save the location of the mouse press point.
+                self.dragAnchorPointF = self.mapToScene(qmouseevent.pos())
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['ZoomInTool']:
+
+            if qmouseevent.button() & Qt.LeftButton:
+                # New center
+                newCenterPointF = self.mapToScene(qmouseevent.pos())
+
+                # Get the QSetting key for the zoom scaling amounts.
+                settings = QSettings()
+                scaleFactor = \
+                    float(settings.value(self.zoomScaleFactorSettingsKey, 
+                                         1.2))
+
+                # Actually do the scaling of the view.
+                self.scale(scaleFactor, scaleFactor)
+
+                # Center on the new center.
+                self.centerOn(newCenterPointF)
+
+            elif qmouseevent.button() & Qt.RightButton:
+                self.zoomToFullScene()
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['ZoomOutTool']:
             
-            # Get the QSetting keys for the zoom in and zoom out amounts.
-            tempWidget = AppPreferencesEditWidget()
-            zoomInPercentageSettingsKey = tempWidget.zoomInPercentageSettingsKey
+            if qmouseevent.button() & Qt.LeftButton:
+                # New center
+                newCenterPointF = self.mapToScene(qmouseevent.pos())
 
-            settings = QSettings()
-            zoomInPercentage = settings.value(zoomInPercentageSettingsKey, 110)
+                # Get the QSetting key for the zoom scaling amounts.
+                settings = QSettings()
+                scaleFactor = \
+                    float(settings.value(self.zoomScaleFactorSettingsKey, 
+                                         1.2))
 
-            # Zoom in relative to where the mouse is.
-            oldAnchor = self.resizeAnchor()
-            self.setResizeAnchor(QGraphicsView.AnchorUnderMouse)
-            
-            pointFloat = qmouseevent.posF()
-            self.centerOn(pointFloat)
-            xScale = zoomInPercentage / 100.0
-            yScale = zoomInPercentage / 100.0
-            self.scale(xScale, yScale)
+                # Actually do the scaling of the view.
+                self.scale(1.0 / scaleFactor, 1.0 / scaleFactor)
 
-            self.setResizeAnchor(oldAnchor)
+                # Center on the new center.
+                self.centerOn(newCenterPointF)
 
-        elif self.toolMode == PriceBarChartWidget.ToolMode['ZoomOutTool']:
-            
-            # Get the QSetting keys for the zoom in and zoom out amounts.
-            tempWidget = AppPreferencesEditWidget()
-            zoomOutPercentageSettingsKey = tempWidget.zoomOutPercentageSettingsKey
-
-            settings = QSettings()
-            zoomOutPercentage = settings.value(zoomOutPercentageSettingsKey, 90)
-
-            # Zoom in relative to where the mouse is.
-            oldAnchor = self.resizeAnchor()
-            self.setResizeAnchor(QGraphicsView.AnchorUnderMouse)
-            
-            pointFloat = qmouseevent.posF()
-            self.centerOn(pointFloat)
-            xScale = zoomOutPercentage / 100.0
-            yScale = zoomOutPercentage / 100.0
-            self.scale(xScale, yScale)
-
-            self.setResizeAnchor(oldAnchor)
+            elif qmouseevent.button() & Qt.RightButton:
+                self.zoomToFullScene()
+        else:
+            # For any other mode we don't have specific functionality for,
+            # just pass the event to the parent class to handle.
+            super().mousePressEvent(qmouseevent)
 
         self.log.debug("Exiting mousePressEvent()")
 
@@ -439,7 +502,87 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
         self.log.debug("Entered mouseReleaseEvent()")
 
+        if self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['PointerTool']:
+            # No action.  Just pass on the event to the parent class.
+            super().mouseReleaseEvent(qmouseevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['HandTool']:
+
+            # If this was a release of the left button, then reset the
+            # cursor image.
+            if qmouseevent.button() & Qt.LeftButton:
+                self.setCursor(QCursor(Qt.OpenHandCursor))
+
+            super().mouseReleaseEvent(qmouseevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['ZoomInTool']:
+            # No action.  Just pass on the event to the parent class.
+            super().mouseReleaseEvent(qmouseevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['ZoomOutTool']:
+            # No action.  Just pass on the event to the parent class.
+            super().mouseReleaseEvent(qmouseevent)
+
+        else:
+            # For any other mode we don't have specific functionality for,
+            # just pass the event to the parent class to handle.
+            super().mouseReleaseEvent(qmouseevent)
+
         self.log.debug("Exiting mouseReleaseEvent()")
+
+    def mouseMoveEvent(self, qmouseevent):
+        """Triggered when the mouse is moving in this widget."""
+
+        self.log.debug("Entered mouseMoveEvent()")
+
+        posScene = self.mapToScene(qmouseevent.pos())
+
+        # TODO:  emit mouseLocationUpdate(posScene.x(), posScene.y())
+
+        
+        if self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['PointerTool']:
+            # This is a drag event in selection mode.  We will let the
+            # scene handle it.  It will know what to do since a change
+            # into pointer tool mode would make certain QGraphicsItems
+            # selectable and moveable.
+            super().mouseMoveEvent(qmouseevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['HandTool']:
+
+            if qmouseevent.button() & Qt.LeftButton:
+
+                pos = self.mapToScene(qmouseevent.pos())
+
+                dx = pos.x() - self.dragAnchorPointF.x()
+                dy = pos.y() - self.dragAnchorPointF.y()
+
+                self.translate(dx, dy)
+
+            super().mouseMoveEvent(qmouseevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['ZoomInTool']:
+            # No action.  Just pass on the event to the parent class.
+            super().mouseMoveEvent(qmouseevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['ZoomOutTool']:
+            # No action.  Just pass on the event to the parent class.
+            super().mouseMoveEvent(qmouseevent)
+        else:
+            # For any other mode we don't have specific functionality for,
+            # just pass the event to the parent class to handle.
+            super().mouseMoveEvent(qmouseevent)
+
+        self.log.debug("Exiting mouseMoveEvent()")
+
+
 
     def enterEvent(self, qevent):
         """Overwrites the QWidget.enterEvent() function.  
@@ -458,18 +601,18 @@ class PriceBarChartGraphicsView(QGraphicsView):
         # Set the cursor shape/image according to what tool mode the
         # pricebarchart is in.
 
-        if self.toolMode == PriceBarChartWidget.ToolMode['PointerTool']:
+        if self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['PointerTool']:
             self.setCursor(QCursor(Qt.ArrowCursor))
-            self.log.debug("Entered enterEvent() while in PointerTool mode.")
-        elif self.toolMode == PriceBarChartWidget.ToolMode['HandTool']:
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['HandTool']:
             self.setCursor(QCursor(Qt.OpenHandCursor))
-            self.log.debug("Entered enterEvent() while in HandTool mode.")
-        elif self.toolMode == PriceBarChartWidget.ToolMode['ZoomInTool']:
-            self.log.debug("Entered enterEvent() while in ZoomInTool mode.")
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['ZoomInTool']:
             pixmap = QPixmap(":/images/rluu/zoomIn.png")
             self.setCursor(QCursor(pixmap))
-        elif self.toolMode == PriceBarChartWidget.ToolMode['ZoomOutTool']:
-            self.log.debug("Entered enterEvent() while in ZoomOutTool mode.")
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['ZoomOutTool']:
             pixmap = QPixmap(":/images/rluu/zoomOut.png")
             self.setCursor(QCursor(pixmap))
         else:
@@ -640,8 +783,8 @@ class PriceBarGraphicsItem(QGraphicsItem):
         priceMidpoint = (high + low) / 2.0
 
         x = 0.0
-        yHigh = high - priceMidpoint
-        yLow = low - priceMidpoint
+        yHigh = -1.0 * (high - priceMidpoint)
+        yLow = -1.0 * (low - priceMidpoint)
 
         # Return value.
         rv = self.mapToScene(QPointF(x, yHigh))
@@ -671,8 +814,8 @@ class PriceBarGraphicsItem(QGraphicsItem):
         priceMidpoint = (high + low) / 2.0
 
         x = 0.0
-        yHigh = high - priceMidpoint
-        yLow = low - priceMidpoint
+        yHigh = -1.0 * (high - priceMidpoint)
+        yLow = -1.0 * (low - priceMidpoint)
 
         # Return value.
         rv = self.mapToScene(QPointF(x, yLow))
@@ -717,8 +860,8 @@ class PriceBarGraphicsItem(QGraphicsItem):
 
         priceRange = high - low
 
-        x = -1 * (self.leftExtensionWidth + halfPenWidth)
-        y = -1 * ((priceRange / 2.0) + halfPenWidth)
+        x = -1.0 * (self.leftExtensionWidth + halfPenWidth)
+        y = 1.0 * ((priceRange / 2.0) + halfPenWidth)
 
         height = halfPenWidth + priceRange + halfPenWidth
 
@@ -753,27 +896,38 @@ class PriceBarGraphicsItem(QGraphicsItem):
             low = self.priceBar.low
             close = self.priceBar.close
 
+        self.log.debug("DEBUG: open={}, high={}, low={}, close={}".\
+                format(open, high, low, close))
+
         priceRange = high - low
+        self.log.debug("DEBUG: priceRange={}".format(priceRange))
 
         priceMidpoint = (high + low) / 2.0
+        self.log.debug("DEBUG: priceMidpoint={}".format(priceMidpoint))
 
         # Draw the stem.
         x1 = 0.0
-        y1 = -1.0 * (priceRange / 2.0)
+        y1 = 1.0 * (priceRange / 2.0)
         x2 = 0.0
-        y2 = 1.0 * (priceRange / 2.0)
+        y2 = -1.0 * (priceRange / 2.0)
+
+        self.log.debug("DEBUG: line being drawn: ({}, {}, {}, {})".\
+                format(x1, y1, x2, y2))
         painter.drawLine(x1, y1, x2, y2)
+
+        self.log.debug("DEBUG: this item's pos is: ({}, {})".\
+                       format(self.x(), self.y()))
 
         # Draw the left extension (open price).
         x1 = 0.0
-        y1 = high - priceMidpoint
+        y1 = -1.0 * (open - priceMidpoint)
         x2 = -1.0 * self.leftExtensionWidth
         y2 = y1
         painter.drawLine(x1, y1, x2, y2)
 
         # Draw the right extension (close price).
         x1 = 0.0
-        y1 = low - priceMidpoint
+        y1 = -1.0 * (close - priceMidpoint)
         x2 = 1.0 * self.rightExtensionWidth
         y2 = y1
         painter.drawLine(x1, y1, x2, y2)

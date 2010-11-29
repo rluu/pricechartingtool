@@ -2788,29 +2788,18 @@ class AppPreferencesEditWidget(QWidget):
             getLogger("dialogs.AppPreferencesEditWidget")
 
         # QSettings keys for where these app preference values are saved.
-        self.zoomInPercentageSettingsKey = "ui/zoomInPercentage"
-        self.zoomOutPercentageSettingsKey = "ui/zoomOutPercentage"
+        self.zoomScaleFactorSettingsKey = "ui/zoomScaleFactor"
 
-        # Zoom in percentage.
-        self.zoomInPercentageLabel = QLabel("Zoom-in percentage:")
-        self.zoomInPercentageSpinBox = QSpinBox()
-        self.zoomInPercentageSpinBox.setMinimum(100)
-        self.zoomInPercentageSpinBox.setMaximum(1000)
-        self.zoomInPercentageSpinBox.setSuffix(" %")
-
-        # Zoom out percentage.
-        self.zoomOutPercentageLabel = QLabel("Zoom-out percentage:")
-        self.zoomOutPercentageSpinBox = QSpinBox()
-        self.zoomOutPercentageSpinBox.setMinimum(1)
-        self.zoomOutPercentageSpinBox.setMaximum(100)
-        self.zoomOutPercentageSpinBox.setSuffix(" %")
+        # Zoom-in/out scale factor.
+        self.zoomScaleFactorLabel = QLabel("Zoom scale factor:")
+        self.zoomScaleFactorSpinBox = QDoubleSpinBox()
+        self.zoomScaleFactorSpinBox.setMinimum(1.0)
+        self.zoomScaleFactorSpinBox.setMaximum(100.0)
 
         # Form layout.
         self.formLayout = QFormLayout()
-        self.formLayout.addRow(self.zoomInPercentageLabel,
-                               self.zoomInPercentageSpinBox)
-        self.formLayout.addRow(self.zoomOutPercentageLabel,
-                               self.zoomOutPercentageSpinBox)
+        self.formLayout.addRow(self.zoomScaleFactorLabel,
+                               self.zoomScaleFactorSpinBox)
 
         # Buttons at bottom.
         self.okayButton = QPushButton("&Okay")
@@ -2849,15 +2838,10 @@ class AppPreferencesEditWidget(QWidget):
 
         settings = QSettings()
     
-        # Zoom in percentage.
-        key = self.zoomInPercentageSettingsKey
-        value = settings.value(key, 110)
-        self.zoomInPercentageSpinBox.setValue(value)
-
-        # Zoom out percentage.
-        key = self.zoomOutPercentageSettingsKey
-        value = settings.value(key, 90)
-        self.zoomOutPercentageSpinBox.setValue(value)
+        # Zoom-in/out scale factor.
+        key = self.zoomScaleFactorSettingsKey
+        value = float(settings.value(key, 1.2))
+        self.zoomScaleFactorSpinBox.setValue(value)
 
         self.log.debug("Exiting loadValuesFromSettings()")
         
@@ -2875,28 +2859,16 @@ class AppPreferencesEditWidget(QWidget):
 
         settings = QSettings()
     
-        # Zoom in percentage.
-        key = self.zoomInPercentageSettingsKey
-        newValue = self.zoomInPercentageSpinBox.value()
+        # Zoom-in/out scale factor.
+        key = self.zoomScaleFactorSettingsKey
+        newValue = self.zoomScaleFactorSpinBox.value()
         if settings.contains(key):
             # Only change the value if it has changed.
-            oldValue = settings.value(key, 110)
+            oldValue = float(settings.value(key, 1.2))
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
             settings.setValue(key, newValue)
-
-        # Zoom out percentage.
-        key = self.zoomOutPercentageSettingsKey
-        newValue = self.zoomOutPercentageSpinBox.value()
-        if settings.contains(key):
-            # Only change the value if it has changed.
-            oldValue = settings.value(key, 90)
-            if oldValue != newValue:
-                settings.setValue(key, newValue)
-        else:
-            settings.setValue(key, newValue)
-
 
         self.log.debug("Exiting saveValuesToSettings()")
 
