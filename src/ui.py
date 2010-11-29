@@ -8,7 +8,8 @@ import pickle
 # For logging.
 import logging
 
-from PyQt4.QtCore import QSignalMapper
+from PyQt4 import QtCore
+from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 # For icon images, etc.

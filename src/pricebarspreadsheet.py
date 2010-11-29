@@ -8,6 +8,7 @@ import datetime
 import pytz
 
 # For PyQt UI classes.
+from PyQt4 import QtCore
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 

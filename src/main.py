@@ -13,6 +13,7 @@ import logging.handlers
 import logging.config
 
 # Import PyQt classes.
+from PyQt4 import QtCore
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 

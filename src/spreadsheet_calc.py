@@ -3,6 +3,7 @@
 import logging
 
 # PyQt classes.
+from PyQt4 import QtCore
 from PyQt4.QtCore import QDateTime
 
 
