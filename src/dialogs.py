@@ -2900,6 +2900,8 @@ class AppPreferencesEditDialog(QDialog):
         self.log = logging.\
             getLogger("dialogs.AppPreferencesEditDialog")
 
+        self.setWindowTitle("Application Preferences")
+
         # Create the contents.
         self.appPreferencesEditWidget = AppPreferencesEditWidget()
 
