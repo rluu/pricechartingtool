@@ -31,6 +31,16 @@ from data_objects import BirthInfo
 from geonames import GeoNames
 from geonames import GeoInfo
 
+# For color icon.
+from widgets import *
+
+# For AppPreferencesEditWidget's default settings values.
+from pricebarchart import PriceBarChartGraphicsView
+from pricebarchart import PriceBarGraphicsItem
+
+# For QSettings keys.
+from settings import SettingsKeys
+
 # For converting attributes of datetime.datetime objects to str.
 from ephemeris import Ephemeris
 
@@ -261,7 +271,7 @@ class LoadDataFileWidget(QWidget):
 
         # QSettings key for the defaultPriceBarDataOpenDirectory.
         self.defaultPriceBarDataOpenDirectorySettingsKey = \
-            "ui/defaultPriceBarDataOpenDirectory"
+            SettingsKeys.defaultPriceBarDataOpenDirectorySettingsKey 
 
         # Value for the defaultPriceBarDataOpenDirectory.  It is a setting
         # read in via readSettings().
@@ -2787,36 +2797,104 @@ class AppPreferencesEditWidget(QWidget):
         self.log = logging.\
             getLogger("dialogs.AppPreferencesEditWidget")
 
-        # QSettings keys for where these app preference values are saved.
-        self.zoomScaleFactorSettingsKey = "ui/zoomScaleFactor"
+        # QSettings key for zoomScaleFactor (float).
+        self.zoomScaleFactorSettingsKey = \
+            SettingsKeys.zoomScaleFactorSettingsKey 
 
-        # Zoom-in/out scale factor.
+        # QSettings key for the higherPriceBarColor (QColor object).
+        self.higherPriceBarColorSettingsKey = \
+            SettingsKeys.higherPriceBarColorSettingsKey 
+
+        # QSettings key for the lowerPriceBarColor (QColor object).
+        self.lowerPriceBarColorSettingsKey = \
+            SettingsKeys.lowerPriceBarColorSettingsKey 
+
+        self.priceBarChartSettingsGroupBox = \
+            QGroupBox("PriceBarChart settings:")
+
+        # PriceBarChart zoom-in/out scale factor.
         self.zoomScaleFactorLabel = QLabel("Zoom scale factor:")
         self.zoomScaleFactorSpinBox = QDoubleSpinBox()
         self.zoomScaleFactorSpinBox.setMinimum(1.0)
         self.zoomScaleFactorSpinBox.setMaximum(100.0)
+        self.zoomScaleFactorResetButton = QPushButton("Reset to default")
+
+        # PriceBarChart higherPriceBarColor.
+        self.higherPriceBarColorLabel = QLabel("Higher PriceBar color:")
+        self.higherPriceBarColorEditButton = ColorEditPushButton()
+        self.higherPriceBarColorResetButton = QPushButton("Reset to default")
+
+        # PriceBarChart lowerPriceBarColor.
+        self.lowerPriceBarColorLabel = QLabel("Lower PriceBar color:")
+        self.lowerPriceBarColorEditButton = ColorEditPushButton()
+        self.lowerPriceBarColorResetButton = QPushButton("Reset to default")
 
         # Form layout.
-        self.formLayout = QFormLayout()
-        self.formLayout.addRow(self.zoomScaleFactorLabel,
-                               self.zoomScaleFactorSpinBox)
+        self.gridLayout = QGridLayout()
+        r = 0
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        self.gridLayout.\
+            addWidget(self.zoomScaleFactorLabel, r, 0, al)
+        self.gridLayout.\
+            addWidget(self.zoomScaleFactorSpinBox, r, 1, ar)
+        self.gridLayout.\
+            addWidget(self.zoomScaleFactorResetButton, r, 2, ar)
+        r += 1
+        self.gridLayout.\
+            addWidget(self.higherPriceBarColorLabel, r, 0, al)
+        self.gridLayout.\
+            addWidget(self.higherPriceBarColorEditButton, r, 1, ar)
+        self.gridLayout.\
+            addWidget(self.higherPriceBarColorResetButton, r, 2, ar)
+        r += 1
+        self.gridLayout.\
+            addWidget(self.lowerPriceBarColorLabel, r, 0, al)
+        self.gridLayout.\
+            addWidget(self.lowerPriceBarColorEditButton, r, 1, ar)
+        self.gridLayout.\
+            addWidget(self.lowerPriceBarColorResetButton, r, 2, ar)
+
+        self.priceBarChartSettingsGroupBox.setLayout(self.gridLayout)
 
         # Buttons at bottom.
+        self.resetAllToDefaultButton = \
+            QPushButton("Reset all to original default values")
         self.okayButton = QPushButton("&Okay")
         self.cancelButton = QPushButton("&Cancel")
         self.buttonsAtBottomLayout = QHBoxLayout()
+        self.buttonsAtBottomLayout.addWidget(self.resetAllToDefaultButton)
         self.buttonsAtBottomLayout.addStretch()
         self.buttonsAtBottomLayout.addWidget(self.okayButton)
         self.buttonsAtBottomLayout.addWidget(self.cancelButton)
 
         # Put all layouts/groupboxes together into the widget.
         self.mainLayout = QVBoxLayout()
-        self.mainLayout.addLayout(self.formLayout) 
+        self.mainLayout.addWidget(self.priceBarChartSettingsGroupBox) 
         self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
 
         self.setLayout(self.mainLayout)
 
         # Connect signals and slots.
+
+        # Connect color edit buttons.
+        self.higherPriceBarColorEditButton.clicked.\
+            connect(self._handleHigherPriceBarColorEditButtonClicked)
+        self.lowerPriceBarColorEditButton.clicked.\
+            connect(self._handleLowerPriceBarColorEditButtonClicked)
+
+        # Connect reset buttons.
+        self.zoomScaleFactorResetButton.clicked.\
+            connect(self._handleZoomScaleFactorResetButtonClicked)
+        self.higherPriceBarColorResetButton.clicked.\
+            connect(self._handleHigherPriceBarColorResetButtonClicked)
+        self.lowerPriceBarColorResetButton.clicked.\
+            connect(self._handleLowerPriceBarColorResetButtonClicked)
+        self.resetAllToDefaultButton.clicked.\
+            connect(self._handleResetAllToDefaultButtonClicked)
+
+        # Connect okay and cancel buttons.
         self.okayButton.clicked.connect(self._handleOkayButtonClicked)
         self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
 
@@ -2838,10 +2916,23 @@ class AppPreferencesEditWidget(QWidget):
 
         settings = QSettings()
     
-        # Zoom-in/out scale factor.
+        # PriceBarChart zoom-in/out scale factor.
         key = self.zoomScaleFactorSettingsKey
-        value = float(settings.value(key, 1.2))
+        value = float(settings.value(key, \
+            PriceBarChartGraphicsView.defaultZoomScaleFactor))
         self.zoomScaleFactorSpinBox.setValue(value)
+
+        # PriceBarChart higherPriceBarColor.
+        key = self.higherPriceBarColorSettingsKey 
+        value = QColor(settings.value(key, \
+            PriceBarGraphicsItem.defaultHigherPriceBarColor))
+        self.higherPriceBarColorEditButton.setColor(value)
+
+        # PriceBarChart lowerPriceBarColor.
+        key = self.lowerPriceBarColorSettingsKey 
+        value = QColor(settings.value(key, \
+            PriceBarGraphicsItem.defaultLowerPriceBarColor))
+        self.lowerPriceBarColorEditButton.setColor(value)
 
         self.log.debug("Exiting loadValuesFromSettings()")
         
@@ -2859,18 +2950,103 @@ class AppPreferencesEditWidget(QWidget):
 
         settings = QSettings()
     
-        # Zoom-in/out scale factor.
+        # PriceBarChart zoom-in/out scale factor.
         key = self.zoomScaleFactorSettingsKey
         newValue = self.zoomScaleFactorSpinBox.value()
         if settings.contains(key):
-            # Only change the value if it has changed.
-            oldValue = float(settings.value(key, 1.2))
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # PriceBarChart higherPriceBarColor.
+        key = self.higherPriceBarColorSettingsKey 
+        newValue = self.higherPriceBarColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # PriceBarChart lowerPriceBarColor.
+        key = self.lowerPriceBarColorSettingsKey 
+        newValue = self.lowerPriceBarColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
             settings.setValue(key, newValue)
 
         self.log.debug("Exiting saveValuesToSettings()")
+
+    def _handleHigherPriceBarColorEditButtonClicked(self):
+        """Called when the higherPriceBarColorEditButton is clicked.
+        Opens up a dialog for modifying the color.
+        """
+
+
+        # First get the current color.
+        currColor = self.higherPriceBarColorEditButton.getColor()
+
+        # Open a dialog to obtain a new color.
+        newColor = QColorDialog.getColor(currColor)
+
+        # If a color was chosen that is different, then set the new color.
+        if newColor.isValid() and currColor != newColor:
+            self.higherPriceBarColorEditButton.setColor(newColor)
+
+    def _handleLowerPriceBarColorEditButtonClicked(self):
+        """Called when the lowerPriceBarColorEditButton is clicked.
+        Opens up a dialog for modifying the color.
+        """
+
+        # First get the current color.
+        currColor = self.lowerPriceBarColorEditButton.getColor()
+
+        # Open a dialog to obtain a new color.
+        newColor = QColorDialog.getColor(currColor)
+
+        # If a color was chosen that is different, then set the new color.
+        if newColor.isValid() and currColor != newColor:
+            self.lowerPriceBarColorEditButton.setColor(newColor)
+
+    def _handleZoomScaleFactorResetButtonClicked(self):
+        """Called when the zoomScaleFactorResetButton is clicked.
+        Resets the widget value to the default value.
+        """
+
+        value = PriceBarChartGraphicsView.defaultZoomScaleFactor
+        self.zoomScaleFactorSpinBox.setValue(value)
+        
+
+    def _handleHigherPriceBarColorResetButtonClicked(self):
+        """Called when the higherPriceBarColorResetButton is clicked.
+        Resets the widget value to the default value.
+        """
+
+        value = PriceBarGraphicsItem.defaultHigherPriceBarColor
+        self.higherPriceBarColorEditButton.setColor(value)
+
+    def _handleLowerPriceBarColorResetButtonClicked(self):
+        """Called when the lowerPriceBarColorResetButton is clicked.
+        Resets the widget value to the default value.
+        """
+
+        value = PriceBarGraphicsItem.defaultLowerPriceBarColor
+        self.lowerPriceBarColorEditButton.setColor(value)
+
+    def _handleResetAllToDefaultButtonClicked(self):
+        """Called when the resetAllToDefaultButton is clicked.
+        Resets the all the widget values in this widget to the default
+        values.
+        """
+
+        self._handleZoomScaleFactorResetButtonClicked()
+        self._handleHigherPriceBarColorResetButtonClicked()
+        self._handleLowerPriceBarColorResetButtonClicked()
 
     def _handleOkayButtonClicked(self):
         """Called when the okay button is clicked."""

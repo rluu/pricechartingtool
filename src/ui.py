@@ -1808,4 +1808,3 @@ class PriceChartDocumentWidget(QWidget):
 
         self.priceBarChartWidget.toZoomOutToolMode()
 
-

@@ -16,7 +16,7 @@ from PyQt4.QtGui import *
 import resources
 
 # For QSettings keys.
-from dialogs import AppPreferencesEditWidget
+from settings import SettingsKeys
 
 # For PriceBars
 from data_objects import BirthInfo
@@ -308,6 +308,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 "ZoomInTool"  : 2,
                 "ZoomOutTool" : 3 }
 
+    defaultZoomScaleFactor = 1.2
+
     # Signal emitted when the mouse moves within the QGraphicsView.
     # The position emitted is in QGraphicsScene x, y, float coordinates.
     mouseLocationUpdate = QtCore.pyqtSignal(float, float)
@@ -329,9 +331,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         self.dragAnchorPointF = QPointF()
 
         # Get the QSetting key for the zoom scaling amounts.
-        appPrefsWidget = AppPreferencesEditWidget()
         self.zoomScaleFactorSettingsKey = \
-            appPrefsWidget.zoomScaleFactorSettingsKey 
+            SettingsKeys.zoomScaleFactorSettingsKey 
 
         #self.setTransformationAnchor(QGraphicsView.NoAnchor)
         self.setResizeAnchor(QGraphicsView.AnchorUnderMouse)
@@ -460,8 +461,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # Get the QSetting key for the zoom scaling amounts.
                 settings = QSettings()
                 scaleFactor = \
-                    float(settings.value(self.zoomScaleFactorSettingsKey, 
-                                         1.2))
+                    float(settings.value(self.zoomScaleFactorSettingsKey, \
+                            PriceBarChartGraphicsView.defaultZoomScaleFactor))
 
                 # Actually do the scaling of the view.
                 self.scale(scaleFactor, scaleFactor)
@@ -482,8 +483,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # Get the QSetting key for the zoom scaling amounts.
                 settings = QSettings()
                 scaleFactor = \
-                    float(settings.value(self.zoomScaleFactorSettingsKey, 
-                                         1.2))
+                    float(settings.value(self.zoomScaleFactorSettingsKey, \
+                            PriceBarChartGraphicsView.defaultZoomScaleFactor))
 
                 # Actually do the scaling of the view.
                 self.scale(1.0 / scaleFactor, 1.0 / scaleFactor)
@@ -648,6 +649,12 @@ class PriceBarGraphicsItem(QGraphicsItem):
     red otherwise.
     """
     
+    # Default color for higher price bars.
+    defaultHigherPriceBarColor = QColor(Qt.green)
+
+    # Default color for lower price bars.
+    defaultLowerPriceBarColor = QColor(Qt.red)
+
     def __init__(self, parent=None, scene=None):
         # Logger
         self.log = logging.getLogger("pricebarchart.PriceBarGraphicsItem")
@@ -678,7 +685,30 @@ class PriceBarGraphicsItem(QGraphicsItem):
         # Flag for bold (highlighted) PriceBar.
         self.bolded = False
 
-        self.log.debug("Leaving __init__().")
+
+        # Color setting for a PriceBar that has a higher close than open.
+        self.higherPriceBarColor = self.defaultHigherPriceBarColor
+
+        # Color setting for a PriceBar that has a lower close than open.
+        self.lowerPriceBarColor = self.defaultLowerPriceBarColor
+
+        self.readFromSettings()
+
+    def readFromSettings(self):
+        settings = QSettings()
+
+        # higherPriceBarColor
+        key = SettingsKeys.higherPriceBarColorSettingsKey
+        defaultValue = PriceBarGraphicsItem.defaultHigherPriceBarColor
+        self.higherPriceBarColor = \
+            QColor(settings.value(key, defaultValue))
+
+        # lowerPriceBarColor
+        key = SettingsKeys.lowerPriceBarColorSettingsKey
+        defaultValue = PriceBarGraphicsItem.defaultLowerPriceBarColor
+        self.lowerPriceBarColor = \
+            QColor(settings.value(key, defaultValue))
+
 
     def setPriceBar(self, priceBar):
         """Sets the internally used priceBar.  
@@ -693,9 +723,9 @@ class PriceBarGraphicsItem(QGraphicsItem):
         # Set if it is a green or red pricebar.
         if self.priceBar != None:
             if self.priceBar.open <= self.priceBar.close:
-                self.setPriceBarColor(Qt.green)
+                self.setPriceBarColor(self.higherPriceBarColor)
             else:
-                self.setPriceBarColor(Qt.red)
+                self.setPriceBarColor(self.lowerPriceBarColor)
         else:
             # PriceBar is None.  Just use a black bar.
             self.setPriceBarColor(Qt.black)
