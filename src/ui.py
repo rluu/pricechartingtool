@@ -1742,11 +1742,8 @@ class PriceChartDocumentWidget(QWidget):
         self.log.debug("Entered loadPriceBars({} pricebars)".\
                        format(len(priceBars)))
 
-        # TODO:  Decide if we should be doing things by explicit time
-        # frames or if we should be loading things generically.
-
         # Load PriceBars into the PriceBarChart.
-        self.priceBarChartWidget.loadDayPriceBars(priceBars)
+        self.priceBarChartWidget.loadPriceBars(priceBars)
 
         # Load PriceBars into the PriceBarSpreadsheet.
         self.priceBarSpreadsheetWidget.loadPriceBars(priceBars)

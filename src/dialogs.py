@@ -2809,25 +2809,77 @@ class AppPreferencesEditWidget(QWidget):
         self.lowerPriceBarColorSettingsKey = \
             SettingsKeys.lowerPriceBarColorSettingsKey 
 
+        # QSettings key for the priceBarPenWidth  (float).
+        self.priceBarPenWidthSettingsKey = \
+            SettingsKeys.priceBarPenWidthSettingsKey 
+
+        # QSettings key for the priceBarBoldPenWidth  (float).
+        self.priceBarBoldPenWidthSettingsKey = \
+            SettingsKeys.priceBarBoldPenWidthSettingsKey 
+
+        # QSettings key for the priceBarLeftExtensionWidth (float).
+        self.priceBarLeftExtensionWidthSettingsKey = \
+            SettingsKeys.priceBarLeftExtensionWidthSettingsKey 
+
+        # QSettings key for the priceBarRightExtensionWidth (float).
+        self.priceBarRightExtensionWidthSettingsKey = \
+            SettingsKeys.priceBarRightExtensionWidthSettingsKey 
+
+
         self.priceBarChartSettingsGroupBox = \
             QGroupBox("PriceBarChart settings:")
 
-        # PriceBarChart zoom-in/out scale factor.
+        # PriceBarChart zoom-in/out scale factor (float).
         self.zoomScaleFactorLabel = QLabel("Zoom scale factor:")
         self.zoomScaleFactorSpinBox = QDoubleSpinBox()
         self.zoomScaleFactorSpinBox.setMinimum(1.0)
         self.zoomScaleFactorSpinBox.setMaximum(100.0)
         self.zoomScaleFactorResetButton = QPushButton("Reset to default")
 
-        # PriceBarChart higherPriceBarColor.
+        # PriceBarChart higherPriceBarColor (QColor object).
         self.higherPriceBarColorLabel = QLabel("Higher PriceBar color:")
         self.higherPriceBarColorEditButton = ColorEditPushButton()
         self.higherPriceBarColorResetButton = QPushButton("Reset to default")
 
-        # PriceBarChart lowerPriceBarColor.
+        # PriceBarChart lowerPriceBarColor (QColor object).
         self.lowerPriceBarColorLabel = QLabel("Lower PriceBar color:")
         self.lowerPriceBarColorEditButton = ColorEditPushButton()
         self.lowerPriceBarColorResetButton = QPushButton("Reset to default")
+
+        # PriceBarChart priceBarPenWidth (float).
+        self.priceBarPenWidthLabel = QLabel("PriceBarGraphicsItem pen width:")
+        self.priceBarPenWidthSpinBox = QDoubleSpinBox()
+        self.priceBarPenWidthSpinBox.setMinimum(0.0)
+        self.priceBarPenWidthSpinBox.setMaximum(1000.0)
+        self.priceBarPenWidthResetButton = QPushButton("Reset to default")
+
+        # PriceBarChart priceBarBoldPenWidth (float).
+        self.priceBarBoldPenWidthLabel = \
+            QLabel("PriceBarGraphicsItem bold pen width:")
+        self.priceBarBoldPenWidthSpinBox = QDoubleSpinBox()
+        self.priceBarBoldPenWidthSpinBox.setMinimum(0.0)
+        self.priceBarBoldPenWidthSpinBox.setMaximum(1000.0)
+        self.priceBarBoldPenWidthResetButton = \
+            QPushButton("Reset to default")
+
+        # PriceBarChart priceBarLeftExtensionWidth (float).
+        self.priceBarLeftExtensionWidthLabel = \
+            QLabel("PriceBarGraphicsItem left extension width:")
+        self.priceBarLeftExtensionWidthSpinBox = QDoubleSpinBox()
+        self.priceBarLeftExtensionWidthSpinBox.setMinimum(0.0)
+        self.priceBarLeftExtensionWidthSpinBox.setMaximum(1000.0)
+        self.priceBarLeftExtensionWidthResetButton = \
+            QPushButton("Reset to default")
+
+        # PriceBarChart priceBarRightExtensionWidth (float).
+        self.priceBarRightExtensionWidthLabel = \
+            QLabel("PriceBarGraphicsItem right extension width:")
+        self.priceBarRightExtensionWidthSpinBox = QDoubleSpinBox()
+        self.priceBarRightExtensionWidthSpinBox.setMinimum(0.0)
+        self.priceBarRightExtensionWidthSpinBox.setMaximum(1000.0)
+        self.priceBarRightExtensionWidthResetButton = \
+            QPushButton("Reset to default")
+
 
         # Form layout.
         self.gridLayout = QGridLayout()
@@ -2855,8 +2907,48 @@ class AppPreferencesEditWidget(QWidget):
             addWidget(self.lowerPriceBarColorEditButton, r, 1, ar)
         self.gridLayout.\
             addWidget(self.lowerPriceBarColorResetButton, r, 2, ar)
+        r += 1
+        self.gridLayout.\
+            addWidget(self.priceBarPenWidthLabel, r, 0, al)
+        self.gridLayout.\
+            addWidget(self.priceBarPenWidthSpinBox, r, 1, ar)
+        self.gridLayout.\
+            addWidget(self.priceBarPenWidthResetButton, r, 2, ar)
+        r += 1
+        self.gridLayout.\
+            addWidget(self.priceBarBoldPenWidthLabel, r, 0, al)
+        self.gridLayout.\
+            addWidget(self.priceBarBoldPenWidthSpinBox, r, 1, ar)
+        self.gridLayout.\
+            addWidget(self.priceBarBoldPenWidthResetButton, r, 2, ar)
+        r += 1
+        self.gridLayout.\
+            addWidget(self.priceBarLeftExtensionWidthLabel, r, 0, al)
+        self.gridLayout.\
+            addWidget(self.priceBarLeftExtensionWidthSpinBox, r, 1, ar)
+        self.gridLayout.\
+            addWidget(self.priceBarLeftExtensionWidthResetButton, r, 2, ar)
+        r += 1
+        self.gridLayout.\
+            addWidget(self.priceBarRightExtensionWidthLabel, r, 0, al)
+        self.gridLayout.\
+            addWidget(self.priceBarRightExtensionWidthSpinBox, r, 1, ar)
+        self.gridLayout.\
+            addWidget(self.priceBarRightExtensionWidthResetButton, r, 2, ar)
 
         self.priceBarChartSettingsGroupBox.setLayout(self.gridLayout)
+
+        # Label to tell the user that not all settings will be applied
+        # on existing windows when the 'Okay' button is pressed.
+        endl = os.linesep
+        self.noteLabel = \
+            QLabel("Note: Upon clicking the 'Okay' button, the new " + \
+                   "settings may not be immediately " + \
+                   endl + \
+                   "applied to the open PriceChartDocuments.  " + \
+                   "You may need to close and re-open " + \
+                   endl + \
+                   "the PriceChartDocuments to get the changes.")
 
         # Buttons at bottom.
         self.resetAllToDefaultButton = \
@@ -2872,6 +2964,9 @@ class AppPreferencesEditWidget(QWidget):
         # Put all layouts/groupboxes together into the widget.
         self.mainLayout = QVBoxLayout()
         self.mainLayout.addWidget(self.priceBarChartSettingsGroupBox) 
+        self.mainLayout.addSpacing(20)
+        self.mainLayout.addWidget(self.noteLabel)
+        self.mainLayout.addSpacing(10)
         self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
 
         self.setLayout(self.mainLayout)
@@ -2891,6 +2986,15 @@ class AppPreferencesEditWidget(QWidget):
             connect(self._handleHigherPriceBarColorResetButtonClicked)
         self.lowerPriceBarColorResetButton.clicked.\
             connect(self._handleLowerPriceBarColorResetButtonClicked)
+        self.priceBarPenWidthResetButton.clicked.\
+            connect(self._handlePriceBarPenWidthResetButtonClicked)
+        self.priceBarBoldPenWidthResetButton.clicked.\
+            connect(self._handlePriceBarBoldPenWidthResetButtonClicked)
+        self.priceBarLeftExtensionWidthResetButton.clicked.\
+            connect(self._handlePriceBarLeftExtensionWidthResetButtonClicked)
+        self.priceBarRightExtensionWidthResetButton.clicked.\
+            connect(self._handlePriceBarRightExtensionWidthResetButtonClicked)
+
         self.resetAllToDefaultButton.clicked.\
             connect(self._handleResetAllToDefaultButtonClicked)
 
@@ -2916,23 +3020,47 @@ class AppPreferencesEditWidget(QWidget):
 
         settings = QSettings()
     
-        # PriceBarChart zoom-in/out scale factor.
+        # PriceBarChart zoom-in/out scale factor (float).
         key = self.zoomScaleFactorSettingsKey
         value = float(settings.value(key, \
             PriceBarChartGraphicsView.defaultZoomScaleFactor))
         self.zoomScaleFactorSpinBox.setValue(value)
 
-        # PriceBarChart higherPriceBarColor.
+        # PriceBarChart higherPriceBarColor (QColor object).
         key = self.higherPriceBarColorSettingsKey 
         value = QColor(settings.value(key, \
             PriceBarGraphicsItem.defaultHigherPriceBarColor))
         self.higherPriceBarColorEditButton.setColor(value)
 
-        # PriceBarChart lowerPriceBarColor.
+        # PriceBarChart lowerPriceBarColor (QColor object).
         key = self.lowerPriceBarColorSettingsKey 
         value = QColor(settings.value(key, \
             PriceBarGraphicsItem.defaultLowerPriceBarColor))
         self.lowerPriceBarColorEditButton.setColor(value)
+
+        # PriceBarChart priceBarPenWidth (float).
+        key = SettingsKeys.priceBarPenWidthSettingsKey
+        value = float(settings.value(key, \
+            PriceBarGraphicsItem.defaultPenWidth))
+        self.priceBarPenWidthSpinBox.setValue(value)
+
+        # PriceBarChart priceBarBoldPenWidth (float).
+        key = SettingsKeys.priceBarBoldPenWidthSettingsKey
+        value = float(settings.value(key, \
+            PriceBarGraphicsItem.defaultBoldPenWidth))
+        self.priceBarBoldPenWidthSpinBox.setValue(value)
+
+        # PriceBarChart priceBarLeftExtensionWidth (float).
+        key = SettingsKeys.priceBarLeftExtensionWidthSettingsKey
+        value = float(settings.value(key, \
+            PriceBarGraphicsItem.defaultLeftExtensionWidth))
+        self.priceBarLeftExtensionWidthSpinBox.setValue(value)
+
+        # PriceBarChart priceBarRightExtensionWidth (float).
+        key = SettingsKeys.priceBarRightExtensionWidthSettingsKey
+        value = float(settings.value(key, \
+            PriceBarGraphicsItem.defaultRightExtensionWidth))
+        self.priceBarRightExtensionWidthSpinBox.setValue(value)
 
         self.log.debug("Exiting loadValuesFromSettings()")
         
@@ -2950,7 +3078,7 @@ class AppPreferencesEditWidget(QWidget):
 
         settings = QSettings()
     
-        # PriceBarChart zoom-in/out scale factor.
+        # PriceBarChart zoom-in/out scale factor (float).
         key = self.zoomScaleFactorSettingsKey
         newValue = self.zoomScaleFactorSpinBox.value()
         if settings.contains(key):
@@ -2960,7 +3088,7 @@ class AppPreferencesEditWidget(QWidget):
         else:
             settings.setValue(key, newValue)
 
-        # PriceBarChart higherPriceBarColor.
+        # PriceBarChart higherPriceBarColor (QColor object).
         key = self.higherPriceBarColorSettingsKey 
         newValue = self.higherPriceBarColorEditButton.getColor()
         if settings.contains(key):
@@ -2970,7 +3098,7 @@ class AppPreferencesEditWidget(QWidget):
         else:
             settings.setValue(key, newValue)
 
-        # PriceBarChart lowerPriceBarColor.
+        # PriceBarChart lowerPriceBarColor (QColor object).
         key = self.lowerPriceBarColorSettingsKey 
         newValue = self.lowerPriceBarColorEditButton.getColor()
         if settings.contains(key):
@@ -2980,7 +3108,48 @@ class AppPreferencesEditWidget(QWidget):
         else:
             settings.setValue(key, newValue)
 
+        # PriceBarChart priceBarPenWidth (float).
+        key = self.priceBarPenWidthSettingsKey
+        newValue = self.priceBarPenWidthSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # PriceBarChart priceBarBoldPenWidth (float).
+        key = self.priceBarBoldPenWidthSettingsKey
+        newValue = self.priceBarBoldPenWidthSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # PriceBarChart priceBarLeftExtensionWidth (float).
+        key = self.priceBarLeftExtensionWidthSettingsKey
+        newValue = self.priceBarLeftExtensionWidthSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # PriceBarChart priceBarRightExtensionWidth (float).
+        key = self.priceBarRightExtensionWidthSettingsKey
+        newValue = self.priceBarRightExtensionWidthSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
         self.log.debug("Exiting saveValuesToSettings()")
+
 
     def _handleHigherPriceBarColorEditButtonClicked(self):
         """Called when the higherPriceBarColorEditButton is clicked.
@@ -3038,6 +3207,38 @@ class AppPreferencesEditWidget(QWidget):
         value = PriceBarGraphicsItem.defaultLowerPriceBarColor
         self.lowerPriceBarColorEditButton.setColor(value)
 
+    def _handlePriceBarPenWidthResetButtonClicked(self):
+        """Called when the priceBarPenWidthResetButton is clicked.
+        Resets the widget value to the default value.
+        """
+
+        value = PriceBarGraphicsItem.defaultPenWidth
+        self.priceBarPenWidthSpinBox.setValue(value)
+
+    def _handlePriceBarBoldPenWidthResetButtonClicked(self):
+        """Called when the priceBarBoldPenWidthResetButton is clicked.
+        Resets the widget value to the default value.
+        """
+
+        value = PriceBarGraphicsItem.defaultBoldPenWidth
+        self.priceBarBoldPenWidthSpinBox.setValue(value)
+
+    def _handlePriceBarLeftExtensionWidthResetButtonClicked(self):
+        """Called when the priceBarLeftExtensionWidthResetButton is clicked.
+        Resets the widget value to the default value.
+        """
+
+        value = PriceBarGraphicsItem.defaultLeftExtensionWidth
+        self.priceBarLeftExtensionWidthSpinBox.setValue(value)
+
+    def _handlePriceBarRightExtensionWidthResetButtonClicked(self):
+        """Called when the priceBarRightExtensionWidthResetButton is clicked.
+        Resets the widget value to the default value.
+        """
+
+        value = PriceBarGraphicsItem.defaultRightExtensionWidth
+        self.priceBarRightExtensionWidthSpinBox.setValue(value)
+
     def _handleResetAllToDefaultButtonClicked(self):
         """Called when the resetAllToDefaultButton is clicked.
         Resets the all the widget values in this widget to the default
@@ -3047,6 +3248,10 @@ class AppPreferencesEditWidget(QWidget):
         self._handleZoomScaleFactorResetButtonClicked()
         self._handleHigherPriceBarColorResetButtonClicked()
         self._handleLowerPriceBarColorResetButtonClicked()
+        self._handlePriceBarPenWidthResetButtonClicked()
+        self._handlePriceBarBoldPenWidthResetButtonClicked()
+        self._handlePriceBarLeftExtensionWidthResetButtonClicked()
+        self._handlePriceBarRightExtensionWidthResetButtonClicked()
 
     def _handleOkayButtonClicked(self):
         """Called when the okay button is clicked."""
