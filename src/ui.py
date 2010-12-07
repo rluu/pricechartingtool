@@ -175,7 +175,7 @@ class MainWindow(QMainWindow):
             connect(self._editAppPreferences)
 
         # Create the editPriceBarChartSettingsAction.
-        icon = QIcon(":/images/rluu/triangleRuler.png")
+        icon = QIcon(":/images/tango-icon-theme-0.8.90/32x32/categories/applications-system.png")
         self.editPriceBarChartSettingsAction = \
             QAction(icon, "Edit PriceBarChart &Settings", self)
         self.editPriceBarChartSettingsAction.\
@@ -1350,6 +1350,34 @@ class PriceChartDocument(QMdiSubWindow):
         self.log.\
             debug("Exiting setPriceChartDocumentData()")
         
+    def applyPriceBarChartSettings(self, priceBarChartSettings):
+        """Applies the given PriceBarChartSettings to the underlying
+        PriceBarChart.  The caller is responsible for setting the dirty
+        flag if this priceBarChartSettings is different from the 
+        currently used internal priceBarChartSettings 
+        (which most likely it is).
+        """
+
+        self.priceChartDocumentData.priceBarChartSettings = \
+            priceBarChartSettings
+
+        self.widgets.applyPriceBarChartSettings\
+                (self.priceChartDocumentData.priceBarChartSettings)
+
+    def applyPriceBarSpreadsheetSettings(self, priceBarSpreadsheetSettings):
+        """Applies the given PriceBarSpreadsheetSettings to the underlying
+        PriceBarSpreadsheet.  The caller is responsible for setting the dirty
+        flag if this priceBarSpreadsheetSettings is different from the 
+        currently used internal priceBarSpreadsheetSettings 
+        (which most likely it is).
+        """
+
+        self.priceChartDocumentData.priceBarSpreadsheetSettings = \
+            priceBarSpreadsheetSettings
+
+        self.widgets.applyPriceBarSpreadsheetSettings\
+                (self.priceChartDocumentData.priceBarSpreadsheetSettings)
+
     def getBirthInfo(self):
         """Returns the internal BirthInfo object from the internal
         PriceChartDocumentData object.
