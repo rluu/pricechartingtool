@@ -63,6 +63,7 @@ rluu/appIcon.png
 rluu/handClosed.png
 rluu/handOpen.png
 rluu/logo_ryan_d1.png
+rluu/pointerPencil.png   (Modified an image from iconspedia)
 rluu/ryan_d1.png
 rluu/zoomIn.png
 rluu/zoomInBlue.png      (Modified an image from Tango Icon Library)

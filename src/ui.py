@@ -186,8 +186,15 @@ class MainWindow(QMainWindow):
         ####################
         # Create actions for the Tools Menu.
 
-        # Create the PointerToolAction.
+        # Create the ReadOnlyPointerToolAction.
         icon = QIcon(":/images/qt/pointer.png")
+        self.readOnlyPointerToolAction = \
+            QAction(icon, "Read-Only Pointer Tool", self)
+        self.readOnlyPointerToolAction.setStatusTip("Read-Only Pointer Tool")
+        self.readOnlyPointerToolAction.setCheckable(True)
+
+        # Create the PointerToolAction.
+        icon = QIcon(":/images/rluu/pointerPencil.png")
         self.pointerToolAction = QAction(icon, "Pointer Tool", self)
         self.pointerToolAction.setStatusTip("Pointer Tool")
         self.pointerToolAction.setCheckable(True)
@@ -214,14 +221,15 @@ class MainWindow(QMainWindow):
         # exclusive.  
         self.toolActionGroup = QActionGroup(self)
         self.toolActionGroup.setExclusive(True)
+        self.toolActionGroup.addAction(self.readOnlyPointerToolAction)
         self.toolActionGroup.addAction(self.pointerToolAction)
         self.toolActionGroup.addAction(self.handToolAction)
         self.toolActionGroup.addAction(self.zoomInToolAction)
         self.toolActionGroup.addAction(self.zoomOutToolAction)
         self.toolActionGroup.triggered.connect(self._toolsActionTriggered)
             
-        # Default to the PointerTool being checked by default.
-        self.pointerToolAction.setChecked(True)
+        # Default to the ReadOnlyPointerTool being checked by default.
+        self.readOnlyPointerToolAction.setChecked(True)
 
         # TODO:  Should I create an action that brings up a dialog to set
         # which subwindows are displayed in the currently active
@@ -316,6 +324,7 @@ class MainWindow(QMainWindow):
 
         # Create the Tools menu
         self.toolsMenu = self.menuBar().addMenu("&Tools")
+        self.toolsMenu.addAction(self.readOnlyPointerToolAction)
         self.toolsMenu.addAction(self.pointerToolAction)
         self.toolsMenu.addAction(self.handToolAction)
         self.toolsMenu.addAction(self.zoomInToolAction)
@@ -357,6 +366,7 @@ class MainWindow(QMainWindow):
         # Create the Tools toolbar.
         self.toolsToolBar = self.addToolBar("Tools")
         self.toolsToolBar.setObjectName("toolsToolBar")
+        self.toolsToolBar.addAction(self.readOnlyPointerToolAction)
         self.toolsToolBar.addAction(self.pointerToolAction)
         self.toolsToolBar.addAction(self.handToolAction)
         self.toolsToolBar.addAction(self.zoomInToolAction)
@@ -402,6 +412,7 @@ class MainWindow(QMainWindow):
         self.editAppPreferencesAction.setEnabled(True)
         self.editPriceBarChartScalingAction.setEnabled(isActive)
 
+        self.readOnlyPointerToolAction.setEnabled(isActive)
         self.pointerToolAction.setEnabled(isActive)
         self.handToolAction.setEnabled(isActive)
         self.zoomInToolAction.setEnabled(isActive)
@@ -420,7 +431,9 @@ class MainWindow(QMainWindow):
         # Depending on what ToolMode QAction is checked,
         # set the priceChartDocument to be in that mode.
         if isActive:
-            if self.pointerToolAction.isChecked():
+            if self.readOnlyPointerToolAction.isChecked():
+                priceChartDocument.toReadOnlyPointerToolMode()
+            elif self.pointerToolAction.isChecked():
                 priceChartDocument.toPointerToolMode()
             elif self.handToolAction.isChecked():
                 priceChartDocument.toHandToolMode()
@@ -1003,7 +1016,10 @@ class MainWindow(QMainWindow):
         if pcd == None:
             return
 
-        if qaction == self.pointerToolAction:
+        if qaction == self.readOnlyPointerToolAction:
+            self.log.debug("readOnlyPointerToolAction triggered.")
+            pcd.toReadOnlyPointerToolMode()
+        elif qaction == self.pointerToolAction:
             self.log.debug("pointerToolAction triggered.")
             pcd.toPointerToolMode()
         elif qaction == self.handToolAction:
@@ -1625,6 +1641,11 @@ class PriceChartDocument(QMdiSubWindow):
         self.log.debug("Exiting saveAsChart().  Returning {}".format(rv))
         return rv
 
+    def toReadOnlyPointerToolMode(self):
+        """Changes the tool mode to be the ReadOnlyPointerTool."""
+
+        self.widgets.toReadOnlyPointerToolMode()
+
     def toPointerToolMode(self):
         """Changes the tool mode to be the PointerTool."""
 
@@ -1787,6 +1808,11 @@ class PriceChartDocumentWidget(QWidget):
 
         return self.priceBarSpreadsheetWidget.\
                 getPriceBarSpreadsheetSettings()
+
+    def toReadOnlyPointerToolMode(self):
+        """Changes the tool mode to be the ReadOnlyPointerTool."""
+
+        self.priceBarChartWidget.toReadOnlyPointerToolMode()
 
     def toPointerToolMode(self):
         """Changes the tool mode to be the PointerTool."""

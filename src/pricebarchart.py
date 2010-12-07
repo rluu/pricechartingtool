@@ -42,10 +42,11 @@ class PriceBarChartWidget(QWidget):
 
 
     # Tool modes that this widget can be in.
-    ToolMode = {"PointerTool" : 0,
-                "HandTool"    : 1,
-                "ZoomInTool"  : 2,
-                "ZoomOutTool" : 3 }
+    ToolMode = {"ReadOnlyPointerTool" : 0,
+                "PointerTool"         : 1,
+                "HandTool"            : 2,
+                "ZoomInTool"          : 3,
+                "ZoomOutTool"         : 4 }
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -58,7 +59,7 @@ class PriceBarChartWidget(QWidget):
         self.priceBarChartSettings = PriceBarChartSettings()
         
         # Holds the tool mode that this widget is currently in.
-        self.toolMode = PriceBarChartWidget.ToolMode['PointerTool']
+        self.toolMode = PriceBarChartWidget.ToolMode['ReadOnlyPointerTool']
 
         # These are the label widgets at the top of the PriceBarChartWidget.
         self.descriptionLabel = QLabel("")
@@ -236,6 +237,21 @@ class PriceBarChartWidget(QWidget):
         return self.priceBarChartSettings
 
 
+    def toReadOnlyPointerToolMode(self):
+        """Changes the tool mode to be the ReadOnlyPointerTool."""
+
+        self.log.debug("Entered toReadOnlyPointerToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != \
+                PriceBarChartWidget.ToolMode['ReadOnlyPointerTool']:
+
+            self.toolMode = \
+                PriceBarChartWidget.ToolMode['ReadOnlyPointerTool']
+            self.graphicsView.toReadOnlyPointerToolMode()
+
+        self.log.debug("Exiting toReadOnlyPointerToolMode()")
+
     def toPointerToolMode(self):
         """Changes the tool mode to be the PointerTool."""
 
@@ -303,10 +319,11 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
 
     # Tool modes that this widget can be in.
-    ToolMode = {"PointerTool" : 0,
-                "HandTool"    : 1,
-                "ZoomInTool"  : 2,
-                "ZoomOutTool" : 3 }
+    ToolMode = {"ReadOnlyPointerTool" : 0,
+                "PointerTool"         : 1,
+                "HandTool"            : 2,
+                "ZoomInTool"          : 3,
+                "ZoomOutTool"         : 4 }
 
     defaultZoomScaleFactor = 1.2
 
@@ -325,7 +342,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         self.log.debug("Entered __init__()")
 
         # Holds the tool mode that this widget is currently in.
-        self.toolMode = PriceBarChartGraphicsView.ToolMode['PointerTool']
+        self.toolMode = \
+            PriceBarChartGraphicsView.ToolMode['ReadOnlyPointerTool']
 
         # Anchor variable we will use for click-drag, etc.
         self.dragAnchorPointF = QPointF()
@@ -351,6 +369,28 @@ class PriceBarChartGraphicsView(QGraphicsView):
         # the FullViewportUpdate mode, we dont' have many things dynamically
         # updating and changing, so it isn't too big of an issue.
         self.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
+
+    def toReadOnlyPointerToolMode(self):
+        """Changes the tool mode to be the ReadOnlyPointerTool."""
+
+        self.log.debug("Entered toReadOnlyPointerToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != \
+                PriceBarChartGraphicsView.ToolMode['ReadOnlyPointerTool']:
+
+            self.toolMode = \
+                PriceBarChartGraphicsView.ToolMode['ReadOnlyPointerTool']
+
+            self.setCursor(QCursor(Qt.ArrowCursor))
+
+            scene = self.scene()
+            if scene != None:
+                scene.clearSelection()
+
+            self.setDragMode(QGraphicsView.RubberBandDrag)
+
+        self.log.debug("Exiting toReadOnlyPointerToolMode()")
 
     def toPointerToolMode(self):
         """Changes the tool mode to be the PointerTool."""
@@ -441,6 +481,11 @@ class PriceBarChartGraphicsView(QGraphicsView):
         scene = self.scene()
 
         if self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['ReadOnlyPointerTool']:
+
+            super().mousePressEvent(qmouseevent)
+
+        elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PointerTool']:
 
             super().mousePressEvent(qmouseevent)
@@ -507,6 +552,11 @@ class PriceBarChartGraphicsView(QGraphicsView):
         self.log.debug("Entered mouseReleaseEvent()")
 
         if self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['ReadOnlyPointerTool']:
+
+            super().mouseReleaseEvent(qmouseevent)
+
+        elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PointerTool']:
 
             super().mouseReleaseEvent(qmouseevent)
@@ -544,6 +594,11 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
         
         if self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['ReadOnlyPointerTool']:
+
+            super().mouseMoveEvent(qmouseevent)
+
+        elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PointerTool']:
 
             super().mouseMoveEvent(qmouseevent)
@@ -590,6 +645,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
         # pricebarchart is in.
 
         if self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['ReadOnlyPointerTool']:
+            self.setCursor(QCursor(Qt.ArrowCursor))
+        elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PointerTool']:
             self.setCursor(QCursor(Qt.ArrowCursor))
         elif self.toolMode == \
