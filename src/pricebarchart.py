@@ -39,6 +39,15 @@ class PriceBarChartWidget(QWidget):
     # 'priceChartDocumentData' types of internal info to change, and when
     # that happens emit that, so a higher-up parent can set the document
     # as 'dirty', so that the user knows to save to capture these changes.
+    #
+    # These things will include: 
+    #   any scene change (pricebars, artifacts)
+    #   any view change (viewable area changed)
+    #   
+    # It does NOT include:
+    #   user selecting a pricebar
+    #   user opening a wheel astrology chart from a pricebar
+
 
 
     # Tool modes that this widget can be in.
@@ -196,7 +205,9 @@ class PriceBarChartWidget(QWidget):
         
         self.priceBarChartSettings = priceBarChartSettings
         
-        # TODO:  add code here to set all the settings (scaling, etc. )
+        # TODO:  add code here to set all the settings (scaling, viewable
+        # area, etc. ).
+        # TODO:  Then redraw everything.
         
     
     def getPriceBarChartSettings(self):
@@ -681,19 +692,6 @@ class PriceBarGraphicsItem(QGraphicsItem):
     # Default color for lower price bars.
     defaultLowerPriceBarColor = QColor(Qt.red)
 
-    # Default pen width for non-highlighted price bar.
-    defaultPenWidth = 0.0
-
-    # Default pen width for bolded (highlighted) price bar.
-    defaultBoldPenWidth = 0.2
-
-    # Default width of the left extension (opening price) of a price bar.
-    defaultLeftExtensionWidth = 0.5
-
-    # Default width of the right extension (closing price) of a price bar.
-    defaultRightExtensionWidth = 0.5
-
-
     def __init__(self, parent=None, scene=None):
 
         # Logger
@@ -703,16 +701,23 @@ class PriceBarGraphicsItem(QGraphicsItem):
         super().__init__(parent, scene)
 
         # Pen width for standard PriceBars (not highlighted or not bold)
-        self.penWidth = 0.0
+        self.penWidth = \
+            PriceBarChartSettings.defaultPriceBarGraphicsItemPenWidth
 
         # Pen width for use on highlighted (bold) PriceBars.
-        self.boldPenWidth = 0.2
+        self.boldPenWidth = \
+            PriceBarChartSettings.defaultPriceBarGraphicsItemBoldPenWidth
 
         # Width of the left extension drawn that represents the open price.
-        self.leftExtensionWidth = 0.5
+        self.leftExtensionWidth = \
+            PriceBarChartSettings.\
+                defaultPriceBarGraphicsItemLeftExtensionWidth 
 
         # Width of the right extension drawn that represents the close price.
-        self.rightExtensionWidth = 0.5
+        self.rightExtensionWidth = \
+            PriceBarChartSettings.\
+                defaultPriceBarGraphicsItemRightExtensionWidth 
+
 
         # Internally stored PriceBar.
         self.priceBar = None
@@ -720,6 +725,7 @@ class PriceBarGraphicsItem(QGraphicsItem):
         # Pen which is used to do the painting.
         self.pen = QPen()
         self.pen.setColor(QColor(Qt.black))
+        self.pen.setWidthF(self.penWidth)
 
         # Flag for bold (highlighted) PriceBar.
         self.bolded = False
@@ -732,14 +738,42 @@ class PriceBarGraphicsItem(QGraphicsItem):
 
         # Read the QSettings preferences for the various parameters of
         # this price bar.
-        self.readFromSettings()
+        self.loadSettingsFromAppPreferences()
 
-        # Now that settings have been read, set the pen width.
-        self.pen.setWidthF(self.penWidth)
 
-    def readFromSettings(self):
-        """Reads some of the parameters of this PriceBarGraphicsItem from
-        the QSettings object. 
+    def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings):
+        """Reads some of the parameters/settings of this
+        PriceBarGraphicsItem from the given PriceBarChartSettings object.
+        """
+
+        # penWidth (float)
+        self.penWidth = priceBarChartSettings.penWidth
+
+        # boldPenWidth (float)
+        self.boldPenWidth = priceBarChartSettings.boldPenWidth
+
+        # leftExtensionWidth (float)
+        self.leftExtensionWidth = priceBarChartSettings.leftExtensionWidth
+
+        # rightExtensionWidth (float)
+        self.rightExtensionWidth = priceBarChartSettings.rightExtensionWidth
+
+
+
+        # Now that some widths have been changed, update the pen
+        # accordinately.
+        if self.bolded:
+            self.pen.setWidthF(self.boldPenWidth)
+        else:
+            self.pen.setWidthF(self.penWidth)
+
+        # Schedule an update.
+        self.update()
+
+
+    def loadSettingsFromAppPreferences(self):
+        """Reads some of the parameters/settings of this
+        PriceBarGraphicsItem from the QSettings object. 
         """
 
         settings = QSettings()
@@ -755,30 +789,6 @@ class PriceBarGraphicsItem(QGraphicsItem):
         defaultValue = PriceBarGraphicsItem.defaultLowerPriceBarColor
         self.lowerPriceBarColor = \
             QColor(settings.value(key, defaultValue))
-
-        # penWidth
-        key = SettingsKeys.priceBarPenWidthSettingsKey
-        defaultValue = PriceBarGraphicsItem.defaultPenWidth
-        self.penWidth = \
-            float(settings.value(key, defaultValue))
-
-        # boldPenWidth
-        key = SettingsKeys.priceBarBoldPenWidthSettingsKey
-        defaultValue = PriceBarGraphicsItem.defaultBoldPenWidth
-        self.boldPenWidth = \
-            float(settings.value(key, defaultValue))
-
-        # leftExtensionWidth
-        key = SettingsKeys.priceBarLeftExtensionWidthSettingsKey
-        defaultValue = PriceBarGraphicsItem.defaultLeftExtensionWidth
-        self.leftExtensionWidth = \
-            float(settings.value(key, defaultValue))
-
-        # rightExtensionWidth
-        key = SettingsKeys.priceBarRightExtensionWidthSettingsKey
-        defaultValue = PriceBarGraphicsItem.defaultRightExtensionWidth
-        self.rightExtensionWidth = \
-            float(settings.value(key, defaultValue))
 
 
     def setPriceBar(self, priceBar):

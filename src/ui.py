@@ -168,19 +168,20 @@ class MainWindow(QMainWindow):
         # Create the editAppPreferencesAction.
         icon = QIcon(":/images/tango-icon-theme-0.8.90/32x32/categories/preferences-system.png")
         self.editAppPreferencesAction = \
-            QAction(icon, "Edit &Preferences", self)
-        self.editAppPreferencesAction.setStatusTip("Edit Preferences")
+            QAction(icon, "Edit Application &Preferences", self)
+        self.editAppPreferencesAction.\
+            setStatusTip("Edit Application Preferences")
         self.editAppPreferencesAction.triggered.\
             connect(self._editAppPreferences)
 
-        # Create the editPriceBarChartScalingAction.
+        # Create the editPriceBarChartSettingsAction.
         icon = QIcon(":/images/rluu/triangleRuler.png")
-        self.editPriceBarChartScalingAction = \
-            QAction(icon, "Edit PriceBar Chart &Scaling", self)
-        self.editPriceBarChartScalingAction.\
-            setStatusTip("Edit PriceBar Chart Scaling")
-        self.editPriceBarChartScalingAction.triggered.\
-            connect(self._editPriceBarChartScaling)
+        self.editPriceBarChartSettingsAction = \
+            QAction(icon, "Edit PriceBarChart &Settings", self)
+        self.editPriceBarChartSettingsAction.\
+            setStatusTip("Edit PriceBarChart Settings")
+        self.editPriceBarChartSettingsAction.triggered.\
+            connect(self._editPriceBarChartSettings)
         
 
         ####################
@@ -320,7 +321,7 @@ class MainWindow(QMainWindow):
         self.editMenu = self.menuBar().addMenu("&Edit")
         self.editMenu.addAction(self.editBirthInfoAction)
         self.editMenu.addAction(self.editAppPreferencesAction)
-        self.editMenu.addAction(self.editPriceBarChartScalingAction)
+        self.editMenu.addAction(self.editPriceBarChartSettingsAction)
 
         # Create the Tools menu
         self.toolsMenu = self.menuBar().addMenu("&Tools")
@@ -361,7 +362,7 @@ class MainWindow(QMainWindow):
         self.editToolBar.setObjectName("editToolBar")
         self.editToolBar.addAction(self.editBirthInfoAction)
         self.editToolBar.addAction(self.editAppPreferencesAction)
-        self.editToolBar.addAction(self.editPriceBarChartScalingAction)
+        self.editToolBar.addAction(self.editPriceBarChartSettingsAction)
 
         # Create the Tools toolbar.
         self.toolsToolBar = self.addToolBar("Tools")
@@ -410,7 +411,7 @@ class MainWindow(QMainWindow):
 
         self.editBirthInfoAction.setEnabled(isActive)
         self.editAppPreferencesAction.setEnabled(True)
-        self.editPriceBarChartScalingAction.setEnabled(isActive)
+        self.editPriceBarChartSettingsAction.setEnabled(isActive)
 
         self.readOnlyPointerToolAction.setEnabled(isActive)
         self.pointerToolAction.setEnabled(isActive)
@@ -989,14 +990,43 @@ class MainWindow(QMainWindow):
 
         self.log.debug("Exiting _editAppPreferences()")
 
-    def _editPriceBarChartScaling(self):
+    def _editPriceBarChartSettings(self):
         """TODO:  write this comment"""
-        self.log.debug("Entered _editPriceBarChartScaling()")
-        # TODO:  implement this function.
-        QMessageBox.information(self, 
-                                "Not yet implemented", 
-                                "This feature has not yet been implemented.")
-        self.log.debug("Exiting _editPriceBarChartScaling()")
+        self.log.debug("Entered _editPriceBarChartSettings()")
+
+        # Get current active PriceChartDocument.
+        priceChartDocument = self.getActivePriceChartDocument()
+
+        if priceChartDocument != None:
+            # Get the PriceBarChartSettings object..
+            priceBarChartSettings = \
+                priceChartDocument.getPriceChartDocumentData().\
+                    priceBarChartSettings
+
+            # Create a dialog to edit the PriceBarChartSettings.
+            dialog = PriceBarChartSettingsEditDialog(priceBarChartSettings)
+
+            if dialog.exec_() == QDialog.Accepted:
+                self.log.debug("PriceBarChartSettingsEditDialog accepted.")
+
+                # Apply the settings changes to the PriceChartDocument.
+                # This should trigger a redraw of everything in the chart.
+                priceChartDocument.\
+                    applyPriceBarChartSettings(priceBarChartSettings)
+
+                # Set the dirty flag because the settings object has now
+                # changed.
+                priceChartDocument.setDirtyFlag(True)
+            else:
+                self.log.debug("PriceBarChartSettingsEditDialog rejected." + \
+                               "  Doing nothing more.")
+        else:
+            self.log.error("Tried to edit the PriceBarChartSettings " + \
+                           "when either no " + \
+                           "PriceChartDocument is selected, or some " + \
+                           "other unsupported subwindow was selected.")
+
+        self.log.debug("Exiting _editPriceBarChartSettings()")
 
     def _toolsActionTriggered(self, qaction):
         """Slot function that is called when a Tools menu QAction is

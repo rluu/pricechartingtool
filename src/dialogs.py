@@ -26,6 +26,7 @@ import resources
 # For PriceBars
 from data_objects import PriceBar
 from data_objects import BirthInfo
+from data_objects import PriceBarChartSettings
 
 # For geocoding.
 from geonames import GeoNames
@@ -2809,23 +2810,6 @@ class AppPreferencesEditWidget(QWidget):
         self.lowerPriceBarColorSettingsKey = \
             SettingsKeys.lowerPriceBarColorSettingsKey 
 
-        # QSettings key for the priceBarPenWidth  (float).
-        self.priceBarPenWidthSettingsKey = \
-            SettingsKeys.priceBarPenWidthSettingsKey 
-
-        # QSettings key for the priceBarBoldPenWidth  (float).
-        self.priceBarBoldPenWidthSettingsKey = \
-            SettingsKeys.priceBarBoldPenWidthSettingsKey 
-
-        # QSettings key for the priceBarLeftExtensionWidth (float).
-        self.priceBarLeftExtensionWidthSettingsKey = \
-            SettingsKeys.priceBarLeftExtensionWidthSettingsKey 
-
-        # QSettings key for the priceBarRightExtensionWidth (float).
-        self.priceBarRightExtensionWidthSettingsKey = \
-            SettingsKeys.priceBarRightExtensionWidthSettingsKey 
-
-
         self.priceBarChartSettingsGroupBox = \
             QGroupBox("PriceBarChart settings:")
 
@@ -2845,41 +2829,6 @@ class AppPreferencesEditWidget(QWidget):
         self.lowerPriceBarColorLabel = QLabel("Lower PriceBar color:")
         self.lowerPriceBarColorEditButton = ColorEditPushButton()
         self.lowerPriceBarColorResetButton = QPushButton("Reset to default")
-
-        # PriceBarChart priceBarPenWidth (float).
-        self.priceBarPenWidthLabel = QLabel("PriceBarGraphicsItem pen width:")
-        self.priceBarPenWidthSpinBox = QDoubleSpinBox()
-        self.priceBarPenWidthSpinBox.setMinimum(0.0)
-        self.priceBarPenWidthSpinBox.setMaximum(1000.0)
-        self.priceBarPenWidthResetButton = QPushButton("Reset to default")
-
-        # PriceBarChart priceBarBoldPenWidth (float).
-        self.priceBarBoldPenWidthLabel = \
-            QLabel("PriceBarGraphicsItem bold pen width:")
-        self.priceBarBoldPenWidthSpinBox = QDoubleSpinBox()
-        self.priceBarBoldPenWidthSpinBox.setMinimum(0.0)
-        self.priceBarBoldPenWidthSpinBox.setMaximum(1000.0)
-        self.priceBarBoldPenWidthResetButton = \
-            QPushButton("Reset to default")
-
-        # PriceBarChart priceBarLeftExtensionWidth (float).
-        self.priceBarLeftExtensionWidthLabel = \
-            QLabel("PriceBarGraphicsItem left extension width:")
-        self.priceBarLeftExtensionWidthSpinBox = QDoubleSpinBox()
-        self.priceBarLeftExtensionWidthSpinBox.setMinimum(0.0)
-        self.priceBarLeftExtensionWidthSpinBox.setMaximum(1000.0)
-        self.priceBarLeftExtensionWidthResetButton = \
-            QPushButton("Reset to default")
-
-        # PriceBarChart priceBarRightExtensionWidth (float).
-        self.priceBarRightExtensionWidthLabel = \
-            QLabel("PriceBarGraphicsItem right extension width:")
-        self.priceBarRightExtensionWidthSpinBox = QDoubleSpinBox()
-        self.priceBarRightExtensionWidthSpinBox.setMinimum(0.0)
-        self.priceBarRightExtensionWidthSpinBox.setMaximum(1000.0)
-        self.priceBarRightExtensionWidthResetButton = \
-            QPushButton("Reset to default")
-
 
         # Form layout.
         self.gridLayout = QGridLayout()
@@ -2907,34 +2856,6 @@ class AppPreferencesEditWidget(QWidget):
             addWidget(self.lowerPriceBarColorEditButton, r, 1, ar)
         self.gridLayout.\
             addWidget(self.lowerPriceBarColorResetButton, r, 2, ar)
-        r += 1
-        self.gridLayout.\
-            addWidget(self.priceBarPenWidthLabel, r, 0, al)
-        self.gridLayout.\
-            addWidget(self.priceBarPenWidthSpinBox, r, 1, ar)
-        self.gridLayout.\
-            addWidget(self.priceBarPenWidthResetButton, r, 2, ar)
-        r += 1
-        self.gridLayout.\
-            addWidget(self.priceBarBoldPenWidthLabel, r, 0, al)
-        self.gridLayout.\
-            addWidget(self.priceBarBoldPenWidthSpinBox, r, 1, ar)
-        self.gridLayout.\
-            addWidget(self.priceBarBoldPenWidthResetButton, r, 2, ar)
-        r += 1
-        self.gridLayout.\
-            addWidget(self.priceBarLeftExtensionWidthLabel, r, 0, al)
-        self.gridLayout.\
-            addWidget(self.priceBarLeftExtensionWidthSpinBox, r, 1, ar)
-        self.gridLayout.\
-            addWidget(self.priceBarLeftExtensionWidthResetButton, r, 2, ar)
-        r += 1
-        self.gridLayout.\
-            addWidget(self.priceBarRightExtensionWidthLabel, r, 0, al)
-        self.gridLayout.\
-            addWidget(self.priceBarRightExtensionWidthSpinBox, r, 1, ar)
-        self.gridLayout.\
-            addWidget(self.priceBarRightExtensionWidthResetButton, r, 2, ar)
 
         self.priceBarChartSettingsGroupBox.setLayout(self.gridLayout)
 
@@ -2986,14 +2907,6 @@ class AppPreferencesEditWidget(QWidget):
             connect(self._handleHigherPriceBarColorResetButtonClicked)
         self.lowerPriceBarColorResetButton.clicked.\
             connect(self._handleLowerPriceBarColorResetButtonClicked)
-        self.priceBarPenWidthResetButton.clicked.\
-            connect(self._handlePriceBarPenWidthResetButtonClicked)
-        self.priceBarBoldPenWidthResetButton.clicked.\
-            connect(self._handlePriceBarBoldPenWidthResetButtonClicked)
-        self.priceBarLeftExtensionWidthResetButton.clicked.\
-            connect(self._handlePriceBarLeftExtensionWidthResetButtonClicked)
-        self.priceBarRightExtensionWidthResetButton.clicked.\
-            connect(self._handlePriceBarRightExtensionWidthResetButtonClicked)
 
         self.resetAllToDefaultButton.clicked.\
             connect(self._handleResetAllToDefaultButtonClicked)
@@ -3038,30 +2951,6 @@ class AppPreferencesEditWidget(QWidget):
             PriceBarGraphicsItem.defaultLowerPriceBarColor))
         self.lowerPriceBarColorEditButton.setColor(value)
 
-        # PriceBarChart priceBarPenWidth (float).
-        key = SettingsKeys.priceBarPenWidthSettingsKey
-        value = float(settings.value(key, \
-            PriceBarGraphicsItem.defaultPenWidth))
-        self.priceBarPenWidthSpinBox.setValue(value)
-
-        # PriceBarChart priceBarBoldPenWidth (float).
-        key = SettingsKeys.priceBarBoldPenWidthSettingsKey
-        value = float(settings.value(key, \
-            PriceBarGraphicsItem.defaultBoldPenWidth))
-        self.priceBarBoldPenWidthSpinBox.setValue(value)
-
-        # PriceBarChart priceBarLeftExtensionWidth (float).
-        key = SettingsKeys.priceBarLeftExtensionWidthSettingsKey
-        value = float(settings.value(key, \
-            PriceBarGraphicsItem.defaultLeftExtensionWidth))
-        self.priceBarLeftExtensionWidthSpinBox.setValue(value)
-
-        # PriceBarChart priceBarRightExtensionWidth (float).
-        key = SettingsKeys.priceBarRightExtensionWidthSettingsKey
-        value = float(settings.value(key, \
-            PriceBarGraphicsItem.defaultRightExtensionWidth))
-        self.priceBarRightExtensionWidthSpinBox.setValue(value)
-
         self.log.debug("Exiting loadValuesFromSettings()")
         
     def saveValuesToSettings(self):
@@ -3103,46 +2992,6 @@ class AppPreferencesEditWidget(QWidget):
         newValue = self.lowerPriceBarColorEditButton.getColor()
         if settings.contains(key):
             oldValue = QColor(settings.value(key))
-            if oldValue != newValue:
-                settings.setValue(key, newValue)
-        else:
-            settings.setValue(key, newValue)
-
-        # PriceBarChart priceBarPenWidth (float).
-        key = self.priceBarPenWidthSettingsKey
-        newValue = self.priceBarPenWidthSpinBox.value()
-        if settings.contains(key):
-            oldValue = float(settings.value(key))
-            if oldValue != newValue:
-                settings.setValue(key, newValue)
-        else:
-            settings.setValue(key, newValue)
-
-        # PriceBarChart priceBarBoldPenWidth (float).
-        key = self.priceBarBoldPenWidthSettingsKey
-        newValue = self.priceBarBoldPenWidthSpinBox.value()
-        if settings.contains(key):
-            oldValue = float(settings.value(key))
-            if oldValue != newValue:
-                settings.setValue(key, newValue)
-        else:
-            settings.setValue(key, newValue)
-
-        # PriceBarChart priceBarLeftExtensionWidth (float).
-        key = self.priceBarLeftExtensionWidthSettingsKey
-        newValue = self.priceBarLeftExtensionWidthSpinBox.value()
-        if settings.contains(key):
-            oldValue = float(settings.value(key))
-            if oldValue != newValue:
-                settings.setValue(key, newValue)
-        else:
-            settings.setValue(key, newValue)
-
-        # PriceBarChart priceBarRightExtensionWidth (float).
-        key = self.priceBarRightExtensionWidthSettingsKey
-        newValue = self.priceBarRightExtensionWidthSpinBox.value()
-        if settings.contains(key):
-            oldValue = float(settings.value(key))
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -3207,38 +3056,6 @@ class AppPreferencesEditWidget(QWidget):
         value = PriceBarGraphicsItem.defaultLowerPriceBarColor
         self.lowerPriceBarColorEditButton.setColor(value)
 
-    def _handlePriceBarPenWidthResetButtonClicked(self):
-        """Called when the priceBarPenWidthResetButton is clicked.
-        Resets the widget value to the default value.
-        """
-
-        value = PriceBarGraphicsItem.defaultPenWidth
-        self.priceBarPenWidthSpinBox.setValue(value)
-
-    def _handlePriceBarBoldPenWidthResetButtonClicked(self):
-        """Called when the priceBarBoldPenWidthResetButton is clicked.
-        Resets the widget value to the default value.
-        """
-
-        value = PriceBarGraphicsItem.defaultBoldPenWidth
-        self.priceBarBoldPenWidthSpinBox.setValue(value)
-
-    def _handlePriceBarLeftExtensionWidthResetButtonClicked(self):
-        """Called when the priceBarLeftExtensionWidthResetButton is clicked.
-        Resets the widget value to the default value.
-        """
-
-        value = PriceBarGraphicsItem.defaultLeftExtensionWidth
-        self.priceBarLeftExtensionWidthSpinBox.setValue(value)
-
-    def _handlePriceBarRightExtensionWidthResetButtonClicked(self):
-        """Called when the priceBarRightExtensionWidthResetButton is clicked.
-        Resets the widget value to the default value.
-        """
-
-        value = PriceBarGraphicsItem.defaultRightExtensionWidth
-        self.priceBarRightExtensionWidthSpinBox.setValue(value)
-
     def _handleResetAllToDefaultButtonClicked(self):
         """Called when the resetAllToDefaultButton is clicked.
         Resets the all the widget values in this widget to the default
@@ -3248,10 +3065,6 @@ class AppPreferencesEditWidget(QWidget):
         self._handleZoomScaleFactorResetButtonClicked()
         self._handleHigherPriceBarColorResetButtonClicked()
         self._handleLowerPriceBarColorResetButtonClicked()
-        self._handlePriceBarPenWidthResetButtonClicked()
-        self._handlePriceBarBoldPenWidthResetButtonClicked()
-        self._handlePriceBarLeftExtensionWidthResetButtonClicked()
-        self._handlePriceBarRightExtensionWidthResetButtonClicked()
 
     def _handleOkayButtonClicked(self):
         """Called when the okay button is clicked."""
@@ -3294,6 +3107,319 @@ class AppPreferencesEditDialog(QDialog):
         self.appPreferencesEditWidget.okayButtonClicked.connect(self.accept)
         self.appPreferencesEditWidget.cancelButtonClicked.connect(self.reject)
 
+
+class PriceBarChartSettingsEditWidget(QWidget):
+    """QWidget for editing a PriceBarChartSettings object's class members.
+    """
+
+    # Signal emitted when the Okay button is clicked and 
+    # validation succeeded.
+    okayButtonClicked = QtCore.pyqtSignal()
+
+    # Signal emitted when the Cancel button is clicked.
+    cancelButtonClicked = QtCore.pyqtSignal()
+
+    def __init__(self, priceBarChartSettings, parent=None):
+        """QWidget for editing some of the fields of a
+        PriceBarChartSettings object.
+        """
+
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger("dialogs.PriceBarChartSettingsEditWidget")
+
+        # Save off the PriceBarChartSettings object.
+        self.priceBarChartSettings = priceBarChartSettings
+
+        # QGroupBox to hold all the edit widgets and form.
+        self.priceBarChartSettingsGroupBox = \
+            QGroupBox("PriceBarChart settings:")
+
+        # priceBarGraphicsItemPenWidth (float).
+        self.priceBarGraphicsItemPenWidthLabel = \
+            QLabel("PriceBarGraphicsItem pen width:")
+        self.priceBarGraphicsItemPenWidthSpinBox = QDoubleSpinBox()
+        self.priceBarGraphicsItemPenWidthSpinBox.setMinimum(0.0)
+        self.priceBarGraphicsItemPenWidthSpinBox.setMaximum(1000.0)
+        self.priceBarGraphicsItemPenWidthResetButton = \
+            QPushButton("Reset to default")
+
+        # priceBarGraphicsItemBoldPenWidth (float).
+        self.priceBarGraphicsItemBoldPenWidthLabel = \
+            QLabel("PriceBarGraphicsItem bold pen width:")
+        self.priceBarGraphicsItemBoldPenWidthSpinBox = QDoubleSpinBox()
+        self.priceBarGraphicsItemBoldPenWidthSpinBox.setMinimum(0.0)
+        self.priceBarGraphicsItemBoldPenWidthSpinBox.setMaximum(1000.0)
+        self.priceBarGraphicsItemBoldPenWidthResetButton = \
+            QPushButton("Reset to default")
+
+        # priceBarGraphicsItemLeftExtensionWidth (float).
+        self.priceBarGraphicsItemLeftExtensionWidthLabel = \
+            QLabel("PriceBarGraphicsItem left extension width:")
+        self.priceBarGraphicsItemLeftExtensionWidthSpinBox = QDoubleSpinBox()
+        self.priceBarGraphicsItemLeftExtensionWidthSpinBox.setMinimum(0.0)
+        self.priceBarGraphicsItemLeftExtensionWidthSpinBox.setMaximum(1000.0)
+        self.priceBarGraphicsItemLeftExtensionWidthResetButton = \
+            QPushButton("Reset to default")
+
+        # priceBarGraphicsItemRightExtensionWidth (float).
+        self.priceBarGraphicsItemRightExtensionWidthLabel = \
+            QLabel("PriceBarGraphicsItem right extension width:")
+        self.priceBarGraphicsItemRightExtensionWidthSpinBox = QDoubleSpinBox()
+        self.priceBarGraphicsItemRightExtensionWidthSpinBox.setMinimum(0.0)
+        self.priceBarGraphicsItemRightExtensionWidthSpinBox.setMaximum(1000.0)
+        self.priceBarGraphicsItemRightExtensionWidthResetButton = \
+            QPushButton("Reset to default")
+
+
+        # Form layout.
+        self.gridLayout = QGridLayout()
+        r = 0
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        self.gridLayout.\
+            addWidget(self.priceBarGraphicsItemPenWidthLabel, 
+                      r, 0, al)
+        self.gridLayout.\
+            addWidget(self.priceBarGraphicsItemPenWidthSpinBox, 
+                      r, 1, ar)
+        self.gridLayout.\
+            addWidget(self.priceBarGraphicsItemPenWidthResetButton, 
+                      r, 2, ar)
+        r += 1
+        self.gridLayout.\
+            addWidget(self.priceBarGraphicsItemBoldPenWidthLabel, 
+                      r, 0, al)
+        self.gridLayout.\
+            addWidget(self.priceBarGraphicsItemBoldPenWidthSpinBox, 
+                      r, 1, ar)
+        self.gridLayout.\
+            addWidget(self.priceBarGraphicsItemBoldPenWidthResetButton, 
+                      r, 2, ar)
+        r += 1
+        self.gridLayout.\
+            addWidget(self.priceBarGraphicsItemLeftExtensionWidthLabel, 
+                      r, 0, al)
+        self.gridLayout.\
+            addWidget(self.priceBarGraphicsItemLeftExtensionWidthSpinBox, 
+                      r, 1, ar)
+        self.gridLayout.\
+            addWidget(self.priceBarGraphicsItemLeftExtensionWidthResetButton, 
+                      r, 2, ar)
+        r += 1
+        self.gridLayout.\
+            addWidget(self.priceBarGraphicsItemRightExtensionWidthLabel, 
+                      r, 0, al)
+        self.gridLayout.\
+            addWidget(self.priceBarGraphicsItemRightExtensionWidthSpinBox, 
+                      r, 1, ar)
+        self.gridLayout.addWidget\
+            (self.priceBarGraphicsItemRightExtensionWidthResetButton, 
+             r, 2, ar)
+
+        self.priceBarChartSettingsGroupBox.setLayout(self.gridLayout)
+
+        # Buttons at bottom.
+        self.resetAllToDefaultButton = \
+            QPushButton("Reset all to original default values")
+        self.okayButton = QPushButton("&Okay")
+        self.cancelButton = QPushButton("&Cancel")
+        self.buttonsAtBottomLayout = QHBoxLayout()
+        self.buttonsAtBottomLayout.addWidget(self.resetAllToDefaultButton)
+        self.buttonsAtBottomLayout.addStretch()
+        self.buttonsAtBottomLayout.addWidget(self.okayButton)
+        self.buttonsAtBottomLayout.addWidget(self.cancelButton)
+
+        # Put all layouts/groupboxes together into the widget.
+        self.mainLayout = QVBoxLayout()
+        self.mainLayout.addWidget(self.priceBarChartSettingsGroupBox) 
+        self.mainLayout.addSpacing(10)
+        self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
+
+        self.setLayout(self.mainLayout)
+
+        # Now that all the widgets are created, load the values from the
+        # settings.
+        self.loadValuesFromSettings(self.priceBarChartSettings)
+
+        # Connect signals and slots.
+
+        # Connect reset buttons.
+        self.priceBarGraphicsItemPenWidthResetButton.clicked.\
+            connect(self._handlePriceBarPenWidthResetButtonClicked)
+        self.priceBarGraphicsItemBoldPenWidthResetButton.clicked.\
+            connect(self._handlePriceBarBoldPenWidthResetButtonClicked)
+        self.priceBarGraphicsItemLeftExtensionWidthResetButton.clicked.\
+            connect(self._handlePriceBarLeftExtensionWidthResetButtonClicked)
+        self.priceBarGraphicsItemRightExtensionWidthResetButton.clicked.\
+            connect(self._handlePriceBarRightExtensionWidthResetButtonClicked)
+
+        self.resetAllToDefaultButton.clicked.\
+            connect(self._handleResetAllToDefaultButtonClicked)
+
+        # Connect okay and cancel buttons.
+        self.okayButton.clicked.connect(self._handleOkayButtonClicked)
+        self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
+
+
+    def loadValuesFromSettings(self, priceBarChartSettings):
+        """Loads the widgets with values from the given
+        PriceBarChartSettings object.
+        """
+
+        self.log.debug("Entered loadValuesFromSettings()")
+
+        # Check inputs.
+        if priceBarChartSettings == None:
+            self.log.error("Invalid parameter to " + \
+                           "loadValuesFromSettings().  " + \
+                           "priceBarChartSettings can't be None.")
+            self.log.debug("Exiting loadValuesFromSettings()")
+            return
+        else:
+            self.priceBarChartSettings = priceBarChartSettings 
+
+
+        # penWidth (float)
+        self.priceBarGraphicsItemPenWidthSpinBox.\
+            setValue(self.priceBarChartSettings.priceBarGraphicsItemPenWidth)
+
+        # boldPenWidth (float)
+        self.priceBarGraphicsItemBoldPenWidthSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        priceBarGraphicsItemBoldPenWidth)
+
+        # leftExtensionWidth (float)
+        self.priceBarGraphicsItemLeftExtensionWidthSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        priceBarGraphicsItemLeftExtensionWidth)
+
+        # rightExtensionWidth (float)
+        self.priceBarGraphicsItemRightExtensionWidthSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        priceBarGraphicsItemRightExtensionWidth)
+
+        self.log.debug("Exiting loadValuesFromSettings()")
+        
+    def saveValuesToSettings(self):
+        """Saves the values in the widgets to the 
+        PriceBarChartSettings object passed in this class's constructor.
+        """
+    
+        self.log.debug("Entered saveValuesToSettings()")
+
+        # PriceBarChart penWidth (float).
+        self.priceBarChartSettings.priceBarGraphicsItemPenWidth = \
+            float(self.priceBarGraphicsItemPenWidthSpinBox.value())
+
+        # PriceBarChart boldPenWidth (float).
+        self.priceBarChartSettings.priceBarGraphicsItemBoldPenWidth = \
+            float(self.priceBarGraphicsItemBoldPenWidthSpinBox.value())
+
+        # PriceBarChart leftExtensionWidth (float).
+        self.priceBarChartSettings.priceBarGraphicsItemLeftExtensionWidth = \
+            float(self.priceBarGraphicsItemLeftExtensionWidthSpinBox.value())
+       
+        # PriceBarChart rightExtensionWidth (float).
+        self.priceBarChartSettings.priceBarGraphicsItemRightExtensionWidth = \
+            float(self.priceBarGraphicsItemRightExtensionWidthSpinBox.value())
+
+        self.log.debug("Exiting saveValuesToSettings()")
+
+
+    def _handlePriceBarPenWidthResetButtonClicked(self):
+        """Called when the penWidthResetButton is clicked.
+        Resets the widget value to the default value.
+        """
+
+        value = PriceBarChartSettings.defaultPriceBarGraphicsItemPenWidth
+        self.priceBarGraphicsItemPenWidthSpinBox.setValue(value)
+
+    def _handlePriceBarBoldPenWidthResetButtonClicked(self):
+        """Called when the boldPenWidthResetButton is clicked.
+        Resets the widget value to the default value.
+        """
+
+        value = PriceBarChartSettings.defaultPriceBarGraphicsItemBoldPenWidth
+        self.priceBarGraphicsItemBoldPenWidthSpinBox.setValue(value)
+
+    def _handlePriceBarLeftExtensionWidthResetButtonClicked(self):
+        """Called when the leftExtensionWidthResetButton is clicked.
+        Resets the widget value to the default value.
+        """
+
+        value = PriceBarChartSettings.\
+                    defaultPriceBarGraphicsItemLeftExtensionWidth
+        self.priceBarGraphicsItemLeftExtensionWidthSpinBox.setValue(value)
+
+    def _handlePriceBarRightExtensionWidthResetButtonClicked(self):
+        """Called when the rightExtensionWidthResetButton is clicked.
+        Resets the widget value to the default value.
+        """
+
+        value = PriceBarChartSettings.\
+                    defaultPriceBarGraphicsItemRightExtensionWidth
+        self.priceBarGraphicsItemRightExtensionWidthSpinBox.setValue(value)
+
+    def _handleResetAllToDefaultButtonClicked(self):
+        """Called when the resetAllToDefaultButton is clicked.
+        Resets the all the widget values in this widget to the default
+        values.
+        """
+
+        self._handlePriceBarPenWidthResetButtonClicked()
+        self._handlePriceBarBoldPenWidthResetButtonClicked()
+        self._handlePriceBarLeftExtensionWidthResetButtonClicked()
+        self._handlePriceBarRightExtensionWidthResetButtonClicked()
+
+    def _handleOkayButtonClicked(self):
+        """Called when the okay button is clicked."""
+
+        self.saveValuesToSettings()
+        self.okayButtonClicked.emit()
+
+    def _handleCancelButtonClicked(self):
+        """Called when the cancel button is clicked."""
+
+        self.cancelButtonClicked.emit()
+
+
+
+class PriceBarChartSettingsEditDialog(QDialog):
+    """QDialog for editing a PriceBarChartSettings object's class members.
+    """
+
+    def __init__(self, priceBarChartSettings, parent=None):
+        """Initializes the dialog and internal widget with the current
+        settings."""
+
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger("dialogs.PriceBarChartSettingsEditDialog")
+
+        self.setWindowTitle("PriceBarChart Settings")
+
+        # Save a reference to the PriceBarChartSettings object.
+        self.priceBarChartSettings = priceBarChartSettings
+
+        # Create the contents.
+        self.priceBarChartSettingsEditWidget = \
+            PriceBarChartSettingsEditWidget(priceBarChartSettings)
+
+        # Setup the layout.
+        layout = QVBoxLayout()
+        layout.addWidget(self.priceBarChartSettingsEditWidget)
+        self.setLayout(layout)
+
+        self.priceBarChartSettingsEditWidget.okayButtonClicked.\
+            connect(self.accept)
+        self.priceBarChartSettingsEditWidget.cancelButtonClicked.\
+            connect(self.reject)
 
 # For debugging the module during development.  
 if __name__=="__main__":

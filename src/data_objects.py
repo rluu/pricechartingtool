@@ -825,6 +825,19 @@ class PriceBarChartSettings:
     PriceBarChartWidget.
     """
 
+    # Default pen width for non-highlighted price bar.
+    defaultPriceBarGraphicsItemPenWidth = 0.0
+
+    # Default pen width for bolded (highlighted) price bar.
+    defaultPriceBarGraphicsItemBoldPenWidth = 0.2
+
+    # Default width of the left extension (opening price) of a price bar.
+    defaultPriceBarGraphicsItemLeftExtensionWidth = 0.5
+
+    # Default width of the right extension (closing price) of a price bar.
+    defaultPriceBarGraphicsItemRightExtensionWidth = 0.5
+
+
     def __init__(self):
         """"Initializes the PriceChartSettings to default values."""
 
@@ -835,10 +848,6 @@ class PriceBarChartSettings:
         # different versions of this class).
         self.classVersion = 1
 
-        # Reference to the last PriceBar that was selected.  
-        # Selection is based on the timestamp of the PriceBar.
-        self.settingsLastPriceBarSelected = None
-
         # QGraphicsScene rectangle.
         self.sceneSpaceQRect = None
 
@@ -846,42 +855,28 @@ class PriceBarChartSettings:
         # QGraphicsView.
         self.viewableSpaceQRect = None
 
+        # Pen width for standard PriceBars (not highlighted or not bold).
+        # This is a float value.
+        self.priceBarGraphicsItemPenWidth = \
+            PriceBarChartSettings.defaultPriceBarGraphicsItemPenWidth 
 
-        # Zoom in scale factor default.
-        self.zoomInScaleFactorDefault = 1.1
+        # Pen width for use on highlighted (bold) PriceBars.
+        # This is a float value.
+        self.priceBarGraphicsItemBoldPenWidth = \
+            PriceBarChartSettings.defaultPriceBarGraphicsItemBoldPenWidth 
 
-        # Zoom in scale factor custom.
-        self.zoomInScaleFactorCustom = 1.1
+        # Width of the left extension drawn that represents the open price.
+        # This is a float value.
+        self.priceBarGraphicsItemLeftExtensionWidth = \
+            PriceBarChartSettings.\
+                defaultPriceBarGraphicsItemLeftExtensionWidth 
 
-        # Zoom out scale factor default.
-        self.zoomOutScaleFactorDefault = 0.9
-
-        # Zoom out scale factor custom.
-        self.zoomOutScaleFactorCustom = 0.9
+        # Width of the right extension drawn that represents the close price.
+        # This is a float value.
+        self.priceBarGraphicsItemRightExtensionWidth = \
+            PriceBarChartSettings.\
+                defaultPriceBarGraphicsItemRightExtensionWidth 
         
-
-        # Price tick size (major) on the Y axis label.
-        self.priceTickSizeMajor = 10
-        
-        # Price tick size (minor) on the Y axis label.
-        self.priceTickSizeMinor = 2
-
-        # Price tick size (minor) minimum pixel separation.
-        self.priceTickSizeMinorMinPixelSep = 4
-
-
-        # Time ticks are not always displayed.  These are boolean values
-        # for whether or not they are displayed.
-        self.timeYearTicksEnabled = True
-        self.timeMonthTicksEnabled = True
-        self.timeWeekTicksEnabled = True
-        self.timeDayTicksEnabled = True
-        self.timeHourTicksEnabled = True
-
-        # Time tick size (smallest displayed) minimum pixel separation.
-        self.timeTickSizeMinPixelSep = 4
-
-
     def __getstate__(self):
         """Returns the object's state for pickling purposes."""
 
@@ -914,38 +909,11 @@ class PriceBarChartSettings:
 
         return "[classVersion={}, ".\
                    format(self.classVersion) + \
-                "settingsLastPriceBarSelected={}, ".\
-                    format(self.settingsLastPriceBarSelected) + \
                 "sceneSpaceQRect={}, ".\
                     format(self.sceneSpaceQRect) + \
-                "viewableSpaceQRect={}, ".\
-                    format(self.viewableSpaceQRect) + \
-                "zoomInScaleFactorDefault={}, ".\
-                    format(self.zoomInScaleFactorDefault) + \
-                "zoomInScaleFactorCustom={}, ".\
-                    format(self.zoomInScaleFactorCustom) + \
-                "zoomOutScaleFactorDefault={}, ".\
-                    format(self.zoomOutScaleFactorDefault) + \
-                "zoomOutScaleFactorCustom={}, ".\
-                    format(self.zoomOutScaleFactorCustom) + \
-                "priceTickSizeMajor={}, ".\
-                    format(self.priceTickSizeMajor) + \
-                "priceTickSizeMinor={}, ".\
-                    format(self.priceTickSizeMinor) + \
-                "priceTickSizeMinorMinPixelSep={}, ".\
-                    format(self.priceTickSizeMinorMinPixelSep) + \
-                "timeYearTicksEnabled={}, ".\
-                    format(self.timeYearTicksEnabled) + \
-                "timeMonthTicksEnabled={}, ".\
-                    format(self.timeMonthTicksEnabled) + \
-                "timeWeekTicksEnabled={}, ".\
-                    format(self.timeWeekTicksEnabled) + \
-                "timeDayTicksEnabled={}, ".\
-                    format(self.timeDayTicksEnabled) + \
-                "timeHourTicksEnabled={}, ".\
-                    format(self.timeHourTicksEnabled) + \
-                "timeTickSizeMinPixelSep={}]".\
-                    format(self.timeTickSizeMinPixelSep)
+                "viewableSpaceQRect={}]".\
+                    format(self.viewableSpaceQRect)
+                    # TODO: add some of the other member variables here.
 
     def __str__(self):
         """Returns the string representation of this object."""
