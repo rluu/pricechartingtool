@@ -9,6 +9,9 @@ import uuid
 import datetime
 import pytz
 
+# For pickling PyQt types.
+from PyQt4.QtGui import QTransform
+
 class BirthInfo:
     """Contains data related to the birth of an entity or person.
     See the documentation for the '__init__()' function to see what
@@ -632,6 +635,9 @@ class PriceChartDocumentData:
         # center on the same PriceBar the next time the application is opened.
         self.settingsLastPriceBarIndexSelected = -1
 
+        # Notes that are added by the user in the the GUI.
+        self.userNotes = ""
+
     def setBirthInfo(self, birthInfo):
         """Sets the birth natal information for this trading entity.
         Parameters:
@@ -745,8 +751,10 @@ class PriceChartDocumentData:
                     format(self.priceBarsFileFilename) + \
                 "priceBarsFileNumLinesToSkip={}, ".\
                     format(self.priceBarsFileNumLinesToSkip) + \
-                "settingsLastPriceBarIndexSelected={}]".\
-                   format(self.settingsLastPriceBarIndexSelected)
+                "settingsLastPriceBarIndexSelected={}, ".\
+                    format(self.settingsLastPriceBarIndexSelected) + \
+                "userNotes='{}']".\
+                    format(self.userNotes)
 
     def __str__(self):
         """Returns the string representation of most of the attributes in this
@@ -848,12 +856,20 @@ class PriceBarChartSettings:
         # different versions of this class).
         self.classVersion = 1
 
-        # QGraphicsScene rectangle.
+        # QGraphicsScene rectangle.  
+        # TODO:  Is this really what I want to store?  The QGraphicsItems
+        # may be enough to suffice for determining what the full size is.  
         self.sceneSpaceQRect = None
 
-        # Viewable part of the QGraphicsScene that is displayed in the
-        # QGraphicsView.
-        self.viewableSpaceQRect = None
+        # TODO:  Maybe:  Add the PriceChartDocument (QMdiSubWindow) size.
+        # TODO:  Maybe:  Add the PriceBarChartGraphicsView widget size.
+
+        # TODO:  Add the PriceBarChartGraphicsView viewableSceneRectF.
+
+        # Transformation matrix (QTransform) of the QGraphicsView.
+        # This matrix includes what part of the QGraphicsScene is
+        # viewable, plus any scaling and panning information.
+        self.transformationMatrix = None
 
         # Pen width for standard PriceBars (not highlighted or not bold).
         # This is a float value.
@@ -911,9 +927,16 @@ class PriceBarChartSettings:
                    format(self.classVersion) + \
                 "sceneSpaceQRect={}, ".\
                     format(self.sceneSpaceQRect) + \
-                "viewableSpaceQRect={}]".\
-                    format(self.viewableSpaceQRect)
-                    # TODO: add some of the other member variables here.
+                "transformationMatrix={}, ".\
+                    format(self.transformationMatrix) + \
+                "priceBarGraphicsItemPenWidth={}, ".\
+                    format(self.priceBarGraphicsItemPenWidth) + \
+                "priceBarGraphicsItemBoldPenWidth={}, ".\
+                    format(self.priceBarGraphicsItemBoldPenWidth) + \
+                "priceBarGraphicsItemLeftExtensionWidth={}, ".\
+                    format(self.priceBarGraphicsItemLeftExtensionWidth) + \
+                "priceBarGraphicsItemRightExtensionWidth={}]".\
+                    format(self.priceBarGraphicsItemRightExtensionWidth)
 
     def __str__(self):
         """Returns the string representation of this object."""

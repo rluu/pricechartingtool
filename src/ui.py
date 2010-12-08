@@ -232,10 +232,6 @@ class MainWindow(QMainWindow):
         # Default to the ReadOnlyPointerTool being checked by default.
         self.readOnlyPointerToolAction.setChecked(True)
 
-        # TODO:  Should I create an action that brings up a dialog to set
-        # which subwindows are displayed in the currently active
-        # PriceChartDocument?
-
         ####################
         # Create actions for the Window menu.
 
@@ -874,7 +870,7 @@ class MainWindow(QMainWindow):
         """Opens up a dialog for printing the current selected document."""
 
         self.log.debug("Entered _print()")
-        # TODO: write this function.
+        # TODO: implement this _print() function.
         QMessageBox.information(self, 
                                 "Not yet implemented", 
                                 "This feature has not yet been implemented.")
@@ -887,7 +883,7 @@ class MainWindow(QMainWindow):
         """
 
         self.log.debug("Entered _printPreview()")
-        # TODO: write this function.
+        # TODO: implement this _printPreview() function.
         QMessageBox.information(self, 
                                 "Not yet implemented", 
                                 "This feature has not yet been implemented.")
@@ -991,7 +987,15 @@ class MainWindow(QMainWindow):
         self.log.debug("Exiting _editAppPreferences()")
 
     def _editPriceBarChartSettings(self):
-        """TODO:  write this comment"""
+        """Opens up a PriceBarChartSettingsEditDialog to edit
+        the PriceBarChartSettings associated with the current active
+        PriceChartDocument in the in the UI.  
+        
+        If the dialog is accepted, the changes are applied and the dirty
+        flag is set.  If the dialog is rejected, then no changes will
+        happen.
+        """
+
         self.log.debug("Entered _editPriceBarChartSettings()")
 
         # Get current active PriceChartDocument.
@@ -1352,10 +1356,15 @@ class PriceChartDocument(QMdiSubWindow):
         
     def applyPriceBarChartSettings(self, priceBarChartSettings):
         """Applies the given PriceBarChartSettings to the underlying
-        PriceBarChart.  The caller is responsible for setting the dirty
+        PriceBarChart.  
+        
+        The caller is responsible for setting the dirty
         flag if this priceBarChartSettings is different from the 
-        currently used internal priceBarChartSettings 
-        (which most likely it is).
+        currently used internal priceBarChartSettings.
+        If it is expected to be the same, then the parent will need to
+        explicitly set the dirty flag to False because a redraw of the
+        internal widgets will cause signals to be emitted to notify
+        higher-up qobjects that there are outstanding changes.
         """
 
         self.priceChartDocumentData.priceBarChartSettings = \
@@ -1828,7 +1837,10 @@ class PriceChartDocumentWidget(QWidget):
 
     def applyPriceBarChartSettings(self, priceBarChartSettings):
         """Applies the given PriceBarChartSettings object to the
-        internal PriceBarChartWidget.
+        internal PriceBarChartWidget.  
+        
+        Note:  This will most likely cause a redraw and thus signals will
+        be emitted to say that the view has changed.
         """
 
         self.priceBarChartWidget.\

@@ -907,7 +907,7 @@ class LocationTimezoneEditWidget(QWidget):
         # TODO: Uncomment the line below after testing of the app is
         # fixed.  I have it commented because I don't want to spam their
         # server while testing my own app.  Also, remove the line below
-        # that that # sets the flag to True.
+        # that one that sets the flag to True.
         #self.geoNamesEnabled = GeoNames.canConnectToWebService()
         self.geoNamesEnabled = True
 
@@ -3133,9 +3133,9 @@ class PriceBarChartSettingsEditWidget(QWidget):
         # Save off the PriceBarChartSettings object.
         self.priceBarChartSettings = priceBarChartSettings
 
-        # QGroupBox to hold all the edit widgets and form.
-        self.priceBarChartSettingsGroupBox = \
-            QGroupBox("PriceBarChart settings:")
+        # QGroupBox to hold the edit widgets and form.
+        self.priceBarGraphicsItemGroupBox = \
+            QGroupBox("PriceBarGraphicsItem settings:")
 
         # priceBarGraphicsItemPenWidth (float).
         self.priceBarGraphicsItemPenWidthLabel = \
@@ -3220,7 +3220,7 @@ class PriceBarChartSettingsEditWidget(QWidget):
             (self.priceBarGraphicsItemRightExtensionWidthResetButton, 
              r, 2, ar)
 
-        self.priceBarChartSettingsGroupBox.setLayout(self.gridLayout)
+        self.priceBarGraphicsItemGroupBox.setLayout(self.gridLayout)
 
         # Buttons at bottom.
         self.resetAllToDefaultButton = \
@@ -3235,7 +3235,7 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         # Put all layouts/groupboxes together into the widget.
         self.mainLayout = QVBoxLayout()
-        self.mainLayout.addWidget(self.priceBarChartSettingsGroupBox) 
+        self.mainLayout.addWidget(self.priceBarGraphicsItemGroupBox) 
         self.mainLayout.addSpacing(10)
         self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
 
