@@ -1,5 +1,8 @@
 
 
+# For line separator.
+import os
+
 # For logging.
 import logging
 
@@ -40,7 +43,7 @@ class PriceBarChartWidget(QWidget):
     # 
     # Possible changes to the widget that will trigger this include: 
     #   - Any scene change (pricebars, artifacts)
-    #   - Any view change (viewable area changed)
+    #   - Any settings change (scaling)
     #   
     # It does NOT include:
     #   - User selecting a pricebar
@@ -121,10 +124,6 @@ class PriceBarChartWidget(QWidget):
         self.setLayout(layout)
 
         self.graphicsView.show()
-
-        # Connect signals and slots.
-        self.graphicsView.transformMatrixChanged.\
-            connect(self._handlePriceBarChartGraphicsViewMatrixChanged)
 
         self.log.debug("Leaving __init__()")
 
@@ -207,26 +206,47 @@ class PriceBarChartWidget(QWidget):
         """Applies the settings in the given PriceBarChartSettings object.
         """
         
+        self.log.debug("Entering applyPriceBarChartSettings()")
+
         self.priceBarChartSettings = priceBarChartSettings
         
-        # TODO:  Write this part.
+
+        self.log.debug("Applying QGraphicsView scaling...")
+
+        numScalings = \
+            len(self.priceBarChartSettings.priceBarChartGraphicsViewScalings)
+
+        if numScalings >= 1:
+            # Apply the first scaling in the list.
+            transform = \
+                self.priceBarChartSettings.\
+                    priceBarChartGraphicsViewScalings[0]
+
+            horizontalScalingFactor = transform.m11()
+            verticalScalingFactor = transform.m22()
+
+            self.graphicsView.scale(horizontalScalingFactor, 
+                                    verticalScalingFactor)
+
+        elif numScalings == 0:
+            # Identity matrix is the default.
+            transform = QTransform()
+
+            self.priceBarChartSettings.\
+                priceBarChartGraphicsViewScalings.append(transform)
+
+            horizontalScalingFactor = transform.m11()
+            verticalScalingFactor = transform.m22()
+
+            self.graphicsView.scale(horizontalScalingFactor, 
+                                    verticalScalingFactor)
+
+            # Emit that the PriceBarChart has changed, because we have
+            # updated the PriceBarChartSettings.
+            self.priceBarChartChanged.emit()
 
 
-        # TODO:  What I need to figure out is if it is only necessary to do:
-        # TODO:     - Call resize function of the PriceBarChartGraphicsView
-        # TODO:  or if I need to do all of the following:
-        # TODO:     - Call resize function of the QGraphicsView with the
-        # TODO:       size value.
-        # TODO:     - Send a signal up to the parent PriceChartDocument and
-        # TODO:       have them call resize with the size value.
-        # TODO:  And for the second group, what is the correct order of
-        # TODO:  invocation that?
-    
-
-        # TODO:  Then I need to apply the scaling, viewable area, etc. )
-        # by using the stored matrix object.  This is done by calling the
-        # setTransform() function to set the viewable area of the scene. 
-        # (Do I need to call a mapFromScene() for this first?)
+        self.log.debug("Exiting applyPriceBarChartSettings()")
 
     def getPriceBarChartSettings(self):
         """Returns the current settings used in this PriceBarChartWidget."""
@@ -296,17 +316,19 @@ class PriceBarChartWidget(QWidget):
 
         self.log.debug("Exiting toZoomOutToolMode()")
 
-    def _handlePriceBarChartGraphicsViewMatrixChanged(self, qmatrix):
-        """Qt slot for handling when the internal
-        PriceBarChartGraphicsView has it's transformation matrix changed.
+    def _handleMouseLocationUpdate(self, x, y):
+        """Handles mouse location changes in the QGraphicsView.  
+        Arguments:
 
-        It updates the internal self.priceBarChartSettings object and then
-        emits priceBarChartChanged so that any objects connected to that
-        signal can be notified (e.g. the parent that will mark the
-        pricechartdocument as being 'dirty').
+        x - float value of the mouse's X coordinate position, in scene
+        coordinates.
+        y - float value of the mouse's Y coordinate position, in scene
+        coordinates.
         """
 
-        # TODO:  write this function.
+        # TODO:  add code here.
+        pass
+
 
 class PriceBarChartGraphicsScene(QGraphicsScene):
     """QGraphicsScene holding all the pricebars and artifacts.
@@ -338,15 +360,6 @@ class PriceBarChartGraphicsView(QGraphicsView):
     # The position emitted is in QGraphicsScene x, y, float coordinates.
     mouseLocationUpdate = QtCore.pyqtSignal(float, float)
 
-    # Signal emitted when transformation matrix in the QGraphicsView changes.
-    # This holds scaling and zoom amount.
-    transformMatrixChanged = QtCore.pyqtSignal(QTransform)
-
-    # Signal emitted when the viewable area of a sceneRect in a
-    # PriceBarChartGraphicsView changes.  The QRect emitted is in scene
-    # coordinates.
-    viewableAreaChanged = QtCore.pyqtSignal(QRectF)
-    
     def __init__(self, parent=None):
         """Pass-through to the QGraphicsView constructor."""
 
@@ -358,7 +371,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         self.log.debug("Entered __init__()")
 
         # Save the current transformation matrix of the view.
-        self.transformationMatrix = QTransform(self.viewportTransform())
+        #self.transformationMatrix = QTransform(self.viewportTransform())
+        self.transformationMatrix = None
 
         # Save the current viewable portion of the scene.
         self.viewableSceneRectF = self.mapToScene(self.rect()).boundingRect()
@@ -608,7 +622,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
     def mouseMoveEvent(self, qmouseevent):
         """Triggered when the mouse is moving in this widget."""
 
-        self.log.debug("Entered mouseMoveEvent()")
+        # TODO:  below remove log output
+        #self.log.debug("Entered mouseMoveEvent()")
 
         # Emit the current mouse location in scene coordinates.
         posScene = self.mapToScene(qmouseevent.pos())
@@ -645,7 +660,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
             # just pass the event to the parent class to handle.
             super().mouseMoveEvent(qmouseevent)
 
-        self.log.debug("Exiting mouseMoveEvent()")
+        # TODO:  below remove log output
+        #self.log.debug("Exiting mouseMoveEvent()")
 
 
 
@@ -715,61 +731,6 @@ class PriceBarChartGraphicsView(QGraphicsView):
         self.log.debug("Exiting leaveEvent()")
 
     
-    def viewportEvent(self, qevent):
-        """Overwrites the QGraphicsView.viewportEvent() function.
-
-        This is overwritten so that we can obtain any changes in the
-        viewable area of the QGraphicsView.
-        """
-
-        self.log.debug("Entering viewportEvent()")
-
-        # Call the parent viewportEvent() function so things actually get
-        # scrolled.
-        rv = super().viewportEvent(qevent)
-
-        # If the viewable area of the scene changed, emit that.
-        viewableSceneRectF = self.mapToScene(self.rect()).boundingRect()
-        if self.viewableSceneRectF != viewableSceneRectF:
-            self.viewableSceneRectF = viewableSceneRectF
-            self.viewableAreaChanged.emit(self.viewableSceneRectF)
-
-        self.log.debug("Exiting viewportEvent()")
-        return rv
-
-
-    def paintEvent(self, qpaintevent):
-        """Overwrites the QGraphicsView.paintEvent() function.
-
-        We overwrite this because we want to know when the viewable area
-        of the scene that is shown in this QGraphicsView changes.
-        There appears to be no signal that is emitted when that happens,
-        so we will just implement that signal ourselves by overwriting
-        this function and emitting signals every time the viewable area
-        changes.  
-        """
-
-        self.log.debug("Entering paintEvent()")
-
-        # Call the parent paintEvent() so things actually get drawn.
-        super().paintEvent(qpaintevent)
-
-        # If the viewable area of the scene changed, emit that.
-        viewableSceneRectF = self.mapToScene(self.rect()).boundingRect()
-        if self.viewableSceneRectF != viewableSceneRectF:
-            self.viewableSceneRectF = viewableSceneRectF
-            self.viewableAreaChanged.emit(self.viewableSceneRectF)
-
-        # If the transformation matrix changed, then emit that.
-        transform = self.viewportTransform()
-        if self.transformationMatrix != transform:
-            # Use the __init__ function again so we're not continually
-            # creating and destroying objects.
-            self.transformationMatrix.__init__(transform)
-
-            self.transformMatrixChanged.emit(self.transformationMatrix)
-
-        self.log.debug("Exiting paintEvent()")
 
 class PriceBarGraphicsItem(QGraphicsItem):
     """QGraphicsItem that visualizes a PriceBar object.

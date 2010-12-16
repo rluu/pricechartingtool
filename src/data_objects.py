@@ -1,4 +1,7 @@
 
+# For line separator.
+import os
+
 # For logging.
 import logging
 
@@ -815,6 +818,7 @@ class DefaultSettingsFactory:
 
         # TODO:  adjust the scaling and pricebar width and/or what X and Y
         # sizes to use for dates/prices.
+        pass
 
     def generatePriceBarSpreadsheetSettings(priceBars):
         """Generates a good working default PriceBarSpreadsheetSettings 
@@ -826,6 +830,7 @@ class DefaultSettingsFactory:
         """
 
         # TODO:  write this function.
+        pass
 
 
 class PriceBarChartSettings:
@@ -856,20 +861,11 @@ class PriceBarChartSettings:
         # different versions of this class).
         self.classVersion = 1
 
-        # QGraphicsScene rectangle.  
-        # TODO:  Is this really what I want to store?  The QGraphicsItems
-        # may be enough to suffice for determining what the full size is.  
-        self.sceneSpaceQRect = None
-
-        # TODO:  Maybe:  Add the PriceChartDocument (QMdiSubWindow) size.
-        # TODO:  Maybe:  Add the PriceBarChartGraphicsView widget size.
-
-        # TODO:  Add the PriceBarChartGraphicsView viewableSceneRectF.
-
-        # Transformation matrix (QTransform) of the QGraphicsView.
-        # This matrix includes what part of the QGraphicsScene is
-        # viewable, plus any scaling and panning information.
-        self.transformationMatrix = None
+        # List of scalings used in the PriceBarChartGraphicsView.  
+        # The scalings used are stored within a QTransform, so this is 
+        # really just a list of QTransforms.  We only utilize the scaling
+        # variables (m11, m22) in the QTransforms.
+        self.priceBarChartGraphicsViewScalings = []
 
         # Pen width for standard PriceBars (not highlighted or not bold).
         # This is a float value.
@@ -923,12 +919,17 @@ class PriceBarChartSettings:
     def toString(self):
         """Prints the string representation of this object."""
 
+
+        # List of PriceBarChart scalings used.
+        scalingsStr = ""
+        for qtransform in self.priceBarChartGraphicsViewScalings:
+            scalingsStr += \
+                "[sx={}, sy={}]".format(qtransform.m11(), qtransform.m22())
+
         return "[classVersion={}, ".\
                    format(self.classVersion) + \
-                "sceneSpaceQRect={}, ".\
-                    format(self.sceneSpaceQRect) + \
-                "transformationMatrix={}, ".\
-                    format(self.transformationMatrix) + \
+                "priceBarChartGraphicsViewScalings=[{}], ".\
+                    format(scalingsStr) + \
                 "priceBarGraphicsItemPenWidth={}, ".\
                     format(self.priceBarGraphicsItemPenWidth) + \
                 "priceBarGraphicsItemBoldPenWidth={}, ".\

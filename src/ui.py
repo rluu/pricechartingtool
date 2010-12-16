@@ -1166,6 +1166,10 @@ class PriceChartDocument(QMdiSubWindow):
 
         self.setWindowTitle(self.title)
 
+        # Connect signals and slots.
+        self.widgets.priceChartDocumentWidgetChanged.\
+            connect(self._handlePriceChartDocumentWidgetChanged)
+
         self.log.debug("Exiting PriceChartDocument()")
 
     def picklePriceChartDocumentDataToFile(self, filename):
@@ -1216,30 +1220,41 @@ class PriceChartDocument(QMdiSubWindow):
         rv = False
 
         # Get the PriceChartDocumentData from filename.
-        with open(filename, "rb") as fh:
-            try:
-                priceChartDocumentData = pickle.load(fh)
+        try:
+            with open(filename, "rb") as fh:
+                try:
+                    priceChartDocumentData = pickle.load(fh)
 
-                # Verify it is a PriceChartDocumentData object.
-                if isinstance(priceChartDocumentData, 
-                              PriceChartDocumentData) == True:
-                    self.setPriceChartDocumentData(priceChartDocumentData)
-                    self.setFilename(filename)
-                    self.setDirtyFlag(False)
-                    rv = True
-                else:
-                    # Print error message.
-                    self.log.error("Cannot load this object.  " + 
-                                   "The object unpickled from file " + 
-                                   filename + " is not a " + 
-                                   "PriceChartDocumentData.")
+                    # Verify it is a PriceChartDocumentData object.
+                    if isinstance(priceChartDocumentData, 
+                                  PriceChartDocumentData) == True:
+                        self.setPriceChartDocumentData(priceChartDocumentData)
+                        self.setFilename(filename)
+                        self.setDirtyFlag(False)
+                        rv = True
+                    else:
+                        # Print error message.
+                        self.log.error("Cannot load this object.  " + 
+                                       "The object unpickled from file " + 
+                                       filename + " is not a " + 
+                                       "PriceChartDocumentData.")
+                        rv = False
+                except pickle.UnpicklingError as upe:
+                    self.log.error("Error while unpickling a " +
+                                   "PriceChartDocumentData from file " + 
+                                   filename + 
+                                   ".  Error is: {}".format(upe))
                     rv = False
-            except pickle.UnpicklingError as upe:
-                self.log.error("Error while unpickling a " +
-                               "PriceChartDocumentData from file " + 
-                               filename + 
-                               ".  Error is: {}".format(upe))
-                rv = False
+        except IOError as e:
+            self.log.error("IOError while trying to open a file: {}".\
+                format(e))
+
+            rv = False
+
+            QMessageBox.warning(None, 
+                                "Error", 
+                                "IOError exception: " + 
+                                os.linesep + os.linesep + "{}".format(e))
 
         self.log.debug("Exiting unpicklePriceChartDocumentDataFromFile(), " +
                        "rv = {}".format(rv))
@@ -1733,6 +1748,15 @@ class PriceChartDocument(QMdiSubWindow):
 
         self.widgets.toZoomOutToolMode()
 
+    def _handlePriceChartDocumentWidgetChanged(self):
+        """Slot for when the PriceBarDocumentWidget emits a signal to say
+        that the widget(s) changed.  This means the document should be
+        marked as dirty.
+        """
+        
+        if self.getDirtyFlag() != True:
+            self.setDirtyFlag(True)
+
     def toString(self):
         """Returns the str representation of this class object.
         """
@@ -1760,6 +1784,11 @@ class PriceChartDocumentWidget(QWidget):
     for the PriceChartDocument.
     """
 
+    # Signal emitted when the widgets in the PriceChartDocument changes.
+    # This is caused by a meaningful change to either the contents, or the
+    # settings object for that widget.
+    priceChartDocumentWidgetChanged = QtCore.pyqtSignal()
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.log = logging.getLogger("ui.PriceChartDocumentWidget")
@@ -1773,6 +1802,13 @@ class PriceChartDocumentWidget(QWidget):
         layout.addWidget(self.priceBarChartWidget)
         layout.addWidget(self.priceBarSpreadsheetWidget)
         self.setLayout(layout)
+
+        # Connect signals and slots.
+        self.priceBarChartWidget.priceBarChartChanged.\
+            connect(self._handleWidgetChanged)
+        # TODO:  uncomment the below commented-out code later.
+        #self.priceBarSpreadsheetWidget.priceBarSpreadsheetChanged.\
+        #    connect(self._handleWidgetChanged)
         
     def clearAllPriceBars(self):
         """Clears all PriceBars from all the internal widgets.
@@ -1900,4 +1936,15 @@ class PriceChartDocumentWidget(QWidget):
         """Changes the tool mode to be the ZoomOutTool."""
 
         self.priceBarChartWidget.toZoomOutToolMode()
+
+    def _handleWidgetChanged(self):
+        """Handles when the internal widget has some kind of change
+        that would cause the document to be dirty.  This is either a
+        change in the contents, or perhaps some change in the settings
+        object.
+        """
+
+        self.priceChartDocumentWidgetChanged.emit()
+
+
 
