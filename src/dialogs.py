@@ -2834,7 +2834,11 @@ class AppPreferencesEditWidget(QWidget):
         # Grid layout.  We don't use QFormLayout because we need the 3rd
         # field area for a reset button.
         self.gridLayout = QGridLayout()
+
+        # Row.
         r = 0
+
+        # Alignments.
         al = Qt.AlignLeft
         ar = Qt.AlignRight
 
@@ -3298,6 +3302,409 @@ class PriceBarChartScalingEditDialog(QDialog):
         """Returns the internally stored PriceBarChartScaling object."""
 
         return self.priceBarChartScaling
+
+class PriceBarChartScalingsListEditWidget(QWidget):
+    """QWidget for editing the list of scalings used in a PriceBarChart.
+    """
+
+    # Signal emitted when the Okay button is clicked and 
+    # validation succeeded.
+    okayButtonClicked = QtCore.pyqtSignal()
+
+    # Signal emitted when the Cancel button is clicked.
+    cancelButtonClicked = QtCore.pyqtSignal()
+
+    def __init__(self, 
+                 priceBarChartScalings=[], 
+                 priceBarChartScalingsIndex=-1, 
+                 parent=None):
+        """Initializes the edit widget with the given values.
+
+        Arguments:
+
+        priceBarChartScalings - List of PriceBarChartScaling objects.
+                                This is the list of scalings we are editing.
+
+        priceBarChartScalingsIndex - int value holding the index of the
+                                     currently selected scaling.  
+                                     This value is an index into the
+                                     priceBarChartScalings list.
+        parent - QWidget parent
+        """
+
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger("dialogs.PriceBarChartScalingsListEditWidget")
+
+        # Save off the list of PriceBarChartScalings.
+        self.priceBarChartScalings = priceBarChartScalings
+
+        # Save off the index of the currently selected scaling.
+        self.priceBarChartScalingsIndex = priceBarChartScalingsIndex
+
+        self.scalingListGroupBox = \
+            QGroupBox("List of PriceBarChart scalings:")
+
+        self.listWidget = QListWidget()
+        self.listWidget.setSelectionModel(QItemSelectionModel.ClearAndSelect)
+
+        # Layout to hold the list widget.
+        self.listWidgetLayout = QVBoxLayout()
+        self.listWidgetLayout.addWidget(self.listWidget)
+
+        
+        # GroupBox holding info about the selected scaling from the list.
+        self.selectedScalingGroupBox = QGroupBox("Selected scaling:")
+
+        # Widgets for displaying the selected scaling from the list.
+        self.selectedScalingNameLabel = QLabel("Name:")
+        self.selectedScalingNameValueLabel = QLabel()
+        self.selectedScalingDescriptionLabel = QLabel("Description:")
+        self.selectedScalingDescriptionValueLabel = QLabel()
+        self.selectedScalingUnitsOfTimeLabel = QLabel("Units of time:")
+        self.selectedScalingUnitsOfTimeValueLabel = QLabel()
+        self.selectedScalingUnitsOfPriceLabel = QLabel("Units of price:")
+        self.selectedScalingUnitsOfPriceValueLabel = QLabel()
+
+        # Grid layout.  
+        self.selectedScalingGridLayout = QGridLayout()
+
+        # Row.
+        r = 0
+
+        # Alignment.
+        al = Qt.AlignLeft
+
+        self.selectedScalingGridLayout.\
+            addWidget(self.self.selectedScalingNameLabel, r, 0, al)
+        self.selectedScalingGridLayout.\
+            addWidget(self.self.selectedScalingNameValueLabel, r, 1, al)
+        self.selectedScalingGridLayout.\
+            addWidget(self.selectedScalingDescriptionLabel, r, 0, al)
+        self.selectedScalingGridLayout.\
+            addWidget(self.selectedScalingDescriptionValueLabel, r, 1, al)
+        self.selectedScalingGridLayout.\
+            addWidget(self.selectedScalingUnitsOfTimeLabel, r, 0, al)
+        self.selectedScalingGridLayout.\
+            addWidget(self.selectedScalingUnitsOfTimeValueLabel, r, 1, al)
+        self.selectedScalingGridLayout.\
+            addWidget(self.selectedScalingUnitsOfPriceLabel, r, 0, al)
+        self.selectedScalingGridLayout.\
+            addWidget(self.selectedScalingUnitsOfPriceValueLabel, r, 1, al)
+
+        self.selectedScalingGroupBox.\
+            setLayout(self.selectedScalingGridLayout)
+
+
+        # GroupBox holding the scaling that is/will be applied to the
+        # PriceBarChart.
+        self.currentScalingGroupBox = QGroupBox("Current scaling:")
+
+        # Widgets for displaying the current scaling.
+        self.currentScalingNameLabel = QLabel("Name:")
+        self.currentScalingNameValueLabel = QLabel()
+        self.currentScalingDescriptionLabel = QLabel("Description:")
+        self.currentScalingDescriptionValueLabel = QLabel()
+        self.currentScalingUnitsOfTimeLabel = QLabel("Units of time:")
+        self.currentScalingUnitsOfTimeValueLabel = QLabel()
+        self.currentScalingUnitsOfPriceLabel = QLabel("Units of price:")
+        self.currentScalingUnitsOfPriceValueLabel = QLabel()
+
+        # Grid layout.  
+        self.currentScalingGridLayout = QGridLayout()
+
+        # Row.
+        r = 0
+
+        # Alignment.
+        al = Qt.AlignLeft
+
+        self.currentScalingGridLayout.\
+            addWidget(self.self.currentScalingNameLabel, r, 0, al)
+        self.currentScalingGridLayout.\
+            addWidget(self.self.currentScalingNameValueLabel, r, 1, al)
+        self.currentScalingGridLayout.\
+            addWidget(self.currentScalingDescriptionLabel, r, 0, al)
+        self.currentScalingGridLayout.\
+            addWidget(self.currentScalingDescriptionValueLabel, r, 1, al)
+        self.currentScalingGridLayout.\
+            addWidget(self.currentScalingUnitsOfTimeLabel, r, 0, al)
+        self.currentScalingGridLayout.\
+            addWidget(self.currentScalingUnitsOfTimeValueLabel, r, 1, al)
+        self.currentScalingGridLayout.\
+            addWidget(self.currentScalingUnitsOfPriceLabel, r, 0, al)
+        self.currentScalingGridLayout.\
+            addWidget(self.currentScalingUnitsOfPriceValueLabel, r, 1, al)
+        self.currentScalingGroupBox.\
+            setLayout(self.currentScalingGridLayout)
+
+        self.currentScalingGroupBox.\
+            setLayout(self.currentScalingGridLayout)
+
+        # Buttons for doing actions like adding, removing, and editing a
+        # scaling, etc.
+
+        self.addScalingButton = QPushButton("Add Scaling")
+        self.removeScalingButton = QPushButton("Remove Scaling")
+        self.editScalingButton = QPushButton("Edit Scaling")
+        self.moveSelectedScalingUpButton = QPushButton("Move scaling up")
+        self.moveSelectedScalingDownButton = QPushButton("Move scaling down")
+        self.setSelectedAsCurrentButton = \
+            QPushBUtton("Set selected scaling as current")
+
+        self.buttonsOnRightLayout = QVBoxLayout()
+        self.buttonsOnRightLayout.addWidget(self.addScalingButton)
+        self.buttonsOnRightLayout.addSpacing(5)
+        self.buttonsOnRightLayout.addWidget(self.removeScalingButton)
+        self.buttonsOnRightLayout.addSpacing(5)
+        self.buttonsOnRightLayout.addWidget(self.editScalingButton)
+        self.buttonsOnRightLayout.addSpacing(5)
+        self.buttonsOnRightLayout.\
+            addWidget(self.moveSelectedScalingUpButton)
+        self.buttonsOnRightLayout.addSpacing(5)
+        self.buttonsOnRightLayout.\
+            addWidget(self.moveSelectedScalingDownButton)
+        self.buttonsOnRightLayout.addSpacing(5)
+        self.buttonsOnRightLayout.addWidget(self.setSelectedAsCurrentButton)
+
+        self.centerAreaLayout = QVBoxLayout()
+        self.centerAreaLayout.addWidget(self.selectedScalingGroupBox)
+        self.centerAreaLayout.addWidget(self.currentScalingGroupBox)
+
+        self.mainWidgetsLayout = QHBoxLayout()
+        self.mainWidgetsLayout.addLayout(self.listWidgetLayout)
+        self.mainWidgetsLayout.addLayout(self.centerAreaLayout)
+        self.mainWidgetsLayout.addLayout(self.buttonsOnRightLayout)
+
+        # Buttons at bottom.
+        self.okayButton = QPushButton("&Okay")
+        self.cancelButton = QPushButton("&Cancel")
+        self.buttonsAtBottomLayout = QHBoxLayout()
+        self.buttonsAtBottomLayout.addStretch()
+        self.buttonsAtBottomLayout.addWidget(self.okayButton)
+        self.buttonsAtBottomLayout.addWidget(self.cancelButton)
+
+
+        # Put all layouts/groupboxes together into the widget.
+        self.mainLayout = QVBoxLayout()
+        self.mainLayout.addLayout(self.centerAreaLayout) 
+        self.mainLayout.addSpacing(10)
+        self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
+
+        self.setLayout(self.mainLayout)
+
+        # Now that all the widgets are created, load the values from the
+        # settings.
+        self.loadScalings(self.priceBarChartScalings,
+                          self.priceBarChartScalingsIndex)
+
+        # Connect signals and slots.
+        self.listWidget.itemSelectionChanged.\
+            connect(self._handleScalingSelected)
+        self.listWidget.itemDoubleClicked.\
+            connect(self._handleEditScalingButtonClicked)
+        self.addScalingButton.clicked.\
+            connect(self._handleAddScalingButtonClicked)
+        self.removeScalingButton.clicked.\
+            connect(self._handleRemoveScalingButtonClicked)
+        self.editScalingButton.clicked.\
+            connect(self._handleEditScalingButtonClicked)
+        self.moveSelectedScalingUpButton.clicked.\
+            connect(self._handleMoveScalingUpButtonClicked)
+        self.moveSelectedScalingDownButton.clicked.\
+            connect(self._handleMoveScalingDownButtonClicked)
+        self.setSelectedAsCurrentButton.clicked.\
+            connect(self._handleSetSelectedAsCurrentButtonClicked)
+
+        # Connect okay and cancel buttons.
+        self.okayButton.clicked.connect(self._handleOkayButtonClicked)
+        self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
+
+
+    def loadScalings(self, 
+                     priceBarChartScalings,
+                     priceBarChartScalingsIndex):
+        """Loads the widgets with values from the given arguments.
+
+        Arguments:
+
+        priceBarChartScalings - List of PriceBarChartScaling objects.
+                                This is the list of scalings we are editing.
+
+        priceBarChartScalingsIndex - int value holding the index of the
+                                     currently selected scaling.  
+                                     This value is an index into the
+                                     priceBarChartScalings list.
+        """
+
+        self.log.debug("Entered loadScalings()")
+
+
+        # Populate the QListWidget with the scalings.
+        self.listWidget.clear()
+        for scaling in self.priceBarChartScalings:
+            listWidgetItem = QListWidgetItem()
+
+            scalingStr = scaling.name + \
+                " (sx={}, sy={})".format(scaling.getSx(), scaling.getSy())
+            listWidgetItem.setText(scalingStr)
+            self.listWidget.addItem(listWidgetItem)
+
+        # TODO: add more code here.
+
+        self.log.debug("Exiting loadScalings()")
+        
+    def saveScalings(self):
+        """Saves the values in the widgets to the 
+        PriceBarChartScaling object passed in this class's constructor.
+        """
+    
+        self.log.debug("Entered saveScaling()")
+
+        # TODO: add more code here.
+
+        self.log.debug("Exiting saveScaling()")
+
+    def getPriceBarChartScalings(self):
+        """Returns the internally stored list of PriceBarChartScaling
+        objects.  This may or may not represent what is in the widgets,
+        depending on whether or not saveScalings has been called recently.
+        """
+
+        return self.priceBarChartScalings
+
+    def getPriceBarChartScalingsIndex(self):
+        """Returns the index for the current scaling to use within the
+        list of PriceBarChartScaling objects.  This may or may not
+        represent what is in the widgets, depending on whether or not
+        saveScalings has been called recently.
+        """
+
+        return self.priceBarChartScalingsIndex
+
+    def _handleScalingSelected(self):
+        """Called when a scaling is selected in the QListWidget.
+        This will update the QLabels to tell the user the properties of
+        what is selected.
+        """
+
+        # TODO:  add some code here.
+
+    def _handleAddScalingButtonClicked(self):
+        """Called when the 'Add Scaling' button is clicked."""
+
+        # TODO:  add some code here.
+
+    def _handleRemoveScalingButtonClicked(self):
+        """Called when the 'Remove Scaling' button is clicked."""
+
+        # TODO:  add some code here.
+
+    def _handleEditScalingButtonClicked(self):
+        """Called when the 'Edit Scaling' button is clicked."""
+
+        # TODO:  add some code here.
+
+    def _handleMoveScalingUpButtonClicked(self):
+        """Called when the 'Move scaling up' button is clicked."""
+
+        # TODO:  add some code here.
+
+    def _handleMoveScalingDownButtonClicked(self):
+        """Called when the 'Move scaling down' button is clicked."""
+
+        # TODO:  add some code here.
+
+    def _handleSetSelectedAsCurrentButtonClicked(self):
+        """Called when the 'Set selected scaling as current' 
+        button is clicked.
+        This will update the QLabels to tell the user the properties of
+        what is selected as being the currently applied scaling.
+        """
+
+        # TODO:  add some code here.
+
+
+    def _handleOkayButtonClicked(self):
+        """Called when the okay button is clicked."""
+
+        self.saveScalings()
+        self.okayButtonClicked.emit()
+
+    def _handleCancelButtonClicked(self):
+        """Called when the cancel button is clicked."""
+
+        self.cancelButtonClicked.emit()
+
+
+class PriceBarChartScalingsListEditDialog(QDialog):
+    """QDialog for editing a list of PriceBarChartScaling objects and the
+    current scaling to use in the PriceBarChart.
+    """
+
+    def __init__(self, 
+                 priceBarChartScalings=[],
+                 priceBarChartScalingsIndex=-1, 
+                 parent=None):
+        """Initializes the dialog and internal widgets with the given
+        values.
+        
+        Arguments:
+
+        priceBarChartScalings - List of PriceBarChartScaling objects.
+                                This is the list of scalings we are editing.
+
+        priceBarChartScalingsIndex - int value holding the index of the
+                                     currently selected scaling.  
+                                     This value is an index into the
+                                     priceBarChartScalings list.
+        """
+
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger("dialogs.PriceBarChartScalingsListEditDialog")
+
+        self.setWindowTitle("PriceBarChart Scaling")
+
+        # Create the contents.
+        self.priceBarChartScalingEditWidget = \
+            PriceBarChartScalingEditWidget(priceBarChartScalings,
+                                           priceBarChartScalingsIndex)
+
+        # Setup the layout.
+        layout = QVBoxLayout()
+        layout.addWidget(self.priceBarChartScalingEditWidget)
+        self.setLayout(layout)
+
+        self.priceBarChartScalingEditWidget.okayButtonClicked.\
+            connect(self.accept)
+        self.priceBarChartScalingEditWidget.cancelButtonClicked.\
+            connect(self.reject)
+
+    def getPriceBarChartScalings(self):
+        """Returns the internally stored list of PriceBarChartScaling
+        objects.  This is only meaningful if the user has accepted the
+        dialog.
+        """
+
+        return self.priceBarChartScalingsEditWidget.\
+                getPriceBarChartScalings()
+
+    def getPriceBarChartScalingsIndex(self):
+        """Returns the internally stored index to the of PriceBarChartScaling
+        objects.  The index represents which scaling should be used in the
+        PriceBarChart.  This is only meaningful if the user has accepted
+        the dialog.
+        """
+
+        return self.priceBarChartScalingsEditWidget.\
+                getPriceBarChartScalingsIndex()
+
+
 class PriceBarChartSettingsEditWidget(QWidget):
     """QWidget for editing a PriceBarChartSettings object's class members.
     """
