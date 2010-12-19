@@ -26,6 +26,7 @@ import resources
 # For PriceBars
 from data_objects import PriceBar
 from data_objects import BirthInfo
+from data_objects import PriceBarChartScaling
 from data_objects import PriceBarChartSettings
 
 # For geocoding.
@@ -2830,7 +2831,8 @@ class AppPreferencesEditWidget(QWidget):
         self.lowerPriceBarColorEditButton = ColorEditPushButton()
         self.lowerPriceBarColorResetButton = QPushButton("Reset to default")
 
-        # Form layout.
+        # Grid layout.  We don't use QFormLayout because we need the 3rd
+        # field area for a reset button.
         self.gridLayout = QGridLayout()
         r = 0
         al = Qt.AlignLeft
@@ -3108,6 +3110,194 @@ class AppPreferencesEditDialog(QDialog):
         self.appPreferencesEditWidget.cancelButtonClicked.connect(self.reject)
 
 
+class PriceBarChartScalingEditWidget(QWidget):
+    """QWidget for editing the scaling used in a PriceBarChart.
+    """
+
+    # Signal emitted when the Okay button is clicked and 
+    # validation succeeded.
+    okayButtonClicked = QtCore.pyqtSignal()
+
+    # Signal emitted when the Cancel button is clicked.
+    cancelButtonClicked = QtCore.pyqtSignal()
+
+    def __init__(self, priceBarChartScaling, parent=None):
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger("dialogs.PriceBarChartScalingEditWidget")
+
+        # Save off the PriceBarChartScaling object.
+        self.priceBarChartScaling = priceBarChartScaling
+
+        # QGroupBox to hold the edit widgets and form.
+        self.groupBox = \
+            QGroupBox("PriceBarChart Scaling:")
+
+        # Name.
+        self.nameLabel = QLabel("Name:")
+        self.nameLineEdit = QLineEdit()
+
+        # Description.
+        self.descriptionLabel = QLabel("Description:")
+        self.descriptionLineEdit = QLineEdit()
+
+        # unitsOfTime (float).
+        self.unitsOfTimeLabel = \
+            QLabel("Units of time (dx):")
+        self.unitsOfTimeSpinBox = QDoubleSpinBox()
+        self.unitsOfTimeSpinBox.setMinimum(0.000001)
+        self.unitsOfTimeSpinBox.setMaximum(100000.0)
+        self.unitsOfTimeSpinBox.setValue(1)
+
+        # unitsOfPrice (float).
+        self.unitsOfPriceLabel = \
+            QLabel("Units of price (dy):")
+        self.unitsOfPriceSpinBox = QDoubleSpinBox()
+        self.unitsOfPriceSpinBox.setMinimum(0.000001)
+        self.unitsOfPriceSpinBox.setMaximum(100000.0)
+        self.unitsOfPriceSpinBox.setValue(1)
+
+        # Form layout.
+        self.formLayout = QFormLayout()
+        self.formLayout.addRow(self.nameLabel, self.nameLineEdit)
+        self.formLayout.addRow(self.descriptionLabel, 
+                               self.descriptionLineEdit)
+        self.formLayout.addRow(self.unitsOfTimeLabel, 
+                               self.unitsOfTimeSpinBox)
+        self.formLayout.addRow(self.unitsOfPriceLabel, 
+                               self.unitsOfPriceSpinBox)
+
+        self.groupBox.setLayout(self.formLayout)
+
+        # Buttons at bottom.
+        self.okayButton = QPushButton("&Okay")
+        self.cancelButton = QPushButton("&Cancel")
+        self.buttonsAtBottomLayout = QHBoxLayout()
+        self.buttonsAtBottomLayout.addStretch()
+        self.buttonsAtBottomLayout.addWidget(self.okayButton)
+        self.buttonsAtBottomLayout.addWidget(self.cancelButton)
+
+        # Put all layouts/groupboxes together into the widget.
+        self.mainLayout = QVBoxLayout()
+        self.mainLayout.addWidget(self.groupBox) 
+        self.mainLayout.addSpacing(10)
+        self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
+
+        self.setLayout(self.mainLayout)
+
+        # Now that all the widgets are created, load the values from the
+        # settings.
+        self.loadScaling(self.priceBarChartScaling)
+
+        # Connect signals and slots.
+
+        # Connect okay and cancel buttons.
+        self.okayButton.clicked.connect(self._handleOkayButtonClicked)
+        self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
+
+
+    def loadScaling(self, priceBarChartScaling):
+        """Loads the widgets with values from the given
+        PriceBarChartScaling object.
+        """
+
+        self.log.debug("Entered loadScaling()")
+
+        # Check inputs.
+        if priceBarChartScaling == None:
+            self.log.error("Invalid parameter to loadScaling().  " + \
+                           "priceBarChartScaling can't be None.")
+            self.log.debug("Exiting loadScaling()")
+            return
+        else:
+            self.priceBarChartScaling = priceBarChartScaling 
+
+        self.nameLineEdit.setText(self.priceBarChartScaling.name)
+        self.descriptionLineEdit.\
+            setText(self.priceBarChartScaling.description)
+        self.unitsOfTimeSpinBox.\
+            setValue(self.priceBarChartScaling.getUnitsOfTime())
+        self.unitsOfPriceSpinBox.\
+            setValue(self.priceBarChartScaling.getUnitsOfPrice())
+
+        self.log.debug("Exiting loadScaling()")
+        
+    def saveScaling(self):
+        """Saves the values in the widgets to the 
+        PriceBarChartScaling object passed in this class's constructor.
+        """
+    
+        self.log.debug("Entered saveScaling()")
+
+        self.priceBarChartScaling.name = self.nameLineEdit.text()
+        self.priceBarChartScaling.description = \
+            self.descriptionLineEdit.text()
+        self.priceBarChartScaling.\
+            setUnitsOfTime(self.unitsOfTimeSpinBox.value())
+        self.priceBarChartScaling.\
+            setUnitsOfPrice(self.unitsOfPriceSpinBox.value())
+
+        self.log.debug("Exiting saveScaling()")
+
+    def getPriceBarChartScaling(self):
+        """Returns the internally stored PriceBarChartScaling object.
+        This may or may not represent what is in the widgets, depending on
+        whether or not saveScaling has been called.
+        """
+
+        return self.priceBarChartScaling
+
+    def _handleOkayButtonClicked(self):
+        """Called when the okay button is clicked."""
+
+        self.saveScaling()
+        self.okayButtonClicked.emit()
+
+    def _handleCancelButtonClicked(self):
+        """Called when the cancel button is clicked."""
+
+        self.cancelButtonClicked.emit()
+
+
+class PriceBarChartScalingEditDialog(QDialog):
+    """QDialog for editing a PriceBarChartScaling object's class members.
+    """
+
+    def __init__(self, priceBarChartScaling, parent=None):
+        """Initializes the dialog and internal widget with the current
+        scaling object."""
+
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger("dialogs.PriceBarChartScalingEditDialog")
+
+        self.setWindowTitle("PriceBarChart Scaling")
+
+        # Save a reference to the PriceBarChartScaling object.
+        self.priceBarChartScaling = priceBarChartScaling
+
+        # Create the contents.
+        self.priceBarChartScalingEditWidget = \
+            PriceBarChartScalingEditWidget(self.priceBarChartScaling)
+
+        # Setup the layout.
+        layout = QVBoxLayout()
+        layout.addWidget(self.priceBarChartScalingEditWidget)
+        self.setLayout(layout)
+
+        self.priceBarChartScalingEditWidget.okayButtonClicked.\
+            connect(self.accept)
+        self.priceBarChartScalingEditWidget.cancelButtonClicked.\
+            connect(self.reject)
+
+    def getPriceBarChartScaling(self):
+        """Returns the internally stored PriceBarChartScaling object."""
+
+        return self.priceBarChartScaling
 class PriceBarChartSettingsEditWidget(QWidget):
     """QWidget for editing a PriceBarChartSettings object's class members.
     """
@@ -3409,7 +3599,7 @@ class PriceBarChartSettingsEditDialog(QDialog):
 
         # Create the contents.
         self.priceBarChartSettingsEditWidget = \
-            PriceBarChartSettingsEditWidget(priceBarChartSettings)
+            PriceBarChartSettingsEditWidget(self.priceBarChartSettings)
 
         # Setup the layout.
         layout = QVBoxLayout()
@@ -3421,6 +3611,7 @@ class PriceBarChartSettingsEditDialog(QDialog):
         self.priceBarChartSettingsEditWidget.cancelButtonClicked.\
             connect(self.reject)
 
+
 # For debugging the module during development.  
 if __name__=="__main__":
     # Initialize Logging for the Ephemeris class (required).
@@ -3430,26 +3621,36 @@ if __name__=="__main__":
     # Create the Qt application.
     app = QApplication(sys.argv)
 
+    scaling = PriceBarChartScaling()
+    dialog = PriceBarChartScalingEditDialog(scaling)
+    returnVal = dialog.exec_()
+    if returnVal == QDialog.Accepted:
+        print("Accepted!");
+        print("Scaling is: " + scaling.toString())
+    else:
+        print("Rejected!")
+        print("Scaling is: " + scaling.toString())
+
     # Exit the app when all windows are closed.
     app.connect(app, SIGNAL("lastWindowClosed()"), logging.shutdown)
     app.connect(app, SIGNAL("lastWindowClosed()"), app, SLOT("quit()"))
-
-    wizard = PriceChartDocumentWizard()
-    returnVal = wizard.exec_()
-
-    if returnVal == QDialog.Accepted:
-        print("Accepted!");
-        print("Data filename is: " + wizard.field("dataFilename"))
-        print("Data num lines to skip is: {}".\
-            format(wizard.field("dataNumLinesToSkip")))
-        print("Timezone is: " + wizard.field("timezone"))
-    else:
-        print("Rejected!")
 
     # Quit.
     print("Exiting.")
     import sys
     sys.exit()
+
+    #wizard = PriceChartDocumentWizard()
+    #returnVal = wizard.exec_()
+    #if returnVal == QDialog.Accepted:
+    #    print("Accepted!");
+    #    print("Data filename is: " + wizard.field("dataFilename"))
+    #    print("Data num lines to skip is: {}".\
+    #        format(wizard.field("dataNumLinesToSkip")))
+    #    print("Timezone is: " + wizard.field("timezone"))
+    #else:
+    #    print("Rejected!")
+
 
     #loadDataFileWizardPage = \
     #    PriceChartDocumentLoadDataFileWizardPage()

@@ -211,40 +211,67 @@ class PriceBarChartWidget(QWidget):
         self.priceBarChartSettings = priceBarChartSettings
         
 
+        settingsChangedFlag = False
+
         self.log.debug("Applying QGraphicsView scaling...")
 
         numScalings = \
             len(self.priceBarChartSettings.priceBarChartGraphicsViewScalings)
 
-        if numScalings >= 1:
-            # Apply the first scaling in the list.
-            transform = \
-                self.priceBarChartSettings.\
-                    priceBarChartGraphicsViewScalings[0]
+        # Get the index for which scaling we should apply.
+        currScalingIndex = \
+            self.priceBarChartSettings.priceBarChartGraphicsViewScalingsIndex
 
-            horizontalScalingFactor = transform.m11()
-            verticalScalingFactor = transform.m22()
+        if numScalings >= 1:
+            
+            # Temporary variable holding the PriceBarChartScaling scaling
+            # object to use.
+            scaling = None
+
+            if currScalingIndex < 0 or currScalingIndex >= numScalings:
+                # Use the first scaling in the list.
+                currScalingIndex = 0
+                self.priceBarChartSettings.\
+                    priceBarChartGraphicsViewScalingsIndex = 0
+
+                settingsChangedFlag = True
+
+            # Use the scaling at index currScalingIndex.
+            scaling = \
+                self.priceBarChartSettings.\
+                    priceBarChartGraphicsViewScalings[currScalingIndex]
+
+            horizontalScalingFactor = scaling.getSx()
+            verticalScalingFactor = scaling.getSy()
 
             self.graphicsView.scale(horizontalScalingFactor, 
                                     verticalScalingFactor)
 
         elif numScalings == 0:
-            # Identity matrix is the default.
-            transform = QTransform()
+            # There are no scalings in the list.  
+
+            # Create a scaling containing the identity matrix, and then
+            # add it to the array and then use that scaling.
+            scaling = PriceBarChartScaling()
 
             self.priceBarChartSettings.\
-                priceBarChartGraphicsViewScalings.append(transform)
+                priceBarChartGraphicsViewScalings.append(scaling)
 
-            horizontalScalingFactor = transform.m11()
-            verticalScalingFactor = transform.m22()
+            self.priceBarChartSettings.\
+                priceBarChartGraphicsViewScalingsIndex = 0
+
+            settingsChangedFlag = True
+
+            horizontalScalingFactor = scaling.getSx()
+            verticalScalingFactor = scaling.getSy()
 
             self.graphicsView.scale(horizontalScalingFactor, 
                                     verticalScalingFactor)
 
+        if settingsChangedFlag == True:
             # Emit that the PriceBarChart has changed, because we have
             # updated the PriceBarChartSettings.
             self.priceBarChartChanged.emit()
-
 
         self.log.debug("Exiting applyPriceBarChartSettings()")
 

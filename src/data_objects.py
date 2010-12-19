@@ -575,6 +575,101 @@ class PriceBarChartBarCountArtifact(PriceBarChartArtifact):
         self.color = QColor(Qt.black)
         self.maxBarCount = 1000
         
+class PriceBarChartScaling:
+    """Class that holds information about the scaling of a PriceBarChart.
+    """
+
+    def __init__(self, 
+                 unitsOfTime=1.0, 
+                 unitsOfPrice=1.0, 
+                 name="", 
+                 description=""):
+        """Initializes the members in this class.  
+        If default arguments are used, then the indentity matrix is used
+        for the scaling."""
+
+        # Set the version of this class (used for pickling and unpickling
+        # different versions of this class).
+        self.classVersion = 1
+
+        # Store class members.
+        self.name = name
+        self.description = description
+        self.unitsOfTime = unitsOfTime
+        self.unitsOfPrice = unitsOfPrice
+
+        # Set the internally stored QTransform.
+        self.transform = QTransform()
+        self.transform.reset()
+        self.transform.scale(self.unitsOfTime, self.unitsOfPrice)
+
+    def setUnitsOfTime(self, unitsOfTime):
+        """Updates the units-of-time variable part of scaling.
+
+        Arguments:
+            
+        unitsOfTime - float value representing the units-of-time part of
+        scaling.
+        """
+        self.unitsOfTime = unitsOfTime
+
+        self.transform.reset()
+        self.transform.scale(self.unitsOfTime, self.unitsOfPrice)
+
+    def setUnitsOfPrice(self, unitsOfPrice):
+        """Updates the units-of-price variable part of scaling.
+
+        Arguments:
+            
+        unitsOfPrice - float value representing the units-of-price part of
+        scaling.
+        """
+
+        self.unitsOfPrice = unitsOfPrice
+
+        self.transform.reset()
+        self.transform.scale(self.unitsOfTime, self.unitsOfPrice)
+
+    def getUnitsOfTime(self):
+        """Returns the units-of-time part of the ratio used in scaling."""
+
+        return self.unitsOfTime
+    
+    def getUnitsOfPrice(self):
+        """Returns the units-of-price part of the ratio used in scaling."""
+
+        return self.unitsOfPrice
+
+    def getSx(self):
+        """Returns a float containing the X scaling."""
+
+        return self.transform.m11()
+
+    def getSy(self):
+        """Returns a float containing the Y scaling."""
+
+        return self.transform.m22()
+
+    def getTransform(self):
+        """Returns the QTransform holding the settings for scaling as
+        indicated by the variables in this class."""
+
+        return self.transform
+
+    def __str__(self):
+        """Returns the string representation of this object."""
+
+        return self.toString()
+        
+    def toString(self):
+        """Returns the string representation of this object."""
+
+        return "[name={}, ".format(self.name) + \
+                "description={}, ".format(self.description) + \
+                "unitsOfTime={}, ".format(self.unitsOfTime) + \
+                "unitsOfPrice={}, ".format(self.unitsOfPrice) + \
+                "sx={}, ".format(self.getSx()) + \
+                "sy={}]".format(self.getSy())
 
 class PriceChartDocumentData:
     """Contains all the data about the price chart and price data.
@@ -862,10 +957,13 @@ class PriceBarChartSettings:
         self.classVersion = 1
 
         # List of scalings used in the PriceBarChartGraphicsView.  
-        # The scalings used are stored within a QTransform, so this is 
-        # really just a list of QTransforms.  We only utilize the scaling
-        # variables (m11, m22) in the QTransforms.
+        # This is list of PriceBarChartScaling objects.
         self.priceBarChartGraphicsViewScalings = []
+
+        # Index into the self.priceBarChartGraphicsViewScalings list of
+        # PriceBarChartScalings objects that indicates
+        # which scaling to use.  
+        self.priceBarChartGraphicsViewScalingsIndex = -1
 
         # Pen width for standard PriceBars (not highlighted or not bold).
         # This is a float value.
@@ -917,14 +1015,12 @@ class PriceBarChartSettings:
                        " object of version {}".format(self.classVersion))
 
     def toString(self):
-        """Prints the string representation of this object."""
-
+        """Returns the string representation of this object."""
 
         # List of PriceBarChart scalings used.
         scalingsStr = ""
-        for qtransform in self.priceBarChartGraphicsViewScalings:
-            scalingsStr += \
-                "[sx={}, sy={}]".format(qtransform.m11(), qtransform.m22())
+        for scaling in self.priceBarChartGraphicsViewScalings:
+            scalingsStr += scaling.toString()
 
         return "[classVersion={}, ".\
                    format(self.classVersion) + \
