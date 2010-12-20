@@ -3339,7 +3339,7 @@ class PriceBarChartScalingsListEditWidget(QWidget):
             getLogger("dialogs.PriceBarChartScalingsListEditWidget")
 
         # Save off the list of PriceBarChartScalings.
-        self.priceBarChartScalings = priceBarChartScalings
+        self.priceBarChartScalings = list(priceBarChartScalings)
 
         # Save off the index of the currently selected scaling.
         self.priceBarChartScalingsIndex = priceBarChartScalingsIndex
@@ -3495,11 +3495,6 @@ class PriceBarChartScalingsListEditWidget(QWidget):
 
         self.setLayout(self.mainLayout)
 
-        # Now that all the widgets are created, load the values from the
-        # settings.
-        self.loadScalings(self.priceBarChartScalings,
-                          self.priceBarChartScalingsIndex)
-
         # Connect signals and slots.
         self.listWidget.itemSelectionChanged.\
             connect(self._handleScalingSelected)
@@ -3522,6 +3517,11 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         self.okayButton.clicked.connect(self._handleOkayButtonClicked)
         self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
 
+        # Now that all the widgets are created, load the values from the
+        # settings.
+        self.loadScalings(self.priceBarChartScalings,
+                          self.priceBarChartScalingsIndex)
+
 
     def loadScalings(self, 
                      priceBarChartScalings,
@@ -3541,29 +3541,50 @@ class PriceBarChartScalingsListEditWidget(QWidget):
 
         self.log.debug("Entered loadScalings()")
 
+        # Save off the values.
+        self.priceBarChartScalings = list(priceBarChartScalings)
+        self.priceBarChartScalingsIndex = priceBarChartScalingsIndex
 
         # Populate the QListWidget with the scalings.
         self.listWidget.clear()
         for scaling in self.priceBarChartScalings:
-            listWidgetItem = QListWidgetItem()
+            self._appendScalingAsListWidgetItem(scaling, False)
 
-            scalingStr = scaling.name + \
-                " (sx={}, sy={})".format(scaling.getSx(), scaling.getSy())
-            listWidgetItem.setText(scalingStr)
-            self.listWidget.addItem(listWidgetItem)
+        # Find which item to select.
+        index = self.priceBarChartScalingsIndex
+        if index >= 0 and index < len(self.priceBarChartScalings):
+            # Valid index value.
 
-        # TODO: add more code here.
+            # Set the current index's scaling as also the one that is
+            # selected in the list.
+            self.listWidget.setCurrentRow(index)
+
+            # Populate the widgets for the current.
+            currentScaling = self.priceBarChartScalings[index]
+
+            self.currentScalingNameValueLabel.\
+                setText(currentScaling.name)
+            self.currentScalingDescriptionValueLabel.\
+                setText(currentScaling.description)
+            self.currentScalingUnitsOfTimeValueLabel.\
+                setText("{}".format(currentScaling.getUnitsOfTime()))
+            self.currentScalingUnitsOfPriceValueLabel.\
+                setText("{}".format(currentScaling.getUnitsOfPrice())
 
         self.log.debug("Exiting loadScalings()")
         
     def saveScalings(self):
-        """Saves the values in the widgets to the 
-        PriceBarChartScaling object passed in this class's constructor.
+        """Ensures the values in the widgets are saved to their underlying
+        variables, such that subsequent calls to
+        getPriceBarChartScalings() and getPriceBarChartScalingsIndex()
+        will return valid values for what has changed.
         """
     
         self.log.debug("Entered saveScaling()")
 
-        # TODO: add more code here.
+        # Actually, we directly change the underlying member variable
+        # whenever it is modified, so no internal changes are required
+        # here.
 
         self.log.debug("Exiting saveScaling()")
 
@@ -3584,38 +3605,235 @@ class PriceBarChartScalingsListEditWidget(QWidget):
 
         return self.priceBarChartScalingsIndex
 
+    def _appendScalingAsListWidgetItem(self, 
+                                       priceBarChartScaling, 
+                                       selectItem=True):
+        """Appends the given PriceBarChartScaling object to the
+        QListWidget as a QListWidgetItem.
+
+        Arguments:
+        
+        priceBarChartScaling - PriceBarChartScaling object who's
+        information will be appended to the self.listWidget QListWidget.
+        This function does not modify self.priceBarChartScalings list, so
+        if this is intended, the caller needs to do that themselves
+        manually.
+
+        selectItem - bool flag that indicates whether the item should be
+        selected after being created and appended to the list.
+        """
+
+        listWidgetItem = QListWidgetItem()
+
+        scalingStr = scaling.name + \
+            " (sx={}, sy={})".format(scaling.getSx(), scaling.getSy())
+        listWidgetItem.setText(scalingStr)
+
+        self.listWidget.addItem(listWidgetItem)
+        
+        if selectItem == True:
+            self.listWidget.setCurrentRow(self.listWidget.count() - 1)
+
+
     def _handleScalingSelected(self):
         """Called when a scaling is selected in the QListWidget.
         This will update the QLabels to tell the user the properties of
         what is selected.
         """
 
-        # TODO:  add some code here.
+        # Find which item is selected.
+        index = self.listWidget.currentRow()
+        if index >= 0 and index < len(self.priceBarChartScalings):
+            # Valid index value.
+
+            # Set the current index's scaling as also the one that is
+            # selected in the list.
+            self.listWidget.setCurrentRow(index)
+
+            # Get the scaling.
+            selectedScaling = self.priceBarChartScalings[index]
+            currentScaling = self.priceBarChartScalings[index]
+
+            # Populate the widgets for the selected.
+            self.selectedScalingNameValueLabel.\
+                setText(selectedScaling.name)
+            self.selectedScalingDescriptionValueLabel.\
+                setText(selectedScaling.description)
+            self.selectedScalingUnitsOfTimeValueLabel.\
+                setText("{}".format(selectedScaling.getUnitsOfTime()))
+            self.selectedScalingUnitsOfPriceValueLabel.\
+                setText("{}".format(selectedScaling.getUnitsOfPrice())
 
     def _handleAddScalingButtonClicked(self):
         """Called when the 'Add Scaling' button is clicked."""
 
-        # TODO:  add some code here.
+        # Create a new scaling object for editing.
+        scaling = PriceBarChartScaling()
+        
+        # Create a dialog and allow the user to edit it.
+        dialog = PriceBarChartScalingEditDialog(scaling)
+
+        if dialog.exec_() == QDialog.Accepted:
+            # Add the scaling object to the list.
+            self.priceBarChartScalings.append(scaling)
+
+            # Append and select the scaling object in the QListWidget.
+            self._appendScalingAsListWidgetItem(scaling, True)
 
     def _handleRemoveScalingButtonClicked(self):
         """Called when the 'Remove Scaling' button is clicked."""
 
-        # TODO:  add some code here.
+        # Get the selected row.
+        row = self.listWidget.currentRow()
+
+        if row >= 0 and row < self.listWidget.count():
+            # It is a valid row.
+
+            # First remove the item from the QListWidget.
+            self.listWidget.takeItem(row)
+
+            # If there is another item after that one in the list, then
+            # select that one as the current, otherwise select the index
+            # before.
+            if self.listWidget.item(row) != None:
+                # There an item after this one, so set that one as the
+                # current.
+                self.listWidget.setCurrentRow(row)
+            else:
+                # The one we just removed was the last item in the
+                # list.  Select the one before it if it exists.
+                if row != 0:
+                    self.listWidget.setCurrentRow(row - 1)
+
+            # Do some book-keeping to remove that scaling from the
+            # internal list as well.
+            self.priceBarChartScalings.pop(row)
+
+            # Update the self.priceBarChartScalingsIndex for the currently
+            # applied scaling, if that index needs to be updated.
+
+            # If the item removed was a lower index than the current
+            # scaling index, then all we need to do is decrement the
+            # index.  The scaling pointed to does not change.
+            if self.priceBarChartScalingsIndex > row:
+                self.priceBarChartScalingsIndex -= 1
+
+            elif self.priceBarChartScalingsIndex == row:
+                # This means that the row removed was what used to be the
+                # current scaling to be applied.  A new one needs to be
+                # chosen for the current scaling.
+
+                # See if the 'row' index is still a valid index into the
+                # list.
+                if row < len(self.priceBarChartScalings):
+                    # This wasn't the last item.  Keep the row number.
+                    
+                    # Populate the widgets for the current.
+                    self.priceBarChartScalingsIndex = row
+                    currentScaling = self.priceBarChartScalings[row]
+
+                    self.currentScalingNameValueLabel.\
+                        setText(currentScaling.name)
+                    self.currentScalingDescriptionValueLabel.\
+                        setText(currentScaling.description)
+                    self.currentScalingUnitsOfTimeValueLabel.\
+                        setText("{}".format(currentScaling.getUnitsOfTime()))
+                    self.currentScalingUnitsOfPriceValueLabel.\
+                        setText("{}".format(currentScaling.getUnitsOfPrice())
+
+                else:
+                    # The current scaling index was the one that was
+                    # removed.  We have to use the index before this one,
+                    # if it is valid.
+
+                    if (row - 1) >= 0:
+                        # This will still be valid if we choose the row
+                        # before it.
+                        self.priceBarChartScalingsIndex = row - 1
+
+                    currentScaling = self.priceBarChartScalings[row]
+
+                    self.currentScalingNameValueLabel.\
+                        setText(currentScaling.name)
+                    self.currentScalingDescriptionValueLabel.\
+                        setText(currentScaling.description)
+                    self.currentScalingUnitsOfTimeValueLabel.\
+                        setText("{}".format(currentScaling.getUnitsOfTime()))
+                    self.currentScalingUnitsOfPriceValueLabel.\
+                        setText("{}".format(currentScaling.getUnitsOfPrice())
+            else:
+                # This means the current scaling index was a lower index
+                # than the one that was removed.  Nothing needs to be done
+                # for this case.
+                pass
+
 
     def _handleEditScalingButtonClicked(self):
         """Called when the 'Edit Scaling' button is clicked."""
 
-        # TODO:  add some code here.
+        # Get the selected row.
+        row = self.listWidget.currentRow()
+
+        # Get the scaling object for editing.
+        scaling = self.priceBarChartScalings[row]
+        
+        # Create a dialog and allow the user to edit it.
+        dialog = PriceBarChartScalingEditDialog(scaling)
+
+        if dialog.exec_() == QDialog.Accepted:
+            self.priceBarChartScalings[row] = scaling
+
+            # Update the widgets for the selection.
+            self._handleScalingSelected()
+            
 
     def _handleMoveScalingUpButtonClicked(self):
         """Called when the 'Move scaling up' button is clicked."""
 
-        # TODO:  add some code here.
+        # Get the selected row.
+        row = self.listWidget.currentRow()
+
+        # Proceed only if the selected scaling is not the top entry in the
+        # QListWidget.
+        if row > 0:
+            # It is not the top row yet, so we can do a swap to move it
+            # higher.
+
+            currItem = self.listWidget.takeItem(row)
+            self.listWidget.insertItem(row - 1, currItem)
+
+            # Update the currentScaling if required.
+            if self.priceBarChartScalingsIndex == row:
+                self.priceBarChartScalingsIndex -= 1
+            elif self.priceBarChartScalingsIndex == row - 1:
+                self.priceBarChartScalingsIndex += 1
+                
+            # Set the selected row as the same underlying scaling.
+            self.listWidget.setCurrentRow(row - 1)
 
     def _handleMoveScalingDownButtonClicked(self):
         """Called when the 'Move scaling down' button is clicked."""
 
-        # TODO:  add some code here.
+        # Get the selected row.
+        row = self.listWidget.currentRow()
+
+        # Proceed only if the selected scaling is not the bottom entry in
+        # the QListWidget.
+        if row < len(self.listWidget.count()) - 1 and row >= 0:
+            # It is not the bottom row yet, so we can do a swap to move it
+            # lower.
+
+            currItem = self.listWidget.takeItem(row)
+            self.listWidget.insertItem(row + 1, currItem)
+
+            # Update the currentScaling if required.
+            if self.priceBarChartScalingsIndex == row:
+                self.priceBarChartScalingsIndex += 1
+            elif self.priceBarChartScalingsIndex == row + 1:
+                self.priceBarChartScalingsIndex -= 1
+                
+            # Set the selected row as the same underlying scaling.
+            self.listWidget.setCurrentRow(row + 1)
 
     def _handleSetSelectedAsCurrentButtonClicked(self):
         """Called when the 'Set selected scaling as current' 
@@ -3624,8 +3842,24 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         what is selected as being the currently applied scaling.
         """
 
-        # TODO:  add some code here.
+        # Get the selected row.
+        row = self.listWidget.currentRow()
 
+        # Update the index.
+        self.priceBarChartScalingsIndex = row
+
+        # Get the actual scaling.
+        currentScaling = self.priceBarChartScalings[row]
+
+        # Update the widgets with the values.
+        self.currentScalingNameValueLabel.\
+            setText(currentScaling.name)
+        self.currentScalingDescriptionValueLabel.\
+            setText(currentScaling.description)
+        self.currentScalingUnitsOfTimeValueLabel.\
+            setText("{}".format(currentScaling.getUnitsOfTime()))
+        self.currentScalingUnitsOfPriceValueLabel.\
+            setText("{}".format(currentScaling.getUnitsOfPrice())
 
     def _handleOkayButtonClicked(self):
         """Called when the okay button is clicked."""
