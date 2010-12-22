@@ -3344,16 +3344,17 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         # Save off the index of the currently selected scaling.
         self.priceBarChartScalingsIndex = priceBarChartScalingsIndex
 
-        self.scalingListGroupBox = \
+        self.scalingsListGroupBox = \
             QGroupBox("List of PriceBarChart scalings:")
 
         self.listWidget = QListWidget()
-        self.listWidget.setSelectionModel(QItemSelectionModel.ClearAndSelect)
+        self.listWidget.setSelectionMode(QAbstractItemView.SingleSelection)
 
         # Layout to hold the list widget.
         self.listWidgetLayout = QVBoxLayout()
         self.listWidgetLayout.addWidget(self.listWidget)
 
+        self.scalingsListGroupBox.setLayout(self.listWidgetLayout)
         
         # GroupBox holding info about the selected scaling from the list.
         self.selectedScalingGroupBox = QGroupBox("Selected scaling:")
@@ -3362,7 +3363,10 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         self.selectedScalingNameLabel = QLabel("Name:")
         self.selectedScalingNameValueLabel = QLabel()
         self.selectedScalingDescriptionLabel = QLabel("Description:")
-        self.selectedScalingDescriptionValueLabel = QLabel()
+        self.selectedScalingDescriptionTextEdit = QTextEdit()
+        self.selectedScalingDescriptionTextEdit.setEnabled(False)
+        self.selectedScalingDescriptionTextEdit.setTextColor(Qt.black)
+        self.selectedScalingDescriptionTextEdit.setMaximumHeight(80)
         self.selectedScalingUnitsOfTimeLabel = QLabel("Units of time:")
         self.selectedScalingUnitsOfTimeValueLabel = QLabel()
         self.selectedScalingUnitsOfPriceLabel = QLabel("Units of price:")
@@ -3378,21 +3382,25 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         al = Qt.AlignLeft
 
         self.selectedScalingGridLayout.\
-            addWidget(self.self.selectedScalingNameLabel, r, 0, al)
+            addWidget(self.selectedScalingNameLabel, r, 0, al)
         self.selectedScalingGridLayout.\
-            addWidget(self.self.selectedScalingNameValueLabel, r, 1, al)
+            addWidget(self.selectedScalingNameValueLabel, r, 1, al)
+        r += 1
         self.selectedScalingGridLayout.\
             addWidget(self.selectedScalingDescriptionLabel, r, 0, al)
         self.selectedScalingGridLayout.\
-            addWidget(self.selectedScalingDescriptionValueLabel, r, 1, al)
+            addWidget(self.selectedScalingDescriptionTextEdit, r, 1, al)
+        r += 1
         self.selectedScalingGridLayout.\
             addWidget(self.selectedScalingUnitsOfTimeLabel, r, 0, al)
         self.selectedScalingGridLayout.\
             addWidget(self.selectedScalingUnitsOfTimeValueLabel, r, 1, al)
+        r += 1
         self.selectedScalingGridLayout.\
             addWidget(self.selectedScalingUnitsOfPriceLabel, r, 0, al)
         self.selectedScalingGridLayout.\
             addWidget(self.selectedScalingUnitsOfPriceValueLabel, r, 1, al)
+        r += 1
 
         self.selectedScalingGroupBox.\
             setLayout(self.selectedScalingGridLayout)
@@ -3406,7 +3414,10 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         self.currentScalingNameLabel = QLabel("Name:")
         self.currentScalingNameValueLabel = QLabel()
         self.currentScalingDescriptionLabel = QLabel("Description:")
-        self.currentScalingDescriptionValueLabel = QLabel()
+        self.currentScalingDescriptionTextEdit = QTextEdit()
+        self.currentScalingDescriptionTextEdit.setEnabled(False)
+        self.currentScalingDescriptionTextEdit.setTextColor(Qt.black)
+        self.currentScalingDescriptionTextEdit.setMaximumHeight(80)
         self.currentScalingUnitsOfTimeLabel = QLabel("Units of time:")
         self.currentScalingUnitsOfTimeValueLabel = QLabel()
         self.currentScalingUnitsOfPriceLabel = QLabel("Units of price:")
@@ -3422,21 +3433,26 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         al = Qt.AlignLeft
 
         self.currentScalingGridLayout.\
-            addWidget(self.self.currentScalingNameLabel, r, 0, al)
+            addWidget(self.currentScalingNameLabel, r, 0, al)
         self.currentScalingGridLayout.\
-            addWidget(self.self.currentScalingNameValueLabel, r, 1, al)
+            addWidget(self.currentScalingNameValueLabel, r, 1, al)
+        r += 1
         self.currentScalingGridLayout.\
             addWidget(self.currentScalingDescriptionLabel, r, 0, al)
         self.currentScalingGridLayout.\
-            addWidget(self.currentScalingDescriptionValueLabel, r, 1, al)
+            addWidget(self.currentScalingDescriptionTextEdit, r, 1, al)
+        r += 1
         self.currentScalingGridLayout.\
             addWidget(self.currentScalingUnitsOfTimeLabel, r, 0, al)
         self.currentScalingGridLayout.\
             addWidget(self.currentScalingUnitsOfTimeValueLabel, r, 1, al)
+        r += 1
         self.currentScalingGridLayout.\
             addWidget(self.currentScalingUnitsOfPriceLabel, r, 0, al)
         self.currentScalingGridLayout.\
             addWidget(self.currentScalingUnitsOfPriceValueLabel, r, 1, al)
+        r += 1
+
         self.currentScalingGroupBox.\
             setLayout(self.currentScalingGridLayout)
 
@@ -3446,13 +3462,13 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         # Buttons for doing actions like adding, removing, and editing a
         # scaling, etc.
 
-        self.addScalingButton = QPushButton("Add Scaling")
-        self.removeScalingButton = QPushButton("Remove Scaling")
-        self.editScalingButton = QPushButton("Edit Scaling")
-        self.moveSelectedScalingUpButton = QPushButton("Move scaling up")
-        self.moveSelectedScalingDownButton = QPushButton("Move scaling down")
+        self.addScalingButton = QPushButton("&Add Scaling")
+        self.removeScalingButton = QPushButton("&Remove Scaling")
+        self.editScalingButton = QPushButton("&Edit Scaling")
+        self.moveSelectedScalingUpButton = QPushButton("Move scaling &up")
+        self.moveSelectedScalingDownButton = QPushButton("Move scaling &down")
         self.setSelectedAsCurrentButton = \
-            QPushBUtton("Set selected scaling as current")
+            QPushButton("&Set selected scaling as current")
 
         self.buttonsOnRightLayout = QVBoxLayout()
         self.buttonsOnRightLayout.addWidget(self.addScalingButton)
@@ -3468,13 +3484,14 @@ class PriceBarChartScalingsListEditWidget(QWidget):
             addWidget(self.moveSelectedScalingDownButton)
         self.buttonsOnRightLayout.addSpacing(5)
         self.buttonsOnRightLayout.addWidget(self.setSelectedAsCurrentButton)
+        self.buttonsOnRightLayout.addStretch()
 
         self.centerAreaLayout = QVBoxLayout()
         self.centerAreaLayout.addWidget(self.selectedScalingGroupBox)
         self.centerAreaLayout.addWidget(self.currentScalingGroupBox)
 
         self.mainWidgetsLayout = QHBoxLayout()
-        self.mainWidgetsLayout.addLayout(self.listWidgetLayout)
+        self.mainWidgetsLayout.addWidget(self.scalingsListGroupBox)
         self.mainWidgetsLayout.addLayout(self.centerAreaLayout)
         self.mainWidgetsLayout.addLayout(self.buttonsOnRightLayout)
 
@@ -3489,7 +3506,7 @@ class PriceBarChartScalingsListEditWidget(QWidget):
 
         # Put all layouts/groupboxes together into the widget.
         self.mainLayout = QVBoxLayout()
-        self.mainLayout.addLayout(self.centerAreaLayout) 
+        self.mainLayout.addLayout(self.mainWidgetsLayout) 
         self.mainLayout.addSpacing(10)
         self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
 
@@ -3564,12 +3581,12 @@ class PriceBarChartScalingsListEditWidget(QWidget):
 
             self.currentScalingNameValueLabel.\
                 setText(currentScaling.name)
-            self.currentScalingDescriptionValueLabel.\
+            self.currentScalingDescriptionTextEdit.\
                 setText(currentScaling.description)
             self.currentScalingUnitsOfTimeValueLabel.\
                 setText("{}".format(currentScaling.getUnitsOfTime()))
             self.currentScalingUnitsOfPriceValueLabel.\
-                setText("{}".format(currentScaling.getUnitsOfPrice())
+                setText("{}".format(currentScaling.getUnitsOfPrice()))
 
         self.log.debug("Exiting loadScalings()")
         
@@ -3623,6 +3640,8 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         selected after being created and appended to the list.
         """
 
+        scaling = priceBarChartScaling
+
         listWidgetItem = QListWidgetItem()
 
         scalingStr = scaling.name + \
@@ -3657,12 +3676,12 @@ class PriceBarChartScalingsListEditWidget(QWidget):
             # Populate the widgets for the selected.
             self.selectedScalingNameValueLabel.\
                 setText(selectedScaling.name)
-            self.selectedScalingDescriptionValueLabel.\
+            self.selectedScalingDescriptionTextEdit.\
                 setText(selectedScaling.description)
             self.selectedScalingUnitsOfTimeValueLabel.\
                 setText("{}".format(selectedScaling.getUnitsOfTime()))
             self.selectedScalingUnitsOfPriceValueLabel.\
-                setText("{}".format(selectedScaling.getUnitsOfPrice())
+                setText("{}".format(selectedScaling.getUnitsOfPrice()))
 
     def _handleAddScalingButtonClicked(self):
         """Called when the 'Add Scaling' button is clicked."""
@@ -3701,9 +3720,15 @@ class PriceBarChartScalingsListEditWidget(QWidget):
                 self.listWidget.setCurrentRow(row)
             else:
                 # The one we just removed was the last item in the
-                # list.  Select the one before it if it exists.
+                # list.  Select the one before it if it exists,
+                # otherwise, clear out the display fields.
                 if row != 0:
                     self.listWidget.setCurrentRow(row - 1)
+                else:
+                    self.selectedScalingNameValueLabel.setText("")
+                    self.selectedScalingDescriptionTextEdit.setText("")
+                    self.selectedScalingUnitsOfTimeValueLabel.setText("")
+                    self.selectedScalingUnitsOfPriceValueLabel.setText("")
 
             # Do some book-keeping to remove that scaling from the
             # internal list as well.
@@ -3734,12 +3759,12 @@ class PriceBarChartScalingsListEditWidget(QWidget):
 
                     self.currentScalingNameValueLabel.\
                         setText(currentScaling.name)
-                    self.currentScalingDescriptionValueLabel.\
+                    self.currentScalingDescriptionTextEdit.\
                         setText(currentScaling.description)
                     self.currentScalingUnitsOfTimeValueLabel.\
                         setText("{}".format(currentScaling.getUnitsOfTime()))
                     self.currentScalingUnitsOfPriceValueLabel.\
-                        setText("{}".format(currentScaling.getUnitsOfPrice())
+                        setText("{}".format(currentScaling.getUnitsOfPrice()))
 
                 else:
                     # The current scaling index was the one that was
@@ -3750,17 +3775,34 @@ class PriceBarChartScalingsListEditWidget(QWidget):
                         # This will still be valid if we choose the row
                         # before it.
                         self.priceBarChartScalingsIndex = row - 1
+                    else:
+                        self.priceBarChartScalingsIndex = -1
 
-                    currentScaling = self.priceBarChartScalings[row]
+                    if self.priceBarChartScalingsIndex == -1:
+                        # The user removed the last scaling in the list.
+                        # Blank everything out.
+                        self.currentScalingNameValueLabel.setText("")
+                        self.currentScalingDescriptionTextEdit.\
+                            setText("")
+                        self.currentScalingUnitsOfTimeValueLabel.\
+                            setText("")
+                        self.currentScalingUnitsOfPriceValueLabel.\
+                            setText("")
+                    else:
+                        # Update the display fields for the new current
+                        # scaling.
+                        currentScaling = \
+                            self.priceBarChartScalings[self.\
+                                priceBarChartScalingsIndex]
 
-                    self.currentScalingNameValueLabel.\
-                        setText(currentScaling.name)
-                    self.currentScalingDescriptionValueLabel.\
-                        setText(currentScaling.description)
-                    self.currentScalingUnitsOfTimeValueLabel.\
-                        setText("{}".format(currentScaling.getUnitsOfTime()))
-                    self.currentScalingUnitsOfPriceValueLabel.\
-                        setText("{}".format(currentScaling.getUnitsOfPrice())
+                        self.currentScalingNameValueLabel.\
+                            setText(currentScaling.name)
+                        self.currentScalingDescriptionTextEdit.\
+                            setText(currentScaling.description)
+                        self.currentScalingUnitsOfTimeValueLabel.\
+                            setText("{}".format(currentScaling.getUnitsOfTime()))
+                        self.currentScalingUnitsOfPriceValueLabel.\
+                            setText("{}".format(currentScaling.getUnitsOfPrice()))
             else:
                 # This means the current scaling index was a lower index
                 # than the one that was removed.  Nothing needs to be done
@@ -3783,9 +3825,30 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         if dialog.exec_() == QDialog.Accepted:
             self.priceBarChartScalings[row] = scaling
 
-            # Update the widgets for the selection.
+            # Get the QListWidgetItem so we can update the text of it.
+            listWidgetItem = self.listWidget.item(row)
+            scalingStr = scaling.name + \
+                " (sx={}, sy={})".format(scaling.getSx(), scaling.getSy())
+            listWidgetItem.setText(scalingStr)
+
+            # If this scaling is the current one, then update the current
+            # widgets as well.
+            if row == self.priceBarChartScalingsIndex:
+                currentScaling = self.priceBarChartScalings[row]
+
+                # Update the widgets with the values.
+                self.currentScalingNameValueLabel.\
+                    setText(currentScaling.name)
+                self.currentScalingDescriptionTextEdit.\
+                    setText(currentScaling.description)
+                self.currentScalingUnitsOfTimeValueLabel.\
+                    setText("{}".format(currentScaling.getUnitsOfTime()))
+                self.currentScalingUnitsOfPriceValueLabel.\
+                    setText("{}".format(currentScaling.getUnitsOfPrice()))
+
+            # Update the widgets for this selection.
             self._handleScalingSelected()
-            
+
 
     def _handleMoveScalingUpButtonClicked(self):
         """Called when the 'Move scaling up' button is clicked."""
@@ -3801,6 +3864,12 @@ class PriceBarChartScalingsListEditWidget(QWidget):
 
             currItem = self.listWidget.takeItem(row)
             self.listWidget.insertItem(row - 1, currItem)
+
+            # Swap the scalings in the list.
+            scalingA = self.priceBarChartScalings[row]
+            scalingB = self.priceBarChartScalings[row - 1]
+            self.priceBarChartScalings[row] = scalingB
+            self.priceBarChartScalings[row - 1] = scalingA
 
             # Update the currentScaling if required.
             if self.priceBarChartScalingsIndex == row:
@@ -3819,12 +3888,18 @@ class PriceBarChartScalingsListEditWidget(QWidget):
 
         # Proceed only if the selected scaling is not the bottom entry in
         # the QListWidget.
-        if row < len(self.listWidget.count()) - 1 and row >= 0:
+        if row < (self.listWidget.count() - 1) and row >= 0:
             # It is not the bottom row yet, so we can do a swap to move it
             # lower.
 
             currItem = self.listWidget.takeItem(row)
             self.listWidget.insertItem(row + 1, currItem)
+
+            # Swap the scalings in the list.
+            scalingA = self.priceBarChartScalings[row]
+            scalingB = self.priceBarChartScalings[row + 1]
+            self.priceBarChartScalings[row] = scalingB
+            self.priceBarChartScalings[row + 1] = scalingA
 
             # Update the currentScaling if required.
             if self.priceBarChartScalingsIndex == row:
@@ -3854,18 +3929,26 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         # Update the widgets with the values.
         self.currentScalingNameValueLabel.\
             setText(currentScaling.name)
-        self.currentScalingDescriptionValueLabel.\
+        self.currentScalingDescriptionTextEdit.\
             setText(currentScaling.description)
         self.currentScalingUnitsOfTimeValueLabel.\
             setText("{}".format(currentScaling.getUnitsOfTime()))
         self.currentScalingUnitsOfPriceValueLabel.\
-            setText("{}".format(currentScaling.getUnitsOfPrice())
+            setText("{}".format(currentScaling.getUnitsOfPrice()))
 
     def _handleOkayButtonClicked(self):
         """Called when the okay button is clicked."""
 
-        self.saveScalings()
-        self.okayButtonClicked.emit()
+        # Check to see if there is a current scaling set.
+        if self.priceBarChartScalingsIndex == -1:
+            # Have a pop-up that says there must be a current scaling set.
+            QMessageBox.information(None, "Whoops!",
+                "There is no current scaling set!  " + \
+                os.linesep + os.linesep + \
+                "Please go back and make sure a scaling is set as current.")
+        else:
+            self.saveScalings()
+            self.okayButtonClicked.emit()
 
     def _handleCancelButtonClicked(self):
         """Called when the cancel button is clicked."""
@@ -3905,18 +3988,18 @@ class PriceBarChartScalingsListEditDialog(QDialog):
         self.setWindowTitle("PriceBarChart Scaling")
 
         # Create the contents.
-        self.priceBarChartScalingEditWidget = \
-            PriceBarChartScalingEditWidget(priceBarChartScalings,
-                                           priceBarChartScalingsIndex)
+        self.priceBarChartScalingsListEditWidget = \
+            PriceBarChartScalingsListEditWidget(priceBarChartScalings,
+                                                priceBarChartScalingsIndex)
 
         # Setup the layout.
         layout = QVBoxLayout()
-        layout.addWidget(self.priceBarChartScalingEditWidget)
+        layout.addWidget(self.priceBarChartScalingsListEditWidget)
         self.setLayout(layout)
 
-        self.priceBarChartScalingEditWidget.okayButtonClicked.\
+        self.priceBarChartScalingsListEditWidget.okayButtonClicked.\
             connect(self.accept)
-        self.priceBarChartScalingEditWidget.cancelButtonClicked.\
+        self.priceBarChartScalingsListEditWidget.cancelButtonClicked.\
             connect(self.reject)
 
     def getPriceBarChartScalings(self):
@@ -3925,7 +4008,7 @@ class PriceBarChartScalingsListEditDialog(QDialog):
         dialog.
         """
 
-        return self.priceBarChartScalingsEditWidget.\
+        return self.priceBarChartScalingsListEditWidget.\
                 getPriceBarChartScalings()
 
     def getPriceBarChartScalingsIndex(self):
@@ -3935,7 +4018,7 @@ class PriceBarChartScalingsListEditDialog(QDialog):
         the dialog.
         """
 
-        return self.priceBarChartScalingsEditWidget.\
+        return self.priceBarChartScalingsListEditWidget.\
                 getPriceBarChartScalingsIndex()
 
 
@@ -4262,15 +4345,50 @@ if __name__=="__main__":
     # Create the Qt application.
     app = QApplication(sys.argv)
 
-    scaling = PriceBarChartScaling()
-    dialog = PriceBarChartScalingEditDialog(scaling)
+    scaling1 = PriceBarChartScaling(name="Identity", 
+                                    description="1description",
+                                    unitsOfTime=4.0, 
+                                    unitsOfPrice=8.0)
+    scaling2 = PriceBarChartScaling(name="2", 
+                                    description="2description",
+                                    unitsOfTime=2.0, 
+                                    unitsOfPrice=4.0)
+    scaling3 = PriceBarChartScaling(name="3", 
+                                    description="3description dQt::RichText	1The text string is interpreted as a rich text string. Qt::AutoText",
+                                    unitsOfTime=1.0, 
+                                    unitsOfPrice=2.0)
+    scaling4 = PriceBarChartScaling(name="4", 
+                                    description="4description",
+                                    unitsOfTime=4.0, 
+                                    unitsOfPrice=4.0)
+    scaling5 = PriceBarChartScaling(name="5", 
+                                    description="5description",
+                                    unitsOfTime=2.0, 
+                                    unitsOfPrice=2.0)
+    scaling6 = PriceBarChartScaling(name="6", 
+                                    description="6description",
+                                    unitsOfTime=1.0, 
+                                    unitsOfPrice=1.0)
+    
+    scalings = [scaling1, scaling2, scaling3, scaling4, scaling5, scaling6]
+    index = 1
+
+    dialog = PriceBarChartScalingsListEditDialog(scalings, index)
+
     returnVal = dialog.exec_()
+
     if returnVal == QDialog.Accepted:
         print("Accepted!");
-        print("Scaling is: " + scaling.toString())
+
+        scalings = dialog.getPriceBarChartScalings()
+        index = dialog.getPriceBarChartScalingsIndex()
     else:
         print("Rejected!")
-        print("Scaling is: " + scaling.toString())
+
+
+    for i in range(len(scalings)):
+        print("Scaling is: " + scalings[i].toString())
+    print("Index of 'current' is: {}".format(index))
 
     # Exit the app when all windows are closed.
     app.connect(app, SIGNAL("lastWindowClosed()"), logging.shutdown)

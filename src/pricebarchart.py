@@ -28,6 +28,7 @@ from data_objects import PriceBar
 from data_objects import PriceBarChartBarCountArtifact
 from data_objects import PriceBarChartGannFanUpperRightArtifact
 from data_objects import PriceBarChartGannFanLowerRightArtifact
+from data_objects import PriceBarChartScaling
 from data_objects import PriceBarChartSettings
 from data_objects import PriceBarChartTextArtifact
 
@@ -241,11 +242,19 @@ class PriceBarChartWidget(QWidget):
                 self.priceBarChartSettings.\
                     priceBarChartGraphicsViewScalings[currScalingIndex]
 
-            horizontalScalingFactor = scaling.getSx()
-            verticalScalingFactor = scaling.getSy()
+            # Create a new QTransform that holds the scaling we want.
+            transform = self.graphicsView.transform()
+            newTransform = QTransform(scaling.getSx(),
+                                      transform.m12(),
+                                      transform.m13(),
+                                      transform.m21(),
+                                      scaling.getSy(),
+                                      transform.m23(),
+                                      transform.m31(),
+                                      transform.m32(),
+                                      transform.m33())
 
-            self.graphicsView.scale(horizontalScalingFactor, 
-                                    verticalScalingFactor)
+            self.graphicsView.setTransform(newTransform)
 
         elif numScalings == 0:
             # There are no scalings in the list.  
@@ -262,11 +271,19 @@ class PriceBarChartWidget(QWidget):
 
             settingsChangedFlag = True
 
-            horizontalScalingFactor = scaling.getSx()
-            verticalScalingFactor = scaling.getSy()
+            # Create a new QTransform that holds the scaling we want.
+            transform = self.graphicsView.transform()
+            newTransform = QTransform(scaling.getSx(),
+                                      transform.m12(),
+                                      transform.m13(),
+                                      transform.m21(),
+                                      scaling.getSy(),
+                                      transform.m23(),
+                                      transform.m31(),
+                                      transform.m32(),
+                                      transform.m33())
 
-            self.graphicsView.scale(horizontalScalingFactor, 
-                                    verticalScalingFactor)
+            self.graphicsView.setTransform(newTransform)
 
         if settingsChangedFlag == True:
             # Emit that the PriceBarChart has changed, because we have
@@ -527,15 +544,6 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
         self.log.debug("Exiting toZoomOutToolMode()")
 
-    def zoomToFullScene(self):
-        """Zooms the QGraphicsView so that the whole QGraphicsScene is
-        viewable.  This keeps the aspect ratio.
-        """
-
-        scene = self.scene()
-        if scene != None:
-            self.fitInView(scene.sceneRect(), Qt.KeepAspectRatio)
-
     def mousePressEvent(self, qmouseevent):
         """Triggered when the mouse is pressed in this widget."""
 
@@ -578,9 +586,6 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # Center on the new center.
                 self.centerOn(newCenterPointF)
 
-            elif qmouseevent.button() & Qt.RightButton:
-                self.zoomToFullScene()
-
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ZoomOutTool']:
             
@@ -600,8 +605,6 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # Center on the new center.
                 self.centerOn(newCenterPointF)
 
-            elif qmouseevent.button() & Qt.RightButton:
-                self.zoomToFullScene()
         else:
             # For any other mode we don't have specific functionality for,
             # just pass the event to the parent class to handle.
