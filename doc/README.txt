@@ -161,8 +161,8 @@ Currently this application uses the Lahiri Ayanamsa for the value for
 the precession of the equinoxes.  As noted by P.V.R Narasimha Rao, the 
 Lahiri Ayanamsa has some inconsistencies/inaccuracies.  
 
-There are two other ayanamsas which he proposes to be considered for regular
-use.  They are the following:
+There are other ayanamsas or sidereal longitude settings which may be
+valuable to explore:
 
 (1) True Chitrapaksha ayanamsa: This fixes Chitra star at 180 deg always. With
 regular Lahiri ayanamsa, Chitra star wobbles around 180 deg.
@@ -173,6 +173,12 @@ plane on which planetary positions are projected to Vishnunabhi plane (solar
 system rotation plane). In regular Lahiri, Chitra wobbles around 180 deg and
 the two-dimensional plane of planetary longitudes wobbles around the
 Vishnunabhi plane.
+
+(3) Surya Siddhanta calculations.  These calculations for the planet
+locations differ from the actual formulas and observations from the Swiss
+Ephemeris.  It is said that Surya Siddhanta takes into account the subtle
+(energy) bodies of the planets, which at any point may be ahead or behind
+the actual physical body of the planet.
 
 I do not yet have the calculations and formulas for these ayanamsas so it is
 not currently implemented in this application.

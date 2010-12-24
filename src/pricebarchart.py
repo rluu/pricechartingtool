@@ -189,7 +189,7 @@ class PriceBarChartWidget(QWidget):
         """
 
         # Datetime format to datetime.strftime().
-        fmt = "%Y-%m-%d %H:%M:%S %Z%z"
+        fmt = "%Y-%m-%d %H:%M:%S %Z %z"
 
         timestampStr = "First PriceBar Timestamp: "
         
@@ -210,7 +210,7 @@ class PriceBarChartWidget(QWidget):
         """
 
         # Datetime format to datetime.strftime().
-        fmt = "%Y-%m-%d %H:%M:%S %Z%z"
+        fmt = "%Y-%m-%d %H:%M:%S %Z %z"
 
         timestampStr = "Last PriceBar Timestamp: "
         
@@ -258,7 +258,7 @@ class PriceBarChartWidget(QWidget):
             price = self._sceneYPosToPrice(sceneYPos)
 
             # Datetime format to datetime.strftime().
-            fmt = "%Y-%m-%d %H:%M:%S %Z%z"
+            fmt = "%Y-%m-%d %H:%M:%S %Z %z"
 
             # Append to the strings.
             localizedTimestampStr += "{}".format(timestamp.strftime(fmt))
@@ -281,7 +281,7 @@ class PriceBarChartWidget(QWidget):
         """
 
         # Datetime format to datetime.strftime().
-        fmt = "%Y-%m-%d %H:%M:%S.%f %Z%z"
+        fmt = "%Y-%m-%d %H:%M:%S %Z %z"
 
         timestampStr = "Timestamp: "
         openStr = "Open: "
