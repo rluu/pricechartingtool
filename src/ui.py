@@ -1419,6 +1419,13 @@ class PriceChartDocument(QMdiSubWindow):
         self.widgets.clearAllPriceBars()
         self.widgets.clearAllPriceBarChartArtifacts()
 
+        # Set the description text.
+        self.widgets.\
+            setDescriptionText(self.priceChartDocumentData.description)
+        
+        # Set the timezone.
+        self.widgets.setTimezone(self.priceChartDocumentData.locationTimezone)
+
         # Load pricebars and chart artifacts.
         priceBars = self.priceChartDocumentData.priceBars
         priceBarChartArtifacts = \
@@ -1426,7 +1433,7 @@ class PriceChartDocument(QMdiSubWindow):
         self.widgets.loadPriceBars(priceBars)
         self.widgets.loadPriceBarChartArtifacts(priceBarChartArtifacts)
 
-        # Apply the settings objecdts.
+        # Apply the settings objects.
         priceBarChartSettings = \
             self.priceChartDocumentData.priceBarChartSettings
         priceBarSpreadsheetSettings = \
@@ -1884,7 +1891,29 @@ class PriceChartDocumentWidget(QWidget):
         # TODO:  uncomment the below commented-out code later.
         #self.priceBarSpreadsheetWidget.priceBarSpreadsheetChanged.\
         #    connect(self._handleWidgetChanged)
+
+    def setDescriptionText(self, text):
+        """Sets the description text of this PriceChartDocument.
         
+        Arguments:
+            
+        text - str variable holding the new text to set the description
+               with.
+        """
+
+        self.priceBarChartWidget.setDescriptionText(text)
+        
+    def setTimezone(self, timezone):
+        """Sets the timezone of this PriceChartDocument.
+        
+        Arguments:
+
+        timezone - datetime.tzinfo object to set for the location of this
+                   exchange/market.
+        """
+
+        self.priceBarChartWidget.setTimezone(timezone)
+
     def clearAllPriceBars(self):
         """Clears all PriceBars from all the internal widgets.
         This is called if a full reload is desired.

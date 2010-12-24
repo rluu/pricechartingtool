@@ -14,6 +14,7 @@ import pytz
 
 # For pickling PyQt types.
 from PyQt4.QtGui import QTransform
+from PyQt4.QtCore import Qt
 
 class BirthInfo:
     """Contains data related to the birth of an entity or person.
@@ -585,8 +586,9 @@ class PriceBarChartScaling:
                  name="", 
                  description=""):
         """Initializes the members in this class.  
-        If default arguments are used, then the indentity matrix is used
-        for the scaling."""
+        If default arguments are used, then an identity matrix is
+        used for the scaling.
+        """
 
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
@@ -611,6 +613,7 @@ class PriceBarChartScaling:
         unitsOfTime - float value representing the units-of-time part of
         scaling.
         """
+
         self.unitsOfTime = unitsOfTime
 
         self.transform.reset()
@@ -640,21 +643,19 @@ class PriceBarChartScaling:
 
         return self.unitsOfPrice
 
-    def getSx(self):
-        """Returns a float containing the X scaling."""
-
-        return self.transform.m11()
-
-    def getSy(self):
-        """Returns a float containing the Y scaling."""
-
-        return self.transform.m22()
-
     def getTransform(self):
         """Returns the QTransform holding the settings for scaling as
         indicated by the variables in this class."""
 
-        return self.transform
+        return QTransform(self.transform.m11(),
+                          self.transform.m12(),
+                          self.transform.m13(),
+                          self.transform.m21(),
+                          self.transform.m22(),
+                          self.transform.m23(),
+                          self.transform.m31(),
+                          self.transform.m32(),
+                          self.transform.m33())
 
     def __str__(self):
         """Returns the string representation of this object."""
@@ -667,9 +668,7 @@ class PriceBarChartScaling:
         return "[name={}, ".format(self.name) + \
                 "description={}, ".format(self.description) + \
                 "unitsOfTime={}, ".format(self.unitsOfTime) + \
-                "unitsOfPrice={}, ".format(self.unitsOfPrice) + \
-                "sx={}, ".format(self.getSx()) + \
-                "sy={}]".format(self.getSy())
+                "unitsOfPrice={}]".format(self.unitsOfPrice)
 
 class PriceChartDocumentData:
     """Contains all the data about the price chart and price data.
@@ -704,9 +703,8 @@ class PriceChartDocumentData:
 
         # List of the class names of SpreadsheetCalcFormulas utilized.
         self.settingsSpreadsheetCalcFormulas = []
-
-
         
+
         # Settings information for the PriceBarChartWidget.
         self.priceBarChartSettings = PriceBarChartSettings()
 
@@ -762,7 +760,11 @@ class PriceChartDocumentData:
                        priceBarsFileNumLinesToSkip,
                        locationTimezone):
         """Loads data into this class object from the information provided
-        in the parameters.
+        in the parameters.  
+        
+        Note:  The locationTimezone argument here is only set into the internal
+        member variable.  The self.birthInfo BirthInfo object does not get
+        set with this value.
 
         Parameters:
 
@@ -785,9 +787,8 @@ class PriceChartDocumentData:
         self.priceBars = priceBars
         self.priceBarsFileFilename = priceBarsFileFilename
         self.priceBarsFileNumLinesToSkip = priceBarsFileNumLinesToSkip
-        self.locationTimezone = locationTimezone
+        self.locationTimezone = pytz.timezone(locationTimezone)
 
-        
         self.log.debug("Number of priceBars loaded is: {}".\
                        format(len(priceBars)))
 

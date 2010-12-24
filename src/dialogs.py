@@ -103,14 +103,39 @@ class PriceChartDocumentWizard(QWizard):
 
 
     def getPriceBars(self):
-        """Obtains the PriceBars from a finished wizard setup.
+        """Obtains the list of PriceBars from a finished wizard setup.
+        These PriceBars have their timestamps set with the timezone given
+        in the timezone wizard.
+
         The PriceBars from a file must have been successfully 
-        validated
+        validated previously.
         """
 
         priceBars = \
             self.priceChartDocumentLoadDataFileWizardPage.\
-            loadDataFileWidget.getPriceBars()
+                loadDataFileWidget.getPriceBars()
+
+        # Here we need to change all the timestamps in each of the
+        # PriceBar objects so that each timestamp has the timezone that
+        # was set in the PriceChartDocumentLocationTimezoneWizardPage.
+
+        # First get the timezone as a pytz.timezone object.
+        timezoneStr = self.field("timezone")
+        timezone = pytz.timezone(timezoneStr)
+
+        # Go through each PriceBar and re-set the timezone.
+        for i in range(len(priceBars)):
+            # This is the timestamp of the PriceBar, but with the timezone
+            # changed to None.
+            timestamp = priceBars[i].timestamp.replace(tzinfo=None)
+
+            # This is the timestamp with the timezone set.
+            # The localize function will make sure that daylight savings
+            # is applied if it needs to be applied for that date and time.
+            localizedTimestamp = timezone.localize(timestamp)
+
+            # Replace the old timestamp.
+            priceBars[i].timestamp = localizedTimestamp
 
         return priceBars
 
@@ -828,11 +853,24 @@ class LoadDataFileWidget(QWidget):
                 day = int(dateStrSplit[1])
                 year = int(dateStrSplit[2])
 
-                # Datetime object is assumed to be in UTC, and the
-                # timestamps will have a midnight time (i.e., the 
-                # very start of the day).
-                timestamp = datetime.datetime(year, month, day, 
-                                                tzinfo=pytz.utc)
+                # Datetime object is set to be in timezone UTC, and the
+                # timestamp will have a time of 9:30am.
+                #
+                # It may not necessarily be true that the timezone is UTC,
+                # but this widget does not know what else it should be.
+                # The caller can always modify the timezone of this
+                # timestamp at a later point in time.
+                hour = 9
+                minute = 30
+                second = 0
+                timestamp = \
+                    datetime.datetime(year,
+                                      month, 
+                                      day, 
+                                      hour, 
+                                      minute, 
+                                      second,
+                                      tzinfo=pytz.utc)
 
                 # Create the PriceBar with the parsed data.
                 retVal = PriceBar(timestamp, 
@@ -3645,7 +3683,8 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         listWidgetItem = QListWidgetItem()
 
         scalingStr = scaling.name + \
-            " (sx={}, sy={})".format(scaling.getSx(), scaling.getSy())
+            " (sx={}, sy={})".format(scaling.getUnitsOfTime(),
+                                     scaling.getUnitsOfPrice())
         listWidgetItem.setText(scalingStr)
 
         self.listWidget.addItem(listWidgetItem)
@@ -3828,7 +3867,8 @@ class PriceBarChartScalingsListEditWidget(QWidget):
             # Get the QListWidgetItem so we can update the text of it.
             listWidgetItem = self.listWidget.item(row)
             scalingStr = scaling.name + \
-                " (sx={}, sy={})".format(scaling.getSx(), scaling.getSy())
+                " (sx={}, sy={})".format(scaling.getUnitsOfTime(), 
+                                         scaling.getUnitsOfPrice())
             listWidgetItem.setText(scalingStr)
 
             # If this scaling is the current one, then update the current

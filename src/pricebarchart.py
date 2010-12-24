@@ -32,6 +32,9 @@ from data_objects import PriceBarChartScaling
 from data_objects import PriceBarChartSettings
 from data_objects import PriceBarChartTextArtifact
 
+# For conversions from julian day to datetime.datetime and vice versa.
+from ephemeris import Ephemeris
+
 
 class PriceBarChartWidget(QWidget):
     """Widget holding the QGraphicsScene and QGraphicsView that displays
@@ -52,6 +55,8 @@ class PriceBarChartWidget(QWidget):
     #
     priceBarChartChanged = QtCore.pyqtSignal()
 
+    # Signal emitted when current timestamp of where the mouse is changes.
+    currentTimestampChanged = QtCore.pyqtSignal(datetime.datetime)
 
     # Tool modes that this widget can be in.
     ToolMode = {"ReadOnlyPointerTool" : 0,
@@ -74,14 +79,23 @@ class PriceBarChartWidget(QWidget):
         # Holds the tool mode that this widget is currently in.
         self.toolMode = PriceBarChartWidget.ToolMode['ReadOnlyPointerTool']
 
+        # Holds the timezone of PriceBars in this widget.  
+        # This is a datetime.tzinfo object.  We need this to convert X
+        # scene coordinate values to a datetime.datetime object with the
+        # correct timezone.
+        self.timezone = pytz.utc
+
         # These are the label widgets at the top of the PriceBarChartWidget.
         self.descriptionLabel = QLabel("")
-        
         self.firstPriceBarTimestampLabel = QLabel("")
         self.lastPriceBarTimestampLabel = QLabel("")
+        self.numPriceBarsLabel = QLabel("")
+        
+        self.cursorLocalizedTimestampLabel = QLabel("")
+        self.cursorUtcTimestampLabel = QLabel("")
+        self.cursorPriceLabel = QLabel("")
         
         self.selectedPriceBarTimestampLabel = QLabel("")
-        
         self.selectedPriceBarOpenPriceLabel = QLabel("")
         self.selectedPriceBarHighPriceLabel = QLabel("")
         self.selectedPriceBarLowPriceLabel = QLabel("")
@@ -89,9 +103,15 @@ class PriceBarChartWidget(QWidget):
         
         # These labels will have smaller font.
         smallFont = QFont()
-        smallFont.setPointSize(6)
+        smallFont.setPointSize(7)
+        self.descriptionLabel.setFont(smallFont)
         self.firstPriceBarTimestampLabel.setFont(smallFont)
         self.lastPriceBarTimestampLabel.setFont(smallFont)
+        self.numPriceBarsLabel.setFont(smallFont)
+        self.cursorLocalizedTimestampLabel.setFont(smallFont)
+        self.cursorUtcTimestampLabel.setFont(smallFont)
+        self.cursorPriceLabel.setFont(smallFont)
+        self.selectedPriceBarTimestampLabel.setFont(smallFont)
         self.selectedPriceBarOpenPriceLabel.setFont(smallFont)
         self.selectedPriceBarHighPriceLabel.setFont(smallFont)
         self.selectedPriceBarLowPriceLabel.setFont(smallFont)
@@ -101,22 +121,29 @@ class PriceBarChartWidget(QWidget):
         self.graphicsScene = PriceBarChartGraphicsScene()
         self.graphicsView = PriceBarChartGraphicsView()
         self.graphicsView.setScene(self.graphicsScene)
-        
+
         # Setup the layouts.
         dataTimeRangeLayout = QVBoxLayout()
+        dataTimeRangeLayout.addWidget(self.descriptionLabel)
         dataTimeRangeLayout.addWidget(self.firstPriceBarTimestampLabel)
         dataTimeRangeLayout.addWidget(self.lastPriceBarTimestampLabel)
+        dataTimeRangeLayout.addWidget(self.numPriceBarsLabel)
+
+        cursorInfoLayout = QVBoxLayout()
+        cursorInfoLayout.addWidget(self.cursorLocalizedTimestampLabel)
+        cursorInfoLayout.addWidget(self.cursorUtcTimestampLabel)
+        cursorInfoLayout.addWidget(self.cursorPriceLabel)
        
         priceBarPricesLayout = QVBoxLayout()
+        priceBarPricesLayout.addWidget(self.selectedPriceBarTimestampLabel)
         priceBarPricesLayout.addWidget(self.selectedPriceBarOpenPriceLabel)
         priceBarPricesLayout.addWidget(self.selectedPriceBarHighPriceLabel)
         priceBarPricesLayout.addWidget(self.selectedPriceBarLowPriceLabel)
         priceBarPricesLayout.addWidget(self.selectedPriceBarClosePriceLabel)
         
         topLabelsLayout = QHBoxLayout()
-        topLabelsLayout.addWidget(self.descriptionLabel)
         topLabelsLayout.addLayout(dataTimeRangeLayout)
-        topLabelsLayout.addWidget(self.selectedPriceBarTimestampLabel)
+        topLabelsLayout.addLayout(cursorInfoLayout)
         topLabelsLayout.addLayout(priceBarPricesLayout)
         
         layout = QVBoxLayout()
@@ -126,7 +153,156 @@ class PriceBarChartWidget(QWidget):
 
         self.graphicsView.show()
 
+        # Connect signals and slots.
+        self.graphicsView.mouseLocationUpdate.\
+            connect(self._handleMouseLocationUpdate)
+
         self.log.debug("Leaving __init__()")
+
+    def setTimezone(self, timezone):
+        """Sets the timezone used.  This is used for converting mouse
+        X location to a datetime.datetime object.
+        
+        Arguments:
+            
+        timezone - A datetime.tzinfo object holding the timezone for the
+                   pricebars in this widget.
+        """
+
+        self.timezone = timezone
+
+
+    def setDescriptionText(self, text):
+        """Sets the text of the QLabel self.descriptionLabel."""
+
+        self.descriptionLabel.setText("Description: " + text)
+
+    def updateFirstPriceBarTimestampLabel(self, priceBar=None):
+        """Updates the QLabel holding the timestamp of the first PriceBar
+        in the pricebarchart.
+
+        Arguments:
+
+        priceBar - PriceBar object to use for updating the timestamp.  
+                   If this argument is None, then the label text will be
+                   blank.
+        """
+
+        # Datetime format to datetime.strftime().
+        fmt = "%Y-%m-%d %H:%M:%S %Z%z"
+
+        timestampStr = "First PriceBar Timestamp: "
+        
+        if priceBar != None:
+            timestampStr += "{}".format(priceBar.timestamp.strftime(fmt))
+
+        self.firstPriceBarTimestampLabel.setText(timestampStr)
+
+    def updateLastPriceBarTimestampLabel(self, priceBar=None):
+        """Updates the QLabel holding the timestamp of the last PriceBar
+        in the pricebarchart.
+
+        Arguments:
+
+        priceBar - PriceBar object to use for updating the timestamp.  
+                   If this argument is None, then the label text will be
+                   blank.
+        """
+
+        # Datetime format to datetime.strftime().
+        fmt = "%Y-%m-%d %H:%M:%S %Z%z"
+
+        timestampStr = "Last PriceBar Timestamp: "
+        
+        if priceBar != None:
+            timestampStr += "{}".format(priceBar.timestamp.strftime(fmt))
+        
+        self.lastPriceBarTimestampLabel.setText(timestampStr)
+
+    def updateNumPriceBarsLabel(self, numPriceBars):
+        """Updates the QLabel holding the number of PriceBars
+        currently drawn in the pricebarchart.
+
+        Arguments:
+
+        numPriceBars - int value for the number of PriceBars displayed in
+                       the PriceBarChart.
+        """
+
+        text = "Number of PriceBars: {}".format(numPriceBars)
+
+        self.numPriceBarsLabel.setText(text)
+
+    def updateMouseLocationLabels(self, sceneXPos=None, sceneYPos=None):
+        """Updates the QLabels holding the information about the time and
+        price of where the mouse position is.  If either of the input
+        arguments are None, then the cursor labels are cleared out.
+        
+        Arguments:
+            
+        sceneXPos - float value holding the X location of the mouse, in
+                    scene coordinates. 
+        sceneYPos - float value holding the X location of the mouse, in
+                    scene coordinates.
+        """
+
+        localizedTimestampStr = "Mouse location timestamp: "
+        utcTimestampStr = "Mouse location timestamp: "
+        priceStr = "Mouse location price: " 
+
+        # Set the values if the X and Y positions are valid.
+        if sceneXPos != None and sceneYPos != None:
+
+            # Convert coordinate to the actual values they represent.
+            timestamp = self._sceneXPosToDatetime(sceneXPos)
+            price = self._sceneYPosToPrice(sceneYPos)
+
+            # Datetime format to datetime.strftime().
+            fmt = "%Y-%m-%d %H:%M:%S %Z%z"
+
+            # Append to the strings.
+            localizedTimestampStr += "{}".format(timestamp.strftime(fmt))
+            utcTimestampStr += "{}".\
+                format(timestamp.astimezone(pytz.utc).strftime(fmt))
+            priceStr += "{}".format(price)
+
+        # Actually set the text to the widgets.
+        self.cursorLocalizedTimestampLabel.setText(localizedTimestampStr)
+        self.cursorUtcTimestampLabel.setText(utcTimestampStr)
+        self.cursorPriceLabel.setText(priceStr)
+
+    def updateSelectedPriceBarLabels(self, priceBar=None):
+        """Updates the QLabels describing the currently selected PriceBar.
+        
+        Arguments:
+
+        priceBar - PriceBar object that holds info about the currently
+                   selected PriceBar.
+        """
+
+        # Datetime format to datetime.strftime().
+        fmt = "%Y-%m-%d %H:%M:%S.%f %Z%z"
+
+        timestampStr = "Timestamp: "
+        openStr = "Open: "
+        highStr = "High: "
+        lowStr = "Low: "
+        closeStr = "Close: "
+
+        if priceBar != None:
+            timestampStr += priceBar.timestamp.strftime(fmt)
+            openStr += "{}".format(priceBar.open)
+            highStr += "{}".format(priceBar.high)
+            lowStr += "{}".format(priceBar.low)
+            closeStr += "{}".format(priceBar.close)
+
+        self.selectedPriceBarTimestampLabel.setText(timestampStr)
+        
+        self.selectedPriceBarOpenPriceLabel.setText(openStr)
+        self.selectedPriceBarHighPriceLabel.setText(highStr)
+        self.selectedPriceBarLowPriceLabel.setText(lowStr)
+        self.selectedPriceBarClosePriceLabel.setText(closeStr)
+
 
     def loadPriceBars(self, priceBars):
         """Loads the given PriceBars list into this widget as
@@ -145,17 +321,30 @@ class PriceBarChartWidget(QWidget):
             # Add the item.
             self.graphicsScene.addItem(item)
 
-            # X location will be the proleptic Gregorian ordinal
-            # of the date of the PriceBar.
-            ordinateDate = priceBar.timestamp.toordinal()
-            x = ordinateDate
+            # X location based on the timestamp.
+            x = self._datetimeToSceneXPos(priceBar.timestamp)
 
-            # Y location will be the mid price of the bar.
-            y = priceBar.midPrice()
+            # Y location based on the mid price (average of high and low).
+            y = self._priceToSceneYPos(priceBar.midPrice())
 
             # Set the position, in parent coordinates.
             item.setPos(QPointF(x, y))
 
+        # Set the labels for the timestamps of the first and 
+        # last pricebars.
+        if len(priceBars) > 0:
+            firstPriceBar = priceBars[0]
+            lastPriceBar = priceBars[-1]
+
+            self.updateFirstPriceBarTimestampLabel(firstPriceBar)
+            self.updateLastPriceBarTimestampLabel(lastPriceBar)
+            self.updateNumPriceBarsLabel(len(priceBars))
+        else:
+            # There are no PriceBars.  Update the labels to reflect that.
+            self.updateFirstPriceBarTimestampLabel(None)
+            self.updateLastPriceBarTimestampLabel(None)
+            self.updateNumPriceBarsLabel(len(priceBars))
+            
         self.log.debug("Leaving loadPriceBars({} pricebars)".\
                        format(len(priceBars)))
 
@@ -170,6 +359,12 @@ class PriceBarChartWidget(QWidget):
         for item in graphicsItems:
             if isinstance(item, PriceBarGraphicsItem):
                 self.graphicsScene.removeItem(item)
+
+        # Update the labels describing the pricebarchart.
+        self.updateFirstPriceBarTimestampLabel(None)
+        self.updateLastPriceBarTimestampLabel(None)
+        self.updateNumPriceBarsLabel(0)
+        self.updateSelectedPriceBarLabels(None)
 
 
     def getPriceBarChartArtifacts(self):
@@ -223,12 +418,12 @@ class PriceBarChartWidget(QWidget):
         currScalingIndex = \
             self.priceBarChartSettings.priceBarChartGraphicsViewScalingsIndex
 
+        # Temporary variable holding the PriceBarChartScaling scaling
+        # object to use.
+        scaling = PriceBarChartScaling()
+
         if numScalings >= 1:
             
-            # Temporary variable holding the PriceBarChartScaling scaling
-            # object to use.
-            scaling = None
-
             if currScalingIndex < 0 or currScalingIndex >= numScalings:
                 # Use the first scaling in the list.
                 currScalingIndex = 0
@@ -242,26 +437,13 @@ class PriceBarChartWidget(QWidget):
                 self.priceBarChartSettings.\
                     priceBarChartGraphicsViewScalings[currScalingIndex]
 
-            # Create a new QTransform that holds the scaling we want.
-            transform = self.graphicsView.transform()
-            newTransform = QTransform(scaling.getSx(),
-                                      transform.m12(),
-                                      transform.m13(),
-                                      transform.m21(),
-                                      scaling.getSy(),
-                                      transform.m23(),
-                                      transform.m31(),
-                                      transform.m32(),
-                                      transform.m33())
-
-            self.graphicsView.setTransform(newTransform)
-
         elif numScalings == 0:
             # There are no scalings in the list.  
 
             # Create a scaling containing the identity matrix, and then
             # add it to the array and then use that scaling.
             scaling = PriceBarChartScaling()
+            scaling.name = "Default"
 
             self.priceBarChartSettings.\
                 priceBarChartGraphicsViewScalings.append(scaling)
@@ -271,19 +453,32 @@ class PriceBarChartWidget(QWidget):
 
             settingsChangedFlag = True
 
-            # Create a new QTransform that holds the scaling we want.
-            transform = self.graphicsView.transform()
-            newTransform = QTransform(scaling.getSx(),
-                                      transform.m12(),
-                                      transform.m13(),
-                                      transform.m21(),
-                                      scaling.getSy(),
-                                      transform.m23(),
-                                      transform.m31(),
-                                      transform.m32(),
-                                      transform.m33())
+        # Create a new QTransform that holds the scaling we want
+        # but preserve the translation and other parts of the
+        # transform from what is currently displayed in the
+        # QGraphicsView.
 
-            self.graphicsView.setTransform(newTransform)
+        # Get the current QTransform.
+        transform = self.graphicsView.transform()
+
+        # Get the QTransform that has the desired scaling from the
+        # PriceBarChartSettings.
+        scalingTransform = scaling.getTransform()
+
+        # Create a new QTransform that has elements of both.
+        newTransform = QTransform(scalingTransform.m11(),
+                                  transform.m12(),
+                                  transform.m13(),
+                                  transform.m21(),
+                                  scalingTransform.m22(),
+                                  transform.m23(),
+                                  transform.m31(),
+                                  transform.m32(),
+                                  transform.m33())
+
+        # Apply the transform.
+        self.graphicsView.setTransform(newTransform)
+
 
         if settingsChangedFlag == True:
             # Emit that the PriceBarChart has changed, because we have
@@ -360,6 +555,72 @@ class PriceBarChartWidget(QWidget):
 
         self.log.debug("Exiting toZoomOutToolMode()")
 
+    def _sceneXPosToDatetime(self, sceneXPos):
+        """Returns a datetime.datetime object for the given X position in
+        scene coordinates.
+
+        Arguments:
+
+        sceneXPos - float value holding the X position in scene coordinates.
+
+        Returns:
+
+        datetime.datetime object holding the timestamp of the input X
+        position.  This datetime.datetime object has its timezone set to
+        whatever was set in setTimezone() previously.  If nothing was set
+        before, then the default timezone is pytz.utc.
+        """
+
+        return Ephemeris.julianDayToDatetime(sceneXPos, self.timezone)
+    
+    def _sceneYPosToPrice(self, sceneYPos):
+        """Returns a price value for the given Y position in scene
+        coordinates.
+
+        Arguments:
+
+        sceneYPos - float value holding the Y position in scene
+        coordinates.
+
+        Returns:
+
+        float value for the price that this Y position represents.
+        """
+
+        return float(-1.0 * sceneYPos)
+
+    def _datetimeToSceneXPos(self, dt):
+        """Returns the conversion from datetime.datetime object to what we
+        chosen the X coordinate values to be.
+
+        Arguments:
+
+        dt - datetime.datetime object that holds a timestamp.
+
+        Returns:
+
+        float value for the X position that would match up with this timestamp.
+        """
+
+        return Ephemeris.datetimeToJulianDay(dt)
+
+    def _priceToSceneYPos(self, price):
+        """Returns the conversion from price to what we have chosen the Y
+        coordinate values to be.
+
+        Arguments:
+
+        price - float value holding the price value.
+
+        Returns:
+
+        float value for the Y position that would match up with this price.
+        """
+
+        return float(-1.0 * price)
+
+
+
     def _handleMouseLocationUpdate(self, x, y):
         """Handles mouse location changes in the QGraphicsView.  
         Arguments:
@@ -370,8 +631,13 @@ class PriceBarChartWidget(QWidget):
         coordinates.
         """
 
-        # TODO:  add code here.
-        pass
+        # Update labels that tell where the mouse pointer is.
+        self.updateMouseLocationLabels(x, y)
+
+        # Emit a signal so that other widgets/entities can know
+        # the timestamp where the mouse pointer is.
+        dt = self._sceneXPosToDatetime(x)
+        self.currentTimestampChanged.emit(dt)
 
 
 class PriceBarChartGraphicsScene(QGraphicsScene):
