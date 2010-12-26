@@ -169,11 +169,20 @@ class MainWindow(QMainWindow):
 
         # Create the editBirthInfoAction.
         icon = QIcon(":/images/tango-icon-theme-0.8.90/32x32/apps/internet-web-browser.png")
-        self.editBirthInfoAction = QAction(icon, "&Edit Birth Data", self)
+        self.editBirthInfoAction = QAction(icon, "Edit &Birth Data", self)
         self.editBirthInfoAction.setStatusTip(
                 "Edit the birth time and birth location")
         self.editBirthInfoAction.triggered.connect(self._editBirthInfo)
 
+        # Create the editPriceChartDocumentDataAction.
+        icon = QIcon(":/images/rluu/gearGreen.png")
+        self.editPriceChartDocumentDataAction = \
+            QAction(icon, "Edit PriceChartDocument &Data", self)
+        self.editPriceChartDocumentDataAction.\
+            setStatusTip("Edit PriceChartDocument Data")
+        self.editPriceChartDocumentDataAction.triggered.\
+            connect(self._editPriceChartDocumentData)
+        
         # Create the editPriceBarChartSettingsAction.
         icon = QIcon(":/images/tango-icon-theme-0.8.90/32x32/categories/applications-system.png")
         self.editPriceBarChartSettingsAction = \
@@ -326,6 +335,7 @@ class MainWindow(QMainWindow):
         self.editMenu = self.menuBar().addMenu("&Edit")
         self.editMenu.addAction(self.editAppPreferencesAction)
         self.editMenu.addAction(self.editBirthInfoAction)
+        self.editMenu.addAction(self.editPriceChartDocumentDataAction)
         self.editMenu.addAction(self.editPriceBarChartSettingsAction)
         self.editMenu.addAction(self.editPriceBarChartScalingAction)
 
@@ -368,6 +378,7 @@ class MainWindow(QMainWindow):
         self.editToolBar.setObjectName("editToolBar")
         self.editToolBar.addAction(self.editAppPreferencesAction)
         self.editToolBar.addAction(self.editBirthInfoAction)
+        self.editToolBar.addAction(self.editPriceChartDocumentDataAction)
         self.editToolBar.addAction(self.editPriceBarChartSettingsAction)
         self.editToolBar.addAction(self.editPriceBarChartScalingAction)
 
@@ -418,6 +429,7 @@ class MainWindow(QMainWindow):
 
         self.editAppPreferencesAction.setEnabled(True)
         self.editBirthInfoAction.setEnabled(isActive)
+        self.editPriceChartDocumentDataAction.setEnabled(isActive)
         self.editPriceBarChartSettingsAction.setEnabled(isActive)
         self.editPriceBarChartScalingAction.setEnabled(isActive)
 
@@ -650,22 +662,25 @@ class MainWindow(QMainWindow):
         if returnVal == QDialog.Accepted:
             self.log.debug("PriceChartDocumentWizard accepted")
 
+            # Debug output:
             self.log.debug("Data filename is: " + \
                            wizard.field("dataFilename"))
-
             self.log.debug("Data num lines to skip is: {}".\
                 format(wizard.field("dataNumLinesToSkip")))
-
             self.log.debug("Timezone is: " + wizard.field("timezone"))
+            self.log.debug("Description is: " + wizard.field("description"))
 
 
+            # Create the document data.
             priceChartDocumentData = PriceChartDocumentData()
 
+            # Load data into it.
             priceChartDocumentData.\
                 loadWizardData(wizard.getPriceBars(),
                                wizard.field("dataFilename"),
                                wizard.field("dataNumLinesToSkip"),
-                               wizard.field("timezone"))
+                               wizard.field("timezone"),
+                               wizard.field("description"))
 
             # Create a PriceChartDocument with the data.
             priceChartDocument = PriceChartDocument()
@@ -994,6 +1009,50 @@ class MainWindow(QMainWindow):
                            "other unsupported subwindow was selected.")
 
         self.log.debug("Exiting _editBirthInfo()")
+
+    def _editPriceChartDocumentData(self):
+        """Opens up a PriceChartDocumentDataEditDialog to edit the
+        currently open PriceChartDocument's backing data object.
+
+        If the dialog is accepted, the changes are applied and the dirty
+        flag is set.  If the dialog is rejected, then no changes will
+        happen.
+        """
+
+        self.log.debug("Entered _editPriceChartDocumentData()")
+
+        # Get current active PriceChartDocument.
+        priceChartDocument = self.getActivePriceChartDocument()
+
+        if priceChartDocument != None:
+            # Get the PriceChartDocumentData object.
+            priceChartDocumentData = \
+                priceChartDocument.getPriceChartDocumentData()
+
+            # Create a dialog to edit the PriceBarChartSettings.
+            dialog = PriceChartDocumentDataEditDialog(priceChartDocumentData)
+
+            if dialog.exec_() == QDialog.Accepted:
+                self.log.debug("PriceChartDocumentDataEditDialog accepted.")
+
+                # Reload the entire PriceChartDocument.
+                priceChartDocument.\
+                    setPriceChartDocumentData(priceChartDocumentData)
+
+                # Set the dirty flag because the settings object has now
+                # changed.
+                priceChartDocument.setDirtyFlag(True)
+            else:
+                self.log.debug("PriceChartDocumentDataEditDialog rejected.")
+        else:
+            self.log.error("Tried to edit the PriceChartDocumentData " + \
+                           "when either no " + \
+                           "PriceChartDocument is selected, or some " + \
+                           "other unsupported subwindow was selected.")
+
+        self.log.debug("Exiting _editPriceChartDocumentData()")
+
+        # TODO:  write this function.
 
     def _editPriceBarChartSettings(self):
         """Opens up a PriceBarChartSettingsEditDialog to edit

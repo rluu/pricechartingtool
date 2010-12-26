@@ -810,6 +810,33 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
         self.log.debug("Exiting toZoomOutToolMode()")
 
+    def wheelEvent(self, qwheelevent):
+        """Triggered when the mouse wheel is scrolled."""
+
+        self.log.debug("Entered wheelEvent()")
+
+        # Get the mouse location.  This will be the new center.
+        newCenterPointF = self.mapToScene(qwheelevent.pos())
+
+        # Get the QSetting key for the zoom scaling amounts.
+        settings = QSettings()
+        scaleFactor = \
+            float(settings.value(self.zoomScaleFactorSettingsKey, \
+                  PriceBarChartGraphicsView.defaultZoomScaleFactor))
+
+        # Actually do the scaling of the view.
+        if qwheelevent.delta() > 0:
+            # Zoom in.
+            self.scale(scaleFactor, scaleFactor)
+        else:
+            # Zoom out.
+            self.scale(1.0 / scaleFactor, 1.0 / scaleFactor)
+
+        # Center on the new center.
+        self.centerOn(newCenterPointF)
+
+        self.log.debug("Exiting wheelEvent()")
+
     def mousePressEvent(self, qmouseevent):
         """Triggered when the mouse is pressed in this widget."""
 

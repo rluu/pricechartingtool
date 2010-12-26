@@ -734,6 +734,16 @@ class PriceChartDocumentData:
         # Notes that are added by the user in the the GUI.
         self.userNotes = ""
 
+    def setDescription(self, description):
+        """Sets the description of this trading entity."""
+
+        self.description = description
+
+    def getDescription(self):
+        """Returns the description of this trading entity."""
+
+        return self.description
+
     def setBirthInfo(self, birthInfo):
         """Sets the birth natal information for this trading entity.
         Parameters:
@@ -753,12 +763,22 @@ class PriceChartDocumentData:
 
         return self.birthInfo
 
+    def getUserNotes(self):
+        """Returns the user notes about this trading entity."""
+
+        return self.userNotes
+
+    def setUserNotes(self, userNotes):
+        """Sets the user notes about this trading entity."""
+
+        self.userNotes = userNotes
 
     def loadWizardData(self,
                        priceBars,
                        priceBarsFileFilename, 
                        priceBarsFileNumLinesToSkip,
-                       locationTimezone):
+                       locationTimezone,
+                       description=""):
         """Loads data into this class object from the information provided
         in the parameters.  
         
@@ -779,6 +799,9 @@ class PriceChartDocumentData:
 
         locationTimezone - Timezone name as a string, like "US/Eastern" or
                            "UTC"
+
+        description - str holding the description of the 
+                      PriceChartDocumentData
         """
 
         self.log.debug("Entered PricechartDocumentData.load()")
@@ -788,6 +811,7 @@ class PriceChartDocumentData:
         self.priceBarsFileFilename = priceBarsFileFilename
         self.priceBarsFileNumLinesToSkip = priceBarsFileNumLinesToSkip
         self.locationTimezone = pytz.timezone(locationTimezone)
+        self.description = description
 
         self.log.debug("Number of priceBars loaded is: {}".\
                        format(len(priceBars)))

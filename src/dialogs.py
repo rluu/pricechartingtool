@@ -65,16 +65,25 @@ class PriceChartDocumentWizard(QWizard):
         self.priceChartDocumentIntroWizardPage = \
             PriceChartDocumentIntroWizardPage()
         self.addPage(self.priceChartDocumentIntroWizardPage)
+
         self.log.debug("Creating " + \
                        "PriceChartDocumentLoadDataFileWizardPage ...")
         self.priceChartDocumentLoadDataFileWizardPage = \
             PriceChartDocumentLoadDataFileWizardPage()
         self.addPage(self.priceChartDocumentLoadDataFileWizardPage)
+
         self.log.debug("Creating " + \
                        "PriceChartDocumentLocationTimezoneWizardPage ...")
         self.priceChartDocumentLocationTimezoneWizardPage = \
             PriceChartDocumentLocationTimezoneWizardPage()
         self.addPage(self.priceChartDocumentLocationTimezoneWizardPage)
+
+        self.log.debug("Creating " + \
+                       "PriceChartDocumentDescriptionWizardPage ...")
+        self.priceChartDocumentDescriptionWizardPage = \
+            PriceChartDocumentDescriptionWizardPage()
+        self.addPage(self.priceChartDocumentDescriptionWizardPage)
+
         self.log.debug("Creating " + \
                        "PriceChartDocumentConclusionWizardPage ...")
         self.priceChartDocumentConclusionWizardPage = \
@@ -239,6 +248,37 @@ class PriceChartDocumentLocationTimezoneWizardPage(QWizardPage):
 
         # Combo box always has something valid.
         return True
+
+class PriceChartDocumentDescriptionWizardPage(QWizardPage):
+    """A QWizardPage for setting the description of the data or chart that
+    is being created.  This is any info that might be informative to tell
+    about what is loaded.
+    """
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger("dialogs.PriceChartDocumentDescriptionWizardPage")
+
+        # Set the title strings.
+        self.setTitle("Description")
+        self.setSubTitle(" ")
+
+        # Create the contents.
+        self.descriptionLabel= QLabel("&Description of the trading entity (optional):")
+        self.descriptionLineEdit = QLineEdit()
+        self.descriptionLabel.setBuddy(self.descriptionLineEdit)
+
+        # Setup the layout.
+        layout = QVBoxLayout()
+        layout.addWidget(self.descriptionLabel)
+        layout.addWidget(self.descriptionLineEdit)
+        self.setLayout(layout)
+
+        # Register the field(s).
+        self.registerField("description", self.descriptionLineEdit, "text")
 
 class PriceChartDocumentConclusionWizardPage(QWizardPage):
     """A QWizardPage for presenting the conclusion to the QWizard."""
@@ -1198,6 +1238,347 @@ class LocationTimezoneEditWidget(QWidget):
         """Returns the timezone selected in the QComboBox."""
 
         return str(self.timezoneComboBox.currentText())
+
+class AppPreferencesEditWidget(QWidget):
+    """QWidget for editing some of the app-wide preferences.
+    These values are retrieved and stored from the QSettings.
+    """
+
+    # Signal emitted when the Okay button is clicked and 
+    # validation succeeded.
+    okayButtonClicked = QtCore.pyqtSignal()
+
+    # Signal emitted when the Cancel button is clicked.
+    cancelButtonClicked = QtCore.pyqtSignal()
+
+    def __init__(self, parent=None):
+        """Sets the internal widgets and loads the widgets with values
+        from QSettings.  This class uses QSettings and assumes that the
+        calls to QCoreApplication.setOrganizationName(), and
+        QCoreApplication.setApplicationName() have been called previously
+        (so that the QSettings constructor can be called without 
+        any parameters specified)
+        """
+
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger("dialogs.AppPreferencesEditWidget")
+
+        # QSettings key for zoomScaleFactor (float).
+        self.zoomScaleFactorSettingsKey = \
+            SettingsKeys.zoomScaleFactorSettingsKey 
+
+        # QSettings key for the higherPriceBarColor (QColor object).
+        self.higherPriceBarColorSettingsKey = \
+            SettingsKeys.higherPriceBarColorSettingsKey 
+
+        # QSettings key for the lowerPriceBarColor (QColor object).
+        self.lowerPriceBarColorSettingsKey = \
+            SettingsKeys.lowerPriceBarColorSettingsKey 
+
+        self.priceBarChartSettingsGroupBox = \
+            QGroupBox("PriceBarChart settings:")
+
+        # PriceBarChart zoom-in/out scale factor (float).
+        self.zoomScaleFactorLabel = QLabel("Zoom scale factor:")
+        self.zoomScaleFactorSpinBox = QDoubleSpinBox()
+        self.zoomScaleFactorSpinBox.setMinimum(1.0)
+        self.zoomScaleFactorSpinBox.setMaximum(100.0)
+        self.zoomScaleFactorResetButton = QPushButton("Reset to default")
+
+        # PriceBarChart higherPriceBarColor (QColor object).
+        self.higherPriceBarColorLabel = QLabel("Higher PriceBar color:")
+        self.higherPriceBarColorEditButton = ColorEditPushButton()
+        self.higherPriceBarColorResetButton = QPushButton("Reset to default")
+
+        # PriceBarChart lowerPriceBarColor (QColor object).
+        self.lowerPriceBarColorLabel = QLabel("Lower PriceBar color:")
+        self.lowerPriceBarColorEditButton = ColorEditPushButton()
+        self.lowerPriceBarColorResetButton = QPushButton("Reset to default")
+
+        # Grid layout.  We don't use QFormLayout because we need the 3rd
+        # field area for a reset button.
+        self.gridLayout = QGridLayout()
+
+        # Row.
+        r = 0
+
+        # Alignments.
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        self.gridLayout.\
+            addWidget(self.zoomScaleFactorLabel, r, 0, al)
+        self.gridLayout.\
+            addWidget(self.zoomScaleFactorSpinBox, r, 1, ar)
+        self.gridLayout.\
+            addWidget(self.zoomScaleFactorResetButton, r, 2, ar)
+        r += 1
+        self.gridLayout.\
+            addWidget(self.higherPriceBarColorLabel, r, 0, al)
+        self.gridLayout.\
+            addWidget(self.higherPriceBarColorEditButton, r, 1, ar)
+        self.gridLayout.\
+            addWidget(self.higherPriceBarColorResetButton, r, 2, ar)
+        r += 1
+        self.gridLayout.\
+            addWidget(self.lowerPriceBarColorLabel, r, 0, al)
+        self.gridLayout.\
+            addWidget(self.lowerPriceBarColorEditButton, r, 1, ar)
+        self.gridLayout.\
+            addWidget(self.lowerPriceBarColorResetButton, r, 2, ar)
+
+        self.priceBarChartSettingsGroupBox.setLayout(self.gridLayout)
+
+        # Label to tell the user that not all settings will be applied
+        # on existing windows when the 'Okay' button is pressed.
+        endl = os.linesep
+        self.noteLabel = \
+            QLabel("Note: Upon clicking the 'Okay' button, the new " + \
+                   "settings may not be immediately " + \
+                   endl + \
+                   "applied to the open PriceChartDocuments.  " + \
+                   "You may need to close and re-open " + \
+                   endl + \
+                   "the PriceChartDocuments to get the changes.")
+
+        # Buttons at bottom.
+        self.resetAllToDefaultButton = \
+            QPushButton("Reset all to original default values")
+        self.okayButton = QPushButton("&Okay")
+        self.cancelButton = QPushButton("&Cancel")
+        self.buttonsAtBottomLayout = QHBoxLayout()
+        self.buttonsAtBottomLayout.addWidget(self.resetAllToDefaultButton)
+        self.buttonsAtBottomLayout.addStretch()
+        self.buttonsAtBottomLayout.addWidget(self.okayButton)
+        self.buttonsAtBottomLayout.addWidget(self.cancelButton)
+
+        # Put all layouts/groupboxes together into the widget.
+        self.mainLayout = QVBoxLayout()
+        self.mainLayout.addWidget(self.priceBarChartSettingsGroupBox) 
+        self.mainLayout.addSpacing(20)
+        self.mainLayout.addWidget(self.noteLabel)
+        self.mainLayout.addSpacing(10)
+        self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
+
+        self.setLayout(self.mainLayout)
+
+        # Connect signals and slots.
+
+        # Connect color edit buttons.
+        self.higherPriceBarColorEditButton.clicked.\
+            connect(self._handleHigherPriceBarColorEditButtonClicked)
+        self.lowerPriceBarColorEditButton.clicked.\
+            connect(self._handleLowerPriceBarColorEditButtonClicked)
+
+        # Connect reset buttons.
+        self.zoomScaleFactorResetButton.clicked.\
+            connect(self._handleZoomScaleFactorResetButtonClicked)
+        self.higherPriceBarColorResetButton.clicked.\
+            connect(self._handleHigherPriceBarColorResetButtonClicked)
+        self.lowerPriceBarColorResetButton.clicked.\
+            connect(self._handleLowerPriceBarColorResetButtonClicked)
+
+        self.resetAllToDefaultButton.clicked.\
+            connect(self._handleResetAllToDefaultButtonClicked)
+
+        # Connect okay and cancel buttons.
+        self.okayButton.clicked.connect(self._handleOkayButtonClicked)
+        self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
+
+        # Load the widgets with values from QSettings.
+        self.loadValuesFromSettings()
+
+
+    def loadValuesFromSettings(self):
+        """Loads the widgets with values from the QSettings object.
+
+        This method uses QSettings and assumes that the
+        calls to QCoreApplication.setOrganizationName(), and
+        QCoreApplication.setApplicationName() have been called previously
+        (so that the QSettings constructor can be called without 
+        any parameters specified)
+        """
+
+        self.log.debug("Entered loadValuesFromSettings()")
+
+        settings = QSettings()
+    
+        # PriceBarChart zoom-in/out scale factor (float).
+        key = self.zoomScaleFactorSettingsKey
+        value = float(settings.value(key, \
+            PriceBarChartGraphicsView.defaultZoomScaleFactor))
+        self.zoomScaleFactorSpinBox.setValue(value)
+
+        # PriceBarChart higherPriceBarColor (QColor object).
+        key = self.higherPriceBarColorSettingsKey 
+        value = QColor(settings.value(key, \
+            PriceBarGraphicsItem.defaultHigherPriceBarColor))
+        self.higherPriceBarColorEditButton.setColor(value)
+
+        # PriceBarChart lowerPriceBarColor (QColor object).
+        key = self.lowerPriceBarColorSettingsKey 
+        value = QColor(settings.value(key, \
+            PriceBarGraphicsItem.defaultLowerPriceBarColor))
+        self.lowerPriceBarColorEditButton.setColor(value)
+
+        self.log.debug("Exiting loadValuesFromSettings()")
+        
+    def saveValuesToSettings(self):
+        """Saves the values in the widgets to the QSettings object.
+
+        This method uses QSettings and assumes that the
+        calls to QCoreApplication.setOrganizationName(), and
+        QCoreApplication.setApplicationName() have been called previously
+        (so that the QSettings constructor can be called without 
+        any parameters specified)
+        """
+    
+        self.log.debug("Entered saveValuesToSettings()")
+
+        settings = QSettings()
+    
+        # PriceBarChart zoom-in/out scale factor (float).
+        key = self.zoomScaleFactorSettingsKey
+        newValue = self.zoomScaleFactorSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # PriceBarChart higherPriceBarColor (QColor object).
+        key = self.higherPriceBarColorSettingsKey 
+        newValue = self.higherPriceBarColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # PriceBarChart lowerPriceBarColor (QColor object).
+        key = self.lowerPriceBarColorSettingsKey 
+        newValue = self.lowerPriceBarColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        self.log.debug("Exiting saveValuesToSettings()")
+
+
+    def _handleHigherPriceBarColorEditButtonClicked(self):
+        """Called when the higherPriceBarColorEditButton is clicked.
+        Opens up a dialog for modifying the color.
+        """
+
+
+        # First get the current color.
+        currColor = self.higherPriceBarColorEditButton.getColor()
+
+        # Open a dialog to obtain a new color.
+        newColor = QColorDialog.getColor(currColor)
+
+        # If a color was chosen that is different, then set the new color.
+        if newColor.isValid() and currColor != newColor:
+            self.higherPriceBarColorEditButton.setColor(newColor)
+
+    def _handleLowerPriceBarColorEditButtonClicked(self):
+        """Called when the lowerPriceBarColorEditButton is clicked.
+        Opens up a dialog for modifying the color.
+        """
+
+        # First get the current color.
+        currColor = self.lowerPriceBarColorEditButton.getColor()
+
+        # Open a dialog to obtain a new color.
+        newColor = QColorDialog.getColor(currColor)
+
+        # If a color was chosen that is different, then set the new color.
+        if newColor.isValid() and currColor != newColor:
+            self.lowerPriceBarColorEditButton.setColor(newColor)
+
+    def _handleZoomScaleFactorResetButtonClicked(self):
+        """Called when the zoomScaleFactorResetButton is clicked.
+        Resets the widget value to the default value.
+        """
+
+        value = PriceBarChartGraphicsView.defaultZoomScaleFactor
+        self.zoomScaleFactorSpinBox.setValue(value)
+        
+
+    def _handleHigherPriceBarColorResetButtonClicked(self):
+        """Called when the higherPriceBarColorResetButton is clicked.
+        Resets the widget value to the default value.
+        """
+
+        value = PriceBarGraphicsItem.defaultHigherPriceBarColor
+        self.higherPriceBarColorEditButton.setColor(value)
+
+    def _handleLowerPriceBarColorResetButtonClicked(self):
+        """Called when the lowerPriceBarColorResetButton is clicked.
+        Resets the widget value to the default value.
+        """
+
+        value = PriceBarGraphicsItem.defaultLowerPriceBarColor
+        self.lowerPriceBarColorEditButton.setColor(value)
+
+    def _handleResetAllToDefaultButtonClicked(self):
+        """Called when the resetAllToDefaultButton is clicked.
+        Resets the all the widget values in this widget to the default
+        values.
+        """
+
+        self._handleZoomScaleFactorResetButtonClicked()
+        self._handleHigherPriceBarColorResetButtonClicked()
+        self._handleLowerPriceBarColorResetButtonClicked()
+
+    def _handleOkayButtonClicked(self):
+        """Called when the okay button is clicked."""
+
+        self.saveValuesToSettings()
+        self.okayButtonClicked.emit()
+
+    def _handleCancelButtonClicked(self):
+        """Called when the cancel button is clicked."""
+
+        self.cancelButtonClicked.emit()
+
+
+class AppPreferencesEditDialog(QDialog):
+    """QDialog for editing some of the app-wide preferenes.
+    These values are retrieved and stored from the QSettings.
+    """
+
+    def __init__(self, parent=None):
+        """Initializes the dialog and internal widget with the current
+        settings."""
+
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger("dialogs.AppPreferencesEditDialog")
+
+        self.setWindowTitle("Application Preferences")
+
+        # Create the contents.
+        self.appPreferencesEditWidget = AppPreferencesEditWidget()
+
+        # Setup the layout.
+        layout = QVBoxLayout()
+        layout.addWidget(self.appPreferencesEditWidget)
+        self.setLayout(layout)
+
+        self.appPreferencesEditWidget.okayButtonClicked.connect(self.accept)
+        self.appPreferencesEditWidget.cancelButtonClicked.connect(self.reject)
+
 
 class BirthInfoEditWidget(QWidget):
     """QWidget for editing a birth time or defining a new birth time."""
@@ -2810,348 +3191,6 @@ class BirthInfoEditDialog(QDialog):
 
         return self.birthInfoEditWidget.getBirthInfo()
 
-class AppPreferencesEditWidget(QWidget):
-    """QWidget for editing some of the app-wide preferences.
-    These values are retrieved and stored from the QSettings.
-    """
-
-    # Signal emitted when the Okay button is clicked and 
-    # validation succeeded.
-    okayButtonClicked = QtCore.pyqtSignal()
-
-    # Signal emitted when the Cancel button is clicked.
-    cancelButtonClicked = QtCore.pyqtSignal()
-
-    def __init__(self, parent=None):
-        """Sets the internal widgets and loads the widgets with values
-        from QSettings.  This class uses QSettings and assumes that the
-        calls to QCoreApplication.setOrganizationName(), and
-        QCoreApplication.setApplicationName() have been called previously
-        (so that the QSettings constructor can be called without 
-        any parameters specified)
-        """
-
-        super().__init__(parent)
-
-        # Logger object for this class.
-        self.log = logging.\
-            getLogger("dialogs.AppPreferencesEditWidget")
-
-        # QSettings key for zoomScaleFactor (float).
-        self.zoomScaleFactorSettingsKey = \
-            SettingsKeys.zoomScaleFactorSettingsKey 
-
-        # QSettings key for the higherPriceBarColor (QColor object).
-        self.higherPriceBarColorSettingsKey = \
-            SettingsKeys.higherPriceBarColorSettingsKey 
-
-        # QSettings key for the lowerPriceBarColor (QColor object).
-        self.lowerPriceBarColorSettingsKey = \
-            SettingsKeys.lowerPriceBarColorSettingsKey 
-
-        self.priceBarChartSettingsGroupBox = \
-            QGroupBox("PriceBarChart settings:")
-
-        # PriceBarChart zoom-in/out scale factor (float).
-        self.zoomScaleFactorLabel = QLabel("Zoom scale factor:")
-        self.zoomScaleFactorSpinBox = QDoubleSpinBox()
-        self.zoomScaleFactorSpinBox.setMinimum(1.0)
-        self.zoomScaleFactorSpinBox.setMaximum(100.0)
-        self.zoomScaleFactorResetButton = QPushButton("Reset to default")
-
-        # PriceBarChart higherPriceBarColor (QColor object).
-        self.higherPriceBarColorLabel = QLabel("Higher PriceBar color:")
-        self.higherPriceBarColorEditButton = ColorEditPushButton()
-        self.higherPriceBarColorResetButton = QPushButton("Reset to default")
-
-        # PriceBarChart lowerPriceBarColor (QColor object).
-        self.lowerPriceBarColorLabel = QLabel("Lower PriceBar color:")
-        self.lowerPriceBarColorEditButton = ColorEditPushButton()
-        self.lowerPriceBarColorResetButton = QPushButton("Reset to default")
-
-        # Grid layout.  We don't use QFormLayout because we need the 3rd
-        # field area for a reset button.
-        self.gridLayout = QGridLayout()
-
-        # Row.
-        r = 0
-
-        # Alignments.
-        al = Qt.AlignLeft
-        ar = Qt.AlignRight
-
-        self.gridLayout.\
-            addWidget(self.zoomScaleFactorLabel, r, 0, al)
-        self.gridLayout.\
-            addWidget(self.zoomScaleFactorSpinBox, r, 1, ar)
-        self.gridLayout.\
-            addWidget(self.zoomScaleFactorResetButton, r, 2, ar)
-        r += 1
-        self.gridLayout.\
-            addWidget(self.higherPriceBarColorLabel, r, 0, al)
-        self.gridLayout.\
-            addWidget(self.higherPriceBarColorEditButton, r, 1, ar)
-        self.gridLayout.\
-            addWidget(self.higherPriceBarColorResetButton, r, 2, ar)
-        r += 1
-        self.gridLayout.\
-            addWidget(self.lowerPriceBarColorLabel, r, 0, al)
-        self.gridLayout.\
-            addWidget(self.lowerPriceBarColorEditButton, r, 1, ar)
-        self.gridLayout.\
-            addWidget(self.lowerPriceBarColorResetButton, r, 2, ar)
-
-        self.priceBarChartSettingsGroupBox.setLayout(self.gridLayout)
-
-        # Label to tell the user that not all settings will be applied
-        # on existing windows when the 'Okay' button is pressed.
-        endl = os.linesep
-        self.noteLabel = \
-            QLabel("Note: Upon clicking the 'Okay' button, the new " + \
-                   "settings may not be immediately " + \
-                   endl + \
-                   "applied to the open PriceChartDocuments.  " + \
-                   "You may need to close and re-open " + \
-                   endl + \
-                   "the PriceChartDocuments to get the changes.")
-
-        # Buttons at bottom.
-        self.resetAllToDefaultButton = \
-            QPushButton("Reset all to original default values")
-        self.okayButton = QPushButton("&Okay")
-        self.cancelButton = QPushButton("&Cancel")
-        self.buttonsAtBottomLayout = QHBoxLayout()
-        self.buttonsAtBottomLayout.addWidget(self.resetAllToDefaultButton)
-        self.buttonsAtBottomLayout.addStretch()
-        self.buttonsAtBottomLayout.addWidget(self.okayButton)
-        self.buttonsAtBottomLayout.addWidget(self.cancelButton)
-
-        # Put all layouts/groupboxes together into the widget.
-        self.mainLayout = QVBoxLayout()
-        self.mainLayout.addWidget(self.priceBarChartSettingsGroupBox) 
-        self.mainLayout.addSpacing(20)
-        self.mainLayout.addWidget(self.noteLabel)
-        self.mainLayout.addSpacing(10)
-        self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
-
-        self.setLayout(self.mainLayout)
-
-        # Connect signals and slots.
-
-        # Connect color edit buttons.
-        self.higherPriceBarColorEditButton.clicked.\
-            connect(self._handleHigherPriceBarColorEditButtonClicked)
-        self.lowerPriceBarColorEditButton.clicked.\
-            connect(self._handleLowerPriceBarColorEditButtonClicked)
-
-        # Connect reset buttons.
-        self.zoomScaleFactorResetButton.clicked.\
-            connect(self._handleZoomScaleFactorResetButtonClicked)
-        self.higherPriceBarColorResetButton.clicked.\
-            connect(self._handleHigherPriceBarColorResetButtonClicked)
-        self.lowerPriceBarColorResetButton.clicked.\
-            connect(self._handleLowerPriceBarColorResetButtonClicked)
-
-        self.resetAllToDefaultButton.clicked.\
-            connect(self._handleResetAllToDefaultButtonClicked)
-
-        # Connect okay and cancel buttons.
-        self.okayButton.clicked.connect(self._handleOkayButtonClicked)
-        self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
-
-        # Load the widgets with values from QSettings.
-        self.loadValuesFromSettings()
-
-
-    def loadValuesFromSettings(self):
-        """Loads the widgets with values from the QSettings object.
-
-        This method uses QSettings and assumes that the
-        calls to QCoreApplication.setOrganizationName(), and
-        QCoreApplication.setApplicationName() have been called previously
-        (so that the QSettings constructor can be called without 
-        any parameters specified)
-        """
-
-        self.log.debug("Entered loadValuesFromSettings()")
-
-        settings = QSettings()
-    
-        # PriceBarChart zoom-in/out scale factor (float).
-        key = self.zoomScaleFactorSettingsKey
-        value = float(settings.value(key, \
-            PriceBarChartGraphicsView.defaultZoomScaleFactor))
-        self.zoomScaleFactorSpinBox.setValue(value)
-
-        # PriceBarChart higherPriceBarColor (QColor object).
-        key = self.higherPriceBarColorSettingsKey 
-        value = QColor(settings.value(key, \
-            PriceBarGraphicsItem.defaultHigherPriceBarColor))
-        self.higherPriceBarColorEditButton.setColor(value)
-
-        # PriceBarChart lowerPriceBarColor (QColor object).
-        key = self.lowerPriceBarColorSettingsKey 
-        value = QColor(settings.value(key, \
-            PriceBarGraphicsItem.defaultLowerPriceBarColor))
-        self.lowerPriceBarColorEditButton.setColor(value)
-
-        self.log.debug("Exiting loadValuesFromSettings()")
-        
-    def saveValuesToSettings(self):
-        """Saves the values in the widgets to the QSettings object.
-
-        This method uses QSettings and assumes that the
-        calls to QCoreApplication.setOrganizationName(), and
-        QCoreApplication.setApplicationName() have been called previously
-        (so that the QSettings constructor can be called without 
-        any parameters specified)
-        """
-    
-        self.log.debug("Entered saveValuesToSettings()")
-
-        settings = QSettings()
-    
-        # PriceBarChart zoom-in/out scale factor (float).
-        key = self.zoomScaleFactorSettingsKey
-        newValue = self.zoomScaleFactorSpinBox.value()
-        if settings.contains(key):
-            oldValue = float(settings.value(key))
-            if oldValue != newValue:
-                settings.setValue(key, newValue)
-        else:
-            settings.setValue(key, newValue)
-
-        # PriceBarChart higherPriceBarColor (QColor object).
-        key = self.higherPriceBarColorSettingsKey 
-        newValue = self.higherPriceBarColorEditButton.getColor()
-        if settings.contains(key):
-            oldValue = QColor(settings.value(key))
-            if oldValue != newValue:
-                settings.setValue(key, newValue)
-        else:
-            settings.setValue(key, newValue)
-
-        # PriceBarChart lowerPriceBarColor (QColor object).
-        key = self.lowerPriceBarColorSettingsKey 
-        newValue = self.lowerPriceBarColorEditButton.getColor()
-        if settings.contains(key):
-            oldValue = QColor(settings.value(key))
-            if oldValue != newValue:
-                settings.setValue(key, newValue)
-        else:
-            settings.setValue(key, newValue)
-
-        self.log.debug("Exiting saveValuesToSettings()")
-
-
-    def _handleHigherPriceBarColorEditButtonClicked(self):
-        """Called when the higherPriceBarColorEditButton is clicked.
-        Opens up a dialog for modifying the color.
-        """
-
-
-        # First get the current color.
-        currColor = self.higherPriceBarColorEditButton.getColor()
-
-        # Open a dialog to obtain a new color.
-        newColor = QColorDialog.getColor(currColor)
-
-        # If a color was chosen that is different, then set the new color.
-        if newColor.isValid() and currColor != newColor:
-            self.higherPriceBarColorEditButton.setColor(newColor)
-
-    def _handleLowerPriceBarColorEditButtonClicked(self):
-        """Called when the lowerPriceBarColorEditButton is clicked.
-        Opens up a dialog for modifying the color.
-        """
-
-        # First get the current color.
-        currColor = self.lowerPriceBarColorEditButton.getColor()
-
-        # Open a dialog to obtain a new color.
-        newColor = QColorDialog.getColor(currColor)
-
-        # If a color was chosen that is different, then set the new color.
-        if newColor.isValid() and currColor != newColor:
-            self.lowerPriceBarColorEditButton.setColor(newColor)
-
-    def _handleZoomScaleFactorResetButtonClicked(self):
-        """Called when the zoomScaleFactorResetButton is clicked.
-        Resets the widget value to the default value.
-        """
-
-        value = PriceBarChartGraphicsView.defaultZoomScaleFactor
-        self.zoomScaleFactorSpinBox.setValue(value)
-        
-
-    def _handleHigherPriceBarColorResetButtonClicked(self):
-        """Called when the higherPriceBarColorResetButton is clicked.
-        Resets the widget value to the default value.
-        """
-
-        value = PriceBarGraphicsItem.defaultHigherPriceBarColor
-        self.higherPriceBarColorEditButton.setColor(value)
-
-    def _handleLowerPriceBarColorResetButtonClicked(self):
-        """Called when the lowerPriceBarColorResetButton is clicked.
-        Resets the widget value to the default value.
-        """
-
-        value = PriceBarGraphicsItem.defaultLowerPriceBarColor
-        self.lowerPriceBarColorEditButton.setColor(value)
-
-    def _handleResetAllToDefaultButtonClicked(self):
-        """Called when the resetAllToDefaultButton is clicked.
-        Resets the all the widget values in this widget to the default
-        values.
-        """
-
-        self._handleZoomScaleFactorResetButtonClicked()
-        self._handleHigherPriceBarColorResetButtonClicked()
-        self._handleLowerPriceBarColorResetButtonClicked()
-
-    def _handleOkayButtonClicked(self):
-        """Called when the okay button is clicked."""
-
-        self.saveValuesToSettings()
-        self.okayButtonClicked.emit()
-
-    def _handleCancelButtonClicked(self):
-        """Called when the cancel button is clicked."""
-
-        self.cancelButtonClicked.emit()
-
-
-
-class AppPreferencesEditDialog(QDialog):
-    """QDialog for editing some of the app-wide preferenes.
-    These values are retrieved and stored from the QSettings.
-    """
-
-    def __init__(self, parent=None):
-        """Initializes the dialog and internal widget with the current
-        settings."""
-
-        super().__init__(parent)
-
-        # Logger object for this class.
-        self.log = logging.\
-            getLogger("dialogs.AppPreferencesEditDialog")
-
-        self.setWindowTitle("Application Preferences")
-
-        # Create the contents.
-        self.appPreferencesEditWidget = AppPreferencesEditWidget()
-
-        # Setup the layout.
-        layout = QVBoxLayout()
-        layout.addWidget(self.appPreferencesEditWidget)
-        self.setLayout(layout)
-
-        self.appPreferencesEditWidget.okayButtonClicked.connect(self.accept)
-        self.appPreferencesEditWidget.cancelButtonClicked.connect(self.reject)
-
-
 class PriceBarChartScalingEditWidget(QWidget):
     """QWidget for editing the scaling used in a PriceBarChart.
     """
@@ -3402,6 +3441,7 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         self.selectedScalingNameValueLabel = QLabel()
         self.selectedScalingDescriptionLabel = QLabel("Description:")
         self.selectedScalingDescriptionTextEdit = QTextEdit()
+        self.selectedScalingDescriptionTextEdit.setAcceptRichText(False)
         self.selectedScalingDescriptionTextEdit.setEnabled(False)
         self.selectedScalingDescriptionTextEdit.setTextColor(Qt.black)
         self.selectedScalingDescriptionTextEdit.setMaximumHeight(80)
@@ -3453,6 +3493,7 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         self.currentScalingNameValueLabel = QLabel()
         self.currentScalingDescriptionLabel = QLabel("Description:")
         self.currentScalingDescriptionTextEdit = QTextEdit()
+        self.currentScalingDescriptionTextEdit.setAcceptRichText(False)
         self.currentScalingDescriptionTextEdit.setEnabled(False)
         self.currentScalingDescriptionTextEdit.setTextColor(Qt.black)
         self.currentScalingDescriptionTextEdit.setMaximumHeight(80)
@@ -3620,7 +3661,7 @@ class PriceBarChartScalingsListEditWidget(QWidget):
             self.currentScalingNameValueLabel.\
                 setText(currentScaling.name)
             self.currentScalingDescriptionTextEdit.\
-                setText(currentScaling.description)
+                setPlainText(currentScaling.description)
             self.currentScalingUnitsOfTimeValueLabel.\
                 setText("{}".format(currentScaling.getUnitsOfTime()))
             self.currentScalingUnitsOfPriceValueLabel.\
@@ -3716,7 +3757,7 @@ class PriceBarChartScalingsListEditWidget(QWidget):
             self.selectedScalingNameValueLabel.\
                 setText(selectedScaling.name)
             self.selectedScalingDescriptionTextEdit.\
-                setText(selectedScaling.description)
+                setPlainText(selectedScaling.description)
             self.selectedScalingUnitsOfTimeValueLabel.\
                 setText("{}".format(selectedScaling.getUnitsOfTime()))
             self.selectedScalingUnitsOfPriceValueLabel.\
@@ -3765,7 +3806,7 @@ class PriceBarChartScalingsListEditWidget(QWidget):
                     self.listWidget.setCurrentRow(row - 1)
                 else:
                     self.selectedScalingNameValueLabel.setText("")
-                    self.selectedScalingDescriptionTextEdit.setText("")
+                    self.selectedScalingDescriptionTextEdit.setPlainText("")
                     self.selectedScalingUnitsOfTimeValueLabel.setText("")
                     self.selectedScalingUnitsOfPriceValueLabel.setText("")
 
@@ -3799,7 +3840,7 @@ class PriceBarChartScalingsListEditWidget(QWidget):
                     self.currentScalingNameValueLabel.\
                         setText(currentScaling.name)
                     self.currentScalingDescriptionTextEdit.\
-                        setText(currentScaling.description)
+                        setPlainText(currentScaling.description)
                     self.currentScalingUnitsOfTimeValueLabel.\
                         setText("{}".format(currentScaling.getUnitsOfTime()))
                     self.currentScalingUnitsOfPriceValueLabel.\
@@ -3822,7 +3863,7 @@ class PriceBarChartScalingsListEditWidget(QWidget):
                         # Blank everything out.
                         self.currentScalingNameValueLabel.setText("")
                         self.currentScalingDescriptionTextEdit.\
-                            setText("")
+                            setPlainText("")
                         self.currentScalingUnitsOfTimeValueLabel.\
                             setText("")
                         self.currentScalingUnitsOfPriceValueLabel.\
@@ -3837,7 +3878,7 @@ class PriceBarChartScalingsListEditWidget(QWidget):
                         self.currentScalingNameValueLabel.\
                             setText(currentScaling.name)
                         self.currentScalingDescriptionTextEdit.\
-                            setText(currentScaling.description)
+                            setPlainText(currentScaling.description)
                         self.currentScalingUnitsOfTimeValueLabel.\
                             setText("{}".format(currentScaling.getUnitsOfTime()))
                         self.currentScalingUnitsOfPriceValueLabel.\
@@ -3880,7 +3921,7 @@ class PriceBarChartScalingsListEditWidget(QWidget):
                 self.currentScalingNameValueLabel.\
                     setText(currentScaling.name)
                 self.currentScalingDescriptionTextEdit.\
-                    setText(currentScaling.description)
+                    setPlainText(currentScaling.description)
                 self.currentScalingUnitsOfTimeValueLabel.\
                     setText("{}".format(currentScaling.getUnitsOfTime()))
                 self.currentScalingUnitsOfPriceValueLabel.\
@@ -3970,7 +4011,7 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         self.currentScalingNameValueLabel.\
             setText(currentScaling.name)
         self.currentScalingDescriptionTextEdit.\
-            setText(currentScaling.description)
+            setPlainText(currentScaling.description)
         self.currentScalingUnitsOfTimeValueLabel.\
             setText("{}".format(currentScaling.getUnitsOfTime()))
         self.currentScalingUnitsOfPriceValueLabel.\
@@ -4373,6 +4414,182 @@ class PriceBarChartSettingsEditDialog(QDialog):
         self.priceBarChartSettingsEditWidget.okayButtonClicked.\
             connect(self.accept)
         self.priceBarChartSettingsEditWidget.cancelButtonClicked.\
+            connect(self.reject)
+
+class PriceChartDocumentDataEditWidget(QWidget):
+    """QWidget for editing some of the member objects in a
+    PriceChartDocumentData.
+    """
+
+    # Signal emitted when the Okay button is clicked and 
+    # validation succeeded.
+    okayButtonClicked = QtCore.pyqtSignal()
+
+    # Signal emitted when the Cancel button is clicked.
+    cancelButtonClicked = QtCore.pyqtSignal()
+
+    def __init__(self, priceChartDocumentData, parent=None):
+        """QWidget for editing some of the fields of a
+        PriceChartDocumentData object.  
+        
+        Note:  The object passed in gets modified if the user clicks the
+        'Okay' button.
+        """
+
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger("dialogs.PriceChartDocumentDataEditWidget")
+
+        # Save off the PriceBarChartSettings object.
+        self.priceChartDocumentData = priceChartDocumentData
+
+        # QGroupBox to hold the edit widgets and form.
+        self.pcddGroupBox = QGroupBox("PriceChartDocument Data:")
+
+        # Description.
+        self.descriptionLabel = QLabel("&Description:")
+        self.descriptionLineEdit = QLineEdit()
+        self.descriptionLabel.setBuddy(self.descriptionLineEdit)
+
+        self.userNotesLabel = QLabel("&User notes:")
+        self.userNotesTextEdit = QTextEdit()
+        self.userNotesTextEdit.setAcceptRichText(False)
+        self.userNotesLabel.setBuddy(self.userNotesTextEdit)
+        
+        # Form layout.
+        self.formLayout = QFormLayout()
+        self.formLayout.addRow(self.descriptionLabel,
+                               self.descriptionLineEdit)
+        self.formLayout.addRow(self.userNotesLabel,
+                               self.userNotesTextEdit)
+
+        self.pcddGroupBox.setLayout(self.formLayout)
+
+        # Buttons at bottom.
+        self.okayButton = QPushButton("&Okay")
+        self.cancelButton = QPushButton("&Cancel")
+        self.buttonsAtBottomLayout = QHBoxLayout()
+        self.buttonsAtBottomLayout.addStretch()
+        self.buttonsAtBottomLayout.addWidget(self.okayButton)
+        self.buttonsAtBottomLayout.addWidget(self.cancelButton)
+
+        # Put all layouts/groupboxes together into the widget.
+        self.mainLayout = QVBoxLayout()
+        self.mainLayout.addWidget(self.pcddGroupBox) 
+        self.mainLayout.addSpacing(10)
+        self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
+
+        self.setLayout(self.mainLayout)
+
+        # Now that all the widgets are created, load the values from the
+        # settings.
+        self.loadValues(self.priceChartDocumentData)
+
+        # Connect signals and slots.
+
+        # Connect okay and cancel buttons.
+        self.okayButton.clicked.connect(self._handleOkayButtonClicked)
+        self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
+
+
+    def loadValues(self, priceChartDocumentData):
+        """Loads the widgets with values from the given
+        priceChartDocumentData object.
+        """
+
+        self.log.debug("Entered loadValues()")
+
+        # Check inputs.
+        if priceChartDocumentData == None:
+            self.log.error("Invalid parameter to " + \
+                           "loadValues().  " + \
+                           "priceChartDocumentData can't be None.")
+            self.log.debug("Exiting loadValues()")
+            return
+        else:
+            self.priceChartDocumentData = priceChartDocumentData
+
+        # Set the widgets.
+
+        # Description.
+        self.descriptionLineEdit.\
+            setText(self.priceChartDocumentData.getDescription())
+
+        # User notes.
+        self.userNotesTextEdit.\
+            setPlainText(self.priceChartDocumentData.getUserNotes())
+
+        self.log.debug("Exiting loadValues()")
+        
+    def saveValues(self):
+        """Saves the values in the widgets to the 
+        PriceBarChartSettings object passed in this class's constructor.
+        """
+    
+        self.log.debug("Entered saveValues()")
+
+        # Description.
+        self.priceChartDocumentData.\
+            setDescription(self.descriptionLineEdit.text())
+
+        # User notes.
+        self.priceChartDocumentData.\
+            setUserNotes(self.userNotesTextEdit.toPlainText())
+
+        self.log.debug("Exiting saveValues()")
+
+
+    def _handleOkayButtonClicked(self):
+        """Called when the okay button is clicked."""
+
+        self.saveValues()
+        self.okayButtonClicked.emit()
+
+    def _handleCancelButtonClicked(self):
+        """Called when the cancel button is clicked."""
+
+        self.cancelButtonClicked.emit()
+
+
+
+class PriceChartDocumentDataEditDialog(QDialog):
+    """QDialog for editing some of the members objects in a 
+    PriceChartDocumentData.
+    """
+
+    def __init__(self, priceChartDocumentData, parent=None):
+        """Initializes the dialog and internal widget with the values
+        from the given PriceChartDocumentData.
+        
+        Note:  The object passed in gets modified if the user clicks the
+        'Okay' button.
+        """
+
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger("dialogs.PriceChartDocumentDataEditDialog")
+
+        self.setWindowTitle("Edit PriceChartDocument Data")
+
+        # Save a reference to the PriceBarChartSettings object.
+        self.priceChartDocumentData = priceChartDocumentData
+
+        # Create the contents.
+        self.priceChartDocumentDataEditWidget = \
+            PriceChartDocumentDataEditWidget(self.priceChartDocumentData)
+
+        # Setup the layout.
+        layout = QVBoxLayout()
+        layout.addWidget(self.priceChartDocumentDataEditWidget)
+        self.setLayout(layout)
+
+        self.priceChartDocumentDataEditWidget.okayButtonClicked.\
+            connect(self.accept)
+        self.priceChartDocumentDataEditWidget.cancelButtonClicked.\
             connect(self.reject)
 
 

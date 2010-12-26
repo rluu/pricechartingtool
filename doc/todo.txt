@@ -2,21 +2,21 @@
 
 Outstanding things to work on going forward:
 
-  - Add mouse wheel as a zoom in and out (allowed when in any mode).
+CHECK  - Add mouse wheel as a zoom in and out (allowed when in any mode).
 
-  - Add a wizard page for setting the description.
+CHECK  - Add a wizard page for setting the description.
 
-  - Add field for setting the description in the Edit dialog for
-    PriceBarChartSettings or maybe its own dialog for
-    PriceChartDocument members.
-
-  - Need to implement selection of pricebars so that they get
-    highlighted and the QLabels at the top get updated with the
-    pricebar.
+CHECK  - Add field for setting the description in the Edit dialog for
+         PriceBarChartSettings or maybe its own dialog for
+         PriceChartDocument members.
 
   - Need to implement the setting of the labels in the PriceChartDocument.  
     (Cleaned up so that they are in form or grid layouts).
     (Set so that the Mouse location labels are displayed at initialization).
+
+  - Need to implement selection of pricebars so that they get
+    highlighted and the QLabels at the top get updated with the
+    pricebar.
 
   - Need to implement 'snap' functionality, for snapping to a whole bar, 
     bottom/top of a bar, or to the closest integer X (day) for 
