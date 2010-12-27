@@ -10,6 +10,12 @@ CHECK  - Add field for setting the description in the Edit dialog for
          PriceBarChartSettings or maybe its own dialog for
          PriceChartDocument members.
 
+  - Need to finish editing settings.py with the default values for
+    planets and signs.
+
+  - Need to add widgets for editing app-wide prefs/settings of planets
+    and signs.
+
   - Need to implement the setting of the labels in the PriceChartDocument.  
     (Cleaned up so that they are in form or grid layouts).
     (Set so that the Mouse location labels are displayed at initialization).
@@ -21,4 +27,6 @@ CHECK  - Add field for setting the description in the Edit dialog for
   - Need to implement 'snap' functionality, for snapping to a whole bar, 
     bottom/top of a bar, or to the closest integer X (day) for 
     charting the astro chart.
+
+  - Need to implement the spreadsheet widget.
 
