@@ -264,6 +264,26 @@ class Ephemeris:
     geoLatitudeDeg = 0
     geoAltitudeMeters = 0
     
+    # Dictionary for referencing various House Cusp Systems.
+    HouseSys = { 'Placidus'      : b'P',
+                 'Koch'          : b'K',
+                 'Porphyry'      : b'O',
+                 'Porphyrius'    : b'O',
+                 'Sripathi'      : b'O',
+                 'Regiomontanus' : b'R',
+                 'Campanus'      : b'C',
+                 'Equal'         : b'E',
+                 'VehlowEqual'   : b'V',
+                 'Whole'         : b'W',
+                 'AxialRotationSystem' : b'X',
+                 'Azimuthal'     : b'H',
+                 'Horizontal'    : b'H',
+                 'Polich'        : b'T',
+                 'Page'          : b'T',
+                 'Alcabitus'     : b'B',
+                 'Morinus'       : b'M',
+                 'KrusinskiPisa' : b'U',
+                 'GauquelinSectors' : b'G'}
 
     @staticmethod
     def initialize():
@@ -754,6 +774,105 @@ class Ephemeris:
         return (arg1, arg2, arg3, arg4, arg5, arg6)
 
     @staticmethod
+    def swe_houses_ex(jd, 
+                      geoLatitudeDeg, 
+                      geoLongitudeDeg,
+                      houseSystem=b"O", 
+                      flag=swe.FLG_SIDEREAL):
+        """Wrapper for the Swiss Ephemeris call swe_houses_ex().
+
+        Return value:
+
+        Tuple containing two tuples of 12 and 8 floats as follows:
+
+        cusps[0] = House 1 cusp
+        cusps[1] = House 2 cusp
+        cusps[2] = House 3 cusp
+        cusps[3] = House 4 cusp
+        cusps[4] = House 5 cusp
+        cusps[5] = House 6 cusp
+        cusps[6] = House 7 cusp
+        cusps[7] = House 8 cusp
+        cusps[8] = House 9 cusp
+        cusps[9] = House 10 cusp
+        cusps[10] = House 11 cusp
+        cusps[11] = House 12 cusp
+
+        ascmc[0] = Ascendant
+        ascmc[1] = MC
+        ascmc[2] = ARMC
+        ascmc[3] = Vertex
+        ascmc[4] = "Equatorial ascendant"
+        ascmc[5] = "Co-ascendant" (Walter Koch)
+        ascmc[6] = "Co-ascendant" (Michael Munkasey)
+        ascmc[7] = "Polar ascendant" (M. Munkasey)
+        
+
+        Parameters:
+        jd - float value for the Julian Day, UT.
+        geoLongitudeDeg - Longitude in degrees.  
+                          West longitudes are negative,
+                          East longitudes are positive.
+                          Value should be in the range of -180 to 180.
+        geoLatitudeDeg  - Latitude in degrees.  North latitudes are positive, 
+                          south latitudes are negative.  
+                          Value should be in the range of -90 to 90.
+        houseSystem - byte string of length 1, that is one of the letters:
+                      PKORCAEVXHTBG.
+
+                      P - Placidus
+                      K - Koch
+                      O - Porphyrius
+                      R - Regiomontanus
+                      C - Campanus
+                      A or E - Equal (cusp 1 is ascendant)
+                      V - Vehlow equal (asc. in middle of house 1)
+                      W - Whole sign
+                      X - Axial rotation system
+                      H - Azimuthal or horizontal system
+                      T - Polich/Page ('topocentric' system)
+                      B - Alcabitus
+                      M - Morinus
+                      U - Krusinski-Pisa
+                      G - Gauquelin sectors
+        flag - int value that is a bit flag.
+               Flag is checked for an OR of any the following:
+               - 0 
+               - swe.FLG_SIDEREAL
+               - swe.FLG_RADIANS
+        """
+
+        Ephemeris.log.debug("Entering swe_houses_ex(" + \
+                "jd={}, ".format(jd) + \
+                "houseSystem={})".format(houseSystem))
+
+        # Do the calculation.
+        (cusps, ascmc) = \
+            swe.houses_ex(jd, 
+                          geoLatitudeDeg,
+                          geoLongitudeDeg,
+                          houseSystem,
+                          flag)
+
+        # Log some debug for the calculations and parameters.
+        if (Ephemeris.log.isEnabledFor(logging.DEBUG)):
+            Ephemeris.__logDebugSweHousesEx(jd, 
+                                            geoLatitudeDeg,
+                                            geoLongitudeDeg,
+                                            houseSystem,
+                                            flag,
+                                            cusps,
+                                            ascmc)
+        
+        Ephemeris.log.debug("Leaving swe_houses_ex(" + \
+                "jd={}, ".format(jd) + \
+                "houseSystem={})".format(houseSystem))
+
+        # Return calculated values.
+        return (cusps, ascmc)
+        
+
+    @staticmethod
     def __logDebugCalcUTInfo(jd, planet, flag, 
                              arg1, arg2, arg3, arg4, arg5, arg6):
         """Helper function that simply logs the parameters provided.
@@ -849,9 +968,172 @@ class Ephemeris:
             Ephemeris.log.debug(debugStr.\
                     format("Speed in distance (AU/day):", arg6))
     
-    # TODO:  need to add functions for getting cusp locations for the
-    # porphyry (sripathi) house system.  
-    
+    @staticmethod
+    def __logDebugSweHousesEx(jd, 
+                              geoLatitudeDeg,
+                              geoLongitudeDeg,
+                              houseSystem,
+                              flag,
+                              cusps,
+                              ascmc):
+        """Helper function that simply logs the parameters provided.
+        These are the parameters and return values from running
+        swe_houses_ex().
+        """
+
+        # Only continue and log if the logging level is set to DEBUG.
+        if (not Ephemeris.log.isEnabledFor(logging.DEBUG)):
+            return
+        
+        prefix = "swe_house_ex(): "
+
+        debugStr = prefix + "-----------------------------------------------"
+        Ephemeris.log.debug(debugStr)
+
+        Ephemeris.log.debug(prefix + \
+                "jd={}, ".format(jd) + \
+                "geoLatitudeDeg={}, ".format(geoLatitudeDeg) + \
+                "geoLongitudeDeg={}, ".format(geoLongitudeDeg) + \
+                "houseSystem={}, ".format(houseSystem) + \
+                "flag={}".format(flag))
+
+        # Output the flag set.
+        if (flag & swe.FLG_JPLEPH):
+            Ephemeris.log.debug(prefix + " - FLG_JPLEPH")
+        if (flag & swe.FLG_SWIEPH):
+            Ephemeris.log.debug(prefix + " - FLG_SWIEPH")
+        if (flag & swe.FLG_MOSEPH):
+            Ephemeris.log.debug(prefix + " - FLG_MOSEPH")
+        if (flag & swe.FLG_HELCTR):
+            Ephemeris.log.debug(prefix + " - FLG_HELCTR")
+        if (flag & swe.FLG_TRUEPOS):
+            Ephemeris.log.debug(prefix + " - FLG_TRUEPOS")
+        if (flag & swe.FLG_SPEED):
+            Ephemeris.log.debug(prefix + " - FLG_SPEED")
+        if (flag & swe.FLG_EQUATORIAL):
+            Ephemeris.log.debug(prefix + " - FLG_EQUATORIAL")
+        if (flag & swe.FLG_XYZ):
+            Ephemeris.log.debug(prefix + " - FLG_XYZ")
+        if (flag & swe.FLG_RADIANS):
+            Ephemeris.log.debug(prefix + " - FLG_RADIANS")
+        if (flag & swe.FLG_TOPOCTR):
+            Ephemeris.log.debug(prefix + " - FLG_TOPOCTR")
+        if (flag & swe.FLG_SIDEREAL):
+            Ephemeris.log.debug(prefix + " - FLG_SIDEREAL")
+
+        # Output the values returned.
+        Ephemeris.log.debug(prefix + " returns: ")
+
+        # House cusps.
+        for i in len(cusps):
+            Ephemeris.log.debug(prefix + " cusps[{}]={}".format(i, cusps[i]))
+
+        # Other miscellaneous cusps.
+        Ephemeris.log.debug(prefix + " Ascendant={}".\
+                format(ascmc[0]))
+        Ephemeris.log.debug(prefix + " MC={}".\
+                format(ascmc[1]))
+        Ephemeris.log.debug(prefix + " ARMC={}".\
+                format(ascmc[2]))
+        Ephemeris.log.debug(prefix + " Vertex={}".\
+                format(ascmc[3]))
+        Ephemeris.log.debug(prefix + " Equatorial ascendant={}".\
+                format(ascmc[4]))
+        Ephemeris.log.debug(prefix + " Co-ascendant (W.Koch)={}".\
+                format(ascmc[5]))
+        Ephemeris.log.debug(prefix + " Co-ascendant (M. Munkasey)={}".\
+                format(ascmc[6]))
+        Ephemeris.log.debug(prefix + " Polar ascendant (M. Munkasey)={}".\
+                format(ascmc[7]))
+
+        
+    @staticmethod
+    def getHouseCusps(dt, houseSystem=HouseSys['Porphyry']):
+        """Returns a list of floats that are the degree locations
+        of the house cusps.  
+
+        Preconditions: 
+        - Ephemeris.initialize()
+        - Ephemeris.setGeographicPosition() has been called previously.
+        - Ephemeris.iflag is set appropriately as desired.
+             This means that if you want certain conditions on your
+             calculations, then you must have called the appropriate
+             set-function for that.  These are some that you may have
+             wanted to have called beforehand:
+
+            Ephemeris.setTropicalZodiac()
+            Ephemeris.setSiderealZodiac()
+            Ephemeris.setRadiansCoordinateSystemFlag()
+            Ephemeris.unsetRadiansCoordinateSystemFlag()
+
+        Arguments:
+        
+        dt - datetime.datetime object that holds the timestamp for which
+             you want to get the house cusps.
+
+        houseSystem - byte string of length 1.  That character is one of:
+
+                      P - Placidus
+                      K - Koch
+                      O - Porphyrius
+                      R - Regiomontanus
+                      C - Campanus
+                      A or E - Equal (cusp 1 is ascendant)
+                      V - Vehlow equal (asc. in middle of house 1)
+                      W - Whole sign
+                      X - Axial rotation system
+                      H - Azimuthal or horizontal system
+                      T - Polich/Page ('topocentric' system)
+                      B - Alcabitus
+                      M - Morinus
+                      U - Krusinski-Pisa
+                      G - Gauquelin sectors
+
+                      For convenience you can use the dict at
+                      Ephemeris.HouseSys to reference the house system you
+                      want.  E.g.  
+                      
+                      cusps = \
+                          Ephemeris.\
+                              getHouseCusps(dt, Ephemeris.HouseSys['Koch'])
+                      
+        Return value: 
+
+        Tuple of 12 floats containing the house cusps:
+            cusps[0] = float value for the 1st House cusp.
+            cusps[1] = float value for the 2nd House cusp.
+            cusps[2] = float value for the 3rd House cusp.
+            cusps[3] = float value for the 4th House cusp.
+            cusps[4] = float value for the 5th House cusp.
+            cusps[5] = float value for the 6th House cusp.
+            cusps[6] = float value for the 7th House cusp.
+            cusps[7] = float value for the 8th House cusp.
+            cusps[8] = float value for the 9th House cusp.
+            cusps[9] = float value for the 10th House cusp.
+            cusps[10] = float value for the 11th House cusp.
+            cusps[11] = float value for the 12th House cusp.
+        """
+
+        # Validate input.
+        validHouseSystems = list(Ephemeris.HouseSys.values())
+        if houseSystem not in validHouseSystems:
+            Ephemeris.log.error("getHouseCusps(): " + \
+                "Invalid house system specified: {}".format(houseSystem))
+            return (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+        # Convert datetime to julian day.
+        jd = Ephemeris.datetimeToJulianDay(dt)
+
+        # Obtain the house cusps.
+        (cusps, ascmc) = \
+            Ephemeris.swe_houses_ex(jd, 
+                                    Ephemeris.geoLatitudeDeg, 
+                                    Ephemeris.geoLongitudeDeg,
+                                    houseSystem,
+                                    Ephemeris.iflag)
+
+        return cusps
+
     # TODO:  add functions for getting locations of gulika and mandi and
     # other upagrahas.
 
@@ -1634,6 +1916,13 @@ if __name__=="__main__":
     p = Ephemeris.getChironPlanetaryInfo(now)
     print("At {}, planet '{}' has the following info: \n{}".\
             format(now, p.name, p.toString()))
+
+    print("------------------------")
+
+    Ephemeris.setSiderealZodiac()
+    Ephemeris.setGeographicPosition(-77.084444, 38.890277)
+    cusps = Ephemeris.getHouseCusps(now, Ephemeris.HouseSys['Porphyry'])
+    print("House cusps are: {}".format(cusps))
 
     print("------------------------")
 
