@@ -913,46 +913,6 @@ class PriceChartDocumentData:
         self.log.debug("Set state of a " + PriceChartDocumentData.__name__ +
                        " object of version {}".format(self.classVersion))
 
-
-class DefaultSettingsFactory:
-    """Class that creates initial default settings to be used in 
-    the PriceChartingTool.
-    """
-
-    def generatePriceBarChartSettings(priceBars):
-        """Generates a good working default PriceBarChartSettings 
-        object for use to create the PriceBarChart.  
-
-        Arguments:
-
-        priceBars - list of PriceBar objects, sorted by time.
-        """
-
-        # See if we can determine if the bars are one of the following:
-        #  - 5-min
-        #  - Hourly
-        #  - Daily
-        #  - Weekly
-        #  - Monthly
-        #  - Yearly.
-
-        # TODO:  adjust the scaling and pricebar width and/or what X and Y
-        # sizes to use for dates/prices.
-        pass
-
-    def generatePriceBarSpreadsheetSettings(priceBars):
-        """Generates a good working default PriceBarSpreadsheetSettings 
-        object for use to create the PriceBarSpreadsheet.  
-
-        Arguments:
-
-        priceBars - list of PriceBar objects, sorted by time.
-        """
-
-        # TODO:  write this function.
-        pass
-
-
 class PriceBarChartSettings:
     """Class that holds the default settings used in the
     PriceBarChartWidget.

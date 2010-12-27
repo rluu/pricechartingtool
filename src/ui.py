@@ -17,6 +17,7 @@ import resources
 
 # For dialogs for user input.
 from dialogs import *
+from widgets import *
 
 # For data objects manipulated in the ui.
 from data_objects import BirthInfo
@@ -1485,6 +1486,9 @@ class PriceChartDocument(QMdiSubWindow):
         # Set the timezone.
         self.widgets.setTimezone(self.priceChartDocumentData.locationTimezone)
 
+        # Set the birth info.
+        self.widgets.setBirthInfo(self.priceChartDocumentData.birthInfo)
+
         # Load pricebars and chart artifacts.
         priceBars = self.priceChartDocumentData.priceBars
         priceBarChartArtifacts = \
@@ -1561,6 +1565,9 @@ class PriceChartDocument(QMdiSubWindow):
         self.log.debug("Entered setBirthInfo()")
 
         self.priceChartDocumentData.setBirthInfo(birthInfo)
+
+        self.widgets.setBirthInfo(birthInfo)
+
         self.setDirtyFlag(True)
 
         self.log.debug("Exiting setBirthInfo()")
@@ -1934,22 +1941,45 @@ class PriceChartDocumentWidget(QWidget):
         super().__init__(parent)
         self.log = logging.getLogger("ui.PriceChartDocumentWidget")
 
+        self.birthInfo = BirthInfo()
+
         # Create the internal widgets displayed.
         self.priceBarChartWidget = PriceBarChartWidget()
         self.priceBarSpreadsheetWidget = PriceBarSpreadsheetWidget()
+        self.planetaryInfoTableWidget = PlanetaryInfoTableWidget()
+
+        # TODO:  Add QSplitters to divide the above internal widgets.
+
+        self.setBirthInfo(self.birthInfo)
 
         # Setup the layout.
-        layout = QVBoxLayout()
-        layout.addWidget(self.priceBarChartWidget)
-        layout.addWidget(self.priceBarSpreadsheetWidget)
-        self.setLayout(layout)
+        vlayout = QVBoxLayout()
+        vlayout.addWidget(self.priceBarChartWidget)
+        vlayout.addWidget(self.priceBarSpreadsheetWidget)
+
+        hlayout = QHBoxLayout()
+        hlayout.addLayout(vlayout)
+        # TODO:  Uncomment to re-add the PlanetaryInfoTableWidget.
+        #hlayout.addWidget(self.planetaryInfoTableWidget)
+
+        self.setLayout(hlayout)
 
         # Connect signals and slots.
         self.priceBarChartWidget.priceBarChartChanged.\
             connect(self._handleWidgetChanged)
-        # TODO:  uncomment the below commented-out code later.
-        #self.priceBarSpreadsheetWidget.priceBarSpreadsheetChanged.\
-        #    connect(self._handleWidgetChanged)
+        # TODO:  Uncomment to re-add the PlanetaryInfoTableWidget.
+        #self.priceBarChartWidget.currentTimestampChanged.\
+        #    connect(self._handleCurrentTimestampChanged)
+
+    def setBirthInfo(self, birthInfo):
+        """Sets the birth info for this trading entity.
+        
+        Arguments:
+
+        birthInfo - BirthInfo object.
+        """
+
+        self.birthInfo = birthInfo
 
     def setDescriptionText(self, text):
         """Sets the description text of this PriceChartDocument.
@@ -2109,5 +2139,61 @@ class PriceChartDocumentWidget(QWidget):
 
         self.priceChartDocumentWidgetChanged.emit()
 
+    def _handleCurrentTimestampChanged(self, dt):
+        """Handles when the current mouse cursor datetime changes.
+        This just calls certain widgets to update their
+        display of what the current time is.  For example,
+        the PlanetaryInfoTableWidget would need to have it's info reloaded
+        with the planetary locations for that timestamp.
+        """
 
+        # Set the location (required).
+        Ephemeris.setGeographicPosition(self.birthInfo.longitudeDegrees,
+                                        self.birthInfo.latitudeDegrees,
+                                        self.birthInfo.elevation)
+
+        # Get planetary info for all the planets.
+        planets = []
+
+        # TODO:  Add more 'planets' (planetary calculations) here as more
+        # are available.
+        
+        p = Ephemeris.getSunPlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getMoonPlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getMercuryPlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getVenusPlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getMarsPlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getJupiterPlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getSaturnPlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getUranusPlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getNeptunePlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getPlutoPlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getMeanNorthNodePlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getTrueNorthNodePlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getMeanLunarApogeePlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getOsculatingLunarApogeePlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getInterpolatedLunarApogeePlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getInterpolatedLunarPerigeePlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getEarthPlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getChironPlanetaryInfo(dt)
+        planets.append(p)
+
+        self.planetaryInfoTableWidget.load(planets)
 

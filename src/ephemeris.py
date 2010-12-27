@@ -56,9 +56,9 @@ class PlanetaryInfo:
     p.geocentric['tropical']['X']  = <X location (AU)>
     p.geocentric['tropical']['Y']  = <Y location (AU)>
     p.geocentric['tropical']['Z']  = <Z location (AU)>
-    p.geocentric['tropical']['dX'] = <X speed (AU)>
-    p.geocentric['tropical']['dY'] = <Y speed (AU)>
-    p.geocentric['tropical']['dZ'] = <Z speed (AU)>
+    p.geocentric['tropical']['dX'] = <X speed (AU/day)>
+    p.geocentric['tropical']['dY'] = <Y speed (AU/day)>
+    p.geocentric['tropical']['dZ'] = <Z speed (AU/day)>
 
     p.geocentric['sidereal']['longitude']       = <Longitude (degrees)>
     p.geocentric['sidereal']['latitude']        = <Latitude (degrees)>
@@ -75,9 +75,9 @@ class PlanetaryInfo:
     p.geocentric['sidereal']['X']  = <X location (AU)>
     p.geocentric['sidereal']['Y']  = <Y location (AU)>
     p.geocentric['sidereal']['Z']  = <Z location (AU)>
-    p.geocentric['sidereal']['dX'] = <X speed (AU)>
-    p.geocentric['sidereal']['dY'] = <Y speed (AU)>
-    p.geocentric['sidereal']['dZ'] = <Z speed (AU)>
+    p.geocentric['sidereal']['dX'] = <X speed (AU/day)>
+    p.geocentric['sidereal']['dY'] = <Y speed (AU/day)>
+    p.geocentric['sidereal']['dZ'] = <Z speed (AU/day)>
 
 
     p.topocentric['tropical']['longitude']       = <Longitude (degrees)>
@@ -95,9 +95,9 @@ class PlanetaryInfo:
     p.topocentric['tropical']['X']  = <X location (AU)>
     p.topocentric['tropical']['Y']  = <Y location (AU)>
     p.topocentric['tropical']['Z']  = <Z location (AU)>
-    p.topocentric['tropical']['dX'] = <X speed (AU)>
-    p.topocentric['tropical']['dY'] = <Y speed (AU)>
-    p.topocentric['tropical']['dZ'] = <Z speed (AU)>
+    p.topocentric['tropical']['dX'] = <X speed (AU/day)>
+    p.topocentric['tropical']['dY'] = <Y speed (AU/day)>
+    p.topocentric['tropical']['dZ'] = <Z speed (AU/day)>
 
     p.topocentric['sidereal']['longitude']       = <Longitude (degrees)>
     p.topocentric['sidereal']['latitude']        = <Latitude (degrees)>
@@ -114,9 +114,9 @@ class PlanetaryInfo:
     p.topocentric['sidereal']['X']  = <X location (AU)>
     p.topocentric['sidereal']['Y']  = <Y location (AU)>
     p.topocentric['sidereal']['Z']  = <Z location (AU)>
-    p.topocentric['sidereal']['dX'] = <X speed (AU)>
-    p.topocentric['sidereal']['dY'] = <Y speed (AU)>
-    p.topocentric['sidereal']['dZ'] = <Z speed (AU)>
+    p.topocentric['sidereal']['dX'] = <X speed (AU/day)>
+    p.topocentric['sidereal']['dY'] = <Y speed (AU/day)>
+    p.topocentric['sidereal']['dZ'] = <Z speed (AU/day)>
 
 
     p.heliocentric['tropical']['longitude']       = <Longitude (degrees)>
@@ -134,9 +134,9 @@ class PlanetaryInfo:
     p.heliocentric['tropical']['X']  = <X location (AU)>
     p.heliocentric['tropical']['Y']  = <Y location (AU)>
     p.heliocentric['tropical']['Z']  = <Z location (AU)>
-    p.heliocentric['tropical']['dX'] = <X speed (AU)>
-    p.heliocentric['tropical']['dY'] = <Y speed (AU)>
-    p.heliocentric['tropical']['dZ'] = <Z speed (AU)>
+    p.heliocentric['tropical']['dX'] = <X speed (AU/day)>
+    p.heliocentric['tropical']['dY'] = <Y speed (AU/day)>
+    p.heliocentric['tropical']['dZ'] = <Z speed (AU/day)>
 
     p.heliocentric['sidereal']['longitude']       = <Longitude (degrees)>
     p.heliocentric['sidereal']['latitude']        = <Latitude (degrees)>
@@ -153,9 +153,9 @@ class PlanetaryInfo:
     p.heliocentric['sidereal']['X']  = <X location (AU)>
     p.heliocentric['sidereal']['Y']  = <Y location (AU)>
     p.heliocentric['sidereal']['Z']  = <Z location (AU)>
-    p.heliocentric['sidereal']['dX'] = <X speed (AU)>
-    p.heliocentric['sidereal']['dY'] = <Y speed (AU)>
-    p.heliocentric['sidereal']['dZ'] = <Z speed (AU)>
+    p.heliocentric['sidereal']['dX'] = <X speed (AU/day)>
+    p.heliocentric['sidereal']['dY'] = <Y speed (AU/day)>
+    p.heliocentric['sidereal']['dZ'] = <Z speed (AU/day)>
     """
 
     def __init__(self, planetName, planetId, dt, julianDay,
@@ -1570,8 +1570,8 @@ if __name__=="__main__":
     Ephemeris.initialize()
 
     # Set the Location (required).
-    #Ephemeris.setGeographicPosition(-77.084444, 38.890277)
-    Ephemeris.setGeographicPosition(-77.084444, 38.890277, -68)
+    Ephemeris.setGeographicPosition(-77.084444, 38.890277)
+    #Ephemeris.setGeographicPosition(-77.084444, 38.890277, -68)
 
     # Get the current time, which we will use to get planetary info.
     #now = datetime.datetime.utcnow()

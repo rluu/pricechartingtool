@@ -4596,6 +4596,12 @@ class PriceChartDocumentDataEditDialog(QDialog):
 # For debugging the module during development.  
 if __name__=="__main__":
     # Initialize Logging for the Ephemeris class (required).
+    Ephemeris.initialize()
+
+    # Set a default location (required).
+    Ephemeris.setGeographicPosition(-77.084444, 38.890277)
+    
+    # Initialize logging.
     LOG_CONFIG_FILE = os.path.join(sys.path[0], "../conf/logging.conf")
     logging.config.fileConfig(LOG_CONFIG_FILE)
 
