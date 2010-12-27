@@ -1053,18 +1053,8 @@ class Ephemeris:
         of the house cusps.  
 
         Preconditions: 
-        - Ephemeris.initialize()
-        - Ephemeris.setGeographicPosition() has been called previously.
-        - Ephemeris.iflag is set appropriately as desired.
-             This means that if you want certain conditions on your
-             calculations, then you must have called the appropriate
-             set-function for that.  These are some that you may have
-             wanted to have called beforehand:
 
-            Ephemeris.setTropicalZodiac()
-            Ephemeris.setSiderealZodiac()
-            Ephemeris.setRadiansCoordinateSystemFlag()
-            Ephemeris.unsetRadiansCoordinateSystemFlag()
+            Ephemeris.setGeographicPosition() has been called previously.
 
         Arguments:
         
@@ -1099,19 +1089,33 @@ class Ephemeris:
                       
         Return value: 
 
-        Tuple of 12 floats containing the house cusps:
-            cusps[0] = float value for the 1st House cusp.
-            cusps[1] = float value for the 2nd House cusp.
-            cusps[2] = float value for the 3rd House cusp.
-            cusps[3] = float value for the 4th House cusp.
-            cusps[4] = float value for the 5th House cusp.
-            cusps[5] = float value for the 6th House cusp.
-            cusps[6] = float value for the 7th House cusp.
-            cusps[7] = float value for the 8th House cusp.
-            cusps[8] = float value for the 9th House cusp.
-            cusps[9] = float value for the 10th House cusp.
-            cusps[10] = float value for the 11th House cusp.
-            cusps[11] = float value for the 12th House cusp.
+        Dictionary holding the house cusps in degrees.
+
+        cusps['tropical'][0]  = float value for the 1st House cusp (degrees).
+        cusps['tropical'][1]  = float value for the 2nd House cusp (degrees).
+        cusps['tropical'][2]  = float value for the 3rd House cusp (degrees).
+        cusps['tropical'][3]  = float value for the 4th House cusp (degrees).
+        cusps['tropical'][4]  = float value for the 5th House cusp (degrees).
+        cusps['tropical'][5]  = float value for the 6th House cusp (degrees).
+        cusps['tropical'][6]  = float value for the 7th House cusp (degrees).
+        cusps['tropical'][7]  = float value for the 8th House cusp (degrees).
+        cusps['tropical'][8]  = float value for the 9th House cusp (degrees).
+        cusps['tropical'][9]  = float value for the 10th House cusp (degrees).
+        cusps['tropical'][10] = float value for the 11th House cusp (degrees).
+        cusps['tropical'][11] = float value for the 12th House cusp (degrees).
+
+        cusps['sidereal'][0]  = float value for the 1st House cusp (degrees).
+        cusps['sidereal'][1]  = float value for the 2nd House cusp (degrees).
+        cusps['sidereal'][2]  = float value for the 3rd House cusp (degrees).
+        cusps['sidereal'][3]  = float value for the 4th House cusp (degrees).
+        cusps['sidereal'][4]  = float value for the 5th House cusp (degrees).
+        cusps['sidereal'][5]  = float value for the 6th House cusp (degrees).
+        cusps['sidereal'][6]  = float value for the 7th House cusp (degrees).
+        cusps['sidereal'][7]  = float value for the 8th House cusp (degrees).
+        cusps['sidereal'][8]  = float value for the 9th House cusp (degrees).
+        cusps['sidereal'][9]  = float value for the 10th House cusp (degrees).
+        cusps['sidereal'][10] = float value for the 11th House cusp (degrees).
+        cusps['sidereal'][11] = float value for the 12th House cusp (degrees).
         """
 
         # Validate input.
@@ -1124,13 +1128,32 @@ class Ephemeris:
         # Convert datetime to julian day.
         jd = Ephemeris.datetimeToJulianDay(dt)
 
+        # Get the house cusps in the tropical zodiac coordinates.
+        Ephemeris.setTropicalZodiac()
+        Ephemeris.unsetRadiansCoordinateSystemFlag()
+
         # Obtain the house cusps.
-        (cusps, ascmc) = \
+        (tropicalCusps, tropicalAscmc) = \
             Ephemeris.swe_houses_ex(jd, 
                                     Ephemeris.geoLatitudeDeg, 
                                     Ephemeris.geoLongitudeDeg,
                                     houseSystem,
                                     Ephemeris.iflag)
+
+        # Get the house cusps in the sidereal zodiac coordinates.
+        Ephemeris.setSiderealZodiac()
+        Ephemeris.unsetRadiansCoordinateSystemFlag()
+
+        # Obtain the house cusps.
+        (siderealCusps, siderealAscmc) = \
+            Ephemeris.swe_houses_ex(jd, 
+                                    Ephemeris.geoLatitudeDeg, 
+                                    Ephemeris.geoLongitudeDeg,
+                                    houseSystem,
+                                    Ephemeris.iflag)
+
+        cusps = {'tropical' : tropicalCusps,
+                 'sidereal' : siderealCusps}
 
         return cusps
 
@@ -1919,10 +1942,14 @@ if __name__=="__main__":
 
     print("------------------------")
 
-    Ephemeris.setSiderealZodiac()
     Ephemeris.setGeographicPosition(-77.084444, 38.890277)
     cusps = Ephemeris.getHouseCusps(now, Ephemeris.HouseSys['Porphyry'])
-    print("House cusps are: {}".format(cusps))
+    print("Tropical house cusps are: {}".format(cusps['tropical']))
+    for i in range(len(cusps['tropical'])):
+        print("House {}:    {}".format(i, cusps['tropical'][i]))
+    print("Sidereal house cusps are: {}".format(cusps['sidereal']))
+    for i in range(len(cusps['sidereal'])):
+        print("House {}:    {}".format(i, cusps['sidereal'][i]))
 
     print("------------------------")
 
