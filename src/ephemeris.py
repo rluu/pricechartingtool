@@ -1860,6 +1860,85 @@ class Ephemeris:
 
         return Ephemeris.getPlanetaryInfo(swe.CHIRON, timestamp)
 
+    @staticmethod
+    def getPholusPlanetaryInfo(timestamp):
+        """Returns a Python dictionary containing information about
+        the Pholus at the given timestamp.
+        
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which to
+                    do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        Ephemeris.log.debug("getPholusPlanetaryInfo({})".\
+                            format(timestamp))
+
+        return Ephemeris.getPlanetaryInfo(swe.PHOLUS, timestamp)
+
+    @staticmethod
+    def getCeresPlanetaryInfo(timestamp):
+        """Returns a Python dictionary containing information about
+        the Ceres at the given timestamp.
+        
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which to
+                    do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        Ephemeris.log.debug("getCeresPlanetaryInfo({})".\
+                            format(timestamp))
+
+        return Ephemeris.getPlanetaryInfo(swe.CERES, timestamp)
+
+    @staticmethod
+    def getPallasPlanetaryInfo(timestamp):
+        """Returns a Python dictionary containing information about
+        the Pallas at the given timestamp.
+        
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which to
+                    do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        Ephemeris.log.debug("getPallasPlanetaryInfo({})".\
+                            format(timestamp))
+
+        return Ephemeris.getPlanetaryInfo(swe.PALLAS, timestamp)
+
+    @staticmethod
+    def getJunoPlanetaryInfo(timestamp):
+        """Returns a Python dictionary containing information about
+        the Juno at the given timestamp.
+        
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which to
+                    do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        Ephemeris.log.debug("getJunoPlanetaryInfo({})".\
+                            format(timestamp))
+
+        return Ephemeris.getPlanetaryInfo(swe.JUNO, timestamp)
+
+    @staticmethod
+    def getVestaPlanetaryInfo(timestamp):
+        """Returns a Python dictionary containing information about
+        the Vesta at the given timestamp.
+        
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which to
+                    do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        Ephemeris.log.debug("getVestaPlanetaryInfo({})".\
+                            format(timestamp))
+
+        return Ephemeris.getPlanetaryInfo(swe.VESTA, timestamp)
 
 
 # For debugging the Ephemeris class during development.  
@@ -1937,6 +2016,21 @@ if __name__=="__main__":
     print("At {}, planet '{}' has the following info: \n{}".\
             format(now, p.name, p.toString()))
     p = Ephemeris.getChironPlanetaryInfo(now)
+    print("At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getPholusPlanetaryInfo(now)
+    print("At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getCeresPlanetaryInfo(now)
+    print("At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getPallasPlanetaryInfo(now)
+    print("At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getJunoPlanetaryInfo(now)
+    print("At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getVestaPlanetaryInfo(now)
     print("At {}, planet '{}' has the following info: \n{}".\
             format(now, p.name, p.toString()))
 

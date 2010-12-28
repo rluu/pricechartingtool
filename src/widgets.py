@@ -61,6 +61,8 @@ class ColorEditPushButton(QPushButton):
 
         self.color = color
 
+        self.clicked.connect(self._handleButtonClicked)
+
     def setColor(self, color):
         """Sets the color of held by this widget.
 
@@ -80,6 +82,21 @@ class ColorEditPushButton(QPushButton):
 
         return self.color
 
+    def _handleButtonClicked(self):
+        """Brings up a color QColorDialog to edit the current color.
+        If the new color is valid and it is a different color, then we
+        set the button as having the new color.
+        """
+
+        # First get the current color.
+        currColor = self.getColor()
+
+        # Open a dialog to obtain a new color.
+        newColor = QColorDialog.getColor(currColor)
+
+        # If a color was chosen that is different, then set the new color.
+        if newColor.isValid() and currColor != newColor:
+            self.setColor(newColor)
 
 
 class PlanetaryInfoTableWidget(QTableWidget):

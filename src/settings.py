@@ -36,6 +36,43 @@ class SettingsKeys():
 
 
 
+    # QSettings key for the planet glyph unicode of the Retrograde.
+    planetRetrogradeGlyphUnicodeKey = \
+        "ui/astrology/retrogradeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the Retrograde.
+    planetRetrogradeGlyphUnicodeDefValue = "\u211e"
+
+    # QSettings key for the planet glyph font size of the Retrograde.
+    planetRetrogradeGlyphFontSizeKey = \
+        "ui/astrology/retrogradeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the Retrograde.
+    planetRetrogradeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the Retrograde.
+    planetRetrogradeAbbreviationKey = \
+        "ui/astrology/retrogradeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the Retrograde.
+    planetRetrogradeAbbreviationDefValue = "Rx"
+
+    # QSettings key for the foreground color of the Retrograde.
+    planetRetrogradeForegroundColorKey = \
+        "ui/astrology/retrogradeForegroundColor"
+
+    # QSettings default value for the foreground color of the Retrograde.
+    planetRetrogradeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the Retrograde.
+    planetRetrogradeBackgroundColorKey = \
+        "ui/astrology/retrogradeBackgroundColor"
+
+    # QSettings default value for the background color of the Retrograde.
+    planetRetrogradeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
     # QSettings key for the planet glyph unicode of the Ascendant.
     planetAscendantGlyphUnicodeKey = \
         "ui/astrology/ascendantGlyphUnicode"
@@ -69,7 +106,7 @@ class SettingsKeys():
         "ui/astrology/ascendantBackgroundColor"
 
     # QSettings default value for the background color of the Ascendant.
-    planetAscendantBackgroundColorDefValue = QColor(Qt.white)
+    planetAscendantBackgroundColorDefValue = QColor(Qt.transparent)
 
 
 
@@ -106,821 +143,7 @@ class SettingsKeys():
         "ui/astrology/midheavenBackgroundColor"
 
     # QSettings default value for the background color of the Midheaven.
-    planetMidheavenBackgroundColorDefValue = QColor(Qt.white)
-
-
-
-    # QSettings key for the planet glyph unicode of the Sun.
-    planetSunGlyphUnicodeKey = \
-        "ui/astrology/sunGlyphUnicode"
-
-    # QSettings default value for the planet glyph unicode of the Sun.
-    planetSunGlyphUnicodeDefValue = ""
-
-    # QSettings key for the planet glyph font size of the Sun.
-    planetSunGlyphFontSizeKey = \
-        "ui/astrology/sunGlyphFontSize"
-
-    # QSettings default value for the planet glyph font size of the Sun.
-    planetSunGlyphFontSizeDefValue = 10
-
-    # QSettings key for the planet abbreviation of the Sun.
-    planetSunAbbreviationKey = \
-        "ui/astrology/sunAbbreviation"
-
-    # QSettings default value for the planet abbreviation of the Sun.
-    planetSunAbbreviationDefValue = ""
-
-    # QSettings key for the foreground color of the Sun.
-    planetSunForegroundColorKey = \
-        "ui/astrology/sunForegroundColor"
-
-    # QSettings default value for the foreground color of the Sun.
-    planetSunForegroundColorDefValue = QColor(Qt.black)
-
-    # QSettings key for the background color of the Sun.
-    planetSunBackgroundColorKey = \
-        "ui/astrology/sunBackgroundColor"
-
-    # QSettings default value for the background color of the Sun.
-    planetSunBackgroundColorDefValue = QColor(Qt.white)
-
-
-
-    # QSettings key for the planet glyph unicode of the Moon.
-    planetMoonGlyphUnicodeKey = \
-        "ui/astrology/moonGlyphUnicode"
-
-    # QSettings default value for the planet glyph unicode of the Moon.
-    planetMoonGlyphUnicodeDefValue = ""
-
-    # QSettings key for the planet glyph font size of the Moon.
-    planetMoonGlyphFontSizeKey = \
-        "ui/astrology/moonGlyphFontSize"
-
-    # QSettings default value for the planet glyph font size of the Moon.
-    planetMoonGlyphFontSizeDefValue = 10
-
-    # QSettings key for the planet abbreviation of the Moon.
-    planetMoonAbbreviationKey = \
-        "ui/astrology/moonAbbreviation"
-
-    # QSettings default value for the planet abbreviation of the Moon.
-    planetMoonAbbreviationDefValue = ""
-
-    # QSettings key for the foreground color of the Moon.
-    planetMoonForegroundColorKey = \
-        "ui/astrology/moonForegroundColor"
-
-    # QSettings default value for the foreground color of the Moon.
-    planetMoonForegroundColorDefValue = QColor(Qt.black)
-
-    # QSettings key for the background color of the Moon.
-    planetMoonBackgroundColorKey = \
-        "ui/astrology/moonBackgroundColor"
-
-    # QSettings default value for the background color of the Moon.
-    planetMoonBackgroundColorDefValue = QColor(Qt.white)
-
-
-
-    # QSettings key for the planet glyph unicode of the Mercury.
-    planetMercuryGlyphUnicodeKey = \
-        "ui/astrology/mercuryGlyphUnicode"
-
-    # QSettings default value for the planet glyph unicode of the Mercury.
-    planetMercuryGlyphUnicodeDefValue = ""
-
-    # QSettings key for the planet glyph font size of the Mercury.
-    planetMercuryGlyphFontSizeKey = \
-        "ui/astrology/mercuryGlyphFontSize"
-
-    # QSettings default value for the planet glyph font size of the Mercury.
-    planetMercuryGlyphFontSizeDefValue = 10
-
-    # QSettings key for the planet abbreviation of the Mercury.
-    planetMercuryAbbreviationKey = \
-        "ui/astrology/mercuryAbbreviation"
-
-    # QSettings default value for the planet abbreviation of the Mercury.
-    planetMercuryAbbreviationDefValue = ""
-
-    # QSettings key for the foreground color of the Mercury.
-    planetMercuryForegroundColorKey = \
-        "ui/astrology/mercuryForegroundColor"
-
-    # QSettings default value for the foreground color of the Mercury.
-    planetMercuryForegroundColorDefValue = QColor(Qt.black)
-
-    # QSettings key for the background color of the Mercury.
-    planetMercuryBackgroundColorKey = \
-        "ui/astrology/mercuryBackgroundColor"
-
-    # QSettings default value for the background color of the Mercury.
-    planetMercuryBackgroundColorDefValue = QColor(Qt.white)
-
-
-
-    # QSettings key for the planet glyph unicode of the Venus.
-    planetVenusGlyphUnicodeKey = \
-        "ui/astrology/venusGlyphUnicode"
-
-    # QSettings default value for the planet glyph unicode of the Venus.
-    planetVenusGlyphUnicodeDefValue = ""
-
-    # QSettings key for the planet glyph font size of the Venus.
-    planetVenusGlyphFontSizeKey = \
-        "ui/astrology/venusGlyphFontSize"
-
-    # QSettings default value for the planet glyph font size of the Venus.
-    planetVenusGlyphFontSizeDefValue = 10
-
-    # QSettings key for the planet abbreviation of the Venus.
-    planetVenusAbbreviationKey = \
-        "ui/astrology/venusAbbreviation"
-
-    # QSettings default value for the planet abbreviation of the Venus.
-    planetVenusAbbreviationDefValue = ""
-
-    # QSettings key for the foreground color of the Venus.
-    planetVenusForegroundColorKey = \
-        "ui/astrology/venusForegroundColor"
-
-    # QSettings default value for the foreground color of the Venus.
-    planetVenusForegroundColorDefValue = QColor(Qt.black)
-
-    # QSettings key for the background color of the Venus.
-    planetVenusBackgroundColorKey = \
-        "ui/astrology/venusBackgroundColor"
-
-    # QSettings default value for the background color of the Venus.
-    planetVenusBackgroundColorDefValue = QColor(Qt.white)
-
-
-
-    # QSettings key for the planet glyph unicode of the Mars.
-    planetMarsGlyphUnicodeKey = \
-        "ui/astrology/marsGlyphUnicode"
-
-    # QSettings default value for the planet glyph unicode of the Mars.
-    planetMarsGlyphUnicodeDefValue = ""
-
-    # QSettings key for the planet glyph font size of the Mars.
-    planetMarsGlyphFontSizeKey = \
-        "ui/astrology/marsGlyphFontSize"
-
-    # QSettings default value for the planet glyph font size of the Mars.
-    planetMarsGlyphFontSizeDefValue = 10
-
-    # QSettings key for the planet abbreviation of the Mars.
-    planetMarsAbbreviationKey = \
-        "ui/astrology/marsAbbreviation"
-
-    # QSettings default value for the planet abbreviation of the Mars.
-    planetMarsAbbreviationDefValue = ""
-
-    # QSettings key for the foreground color of the Mars.
-    planetMarsForegroundColorKey = \
-        "ui/astrology/marsForegroundColor"
-
-    # QSettings default value for the foreground color of the Mars.
-    planetMarsForegroundColorDefValue = QColor(Qt.black)
-
-    # QSettings key for the background color of the Mars.
-    planetMarsBackgroundColorKey = \
-        "ui/astrology/marsBackgroundColor"
-
-    # QSettings default value for the background color of the Mars.
-    planetMarsBackgroundColorDefValue = QColor(Qt.white)
-
-
-
-    # QSettings key for the planet glyph unicode of the Jupiter.
-    planetJupiterGlyphUnicodeKey = \
-        "ui/astrology/jupiterGlyphUnicode"
-
-    # QSettings default value for the planet glyph unicode of the Jupiter.
-    planetJupiterGlyphUnicodeDefValue = ""
-
-    # QSettings key for the planet glyph font size of the Jupiter.
-    planetJupiterGlyphFontSizeKey = \
-        "ui/astrology/jupiterGlyphFontSize"
-
-    # QSettings default value for the planet glyph font size of the Jupiter.
-    planetJupiterGlyphFontSizeDefValue = 10
-
-    # QSettings key for the planet abbreviation of the Jupiter.
-    planetJupiterAbbreviationKey = \
-        "ui/astrology/jupiterAbbreviation"
-
-    # QSettings default value for the planet abbreviation of the Jupiter.
-    planetJupiterAbbreviationDefValue = ""
-
-    # QSettings key for the foreground color of the Jupiter.
-    planetJupiterForegroundColorKey = \
-        "ui/astrology/jupiterForegroundColor"
-
-    # QSettings default value for the foreground color of the Jupiter.
-    planetJupiterForegroundColorDefValue = QColor(Qt.black)
-
-    # QSettings key for the background color of the Jupiter.
-    planetJupiterBackgroundColorKey = \
-        "ui/astrology/jupiterBackgroundColor"
-
-    # QSettings default value for the background color of the Jupiter.
-    planetJupiterBackgroundColorDefValue = QColor(Qt.white)
-
-
-
-    # QSettings key for the planet glyph unicode of the Saturn.
-    planetSaturnGlyphUnicodeKey = \
-        "ui/astrology/saturnGlyphUnicode"
-
-    # QSettings default value for the planet glyph unicode of the Saturn.
-    planetSaturnGlyphUnicodeDefValue = ""
-
-    # QSettings key for the planet glyph font size of the Saturn.
-    planetSaturnGlyphFontSizeKey = \
-        "ui/astrology/saturnGlyphFontSize"
-
-    # QSettings default value for the planet glyph font size of the Saturn.
-    planetSaturnGlyphFontSizeDefValue = 10
-
-    # QSettings key for the planet abbreviation of the Saturn.
-    planetSaturnAbbreviationKey = \
-        "ui/astrology/saturnAbbreviation"
-
-    # QSettings default value for the planet abbreviation of the Saturn.
-    planetSaturnAbbreviationDefValue = ""
-
-    # QSettings key for the foreground color of the Saturn.
-    planetSaturnForegroundColorKey = \
-        "ui/astrology/saturnForegroundColor"
-
-    # QSettings default value for the foreground color of the Saturn.
-    planetSaturnForegroundColorDefValue = QColor(Qt.black)
-
-    # QSettings key for the background color of the Saturn.
-    planetSaturnBackgroundColorKey = \
-        "ui/astrology/saturnBackgroundColor"
-
-    # QSettings default value for the background color of the Saturn.
-    planetSaturnBackgroundColorDefValue = QColor(Qt.white)
-
-
-
-    # QSettings key for the planet glyph unicode of the Uranus.
-    planetUranusGlyphUnicodeKey = \
-        "ui/astrology/uranusGlyphUnicode"
-
-    # QSettings default value for the planet glyph unicode of the Uranus.
-    planetUranusGlyphUnicodeDefValue = ""
-
-    # QSettings key for the planet glyph font size of the Uranus.
-    planetUranusGlyphFontSizeKey = \
-        "ui/astrology/uranusGlyphFontSize"
-
-    # QSettings default value for the planet glyph font size of the Uranus.
-    planetUranusGlyphFontSizeDefValue = 10
-
-    # QSettings key for the planet abbreviation of the Uranus.
-    planetUranusAbbreviationKey = \
-        "ui/astrology/uranusAbbreviation"
-
-    # QSettings default value for the planet abbreviation of the Uranus.
-    planetUranusAbbreviationDefValue = ""
-
-    # QSettings key for the foreground color of the Uranus.
-    planetUranusForegroundColorKey = \
-        "ui/astrology/uranusForegroundColor"
-
-    # QSettings default value for the foreground color of the Uranus.
-    planetUranusForegroundColorDefValue = QColor(Qt.black)
-
-    # QSettings key for the background color of the Uranus.
-    planetUranusBackgroundColorKey = \
-        "ui/astrology/uranusBackgroundColor"
-
-    # QSettings default value for the background color of the Uranus.
-    planetUranusBackgroundColorDefValue = QColor(Qt.white)
-
-
-
-    # QSettings key for the planet glyph unicode of the Neptune.
-    planetNeptuneGlyphUnicodeKey = \
-        "ui/astrology/neptuneGlyphUnicode"
-
-    # QSettings default value for the planet glyph unicode of the Neptune.
-    planetNeptuneGlyphUnicodeDefValue = ""
-
-    # QSettings key for the planet glyph font size of the Neptune.
-    planetNeptuneGlyphFontSizeKey = \
-        "ui/astrology/neptuneGlyphFontSize"
-
-    # QSettings default value for the planet glyph font size of the Neptune.
-    planetNeptuneGlyphFontSizeDefValue = 10
-
-    # QSettings key for the planet abbreviation of the Neptune.
-    planetNeptuneAbbreviationKey = \
-        "ui/astrology/neptuneAbbreviation"
-
-    # QSettings default value for the planet abbreviation of the Neptune.
-    planetNeptuneAbbreviationDefValue = ""
-
-    # QSettings key for the foreground color of the Neptune.
-    planetNeptuneForegroundColorKey = \
-        "ui/astrology/neptuneForegroundColor"
-
-    # QSettings default value for the foreground color of the Neptune.
-    planetNeptuneForegroundColorDefValue = QColor(Qt.black)
-
-    # QSettings key for the background color of the Neptune.
-    planetNeptuneBackgroundColorKey = \
-        "ui/astrology/neptuneBackgroundColor"
-
-    # QSettings default value for the background color of the Neptune.
-    planetNeptuneBackgroundColorDefValue = QColor(Qt.white)
-
-
-
-    # QSettings key for the planet glyph unicode of the Pluto.
-    planetPlutoGlyphUnicodeKey = \
-        "ui/astrology/plutoGlyphUnicode"
-
-    # QSettings default value for the planet glyph unicode of the Pluto.
-    planetPlutoGlyphUnicodeDefValue = ""
-
-    # QSettings key for the planet glyph font size of the Pluto.
-    planetPlutoGlyphFontSizeKey = \
-        "ui/astrology/plutoGlyphFontSize"
-
-    # QSettings default value for the planet glyph font size of the Pluto.
-    planetPlutoGlyphFontSizeDefValue = 10
-
-    # QSettings key for the planet abbreviation of the Pluto.
-    planetPlutoAbbreviationKey = \
-        "ui/astrology/plutoAbbreviation"
-
-    # QSettings default value for the planet abbreviation of the Pluto.
-    planetPlutoAbbreviationDefValue = ""
-
-    # QSettings key for the foreground color of the Pluto.
-    planetPlutoForegroundColorKey = \
-        "ui/astrology/plutoForegroundColor"
-
-    # QSettings default value for the foreground color of the Pluto.
-    planetPlutoForegroundColorDefValue = QColor(Qt.black)
-
-    # QSettings key for the background color of the Pluto.
-    planetPlutoBackgroundColorKey = \
-        "ui/astrology/plutoBackgroundColor"
-
-    # QSettings default value for the background color of the Pluto.
-    planetPlutoBackgroundColorDefValue = QColor(Qt.white)
-
-
-
-    # QSettings key for the planet glyph unicode of the MeanNorthNode.
-    planetMeanNorthNodeGlyphUnicodeKey = \
-        "ui/astrology/meanNorthNodeGlyphUnicode"
-
-    # QSettings default value for the planet glyph unicode of the MeanNorthNode.
-    planetMeanNorthNodeGlyphUnicodeDefValue = ""
-
-    # QSettings key for the planet glyph font size of the MeanNorthNode.
-    planetMeanNorthNodeGlyphFontSizeKey = \
-        "ui/astrology/meanNorthNodeGlyphFontSize"
-
-    # QSettings default value for the planet glyph font size of the MeanNorthNode.
-    planetMeanNorthNodeGlyphFontSizeDefValue = 10
-
-    # QSettings key for the planet abbreviation of the MeanNorthNode.
-    planetMeanNorthNodeAbbreviationKey = \
-        "ui/astrology/meanNorthNodeAbbreviation"
-
-    # QSettings default value for the planet abbreviation of the MeanNorthNode.
-    planetMeanNorthNodeAbbreviationDefValue = ""
-
-    # QSettings key for the foreground color of the MeanNorthNode.
-    planetMeanNorthNodeForegroundColorKey = \
-        "ui/astrology/meanNorthNodeForegroundColor"
-
-    # QSettings default value for the foreground color of the MeanNorthNode.
-    planetMeanNorthNodeForegroundColorDefValue = QColor(Qt.black)
-
-    # QSettings key for the background color of the MeanNorthNode.
-    planetMeanNorthNodeBackgroundColorKey = \
-        "ui/astrology/meanNorthNodeBackgroundColor"
-
-    # QSettings default value for the background color of the MeanNorthNode.
-    planetMeanNorthNodeBackgroundColorDefValue = QColor(Qt.white)
-
-
-
-    # QSettings key for the planet glyph unicode of the MeanSouthNode.
-    planetMeanSouthNodeGlyphUnicodeKey = \
-        "ui/astrology/meanSouthNodeGlyphUnicode"
-
-    # QSettings default value for the planet glyph unicode of the MeanSouthNode.
-    planetMeanSouthNodeGlyphUnicodeDefValue = ""
-
-    # QSettings key for the planet glyph font size of the MeanSouthNode.
-    planetMeanSouthNodeGlyphFontSizeKey = \
-        "ui/astrology/meanSouthNodeGlyphFontSize"
-
-    # QSettings default value for the planet glyph font size of the MeanSouthNode.
-    planetMeanSouthNodeGlyphFontSizeDefValue = 10
-
-    # QSettings key for the planet abbreviation of the MeanSouthNode.
-    planetMeanSouthNodeAbbreviationKey = \
-        "ui/astrology/meanSouthNodeAbbreviation"
-
-    # QSettings default value for the planet abbreviation of the MeanSouthNode.
-    planetMeanSouthNodeAbbreviationDefValue = ""
-
-    # QSettings key for the foreground color of the MeanSouthNode.
-    planetMeanSouthNodeForegroundColorKey = \
-        "ui/astrology/meanSouthNodeForegroundColor"
-
-    # QSettings default value for the foreground color of the MeanSouthNode.
-    planetMeanSouthNodeForegroundColorDefValue = QColor(Qt.black)
-
-    # QSettings key for the background color of the MeanSouthNode.
-    planetMeanSouthNodeBackgroundColorKey = \
-        "ui/astrology/meanSouthNodeBackgroundColor"
-
-    # QSettings default value for the background color of the MeanSouthNode.
-    planetMeanSouthNodeBackgroundColorDefValue = QColor(Qt.white)
-
-
-
-    # QSettings key for the planet glyph unicode of the TrueNorthNode.
-    planetTrueNorthNodeGlyphUnicodeKey = \
-        "ui/astrology/trueNorthNodeGlyphUnicode"
-
-    # QSettings default value for the planet glyph unicode of the TrueNorthNode.
-    planetTrueNorthNodeGlyphUnicodeDefValue = ""
-
-    # QSettings key for the planet glyph font size of the TrueNorthNode.
-    planetTrueNorthNodeGlyphFontSizeKey = \
-        "ui/astrology/trueNorthNodeGlyphFontSize"
-
-    # QSettings default value for the planet glyph font size of the TrueNorthNode.
-    planetTrueNorthNodeGlyphFontSizeDefValue = 10
-
-    # QSettings key for the planet abbreviation of the TrueNorthNode.
-    planetTrueNorthNodeAbbreviationKey = \
-        "ui/astrology/trueNorthNodeAbbreviation"
-
-    # QSettings default value for the planet abbreviation of the TrueNorthNode.
-    planetTrueNorthNodeAbbreviationDefValue = ""
-
-    # QSettings key for the foreground color of the TrueNorthNode.
-    planetTrueNorthNodeForegroundColorKey = \
-        "ui/astrology/trueNorthNodeForegroundColor"
-
-    # QSettings default value for the foreground color of the TrueNorthNode.
-    planetTrueNorthNodeForegroundColorDefValue = QColor(Qt.black)
-
-    # QSettings key for the background color of the TrueNorthNode.
-    planetTrueNorthNodeBackgroundColorKey = \
-        "ui/astrology/trueNorthNodeBackgroundColor"
-
-    # QSettings default value for the background color of the TrueNorthNode.
-    planetTrueNorthNodeBackgroundColorDefValue = QColor(Qt.white)
-
-
-
-    # QSettings key for the planet glyph unicode of the TrueSouthNode.
-    planetTrueSouthNodeGlyphUnicodeKey = \
-        "ui/astrology/trueSouthNodeGlyphUnicode"
-
-    # QSettings default value for the planet glyph unicode of the TrueSouthNode.
-    planetTrueSouthNodeGlyphUnicodeDefValue = ""
-
-    # QSettings key for the planet glyph font size of the TrueSouthNode.
-    planetTrueSouthNodeGlyphFontSizeKey = \
-        "ui/astrology/trueSouthNodeGlyphFontSize"
-
-    # QSettings default value for the planet glyph font size of the TrueSouthNode.
-    planetTrueSouthNodeGlyphFontSizeDefValue = 10
-
-    # QSettings key for the planet abbreviation of the TrueSouthNode.
-    planetTrueSouthNodeAbbreviationKey = \
-        "ui/astrology/trueSouthNodeAbbreviation"
-
-    # QSettings default value for the planet abbreviation of the TrueSouthNode.
-    planetTrueSouthNodeAbbreviationDefValue = ""
-
-    # QSettings key for the foreground color of the TrueSouthNode.
-    planetTrueSouthNodeForegroundColorKey = \
-        "ui/astrology/trueSouthNodeForegroundColor"
-
-    # QSettings default value for the foreground color of the TrueSouthNode.
-    planetTrueSouthNodeForegroundColorDefValue = QColor(Qt.black)
-
-    # QSettings key for the background color of the TrueSouthNode.
-    planetTrueSouthNodeBackgroundColorKey = \
-        "ui/astrology/trueSouthNodeBackgroundColor"
-
-    # QSettings default value for the background color of the TrueSouthNode.
-    planetTrueSouthNodeBackgroundColorDefValue = QColor(Qt.white)
-
-
-
-    # QSettings key for the planet glyph unicode of the MeanLunarApogee.
-    planetMeanLunarApogeeGlyphUnicodeKey = \
-        "ui/astrology/meanLunarApogeeGlyphUnicode"
-
-    # QSettings default value for the planet glyph unicode of the MeanLunarApogee.
-    planetMeanLunarApogeeGlyphUnicodeDefValue = ""
-
-    # QSettings key for the planet glyph font size of the MeanLunarApogee.
-    planetMeanLunarApogeeGlyphFontSizeKey = \
-        "ui/astrology/meanLunarApogeeGlyphFontSize"
-
-    # QSettings default value for the planet glyph font size of the MeanLunarApogee.
-    planetMeanLunarApogeeGlyphFontSizeDefValue = 10
-
-    # QSettings key for the planet abbreviation of the MeanLunarApogee.
-    planetMeanLunarApogeeAbbreviationKey = \
-        "ui/astrology/meanLunarApogeeAbbreviation"
-
-    # QSettings default value for the planet abbreviation of the MeanLunarApogee.
-    planetMeanLunarApogeeAbbreviationDefValue = ""
-
-    # QSettings key for the foreground color of the MeanLunarApogee.
-    planetMeanLunarApogeeForegroundColorKey = \
-        "ui/astrology/meanLunarApogeeForegroundColor"
-
-    # QSettings default value for the foreground color of the MeanLunarApogee.
-    planetMeanLunarApogeeForegroundColorDefValue = QColor(Qt.black)
-
-    # QSettings key for the background color of the MeanLunarApogee.
-    planetMeanLunarApogeeBackgroundColorKey = \
-        "ui/astrology/meanLunarApogeeBackgroundColor"
-
-    # QSettings default value for the background color of the MeanLunarApogee.
-    planetMeanLunarApogeeBackgroundColorDefValue = QColor(Qt.white)
-
-
-
-    # QSettings key for the planet glyph unicode of the OsculatingLunarApogee.
-    planetOsculatingLunarApogeeGlyphUnicodeKey = \
-        "ui/astrology/osculatingLunarApogeeGlyphUnicode"
-
-    # QSettings default value for the planet glyph unicode of the OsculatingLunarApogee.
-    planetOsculatingLunarApogeeGlyphUnicodeDefValue = ""
-
-    # QSettings key for the planet glyph font size of the OsculatingLunarApogee.
-    planetOsculatingLunarApogeeGlyphFontSizeKey = \
-        "ui/astrology/osculatingLunarApogeeGlyphFontSize"
-
-    # QSettings default value for the planet glyph font size of the OsculatingLunarApogee.
-    planetOsculatingLunarApogeeGlyphFontSizeDefValue = 10
-
-    # QSettings key for the planet abbreviation of the OsculatingLunarApogee.
-    planetOsculatingLunarApogeeAbbreviationKey = \
-        "ui/astrology/osculatingLunarApogeeAbbreviation"
-
-    # QSettings default value for the planet abbreviation of the OsculatingLunarApogee.
-    planetOsculatingLunarApogeeAbbreviationDefValue = ""
-
-    # QSettings key for the foreground color of the OsculatingLunarApogee.
-    planetOsculatingLunarApogeeForegroundColorKey = \
-        "ui/astrology/osculatingLunarApogeeForegroundColor"
-
-    # QSettings default value for the foreground color of the OsculatingLunarApogee.
-    planetOsculatingLunarApogeeForegroundColorDefValue = QColor(Qt.black)
-
-    # QSettings key for the background color of the OsculatingLunarApogee.
-    planetOsculatingLunarApogeeBackgroundColorKey = \
-        "ui/astrology/osculatingLunarApogeeBackgroundColor"
-
-    # QSettings default value for the background color of the OsculatingLunarApogee.
-    planetOsculatingLunarApogeeBackgroundColorDefValue = QColor(Qt.white)
-
-
-
-    # QSettings key for the planet glyph unicode of the InterpolatedLunarApogee.
-    planetInterpolatedLunarApogeeGlyphUnicodeKey = \
-        "ui/astrology/interpolatedLunarApogeeGlyphUnicode"
-
-    # QSettings default value for the planet glyph unicode of the InterpolatedLunarApogee.
-    planetInterpolatedLunarApogeeGlyphUnicodeDefValue = ""
-
-    # QSettings key for the planet glyph font size of the InterpolatedLunarApogee.
-    planetInterpolatedLunarApogeeGlyphFontSizeKey = \
-        "ui/astrology/interpolatedLunarApogeeGlyphFontSize"
-
-    # QSettings default value for the planet glyph font size of the InterpolatedLunarApogee.
-    planetInterpolatedLunarApogeeGlyphFontSizeDefValue = 10
-
-    # QSettings key for the planet abbreviation of the InterpolatedLunarApogee.
-    planetInterpolatedLunarApogeeAbbreviationKey = \
-        "ui/astrology/interpolatedLunarApogeeAbbreviation"
-
-    # QSettings default value for the planet abbreviation of the InterpolatedLunarApogee.
-    planetInterpolatedLunarApogeeAbbreviationDefValue = ""
-
-    # QSettings key for the foreground color of the InterpolatedLunarApogee.
-    planetInterpolatedLunarApogeeForegroundColorKey = \
-        "ui/astrology/interpolatedLunarApogeeForegroundColor"
-
-    # QSettings default value for the foreground color of the InterpolatedLunarApogee.
-    planetInterpolatedLunarApogeeForegroundColorDefValue = QColor(Qt.black)
-
-    # QSettings key for the background color of the InterpolatedLunarApogee.
-    planetInterpolatedLunarApogeeBackgroundColorKey = \
-        "ui/astrology/interpolatedLunarApogeeBackgroundColor"
-
-    # QSettings default value for the background color of the InterpolatedLunarApogee.
-    planetInterpolatedLunarApogeeBackgroundColorDefValue = QColor(Qt.white)
-
-
-
-    # QSettings key for the planet glyph unicode of the InterpolatedLunarPerigee.
-    planetInterpolatedLunarPerigeeGlyphUnicodeKey = \
-        "ui/astrology/interpolatedLunarPerigeeGlyphUnicode"
-
-    # QSettings default value for the planet glyph unicode of the InterpolatedLunarPerigee.
-    planetInterpolatedLunarPerigeeGlyphUnicodeDefValue = ""
-
-    # QSettings key for the planet glyph font size of the InterpolatedLunarPerigee.
-    planetInterpolatedLunarPerigeeGlyphFontSizeKey = \
-        "ui/astrology/interpolatedLunarPerigeeGlyphFontSize"
-
-    # QSettings default value for the planet glyph font size of the InterpolatedLunarPerigee.
-    planetInterpolatedLunarPerigeeGlyphFontSizeDefValue = 10
-
-    # QSettings key for the planet abbreviation of the InterpolatedLunarPerigee.
-    planetInterpolatedLunarPerigeeAbbreviationKey = \
-        "ui/astrology/interpolatedLunarPerigeeAbbreviation"
-
-    # QSettings default value for the planet abbreviation of the InterpolatedLunarPerigee.
-    planetInterpolatedLunarPerigeeAbbreviationDefValue = ""
-
-    # QSettings key for the foreground color of the InterpolatedLunarPerigee.
-    planetInterpolatedLunarPerigeeForegroundColorKey = \
-        "ui/astrology/interpolatedLunarPerigeeForegroundColor"
-
-    # QSettings default value for the foreground color of the InterpolatedLunarPerigee.
-    planetInterpolatedLunarPerigeeForegroundColorDefValue = QColor(Qt.black)
-
-    # QSettings key for the background color of the InterpolatedLunarPerigee.
-    planetInterpolatedLunarPerigeeBackgroundColorKey = \
-        "ui/astrology/interpolatedLunarPerigeeBackgroundColor"
-
-    # QSettings default value for the background color of the InterpolatedLunarPerigee.
-    planetInterpolatedLunarPerigeeBackgroundColorDefValue = QColor(Qt.white)
-
-
-
-    # QSettings key for the planet glyph unicode of the Earth.
-    planetEarthGlyphUnicodeKey = \
-        "ui/astrology/earthGlyphUnicode"
-
-    # QSettings default value for the planet glyph unicode of the Earth.
-    planetEarthGlyphUnicodeDefValue = ""
-
-    # QSettings key for the planet glyph font size of the Earth.
-    planetEarthGlyphFontSizeKey = \
-        "ui/astrology/earthGlyphFontSize"
-
-    # QSettings default value for the planet glyph font size of the Earth.
-    planetEarthGlyphFontSizeDefValue = 10
-
-    # QSettings key for the planet abbreviation of the Earth.
-    planetEarthAbbreviationKey = \
-        "ui/astrology/earthAbbreviation"
-
-    # QSettings default value for the planet abbreviation of the Earth.
-    planetEarthAbbreviationDefValue = ""
-
-    # QSettings key for the foreground color of the Earth.
-    planetEarthForegroundColorKey = \
-        "ui/astrology/earthForegroundColor"
-
-    # QSettings default value for the foreground color of the Earth.
-    planetEarthForegroundColorDefValue = QColor(Qt.black)
-
-    # QSettings key for the background color of the Earth.
-    planetEarthBackgroundColorKey = \
-        "ui/astrology/earthBackgroundColor"
-
-    # QSettings default value for the background color of the Earth.
-    planetEarthBackgroundColorDefValue = QColor(Qt.white)
-
-
-
-    # QSettings key for the planet glyph unicode of the Chiron.
-    planetChironGlyphUnicodeKey = \
-        "ui/astrology/chironGlyphUnicode"
-
-    # QSettings default value for the planet glyph unicode of the Chiron.
-    planetChironGlyphUnicodeDefValue = ""
-
-    # QSettings key for the planet glyph font size of the Chiron.
-    planetChironGlyphFontSizeKey = \
-        "ui/astrology/chironGlyphFontSize"
-
-    # QSettings default value for the planet glyph font size of the Chiron.
-    planetChironGlyphFontSizeDefValue = 10
-
-    # QSettings key for the planet abbreviation of the Chiron.
-    planetChironAbbreviationKey = \
-        "ui/astrology/chironAbbreviation"
-
-    # QSettings default value for the planet abbreviation of the Chiron.
-    planetChironAbbreviationDefValue = ""
-
-    # QSettings key for the foreground color of the Chiron.
-    planetChironForegroundColorKey = \
-        "ui/astrology/chironForegroundColor"
-
-    # QSettings default value for the foreground color of the Chiron.
-    planetChironForegroundColorDefValue = QColor(Qt.black)
-
-    # QSettings key for the background color of the Chiron.
-    planetChironBackgroundColorKey = \
-        "ui/astrology/chironBackgroundColor"
-
-    # QSettings default value for the background color of the Chiron.
-    planetChironBackgroundColorDefValue = QColor(Qt.white)
-
-
-
-    # QSettings key for the planet glyph unicode of the Gulika.
-    planetGulikaGlyphUnicodeKey = \
-        "ui/astrology/gulikaGlyphUnicode"
-
-    # QSettings default value for the planet glyph unicode of the Gulika.
-    planetGulikaGlyphUnicodeDefValue = ""
-
-    # QSettings key for the planet glyph font size of the Gulika.
-    planetGulikaGlyphFontSizeKey = \
-        "ui/astrology/gulikaGlyphFontSize"
-
-    # QSettings default value for the planet glyph font size of the Gulika.
-    planetGulikaGlyphFontSizeDefValue = 10
-
-    # QSettings key for the planet abbreviation of the Gulika.
-    planetGulikaAbbreviationKey = \
-        "ui/astrology/gulikaAbbreviation"
-
-    # QSettings default value for the planet abbreviation of the Gulika.
-    planetGulikaAbbreviationDefValue = ""
-
-    # QSettings key for the foreground color of the Gulika.
-    planetGulikaForegroundColorKey = \
-        "ui/astrology/gulikaForegroundColor"
-
-    # QSettings default value for the foreground color of the Gulika.
-    planetGulikaForegroundColorDefValue = QColor(Qt.black)
-
-    # QSettings key for the background color of the Gulika.
-    planetGulikaBackgroundColorKey = \
-        "ui/astrology/gulikaBackgroundColor"
-
-    # QSettings default value for the background color of the Gulika.
-    planetGulikaBackgroundColorDefValue = QColor(Qt.white)
-
-
-
-    # QSettings key for the planet glyph unicode of the Mandi.
-    planetMandiGlyphUnicodeKey = \
-        "ui/astrology/mandiGlyphUnicode"
-
-    # QSettings default value for the planet glyph unicode of the Mandi.
-    planetMandiGlyphUnicodeDefValue = ""
-
-    # QSettings key for the planet glyph font size of the Mandi.
-    planetMandiGlyphFontSizeKey = \
-        "ui/astrology/mandiGlyphFontSize"
-
-    # QSettings default value for the planet glyph font size of the Mandi.
-    planetMandiGlyphFontSizeDefValue = 10
-
-    # QSettings key for the planet abbreviation of the Mandi.
-    planetMandiAbbreviationKey = \
-        "ui/astrology/mandiAbbreviation"
-
-    # QSettings default value for the planet abbreviation of the Mandi.
-    planetMandiAbbreviationDefValue = ""
-
-    # QSettings key for the foreground color of the Mandi.
-    planetMandiForegroundColorKey = \
-        "ui/astrology/mandiForegroundColor"
-
-    # QSettings default value for the foreground color of the Mandi.
-    planetMandiForegroundColorDefValue = QColor(Qt.black)
-
-    # QSettings key for the background color of the Mandi.
-    planetMandiBackgroundColorKey = \
-        "ui/astrology/mandiBackgroundColor"
-
-    # QSettings default value for the background color of the Mandi.
-    planetMandiBackgroundColorDefValue = QColor(Qt.white)
+    planetMidheavenBackgroundColorDefValue = QColor(Qt.transparent)
 
 
 
@@ -928,21 +151,36 @@ class SettingsKeys():
     planetHoraLagnaGlyphUnicodeKey = \
         "ui/astrology/horaLagnaGlyphUnicode"
 
+    # QSettings default value for the planet glyph unicode of the HoraLagna.
+    planetHoraLagnaGlyphUnicodeDefValue = "HL"
+
     # QSettings key for the planet glyph font size of the HoraLagna.
     planetHoraLagnaGlyphFontSizeKey = \
         "ui/astrology/horaLagnaGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the HoraLagna.
+    planetHoraLagnaGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the HoraLagna.
     planetHoraLagnaAbbreviationKey = \
         "ui/astrology/horaLagnaAbbreviation"
 
+    # QSettings default value for the planet abbreviation of the HoraLagna.
+    planetHoraLagnaAbbreviationDefValue = "HL"
+
     # QSettings key for the foreground color of the HoraLagna.
     planetHoraLagnaForegroundColorKey = \
         "ui/astrology/horaLagnaForegroundColor"
 
+    # QSettings default value for the foreground color of the HoraLagna.
+    planetHoraLagnaForegroundColorDefValue = QColor(Qt.black)
+
     # QSettings key for the background color of the HoraLagna.
     planetHoraLagnaBackgroundColorKey = \
         "ui/astrology/horaLagnaBackgroundColor"
+
+    # QSettings default value for the background color of the HoraLagna.
+    planetHoraLagnaBackgroundColorDefValue = QColor(Qt.white)
 
 
 
@@ -951,7 +189,7 @@ class SettingsKeys():
         "ui/astrology/ghatiLagnaGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the GhatiLagna.
-    planetGhatiLagnaGlyphUnicodeDefValue = ""
+    planetGhatiLagnaGlyphUnicodeDefValue = "GL"
 
     # QSettings key for the planet glyph font size of the GhatiLagna.
     planetGhatiLagnaGlyphFontSizeKey = \
@@ -965,7 +203,7 @@ class SettingsKeys():
         "ui/astrology/ghatiLagnaAbbreviation"
 
     # QSettings default value for the planet abbreviation of the GhatiLagna.
-    planetGhatiLagnaAbbreviationDefValue = ""
+    planetGhatiLagnaAbbreviationDefValue = "GL"
 
     # QSettings key for the foreground color of the GhatiLagna.
     planetGhatiLagnaForegroundColorKey = \
@@ -979,7 +217,969 @@ class SettingsKeys():
         "ui/astrology/ghatiLagnaBackgroundColor"
 
     # QSettings default value for the background color of the GhatiLagna.
-    planetGhatiLagnaBackgroundColorDefValue = QColor(Qt.white)
+    planetGhatiLagnaBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the MeanLunarApogee.
+    planetMeanLunarApogeeGlyphUnicodeKey = \
+        "ui/astrology/meanLunarApogeeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the MeanLunarApogee.
+    planetMeanLunarApogeeGlyphUnicodeDefValue = "MLA"
+
+    # QSettings key for the planet glyph font size of the MeanLunarApogee.
+    planetMeanLunarApogeeGlyphFontSizeKey = \
+        "ui/astrology/meanLunarApogeeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the MeanLunarApogee.
+    planetMeanLunarApogeeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the MeanLunarApogee.
+    planetMeanLunarApogeeAbbreviationKey = \
+        "ui/astrology/meanLunarApogeeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the MeanLunarApogee.
+    planetMeanLunarApogeeAbbreviationDefValue = "MLA"
+
+    # QSettings key for the foreground color of the MeanLunarApogee.
+    planetMeanLunarApogeeForegroundColorKey = \
+        "ui/astrology/meanLunarApogeeForegroundColor"
+
+    # QSettings default value for the foreground color of the MeanLunarApogee.
+    planetMeanLunarApogeeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the MeanLunarApogee.
+    planetMeanLunarApogeeBackgroundColorKey = \
+        "ui/astrology/meanLunarApogeeBackgroundColor"
+
+    # QSettings default value for the background color of the MeanLunarApogee.
+    planetMeanLunarApogeeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the OsculatingLunarApogee.
+    planetOsculatingLunarApogeeGlyphUnicodeKey = \
+        "ui/astrology/osculatingLunarApogeeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the OsculatingLunarApogee.
+    planetOsculatingLunarApogeeGlyphUnicodeDefValue = "OLA"
+
+    # QSettings key for the planet glyph font size of the OsculatingLunarApogee.
+    planetOsculatingLunarApogeeGlyphFontSizeKey = \
+        "ui/astrology/osculatingLunarApogeeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the OsculatingLunarApogee.
+    planetOsculatingLunarApogeeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the OsculatingLunarApogee.
+    planetOsculatingLunarApogeeAbbreviationKey = \
+        "ui/astrology/osculatingLunarApogeeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the OsculatingLunarApogee.
+    planetOsculatingLunarApogeeAbbreviationDefValue = "OLA"
+
+    # QSettings key for the foreground color of the OsculatingLunarApogee.
+    planetOsculatingLunarApogeeForegroundColorKey = \
+        "ui/astrology/osculatingLunarApogeeForegroundColor"
+
+    # QSettings default value for the foreground color of the OsculatingLunarApogee.
+    planetOsculatingLunarApogeeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the OsculatingLunarApogee.
+    planetOsculatingLunarApogeeBackgroundColorKey = \
+        "ui/astrology/osculatingLunarApogeeBackgroundColor"
+
+    # QSettings default value for the background color of the OsculatingLunarApogee.
+    planetOsculatingLunarApogeeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the InterpolatedLunarApogee.
+    planetInterpolatedLunarApogeeGlyphUnicodeKey = \
+        "ui/astrology/interpolatedLunarApogeeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the InterpolatedLunarApogee.
+    planetInterpolatedLunarApogeeGlyphUnicodeDefValue = "ILA"
+
+    # QSettings key for the planet glyph font size of the InterpolatedLunarApogee.
+    planetInterpolatedLunarApogeeGlyphFontSizeKey = \
+        "ui/astrology/interpolatedLunarApogeeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the InterpolatedLunarApogee.
+    planetInterpolatedLunarApogeeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the InterpolatedLunarApogee.
+    planetInterpolatedLunarApogeeAbbreviationKey = \
+        "ui/astrology/interpolatedLunarApogeeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the InterpolatedLunarApogee.
+    planetInterpolatedLunarApogeeAbbreviationDefValue = "ILA"
+
+    # QSettings key for the foreground color of the InterpolatedLunarApogee.
+    planetInterpolatedLunarApogeeForegroundColorKey = \
+        "ui/astrology/interpolatedLunarApogeeForegroundColor"
+
+    # QSettings default value for the foreground color of the InterpolatedLunarApogee.
+    planetInterpolatedLunarApogeeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the InterpolatedLunarApogee.
+    planetInterpolatedLunarApogeeBackgroundColorKey = \
+        "ui/astrology/interpolatedLunarApogeeBackgroundColor"
+
+    # QSettings default value for the background color of the InterpolatedLunarApogee.
+    planetInterpolatedLunarApogeeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the InterpolatedLunarPerigee.
+    planetInterpolatedLunarPerigeeGlyphUnicodeKey = \
+        "ui/astrology/interpolatedLunarPerigeeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the InterpolatedLunarPerigee.
+    planetInterpolatedLunarPerigeeGlyphUnicodeDefValue = "ILP"
+
+    # QSettings key for the planet glyph font size of the InterpolatedLunarPerigee.
+    planetInterpolatedLunarPerigeeGlyphFontSizeKey = \
+        "ui/astrology/interpolatedLunarPerigeeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the InterpolatedLunarPerigee.
+    planetInterpolatedLunarPerigeeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the InterpolatedLunarPerigee.
+    planetInterpolatedLunarPerigeeAbbreviationKey = \
+        "ui/astrology/interpolatedLunarPerigeeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the InterpolatedLunarPerigee.
+    planetInterpolatedLunarPerigeeAbbreviationDefValue = "ILP"
+
+    # QSettings key for the foreground color of the InterpolatedLunarPerigee.
+    planetInterpolatedLunarPerigeeForegroundColorKey = \
+        "ui/astrology/interpolatedLunarPerigeeForegroundColor"
+
+    # QSettings default value for the foreground color of the InterpolatedLunarPerigee.
+    planetInterpolatedLunarPerigeeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the InterpolatedLunarPerigee.
+    planetInterpolatedLunarPerigeeBackgroundColorKey = \
+        "ui/astrology/interpolatedLunarPerigeeBackgroundColor"
+
+    # QSettings default value for the background color of the InterpolatedLunarPerigee.
+    planetInterpolatedLunarPerigeeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the Sun.
+    planetSunGlyphUnicodeKey = \
+        "ui/astrology/sunGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the Sun.
+    planetSunGlyphUnicodeDefValue = "\u2609"
+
+    # QSettings key for the planet glyph font size of the Sun.
+    planetSunGlyphFontSizeKey = \
+        "ui/astrology/sunGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the Sun.
+    planetSunGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the Sun.
+    planetSunAbbreviationKey = \
+        "ui/astrology/sunAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the Sun.
+    planetSunAbbreviationDefValue = "Su"
+
+    # QSettings key for the foreground color of the Sun.
+    planetSunForegroundColorKey = \
+        "ui/astrology/sunForegroundColor"
+
+    # QSettings default value for the foreground color of the Sun.
+    planetSunForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the Sun.
+    planetSunBackgroundColorKey = \
+        "ui/astrology/sunBackgroundColor"
+
+    # QSettings default value for the background color of the Sun.
+    planetSunBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the Moon.
+    planetMoonGlyphUnicodeKey = \
+        "ui/astrology/moonGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the Moon.
+    planetMoonGlyphUnicodeDefValue = "\u263d"
+
+    # QSettings key for the planet glyph font size of the Moon.
+    planetMoonGlyphFontSizeKey = \
+        "ui/astrology/moonGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the Moon.
+    planetMoonGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the Moon.
+    planetMoonAbbreviationKey = \
+        "ui/astrology/moonAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the Moon.
+    planetMoonAbbreviationDefValue = "Mo"
+
+    # QSettings key for the foreground color of the Moon.
+    planetMoonForegroundColorKey = \
+        "ui/astrology/moonForegroundColor"
+
+    # QSettings default value for the foreground color of the Moon.
+    planetMoonForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the Moon.
+    planetMoonBackgroundColorKey = \
+        "ui/astrology/moonBackgroundColor"
+
+    # QSettings default value for the background color of the Moon.
+    planetMoonBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the Mercury.
+    planetMercuryGlyphUnicodeKey = \
+        "ui/astrology/mercuryGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the Mercury.
+    planetMercuryGlyphUnicodeDefValue = "\u263f"
+
+    # QSettings key for the planet glyph font size of the Mercury.
+    planetMercuryGlyphFontSizeKey = \
+        "ui/astrology/mercuryGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the Mercury.
+    planetMercuryGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the Mercury.
+    planetMercuryAbbreviationKey = \
+        "ui/astrology/mercuryAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the Mercury.
+    planetMercuryAbbreviationDefValue = "Me"
+
+    # QSettings key for the foreground color of the Mercury.
+    planetMercuryForegroundColorKey = \
+        "ui/astrology/mercuryForegroundColor"
+
+    # QSettings default value for the foreground color of the Mercury.
+    planetMercuryForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the Mercury.
+    planetMercuryBackgroundColorKey = \
+        "ui/astrology/mercuryBackgroundColor"
+
+    # QSettings default value for the background color of the Mercury.
+    planetMercuryBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the Venus.
+    planetVenusGlyphUnicodeKey = \
+        "ui/astrology/venusGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the Venus.
+    planetVenusGlyphUnicodeDefValue = "\u2640"
+
+    # QSettings key for the planet glyph font size of the Venus.
+    planetVenusGlyphFontSizeKey = \
+        "ui/astrology/venusGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the Venus.
+    planetVenusGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the Venus.
+    planetVenusAbbreviationKey = \
+        "ui/astrology/venusAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the Venus.
+    planetVenusAbbreviationDefValue = "Ve"
+
+    # QSettings key for the foreground color of the Venus.
+    planetVenusForegroundColorKey = \
+        "ui/astrology/venusForegroundColor"
+
+    # QSettings default value for the foreground color of the Venus.
+    planetVenusForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the Venus.
+    planetVenusBackgroundColorKey = \
+        "ui/astrology/venusBackgroundColor"
+
+    # QSettings default value for the background color of the Venus.
+    planetVenusBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the Earth.
+    planetEarthGlyphUnicodeKey = \
+        "ui/astrology/earthGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the Earth.
+    planetEarthGlyphUnicodeDefValue = "\u2d32"
+
+    # QSettings key for the planet glyph font size of the Earth.
+    planetEarthGlyphFontSizeKey = \
+        "ui/astrology/earthGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the Earth.
+    planetEarthGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the Earth.
+    planetEarthAbbreviationKey = \
+        "ui/astrology/earthAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the Earth.
+    planetEarthAbbreviationDefValue = "Ea"
+
+    # QSettings key for the foreground color of the Earth.
+    planetEarthForegroundColorKey = \
+        "ui/astrology/earthForegroundColor"
+
+    # QSettings default value for the foreground color of the Earth.
+    planetEarthForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the Earth.
+    planetEarthBackgroundColorKey = \
+        "ui/astrology/earthBackgroundColor"
+
+    # QSettings default value for the background color of the Earth.
+    planetEarthBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the Mars.
+    planetMarsGlyphUnicodeKey = \
+        "ui/astrology/marsGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the Mars.
+    planetMarsGlyphUnicodeDefValue = "\u2642"
+
+    # QSettings key for the planet glyph font size of the Mars.
+    planetMarsGlyphFontSizeKey = \
+        "ui/astrology/marsGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the Mars.
+    planetMarsGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the Mars.
+    planetMarsAbbreviationKey = \
+        "ui/astrology/marsAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the Mars.
+    planetMarsAbbreviationDefValue = "Ma"
+
+    # QSettings key for the foreground color of the Mars.
+    planetMarsForegroundColorKey = \
+        "ui/astrology/marsForegroundColor"
+
+    # QSettings default value for the foreground color of the Mars.
+    planetMarsForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the Mars.
+    planetMarsBackgroundColorKey = \
+        "ui/astrology/marsBackgroundColor"
+
+    # QSettings default value for the background color of the Mars.
+    planetMarsBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the Jupiter.
+    planetJupiterGlyphUnicodeKey = \
+        "ui/astrology/jupiterGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the Jupiter.
+    planetJupiterGlyphUnicodeDefValue = "\u2643"
+
+    # QSettings key for the planet glyph font size of the Jupiter.
+    planetJupiterGlyphFontSizeKey = \
+        "ui/astrology/jupiterGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the Jupiter.
+    planetJupiterGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the Jupiter.
+    planetJupiterAbbreviationKey = \
+        "ui/astrology/jupiterAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the Jupiter.
+    planetJupiterAbbreviationDefValue = "Ju"
+
+    # QSettings key for the foreground color of the Jupiter.
+    planetJupiterForegroundColorKey = \
+        "ui/astrology/jupiterForegroundColor"
+
+    # QSettings default value for the foreground color of the Jupiter.
+    planetJupiterForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the Jupiter.
+    planetJupiterBackgroundColorKey = \
+        "ui/astrology/jupiterBackgroundColor"
+
+    # QSettings default value for the background color of the Jupiter.
+    planetJupiterBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the Saturn.
+    planetSaturnGlyphUnicodeKey = \
+        "ui/astrology/saturnGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the Saturn.
+    planetSaturnGlyphUnicodeDefValue = "\u2644"
+
+    # QSettings key for the planet glyph font size of the Saturn.
+    planetSaturnGlyphFontSizeKey = \
+        "ui/astrology/saturnGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the Saturn.
+    planetSaturnGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the Saturn.
+    planetSaturnAbbreviationKey = \
+        "ui/astrology/saturnAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the Saturn.
+    planetSaturnAbbreviationDefValue = "Sa"
+
+    # QSettings key for the foreground color of the Saturn.
+    planetSaturnForegroundColorKey = \
+        "ui/astrology/saturnForegroundColor"
+
+    # QSettings default value for the foreground color of the Saturn.
+    planetSaturnForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the Saturn.
+    planetSaturnBackgroundColorKey = \
+        "ui/astrology/saturnBackgroundColor"
+
+    # QSettings default value for the background color of the Saturn.
+    planetSaturnBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the Uranus.
+    planetUranusGlyphUnicodeKey = \
+        "ui/astrology/uranusGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the Uranus.
+    planetUranusGlyphUnicodeDefValue = "\u2645"
+
+    # QSettings key for the planet glyph font size of the Uranus.
+    planetUranusGlyphFontSizeKey = \
+        "ui/astrology/uranusGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the Uranus.
+    planetUranusGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the Uranus.
+    planetUranusAbbreviationKey = \
+        "ui/astrology/uranusAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the Uranus.
+    planetUranusAbbreviationDefValue = "Ur"
+
+    # QSettings key for the foreground color of the Uranus.
+    planetUranusForegroundColorKey = \
+        "ui/astrology/uranusForegroundColor"
+
+    # QSettings default value for the foreground color of the Uranus.
+    planetUranusForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the Uranus.
+    planetUranusBackgroundColorKey = \
+        "ui/astrology/uranusBackgroundColor"
+
+    # QSettings default value for the background color of the Uranus.
+    planetUranusBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the Neptune.
+    planetNeptuneGlyphUnicodeKey = \
+        "ui/astrology/neptuneGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the Neptune.
+    planetNeptuneGlyphUnicodeDefValue = "\u2646"
+
+    # QSettings key for the planet glyph font size of the Neptune.
+    planetNeptuneGlyphFontSizeKey = \
+        "ui/astrology/neptuneGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the Neptune.
+    planetNeptuneGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the Neptune.
+    planetNeptuneAbbreviationKey = \
+        "ui/astrology/neptuneAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the Neptune.
+    planetNeptuneAbbreviationDefValue = "Ne"
+
+    # QSettings key for the foreground color of the Neptune.
+    planetNeptuneForegroundColorKey = \
+        "ui/astrology/neptuneForegroundColor"
+
+    # QSettings default value for the foreground color of the Neptune.
+    planetNeptuneForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the Neptune.
+    planetNeptuneBackgroundColorKey = \
+        "ui/astrology/neptuneBackgroundColor"
+
+    # QSettings default value for the background color of the Neptune.
+    planetNeptuneBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the Pluto.
+    planetPlutoGlyphUnicodeKey = \
+        "ui/astrology/plutoGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the Pluto.
+    planetPlutoGlyphUnicodeDefValue = "\u2647"
+
+    # QSettings key for the planet glyph font size of the Pluto.
+    planetPlutoGlyphFontSizeKey = \
+        "ui/astrology/plutoGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the Pluto.
+    planetPlutoGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the Pluto.
+    planetPlutoAbbreviationKey = \
+        "ui/astrology/plutoAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the Pluto.
+    planetPlutoAbbreviationDefValue = "Pl"
+
+    # QSettings key for the foreground color of the Pluto.
+    planetPlutoForegroundColorKey = \
+        "ui/astrology/plutoForegroundColor"
+
+    # QSettings default value for the foreground color of the Pluto.
+    planetPlutoForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the Pluto.
+    planetPlutoBackgroundColorKey = \
+        "ui/astrology/plutoBackgroundColor"
+
+    # QSettings default value for the background color of the Pluto.
+    planetPlutoBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the MeanNorthNode.
+    planetMeanNorthNodeGlyphUnicodeKey = \
+        "ui/astrology/meanNorthNodeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the MeanNorthNode.
+    planetMeanNorthNodeGlyphUnicodeDefValue = "\u260a"
+
+    # QSettings key for the planet glyph font size of the MeanNorthNode.
+    planetMeanNorthNodeGlyphFontSizeKey = \
+        "ui/astrology/meanNorthNodeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the MeanNorthNode.
+    planetMeanNorthNodeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the MeanNorthNode.
+    planetMeanNorthNodeAbbreviationKey = \
+        "ui/astrology/meanNorthNodeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the MeanNorthNode.
+    planetMeanNorthNodeAbbreviationDefValue = "Ra"
+
+    # QSettings key for the foreground color of the MeanNorthNode.
+    planetMeanNorthNodeForegroundColorKey = \
+        "ui/astrology/meanNorthNodeForegroundColor"
+
+    # QSettings default value for the foreground color of the MeanNorthNode.
+    planetMeanNorthNodeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the MeanNorthNode.
+    planetMeanNorthNodeBackgroundColorKey = \
+        "ui/astrology/meanNorthNodeBackgroundColor"
+
+    # QSettings default value for the background color of the MeanNorthNode.
+    planetMeanNorthNodeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the MeanSouthNode.
+    planetMeanSouthNodeGlyphUnicodeKey = \
+        "ui/astrology/meanSouthNodeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the MeanSouthNode.
+    planetMeanSouthNodeGlyphUnicodeDefValue = "\u260b"
+
+    # QSettings key for the planet glyph font size of the MeanSouthNode.
+    planetMeanSouthNodeGlyphFontSizeKey = \
+        "ui/astrology/meanSouthNodeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the MeanSouthNode.
+    planetMeanSouthNodeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the MeanSouthNode.
+    planetMeanSouthNodeAbbreviationKey = \
+        "ui/astrology/meanSouthNodeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the MeanSouthNode.
+    planetMeanSouthNodeAbbreviationDefValue = "Ke"
+
+    # QSettings key for the foreground color of the MeanSouthNode.
+    planetMeanSouthNodeForegroundColorKey = \
+        "ui/astrology/meanSouthNodeForegroundColor"
+
+    # QSettings default value for the foreground color of the MeanSouthNode.
+    planetMeanSouthNodeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the MeanSouthNode.
+    planetMeanSouthNodeBackgroundColorKey = \
+        "ui/astrology/meanSouthNodeBackgroundColor"
+
+    # QSettings default value for the background color of the MeanSouthNode.
+    planetMeanSouthNodeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the TrueNorthNode.
+    planetTrueNorthNodeGlyphUnicodeKey = \
+        "ui/astrology/trueNorthNodeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the TrueNorthNode.
+    planetTrueNorthNodeGlyphUnicodeDefValue = "\u260a"
+
+    # QSettings key for the planet glyph font size of the TrueNorthNode.
+    planetTrueNorthNodeGlyphFontSizeKey = \
+        "ui/astrology/trueNorthNodeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the TrueNorthNode.
+    planetTrueNorthNodeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the TrueNorthNode.
+    planetTrueNorthNodeAbbreviationKey = \
+        "ui/astrology/trueNorthNodeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the TrueNorthNode.
+    planetTrueNorthNodeAbbreviationDefValue = "TrueNNode"
+
+    # QSettings key for the foreground color of the TrueNorthNode.
+    planetTrueNorthNodeForegroundColorKey = \
+        "ui/astrology/trueNorthNodeForegroundColor"
+
+    # QSettings default value for the foreground color of the TrueNorthNode.
+    planetTrueNorthNodeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the TrueNorthNode.
+    planetTrueNorthNodeBackgroundColorKey = \
+        "ui/astrology/trueNorthNodeBackgroundColor"
+
+    # QSettings default value for the background color of the TrueNorthNode.
+    planetTrueNorthNodeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the TrueSouthNode.
+    planetTrueSouthNodeGlyphUnicodeKey = \
+        "ui/astrology/trueSouthNodeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the TrueSouthNode.
+    planetTrueSouthNodeGlyphUnicodeDefValue = "\u260b"
+
+    # QSettings key for the planet glyph font size of the TrueSouthNode.
+    planetTrueSouthNodeGlyphFontSizeKey = \
+        "ui/astrology/trueSouthNodeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the TrueSouthNode.
+    planetTrueSouthNodeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the TrueSouthNode.
+    planetTrueSouthNodeAbbreviationKey = \
+        "ui/astrology/trueSouthNodeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the TrueSouthNode.
+    planetTrueSouthNodeAbbreviationDefValue = "TrueSNode"
+
+    # QSettings key for the foreground color of the TrueSouthNode.
+    planetTrueSouthNodeForegroundColorKey = \
+        "ui/astrology/trueSouthNodeForegroundColor"
+
+    # QSettings default value for the foreground color of the TrueSouthNode.
+    planetTrueSouthNodeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the TrueSouthNode.
+    planetTrueSouthNodeBackgroundColorKey = \
+        "ui/astrology/trueSouthNodeBackgroundColor"
+
+    # QSettings default value for the background color of the TrueSouthNode.
+    planetTrueSouthNodeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the Ceres.
+    planetCeresGlyphUnicodeKey = \
+        "ui/astrology/ceresGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the Ceres.
+    planetCeresGlyphUnicodeDefValue = "\u26b3"
+
+    # QSettings key for the planet glyph font size of the Ceres.
+    planetCeresGlyphFontSizeKey = \
+        "ui/astrology/ceresGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the Ceres.
+    planetCeresGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the Ceres.
+    planetCeresAbbreviationKey = \
+        "ui/astrology/ceresAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the Ceres.
+    planetCeresAbbreviationDefValue = "Ce"
+
+    # QSettings key for the foreground color of the Ceres.
+    planetCeresForegroundColorKey = \
+        "ui/astrology/ceresForegroundColor"
+
+    # QSettings default value for the foreground color of the Ceres.
+    planetCeresForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the Ceres.
+    planetCeresBackgroundColorKey = \
+        "ui/astrology/ceresBackgroundColor"
+
+    # QSettings default value for the background color of the Ceres.
+    planetCeresBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the Pallas.
+    planetPallasGlyphUnicodeKey = \
+        "ui/astrology/pallasGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the Pallas.
+    planetPallasGlyphUnicodeDefValue = "\u26b4"
+
+    # QSettings key for the planet glyph font size of the Pallas.
+    planetPallasGlyphFontSizeKey = \
+        "ui/astrology/pallasGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the Pallas.
+    planetPallasGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the Pallas.
+    planetPallasAbbreviationKey = \
+        "ui/astrology/pallasAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the Pallas.
+    planetPallasAbbreviationDefValue = "Pa"
+
+    # QSettings key for the foreground color of the Pallas.
+    planetPallasForegroundColorKey = \
+        "ui/astrology/pallasForegroundColor"
+
+    # QSettings default value for the foreground color of the Pallas.
+    planetPallasForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the Pallas.
+    planetPallasBackgroundColorKey = \
+        "ui/astrology/pallasBackgroundColor"
+
+    # QSettings default value for the background color of the Pallas.
+    planetPallasBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the Juno.
+    planetJunoGlyphUnicodeKey = \
+        "ui/astrology/junoGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the Juno.
+    planetJunoGlyphUnicodeDefValue = "\u26b5"
+
+    # QSettings key for the planet glyph font size of the Juno.
+    planetJunoGlyphFontSizeKey = \
+        "ui/astrology/junoGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the Juno.
+    planetJunoGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the Juno.
+    planetJunoAbbreviationKey = \
+        "ui/astrology/junoAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the Juno.
+    planetJunoAbbreviationDefValue = "Jun"
+
+    # QSettings key for the foreground color of the Juno.
+    planetJunoForegroundColorKey = \
+        "ui/astrology/junoForegroundColor"
+
+    # QSettings default value for the foreground color of the Juno.
+    planetJunoForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the Juno.
+    planetJunoBackgroundColorKey = \
+        "ui/astrology/junoBackgroundColor"
+
+    # QSettings default value for the background color of the Juno.
+    planetJunoBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the Vesta.
+    planetVestaGlyphUnicodeKey = \
+        "ui/astrology/vestaGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the Vesta.
+    planetVestaGlyphUnicodeDefValue = "\u26b6"
+
+    # QSettings key for the planet glyph font size of the Vesta.
+    planetVestaGlyphFontSizeKey = \
+        "ui/astrology/vestaGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the Vesta.
+    planetVestaGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the Vesta.
+    planetVestaAbbreviationKey = \
+        "ui/astrology/vestaAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the Vesta.
+    planetVestaAbbreviationDefValue = "Ves"
+
+    # QSettings key for the foreground color of the Vesta.
+    planetVestaForegroundColorKey = \
+        "ui/astrology/vestaForegroundColor"
+
+    # QSettings default value for the foreground color of the Vesta.
+    planetVestaForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the Vesta.
+    planetVestaBackgroundColorKey = \
+        "ui/astrology/vestaBackgroundColor"
+
+    # QSettings default value for the background color of the Vesta.
+    planetVestaBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the Chiron.
+    planetChironGlyphUnicodeKey = \
+        "ui/astrology/chironGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the Chiron.
+    planetChironGlyphUnicodeDefValue = "\u26b7"
+
+    # QSettings key for the planet glyph font size of the Chiron.
+    planetChironGlyphFontSizeKey = \
+        "ui/astrology/chironGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the Chiron.
+    planetChironGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the Chiron.
+    planetChironAbbreviationKey = \
+        "ui/astrology/chironAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the Chiron.
+    planetChironAbbreviationDefValue = "Chi"
+
+    # QSettings key for the foreground color of the Chiron.
+    planetChironForegroundColorKey = \
+        "ui/astrology/chironForegroundColor"
+
+    # QSettings default value for the foreground color of the Chiron.
+    planetChironForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the Chiron.
+    planetChironBackgroundColorKey = \
+        "ui/astrology/chironBackgroundColor"
+
+    # QSettings default value for the background color of the Chiron.
+    planetChironBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the Gulika.
+    planetGulikaGlyphUnicodeKey = \
+        "ui/astrology/gulikaGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the Gulika.
+    planetGulikaGlyphUnicodeDefValue = "Gk"
+
+    # QSettings key for the planet glyph font size of the Gulika.
+    planetGulikaGlyphFontSizeKey = \
+        "ui/astrology/gulikaGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the Gulika.
+    planetGulikaGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the Gulika.
+    planetGulikaAbbreviationKey = \
+        "ui/astrology/gulikaAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the Gulika.
+    planetGulikaAbbreviationDefValue = "Gk"
+
+    # QSettings key for the foreground color of the Gulika.
+    planetGulikaForegroundColorKey = \
+        "ui/astrology/gulikaForegroundColor"
+
+    # QSettings default value for the foreground color of the Gulika.
+    planetGulikaForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the Gulika.
+    planetGulikaBackgroundColorKey = \
+        "ui/astrology/gulikaBackgroundColor"
+
+    # QSettings default value for the background color of the Gulika.
+    planetGulikaBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the Mandi.
+    planetMandiGlyphUnicodeKey = \
+        "ui/astrology/mandiGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the Mandi.
+    planetMandiGlyphUnicodeDefValue = "Md"
+
+    # QSettings key for the planet glyph font size of the Mandi.
+    planetMandiGlyphFontSizeKey = \
+        "ui/astrology/mandiGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the Mandi.
+    planetMandiGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the Mandi.
+    planetMandiAbbreviationKey = \
+        "ui/astrology/mandiAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the Mandi.
+    planetMandiAbbreviationDefValue = "Md"
+
+    # QSettings key for the foreground color of the Mandi.
+    planetMandiForegroundColorKey = \
+        "ui/astrology/mandiForegroundColor"
+
+    # QSettings default value for the foreground color of the Mandi.
+    planetMandiForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the Mandi.
+    planetMandiBackgroundColorKey = \
+        "ui/astrology/mandiBackgroundColor"
+
+    # QSettings default value for the background color of the Mandi.
+    planetMandiBackgroundColorDefValue = QColor(Qt.transparent)
 
 
 
@@ -988,7 +1188,7 @@ class SettingsKeys():
         "ui/astrology/ariesGlyphUnicode"
 
     # QSettings default value for the sign glyph unicode of the Aries.
-    signAriesGlyphUnicodeDefValue = ""
+    signAriesGlyphUnicodeDefValue = "\u2648"
 
     # QSettings key for the sign glyph font size of the Aries.
     signAriesGlyphFontSizeKey = \
@@ -1002,7 +1202,7 @@ class SettingsKeys():
         "ui/astrology/ariesAbbreviation"
 
     # QSettings default value for the sign abbreviation of the Aries.
-    signAriesAbbreviationDefValue = ""
+    signAriesAbbreviationDefValue = "Ar"
 
     # QSettings key for the foreground color of the Aries.
     signAriesForegroundColorKey = \
@@ -1016,7 +1216,7 @@ class SettingsKeys():
         "ui/astrology/ariesBackgroundColor"
 
     # QSettings default value for the background color of the Aries.
-    signAriesBackgroundColorDefValue = QColor(Qt.white)
+    signAriesBackgroundColorDefValue = QColor(Qt.transparent)
 
 
 
@@ -1025,7 +1225,7 @@ class SettingsKeys():
         "ui/astrology/taurusGlyphUnicode"
 
     # QSettings default value for the sign glyph unicode of the Taurus.
-    signTaurusGlyphUnicodeDefValue = ""
+    signTaurusGlyphUnicodeDefValue = "\u2649"
 
     # QSettings key for the sign glyph font size of the Taurus.
     signTaurusGlyphFontSizeKey = \
@@ -1039,7 +1239,7 @@ class SettingsKeys():
         "ui/astrology/taurusAbbreviation"
 
     # QSettings default value for the sign abbreviation of the Taurus.
-    signTaurusAbbreviationDefValue = ""
+    signTaurusAbbreviationDefValue = "Ta"
 
     # QSettings key for the foreground color of the Taurus.
     signTaurusForegroundColorKey = \
@@ -1053,7 +1253,7 @@ class SettingsKeys():
         "ui/astrology/taurusBackgroundColor"
 
     # QSettings default value for the background color of the Taurus.
-    signTaurusBackgroundColorDefValue = QColor(Qt.white)
+    signTaurusBackgroundColorDefValue = QColor(Qt.transparent)
 
 
 
@@ -1062,7 +1262,7 @@ class SettingsKeys():
         "ui/astrology/geminiGlyphUnicode"
 
     # QSettings default value for the sign glyph unicode of the Gemini.
-    signGeminiGlyphUnicodeDefValue = ""
+    signGeminiGlyphUnicodeDefValue = "\u264a"
 
     # QSettings key for the sign glyph font size of the Gemini.
     signGeminiGlyphFontSizeKey = \
@@ -1076,7 +1276,7 @@ class SettingsKeys():
         "ui/astrology/geminiAbbreviation"
 
     # QSettings default value for the sign abbreviation of the Gemini.
-    signGeminiAbbreviationDefValue = ""
+    signGeminiAbbreviationDefValue = "Ge"
 
     # QSettings key for the foreground color of the Gemini.
     signGeminiForegroundColorKey = \
@@ -1090,7 +1290,7 @@ class SettingsKeys():
         "ui/astrology/geminiBackgroundColor"
 
     # QSettings default value for the background color of the Gemini.
-    signGeminiBackgroundColorDefValue = QColor(Qt.white)
+    signGeminiBackgroundColorDefValue = QColor(Qt.transparent)
 
 
 
@@ -1099,7 +1299,7 @@ class SettingsKeys():
         "ui/astrology/cancerGlyphUnicode"
 
     # QSettings default value for the sign glyph unicode of the Cancer.
-    signCancerGlyphUnicodeDefValue = ""
+    signCancerGlyphUnicodeDefValue = "\u264b"
 
     # QSettings key for the sign glyph font size of the Cancer.
     signCancerGlyphFontSizeKey = \
@@ -1113,7 +1313,7 @@ class SettingsKeys():
         "ui/astrology/cancerAbbreviation"
 
     # QSettings default value for the sign abbreviation of the Cancer.
-    signCancerAbbreviationDefValue = ""
+    signCancerAbbreviationDefValue = "Ca"
 
     # QSettings key for the foreground color of the Cancer.
     signCancerForegroundColorKey = \
@@ -1127,7 +1327,7 @@ class SettingsKeys():
         "ui/astrology/cancerBackgroundColor"
 
     # QSettings default value for the background color of the Cancer.
-    signCancerBackgroundColorDefValue = QColor(Qt.white)
+    signCancerBackgroundColorDefValue = QColor(Qt.transparent)
 
 
 
@@ -1136,7 +1336,7 @@ class SettingsKeys():
         "ui/astrology/leoGlyphUnicode"
 
     # QSettings default value for the sign glyph unicode of the Leo.
-    signLeoGlyphUnicodeDefValue = ""
+    signLeoGlyphUnicodeDefValue = "\u264c"
 
     # QSettings key for the sign glyph font size of the Leo.
     signLeoGlyphFontSizeKey = \
@@ -1150,7 +1350,7 @@ class SettingsKeys():
         "ui/astrology/leoAbbreviation"
 
     # QSettings default value for the sign abbreviation of the Leo.
-    signLeoAbbreviationDefValue = ""
+    signLeoAbbreviationDefValue = "Le"
 
     # QSettings key for the foreground color of the Leo.
     signLeoForegroundColorKey = \
@@ -1164,7 +1364,7 @@ class SettingsKeys():
         "ui/astrology/leoBackgroundColor"
 
     # QSettings default value for the background color of the Leo.
-    signLeoBackgroundColorDefValue = QColor(Qt.white)
+    signLeoBackgroundColorDefValue = QColor(Qt.transparent)
 
 
 
@@ -1173,7 +1373,7 @@ class SettingsKeys():
         "ui/astrology/virgoGlyphUnicode"
 
     # QSettings default value for the sign glyph unicode of the Virgo.
-    signVirgoGlyphUnicodeDefValue = ""
+    signVirgoGlyphUnicodeDefValue = "\u264d"
 
     # QSettings key for the sign glyph font size of the Virgo.
     signVirgoGlyphFontSizeKey = \
@@ -1187,7 +1387,7 @@ class SettingsKeys():
         "ui/astrology/virgoAbbreviation"
 
     # QSettings default value for the sign abbreviation of the Virgo.
-    signVirgoAbbreviationDefValue = ""
+    signVirgoAbbreviationDefValue = "Vi"
 
     # QSettings key for the foreground color of the Virgo.
     signVirgoForegroundColorKey = \
@@ -1201,7 +1401,7 @@ class SettingsKeys():
         "ui/astrology/virgoBackgroundColor"
 
     # QSettings default value for the background color of the Virgo.
-    signVirgoBackgroundColorDefValue = QColor(Qt.white)
+    signVirgoBackgroundColorDefValue = QColor(Qt.transparent)
 
 
 
@@ -1210,7 +1410,7 @@ class SettingsKeys():
         "ui/astrology/libraGlyphUnicode"
 
     # QSettings default value for the sign glyph unicode of the Libra.
-    signLibraGlyphUnicodeDefValue = ""
+    signLibraGlyphUnicodeDefValue = "\u264e"
 
     # QSettings key for the sign glyph font size of the Libra.
     signLibraGlyphFontSizeKey = \
@@ -1224,7 +1424,7 @@ class SettingsKeys():
         "ui/astrology/libraAbbreviation"
 
     # QSettings default value for the sign abbreviation of the Libra.
-    signLibraAbbreviationDefValue = ""
+    signLibraAbbreviationDefValue = "Li"
 
     # QSettings key for the foreground color of the Libra.
     signLibraForegroundColorKey = \
@@ -1238,7 +1438,7 @@ class SettingsKeys():
         "ui/astrology/libraBackgroundColor"
 
     # QSettings default value for the background color of the Libra.
-    signLibraBackgroundColorDefValue = QColor(Qt.white)
+    signLibraBackgroundColorDefValue = QColor(Qt.transparent)
 
 
 
@@ -1247,7 +1447,7 @@ class SettingsKeys():
         "ui/astrology/scorpioGlyphUnicode"
 
     # QSettings default value for the sign glyph unicode of the Scorpio.
-    signScorpioGlyphUnicodeDefValue = ""
+    signScorpioGlyphUnicodeDefValue = "\u264f"
 
     # QSettings key for the sign glyph font size of the Scorpio.
     signScorpioGlyphFontSizeKey = \
@@ -1261,7 +1461,7 @@ class SettingsKeys():
         "ui/astrology/scorpioAbbreviation"
 
     # QSettings default value for the sign abbreviation of the Scorpio.
-    signScorpioAbbreviationDefValue = ""
+    signScorpioAbbreviationDefValue = "Sc"
 
     # QSettings key for the foreground color of the Scorpio.
     signScorpioForegroundColorKey = \
@@ -1275,7 +1475,7 @@ class SettingsKeys():
         "ui/astrology/scorpioBackgroundColor"
 
     # QSettings default value for the background color of the Scorpio.
-    signScorpioBackgroundColorDefValue = QColor(Qt.white)
+    signScorpioBackgroundColorDefValue = QColor(Qt.transparent)
 
 
 
@@ -1284,7 +1484,7 @@ class SettingsKeys():
         "ui/astrology/sagittariusGlyphUnicode"
 
     # QSettings default value for the sign glyph unicode of the Sagittarius.
-    signSagittariusGlyphUnicodeDefValue = ""
+    signSagittariusGlyphUnicodeDefValue = "\u2650"
 
     # QSettings key for the sign glyph font size of the Sagittarius.
     signSagittariusGlyphFontSizeKey = \
@@ -1298,7 +1498,7 @@ class SettingsKeys():
         "ui/astrology/sagittariusAbbreviation"
 
     # QSettings default value for the sign abbreviation of the Sagittarius.
-    signSagittariusAbbreviationDefValue = ""
+    signSagittariusAbbreviationDefValue = "Sa"
 
     # QSettings key for the foreground color of the Sagittarius.
     signSagittariusForegroundColorKey = \
@@ -1312,7 +1512,7 @@ class SettingsKeys():
         "ui/astrology/sagittariusBackgroundColor"
 
     # QSettings default value for the background color of the Sagittarius.
-    signSagittariusBackgroundColorDefValue = QColor(Qt.white)
+    signSagittariusBackgroundColorDefValue = QColor(Qt.transparent)
 
 
 
@@ -1321,7 +1521,7 @@ class SettingsKeys():
         "ui/astrology/capricornGlyphUnicode"
 
     # QSettings default value for the sign glyph unicode of the Capricorn.
-    signCapricornGlyphUnicodeDefValue = ""
+    signCapricornGlyphUnicodeDefValue = "\u2651"
 
     # QSettings key for the sign glyph font size of the Capricorn.
     signCapricornGlyphFontSizeKey = \
@@ -1335,7 +1535,7 @@ class SettingsKeys():
         "ui/astrology/capricornAbbreviation"
 
     # QSettings default value for the sign abbreviation of the Capricorn.
-    signCapricornAbbreviationDefValue = ""
+    signCapricornAbbreviationDefValue = "Cp"
 
     # QSettings key for the foreground color of the Capricorn.
     signCapricornForegroundColorKey = \
@@ -1349,7 +1549,7 @@ class SettingsKeys():
         "ui/astrology/capricornBackgroundColor"
 
     # QSettings default value for the background color of the Capricorn.
-    signCapricornBackgroundColorDefValue = QColor(Qt.white)
+    signCapricornBackgroundColorDefValue = QColor(Qt.transparent)
 
 
 
@@ -1358,7 +1558,7 @@ class SettingsKeys():
         "ui/astrology/aquariusGlyphUnicode"
 
     # QSettings default value for the sign glyph unicode of the Aquarius.
-    signAquariusGlyphUnicodeDefValue = ""
+    signAquariusGlyphUnicodeDefValue = "\u2652"
 
     # QSettings key for the sign glyph font size of the Aquarius.
     signAquariusGlyphFontSizeKey = \
@@ -1372,7 +1572,7 @@ class SettingsKeys():
         "ui/astrology/aquariusAbbreviation"
 
     # QSettings default value for the sign abbreviation of the Aquarius.
-    signAquariusAbbreviationDefValue = ""
+    signAquariusAbbreviationDefValue = "Aq"
 
     # QSettings key for the foreground color of the Aquarius.
     signAquariusForegroundColorKey = \
@@ -1386,7 +1586,7 @@ class SettingsKeys():
         "ui/astrology/aquariusBackgroundColor"
 
     # QSettings default value for the background color of the Aquarius.
-    signAquariusBackgroundColorDefValue = QColor(Qt.white)
+    signAquariusBackgroundColorDefValue = QColor(Qt.transparent)
 
 
 
@@ -1395,7 +1595,7 @@ class SettingsKeys():
         "ui/astrology/piscesGlyphUnicode"
 
     # QSettings default value for the sign glyph unicode of the Pisces.
-    signPiscesGlyphUnicodeDefValue = ""
+    signPiscesGlyphUnicodeDefValue = "\u2653"
 
     # QSettings key for the sign glyph font size of the Pisces.
     signPiscesGlyphFontSizeKey = \
@@ -1409,7 +1609,7 @@ class SettingsKeys():
         "ui/astrology/piscesAbbreviation"
 
     # QSettings default value for the sign abbreviation of the Pisces.
-    signPiscesAbbreviationDefValue = ""
+    signPiscesAbbreviationDefValue = "Pi"
 
     # QSettings key for the foreground color of the Pisces.
     signPiscesForegroundColorKey = \
@@ -1423,7 +1623,9 @@ class SettingsKeys():
         "ui/astrology/piscesBackgroundColor"
 
     # QSettings default value for the background color of the Pisces.
-    signPiscesBackgroundColorDefValue = QColor(Qt.white)
+    signPiscesBackgroundColorDefValue = QColor(Qt.transparent)
+
+
 
 
 

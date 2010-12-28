@@ -1266,11 +1266,24 @@ class AppPreferencesEditWidget(QWidget):
         # Build QWidgets that go into the QTabWidget.
         self.priceBarChartSettingsGroupBox =  \
             self._buildPriceBarChartSettingsWidget()
+        self.planetSymbolSettingsGroupBox = \
+            self._buildPlanetSymbolSettingsWidget()
+        self.nonPlanetSymbolSettingsGroupBox = \
+            self._buildNonPlanetSymbolSettingsWidget()
+        self.signSymbolSettingsGroupBox = \
+            self._buildSignSymbolSettingsWidget()
+
 
         # Create a QTabWidget to stack all the settings editing widgets.
         self.tabWidget = QTabWidget()
         self.tabWidget.addTab(self.priceBarChartSettingsGroupBox,
                               "PriceBarChart")
+        self.tabWidget.addTab(self.planetSymbolSettingsGroupBox,
+                              "Planet Symbols")
+        self.tabWidget.addTab(self.nonPlanetSymbolSettingsGroupBox,
+                              "Non-Planet Symbols")
+        self.tabWidget.addTab(self.signSymbolSettingsGroupBox,
+                              "Zodiac Symbols")
 
         # Buttons at bottom.
         self.okayButton = QPushButton("&Okay")
@@ -1290,12 +1303,6 @@ class AppPreferencesEditWidget(QWidget):
 
         # Connect signals and slots.
 
-        # Connect color edit buttons.
-        self.higherPriceBarColorEditButton.clicked.\
-            connect(self._handleHigherPriceBarColorEditButtonClicked)
-        self.lowerPriceBarColorEditButton.clicked.\
-            connect(self._handleLowerPriceBarColorEditButtonClicked)
-
         # Connect reset buttons.
         self.zoomScaleFactorResetButton.clicked.\
             connect(self._handleZoomScaleFactorResetButtonClicked)
@@ -1304,8 +1311,15 @@ class AppPreferencesEditWidget(QWidget):
         self.lowerPriceBarColorResetButton.clicked.\
             connect(self._handleLowerPriceBarColorResetButtonClicked)
 
-        self.resetAllToDefaultButton.clicked.\
-            connect(self._handleResetAllToDefaultButtonClicked)
+        # Button at bottom to reset to defaults.
+        self.priceBarResetAllToDefaultButton.clicked.\
+            connect(self._handlePriceBarResetAllToDefaultButtonClicked)
+        self.planetSymbolResetAllToDefaultButton.clicked.\
+            connect(self._handlePlanetSymbolResetAllToDefaultButtonClicked)
+        self.nonPlanetSymbolResetAllToDefaultButton.clicked.\
+            connect(self._handleNonPlanetSymbolResetAllToDefaultButtonClicked)
+        self.signSymbolResetAllToDefaultButton.clicked.\
+            connect(self._handleSignSymbolResetAllToDefaultButtonClicked)
 
         # Connect okay and cancel buttons.
         self.okayButton.clicked.connect(self._handleOkayButtonClicked)
@@ -1341,12 +1355,12 @@ class AppPreferencesEditWidget(QWidget):
         self.lowerPriceBarColorResetButton = QPushButton("Reset to default")
 
         # Button for resetting all the above edit widgets.
-        self.resetAllToDefaultButton = \
+        self.priceBarResetAllToDefaultButton = \
             QPushButton("Reset all the above to original default values")
 
         # Grid layout.  We don't use QFormLayout because we need the 3rd
         # field area for a reset button.
-        self.gridLayout = QGridLayout()
+        gridLayout = QGridLayout()
 
         # Row.
         r = 0
@@ -1355,31 +1369,930 @@ class AppPreferencesEditWidget(QWidget):
         al = Qt.AlignLeft
         ar = Qt.AlignRight
 
-        self.gridLayout.\
+        gridLayout.\
             addWidget(self.zoomScaleFactorLabel, r, 0, al)
-        self.gridLayout.\
+        gridLayout.\
             addWidget(self.zoomScaleFactorSpinBox, r, 1, ar)
-        self.gridLayout.\
+        gridLayout.\
             addWidget(self.zoomScaleFactorResetButton, r, 2, ar)
         r += 1
-        self.gridLayout.\
+        gridLayout.\
             addWidget(self.higherPriceBarColorLabel, r, 0, al)
-        self.gridLayout.\
+        gridLayout.\
             addWidget(self.higherPriceBarColorEditButton, r, 1, ar)
-        self.gridLayout.\
+        gridLayout.\
             addWidget(self.higherPriceBarColorResetButton, r, 2, ar)
         r += 1
-        self.gridLayout.\
+        gridLayout.\
             addWidget(self.lowerPriceBarColorLabel, r, 0, al)
-        self.gridLayout.\
+        gridLayout.\
             addWidget(self.lowerPriceBarColorEditButton, r, 1, ar)
-        self.gridLayout.\
+        gridLayout.\
             addWidget(self.lowerPriceBarColorResetButton, r, 2, ar)
 
         # Label to tell the user that not all settings will be applied
         # on existing windows when the 'Okay' button is pressed.
         endl = os.linesep
-        self.noteLabel = \
+        noteLabel = \
+            QLabel("Note: Upon clicking the 'Okay' button, the new " + \
+                   "settings may not be immediately applied" + \
+                   endl + \
+                   "to the open PriceChartDocuments.  " + \
+                   "You may need to close and re-open the " + \
+                   endl + \
+                   "PriceChartDocuments to get the changes.")
+
+        hlayout = QHBoxLayout()
+        hlayout.addWidget(self.priceBarResetAllToDefaultButton)
+        hlayout.addStretch()
+
+        vlayout = QVBoxLayout()
+        vlayout.addLayout(gridLayout)
+        vlayout.addStretch()
+        vlayout.addWidget(noteLabel)
+        vlayout.addSpacing(10)
+        vlayout.addLayout(hlayout)
+
+        self.priceBarChartSettingsGroupBox.setLayout(vlayout)
+
+        return self.priceBarChartSettingsGroupBox
+
+
+    def _buildPlanetSymbolSettingsWidget(self):
+        """Builds a QWidget for editing the settings of Planets as
+        displayed in the UI.
+
+        Returned widget is self.planetSymbolSettingsGroupBox.
+        """
+
+        self.planetSymbolSettingsGroupBox = QGroupBox("Planet settings:")
+
+        formLayout = QFormLayout()
+        formLayout.setLabelAlignment(Qt.AlignLeft)
+
+        # Sun
+        self.planetSunGlyphUnicodeLabel = \
+            QLabel("Sun unicode glyph:")
+        self.planetSunGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetSunGlyphUnicodeLabel,
+                   self.planetSunGlyphUnicodeLineEdit)
+        self.planetSunGlyphFontSizeLabel = \
+            QLabel("Sun glyph font size:")
+        self.planetSunGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetSunGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetSunGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetSunGlyphFontSizeLabel,
+                   self.planetSunGlyphFontSizeSpinBox)
+        self.planetSunAbbreviationLabel = \
+            QLabel("Sun abbreviation:")
+        self.planetSunAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetSunAbbreviationLabel,
+                   self.planetSunAbbreviationLineEdit)
+        self.planetSunForegroundColorLabel = \
+            QLabel("Sun foreground color:")
+        self.planetSunForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetSunForegroundColorLabel,
+                   self.planetSunForegroundColorEditButton)
+        self.planetSunBackgroundColorLabel = \
+            QLabel("Sun background color:")
+        self.planetSunBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetSunBackgroundColorLabel,
+                   self.planetSunBackgroundColorEditButton)
+
+        # Moon
+        self.planetMoonGlyphUnicodeLabel = \
+            QLabel("Moon unicode glyph:")
+        self.planetMoonGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMoonGlyphUnicodeLabel,
+                   self.planetMoonGlyphUnicodeLineEdit)
+        self.planetMoonGlyphFontSizeLabel = \
+            QLabel("Moon glyph font size:")
+        self.planetMoonGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetMoonGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetMoonGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetMoonGlyphFontSizeLabel,
+                   self.planetMoonGlyphFontSizeSpinBox)
+        self.planetMoonAbbreviationLabel = \
+            QLabel("Moon abbreviation:")
+        self.planetMoonAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMoonAbbreviationLabel,
+                   self.planetMoonAbbreviationLineEdit)
+        self.planetMoonForegroundColorLabel = \
+            QLabel("Moon foreground color:")
+        self.planetMoonForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMoonForegroundColorLabel,
+                   self.planetMoonForegroundColorEditButton)
+        self.planetMoonBackgroundColorLabel = \
+            QLabel("Moon background color:")
+        self.planetMoonBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMoonBackgroundColorLabel,
+                   self.planetMoonBackgroundColorEditButton)
+
+        # Mercury
+        self.planetMercuryGlyphUnicodeLabel = \
+            QLabel("Mercury unicode glyph:")
+        self.planetMercuryGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMercuryGlyphUnicodeLabel,
+                   self.planetMercuryGlyphUnicodeLineEdit)
+        self.planetMercuryGlyphFontSizeLabel = \
+            QLabel("Mercury glyph font size:")
+        self.planetMercuryGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetMercuryGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetMercuryGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetMercuryGlyphFontSizeLabel,
+                   self.planetMercuryGlyphFontSizeSpinBox)
+        self.planetMercuryAbbreviationLabel = \
+            QLabel("Mercury abbreviation:")
+        self.planetMercuryAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMercuryAbbreviationLabel,
+                   self.planetMercuryAbbreviationLineEdit)
+        self.planetMercuryForegroundColorLabel = \
+            QLabel("Mercury foreground color:")
+        self.planetMercuryForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMercuryForegroundColorLabel,
+                   self.planetMercuryForegroundColorEditButton)
+        self.planetMercuryBackgroundColorLabel = \
+            QLabel("Mercury background color:")
+        self.planetMercuryBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMercuryBackgroundColorLabel,
+                   self.planetMercuryBackgroundColorEditButton)
+
+        # Venus
+        self.planetVenusGlyphUnicodeLabel = \
+            QLabel("Venus unicode glyph:")
+        self.planetVenusGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetVenusGlyphUnicodeLabel,
+                   self.planetVenusGlyphUnicodeLineEdit)
+        self.planetVenusGlyphFontSizeLabel = \
+            QLabel("Venus glyph font size:")
+        self.planetVenusGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetVenusGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetVenusGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetVenusGlyphFontSizeLabel,
+                   self.planetVenusGlyphFontSizeSpinBox)
+        self.planetVenusAbbreviationLabel = \
+            QLabel("Venus abbreviation:")
+        self.planetVenusAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetVenusAbbreviationLabel,
+                   self.planetVenusAbbreviationLineEdit)
+        self.planetVenusForegroundColorLabel = \
+            QLabel("Venus foreground color:")
+        self.planetVenusForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetVenusForegroundColorLabel,
+                   self.planetVenusForegroundColorEditButton)
+        self.planetVenusBackgroundColorLabel = \
+            QLabel("Venus background color:")
+        self.planetVenusBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetVenusBackgroundColorLabel,
+                   self.planetVenusBackgroundColorEditButton)
+
+        # Earth
+        self.planetEarthGlyphUnicodeLabel = \
+            QLabel("Earth unicode glyph:")
+        self.planetEarthGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetEarthGlyphUnicodeLabel,
+                   self.planetEarthGlyphUnicodeLineEdit)
+        self.planetEarthGlyphFontSizeLabel = \
+            QLabel("Earth glyph font size:")
+        self.planetEarthGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetEarthGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetEarthGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetEarthGlyphFontSizeLabel,
+                   self.planetEarthGlyphFontSizeSpinBox)
+        self.planetEarthAbbreviationLabel = \
+            QLabel("Earth abbreviation:")
+        self.planetEarthAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetEarthAbbreviationLabel,
+                   self.planetEarthAbbreviationLineEdit)
+        self.planetEarthForegroundColorLabel = \
+            QLabel("Earth foreground color:")
+        self.planetEarthForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetEarthForegroundColorLabel,
+                   self.planetEarthForegroundColorEditButton)
+        self.planetEarthBackgroundColorLabel = \
+            QLabel("Earth background color:")
+        self.planetEarthBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetEarthBackgroundColorLabel,
+                   self.planetEarthBackgroundColorEditButton)
+
+        # Mars
+        self.planetMarsGlyphUnicodeLabel = \
+            QLabel("Mars unicode glyph:")
+        self.planetMarsGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMarsGlyphUnicodeLabel,
+                   self.planetMarsGlyphUnicodeLineEdit)
+        self.planetMarsGlyphFontSizeLabel = \
+            QLabel("Mars glyph font size:")
+        self.planetMarsGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetMarsGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetMarsGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetMarsGlyphFontSizeLabel,
+                   self.planetMarsGlyphFontSizeSpinBox)
+        self.planetMarsAbbreviationLabel = \
+            QLabel("Mars abbreviation:")
+        self.planetMarsAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMarsAbbreviationLabel,
+                   self.planetMarsAbbreviationLineEdit)
+        self.planetMarsForegroundColorLabel = \
+            QLabel("Mars foreground color:")
+        self.planetMarsForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMarsForegroundColorLabel,
+                   self.planetMarsForegroundColorEditButton)
+        self.planetMarsBackgroundColorLabel = \
+            QLabel("Mars background color:")
+        self.planetMarsBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMarsBackgroundColorLabel,
+                   self.planetMarsBackgroundColorEditButton)
+
+        # Jupiter
+        self.planetJupiterGlyphUnicodeLabel = \
+            QLabel("Jupiter unicode glyph:")
+        self.planetJupiterGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetJupiterGlyphUnicodeLabel,
+                   self.planetJupiterGlyphUnicodeLineEdit)
+        self.planetJupiterGlyphFontSizeLabel = \
+            QLabel("Jupiter glyph font size:")
+        self.planetJupiterGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetJupiterGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetJupiterGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetJupiterGlyphFontSizeLabel,
+                   self.planetJupiterGlyphFontSizeSpinBox)
+        self.planetJupiterAbbreviationLabel = \
+            QLabel("Jupiter abbreviation:")
+        self.planetJupiterAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetJupiterAbbreviationLabel,
+                   self.planetJupiterAbbreviationLineEdit)
+        self.planetJupiterForegroundColorLabel = \
+            QLabel("Jupiter foreground color:")
+        self.planetJupiterForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetJupiterForegroundColorLabel,
+                   self.planetJupiterForegroundColorEditButton)
+        self.planetJupiterBackgroundColorLabel = \
+            QLabel("Jupiter background color:")
+        self.planetJupiterBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetJupiterBackgroundColorLabel,
+                   self.planetJupiterBackgroundColorEditButton)
+
+        # Saturn
+        self.planetSaturnGlyphUnicodeLabel = \
+            QLabel("Saturn unicode glyph:")
+        self.planetSaturnGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetSaturnGlyphUnicodeLabel,
+                   self.planetSaturnGlyphUnicodeLineEdit)
+        self.planetSaturnGlyphFontSizeLabel = \
+            QLabel("Saturn glyph font size:")
+        self.planetSaturnGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetSaturnGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetSaturnGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetSaturnGlyphFontSizeLabel,
+                   self.planetSaturnGlyphFontSizeSpinBox)
+        self.planetSaturnAbbreviationLabel = \
+            QLabel("Saturn abbreviation:")
+        self.planetSaturnAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetSaturnAbbreviationLabel,
+                   self.planetSaturnAbbreviationLineEdit)
+        self.planetSaturnForegroundColorLabel = \
+            QLabel("Saturn foreground color:")
+        self.planetSaturnForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetSaturnForegroundColorLabel,
+                   self.planetSaturnForegroundColorEditButton)
+        self.planetSaturnBackgroundColorLabel = \
+            QLabel("Saturn background color:")
+        self.planetSaturnBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetSaturnBackgroundColorLabel,
+                   self.planetSaturnBackgroundColorEditButton)
+
+        # Uranus
+        self.planetUranusGlyphUnicodeLabel = \
+            QLabel("Uranus unicode glyph:")
+        self.planetUranusGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetUranusGlyphUnicodeLabel,
+                   self.planetUranusGlyphUnicodeLineEdit)
+        self.planetUranusGlyphFontSizeLabel = \
+            QLabel("Uranus glyph font size:")
+        self.planetUranusGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetUranusGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetUranusGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetUranusGlyphFontSizeLabel,
+                   self.planetUranusGlyphFontSizeSpinBox)
+        self.planetUranusAbbreviationLabel = \
+            QLabel("Uranus abbreviation:")
+        self.planetUranusAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetUranusAbbreviationLabel,
+                   self.planetUranusAbbreviationLineEdit)
+        self.planetUranusForegroundColorLabel = \
+            QLabel("Uranus foreground color:")
+        self.planetUranusForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetUranusForegroundColorLabel,
+                   self.planetUranusForegroundColorEditButton)
+        self.planetUranusBackgroundColorLabel = \
+            QLabel("Uranus background color:")
+        self.planetUranusBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetUranusBackgroundColorLabel,
+                   self.planetUranusBackgroundColorEditButton)
+
+        # Neptune
+        self.planetNeptuneGlyphUnicodeLabel = \
+            QLabel("Neptune unicode glyph:")
+        self.planetNeptuneGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetNeptuneGlyphUnicodeLabel,
+                   self.planetNeptuneGlyphUnicodeLineEdit)
+        self.planetNeptuneGlyphFontSizeLabel = \
+            QLabel("Neptune glyph font size:")
+        self.planetNeptuneGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetNeptuneGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetNeptuneGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetNeptuneGlyphFontSizeLabel,
+                   self.planetNeptuneGlyphFontSizeSpinBox)
+        self.planetNeptuneAbbreviationLabel = \
+            QLabel("Neptune abbreviation:")
+        self.planetNeptuneAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetNeptuneAbbreviationLabel,
+                   self.planetNeptuneAbbreviationLineEdit)
+        self.planetNeptuneForegroundColorLabel = \
+            QLabel("Neptune foreground color:")
+        self.planetNeptuneForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetNeptuneForegroundColorLabel,
+                   self.planetNeptuneForegroundColorEditButton)
+        self.planetNeptuneBackgroundColorLabel = \
+            QLabel("Neptune background color:")
+        self.planetNeptuneBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetNeptuneBackgroundColorLabel,
+                   self.planetNeptuneBackgroundColorEditButton)
+
+        # Pluto
+        self.planetPlutoGlyphUnicodeLabel = \
+            QLabel("Pluto unicode glyph:")
+        self.planetPlutoGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetPlutoGlyphUnicodeLabel,
+                   self.planetPlutoGlyphUnicodeLineEdit)
+        self.planetPlutoGlyphFontSizeLabel = \
+            QLabel("Pluto glyph font size:")
+        self.planetPlutoGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetPlutoGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetPlutoGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetPlutoGlyphFontSizeLabel,
+                   self.planetPlutoGlyphFontSizeSpinBox)
+        self.planetPlutoAbbreviationLabel = \
+            QLabel("Pluto abbreviation:")
+        self.planetPlutoAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetPlutoAbbreviationLabel,
+                   self.planetPlutoAbbreviationLineEdit)
+        self.planetPlutoForegroundColorLabel = \
+            QLabel("Pluto foreground color:")
+        self.planetPlutoForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetPlutoForegroundColorLabel,
+                   self.planetPlutoForegroundColorEditButton)
+        self.planetPlutoBackgroundColorLabel = \
+            QLabel("Pluto background color:")
+        self.planetPlutoBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetPlutoBackgroundColorLabel,
+                   self.planetPlutoBackgroundColorEditButton)
+
+        # MeanNorthNode
+        self.planetMeanNorthNodeGlyphUnicodeLabel = \
+            QLabel("MeanNorthNode unicode glyph:")
+        self.planetMeanNorthNodeGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMeanNorthNodeGlyphUnicodeLabel,
+                   self.planetMeanNorthNodeGlyphUnicodeLineEdit)
+        self.planetMeanNorthNodeGlyphFontSizeLabel = \
+            QLabel("MeanNorthNode glyph font size:")
+        self.planetMeanNorthNodeGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetMeanNorthNodeGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetMeanNorthNodeGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetMeanNorthNodeGlyphFontSizeLabel,
+                   self.planetMeanNorthNodeGlyphFontSizeSpinBox)
+        self.planetMeanNorthNodeAbbreviationLabel = \
+            QLabel("MeanNorthNode abbreviation:")
+        self.planetMeanNorthNodeAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMeanNorthNodeAbbreviationLabel,
+                   self.planetMeanNorthNodeAbbreviationLineEdit)
+        self.planetMeanNorthNodeForegroundColorLabel = \
+            QLabel("MeanNorthNode foreground color:")
+        self.planetMeanNorthNodeForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMeanNorthNodeForegroundColorLabel,
+                   self.planetMeanNorthNodeForegroundColorEditButton)
+        self.planetMeanNorthNodeBackgroundColorLabel = \
+            QLabel("MeanNorthNode background color:")
+        self.planetMeanNorthNodeBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMeanNorthNodeBackgroundColorLabel,
+                   self.planetMeanNorthNodeBackgroundColorEditButton)
+
+        # MeanSouthNode
+        self.planetMeanSouthNodeGlyphUnicodeLabel = \
+            QLabel("MeanSouthNode unicode glyph:")
+        self.planetMeanSouthNodeGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMeanSouthNodeGlyphUnicodeLabel,
+                   self.planetMeanSouthNodeGlyphUnicodeLineEdit)
+        self.planetMeanSouthNodeGlyphFontSizeLabel = \
+            QLabel("MeanSouthNode glyph font size:")
+        self.planetMeanSouthNodeGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetMeanSouthNodeGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetMeanSouthNodeGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetMeanSouthNodeGlyphFontSizeLabel,
+                   self.planetMeanSouthNodeGlyphFontSizeSpinBox)
+        self.planetMeanSouthNodeAbbreviationLabel = \
+            QLabel("MeanSouthNode abbreviation:")
+        self.planetMeanSouthNodeAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMeanSouthNodeAbbreviationLabel,
+                   self.planetMeanSouthNodeAbbreviationLineEdit)
+        self.planetMeanSouthNodeForegroundColorLabel = \
+            QLabel("MeanSouthNode foreground color:")
+        self.planetMeanSouthNodeForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMeanSouthNodeForegroundColorLabel,
+                   self.planetMeanSouthNodeForegroundColorEditButton)
+        self.planetMeanSouthNodeBackgroundColorLabel = \
+            QLabel("MeanSouthNode background color:")
+        self.planetMeanSouthNodeBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMeanSouthNodeBackgroundColorLabel,
+                   self.planetMeanSouthNodeBackgroundColorEditButton)
+
+        # TrueNorthNode
+        self.planetTrueNorthNodeGlyphUnicodeLabel = \
+            QLabel("TrueNorthNode unicode glyph:")
+        self.planetTrueNorthNodeGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetTrueNorthNodeGlyphUnicodeLabel,
+                   self.planetTrueNorthNodeGlyphUnicodeLineEdit)
+        self.planetTrueNorthNodeGlyphFontSizeLabel = \
+            QLabel("TrueNorthNode glyph font size:")
+        self.planetTrueNorthNodeGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetTrueNorthNodeGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetTrueNorthNodeGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetTrueNorthNodeGlyphFontSizeLabel,
+                   self.planetTrueNorthNodeGlyphFontSizeSpinBox)
+        self.planetTrueNorthNodeAbbreviationLabel = \
+            QLabel("TrueNorthNode abbreviation:")
+        self.planetTrueNorthNodeAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetTrueNorthNodeAbbreviationLabel,
+                   self.planetTrueNorthNodeAbbreviationLineEdit)
+        self.planetTrueNorthNodeForegroundColorLabel = \
+            QLabel("TrueNorthNode foreground color:")
+        self.planetTrueNorthNodeForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetTrueNorthNodeForegroundColorLabel,
+                   self.planetTrueNorthNodeForegroundColorEditButton)
+        self.planetTrueNorthNodeBackgroundColorLabel = \
+            QLabel("TrueNorthNode background color:")
+        self.planetTrueNorthNodeBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetTrueNorthNodeBackgroundColorLabel,
+                   self.planetTrueNorthNodeBackgroundColorEditButton)
+
+        # TrueSouthNode
+        self.planetTrueSouthNodeGlyphUnicodeLabel = \
+            QLabel("TrueSouthNode unicode glyph:")
+        self.planetTrueSouthNodeGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetTrueSouthNodeGlyphUnicodeLabel,
+                   self.planetTrueSouthNodeGlyphUnicodeLineEdit)
+        self.planetTrueSouthNodeGlyphFontSizeLabel = \
+            QLabel("TrueSouthNode glyph font size:")
+        self.planetTrueSouthNodeGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetTrueSouthNodeGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetTrueSouthNodeGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetTrueSouthNodeGlyphFontSizeLabel,
+                   self.planetTrueSouthNodeGlyphFontSizeSpinBox)
+        self.planetTrueSouthNodeAbbreviationLabel = \
+            QLabel("TrueSouthNode abbreviation:")
+        self.planetTrueSouthNodeAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetTrueSouthNodeAbbreviationLabel,
+                   self.planetTrueSouthNodeAbbreviationLineEdit)
+        self.planetTrueSouthNodeForegroundColorLabel = \
+            QLabel("TrueSouthNode foreground color:")
+        self.planetTrueSouthNodeForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetTrueSouthNodeForegroundColorLabel,
+                   self.planetTrueSouthNodeForegroundColorEditButton)
+        self.planetTrueSouthNodeBackgroundColorLabel = \
+            QLabel("TrueSouthNode background color:")
+        self.planetTrueSouthNodeBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetTrueSouthNodeBackgroundColorLabel,
+                   self.planetTrueSouthNodeBackgroundColorEditButton)
+
+        # Ceres
+        self.planetCeresGlyphUnicodeLabel = \
+            QLabel("Ceres unicode glyph:")
+        self.planetCeresGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetCeresGlyphUnicodeLabel,
+                   self.planetCeresGlyphUnicodeLineEdit)
+        self.planetCeresGlyphFontSizeLabel = \
+            QLabel("Ceres glyph font size:")
+        self.planetCeresGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetCeresGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetCeresGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetCeresGlyphFontSizeLabel,
+                   self.planetCeresGlyphFontSizeSpinBox)
+        self.planetCeresAbbreviationLabel = \
+            QLabel("Ceres abbreviation:")
+        self.planetCeresAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetCeresAbbreviationLabel,
+                   self.planetCeresAbbreviationLineEdit)
+        self.planetCeresForegroundColorLabel = \
+            QLabel("Ceres foreground color:")
+        self.planetCeresForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetCeresForegroundColorLabel,
+                   self.planetCeresForegroundColorEditButton)
+        self.planetCeresBackgroundColorLabel = \
+            QLabel("Ceres background color:")
+        self.planetCeresBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetCeresBackgroundColorLabel,
+                   self.planetCeresBackgroundColorEditButton)
+
+        # Pallas
+        self.planetPallasGlyphUnicodeLabel = \
+            QLabel("Pallas unicode glyph:")
+        self.planetPallasGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetPallasGlyphUnicodeLabel,
+                   self.planetPallasGlyphUnicodeLineEdit)
+        self.planetPallasGlyphFontSizeLabel = \
+            QLabel("Pallas glyph font size:")
+        self.planetPallasGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetPallasGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetPallasGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetPallasGlyphFontSizeLabel,
+                   self.planetPallasGlyphFontSizeSpinBox)
+        self.planetPallasAbbreviationLabel = \
+            QLabel("Pallas abbreviation:")
+        self.planetPallasAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetPallasAbbreviationLabel,
+                   self.planetPallasAbbreviationLineEdit)
+        self.planetPallasForegroundColorLabel = \
+            QLabel("Pallas foreground color:")
+        self.planetPallasForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetPallasForegroundColorLabel,
+                   self.planetPallasForegroundColorEditButton)
+        self.planetPallasBackgroundColorLabel = \
+            QLabel("Pallas background color:")
+        self.planetPallasBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetPallasBackgroundColorLabel,
+                   self.planetPallasBackgroundColorEditButton)
+
+        # Juno
+        self.planetJunoGlyphUnicodeLabel = \
+            QLabel("Juno unicode glyph:")
+        self.planetJunoGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetJunoGlyphUnicodeLabel,
+                   self.planetJunoGlyphUnicodeLineEdit)
+        self.planetJunoGlyphFontSizeLabel = \
+            QLabel("Juno glyph font size:")
+        self.planetJunoGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetJunoGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetJunoGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetJunoGlyphFontSizeLabel,
+                   self.planetJunoGlyphFontSizeSpinBox)
+        self.planetJunoAbbreviationLabel = \
+            QLabel("Juno abbreviation:")
+        self.planetJunoAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetJunoAbbreviationLabel,
+                   self.planetJunoAbbreviationLineEdit)
+        self.planetJunoForegroundColorLabel = \
+            QLabel("Juno foreground color:")
+        self.planetJunoForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetJunoForegroundColorLabel,
+                   self.planetJunoForegroundColorEditButton)
+        self.planetJunoBackgroundColorLabel = \
+            QLabel("Juno background color:")
+        self.planetJunoBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetJunoBackgroundColorLabel,
+                   self.planetJunoBackgroundColorEditButton)
+
+        # Vesta
+        self.planetVestaGlyphUnicodeLabel = \
+            QLabel("Vesta unicode glyph:")
+        self.planetVestaGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetVestaGlyphUnicodeLabel,
+                   self.planetVestaGlyphUnicodeLineEdit)
+        self.planetVestaGlyphFontSizeLabel = \
+            QLabel("Vesta glyph font size:")
+        self.planetVestaGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetVestaGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetVestaGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetVestaGlyphFontSizeLabel,
+                   self.planetVestaGlyphFontSizeSpinBox)
+        self.planetVestaAbbreviationLabel = \
+            QLabel("Vesta abbreviation:")
+        self.planetVestaAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetVestaAbbreviationLabel,
+                   self.planetVestaAbbreviationLineEdit)
+        self.planetVestaForegroundColorLabel = \
+            QLabel("Vesta foreground color:")
+        self.planetVestaForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetVestaForegroundColorLabel,
+                   self.planetVestaForegroundColorEditButton)
+        self.planetVestaBackgroundColorLabel = \
+            QLabel("Vesta background color:")
+        self.planetVestaBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetVestaBackgroundColorLabel,
+                   self.planetVestaBackgroundColorEditButton)
+
+        # Chiron
+        self.planetChironGlyphUnicodeLabel = \
+            QLabel("Chiron unicode glyph:")
+        self.planetChironGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetChironGlyphUnicodeLabel,
+                   self.planetChironGlyphUnicodeLineEdit)
+        self.planetChironGlyphFontSizeLabel = \
+            QLabel("Chiron glyph font size:")
+        self.planetChironGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetChironGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetChironGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetChironGlyphFontSizeLabel,
+                   self.planetChironGlyphFontSizeSpinBox)
+        self.planetChironAbbreviationLabel = \
+            QLabel("Chiron abbreviation:")
+        self.planetChironAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetChironAbbreviationLabel,
+                   self.planetChironAbbreviationLineEdit)
+        self.planetChironForegroundColorLabel = \
+            QLabel("Chiron foreground color:")
+        self.planetChironForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetChironForegroundColorLabel,
+                   self.planetChironForegroundColorEditButton)
+        self.planetChironBackgroundColorLabel = \
+            QLabel("Chiron background color:")
+        self.planetChironBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetChironBackgroundColorLabel,
+                   self.planetChironBackgroundColorEditButton)
+
+        # Gulika
+        self.planetGulikaGlyphUnicodeLabel = \
+            QLabel("Gulika unicode glyph:")
+        self.planetGulikaGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetGulikaGlyphUnicodeLabel,
+                   self.planetGulikaGlyphUnicodeLineEdit)
+        self.planetGulikaGlyphFontSizeLabel = \
+            QLabel("Gulika glyph font size:")
+        self.planetGulikaGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetGulikaGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetGulikaGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetGulikaGlyphFontSizeLabel,
+                   self.planetGulikaGlyphFontSizeSpinBox)
+        self.planetGulikaAbbreviationLabel = \
+            QLabel("Gulika abbreviation:")
+        self.planetGulikaAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetGulikaAbbreviationLabel,
+                   self.planetGulikaAbbreviationLineEdit)
+        self.planetGulikaForegroundColorLabel = \
+            QLabel("Gulika foreground color:")
+        self.planetGulikaForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetGulikaForegroundColorLabel,
+                   self.planetGulikaForegroundColorEditButton)
+        self.planetGulikaBackgroundColorLabel = \
+            QLabel("Gulika background color:")
+        self.planetGulikaBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetGulikaBackgroundColorLabel,
+                   self.planetGulikaBackgroundColorEditButton)
+
+        # Mandi
+        self.planetMandiGlyphUnicodeLabel = \
+            QLabel("Mandi unicode glyph:")
+        self.planetMandiGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMandiGlyphUnicodeLabel,
+                   self.planetMandiGlyphUnicodeLineEdit)
+        self.planetMandiGlyphFontSizeLabel = \
+            QLabel("Mandi glyph font size:")
+        self.planetMandiGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetMandiGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetMandiGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetMandiGlyphFontSizeLabel,
+                   self.planetMandiGlyphFontSizeSpinBox)
+        self.planetMandiAbbreviationLabel = \
+            QLabel("Mandi abbreviation:")
+        self.planetMandiAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMandiAbbreviationLabel,
+                   self.planetMandiAbbreviationLineEdit)
+        self.planetMandiForegroundColorLabel = \
+            QLabel("Mandi foreground color:")
+        self.planetMandiForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMandiForegroundColorLabel,
+                   self.planetMandiForegroundColorEditButton)
+        self.planetMandiBackgroundColorLabel = \
+            QLabel("Mandi background color:")
+        self.planetMandiBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMandiBackgroundColorLabel,
+                   self.planetMandiBackgroundColorEditButton)
+
+
+        # Label to tell the user that not all settings will be applied
+        # on existing windows when the 'Okay' button is pressed.
+        endl = os.linesep
+        noteLabel = \
             QLabel("Note: Upon clicking the 'Okay' button, the new " + \
                    "settings may not be immediately " + \
                    endl + \
@@ -1388,56 +2301,997 @@ class AppPreferencesEditWidget(QWidget):
                    endl + \
                    "the PriceChartDocuments to get the changes.")
 
-        self.hlayout = QHBoxLayout()
-        self.hlayout.addWidget(self.resetAllToDefaultButton)
-        self.hlayout.addStretch()
+        # Button for resetting all the above edit widgets.
+        self.planetSymbolResetAllToDefaultButton = \
+            QPushButton("Reset all the above to original default values")
 
-        self.vlayout = QVBoxLayout()
-        self.vlayout.addLayout(self.gridLayout)
-        self.vlayout.addWidget(self.noteLabel)
-        self.vlayout.addLayout(self.hlayout)
+        hlayout = QHBoxLayout()
+        hlayout.addWidget(self.planetSymbolResetAllToDefaultButton)
+        hlayout.addStretch()
 
-        self.priceBarChartSettingsGroupBox.setLayout(self.vlayout)
+        vlayout = QVBoxLayout()
+        vlayout.addLayout(formLayout)
+        vlayout.addSpacing(20)
+        vlayout.addWidget(noteLabel)
+        vlayout.addSpacing(10)
+        vlayout.addLayout(hlayout)
 
-        return self.priceBarChartSettingsGroupBox
+        self.planetSymbolSettingsGroupBox.setLayout(vlayout)
+
+        scrollArea = QScrollArea()
+        scrollArea.setWidget(self.planetSymbolSettingsGroupBox)
+        self.planetSymbolSettingsGroupBox = scrollArea
+
+        return self.planetSymbolSettingsGroupBox
 
 
-    def _buildPlanetSettingsWidget(self):
-        """Builds a QWidget for editing the settings of Planets as
-        displayed in the UI.
+    def _buildNonPlanetSymbolSettingsWidget(self):
+        """Builds a QWidget for editing the settings of Non-Planets as
+        displayed in the UI.  This is things like ascendant, and various
+        lagnas, etc.
 
-        Returned widget is self.planetSettingsWidget.
+        Returned widget is self.nonPlanetSymbolSettingsGroupBox.
         """
 
-        self.planetSettingsWidget = QGroupBox("Planet settings:")
+        self.nonPlanetSymbolSettingsGroupBox = QGroupBox("Non-Planet settings:")
 
+        formLayout = QFormLayout()
+        formLayout.setLabelAlignment(Qt.AlignLeft)
+
+        # Retrograde
+        self.planetRetrogradeGlyphUnicodeLabel = \
+            QLabel("Retrograde unicode glyph:")
+        self.planetRetrogradeGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetRetrogradeGlyphUnicodeLabel,
+                   self.planetRetrogradeGlyphUnicodeLineEdit)
+        self.planetRetrogradeGlyphFontSizeLabel = \
+            QLabel("Retrograde glyph font size:")
+        self.planetRetrogradeGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetRetrogradeGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetRetrogradeGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetRetrogradeGlyphFontSizeLabel,
+                   self.planetRetrogradeGlyphFontSizeSpinBox)
+        self.planetRetrogradeAbbreviationLabel = \
+            QLabel("Retrograde abbreviation:")
+        self.planetRetrogradeAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetRetrogradeAbbreviationLabel,
+                   self.planetRetrogradeAbbreviationLineEdit)
+        self.planetRetrogradeForegroundColorLabel = \
+            QLabel("Retrograde foreground color:")
+        self.planetRetrogradeForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetRetrogradeForegroundColorLabel,
+                   self.planetRetrogradeForegroundColorEditButton)
+        self.planetRetrogradeBackgroundColorLabel = \
+            QLabel("Retrograde background color:")
+        self.planetRetrogradeBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetRetrogradeBackgroundColorLabel,
+                   self.planetRetrogradeBackgroundColorEditButton)
+
+        # Ascendant
         self.planetAscendantGlyphUnicodeLabel = \
             QLabel("Ascendant unicode glyph:")
         self.planetAscendantGlyphUnicodeLineEdit = \
             QLineEdit()
+        formLayout.\
+            addRow(self.planetAscendantGlyphUnicodeLabel,
+                   self.planetAscendantGlyphUnicodeLineEdit)
+        self.planetAscendantGlyphFontSizeLabel = \
+            QLabel("Ascendant glyph font size:")
+        self.planetAscendantGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetAscendantGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetAscendantGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetAscendantGlyphFontSizeLabel,
+                   self.planetAscendantGlyphFontSizeSpinBox)
+        self.planetAscendantAbbreviationLabel = \
+            QLabel("Ascendant abbreviation:")
+        self.planetAscendantAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAscendantAbbreviationLabel,
+                   self.planetAscendantAbbreviationLineEdit)
+        self.planetAscendantForegroundColorLabel = \
+            QLabel("Ascendant foreground color:")
+        self.planetAscendantForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAscendantForegroundColorLabel,
+                   self.planetAscendantForegroundColorEditButton)
+        self.planetAscendantBackgroundColorLabel = \
+            QLabel("Ascendant background color:")
+        self.planetAscendantBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAscendantBackgroundColorLabel,
+                   self.planetAscendantBackgroundColorEditButton)
 
-        # TODO:  continue coding here.
+        # Midheaven
+        self.planetMidheavenGlyphUnicodeLabel = \
+            QLabel("Midheaven unicode glyph:")
+        self.planetMidheavenGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMidheavenGlyphUnicodeLabel,
+                   self.planetMidheavenGlyphUnicodeLineEdit)
+        self.planetMidheavenGlyphFontSizeLabel = \
+            QLabel("Midheaven glyph font size:")
+        self.planetMidheavenGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetMidheavenGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetMidheavenGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetMidheavenGlyphFontSizeLabel,
+                   self.planetMidheavenGlyphFontSizeSpinBox)
+        self.planetMidheavenAbbreviationLabel = \
+            QLabel("Midheaven abbreviation:")
+        self.planetMidheavenAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMidheavenAbbreviationLabel,
+                   self.planetMidheavenAbbreviationLineEdit)
+        self.planetMidheavenForegroundColorLabel = \
+            QLabel("Midheaven foreground color:")
+        self.planetMidheavenForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMidheavenForegroundColorLabel,
+                   self.planetMidheavenForegroundColorEditButton)
+        self.planetMidheavenBackgroundColorLabel = \
+            QLabel("Midheaven background color:")
+        self.planetMidheavenBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMidheavenBackgroundColorLabel,
+                   self.planetMidheavenBackgroundColorEditButton)
 
+        # HoraLagna
+        self.planetHoraLagnaGlyphUnicodeLabel = \
+            QLabel("HoraLagna unicode glyph:")
+        self.planetHoraLagnaGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetHoraLagnaGlyphUnicodeLabel,
+                   self.planetHoraLagnaGlyphUnicodeLineEdit)
+        self.planetHoraLagnaGlyphFontSizeLabel = \
+            QLabel("HoraLagna glyph font size:")
+        self.planetHoraLagnaGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetHoraLagnaGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetHoraLagnaGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetHoraLagnaGlyphFontSizeLabel,
+                   self.planetHoraLagnaGlyphFontSizeSpinBox)
+        self.planetHoraLagnaAbbreviationLabel = \
+            QLabel("HoraLagna abbreviation:")
+        self.planetHoraLagnaAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetHoraLagnaAbbreviationLabel,
+                   self.planetHoraLagnaAbbreviationLineEdit)
+        self.planetHoraLagnaForegroundColorLabel = \
+            QLabel("HoraLagna foreground color:")
+        self.planetHoraLagnaForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetHoraLagnaForegroundColorLabel,
+                   self.planetHoraLagnaForegroundColorEditButton)
+        self.planetHoraLagnaBackgroundColorLabel = \
+            QLabel("HoraLagna background color:")
+        self.planetHoraLagnaBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetHoraLagnaBackgroundColorLabel,
+                   self.planetHoraLagnaBackgroundColorEditButton)
 
+        # GhatiLagna
+        self.planetGhatiLagnaGlyphUnicodeLabel = \
+            QLabel("GhatiLagna unicode glyph:")
+        self.planetGhatiLagnaGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetGhatiLagnaGlyphUnicodeLabel,
+                   self.planetGhatiLagnaGlyphUnicodeLineEdit)
+        self.planetGhatiLagnaGlyphFontSizeLabel = \
+            QLabel("GhatiLagna glyph font size:")
+        self.planetGhatiLagnaGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetGhatiLagnaGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetGhatiLagnaGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetGhatiLagnaGlyphFontSizeLabel,
+                   self.planetGhatiLagnaGlyphFontSizeSpinBox)
+        self.planetGhatiLagnaAbbreviationLabel = \
+            QLabel("GhatiLagna abbreviation:")
+        self.planetGhatiLagnaAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetGhatiLagnaAbbreviationLabel,
+                   self.planetGhatiLagnaAbbreviationLineEdit)
+        self.planetGhatiLagnaForegroundColorLabel = \
+            QLabel("GhatiLagna foreground color:")
+        self.planetGhatiLagnaForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetGhatiLagnaForegroundColorLabel,
+                   self.planetGhatiLagnaForegroundColorEditButton)
+        self.planetGhatiLagnaBackgroundColorLabel = \
+            QLabel("GhatiLagna background color:")
+        self.planetGhatiLagnaBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetGhatiLagnaBackgroundColorLabel,
+                   self.planetGhatiLagnaBackgroundColorEditButton)
 
+        # MeanLunarApogee
+        self.planetMeanLunarApogeeGlyphUnicodeLabel = \
+            QLabel("MeanLunarApogee unicode glyph:")
+        self.planetMeanLunarApogeeGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMeanLunarApogeeGlyphUnicodeLabel,
+                   self.planetMeanLunarApogeeGlyphUnicodeLineEdit)
+        self.planetMeanLunarApogeeGlyphFontSizeLabel = \
+            QLabel("MeanLunarApogee glyph font size:")
+        self.planetMeanLunarApogeeGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetMeanLunarApogeeGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetMeanLunarApogeeGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetMeanLunarApogeeGlyphFontSizeLabel,
+                   self.planetMeanLunarApogeeGlyphFontSizeSpinBox)
+        self.planetMeanLunarApogeeAbbreviationLabel = \
+            QLabel("MeanLunarApogee abbreviation:")
+        self.planetMeanLunarApogeeAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMeanLunarApogeeAbbreviationLabel,
+                   self.planetMeanLunarApogeeAbbreviationLineEdit)
+        self.planetMeanLunarApogeeForegroundColorLabel = \
+            QLabel("MeanLunarApogee foreground color:")
+        self.planetMeanLunarApogeeForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMeanLunarApogeeForegroundColorLabel,
+                   self.planetMeanLunarApogeeForegroundColorEditButton)
+        self.planetMeanLunarApogeeBackgroundColorLabel = \
+            QLabel("MeanLunarApogee background color:")
+        self.planetMeanLunarApogeeBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMeanLunarApogeeBackgroundColorLabel,
+                   self.planetMeanLunarApogeeBackgroundColorEditButton)
 
+        # OsculatingLunarApogee
+        self.planetOsculatingLunarApogeeGlyphUnicodeLabel = \
+            QLabel("OsculatingLunarApogee unicode glyph:")
+        self.planetOsculatingLunarApogeeGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetOsculatingLunarApogeeGlyphUnicodeLabel,
+                   self.planetOsculatingLunarApogeeGlyphUnicodeLineEdit)
+        self.planetOsculatingLunarApogeeGlyphFontSizeLabel = \
+            QLabel("OsculatingLunarApogee glyph font size:")
+        self.planetOsculatingLunarApogeeGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetOsculatingLunarApogeeGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetOsculatingLunarApogeeGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetOsculatingLunarApogeeGlyphFontSizeLabel,
+                   self.planetOsculatingLunarApogeeGlyphFontSizeSpinBox)
+        self.planetOsculatingLunarApogeeAbbreviationLabel = \
+            QLabel("OsculatingLunarApogee abbreviation:")
+        self.planetOsculatingLunarApogeeAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetOsculatingLunarApogeeAbbreviationLabel,
+                   self.planetOsculatingLunarApogeeAbbreviationLineEdit)
+        self.planetOsculatingLunarApogeeForegroundColorLabel = \
+            QLabel("OsculatingLunarApogee foreground color:")
+        self.planetOsculatingLunarApogeeForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetOsculatingLunarApogeeForegroundColorLabel,
+                   self.planetOsculatingLunarApogeeForegroundColorEditButton)
+        self.planetOsculatingLunarApogeeBackgroundColorLabel = \
+            QLabel("OsculatingLunarApogee background color:")
+        self.planetOsculatingLunarApogeeBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetOsculatingLunarApogeeBackgroundColorLabel,
+                   self.planetOsculatingLunarApogeeBackgroundColorEditButton)
+
+        # InterpolatedLunarApogee
+        self.planetInterpolatedLunarApogeeGlyphUnicodeLabel = \
+            QLabel("InterpolatedLunarApogee unicode glyph:")
+        self.planetInterpolatedLunarApogeeGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetInterpolatedLunarApogeeGlyphUnicodeLabel,
+                   self.planetInterpolatedLunarApogeeGlyphUnicodeLineEdit)
+        self.planetInterpolatedLunarApogeeGlyphFontSizeLabel = \
+            QLabel("InterpolatedLunarApogee glyph font size:")
+        self.planetInterpolatedLunarApogeeGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetInterpolatedLunarApogeeGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetInterpolatedLunarApogeeGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetInterpolatedLunarApogeeGlyphFontSizeLabel,
+                   self.planetInterpolatedLunarApogeeGlyphFontSizeSpinBox)
+        self.planetInterpolatedLunarApogeeAbbreviationLabel = \
+            QLabel("InterpolatedLunarApogee abbreviation:")
+        self.planetInterpolatedLunarApogeeAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetInterpolatedLunarApogeeAbbreviationLabel,
+                   self.planetInterpolatedLunarApogeeAbbreviationLineEdit)
+        self.planetInterpolatedLunarApogeeForegroundColorLabel = \
+            QLabel("InterpolatedLunarApogee foreground color:")
+        self.planetInterpolatedLunarApogeeForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetInterpolatedLunarApogeeForegroundColorLabel,
+                   self.planetInterpolatedLunarApogeeForegroundColorEditButton)
+        self.planetInterpolatedLunarApogeeBackgroundColorLabel = \
+            QLabel("InterpolatedLunarApogee background color:")
+        self.planetInterpolatedLunarApogeeBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetInterpolatedLunarApogeeBackgroundColorLabel,
+                   self.planetInterpolatedLunarApogeeBackgroundColorEditButton)
+
+        # InterpolatedLunarPerigee
+        self.planetInterpolatedLunarPerigeeGlyphUnicodeLabel = \
+            QLabel("InterpolatedLunarPerigee unicode glyph:")
+        self.planetInterpolatedLunarPerigeeGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetInterpolatedLunarPerigeeGlyphUnicodeLabel,
+                   self.planetInterpolatedLunarPerigeeGlyphUnicodeLineEdit)
+        self.planetInterpolatedLunarPerigeeGlyphFontSizeLabel = \
+            QLabel("InterpolatedLunarPerigee glyph font size:")
+        self.planetInterpolatedLunarPerigeeGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetInterpolatedLunarPerigeeGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetInterpolatedLunarPerigeeGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetInterpolatedLunarPerigeeGlyphFontSizeLabel,
+                   self.planetInterpolatedLunarPerigeeGlyphFontSizeSpinBox)
+        self.planetInterpolatedLunarPerigeeAbbreviationLabel = \
+            QLabel("InterpolatedLunarPerigee abbreviation:")
+        self.planetInterpolatedLunarPerigeeAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetInterpolatedLunarPerigeeAbbreviationLabel,
+                   self.planetInterpolatedLunarPerigeeAbbreviationLineEdit)
+        self.planetInterpolatedLunarPerigeeForegroundColorLabel = \
+            QLabel("InterpolatedLunarPerigee foreground color:")
+        self.planetInterpolatedLunarPerigeeForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetInterpolatedLunarPerigeeForegroundColorLabel,
+                   self.planetInterpolatedLunarPerigeeForegroundColorEditButton)
+        self.planetInterpolatedLunarPerigeeBackgroundColorLabel = \
+            QLabel("InterpolatedLunarPerigee background color:")
+        self.planetInterpolatedLunarPerigeeBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetInterpolatedLunarPerigeeBackgroundColorLabel,
+                   self.planetInterpolatedLunarPerigeeBackgroundColorEditButton)
+
+        # Label to tell the user that not all settings will be applied
+        # on existing windows when the 'Okay' button is pressed.
+        endl = os.linesep
+        noteLabel = \
+            QLabel("Note: Upon clicking the 'Okay' button, the new " + \
+                   "settings may not be immediately " + \
+                   endl + \
+                   "applied to the open PriceChartDocuments.  " + \
+                   "You may need to close and re-open " + \
+                   endl + \
+                   "the PriceChartDocuments to get the changes.")
+
+        # Button for resetting all the above edit widgets.
+        self.nonPlanetSymbolResetAllToDefaultButton = \
+            QPushButton("Reset all the above to original default values")
+
+        hlayout = QHBoxLayout()
+        hlayout.addWidget(self.nonPlanetSymbolResetAllToDefaultButton)
+        hlayout.addStretch()
+
+        vlayout = QVBoxLayout()
+        vlayout.addLayout(formLayout)
+        vlayout.addSpacing(20)
+        vlayout.addWidget(noteLabel)
+        vlayout.addSpacing(10)
+        vlayout.addLayout(hlayout)
+
+        self.nonPlanetSymbolSettingsGroupBox.setLayout(vlayout)
+
+        scrollArea = QScrollArea()
+        scrollArea.setWidget(self.nonPlanetSymbolSettingsGroupBox)
+        self.nonPlanetSymbolSettingsGroupBox = scrollArea
+
+        return self.nonPlanetSymbolSettingsGroupBox
+
+    def _buildSignSymbolSettingsWidget(self):
+        """Builds a QWidget for editing the settings of Zodiac Sign symbols as
+        displayed in the UI.
+
+        Returned widget is self.signSymbolSettingsGroupBox.
+        """
+
+        self.signSymbolSettingsGroupBox = QGroupBox("Zodiac Sign settings:")
+
+        formLayout = QFormLayout()
+        formLayout.setLabelAlignment(Qt.AlignLeft)
+
+        # Aries
+        self.planetAriesGlyphUnicodeLabel = \
+            QLabel("Aries unicode glyph:")
+        self.planetAriesGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAriesGlyphUnicodeLabel,
+                   self.planetAriesGlyphUnicodeLineEdit)
+        self.planetAriesGlyphFontSizeLabel = \
+            QLabel("Aries glyph font size:")
+        self.planetAriesGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetAriesGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetAriesGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetAriesGlyphFontSizeLabel,
+                   self.planetAriesGlyphFontSizeSpinBox)
+        self.planetAriesAbbreviationLabel = \
+            QLabel("Aries abbreviation:")
+        self.planetAriesAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAriesAbbreviationLabel,
+                   self.planetAriesAbbreviationLineEdit)
+        self.planetAriesForegroundColorLabel = \
+            QLabel("Aries foreground color:")
+        self.planetAriesForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAriesForegroundColorLabel,
+                   self.planetAriesForegroundColorEditButton)
+        self.planetAriesBackgroundColorLabel = \
+            QLabel("Aries background color:")
+        self.planetAriesBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAriesBackgroundColorLabel,
+                   self.planetAriesBackgroundColorEditButton)
+
+        # Taurus
+        self.planetTaurusGlyphUnicodeLabel = \
+            QLabel("Taurus unicode glyph:")
+        self.planetTaurusGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetTaurusGlyphUnicodeLabel,
+                   self.planetTaurusGlyphUnicodeLineEdit)
+        self.planetTaurusGlyphFontSizeLabel = \
+            QLabel("Taurus glyph font size:")
+        self.planetTaurusGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetTaurusGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetTaurusGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetTaurusGlyphFontSizeLabel,
+                   self.planetTaurusGlyphFontSizeSpinBox)
+        self.planetTaurusAbbreviationLabel = \
+            QLabel("Taurus abbreviation:")
+        self.planetTaurusAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetTaurusAbbreviationLabel,
+                   self.planetTaurusAbbreviationLineEdit)
+        self.planetTaurusForegroundColorLabel = \
+            QLabel("Taurus foreground color:")
+        self.planetTaurusForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetTaurusForegroundColorLabel,
+                   self.planetTaurusForegroundColorEditButton)
+        self.planetTaurusBackgroundColorLabel = \
+            QLabel("Taurus background color:")
+        self.planetTaurusBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetTaurusBackgroundColorLabel,
+                   self.planetTaurusBackgroundColorEditButton)
+
+        # Gemini
+        self.planetGeminiGlyphUnicodeLabel = \
+            QLabel("Gemini unicode glyph:")
+        self.planetGeminiGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetGeminiGlyphUnicodeLabel,
+                   self.planetGeminiGlyphUnicodeLineEdit)
+        self.planetGeminiGlyphFontSizeLabel = \
+            QLabel("Gemini glyph font size:")
+        self.planetGeminiGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetGeminiGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetGeminiGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetGeminiGlyphFontSizeLabel,
+                   self.planetGeminiGlyphFontSizeSpinBox)
+        self.planetGeminiAbbreviationLabel = \
+            QLabel("Gemini abbreviation:")
+        self.planetGeminiAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetGeminiAbbreviationLabel,
+                   self.planetGeminiAbbreviationLineEdit)
+        self.planetGeminiForegroundColorLabel = \
+            QLabel("Gemini foreground color:")
+        self.planetGeminiForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetGeminiForegroundColorLabel,
+                   self.planetGeminiForegroundColorEditButton)
+        self.planetGeminiBackgroundColorLabel = \
+            QLabel("Gemini background color:")
+        self.planetGeminiBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetGeminiBackgroundColorLabel,
+                   self.planetGeminiBackgroundColorEditButton)
+
+        # Cancer
+        self.planetCancerGlyphUnicodeLabel = \
+            QLabel("Cancer unicode glyph:")
+        self.planetCancerGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetCancerGlyphUnicodeLabel,
+                   self.planetCancerGlyphUnicodeLineEdit)
+        self.planetCancerGlyphFontSizeLabel = \
+            QLabel("Cancer glyph font size:")
+        self.planetCancerGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetCancerGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetCancerGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetCancerGlyphFontSizeLabel,
+                   self.planetCancerGlyphFontSizeSpinBox)
+        self.planetCancerAbbreviationLabel = \
+            QLabel("Cancer abbreviation:")
+        self.planetCancerAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetCancerAbbreviationLabel,
+                   self.planetCancerAbbreviationLineEdit)
+        self.planetCancerForegroundColorLabel = \
+            QLabel("Cancer foreground color:")
+        self.planetCancerForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetCancerForegroundColorLabel,
+                   self.planetCancerForegroundColorEditButton)
+        self.planetCancerBackgroundColorLabel = \
+            QLabel("Cancer background color:")
+        self.planetCancerBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetCancerBackgroundColorLabel,
+                   self.planetCancerBackgroundColorEditButton)
+
+        # Leo
+        self.planetLeoGlyphUnicodeLabel = \
+            QLabel("Leo unicode glyph:")
+        self.planetLeoGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetLeoGlyphUnicodeLabel,
+                   self.planetLeoGlyphUnicodeLineEdit)
+        self.planetLeoGlyphFontSizeLabel = \
+            QLabel("Leo glyph font size:")
+        self.planetLeoGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetLeoGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetLeoGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetLeoGlyphFontSizeLabel,
+                   self.planetLeoGlyphFontSizeSpinBox)
+        self.planetLeoAbbreviationLabel = \
+            QLabel("Leo abbreviation:")
+        self.planetLeoAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetLeoAbbreviationLabel,
+                   self.planetLeoAbbreviationLineEdit)
+        self.planetLeoForegroundColorLabel = \
+            QLabel("Leo foreground color:")
+        self.planetLeoForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetLeoForegroundColorLabel,
+                   self.planetLeoForegroundColorEditButton)
+        self.planetLeoBackgroundColorLabel = \
+            QLabel("Leo background color:")
+        self.planetLeoBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetLeoBackgroundColorLabel,
+                   self.planetLeoBackgroundColorEditButton)
+
+        # Virgo
+        self.planetVirgoGlyphUnicodeLabel = \
+            QLabel("Virgo unicode glyph:")
+        self.planetVirgoGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetVirgoGlyphUnicodeLabel,
+                   self.planetVirgoGlyphUnicodeLineEdit)
+        self.planetVirgoGlyphFontSizeLabel = \
+            QLabel("Virgo glyph font size:")
+        self.planetVirgoGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetVirgoGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetVirgoGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetVirgoGlyphFontSizeLabel,
+                   self.planetVirgoGlyphFontSizeSpinBox)
+        self.planetVirgoAbbreviationLabel = \
+            QLabel("Virgo abbreviation:")
+        self.planetVirgoAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetVirgoAbbreviationLabel,
+                   self.planetVirgoAbbreviationLineEdit)
+        self.planetVirgoForegroundColorLabel = \
+            QLabel("Virgo foreground color:")
+        self.planetVirgoForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetVirgoForegroundColorLabel,
+                   self.planetVirgoForegroundColorEditButton)
+        self.planetVirgoBackgroundColorLabel = \
+            QLabel("Virgo background color:")
+        self.planetVirgoBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetVirgoBackgroundColorLabel,
+                   self.planetVirgoBackgroundColorEditButton)
+
+        # Libra
+        self.planetLibraGlyphUnicodeLabel = \
+            QLabel("Libra unicode glyph:")
+        self.planetLibraGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetLibraGlyphUnicodeLabel,
+                   self.planetLibraGlyphUnicodeLineEdit)
+        self.planetLibraGlyphFontSizeLabel = \
+            QLabel("Libra glyph font size:")
+        self.planetLibraGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetLibraGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetLibraGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetLibraGlyphFontSizeLabel,
+                   self.planetLibraGlyphFontSizeSpinBox)
+        self.planetLibraAbbreviationLabel = \
+            QLabel("Libra abbreviation:")
+        self.planetLibraAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetLibraAbbreviationLabel,
+                   self.planetLibraAbbreviationLineEdit)
+        self.planetLibraForegroundColorLabel = \
+            QLabel("Libra foreground color:")
+        self.planetLibraForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetLibraForegroundColorLabel,
+                   self.planetLibraForegroundColorEditButton)
+        self.planetLibraBackgroundColorLabel = \
+            QLabel("Libra background color:")
+        self.planetLibraBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetLibraBackgroundColorLabel,
+                   self.planetLibraBackgroundColorEditButton)
+
+        # Scorpio
+        self.planetScorpioGlyphUnicodeLabel = \
+            QLabel("Scorpio unicode glyph:")
+        self.planetScorpioGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetScorpioGlyphUnicodeLabel,
+                   self.planetScorpioGlyphUnicodeLineEdit)
+        self.planetScorpioGlyphFontSizeLabel = \
+            QLabel("Scorpio glyph font size:")
+        self.planetScorpioGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetScorpioGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetScorpioGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetScorpioGlyphFontSizeLabel,
+                   self.planetScorpioGlyphFontSizeSpinBox)
+        self.planetScorpioAbbreviationLabel = \
+            QLabel("Scorpio abbreviation:")
+        self.planetScorpioAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetScorpioAbbreviationLabel,
+                   self.planetScorpioAbbreviationLineEdit)
+        self.planetScorpioForegroundColorLabel = \
+            QLabel("Scorpio foreground color:")
+        self.planetScorpioForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetScorpioForegroundColorLabel,
+                   self.planetScorpioForegroundColorEditButton)
+        self.planetScorpioBackgroundColorLabel = \
+            QLabel("Scorpio background color:")
+        self.planetScorpioBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetScorpioBackgroundColorLabel,
+                   self.planetScorpioBackgroundColorEditButton)
+
+        # Sagittarius
+        self.planetSagittariusGlyphUnicodeLabel = \
+            QLabel("Sagittarius unicode glyph:")
+        self.planetSagittariusGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetSagittariusGlyphUnicodeLabel,
+                   self.planetSagittariusGlyphUnicodeLineEdit)
+        self.planetSagittariusGlyphFontSizeLabel = \
+            QLabel("Sagittarius glyph font size:")
+        self.planetSagittariusGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetSagittariusGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetSagittariusGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetSagittariusGlyphFontSizeLabel,
+                   self.planetSagittariusGlyphFontSizeSpinBox)
+        self.planetSagittariusAbbreviationLabel = \
+            QLabel("Sagittarius abbreviation:")
+        self.planetSagittariusAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetSagittariusAbbreviationLabel,
+                   self.planetSagittariusAbbreviationLineEdit)
+        self.planetSagittariusForegroundColorLabel = \
+            QLabel("Sagittarius foreground color:")
+        self.planetSagittariusForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetSagittariusForegroundColorLabel,
+                   self.planetSagittariusForegroundColorEditButton)
+        self.planetSagittariusBackgroundColorLabel = \
+            QLabel("Sagittarius background color:")
+        self.planetSagittariusBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetSagittariusBackgroundColorLabel,
+                   self.planetSagittariusBackgroundColorEditButton)
+
+        # Capricorn
+        self.planetCapricornGlyphUnicodeLabel = \
+            QLabel("Capricorn unicode glyph:")
+        self.planetCapricornGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetCapricornGlyphUnicodeLabel,
+                   self.planetCapricornGlyphUnicodeLineEdit)
+        self.planetCapricornGlyphFontSizeLabel = \
+            QLabel("Capricorn glyph font size:")
+        self.planetCapricornGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetCapricornGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetCapricornGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetCapricornGlyphFontSizeLabel,
+                   self.planetCapricornGlyphFontSizeSpinBox)
+        self.planetCapricornAbbreviationLabel = \
+            QLabel("Capricorn abbreviation:")
+        self.planetCapricornAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetCapricornAbbreviationLabel,
+                   self.planetCapricornAbbreviationLineEdit)
+        self.planetCapricornForegroundColorLabel = \
+            QLabel("Capricorn foreground color:")
+        self.planetCapricornForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetCapricornForegroundColorLabel,
+                   self.planetCapricornForegroundColorEditButton)
+        self.planetCapricornBackgroundColorLabel = \
+            QLabel("Capricorn background color:")
+        self.planetCapricornBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetCapricornBackgroundColorLabel,
+                   self.planetCapricornBackgroundColorEditButton)
+
+        # Aquarius
+        self.planetAquariusGlyphUnicodeLabel = \
+            QLabel("Aquarius unicode glyph:")
+        self.planetAquariusGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAquariusGlyphUnicodeLabel,
+                   self.planetAquariusGlyphUnicodeLineEdit)
+        self.planetAquariusGlyphFontSizeLabel = \
+            QLabel("Aquarius glyph font size:")
+        self.planetAquariusGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetAquariusGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetAquariusGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetAquariusGlyphFontSizeLabel,
+                   self.planetAquariusGlyphFontSizeSpinBox)
+        self.planetAquariusAbbreviationLabel = \
+            QLabel("Aquarius abbreviation:")
+        self.planetAquariusAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAquariusAbbreviationLabel,
+                   self.planetAquariusAbbreviationLineEdit)
+        self.planetAquariusForegroundColorLabel = \
+            QLabel("Aquarius foreground color:")
+        self.planetAquariusForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAquariusForegroundColorLabel,
+                   self.planetAquariusForegroundColorEditButton)
+        self.planetAquariusBackgroundColorLabel = \
+            QLabel("Aquarius background color:")
+        self.planetAquariusBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAquariusBackgroundColorLabel,
+                   self.planetAquariusBackgroundColorEditButton)
+
+        # Pisces
+        self.planetPiscesGlyphUnicodeLabel = \
+            QLabel("Pisces unicode glyph:")
+        self.planetPiscesGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetPiscesGlyphUnicodeLabel,
+                   self.planetPiscesGlyphUnicodeLineEdit)
+        self.planetPiscesGlyphFontSizeLabel = \
+            QLabel("Pisces glyph font size:")
+        self.planetPiscesGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetPiscesGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetPiscesGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetPiscesGlyphFontSizeLabel,
+                   self.planetPiscesGlyphFontSizeSpinBox)
+        self.planetPiscesAbbreviationLabel = \
+            QLabel("Pisces abbreviation:")
+        self.planetPiscesAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetPiscesAbbreviationLabel,
+                   self.planetPiscesAbbreviationLineEdit)
+        self.planetPiscesForegroundColorLabel = \
+            QLabel("Pisces foreground color:")
+        self.planetPiscesForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetPiscesForegroundColorLabel,
+                   self.planetPiscesForegroundColorEditButton)
+        self.planetPiscesBackgroundColorLabel = \
+            QLabel("Pisces background color:")
+        self.planetPiscesBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetPiscesBackgroundColorLabel,
+                   self.planetPiscesBackgroundColorEditButton)
+
+        # Label to tell the user that not all settings will be applied
+        # on existing windows when the 'Okay' button is pressed.
+        endl = os.linesep
+        noteLabel = \
+            QLabel("Note: Upon clicking the 'Okay' button, the new " + \
+                   "settings may not be immediately " + \
+                   endl + \
+                   "applied to the open PriceChartDocuments.  " + \
+                   "You may need to close and re-open " + \
+                   endl + \
+                   "the PriceChartDocuments to get the changes.")
+
+        # Button for resetting all the above edit widgets.
+        self.signSymbolResetAllToDefaultButton = \
+            QPushButton("Reset all the above to original default values")
+
+        hlayout = QHBoxLayout()
+        hlayout.addWidget(self.signSymbolResetAllToDefaultButton)
+        hlayout.addStretch()
+
+        vlayout = QVBoxLayout()
+        vlayout.addLayout(formLayout)
+        vlayout.addSpacing(20)
+        vlayout.addWidget(noteLabel)
+        vlayout.addSpacing(10)
+        vlayout.addLayout(hlayout)
+
+        self.signSymbolSettingsGroupBox.setLayout(vlayout)
+
+        scrollArea = QScrollArea()
+        scrollArea.setWidget(self.signSymbolSettingsGroupBox)
+        self.signSymbolSettingsGroupBox = scrollArea
+
+        return self.signSymbolSettingsGroupBox
 
     def loadValuesFromSettings(self):
         """Loads the widgets with values from the QSettings object.
 
         This method uses QSettings and assumes that the
         calls to QCoreApplication.setOrganizationName(), and
-        QCoreApplication.setApplicationName() have been called previously
-        (so that the QSettings constructor can be called without 
-        any parameters specified)
+        QCoreApplication.setApplicationName() have been called previously.
+        This is so that the QSettings constructor can be called without 
+        any parameters specified.
         """
 
         self.log.debug("Entered loadValuesFromSettings()")
 
+        self._priceBarLoadValuesFromSettings()
+        self._planetSymbolLoadValuesFromSettings()
+        self._nonPlanetSymbolLoadValuesFromSettings()
+        self._signSymbolLoadValuesFromSettings()
+        
+        self.log.debug("Exiting loadValuesFromSettings()")
+        
+    def saveValuesToSettings(self):
+        """Saves the values in the widgets to the QSettings object.
+
+        This method uses QSettings and assumes that the
+        calls to QCoreApplication.setOrganizationName(), and
+        QCoreApplication.setApplicationName() have been called previously.
+        This is so that the QSettings constructor can be called without 
+        any parameters specified.
+        """
+    
+        self.log.debug("Entered saveValuesToSettings()")
+
+        self._priceBarSaveValuesToSettings()
+        self._planetSymbolSaveValuesToSettings()
+        self._nonPlanetSymbolSaveValuesToSettings()
+        self._signSymbolSaveValuesToSettings()
+        
+        self.log.debug("Exiting saveValuesToSettings()")
+
+
+    def _priceBarLoadValuesFromSettings(self):
+        """Loads the widgets with values from the QSettings object.
+        This does it for the PriceBarChart settings.
+
+        This method uses QSettings and assumes that the
+        calls to QCoreApplication.setOrganizationName(), and
+        QCoreApplication.setApplicationName() have been called previously.
+        This is so that the QSettings constructor can be called without 
+        any parameters specified.
+        """
+
         settings = QSettings()
     
         # PriceBarChart zoom-in/out scale factor (float).
-            
         key = SettingsKeys.zoomScaleFactorSettingsKey 
         value = float(settings.value(key, \
             SettingsKeys.zoomScaleFactorSettingsDefValue))
@@ -1455,19 +3309,1390 @@ class AppPreferencesEditWidget(QWidget):
             SettingsKeys.lowerPriceBarColorSettingsDefValue))
         self.lowerPriceBarColorEditButton.setColor(value)
 
-        self.log.debug("Exiting loadValuesFromSettings()")
-        
-    def saveValuesToSettings(self):
+
+    def _planetSymbolLoadValuesFromSettings(self):
+        """Loads the widgets with values from the QSettings object.
+
+        This method uses QSettings and assumes that the
+        calls to QCoreApplication.setOrganizationName(), and
+        QCoreApplication.setApplicationName() have been called previously.
+        This is so that the QSettings constructor can be called without 
+        any parameters specified.
+        """
+
+        settings = QSettings()
+
+        # Sun
+        key = SettingsKeys.planetSunGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetSunGlyphUnicodeDefValue))
+        self.planetSunGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetSunGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetSunGlyphFontSizeDefValue))
+        self.planetSunGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetSunAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetSunAbbreviationDefValue))
+        self.planetSunAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetSunForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetSunForegroundColorDefValue))
+        self.planetSunForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetSunBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetSunBackgroundColorDefValue))
+        self.planetSunBackgroundColorEditButton.\
+            setColor(value)
+
+        # Moon
+        key = SettingsKeys.planetMoonGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetMoonGlyphUnicodeDefValue))
+        self.planetMoonGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMoonGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetMoonGlyphFontSizeDefValue))
+        self.planetMoonGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetMoonAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetMoonAbbreviationDefValue))
+        self.planetMoonAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMoonForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetMoonForegroundColorDefValue))
+        self.planetMoonForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetMoonBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetMoonBackgroundColorDefValue))
+        self.planetMoonBackgroundColorEditButton.\
+            setColor(value)
+
+        # Mercury
+        key = SettingsKeys.planetMercuryGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetMercuryGlyphUnicodeDefValue))
+        self.planetMercuryGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMercuryGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetMercuryGlyphFontSizeDefValue))
+        self.planetMercuryGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetMercuryAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetMercuryAbbreviationDefValue))
+        self.planetMercuryAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMercuryForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetMercuryForegroundColorDefValue))
+        self.planetMercuryForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetMercuryBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetMercuryBackgroundColorDefValue))
+        self.planetMercuryBackgroundColorEditButton.\
+            setColor(value)
+
+        # Venus
+        key = SettingsKeys.planetVenusGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetVenusGlyphUnicodeDefValue))
+        self.planetVenusGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetVenusGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetVenusGlyphFontSizeDefValue))
+        self.planetVenusGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetVenusAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetVenusAbbreviationDefValue))
+        self.planetVenusAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetVenusForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetVenusForegroundColorDefValue))
+        self.planetVenusForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetVenusBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetVenusBackgroundColorDefValue))
+        self.planetVenusBackgroundColorEditButton.\
+            setColor(value)
+
+        # Earth
+        key = SettingsKeys.planetEarthGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetEarthGlyphUnicodeDefValue))
+        self.planetEarthGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetEarthGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetEarthGlyphFontSizeDefValue))
+        self.planetEarthGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetEarthAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetEarthAbbreviationDefValue))
+        self.planetEarthAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetEarthForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetEarthForegroundColorDefValue))
+        self.planetEarthForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetEarthBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetEarthBackgroundColorDefValue))
+        self.planetEarthBackgroundColorEditButton.\
+            setColor(value)
+
+        # Mars
+        key = SettingsKeys.planetMarsGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetMarsGlyphUnicodeDefValue))
+        self.planetMarsGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMarsGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetMarsGlyphFontSizeDefValue))
+        self.planetMarsGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetMarsAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetMarsAbbreviationDefValue))
+        self.planetMarsAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMarsForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetMarsForegroundColorDefValue))
+        self.planetMarsForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetMarsBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetMarsBackgroundColorDefValue))
+        self.planetMarsBackgroundColorEditButton.\
+            setColor(value)
+
+        # Jupiter
+        key = SettingsKeys.planetJupiterGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetJupiterGlyphUnicodeDefValue))
+        self.planetJupiterGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetJupiterGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetJupiterGlyphFontSizeDefValue))
+        self.planetJupiterGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetJupiterAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetJupiterAbbreviationDefValue))
+        self.planetJupiterAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetJupiterForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetJupiterForegroundColorDefValue))
+        self.planetJupiterForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetJupiterBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetJupiterBackgroundColorDefValue))
+        self.planetJupiterBackgroundColorEditButton.\
+            setColor(value)
+
+        # Saturn
+        key = SettingsKeys.planetSaturnGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetSaturnGlyphUnicodeDefValue))
+        self.planetSaturnGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetSaturnGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetSaturnGlyphFontSizeDefValue))
+        self.planetSaturnGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetSaturnAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetSaturnAbbreviationDefValue))
+        self.planetSaturnAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetSaturnForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetSaturnForegroundColorDefValue))
+        self.planetSaturnForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetSaturnBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetSaturnBackgroundColorDefValue))
+        self.planetSaturnBackgroundColorEditButton.\
+            setColor(value)
+
+        # Uranus
+        key = SettingsKeys.planetUranusGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetUranusGlyphUnicodeDefValue))
+        self.planetUranusGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetUranusGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetUranusGlyphFontSizeDefValue))
+        self.planetUranusGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetUranusAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetUranusAbbreviationDefValue))
+        self.planetUranusAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetUranusForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetUranusForegroundColorDefValue))
+        self.planetUranusForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetUranusBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetUranusBackgroundColorDefValue))
+        self.planetUranusBackgroundColorEditButton.\
+            setColor(value)
+
+        # Neptune
+        key = SettingsKeys.planetNeptuneGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetNeptuneGlyphUnicodeDefValue))
+        self.planetNeptuneGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetNeptuneGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetNeptuneGlyphFontSizeDefValue))
+        self.planetNeptuneGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetNeptuneAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetNeptuneAbbreviationDefValue))
+        self.planetNeptuneAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetNeptuneForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetNeptuneForegroundColorDefValue))
+        self.planetNeptuneForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetNeptuneBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetNeptuneBackgroundColorDefValue))
+        self.planetNeptuneBackgroundColorEditButton.\
+            setColor(value)
+
+        # Pluto
+        key = SettingsKeys.planetPlutoGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetPlutoGlyphUnicodeDefValue))
+        self.planetPlutoGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetPlutoGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetPlutoGlyphFontSizeDefValue))
+        self.planetPlutoGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetPlutoAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetPlutoAbbreviationDefValue))
+        self.planetPlutoAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetPlutoForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetPlutoForegroundColorDefValue))
+        self.planetPlutoForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetPlutoBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetPlutoBackgroundColorDefValue))
+        self.planetPlutoBackgroundColorEditButton.\
+            setColor(value)
+
+        # MeanNorthNode
+        key = SettingsKeys.planetMeanNorthNodeGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetMeanNorthNodeGlyphUnicodeDefValue))
+        self.planetMeanNorthNodeGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMeanNorthNodeGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetMeanNorthNodeGlyphFontSizeDefValue))
+        self.planetMeanNorthNodeGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetMeanNorthNodeAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetMeanNorthNodeAbbreviationDefValue))
+        self.planetMeanNorthNodeAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMeanNorthNodeForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetMeanNorthNodeForegroundColorDefValue))
+        self.planetMeanNorthNodeForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetMeanNorthNodeBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetMeanNorthNodeBackgroundColorDefValue))
+        self.planetMeanNorthNodeBackgroundColorEditButton.\
+            setColor(value)
+
+        # MeanSouthNode
+        key = SettingsKeys.planetMeanSouthNodeGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetMeanSouthNodeGlyphUnicodeDefValue))
+        self.planetMeanSouthNodeGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMeanSouthNodeGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetMeanSouthNodeGlyphFontSizeDefValue))
+        self.planetMeanSouthNodeGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetMeanSouthNodeAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetMeanSouthNodeAbbreviationDefValue))
+        self.planetMeanSouthNodeAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMeanSouthNodeForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetMeanSouthNodeForegroundColorDefValue))
+        self.planetMeanSouthNodeForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetMeanSouthNodeBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetMeanSouthNodeBackgroundColorDefValue))
+        self.planetMeanSouthNodeBackgroundColorEditButton.\
+            setColor(value)
+
+        # TrueNorthNode
+        key = SettingsKeys.planetTrueNorthNodeGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetTrueNorthNodeGlyphUnicodeDefValue))
+        self.planetTrueNorthNodeGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetTrueNorthNodeGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetTrueNorthNodeGlyphFontSizeDefValue))
+        self.planetTrueNorthNodeGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetTrueNorthNodeAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetTrueNorthNodeAbbreviationDefValue))
+        self.planetTrueNorthNodeAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetTrueNorthNodeForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetTrueNorthNodeForegroundColorDefValue))
+        self.planetTrueNorthNodeForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetTrueNorthNodeBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetTrueNorthNodeBackgroundColorDefValue))
+        self.planetTrueNorthNodeBackgroundColorEditButton.\
+            setColor(value)
+
+        # TrueSouthNode
+        key = SettingsKeys.planetTrueSouthNodeGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetTrueSouthNodeGlyphUnicodeDefValue))
+        self.planetTrueSouthNodeGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetTrueSouthNodeGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetTrueSouthNodeGlyphFontSizeDefValue))
+        self.planetTrueSouthNodeGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetTrueSouthNodeAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetTrueSouthNodeAbbreviationDefValue))
+        self.planetTrueSouthNodeAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetTrueSouthNodeForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetTrueSouthNodeForegroundColorDefValue))
+        self.planetTrueSouthNodeForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetTrueSouthNodeBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetTrueSouthNodeBackgroundColorDefValue))
+        self.planetTrueSouthNodeBackgroundColorEditButton.\
+            setColor(value)
+
+        # Ceres
+        key = SettingsKeys.planetCeresGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetCeresGlyphUnicodeDefValue))
+        self.planetCeresGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetCeresGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetCeresGlyphFontSizeDefValue))
+        self.planetCeresGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetCeresAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetCeresAbbreviationDefValue))
+        self.planetCeresAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetCeresForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetCeresForegroundColorDefValue))
+        self.planetCeresForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetCeresBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetCeresBackgroundColorDefValue))
+        self.planetCeresBackgroundColorEditButton.\
+            setColor(value)
+
+        # Pallas
+        key = SettingsKeys.planetPallasGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetPallasGlyphUnicodeDefValue))
+        self.planetPallasGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetPallasGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetPallasGlyphFontSizeDefValue))
+        self.planetPallasGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetPallasAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetPallasAbbreviationDefValue))
+        self.planetPallasAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetPallasForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetPallasForegroundColorDefValue))
+        self.planetPallasForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetPallasBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetPallasBackgroundColorDefValue))
+        self.planetPallasBackgroundColorEditButton.\
+            setColor(value)
+
+        # Juno
+        key = SettingsKeys.planetJunoGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetJunoGlyphUnicodeDefValue))
+        self.planetJunoGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetJunoGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetJunoGlyphFontSizeDefValue))
+        self.planetJunoGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetJunoAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetJunoAbbreviationDefValue))
+        self.planetJunoAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetJunoForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetJunoForegroundColorDefValue))
+        self.planetJunoForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetJunoBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetJunoBackgroundColorDefValue))
+        self.planetJunoBackgroundColorEditButton.\
+            setColor(value)
+
+        # Vesta
+        key = SettingsKeys.planetVestaGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetVestaGlyphUnicodeDefValue))
+        self.planetVestaGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetVestaGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetVestaGlyphFontSizeDefValue))
+        self.planetVestaGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetVestaAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetVestaAbbreviationDefValue))
+        self.planetVestaAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetVestaForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetVestaForegroundColorDefValue))
+        self.planetVestaForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetVestaBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetVestaBackgroundColorDefValue))
+        self.planetVestaBackgroundColorEditButton.\
+            setColor(value)
+
+        # Chiron
+        key = SettingsKeys.planetChironGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetChironGlyphUnicodeDefValue))
+        self.planetChironGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetChironGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetChironGlyphFontSizeDefValue))
+        self.planetChironGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetChironAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetChironAbbreviationDefValue))
+        self.planetChironAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetChironForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetChironForegroundColorDefValue))
+        self.planetChironForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetChironBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetChironBackgroundColorDefValue))
+        self.planetChironBackgroundColorEditButton.\
+            setColor(value)
+
+        # Gulika
+        key = SettingsKeys.planetGulikaGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetGulikaGlyphUnicodeDefValue))
+        self.planetGulikaGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetGulikaGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetGulikaGlyphFontSizeDefValue))
+        self.planetGulikaGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetGulikaAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetGulikaAbbreviationDefValue))
+        self.planetGulikaAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetGulikaForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetGulikaForegroundColorDefValue))
+        self.planetGulikaForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetGulikaBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetGulikaBackgroundColorDefValue))
+        self.planetGulikaBackgroundColorEditButton.\
+            setColor(value)
+
+        # Mandi
+        key = SettingsKeys.planetMandiGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetMandiGlyphUnicodeDefValue))
+        self.planetMandiGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMandiGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetMandiGlyphFontSizeDefValue))
+        self.planetMandiGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetMandiAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetMandiAbbreviationDefValue))
+        self.planetMandiAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMandiForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetMandiForegroundColorDefValue))
+        self.planetMandiForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetMandiBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetMandiBackgroundColorDefValue))
+        self.planetMandiBackgroundColorEditButton.\
+            setColor(value)
+
+
+    def _nonPlanetSymbolLoadValuesFromSettings(self):
+        """Loads the widgets with values from the QSettings object.
+
+        This method uses QSettings and assumes that the
+        calls to QCoreApplication.setOrganizationName(), and
+        QCoreApplication.setApplicationName() have been called previously.
+        This is so that the QSettings constructor can be called without 
+        any parameters specified.
+        """
+
+        settings = QSettings()
+
+        # Retrograde
+        key = SettingsKeys.planetRetrogradeGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetRetrogradeGlyphUnicodeDefValue))
+        self.planetRetrogradeGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetRetrogradeGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetRetrogradeGlyphFontSizeDefValue))
+        self.planetRetrogradeGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetRetrogradeAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetRetrogradeAbbreviationDefValue))
+        self.planetRetrogradeAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetRetrogradeForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetRetrogradeForegroundColorDefValue))
+        self.planetRetrogradeForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetRetrogradeBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetRetrogradeBackgroundColorDefValue))
+        self.planetRetrogradeBackgroundColorEditButton.\
+            setColor(value)
+
+        # Ascendant
+        key = SettingsKeys.planetAscendantGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetAscendantGlyphUnicodeDefValue))
+        self.planetAscendantGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetAscendantGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetAscendantGlyphFontSizeDefValue))
+        self.planetAscendantGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetAscendantAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetAscendantAbbreviationDefValue))
+        self.planetAscendantAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetAscendantForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetAscendantForegroundColorDefValue))
+        self.planetAscendantForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetAscendantBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetAscendantBackgroundColorDefValue))
+        self.planetAscendantBackgroundColorEditButton.\
+            setColor(value)
+
+        # Midheaven
+        key = SettingsKeys.planetMidheavenGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetMidheavenGlyphUnicodeDefValue))
+        self.planetMidheavenGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMidheavenGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetMidheavenGlyphFontSizeDefValue))
+        self.planetMidheavenGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetMidheavenAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetMidheavenAbbreviationDefValue))
+        self.planetMidheavenAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMidheavenForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetMidheavenForegroundColorDefValue))
+        self.planetMidheavenForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetMidheavenBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetMidheavenBackgroundColorDefValue))
+        self.planetMidheavenBackgroundColorEditButton.\
+            setColor(value)
+
+        # HoraLagna
+        key = SettingsKeys.planetHoraLagnaGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetHoraLagnaGlyphUnicodeDefValue))
+        self.planetHoraLagnaGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetHoraLagnaGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetHoraLagnaGlyphFontSizeDefValue))
+        self.planetHoraLagnaGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetHoraLagnaAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetHoraLagnaAbbreviationDefValue))
+        self.planetHoraLagnaAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetHoraLagnaForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetHoraLagnaForegroundColorDefValue))
+        self.planetHoraLagnaForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetHoraLagnaBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetHoraLagnaBackgroundColorDefValue))
+        self.planetHoraLagnaBackgroundColorEditButton.\
+            setColor(value)
+
+        # GhatiLagna
+        key = SettingsKeys.planetGhatiLagnaGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetGhatiLagnaGlyphUnicodeDefValue))
+        self.planetGhatiLagnaGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetGhatiLagnaGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetGhatiLagnaGlyphFontSizeDefValue))
+        self.planetGhatiLagnaGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetGhatiLagnaAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetGhatiLagnaAbbreviationDefValue))
+        self.planetGhatiLagnaAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetGhatiLagnaForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetGhatiLagnaForegroundColorDefValue))
+        self.planetGhatiLagnaForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetGhatiLagnaBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetGhatiLagnaBackgroundColorDefValue))
+        self.planetGhatiLagnaBackgroundColorEditButton.\
+            setColor(value)
+
+        # MeanLunarApogee
+        key = SettingsKeys.planetMeanLunarApogeeGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetMeanLunarApogeeGlyphUnicodeDefValue))
+        self.planetMeanLunarApogeeGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMeanLunarApogeeGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetMeanLunarApogeeGlyphFontSizeDefValue))
+        self.planetMeanLunarApogeeGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetMeanLunarApogeeAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetMeanLunarApogeeAbbreviationDefValue))
+        self.planetMeanLunarApogeeAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMeanLunarApogeeForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetMeanLunarApogeeForegroundColorDefValue))
+        self.planetMeanLunarApogeeForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetMeanLunarApogeeBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetMeanLunarApogeeBackgroundColorDefValue))
+        self.planetMeanLunarApogeeBackgroundColorEditButton.\
+            setColor(value)
+
+        # OsculatingLunarApogee
+        key = SettingsKeys.planetOsculatingLunarApogeeGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetOsculatingLunarApogeeGlyphUnicodeDefValue))
+        self.planetOsculatingLunarApogeeGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetOsculatingLunarApogeeGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetOsculatingLunarApogeeGlyphFontSizeDefValue))
+        self.planetOsculatingLunarApogeeGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetOsculatingLunarApogeeAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetOsculatingLunarApogeeAbbreviationDefValue))
+        self.planetOsculatingLunarApogeeAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetOsculatingLunarApogeeForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetOsculatingLunarApogeeForegroundColorDefValue))
+        self.planetOsculatingLunarApogeeForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetOsculatingLunarApogeeBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetOsculatingLunarApogeeBackgroundColorDefValue))
+        self.planetOsculatingLunarApogeeBackgroundColorEditButton.\
+            setColor(value)
+
+        # InterpolatedLunarApogee
+        key = SettingsKeys.planetInterpolatedLunarApogeeGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetInterpolatedLunarApogeeGlyphUnicodeDefValue))
+        self.planetInterpolatedLunarApogeeGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetInterpolatedLunarApogeeGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetInterpolatedLunarApogeeGlyphFontSizeDefValue))
+        self.planetInterpolatedLunarApogeeGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetInterpolatedLunarApogeeAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetInterpolatedLunarApogeeAbbreviationDefValue))
+        self.planetInterpolatedLunarApogeeAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetInterpolatedLunarApogeeForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetInterpolatedLunarApogeeForegroundColorDefValue))
+        self.planetInterpolatedLunarApogeeForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetInterpolatedLunarApogeeBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetInterpolatedLunarApogeeBackgroundColorDefValue))
+        self.planetInterpolatedLunarApogeeBackgroundColorEditButton.\
+            setColor(value)
+
+        # InterpolatedLunarPerigee
+        key = SettingsKeys.planetInterpolatedLunarPerigeeGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetInterpolatedLunarPerigeeGlyphUnicodeDefValue))
+        self.planetInterpolatedLunarPerigeeGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetInterpolatedLunarPerigeeGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetInterpolatedLunarPerigeeGlyphFontSizeDefValue))
+        self.planetInterpolatedLunarPerigeeGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetInterpolatedLunarPerigeeAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetInterpolatedLunarPerigeeAbbreviationDefValue))
+        self.planetInterpolatedLunarPerigeeAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetInterpolatedLunarPerigeeForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetInterpolatedLunarPerigeeForegroundColorDefValue))
+        self.planetInterpolatedLunarPerigeeForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetInterpolatedLunarPerigeeBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetInterpolatedLunarPerigeeBackgroundColorDefValue))
+        self.planetInterpolatedLunarPerigeeBackgroundColorEditButton.\
+            setColor(value)
+
+
+    def _signSymbolLoadValuesFromSettings(self):
+        """Loads the widgets with values from the QSettings object.
+
+        This method uses QSettings and assumes that the
+        calls to QCoreApplication.setOrganizationName(), and
+        QCoreApplication.setApplicationName() have been called previously.
+        This is so that the QSettings constructor can be called without 
+        any parameters specified.
+        """
+
+        settings = QSettings()
+
+        # Aries
+        key = SettingsKeys.signAriesGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.signAriesGlyphUnicodeDefValue))
+        self.planetAriesGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.signAriesGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.signAriesGlyphFontSizeDefValue))
+        self.planetAriesGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.signAriesAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.signAriesAbbreviationDefValue))
+        self.planetAriesAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.signAriesForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.signAriesForegroundColorDefValue))
+        self.planetAriesForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.signAriesBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.signAriesBackgroundColorDefValue))
+        self.planetAriesBackgroundColorEditButton.\
+            setColor(value)
+
+        # Taurus
+        key = SettingsKeys.signTaurusGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.signTaurusGlyphUnicodeDefValue))
+        self.planetTaurusGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.signTaurusGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.signTaurusGlyphFontSizeDefValue))
+        self.planetTaurusGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.signTaurusAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.signTaurusAbbreviationDefValue))
+        self.planetTaurusAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.signTaurusForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.signTaurusForegroundColorDefValue))
+        self.planetTaurusForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.signTaurusBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.signTaurusBackgroundColorDefValue))
+        self.planetTaurusBackgroundColorEditButton.\
+            setColor(value)
+
+        # Gemini
+        key = SettingsKeys.signGeminiGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.signGeminiGlyphUnicodeDefValue))
+        self.planetGeminiGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.signGeminiGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.signGeminiGlyphFontSizeDefValue))
+        self.planetGeminiGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.signGeminiAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.signGeminiAbbreviationDefValue))
+        self.planetGeminiAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.signGeminiForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.signGeminiForegroundColorDefValue))
+        self.planetGeminiForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.signGeminiBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.signGeminiBackgroundColorDefValue))
+        self.planetGeminiBackgroundColorEditButton.\
+            setColor(value)
+
+        # Cancer
+        key = SettingsKeys.signCancerGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.signCancerGlyphUnicodeDefValue))
+        self.planetCancerGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.signCancerGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.signCancerGlyphFontSizeDefValue))
+        self.planetCancerGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.signCancerAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.signCancerAbbreviationDefValue))
+        self.planetCancerAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.signCancerForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.signCancerForegroundColorDefValue))
+        self.planetCancerForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.signCancerBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.signCancerBackgroundColorDefValue))
+        self.planetCancerBackgroundColorEditButton.\
+            setColor(value)
+
+        # Leo
+        key = SettingsKeys.signLeoGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.signLeoGlyphUnicodeDefValue))
+        self.planetLeoGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.signLeoGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.signLeoGlyphFontSizeDefValue))
+        self.planetLeoGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.signLeoAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.signLeoAbbreviationDefValue))
+        self.planetLeoAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.signLeoForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.signLeoForegroundColorDefValue))
+        self.planetLeoForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.signLeoBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.signLeoBackgroundColorDefValue))
+        self.planetLeoBackgroundColorEditButton.\
+            setColor(value)
+
+        # Virgo
+        key = SettingsKeys.signVirgoGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.signVirgoGlyphUnicodeDefValue))
+        self.planetVirgoGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.signVirgoGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.signVirgoGlyphFontSizeDefValue))
+        self.planetVirgoGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.signVirgoAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.signVirgoAbbreviationDefValue))
+        self.planetVirgoAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.signVirgoForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.signVirgoForegroundColorDefValue))
+        self.planetVirgoForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.signVirgoBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.signVirgoBackgroundColorDefValue))
+        self.planetVirgoBackgroundColorEditButton.\
+            setColor(value)
+
+        # Libra
+        key = SettingsKeys.signLibraGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.signLibraGlyphUnicodeDefValue))
+        self.planetLibraGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.signLibraGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.signLibraGlyphFontSizeDefValue))
+        self.planetLibraGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.signLibraAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.signLibraAbbreviationDefValue))
+        self.planetLibraAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.signLibraForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.signLibraForegroundColorDefValue))
+        self.planetLibraForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.signLibraBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.signLibraBackgroundColorDefValue))
+        self.planetLibraBackgroundColorEditButton.\
+            setColor(value)
+
+        # Scorpio
+        key = SettingsKeys.signScorpioGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.signScorpioGlyphUnicodeDefValue))
+        self.planetScorpioGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.signScorpioGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.signScorpioGlyphFontSizeDefValue))
+        self.planetScorpioGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.signScorpioAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.signScorpioAbbreviationDefValue))
+        self.planetScorpioAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.signScorpioForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.signScorpioForegroundColorDefValue))
+        self.planetScorpioForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.signScorpioBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.signScorpioBackgroundColorDefValue))
+        self.planetScorpioBackgroundColorEditButton.\
+            setColor(value)
+
+        # Sagittarius
+        key = SettingsKeys.signSagittariusGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.signSagittariusGlyphUnicodeDefValue))
+        self.planetSagittariusGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.signSagittariusGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.signSagittariusGlyphFontSizeDefValue))
+        self.planetSagittariusGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.signSagittariusAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.signSagittariusAbbreviationDefValue))
+        self.planetSagittariusAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.signSagittariusForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.signSagittariusForegroundColorDefValue))
+        self.planetSagittariusForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.signSagittariusBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.signSagittariusBackgroundColorDefValue))
+        self.planetSagittariusBackgroundColorEditButton.\
+            setColor(value)
+
+        # Capricorn
+        key = SettingsKeys.signCapricornGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.signCapricornGlyphUnicodeDefValue))
+        self.planetCapricornGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.signCapricornGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.signCapricornGlyphFontSizeDefValue))
+        self.planetCapricornGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.signCapricornAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.signCapricornAbbreviationDefValue))
+        self.planetCapricornAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.signCapricornForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.signCapricornForegroundColorDefValue))
+        self.planetCapricornForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.signCapricornBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.signCapricornBackgroundColorDefValue))
+        self.planetCapricornBackgroundColorEditButton.\
+            setColor(value)
+
+        # Aquarius
+        key = SettingsKeys.signAquariusGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.signAquariusGlyphUnicodeDefValue))
+        self.planetAquariusGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.signAquariusGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.signAquariusGlyphFontSizeDefValue))
+        self.planetAquariusGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.signAquariusAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.signAquariusAbbreviationDefValue))
+        self.planetAquariusAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.signAquariusForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.signAquariusForegroundColorDefValue))
+        self.planetAquariusForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.signAquariusBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.signAquariusBackgroundColorDefValue))
+        self.planetAquariusBackgroundColorEditButton.\
+            setColor(value)
+
+        # Pisces
+        key = SettingsKeys.signPiscesGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.signPiscesGlyphUnicodeDefValue))
+        self.planetPiscesGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.signPiscesGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.signPiscesGlyphFontSizeDefValue))
+        self.planetPiscesGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.signPiscesAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.signPiscesAbbreviationDefValue))
+        self.planetPiscesAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.signPiscesForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.signPiscesForegroundColorDefValue))
+        self.planetPiscesForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.signPiscesBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.signPiscesBackgroundColorDefValue))
+        self.planetPiscesBackgroundColorEditButton.\
+            setColor(value)
+
+
+
+    def _priceBarSaveValuesToSettings(self):
         """Saves the values in the widgets to the QSettings object.
+        This does it for the PriceBarChart settings.
 
         This method uses QSettings and assumes that the
         calls to QCoreApplication.setOrganizationName(), and
         QCoreApplication.setApplicationName() have been called previously
-        (so that the QSettings constructor can be called without 
-        any parameters specified)
+        This is so that the QSettings constructor can be called without 
+        any parameters specified.
         """
-    
-        self.log.debug("Entered saveValuesToSettings()")
 
         settings = QSettings()
     
@@ -1501,39 +4726,2237 @@ class AppPreferencesEditWidget(QWidget):
         else:
             settings.setValue(key, newValue)
 
-        self.log.debug("Exiting saveValuesToSettings()")
+    def _planetSymbolSaveValuesToSettings(self):
+        """Saves the values in the widgets to the QSettings object.
 
-
-    def _handleHigherPriceBarColorEditButtonClicked(self):
-        """Called when the higherPriceBarColorEditButton is clicked.
-        Opens up a dialog for modifying the color.
+        This method uses QSettings and assumes that the
+        calls to QCoreApplication.setOrganizationName(), and
+        QCoreApplication.setApplicationName() have been called previously
+        This is so that the QSettings constructor can be called without 
+        any parameters specified.
         """
 
+        settings = QSettings()
+    
+        # Sun
+        key = SettingsKeys.planetSunGlyphUnicodeKey
+        newValue = \
+            self.planetSunGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
 
-        # First get the current color.
-        currColor = self.higherPriceBarColorEditButton.getColor()
+        key = SettingsKeys.planetSunGlyphFontSizeKey
+        newValue = \
+            self.planetSunGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
 
-        # Open a dialog to obtain a new color.
-        newColor = QColorDialog.getColor(currColor)
+        key = SettingsKeys.planetSunAbbreviationKey
+        newValue = \
+            self.planetSunAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
 
-        # If a color was chosen that is different, then set the new color.
-        if newColor.isValid() and currColor != newColor:
-            self.higherPriceBarColorEditButton.setColor(newColor)
+        key = SettingsKeys.planetSunForegroundColorKey
+        newValue = \
+            self.planetSunForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
 
-    def _handleLowerPriceBarColorEditButtonClicked(self):
-        """Called when the lowerPriceBarColorEditButton is clicked.
-        Opens up a dialog for modifying the color.
+        key = SettingsKeys.planetSunBackgroundColorKey
+        newValue = \
+            self.planetSunBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Moon
+        key = SettingsKeys.planetMoonGlyphUnicodeKey
+        newValue = \
+            self.planetMoonGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoonGlyphFontSizeKey
+        newValue = \
+            self.planetMoonGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoonAbbreviationKey
+        newValue = \
+            self.planetMoonAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoonForegroundColorKey
+        newValue = \
+            self.planetMoonForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoonBackgroundColorKey
+        newValue = \
+            self.planetMoonBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Mercury
+        key = SettingsKeys.planetMercuryGlyphUnicodeKey
+        newValue = \
+            self.planetMercuryGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+            
+        key = SettingsKeys.planetMercuryGlyphFontSizeKey
+        newValue = \
+            self.planetMercuryGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetMercuryAbbreviationKey
+        newValue = \
+            self.planetMercuryAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMercuryForegroundColorKey
+        newValue = \
+            self.planetMercuryForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMercuryBackgroundColorKey
+        newValue = \
+            self.planetMercuryBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Venus
+        key = SettingsKeys.planetVenusGlyphUnicodeKey
+        newValue = \
+            self.planetVenusGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+            
+        key = SettingsKeys.planetVenusGlyphFontSizeKey
+        newValue = \
+            self.planetVenusGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetVenusAbbreviationKey
+        newValue = \
+                    self.planetVenusAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVenusForegroundColorKey
+        newValue = \
+            self.planetVenusForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVenusBackgroundColorKey
+        newValue = \
+            self.planetVenusBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Earth
+        key = SettingsKeys.planetEarthGlyphUnicodeKey
+        newValue = \
+            self.planetEarthGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetEarthGlyphFontSizeKey
+        newValue = \
+            self.planetEarthGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetEarthAbbreviationKey
+        newValue = \
+            self.planetEarthAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetEarthForegroundColorKey
+        newValue = \
+            self.planetEarthForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetEarthBackgroundColorKey
+        newValue = \
+            self.planetEarthBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Mars
+        key = SettingsKeys.planetMarsGlyphUnicodeKey
+        newValue = \
+            self.planetMarsGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMarsGlyphFontSizeKey
+        newValue = \
+            self.planetMarsGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMarsAbbreviationKey
+        newValue = \
+            self.planetMarsAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMarsForegroundColorKey
+        newValue = \
+            self.planetMarsForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMarsBackgroundColorKey
+        newValue = \
+            self.planetMarsBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Jupiter
+        key = SettingsKeys.planetJupiterGlyphUnicodeKey
+        newValue = \
+            self.planetJupiterGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetJupiterGlyphFontSizeKey
+        newValue = \
+            self.planetJupiterGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetJupiterAbbreviationKey
+        newValue = \
+            self.planetJupiterAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetJupiterForegroundColorKey
+        newValue = \
+            self.planetJupiterForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetJupiterBackgroundColorKey
+        newValue = \
+            self.planetJupiterBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Saturn
+        key = SettingsKeys.planetSaturnGlyphUnicodeKey
+        newValue = \
+            self.planetSaturnGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSaturnGlyphFontSizeKey
+        newValue = \
+            self.planetSaturnGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSaturnAbbreviationKey
+        newValue = \
+            self.planetSaturnAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSaturnForegroundColorKey
+        newValue = \
+            self.planetSaturnForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSaturnBackgroundColorKey
+        newValue = \
+            self.planetSaturnBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Uranus
+        key = SettingsKeys.planetUranusGlyphUnicodeKey
+        newValue = \
+            self.planetUranusGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetUranusGlyphFontSizeKey
+        newValue = \
+            self.planetUranusGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetUranusAbbreviationKey
+        newValue = \
+            self.planetUranusAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetUranusForegroundColorKey
+        newValue = \
+            self.planetUranusForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetUranusBackgroundColorKey
+        newValue = \
+            self.planetUranusBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Neptune
+        key = SettingsKeys.planetNeptuneGlyphUnicodeKey
+        newValue = \
+            self.planetNeptuneGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetNeptuneGlyphFontSizeKey
+        newValue = \
+            self.planetNeptuneGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetNeptuneAbbreviationKey
+        newValue = \
+            self.planetNeptuneAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetNeptuneForegroundColorKey
+        newValue = \
+            self.planetNeptuneForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetNeptuneBackgroundColorKey
+        newValue = \
+            self.planetNeptuneBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Pluto
+        key = SettingsKeys.planetPlutoGlyphUnicodeKey
+        newValue = \
+            self.planetPlutoGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetPlutoGlyphFontSizeKey
+        newValue = \
+            self.planetPlutoGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetPlutoAbbreviationKey
+        newValue = \
+            self.planetPlutoAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetPlutoForegroundColorKey
+        newValue = \
+            self.planetPlutoForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetPlutoBackgroundColorKey
+        newValue = \
+            self.planetPlutoBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # MeanNorthNode
+        key = SettingsKeys.planetMeanNorthNodeGlyphUnicodeKey
+        newValue = \
+            self.planetMeanNorthNodeGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeanNorthNodeGlyphFontSizeKey
+        newValue = \
+            self.planetMeanNorthNodeGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeanNorthNodeAbbreviationKey
+        newValue = \
+            self.planetMeanNorthNodeAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeanNorthNodeForegroundColorKey
+        newValue = \
+            self.planetMeanNorthNodeForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeanNorthNodeBackgroundColorKey
+        newValue = \
+            self.planetMeanNorthNodeBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # MeanSouthNode
+        key = SettingsKeys.planetMeanSouthNodeGlyphUnicodeKey
+        newValue = \
+            self.planetMeanSouthNodeGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeanSouthNodeGlyphFontSizeKey
+        newValue = \
+            self.planetMeanSouthNodeGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeanSouthNodeAbbreviationKey
+        newValue = \
+            self.planetMeanSouthNodeAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeanSouthNodeForegroundColorKey
+        newValue = \
+            self.planetMeanSouthNodeForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeanSouthNodeBackgroundColorKey
+        newValue = \
+            self.planetMeanSouthNodeBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # TrueNorthNode
+        key = SettingsKeys.planetTrueNorthNodeGlyphUnicodeKey
+        newValue = \
+            self.planetTrueNorthNodeGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetTrueNorthNodeGlyphFontSizeKey
+        newValue = \
+            self.planetTrueNorthNodeGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetTrueNorthNodeAbbreviationKey
+        newValue = \
+            self.planetTrueNorthNodeAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetTrueNorthNodeForegroundColorKey
+        newValue = \
+            self.planetTrueNorthNodeForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetTrueNorthNodeBackgroundColorKey
+        newValue = \
+            self.planetTrueNorthNodeBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # TrueSouthNode
+        key = SettingsKeys.planetTrueSouthNodeGlyphUnicodeKey
+        newValue = \
+            self.planetTrueSouthNodeGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetTrueSouthNodeGlyphFontSizeKey
+        newValue = \
+            self.planetTrueSouthNodeGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetTrueSouthNodeAbbreviationKey
+        newValue = \
+            self.planetTrueSouthNodeAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetTrueSouthNodeForegroundColorKey
+        newValue = \
+            self.planetTrueSouthNodeForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetTrueSouthNodeBackgroundColorKey
+        newValue = \
+            self.planetTrueSouthNodeBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Ceres
+        key = SettingsKeys.planetCeresGlyphUnicodeKey
+        newValue = \
+            self.planetCeresGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetCeresGlyphFontSizeKey
+        newValue = \
+            self.planetCeresGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetCeresAbbreviationKey
+        newValue = \
+            self.planetCeresAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetCeresForegroundColorKey
+        newValue = \
+            self.planetCeresForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetCeresBackgroundColorKey
+        newValue = \
+            self.planetCeresBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Pallas
+        key = SettingsKeys.planetPallasGlyphUnicodeKey
+        newValue = \
+            self.planetPallasGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetPallasGlyphFontSizeKey
+        newValue = \
+            self.planetPallasGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetPallasAbbreviationKey
+        newValue = \
+            self.planetPallasAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetPallasForegroundColorKey
+        newValue = \
+            self.planetPallasForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetPallasBackgroundColorKey
+        newValue = \
+            self.planetPallasBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Juno
+        key = SettingsKeys.planetJunoGlyphUnicodeKey
+        newValue = \
+            self.planetJunoGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetJunoGlyphFontSizeKey
+        newValue = \
+            self.planetJunoGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetJunoAbbreviationKey
+        newValue = \
+            self.planetJunoAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetJunoForegroundColorKey
+        newValue = \
+            self.planetJunoForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetJunoBackgroundColorKey
+        newValue = \
+            self.planetJunoBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Vesta
+        key = SettingsKeys.planetVestaGlyphUnicodeKey
+        newValue = \
+            self.planetVestaGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVestaGlyphFontSizeKey
+        newValue = \
+            self.planetVestaGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVestaAbbreviationKey
+        newValue = \
+            self.planetVestaAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVestaForegroundColorKey
+        newValue = \
+            self.planetVestaForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVestaBackgroundColorKey
+        newValue = \
+            self.planetVestaBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Chiron
+        key = SettingsKeys.planetChironGlyphUnicodeKey
+        newValue = \
+            self.planetChironGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetChironGlyphFontSizeKey
+        newValue = \
+            self.planetChironGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetChironAbbreviationKey
+        newValue = \
+            self.planetChironAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetChironForegroundColorKey
+        newValue = \
+            self.planetChironForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetChironBackgroundColorKey
+        newValue = \
+            self.planetChironBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Gulika
+        key = SettingsKeys.planetGulikaGlyphUnicodeKey
+        newValue = \
+            self.planetGulikaGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetGulikaGlyphFontSizeKey
+        newValue = \
+            self.planetGulikaGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetGulikaAbbreviationKey
+        newValue = \
+            self.planetGulikaAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetGulikaForegroundColorKey
+        newValue = \
+            self.planetGulikaForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetGulikaBackgroundColorKey
+        newValue = \
+            self.planetGulikaBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Mandi
+        key = SettingsKeys.planetMandiGlyphUnicodeKey
+        newValue = \
+            self.planetMandiGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMandiGlyphFontSizeKey
+        newValue = \
+            self.planetMandiGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMandiAbbreviationKey
+        newValue = \
+            self.planetMandiAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMandiForegroundColorKey
+        newValue = \
+            self.planetMandiForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMandiBackgroundColorKey
+        newValue = \
+            self.planetMandiBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+
+    def _nonPlanetSymbolSaveValuesToSettings(self):
+        """Saves the values in the widgets to the QSettings object.
+
+        This method uses QSettings and assumes that the
+        calls to QCoreApplication.setOrganizationName(), and
+        QCoreApplication.setApplicationName() have been called previously
+        This is so that the QSettings constructor can be called without 
+        any parameters specified.
         """
 
-        # First get the current color.
-        currColor = self.lowerPriceBarColorEditButton.getColor()
+        settings = QSettings()
+    
+        # Retrograde
+        key = SettingsKeys.planetRetrogradeGlyphUnicodeKey
+        newValue = \
+            self.planetRetrogradeGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
 
-        # Open a dialog to obtain a new color.
-        newColor = QColorDialog.getColor(currColor)
+        key = SettingsKeys.planetRetrogradeGlyphFontSizeKey
+        newValue = \
+            self.planetRetrogradeGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
 
-        # If a color was chosen that is different, then set the new color.
-        if newColor.isValid() and currColor != newColor:
-            self.lowerPriceBarColorEditButton.setColor(newColor)
+        key = SettingsKeys.planetRetrogradeAbbreviationKey
+        newValue = \
+            self.planetRetrogradeAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetRetrogradeForegroundColorKey
+        newValue = \
+            self.planetRetrogradeForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetRetrogradeBackgroundColorKey
+        newValue = \
+            self.planetRetrogradeBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Ascendant
+        key = SettingsKeys.planetAscendantGlyphUnicodeKey
+        newValue = \
+            self.planetAscendantGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAscendantGlyphFontSizeKey
+        newValue = \
+            self.planetAscendantGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAscendantAbbreviationKey
+        newValue = \
+            self.planetAscendantAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAscendantForegroundColorKey
+        newValue = \
+            self.planetAscendantForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAscendantBackgroundColorKey
+        newValue = \
+            self.planetAscendantBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Midheaven
+        key = SettingsKeys.planetMidheavenGlyphUnicodeKey
+        newValue = \
+            self.planetMidheavenGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMidheavenGlyphFontSizeKey
+        newValue = \
+            self.planetMidheavenGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMidheavenAbbreviationKey
+        newValue = \
+            self.planetMidheavenAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMidheavenForegroundColorKey
+        newValue = \
+            self.planetMidheavenForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMidheavenBackgroundColorKey
+        newValue = \
+            self.planetMidheavenBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # HoraLagna
+        key = SettingsKeys.planetHoraLagnaGlyphUnicodeKey
+        newValue = \
+            self.planetHoraLagnaGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetHoraLagnaGlyphFontSizeKey
+        newValue = \
+            self.planetHoraLagnaGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetHoraLagnaAbbreviationKey
+        newValue = \
+            self.planetHoraLagnaAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetHoraLagnaForegroundColorKey
+        newValue = \
+            self.planetHoraLagnaForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetHoraLagnaBackgroundColorKey
+        newValue = \
+            self.planetHoraLagnaBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # GhatiLagna
+        key = SettingsKeys.planetGhatiLagnaGlyphUnicodeKey
+        newValue = \
+            self.planetGhatiLagnaGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetGhatiLagnaGlyphFontSizeKey
+        newValue = \
+            self.planetGhatiLagnaGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetGhatiLagnaAbbreviationKey
+        newValue = \
+            self.planetGhatiLagnaAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetGhatiLagnaForegroundColorKey
+        newValue = \
+            self.planetGhatiLagnaForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetGhatiLagnaBackgroundColorKey
+        newValue = \
+            self.planetGhatiLagnaBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # MeanLunarApogee
+        key = SettingsKeys.planetMeanLunarApogeeGlyphUnicodeKey
+        newValue = \
+            self.planetMeanLunarApogeeGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeanLunarApogeeGlyphFontSizeKey
+        newValue = \
+            self.planetMeanLunarApogeeGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeanLunarApogeeAbbreviationKey
+        newValue = \
+            self.planetMeanLunarApogeeAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeanLunarApogeeForegroundColorKey
+        newValue = \
+            self.planetMeanLunarApogeeForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeanLunarApogeeBackgroundColorKey
+        newValue = \
+            self.planetMeanLunarApogeeBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # OsculatingLunarApogee
+        key = SettingsKeys.planetOsculatingLunarApogeeGlyphUnicodeKey
+        newValue = \
+            self.planetOsculatingLunarApogeeGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetOsculatingLunarApogeeGlyphFontSizeKey
+        newValue = \
+            self.planetOsculatingLunarApogeeGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetOsculatingLunarApogeeAbbreviationKey
+        newValue = \
+            self.planetOsculatingLunarApogeeAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetOsculatingLunarApogeeForegroundColorKey
+        newValue = \
+            self.planetOsculatingLunarApogeeForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetOsculatingLunarApogeeBackgroundColorKey
+        newValue = \
+            self.planetOsculatingLunarApogeeBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # InterpolatedLunarApogee
+        key = SettingsKeys.planetInterpolatedLunarApogeeGlyphUnicodeKey
+        newValue = \
+            self.planetInterpolatedLunarApogeeGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetInterpolatedLunarApogeeGlyphFontSizeKey
+        newValue = \
+            self.planetInterpolatedLunarApogeeGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetInterpolatedLunarApogeeAbbreviationKey
+        newValue = \
+            self.planetInterpolatedLunarApogeeAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetInterpolatedLunarApogeeForegroundColorKey
+        newValue = \
+            self.planetInterpolatedLunarApogeeForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetInterpolatedLunarApogeeBackgroundColorKey
+        newValue = \
+            self.planetInterpolatedLunarApogeeBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # InterpolatedLunarPerigee
+        key = SettingsKeys.planetInterpolatedLunarPerigeeGlyphUnicodeKey
+        newValue = \
+            self.planetInterpolatedLunarPerigeeGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetInterpolatedLunarPerigeeGlyphFontSizeKey
+        newValue = \
+            self.planetInterpolatedLunarPerigeeGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetInterpolatedLunarPerigeeAbbreviationKey
+        newValue = \
+            self.planetInterpolatedLunarPerigeeAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetInterpolatedLunarPerigeeForegroundColorKey
+        newValue = \
+            self.planetInterpolatedLunarPerigeeForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetInterpolatedLunarPerigeeBackgroundColorKey
+        newValue = \
+            self.planetInterpolatedLunarPerigeeBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+
+    def _signSymbolSaveValuesToSettings(self):
+        """Saves the values in the widgets to the QSettings object.
+
+        This method uses QSettings and assumes that the
+        calls to QCoreApplication.setOrganizationName(), and
+        QCoreApplication.setApplicationName() have been called previously
+        This is so that the QSettings constructor can be called without 
+        any parameters specified.
+        """
+
+        settings = QSettings()
+    
+        # Aries
+        key = SettingsKeys.signAriesGlyphUnicodeKey
+        newValue = \
+            self.planetAriesGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signAriesGlyphFontSizeKey
+        newValue = \
+            self.planetAriesGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signAriesAbbreviationKey
+        newValue = \
+            self.planetAriesAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signAriesForegroundColorKey
+        newValue = \
+            self.planetAriesForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signAriesBackgroundColorKey
+        newValue = \
+            self.planetAriesBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Taurus
+        key = SettingsKeys.signTaurusGlyphUnicodeKey
+        newValue = \
+            self.planetTaurusGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signTaurusGlyphFontSizeKey
+        newValue = \
+            self.planetTaurusGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signTaurusAbbreviationKey
+        newValue = \
+            self.planetTaurusAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signTaurusForegroundColorKey
+        newValue = \
+            self.planetTaurusForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signTaurusBackgroundColorKey
+        newValue = \
+            self.planetTaurusBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Gemini
+        key = SettingsKeys.signGeminiGlyphUnicodeKey
+        newValue = \
+            self.planetGeminiGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signGeminiGlyphFontSizeKey
+        newValue = \
+            self.planetGeminiGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signGeminiAbbreviationKey
+        newValue = \
+            self.planetGeminiAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signGeminiForegroundColorKey
+        newValue = \
+            self.planetGeminiForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signGeminiBackgroundColorKey
+        newValue = \
+            self.planetGeminiBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Cancer
+        key = SettingsKeys.signCancerGlyphUnicodeKey
+        newValue = \
+            self.planetCancerGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signCancerGlyphFontSizeKey
+        newValue = \
+            self.planetCancerGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signCancerAbbreviationKey
+        newValue = \
+            self.planetCancerAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signCancerForegroundColorKey
+        newValue = \
+            self.planetCancerForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signCancerBackgroundColorKey
+        newValue = \
+            self.planetCancerBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Leo
+        key = SettingsKeys.signLeoGlyphUnicodeKey
+        newValue = \
+            self.planetLeoGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signLeoGlyphFontSizeKey
+        newValue = \
+            self.planetLeoGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signLeoAbbreviationKey
+        newValue = \
+            self.planetLeoAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signLeoForegroundColorKey
+        newValue = \
+            self.planetLeoForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signLeoBackgroundColorKey
+        newValue = \
+            self.planetLeoBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Virgo
+        key = SettingsKeys.signVirgoGlyphUnicodeKey
+        newValue = \
+            self.planetVirgoGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signVirgoGlyphFontSizeKey
+        newValue = \
+            self.planetVirgoGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signVirgoAbbreviationKey
+        newValue = \
+            self.planetVirgoAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signVirgoForegroundColorKey
+        newValue = \
+            self.planetVirgoForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signVirgoBackgroundColorKey
+        newValue = \
+            self.planetVirgoBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Libra
+        key = SettingsKeys.signLibraGlyphUnicodeKey
+        newValue = \
+            self.planetLibraGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signLibraGlyphFontSizeKey
+        newValue = \
+            self.planetLibraGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signLibraAbbreviationKey
+        newValue = \
+            self.planetLibraAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signLibraForegroundColorKey
+        newValue = \
+            self.planetLibraForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signLibraBackgroundColorKey
+        newValue = \
+            self.planetLibraBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Scorpio
+        key = SettingsKeys.signScorpioGlyphUnicodeKey
+        newValue = \
+            self.planetScorpioGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signScorpioGlyphFontSizeKey
+        newValue = \
+            self.planetScorpioGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signScorpioAbbreviationKey
+        newValue = \
+            self.planetScorpioAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signScorpioForegroundColorKey
+        newValue = \
+            self.planetScorpioForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signScorpioBackgroundColorKey
+        newValue = \
+            self.planetScorpioBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Sagittarius
+        key = SettingsKeys.signSagittariusGlyphUnicodeKey
+        newValue = \
+            self.planetSagittariusGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signSagittariusGlyphFontSizeKey
+        newValue = \
+            self.planetSagittariusGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signSagittariusAbbreviationKey
+        newValue = \
+            self.planetSagittariusAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signSagittariusForegroundColorKey
+        newValue = \
+            self.planetSagittariusForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signSagittariusBackgroundColorKey
+        newValue = \
+            self.planetSagittariusBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Capricorn
+        key = SettingsKeys.signCapricornGlyphUnicodeKey
+        newValue = \
+            self.planetCapricornGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signCapricornGlyphFontSizeKey
+        newValue = \
+            self.planetCapricornGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signCapricornAbbreviationKey
+        newValue = \
+            self.planetCapricornAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signCapricornForegroundColorKey
+        newValue = \
+            self.planetCapricornForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signCapricornBackgroundColorKey
+        newValue = \
+            self.planetCapricornBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Aquarius
+        key = SettingsKeys.signAquariusGlyphUnicodeKey
+        newValue = \
+            self.planetAquariusGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signAquariusGlyphFontSizeKey
+        newValue = \
+            self.planetAquariusGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signAquariusAbbreviationKey
+        newValue = \
+            self.planetAquariusAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signAquariusForegroundColorKey
+        newValue = \
+            self.planetAquariusForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signAquariusBackgroundColorKey
+        newValue = \
+            self.planetAquariusBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Pisces
+        key = SettingsKeys.signPiscesGlyphUnicodeKey
+        newValue = \
+            self.planetPiscesGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signPiscesGlyphFontSizeKey
+        newValue = \
+            self.planetPiscesGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signPiscesAbbreviationKey
+        newValue = \
+            self.planetPiscesAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signPiscesForegroundColorKey
+        newValue = \
+            self.planetPiscesForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.signPiscesBackgroundColorKey
+        newValue = \
+            self.planetPiscesBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
 
     def _handleZoomScaleFactorResetButtonClicked(self):
         """Called when the zoomScaleFactorResetButton is clicked.
@@ -1560,15 +6983,555 @@ class AppPreferencesEditWidget(QWidget):
         value = SettingsKeys.lowerPriceBarColorSettingsDefValue
         self.lowerPriceBarColorEditButton.setColor(value)
 
-    def _handleResetAllToDefaultButtonClicked(self):
-        """Called when the resetAllToDefaultButton is clicked.
-        Resets the all the widget values in this widget to the default
-        values.
+    def _handlePriceBarResetAllToDefaultButtonClicked(self):
+        """Called when the priceBarResetAllToDefaultButton is clicked for
+        the PriceBar settings.  Resets the all the widget values in this
+        widget tab to the default values.
         """
 
         self._handleZoomScaleFactorResetButtonClicked()
         self._handleHigherPriceBarColorResetButtonClicked()
         self._handleLowerPriceBarColorResetButtonClicked()
+
+    def _handlePlanetSymbolResetAllToDefaultButtonClicked(self):
+        """Called when the planetSymbolResetAllToDefaultButton is clicked
+        for the Planet Symbol settings.  
+        Resets the all the widget values in this widget tab to the default
+        values.
+        """
+        
+        # Sun
+        self.planetSunGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetSunGlyphUnicodeDefValue)
+        self.planetSunGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetSunGlyphFontSizeDefValue)
+        self.planetSunAbbreviationLineEdit.\
+            setText(SettingsKeys.planetSunAbbreviationDefValue)
+        self.planetSunForegroundColorEditButton.\
+            setColor(SettingsKeys.planetSunForegroundColorDefValue)
+        self.planetSunBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetSunBackgroundColorDefValue)
+
+        # Moon
+        self.planetMoonGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetMoonGlyphUnicodeDefValue)
+        self.planetMoonGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetMoonGlyphFontSizeDefValue)
+        self.planetMoonAbbreviationLineEdit.\
+            setText(SettingsKeys.planetMoonAbbreviationDefValue)
+        self.planetMoonForegroundColorEditButton.\
+            setColor(SettingsKeys.planetMoonForegroundColorDefValue)
+        self.planetMoonBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetMoonBackgroundColorDefValue)
+
+        # Mercury
+        self.planetMercuryGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetMercuryGlyphUnicodeDefValue)
+        self.planetMercuryGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetMercuryGlyphFontSizeDefValue)
+        self.planetMercuryAbbreviationLineEdit.\
+            setText(SettingsKeys.planetMercuryAbbreviationDefValue)
+        self.planetMercuryForegroundColorEditButton.\
+            setColor(SettingsKeys.planetMercuryForegroundColorDefValue)
+        self.planetMercuryBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetMercuryBackgroundColorDefValue)
+
+        # Venus
+        self.planetVenusGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetVenusGlyphUnicodeDefValue)
+        self.planetVenusGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetVenusGlyphFontSizeDefValue)
+        self.planetVenusAbbreviationLineEdit.\
+            setText(SettingsKeys.planetVenusAbbreviationDefValue)
+        self.planetVenusForegroundColorEditButton.\
+            setColor(SettingsKeys.planetVenusForegroundColorDefValue)
+        self.planetVenusBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetVenusBackgroundColorDefValue)
+
+        # Earth
+        self.planetEarthGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetEarthGlyphUnicodeDefValue)
+        self.planetEarthGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetEarthGlyphFontSizeDefValue)
+        self.planetEarthAbbreviationLineEdit.\
+            setText(SettingsKeys.planetEarthAbbreviationDefValue)
+        self.planetEarthForegroundColorEditButton.\
+            setColor(SettingsKeys.planetEarthForegroundColorDefValue)
+        self.planetEarthBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetEarthBackgroundColorDefValue)
+
+        # Mars
+        self.planetMarsGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetMarsGlyphUnicodeDefValue)
+        self.planetMarsGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetMarsGlyphFontSizeDefValue)
+        self.planetMarsAbbreviationLineEdit.\
+            setText(SettingsKeys.planetMarsAbbreviationDefValue)
+        self.planetMarsForegroundColorEditButton.\
+            setColor(SettingsKeys.planetMarsForegroundColorDefValue)
+        self.planetMarsBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetMarsBackgroundColorDefValue)
+
+        # Jupiter
+        self.planetJupiterGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetJupiterGlyphUnicodeDefValue)
+        self.planetJupiterGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetJupiterGlyphFontSizeDefValue)
+        self.planetJupiterAbbreviationLineEdit.\
+            setText(SettingsKeys.planetJupiterAbbreviationDefValue)
+        self.planetJupiterForegroundColorEditButton.\
+            setColor(SettingsKeys.planetJupiterForegroundColorDefValue)
+        self.planetJupiterBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetJupiterBackgroundColorDefValue)
+
+        # Saturn
+        self.planetSaturnGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetSaturnGlyphUnicodeDefValue)
+        self.planetSaturnGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetSaturnGlyphFontSizeDefValue)
+        self.planetSaturnAbbreviationLineEdit.\
+            setText(SettingsKeys.planetSaturnAbbreviationDefValue)
+        self.planetSaturnForegroundColorEditButton.\
+            setColor(SettingsKeys.planetSaturnForegroundColorDefValue)
+        self.planetSaturnBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetSaturnBackgroundColorDefValue)
+
+        # Uranus
+        self.planetUranusGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetUranusGlyphUnicodeDefValue)
+        self.planetUranusGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetUranusGlyphFontSizeDefValue)
+        self.planetUranusAbbreviationLineEdit.\
+            setText(SettingsKeys.planetUranusAbbreviationDefValue)
+        self.planetUranusForegroundColorEditButton.\
+            setColor(SettingsKeys.planetUranusForegroundColorDefValue)
+        self.planetUranusBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetUranusBackgroundColorDefValue)
+
+        # Neptune
+        self.planetNeptuneGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetNeptuneGlyphUnicodeDefValue)
+        self.planetNeptuneGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetNeptuneGlyphFontSizeDefValue)
+        self.planetNeptuneAbbreviationLineEdit.\
+            setText(SettingsKeys.planetNeptuneAbbreviationDefValue)
+        self.planetNeptuneForegroundColorEditButton.\
+            setColor(SettingsKeys.planetNeptuneForegroundColorDefValue)
+        self.planetNeptuneBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetNeptuneBackgroundColorDefValue)
+
+        # Pluto
+        self.planetPlutoGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetPlutoGlyphUnicodeDefValue)
+        self.planetPlutoGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetPlutoGlyphFontSizeDefValue)
+        self.planetPlutoAbbreviationLineEdit.\
+            setText(SettingsKeys.planetPlutoAbbreviationDefValue)
+        self.planetPlutoForegroundColorEditButton.\
+            setColor(SettingsKeys.planetPlutoForegroundColorDefValue)
+        self.planetPlutoBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetPlutoBackgroundColorDefValue)
+
+        # MeanNorthNode
+        self.planetMeanNorthNodeGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetMeanNorthNodeGlyphUnicodeDefValue)
+        self.planetMeanNorthNodeGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetMeanNorthNodeGlyphFontSizeDefValue)
+        self.planetMeanNorthNodeAbbreviationLineEdit.\
+            setText(SettingsKeys.planetMeanNorthNodeAbbreviationDefValue)
+        self.planetMeanNorthNodeForegroundColorEditButton.\
+            setColor(SettingsKeys.planetMeanNorthNodeForegroundColorDefValue)
+        self.planetMeanNorthNodeBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetMeanNorthNodeBackgroundColorDefValue)
+
+        # MeanSouthNode
+        self.planetMeanSouthNodeGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetMeanSouthNodeGlyphUnicodeDefValue)
+        self.planetMeanSouthNodeGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetMeanSouthNodeGlyphFontSizeDefValue)
+        self.planetMeanSouthNodeAbbreviationLineEdit.\
+            setText(SettingsKeys.planetMeanSouthNodeAbbreviationDefValue)
+        self.planetMeanSouthNodeForegroundColorEditButton.\
+            setColor(SettingsKeys.planetMeanSouthNodeForegroundColorDefValue)
+        self.planetMeanSouthNodeBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetMeanSouthNodeBackgroundColorDefValue)
+
+        # TrueNorthNode
+        self.planetTrueNorthNodeGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetTrueNorthNodeGlyphUnicodeDefValue)
+        self.planetTrueNorthNodeGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetTrueNorthNodeGlyphFontSizeDefValue)
+        self.planetTrueNorthNodeAbbreviationLineEdit.\
+            setText(SettingsKeys.planetTrueNorthNodeAbbreviationDefValue)
+        self.planetTrueNorthNodeForegroundColorEditButton.\
+            setColor(SettingsKeys.planetTrueNorthNodeForegroundColorDefValue)
+        self.planetTrueNorthNodeBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetTrueNorthNodeBackgroundColorDefValue)
+
+        # TrueSouthNode
+        self.planetTrueSouthNodeGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetTrueSouthNodeGlyphUnicodeDefValue)
+        self.planetTrueSouthNodeGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetTrueSouthNodeGlyphFontSizeDefValue)
+        self.planetTrueSouthNodeAbbreviationLineEdit.\
+            setText(SettingsKeys.planetTrueSouthNodeAbbreviationDefValue)
+        self.planetTrueSouthNodeForegroundColorEditButton.\
+            setColor(SettingsKeys.planetTrueSouthNodeForegroundColorDefValue)
+        self.planetTrueSouthNodeBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetTrueSouthNodeBackgroundColorDefValue)
+
+        # Ceres
+        self.planetCeresGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetCeresGlyphUnicodeDefValue)
+        self.planetCeresGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetCeresGlyphFontSizeDefValue)
+        self.planetCeresAbbreviationLineEdit.\
+            setText(SettingsKeys.planetCeresAbbreviationDefValue)
+        self.planetCeresForegroundColorEditButton.\
+            setColor(SettingsKeys.planetCeresForegroundColorDefValue)
+        self.planetCeresBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetCeresBackgroundColorDefValue)
+
+        # Pallas
+        self.planetPallasGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetPallasGlyphUnicodeDefValue)
+        self.planetPallasGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetPallasGlyphFontSizeDefValue)
+        self.planetPallasAbbreviationLineEdit.\
+            setText(SettingsKeys.planetPallasAbbreviationDefValue)
+        self.planetPallasForegroundColorEditButton.\
+            setColor(SettingsKeys.planetPallasForegroundColorDefValue)
+        self.planetPallasBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetPallasBackgroundColorDefValue)
+
+        # Juno
+        self.planetJunoGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetJunoGlyphUnicodeDefValue)
+        self.planetJunoGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetJunoGlyphFontSizeDefValue)
+        self.planetJunoAbbreviationLineEdit.\
+            setText(SettingsKeys.planetJunoAbbreviationDefValue)
+        self.planetJunoForegroundColorEditButton.\
+            setColor(SettingsKeys.planetJunoForegroundColorDefValue)
+        self.planetJunoBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetJunoBackgroundColorDefValue)
+
+        # Vesta
+        self.planetVestaGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetVestaGlyphUnicodeDefValue)
+        self.planetVestaGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetVestaGlyphFontSizeDefValue)
+        self.planetVestaAbbreviationLineEdit.\
+            setText(SettingsKeys.planetVestaAbbreviationDefValue)
+        self.planetVestaForegroundColorEditButton.\
+            setColor(SettingsKeys.planetVestaForegroundColorDefValue)
+        self.planetVestaBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetVestaBackgroundColorDefValue)
+
+        # Chiron
+        self.planetChironGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetChironGlyphUnicodeDefValue)
+        self.planetChironGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetChironGlyphFontSizeDefValue)
+        self.planetChironAbbreviationLineEdit.\
+            setText(SettingsKeys.planetChironAbbreviationDefValue)
+        self.planetChironForegroundColorEditButton.\
+            setColor(SettingsKeys.planetChironForegroundColorDefValue)
+        self.planetChironBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetChironBackgroundColorDefValue)
+
+        # Gulika
+        self.planetGulikaGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetGulikaGlyphUnicodeDefValue)
+        self.planetGulikaGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetGulikaGlyphFontSizeDefValue)
+        self.planetGulikaAbbreviationLineEdit.\
+            setText(SettingsKeys.planetGulikaAbbreviationDefValue)
+        self.planetGulikaForegroundColorEditButton.\
+            setColor(SettingsKeys.planetGulikaForegroundColorDefValue)
+        self.planetGulikaBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetGulikaBackgroundColorDefValue)
+
+        # Mandi
+        self.planetMandiGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetMandiGlyphUnicodeDefValue)
+        self.planetMandiGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetMandiGlyphFontSizeDefValue)
+        self.planetMandiAbbreviationLineEdit.\
+            setText(SettingsKeys.planetMandiAbbreviationDefValue)
+        self.planetMandiForegroundColorEditButton.\
+            setColor(SettingsKeys.planetMandiForegroundColorDefValue)
+        self.planetMandiBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetMandiBackgroundColorDefValue)
+
+    def _handleNonPlanetSymbolResetAllToDefaultButtonClicked(self):
+        """Called when the nonPlanetSymbolResetAllToDefaultButton is clicked
+        for the Non-Planet Symbol settings.  
+        Resets the all the widget values in this widget tab to the default
+        values.
+        """
+        
+        # Retrograde
+        self.planetRetrogradeGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetRetrogradeGlyphUnicodeDefValue)
+        self.planetRetrogradeGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetRetrogradeGlyphFontSizeDefValue)
+        self.planetRetrogradeAbbreviationLineEdit.\
+            setText(SettingsKeys.planetRetrogradeAbbreviationDefValue)
+        self.planetRetrogradeForegroundColorEditButton.\
+            setColor(SettingsKeys.planetRetrogradeForegroundColorDefValue)
+        self.planetRetrogradeBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetRetrogradeBackgroundColorDefValue)
+
+        # Ascendant
+        self.planetAscendantGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetAscendantGlyphUnicodeDefValue)
+        self.planetAscendantGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetAscendantGlyphFontSizeDefValue)
+        self.planetAscendantAbbreviationLineEdit.\
+            setText(SettingsKeys.planetAscendantAbbreviationDefValue)
+        self.planetAscendantForegroundColorEditButton.\
+            setColor(SettingsKeys.planetAscendantForegroundColorDefValue)
+        self.planetAscendantBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetAscendantBackgroundColorDefValue)
+
+        # Midheaven
+        self.planetMidheavenGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetMidheavenGlyphUnicodeDefValue)
+        self.planetMidheavenGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetMidheavenGlyphFontSizeDefValue)
+        self.planetMidheavenAbbreviationLineEdit.\
+            setText(SettingsKeys.planetMidheavenAbbreviationDefValue)
+        self.planetMidheavenForegroundColorEditButton.\
+            setColor(SettingsKeys.planetMidheavenForegroundColorDefValue)
+        self.planetMidheavenBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetMidheavenBackgroundColorDefValue)
+
+        # HoraLagna
+        self.planetHoraLagnaGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetHoraLagnaGlyphUnicodeDefValue)
+        self.planetHoraLagnaGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetHoraLagnaGlyphFontSizeDefValue)
+        self.planetHoraLagnaAbbreviationLineEdit.\
+            setText(SettingsKeys.planetHoraLagnaAbbreviationDefValue)
+        self.planetHoraLagnaForegroundColorEditButton.\
+            setColor(SettingsKeys.planetHoraLagnaForegroundColorDefValue)
+        self.planetHoraLagnaBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetHoraLagnaBackgroundColorDefValue)
+
+        # GhatiLagna
+        self.planetGhatiLagnaGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetGhatiLagnaGlyphUnicodeDefValue)
+        self.planetGhatiLagnaGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetGhatiLagnaGlyphFontSizeDefValue)
+        self.planetGhatiLagnaAbbreviationLineEdit.\
+            setText(SettingsKeys.planetGhatiLagnaAbbreviationDefValue)
+        self.planetGhatiLagnaForegroundColorEditButton.\
+            setColor(SettingsKeys.planetGhatiLagnaForegroundColorDefValue)
+        self.planetGhatiLagnaBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetGhatiLagnaBackgroundColorDefValue)
+
+        # MeanLunarApogee
+        self.planetMeanLunarApogeeGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetMeanLunarApogeeGlyphUnicodeDefValue)
+        self.planetMeanLunarApogeeGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetMeanLunarApogeeGlyphFontSizeDefValue)
+        self.planetMeanLunarApogeeAbbreviationLineEdit.\
+            setText(SettingsKeys.planetMeanLunarApogeeAbbreviationDefValue)
+        self.planetMeanLunarApogeeForegroundColorEditButton.\
+            setColor(SettingsKeys.planetMeanLunarApogeeForegroundColorDefValue)
+        self.planetMeanLunarApogeeBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetMeanLunarApogeeBackgroundColorDefValue)
+
+        # OsculatingLunarApogee
+        self.planetOsculatingLunarApogeeGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetOsculatingLunarApogeeGlyphUnicodeDefValue)
+        self.planetOsculatingLunarApogeeGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetOsculatingLunarApogeeGlyphFontSizeDefValue)
+        self.planetOsculatingLunarApogeeAbbreviationLineEdit.\
+            setText(SettingsKeys.planetOsculatingLunarApogeeAbbreviationDefValue)
+        self.planetOsculatingLunarApogeeForegroundColorEditButton.\
+            setColor(SettingsKeys.planetOsculatingLunarApogeeForegroundColorDefValue)
+        self.planetOsculatingLunarApogeeBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetOsculatingLunarApogeeBackgroundColorDefValue)
+
+        # InterpolatedLunarApogee
+        self.planetInterpolatedLunarApogeeGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetInterpolatedLunarApogeeGlyphUnicodeDefValue)
+        self.planetInterpolatedLunarApogeeGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetInterpolatedLunarApogeeGlyphFontSizeDefValue)
+        self.planetInterpolatedLunarApogeeAbbreviationLineEdit.\
+            setText(SettingsKeys.planetInterpolatedLunarApogeeAbbreviationDefValue)
+        self.planetInterpolatedLunarApogeeForegroundColorEditButton.\
+            setColor(SettingsKeys.planetInterpolatedLunarApogeeForegroundColorDefValue)
+        self.planetInterpolatedLunarApogeeBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetInterpolatedLunarApogeeBackgroundColorDefValue)
+
+        # InterpolatedLunarPerigee
+        self.planetInterpolatedLunarPerigeeGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetInterpolatedLunarPerigeeGlyphUnicodeDefValue)
+        self.planetInterpolatedLunarPerigeeGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetInterpolatedLunarPerigeeGlyphFontSizeDefValue)
+        self.planetInterpolatedLunarPerigeeAbbreviationLineEdit.\
+            setText(SettingsKeys.planetInterpolatedLunarPerigeeAbbreviationDefValue)
+        self.planetInterpolatedLunarPerigeeForegroundColorEditButton.\
+            setColor(SettingsKeys.planetInterpolatedLunarPerigeeForegroundColorDefValue)
+        self.planetInterpolatedLunarPerigeeBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetInterpolatedLunarPerigeeBackgroundColorDefValue)
+
+
+
+    def _handleSignSymbolResetAllToDefaultButtonClicked(self):
+        """Called when the signSymbolResetAllToDefaultButton is clicked
+        for the Non-Planet Symbol settings.  
+        Resets the all the widget values in this widget tab to the default
+        values.
+        """
+        
+        # Aries
+        self.planetAriesGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.signAriesGlyphUnicodeDefValue)
+        self.planetAriesGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.signAriesGlyphFontSizeDefValue)
+        self.planetAriesAbbreviationLineEdit.\
+            setText(SettingsKeys.signAriesAbbreviationDefValue)
+        self.planetAriesForegroundColorEditButton.\
+            setColor(SettingsKeys.signAriesForegroundColorDefValue)
+        self.planetAriesBackgroundColorEditButton.\
+            setColor(SettingsKeys.signAriesBackgroundColorDefValue)
+
+        # Taurus
+        self.planetTaurusGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.signTaurusGlyphUnicodeDefValue)
+        self.planetTaurusGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.signTaurusGlyphFontSizeDefValue)
+        self.planetTaurusAbbreviationLineEdit.\
+            setText(SettingsKeys.signTaurusAbbreviationDefValue)
+        self.planetTaurusForegroundColorEditButton.\
+            setColor(SettingsKeys.signTaurusForegroundColorDefValue)
+        self.planetTaurusBackgroundColorEditButton.\
+            setColor(SettingsKeys.signTaurusBackgroundColorDefValue)
+
+        # Gemini
+        self.planetGeminiGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.signGeminiGlyphUnicodeDefValue)
+        self.planetGeminiGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.signGeminiGlyphFontSizeDefValue)
+        self.planetGeminiAbbreviationLineEdit.\
+            setText(SettingsKeys.signGeminiAbbreviationDefValue)
+        self.planetGeminiForegroundColorEditButton.\
+            setColor(SettingsKeys.signGeminiForegroundColorDefValue)
+        self.planetGeminiBackgroundColorEditButton.\
+            setColor(SettingsKeys.signGeminiBackgroundColorDefValue)
+
+        # Cancer
+        self.planetCancerGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.signCancerGlyphUnicodeDefValue)
+        self.planetCancerGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.signCancerGlyphFontSizeDefValue)
+        self.planetCancerAbbreviationLineEdit.\
+            setText(SettingsKeys.signCancerAbbreviationDefValue)
+        self.planetCancerForegroundColorEditButton.\
+            setColor(SettingsKeys.signCancerForegroundColorDefValue)
+        self.planetCancerBackgroundColorEditButton.\
+            setColor(SettingsKeys.signCancerBackgroundColorDefValue)
+
+        # Leo
+        self.planetLeoGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.signLeoGlyphUnicodeDefValue)
+        self.planetLeoGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.signLeoGlyphFontSizeDefValue)
+        self.planetLeoAbbreviationLineEdit.\
+            setText(SettingsKeys.signLeoAbbreviationDefValue)
+        self.planetLeoForegroundColorEditButton.\
+            setColor(SettingsKeys.signLeoForegroundColorDefValue)
+        self.planetLeoBackgroundColorEditButton.\
+            setColor(SettingsKeys.signLeoBackgroundColorDefValue)
+
+        # Virgo
+        self.planetVirgoGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.signVirgoGlyphUnicodeDefValue)
+        self.planetVirgoGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.signVirgoGlyphFontSizeDefValue)
+        self.planetVirgoAbbreviationLineEdit.\
+            setText(SettingsKeys.signVirgoAbbreviationDefValue)
+        self.planetVirgoForegroundColorEditButton.\
+            setColor(SettingsKeys.signVirgoForegroundColorDefValue)
+        self.planetVirgoBackgroundColorEditButton.\
+            setColor(SettingsKeys.signVirgoBackgroundColorDefValue)
+
+        # Libra
+        self.planetLibraGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.signLibraGlyphUnicodeDefValue)
+        self.planetLibraGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.signLibraGlyphFontSizeDefValue)
+        self.planetLibraAbbreviationLineEdit.\
+            setText(SettingsKeys.signLibraAbbreviationDefValue)
+        self.planetLibraForegroundColorEditButton.\
+            setColor(SettingsKeys.signLibraForegroundColorDefValue)
+        self.planetLibraBackgroundColorEditButton.\
+            setColor(SettingsKeys.signLibraBackgroundColorDefValue)
+
+        # Scorpio
+        self.planetScorpioGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.signScorpioGlyphUnicodeDefValue)
+        self.planetScorpioGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.signScorpioGlyphFontSizeDefValue)
+        self.planetScorpioAbbreviationLineEdit.\
+            setText(SettingsKeys.signScorpioAbbreviationDefValue)
+        self.planetScorpioForegroundColorEditButton.\
+            setColor(SettingsKeys.signScorpioForegroundColorDefValue)
+        self.planetScorpioBackgroundColorEditButton.\
+            setColor(SettingsKeys.signScorpioBackgroundColorDefValue)
+
+        # Sagittarius
+        self.planetSagittariusGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.signSagittariusGlyphUnicodeDefValue)
+        self.planetSagittariusGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.signSagittariusGlyphFontSizeDefValue)
+        self.planetSagittariusAbbreviationLineEdit.\
+            setText(SettingsKeys.signSagittariusAbbreviationDefValue)
+        self.planetSagittariusForegroundColorEditButton.\
+            setColor(SettingsKeys.signSagittariusForegroundColorDefValue)
+        self.planetSagittariusBackgroundColorEditButton.\
+            setColor(SettingsKeys.signSagittariusBackgroundColorDefValue)
+
+        # Capricorn
+        self.planetCapricornGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.signCapricornGlyphUnicodeDefValue)
+        self.planetCapricornGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.signCapricornGlyphFontSizeDefValue)
+        self.planetCapricornAbbreviationLineEdit.\
+            setText(SettingsKeys.signCapricornAbbreviationDefValue)
+        self.planetCapricornForegroundColorEditButton.\
+            setColor(SettingsKeys.signCapricornForegroundColorDefValue)
+        self.planetCapricornBackgroundColorEditButton.\
+            setColor(SettingsKeys.signCapricornBackgroundColorDefValue)
+
+        # Aquarius
+        self.planetAquariusGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.signAquariusGlyphUnicodeDefValue)
+        self.planetAquariusGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.signAquariusGlyphFontSizeDefValue)
+        self.planetAquariusAbbreviationLineEdit.\
+            setText(SettingsKeys.signAquariusAbbreviationDefValue)
+        self.planetAquariusForegroundColorEditButton.\
+            setColor(SettingsKeys.signAquariusForegroundColorDefValue)
+        self.planetAquariusBackgroundColorEditButton.\
+            setColor(SettingsKeys.signAquariusBackgroundColorDefValue)
+
+        # Pisces
+        self.planetPiscesGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.signPiscesGlyphUnicodeDefValue)
+        self.planetPiscesGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.signPiscesGlyphFontSizeDefValue)
+        self.planetPiscesAbbreviationLineEdit.\
+            setText(SettingsKeys.signPiscesAbbreviationDefValue)
+        self.planetPiscesForegroundColorEditButton.\
+            setColor(SettingsKeys.signPiscesForegroundColorDefValue)
+        self.planetPiscesBackgroundColorEditButton.\
+            setColor(SettingsKeys.signPiscesBackgroundColorDefValue)
+
 
     def _handleOkayButtonClicked(self):
         """Called when the okay button is clicked."""
@@ -3273,6 +9236,7 @@ class PriceBarChartScalingEditWidget(QWidget):
 
         # Form layout.
         self.formLayout = QFormLayout()
+        self.formLayout.setLabelAlignment(Qt.AlignLeft)
         self.formLayout.addRow(self.nameLabel, self.nameLineEdit)
         self.formLayout.addRow(self.descriptionLabel, 
                                self.descriptionLineEdit)
