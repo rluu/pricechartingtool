@@ -654,7 +654,6 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         """Pass-through to the QGraphicsScene constructor."""
 
         super().__init__(parent)
-    
 
 class PriceBarChartGraphicsView(QGraphicsView):
     """QGraphicsView that visualizes the main QGraphicsScene.
@@ -850,7 +849,35 @@ class PriceBarChartGraphicsView(QGraphicsView):
         if self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ReadOnlyPointerTool']:
 
-            super().mousePressEvent(qmouseevent)
+            if qmouseevent.button() & Qt.RightButton:
+                # TODO:  add the following as code.
+
+                # See if the user has right clicked on a QGraphicsItem.
+
+                clickPosF = self.mapToScene(qmouseevent.pos())
+                topItem = scene.itemAt(clickPosF, self.transform())
+                # Branch.
+
+                # If more than one QGraphicsItem is here, then
+                # bring up a context menu with all the item and choices.
+
+                # If only one QGraphicsItem, then bring up context menu
+                # for that item.
+
+                # If no QGraphicsItems, then bring up context menu for
+                # those options.
+
+        
+                # (Be sure to add a context menu with choices for
+                # showing the astro chart at this time, and the 
+                # for showing the sq-of-9, etc. for this price/time.
+                pass
+            else:
+                super().mousePressEvent(qmouseevent)
+
+
+            
+
 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PointerTool']:
