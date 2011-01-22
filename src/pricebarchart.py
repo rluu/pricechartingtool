@@ -90,14 +90,15 @@ class PriceBarChartWidget(QWidget):
         self.lastPriceBarTimestampLabel = QLabel("")
         self.numPriceBarsLabel = QLabel("")
         
-        self.cursorLocalizedTimestampLabel = QLabel("Mouse location timestamp:")
-        self.cursorLocalizedTimestampValueLabel = QLabel("")
-
-        self.cursorUtcTimestampLabel = QLabel("Mouse location timestamp:")
-        self.cursorUtcTimestampValueLabel = QLabel("")
-
-        self.cursorPriceLabel = QLabel("Mouse location price:")
-        self.cursorPriceValueLabel = QLabel("")
+        localizedTimestampStr = "Mouse location timestamp: "
+        utcTimestampStr = "Mouse location timestamp: "
+        priceStr = "Mouse location price: " 
+        self.cursorLocalizedTimestampLabel = \
+            QLabel(localizedTimestampStr)
+        self.cursorUtcTimestampLabel = \
+            QLabel(utcTimestampStr)
+        self.cursorPriceLabel = \
+            QLabel(priceStr)
         
         self.selectedPriceBarTimestampLabel = QLabel("")
         self.selectedPriceBarOpenPriceLabel = QLabel("")
@@ -113,11 +114,8 @@ class PriceBarChartWidget(QWidget):
         self.lastPriceBarTimestampLabel.setFont(smallFont)
         self.numPriceBarsLabel.setFont(smallFont)
         self.cursorLocalizedTimestampLabel.setFont(smallFont)
-        self.cursorLocalizedTimestampValueLabel.setFont(smallFont)
         self.cursorUtcTimestampLabel.setFont(smallFont)
-        self.cursorUtcTimestampValueLabel.setFont(smallFont)
         self.cursorPriceLabel.setFont(smallFont)
-        self.cursorPriceValueLabel.setFont(smallFont)
         self.selectedPriceBarTimestampLabel.setFont(smallFont)
         self.selectedPriceBarOpenPriceLabel.setFont(smallFont)
         self.selectedPriceBarHighPriceLabel.setFont(smallFont)
@@ -136,23 +134,10 @@ class PriceBarChartWidget(QWidget):
         dataTimeRangeLayout.addWidget(self.lastPriceBarTimestampLabel)
         dataTimeRangeLayout.addWidget(self.numPriceBarsLabel)
 
-        cursorInfoLayout = QGridLayout()
-        row = 0
-        al = Qt.AlignLeft
-        cursorInfoLayout.addWidget(self.cursorLocalizedTimestampLabel, 
-                                   row, 0, al)
-        cursorInfoLayout.addWidget(self.cursorLocalizedTimestampValueLabel, 
-                                   row, 1, al)
-        row += 1
-        cursorInfoLayout.addWidget(self.cursorUtcTimestampLabel,
-                                   row, 0, al)
-        cursorInfoLayout.addWidget(self.cursorUtcTimestampValueLabel,
-                                   row, 1, al)
-        row += 1
-        cursorInfoLayout.addWidget(self.cursorPriceLabel,
-                                   row, 0, al)
-        cursorInfoLayout.addWidget(self.cursorPriceValueLabel,
-                                   row, 1, al)
+        cursorInfoLayout = QVBoxLayout()
+        cursorInfoLayout.addWidget(self.cursorLocalizedTimestampLabel)
+        cursorInfoLayout.addWidget(self.cursorUtcTimestampLabel)
+        cursorInfoLayout.addWidget(self.cursorPriceLabel)
        
         priceBarPricesLayout = QVBoxLayout()
         priceBarPricesLayout.addWidget(self.selectedPriceBarTimestampLabel)
@@ -266,9 +251,9 @@ class PriceBarChartWidget(QWidget):
                     scene coordinates.
         """
 
-        localizedTimestampStr = ""
-        utcTimestampStr = ""
-        priceStr = ""
+        localizedTimestampStr = "Mouse location timestamp: "
+        utcTimestampStr = "Mouse location timestamp: "
+        priceStr = "Mouse location price: " 
 
         # Set the values if the X and Y positions are valid.
         if sceneXPos != None and sceneYPos != None:
@@ -287,9 +272,9 @@ class PriceBarChartWidget(QWidget):
             priceStr += "{}".format(price)
 
         # Actually set the text to the widgets.
-        self.cursorLocalizedTimestampValueLabel.setText(localizedTimestampStr)
-        self.cursorUtcTimestampValueLabel.setText(utcTimestampStr)
-        self.cursorPriceValueLabel.setText(priceStr)
+        self.cursorLocalizedTimestampLabel.setText(localizedTimestampStr)
+        self.cursorUtcTimestampLabel.setText(utcTimestampStr)
+        self.cursorPriceLabel.setText(priceStr)
 
     def updateSelectedPriceBarLabels(self, priceBar=None):
         """Updates the QLabels describing the currently selected PriceBar.
