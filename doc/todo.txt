@@ -10,7 +10,7 @@ CHECK  - Add field for setting the description in the Edit dialog for
          PriceBarChartSettings or maybe its own dialog for
          PriceChartDocument members.
 
-  - Need to implement the setting of the labels in the PriceChartDocument.  
+CHECK - Need to implement the setting of the labels in the PriceChartDocument.  
     (Cleaned up so that they are in form or grid layouts).
     (Set so that the Mouse location labels are displayed at initialization).
 
@@ -23,4 +23,16 @@ CHECK  - Add field for setting the description in the Edit dialog for
     charting the astro chart.
 
   - Need to implement the spreadsheet widget.
+
+  Indicators:
+  - Need to implement indicator (moving) Octive (interval) ratio
+    measurements as the planets move.
+  - Need to implement indicator (moving) lines for aspect strength 
+    (shad bala and ashtakavarga).
+  
+  - Need to implement 'Octave' (time) measurements.
+  - Need to implement 'Octive' (price) measurements.
+
+  - Need to implement traditional astro charts.
+  - Need to implement vedic astro charts.
 
