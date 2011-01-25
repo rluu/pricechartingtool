@@ -34,6 +34,20 @@ class SettingsKeys():
     # QSettings default value for the lowerPriceBarColor (QColor object).
     lowerPriceBarColorSettingsDefValue = QColor(Qt.red)
 
+    # QSettings key for the BarCountGraphicsItem color (QColor object).
+    barCountGraphicsItemColorSettingsKey = \
+        "ui/pricebarchart/barCountGraphicsItemColor"
+
+    # QSettings default value for the BarCountGraphicsItem color (QColor object).
+    barCountGraphicsItemColorSettingsDefValue = QColor(Qt.black)
+
+    # QSettings key for the BarCountGraphicsItem text color (QColor object).
+    barCountGraphicsItemTextColorSettingsKey = \
+        "ui/pricebarchart/barCountGraphicsItemTextColor"
+
+    # QSettings default value for the BarCountGraphicsItem text color (QColor object).
+    barCountGraphicsItemTextColorSettingsDefValue = QColor(Qt.black)
+
 
 
     # QSettings key for the planet glyph unicode of the Retrograde.

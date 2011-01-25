@@ -10123,9 +10123,13 @@ class PriceBarChartSettingsEditWidget(QWidget):
         # Save off the PriceBarChartSettings object.
         self.priceBarChartSettings = priceBarChartSettings
 
-        # QGroupBox to hold the edit widgets and form.
+        # QGroupBox to hold the edit widgets and form for PriceBarGraphicsItem.
         self.priceBarGraphicsItemGroupBox = \
             QGroupBox("PriceBarGraphicsItem settings:")
+
+        # QGroupBox to hold the edit widgets and form for BarCountGraphicsItem.
+        self.barCountGraphicsItemGroupBox = \
+            QGroupBox("BarCountGraphicsItem settings:")
 
         # priceBarGraphicsItemPenWidth (float).
         self.priceBarGraphicsItemPenWidthLabel = \
@@ -10163,55 +10167,144 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.priceBarGraphicsItemRightExtensionWidthResetButton = \
             QPushButton("Reset to default")
 
-
+        # barCountGraphicsItemBarHeight (float).
+        self.barCountGraphicsItemBarHeightLabel = \
+            QLabel("BarCountGraphicsItem bar height: ")
+        self.barCountGraphicsItemBarHeightSpinBox = QDoubleSpinBox()
+        self.barCountGraphicsItemBarHeightSpinBox.setMinimum(0.0)
+        self.barCountGraphicsItemBarHeightSpinBox.setMaximum(1000.0)
+        self.barCountGraphicsItemBarHeightResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # barCountGraphicsItemFontSize (float).
+        self.barCountGraphicsItemFontSizeLabel = \
+            QLabel("BarCountGraphicsItem font size: ")
+        self.barCountGraphicsItemFontSizeSpinBox = QDoubleSpinBox()
+        self.barCountGraphicsItemFontSizeSpinBox.setMinimum(0.01)
+        self.barCountGraphicsItemFontSizeSpinBox.setMaximum(1000.0)
+        self.barCountGraphicsItemFontSizeResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # barCountGraphicsItemTextXScaling (float).
+        self.barCountGraphicsItemTextXScalingLabel = \
+            QLabel("BarCountGraphicsItem text X scaling: ")
+        self.barCountGraphicsItemTextXScalingSpinBox = QDoubleSpinBox()
+        self.barCountGraphicsItemTextXScalingSpinBox.setMinimum(0.0001)
+        self.barCountGraphicsItemTextXScalingSpinBox.setMaximum(1000.0)
+        self.barCountGraphicsItemTextXScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # barCountGraphicsItemTextYScaling (float).
+        self.barCountGraphicsItemTextYScalingLabel = \
+            QLabel("BarCountGraphicsItem text Y scaling: ")
+        self.barCountGraphicsItemTextYScalingSpinBox = QDoubleSpinBox()
+        self.barCountGraphicsItemTextYScalingSpinBox.setMinimum(0.0001)
+        self.barCountGraphicsItemTextYScalingSpinBox.setMaximum(1000.0)
+        self.barCountGraphicsItemTextYScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
+                                           
         # Form layout.
-        self.gridLayout = QGridLayout()
+        gridLayout = QGridLayout()
         r = 0
         al = Qt.AlignLeft
         ar = Qt.AlignRight
 
-        self.gridLayout.\
+        gridLayout.\
             addWidget(self.priceBarGraphicsItemPenWidthLabel, 
                       r, 0, al)
-        self.gridLayout.\
+        gridLayout.\
             addWidget(self.priceBarGraphicsItemPenWidthSpinBox, 
                       r, 1, ar)
-        self.gridLayout.\
+        gridLayout.\
             addWidget(self.priceBarGraphicsItemPenWidthResetButton, 
                       r, 2, ar)
         r += 1
-        self.gridLayout.\
+        gridLayout.\
             addWidget(self.priceBarGraphicsItemBoldPenWidthLabel, 
                       r, 0, al)
-        self.gridLayout.\
+        gridLayout.\
             addWidget(self.priceBarGraphicsItemBoldPenWidthSpinBox, 
                       r, 1, ar)
-        self.gridLayout.\
+        gridLayout.\
             addWidget(self.priceBarGraphicsItemBoldPenWidthResetButton, 
                       r, 2, ar)
         r += 1
-        self.gridLayout.\
+        gridLayout.\
             addWidget(self.priceBarGraphicsItemLeftExtensionWidthLabel, 
                       r, 0, al)
-        self.gridLayout.\
+        gridLayout.\
             addWidget(self.priceBarGraphicsItemLeftExtensionWidthSpinBox, 
                       r, 1, ar)
-        self.gridLayout.\
+        gridLayout.\
             addWidget(self.priceBarGraphicsItemLeftExtensionWidthResetButton, 
                       r, 2, ar)
         r += 1
-        self.gridLayout.\
+        gridLayout.\
             addWidget(self.priceBarGraphicsItemRightExtensionWidthLabel, 
                       r, 0, al)
-        self.gridLayout.\
+        gridLayout.\
             addWidget(self.priceBarGraphicsItemRightExtensionWidthSpinBox, 
                       r, 1, ar)
-        self.gridLayout.addWidget\
+        gridLayout.addWidget\
             (self.priceBarGraphicsItemRightExtensionWidthResetButton, 
              r, 2, ar)
+        r += 1
 
-        self.priceBarGraphicsItemGroupBox.setLayout(self.gridLayout)
+        self.priceBarGraphicsItemGroupBox.setLayout(gridLayout)
 
+        # Form layout.
+        gridLayout = QGridLayout()
+        r = 0
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        gridLayout.\
+            addWidget(self.barCountGraphicsItemBarHeightLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.barCountGraphicsItemBarHeightSpinBox, 
+                      r, 1, ar)
+        gridLayout.addWidget\
+            (self.barCountGraphicsItemBarHeightResetButton, 
+             r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(self.barCountGraphicsItemFontSizeLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.barCountGraphicsItemFontSizeSpinBox, 
+                      r, 1, ar)
+        gridLayout.addWidget\
+            (self.barCountGraphicsItemFontSizeResetButton, 
+             r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(self.barCountGraphicsItemTextXScalingLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.barCountGraphicsItemTextXScalingSpinBox, 
+                      r, 1, ar)
+        gridLayout.addWidget\
+            (self.barCountGraphicsItemTextXScalingResetButton, 
+             r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(self.barCountGraphicsItemTextYScalingLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.barCountGraphicsItemTextYScalingSpinBox, 
+                      r, 1, ar)
+        gridLayout.addWidget\
+            (self.barCountGraphicsItemTextYScalingResetButton, 
+             r, 2, ar)
+        r += 1
+
+        self.barCountGraphicsItemGroupBox.setLayout(gridLayout)
+        
         # Buttons at bottom.
         self.resetAllToDefaultButton = \
             QPushButton("Reset all to original default values")
@@ -10225,7 +10318,8 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         # Put all layouts/groupboxes together into the widget.
         self.mainLayout = QVBoxLayout()
-        self.mainLayout.addWidget(self.priceBarGraphicsItemGroupBox) 
+        self.mainLayout.addWidget(self.priceBarGraphicsItemGroupBox)
+        self.mainLayout.addWidget(self.barCountGraphicsItemGroupBox)
         self.mainLayout.addSpacing(10)
         self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
 
@@ -10246,7 +10340,14 @@ class PriceBarChartSettingsEditWidget(QWidget):
             connect(self._handlePriceBarLeftExtensionWidthResetButtonClicked)
         self.priceBarGraphicsItemRightExtensionWidthResetButton.clicked.\
             connect(self._handlePriceBarRightExtensionWidthResetButtonClicked)
-
+        self.barCountGraphicsItemBarHeightResetButton.clicked.\
+            connect(self._handleBarCountGraphicsItemBarHeightResetButtonClicked)
+        self.barCountGraphicsItemFontSizeResetButton.clicked.\
+            connect(self._handleBarCountGraphicsItemFontSizeResetButtonClicked)
+        self.barCountGraphicsItemTextXScalingResetButton.clicked.\
+            connect(self._handleBarCountGraphicsItemTextXScalingResetButtonClicked)
+        self.barCountGraphicsItemTextYScalingResetButton.clicked.\
+            connect(self._handleBarCountGraphicsItemTextYScalingResetButtonClicked)
         self.resetAllToDefaultButton.clicked.\
             connect(self._handleResetAllToDefaultButtonClicked)
 
@@ -10273,24 +10374,44 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceBarChartSettings = priceBarChartSettings 
 
 
-        # penWidth (float)
+        # priceBarGraphicsItemPenWidth (float).
         self.priceBarGraphicsItemPenWidthSpinBox.\
             setValue(self.priceBarChartSettings.priceBarGraphicsItemPenWidth)
 
-        # boldPenWidth (float)
+        # priceBarGraphicsItemBoldPenWidth (float).
         self.priceBarGraphicsItemBoldPenWidthSpinBox.\
             setValue(self.priceBarChartSettings.\
                         priceBarGraphicsItemBoldPenWidth)
 
-        # leftExtensionWidth (float)
+        # priceBarGraphicsItemLeftExtensionWidth (float).
         self.priceBarGraphicsItemLeftExtensionWidthSpinBox.\
             setValue(self.priceBarChartSettings.\
                         priceBarGraphicsItemLeftExtensionWidth)
 
-        # rightExtensionWidth (float)
+        # priceBarGraphicsItemRightExtensionWidth (float).
         self.priceBarGraphicsItemRightExtensionWidthSpinBox.\
             setValue(self.priceBarChartSettings.\
                         priceBarGraphicsItemRightExtensionWidth)
+
+        # barCountGraphicsItemBarHeight (float).
+        self.barCountGraphicsItemBarHeightSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        barCountGraphicsItemBarHeight)
+
+        # barCountGraphicsItemFontSize (float).
+        self.barCountGraphicsItemFontSizeSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        barCountGraphicsItemFontSize)
+
+        # barCountGraphicsItemTextXScaling (float).
+        self.barCountGraphicsItemTextXScalingSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        barCountGraphicsItemTextXScaling)
+
+        # barCountGraphicsItemTextYScaling (float).
+        self.barCountGraphicsItemTextYScalingSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        barCountGraphicsItemTextYScaling)
 
         self.log.debug("Exiting loadValuesFromSettings()")
         
@@ -10301,21 +10422,37 @@ class PriceBarChartSettingsEditWidget(QWidget):
     
         self.log.debug("Entered saveValuesToSettings()")
 
-        # PriceBarChart penWidth (float).
+        # priceBarGraphicsItemPenWidth (float).
         self.priceBarChartSettings.priceBarGraphicsItemPenWidth = \
             float(self.priceBarGraphicsItemPenWidthSpinBox.value())
 
-        # PriceBarChart boldPenWidth (float).
+        # priceBarGraphicsItemBoldPenWidth (float).
         self.priceBarChartSettings.priceBarGraphicsItemBoldPenWidth = \
             float(self.priceBarGraphicsItemBoldPenWidthSpinBox.value())
 
-        # PriceBarChart leftExtensionWidth (float).
+        # priceBarGraphicsItemLeftExtensionWidth (float).
         self.priceBarChartSettings.priceBarGraphicsItemLeftExtensionWidth = \
             float(self.priceBarGraphicsItemLeftExtensionWidthSpinBox.value())
        
-        # PriceBarChart rightExtensionWidth (float).
+        # priceBarGraphicsItemRightExtensionWidth (float).
         self.priceBarChartSettings.priceBarGraphicsItemRightExtensionWidth = \
             float(self.priceBarGraphicsItemRightExtensionWidthSpinBox.value())
+
+        # barCountGraphicsItemBarHeight (float).
+        self.priceBarChartSettings.barCountGraphicsItemBarHeight = \
+            float(self.barCountGraphicsItemBarHeightSpinBox.value())
+
+        # barCountGraphicsItemFontSize (float).
+        self.priceBarChartSettings.barCountGraphicsItemFontSize = \
+            float(self.barCountGraphicsItemFontSizeSpinBox.value())
+
+        # barCountGraphicsItemTextXScaling (float).
+        self.priceBarChartSettings.barCountGraphicsItemTextXScaling = \
+            float(self.barCountGraphicsItemTextXScalingSpinBox.value())
+
+        # barCountGraphicsItemTextYScaling (float).
+        self.priceBarChartSettings.barCountGraphicsItemTextYScaling = \
+            float(self.barCountGraphicsItemTextYScalingSpinBox.value())
 
         self.log.debug("Exiting saveValuesToSettings()")
 
@@ -10354,6 +10491,50 @@ class PriceBarChartSettingsEditWidget(QWidget):
                     defaultPriceBarGraphicsItemRightExtensionWidth
         self.priceBarGraphicsItemRightExtensionWidthSpinBox.setValue(value)
 
+    def _handleBarCountGraphicsItemBarHeightResetButtonClicked(self):
+        """Called when the barCountGraphicsItemBarHeightResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultBarCountGraphicsItemBarHeight
+
+        self.barCountGraphicsItemBarHeightSpinBox.setValue(value)
+
+    def _handleBarCountGraphicsItemFontSizeResetButtonClicked(self):
+        """Called when the barCountGraphicsItemFontSizeResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultBarCountGraphicsItemFontSize
+
+        self.barCountGraphicsItemFontSizeSpinBox.setValue(value)
+
+    def _handleBarCountGraphicsItemTextXScalingResetButtonClicked(self):
+        """Called when the barCountGraphicsItemTextXScalingResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultBarCountGraphicsItemTextXScaling
+
+        self.barCountGraphicsItemTextXScalingSpinBox.setValue(value)
+
+    def _handleBarCountGraphicsItemTextYScalingResetButtonClicked(self):
+        """Called when the barCountGraphicsItemTextYScalingResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultBarCountGraphicsItemTextYScaling
+
+        self.barCountGraphicsItemTextYScalingSpinBox.setValue(value)
+
     def _handleResetAllToDefaultButtonClicked(self):
         """Called when the resetAllToDefaultButton is clicked.
         Resets the all the widget values in this widget to the default
@@ -10364,6 +10545,10 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._handlePriceBarBoldPenWidthResetButtonClicked()
         self._handlePriceBarLeftExtensionWidthResetButtonClicked()
         self._handlePriceBarRightExtensionWidthResetButtonClicked()
+        self._handleBarCountGraphicsItemBarHeightResetButtonClicked()
+        self._handleBarCountGraphicsItemFontSizeResetButtonClicked()
+        self._handleBarCountGraphicsItemTextXScalingResetButtonClicked()
+        self._handleBarCountGraphicsItemTextYScalingResetButtonClicked()
 
     def _handleOkayButtonClicked(self):
         """Called when the okay button is clicked."""

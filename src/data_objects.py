@@ -930,6 +930,18 @@ class PriceBarChartSettings:
     # Default width of the right extension (closing price) of a price bar.
     defaultPriceBarGraphicsItemRightExtensionWidth = 0.5
 
+    # Default value for the BarCountGraphicsItem bar height (float).
+    defaultBarCountGraphicsItemBarHeight = 0.2
+
+    # Default value for the BarCountGraphicsItem font size (float).
+    defaultBarCountGraphicsItemFontSize = 9.0
+
+    # Default value for the BarCountGraphicsItem text X scaling (float).
+    defaultBarCountGraphicsItemTextXScaling = 0.1
+
+    # Default value for the BarCountGraphicsItem text Y scaling (float).
+    defaultBarCountGraphicsItemTextYScaling = 0.02
+
 
     def __init__(self):
         """"Initializes the PriceChartSettings to default values."""
@@ -972,6 +984,26 @@ class PriceBarChartSettings:
             PriceBarChartSettings.\
                 defaultPriceBarGraphicsItemRightExtensionWidth 
         
+        # BarCountGraphicsItem bar height (float).
+        self.barCountGraphicsItemBarHeight = \
+            PriceBarChartSettings.\
+                defaultBarCountGraphicsItemBarHeight
+
+        # BarCountGraphicsItem font size (float).
+        self.barCountGraphicsItemFontSize = \
+            PriceBarChartSettings.\
+                defaultBarCountGraphicsItemFontSize
+
+        # BarCountGraphicsItem text X scaling (float).
+        self.barCountGraphicsItemTextXScaling = \
+            PriceBarChartSettings.\
+                defaultBarCountGraphicsItemTextXScaling
+
+        # BarCountGraphicsItem text Y scaling (float).
+        self.barCountGraphicsItemTextYScaling = \
+            PriceBarChartSettings.\
+                defaultBarCountGraphicsItemTextYScaling
+
     def __getstate__(self):
         """Returns the object's state for pickling purposes."""
 
@@ -1017,8 +1049,18 @@ class PriceBarChartSettings:
                     format(self.priceBarGraphicsItemBoldPenWidth) + \
                 "priceBarGraphicsItemLeftExtensionWidth={}, ".\
                     format(self.priceBarGraphicsItemLeftExtensionWidth) + \
-                "priceBarGraphicsItemRightExtensionWidth={}]".\
-                    format(self.priceBarGraphicsItemRightExtensionWidth)
+                "priceBarGraphicsItemRightExtensionWidth={}".\
+                    format(self.priceBarGraphicsItemRightExtensionWidth) + \
+                "barCountGraphicsItemBarHeight={}".\
+                    format(self.barCountGraphicsItemBarHeight) + \
+                "barCountGraphicsItemFontSize={}".\
+                    format(self.barCountGraphicsItemFontSize) + \
+                "barCountGraphicsItemTextXScaling={}".\
+                    format(self.barCountGraphicsItemTextXScaling) + \
+                "barCountGraphicsItemTextYScaling={}".\
+                    format(self.barCountGraphicsItemTextYScaling) + \
+                "]"
+
 
     def __str__(self):
         """Returns the string representation of this object."""
