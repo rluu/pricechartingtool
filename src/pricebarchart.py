@@ -1086,9 +1086,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
                     # Set the end point of the BarCountGraphicsItem.
                     self.clickTwoPointF = self.mapToScene(qmouseevent.pos())
-                    self.barCountGraphicsItem.\
-                        setEndPointF(self.clickTwoPointF)
-
+                    self.barCountGraphicsItem.setEndPointF(self.clickTwoPointF)
+                    self.barCountGraphicsItem.normalizeStartAndEnd()
+                                                
                     # Clear out working variables.
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
@@ -1727,9 +1727,6 @@ class BarCountGraphicsItem(PriceBarChartArtifact):
         self.log = logging.getLogger("pricebarchart.BarCountGraphicsItem")
         self.log.debug("Entered __init__().")
 
-        # Pen width.
-        self.penWidth = 0.0
-
         # Color of the bar count graphicsitems.
         self.barCountGraphicsItemColor = \
             SettingsKeys.barCountGraphicsItemColorSettingsDefValue
@@ -1763,11 +1760,12 @@ class BarCountGraphicsItem(PriceBarChartArtifact):
         # this price bar.
         self.loadSettingsFromAppPreferences()
         
-        # Pen which is used to do the painting.
-        self.pen = QPen()
-        self.pen.setColor(self.barCountGraphicsItemColor)
-        self.pen.setWidthF(self.penWidth)
-
+        # Pen which is used to do the painting of the bar ruler.
+        self.barCountPenWidth = 0.0
+        self.barCountPen = QPen()
+        self.barCountPen.setColor(self.barCountGraphicsItemColor)
+        self.barCountPen.setWidthF(self.barCountPenWidth)
+        
         # Starting point, in scene coordinates.
         self.startPointF = QPointF(0, 0)
 
@@ -1780,10 +1778,25 @@ class BarCountGraphicsItem(PriceBarChartArtifact):
         # Internal QGraphicsItem that holds the text of the bar count.
         self.barCountText = \
             QGraphicsSimpleTextItem("".format(self.barCount), self)
-        self.barCountText.setPos(self.mapFromScene(self.endPointF))
+        deltaX = self.endPointF.x() - self.startPointF.x()
+        self.barCountText.setPos(QPointF(deltaX, 0))
+
+        # Set the font of the text.
         self.barCountTextFont = QFont()
         self.barCountTextFont.setPointSizeF(self.barCountFontSize)
         self.barCountText.setFont(self.barCountTextFont)
+
+        # Set the pen color of the text.
+        self.barCountTextPen = self.barCountText.pen()
+        self.barCountTextPen.setColor(self.barCountGraphicsItemTextColor)
+        self.barCountText.setPen(self.barCountTextPen)
+
+        # Set the brush color of the text.
+        self.barCountTextBrush = self.barCountText.brush()
+        self.barCountTextBrush.setColor(self.barCountGraphicsItemTextColor)
+        self.barCountText.setBrush(self.barCountTextBrush)
+
+        # Apply some size scaling to the text.
         textTransform = QTransform()
         textTransform.scale(self.barCountTextXScaling, \
                             self.barCountTextYScaling)
@@ -1852,7 +1865,6 @@ class BarCountGraphicsItem(PriceBarChartArtifact):
         """
         super().setPos(pos)
 
-        #newScenePos = self.mapToScene(pos)
         newScenePos = pos
 
         posDelta = newScenePos - self.startPointF
@@ -1860,9 +1872,8 @@ class BarCountGraphicsItem(PriceBarChartArtifact):
         self.startPointF = self.startPointF + posDelta
         self.endPointF  = self.endPointF + posDelta
 
-        self._recalculateBarCount()
-
-        self.barCountText.setPos(self.mapFromScene(self.endPointF))
+        if self.scene() != None:
+            self._recalculateBarCount()
 
     def mousePressEvent(self, event):
         """Overwrites the QGraphicsItem mousePressEvent() function.
@@ -1871,6 +1882,8 @@ class BarCountGraphicsItem(PriceBarChartArtifact):
         event - QGraphicsSceneMouseEvent that triggered this call.
         """
 
+        self.log.debug("Entered mousePressEvent()")
+        
         # If the item is in read-only mode, simply call the parent
         # implementation of this function.
         if self.getReadOnlyFlag() == True:
@@ -1882,9 +1895,9 @@ class BarCountGraphicsItem(PriceBarChartArtifact):
             scenePosX = event.scenePos().x()
 
             startingPointX = self.startPointF.x()
-            endoingPointX = self.endPointF.x()
+            endingPointX = self.endPointF.x()
             
-            diff = endoingPointX - startingPointX
+            diff = endingPointX - startingPointX
 
             startThreshold = startingPointX + (diff * (1.0 / 5))
             endThreshold = endingPointX - (diff * (1.0 / 5))
@@ -1900,6 +1913,8 @@ class BarCountGraphicsItem(PriceBarChartArtifact):
                 # position of the QGraphicsItem.
                 super().mousePressEvent(event)
 
+        self.log.debug("Leaving mousePressEvent()")
+        
     def mouseMoveEvent(self, event):
         """Overwrites the QGraphicsItem mouseMoveEvent() function.
 
@@ -1971,18 +1986,21 @@ class BarCountGraphicsItem(PriceBarChartArtifact):
         if self.startPointF != newValue: 
             self.startPointF = newValue
 
-            # Re-calculate the bar count.
-            self._recalculateBarCount()
+            self.setPos(self.startPointF)
+            
+            if self.scene() != None:
+                # Re-calculate the bar count.
+                self._recalculateBarCount()
 
-            self.log.debug("barcountgraphicsitem pos: x={}, y={}".\
-                format(self.pos().x(), self.pos().y()))
-            self.log.debug("startpoint scene coord: x={}, y={}".\
-                format(self.endPointF.x(), self.endPointF.y()))
-            self.log.debug("startpoint local coord: x={}, y={}".\
-                format(self.mapFromScene(self.endPointF).x(), \
-                       self.mapFromScene(self.endPointF).y()))
-
-            self.update()
+                self.log.debug("barcountgraphicsitem pos: x={}, y={}".\
+                    format(self.pos().x(), self.pos().y()))
+                self.log.debug("startpoint scene coord: x={}, y={}".\
+                    format(self.startPointF.x(), self.startPointF.y()))
+                self.log.debug("startpoint local coord: x={}, y={}".\
+                    format(self.mapFromScene(self.startPointF).x(), \
+                           self.mapFromScene(self.startPointF).y()))
+                
+                self.update()
 
     def setEndPointF(self, pointF):
         """Sets the ending point of the bar count.  The value passed in
@@ -1999,21 +2017,23 @@ class BarCountGraphicsItem(PriceBarChartArtifact):
         if self.endPointF != newValue:
             self.endPointF = newValue
 
-            # Re-calculate the bar count.
-            self._recalculateBarCount()
+            deltaX = self.endPointF.x() - self.startPointF.x()
+            self.barCountText.setPos(QPointF(deltaX, 0))
 
-            # Update the barCount label position.
-            self.log.debug("barcountgraphicsitem pos: x={}, y={}".\
-                format(self.pos().x(), self.pos().y()))
-            self.log.debug("endpoint scene coord: x={}, y={}".\
-                format(self.endPointF.x(), self.endPointF.y()))
-            self.log.debug("endpoint local coord: x={}, y={}".\
-                format(self.mapFromScene(self.endPointF).x(), \
-                       self.mapFromScene(self.endPointF).y()))
+            if self.scene() != None:
+                # Re-calculate the bar count.
+                self._recalculateBarCount()
 
-            self.barCountText.setPos(self.mapFromScene(self.endPointF))
+                # Update the barCount label position.
+                self.log.debug("barcountgraphicsitem pos: x={}, y={}".\
+                    format(self.pos().x(), self.pos().y()))
+                self.log.debug("endpoint scene coord: x={}, y={}".\
+                    format(self.endPointF.x(), self.endPointF.y()))
+                self.log.debug("endpoint local coord: x={}, y={}".\
+                    format(self.mapFromScene(self.endPointF).x(), \
+                           self.mapFromScene(self.endPointF).y()))
 
-            self.update()
+                self.update()
 
 
     def normalizeStartAndEnd(self):
@@ -2022,15 +2042,29 @@ class BarCountGraphicsItem(PriceBarChartArtifact):
         """
 
         if self.startPointF.x() > self.endPointF.x():
+            
             # Swap the points.
             temp = self.startPointF
             self.startPointF = self.endPointF
             self.endPointF = temp
 
+            self._recalculateBarCount()
+            
             # Update the barCount label position.
-            self.barCountText.setPos(self.mapFromScene(self.endPointF))
+            deltaX = self.endPointF.x() - self.startPointF.x()
+            self.barCountText.setPos(QPointF(deltaX, 0))
 
-            self.update()
+            # Here what we want to do is actually call
+            # self.setPos(self.startPointF).  The problem encountered
+            # is that occasionally, this causes the QGraphicsView to do
+            # a 'jump' of it's contents, and offset the scroll bars by
+            # some random amount.
+            #
+            # Below is a hack to get the functionality to we want.
+            scene = self.scene()
+            scene.removeItem(self)
+            super().setPos(self.startPointF)
+            scene.addItem(self)
 
     def _mousePosToNearestPriceBarX(self, pointF):
         """Gets the X position value of the closest PriceBar (on the X
@@ -2112,10 +2146,15 @@ class BarCountGraphicsItem(PriceBarChartArtifact):
 
                         x = item.getPriceBarHighScenePoint().x()
 
-                        if x > self.startPointF.x() and \
-                            x <= self.endPointF.x():
-
+                        # Here we check for the bar being in between
+                        # the self.startPointF and the self.endPointF.
+                        # This handles the case when the start and end
+                        # points are reversed also.
+                        if (self.startPointF.x() < x <= self.endPointF.x()) or \
+                           (self.endPointF.x() < x <= self.startPointF.x()):
+                            
                             self.barCount += 1
+                            
 
         # Update the text of the self.barCountText.
         self.barCountText.setText("{}".format(self.barCount))
@@ -2164,6 +2203,10 @@ class BarCountGraphicsItem(PriceBarChartArtifact):
         # Get the QRectF with just the text.
         textRect = self.barCountText.boundingRect()
 
+        # Convert the bounding rectangle from the barCountText's local
+        # coordinates to this our local coordinates.
+        textRect.setX(xDelta)
+        
         # Get the QRectF that can hold these two rectangles.
         rectF = rectWithoutText.united(textRect)
 
@@ -2174,6 +2217,9 @@ class BarCountGraphicsItem(PriceBarChartArtifact):
         to what we want for the drawing style.
         """
 
+        if painter.pen() != self.barCountPen:
+            painter.setPen(self.barCountPen)
+        
         # Draw the left vertical bar part.
         x1 = 0.0
         y1 = 1.0 * (self.barCountGraphicsItemBarHeight / 2.0)
@@ -2200,6 +2246,3 @@ class BarCountGraphicsItem(PriceBarChartArtifact):
         self.log.debug("barcounttext scene pos: x={}, y={}".\
             format(self.barCountText.pos().x(),
                    self.barCountText.pos().y()))
-
-        self.barCountText.update()
-

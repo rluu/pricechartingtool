@@ -1310,6 +1310,10 @@ class AppPreferencesEditWidget(QWidget):
             connect(self._handleHigherPriceBarColorResetButtonClicked)
         self.lowerPriceBarColorResetButton.clicked.\
             connect(self._handleLowerPriceBarColorResetButtonClicked)
+        self.barCountGraphicsItemColorResetButton.clicked.\
+            connect(self._handleBarCountGraphicsItemColorResetButtonClicked)
+        self.barCountGraphicsItemTextColorResetButton.clicked.\
+            connect(self._handleBarCountGraphicsItemTextColorResetButtonClicked)
 
         # Button at bottom to reset to defaults.
         self.priceBarResetAllToDefaultButton.clicked.\
@@ -1354,6 +1358,20 @@ class AppPreferencesEditWidget(QWidget):
         self.lowerPriceBarColorEditButton = ColorEditPushButton()
         self.lowerPriceBarColorResetButton = QPushButton("Reset to default")
 
+        # PriceBarChart barCountGraphicsItemColor (QColor object).
+        self.barCountGraphicsItemColorLabel = \
+            QLabel("BarCountGraphicsItem color: ")
+        self.barCountGraphicsItemColorEditButton = ColorEditPushButton()
+        self.barCountGraphicsItemColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # PriceBarChart barCountGraphicsItemTextColor (QColor object).
+        self.barCountGraphicsItemTextColorLabel = \
+            QLabel("BarCountGraphicsItem text color: ")
+        self.barCountGraphicsItemTextColorEditButton = ColorEditPushButton()
+        self.barCountGraphicsItemTextColorResetButton = \
+            QPushButton("Reset to default")
+        
         # Button for resetting all the above edit widgets.
         self.priceBarResetAllToDefaultButton = \
             QPushButton("Reset all the above to original default values")
@@ -1389,6 +1407,20 @@ class AppPreferencesEditWidget(QWidget):
             addWidget(self.lowerPriceBarColorEditButton, r, 1, ar)
         gridLayout.\
             addWidget(self.lowerPriceBarColorResetButton, r, 2, ar)
+        r += 1
+        gridLayout.\
+            addWidget(self.barCountGraphicsItemColorLabel, r, 0, al)
+        gridLayout.\
+            addWidget(self.barCountGraphicsItemColorEditButton, r, 1, ar)
+        gridLayout.\
+            addWidget(self.barCountGraphicsItemColorResetButton, r, 2, ar)
+        r += 1
+        gridLayout.\
+            addWidget(self.barCountGraphicsItemTextColorLabel, r, 0, al)
+        gridLayout.\
+            addWidget(self.barCountGraphicsItemTextColorEditButton, r, 1, ar)
+        gridLayout.\
+            addWidget(self.barCountGraphicsItemTextColorResetButton, r, 2, ar)
 
         # Label to tell the user that not all settings will be applied
         # on existing windows when the 'Okay' button is pressed.
@@ -3309,6 +3341,18 @@ class AppPreferencesEditWidget(QWidget):
             SettingsKeys.lowerPriceBarColorSettingsDefValue))
         self.lowerPriceBarColorEditButton.setColor(value)
 
+        # PriceBarChart barCountGraphicsItemColor (QColor object).
+        key = SettingsKeys.barCountGraphicsItemColorSettingsKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.barCountGraphicsItemColorSettingsDefValue))
+        self.barCountGraphicsItemColorEditButton.setColor(value)
+
+        # PriceBarChart barCountGraphicsItemTextColor (QColor object).
+        key = SettingsKeys.barCountGraphicsItemTextColorSettingsKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.barCountGraphicsItemTextColorSettingsDefValue))
+        self.barCountGraphicsItemTextColorEditButton.setColor(value)
+
 
     def _planetSymbolLoadValuesFromSettings(self):
         """Loads the widgets with values from the QSettings object.
@@ -4719,6 +4763,26 @@ class AppPreferencesEditWidget(QWidget):
         # PriceBarChart lowerPriceBarColor (QColor object).
         key = SettingsKeys.lowerPriceBarColorSettingsKey 
         newValue = self.lowerPriceBarColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # PriceBarChart barCountGraphicsItemTextColor (QColor object).
+        key = SettingsKeys.barCountGraphicsItemColorSettingsKey
+        newValue = self.barCountGraphicsItemColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # PriceBarChart barCountGraphicsItemTextTextColor (QColor object).
+        key = SettingsKeys.barCountGraphicsItemTextColorSettingsKey
+        newValue = self.barCountGraphicsItemTextColorEditButton.getColor()
         if settings.contains(key):
             oldValue = QColor(settings.value(key))
             if oldValue != newValue:
@@ -6983,6 +7047,22 @@ class AppPreferencesEditWidget(QWidget):
         value = SettingsKeys.lowerPriceBarColorSettingsDefValue
         self.lowerPriceBarColorEditButton.setColor(value)
 
+    def _handleBarCountGraphicsItemColorResetButtonClicked(self):
+        """Called when the barCountGraphicsItemColorResetButton is clicked.
+        Resets the widget value to the default value.
+        """
+
+        value = SettingsKeys.barCountGraphicsItemColorSettingsDefValue
+        self.barCountGraphicsItemColorEditButton.setColor(value)
+
+    def _handleBarCountGraphicsItemTextColorResetButtonClicked(self):
+        """Called when the barCountGraphicsItemTextColorResetButton is clicked.
+        Resets the widget value to the default value.
+        """
+
+        value = SettingsKeys.barCountGraphicsItemTextColorSettingsDefValue
+        self.barCountGraphicsItemTextColorEditButton.setColor(value)
+
     def _handlePriceBarResetAllToDefaultButtonClicked(self):
         """Called when the priceBarResetAllToDefaultButton is clicked for
         the PriceBar settings.  Resets the all the widget values in this
@@ -6992,6 +7072,8 @@ class AppPreferencesEditWidget(QWidget):
         self._handleZoomScaleFactorResetButtonClicked()
         self._handleHigherPriceBarColorResetButtonClicked()
         self._handleLowerPriceBarColorResetButtonClicked()
+        self._handleBarCountGraphicsItemColorResetButtonClicked()
+        self._handleBarCountGraphicsItemTextColorResetButtonClicked()
 
     def _handlePlanetSymbolResetAllToDefaultButtonClicked(self):
         """Called when the planetSymbolResetAllToDefaultButton is clicked
