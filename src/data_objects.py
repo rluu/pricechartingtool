@@ -15,6 +15,7 @@ import pytz
 # For pickling PyQt types.
 from PyQt4.QtGui import QTransform
 from PyQt4.QtCore import Qt
+from PyQt4.QtCore import QPointF
 
 class BirthInfo:
     """Contains data related to the birth of an entity or person.
@@ -503,17 +504,47 @@ class PriceBarChartArtifact:
         
         self.internalName = "UntypedArtifact_" + str(uuid.uuid1())
         
-        # Anchor location.
-        self.x = 0
-        self.y = 0
+        # Position of the artifact QGraphicsItem.
+        self.position = QPointF()
         
-    def setLocation(self, x, y):
-        self.x = x
-        self.y = y
-    
+    def setPos(self, pointF):
+        """Stores the position of the artifact, in scene coordinates.
+        Arguments:
+
+        pointF - QPointF of the position of the artifact, in scene coordinates.
+        """
+
+        self.position = pointF
+
+    def getPos(self):
+        """Returns the position of the artifact, in scene coordinates."""
+
+        return self.position
+
     def getInternalName(self):
+        """Returns the internal name of the artifact."""
+
         return self.internalName
-    
+
+    def getUuid(self):
+        """Returns the uuid associated with this artifact."""
+        
+        return self.uuid
+
+    def __str__(self):
+        """Returns the string representation of this object."""
+
+        return self.toString()
+
+    def toString(self):
+        """Returns the string representation of this object."""
+
+        rv = "[name={}, ".format(self.getInternalName()) + \
+             "pos=({}, {})".format(self.getPos().x(), self.getPos().y()) + \
+             "]"
+
+        return rv
+
 class PriceBarChartTextArtifact(PriceBarChartArtifact):
     """PriceBarChartArtifact that is a piece of text in the 
     PriceBarChartWidget.
@@ -536,7 +567,22 @@ class PriceBarChartTextArtifact(PriceBarChartArtifact):
         
         # TODO: QColor can be pickled   
         self.color = None
-    
+
+    def __str__(self):
+        """Returns the string representation of this object."""
+
+        return self.toString()
+
+    def toString(self):
+        """Returns the string representation of this object."""
+
+        # TODO:  modify this to return all the internal objects.
+        rv = "[name={}, ".format(self.getInternalName()) + \
+             "pos=({}, {})".format(self.getPos().x(), self.getPos().y()) + \
+             "]"
+
+        return rv
+
 class PriceBarChartGannFanUpperRightArtifact(PriceBarChartArtifact):
     """PriceBarChartArtifact that is the GannFann pointing in 
     the upper right direction."""
@@ -546,6 +592,21 @@ class PriceBarChartGannFanUpperRightArtifact(PriceBarChartArtifact):
         
         # Update the internal name so it is the artifact type plus the uuid.
         self.internalName = "GannFanUpperRight_" + str(self.uuid)
+
+    def __str__(self):
+        """Returns the string representation of this object."""
+
+        return self.toString()
+
+    def toString(self):
+        """Returns the string representation of this object."""
+
+        # TODO:  modify this to return all the internal objects.
+        rv = "[name={}, ".format(self.getInternalName()) + \
+             "pos=({}, {})".format(self.getPos().x(), self.getPos().y()) + \
+             "]"
+
+        return rv
     
 class PriceBarChartGannFanLowerRightArtifact(PriceBarChartArtifact):
     """PriceBarChartArtifact that is the GannFann pointing in 
@@ -558,6 +619,20 @@ class PriceBarChartGannFanLowerRightArtifact(PriceBarChartArtifact):
         # Update the internal name so it is the artifact type plus the uuid.
         self.internalName = "GannFanLowerRight_" + str(self.uuid)
    
+    def __str__(self):
+        """Returns the string representation of this object."""
+
+        return self.toString()
+
+    def toString(self):
+        """Returns the string representation of this object."""
+
+        # TODO:  modify this to return all the internal objects.
+        rv = "[name={}, ".format(self.getInternalName()) + \
+             "pos=({}, {})".format(self.getPos().x(), self.getPos().y()) + \
+             "]"
+
+        return rv
     
 class PriceBarChartBarCountArtifact(PriceBarChartArtifact):
     """PriceBarChartArtifact that indicates bar counts starting 
@@ -571,10 +646,55 @@ class PriceBarChartBarCountArtifact(PriceBarChartArtifact):
         # Update the internal name so it is the artifact type plus the uuid.
         self.internalName = "BarCount_" + str(self.uuid)
 
-        self.startingPriceBar = None
-        self.font = QFont()
-        self.color = QColor(Qt.black)
-        self.maxBarCount = 1000
+        # Start and end points of the artifact.
+        self.startPointF = QPointF()
+        self.endPointF = QPointF()
+
+    def setStartPointF(self, startPointF):
+        """Stores the starting point of the BarCountArtifact.
+        Arguments:
+
+        startPointF - QPointF for the starting point of the artifact.
+        """
+        
+        self.startPointF = startPointF
+        
+    def getStartPointF(self):
+        """Returns the starting point of the BarCountArtifact."""
+        
+        return self.startPointF
+        
+    def setEndPointF(self, endPointF):
+        """Stores the ending point of the BarCountArtifact.
+        Arguments:
+
+        endPointF - QPointF for the ending point of the artifact.
+        """
+        
+        self.endPointF = endPointF
+        
+    def getEndPointF(self):
+        """Returns the ending point of the BarCountArtifact."""
+        
+        return self.endPointF
+        
+    def __str__(self):
+        """Returns the string representation of this object."""
+
+        return self.toString()
+
+    def toString(self):
+        """Returns the string representation of this object."""
+
+        rv = "[name={}, ".format(self.getInternalName()) + \
+             "pos=({}, {}), ".format(self.getPos().x(), self.getPos().y()) + \
+             "startPointF=({}, {}), ".format(self.getStartPointF().x(),
+                                             self.getStartPointF().y()) + \
+             "endPointF=({}, {}), ".format(self.getEndPointF().x(),
+                                           self.getEndPointF().y()) + \
+             "]"
+
+        return rv
         
 class PriceBarChartScaling:
     """Class that holds information about the scaling of a PriceBarChart.
@@ -856,6 +976,8 @@ class PriceChartDocumentData:
                     format(self.description) + \
                 "numPriceBars={}, ".\
                     format(len(self.priceBars)) + \
+                "numArtifacts={}, ".\
+                    format(len(self.priceBarChartArtifacts)) + \
                 "firstPriceBarTimestamp={}, ".\
                     format(firstPriceBarTimestamp) + \
                 "lastPriceBarTimestamp={}, ".\
@@ -934,13 +1056,13 @@ class PriceBarChartSettings:
     defaultBarCountGraphicsItemBarHeight = 0.2
 
     # Default value for the BarCountGraphicsItem font size (float).
-    defaultBarCountGraphicsItemFontSize = 9.0
+    defaultBarCountGraphicsItemFontSize = 1.0
 
     # Default value for the BarCountGraphicsItem text X scaling (float).
-    defaultBarCountGraphicsItemTextXScaling = 0.1
+    defaultBarCountGraphicsItemTextXScaling = 1
 
     # Default value for the BarCountGraphicsItem text Y scaling (float).
-    defaultBarCountGraphicsItemTextYScaling = 0.02
+    defaultBarCountGraphicsItemTextYScaling = 0.2
 
 
     def __init__(self):
@@ -1049,13 +1171,13 @@ class PriceBarChartSettings:
                     format(self.priceBarGraphicsItemBoldPenWidth) + \
                 "priceBarGraphicsItemLeftExtensionWidth={}, ".\
                     format(self.priceBarGraphicsItemLeftExtensionWidth) + \
-                "priceBarGraphicsItemRightExtensionWidth={}".\
+                "priceBarGraphicsItemRightExtensionWidth={}, ".\
                     format(self.priceBarGraphicsItemRightExtensionWidth) + \
-                "barCountGraphicsItemBarHeight={}".\
+                "barCountGraphicsItemBarHeight={}, ".\
                     format(self.barCountGraphicsItemBarHeight) + \
-                "barCountGraphicsItemFontSize={}".\
+                "barCountGraphicsItemFontSize={}, ".\
                     format(self.barCountGraphicsItemFontSize) + \
-                "barCountGraphicsItemTextXScaling={}".\
+                "barCountGraphicsItemTextXScaling={}, ".\
                     format(self.barCountGraphicsItemTextXScaling) + \
                 "barCountGraphicsItemTextYScaling={}".\
                     format(self.barCountGraphicsItemTextYScaling) + \

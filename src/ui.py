@@ -2092,9 +2092,16 @@ class PriceChartDocumentWidget(QWidget):
         be emitted to say that the view has changed.
         """
 
+        self.log.debug("Entered applyPriceBarChartSettings()")
+
+        self.log.debug("Applying the following settings: {}".\
+                       format(priceBarChartSettings.toString()))
+        
         self.priceBarChartWidget.\
             applyPriceBarChartSettings(priceBarChartSettings)
 
+        self.log.debug("Exiting applyPriceBarChartSettings()")
+        
     def applyPriceBarSpreadsheetSettings(self, priceBarSpreadsheetSettings):
         """Applies the given PriceBarSpreadsheetSettings object to the
         internal PriceBarSpreadsheetWidget.

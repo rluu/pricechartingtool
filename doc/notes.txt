@@ -294,3 +294,41 @@ Also, theoretically, in the same way that it is possible to extract profit from 
 ##############################################################################
 
 
+
+##############################################################################
+# Start Notes added January 28, 2010.
+##############################################################################
+
+Add rulers for octaves in time (diatonic points):
+
+  Just standard Do-Do sequencing in time.. fractaled octaves are shown if you will..
+
+   DO – 2
+   Ti – 1.875
+   La – 1.666
+   Sol – 1.5
+   Fa – 1.333
+   Mi - .25
+   Re – 1.125
+   Do - 1
+
+    Best wishes..
+     Tony 
+
+Also, what about octaves in price (per the Gann sq-of-9 and other number charts)?  And what about octaves per the combination of price and time squared?  What I mean by this is trying to figure out octaves in PTV (price-time-vectors).
+
+
+Also, I need to look at geometric mean, and geometric averages in relation to this as well.
+
+
+The numbers/ratios of an octave... are they related to the vimsottari dasa sceme in any way?  E.g. Sun + moon dasa length is  6 + 10 = 16, 16 / 120 is 0.13333, matches 'Fa'.  Venus dasa length is 20, 20 / 120 = 0.1666, which is 'La'.  How does this match up with reversal of dasa with the nodes?  Also, what 'note' (planet) we start on in the vimsottari dasa sceme should be important too, to indicate what scale mode the person is running (phrygian, etc.).
+
+What then to make up of conditional dasa schemes?
+
+The arudhas must then vibrate at a certain frequency level too, in order to get activated by new dasas that a person go into.
+
+
+##############################################################################
+# End Notes added January 28, 2010.
+##############################################################################
+
