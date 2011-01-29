@@ -2,28 +2,6 @@
 
 Outstanding things to work on going forward:
 
-CHECK  - Add mouse wheel as a zoom in and out (allowed when in any mode).
-
-CHECK  - Add a wizard page for setting the description.
-
-CHECK  - Add field for setting the description in the Edit dialog for
-         PriceBarChartSettings or maybe its own dialog for
-         PriceChartDocument members.
-
-CHECK - Need to implement the setting of the labels in the PriceChartDocument.  
-    (Cleaned up so that they are in form or grid layouts).
-    (Set so that the Mouse location labels are displayed at initialization).
-
-  - Implement bar-count ruler:
-CHECK      - Create a new PriceBarChart mode for setting BarCountGraphicsItems.
-CHECK      - For the mode, write code for creating a new bar-count ruler on 
-CHECK        the chart.
-CHECK      - Add settings.py values for BarCountGraphicsItem into the 
-CHECK        app-wide settings dialog.
-CHECK       - Fix: Strange thing is going on where when you click the first click to place the BarChartGraphicsItem, it sometimes shifts the view window (but keeps the original point in the correct spot).
-CHECK       - Need to add saving into the artifact backing object.
-CHECK       - Need to set the dirty flag after a new BarCountGraphicsItem is created.
-
   - Need to ensure selection of artifacts and deletion of them works properly
       - Dirty flag needs to be set if artifacts are deleted.
   - Need to implement selection of pricebars so that they get

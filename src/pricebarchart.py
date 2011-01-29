@@ -43,7 +43,7 @@ class PriceBarGraphicsItem(QGraphicsItem):
         - Candle
         - Bar with open and close
 
-    This class draws the second one.  It is displayed as a bar with open
+    This draws the second one.  It is displayed as a bar with open
     and close ticks on the left and right side.  The bar is drawn with a
     green pen if the high is higher than or equal the low, and drawn as
     red otherwise.
@@ -289,18 +289,18 @@ class PriceBarGraphicsItem(QGraphicsItem):
         # The QRectF returned should be related to this point as the
         # center.
 
-        halfPenWidth = self.boldPenWidth / 2.0
+        halfPenWidth = self.penWidth / 2.0
 
-        open = 0.0
-        high = 0.0
-        low = 0.0
-        close = 0.0
+        openPrice = 0.0
+        highPrice = 0.0
+        lowPrice = 0.0
+        closePrice = 0.0
 
         if self.priceBar != None:
-            open = self.priceBar.open
-            high = self.priceBar.high
-            low = self.priceBar.low
-            close = self.priceBar.close
+            openPrice = self.priceBar.open
+            highPrice = self.priceBar.high
+            lowPrice = self.priceBar.low
+            closePrice = self.priceBar.close
 
         # For X we have:
         #     leftExtensionWidth units for the left extension (open price)
@@ -313,7 +313,7 @@ class PriceBarGraphicsItem(QGraphicsItem):
         #     priceRange units
         #     halfPenWidth for the top side
 
-        priceRange = high - low
+        priceRange = abs(highPrice - lowPrice)
 
         x = -1.0 * (self.leftExtensionWidth + halfPenWidth)
         y = -1.0 * ((priceRange / 2.0) + halfPenWidth)
@@ -326,7 +326,7 @@ class PriceBarGraphicsItem(QGraphicsItem):
                 self.rightExtensionWidth + \
                 halfPenWidth
 
-        return QRectF(x, y, height, width)
+        return QRectF(x, y, width, height)
 
     def paint(self, painter, option, widget):
         """Paints this QGraphicsItem.  Assumes that self.pen is set
@@ -336,19 +336,19 @@ class PriceBarGraphicsItem(QGraphicsItem):
         if painter.pen() != self.pen:
             painter.setPen(self.pen)
 
-        open = 0.0
-        high = 0.0
-        low = 0.0
-        close = 0.0
+        openPrice = 0.0
+        highPrice = 0.0
+        lowPrice = 0.0
+        closePrice = 0.0
 
         if self.priceBar != None:
-            open = self.priceBar.open
-            high = self.priceBar.high
-            low = self.priceBar.low
-            close = self.priceBar.close
+            openPrice = self.priceBar.open
+            highPrice = self.priceBar.high
+            lowPrice = self.priceBar.low
+            closePrice = self.priceBar.close
 
-        priceRange = high - low
-        priceMidpoint = (high + low) / 2.0
+        priceRange = abs(highPrice - lowPrice)
+        priceMidpoint = (highPrice + lowPrice) / 2.0
 
         # Draw the stem.
         x1 = 0.0
@@ -359,7 +359,7 @@ class PriceBarGraphicsItem(QGraphicsItem):
 
         # Draw the left extension (open price).
         x1 = 0.0
-        y1 = -1.0 * (open - priceMidpoint)
+        y1 = -1.0 * (openPrice - priceMidpoint)
         x2 = -1.0 * self.leftExtensionWidth
         y2 = y1
 
@@ -367,14 +367,43 @@ class PriceBarGraphicsItem(QGraphicsItem):
 
         # Draw the right extension (close price).
         x1 = 0.0
-        y1 = -1.0 * (close - priceMidpoint)
+        y1 = -1.0 * (closePrice - priceMidpoint)
         x2 = 1.0 * self.rightExtensionWidth
         y2 = y1
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
+        # Draw the bounding rect if the item is selected.
+        if option.state & QStyle.State_Selected:
+            pad = self.pen.widthF() / 2.0;
+            
+            penWidth = 0.0
+
+            fgcolor = option.palette.windowText().color()
+            
+            # Ensure good contrast against fgcolor.
+            r = 255
+            g = 255
+            b = 255
+            if fgcolor.red() > 127:
+                r = 0
+            if fgcolor.green() > 127:
+                g = 0
+            if fgcolor.blue() > 127:
+                b = 0
+            
+            bgcolor = QColor(r, g, b)
+            
+            painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawRect(self.boundingRect())
+            
+            painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawRect(self.boundingRect())
+            
 
 class PriceBarChartArtifactGraphicsItem(QGraphicsItem):
-    """QGraphicsItem that has class members to indicate and set the
+    """QGraphicsItem that has members to indicate and set the
     readOnly mode.
     """
 
@@ -682,6 +711,8 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         if self.getReadOnlyFlag() == True:
             super().mousePressEvent(event)
         else:
+            self.log.debug("Inside mousePressEvent() while " +
+                           "self.getReadOnlyFlag() == False")
             # If the mouse press is within 1/5th of the bar length to the
             # beginning or end points, then the user is trying to adjust
             # the starting or ending points of the bar counter ruler.
@@ -717,12 +748,22 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         if event.buttons() & Qt.LeftButton:
             if self.getReadOnlyFlag() == False:
+                self.log.debug("mouseMoveEvent() while " +
+                               "self.getReadOnlyFlag() == False")
+                self.log.debug("self.draggingStartPointFlag == {}".\
+                               format(self.draggingStartPointFlag))
+                self.log.debug("self.draggingEndPointFlag == {}".\
+                               format(self.draggingEndPointFlag))
                 if self.draggingStartPointFlag == True: 
                     self.setStartPointF(event.scenePos())
                 elif self.draggingEndPointFlag == True:
                     self.setEndPointF(event.scenePos())
                 else:
+                    # This means that the user is dragging the whole
+                    # ruler.  Do the move, but also set emit that the
+                    # PriceBarChart has changed.
                     super().mouseMoveEvent(event)
+                    self.scene().priceBarChartChanged.emit()
             else:
                 super().mouseMoveEvent(event)
         else:
@@ -734,22 +775,25 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         Arguments:
         event - QGraphicsSceneMouseEvent that triggered this call.
         """
+        
+        self.log.debug("Entered mouseReleaseEvent()")
 
-        if event.buttons() & Qt.LeftButton:
-            if self.draggingStartPointFlag == True or \
-                    self.draggingEndPointFlag == True:
+        if self.draggingStartPointFlag == True or \
+                self.draggingEndPointFlag == True:
+            
+            self.log.debug("mouseReleaseEvent() when previously dragging.")
+            self.draggingStartPointFlag = False
+            self.draggingEndPointFlag = False
 
-                self.draggingStartPointFlag = False
-                self.draggingEndPointFlag = False
+            # Make sure the starting point is to the left of the
+            # ending point.
+            self.normalizeStartAndEnd()
 
-                # Make sure the starting point is to the left of the
-                # ending point.
-                self.normalizeStartAndEnd()
-            else:
-                super().mouseReleaseEvent(event)
+            self.scene().priceBarChartChanged.emit()
         else:
             super().mouseReleaseEvent(event)
 
+        self.log.debug("Exiting mouseReleaseEvent()")
 
     def setReadOnlyFlag(self, flag):
         """Overwrites the PriceBarChartArtifactGraphicsItem setReadOnlyFlag()
@@ -781,6 +825,11 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
             self.setPos(self.startPointF)
             
+            # Update the barCount label position.
+            deltaX = self.endPointF.x() - self.startPointF.x()
+            y = -1.0 * (self.barCountGraphicsItemBarHeight / 2.0)
+            self.barCountText.setPos(QPointF(deltaX, y))
+
             if self.scene() != None:
                 # Re-calculate the bar count.
                 self.recalculateBarCount()
@@ -976,25 +1025,17 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # The QRectF returned is relative to this (0, 0) point.
 
         # Get the QRectF with just the lines.
+        xDelta = self.endPointF.x() - self.startPointF.x()
+        
         topLeft = \
             QPointF(0.0, -1.0 * (self.barCountGraphicsItemBarHeight / 2.0))
-        xDelta = self.endPointF.x() - self.startPointF.x()
+        
         bottomRight = \
             QPointF(xDelta, 1.0 * (self.barCountGraphicsItemBarHeight / 2.0))
+        
         rectWithoutText = QRectF(topLeft, bottomRight)
 
-        # Get the QRectF with just the text.
-        textRect = self.barCountText.boundingRect()
-
-        # Convert the bounding rectangle from the barCountText's local
-        # coordinates to this our local coordinates.
-        textRect.translate(xDelta,
-                           -1.0 * (self.barCountGraphicsItemBarHeight / 2.0))
-        
-        # Get the QRectF that can hold these two rectangles.
-        rectF = rectWithoutText.united(textRect)
-
-        return rectF
+        return rectWithoutText
 
     def paint(self, painter, option, widget):
         """Paints this QGraphicsItem.  Assumes that self.pen is set
@@ -1026,6 +1067,34 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         y2 = 0.0
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
+        # Draw the bounding rect if the item is selected.
+        if option.state & QStyle.State_Selected:
+            pad = self.barCountPen.widthF() / 2.0;
+            
+            penWidth = 0.0
+
+            fgcolor = option.palette.windowText().color()
+            
+            # Ensure good contrast against fgcolor.
+            r = 255
+            g = 255
+            b = 255
+            if fgcolor.red() > 127:
+                r = 0
+            if fgcolor.green() > 127:
+                g = 0
+            if fgcolor.blue() > 127:
+                b = 0
+            
+            bgcolor = QColor(r, g, b)
+            
+            painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawRect(self.boundingRect())
+            
+            painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawRect(self.boundingRect())
 
 class PriceBarChartWidget(QWidget):
     """Widget holding the QGraphicsScene and QGraphicsView that displays
@@ -1785,7 +1854,7 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         
 class PriceBarChartGraphicsView(QGraphicsView):
     """QGraphicsView that visualizes the main QGraphicsScene.
-    We subclass the QGraphicsView because we may want to add 
+    We inherit QGraphicsView because we may want to add 
     custom syncrhonized functionality in other widgets later."""
 
 
@@ -1866,7 +1935,14 @@ class PriceBarChartGraphicsView(QGraphicsView):
         self.priceBarChartSettings = priceBarChartSettings
         
     def toReadOnlyPointerToolMode(self):
-        """Changes the tool mode to be the ReadOnlyPointerTool."""
+        """Changes the tool mode to be the ReadOnlyPointerTool.
+        
+        This has the following effects on QGraphicsItem flags:
+          - All PriceBarGraphicsItems are selectable.
+          - All PriceBarGraphicsItems are not movable.
+          - All PriceBarChartArtifactGraphicsItem are selectable.
+          - All PriceBarChartArtifactGraphicsItem are not movable.
+        """
 
         self.log.debug("Entered toReadOnlyPointerToolMode()")
 
@@ -1885,10 +1961,26 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
             self.setDragMode(QGraphicsView.RubberBandDrag)
 
+            # Set the QGraphicsItem flags.
+            items = self.scene().items()
+            for item in items:
+                if isinstance(item, PriceBarGraphicsItem):
+                    item.setFlags(QGraphicsItem.ItemIsSelectable)
+                elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                    item.setReadOnlyFlag(True)
+                    item.setFlags(QGraphicsItem.ItemIsSelectable)
+
         self.log.debug("Exiting toReadOnlyPointerToolMode()")
 
     def toPointerToolMode(self):
-        """Changes the tool mode to be the PointerTool."""
+        """Changes the tool mode to be the PointerTool.
+        
+        This has the following effects on QGraphicsItem flags:
+          - All PriceBarGraphicsItems are not selectable.
+          - All PriceBarGraphicsItems are not movable.
+          - All PriceBarChartArtifactGraphicsItem are selectable.
+          - All PriceBarChartArtifactGraphicsItem are movable.
+        """
 
         self.log.debug("Entered toPointerToolMode()")
 
@@ -1904,6 +1996,16 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
             self.setDragMode(QGraphicsView.RubberBandDrag)
 
+            # Set the QGraphicsItem flags.
+            items = self.scene().items()
+            for item in items:
+                if isinstance(item, PriceBarGraphicsItem):
+                    item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+                elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                    item.setReadOnlyFlag(False)
+                    item.setFlags(QGraphicsItem.ItemIsMovable |
+                                  QGraphicsItem.ItemIsSelectable)
+            
         self.log.debug("Exiting toPointerToolMode()")
 
     def toHandToolMode(self):
@@ -1919,6 +2021,15 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
             self.setDragMode(QGraphicsView.ScrollHandDrag)
 
+            # Set the QGraphicsItem flags.
+            items = self.scene().items()
+            for item in items:
+                if isinstance(item, PriceBarGraphicsItem):
+                    item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+                elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                    item.setReadOnlyFlag(True)
+                    item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+
         self.log.debug("Exiting toHandToolMode()")
 
     def toZoomInToolMode(self):
@@ -1930,6 +2041,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
         if self.toolMode != PriceBarChartGraphicsView.ToolMode['ZoomInTool']:
             self.toolMode = PriceBarChartGraphicsView.ToolMode['ZoomInTool']
 
+
             self.setCursor(QCursor(Qt.ArrowCursor))
 
             if self.underMouse():
@@ -1937,6 +2049,19 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 self.setCursor(QCursor(pixmap))
 
             self.setDragMode(QGraphicsView.NoDrag)
+
+            scene = self.scene()
+            if scene != None:
+                scene.clearSelection()
+
+            # Set the QGraphicsItem flags.
+            items = self.scene().items()
+            for item in items:
+                if isinstance(item, PriceBarGraphicsItem):
+                    item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+                elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                    item.setReadOnlyFlag(True)
+                    item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
 
         self.log.debug("Exiting toZoomInToolMode()")
 
@@ -1957,6 +2082,15 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
             self.setDragMode(QGraphicsView.NoDrag)
 
+            # Set the QGraphicsItem flags.
+            items = self.scene().items()
+            for item in items:
+                if isinstance(item, PriceBarGraphicsItem):
+                    item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+                elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                    item.setReadOnlyFlag(True)
+                    item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+                
         self.log.debug("Exiting toZoomOutToolMode()")
 
     def toBarCountToolMode(self):
@@ -1979,6 +2113,15 @@ class PriceBarChartGraphicsView(QGraphicsView):
             self.clickTwoPointF = None
             self.barCountGraphicsItem = None
 
+            # Set the QGraphicsItem flags.
+            items = self.scene().items()
+            for item in items:
+                if isinstance(item, PriceBarGraphicsItem):
+                    item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+                elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                    item.setReadOnlyFlag(True)
+                    item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+                
         self.log.debug("Exiting toBarCountToolMode()")
 
     def wheelEvent(self, qwheelevent):
@@ -2065,7 +2208,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
         else:
             # For any other mode we don't have specific functionality for,
-            # just pass the event to the parent class to handle.
+            # just pass the event to the parent to handle.
             super().keyPressEvent(qkeyevent)
 
         
@@ -2218,7 +2361,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     
         else:
             # For any other mode we don't have specific functionality for,
-            # just pass the event to the parent class to handle.
+            # just pass the event to the parent to handle.
             super().mousePressEvent(qmouseevent)
 
         self.log.debug("Exiting mousePressEvent()")
@@ -2260,7 +2403,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
         else:
             # For any other mode we don't have specific functionality for,
-            # just pass the event to the parent class to handle.
+            # just pass the event to the parent to handle.
             super().mouseReleaseEvent(qmouseevent)
 
         self.log.debug("Exiting mouseReleaseEvent()")
@@ -2317,7 +2460,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
         else:
             # For any other mode we don't have specific functionality for,
-            # just pass the event to the parent class to handle.
+            # just pass the event to the parent to handle.
             super().mouseMoveEvent(qmouseevent)
 
         # TODO:  below remove log output
