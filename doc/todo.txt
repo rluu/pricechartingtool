@@ -2,11 +2,16 @@
 
 Outstanding things to work on going forward:
 
-  - Need to ensure selection of artifacts and deletion of them works properly
-      - Dirty flag needs to be set if artifacts are deleted.
-  - Need to implement selection of pricebars so that they get
-    highlighted and the QLabels at the top get updated with the
-    pricebar.
+CHECK  - Need to ensure selection of artifacts and deletion of them 
+CHECK     works properly
+CHECK      - Dirty flag needs to be set if artifacts are deleted.
+CHECK  - Need to implement selection of pricebars so that they get
+CHECK     highlighted and the QLabels at the top get updated with the
+CHECK     pricebar.
+
+  - Need to create icons for the different new modes for creating indicators.
+     - BarCount
+     - etc.
 
   - Need to implement 'snap' functionality, for snapping to a whole bar, 
     bottom/top of a bar, or to the closest integer X (day) for 

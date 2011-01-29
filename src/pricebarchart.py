@@ -182,6 +182,14 @@ class PriceBarGraphicsItem(QGraphicsItem):
 
         self.log.debug("Leaving setPriceBar().")
 
+    def getPriceBar(self):
+        """Returns the internally stored PriceBar.
+        If no PriceBar was previously stored in
+        this PriceBarGraphicsItem, then None is returned.
+        """
+
+        return self.priceBar
+    
     def setPriceBarColor(self, color):
         """Sets the color of the price bar."""
 
@@ -229,8 +237,6 @@ class PriceBarGraphicsItem(QGraphicsItem):
         pricebar is.
         """
 
-        self.log.debug("Entered getPriceBarHighScenePoint().")
-
         high = 0.0
         low = 0.0
 
@@ -247,8 +253,6 @@ class PriceBarGraphicsItem(QGraphicsItem):
         # Return value.
         rv = self.mapToScene(QPointF(x, yHigh))
 
-        self.log.debug("Leaving getPriceBarHighScenePoint().")
-
         return rv
 
 
@@ -259,8 +263,6 @@ class PriceBarGraphicsItem(QGraphicsItem):
         Returns: QPointF in scene coordinates of where the high of this
         pricebar is.
         """
-
-        self.log.debug("Entered getPriceBarLowScenePoint().")
 
         high = 0.0
         low = 0.0
@@ -277,8 +279,6 @@ class PriceBarGraphicsItem(QGraphicsItem):
 
         # Return value.
         rv = self.mapToScene(QPointF(x, yLow))
-
-        self.log.debug("Leaving getPriceBarLowScenePoint().")
 
         return rv
 
@@ -711,8 +711,6 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         if self.getReadOnlyFlag() == True:
             super().mousePressEvent(event)
         else:
-            self.log.debug("Inside mousePressEvent() while " +
-                           "self.getReadOnlyFlag() == False")
             # If the mouse press is within 1/5th of the bar length to the
             # beginning or end points, then the user is trying to adjust
             # the starting or ending points of the bar counter ruler.
@@ -748,12 +746,6 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         if event.buttons() & Qt.LeftButton:
             if self.getReadOnlyFlag() == False:
-                self.log.debug("mouseMoveEvent() while " +
-                               "self.getReadOnlyFlag() == False")
-                self.log.debug("self.draggingStartPointFlag == {}".\
-                               format(self.draggingStartPointFlag))
-                self.log.debug("self.draggingEndPointFlag == {}".\
-                               format(self.draggingEndPointFlag))
                 if self.draggingStartPointFlag == True: 
                     self.setStartPointF(event.scenePos())
                 elif self.draggingEndPointFlag == True:
@@ -1225,6 +1217,8 @@ class PriceBarChartWidget(QWidget):
             connect(self._handleMouseLocationUpdate)
         self.graphicsScene.priceBarChartChanged.\
             connect(self.priceBarChartChanged)
+        self.graphicsScene.selectionChanged.\
+            connect(self._handleSelectionChanged)
 
         self.log.debug("Leaving __init__()")
 
@@ -1365,12 +1359,21 @@ class PriceBarChartWidget(QWidget):
             lowStr += "{}".format(priceBar.low)
             closeStr += "{}".format(priceBar.close)
 
-        self.selectedPriceBarTimestampLabel.setText(timestampStr)
-        
-        self.selectedPriceBarOpenPriceLabel.setText(openStr)
-        self.selectedPriceBarHighPriceLabel.setText(highStr)
-        self.selectedPriceBarLowPriceLabel.setText(lowStr)
-        self.selectedPriceBarClosePriceLabel.setText(closeStr)
+        # Only change the labels if they are now different.
+        if self.selectedPriceBarTimestampLabel.text() != timestampStr:
+            self.selectedPriceBarTimestampLabel.setText(timestampStr)
+
+        if self.selectedPriceBarOpenPriceLabel.text() != openStr:
+            self.selectedPriceBarOpenPriceLabel.setText(openStr)
+
+        if self.selectedPriceBarHighPriceLabel.text() != highStr:
+            self.selectedPriceBarHighPriceLabel.setText(highStr)
+
+        if self.selectedPriceBarLowPriceLabel.text() != lowStr:
+            self.selectedPriceBarLowPriceLabel.setText(lowStr)
+
+        if self.selectedPriceBarClosePriceLabel.text() != closeStr:
+            self.selectedPriceBarClosePriceLabel.setText(closeStr)
 
 
     def loadPriceBars(self, priceBars):
@@ -1821,6 +1824,42 @@ class PriceBarChartWidget(QWidget):
         dt = self._sceneXPosToDatetime(x)
         self.currentTimestampChanged.emit(dt)
 
+    def _handleSelectionChanged(self):
+        """Handles when the QGraphicsScene has it's selection of
+        QGraphicsItems changed.
+
+        This function obtains the selected items, and if there is only
+        one PriceBarGraphicsItem selected, then it displays the
+        information about that pricebar in the labels at the top of
+        the widget.
+        """
+
+        selectedItems = self.graphicsScene.selectedItems()
+
+        numPriceBarGraphicsItemsSelected = 0
+        lastPriceBarGraphicsItem = None
+        
+        for item in selectedItems:
+            if isinstance(item, PriceBarGraphicsItem):
+                numPriceBarGraphicsItemsSelected += 1
+                lastPriceBarGraphicsItem = item
+
+        self.log.debug("Number of PriceBarGraphicsItems selected is: {}".\
+                       format(numPriceBarGraphicsItemsSelected))
+
+        # Only update the labels with price/time information if there
+        # was only one PriceBarGraphicsItem selected.  This is done to
+        # avoid confusion in the event that a second
+        # PriceBarGraphicsItem is selected and the user didn't notice
+        # that it was (to prevent the wrong information from being
+        # interpreted).
+        if numPriceBarGraphicsItemsSelected == 1:
+            priceBar = lastPriceBarGraphicsItem.getPriceBar()
+            self.updateSelectedPriceBarLabels(priceBar)
+        else:
+            self.updateSelectedPriceBarLabels(None)
+            
+        
 class PriceBarChartGraphicsScene(QGraphicsScene):
     """QGraphicsScene holding all the pricebars and artifacts.
     We subclass the QGraphicsScene to allow for future feature additions.
@@ -2166,12 +2205,22 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PointerTool']:
 
-            # TODO: add here, removal of a qgraphicsitem artifact by
-            # pressing delete.  Remember to emit
-            # self.scene().priceBarChartArtifactGraphicsItemRemoved.emit(item)
-            # to set the dirty flag.
-            
-            super().keyPressEvent(qkeyevent)
+            if qkeyevent.key() & Qt.Key_Delete:
+                # Get the items that are selected, and out of those,
+                # remove the PriceBarChartArtifactGraphicsItems.
+                scene = self.scene()
+                selectedItems = scene.selectedItems()
+
+                for item in selectedItems:
+                    if isinstance(item, PriceBarChartArtifactGraphicsItem):
+                        
+                        scene.removeItem(item)
+        
+                        # Emit signal to show that an item is removed.
+                        # This sets the dirty flag.
+                        scene.priceBarChartArtifactGraphicsItemRemoved.emit(item)
+            else:
+                super().keyPressEvent(qkeyevent)
 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['HandTool']:
@@ -2411,9 +2460,6 @@ class PriceBarChartGraphicsView(QGraphicsView):
     def mouseMoveEvent(self, qmouseevent):
         """Triggered when the mouse is moving in this widget."""
 
-        # TODO:  below remove log output
-        #self.log.debug("Entered mouseMoveEvent()")
-
         # Emit the current mouse location in scene coordinates.
         posScene = self.mapToScene(qmouseevent.pos())
         self.mouseLocationUpdate.emit(posScene.x(), posScene.y())
@@ -2462,9 +2508,6 @@ class PriceBarChartGraphicsView(QGraphicsView):
             # For any other mode we don't have specific functionality for,
             # just pass the event to the parent to handle.
             super().mouseMoveEvent(qmouseevent)
-
-        # TODO:  below remove log output
-        #self.log.debug("Exiting mouseMoveEvent()")
 
 
 
