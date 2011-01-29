@@ -9,6 +9,12 @@ CHECK  - Need to implement selection of pricebars so that they get
 CHECK     highlighted and the QLabels at the top get updated with the
 CHECK     pricebar.
 
+  - Need to add right-click context menus and popup info/edit dialog widgets.
+     - Dialog widgets for info/editing should be in new file: 
+       pricebarchart_dialogs.py
+
+  - Remove bolding option of PriceBars (and pen width of it, etc.).
+
   - Need to create icons for the different new modes for creating indicators.
      - BarCount
      - etc.
@@ -20,6 +26,7 @@ CHECK     pricebar.
   - Need to implement the spreadsheet widget.
 
   Indicators:
+  - Need to implement indicator for static octaves (in time).
   - Need to implement indicator (moving lines) for dynamic Octive (interval) ratio measurements as the planets move.
   - Need to implement indicator (moving) lines for aspect strength 
     (shad bala and ashtakavarga).
