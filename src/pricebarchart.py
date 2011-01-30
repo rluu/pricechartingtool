@@ -1,5 +1,4 @@
 
-
 # For line separator.
 import os
 
@@ -21,7 +20,7 @@ import resources
 # For QSettings keys.
 from settings import SettingsKeys
 
-# For PriceBars
+# For PriceBars and artifacts in the chart.
 from data_objects import BirthInfo
 from data_objects import PriceBar
 from data_objects import PriceBarChartBarCountArtifact
@@ -57,13 +56,9 @@ class PriceBarGraphicsItem(QGraphicsItem):
 
         super().__init__(parent, scene)
 
-        # Pen width for standard PriceBars (not highlighted or not bold)
+        # Pen width for PriceBars.
         self.penWidth = \
             PriceBarChartSettings.defaultPriceBarGraphicsItemPenWidth
-
-        # Pen width for use on highlighted (bold) PriceBars.
-        self.boldPenWidth = \
-            PriceBarChartSettings.defaultPriceBarGraphicsItemBoldPenWidth
 
         # Width of the left extension drawn that represents the open price.
         self.leftExtensionWidth = \
@@ -83,9 +78,6 @@ class PriceBarGraphicsItem(QGraphicsItem):
         self.pen = QPen()
         self.pen.setColor(QColor(Qt.black))
         self.pen.setWidthF(self.penWidth)
-
-        # Flag for bold (highlighted) PriceBar.
-        self.bolded = False
 
         # Color setting for a PriceBar that has a higher close than open.
         self.higherPriceBarColor = \
@@ -108,10 +100,6 @@ class PriceBarGraphicsItem(QGraphicsItem):
         # priceBarGraphicsItemPenWidth (float).
         self.penWidth = priceBarChartSettings.priceBarGraphicsItemPenWidth
 
-        # priceBarGraphicsItemBoldPenWidth (float).
-        self.boldPenWidth = \
-            priceBarChartSettings.priceBarGraphicsItemBoldPenWidth
-
         # priceBarGraphicsItemLeftExtensionWidth (float).
         self.leftExtensionWidth = \
             priceBarChartSettings.priceBarGraphicsItemLeftExtensionWidth
@@ -121,12 +109,8 @@ class PriceBarGraphicsItem(QGraphicsItem):
             priceBarChartSettings.priceBarGraphicsItemRightExtensionWidth
 
 
-        # Now that some widths have been changed, update the pen
-        # accordinately.
-        if self.bolded:
-            self.pen.setWidthF(self.boldPenWidth)
-        else:
-            self.pen.setWidthF(self.penWidth)
+        # Update the pen.
+        self.pen.setWidthF(self.penWidth)
 
         # Schedule an update.
         self.update()
@@ -174,9 +158,6 @@ class PriceBarGraphicsItem(QGraphicsItem):
             # PriceBar is None.  Just use a black bar.
             self.setPriceBarColor(Qt.black)
 
-        self.setBolded(False)
-
-        
         # Schedule an update to redraw the QGraphicsItem.
         self.update()
 
@@ -201,33 +182,6 @@ class PriceBarGraphicsItem(QGraphicsItem):
             self.update()
 
         self.log.debug("Leaving setPriceBarColor().")
-
-    def setBolded(self, bolded):
-        """Sets whether or not the PriceBar is displayed as bolded. 
-        This means it is highlighted in some way and has a thicker pen.
-
-        Arguments: 
-
-        bolded - bool, True if the PriceBar should be bold (highlighted),
-        False, if it should be drawn regularly.
-        """
-
-        self.log.debug("Entered setBolded({}).".format(bolded))
-
-        # Only update if the new value is different from the current
-        # value.
-        if self.bolded != bolded:
-            self.bolded = bolded
-
-            if self.bolded:
-                self.pen.setWidthF(self.boldPenWidth)
-            else:
-                self.pen.setWidthF(self.penWidth)
-            
-            # Schedule a redraw.
-            self.update()
-
-        self.log.debug("Leaving setBolded().")
 
     def getPriceBarHighScenePoint(self):
         """Returns the scene coordinates of the high point of this
@@ -400,8 +354,33 @@ class PriceBarGraphicsItem(QGraphicsItem):
             painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
             painter.setBrush(Qt.NoBrush)
             painter.drawRect(self.boundingRect())
-            
 
+    def contextMenuEvent(self, event):
+        """Overwrite the QGrpahicsItem.contextMenuEvent() function.
+        This is called when a context menu is brought up on this QGraphicsItem.
+        Here we bring up a popup menu and provide some options to the user.
+        
+        Options include:
+
+        - Select the PriceBar (and unselect all other PriceBars).
+        - Unselect the PriceBar.
+        - Info dialog about this PriceBar.
+
+        TODO:  Add other options to this context menu:
+        - Open astrology chart for this PriceBar time.
+        - Open Square of 9 chart for this Price.
+        - ... (any other number of number charts relevant).
+        
+        Arguments:
+
+        event - QGraphicsSceneContextMenuEvent object that triggered
+                the call of this function.
+        """
+
+        # TODO:  add some code here
+        pass
+    
+        
 class PriceBarChartArtifactGraphicsItem(QGraphicsItem):
     """QGraphicsItem that has members to indicate and set the
     readOnly mode.
@@ -2001,13 +1980,14 @@ class PriceBarChartGraphicsView(QGraphicsView):
             self.setDragMode(QGraphicsView.RubberBandDrag)
 
             # Set the QGraphicsItem flags.
-            items = self.scene().items()
-            for item in items:
-                if isinstance(item, PriceBarGraphicsItem):
-                    item.setFlags(QGraphicsItem.ItemIsSelectable)
-                elif isinstance(item, PriceBarChartArtifactGraphicsItem):
-                    item.setReadOnlyFlag(True)
-                    item.setFlags(QGraphicsItem.ItemIsSelectable)
+            if scene != None:
+                items = scene.items()
+                for item in items:
+                    if isinstance(item, PriceBarGraphicsItem):
+                        item.setFlags(QGraphicsItem.ItemIsSelectable)
+                    elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                        item.setReadOnlyFlag(True)
+                        item.setFlags(QGraphicsItem.ItemIsSelectable)
 
         self.log.debug("Exiting toReadOnlyPointerToolMode()")
 
@@ -2036,14 +2016,15 @@ class PriceBarChartGraphicsView(QGraphicsView):
             self.setDragMode(QGraphicsView.RubberBandDrag)
 
             # Set the QGraphicsItem flags.
-            items = self.scene().items()
-            for item in items:
-                if isinstance(item, PriceBarGraphicsItem):
-                    item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
-                elif isinstance(item, PriceBarChartArtifactGraphicsItem):
-                    item.setReadOnlyFlag(False)
-                    item.setFlags(QGraphicsItem.ItemIsMovable |
-                                  QGraphicsItem.ItemIsSelectable)
+            if scene != None:
+                items = scene.items()
+                for item in items:
+                    if isinstance(item, PriceBarGraphicsItem):
+                        item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+                    elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                        item.setReadOnlyFlag(False)
+                        item.setFlags(QGraphicsItem.ItemIsMovable |
+                                      QGraphicsItem.ItemIsSelectable)
             
         self.log.debug("Exiting toPointerToolMode()")
 
@@ -2058,16 +2039,21 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
             self.setCursor(QCursor(Qt.ArrowCursor))
 
+            scene = self.scene()
+            if scene != None:
+                scene.clearSelection()
+
             self.setDragMode(QGraphicsView.ScrollHandDrag)
 
             # Set the QGraphicsItem flags.
-            items = self.scene().items()
-            for item in items:
-                if isinstance(item, PriceBarGraphicsItem):
-                    item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
-                elif isinstance(item, PriceBarChartArtifactGraphicsItem):
-                    item.setReadOnlyFlag(True)
-                    item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+            if scene != None:
+                items = scene.items()
+                for item in items:
+                    if isinstance(item, PriceBarGraphicsItem):
+                        item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+                    elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                        item.setReadOnlyFlag(True)
+                        item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
 
         self.log.debug("Exiting toHandToolMode()")
 
@@ -2094,13 +2080,14 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 scene.clearSelection()
 
             # Set the QGraphicsItem flags.
-            items = self.scene().items()
-            for item in items:
-                if isinstance(item, PriceBarGraphicsItem):
-                    item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
-                elif isinstance(item, PriceBarChartArtifactGraphicsItem):
-                    item.setReadOnlyFlag(True)
-                    item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+            if scene != None:
+                items = scene.items()
+                for item in items:
+                    if isinstance(item, PriceBarGraphicsItem):
+                        item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+                    elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                        item.setReadOnlyFlag(True)
+                        item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
 
         self.log.debug("Exiting toZoomInToolMode()")
 
@@ -2121,14 +2108,19 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
             self.setDragMode(QGraphicsView.NoDrag)
 
+            scene = self.scene()
+            if scene != None:
+                scene.clearSelection()
+
             # Set the QGraphicsItem flags.
-            items = self.scene().items()
-            for item in items:
-                if isinstance(item, PriceBarGraphicsItem):
-                    item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
-                elif isinstance(item, PriceBarChartArtifactGraphicsItem):
-                    item.setReadOnlyFlag(True)
-                    item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+            if scene != None:
+                items = scene.items()
+                for item in items:
+                    if isinstance(item, PriceBarGraphicsItem):
+                        item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+                    elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                        item.setReadOnlyFlag(True)
+                        item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
                 
         self.log.debug("Exiting toZoomOutToolMode()")
 
@@ -2152,14 +2144,19 @@ class PriceBarChartGraphicsView(QGraphicsView):
             self.clickTwoPointF = None
             self.barCountGraphicsItem = None
 
+            scene = self.scene()
+            if scene != None:
+                scene.clearSelection()
+
             # Set the QGraphicsItem flags.
-            items = self.scene().items()
-            for item in items:
-                if isinstance(item, PriceBarGraphicsItem):
-                    item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
-                elif isinstance(item, PriceBarChartArtifactGraphicsItem):
-                    item.setReadOnlyFlag(True)
-                    item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+            if scene != None:
+                items = scene.items()
+                for item in items:
+                    if isinstance(item, PriceBarGraphicsItem):
+                        item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+                    elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                        item.setReadOnlyFlag(True)
+                        item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
                 
         self.log.debug("Exiting toBarCountToolMode()")
 

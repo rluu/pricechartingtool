@@ -538,6 +538,569 @@ class PlanetaryInfoTableWidget(QTableWidget):
         self._replaceRowWithPlanetaryInfo(row, planetaryInfo)
 
 
+class TimestampEditWidget(QWidget):
+    """QWidget for editing timestamps.
+    
+    This includes the timezone information (and whether in daylight
+    savings or not).
+    """
+
+    # TODO:  write this class
+
+class TimestampEditDialog(QDialog):
+    """QDialog for editing timestamps.
+    
+    This includes the timezone information (and whether in daylight
+    savings or not).
+    """
+
+    # TODO:  write this class
+    
+    
+class PriceBarTagEditWidget(QWidget):
+    """QWidget for editing the tags on a PriceBar.
+    
+    The tags associated with a PriceBar are just a list of strings
+    that may have meaning to that particular PriceBar.
+    
+    For example, different schemes can be used, for example,"H",
+    used for a high within 5 bars... and "LL" used for a
+    low within 10 bars, etc.
+    """
+
+    # Signal emitted when the Okay button is clicked and 
+    # validation succeeded.
+    okayButtonClicked = QtCore.pyqtSignal()
+
+    # Signal emitted when the Cancel button is clicked.
+    cancelButtonClicked = QtCore.pyqtSignal()
+
+    def __init__(self, tags=[], parent=None):
+        """Initializes the edit widget with the given values.
+
+        Arguments:
+
+        tags   - list of str objects.
+                 This is the list of tag strings we are editing.
+
+        parent - QWidget parent
+        """
+
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger("widgets.PriceBarTagEditWidget")
+
+        # Save off the list of tags.
+        self.tags = list(tags)
+
+        self.tagsListGroupBox = \
+            QGroupBox("List of PriceBar tags:")
+
+        self.listWidget = QListWidget()
+        self.listWidget.setSelectionMode(QAbstractItemView.SingleSelection)
+
+        # Layout to hold the list widget.
+        self.listWidgetLayout = QVBoxLayout()
+        self.listWidgetLayout.addWidget(self.listWidget)
+
+        self.tagsListGroupBox.setLayout(self.listWidgetLayout)
+        
+        # Buttons for doing actions like adding, removing, and editing a
+        # tag, etc.
+
+        self.addTagButton = QPushButton("&Add Tag")
+        self.removeTagButton = QPushButton("&Remove Tag")
+        self.editTagButton = QPushButton("&Edit Tag")
+        self.moveSelectedTagUpButton = QPushButton("Move Tag &up")
+        self.moveSelectedTagDownButton = QPushButton("Move Tag &down")
+
+        self.buttonsOnRightLayout = QVBoxLayout()
+        self.buttonsOnRightLayout.addWidget(self.addTagButton)
+        self.buttonsOnRightLayout.addSpacing(5)
+        self.buttonsOnRightLayout.addWidget(self.removeTagButton)
+        self.buttonsOnRightLayout.addSpacing(5)
+        self.buttonsOnRightLayout.addWidget(self.editTagButton)
+        self.buttonsOnRightLayout.addSpacing(5)
+        self.buttonsOnRightLayout.\
+            addWidget(self.moveSelectedTagUpButton)
+        self.buttonsOnRightLayout.addSpacing(5)
+        self.buttonsOnRightLayout.\
+            addWidget(self.moveSelectedTagDownButton)
+        self.buttonsOnRightLayout.addStretch()
+
+        self.mainWidgetsLayout = QHBoxLayout()
+        self.mainWidgetsLayout.addWidget(self.tagsListGroupBox)
+        self.mainWidgetsLayout.addLayout(self.buttonsOnRightLayout)
+
+        # Buttons at bottom.
+        self.okayButton = QPushButton("&Okay")
+        self.cancelButton = QPushButton("&Cancel")
+        self.buttonsAtBottomLayout = QHBoxLayout()
+        self.buttonsAtBottomLayout.addStretch()
+        self.buttonsAtBottomLayout.addWidget(self.okayButton)
+        self.buttonsAtBottomLayout.addWidget(self.cancelButton)
+
+        # Put all layouts/groupboxes together into the widget.
+        self.mainLayout = QVBoxLayout()
+        self.mainLayout.addLayout(self.mainWidgetsLayout) 
+        self.mainLayout.addSpacing(10)
+        self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
+
+        self.setLayout(self.mainLayout)
+
+        # Connect signals and slots.
+        self.listWidget.itemDoubleClicked.\
+            connect(self._handleEditTagButtonClicked)
+        self.addTagButton.clicked.\
+            connect(self._handleAddTagButtonClicked)
+        self.removeTagButton.clicked.\
+            connect(self._handleRemoveTagButtonClicked)
+        self.editTagButton.clicked.\
+            connect(self._handleEditTagButtonClicked)
+        self.moveSelectedTagUpButton.clicked.\
+            connect(self._handleMoveTagUpButtonClicked)
+        self.moveSelectedTagDownButton.clicked.\
+            connect(self._handleMoveTagDownButtonClicked)
+
+        # Connect okay and cancel buttons.
+        self.okayButton.clicked.connect(self._handleOkayButtonClicked)
+        self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
+
+        # Now that all the widgets are created, load the values from the
+        # settings.
+        self.loadTags(self.tags)
+
+
+    def loadTags(self, tags):
+        """Loads the widgets with values from the given arguments.
+
+        Arguments:
+
+        tags - list of str objects.
+        """
+
+        self.log.debug("Entered loadTags()")
+
+        # Save off the values.
+        self.tags = list(tags)
+
+        # Populate the QListWidget with the tags.
+        self.listWidget.clear()
+        for tag in self.tags:
+            self._appendTagAsListWidgetItem(tag, False)
+
+        if self.listWidget.count() > 0:
+            self.listWidget.setCurrentRow(0)
+
+        self.log.debug("Exiting loadTags()")
+        
+    def saveTags(self):
+        """Ensures the values in the widgets are saved to their
+        underlying variables, such that subsequent calls to getTags()
+        will return valid values for what has changed.
+        """
+    
+        self.log.debug("Entered saveTag()")
+
+        self.tags = []
+
+        numTags = self.listWidget.count()
+        
+        for i in range(numTags):
+            item = self.listWidget.item(i)
+            
+            self.tags.append(item.text())
+        
+        self.log.debug("Exiting saveTag()")
+
+
+    def getTags(self):
+        """Returns the internally stored list of tags which are really
+        just a list of str objects.  This may or may not represent
+        what is in the widgets, depending on whether or not saveTags
+        has been called recently.
+        """
+
+        return self.tags
+
+    def _appendTagAsListWidgetItem(self, tag, selectItem=True):
+        """Appends the given Tag str object to the
+        QListWidget as a QListWidgetItem.
+
+        Arguments:
+        
+        tag - str which represents the PriceBar tag.
+
+        selectItem - bool flag that indicates whether the item should be
+        selected after being created and appended to the list.
+        """
+
+        listWidgetItem = QListWidgetItem()
+
+        listWidgetItem.setText(tag)
+
+        self.listWidget.addItem(listWidgetItem)
+        
+        if selectItem == True:
+            self.listWidget.setCurrentRow(self.listWidget.count() - 1)
+
+
+    def _handleAddTagButtonClicked(self):
+        """Called when the 'Add Tag' button is clicked."""
+
+        # Create a dialog and allow the user to edit it.
+        accepted = False
+
+        parent = self
+        title = "New Tag"
+        label = "Tag:"
+        echoMode = QLineEdit.Normal
+        initialText = ""
+        
+        (text, accepted) = \
+            QInputDialog.getText(parent, title, label, echoMode, initialText)
+        
+        if accepted == True:
+            tag = text.strip()
+            if tag != "":
+                self._appendTagAsListWidgetItem(tag, True)
+
+    def _handleRemoveTagButtonClicked(self):
+        """Called when the 'Remove Tag' button is clicked."""
+
+        # Get the selected row.
+        row = self.listWidget.currentRow()
+
+        if row >= 0 and row < self.listWidget.count():
+            # It is a valid row.
+
+            # First remove the item from the QListWidget.
+            self.listWidget.takeItem(row)
+
+            # If there is another item after that one in the list, then
+            # select that one as the current, otherwise select the index
+            # before.
+            if self.listWidget.item(row) != None:
+                # There an item after this one, so set that one as the
+                # current.
+                self.listWidget.setCurrentRow(row)
+            else:
+                # The one we just removed was the last item in the
+                # list.  Select the one before it if it exists,
+                # otherwise, clear out the display fields.
+                if row != 0:
+                    self.listWidget.setCurrentRow(row - 1)
+
+    def _handleEditTagButtonClicked(self):
+        """Called when the 'Edit Tag' button is clicked."""
+
+        # Get the selected row.
+        row = self.listWidget.currentRow()
+
+        # Get the selected item.
+        item = self.listWidget.item(row)
+        
+        # Get the str for editing.
+        tag = item.text()
+        
+        # Create a dialog and allow the user to edit it.
+        accepted = False
+
+        parent = self
+        title = "Edit Tag"
+        label = "Tag:"
+        echoMode = QLineEdit.Normal
+        initialText = tag
+        
+        (text, accepted) = \
+            QInputDialog.getText(parent, title, label, echoMode, initialText)
+        
+        if accepted == True:
+            text = text.strip()
+            if text != "" and text != tag:
+                item.setText(text)
+
+    def _handleMoveTagUpButtonClicked(self):
+        """Called when the 'Move tag up' button is clicked."""
+
+        # Get the selected row.
+        row = self.listWidget.currentRow()
+
+        # Proceed only if the selected tag is not the top entry in the
+        # QListWidget.
+        if row > 0:
+            # It is not the top row yet, so we can do a swap to move it
+            # higher.
+
+            currItem = self.listWidget.takeItem(row)
+            self.listWidget.insertItem(row - 1, currItem)
+
+            # Set the selected row as the same underlying tag.
+            self.listWidget.setCurrentRow(row - 1)
+
+    def _handleMoveTagDownButtonClicked(self):
+        """Called when the 'Move tag down' button is clicked."""
+
+        # Get the selected row.
+        row = self.listWidget.currentRow()
+
+        # Proceed only if the selected tag is not the bottom entry in
+        # the QListWidget.
+        if row < (self.listWidget.count() - 1) and row >= 0:
+            # It is not the bottom row yet, so we can do a swap to move it
+            # lower.
+
+            currItem = self.listWidget.takeItem(row)
+            self.listWidget.insertItem(row + 1, currItem)
+
+            # Set the selected row as the same underlying tag.
+            self.listWidget.setCurrentRow(row + 1)
+
+    def _handleOkayButtonClicked(self):
+        """Called when the okay button is clicked."""
+
+        self.saveTags()
+        self.okayButtonClicked.emit()
+
+    def _handleCancelButtonClicked(self):
+        """Called when the cancel button is clicked."""
+
+        self.cancelButtonClicked.emit()
+
+class PriceBarTagEditDialog(QDialog):
+    """QDialog for editing the tags on a PriceBar.
+
+    The tags associated with a PriceBar are just a list of strings
+    that may have meaning to that particular PriceBar.
+    
+    For example, different schemes can be used, for example,"H",
+    used for a high within 5 bars... and "LL" used for a
+    low within 10 bars, etc.
+    """
+
+    def __init__(self, tags=[], parent=None):
+        """Initializes the internal edit widget with the given values.
+
+        Arguments:
+
+        tags   - list of str objects.
+                 This is the list of tag strings we are editing.
+
+        parent - QWidget parent
+        """
+
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger("widget.PriceBarTagEditDialog")
+
+        self.setWindowTitle("PriceBar Tags")
+
+        # Save a reference to the PriceBarChartScaling object.
+        self.tags = tags
+
+        # Create the contents.
+        self.editWidget = PriceBarTagEditWidget(self.tags)
+
+        # Setup the layout.
+        layout = QVBoxLayout()
+        layout.addWidget(self.editWidget)
+        self.setLayout(layout)
+
+        self.editWidget.okayButtonClicked.connect(self.accept)
+        self.editWidget.cancelButtonClicked.connect(self.reject)
+
+    def getTags(self):
+        """Returns the internally stored tags."""
+
+        self.tags = self.editWidget.getTags()
+        
+        return self.tags
+
+
+# TODO:  the below implementation fo this class was copied from another place and needs to be modified to suit the needs of editing a PriceBar.  Also add a PriceBarChartPriceBarEditDialog as well.
+class PriceBarChartPriceBarEditWidget(QWidget):
+    """QWidget for editing the info in a PriceBarChart.
+    """
+
+    # Signal emitted when the Okay button is clicked and 
+    # validation succeeded.
+    okayButtonClicked = QtCore.pyqtSignal()
+
+    # Signal emitted when the Cancel button is clicked.
+    cancelButtonClicked = QtCore.pyqtSignal()
+
+    def __init__(self, priceBar, parent=None, readOnly=True):
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger("pricebarchart_dialogs.PriceBarChartPriceBarEditWidget")
+
+        # Save off the PriceBarChartScaling object.
+        self.priceBar = priceBar
+
+        # Read-Only flag.
+        self.readOnlyFlag = readOnly
+        
+        # QGroupBox to hold the edit widgets and form.
+        self.groupBox = \
+            QGroupBox("PriceBar:")
+
+        # Timestamp.
+        self.timestampLabel = QLabel("Timestamp:")
+        self.timestampEditWidget = TimestampEditWidget()
+
+        # Open price.
+        self.openPriceLabel = QLabel("Open Price:")
+        self.openPriceSpinBox = QDoubleSpinBox()
+        self.openPriceSpinBox.setMinimum(0.0)
+        self.openPriceSpinBox.setMaximum(999999999.0)
+
+        # High price.
+        self.highPriceLabel = QLabel("High Price:")
+        self.highPriceSpinBox = QDoubleSpinBox()
+        self.highPriceSpinBox.setMinimum(0.0)
+        self.highPriceSpinBox.setMaximum(999999999.0)
+
+        # Low price.
+        self.lowPriceLabel = QLabel("Low Price:")
+        self.lowPriceSpinBox = QDoubleSpinBox()
+        self.lowPriceSpinBox.setMinimum(0.0)
+        self.lowPriceSpinBox.setMaximum(999999999.0)
+
+        # Close price.
+        self.closePriceLabel = QLabel("Close Price:")
+        self.closePriceSpinBox = QDoubleSpinBox()
+        self.closePriceSpinBox.setMinimum(0.0)
+        self.closePriceSpinBox.setMaximum(999999999.0)
+
+        # Open interest.
+        self.openInterestLabel = QLabel("Open Interest:")
+        self.openInterestSpinBox = QDoubleSpinBox()
+        self.openInterestSpinBox.setMinimum(0.0)
+        self.openInterestSpinBox.setMaximum(999999999.0)
+
+        # Volume.
+        self.volumeLabel = QLabel("Volume:")
+        self.volumeSpinBox = QDoubleSpinBox()
+        self.volumeSpinBox.setMinimum(0.0)
+        self.volumeSpinBox.setMaximum(999999999.0)
+
+        # Open price.
+        self.openPriceLabel = QLabel("Open Price:")
+        self.openPriceSpinBox = QDoubleSpinBox()
+        self.openPriceSpinBox.setMinimum(0.0)
+        self.openPriceSpinBox.setMaximum(999999999.0)
+
+        # Tags.
+        
+        
+        self.formLayout = QFormLayout()
+        self.formLayout.setLabelAlignment(Qt.AlignLeft)
+        self.formLayout.addRow(self.nameLabel, self.nameLineEdit)
+        self.formLayout.addRow(self.descriptionLabel, 
+                               self.descriptionLineEdit)
+        self.formLayout.addRow(self.unitsOfTimeLabel, 
+                               self.unitsOfTimeSpinBox)
+        self.formLayout.addRow(self.unitsOfPriceLabel, 
+                               self.unitsOfPriceSpinBox)
+
+        self.groupBox.setLayout(self.formLayout)
+
+        # Buttons at bottom.
+        self.okayButton = QPushButton("&Okay")
+        self.cancelButton = QPushButton("&Cancel")
+        self.buttonsAtBottomLayout = QHBoxLayout()
+        self.buttonsAtBottomLayout.addStretch()
+        self.buttonsAtBottomLayout.addWidget(self.okayButton)
+        self.buttonsAtBottomLayout.addWidget(self.cancelButton)
+
+        # Put all layouts/groupboxes together into the widget.
+        self.mainLayout = QVBoxLayout()
+        self.mainLayout.addWidget(self.groupBox) 
+        self.mainLayout.addSpacing(10)
+        self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
+
+        self.setLayout(self.mainLayout)
+
+        # Now that all the widgets are created, load the values from the
+        # settings.
+        self.loadScaling(self.priceBarChartScaling)
+
+        # Connect signals and slots.
+
+        # Connect okay and cancel buttons.
+        self.okayButton.clicked.connect(self._handleOkayButtonClicked)
+        self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
+
+
+    def loadScaling(self, priceBarChartScaling):
+        """Loads the widgets with values from the given
+        PriceBarChartScaling object.
+        """
+
+        self.log.debug("Entered loadScaling()")
+
+        # Check inputs.
+        if priceBarChartScaling == None:
+            self.log.error("Invalid parameter to loadScaling().  " + \
+                           "priceBarChartScaling can't be None.")
+            self.log.debug("Exiting loadScaling()")
+            return
+        else:
+            self.priceBarChartScaling = priceBarChartScaling 
+
+        self.nameLineEdit.setText(self.priceBarChartScaling.name)
+        self.descriptionLineEdit.\
+            setText(self.priceBarChartScaling.description)
+        self.unitsOfTimeSpinBox.\
+            setValue(self.priceBarChartScaling.getUnitsOfTime())
+        self.unitsOfPriceSpinBox.\
+            setValue(self.priceBarChartScaling.getUnitsOfPrice())
+
+        self.log.debug("Exiting loadScaling()")
+        
+    def saveScaling(self):
+        """Saves the values in the widgets to the 
+        PriceBarChartScaling object passed in this class's constructor.
+        """
+    
+        self.log.debug("Entered saveScaling()")
+
+        self.priceBarChartScaling.name = self.nameLineEdit.text()
+        self.priceBarChartScaling.description = \
+            self.descriptionLineEdit.text()
+        self.priceBarChartScaling.\
+            setUnitsOfTime(self.unitsOfTimeSpinBox.value())
+        self.priceBarChartScaling.\
+            setUnitsOfPrice(self.unitsOfPriceSpinBox.value())
+
+        self.log.debug("Exiting saveScaling()")
+
+    def getPriceBarChartScaling(self):
+        """Returns the internally stored PriceBarChartScaling object.
+        This may or may not represent what is in the widgets, depending on
+        whether or not saveScaling has been called.
+        """
+
+        return self.priceBarChartScaling
+
+    def _handleOkayButtonClicked(self):
+        """Called when the okay button is clicked."""
+
+        self.saveScaling()
+        self.okayButtonClicked.emit()
+
+    def _handleCancelButtonClicked(self):
+        """Called when the cancel button is clicked."""
+
+        self.cancelButtonClicked.emit()
+
+    
 # For debugging the module during development.  
 if __name__=="__main__":
     from ephemeris import Ephemeris
@@ -639,11 +1202,29 @@ if __name__=="__main__":
     #        format(now, p.name, p.toString()))
     
     
-    widget = PlanetaryInfoTableWidget(planets)
+    #widget = PlanetaryInfoTableWidget(planets)
     #widget = PlanetaryInfoTableWidget([])
-    widget.show()
+    #widget.show()
 
 
+    #tags = ["hello", "myname_is", "a happy camper", "LLLL", "HH"]
+    #dialog = PriceBarTagEditDialog(tags)
+    #rv = dialog.exec()
+    #if rv == QDialog.Accepted:
+    #    print("Accepted")
+    #    tags = dialog.getTags()
+    #    print("{}".format(tags))
+    #else:
+    #    print("Rejected")
+    #    tags = dialog.getTags()
+    #    print("{}".format(tags))
+
+
+    # Quit.
+    #print("Exiting.")
+    #import sys
+    #sys.exit()
+        
     # Exit the app when all windows are closed.
     app.connect(app, SIGNAL("lastWindowClosed()"), logging.shutdown)
     app.connect(app, SIGNAL("lastWindowClosed()"), app, SLOT("quit()"))

@@ -1043,9 +1043,6 @@ class PriceBarChartSettings:
     # Default pen width for non-highlighted price bar.
     defaultPriceBarGraphicsItemPenWidth = 0.0
 
-    # Default pen width for bolded (highlighted) price bar.
-    defaultPriceBarGraphicsItemBoldPenWidth = 0.2
-
     # Default width of the left extension (opening price) of a price bar.
     defaultPriceBarGraphicsItemLeftExtensionWidth = 0.5
 
@@ -1084,15 +1081,10 @@ class PriceBarChartSettings:
         # which scaling to use.  
         self.priceBarChartGraphicsViewScalingsIndex = -1
 
-        # Pen width for standard PriceBars (not highlighted or not bold).
+        # Pen width for PriceBars.
         # This is a float value.
         self.priceBarGraphicsItemPenWidth = \
             PriceBarChartSettings.defaultPriceBarGraphicsItemPenWidth 
-
-        # Pen width for use on highlighted (bold) PriceBars.
-        # This is a float value.
-        self.priceBarGraphicsItemBoldPenWidth = \
-            PriceBarChartSettings.defaultPriceBarGraphicsItemBoldPenWidth 
 
         # Width of the left extension drawn that represents the open price.
         # This is a float value.
@@ -1167,8 +1159,6 @@ class PriceBarChartSettings:
                     format(scalingsStr) + \
                 "priceBarGraphicsItemPenWidth={}, ".\
                     format(self.priceBarGraphicsItemPenWidth) + \
-                "priceBarGraphicsItemBoldPenWidth={}, ".\
-                    format(self.priceBarGraphicsItemBoldPenWidth) + \
                 "priceBarGraphicsItemLeftExtensionWidth={}, ".\
                     format(self.priceBarGraphicsItemLeftExtensionWidth) + \
                 "priceBarGraphicsItemRightExtensionWidth={}, ".\

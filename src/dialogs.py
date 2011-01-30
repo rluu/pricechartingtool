@@ -10222,15 +10222,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.priceBarGraphicsItemPenWidthResetButton = \
             QPushButton("Reset to default")
 
-        # priceBarGraphicsItemBoldPenWidth (float).
-        self.priceBarGraphicsItemBoldPenWidthLabel = \
-            QLabel("PriceBarGraphicsItem bold pen width:")
-        self.priceBarGraphicsItemBoldPenWidthSpinBox = QDoubleSpinBox()
-        self.priceBarGraphicsItemBoldPenWidthSpinBox.setMinimum(0.0)
-        self.priceBarGraphicsItemBoldPenWidthSpinBox.setMaximum(1000.0)
-        self.priceBarGraphicsItemBoldPenWidthResetButton = \
-            QPushButton("Reset to default")
-
         # priceBarGraphicsItemLeftExtensionWidth (float).
         self.priceBarGraphicsItemLeftExtensionWidthLabel = \
             QLabel("PriceBarGraphicsItem left extension width:")
@@ -10300,16 +10291,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
                       r, 1, ar)
         gridLayout.\
             addWidget(self.priceBarGraphicsItemPenWidthResetButton, 
-                      r, 2, ar)
-        r += 1
-        gridLayout.\
-            addWidget(self.priceBarGraphicsItemBoldPenWidthLabel, 
-                      r, 0, al)
-        gridLayout.\
-            addWidget(self.priceBarGraphicsItemBoldPenWidthSpinBox, 
-                      r, 1, ar)
-        gridLayout.\
-            addWidget(self.priceBarGraphicsItemBoldPenWidthResetButton, 
                       r, 2, ar)
         r += 1
         gridLayout.\
@@ -10416,8 +10397,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
         # Connect reset buttons.
         self.priceBarGraphicsItemPenWidthResetButton.clicked.\
             connect(self._handlePriceBarPenWidthResetButtonClicked)
-        self.priceBarGraphicsItemBoldPenWidthResetButton.clicked.\
-            connect(self._handlePriceBarBoldPenWidthResetButtonClicked)
         self.priceBarGraphicsItemLeftExtensionWidthResetButton.clicked.\
             connect(self._handlePriceBarLeftExtensionWidthResetButtonClicked)
         self.priceBarGraphicsItemRightExtensionWidthResetButton.clicked.\
@@ -10459,11 +10438,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
         # priceBarGraphicsItemPenWidth (float).
         self.priceBarGraphicsItemPenWidthSpinBox.\
             setValue(self.priceBarChartSettings.priceBarGraphicsItemPenWidth)
-
-        # priceBarGraphicsItemBoldPenWidth (float).
-        self.priceBarGraphicsItemBoldPenWidthSpinBox.\
-            setValue(self.priceBarChartSettings.\
-                        priceBarGraphicsItemBoldPenWidth)
 
         # priceBarGraphicsItemLeftExtensionWidth (float).
         self.priceBarGraphicsItemLeftExtensionWidthSpinBox.\
@@ -10508,10 +10482,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.priceBarChartSettings.priceBarGraphicsItemPenWidth = \
             float(self.priceBarGraphicsItemPenWidthSpinBox.value())
 
-        # priceBarGraphicsItemBoldPenWidth (float).
-        self.priceBarChartSettings.priceBarGraphicsItemBoldPenWidth = \
-            float(self.priceBarGraphicsItemBoldPenWidthSpinBox.value())
-
         # priceBarGraphicsItemLeftExtensionWidth (float).
         self.priceBarChartSettings.priceBarGraphicsItemLeftExtensionWidth = \
             float(self.priceBarGraphicsItemLeftExtensionWidthSpinBox.value())
@@ -10546,14 +10516,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         value = PriceBarChartSettings.defaultPriceBarGraphicsItemPenWidth
         self.priceBarGraphicsItemPenWidthSpinBox.setValue(value)
-
-    def _handlePriceBarBoldPenWidthResetButtonClicked(self):
-        """Called when the boldPenWidthResetButton is clicked.
-        Resets the widget value to the default value.
-        """
-
-        value = PriceBarChartSettings.defaultPriceBarGraphicsItemBoldPenWidth
-        self.priceBarGraphicsItemBoldPenWidthSpinBox.setValue(value)
 
     def _handlePriceBarLeftExtensionWidthResetButtonClicked(self):
         """Called when the leftExtensionWidthResetButton is clicked.
@@ -10624,7 +10586,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
         """
 
         self._handlePriceBarPenWidthResetButtonClicked()
-        self._handlePriceBarBoldPenWidthResetButtonClicked()
         self._handlePriceBarLeftExtensionWidthResetButtonClicked()
         self._handlePriceBarRightExtensionWidthResetButtonClicked()
         self._handleBarCountGraphicsItemBarHeightResetButtonClicked()
