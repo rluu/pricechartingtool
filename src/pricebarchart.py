@@ -1485,7 +1485,7 @@ class PriceBarChartWidget(QWidget):
                 self.graphicsScene.addItem(newItem)
                 
                 # Make sure the proper flags are set for the mode we're in.
-                self.graphicsView.setGraphicsItemFlagsPerCurrToolMode(item)
+                self.graphicsView.setGraphicsItemFlagsPerCurrToolMode(newItem)
 
                 # Need to recalculate bar count, since it wasn't in
                 # the QGraphicsScene until now.
