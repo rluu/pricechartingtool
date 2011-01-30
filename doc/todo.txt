@@ -9,16 +9,18 @@ CHECK  - Need to implement selection of pricebars so that they get
 CHECK     highlighted and the QLabels at the top get updated with the
 CHECK     pricebar.
 
-  - In pricebarchart.py, need to make sure when I create new
-    QGraphicsItems as either PriceBars or Artifacts, that the
-    QGrahpicsItem flags get set according to whatever tool mode I'm
-    currently in!
+CHECK  - In pricebarchart.py, need to make sure when I create new
+CHECK    QGraphicsItems as either PriceBars or Artifacts, that the
+CHECK    QGrahpicsItem flags get set according to whatever tool mode I'm
+CHECK    currently in!
 
   - Need to add right-click context menus and popup info/edit dialog widgets.
-     - Dialog widgets for info/editing should be in new file: 
+     - Dialog widgets for info/editing of artifacts should be in new file: 
        pricebarchart_dialogs.py
+     - Edit/Dialog widgets for info/editing of Timestamps and PriceBars 
+       should go in widgets.py
 
-  - Remove bolding option of PriceBars (and pen width of it, etc.).
+CHECK  - Remove bolding option of PriceBars (and pen width of it, etc.).
 
   - Need to create icons for the different new modes for creating indicators.
      - BarCount

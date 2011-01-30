@@ -539,13 +539,305 @@ class PlanetaryInfoTableWidget(QTableWidget):
 
 
 class TimestampEditWidget(QWidget):
-    """QWidget for editing timestamps.
+    """QWidget for editing/displaying timestamps.
     
-    This includes the timezone information (and whether in daylight
-    savings or not).
+    This includes the ability to set whether or not it is in daylight
+    savings time or not.
     """
 
-    # TODO:  write this class
+    # Signal emitted when the Okay button is clicked and 
+    # validation succeeded.
+    okayButtonClicked = QtCore.pyqtSignal()
+
+    # Signal emitted when the Cancel button is clicked.
+    cancelButtonClicked = QtCore.pyqtSignal()
+
+    def __init__(self, timestamp=None, parent=None):
+        """Initializes the widgets to hold the datetime.datetime in
+        the timestamp variable.
+
+        Arguments:
+        timestamp - datetime.datetime object with a non-None pytz timezone.
+        """
+        
+        super().__init__(parent)
+        
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger("widgets.TimestampEditWidget")
+
+        # Do some input checking.
+        if not isinstance(timestamp, datetime.datetime):
+            msg = "Argument 'timestamp' is expected to be a " + \
+                  "datetime.datetime object."
+            self.log.error(msg)
+            QMessageBox.warning(self, "Programmer error", msg)
+            return
+        elif timestamp.tzinfo == None:
+            msg = "Argument 'timestamp' is expected to have " + \
+                  "tzinfo set in the datetime.datetime object as " + \
+                  "a pytz.timezone object."
+            self.log.error(msg)
+            QMessageBox.warning(self, "Programmer error", msg)
+            return
+        
+        # Save off the timestamp as a datetime.datetime object.
+        # This is only modified if save is called.
+        self.dt = timestamp
+
+        # QGroupBox to hold the edit widgets and form.
+        self.groupBox = QGroupBox("Timestamp:")
+        
+        # Date and time.
+        self.datetimeLabel = QLabel("Date and Time:")
+        self.datetimeEditWidget = QDateTimeEdit()
+        self.datetimeEditWidget.setMinimumDate(QDate(101, 1, 1))
+
+        # Timezone.
+        self.timezoneLabel = QLabel("Timezone:")
+        self.timezoneComboBox = QComboBox()
+        self.timezoneComboBox.addItems(pytz.common_timezones)
+
+        # Daylight savings modes.
+        self.daylightLabel = QLabel("Daylight savings:")
+        self.daylightComboBox = QComboBox()
+        
+        # Form layout.
+        self.formLayout = QFormLayout()
+        self.formLayout.setLabelAlignment(Qt.AlignLeft)
+        self.formLayout.addRow(self.datetimeLabel, self.datetimeEditWidget)
+        self.formLayout.addRow(self.timezoneLabel, self.timezoneComboBox)
+        self.formLayout.addRow(self.daylightLabel, self.daylightComboBox)
+
+        self.groupBox.setLayout(self.formLayout)
+
+        # Buttons at bottom.
+        self.okayButton = QPushButton("&Okay")
+        self.cancelButton = QPushButton("&Cancel")
+        self.buttonsAtBottomLayout = QHBoxLayout()
+        self.buttonsAtBottomLayout.addStretch()
+        self.buttonsAtBottomLayout.addWidget(self.okayButton)
+        self.buttonsAtBottomLayout.addWidget(self.cancelButton)
+
+        # Put all layouts/groupboxes together into the widget.
+        self.mainLayout = QVBoxLayout()
+        self.mainLayout.addWidget(self.groupBox) 
+        self.mainLayout.addSpacing(10)
+        self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
+
+        self.setLayout(self.mainLayout)
+
+        # Now that all the widgets are created, load the values from the
+        # timestamp.
+        self.loadTimestamp(self.dt)
+
+        # Connect signals and slots.
+
+        # Connect okay and cancel buttons.
+        self.datetimeEditWidget.dateTimeChanged.\
+            connect(self.updateDaylightComboBox)
+        self.timezoneComboBox.currentIndexChanged.\
+            connect(self.updateDaylightComboBox)
+        self.okayButton.clicked.connect(self._handleOkayButtonClicked)
+        self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
+
+    def _getAllTzNamesForTimezone(self, tz):
+        """Returns a list of str objects, which consist of all the possible
+        tznames (e.g, "EST", "EDT"), that are possible in a given timezone.
+        The timezone to test against is the pytz.timezone in 'tz'.
+
+        Arguments:
+
+        tz - pytz.timezone object to get the possible tznames from.
+        """
+
+        # Return value.
+        tznames = []
+
+        # Go through the first day of each month and try to find
+        # unique strings for the tzname.  I'm just doing this because
+        # it's fast, and I believe all timezones implement their
+        # daylight savings time for a span of more than one month a
+        # year.
+        year = 2010
+        day = 1
+
+        for i in range(12):
+            month = i + 1
+            dt = datetime.datetime(year, month, day, tzinfo=None)
+            try:
+                name = tz.tzname(dt)
+                if name not in tznames:
+                    tznames.append(name)
+            except pytz.AmbiguousTimeError as e:
+                # Ignore.
+                pass
+
+        return sorted(tznames)
+    
+    def updateDaylightComboBox(self):
+        """Updates the daylight savings combo box because the
+        timestamp has changed or the timezone has changed.
+
+        This field is only enabled if the timezone has more than one
+        tzname (for daylight saving time and standard time).  If we
+        can arrive at whether we are in DST time or standard time,
+        then this widget will be set to the appropriate selection, and
+        the combobox disabled.  If the timestamp and timezone settings
+        make the daylightComboBox ambiguous, then the widget becomes
+        enabled and user may select which one he/she wants.
+
+        In otherwords, this widget is 'smart'.
+        """
+
+        # Construct a datetime.datetime object from the QDateTimeEdit
+        # widget's current values.
+        qdatetime = self.datetimeEditWidget.dateTime()
+        qdate = qdatetime.date()
+        qtime = qdatetime.time()
+
+        dt = datetime.datetime(qdate.year(), qdate.month(), qdate.day(),
+                               qtime.hour(), qtime.minute(), qtime.second())
+        
+        timezoneString = str(self.timezoneComboBox.currentText())
+        
+        # Create a timezone object.
+        tzinfoObj = pytz.timezone(timezoneString)
+
+        # Populate with possible tznames.
+        tznames = self._getAllTzNamesForTimezone(tzinfoObj)
+        self.daylightComboBox.clear()
+        self.daylightComboBox.addItems(daylightNames)
+        if len(daylightNames) < 2:
+            self.daylightComboBox.setEnabled(False)
+
+        # Find out if the timestamp is ambiguous.
+        try:
+            temp = tzinfoObj.localize(dt, is_dst=None)
+            
+            # If it got here, that means the timestamp is not ambiguous.
+            # Select the relevant daylight savings/standard time tzname.
+            tznameStr = temp.tzname()
+
+            index = self.daylightComboBox.findText(tznameStr)
+            if index != -1:
+                self.daylightComboBox.setCurrentIndex(index)
+            else:
+                errStr = "Couldn't find the tzname " + tznameStr + \
+                         " in the combo box list of tznames."
+                self.log.error(errStr)
+                QMessageBox.warning(None, "Error", errStr)
+            
+        except pytz.AmbiguousTimeError as e:
+            # Timestamp is ambiguous in terms of daylight savings time.
+            
+            # Select the first entry in the combo box, and enable the
+            # combo box so the user can pick which one he/she wants.
+            if self.daylightComboBox.count() > 0:
+                self.daylightComboBox.setCurrentIndex(0)
+                self.daylightComboBox.setEnabled(True)
+            else:
+                errStr = "Timestamp is ambiguous and there are " + \
+                         "no possible find the tznames?!?  " + \
+                         "How can this be?  There must be a " + \
+                         "logic error in my code somewhere..."
+                self.log.error(errStr)
+                QMessageBox.warning(None, "Error", errStr)
+
+            
+    def loadTimestamp(self, timestamp):
+        """Loads the widgets with values from the given
+        PriceBarChartScaling object.
+        """
+
+        self.log.debug("Entered loadTimestamp()")
+
+        # Check inputs.
+        if timestamp == None:
+            self.log.error("Invalid parameter to loadTimestamp().  " + \
+                           "timestamp can't be None.")
+            self.log.debug("Exiting loadTimestamp()")
+            return
+        else:
+            self.dt = timestamp 
+
+        # Convert the datetime object to the equivalent qdatetime.
+        # Note: Here we are assuming timespec UTC.  This is only for
+        # the information internal to QDateTimeEdit.  We keep the
+        # actual timezone information in self.dt.
+        date = QDate(self.dt.year, self.dt.month, self.dt.day)
+        time = QTime(self.dt.hour, self.dt.minute, self.dt.second)
+        timespec = Qt.UTC
+        qdatetime = QDateTime(date, time, timespec)
+
+        # Set the timestamp.
+        self.datetimeEditWidget.setDateTime(qdatetime)
+
+        # Select the timezone.
+        index = self.timezoneComboBox.findText(self.dt.tzinfo.zone)
+        if index != -1:
+            self.timezoneComboBox.setCurrentIndex(index)
+        else:
+            errStr = "Couldn't find timezone '" + self.dt.tzinfo.zone + \
+                     "' in the pytz list of timezones."
+            self.log.error(errStr)
+            QMessageBox.warning(None, "Error", errStr)
+            return
+
+        # Call update on the daylight combo box, just so we can get it
+        # populated with the correct tznames.  That function may or
+        # may not set the current index to match self.dt, so we'll
+        # have to manually select the tzname ourselves.
+        self.updateDaylightComboBox()
+
+        tznameStr = self.dt.tzname()
+        index = self.daylightComboBox.findText(tznameStr)
+        if index != -1:
+            self.daylightComboBox.setCurrentIndex(index)
+        else:
+            errStr = "Couldn't find the tzname " + tznameStr + \
+                     " in the combo box list of tznames."
+            self.log.error(errStr)
+            QMessageBox.warning(None, "Error", errStr)
+
+        self.log.debug("Exiting loadTimestamp()")
+        
+    def saveTimestamp(self):
+        """Saves the values in the widgets to the 
+        PriceBarChartScaling object passed in this class's constructor.
+        """
+    
+        self.log.debug("Entered saveTimestamp()")
+
+        # TODO:  write this function.
+
+        self.log.debug("Exiting saveTimestamp()")
+
+    def getTimestamp(self):
+        """Gets and returns the timestamp as saved in this widget.
+        This value only matches what is in the widgets if nothing has
+        changed, or if saveTimestamp() has been called previous to
+        calling this function.
+
+        Returns:
+
+        datetime.datetime object with it's date and time set, and with
+        tzinfo set to a valid pytz.timezone object.
+        """
+
+        return self.dt
+        
+    def _handleOkayButtonClicked(self):
+        """Called when the okay button is clicked."""
+
+        self.saveTimestamp()
+        self.okayButtonClicked.emit()
+
+    def _handleCancelButtonClicked(self):
+        """Called when the cancel button is clicked."""
+
+        self.cancelButtonClicked.emit()
+
 
 class TimestampEditDialog(QDialog):
     """QDialog for editing timestamps.
@@ -921,7 +1213,7 @@ class PriceBarTagEditDialog(QDialog):
         return self.tags
 
 
-# TODO:  the below implementation fo this class was copied from another place and needs to be modified to suit the needs of editing a PriceBar.  Also add a PriceBarChartPriceBarEditDialog as well.
+# TODO:  the below implementation fo this class was copied from another place and needs to be modified to suit the needs of editing a PriceBar.  Also add a PriceBarEditDialog as well.
 class PriceBarChartPriceBarEditWidget(QWidget):
     """QWidget for editing the info in a PriceBarChart.
     """

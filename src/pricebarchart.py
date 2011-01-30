@@ -798,7 +798,7 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
             
             # Update the barCount label position.
             deltaX = self.endPointF.x() - self.startPointF.x()
-            y = -1.0 * (self.barCountGraphicsItemBarHeight / 2.0)
+            y = 0
             self.barCountText.setPos(QPointF(deltaX, y))
 
             if self.scene() != None:
@@ -824,7 +824,7 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
             # Update the barCount label position.
             deltaX = self.endPointF.x() - self.startPointF.x()
-            y = -1.0 * (self.barCountGraphicsItemBarHeight / 2.0)
+            y = 0
             self.barCountText.setPos(QPointF(deltaX, y))
 
             if self.scene() != None:
@@ -848,7 +848,7 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
             # Update the barCount label position.
             deltaX = self.endPointF.x() - self.startPointF.x()
-            y = -1.0 * (self.barCountGraphicsItemBarHeight / 2.0)
+            y = 0
             self.barCountText.setPos(QPointF(deltaX, y))
 
             self.recalculateBarCount()
@@ -1374,6 +1374,9 @@ class PriceBarChartWidget(QWidget):
             # Add the item.
             self.graphicsScene.addItem(item)
 
+            # Make sure the proper flags are set for the mode we're in.
+            self.graphicsView.setGraphicsItemFlagsPerCurrToolMode(item)
+
             # X location based on the timestamp.
             x = self._datetimeToSceneXPos(priceBar.timestamp)
 
@@ -1477,8 +1480,12 @@ class PriceBarChartWidget(QWidget):
                 newItem.loadSettingsFromPriceBarChartSettings(\
                     self.priceBarChartSettings)
                 newItem.setPriceBarChartBarCountArtifact(artifact)
-                
+
+                # Add the item.
                 self.graphicsScene.addItem(newItem)
+                
+                # Make sure the proper flags are set for the mode we're in.
+                self.graphicsView.setGraphicsItemFlagsPerCurrToolMode(item)
 
                 # Need to recalculate bar count, since it wasn't in
                 # the QGraphicsScene until now.
@@ -1952,6 +1959,72 @@ class PriceBarChartGraphicsView(QGraphicsView):
         
         self.priceBarChartSettings = priceBarChartSettings
         
+    def setGraphicsItemFlagsPerCurrToolMode(self, item):
+        """Sets the QGraphicsItem flags of the given QGraphicsItem,
+        according to what the flags should be set to for the current
+        tool mode.
+
+        Arguments:
+
+        item - QGraphicsItem that needs its flags set.
+        """
+        
+        if self.toolMode == \
+               PriceBarChartGraphicsView.ToolMode['ReadOnlyPointerTool']:
+
+            if isinstance(item, PriceBarGraphicsItem):
+                item.setFlags(QGraphicsItem.ItemIsSelectable)
+            elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                item.setReadOnlyFlag(True)
+                item.setFlags(QGraphicsItem.ItemIsSelectable)
+                
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['PointerTool']:
+             
+            if isinstance(item, PriceBarGraphicsItem):
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+            elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                item.setReadOnlyFlag(False)
+                item.setFlags(QGraphicsItem.ItemIsMovable |
+                              QGraphicsItem.ItemIsSelectable)
+                
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['HandTool']:
+             
+            if isinstance(item, PriceBarGraphicsItem):
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+            elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                item.setReadOnlyFlag(True)
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['ZoomInTool']:
+
+            if isinstance(item, PriceBarGraphicsItem):
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+            elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                item.setReadOnlyFlag(True)
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+             
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['ZoomOutTool']:
+
+            if isinstance(item, PriceBarGraphicsItem):
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+            elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                item.setReadOnlyFlag(True)
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['BarCountTool']:
+
+            if isinstance(item, PriceBarGraphicsItem):
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+            elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                item.setReadOnlyFlag(True)
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+
+                
     def toReadOnlyPointerToolMode(self):
         """Changes the tool mode to be the ReadOnlyPointerTool.
         
@@ -1972,22 +2045,15 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 PriceBarChartGraphicsView.ToolMode['ReadOnlyPointerTool']
 
             self.setCursor(QCursor(Qt.ArrowCursor))
+            self.setDragMode(QGraphicsView.RubberBandDrag)
 
             scene = self.scene()
             if scene != None:
                 scene.clearSelection()
 
-            self.setDragMode(QGraphicsView.RubberBandDrag)
-
-            # Set the QGraphicsItem flags.
-            if scene != None:
                 items = scene.items()
                 for item in items:
-                    if isinstance(item, PriceBarGraphicsItem):
-                        item.setFlags(QGraphicsItem.ItemIsSelectable)
-                    elif isinstance(item, PriceBarChartArtifactGraphicsItem):
-                        item.setReadOnlyFlag(True)
-                        item.setFlags(QGraphicsItem.ItemIsSelectable)
+                    self.setGraphicsItemFlagsPerCurrToolMode(item)
 
         self.log.debug("Exiting toReadOnlyPointerToolMode()")
 
@@ -2008,23 +2074,15 @@ class PriceBarChartGraphicsView(QGraphicsView):
             self.toolMode = PriceBarChartGraphicsView.ToolMode['PointerTool']
 
             self.setCursor(QCursor(Qt.ArrowCursor))
+            self.setDragMode(QGraphicsView.RubberBandDrag)
 
             scene = self.scene()
             if scene != None:
                 scene.clearSelection()
 
-            self.setDragMode(QGraphicsView.RubberBandDrag)
-
-            # Set the QGraphicsItem flags.
-            if scene != None:
                 items = scene.items()
                 for item in items:
-                    if isinstance(item, PriceBarGraphicsItem):
-                        item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
-                    elif isinstance(item, PriceBarChartArtifactGraphicsItem):
-                        item.setReadOnlyFlag(False)
-                        item.setFlags(QGraphicsItem.ItemIsMovable |
-                                      QGraphicsItem.ItemIsSelectable)
+                    self.setGraphicsItemFlagsPerCurrToolMode(item)
             
         self.log.debug("Exiting toPointerToolMode()")
 
@@ -2038,22 +2096,15 @@ class PriceBarChartGraphicsView(QGraphicsView):
             self.toolMode = PriceBarChartGraphicsView.ToolMode['HandTool']
 
             self.setCursor(QCursor(Qt.ArrowCursor))
+            self.setDragMode(QGraphicsView.ScrollHandDrag)
 
             scene = self.scene()
             if scene != None:
                 scene.clearSelection()
 
-            self.setDragMode(QGraphicsView.ScrollHandDrag)
-
-            # Set the QGraphicsItem flags.
-            if scene != None:
                 items = scene.items()
                 for item in items:
-                    if isinstance(item, PriceBarGraphicsItem):
-                        item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
-                    elif isinstance(item, PriceBarChartArtifactGraphicsItem):
-                        item.setReadOnlyFlag(True)
-                        item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+                    self.setGraphicsItemFlagsPerCurrToolMode(item)
 
         self.log.debug("Exiting toHandToolMode()")
 
@@ -2066,29 +2117,21 @@ class PriceBarChartGraphicsView(QGraphicsView):
         if self.toolMode != PriceBarChartGraphicsView.ToolMode['ZoomInTool']:
             self.toolMode = PriceBarChartGraphicsView.ToolMode['ZoomInTool']
 
-
+            self.setDragMode(QGraphicsView.NoDrag)
             self.setCursor(QCursor(Qt.ArrowCursor))
 
             if self.underMouse():
                 pixmap = QPixmap(":/images/rluu/zoomIn.png")
                 self.setCursor(QCursor(pixmap))
 
-            self.setDragMode(QGraphicsView.NoDrag)
-
             scene = self.scene()
             if scene != None:
                 scene.clearSelection()
 
-            # Set the QGraphicsItem flags.
-            if scene != None:
                 items = scene.items()
                 for item in items:
-                    if isinstance(item, PriceBarGraphicsItem):
-                        item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
-                    elif isinstance(item, PriceBarChartArtifactGraphicsItem):
-                        item.setReadOnlyFlag(True)
-                        item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
-
+                    self.setGraphicsItemFlagsPerCurrToolMode(item)
+                    
         self.log.debug("Exiting toZoomInToolMode()")
 
     def toZoomOutToolMode(self):
@@ -2100,28 +2143,21 @@ class PriceBarChartGraphicsView(QGraphicsView):
         if self.toolMode != PriceBarChartGraphicsView.ToolMode['ZoomOutTool']:
             self.toolMode = PriceBarChartGraphicsView.ToolMode['ZoomOutTool']
 
+            self.setDragMode(QGraphicsView.NoDrag)
             self.setCursor(QCursor(Qt.ArrowCursor))
 
             if self.underMouse():
                 pixmap = QPixmap(":/images/rluu/zoomOut.png")
                 self.setCursor(QCursor(pixmap))
 
-            self.setDragMode(QGraphicsView.NoDrag)
-
             scene = self.scene()
             if scene != None:
                 scene.clearSelection()
 
-            # Set the QGraphicsItem flags.
-            if scene != None:
                 items = scene.items()
                 for item in items:
-                    if isinstance(item, PriceBarGraphicsItem):
-                        item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
-                    elif isinstance(item, PriceBarChartArtifactGraphicsItem):
-                        item.setReadOnlyFlag(True)
-                        item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
-                
+                    self.setGraphicsItemFlagsPerCurrToolMode(item)
+                    
         self.log.debug("Exiting toZoomOutToolMode()")
 
     def toBarCountToolMode(self):
@@ -2148,16 +2184,10 @@ class PriceBarChartGraphicsView(QGraphicsView):
             if scene != None:
                 scene.clearSelection()
 
-            # Set the QGraphicsItem flags.
-            if scene != None:
                 items = scene.items()
                 for item in items:
-                    if isinstance(item, PriceBarGraphicsItem):
-                        item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
-                    elif isinstance(item, PriceBarChartArtifactGraphicsItem):
-                        item.setReadOnlyFlag(True)
-                        item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
-                
+                    self.setGraphicsItemFlagsPerCurrToolMode(item)
+                    
         self.log.debug("Exiting toBarCountToolMode()")
 
     def wheelEvent(self, qwheelevent):
@@ -2369,6 +2399,10 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.barCountGraphicsItem.\
                         setEndPointF(self.clickOnePointF)
                     self.scene().addItem(self.barCountGraphicsItem)
+                    
+                    # Make sure the proper flags are set for the mode we're in.
+                    self.setGraphicsItemFlagsPerCurrToolMode(\
+                        self.barCountGraphicsItem)
 
                 elif self.clickOnePointF != None and \
                     self.clickTwoPointF == None and \
