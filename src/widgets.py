@@ -552,7 +552,7 @@ class TimestampEditWidget(QWidget):
     # Signal emitted when the Cancel button is clicked.
     cancelButtonClicked = QtCore.pyqtSignal()
 
-    def __init__(self, timestamp=None, parent=None):
+    def __init__(self, timestamp, parent=None):
         """Initializes the widgets to hold the datetime.datetime in
         the timestamp variable.
 
@@ -669,7 +669,7 @@ class TimestampEditWidget(QWidget):
                 name = tz.tzname(dt)
                 if name not in tznames:
                     tznames.append(name)
-            except pytz.AmbiguousTimeError as e:
+            except pytz.InvalidTimeError as e:
                 # Ignore.
                 pass
 
@@ -728,7 +728,7 @@ class TimestampEditWidget(QWidget):
                 self.log.error(errStr)
                 QMessageBox.warning(None, "Error", errStr)
             
-        except pytz.AmbiguousTimeError as e:
+        except pytz.InvalidTimeError as e:
             # Timestamp is ambiguous in terms of daylight savings time.
             
             # Select the first entry in the combo box, and enable the
@@ -809,7 +809,67 @@ class TimestampEditWidget(QWidget):
     
         self.log.debug("Entered saveTimestamp()")
 
-        # TODO:  write this function.
+        # Get from the QDateTimeEdit the primitives of the timestamp.
+        qdatetime = self.datetimeEditWidget.dateTime()
+        qdate = qdatetime.date()
+        qtime = qdatetime.time()
+        year = qdate.year()
+        month = qdate.month()
+        day = qdate.day()
+        hour = qtime.hour()
+        minute = qtime.minute()
+        second = qtime.second()
+
+        # Create a native datetime with no tzinfo set.
+        dt = datetime.datetime(year, month, day, hour, minute, second, \
+                               tzinfo=None)
+        
+        # Get from the timezone combobox the Timezone string.
+        timezoneString = str(self.timezoneComboBox.currentText())
+
+        # Create a timezone object.
+        tzinfoObj = pytz.timezone(timezoneString)
+
+        # Get whether it is in daylightSavings or not.
+        
+        # Here we have to replicate how we set the values in order to
+        # get them, because with the pytz api, there is no other way
+        # to test if it is in daylight savings time without actually
+        # localizing a datetime.datetime.
+
+        # Find out if the timestamp is ambiguous.
+        try:
+            localizedDt = tzinfoObj.localize(dt, is_dst=None)
+            
+            # If it got here, that means the timestamp is not ambiguous.
+            self.dt = localizedDt
+            
+        except pytz.InvalidTimeError as e:
+            # Timestamp is ambiguous in terms of daylight savings time.
+
+            # See the tzname for is_dst=True and see what it is for
+            # is_dst=False.
+            dtDstTrue = tzinfoObj.localize(dt, is_dst=True)
+            dtDstFalse = tzinfoObj.localize(dt, is_dst=False)
+            
+            # Compare this with what is selected in
+            # self.daylightComboBox to determine if it is in
+            # daylightSavings or not.
+            daylightText = self.daylightComboBox.currentText()
+
+            if daylightText == dtDstTrue.tzname():
+                self.dt = dtDstTrue
+            elif daylightText == dtDstFalse.tzname():
+                self.dt = dtDstFalse
+            else:
+                errStr = "Timestamp NOT saved.  " + os.linesep + \
+                         "The timestamp is ambiguous and the " + \
+                         "tznames for is_dst=True and is_dst=False " + \
+                         "don't match any of the possible tznames " + \
+                         "in the self.daylightComboBox!  " + \
+                         "This problem needs to be debugged."
+                self.log.error(errStr)
+                QMessageBox.warning(None, "Error", errStr)
 
         self.log.debug("Exiting saveTimestamp()")
 
@@ -846,8 +906,49 @@ class TimestampEditDialog(QDialog):
     savings or not).
     """
 
-    # TODO:  write this class
-    
+    def __init__(self, timestamp, parent=None):
+        """Initializes the internal widgets to hold the
+        datetime.datetime in the timestamp variable.
+
+        Arguments:
+        timestamp - datetime.datetime object with a non-None pytz timezone.
+        """
+        
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger("widgets.TimestampEditDialog")
+
+        self.setWindowTitle("Timestamp")
+
+        # Save a reference to the datetime.datetime timestamp.
+        self.dt = timestamp
+        
+        # Create the contents.
+        self.editWidget = TimestampEditWidget(self.dt)
+
+        # Setup the layout.
+        layout = QVBoxLayout()
+        layout.addWidget(self.editWidget)
+        self.setLayout(layout)
+
+        self.editWidget.okayButtonClicked.connect(self.accept)
+        self.editWidget.cancelButtonClicked.connect(self.reject)
+
+    def getTimestamp(self):
+        """Returns the internally stored timestamp.
+
+        Returns:
+
+        datetime.datetime object with the tzinfo set to a pytz.timezone.
+        This datetime.datetime is the timestamp as edited by the dialog.
+        """
+
+        self.dt = self.editWidget.getTimestamp()
+        
+        return self.dt
+
     
 class PriceBarTagEditWidget(QWidget):
     """QWidget for editing the tags on a PriceBar.
@@ -1206,17 +1307,20 @@ class PriceBarTagEditDialog(QDialog):
         self.editWidget.cancelButtonClicked.connect(self.reject)
 
     def getTags(self):
-        """Returns the internally stored tags."""
+        """Returns the internally stored tags.
+
+        Returns:
+
+        list of str objects.  Each str object in the list is a tag.
+        """
 
         self.tags = self.editWidget.getTags()
         
         return self.tags
 
 
-# TODO:  the below implementation fo this class was copied from another place and needs to be modified to suit the needs of editing a PriceBar.  Also add a PriceBarEditDialog as well.
-class PriceBarChartPriceBarEditWidget(QWidget):
-    """QWidget for editing the info in a PriceBarChart.
-    """
+class PriceBarEditWidget(QWidget):
+    """QWidget for editing the a PriceBar."""
 
     # Signal emitted when the Okay button is clicked and 
     # validation succeeded.
@@ -1225,12 +1329,13 @@ class PriceBarChartPriceBarEditWidget(QWidget):
     # Signal emitted when the Cancel button is clicked.
     cancelButtonClicked = QtCore.pyqtSignal()
 
-    def __init__(self, priceBar, parent=None, readOnly=True):
+    # TODO:  what to do about the readOnly flag?  Should I just have another function that overwrites setReadOnly()?
+    def __init__(self, priceBar, parent=None):
         super().__init__(parent)
 
         # Logger object for this class.
         self.log = logging.\
-            getLogger("pricebarchart_dialogs.PriceBarChartPriceBarEditWidget")
+            getLogger("widgets.PriceBarEditWidget")
 
         # Save off the PriceBarChartScaling object.
         self.priceBar = priceBar
@@ -1289,7 +1394,7 @@ class PriceBarChartPriceBarEditWidget(QWidget):
         self.openPriceSpinBox.setMaximum(999999999.0)
 
         # Tags.
-        
+        # TODO:  continue adding code here.
         
         self.formLayout = QFormLayout()
         self.formLayout.setLabelAlignment(Qt.AlignLeft)
