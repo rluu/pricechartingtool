@@ -1329,7 +1329,6 @@ class PriceBarEditWidget(QWidget):
     # Signal emitted when the Cancel button is clicked.
     cancelButtonClicked = QtCore.pyqtSignal()
 
-    # TODO:  what to do about the readOnly flag?  Should I just have another function that overwrites setReadOnly()?
     def __init__(self, priceBar, parent=None):
         super().__init__(parent)
 
@@ -1341,7 +1340,11 @@ class PriceBarEditWidget(QWidget):
         self.priceBar = priceBar
 
         # Read-Only flag.
-        self.readOnlyFlag = readOnly
+        self.readOnlyFlag = False
+
+        # PriceBar tags, stored in this variable instead of an edit widget.
+        # Upon loading a new PriceBar, this variable is set.
+        self.tags = []
         
         # QGroupBox to hold the edit widgets and form.
         self.groupBox = \
@@ -1387,24 +1390,37 @@ class PriceBarEditWidget(QWidget):
         self.volumeSpinBox.setMinimum(0.0)
         self.volumeSpinBox.setMaximum(999999999.0)
 
-        # Open price.
-        self.openPriceLabel = QLabel("Open Price:")
-        self.openPriceSpinBox = QDoubleSpinBox()
-        self.openPriceSpinBox.setMinimum(0.0)
-        self.openPriceSpinBox.setMaximum(999999999.0)
-
         # Tags.
-        # TODO:  continue adding code here.
+        self.tagsListWidget = QListWidget()
+        self.tagsListWidget.clear()
         
+        self.listWidget = QListWidget()
+        self.listWidget.setSelectionMode(QAbstractItemView.SingleSelection)
+
+        # Layout and groupbox to hold the tags list widget.
+        self.listWidgetLayout = QVBoxLayout()
+        self.listWidgetLayout.addWidget(self.listWidget)
+        self.tagsListGroupBox = QGroupBox("Tags:")
+        self.tagsListGroupBox.setLayout(self.listWidgetLayout)
+        self.tagsListEditButton = QPushButton("Edit Tags")
+
+        # Set widgets in the layouts.
         self.formLayout = QFormLayout()
         self.formLayout.setLabelAlignment(Qt.AlignLeft)
-        self.formLayout.addRow(self.nameLabel, self.nameLineEdit)
-        self.formLayout.addRow(self.descriptionLabel, 
-                               self.descriptionLineEdit)
-        self.formLayout.addRow(self.unitsOfTimeLabel, 
-                               self.unitsOfTimeSpinBox)
-        self.formLayout.addRow(self.unitsOfPriceLabel, 
-                               self.unitsOfPriceSpinBox)
+        self.formLayout.addRow(self.timestampLabel,
+                               self.timestampEditWidget)
+        self.formLayout.addRow(self.openPriceLabel, 
+                               self.openPriceSpinBox)
+        self.formLayout.addRow(self.lowPriceLabel, 
+                               self.lowPriceSpinBox)
+        self.formLayout.addRow(self.closePriceLabel, 
+                               self.closePriceSpinBox)
+        self.formLayout.addRow(self.openInterestLabel, 
+                               self.openInterestSpinBox)
+        self.formLayout.addRow(self.volumeLabel, 
+                               self.volumeSpinBox)
+        self.formLayout.addRow(self.tagsListGroupBox, 
+                               self.tagsListEditButton)
 
         self.groupBox.setLayout(self.formLayout)
 
@@ -1426,70 +1442,133 @@ class PriceBarEditWidget(QWidget):
 
         # Now that all the widgets are created, load the values from the
         # settings.
-        self.loadScaling(self.priceBarChartScaling)
+        self.loadPriceBar(self.priceBar)
 
         # Connect signals and slots.
-
+        self.tagsListEditButton.clicked.\
+            connect(self._handleTagsListEditButtonClicked)
+        
         # Connect okay and cancel buttons.
         self.okayButton.clicked.connect(self._handleOkayButtonClicked)
         self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
 
+    def setReadOnly(self, readOnlyFlag):
+        """Sets the flag that indicates that this widget is in
+        read-only mode.  The effect of this is that the user cannot
+        edit any of the fields in the PriceBar.
+        """
+        
+        self.readOnlyFlag = readOnlyFlag
 
-    def loadScaling(self, priceBarChartScaling):
+        # TODO:  set the internal widgets as readonly or not depending on this flag.
+        #if self.readOnlyFlag == True:
+        
+        # Something to think about: how to handle the user clicking okay or cancel buttons?  If this widget is wrapped by another widget, or a dialog, then how should that parent ideally handle the child widget (this widget) in readonly mode and non-readonly mode?
+        
+            
+    def getReadOnly(self, readOnlyFlag):
+        """Returns the flag that indicates that this widget is in
+        read-only mode.  If the returned value is True, then it means
+        the user cannot edit any of the fields in the PriceBar.
+        """
+        
+        return self.readOnlyFlag
+
+    def loadPriceBar(self, priceBar):
         """Loads the widgets with values from the given
-        PriceBarChartScaling object.
+        PriceBar object.
         """
 
-        self.log.debug("Entered loadScaling()")
+        self.log.debug("Entered loadPriceBar()")
 
         # Check inputs.
-        if priceBarChartScaling == None:
-            self.log.error("Invalid parameter to loadScaling().  " + \
-                           "priceBarChartScaling can't be None.")
-            self.log.debug("Exiting loadScaling()")
+        if priceBar == None:
+            self.log.error("Invalid parameter to loadPriceBar().  " + \
+                           "priceBar can't be None.")
+            self.log.debug("Exiting priceBar()")
             return
         else:
-            self.priceBarChartScaling = priceBarChartScaling 
+            self.priceBar = priceBar 
 
-        self.nameLineEdit.setText(self.priceBarChartScaling.name)
-        self.descriptionLineEdit.\
-            setText(self.priceBarChartScaling.description)
-        self.unitsOfTimeSpinBox.\
-            setValue(self.priceBarChartScaling.getUnitsOfTime())
-        self.unitsOfPriceSpinBox.\
-            setValue(self.priceBarChartScaling.getUnitsOfPrice())
+        self.timestampEditWidget.loadTimestamp(self.priceBar.timestamp)
+        self.openPriceSpinBox.setValue(self.priceBar.open)
+        self.highPriceSpinBox.setValue(self.priceBar.high)
+        self.lowPriceSpinBox.setValue(self.priceBar.low)
+        self.closePriceSpinBox.setValue(self.priceBar.close)
+        self.openInterestSpinBox.setValue(self.priceBar.oi)
+        self.volumeSpinBox.setValue(self.priceBar.vol)
 
-        self.log.debug("Exiting loadScaling()")
+        self.tags = list(self.priceBar.tags)
         
-    def saveScaling(self):
+        # Populate the tagsListWidget with the str objects in
+        # self.priceBar.tags.
+        self.tagsListWidget.clear();
+        for tag in self.tags:
+            listWidgetItem = QListWidgetItem()
+            listWidgetItem.setText(tag)
+            self.tagsListWidget.addItem(listWidgetItem)
+        if self.tagsListWidget.count() > 0:
+            self.tagsListWidget.setCurrentRow(0)
+            
+        self.log.debug("Exiting loadPriceBar()")
+        
+    def savePriceBar(self):
         """Saves the values in the widgets to the 
-        PriceBarChartScaling object passed in this class's constructor.
+        PriceBar object passed in this class's constructor.
         """
     
-        self.log.debug("Entered saveScaling()")
+        self.log.debug("Entered savePriceBar()")
+        
+        self.priceBar.timestamp = self.timestampEditWidget.getTimestamp()
+        self.priceBar.open = self.openPriceSpinBox.value()
+        self.priceBar.high = self.highPriceSpinBox.value()
+        self.priceBar.low = self.lowPriceSpinBox.value()
+        self.priceBar.close = self.closePriceSpinBox.value()
+        self.priceBar.oi = self.openInterestSpinBox.value()
+        self.priceBar.vol = self.volumeSpinBox.value()
+        self.priceBar.tags = self.tags
 
-        self.priceBarChartScaling.name = self.nameLineEdit.text()
-        self.priceBarChartScaling.description = \
-            self.descriptionLineEdit.text()
-        self.priceBarChartScaling.\
-            setUnitsOfTime(self.unitsOfTimeSpinBox.value())
-        self.priceBarChartScaling.\
-            setUnitsOfPrice(self.unitsOfPriceSpinBox.value())
+        self.log.debug("Exiting savePriceBar()")
 
-        self.log.debug("Exiting saveScaling()")
-
-    def getPriceBarChartScaling(self):
-        """Returns the internally stored PriceBarChartScaling object.
+    def getPriceBar(self):
+        """Returns the internally stored PriceBar object.
         This may or may not represent what is in the widgets, depending on
-        whether or not saveScaling has been called.
+        whether or not savePriceBar() has been called.
         """
 
-        return self.priceBarChartScaling
+        return self.priceBar
 
+    def _handleTagsListEditButtonClicked(self):
+        """Called when the 'Edit Tags' button is clicked.
+        Opens up a dialog for editing the list of tags.
+        """
+
+        dialog = PriceBarTagEditDialog(self.tags, self)
+        
+        rv = dialog.exec_()
+        
+        if rv == QDialog.Accepted:
+            # Set to self.tags, the values from the QDialog.
+            self.tags = dialog.getTags()
+
+            # Clear the list of tags displayed, reset them with the
+            # new values.
+            self.tagsListWidget.clear();
+            for tag in self.tags:
+                listWidgetItem = QListWidgetItem()
+                listWidgetItem.setText(tag)
+                self.tagsListWidget.addItem(listWidgetItem)
+            if self.tagsListWidget.count() > 0:
+                self.tagsListWidget.setCurrentRow(0)
+        
+        
     def _handleOkayButtonClicked(self):
         """Called when the okay button is clicked."""
 
-        self.saveScaling()
+        # Only save if the readOnlyFlag is False.
+        if self.readOnlyFlag == False:
+            self.savePriceBar()
+
         self.okayButtonClicked.emit()
 
     def _handleCancelButtonClicked(self):
