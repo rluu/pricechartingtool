@@ -1393,13 +1393,11 @@ class PriceBarEditWidget(QWidget):
         # Tags.
         self.tagsListWidget = QListWidget()
         self.tagsListWidget.clear()
-        
-        self.listWidget = QListWidget()
-        self.listWidget.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.tagsListWidget.setSelectionMode(QAbstractItemView.SingleSelection)
 
         # Layout and groupbox to hold the tags list widget.
         self.listWidgetLayout = QVBoxLayout()
-        self.listWidgetLayout.addWidget(self.listWidget)
+        self.listWidgetLayout.addWidget(self.tagsListWidget)
         self.tagsListGroupBox = QGroupBox("Tags:")
         self.tagsListGroupBox.setLayout(self.listWidgetLayout)
         self.tagsListEditButton = QPushButton("Edit Tags")
@@ -1460,12 +1458,19 @@ class PriceBarEditWidget(QWidget):
         
         self.readOnlyFlag = readOnlyFlag
 
-        # TODO:  set the internal widgets as readonly or not depending on this flag.
-        #if self.readOnlyFlag == True:
+        # Set the internal widgets as readonly or not depending on this flag.
+        self.timestampEditWidget.setReadOnly(self.readOnlyFlag)
+        self.openPriceSpinBox.setReadOnly(self.readOnlyFlag)
+        self.highPriceSpinBox.setReadOnly(self.readOnlyFlag)
+        self.lowPriceSpinBox.setReadOnly(self.readOnlyFlag)
+        self.closePriceSpinBox.setReadOnly(self.readOnlyFlag)
+        self.openInterestSpinBox.setReadOnly(self.readOnlyFlag)
+        self.volumeSpinBox.setReadOnly(self.readOnlyFlag)
+        self.tagsListEditButton.setEnabled(not self.readOnlyFlag)
+
+        # Don't allow the Okay button to be pressed for saving.
+        self.okayButton.setEnabled(not self.readOnlyFlag)
         
-        # Something to think about: how to handle the user clicking okay or cancel buttons?  If this widget is wrapped by another widget, or a dialog, then how should that parent ideally handle the child widget (this widget) in readonly mode and non-readonly mode?
-        
-            
     def getReadOnly(self, readOnlyFlag):
         """Returns the flag that indicates that this widget is in
         read-only mode.  If the returned value is True, then it means
@@ -1538,6 +1543,33 @@ class PriceBarEditWidget(QWidget):
 
         return self.priceBar
 
+    def setOkayCancelButtonsVisible(self, visibleFlag):
+        """Hides or shows the Okay and Cancel buttons depending on the
+        value of visibleFlag.
+
+        Arguments:
+        
+        visibleFlag - bool value for whether or not to show the Okay
+        and Cancel buttons.  If True, then the buttons are visible.
+        If False, then the buttons are hidden.  The buttons are
+        visible by default.
+        """
+
+        self.okayButton.setVisible(visibleFlag)
+        self.cancelButton.setVisible(visibleFlag)
+
+    def getOkayCancelButtonsVisible(self):
+        """Returns whether or not the Okay and Cancel buttons are visible.
+
+        Returns:
+        bool value for whether or not the okay and cancel buttons are visible.
+        """
+
+        if self.okayButton.isVisible() and self.cancelButton.isVisible():
+            return True
+        else:
+            return False
+
     def _handleTagsListEditButtonClicked(self):
         """Called when the 'Edit Tags' button is clicked.
         Opens up a dialog for editing the list of tags.
@@ -1576,7 +1608,96 @@ class PriceBarEditWidget(QWidget):
 
         self.cancelButtonClicked.emit()
 
-    
+
+class PriceBarEditDialog(QDialog):
+    """QDialog for editing a PriceBar (the fields in it)."""
+
+    def __init__(self, priceBar, readOnly=False, parent=None):
+        """Initializes the internal widgets to hold the
+        PriceBar in the priceBar variable.
+
+        Arguments:
+        
+        priceBar - PriceBar object to edit or view in the dialog.
+        
+        readOnly - bool value for whether or not the user is allowed
+                   to edit the fields in the given PriceBar.  If the
+                   value is True, then the buttons and widgets allow
+                   for modification.  If the value is False, then the
+                   fields are viewable only.
+        """
+        
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger("widgets.PriceBarEditDialog")
+
+        self.setWindowTitle("PriceBar")
+
+        # Save a reference to the PriceBar.
+        self.priceBar = priceBar
+
+        # Save the readOnly preference.
+        self.readOnly = readOnly
+        
+        # Create the contents.
+        self.editWidget = PriceBarEditWidget(self.priceBar)
+        self.editWidget.setReadOnly(self.readOnly)
+
+        # Setup the layout.
+        layout = QVBoxLayout()
+        layout.addWidget(self.editWidget)
+        self.setLayout(layout)
+
+        self.editWidget.okayButtonClicked.connect(self.accept)
+        self.editWidget.cancelButtonClicked.connect(self.reject)
+
+    def getPriceBar(self):
+        """Returns the internally stored timestamp.
+
+        Returns:
+        PriceBar holding the edited PriceBar.  If the widget is in
+        ReadOnly mode, or the user clicked the Cancel button, then the
+        PriceBar is unchanged.
+        """
+
+        self.priceBar = self.editWidget.getPriceBar()
+        
+        return self.priceBar
+
+    def loadPriceBar(self, priceBar):
+        """Loads the widgets with values from the given
+        PriceBar object.
+
+        Arguments:
+        priceBar - PriceBar object to load into the widgets.
+        """
+
+        self.priceBar = priceBar
+        self.editWidget.loadPriceBar(self.priceBar)
+        
+    def setReadOnly(self, readOnly):
+        """Sets the readOnly flag to the value given in 'readOnly'.
+
+        Arguments:
+        readOnly - bool value.  If True, then the widgets are made to
+        be unmodifiable.  If False, then the widgets can be changed
+        and the priceBar can be modified.
+        """
+        
+        self.readOnly = readOnly
+        self.editWidget.setReadOnly(self.readOnly)
+
+    def getReadOnly(self):
+        """Returns the current setting of the readOnly flag.
+
+        Returns:
+        bool value representing whether or not the PriceBar can be modified.
+        """
+
+        return self.readOnly
+
 # For debugging the module during development.  
 if __name__=="__main__":
     from ephemeris import Ephemeris
