@@ -627,10 +627,6 @@ class TimestampEditWidget(QWidget):
 
         self.setLayout(self.mainLayout)
 
-        # Now that all the widgets are created, load the values from the
-        # timestamp.
-        self.loadTimestamp(self.dt)
-
         # Connect signals and slots.
 
         # Connect okay and cancel buttons.
@@ -640,6 +636,14 @@ class TimestampEditWidget(QWidget):
             connect(self.updateDaylightComboBox)
         self.okayButton.clicked.connect(self._handleOkayButtonClicked)
         self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
+
+        # Force an update of the DaylightComboBox so that it gets populated.
+        self.updateDaylightComboBox()
+        
+        # Now that all the widgets are created, load the values from the
+        # timestamp.
+        self.loadTimestamp(self.dt)
+
 
     def _getAllTzNamesForTimezone(self, tz):
         """Returns a list of str objects, which consist of all the possible
@@ -706,10 +710,23 @@ class TimestampEditWidget(QWidget):
 
         # Populate with possible tznames.
         tznames = self._getAllTzNamesForTimezone(tzinfoObj)
-        self.daylightComboBox.clear()
-        self.daylightComboBox.addItems(daylightNames)
-        if len(daylightNames) < 2:
-            self.daylightComboBox.setEnabled(False)
+
+        # See if there is any difference between the tznames obtained
+        # and what is in the daylightComboBoxes.  If the entries are
+        # the same, we don't need to clear and re-add them.
+        needsRepopulate = False
+        if len(tznames) > 0 and len(tznames) == self.daylightComboBox.count():
+            for i in range(len(tznames)):
+                if tznames[i] != self.daylightComboBox.itemText(i):
+                    needsRepopulate = True
+        else:
+            needsRepopulate = True
+
+        if needsRepopulate == True:
+            self.daylightComboBox.clear()
+            self.daylightComboBox.addItems(tznames)
+            if len(tznames) < 2:
+                self.daylightComboBox.setEnabled(False)
 
         # Find out if the timestamp is ambiguous.
         try:
@@ -721,7 +738,9 @@ class TimestampEditWidget(QWidget):
 
             index = self.daylightComboBox.findText(tznameStr)
             if index != -1:
-                self.daylightComboBox.setCurrentIndex(index)
+                # Set the index only if it is not currently on this index.
+                if self.daylightComboBox.currentIndex() != index:
+                    self.daylightComboBox.setCurrentIndex(index)
             else:
                 errStr = "Couldn't find the tzname " + tznameStr + \
                          " in the combo box list of tznames."
@@ -734,7 +753,11 @@ class TimestampEditWidget(QWidget):
             # Select the first entry in the combo box, and enable the
             # combo box so the user can pick which one he/she wants.
             if self.daylightComboBox.count() > 0:
-                self.daylightComboBox.setCurrentIndex(0)
+                # Only select it if it is not already on this index.
+                index = 0
+                if self.daylightComboBox.currentIndex() != index:
+                    self.daylightComboBox.setCurrentIndex(index)
+                    
                 self.daylightComboBox.setEnabled(True)
             else:
                 errStr = "Timestamp is ambiguous and there are " + \
@@ -747,7 +770,7 @@ class TimestampEditWidget(QWidget):
             
     def loadTimestamp(self, timestamp):
         """Loads the widgets with values from the given
-        PriceBarChartScaling object.
+        datetime.datetime object.
         """
 
         self.log.debug("Entered loadTimestamp()")
@@ -760,6 +783,9 @@ class TimestampEditWidget(QWidget):
             return
         else:
             self.dt = timestamp 
+
+        fmt = "%Y-%m-%d %H:%M:%S.%f %Z%z"
+        self.log.debug("Loaded timestamp: {}".format(self.dt.strftime(fmt)))
 
         # Convert the datetime object to the equivalent qdatetime.
         # Note: Here we are assuming timespec UTC.  This is only for
@@ -1698,8 +1724,8 @@ class PriceBarEditDialog(QDialog):
 
         return self.readOnly
 
-# For debugging the module during development.  
-if __name__=="__main__":
+
+def testPlanetaryInfoTableWidget():
     from ephemeris import Ephemeris
 
     # Initialize Logging for the Ephemeris class (required).
@@ -1707,14 +1733,6 @@ if __name__=="__main__":
 
     # Set a default location (required).
     Ephemeris.setGeographicPosition(-77.084444, 38.890277)
-
-    # Initialize logging.
-    LOG_CONFIG_FILE = os.path.join(sys.path[0], "../conf/logging.conf")
-    logging.config.fileConfig(LOG_CONFIG_FILE)
-
-    # Create the Qt application.
-    app = QApplication(sys.argv)
-
 
     # Get the current time, which we will use to get planetary info.
     #now = datetime.datetime.utcnow()
@@ -1727,106 +1745,158 @@ if __name__=="__main__":
     # Get planetary info for all the planets, and print out the info.
     p = Ephemeris.getSunPlanetaryInfo(now)
     planets.append(p)
-    #print("At {}, planet '{}' has the following info: \n{}".\
-    #        format(now, p.name, p.toString()))
+    print("At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
     p = Ephemeris.getMoonPlanetaryInfo(now)
     planets.append(p)
-    #print("At {}, planet '{}' has the following info: \n{}".\
-    #        format(now, p.name, p.toString()))
+    print("At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
     p = Ephemeris.getMercuryPlanetaryInfo(now)
     planets.append(p)
-    #print("At {}, planet '{}' has the following info: \n{}".\
-    #        format(now, p.name, p.toString()))
+    print("At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
     p = Ephemeris.getVenusPlanetaryInfo(now)
     planets.append(p)
-    #print("At {}, planet '{}' has the following info: \n{}".\
-    #        format(now, p.name, p.toString()))
+    print("At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
     p = Ephemeris.getMarsPlanetaryInfo(now)
     planets.append(p)
-    #print("At {}, planet '{}' has the following info: \n{}".\
-    #        format(now, p.name, p.toString()))
+    print("At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
     p = Ephemeris.getJupiterPlanetaryInfo(now)
     planets.append(p)
-    #print("At {}, planet '{}' has the following info: \n{}".\
-    #        format(now, p.name, p.toString()))
+    print("At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
     p = Ephemeris.getSaturnPlanetaryInfo(now)
     planets.append(p)
-    #print("At {}, planet '{}' has the following info: \n{}".\
-    #        format(now, p.name, p.toString()))
+    print("At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
     p = Ephemeris.getUranusPlanetaryInfo(now)
     planets.append(p)
-    #print("At {}, planet '{}' has the following info: \n{}".\
-    #        format(now, p.name, p.toString()))
+    print("At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
     p = Ephemeris.getNeptunePlanetaryInfo(now)
     planets.append(p)
-    #print("At {}, planet '{}' has the following info: \n{}".\
-    #        format(now, p.name, p.toString()))
+    print("At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
     p = Ephemeris.getPlutoPlanetaryInfo(now)
     planets.append(p)
-    #print("At {}, planet '{}' has the following info: \n{}".\
-    #        format(now, p.name, p.toString()))
+    print("At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
     p = Ephemeris.getMeanNorthNodePlanetaryInfo(now)
     planets.append(p)
-    #print("At {}, planet '{}' has the following info: \n{}".\
-    #        format(now, p.name, p.toString()))
+    print("At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
     p = Ephemeris.getTrueNorthNodePlanetaryInfo(now)
     planets.append(p)
-    #print("At {}, planet '{}' has the following info: \n{}".\
-    #        format(now, p.name, p.toString()))
+    print("At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
     p = Ephemeris.getMeanLunarApogeePlanetaryInfo(now)
     planets.append(p)
-    #print("At {}, planet '{}' has the following info: \n{}".\
-    #        format(now, p.name, p.toString()))
+    print("At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
     p = Ephemeris.getOsculatingLunarApogeePlanetaryInfo(now)
     planets.append(p)
-    #print("At {}, planet '{}' has the following info: \n{}".\
-    #        format(now, p.name, p.toString()))
+    print("At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
     p = Ephemeris.getInterpolatedLunarApogeePlanetaryInfo(now)
     planets.append(p)
-    #print("At {}, planet '{}' has the following info: \n{}".\
-    #        format(now, p.name, p.toString()))
+    print("At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
     p = Ephemeris.getInterpolatedLunarPerigeePlanetaryInfo(now)
     planets.append(p)
-    #print("At {}, planet '{}' has the following info: \n{}".\
-    #        format(now, p.name, p.toString()))
+    print("At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
     p = Ephemeris.getEarthPlanetaryInfo(now)
     planets.append(p)
-    #print("At {}, planet '{}' has the following info: \n{}".\
-    #        format(now, p.name, p.toString()))
+    print("At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
     p = Ephemeris.getChironPlanetaryInfo(now)
     planets.append(p)
-    #print("At {}, planet '{}' has the following info: \n{}".\
-    #        format(now, p.name, p.toString()))
-    
-    
-    #widget = PlanetaryInfoTableWidget(planets)
+    print("At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+
+    # Various combinations of planets to test.
+    widget = PlanetaryInfoTableWidget(planets)
     #widget = PlanetaryInfoTableWidget([])
-    #widget.show()
+
+    layout = QVBoxLayout()
+    layout.addWidget(widget)
+
+    dialog = QDialog()
+    dialog.setLayout(layout)
+
+    rv = dialog.exec_()
+    if rv == QDialog.Accepted:
+        print("Accepted.")
+    else:
+        print("Rejected.")
+
+def testTimestampEditDialog():
+
+    # Different timestamps to try:
+    dt = datetime.datetime.now(pytz.timezone("US/Eastern"))
+    dt = datetime.datetime.now(pytz.utc)
+
+    fmt = "%Y-%m-%d %H:%M:%S.%f %Z%z"
+    print("Timestamp before: {}".format(dt.strftime(fmt)))
+    
+    dialog = TimestampEditDialog(dt)
+
+    rv = dialog.exec_()
+    if rv == QDialog.Accepted:
+        print("Accepted.")
+    else:
+        print("Rejected.")
+    print("Timestamp after: {}".format(dt.strftime(fmt)))
+
+    dt = dialog.getTimestamp()
+    print("Timestamp new: {}".format(dt.strftime(fmt)))
+        
+def testPriceBarTagEditDialog():
+
+    tags = ["hello", "myname_is", "a happy camper", "LLLL", "HH"]
+    print("Tags before: {}".format(tags))
+    
+    dialog = PriceBarTagEditDialog(tags)
+    
+    rv = dialog.exec_()
+    if rv == QDialog.Accepted:
+        print("Accepted")
+        tags = dialog.getTags()
+        print("Tags after: {}".format(tags))
+    else:
+        print("Rejected")
+        tags = dialog.getTags()
+        print("Tags after: {}".format(tags))
+    
+def testPriceBarEditDialog():
+    # TODO:  write some test code for this.
+    pass
+
+# For debugging the module during development.  
+if __name__=="__main__":
+    # Initialize logging.
+    LOG_CONFIG_FILE = os.path.join(sys.path[0], "../conf/logging.conf")
+    logging.config.fileConfig(LOG_CONFIG_FILE)
+
+    # Create the Qt application.
+    app = QApplication(sys.argv)
 
 
-    #tags = ["hello", "myname_is", "a happy camper", "LLLL", "HH"]
-    #dialog = PriceBarTagEditDialog(tags)
-    #rv = dialog.exec()
-    #if rv == QDialog.Accepted:
-    #    print("Accepted")
-    #    tags = dialog.getTags()
-    #    print("{}".format(tags))
-    #else:
-    #    print("Rejected")
-    #    tags = dialog.getTags()
-    #    print("{}".format(tags))
-
-
-    # Quit.
-    #print("Exiting.")
-    #import sys
-    #sys.exit()
+    # Various tests to run:
+    
+    #testPlanetaryInfoTableWidget()
+    #testTimestampEditDialog()
+    #testPriceBarTagEditDialog()
+    testPriceBarEditDialog()
+    
         
     # Exit the app when all windows are closed.
     app.connect(app, SIGNAL("lastWindowClosed()"), logging.shutdown)
     app.connect(app, SIGNAL("lastWindowClosed()"), app, SLOT("quit()"))
 
-    app.exec_()
+    #app.exec_()
 
     # Quit.
     print("Exiting.")

@@ -14,6 +14,11 @@ CHECK    QGraphicsItems as either PriceBars or Artifacts, that the
 CHECK    QGrahpicsItem flags get set according to whatever tool mode I'm
 CHECK    currently in!
 
+  - Turn the __main__() functions into a list of calls to testXXXXX()
+    functions... one for each of the classes being tested.
+
+  - Finish testing PriceBarEditWidget() and PriceBarEditDialog().
+
   - Need to add right-click context menus and popup info/edit dialog widgets.
      - Dialog widgets for info/editing of artifacts should be in new file: 
        pricebarchart_dialogs.py
