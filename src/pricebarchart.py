@@ -389,13 +389,52 @@ class PriceBarChartArtifactGraphicsItem(QGraphicsItem):
     def __init__(self, parent=None, scene=None):
         super().__init__(parent, scene)
         
+        # Logger
+        self.log = \
+            logging.getLogger("pricebarchart.PriceBarChartArtifactGraphicsItem")
+        
         self.readOnlyFlag = True
-
+        self.artifact = None
+        
     def setReadOnlyFlag(self, flag):
         self.readOnlyFlag = flag
 
     def getReadOnlyFlag(self):
         return self.readOnlyFlag
+
+    def setArtifact(self, artifact):
+        """Virtual function that is meant to be overwritten by a child class to
+        implement the custom functionality of loading the internals of the
+        PriceBarChart GraphicsItem, so that it may be displayed in the chart.
+
+        Arguments:
+        artifact - PriceBarChartArtifact object to store.
+        """
+
+        self.log.debug("Entered " + \
+                       "PriceBarChartArtifactGraphicsItem.setArtifact()")
+
+        self.artifact = artifact
+        
+        self.log.debug("Exiting " + \
+                       "PriceBarChartArtifactGraphicsItem.setArtifact()")
+
+    def getArtifact(self):
+        """Returns the PriceBarChartArtifact associated with this
+        PriceBarChartArtifactGraphicsItem.
+        """
+
+        self.log.debug("Entered " + \
+                       "PriceBarChartArtifactGraphicsItem.getArtifact()")
+        
+        if artifact == None:
+            raise TypeError("Expected artifact to be not None.")
+
+        self.log.debug("Exiting " + \
+                       "PriceBarChartArtifactGraphicsItem.getArtifact()")
+        
+        return artifact
+
 
 class TextGraphicsItem(PriceBarChartArtifactGraphicsItem):
     """QGraphicsItem that visualizes a PriceBarChartTextArtifact."""
@@ -403,25 +442,41 @@ class TextGraphicsItem(PriceBarChartArtifactGraphicsItem):
     def __init__(self, parent=None, scene=None):
         super().__init__(parent, scene)
         
-    def setPriceBarChartTextArtifact(self, priceBarChartTextArtifact):
+    def setArtifact(self, artifact):
         """Loads a given PriceBarChartTextArtifact object's data
         into this QGraphicsTextItem.
+
+        Arguments:
+        artifact - PriceBarChartTextArtifact object with information
+                   about this TextGraphisItem
         """
+
+        self.log.debug("Entered setArtifact()")
+
+        if isinstance(artifact, PriceBarChartTextArtifact):
+            self.artifact = artifact
         
-        self.priceBarChartTextArtifact = priceBarChartTextArtifact
-        
-        # TODO:  Extract and set the internals according to the info 
-        # in priceBarChartTextArtifact.
+            # TODO:  Extract and set the internals according to the info 
+            # in self.artifact.
+        else:
+            raise TypeError("Expected artifact type: PriceBarChartTextArtifact")
     
-    def getPriceBarChartTextArtifact(self):
+        self.log.debug("Exiting setArtifact()")
+
+    def getArtifact(self):
         """Returns a PriceBarChartTextArtifact for this QGraphicsItem 
         so that it may be pickled.
         """
+
+        self.log.debug("Entered getArtifact()")
         
         # TODO:  Update the internal self.priceBarChartTextArtifact to be 
         # current, then return it.
         
-        return self.priceBarChartTextArtifact
+        return self.artifact
+
+        self.log.debug("Exiting getArtifact()")
+        
 
 class GannFanUpperRightGraphicsItem(PriceBarChartArtifactGraphicsItem):
     """QGraphicsItem that visualizes a GannFan opening in the upper 
@@ -430,28 +485,45 @@ class GannFanUpperRightGraphicsItem(PriceBarChartArtifactGraphicsItem):
     
     def __init__(self, parent=None, scene=None):
         super().__init__(parent, scene)
-        
-    def setPriceBarChartGannFanUpperRightArtifact(self, priceBarChartGannFanUpperRightArtifact):
+
+    def setArtifact(self, artifact):
         """Loads a given PriceBarChartGannFanUpperRightArtifact object's data
-        into this QGraphicsItem.
+        into this QGraphicsTextItem.
+
+        Arguments:
+        artifact - PriceBarChartGannFanUpperRightArtifact object with
+                   information about this TextGraphisItem.
         """
+
+        self.log.debug("Entered setArtifact()")
+
+        if isinstance(artifact, PriceBarChartGannFanUpperRightArtifact):
+            self.artifact = artifact
         
-        self.priceBarChartGannFanUpperRightArtifact = \
-            priceBarChartGannFanUpperRightArtifact
-            
-        # TODO:  Extract and set the internals according to the info 
-        # in this artifact object.
+            # TODO:  Extract and set the internals according to the info 
+            # in self.artifact.
+        else:
+            errStr = "Expected artifact type: " + \
+                     "PriceBarChartGannFanUpperRightArtifact"
+            raise TypeError(errStr)
     
-    def getPriceBarChartTextArtifact(self):
-        """Returns a PriceBarChartTextArtifact for this QGraphicsItem 
-        so that it may be pickled.
+        self.log.debug("Exiting setArtifact()")
+
+        
+    def getArtifact(self):
+        """Returns a PriceBarChartGannFanUpperRightArtifact for this
+        QGraphicsItem so that it may be pickled.
         """
+
+        self.log.debug("Entered getArtifact()")
         
-        # TODO:  Update the internal self.priceBarChartGannFanUpperRightArtifact 
-        # to be current, then return it.
+        # TODO:  Update the internal self.artifact to be 
+        # current, then return it.
         
-        return self.priceBarChartGannFanUpperRightArtifact 
+        self.log.debug("Exiting getArtifact()")
         
+        return self.artifact
+
 class GannFanLowerRightGraphicsItem(PriceBarChartArtifactGraphicsItem):
     """QGraphicsItem that visualizes a GannFan opening in the lower 
     right direction.
@@ -460,26 +532,43 @@ class GannFanLowerRightGraphicsItem(PriceBarChartArtifactGraphicsItem):
     def __init__(self, parent=None, scene=None):
         super().__init__(parent, scene)
         
-    def setPriceBarChartGannFanLowerRightArtifact(self, priceBarChartGannFanLowerRightArtifact):
+    def setArtifact(self, artifact):
         """Loads a given PriceBarChartGannFanLowerRightArtifact object's data
-        into this QGraphicsItem.
+        into this QGraphicsTextItem.
+
+        Arguments:
+        artifact - PriceBarChartGannFanLowerRightArtifact object with
+                   information about this TextGraphisItem.
         """
+
+        self.log.debug("Entering setArtifact()")
+
+        if isinstance(artifact, PriceBarChartGannFanLowerRightArtifact):
+            self.artifact = artifact
         
-        self.priceBarChartGannFanLowerRightArtifact = \
-            priceBarChartGannFanLowerRightArtifact
-            
-        # TODO:  Extract and set the internals according to the info 
-        # in this artifact object.
+            # TODO:  Extract and set the internals according to the info 
+            # in self.artifact.
+        else:
+            errStr = "Expected artifact type: " + \
+                     "PriceBarChartGannFanLowerRightArtifact"
+            raise TypeError(errStr)
     
-    def getPriceBarChartTextArtifact(self):
-        """Returns a PriceBarChartTextArtifact for this QGraphicsItem 
-        so that it may be pickled.
+        self.log.debug("Exiting setArtifact()")
+
+        
+    def getArtifact(self):
+        """Returns a PriceBarChartGannFanLowerRightArtifact for this
+        QGraphicsItem so that it may be pickled.
         """
+
+        self.log.debug("Entered getArtifact()")
         
-        # TODO:  Update the internal self.priceBarChartGannFanLowerRightArtifact 
-        # to be current, then return it.
+        # TODO:  Update the internal self.artifact to be 
+        # current, then return it.
         
-        return self.priceBarChartGannFanLowerRightArtifact 
+        self.log.debug("Exiting getArtifact()")
+        
+        return self.artifact
         
 class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
     """QGraphicsItem that visualizes a PriceBar counter in the GraphicsView.
@@ -534,8 +623,7 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         ############################################################
 
         # Internal storage object, used for loading/saving (serialization).
-        self.priceBarChartBarCountArtifact = \
-            PriceBarChartBarCountArtifact()
+        self.artifact = PriceBarChartBarCountArtifact()
 
         # Read the QSettings preferences for the various parameters of
         # this price bar.
@@ -586,7 +674,8 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # or end point of the QGraphicsItem.
         self.draggingStartPointFlag = False
         self.draggingEndPointFlag = False
-
+        self.clickScenePointF = QPointF()
+        
     def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings):
         """Reads some of the parameters/settings of this
         PriceBarGraphicsItem from the given PriceBarChartSettings object.
@@ -664,18 +753,26 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         Arguments:
         pos - QPointF holding the new position.
         """
+        self.log.debug("Entered setPos()")
+        
         super().setPos(pos)
 
         newScenePos = pos
 
         posDelta = newScenePos - self.startPointF
 
+        # Update the start and end points accordingly. 
         self.startPointF = self.startPointF + posDelta
-        self.endPointF  = self.endPointF + posDelta
+        self.startPointF.setX(round(self.startPointF.x()))
+        self.endPointF = self.endPointF + posDelta
+        self.endPointF.setX(round(self.endPointF.x()))
 
         if self.scene() != None:
             self.recalculateBarCount()
+            self.update()
 
+        self.log.debug("Exiting setPos()")
+        
     def mousePressEvent(self, event):
         """Overwrites the QGraphicsItem mousePressEvent() function.
 
@@ -694,24 +791,44 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # beginning or end points, then the user is trying to adjust
             # the starting or ending points of the bar counter ruler.
             scenePosX = event.scenePos().x()
-
+            self.log.debug("DEBUG: scenePosX={}".format(scenePosX))
+            
             startingPointX = self.startPointF.x()
+            self.log.debug("DEBUG: startingPointX={}".format(startingPointX))
             endingPointX = self.endPointF.x()
+            self.log.debug("DEBUG: endingPointX={}".format(endingPointX))
             
             diff = endingPointX - startingPointX
+            self.log.debug("DEBUG: diff={}".format(diff))
 
             startThreshold = startingPointX + (diff * (1.0 / 5))
             endThreshold = endingPointX - (diff * (1.0 / 5))
 
+            self.log.debug("DEBUG: startThreshold={}".format(startThreshold))
+            self.log.debug("DEBUG: endThreshold={}".format(endThreshold))
+
             if scenePosX <= startThreshold:
                 self.draggingStartPointFlag = True
+                self.log.debug("DEBUG: self.draggingStartPointFlag={}".
+                               format(self.draggingStartPointFlag))
             elif scenePosX >= endThreshold:
                 self.draggingEndPointFlag = True
+                self.log.debug("DEBUG: self.draggingEndPointFlag={}".
+                               format(self.draggingEndPointFlag))
             else:
                 # The mouse has clicked the middle part of the
                 # QGraphicsItem, so pass the event to the parent, because
                 # the user wants to either select or drag-move the
                 # position of the QGraphicsItem.
+                self.log.debug("DEBUG:  Middle part clicked.  " + \
+                               "Passing to super().")
+
+                # Save the click position, so that if it is a drag, we
+                # can have something to reference from for setting the
+                # start and end positions when the user finally
+                # releases the mouse button.
+                self.clickScenePointF = event.scenePos()
+                
                 super().mousePressEvent(event)
 
         self.log.debug("Leaving mousePressEvent()")
@@ -725,10 +842,18 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         if event.buttons() & Qt.LeftButton:
             if self.getReadOnlyFlag() == False:
-                if self.draggingStartPointFlag == True: 
-                    self.setStartPointF(event.scenePos())
+                if self.draggingStartPointFlag == True:
+                    self.log.debug("DEBUG: self.draggingStartPointFlag={}".
+                                   format(self.draggingStartPointFlag))
+                    self.setStartPointF(QPointF(event.scenePos().x(),
+                                                self.startPointF.y()))
+                    self.update()
                 elif self.draggingEndPointFlag == True:
-                    self.setEndPointF(event.scenePos())
+                    self.log.debug("DEBUG: self.draggingEndPointFlag={}".
+                                   format(self.draggingEndPointFlag))
+                    self.setEndPointF(QPointF(event.scenePos().x(),
+                                              self.endPointF.y()))
+                    self.update()
                 else:
                     # This means that the user is dragging the whole
                     # ruler.  Do the move, but also set emit that the
@@ -749,11 +874,22 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         self.log.debug("Entered mouseReleaseEvent()")
 
-        if self.draggingStartPointFlag == True or \
-                self.draggingEndPointFlag == True:
+        if self.draggingStartPointFlag == True:
+            self.log.debug("mouseReleaseEvent() when previously dragging " + \
+                           "startPoint.")
             
-            self.log.debug("mouseReleaseEvent() when previously dragging.")
             self.draggingStartPointFlag = False
+
+            # Make sure the starting point is to the left of the
+            # ending point.
+            self.normalizeStartAndEnd()
+            
+            self.scene().priceBarChartChanged.emit()
+            
+        elif self.draggingEndPointFlag == True:
+            self.log.debug("mouseReleaseEvent() when previously dragging " +
+                           "endPoint.")
+            
             self.draggingEndPointFlag = False
 
             # Make sure the starting point is to the left of the
@@ -761,7 +897,29 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.normalizeStartAndEnd()
 
             self.scene().priceBarChartChanged.emit()
+            
         else:
+            self.log.debug("mouseReleaseEvent() when NOT previously " + \
+                           "dragging an end.")
+
+            if self.getReadOnlyFlag() == False:
+                # Update the start and end positions.
+                self.log.debug("DEBUG: scenePos: x={}, y={}".
+                               format(event.scenePos().x(),
+                                      event.scenePos().y()))
+
+                # Calculate the difference between where the user released
+                # the button and where the user first clicked the item.
+                delta = event.scenePos() - self.clickScenePointF
+
+                self.log.debug("DEBUG: delta: x={}, y={}".
+                               format(delta.x(), delta.y()))
+
+                # Update the start and end points by calling setPos() on
+                # the new calculated position.
+                newPos = self.startPointF + delta
+                self.setPos(newPos)
+
             super().mouseReleaseEvent(event)
 
         self.log.debug("Exiting mouseReleaseEvent()")
@@ -804,7 +962,6 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
             if self.scene() != None:
                 # Re-calculate the bar count.
                 self.recalculateBarCount()
-
                 self.update()
 
     def setEndPointF(self, pointF):
@@ -830,7 +987,6 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
             if self.scene() != None:
                 # Re-calculate the bar count.
                 self.recalculateBarCount()
-
                 self.update()
 
 
@@ -951,19 +1107,28 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         return self.barCount
 
-    def setPriceBarChartBarCountArtifact(self, priceBarChartBarCountArtifact):
+    def setArtifact(self, artifact):
         """Loads a given PriceBarChartBarCountArtifact object's data
         into this QGraphicsItem.
+
+        Arguments:
+        artifact - PriceBarChartBarCountArtifact object with information
+                   about this TextGraphisItem
         """
-        
-        self.priceBarChartBarCountArtifact = \
-            priceBarChartBarCountArtifact 
+
+        self.log.debug("Entering setArtifact()")
+
+        if isinstance(artifact, PriceBarChartBarCountArtifact):
+            self.artifact = artifact
+        else:
+            raise TypeError("Expected artifact type: " + \
+                            "PriceBarChartBarCountArtifact")
 
         # Extract and set the internals according to the info 
         # in this artifact object.
-        self.setPos(self.priceBarChartBarCountArtifact.getPos())
-        self.setStartPointF(self.priceBarChartBarCountArtifact.getStartPointF())
-        self.setEndPointF(self.priceBarChartBarCountArtifact.getEndPointF())
+        self.setPos(self.artifact.getPos())
+        self.setStartPointF(self.artifact.getStartPointF())
+        self.setEndPointF(self.artifact.getEndPointF())
 
         # Need to recalculate the bar count, since the start and end
         # points have changed.  Note, if no scene has been set for the
@@ -971,19 +1136,25 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # can't look up PriceBarGraphicsItems in the scene.
         self.recalculateBarCount()
 
-    def getPriceBarChartBarCountArtifact(self):
+        self.log.debug("Exiting setArtifact()")
+
+    def getArtifact(self):
         """Returns a PriceBarChartBarCountArtifact for this QGraphicsItem 
         so that it may be pickled.
         """
         
+        self.log.debug("Entered getArtifact()")
+        
         # Update the internal self.priceBarChartBarCountArtifact 
         # to be current, then return it.
 
-        self.priceBarChartBarCountArtifact.setPos(self.pos())
-        self.priceBarChartBarCountArtifact.setStartPointF(self.startPointF)
-        self.priceBarChartBarCountArtifact.setEndPointF(self.endPointF)
+        self.artifact.setPos(self.pos())
+        self.artifact.setStartPointF(self.startPointF)
+        self.artifact.setEndPointF(self.endPointF)
         
-        return self.priceBarChartBarCountArtifact
+        self.log.debug("Exiting getArtifact()")
+        
+        return self.artifact
 
     def boundingRect(self):
         """Returns the bounding rectangle for this graphicsitem."""
@@ -1438,9 +1609,8 @@ class PriceBarChartWidget(QWidget):
         graphicsItems = self.graphicsScene.items()
         
         for item in graphicsItems:
-            if isinstance(item, BarCountGraphicsItem):
-                artifacts.append(item.getPriceBarChartBarCountArtifact())
-
+            if isinstance(item, PriceBarChartArtifactGraphicsItem):
+                artifacts.append(item.getArtifact())
 
         self.log.debug("Number of artifacts being returned is: {}".\
                        format(len(artifacts)))
@@ -1479,7 +1649,7 @@ class PriceBarChartWidget(QWidget):
                 newItem = BarCountGraphicsItem()
                 newItem.loadSettingsFromPriceBarChartSettings(\
                     self.priceBarChartSettings)
-                newItem.setPriceBarChartBarCountArtifact(artifact)
+                newItem.setArtifact(artifact)
 
                 # Add the item.
                 self.graphicsScene.addItem(newItem)
@@ -2235,6 +2405,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
             if qkeyevent.key() & Qt.Key_Delete:
                 # Get the items that are selected, and out of those,
                 # remove the PriceBarChartArtifactGraphicsItems.
+                self.log.debug("Delete key pressed while in 'PointerTool' mode")
+                
                 scene = self.scene()
                 selectedItems = scene.selectedItems()
 
@@ -2308,6 +2480,17 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
                 clickPosF = self.mapToScene(qmouseevent.pos())
                 topItem = scene.itemAt(clickPosF, self.transform())
+                items = scene.items(clickPosF,
+                                    Qt.ContainsItemBoundingRect,
+                                    Qt.AscendingOrder)
+
+                debugLogStr = ""
+                for item in items:
+                    if isinstance(item, PriceBarGraphicsItem):
+                        pass
+                    elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                        pass
+                
                 # Branch.
 
                 # If more than one QGraphicsItem is here, then

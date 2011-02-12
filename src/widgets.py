@@ -20,7 +20,7 @@ from PyQt4.QtGui import *
 
 
 from ephemeris import *
-
+from data_objects import PriceBar
 
 class ColorIcon(QIcon):
     """A QIcon hosting just a color."""
@@ -552,12 +552,15 @@ class TimestampEditWidget(QWidget):
     # Signal emitted when the Cancel button is clicked.
     cancelButtonClicked = QtCore.pyqtSignal()
 
-    def __init__(self, timestamp, parent=None):
+    def __init__(self, timestamp=None, parent=None):
         """Initializes the widgets to hold the datetime.datetime in
         the timestamp variable.
 
         Arguments:
-        timestamp - datetime.datetime object with a non-None pytz timezone.
+        
+        timestamp - datetime.datetime object with a non-None pytz
+                    timezone.  If timestamp is None, then the
+                    timestamp initialized is the current time in UTC.
         """
         
         super().__init__(parent)
@@ -566,6 +569,12 @@ class TimestampEditWidget(QWidget):
         self.log = logging.\
             getLogger("widgets.TimestampEditWidget")
 
+        # If timestamp is None, use the current time in UTC.
+        if timestamp == None:
+            self.log.debug("Timestamp entered to TimestampEditWidget " +
+                           "is None, so using the current UTC time.")
+            timestamp = datetime.datetime.now(pytz.utc)
+            
         # Do some input checking.
         if not isinstance(timestamp, datetime.datetime):
             msg = "Argument 'timestamp' is expected to be a " + \
@@ -644,6 +653,28 @@ class TimestampEditWidget(QWidget):
         # timestamp.
         self.loadTimestamp(self.dt)
 
+    def setReadOnly(self, readOnlyFlag):
+        """Sets whether or not the widgets can be edit-able by the user.
+
+        Arguments:
+        
+        readOnlyFlag - bool value.  If True, then the widgets are not
+                       editable. If False, then the widgets are editable.
+        """
+
+        # Set the widgets as readOnly or not.
+        self.datetimeEditWidget.setEnabled(not readOnlyFlag)
+        self.timezoneComboBox.setEnabled(not readOnlyFlag)
+        self.daylightComboBox.setEnabled(not readOnlyFlag)
+
+        # If the readOnly is not enabled, then after enabling the
+        # widgets we care about, run self.updateDaylightComboBox, to get
+        # the daylightComboBox into enabled or disabled mode, depending
+        # of whether or not daylight savings mode is ambiguous or not
+        # for that timezone.
+        if readOnlyFlag == False:
+            self.updateDaylightComboBox()
+            
 
     def _getAllTzNamesForTimezone(self, tz):
         """Returns a list of str objects, which consist of all the possible
@@ -741,6 +772,7 @@ class TimestampEditWidget(QWidget):
                 # Set the index only if it is not currently on this index.
                 if self.daylightComboBox.currentIndex() != index:
                     self.daylightComboBox.setCurrentIndex(index)
+
             else:
                 errStr = "Couldn't find the tzname " + tznameStr + \
                          " in the combo box list of tznames."
@@ -757,7 +789,7 @@ class TimestampEditWidget(QWidget):
                 index = 0
                 if self.daylightComboBox.currentIndex() != index:
                     self.daylightComboBox.setCurrentIndex(index)
-                    
+
                 self.daylightComboBox.setEnabled(True)
             else:
                 errStr = "Timestamp is ambiguous and there are " + \
@@ -767,6 +799,10 @@ class TimestampEditWidget(QWidget):
                 self.log.error(errStr)
                 QMessageBox.warning(None, "Error", errStr)
 
+        # If there is only one valid choice, (which we assume is
+        # currently selected, then disable the combo box.
+        if self.daylightComboBox.count() == 1:
+            self.daylightComboBox.setEnabled(False)
             
     def loadTimestamp(self, timestamp):
         """Loads the widgets with values from the given
@@ -1377,8 +1413,9 @@ class PriceBarEditWidget(QWidget):
             QGroupBox("PriceBar:")
 
         # Timestamp.
-        self.timestampLabel = QLabel("Timestamp:")
         self.timestampEditWidget = TimestampEditWidget()
+        self.timestampEditWidget.okayButton.setVisible(False)
+        self.timestampEditWidget.cancelButton.setVisible(False)
 
         # Open price.
         self.openPriceLabel = QLabel("Open Price:")
@@ -1429,10 +1466,11 @@ class PriceBarEditWidget(QWidget):
         self.tagsListEditButton = QPushButton("Edit Tags")
 
         # Set widgets in the layouts.
+        self.timestampLayout = QVBoxLayout()
+        self.timestampLayout.addWidget(self.timestampEditWidget)
+
         self.formLayout = QFormLayout()
         self.formLayout.setLabelAlignment(Qt.AlignLeft)
-        self.formLayout.addRow(self.timestampLabel,
-                               self.timestampEditWidget)
         self.formLayout.addRow(self.openPriceLabel, 
                                self.openPriceSpinBox)
         self.formLayout.addRow(self.lowPriceLabel, 
@@ -1443,10 +1481,21 @@ class PriceBarEditWidget(QWidget):
                                self.openInterestSpinBox)
         self.formLayout.addRow(self.volumeLabel, 
                                self.volumeSpinBox)
-        self.formLayout.addRow(self.tagsListGroupBox, 
-                               self.tagsListEditButton)
 
-        self.groupBox.setLayout(self.formLayout)
+        self.tagsFormLayout = QFormLayout()
+        self.tagsFormLayout.setLabelAlignment(Qt.AlignLeft)
+        self.tagsFormLayout.addRow(self.tagsListGroupBox, 
+                                   self.tagsListEditButton)
+
+        self.priceActionGroupBox = QGroupBox("Price Action:")
+        self.priceActionGroupBox.setLayout(self.formLayout)
+
+        self.editWidgetsLayout = QVBoxLayout()
+        self.editWidgetsLayout.addLayout(self.timestampLayout)
+        self.editWidgetsLayout.addWidget(self.priceActionGroupBox)
+        self.editWidgetsLayout.addLayout(self.tagsFormLayout)
+        
+        self.groupBox.setLayout(self.editWidgetsLayout)
 
         # Buttons at bottom.
         self.okayButton = QPushButton("&Okay")
@@ -1459,7 +1508,6 @@ class PriceBarEditWidget(QWidget):
         # Put all layouts/groupboxes together into the widget.
         self.mainLayout = QVBoxLayout()
         self.mainLayout.addWidget(self.groupBox) 
-        self.mainLayout.addSpacing(10)
         self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
 
         self.setLayout(self.mainLayout)
@@ -1625,6 +1673,7 @@ class PriceBarEditWidget(QWidget):
 
         # Only save if the readOnlyFlag is False.
         if self.readOnlyFlag == False:
+            self.timestampEditWidget.saveTimestamp()
             self.savePriceBar()
 
         self.okayButtonClicked.emit()
@@ -1871,9 +1920,40 @@ def testPriceBarTagEditDialog():
         print("Tags after: {}".format(tags))
     
 def testPriceBarEditDialog():
-    # TODO:  write some test code for this.
-    pass
 
+    pb1tags = ["HH", "L", "LLLL", "HappyTag"]
+    pb1 = PriceBar(datetime.datetime.now(pytz.utc),
+                   5, 9, 1, 5, 100, 200, pb1tags)
+    
+    pb2tags = ["LL", "HL", "HHHH", "Tag324"]
+    pb2 = PriceBar(datetime.datetime.now(pytz.utc),
+                   5, 10, 2, 5, 200, 400, pb2tags)
+
+    pb3tags = ["asdf", "qwer", "z", "ZXXXZ"]
+    pb3 = PriceBar(datetime.datetime.now(pytz.utc),
+                   5, 8, 3, 5, 300, 600, pb3tags)
+
+    print("PriceBar before: {}".format(pb1.toString()))
+
+    #dialog = PriceBarEditDialog(pb1, readOnly=True)
+    dialog = PriceBarEditDialog(pb1, readOnly=False)
+    
+    rv = dialog.exec_()
+    if rv == QDialog.Accepted:
+        print("Accepted")
+    else:
+        print("Accepted")
+
+    print("PriceBar: {}".format(pb1.toString()))
+    pb1 = dialog.getPriceBar()
+    print("PriceBar after mods: {}".format(pb1.toString()))
+    
+    priceBars = []
+    priceBars.append(pb1)
+    priceBars.append(pb2)
+    priceBars.append(pb3)
+    
+    
 # For debugging the module during development.  
 if __name__=="__main__":
     # Initialize logging.
