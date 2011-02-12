@@ -1294,15 +1294,16 @@ class PriceBarChartWidget(QWidget):
         self.lastPriceBarTimestampLabel = QLabel("")
         self.numPriceBarsLabel = QLabel("")
         
-        localizedTimestampStr = "Mouse location timestamp: "
-        utcTimestampStr = "Mouse location timestamp: "
-        priceStr = "Mouse location price: " 
+        localizedTimestampStr = "Mouse time: "
+        utcTimestampStr = "Mouse time: "
+        priceStr = "Mouse price: " 
         self.cursorLocalizedTimestampLabel = \
             QLabel(localizedTimestampStr)
         self.cursorUtcTimestampLabel = \
             QLabel(utcTimestampStr)
         self.cursorPriceLabel = \
             QLabel(priceStr)
+
         
         self.selectedPriceBarTimestampLabel = QLabel("")
         self.selectedPriceBarOpenPriceLabel = QLabel("")
@@ -1317,14 +1318,19 @@ class PriceBarChartWidget(QWidget):
         self.firstPriceBarTimestampLabel.setFont(smallFont)
         self.lastPriceBarTimestampLabel.setFont(smallFont)
         self.numPriceBarsLabel.setFont(smallFont)
-        self.cursorLocalizedTimestampLabel.setFont(smallFont)
-        self.cursorUtcTimestampLabel.setFont(smallFont)
-        self.cursorPriceLabel.setFont(smallFont)
         self.selectedPriceBarTimestampLabel.setFont(smallFont)
         self.selectedPriceBarOpenPriceLabel.setFont(smallFont)
         self.selectedPriceBarHighPriceLabel.setFont(smallFont)
         self.selectedPriceBarLowPriceLabel.setFont(smallFont)
         self.selectedPriceBarClosePriceLabel.setFont(smallFont)
+
+        # Set the cursor timestamp labels as being in a monospaced font.
+        smallCourierFont = QFont()
+        smallCourierFont.setFamily("Courier")
+        smallCourierFont.setPointSize(7)
+        self.cursorLocalizedTimestampLabel.setFont(smallCourierFont)
+        self.cursorUtcTimestampLabel.setFont(smallCourierFont)
+        self.cursorPriceLabel.setFont(smallCourierFont)
         
         # Create the QGraphicsView and QGraphicsScene for the display portion.
         self.graphicsScene = PriceBarChartGraphicsScene()
@@ -1402,12 +1408,10 @@ class PriceBarChartWidget(QWidget):
         """
 
         # Datetime format to datetime.strftime().
-        fmt = "%Y-%m-%d %H:%M:%S %Z %z"
-
         timestampStr = "First PriceBar Timestamp: "
         
         if priceBar != None:
-            timestampStr += "{}".format(priceBar.timestamp.strftime(fmt))
+            timestampStr += self.datetimeToStr(priceBar.timestamp)
 
         self.firstPriceBarTimestampLabel.setText(timestampStr)
 
@@ -1422,13 +1426,10 @@ class PriceBarChartWidget(QWidget):
                    blank.
         """
 
-        # Datetime format to datetime.strftime().
-        fmt = "%Y-%m-%d %H:%M:%S %Z %z"
-
         timestampStr = "Last PriceBar Timestamp: "
         
         if priceBar != None:
-            timestampStr += "{}".format(priceBar.timestamp.strftime(fmt))
+            timestampStr += self.datetimeToStr(priceBar.timestamp)
         
         self.lastPriceBarTimestampLabel.setText(timestampStr)
 
@@ -1459,9 +1460,9 @@ class PriceBarChartWidget(QWidget):
                     scene coordinates.
         """
 
-        localizedTimestampStr = "Mouse location timestamp: "
-        utcTimestampStr = "Mouse location timestamp: "
-        priceStr = "Mouse location price: " 
+        localizedTimestampStr = "Mouse time: "
+        utcTimestampStr = "Mouse time: "
+        priceStr = "Mouse price: " 
 
         # Set the values if the X and Y positions are valid.
         if sceneXPos != None and sceneYPos != None:
@@ -1470,13 +1471,10 @@ class PriceBarChartWidget(QWidget):
             timestamp = self._sceneXPosToDatetime(sceneXPos)
             price = self._sceneYPosToPrice(sceneYPos)
 
-            # Datetime format to datetime.strftime().
-            fmt = "%Y-%m-%d %H:%M:%S %Z %z"
-
             # Append to the strings.
-            localizedTimestampStr += "{}".format(timestamp.strftime(fmt))
-            utcTimestampStr += "{}".\
-                format(timestamp.astimezone(pytz.utc).strftime(fmt))
+            localizedTimestampStr += self.datetimeToStr(timestamp)
+            utcTimestampStr += \
+                self.datetimeToStr(timestamp.astimezone(pytz.utc))
             priceStr += "{}".format(price)
 
         # Actually set the text to the widgets.
@@ -1493,9 +1491,6 @@ class PriceBarChartWidget(QWidget):
                    selected PriceBar.
         """
 
-        # Datetime format to datetime.strftime().
-        fmt = "%Y-%m-%d %H:%M:%S %Z %z"
-
         timestampStr = "Timestamp: "
         openStr = "Open: "
         highStr = "High: "
@@ -1503,7 +1498,7 @@ class PriceBarChartWidget(QWidget):
         closeStr = "Close: "
 
         if priceBar != None:
-            timestampStr += priceBar.timestamp.strftime(fmt)
+            timestampStr += self.datetimeToStr(priceBar.timestamp)
             openStr += "{}".format(priceBar.open)
             highStr += "{}".format(priceBar.high)
             lowStr += "{}".format(priceBar.low)
@@ -1895,6 +1890,41 @@ class PriceBarChartWidget(QWidget):
 
         self.log.debug("Exiting toBarCountToolMode()")
 
+
+    def datetimeToStr(self, dt):
+        """Returns the given datetime.datetime object as a str in the
+        format: "%Y-%m-%d %H:%M:%S %Z %z"
+        This function exists because the strftime(fmt) function does
+        not work for years less than 1900.  This function rectifies
+        that problem.
+
+        Arguments:
+
+        dt - datetime.datetime object that has it's timezone set as a
+        pytz.timezone object.
+        """
+
+        # Return value.
+        rv = ""
+        
+        dayOfWeekStr = dt.ctime()[0:3]
+        
+        offsetStr = \
+            Ephemeris.getTimezoneOffsetFromDatetime(dt)
+            
+        rv = "{} {}-{:02}-{:02} {:02}:{:02}:{:02} {} {}".\
+             format(dayOfWeekStr,
+                    dt.year,
+                    dt.month,
+                    dt.day,
+                    dt.hour,
+                    dt.minute,
+                    dt.second,
+                    dt.tzname(),
+                    offsetStr)
+            
+        return rv
+        
 
     def _sceneXPosToDatetime(self, sceneXPos):
         """Returns a datetime.datetime object for the given X position in
