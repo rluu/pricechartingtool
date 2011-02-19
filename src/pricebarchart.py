@@ -2504,39 +2504,60 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 PriceBarChartGraphicsView.ToolMode['ReadOnlyPointerTool']:
 
             if qmouseevent.button() & Qt.RightButton:
-                # TODO:  add the following as code.
-
                 # See if the user has right clicked on a QGraphicsItem.
-
                 clickPosF = self.mapToScene(qmouseevent.pos())
                 topItem = scene.itemAt(clickPosF, self.transform())
                 items = scene.items(clickPosF,
                                     Qt.ContainsItemBoundingRect,
                                     Qt.AscendingOrder)
 
+                # Here count the number of items at this position that
+                # we care about for creating a context menu for.
                 debugLogStr = ""
+                numContextMenuItems = 0
+                
                 for item in items:
                     if isinstance(item, PriceBarGraphicsItem):
-                        pass
+                        debugLogStr += \
+                            "PriceBarGraphicsItem with PriceBar: " + \
+                            item.priceBar.toString()
+                        numContextMenuItems += 1
                     elif isinstance(item, PriceBarChartArtifactGraphicsItem):
-                        pass
-                
-                # Branch.
+                        debugLogStr += \
+                            "PriceBarChartArtifactGraphicsItem with " + \
+                            "artifact info: " + item.artifact.toString()
+                        numContextMenuItems += 1
+                        
+                self.log.debug("{} items under scene clickPosF({}, {}): {}".\
+                               format(numContextMenuItems,
+                                      clickPosF.x(),
+                                      clickPosF.y(),
+                                      debugLogStr))
+        
+                # TODO:  add the following as code.
 
-                # If more than one QGraphicsItem is here, then
-                # bring up a context menu with all the item and choices.
+                # Branch according to what's under the mouse click position.
+                menu = QMenu()
+                parent = None
 
-                # If only one QGraphicsItem, then bring up context menu
-                # for that item.
-
-                # If no QGraphicsItems, then bring up context menu for
-                # those options.
-
+                if numContextMenuItems == 0:
+                    # If no QGraphicsItems, then bring up context menu for
+                    # those options.
+                    
+                    pass
+                elif numContextMenuItems == 1:
+                    # If only one QGraphicsItem, then bring up context menu
+                    # for that item.
+                    pass
+                else:
+                    # If more than one QGraphicsItem is here, then
+                    # bring up a context menu with all the item and choices.
+                    pass
         
                 # (Be sure to add a context menu with choices for
-                # showing the astro chart at this time, and the 
+                # showing the astro chart at this time (in all cases), and the 
                 # for showing the sq-of-9, etc. for this price/time.
-                pass
+
             else:
                 super().mousePressEvent(qmouseevent)
 
