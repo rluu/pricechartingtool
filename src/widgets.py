@@ -1942,7 +1942,7 @@ def testPriceBarEditDialog():
     if rv == QDialog.Accepted:
         print("Accepted")
     else:
-        print("Accepted")
+        print("Rejected")
 
     print("PriceBar: {}".format(pb1.toString()))
     pb1 = dialog.getPriceBar()

@@ -2,30 +2,61 @@
 
 Outstanding things to work on going forward:
 
-CHECK  - Need to ensure selection of artifacts and deletion of them 
-CHECK     works properly
-CHECK      - Dirty flag needs to be set if artifacts are deleted.
-CHECK  - Need to implement selection of pricebars so that they get
-CHECK     highlighted and the QLabels at the top get updated with the
-CHECK     pricebar.
+DONE  - Need to ensure selection of artifacts and deletion of them 
+DONE     works properly
+DONE      - Dirty flag needs to be set if artifacts are deleted.
+DONE  - Need to implement selection of pricebars so that they get
+DONE     highlighted and the QLabels at the top get updated with the
+DONE     pricebar.
+DONE  - In pricebarchart.py, need to make sure when I create new
+DONE    QGraphicsItems as either PriceBars or Artifacts, that the
+DONE    QGrahpicsItem flags get set according to whatever tool mode I'm
+DONE    currently in!
+DONE  - Finish testing PriceBarEditWidget() and PriceBarEditDialog().
+DONE  - Remove bolding option of PriceBars (and pen width of it, etc.).
 
-CHECK  - In pricebarchart.py, need to make sure when I create new
-CHECK    QGraphicsItems as either PriceBars or Artifacts, that the
-CHECK    QGrahpicsItem flags get set according to whatever tool mode I'm
-CHECK    currently in!
-
-  - Turn the __main__() functions into a list of calls to testXXXXX()
-    functions... one for each of the classes being tested.
-
-  - Finish testing PriceBarEditWidget() and PriceBarEditDialog().
 
   - Need to add right-click context menus and popup info/edit dialog widgets.
+
+     - Add these functions to the pricebargraphicsitem:
+
+           handleSetAstro1(datetime)
+           handleSetAstro2(datetime)
+           handleSetAstro3(datetime)
+
+     - Add these functions to the base-class artifact:
+
+           handleSetAstro1(datetime)
+           handleSetAstro2(datetime)
+           handleSetAstro3(datetime)
+
+     - Each GraphicsItem type should have a function called:
+ 
+           createContextMenu(readOnlyMode=true)
+
+       and any supporting functions that are slots that are connected
+       to the actions returned in the QMenu (some of the below may or
+       may not apply to the particular graphicsitem):
+
+           handleSelect()
+           handleUnselect()
+           handleRemoveItem()
+           handleInfoEdit()
+           handleInfoShow()
+	   
+	   handleSetAstro1() (to overwrite and call the base-class
+	                      function with the appropriate arguments)
+	   handleSetAstro2() (to overwrite and call the base-class
+	                      function with the appropriate arguments)
+	   handleSetAstro3() (to overwrite and call the base-class
+	                      function with the appropriate arguments)
+           etc.
+
+
      - Dialog widgets for info/editing of artifacts should be in new file: 
        pricebarchart_dialogs.py
      - Edit/Dialog widgets for info/editing of Timestamps and PriceBars 
        should go in widgets.py
-
-CHECK  - Remove bolding option of PriceBars (and pen width of it, etc.).
 
   - Need to create icons for the different new modes for creating indicators.
      - BarCount
@@ -36,6 +67,11 @@ CHECK  - Remove bolding option of PriceBars (and pen width of it, etc.).
     charting the astro chart.
 
   - Need to implement the spreadsheet widget.
+
+  - Turn the __main__() functions in each source file into a list of
+    calls to testXXXXX() functions... one for each of the classes
+    being tested.  Maybe these testXXXXX() functions should be moved
+    to a test component?
 
   Indicators:
   - Need to implement indicator for static octaves (in time).

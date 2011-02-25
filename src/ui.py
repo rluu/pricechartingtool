@@ -1987,10 +1987,16 @@ class PriceChartDocumentWidget(QWidget):
         # Connect signals and slots.
         self.priceBarChartWidget.priceBarChartChanged.\
             connect(self._handleWidgetChanged)
+        
         # TODO:  Uncomment to re-add the PlanetaryInfoTableWidget.
         #self.priceBarChartWidget.currentTimestampChanged.\
         #    connect(self._handleCurrentTimestampChanged)
-
+        
+        # TODO:  Add methods to handle for the following astro signals:
+        # self.priceBarChartWidget.astroChart1Update
+        # self.priceBarChartWidget.astroChart2Update
+        # self.priceBarChartWidget.astroChart3Update
+        
     def setBirthInfo(self, birthInfo):
         """Sets the birth info for this trading entity.
         

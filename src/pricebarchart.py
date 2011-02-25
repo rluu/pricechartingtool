@@ -355,31 +355,157 @@ class PriceBarGraphicsItem(QGraphicsItem):
             painter.setBrush(Qt.NoBrush)
             painter.drawRect(self.boundingRect())
 
-    def contextMenuEvent(self, event):
-        """Overwrite the QGrpahicsItem.contextMenuEvent() function.
-        This is called when a context menu is brought up on this QGraphicsItem.
-        Here we bring up a popup menu and provide some options to the user.
-        
-        Options include:
-
-        - Select the PriceBar (and unselect all other PriceBars).
-        - Unselect the PriceBar.
-        - Info dialog about this PriceBar.
-
-        TODO:  Add other options to this context menu:
-        - Open astrology chart for this PriceBar time.
-        - Open Square of 9 chart for this Price.
-        - ... (any other number of number charts relevant).
-        
-        Arguments:
-
-        event - QGraphicsSceneContextMenuEvent object that triggered
-                the call of this function.
+    def createContextMenu(self, readOnlyMode=False):
+        """Creates and returns a QMenu with actions relevant to this
+        PriceBarGraphicsItem.  Actions that are triggered from this
+        menu run various methods in the PriceBarGraphicsItem to
+        handle the functionality.
         """
 
-        # TODO:  add some code here
-        pass
-    
+        menu = QMenu()
+        # TODO:  set the menu title here.
+        parent = None
+        
+        # These are the QActions that are in the menu.
+        selectAction = QAction("Select", parent)
+        unselectAction = QAction("Unselect", parent)
+        removeAction = QAction("Remove", parent)
+        infoAction = QAction("Info", parent)
+        editAction = QAction("Edit", parent)
+        setAstro1Action = QAction("Set timestamp on Astro Chart 1", parent)
+        setAstro2Action = QAction("Set timestamp on Astro Chart 2", parent)
+        setAstro3Action = QAction("Set timestamp on Astro Chart 3", parent)
+        
+        selectAction.triggered.\
+            connect(self._handleSelectAction)
+        unselectAction.triggered.\
+            connect(self._handleUnselectAction)
+        removeAction.triggered.\
+            connect(self._handleRemoveAction)
+        infoAction.triggered.\
+            connect(self._handleInfoAction)
+        editAction.triggered.\
+            connect(self._handleEditAction)
+        setAstro1Action.triggered.\
+            connect(self._handleSetAstro1Action)
+        setAstro2Action.triggered.\
+            connect(self._handleSetAstro2Action)
+        setAstro3Action.triggered.\
+            connect(self._handleSetAstro3Action)
+        
+        # Enable or disable actions.
+        selectAction.setEnabled(not readOnlyMode)
+        unselectAction.setEnabled(not readOnlyMode)
+        removeAction.setEnabled(False)
+        infoAction.setEnabled(True)
+        editAction.setEnabled(not readOnlyMode)
+        setAstro1Action.setEnabled(True)
+        setAstro2Action.setEnabled(True)
+        setAstro3Action.setEnabled(True)
+
+        # Add the QActions to the menu.
+        menu.addAction(selectAction)
+        menu.addAction(unselectAction)
+        menu.addSeparator()
+        menu.addAction(removeAction)
+        menu.addSeparator()
+        menu.addAction(infoAction)
+        menu.addAction(editAction)
+        menu.addSeparator()
+        menu.addAction(setAstro1Action)
+        menu.addAction(setAstro2Action)
+        menu.addAction(setAstro3Action)
+
+        return menu
+
+    def _handleSelectAction(self):
+        """Causes the QGraphicsItem to become selected."""
+
+        setSelected(True)
+
+    def _handleUnselectAction(self):
+        """Causes the QGraphicsItem to become unselected."""
+
+        setSelected(False)
+
+    def _handleRemoveAction(self):
+        """Causes the QGraphicsItem to be removed from the scene."""
+        
+        self.scene().removeItem(self)
+        self.scene().priceBarChartChanged.emit()
+        
+    def _handleInfoAction(self):
+        """Causes a dialog to be executed to show information about
+        the QGraphicsItem pricebar.
+        """
+
+        pb = self.getPriceBar()
+        
+        dialog = PriceBarEditDialog(priceBar=pb, readOnly=True)
+
+        # Run the dialog.  We don't care about what is returned
+        # because the dialog is read-only.
+        rv = dialog.exec_()
+        
+    def _handleEditAction(self):
+        """Causes a dialog to be executed to edit information about
+        the QGraphicsItem pricebar.
+        """
+
+        pb = self.getPriceBar()
+        
+        dialog = PriceBarEditDialog(priceBar=pb, readOnly=False)
+
+        rv = dialog.exec_()
+        
+        if rv == QDialog.Accepted:
+            # Set the item with the new values.
+
+            self.setPriceBar(dialog.getPriceBar())
+
+            # X location based on the timestamp.
+            x = self.scene()._datetimeToSceneXPos(self.priceBar.timestamp)
+
+            # Y location based on the mid price (average of high and low).
+            y = self.scene()._priceToSceneYPos(self.priceBar.midPrice())
+
+            # Set the position, in parent coordinates.
+            self.setPos(QPointF(x, y))
+
+            # Note that a redraw is required.
+            self.update()
+            
+            # Emit that the PriceBarChart has changed so that the
+            # dirty flag can be set.
+            self.scene().priceBarChartChanged.emit()
+        else:
+            # The user canceled so don't change anything.
+            pass
+        
+    def _handleSetAstro1Action(self):
+        """Causes the astro chart 1 to be set with the timestamp
+        of this PriceBarGraphicsItem.
+        """
+
+        # The GraphicsItem's scene X position represents the time.
+        self.scene().setAstroChart1(self.scenePos().x())
+        
+    def _handleSetAstro2Action(self):
+        """Causes the astro chart 2 to be set with the timestamp
+        of this PriceBarGraphicsItem.
+        """
+
+        # The GraphicsItem's scene X position represents the time.
+        self.scene().setAstroChart2(self.scenePos().x())
+        
+    def _handleSetAstro3Action(self):
+        """Causes the astro chart 3 to be set with the timestamp
+        of this PriceBarGraphicsItem.
+        """
+
+        # The GraphicsItem's scene X position represents the time.
+        self.scene().setAstroChart3(self.scenePos().x())
+        
         
 class PriceBarChartArtifactGraphicsItem(QGraphicsItem):
     """QGraphicsItem that has members to indicate and set the
@@ -1238,6 +1364,185 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
             painter.setBrush(Qt.NoBrush)
             painter.drawRect(self.boundingRect())
 
+    def createContextMenu(self, readOnlyMode=False):
+        """Creates and returns a QMenu with actions relevant to this
+        BarCountGraphicsItem.  Actions that are triggered
+        from this menu run various methods in the BarCountGraphicsItem
+        to handle the functionality.
+        """
+
+        menu = QMenu()
+        # TODO:  set the menu title here.
+        parent = None
+        
+        # These are the QActions that are in the menu.
+        selectAction = QAction("Select", parent)
+        unselectAction = QAction("Unselect", parent)
+        removeAction = QAction("Remove", parent)
+        infoAction = QAction("Info", parent)
+        editAction = QAction("Edit", parent)
+        setStartOnAstro1Action = \
+            QAction("Set start timestamp on Astro Chart 1", parent)
+        setEndOnAstro1Action = \
+            QAction("Set end timestamp on Astro Chart 1", parent)
+        setStartOnAstro2Action = \
+            QAction("Set start timestamp on Astro Chart 2", parent)
+        setEndOnAstro2Action = \
+            QAction("Set end timestamp on Astro Chart 2", parent)
+        setStartOnAstro3Action = \
+            QAction("Set start timestamp on Astro Chart 3", parent)
+        setEndOnAstro3Action = \
+            QAction("Set end timestamp on Astro Chart 3", parent)
+        
+        selectAction.triggered.\
+            connect(self._handleSelectAction)
+        unselectAction.triggered.\
+            connect(self._handleUnselectAction)
+        removeAction.triggered.\
+            connect(self._handleRemoveAction)
+        infoAction.triggered.\
+            connect(self._handleInfoAction)
+        editAction.triggered.\
+            connect(self._handleEditAction)
+        setStartOnAstro1Action.triggered.\
+            connect(self._handleSetStartOnAstro1Action)
+        setEndOnAstro1Action.triggered.\
+            connect(self._handleSetEndOnAstro1Action)
+        setStartOnAstro2Action.triggered.\
+            connect(self._handleSetStartOnAstro2Action)
+        setEndOnAstro2Action.triggered.\
+            connect(self._handleSetEndOnAstro2Action)
+        setStartOnAstro3Action.triggered.\
+            connect(self._handleSetStartOnAstro3Action)
+        setEndOnAstro3Action.triggered.\
+            connect(self._handleSetEndOnAstro3Action)
+        
+        # Enable or disable actions.
+        selectAction.setEnabled(True)
+        unselectAction.setEnabled(True)
+        removeAction.setEnabled(not readOnlyMode)
+        infoAction.setEnabled(True)
+        editAction.setEnabled(not readOnlyMode)
+        setStartOnAstro1Action.setEnabled(True)
+        setEndOnAstro1Action.setEnabled(True)
+        setStartOnAstro2Action.setEnabled(True)
+        setEndOnAstro2Action.setEnabled(True)
+        setStartOnAstro3Action.setEnabled(True)
+        setEndOnAstro3Action.setEnabled(True)
+
+        # Add the QActions to the menu.
+        menu.addAction(selectAction)
+        menu.addAction(unselectAction)
+        menu.addSeparator()
+        menu.addAction(removeAction)
+        menu.addSeparator()
+        menu.addAction(infoAction)
+        menu.addAction(editAction)
+        menu.addSeparator()
+        menu.addAction(setStartOnAstro1Action)
+        menu.addAction(setEndOnAstro1Action)
+        menu.addSeparator()
+        menu.addAction(setStartOnAstro2Action)
+        menu.addAction(setEndOnAstro2Action)
+        menu.addSeparator()
+        menu.addAction(setStartOnAstro3Action)
+        menu.addAction(setEndOnAstro3Action)
+
+        return menu
+
+    def _handleSelectAction(self):
+        """Causes the QGraphicsItem to become selected."""
+
+        setSelected(True)
+
+    def _handleUnselectAction(self):
+        """Causes the QGraphicsItem to become unselected."""
+
+        setSelected(False)
+
+    def _handleRemoveAction(self):
+        """Causes the QGraphicsItem to be removed from the scene."""
+        
+        self.scene().removeItem(self)
+        self.scene().priceBarChartChanged.emit()
+        
+    def _handleInfoAction(self):
+        """Causes a dialog to be executed to show information about
+        the QGraphicsItem.
+        """
+
+        # TODO:  write code here.
+
+        # Run the dialog.  We don't care about what is returned
+        # because the dialog is read-only.
+        rv = dialog.exec_()
+        
+    def _handleEditAction(self):
+        """Causes a dialog to be executed to edit information about
+        the QGraphicsItem.
+        """
+
+        # TODO:  add code here.
+        rv = dialog.exec_()
+        
+        if rv == QDialog.Accepted:
+            # Set the item with the new values.
+
+            # TODO:  add code here.
+
+            # Note that a redraw is required.
+            self.update()
+
+            # Emit that the PriceBarChart has changed so that the
+            # dirty flag can be set.
+            self.scene().priceBarChartChanged.emit()
+        else:
+            # The user canceled so don't change anything.
+            pass
+        
+    def _handleSetStartOnAstro1Action(self):
+        """Causes the astro chart 1 to be set with the timestamp
+        of the start the BarCountGraphicsItem.
+        """
+
+        self.scene().setAstroChart1(self.startPointF.x())
+        
+    def _handleSetEndOnAstro1Action(self):
+        """Causes the astro chart 1 to be set with the timestamp
+        of the end the BarCountGraphicsItem.
+        """
+
+        self.scene().setAstroChart1(self.endPointF.x())
+
+    def _handleSetStartOnAstro2Action(self):
+        """Causes the astro chart 2 to be set with the timestamp
+        of the start the BarCountGraphicsItem.
+        """
+
+        self.scene().setAstroChart2(self.startPointF.x())
+        
+    def _handleSetEndOnAstro2Action(self):
+        """Causes the astro chart 2 to be set with the timestamp
+        of the end the BarCountGraphicsItem.
+        """
+
+        self.scene().setAstroChart2(self.endPointF.x())
+
+    def _handleSetStartOnAstro3Action(self):
+        """Causes the astro chart 3 to be set with the timestamp
+        of the start the BarCountGraphicsItem.
+        """
+
+        self.scene().setAstroChart3(self.startPointF.x())
+        
+    def _handleSetEndOnAstro3Action(self):
+        """Causes the astro chart 3 to be set with the timestamp
+        of the end the BarCountGraphicsItem.
+        """
+
+        self.scene().setAstroChart3(self.endPointF.x())
+
+        
 class PriceBarChartWidget(QWidget):
     """Widget holding the QGraphicsScene and QGraphicsView that displays
     the PriceBar information along with other indicators and analysis
@@ -1260,6 +1565,16 @@ class PriceBarChartWidget(QWidget):
     # Signal emitted when current timestamp of where the mouse is changes.
     currentTimestampChanged = QtCore.pyqtSignal(datetime.datetime)
 
+    # Signal emitted when the user desires to change astro chart 1.
+    astroChart1Update = QtCore.pyqtSignal(datetime.datetime)
+    
+    # Signal emitted when the user desires to change astro chart 2.
+    astroChart2Update = QtCore.pyqtSignal(datetime.datetime)
+    
+    # Signal emitted when the user desires to change astro chart 3.
+    astroChart3Update = QtCore.pyqtSignal(datetime.datetime)
+    
+    
     # Tool modes that this widget can be in.
     ToolMode = {"ReadOnlyPointerTool" : 0,
                 "PointerTool"         : 1,
@@ -1376,6 +1691,14 @@ class PriceBarChartWidget(QWidget):
         self.graphicsScene.selectionChanged.\
             connect(self._handleSelectionChanged)
 
+        # Bubble up the signal emission to update the time of the astro charts.
+        self.graphicsScene.astroChart1Update.\
+            connect(self.astroChart1Update)
+        self.graphicsScene.astroChart2Update.\
+            connect(self.astroChart2Update)
+        self.graphicsScene.astroChart3Update.\
+            connect(self.astroChart3Update)
+        
         self.log.debug("Leaving __init__()")
 
     def setTimezone(self, timezone):
@@ -1468,8 +1791,8 @@ class PriceBarChartWidget(QWidget):
         if sceneXPos != None and sceneYPos != None:
 
             # Convert coordinate to the actual values they represent.
-            timestamp = self._sceneXPosToDatetime(sceneXPos)
-            price = self._sceneYPosToPrice(sceneYPos)
+            timestamp = self.graphicsScene._sceneXPosToDatetime(sceneXPos)
+            price = self.graphicsScene._sceneYPosToPrice(sceneYPos)
 
             # Append to the strings.
             localizedTimestampStr += self.datetimeToStr(timestamp)
@@ -1544,10 +1867,10 @@ class PriceBarChartWidget(QWidget):
             self.graphicsView.setGraphicsItemFlagsPerCurrToolMode(item)
 
             # X location based on the timestamp.
-            x = self._datetimeToSceneXPos(priceBar.timestamp)
+            x = self.graphicsScene._datetimeToSceneXPos(priceBar.timestamp)
 
             # Y location based on the mid price (average of high and low).
-            y = self._priceToSceneYPos(priceBar.midPrice())
+            y = self.graphicsScene._priceToSceneYPos(priceBar.midPrice())
 
             # Set the position, in parent coordinates.
             item.setPos(QPointF(x, y))
@@ -1926,6 +2249,101 @@ class PriceBarChartWidget(QWidget):
         return rv
         
 
+
+    def _handleMouseLocationUpdate(self, x, y):
+        """Handles mouse location changes in the QGraphicsView.  
+        Arguments:
+
+        x - float value of the mouse's X coordinate position, in scene
+        coordinates.
+        y - float value of the mouse's Y coordinate position, in scene
+        coordinates.
+        """
+
+        # Update labels that tell where the mouse pointer is.
+        self.updateMouseLocationLabels(x, y)
+
+        # Emit a signal so that other widgets/entities can know
+        # the timestamp where the mouse pointer is.
+        dt = self.graphicsScene._sceneXPosToDatetime(x)
+        self.currentTimestampChanged.emit(dt)
+
+    def _handleSelectionChanged(self):
+        """Handles when the QGraphicsScene has it's selection of
+        QGraphicsItems changed.
+
+        This function obtains the selected items, and if there is only
+        one PriceBarGraphicsItem selected, then it displays the
+        information about that pricebar in the labels at the top of
+        the widget.
+        """
+
+        selectedItems = self.graphicsScene.selectedItems()
+
+        numPriceBarGraphicsItemsSelected = 0
+        lastPriceBarGraphicsItem = None
+        
+        for item in selectedItems:
+            if isinstance(item, PriceBarGraphicsItem):
+                numPriceBarGraphicsItemsSelected += 1
+                lastPriceBarGraphicsItem = item
+
+        self.log.debug("Number of PriceBarGraphicsItems selected is: {}".\
+                       format(numPriceBarGraphicsItemsSelected))
+
+        # Only update the labels with price/time information if there
+        # was only one PriceBarGraphicsItem selected.  This is done to
+        # avoid confusion in the event that a second
+        # PriceBarGraphicsItem is selected and the user didn't notice
+        # that it was (to prevent the wrong information from being
+        # interpreted).
+        if numPriceBarGraphicsItemsSelected == 1:
+            priceBar = lastPriceBarGraphicsItem.getPriceBar()
+            self.updateSelectedPriceBarLabels(priceBar)
+        else:
+            self.updateSelectedPriceBarLabels(None)
+            
+        
+class PriceBarChartGraphicsScene(QGraphicsScene):
+    """QGraphicsScene holding all the pricebars and artifacts.
+    We subclass the QGraphicsScene to allow for future feature additions.
+    """
+
+    # Signal emitted when there is an addition of a
+    # PriceBarChartArtifactGraphicsItem.
+    priceBarChartArtifactGraphicsItemAdded = \
+        QtCore.pyqtSignal(PriceBarChartArtifactGraphicsItem)
+        
+    # Signal emitted when there is a removal of a
+    # PriceBarChartArtifactGraphicsItem.
+    priceBarChartArtifactGraphicsItemRemoved = \
+        QtCore.pyqtSignal(PriceBarChartArtifactGraphicsItem)
+
+    # Signal emitted when there is an addition or removal of a
+    # PriceBarChartArtifactGraphicsItem.
+    priceBarChartChanged = QtCore.pyqtSignal()
+
+    # Signal emitted when the user desires to change astro chart 1.
+    astroChart1Update = QtCore.pyqtSignal(datetime.datetime)
+    
+    # Signal emitted when the user desires to change astro chart 2.
+    astroChart2Update = QtCore.pyqtSignal(datetime.datetime)
+    
+    # Signal emitted when the user desires to change astro chart 3.
+    astroChart3Update = QtCore.pyqtSignal(datetime.datetime)
+    
+    def __init__(self, parent=None):
+        """Pass-through to the QGraphicsScene constructor."""
+
+        super().__init__(parent)
+
+        # Adding or removing an artifact graphics item counts as
+        # something changed.
+        self.priceBarChartArtifactGraphicsItemAdded.\
+            connect(self.priceBarChartChanged)
+        self.priceBarChartArtifactGraphicsItemRemoved.\
+            connect(self.priceBarChartChanged)
+        
     def _sceneXPosToDatetime(self, sceneXPos):
         """Returns a datetime.datetime object for the given X position in
         scene coordinates.
@@ -1991,91 +2409,62 @@ class PriceBarChartWidget(QWidget):
         return float(-1.0 * price)
 
 
+    def setAstroChart1(self, x):
+        """Emits the astroChart1Update signal so that an external
+        astrology chart can be plotted with a timestamp.
 
-    def _handleMouseLocationUpdate(self, x, y):
-        """Handles mouse location changes in the QGraphicsView.  
         Arguments:
-
-        x - float value of the mouse's X coordinate position, in scene
-        coordinates.
-        y - float value of the mouse's Y coordinate position, in scene
-        coordinates.
+        
+        x - float value for the X position in the QGraphicsScene.  The
+            X value represents a certain timestamp (unconverted).
+            This function will do the necessary conversion from X
+            value to datetime.datetime timestamp.
         """
 
-        # Update labels that tell where the mouse pointer is.
-        self.updateMouseLocationLabels(x, y)
-
-        # Emit a signal so that other widgets/entities can know
-        # the timestamp where the mouse pointer is.
+        # Convert from X to datetime.datetime.
         dt = self._sceneXPosToDatetime(x)
-        self.currentTimestampChanged.emit(dt)
+        
+        # Emit the desired signal so that the astrology chart can be
+        # plotted for this datetime.datetime.
+        self.astroChart1Update.emit(dt)
+        
+    def setAstroChart2(self, x):
+        """Emits the astroChart2Update signal so that an external
+        astrology chart can be plotted with a timestamp.
 
-    def _handleSelectionChanged(self):
-        """Handles when the QGraphicsScene has it's selection of
-        QGraphicsItems changed.
-
-        This function obtains the selected items, and if there is only
-        one PriceBarGraphicsItem selected, then it displays the
-        information about that pricebar in the labels at the top of
-        the widget.
+        Arguments:
+        
+        x - float value for the X position in the QGraphicsScene.  The
+            X value represents a certain timestamp (unconverted).
+            This function will do the necessary conversion from X
+            value to datetime.datetime timestamp.
         """
 
-        selectedItems = self.graphicsScene.selectedItems()
-
-        numPriceBarGraphicsItemsSelected = 0
-        lastPriceBarGraphicsItem = None
+        # Convert from X to datetime.datetime.
+        dt = self._sceneXPosToDatetime(x)
         
-        for item in selectedItems:
-            if isinstance(item, PriceBarGraphicsItem):
-                numPriceBarGraphicsItemsSelected += 1
-                lastPriceBarGraphicsItem = item
-
-        self.log.debug("Number of PriceBarGraphicsItems selected is: {}".\
-                       format(numPriceBarGraphicsItemsSelected))
-
-        # Only update the labels with price/time information if there
-        # was only one PriceBarGraphicsItem selected.  This is done to
-        # avoid confusion in the event that a second
-        # PriceBarGraphicsItem is selected and the user didn't notice
-        # that it was (to prevent the wrong information from being
-        # interpreted).
-        if numPriceBarGraphicsItemsSelected == 1:
-            priceBar = lastPriceBarGraphicsItem.getPriceBar()
-            self.updateSelectedPriceBarLabels(priceBar)
-        else:
-            self.updateSelectedPriceBarLabels(None)
-            
+        # Emit the desired signal so that the astrology chart can be
+        # plotted for this datetime.datetime.
+        self.astroChart2Update.emit(dt)
         
-class PriceBarChartGraphicsScene(QGraphicsScene):
-    """QGraphicsScene holding all the pricebars and artifacts.
-    We subclass the QGraphicsScene to allow for future feature additions.
-    """
+    def setAstroChart3(self, x):
+        """Emits the astroChart3Update signal so that an external
+        astrology chart can be plotted with a timestamp.
 
-    # Signal emitted when there is an addition of a
-    # PriceBarChartArtifactGraphicsItem.
-    priceBarChartArtifactGraphicsItemAdded = \
-        QtCore.pyqtSignal(PriceBarChartArtifactGraphicsItem)
+        Arguments:
         
-    # Signal emitted when there is a removal of a
-    # PriceBarChartArtifactGraphicsItem.
-    priceBarChartArtifactGraphicsItemRemoved = \
-        QtCore.pyqtSignal(PriceBarChartArtifactGraphicsItem)
+        x - float value for the X position in the QGraphicsScene.  The
+            X value represents a certain timestamp (unconverted).
+            This function will do the necessary conversion from X
+            value to datetime.datetime timestamp.
+        """
 
-    # Signal emitted when there is an addition or removal of a
-    # PriceBarChartArtifactGraphicsItem.
-    priceBarChartChanged = QtCore.pyqtSignal()
-
-    def __init__(self, parent=None):
-        """Pass-through to the QGraphicsScene constructor."""
-
-        super().__init__(parent)
-
-        # Adding or removing an artifact graphics item counts as
-        # something changed.
-        self.priceBarChartArtifactGraphicsItemAdded.\
-            connect(self.priceBarChartChanged)
-        self.priceBarChartArtifactGraphicsItemRemoved.\
-            connect(self.priceBarChartChanged)
+        # Convert from X to datetime.datetime.
+        dt = self._sceneXPosToDatetime(x)
+        
+        # Emit the desired signal so that the astrology chart can be
+        # plotted for this datetime.datetime.
+        self.astroChart3Update.emit(dt)
         
 class PriceBarChartGraphicsView(QGraphicsView):
     """QGraphicsView that visualizes the main QGraphicsScene.
@@ -2534,12 +2923,13 @@ class PriceBarChartGraphicsView(QGraphicsView):
                                       clickPosF.y(),
                                       debugLogStr))
         
-                # TODO:  add the following as code.
+                # TODO:  add the following pseudocode as code.
 
-                # Branch according to what's under the mouse click position.
                 menu = QMenu()
+                # TODO:  probably should give this top-level menu a title too.
                 parent = None
 
+                # Branch according to what's under the mouse click position.
                 if numContextMenuItems == 0:
                     # If no QGraphicsItems, then bring up context menu for
                     # those options.
