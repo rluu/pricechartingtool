@@ -454,7 +454,7 @@ class Ephemeris:
 
         # Create a datetime.datetime in UTC.
         dtUtc = datetime.datetime(year, month, day, hour, mins, 
-                               secsTruncated, usecs, pytz.utc)
+                                  secsTruncated, usecs, pytz.utc)
 
         # Convert to the timezone specified.
         dt = tzInfo.normalize(dtUtc.astimezone(tzInfo))
@@ -464,6 +464,7 @@ class Ephemeris:
 
         return dt
 
+    @staticmethod
     def datetimeToStr(datetimeObj):
         """Returns a string representation of a datetime.datetime object.
         Normally we wouldn't need to do this, but the datetime.strftime()
@@ -496,6 +497,48 @@ class Ephemeris:
                    Ephemeris.getTimezoneOffsetFromDatetime(datetimeObj))
 
 
+    @staticmethod
+    def datetimetoDayStr(datetimeObj):
+        """Returns a string representation of a datetime.datetime
+        object with the day of the week included.  Normally we
+        wouldn't need to do this, but the datetime.strftime() does not
+        work on years less than 1900.
+
+        Arguments:
+        datetimeObj - datetime.datetime object with a tzinfo defined.
+
+        Returns:
+        String holding the info about the datetime.datetime object, in 
+        the format:  "Day %Y-%m-%d %H:%M:%S %Z%z", where 'Day' is the
+        three-letter abbreviation for the day of the week.
+        """
+
+        # Timezone name string, extracted from datetime.tzname().
+        # This accounts for the fact that datetime.tzname() can return None.
+        tznameStr = datetimeObj.tzname()
+        if tznameStr == None:
+            tznameStr = ""
+
+        dayOfWeekStr = dt.ctime()[0:3]
+        
+        offsetStr = \
+            Ephemeris.getTimezoneOffsetFromDatetime(dt)
+            
+        # Return value.
+        rv = "{} {}-{:02}-{:02} {:02}:{:02}:{:02} {}{}".\
+             format(dayOfWeekStr,
+                    dt.year,
+                    dt.month,
+                    dt.day,
+                    dt.hour,
+                    dt.minute,
+                    dt.second,
+                    tznameStr,
+                    offsetStr)
+            
+        return rv
+        
+    @staticmethod
     def getTimezoneOffsetFromDatetime(datetimeObj):
         """Extracts the string that holds the time offset from UTC from 
         the given datetime object.  This is the string that would be 
@@ -583,6 +626,7 @@ class Ephemeris:
 
         Ephemeris.log.debug("Leaving setSiderealZodiac()")
 
+    @staticmethod
     def setTropicalZodiac():
         """Initializes the settings to use the tropical zodiac for
         calculations

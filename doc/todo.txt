@@ -55,8 +55,6 @@ DONE  - Remove bolding option of PriceBars (and pen width of it, etc.).
 
      - Dialog widgets for info/editing of artifacts should be in new file: 
        pricebarchart_dialogs.py
-     - Edit/Dialog widgets for info/editing of Timestamps and PriceBars 
-       should go in widgets.py
 
   - Need to create icons for the different new modes for creating indicators.
      - BarCount
@@ -65,8 +63,6 @@ DONE  - Remove bolding option of PriceBars (and pen width of it, etc.).
   - Need to implement 'snap' functionality, for snapping to a whole bar, 
     bottom/top of a bar, or to the closest integer X (day) for 
     charting the astro chart.
-
-  - Need to implement the spreadsheet widget.
 
   - Turn the __main__() functions in each source file into a list of
     calls to testXXXXX() functions... one for each of the classes
@@ -80,8 +76,18 @@ DONE  - Remove bolding option of PriceBars (and pen width of it, etc.).
     (shad bala and ashtakavarga).
   
   - Need to implement 'Octave' (time) measurements.
-  - Need to implement 'Octive' (price) measurements.
+  - Need to implement 'Octave' (price) measurements.
 
-  - Need to implement traditional astro charts.
-  - Need to implement vedic astro charts.
+  - Need to implement the following:
+     - traditional circle astro charts.
+     - vedic astro charts.
+     - square of 9 and other number charts.
+     - spreadsheet widget (chart).
 
+     - Things to think about:
+
+       - How can I implement the above graphical charts so that I can
+         do overlays on each other.  For example, the traditional
+         circle astro chart overlapping the square of 9 on a
+         QGraphicsScene.  That way I can do a transform on one
+         (rotation) to anchor or align one with the other.

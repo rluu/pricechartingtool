@@ -17,6 +17,9 @@ from PyQt4.QtGui import QTransform
 from PyQt4.QtCore import Qt
 from PyQt4.QtCore import QPointF
 
+# For datetime.datetime to str conversion.
+from ephemeris import Ephemeris
+
 class BirthInfo:
     """Contains data related to the birth of an entity or person.
     See the documentation for the '__init__()' function to see what
@@ -441,13 +444,16 @@ class PriceBar:
             else:
                 return False
 
+
     def toString(self):
         """Returns the string representation of the PriceBar data"""
 
-        # Datetime format to datetime.strftime().
-        fmt = "%Y-%m-%d %H:%M:%S.%f %Z%z"
-
-        return "[Timestamp={}, ".format(self.timestamp.strftime(fmt)) + \
+        # Need to use Ephemeris.datetimeToStr() below because
+        # datetime.strftime() datetime.strftime() does not work on
+        # years less than 1900.
+        
+        return "[Timestamp={}, ".\
+                   format(Ephemeris.datetimeToStr(self.timestamp)) + \
                "Open={}, ".format(self.open) + \
                "High={}, ".format(self.high) + \
                "Low={}, ".format(self.low) + \
@@ -963,12 +969,15 @@ class PriceChartDocumentData:
         firstPriceBarTimestamp = ""
         lastPriceBarTimestamp = ""
 
-        # Datetime format to datetime.strftime().
-        fmt = "%Y-%m-%d %H:%M:%S.%f %Z%z"
-
+        # Need to use Ephemeris.datetimeToStr() below because
+        # datetime.strftime() datetime.strftime() does not work on
+        # years less than 1900.
+        
         if len(self.priceBars) > 0:
-            firstPriceBarTimestamp = self.priceBars[0].timestamp.strftime(fmt)
-            lastPriceBarTimestamp = self.priceBars[-1].timestamp.strftime(fmt)
+            firstPriceBarTimestamp = \
+                Ephemeris.datetimeToStr(self.priceBars[0].timestamp)
+            lastPriceBarTimestamp = \
+                Ephemeris.datetimeToStr(self.priceBars[-1].timestamp)
 
         return "[classVersion={}, ".\
                    format(self.classVersion) + \

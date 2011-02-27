@@ -33,6 +33,9 @@ from data_objects import PriceBarChartTextArtifact
 # For conversions from julian day to datetime.datetime and vice versa.
 from ephemeris import Ephemeris
 
+# For edit dialogs for modifying the PriceBarChartArtifact objects of
+# various PriceBarChartArtifactGraphicsItems.
+from pricebarchart_dialogs import PriceBarChartBarCountArtifactEditDialog
 
 
 class PriceBarGraphicsItem(QGraphicsItem):
@@ -363,10 +366,17 @@ class PriceBarGraphicsItem(QGraphicsItem):
         """
 
         menu = QMenu()
-        # TODO:  set the menu title here.
-        parent = None
+        
+        # Set the menu title.
+        if self.priceBar != None:
+            datetimeObj = self.priceBar.timestamp
+            timestampStr = Ephemeris.datetimeToDayStr(datetimeObj)
+            menu.setTitle("PriceBar_" + timestampStr)
+        else:
+            menu.setTitle("PriceBar_" + "Unknown")
         
         # These are the QActions that are in the menu.
+        parent = None
         selectAction = QAction("Select", parent)
         unselectAction = QAction("Unselect", parent)
         removeAction = QAction("Remove", parent)
@@ -433,7 +443,7 @@ class PriceBarGraphicsItem(QGraphicsItem):
         
         self.scene().removeItem(self)
         self.scene().priceBarChartChanged.emit()
-        
+
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
         the QGraphicsItem pricebar.
@@ -464,15 +474,15 @@ class PriceBarGraphicsItem(QGraphicsItem):
             self.setPriceBar(dialog.getPriceBar())
 
             # X location based on the timestamp.
-            x = self.scene()._datetimeToSceneXPos(self.priceBar.timestamp)
+            x = self.scene().datetimeToSceneXPos(self.priceBar.timestamp)
 
             # Y location based on the mid price (average of high and low).
-            y = self.scene()._priceToSceneYPos(self.priceBar.midPrice())
+            y = self.scene().priceToSceneYPos(self.priceBar.midPrice())
 
             # Set the position, in parent coordinates.
             self.setPos(QPointF(x, y))
 
-            # Note that a redraw is required.
+            # Flag that a redraw of this QGraphicsItem is required.
             self.update()
             
             # Emit that the PriceBarChart has changed so that the
@@ -1372,10 +1382,10 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         menu = QMenu()
-        # TODO:  set the menu title here.
-        parent = None
+        menu.setTitle(self.getInternalName())
         
         # These are the QActions that are in the menu.
+        parent = None
         selectAction = QAction("Select", parent)
         unselectAction = QAction("Unselect", parent)
         removeAction = QAction("Remove", parent)
@@ -1464,15 +1474,21 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to be removed from the scene."""
         
         self.scene().removeItem(self)
-        self.scene().priceBarChartChanged.emit()
+
+        # Emit signal to show that an item is removed.
+        # This sets the dirty flag.
+        self.scene().priceBarChartArtifactGraphicsItemRemoved.emit(self)
         
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
         the QGraphicsItem.
         """
 
-        # TODO:  write code here.
-
+        artifact = self.getArtifact()
+        dialog = PriceBarChartBarCountArtifactEditDialog(artifact,
+                                                         self.scene(),
+                                                         readOnlyFlag=True)
+        
         # Run the dialog.  We don't care about what is returned
         # because the dialog is read-only.
         rv = dialog.exec_()
@@ -1482,15 +1498,21 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         the QGraphicsItem.
         """
 
-        # TODO:  add code here.
+        artifact = self.getArtifact()
+        dialog = PriceBarChartBarCountArtifactEditDialog(artifact,
+                                                         self.scene(),
+                                                         readOnlyFlag=False)
+        
         rv = dialog.exec_()
         
         if rv == QDialog.Accepted:
-            # Set the item with the new values.
+            # If the dialog is accepted then the underlying artifact
+            # object was modified.  Set the artifact to this
+            # PriceBarChartArtifactGraphicsItem, which will cause it to be
+            # reloaded in the scene.
+            self.setArtifact(artifact)
 
-            # TODO:  add code here.
-
-            # Note that a redraw is required.
+            # Flag that a redraw of this QGraphicsItem is required.
             self.update()
 
             # Emit that the PriceBarChart has changed so that the
@@ -1713,6 +1735,9 @@ class PriceBarChartWidget(QWidget):
 
         self.timezone = timezone
 
+        # The PriceBarChartGraphicsScene is actually the object that
+        # does the conversions.  Pass the timezone info to that object.
+        self.graphicsScene.setTimezone(self.timezone)
 
     def setDescriptionText(self, text):
         """Sets the text of the QLabel self.descriptionLabel."""
@@ -1734,7 +1759,7 @@ class PriceBarChartWidget(QWidget):
         timestampStr = "First PriceBar Timestamp: "
         
         if priceBar != None:
-            timestampStr += self.datetimeToStr(priceBar.timestamp)
+            timestampStr += Ephemeris.datetimeToDayStr(priceBar.timestamp)
 
         self.firstPriceBarTimestampLabel.setText(timestampStr)
 
@@ -1752,7 +1777,7 @@ class PriceBarChartWidget(QWidget):
         timestampStr = "Last PriceBar Timestamp: "
         
         if priceBar != None:
-            timestampStr += self.datetimeToStr(priceBar.timestamp)
+            timestampStr += Ephemeris.datetimeToDayStr(priceBar.timestamp)
         
         self.lastPriceBarTimestampLabel.setText(timestampStr)
 
@@ -1791,13 +1816,13 @@ class PriceBarChartWidget(QWidget):
         if sceneXPos != None and sceneYPos != None:
 
             # Convert coordinate to the actual values they represent.
-            timestamp = self.graphicsScene._sceneXPosToDatetime(sceneXPos)
-            price = self.graphicsScene._sceneYPosToPrice(sceneYPos)
+            timestamp = self.graphicsScene.sceneXPosToDatetime(sceneXPos)
+            price = self.graphicsScene.sceneYPosToPrice(sceneYPos)
 
             # Append to the strings.
-            localizedTimestampStr += self.datetimeToStr(timestamp)
+            localizedTimestampStr += Ephemeris.datetimeToDayStr(timestamp)
             utcTimestampStr += \
-                self.datetimeToStr(timestamp.astimezone(pytz.utc))
+                Ephemeris.datetimeToDayStr(timestamp.astimezone(pytz.utc))
             priceStr += "{}".format(price)
 
         # Actually set the text to the widgets.
@@ -1821,7 +1846,7 @@ class PriceBarChartWidget(QWidget):
         closeStr = "Close: "
 
         if priceBar != None:
-            timestampStr += self.datetimeToStr(priceBar.timestamp)
+            timestampStr += Ephemeris.datetimeToDayStr(priceBar.timestamp)
             openStr += "{}".format(priceBar.open)
             highStr += "{}".format(priceBar.high)
             lowStr += "{}".format(priceBar.low)
@@ -1867,10 +1892,10 @@ class PriceBarChartWidget(QWidget):
             self.graphicsView.setGraphicsItemFlagsPerCurrToolMode(item)
 
             # X location based on the timestamp.
-            x = self.graphicsScene._datetimeToSceneXPos(priceBar.timestamp)
+            x = self.graphicsScene.datetimeToSceneXPos(priceBar.timestamp)
 
             # Y location based on the mid price (average of high and low).
-            y = self.graphicsScene._priceToSceneYPos(priceBar.midPrice())
+            y = self.graphicsScene.priceToSceneYPos(priceBar.midPrice())
 
             # Set the position, in parent coordinates.
             item.setPos(QPointF(x, y))
@@ -2214,42 +2239,6 @@ class PriceBarChartWidget(QWidget):
         self.log.debug("Exiting toBarCountToolMode()")
 
 
-    def datetimeToStr(self, dt):
-        """Returns the given datetime.datetime object as a str in the
-        format: "%Y-%m-%d %H:%M:%S %Z %z"
-        This function exists because the strftime(fmt) function does
-        not work for years less than 1900.  This function rectifies
-        that problem.
-
-        Arguments:
-
-        dt - datetime.datetime object that has it's timezone set as a
-        pytz.timezone object.
-        """
-
-        # Return value.
-        rv = ""
-        
-        dayOfWeekStr = dt.ctime()[0:3]
-        
-        offsetStr = \
-            Ephemeris.getTimezoneOffsetFromDatetime(dt)
-            
-        rv = "{} {}-{:02}-{:02} {:02}:{:02}:{:02} {} {}".\
-             format(dayOfWeekStr,
-                    dt.year,
-                    dt.month,
-                    dt.day,
-                    dt.hour,
-                    dt.minute,
-                    dt.second,
-                    dt.tzname(),
-                    offsetStr)
-            
-        return rv
-        
-
-
     def _handleMouseLocationUpdate(self, x, y):
         """Handles mouse location changes in the QGraphicsView.  
         Arguments:
@@ -2265,7 +2254,7 @@ class PriceBarChartWidget(QWidget):
 
         # Emit a signal so that other widgets/entities can know
         # the timestamp where the mouse pointer is.
-        dt = self.graphicsScene._sceneXPosToDatetime(x)
+        dt = self.graphicsScene.sceneXPosToDatetime(x)
         self.currentTimestampChanged.emit(dt)
 
     def _handleSelectionChanged(self):
@@ -2337,14 +2326,31 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
 
         super().__init__(parent)
 
+        # Holds the timezone as a datetime.tzinfo object.  This is
+        # used in conversions of scene position X value to
+        # datetime.datetime.
+        self.timezone = pytz.utc
+        
         # Adding or removing an artifact graphics item counts as
         # something changed.
         self.priceBarChartArtifactGraphicsItemAdded.\
             connect(self.priceBarChartChanged)
         self.priceBarChartArtifactGraphicsItemRemoved.\
             connect(self.priceBarChartChanged)
+
+    def setTimezone(self, timezone):
+        """Sets the timezone used.  This is used for converting mouse
+        X location to a datetime.datetime object.
         
-    def _sceneXPosToDatetime(self, sceneXPos):
+        Arguments:
+            
+        timezone - A datetime.tzinfo object holding the timezone for the
+                   pricebars in this widget.
+        """
+
+        self.timezone = timezone
+    
+    def sceneXPosToDatetime(self, sceneXPos):
         """Returns a datetime.datetime object for the given X position in
         scene coordinates.
 
@@ -2362,7 +2368,7 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
 
         return Ephemeris.julianDayToDatetime(sceneXPos, self.timezone)
     
-    def _sceneYPosToPrice(self, sceneYPos):
+    def sceneYPosToPrice(self, sceneYPos):
         """Returns a price value for the given Y position in scene
         coordinates.
 
@@ -2376,9 +2382,13 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         float value for the price that this Y position represents.
         """
 
-        return float(-1.0 * sceneYPos)
+        # Make sure I don't return a negative 0.0.
+        if (sceneYPos != 0.0):
+            return float(-1.0 * sceneYPos)
+        else:
+            return float(sceneYPos)
 
-    def _datetimeToSceneXPos(self, dt):
+    def datetimeToSceneXPos(self, dt):
         """Returns the conversion from datetime.datetime object to what we
         chosen the X coordinate values to be.
 
@@ -2393,7 +2403,7 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
 
         return Ephemeris.datetimeToJulianDay(dt)
 
-    def _priceToSceneYPos(self, price):
+    def priceToSceneYPos(self, price):
         """Returns the conversion from price to what we have chosen the Y
         coordinate values to be.
 
@@ -2406,7 +2416,11 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         float value for the Y position that would match up with this price.
         """
 
-        return float(-1.0 * price)
+        # Make sure I don't return a negative 0.0.
+        if (price != 0.0):
+            return float(-1.0 * price)
+        else:
+            return float(price)
 
 
     def setAstroChart1(self, x):
@@ -2422,7 +2436,7 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         """
 
         # Convert from X to datetime.datetime.
-        dt = self._sceneXPosToDatetime(x)
+        dt = self.sceneXPosToDatetime(x)
         
         # Emit the desired signal so that the astrology chart can be
         # plotted for this datetime.datetime.
@@ -2441,7 +2455,7 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         """
 
         # Convert from X to datetime.datetime.
-        dt = self._sceneXPosToDatetime(x)
+        dt = self.sceneXPosToDatetime(x)
         
         # Emit the desired signal so that the astrology chart can be
         # plotted for this datetime.datetime.
@@ -2460,7 +2474,7 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         """
 
         # Convert from X to datetime.datetime.
-        dt = self._sceneXPosToDatetime(x)
+        dt = self.sceneXPosToDatetime(x)
         
         # Emit the desired signal so that the astrology chart can be
         # plotted for this datetime.datetime.
@@ -2926,7 +2940,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # TODO:  add the following pseudocode as code.
 
                 menu = QMenu()
-                # TODO:  probably should give this top-level menu a title too.
+                menu.setTitle("PriceBarChartGraphicsView context menu")
                 parent = None
 
                 # Branch according to what's under the mouse click position.
