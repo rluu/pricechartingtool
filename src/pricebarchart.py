@@ -5,6 +5,9 @@ import os
 # For logging.
 import logging
 
+# For dynamically adding methods to instances.
+import types
+
 # For timestamps and timezone information.
 import datetime
 import pytz
@@ -37,6 +40,8 @@ from ephemeris import Ephemeris
 # various PriceBarChartArtifactGraphicsItems.
 from pricebarchart_dialogs import PriceBarChartBarCountArtifactEditDialog
 
+# For edit dialogs.
+from dialogs import PriceBarEditDialog
 
 class PriceBarGraphicsItem(QGraphicsItem):
     """QGraphicsItem that visualizes a PriceBar object.
@@ -358,15 +363,18 @@ class PriceBarGraphicsItem(QGraphicsItem):
             painter.setBrush(Qt.NoBrush)
             painter.drawRect(self.boundingRect())
 
-    def createContextMenu(self, readOnlyMode=False):
-        """Creates and returns a QMenu with actions relevant to this
-        PriceBarGraphicsItem.  Actions that are triggered from this
-        menu run various methods in the PriceBarGraphicsItem to
-        handle the functionality.
+    def appendActionsToContextMenu(self, menu, readOnlyMode=False):
+        """Modifies the given QMenu object to update the title and add
+        actions relevant to this PriceBarGraphicsItem.  Actions that
+        are triggered from this menu run various methods in the
+        PriceBarGraphicsItem to handle the desired functionality.
+
+        Arguments:
+        menu - QMenu object to modify.
+        readOnlyMode - bool value that indicates the actions are to be
+                       readonly actions.
         """
 
-        menu = QMenu()
-        
         # Set the menu title.
         if self.priceBar != None:
             datetimeObj = self.priceBar.timestamp
@@ -376,7 +384,7 @@ class PriceBarGraphicsItem(QGraphicsItem):
             menu.setTitle("PriceBar_" + "Unknown")
         
         # These are the QActions that are in the menu.
-        parent = None
+        parent = menu
         selectAction = QAction("Select", parent)
         unselectAction = QAction("Unselect", parent)
         removeAction = QAction("Remove", parent)
@@ -404,8 +412,8 @@ class PriceBarGraphicsItem(QGraphicsItem):
             connect(self._handleSetAstro3Action)
         
         # Enable or disable actions.
-        selectAction.setEnabled(not readOnlyMode)
-        unselectAction.setEnabled(not readOnlyMode)
+        selectAction.setEnabled(True)
+        unselectAction.setEnabled(True)
         removeAction.setEnabled(False)
         infoAction.setEnabled(True)
         editAction.setEnabled(not readOnlyMode)
@@ -431,12 +439,12 @@ class PriceBarGraphicsItem(QGraphicsItem):
     def _handleSelectAction(self):
         """Causes the QGraphicsItem to become selected."""
 
-        setSelected(True)
+        self.setSelected(True)
 
     def _handleUnselectAction(self):
         """Causes the QGraphicsItem to become unselected."""
 
-        setSelected(False)
+        self.setSelected(False)
 
     def _handleRemoveAction(self):
         """Causes the QGraphicsItem to be removed from the scene."""
@@ -1374,18 +1382,22 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
             painter.setBrush(Qt.NoBrush)
             painter.drawRect(self.boundingRect())
 
-    def createContextMenu(self, readOnlyMode=False):
-        """Creates and returns a QMenu with actions relevant to this
-        BarCountGraphicsItem.  Actions that are triggered
-        from this menu run various methods in the BarCountGraphicsItem
-        to handle the functionality.
+    def appendActionsToContextMenu(self, menu, readOnlyMode=False):
+        """Modifies the given QMenu object to update the title and add
+        actions relevant to this BarCountGraphicsItem.  Actions that
+        are triggered from this menu run various methods in the
+        BarCountGraphicsItem to handle the desired functionality.
+        
+        Arguments:
+        menu - QMenu object to modify.
+        readOnlyMode - bool value that indicates the actions are to be
+                       readonly actions.
         """
 
-        menu = QMenu()
-        menu.setTitle(self.getInternalName())
+        menu.setTitle(self.artifact.getInternalName())
         
         # These are the QActions that are in the menu.
-        parent = None
+        parent = menu
         selectAction = QAction("Select", parent)
         unselectAction = QAction("Unselect", parent)
         removeAction = QAction("Remove", parent)
@@ -1393,14 +1405,14 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         editAction = QAction("Edit", parent)
         setStartOnAstro1Action = \
             QAction("Set start timestamp on Astro Chart 1", parent)
-        setEndOnAstro1Action = \
-            QAction("Set end timestamp on Astro Chart 1", parent)
         setStartOnAstro2Action = \
             QAction("Set start timestamp on Astro Chart 2", parent)
-        setEndOnAstro2Action = \
-            QAction("Set end timestamp on Astro Chart 2", parent)
         setStartOnAstro3Action = \
             QAction("Set start timestamp on Astro Chart 3", parent)
+        setEndOnAstro1Action = \
+            QAction("Set end timestamp on Astro Chart 1", parent)
+        setEndOnAstro2Action = \
+            QAction("Set end timestamp on Astro Chart 2", parent)
         setEndOnAstro3Action = \
             QAction("Set end timestamp on Astro Chart 3", parent)
         
@@ -1416,14 +1428,14 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleEditAction)
         setStartOnAstro1Action.triggered.\
             connect(self._handleSetStartOnAstro1Action)
-        setEndOnAstro1Action.triggered.\
-            connect(self._handleSetEndOnAstro1Action)
         setStartOnAstro2Action.triggered.\
             connect(self._handleSetStartOnAstro2Action)
-        setEndOnAstro2Action.triggered.\
-            connect(self._handleSetEndOnAstro2Action)
         setStartOnAstro3Action.triggered.\
             connect(self._handleSetStartOnAstro3Action)
+        setEndOnAstro1Action.triggered.\
+            connect(self._handleSetEndOnAstro1Action)
+        setEndOnAstro2Action.triggered.\
+            connect(self._handleSetEndOnAstro2Action)
         setEndOnAstro3Action.triggered.\
             connect(self._handleSetEndOnAstro3Action)
         
@@ -1434,10 +1446,10 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         infoAction.setEnabled(True)
         editAction.setEnabled(not readOnlyMode)
         setStartOnAstro1Action.setEnabled(True)
-        setEndOnAstro1Action.setEnabled(True)
         setStartOnAstro2Action.setEnabled(True)
-        setEndOnAstro2Action.setEnabled(True)
         setStartOnAstro3Action.setEnabled(True)
+        setEndOnAstro1Action.setEnabled(True)
+        setEndOnAstro2Action.setEnabled(True)
         setEndOnAstro3Action.setEnabled(True)
 
         # Add the QActions to the menu.
@@ -1450,25 +1462,22 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addAction(editAction)
         menu.addSeparator()
         menu.addAction(setStartOnAstro1Action)
-        menu.addAction(setEndOnAstro1Action)
-        menu.addSeparator()
         menu.addAction(setStartOnAstro2Action)
-        menu.addAction(setEndOnAstro2Action)
-        menu.addSeparator()
         menu.addAction(setStartOnAstro3Action)
+        menu.addSeparator()
+        menu.addAction(setEndOnAstro1Action)
+        menu.addAction(setEndOnAstro2Action)
         menu.addAction(setEndOnAstro3Action)
-
-        return menu
 
     def _handleSelectAction(self):
         """Causes the QGraphicsItem to become selected."""
 
-        setSelected(True)
+        self.setSelected(True)
 
     def _handleUnselectAction(self):
         """Causes the QGraphicsItem to become unselected."""
 
-        setSelected(False)
+        self.setSelected(False)
 
     def _handleRemoveAction(self):
         """Causes the QGraphicsItem to be removed from the scene."""
@@ -1529,13 +1538,6 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.scene().setAstroChart1(self.startPointF.x())
         
-    def _handleSetEndOnAstro1Action(self):
-        """Causes the astro chart 1 to be set with the timestamp
-        of the end the BarCountGraphicsItem.
-        """
-
-        self.scene().setAstroChart1(self.endPointF.x())
-
     def _handleSetStartOnAstro2Action(self):
         """Causes the astro chart 2 to be set with the timestamp
         of the start the BarCountGraphicsItem.
@@ -1543,13 +1545,6 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.scene().setAstroChart2(self.startPointF.x())
         
-    def _handleSetEndOnAstro2Action(self):
-        """Causes the astro chart 2 to be set with the timestamp
-        of the end the BarCountGraphicsItem.
-        """
-
-        self.scene().setAstroChart2(self.endPointF.x())
-
     def _handleSetStartOnAstro3Action(self):
         """Causes the astro chart 3 to be set with the timestamp
         of the start the BarCountGraphicsItem.
@@ -1557,6 +1552,20 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.scene().setAstroChart3(self.startPointF.x())
         
+    def _handleSetEndOnAstro1Action(self):
+        """Causes the astro chart 1 to be set with the timestamp
+        of the end the BarCountGraphicsItem.
+        """
+
+        self.scene().setAstroChart1(self.endPointF.x())
+
+    def _handleSetEndOnAstro2Action(self):
+        """Causes the astro chart 2 to be set with the timestamp
+        of the end the BarCountGraphicsItem.
+        """
+
+        self.scene().setAstroChart2(self.endPointF.x())
+
     def _handleSetEndOnAstro3Action(self):
         """Causes the astro chart 3 to be set with the timestamp
         of the end the BarCountGraphicsItem.
@@ -2793,6 +2802,159 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     
         self.log.debug("Exiting toBarCountToolMode()")
 
+    def createContextMenu(self, clickPosF, readOnlyFlag):
+        """Creates a context menu for a right-click somewhere in
+        the QGraphicsView, and returns it.
+
+        Arguments:
+        clickPosF - QPointF object of the right-click location,
+            in scene coordinates.
+        readOnlyFlag - bool value that indicates whether or not to
+            bring up the menu options for the readonly
+            mode or not.
+        """
+
+        scene = self.scene()
+
+        # See if the user has right clicked on a QGraphicsItem.
+        items = scene.items(clickPosF,
+                            Qt.ContainsItemBoundingRect,
+                            Qt.AscendingOrder)
+
+        # Here count the number of items at this position that
+        # we care about for creating a context menu for.
+        debugLogStr = ""
+        numContextSubMenuItems = 0
+
+        menu = QMenu(self)
+        menu.setTitle("PriceBarChartGraphicsView context menu")
+        parent = None
+
+        
+        for item in items:
+            if isinstance(item, PriceBarGraphicsItem):
+                debugLogStr += \
+                    "PriceBarGraphicsItem with PriceBar: " + \
+                    item.priceBar.toString() + ". "
+                
+                numContextSubMenuItems += 1
+
+                # Add the menu for this item.  We create the menu this
+                # way so that 'submenu' is owned by 'menu'.
+                submenu = menu.addMenu("")
+                
+                # Append actions and update the submenu title.
+                item.appendActionsToContextMenu(submenu,
+                                                readOnlyMode=readOnlyFlag)
+
+            elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                debugLogStr += \
+                    "PriceBarChartArtifactGraphicsItem with " + \
+                    "artifact info: " + item.artifact.toString() + ". "
+
+                numContextSubMenuItems += 1
+
+                # Add the menu for this item.  We create the menu this
+                # way so that 'submenu' is owned by 'menu'.
+                submenu = menu.addMenu("")
+                
+                # Append actions and update the submenu title.
+                item.appendActionsToContextMenu(submenu,
+                                                readOnlyMode=readOnlyFlag)
+            else:
+                self.log.debug("Non-PriceBar and Non-artifact item.")
+
+
+        self.log.debug("{} items under scene clickPosF({}, {}): {}".\
+                       format(numContextSubMenuItems,
+                              clickPosF.x(),
+                              clickPosF.y(),
+                              debugLogStr))
+
+        # Add context menu options that are available for all locations.
+        menu.addSeparator()
+
+        # Here I am creating QActions that will handle the QMenu
+        # option selection, but for setting astro times, I have to
+        # jump through a few hoops to be able to pass the
+        # information about the recent right-click that caused the
+        # context menu to come up.  Maybe there's a better way to
+        # do this.
+        setAstro1Action = QAction("Set timestamp on Astro Chart 1", parent)
+        setAstro2Action = QAction("Set timestamp on Astro Chart 2", parent)
+        setAstro3Action = QAction("Set timestamp on Astro Chart 3", parent)
+
+        # Define a method to add to each instance.
+        def handleActionTriggered(self):
+            self.emit(QtCore.SIGNAL("actionTriggered(QPointF)"), self.data())
+
+        # Add the method to the instances of the actions.
+        setAstro1Action.handleActionTriggered = \
+            types.MethodType(handleActionTriggered,
+                             setAstro1Action)
+        setAstro2Action.handleActionTriggered = \
+            types.MethodType(handleActionTriggered,
+                             setAstro2Action)
+        setAstro3Action.handleActionTriggered = \
+            types.MethodType(handleActionTriggered,
+                             setAstro3Action)
+
+        # Store in the actions, the scene position as a QPointF.
+        setAstro1Action.setData(clickPosF)
+        setAstro2Action.setData(clickPosF)
+        setAstro3Action.setData(clickPosF)
+
+        # Connect the triggered signal to the signal we appended
+        # to the instances.
+        setAstro1Action.triggered.\
+            connect(setAstro1Action.handleActionTriggered)
+        setAstro1Action.triggered.\
+            connect(setAstro1Action.handleActionTriggered)
+        setAstro1Action.triggered.\
+            connect(setAstro1Action.handleActionTriggered)
+
+        QtCore.QObject.connect(setAstro1Action,
+                               QtCore.SIGNAL("actionTriggered(QPointF)"),
+                               self._handleSetAstro1Action)
+        QtCore.QObject.connect(setAstro2Action,
+                               QtCore.SIGNAL("actionTriggered(QPointF)"),
+                               self._handleSetAstro2Action)
+        QtCore.QObject.connect(setAstro2Action,
+                               QtCore.SIGNAL("actionTriggered(QPointF)"),
+                               self._handleSetAstro2Action)
+
+        # TODO: add more options here for showing the sq-of-9,
+        # etc. for this price/time.
+
+        menu.addAction(setAstro1Action)
+        menu.addAction(setAstro2Action)
+        menu.addAction(setAstro3Action)
+        return menu
+    
+    def _handleSetAstro1Action(self, clickPosF):
+        """Handles when the user triggers a QAction for setting the
+        astro chart.
+        """
+
+        # The scene X position represents the time.
+        self.scene().setAstroChart1(clickPosF.x())
+        
+    def _handleSetAstro2Action(self, clickPosF):
+        """Handles when the user triggers a QAction for setting the
+        astro chart.
+        """
+
+        # The scene X position represents the time.
+        self.scene().setAstroChart2(clickPosF.x())
+        
+    def _handleSetAstro3Action(self, clickPosF):
+        """Handles when the user triggers a QAction for setting the
+        astro chart.
+        """
+
+        # The scene X position represents the time.
+        self.scene().setAstroChart3(clickPosF.x())
+        
     def wheelEvent(self, qwheelevent):
         """Triggered when the mouse wheel is scrolled."""
 
@@ -2850,7 +3012,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         
                         # Emit signal to show that an item is removed.
                         # This sets the dirty flag.
-                        scene.priceBarChartArtifactGraphicsItemRemoved.emit(item)
+                        scene.priceBarChartArtifactGraphicsItemRemoved.\
+                            emit(item)
             else:
                 super().keyPressEvent(qkeyevent)
 
@@ -2901,84 +3064,40 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
         self.log.debug("Entered mousePressEvent()")
 
-        scene = self.scene()
 
         if self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ReadOnlyPointerTool']:
 
             if qmouseevent.button() & Qt.RightButton:
-                # See if the user has right clicked on a QGraphicsItem.
+                # Open a context menu at this location, in readonly mode.
                 clickPosF = self.mapToScene(qmouseevent.pos())
-                topItem = scene.itemAt(clickPosF, self.transform())
-                items = scene.items(clickPosF,
-                                    Qt.ContainsItemBoundingRect,
-                                    Qt.AscendingOrder)
-
-                # Here count the number of items at this position that
-                # we care about for creating a context menu for.
-                debugLogStr = ""
-                numContextMenuItems = 0
-                
-                for item in items:
-                    if isinstance(item, PriceBarGraphicsItem):
-                        debugLogStr += \
-                            "PriceBarGraphicsItem with PriceBar: " + \
-                            item.priceBar.toString()
-                        numContextMenuItems += 1
-                    elif isinstance(item, PriceBarChartArtifactGraphicsItem):
-                        debugLogStr += \
-                            "PriceBarChartArtifactGraphicsItem with " + \
-                            "artifact info: " + item.artifact.toString()
-                        numContextMenuItems += 1
-                        
-                self.log.debug("{} items under scene clickPosF({}, {}): {}".\
-                               format(numContextMenuItems,
-                                      clickPosF.x(),
-                                      clickPosF.y(),
-                                      debugLogStr))
-        
-                # TODO:  add the following pseudocode as code.
-
-                menu = QMenu()
-                menu.setTitle("PriceBarChartGraphicsView context menu")
-                parent = None
-
-                # Branch according to what's under the mouse click position.
-                if numContextMenuItems == 0:
-                    # If no QGraphicsItems, then bring up context menu for
-                    # those options.
-                    
-                    pass
-                elif numContextMenuItems == 1:
-                    # If only one QGraphicsItem, then bring up context menu
-                    # for that item.
-                    pass
-                else:
-                    # If more than one QGraphicsItem is here, then
-                    # bring up a context menu with all the item and choices.
-                    pass
-        
-                # (Be sure to add a context menu with choices for
-                # showing the astro chart at this time (in all cases), and the 
-                # for showing the sq-of-9, etc. for this price/time.
-
+                menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
+                menu.exec_(qmouseevent.globalPos())
             else:
                 super().mousePressEvent(qmouseevent)
-
-
-            
-
 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PointerTool']:
 
-            super().mousePressEvent(qmouseevent)
+            if qmouseevent.button() & Qt.RightButton:
+                # Open a context menu at this location, in non-readonly mode.
+                clickPosF = self.mapToScene(qmouseevent.pos())
+                menu = self.createContextMenu(clickPosF, readOnlyFlag=False)
+                menu.exec_(qmouseevent.globalPos())
+            else:
+                super().mousePressEvent(qmouseevent)
 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['HandTool']:
 
-            # Panning the QGraphicsView.
-            super().mousePressEvent(qmouseevent)
+            if qmouseevent.button() & Qt.LeftButton:
+                # Panning the QGraphicsView.
+                super().mousePressEvent(qmouseevent)
+            elif qmouseevent.button() & Qt.RightButton:
+                # Open a context menu at this location, in readonly mode.
+                clickPosF = self.mapToScene(qmouseevent.pos())
+                menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
+                menu.exec_(qmouseevent.globalPos())
 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ZoomInTool']:
@@ -2998,6 +3117,11 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
                 # Center on the new center.
                 self.centerOn(newCenterPointF)
+            elif qmouseevent.button() & Qt.RightButton:
+                # Open a context menu at this location, in readonly mode.
+                clickPosF = self.mapToScene(qmouseevent.pos())
+                menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
+                menu.exec_(qmouseevent.globalPos())
 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ZoomOutTool']:
@@ -3017,6 +3141,11 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
                 # Center on the new center.
                 self.centerOn(newCenterPointF)
+            elif qmouseevent.button() & Qt.RightButton:
+                # Open a context menu at this location, in readonly mode.
+                clickPosF = self.mapToScene(qmouseevent.pos())
+                menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
+                menu.exec_(qmouseevent.globalPos())
 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['BarCountTool']:
@@ -3066,7 +3195,6 @@ class PriceBarChartGraphicsView(QGraphicsView):
                    self.clickTwoPointF == None and \
                    self.barCountGraphicsItem != None:
 
-
                     # Right-click during setting the BarCountGraphicsItem
                     # causes the currently edited bar count item to be
                     # removed and cleared out.  Temporary variables used
@@ -3077,10 +3205,26 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.clickTwoPointF = None
                     self.barCountGraphicsItem = None
                     
+                elif self.clickOnePointF == None and \
+                     self.clickTwoPointF == None and \
+                     self.barCountGraphicsItem == None:
+                    
+                    # Open a context menu at this location, in readonly mode.
+                    clickPosF = self.mapToScene(qmouseevent.pos())
+                    menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
+                    menu.exec_(qmouseevent.globalPos())
+                    
         else:
-            # For any other mode we don't have specific functionality for,
+            # For any other mode we don't have specific functionality
+            # for, do a context menu if it is a right-click, otherwise
             # just pass the event to the parent to handle.
-            super().mousePressEvent(qmouseevent)
+            if qmouseevent.button() & Qt.RightButton:
+                # Open a context menu at this location, in readonly mode.
+                clickPosF = self.mapToScene(qmouseevent.pos())
+                menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
+                menu.exec_(qmouseevent.globalPos())
+            else:
+                super().mousePressEvent(qmouseevent)
 
         self.log.debug("Exiting mousePressEvent()")
 

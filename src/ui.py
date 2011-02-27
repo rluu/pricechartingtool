@@ -73,7 +73,8 @@ class MainWindow(QMainWindow):
 
         # Maps actions in the window menu to changing active document windows.
         self.windowMapper = QSignalMapper(self)
-        self.windowMapper.mapped[QWidget].connect(self.mdiArea.setActiveSubWindow)
+        self.windowMapper.mapped[QWidget].\
+            connect(self.mdiArea.setActiveSubWindow)
 
         # Any updates in window activation will update action objects and
         # the window menu.

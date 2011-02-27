@@ -498,7 +498,7 @@ class Ephemeris:
 
 
     @staticmethod
-    def datetimetoDayStr(datetimeObj):
+    def datetimeToDayStr(datetimeObj):
         """Returns a string representation of a datetime.datetime
         object with the day of the week included.  Normally we
         wouldn't need to do this, but the datetime.strftime() does not
@@ -519,20 +519,20 @@ class Ephemeris:
         if tznameStr == None:
             tznameStr = ""
 
-        dayOfWeekStr = dt.ctime()[0:3]
+        dayOfWeekStr = datetimeObj.ctime()[0:3]
         
         offsetStr = \
-            Ephemeris.getTimezoneOffsetFromDatetime(dt)
+            Ephemeris.getTimezoneOffsetFromDatetime(datetimeObj)
             
         # Return value.
         rv = "{} {}-{:02}-{:02} {:02}:{:02}:{:02} {}{}".\
              format(dayOfWeekStr,
-                    dt.year,
-                    dt.month,
-                    dt.day,
-                    dt.hour,
-                    dt.minute,
-                    dt.second,
+                    datetimeObj.year,
+                    datetimeObj.month,
+                    datetimeObj.day,
+                    datetimeObj.hour,
+                    datetimeObj.minute,
+                    datetimeObj.second,
                     tznameStr,
                     offsetStr)
             
