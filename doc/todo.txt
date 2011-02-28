@@ -14,47 +14,47 @@ DONE    QGrahpicsItem flags get set according to whatever tool mode I'm
 DONE    currently in!
 DONE  - Finish testing PriceBarEditWidget() and PriceBarEditDialog().
 DONE  - Remove bolding option of PriceBars (and pen width of it, etc.).
+DONE  - Need to add right-click context menus and popup info/edit 
+DONE    dialog widgets.
+DONE     - Add these functions to the pricebargraphicsitem:
+DONE           handleSetAstro1(datetime)
+DONE           handleSetAstro2(datetime)
+DONE           handleSetAstro3(datetime)
+DONE     - Add these functions to the base-class artifact:
+DONE           handleSetAstro1(datetime)
+DONE           handleSetAstro2(datetime)
+DONE           handleSetAstro3(datetime)
+DONE     - Each GraphicsItem type should have a function called:
+DONE           createContextMenu(readOnlyMode=true)
+DONE       and any supporting functions that are slots that are connected
+DONE       to the actions returned in the QMenu (some of the below may or
+DONE       may not apply to the particular graphicsitem):
+DONE
+DONE           handleSelect()
+DONE           handleUnselect()
+DONE           handleRemoveItem()
+DONE           handleInfoEdit()
+DONE           handleInfoShow()
+DONE	   
+DONE	   handleSetAstro1() (to overwrite and call the base-class
+DONE	                      function with the appropriate arguments)
+DONE	   handleSetAstro2() (to overwrite and call the base-class
+DONE	                      function with the appropriate arguments)
+DONE	   handleSetAstro3() (to overwrite and call the base-class
+DONE	                      function with the appropriate arguments)
+DONE           etc.
+DONE
+DONE
+DONE     - Dialog widgets for info/editing of artifacts should be in new file: 
+DONE       pricebarchart_dialogs.py
 
+  - In the astrologychart.SiderealRadixGraphicsItem, clean up the
+    code.  Parameterize the pen/brush so that it has foreground color
+    for things, background for things and so that the
+    alpha/transparency is implemented so that I can overlap sq-of-9
+    and other charts on top of it.
 
-  - Need to add right-click context menus and popup info/edit dialog widgets.
-
-     - Add these functions to the pricebargraphicsitem:
-
-           handleSetAstro1(datetime)
-           handleSetAstro2(datetime)
-           handleSetAstro3(datetime)
-
-     - Add these functions to the base-class artifact:
-
-           handleSetAstro1(datetime)
-           handleSetAstro2(datetime)
-           handleSetAstro3(datetime)
-
-     - Each GraphicsItem type should have a function called:
- 
-           createContextMenu(readOnlyMode=true)
-
-       and any supporting functions that are slots that are connected
-       to the actions returned in the QMenu (some of the below may or
-       may not apply to the particular graphicsitem):
-
-           handleSelect()
-           handleUnselect()
-           handleRemoveItem()
-           handleInfoEdit()
-           handleInfoShow()
-	   
-	   handleSetAstro1() (to overwrite and call the base-class
-	                      function with the appropriate arguments)
-	   handleSetAstro2() (to overwrite and call the base-class
-	                      function with the appropriate arguments)
-	   handleSetAstro3() (to overwrite and call the base-class
-	                      function with the appropriate arguments)
-           etc.
-
-
-     - Dialog widgets for info/editing of artifacts should be in new file: 
-       pricebarchart_dialogs.py
+  - Add other QGraphicsItems and functionality for the astrology chart.
 
   - Need to create icons for the different new modes for creating indicators.
      - BarCount
