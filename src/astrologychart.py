@@ -81,11 +81,11 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
     """
 
     def __init__(self, parent=None, scene=None):
+        super().__init__(parent, scene)
+        
         # Logger
         self.log = \
             logging.getLogger("astrologychart.SiderealRadixChartGraphicsItem")
-
-        super().__init__(parent, scene)
 
         # Pen which is used to do the painting.
         self.pen = QPen()
@@ -491,7 +491,7 @@ class RadixPlanetGraphicsItem(QGraphicsItem):
 
         Arguments:
         planetGlyphUnicode - str holding the planet glyph.
-        planetGlyphUnicode - float font size for drawing the glyph.
+        planetGlyphFontSize - float font size for drawing the glyph.
         planetAbbreviation - str holding the planet abbreviation.
         planetForegroundColor - QColor object for the foreground color to
                                 be used for the drawing of the planet.
@@ -511,11 +511,11 @@ class RadixPlanetGraphicsItem(QGraphicsItem):
         scene - QGraphicsScene object to draw this QGraphicsItem on.
         """
     
+        super().__init__(parent, scene)
+
         # Logger
         self.log = \
             logging.getLogger("astrologychart.RadixPlanetGraphicsItem")
-
-        super().__init__(parent, scene)
 
         # Save the parameter values.
         self.planetGlyphUnicode = planetGlyphUnicode
@@ -1097,7 +1097,7 @@ class PlanetDeclinationGraphicsItem(QGraphicsItem):
 
         Arguments:
         planetGlyphUnicode - str holding the planet glyph.
-        planetGlyphUnicode - float font size for drawing the glyph.
+        planetGlyphFontSize - float font size for drawing the glyph.
         planetAbbreviation - str holding the planet abbreviation.
         planetForegroundColor - QColor object for the foreground color to
                                 be used for the drawing of the planet.
@@ -1118,12 +1118,12 @@ class PlanetDeclinationGraphicsItem(QGraphicsItem):
                  QGraphicsItem.
         scene - QGraphicsScene object to draw this QGraphicsItem on.
         """
-    
+        
+        super().__init__(parent, scene)
+        
         # Logger
         self.log = \
             logging.getLogger("astrologychart.PlanetDeclinationGraphicsItem")
-
-        super().__init__(parent, scene)
 
         # Save the parameter values.
         self.planetGlyphUnicode = planetGlyphUnicode
@@ -1343,7 +1343,7 @@ class PlanetDeclinationGraphicsItem(QGraphicsItem):
     def paint(self, painter, option, widget):
         """Paints this QGraphicsItem.
         
-        The painting is done in three parts:
+        The painting is done in the following parts:
         - Paint the line from ruler to the location where the text starts.
         - Paint the text for the planet glyph and the degree it is at.
 
@@ -1400,6 +1400,624 @@ class PlanetDeclinationGraphicsItem(QGraphicsItem):
         painter.setBrush(oldBrush)
         painter.setPen(oldPen)
         
+class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
+    """QGraphicsItem that paints a chart for displaying various
+    planets' longitude speed.
+    """
+
+    def __init__(self, maxSpeed=None, minSpeed=None, parent=None, scene=None):
+        """Initializes the LongitudeSpeedChartGraphicsItem with the
+        given max and minimum speeds.
+
+        Arguments:
+        maxSpeed - float value for the maximum longitude speed in
+                   degrees per day.
+        minSpeed - float value for the minimum longitude speed in
+                   degrees per day.
+        """
+        
+        super().__init__(parent, scene)
+        
+        # Logger
+        self.log = \
+            logging.getLogger("astrologychart.LongitudeSpeedChartGraphicsItem")
+
+        # Save off values.
+        self.maxSpeed=maxSpeed
+        self.minSpeed=minSpeed
+
+        # The 'ruler' bar displayed is a fixed size.  Speed values are
+        # scaled to a Y value to fit in the ruler bar.  See the
+        # convertFromSpeedToYLocation() function for the conversion
+        # algorithm sed.
+        self.rulerWidth = 20.0
+        self.rulerHeight = 120.0
+
+        # This is the X coordinate location where the text for the
+        # min, max and 0 speed are painted.
+        self.textXLoc = -35.0
+        
+    def getRulerWidth(self):
+        """Returns the ruler width."""
+
+        return self.rulerWidth
+
+    def getRulerHeight(self):
+        """Returns the ruler height."""
+
+        return self.rulerHeight
+        
+    def setMaxSpeed(self, maxSpeed):
+        """Sets the max longitude speed, in degrees per day.
+
+        Arguments:
+        maxSpeed - float value for the max longitude speed, in degrees per day.
+        """
+
+        self.maxSpeed = maxSpeed
+
+    def getMaxSpeed(self):
+        """Returns the max longitude speed, in degrees per day.
+
+        Returns:
+        float - Value that is the max longitude speed, in degrees per day.
+        """
+
+        return self.maxSpeed
+    
+    def setMinSpeed(self, minSpeed):
+        """Sets the min longitude speed, in degrees per day.
+
+        Arguments:
+        minSpeed - float value for the min longitude speed, in degrees per day.
+        """
+
+        self.minSpeed = minSpeed
+
+    def getMinSpeed(self):
+        """Returns the min longitude speed, in degrees per day.
+
+        Returns:
+        float - Value that is the min longitude speed, in degrees per day.
+        """
+
+        return self.minSpeed
+    
+        
+    def convertFromSpeedToYValue(self, speed):
+        """Converts the given longitude speed (in degrees per day) to
+        the coordinate Y value where speed should be plotted.  This
+        algorithm sets the minSpeed Y value as the 0 anchor point,
+        therefore all coordinates within range should yield a value
+        less than or equal to 0.
+
+        Arguments:
+        speed - float value for the longitude speed.
+
+        Returns:
+        float - value that is the Y coordinate location where the speed
+                should be plotted.
+        """
+
+        # These local variables hold the min and max speeds used in
+        # the calculation.
+        maxSpeed = self.maxSpeed
+        minSpeed = self.minSpeed
+        
+        # If self.maxSpeed or self.minSpeed is None, then default to
+        # using the range as the ruler height, and the max and min as
+        # positive and negative half the ruler height.
+        if self.maxSpeed == None or self.minSpeed == None:
+            maxSpeed =  1.0 * self.rulerHeight / 2.0
+            minSpeed = -1.0 * self.rulerHeight / 2.0
+
+        # See where speed fits in terms of range.
+        speedRange = maxSpeed - minSpeed
+        amountAboveMinSpeed = speed - minSpeed
+
+        ratio = amountAboveMinSpeed / speedRange
+        
+        yValue = -1.0 * self.rulerHeight * ratio
+
+        return yValue
+
+    def convertFromYValueToSpeed(self, y):
+        """Converts the given y value to a longitude speed (in degrees per day).
+        This method does the inverse of convertFromSpeedToYValue().
+
+        Arguments:
+        y - float value that is the Y coordinate location where the speed
+            is plotted.
+
+        Returns:
+        float - value that is the longitude speed, in degrees per day.
+        """
+
+        # These local variables hold the min and max speeds used in
+        # the calculation.
+        maxSpeed = self.maxSpeed
+        minSpeed = self.minSpeed
+        
+        # If self.maxSpeed or self.minSpeed is None, then default to
+        # using the range as the ruler height, and the max and min as
+        # positive and negative half the ruler height.
+        if self.maxSpeed == None or self.minSpeed == None:
+            maxSpeed =  1.0 * self.rulerHeight / 2.0
+            minSpeed = -1.0 * self.rulerHeight / 2.0
+
+
+        ratio = y / self.rulerHeight
+
+        speedRange = maxSpeed - minSpeed
+        amountAboveMinSpeed = ratio * speedRange
+        speed = minSpeed + amountAboveMinSpeed
+        
+        return speed
+
+    def boundingRect(self):
+        """Returns the bounding rectangle for this graphicsitem.
+        
+        We implement this function by taking all the pieces, and doing
+        an logical OR on the areas covered by their rectangles.  The
+        rectangles are calculated in the same way that paint() is
+        done.  Changes to paint() will required changes to this
+        method.
+        """
+
+        # Coordinate (0, 0) is the location of the bottom left corner
+        # of the ruler.
+
+        # These local variables hold the min and max speeds used in
+        # the calculation.
+        maxSpeed = self.maxSpeed
+        minSpeed = self.minSpeed
+        
+        # If self.maxSpeed or self.minSpeed is None, then default to
+        # using the range as the ruler height, and the max and min as
+        # positive and negative half the ruler height.
+        if self.maxSpeed == None or self.minSpeed == None:
+            maxSpeed =  1.0 * self.rulerHeight / 2.0
+            minSpeed = -1.0 * self.rulerHeight / 2.0
+
+        # Rectangle for the ruler.
+        x = 0
+        y = 0
+        width = self.rulerWidth
+        height = -1.0 * self.rulerHeight
+        rulerRectF = QRectF(x, y, width, height).normalized()
+
+        # For the text for the min, max, and 0 locations on the ruler.
+        font = QFont()
+        font.setFamily("Lucida Console")
+        font.setPointSize(10)
+        
+        # Max speed.
+        x1 = self.textXLoc
+        y1 = self.convertFromSpeedToYValue(maxSpeed)
+        # The below format is:
+        # - Two digits of precision.
+        # - Followed by the degree symbol.
+        text = "{:.2f}\u00b0".format(maxSpeed)
+        textPath = QPainterPath()
+        textPath.addText(0, 0, font, text)
+        transform = QTransform()
+        transform.translate(x1, y1)
+        translatedPath = QPainterPath()
+        translatedPath.addPath(transform.map(textPath))
+        maxSpeedRectF = translatedPath.boundingRect()
+        
+        # Min speed.
+        x1 = self.textXLoc
+        y1 = self.convertFromSpeedToYValue(minSpeed)
+        # The below format is:
+        # - Two digits of precision.
+        # - Followed by the degree symbol.
+        text = "{:.2f}\u00b0".format(minSpeed)
+        textPath = QPainterPath()
+        textPath.addText(0, 0, font, text)
+        transform = QTransform()
+        transform.translate(x1, y1)
+        translatedPath = QPainterPath()
+        translatedPath.addPath(transform.map(textPath))
+        minSpeedRectF = translatedPath.boundingRect()
+
+        # Zero speed.
+        zeroSpeed = 0.0
+        x1 = self.textXLoc
+        y1 = self.convertFromSpeedToYValue(zeroSpeed)
+        # The below format is:
+        # - Two digits of precision.
+        # - Followed by the degree symbol.
+        text = "{:.2f}\u00b0".format(zeroSpeed)
+        textPath = QPainterPath()
+        textPath.addText(0, 0, font, text)
+        transform = QTransform()
+        transform.translate(x1, y1)
+        translatedPath = QPainterPath()
+        translatedPath.addPath(transform.map(textPath))
+        zeroSpeedRectF = translatedPath.boundingRect()
+
+        rv = rulerRectF.\
+             united(maxSpeedRectF).\
+             united(minSpeedRectF).\
+             united(zeroSpeedRectF)
+        
+        return rv
+
+    def paint(self, painter, option, widget):
+        """Paints this QGraphicsItem.
+
+        Note: boundingRect() utilizes the same calculations as here,
+        so if this function changes, then boundingRect() will need to
+        be updated as well.
+        """
+        
+        # Coordinate (0, 0) is the location of the bottom left corner
+        # of the ruler.
+
+        # Change the brush and pen in the painter.
+        # We will restore it when done.
+        oldBrush = painter.brush()
+        oldPen = painter.pen()
+        pen = painter.pen()
+        pen.setColor(QColor(Qt.black))
+        pen.setWidthF(0.0)
+        painter.setPen(pen)
+        brush = painter.brush()
+        brush.setColor(QColor(Qt.black))
+        painter.setBrush(brush)
+
+        # These local variables hold the min and max speeds used in
+        # the calculation.
+        maxSpeed = self.maxSpeed
+        minSpeed = self.minSpeed
+        
+        # If self.maxSpeed or self.minSpeed is None, then default to
+        # using the range as the ruler height, and the max and min as
+        # positive and negative half the ruler height.
+        if self.maxSpeed == None or self.minSpeed == None:
+            maxSpeed =  1.0 * self.rulerHeight / 2.0
+            minSpeed = -1.0 * self.rulerHeight / 2.0
+
+        # Draw the rectangle for the ruler.
+        x = 0
+        y = 0
+        width = self.rulerWidth
+        height = -1.0 * self.rulerHeight
+        rectF = QRectF(x, y, width, height).normalized()
+        painter.drawRect(rectF)
+
+        # Draw the 0 line.
+        x1 = 0
+        y1 = self.convertFromSpeedToYValue(0)
+        x2 = self.rulerWidth
+        y2 = y1
+        painter.drawLine(x1, y1, x2, y2)
+        
+        # Draw the text for the min, max, and 0 locations on the ruler.
+        font = QFont()
+        font.setFamily("Lucida Console")
+        font.setPointSize(10)
+
+        # Max speed.
+        x1 = self.textXLoc
+        y1 = self.convertFromSpeedToYValue(maxSpeed)
+        # The below format is:
+        # - Two digits of precision.
+        # - Followed by the degree symbol.
+        text = "{:.2f}\u00b0".format(maxSpeed)
+        textPath = QPainterPath()
+        textPath.addText(0, 0, font, text)
+        transform = QTransform()
+        transform.translate(x1, y1)
+        translatedPath = QPainterPath()
+        translatedPath.addPath(transform.map(textPath))
+        painter.drawPath(translatedPath)
+
+        # Min speed.
+        x1 = self.textXLoc
+        y1 = self.convertFromSpeedToYValue(minSpeed)
+        # The below format is:
+        # - Two digits of precision.
+        # - Followed by the degree symbol.
+        text = "{:.2f}\u00b0".format(minSpeed)
+        textPath = QPainterPath()
+        textPath.addText(0, 0, font, text)
+        transform = QTransform()
+        transform.translate(x1, y1)
+        translatedPath = QPainterPath()
+        translatedPath.addPath(transform.map(textPath))
+        painter.drawPath(translatedPath)
+        
+        # Zero speed.
+        zeroSpeed = 0.0
+        x1 = self.textXLoc
+        y1 = self.convertFromSpeedToYValue(zeroSpeed)
+        # The below format is:
+        # - Two digits of precision.
+        # - Followed by the degree symbol.
+        text = "{:.2f}\u00b0".format(zeroSpeed)
+        textPath = QPainterPath()
+        textPath.addText(0, 0, font, text)
+        transform = QTransform()
+        transform.translate(x1, y1)
+        translatedPath = QPainterPath()
+        translatedPath.addPath(transform.map(textPath))
+        painter.drawPath(translatedPath)
+
+        # Uncomment the below few lines of code to paint the boundingRect().
+        # This is here just for future testing purposes.
+        #painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
+        #painter.setBrush(Qt.NoBrush)
+        #painter.drawRect(self.boundingRect())
+        
+        # Restore old paintbrush and pen.
+        painter.setBrush(oldBrush)
+        painter.setPen(oldPen)
+        
+class PlanetLongitudeSpeedGraphicsItem(QGraphicsItem):
+    """QGraphicsItem that is a 'planet' to be drawn with a
+    LongitudeSpeedChartGraphicsItem object as its parent QGraphicsItem.
+    """
+
+    def __init__(self,
+                 planetGlyphUnicode,
+                 planetGlyphFontSize,
+                 planetAbbreviation,
+                 planetForegroundColor,
+                 planetBackgroundColor,
+                 speed = 0.0,
+                 parent=None,
+                 scene=None):
+        """Initializes the object with the given arguments.
+
+        Arguments:
+        planetGlyphUnicode - str holding the planet glyph.
+        planetGlyphFontSize - float font size for drawing the glyph.
+        planetAbbreviation - str holding the planet abbreviation.
+        planetForegroundColor - QColor object for the foreground color to
+                                be used for the drawing of the planet.
+        planetBackgroundColor - QColor object for the background color to
+                                be used for the drawing of the planet.
+        speed - float value for the longitude velocity of the planet,
+                in degrees per day.  Negative values indicate
+                that the planet is retrograde (if applicable).
+        parent - LongitudeSpeedChartGraphicsItem that is the parent for this
+                 QGraphicsItem.
+        scene - QGraphicsScene object to draw this QGraphicsItem on.
+        """
+        
+        super().__init__(parent, scene)
+
+        # Logger
+        self.log = \
+            logging.getLogger("astrologychart.PlanetLongitudeSpeedGraphicsItem")
+
+        # Save the parameter values.
+        self.planetGlyphUnicode = planetGlyphUnicode
+        self.planetGlyphFontSize = planetGlyphFontSize
+        self.planetAbbreviation = planetAbbreviation
+        self.planetForegroundColor = planetForegroundColor
+        self.planetBackgroundColor = planetBackgroundColor
+        self.speed = speed
+        self.parentChartGraphicsItem = parent
+
+        # Fill colors for the ruler area for positive and negative speeds.
+        self.positiveSpeedBrush = QBrush(Qt.green, Qt.Dense4Pattern)
+        self.negativeSpeedBrush = QBrush(Qt.red, Qt.Dense4Pattern)
+        
+        # The ruler width.  This value is obtained from the parent
+        # LongitudeSpeedChartGraphicsItem object.
+        self.rulerWidth = 0.0
+
+        # X location where the line ends and the text starts.
+        # This value is updated every time self.rulerWidth is updated.
+        self.lineEndX = 0.0
+
+        # Call our overwritten self.setParentItem() manually so that
+        # the parent object type can be verified.  This will also
+        # subsequently have the (desired) side effect of
+        # setting self.rulerWidth and updating the QGraphicsItem.
+        self.setParentItem(parent)
+        
+    def setParentItem(self, parent):
+        """Overwrites QGraphicsItem.setParentItem().  Needed so we can
+        save off the parent in self.parentChartGraphicsItem.
+
+        Arguments:
+        parent -  LongitudeSpeedChartGraphicsItem parent object.
+        """
+
+        # Verify parent class.
+        if parent != None and \
+               not isinstance(parent, LongitudeSpeedChartGraphicsItem):
+            
+            raise TypeError("Argument 'parent' is not of type " + \
+                            "'LongitudeSpeedChartGraphicsItem'")
+        
+        # Save off the parent.
+        self.parentChartGraphicsItem = parent
+
+        # Get values from the parent that we use for drawing.
+        self.rulerWidth = self.parentChartGraphicsItem.getRulerWidth()
+        self.lineEndX = 1.5 * self.rulerWidth
+        self.update()
+        
+    def setSpeed(self, speed):
+        """Sets the speed of the planet, in degrees per day.
+
+        Arguments:
+        speed - float value for the speed of the planet, in degrees
+                   per day.  Negative values indicate that the planet
+                   is retrograde (if applicable).
+        """
+
+        self.speed = speed
+        self.update()
+
+    def getSpeed(self):
+        """Returns the speed of the planet, in degrees per day.
+
+        Returns:
+        float - Value for the speed of the planet, in degrees
+                per day.
+        """
+
+        return self.speed
+
+    def getPlanetGlyphUnicode(self):
+        """Returns the planet glyph in unicode."""
+
+        return self.planetGlyphUnicode
+
+    def getPlanetGlyphFontSize(self):
+        """Returns the planet glyph font size."""
+
+        return self.planetGlyphFontSize
+
+    def getPlanetAbbreviation(self):
+        """Returns the planet abbreviation."""
+
+        return self.planetAbbreviation
+
+    def getPlanetForegroundColor(self):
+        """Returns the planet foreground color as a QColor object."""
+
+        return self.planetForegroundColor
+
+    def getPlanetBackgroundColor(self):
+        """Returns the planet background color as a QColor object."""
+
+        return self.planetBackgroundColor
+
+    def boundingRect(self):
+        """Returns the bounding rectangle for this graphicsitem.
+
+        We implement this function by taking all the pieces, and doing
+        an logical OR on the areas covered by their rectangles.  The
+        rectangles are calculated in the same way that paint() is
+        done.  Changes to paint() will required changes to this
+        method.
+        """
+
+        # QRectF for the line.
+        x1 = 0.0
+        y1 = self.parentChartGraphicsItem.convertFromSpeedToYValue(self.speed)
+        x2 = self.lineEndX
+        y2 = y1
+        lineRect = QRectF(QPointF(x1, y1), QPointF(x2, y2)).normalized()
+
+        # QRectF for text of the planet glyph and degree.
+        font = QFont()
+        font.setFamily("Lucida Console")
+        font.setPointSize(self.planetGlyphFontSize)
+        text = self.planetGlyphUnicode
+        text += "  {}\u00b0/day".format(self.speed)
+        textPath = QPainterPath()
+        textPath.addText(0, 0, font, text)
+        transform = QTransform()
+        textX = self.lineEndX
+        textY = self.parentChartGraphicsItem.\
+                convertFromSpeedToYValue(self.speed)
+        transform.translate(textX, textY)
+        transformedTextPath = QPainterPath()
+        transformedTextPath.addPath(transform.map(textPath))
+        textRect = transformedTextPath.boundingRect()
+
+        # QRectF for the fill area.
+        rulerFillAreaRectF = \
+            QRectF(QPointF(0.0,
+                           self.parentChartGraphicsItem.\
+                           convertFromSpeedToYValue(0.0)),
+                   QPointF(self.rulerWidth,
+                           self.parentChartGraphicsItem.\
+                           convertFromSpeedToYValue(self.speed))).normalized()
+
+        # Unite all rectangles.
+        rv = lineRect.united(textRect).united(rulerFillAreaRectF)
+        
+        return rv
+
+    def paint(self, painter, option, widget):
+        """Paints this QGraphicsItem.
+        
+        The painting is done in the following parts:
+        - Paint the line from ruler to the location where the text starts.
+        - Paint the text for the planet glyph and the degree it is at.
+        - Paint the fill-area of the ruler.
+
+        Note: boundingRect() utilizes the same calculations as here,
+        so if this function changes, then boundingRect() will need to
+        be updated as well.
+        """
+
+        # Change the brush and pen in the painter.
+        # We will restore it when done.
+        oldBrush = painter.brush()
+        oldPen = painter.pen()
+        pen = painter.pen()
+        pen.setColor(QColor(self.planetForegroundColor))
+        pen.setWidthF(0.0)
+        painter.setPen(pen)
+        brush = painter.brush()
+        brush.setColor(self.planetForegroundColor)
+        brush.setStyle(Qt.SolidPattern)
+        painter.setBrush(brush)
+
+        # Draw the line.
+        x1 = 0.0
+        y1 = self.parentChartGraphicsItem.convertFromSpeedToYValue(self.speed)
+        x2 = self.lineEndX
+        y2 = y1
+        painter.drawLine(x1, y1, x2, y2)
+
+        # Draw the text for the planet.
+        font = QFont()
+        font.setFamily("Lucida Console")
+        font.setPointSize(self.planetGlyphFontSize)
+
+        text = self.planetGlyphUnicode
+        text += "  {}\u00b0/day".format(self.speed)
+        textPath = QPainterPath()
+        textPath.addText(0, 0, font, text)
+        
+        transform = QTransform()
+        textX = self.lineEndX
+        textY = self.parentChartGraphicsItem.\
+                convertFromSpeedToYValue(self.speed)
+        transform.translate(textX, textY)
+        transformedTextPath = QPainterPath()
+        transformedTextPath.addPath(transform.map(textPath))
+        painter.drawPath(transformedTextPath)
+
+        # Draw the some fill-in for the area covered by the ruler,
+        # above or below 0 speed.  This area drawn has no pen, and a
+        # certain brush style.
+        rulerFillAreaRectF = \
+            QRectF(QPointF(0.0,
+                           self.parentChartGraphicsItem.\
+                           convertFromSpeedToYValue(0.0)),
+                   QPointF(self.rulerWidth,
+                           self.parentChartGraphicsItem.\
+                           convertFromSpeedToYValue(self.speed))).normalized()
+        if self.speed >= 0.0:
+            painter.setBrush(self.positiveSpeedBrush)
+        else:
+            painter.setBrush(self.negativeSpeedBrush)
+        painter.setPen(QPen(Qt.NoPen))
+        painter.drawRect(rulerFillAreaRectF)
+
+        # Uncomment the below few lines of code to paint the boundingRect().
+        # This is here just for future testing purposes.
+        #painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
+        #painter.setBrush(Qt.NoBrush)
+        #painter.drawRect(self.boundingRect())
+        
+        # Restore the old paintbrush and pen.
+        painter.setBrush(oldBrush)
+        painter.setPen(oldPen)
+
+
 def testSiderealRadixChartGraphicsItem():
     print("Running " + inspect.stack()[0][3] + "()")
 
@@ -1638,7 +2256,92 @@ def testPlanetDeclinationGraphicsItem():
 
     dialog.exec_()
 
+
+def testLongitudeSpeedChartGraphicsItem():
+    print("Running " + inspect.stack()[0][3] + "()")
     
+    scene = QGraphicsScene()
+    view = QGraphicsView(scene)
+
+    view.setResizeAnchor(QGraphicsView.AnchorUnderMouse)
+    view.setInteractive(True)
+
+    # Set some rendering settings so things draw nicely.
+    view.setRenderHints(QPainter.Antialiasing | 
+                        QPainter.TextAntialiasing |
+                        QPainter.SmoothPixmapTransform)
+
+    # Set to FullViewportUpdate update mode.
+    #
+    # The default is normally QGraphicsView.MinimalViewportUpdate, but
+    # this caused us to have missing parts of artifacts and missing
+    # parts of pricebars.  And while performance isn't as great in
+    # the FullViewportUpdate mode, we dont' have many things dynamically
+    # updating and changing, so it isn't too big of an issue.
+    #view.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
+    
+    chartItem = LongitudeSpeedChartGraphicsItem(maxSpeed=32.0,
+                                                minSpeed=-10.0)
+    
+    scene.addItem(chartItem)
+
+    layout = QVBoxLayout()
+    layout.addWidget(view)
+    
+    dialog = QDialog()
+    dialog.setLayout(layout)
+
+    dialog.exec_()
+    
+
+def testPlanetLongitudeSpeedGraphicsItem():
+    print("Running " + inspect.stack()[0][3] + "()")
+    
+    from settings import SettingsKeys
+    
+    scene = QGraphicsScene()
+    view = QGraphicsView(scene)
+
+    view.setResizeAnchor(QGraphicsView.AnchorUnderMouse)
+    view.setInteractive(True)
+
+    # Set some rendering settings so things draw nicely.
+    view.setRenderHints(QPainter.Antialiasing | 
+                        QPainter.TextAntialiasing |
+                        QPainter.SmoothPixmapTransform)
+
+    # Set to FullViewportUpdate update mode.
+    #
+    # The default is normally QGraphicsView.MinimalViewportUpdate, but
+    # this caused us to have missing parts of artifacts and missing
+    # parts of pricebars.  And while performance isn't as great in
+    # the FullViewportUpdate mode, we dont' have many things dynamically
+    # updating and changing, so it isn't too big of an issue.
+    #view.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
+    
+    chartItem = LongitudeSpeedChartGraphicsItem(maxSpeed=16.0,
+                                                minSpeed=-5.0)
+    scene.addItem(chartItem)
+
+    mercury = \
+        PlanetLongitudeSpeedGraphicsItem(
+        SettingsKeys.planetMercuryGlyphUnicodeDefValue,
+        SettingsKeys.planetMercuryGlyphFontSizeDefValue,
+        SettingsKeys.planetMercuryAbbreviationDefValue,
+        QColor(Qt.green),
+        SettingsKeys.planetMercuryBackgroundColorDefValue,
+        speed=15.2,
+        parent=chartItem)
+
+    layout = QVBoxLayout()
+    layout.addWidget(view)
+    
+    dialog = QDialog()
+    dialog.setLayout(layout)
+
+    dialog.exec_()
+
+
 
 # For debugging the module during development.  
 if __name__=="__main__":
@@ -1664,7 +2367,9 @@ if __name__=="__main__":
     #testSiderealRadixChartGraphicsItem()
     #testRadixPlanetGraphicsItem()
     #testDeclinationChartGraphicsItem()
-    testPlanetDeclinationGraphicsItem()
+    #testPlanetDeclinationGraphicsItem()
+    #testLongitudeSpeedChartGraphicsItem()
+    testPlanetLongitudeSpeedGraphicsItem()
     
     # Exit the app when all windows are closed.
     app.connect(app, SIGNAL("lastWindowClosed()"), logging.shutdown)
