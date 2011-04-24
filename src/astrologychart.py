@@ -29,7 +29,165 @@ from data_objects import BirthInfo
 # For conversions from julian day to datetime.datetime and vice versa.
 from ephemeris import Ephemeris
 
+class AstrologyUtils:
+    """Contains various functions used in the conversions between
+    various astrological values and fields.
+    """
 
+    @staticmethod
+    def convertFromLongitudeToStrWithRasiAbbrev(longitude):
+        """Takes a float longitude value and converts it to a string
+        in the format: 23 <RASI_GLYPH> 24' 14"
+        
+        Arguments:
+        longitude - float value for the longitude of the planet.
+
+        Returns:
+        str - String that is in the above format.  It will always be a
+        fixed number of characters.  This means that if it is 8
+        degrees, or 8 minutes, or 8 seconds, the string will have a
+        space prefixing the 8.
+        """
+
+        # Make sure the longitude is less than 360 and greater than or
+        # equal to 0.
+        if longitude >= 360.0 or longitude < 0.0:
+            longitude = longitude % 360
+        
+        # Rasi number, where 0 is Aries.
+        rasi = math.floor(longitude / 30.0)
+
+        # Degree in the rasi.
+        unflooredDegrees = longitude % 30
+        degrees = math.floor(unflooredDegrees)
+
+        # Minutes within the degree.
+        unflooredMinutes = (unflooredDegrees - degrees) * 60.0
+        minutes = math.floor(unflooredMinutes)
+
+        # Seconds within the degree.
+        unflooredSeconds = (unflooredMinutes - minutes) * 60.0
+        seconds = math.floor(unflooredSeconds)
+
+        # Preference settings.
+        settings = QSettings()
+        
+        signGlyphs = [\
+            settings.value(SettingsKeys.signAriesGlyphUnicodeKey,
+                           SettingsKeys.signAriesGlyphUnicodeDefValue),
+            settings.value(SettingsKeys.signTaurusGlyphUnicodeKey,
+                           SettingsKeys.signTaurusGlyphUnicodeDefValue),
+            settings.value(SettingsKeys.signGeminiGlyphUnicodeKey,
+                           SettingsKeys.signGeminiGlyphUnicodeDefValue),
+            settings.value(SettingsKeys.signCancerGlyphUnicodeKey,
+                           SettingsKeys.signCancerGlyphUnicodeDefValue),
+            settings.value(SettingsKeys.signLeoGlyphUnicodeKey,
+                           SettingsKeys.signLeoGlyphUnicodeDefValue),
+            settings.value(SettingsKeys.signVirgoGlyphUnicodeKey,
+                           SettingsKeys.signVirgoGlyphUnicodeDefValue),
+            settings.value(SettingsKeys.signLibraGlyphUnicodeKey,
+                           SettingsKeys.signLibraGlyphUnicodeDefValue),
+            settings.value(SettingsKeys.signScorpioGlyphUnicodeKey,
+                           SettingsKeys.signScorpioGlyphUnicodeDefValue),
+            settings.value(SettingsKeys.signSagittariusGlyphUnicodeKey,
+                           SettingsKeys.signSagittariusGlyphUnicodeDefValue),
+            settings.value(SettingsKeys.signCapricornGlyphUnicodeKey,
+                           SettingsKeys.signCapricornGlyphUnicodeDefValue),
+            settings.value(SettingsKeys.signAquariusGlyphUnicodeKey,
+                           SettingsKeys.signAquariusGlyphUnicodeDefValue),
+            settings.value(SettingsKeys.signPiscesGlyphUnicodeKey,
+                           SettingsKeys.signPiscesGlyphUnicodeDefValue)]
+
+        signAbbreviations = [\
+            settings.value(SettingsKeys.signAriesAbbreviationKey,
+                           SettingsKeys.signAriesAbbreviationDefValue),
+            settings.value(SettingsKeys.signTaurusAbbreviationKey,
+                           SettingsKeys.signTaurusAbbreviationDefValue),
+            settings.value(SettingsKeys.signGeminiAbbreviationKey,
+                           SettingsKeys.signGeminiAbbreviationDefValue),
+            settings.value(SettingsKeys.signCancerAbbreviationKey,
+                           SettingsKeys.signCancerAbbreviationDefValue),
+            settings.value(SettingsKeys.signLeoAbbreviationKey,
+                           SettingsKeys.signLeoAbbreviationDefValue),
+            settings.value(SettingsKeys.signVirgoAbbreviationKey,
+                           SettingsKeys.signVirgoAbbreviationDefValue),
+            settings.value(SettingsKeys.signLibraAbbreviationKey,
+                           SettingsKeys.signLibraAbbreviationDefValue),
+            settings.value(SettingsKeys.signScorpioAbbreviationKey,
+                           SettingsKeys.signScorpioAbbreviationDefValue),
+            settings.value(SettingsKeys.signSagittariusAbbreviationKey,
+                           SettingsKeys.signSagittariusAbbreviationDefValue),
+            settings.value(SettingsKeys.signCapricornAbbreviationKey,
+                           SettingsKeys.signCapricornAbbreviationDefValue),
+            settings.value(SettingsKeys.signAquariusAbbreviationKey,
+                           SettingsKeys.signAquariusAbbreviationDefValue),
+            settings.value(SettingsKeys.signPiscesAbbreviationKey,
+                           SettingsKeys.signPiscesAbbreviationDefValue)]
+
+        degreesStr = "{: >2}".format(degrees)
+        rasiStr = signGlyphs[rasi]
+        minutesStr = "{:0>02}".format(minutes)
+        secondsStr = "{:0>02}".format(seconds)
+        
+        rv = \
+            degreesStr + " " + \
+            rasiStr + " " + \
+            minutesStr + "' " + \
+            secondsStr + "\""
+
+        return rv
+
+    @staticmethod
+    def convertFromLongitudeToNakshatraAbbrev(longitude):
+        """Takes a float longitude value and converts it to a string
+        that is the nakshatra abbreviation for that longitude.
+        
+        Arguments:
+        longitude - float value for the longitude of the planet.
+
+        Returns:
+        str - String that is the nakshatra abbreviation for that longitude.
+        """
+
+        # Make sure the longitude is less than 360 and greater than or
+        # equal to 0.
+        if longitude >= 360.0 or longitude < 0.0:
+            longitude = longitude % 360
+            
+        nakshatraAbbrevs = [\
+            "Aswi",
+            "Bhar",
+            "Krit",
+            "Rohi",
+            "Mrig",
+            "Ardr",
+            "Puna",
+            "Push",
+            "Asre",
+            "Magh",
+            "PPha",
+            "UPha",
+            "Hast",
+            "Chit",
+            "Swat",
+            "Visa",
+            "Anur",
+            "Jyes",
+            "Mool",
+            "PSha",
+            "USha",
+            "Srav",
+            "Dhan",
+            "Sata",
+            "PBha",
+            "UBha",
+            "Reva"]
+        
+        index = math.floor(longitude / (360 / 27))
+        
+        return nakshatraAbbrevs[index]
+        
+    
 class RadixChartGraphicsItem(QGraphicsItem):
     """QGraphicsItem that is the circle astrology chart."""
 
@@ -2017,7 +2175,6 @@ class PlanetLongitudeSpeedGraphicsItem(QGraphicsItem):
         painter.setBrush(oldBrush)
         painter.setPen(oldPen)
 
-
 def testSiderealRadixChartGraphicsItem():
     print("Running " + inspect.stack()[0][3] + "()")
 
@@ -2364,11 +2521,11 @@ if __name__=="__main__":
     app = QApplication(sys.argv)
 
     # Various tests to run:
-    #testSiderealRadixChartGraphicsItem()
-    #testRadixPlanetGraphicsItem()
-    #testDeclinationChartGraphicsItem()
-    #testPlanetDeclinationGraphicsItem()
-    #testLongitudeSpeedChartGraphicsItem()
+    testSiderealRadixChartGraphicsItem()
+    testRadixPlanetGraphicsItem()
+    testDeclinationChartGraphicsItem()
+    testPlanetDeclinationGraphicsItem()
+    testLongitudeSpeedChartGraphicsItem()
     testPlanetLongitudeSpeedGraphicsItem()
     
     # Exit the app when all windows are closed.

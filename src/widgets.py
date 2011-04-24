@@ -19,6 +19,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 from ephemeris import *
+from astrologychart import AstrologyUtils
 
 class ColorIcon(QIcon):
     """A QIcon hosting just a color."""
@@ -119,6 +120,12 @@ class PlanetaryInfoTableWidget(QTableWidget):
 
         self.log = logging.getLogger("widgets.PlanetaryInfoTableWidget")
 
+        # Set the font so that it is mono-spaced.
+        courierFont = QFont()
+        courierFont.setFamily("Courier")
+        courierFont.setPointSize(8)
+        self.setFont(courierFont)
+
         # Strings for the different types of planetary coordinate systems.
         geoStr = "Geocentric" + os.linesep
         topoStr = "Topocentric" + os.linesep
@@ -160,21 +167,11 @@ class PlanetaryInfoTableWidget(QTableWidget):
         planetStr = "Planet"
         planetToolTipStr = "Planet"
 
-        # List of strings containing the different planetary coordinate
-        # systems.
-        coordinateSystems = []
-        coordinateSystems.append(geoStr + sidStr)
-        coordinateSystems.append(geoStr + tropStr)
-        coordinateSystems.append(topoStr + sidStr)
-        coordinateSystems.append(topoStr + tropStr)
-        coordinateSystems.append(helioStr + sidStr)
-        coordinateSystems.append(helioStr + tropStr)
-
-        # Number of different measurements.
-        numMeasurements = 16 * len(coordinateSystems)
-        numColumns = 1 + numMeasurements
+        # Set the total number of columns.
+        numTotalFields = 12
+        numColumns = numTotalFields + 1
         self.setColumnCount(numColumns)
-
+        
         # Create all the header QTableWidgetItems.
         col = 0
 
@@ -183,86 +180,67 @@ class PlanetaryInfoTableWidget(QTableWidget):
         self.setHorizontalHeaderItem(col, tableWidgetItem)
         col += 1
 
-        for cs in coordinateSystems:
-            item = QTableWidgetItem(cs + longitudeStr)
-            item.setToolTip(longitudeStr + degreesUnitsStr)
-            self.setHorizontalHeaderItem(col, item)
-            col += 1
+        # Here we've modified it from the total list of fields to
+        # only the fields we may be interested in (and in that order).
+        item = QTableWidgetItem(geoStr + tropStr + longitudeStr)
+        item.setToolTip(longitudeStr + degreesUnitsStr)
+        self.setHorizontalHeaderItem(col, item)
+        col += 1
+        
+        item = QTableWidgetItem(geoStr + sidStr + longitudeStr)
+        item.setToolTip(longitudeStr + degreesUnitsStr)
+        self.setHorizontalHeaderItem(col, item)
+        col += 1
 
-            item = QTableWidgetItem(cs + latitudeStr)
-            item.setToolTip(latitudeStr + degreesUnitsStr)
-            self.setHorizontalHeaderItem(col, item)
-            col += 1
+        item = QTableWidgetItem(geoStr + sidStr + "Nakshatra")
+        item.setToolTip("Nakshatra")
+        self.setHorizontalHeaderItem(col, item)
+        col += 1
 
-            item = QTableWidgetItem(cs + distanceStr)
-            item.setToolTip(distanceStr + auUnitsStr)
-            self.setHorizontalHeaderItem(col, item)
-            col += 1
+        item = QTableWidgetItem(geoStr + sidStr + longitudeSpeedStr)
+        item.setToolTip(longitudeSpeedStr + degreesPerDayUnitsStr)
+        self.setHorizontalHeaderItem(col, item)
+        col += 1
 
-            item = QTableWidgetItem(cs + longitudeSpeedStr)
-            item.setToolTip(longitudeSpeedStr + degreesPerDayUnitsStr)
-            self.setHorizontalHeaderItem(col, item)
-            col += 1
+        item = QTableWidgetItem(geoStr + sidStr + declinationStr)
+        item.setToolTip(declinationStr + degreesUnitsStr)
+        self.setHorizontalHeaderItem(col, item)
+        col += 1
 
-            item = QTableWidgetItem(cs + latitudeSpeedStr)
-            item.setToolTip(latitudeSpeedStr + degreesPerDayUnitsStr)
-            self.setHorizontalHeaderItem(col, item)
-            col += 1
+        item = QTableWidgetItem(geoStr + sidStr + declinationSpeedStr)
+        item.setToolTip(declinationSpeedStr + degreesPerDayUnitsStr)
+        self.setHorizontalHeaderItem(col, item)
+        col += 1
 
-            item = QTableWidgetItem(cs + distanceSpeedStr)
-            item.setToolTip(distanceSpeedStr + auPerDayUnitsStr)
-            self.setHorizontalHeaderItem(col, item)
-            col += 1
+        item = QTableWidgetItem(geoStr + sidStr + latitudeStr)
+        item.setToolTip(latitudeStr + degreesUnitsStr)
+        self.setHorizontalHeaderItem(col, item)
+        col += 1
 
-            item = QTableWidgetItem(cs + rectascensionStr)
-            item.setToolTip(rectascensionStr + degreesUnitsStr)
-            self.setHorizontalHeaderItem(col, item)
-            col += 1
+        item = QTableWidgetItem(geoStr + sidStr + latitudeSpeedStr)
+        item.setToolTip(latitudeSpeedStr + degreesPerDayUnitsStr)
+        self.setHorizontalHeaderItem(col, item)
+        col += 1
 
-            item = QTableWidgetItem(cs + declinationStr)
-            item.setToolTip(declinationStr + degreesUnitsStr)
-            self.setHorizontalHeaderItem(col, item)
-            col += 1
+        item = QTableWidgetItem(helioStr + sidStr + longitudeStr)
+        item.setToolTip(longitudeStr + degreesUnitsStr)
+        self.setHorizontalHeaderItem(col, item)
+        col += 1
 
-            item = QTableWidgetItem(cs + rectascensionSpeedStr)
-            item.setToolTip(rectascensionSpeedStr + degreesPerDayUnitsStr)
-            self.setHorizontalHeaderItem(col, item)
-            col += 1
+        item = QTableWidgetItem(helioStr + sidStr + "Nakshatra")
+        item.setToolTip("Nakshatra")
+        self.setHorizontalHeaderItem(col, item)
+        col += 1
 
-            item = QTableWidgetItem(cs + declinationSpeedStr)
-            item.setToolTip(declinationSpeedStr + degreesPerDayUnitsStr)
-            self.setHorizontalHeaderItem(col, item)
-            col += 1
+        item = QTableWidgetItem(helioStr + sidStr + declinationStr)
+        item.setToolTip(declinationStr + degreesUnitsStr)
+        self.setHorizontalHeaderItem(col, item)
+        col += 1
 
-            item = QTableWidgetItem(cs + xStr)
-            item.setToolTip(xStr + auUnitsStr)
-            self.setHorizontalHeaderItem(col, item)
-            col += 1
-
-            item = QTableWidgetItem(cs + yStr)
-            item.setToolTip(yStr + auUnitsStr)
-            self.setHorizontalHeaderItem(col, item)
-            col += 1
-
-            item = QTableWidgetItem(cs + zStr)
-            item.setToolTip(zStr + auUnitsStr)
-            self.setHorizontalHeaderItem(col, item)
-            col += 1
-
-            item = QTableWidgetItem(cs + dxStr)
-            item.setToolTip(dxStr + auPerDayUnitsStr)
-            self.setHorizontalHeaderItem(col, item)
-            col += 1
-
-            item = QTableWidgetItem(cs + dyStr)
-            item.setToolTip(dyStr + auPerDayUnitsStr)
-            self.setHorizontalHeaderItem(col, item)
-            col += 1
-
-            item = QTableWidgetItem(cs + dzStr)
-            item.setToolTip(dzStr + auPerDayUnitsStr)
-            self.setHorizontalHeaderItem(col, item)
-            col += 1
+        item = QTableWidgetItem(helioStr + sidStr + latitudeStr)
+        item.setToolTip(latitudeStr + degreesUnitsStr)
+        self.setHorizontalHeaderItem(col, item)
+        col += 1
 
         # Now that all the headers are created, load the PlanetaryInfos.
         self.load(self.planetaryInfos)
@@ -468,62 +446,140 @@ class PlanetaryInfoTableWidget(QTableWidget):
 
         zodiacs = ['tropical', 'sidereal']
 
-        fields = ['longitude',
-                  'latitude',
-                  'distance',
-                  'longitude_speed',
-                  'latitude_speed',
-                  'distance_speed',
-                  'rectascension',
-                  'declination',
-                  'rectascension_speed',
-                  'declination_speed',
-                  'X',
-                  'Y',
-                  'Z',
-                  'dX',
-                  'dY',
-                  'dZ']
+        # Below is all the fields, but we will just use some of the fields,
+        #fields = ['longitude',
+        #          'latitude',
+        #          'distance',
+        #          'longitude_speed',
+        #          'latitude_speed',
+        #          'distance_speed',
+        #          'rectascension',
+        #          'declination',
+        #          'rectascension_speed',
+        #          'declination_speed',
+        #          'X',
+        #          'Y',
+        #          'Z',
+        #          'dX',
+        #          'dY',
+        #          'dZ']
 
-        dicts = [p.geocentric, p.topocentric, p.heliocentric]
+        # While it is possible to do all three types, we just do two here.
+        #dicts = [p.geocentric, p.topocentric, p.heliocentric]
+        dicts = [p.geocentric, p.heliocentric]
+
+        tropical = "tropical"
+        sidereal = "sidereal"
         
-        for dict in dicts:
-            for zodiac in zodiacs:
-                for field in fields:
+        # Populate the item cells for each column.
+        longitude = p.geocentric[tropical]['longitude']
+        valueStr = \
+                 AstrologyUtils.\
+                 convertFromLongitudeToStrWithRasiAbbrev(longitude)
+        self._setItemAndToolTip(row, col, valueStr)
+        col += 1
 
-                    # Create the QTableWidgetItem with the string as the
-                    # value of the field.
-                    valueStr = "{}".format(dict[zodiac][field])
+        longitude = p.geocentric[sidereal]['longitude']
+        valueStr = \
+                 AstrologyUtils.\
+                 convertFromLongitudeToStrWithRasiAbbrev(longitude)
+        self._setItemAndToolTip(row, col, valueStr)
+        col += 1
 
-                    # Try to re-use the existing item if one exists already.
-                    item = self.item(row, col)
-                    if item == None:
-                        item = QTableWidgetItem()
-                        self.setItem(row, col, item)
-                    item.setText(valueStr)
+        longitude = p.geocentric[sidereal]['longitude']
+        valueStr = \
+                 AstrologyUtils.\
+                 convertFromLongitudeToNakshatraAbbrev(longitude)
+        self._setItemAndToolTip(row, col, valueStr)
+        col += 1
 
-                    # Get what the units is from the header item.
-                    # This is stored in the tooltip of the header item,
-                    # and the part of the string we're interested in is
-                    # the part between the parenthesis.
-                    headerItem = self.horizontalHeaderItem(col)
-                    toolTipStr = headerItem.toolTip()
-                    startParenPos = toolTipStr.find("(")
-                    endParenPos = toolTipStr.rfind(")")
+        value = p.geocentric[sidereal]['longitude_speed']
+        valueStr = "{:<0.3}".format(value)
+        self._setItemAndToolTip(row, col, valueStr)
+        col += 1
 
-                    if startParenPos != -1 and \
-                        endParenPos != -1 and \
-                        startParenPos < endParenPos:
+        value = p.geocentric[sidereal]['declination']
+        valueStr = "{:<0.3}".format(value)
+        self._setItemAndToolTip(row, col, valueStr)
+        col += 1
 
-                        toolTipStr = \
-                            valueStr + " " + \
-                            toolTipStr[startParenPos+1:endParenPos]
+        value = p.geocentric[sidereal]['declination_speed']
+        valueStr = "{:<0.3}".format(value)
+        self._setItemAndToolTip(row, col, valueStr)
+        col += 1
 
-                        item.setToolTip(toolTipStr)
+        value = p.geocentric[sidereal]['latitude']
+        valueStr = "{:<0.3}".format(value)
+        self._setItemAndToolTip(row, col, valueStr)
+        col += 1
 
-                    col += 1
+        value = p.geocentric[sidereal]['latitude_speed']
+        valueStr = "{:<0.3}".format(value)
+        self._setItemAndToolTip(row, col, valueStr)
+        col += 1
+
+        longitude = p.heliocentric[sidereal]['longitude']
+        valueStr = \
+                 AstrologyUtils.\
+                 convertFromLongitudeToStrWithRasiAbbrev(longitude)
+        self._setItemAndToolTip(row, col, valueStr)
+        col += 1
+
+        longitude = p.heliocentric[sidereal]['longitude']
+        valueStr = \
+                 AstrologyUtils.\
+                 convertFromLongitudeToNakshatraAbbrev(longitude)
+        self._setItemAndToolTip(row, col, valueStr)
+        col += 1
+
+        value = p.heliocentric[sidereal]['declination']
+        valueStr = "{:<0.3}".format(value)
+        self._setItemAndToolTip(row, col, valueStr)
+        col += 1
+
+        value = p.heliocentric[sidereal]['latitude']
+        valueStr = "{:<0.3}".format(value)
+        self._setItemAndToolTip(row, col, valueStr)
+        col += 1
 
 
+    def _setItemAndToolTip(self, row, col, valueStr):
+        """Returns a str containing the calculated tooltip for the
+        given cell.  The tooltip will be in the format"0.1234 degree/day".
+
+        Arguments:
+        row - int value holding the row number for the cell.
+        col - int value holding the column number for the cell.
+        valueStr - str holding the value of the cell.
+        """
+
+        # Try to re-use the existing item if one exists already.
+        item = self.item(row, col)
+        if item == None:
+            item = QTableWidgetItem()
+            self.setItem(row, col, item)
+        item.setText(valueStr)
+
+        # Get what the units is from the header item.
+        # This is stored in the tooltip of the header item,
+        # and the part of the string we're interested in is
+        # the part between the parenthesis.
+        headerItem = self.horizontalHeaderItem(col)
+        toolTipStr = headerItem.toolTip()
+        startParenPos = toolTipStr.find("(")
+        endParenPos = toolTipStr.rfind(")")
+
+        if startParenPos != -1 and \
+            endParenPos != -1 and \
+            startParenPos < endParenPos:
+
+            toolTipStr = \
+                valueStr + " " + \
+                toolTipStr[startParenPos+1:endParenPos]
+
+            item.setToolTip(toolTipStr)
+
+    
     def _appendPlanetaryInfo(self, planetaryInfo):
         """Appends the info in the PlanetaryInfo object as a row of
         QTableWidgetItems.
