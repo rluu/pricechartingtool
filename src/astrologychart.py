@@ -29,6 +29,7 @@ from data_objects import BirthInfo
 # For conversions from julian day to datetime.datetime and vice versa.
 from ephemeris import Ephemeris
 
+
 class AstrologyUtils:
     """Contains various functions used in the conversions between
     various astrological values and fields.
@@ -2175,6 +2176,556 @@ class PlanetLongitudeSpeedGraphicsItem(QGraphicsItem):
         painter.setBrush(oldBrush)
         painter.setPen(oldPen)
 
+class PlanetaryInfoTableWidget(QTableWidget):
+    """A QTableWidget holding information about a list of planets."""
+
+    def __init__(self, planetaryInfos=[], parent=None):
+        """Creates and initializes the widget with the given list of
+        PlanetaryInfo objects.
+        
+        Arguments:
+            
+        planetaryInfos - list of PlanetaryInfo objects that hold
+                         information about the various planets that will
+                         be displayed in the QTableWidget.
+                         
+        """
+
+        super().__init__(parent)
+        self.setContextMenuPolicy(Qt.DefaultContextMenu)
+
+        self.planetaryInfos = planetaryInfos
+
+        self.log = logging.getLogger("widgets.PlanetaryInfoTableWidget")
+
+        # Set the font so that it is mono-spaced.
+        courierFont = QFont()
+        courierFont.setFamily("Courier")
+        courierFont.setPointSize(8)
+        self.setFont(courierFont)
+
+        # Strings for the different types of planetary coordinate systems.
+        geoStr = "Geocentric" + os.linesep
+        topoStr = "Topocentric" + os.linesep
+        helioStr = "Heliocentric" + os.linesep
+
+        sidStr = "Sidereal" + os.linesep
+        tropStr = "Tropical" + os.linesep
+
+        # Different measurements available.
+        longitudeStr = "Longitude"
+        latitudeStr = "Latitude"
+        distanceStr = "Distance"
+
+        longitudeSpeedStr = "Longitude Speed"
+        latitudeSpeedStr = "Latitude Speed"
+        distanceSpeedStr = "Distance Speed"
+
+        rectascensionStr = "Rectascension"
+        declinationStr = "Declination"
+
+        rectascensionSpeedStr = "Rectascension Speed"
+        declinationSpeedStr = "Decl. Speed"
+
+        xStr = "X Location"
+        yStr = "Y Location"
+        zStr = "Z Location"
+
+        dxStr = "X Speed"
+        dyStr = "Y Speed"
+        dzStr = "Z Speed"
+
+        # Units of measurement for the above measurements.
+        degreesUnitsStr = " (degrees)"
+        auUnitsStr = " (AU)"
+        degreesPerDayUnitsStr = " (degrees/day)"
+        auPerDayUnitsStr = " (AU/day)"
+
+        # Strings for the 'Planet' header field.
+        planetStr = "Planet"
+        planetToolTipStr = "Planet"
+
+        # Set the total number of columns.
+        numTotalFields = 12
+        numColumns = numTotalFields + 1
+        self.setColumnCount(numColumns)
+        
+        # Create all the header QTableWidgetItems.
+        col = 0
+
+        tableWidgetItem = QTableWidgetItem(planetStr)
+        tableWidgetItem.setToolTip(planetToolTipStr)
+        self.setHorizontalHeaderItem(col, tableWidgetItem)
+        col += 1
+
+        # Here we've modified it from the total list of fields to
+        # only the fields we may be interested in (and in that order).
+        item = QTableWidgetItem(geoStr + tropStr + longitudeStr)
+        item.setToolTip(longitudeStr + degreesUnitsStr)
+        self.setHorizontalHeaderItem(col, item)
+        self.setColumnWidth(col, 90)
+        col += 1
+        
+        item = QTableWidgetItem(geoStr + sidStr + longitudeStr)
+        item.setToolTip(longitudeStr + degreesUnitsStr)
+        self.setHorizontalHeaderItem(col, item)
+        self.setColumnWidth(col, 90)
+        col += 1
+
+        item = QTableWidgetItem(geoStr + sidStr + "Nakshatra")
+        item.setToolTip("Nakshatra")
+        self.setHorizontalHeaderItem(col, item)
+        self.setColumnWidth(col, 70)
+        col += 1
+
+        item = QTableWidgetItem(geoStr + sidStr + longitudeSpeedStr)
+        item.setToolTip(longitudeSpeedStr + degreesPerDayUnitsStr)
+        self.setHorizontalHeaderItem(col, item)
+        col += 1
+
+        item = QTableWidgetItem(geoStr + sidStr + declinationStr)
+        item.setToolTip(declinationStr + degreesUnitsStr)
+        self.setHorizontalHeaderItem(col, item)
+        self.setColumnWidth(col, 76)
+        col += 1
+
+        item = QTableWidgetItem(geoStr + sidStr + declinationSpeedStr)
+        item.setToolTip(declinationSpeedStr + degreesPerDayUnitsStr)
+        self.setHorizontalHeaderItem(col, item)
+        self.setColumnWidth(col, 76)
+        col += 1
+
+        item = QTableWidgetItem(geoStr + sidStr + latitudeStr)
+        item.setToolTip(latitudeStr + degreesUnitsStr)
+        self.setHorizontalHeaderItem(col, item)
+        self.setColumnWidth(col, 80)
+        col += 1
+
+        item = QTableWidgetItem(geoStr + sidStr + latitudeSpeedStr)
+        item.setToolTip(latitudeSpeedStr + degreesPerDayUnitsStr)
+        self.setHorizontalHeaderItem(col, item)
+        col += 1
+
+        item = QTableWidgetItem(helioStr + sidStr + longitudeStr)
+        item.setToolTip(longitudeStr + degreesUnitsStr)
+        self.setHorizontalHeaderItem(col, item)
+        col += 1
+
+        item = QTableWidgetItem(helioStr + sidStr + "Nakshatra")
+        item.setToolTip("Nakshatra")
+        self.setHorizontalHeaderItem(col, item)
+        self.setColumnWidth(col, 80)
+        col += 1
+
+        item = QTableWidgetItem(helioStr + sidStr + declinationStr)
+        item.setToolTip(declinationStr + degreesUnitsStr)
+        self.setHorizontalHeaderItem(col, item)
+        self.setColumnWidth(col, 84)
+        col += 1
+
+        item = QTableWidgetItem(helioStr + sidStr + latitudeStr)
+        item.setToolTip(latitudeStr + degreesUnitsStr)
+        self.setHorizontalHeaderItem(col, item)
+        self.setColumnWidth(col, 84)
+        col += 1
+
+        # Now that all the headers are created, load the PlanetaryInfos.
+        self.load(self.planetaryInfos)
+
+        # Connect signals and slots.
+        self.cellDoubleClicked.\
+            connect(self._handleCellDoubleClicked)
+
+    def load(self, planetaryInfos):
+        """Loads the widgets with the given list of PlanetaryInfo
+        objects.
+        """
+        
+        self.log.debug("Entered load()")
+
+        self.setRowCount(len(planetaryInfos))
+        self.clearContents()
+
+        for i in range(len(planetaryInfos)):
+
+            p = planetaryInfos[i]
+
+            if i >= len(self.planetaryInfos):
+                self._appendPlanetaryInfo(p)
+            else:
+                self._replaceRowWithPlanetaryInfo(i, p)
+
+        self.planetaryInfos = planetaryInfos
+
+        self.log.debug("Exiting load()")
+
+    def sizeHint(self):
+        """Overwrites QWidget.sizeHint() to make the widget display
+        all columns without requiring a scrollbar.
+        """
+
+        return QSize(1180, 640)
+    
+    def _handleCellDoubleClicked(self, row, column):
+        """Triggered when an item is double-clicked.  
+        
+        This will highlight the entire row of the cell that the user
+        double-clicked.
+        """
+
+        self.log.debug("QTableWidgetItem double-clicked at " + \
+                       "row={}, column={}.".format(row, column))
+
+        # Select the entire row of items where the item was clicked.
+        top = row
+        bottom = row
+        left = 0
+        right = self.columnCount() - 1
+
+        range = QTableWidgetSelectionRange(top, left, bottom, right)
+        selected = True
+
+        self.setRangeSelected(range, selected)
+
+    def contextMenuEvent(self, qcontextmenuevent):
+        """Overwrites the QWidget contextMenuEvent function.
+
+        This brings up a context menu with options:
+        - Copy highlighted cell(s) text to clipboard as CSV 
+          (without column headers).
+        - Copy highlighted cell(s) text to clipboard as CSV
+          (with column headers).
+        """
+
+        self.log.debug("Entered contextMenuEvent()")
+
+        # First see if any cells are selected.  If there's nothing
+        # selected, the actions are disabled.
+        cellsAreSelected = False
+        if len(self.selectedRanges()) > 0:
+            cellsAreSelected = True
+
+        # Open up a context menu.
+        menu = QMenu()
+        parent = None
+
+        # These are the QActions that are in the menu.
+        copyCellTextAsCSVAction = \
+            QAction("Copy cell(s) to clipboard as CSV", parent)
+        copyCellTextAsCSVAction.triggered.\
+            connect(self._selectedCellsTextToClipboard)
+
+        copyCellTextWithColumnHeadersAsCSVAction = \
+            QAction("Copy cell(s) to clipboard as CSV " + \
+                    "(with column headers)", parent)
+        copyCellTextWithColumnHeadersAsCSVAction.triggered.\
+            connect(self._selectedCellsAndHeadersTextToClipboard)
+
+        # Enable or disable depending on whether or not cells are selected.
+        copyCellTextAsCSVAction.setEnabled(cellsAreSelected)
+        copyCellTextWithColumnHeadersAsCSVAction.setEnabled(cellsAreSelected)
+
+        # Add the QActions to the menu.
+        menu.addAction(copyCellTextAsCSVAction)
+        menu.addAction(copyCellTextWithColumnHeadersAsCSVAction)
+
+        menu.exec_(QCursor.pos())
+    
+        self.log.debug("Exiting contextMenuEvent()")
+
+    def _selectedCellsTextToClipboard(self, sendColumnHeaders=False):
+        """Obtains the selected cells, and turns the text in them to text
+        in CSV format.  The text is then copied to the clipboard.
+
+        If the argument 'sendColumnHeaders' is True, then column headers
+        are a row in the text sent to the clipboard.
+        """
+
+        self.log.debug("Entered _selectedCellsTextToClipboard()")
+
+        # Get the selected ranges.
+        selectedRanges = self.selectedRanges()
+
+        numRanges = len(selectedRanges)
+
+        textToClipboard = ""
+
+        for i in range(numRanges):
+            r = selectedRanges[i] 
+
+            leftColumn = r.leftColumn()
+            rightColumn = r.rightColumn()
+            topRow = r.topRow()
+            bottomRow = r.bottomRow()
+
+            self.log.debug("DEBUG: " + \
+                           "leftColumn={}, ".format(leftColumn) + 
+                           "rightColumn={}, ".format(rightColumn) + 
+                           "topRow={}, ".format(topRow) + 
+                           "bottomRow={}".format(bottomRow))
+
+            if sendColumnHeaders == True:
+                for j in range(leftColumn, rightColumn + 1):
+                    headerText = self.horizontalHeaderItem(j).text()
+                    textToClipboard += headerText.replace(os.linesep, " ")
+
+                    if j != rightColumn:
+                        textToClipboard += ","
+
+                textToClipboard += os.linesep
+
+            for j in range(topRow, bottomRow + 1):
+                for k in range(leftColumn, rightColumn + 1):
+                    textToClipboard += self.item(j, k).text()
+
+                    if k != rightColumn:
+                        textToClipboard += ","
+
+                if j != bottomRow:
+                    textToClipboard += os.linesep
+
+            textToClipboard += os.linesep + os.linesep
+
+        if textToClipboard == "" and numRanges == 0:
+            self.log.debug("No cells were selected.")
+        else:
+            self.log.debug("Sending the following text to clipboard: " + 
+                           textToClipboard)
+            clipboard = QApplication.clipboard()
+            clipboard.setText(textToClipboard)
+
+        self.log.debug("Exiting _selectedCellsTextToClipboard()")
+
+    def _selectedCellsAndHeadersTextToClipboard(self):
+        """Obtains the selected cells and their corresponding header text
+        and converts them to CSV format.  That text is then copied to the
+        clipboard.
+        """
+
+        self.log.debug("Entered _selectedCellsAndHeadersTextToClipboard()")
+
+        self._selectedCellsTextToClipboard(True)
+
+        self.log.debug("Exiting _selectedCellsAndHeadersTextToClipboard()")
+    
+    def _replaceRowWithPlanetaryInfo(self, row, planetaryInfo):
+        """Replaces all the existing QTableWidgetItems in row 'row', with the
+        data in PlanetaryInfo 'planetaryInfo'.
+
+        If the row doesn't exist, then QTableWidgetItems are created for
+        that row.
+        """
+
+        p = planetaryInfo
+
+        # QTableWidgetItem flags.
+        flags = Qt.ItemIsSelectable | Qt.ItemIsEnabled
+
+        rowCount = self.rowCount()
+        col = 0
+
+        # If the row given 
+        if row >= rowCount:
+            self.setRowCount(row + 1)
+
+        # Item for the planet name.
+
+        # Try to re-use the existing item if one exists already.
+        item = self.item(row, col)
+        if item == None:
+            item = QTableWidgetItem()
+            self.setItem(row, col, item)
+        item.setText(p.name)
+        col += 1
+
+        zodiacs = ['tropical', 'sidereal']
+
+        # Below is all the fields, but we will just use some of the fields,
+        #fields = ['longitude',
+        #          'latitude',
+        #          'distance',
+        #          'longitude_speed',
+        #          'latitude_speed',
+        #          'distance_speed',
+        #          'rectascension',
+        #          'declination',
+        #          'rectascension_speed',
+        #          'declination_speed',
+        #          'X',
+        #          'Y',
+        #          'Z',
+        #          'dX',
+        #          'dY',
+        #          'dZ']
+
+        # While it is possible to do all three types, we just do two here.
+        #dicts = [p.geocentric, p.topocentric, p.heliocentric]
+        dicts = [p.geocentric, p.heliocentric]
+
+        tropical = "tropical"
+        sidereal = "sidereal"
+        
+        # Populate the item cells for each column.
+        longitude = p.geocentric[tropical]['longitude']
+        valueStr = \
+                 AstrologyUtils.\
+                 convertFromLongitudeToStrWithRasiAbbrev(longitude)
+        self._setItemAndToolTip(row, col, valueStr)
+        col += 1
+
+        longitude = p.geocentric[sidereal]['longitude']
+        valueStr = \
+                 AstrologyUtils.\
+                 convertFromLongitudeToStrWithRasiAbbrev(longitude)
+        self._setItemAndToolTip(row, col, valueStr)
+        col += 1
+
+        longitude = p.geocentric[sidereal]['longitude']
+        valueStr = \
+                 AstrologyUtils.\
+                 convertFromLongitudeToNakshatraAbbrev(longitude)
+        self._setItemAndToolTip(row, col, valueStr)
+        col += 1
+
+        value = p.geocentric[sidereal]['longitude_speed']
+        valueStr = "{:<0.3}".format(value)
+        self._setItemAndToolTip(row, col, valueStr)
+        col += 1
+
+        value = p.geocentric[sidereal]['declination']
+        valueStr = "{:<0.3}".format(value)
+        self._setItemAndToolTip(row, col, valueStr)
+        col += 1
+
+        value = p.geocentric[sidereal]['declination_speed']
+        valueStr = "{:<0.3}".format(value)
+        self._setItemAndToolTip(row, col, valueStr)
+        col += 1
+
+        value = p.geocentric[sidereal]['latitude']
+        valueStr = "{:<0.3}".format(value)
+        self._setItemAndToolTip(row, col, valueStr)
+        col += 1
+
+        value = p.geocentric[sidereal]['latitude_speed']
+        valueStr = "{:<0.3}".format(value)
+        self._setItemAndToolTip(row, col, valueStr)
+        col += 1
+
+        longitude = p.heliocentric[sidereal]['longitude']
+        valueStr = \
+                 AstrologyUtils.\
+                 convertFromLongitudeToStrWithRasiAbbrev(longitude)
+        self._setItemAndToolTip(row, col, valueStr)
+        col += 1
+
+        longitude = p.heliocentric[sidereal]['longitude']
+        valueStr = \
+                 AstrologyUtils.\
+                 convertFromLongitudeToNakshatraAbbrev(longitude)
+        self._setItemAndToolTip(row, col, valueStr)
+        col += 1
+
+        value = p.heliocentric[sidereal]['declination']
+        valueStr = "{:<0.3}".format(value)
+        self._setItemAndToolTip(row, col, valueStr)
+        col += 1
+
+        value = p.heliocentric[sidereal]['latitude']
+        valueStr = "{:<0.3}".format(value)
+        self._setItemAndToolTip(row, col, valueStr)
+        col += 1
+
+
+    def _setItemAndToolTip(self, row, col, valueStr):
+        """Returns a str containing the calculated tooltip for the
+        given cell.  The tooltip will be in the format"0.1234 degree/day".
+
+        Arguments:
+        row - int value holding the row number for the cell.
+        col - int value holding the column number for the cell.
+        valueStr - str holding the value of the cell.
+        """
+
+        # Try to re-use the existing item if one exists already.
+        item = self.item(row, col)
+        if item == None:
+            item = QTableWidgetItem()
+            self.setItem(row, col, item)
+        item.setText(valueStr)
+
+        # Get what the units is from the header item.
+        # This is stored in the tooltip of the header item,
+        # and the part of the string we're interested in is
+        # the part between the parenthesis.
+        headerItem = self.horizontalHeaderItem(col)
+        toolTipStr = headerItem.toolTip()
+        startParenPos = toolTipStr.find("(")
+        endParenPos = toolTipStr.rfind(")")
+
+        if startParenPos != -1 and \
+            endParenPos != -1 and \
+            startParenPos < endParenPos:
+
+            toolTipStr = \
+                valueStr + " " + \
+                toolTipStr[startParenPos+1:endParenPos]
+
+            item.setToolTip(toolTipStr)
+
+    
+    def _appendPlanetaryInfo(self, planetaryInfo):
+        """Appends the info in the PlanetaryInfo object as a row of
+        QTableWidgetItems.
+        """
+
+        # Here we call the replace function with what would be the next
+        # available row.  The replace function is smart enough to create
+        # new QTableWidgetItems if it needs them.
+        row = self.rowCount()
+        self._replaceRowWithPlanetaryInfo(row, planetaryInfo)
+
+
+class PlanetaryInfoTableGraphicsItem(QGraphicsProxyWidget):
+    """QGraphicsProxyWidget (which is also a QGraphicsItem) that
+    has a PlanetaryInfoTableWidget embedded within.  This class is
+    used so that one can display a table of PlanetaryInfo objects
+    within a graphics scene and also scale (grow or shrink) it as needed.
+    """
+
+    def __init__(self, planetaryInfos=[], parent=None, scene=None):
+        """Creates and initializes the table with the given list of
+        PlanetaryInfo objects.
+        
+        Arguments:
+            
+        planetaryInfos - list of PlanetaryInfo objects that hold
+                         information about the various planets that will
+                         be displayed in the internal QTableWidget.
+        parent - Parent QGraphicsItem for this object.
+        scene - QGraphicsScene object to draw this object on.
+        """                 
+
+        super().__init__(parent)
+
+        # Create the internal widget object.
+        self.planetaryInfoTableWidget = \
+            PlanetaryInfoTableWidget(planetaryInfos)
+
+        # Set the widget for this proxy widget item.
+        self.setWidget(self.planetaryInfoTableWidget)
+
+        # Shrink if desired.
+        #self.setScale(0.9)
+
+    def load(self, planetaryInfos):
+        """Loads the widgets with the given list of PlanetaryInfo
+        objects.
+        """
+        
+        self.planetaryInfoTableWidget.load(planetaryInfos)
+        
+        
 def testSiderealRadixChartGraphicsItem():
     print("Running " + inspect.stack()[0][3] + "()")
 
@@ -2499,7 +3050,190 @@ def testPlanetLongitudeSpeedGraphicsItem():
     dialog.exec_()
 
 
+def testPlanetaryInfoTableWidget():
+    print("Running " + inspect.stack()[0][3] + "()")
+    
+    # Get the current time, which we will use to get planetary info.
+    #now = datetime.datetime.utcnow()
+    eastern = pytz.timezone('US/Eastern')
+    now = datetime.datetime.now(eastern)
+    #print("Now is: {}".format(now))
 
+    planets = []
+
+    # Get planetary info for all the planets, and print out the info.
+    p = Ephemeris.getSunPlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getMoonPlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getMercuryPlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getVenusPlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getMarsPlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getJupiterPlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getSaturnPlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getUranusPlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getNeptunePlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getPlutoPlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getMeanNorthNodePlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getTrueNorthNodePlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getMeanLunarApogeePlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getOsculatingLunarApogeePlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getInterpolatedLunarApogeePlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getInterpolatedLunarPerigeePlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getEarthPlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getChironPlanetaryInfo(now)
+    planets.append(p)
+
+
+    # Various combinations of planets to test.
+    widget = PlanetaryInfoTableWidget(planets)
+    #widget = PlanetaryInfoTableWidget([])
+
+    layout = QVBoxLayout()
+    layout.addWidget(widget)
+
+    dialog = QDialog()
+    dialog.setLayout(layout)
+
+    rv = dialog.exec_()
+    if rv == QDialog.Accepted:
+        print("Accepted.")
+    else:
+        print("Rejected.")
+
+def testPlanetaryInfoTableGraphicsItem():
+    print("Running " + inspect.stack()[0][3] + "()")
+
+    scene = QGraphicsScene()
+    view = QGraphicsView(scene)
+
+    view.setResizeAnchor(QGraphicsView.AnchorUnderMouse)
+    view.setInteractive(True)
+
+    # Set some rendering settings so things draw nicely.
+    view.setRenderHints(QPainter.Antialiasing | 
+                        QPainter.TextAntialiasing |
+                        QPainter.SmoothPixmapTransform)
+
+    # Set to FullViewportUpdate update mode.
+    #
+    # The default is normally QGraphicsView.MinimalViewportUpdate, but
+    # this caused us to have missing parts of artifacts and missing
+    # parts of pricebars.  And while performance isn't as great in
+    # the FullViewportUpdate mode, we dont' have many things dynamically
+    # updating and changing, so it isn't too big of an issue.
+    #view.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
+    
+    # Get the current time, which we will use to get planetary info.
+    #now = datetime.datetime.utcnow()
+    eastern = pytz.timezone('US/Eastern')
+    now = datetime.datetime.now(eastern)
+    #print("Now is: {}".format(now))
+
+    planets = []
+
+    # Get planetary info for all the planets, and print out the info.
+    p = Ephemeris.getSunPlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getMoonPlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getMercuryPlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getVenusPlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getMarsPlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getJupiterPlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getSaturnPlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getUranusPlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getNeptunePlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getPlutoPlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getMeanNorthNodePlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getTrueNorthNodePlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getMeanLunarApogeePlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getOsculatingLunarApogeePlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getInterpolatedLunarApogeePlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getInterpolatedLunarPerigeePlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getEarthPlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getChironPlanetaryInfo(now)
+    planets.append(p)
+
+
+    item = PlanetaryInfoTableGraphicsItem(planets)
+    #item = PlanetaryInfoTableGraphicsItem()
+
+    scene.addItem(item)
+
+    layout = QVBoxLayout()
+    layout.addWidget(view)
+    
+    dialog = QDialog()
+    dialog.setLayout(layout)
+
+    dialog.exec_()
+    
+    
 # For debugging the module during development.  
 if __name__=="__main__":
     # For inspect.stack().
@@ -2527,6 +3261,8 @@ if __name__=="__main__":
     testPlanetDeclinationGraphicsItem()
     testLongitudeSpeedChartGraphicsItem()
     testPlanetLongitudeSpeedGraphicsItem()
+    testPlanetaryInfoTableWidget()
+    testPlanetaryInfoTableGraphicsItem()
     
     # Exit the app when all windows are closed.
     app.connect(app, SIGNAL("lastWindowClosed()"), logging.shutdown)
