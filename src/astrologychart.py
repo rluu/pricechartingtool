@@ -2725,7 +2725,323 @@ class PlanetaryInfoTableGraphicsItem(QGraphicsProxyWidget):
         
         self.planetaryInfoTableWidget.load(planetaryInfos)
         
+
+class AstrologyChartWidget(QWidget):
+    """Widget holding the QGraphicsScene and QGraphicsView that displays
+    the Astrology information (circle radix and table of PlanetaryInfos).
+    """
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        # Logger
+        self.log = logging.getLogger("astrologychart.AstrologyChartWidget")
+        self.log.debug("Entered __init__()")
+
+        # Holds the birth info, which includes the location and birth time.
+        self.birthInfo = BirthInfo()
+
+        # Datetime timestamp of astro chart 1, 2, and 3.  Initialize
+        # to the current time in utc.
+        self.astroChart1Datetime = datetime.datetime.now(pytz.utc)
+        self.astroChart2Datetime = datetime.datetime.now(pytz.utc)
+        self.astroChart3Datetime = datetime.datetime.now(pytz.utc)
         
+        # Create the contents.
+
+        # Create the QGraphicsView and QGraphicsScene for the display portion.
+        self.graphicsScene = QGraphicsScene()
+        self.graphicsView = QGraphicsView()
+        self.graphicsView.setScene(self.graphicsScene)
+
+        self.graphicsView.setResizeAnchor(QGraphicsView.AnchorUnderMouse)
+        self.graphicsView.setInteractive(True)
+
+        # Set some rendering settings so things draw nicely.
+        self.graphicsView.setRenderHints(QPainter.Antialiasing | 
+                                         QPainter.TextAntialiasing |
+                                         QPainter.SmoothPixmapTransform)
+
+        # Set to FullViewportUpdate update mode.
+        #
+        # The default is normally QGraphicsView.MinimalViewportUpdate, but
+        # this caused us to have missing parts of QGraphicsItems.  And
+        # while performance isn't as great in the FullViewportUpdate mode,
+        # we dont' have many things dynamically updating and changing, so
+        # it isn't too big of an issue.
+        self.graphicsView.\
+            setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
+
+        # Add and setup things in the QGraphicsScene.
+        self.geoSidRadixChartGraphicsItem = SiderealRadixChartGraphicsItem()
+        self.geoSidRadixChartGraphicsItem.setScale(0.5)
+        self.geoTropRadixChartGraphicsItem = SiderealRadixChartGraphicsItem()
+        self.geoTropRadixChartGraphicsItem.setScale(0.5)
+        self.helioSidRadixChartGraphicsItem = SiderealRadixChartGraphicsItem()
+        self.helioSidRadixChartGraphicsItem.setScale(0.5)
+
+        #self.planetaryInfoTable = PlanetaryInfoTableGraphicsItem()
+        
+        self.declinationChart1 = DeclinationChartGraphicsItem()
+        self.declinationChart1.setScale(0.8)
+        self.declinationChart2 = DeclinationChartGraphicsItem()
+        self.declinationChart2.setScale(0.8)
+        self.declinationChart3 = DeclinationChartGraphicsItem()
+        self.declinationChart3.setScale(0.8)
+    
+        # Create a label for the location.
+        locationString = \
+            self.birthInfo.locationName + "(" + \
+            str(self.birthInfo.longitudeDegrees) + ", " + \
+            str(self.birthInfo.latitudeDegrees) + ")"
+        self.locationLabelWidget = QLabel("Location: " + locationString)
+        self.locationLabelProxyWidget = QGraphicsProxyWidget()
+        self.locationLabelProxyWidget.setWidget(self.locationLabelWidget)
+        
+        # Create labels for the timestamps of each astro chart.
+        #
+        # Need to use the Ephemeris.datetimeToStr() below because
+        # datetime.strftime() datetime.strftime() does not work on
+        # years less than 1900.
+        self.astroChart1DatetimeLabelWidget = \
+            QLabel("Chart 1:  " +
+                   Ephemeris.datetimeToStr(self.astroChart1Datetime))
+        self.astroChart1DatetimeLabelProxyWidget = QGraphicsProxyWidget()
+        self.astroChart1DatetimeLabelProxyWidget.\
+            setWidget(self.astroChart1DatetimeLabelWidget)
+        
+        self.astroChart2DatetimeLabelWidget = \
+            QLabel("Chart 2:  " +
+                   Ephemeris.datetimeToStr(self.astroChart2Datetime))
+        self.astroChart2DatetimeLabelProxyWidget = QGraphicsProxyWidget()
+        self.astroChart2DatetimeLabelProxyWidget.\
+            setWidget(self.astroChart2DatetimeLabelWidget)
+        
+        self.astroChart3DatetimeLabelWidget = \
+            QLabel("Chart 3:  " +
+                   Ephemeris.datetimeToStr(self.astroChart3Datetime))
+        self.astroChart3DatetimeLabelProxyWidget = QGraphicsProxyWidget()
+        self.astroChart3DatetimeLabelProxyWidget.\
+            setWidget(self.astroChart3DatetimeLabelWidget)
+
+        self.geoSidRadixChartLabel = QGraphicsProxyWidget()
+        self.geoSidRadixChartLabel.setWidget(QLabel("Geocentric Sidereal"))
+        self.geoTropRadixChartLabel = QGraphicsProxyWidget()
+        self.geoTropRadixChartLabel.setWidget(QLabel("Geocentric Tropical"))
+        self.helioSidRadixChartLabel = QGraphicsProxyWidget()
+        self.helioSidRadixChartLabel.setWidget(QLabel("Heliocentric Sidereal"))
+
+        self.declinationChart1Label = QGraphicsProxyWidget()
+        self.declinationChart1Label.setWidget(QLabel("Chart 1 Declination"))
+        self.declinationChart2Label = QGraphicsProxyWidget()
+        self.declinationChart2Label.setWidget(QLabel("Chart 2 Declination"))
+        self.declinationChart3Label = QGraphicsProxyWidget()
+        self.declinationChart3Label.setWidget(QLabel("Chart 3 Declination"))
+        
+        # Set the positions of the QGraphicsItems then add them to the
+        # QGraphicsScene.
+        width = SiderealRadixChartGraphicsItem().boundingRect().width()
+        radixLength = (width / 2.0) + 40
+    
+        print("DEBUG: " + str(radixLength))
+        x = 0
+        y = 0
+        x -= 0.5 * radixLength
+        y += 0.5 * radixLength
+        labelHeight = 16
+        self.locationLabelProxyWidget.setPos(x, y)
+        y += labelHeight
+        self.astroChart1DatetimeLabelProxyWidget.setPos(x, y)
+        y += labelHeight
+        self.astroChart2DatetimeLabelProxyWidget.setPos(x, y)
+        y += labelHeight
+        self.astroChart3DatetimeLabelProxyWidget.setPos(x, y)
+        y += labelHeight
+        y += labelHeight
+        y += labelHeight
+
+        declinationWidth = 200
+        declStartX = x
+        declStartY = y
+        self.declinationChart1Label.setPos(x, y)
+        x += 36
+        y += 260
+        self.declinationChart1.setPos(x, y)
+
+        x = declStartX + declinationWidth
+        y = declStartY
+        declStartX = x
+        declStartY = y
+        self.declinationChart2Label.setPos(x, y)
+        x += 36
+        y += 260
+        self.declinationChart2.setPos(x, y)
+
+        x = declStartX + declinationWidth
+        y = declStartY
+        declStartX = x
+        declStartY = y
+        self.declinationChart3Label.setPos(x, y)
+        x += 36
+        y += 260
+        self.declinationChart3.setPos(x, y)
+
+        
+        x = 0.0
+        y = 0.0
+        self.geoSidRadixChartGraphicsItem.setPos(x, y)
+        x += radixLength
+        self.geoTropRadixChartGraphicsItem.setPos(x, y)
+        x += radixLength
+        self.helioSidRadixChartGraphicsItem.setPos(x, y)
+        x += radixLength
+        
+        x = -0.45 * radixLength
+        y = -0.45 * radixLength
+        self.geoSidRadixChartLabel.setPos(x, y)
+        x += radixLength
+        self.geoTropRadixChartLabel.setPos(x, y)
+        x += radixLength
+        self.helioSidRadixChartLabel.setPos(x, y)
+        x += radixLength
+
+        x = 0.0
+        y = 0.0
+        y += 0.5 * radixLength
+        x += 0.5 * radixLength
+        #self.planetaryInfoTable.setPos(x, y)
+
+        
+        # Add all the items to the QGraphicsScene.
+        self.graphicsScene.addItem(self.locationLabelProxyWidget)
+        self.graphicsScene.addItem(self.astroChart1DatetimeLabelProxyWidget)
+        self.graphicsScene.addItem(self.astroChart2DatetimeLabelProxyWidget)
+        self.graphicsScene.addItem(self.astroChart3DatetimeLabelProxyWidget)
+    
+        self.graphicsScene.addItem(self.declinationChart1)
+        self.graphicsScene.addItem(self.declinationChart2)
+        self.graphicsScene.addItem(self.declinationChart3)
+        
+        #self.graphicsScene.addItem(self.planetaryInfoTable)
+        
+        self.graphicsScene.addItem(self.geoSidRadixChartGraphicsItem)
+        self.graphicsScene.addItem(self.geoTropRadixChartGraphicsItem)
+        self.graphicsScene.addItem(self.helioSidRadixChartGraphicsItem)
+        
+        self.graphicsScene.addItem(self.geoSidRadixChartLabel)
+        self.graphicsScene.addItem(self.geoTropRadixChartLabel)
+        self.graphicsScene.addItem(self.helioSidRadixChartLabel)
+
+        self.graphicsScene.addItem(self.declinationChart1Label)
+        self.graphicsScene.addItem(self.declinationChart2Label)
+        self.graphicsScene.addItem(self.declinationChart3Label)
+        
+
+        # Setup the layout.
+        layout = QVBoxLayout()
+        layout.addWidget(self.graphicsView)
+        self.setLayout(layout)
+        
+        self.log.debug("Leaving __init__()")
+        
+        
+    def setBirthInfo(self, birthInfo):
+        """Sets the birth info for this trading entity.
+        
+        Arguments:
+
+        birthInfo - BirthInfo object.
+        """
+
+        self.birthInfo = birthInfo
+
+    def _getPlanetaryInfosForDatetime(self, dt):
+        """Helper function for getting a list of PlanetaryInfo objects
+        to display in the astrology chart.
+
+        """
+
+        # Set the location again (required).
+        Ephemeris.setGeographicPosition(self.birthInfo.longitudeDegrees,
+                                        self.birthInfo.latitudeDegrees,
+                                        self.birthInfo.elevation)
+
+        # Get planetary info for all the planets.
+        planets = []
+
+        # TODO:  Add more 'planets' (planetary calculations) here as more
+        # are available.
+        
+        p = Ephemeris.getSunPlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getMoonPlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getMercuryPlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getVenusPlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getMarsPlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getJupiterPlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getSaturnPlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getUranusPlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getNeptunePlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getPlutoPlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getMeanNorthNodePlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getTrueNorthNodePlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getMeanLunarApogeePlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getOsculatingLunarApogeePlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getInterpolatedLunarApogeePlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getInterpolatedLunarPerigeePlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getEarthPlanetaryInfo(dt)
+        planets.append(p)
+        p = Ephemeris.getChironPlanetaryInfo(dt)
+        planets.append(p)
+        
+        return planets
+    
+    def setAstroChart1Datetime(self, dt):
+        """Sets the datetime of astrology chart 1 within the radix chart.
+
+        Arguments:
+        dt - datetime.datetime object holding the new timestamp.
+        """
+
+        # TODO:  write this function.
+        pass
+    
+    def setAstroChart2Datetime(self, dt):
+        """Sets the datetime of astrology chart 2 within the radix chart.
+
+        Arguments:
+        dt - datetime.datetime object holding the new timestamp.
+        """
+        
+        # TODO:  write this function.
+        pass
+    
+    def setAstroChart3Datetime(self, dt):
+        """Sets the datetime of astrology chart 3 within the radix chart.
+
+        Arguments:
+        dt - datetime.datetime object holding the new timestamp.
+        """
+        
+        # TODO:  write this function.
+        pass
+    
+
 def testSiderealRadixChartGraphicsItem():
     print("Running " + inspect.stack()[0][3] + "()")
 
@@ -3128,10 +3444,6 @@ def testPlanetaryInfoTableWidget():
     dialog.setLayout(layout)
 
     rv = dialog.exec_()
-    if rv == QDialog.Accepted:
-        print("Accepted.")
-    else:
-        print("Rejected.")
 
 def testPlanetaryInfoTableGraphicsItem():
     print("Running " + inspect.stack()[0][3] + "()")
@@ -3233,6 +3545,55 @@ def testPlanetaryInfoTableGraphicsItem():
 
     dialog.exec_()
     
+def testAstrologyChartWidget():
+    print("Running " + inspect.stack()[0][3] + "()")
+
+    # Get the current time, which we will use to get planetary info.
+    #now = datetime.datetime.utcnow()
+    eastern = pytz.timezone('US/Eastern')
+    now = datetime.datetime.now(eastern)
+    #print("Now is: {}".format(now))
+
+    # Create a BirthInfo object for the location to use.
+    birthInfo = BirthInfo(year=1983,
+                          month=10,
+                          day=25,
+                          calendar="Gregorian",
+                          hour=14,
+                          minute=34,
+                          second=0,
+                          locationName="Arlington",
+                          countryName="",
+                          longitudeDegrees=-77.1041666667,
+                          latitudeDegrees=38.8811111111,
+                          elevation=71,
+                          timezoneName="America/New_York",
+                          timezoneOffsetAbbreviation="EDT",
+                          timezoneOffsetValueStr="-0400",
+                          timezoneManualEntryHours=4,
+                          timezoneManualEntryMinutes=0,
+                          timezoneManualEntryEastWestComboBoxValue='E',
+                          timeOffsetAutodetectedRadioButtonState=True,
+                          timeOffsetManualEntryRadioButtonState=False,
+                          timeOffsetLMTRadioButtonState=False)
+
+    # Create the widget to test/view.
+    widget = AstrologyChartWidget()
+    widget.setBirthInfo(birthInfo)
+
+    # Set the timestamp in the widget.
+    widget.setAstroChart1Datetime(now)
+    widget.setAstroChart2Datetime(now)
+    widget.setAstroChart3Datetime(now)
+
+    # Display the widget in a dialog.
+    layout = QVBoxLayout()
+    layout.addWidget(widget)
+
+    dialog = QDialog()
+    dialog.setLayout(layout)
+
+    rv = dialog.exec_()
     
 # For debugging the module during development.  
 if __name__=="__main__":
@@ -3255,14 +3616,15 @@ if __name__=="__main__":
     app = QApplication(sys.argv)
 
     # Various tests to run:
-    testSiderealRadixChartGraphicsItem()
-    testRadixPlanetGraphicsItem()
-    testDeclinationChartGraphicsItem()
+    #testSiderealRadixChartGraphicsItem()
+    #testRadixPlanetGraphicsItem()
+    #testDeclinationChartGraphicsItem()
     testPlanetDeclinationGraphicsItem()
-    testLongitudeSpeedChartGraphicsItem()
+    #testLongitudeSpeedChartGraphicsItem()
     testPlanetLongitudeSpeedGraphicsItem()
-    testPlanetaryInfoTableWidget()
-    testPlanetaryInfoTableGraphicsItem()
+    #testPlanetaryInfoTableWidget()
+    #testPlanetaryInfoTableGraphicsItem()
+    testAstrologyChartWidget()
     
     # Exit the app when all windows are closed.
     app.connect(app, SIGNAL("lastWindowClosed()"), logging.shutdown)

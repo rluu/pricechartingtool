@@ -26,7 +26,7 @@ from data_objects import PriceChartDocumentData
 # For widgets used in the ui.
 from pricebarchart import *
 from pricebarspreadsheet import *
-
+from astrologychart import PlanetaryInfoTableWidget
 
 class MainWindow(QMainWindow):
     """The QMainWindow class that is a multiple document interface (MDI)."""
@@ -1967,7 +1967,8 @@ class PriceChartDocumentWidget(QWidget):
         # Create the internal widgets displayed.
         self.priceBarChartWidget = PriceBarChartWidget()
         self.priceBarSpreadsheetWidget = PriceBarSpreadsheetWidget()
-        self.planetaryInfoTableWidget = PlanetaryInfoTableWidget()
+        # TODO:  uncomment to at the table planetary info table widget.
+        #self.planetaryInfoTableWidget = PlanetaryInfoTableWidget()
 
         # TODO:  Add QSplitters to divide the above internal widgets.
 
@@ -2186,6 +2187,9 @@ class PriceChartDocumentWidget(QWidget):
         with the planetary locations for that timestamp.
         """
 
+        # TODO:  this stuff probably will be deprecated as I handle this type of stuff in AstrologyChartWidget.  The below will need to change to call teh appropriate function of AstrologyChartWidget.
+        
+        
         # Set the location (required).
         Ephemeris.setGeographicPosition(self.birthInfo.longitudeDegrees,
                                         self.birthInfo.latitudeDegrees,

@@ -3,12 +3,6 @@
 import os
 import sys
 
-# For datetimes
-import datetime
-
-# For timezone conversion info.
-import pytz
-
 # For logging.
 import logging
 import logging.config

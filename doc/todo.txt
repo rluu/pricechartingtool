@@ -48,6 +48,9 @@ DONE
 DONE     - Dialog widgets for info/editing of artifacts should be in new file: 
 DONE       pricebarchart_dialogs.py
 
+  - Bug: BirthInfoEditWidget doesn't set (retain) the BirthInfo when
+    editing the BirthInfo of a PriceChartDocument.  Investigate why.
+
   - In the astrologychart.SiderealRadixGraphicsItem, clean up the
     code.  Parameterize the pen/brush so that it has foreground color
     for things, background for things and so that the

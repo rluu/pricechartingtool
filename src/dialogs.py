@@ -8672,9 +8672,10 @@ class BirthInfoEditWidget(QWidget):
 
         # Finally, create the BirthInfo object with all the required
         # inputs.
+        
         rv = BirthInfo(self.yearSpinBox.value(),
                        self.monthSpinBox.value(),
-                       self.yearSpinBox.value(),
+                       self.daySpinBox.value(),
                        str(self.calendarComboBox.currentText()),
                        self.hourSpinBox.value(),
                        self.minuteSpinBox.value(),
@@ -8689,7 +8690,9 @@ class BirthInfoEditWidget(QWidget):
                        timezoneOffsetValueStr,
                        self.timeOffsetHoursSpinBox.value(),
                        self.timeOffsetMinutesSpinBox.value(),
-                       str(self.timeOffsetEastWestComboBox.currentText()),
+                       str(self.timeOffsetEastWestComboBox.\
+                           itemData(self.timeOffsetEastWestComboBox.
+                                    currentIndex())),
                        self.autodetectedOffsetRadioButton.isChecked(),
                        self.manualEntryRadioButton.isChecked(),
                        self.lmtRadioButton.isChecked())
