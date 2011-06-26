@@ -590,17 +590,17 @@ class Ephemeris:
         # Do a bit of cleanup of some of the planet names (if it's one of the
         # following planets).
         if planetName == "mean Node":
-            planetName = "Mean North Node"
+            planetName = "MeanNorthNode"
         elif planetName == "true Node":
-            planetName = "True North Node"
+            planetName = "TrueNorthNode"
         elif planetName == "mean Apogee":
-            planetName = "Mean Lunar Apogee"
+            planetName = "MeanLunarApogee"
         elif planetName == "osc. Apogee":
-            planetName = "Osculating Lunar Apogee"
+            planetName = "OsculatingLunarApogee"
         elif planetName == "intp. Apogee":
-            planetName = "Interpolated Lunar Apogee"
+            planetName = "InterpolatedLunarApogee"
         elif planetName == "intp. Perigee":
-            planetName = "Interpolated Lunar Perigee"
+            planetName = "InterpolatedLunarPerigee"
 
         return planetName
 

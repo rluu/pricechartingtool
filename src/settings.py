@@ -1197,6 +1197,80 @@ class SettingsKeys():
 
 
 
+    # QSettings key for the planet glyph unicode of the MeanOfFive.
+    planetMeanOfFiveGlyphUnicodeKey = \
+        "ui/astrology/meanOfFiveGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the MeanOfFive.
+    planetMeanOfFiveGlyphUnicodeDefValue = "MOF"
+
+    # QSettings key for the planet glyph font size of the MeanOfFive.
+    planetMeanOfFiveGlyphFontSizeKey = \
+        "ui/astrology/meanOfFiveGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the MeanOfFive.
+    planetMeanOfFiveGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the MeanOfFive.
+    planetMeanOfFiveAbbreviationKey = \
+        "ui/astrology/meanOfFiveAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the MeanOfFive.
+    planetMeanOfFiveAbbreviationDefValue = "MOF"
+
+    # QSettings key for the foreground color of the MeanOfFive.
+    planetMeanOfFiveForegroundColorKey = \
+        "ui/astrology/meanOfFiveForegroundColor"
+
+    # QSettings default value for the foreground color of the MeanOfFive.
+    planetMeanOfFiveForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the MeanOfFive.
+    planetMeanOfFiveBackgroundColorKey = \
+        "ui/astrology/meanOfFiveBackgroundColor"
+
+    # QSettings default value for the background color of the MeanOfFive.
+    planetMeanOfFiveBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the CycleOfEight.
+    planetCycleOfEightGlyphUnicodeKey = \
+        "ui/astrology/cycleOfEightGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the CycleOfEight.
+    planetCycleOfEightGlyphUnicodeDefValue = "COE"
+
+    # QSettings key for the planet glyph font size of the CycleOfEight.
+    planetCycleOfEightGlyphFontSizeKey = \
+        "ui/astrology/cycleOfEightGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the CycleOfEight.
+    planetCycleOfEightGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the CycleOfEight.
+    planetCycleOfEightAbbreviationKey = \
+        "ui/astrology/cycleOfEightAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the CycleOfEight.
+    planetCycleOfEightAbbreviationDefValue = "COE"
+
+    # QSettings key for the foreground color of the CycleOfEight.
+    planetCycleOfEightForegroundColorKey = \
+        "ui/astrology/cycleOfEightForegroundColor"
+
+    # QSettings default value for the foreground color of the CycleOfEight.
+    planetCycleOfEightForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the CycleOfEight.
+    planetCycleOfEightBackgroundColorKey = \
+        "ui/astrology/cycleOfEightBackgroundColor"
+
+    # QSettings default value for the background color of the CycleOfEight.
+    planetCycleOfEightBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
     # QSettings key for the sign glyph unicode of the Aries.
     signAriesGlyphUnicodeKey = \
         "ui/astrology/ariesGlyphUnicode"

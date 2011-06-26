@@ -188,6 +188,751 @@ class AstrologyUtils:
         
         return nakshatraAbbrevs[index]
         
+    @staticmethod
+    def getGlyphForPlanetName(planetName):
+        """Takes a string value for the planet name and returns the
+        unicode glyph value for this planet.
+        
+        Arguments:
+        planetName - str value for the planet name.
+
+        Returns:
+        str - String that is unicode glyph for this planet.
+        """
+
+        settings = QSettings()
+        
+        if planetName == "Ascendant":
+            rv = settings.\
+                value(SettingsKeys.planetAscendantGlyphUnicodeKey,
+                      SettingsKeys.planetAscendantGlyphUnicodeDefValue)
+        elif planetName == "Midheaven":
+            rv = settings.\
+                value(SettingsKeys.planetMidheavenGlyphUnicodeKey,
+                      SettingsKeys.planetMidheavenGlyphUnicodeDefValue)
+        elif planetName == "HoraLagna":
+            rv = settings.\
+                value(SettingsKeys.planetHoraLagnaGlyphUnicodeKey,
+                      SettingsKeys.planetHoraLagnaGlyphUnicodeDefValue)
+        elif planetName == "GhatiLagna":
+            rv = settings.\
+                value(SettingsKeys.planetGhatiLagnaGlyphUnicodeKey,
+                      SettingsKeys.planetGhatiLagnaGlyphUnicodeDefValue)
+        elif planetName == "MeanLunarApogee":
+            rv = settings.\
+                value(SettingsKeys.planetMeanLunarApogeeGlyphUnicodeKey,
+                      SettingsKeys.planetMeanLunarApogeeGlyphUnicodeDefValue)
+        elif planetName == "OsculatingLunarApogee":
+            rv = settings.\
+                value(SettingsKeys.planetOsculatingLunarApogeeGlyphUnicodeKey,
+                      SettingsKeys.planetOsculatingLunarApogeeGlyphUnicodeDefValue)
+        elif planetName == "InterpolatedLunarApogee":
+            rv = settings.\
+                value(SettingsKeys.planetInterpolatedLunarApogeeGlyphUnicodeKey,
+                      SettingsKeys.planetInterpolatedLunarApogeeGlyphUnicodeDefValue)
+        elif planetName == "InterpolatedLunarPerigee":
+            rv = settings.\
+                value(SettingsKeys.planetInterpolatedLunarPerigeeGlyphUnicodeKey,
+                      SettingsKeys.planetInterpolatedLunarPerigeeGlyphUnicodeDefValue)
+        elif planetName == "Sun":
+            rv = settings.\
+                value(SettingsKeys.planetSunGlyphUnicodeKey,
+                      SettingsKeys.planetSunGlyphUnicodeDefValue)
+        elif planetName == "Moon":
+            rv = settings.\
+                value(SettingsKeys.planetMoonGlyphUnicodeKey,
+                      SettingsKeys.planetMoonGlyphUnicodeDefValue)
+        elif planetName == "Mercury":
+            rv = settings.\
+                value(SettingsKeys.planetMercuryGlyphUnicodeKey,
+                      SettingsKeys.planetMercuryGlyphUnicodeDefValue)
+        elif planetName == "Venus":
+            rv = settings.\
+                value(SettingsKeys.planetVenusGlyphUnicodeKey,
+                      SettingsKeys.planetVenusGlyphUnicodeDefValue)
+        elif planetName == "Earth":
+            rv = settings.\
+                value(SettingsKeys.planetEarthGlyphUnicodeKey,
+                      SettingsKeys.planetEarthGlyphUnicodeDefValue)
+        elif planetName == "Mars":
+            rv = settings.\
+                value(SettingsKeys.planetMarsGlyphUnicodeKey,
+                      SettingsKeys.planetMarsGlyphUnicodeDefValue)
+        elif planetName == "Jupiter":
+            rv = settings.\
+                value(SettingsKeys.planetJupiterGlyphUnicodeKey,
+                      SettingsKeys.planetJupiterGlyphUnicodeDefValue)
+        elif planetName == "Saturn":
+            rv = settings.\
+                value(SettingsKeys.planetSaturnGlyphUnicodeKey,
+                      SettingsKeys.planetSaturnGlyphUnicodeDefValue)
+        elif planetName == "Uranus":
+            rv = settings.\
+                value(SettingsKeys.planetUranusGlyphUnicodeKey,
+                      SettingsKeys.planetUranusGlyphUnicodeDefValue)
+        elif planetName == "Neptune":
+            rv = settings.\
+                value(SettingsKeys.planetNeptuneGlyphUnicodeKey,
+                      SettingsKeys.planetNeptuneGlyphUnicodeDefValue)
+        elif planetName == "Pluto":
+            rv = settings.\
+                value(SettingsKeys.planetPlutoGlyphUnicodeKey,
+                      SettingsKeys.planetPlutoGlyphUnicodeDefValue)
+        elif planetName == "MeanNorthNode":
+            rv = settings.\
+                value(SettingsKeys.planetMeanNorthNodeGlyphUnicodeKey,
+                      SettingsKeys.planetMeanNorthNodeGlyphUnicodeDefValue)
+        elif planetName == "MeanSouthNode":
+            rv = settings.\
+                value(SettingsKeys.planetMeanSouthNodeGlyphUnicodeKey,
+                      SettingsKeys.planetMeanSouthNodeGlyphUnicodeDefValue)
+        elif planetName == "TrueNorthNode":
+            rv = settings.\
+                value(SettingsKeys.planetTrueNorthNodeGlyphUnicodeKey,
+                      SettingsKeys.planetTrueNorthNodeGlyphUnicodeDefValue)
+        elif planetName == "TrueSouthNode":
+            rv = settings.\
+                value(SettingsKeys.planetTrueSouthNodeGlyphUnicodeKey,
+                      SettingsKeys.planetTrueSouthNodeGlyphUnicodeDefValue)
+        elif planetName == "Ceres":
+            rv = settings.\
+                value(SettingsKeys.planetCeresGlyphUnicodeKey,
+                      SettingsKeys.planetCeresGlyphUnicodeDefValue)
+        elif planetName == "Pallas":
+            rv = settings.\
+                value(SettingsKeys.planetPallasGlyphUnicodeKey,
+                      SettingsKeys.planetPallasGlyphUnicodeDefValue)
+        elif planetName == "Juno":
+            rv = settings.\
+                value(SettingsKeys.planetJunoGlyphUnicodeKey,
+                      SettingsKeys.planetJunoGlyphUnicodeDefValue)
+        elif planetName == "Vesta":
+            rv = settings.\
+                value(SettingsKeys.planetVestaGlyphUnicodeKey,
+                      SettingsKeys.planetVestaGlyphUnicodeDefValue)
+        elif planetName == "Chiron":
+            rv = settings.\
+                value(SettingsKeys.planetChironGlyphUnicodeKey,
+                      SettingsKeys.planetChironGlyphUnicodeDefValue)
+        elif planetName == "Gulika":
+            rv = settings.\
+                value(SettingsKeys.planetGulikaGlyphUnicodeKey,
+                      SettingsKeys.planetGulikaGlyphUnicodeDefValue)
+        elif planetName == "Mandi":
+            rv = settings.\
+                value(SettingsKeys.planetMandiGlyphUnicodeKey,
+                      SettingsKeys.planetMandiGlyphUnicodeDefValue)
+        elif planetName == "MeanOfFive":
+            rv = settings.\
+                value(SettingsKeys.planetMeanOfFiveGlyphUnicodeKey,
+                      SettingsKeys.planetMeanOfFiveGlyphUnicodeDefValue)
+        elif planetName == "CycleOfEight":
+            rv = settings.\
+                value(SettingsKeys.planetCycleOfEightGlyphUnicodeKey,
+                      SettingsKeys.planetCycleOfEightGlyphUnicodeDefValue)
+        else:
+            rv = "???"
+            self.log.warn("Could not find glyph for planet: " + \
+                          planetName + ".  Using default value " + str(rv))
+
+        return rv
+    
+    @staticmethod
+    def getGlyphFontSizeForPlanetName(planetName):
+        """Takes a string value for the planet name and returns the
+        unicode glyph font size for this planet.
+        
+        Arguments:
+        planetName - str value for the planet name.
+
+        Returns:
+        float - value for the font size of the unicode glyph for this planet.
+        """
+
+        settings = QSettings()
+        
+        if planetName == "Ascendant":
+            rv = float(settings.\
+                value(SettingsKeys.planetAscendantGlyphFontSizeKey,
+                      SettingsKeys.planetAscendantGlyphFontSizeDefValue))
+        elif planetName == "Midheaven":
+            rv = float(settings.\
+                value(SettingsKeys.planetMidheavenGlyphFontSizeKey,
+                      SettingsKeys.planetMidheavenGlyphFontSizeDefValue))
+        elif planetName == "HoraLagna":
+            rv = float(settings.\
+                value(SettingsKeys.planetHoraLagnaGlyphFontSizeKey,
+                      SettingsKeys.planetHoraLagnaGlyphFontSizeDefValue))
+        elif planetName == "GhatiLagna":
+            rv = float(settings.\
+                value(SettingsKeys.planetGhatiLagnaGlyphFontSizeKey,
+                      SettingsKeys.planetGhatiLagnaGlyphFontSizeDefValue))
+        elif planetName == "MeanLunarApogee":
+            rv = float(settings.\
+                value(SettingsKeys.planetMeanLunarApogeeGlyphFontSizeKey,
+                      SettingsKeys.planetMeanLunarApogeeGlyphFontSizeDefValue))
+        elif planetName == "OsculatingLunarApogee":
+            rv = float(settings.\
+                value(SettingsKeys.planetOsculatingLunarApogeeGlyphFontSizeKey,
+                      SettingsKeys.planetOsculatingLunarApogeeGlyphFontSizeDefValue))
+        elif planetName == "InterpolatedLunarApogee":
+            rv = float(settings.\
+                value(SettingsKeys.planetInterpolatedLunarApogeeGlyphFontSizeKey,
+                      SettingsKeys.planetInterpolatedLunarApogeeGlyphFontSizeDefValue))
+        elif planetName == "InterpolatedLunarPerigee":
+            rv = float(settings.\
+                value(SettingsKeys.planetInterpolatedLunarPerigeeGlyphFontSizeKey,
+                      SettingsKeys.planetInterpolatedLunarPerigeeGlyphFontSizeDefValue))
+        elif planetName == "Sun":
+            rv = float(settings.\
+                value(SettingsKeys.planetSunGlyphFontSizeKey,
+                      SettingsKeys.planetSunGlyphFontSizeDefValue))
+        elif planetName == "Moon":
+            rv = float(settings.\
+                value(SettingsKeys.planetMoonGlyphFontSizeKey,
+                      SettingsKeys.planetMoonGlyphFontSizeDefValue))
+        elif planetName == "Mercury":
+            rv = float(settings.\
+                value(SettingsKeys.planetMercuryGlyphFontSizeKey,
+                      SettingsKeys.planetMercuryGlyphFontSizeDefValue))
+        elif planetName == "Venus":
+            rv = float(settings.\
+                value(SettingsKeys.planetVenusGlyphFontSizeKey,
+                      SettingsKeys.planetVenusGlyphFontSizeDefValue))
+        elif planetName == "Earth":
+            rv = float(settings.\
+                value(SettingsKeys.planetEarthGlyphFontSizeKey,
+                      SettingsKeys.planetEarthGlyphFontSizeDefValue))
+        elif planetName == "Mars":
+            rv = float(settings.\
+                value(SettingsKeys.planetMarsGlyphFontSizeKey,
+                      SettingsKeys.planetMarsGlyphFontSizeDefValue))
+        elif planetName == "Jupiter":
+            rv = float(settings.\
+                value(SettingsKeys.planetJupiterGlyphFontSizeKey,
+                      SettingsKeys.planetJupiterGlyphFontSizeDefValue))
+        elif planetName == "Saturn":
+            rv = float(settings.\
+                value(SettingsKeys.planetSaturnGlyphFontSizeKey,
+                      SettingsKeys.planetSaturnGlyphFontSizeDefValue))
+        elif planetName == "Uranus":
+            rv = float(settings.\
+                value(SettingsKeys.planetUranusGlyphFontSizeKey,
+                      SettingsKeys.planetUranusGlyphFontSizeDefValue))
+        elif planetName == "Neptune":
+            rv = float(settings.\
+                value(SettingsKeys.planetNeptuneGlyphFontSizeKey,
+                      SettingsKeys.planetNeptuneGlyphFontSizeDefValue))
+        elif planetName == "Pluto":
+            rv = float(settings.\
+                value(SettingsKeys.planetPlutoGlyphFontSizeKey,
+                      SettingsKeys.planetPlutoGlyphFontSizeDefValue))
+        elif planetName == "MeanNorthNode":
+            rv = float(settings.\
+                value(SettingsKeys.planetMeanNorthNodeGlyphFontSizeKey,
+                      SettingsKeys.planetMeanNorthNodeGlyphFontSizeDefValue))
+        elif planetName == "MeanSouthNode":
+            rv = float(settings.\
+                value(SettingsKeys.planetMeanSouthNodeGlyphFontSizeKey,
+                      SettingsKeys.planetMeanSouthNodeGlyphFontSizeDefValue))
+        elif planetName == "TrueNorthNode":
+            rv = float(settings.\
+                value(SettingsKeys.planetTrueNorthNodeGlyphFontSizeKey,
+                      SettingsKeys.planetTrueNorthNodeGlyphFontSizeDefValue))
+        elif planetName == "TrueSouthNode":
+            rv = float(settings.\
+                value(SettingsKeys.planetTrueSouthNodeGlyphFontSizeKey,
+                      SettingsKeys.planetTrueSouthNodeGlyphFontSizeDefValue))
+        elif planetName == "Ceres":
+            rv = float(settings.\
+                value(SettingsKeys.planetCeresGlyphFontSizeKey,
+                      SettingsKeys.planetCeresGlyphFontSizeDefValue))
+        elif planetName == "Pallas":
+            rv = float(settings.\
+                value(SettingsKeys.planetPallasGlyphFontSizeKey,
+                      SettingsKeys.planetPallasGlyphFontSizeDefValue))
+        elif planetName == "Juno":
+            rv = float(settings.\
+                value(SettingsKeys.planetJunoGlyphFontSizeKey,
+                      SettingsKeys.planetJunoGlyphFontSizeDefValue))
+        elif planetName == "Vesta":
+            rv = float(settings.\
+                value(SettingsKeys.planetVestaGlyphFontSizeKey,
+                      SettingsKeys.planetVestaGlyphFontSizeDefValue))
+        elif planetName == "Chiron":
+            rv = float(settings.\
+                value(SettingsKeys.planetChironGlyphFontSizeKey,
+                      SettingsKeys.planetChironGlyphFontSizeDefValue))
+        elif planetName == "Gulika":
+            rv = float(settings.\
+                value(SettingsKeys.planetGulikaGlyphFontSizeKey,
+                      SettingsKeys.planetGulikaGlyphFontSizeDefValue))
+        elif planetName == "Mandi":
+            rv = float(settings.\
+                value(SettingsKeys.planetMandiGlyphFontSizeKey,
+                      SettingsKeys.planetMandiGlyphFontSizeDefValue))
+        elif planetName == "MeanOfFive":
+            rv = float(settings.\
+                value(SettingsKeys.planetMeanOfFiveGlyphFontSizeKey,
+                      SettingsKeys.planetMeanOfFiveGlyphFontSizeDefValue))
+        elif planetName == "CycleOfEight":
+            rv = float(settings.\
+                value(SettingsKeys.planetCycleOfEightGlyphFontSizeKey,
+                      SettingsKeys.planetCycleOfEightGlyphFontSizeDefValue))
+        else:
+            rv = 10.0
+            self.log.warn("Could not find glyph font size for planet: " + \
+                          planetName + ".  Using default value " + str(rv))
+
+        return rv
+
+    @staticmethod
+    def getAbbreviationForPlanetName(planetName):
+        """Takes a planet name string value and returns the planet
+        abbreviation for this planet.
+        
+        Arguments:
+        planetName - str value for the planet name.
+
+        Returns:
+        str - value for the planet abbreviation.
+        """
+
+        settings = QSettings()
+        
+        if planetName == "Ascendant":
+            rv = settings.\
+                value(SettingsKeys.planetAscendantAbbreviationKey,
+                      SettingsKeys.planetAscendantAbbreviationDefValue)
+        elif planetName == "Midheaven":
+            rv = settings.\
+                value(SettingsKeys.planetMidheavenAbbreviationKey,
+                      SettingsKeys.planetMidheavenAbbreviationDefValue)
+        elif planetName == "HoraLagna":
+            rv = settings.\
+                value(SettingsKeys.planetHoraLagnaAbbreviationKey,
+                      SettingsKeys.planetHoraLagnaAbbreviationDefValue)
+        elif planetName == "GhatiLagna":
+            rv = settings.\
+                value(SettingsKeys.planetGhatiLagnaAbbreviationKey,
+                      SettingsKeys.planetGhatiLagnaAbbreviationDefValue)
+        elif planetName == "MeanLunarApogee":
+            rv = settings.\
+                value(SettingsKeys.planetMeanLunarApogeeAbbreviationKey,
+                      SettingsKeys.planetMeanLunarApogeeAbbreviationDefValue)
+        elif planetName == "OsculatingLunarApogee":
+            rv = settings.\
+                value(SettingsKeys.planetOsculatingLunarApogeeAbbreviationKey,
+                      SettingsKeys.planetOsculatingLunarApogeeAbbreviationDefValue)
+        elif planetName == "InterpolatedLunarApogee":
+            rv = settings.\
+                value(SettingsKeys.planetInterpolatedLunarApogeeAbbreviationKey,
+                      SettingsKeys.planetInterpolatedLunarApogeeAbbreviationDefValue)
+        elif planetName == "InterpolatedLunarPerigee":
+            rv = settings.\
+                value(SettingsKeys.planetInterpolatedLunarPerigeeAbbreviationKey,
+                      SettingsKeys.planetInterpolatedLunarPerigeeAbbreviationDefValue)
+        elif planetName == "Sun":
+            rv = settings.\
+                value(SettingsKeys.planetSunAbbreviationKey,
+                      SettingsKeys.planetSunAbbreviationDefValue)
+        elif planetName == "Moon":
+            rv = settings.\
+                value(SettingsKeys.planetMoonAbbreviationKey,
+                      SettingsKeys.planetMoonAbbreviationDefValue)
+        elif planetName == "Mercury":
+            rv = settings.\
+                value(SettingsKeys.planetMercuryAbbreviationKey,
+                      SettingsKeys.planetMercuryAbbreviationDefValue)
+        elif planetName == "Venus":
+            rv = settings.\
+                value(SettingsKeys.planetVenusAbbreviationKey,
+                      SettingsKeys.planetVenusAbbreviationDefValue)
+        elif planetName == "Earth":
+            rv = settings.\
+                value(SettingsKeys.planetEarthAbbreviationKey,
+                      SettingsKeys.planetEarthAbbreviationDefValue)
+        elif planetName == "Mars":
+            rv = settings.\
+                value(SettingsKeys.planetMarsAbbreviationKey,
+                      SettingsKeys.planetMarsAbbreviationDefValue)
+        elif planetName == "Jupiter":
+            rv = settings.\
+                value(SettingsKeys.planetJupiterAbbreviationKey,
+                      SettingsKeys.planetJupiterAbbreviationDefValue)
+        elif planetName == "Saturn":
+            rv = settings.\
+                value(SettingsKeys.planetSaturnAbbreviationKey,
+                      SettingsKeys.planetSaturnAbbreviationDefValue)
+        elif planetName == "Uranus":
+            rv = settings.\
+                value(SettingsKeys.planetUranusAbbreviationKey,
+                      SettingsKeys.planetUranusAbbreviationDefValue)
+        elif planetName == "Neptune":
+            rv = settings.\
+                value(SettingsKeys.planetNeptuneAbbreviationKey,
+                      SettingsKeys.planetNeptuneAbbreviationDefValue)
+        elif planetName == "Pluto":
+            rv = settings.\
+                value(SettingsKeys.planetPlutoAbbreviationKey,
+                      SettingsKeys.planetPlutoAbbreviationDefValue)
+        elif planetName == "MeanNorthNode":
+            rv = settings.\
+                value(SettingsKeys.planetMeanNorthNodeAbbreviationKey,
+                      SettingsKeys.planetMeanNorthNodeAbbreviationDefValue)
+        elif planetName == "MeanSouthNode":
+            rv = settings.\
+                value(SettingsKeys.planetMeanSouthNodeAbbreviationKey,
+                      SettingsKeys.planetMeanSouthNodeAbbreviationDefValue)
+        elif planetName == "TrueNorthNode":
+            rv = settings.\
+                value(SettingsKeys.planetTrueNorthNodeAbbreviationKey,
+                      SettingsKeys.planetTrueNorthNodeAbbreviationDefValue)
+        elif planetName == "TrueSouthNode":
+            rv = settings.\
+                value(SettingsKeys.planetTrueSouthNodeAbbreviationKey,
+                      SettingsKeys.planetTrueSouthNodeAbbreviationDefValue)
+        elif planetName == "Ceres":
+            rv = settings.\
+                value(SettingsKeys.planetCeresAbbreviationKey,
+                      SettingsKeys.planetCeresAbbreviationDefValue)
+        elif planetName == "Pallas":
+            rv = settings.\
+                value(SettingsKeys.planetPallasAbbreviationKey,
+                      SettingsKeys.planetPallasAbbreviationDefValue)
+        elif planetName == "Juno":
+            rv = settings.\
+                value(SettingsKeys.planetJunoAbbreviationKey,
+                      SettingsKeys.planetJunoAbbreviationDefValue)
+        elif planetName == "Vesta":
+            rv = settings.\
+                value(SettingsKeys.planetVestaAbbreviationKey,
+                      SettingsKeys.planetVestaAbbreviationDefValue)
+        elif planetName == "Chiron":
+            rv = settings.\
+                value(SettingsKeys.planetChironAbbreviationKey,
+                      SettingsKeys.planetChironAbbreviationDefValue)
+        elif planetName == "Gulika":
+            rv = settings.\
+                value(SettingsKeys.planetGulikaAbbreviationKey,
+                      SettingsKeys.planetGulikaAbbreviationDefValue)
+        elif planetName == "Mandi":
+            rv = settings.\
+                value(SettingsKeys.planetMandiAbbreviationKey,
+                      SettingsKeys.planetMandiAbbreviationDefValue)
+        elif planetName == "MeanOfFive":
+            rv = settings.\
+                value(SettingsKeys.planetMeanOfFiveAbbreviationKey,
+                      SettingsKeys.planetMeanOfFiveAbbreviationDefValue)
+        elif planetName == "CycleOfEight":
+            rv = settings.\
+                value(SettingsKeys.planetCycleOfEightAbbreviationKey,
+                      SettingsKeys.planetCycleOfEightAbbreviationDefValue)
+        else:
+            rv = "???"
+            self.log.warn("Could not find abbreviation for planet: " + \
+                          planetName + ".  Using default value " + str(rv))
+
+        return rv
+
+    @staticmethod
+    def getForegroundColorForPlanetName(planetName):
+        """Takes a string value for the planet name and returns the
+        planet foreground color for this planet.
+        
+        Arguments:
+        planetName - str value for the planet name.
+
+        Returns:
+        str - value for the planet abbreviation.
+        """
+
+        settings = QSettings()
+        
+        if planetName == "Ascendant":
+            rv = settings.\
+                value(SettingsKeys.planetAscendantForegroundColorKey,
+                      SettingsKeys.planetAscendantForegroundColorDefValue)
+        elif planetName == "Midheaven":
+            rv = settings.\
+                value(SettingsKeys.planetMidheavenForegroundColorKey,
+                      SettingsKeys.planetMidheavenForegroundColorDefValue)
+        elif planetName == "HoraLagna":
+            rv = settings.\
+                value(SettingsKeys.planetHoraLagnaForegroundColorKey,
+                      SettingsKeys.planetHoraLagnaForegroundColorDefValue)
+        elif planetName == "GhatiLagna":
+            rv = settings.\
+                value(SettingsKeys.planetGhatiLagnaForegroundColorKey,
+                      SettingsKeys.planetGhatiLagnaForegroundColorDefValue)
+        elif planetName == "MeanLunarApogee":
+            rv = settings.\
+                value(SettingsKeys.planetMeanLunarApogeeForegroundColorKey,
+                      SettingsKeys.planetMeanLunarApogeeForegroundColorDefValue)
+        elif planetName == "OsculatingLunarApogee":
+            rv = settings.\
+                value(SettingsKeys.planetOsculatingLunarApogeeForegroundColorKey,
+                      SettingsKeys.planetOsculatingLunarApogeeForegroundColorDefValue)
+        elif planetName == "InterpolatedLunarApogee":
+            rv = settings.\
+                value(SettingsKeys.planetInterpolatedLunarApogeeForegroundColorKey,
+                      SettingsKeys.planetInterpolatedLunarApogeeForegroundColorDefValue)
+        elif planetName == "InterpolatedLunarPerigee":
+            rv = settings.\
+                value(SettingsKeys.planetInterpolatedLunarPerigeeForegroundColorKey,
+                      SettingsKeys.planetInterpolatedLunarPerigeeForegroundColorDefValue)
+        elif planetName == "Sun":
+            rv = settings.\
+                value(SettingsKeys.planetSunForegroundColorKey,
+                      SettingsKeys.planetSunForegroundColorDefValue)
+        elif planetName == "Moon":
+            rv = settings.\
+                value(SettingsKeys.planetMoonForegroundColorKey,
+                      SettingsKeys.planetMoonForegroundColorDefValue)
+        elif planetName == "Mercury":
+            rv = settings.\
+                value(SettingsKeys.planetMercuryForegroundColorKey,
+                      SettingsKeys.planetMercuryForegroundColorDefValue)
+        elif planetName == "Venus":
+            rv = settings.\
+                value(SettingsKeys.planetVenusForegroundColorKey,
+                      SettingsKeys.planetVenusForegroundColorDefValue)
+        elif planetName == "Earth":
+            rv = settings.\
+                value(SettingsKeys.planetEarthForegroundColorKey,
+                      SettingsKeys.planetEarthForegroundColorDefValue)
+        elif planetName == "Mars":
+            rv = settings.\
+                value(SettingsKeys.planetMarsForegroundColorKey,
+                      SettingsKeys.planetMarsForegroundColorDefValue)
+        elif planetName == "Jupiter":
+            rv = settings.\
+                value(SettingsKeys.planetJupiterForegroundColorKey,
+                      SettingsKeys.planetJupiterForegroundColorDefValue)
+        elif planetName == "Saturn":
+            rv = settings.\
+                value(SettingsKeys.planetSaturnForegroundColorKey,
+                      SettingsKeys.planetSaturnForegroundColorDefValue)
+        elif planetName == "Uranus":
+            rv = settings.\
+                value(SettingsKeys.planetUranusForegroundColorKey,
+                      SettingsKeys.planetUranusForegroundColorDefValue)
+        elif planetName == "Neptune":
+            rv = settings.\
+                value(SettingsKeys.planetNeptuneForegroundColorKey,
+                      SettingsKeys.planetNeptuneForegroundColorDefValue)
+        elif planetName == "Pluto":
+            rv = settings.\
+                value(SettingsKeys.planetPlutoForegroundColorKey,
+                      SettingsKeys.planetPlutoForegroundColorDefValue)
+        elif planetName == "MeanNorthNode":
+            rv = settings.\
+                value(SettingsKeys.planetMeanNorthNodeForegroundColorKey,
+                      SettingsKeys.planetMeanNorthNodeForegroundColorDefValue)
+        elif planetName == "MeanSouthNode":
+            rv = settings.\
+                value(SettingsKeys.planetMeanSouthNodeForegroundColorKey,
+                      SettingsKeys.planetMeanSouthNodeForegroundColorDefValue)
+        elif planetName == "TrueNorthNode":
+            rv = settings.\
+                value(SettingsKeys.planetTrueNorthNodeForegroundColorKey,
+                      SettingsKeys.planetTrueNorthNodeForegroundColorDefValue)
+        elif planetName == "TrueSouthNode":
+            rv = settings.\
+                value(SettingsKeys.planetTrueSouthNodeForegroundColorKey,
+                      SettingsKeys.planetTrueSouthNodeForegroundColorDefValue)
+        elif planetName == "Ceres":
+            rv = settings.\
+                value(SettingsKeys.planetCeresForegroundColorKey,
+                      SettingsKeys.planetCeresForegroundColorDefValue)
+        elif planetName == "Pallas":
+            rv = settings.\
+                value(SettingsKeys.planetPallasForegroundColorKey,
+                      SettingsKeys.planetPallasForegroundColorDefValue)
+        elif planetName == "Juno":
+            rv = settings.\
+                value(SettingsKeys.planetJunoForegroundColorKey,
+                      SettingsKeys.planetJunoForegroundColorDefValue)
+        elif planetName == "Vesta":
+            rv = settings.\
+                value(SettingsKeys.planetVestaForegroundColorKey,
+                      SettingsKeys.planetVestaForegroundColorDefValue)
+        elif planetName == "Chiron":
+            rv = settings.\
+                value(SettingsKeys.planetChironForegroundColorKey,
+                      SettingsKeys.planetChironForegroundColorDefValue)
+        elif planetName == "Gulika":
+            rv = settings.\
+                value(SettingsKeys.planetGulikaForegroundColorKey,
+                      SettingsKeys.planetGulikaForegroundColorDefValue)
+        elif planetName == "Mandi":
+            rv = settings.\
+                value(SettingsKeys.planetMandiForegroundColorKey,
+                      SettingsKeys.planetMandiForegroundColorDefValue)
+        elif planetName == "MeanOfFive":
+            rv = settings.\
+                value(SettingsKeys.planetMeanOfFiveForegroundColorKey,
+                      SettingsKeys.planetMeanOfFiveForegroundColorDefValue)
+        elif planetName == "CycleOfEight":
+            rv = settings.\
+                value(SettingsKeys.planetCycleOfEightForegroundColorKey,
+                      SettingsKeys.planetCycleOfEightForegroundColorDefValue)
+        else:
+            rv = QColor(Qt.black)
+            self.log.warn("Could not find foreground color for planet: " + \
+                          planetName + ".  Using default value " + str(rv))
+
+        return rv
+
+    @staticmethod
+    def getBackgroundColorForPlanetName(planetName):
+        """Takes a string value for the planet name and returns the
+        planet background color for this planet.
+        
+        Arguments:
+        planetName - str value for the planet name.
+
+        Returns:
+        str - value for the planet abbreviation.
+        """
+
+        settings = QSettings()
+        
+        if planetName == "Ascendant":
+            rv = settings.\
+                value(SettingsKeys.planetAscendantBackgroundColorKey,
+                      SettingsKeys.planetAscendantBackgroundColorDefValue)
+        elif planetName == "Midheaven":
+            rv = settings.\
+                value(SettingsKeys.planetMidheavenBackgroundColorKey,
+                      SettingsKeys.planetMidheavenBackgroundColorDefValue)
+        elif planetName == "HoraLagna":
+            rv = settings.\
+                value(SettingsKeys.planetHoraLagnaBackgroundColorKey,
+                      SettingsKeys.planetHoraLagnaBackgroundColorDefValue)
+        elif planetName == "GhatiLagna":
+            rv = settings.\
+                value(SettingsKeys.planetGhatiLagnaBackgroundColorKey,
+                      SettingsKeys.planetGhatiLagnaBackgroundColorDefValue)
+        elif planetName == "MeanLunarApogee":
+            rv = settings.\
+                value(SettingsKeys.planetMeanLunarApogeeBackgroundColorKey,
+                      SettingsKeys.planetMeanLunarApogeeBackgroundColorDefValue)
+        elif planetName == "OsculatingLunarApogee":
+            rv = settings.\
+                value(SettingsKeys.planetOsculatingLunarApogeeBackgroundColorKey,
+                      SettingsKeys.planetOsculatingLunarApogeeBackgroundColorDefValue)
+        elif planetName == "InterpolatedLunarApogee":
+            rv = settings.\
+                value(SettingsKeys.planetInterpolatedLunarApogeeBackgroundColorKey,
+                      SettingsKeys.planetInterpolatedLunarApogeeBackgroundColorDefValue)
+        elif planetName == "InterpolatedLunarPerigee":
+            rv = settings.\
+                value(SettingsKeys.planetInterpolatedLunarPerigeeBackgroundColorKey,
+                      SettingsKeys.planetInterpolatedLunarPerigeeBackgroundColorDefValue)
+        elif planetName == "Sun":
+            rv = settings.\
+                value(SettingsKeys.planetSunBackgroundColorKey,
+                      SettingsKeys.planetSunBackgroundColorDefValue)
+        elif planetName == "Moon":
+            rv = settings.\
+                value(SettingsKeys.planetMoonBackgroundColorKey,
+                      SettingsKeys.planetMoonBackgroundColorDefValue)
+        elif planetName == "Mercury":
+            rv = settings.\
+                value(SettingsKeys.planetMercuryBackgroundColorKey,
+                      SettingsKeys.planetMercuryBackgroundColorDefValue)
+        elif planetName == "Venus":
+            rv = settings.\
+                value(SettingsKeys.planetVenusBackgroundColorKey,
+                      SettingsKeys.planetVenusBackgroundColorDefValue)
+        elif planetName == "Earth":
+            rv = settings.\
+                value(SettingsKeys.planetEarthBackgroundColorKey,
+                      SettingsKeys.planetEarthBackgroundColorDefValue)
+        elif planetName == "Mars":
+            rv = settings.\
+                value(SettingsKeys.planetMarsBackgroundColorKey,
+                      SettingsKeys.planetMarsBackgroundColorDefValue)
+        elif planetName == "Jupiter":
+            rv = settings.\
+                value(SettingsKeys.planetJupiterBackgroundColorKey,
+                      SettingsKeys.planetJupiterBackgroundColorDefValue)
+        elif planetName == "Saturn":
+            rv = settings.\
+                value(SettingsKeys.planetSaturnBackgroundColorKey,
+                      SettingsKeys.planetSaturnBackgroundColorDefValue)
+        elif planetName == "Uranus":
+            rv = settings.\
+                value(SettingsKeys.planetUranusBackgroundColorKey,
+                      SettingsKeys.planetUranusBackgroundColorDefValue)
+        elif planetName == "Neptune":
+            rv = settings.\
+                value(SettingsKeys.planetNeptuneBackgroundColorKey,
+                      SettingsKeys.planetNeptuneBackgroundColorDefValue)
+        elif planetName == "Pluto":
+            rv = settings.\
+                value(SettingsKeys.planetPlutoBackgroundColorKey,
+                      SettingsKeys.planetPlutoBackgroundColorDefValue)
+        elif planetName == "MeanNorthNode":
+            rv = settings.\
+                value(SettingsKeys.planetMeanNorthNodeBackgroundColorKey,
+                      SettingsKeys.planetMeanNorthNodeBackgroundColorDefValue)
+        elif planetName == "MeanSouthNode":
+            rv = settings.\
+                value(SettingsKeys.planetMeanSouthNodeBackgroundColorKey,
+                      SettingsKeys.planetMeanSouthNodeBackgroundColorDefValue)
+        elif planetName == "TrueNorthNode":
+            rv = settings.\
+                value(SettingsKeys.planetTrueNorthNodeBackgroundColorKey,
+                      SettingsKeys.planetTrueNorthNodeBackgroundColorDefValue)
+        elif planetName == "TrueSouthNode":
+            rv = settings.\
+                value(SettingsKeys.planetTrueSouthNodeBackgroundColorKey,
+                      SettingsKeys.planetTrueSouthNodeBackgroundColorDefValue)
+        elif planetName == "Ceres":
+            rv = settings.\
+                value(SettingsKeys.planetCeresBackgroundColorKey,
+                      SettingsKeys.planetCeresBackgroundColorDefValue)
+        elif planetName == "Pallas":
+            rv = settings.\
+                value(SettingsKeys.planetPallasBackgroundColorKey,
+                      SettingsKeys.planetPallasBackgroundColorDefValue)
+        elif planetName == "Juno":
+            rv = settings.\
+                value(SettingsKeys.planetJunoBackgroundColorKey,
+                      SettingsKeys.planetJunoBackgroundColorDefValue)
+        elif planetName == "Vesta":
+            rv = settings.\
+                value(SettingsKeys.planetVestaBackgroundColorKey,
+                      SettingsKeys.planetVestaBackgroundColorDefValue)
+        elif planetName == "Chiron":
+            rv = settings.\
+                value(SettingsKeys.planetChironBackgroundColorKey,
+                      SettingsKeys.planetChironBackgroundColorDefValue)
+        elif planetName == "Gulika":
+            rv = settings.\
+                value(SettingsKeys.planetGulikaBackgroundColorKey,
+                      SettingsKeys.planetGulikaBackgroundColorDefValue)
+        elif planetName == "Mandi":
+            rv = settings.\
+                value(SettingsKeys.planetMandiBackgroundColorKey,
+                      SettingsKeys.planetMandiBackgroundColorDefValue)
+        elif planetName == "MeanOfFive":
+            rv = settings.\
+                value(SettingsKeys.planetMeanOfFiveBackgroundColorKey,
+                      SettingsKeys.planetMeanOfFiveBackgroundColorDefValue)
+        elif planetName == "CycleOfEight":
+            rv = settings.\
+                value(SettingsKeys.planetCycleOfEightBackgroundColorKey,
+                      SettingsKeys.planetCycleOfEightBackgroundColorDefValue)
+        else:
+            rv = QColor(Qt.transparent)
+            self.log.warn("Could not find background color for planet: " + \
+                          planetName + ".  Using default value " + str(rv))
+
+        return rv
+    
     
 class RadixChartGraphicsItem(QGraphicsItem):
     """QGraphicsItem that is the circle astrology chart."""
@@ -219,7 +964,7 @@ class RadixChartGraphicsItem(QGraphicsItem):
         of child items should terminate for a certain wheel number.
         The returned value is less than the number returned from the
         call to getRadiusForWheelNumber().  The first wheel is wheel
-        number 0.
+        number 1.
 
         Argument:
         wheelNumber - int value for the wheel number.
@@ -304,7 +1049,7 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
         Returns the radius of the circle drawn for the argument wheel
         number.  This value is used by child QGraphicsItems to
         determine where they should be drawn for a certain wheel
-        number.  The first wheel is wheel number 0.
+        number.  The first wheel is wheel number 1.
 
         Argument:
         wheelNumber - int value for the wheel number.
@@ -316,8 +1061,8 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
         # Return value.
         rv = 0.0
         
-        if wheelNumber >= 0 and wheelNumber < len(self.wheelNumberCircleRadius):
-            rv = self.wheelNumberCircleRadius[wheelNumber]
+        if wheelNumber > 0 and wheelNumber <= len(self.wheelNumberCircleRadius):
+            rv = self.wheelNumberCircleRadius[wheelNumber-1]
         else:
             self.log.error("Invalid wheelNumber provided to " + \
                            "getRadiusForWheelNumber().  Returning 0.0")
@@ -332,7 +1077,7 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
         of child items should terminate for a certain wheel number.
         The returned value is less than the number returned from the
         call to getRadiusForWheelNumber().  The first wheel is wheel
-        number 0.
+        number 1.
 
         Argument:
         wheelNumber - int value for the wheel number.
@@ -347,8 +1092,8 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
         # TODO:  decide if I should keep it at 0.0.
         return rv
     
-        if wheelNumber >= 1 and wheelNumber < len(self.wheelNumberCircleRadius):
-            rv = self.wheelNumberCircleRadius[wheelNumber - 1]
+        if wheelNumber > 0 and wheelNumber <= len(self.wheelNumberCircleRadius):
+            rv = self.wheelNumberCircleRadius[wheelNumber-1]
         elif wheelNumber == 0:
             rv = self.outerNavamsaRadius
         else:
@@ -358,6 +1103,38 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
 
         return rv
 
+    def getRadixPlanetGraphicsItem(self, planetName, wheelNumber):
+        """Returns the RadixPlanetGraphicsItem with the given planet
+        name on the given wheel.  If no match is found, None
+        is returned.
+
+        Arguments:
+        
+        planetName - str value holding the planet name as set in the
+        RadixPlanetGraphicsItem.
+
+        wheelNumber - int value holding the wheel number that the
+        RadixPlanetGraphicsItem is drawn on in the
+        SiderealRadixChartGraphicsItem.
+        """
+
+        # Get the child GraphicsItems.
+        children = self.childItems()
+        
+        # Go through them and look at the ones that are
+        # RadixPlanetGraphicsItem.
+        for child in children:
+            if isinstance(child, RadixPlanetGraphicsItem):
+                # If the planet name matches and the wheel
+                # number matches, then return that QGraphicsItem.
+                if child.getPlanetName() == planetName and \
+                    child.getWheelNumber() == wheelNumber:
+                    
+                    return child
+
+        return None
+
+        
     def getInnerRasiRadius(self):
         """Returns the radius of the inner Rasi circle."""
         
@@ -636,19 +1413,21 @@ class RadixPlanetGraphicsItem(QGraphicsItem):
     """
 
     def __init__(self,
+                 planetName,
                  planetGlyphUnicode,
                  planetGlyphFontSize,
                  planetAbbreviation,
                  planetForegroundColor,
                  planetBackgroundColor,
-                 degree = 0.0,
-                 velocity = 0.0,
-                 wheelNumber = 0,
+                 degree=0.0,
+                 velocity=0.0,
+                 wheelNumber=1,
                  parent=None,
                  scene=None):
         """Initializes the object with the given arguments.
 
         Arguments:
+        planetName - str holding the planet name.
         planetGlyphUnicode - str holding the planet glyph.
         planetGlyphFontSize - float font size for drawing the glyph.
         planetAbbreviation - str holding the planet abbreviation.
@@ -664,7 +1443,7 @@ class RadixPlanetGraphicsItem(QGraphicsItem):
                    per day.  Negative values indicate that the planet
                    is retrograde (if applicable).
         wheelNumber - int value for the wheel number to draw the planet on.
-                      The first wheel (circle) is wheel number 0.
+                      The first wheel (circle) is wheel number 1.
         parent - RadixChartGraphicsItem that is the parent for this
                  QGraphicsItem.
         scene - QGraphicsScene object to draw this QGraphicsItem on.
@@ -677,6 +1456,7 @@ class RadixPlanetGraphicsItem(QGraphicsItem):
             logging.getLogger("astrologychart.RadixPlanetGraphicsItem")
 
         # Save the parameter values.
+        self.planetName = planetName
         self.planetGlyphUnicode = planetGlyphUnicode
         self.planetGlyphFontSize = planetGlyphFontSize
         self.planetAbbreviation = planetAbbreviation
@@ -836,6 +1616,11 @@ class RadixPlanetGraphicsItem(QGraphicsItem):
 
         return self.wheelNumber
 
+    def getPlanetName(self):
+        """Returns the planet name."""
+        
+        return self.planetName
+    
     def getPlanetGlyphUnicode(self):
         """Returns the planet glyph in unicode."""
 
@@ -1083,7 +1868,7 @@ class DeclinationChartGraphicsItem(QGraphicsItem):
 
         # Logger
         self.log = \
-            logging.getLogger("astrologychart.PlanetDeclinationGraphicsItem")
+            logging.getLogger("astrologychart.DeclinationGraphicsItem")
 
         self.rulerWidth = 40.0
         self.rulerHeight = 600.0
@@ -1096,6 +1881,36 @@ class DeclinationChartGraphicsItem(QGraphicsItem):
         # Value used in getXLocationForPlanetGroupNumber().
         self.planetLineLength = self.rulerWidth
         
+    def getPlanetDeclinationGraphicsItem(self, planetName, groupNum):
+        """Returns the PlanetDeclinationGraphicsItem with the given
+        planet name and group number.  If no match is found, None is
+        returned.
+
+        Arguments:
+        
+        planetName - str value holding the planet name as set in the
+        RadixPlanetGraphicsItem.
+        
+        groupNum - int value holding the planet group number as set in the
+        RadixPlanetGraphicsItem.
+        """
+
+        # Get the child GraphicsItems.
+        children = self.childItems()
+        
+        # Go through them and look at the ones that are
+        # PlanetDeclinationGraphicsItem.
+        for child in children:
+            if isinstance(child, PlanetDeclinationGraphicsItem):
+                # If the planet name matches then return that
+                # QGraphicsItem.
+                if child.getPlanetName() == planetName and \
+                    child.getPlanetGroupNumber() == groupNum:
+                    
+                    return child
+
+        return None
+
     def getXLocationForPlanetGroupNumber(self, planetGroupNumber):
         """Returns the X location away from the origin for
         the location that the child items should draw their planets'
@@ -1105,7 +1920,7 @@ class DeclinationChartGraphicsItem(QGraphicsItem):
         planetGroupNumber - int value which is an index representing
                             the set of planets that having their
                             declination charted.  This index
-                            value is 0-based, so 0 is the first set
+                            value is 1-based, so 1 is the first set
                             of planets drawn to the right of the ruler.
 
         Returns:
@@ -1113,8 +1928,8 @@ class DeclinationChartGraphicsItem(QGraphicsItem):
         """
 
         x = self.planetLineLength + \
-            (planetGroupNumber) * (2.0 * self.planetLineLength)
-        
+            (planetGroupNumber-1) * (2.0 * self.planetLineLength)
+
         return x
 
     
@@ -1242,19 +2057,21 @@ class PlanetDeclinationGraphicsItem(QGraphicsItem):
     """
 
     def __init__(self,
+                 planetName,
                  planetGlyphUnicode,
                  planetGlyphFontSize,
                  planetAbbreviation,
                  planetForegroundColor,
                  planetBackgroundColor,
-                 degree = 0.0,
-                 velocity = 0.0,
-                 planetGroupNumber = 0,
+                 degree=0.0,
+                 velocity=0.0,
+                 planetGroupNumber=1,
                  parent=None,
                  scene=None):
         """Initializes the object with the given arguments.
 
         Arguments:
+        planetName - str holding the name of the planet.
         planetGlyphUnicode - str holding the planet glyph.
         planetGlyphFontSize - float font size for drawing the glyph.
         planetAbbreviation - str holding the planet abbreviation.
@@ -1272,7 +2089,7 @@ class PlanetDeclinationGraphicsItem(QGraphicsItem):
         planetGroupNumber - int value for the group of planets that this
                             planet belongs to.  This is so planets of
                             the same group (timestamp) can be drawn together.
-                            The first group is at number 0.
+                            The first group is at number 1.
         parent - DeclinationChartGraphicsItem that is the parent for this
                  QGraphicsItem.
         scene - QGraphicsScene object to draw this QGraphicsItem on.
@@ -1285,6 +2102,7 @@ class PlanetDeclinationGraphicsItem(QGraphicsItem):
             logging.getLogger("astrologychart.PlanetDeclinationGraphicsItem")
 
         # Save the parameter values.
+        self.planetName = planetName
         self.planetGlyphUnicode = planetGlyphUnicode
         self.planetGlyphFontSize = planetGlyphFontSize
         self.planetAbbreviation = planetAbbreviation
@@ -1396,13 +2214,13 @@ class PlanetDeclinationGraphicsItem(QGraphicsItem):
         
     def setPlanetGroupNumber(self, planetGroupNumber):
         """Sets the planet group number that this QGraphicsItem is
-        associated with.  The first group is number 0.
+        associated with.  The first group is number 1.
         
         Arguments:
         planetGroupNumber - int value for the group of planets that this
                             planet belongs to.  This is so planets of
                             the same group (timestamp) can be drawn together.
-                            The first group is at number 0.
+                            The first group is at number 1.
         """
 
         self.planetGroupNumber = planetGroupNumber
@@ -1424,17 +2242,22 @@ class PlanetDeclinationGraphicsItem(QGraphicsItem):
     def getPlanetGroupNumber(self):
         """Returns the planet group number that this planet is drawn
         on.  This value represents which group of planets that the
-        planet is associated with when drawn on teh chart.  The first
-        planet group is number 0.
+        planet is associated with when drawn on the chart.  The first
+        planet group is number 1.
 
         Returns:
 
         int - Value representing which planet group number the planet
-              is drawn on.  A value of 0 indicates the first group on
+              is drawn on.  A value of 1 indicates the first group on
               the right of the ruler.
         """
 
         return self.planetGroupNumber
+
+    def getPlanetName(self):
+        """Returns the planet name."""
+
+        return self.planetName
 
     def getPlanetGlyphUnicode(self):
         """Returns the planet glyph in unicode."""
@@ -1483,7 +2306,7 @@ class PlanetDeclinationGraphicsItem(QGraphicsItem):
         font.setFamily("Lucida Console")
         font.setPointSize(self.planetGlyphFontSize)
         text = self.planetGlyphUnicode
-        text += " {}\u00b0".format(self.degree)
+        text += " {:.3f}\u00b0".format(self.degree)
         textPath = QPainterPath()
         textPath.addText(0, 0, font, text)
         transform = QTransform()
@@ -1537,7 +2360,7 @@ class PlanetDeclinationGraphicsItem(QGraphicsItem):
         font.setPointSize(self.planetGlyphFontSize)
 
         text = self.planetGlyphUnicode
-        text += " {}\u00b0".format(self.degree)
+        text += " {:.3f}\u00b0".format(self.degree)
         textPath = QPainterPath()
         textPath.addText(0, 0, font, text)
         
@@ -2780,16 +3603,13 @@ class AstrologyChartWidget(QWidget):
         self.helioSidRadixChartGraphicsItem = SiderealRadixChartGraphicsItem()
         self.helioSidRadixChartGraphicsItem.setScale(0.5)
 
+        # TODO:  I've left out this table for now, since it doesn't add much value and is slow.
         #self.planetaryInfoTable = PlanetaryInfoTableGraphicsItem()
         
-        self.declinationChart1 = DeclinationChartGraphicsItem()
-        self.declinationChart1.setScale(0.8)
-        self.declinationChart2 = DeclinationChartGraphicsItem()
-        self.declinationChart2.setScale(0.8)
-        self.declinationChart3 = DeclinationChartGraphicsItem()
-        self.declinationChart3.setScale(0.8)
+        self.declinationChart = DeclinationChartGraphicsItem()
+        self.declinationChart.setScale(0.8)
 
-        # TODO: add these widgets for longitude speeds...?  Maybe it's not the effort right now?
+        # TODO: add these widgets for longitude speeds...?  Maybe it's not worth the effort right now?
         self.longitudeSpeedChart1Mercury = \
             LongitudeSpeedChartGraphicsItem(maxSpeed=16.0,
                                                 minSpeed=-5.0)
@@ -2836,19 +3656,14 @@ class AstrologyChartWidget(QWidget):
         self.helioSidRadixChartLabel = QGraphicsProxyWidget()
         self.helioSidRadixChartLabel.setWidget(QLabel("Heliocentric Sidereal"))
 
-        self.declinationChart1Label = QGraphicsProxyWidget()
-        self.declinationChart1Label.setWidget(QLabel("Chart 1 Declination"))
-        self.declinationChart2Label = QGraphicsProxyWidget()
-        self.declinationChart2Label.setWidget(QLabel("Chart 2 Declination"))
-        self.declinationChart3Label = QGraphicsProxyWidget()
-        self.declinationChart3Label.setWidget(QLabel("Chart 3 Declination"))
+        self.declinationChartLabel = QGraphicsProxyWidget()
+        self.declinationChartLabel.setWidget(QLabel("Declination"))
         
         # Set the positions of the QGraphicsItems then add them to the
         # QGraphicsScene.
         width = SiderealRadixChartGraphicsItem().boundingRect().width()
         radixLength = (width / 2.0) + 40
     
-        print("DEBUG: " + str(radixLength))
         x = 0
         y = 0
         x -= 0.5 * radixLength
@@ -2868,28 +3683,10 @@ class AstrologyChartWidget(QWidget):
         declinationWidth = 200
         declStartX = x
         declStartY = y
-        self.declinationChart1Label.setPos(x, y)
+        self.declinationChartLabel.setPos(x, y)
         x += 36
         y += 260
-        self.declinationChart1.setPos(x, y)
-
-        x = declStartX + declinationWidth
-        y = declStartY
-        declStartX = x
-        declStartY = y
-        self.declinationChart2Label.setPos(x, y)
-        x += 36
-        y += 260
-        self.declinationChart2.setPos(x, y)
-
-        x = declStartX + declinationWidth
-        y = declStartY
-        declStartX = x
-        declStartY = y
-        self.declinationChart3Label.setPos(x, y)
-        x += 36
-        y += 260
-        self.declinationChart3.setPos(x, y)
+        self.declinationChart.setPos(x, y)
 
         
         x = 0.0
@@ -2923,9 +3720,7 @@ class AstrologyChartWidget(QWidget):
         self.graphicsScene.addItem(self.astroChart2DatetimeLabelProxyWidget)
         self.graphicsScene.addItem(self.astroChart3DatetimeLabelProxyWidget)
     
-        self.graphicsScene.addItem(self.declinationChart1)
-        self.graphicsScene.addItem(self.declinationChart2)
-        self.graphicsScene.addItem(self.declinationChart3)
+        self.graphicsScene.addItem(self.declinationChart)
         
         #self.graphicsScene.addItem(self.planetaryInfoTable)
         
@@ -2937,9 +3732,7 @@ class AstrologyChartWidget(QWidget):
         self.graphicsScene.addItem(self.geoTropRadixChartLabel)
         self.graphicsScene.addItem(self.helioSidRadixChartLabel)
 
-        self.graphicsScene.addItem(self.declinationChart1Label)
-        self.graphicsScene.addItem(self.declinationChart2Label)
-        self.graphicsScene.addItem(self.declinationChart3Label)
+        self.graphicsScene.addItem(self.declinationChartLabel)
         
 
         # Setup the layout.
@@ -3003,19 +3796,222 @@ class AstrologyChartWidget(QWidget):
         planets.append(p)
         p = Ephemeris.getMeanLunarApogeePlanetaryInfo(dt)
         planets.append(p)
-        p = Ephemeris.getOsculatingLunarApogeePlanetaryInfo(dt)
-        planets.append(p)
-        p = Ephemeris.getInterpolatedLunarApogeePlanetaryInfo(dt)
-        planets.append(p)
-        p = Ephemeris.getInterpolatedLunarPerigeePlanetaryInfo(dt)
-        planets.append(p)
+        #p = Ephemeris.getOsculatingLunarApogeePlanetaryInfo(dt)
+        #planets.append(p)
+        #p = Ephemeris.getInterpolatedLunarApogeePlanetaryInfo(dt)
+        #planets.append(p)
+        #p = Ephemeris.getInterpolatedLunarPerigeePlanetaryInfo(dt)
+        #planets.append(p)
         p = Ephemeris.getEarthPlanetaryInfo(dt)
         planets.append(p)
-        p = Ephemeris.getChironPlanetaryInfo(dt)
-        planets.append(p)
+        #p = Ephemeris.getChironPlanetaryInfo(dt)
+        #planets.append(p)
         
         return planets
-    
+
+    def _getPlanetNamesToDisplayForDeclination(self):
+        """Function to return a list of planet names that should be
+        used to display declination information.  This is used because
+        some planets don't make sense to chart on declination and it
+        just clouds up the view..
+        """
+
+        toDisplay = \
+            ["Sun",
+             "Moon",
+             "Mercury",
+             "Venus",
+             "Mars",
+             "Jupiter",
+             "Saturn",
+             "Uranus",
+             "Neptune",
+             "Pluto"]
+
+        return toDisplay
+        
+        
+    def setAstroChartXDatetime(self, chartNum, dt):
+        """Sets the datetime of astrology chart 'chartNum'
+        within the radix chart and other charts.
+
+        Arguments:
+        chartNum - int value holding the chart number to update.
+        dt - datetime.datetime object holding the new timestamp.
+        """
+
+        # Wheel number (chart number) that will be updated.
+        wheelNumber = chartNum
+
+        # Get the PlanetaryInfo objects.
+        planets = self._getPlanetaryInfosForDatetime(dt)
+
+        # Update the planets' QGraphicsItems on each radix chart.
+        for planet in planets:
+            # Location label doesn't need to be updated here because
+            # it gets updated when the BirthInfo gets set in this
+            # widget.
+
+            # Update the declination chart.
+            if planet.name in self._getPlanetNamesToDisplayForDeclination():
+                planetDeclinationGraphicsItem = \
+                    self.declinationChart.\
+                    getPlanetDeclinationGraphicsItem(planet.name, chartNum)
+                
+                if planetDeclinationGraphicsItem == None:
+                    # No PlanetDeclinationGraphicsItem exists yet for
+                    # this planet, so create it.
+                    planetDeclinationGraphicsItem = \
+                        PlanetDeclinationGraphicsItem(
+                        planet.name,
+                        AstrologyUtils.getGlyphForPlanetName(planet.name),
+                        AstrologyUtils.getGlyphFontSizeForPlanetName(planet.name),
+                        AstrologyUtils.getAbbreviationForPlanetName(planet.name),
+                        AstrologyUtils.getForegroundColorForPlanetName(planet.name),
+                        AstrologyUtils.getBackgroundColorForPlanetName(planet.name),
+                        degree=planet.geocentric['sidereal']['latitude'],
+                        velocity=planet.geocentric['sidereal']['longitude_speed'],
+                        planetGroupNumber=chartNum,
+                        parent=self.declinationChart)
+                else:
+                    # The PlanetDeclinationGraphicsItem for this planet
+                    # already exists for this chartNum.  Just update it.
+                    degree = planet.geocentric['sidereal']['latitude']
+                    velocity = planet.geocentric['sidereal']['longitude_speed']
+                    planetDeclinationGraphicsItem.setDegreeAndVelocity(degree, velocity)
+
+            
+            # Geocentric Sidereal.
+            radixPlanetGraphicsItem = \
+                self.geoSidRadixChartGraphicsItem.\
+                getRadixPlanetGraphicsItem(planet.name, wheelNumber)
+            if radixPlanetGraphicsItem == None:
+                # No RadixPlanetGraphicsItem exists for this planet yet,
+                # so create it.
+
+                # Get all the info needed to create it.
+                glyph = \
+                    AstrologyUtils.getGlyphForPlanetName(planet.name)
+                fontSize = \
+                    AstrologyUtils.getGlyphFontSizeForPlanetName(planet.name)
+                abbrev = \
+                    AstrologyUtils.getAbbreviationForPlanetName(planet.name)
+                foregroundColor = \
+                    AstrologyUtils.getForegroundColorForPlanetName(planet.name)
+                backgroundColor = \
+                    AstrologyUtils.getBackgroundColorForPlanetName(planet.name)
+                degree = planet.geocentric['sidereal']['longitude']
+                velocity = planet.geocentric['sidereal']['longitude_speed']
+                parent = self.geoSidRadixChartGraphicsItem
+
+                # Create the RadixPlanetGraphicsItem.
+                radixPlanetGraphicsItem = \
+                    RadixPlanetGraphicsItem(planet.name,
+                                            glyph,
+                                            fontSize,
+                                            abbrev,
+                                            foregroundColor,
+                                            backgroundColor,
+                                            degree,
+                                            velocity,
+                                            wheelNumber,
+                                            parent)
+            else:
+                # The item exists already, so just update it with new
+                # values.
+                degree = planet.geocentric['sidereal']['longitude']
+                velocity = planet.geocentric['sidereal']['longitude_speed']
+                
+                radixPlanetGraphicsItem.setDegreeAndVelocity(degree, velocity)
+
+
+            # Geocentric Tropical.
+            radixPlanetGraphicsItem = \
+                self.geoTropRadixChartGraphicsItem.\
+                getRadixPlanetGraphicsItem(planet.name, wheelNumber)
+            if radixPlanetGraphicsItem == None:
+                # No RadixPlanetGraphicsItem exists for this planet yet,
+                # so create it.
+
+                # Get all the info needed to create it.
+                glyph = \
+                    AstrologyUtils.getGlyphForPlanetName(planet.name)
+                fontSize = \
+                    AstrologyUtils.getGlyphFontSizeForPlanetName(planet.name)
+                abbrev = \
+                    AstrologyUtils.getAbbreviationForPlanetName(planet.name)
+                foregroundColor = \
+                    AstrologyUtils.getForegroundColorForPlanetName(planet.name)
+                backgroundColor = \
+                    AstrologyUtils.getBackgroundColorForPlanetName(planet.name)
+                degree = planet.geocentric['tropical']['longitude']
+                velocity = planet.geocentric['tropical']['longitude_speed']
+                parent = self.geoTropRadixChartGraphicsItem
+
+                # Create the RadixPlanetGraphicsItem.
+                radixPlanetGraphicsItem = \
+                    RadixPlanetGraphicsItem(planet.name,
+                                            glyph,
+                                            fontSize,
+                                            abbrev,
+                                            foregroundColor,
+                                            backgroundColor,
+                                            degree,
+                                            velocity,
+                                            wheelNumber,
+                                            parent)
+            else:
+                # The item exists already, so just update it with new
+                # values.
+                degree = planet.geocentric['tropical']['longitude']
+                velocity = planet.geocentric['tropical']['longitude_speed']
+                
+                radixPlanetGraphicsItem.setDegreeAndVelocity(degree, velocity)
+
+            # Heliocentric Sidereal.
+            radixPlanetGraphicsItem = \
+                self.helioSidRadixChartGraphicsItem.\
+                getRadixPlanetGraphicsItem(planet.name, wheelNumber)
+            if radixPlanetGraphicsItem == None:
+                # No RadixPlanetGraphicsItem exists for this planet yet,
+                # so create it.
+
+                # Get all the info needed to create it.
+                glyph = \
+                    AstrologyUtils.getGlyphForPlanetName(planet.name)
+                fontSize = \
+                    AstrologyUtils.getGlyphFontSizeForPlanetName(planet.name)
+                abbrev = \
+                    AstrologyUtils.getAbbreviationForPlanetName(planet.name)
+                foregroundColor = \
+                    AstrologyUtils.getForegroundColorForPlanetName(planet.name)
+                backgroundColor = \
+                    AstrologyUtils.getBackgroundColorForPlanetName(planet.name)
+                degree = planet.heliocentric['sidereal']['longitude']
+                velocity = planet.heliocentric['sidereal']['longitude_speed']
+                parent = self.helioSidRadixChartGraphicsItem
+
+                # Create the RadixPlanetGraphicsItem.
+                radixPlanetGraphicsItem = \
+                    RadixPlanetGraphicsItem(planet.name,
+                                            glyph,
+                                            fontSize,
+                                            abbrev,
+                                            foregroundColor,
+                                            backgroundColor,
+                                            degree,
+                                            velocity,
+                                            wheelNumber,
+                                            parent)
+            else:
+                # The item exists already, so just update it with new
+                # values.
+                degree = planet.heliocentric['sidereal']['longitude']
+                velocity = planet.heliocentric['sidereal']['longitude_speed']
+                
+                radixPlanetGraphicsItem.setDegreeAndVelocity(degree, velocity)
+
+            
     def setAstroChart1Datetime(self, dt):
         """Sets the datetime of astrology chart 1 within the radix chart.
 
@@ -3023,8 +4019,22 @@ class AstrologyChartWidget(QWidget):
         dt - datetime.datetime object holding the new timestamp.
         """
 
-        # TODO:  write this function.
-        pass
+        chartNum = 1
+
+        # Save the datetime used.
+        self.astroChart1Datetime = dt
+
+        # Set the label that shows what datetime is used for this
+        # chart.
+        #
+        # Need to use the Ephemeris.datetimeToStr() below because
+        # datetime.strftime() datetime.strftime() does not work on
+        # years less than 1900.
+        self.astroChart1DatetimeLabelWidget.\
+            setText(Ephemeris.datetimeToStr(self.astroChart1Datetime))
+
+        # Update the rest of the astro widgets.
+        self.setAstroChartXDatetime(chartNum, dt)
     
     def setAstroChart2Datetime(self, dt):
         """Sets the datetime of astrology chart 2 within the radix chart.
@@ -3033,8 +4043,22 @@ class AstrologyChartWidget(QWidget):
         dt - datetime.datetime object holding the new timestamp.
         """
         
-        # TODO:  write this function.
-        pass
+        chartNum = 2
+
+        # Save the datetime used.
+        self.astroChart2Datetime = dt
+        
+        # Set the label that shows what datetime is used for this
+        # chart.
+        #
+        # Need to use the Ephemeris.datetimeToStr() below because
+        # datetime.strftime() datetime.strftime() does not work on
+        # years less than 1900.
+        self.astroChart2DatetimeLabelWidget.\
+            setText(Ephemeris.datetimeToStr(self.astroChart2Datetime))
+
+        # Update the rest of the astro widgets.
+        self.setAstroChartXDatetime(chartNum, dt)
     
     def setAstroChart3Datetime(self, dt):
         """Sets the datetime of astrology chart 3 within the radix chart.
@@ -3043,9 +4067,23 @@ class AstrologyChartWidget(QWidget):
         dt - datetime.datetime object holding the new timestamp.
         """
         
-        # TODO:  write this function.
-        pass
-    
+        chartNum = 3
+
+        # Save the datetime used.
+        self.astroChart3Datetime = dt
+
+        # Set the label that shows what datetime is used for this
+        # chart.
+        #
+        # Need to use the Ephemeris.datetimeToStr() below because
+        # datetime.strftime() datetime.strftime() does not work on
+        # years less than 1900.
+        self.astroChart3DatetimeLabelWidget.\
+            setText(Ephemeris.datetimeToStr(self.astroChart3Datetime))
+
+        # Update the rest of the astro widgets.
+        self.setAstroChartXDatetime(chartNum, dt)
+
 
 def testSiderealRadixChartGraphicsItem():
     print("Running " + inspect.stack()[0][3] + "()")
@@ -3112,7 +4150,8 @@ def testRadixPlanetGraphicsItem():
     scene.addItem(chartItem)
 
     jupiter = \
-        RadixPlanetGraphicsItem(SettingsKeys.planetJupiterGlyphUnicodeDefValue,
+        RadixPlanetGraphicsItem("Jupiter",
+                                SettingsKeys.planetJupiterGlyphUnicodeDefValue,
                                 SettingsKeys.planetJupiterGlyphFontSizeDefValue,
                                 SettingsKeys.planetJupiterAbbreviationDefValue,
                                 SettingsKeys.planetJupiterForegroundColorDefValue,
@@ -3122,7 +4161,8 @@ def testRadixPlanetGraphicsItem():
                                 wheelNumber=1,
                                 parent=chartItem)
     venus = \
-        RadixPlanetGraphicsItem(SettingsKeys.planetVenusGlyphUnicodeDefValue,
+        RadixPlanetGraphicsItem("Venus",
+                                SettingsKeys.planetVenusGlyphUnicodeDefValue,
                                 SettingsKeys.planetVenusGlyphFontSizeDefValue,
                                 SettingsKeys.planetVenusAbbreviationDefValue,
                                 QColor(Qt.red),
@@ -3207,6 +4247,7 @@ def testPlanetDeclinationGraphicsItem():
 
     moon = \
         PlanetDeclinationGraphicsItem(
+        "Moon",
         SettingsKeys.planetMoonGlyphUnicodeDefValue,
         SettingsKeys.planetMoonGlyphFontSizeDefValue,
         SettingsKeys.planetMoonAbbreviationDefValue,
@@ -3214,11 +4255,12 @@ def testPlanetDeclinationGraphicsItem():
         SettingsKeys.planetMoonBackgroundColorDefValue,
         degree=17.56,
         velocity=2.0,
-        planetGroupNumber=0,
+        planetGroupNumber=1,
         parent=chartItem)
     
     mercury = \
         PlanetDeclinationGraphicsItem(
+        "Mercury",
         SettingsKeys.planetMercuryGlyphUnicodeDefValue,
         SettingsKeys.planetMercuryGlyphFontSizeDefValue,
         SettingsKeys.planetMercuryAbbreviationDefValue,
@@ -3226,11 +4268,12 @@ def testPlanetDeclinationGraphicsItem():
         SettingsKeys.planetMercuryBackgroundColorDefValue,
         degree=5.2,
         velocity=-2.0,
-        planetGroupNumber=0,
+        planetGroupNumber=1,
         parent=chartItem)
 
     jupiter = \
         PlanetDeclinationGraphicsItem(
+        "Jupiter",
         SettingsKeys.planetJupiterGlyphUnicodeDefValue,
         SettingsKeys.planetJupiterGlyphFontSizeDefValue,
         SettingsKeys.planetJupiterAbbreviationDefValue,
@@ -3238,11 +4281,12 @@ def testPlanetDeclinationGraphicsItem():
         SettingsKeys.planetJupiterBackgroundColorDefValue,
         degree=-8.0,
         velocity=3.0,
-        planetGroupNumber=0,
+        planetGroupNumber=1,
         parent=chartItem)
 
     moon = \
         PlanetDeclinationGraphicsItem(
+        "Moon",
         SettingsKeys.planetMoonGlyphUnicodeDefValue,
         SettingsKeys.planetMoonGlyphFontSizeDefValue,
         SettingsKeys.planetMoonAbbreviationDefValue,
@@ -3250,11 +4294,12 @@ def testPlanetDeclinationGraphicsItem():
         SettingsKeys.planetMoonBackgroundColorDefValue,
         degree=5,
         velocity=2.0,
-        planetGroupNumber=1,
+        planetGroupNumber=2,
         parent=chartItem)
     
     mercury = \
         PlanetDeclinationGraphicsItem(
+        "Mercury",
         SettingsKeys.planetMercuryGlyphUnicodeDefValue,
         SettingsKeys.planetMercuryGlyphFontSizeDefValue,
         SettingsKeys.planetMercuryAbbreviationDefValue,
@@ -3262,11 +4307,12 @@ def testPlanetDeclinationGraphicsItem():
         SettingsKeys.planetMercuryBackgroundColorDefValue,
         degree=-9.2,
         velocity=-2.0,
-        planetGroupNumber=1,
+        planetGroupNumber=2,
         parent=chartItem)
 
     jupiter = \
         PlanetDeclinationGraphicsItem(
+        "Jupiter",
         SettingsKeys.planetJupiterGlyphUnicodeDefValue,
         SettingsKeys.planetJupiterGlyphFontSizeDefValue,
         SettingsKeys.planetJupiterAbbreviationDefValue,
@@ -3274,7 +4320,7 @@ def testPlanetDeclinationGraphicsItem():
         SettingsKeys.planetJupiterBackgroundColorDefValue,
         degree=7.0,
         velocity=3.0,
-        planetGroupNumber=1,
+        planetGroupNumber=2,
         parent=chartItem)
     
     layout = QVBoxLayout()
@@ -3620,6 +4666,13 @@ if __name__=="__main__":
     # Create the Qt application.
     app = QApplication(sys.argv)
 
+    # Set application details so the we can use QSettings default
+    # constructor later.
+    appAuthor = "Ryan Luu"
+    appName = "PriceChartingTool"
+    QCoreApplication.setOrganizationName(appAuthor)
+    QCoreApplication.setApplicationName(appName)
+        
     # Various tests to run:
     #testSiderealRadixChartGraphicsItem()
     #testRadixPlanetGraphicsItem()

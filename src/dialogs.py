@@ -2320,6 +2320,84 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetMandiBackgroundColorLabel,
                    self.planetMandiBackgroundColorEditButton)
 
+        # MeanOfFive
+        self.planetMeanOfFiveGlyphUnicodeLabel = \
+            QLabel("MeanOfFive unicode glyph:")
+        self.planetMeanOfFiveGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMeanOfFiveGlyphUnicodeLabel,
+                   self.planetMeanOfFiveGlyphUnicodeLineEdit)
+        self.planetMeanOfFiveGlyphFontSizeLabel = \
+            QLabel("MeanOfFive glyph font size:")
+        self.planetMeanOfFiveGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetMeanOfFiveGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetMeanOfFiveGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetMeanOfFiveGlyphFontSizeLabel,
+                   self.planetMeanOfFiveGlyphFontSizeSpinBox)
+        self.planetMeanOfFiveAbbreviationLabel = \
+            QLabel("MeanOfFive abbreviation:")
+        self.planetMeanOfFiveAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMeanOfFiveAbbreviationLabel,
+                   self.planetMeanOfFiveAbbreviationLineEdit)
+        self.planetMeanOfFiveForegroundColorLabel = \
+            QLabel("MeanOfFive foreground color:")
+        self.planetMeanOfFiveForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMeanOfFiveForegroundColorLabel,
+                   self.planetMeanOfFiveForegroundColorEditButton)
+        self.planetMeanOfFiveBackgroundColorLabel = \
+            QLabel("MeanOfFive background color:")
+        self.planetMeanOfFiveBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMeanOfFiveBackgroundColorLabel,
+                   self.planetMeanOfFiveBackgroundColorEditButton)
+
+        # CycleOfEight
+        self.planetCycleOfEightGlyphUnicodeLabel = \
+            QLabel("CycleOfEight unicode glyph:")
+        self.planetCycleOfEightGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetCycleOfEightGlyphUnicodeLabel,
+                   self.planetCycleOfEightGlyphUnicodeLineEdit)
+        self.planetCycleOfEightGlyphFontSizeLabel = \
+            QLabel("CycleOfEight glyph font size:")
+        self.planetCycleOfEightGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetCycleOfEightGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetCycleOfEightGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetCycleOfEightGlyphFontSizeLabel,
+                   self.planetCycleOfEightGlyphFontSizeSpinBox)
+        self.planetCycleOfEightAbbreviationLabel = \
+            QLabel("CycleOfEight abbreviation:")
+        self.planetCycleOfEightAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetCycleOfEightAbbreviationLabel,
+                   self.planetCycleOfEightAbbreviationLineEdit)
+        self.planetCycleOfEightForegroundColorLabel = \
+            QLabel("CycleOfEight foreground color:")
+        self.planetCycleOfEightForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetCycleOfEightForegroundColorLabel,
+                   self.planetCycleOfEightForegroundColorEditButton)
+        self.planetCycleOfEightBackgroundColorLabel = \
+            QLabel("CycleOfEight background color:")
+        self.planetCycleOfEightBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetCycleOfEightBackgroundColorLabel,
+                   self.planetCycleOfEightBackgroundColorEditButton)
+
 
         # Label to tell the user that not all settings will be applied
         # on existing windows when the 'Okay' button is pressed.
@@ -4046,6 +4124,68 @@ class AppPreferencesEditWidget(QWidget):
         value = QColor(settings.value(key, \
             SettingsKeys.planetMandiBackgroundColorDefValue))
         self.planetMandiBackgroundColorEditButton.\
+            setColor(value)
+
+        # MeanOfFive
+        key = SettingsKeys.planetMeanOfFiveGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetMeanOfFiveGlyphUnicodeDefValue))
+        self.planetMeanOfFiveGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMeanOfFiveGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetMeanOfFiveGlyphFontSizeDefValue))
+        self.planetMeanOfFiveGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetMeanOfFiveAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetMeanOfFiveAbbreviationDefValue))
+        self.planetMeanOfFiveAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMeanOfFiveForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetMeanOfFiveForegroundColorDefValue))
+        self.planetMeanOfFiveForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetMeanOfFiveBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetMeanOfFiveBackgroundColorDefValue))
+        self.planetMeanOfFiveBackgroundColorEditButton.\
+            setColor(value)
+
+        # CycleOfEight
+        key = SettingsKeys.planetCycleOfEightGlyphUnicodeKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetCycleOfEightGlyphUnicodeDefValue))
+        self.planetCycleOfEightGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetCycleOfEightGlyphFontSizeKey
+        value = float(settings.value(key, \
+            SettingsKeys.planetCycleOfEightGlyphFontSizeDefValue))
+        self.planetCycleOfEightGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetCycleOfEightAbbreviationKey
+        value = str(settings.value(key, \
+            SettingsKeys.planetCycleOfEightAbbreviationDefValue))
+        self.planetCycleOfEightAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetCycleOfEightForegroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetCycleOfEightForegroundColorDefValue))
+        self.planetCycleOfEightForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetCycleOfEightBackgroundColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.planetCycleOfEightBackgroundColorDefValue))
+        self.planetCycleOfEightBackgroundColorEditButton.\
             setColor(value)
 
 
@@ -5924,6 +6064,108 @@ class AppPreferencesEditWidget(QWidget):
         else:
             settings.setValue(key, newValue)
 
+        # MeanOfFive
+        key = SettingsKeys.planetMeanOfFiveGlyphUnicodeKey
+        newValue = \
+            self.planetMeanOfFiveGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeanOfFiveGlyphFontSizeKey
+        newValue = \
+            self.planetMeanOfFiveGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeanOfFiveAbbreviationKey
+        newValue = \
+            self.planetMeanOfFiveAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeanOfFiveForegroundColorKey
+        newValue = \
+            self.planetMeanOfFiveForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeanOfFiveBackgroundColorKey
+        newValue = \
+            self.planetMeanOfFiveBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # CycleOfEight
+        key = SettingsKeys.planetCycleOfEightGlyphUnicodeKey
+        newValue = \
+            self.planetCycleOfEightGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetCycleOfEightGlyphFontSizeKey
+        newValue = \
+            self.planetCycleOfEightGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetCycleOfEightAbbreviationKey
+        newValue = \
+            self.planetCycleOfEightAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = str(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetCycleOfEightForegroundColorKey
+        newValue = \
+            self.planetCycleOfEightForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetCycleOfEightBackgroundColorKey
+        newValue = \
+            self.planetCycleOfEightBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
 
     def _nonPlanetSymbolSaveValuesToSettings(self):
         """Saves the values in the widgets to the QSettings object.
@@ -7345,6 +7587,30 @@ class AppPreferencesEditWidget(QWidget):
             setColor(SettingsKeys.planetMandiForegroundColorDefValue)
         self.planetMandiBackgroundColorEditButton.\
             setColor(SettingsKeys.planetMandiBackgroundColorDefValue)
+
+        # MeanOfFive
+        self.planetMeanOfFiveGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetMeanOfFiveGlyphUnicodeDefValue)
+        self.planetMeanOfFiveGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetMeanOfFiveGlyphFontSizeDefValue)
+        self.planetMeanOfFiveAbbreviationLineEdit.\
+            setText(SettingsKeys.planetMeanOfFiveAbbreviationDefValue)
+        self.planetMeanOfFiveForegroundColorEditButton.\
+            setColor(SettingsKeys.planetMeanOfFiveForegroundColorDefValue)
+        self.planetMeanOfFiveBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetMeanOfFiveBackgroundColorDefValue)
+
+        # CycleOfEight
+        self.planetCycleOfEightGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetCycleOfEightGlyphUnicodeDefValue)
+        self.planetCycleOfEightGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetCycleOfEightGlyphFontSizeDefValue)
+        self.planetCycleOfEightAbbreviationLineEdit.\
+            setText(SettingsKeys.planetCycleOfEightAbbreviationDefValue)
+        self.planetCycleOfEightForegroundColorEditButton.\
+            setColor(SettingsKeys.planetCycleOfEightForegroundColorDefValue)
+        self.planetCycleOfEightBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetCycleOfEightBackgroundColorDefValue)
 
     def _handleNonPlanetSymbolResetAllToDefaultButtonClicked(self):
         """Called when the nonPlanetSymbolResetAllToDefaultButton is clicked
