@@ -1013,6 +1013,7 @@ class MainWindow(QMainWindow):
             if dialog.exec_() == QDialog.Accepted:
                 self.log.debug("BirthInfoEditDialog accepted.  Data is: " + \
                                dialog.getBirthInfo().toString())
+                birthInfo = dialog.getBirthInfo()
                 priceChartDocument.setBirthInfo(birthInfo)
             else:
                 self.log.debug("BirthInfoEditDialog rejected.  " + \

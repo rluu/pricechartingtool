@@ -2788,7 +2788,12 @@ class AstrologyChartWidget(QWidget):
         self.declinationChart2.setScale(0.8)
         self.declinationChart3 = DeclinationChartGraphicsItem()
         self.declinationChart3.setScale(0.8)
-    
+
+        # TODO: add these widgets for longitude speeds...?  Maybe it's not the effort right now?
+        self.longitudeSpeedChart1Mercury = \
+            LongitudeSpeedChartGraphicsItem(maxSpeed=16.0,
+                                                minSpeed=-5.0)
+
         # Create a label for the location.
         locationString = \
             self.birthInfo.locationName + "(" + \
