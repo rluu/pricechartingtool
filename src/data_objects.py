@@ -702,6 +702,68 @@ class PriceBarChartBarCountArtifact(PriceBarChartArtifact):
 
         return rv
         
+class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
+    """PriceBarChartArtifact that indicates the time measurement starting 
+    at the given PriceBar timestamp and the given Y offset from the 
+    center of the bar.
+    """
+    
+    def __init__(self):
+        super().__init__()
+        
+        # Update the internal name so it is the artifact type plus the uuid.
+        self.internalName = "TimeMeasurement_" + str(self.uuid)
+
+        # Start and end points of the artifact.
+        self.startPointF = QPointF()
+        self.endPointF = QPointF()
+
+    def setStartPointF(self, startPointF):
+        """Stores the starting point of the BarCountArtifact.
+        Arguments:
+
+        startPointF - QPointF for the starting point of the artifact.
+        """
+        
+        self.startPointF = startPointF
+        
+    def getStartPointF(self):
+        """Returns the starting point of the BarCountArtifact."""
+        
+        return self.startPointF
+        
+    def setEndPointF(self, endPointF):
+        """Stores the ending point of the BarCountArtifact.
+        Arguments:
+
+        endPointF - QPointF for the ending point of the artifact.
+        """
+        
+        self.endPointF = endPointF
+        
+    def getEndPointF(self):
+        """Returns the ending point of the BarCountArtifact."""
+        
+        return self.endPointF
+        
+    def __str__(self):
+        """Returns the string representation of this object."""
+
+        return self.toString()
+
+    def toString(self):
+        """Returns the string representation of this object."""
+
+        rv = "[name={}, ".format(self.getInternalName()) + \
+             "pos=({}, {}), ".format(self.getPos().x(), self.getPos().y()) + \
+             "startPointF=({}, {}), ".format(self.getStartPointF().x(),
+                                             self.getStartPointF().y()) + \
+             "endPointF=({}, {}), ".format(self.getEndPointF().x(),
+                                           self.getEndPointF().y()) + \
+             "]"
+
+        return rv
+        
 class PriceBarChartScaling:
     """Class that holds information about the scaling of a PriceBarChart.
     """
@@ -1070,6 +1132,18 @@ class PriceBarChartSettings:
     # Default value for the BarCountGraphicsItem text Y scaling (float).
     defaultBarCountGraphicsItemTextYScaling = 0.2
 
+    # Default value for the TimeMeasurementGraphicsItem bar height (float).
+    defaultTimeMeasurementGraphicsItemBarHeight = 0.2
+
+    # Default value for the TimeMeasurementGraphicsItem font size (float).
+    defaultTimeMeasurementGraphicsItemFontSize = 1.20
+
+    # Default value for the TimeMeasurementGraphicsItem text X scaling (float).
+    defaultTimeMeasurementGraphicsItemTextXScaling = 1
+
+    # Default value for the TimeMeasurementGraphicsItem text Y scaling (float).
+    defaultTimeMeasurementGraphicsItemTextYScaling = 0.2
+
 
     def __init__(self):
         """"Initializes the PriceChartSettings to default values."""
@@ -1127,6 +1201,28 @@ class PriceBarChartSettings:
             PriceBarChartSettings.\
                 defaultBarCountGraphicsItemTextYScaling
 
+        # TimeMeasurementGraphicsItem bar height (float).
+        self.timeMeasurementGraphicsItemBarHeight = \
+            PriceBarChartSettings.\
+                defaultTimeMeasurementGraphicsItemBarHeight
+
+        # TimeMeasurementGraphicsItem font size (float).
+        self.timeMeasurementGraphicsItemFontSize = \
+            PriceBarChartSettings.\
+                defaultTimeMeasurementGraphicsItemFontSize
+
+        # TimeMeasurementGraphicsItem text X scaling (float).
+        self.timeMeasurementGraphicsItemTextXScaling = \
+            PriceBarChartSettings.\
+                defaultTimeMeasurementGraphicsItemTextXScaling
+
+        # TimeMeasurementGraphicsItem text Y scaling (float).
+        self.timeMeasurementGraphicsItemTextYScaling = \
+            PriceBarChartSettings.\
+                defaultTimeMeasurementGraphicsItemTextYScaling
+
+
+
     def __getstate__(self):
         """Returns the object's state for pickling purposes."""
 
@@ -1180,6 +1276,14 @@ class PriceBarChartSettings:
                     format(self.barCountGraphicsItemTextXScaling) + \
                 "barCountGraphicsItemTextYScaling={}".\
                     format(self.barCountGraphicsItemTextYScaling) + \
+                "timeMeasurementGraphicsItemBarHeight={}, ".\
+                    format(self.timeMeasurementGraphicsItemBarHeight) + \
+                "timeMeasurementGraphicsItemFontSize={}, ".\
+                    format(self.timeMeasurementGraphicsItemFontSize) + \
+                "timeMeasurementGraphicsItemTextXScaling={}, ".\
+                    format(self.timeMeasurementGraphicsItemTextXScaling) + \
+                "timeMeasurementGraphicsItemTextYScaling={}".\
+                    format(self.timeMeasurementGraphicsItemTextYScaling) + \
                 "]"
 
 

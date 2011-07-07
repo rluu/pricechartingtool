@@ -97,9 +97,14 @@ class GeoNames:
 
         except urllib.error.URLError as e:
             GeoNames.log.error("Couldn't open the URL due to the " + \
-                               "following reason: " + str(e.reason))
+                               "following URLError: " + str(e))
             retVal = False
-
+            
+        except urllib.error.HTTPError as e:
+            GeoNames.log.error("Couldn't open the URL due to the " + \
+                               "following HTTPError: " + str(e))
+            retVal = False
+            
         return retVal
 
 

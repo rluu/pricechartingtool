@@ -244,6 +244,13 @@ class MainWindow(QMainWindow):
         self.barCountToolAction.setStatusTip("Bar Count Tool")
         self.barCountToolAction.setCheckable(True)
 
+        # Create the TimeMeasurementToolAction
+        icon = QIcon()
+        self.timeMeasurementToolAction = \
+            QAction(icon, "Time Measurement Tool", self)
+        self.timeMeasurementToolAction.setStatusTip("Time Measurement Tool")
+        self.timeMeasurementToolAction.setCheckable(True)
+
         # Create a QActionGroup because all these tool modes should be
         # exclusive.  
         self.toolActionGroup = QActionGroup(self)
@@ -254,6 +261,7 @@ class MainWindow(QMainWindow):
         self.toolActionGroup.addAction(self.zoomInToolAction)
         self.toolActionGroup.addAction(self.zoomOutToolAction)
         self.toolActionGroup.addAction(self.barCountToolAction)
+        self.toolActionGroup.addAction(self.timeMeasurementToolAction)
         self.toolActionGroup.triggered.connect(self._toolsActionTriggered)
             
         # Default to the ReadOnlyPointerTool being checked by default.
@@ -356,6 +364,7 @@ class MainWindow(QMainWindow):
         self.toolsMenu.addAction(self.zoomInToolAction)
         self.toolsMenu.addAction(self.zoomOutToolAction)
         self.toolsMenu.addAction(self.barCountToolAction)
+        self.toolsMenu.addAction(self.timeMeasurementToolAction)
 
         # Create the Window menu.
         self.windowMenu = self.menuBar().addMenu("&Window")
@@ -401,6 +410,7 @@ class MainWindow(QMainWindow):
         self.toolsToolBar.addAction(self.zoomInToolAction)
         self.toolsToolBar.addAction(self.zoomOutToolAction)
         self.toolsToolBar.addAction(self.barCountToolAction)
+        self.toolsToolBar.addAction(self.timeMeasurementToolAction)
 
     def _createStatusBar(self):
         """Creates the QStatusBar by showing the message "Ready"."""
@@ -450,6 +460,7 @@ class MainWindow(QMainWindow):
         self.zoomInToolAction.setEnabled(isActive)
         self.zoomOutToolAction.setEnabled(isActive)
         self.barCountToolAction.setEnabled(isActive)
+        self.timeMeasurementToolAction.setEnabled(isActive)
 
         self.closeChartAction.setEnabled(isActive)
         self.closeAllChartsAction.setEnabled(isActive)
@@ -476,6 +487,8 @@ class MainWindow(QMainWindow):
                 priceChartDocument.toZoomOutToolMode()
             elif self.barCountToolAction.isChecked():
                 priceChartDocument.toBarCountToolMode()
+            elif self.timeMeasurementToolAction.isChecked():
+                priceChartDocument.toTimeMeasurementToolMode()
             else:
                 self.log.warn("No ToolMode QAction is currently selected!")
 
@@ -1217,6 +1230,9 @@ class MainWindow(QMainWindow):
         elif qaction == self.barCountToolAction:
             self.log.debug("barCountToolAction triggered.")
             pcd.toBarCountToolMode()
+        elif qaction == self.timeMeasurementToolAction:
+            self.log.debug("timeMeasurementToolAction triggered.")
+            pcd.toTimeMeasurementToolMode()
         else:
             self.log.warn("Unknown Tools QAction selected!  " + \
                 "There might be something wrong with the code, or " + \
@@ -1918,6 +1934,11 @@ class PriceChartDocument(QMdiSubWindow):
 
         self.widgets.toBarCountToolMode()
 
+    def toTimeMeasurementToolMode(self):
+        """Changes the tool mode to be the TimeMeasurementTool."""
+
+        self.widgets.toTimeMeasurementToolMode()
+
     def _handlePriceChartDocumentWidgetChanged(self):
         """Slot for when the PriceBarDocumentWidget emits a signal to say
         that the widget(s) changed.  This means the document should be
@@ -2170,6 +2191,11 @@ class PriceChartDocumentWidget(QWidget):
         """Changes the tool mode to be the BarCountTool."""
 
         self.priceBarChartWidget.toBarCountToolMode()
+
+    def toTimeMeasurementToolMode(self):
+        """Changes the tool mode to be the TimeMeasurementTool."""
+
+        self.priceBarChartWidget.toTimeMeasurementToolMode()
 
     def _handleWidgetChanged(self):
         """Handles when the internal widget has some kind of change

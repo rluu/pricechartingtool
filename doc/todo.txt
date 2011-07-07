@@ -51,6 +51,39 @@ DONE
 DONE  - Bug: BirthInfoEditWidget doesn't set (retain) the BirthInfo when
 DONE    editing the BirthInfo of a PriceChartDocument.  Investigate why.
 
+#  - Time measurement ruler.  (Draggable ends and middle).  Ruler shows
+#    number of TDs, CDs, and weeks.  Hovering over it shows info about
+#    those TDs, CDs, weeks, as well as start and end date and time.  -
+#    Edit dialog for this to edit the start and end datetime or
+#    coordinate.
+
+  - Text graphics item (and artifact)
+
+  - Modal scales ruler (draggable ends and middle).  
+      - Edit dialog for this to edit the start and end datetime or coordinate.
+      - Selection for changing the mode
+           - Via right-click menu.
+           - Via pressing 1 - 7 (8 is do again)
+           - Reversal via pressing 'r'.
+            
+
+  - Inverted modal scale ruler (draggable ends and middle).  
+      - Same edit dialog as the modal scales ruler.
+
+  - Ruler for Vimsottari dasa (draggable ends and middle).
+      - Dialog to edit start and end datetime.
+      - Option to modify lifespan (i.e. timerange).
+
+  - PTV (Price-Time-Vector).
+
+  - Modal charts (implement later?):
+      Chart with pricebars in Trading Days (TDs).
+      Chart with pricebars in Calendar Days (CDs).
+
+  - Narayana Dasa  --> How to implement this?
+
+  - QGraphicsItem for text on a PriceBarChart.
+
   - In the astrologychart.SiderealRadixGraphicsItem, clean up the
     code.  Parameterize the pen/brush so that it has foreground color
     for things, background for things and so that the
