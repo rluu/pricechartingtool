@@ -1,0 +1,45 @@
+------------------------
+Running testMinMaxPlanetLongitudeSpeeds()
+    FINAL: maxSpeed of Mercury is: 2.20247915641
+    FINAL: minSpeed of Mercury is: -1.38648011915
+    FINAL: maxSpeed of Venus is: 1.25885851698
+    FINAL: minSpeed of Venus is: -0.631105994856
+    FINAL: maxSpeed of Mars is: 0.791337340289
+    FINAL: minSpeed of Mars is: -0.400655987562
+    FINAL: maxSpeed of Jupiter is: 0.242476279714
+    FINAL: minSpeed of Jupiter is: -0.13658191218
+    FINAL: maxSpeed of Saturn is: 0.130369662001
+    FINAL: minSpeed of Saturn is: -0.0828733240411
+    FINAL: maxSpeed of Uranus is: 0.063236066386
+    FINAL: minSpeed of Uranus is: -0.0439273105247
+    FINAL: maxSpeed of Neptune is: 0.0380502077148
+    FINAL: minSpeed of Neptune is: -0.0283865987199
+    FINAL: maxSpeed of Pluto is: 0.040535459208
+    FINAL: minSpeed of Pluto is: -0.0282905050242
+    FINAL: maxSpeed of Mean North Node is: 0
+    FINAL: minSpeed of Mean North Node is: -0.0529539539963
+    FINAL: maxSpeed of True North Node is: 0.0583335323306
+    FINAL: minSpeed of True North Node is: -0.25912214133
+    FINAL: maxSpeed of Mean Lunar Apogee is: 0.112068469719
+    FINAL: minSpeed of Mean Lunar Apogee is: 0
+    FINAL: maxSpeed of Osculating Lunar Apogee is: 6.34870367365
+    FINAL: minSpeed of Osculating Lunar Apogee is: -3.61864664224
+    FINAL: maxSpeed of Interpolated Lunar Apogee is: 0.236734866594
+    FINAL: minSpeed of Interpolated Lunar Apogee is: -0.148972388849
+    FINAL: maxSpeed of Interpolated Lunar Perigee is: 0.577564192133
+    FINAL: minSpeed of Interpolated Lunar Perigee is: -2.26866537946
+    FINAL: maxSpeed of Earth is: 0
+    FINAL: minSpeed of Earth is: 0
+    FINAL: maxSpeed of Chiron is: 0.145963623727
+    FINAL: minSpeed of Chiron is: -0.0794572071859
+    FINAL: maxSpeed of Pholus is: 0.0657475495548
+    FINAL: minSpeed of Pholus is: -0.0478856503721
+    FINAL: maxSpeed of Ceres is: 0.460418804451
+    FINAL: minSpeed of Ceres is: -0.238025771402
+    FINAL: maxSpeed of Pallas is: 0.598055034244
+    FINAL: minSpeed of Pallas is: -0.342833713135
+    FINAL: maxSpeed of Juno is: 0.597557822666
+    FINAL: minSpeed of Juno is: -0.260653543849
+    FINAL: maxSpeed of Vesta is: 0.541960483784
+    FINAL: minSpeed of Vesta is: -0.265968505255
+Exiting.
