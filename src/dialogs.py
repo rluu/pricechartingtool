@@ -1318,6 +1318,10 @@ class AppPreferencesEditWidget(QWidget):
             connect(self._handleTimeMeasurementGraphicsItemColorResetButtonClicked)
         self.timeMeasurementGraphicsItemTextColorResetButton.clicked.\
             connect(self._handleTimeMeasurementGraphicsItemTextColorResetButtonClicked)
+        self.modalScaleGraphicsItemColorResetButton.clicked.\
+            connect(self._handleModalScaleGraphicsItemColorResetButtonClicked)
+        self.modalScaleGraphicsItemTextColorResetButton.clicked.\
+            connect(self._handleModalScaleGraphicsItemTextColorResetButtonClicked)
 
         # Button at bottom to reset to defaults.
         self.priceBarResetAllToDefaultButton.clicked.\
@@ -1391,6 +1395,21 @@ class AppPreferencesEditWidget(QWidget):
         self.timeMeasurementGraphicsItemTextColorResetButton = \
             QPushButton("Reset to default")
         
+        # PriceBarChart modalScaleGraphicsItemColor (QColor object).
+        self.modalScaleGraphicsItemColorLabel = \
+            QLabel("ModalScaleGraphicsItem color: ")
+        self.modalScaleGraphicsItemColorEditButton = ColorEditPushButton()
+        self.modalScaleGraphicsItemColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # PriceBarChart modalScaleGraphicsItemTextColor (QColor object).
+        self.modalScaleGraphicsItemTextColorLabel = \
+            QLabel("ModalScaleGraphicsItem text color: ")
+        self.modalScaleGraphicsItemTextColorEditButton = \
+            ColorEditPushButton()
+        self.modalScaleGraphicsItemTextColorResetButton = \
+            QPushButton("Reset to default")
+        
         # Button for resetting all the above edit widgets.
         self.priceBarResetAllToDefaultButton = \
             QPushButton("Reset all the above to original default values")
@@ -1454,6 +1473,20 @@ class AppPreferencesEditWidget(QWidget):
             addWidget(self.timeMeasurementGraphicsItemTextColorEditButton, r, 1, ar)
         gridLayout.\
             addWidget(self.timeMeasurementGraphicsItemTextColorResetButton, r, 2, ar)
+        r += 1
+        gridLayout.\
+            addWidget(self.modalScaleGraphicsItemColorLabel, r, 0, al)
+        gridLayout.\
+            addWidget(self.modalScaleGraphicsItemColorEditButton, r, 1, ar)
+        gridLayout.\
+            addWidget(self.modalScaleGraphicsItemColorResetButton, r, 2, ar)
+        r += 1
+        gridLayout.\
+            addWidget(self.modalScaleGraphicsItemTextColorLabel, r, 0, al)
+        gridLayout.\
+            addWidget(self.modalScaleGraphicsItemTextColorEditButton, r, 1, ar)
+        gridLayout.\
+            addWidget(self.modalScaleGraphicsItemTextColorResetButton, r, 2, ar)
 
         # Label to tell the user that not all settings will be applied
         # on existing windows when the 'Okay' button is pressed.
@@ -3476,6 +3509,18 @@ class AppPreferencesEditWidget(QWidget):
             SettingsKeys.timeMeasurementGraphicsItemTextColorSettingsDefValue))
         self.timeMeasurementGraphicsItemTextColorEditButton.setColor(value)
 
+        # PriceBarChart modalScaleGraphicsItemColor (QColor object).
+        key = SettingsKeys.modalScaleGraphicsItemColorSettingsKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.modalScaleGraphicsItemColorSettingsDefValue))
+        self.modalScaleGraphicsItemColorEditButton.setColor(value)
+
+        # PriceBarChart modalScaleGraphicsItemTextColor (QColor object).
+        key = SettingsKeys.modalScaleGraphicsItemTextColorSettingsKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.modalScaleGraphicsItemTextColorSettingsDefValue))
+        self.modalScaleGraphicsItemTextColorEditButton.setColor(value)
+
 
     def _planetSymbolLoadValuesFromSettings(self):
         """Loads the widgets with values from the QSettings object.
@@ -4988,6 +5033,26 @@ class AppPreferencesEditWidget(QWidget):
         # PriceBarChart timeMeasurementGraphicsItemTextTextColor (QColor object).
         key = SettingsKeys.timeMeasurementGraphicsItemTextColorSettingsKey
         newValue = self.timeMeasurementGraphicsItemTextColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # PriceBarChart modalScaleGraphicsItemTextColor (QColor object).
+        key = SettingsKeys.modalScaleGraphicsItemColorSettingsKey
+        newValue = self.modalScaleGraphicsItemColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # PriceBarChart modalScaleGraphicsItemTextTextColor (QColor object).
+        key = SettingsKeys.modalScaleGraphicsItemTextColorSettingsKey
+        newValue = self.modalScaleGraphicsItemTextColorEditButton.getColor()
         if settings.contains(key):
             oldValue = QColor(settings.value(key))
             if oldValue != newValue:
@@ -7388,6 +7453,24 @@ class AppPreferencesEditWidget(QWidget):
             SettingsKeys.timeMeasurementGraphicsItemTextColorSettingsDefValue
         self.timeMeasurementGraphicsItemTextColorEditButton.setColor(value)
 
+    def _handleModalScaleGraphicsItemColorResetButtonClicked(self):
+        """Called when the modalScaleGraphicsItemColorResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = SettingsKeys.modalScaleGraphicsItemColorSettingsDefValue
+        self.modalScaleGraphicsItemColorEditButton.setColor(value)
+
+    def _handleModalScaleGraphicsItemTextColorResetButtonClicked(self):
+        """Called when the
+        modalScaleGraphicsItemTextColorResetButton is clicked.
+        Resets the widget value to the default value.
+        """
+
+        value = \
+            SettingsKeys.modalScaleGraphicsItemTextColorSettingsDefValue
+        self.modalScaleGraphicsItemTextColorEditButton.setColor(value)
+
     def _handlePriceBarResetAllToDefaultButtonClicked(self):
         """Called when the priceBarResetAllToDefaultButton is clicked for
         the PriceBar settings.  Resets the all the widget values in this
@@ -7401,6 +7484,8 @@ class AppPreferencesEditWidget(QWidget):
         self._handleBarCountGraphicsItemTextColorResetButtonClicked()
         self._handleTimeMeasurementGraphicsItemColorResetButtonClicked()
         self._handleTimeMeasurementGraphicsItemTextColorResetButtonClicked()
+        self._handleModalScaleGraphicsItemColorResetButtonClicked()
+        self._handleModalScaleGraphicsItemTextColorResetButtonClicked()
 
     def _handlePlanetSymbolResetAllToDefaultButtonClicked(self):
         """Called when the planetSymbolResetAllToDefaultButton is clicked
@@ -10572,6 +10657,11 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.timeMeasurementGraphicsItemGroupBox = \
             QGroupBox("TimeMeasurementGraphicsItem settings:")
 
+        # QGroupBox to hold the edit widgets and form for
+        # ModalScaleGraphicsItem.
+        self.modalScaleGraphicsItemGroupBox = \
+            QGroupBox("ModalScaleGraphicsItem settings:")
+
         # priceBarGraphicsItemPenWidth (float).
         self.priceBarGraphicsItemPenWidthLabel = \
             QLabel("PriceBarGraphicsItem pen width:")
@@ -10669,6 +10759,42 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.timeMeasurementGraphicsItemTextYScalingSpinBox.setMinimum(0.0001)
         self.timeMeasurementGraphicsItemTextYScalingSpinBox.setMaximum(1000.0)
         self.timeMeasurementGraphicsItemTextYScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # modalScaleGraphicsItemBarHeight (float).
+        self.modalScaleGraphicsItemBarHeightLabel = \
+            QLabel("ModalScaleGraphicsItem bar height: ")
+        self.modalScaleGraphicsItemBarHeightSpinBox = QDoubleSpinBox()
+        self.modalScaleGraphicsItemBarHeightSpinBox.setMinimum(0.0)
+        self.modalScaleGraphicsItemBarHeightSpinBox.setMaximum(1000.0)
+        self.modalScaleGraphicsItemBarHeightResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # modalScaleGraphicsItemFontSize (float).
+        self.modalScaleGraphicsItemFontSizeLabel = \
+            QLabel("ModalScaleGraphicsItem font size: ")
+        self.modalScaleGraphicsItemFontSizeSpinBox = QDoubleSpinBox()
+        self.modalScaleGraphicsItemFontSizeSpinBox.setMinimum(0.01)
+        self.modalScaleGraphicsItemFontSizeSpinBox.setMaximum(1000.0)
+        self.modalScaleGraphicsItemFontSizeResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # modalScaleGraphicsItemTextXScaling (float).
+        self.modalScaleGraphicsItemTextXScalingLabel = \
+            QLabel("ModalScaleGraphicsItem text X scaling: ")
+        self.modalScaleGraphicsItemTextXScalingSpinBox = QDoubleSpinBox()
+        self.modalScaleGraphicsItemTextXScalingSpinBox.setMinimum(0.0001)
+        self.modalScaleGraphicsItemTextXScalingSpinBox.setMaximum(1000.0)
+        self.modalScaleGraphicsItemTextXScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # modalScaleGraphicsItemTextYScaling (float).
+        self.modalScaleGraphicsItemTextYScalingLabel = \
+            QLabel("ModalScaleGraphicsItem text Y scaling: ")
+        self.modalScaleGraphicsItemTextYScalingSpinBox = QDoubleSpinBox()
+        self.modalScaleGraphicsItemTextYScalingSpinBox.setMinimum(0.0001)
+        self.modalScaleGraphicsItemTextYScalingSpinBox.setMaximum(1000.0)
+        self.modalScaleGraphicsItemTextYScalingResetButton = \
             QPushButton("Reset to default")
                                              
                                            
@@ -10815,6 +10941,58 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         self.timeMeasurementGraphicsItemGroupBox.setLayout(gridLayout)
         
+        # Form layout.
+        gridLayout = QGridLayout()
+        r = 0
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        gridLayout.\
+            addWidget(self.modalScaleGraphicsItemBarHeightLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.modalScaleGraphicsItemBarHeightSpinBox, 
+                      r, 1, ar)
+        gridLayout.addWidget\
+            (self.modalScaleGraphicsItemBarHeightResetButton, 
+             r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(self.modalScaleGraphicsItemFontSizeLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.modalScaleGraphicsItemFontSizeSpinBox, 
+                      r, 1, ar)
+        gridLayout.addWidget\
+            (self.modalScaleGraphicsItemFontSizeResetButton, 
+             r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(self.modalScaleGraphicsItemTextXScalingLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.modalScaleGraphicsItemTextXScalingSpinBox, 
+                      r, 1, ar)
+        gridLayout.addWidget\
+            (self.modalScaleGraphicsItemTextXScalingResetButton, 
+             r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(self.modalScaleGraphicsItemTextYScalingLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.modalScaleGraphicsItemTextYScalingSpinBox, 
+                      r, 1, ar)
+        gridLayout.addWidget\
+            (self.modalScaleGraphicsItemTextYScalingResetButton, 
+             r, 2, ar)
+        r += 1
+
+        self.modalScaleGraphicsItemGroupBox.setLayout(gridLayout)
+        
         # Buttons at bottom.
         self.resetAllToDefaultButton = \
             QPushButton("Reset all to original default values")
@@ -10831,6 +11009,7 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.mainLayout.addWidget(self.priceBarGraphicsItemGroupBox)
         self.mainLayout.addWidget(self.barCountGraphicsItemGroupBox)
         self.mainLayout.addWidget(self.timeMeasurementGraphicsItemGroupBox)
+        self.mainLayout.addWidget(self.modalScaleGraphicsItemGroupBox)
         self.mainLayout.addSpacing(10)
         self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
 
@@ -10865,6 +11044,14 @@ class PriceBarChartSettingsEditWidget(QWidget):
             connect(self._handleTimeMeasurementGraphicsItemTextXScalingResetButtonClicked)
         self.timeMeasurementGraphicsItemTextYScalingResetButton.clicked.\
             connect(self._handleTimeMeasurementGraphicsItemTextYScalingResetButtonClicked)
+        self.modalScaleGraphicsItemBarHeightResetButton.clicked.\
+            connect(self._handleModalScaleGraphicsItemBarHeightResetButtonClicked)
+        self.modalScaleGraphicsItemFontSizeResetButton.clicked.\
+            connect(self._handleModalScaleGraphicsItemFontSizeResetButtonClicked)
+        self.modalScaleGraphicsItemTextXScalingResetButton.clicked.\
+            connect(self._handleModalScaleGraphicsItemTextXScalingResetButtonClicked)
+        self.modalScaleGraphicsItemTextYScalingResetButton.clicked.\
+            connect(self._handleModalScaleGraphicsItemTextYScalingResetButtonClicked)
 
         self.resetAllToDefaultButton.clicked.\
             connect(self._handleResetAllToDefaultButtonClicked)
@@ -10946,6 +11133,26 @@ class PriceBarChartSettingsEditWidget(QWidget):
             setValue(self.priceBarChartSettings.\
                         timeMeasurementGraphicsItemTextYScaling)
 
+        # modalScaleGraphicsItemBarHeight (float).
+        self.modalScaleGraphicsItemBarHeightSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        modalScaleGraphicsItemBarHeight)
+
+        # modalScaleGraphicsItemFontSize (float).
+        self.modalScaleGraphicsItemFontSizeSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        modalScaleGraphicsItemFontSize)
+
+        # modalScaleGraphicsItemTextXScaling (float).
+        self.modalScaleGraphicsItemTextXScalingSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        modalScaleGraphicsItemTextXScaling)
+
+        # modalScaleGraphicsItemTextYScaling (float).
+        self.modalScaleGraphicsItemTextYScalingSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        modalScaleGraphicsItemTextYScaling)
+
         self.log.debug("Exiting loadValuesFromSettings()")
         
     def saveValuesToSettings(self):
@@ -10998,6 +11205,22 @@ class PriceBarChartSettingsEditWidget(QWidget):
         # timeMeasurementGraphicsItemTextYScaling (float).
         self.priceBarChartSettings.timeMeasurementGraphicsItemTextYScaling = \
             float(self.timeMeasurementGraphicsItemTextYScalingSpinBox.value())
+
+        # modalScaleGraphicsItemBarHeight (float).
+        self.priceBarChartSettings.modalScaleGraphicsItemBarHeight = \
+            float(self.modalScaleGraphicsItemBarHeightSpinBox.value())
+
+        # modalScaleGraphicsItemFontSize (float).
+        self.priceBarChartSettings.modalScaleGraphicsItemFontSize = \
+            float(self.modalScaleGraphicsItemFontSizeSpinBox.value())
+
+        # modalScaleGraphicsItemTextXScaling (float).
+        self.priceBarChartSettings.modalScaleGraphicsItemTextXScaling = \
+            float(self.modalScaleGraphicsItemTextXScalingSpinBox.value())
+
+        # modalScaleGraphicsItemTextYScaling (float).
+        self.priceBarChartSettings.modalScaleGraphicsItemTextYScaling = \
+            float(self.modalScaleGraphicsItemTextYScalingSpinBox.value())
 
         self.log.debug("Exiting saveValuesToSettings()")
 
@@ -11116,6 +11339,50 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         self.timeMeasurementGraphicsItemTextYScalingSpinBox.setValue(value)
 
+    def _handleModalScaleGraphicsItemBarHeightResetButtonClicked(self):
+        """Called when the modalScaleGraphicsItemBarHeightResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultModalScaleGraphicsItemBarHeight
+
+        self.modalScaleGraphicsItemBarHeightSpinBox.setValue(value)
+
+    def _handleModalScaleGraphicsItemFontSizeResetButtonClicked(self):
+        """Called when the modalScaleGraphicsItemFontSizeResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultModalScaleGraphicsItemFontSize
+
+        self.modalScaleGraphicsItemFontSizeSpinBox.setValue(value)
+
+    def _handleModalScaleGraphicsItemTextXScalingResetButtonClicked(self):
+        """Called when the modalScaleGraphicsItemTextXScalingResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultModalScaleGraphicsItemTextXScaling
+
+        self.modalScaleGraphicsItemTextXScalingSpinBox.setValue(value)
+
+    def _handleModalScaleGraphicsItemTextYScalingResetButtonClicked(self):
+        """Called when the modalScaleGraphicsItemTextYScalingResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultModalScaleGraphicsItemTextYScaling
+
+        self.modalScaleGraphicsItemTextYScalingSpinBox.setValue(value)
+
     def _handleResetAllToDefaultButtonClicked(self):
         """Called when the resetAllToDefaultButton is clicked.
         Resets the all the widget values in this widget to the default
@@ -11133,6 +11400,10 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._handleTimeMeasurementGraphicsItemFontSizeResetButtonClicked()
         self._handleTimeMeasurementGraphicsItemTextXScalingResetButtonClicked()
         self._handleTimeMeasurementGraphicsItemTextYScalingResetButtonClicked()
+        self._handleModalScaleGraphicsItemBarHeightResetButtonClicked()
+        self._handleModalScaleGraphicsItemFontSizeResetButtonClicked()
+        self._handleModalScaleGraphicsItemTextXScalingResetButtonClicked()
+        self._handleModalScaleGraphicsItemTextYScalingResetButtonClicked()
 
     def _handleOkayButtonClicked(self):
         """Called when the okay button is clicked."""

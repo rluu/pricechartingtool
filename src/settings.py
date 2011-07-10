@@ -62,7 +62,19 @@ class SettingsKeys():
     # QSettings default value for the TimeMeasurementGraphicsItem text color (QColor object).
     timeMeasurementGraphicsItemTextColorSettingsDefValue = QColor(Qt.black)
 
+    # QSettings key for the ModalScaleGraphicsItem color (QColor object).
+    modalScaleGraphicsItemColorSettingsKey = \
+        "ui/pricebarchart/modalScaleGraphicsItemColor"
 
+    # QSettings default value for the ModalScaleGraphicsItem color (QColor object).
+    modalScaleGraphicsItemColorSettingsDefValue = QColor(Qt.black)
+
+    # QSettings key for the ModalScaleGraphicsItem text color (QColor object).
+    modalScaleGraphicsItemTextColorSettingsKey = \
+        "ui/pricebarchart/modalScaleGraphicsItemTextColor"
+
+    # QSettings default value for the ModalScaleGraphicsItem text color (QColor object).
+    modalScaleGraphicsItemTextColorSettingsDefValue = QColor(Qt.black)
 
 
     # QSettings key for the planet glyph unicode of the Retrograde.

@@ -26,8 +26,10 @@ from settings import SettingsKeys
 # For PriceBars and artifacts in the chart.
 from data_objects import BirthInfo
 from data_objects import PriceBar
+from data_objects import MusicalRatio
 from data_objects import PriceBarChartBarCountArtifact
 from data_objects import PriceBarChartTimeMeasurementArtifact
+from data_objects import PriceBarChartModalScaleArtifact
 from data_objects import PriceBarChartGannFanUpperRightArtifact
 from data_objects import PriceBarChartGannFanLowerRightArtifact
 from data_objects import PriceBarChartScaling
@@ -41,6 +43,7 @@ from ephemeris import Ephemeris
 # various PriceBarChartArtifactGraphicsItems.
 from pricebarchart_dialogs import PriceBarChartBarCountArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartTimeMeasurementArtifactEditDialog
+from pricebarchart_dialogs import PriceBarChartModalScaleArtifactEditDialog
 
 # For edit dialogs.
 from dialogs import PriceBarEditDialog
@@ -2489,6 +2492,944 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.scene().setAstroChart3(self.endPointF.x())
 
         
+class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
+    """QGraphicsItem that visualizes a PriceBar counter in the GraphicsView.
+
+    This item uses the origin point (0, 0) in item coordinates as the
+    center point height bar, on the start point (left part) of the bar ruler.
+
+    That means when a user creates a new ModalScaleGraphicsItem
+    the position and points can be consistently set.
+    """
+    
+    def __init__(self, parent=None, scene=None):
+        super().__init__(parent, scene)
+
+        # Logger
+        self.log = logging.getLogger("pricebarchart.ModalScaleGraphicsItem")
+        self.log.debug("Entered __init__().")
+
+
+        ############################################################
+        # Set default values for preferences/settings.
+        
+        # Color of the bar count graphicsitems.
+        self.modalScaleGraphicsItemColor = \
+            SettingsKeys.modalScaleGraphicsItemColorSettingsDefValue
+
+        # Color of the text that is associated with the bar count
+        # graphicsitem.
+        self.modalScaleGraphicsItemTextColor = \
+            SettingsKeys.modalScaleGraphicsItemTextColorSettingsDefValue
+
+        # Height of the vertical bar drawn.
+        self.modalScaleGraphicsItemBarHeight = \
+            PriceBarChartSettings.\
+                defaultModalScaleGraphicsItemBarHeight 
+ 
+        # Font size of the text of the bar count.
+        self.modalScaleFontSize = \
+            PriceBarChartSettings.\
+                defaultModalScaleGraphicsItemFontSize 
+
+        # X scaling of the text.
+        self.modalScaleTextXScaling = \
+            PriceBarChartSettings.\
+                defaultModalScaleGraphicsItemTextXScaling 
+
+        # Y scaling of the text.
+        self.modalScaleTextYScaling = \
+            PriceBarChartSettings.\
+                defaultModalScaleGraphicsItemTextYScaling 
+
+        ############################################################
+
+        # Internal storage object, used for loading/saving (serialization).
+        self.artifact = PriceBarChartModalScaleArtifact()
+
+        # Read the QSettings preferences for the various parameters of
+        # this price bar.
+        self.loadSettingsFromAppPreferences()
+        
+        # Pen which is used to do the painting of the bar ruler.
+        self.modalScalePenWidth = 0.0
+        self.modalScalePen = QPen()
+        self.modalScalePen.setColor(self.modalScaleGraphicsItemColor)
+        self.modalScalePen.setWidthF(self.modalScalePenWidth)
+        
+        # Starting point, in scene coordinates.
+        self.startPointF = QPointF(0, 0)
+
+        # Ending point, in scene coordinates.
+        self.endPointF = QPointF(0, 0)
+
+        # Set the font of the text.
+        self.modalScaleTextFont = QFont("Andale Mono")
+        self.modalScaleTextFont.setPointSizeF(self.modalScaleFontSize)
+
+        # Set the pen color of the text.
+        self.modalScaleTextPen = self.modalScaleBarsText.pen()
+        self.modalScaleTextPen.setColor(self.modalScaleGraphicsItemTextColor)
+
+        # Set the brush color of the text.
+        self.modalScaleTextBrush = self.modalScaleBarsText.brush()
+        self.modalScaleTextBrush.setColor(self.modalScaleGraphicsItemTextColor)
+
+        # Size scaling for the text.
+        textTransform = QTransform()
+        textTransform.scale(self.modalScaleTextXScaling, \
+                            self.modalScaleTextYScaling)
+        
+        # Below is a 2-dimensional list of (3
+        # QGraphicsSimpleTextItems), for each of the MusicalRatios in
+        # the PriceBarChartModalScaleArtifact.  The 3 texts displayed
+        # for each MusicalRatio is:
+        #
+        # 1) Fraction (or float if no numerator and no denominator is set).
+        # 2) Price value.
+        # 3) Timestamp value.
+        #
+        self.musicalRatioTextItems = []
+
+        # Initialize to blank and set at the end point.
+        for musicalRatio in range(len(self.artifact.getMusicalRatios())):
+            fractionTextItem = QGraphicsSimpleTextItem("", self)
+            fractionTextItem.setPos(self.endPointF)
+            fractionTextItem.setFont(self.modalScaleTextFont)
+            fractionTextItem.setPen(self.modalScaleTextPen)
+            fractionTextItem.setBrush(self.modalScaleTextBrush)
+            fractionTextItem.setTransform(textTransform)
+            
+            priceTextItem = QGraphicsSimpleTextItem("", self)
+            priceTextItem.setPos(self.endPointF)
+            priceTextItem.setFont(self.modalScaleTextFont)
+            priceTextItem.setPen(self.modalScaleTextPen)
+            priceTextItem.setBrush(self.modalScaleTextBrush)
+            priceTextItem.setTransform(textTransform)
+            
+            timestampTextItem = QGraphicsSimpleTextItem("", self)
+            timestampTextItem.setPos(self.endPointF)
+            timestampTextItem.setFont(self.modalScaleTextFont)
+            timestampTextItem.setPen(self.modalScaleTextPen)
+            timestampTextItem.setBrush(self.modalScaleTextBrush)
+            timestampTextItem.setTransform(textTransform)
+            
+            self.musicalRatioTextItems.\
+                append([fractionTextItem, priceTextItem, timestampTextItem])
+
+        # Flags that indicate that the user is dragging either the start
+        # or end point of the QGraphicsItem.
+        self.draggingStartPointFlag = False
+        self.draggingEndPointFlag = False
+        self.clickScenePointF = QPointF()
+        
+    def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings):
+        """Reads some of the parameters/settings of this
+        PriceBarGraphicsItem from the given PriceBarChartSettings object.
+        """
+
+        self.log.debug("Entered loadSettingsFromPriceBarChartSettings()")
+        
+        # Height of the vertical bar drawn.
+        self.modalScaleGraphicsItemBarHeight = \
+            priceBarChartSettings.\
+                modalScaleGraphicsItemBarHeight 
+ 
+        # Font size of the text of the bar count.
+        self.modalScaleFontSize = \
+            priceBarChartSettings.\
+                modalScaleGraphicsItemFontSize 
+
+        # X scaling of the text.
+        self.modalScaleTextXScaling = \
+            priceBarChartSettings.\
+                modalScaleGraphicsItemTextXScaling 
+
+        # Y scaling of the text.
+        self.modalScaleTextYScaling = \
+            priceBarChartSettings.\
+                modalScaleGraphicsItemTextYScaling 
+
+        # Font size of the text.
+        self.log.debug("Setting font size to: {}".\
+                       format(self.modalScaleFontSize))
+        self.modalScaleTextFont = self.modalScaleBarsText.font()
+        self.modalScaleTextFont.setPointSizeF(self.modalScaleFontSize)
+
+        # Apply some size scaling to the text.
+        self.log.debug("Setting transform: (dx={}, dy={})".\
+                       format(self.modalScaleTextXScaling,
+                              self.modalScaleTextYScaling))
+        textTransform = QTransform()
+        textTransform.scale(self.modalScaleTextXScaling, \
+                            self.modalScaleTextYScaling)
+
+        # Traverse the 2-dimensional list and set each of the text items.
+        for i in range(len(self.musicalRatioTextItems)):
+            listOfTextItems = self.musicalRatioTextItems[i]
+            
+            for textItem in range(len(listOfTextItems)):
+                textItem.setFont(self.modalScaleTextFont)
+                textItem.setPen(self.modalScaleTextPen)
+                textItem.setBrush(self.modalScaleTextBrush)
+                textItem.setTransform(textTransform)
+
+        # Schedule an update.
+        self.update()
+
+        self.log.debug("Exiting loadSettingsFromPriceBarChartSettings()")
+        
+    def loadSettingsFromAppPreferences(self):
+        """Reads some of the parameters/settings of this
+        PriceBarGraphicsItem from the QSettings object. 
+        """
+
+        settings = QSettings()
+
+        # modalScaleGraphicsItemColor
+        key = SettingsKeys.modalScaleGraphicsItemColorSettingsKey
+        defaultValue = \
+            SettingsKeys.modalScaleGraphicsItemColorSettingsDefValue
+        self.modalScaleGraphicsItemColor = \
+            QColor(settings.value(key, defaultValue))
+
+        # modalScaleGraphicsItemTextColor
+        key = SettingsKeys.modalScaleGraphicsItemTextColorSettingsKey
+        defaultValue = \
+            SettingsKeys.modalScaleGraphicsItemTextColorSettingsDefValue
+        self.modalScaleGraphicsItemTextColor = \
+            QColor(settings.value(key, defaultValue))
+        
+    def setPos(self, pos):
+        """Overwrites the QGraphicsItem setPos() function.
+
+        Here we use the new position to re-set the self.startPointF and
+        self.endPointF.
+
+        Arguments:
+        pos - QPointF holding the new position.
+        """
+        self.log.debug("Entered setPos()")
+        
+        super().setPos(pos)
+
+        newScenePos = pos
+
+        posDelta = newScenePos - self.startPointF
+
+        # Update the start and end points accordingly. 
+        self.startPointF = self.startPointF + posDelta
+        self.startPointF.setX(round(self.startPointF.x()))
+        self.endPointF = self.endPointF + posDelta
+        self.endPointF.setX(round(self.endPointF.x()))
+
+        if self.scene() != None:
+            self.refreshTextItems()
+            self.update()
+
+        self.log.debug("Exiting setPos()")
+        
+    def mousePressEvent(self, event):
+        """Overwrites the QGraphicsItem mousePressEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+
+        self.log.debug("Entered mousePressEvent()")
+        
+        # If the item is in read-only mode, simply call the parent
+        # implementation of this function.
+        if self.getReadOnlyFlag() == True:
+            super().mousePressEvent(event)
+        else:
+            # If the mouse press is within 1/5th of the bar length to the
+            # beginning or end points, then the user is trying to adjust
+            # the starting or ending points of the bar counter ruler.
+            scenePosX = event.scenePos().x()
+            self.log.debug("DEBUG: scenePosX={}".format(scenePosX))
+            
+            startingPointX = self.startPointF.x()
+            self.log.debug("DEBUG: startingPointX={}".format(startingPointX))
+            endingPointX = self.endPointF.x()
+            self.log.debug("DEBUG: endingPointX={}".format(endingPointX))
+            
+            diff = endingPointX - startingPointX
+            self.log.debug("DEBUG: diff={}".format(diff))
+
+            startThreshold = startingPointX + (diff * (1.0 / 5))
+            endThreshold = endingPointX - (diff * (1.0 / 5))
+
+            self.log.debug("DEBUG: startThreshold={}".format(startThreshold))
+            self.log.debug("DEBUG: endThreshold={}".format(endThreshold))
+
+            if scenePosX <= startThreshold:
+                self.draggingStartPointFlag = True
+                self.log.debug("DEBUG: self.draggingStartPointFlag={}".
+                               format(self.draggingStartPointFlag))
+            elif scenePosX >= endThreshold:
+                self.draggingEndPointFlag = True
+                self.log.debug("DEBUG: self.draggingEndPointFlag={}".
+                               format(self.draggingEndPointFlag))
+            else:
+                # The mouse has clicked the middle part of the
+                # QGraphicsItem, so pass the event to the parent, because
+                # the user wants to either select or drag-move the
+                # position of the QGraphicsItem.
+                self.log.debug("DEBUG:  Middle part clicked.  " + \
+                               "Passing to super().")
+
+                # Save the click position, so that if it is a drag, we
+                # can have something to reference from for setting the
+                # start and end positions when the user finally
+                # releases the mouse button.
+                self.clickScenePointF = event.scenePos()
+                
+                super().mousePressEvent(event)
+
+        self.log.debug("Leaving mousePressEvent()")
+        
+    def mouseMoveEvent(self, event):
+        """Overwrites the QGraphicsItem mouseMoveEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+
+        if event.buttons() & Qt.LeftButton:
+            if self.getReadOnlyFlag() == False:
+                if self.draggingStartPointFlag == True:
+                    self.log.debug("DEBUG: self.draggingStartPointFlag={}".
+                                   format(self.draggingStartPointFlag))
+                    self.setStartPointF(QPointF(event.scenePos().x(),
+                                                self.startPointF.y()))
+                    self.update()
+                elif self.draggingEndPointFlag == True:
+                    self.log.debug("DEBUG: self.draggingEndPointFlag={}".
+                                   format(self.draggingEndPointFlag))
+                    self.setEndPointF(QPointF(event.scenePos().x(),
+                                              self.endPointF.y()))
+                    self.update()
+                else:
+                    # This means that the user is dragging the whole
+                    # ruler.  Do the move, but also set emit that the
+                    # PriceBarChart has changed.
+                    super().mouseMoveEvent(event)
+                    self.scene().priceBarChartChanged.emit()
+            else:
+                super().mouseMoveEvent(event)
+        else:
+            super().mouseMoveEvent(event)
+
+    def mouseReleaseEvent(self, event):
+        """Overwrites the QGraphicsItem mouseReleaseEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+        
+        self.log.debug("Entered mouseReleaseEvent()")
+
+        if self.draggingStartPointFlag == True:
+            self.log.debug("mouseReleaseEvent() when previously dragging " + \
+                           "startPoint.")
+            
+            self.draggingStartPointFlag = False
+
+            # Make sure the starting point is to the left of the
+            # ending point.
+            self.normalizeStartAndEnd()
+            
+            self.scene().priceBarChartChanged.emit()
+            
+        elif self.draggingEndPointFlag == True:
+            self.log.debug("mouseReleaseEvent() when previously dragging " +
+                           "endPoint.")
+            
+            self.draggingEndPointFlag = False
+
+            # Make sure the starting point is to the left of the
+            # ending point.
+            self.normalizeStartAndEnd()
+
+            self.scene().priceBarChartChanged.emit()
+            
+        else:
+            self.log.debug("mouseReleaseEvent() when NOT previously " + \
+                           "dragging an end.")
+
+            if self.getReadOnlyFlag() == False:
+                # Update the start and end positions.
+                self.log.debug("DEBUG: scenePos: x={}, y={}".
+                               format(event.scenePos().x(),
+                                      event.scenePos().y()))
+
+                # Calculate the difference between where the user released
+                # the button and where the user first clicked the item.
+                delta = event.scenePos() - self.clickScenePointF
+
+                self.log.debug("DEBUG: delta: x={}, y={}".
+                               format(delta.x(), delta.y()))
+
+                # Update the start and end points by calling setPos() on
+                # the new calculated position.
+                newPos = self.startPointF + delta
+                self.setPos(newPos)
+
+            super().mouseReleaseEvent(event)
+
+        self.log.debug("Exiting mouseReleaseEvent()")
+
+    def setReadOnlyFlag(self, flag):
+        """Overwrites the PriceBarChartArtifactGraphicsItem setReadOnlyFlag()
+        function.
+        """
+
+        # Call the parent's function so that the flag gets set.
+        super().setReadOnlyFlag(flag)
+
+        # Make sure the drag flags are disabled.
+        if flag == True:
+            self.draggingStartPointFlag = False
+            self.draggingEndPointFlag = False
+
+    def refreshTextItems(self):
+        """Sets the positions of the text items for the MusicalRatios,
+        and updates the text so that they are current.
+        """
+
+        # Update the modalScale label text item texts.
+        if self.scene() != None:
+            self.recalculateModalScale()
+
+            # Traverse the 2-dimensional list and set the position of
+            # each of the text items.
+            for i in range(len(self.musicalRatioTextItems)):
+                # Get the MusicalRatio that corresponds to this index.
+                musicalRatio = self.getArtifact().getMusicalRatios()[i]
+
+                # Verify it is enabled.  If yes, then set the
+                # position, otherwise, ignore.
+                if musicalRatio.isEnabled() == True:
+                    # Get the x and y position that will be the new
+                    # position of the text item.
+                    (x, y) = self.getArtifact().getXYForMusicalRatio(i)
+
+                    # Get the text items for this point on the scale.
+                    listOfTextItems = self.musicalRatioTextItems[i]
+
+                    # For each text item for that point on the scale,
+                    # set the position.
+                    for i in range(len(listOfTextItems)):
+                        textItem = listOfTextItems[i]
+                        # The position set is not exactly at (x, y),
+                        # but instead at an offset slightly below that
+                        # point so that multiple texts dont' overlap
+                        # each other.
+                        offsetY = defaultModalScaleGraphicsItemBarHeight * i
+                        textItem.setPos(QPointF(x, y + offsetY))
+
+            # Call update on this item since positions and child items
+            # were updated.
+            self.update()
+
+    def setStartPointF(self, pointF):
+        """Sets the starting point of the modalScale.  The value passed in
+        is the mouse location in scene coordinates.  
+        """
+
+        if self.startPointF != pointF: 
+            self.startPointF = pointF
+
+            self.setPos(self.startPointF)
+            
+            # Update the modalScale label text item positions.
+            self.refreshTextItems()            
+
+            # Call update on this item since positions and child items
+            # were updated.
+            if self.scene() != None:
+                self.update()
+
+    def setEndPointF(self, pointF):
+        """Sets the ending point of the modalScale.  The value passed in
+        is the mouse location in scene coordinates.  
+        """
+
+        if self.endPointF != pointF:
+            self.endPointF = pointF
+
+            # Update the modalScale label text item positions.
+            self.refreshTextItems()            
+
+            # Call update on this item since positions and child items
+            # were updated.
+            if self.scene() != None:
+                self.update()
+
+    def normalizeStartAndEnd(self):
+        """Sets the starting point X location to be less than the ending
+        point X location.
+        """
+
+        if self.startPointF.x() > self.endPointF.x():
+            
+            # Swap the points.
+            temp = self.startPointF
+            self.startPointF = self.endPointF
+            self.endPointF = temp
+
+            super().setPos(self.startPointF)
+
+            # Update the modalScale label text item positions.
+            self.refreshTextItems()
+            
+
+    def _mousePosToNearestPriceBarX(self, pointF):
+        """Gets the X position value of the closest PriceBar (on the X
+        axis) to the given mouse position.
+
+        Arguments:
+        pointF - QPointF to do the lookup on.
+
+        Returns:
+        float value for the X value.  If there are no PriceBars, then it
+        returns the X given in the input pointF.
+        """
+
+        scene = self.scene()
+
+        # Get all the QGraphicsItems.
+        graphicsItems = scene.items()
+
+        closestPriceBarX = None
+        currClosestDistance = None
+
+        # Go through the PriceBarGraphicsItems and find the closest one in
+        # X coordinates.
+        for item in graphicsItems:
+            if isinstance(item, PriceBarGraphicsItem):
+
+                x = item.getPriceBarHighScenePoint().x()
+                distance = abs(pointF.x() - x)
+
+                if closestPriceBarX == None:
+                    closestPriceBarX = x
+                    currClosestDistance = distance
+                elif (currClosestDistance != None) and \
+                        (distance < currClosestDistance):
+
+                    closestPriceBarX = x
+                    currClosestDistance = distance
+                    
+        if closestPriceBarX == None:
+            closestPriceBarX = pointF.x()
+
+        return closestPriceBarX
+
+    def recalculateModalScale(self):
+        """Updates the text items that represent the ticks on the
+        modal scale.  These texts will have accurate values for where
+        the notes are in terms of price and time.
+
+        In this process, it also sets the internal variables such that
+        a call to self.getArtifact().getXYForMusicalRatio(index) can
+        be made and a value returned that is accurate.
+        """
+
+        scene = self.scene()
+
+        if scene != None:
+            for i in range(len(self.getArtifact().getMusicalRatios())):
+                musicalRatio = self.getArtifact().getMusicalRatios()[i]
+
+                if musicalRatio.isEnabled():
+                    # Enable and make visible.
+                    
+                    # Get the text items for this point on the scale.
+                    listOfTextItems = self.musicalRatioTextItems[i]
+                    
+                    # For the text items for that point on the scale,
+                    # set the text.  
+                    for j in range(len(listOfTextItems)):
+                        textItem = listOfTextItems[j]
+                        
+                        # Enable and make visible.
+                        textItem.setEnabled(True)
+                        textItem.setVisible(True)
+                        
+                        if j == 0:
+                            # Fraction text.  This is either the
+                            # fraction (if the numerator and
+                            # denominator are available), or the float
+                            # value for the ratio.
+                            
+                            numerator = musicalRatio.getNumerator()
+                            denominator = musicalRatio.getDenominator()
+                            
+                            if numerator != None and denominator != None:
+                                fractionText = \
+                                    "{}/{}".format(numerator, denominator)
+                                textItem.setText(fractionText)
+                            else:
+                                ratio = musicalRatio.getRatio()
+                                ratioText = "{}".format(ratio)
+                                textItem.setText(ratioText)
+                        elif j == 1:
+                            # Price text.
+                            
+                            # Get the y location and then convert to a price.
+                            (x, y) = self.getArtifact().getXYForMusicalRatio(i)
+                            price = self.graphicsScene.sceneYPosToPrice(y)
+                            priceText = "{}".format(price)
+                            textItem.setText(priceText)
+                        elif j = 2:
+                            # Timestamp text.
+                            
+                            # Get the x location and then convert to a datetime.
+                            (x, y) = self.getArtifact().getXYForMusicalRatio(i)
+                            timestamp = \
+                                self.graphicsScene.sceneXPosToDatetime(x)
+                            timestampText = \
+                                Ephemeris.datetimeToDayStr(timestamp)
+                            textItem.setText(timestampText)
+                else:
+                    # Disable and make not visable.
+                    
+                    # Get the text items for this point on the scale.
+                    listOfTextItems = self.musicalRatioTextItems[i]
+                    
+                    # For each text item for that point on the scale,
+                    # set as disabled and not visible.
+                    for i in range(len(listOfTextItems)):
+                        textItem = listOfTextItems[i]
+                        textItem.setEnabled(False)
+                        textItem.setVisible(False)
+                        
+    def setArtifact(self, artifact):
+        """Loads a given PriceBarChartModalScaleArtifact object's data
+        into this QGraphicsItem.
+
+        Arguments:
+        artifact - PriceBarChartModalScaleArtifact object with information
+                   about this TextGraphisItem
+        """
+
+        self.log.debug("Entering setArtifact()")
+
+        if isinstance(artifact, PriceBarChartModalScaleArtifact):
+            self.artifact = artifact
+        else:
+            raise TypeError("Expected artifact type: " + \
+                            "PriceBarChartModalScaleArtifact")
+
+        # Extract and set the internals according to the info 
+        # in this artifact object.
+        self.setPos(self.artifact.getPos())
+        self.setStartPointF(self.artifact.getStartPointF())
+        self.setEndPointF(self.artifact.getEndPointF())
+
+        # Need to recalculate the time measurement, since the start and end
+        # points have changed.  Note, if no scene has been set for the
+        # QGraphicsView, then the measurements will be zero.
+        self.refreshTextItems()
+
+        self.log.debug("Exiting setArtifact()")
+
+    def getArtifact(self):
+        """Returns a PriceBarChartModalScaleArtifact for this
+        QGraphicsItem so that it may be pickled.
+        """
+        
+        self.log.debug("Entered getArtifact()")
+        
+        # Update the internal self.priceBarChartModalScaleArtifact 
+        # to be current, then return it.
+
+        self.artifact.setPos(self.pos())
+        self.artifact.setStartPointF(self.startPointF)
+        self.artifact.setEndPointF(self.endPointF)
+        
+        self.log.debug("Exiting getArtifact()")
+        
+        return self.artifact
+
+    def boundingRect(self):
+        """Returns the bounding rectangle for this graphicsitem."""
+
+        # Coordinate (0, 0) in local coordinates is the center of 
+        # the vertical bar that is at the left portion of this widget,
+        # and represented in scene coordinates as the self.startPointF 
+        # location.
+
+        # The QRectF returned is relative to this (0, 0) point.
+
+        # Get the QRectF with just the lines.
+        xDelta = self.endPointF.x() - self.startPointF.x()
+        
+        topLeft = \
+            QPointF(0.0, -1.0 *
+                    (self.modalScaleGraphicsItemBarHeight / 2.0))
+        
+        bottomRight = \
+            QPointF(xDelta, 1.0 *
+                    (self.modalScaleGraphicsItemBarHeight / 2.0))
+        
+        rectWithoutText = QRectF(topLeft, bottomRight)
+
+        return rectWithoutText
+
+    def paint(self, painter, option, widget):
+        """Paints this QGraphicsItem.  Assumes that self.pen is set
+        to what we want for the drawing style.
+        """
+
+        if painter.pen() != self.modalScalePen:
+            painter.setPen(self.modalScalePen)
+        
+        # Draw the left vertical bar part.
+        x1 = 0.0
+        y1 = 1.0 * (self.modalScaleGraphicsItemBarHeight / 2.0)
+        x2 = 0.0
+        y2 = -1.0 * (self.modalScaleGraphicsItemBarHeight / 2.0)
+        painter.drawLine(QLineF(x1, y1, x2, y2))
+
+        # Draw the right vertical bar part.
+        xDelta = self.endPointF.x() - self.startPointF.x()
+        x1 = 0.0 + xDelta
+        y1 = 1.0 * (self.modalScaleGraphicsItemBarHeight / 2.0)
+        x2 = 0.0 + xDelta
+        y2 = -1.0 * (self.modalScaleGraphicsItemBarHeight / 2.0)
+        painter.drawLine(QLineF(x1, y1, x2, y2))
+
+        # Draw the middle horizontal line.
+        x1 = 0.0
+        y1 = 0.0
+        x2 = xDelta
+        y2 = 0.0
+        painter.drawLine(QLineF(x1, y1, x2, y2))
+
+        # Draw the bounding rect if the item is selected.
+        if option.state & QStyle.State_Selected:
+            pad = self.modalScalePen.widthF() / 2.0;
+            
+            penWidth = 0.0
+
+            fgcolor = option.palette.windowText().color()
+            
+            # Ensure good contrast against fgcolor.
+            r = 255
+            g = 255
+            b = 255
+            if fgcolor.red() > 127:
+                r = 0
+            if fgcolor.green() > 127:
+                g = 0
+            if fgcolor.blue() > 127:
+                b = 0
+            
+            bgcolor = QColor(r, g, b)
+            
+            painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawRect(self.boundingRect())
+            
+            painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawRect(self.boundingRect())
+
+    def appendActionsToContextMenu(self, menu, readOnlyMode=False):
+        """Modifies the given QMenu object to update the title and add
+        actions relevant to this ModalScaleGraphicsItem.  Actions that
+        are triggered from this menu run various methods in the
+        ModalScaleGraphicsItem to handle the desired functionality.
+        
+        Arguments:
+        menu - QMenu object to modify.
+        readOnlyMode - bool value that indicates the actions are to be
+                       readonly actions.
+        """
+
+        menu.setTitle(self.artifact.getInternalName())
+        
+        # These are the QActions that are in the menu.
+        parent = menu
+        selectAction = QAction("Select", parent)
+        unselectAction = QAction("Unselect", parent)
+        removeAction = QAction("Remove", parent)
+        infoAction = QAction("Info", parent)
+        editAction = QAction("Edit", parent)
+        setStartOnAstro1Action = \
+            QAction("Set start timestamp on Astro Chart 1", parent)
+        setStartOnAstro2Action = \
+            QAction("Set start timestamp on Astro Chart 2", parent)
+        setStartOnAstro3Action = \
+            QAction("Set start timestamp on Astro Chart 3", parent)
+        setEndOnAstro1Action = \
+            QAction("Set end timestamp on Astro Chart 1", parent)
+        setEndOnAstro2Action = \
+            QAction("Set end timestamp on Astro Chart 2", parent)
+        setEndOnAstro3Action = \
+            QAction("Set end timestamp on Astro Chart 3", parent)
+        
+        selectAction.triggered.\
+            connect(self._handleSelectAction)
+        unselectAction.triggered.\
+            connect(self._handleUnselectAction)
+        removeAction.triggered.\
+            connect(self._handleRemoveAction)
+        infoAction.triggered.\
+            connect(self._handleInfoAction)
+        editAction.triggered.\
+            connect(self._handleEditAction)
+        setStartOnAstro1Action.triggered.\
+            connect(self._handleSetStartOnAstro1Action)
+        setStartOnAstro2Action.triggered.\
+            connect(self._handleSetStartOnAstro2Action)
+        setStartOnAstro3Action.triggered.\
+            connect(self._handleSetStartOnAstro3Action)
+        setEndOnAstro1Action.triggered.\
+            connect(self._handleSetEndOnAstro1Action)
+        setEndOnAstro2Action.triggered.\
+            connect(self._handleSetEndOnAstro2Action)
+        setEndOnAstro3Action.triggered.\
+            connect(self._handleSetEndOnAstro3Action)
+        
+        # Enable or disable actions.
+        selectAction.setEnabled(True)
+        unselectAction.setEnabled(True)
+        removeAction.setEnabled(not readOnlyMode)
+        infoAction.setEnabled(True)
+        editAction.setEnabled(not readOnlyMode)
+        setStartOnAstro1Action.setEnabled(True)
+        setStartOnAstro2Action.setEnabled(True)
+        setStartOnAstro3Action.setEnabled(True)
+        setEndOnAstro1Action.setEnabled(True)
+        setEndOnAstro2Action.setEnabled(True)
+        setEndOnAstro3Action.setEnabled(True)
+
+        # Add the QActions to the menu.
+        menu.addAction(selectAction)
+        menu.addAction(unselectAction)
+        menu.addSeparator()
+        menu.addAction(removeAction)
+        menu.addSeparator()
+        menu.addAction(infoAction)
+        menu.addAction(editAction)
+        menu.addSeparator()
+        menu.addAction(setStartOnAstro1Action)
+        menu.addAction(setStartOnAstro2Action)
+        menu.addAction(setStartOnAstro3Action)
+        menu.addSeparator()
+        menu.addAction(setEndOnAstro1Action)
+        menu.addAction(setEndOnAstro2Action)
+        menu.addAction(setEndOnAstro3Action)
+
+    def _handleSelectAction(self):
+        """Causes the QGraphicsItem to become selected."""
+
+        self.setSelected(True)
+
+    def _handleUnselectAction(self):
+        """Causes the QGraphicsItem to become unselected."""
+
+        self.setSelected(False)
+
+    def _handleRemoveAction(self):
+        """Causes the QGraphicsItem to be removed from the scene."""
+        
+        self.scene().removeItem(self)
+
+        # Emit signal to show that an item is removed.
+        # This sets the dirty flag.
+        self.scene().priceBarChartArtifactGraphicsItemRemoved.emit(self)
+        
+    def _handleInfoAction(self):
+        """Causes a dialog to be executed to show information about
+        the QGraphicsItem.
+        """
+
+        artifact = self.getArtifact()
+        dialog = PriceBarChartModalScaleArtifactEditDialog(artifact,
+                                                         self.scene(),
+                                                         readOnlyFlag=True)
+        
+        # Run the dialog.  We don't care about what is returned
+        # because the dialog is read-only.
+        rv = dialog.exec_()
+        
+    def _handleEditAction(self):
+        """Causes a dialog to be executed to edit information about
+        the QGraphicsItem.
+        """
+
+        artifact = self.getArtifact()
+        dialog = PriceBarChartModalScaleArtifactEditDialog(artifact,
+                                                         self.scene(),
+                                                         readOnlyFlag=False)
+        
+        rv = dialog.exec_()
+        
+        if rv == QDialog.Accepted:
+            # If the dialog is accepted then the underlying artifact
+            # object was modified.  Set the artifact to this
+            # PriceBarChartArtifactGraphicsItem, which will cause it to be
+            # reloaded in the scene.
+            self.setArtifact(artifact)
+
+            # Flag that a redraw of this QGraphicsItem is required.
+            self.update()
+
+            # Emit that the PriceBarChart has changed so that the
+            # dirty flag can be set.
+            self.scene().priceBarChartChanged.emit()
+        else:
+            # The user canceled so don't change anything.
+            pass
+        
+    def _handleSetStartOnAstro1Action(self):
+        """Causes the astro chart 1 to be set with the timestamp
+        of the start the ModalScaleGraphicsItem.
+        """
+
+        self.scene().setAstroChart1(self.startPointF.x())
+        
+    def _handleSetStartOnAstro2Action(self):
+        """Causes the astro chart 2 to be set with the timestamp
+        of the start the ModalScaleGraphicsItem.
+        """
+
+        self.scene().setAstroChart2(self.startPointF.x())
+        
+    def _handleSetStartOnAstro3Action(self):
+        """Causes the astro chart 3 to be set with the timestamp
+        of the start the ModalScaleGraphicsItem.
+        """
+
+        self.scene().setAstroChart3(self.startPointF.x())
+        
+    def _handleSetEndOnAstro1Action(self):
+        """Causes the astro chart 1 to be set with the timestamp
+        of the end the ModalScaleGraphicsItem.
+        """
+
+        self.scene().setAstroChart1(self.endPointF.x())
+
+    def _handleSetEndOnAstro2Action(self):
+        """Causes the astro chart 2 to be set with the timestamp
+        of the end the ModalScaleGraphicsItem.
+        """
+
+        self.scene().setAstroChart2(self.endPointF.x())
+
+    def _handleSetEndOnAstro3Action(self):
+        """Causes the astro chart 3 to be set with the timestamp
+        of the end the ModalScaleGraphicsItem.
+        """
+
+        self.scene().setAstroChart3(self.endPointF.x())
+
+        
 class PriceBarChartWidget(QWidget):
     """Widget holding the QGraphicsScene and QGraphicsView that displays
     the PriceBar information along with other indicators and analysis
@@ -2528,7 +3469,8 @@ class PriceBarChartWidget(QWidget):
                 "ZoomInTool"          : 3,
                 "ZoomOutTool"         : 4,
                 "BarCountTool"        : 5,
-                "TimeMeasurementTool" : 6 }
+                "TimeMeasurementTool" : 6,
+                "ModalScaleTool" : 7 }
 
 
 
@@ -2952,6 +3894,26 @@ class PriceBarChartWidget(QWidget):
         
                 addedItemFlag = True
 
+            elif isinstance(artifact, PriceBarChartModalScaleArtifact):
+                self.log.debug("Loading artifact: " + artifact.toString())
+                
+                newItem = ModalScaleGraphicsItem()
+                newItem.loadSettingsFromPriceBarChartSettings(\
+                    self.priceBarChartSettings)
+                newItem.setArtifact(artifact)
+
+                # Add the item.
+                self.graphicsScene.addItem(newItem)
+                
+                # Make sure the proper flags are set for the mode we're in.
+                self.graphicsView.setGraphicsItemFlagsPerCurrToolMode(newItem)
+
+                # Need to recalculate musicalRatios in the scale,
+                # since it wasn't in the QGraphicsScene until now.
+                newItem.refreshTextItems()
+        
+                addedItemFlag = True
+
         if addedItemFlag == True:
             # Emit that the PriceBarChart has changed.
             self.graphicsScene.priceBarChartChanged.emit()
@@ -3101,6 +4063,11 @@ class PriceBarChartWidget(QWidget):
                                "TimeMeasurementGraphicsItem.")
                 item.loadSettingsFromPriceBarChartSettings(\
                     self.priceBarChartSettings)
+            elif isinstance(item, ModalScaleGraphicsItem):
+                self.log.debug("Applying settings to " +
+                               "ModalScaleGraphicsItem.")
+                item.loadSettingsFromPriceBarChartSettings(\
+                    self.priceBarChartSettings)
 
         if settingsChangedFlag == True:
             # Emit that the PriceBarChart has changed, because we have
@@ -3201,6 +4168,18 @@ class PriceBarChartWidget(QWidget):
             self.graphicsView.toTimeMeasurementToolMode()
 
         self.log.debug("Exiting toTimeMeasurementToolMode()")
+
+    def toModalScaleToolMode(self):
+        """Changes the tool mode to be the ModalScaleTool."""
+
+        self.log.debug("Entered toModalScaleToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != PriceBarChartWidget.ToolMode['ModalScaleTool']:
+            self.toolMode = PriceBarChartWidget.ToolMode['ModalScaleTool']
+            self.graphicsView.toModalScaleToolMode()
+
+        self.log.debug("Exiting toModalScaleToolMode()")
 
     def _handleMouseLocationUpdate(self, x, y):
         """Handles mouse location changes in the QGraphicsView.  
@@ -3456,7 +4435,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 "ZoomInTool"          : 3,
                 "ZoomOutTool"         : 4,
                 "BarCountTool"        : 5,
-                "TimeMeasurementTool"        : 6 }
+                "TimeMeasurementTool" : 6,
+                "ModalScaleTool" : 7 }
 
     # Signal emitted when the mouse moves within the QGraphicsView.
     # The position emitted is in QGraphicsScene x, y, float coordinates.
@@ -3497,6 +4477,10 @@ class PriceBarChartGraphicsView(QGraphicsView):
         # Variable used for storing the new TimeMeasurementGraphicsItem,
         # as it is modified in TimeMeasurementToolMode.
         self.timeMeasurementGraphicsItem = None
+
+        # Variable used for storing the new ModalScaleGraphicsItem,
+        # as it is modified in ModalScaleToolMode.
+        self.modalScaleGraphicsItem = None
 
         # Variable used for holding the PriceBarChartSettings.
         self.priceBarChartSettings = PriceBarChartSettings()
@@ -3597,6 +4581,15 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['TimeMeasurementTool']:
+
+            if isinstance(item, PriceBarGraphicsItem):
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+            elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                item.setReadOnlyFlag(True)
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['ModalScaleTool']:
 
             if isinstance(item, PriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
@@ -3799,6 +4792,36 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.setGraphicsItemFlagsPerCurrToolMode(item)
                     
         self.log.debug("Exiting toTimeMeasurementToolMode()")
+
+    def toModalScaleToolMode(self):
+        """Changes the tool mode to be the ModalScaleTool."""
+
+        self.log.debug("Entered toModalScaleToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != \
+                PriceBarChartGraphicsView.ToolMode['ModalScaleTool']:
+
+            self.toolMode = \
+                PriceBarChartGraphicsView.ToolMode['ModalScaleTool']
+
+            self.setCursor(QCursor(Qt.ArrowCursor))
+            self.setDragMode(QGraphicsView.NoDrag)
+
+            # Clear out internal working variables.
+            self.clickOnePointF = None
+            self.clickTwoPointF = None
+            self.modalScaleGraphicsItem = None
+
+            scene = self.scene()
+            if scene != None:
+                scene.clearSelection()
+
+                items = scene.items()
+                for item in items:
+                    self.setGraphicsItemFlagsPerCurrToolMode(item)
+                    
+        self.log.debug("Exiting toModalScaleToolMode()")
 
     def createContextMenu(self, clickPosF, readOnlyFlag):
         """Creates a context menu for a right-click somewhere in
@@ -4064,6 +5087,23 @@ class PriceBarChartGraphicsView(QGraphicsView):
             else:
                 super().keyPressEvent(qkeyevent)
 
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['ModalScaleTool']:
+
+            if qkeyevent.key() & Qt.Key_Escape:
+                # Escape key causes any currently edited item to
+                # be removed and cleared out.  Temporary variables used
+                # are cleared out too.
+                if self.modalScaleGraphicsItem != None:
+                    self.scene().removeItem(self.modalScaleGraphicsItem)
+
+                self.clickOnePointF = None
+                self.clickTwoPointF = None
+                self.modalScaleGraphicsItem = None
+
+            else:
+                super().keyPressEvent(qkeyevent)
+
 
         else:
             # For any other mode we don't have specific functionality for,
@@ -4296,6 +5336,73 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
                     menu.exec_(qmouseevent.globalPos())
                     
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['ModalScaleTool']:
+            
+            if qmouseevent.button() & Qt.LeftButton:
+                if self.clickOnePointF == None:
+                    self.clickOnePointF = self.mapToScene(qmouseevent.pos())
+
+                    # Create the ModalScaleGraphicsItem and
+                    # initialize it to the mouse location.
+                    self.modalScaleGraphicsItem = ModalScaleGraphicsItem()
+                    self.modalScaleGraphicsItem.\
+                        loadSettingsFromPriceBarChartSettings(\
+                            self.priceBarChartSettings)
+                    self.modalScaleGraphicsItem.setPos(self.clickOnePointF)
+                    self.modalScaleGraphicsItem.\
+                        setStartPointF(self.clickOnePointF)
+                    self.modalScaleGraphicsItem.\
+                        setEndPointF(self.clickOnePointF)
+                    self.scene().addItem(self.modalScaleGraphicsItem)
+                    
+                    # Make sure the proper flags are set for the mode we're in.
+                    self.setGraphicsItemFlagsPerCurrToolMode(\
+                        self.modalScaleGraphicsItem)
+
+                elif self.clickOnePointF != None and \
+                    self.clickTwoPointF == None and \
+                    self.modalScaleGraphicsItem != None:
+
+                    # Set the end point of the ModalScaleGraphicsItem.
+                    self.clickTwoPointF = self.mapToScene(qmouseevent.pos())
+                    self.modalScaleGraphicsItem.setEndPointF(self.clickTwoPointF)
+                    self.modalScaleGraphicsItem.normalizeStartAndEnd()
+                                                
+                    # Emit that the PriceBarChart has changed.
+                    self.scene().priceBarChartArtifactGraphicsItemAdded.\
+                        emit(self.modalScaleGraphicsItem)
+                    
+                    # Clear out working variables.
+                    self.clickOnePointF = None
+                    self.clickTwoPointF = None
+                    self.modalScaleGraphicsItem = None
+                    
+            elif qmouseevent.button() & Qt.RightButton:
+                
+                if self.clickOnePointF != None and \
+                   self.clickTwoPointF == None and \
+                   self.modalScaleGraphicsItem != None:
+
+                    # Right-click during setting the ModalScaleGraphicsItem
+                    # causes the currently edited bar count item to be
+                    # removed and cleared out.  Temporary variables used
+                    # are cleared out too.
+                    self.scene().removeItem(self.modalScaleGraphicsItem)
+
+                    self.clickOnePointF = None
+                    self.clickTwoPointF = None
+                    self.modalScaleGraphicsItem = None
+                    
+                elif self.clickOnePointF == None and \
+                     self.clickTwoPointF == None and \
+                     self.modalScaleGraphicsItem == None:
+                    
+                    # Open a context menu at this location, in readonly mode.
+                    clickPosF = self.mapToScene(qmouseevent.pos())
+                    menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
+                    menu.exec_(qmouseevent.globalPos())
+                    
         else:
             # For any other mode we don't have specific functionality
             # for, do a context menu if it is a right-click, otherwise
@@ -4347,6 +5454,11 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['TimeMeasurementTool']:
+
+            super().mouseReleaseEvent(qmouseevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['ModalScaleTool']:
 
             super().mouseReleaseEvent(qmouseevent)
 
@@ -4418,6 +5530,20 @@ class PriceBarChartGraphicsView(QGraphicsView):
             else:
                 super().mouseMoveEvent(qmouseevent)
 
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['ModalScaleTool']:
+
+            if self.clickOnePointF != None and \
+                self.modalScaleGraphicsItem != None:
+
+                pos = self.mapToScene(qmouseevent.pos())
+                
+                # Update the end point of the current
+                # ModalScaleGraphicsItem.
+                self.modalScaleGraphicsItem.setEndPointF(pos)
+            else:
+                super().mouseMoveEvent(qmouseevent)
+
         else:
             # For any other mode we don't have specific functionality for,
             # just pass the event to the parent to handle.
@@ -4464,6 +5590,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
             self.setCursor(QCursor(Qt.ArrowCursor))
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['TimeMeasurementTool']:
+            self.setCursor(QCursor(Qt.ArrowCursor))
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['ModalScaleTool']:
             self.setCursor(QCursor(Qt.ArrowCursor))
         else:
             self.log.warn("Unknown toolMode while in enterEvent().")

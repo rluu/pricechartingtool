@@ -494,6 +494,172 @@ class PriceBar:
         self.log.debug("Set state of a " + PriceBar.__name__ +
                        " object of version {}".format(self.classVersion))
 
+class MusicalRatio:
+    """Contains information about a musical ratio that makes up a note
+    in a scale.  Includes the following information:
+
+    - float value for the ratio.
+    - description of the ratio.
+    - numerator of the fraction (if applicable)
+    - denominator of the fraction (if applicable)
+    """
+
+
+    def __init__(self,
+                 ratio,
+                 description="",
+                 numerator=None,
+                 denominator=None,
+                 enabled=True):
+        """Initializes the PriceBar object.  
+
+        Arguments are as follows:
+        
+        ratio - float value holding the ratio for the musical note.
+        description - str value holding the description of the ratio.
+        numerator - int value holding the numerator of
+                    the fraction (if applicable)
+        denominator - int value holding the denominator of the
+                    fraction (if applicable)
+        """
+
+        self.log = logging.getLogger("data_objects.MusicalRatio")
+
+        # Class version stored for pickling and unpickling.
+        self.classVersion = 1
+
+        self.ratio = ratio
+        self.description = description
+        self.numerator = numerator
+        self.denominator = denominator
+        self.enabled = enabled
+        
+    def getRatio(self):
+        """Returns the float ratio value.
+        """
+
+        return self.ratio
+
+    def setRatio(self, ratio):
+        """Sets the ratio.
+        
+        Arguments:
+        ratio - float value for the ratio.
+        """
+        
+        self.ratio = ratio
+    
+    def getDescription(self):
+        """Returns the str description value.
+        """
+
+        return self.description
+
+    def setDescription(self, description):
+        """Sets the description.
+        
+        Arguments:
+        description - str value for the description.
+        """
+        
+        self.description = description
+    
+    def getNumerator(self):
+        """Returns the int value that is the numerator portion of the
+        fraction.  This can be None if it was not previously set.
+        """
+
+        return self.numerator
+
+    def setNumerator(self, numerator):
+        """Sets the value that is the numerator portion of the fraction.
+        
+        Arguments:
+        numerator - int value for the numerator.
+        """
+        
+        self.numerator = numerator
+    
+    def getDenominator(self):
+        """Returns the int value that is the denominator portion of the
+        fraction.  This can be None if it was not previously set.
+        """
+
+        return self.denominator
+
+    def setDenominator(self, denominator):
+        """Sets the value that is the denominator portion of the fraction.
+        
+        Arguments:
+        denominator - int value for the denominator.
+        """
+        
+        self.denominator = denominator
+    
+
+    def isEnabled(self):
+        """Returns the whether or not the MusicalRatio is enabled.
+        """
+
+        return self.enabled
+    
+    def getEnabled(self):
+        """Returns the whether or not the MusicalRatio is enabled.
+        """
+
+        return self.enabled
+
+    def setEnabled(self, enabled):
+        """Sets whether or not the MusicalRatio is enabled.
+        
+        Arguments:
+        enabled - bool value for the enabled.
+        """
+        
+        self.enabled = enabled
+    
+    def toString(self):
+        """Returns the string representation of the data."""
+
+        return "[ratio={}, ".format(self.ratio) + \
+               "description={}, ".format(self.description) + \
+               "numerator={}, ".format(self.numerator) + \
+               "denominator={}, ".format(self.denominator) + \
+               "enabled={}".format(self.enabled) + \
+               "]"
+
+    def __str__(self):
+        """Returns the string representation of the PriceBar data"""
+
+        return self.toString()
+
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = logging.getLogger("data_objects.MusicalRatio")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " + MusicalRatio.__name__ +
+                       " object of version {}".format(self.classVersion))
+
 
 class PriceBarChartArtifact:
     """Base class for user-added artifacts in the PriceBarChartWidget.
@@ -719,7 +885,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         self.endPointF = QPointF()
 
     def setStartPointF(self, startPointF):
-        """Stores the starting point of the BarCountArtifact.
+        """Stores the starting point of the TimeMeasurementArtifact.
         Arguments:
 
         startPointF - QPointF for the starting point of the artifact.
@@ -728,12 +894,12 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         self.startPointF = startPointF
         
     def getStartPointF(self):
-        """Returns the starting point of the BarCountArtifact."""
+        """Returns the starting point of the TimeMeasurementArtifact."""
         
         return self.startPointF
         
     def setEndPointF(self, endPointF):
-        """Stores the ending point of the BarCountArtifact.
+        """Stores the ending point of the TimeMeasurementArtifact.
         Arguments:
 
         endPointF - QPointF for the ending point of the artifact.
@@ -742,7 +908,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         self.endPointF = endPointF
         
     def getEndPointF(self):
-        """Returns the ending point of the BarCountArtifact."""
+        """Returns the ending point of the TimeMeasurementArtifact."""
         
         return self.endPointF
         
@@ -760,6 +926,181 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
                                              self.getStartPointF().y()) + \
              "endPointF=({}, {}), ".format(self.getEndPointF().x(),
                                            self.getEndPointF().y()) + \
+             "]"
+
+        return rv
+        
+class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
+    """PriceBarChartArtifact that indicates the time measurement starting 
+    at the given PriceBar timestamp and the given Y offset from the 
+    center of the bar.
+    """
+    
+    def __init__(self):
+        super().__init__()
+        
+        # Update the internal name so it is the artifact type plus the uuid.
+        self.internalName = "ModalScale_" + str(self.uuid)
+
+        # Start and end points of the artifact.
+        self.startPointF = QPointF()
+        self.endPointF = QPointF()
+
+        # List of used ratios.
+        self.musicalRatios = []
+
+        # TODO: populate the above self.musicalRatios with a set of
+        # all the indian and pythagorean musical ratios.
+
+    def setStartPointF(self, startPointF):
+        """Stores the starting point of the ModalScaleArtifact.
+        Arguments:
+
+        startPointF - QPointF for the starting point of the artifact.
+        """
+        
+        self.startPointF = startPointF
+        
+    def getStartPointF(self):
+        """Returns the starting point of the ModalScaleArtifact."""
+        
+        return self.startPointF
+        
+    def setEndPointF(self, endPointF):
+        """Stores the ending point of the ModalScaleArtifact.
+        Arguments:
+
+        endPointF - QPointF for the ending point of the artifact.
+        """
+        
+        self.endPointF = endPointF
+        
+    def getEndPointF(self):
+        """Returns the ending point of the ModalScaleArtifact."""
+        
+        return self.endPointF
+
+    def getMusicalRatios(self):
+        """Returns the list of MusicalRatio ojects."""
+
+        return self.musicalRatios
+        
+    def setMusicalRatios(self, musicalRatios):
+        """Sets the list of MusicalRatio ojects."""
+
+        self.musicalRatios = musicalRatios
+
+    def getXYForMusicalRatio(self, index):
+        """Returns the x and y location of where this musical ratio
+        would exist, based on the MusicalRatio ordering and the
+        startPoint and endPoint locations.
+        """
+
+        self.log.debug("Entered getXYForMusicalRatio({})".format(index))
+        
+        # Return values.
+        x = None
+        y = None
+        
+        startPointX = self.startPointF.x()
+        startPointY = self.startPointF.y()
+        endPointX = self.endPointF.x()
+        endPointY = self.endPointF.y()
+
+        self.log.debug("startPoint is: ({}, {})".
+                       format(startPointX, startPointY))
+        self.log.debug("endPoint is: ({}, {})".
+                       format(endPointX, endPointY))
+        
+        deltaX = endPointX - startPointX
+        deltaY = endPointY - startPointY
+        
+        self.log.debug("deltaX is: {}".format(deltaX))
+        self.log.debug("deltaY is: {}".format(deltaY))
+        
+        # Need to maintain offsets so that if the ratios are rotated a
+        # certain way, then we have the correct starting point.
+        xOffset = 0.0
+        yOffset = 0.0
+
+        self.log.debug("There are {} number of musical ratios.".\
+                       format(len(self.musicalRatios)))
+        
+        for i in range(len(self.musicalRatios)):
+            musicalRatio = self.musicalRatios[i]
+            
+            self.log.debug("self.musicalRatios[{}].getRatio() is: {}".\
+                           format(i, musicalRatio.getRatio()))
+            if i == 0:
+                # Store the offset for future indexes.
+                xOffset = deltaX * musicalRatio.getRatio()
+                yOffset = deltaY * musicalRatio.getRatio()
+
+                self.log.debug("At the first index.  xOffset={}, yOffset={}".\
+                               format(xOffset, yOffset))
+                
+            if i == index:
+                self.log.debug("At the i == index, where i == {}.".format(i))
+                self.log.debug("MusicalRatio is: {}".\
+                               format(musicalRatio.getRatio()))
+                
+                x = (deltaX * musicalRatio.getRatio()) - xOffset
+                y = (deltaY * musicalRatio.getRatio()) - yOffset
+
+                self.log.debug("(x={}, y={})".format(x, y))
+                
+                # Wrap the value around the interval if x or y is negative.
+                if x < 0:
+                    x = deltaX - x
+                    self.log.debug("x < 0, so new x is: {}".format(x))
+                if y < 0:
+                    y = deltaY - y
+                    self.log.debug("y < 0, so new y is: {}".format(y))
+
+                x = startPointX + x
+                y = startPointY + y
+
+                self.log.debug("Normalized x and y from startPoint is: " +
+                               "({}, {})".format(x, y))
+
+                # Break out of for loop because we found what we are
+                # looking for, which is the x and y values.
+                break
+
+        if x == None or y == None:
+            # This means that the index requested that the person
+            # passed in as a parameter is an index that doesn't map to
+            # list length of self.musicalRatios.
+            self.log.warn("getXYForMusicalRatio(): " +
+                          "Index provided is out of range!")
+            # Reset values to 0.
+            x = 0.0
+            y = 0.0
+            
+        self.log.debug("Exiting getXYForMusicalRatio({}), ".format(index) + \
+                       "Returning ({}, {})".format(x, y))
+        return (x, y)
+    
+    def __str__(self):
+        """Returns the string representation of this object."""
+
+        return self.toString()
+
+    def toString(self):
+        """Returns the string representation of this object."""
+
+        musicalRatiosStr = "["
+        for musicalRatio in self.musicalRatios:
+            musicalRatioStr += musicalRatio.toString()
+        musicalRatiosStr += "]"
+        
+        rv = "[name={}, ".format(self.getInternalName()) + \
+             "pos=({}, {}), ".format(self.getPos().x(), self.getPos().y()) + \
+             "startPointF=({}, {}), ".format(self.getStartPointF().x(),
+                                             self.getStartPointF().y()) + \
+             "endPointF=({}, {}), ".format(self.getEndPointF().x(),
+                                           self.getEndPointF().y()) + \
+             "musicalRatios={}".format(musicalRatiosStr) + \
              "]"
 
         return rv
@@ -1144,6 +1485,18 @@ class PriceBarChartSettings:
     # Default value for the TimeMeasurementGraphicsItem text Y scaling (float).
     defaultTimeMeasurementGraphicsItemTextYScaling = 0.2
 
+    # Default value for the ModalScaleGraphicsItem bar height (float).
+    defaultModalScaleGraphicsItemBarHeight = 0.2
+
+    # Default value for the ModalScaleGraphicsItem font size (float).
+    defaultModalScaleGraphicsItemFontSize = 1.20
+
+    # Default value for the ModalScaleGraphicsItem text X scaling (float).
+    defaultModalScaleGraphicsItemTextXScaling = 1
+
+    # Default value for the ModalScaleGraphicsItem text Y scaling (float).
+    defaultModalScaleGraphicsItemTextYScaling = 0.2
+
 
     def __init__(self):
         """"Initializes the PriceChartSettings to default values."""
@@ -1221,6 +1574,26 @@ class PriceBarChartSettings:
             PriceBarChartSettings.\
                 defaultTimeMeasurementGraphicsItemTextYScaling
 
+        # ModalScaleGraphicsItem bar height (float).
+        self.modalScaleGraphicsItemBarHeight = \
+            PriceBarChartSettings.\
+                defaultModalScaleGraphicsItemBarHeight
+
+        # ModalScaleGraphicsItem font size (float).
+        self.modalScaleGraphicsItemFontSize = \
+            PriceBarChartSettings.\
+                defaultModalScaleGraphicsItemFontSize
+
+        # ModalScaleGraphicsItem text X scaling (float).
+        self.modalScaleGraphicsItemTextXScaling = \
+            PriceBarChartSettings.\
+                defaultModalScaleGraphicsItemTextXScaling
+
+        # ModalScaleGraphicsItem text Y scaling (float).
+        self.modalScaleGraphicsItemTextYScaling = \
+            PriceBarChartSettings.\
+                defaultModalScaleGraphicsItemTextYScaling
+
 
 
     def __getstate__(self):
@@ -1284,6 +1657,14 @@ class PriceBarChartSettings:
                     format(self.timeMeasurementGraphicsItemTextXScaling) + \
                 "timeMeasurementGraphicsItemTextYScaling={}".\
                     format(self.timeMeasurementGraphicsItemTextYScaling) + \
+                "modalScaleGraphicsItemBarHeight={}, ".\
+                    format(self.modalScaleGraphicsItemBarHeight) + \
+                "modalScaleGraphicsItemFontSize={}, ".\
+                    format(self.modalScaleGraphicsItemFontSize) + \
+                "modalScaleGraphicsItemTextXScaling={}, ".\
+                    format(self.modalScaleGraphicsItemTextXScaling) + \
+                "modalScaleGraphicsItemTextYScaling={}".\
+                    format(self.modalScaleGraphicsItemTextYScaling) + \
                 "]"
 
 

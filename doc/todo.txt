@@ -50,12 +50,19 @@ DONE       pricebarchart_dialogs.py
 DONE
 DONE  - Bug: BirthInfoEditWidget doesn't set (retain) the BirthInfo when
 DONE    editing the BirthInfo of a PriceChartDocument.  Investigate why.
+DONE
+DONE  - Time measurement ruler.  (Draggable ends and middle).  Ruler shows
+DONE    number of TDs, CDs, and weeks.  Hovering over it shows info about
+DONE    those TDs, CDs, weeks, as well as start and end date and time.  -
+DONE    Edit dialog for this to edit the start and end datetime or
+DONE    coordinate.
 
-#  - Time measurement ruler.  (Draggable ends and middle).  Ruler shows
-#    number of TDs, CDs, and weeks.  Hovering over it shows info about
-#    those TDs, CDs, weeks, as well as start and end date and time.  -
-#    Edit dialog for this to edit the start and end datetime or
-#    coordinate.
+  - Add to the ratio-scripts some of the special numbers from:
+       http://en.wikipedia.org/wiki/List_of_numbers
+  
+       Specifically, pay attention to the:
+         - Irrational and suspected irrational numbers
+         - Hypercomplex numbers
 
   - Text graphics item (and artifact)
 
