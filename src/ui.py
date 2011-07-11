@@ -254,7 +254,7 @@ class MainWindow(QMainWindow):
         # Create the ModalScaleToolAction
         icon = QIcon()
         self.modalScaleToolAction = \
-            QAction(icon, "Time Measurement Tool", self)
+            QAction(icon, "Modal Scale Tool", self)
         self.modalScaleToolAction.setStatusTip("Modal Scale Tool")
         self.modalScaleToolAction.setCheckable(True)
 

@@ -823,7 +823,7 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # or end point of the QGraphicsItem.
         self.draggingStartPointFlag = False
         self.draggingEndPointFlag = False
-        self.clickScenePointF = QPointF()
+        self.clickScenePointF = None
         
     def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings):
         """Reads some of the parameters/settings of this
@@ -934,6 +934,8 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # If the item is in read-only mode, simply call the parent
         # implementation of this function.
         if self.getReadOnlyFlag() == True:
+            self.log.debug("DEBUG: " + \
+                           "getReadOnlyFlag() == True, so passing to super()")
             super().mousePressEvent(event)
         else:
             # If the mouse press is within 1/5th of the bar length to the
@@ -1064,10 +1066,12 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 self.log.debug("DEBUG: delta: x={}, y={}".
                                format(delta.x(), delta.y()))
 
-                # Update the start and end points by calling setPos() on
-                # the new calculated position.
-                newPos = self.startPointF + delta
-                self.setPos(newPos)
+                # If the delta is not zero, then update the start and
+                # end points by calling setPos() on the new calculated
+                # position.
+                if delta.x() != 0.0 and delta.y() != 0.0:
+                    newPos = self.startPointF + delta
+                    self.setPos(newPos)
 
             super().mouseReleaseEvent(event)
 
@@ -1138,28 +1142,31 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 self.recalculateBarCount()
                 self.update()
 
-
     def normalizeStartAndEnd(self):
         """Sets the starting point X location to be less than the ending
         point X location.
         """
 
         if self.startPointF.x() > self.endPointF.x():
+            self.log.debug("Normalization of BarCountGraphicsItem " +
+                           "required.")
             
             # Swap the points.
             temp = self.startPointF
             self.startPointF = self.endPointF
             self.endPointF = temp
 
-            # Update the barCount label position.
-            deltaX = self.endPointF.x() - self.startPointF.x()
-            y = 0
-            self.barCountText.setPos(QPointF(deltaX, y))
-
-            self.recalculateBarCount()
-            
-            super().setPos(self.startPointF)
-            
+        # Update the barCount label position.  For some reason, this
+        # is required irregardless of the above if statement.  If we
+        # don't do this, then some of the BarCountGraphicsItems
+        # created can't be clicked on.  I'm not sure why that is...
+        deltaX = self.endPointF.x() - self.startPointF.x()
+        y = 0
+        self.barCountText.setPos(QPointF(deltaX, y))
+        
+        self.recalculateBarCount()
+        
+        super().setPos(self.startPointF)
 
     def _mousePosToNearestPriceBarX(self, pointF):
         """Gets the X position value of the closest PriceBar (on the X
@@ -1699,7 +1706,7 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # or end point of the QGraphicsItem.
         self.draggingStartPointFlag = False
         self.draggingEndPointFlag = False
-        self.clickScenePointF = QPointF()
+        self.clickScenePointF = None
         
     def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings):
         """Reads some of the parameters/settings of this
@@ -1946,10 +1953,12 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 self.log.debug("DEBUG: delta: x={}, y={}".
                                format(delta.x(), delta.y()))
 
-                # Update the start and end points by calling setPos() on
-                # the new calculated position.
-                newPos = self.startPointF + delta
-                self.setPos(newPos)
+                # If the delta is not zero, then update the start and
+                # end points by calling setPos() on the new calculated
+                # position.
+                if delta.x() != 0.0 and delta.y() != 0.0:
+                    newPos = self.startPointF + delta
+                    self.setPos(newPos)
 
             super().mouseReleaseEvent(event)
 
@@ -2031,6 +2040,8 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         if self.startPointF.x() > self.endPointF.x():
+            self.log.debug("Normalization of TimeMeasurementGraphicsItem " +
+                           "required.")
             
             # Swap the points.
             temp = self.startPointF
@@ -2563,6 +2574,9 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Ending point, in scene coordinates.
         self.endPointF = QPointF(0, 0)
 
+        # Dummy item.
+        self.modalScaleBarsText = QGraphicsSimpleTextItem("", self)
+        
         # Set the font of the text.
         self.modalScaleTextFont = QFont("Andale Mono")
         self.modalScaleTextFont.setPointSizeF(self.modalScaleFontSize)
@@ -2621,7 +2635,7 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # or end point of the QGraphicsItem.
         self.draggingStartPointFlag = False
         self.draggingEndPointFlag = False
-        self.clickScenePointF = QPointF()
+        self.clickScenePointF = None
         
     def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings):
         """Reads some of the parameters/settings of this
@@ -2871,10 +2885,12 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 self.log.debug("DEBUG: delta: x={}, y={}".
                                format(delta.x(), delta.y()))
 
-                # Update the start and end points by calling setPos() on
-                # the new calculated position.
-                newPos = self.startPointF + delta
-                self.setPos(newPos)
+                # If the delta is not zero, then update the start and
+                # end points by calling setPos() on the new calculated
+                # position.
+                if delta.x() != 0.0 and delta.y() != 0.0:
+                    newPos = self.startPointF + delta
+                    self.setPos(newPos)
 
             super().mouseReleaseEvent(event)
 
@@ -2973,14 +2989,28 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         if self.startPointF.x() > self.endPointF.x():
+            self.log.debug("Normalization of ModalScaleGraphicsItem " +
+                           "required.")
             
             # Swap the points.
             temp = self.startPointF
             self.startPointF = self.endPointF
             self.endPointF = temp
 
+            # TODO: not sure if this should go here or after the
+            # self.refreshTextItems() call.  Test this to code to make
+            # sure the following use case works:
+            #
+            #  1)  create a ModalScaleGraphicsItem via the tool mode
+            #  2) Switch to PointerTool mode.
+            #  3) Try to select the middle of the ModalScaleGraphicsItem
+            #     that was created.
+            #  4) Verify that it can be selected (dotted line outline)
+            #     on the first click.
+            #
+            
             super().setPos(self.startPointF)
-
+            
             # Update the modalScale label text item positions.
             self.refreshTextItems()
             
@@ -3083,7 +3113,7 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                             price = self.graphicsScene.sceneYPosToPrice(y)
                             priceText = "{}".format(price)
                             textItem.setText(priceText)
-                        elif j = 2:
+                        elif j == 2:
                             # Timestamp text.
                             
                             # Get the x location and then convert to a datetime.
@@ -4436,7 +4466,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 "ZoomOutTool"         : 4,
                 "BarCountTool"        : 5,
                 "TimeMeasurementTool" : 6,
-                "ModalScaleTool" : 7 }
+                "ModalScaleTool"      : 7 }
 
     # Signal emitted when the mouse moves within the QGraphicsView.
     # The position emitted is in QGraphicsScene x, y, float coordinates.
@@ -4523,15 +4553,29 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
         item - QGraphicsItem that needs its flags set.
         """
-        
+
+        #self.log.debug("setGraphicsItemFlagsPerCurrToolMode(): " +
+        #               "toolMode == {}.  ".format(self.toolMode) +
+        #               "type(item) == {}.  ".format(type(item)) +
+        #               "item is of type PriceBarGraphicsItem: {}.  ".\
+        #               format(isinstance(item, PriceBarGraphicsItem)) +
+        #               "item is of type PriceBarChartArtifactGraphicsItem: " +
+        #               "{}.".
+        #               format(isinstance(item,
+        #                                 PriceBarChartArtifactGraphicsItem)))
+                       
         if self.toolMode == \
                PriceBarChartGraphicsView.ToolMode['ReadOnlyPointerTool']:
 
             if isinstance(item, PriceBarGraphicsItem):
-                item.setFlags(QGraphicsItem.ItemIsSelectable)
+                flags = QGraphicsItem.GraphicsItemFlags(QGraphicsItem.
+                                                        ItemIsSelectable)
+                item.setFlags(flags)
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
-                item.setFlags(QGraphicsItem.ItemIsSelectable)
+                flags = QGraphicsItem.\
+                    GraphicsItemFlags(QGraphicsItem.ItemIsSelectable)
+                item.setFlags(flags)
                 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PointerTool']:
@@ -4540,8 +4584,11 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(False)
-                item.setFlags(QGraphicsItem.ItemIsMovable |
-                              QGraphicsItem.ItemIsSelectable)
+
+                flags = QGraphicsItem.\
+                    GraphicsItemFlags(QGraphicsItem.ItemIsMovable +
+                                      QGraphicsItem.ItemIsSelectable)
+                item.setFlags(flags)
                 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['HandTool']:
@@ -5119,36 +5166,52 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
         self.log.debug("Entered mousePressEvent()")
 
-
+        # Get the click position in scene coordinates for debugging purposes.
+        clickPosF = self.mapToScene(qmouseevent.pos())
+        self.log.debug("Click pos in scene coordinates is: ({}, {})".\
+                       format(clickPosF.x(), clickPosF.y()))
         if self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ReadOnlyPointerTool']:
+            
+            self.log.debug("Current toolMode is: ReadOnlyPointerTool")
 
             if qmouseevent.button() & Qt.RightButton:
+                self.log.debug("Qt.RightButton")
                 # Open a context menu at this location, in readonly mode.
                 clickPosF = self.mapToScene(qmouseevent.pos())
                 menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
                 menu.exec_(qmouseevent.globalPos())
             else:
+                self.log.debug("Passing mouse press event to super().")
                 super().mousePressEvent(qmouseevent)
 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PointerTool']:
 
+            self.log.debug("Current toolMode is: PointerTool")
+            
             if qmouseevent.button() & Qt.RightButton:
+                self.log.debug("Qt.RightButton")
                 # Open a context menu at this location, in non-readonly mode.
                 clickPosF = self.mapToScene(qmouseevent.pos())
                 menu = self.createContextMenu(clickPosF, readOnlyFlag=False)
                 menu.exec_(qmouseevent.globalPos())
             else:
+                self.log.debug("Passing mouse press event to super().")
                 super().mousePressEvent(qmouseevent)
 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['HandTool']:
 
+            self.log.debug("Current toolMode is: HandTool")
+
             if qmouseevent.button() & Qt.LeftButton:
+                self.log.debug("Qt.LeftButton")
+                self.log.debug("Passing mouse press event to super().")
                 # Panning the QGraphicsView.
                 super().mousePressEvent(qmouseevent)
             elif qmouseevent.button() & Qt.RightButton:
+                self.log.debug("Qt.RightButton")
                 # Open a context menu at this location, in readonly mode.
                 clickPosF = self.mapToScene(qmouseevent.pos())
                 menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
@@ -5157,7 +5220,10 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ZoomInTool']:
 
+            self.log.debug("Current toolMode is: ZoomInTool")
+
             if qmouseevent.button() & Qt.LeftButton:
+                self.log.debug("Qt.LeftButton")
                 # New center
                 newCenterPointF = self.mapToScene(qmouseevent.pos())
 
@@ -5173,6 +5239,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # Center on the new center.
                 self.centerOn(newCenterPointF)
             elif qmouseevent.button() & Qt.RightButton:
+                self.log.debug("Qt.RightButton")
                 # Open a context menu at this location, in readonly mode.
                 clickPosF = self.mapToScene(qmouseevent.pos())
                 menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
@@ -5181,7 +5248,10 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ZoomOutTool']:
             
+            self.log.debug("Current toolMode is: ZoomOutTool")
+
             if qmouseevent.button() & Qt.LeftButton:
+                self.log.debug("Qt.LeftButton")
                 # New center
                 newCenterPointF = self.mapToScene(qmouseevent.pos())
 
@@ -5197,6 +5267,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # Center on the new center.
                 self.centerOn(newCenterPointF)
             elif qmouseevent.button() & Qt.RightButton:
+                self.log.debug("Qt.RightButton")
                 # Open a context menu at this location, in readonly mode.
                 clickPosF = self.mapToScene(qmouseevent.pos())
                 menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
@@ -5205,8 +5276,13 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['BarCountTool']:
             
+            self.log.debug("Current toolMode is: BarCountTool")
+
             if qmouseevent.button() & Qt.LeftButton:
+                self.log.debug("Qt.LeftButton")
                 if self.clickOnePointF == None:
+                    self.log.debug("clickOnePointF is None.")
+                    
                     self.clickOnePointF = self.mapToScene(qmouseevent.pos())
 
                     # Create the BarCountGraphicsItem and initialize it to
@@ -5230,26 +5306,57 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.clickTwoPointF == None and \
                     self.barCountGraphicsItem != None:
 
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "barCountGraphicsItem != None.")
+                    
                     # Set the end point of the BarCountGraphicsItem.
                     self.clickTwoPointF = self.mapToScene(qmouseevent.pos())
                     self.barCountGraphicsItem.setEndPointF(self.clickTwoPointF)
                     self.barCountGraphicsItem.normalizeStartAndEnd()
-                                                
+                    # Call getArtifact() so that the item's artifact
+                    # object gets updated and set.
+                    self.barCountGraphicsItem.getArtifact()
+                    
                     # Emit that the PriceBarChart has changed.
                     self.scene().priceBarChartArtifactGraphicsItemAdded.\
                         emit(self.barCountGraphicsItem)
+                    
+                    sceneBoundingRect = \
+                        self.barCountGraphicsItem.sceneBoundingRect()
+                    self.log.debug("barCountGraphicsItem " +
+                                   "officially added.  " +
+                                   "pos is: {}.  ".\
+                                   format(self.barCountGraphicsItem.pos()) +
+                                   "Its sceneBoundingRect is: {}.  ".\
+                                   format(sceneBoundingRect) +
+                                   "Its x range is: {} to {}.  ".\
+                                   format(sceneBoundingRect.left(),
+                                          sceneBoundingRect.right()) +
+                                   "Its y range is: {} to {}.  ".\
+                                   format(sceneBoundingRect.top(),
+                                          sceneBoundingRect.bottom()))
                     
                     # Clear out working variables.
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
                     self.barCountGraphicsItem = None
-                    
+
+                else:
+                    self.log.warn("Unexpected state reached.")
+
             elif qmouseevent.button() & Qt.RightButton:
+                
+                self.log.debug("Qt.RightButton")
                 
                 if self.clickOnePointF != None and \
                    self.clickTwoPointF == None and \
                    self.barCountGraphicsItem != None:
 
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "barCountGraphicsItem != None.")
+                    
                     # Right-click during setting the BarCountGraphicsItem
                     # causes the currently edited bar count item to be
                     # removed and cleared out.  Temporary variables used
@@ -5264,21 +5371,35 @@ class PriceBarChartGraphicsView(QGraphicsView):
                      self.clickTwoPointF == None and \
                      self.barCountGraphicsItem == None:
                     
+                    self.log.debug("clickOnePointF == None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "barCountGraphicsItem == None.")
+                    
                     # Open a context menu at this location, in readonly mode.
                     clickPosF = self.mapToScene(qmouseevent.pos())
                     menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
                     menu.exec_(qmouseevent.globalPos())
                     
+                else:
+                    self.log.warn("Unexpected state reached.")
+
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['TimeMeasurementTool']:
             
+            self.log.debug("Current toolMode is: TimeMeasurementTool")
+
             if qmouseevent.button() & Qt.LeftButton:
+                self.log.debug("Qt.LeftButton")
+                
                 if self.clickOnePointF == None:
+                    self.log.debug("clickOnePointF == None")
+                
                     self.clickOnePointF = self.mapToScene(qmouseevent.pos())
 
                     # Create the TimeMeasurementGraphicsItem and
                     # initialize it to the mouse location.
-                    self.timeMeasurementGraphicsItem = TimeMeasurementGraphicsItem()
+                    self.timeMeasurementGraphicsItem = \
+                        TimeMeasurementGraphicsItem()
                     self.timeMeasurementGraphicsItem.\
                         loadSettingsFromPriceBarChartSettings(\
                             self.priceBarChartSettings)
@@ -5297,26 +5418,56 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.clickTwoPointF == None and \
                     self.timeMeasurementGraphicsItem != None:
 
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "timeMeasurementGraphicsItem != None.")
+                    
                     # Set the end point of the TimeMeasurementGraphicsItem.
                     self.clickTwoPointF = self.mapToScene(qmouseevent.pos())
-                    self.timeMeasurementGraphicsItem.setEndPointF(self.clickTwoPointF)
+                    self.timeMeasurementGraphicsItem.\
+                        setEndPointF(self.clickTwoPointF)
                     self.timeMeasurementGraphicsItem.normalizeStartAndEnd()
+                    # Call getArtifact() so that the item's artifact
+                    # object gets updated and set.
+                    self.timeMeasurementGraphicsItem.getArtifact()
                                                 
                     # Emit that the PriceBarChart has changed.
                     self.scene().priceBarChartArtifactGraphicsItemAdded.\
                         emit(self.timeMeasurementGraphicsItem)
                     
+                    sceneBoundingRect = \
+                        self.timeMeasurementGraphicsItem.sceneBoundingRect()
+                    self.log.debug("timeMeasurementGraphicsItem " +
+                                   "officially added.  " +
+                                   "Its sceneBoundingRect is: {}.  ".\
+                                   format(sceneBoundingRect) +
+                                   "Its x range is: {} to {}.  ".\
+                                   format(sceneBoundingRect.left(),
+                                          sceneBoundingRect.right()) +
+                                   "Its y range is: {} to {}.  ".\
+                                   format(sceneBoundingRect.top(),
+                                          sceneBoundingRect.bottom()))
+                                   
                     # Clear out working variables.
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
                     self.timeMeasurementGraphicsItem = None
                     
+                else:
+                    self.log.warn("Unexpected state reached.")
+                    
             elif qmouseevent.button() & Qt.RightButton:
+                
+                self.log.debug("Qt.RightButton")
                 
                 if self.clickOnePointF != None and \
                    self.clickTwoPointF == None and \
                    self.timeMeasurementGraphicsItem != None:
 
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "timeMeasurementGraphicsItem != None.")
+                    
                     # Right-click during setting the TimeMeasurementGraphicsItem
                     # causes the currently edited bar count item to be
                     # removed and cleared out.  Temporary variables used
@@ -5331,16 +5482,29 @@ class PriceBarChartGraphicsView(QGraphicsView):
                      self.clickTwoPointF == None and \
                      self.timeMeasurementGraphicsItem == None:
                     
+                    self.log.debug("clickOnePointF == None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "timeMeasurementGraphicsItem == None.")
+                    
                     # Open a context menu at this location, in readonly mode.
                     clickPosF = self.mapToScene(qmouseevent.pos())
                     menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
                     menu.exec_(qmouseevent.globalPos())
                     
+                else:
+                    self.log.warn("Unexpected state reached.")
+                    
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ModalScaleTool']:
             
+            self.log.debug("Current toolMode is: ModalScaleTool")
+
             if qmouseevent.button() & Qt.LeftButton:
+                self.log.debug("Qt.LeftButton")
+                
                 if self.clickOnePointF == None:
+                    self.log.debug("clickOnePointF is None.")
+                    
                     self.clickOnePointF = self.mapToScene(qmouseevent.pos())
 
                     # Create the ModalScaleGraphicsItem and
@@ -5364,26 +5528,60 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.clickTwoPointF == None and \
                     self.modalScaleGraphicsItem != None:
 
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "modalScaleGraphicsItem != None.")
+                    
                     # Set the end point of the ModalScaleGraphicsItem.
                     self.clickTwoPointF = self.mapToScene(qmouseevent.pos())
-                    self.modalScaleGraphicsItem.setEndPointF(self.clickTwoPointF)
+                    self.modalScaleGraphicsItem.\
+                        setEndPointF(self.clickTwoPointF)
                     self.modalScaleGraphicsItem.normalizeStartAndEnd()
+                    # Call getArtifact() so that the item's artifact
+                    # object gets updated and set.
+                    self.modalScaleGraphicsItem.getArtifact()
                                                 
                     # Emit that the PriceBarChart has changed.
                     self.scene().priceBarChartArtifactGraphicsItemAdded.\
                         emit(self.modalScaleGraphicsItem)
+                    
+                    sceneBoundingRect = \
+                        self.modalScaleGraphicsItem.sceneBoundingRect()
+                    self.log.debug("modalScaleGraphicsItem " +
+                                   "officially added.  " +
+                                   "Its sceneBoundingRect is: {}.  ".\
+                                   format(sceneBoundingRect) +
+                                   "Its x range is: {} to {}.  ".\
+                                   format(sceneBoundingRect.left(),
+                                          sceneBoundingRect.right()) +
+                                   "Its y range is: {} to {}.  ".\
+                                   format(sceneBoundingRect.top(),
+                                          sceneBoundingRect.bottom()))
+
+                    # TODO: make sure that the modalScaleGraphicsItem
+                    # can be created with varying x and y values for
+                    # the start and end points (kind of like a 2-d
+                    # vector).
                     
                     # Clear out working variables.
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
                     self.modalScaleGraphicsItem = None
                     
+                else:
+                    self.log.warn("Unexpected state reached.")
+                    
             elif qmouseevent.button() & Qt.RightButton:
+                self.log.debug("Qt.RightButton")
                 
                 if self.clickOnePointF != None and \
                    self.clickTwoPointF == None and \
                    self.modalScaleGraphicsItem != None:
 
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "modalScaleGraphicsItem != None.")
+                    
                     # Right-click during setting the ModalScaleGraphicsItem
                     # causes the currently edited bar count item to be
                     # removed and cleared out.  Temporary variables used
@@ -5398,21 +5596,32 @@ class PriceBarChartGraphicsView(QGraphicsView):
                      self.clickTwoPointF == None and \
                      self.modalScaleGraphicsItem == None:
                     
+                    self.log.debug("clickOnePointF == None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "modalScaleGraphicsItem == None.")
+                    
                     # Open a context menu at this location, in readonly mode.
                     clickPosF = self.mapToScene(qmouseevent.pos())
                     menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
                     menu.exec_(qmouseevent.globalPos())
                     
+                else:
+                    self.log.warn("Unexpected state reached.")
         else:
+            self.log.warn("Current toolMode is: UNKNOWN.")
+
             # For any other mode we don't have specific functionality
             # for, do a context menu if it is a right-click, otherwise
             # just pass the event to the parent to handle.
             if qmouseevent.button() & Qt.RightButton:
+                self.log.debug("Qt.RightButton")
+                
                 # Open a context menu at this location, in readonly mode.
                 clickPosF = self.mapToScene(qmouseevent.pos())
                 menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
                 menu.exec_(qmouseevent.globalPos())
             else:
+                self.log.debug("Passing mouse press event to super().")
                 super().mousePressEvent(qmouseevent)
 
         self.log.debug("Exiting mousePressEvent()")
@@ -5425,46 +5634,55 @@ class PriceBarChartGraphicsView(QGraphicsView):
         if self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ReadOnlyPointerTool']:
 
+            self.log.debug("Current toolMode is: ReadOnlyPointerTool")
             super().mouseReleaseEvent(qmouseevent)
 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PointerTool']:
 
+            self.log.debug("Current toolMode is: PointerTool")
             super().mouseReleaseEvent(qmouseevent)
 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['HandTool']:
 
+            self.log.debug("Current toolMode is: HandTool")
             super().mouseReleaseEvent(qmouseevent)
 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ZoomInTool']:
 
+            self.log.debug("Current toolMode is: ZoomInTool")
             super().mouseReleaseEvent(qmouseevent)
 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ZoomOutTool']:
 
+            self.log.debug("Current toolMode is: ZoomOutTool")
             super().mouseReleaseEvent(qmouseevent)
 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['BarCountTool']:
 
+            self.log.debug("Current toolMode is: BarCountTool")
             super().mouseReleaseEvent(qmouseevent)
 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['TimeMeasurementTool']:
 
+            self.log.debug("Current toolMode is: TimeMeasurementTool")
             super().mouseReleaseEvent(qmouseevent)
 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ModalScaleTool']:
 
+            self.log.debug("Current toolMode is: ModalScaleTool")
             super().mouseReleaseEvent(qmouseevent)
 
         else:
             # For any other mode we don't have specific functionality for,
             # just pass the event to the parent to handle.
+            self.log.warn("Current toolMode is: UNKNOWN.")
             super().mouseReleaseEvent(qmouseevent)
 
         self.log.debug("Exiting mouseReleaseEvent()")

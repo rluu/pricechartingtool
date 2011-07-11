@@ -951,7 +951,24 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
 
         # TODO: populate the above self.musicalRatios with a set of
         # all the indian and pythagorean musical ratios.
+        
+    @staticmethod
+    def getIndianMusicalRatios():
+        """Returns a list of MusicalRatio objects that contain all the
+        Indian shrutis.
+        """
 
+        # TODO:  write this function.
+        
+    @staticmethod
+    def getNonIndianPythagoreanMusicalRatios():
+        """Returns a list of MusicalRatio objects that are the
+        Pythagorean musical ratios not already covered by the Indian
+        musical ratios.
+        """
+
+        # TODO: write this function.
+        
     def setStartPointF(self, startPointF):
         """Stores the starting point of the ModalScaleArtifact.
         Arguments:
@@ -1647,7 +1664,7 @@ class PriceBarChartSettings:
                     format(self.barCountGraphicsItemFontSize) + \
                 "barCountGraphicsItemTextXScaling={}, ".\
                     format(self.barCountGraphicsItemTextXScaling) + \
-                "barCountGraphicsItemTextYScaling={}".\
+                "barCountGraphicsItemTextYScaling={}, ".\
                     format(self.barCountGraphicsItemTextYScaling) + \
                 "timeMeasurementGraphicsItemBarHeight={}, ".\
                     format(self.timeMeasurementGraphicsItemBarHeight) + \

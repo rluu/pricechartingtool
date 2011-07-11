@@ -1126,9 +1126,15 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
         # Set the internal widgets as readonly or not depending on this flag.
         self.internalNameLineEdit.setReadOnly(True)
         self.uuidLineEdit.setReadOnly(True)
-        self.priceLocationValueSpinBox.setReadOnly(self.readOnlyFlag)
+        self.rotateDownButton.setEnabled(self.readOnlyFlag)
+        self.rotateUpButton.setEnabled(self.readOnlyFlag)
+        self.startPointPriceValueSpinBox.setReadOnly(self.readOnlyFlag)
         self.startPointDatetimeLocationWidget.setReadOnly(self.readOnlyFlag)
+        self.endPointPriceValueSpinBox.setReadOnly(self.readOnlyFlag)
         self.endPointDatetimeLocationWidget.setReadOnly(self.readOnlyFlag)
+
+        for checkBox in self.checkBoxes:
+            checkBox.setReadOnly(self.readOnlyFlag)
         
         # Don't allow the Okay button to be pressed for saving.
         self.okayButton.setEnabled(not self.readOnlyFlag)
