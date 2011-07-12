@@ -523,10 +523,11 @@ class MusicalRatio:
                     fraction (if applicable)
         """
 
-        self.log = logging.getLogger("data_objects.MusicalRatio")
-
         # Class version stored for pickling and unpickling.
         self.classVersion = 1
+
+        # Logger object.
+        self.log = logging.getLogger("data_objects.MusicalRatio")
 
         self.ratio = ratio
         self.description = description
@@ -534,6 +535,172 @@ class MusicalRatio:
         self.denominator = denominator
         self.enabled = enabled
         
+    @staticmethod
+    def getIndianMusicalRatios():
+        """Returns a list of MusicalRatio objects that contain all the
+        Indian shrutis.
+        """
+
+        # Return value.
+        ratios = []
+
+        ratios.append(MusicalRatio(ratio=1/1.0,
+                                   description="(P1) (1/1) Kṣobhinī",
+                                   numerator=1,
+                                   denominator=1,
+                                   enabled=True))
+
+        ratios.append(MusicalRatio(ratio=256/243.0,
+                                   description="(m2) (256/243) Tīvrā",
+                                   numerator=256,
+                                   denominator=243,
+                                   enabled=True))
+
+        ratios.append(MusicalRatio(ratio=16/15.0,
+                                   description="(m2) (16/15) Kumudvatī",
+                                   numerator=16,
+                                   denominator=15,
+                                   enabled=True))
+
+        ratios.append(MusicalRatio(ratio=10/9.0,
+                                   description="(M2) (10/9) Mandā",
+                                   numerator=10,
+                                   denominator=9,
+                                   enabled=True))
+
+        ratios.append(MusicalRatio(ratio=9/8.0,
+                                   description="(M2) (9/8) Chandovatī",
+                                   numerator=9,
+                                   denominator=8,
+                                   enabled=True))
+
+        ratios.append(MusicalRatio(ratio=32/27.0,
+                                   description="(m3) (32/27) Dayāvatī",
+                                   numerator=32,
+                                   denominator=27,
+                                   enabled=True))
+
+        ratios.append(MusicalRatio(ratio=6/5.0,
+                                   description="(m3) (6/5) Ranjanī",
+                                   numerator=6,
+                                   denominator=5,
+                                   enabled=True))
+
+        ratios.append(MusicalRatio(ratio=5/4.0,
+                                   description="(M3) (5/4) Raktikā",
+                                   numerator=5,
+                                   denominator=4,
+                                   enabled=True))
+
+        ratios.append(MusicalRatio(ratio=81/64.0,
+                                   description="(M3) (81/64) Raudrī",
+                                   numerator=81,
+                                   denominator=64,
+                                   enabled=True))
+
+        ratios.append(MusicalRatio(ratio=4/3.0,
+                                   description="(P4) (4/3) Krodhā",
+                                   numerator=4,
+                                   denominator=3,
+                                   enabled=True))
+
+        ratios.append(MusicalRatio(ratio=27/20.0,
+                                   description="(P4) (27/20) Vajrikā",
+                                   numerator=27,
+                                   denominator=20,
+                                   enabled=True))
+
+        ratios.append(MusicalRatio(ratio=45/32.0,
+                                   description="(A4) (45/32) Prasāriṇī",
+                                   numerator=45,
+                                   denominator=32,
+                                   enabled=True))
+
+        ratios.append(MusicalRatio(ratio=729/512.0,
+                                   description="(A4) (729/512) Prīti",
+                                   numerator=729,
+                                   denominator=512,
+                                   enabled=True))
+
+        ratios.append(MusicalRatio(ratio=3/2.0,
+                                   description="(P5) (3/2) Mārjanī",
+                                   numerator=3,
+                                   denominator=2,
+                                   enabled=True))
+
+        ratios.append(MusicalRatio(ratio=128/81.0,
+                                   description="(m6) (128/81) Kṣiti",
+                                   numerator=128,
+                                   denominator=81,
+                                   enabled=True))
+
+        ratios.append(MusicalRatio(ratio=8/5.0,
+                                   description="(m6) (8/5) Raktā",
+                                   numerator=8,
+                                   denominator=5,
+                                   enabled=True))
+
+        ratios.append(MusicalRatio(ratio=5/3.0,
+                                   description="(M6) (5/3) Sandīpanī",
+                                   numerator=5,
+                                   denominator=3,
+                                   enabled=True))
+
+        ratios.append(MusicalRatio(ratio=27/16.0,
+                                   description="(M6) (27/16) Ālāpinī",
+                                   numerator=27,
+                                   denominator=16,
+                                   enabled=True))
+
+        ratios.append(MusicalRatio(ratio=16/9.0,
+                                   description="(m7) (16/9) Madantī",
+                                   numerator=16,
+                                   denominator=9,
+                                   enabled=True))
+
+        ratios.append(MusicalRatio(ratio=9/5.0,
+                                   description="(m7) (9/5) Rohiṇī",
+                                   numerator=9,
+                                   denominator=5,
+                                   enabled=True))
+
+        ratios.append(MusicalRatio(ratio=15/8.0,
+                                   description="(M7) (15/8) Ramyā",
+                                   numerator=15,
+                                   denominator=8,
+                                   enabled=True))
+
+        ratios.append(MusicalRatio(ratio=243/128.0,
+                                   description="(M7) (243/128) Ugrā",
+                                   numerator=243,
+                                   denominator=128,
+                                   enabled=True))
+
+        #ratios.append(MusicalRatio(ratio=2/1.0,
+        #                           description="(P8) (2/1) Kṣobhinī",
+        #                           numerator=2,
+        #                           denominator=1,
+        #                           enabled=True))
+
+        return ratios
+    
+    @staticmethod
+    def getNonIndianPythagoreanMusicalRatios():
+        """Returns a list of MusicalRatio objects that are the
+        Pythagorean musical ratios not already covered by the Indian
+        musical ratios.
+        """
+
+        ratios = []
+        
+        ratios.append(MusicalRatio(ratio=1024/729.0,
+                                   description="(d5) Pythagorean Tuning",
+                                   numerator=1024,
+                                   denominator=729,
+                                   enabled=True))
+
+        return ratios
+    
     def getRatio(self):
         """Returns the float ratio value.
         """
@@ -617,6 +784,21 @@ class MusicalRatio:
         """
         
         self.enabled = enabled
+    
+    def inverted(self):
+        """Returns the same MusicalRatio, but just inverted.
+        '(Inverted)' str is added to the description.
+        The returned MusicalRatio has the same enabled state.
+        """
+
+        inverted = \
+            MusicalRatio(ratio=(1 / self.getRatio()),
+                         description=self.getDescription() + " (Inverted)",
+                         numerator=self.getDenominator(),
+                         denominator=self.getNumerator(),
+                         enabled=self.getEnabled())
+
+        return inverted
     
     def toString(self):
         """Returns the string representation of the data."""
@@ -728,6 +910,14 @@ class PriceBarChartTextArtifact(PriceBarChartArtifact):
         """
         super().__init__()
         
+        # Set the version of this class (used for pickling and unpickling
+        # different versions of this class).
+        self.classVersion = 1
+
+        # Create the logger.
+        self.log = \
+            logging.getLogger("data_objects.PriceBarChartTextArtifact")
+
         # Update the internal name so it is the artifact type plus the uuid.
         self.internalName = "Text_" + str(self.uuid)
     
@@ -755,6 +945,35 @@ class PriceBarChartTextArtifact(PriceBarChartArtifact):
 
         return rv
 
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = \
+            logging.getLogger("data_objects.PriceBarChartTextArtifact")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " +
+                       PriceBarChartTextArtifact.__name__ +
+                       " object of version {}".format(self.classVersion))
+
 class PriceBarChartGannFanUpperRightArtifact(PriceBarChartArtifact):
     """PriceBarChartArtifact that is the GannFann pointing in 
     the upper right direction."""
@@ -762,6 +981,14 @@ class PriceBarChartGannFanUpperRightArtifact(PriceBarChartArtifact):
     def __init__(self):
         super().__init__()
         
+        # Set the version of this class (used for pickling and unpickling
+        # different versions of this class).
+        self.classVersion = 1
+
+        # Create the logger.
+        self.log = \
+            logging.getLogger("data_objects.PriceBarChartGannFanUpperRightArtifact")
+
         # Update the internal name so it is the artifact type plus the uuid.
         self.internalName = "GannFanUpperRight_" + str(self.uuid)
 
@@ -780,6 +1007,35 @@ class PriceBarChartGannFanUpperRightArtifact(PriceBarChartArtifact):
 
         return rv
     
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = \
+            logging.getLogger("data_objects.PriceBarChartGannFanUpperRightArtifact")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " +
+                       PriceBarChartGannFanUpperRightArtifact.__name__ +
+                       " object of version {}".format(self.classVersion))
+
 class PriceBarChartGannFanLowerRightArtifact(PriceBarChartArtifact):
     """PriceBarChartArtifact that is the GannFann pointing in 
     the lower right direction.
@@ -788,6 +1044,14 @@ class PriceBarChartGannFanLowerRightArtifact(PriceBarChartArtifact):
     def __init__(self):
         super().__init__()
         
+        # Set the version of this class (used for pickling and unpickling
+        # different versions of this class).
+        self.classVersion = 1
+
+        # Create the logger.
+        self.log = \
+            logging.getLogger("data_objects.PriceBarChartGannFanLowerRightArtifact")
+
         # Update the internal name so it is the artifact type plus the uuid.
         self.internalName = "GannFanLowerRight_" + str(self.uuid)
    
@@ -806,6 +1070,35 @@ class PriceBarChartGannFanLowerRightArtifact(PriceBarChartArtifact):
 
         return rv
     
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = \
+            logging.getLogger("data_objects.PriceBarChartGannFanLowerRightArtifact")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " +
+                       PriceBarChartGannFanLowerRightArtifact.__name__ +
+                       " object of version {}".format(self.classVersion))
+
 class PriceBarChartBarCountArtifact(PriceBarChartArtifact):
     """PriceBarChartArtifact that indicates bar counts starting 
     at the given PriceBar timestamp and the given Y offset from the 
@@ -815,6 +1108,14 @@ class PriceBarChartBarCountArtifact(PriceBarChartArtifact):
     def __init__(self):
         super().__init__()
         
+        # Set the version of this class (used for pickling and unpickling
+        # different versions of this class).
+        self.classVersion = 1
+
+        # Create the logger.
+        self.log = \
+            logging.getLogger("data_objects.PriceBarChartBarCountArtifact")
+
         # Update the internal name so it is the artifact type plus the uuid.
         self.internalName = "BarCount_" + str(self.uuid)
 
@@ -868,6 +1169,35 @@ class PriceBarChartBarCountArtifact(PriceBarChartArtifact):
 
         return rv
         
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = \
+            logging.getLogger("data_objects.PriceBarChartBarCountArtifact")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " +
+                       PriceBarChartBarCountArtifact.__name__ +
+                       " object of version {}".format(self.classVersion))
+
 class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
     """PriceBarChartArtifact that indicates the time measurement starting 
     at the given PriceBar timestamp and the given Y offset from the 
@@ -877,6 +1207,13 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
     def __init__(self):
         super().__init__()
         
+        # Set the version of this class (used for pickling and unpickling
+        # different versions of this class).
+        self.classVersion = 1
+
+        # Create the logger.
+        self.log = logging.getLogger("data_objects.PriceBarChartTimeMeasurementArtifact")
+
         # Update the internal name so it is the artifact type plus the uuid.
         self.internalName = "TimeMeasurement_" + str(self.uuid)
 
@@ -930,6 +1267,34 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
 
         return rv
         
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = logging.getLogger("data_objects.PriceBarChartTimeMeasurementArtifact")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " +
+                       PriceBarChartTimeMeasurementArtifact.__name__ +
+                       " object of version {}".format(self.classVersion))
+
 class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
     """PriceBarChartArtifact that indicates the time measurement starting 
     at the given PriceBar timestamp and the given Y offset from the 
@@ -939,6 +1304,14 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
     def __init__(self):
         super().__init__()
         
+        # Set the version of this class (used for pickling and unpickling
+        # different versions of this class).
+        self.classVersion = 1
+
+        # Create the logger.
+        self.log = \
+            logging.getLogger("data_objects.PriceBarChartModalScaleArtifact")
+
         # Update the internal name so it is the artifact type plus the uuid.
         self.internalName = "ModalScale_" + str(self.uuid)
 
@@ -947,28 +1320,13 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
         self.endPointF = QPointF()
 
         # List of used ratios.
-        self.musicalRatios = []
-
-        # TODO: populate the above self.musicalRatios with a set of
-        # all the indian and pythagorean musical ratios.
+        self.musicalRatios = MusicalRatio.getIndianMusicalRatios()
         
-    @staticmethod
-    def getIndianMusicalRatios():
-        """Returns a list of MusicalRatio objects that contain all the
-        Indian shrutis.
-        """
+        # Flag for whether or not the musicalRatios are in reverse
+        # order.  This affects how ratios are referenced (from the
+        # endpoint instead of from the startpoint).
+        self.reversedFlag = False
 
-        # TODO:  write this function.
-        
-    @staticmethod
-    def getNonIndianPythagoreanMusicalRatios():
-        """Returns a list of MusicalRatio objects that are the
-        Pythagorean musical ratios not already covered by the Indian
-        musical ratios.
-        """
-
-        # TODO: write this function.
-        
     def setStartPointF(self, startPointF):
         """Stores the starting point of the ModalScaleArtifact.
         Arguments:
@@ -1007,18 +1365,57 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
 
         self.musicalRatios = musicalRatios
 
-    def getXYForMusicalRatio(self, index):
+    def isReversed(self):
+        """Returns whether or not the musicalRatios are in reversed order.
+        This value is used to tell how ratios are referenced (from the
+        endpoint instead of from the startpoint).
+        """
+
+        return self.reversedFlag
+
+    def setReversed(self, reversedFlag):
+        """Sets the reversed flag.  This value is used to tell how
+        the musical ratios are referenced (from the endpoint instead of from the
+        startpoint).
+
+        Arguments:
+        reversedFlag - bool value for whether or not the musicalRatios
+                       are reversed.
+        """
+
+        self.reversedFlag = reversedFlag
+        
+    def getXYForMusicalRatio(self, index, reversedFlag=False):
         """Returns the x and y location of where this musical ratio
         would exist, based on the MusicalRatio ordering and the
         startPoint and endPoint locations.
+
+        Arguments:
+        
+        index - int value for index into self.musicalRatios that the
+        user is looking for the musical ratio for.  This value must be
+        within the valid index limits.
+
+        reversedFlag - bool value for whether or not reversal of the
+        MusicalRatios array should be taken into account.
         """
 
         self.log.debug("Entered getXYForMusicalRatio({})".format(index))
+
+        # Validate input.
+        if index < 0:
+            self.log.error("getXYForMusicalRatio(): Invalid index: {}".
+                           format(index))
+            return
+        if len(self.musicalRatios) > 0 and index >= len(self.musicalRatios):
+            self.log.error("getXYForMusicalRatio(): Index out of range: {}".
+                           format(index))
+            return
         
         # Return values.
         x = None
         y = None
-        
+
         startPointX = self.startPointF.x()
         startPointY = self.startPointF.y()
         endPointX = self.endPointF.x()
@@ -1040,9 +1437,10 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
         xOffset = 0.0
         yOffset = 0.0
 
+        
         self.log.debug("There are {} number of musical ratios.".\
                        format(len(self.musicalRatios)))
-        
+
         for i in range(len(self.musicalRatios)):
             musicalRatio = self.musicalRatios[i]
             
@@ -1050,10 +1448,10 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
                            format(i, musicalRatio.getRatio()))
             if i == 0:
                 # Store the offset for future indexes.
-                xOffset = deltaX * musicalRatio.getRatio()
-                yOffset = deltaY * musicalRatio.getRatio()
+                xOffset = deltaX * (musicalRatio.getRatio() - 1.0)
+                yOffset = deltaY * (musicalRatio.getRatio() - 1.0)
 
-                self.log.debug("At the first index.  xOffset={}, yOffset={}".\
+                self.log.debug("At i == 0.  xOffset={}, yOffset={}".\
                                format(xOffset, yOffset))
                 
             if i == index:
@@ -1061,23 +1459,39 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
                 self.log.debug("MusicalRatio is: {}".\
                                format(musicalRatio.getRatio()))
                 
-                x = (deltaX * musicalRatio.getRatio()) - xOffset
-                y = (deltaY * musicalRatio.getRatio()) - yOffset
+                x = (deltaX * (musicalRatio.getRatio() - 1.0)) - xOffset
+                y = (deltaY * (musicalRatio.getRatio() - 1.0)) - yOffset
 
                 self.log.debug("(x={}, y={})".format(x, y))
+
+                # Normalize x and y to be within the range of
+                # [startPointX, endPointX] and [startPointY,
+                # endPointY]
+
+                # If we are reversed, then reference the offset x and
+                # y from the end point instead of the start point.
+                if self.isReversed() == False:
+                    x = startPointX + x
+                    y = startPointY + y
+                else:
+                    x = endPointX - x
+                    y = endPointY - y
+                    
+
+                self.log.debug("Adjusting to start points, (x={}, y={})".
+                               format(x, y))
                 
-                # Wrap the value around the interval if x or y is negative.
-                if x < 0:
-                    x = deltaX - x
-                    self.log.debug("x < 0, so new x is: {}".format(x))
-                if y < 0:
-                    y = deltaY - y
-                    self.log.debug("y < 0, so new y is: {}".format(y))
+                while x < startPointX and x < endPointX:
+                    x += abs(deltaX)
+                while x > startPointX and x > endPointX:
+                    x -= abs(deltaX)
+                while y < startPointY and y < endPointY:
+                    y += abs(deltaY)
+                while y > startPointY and y > endPointY:
+                    y -= abs(deltaY)
 
-                x = startPointX + x
-                y = startPointY + y
-
-                self.log.debug("Normalized x and y from startPoint is: " +
+                self.log.debug("For index {}, ".format(i) +
+                               "normalized x and y from startPoint is: " +
                                "({}, {})".format(x, y))
 
                 # Break out of for loop because we found what we are
@@ -1097,7 +1511,7 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
         self.log.debug("Exiting getXYForMusicalRatio({}), ".format(index) + \
                        "Returning ({}, {})".format(x, y))
         return (x, y)
-    
+
     def __str__(self):
         """Returns the string representation of this object."""
 
@@ -1108,7 +1522,7 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
 
         musicalRatiosStr = "["
         for musicalRatio in self.musicalRatios:
-            musicalRatioStr += musicalRatio.toString()
+            musicalRatiosStr += musicalRatio.toString()
         musicalRatiosStr += "]"
         
         rv = "[name={}, ".format(self.getInternalName()) + \
@@ -1117,11 +1531,41 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
                                              self.getStartPointF().y()) + \
              "endPointF=({}, {}), ".format(self.getEndPointF().x(),
                                            self.getEndPointF().y()) + \
-             "musicalRatios={}".format(musicalRatiosStr) + \
+             "musicalRatios={}, ".format(musicalRatiosStr) + \
+             "reversedFlag={}".format(self.reversedFlag) + \
              "]"
 
         return rv
         
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = \
+            logging.getLogger("data_objects.PriceBarChartModalScaleArtifact")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " +
+                       PriceBarChartModalScaleArtifact.__name__ +
+                       " object of version {}".format(self.classVersion))
+
 class PriceBarChartScaling:
     """Class that holds information about the scaling of a PriceBarChart.
     """
@@ -1139,6 +1583,9 @@ class PriceBarChartScaling:
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
         self.classVersion = 1
+
+        # Create the logger.
+        self.log = logging.getLogger("data_objects.PriceBarChartScaling")
 
         # Store class members.
         self.name = name
@@ -1215,6 +1662,35 @@ class PriceBarChartScaling:
                 "description={}, ".format(self.description) + \
                 "unitsOfTime={}, ".format(self.unitsOfTime) + \
                 "unitsOfPrice={}]".format(self.unitsOfPrice)
+
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = \
+            logging.getLogger("data_objects.PriceBarChartScaling")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " +
+                       PriceBarChartScaling.__name__ +
+                       " object of version {}".format(self.classVersion))
 
 class PriceChartDocumentData:
     """Contains all the data about the price chart and price data.

@@ -2682,7 +2682,8 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         for i in range(len(self.musicalRatioTextItems)):
             listOfTextItems = self.musicalRatioTextItems[i]
             
-            for textItem in range(len(listOfTextItems)):
+            for j in range(len(listOfTextItems)):
+                textItem = listOfTextItems[j]
                 textItem.setFont(self.modalScaleTextFont)
                 textItem.setPen(self.modalScaleTextPen)
                 textItem.setBrush(self.modalScaleTextBrush)
@@ -2942,7 +2943,7 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                         # but instead at an offset slightly below that
                         # point so that multiple texts dont' overlap
                         # each other.
-                        offsetY = defaultModalScaleGraphicsItemBarHeight * i
+                        offsetY = self.modalScaleGraphicsItemBarHeight * i
                         textItem.setPos(QPointF(x, y + offsetY))
 
             # Call update on this item since positions and child items
@@ -3110,7 +3111,7 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                             
                             # Get the y location and then convert to a price.
                             (x, y) = self.getArtifact().getXYForMusicalRatio(i)
-                            price = self.graphicsScene.sceneYPosToPrice(y)
+                            price = self.scene().sceneYPosToPrice(y)
                             priceText = "{}".format(price)
                             textItem.setText(priceText)
                         elif j == 2:
@@ -3119,7 +3120,7 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                             # Get the x location and then convert to a datetime.
                             (x, y) = self.getArtifact().getXYForMusicalRatio(i)
                             timestamp = \
-                                self.graphicsScene.sceneXPosToDatetime(x)
+                                self.scene().sceneXPosToDatetime(x)
                             timestampText = \
                                 Ephemeris.datetimeToDayStr(timestamp)
                             textItem.setText(timestampText)

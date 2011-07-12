@@ -33,6 +33,9 @@ from data_objects import PriceBarChartTextArtifact
 
 from dialogs import TimestampEditWidget
 
+# For formatting datetime.datetime to string.
+from ephemeris import Ephemeris
+
 # This file contains the edit widgets and dialogs for editing the
 # fields in various PriceBarChartArtifact objects within the context
 # of a PriceBarChart.
@@ -954,8 +957,10 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
         self.log = logging.\
             getLogger("dialogs.PriceBarChartModalScaleArtifactEditWidget")
 
-        # Save off the artifact object.
-        self.artifact = artifact
+        # This variable holds a copy of the artifact passed in.  We
+        # set this value via self.loadValues(), which is called later
+        # in this funtion on parameter 'artifact'.
+        self.artifact = None
 
         # Save off the scene object used for unit conversions.
         self.convertObj = convertObj
@@ -978,10 +983,12 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
 
         self.rotateDownButton = QPushButton("Rotate Down")
         self.rotateUpButton = QPushButton("Rotate Up")
-
+        self.reverseButton = QPushButton("Reverse")
+        
         self.rotateButtonsLayout = QHBoxLayout()
         self.rotateButtonsLayout.addWidget(self.rotateDownButton)
         self.rotateButtonsLayout.addWidget(self.rotateUpButton)
+        self.rotateButtonsLayout.addWidget(self.reverseButton)
         self.rotateButtonsLayout.addStretch()
         
         self.startPointPriceValueLabel = \
@@ -989,6 +996,10 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
         self.startPointPriceValueSpinBox = QDoubleSpinBox()
         self.startPointPriceValueSpinBox.setMinimum(0.0)
         self.startPointPriceValueSpinBox.setMaximum(999999999.0)
+        startPointPriceValueLayout = QHBoxLayout()
+        startPointPriceValueLayout.addWidget(self.startPointPriceValueLabel)
+        startPointPriceValueLayout.addStretch()
+        startPointPriceValueLayout.addWidget(self.startPointPriceValueSpinBox)
         
         self.startPointDatetimeLocationWidget = TimestampEditWidget()
         self.startPointDatetimeLocationWidget.groupBox.\
@@ -1001,6 +1012,10 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
         self.endPointPriceValueSpinBox = QDoubleSpinBox()
         self.endPointPriceValueSpinBox.setMinimum(0.0)
         self.endPointPriceValueSpinBox.setMaximum(999999999.0)
+        endPointPriceValueLayout = QHBoxLayout()
+        endPointPriceValueLayout.addWidget(self.endPointPriceValueLabel)
+        endPointPriceValueLayout.addStretch()
+        endPointPriceValueLayout.addWidget(self.endPointPriceValueSpinBox)
         
         self.endPointDatetimeLocationWidget = TimestampEditWidget()
         self.endPointDatetimeLocationWidget.groupBox.\
@@ -1023,6 +1038,14 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
         r += 1
         self.gridLayout.addWidget(self.uuidLabel, r, 0, al)
         self.gridLayout.addWidget(self.uuidLineEdit, r, 1, al)
+        r += 1
+        self.gridLayout.addLayout(startPointPriceValueLayout, r, 0, al)
+        self.gridLayout.addLayout(endPointPriceValueLayout, r, 1, al)
+        r += 1
+        self.gridLayout.addWidget(self.startPointDatetimeLocationWidget,
+                                  r, 0, al)
+        self.gridLayout.addWidget(self.endPointDatetimeLocationWidget,
+                                  r, 1, al)
         r += 1
 
         # Layout for the musical ratio intervals.
@@ -1056,12 +1079,12 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
 
         self.setLayout(self.mainLayout)
         
-        self.setReadOnly(self.readOnlyFlag)
-        
         # Now that all the widgets are created, load the values from the
         # artifact object.
-        self.loadValues(self.artifact)
+        self.loadValues(artifact)
 
+        self.setReadOnly(self.readOnlyFlag)
+        
         # Connect signals and slots.
 
         # Connect rotateUp and rotateDown buttons.
@@ -1069,6 +1092,22 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
             connect(self._handleRotateUpButtonClicked)
         self.rotateDownButton.clicked.\
             connect(self._handleRotateDownButtonClicked)
+        self.reverseButton.clicked.\
+            connect(self._handleReverseButtonClicked)
+
+        # Connect the signals for the price and time values changing,
+        # so that we can update the start and end points in the
+        # artifact and update all the prices and datetimes in
+        # between.
+        self.startPointPriceValueSpinBox.valueChanged.\
+            connect(self._saveAndReloadMusicalRatios)
+        self.endPointPriceValueSpinBox.valueChanged.\
+            connect(self. _saveAndReloadMusicalRatios)
+        self.startPointDatetimeLocationWidget.valueChanged.\
+            connect(self._saveAndReloadMusicalRatios)
+        self.endPointDatetimeLocationWidget.valueChanged.\
+            connect(self._saveAndReloadMusicalRatios)
+        
         
         # Connect okay and cancel buttons.
         self.okayButton.clicked.connect(self._handleOkayButtonClicked)
@@ -1126,15 +1165,16 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
         # Set the internal widgets as readonly or not depending on this flag.
         self.internalNameLineEdit.setReadOnly(True)
         self.uuidLineEdit.setReadOnly(True)
-        self.rotateDownButton.setEnabled(self.readOnlyFlag)
-        self.rotateUpButton.setEnabled(self.readOnlyFlag)
+        self.rotateDownButton.setEnabled(not self.readOnlyFlag)
+        self.rotateUpButton.setEnabled(not self.readOnlyFlag)
+        self.reverseButton.setEnabled(not self.readOnlyFlag)
         self.startPointPriceValueSpinBox.setReadOnly(self.readOnlyFlag)
         self.startPointDatetimeLocationWidget.setReadOnly(self.readOnlyFlag)
         self.endPointPriceValueSpinBox.setReadOnly(self.readOnlyFlag)
         self.endPointDatetimeLocationWidget.setReadOnly(self.readOnlyFlag)
 
         for checkBox in self.checkBoxes:
-            checkBox.setReadOnly(self.readOnlyFlag)
+            checkBox.setEnabled(not self.readOnlyFlag)
         
         # Don't allow the Okay button to be pressed for saving.
         self.okayButton.setEnabled(not self.readOnlyFlag)
@@ -1165,11 +1205,18 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
                            "loadValues().  artifact can't be None.")
             self.log.debug("Exiting loadValues()")
             return
+        elif self.artifact is artifact:
+            # They are the same, so no need to do a deep copy.
+            # Just continue on, creating and loading the widgets.
+            self.log.debug("Same artifact, no need for deep copy.")
         else:
             # Store a deep copy of the artifact because we manipulate
             # the musicalRatios list and its ordering.
+            self.log.debug("Deep copying artifact...")
             self.artifact = copy.deepcopy(artifact)
 
+        self.log.debug("Setting the widgets...")
+        
         # Set the widgets.
         self.internalNameLineEdit.\
             setText(self.artifact.getInternalName())
@@ -1194,6 +1241,33 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
         self.endPointDatetimeLocationWidget.\
             loadTimestamp(endPointDatetime)
 
+        self._reloadMusicalRatiosGrid()
+        
+        self.log.debug("Exiting loadValues()")
+
+    def _reloadMusicalRatiosGrid(self):
+        """Clears and recreates the self.musicalRatiosGridLayout
+        according to teh values in self.artifact.
+        """
+        
+        # Remove any old widgets that were in the grid layout from
+        # the grid layout..
+        for r in range(self.musicalRatiosGridLayout.rowCount()):
+            for c in range(self.musicalRatiosGridLayout.columnCount()):
+                # Get the QLayoutItem.
+                item = self.musicalRatiosGridLayout.itemAtPosition(r, c)
+                if item != None:
+                    # Get the widget in the layout item.
+                    widget = item.widget()
+                    if widget != None:
+                        widget.setEnabled(False)
+                        widget.setVisible(False)
+                        widget.setParent(None)
+
+                        # Actually remove the widget from the
+                        # QGridLayout.  
+                        self.musicalRatiosGridLayout.removeWidget(widget)
+                                
         # Row.
         r = 0
         # Alignments.
@@ -1207,10 +1281,10 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
 
         # Clear the checkboxes list.
         self.checkBoxes = []
-        
+
         for i in range(self.numMusicalRatios):
             musicalRatio = musicalRatios[i]
-                        
+
             checkBox = QCheckBox("{}".format(musicalRatio.getRatio()))
 
             # Set the check state based on whether or not the musical
@@ -1237,36 +1311,26 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
             priceWidget = None
             timestampWidget = None
             
-            # If the first or last row, then use the edit widgets.
-            if r == 0:
-                priceWidget = self.startPointPriceValueSpinBox
-                timestampWidget = self.startPointDatetimeLocationWidget
-            elif r == (self.numMusicalRatios - 1):
-                priceWidget = self.endPointPriceValueSpinBox
-                timestampWidget = self.endPointDatetimeLocationWidget
-            else:
-                # Not in the first or last row, so just use QLabels to
-                # display the price and timestamp information.
-                (x, y) = self.artifact.getXYForMusicalRatio(i)
+            # Use QLabels to
+            # display the price and timestamp information.
+            (x, y) = self.artifact.getXYForMusicalRatio(i)
                 
-                price = self.convertObj.sceneYPosToPrice(y)
-                priceStr = "{}".format(price)
-                priceWidget = QLabel(priceStr)
+            price = self.convertObj.sceneYPosToPrice(y)
+            priceStr = "{}".format(price)
+            priceWidget = QLabel(priceStr)
 
-                timestamp = self.convertObj.sceneXPosToDatetime(x)
-                timestampStr = Ephemeris.datetimeToDayStr(timestamp)
-                timestampWidget = QLabel(timestampStr)
+            timestamp = self.convertObj.sceneXPosToDatetime(x)
+            timestampStr = Ephemeris.datetimeToDayStr(timestamp)
+            timestampWidget = QLabel(timestampStr)
 
             # Actually add the widgets to the grid layout.
             self.musicalRatiosGridLayout.addWidget(checkBox, r, 0, al)
             self.musicalRatiosGridLayout.addWidget(descriptionLabel, r, 1, al)
             self.musicalRatiosGridLayout.addWidget(priceWidget, r, 2, al)
-            self.musicalRatiosGridLayout.addWidget(timestampWidget, r, 2, al)
+            self.musicalRatiosGridLayout.addWidget(timestampWidget, r, 3, al)
 
-            r += 1    
-        
-        self.log.debug("Exiting loadValues()")
-        
+            r += 1
+
     def saveValues(self):
         """Saves the values in the widgets to the internally stored
         PriceBarChartModalScaleArtifact object.
@@ -1306,6 +1370,7 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
         # No need to save the musicalRatios inside self.artifact,
         # because each time there is a rotation or a check-marking
         # action, the internal artifact was updated.
+        # The same is the case for the self.artifact.setReversed().
 
         self.log.debug("Exiting saveValues()")
 
@@ -1332,7 +1397,16 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
                 self.artifact.getMusicalRatios()[i].setEnabled(newValue)
             else:
                 self.log.debug("No update to musicalRatio[{}]".format(i))
+
+    def _saveAndReloadMusicalRatios(self):
+        """Saves and reloads the musical ratio widgets."""
         
+        # Save values from what is in the widgets to the internal artifact.
+        self.saveValues()
+        
+        # Reload the musicalRatiosGrid.
+        self._reloadMusicalRatiosGrid()
+    
     def _handleRotateDownButtonClicked(self):
         """Called when the 'Rotate Down' button is clicked."""
 
@@ -1347,9 +1421,9 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
         # Overwrite the old list in the internally stored artifact.
         self.artifact.setMusicalRatios(musicalRatios)
 
-        # Reload the artifact, so that all the musical ratios are reloaded.
-        self.loadValues(self.artifact)
-        
+        # Reload the musicalRatiosGrid.
+        self._reloadMusicalRatiosGrid()
+    
     def _handleRotateUpButtonClicked(self):
         """Called when the 'Rotate Up' button is clicked."""
 
@@ -1364,9 +1438,28 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
         # Overwrite the old list in the internally stored artifact.
         self.artifact.setMusicalRatios(musicalRatios)
 
-        # Reload the artifact, so that all the musical ratios are reloaded.
-        self.loadValues(self.artifact)
+        # Reload the musicalRatiosGrid.
+        self._reloadMusicalRatiosGrid()
+    
+    def _handleReverseButtonClicked(self):
+        """Called when the 'Reverse' button is clicked."""
+
+        # Get all the musicalRatios in the internally stored artifact.
+        musicalRatios = self.artifact.getMusicalRatios()
+        musicalRatios.reverse()
+
+        # here, no need to reverse self.checkBoxes as well because we
+        # will just re-create all the checkboxes.
         
+        # Overwrite the old list in the internally stored artifact.
+        self.artifact.setMusicalRatios(musicalRatios)
+
+        # Flip the flag that indicates that the musical ratios are reversed.
+        self.artifact.setReversed(not self.artifact.isReversed())
+        
+        # Reload the musicalRatiosGrid.
+        self._reloadMusicalRatiosGrid()
+    
     def _handleOkayButtonClicked(self):
         """Called when the okay button is clicked."""
 
@@ -1533,7 +1626,7 @@ def testPriceBarChartBarCountArtifactEditDialog():
     # Set the artifact's position and start/end points.  It needs to
     # be at a position where the converted datetime.datetime is
     # greater than the datetime.datetime.MINYEAR.
-    # A X value of 2100000 is in year 927.
+    # A X value of 2100000 is in year 1037.
     pos = QPointF(2100000, -1000)
     artifact.setPos(pos)
     artifact.setStartPointF(pos)
@@ -1584,7 +1677,7 @@ def testPriceBarChartTimeMeasurementArtifactEditDialog():
     # Set the artifact's position and start/end points.  It needs to
     # be at a position where the converted datetime.datetime is
     # greater than the datetime.datetime.MINYEAR.
-    # A X value of 2100000 is in year 927.
+    # A X value of 2100000 is in year 1037.
     pos = QPointF(2100000, -1000)
     artifact.setPos(pos)
     artifact.setStartPointF(pos)
@@ -1635,11 +1728,11 @@ def testPriceBarChartModalScaleArtifactEditDialog():
     # Set the artifact's position and start/end points.  It needs to
     # be at a position where the converted datetime.datetime is
     # greater than the datetime.datetime.MINYEAR.
-    # A X value of 2100000 is in year 927.
-    pos = QPointF(2100000, -1000)
+    # A X value of 2450000 is in year 1995.
+    pos = QPointF(2450000, -1000)
     artifact.setPos(pos)
     artifact.setStartPointF(pos)
-    artifact.setEndPointF(QPoint(pos.x() + 1000, pos.y()))
+    artifact.setEndPointF(QPoint(pos.x() + 1000, pos.y() - 1000))
 
     # Create an object for doing unit conversions.
     eastern = pytz.timezone('US/Eastern')
@@ -1701,8 +1794,8 @@ if __name__=="__main__":
     app = QApplication(sys.argv)
 
     # Various tests to run:
-    testPriceBarChartBarCountArtifactEditDialog()
-    testPriceBarChartTimeMeasurementArtifactEditDialog()
+    #testPriceBarChartBarCountArtifactEditDialog()
+    #testPriceBarChartTimeMeasurementArtifactEditDialog()
     testPriceBarChartModalScaleArtifactEditDialog()
 
     # Exit the app when all windows are closed.

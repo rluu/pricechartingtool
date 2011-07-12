@@ -11634,6 +11634,9 @@ class TimestampEditWidget(QWidget):
     savings time or not.
     """
 
+    # Signal emitted when timestamp value in the widget is changed.
+    valueChanged = QtCore.pyqtSignal()
+    
     # Signal emitted when the Okay button is clicked and 
     # validation succeeded.
     okayButtonClicked = QtCore.pyqtSignal()
@@ -11656,7 +11659,7 @@ class TimestampEditWidget(QWidget):
         
         # Logger object for this class.
         self.log = logging.\
-            getLogger("widgets.TimestampEditWidget")
+            getLogger("dialogs.TimestampEditWidget")
 
         # If timestamp is None, use the current time in UTC.
         if timestamp == None:
@@ -11679,9 +11682,11 @@ class TimestampEditWidget(QWidget):
             QMessageBox.warning(self, "Programmer error", msg)
             return
         
-        # Save off the timestamp as a datetime.datetime object.
-        # This is only modified if save is called.
-        self.dt = timestamp
+        # Holds the the timestamp as a datetime.datetime object.  Set
+        # to 'timestamp' value via the loadTimestamp() function, which
+        # is called in this function below.
+        # This value is only modified after that if save is called.
+        self.dt = None
 
         # QGroupBox to hold the edit widgets and form.
         self.groupBox = QGroupBox("Timestamp:")
@@ -11734,6 +11739,16 @@ class TimestampEditWidget(QWidget):
             connect(self.updateDaylightComboBox)
         self.timezoneComboBox.currentIndexChanged.\
             connect(self.updateDaylightComboBox)
+
+        # Propagate notification that something changed upwards, if
+        # anyone is listening.
+        self.datetimeEditWidget.dateTimeChanged.\
+            connect(self.valueChanged)
+        self.timezoneComboBox.currentIndexChanged.\
+            connect(self.valueChanged)
+        self.daylightComboBox.currentIndexChanged.\
+            connect(self.valueChanged)
+        
         self.okayButton.clicked.connect(self._handleOkayButtonClicked)
         self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
 
@@ -11742,8 +11757,8 @@ class TimestampEditWidget(QWidget):
         
         # Now that all the widgets are created, load the values from the
         # timestamp.
-        self.loadTimestamp(self.dt)
-
+        self.loadTimestamp(timestamp)
+        
     def setReadOnly(self, readOnlyFlag):
         """Sets whether or not the widgets can be edit-able by the user.
 
@@ -11816,6 +11831,8 @@ class TimestampEditWidget(QWidget):
         In otherwords, this widget is 'smart'.
         """
 
+        self.log.debug("Entered updateDaylightComboBox()")
+        
         # Construct a datetime.datetime object from the QDateTimeEdit
         # widget's current values.
         qdatetime = self.datetimeEditWidget.dateTime()
@@ -11868,7 +11885,7 @@ class TimestampEditWidget(QWidget):
                 errStr = "Couldn't find the tzname " + tznameStr + \
                          " in the combo box list of tznames."
                 self.log.error(errStr)
-                QMessageBox.warning(None, "Error", errStr)
+                #QMessageBox.warning(None, "Error", errStr)
             
         except pytz.InvalidTimeError as e:
             # Timestamp is ambiguous in terms of daylight savings time.
@@ -11895,6 +11912,8 @@ class TimestampEditWidget(QWidget):
         if self.daylightComboBox.count() == 1:
             self.daylightComboBox.setEnabled(False)
             
+        self.log.debug("Exiting updateDaylightComboBox()")
+        
     def loadTimestamp(self, timestamp):
         """Loads the widgets with values from the given
         datetime.datetime object.
@@ -11908,10 +11927,19 @@ class TimestampEditWidget(QWidget):
                            "timestamp can't be None.")
             self.log.debug("Exiting loadTimestamp()")
             return
+        elif self.dt is timestamp:
+            self.log.debug("Timestamps are the same object.  " +
+                           "No need to load anything new.  dt: " +
+                           Ephemeris.datetimeToStr(self.dt))
+            return
         else:
+            if self.dt != None:
+                self.log.debug("Old timestamp was: " +
+                               Ephemeris.datetimeToStr(self.dt))
+            self.log.debug("Loading timestamp: " +
+                           Ephemeris.datetimeToStr(timestamp))
             self.dt = timestamp 
 
-        self.log.debug("Loaded timestamp: " + Ephemeris.datetimeToStr(self.dt))
 
         # Convert the datetime object to the equivalent qdatetime.
         # Note: Here we are assuming timespec UTC.  This is only for
@@ -11951,6 +11979,7 @@ class TimestampEditWidget(QWidget):
                      " in the combo box list of tznames."
             self.log.error(errStr)
             QMessageBox.warning(None, "Error", errStr)
+
 
         self.log.debug("Exiting loadTimestamp()")
         
