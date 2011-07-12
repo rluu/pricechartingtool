@@ -545,7 +545,7 @@ class MusicalRatio:
         ratios = []
 
         ratios.append(MusicalRatio(ratio=1/1.0,
-                                   description="(P1) (1/1) Kṣobhinī",
+                                   description="(P1) (1/1) (Do) Kṣobhinī",
                                    numerator=1,
                                    denominator=1,
                                    enabled=True))
@@ -569,7 +569,7 @@ class MusicalRatio:
                                    enabled=True))
 
         ratios.append(MusicalRatio(ratio=9/8.0,
-                                   description="(M2) (9/8) Chandovatī",
+                                   description="(M2) (9/8) (Re) Chandovatī",
                                    numerator=9,
                                    denominator=8,
                                    enabled=True))
@@ -587,7 +587,7 @@ class MusicalRatio:
                                    enabled=True))
 
         ratios.append(MusicalRatio(ratio=5/4.0,
-                                   description="(M3) (5/4) Raktikā",
+                                   description="(M3) (5/4) (Mi) Raktikā",
                                    numerator=5,
                                    denominator=4,
                                    enabled=True))
@@ -599,7 +599,7 @@ class MusicalRatio:
                                    enabled=True))
 
         ratios.append(MusicalRatio(ratio=4/3.0,
-                                   description="(P4) (4/3) Krodhā",
+                                   description="(P4) (4/3) (Fa) Krodhā",
                                    numerator=4,
                                    denominator=3,
                                    enabled=True))
@@ -623,7 +623,7 @@ class MusicalRatio:
                                    enabled=True))
 
         ratios.append(MusicalRatio(ratio=3/2.0,
-                                   description="(P5) (3/2) Mārjanī",
+                                   description="(P5) (3/2) (So) Mārjanī",
                                    numerator=3,
                                    denominator=2,
                                    enabled=True))
@@ -641,7 +641,7 @@ class MusicalRatio:
                                    enabled=True))
 
         ratios.append(MusicalRatio(ratio=5/3.0,
-                                   description="(M6) (5/3) Sandīpanī",
+                                   description="(M6) (5/3) (La) Sandīpanī",
                                    numerator=5,
                                    denominator=3,
                                    enabled=True))
@@ -665,7 +665,7 @@ class MusicalRatio:
                                    enabled=True))
 
         ratios.append(MusicalRatio(ratio=15/8.0,
-                                   description="(M7) (15/8) Ramyā",
+                                   description="(M7) (15/8) (Ti) Ramyā",
                                    numerator=15,
                                    denominator=8,
                                    enabled=True))
@@ -677,7 +677,7 @@ class MusicalRatio:
                                    enabled=True))
 
         #ratios.append(MusicalRatio(ratio=2/1.0,
-        #                           description="(P8) (2/1) Kṣobhinī",
+        #                           description="(P8) (2/1) (Do) Kṣobhinī",
         #                           numerator=2,
         #                           denominator=1,
         #                           enabled=True))

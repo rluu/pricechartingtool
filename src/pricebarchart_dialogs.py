@@ -78,7 +78,7 @@ class PriceBarChartBarCountArtifactEditWidget(QWidget):
 
         # Logger object for this class.
         self.log = logging.\
-            getLogger("dialogs.PriceBarChartBarCountArtifactEditWidget")
+            getLogger("pricebarchart_dialogs.PriceBarChartBarCountArtifactEditWidget")
 
         # Save off the artifact object.
         self.artifact = artifact
@@ -367,7 +367,7 @@ class PriceBarChartBarCountArtifactEditDialog(QDialog):
 
         # Logger object for this class.
         self.log = logging.\
-            getLogger("dialogs.PriceBarChartBarCountArtifactEditDialog")
+            getLogger("pricebarchart_dialogs.PriceBarChartBarCountArtifactEditDialog")
 
         self.setWindowTitle("Edit PriceBarChartBarCountArtifact Data")
 
@@ -517,7 +517,7 @@ class PriceBarChartTimeMeasurementArtifactEditWidget(QWidget):
 
         # Logger object for this class.
         self.log = logging.\
-            getLogger("dialogs.PriceBarChartTimeMeasurementArtifactEditWidget")
+            getLogger("pricebarchart_dialogs.PriceBarChartTimeMeasurementArtifactEditWidget")
 
         # Save off the artifact object.
         self.artifact = artifact
@@ -806,7 +806,7 @@ class PriceBarChartTimeMeasurementArtifactEditDialog(QDialog):
 
         # Logger object for this class.
         self.log = logging.\
-            getLogger("dialogs.PriceBarChartTimeMeasurementArtifactEditDialog")
+            getLogger("pricebarchart_dialogs.PriceBarChartTimeMeasurementArtifactEditDialog")
 
         self.setWindowTitle("Edit PriceBarChartTimeMeasurementArtifact Data")
 
@@ -955,7 +955,7 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
 
         # Logger object for this class.
         self.log = logging.\
-            getLogger("dialogs.PriceBarChartModalScaleArtifactEditWidget")
+            getLogger("pricebarchart_dialogs.PriceBarChartModalScaleArtifactEditWidget")
 
         # This variable holds a copy of the artifact passed in.  We
         # set this value via self.loadValues(), which is called later
@@ -1396,7 +1396,8 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
                                format(i, oldValue, newValue))
                 self.artifact.getMusicalRatios()[i].setEnabled(newValue)
             else:
-                self.log.debug("No update to musicalRatio[{}]".format(i))
+                #self.log.debug("No update to musicalRatio[{}]".format(i))
+                pass
 
     def _saveAndReloadMusicalRatios(self):
         """Saves and reloads the musical ratio widgets."""
@@ -1501,7 +1502,7 @@ class PriceBarChartModalScaleArtifactEditDialog(QDialog):
 
         # Logger object for this class.
         self.log = logging.\
-            getLogger("dialogs.PriceBarChartModalScaleArtifactEditDialog")
+            getLogger("pricebarchart_dialogs.PriceBarChartModalScaleArtifactEditDialog")
 
         self.setWindowTitle("Edit PriceBarChartModalScaleArtifact Data")
 

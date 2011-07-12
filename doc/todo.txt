@@ -57,6 +57,31 @@ DONE    those TDs, CDs, weeks, as well as start and end date and time.  -
 DONE    Edit dialog for this to edit the start and end datetime or
 DONE    coordinate.
 
+  - Modal scales ruler (draggable ends and middle).  
+      DONE - Edit dialog for this to edit the start and end 
+      DONE   datetime or coordinate.
+      - Selection for changing the mode
+           DONE - Via right-click menu.
+           - Rotate right by pressing 'g' or 'l' or Alt-Right.  
+           - Rotate left by pressing 's' or 'h' or Alt-Left.
+           - Reversal via pressing 'r'.
+      - Add to artifact, stored setting for tick bar height.
+      - Add to artifact, stored setting for font size of text.
+      - Add to MusicalRatio, setting for:
+           - fractionTextEnabled
+           - priceTextEnabled
+           - dateTimeTextEnabled
+
+         - And use these all when drawing.
+
+      - Draw the ticks.  This is based off of isEnabled().
+
+      - Add to modal scales edit dialog:
+           - Buttons for checkBoxAll and checkBoxNone for Enabled setting.
+           - Checkboxes for fractionTextEnabled
+           - Checkboxes for priceTextEnabled
+           - Checkboxes for dateTimeTextEnabled
+	
   - Add to the ratio-scripts some of the special numbers from:
        http://en.wikipedia.org/wiki/List_of_numbers
   
@@ -66,13 +91,6 @@ DONE    coordinate.
 
   - Text graphics item (and artifact)
 
-  - Modal scales ruler (draggable ends and middle).  
-      - Edit dialog for this to edit the start and end datetime or coordinate.
-      - Selection for changing the mode
-           - Via right-click menu.
-           - Via pressing 1 - 7 (8 is do again)
-           - Reversal via pressing 'r'.
-            
 
   - Inverted modal scale ruler (draggable ends and middle).  
       - Same edit dialog as the modal scales ruler.

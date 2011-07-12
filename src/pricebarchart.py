@@ -2734,9 +2734,7 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Update the start and end points accordingly. 
         self.startPointF = self.startPointF + posDelta
-        self.startPointF.setX(round(self.startPointF.x()))
         self.endPointF = self.endPointF + posDelta
-        self.endPointF.setX(round(self.endPointF.x()))
 
         if self.scene() != None:
             self.refreshTextItems()
@@ -2816,14 +2814,12 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 if self.draggingStartPointFlag == True:
                     self.log.debug("DEBUG: self.draggingStartPointFlag={}".
                                    format(self.draggingStartPointFlag))
-                    self.setStartPointF(QPointF(event.scenePos().x(),
-                                                self.startPointF.y()))
+                    self.setStartPointF(event.scenePos())
                     self.update()
                 elif self.draggingEndPointFlag == True:
                     self.log.debug("DEBUG: self.draggingEndPointFlag={}".
                                    format(self.draggingEndPointFlag))
-                    self.setEndPointF(QPointF(event.scenePos().x(),
-                                              self.endPointF.y()))
+                    self.setEndPointF(event.scenePos())
                     self.update()
                 else:
                     # This means that the user is dragging the whole
@@ -2921,17 +2917,21 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
             # Traverse the 2-dimensional list and set the position of
             # each of the text items.
+            artifact = self.getArtifact()
             for i in range(len(self.musicalRatioTextItems)):
                 # Get the MusicalRatio that corresponds to this index.
-                musicalRatio = self.getArtifact().getMusicalRatios()[i]
+                musicalRatio = artifact.getMusicalRatios()[i]
 
                 # Verify it is enabled.  If yes, then set the
                 # position, otherwise, ignore.
                 if musicalRatio.isEnabled() == True:
                     # Get the x and y position that will be the new
                     # position of the text item.
-                    (x, y) = self.getArtifact().getXYForMusicalRatio(i)
+                    (x, y) = artifact.getXYForMusicalRatio(i)
 
+                    # Map those x and y to local coordinates.
+                    pointF = self.mapFromScene(QPointF(x, y))
+                    
                     # Get the text items for this point on the scale.
                     listOfTextItems = self.musicalRatioTextItems[i]
 
@@ -2944,7 +2944,8 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                         # point so that multiple texts dont' overlap
                         # each other.
                         offsetY = self.modalScaleGraphicsItemBarHeight * i
-                        textItem.setPos(QPointF(x, y + offsetY))
+                        textItem.setPos(QPointF(pointF.x(),
+                                                pointF.y() + offsetY))
 
             # Call update on this item since positions and child items
             # were updated.
@@ -2976,8 +2977,12 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         if self.endPointF != pointF:
             self.endPointF = pointF
 
+            self.log.debug("ModalScaleGraphicsItem." +
+                           "setEndPointF(QPointF({}, {}))".\
+                           format(pointF.x(), pointF.y()))
+            
             # Update the modalScale label text item positions.
-            self.refreshTextItems()            
+            self.refreshTextItems()
 
             # Call update on this item since positions and child items
             # were updated.
@@ -3071,8 +3076,10 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         scene = self.scene()
 
         if scene != None:
-            for i in range(len(self.getArtifact().getMusicalRatios())):
-                musicalRatio = self.getArtifact().getMusicalRatios()[i]
+            artifact = self.getArtifact()
+            musicalRatios = artifact.getMusicalRatios()
+            for i in range(len(musicalRatios)):
+                musicalRatio = musicalRatios[i]
 
                 if musicalRatio.isEnabled():
                     # Enable and make visible.
@@ -3110,7 +3117,7 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                             # Price text.
                             
                             # Get the y location and then convert to a price.
-                            (x, y) = self.getArtifact().getXYForMusicalRatio(i)
+                            (x, y) = artifact.getXYForMusicalRatio(i)
                             price = self.scene().sceneYPosToPrice(y)
                             priceText = "{}".format(price)
                             textItem.setText(priceText)
@@ -3118,7 +3125,7 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                             # Timestamp text.
                             
                             # Get the x location and then convert to a datetime.
-                            (x, y) = self.getArtifact().getXYForMusicalRatio(i)
+                            (x, y) = artifact.getXYForMusicalRatio(i)
                             timestamp = \
                                 self.scene().sceneXPosToDatetime(x)
                             timestampText = \
@@ -3195,21 +3202,111 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # The QRectF returned is relative to this (0, 0) point.
 
-        # Get the QRectF with just the lines.
+        xTopLeft = 0.0
+        yTopLeft = 1.0 * (self.modalScaleGraphicsItemBarHeight / 2.0)
+        
+        xBottomLeft = 0.0
+        yBottomLeft = -1.0 * (self.modalScaleGraphicsItemBarHeight / 2.0)
+        
         xDelta = self.endPointF.x() - self.startPointF.x()
+        yDelta = self.endPointF.y() - self.startPointF.y()
         
-        topLeft = \
-            QPointF(0.0, -1.0 *
-                    (self.modalScaleGraphicsItemBarHeight / 2.0))
+        xTopRight = 0.0 + xDelta
+        yTopRight = (1.0 * (self.modalScaleGraphicsItemBarHeight / 2.0)) + \
+            yDelta
         
-        bottomRight = \
-            QPointF(xDelta, 1.0 *
-                    (self.modalScaleGraphicsItemBarHeight / 2.0))
-        
-        rectWithoutText = QRectF(topLeft, bottomRight)
+        xBottomRight = 0.0 + xDelta
+        yBottomRight = (-1.0 * (self.modalScaleGraphicsItemBarHeight / 2.0)) + \
+            yDelta
 
+        # Find the smallest x and y.
+        smallestX = xTopLeft
+        if xTopLeft < smallestX:
+            smallestX = xTopLeft
+        if xBottomLeft < smallestX:
+            smallestX = xBottomLeft
+        if xTopRight < smallestX:
+            smallestX = xTopRight
+        if xBottomRight < smallestX:
+            smallestX = xBottomRight
+            
+        smallestY = yTopLeft
+        if yTopLeft < smallestY:
+            smallestY = yTopLeft
+        if yBottomLeft < smallestY:
+            smallestY = yBottomLeft
+        if yTopRight < smallestY:
+            smallestY = yTopRight
+        if yBottomRight < smallestY:
+            smallestY = yBottomRight
+            
+        # Find the largest x and y.
+        largestX = xTopLeft
+        if xTopLeft > largestX:
+            largestX = xTopLeft
+        if xBottomLeft > largestX:
+            largestX = xBottomLeft
+        if xTopRight > largestX:
+            largestX = xTopRight
+        if xBottomRight > largestX:
+            largestX = xBottomRight
+            
+        largestY = yTopLeft
+        if yTopLeft > largestY:
+            largestY = yTopLeft
+        if yBottomLeft > largestY:
+            largestY = yBottomLeft
+        if yTopRight > largestY:
+            largestY = yTopRight
+        if yBottomRight > largestY:
+            largestY = yBottomRight
+
+        rectWithoutText = QRectF(QPointF(smallestX, smallestY),
+                                 QPointF(largestX, largestY)).normalized()
+
+        self.log.debug("smallestX = {}, ".format(smallestX) +
+                       "smallestY = {}, ".format(smallestY) +
+                       "largestX = {}, ".format(largestX) +
+                       "largestY = {}".format(largestY))
+        
         return rectWithoutText
 
+    def shape(self):
+        """Overwrites the QGraphicsItem.shape() function to return a
+        more accurate shape for collision detection, hit tests, etc.
+        """
+
+        # The QRectF returned is relative to this (0, 0) point.
+
+        xTopLeft = 0.0
+        yTopLeft = 1.0 * (self.modalScaleGraphicsItemBarHeight / 2.0)
+        topLeft = QPointF(xTopLeft, yTopLeft)
+        
+        xBottomLeft = 0.0
+        yBottomLeft = -1.0 * (self.modalScaleGraphicsItemBarHeight / 2.0)
+        bottomLeft = QPointF(xBottomLeft, yBottomLeft)
+        
+        xDelta = self.endPointF.x() - self.startPointF.x()
+        yDelta = self.endPointF.y() - self.startPointF.y()
+        
+        xTopRight = 0.0 + xDelta
+        yTopRight = (1.0 * (self.modalScaleGraphicsItemBarHeight / 2.0)) + \
+            yDelta
+        topRight = QPointF(xTopRight, yTopRight)
+        
+        xBottomRight = 0.0 + xDelta
+        yBottomRight = (-1.0 * (self.modalScaleGraphicsItemBarHeight / 2.0)) + \
+            yDelta
+        bottomRight = QPointF(xBottomRight, yBottomRight)
+
+        points = [topLeft, topRight, bottomRight, bottomLeft]
+        polygon = QPolygonF(points)
+
+        painterPath = QPainterPath()
+        painterPath.addPolygon(polygon)
+
+        return painterPath
+        
     def paint(self, painter, option, widget):
         """Paints this QGraphicsItem.  Assumes that self.pen is set
         to what we want for the drawing style.
@@ -3227,17 +3324,18 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Draw the right vertical bar part.
         xDelta = self.endPointF.x() - self.startPointF.x()
+        yDelta = self.endPointF.y() - self.startPointF.y()
         x1 = 0.0 + xDelta
-        y1 = 1.0 * (self.modalScaleGraphicsItemBarHeight / 2.0)
+        y1 = (1.0 * (self.modalScaleGraphicsItemBarHeight / 2.0)) + yDelta
         x2 = 0.0 + xDelta
-        y2 = -1.0 * (self.modalScaleGraphicsItemBarHeight / 2.0)
+        y2 = (-1.0 * (self.modalScaleGraphicsItemBarHeight / 2.0)) + yDelta
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
-        # Draw the middle horizontal line.
+        # Draw the middle line.
         x1 = 0.0
         y1 = 0.0
         x2 = xDelta
-        y2 = 0.0
+        y2 = yDelta
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
         # Draw the bounding rect if the item is selected.
@@ -3263,11 +3361,13 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             
             painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
             painter.setBrush(Qt.NoBrush)
-            painter.drawRect(self.boundingRect())
+            painter.drawPath(self.shape())
+            #painter.drawRect(self.boundingRect())
             
             painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
             painter.setBrush(Qt.NoBrush)
-            painter.drawRect(self.boundingRect())
+            painter.drawPath(self.shape())
+            #painter.drawRect(self.boundingRect())
 
     def appendActionsToContextMenu(self, menu, readOnlyMode=False):
         """Modifies the given QMenu object to update the title and add
@@ -3402,10 +3502,10 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         rv = dialog.exec_()
         
         if rv == QDialog.Accepted:
-            # If the dialog is accepted then the underlying artifact
-            # object was modified.  Set the artifact to this
-            # PriceBarChartArtifactGraphicsItem, which will cause it to be
-            # reloaded in the scene.
+            # If the dialog is accepted then get the new artifact and
+            # set it to this PriceBarChartArtifactGraphicsItem, which
+            # will cause it to be reloaded in the scene.
+            artifact = dialog.getArtifact()
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
@@ -5061,12 +5161,22 @@ class PriceBarChartGraphicsView(QGraphicsView):
         if self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ReadOnlyPointerTool']:
 
-            super().keyPressEvent(qkeyevent)
+            if qkeyevent.key() == Qt.Key_Escape:
+                # Unselect any selected items.
+                self.log.debug("Escape key pressed while in " +
+                               "'ReadOnlyPointerTool' mode")
+                self.scene().clearSelection()
+            else:
+                super().keyPressEvent(qkeyevent)
 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PointerTool']:
 
-            if qkeyevent.key() & Qt.Key_Delete:
+            if qkeyevent.key() == Qt.Key_Escape:
+                # Unselect any selected items.
+                self.log.debug("Escape key pressed while in 'PointerTool' mode")
+                self.scene().clearSelection()
+            elif qkeyevent.matches(QKeySequence.Delete):
                 # Get the items that are selected, and out of those,
                 # remove the PriceBarChartArtifactGraphicsItems.
                 self.log.debug("Delete key pressed while in 'PointerTool' mode")
@@ -5104,7 +5214,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['BarCountTool']:
 
-            if qkeyevent.key() & Qt.Key_Escape:
+            if qkeyevent.key() == Qt.Key_Escape:
                 # Escape key causes any currently edited bar count item to
                 # be removed and cleared out.  Temporary variables used
                 # are cleared out too.
@@ -5121,7 +5231,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['TimeMeasurementTool']:
 
-            if qkeyevent.key() & Qt.Key_Escape:
+            if qkeyevent.key() == Qt.Key_Escape:
                 # Escape key causes any currently edited item to
                 # be removed and cleared out.  Temporary variables used
                 # are cleared out too.
@@ -5138,7 +5248,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ModalScaleTool']:
 
-            if qkeyevent.key() & Qt.Key_Escape:
+            if qkeyevent.key() == Qt.Key_Escape:
                 # Escape key causes any currently edited item to
                 # be removed and cleared out.  Temporary variables used
                 # are cleared out too.
