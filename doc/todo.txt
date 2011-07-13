@@ -56,14 +56,16 @@ DONE    number of TDs, CDs, and weeks.  Hovering over it shows info about
 DONE    those TDs, CDs, weeks, as well as start and end date and time.  -
 DONE    Edit dialog for this to edit the start and end datetime or
 DONE    coordinate.
-
-  - Modal scales ruler (draggable ends and middle).  
-      - Selection for changing the mode
-           - Rotate right by pressing 'g' or 'l' or Alt-Right.  
-           - Rotate left by pressing 's' or 'h' or Alt-Left.
-           - Reversal via pressing 'r'.
-
-DONE           - Edit dialog for this to edit the start and end 
+DONE
+DONE  - Need to implement 'Octave' (time) measurements.
+DONE  - Need to implement 'Octave' (price) measurements.
+DONE
+DONE  - Modal scales ruler (draggable ends and middle).  
+DONE      - Selection for changing the mode
+DONE           - Rotate right by pressing 'g'.
+DONE           - Rotate left by pressing 's'.
+DONE           - Reversal via pressing 'r'.
+DONE      - Edit dialog for this to edit the start and end 
 DONE             datetime or coordinate.
 DONE                - Via right-click menu.
 DONE      - Draw the ticks.  This is based off of isEnabled().
@@ -80,6 +82,12 @@ DONE           - setting for tick bar height (of this one scale)
 DONE           - setting for text font size. (of this one scale)
 
 
+  - QGraphicsItem for text on a PriceBarChart.
+
+  - Gann Fanns
+
+  - PTV (Price-Time-Vector).
+
   - Add square root price modal scale.  (vertical bar) This is high
     and low price square rooted, and the musical scale from that, and
     then squared again to get the price.
@@ -90,8 +98,22 @@ DONE           - setting for text font size. (of this one scale)
     squared again to get the timestamp.
 
 
-	
-  - QGraphicsItem for text on a PriceBarChart.
+  - Fibonnaci price retracement (which also implies extension since
+    they are the same).
+
+  - Fibonnaci time retracement (which also implies extension since
+    they are the same).
+
+  - Pi spiral
+  - Fibonnaci spiral
+  - Spiral based on doubling (cubing?).
+
+  - Circles based on price and sqrt time.
+  - Circles based on sqrt price and unit time.
+  - Circles based on sqrt price and sqrt time.
+
+  - Concentric circles at fibonnaci intervals (based on scaling).
+  - Concentric circles based on doubling (cubing?).
 
   - Add to the ratio-scripts some of the special numbers from:
        http://en.wikipedia.org/wiki/List_of_numbers
@@ -107,8 +129,6 @@ DONE           - setting for text font size. (of this one scale)
   - Ruler for all the other dasas (draggable ends and middle).
       - Dialog to edit start and end datetime.
       - Option to modify lifespan (i.e. timerange).
-
-  - PTV (Price-Time-Vector).
 
   - Modal charts (implement later?):
       Chart with pricebars in Trading Days (TDs).
@@ -139,12 +159,10 @@ DONE           - setting for text font size. (of this one scale)
 
   Indicators:
   - Need to implement indicator for static octaves (in time).
+
   - Need to implement indicator (moving lines) for dynamic Octive (interval) ratio measurements as the planets move.
   - Need to implement indicator (moving) lines for aspect strength 
     (shad bala and ashtakavarga).
-  
-  - Need to implement 'Octave' (time) measurements.
-  - Need to implement 'Octave' (price) measurements.
 
   - Need to implement the following:
      - traditional circle astro charts.

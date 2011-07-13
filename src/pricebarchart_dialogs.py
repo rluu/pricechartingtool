@@ -1335,7 +1335,13 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
         # Clear the checkboxes list.
         self.checkBoxes = []
 
-        for i in range(self.numMusicalRatios):
+        rangeUsed = None
+        if self.artifact.isReversed() == False:
+            rangeUsed = range(self.numMusicalRatios)
+        else:
+            rangeUsed = reversed(range(self.numMusicalRatios))
+            
+        for i in rangeUsed:
             musicalRatio = musicalRatios[i]
 
             checkBox = QCheckBox("{}".format(musicalRatio.getRatio()))
@@ -1354,16 +1360,12 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
             
             # Append to our list of checkboxes so that we can
             # reference them later and see what values are used in
-            # them.
+            # them.  Remember, if we are reversed, then we will need
+            # to reverse this list later.
             self.checkBoxes.append(checkBox)
             
             descriptionLabel = QLabel(musicalRatio.getDescription())
 
-            # Initialize these variables to None.  They will get set
-            # to non-None values below.
-            priceWidget = None
-            timestampWidget = None
-            
             # Use QLabels to
             # display the price and timestamp information.
             (x, y) = self.artifact.getXYForMusicalRatio(i)
@@ -1384,6 +1386,12 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
 
             r += 1
 
+        # Reverse the self.checkBoxes list if we are reversed, since
+        # if that is the case, then previously in this function we
+        # added the checkBoxes in the reverse order.
+        if self.artifact.isReversed():
+            self.checkBoxes.reverse()
+            
     def saveValues(self):
         """Saves the values in the widgets to the internally stored
         PriceBarChartModalScaleArtifact object.
@@ -1491,11 +1499,17 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
         # Get all the musicalRatios in the internally stored artifact.
         musicalRatios = self.artifact.getMusicalRatios()
 
-        # Put the last musical ratio in the front.
-        if len(musicalRatios) > 0:
-            lastRatio = musicalRatios.pop(len(musicalRatios) - 1)
-            musicalRatios.insert(0, lastRatio)
-
+        if self.artifact.isReversed() == False:
+            # Put the last musical ratio in the front.
+            if len(musicalRatios) > 0:
+                lastRatio = musicalRatios.pop(len(musicalRatios) - 1)
+                musicalRatios.insert(0, lastRatio)
+        else:
+            # Put the first musical ratio in the back.
+            if len(musicalRatios) > 0:
+                firstRatio = musicalRatios.pop(0)
+                musicalRatios.append(firstRatio)
+            
         # Overwrite the old list in the internally stored artifact.
         self.artifact.setMusicalRatios(musicalRatios)
 
@@ -1508,10 +1522,16 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
         # Get all the musicalRatios in the internally stored artifact.
         musicalRatios = self.artifact.getMusicalRatios()
         
-        # Put the first musical ratio in the back.
-        if len(musicalRatios) > 0:
-            firstRatio = musicalRatios.pop(0)
-            musicalRatios.append(firstRatio)
+        if self.artifact.isReversed() == False:
+            # Put the first musical ratio in the back.
+            if len(musicalRatios) > 0:
+                firstRatio = musicalRatios.pop(0)
+                musicalRatios.append(firstRatio)
+        else:
+            # Put the first musical ratio in the back.
+            if len(musicalRatios) > 0:
+                firstRatio = musicalRatios.pop(0)
+                musicalRatios.append(firstRatio)
 
         # Overwrite the old list in the internally stored artifact.
         self.artifact.setMusicalRatios(musicalRatios)
@@ -1521,16 +1541,6 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
     
     def _handleReverseButtonClicked(self):
         """Called when the 'Reverse' button is clicked."""
-
-        # Get all the musicalRatios in the internally stored artifact.
-        musicalRatios = self.artifact.getMusicalRatios()
-        musicalRatios.reverse()
-
-        # here, no need to reverse self.checkBoxes as well because we
-        # will just re-create all the checkboxes.
-        
-        # Overwrite the old list in the internally stored artifact.
-        self.artifact.setMusicalRatios(musicalRatios)
 
         # Flip the flag that indicates that the musical ratios are reversed.
         self.artifact.setReversed(not self.artifact.isReversed())

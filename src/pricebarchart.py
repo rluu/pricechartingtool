@@ -390,14 +390,14 @@ class PriceBarGraphicsItem(QGraphicsItem):
         
         # These are the QActions that are in the menu.
         parent = menu
-        selectAction = QAction("Select", parent)
-        unselectAction = QAction("Unselect", parent)
+        selectAction = QAction("&Select", parent)
+        unselectAction = QAction("&Unselect", parent)
         removeAction = QAction("Remove", parent)
-        infoAction = QAction("Info", parent)
-        editAction = QAction("Edit", parent)
-        setAstro1Action = QAction("Set timestamp on Astro Chart 1", parent)
-        setAstro2Action = QAction("Set timestamp on Astro Chart 2", parent)
-        setAstro3Action = QAction("Set timestamp on Astro Chart 3", parent)
+        infoAction = QAction("&Info", parent)
+        editAction = QAction("&Edit", parent)
+        setAstro1Action = QAction("Set timestamp on Astro Chart &1", parent)
+        setAstro2Action = QAction("Set timestamp on Astro Chart &2", parent)
+        setAstro3Action = QAction("Set timestamp on Astro Chart &3", parent)
         
         selectAction.triggered.\
             connect(self._handleSelectAction)
@@ -1410,17 +1410,17 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         # These are the QActions that are in the menu.
         parent = menu
-        selectAction = QAction("Select", parent)
-        unselectAction = QAction("Unselect", parent)
+        selectAction = QAction("&Select", parent)
+        unselectAction = QAction("&Unselect", parent)
         removeAction = QAction("Remove", parent)
-        infoAction = QAction("Info", parent)
-        editAction = QAction("Edit", parent)
+        infoAction = QAction("&Info", parent)
+        editAction = QAction("&Edit", parent)
         setStartOnAstro1Action = \
-            QAction("Set start timestamp on Astro Chart 1", parent)
+            QAction("Set start timestamp on Astro Chart &1", parent)
         setStartOnAstro2Action = \
-            QAction("Set start timestamp on Astro Chart 2", parent)
+            QAction("Set start timestamp on Astro Chart &2", parent)
         setStartOnAstro3Action = \
-            QAction("Set start timestamp on Astro Chart 3", parent)
+            QAction("Set start timestamp on Astro Chart &3", parent)
         setEndOnAstro1Action = \
             QAction("Set end timestamp on Astro Chart 1", parent)
         setEndOnAstro2Action = \
@@ -2330,17 +2330,17 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         # These are the QActions that are in the menu.
         parent = menu
-        selectAction = QAction("Select", parent)
-        unselectAction = QAction("Unselect", parent)
+        selectAction = QAction("&Select", parent)
+        unselectAction = QAction("&Unselect", parent)
         removeAction = QAction("Remove", parent)
-        infoAction = QAction("Info", parent)
-        editAction = QAction("Edit", parent)
+        infoAction = QAction("&Info", parent)
+        editAction = QAction("&Edit", parent)
         setStartOnAstro1Action = \
-            QAction("Set start timestamp on Astro Chart 1", parent)
+            QAction("Set start timestamp on Astro Chart &1", parent)
         setStartOnAstro2Action = \
-            QAction("Set start timestamp on Astro Chart 2", parent)
+            QAction("Set start timestamp on Astro Chart &2", parent)
         setStartOnAstro3Action = \
-            QAction("Set start timestamp on Astro Chart 3", parent)
+            QAction("Set start timestamp on Astro Chart &3", parent)
         setEndOnAstro1Action = \
             QAction("Set end timestamp on Astro Chart 1", parent)
         setEndOnAstro2Action = \
@@ -3085,18 +3085,6 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.startPointF = self.endPointF
             self.endPointF = temp
 
-            # TODO: not sure if this should go here or after the
-            # self.refreshTextItems() call.  Test this to code to make
-            # sure the following use case works:
-            #
-            #  1)  create a ModalScaleGraphicsItem via the tool mode
-            #  2) Switch to PointerTool mode.
-            #  3) Try to select the middle of the ModalScaleGraphicsItem
-            #     that was created.
-            #  4) Verify that it can be selected (dotted line outline)
-            #     on the first click.
-            #
-            
             super().setPos(self.startPointF)
             
             # Update the modalScale label text item positions.
@@ -3487,20 +3475,21 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         # These are the QActions that are in the menu.
         parent = menu
-        selectAction = QAction("Select", parent)
-        unselectAction = QAction("Unselect", parent)
+        selectAction = QAction("&Select", parent)
+        unselectAction = QAction("&Unselect", parent)
         removeAction = QAction("Remove", parent)
-        infoAction = QAction("Info", parent)
-        editAction = QAction("Edit", parent)
-
-        # TODO:  add here: rotate right, rotate left, and reverse actions.
+        infoAction = QAction("&Info", parent)
+        editAction = QAction("&Edit", parent)
+        rotateDownAction = QAction("Rotate Down", parent)
+        rotateUpAction = QAction("Rotate Up", parent)
+        reverseAction = QAction("Reverse", parent)
         
         setStartOnAstro1Action = \
-            QAction("Set start timestamp on Astro Chart 1", parent)
+            QAction("Set start timestamp on Astro Chart &1", parent)
         setStartOnAstro2Action = \
-            QAction("Set start timestamp on Astro Chart 2", parent)
+            QAction("Set start timestamp on Astro Chart &2", parent)
         setStartOnAstro3Action = \
-            QAction("Set start timestamp on Astro Chart 3", parent)
+            QAction("Set start timestamp on Astro Chart &3", parent)
         setEndOnAstro1Action = \
             QAction("Set end timestamp on Astro Chart 1", parent)
         setEndOnAstro2Action = \
@@ -3518,6 +3507,12 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleInfoAction)
         editAction.triggered.\
             connect(self._handleEditAction)
+        rotateDownAction.triggered.\
+            connect(self._handleRotateDownAction)
+        rotateUpAction.triggered.\
+            connect(self._handleRotateUpAction)
+        reverseAction.triggered.\
+            connect(self._handleReverseAction)
         setStartOnAstro1Action.triggered.\
             connect(self._handleSetStartOnAstro1Action)
         setStartOnAstro2Action.triggered.\
@@ -3537,6 +3532,9 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         removeAction.setEnabled(not readOnlyMode)
         infoAction.setEnabled(True)
         editAction.setEnabled(not readOnlyMode)
+        rotateDownAction.setEnabled(not readOnlyMode)
+        rotateUpAction.setEnabled(not readOnlyMode)
+        reverseAction.setEnabled(not readOnlyMode)
         setStartOnAstro1Action.setEnabled(True)
         setStartOnAstro2Action.setEnabled(True)
         setStartOnAstro3Action.setEnabled(True)
@@ -3552,6 +3550,9 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addSeparator()
         menu.addAction(infoAction)
         menu.addAction(editAction)
+        menu.addAction(rotateDownAction)
+        menu.addAction(rotateUpAction)
+        menu.addAction(reverseAction)
         menu.addSeparator()
         menu.addAction(setStartOnAstro1Action)
         menu.addAction(setStartOnAstro2Action)
@@ -3561,6 +3562,27 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addAction(setEndOnAstro2Action)
         menu.addAction(setEndOnAstro3Action)
 
+    def rotateDown(self):
+        """Causes the ModalScaleGraphicsItem to have its musicalRatios
+        rotated down (to the right).
+        """
+
+        self._handleRotateDownAction()
+        
+    def rotateUp(self):
+        """Causes the ModalScaleGraphicsItem to have its musicalRatios
+        rotated up (to the left).
+        """
+        
+        self._handleRotateUpAction()
+
+    def reverse(self):
+        """Causes the ModalScaleGraphicsItem to have its musicalRatios
+        reversed.
+        """
+
+        self._handleReverseAction()
+        
     def _handleSelectAction(self):
         """Causes the QGraphicsItem to become selected."""
 
@@ -3622,6 +3644,120 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         else:
             # The user canceled so don't change anything.
             pass
+        
+    def _handleRotateDownAction(self):
+        """Causes the ModalScaleGraphicsItem to have its musicalRatios
+        rotated down (to the right).
+        """
+
+        # Get all the musicalRatios in the internally stored artifact.
+        musicalRatios = self.getArtifact().getMusicalRatios()
+
+        # See how many enabled musicalRatios there are.  
+        numEnabledMusicalRatios = 0
+        for musicalRatio in musicalRatios:
+            if musicalRatio.isEnabled():
+                numEnabledMusicalRatios += 1
+                
+        if len(musicalRatios) > 0 and numEnabledMusicalRatios > 0:
+
+            if self.artifact.isReversed() == False:
+                # Put the last musicalRatio in the front.
+                lastRatio = musicalRatios.pop(len(musicalRatios) - 1)
+                musicalRatios.insert(0, lastRatio)
+        
+                # Rotate down until there is a musicalRatio at the
+                # beginning that is enabled.
+                while musicalRatios[0].isEnabled() == False:
+                    # Put the last musicalRatio in the front.
+                    lastRatio = musicalRatios.pop(len(musicalRatios) - 1)
+                    musicalRatios.insert(0, lastRatio)
+            else:
+                # Put the first musicalRatio in the back.
+                firstRatio = musicalRatios.pop(0)
+                musicalRatios.append(firstRatio)
+        
+                # Rotate until there is a musicalRatio at the
+                # beginning that is enabled.
+                while musicalRatios[0].isEnabled() == False:
+                    # Put the first musicalRatio in the back.
+                    firstRatio = musicalRatios.pop(0)
+                    musicalRatios.append(firstRatio)
+                
+            # Overwrite the old list in the internally stored artifact.
+            self.artifact.setMusicalRatios(musicalRatios)
+
+            # Refresh everything.
+            self.refreshTextItems()
+        
+            # Emit that the PriceBarChart has changed so that the
+            # dirty flag can be set.
+            self.scene().priceBarChartChanged.emit()
+        
+    def _handleRotateUpAction(self):
+        """Causes the ModalScaleGraphicsItem to have its musicalRatios
+        rotated up (to the left).
+        """
+        
+        # Get all the musicalRatios in the internally stored artifact.
+        musicalRatios = self.getArtifact().getMusicalRatios()
+        
+        # See how many enabled musicalRatios there are.  
+        numEnabledMusicalRatios = 0
+        for musicalRatio in musicalRatios:
+            if musicalRatio.isEnabled():
+                numEnabledMusicalRatios += 1
+                
+        if len(musicalRatios) > 0 and numEnabledMusicalRatios > 0:
+
+            if self.artifact.isReversed() == False:
+                # Put the first musicalRatio in the back.
+                firstRatio = musicalRatios.pop(0)
+                musicalRatios.append(firstRatio)
+        
+                # Rotate until there is a musicalRatio at the
+                # beginning that is enabled.
+                while musicalRatios[0].isEnabled() == False:
+                    # Put the first musicalRatio in the back.
+                    firstRatio = musicalRatios.pop(0)
+                    musicalRatios.append(firstRatio)
+            else:
+                # Put the last musicalRatio in the front.
+                lastRatio = musicalRatios.pop(len(musicalRatios) - 1)
+                musicalRatios.insert(0, lastRatio)
+        
+                # Rotate down until there is a musicalRatio at the
+                # beginning that is enabled.
+                while musicalRatios[0].isEnabled() == False:
+                    # Put the last musicalRatio in the front.
+                    lastRatio = musicalRatios.pop(len(musicalRatios) - 1)
+                    musicalRatios.insert(0, lastRatio)
+                
+
+            # Overwrite the old list in the internally stored artifact.
+            self.artifact.setMusicalRatios(musicalRatios)
+
+            # Refresh everything.
+            self.refreshTextItems()
+        
+            # Emit that the PriceBarChart has changed so that the
+            # dirty flag can be set.
+            self.scene().priceBarChartChanged.emit()
+
+    def _handleReverseAction(self):
+        """Causes the ModalScaleGraphicsItem to have its musicalRatios
+        reversed.
+        """
+        
+        # Flip the flag that indicates that the musical ratios are reversed.
+        self.artifact.setReversed(not self.artifact.isReversed())
+        
+        # Refresh everything.
+        self.refreshTextItems()
+        
+        # Emit that the PriceBarChart has changed so that the
+        # dirty flag can be set.
+        self.scene().priceBarChartChanged.emit()
         
     def _handleSetStartOnAstro1Action(self):
         """Causes the astro chart 1 to be set with the timestamp
@@ -5299,6 +5435,23 @@ class PriceBarChartGraphicsView(QGraphicsView):
                         scene.priceBarChartArtifactGraphicsItemRemoved.\
                             emit(item)
             else:
+                # See what item type(s) are selected and take action
+                # based on that.
+
+                scene = self.scene()
+                selectedItems = scene.selectedItems()
+
+                for item in selectedItems:
+                    if isinstance(item, ModalScaleGraphicsItem):
+                        if qkeyevent.key() == Qt.Key_S:
+                            item.rotateUp()
+                        elif qkeyevent.key() == Qt.Key_G:
+                            item.rotateDown()
+                        elif qkeyevent.key() == Qt.Key_R:
+                            item.reverse()
+
+                # Pass the key event upwards in case it applies to
+                # something else (like a parent widget).
                 super().keyPressEvent(qkeyevent)
 
         elif self.toolMode == \
@@ -5774,11 +5927,6 @@ class PriceBarChartGraphicsView(QGraphicsView):
                                    format(sceneBoundingRect.top(),
                                           sceneBoundingRect.bottom()))
 
-                    # TODO: make sure that the modalScaleGraphicsItem
-                    # can be created with varying x and y values for
-                    # the start and end points (kind of like a 2-d
-                    # vector).
-                    
                     # Clear out working variables.
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
