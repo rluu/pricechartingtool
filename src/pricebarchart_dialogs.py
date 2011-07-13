@@ -981,14 +981,34 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
         self.uuidLineEdit = QLineEdit()
         self.uuidLineEdit.setMinimumWidth(lineEditWidth)
 
+        self.barHeightValueLabel = \
+            QLabel("ModalScale bar height:")
+        self.barHeightValueSpinBox = QDoubleSpinBox()
+        self.barHeightValueSpinBox.setMinimum(0.0)
+        self.barHeightValueSpinBox.setMaximum(999999999.0)
+
+        self.textFontSizeValueLabel = \
+            QLabel("Text font size:")
+        self.textFontSizeValueSpinBox = QDoubleSpinBox()
+        self.textFontSizeValueSpinBox.setMinimum(0.0)
+        self.textFontSizeValueSpinBox.setMaximum(999999999.0)
+
+        self.textEnabledLabel = QLabel("Text is enabled:")
+        self.textEnabledCheckBox = QCheckBox()
+        self.textEnabledCheckBox.setCheckState(Qt.Unchecked)
+        
         self.rotateDownButton = QPushButton("Rotate Down")
         self.rotateUpButton = QPushButton("Rotate Up")
         self.reverseButton = QPushButton("Reverse")
+        self.checkMarkAllButton = QPushButton("Check All")
+        self.checkMarkNoneButton = QPushButton("Check None")
         
         self.rotateButtonsLayout = QHBoxLayout()
         self.rotateButtonsLayout.addWidget(self.rotateDownButton)
         self.rotateButtonsLayout.addWidget(self.rotateUpButton)
         self.rotateButtonsLayout.addWidget(self.reverseButton)
+        self.rotateButtonsLayout.addWidget(self.checkMarkAllButton)
+        self.rotateButtonsLayout.addWidget(self.checkMarkNoneButton)
         self.rotateButtonsLayout.addStretch()
         
         self.startPointPriceValueLabel = \
@@ -1039,6 +1059,15 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
         self.gridLayout.addWidget(self.uuidLabel, r, 0, al)
         self.gridLayout.addWidget(self.uuidLineEdit, r, 1, al)
         r += 1
+        self.gridLayout.addWidget(self.barHeightValueLabel, r, 0, al)
+        self.gridLayout.addWidget(self.barHeightValueSpinBox, r, 1, al)
+        r += 1
+        self.gridLayout.addWidget(self.textFontSizeValueLabel, r, 0, al)
+        self.gridLayout.addWidget(self.textFontSizeValueSpinBox, r, 1, al)
+        r += 1
+        self.gridLayout.addWidget(self.textEnabledLabel, r, 0, al)
+        self.gridLayout.addWidget(self.textEnabledCheckBox, r, 1, al)
+        r += 1
         self.gridLayout.addLayout(startPointPriceValueLayout, r, 0, al)
         self.gridLayout.addLayout(endPointPriceValueLayout, r, 1, al)
         r += 1
@@ -1087,6 +1116,13 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
         
         # Connect signals and slots.
 
+        self.barHeightValueSpinBox.valueChanged.\
+            connect(self._handleBarHeightValueSpinBoxChanged)
+        self.textFontSizeValueSpinBox.valueChanged.\
+            connect(self._handleTextFontSizeValueSpinBoxChanged)
+        self.textEnabledCheckBox.stateChanged.\
+            connect(self._handleTextEnabledCheckBoxToggled)
+        
         # Connect rotateUp and rotateDown buttons.
         self.rotateUpButton.clicked.\
             connect(self._handleRotateUpButtonClicked)
@@ -1094,6 +1130,10 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
             connect(self._handleRotateDownButtonClicked)
         self.reverseButton.clicked.\
             connect(self._handleReverseButtonClicked)
+        self.checkMarkAllButton.clicked.\
+            connect(self._handleCheckMarkAllButtonClicked)
+        self.checkMarkNoneButton.clicked.\
+            connect(self._handleCheckMarkNoneButtonClicked)
 
         # Connect the signals for the price and time values changing,
         # so that we can update the start and end points in the
@@ -1107,7 +1147,6 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
             connect(self._saveAndReloadMusicalRatios)
         self.endPointDatetimeLocationWidget.valueChanged.\
             connect(self._saveAndReloadMusicalRatios)
-        
         
         # Connect okay and cancel buttons.
         self.okayButton.clicked.connect(self._handleOkayButtonClicked)
@@ -1165,12 +1204,17 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
         # Set the internal widgets as readonly or not depending on this flag.
         self.internalNameLineEdit.setReadOnly(True)
         self.uuidLineEdit.setReadOnly(True)
+        self.barHeightValueSpinBox.setEnabled(not self.readOnlyFlag)
+        self.textFontSizeValueSpinBox.setEnabled(not self.readOnlyFlag)
+        self.textEnabledCheckBox.setEnabled(not self.readOnlyFlag)
         self.rotateDownButton.setEnabled(not self.readOnlyFlag)
         self.rotateUpButton.setEnabled(not self.readOnlyFlag)
         self.reverseButton.setEnabled(not self.readOnlyFlag)
-        self.startPointPriceValueSpinBox.setReadOnly(self.readOnlyFlag)
+        self.checkMarkAllButton.setEnabled(not self.readOnlyFlag)
+        self.checkMarkNoneButton.setEnabled(not self.readOnlyFlag)
+        self.startPointPriceValueSpinBox.setEnabled(not self.readOnlyFlag)
         self.startPointDatetimeLocationWidget.setReadOnly(self.readOnlyFlag)
-        self.endPointPriceValueSpinBox.setReadOnly(self.readOnlyFlag)
+        self.endPointPriceValueSpinBox.setEnabled(not self.readOnlyFlag)
         self.endPointDatetimeLocationWidget.setReadOnly(self.readOnlyFlag)
 
         for checkBox in self.checkBoxes:
@@ -1222,6 +1266,15 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
             setText(self.artifact.getInternalName())
         self.uuidLineEdit.\
             setText(str(self.artifact.getUuid()))
+        self.barHeightValueSpinBox.\
+            setValue(self.artifact.getModalScaleGraphicsItemBarHeight())
+        self.textFontSizeValueSpinBox.\
+            setValue(self.artifact.getModalScaleGraphicsItemFontSize())
+                                        
+        if self.artifact.isTextEnabled():
+            self.textEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.textEnabledCheckBox.setCheckState(Qt.Unchecked)
 
         startPointY = self.artifact.startPointF.y()
         startPointPrice = self.convertObj.sceneYPosToPrice(startPointY)
@@ -1374,6 +1427,30 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
 
         self.log.debug("Exiting saveValues()")
 
+    def _handleBarHeightValueSpinBoxChanged(self):
+        """Called when the self.barHeightValueSpinBox is modified."""
+
+        self.artifact.setModalScaleGraphicsItemBarHeight(\
+            self.barHeightValueSpinBox.value())
+        
+    def _handleTextFontSizeValueSpinBoxChanged(self):
+        """Called when the self.textFontSizeValueSpinBox is modified."""
+
+        self.artifact.setModalScaleGraphicsItemFontSize(\
+            self.textFontSizeValueSpinBox.value())
+        
+    def _handleTextEnabledCheckBoxToggled(self):
+        """Called when the textEnabledCheckBox is checked or unchecked."""
+
+        newValue = None
+        
+        if self.textEnabledCheckBox.checkState() == Qt.Checked:
+            newValue = True
+        else:
+            newValue = False
+        
+        self.artifact.setTextEnabled(newValue)
+        
     def _handleCheckMarkToggled(self):
         """Called when one of the check-mark boxes on the
         musicalRatios is checked or unchecked.
@@ -1461,6 +1538,30 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
         # Reload the musicalRatiosGrid.
         self._reloadMusicalRatiosGrid()
     
+    def _handleCheckMarkAllButtonClicked(self):
+        """Called when the 'Check All' button is clicked."""
+
+
+        for checkBox in self.checkBoxes:
+            checkBox.setCheckState(Qt.Checked)
+
+        # Call this to update the internal artifact object according
+        # to what the widgets have set (in this case, the 'enabled'
+        # checkboxes).
+        self._handleCheckMarkToggled()
+        
+    def _handleCheckMarkNoneButtonClicked(self):
+        """Called when the 'Check None' button is clicked."""
+
+
+        for checkBox in self.checkBoxes:
+            checkBox.setCheckState(Qt.Unchecked)
+
+        # Call this to update the internal artifact object according
+        # to what the widgets have set (in this case, the 'enabled'
+        # checkboxes).
+        self._handleCheckMarkToggled()
+        
     def _handleOkayButtonClicked(self):
         """Called when the okay button is clicked."""
 

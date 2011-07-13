@@ -10761,24 +10761,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.timeMeasurementGraphicsItemTextYScalingResetButton = \
             QPushButton("Reset to default")
                                              
-        # modalScaleGraphicsItemBarHeight (float).
-        self.modalScaleGraphicsItemBarHeightLabel = \
-            QLabel("ModalScaleGraphicsItem bar height: ")
-        self.modalScaleGraphicsItemBarHeightSpinBox = QDoubleSpinBox()
-        self.modalScaleGraphicsItemBarHeightSpinBox.setMinimum(0.0)
-        self.modalScaleGraphicsItemBarHeightSpinBox.setMaximum(1000.0)
-        self.modalScaleGraphicsItemBarHeightResetButton = \
-            QPushButton("Reset to default")
-                                             
-        # modalScaleGraphicsItemFontSize (float).
-        self.modalScaleGraphicsItemFontSizeLabel = \
-            QLabel("ModalScaleGraphicsItem font size: ")
-        self.modalScaleGraphicsItemFontSizeSpinBox = QDoubleSpinBox()
-        self.modalScaleGraphicsItemFontSizeSpinBox.setMinimum(0.01)
-        self.modalScaleGraphicsItemFontSizeSpinBox.setMaximum(1000.0)
-        self.modalScaleGraphicsItemFontSizeResetButton = \
-            QPushButton("Reset to default")
-                                             
         # modalScaleGraphicsItemTextXScaling (float).
         self.modalScaleGraphicsItemTextXScalingLabel = \
             QLabel("ModalScaleGraphicsItem text X scaling: ")
@@ -10948,28 +10930,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
         ar = Qt.AlignRight
 
         gridLayout.\
-            addWidget(self.modalScaleGraphicsItemBarHeightLabel, 
-                      r, 0, al)
-        gridLayout.\
-            addWidget(self.modalScaleGraphicsItemBarHeightSpinBox, 
-                      r, 1, ar)
-        gridLayout.addWidget\
-            (self.modalScaleGraphicsItemBarHeightResetButton, 
-             r, 2, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(self.modalScaleGraphicsItemFontSizeLabel, 
-                      r, 0, al)
-        gridLayout.\
-            addWidget(self.modalScaleGraphicsItemFontSizeSpinBox, 
-                      r, 1, ar)
-        gridLayout.addWidget\
-            (self.modalScaleGraphicsItemFontSizeResetButton, 
-             r, 2, ar)
-
-        r += 1
-        gridLayout.\
             addWidget(self.modalScaleGraphicsItemTextXScalingLabel, 
                       r, 0, al)
         gridLayout.\
@@ -11044,10 +11004,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
             connect(self._handleTimeMeasurementGraphicsItemTextXScalingResetButtonClicked)
         self.timeMeasurementGraphicsItemTextYScalingResetButton.clicked.\
             connect(self._handleTimeMeasurementGraphicsItemTextYScalingResetButtonClicked)
-        self.modalScaleGraphicsItemBarHeightResetButton.clicked.\
-            connect(self._handleModalScaleGraphicsItemBarHeightResetButtonClicked)
-        self.modalScaleGraphicsItemFontSizeResetButton.clicked.\
-            connect(self._handleModalScaleGraphicsItemFontSizeResetButtonClicked)
         self.modalScaleGraphicsItemTextXScalingResetButton.clicked.\
             connect(self._handleModalScaleGraphicsItemTextXScalingResetButtonClicked)
         self.modalScaleGraphicsItemTextYScalingResetButton.clicked.\
@@ -11133,16 +11089,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
             setValue(self.priceBarChartSettings.\
                         timeMeasurementGraphicsItemTextYScaling)
 
-        # modalScaleGraphicsItemBarHeight (float).
-        self.modalScaleGraphicsItemBarHeightSpinBox.\
-            setValue(self.priceBarChartSettings.\
-                        modalScaleGraphicsItemBarHeight)
-
-        # modalScaleGraphicsItemFontSize (float).
-        self.modalScaleGraphicsItemFontSizeSpinBox.\
-            setValue(self.priceBarChartSettings.\
-                        modalScaleGraphicsItemFontSize)
-
         # modalScaleGraphicsItemTextXScaling (float).
         self.modalScaleGraphicsItemTextXScalingSpinBox.\
             setValue(self.priceBarChartSettings.\
@@ -11205,14 +11151,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
         # timeMeasurementGraphicsItemTextYScaling (float).
         self.priceBarChartSettings.timeMeasurementGraphicsItemTextYScaling = \
             float(self.timeMeasurementGraphicsItemTextYScalingSpinBox.value())
-
-        # modalScaleGraphicsItemBarHeight (float).
-        self.priceBarChartSettings.modalScaleGraphicsItemBarHeight = \
-            float(self.modalScaleGraphicsItemBarHeightSpinBox.value())
-
-        # modalScaleGraphicsItemFontSize (float).
-        self.priceBarChartSettings.modalScaleGraphicsItemFontSize = \
-            float(self.modalScaleGraphicsItemFontSizeSpinBox.value())
 
         # modalScaleGraphicsItemTextXScaling (float).
         self.priceBarChartSettings.modalScaleGraphicsItemTextXScaling = \
@@ -11339,28 +11277,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         self.timeMeasurementGraphicsItemTextYScalingSpinBox.setValue(value)
 
-    def _handleModalScaleGraphicsItemBarHeightResetButtonClicked(self):
-        """Called when the modalScaleGraphicsItemBarHeightResetButton
-        is clicked.  Resets the widget value to the default value.
-        """
-
-        value = \
-            PriceBarChartSettings.\
-                defaultModalScaleGraphicsItemBarHeight
-
-        self.modalScaleGraphicsItemBarHeightSpinBox.setValue(value)
-
-    def _handleModalScaleGraphicsItemFontSizeResetButtonClicked(self):
-        """Called when the modalScaleGraphicsItemFontSizeResetButton
-        is clicked.  Resets the widget value to the default value.
-        """
-
-        value = \
-            PriceBarChartSettings.\
-                defaultModalScaleGraphicsItemFontSize
-
-        self.modalScaleGraphicsItemFontSizeSpinBox.setValue(value)
-
     def _handleModalScaleGraphicsItemTextXScalingResetButtonClicked(self):
         """Called when the modalScaleGraphicsItemTextXScalingResetButton
         is clicked.  Resets the widget value to the default value.
@@ -11400,8 +11316,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._handleTimeMeasurementGraphicsItemFontSizeResetButtonClicked()
         self._handleTimeMeasurementGraphicsItemTextXScalingResetButtonClicked()
         self._handleTimeMeasurementGraphicsItemTextYScalingResetButtonClicked()
-        self._handleModalScaleGraphicsItemBarHeightResetButtonClicked()
-        self._handleModalScaleGraphicsItemFontSizeResetButtonClicked()
         self._handleModalScaleGraphicsItemTextXScalingResetButtonClicked()
         self._handleModalScaleGraphicsItemTextYScalingResetButtonClicked()
 
@@ -12592,6 +12506,8 @@ class PriceBarEditWidget(QWidget):
         self.formLayout.setLabelAlignment(Qt.AlignLeft)
         self.formLayout.addRow(self.openPriceLabel, 
                                self.openPriceSpinBox)
+        self.formLayout.addRow(self.highPriceLabel, 
+                               self.highPriceSpinBox)
         self.formLayout.addRow(self.lowPriceLabel, 
                                self.lowPriceSpinBox)
         self.formLayout.addRow(self.closePriceLabel, 

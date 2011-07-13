@@ -1894,9 +1894,12 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     self.update()
                 else:
                     # This means that the user is dragging the whole
-                    # ruler.  Do the move, but also set emit that the
-                    # PriceBarChart has changed.
+                    # ruler.
+
+                    # Do the move.
                     super().mouseMoveEvent(event)
+                    
+                    # Emit that the PriceBarChart has changed.
                     self.scene().priceBarChartChanged.emit()
             else:
                 super().mouseMoveEvent(event)
@@ -2502,7 +2505,79 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.scene().setAstroChart3(self.endPointF.x())
 
+
+class VerticalTickGraphicsItem(QGraphicsItem):
+    """QGraphicsItem that draws a vertical tick line. """
+
+    def __init__(self, parent=None, scene=None):
+        super().__init__(parent, scene)
         
+        # Logger
+        self.log = logging.getLogger("pricebarchart.VerticalTickGraphicsItem")
+
+        self.barHeight = 0.2
+        
+        # Pen which is used to do the painting of the bar tick.
+        self.pen = QPen()
+        self.penWidth = 0.0
+        self.pen.setWidthF(self.penWidth)
+
+    def setPen(self, pen):
+        """Sets the pen used to draw this QGraphicsItem."""
+        
+        self.pen = pen
+        
+    def setPenWidth(self, penWidth):
+        """Sets the pen width used to draw this QGraphicsItem.
+        Arguments:
+
+        penWidth - float value for the pen width.
+        """
+        
+        self.penWidth = penWidth
+        self.pen.setWidthF(self.penWidth)
+    
+    def setBarHeight(self, barHeight):
+        """Sets the bar height of the tick.
+
+        Arguments:
+        barHeight - float value for the bar height.
+        """
+
+        self.barHeight = barHeight
+
+    def getBarHeight(self):
+        """Returns the bar height of the tick."""
+        
+        return self.barHeight
+
+    def boundingRect(self):
+        """Returns the bounding rectangle for this graphicsitem."""
+
+        topLeft = QPointF(self.penWidth * -0.5,
+                          1.0 * self.barHeight / 2.0)
+        
+        bottomRight = QPointF(self.penWidth * 0.5,
+                              -1.0 * self.barHeight / 2.0)
+
+        return QRectF(topLeft, bottomRight).normalized()
+
+    def paint(self, painter, option, widget):
+        """Paints this QGraphicsItem.  Assumes that self.pen is set
+        to what we want for the drawing style.
+        """
+
+        if painter.pen() != self.pen:
+            painter.setPen(self.pen)
+            
+        # Draw the left vertical bar part.
+        x1 = 0.0
+        y1 = 1.0 * (self.barHeight / 2.0)
+        x2 = 0.0
+        y2 = -1.0 * (self.barHeight / 2.0)
+        painter.drawLine(QLineF(x1, y1, x2, y2))
+
+               
 class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
     """QGraphicsItem that visualizes a PriceBar counter in the GraphicsView.
 
@@ -2532,16 +2607,6 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # graphicsitem.
         self.modalScaleGraphicsItemTextColor = \
             SettingsKeys.modalScaleGraphicsItemTextColorSettingsDefValue
-
-        # Height of the vertical bar drawn.
-        self.modalScaleGraphicsItemBarHeight = \
-            PriceBarChartSettings.\
-                defaultModalScaleGraphicsItemBarHeight 
- 
-        # Font size of the text of the bar count.
-        self.modalScaleFontSize = \
-            PriceBarChartSettings.\
-                defaultModalScaleGraphicsItemFontSize 
 
         # X scaling of the text.
         self.modalScaleTextXScaling = \
@@ -2579,7 +2644,8 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         # Set the font of the text.
         self.modalScaleTextFont = QFont("Andale Mono")
-        self.modalScaleTextFont.setPointSizeF(self.modalScaleFontSize)
+        self.modalScaleTextFont.\
+            setPointSizeF(self.artifact.getModalScaleGraphicsItemFontSize())
 
         # Set the pen color of the text.
         self.modalScaleTextPen = self.modalScaleBarsText.pen()
@@ -2605,8 +2671,16 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         #
         self.musicalRatioTextItems = []
 
+        # Below is a list of VerticalTickGraphicsItems that correspond
+        # to each of the musicalRatios.
+        self.verticalTickItems = []
+        
         # Initialize to blank and set at the end point.
         for musicalRatio in range(len(self.artifact.getMusicalRatios())):
+            verticalTickItem = VerticalTickGraphicsItem(self)
+            verticalTickItem.setPos(self.endPointF)
+            verticalTickItem.setPen(self.modalScalePen)
+            
             fractionTextItem = QGraphicsSimpleTextItem("", self)
             fractionTextItem.setPos(self.endPointF)
             fractionTextItem.setFont(self.modalScaleTextFont)
@@ -2631,6 +2705,8 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.musicalRatioTextItems.\
                 append([fractionTextItem, priceTextItem, timestampTextItem])
 
+            self.verticalTickItems.append(verticalTickItem)
+
         # Flags that indicate that the user is dragging either the start
         # or end point of the QGraphicsItem.
         self.draggingStartPointFlag = False
@@ -2644,16 +2720,6 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.log.debug("Entered loadSettingsFromPriceBarChartSettings()")
         
-        # Height of the vertical bar drawn.
-        self.modalScaleGraphicsItemBarHeight = \
-            priceBarChartSettings.\
-                modalScaleGraphicsItemBarHeight 
- 
-        # Font size of the text of the bar count.
-        self.modalScaleFontSize = \
-            priceBarChartSettings.\
-                modalScaleGraphicsItemFontSize 
-
         # X scaling of the text.
         self.modalScaleTextXScaling = \
             priceBarChartSettings.\
@@ -2666,9 +2732,11 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Font size of the text.
         self.log.debug("Setting font size to: {}".\
-                       format(self.modalScaleFontSize))
+                       format(self.artifact.\
+                              getModalScaleGraphicsItemFontSize()))
         self.modalScaleTextFont = self.modalScaleBarsText.font()
-        self.modalScaleTextFont.setPointSizeF(self.modalScaleFontSize)
+        self.modalScaleTextFont.\
+            setPointSizeF(self.artifact.getModalScaleGraphicsItemFontSize())
 
         # Apply some size scaling to the text.
         self.log.debug("Setting transform: (dx={}, dy={})".\
@@ -2690,6 +2758,7 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 textItem.setTransform(textTransform)
 
         # Schedule an update.
+        self.prepareGeometryChange()
         self.update()
 
         self.log.debug("Exiting loadSettingsFromPriceBarChartSettings()")
@@ -2823,9 +2892,12 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     self.update()
                 else:
                     # This means that the user is dragging the whole
-                    # ruler.  Do the move, but also set emit that the
-                    # PriceBarChart has changed.
+                    # ruler.
+
+                    # Do the move.
                     super().mouseMoveEvent(event)
+                    
+                    # Emit that the PriceBarChart has changed.
                     self.scene().priceBarChartChanged.emit()
             else:
                 super().mouseMoveEvent(event)
@@ -2918,37 +2990,47 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Traverse the 2-dimensional list and set the position of
             # each of the text items.
             artifact = self.getArtifact()
-            for i in range(len(self.musicalRatioTextItems)):
+            for i in range(len(artifact.getMusicalRatios())):
                 # Get the MusicalRatio that corresponds to this index.
                 musicalRatio = artifact.getMusicalRatios()[i]
 
-                # Verify it is enabled.  If yes, then set the
-                # position, otherwise, ignore.
-                if musicalRatio.isEnabled() == True:
-                    # Get the x and y position that will be the new
-                    # position of the text item.
-                    (x, y) = artifact.getXYForMusicalRatio(i)
+                # Here we always set the positions of everything.  If
+                # the musicalRatio not enabled, then the corresponding
+                # graphics items would have gotten disabled in the
+                # self.recalculateModalScale() call above.
+                
+                # Get the x and y position that will be the new
+                # position of the text item.
+                (x, y) = artifact.getXYForMusicalRatio(i)
 
-                    # Map those x and y to local coordinates.
-                    pointF = self.mapFromScene(QPointF(x, y))
+                # Map those x and y to local coordinates.
+                pointF = self.mapFromScene(QPointF(x, y))
                     
-                    # Get the text items for this point on the scale.
-                    listOfTextItems = self.musicalRatioTextItems[i]
+                # Get the text items for this point on the scale.
+                listOfTextItems = self.musicalRatioTextItems[i]
 
-                    # For each text item for that point on the scale,
-                    # set the position.
-                    for i in range(len(listOfTextItems)):
-                        textItem = listOfTextItems[i]
-                        # The position set is not exactly at (x, y),
-                        # but instead at an offset slightly below that
-                        # point so that multiple texts dont' overlap
-                        # each other.
-                        offsetY = self.modalScaleGraphicsItemBarHeight * i
-                        textItem.setPos(QPointF(pointF.x(),
-                                                pointF.y() + offsetY))
+                # For each text item for that point on the scale,
+                # set the position.
+                for j in range(len(listOfTextItems)):
+                    textItem = listOfTextItems[j]
+                    # The position set is not exactly at (x, y),
+                    # but instead at an offset slightly below that
+                    # point so that multiple texts dont' overlap
+                    # each other.
+                    offsetY = \
+                        artifact.getModalScaleGraphicsItemBarHeight() * j
+                    textItem.setPos(QPointF(pointF.x(),
+                                            pointF.y() + offsetY))
+                    textItem.setFont(self.modalScaleTextFont)
 
+                # Also set the position of the vertical tick line.
+                barHeight = artifact.getModalScaleGraphicsItemBarHeight()
+                self.verticalTickItems[i].setBarHeight(barHeight)
+                self.verticalTickItems[i].setPos(pointF)
+                    
             # Call update on this item since positions and child items
             # were updated.
+            self.prepareGeometryChange()
             self.update()
 
     def setStartPointF(self, pointF):
@@ -3083,7 +3165,7 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
                 if musicalRatio.isEnabled():
                     # Enable and make visible.
-                    
+
                     # Get the text items for this point on the scale.
                     listOfTextItems = self.musicalRatioTextItems[i]
                     
@@ -3091,11 +3173,17 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     # set the text.  
                     for j in range(len(listOfTextItems)):
                         textItem = listOfTextItems[j]
-                        
-                        # Enable and make visible.
-                        textItem.setEnabled(True)
-                        textItem.setVisible(True)
-                        
+
+                        # Make the text visible if it is enabled.
+                        textEnabled = artifact.isTextEnabled()
+                        textItem.setEnabled(textEnabled)
+                        textItem.setVisible(textEnabled)
+
+                        # If text isn't enabled, there's no need to
+                        # set the text for it.  Go to the next text item.
+                        if textEnabled == False:
+                            continue
+                    
                         if j == 0:
                             # Fraction text.  This is either the
                             # fraction (if the numerator and
@@ -3131,6 +3219,11 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                             timestampText = \
                                 Ephemeris.datetimeToDayStr(timestamp)
                             textItem.setText(timestampText)
+
+                    # Also enable and set the vertical tick line.
+                    self.verticalTickItems[i].setVisible(True)
+                    self.verticalTickItems[i].setEnabled(True)
+                            
                 else:
                     # Disable and make not visable.
                     
@@ -3139,10 +3232,16 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     
                     # For each text item for that point on the scale,
                     # set as disabled and not visible.
-                    for i in range(len(listOfTextItems)):
-                        textItem = listOfTextItems[i]
-                        textItem.setEnabled(False)
+                    for j in range(len(listOfTextItems)):
+                        textItem = listOfTextItems[j]
                         textItem.setVisible(False)
+                        textItem.setEnabled(False)
+
+                    # Also disable the vertical tick line.
+                    self.verticalTickItems[i].setVisible(False)
+                    self.verticalTickItems[i].setEnabled(False)
+                    
+
                         
     def setArtifact(self, artifact):
         """Loads a given PriceBarChartModalScaleArtifact object's data
@@ -3167,6 +3266,10 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.setStartPointF(self.artifact.getStartPointF())
         self.setEndPointF(self.artifact.getEndPointF())
 
+        self.modalScaleTextFont = self.modalScaleBarsText.font()
+        self.modalScaleTextFont.\
+            setPointSizeF(self.artifact.getModalScaleGraphicsItemFontSize())
+
         # Need to recalculate the time measurement, since the start and end
         # points have changed.  Note, if no scene has been set for the
         # QGraphicsView, then the measurements will be zero.
@@ -3179,7 +3282,7 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         QGraphicsItem so that it may be pickled.
         """
         
-        self.log.debug("Entered getArtifact()")
+        #self.log.debug("Entered getArtifact()")
         
         # Update the internal self.priceBarChartModalScaleArtifact 
         # to be current, then return it.
@@ -3188,7 +3291,7 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.artifact.setStartPointF(self.startPointF)
         self.artifact.setEndPointF(self.endPointF)
         
-        self.log.debug("Exiting getArtifact()")
+        #self.log.debug("Exiting getArtifact()")
         
         return self.artifact
 
@@ -3199,25 +3302,24 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # the vertical bar that is at the left portion of this widget,
         # and represented in scene coordinates as the self.startPointF 
         # location.
-
+        
         # The QRectF returned is relative to this (0, 0) point.
-
+        barHeight = self.getArtifact().getModalScaleGraphicsItemBarHeight()
+        
         xTopLeft = 0.0
-        yTopLeft = 1.0 * (self.modalScaleGraphicsItemBarHeight / 2.0)
+        yTopLeft = 1.0 * (barHeight / 2.0)
         
         xBottomLeft = 0.0
-        yBottomLeft = -1.0 * (self.modalScaleGraphicsItemBarHeight / 2.0)
+        yBottomLeft = -1.0 * (barHeight / 2.0)
         
         xDelta = self.endPointF.x() - self.startPointF.x()
         yDelta = self.endPointF.y() - self.startPointF.y()
         
         xTopRight = 0.0 + xDelta
-        yTopRight = (1.0 * (self.modalScaleGraphicsItemBarHeight / 2.0)) + \
-            yDelta
+        yTopRight = (1.0 * (barHeight / 2.0)) + yDelta
         
         xBottomRight = 0.0 + xDelta
-        yBottomRight = (-1.0 * (self.modalScaleGraphicsItemBarHeight / 2.0)) + \
-            yDelta
+        yBottomRight = (-1.0 * (barHeight / 2.0)) + yDelta
 
         # Find the smallest x and y.
         smallestX = xTopLeft
@@ -3264,11 +3366,6 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         rectWithoutText = QRectF(QPointF(smallestX, smallestY),
                                  QPointF(largestX, largestY)).normalized()
 
-        self.log.debug("smallestX = {}, ".format(smallestX) +
-                       "smallestY = {}, ".format(smallestY) +
-                       "largestX = {}, ".format(largestX) +
-                       "largestY = {}".format(largestY))
-        
         return rectWithoutText
 
     def shape(self):
@@ -3276,27 +3373,27 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         more accurate shape for collision detection, hit tests, etc.
         """
 
+        barHeight = self.getArtifact().getModalScaleGraphicsItemBarHeight()
+        
         # The QRectF returned is relative to this (0, 0) point.
 
         xTopLeft = 0.0
-        yTopLeft = 1.0 * (self.modalScaleGraphicsItemBarHeight / 2.0)
+        yTopLeft = 1.0 * (barHeight / 2.0)
         topLeft = QPointF(xTopLeft, yTopLeft)
         
         xBottomLeft = 0.0
-        yBottomLeft = -1.0 * (self.modalScaleGraphicsItemBarHeight / 2.0)
+        yBottomLeft = -1.0 * (barHeight / 2.0)
         bottomLeft = QPointF(xBottomLeft, yBottomLeft)
         
         xDelta = self.endPointF.x() - self.startPointF.x()
         yDelta = self.endPointF.y() - self.startPointF.y()
         
         xTopRight = 0.0 + xDelta
-        yTopRight = (1.0 * (self.modalScaleGraphicsItemBarHeight / 2.0)) + \
-            yDelta
+        yTopRight = (1.0 * (barHeight / 2.0)) + yDelta
         topRight = QPointF(xTopRight, yTopRight)
         
         xBottomRight = 0.0 + xDelta
-        yBottomRight = (-1.0 * (self.modalScaleGraphicsItemBarHeight / 2.0)) + \
-            yDelta
+        yBottomRight = (-1.0 * (barHeight / 2.0)) + yDelta
         bottomRight = QPointF(xBottomRight, yBottomRight)
 
         points = [topLeft, topRight, bottomRight, bottomLeft]
@@ -3312,23 +3409,30 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         to what we want for the drawing style.
         """
 
+        self.log.debug("Entered ModalScaleGraphicsItem.paint().  " +
+                       "pos is: ({}, {})".format(self.pos().x(),
+                                                 self.pos().y()))
+                       
         if painter.pen() != self.modalScalePen:
             painter.setPen(self.modalScalePen)
+
+        artifact = self.getArtifact()
+        barHeight = artifact.getModalScaleGraphicsItemBarHeight()
         
         # Draw the left vertical bar part.
         x1 = 0.0
-        y1 = 1.0 * (self.modalScaleGraphicsItemBarHeight / 2.0)
+        y1 = 1.0 * (barHeight / 2.0)
         x2 = 0.0
-        y2 = -1.0 * (self.modalScaleGraphicsItemBarHeight / 2.0)
+        y2 = -1.0 * (barHeight / 2.0)
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
         # Draw the right vertical bar part.
         xDelta = self.endPointF.x() - self.startPointF.x()
         yDelta = self.endPointF.y() - self.startPointF.y()
         x1 = 0.0 + xDelta
-        y1 = (1.0 * (self.modalScaleGraphicsItemBarHeight / 2.0)) + yDelta
+        y1 = (1.0 * (barHeight / 2.0)) + yDelta
         x2 = 0.0 + xDelta
-        y2 = (-1.0 * (self.modalScaleGraphicsItemBarHeight / 2.0)) + yDelta
+        y2 = (-1.0 * (barHeight / 2.0)) + yDelta
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
         # Draw the middle line.
@@ -3338,7 +3442,7 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         y2 = yDelta
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
-        # Draw the bounding rect if the item is selected.
+        # Draw a dashed-line surrounding the item if it is selected.
         if option.state & QStyle.State_Selected:
             pad = self.modalScalePen.widthF() / 2.0;
             
@@ -3362,12 +3466,10 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
             painter.setBrush(Qt.NoBrush)
             painter.drawPath(self.shape())
-            #painter.drawRect(self.boundingRect())
             
             painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
             painter.setBrush(Qt.NoBrush)
             painter.drawPath(self.shape())
-            #painter.drawRect(self.boundingRect())
 
     def appendActionsToContextMenu(self, menu, readOnlyMode=False):
         """Modifies the given QMenu object to update the title and add
@@ -3390,6 +3492,9 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         removeAction = QAction("Remove", parent)
         infoAction = QAction("Info", parent)
         editAction = QAction("Edit", parent)
+
+        # TODO:  add here: rotate right, rotate left, and reverse actions.
+        
         setStartOnAstro1Action = \
             QAction("Set start timestamp on Astro Chart 1", parent)
         setStartOnAstro2Action = \

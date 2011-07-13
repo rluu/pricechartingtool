@@ -58,30 +58,41 @@ DONE    Edit dialog for this to edit the start and end datetime or
 DONE    coordinate.
 
   - Modal scales ruler (draggable ends and middle).  
-      DONE - Edit dialog for this to edit the start and end 
-      DONE   datetime or coordinate.
       - Selection for changing the mode
-           DONE - Via right-click menu.
            - Rotate right by pressing 'g' or 'l' or Alt-Right.  
            - Rotate left by pressing 's' or 'h' or Alt-Left.
            - Reversal via pressing 'r'.
-      - Add to artifact, stored setting for tick bar height.
-      - Add to artifact, stored setting for font size of text.
-      - Add to MusicalRatio, setting for:
-           - fractionTextEnabled
-           - priceTextEnabled
-           - dateTimeTextEnabled
 
-         - And use these all when drawing.
+DONE           - Edit dialog for this to edit the start and end 
+DONE             datetime or coordinate.
+DONE                - Via right-click menu.
+DONE      - Draw the ticks.  This is based off of isEnabled().
+DONE          - Add to artifact, stored setting for tick bar height.
+DONE          - Add to artifact, stored setting for font size of text.
+DONE          - Add to artifact, 'textEnabled' bool field.  
+DONE                      Is disabled by default.
+DONE      - Text is drawn for the ticks if isEnabled() and 
+DONE           isTextEnabled() are true
+DONE      - Add to modal scales edit dialog:
+DONE      - Buttons for checkBoxAll and checkBoxNone for Enabled setting.
+DONE           - one checkbox for textEnabled
+DONE           - setting for tick bar height (of this one scale)
+DONE           - setting for text font size. (of this one scale)
 
-      - Draw the ticks.  This is based off of isEnabled().
 
-      - Add to modal scales edit dialog:
-           - Buttons for checkBoxAll and checkBoxNone for Enabled setting.
-           - Checkboxes for fractionTextEnabled
-           - Checkboxes for priceTextEnabled
-           - Checkboxes for dateTimeTextEnabled
+  - Add square root price modal scale.  (vertical bar) This is high
+    and low price square rooted, and the musical scale from that, and
+    then squared again to get the price.
+
+  - Add square root time modal scale.  (horizontal bar) This is
+    earlier timestamp square rooted, to the later timestamp square
+    rooted. and the musical scale is created from that, and then
+    squared again to get the timestamp.
+
+
 	
+  - QGraphicsItem for text on a PriceBarChart.
+
   - Add to the ratio-scripts some of the special numbers from:
        http://en.wikipedia.org/wiki/List_of_numbers
   
@@ -89,13 +100,11 @@ DONE    coordinate.
          - Irrational and suspected irrational numbers
          - Hypercomplex numbers
 
-  - Text graphics item (and artifact)
-
-
-  - Inverted modal scale ruler (draggable ends and middle).  
-      - Same edit dialog as the modal scales ruler.
-
   - Ruler for Vimsottari dasa (draggable ends and middle).
+      - Dialog to edit start and end datetime.
+      - Option to modify lifespan (i.e. timerange).
+
+  - Ruler for all the other dasas (draggable ends and middle).
       - Dialog to edit start and end datetime.
       - Option to modify lifespan (i.e. timerange).
 
@@ -106,8 +115,6 @@ DONE    coordinate.
       Chart with pricebars in Calendar Days (CDs).
 
   - Narayana Dasa  --> How to implement this?
-
-  - QGraphicsItem for text on a PriceBarChart.
 
   - In the astrologychart.SiderealRadixGraphicsItem, clean up the
     code.  Parameterize the pen/brush so that it has foreground color

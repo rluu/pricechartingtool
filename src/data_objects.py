@@ -1322,11 +1322,25 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
         # List of used ratios.
         self.musicalRatios = MusicalRatio.getIndianMusicalRatios()
         
+        # ModalScaleGraphicsItem bar height (float).
+        self.modalScaleGraphicsItemBarHeight = \
+            PriceBarChartSettings.\
+                defaultModalScaleGraphicsItemBarHeight
+
+        # ModalScaleGraphicsItem font size (float).
+        self.modalScaleGraphicsItemFontSize = \
+            PriceBarChartSettings.\
+                defaultModalScaleGraphicsItemFontSize
+
         # Flag for whether or not the musicalRatios are in reverse
         # order.  This affects how ratios are referenced (from the
         # endpoint instead of from the startpoint).
         self.reversedFlag = False
 
+        # Flag for whether or not the text is displayed for enabled
+        # MusicalRatios in self.musicalRatios.
+        self.textEnabledFlag = False
+        
     def setStartPointF(self, startPointF):
         """Stores the starting point of the ModalScaleArtifact.
         Arguments:
@@ -1365,6 +1379,28 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
 
         self.musicalRatios = musicalRatios
 
+    def setModalScaleGraphicsItemBarHeight(self,
+                                           modalScaleGraphicsItemBarHeight):
+        """Sets the ModalScaleGraphicsItem bar height (float)."""
+
+        self.modalScaleGraphicsItemBarHeight = modalScaleGraphicsItemBarHeight
+    
+    def getModalScaleGraphicsItemBarHeight(self):
+        """Returns the ModalScaleGraphicsItem bar height (float)."""
+
+        return self.modalScaleGraphicsItemBarHeight
+    
+    def setModalScaleGraphicsItemFontSize(self,
+                                          modalScaleGraphicsItemFontSize):
+        """Sets the font size of the musical ratio text (float)."""
+
+        self.modalScaleGraphicsItemFontSize = modalScaleGraphicsItemFontSize
+    
+    def getModalScaleGraphicsItemFontSize(self):
+        """Sets the font size of the musical ratio text (float)."""
+
+        return self.modalScaleGraphicsItemFontSize
+    
     def isReversed(self):
         """Returns whether or not the musicalRatios are in reversed order.
         This value is used to tell how ratios are referenced (from the
@@ -1385,7 +1421,25 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
 
         self.reversedFlag = reversedFlag
         
-    def getXYForMusicalRatio(self, index, reversedFlag=False):
+    def isTextEnabled(self):
+        """Returns whether or not the text is enabled for the
+        musicalRatios that are enabled.
+        """
+
+        return self.textEnabledFlag
+
+    def setTextEnabled(self, textEnabledFlag):
+        """Sets the textEnabled flag.  This value is used to tell
+        whether or not the text is enabled for the musicalRatios that
+        are enabled.
+
+        Arguments:
+        textEnabledFlag - bool value for whether or not the text is enabled.
+        """
+
+        self.textEnabledFlag = textEnabledFlag
+        
+    def getXYForMusicalRatio(self, index):
         """Returns the x and y location of where this musical ratio
         would exist, based on the MusicalRatio ordering and the
         startPoint and endPoint locations.
@@ -1395,9 +1449,6 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
         index - int value for index into self.musicalRatios that the
         user is looking for the musical ratio for.  This value must be
         within the valid index limits.
-
-        reversedFlag - bool value for whether or not reversal of the
-        MusicalRatios array should be taken into account.
         """
 
         self.log.debug("Entered getXYForMusicalRatio({})".format(index))
@@ -1532,7 +1583,12 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
              "endPointF=({}, {}), ".format(self.getEndPointF().x(),
                                            self.getEndPointF().y()) + \
              "musicalRatios={}, ".format(musicalRatiosStr) + \
-             "reversedFlag={}".format(self.reversedFlag) + \
+             "reversedFlag={}, ".format(self.reversedFlag) + \
+             "textEnabledFlag={}, ".format(self.textEnabledFlag) + \
+             "modalScaleGraphicsItemBarHeight={}, ".\
+             format(self.modalScaleGraphicsItemBarHeight) + \
+             "modalScaleGraphicsItemFontSize={}".\
+             format(self.modalScaleGraphicsItemFontSize) + \
              "]"
 
         return rv
@@ -1875,6 +1931,11 @@ class PriceChartDocumentData:
             lastPriceBarTimestamp = \
                 Ephemeris.datetimeToStr(self.priceBars[-1].timestamp)
 
+        artifactStrings = "["
+        for artifact in self.priceBarChartArtifacts:
+            artifactStrings += "[{}]".format(artifact.toString())
+        artifactStrings += "]"
+            
         return "[classVersion={}, ".\
                    format(self.classVersion) + \
                 "description={}, ".\
@@ -1883,6 +1944,8 @@ class PriceChartDocumentData:
                     format(len(self.priceBars)) + \
                 "numArtifacts={}, ".\
                     format(len(self.priceBarChartArtifacts)) + \
+                "artifacts={}, ".\
+                    format(artifactStrings) + \
                 "firstPriceBarTimestamp={}, ".\
                     format(firstPriceBarTimestamp) + \
                 "lastPriceBarTimestamp={}, ".\
@@ -1979,7 +2042,7 @@ class PriceBarChartSettings:
     defaultTimeMeasurementGraphicsItemTextYScaling = 0.2
 
     # Default value for the ModalScaleGraphicsItem bar height (float).
-    defaultModalScaleGraphicsItemBarHeight = 0.2
+    defaultModalScaleGraphicsItemBarHeight = 0.3
 
     # Default value for the ModalScaleGraphicsItem font size (float).
     defaultModalScaleGraphicsItemFontSize = 1.20
@@ -2067,16 +2130,6 @@ class PriceBarChartSettings:
             PriceBarChartSettings.\
                 defaultTimeMeasurementGraphicsItemTextYScaling
 
-        # ModalScaleGraphicsItem bar height (float).
-        self.modalScaleGraphicsItemBarHeight = \
-            PriceBarChartSettings.\
-                defaultModalScaleGraphicsItemBarHeight
-
-        # ModalScaleGraphicsItem font size (float).
-        self.modalScaleGraphicsItemFontSize = \
-            PriceBarChartSettings.\
-                defaultModalScaleGraphicsItemFontSize
-
         # ModalScaleGraphicsItem text X scaling (float).
         self.modalScaleGraphicsItemTextXScaling = \
             PriceBarChartSettings.\
@@ -2150,10 +2203,6 @@ class PriceBarChartSettings:
                     format(self.timeMeasurementGraphicsItemTextXScaling) + \
                 "timeMeasurementGraphicsItemTextYScaling={}".\
                     format(self.timeMeasurementGraphicsItemTextYScaling) + \
-                "modalScaleGraphicsItemBarHeight={}, ".\
-                    format(self.modalScaleGraphicsItemBarHeight) + \
-                "modalScaleGraphicsItemFontSize={}, ".\
-                    format(self.modalScaleGraphicsItemFontSize) + \
                 "modalScaleGraphicsItemTextXScaling={}, ".\
                     format(self.modalScaleGraphicsItemTextXScaling) + \
                 "modalScaleGraphicsItemTextYScaling={}".\
