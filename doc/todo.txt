@@ -84,7 +84,19 @@ DONE           - setting for text font size. (of this one scale)
 
   - QGraphicsItem for text on a PriceBarChart.
 
-  - Gann Fanns
+  - May need to update scaling to be able to calculate or adjust for
+    square root of price and time.
+
+    - Also may need to account for time and price chance (elapsed)
+      from birth time.
+
+  - Octave fan (which is a more general Gann fan).
+     - Defined by origin and other 2 points.
+     - Uses scaling.
+
+  - Fibonnaci fan
+     - Defined by origin and other 2 points.
+     - Uses scaling.
 
   - PTV (Price-Time-Vector).
 
