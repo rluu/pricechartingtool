@@ -258,6 +258,13 @@ class MainWindow(QMainWindow):
         self.modalScaleToolAction.setStatusTip("Modal Scale Tool")
         self.modalScaleToolAction.setCheckable(True)
 
+        # Create the TextToolAction
+        icon = QIcon()
+        self.textToolAction = \
+            QAction(icon, "Text Tool", self)
+        self.textToolAction.setStatusTip("Text Tool")
+        self.textToolAction.setCheckable(True)
+
         # Create a QActionGroup because all these tool modes should be
         # exclusive.  
         self.toolActionGroup = QActionGroup(self)
@@ -270,6 +277,7 @@ class MainWindow(QMainWindow):
         self.toolActionGroup.addAction(self.barCountToolAction)
         self.toolActionGroup.addAction(self.timeMeasurementToolAction)
         self.toolActionGroup.addAction(self.modalScaleToolAction)
+        self.toolActionGroup.addAction(self.textToolAction)
         self.toolActionGroup.triggered.connect(self._toolsActionTriggered)
             
         # Default to the ReadOnlyPointerTool being checked by default.
@@ -374,6 +382,7 @@ class MainWindow(QMainWindow):
         self.toolsMenu.addAction(self.barCountToolAction)
         self.toolsMenu.addAction(self.timeMeasurementToolAction)
         self.toolsMenu.addAction(self.modalScaleToolAction)
+        self.toolsMenu.addAction(self.textToolAction)
 
         # Create the Window menu.
         self.windowMenu = self.menuBar().addMenu("&Window")
@@ -421,6 +430,7 @@ class MainWindow(QMainWindow):
         self.toolsToolBar.addAction(self.barCountToolAction)
         self.toolsToolBar.addAction(self.timeMeasurementToolAction)
         self.toolsToolBar.addAction(self.modalScaleToolAction)
+        self.toolsToolBar.addAction(self.textToolAction)
 
     def _createStatusBar(self):
         """Creates the QStatusBar by showing the message "Ready"."""
@@ -472,6 +482,7 @@ class MainWindow(QMainWindow):
         self.barCountToolAction.setEnabled(isActive)
         self.timeMeasurementToolAction.setEnabled(isActive)
         self.modalScaleToolAction.setEnabled(isActive)
+        self.textToolAction.setEnabled(isActive)
 
         self.closeChartAction.setEnabled(isActive)
         self.closeAllChartsAction.setEnabled(isActive)
@@ -502,6 +513,8 @@ class MainWindow(QMainWindow):
                 priceChartDocument.toTimeMeasurementToolMode()
             elif self.modalScaleToolAction.isChecked():
                 priceChartDocument.toModalScaleToolMode()
+            elif self.textToolAction.isChecked():
+                priceChartDocument.toTextToolMode()
             else:
                 self.log.warn("No ToolMode QAction is currently selected!")
 
@@ -1249,6 +1262,9 @@ class MainWindow(QMainWindow):
         elif qaction == self.modalScaleToolAction:
             self.log.debug("modalScaleToolAction triggered.")
             pcd.toModalScaleToolMode()
+        elif qaction == self.textToolAction:
+            self.log.debug("textToolAction triggered.")
+            pcd.toTextToolMode()
         else:
             self.log.warn("Unknown Tools QAction selected!  " + \
                 "There might be something wrong with the code, or " + \
@@ -1960,6 +1976,11 @@ class PriceChartDocument(QMdiSubWindow):
 
         self.widgets.toModalScaleToolMode()
 
+    def toTextToolMode(self):
+        """Changes the tool mode to be the TextTool."""
+
+        self.widgets.toTextToolMode()
+
     def _handlePriceChartDocumentWidgetChanged(self):
         """Slot for when the PriceBarDocumentWidget emits a signal to say
         that the widget(s) changed.  This means the document should be
@@ -2222,6 +2243,11 @@ class PriceChartDocumentWidget(QWidget):
         """Changes the tool mode to be the ModalScaleTool."""
 
         self.priceBarChartWidget.toModalScaleToolMode()
+
+    def toTextToolMode(self):
+        """Changes the tool mode to be the TextTool."""
+
+        self.priceBarChartWidget.toTextToolMode()
 
     def _handleWidgetChanged(self):
         """Handles when the internal widget has some kind of change

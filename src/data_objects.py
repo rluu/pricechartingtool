@@ -14,6 +14,8 @@ import pytz
 
 # For pickling PyQt types.
 from PyQt4.QtGui import QTransform
+from PyQt4.QtGui import QFont
+from PyQt4.QtGui import QColor
 from PyQt4.QtCore import Qt
 from PyQt4.QtCore import QPointF
 
@@ -920,27 +922,124 @@ class PriceBarChartTextArtifact(PriceBarChartArtifact):
 
         # Update the internal name so it is the artifact type plus the uuid.
         self.internalName = "Text_" + str(self.uuid)
-    
+
+        # Holds the text that is displayed.
         self.text = text
         
-        # TODO: QFont cannot be pickled, but we can utilize
+        # QFont cannot be pickled, but we can utilize
         # QFont.toString() and then QFont.fromString()
-        self.font = None
+        self.fontDescription = \
+            PriceBarChartSettings.defaultTextGraphicsItemDefaultFontDescription
         
-        # TODO: QColor can be pickled   
-        self.color = None
+        # QColor can be pickled   
+        self.color = PriceBarChartSettings.defaultTextGraphicsItemDefaultColor
 
+        # Scaling the text, to make it bigger or smaller.
+        self.textXScaling = \
+            PriceBarChartSettings.defaultTextGraphicsItemDefaultXScaling
+        self.textYScaling = \
+            PriceBarChartSettings.defaultTextGraphicsItemDefaultYScaling
+        
+    def setText(self, text):
+        """Sets the text that makes up this PriceBarChartTextArtifact.
+
+        Arguments:
+        text - str value for the text to display.
+        """
+
+        self.text = text
+
+    def getText(self):
+        """Returns the text of this PriceBarChartTextArtifact as a str."""
+
+        return self.text
+
+    def setFont(self, font):
+        """Sets the font of this PriceBarChartTextArtifact.
+
+        Arguments:
+        font - QFont object that is used for the drawing of the text.
+        """
+
+        # QFont cannot be pickled, but we can utilize
+        # QFont.toString() and then QFont.fromString().
+        self.fontDescription = font.toString()
+
+    def getFont(self):
+        """Returns the font of this PriceBarChartTextArtifact as a QFont.
+        """
+
+        # We obtain the QFont by calling QFont.fromString().
+        font = QFont()
+        font.fromString(self.fontDescription)
+
+        return font
+        
+    def setColor(self, color):
+        """Sets the text color for this PriceBarChartTextArtifact.
+
+        Arguments:
+        color - QColor object holding the color of the text.
+        """
+
+        self.color = color
+
+    def getColor(self):
+        """Returns the color of this PriceBarChartTextArtifact as a QColor."""
+
+        return self.color
+
+    def setTextXScaling(self, textXScaling):
+        """Sets the text X scaling, used in making the text 
+        bigger or smaller.
+
+        Arguments:
+        textXScaling - float value for the scaling used.
+                       1.0 is no change in scaling.
+        """
+
+        self.textXScaling = textXScaling
+
+    def getTextXScaling(self):
+        """Returns float value for the text X scaling, used in making
+        the text bigger or smaller.
+        """
+
+        return self.textXScaling
+        
+    def setTextYScaling(self, textYScaling):
+        """Sets the text Y scaling, used in making the text 
+        bigger or smaller.
+
+        Arguments:
+        textYScaling - float value for the scaling used.
+                       1.0 is no change in scaling.
+        """
+
+        self.textYScaling = textYScaling
+
+    def getTextYScaling(self):
+        """Returns float value for the text Y scaling, used in making
+        the text bigger or smaller.
+        """
+
+        return self.textYScaling
+        
     def __str__(self):
         """Returns the string representation of this object."""
 
         return self.toString()
-
+        
     def toString(self):
         """Returns the string representation of this object."""
 
-        # TODO:  modify this to return all the internal objects.
         rv = "[name={}, ".format(self.getInternalName()) + \
-             "pos=({}, {})".format(self.getPos().x(), self.getPos().y()) + \
+             "pos=({}, {}), ".format(self.getPos().x(), self.getPos().y()) + \
+             "text='{}', ".format(self.text) + \
+             "fontDescription='{}', ".format(self.fontDescription) + \
+             "color={}, ".format(self.color) + \
+             "textXScaling={}, ".format(self.textXScaling) + \
+             "textYScaling={}".format(self.textYScaling) + \
              "]"
 
         return rv
@@ -1000,7 +1099,7 @@ class PriceBarChartGannFanUpperRightArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        # TODO:  modify this to return all the internal objects.
+        # TODO:  modify this to return all the internal objects for PriceBarChartGannFanUpperRightArtifact.
         rv = "[name={}, ".format(self.getInternalName()) + \
              "pos=({}, {})".format(self.getPos().x(), self.getPos().y()) + \
              "]"
@@ -1063,7 +1162,7 @@ class PriceBarChartGannFanLowerRightArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        # TODO:  modify this to return all the internal objects.
+        # TODO:  modify this to return all the internal objects for PriceBarChartGannFanLowerRightArtifact.
         rv = "[name={}, ".format(self.getInternalName()) + \
              "pos=({}, {})".format(self.getPos().x(), self.getPos().y()) + \
              "]"
@@ -2017,6 +2116,22 @@ class PriceBarChartSettings:
     # Default width of the right extension (closing price) of a price bar.
     defaultPriceBarGraphicsItemRightExtensionWidth = 0.5
 
+    # Default font description text (this is basically the QFont,
+    # serialized to str) for the TextGraphicsItem.  This includes the
+    # font size.
+    font = QFont()
+    font.setPointSizeF(1.20)
+    defaultTextGraphicsItemDefaultFontDescription = font.toString()
+
+    # Default font color for the TextGraphicsItem.
+    defaultTextGraphicsItemDefaultColor = QColor(Qt.black)
+    
+    # Default text X scaling for the TextGraphicsItem.
+    defaultTextGraphicsItemDefaultXScaling = 1.0
+    
+    # Default text Y scaling for the TextGraphicsItem.
+    defaultTextGraphicsItemDefaultYScaling = 0.2
+    
     # Default value for the BarCountGraphicsItem bar height (float).
     defaultBarCountGraphicsItemBarHeight = 0.2
 
@@ -2089,7 +2204,28 @@ class PriceBarChartSettings:
         self.priceBarGraphicsItemRightExtensionWidth = \
             PriceBarChartSettings.\
                 defaultPriceBarGraphicsItemRightExtensionWidth 
+
+        # Default font description text (this is basically the QFont,
+        # serialized to str) for the TextGraphicsItem.  This includes the
+        # font size.
+        self.textGraphicsItemDefaultFontDescription = \
+            PriceBarChartSettings.\
+            defaultTextGraphicsItemDefaultFontDescription
+
+        # TextGraphicsItem default font color.
+        self.textGraphicsItemDefaultColor = \
+            PriceBarChartSettings.defaultTextGraphicsItemDefaultColor
         
+        # TextGraphicsItem default text X scaling.
+        self.textGraphicsItemDefaultXScaling = \
+            PriceBarChartSettings.\
+            defaultTextGraphicsItemDefaultXScaling
+
+        # TextGraphicsItem default text Y scaling.
+        self.textGraphicsItemDefaultYScaling = \
+            PriceBarChartSettings.\
+            defaultTextGraphicsItemDefaultYScaling
+
         # BarCountGraphicsItem bar height (float).
         self.barCountGraphicsItemBarHeight = \
             PriceBarChartSettings.\
@@ -2187,6 +2323,14 @@ class PriceBarChartSettings:
                     format(self.priceBarGraphicsItemLeftExtensionWidth) + \
                 "priceBarGraphicsItemRightExtensionWidth={}, ".\
                     format(self.priceBarGraphicsItemRightExtensionWidth) + \
+                "textGraphicsItemDefaultFontDescription={}, ".\
+                    format(self.textGraphicsItemDefaultFontDescription) + \
+                "textGraphicsItemDefaultColor={}, ".\
+                    format(self.textGraphicsItemDefaultColor) + \
+                "textGraphicsItemDefaultXScaling={}, ".\
+                    format(self.textGraphicsItemDefaultXScaling) + \
+                "textGraphicsItemDefaultYScaling={}, ".\
+                    format(self.textGraphicsItemDefaultYScaling) + \
                 "barCountGraphicsItemBarHeight={}, ".\
                     format(self.barCountGraphicsItemBarHeight) + \
                 "barCountGraphicsItemFontSize={}, ".\
@@ -2232,7 +2376,7 @@ class PriceBarSpreadsheetSettings:
         # different versions of this class).
         self.classVersion = 1
 
-        # TODO:  fill this info in.
+        # TODO:  fill this info in for PriceBarSpreadsheetSettings.
 
     def __getstate__(self):
         """Returns the object's state for pickling purposes."""

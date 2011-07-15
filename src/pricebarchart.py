@@ -30,11 +30,11 @@ from data_objects import MusicalRatio
 from data_objects import PriceBarChartBarCountArtifact
 from data_objects import PriceBarChartTimeMeasurementArtifact
 from data_objects import PriceBarChartModalScaleArtifact
+from data_objects import PriceBarChartTextArtifact
 from data_objects import PriceBarChartGannFanUpperRightArtifact
 from data_objects import PriceBarChartGannFanLowerRightArtifact
 from data_objects import PriceBarChartScaling
 from data_objects import PriceBarChartSettings
-from data_objects import PriceBarChartTextArtifact
 
 # For conversions from julian day to datetime.datetime and vice versa.
 from ephemeris import Ephemeris
@@ -44,6 +44,7 @@ from ephemeris import Ephemeris
 from pricebarchart_dialogs import PriceBarChartBarCountArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartTimeMeasurementArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartModalScaleArtifactEditDialog
+from pricebarchart_dialogs import PriceBarChartTextArtifactEditDialog
 
 # For edit dialogs.
 from dialogs import PriceBarEditDialog
@@ -453,9 +454,10 @@ class PriceBarGraphicsItem(QGraphicsItem):
 
     def _handleRemoveAction(self):
         """Causes the QGraphicsItem to be removed from the scene."""
-        
-        self.scene().removeItem(self)
-        self.scene().priceBarChartChanged.emit()
+
+        scene = self.scene()
+        scene.removeItem(self)
+        scene.priceBarChartChanged.emit()
 
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -591,6 +593,51 @@ class TextGraphicsItem(PriceBarChartArtifactGraphicsItem):
     def __init__(self, parent=None, scene=None):
         super().__init__(parent, scene)
         
+        # Internal storage object, used for loading/saving (serialization).
+        self.artifact = PriceBarChartTextArtifact()
+
+        # Internal QGraphicsItem that holds the text of the bar count.
+        # Initialize to blank and set at the end point.
+        self.textItem = QGraphicsSimpleTextItem("", self)
+        self.textItem.setPos(0.0, 0.0)
+
+        # Set the font of the text.
+        self.textItemFont = self.artifact.getFont()
+        self.textItem.setFont(self.textItemFont)
+
+        # Set the color of the text.
+        self.color = self.artifact.getColor()
+        
+        # Set the pen color of the text.
+        self.textItemPen = self.textItem.pen()
+        self.textItemPen.setColor(self.artifact.getColor())
+        self.textItem.setPen(self.textItemPen)
+
+        # Set the brush color of the text.
+        self.textItemBrush = self.textItem.brush()
+        self.textItemBrush.setColor(self.artifact.getColor())
+        self.textItem.setBrush(self.textItemBrush)
+
+        # Apply some size scaling to the text.
+        textTransform = QTransform()
+        textTransform.scale(self.artifact.getTextXScaling(), \
+                            self.artifact.getTextYScaling())
+        self.textItem.setTransform(textTransform)
+
+    def setText(self, text):
+        """Sets the text in this graphics item.
+
+        Arguments:
+        text - str value for the new text.
+        """
+
+        self.textItem.setText(text)
+        
+    def getText(self):
+        """Returns the text in this graphics item as a str."""
+
+        return self.textItem.text()
+        
     def setArtifact(self, artifact):
         """Loads a given PriceBarChartTextArtifact object's data
         into this QGraphicsTextItem.
@@ -605,8 +652,37 @@ class TextGraphicsItem(PriceBarChartArtifactGraphicsItem):
         if isinstance(artifact, PriceBarChartTextArtifact):
             self.artifact = artifact
         
-            # TODO:  Extract and set the internals according to the info 
+            # Extract and set the internals according to the info 
             # in self.artifact.
+            self.setPos(self.artifact.getPos())
+            
+            # Internal QGraphicsItem that holds the text of the bar count.
+            # Initialize to blank and set at the end point.
+            self.textItem.setText(self.artifact.getText())
+
+            # Set the font of the text.
+            self.textItemFont = self.artifact.getFont()
+            self.textItem.setFont(self.textItemFont)
+
+            # Set the color of the text.
+            self.color = self.artifact.getColor()
+            
+            # Set the pen color of the text.
+            self.textItemPen = self.textItem.pen()
+            self.textItemPen.setColor(self.artifact.getColor())
+            self.textItem.setPen(self.textItemPen)
+
+            # Set the brush color of the text.
+            self.textItemBrush = self.textItem.brush()
+            self.textItemBrush.setColor(self.artifact.getColor())
+            self.textItem.setBrush(self.textItemBrush)
+
+            # Apply some size scaling to the text.
+            self.textTransform = QTransform()
+            self.textTransform.scale(self.artifact.getTextXScaling(), \
+                                     self.artifact.getTextYScaling())
+            self.textItem.setTransform(self.textTransform)
+
         else:
             raise TypeError("Expected artifact type: PriceBarChartTextArtifact")
     
@@ -619,14 +695,247 @@ class TextGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.log.debug("Entered getArtifact()")
         
-        # TODO:  Update the internal self.priceBarChartTextArtifact to be 
+        # Update the internal self.priceBarChartTextArtifact to be 
         # current, then return it.
+        self.artifact.setPos(self.pos())
+        self.artifact.setText(self.textItem.text())
+        self.artifact.setFont(self.textItemFont)
+        self.artifact.setColor(self.color)
+        self.artifact.setTextXScaling(self.textTransform.m11())
+        self.artifact.setTextYScaling(self.textTransform.m22())
+        
+        self.log.debug("Exiting getArtifact()")
         
         return self.artifact
 
-        self.log.debug("Exiting getArtifact()")
-        
+    def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings):
+        """Reads some of the parameters/settings of this
+        PriceBarGraphicsItem from the given PriceBarChartSettings object.
+        """
 
+        self.log.debug("Entered loadSettingsFromPriceBarChartSettings()")
+
+        # Set values from the priceBarChartSettings into the internal
+        # member variables.
+        
+        self.textItemFont = QFont()
+        self.textItemFont.fromString(priceBarChartSettings.\
+                                     textGraphicsItemDefaultFontDescription) 
+        self.color = \
+            priceBarChartSettings.textGraphicsItemDefaultColor
+        
+        self.textTransform = QTransform()
+        self.textTransform.scale(priceBarChartSettings.\
+                                 textGraphicsItemDefaultXScaling,
+                                 priceBarChartSettings.\
+                                 textGraphicsItemDefaultYScaling)
+
+        # Update the internal text item.
+        self.textItem.setFont(self.textItemFont)
+
+        self.textItemPen = self.textItem.pen()
+        self.textItemPen.setColor(self.color)
+        self.textItem.setPen(self.textItemPen)
+
+        self.textItemBrush = self.textItem.brush()
+        self.textItemBrush.setColor(self.color)
+        self.textItem.setBrush(self.textItemBrush)
+
+        self.textItem.setTransform(self.textTransform)
+
+        # Schedule an update.
+        self.prepareGeometryChange()
+        self.update()
+
+        self.log.debug("Exiting loadSettingsFromPriceBarChartSettings()")
+        
+    def loadSettingsFromAppPreferences(self):
+        """Reads some of the parameters/settings of this
+        PriceBarGraphicsItem from the QSettings object. 
+        """
+
+        # No settings.
+        pass
+    
+    def setPos(self, pos):
+        """Overwrites the QGraphicsItem setPos() function.
+
+        Arguments:
+        pos - QPointF holding the new position.
+        """
+        
+        super().setPos(pos)
+        
+    def boundingRect(self):
+        """Returns the bounding rectangle for this graphicsitem."""
+
+        # Coordinate (0, 0) is the location of the internal text item
+        # in local coordinates.  The QRectF returned is relative to
+        # this (0, 0) point.
+
+        textItemBoundingRect = self.textItem.boundingRect()
+
+        # Here we need to scale the bounding rect so that
+        # it takes into account the transform that we did.
+        width = textItemBoundingRect.width()
+        height = textItemBoundingRect.height()
+
+        newWidth = width * self.textTransform.m11()
+        newHeight = height * self.textTransform.m22()
+
+        textItemBoundingRect.setWidth(newWidth)
+        textItemBoundingRect.setHeight(newHeight)
+        
+        return textItemBoundingRect
+
+    def paint(self, painter, option, widget):
+        """Paints this QGraphicsItem.  Assumes that self.pen is set
+        to what we want for the drawing style.
+        """
+
+        if painter.pen() != self.textItemPen:
+            painter.setPen(self.textItemPen)
+
+        # Draw a dashed-line surrounding the item if it is selected.
+        if option.state & QStyle.State_Selected:
+            pad = self.textItemPen.widthF() / 2.0;
+            
+            penWidth = 0.0
+
+            fgcolor = option.palette.windowText().color()
+            
+            # Ensure good contrast against fgcolor.
+            r = 255
+            g = 255
+            b = 255
+            if fgcolor.red() > 127:
+                r = 0
+            if fgcolor.green() > 127:
+                g = 0
+            if fgcolor.blue() > 127:
+                b = 0
+            
+            bgcolor = QColor(r, g, b)
+            
+            painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawRect(self.boundingRect())
+            
+            painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawRect(self.boundingRect())
+
+    def appendActionsToContextMenu(self, menu, readOnlyMode=False):
+        """Modifies the given QMenu object to update the title and add
+        actions relevant to this PriceBarChartArtifactGraphicsItem.
+        
+        Arguments:
+        menu - QMenu object to modify.
+        readOnlyMode - bool value that indicates the actions are to be
+                       readonly actions.
+        """
+
+        menu.setTitle(self.artifact.getInternalName())
+        
+        # These are the QActions that are in the menu.
+        parent = menu
+        selectAction = QAction("&Select", parent)
+        unselectAction = QAction("&Unselect", parent)
+        removeAction = QAction("Remove", parent)
+        infoAction = QAction("&Info", parent)
+        editAction = QAction("&Edit", parent)
+        
+        selectAction.triggered.\
+            connect(self._handleSelectAction)
+        unselectAction.triggered.\
+            connect(self._handleUnselectAction)
+        removeAction.triggered.\
+            connect(self._handleRemoveAction)
+        infoAction.triggered.\
+            connect(self._handleInfoAction)
+        editAction.triggered.\
+            connect(self._handleEditAction)
+        
+        # Enable or disable actions.
+        selectAction.setEnabled(True)
+        unselectAction.setEnabled(True)
+        removeAction.setEnabled(not readOnlyMode)
+        infoAction.setEnabled(True)
+        editAction.setEnabled(not readOnlyMode)
+
+        # Add the QActions to the menu.
+        menu.addAction(selectAction)
+        menu.addAction(unselectAction)
+        menu.addSeparator()
+        menu.addAction(removeAction)
+        menu.addSeparator()
+        menu.addAction(infoAction)
+        menu.addAction(editAction)
+
+    def _handleSelectAction(self):
+        """Causes the QGraphicsItem to become selected."""
+
+        self.setSelected(True)
+
+    def _handleUnselectAction(self):
+        """Causes the QGraphicsItem to become unselected."""
+
+        self.setSelected(False)
+
+    def _handleRemoveAction(self):
+        """Causes the QGraphicsItem to be removed from the scene."""
+        
+        scene = self.scene()
+        scene.removeItem(self)
+
+        # Emit signal to show that an item is removed.
+        # This sets the dirty flag.
+        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+        
+    def _handleInfoAction(self):
+        """Causes a dialog to be executed to show information about
+        the QGraphicsItem.
+        """
+
+        artifact = self.getArtifact()
+        dialog = PriceBarChartTextArtifactEditDialog(artifact,
+                                                     self.scene(),
+                                                     readOnlyFlag=True)
+        
+        # Run the dialog.  We don't care about what is returned
+        # because the dialog is read-only.
+        rv = dialog.exec_()
+        
+    def _handleEditAction(self):
+        """Causes a dialog to be executed to edit information about
+        the QGraphicsItem.
+        """
+
+        artifact = self.getArtifact()
+        dialog = PriceBarChartTextArtifactEditDialog(artifact,
+                                                     self.scene(),
+                                                     readOnlyFlag=False)
+        
+        rv = dialog.exec_()
+        
+        if rv == QDialog.Accepted:
+            # If the dialog is accepted then get the new artifact and
+            # set it to this PriceBarChartArtifactGraphicsItem, which
+            # will cause it to be reloaded in the scene.
+            artifact = dialog.getArtifact()
+            self.setArtifact(artifact)
+
+            # Flag that a redraw of this QGraphicsItem is required.
+            self.update()
+
+            # Emit that the PriceBarChart has changed so that the
+            # dirty flag can be set.
+            self.scene().priceBarChartChanged.emit()
+        else:
+            # The user canceled so don't change anything.
+            pass
+        
+        
 class GannFanUpperRightGraphicsItem(PriceBarChartArtifactGraphicsItem):
     """QGraphicsItem that visualizes a GannFan opening in the upper 
     right direction.
@@ -658,7 +967,6 @@ class GannFanUpperRightGraphicsItem(PriceBarChartArtifactGraphicsItem):
     
         self.log.debug("Exiting setArtifact()")
 
-        
     def getArtifact(self):
         """Returns a PriceBarChartGannFanUpperRightArtifact for this
         QGraphicsItem so that it may be pickled.
@@ -1494,11 +1802,12 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
     def _handleRemoveAction(self):
         """Causes the QGraphicsItem to be removed from the scene."""
         
-        self.scene().removeItem(self)
+        scene = self.scene()
+        scene.removeItem(self)
 
         # Emit signal to show that an item is removed.
         # This sets the dirty flag.
-        self.scene().priceBarChartArtifactGraphicsItemRemoved.emit(self)
+        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
         
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -2414,11 +2723,12 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
     def _handleRemoveAction(self):
         """Causes the QGraphicsItem to be removed from the scene."""
         
-        self.scene().removeItem(self)
+        scene = self.scene()
+        scene.removeItem(self)
 
         # Emit signal to show that an item is removed.
         # This sets the dirty flag.
-        self.scene().priceBarChartArtifactGraphicsItemRemoved.emit(self)
+        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
         
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -3596,11 +3906,12 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
     def _handleRemoveAction(self):
         """Causes the QGraphicsItem to be removed from the scene."""
         
-        self.scene().removeItem(self)
+        scene = self.scene()
+        scene.removeItem(self)
 
         # Emit signal to show that an item is removed.
         # This sets the dirty flag.
-        self.scene().priceBarChartArtifactGraphicsItemRemoved.emit(self)
+        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
         
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -3842,7 +4153,8 @@ class PriceBarChartWidget(QWidget):
                 "ZoomOutTool"         : 4,
                 "BarCountTool"        : 5,
                 "TimeMeasurementTool" : 6,
-                "ModalScaleTool" : 7 }
+                "ModalScaleTool"      : 7,
+                "TextTool"            : 8 }
 
 
 
@@ -4286,6 +4598,22 @@ class PriceBarChartWidget(QWidget):
         
                 addedItemFlag = True
 
+            elif isinstance(artifact, PriceBarChartTextArtifact):
+                self.log.debug("Loading artifact: " + artifact.toString())
+                
+                newItem = TextGraphicsItem()
+                newItem.loadSettingsFromPriceBarChartSettings(\
+                    self.priceBarChartSettings)
+                newItem.setArtifact(artifact)
+
+                # Add the item.
+                self.graphicsScene.addItem(newItem)
+                
+                # Make sure the proper flags are set for the mode we're in.
+                self.graphicsView.setGraphicsItemFlagsPerCurrToolMode(newItem)
+
+                addedItemFlag = True
+                
         if addedItemFlag == True:
             # Emit that the PriceBarChart has changed.
             self.graphicsScene.priceBarChartChanged.emit()
@@ -4440,6 +4768,11 @@ class PriceBarChartWidget(QWidget):
                                "ModalScaleGraphicsItem.")
                 item.loadSettingsFromPriceBarChartSettings(\
                     self.priceBarChartSettings)
+            elif isinstance(item, TextGraphicsItem):
+                self.log.debug("Applying settings to " +
+                               "TextGraphicsItem.")
+                item.loadSettingsFromPriceBarChartSettings(\
+                    self.priceBarChartSettings)
 
         if settingsChangedFlag == True:
             # Emit that the PriceBarChart has changed, because we have
@@ -4552,6 +4885,18 @@ class PriceBarChartWidget(QWidget):
             self.graphicsView.toModalScaleToolMode()
 
         self.log.debug("Exiting toModalScaleToolMode()")
+
+    def toTextToolMode(self):
+        """Changes the tool mode to be the TextTool."""
+
+        self.log.debug("Entered toTextToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != PriceBarChartWidget.ToolMode['TextTool']:
+            self.toolMode = PriceBarChartWidget.ToolMode['TextTool']
+            self.graphicsView.toTextToolMode()
+
+        self.log.debug("Exiting toTextToolMode()")
 
     def _handleMouseLocationUpdate(self, x, y):
         """Handles mouse location changes in the QGraphicsView.  
@@ -4808,7 +5153,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 "ZoomOutTool"         : 4,
                 "BarCountTool"        : 5,
                 "TimeMeasurementTool" : 6,
-                "ModalScaleTool"      : 7 }
+                "ModalScaleTool"      : 7,
+                "TextTool"            : 8 }
 
     # Signal emitted when the mouse moves within the QGraphicsView.
     # The position emitted is in QGraphicsScene x, y, float coordinates.
@@ -4854,6 +5200,10 @@ class PriceBarChartGraphicsView(QGraphicsView):
         # as it is modified in ModalScaleToolMode.
         self.modalScaleGraphicsItem = None
 
+        # Variable used for storing the new TextGraphicsItem,
+        # as it is modified in TextToolMode.
+        self.textGraphicsItem = None
+        
         # Variable used for holding the PriceBarChartSettings.
         self.priceBarChartSettings = PriceBarChartSettings()
         
@@ -4979,6 +5329,15 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ModalScaleTool']:
+
+            if isinstance(item, PriceBarGraphicsItem):
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+            elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                item.setReadOnlyFlag(True)
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['TextTool']:
 
             if isinstance(item, PriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
@@ -5211,6 +5570,34 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.setGraphicsItemFlagsPerCurrToolMode(item)
                     
         self.log.debug("Exiting toModalScaleToolMode()")
+
+    def toTextToolMode(self):
+        """Changes the tool mode to be the TextTool."""
+
+        self.log.debug("Entered toTextToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != \
+                PriceBarChartGraphicsView.ToolMode['TextTool']:
+
+            self.toolMode = \
+                PriceBarChartGraphicsView.ToolMode['TextTool']
+
+            self.setCursor(QCursor(Qt.ArrowCursor))
+            self.setDragMode(QGraphicsView.NoDrag)
+
+            # Clear out internal working variables.
+            self.textGraphicsItem = None
+
+            scene = self.scene()
+            if scene != None:
+                scene.clearSelection()
+
+                items = scene.items()
+                for item in items:
+                    self.setGraphicsItemFlagsPerCurrToolMode(item)
+                    
+        self.log.debug("Exiting toTextToolMode()")
 
     def createContextMenu(self, clickPosF, readOnlyFlag):
         """Creates a context menu for a right-click somewhere in
@@ -5520,6 +5907,19 @@ class PriceBarChartGraphicsView(QGraphicsView):
             else:
                 super().keyPressEvent(qkeyevent)
 
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['TextTool']:
+
+            if qkeyevent.key() == Qt.Key_Escape:
+                # Escape key causes any currently edited item to
+                # be removed and cleared out.  Temporary variables used
+                # are cleared out too.
+                if self.textGraphicsItem != None:
+                    self.scene().removeItem(self.textGraphicsItem)
+
+                self.textGraphicsItem = None
+            else:
+                super().keyPressEvent(qkeyevent)
 
         else:
             # For any other mode we don't have specific functionality for,
@@ -5971,6 +6371,47 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     
                 else:
                     self.log.warn("Unexpected state reached.")
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['TextTool']:
+            
+            self.log.debug("Current toolMode is: TextTool")
+
+            if qmouseevent.button() & Qt.LeftButton:
+                self.log.debug("Qt.LeftButton")
+
+                # Create the TextGraphicsItem and initialize it to the
+                # mouse location.
+                self.textGraphicsItem = TextGraphicsItem()
+                self.textGraphicsItem.\
+                    loadSettingsFromPriceBarChartSettings(\
+                    self.priceBarChartSettings)
+                self.textGraphicsItem.setPos(self.mapToScene(qmouseevent.pos()))
+
+                # Now create and run a edit dialog for typing in the text.
+                dialog = \
+                    PriceBarChartTextArtifactEditDialog(\
+                        self.textGraphicsItem.getArtifact(),
+                        self.scene(),
+                        readOnlyFlag=False)
+                rv = dialog.exec_()
+                
+                # If the user accepts the dialog, then add the item,
+                # otherwise, delete and remove.
+                if rv == QDialog.Accepted:
+                    self.log.debug("PriceBarChartTextArtifactEditDialog " +
+                                   "accepted.")
+                    self.textGraphicsItem.setArtifact(dialog.getArtifact())
+                    self.scene().addItem(self.textGraphicsItem)
+                    
+                    # Make sure the proper flags are set for the mode we're in.
+                    self.setGraphicsItemFlagsPerCurrToolMode(\
+                        self.textGraphicsItem)
+                else:
+                    self.log.debug("PriceBarChartTextArtifactEditDialog " +
+                                   "rejected.")
+
+                self.textGraphicsItem = None
+                
         else:
             self.log.warn("Current toolMode is: UNKNOWN.")
 
@@ -6041,6 +6482,12 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 PriceBarChartGraphicsView.ToolMode['ModalScaleTool']:
 
             self.log.debug("Current toolMode is: ModalScaleTool")
+            super().mouseReleaseEvent(qmouseevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['TextTool']:
+
+            self.log.debug("Current toolMode is: TextTool")
             super().mouseReleaseEvent(qmouseevent)
 
         else:
@@ -6126,6 +6573,11 @@ class PriceBarChartGraphicsView(QGraphicsView):
             else:
                 super().mouseMoveEvent(qmouseevent)
 
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['TextTool']:
+
+            super().mouseMoveEvent(qmouseevent)
+
         else:
             # For any other mode we don't have specific functionality for,
             # just pass the event to the parent to handle.
@@ -6175,6 +6627,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
             self.setCursor(QCursor(Qt.ArrowCursor))
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ModalScaleTool']:
+            self.setCursor(QCursor(Qt.ArrowCursor))
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['TextTool']:
             self.setCursor(QCursor(Qt.ArrowCursor))
         else:
             self.log.warn("Unknown toolMode while in enterEvent().")

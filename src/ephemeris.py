@@ -445,13 +445,14 @@ class Ephemeris:
                             format(year, month, day, hour, mins, secs))
 
         # Here we need to convert a float seconds to an integer seconds 
-        # plus a integer microseconds.  FYI: int() truncates towards zero.
+        # plus a integer microseconds.  
         secsTruncated = int(secs)
         usecs = int(round((secs - secsTruncated) * 1000000))
-
+        if usecs > 999999:
+            usecs = 999999
+            
         Ephemeris.log.debug("secs={}, secsTruncated={}, usecs={}".\
                             format(secs, secsTruncated, usecs))
-
 
         # Create a datetime.datetime in UTC.
         dtUtc = datetime.datetime(year, month, day, hour, mins, 
