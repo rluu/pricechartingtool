@@ -81,6 +81,8 @@ class PriceBarChartTextArtifactEditWidget(QWidget):
         # Save off the artifact object.
         self.artifact = artifact
 
+        self.log.debug("Artifact passed into PriceBarChartTextArtifactEditWidget constructor is: " + artifact.toString())
+        
         # Save off the scene object used for unit conversions.
         self.convertObj = convertObj
         
@@ -419,7 +421,7 @@ class PriceBarChartTextArtifactEditDialog(QDialog):
     """
 
     def __init__(self,
-                 priceBarChartBarCountArtifact,
+                 artifact,
                  convertObj,
                  readOnlyFlag=False,
                  parent=None):
@@ -444,14 +446,14 @@ class PriceBarChartTextArtifactEditDialog(QDialog):
         self.setWindowTitle("Edit PriceBarChartTextArtifact Data")
 
         # Check input.
-        if not isinstance(priceBarChartBarCountArtifact,
+        if not isinstance(artifact,
                           PriceBarChartTextArtifact):
             log.error("Input type invalid to " + self.__class__.__name__ +
                       " constructor.")
             return
 
         # Save a reference to the artifact object.
-        self.artifact = priceBarChartBarCountArtifact
+        self.artifact = artifact
 
         # Save a reference to the conversion object.
         self.convertObj = convertObj

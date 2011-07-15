@@ -901,178 +901,6 @@ class PriceBarChartArtifact:
 
         return rv
 
-class PriceBarChartTextArtifact(PriceBarChartArtifact):
-    """PriceBarChartArtifact that is a piece of text in the 
-    PriceBarChartWidget.
-    """
-    
-    def __init__(self, text=""):
-        """Initializes the PriceBarChartTextArtifact with
-        the given values.
-        """
-        super().__init__()
-        
-        # Set the version of this class (used for pickling and unpickling
-        # different versions of this class).
-        self.classVersion = 1
-
-        # Create the logger.
-        self.log = \
-            logging.getLogger("data_objects.PriceBarChartTextArtifact")
-
-        # Update the internal name so it is the artifact type plus the uuid.
-        self.internalName = "Text_" + str(self.uuid)
-
-        # Holds the text that is displayed.
-        self.text = text
-        
-        # QFont cannot be pickled, but we can utilize
-        # QFont.toString() and then QFont.fromString()
-        self.fontDescription = \
-            PriceBarChartSettings.defaultTextGraphicsItemDefaultFontDescription
-        
-        # QColor can be pickled   
-        self.color = PriceBarChartSettings.defaultTextGraphicsItemDefaultColor
-
-        # Scaling the text, to make it bigger or smaller.
-        self.textXScaling = \
-            PriceBarChartSettings.defaultTextGraphicsItemDefaultXScaling
-        self.textYScaling = \
-            PriceBarChartSettings.defaultTextGraphicsItemDefaultYScaling
-        
-    def setText(self, text):
-        """Sets the text that makes up this PriceBarChartTextArtifact.
-
-        Arguments:
-        text - str value for the text to display.
-        """
-
-        self.text = text
-
-    def getText(self):
-        """Returns the text of this PriceBarChartTextArtifact as a str."""
-
-        return self.text
-
-    def setFont(self, font):
-        """Sets the font of this PriceBarChartTextArtifact.
-
-        Arguments:
-        font - QFont object that is used for the drawing of the text.
-        """
-
-        # QFont cannot be pickled, but we can utilize
-        # QFont.toString() and then QFont.fromString().
-        self.fontDescription = font.toString()
-
-    def getFont(self):
-        """Returns the font of this PriceBarChartTextArtifact as a QFont.
-        """
-
-        # We obtain the QFont by calling QFont.fromString().
-        font = QFont()
-        font.fromString(self.fontDescription)
-
-        return font
-        
-    def setColor(self, color):
-        """Sets the text color for this PriceBarChartTextArtifact.
-
-        Arguments:
-        color - QColor object holding the color of the text.
-        """
-
-        self.color = color
-
-    def getColor(self):
-        """Returns the color of this PriceBarChartTextArtifact as a QColor."""
-
-        return self.color
-
-    def setTextXScaling(self, textXScaling):
-        """Sets the text X scaling, used in making the text 
-        bigger or smaller.
-
-        Arguments:
-        textXScaling - float value for the scaling used.
-                       1.0 is no change in scaling.
-        """
-
-        self.textXScaling = textXScaling
-
-    def getTextXScaling(self):
-        """Returns float value for the text X scaling, used in making
-        the text bigger or smaller.
-        """
-
-        return self.textXScaling
-        
-    def setTextYScaling(self, textYScaling):
-        """Sets the text Y scaling, used in making the text 
-        bigger or smaller.
-
-        Arguments:
-        textYScaling - float value for the scaling used.
-                       1.0 is no change in scaling.
-        """
-
-        self.textYScaling = textYScaling
-
-    def getTextYScaling(self):
-        """Returns float value for the text Y scaling, used in making
-        the text bigger or smaller.
-        """
-
-        return self.textYScaling
-        
-    def __str__(self):
-        """Returns the string representation of this object."""
-
-        return self.toString()
-        
-    def toString(self):
-        """Returns the string representation of this object."""
-
-        rv = "[name={}, ".format(self.getInternalName()) + \
-             "pos=({}, {}), ".format(self.getPos().x(), self.getPos().y()) + \
-             "text='{}', ".format(self.text) + \
-             "fontDescription='{}', ".format(self.fontDescription) + \
-             "color={}, ".format(self.color) + \
-             "textXScaling={}, ".format(self.textXScaling) + \
-             "textYScaling={}".format(self.textYScaling) + \
-             "]"
-
-        return rv
-
-    def __getstate__(self):
-        """Returns the object's state for pickling purposes."""
-
-        # Copy the object's state from self.__dict__ which contains
-        # all our instance attributes. Always use the dict.copy()
-        # method to avoid modifying the original state.
-        state = self.__dict__.copy()
-
-        # Remove items we don't want to pickle.
-        del state['log']
-
-        return state
-
-
-    def __setstate__(self, state):
-        """Restores the object's state for unpickling purposes."""
-
-        # Restore instance attributes.
-        self.__dict__.update(state)
-
-        # Re-open the logger because it was not pickled.
-        self.log = \
-            logging.getLogger("data_objects.PriceBarChartTextArtifact")
-
-        # Log that we set the state of this object.
-        self.log.debug("Set state of a " +
-                       PriceBarChartTextArtifact.__name__ +
-                       " object of version {}".format(self.classVersion))
-
 class PriceBarChartGannFanUpperRightArtifact(PriceBarChartArtifact):
     """PriceBarChartArtifact that is the GannFann pointing in 
     the upper right direction."""
@@ -1719,6 +1547,178 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
         # Log that we set the state of this object.
         self.log.debug("Set state of a " +
                        PriceBarChartModalScaleArtifact.__name__ +
+                       " object of version {}".format(self.classVersion))
+
+class PriceBarChartTextArtifact(PriceBarChartArtifact):
+    """PriceBarChartArtifact that is a piece of text in the 
+    PriceBarChartWidget.
+    """
+    
+    def __init__(self, text=""):
+        """Initializes the PriceBarChartTextArtifact with
+        the given values.
+        """
+        super().__init__()
+        
+        # Set the version of this class (used for pickling and unpickling
+        # different versions of this class).
+        self.classVersion = 1
+
+        # Create the logger.
+        self.log = \
+            logging.getLogger("data_objects.PriceBarChartTextArtifact")
+
+        # Update the internal name so it is the artifact type plus the uuid.
+        self.internalName = "Text_" + str(self.uuid)
+
+        # Holds the text that is displayed.
+        self.text = text
+        
+        # QFont cannot be pickled, but we can utilize
+        # QFont.toString() and then QFont.fromString()
+        self.fontDescription = \
+            PriceBarChartSettings.defaultTextGraphicsItemDefaultFontDescription
+        
+        # QColor can be pickled   
+        self.color = PriceBarChartSettings.defaultTextGraphicsItemDefaultColor
+
+        # Scaling the text, to make it bigger or smaller.
+        self.textXScaling = \
+            PriceBarChartSettings.defaultTextGraphicsItemDefaultXScaling
+        self.textYScaling = \
+            PriceBarChartSettings.defaultTextGraphicsItemDefaultYScaling
+        
+    def setText(self, text):
+        """Sets the text that makes up this PriceBarChartTextArtifact.
+
+        Arguments:
+        text - str value for the text to display.
+        """
+
+        self.text = text
+
+    def getText(self):
+        """Returns the text of this PriceBarChartTextArtifact as a str."""
+
+        return self.text
+
+    def setFont(self, font):
+        """Sets the font of this PriceBarChartTextArtifact.
+
+        Arguments:
+        font - QFont object that is used for the drawing of the text.
+        """
+
+        # QFont cannot be pickled, but we can utilize
+        # QFont.toString() and then QFont.fromString().
+        self.fontDescription = font.toString()
+
+    def getFont(self):
+        """Returns the font of this PriceBarChartTextArtifact as a QFont.
+        """
+
+        # We obtain the QFont by calling QFont.fromString().
+        font = QFont()
+        font.fromString(self.fontDescription)
+
+        return font
+        
+    def setColor(self, color):
+        """Sets the text color for this PriceBarChartTextArtifact.
+
+        Arguments:
+        color - QColor object holding the color of the text.
+        """
+
+        self.color = color
+
+    def getColor(self):
+        """Returns the color of this PriceBarChartTextArtifact as a QColor."""
+
+        return self.color
+
+    def setTextXScaling(self, textXScaling):
+        """Sets the text X scaling, used in making the text 
+        bigger or smaller.
+
+        Arguments:
+        textXScaling - float value for the scaling used.
+                       1.0 is no change in scaling.
+        """
+
+        self.textXScaling = textXScaling
+
+    def getTextXScaling(self):
+        """Returns float value for the text X scaling, used in making
+        the text bigger or smaller.
+        """
+
+        return self.textXScaling
+        
+    def setTextYScaling(self, textYScaling):
+        """Sets the text Y scaling, used in making the text 
+        bigger or smaller.
+
+        Arguments:
+        textYScaling - float value for the scaling used.
+                       1.0 is no change in scaling.
+        """
+
+        self.textYScaling = textYScaling
+
+    def getTextYScaling(self):
+        """Returns float value for the text Y scaling, used in making
+        the text bigger or smaller.
+        """
+
+        return self.textYScaling
+        
+    def __str__(self):
+        """Returns the string representation of this object."""
+
+        return self.toString()
+        
+    def toString(self):
+        """Returns the string representation of this object."""
+
+        rv = "[name={}, ".format(self.getInternalName()) + \
+             "pos=({}, {}), ".format(self.getPos().x(), self.getPos().y()) + \
+             "text='{}', ".format(self.text) + \
+             "fontDescription='{}', ".format(self.fontDescription) + \
+             "color={}, ".format(self.color) + \
+             "textXScaling={}, ".format(self.textXScaling) + \
+             "textYScaling={}".format(self.textYScaling) + \
+             "]"
+
+        return rv
+
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = \
+            logging.getLogger("data_objects.PriceBarChartTextArtifact")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " +
+                       PriceBarChartTextArtifact.__name__ +
                        " object of version {}".format(self.classVersion))
 
 class PriceBarChartScaling:

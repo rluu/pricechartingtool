@@ -80,10 +80,8 @@ DONE      - Buttons for checkBoxAll and checkBoxNone for Enabled setting.
 DONE           - one checkbox for textEnabled
 DONE           - setting for tick bar height (of this one scale)
 DONE           - setting for text font size. (of this one scale)
-
-
-  - TODO:  fix loading of a text qgraphicsitem.
-  - QGraphicsItem for text on a PriceBarChart.
+DONE
+DONE  - QGraphicsItem for text on a PriceBarChart.
 
   - May need to update scaling to be able to calculate or adjust for
     square root of price and time.

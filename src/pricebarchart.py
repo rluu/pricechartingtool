@@ -669,12 +669,12 @@ class TextGraphicsItem(PriceBarChartArtifactGraphicsItem):
             
             # Set the pen color of the text.
             self.textItemPen = self.textItem.pen()
-            self.textItemPen.setColor(self.artifact.getColor())
+            self.textItemPen.setColor(self.color)
             self.textItem.setPen(self.textItemPen)
 
             # Set the brush color of the text.
             self.textItemBrush = self.textItem.brush()
-            self.textItemBrush.setColor(self.artifact.getColor())
+            self.textItemBrush.setColor(self.color)
             self.textItem.setBrush(self.textItemBrush)
 
             # Apply some size scaling to the text.
@@ -898,6 +898,9 @@ class TextGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         artifact = self.getArtifact()
+
+        self.log.debug("Inside _handleInfoAction(): artifact is: " + artifact.toString())
+        
         dialog = PriceBarChartTextArtifactEditDialog(artifact,
                                                      self.scene(),
                                                      readOnlyFlag=True)
@@ -4604,10 +4607,23 @@ class PriceBarChartWidget(QWidget):
                 newItem = TextGraphicsItem()
                 newItem.loadSettingsFromPriceBarChartSettings(\
                     self.priceBarChartSettings)
+
+                self.log.debug("Before setting artifact, " +
+                               "internal artifact is: " +
+                               newItem.getArtifact().toString())
+                
                 newItem.setArtifact(artifact)
 
+                self.log.debug("After  setting artifact, " +
+                               "internal artifact is: " +
+                               newItem.getArtifact().toString())
+                
                 # Add the item.
                 self.graphicsScene.addItem(newItem)
+                
+                self.log.debug("After  adding item,      " +
+                               "internal artifact is: " +
+                               newItem.getArtifact().toString())
                 
                 # Make sure the proper flags are set for the mode we're in.
                 self.graphicsView.setGraphicsItemFlagsPerCurrToolMode(newItem)
@@ -4764,15 +4780,11 @@ class PriceBarChartWidget(QWidget):
                 item.loadSettingsFromPriceBarChartSettings(\
                     self.priceBarChartSettings)
             elif isinstance(item, ModalScaleGraphicsItem):
-                self.log.debug("Applying settings to " +
+                self.log.debug("Not applying settings to " +
                                "ModalScaleGraphicsItem.")
-                item.loadSettingsFromPriceBarChartSettings(\
-                    self.priceBarChartSettings)
             elif isinstance(item, TextGraphicsItem):
-                self.log.debug("Applying settings to " +
+                self.log.debug("Not applying settings to " +
                                "TextGraphicsItem.")
-                item.loadSettingsFromPriceBarChartSettings(\
-                    self.priceBarChartSettings)
 
         if settingsChangedFlag == True:
             # Emit that the PriceBarChart has changed, because we have
@@ -6412,6 +6424,13 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
                 self.textGraphicsItem = None
                 
+            elif qmouseevent.button() & Qt.RightButton:
+                self.log.debug("Qt.RightButton")
+                
+                # Open a context menu at this location, in readonly mode.
+                clickPosF = self.mapToScene(qmouseevent.pos())
+                menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
+                menu.exec_(qmouseevent.globalPos())
         else:
             self.log.warn("Current toolMode is: UNKNOWN.")
 
