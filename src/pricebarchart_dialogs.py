@@ -81,7 +81,9 @@ class PriceBarChartTextArtifactEditWidget(QWidget):
         # Save off the artifact object.
         self.artifact = artifact
 
-        self.log.debug("Artifact passed into PriceBarChartTextArtifactEditWidget constructor is: " + artifact.toString())
+        self.log.debug("Artifact passed into " +
+                       "PriceBarChartTextArtifactEditWidget constructor is: " +
+                       artifact.toString())
         
         # Save off the scene object used for unit conversions.
         self.convertObj = convertObj
@@ -1499,6 +1501,12 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
         self.uuidLineEdit = QLineEdit()
         self.uuidLineEdit.setMinimumWidth(lineEditWidth)
 
+        self.modalScaleGraphicsItemBarColorLabel = QLabel("Bar color: ")
+        self.modalScaleGraphicsItemBarColorEditButton = ColorEditPushButton()
+
+        self.modalScaleGraphicsItemTextColorLabel = QLabel("Text color: ")
+        self.modalScaleGraphicsItemTextColorEditButton = ColorEditPushButton()
+        
         self.barHeightValueLabel = \
             QLabel("ModalScale bar height:")
         self.barHeightValueSpinBox = QDoubleSpinBox()
@@ -1576,6 +1584,17 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
         r += 1
         self.gridLayout.addWidget(self.uuidLabel, r, 0, al)
         self.gridLayout.addWidget(self.uuidLineEdit, r, 1, al)
+        r += 1
+        self.gridLayout.addWidget(self.modalScaleGraphicsItemBarColorLabel,
+                                  r, 0, al)
+        self.gridLayout.addWidget(self.modalScaleGraphicsItemBarColorEditButton,
+                                  r, 1, al)
+        r += 1
+        self.gridLayout.addWidget(self.modalScaleGraphicsItemTextColorLabel,
+                                  r, 0, al)
+        self.gridLayout.\
+            addWidget(self.modalScaleGraphicsItemTextColorEditButton,
+                      r, 1, al)
         r += 1
         self.gridLayout.addWidget(self.barHeightValueLabel, r, 0, al)
         self.gridLayout.addWidget(self.barHeightValueSpinBox, r, 1, al)
@@ -1784,6 +1803,10 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
             setText(self.artifact.getInternalName())
         self.uuidLineEdit.\
             setText(str(self.artifact.getUuid()))
+        self.modalScaleGraphicsItemBarColorEditButton.\
+            setColor(self.artifact.getModalScaleGraphicsItemBarColor())
+        self.modalScaleGraphicsItemTextColorEditButton.\
+            setColor(self.artifact.getModalScaleGraphicsItemTextColor())
         self.barHeightValueSpinBox.\
             setValue(self.artifact.getModalScaleGraphicsItemBarHeight())
         self.textFontSizeValueSpinBox.\
@@ -1917,6 +1940,10 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
 
         self.log.debug("Entered saveValues()")
 
+        # Get the colors.
+        barColor = self.modalScaleGraphicsItemBarColorEditButton.getColor()
+        textColor = self.modalScaleGraphicsItemTextColorEditButton.getColor()
+        
         # Call save on the timestamp widgets.
         self.startPointDatetimeLocationWidget.saveTimestamp()
         self.endPointDatetimeLocationWidget.saveTimestamp()
@@ -1943,6 +1970,8 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
 
         # Set the values in the artifact.
         self.artifact.setPos(posF)
+        self.artifact.setModalScaleGraphicsItemBarColor(barColor)
+        self.artifact.setModalScaleGraphicsItemTextColor(textColor)
         self.artifact.setStartPointF(startPointF)
         self.artifact.setEndPointF(endPointF)
 

@@ -1249,6 +1249,16 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
         # List of used ratios.
         self.musicalRatios = MusicalRatio.getIndianMusicalRatios()
         
+        # modalScaleGraphicsItemColor (QColor object).
+        self.modalScaleGraphicsItemBarColor = \
+            PriceBarChartSettings.\
+                defaultModalScaleGraphicsItemBarColor
+
+        # modalScaleGraphicsItemTextColor (QColor object).
+        self.modalScaleGraphicsItemTextColor = \
+            PriceBarChartSettings.\
+                defaultModalScaleGraphicsItemTextColor
+
         # ModalScaleGraphicsItem bar height (float).
         self.modalScaleGraphicsItemBarHeight = \
             PriceBarChartSettings.\
@@ -1297,15 +1307,45 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
         return self.endPointF
 
     def getMusicalRatios(self):
-        """Returns the list of MusicalRatio ojects."""
+        """Returns the list of MusicalRatio objects."""
 
         return self.musicalRatios
         
     def setMusicalRatios(self, musicalRatios):
-        """Sets the list of MusicalRatio ojects."""
+        """Sets the list of MusicalRatio objects."""
 
         self.musicalRatios = musicalRatios
 
+    def setModalScaleGraphicsItemBarColor(self, modalScaleGraphicsItemBarColor):
+        """Sets the bar color.
+        
+        Arguments:
+        modalScaleGraphicsItemBarColor - QColor object for the bar color.
+        """
+        
+        self.modalScaleGraphicsItemBarColor = \
+            modalScaleGraphicsItemBarColor
+
+    def getModalScaleGraphicsItemBarColor(self):
+        """Gets the bar color as a QColor object."""
+        
+        return self.modalScaleGraphicsItemBarColor
+
+    def setModalScaleGraphicsItemTextColor(self,
+                                           modalScaleGraphicsItemTextColor):
+        """Sets the text color.
+        
+        Arguments:
+        modalScaleGraphicsItemTextColor - QColor object for the text color.
+        """
+
+        self.modalScaleGraphicsItemTextColor = modalScaleGraphicsItemTextColor
+        
+    def getModalScaleGraphicsItemTextColor(self):
+        """Gets the text color as a QColor object."""
+
+        return self.modalScaleGraphicsItemTextColor
+        
     def setModalScaleGraphicsItemBarHeight(self,
                                            modalScaleGraphicsItemBarHeight):
         """Sets the ModalScaleGraphicsItem bar height (float)."""
@@ -1512,6 +1552,10 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
              "musicalRatios={}, ".format(musicalRatiosStr) + \
              "reversedFlag={}, ".format(self.reversedFlag) + \
              "textEnabledFlag={}, ".format(self.textEnabledFlag) + \
+             "modalScaleGraphicsItemBarColor={}, ".\
+             format(self.modalScaleGraphicsItemBarColor) + \
+             "modalScaleGraphicsItemTextColor={}, ".\
+             format(self.modalScaleGraphicsItemTextColor) + \
              "modalScaleGraphicsItemBarHeight={}, ".\
              format(self.modalScaleGraphicsItemBarHeight) + \
              "modalScaleGraphicsItemFontSize={}".\
@@ -2156,6 +2200,12 @@ class PriceBarChartSettings:
     # Default value for the TimeMeasurementGraphicsItem text Y scaling (float).
     defaultTimeMeasurementGraphicsItemTextYScaling = 0.2
 
+    # Default color for the bar of a ModalScaleGraphicsItem (QColor).
+    defaultModalScaleGraphicsItemBarColor = QColor(Qt.black)
+
+    # Default color for the text of a ModalScaleGraphicsItem (QColor).
+    defaultModalScaleGraphicsItemTextColor = QColor(Qt.black)
+    
     # Default value for the ModalScaleGraphicsItem bar height (float).
     defaultModalScaleGraphicsItemBarHeight = 0.3
 
@@ -2266,6 +2316,16 @@ class PriceBarChartSettings:
             PriceBarChartSettings.\
                 defaultTimeMeasurementGraphicsItemTextYScaling
 
+        # ModalScaleGraphicsItem bar color (QColor).
+        self.modalScaleGraphicsItemBarColor = \
+            PriceBarChartSettings.\
+                defaultModalScaleGraphicsItemBarColor
+
+        # ModalScaleGraphicsItem text color (QColor).
+        self.modalScaleGraphicsItemTextColor = \
+            PriceBarChartSettings.\
+                defaultModalScaleGraphicsItemTextColor
+
         # ModalScaleGraphicsItem text X scaling (float).
         self.modalScaleGraphicsItemTextXScaling = \
             PriceBarChartSettings.\
@@ -2347,6 +2407,10 @@ class PriceBarChartSettings:
                     format(self.timeMeasurementGraphicsItemTextXScaling) + \
                 "timeMeasurementGraphicsItemTextYScaling={}".\
                     format(self.timeMeasurementGraphicsItemTextYScaling) + \
+                "modalScaleGraphicsItemBarColor={}".\
+                    format(self.modalScaleGraphicsItemBarColor) + \
+                "modalScaleGraphicsItemTextColor={}".\
+                    format(self.modalScaleGraphicsItemTextColor) + \
                 "modalScaleGraphicsItemTextXScaling={}, ".\
                     format(self.modalScaleGraphicsItemTextXScaling) + \
                 "modalScaleGraphicsItemTextYScaling={}".\

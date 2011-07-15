@@ -2912,14 +2912,16 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         ############################################################
         # Set default values for preferences/settings.
         
-        # Color of the bar count graphicsitems.
+        # Color of the graphicsitem bar.
         self.modalScaleGraphicsItemColor = \
-            SettingsKeys.modalScaleGraphicsItemColorSettingsDefValue
+            PriceBarChartSettings.\
+                defaultModalScaleGraphicsItemBarColor
 
         # Color of the text that is associated with the bar count
         # graphicsitem.
         self.modalScaleGraphicsItemTextColor = \
-            SettingsKeys.modalScaleGraphicsItemTextColorSettingsDefValue
+            PriceBarChartSettings.\
+                defaultModalScaleGraphicsItemTextColor
 
         # X scaling of the text.
         self.modalScaleTextXScaling = \
@@ -3032,6 +3034,14 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         self.log.debug("Entered loadSettingsFromPriceBarChartSettings()")
+
+        # ModalScaleGraphicsItem bar color (QColor).
+        self.modalScaleGraphicsItemColor = \
+            priceBarChartSettings.modalScaleGraphicsItemBarColor
+
+        # ModalScaleGraphicsItem text color (QColor).
+        self.modalScaleGraphicsItemTextColor = \
+            priceBarChartSettings.modalScaleGraphicsItemTextColor
         
         # X scaling of the text.
         self.modalScaleTextXScaling = \
@@ -3042,6 +3052,14 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.modalScaleTextYScaling = \
             priceBarChartSettings.\
                 modalScaleGraphicsItemTextYScaling 
+
+        # Update the pen color of the bar.
+        self.modalScalePen.setColor(self.modalScaleGraphicsItemColor)
+        self.modalScalePen.setWidthF(self.modalScalePenWidth)
+        
+        # Set the pen color of the text.
+        self.modalScaleTextPen = self.modalScaleBarsText.pen()
+        self.modalScaleTextPen.setColor(self.modalScaleGraphicsItemTextColor)
 
         # Font size of the text.
         self.log.debug("Setting font size to: {}".\
@@ -3081,21 +3099,8 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         PriceBarGraphicsItem from the QSettings object. 
         """
 
-        settings = QSettings()
-
-        # modalScaleGraphicsItemColor
-        key = SettingsKeys.modalScaleGraphicsItemColorSettingsKey
-        defaultValue = \
-            SettingsKeys.modalScaleGraphicsItemColorSettingsDefValue
-        self.modalScaleGraphicsItemColor = \
-            QColor(settings.value(key, defaultValue))
-
-        # modalScaleGraphicsItemTextColor
-        key = SettingsKeys.modalScaleGraphicsItemTextColorSettingsKey
-        defaultValue = \
-            SettingsKeys.modalScaleGraphicsItemTextColorSettingsDefValue
-        self.modalScaleGraphicsItemTextColor = \
-            QColor(settings.value(key, defaultValue))
+        # No settings read from app preferences.
+        pass
         
     def setPos(self, pos):
         """Overwrites the QGraphicsItem setPos() function.

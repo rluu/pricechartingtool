@@ -1318,10 +1318,6 @@ class AppPreferencesEditWidget(QWidget):
             connect(self._handleTimeMeasurementGraphicsItemColorResetButtonClicked)
         self.timeMeasurementGraphicsItemTextColorResetButton.clicked.\
             connect(self._handleTimeMeasurementGraphicsItemTextColorResetButtonClicked)
-        self.modalScaleGraphicsItemColorResetButton.clicked.\
-            connect(self._handleModalScaleGraphicsItemColorResetButtonClicked)
-        self.modalScaleGraphicsItemTextColorResetButton.clicked.\
-            connect(self._handleModalScaleGraphicsItemTextColorResetButtonClicked)
 
         # Button at bottom to reset to defaults.
         self.priceBarResetAllToDefaultButton.clicked.\
@@ -1395,21 +1391,6 @@ class AppPreferencesEditWidget(QWidget):
         self.timeMeasurementGraphicsItemTextColorResetButton = \
             QPushButton("Reset to default")
         
-        # PriceBarChart modalScaleGraphicsItemColor (QColor object).
-        self.modalScaleGraphicsItemColorLabel = \
-            QLabel("ModalScaleGraphicsItem color: ")
-        self.modalScaleGraphicsItemColorEditButton = ColorEditPushButton()
-        self.modalScaleGraphicsItemColorResetButton = \
-            QPushButton("Reset to default")
-        
-        # PriceBarChart modalScaleGraphicsItemTextColor (QColor object).
-        self.modalScaleGraphicsItemTextColorLabel = \
-            QLabel("ModalScaleGraphicsItem text color: ")
-        self.modalScaleGraphicsItemTextColorEditButton = \
-            ColorEditPushButton()
-        self.modalScaleGraphicsItemTextColorResetButton = \
-            QPushButton("Reset to default")
-        
         # Button for resetting all the above edit widgets.
         self.priceBarResetAllToDefaultButton = \
             QPushButton("Reset all the above to original default values")
@@ -1474,19 +1455,6 @@ class AppPreferencesEditWidget(QWidget):
         gridLayout.\
             addWidget(self.timeMeasurementGraphicsItemTextColorResetButton, r, 2, ar)
         r += 1
-        gridLayout.\
-            addWidget(self.modalScaleGraphicsItemColorLabel, r, 0, al)
-        gridLayout.\
-            addWidget(self.modalScaleGraphicsItemColorEditButton, r, 1, ar)
-        gridLayout.\
-            addWidget(self.modalScaleGraphicsItemColorResetButton, r, 2, ar)
-        r += 1
-        gridLayout.\
-            addWidget(self.modalScaleGraphicsItemTextColorLabel, r, 0, al)
-        gridLayout.\
-            addWidget(self.modalScaleGraphicsItemTextColorEditButton, r, 1, ar)
-        gridLayout.\
-            addWidget(self.modalScaleGraphicsItemTextColorResetButton, r, 2, ar)
 
         # Label to tell the user that not all settings will be applied
         # on existing windows when the 'Okay' button is pressed.
@@ -3509,18 +3477,6 @@ class AppPreferencesEditWidget(QWidget):
             SettingsKeys.timeMeasurementGraphicsItemTextColorSettingsDefValue))
         self.timeMeasurementGraphicsItemTextColorEditButton.setColor(value)
 
-        # PriceBarChart modalScaleGraphicsItemColor (QColor object).
-        key = SettingsKeys.modalScaleGraphicsItemColorSettingsKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.modalScaleGraphicsItemColorSettingsDefValue))
-        self.modalScaleGraphicsItemColorEditButton.setColor(value)
-
-        # PriceBarChart modalScaleGraphicsItemTextColor (QColor object).
-        key = SettingsKeys.modalScaleGraphicsItemTextColorSettingsKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.modalScaleGraphicsItemTextColorSettingsDefValue))
-        self.modalScaleGraphicsItemTextColorEditButton.setColor(value)
-
 
     def _planetSymbolLoadValuesFromSettings(self):
         """Loads the widgets with values from the QSettings object.
@@ -5033,26 +4989,6 @@ class AppPreferencesEditWidget(QWidget):
         # PriceBarChart timeMeasurementGraphicsItemTextTextColor (QColor object).
         key = SettingsKeys.timeMeasurementGraphicsItemTextColorSettingsKey
         newValue = self.timeMeasurementGraphicsItemTextColorEditButton.getColor()
-        if settings.contains(key):
-            oldValue = QColor(settings.value(key))
-            if oldValue != newValue:
-                settings.setValue(key, newValue)
-        else:
-            settings.setValue(key, newValue)
-
-        # PriceBarChart modalScaleGraphicsItemTextColor (QColor object).
-        key = SettingsKeys.modalScaleGraphicsItemColorSettingsKey
-        newValue = self.modalScaleGraphicsItemColorEditButton.getColor()
-        if settings.contains(key):
-            oldValue = QColor(settings.value(key))
-            if oldValue != newValue:
-                settings.setValue(key, newValue)
-        else:
-            settings.setValue(key, newValue)
-
-        # PriceBarChart modalScaleGraphicsItemTextTextColor (QColor object).
-        key = SettingsKeys.modalScaleGraphicsItemTextColorSettingsKey
-        newValue = self.modalScaleGraphicsItemTextColorEditButton.getColor()
         if settings.contains(key):
             oldValue = QColor(settings.value(key))
             if oldValue != newValue:
@@ -7453,24 +7389,6 @@ class AppPreferencesEditWidget(QWidget):
             SettingsKeys.timeMeasurementGraphicsItemTextColorSettingsDefValue
         self.timeMeasurementGraphicsItemTextColorEditButton.setColor(value)
 
-    def _handleModalScaleGraphicsItemColorResetButtonClicked(self):
-        """Called when the modalScaleGraphicsItemColorResetButton
-        is clicked.  Resets the widget value to the default value.
-        """
-
-        value = SettingsKeys.modalScaleGraphicsItemColorSettingsDefValue
-        self.modalScaleGraphicsItemColorEditButton.setColor(value)
-
-    def _handleModalScaleGraphicsItemTextColorResetButtonClicked(self):
-        """Called when the
-        modalScaleGraphicsItemTextColorResetButton is clicked.
-        Resets the widget value to the default value.
-        """
-
-        value = \
-            SettingsKeys.modalScaleGraphicsItemTextColorSettingsDefValue
-        self.modalScaleGraphicsItemTextColorEditButton.setColor(value)
-
     def _handlePriceBarResetAllToDefaultButtonClicked(self):
         """Called when the priceBarResetAllToDefaultButton is clicked for
         the PriceBar settings.  Resets the all the widget values in this
@@ -7484,8 +7402,6 @@ class AppPreferencesEditWidget(QWidget):
         self._handleBarCountGraphicsItemTextColorResetButtonClicked()
         self._handleTimeMeasurementGraphicsItemColorResetButtonClicked()
         self._handleTimeMeasurementGraphicsItemTextColorResetButtonClicked()
-        self._handleModalScaleGraphicsItemColorResetButtonClicked()
-        self._handleModalScaleGraphicsItemTextColorResetButtonClicked()
 
     def _handlePlanetSymbolResetAllToDefaultButtonClicked(self):
         """Called when the planetSymbolResetAllToDefaultButton is clicked
@@ -10765,6 +10681,21 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.timeMeasurementGraphicsItemTextYScalingResetButton = \
             QPushButton("Reset to default")
                                              
+        # PriceBarChart modalScaleGraphicsItemColor (QColor object).
+        self.modalScaleGraphicsItemColorLabel = \
+            QLabel("ModalScaleGraphicsItem color: ")
+        self.modalScaleGraphicsItemColorEditButton = ColorEditPushButton()
+        self.modalScaleGraphicsItemColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # PriceBarChart modalScaleGraphicsItemTextColor (QColor object).
+        self.modalScaleGraphicsItemTextColorLabel = \
+            QLabel("ModalScaleGraphicsItem text color: ")
+        self.modalScaleGraphicsItemTextColorEditButton = \
+            ColorEditPushButton()
+        self.modalScaleGraphicsItemTextColorResetButton = \
+            QPushButton("Reset to default")
+        
         # modalScaleGraphicsItemTextXScaling (float).
         self.modalScaleGraphicsItemTextXScalingLabel = \
             QLabel("ModalScaleGraphicsItem text X scaling: ")
@@ -10972,6 +10903,20 @@ class PriceBarChartSettingsEditWidget(QWidget):
         ar = Qt.AlignRight
 
         gridLayout.\
+            addWidget(self.modalScaleGraphicsItemColorLabel, r, 0, al)
+        gridLayout.\
+            addWidget(self.modalScaleGraphicsItemColorEditButton, r, 1, ar)
+        gridLayout.\
+            addWidget(self.modalScaleGraphicsItemColorResetButton, r, 2, ar)
+        r += 1
+        gridLayout.\
+            addWidget(self.modalScaleGraphicsItemTextColorLabel, r, 0, al)
+        gridLayout.\
+            addWidget(self.modalScaleGraphicsItemTextColorEditButton, r, 1, ar)
+        gridLayout.\
+            addWidget(self.modalScaleGraphicsItemTextColorResetButton, r, 2, ar)
+        r += 1
+        gridLayout.\
             addWidget(self.modalScaleGraphicsItemTextXScalingLabel, 
                       r, 0, al)
         gridLayout.\
@@ -11099,6 +11044,10 @@ class PriceBarChartSettingsEditWidget(QWidget):
             connect(self._handleTimeMeasurementGraphicsItemTextXScalingResetButtonClicked)
         self.timeMeasurementGraphicsItemTextYScalingResetButton.clicked.\
             connect(self._handleTimeMeasurementGraphicsItemTextYScalingResetButtonClicked)
+        self.modalScaleGraphicsItemColorResetButton.clicked.\
+            connect(self._handleModalScaleGraphicsItemColorResetButtonClicked)
+        self.modalScaleGraphicsItemTextColorResetButton.clicked.\
+            connect(self._handleModalScaleGraphicsItemTextColorResetButtonClicked)
         self.modalScaleGraphicsItemTextXScalingResetButton.clicked.\
             connect(self._handleModalScaleGraphicsItemTextXScalingResetButtonClicked)
         self.modalScaleGraphicsItemTextYScalingResetButton.clicked.\
@@ -11192,6 +11141,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
             setValue(self.priceBarChartSettings.\
                         timeMeasurementGraphicsItemTextYScaling)
 
+        # modalScaleGraphicsItemColor (QColor object).
+        self.modalScaleGraphicsItemColorEditButton.\
+            setColor(self.priceBarChartSettings.\
+                     modalScaleGraphicsItemBarColor)
+
+        # modalScaleGraphicsItemTextColor (QColor object).
+        self.modalScaleGraphicsItemTextColorEditButton.\
+            setColor(self.priceBarChartSettings.\
+                     modalScaleGraphicsItemTextColor)
+
         # modalScaleGraphicsItemTextXScaling (float).
         self.modalScaleGraphicsItemTextXScalingSpinBox.\
             setValue(self.priceBarChartSettings.\
@@ -11276,6 +11235,14 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.priceBarChartSettings.timeMeasurementGraphicsItemTextYScaling = \
             float(self.timeMeasurementGraphicsItemTextYScalingSpinBox.value())
 
+        # modalScaleGraphicsItemTextColor (QColor object).
+        self.priceBarChartSettings.modalScaleGraphicsItemBarColor = \
+            self.modalScaleGraphicsItemColorEditButton.getColor()
+
+        # modalScaleGraphicsItemTextTextColor (QColor object).
+        self.priceBarChartSettings.modalScaleGraphicsItemTextColor = \
+            self.modalScaleGraphicsItemTextColorEditButton.getColor()
+            
         # modalScaleGraphicsItemTextXScaling (float).
         self.priceBarChartSettings.modalScaleGraphicsItemTextXScaling = \
             float(self.modalScaleGraphicsItemTextXScalingSpinBox.value())
@@ -11432,6 +11399,29 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         self.timeMeasurementGraphicsItemTextYScalingSpinBox.setValue(value)
 
+    def _handleModalScaleGraphicsItemColorResetButtonClicked(self):
+        """Called when the modalScaleGraphicsItemColorResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultModalScaleGraphicsItemBarColor
+        
+        self.modalScaleGraphicsItemColorEditButton.setColor(value)
+
+    def _handleModalScaleGraphicsItemTextColorResetButtonClicked(self):
+        """Called when the
+        modalScaleGraphicsItemTextColorResetButton is clicked.
+        Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultModalScaleGraphicsItemTextColor
+        
+        self.modalScaleGraphicsItemTextColorEditButton.setColor(value)
+
     def _handleModalScaleGraphicsItemTextXScalingResetButtonClicked(self):
         """Called when the modalScaleGraphicsItemTextXScalingResetButton
         is clicked.  Resets the widget value to the default value.
@@ -11512,6 +11502,8 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._handleTimeMeasurementGraphicsItemFontSizeResetButtonClicked()
         self._handleTimeMeasurementGraphicsItemTextXScalingResetButtonClicked()
         self._handleTimeMeasurementGraphicsItemTextYScalingResetButtonClicked()
+        self._handleModalScaleGraphicsItemColorResetButtonClicked()
+        self._handleModalScaleGraphicsItemTextColorResetButtonClicked()
         self._handleModalScaleGraphicsItemTextXScalingResetButtonClicked()
         self._handleModalScaleGraphicsItemTextYScalingResetButtonClicked()
         self._handleTextGraphicsItemDefaultFontResetButtonClicked()
