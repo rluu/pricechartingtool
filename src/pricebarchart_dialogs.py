@@ -81,10 +81,6 @@ class PriceBarChartTextArtifactEditWidget(QWidget):
         # Save off the artifact object.
         self.artifact = artifact
 
-        self.log.debug("Artifact passed into " +
-                       "PriceBarChartTextArtifactEditWidget constructor is: " +
-                       artifact.toString())
-        
         # Save off the scene object used for unit conversions.
         self.convertObj = convertObj
         
@@ -330,6 +326,7 @@ class PriceBarChartTextArtifactEditWidget(QWidget):
         self.textEdit.clear()
         self.textEdit.setText(self.artifact.getText())
 
+        self.font = self.artifact.getFont()
         self.fontValueLabel.\
             setText(self._convertFontToNiceText(self.artifact.getFont()))
         
@@ -409,6 +406,7 @@ class PriceBarChartTextArtifactEditWidget(QWidget):
         """Called when the okay button is clicked."""
 
         self.saveValues()
+
         self.okayButtonClicked.emit()
 
     def _handleCancelButtonClicked(self):
@@ -1741,6 +1739,10 @@ class PriceBarChartModalScaleArtifactEditWidget(QWidget):
         # Set the internal widgets as readonly or not depending on this flag.
         self.internalNameLineEdit.setReadOnly(True)
         self.uuidLineEdit.setReadOnly(True)
+        self.modalScaleGraphicsItemBarColorEditButton.\
+            setEnabled(not self.readOnlyFlag)
+        self.modalScaleGraphicsItemTextColorEditButton.\
+            setEnabled(not self.readOnlyFlag)
         self.barHeightValueSpinBox.setEnabled(not self.readOnlyFlag)
         self.textFontSizeValueSpinBox.setEnabled(not self.readOnlyFlag)
         self.textEnabledCheckBox.setEnabled(not self.readOnlyFlag)

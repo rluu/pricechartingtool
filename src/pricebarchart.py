@@ -651,7 +651,12 @@ class TextGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         if isinstance(artifact, PriceBarChartTextArtifact):
             self.artifact = artifact
-        
+
+            self.log.debug("Setting TextGraphicsItem with the " +
+                           "following artifact: " + self.artifact.toString())
+            self.log.debug("Font in artifact is: " +
+                           self.artifact.getFont().toString())
+                           
             # Extract and set the internals according to the info 
             # in self.artifact.
             self.setPos(self.artifact.getPos())
@@ -2955,19 +2960,19 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.endPointF = QPointF(0, 0)
 
         # Dummy item.
-        self.modalScaleBarsText = QGraphicsSimpleTextItem("", self)
+        self.dummyItem = QGraphicsSimpleTextItem("", self)
         
         # Set the font of the text.
-        self.modalScaleTextFont = QFont("Andale Mono")
+        self.modalScaleTextFont = QFont()
         self.modalScaleTextFont.\
             setPointSizeF(self.artifact.getModalScaleGraphicsItemFontSize())
 
         # Set the pen color of the text.
-        self.modalScaleTextPen = self.modalScaleBarsText.pen()
+        self.modalScaleTextPen = self.dummyItem.pen()
         self.modalScaleTextPen.setColor(self.modalScaleGraphicsItemTextColor)
 
         # Set the brush color of the text.
-        self.modalScaleTextBrush = self.modalScaleBarsText.brush()
+        self.modalScaleTextBrush = self.dummyItem.brush()
         self.modalScaleTextBrush.setColor(self.modalScaleGraphicsItemTextColor)
 
         # Size scaling for the text.
@@ -3035,6 +3040,8 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.log.debug("Entered loadSettingsFromPriceBarChartSettings()")
 
+        ########
+        
         # ModalScaleGraphicsItem bar color (QColor).
         self.modalScaleGraphicsItemColor = \
             priceBarChartSettings.modalScaleGraphicsItemBarColor
@@ -3053,45 +3060,19 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             priceBarChartSettings.\
                 modalScaleGraphicsItemTextYScaling 
 
-        # Update the pen color of the bar.
-        self.modalScalePen.setColor(self.modalScaleGraphicsItemColor)
-        self.modalScalePen.setWidthF(self.modalScalePenWidth)
+        ########
+
+        # Set values in the artifact.
         
-        # Set the pen color of the text.
-        self.modalScaleTextPen = self.modalScaleBarsText.pen()
-        self.modalScaleTextPen.setColor(self.modalScaleGraphicsItemTextColor)
+        self.artifact.setModalScaleGraphicsItemBarColor(\
+            self.modalScaleGraphicsItemColor)
+        self.artifact.setModalScaleGraphicsItemTextColor(\
+            self.modalScaleGraphicsItemTextColor)
 
-        # Font size of the text.
-        self.log.debug("Setting font size to: {}".\
-                       format(self.artifact.\
-                              getModalScaleGraphicsItemFontSize()))
-        self.modalScaleTextFont = self.modalScaleBarsText.font()
-        self.modalScaleTextFont.\
-            setPointSizeF(self.artifact.getModalScaleGraphicsItemFontSize())
-
-        # Apply some size scaling to the text.
-        self.log.debug("Setting transform: (dx={}, dy={})".\
-                       format(self.modalScaleTextXScaling,
-                              self.modalScaleTextYScaling))
-        textTransform = QTransform()
-        textTransform.scale(self.modalScaleTextXScaling, \
-                            self.modalScaleTextYScaling)
-
-        # Traverse the 2-dimensional list and set each of the text items.
-        for i in range(len(self.musicalRatioTextItems)):
-            listOfTextItems = self.musicalRatioTextItems[i]
-            
-            for j in range(len(listOfTextItems)):
-                textItem = listOfTextItems[j]
-                textItem.setFont(self.modalScaleTextFont)
-                textItem.setPen(self.modalScaleTextPen)
-                textItem.setBrush(self.modalScaleTextBrush)
-                textItem.setTransform(textTransform)
-
-        # Schedule an update.
-        self.prepareGeometryChange()
-        self.update()
-
+        self.setArtifact(self.artifact)
+        
+        self.refreshTextItems()
+        
         self.log.debug("Exiting loadSettingsFromPriceBarChartSettings()")
         
     def loadSettingsFromAppPreferences(self):
@@ -3323,7 +3304,12 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
                 # Map those x and y to local coordinates.
                 pointF = self.mapFromScene(QPointF(x, y))
-                    
+
+                # Create the text transform to use.
+                textTransform = QTransform()
+                textTransform.scale(self.modalScaleTextXScaling, \
+                                    self.modalScaleTextYScaling)
+                
                 # Get the text items for this point on the scale.
                 listOfTextItems = self.musicalRatioTextItems[i]
 
@@ -3340,7 +3326,10 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     textItem.setPos(QPointF(pointF.x(),
                                             pointF.y() + offsetY))
                     textItem.setFont(self.modalScaleTextFont)
-
+                    textItem.setPen(self.modalScaleTextPen)
+                    textItem.setBrush(self.modalScaleTextBrush)
+                    textItem.setTransform(textTransform)
+                    
                 # Also set the position of the vertical tick line.
                 barHeight = artifact.getModalScaleGraphicsItemBarHeight()
                 self.verticalTickItems[i].setBarHeight(barHeight)
@@ -3572,9 +3561,15 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.setStartPointF(self.artifact.getStartPointF())
         self.setEndPointF(self.artifact.getEndPointF())
 
-        self.modalScaleTextFont = self.modalScaleBarsText.font()
         self.modalScaleTextFont.\
             setPointSizeF(self.artifact.getModalScaleGraphicsItemFontSize())
+        self.modalScalePen.\
+            setColor(self.artifact.getModalScaleGraphicsItemBarColor())
+        self.modalScaleTextPen.\
+            setColor(self.artifact.getModalScaleGraphicsItemTextColor())
+        self.modalScaleTextBrush.\
+            setColor(self.artifact.getModalScaleGraphicsItemTextColor())
+        
 
         # Need to recalculate the time measurement, since the start and end
         # points have changed.  Note, if no scene has been set for the
@@ -3588,16 +3583,14 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         QGraphicsItem so that it may be pickled.
         """
         
-        #self.log.debug("Entered getArtifact()")
-        
         # Update the internal self.priceBarChartModalScaleArtifact 
         # to be current, then return it.
 
         self.artifact.setPos(self.pos())
         self.artifact.setStartPointF(self.startPointF)
         self.artifact.setEndPointF(self.endPointF)
-        
-        #self.log.debug("Exiting getArtifact()")
+
+        # Everything else gets modified only by the edit dialog.
         
         return self.artifact
 
@@ -3928,8 +3921,8 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         artifact = self.getArtifact()
         dialog = PriceBarChartModalScaleArtifactEditDialog(artifact,
-                                                         self.scene(),
-                                                         readOnlyFlag=True)
+                                                           self.scene(),
+                                                           readOnlyFlag=True)
         
         # Run the dialog.  We don't care about what is returned
         # because the dialog is read-only.

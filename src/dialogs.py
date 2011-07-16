@@ -10721,7 +10721,7 @@ class PriceBarChartSettingsEditWidget(QWidget):
                        defaultTextGraphicsItemDefaultFontDescription)
         self.textGraphicsItemDefaultFontLabel = \
             QLabel("TextGraphicsItem default font:")
-        self.textGraphicsItemDefaultFontModifyPushButton = \
+        self.textGraphicsItemDefaultFontModifyButton = \
             QPushButton("Modify")
         self.textGraphicsItemDefaultFontResetButton = \
             QPushButton("Reset to default")
@@ -10950,7 +10950,7 @@ class PriceBarChartSettingsEditWidget(QWidget):
             addWidget(self.textGraphicsItemDefaultFontLabel, 
                       r, 0, al)
         gridLayout.\
-            addWidget(self.textGraphicsItemDefaultFontModifyPushButton, 
+            addWidget(self.textGraphicsItemDefaultFontModifyButton, 
                       r, 1, ar)
         gridLayout.addWidget\
             (self.textGraphicsItemDefaultFontResetButton, 
@@ -11021,6 +11021,9 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         # Connect signals and slots.
 
+        self.textGraphicsItemDefaultFontModifyButton.clicked.\
+            connect(self._handleTextGraphicsItemDefaultFontModifyButtonClicked)
+        
         # Connect reset buttons.
         self.priceBarGraphicsItemPenWidthResetButton.clicked.\
             connect(self._handlePriceBarPenWidthResetButtonClicked)
@@ -11250,7 +11253,7 @@ class PriceBarChartSettingsEditWidget(QWidget):
         # modalScaleGraphicsItemTextYScaling (float).
         self.priceBarChartSettings.modalScaleGraphicsItemTextYScaling = \
             float(self.modalScaleGraphicsItemTextYScalingSpinBox.value())
-
+        
         # textGraphicsItemDefaultFont (QFont)
         self.priceBarChartSettings.\
             textGraphicsItemDefaultFontDescription = \
