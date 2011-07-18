@@ -265,6 +265,13 @@ class MainWindow(QMainWindow):
         self.textToolAction.setStatusTip("Text Tool")
         self.textToolAction.setCheckable(True)
 
+        # Create the PriceTimeInfoToolAction
+        icon = QIcon()
+        self.priceTimeInfoToolAction = \
+            QAction(icon, "Price Time Info Tool", self)
+        self.priceTimeInfoToolAction.setStatusTip("Price Time Info Tool")
+        self.priceTimeInfoToolAction.setCheckable(True)
+
         # Create a QActionGroup because all these tool modes should be
         # exclusive.  
         self.toolActionGroup = QActionGroup(self)
@@ -278,6 +285,7 @@ class MainWindow(QMainWindow):
         self.toolActionGroup.addAction(self.timeMeasurementToolAction)
         self.toolActionGroup.addAction(self.modalScaleToolAction)
         self.toolActionGroup.addAction(self.textToolAction)
+        self.toolActionGroup.addAction(self.priceTimeInfoToolAction)
         self.toolActionGroup.triggered.connect(self._toolsActionTriggered)
             
         # Default to the ReadOnlyPointerTool being checked by default.
@@ -383,6 +391,7 @@ class MainWindow(QMainWindow):
         self.toolsMenu.addAction(self.timeMeasurementToolAction)
         self.toolsMenu.addAction(self.modalScaleToolAction)
         self.toolsMenu.addAction(self.textToolAction)
+        self.toolsMenu.addAction(self.priceTimeInfoToolAction)
 
         # Create the Window menu.
         self.windowMenu = self.menuBar().addMenu("&Window")
@@ -431,6 +440,7 @@ class MainWindow(QMainWindow):
         self.toolsToolBar.addAction(self.timeMeasurementToolAction)
         self.toolsToolBar.addAction(self.modalScaleToolAction)
         self.toolsToolBar.addAction(self.textToolAction)
+        self.toolsToolBar.addAction(self.priceTimeInfoToolAction)
 
     def _createStatusBar(self):
         """Creates the QStatusBar by showing the message "Ready"."""
@@ -483,6 +493,7 @@ class MainWindow(QMainWindow):
         self.timeMeasurementToolAction.setEnabled(isActive)
         self.modalScaleToolAction.setEnabled(isActive)
         self.textToolAction.setEnabled(isActive)
+        self.priceTimeInfoToolAction.setEnabled(isActive)
 
         self.closeChartAction.setEnabled(isActive)
         self.closeAllChartsAction.setEnabled(isActive)
@@ -515,6 +526,8 @@ class MainWindow(QMainWindow):
                 priceChartDocument.toModalScaleToolMode()
             elif self.textToolAction.isChecked():
                 priceChartDocument.toTextToolMode()
+            elif self.priceTimeInfoToolAction.isChecked():
+                priceChartDocument.toPriceTimeInfoToolMode()
             else:
                 self.log.warn("No ToolMode QAction is currently selected!")
 
@@ -1265,6 +1278,9 @@ class MainWindow(QMainWindow):
         elif qaction == self.textToolAction:
             self.log.debug("textToolAction triggered.")
             pcd.toTextToolMode()
+        elif qaction == self.priceTimeInfoToolAction:
+            self.log.debug("priceTimeInfoToolAction triggered.")
+            pcd.toPriceTimeInfoToolMode()
         else:
             self.log.warn("Unknown Tools QAction selected!  " + \
                 "There might be something wrong with the code, or " + \
@@ -1981,6 +1997,11 @@ class PriceChartDocument(QMdiSubWindow):
 
         self.widgets.toTextToolMode()
 
+    def toPriceTimeInfoToolMode(self):
+        """Changes the tool mode to be the PriceTimeInfoTool."""
+
+        self.widgets.toPriceTimeInfoToolMode()
+
     def _handlePriceChartDocumentWidgetChanged(self):
         """Slot for when the PriceBarDocumentWidget emits a signal to say
         that the widget(s) changed.  This means the document should be
@@ -2248,6 +2269,11 @@ class PriceChartDocumentWidget(QWidget):
         """Changes the tool mode to be the TextTool."""
 
         self.priceBarChartWidget.toTextToolMode()
+
+    def toPriceTimeInfoToolMode(self):
+        """Changes the tool mode to be the PriceTimeInfoTool."""
+
+        self.priceBarChartWidget.toPriceTimeInfoToolMode()
 
     def _handleWidgetChanged(self):
         """Handles when the internal widget has some kind of change

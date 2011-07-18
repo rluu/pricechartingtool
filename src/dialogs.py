@@ -10582,6 +10582,11 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.textGraphicsItemGroupBox = \
             QGroupBox("TextGraphicsItem settings:")
 
+        # QGroupBox to hold the edit widgets and form for
+        # PriceTimeInfoGraphicsItem.
+        self.priceTimeInfoGraphicsItemGroupBox = \
+            QGroupBox("PriceTimeInfoGraphicsItem settings:")
+
         # priceBarGraphicsItemPenWidth (float).
         self.priceBarGraphicsItemPenWidthLabel = \
             QLabel("PriceBarGraphicsItem pen width:")
@@ -10750,6 +10755,44 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.textGraphicsItemDefaultYScalingSpinBox.setMinimum(0.0001)
         self.textGraphicsItemDefaultYScalingSpinBox.setMaximum(1000.0)
         self.textGraphicsItemDefaultYScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # priceTimeInfoGraphicsItemDefaultFont (QFont)
+        self.priceTimeInfoGraphicsItemDefaultFont = QFont()
+        self.priceTimeInfoGraphicsItemDefaultFont.\
+            fromString(PriceBarChartSettings.\
+                       defaultPriceTimeInfoGraphicsItemDefaultFontDescription)
+        self.priceTimeInfoGraphicsItemDefaultFontLabel = \
+            QLabel("PriceTimeInfoGraphicsItem default font:")
+        self.priceTimeInfoGraphicsItemDefaultFontModifyButton = \
+            QPushButton("Modify")
+        self.priceTimeInfoGraphicsItemDefaultFontResetButton = \
+            QPushButton("Reset to default")
+        
+        # priceTimeInfoGraphicsItemDefaultColor (QColor)
+        self.priceTimeInfoGraphicsItemDefaultColorLabel = \
+            QLabel("PriceTimeInfoGraphicsItem default color:")
+        self.priceTimeInfoGraphicsItemDefaultColorEditPushButton = \
+            ColorEditPushButton()
+        self.priceTimeInfoGraphicsItemDefaultColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # priceTimeInfoGraphicsItemDefaultXScaling (float).
+        self.priceTimeInfoGraphicsItemDefaultXScalingLabel = \
+            QLabel("PriceTimeInfoGraphicsItem default X scaling: ")
+        self.priceTimeInfoGraphicsItemDefaultXScalingSpinBox = QDoubleSpinBox()
+        self.priceTimeInfoGraphicsItemDefaultXScalingSpinBox.setMinimum(0.0001)
+        self.priceTimeInfoGraphicsItemDefaultXScalingSpinBox.setMaximum(1000.0)
+        self.priceTimeInfoGraphicsItemDefaultXScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # priceTimeInfoGraphicsItemDefaultYScaling (float).
+        self.priceTimeInfoGraphicsItemDefaultYScalingLabel = \
+            QLabel("PriceTimeInfoGraphicsItem default Y scaling: ")
+        self.priceTimeInfoGraphicsItemDefaultYScalingSpinBox = QDoubleSpinBox()
+        self.priceTimeInfoGraphicsItemDefaultYScalingSpinBox.setMinimum(0.0001)
+        self.priceTimeInfoGraphicsItemDefaultYScalingSpinBox.setMaximum(1000.0)
+        self.priceTimeInfoGraphicsItemDefaultYScalingResetButton = \
             QPushButton("Reset to default")
                                              
                                            
@@ -10992,6 +11035,58 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         self.textGraphicsItemGroupBox.setLayout(gridLayout)
         
+        # Grid layout.
+        gridLayout = QGridLayout()
+        r = 0
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        gridLayout.\
+            addWidget(self.priceTimeInfoGraphicsItemDefaultFontLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.priceTimeInfoGraphicsItemDefaultFontModifyButton, 
+                      r, 1, ar)
+        gridLayout.addWidget\
+            (self.priceTimeInfoGraphicsItemDefaultFontResetButton, 
+             r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(self.priceTimeInfoGraphicsItemDefaultColorLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.priceTimeInfoGraphicsItemDefaultColorEditPushButton, 
+                      r, 1, ar)
+        gridLayout.addWidget\
+            (self.priceTimeInfoGraphicsItemDefaultColorResetButton, 
+             r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(self.priceTimeInfoGraphicsItemDefaultXScalingLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.priceTimeInfoGraphicsItemDefaultXScalingSpinBox, 
+                      r, 1, ar)
+        gridLayout.addWidget\
+            (self.priceTimeInfoGraphicsItemDefaultXScalingResetButton, 
+             r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(self.priceTimeInfoGraphicsItemDefaultYScalingLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.priceTimeInfoGraphicsItemDefaultYScalingSpinBox, 
+                      r, 1, ar)
+        gridLayout.addWidget\
+            (self.priceTimeInfoGraphicsItemDefaultYScalingResetButton, 
+             r, 2, ar)
+        r += 1
+
+        self.priceTimeInfoGraphicsItemGroupBox.setLayout(gridLayout)
+        
         # Buttons at bottom.
         self.resetAllToDefaultButton = \
             QPushButton("Reset all to original default values")
@@ -11010,6 +11105,7 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.mainLayout.addWidget(self.timeMeasurementGraphicsItemGroupBox)
         self.mainLayout.addWidget(self.modalScaleGraphicsItemGroupBox)
         self.mainLayout.addWidget(self.textGraphicsItemGroupBox)
+        self.mainLayout.addWidget(self.priceTimeInfoGraphicsItemGroupBox)
         self.mainLayout.addSpacing(10)
         self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
 
@@ -11036,33 +11132,61 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.barCountGraphicsItemFontSizeResetButton.clicked.\
             connect(self._handleBarCountGraphicsItemFontSizeResetButtonClicked)
         self.barCountGraphicsItemTextXScalingResetButton.clicked.\
-            connect(self._handleBarCountGraphicsItemTextXScalingResetButtonClicked)
+            connect(\
+            self._handleBarCountGraphicsItemTextXScalingResetButtonClicked)
         self.barCountGraphicsItemTextYScalingResetButton.clicked.\
-            connect(self._handleBarCountGraphicsItemTextYScalingResetButtonClicked)
+            connect(\
+            self._handleBarCountGraphicsItemTextYScalingResetButtonClicked)
         self.timeMeasurementGraphicsItemBarHeightResetButton.clicked.\
-            connect(self._handleTimeMeasurementGraphicsItemBarHeightResetButtonClicked)
+            connect(\
+            self._handleTimeMeasurementGraphicsItemBarHeightResetButtonClicked)
         self.timeMeasurementGraphicsItemFontSizeResetButton.clicked.\
-            connect(self._handleTimeMeasurementGraphicsItemFontSizeResetButtonClicked)
+            connect(\
+            self._handleTimeMeasurementGraphicsItemFontSizeResetButtonClicked)
         self.timeMeasurementGraphicsItemTextXScalingResetButton.clicked.\
-            connect(self._handleTimeMeasurementGraphicsItemTextXScalingResetButtonClicked)
+            connect(\
+            self.\
+            _handleTimeMeasurementGraphicsItemTextXScalingResetButtonClicked)
         self.timeMeasurementGraphicsItemTextYScalingResetButton.clicked.\
-            connect(self._handleTimeMeasurementGraphicsItemTextYScalingResetButtonClicked)
+            connect(\
+            self.\
+            _handleTimeMeasurementGraphicsItemTextYScalingResetButtonClicked)
         self.modalScaleGraphicsItemColorResetButton.clicked.\
-            connect(self._handleModalScaleGraphicsItemColorResetButtonClicked)
+            connect(\
+            self._handleModalScaleGraphicsItemColorResetButtonClicked)
         self.modalScaleGraphicsItemTextColorResetButton.clicked.\
-            connect(self._handleModalScaleGraphicsItemTextColorResetButtonClicked)
+            connect(\
+            self._handleModalScaleGraphicsItemTextColorResetButtonClicked)
         self.modalScaleGraphicsItemTextXScalingResetButton.clicked.\
-            connect(self._handleModalScaleGraphicsItemTextXScalingResetButtonClicked)
+            connect(\
+            self._handleModalScaleGraphicsItemTextXScalingResetButtonClicked)
         self.modalScaleGraphicsItemTextYScalingResetButton.clicked.\
-            connect(self._handleModalScaleGraphicsItemTextYScalingResetButtonClicked)
+            connect(\
+            self._handleModalScaleGraphicsItemTextYScalingResetButtonClicked)
         self.textGraphicsItemDefaultFontResetButton.clicked.\
             connect(self._handleTextGraphicsItemDefaultFontResetButtonClicked)
         self.textGraphicsItemDefaultColorResetButton.clicked.\
             connect(self._handleTextGraphicsItemDefaultColorResetButtonClicked)
         self.textGraphicsItemDefaultXScalingResetButton.clicked.\
-            connect(self._handleTextGraphicsItemDefaultXScalingResetButtonClicked)
+            connect(\
+            self._handleTextGraphicsItemDefaultXScalingResetButtonClicked)
         self.textGraphicsItemDefaultYScalingResetButton.clicked.\
-            connect(self._handleTextGraphicsItemDefaultYScalingResetButtonClicked)
+            connect(\
+            self._handleTextGraphicsItemDefaultYScalingResetButtonClicked)
+        self.priceTimeInfoGraphicsItemDefaultFontResetButton.clicked.\
+            connect(\
+            self._handlePriceTimeInfoGraphicsItemDefaultFontResetButtonClicked)
+        self.priceTimeInfoGraphicsItemDefaultColorResetButton.clicked.\
+            connect(\
+            self._handlePriceTimeInfoGraphicsItemDefaultColorResetButtonClicked)
+        self.priceTimeInfoGraphicsItemDefaultXScalingResetButton.clicked.\
+            connect(\
+            self.\
+            _handlePriceTimeInfoGraphicsItemDefaultXScalingResetButtonClicked)
+        self.priceTimeInfoGraphicsItemDefaultYScalingResetButton.clicked.\
+            connect(\
+            self.\
+            _handlePriceTimeInfoGraphicsItemDefaultYScalingResetButtonClicked)
 
         self.resetAllToDefaultButton.clicked.\
             connect(self._handleResetAllToDefaultButtonClicked)
@@ -11185,6 +11309,27 @@ class PriceBarChartSettingsEditWidget(QWidget):
             setValue(self.priceBarChartSettings.\
                      textGraphicsItemDefaultYScaling)
         
+        # priceTimeInfoGraphicsItemDefaultFont (QFont)
+        self.priceTimeInfoGraphicsItemDefaultFont = QFont()
+        self.priceTimeInfoGraphicsItemDefaultFont.\
+            fromString(self.priceBarChartSettings.\
+                       priceTimeInfoGraphicsItemDefaultFontDescription)
+        
+        # priceTimeInfoGraphicsItemDefaultColor (QColor)
+        self.priceTimeInfoGraphicsItemDefaultColorEditPushButton.\
+            setColor(self.priceBarChartSettings.\
+                     priceTimeInfoGraphicsItemDefaultColor)
+        
+        # priceTimeInfoGraphicsItemDefaultXScaling (float).
+        self.priceTimeInfoGraphicsItemDefaultXScalingSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                     priceTimeInfoGraphicsItemDefaultXScaling)
+        
+        # priceTimeInfoGraphicsItemDefaultYScaling (float).
+        self.priceTimeInfoGraphicsItemDefaultYScalingSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                     priceTimeInfoGraphicsItemDefaultYScaling)
+        
         self.log.debug("Exiting loadValuesFromSettings()")
         
     def saveValuesToSettings(self):
@@ -11271,6 +11416,23 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.priceBarChartSettings.textGraphicsItemDefaultYScaling = \
             float(self.textGraphicsItemDefaultYScalingSpinBox.value())
         
+        # priceTimeInfoGraphicsItemDefaultFont (QFont)
+        self.priceBarChartSettings.\
+            priceTimeInfoGraphicsItemDefaultFontDescription = \
+            self.priceTimeInfoGraphicsItemDefaultFont.toString()
+
+        # priceTimeInfoGraphicsItemDefaultColor (QColor)
+        self.priceBarChartSettings.priceTimeInfoGraphicsItemDefaultColor = \
+            self.priceTimeInfoGraphicsItemDefaultColorEditPushButton.getColor()
+
+        # priceTimeInfoGraphicsItemDefaultXScaling (float).
+        self.priceBarChartSettings.priceTimeInfoGraphicsItemDefaultXScaling = \
+            float(self.priceTimeInfoGraphicsItemDefaultXScalingSpinBox.value())
+        
+        # priceTimeInfoGraphicsItemDefaultYScaling (float).
+        self.priceBarChartSettings.priceTimeInfoGraphicsItemDefaultYScaling = \
+            float(self.priceTimeInfoGraphicsItemDefaultYScalingSpinBox.value())
+        
         self.log.debug("Exiting saveValuesToSettings()")
 
     def _handleTextGraphicsItemDefaultFontModifyButtonClicked(self):
@@ -11287,6 +11449,21 @@ class PriceBarChartSettingsEditWidget(QWidget):
         if rv == QDialog.Accepted:
             # Store the font in the member variable (not in the artifact).
             self.textGraphicsItemDefaultFont = dialog.selectedFont()
+        
+    def _handlePriceTimeInfoGraphicsItemDefaultFontModifyButtonClicked(self):
+        """Called when the
+        self.priceTimeInfoGraphicsItemDefaultFontModifyPushButton button is
+        clicked.  Brings up a dialog for editing the font, and saves
+        it if the dialog is accepted.
+        """
+
+        dialog = QFontDialog(self.priceTimeInfoGraphicsItemDefaultFont)
+
+        rv = dialog.exec_()
+
+        if rv == QDialog.Accepted:
+            # Store the font in the member variable (not in the artifact).
+            self.priceTimeInfoGraphicsItemDefaultFont = dialog.selectedFont()
         
     def _handlePriceBarPenWidthResetButtonClicked(self):
         """Called when the penWidthResetButton is clicked.
@@ -11488,6 +11665,51 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         self.textGraphicsItemDefaultYScalingSpinBox.setValue(value)
         
+    def _handlePriceTimeInfoGraphicsItemDefaultFontResetButtonClicked(self):
+        """Called when the
+        priceTimeInfoGraphicsItemDefaultFontResetButton is clicked.
+        Resets the internal value to the default value.
+        """
+
+        self.priceTimeInfoGraphicsItemDefaultFont = QFont()
+        self.priceTimeInfoGraphicsItemDefaultFont.\
+            fromString(PriceBarChartSettings.\
+                       defaultPriceTimeInfoGraphicsItemDefaultFontDescription)
+        
+    def _handlePriceTimeInfoGraphicsItemDefaultColorResetButtonClicked(self):
+        """Called when the
+        priceTimeInfoGraphicsItemDefaultColorResetButton is clicked.
+        Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultPriceTimeInfoGraphicsItemDefaultColor
+
+        self.priceTimeInfoGraphicsItemDefaultColorEditPushButton.setColor(value)
+
+    def _handlePriceTimeInfoGraphicsItemDefaultXScalingResetButtonClicked(self):
+        """Called when the
+        priceTimeInfoGraphicsItemDefaultXScalingResetButton is
+        clicked.  Resets the internal value to the default value.
+        """
+
+        value = PriceBarChartSettings.\
+                defaultPriceTimeInfoGraphicsItemDefaultXScaling
+
+        self.priceTimeInfoGraphicsItemDefaultXScalingSpinBox.setValue(value)
+        
+    def _handlePriceTimeInfoGraphicsItemDefaultYScalingResetButtonClicked(self):
+        """Called when the
+        priceTimeInfoGraphicsItemDefaultYScalingResetButton is
+        clicked.  Resets the internal value to the default value.
+        """
+
+        value = PriceBarChartSettings.\
+                defaultPriceTimeInfoGraphicsItemDefaultYScaling
+
+        self.priceTimeInfoGraphicsItemDefaultYScalingSpinBox.setValue(value)
+        
     def _handleResetAllToDefaultButtonClicked(self):
         """Called when the resetAllToDefaultButton is clicked.
         Resets the all the widget values in this widget to the default
@@ -11513,6 +11735,10 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._handleTextGraphicsItemDefaultColorResetButtonClicked()
         self._handleTextGraphicsItemDefaultXScalingResetButtonClicked()
         self._handleTextGraphicsItemDefaultYScalingResetButtonClicked()
+        self._handlePriceTimeInfoGraphicsItemDefaultFontResetButtonClicked()
+        self._handlePriceTimeInfoGraphicsItemDefaultColorResetButtonClicked()
+        self._handlePriceTimeInfoGraphicsItemDefaultXScalingResetButtonClicked()
+        self._handlePriceTimeInfoGraphicsItemDefaultYScalingResetButtonClicked()
 
     def _handleOkayButtonClicked(self):
         """Called when the okay button is clicked."""

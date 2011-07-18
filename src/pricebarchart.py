@@ -31,8 +31,7 @@ from data_objects import PriceBarChartBarCountArtifact
 from data_objects import PriceBarChartTimeMeasurementArtifact
 from data_objects import PriceBarChartModalScaleArtifact
 from data_objects import PriceBarChartTextArtifact
-from data_objects import PriceBarChartGannFanUpperRightArtifact
-from data_objects import PriceBarChartGannFanLowerRightArtifact
+from data_objects import PriceBarChartPriceTimeInfoArtifact
 from data_objects import PriceBarChartScaling
 from data_objects import PriceBarChartSettings
 
@@ -45,6 +44,7 @@ from pricebarchart_dialogs import PriceBarChartBarCountArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartTimeMeasurementArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartModalScaleArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartTextArtifactEditDialog
+from pricebarchart_dialogs import PriceBarChartPriceTimeInfoArtifactEditDialog
 
 # For edit dialogs.
 from dialogs import PriceBarEditDialog
@@ -197,6 +197,36 @@ class PriceBarGraphicsItem(QGraphicsItem):
 
         self.log.debug("Leaving setPriceBarColor().")
 
+    def getPriceBarOpenScenePoint(self):
+        """Returns the scene coordinates of the open point of this
+        PriceBar.
+
+        Returns: QPointF in scene coordinates of where the open of this
+        pricebar is.
+        """
+
+        openPrice = 0.0
+        high = 0.0
+        low = 0.0
+
+        if self.priceBar != None:
+            openPrice = self.priceBar.open
+            high = self.priceBar.high
+            low = self.priceBar.low
+
+        priceMidpoint = (high + low) / 2.0
+
+        x = 0.0
+        yOpen = -1.0 * (openPrice - priceMidpoint)
+        yHigh = -1.0 * (high - priceMidpoint)
+        yLow = -1.0 * (low - priceMidpoint)
+
+        # Return value.
+        rv = self.mapToScene(QPointF(x, yOpen))
+
+        return rv
+
+
     def getPriceBarHighScenePoint(self):
         """Returns the scene coordinates of the high point of this
         PriceBar.
@@ -249,6 +279,36 @@ class PriceBarGraphicsItem(QGraphicsItem):
         rv = self.mapToScene(QPointF(x, yLow))
 
         return rv
+
+    def getPriceBarCloseScenePoint(self):
+        """Returns the scene coordinates of the close point of this
+        PriceBar.
+
+        Returns: QPointF in scene coordinates of where the close of this
+        pricebar is.
+        """
+
+        close = 0.0
+        high = 0.0
+        low = 0.0
+
+        if self.priceBar != None:
+            close = self.priceBar.close
+            high = self.priceBar.high
+            low = self.priceBar.low
+
+        priceMidpoint = (high + low) / 2.0
+
+        x = 0.0
+        yClose = -1.0 * (close - priceMidpoint)
+        yHigh = -1.0 * (high - priceMidpoint)
+        yLow = -1.0 * (low - priceMidpoint)
+
+        # Return value.
+        rv = self.mapToScene(QPointF(x, yClose))
+
+        return rv
+
 
     def boundingRect(self):
         """Returns the bounding rectangle for this graphicsitem."""
@@ -904,7 +964,8 @@ class TextGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         artifact = self.getArtifact()
 
-        self.log.debug("Inside _handleInfoAction(): artifact is: " + artifact.toString())
+        self.log.debug("Inside _handleInfoAction(): artifact is: " +
+                       artifact.toString())
         
         dialog = PriceBarChartTextArtifactEditDialog(artifact,
                                                      self.scene(),
@@ -943,97 +1004,6 @@ class TextGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # The user canceled so don't change anything.
             pass
         
-        
-class GannFanUpperRightGraphicsItem(PriceBarChartArtifactGraphicsItem):
-    """QGraphicsItem that visualizes a GannFan opening in the upper 
-    right direction.
-    """
-    
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
-
-    def setArtifact(self, artifact):
-        """Loads a given PriceBarChartGannFanUpperRightArtifact object's data
-        into this QGraphicsTextItem.
-
-        Arguments:
-        artifact - PriceBarChartGannFanUpperRightArtifact object with
-                   information about this TextGraphisItem.
-        """
-
-        self.log.debug("Entered setArtifact()")
-
-        if isinstance(artifact, PriceBarChartGannFanUpperRightArtifact):
-            self.artifact = artifact
-        
-            # TODO:  Extract and set the internals according to the info 
-            # in self.artifact.
-        else:
-            errStr = "Expected artifact type: " + \
-                     "PriceBarChartGannFanUpperRightArtifact"
-            raise TypeError(errStr)
-    
-        self.log.debug("Exiting setArtifact()")
-
-    def getArtifact(self):
-        """Returns a PriceBarChartGannFanUpperRightArtifact for this
-        QGraphicsItem so that it may be pickled.
-        """
-
-        self.log.debug("Entered getArtifact()")
-        
-        # TODO:  Update the internal self.artifact to be 
-        # current, then return it.
-        
-        self.log.debug("Exiting getArtifact()")
-        
-        return self.artifact
-
-class GannFanLowerRightGraphicsItem(PriceBarChartArtifactGraphicsItem):
-    """QGraphicsItem that visualizes a GannFan opening in the lower 
-    right direction.
-    """
-    
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
-        
-    def setArtifact(self, artifact):
-        """Loads a given PriceBarChartGannFanLowerRightArtifact object's data
-        into this QGraphicsTextItem.
-
-        Arguments:
-        artifact - PriceBarChartGannFanLowerRightArtifact object with
-                   information about this TextGraphisItem.
-        """
-
-        self.log.debug("Entering setArtifact()")
-
-        if isinstance(artifact, PriceBarChartGannFanLowerRightArtifact):
-            self.artifact = artifact
-        
-            # TODO:  Extract and set the internals according to the info 
-            # in self.artifact.
-        else:
-            errStr = "Expected artifact type: " + \
-                     "PriceBarChartGannFanLowerRightArtifact"
-            raise TypeError(errStr)
-    
-        self.log.debug("Exiting setArtifact()")
-
-        
-    def getArtifact(self):
-        """Returns a PriceBarChartGannFanLowerRightArtifact for this
-        QGraphicsItem so that it may be pickled.
-        """
-
-        self.log.debug("Entered getArtifact()")
-        
-        # TODO:  Update the internal self.artifact to be 
-        # current, then return it.
-        
-        self.log.debug("Exiting getArtifact()")
-        
-        return self.artifact
         
 class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
     """QGraphicsItem that visualizes a PriceBar counter in the GraphicsView.
@@ -2963,7 +2933,7 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.dummyItem = QGraphicsSimpleTextItem("", self)
         
         # Set the font of the text.
-        self.modalScaleTextFont = QFont()
+        self.modalScaleTextFont = QFont("Sans Serif")
         self.modalScaleTextFont.\
             setPointSizeF(self.artifact.getModalScaleGraphicsItemFontSize())
 
@@ -4114,6 +4084,426 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.scene().setAstroChart3(self.endPointF.x())
 
         
+class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
+    """QGraphicsItem that visualizes a PriceBarChartPriceTimeInfoArtifact."""
+    
+    def __init__(self, parent=None, scene=None):
+        super().__init__(parent, scene)
+        
+        # Internal storage object, used for loading/saving (serialization).
+        self.artifact = PriceBarChartPriceTimeInfoArtifact()
+
+        # BirthInfo object that holds information about the birth of
+        # this trading entity.  This is used so we can determine
+        # amount of time elapsed since birth.
+        self.birthInfo = None
+        
+        # Internal QGraphicsItem that holds the text of the bar count.
+        # Initialize to blank and set at the end point.
+        self.textItem = QGraphicsSimpleTextItem("", self)
+        self.textItem.setPos(0.0, 0.0)
+
+        # Set the font of the text.
+        self.textItemFont = self.artifact.getFont()
+        self.textItem.setFont(self.textItemFont)
+
+        # Set the color of the text.
+        self.color = self.artifact.getColor()
+        
+        # Set the pen color of the text.
+        self.textItemPen = self.textItem.pen()
+        self.textItemPen.setColor(self.artifact.getColor())
+        self.textItem.setPen(self.textItemPen)
+
+        # Set the brush color of the text.
+        self.textItemBrush = self.textItem.brush()
+        self.textItemBrush.setColor(self.artifact.getColor())
+        self.textItem.setBrush(self.textItemBrush)
+
+        # Apply some size scaling to the text.
+        textTransform = QTransform()
+        textTransform.scale(self.artifact.getPriceTimeInfoXScaling(), \
+                            self.artifact.getPriceTimeInfoYScaling())
+        self.textItem.setTransform(textTransform)
+
+    def setBirthInfo(self, birthInfo):
+        """Sets the internal BirthInfo object so that time elapsed
+        from birth can be calculated.
+        """
+
+        self.birthInfo = birthInfo
+
+    def getBirthInfo(self):
+        """Returns the internal BirthInfo object.
+        """
+
+        return self.birthInfo
+
+    def setArtifact(self, artifact):
+        """Loads a given PriceBarChartPriceTimeInfoArtifact object's data
+        into this QGraphicsPriceTimeInfoItem.
+
+        Arguments:
+        artifact - PriceBarChartPriceTimeInfoArtifact object with information
+                   about this PriceTimeInfoGraphisItem
+        """
+
+        self.log.debug("Entered setArtifact()")
+
+        if isinstance(artifact, PriceBarChartPriceTimeInfoArtifact):
+            self.artifact = artifact
+
+            self.log.debug("Setting PriceTimeInfoGraphicsItem with the " +
+                           "following artifact: " + self.artifact.toString())
+            self.log.debug("Font in artifact is: " +
+                           self.artifact.getFont().toString())
+                           
+            # Extract and set the internals according to the info 
+            # in self.artifact.
+            self.setPos(self.artifact.getPos())
+
+            # Set the text according to various flags in the artifact.
+            # Internal QGraphicsItem that holds the text.
+            # Initialize to blank and set at the end point.
+            infoPointF = self.artifact.getInfoPointF()
+            dt = self.scene().sceneXPosToDatetime(infoPointF.x())
+            price = self.scene().sceneYPosToPrice(infopointF.y())
+
+            text = ""
+            
+            if self.artifact.getShowTimestampFlag():
+                text += "t={}".format(Ephemeris.datetimeToDayStr(dt)) + \
+                        os.linesep
+            if self.artifact.getShowPriceFlag():
+                text += "price={}".format(price) + os.linesep
+            if self.artifact.getShowSqrtOfPriceFlag():
+                text += "sqrt(price)={}".format(math.sqrt(price)) + os.linesep
+            if self.artifact.getShowTimeElapsedSinceBirth():
+                if self.birthInfo != None:
+                    # Get the birth timestamp and convert to X coordinate.
+                    birthDtUtc = self.birthInfo.getBirthUtcDatetime()
+                    birthX = self.scene().datetimeToSceneXPos(birthDtUtc)
+
+                    # Find the difference between the info points and birthX
+                    xDiff = infoPointF.x() - birthX
+                    
+                    text += "elapsed_t=={}".format(xDiff) + os.linesep
+            if self.artifact.getShowSqrtOfTimeElapsedSinceBirth():
+                if self.birthInfo != None:
+                    # Get the birth timestamp and convert to X coordinate.
+                    birthDtUtc = self.birthInfo.getBirthUtcDatetime()
+                    birthX = self.scene().datetimeToSceneXPos(birthDtUtc)
+
+                    # Find the difference between the info points and birthX
+                    xDiff = infoPointF.x() - birthX
+                    
+                    text += "sqrt(elapsed_t)=={}".format(math.sqrt(xDiff)) + \
+                            os.linesep
+            self.textItem.setText(text)
+
+            # Set the font of the text.
+            self.textItemFont = self.artifact.getFont()
+            self.textItem.setFont(self.textItemFont)
+
+            # Set the color of the text.
+            self.color = self.artifact.getColor()
+            
+            # Set the pen color of the text.
+            self.textItemPen = self.textItem.pen()
+            self.textItemPen.setColor(self.color)
+            self.textItem.setPen(self.textItemPen)
+
+            # Set the brush color of the text.
+            self.textItemBrush = self.textItem.brush()
+            self.textItemBrush.setColor(self.color)
+            self.textItem.setBrush(self.textItemBrush)
+
+            # Apply some size scaling to the text.
+            self.textTransform = QTransform()
+            self.textTransform.scale(self.artifact.getPriceTimeInfoXScaling(), \
+                                     self.artifact.getPriceTimeInfoYScaling())
+            self.textItem.setTransform(self.textTransform)
+
+        else:
+            raise TypeError("Expected artifact type: " +
+                            "PriceBarChartPriceTimeInfoArtifact")
+    
+        self.log.debug("Exiting setArtifact()")
+
+    def getArtifact(self):
+        """Returns a PriceBarChartPriceTimeInfoArtifact for this QGraphicsItem 
+        so that it may be pickled.
+        """
+
+        self.log.debug("Entered getArtifact()")
+        
+        # Update the internal self.priceBarChartPriceTimeInfoArtifact to be 
+        # current, then return it.
+        self.artifact.setPos(self.pos())
+        self.artifact.setFont(self.textItemFont)
+        self.artifact.setColor(self.color)
+        self.artifact.setTextXScaling(self.textTransform.m11())
+        self.artifact.setTextYScaling(self.textTransform.m22())
+        
+        self.log.debug("Exiting getArtifact()")
+        
+        return self.artifact
+
+    def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings):
+        """Reads some of the parameters/settings of this
+        PriceBarGraphicsItem from the given PriceBarChartSettings object.
+        """
+
+        self.log.debug("Entered loadSettingsFromPriceBarChartSettings()")
+
+        # Set values from the priceBarChartSettings into the internal
+        # member variables.
+        
+        self.textItemFont = QFont()
+        self.textItemFont.\
+            fromString(priceBarChartSettings.\
+                       priceTimeInfoGraphicsItemDefaultFontDescription) 
+        self.color = \
+            priceBarChartSettings.priceTimeInfoGraphicsItemDefaultColor
+        
+        self.textTransform = QTransform()
+        self.textTransform.scale(priceBarChartSettings.\
+                                 priceTimeInfoGraphicsItemDefaultXScaling,
+                                 priceBarChartSettings.\
+                                 priceTimeInfoGraphicsItemDefaultYScaling)
+
+        # Update the internal text item.
+        self.textItem.setFont(self.textItemFont)
+
+        self.textItemPen = self.textItem.pen()
+        self.textItemPen.setColor(self.color)
+        self.textItem.setPen(self.textItemPen)
+
+        self.textItemBrush = self.textItem.brush()
+        self.textItemBrush.setColor(self.color)
+        self.textItem.setBrush(self.textItemBrush)
+
+        self.textItem.setTransform(self.textTransform)
+
+        # Schedule an update.
+        self.prepareGeometryChange()
+        self.update()
+
+        self.log.debug("Exiting loadSettingsFromPriceBarChartSettings()")
+        
+    def loadSettingsFromAppPreferences(self):
+        """Reads some of the parameters/settings of this
+        PriceBarGraphicsItem from the QSettings object. 
+        """
+
+        # No settings.
+        pass
+    
+    def setPos(self, pos):
+        """Overwrites the QGraphicsItem setPos() function.
+
+        Arguments:
+        pos - QPointF holding the new position.
+        """
+        
+        super().setPos(pos)
+        
+    def boundingRect(self):
+        """Returns the bounding rectangle for this graphicsitem."""
+
+        # Coordinate (0, 0) is the location of the internal text item
+        # in local coordinates.  The QRectF returned is relative to
+        # this (0, 0) point.
+
+        textItemBoundingRect = self.textItem.boundingRect()
+
+        # Here we need to scale the bounding rect so that
+        # it takes into account the transform that we did.
+        width = textItemBoundingRect.width()
+        height = textItemBoundingRect.height()
+
+        newWidth = width * self.textTransform.m11()
+        newHeight = height * self.textTransform.m22()
+
+        textItemBoundingRect.setWidth(newWidth)
+        textItemBoundingRect.setHeight(newHeight)
+        
+        return textItemBoundingRect.normalized()
+
+    def shape(self):
+        """Overwrites the QGraphicsItem.shape() function to return a
+        more accurate shape for collision detection, hit tests, etc.
+        """
+
+        boundingRect = self.boundingRect()
+        
+        infoPointF = self.artifact.getInfoPointF()
+        diffPointF = infoPointF - self.pos()
+        
+        points = [boundingRect.topLeft(),
+                  boundingRect.topRight(),
+                  boundingRect.bottomRight(),
+                  diffPointF,
+                  boundingRect.bottomLeft()]
+        polygon = QPolygonF(points)
+
+        painterPath = QPainterPath()
+        painterPath.addPolygon(polygon)
+
+        return painterPath
+        
+    def paint(self, painter, option, widget):
+        """Paints this QGraphicsItem.  Assumes that self.pen is set
+        to what we want for the drawing style.
+        """
+
+        if painter.pen() != self.textItemPen:
+            painter.setPen(self.textItemPen)
+
+        # Draw a dashed-line surrounding the item if it is selected.
+        if option.state & QStyle.State_Selected:
+            pad = self.textItemPen.widthF() / 2.0;
+            
+            penWidth = 0.0
+
+            fgcolor = option.palette.windowPriceTimeInfo().color()
+            
+            # Ensure good contrast against fgcolor.
+            r = 255
+            g = 255
+            b = 255
+            if fgcolor.red() > 127:
+                r = 0
+            if fgcolor.green() > 127:
+                g = 0
+            if fgcolor.blue() > 127:
+                b = 0
+            
+            bgcolor = QColor(r, g, b)
+            
+            painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawPath(self.shape())
+            
+            painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawPath(self.shape())
+
+    def appendActionsToContextMenu(self, menu, readOnlyMode=False):
+        """Modifies the given QMenu object to update the title and add
+        actions relevant to this PriceBarChartArtifactGraphicsItem.
+        
+        Arguments:
+        menu - QMenu object to modify.
+        readOnlyMode - bool value that indicates the actions are to be
+                       readonly actions.
+        """
+
+        menu.setTitle(self.artifact.getInternalName())
+        
+        # These are the QActions that are in the menu.
+        parent = menu
+        selectAction = QAction("&Select", parent)
+        unselectAction = QAction("&Unselect", parent)
+        removeAction = QAction("Remove", parent)
+        infoAction = QAction("&Info", parent)
+        editAction = QAction("&Edit", parent)
+        
+        selectAction.triggered.\
+            connect(self._handleSelectAction)
+        unselectAction.triggered.\
+            connect(self._handleUnselectAction)
+        removeAction.triggered.\
+            connect(self._handleRemoveAction)
+        infoAction.triggered.\
+            connect(self._handleInfoAction)
+        editAction.triggered.\
+            connect(self._handleEditAction)
+        
+        # Enable or disable actions.
+        selectAction.setEnabled(True)
+        unselectAction.setEnabled(True)
+        removeAction.setEnabled(not readOnlyMode)
+        infoAction.setEnabled(True)
+        editAction.setEnabled(not readOnlyMode)
+
+        # Add the QActions to the menu.
+        menu.addAction(selectAction)
+        menu.addAction(unselectAction)
+        menu.addSeparator()
+        menu.addAction(removeAction)
+        menu.addSeparator()
+        menu.addAction(infoAction)
+        menu.addAction(editAction)
+
+    def _handleSelectAction(self):
+        """Causes the QGraphicsItem to become selected."""
+
+        self.setSelected(True)
+
+    def _handleUnselectAction(self):
+        """Causes the QGraphicsItem to become unselected."""
+
+        self.setSelected(False)
+
+    def _handleRemoveAction(self):
+        """Causes the QGraphicsItem to be removed from the scene."""
+        
+        scene = self.scene()
+        scene.removeItem(self)
+
+        # Emit signal to show that an item is removed.
+        # This sets the dirty flag.
+        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+        
+    def _handleInfoAction(self):
+        """Causes a dialog to be executed to show information about
+        the QGraphicsItem.
+        """
+
+        artifact = self.getArtifact()
+
+        self.log.debug("Inside _handleInfoAction(): artifact is: " +
+                       artifact.toString())
+        
+        dialog = PriceBarChartPriceTimeInfoArtifactEditDialog(artifact,
+                                                              self.scene(),
+                                                              readOnlyFlag=True)
+        
+        # Run the dialog.  We don't care about what is returned
+        # because the dialog is read-only.
+        rv = dialog.exec_()
+        
+    def _handleEditAction(self):
+        """Causes a dialog to be executed to edit information about
+        the QGraphicsItem.
+        """
+
+        artifact = self.getArtifact()
+        dialog = PriceBarChartPriceTimeInfoArtifactEditDialog(artifact,
+                                                     self.scene(),
+                                                     readOnlyFlag=False)
+        
+        rv = dialog.exec_()
+        
+        if rv == QDialog.Accepted:
+            # If the dialog is accepted then get the new artifact and
+            # set it to this PriceBarChartArtifactGraphicsItem, which
+            # will cause it to be reloaded in the scene.
+            artifact = dialog.getArtifact()
+            self.setArtifact(artifact)
+
+            # Flag that a redraw of this QGraphicsItem is required.
+            self.update()
+
+            # Emit that the PriceBarChart has changed so that the
+            # dirty flag can be set.
+            self.scene().priceBarChartChanged.emit()
+        else:
+            # The user canceled so don't change anything.
+            pass
+        
+        
 class PriceBarChartWidget(QWidget):
     """Widget holding the QGraphicsScene and QGraphicsView that displays
     the PriceBar information along with other indicators and analysis
@@ -4155,7 +4545,8 @@ class PriceBarChartWidget(QWidget):
                 "BarCountTool"        : 5,
                 "TimeMeasurementTool" : 6,
                 "ModalScaleTool"      : 7,
-                "TextTool"            : 8 }
+                "TextTool"            : 8,
+                "PriceTimeInfoTool"   : 9 }
 
 
 
@@ -4215,12 +4606,12 @@ class PriceBarChartWidget(QWidget):
         self.selectedPriceBarClosePriceLabel.setFont(smallFont)
 
         # Set the cursor timestamp labels as being in a monospaced font.
-        smallCourierFont = QFont()
-        smallCourierFont.setFamily("Courier")
-        smallCourierFont.setPointSize(7)
-        self.cursorLocalizedTimestampLabel.setFont(smallCourierFont)
-        self.cursorUtcTimestampLabel.setFont(smallCourierFont)
-        self.cursorPriceLabel.setFont(smallCourierFont)
+        smallMonospacedFont = QFont()
+        smallMonospacedFont.setFamily("DejaVu Sans Mono")
+        smallMonospacedFont.setPointSize(7)
+        self.cursorLocalizedTimestampLabel.setFont(smallMonospacedFont)
+        self.cursorUtcTimestampLabel.setFont(smallMonospacedFont)
+        self.cursorPriceLabel.setFont(smallMonospacedFont)
         
         # Create the QGraphicsView and QGraphicsScene for the display portion.
         self.graphicsScene = PriceBarChartGraphicsScene()
@@ -4628,6 +5019,22 @@ class PriceBarChartWidget(QWidget):
 
                 addedItemFlag = True
                 
+            elif isinstance(artifact, PriceBarChartPriceTimeInfoArtifact):
+                self.log.debug("Loading artifact: " + artifact.toString())
+                
+                newItem = PriceTimeInfoGraphicsItem()
+                newItem.loadSettingsFromPriceBarChartSettings(\
+                    self.priceBarChartSettings)
+                newItem.setArtifact(artifact)
+
+                # Add the item.
+                self.graphicsScene.addItem(newItem)
+                
+                # Make sure the proper flags are set for the mode we're in.
+                self.graphicsView.setGraphicsItemFlagsPerCurrToolMode(newItem)
+
+                addedItemFlag = True
+
         if addedItemFlag == True:
             # Emit that the PriceBarChart has changed.
             self.graphicsScene.priceBarChartChanged.emit()
@@ -4783,6 +5190,9 @@ class PriceBarChartWidget(QWidget):
             elif isinstance(item, TextGraphicsItem):
                 self.log.debug("Not applying settings to " +
                                "TextGraphicsItem.")
+            elif isinstance(item, PriceTimeInfoGraphicsItem):
+                self.log.debug("Not applying settings to " +
+                               "PriceTimeInfoGraphicsItem.")
 
         if settingsChangedFlag == True:
             # Emit that the PriceBarChart has changed, because we have
@@ -4907,6 +5317,18 @@ class PriceBarChartWidget(QWidget):
             self.graphicsView.toTextToolMode()
 
         self.log.debug("Exiting toTextToolMode()")
+
+    def toPriceTimeInfoToolMode(self):
+        """Changes the tool mode to be the PriceTimeInfoTool."""
+
+        self.log.debug("Entered toPriceTimeInfoToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != PriceBarChartWidget.ToolMode['PriceTimeInfoTool']:
+            self.toolMode = PriceBarChartWidget.ToolMode['PriceTimeInfoTool']
+            self.graphicsView.toPriceTimeInfoToolMode()
+
+        self.log.debug("Exiting toPriceTimeInfoToolMode()")
 
     def _handleMouseLocationUpdate(self, x, y):
         """Handles mouse location changes in the QGraphicsView.  
@@ -5092,6 +5514,80 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
             return float(price)
 
 
+    def getClosestPriceBarOHLCPoint(self, pointF):
+        """Goes through all the PriceBars, looking at the QPointF of
+        the open, high, low, and close of each bar (in price and
+        time), and tests it to locate the point out of all the bars
+        that is the closest to 'pointF'.
+
+        Returns:
+        QPointF - Point that is a scene pos of a open, high, low,
+                  or close of a PriceBar, where it is the closest
+                  to the given 'pointF'.
+        """
+
+        # QPointF for the closest point.
+        closestPoint = None
+
+        # Smallest length of line from pointF to desired point.
+        smallestLength = None
+        
+        # PriceBarGraphicsItem that is the closest.
+        closestPriceBarGraphicsItem = None
+        
+        graphicsItems = self.items()
+
+        for item in graphicsItems:
+            if isinstance(item, PriceBarGraphicsItem):
+                # Get the points of the open, high, low, and close of
+                # this PriceBarGraphicsItem.
+                openPointF = item.getPriceBarOpenScenePoint()
+                highPointF = item.getPriceBarHighScenePoint()
+                lowPointF = item.getPriceBarLowScenePoint()
+                closePointF = item.getPriceBarCloseScenePoint()
+
+                # Create lines so we can get the lengths between the points.
+                lineToOpen = QLineF(pointF, openPointF)
+                lineToHigh = QLineF(pointF, highPointF)
+                lineToLow = QLineF(pointF, lowPointF)
+                lineToClose = QLineF(pointF, closePointF)
+
+                lineToOpenLength = lineToOpen.length()
+                lineToHighLength = lineToHigh.length()
+                lineToLowLength = lineToLow.length()
+                lineToCloseLength = lineToClose.length()
+                
+                # Set the initial smallestLength as the first point if
+                # it is not set already.
+                if smallestLength == None:
+                    closestPoint = openPointF
+                    smallestLength = lineToOpen.length()
+                    closestPriceBarGraphicsItem = item
+
+                # Test the open, high, low, and close points to see if
+                # they are now the closest to pointF.
+                if lineToOpenLength < smallestLength:
+                    closestPoint = openPointF
+                    smallestLength = lineToOpenLength
+                    closestPriceBarGraphicsItem = item
+
+                if lineToHighLength < smallestLength:
+                    closestPoint = highPointF
+                    smallestLength = lineToHighLength
+                    closestPriceBarGraphicsItem = item
+
+                if lineToLowLength < smallestLength:
+                    closestPoint = lowPointF
+                    smallestLength = lineToLowLength
+                    closestPriceBarGraphicsItem = item
+
+                if lineToCloseLength < smallestLength:
+                    closestPoint = closePointF
+                    smallestLength = lineToCloseLength
+                    closestPriceBarGraphicsItem = item
+
+        return closestPoint
+
     def setAstroChart1(self, x):
         """Emits the astroChart1Update signal so that an external
         astrology chart can be plotted with a timestamp.
@@ -5164,7 +5660,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 "BarCountTool"        : 5,
                 "TimeMeasurementTool" : 6,
                 "ModalScaleTool"      : 7,
-                "TextTool"            : 8 }
+                "TextTool"            : 8,
+                "PriceTimeInfoTool"   : 9 }
 
     # Signal emitted when the mouse moves within the QGraphicsView.
     # The position emitted is in QGraphicsScene x, y, float coordinates.
@@ -5214,6 +5711,14 @@ class PriceBarChartGraphicsView(QGraphicsView):
         # as it is modified in TextToolMode.
         self.textGraphicsItem = None
         
+        # Variable used for storing the new PriceTimeInfoGraphicsItem,
+        # as it is modified in PriceTimeInfoToolMode.
+        self.priceTimeInfoGraphicsItem = None
+
+        # Variable used for storing that snapping to the closest bar
+        # high or low is enabled.  Used in PriceTimeInfoToolMode.
+        self.snapEnabledFlag = True
+
         # Variable used for holding the PriceBarChartSettings.
         self.priceBarChartSettings = PriceBarChartSettings()
         
@@ -5348,6 +5853,15 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['TextTool']:
+
+            if isinstance(item, PriceBarGraphicsItem):
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+            elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                item.setReadOnlyFlag(True)
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['PriceTimeInfoTool']:
 
             if isinstance(item, PriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
@@ -5609,6 +6123,34 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     
         self.log.debug("Exiting toTextToolMode()")
 
+    def toPriceTimeInfoToolMode(self):
+        """Changes the tool mode to be the PriceTimeInfoTool."""
+
+        self.log.debug("Entered toPriceTimeInfoToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != \
+                PriceBarChartGraphicsView.ToolMode['PriceTimeInfoTool']:
+
+            self.toolMode = \
+                PriceBarChartGraphicsView.ToolMode['PriceTimeInfoTool']
+
+            self.setCursor(QCursor(Qt.ArrowCursor))
+            self.setDragMode(QGraphicsView.NoDrag)
+
+            # Clear out internal working variables.
+            self.priceTimeInfoGraphicsItem = None
+
+            scene = self.scene()
+            if scene != None:
+                scene.clearSelection()
+
+                items = scene.items()
+                for item in items:
+                    self.setGraphicsItemFlagsPerCurrToolMode(item)
+                    
+        self.log.debug("Exiting toPriceTimeInfoToolMode()")
+
     def createContextMenu(self, clickPosF, readOnlyFlag):
         """Creates a context menu for a right-click somewhere in
         the QGraphicsView, and returns it.
@@ -5842,10 +6384,13 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     if isinstance(item, ModalScaleGraphicsItem):
                         if qkeyevent.key() == Qt.Key_S:
                             item.rotateUp()
+                            # TODO:  emit a status message.
                         elif qkeyevent.key() == Qt.Key_G:
                             item.rotateDown()
+                            # TODO:  emit a status message.
                         elif qkeyevent.key() == Qt.Key_R:
                             item.reverse()
+                            # TODO:  emit a status message.
 
                 # Pass the key event upwards in case it applies to
                 # something else (like a parent widget).
@@ -5928,6 +6473,30 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.scene().removeItem(self.textGraphicsItem)
 
                 self.textGraphicsItem = None
+            else:
+                super().keyPressEvent(qkeyevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['PriceTimeInfoTool']:
+
+            if qkeyevent.key() == Qt.Key_Escape:
+                # Escape key causes any currently edited item to
+                # be removed and cleared out.  Temporary variables used
+                # are cleared out too.
+                if self.priceTimeInfoGraphicsItem != None:
+                    self.scene().removeItem(self.priceTimeInfoGraphicsItem)
+
+                self.priceTimeInfoGraphicsItem = None
+            elif qkeyevent.key() == Qt.Key_Q:
+                # Turn on snap functionality.
+                self.snapEnabledFlag = True
+                self.log.debug("Snap mode enabled.")
+                # TODO:  emit a status message.
+            elif qkeyevent.key() == Qt.Key_W:
+                # Turn off snap functionality.
+                self.snapEnabledFlag = False
+                self.log.debug("Snap mode disabled.")
+                # TODO:  emit a status message.
             else:
                 super().keyPressEvent(qkeyevent)
 
@@ -6429,6 +6998,81 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 clickPosF = self.mapToScene(qmouseevent.pos())
                 menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
                 menu.exec_(qmouseevent.globalPos())
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['PriceTimeInfoTool']:
+            
+            self.log.debug("Current toolMode is: PriceTimeInfoTool")
+
+            if qmouseevent.button() & Qt.LeftButton:
+                self.log.debug("Qt.LeftButton")
+                # TODO: turn this into a 2-point click creation.
+                # First click sets the position and everything.
+                # Second click confirms the polarity from which to
+                # draw this item.
+        
+                # Create the PriceTimeInfoGraphicsItem
+                self.priceTimeInfoGraphicsItem = PriceTimeInfoGraphicsItem()
+                self.priceTimeInfoGraphicsItem.\
+                    loadSettingsFromPriceBarChartSettings(\
+                    self.priceBarChartSettings)
+
+                # Set the BirthInfo.
+                # TODO: set the birth info below.
+                self.priceTimeInfoGraphicsItem.setBirthInfo()
+        
+                # Location of the graphics item.  This is calculated
+                # below, based on where the used clicked.
+                pos = QPointF()
+                
+                # If snap is enabled, then find the closest high, low,
+                # open or close QPointF to the place clicked.
+                infoPointF = self.mapToScene(qmouseevent.pos())
+                if self.snapEnabledFlag == True:
+                    # Find if there is a point closer to this
+                    # infoPointF related to a PriceBarGraphicsItem.
+                    barPoint = \
+                        self.scene().getClosestPriceBarOHLCPoint(infoPointF)
+
+                    # If a point was found, then use it as the info point.
+                    if barPoint != None:
+                        infoPointF = barPoint
+
+                # Get and modify the artifact.
+                artifact = self.priceTimeInfoGraphicsItem.getArtifact()
+                artifact.setPos(QPointF())
+                artifact.setInfoPointF(infoPointF)
+
+                # Now set the artifact again so we can get an updated
+                # boundingRect size.
+                self.priceTimeInfoGraphicsItem.setArtifact(artifact)
+                boundingRect = self.priceTimeInfoGraphicsItem.boundingRect()
+
+                posX = infoPointF.x() - (boundingRect.width() * 0.5)
+                posY = infoPointF.y() - \
+                    (POLARITY_UP_DOWN * (boundingRect.height() + MINOR_OFFSET))
+                pos = QPointF(posX, posY)
+                
+                # Based off of the size of the text graphics item,
+                # calculate the position of this item relative to the
+                # info reference point calculated above.
+                
+                # Set the info position to this point.
+                self.priceTimeInfoGraphicsItem.setInfoPointF(infoPointF)
+
+                # Set the position of the graphics item.
+                self.priceTimeInfoGraphicsItem.setPos(pos)
+
+                # Clear out the graphics item variable since setting
+                # this item doesn't require 2 clicks.
+                self.priceTimeInfoGraphicsItem = None
+                
+            elif qmouseevent.button() & Qt.RightButton:
+                self.log.debug("Qt.RightButton")
+                
+                # Open a context menu at this location, in readonly mode.
+                clickPosF = self.mapToScene(qmouseevent.pos())
+                menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
+                menu.exec_(qmouseevent.globalPos())
         else:
             self.log.warn("Current toolMode is: UNKNOWN.")
 
@@ -6505,6 +7149,12 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 PriceBarChartGraphicsView.ToolMode['TextTool']:
 
             self.log.debug("Current toolMode is: TextTool")
+            super().mouseReleaseEvent(qmouseevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['PriceTimeInfoTool']:
+
+            self.log.debug("Current toolMode is: PriceTimeInfoTool")
             super().mouseReleaseEvent(qmouseevent)
 
         else:
@@ -6595,6 +7245,11 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
             super().mouseMoveEvent(qmouseevent)
 
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['PriceTimeInfoTool']:
+
+            super().mouseMoveEvent(qmouseevent)
+
         else:
             # For any other mode we don't have specific functionality for,
             # just pass the event to the parent to handle.
@@ -6647,6 +7302,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
             self.setCursor(QCursor(Qt.ArrowCursor))
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['TextTool']:
+            self.setCursor(QCursor(Qt.ArrowCursor))
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['PriceTimeInfoTool']:
             self.setCursor(QCursor(Qt.ArrowCursor))
         else:
             self.log.warn("Unknown toolMode while in enterEvent().")

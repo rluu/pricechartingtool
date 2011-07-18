@@ -83,11 +83,51 @@ DONE           - setting for text font size. (of this one scale)
 DONE
 DONE  - QGraphicsItem for text on a PriceBarChart.
 
-  - May need to update scaling to be able to calculate or adjust for
-    square root of price and time.
+  - Use 'snap' enabled flag for time measurement, price measurement and ptv.
+      - Note it is already used for pricetimeinfo tool, but needs to be moved from just being in this tool mode to being a global flag in the graphicsview.  Make sure it doesn't get cleared between shifting to different tool modes.
 
-    - Also may need to account for time and price chance (elapsed)
-      from birth time.
+  - Update scaling class to be able to calculate the following (using scaling):
+
+      - Distance between two points:
+            - Between points: Constant price, varying time.
+            - Between points: Constant time, varying price.
+            - Between points: Varying price and time.
+      - Square root of distance between two points:
+            - Between points: Constant price, varying time.
+            - Between points: Constant time, varying price.
+            - Between points: Varying price and time.
+
+      - Return the amount of time elapsed since birth?
+      - Return the amount of price change since birth?
+
+  - PriceTimeInfo  tool.
+
+       - Click near a bar, draws a dotted line to the bar (either to
+         the top or bottom of the pricebar).  The other end of the
+         dotted line is a TextGraphicsItem that has info about the
+         following:
+
+	  - Shows the timestamp of the this bar.
+
+	  - Price at the top or bottom of the bar, depending on where
+            the user clicked closest to.
+	  - Shows square root of price.   
+          - Shows time elapsed since birth?  (Scaling needed)
+          - Shows square root of time elapsed since birth?  (Scaling needed)
+
+       - TODO:  Update pricebarchart.py for this item and tool.
+
+  - Add Price Measurement tool.  Include square root of price
+    difference?  Include option to display text of sqrt of price or not.
+
+     - Things to think about: 
+
+        - Here we are assuming price is always in the correct
+          units for scaling?
+
+  - Update the Time Measurement tool to include months.
+     - Add option to display text of various things.
+     - Also include calculation for square root of time elapsed.
 
   - Octave fan (which is a more general Gann fan).
      - Defined by origin and other 2 points.

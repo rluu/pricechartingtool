@@ -70,6 +70,20 @@ Steps to run the software:
 
 ##############################################################################
 
+Shortcut keys:
+
+Modal Scale Tool:
+  - Key_S: Rotate the modal scale left.
+  - Key_G: Rotate the modal scale right.
+  - Key_R: Reverse the direction of the modal scale.
+
+Price Time Info:
+  - Key_Q: Turn snap mode on.
+  - Key_W: Turn snap mode off.
+
+
+##############################################################################
+
 Directory contents:
 
 pricechartingtool
