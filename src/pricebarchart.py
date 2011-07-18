@@ -8,6 +8,9 @@ import logging
 # For dynamically adding methods to instances.
 import types
 
+# For calculating square roots and other calculations.
+import math
+
 # For timestamps and timezone information.
 import datetime
 import pytz
@@ -4093,6 +4096,9 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Internal storage object, used for loading/saving (serialization).
         self.artifact = PriceBarChartPriceTimeInfoArtifact()
 
+        # Convert object.
+        self.convertObj = None
+        
         # BirthInfo object that holds information about the birth of
         # this trading entity.  This is used so we can determine
         # amount of time elapsed since birth.
@@ -4122,10 +4128,19 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Apply some size scaling to the text.
         textTransform = QTransform()
-        textTransform.scale(self.artifact.getPriceTimeInfoXScaling(), \
-                            self.artifact.getPriceTimeInfoYScaling())
+        textTransform.scale(self.artifact.getTextXScaling(), \
+                            self.artifact.getTextYScaling())
         self.textItem.setTransform(textTransform)
 
+    def setConvertObj(self, convertObj):
+        """Object for doing conversions from x and datetime and y to
+        price.  This should be the graphics scene.  This is used
+        because sometimes we want to be able to do conversions and
+        stuff before we even add the item to the scene.
+        """
+
+        self.convertObj = convertObj
+        
     def setBirthInfo(self, birthInfo):
         """Sets the internal BirthInfo object so that time elapsed
         from birth can be calculated.
@@ -4133,12 +4148,23 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.birthInfo = birthInfo
 
+        # Update the text according to what's in infoPointF and birthInfo.
+        self._updateText()
+        self.update()
+        
     def getBirthInfo(self):
         """Returns the internal BirthInfo object.
         """
 
         return self.birthInfo
 
+    def setInfoPointF(self, infoPointF):
+        """Sets the infoPointF used in this QGraphicsItem.  Also
+        updates the artifact accordingly.
+        """
+
+        self.artifact.setInfoPointF(infoPointF)
+    
     def setArtifact(self, artifact):
         """Loads a given PriceBarChartPriceTimeInfoArtifact object's data
         into this QGraphicsPriceTimeInfoItem.
@@ -4162,45 +4188,9 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # in self.artifact.
             self.setPos(self.artifact.getPos())
 
-            # Set the text according to various flags in the artifact.
-            # Internal QGraphicsItem that holds the text.
-            # Initialize to blank and set at the end point.
-            infoPointF = self.artifact.getInfoPointF()
-            dt = self.scene().sceneXPosToDatetime(infoPointF.x())
-            price = self.scene().sceneYPosToPrice(infopointF.y())
-
-            text = ""
+            # Update the text according to what's in infoPointF and birthInfo.
+            self._updateText()
             
-            if self.artifact.getShowTimestampFlag():
-                text += "t={}".format(Ephemeris.datetimeToDayStr(dt)) + \
-                        os.linesep
-            if self.artifact.getShowPriceFlag():
-                text += "price={}".format(price) + os.linesep
-            if self.artifact.getShowSqrtOfPriceFlag():
-                text += "sqrt(price)={}".format(math.sqrt(price)) + os.linesep
-            if self.artifact.getShowTimeElapsedSinceBirth():
-                if self.birthInfo != None:
-                    # Get the birth timestamp and convert to X coordinate.
-                    birthDtUtc = self.birthInfo.getBirthUtcDatetime()
-                    birthX = self.scene().datetimeToSceneXPos(birthDtUtc)
-
-                    # Find the difference between the info points and birthX
-                    xDiff = infoPointF.x() - birthX
-                    
-                    text += "elapsed_t=={}".format(xDiff) + os.linesep
-            if self.artifact.getShowSqrtOfTimeElapsedSinceBirth():
-                if self.birthInfo != None:
-                    # Get the birth timestamp and convert to X coordinate.
-                    birthDtUtc = self.birthInfo.getBirthUtcDatetime()
-                    birthX = self.scene().datetimeToSceneXPos(birthDtUtc)
-
-                    # Find the difference between the info points and birthX
-                    xDiff = infoPointF.x() - birthX
-                    
-                    text += "sqrt(elapsed_t)=={}".format(math.sqrt(xDiff)) + \
-                            os.linesep
-            self.textItem.setText(text)
-
             # Set the font of the text.
             self.textItemFont = self.artifact.getFont()
             self.textItem.setFont(self.textItemFont)
@@ -4220,16 +4210,76 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
             # Apply some size scaling to the text.
             self.textTransform = QTransform()
-            self.textTransform.scale(self.artifact.getPriceTimeInfoXScaling(), \
-                                     self.artifact.getPriceTimeInfoYScaling())
+            self.textTransform.scale(self.artifact.getTextXScaling(), \
+                                     self.artifact.getTextYScaling())
             self.textItem.setTransform(self.textTransform)
 
+            self.update()
         else:
             raise TypeError("Expected artifact type: " +
                             "PriceBarChartPriceTimeInfoArtifact")
     
         self.log.debug("Exiting setArtifact()")
 
+    def _updateText(self):
+        """Updates the text based on what is in the artifact.
+        """
+
+        # This object needs either the self.convertObj set, or the
+        # parent graphicsscene set or else it won't have the capacity
+        # to do price and datetime conversions to coordinates.
+        if self.convertObj == None:
+            if self.scene() == None:
+                self.log.debug("_updateText(): Not able to update the text " +
+                               "because QGraphicsScene for unit conversions " +
+                               "was not set (or the item wasn't added to a " +
+                               "qgraphicsscene yet")
+                self.textItem.setText("INVALID")
+                return
+            else:
+                self.convertObj = self.scene()
+        
+        # Set the text according to various flags in the artifact.
+        # Internal QGraphicsItem that holds the text.
+        # Initialize to blank and set at the end point.
+        infoPointF = self.artifact.getInfoPointF()
+        dt = self.convertObj.sceneXPosToDatetime(infoPointF.x())
+        price = self.convertObj.sceneYPosToPrice(infoPointF.y())
+
+        text = ""
+
+        if self.artifact.getShowTimestampFlag():
+            text += "t={}".format(Ephemeris.datetimeToDayStr(dt)) + \
+                    os.linesep
+        if self.artifact.getShowPriceFlag():
+            text += "price={}".format(price) + os.linesep
+        if self.artifact.getShowSqrtOfPriceFlag():
+            text += "sqrt(price)={}".format(math.sqrt(price)) + os.linesep
+        if self.artifact.getShowTimeElapsedSinceBirthFlag():
+            if self.birthInfo != None:
+                # Get the birth timestamp and convert to X coordinate.
+                birthDtUtc = self.birthInfo.getBirthUtcDatetime()
+                birthX = self.convertObj.datetimeToSceneXPos(birthDtUtc)
+
+                # Find the difference between the info points and birthX
+                xDiff = infoPointF.x() - birthX
+
+                text += "elapsed_t=={}".format(xDiff) + os.linesep
+        if self.artifact.getShowSqrtOfTimeElapsedSinceBirthFlag():
+            if self.birthInfo != None:
+                # Get the birth timestamp and convert to X coordinate.
+                birthDtUtc = self.birthInfo.getBirthUtcDatetime()
+                birthX = self.convertObj.datetimeToSceneXPos(birthDtUtc)
+
+                # Find the difference between the info points and birthX
+                xDiff = infoPointF.x() - birthX
+
+                text += "sqrt(elapsed_t)=={}".format(math.sqrt(xDiff)) + \
+                        os.linesep
+                
+        self.textItem.setText(text)
+        self.prepareGeometryChange()
+        
     def getArtifact(self):
         """Returns a PriceBarChartPriceTimeInfoArtifact for this QGraphicsItem 
         so that it may be pickled.
@@ -4298,7 +4348,34 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # No settings.
         pass
-    
+
+    def setTextLabelEdgeYLocation(self, y):
+        """Sets the y location of the edge of the box that is the text
+        graphics item.
+
+        Arguments:
+        y - float value for the y position of the edge of the box.
+        """
+
+        artifact = self.getArtifact()
+        infoPointF = artifact.getInfoPointF()
+        textBoundingRect = self.textItem.boundingRect().normalized()
+        
+        if y > infoPointF.y():
+            # Below.
+            posX = infoPointF.x() - (textBoundingRect.width() * 0.5)
+            posY = y
+            pos = QPointF(posX, posY)
+            self.setPos(pos)
+        else:
+            # Above
+            posX = infoPointF.x() - (textBoundingRect.width() * 0.5)
+            posY = y - textBoundingRect.height()
+            pos = QPointF(posX, posY)
+            self.setPos(pos)
+
+        self.update()
+        
     def setPos(self, pos):
         """Overwrites the QGraphicsItem setPos() function.
 
@@ -4316,18 +4393,21 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # this (0, 0) point.
 
         textItemBoundingRect = self.textItem.boundingRect()
-
+        
         # Here we need to scale the bounding rect so that
         # it takes into account the transform that we did.
         width = textItemBoundingRect.width()
         height = textItemBoundingRect.height()
 
         newWidth = width * self.textTransform.m11()
-        newHeight = height * self.textTransform.m22()
+        #newHeight = height * self.textTransform.m22()
+        
+        diffPointF = self.artifact.getInfoPointF() - self.pos()
+        newHeight = diffPointF.y()
 
         textItemBoundingRect.setWidth(newWidth)
         textItemBoundingRect.setHeight(newHeight)
-        
+
         return textItemBoundingRect.normalized()
 
     def shape(self):
@@ -4336,15 +4416,33 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         boundingRect = self.boundingRect()
-        
+
         infoPointF = self.artifact.getInfoPointF()
         diffPointF = infoPointF - self.pos()
+
+        points = []
         
-        points = [boundingRect.topLeft(),
-                  boundingRect.topRight(),
-                  boundingRect.bottomRight(),
-                  diffPointF,
-                  boundingRect.bottomLeft()]
+        # Need to determine where the infoPointF is located relative
+        # to the position, so we know which way to point the shape.
+        if diffPointF.y() > 0:
+            midPointF = QPointF(diffPointF.x(), boundingRect.height())
+            points = [boundingRect.topLeft(),
+                      boundingRect.topRight(),
+                      boundingRect.bottomRight(),
+                      midPointF,
+                      diffPointF,
+                      midPointF,
+                      boundingRect.bottomLeft()]
+        else:
+            midPointF = QPointF(diffPointF.x(), 0.0)
+            points = [boundingRect.topLeft(),
+                      midPointF,
+                      diffPointF,
+                      midPointF,
+                      boundingRect.topRight(),
+                      boundingRect.bottomRight(),
+                      boundingRect.bottomLeft()]
+            
         polygon = QPolygonF(points)
 
         painterPath = QPainterPath()
@@ -4366,7 +4464,7 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
             
             penWidth = 0.0
 
-            fgcolor = option.palette.windowPriceTimeInfo().color()
+            fgcolor = option.palette.windowText().color()
             
             # Ensure good contrast against fgcolor.
             r = 255
@@ -4510,7 +4608,6 @@ class PriceBarChartWidget(QWidget):
     tools.
     """
 
-
     # Signal emitted when the PriceBarChartWidget changes.
     # 
     # Possible changes to the widget that will trigger this include: 
@@ -4526,6 +4623,9 @@ class PriceBarChartWidget(QWidget):
     # Signal emitted when current timestamp of where the mouse is changes.
     currentTimestampChanged = QtCore.pyqtSignal(datetime.datetime)
 
+    # Signal emitted when a status message should be printed.
+    statusMessageUpdate = QtCore.pyqtSignal(str)
+    
     # Signal emitted when the user desires to change astro chart 1.
     astroChart1Update = QtCore.pyqtSignal(datetime.datetime)
     
@@ -4652,6 +4752,8 @@ class PriceBarChartWidget(QWidget):
         # Connect signals and slots.
         self.graphicsView.mouseLocationUpdate.\
             connect(self._handleMouseLocationUpdate)
+        self.graphicsView.statusMessageUpdate.\
+            connect(self.statusMessageUpdate)
         self.graphicsScene.priceBarChartChanged.\
             connect(self.priceBarChartChanged)
         self.graphicsScene.selectionChanged.\
@@ -4667,6 +4769,18 @@ class PriceBarChartWidget(QWidget):
         
         self.log.debug("Leaving __init__()")
 
+    def setBirthInfo(self, birthInfo):
+        """Sets the birth info for this trading entity.
+        
+        Arguments:
+
+        birthInfo - BirthInfo object.
+        """
+
+        # Pass the information to the graphics scene.  If graphics
+        # items need it, it will get it from there.
+        self.graphicsScene.setBirthInfo(birthInfo)
+        
     def setTimezone(self, timezone):
         """Sets the timezone used.  This is used for converting mouse
         X location to a datetime.datetime object.
@@ -5025,9 +5139,20 @@ class PriceBarChartWidget(QWidget):
                 newItem = PriceTimeInfoGraphicsItem()
                 newItem.loadSettingsFromPriceBarChartSettings(\
                     self.priceBarChartSettings)
+
+                # Set the conversion object as the scene so that it
+                # can do initial calculations for the text to display.
+                newItem.setConvertObj(self.graphicsScene)
+
+                # Set the artifact offically so that it can update the text.
                 newItem.setArtifact(artifact)
 
-                # Add the item.
+                # Set the birthInfo in the new item.  This will again
+                # trigger a text update.
+                birthInfo = self.graphicsScene.getBirthInfo()
+                newItem.setBirthInfo(birthInfo)
+                
+                # Add the item to the graphics scene.
                 self.graphicsScene.addItem(newItem)
                 
                 # Make sure the proper flags are set for the mode we're in.
@@ -5417,6 +5542,10 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
 
         super().__init__(parent)
 
+        # Holds the BirthInfo object.  This is used in calculating
+        # information related to astrology.
+        self.birthInfo = None
+        
         # Holds the timezone as a datetime.tzinfo object.  This is
         # used in conversions of scene position X value to
         # datetime.datetime.
@@ -5429,6 +5558,34 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         self.priceBarChartArtifactGraphicsItemRemoved.\
             connect(self.priceBarChartChanged)
 
+    def setBirthInfo(self, birthInfo):
+        """Sets the birth info for this trading entity.
+        
+        Arguments:
+
+        birthInfo - BirthInfo object.
+        """
+
+        self.birthInfo = birthInfo
+
+        # Go through all the current items, and for every time that
+        # needs a current BirthInfo, then set the birthInfo in that
+        # item.
+
+        graphicsItems = self.items()
+        for item in graphicsItems:
+            if isinstance(item, PriceTimeInfoGraphicsItem):
+                # Setting birthInfo on this object will cause the
+                # whole widget to update it's internal text and info
+                # accordingly.
+                item.setBirthInfo(self.birthInfo)
+
+    def getBirthInfo(self):
+        """Returns the birthInfo for this trading entity as a BirthInfo object.
+        """
+
+        return self.birthInfo
+    
     def setTimezone(self, timezone):
         """Sets the timezone used.  This is used for converting mouse
         X location to a datetime.datetime object.
@@ -5667,6 +5824,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
     # The position emitted is in QGraphicsScene x, y, float coordinates.
     mouseLocationUpdate = QtCore.pyqtSignal(float, float)
 
+    # Signal emitted when a status message should be printed.
+    statusMessageUpdate = QtCore.pyqtSignal(str)
+    
     def __init__(self, parent=None):
         """Pass-through to the QGraphicsView constructor."""
 
@@ -6139,6 +6299,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
             self.setDragMode(QGraphicsView.NoDrag)
 
             # Clear out internal working variables.
+            self.clickOnePointF = None
+            self.clickTwoPointF = None
             self.priceTimeInfoGraphicsItem = None
 
             scene = self.scene()
@@ -6384,13 +6546,16 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     if isinstance(item, ModalScaleGraphicsItem):
                         if qkeyevent.key() == Qt.Key_S:
                             item.rotateUp()
-                            # TODO:  emit a status message.
+                            self.statusMessageUpdate.emit(\
+                                "ModalScaleGraphicsItem rotated UP")
                         elif qkeyevent.key() == Qt.Key_G:
                             item.rotateDown()
-                            # TODO:  emit a status message.
+                            self.statusMessageUpdate.emit(\
+                                "ModalScaleGraphicsItem rotated DOWN")
                         elif qkeyevent.key() == Qt.Key_R:
                             item.reverse()
-                            # TODO:  emit a status message.
+                            self.statusMessageUpdate.emit(\
+                                "ModalScaleGraphicsItem reversed")
 
                 # Pass the key event upwards in case it applies to
                 # something else (like a parent widget).
@@ -6486,17 +6651,19 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 if self.priceTimeInfoGraphicsItem != None:
                     self.scene().removeItem(self.priceTimeInfoGraphicsItem)
 
+                self.clickOnePointF = None
+                self.clickTwoPointF = None
                 self.priceTimeInfoGraphicsItem = None
             elif qkeyevent.key() == Qt.Key_Q:
                 # Turn on snap functionality.
                 self.snapEnabledFlag = True
                 self.log.debug("Snap mode enabled.")
-                # TODO:  emit a status message.
+                self.statusMessageUpdate.emit("Snap mode enabled")
             elif qkeyevent.key() == Qt.Key_W:
                 # Turn off snap functionality.
                 self.snapEnabledFlag = False
                 self.log.debug("Snap mode disabled.")
-                # TODO:  emit a status message.
+                self.statusMessageUpdate.emit("Snap mode disabled")
             else:
                 super().keyPressEvent(qkeyevent)
 
@@ -7005,74 +7172,127 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
             if qmouseevent.button() & Qt.LeftButton:
                 self.log.debug("Qt.LeftButton")
-                # TODO: turn this into a 2-point click creation.
-                # First click sets the position and everything.
-                # Second click confirms the polarity from which to
-                # draw this item.
+
+                if self.clickOnePointF == None:
+                    
+                    self.log.debug("clickOnePointF is None.")
+
+                    self.clickOnePointF = self.mapToScene(qmouseevent.pos())
+
+                    # First click sets the position and everything.
+                    # Assumes that the text is above the point.
         
-                # Create the PriceTimeInfoGraphicsItem
-                self.priceTimeInfoGraphicsItem = PriceTimeInfoGraphicsItem()
-                self.priceTimeInfoGraphicsItem.\
-                    loadSettingsFromPriceBarChartSettings(\
-                    self.priceBarChartSettings)
+                    # Create the PriceTimeInfoGraphicsItem
+                    self.priceTimeInfoGraphicsItem = PriceTimeInfoGraphicsItem()
+                    self.priceTimeInfoGraphicsItem.\
+                        loadSettingsFromPriceBarChartSettings(\
+                        self.priceBarChartSettings)
 
-                # Set the BirthInfo.
-                # TODO: set the birth info below.
-                self.priceTimeInfoGraphicsItem.setBirthInfo()
-        
-                # Location of the graphics item.  This is calculated
-                # below, based on where the used clicked.
-                pos = QPointF()
+                    # Set the conversion object as the scene so that it
+                    # can do initial calculations for the text to display.
+                    self.priceTimeInfoGraphicsItem.\
+                        setConvertObj(self.scene())
+                    
+                    # Location of the graphics item.  This is calculated
+                    # below, based on where the used clicked.
+                    pos = QPointF()
                 
-                # If snap is enabled, then find the closest high, low,
-                # open or close QPointF to the place clicked.
-                infoPointF = self.mapToScene(qmouseevent.pos())
-                if self.snapEnabledFlag == True:
-                    # Find if there is a point closer to this
-                    # infoPointF related to a PriceBarGraphicsItem.
-                    barPoint = \
-                        self.scene().getClosestPriceBarOHLCPoint(infoPointF)
+                    # If snap is enabled, then find the closest high, low,
+                    # open or close QPointF to the place clicked.
+                    infoPointF = self.mapToScene(qmouseevent.pos())
+                    if self.snapEnabledFlag == True:
+                        # Find if there is a point closer to this
+                        # infoPointF related to a PriceBarGraphicsItem.
+                        barPoint = \
+                            self.scene().getClosestPriceBarOHLCPoint(infoPointF)
 
-                    # If a point was found, then use it as the info point.
-                    if barPoint != None:
-                        infoPointF = barPoint
+                        # If a point was found, then use it as the info point.
+                        if barPoint != None:
+                            infoPointF = barPoint
+                            
+                            # Set this also as the first click point,
+                            # as if the user clicked perfectly.
+                            self.clickOnePointF = infoPointF
 
-                # Get and modify the artifact.
-                artifact = self.priceTimeInfoGraphicsItem.getArtifact()
-                artifact.setPos(QPointF())
-                artifact.setInfoPointF(infoPointF)
+                    # Get and modify the artifact.
+                    artifact = self.priceTimeInfoGraphicsItem.getArtifact()
+                    artifact.setInfoPointF(infoPointF)
 
-                # Now set the artifact again so we can get an updated
-                # boundingRect size.
-                self.priceTimeInfoGraphicsItem.setArtifact(artifact)
-                boundingRect = self.priceTimeInfoGraphicsItem.boundingRect()
+                    # Now set the artifact again so we can get an updated
+                    # boundingRect size.
+                    self.priceTimeInfoGraphicsItem.setArtifact(artifact)
+                    boundingRect = self.priceTimeInfoGraphicsItem.boundingRect()
 
-                posX = infoPointF.x() - (boundingRect.width() * 0.5)
-                posY = infoPointF.y() - \
-                    (POLARITY_UP_DOWN * (boundingRect.height() + MINOR_OFFSET))
-                pos = QPointF(posX, posY)
-                
-                # Based off of the size of the text graphics item,
-                # calculate the position of this item relative to the
-                # info reference point calculated above.
-                
-                # Set the info position to this point.
-                self.priceTimeInfoGraphicsItem.setInfoPointF(infoPointF)
+                    # Determine what y pos would be for this new item,
+                    # assuming the text will be above the infoPointF.
+                    self.priceTimeInfoGraphicsItem.\
+                        setTextLabelEdgeYLocation(infoPointF.y())
 
-                # Set the position of the graphics item.
-                self.priceTimeInfoGraphicsItem.setPos(pos)
+                    # Set the BirthInfo.
+                    birthInfo = self.scene().getBirthInfo()
+                    self.priceTimeInfoGraphicsItem.setBirthInfo(birthInfo)
+                    
+                    # Add the item to the scene.
+                    self.scene().addItem(self.priceTimeInfoGraphicsItem)
+                    
+                elif self.clickOnePointF != None and \
+                       self.clickTwoPointF == None and \
+                       self.priceTimeInfoGraphicsItem != None:
 
-                # Clear out the graphics item variable since setting
-                # this item doesn't require 2 clicks.
-                self.priceTimeInfoGraphicsItem = None
-                
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "priceTimeInfoGraphicsItem != None.")
+                    
+                    self.clickTwoPointF = self.mapToScene(qmouseevent.pos())
+                    
+                    # Set the position of the item by calling the set
+                    # function for the Y location of the edge of the
+                    # text.
+                    posY = self.clickTwoPointF.y()
+                    self.priceTimeInfoGraphicsItem.\
+                        setTextLabelEdgeYLocation(posY)
+                    
+                    # Done settings values, so clear out working variables.
+                    self.clickOnePointF = None
+                    self.clickTwoPointF = None
+                    self.priceTimeInfoGraphicsItem = None
+                    
             elif qmouseevent.button() & Qt.RightButton:
                 self.log.debug("Qt.RightButton")
                 
-                # Open a context menu at this location, in readonly mode.
-                clickPosF = self.mapToScene(qmouseevent.pos())
-                menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
-                menu.exec_(qmouseevent.globalPos())
+                if self.clickOnePointF != None and \
+                   self.clickTwoPointF == None and \
+                   self.priceTimeInfoGraphicsItem != None:
+
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "priceTimeInfoGraphicsItem != None.")
+                    
+                    # Right-click during setting the priceTimeInfoGraphicsItem
+                    # causes the currently edited item to be
+                    # removed and cleared out.  Temporary variables used
+                    # are cleared out too.
+                    self.scene().removeItem(self.priceTimeInfoGraphicsItem)
+
+                    self.clickOnePointF = None
+                    self.clickTwoPointF = None
+                    self.priceTimeInfoGraphicsItem = None
+                    
+                elif self.clickOnePointF == None and \
+                     self.clickTwoPointF == None and \
+                     self.priceTimeInfoGraphicsItem == None:
+                    
+                    self.log.debug("clickOnePointF == None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "priceTimeInfoGraphicsItem == None.")
+                    
+                    # Open a context menu at this location, in readonly mode.
+                    clickPosF = self.mapToScene(qmouseevent.pos())
+                    menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
+                    menu.exec_(qmouseevent.globalPos())
+                    
+                else:
+                    self.log.warn("Unexpected state reached.")
         else:
             self.log.warn("Current toolMode is: UNKNOWN.")
 
@@ -7248,7 +7468,18 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PriceTimeInfoTool']:
 
-            super().mouseMoveEvent(qmouseevent)
+            if self.clickOnePointF != None and \
+                self.priceTimeInfoGraphicsItem != None:
+
+                pos = self.mapToScene(qmouseevent.pos())
+                
+                # Set the position of the item by calling the set
+                # function for the Y location of the edge of the
+                # text.
+                posY = pos.y()
+                self.priceTimeInfoGraphicsItem.setTextLabelEdgeYLocation(posY)
+            else:
+                super().mouseMoveEvent(qmouseevent)
 
         else:
             # For any other mode we don't have specific functionality for,

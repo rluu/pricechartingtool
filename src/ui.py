@@ -1385,7 +1385,8 @@ class PriceChartDocument(QMdiSubWindow):
         # Connect signals and slots.
         self.widgets.priceChartDocumentWidgetChanged.\
             connect(self._handlePriceChartDocumentWidgetChanged)
-
+        self.widgets.statusMessageUpdate.\
+            connect(self.statusMessageUpdate)
         self.log.debug("Exiting PriceChartDocument()")
 
     def picklePriceChartDocumentDataToFile(self, filename):
@@ -2043,6 +2044,9 @@ class PriceChartDocumentWidget(QWidget):
     # settings object for that widget.
     priceChartDocumentWidgetChanged = QtCore.pyqtSignal()
 
+    # Signal emitted when a status message should be printed.
+    statusMessageUpdate = QtCore.pyqtSignal(str)
+    
     def __init__(self, parent=None):
         super().__init__(parent)
         self.log = logging.getLogger("ui.PriceChartDocumentWidget")
@@ -2074,7 +2078,9 @@ class PriceChartDocumentWidget(QWidget):
         # Connect signals and slots.
         self.priceBarChartWidget.priceBarChartChanged.\
             connect(self._handleWidgetChanged)
-        
+        self.priceBarChartWidget.statusMessageUpdate.\
+            connect(self.statusMessageUpdate)
+                                   
         # TODO:  Uncomment to re-add the PlanetaryInfoTableWidget.
         #self.priceBarChartWidget.currentTimestampChanged.\
         #    connect(self._handleCurrentTimestampChanged)
@@ -2093,6 +2099,9 @@ class PriceChartDocumentWidget(QWidget):
         """
 
         self.birthInfo = birthInfo
+
+        # Give the self.priceBarChartWidget the birth time as well.
+        self.priceBarChartWidget.setBirthInfo(self.birthInfo)
 
     def setDescriptionText(self, text):
         """Sets the description text of this PriceChartDocument.

@@ -1670,8 +1670,8 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
         self.showTimestampFlag = True
         self.showPriceFlag = True
         self.showSqrtOfPriceFlag = True
-        self.showTimeElapsedSinceBirth = True
-        self.showSqrtOfTimeElapsedSinceBirth = True
+        self.showTimeElapsedSinceBirthFlag = True
+        self.showSqrtOfTimeElapsedSinceBirthFlag = True
         
         # QFont cannot be pickled, but we can utilize
         # QFont.toString() and then QFont.fromString()
@@ -1855,7 +1855,15 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
 
         rv = "[name={}, ".format(self.getInternalName()) + \
              "pos=({}, {}), ".format(self.getPos().x(), self.getPos().y()) + \
-             "text='{}', ".format(self.text) + \
+             "infoPointF=({}, {}), ".\
+             format(self.infoPointF.x(), self.infoPointF.y()) + \
+             "showTimestampFlag={}, ".format(self.showTimestampFlag) + \
+             "showPriceFlag={}, ".format(self.showPriceFlag) + \
+             "showSqrtOfPriceFlag={}, ".format(self.showSqrtOfPriceFlag) + \
+             "showTimeElapsedSinceBirthFlag={}, ".\
+             format(self.showTimeElapsedSinceBirthFlag) + \
+             "showSqrtOfTimeElapsedSinceBirthFlag={}, ".\
+             format(self.showSqrtOfTimeElapsedSinceBirthFlag) + \
              "fontDescription='{}', ".format(self.fontDescription) + \
              "color={}, ".format(self.color) + \
              "textXScaling={}, ".format(self.textXScaling) + \
