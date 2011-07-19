@@ -2536,11 +2536,11 @@ class PriceBarChartPriceTimeInfoArtifactEditWidget(QWidget):
         self.internalNameLineEdit.setReadOnly(True)
         self.uuidLineEdit.setReadOnly(True)
         self.priceLocationValueSpinBox.setEnabled(not self.readOnlyFlag)
-        self.datetimeLocationWidget.setReadOnly(not self.readOnlyFlag)
+        self.datetimeLocationWidget.setReadOnly(self.readOnlyFlag)
         self.priceTimeInfoPointPriceLocationValueSpinBox.\
             setEnabled(not self.readOnlyFlag)
         self.priceTimeInfoPointDatetimeLocationWidget.\
-            setReadOnly(not self.readOnlyFlag)
+            setReadOnly(self.readOnlyFlag)
         self.showTimestampCheckBox.setEnabled(not self.readOnlyFlag)
         self.showPriceCheckBox.setEnabled(not self.readOnlyFlag)
         self.showSqrtOfPriceCheckBox.setEnabled(not self.readOnlyFlag)
@@ -2701,11 +2701,11 @@ class PriceBarChartPriceTimeInfoArtifactEditWidget(QWidget):
         else:
             showPriceFlag = False
 
-        setShowSqrtOfPriceFlag = None
+        showSqrtOfPriceFlag = None
         if self.showSqrtOfPriceCheckBox.checkState() == Qt.Checked:
-            setShowSqrtOfPriceFlag = True
+            showSqrtOfPriceFlag = True
         else:
-            setShowSqrtOfPriceFlag = False
+            showSqrtOfPriceFlag = False
 
         showTimeElapsedSinceBirthFlag = None
         if self.showTimeElapsedSinceBirthCheckBox.checkState() == Qt.Checked:
@@ -2732,10 +2732,9 @@ class PriceBarChartPriceTimeInfoArtifactEditWidget(QWidget):
         
         # Set the values in the artifact.
         self.artifact.setPos(posF)
-        self.artifact.setText(text)
         self.artifact.setShowTimestampFlag(showTimestampFlag)
         self.artifact.setShowPriceFlag(showPriceFlag)
-        self.artifact.setShowSqrtOfPriceFlag(showSqrtOfPriceCheckBox)
+        self.artifact.setShowSqrtOfPriceFlag(showSqrtOfPriceFlag)
         self.artifact.setShowTimeElapsedSinceBirthFlag(\
             showTimeElapsedSinceBirthFlag)
         self.artifact.setShowSqrtOfTimeElapsedSinceBirthFlag(\

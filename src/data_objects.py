@@ -2342,33 +2342,33 @@ class PriceBarChartSettings:
     # serialized to str) for the TextGraphicsItem.  This includes the
     # font size.
     font = QFont("DejaVu Sans Mono")
-    font.setPointSizeF(1.20)
+    font.setPointSizeF(6)
     defaultTextGraphicsItemDefaultFontDescription = font.toString()
 
     # Default font color for the TextGraphicsItem.
     defaultTextGraphicsItemDefaultColor = QColor(Qt.black)
     
     # Default text X scaling for the TextGraphicsItem.
-    defaultTextGraphicsItemDefaultXScaling = 0.5
+    defaultTextGraphicsItemDefaultXScaling = 0.2
     
     # Default text Y scaling for the TextGraphicsItem.
-    defaultTextGraphicsItemDefaultYScaling = 0.1
+    defaultTextGraphicsItemDefaultYScaling = 0.04
     
     # Default font description text (this is basically the QFont,
     # serialized to str) for the PriceTimeInfoGraphicsItem.  This
     # includes the font size.
     font = QFont("DejaVu Sans Mono")
-    font.setPointSizeF(1.20)
+    font.setPointSizeF(6)
     defaultPriceTimeInfoGraphicsItemDefaultFontDescription = font.toString()
 
     # Default font color for the PriceTimeInfoGraphicsItem.
     defaultPriceTimeInfoGraphicsItemDefaultColor = QColor(Qt.black)
     
     # Default text X scaling for the PriceTimeInfoGraphicsItem.
-    defaultPriceTimeInfoGraphicsItemDefaultXScaling = 0.5
+    defaultPriceTimeInfoGraphicsItemDefaultXScaling = 0.2
     
     # Default text Y scaling for the PriceTimeInfoGraphicsItem.
-    defaultPriceTimeInfoGraphicsItemDefaultYScaling = 0.1
+    defaultPriceTimeInfoGraphicsItemDefaultYScaling = 0.04
     
 
     def __init__(self):

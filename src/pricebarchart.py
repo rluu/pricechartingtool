@@ -1992,11 +1992,24 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.timeMeasurementCDText.setTransform(textTransform)
         self.timeMeasurementWeeksText.setTransform(textTransform)
 
+        # Flag that indicates that verical dotted lines should be drawn.
+        self.drawVerticalDottedLinesFlag = False
+        
         # Flags that indicate that the user is dragging either the start
         # or end point of the QGraphicsItem.
         self.draggingStartPointFlag = False
         self.draggingEndPointFlag = False
         self.clickScenePointF = None
+        
+    def setDrawVerticalDottedLinesFlag(self, flag):
+        """If flag is set to true, then the vertical dotted lines are drawn.
+        """
+
+        self.drawVerticalDottedLinesFlag = flag
+
+        # Need to call this because the bounding box is updated with
+        # all the extra vertical lines being drawn.
+        self.prepareGeometryChange()
         
     def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings):
         """Reads some of the parameters/settings of this
@@ -2532,6 +2545,83 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Get the QRectF with just the lines.
         xDelta = self.endPointF.x() - self.startPointF.x()
+
+        topLeft = \
+            QPointF(0.0, -1.0 *
+                    (self.timeMeasurementGraphicsItemBarHeight / 2.0))
+        
+        bottomRight = \
+            QPointF(xDelta, 1.0 *
+                    (self.timeMeasurementGraphicsItemBarHeight / 2.0))
+
+        # Initalize to the above boundaries.  We will set them below.
+        localHighY = topLeft.y()
+        localLowY = bottomRight.y()
+        if self.drawVerticalDottedLinesFlag or self.isSelected():
+            # Get the highest high, and lowest low PriceBar in local
+            # coordinates.
+            highestPrice = self.scene().getHighestPriceBar().high
+            highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
+            localHighY = \
+                       self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                
+            lowestPrice = self.scene().getLowestPriceBar().low
+            lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+            localLowY = \
+                      self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+
+        xValues = []
+        xValues.append(topLeft.x())
+        xValues.append(bottomRight.x())
+
+        yValues = []
+        yValues.append(topLeft.y())
+        yValues.append(bottomRight.y())
+        yValues.append(localHighY)
+        yValues.append(localLowY)
+        
+        # Find the smallest x and y.
+        smallestX = None
+        for x in xValues:
+            if smallestX == None:
+                smallestX = x
+            elif x < smallestX:
+                smallestX = x
+
+        smallestY = None
+        for y in yValues:
+            if smallestY == None:
+                smallestY = y
+            elif y < smallestY:
+                smallestY = y
+            
+        # Find the largest x and y.
+        largestX = None
+        for x in xValues:
+            if largestX == None:
+                largestX = x
+            elif x > largestX:
+                largestX = x
+
+        largestY = None
+        for y in yValues:
+            if largestY == None:
+                largestY = y
+            elif y > largestY:
+                largestY = y
+            
+        rv = QRectF(QPointF(smallestX, smallestY),
+                    QPointF(largestX, largestY))
+
+        return rv
+
+    def shape(self):
+        """Overwrites the QGraphicsItem.shape() function to return a
+        more accurate shape for collision detection, hit tests, etc.
+        """
+
+        # Get the QRectF with just the lines.
+        xDelta = self.endPointF.x() - self.startPointF.x()
         
         topLeft = \
             QPointF(0.0, -1.0 *
@@ -2540,11 +2630,14 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         bottomRight = \
             QPointF(xDelta, 1.0 *
                     (self.timeMeasurementGraphicsItemBarHeight / 2.0))
-        
+
         rectWithoutText = QRectF(topLeft, bottomRight)
 
-        return rectWithoutText
+        painterPath = QPainterPath()
+        painterPath.addRect(rectWithoutText)
 
+        return painterPath
+        
     def paint(self, painter, option, widget):
         """Paints this QGraphicsItem.  Assumes that self.pen is set
         to what we want for the drawing style.
@@ -2575,12 +2668,72 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         y2 = 0.0
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
+        # Draw vertical dotted lines at each enabled musicalRatio if
+        # the flag is set to do so, or if it is selected.
+        if self.drawVerticalDottedLinesFlag == True or \
+           option.state & QStyle.State_Selected:
+
+            if self.scene() != None:
+                pad = self.timeMeasurementPen.widthF() / 2.0;
+                penWidth = 0.0
+                fgcolor = option.palette.windowText().color()
+                # Ensure good contrast against fgcolor.
+                r = 255
+                g = 255
+                b = 255
+                if fgcolor.red() > 127:
+                    r = 0
+                if fgcolor.green() > 127:
+                    g = 0
+                if fgcolor.blue() > 127:
+                    b = 0
+                bgcolor = QColor(r, g, b)
+    
+                # Get the highest high, and lowest low PriceBar in local
+                # coordinates.
+                highestPrice = self.scene().getHighestPriceBar().high
+                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
+                localHighY = \
+                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                
+                lowestPrice = self.scene().getLowestPriceBar().low
+                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                localLowY = \
+                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                          
+
+                # Vertical line at the beginning.
+                localPosX = 0.0
+                startPoint = QPointF(localPosX, localHighY)
+                endPoint = QPointF(localPosX, localLowY)
+                        
+                painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+                painter.setBrush(Qt.NoBrush)
+                painter.drawLine(startPoint, endPoint)
+                
+                painter.setPen(QPen(option.palette.windowText(), 0,
+                                    Qt.DashLine))
+                painter.setBrush(Qt.NoBrush)
+                painter.drawLine(startPoint, endPoint)
+            
+                # Vertical line at the end.
+                localPosX = 0.0 + xDelta
+                startPoint = QPointF(localPosX, localHighY)
+                endPoint = QPointF(localPosX, localLowY)
+                        
+                painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+                painter.setBrush(Qt.NoBrush)
+                painter.drawLine(startPoint, endPoint)
+                
+                painter.setPen(QPen(option.palette.windowText(), 0,
+                                    Qt.DashLine))
+                painter.setBrush(Qt.NoBrush)
+                painter.drawLine(startPoint, endPoint)
+                
         # Draw the bounding rect if the item is selected.
         if option.state & QStyle.State_Selected:
             pad = self.timeMeasurementPen.widthF() / 2.0;
-            
             penWidth = 0.0
-
             fgcolor = option.palette.windowText().color()
             
             # Ensure good contrast against fgcolor.
@@ -2598,11 +2751,11 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             
             painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
             painter.setBrush(Qt.NoBrush)
-            painter.drawRect(self.boundingRect())
+            painter.drawPath(self.shape())
             
             painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
             painter.setBrush(Qt.NoBrush)
-            painter.drawRect(self.boundingRect())
+            painter.drawPath(self.shape())
 
     def appendActionsToContextMenu(self, menu, readOnlyMode=False):
         """Modifies the given QMenu object to update the title and add
@@ -2948,10 +3101,14 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.modalScaleTextBrush = self.dummyItem.brush()
         self.modalScaleTextBrush.setColor(self.modalScaleGraphicsItemTextColor)
 
+        # Degrees of text rotation.
+        self.rotationDegrees = 90.0
+        
         # Size scaling for the text.
         textTransform = QTransform()
         textTransform.scale(self.modalScaleTextXScaling, \
                             self.modalScaleTextYScaling)
+        textTransform.rotate(self.rotationDegrees)
         
         # Below is a 2-dimensional list of (3
         # QGraphicsSimpleTextItems), for each of the MusicalRatios in
@@ -3000,11 +3157,24 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
             self.verticalTickItems.append(verticalTickItem)
 
+        # Flag that indicates that verical dotted lines should be drawn.
+        self.drawVerticalDottedLinesFlag = False
+        
         # Flags that indicate that the user is dragging either the start
         # or end point of the QGraphicsItem.
         self.draggingStartPointFlag = False
         self.draggingEndPointFlag = False
         self.clickScenePointF = None
+
+    def setDrawVerticalDottedLinesFlag(self, flag):
+        """If flag is set to true, then the vertical dotted lines are drawn.
+        """
+
+        self.drawVerticalDottedLinesFlag = flag
+        
+        # Need to call this because the bounding box is updated with
+        # all the extra vertical lines being drawn.
+        self.prepareGeometryChange()
         
     def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings):
         """Reads some of the parameters/settings of this
@@ -3282,6 +3452,7 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 textTransform = QTransform()
                 textTransform.scale(self.modalScaleTextXScaling, \
                                     self.modalScaleTextYScaling)
+                textTransform.rotate(self.rotationDegrees)
                 
                 # Get the text items for this point on the scale.
                 listOfTextItems = self.musicalRatioTextItems[i]
@@ -3294,10 +3465,11 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     # but instead at an offset slightly below that
                     # point so that multiple texts dont' overlap
                     # each other.
-                    offsetY = \
-                        artifact.getModalScaleGraphicsItemBarHeight() * j
-                    textItem.setPos(QPointF(pointF.x(),
-                                            pointF.y() + offsetY))
+                    offsetX = (textItem.boundingRect().height() * 0.5) * j
+                    #offsetX = \
+                    #    artifact.getModalScaleGraphicsItemBarHeight() * j
+                    textItem.setPos(QPointF(pointF.x() - offsetX,
+                                            pointF.y()))
                     textItem.setFont(self.modalScaleTextFont)
                     textItem.setPen(self.modalScaleTextPen)
                     textItem.setBrush(self.modalScaleTextBrush)
@@ -3593,52 +3765,67 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         xBottomRight = 0.0 + xDelta
         yBottomRight = (-1.0 * (barHeight / 2.0)) + yDelta
 
+        # Get the highest high, and lowest low PriceBar in local
+        # coordinates.
+        highestPrice = self.scene().getHighestPriceBar().high
+        highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
+        localHighY = \
+            self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+
+        lowestPrice = self.scene().getLowestPriceBar().low
+        lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+        localLowY = \
+            self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                          
+
+        xValues = []
+        xValues.append(xTopLeft)
+        xValues.append(xBottomLeft)
+        xValues.append(xTopRight)
+        xValues.append(xBottomRight)
+
+        yValues = []
+        yValues.append(yTopLeft)
+        yValues.append(yBottomLeft)
+        yValues.append(yTopRight)
+        yValues.append(yBottomRight)
+        yValues.append(localHighY)
+        yValues.append(localLowY)
+        
         # Find the smallest x and y.
-        smallestX = xTopLeft
-        if xTopLeft < smallestX:
-            smallestX = xTopLeft
-        if xBottomLeft < smallestX:
-            smallestX = xBottomLeft
-        if xTopRight < smallestX:
-            smallestX = xTopRight
-        if xBottomRight < smallestX:
-            smallestX = xBottomRight
-            
-        smallestY = yTopLeft
-        if yTopLeft < smallestY:
-            smallestY = yTopLeft
-        if yBottomLeft < smallestY:
-            smallestY = yBottomLeft
-        if yTopRight < smallestY:
-            smallestY = yTopRight
-        if yBottomRight < smallestY:
-            smallestY = yBottomRight
+        smallestX = None
+        for x in xValues:
+            if smallestX == None:
+                smallestX = x
+            elif x < smallestX:
+                smallestX = x
+
+        smallestY = None
+        for y in yValues:
+            if smallestY == None:
+                smallestY = y
+            elif y < smallestY:
+                smallestY = y
             
         # Find the largest x and y.
-        largestX = xTopLeft
-        if xTopLeft > largestX:
-            largestX = xTopLeft
-        if xBottomLeft > largestX:
-            largestX = xBottomLeft
-        if xTopRight > largestX:
-            largestX = xTopRight
-        if xBottomRight > largestX:
-            largestX = xBottomRight
+        largestX = None
+        for x in xValues:
+            if largestX == None:
+                largestX = x
+            elif x > largestX:
+                largestX = x
+
+        largestY = None
+        for y in yValues:
+            if largestY == None:
+                largestY = y
+            elif y > largestY:
+                largestY = y
             
-        largestY = yTopLeft
-        if yTopLeft > largestY:
-            largestY = yTopLeft
-        if yBottomLeft > largestY:
-            largestY = yBottomLeft
-        if yTopRight > largestY:
-            largestY = yTopRight
-        if yBottomRight > largestY:
-            largestY = yBottomRight
+        rv = QRectF(QPointF(smallestX, smallestY),
+                    QPointF(largestX, largestY))
 
-        rectWithoutText = QRectF(QPointF(smallestX, smallestY),
-                                 QPointF(largestX, largestY)).normalized()
-
-        return rectWithoutText
+        return rv
 
     def shape(self):
         """Overwrites the QGraphicsItem.shape() function to return a
@@ -3714,12 +3901,62 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         y2 = yDelta
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
+        # Draw vertical dotted lines at each enabled musicalRatio if
+        # the flag is set to do so, or if it is selected.
+        if self.drawVerticalDottedLinesFlag == True or \
+           option.state & QStyle.State_Selected:
+
+            if self.scene() != None:
+                pad = self.modalScalePen.widthF() / 2.0;
+                penWidth = 0.0
+                fgcolor = option.palette.windowText().color()
+                # Ensure good contrast against fgcolor.
+                r = 255
+                g = 255
+                b = 255
+                if fgcolor.red() > 127:
+                    r = 0
+                if fgcolor.green() > 127:
+                    g = 0
+                if fgcolor.blue() > 127:
+                    b = 0
+                bgcolor = QColor(r, g, b)
+    
+                # Get the highest high, and lowest low PriceBar in local
+                # coordinates.
+                highestPrice = self.scene().getHighestPriceBar().high
+                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
+                localHighY = \
+                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                
+                lowestPrice = self.scene().getLowestPriceBar().low
+                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                localLowY = \
+                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                          
+                
+                for verticalTickItem in self.verticalTickItems:
+                    if verticalTickItem.isEnabled() and \
+                       verticalTickItem.isVisible():
+                    
+                        localPosX = verticalTickItem.pos().x()
+                    
+                        startPoint = QPointF(localPosX, localHighY)
+                        endPoint = QPointF(localPosX, localLowY)
+                        
+                        painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+                        painter.setBrush(Qt.NoBrush)
+                        painter.drawLine(startPoint, endPoint)
+                
+                        painter.setPen(QPen(option.palette.windowText(), 0,
+                                            Qt.DashLine))
+                        painter.setBrush(Qt.NoBrush)
+                        painter.drawLine(startPoint, endPoint)
+            
         # Draw a dashed-line surrounding the item if it is selected.
         if option.state & QStyle.State_Selected:
             pad = self.modalScalePen.widthF() / 2.0;
-            
             penWidth = 0.0
-
             fgcolor = option.palette.windowText().color()
             
             # Ensure good contrast against fgcolor.
@@ -4132,6 +4369,22 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
                             self.artifact.getTextYScaling())
         self.textItem.setTransform(textTransform)
 
+        # Flag that indicates that we should draw the line to the
+        # infoPointF.
+        self.drawLineToInfoPointFFlag = False
+
+    def setDrawLineToInfoPointFFlag(self, flag):
+        """If set to true, then a line is drawn from the box to the
+        infoPointF point during paint calls.  If false, then that line
+        is not drawn.
+        """
+
+        self.drawLineToInfoPointFFlag = flag
+        
+        # Need to call this because the bounding box is updated with
+        # all the extra line being drawn.
+        self.prepareGeometryChange()
+        
     def setConvertObj(self, convertObj):
         """Object for doing conversions from x and datetime and y to
         price.  This should be the graphics scene.  This is used
@@ -4359,18 +4612,25 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         artifact = self.getArtifact()
         infoPointF = artifact.getInfoPointF()
+        
+        # Here we need to scale the bounding rect so that
+        # it takes into account the transform that we did.
         textBoundingRect = self.textItem.boundingRect().normalized()
+        width = textBoundingRect.width()
+        height = textBoundingRect.height()
+        scaledWidth = width * self.textTransform.m11()
+        scaledHeight = height * self.textTransform.m22()
         
         if y > infoPointF.y():
             # Below.
-            posX = infoPointF.x() - (textBoundingRect.width() * 0.5)
+            posX = infoPointF.x() - (scaledWidth * 0.5)
             posY = y
             pos = QPointF(posX, posY)
             self.setPos(pos)
         else:
             # Above
-            posX = infoPointF.x() - (textBoundingRect.width() * 0.5)
-            posY = y - textBoundingRect.height()
+            posX = infoPointF.x() - (scaledWidth * 0.5)
+            posY = y - scaledHeight
             pos = QPointF(posX, posY)
             self.setPos(pos)
 
@@ -4384,70 +4644,129 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
         
         super().setPos(pos)
-        
-    def boundingRect(self):
-        """Returns the bounding rectangle for this graphicsitem."""
 
+    def _getScaledRectOfTextItem(self):
+        """Returns the scaled QRectF of the self.textItem."""
+        
         # Coordinate (0, 0) is the location of the internal text item
         # in local coordinates.  The QRectF returned is relative to
         # this (0, 0) point.
 
         textItemBoundingRect = self.textItem.boundingRect()
-        
+
+        self.log.debug("Bounding rect of textItem is: x={}, y={}, w={}, h={}".\
+                       format(textItemBoundingRect.x(),
+                              textItemBoundingRect.y(),
+                              textItemBoundingRect.width(),
+                              textItemBoundingRect.height()))
+                       
         # Here we need to scale the bounding rect so that
         # it takes into account the transform that we did.
         width = textItemBoundingRect.width()
         height = textItemBoundingRect.height()
+        scaledWidth = width * self.textTransform.m11()
+        scaledHeight = height * self.textTransform.m22()
 
-        newWidth = width * self.textTransform.m11()
-        #newHeight = height * self.textTransform.m22()
+        topLeft = QPointF(0, 0)
+        bottomRight = QPointF(scaledWidth, scaledHeight)
+        scaledTextRect = QRectF(topLeft, bottomRight)
+
+        return scaledTextRect
+    
+    def boundingRect(self):
+        """Returns the bounding rectangle for this graphicsitem."""
+
+        self.log.debug("Entered boundingRect()")
+
+        scaledTextRect = self._getScaledRectOfTextItem()
         
-        diffPointF = self.artifact.getInfoPointF() - self.pos()
-        newHeight = diffPointF.y()
+        self.log.debug("scaledTextRect is: x={}, y={}, w={}, h={}".\
+                       format(scaledTextRect.x(),
+                              scaledTextRect.y(),
+                              scaledTextRect.width(),
+                              scaledTextRect.height()))
+                       
+        localInfoPointF = self.mapFromScene(self.artifact.getInfoPointF())
+        
+        self.log.debug("localInfoPointF is: x={}, y={}".\
+                       format(localInfoPointF.x(),
+                              localInfoPointF.y()))
+                       
+        xValues = []
+        xValues.append(scaledTextRect.topLeft().x())
+        xValues.append(scaledTextRect.bottomLeft().x())
+        xValues.append(scaledTextRect.topRight().x())
+        xValues.append(scaledTextRect.bottomRight().x())
+        xValues.append(localInfoPointF.x())
 
-        textItemBoundingRect.setWidth(newWidth)
-        textItemBoundingRect.setHeight(newHeight)
+        yValues = []
+        yValues.append(scaledTextRect.topLeft().y())
+        yValues.append(scaledTextRect.bottomLeft().y())
+        yValues.append(scaledTextRect.topRight().y())
+        yValues.append(scaledTextRect.bottomRight().y())
+        yValues.append(localInfoPointF.y())
 
-        return textItemBoundingRect.normalized()
+        # Find the smallest x and y.
+        smallestX = None
+        for x in xValues:
+            if smallestX == None:
+                smallestX = x
+            elif x < smallestX:
+                smallestX = x
 
+        smallestY = None
+        for y in yValues:
+            if smallestY == None:
+                smallestY = y
+            elif y < smallestY:
+                smallestY = y
+            
+        # Find the largest x and y.
+        largestX = None
+        for x in xValues:
+            if largestX == None:
+                largestX = x
+            elif x > largestX:
+                largestX = x
+
+        largestY = None
+        for y in yValues:
+            if largestY == None:
+                largestY = y
+            elif y > largestY:
+                largestY = y
+            
+        rv = QRectF(QPointF(smallestX, smallestY),
+                    QPointF(largestX, largestY))
+
+        self.log.debug("rv coordinates are: ({}, {}), width={}, height={}".\
+                       format(rv.x(), rv.y(), rv.width(), rv.height()))
+        
+        self.log.debug("Exiting boundingRect()")
+        
+        return rv
+    
     def shape(self):
         """Overwrites the QGraphicsItem.shape() function to return a
         more accurate shape for collision detection, hit tests, etc.
         """
 
-        boundingRect = self.boundingRect()
-
-        infoPointF = self.artifact.getInfoPointF()
-        diffPointF = infoPointF - self.pos()
-
-        points = []
+        self.log.debug("Entering shape()")
         
-        # Need to determine where the infoPointF is located relative
-        # to the position, so we know which way to point the shape.
-        if diffPointF.y() > 0:
-            midPointF = QPointF(diffPointF.x(), boundingRect.height())
-            points = [boundingRect.topLeft(),
-                      boundingRect.topRight(),
-                      boundingRect.bottomRight(),
-                      midPointF,
-                      diffPointF,
-                      midPointF,
-                      boundingRect.bottomLeft()]
-        else:
-            midPointF = QPointF(diffPointF.x(), 0.0)
-            points = [boundingRect.topLeft(),
-                      midPointF,
-                      diffPointF,
-                      midPointF,
-                      boundingRect.topRight(),
-                      boundingRect.bottomRight(),
-                      boundingRect.bottomLeft()]
-            
-        polygon = QPolygonF(points)
+        scaledTextRect = self._getScaledRectOfTextItem()
 
         painterPath = QPainterPath()
-        painterPath.addPolygon(polygon)
+        painterPath.addRect(scaledTextRect)
 
+        self.log.debug("scaledTextRect coordinates are: " +
+                       "({}, {}), width={}, height={}".\
+                       format(scaledTextRect.x(),
+                              scaledTextRect.y(),
+                              scaledTextRect.width(),
+                              scaledTextRect.height()))
+        
+        self.log.debug("Exiting shape()")
+        
         return painterPath
         
     def paint(self, painter, option, widget):
@@ -4455,12 +4774,73 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
         to what we want for the drawing style.
         """
 
+        self.log.debug("Entering paint()")
+        self.log.debug("self.drawLineToInfoPointFFlag={}".\
+                       format(self.drawLineToInfoPointFFlag))
+        
         if painter.pen() != self.textItemPen:
             painter.setPen(self.textItemPen)
 
+        if self.drawLineToInfoPointFFlag == True or \
+               option.state & QStyle.State_Selected:
+
+            self.log.debug("Drawing the line to the infoPointF...")
+            
+            # Draw a line to the infoPointF.  Below is setting the colors
+            # and drawing parameters.
+            pad = self.textItemPen.widthF() / 2.0;
+            penWidth = 0.0
+            fgcolor = option.palette.windowText().color()
+            
+            # Ensure good contrast against fgcolor.
+            r = 255
+            g = 255
+            b = 255
+            if fgcolor.red() > 127:
+                r = 0
+            if fgcolor.green() > 127:
+                g = 0
+            if fgcolor.blue() > 127:
+                b = 0
+            bgcolor = QColor(r, g, b)
+            painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+            painter.setBrush(Qt.NoBrush)
+    
+            scaledTextRect = self._getScaledRectOfTextItem()
+            
+            topLeft = scaledTextRect.topLeft()
+            bottomRight = scaledTextRect.bottomRight()
+            localInfoPointF = self.mapFromScene(self.artifact.getInfoPointF())
+    
+            x = scaledTextRect.width() * 0.5
+            y = None
+            if localInfoPointF.y() > 0:
+                y = scaledTextRect.height()
+            else:
+                y = 0.0
+                
+            # Set the start and end points to the line.
+            startLinePoint = QPointF(x, y)
+            endLinePoint = localInfoPointF
+    
+            self.log.debug("Start and end points of the line are: " +
+                           "({}, {}), ({}, {})".\
+                           format(startLinePoint.x(),
+                                  startLinePoint.y(),
+                                  endLinePoint.x(),
+                                  endLinePoint.y()))
+            
+            # Draw the line.
+            painter.drawLine(startLinePoint, endLinePoint)
+            painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawLine(startLinePoint, endLinePoint)
+        
         # Draw a dashed-line surrounding the item if it is selected.
         if option.state & QStyle.State_Selected:
             pad = self.textItemPen.widthF() / 2.0;
+
+            self.log.debug("Drawing selected dotted line.")
             
             penWidth = 0.0
 
@@ -4487,6 +4867,8 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
             painter.setBrush(Qt.NoBrush)
             painter.drawPath(self.shape())
 
+        self.log.debug("Exiting paint()")
+        
     def appendActionsToContextMenu(self, menu, readOnlyMode=False):
         """Modifies the given QMenu object to update the title and add
         actions relevant to this PriceBarChartArtifactGraphicsItem.
@@ -5542,6 +5924,9 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
 
         super().__init__(parent)
 
+        # Logger
+        self.log = logging.getLogger("pricebarchart.PriceBarChartGraphicsScene")
+
         # Holds the BirthInfo object.  This is used in calculating
         # information related to astrology.
         self.birthInfo = None
@@ -5671,18 +6056,75 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
             return float(price)
 
 
+    def getHighestPriceBar(self):
+        """Goes through all the PriceBars, looking at the one that has
+        the highest high price.  This pricebar is returned.
+        
+        Returns:
+        PriceBar - PriceBar object for the highest pricebar in price.
+        """
+
+        highestPriceBar = None
+        
+        graphicsItems = self.items()
+
+        for item in graphicsItems:
+            if isinstance(item, PriceBarGraphicsItem):
+                pb = item.getPriceBar()
+
+                if highestPriceBar == None:
+                    highestPriceBar = pb
+                elif pb.hasHigherHighThan(highestPriceBar):
+                    highestPriceBar = pb
+                    
+        
+        return highestPriceBar
+
+    def getLowestPriceBar(self):
+        """Goes through all the PriceBars, looking at the one that has
+        the lowest low price.  This pricebar is returned.
+        
+        Returns:
+        PriceBar - PriceBar object for the lowest pricebar in price.
+        """
+
+        lowestPriceBar = None
+        
+        graphicsItems = self.items()
+
+        for item in graphicsItems:
+            if isinstance(item, PriceBarGraphicsItem):
+                pb = item.getPriceBar()
+
+                if lowestPriceBar == None:
+                    lowestPriceBar = pb
+                elif pb.hasLowerLowThan(lowestPriceBar):
+                    lowestPriceBar = pb
+        
+        return lowestPriceBar
+
     def getClosestPriceBarOHLCPoint(self, pointF):
         """Goes through all the PriceBars, looking at the QPointF of
         the open, high, low, and close of each bar (in price and
         time), and tests it to locate the point out of all the bars
         that is the closest to 'pointF'.
 
+        WARNING: This may not do what you expect to do!  The reason is
+        because our current scaling for time (x coordinate) is 1 unit
+        of x per day.  Our price scaling (y coordinate) is 1 unit of
+        price per y.  This means the 'qgraphicsview' scaling of x and
+        y (in appearance) is misleading when compared to actual
+        coordinates.  So the algorithm works correctly, but may not
+        produce expected results due to a huge skew in scaling.
+        
         Returns:
         QPointF - Point that is a scene pos of a open, high, low,
                   or close of a PriceBar, where it is the closest
                   to the given 'pointF'.
         """
 
+        self.log.debug("Entered getClosestPriceBarOHLCPoint()")
+        
         # QPointF for the closest point.
         closestPoint = None
 
@@ -5694,6 +6136,8 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         
         graphicsItems = self.items()
 
+        self.log.debug("PointF is: ({}, {})".format(pointF.x(), pointF.y()))
+                       
         for item in graphicsItems:
             if isinstance(item, PriceBarGraphicsItem):
                 # Get the points of the open, high, low, and close of
@@ -5702,6 +6146,15 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
                 highPointF = item.getPriceBarHighScenePoint()
                 lowPointF = item.getPriceBarLowScenePoint()
                 closePointF = item.getPriceBarCloseScenePoint()
+
+                self.log.debug("openPointF is: ({}, {})".
+                               format(openPointF.x(), openPointF.y()))
+                self.log.debug("highPointF is: ({}, {})".
+                               format(highPointF.x(), highPointF.y()))
+                self.log.debug("lowPointF is: ({}, {})".
+                               format(lowPointF.x(), lowPointF.y()))
+                self.log.debug("closePointF is: ({}, {})".
+                               format(closePointF.x(), closePointF.y()))
 
                 # Create lines so we can get the lengths between the points.
                 lineToOpen = QLineF(pointF, openPointF)
@@ -5714,6 +6167,15 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
                 lineToLowLength = lineToLow.length()
                 lineToCloseLength = lineToClose.length()
                 
+                self.log.debug("lineToOpenLength is: {}".\
+                               format(lineToOpenLength))
+                self.log.debug("lineToHighLength is: {}".\
+                               format(lineToHighLength))
+                self.log.debug("lineToLowLength is: {}".\
+                               format(lineToLowLength))
+                self.log.debug("lineToCloseLength is: {}".\
+                               format(lineToCloseLength))
+
                 # Set the initial smallestLength as the first point if
                 # it is not set already.
                 if smallestLength == None:
@@ -5727,22 +6189,39 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
                     closestPoint = openPointF
                     smallestLength = lineToOpenLength
                     closestPriceBarGraphicsItem = item
+                    self.log.debug("New closest point is now: " +
+                                   "({}, {})".format(closestPoint.x(),
+                                                     closestPoint.y()))
 
                 if lineToHighLength < smallestLength:
                     closestPoint = highPointF
                     smallestLength = lineToHighLength
                     closestPriceBarGraphicsItem = item
+                    self.log.debug("New closest point is now: " +
+                                   "({}, {})".format(closestPoint.x(),
+                                                     closestPoint.y()))
 
                 if lineToLowLength < smallestLength:
                     closestPoint = lowPointF
                     smallestLength = lineToLowLength
                     closestPriceBarGraphicsItem = item
+                    self.log.debug("New closest point is now: " +
+                                   "({}, {})".format(closestPoint.x(),
+                                                     closestPoint.y()))
 
                 if lineToCloseLength < smallestLength:
                     closestPoint = closePointF
                     smallestLength = lineToCloseLength
                     closestPriceBarGraphicsItem = item
+                    self.log.debug("New closest point is now: " +
+                                   "({}, {})".format(closestPoint.x(),
+                                                     closestPoint.y()))
+                    
+        self.log.debug("Closest point is: ({}, {})".format(closestPoint.x(),
+                                                           closestPoint.y()))
 
+        self.log.debug("Exiting getClosestPriceBarOHLCPoint()")
+        
         return closestPoint
 
     def setAstroChart1(self, x):
@@ -6918,6 +7397,14 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.timeMeasurementGraphicsItem.\
                         loadSettingsFromPriceBarChartSettings(\
                             self.priceBarChartSettings)
+        
+                    # Set the flag that indicates we should draw
+                    # dotted vertical lines at the tick areas.  We
+                    # will turn these off after the user fully
+                    # finishes adding the item.
+                    self.timeMeasurementGraphicsItem.\
+                        setDrawVerticalDottedLinesFlag(True)
+        
                     self.timeMeasurementGraphicsItem.setPos(self.clickOnePointF)
                     self.timeMeasurementGraphicsItem.\
                         setStartPointF(self.clickOnePointF)
@@ -6942,6 +7429,12 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.timeMeasurementGraphicsItem.\
                         setEndPointF(self.clickTwoPointF)
                     self.timeMeasurementGraphicsItem.normalizeStartAndEnd()
+        
+                    # Unset the flag that indicates we should draw
+                    # dotted vertical lines at the tick areas.
+                    self.modalScaleGraphicsItem.\
+                        setDrawVerticalDottedLinesFlag(False)
+                    
                     # Call getArtifact() so that the item's artifact
                     # object gets updated and set.
                     self.timeMeasurementGraphicsItem.getArtifact()
@@ -7028,6 +7521,14 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.modalScaleGraphicsItem.\
                         loadSettingsFromPriceBarChartSettings(\
                             self.priceBarChartSettings)
+
+                    # Set the flag that indicates we should draw
+                    # dotted vertical lines at the tick areas.  We
+                    # will turn these off after the user fully
+                    # finishes adding the item.
+                    self.modalScaleGraphicsItem.\
+                        setDrawVerticalDottedLinesFlag(True)
+                    
                     self.modalScaleGraphicsItem.setPos(self.clickOnePointF)
                     self.modalScaleGraphicsItem.\
                         setStartPointF(self.clickOnePointF)
@@ -7052,6 +7553,12 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.modalScaleGraphicsItem.\
                         setEndPointF(self.clickTwoPointF)
                     self.modalScaleGraphicsItem.normalizeStartAndEnd()
+
+                    # Unset the flag that indicates we should draw
+                    # dotted vertical lines at the tick areas.
+                    self.modalScaleGraphicsItem.\
+                        setDrawVerticalDottedLinesFlag(False)
+                    
                     # Call getArtifact() so that the item's artifact
                     # object gets updated and set.
                     self.modalScaleGraphicsItem.getArtifact()
@@ -7188,6 +7695,12 @@ class PriceBarChartGraphicsView(QGraphicsView):
                         loadSettingsFromPriceBarChartSettings(\
                         self.priceBarChartSettings)
 
+                    # Set the flag that indicates that we should draw
+                    # a line from the text to the infoPointF.  This is
+                    # set to false once we've fully set the item.
+                    self.priceTimeInfoGraphicsItem.\
+                        setDrawLineToInfoPointFFlag(True)
+                    
                     # Set the conversion object as the scene so that it
                     # can do initial calculations for the text to display.
                     self.priceTimeInfoGraphicsItem.\
@@ -7245,13 +7758,20 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     
                     self.clickTwoPointF = self.mapToScene(qmouseevent.pos())
                     
+                    # Turn off the flag that indicates that we should
+                    # draw a line from the text to the infoPointF.  It
+                    # will now only draw that line when we have the
+                    # item selected.
+                    self.priceTimeInfoGraphicsItem.\
+                        setDrawLineToInfoPointFFlag(False)
+                    
                     # Set the position of the item by calling the set
                     # function for the Y location of the edge of the
                     # text.
                     posY = self.clickTwoPointF.y()
                     self.priceTimeInfoGraphicsItem.\
                         setTextLabelEdgeYLocation(posY)
-                    
+
                     # Done settings values, so clear out working variables.
                     self.clickOnePointF = None
                     self.clickTwoPointF = None

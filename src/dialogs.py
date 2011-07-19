@@ -11117,8 +11117,10 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         # Connect signals and slots.
 
-        self.textGraphicsItemDefaultFontModifyButton.clicked.\
-            connect(self._handleTextGraphicsItemDefaultFontModifyButtonClicked)
+        self.textGraphicsItemDefaultFontModifyButton.clicked.connect(\
+            self._handleTextGraphicsItemDefaultFontModifyButtonClicked)
+        self.priceTimeInfoGraphicsItemDefaultFontModifyButton.clicked.connect(\
+            self._handlePriceTimeInfoGraphicsItemDefaultFontModifyButtonClicked)
         
         # Connect reset buttons.
         self.priceBarGraphicsItemPenWidthResetButton.clicked.\
