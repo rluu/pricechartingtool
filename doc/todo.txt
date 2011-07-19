@@ -112,17 +112,22 @@ DONE
 
   - Update scaling class to be able to calculate the following (using scaling):
 
-      - Distance between two points:
+      - Square root of a price (absolute).
+
+      - Square root of a timestamp (elapsed time since birth).  
+        With scaling applied.
+
+      - Distance between two points (with scaling applied):
             - Between points: Constant price, varying time.
             - Between points: Constant time, varying price.
             - Between points: Varying price and time.
-      - Square root of distance between two points:
+      - Square root of distance between two points (with scaling applied):
             - Between points: Constant price, varying time.
             - Between points: Constant time, varying price.
             - Between points: Varying price and time.
 
-      - Return the amount of time elapsed since birth?
-      - Return the amount of price change since birth?
+      - Return the amount of time elapsed since birth (with scaling applied).
+      - Return the amount of price change since birth (with scaling applied).
 
   - Add Price Measurement tool.  Include square root of price
     difference?  Include option to display text of sqrt of price or not.
@@ -141,6 +146,8 @@ DONE
      - Uses scaling.
 
   - PTV (Price-Time-Vector).
+        - Distance (scaled).
+        - Sqrt distance (scaled).
 
   - Add square root price modal scale.  (vertical bar) This is high
     and low price square rooted, and the musical scale from that, and

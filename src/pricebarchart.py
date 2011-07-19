@@ -2580,35 +2580,16 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         yValues.append(localHighY)
         yValues.append(localLowY)
         
+        xValues.sort()
+        yValues.sort()
+        
         # Find the smallest x and y.
-        smallestX = None
-        for x in xValues:
-            if smallestX == None:
-                smallestX = x
-            elif x < smallestX:
-                smallestX = x
-
-        smallestY = None
-        for y in yValues:
-            if smallestY == None:
-                smallestY = y
-            elif y < smallestY:
-                smallestY = y
-            
+        smallestX = xValues[0]
+        smallestY = yValues[0]
+        
         # Find the largest x and y.
-        largestX = None
-        for x in xValues:
-            if largestX == None:
-                largestX = x
-            elif x > largestX:
-                largestX = x
-
-        largestY = None
-        for y in yValues:
-            if largestY == None:
-                largestY = y
-            elif y > largestY:
-                largestY = y
+        largestX = xValues[-1]
+        largestY = yValues[-1]
             
         rv = QRectF(QPointF(smallestX, smallestY),
                     QPointF(largestX, largestY))
@@ -2646,6 +2627,11 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         if painter.pen() != self.timeMeasurementPen:
             painter.setPen(self.timeMeasurementPen)
         
+        # Keep track of x and y values.  We use this to draw the
+        # dotted lines later.
+        xValues = []
+        yValues = []
+        
         # Draw the left vertical bar part.
         x1 = 0.0
         y1 = 1.0 * (self.timeMeasurementGraphicsItemBarHeight / 2.0)
@@ -2653,6 +2639,11 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         y2 = -1.0 * (self.timeMeasurementGraphicsItemBarHeight / 2.0)
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
+        xValues.append(x1)
+        xValues.append(x2)
+        yValues.append(y1)
+        yValues.append(y2)
+        
         # Draw the right vertical bar part.
         xDelta = self.endPointF.x() - self.startPointF.x()
         x1 = 0.0 + xDelta
@@ -2661,6 +2652,11 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         y2 = -1.0 * (self.timeMeasurementGraphicsItemBarHeight / 2.0)
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
+        xValues.append(x1)
+        xValues.append(x2)
+        yValues.append(y1)
+        yValues.append(y2)
+        
         # Draw the middle horizontal line.
         x1 = 0.0
         y1 = 0.0
@@ -2668,6 +2664,11 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         y2 = 0.0
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
+        xValues.append(x1)
+        xValues.append(x2)
+        yValues.append(y1)
+        yValues.append(y2)
+        
         # Draw vertical dotted lines at each enabled musicalRatio if
         # the flag is set to do so, or if it is selected.
         if self.drawVerticalDottedLinesFlag == True or \
@@ -2701,11 +2702,19 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 localLowY = \
                     self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
                           
+                yValues.append(localHighY)
+                yValues.append(localLowY)
 
+                # We have all y values now, so sort them to get the
+                # low and high.
+                yValues.sort()
+                smallestY = yValues[0]
+                largestY = yValues[-1]
+        
                 # Vertical line at the beginning.
                 localPosX = 0.0
-                startPoint = QPointF(localPosX, localHighY)
-                endPoint = QPointF(localPosX, localLowY)
+                startPoint = QPointF(localPosX, largestY)
+                endPoint = QPointF(localPosX, smallestY)
                         
                 painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
                 painter.setBrush(Qt.NoBrush)
@@ -2718,8 +2727,8 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             
                 # Vertical line at the end.
                 localPosX = 0.0 + xDelta
-                startPoint = QPointF(localPosX, localHighY)
-                endPoint = QPointF(localPosX, localLowY)
+                startPoint = QPointF(localPosX, largestY)
+                endPoint = QPointF(localPosX, smallestY)
                         
                 painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
                 painter.setBrush(Qt.NoBrush)
@@ -3792,35 +3801,16 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         yValues.append(localHighY)
         yValues.append(localLowY)
         
+        xValues.sort()
+        yValues.sort()
+        
         # Find the smallest x and y.
-        smallestX = None
-        for x in xValues:
-            if smallestX == None:
-                smallestX = x
-            elif x < smallestX:
-                smallestX = x
-
-        smallestY = None
-        for y in yValues:
-            if smallestY == None:
-                smallestY = y
-            elif y < smallestY:
-                smallestY = y
-            
+        smallestX = xValues[0]
+        smallestY = yValues[0]
+        
         # Find the largest x and y.
-        largestX = None
-        for x in xValues:
-            if largestX == None:
-                largestX = x
-            elif x > largestX:
-                largestX = x
-
-        largestY = None
-        for y in yValues:
-            if largestY == None:
-                largestY = y
-            elif y > largestY:
-                largestY = y
+        largestX = xValues[-1]
+        largestY = yValues[-1]
             
         rv = QRectF(QPointF(smallestX, smallestY),
                     QPointF(largestX, largestY))
@@ -3877,6 +3867,11 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         artifact = self.getArtifact()
         barHeight = artifact.getModalScaleGraphicsItemBarHeight()
+
+        # Keep track of x and y values.  We use this to draw the
+        # dotted lines later.
+        xValues = []
+        yValues = []
         
         # Draw the left vertical bar part.
         x1 = 0.0
@@ -3885,6 +3880,11 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         y2 = -1.0 * (barHeight / 2.0)
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
+        xValues.append(x1)
+        xValues.append(x2)
+        yValues.append(y1)
+        yValues.append(y2)
+        
         # Draw the right vertical bar part.
         xDelta = self.endPointF.x() - self.startPointF.x()
         yDelta = self.endPointF.y() - self.startPointF.y()
@@ -3894,6 +3894,11 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         y2 = (-1.0 * (barHeight / 2.0)) + yDelta
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
+        xValues.append(x1)
+        xValues.append(x2)
+        yValues.append(y1)
+        yValues.append(y2)
+        
         # Draw the middle line.
         x1 = 0.0
         y1 = 0.0
@@ -3901,6 +3906,11 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         y2 = yDelta
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
+        xValues.append(x1)
+        xValues.append(x2)
+        yValues.append(y1)
+        yValues.append(y2)
+        
         # Draw vertical dotted lines at each enabled musicalRatio if
         # the flag is set to do so, or if it is selected.
         if self.drawVerticalDottedLinesFlag == True or \
@@ -3934,15 +3944,23 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 localLowY = \
                     self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
                           
-                
+                yValues.append(localHighY)
+                yValues.append(localLowY)
+
+                # We have all y values now, so sort them to get the
+                # low and high.
+                yValues.sort()
+                smallestY = yValues[0]
+                largestY = yValues[-1]
+        
                 for verticalTickItem in self.verticalTickItems:
                     if verticalTickItem.isEnabled() and \
                        verticalTickItem.isVisible():
                     
                         localPosX = verticalTickItem.pos().x()
-                    
-                        startPoint = QPointF(localPosX, localHighY)
-                        endPoint = QPointF(localPosX, localLowY)
+
+                        startPoint = QPointF(localPosX, largestY)
+                        endPoint = QPointF(localPosX, smallestY)
                         
                         painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
                         painter.setBrush(Qt.NoBrush)
@@ -4706,35 +4724,16 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
         yValues.append(scaledTextRect.bottomRight().y())
         yValues.append(localInfoPointF.y())
 
+        xValues.sort()
+        yValues.sort()
+        
         # Find the smallest x and y.
-        smallestX = None
-        for x in xValues:
-            if smallestX == None:
-                smallestX = x
-            elif x < smallestX:
-                smallestX = x
-
-        smallestY = None
-        for y in yValues:
-            if smallestY == None:
-                smallestY = y
-            elif y < smallestY:
-                smallestY = y
-            
+        smallestX = xValues[0]
+        smallestY = yValues[0]
+        
         # Find the largest x and y.
-        largestX = None
-        for x in xValues:
-            if largestX == None:
-                largestX = x
-            elif x > largestX:
-                largestX = x
-
-        largestY = None
-        for y in yValues:
-            if largestY == None:
-                largestY = y
-            elif y > largestY:
-                largestY = y
+        largestX = xValues[-1]
+        largestY = yValues[-1]
             
         rv = QRectF(QPointF(smallestX, smallestY),
                     QPointF(largestX, largestY))
@@ -7430,21 +7429,22 @@ class PriceBarChartGraphicsView(QGraphicsView):
                         setEndPointF(self.clickTwoPointF)
                     self.timeMeasurementGraphicsItem.normalizeStartAndEnd()
         
-                    # Unset the flag that indicates we should draw
-                    # dotted vertical lines at the tick areas.
-                    self.modalScaleGraphicsItem.\
-                        setDrawVerticalDottedLinesFlag(False)
-                    
                     # Call getArtifact() so that the item's artifact
                     # object gets updated and set.
                     self.timeMeasurementGraphicsItem.getArtifact()
                                                 
+                    # Unset the flag that indicates we should draw
+                    # dotted vertical lines at the tick areas.
+                    self.timeMeasurementGraphicsItem.\
+                        setDrawVerticalDottedLinesFlag(False)
+                    
                     # Emit that the PriceBarChart has changed.
                     self.scene().priceBarChartArtifactGraphicsItemAdded.\
                         emit(self.timeMeasurementGraphicsItem)
                     
                     sceneBoundingRect = \
                         self.timeMeasurementGraphicsItem.sceneBoundingRect()
+                    
                     self.log.debug("timeMeasurementGraphicsItem " +
                                    "officially added.  " +
                                    "Its sceneBoundingRect is: {}.  ".\
