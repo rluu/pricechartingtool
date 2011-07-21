@@ -98,10 +98,10 @@ DONE	  - Shows square root of price.
 DONE          - Shows time elapsed since birth?  (Scaling needed)
 DONE          - Shows square root of time elapsed since birth?  (Scaling needed)
 DONE
-
-  - Update the Time Measurement tool to include months.
-     - Add option to display text of various things.
-     - Also include calculation for square root of time elapsed.
+DONE
+DONE  - Update the Time Measurement tool to include months.
+DONE     - Add option to display text of various things.
+DONE     - Also include calculation for square root of time elapsed.
 
   - Use 'snap' enabled flag for time measurement, price measurement and ptv.
 

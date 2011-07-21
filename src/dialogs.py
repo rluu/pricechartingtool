@@ -1314,10 +1314,6 @@ class AppPreferencesEditWidget(QWidget):
             connect(self._handleBarCountGraphicsItemColorResetButtonClicked)
         self.barCountGraphicsItemTextColorResetButton.clicked.\
             connect(self._handleBarCountGraphicsItemTextColorResetButtonClicked)
-        self.timeMeasurementGraphicsItemColorResetButton.clicked.\
-            connect(self._handleTimeMeasurementGraphicsItemColorResetButtonClicked)
-        self.timeMeasurementGraphicsItemTextColorResetButton.clicked.\
-            connect(self._handleTimeMeasurementGraphicsItemTextColorResetButtonClicked)
 
         # Button at bottom to reset to defaults.
         self.priceBarResetAllToDefaultButton.clicked.\
@@ -1352,43 +1348,28 @@ class AppPreferencesEditWidget(QWidget):
         self.zoomScaleFactorSpinBox.setMaximum(100.0)
         self.zoomScaleFactorResetButton = QPushButton("Reset to default")
 
-        # PriceBarChart higherPriceBarColor (QColor object).
+        # PriceBarChart higherPriceBarColor (QColor).
         self.higherPriceBarColorLabel = QLabel("Higher PriceBar color:")
         self.higherPriceBarColorEditButton = ColorEditPushButton()
         self.higherPriceBarColorResetButton = QPushButton("Reset to default")
 
-        # PriceBarChart lowerPriceBarColor (QColor object).
+        # PriceBarChart lowerPriceBarColor (QColor).
         self.lowerPriceBarColorLabel = QLabel("Lower PriceBar color:")
         self.lowerPriceBarColorEditButton = ColorEditPushButton()
         self.lowerPriceBarColorResetButton = QPushButton("Reset to default")
 
-        # PriceBarChart barCountGraphicsItemColor (QColor object).
+        # PriceBarChart barCountGraphicsItemColor (QColor).
         self.barCountGraphicsItemColorLabel = \
             QLabel("BarCountGraphicsItem color: ")
         self.barCountGraphicsItemColorEditButton = ColorEditPushButton()
         self.barCountGraphicsItemColorResetButton = \
             QPushButton("Reset to default")
         
-        # PriceBarChart barCountGraphicsItemTextColor (QColor object).
+        # PriceBarChart barCountGraphicsItemTextColor (QColor).
         self.barCountGraphicsItemTextColorLabel = \
             QLabel("BarCountGraphicsItem text color: ")
         self.barCountGraphicsItemTextColorEditButton = ColorEditPushButton()
         self.barCountGraphicsItemTextColorResetButton = \
-            QPushButton("Reset to default")
-        
-        # PriceBarChart timeMeasurementGraphicsItemColor (QColor object).
-        self.timeMeasurementGraphicsItemColorLabel = \
-            QLabel("TimeMeasurementGraphicsItem color: ")
-        self.timeMeasurementGraphicsItemColorEditButton = ColorEditPushButton()
-        self.timeMeasurementGraphicsItemColorResetButton = \
-            QPushButton("Reset to default")
-        
-        # PriceBarChart timeMeasurementGraphicsItemTextColor (QColor object).
-        self.timeMeasurementGraphicsItemTextColorLabel = \
-            QLabel("TimeMeasurementGraphicsItem text color: ")
-        self.timeMeasurementGraphicsItemTextColorEditButton = \
-            ColorEditPushButton()
-        self.timeMeasurementGraphicsItemTextColorResetButton = \
             QPushButton("Reset to default")
         
         # Button for resetting all the above edit widgets.
@@ -1440,20 +1421,6 @@ class AppPreferencesEditWidget(QWidget):
             addWidget(self.barCountGraphicsItemTextColorEditButton, r, 1, ar)
         gridLayout.\
             addWidget(self.barCountGraphicsItemTextColorResetButton, r, 2, ar)
-        r += 1
-        gridLayout.\
-            addWidget(self.timeMeasurementGraphicsItemColorLabel, r, 0, al)
-        gridLayout.\
-            addWidget(self.timeMeasurementGraphicsItemColorEditButton, r, 1, ar)
-        gridLayout.\
-            addWidget(self.timeMeasurementGraphicsItemColorResetButton, r, 2, ar)
-        r += 1
-        gridLayout.\
-            addWidget(self.timeMeasurementGraphicsItemTextColorLabel, r, 0, al)
-        gridLayout.\
-            addWidget(self.timeMeasurementGraphicsItemTextColorEditButton, r, 1, ar)
-        gridLayout.\
-            addWidget(self.timeMeasurementGraphicsItemTextColorResetButton, r, 2, ar)
         r += 1
 
         # Label to tell the user that not all settings will be applied
@@ -3441,41 +3408,29 @@ class AppPreferencesEditWidget(QWidget):
             SettingsKeys.zoomScaleFactorSettingsDefValue))
         self.zoomScaleFactorSpinBox.setValue(value)
 
-        # PriceBarChart higherPriceBarColor (QColor object).
+        # PriceBarChart higherPriceBarColor (QColor).
         key = SettingsKeys.higherPriceBarColorSettingsKey 
         value = QColor(settings.value(key, \
             SettingsKeys.higherPriceBarColorSettingsDefValue))
         self.higherPriceBarColorEditButton.setColor(value)
 
-        # PriceBarChart lowerPriceBarColor (QColor object).
+        # PriceBarChart lowerPriceBarColor (QColor).
         key = SettingsKeys.lowerPriceBarColorSettingsKey 
         value = QColor(settings.value(key, \
             SettingsKeys.lowerPriceBarColorSettingsDefValue))
         self.lowerPriceBarColorEditButton.setColor(value)
 
-        # PriceBarChart barCountGraphicsItemColor (QColor object).
+        # PriceBarChart barCountGraphicsItemColor (QColor).
         key = SettingsKeys.barCountGraphicsItemColorSettingsKey
         value = QColor(settings.value(key, \
             SettingsKeys.barCountGraphicsItemColorSettingsDefValue))
         self.barCountGraphicsItemColorEditButton.setColor(value)
 
-        # PriceBarChart barCountGraphicsItemTextColor (QColor object).
+        # PriceBarChart barCountGraphicsItemTextColor (QColor).
         key = SettingsKeys.barCountGraphicsItemTextColorSettingsKey
         value = QColor(settings.value(key, \
             SettingsKeys.barCountGraphicsItemTextColorSettingsDefValue))
         self.barCountGraphicsItemTextColorEditButton.setColor(value)
-
-        # PriceBarChart timeMeasurementGraphicsItemColor (QColor object).
-        key = SettingsKeys.timeMeasurementGraphicsItemColorSettingsKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.timeMeasurementGraphicsItemColorSettingsDefValue))
-        self.timeMeasurementGraphicsItemColorEditButton.setColor(value)
-
-        # PriceBarChart timeMeasurementGraphicsItemTextColor (QColor object).
-        key = SettingsKeys.timeMeasurementGraphicsItemTextColorSettingsKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.timeMeasurementGraphicsItemTextColorSettingsDefValue))
-        self.timeMeasurementGraphicsItemTextColorEditButton.setColor(value)
 
 
     def _planetSymbolLoadValuesFromSettings(self):
@@ -4936,7 +4891,7 @@ class AppPreferencesEditWidget(QWidget):
         else:
             settings.setValue(key, newValue)
 
-        # PriceBarChart higherPriceBarColor (QColor object).
+        # PriceBarChart higherPriceBarColor (QColor).
         key = SettingsKeys.higherPriceBarColorSettingsKey 
         newValue = self.higherPriceBarColorEditButton.getColor()
         if settings.contains(key):
@@ -4946,7 +4901,7 @@ class AppPreferencesEditWidget(QWidget):
         else:
             settings.setValue(key, newValue)
 
-        # PriceBarChart lowerPriceBarColor (QColor object).
+        # PriceBarChart lowerPriceBarColor (QColor).
         key = SettingsKeys.lowerPriceBarColorSettingsKey 
         newValue = self.lowerPriceBarColorEditButton.getColor()
         if settings.contains(key):
@@ -4956,7 +4911,7 @@ class AppPreferencesEditWidget(QWidget):
         else:
             settings.setValue(key, newValue)
 
-        # PriceBarChart barCountGraphicsItemTextColor (QColor object).
+        # PriceBarChart barCountGraphicsItemTextColor (QColor).
         key = SettingsKeys.barCountGraphicsItemColorSettingsKey
         newValue = self.barCountGraphicsItemColorEditButton.getColor()
         if settings.contains(key):
@@ -4966,7 +4921,7 @@ class AppPreferencesEditWidget(QWidget):
         else:
             settings.setValue(key, newValue)
 
-        # PriceBarChart barCountGraphicsItemTextTextColor (QColor object).
+        # PriceBarChart barCountGraphicsItemTextTextColor (QColor).
         key = SettingsKeys.barCountGraphicsItemTextColorSettingsKey
         newValue = self.barCountGraphicsItemTextColorEditButton.getColor()
         if settings.contains(key):
@@ -4976,25 +4931,6 @@ class AppPreferencesEditWidget(QWidget):
         else:
             settings.setValue(key, newValue)
 
-        # PriceBarChart timeMeasurementGraphicsItemTextColor (QColor object).
-        key = SettingsKeys.timeMeasurementGraphicsItemColorSettingsKey
-        newValue = self.timeMeasurementGraphicsItemColorEditButton.getColor()
-        if settings.contains(key):
-            oldValue = QColor(settings.value(key))
-            if oldValue != newValue:
-                settings.setValue(key, newValue)
-        else:
-            settings.setValue(key, newValue)
-
-        # PriceBarChart timeMeasurementGraphicsItemTextTextColor (QColor object).
-        key = SettingsKeys.timeMeasurementGraphicsItemTextColorSettingsKey
-        newValue = self.timeMeasurementGraphicsItemTextColorEditButton.getColor()
-        if settings.contains(key):
-            oldValue = QColor(settings.value(key))
-            if oldValue != newValue:
-                settings.setValue(key, newValue)
-        else:
-            settings.setValue(key, newValue)
 
     def _planetSymbolSaveValuesToSettings(self):
         """Saves the values in the widgets to the QSettings object.
@@ -7371,24 +7307,6 @@ class AppPreferencesEditWidget(QWidget):
         value = SettingsKeys.barCountGraphicsItemTextColorSettingsDefValue
         self.barCountGraphicsItemTextColorEditButton.setColor(value)
 
-    def _handleTimeMeasurementGraphicsItemColorResetButtonClicked(self):
-        """Called when the timeMeasurementGraphicsItemColorResetButton
-        is clicked.  Resets the widget value to the default value.
-        """
-
-        value = SettingsKeys.timeMeasurementGraphicsItemColorSettingsDefValue
-        self.timeMeasurementGraphicsItemColorEditButton.setColor(value)
-
-    def _handleTimeMeasurementGraphicsItemTextColorResetButtonClicked(self):
-        """Called when the
-        timeMeasurementGraphicsItemTextColorResetButton is clicked.
-        Resets the widget value to the default value.
-        """
-
-        value = \
-            SettingsKeys.timeMeasurementGraphicsItemTextColorSettingsDefValue
-        self.timeMeasurementGraphicsItemTextColorEditButton.setColor(value)
-
     def _handlePriceBarResetAllToDefaultButtonClicked(self):
         """Called when the priceBarResetAllToDefaultButton is clicked for
         the PriceBar settings.  Resets the all the widget values in this
@@ -7400,8 +7318,6 @@ class AppPreferencesEditWidget(QWidget):
         self._handleLowerPriceBarColorResetButtonClicked()
         self._handleBarCountGraphicsItemColorResetButtonClicked()
         self._handleBarCountGraphicsItemTextColorResetButtonClicked()
-        self._handleTimeMeasurementGraphicsItemColorResetButtonClicked()
-        self._handleTimeMeasurementGraphicsItemTextColorResetButtonClicked()
 
     def _handlePlanetSymbolResetAllToDefaultButtonClicked(self):
         """Called when the planetSymbolResetAllToDefaultButton is clicked
@@ -10560,32 +10476,231 @@ class PriceBarChartSettingsEditWidget(QWidget):
         # Save off the PriceBarChartSettings object.
         self.priceBarChartSettings = priceBarChartSettings
 
-        # QGroupBox to hold the edit widgets and form for PriceBarGraphicsItem.
+        # QGroupBox to hold the edit widgets and form for
+        # PriceBarGraphicsItem.
         self.priceBarGraphicsItemGroupBox = \
-            QGroupBox("PriceBarGraphicsItem settings:")
+            self._buildPriceBarGraphicsItemGroupBox()
 
         # QGroupBox to hold the edit widgets and form for BarCountGraphicsItem.
         self.barCountGraphicsItemGroupBox = \
-            QGroupBox("BarCountGraphicsItem settings:")
+            self._buildBarCountGraphicsItemGroupBox()
 
         # QGroupBox to hold the edit widgets and form for
         # TimeMeasurementGraphicsItem.
         self.timeMeasurementGraphicsItemGroupBox = \
-            QGroupBox("TimeMeasurementGraphicsItem settings:")
+            self._buildTimeMeasurementGraphicsItemGroupBox()
 
         # QGroupBox to hold the edit widgets and form for
         # ModalScaleGraphicsItem.
         self.modalScaleGraphicsItemGroupBox = \
-            QGroupBox("ModalScaleGraphicsItem settings:")
+            self._buildModalScaleGraphicsItemGroupBox()
 
         # QGroupBox to hold the edit widgets and form for TextGraphicsItem.
         self.textGraphicsItemGroupBox = \
-            QGroupBox("TextGraphicsItem settings:")
+            self._buildTextGraphicsItemGroupBox()
 
         # QGroupBox to hold the edit widgets and form for
         # PriceTimeInfoGraphicsItem.
         self.priceTimeInfoGraphicsItemGroupBox = \
-            QGroupBox("PriceTimeInfoGraphicsItem settings:")
+            self._buildPriceTimeInfoGraphicsItemGroupBox()
+
+        # Create group boxes for pages of settings that will go into a
+        # QTabWidget.
+        self.page1GroupBox = QGroupBox()
+        self.page2GroupBox = QGroupBox()
+        self.page3GroupBox = QGroupBox()
+
+        page1GroupBoxLayout = QVBoxLayout()
+        page1GroupBoxLayout.addWidget(self.priceBarGraphicsItemGroupBox)
+        page1GroupBoxLayout.addWidget(self.barCountGraphicsItemGroupBox)
+        self.page1GroupBox.setLayout(page1GroupBoxLayout)
+
+        page2GroupBoxLayout = QVBoxLayout()
+        page2GroupBoxLayout.addWidget(self.timeMeasurementGraphicsItemGroupBox)
+        self.page2GroupBox.setLayout(page2GroupBoxLayout)
+
+        page3GroupBoxLayout = QVBoxLayout()
+        page3GroupBoxLayout.addWidget(self.modalScaleGraphicsItemGroupBox)
+        page3GroupBoxLayout.addWidget(self.textGraphicsItemGroupBox)
+        page3GroupBoxLayout.addWidget(self.priceTimeInfoGraphicsItemGroupBox)
+        self.page3GroupBox.setLayout(page3GroupBoxLayout)
+        
+        # Create a QTabWidget to stack all the settings editing
+        # widgets.
+        self.tabWidget = QTabWidget()
+        self.tabWidget.addTab(self.page1GroupBox, "Page 1")
+        self.tabWidget.addTab(self.page2GroupBox, "Page 2")
+        self.tabWidget.addTab(self.page3GroupBox, "Page 3")
+        
+        # Buttons at bottom.
+        self.resetAllToDefaultButton = \
+            QPushButton("Reset all to original default values")
+        self.okayButton = QPushButton("&Okay")
+        self.cancelButton = QPushButton("&Cancel")
+        self.buttonsAtBottomLayout = QHBoxLayout()
+        self.buttonsAtBottomLayout.addWidget(self.resetAllToDefaultButton)
+        self.buttonsAtBottomLayout.addStretch()
+        self.buttonsAtBottomLayout.addWidget(self.okayButton)
+        self.buttonsAtBottomLayout.addWidget(self.cancelButton)
+
+        # Put all layouts/groupboxes together into the widget.
+        self.mainLayout = QVBoxLayout()
+        self.mainLayout.addWidget(self.tabWidget)
+        self.mainLayout.addSpacing(10)
+        self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
+
+        self.setLayout(self.mainLayout)
+
+        # Now that all the widgets are created, load the values from the
+        # settings.
+        self.loadValuesFromSettings(self.priceBarChartSettings)
+
+        # Connect signals and slots.
+
+        self.timeMeasurementGraphicsItemDefaultFontModifyButton.clicked.\
+            connect(\
+            self.\
+            _handleTimeMeasurementGraphicsItemDefaultFontModifyButtonClicked)
+        self.textGraphicsItemDefaultFontModifyButton.clicked.connect(\
+            self._handleTextGraphicsItemDefaultFontModifyButtonClicked)
+        self.priceTimeInfoGraphicsItemDefaultFontModifyButton.clicked.connect(\
+            self._handlePriceTimeInfoGraphicsItemDefaultFontModifyButtonClicked)
+        
+        # Connect reset buttons.
+        self.priceBarGraphicsItemPenWidthResetButton.clicked.\
+            connect(self._handlePriceBarPenWidthResetButtonClicked)
+        self.priceBarGraphicsItemLeftExtensionWidthResetButton.clicked.\
+            connect(self._handlePriceBarLeftExtensionWidthResetButtonClicked)
+        self.priceBarGraphicsItemRightExtensionWidthResetButton.clicked.\
+            connect(self._handlePriceBarRightExtensionWidthResetButtonClicked)
+        self.barCountGraphicsItemBarHeightResetButton.clicked.\
+            connect(self._handleBarCountGraphicsItemBarHeightResetButtonClicked)
+        self.barCountGraphicsItemFontSizeResetButton.clicked.\
+            connect(self._handleBarCountGraphicsItemFontSizeResetButtonClicked)
+        self.barCountGraphicsItemTextXScalingResetButton.clicked.\
+            connect(\
+            self._handleBarCountGraphicsItemTextXScalingResetButtonClicked)
+        self.barCountGraphicsItemTextYScalingResetButton.clicked.\
+            connect(\
+            self._handleBarCountGraphicsItemTextYScalingResetButtonClicked)
+        self.timeMeasurementGraphicsItemBarHeightResetButton.clicked.\
+            connect(\
+            self._handleTimeMeasurementGraphicsItemBarHeightResetButtonClicked)
+        self.timeMeasurementGraphicsItemTextXScalingResetButton.clicked.\
+            connect(\
+            self.\
+            _handleTimeMeasurementGraphicsItemTextXScalingResetButtonClicked)
+        self.timeMeasurementGraphicsItemTextYScalingResetButton.clicked.\
+            connect(\
+            self.\
+            _handleTimeMeasurementGraphicsItemTextYScalingResetButtonClicked)
+        self.timeMeasurementGraphicsItemDefaultFontResetButton.clicked.\
+            connect(\
+            self.\
+            _handleTimeMeasurementGraphicsItemDefaultFontResetButtonClicked)
+        self.timeMeasurementGraphicsItemDefaultTextColorResetButton.clicked.\
+            connect(\
+            self.\
+            _handleTimeMeasurementGraphicsItemDefaultTextColorResetButtonClicked)
+        self.timeMeasurementGraphicsItemDefaultColorResetButton.clicked.\
+            connect(\
+            self.\
+            _handleTimeMeasurementGraphicsItemDefaultColorResetButtonClicked)
+        self.timeMeasurementGraphicsItemShowBarsTextFlagResetButton.clicked.\
+            connect(\
+            self.\
+            _handleTimeMeasurementGraphicsItemShowBarsTextFlagResetButton)
+        self.timeMeasurementGraphicsItemShowHoursTextFlagResetButton.clicked.\
+            connect(\
+            self.\
+            _handleTimeMeasurementGraphicsItemShowHoursTextFlagResetButton)
+        self.timeMeasurementGraphicsItemShowDaysTextFlagResetButton.clicked.\
+            connect(\
+            self.\
+            _handleTimeMeasurementGraphicsItemShowDaysTextFlagResetButton)
+        self.timeMeasurementGraphicsItemShowWeeksTextFlagResetButton.clicked.\
+            connect(\
+            self.\
+            _handleTimeMeasurementGraphicsItemShowWeeksTextFlagResetButton)
+        self.timeMeasurementGraphicsItemShowMonthsTextFlagResetButton.clicked.\
+            connect(\
+            self.\
+            _handleTimeMeasurementGraphicsItemShowMonthsTextFlagResetButton)
+        self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagResetButton.clicked.\
+            connect(\
+            self.\
+            _handleTimeMeasurementGraphicsItemShowSqrtBarsTextFlagResetButton)
+        self.timeMeasurementGraphicsItemShowSqrtHoursTextFlagResetButton.clicked.\
+            connect(\
+            self.\
+            _handleTimeMeasurementGraphicsItemShowSqrtHoursTextFlagResetButton)
+        self.timeMeasurementGraphicsItemShowSqrtDaysTextFlagResetButton.clicked.\
+            connect(\
+            self.\
+            _handleTimeMeasurementGraphicsItemShowSqrtDaysTextFlagResetButton)
+        self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagResetButton.clicked.\
+            connect(\
+            self.\
+            _handleTimeMeasurementGraphicsItemShowSqrtWeeksTextFlagResetButton)
+        self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlagResetButton.clicked.\
+            connect(\
+            self.\
+            _handleTimeMeasurementGraphicsItemShowSqrtMonthsTextFlagResetButton)
+        self.modalScaleGraphicsItemColorResetButton.clicked.\
+            connect(\
+            self._handleModalScaleGraphicsItemColorResetButtonClicked)
+        self.modalScaleGraphicsItemTextColorResetButton.clicked.\
+            connect(\
+            self._handleModalScaleGraphicsItemTextColorResetButtonClicked)
+        self.modalScaleGraphicsItemTextXScalingResetButton.clicked.\
+            connect(\
+            self._handleModalScaleGraphicsItemTextXScalingResetButtonClicked)
+        self.modalScaleGraphicsItemTextYScalingResetButton.clicked.\
+            connect(\
+            self._handleModalScaleGraphicsItemTextYScalingResetButtonClicked)
+        self.textGraphicsItemDefaultFontResetButton.clicked.\
+            connect(self._handleTextGraphicsItemDefaultFontResetButtonClicked)
+        self.textGraphicsItemDefaultColorResetButton.clicked.\
+            connect(self._handleTextGraphicsItemDefaultColorResetButtonClicked)
+        self.textGraphicsItemDefaultXScalingResetButton.clicked.\
+            connect(\
+            self._handleTextGraphicsItemDefaultXScalingResetButtonClicked)
+        self.textGraphicsItemDefaultYScalingResetButton.clicked.\
+            connect(\
+            self._handleTextGraphicsItemDefaultYScalingResetButtonClicked)
+        self.priceTimeInfoGraphicsItemDefaultFontResetButton.clicked.\
+            connect(\
+            self._handlePriceTimeInfoGraphicsItemDefaultFontResetButtonClicked)
+        self.priceTimeInfoGraphicsItemDefaultColorResetButton.clicked.\
+            connect(\
+            self._handlePriceTimeInfoGraphicsItemDefaultColorResetButtonClicked)
+        self.priceTimeInfoGraphicsItemDefaultXScalingResetButton.clicked.\
+            connect(\
+            self.\
+            _handlePriceTimeInfoGraphicsItemDefaultXScalingResetButtonClicked)
+        self.priceTimeInfoGraphicsItemDefaultYScalingResetButton.clicked.\
+            connect(\
+            self.\
+            _handlePriceTimeInfoGraphicsItemDefaultYScalingResetButtonClicked)
+
+        self.resetAllToDefaultButton.clicked.\
+            connect(self._handleResetAllToDefaultButtonClicked)
+
+        # Connect okay and cancel buttons.
+        self.okayButton.clicked.connect(self._handleOkayButtonClicked)
+        self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
+
+
+    def _buildPriceBarGraphicsItemGroupBox(self):
+        """Builds the groupbox containing info to edit the
+        PriceBarChartSettings related to a PriceBarGraphicsItem.
+
+        Returns:
+        QGroupBox obj containing all the created widgets.
+        """
+
+        self.priceBarGraphicsItemGroupBox = \
+            QGroupBox("PriceBarGraphicsItem settings:")
 
         # priceBarGraphicsItemPenWidth (float).
         self.priceBarGraphicsItemPenWidthLabel = \
@@ -10614,188 +10729,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.priceBarGraphicsItemRightExtensionWidthResetButton = \
             QPushButton("Reset to default")
 
-        # barCountGraphicsItemBarHeight (float).
-        self.barCountGraphicsItemBarHeightLabel = \
-            QLabel("BarCountGraphicsItem bar height: ")
-        self.barCountGraphicsItemBarHeightSpinBox = QDoubleSpinBox()
-        self.barCountGraphicsItemBarHeightSpinBox.setMinimum(0.0)
-        self.barCountGraphicsItemBarHeightSpinBox.setMaximum(1000.0)
-        self.barCountGraphicsItemBarHeightResetButton = \
-            QPushButton("Reset to default")
-                                             
-        # barCountGraphicsItemFontSize (float).
-        self.barCountGraphicsItemFontSizeLabel = \
-            QLabel("BarCountGraphicsItem font size: ")
-        self.barCountGraphicsItemFontSizeSpinBox = QDoubleSpinBox()
-        self.barCountGraphicsItemFontSizeSpinBox.setMinimum(0.01)
-        self.barCountGraphicsItemFontSizeSpinBox.setMaximum(1000.0)
-        self.barCountGraphicsItemFontSizeResetButton = \
-            QPushButton("Reset to default")
-                                             
-        # barCountGraphicsItemTextXScaling (float).
-        self.barCountGraphicsItemTextXScalingLabel = \
-            QLabel("BarCountGraphicsItem text X scaling: ")
-        self.barCountGraphicsItemTextXScalingSpinBox = QDoubleSpinBox()
-        self.barCountGraphicsItemTextXScalingSpinBox.setMinimum(0.0001)
-        self.barCountGraphicsItemTextXScalingSpinBox.setMaximum(1000.0)
-        self.barCountGraphicsItemTextXScalingResetButton = \
-            QPushButton("Reset to default")
-                                             
-        # barCountGraphicsItemTextYScaling (float).
-        self.barCountGraphicsItemTextYScalingLabel = \
-            QLabel("BarCountGraphicsItem text Y scaling: ")
-        self.barCountGraphicsItemTextYScalingSpinBox = QDoubleSpinBox()
-        self.barCountGraphicsItemTextYScalingSpinBox.setMinimum(0.0001)
-        self.barCountGraphicsItemTextYScalingSpinBox.setMaximum(1000.0)
-        self.barCountGraphicsItemTextYScalingResetButton = \
-            QPushButton("Reset to default")
-                                             
-        # timeMeasurementGraphicsItemBarHeight (float).
-        self.timeMeasurementGraphicsItemBarHeightLabel = \
-            QLabel("TimeMeasurementGraphicsItem bar height: ")
-        self.timeMeasurementGraphicsItemBarHeightSpinBox = QDoubleSpinBox()
-        self.timeMeasurementGraphicsItemBarHeightSpinBox.setMinimum(0.0)
-        self.timeMeasurementGraphicsItemBarHeightSpinBox.setMaximum(1000.0)
-        self.timeMeasurementGraphicsItemBarHeightResetButton = \
-            QPushButton("Reset to default")
-                                             
-        # timeMeasurementGraphicsItemFontSize (float).
-        self.timeMeasurementGraphicsItemFontSizeLabel = \
-            QLabel("TimeMeasurementGraphicsItem font size: ")
-        self.timeMeasurementGraphicsItemFontSizeSpinBox = QDoubleSpinBox()
-        self.timeMeasurementGraphicsItemFontSizeSpinBox.setMinimum(0.01)
-        self.timeMeasurementGraphicsItemFontSizeSpinBox.setMaximum(1000.0)
-        self.timeMeasurementGraphicsItemFontSizeResetButton = \
-            QPushButton("Reset to default")
-                                             
-        # timeMeasurementGraphicsItemTextXScaling (float).
-        self.timeMeasurementGraphicsItemTextXScalingLabel = \
-            QLabel("TimeMeasurementGraphicsItem text X scaling: ")
-        self.timeMeasurementGraphicsItemTextXScalingSpinBox = QDoubleSpinBox()
-        self.timeMeasurementGraphicsItemTextXScalingSpinBox.setMinimum(0.0001)
-        self.timeMeasurementGraphicsItemTextXScalingSpinBox.setMaximum(1000.0)
-        self.timeMeasurementGraphicsItemTextXScalingResetButton = \
-            QPushButton("Reset to default")
-                                             
-        # timeMeasurementGraphicsItemTextYScaling (float).
-        self.timeMeasurementGraphicsItemTextYScalingLabel = \
-            QLabel("TimeMeasurementGraphicsItem text Y scaling: ")
-        self.timeMeasurementGraphicsItemTextYScalingSpinBox = QDoubleSpinBox()
-        self.timeMeasurementGraphicsItemTextYScalingSpinBox.setMinimum(0.0001)
-        self.timeMeasurementGraphicsItemTextYScalingSpinBox.setMaximum(1000.0)
-        self.timeMeasurementGraphicsItemTextYScalingResetButton = \
-            QPushButton("Reset to default")
-                                             
-        # PriceBarChart modalScaleGraphicsItemColor (QColor object).
-        self.modalScaleGraphicsItemColorLabel = \
-            QLabel("ModalScaleGraphicsItem color: ")
-        self.modalScaleGraphicsItemColorEditButton = ColorEditPushButton()
-        self.modalScaleGraphicsItemColorResetButton = \
-            QPushButton("Reset to default")
-        
-        # PriceBarChart modalScaleGraphicsItemTextColor (QColor object).
-        self.modalScaleGraphicsItemTextColorLabel = \
-            QLabel("ModalScaleGraphicsItem text color: ")
-        self.modalScaleGraphicsItemTextColorEditButton = \
-            ColorEditPushButton()
-        self.modalScaleGraphicsItemTextColorResetButton = \
-            QPushButton("Reset to default")
-        
-        # modalScaleGraphicsItemTextXScaling (float).
-        self.modalScaleGraphicsItemTextXScalingLabel = \
-            QLabel("ModalScaleGraphicsItem text X scaling: ")
-        self.modalScaleGraphicsItemTextXScalingSpinBox = QDoubleSpinBox()
-        self.modalScaleGraphicsItemTextXScalingSpinBox.setMinimum(0.0001)
-        self.modalScaleGraphicsItemTextXScalingSpinBox.setMaximum(1000.0)
-        self.modalScaleGraphicsItemTextXScalingResetButton = \
-            QPushButton("Reset to default")
-                                             
-        # modalScaleGraphicsItemTextYScaling (float).
-        self.modalScaleGraphicsItemTextYScalingLabel = \
-            QLabel("ModalScaleGraphicsItem text Y scaling: ")
-        self.modalScaleGraphicsItemTextYScalingSpinBox = QDoubleSpinBox()
-        self.modalScaleGraphicsItemTextYScalingSpinBox.setMinimum(0.0001)
-        self.modalScaleGraphicsItemTextYScalingSpinBox.setMaximum(1000.0)
-        self.modalScaleGraphicsItemTextYScalingResetButton = \
-            QPushButton("Reset to default")
-                                             
-        # textGraphicsItemDefaultFont (QFont)
-        self.textGraphicsItemDefaultFont = QFont()
-        self.textGraphicsItemDefaultFont.\
-            fromString(PriceBarChartSettings.\
-                       defaultTextGraphicsItemDefaultFontDescription)
-        self.textGraphicsItemDefaultFontLabel = \
-            QLabel("TextGraphicsItem default font:")
-        self.textGraphicsItemDefaultFontModifyButton = \
-            QPushButton("Modify")
-        self.textGraphicsItemDefaultFontResetButton = \
-            QPushButton("Reset to default")
-        
-        # textGraphicsItemDefaultColor (QColor)
-        self.textGraphicsItemDefaultColorLabel = \
-            QLabel("TextGraphicsItem default color:")
-        self.textGraphicsItemDefaultColorEditPushButton = \
-            ColorEditPushButton()
-        self.textGraphicsItemDefaultColorResetButton = \
-            QPushButton("Reset to default")
-        
-        # textGraphicsItemDefaultXScaling (float).
-        self.textGraphicsItemDefaultXScalingLabel = \
-            QLabel("TextGraphicsItem default X scaling: ")
-        self.textGraphicsItemDefaultXScalingSpinBox = QDoubleSpinBox()
-        self.textGraphicsItemDefaultXScalingSpinBox.setMinimum(0.0001)
-        self.textGraphicsItemDefaultXScalingSpinBox.setMaximum(1000.0)
-        self.textGraphicsItemDefaultXScalingResetButton = \
-            QPushButton("Reset to default")
-                                             
-        # textGraphicsItemDefaultYScaling (float).
-        self.textGraphicsItemDefaultYScalingLabel = \
-            QLabel("TextGraphicsItem default Y scaling: ")
-        self.textGraphicsItemDefaultYScalingSpinBox = QDoubleSpinBox()
-        self.textGraphicsItemDefaultYScalingSpinBox.setMinimum(0.0001)
-        self.textGraphicsItemDefaultYScalingSpinBox.setMaximum(1000.0)
-        self.textGraphicsItemDefaultYScalingResetButton = \
-            QPushButton("Reset to default")
-                                             
-        # priceTimeInfoGraphicsItemDefaultFont (QFont)
-        self.priceTimeInfoGraphicsItemDefaultFont = QFont()
-        self.priceTimeInfoGraphicsItemDefaultFont.\
-            fromString(PriceBarChartSettings.\
-                       defaultPriceTimeInfoGraphicsItemDefaultFontDescription)
-        self.priceTimeInfoGraphicsItemDefaultFontLabel = \
-            QLabel("PriceTimeInfoGraphicsItem default font:")
-        self.priceTimeInfoGraphicsItemDefaultFontModifyButton = \
-            QPushButton("Modify")
-        self.priceTimeInfoGraphicsItemDefaultFontResetButton = \
-            QPushButton("Reset to default")
-        
-        # priceTimeInfoGraphicsItemDefaultColor (QColor)
-        self.priceTimeInfoGraphicsItemDefaultColorLabel = \
-            QLabel("PriceTimeInfoGraphicsItem default color:")
-        self.priceTimeInfoGraphicsItemDefaultColorEditPushButton = \
-            ColorEditPushButton()
-        self.priceTimeInfoGraphicsItemDefaultColorResetButton = \
-            QPushButton("Reset to default")
-        
-        # priceTimeInfoGraphicsItemDefaultXScaling (float).
-        self.priceTimeInfoGraphicsItemDefaultXScalingLabel = \
-            QLabel("PriceTimeInfoGraphicsItem default X scaling: ")
-        self.priceTimeInfoGraphicsItemDefaultXScalingSpinBox = QDoubleSpinBox()
-        self.priceTimeInfoGraphicsItemDefaultXScalingSpinBox.setMinimum(0.0001)
-        self.priceTimeInfoGraphicsItemDefaultXScalingSpinBox.setMaximum(1000.0)
-        self.priceTimeInfoGraphicsItemDefaultXScalingResetButton = \
-            QPushButton("Reset to default")
-                                             
-        # priceTimeInfoGraphicsItemDefaultYScaling (float).
-        self.priceTimeInfoGraphicsItemDefaultYScalingLabel = \
-            QLabel("PriceTimeInfoGraphicsItem default Y scaling: ")
-        self.priceTimeInfoGraphicsItemDefaultYScalingSpinBox = QDoubleSpinBox()
-        self.priceTimeInfoGraphicsItemDefaultYScalingSpinBox.setMinimum(0.0001)
-        self.priceTimeInfoGraphicsItemDefaultYScalingSpinBox.setMaximum(1000.0)
-        self.priceTimeInfoGraphicsItemDefaultYScalingResetButton = \
-            QPushButton("Reset to default")
-                                             
-                                           
         # Grid layout.
         gridLayout = QGridLayout()
         r = 0
@@ -10835,6 +10768,56 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         self.priceBarGraphicsItemGroupBox.setLayout(gridLayout)
 
+        return self.priceBarGraphicsItemGroupBox
+
+    def _buildBarCountGraphicsItemGroupBox(self):
+        """Builds the groupbox containing info to edit the
+        PriceBarChartSettings related to a BarCountGraphicsItem.
+
+        Returns:
+        QGroupBox obj containing all the created widgets.
+        """
+
+        self.barCountGraphicsItemGroupBox = \
+            QGroupBox("BarCountGraphicsItem settings:")
+
+        # barCountGraphicsItemBarHeight (float).
+        self.barCountGraphicsItemBarHeightLabel = \
+            QLabel("BarCountGraphicsItem bar height: ")
+        self.barCountGraphicsItemBarHeightSpinBox = QDoubleSpinBox()
+        self.barCountGraphicsItemBarHeightSpinBox.setMinimum(0.0)
+        self.barCountGraphicsItemBarHeightSpinBox.setMaximum(1000.0)
+        self.barCountGraphicsItemBarHeightResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # barCountGraphicsItemFontSize (float).
+        self.barCountGraphicsItemFontSizeLabel = \
+            QLabel("BarCountGraphicsItem font size: ")
+        self.barCountGraphicsItemFontSizeSpinBox = QDoubleSpinBox()
+        self.barCountGraphicsItemFontSizeSpinBox.setMinimum(0.01)
+        self.barCountGraphicsItemFontSizeSpinBox.setMaximum(1000.0)
+        self.barCountGraphicsItemFontSizeResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # barCountGraphicsItemTextXScaling (float).
+        self.barCountGraphicsItemTextXScalingLabel = \
+            QLabel("BarCountGraphicsItem text X scaling: ")
+        self.barCountGraphicsItemTextXScalingSpinBox = QDoubleSpinBox()
+        self.barCountGraphicsItemTextXScalingSpinBox.setMinimum(0.0001)
+        self.barCountGraphicsItemTextXScalingSpinBox.setMaximum(1000.0)
+        self.barCountGraphicsItemTextXScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # barCountGraphicsItemTextYScaling (float).
+        self.barCountGraphicsItemTextYScalingLabel = \
+            QLabel("BarCountGraphicsItem text Y scaling: ")
+        self.barCountGraphicsItemTextYScalingSpinBox = QDoubleSpinBox()
+        self.barCountGraphicsItemTextYScalingSpinBox.setMinimum(0.0001)
+        self.barCountGraphicsItemTextYScalingSpinBox.setMaximum(1000.0)
+        self.barCountGraphicsItemTextYScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
+        
         # Grid layout.
         gridLayout = QGridLayout()
         r = 0
@@ -10887,6 +10870,175 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         self.barCountGraphicsItemGroupBox.setLayout(gridLayout)
         
+        return self.barCountGraphicsItemGroupBox
+
+    def _buildTimeMeasurementGraphicsItemGroupBox(self):
+        """Builds the groupbox containing info to edit the
+        PriceBarChartSettings related to a TimeMeasurementGraphicsItem.
+
+        Returns:
+        QGroupBox obj containing all the created widgets.
+        """
+
+        self.timeMeasurementGraphicsItemGroupBox = \
+            QGroupBox("TimeMeasurementGraphicsItem settings:")
+
+        # timeMeasurementGraphicsItemBarHeight (float).
+        self.timeMeasurementGraphicsItemBarHeightLabel = \
+            QLabel("TimeMeasurementGraphicsItem bar height: ")
+        self.timeMeasurementGraphicsItemBarHeightSpinBox = QDoubleSpinBox()
+        self.timeMeasurementGraphicsItemBarHeightSpinBox.setMinimum(0.0)
+        self.timeMeasurementGraphicsItemBarHeightSpinBox.setMaximum(1000.0)
+        self.timeMeasurementGraphicsItemBarHeightResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # timeMeasurementGraphicsItemTextXScaling (float).
+        self.timeMeasurementGraphicsItemTextXScalingLabel = \
+            QLabel("TimeMeasurementGraphicsItem text X scaling: ")
+        self.timeMeasurementGraphicsItemTextXScalingSpinBox = QDoubleSpinBox()
+        self.timeMeasurementGraphicsItemTextXScalingSpinBox.setMinimum(0.0001)
+        self.timeMeasurementGraphicsItemTextXScalingSpinBox.setMaximum(1000.0)
+        self.timeMeasurementGraphicsItemTextXScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # timeMeasurementGraphicsItemTextYScaling (float).
+        self.timeMeasurementGraphicsItemTextYScalingLabel = \
+            QLabel("TimeMeasurementGraphicsItem text Y scaling: ")
+        self.timeMeasurementGraphicsItemTextYScalingSpinBox = QDoubleSpinBox()
+        self.timeMeasurementGraphicsItemTextYScalingSpinBox.setMinimum(0.0001)
+        self.timeMeasurementGraphicsItemTextYScalingSpinBox.setMaximum(1000.0)
+        self.timeMeasurementGraphicsItemTextYScalingResetButton = \
+            QPushButton("Reset to default")
+
+        # timeMeasurementGraphicsItemDefaultFont (QFont)
+        self.timeMeasurementGraphicsItemDefaultFont = QFont()
+        self.timeMeasurementGraphicsItemDefaultFont.\
+            fromString(PriceBarChartSettings.\
+                       defaultTimeMeasurementGraphicsItemDefaultFontDescription)
+        self.timeMeasurementGraphicsItemDefaultFontLabel = \
+            QLabel("TimeMeasurementGraphicsItem default font:")
+        self.timeMeasurementGraphicsItemDefaultFontModifyButton = \
+            QPushButton("Modify")
+        self.timeMeasurementGraphicsItemDefaultFontResetButton = \
+            QPushButton("Reset to default")
+        
+        # timeMeasurementGraphicsItemDefaultTextColor (QColor)
+        self.timeMeasurementGraphicsItemDefaultTextColorLabel = \
+            QLabel("TimeMeasurementGraphicsItem default text color:")
+        self.timeMeasurementGraphicsItemDefaultTextColorEditButton = \
+            ColorEditPushButton()
+        self.timeMeasurementGraphicsItemDefaultTextColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # timeMeasurementGraphicsItemDefaultColor (QColor)
+        self.timeMeasurementGraphicsItemDefaultColorLabel = \
+            QLabel("TimeMeasurementGraphicsItem default color:")
+        self.timeMeasurementGraphicsItemDefaultColorEditButton = \
+            ColorEditPushButton()
+        self.timeMeasurementGraphicsItemDefaultColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # timeMeasurementGraphicsItemShowBarsTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowBarsTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show bars text:")
+        self.timeMeasurementGraphicsItemShowBarsTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowBarsTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.timeMeasurementGraphicsItemShowBarsTextFlagResetButton = \
+            QPushButton("Reset to default")
+    
+        # timeMeasurementGraphicsItemShowHoursTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowHoursTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show hours text:")
+        self.timeMeasurementGraphicsItemShowHoursTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowHoursTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.timeMeasurementGraphicsItemShowHoursTextFlagResetButton = \
+            QPushButton("Reset to default")
+    
+        # timeMeasurementGraphicsItemShowDaysTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowDaysTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show days text:")
+        self.timeMeasurementGraphicsItemShowDaysTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowDaysTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.timeMeasurementGraphicsItemShowDaysTextFlagResetButton = \
+            QPushButton("Reset to default")
+    
+        # timeMeasurementGraphicsItemShowWeeksTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowWeeksTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show weeks text:")
+        self.timeMeasurementGraphicsItemShowWeeksTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowWeeksTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.timeMeasurementGraphicsItemShowWeeksTextFlagResetButton = \
+            QPushButton("Reset to default")
+    
+        # timeMeasurementGraphicsItemShowMonthsTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowMonthsTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show months text:")
+        self.timeMeasurementGraphicsItemShowMonthsTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowMonthsTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.timeMeasurementGraphicsItemShowMonthsTextFlagResetButton = \
+            QPushButton("Reset to default")
+
+        # timeMeasurementGraphicsItemShowSqrtBarsTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem showSqrt bars text:")
+        self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagResetButton = \
+            QPushButton("Reset to default")
+    
+        # timeMeasurementGraphicsItemShowSqrtHoursTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrtHoursTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem showSqrt hours text:")
+        self.timeMeasurementGraphicsItemShowSqrtHoursTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowSqrtHoursTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.timeMeasurementGraphicsItemShowSqrtHoursTextFlagResetButton = \
+            QPushButton("Reset to default")
+    
+        # timeMeasurementGraphicsItemShowSqrtDaysTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrtDaysTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem showSqrt days text:")
+        self.timeMeasurementGraphicsItemShowSqrtDaysTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowSqrtDaysTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.timeMeasurementGraphicsItemShowSqrtDaysTextFlagResetButton = \
+            QPushButton("Reset to default")
+    
+        # timeMeasurementGraphicsItemShowSqrtWeeksTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem showSqrt weeks text:")
+        self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagResetButton = \
+            QPushButton("Reset to default")
+    
+        # timeMeasurementGraphicsItemShowSqrtMonthsTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem showSqrt months text:")
+        self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlagResetButton = \
+            QPushButton("Reset to default")
+
+
         # Grid layout.
         gridLayout = QGridLayout()
         r = 0
@@ -10894,51 +11046,274 @@ class PriceBarChartSettingsEditWidget(QWidget):
         ar = Qt.AlignRight
 
         gridLayout.\
-            addWidget(self.timeMeasurementGraphicsItemBarHeightLabel, 
-                      r, 0, al)
+            addWidget(\
+            self.timeMeasurementGraphicsItemBarHeightLabel, 
+            r, 0, al)
         gridLayout.\
             addWidget(self.timeMeasurementGraphicsItemBarHeightSpinBox, 
                       r, 1, ar)
-        gridLayout.addWidget\
-            (self.timeMeasurementGraphicsItemBarHeightResetButton, 
-             r, 2, ar)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemBarHeightResetButton, 
+            r, 2, ar)
 
         r += 1
         gridLayout.\
-            addWidget(self.timeMeasurementGraphicsItemFontSizeLabel, 
-                      r, 0, al)
-        gridLayout.\
-            addWidget(self.timeMeasurementGraphicsItemFontSizeSpinBox, 
-                      r, 1, ar)
-        gridLayout.addWidget\
-            (self.timeMeasurementGraphicsItemFontSizeResetButton, 
-             r, 2, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(self.timeMeasurementGraphicsItemTextXScalingLabel, 
-                      r, 0, al)
+            addWidget(\
+            self.timeMeasurementGraphicsItemTextXScalingLabel, 
+            r, 0, al)
         gridLayout.\
             addWidget(self.timeMeasurementGraphicsItemTextXScalingSpinBox, 
                       r, 1, ar)
-        gridLayout.addWidget\
-            (self.timeMeasurementGraphicsItemTextXScalingResetButton, 
-             r, 2, ar)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemTextXScalingResetButton, 
+            r, 2, ar)
 
         r += 1
         gridLayout.\
-            addWidget(self.timeMeasurementGraphicsItemTextYScalingLabel, 
-                      r, 0, al)
+            addWidget(\
+            self.timeMeasurementGraphicsItemTextYScalingLabel, 
+            r, 0, al)
         gridLayout.\
             addWidget(self.timeMeasurementGraphicsItemTextYScalingSpinBox, 
                       r, 1, ar)
-        gridLayout.addWidget\
-            (self.timeMeasurementGraphicsItemTextYScalingResetButton, 
-             r, 2, ar)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemTextYScalingResetButton, 
+            r, 2, ar)
+        
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemDefaultFontLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(self.timeMeasurementGraphicsItemDefaultFontModifyButton, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemDefaultFontResetButton, 
+            r, 2, ar)
+        
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemDefaultTextColorLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemDefaultTextColorEditButton, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemDefaultTextColorResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemDefaultColorLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemDefaultColorEditButton, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemDefaultColorResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowBarsTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowBarsTextFlagCheckBox, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowBarsTextFlagResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowHoursTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowHoursTextFlagCheckBox, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowHoursTextFlagResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowDaysTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowDaysTextFlagCheckBox, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowDaysTextFlagResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowWeeksTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowWeeksTextFlagCheckBox, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowWeeksTextFlagResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowMonthsTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowMonthsTextFlagCheckBox, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowMonthsTextFlagResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagCheckBox, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtHoursTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtHoursTextFlagCheckBox, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtHoursTextFlagResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtDaysTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtDaysTextFlagCheckBox, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtDaysTextFlagResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagLabel,
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagCheckBox, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlagCheckBox, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlagResetButton, 
+            r, 2, ar)
+
         r += 1
 
         self.timeMeasurementGraphicsItemGroupBox.setLayout(gridLayout)
         
+        return self.timeMeasurementGraphicsItemGroupBox
+    
+    def _buildModalScaleGraphicsItemGroupBox(self):
+        """Builds the groupbox containing info to edit the
+        PriceBarChartSettings related to a ModalScaleGraphicsItem.
+
+        Returns:
+        QGroupBox obj containing all the created widgets.
+        """
+
+        self.modalScaleGraphicsItemGroupBox = \
+            QGroupBox("ModalScaleGraphicsItem settings:")
+
+        # PriceBarChart modalScaleGraphicsItemColor (QColor).
+        self.modalScaleGraphicsItemColorLabel = \
+            QLabel("ModalScaleGraphicsItem color: ")
+        self.modalScaleGraphicsItemColorEditButton = ColorEditPushButton()
+        self.modalScaleGraphicsItemColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # PriceBarChart modalScaleGraphicsItemTextColor (QColor).
+        self.modalScaleGraphicsItemTextColorLabel = \
+            QLabel("ModalScaleGraphicsItem text color: ")
+        self.modalScaleGraphicsItemTextColorEditButton = \
+            ColorEditPushButton()
+        self.modalScaleGraphicsItemTextColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # modalScaleGraphicsItemTextXScaling (float).
+        self.modalScaleGraphicsItemTextXScalingLabel = \
+            QLabel("ModalScaleGraphicsItem text X scaling: ")
+        self.modalScaleGraphicsItemTextXScalingSpinBox = QDoubleSpinBox()
+        self.modalScaleGraphicsItemTextXScalingSpinBox.setMinimum(0.0001)
+        self.modalScaleGraphicsItemTextXScalingSpinBox.setMaximum(1000.0)
+        self.modalScaleGraphicsItemTextXScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # modalScaleGraphicsItemTextYScaling (float).
+        self.modalScaleGraphicsItemTextYScalingLabel = \
+            QLabel("ModalScaleGraphicsItem text Y scaling: ")
+        self.modalScaleGraphicsItemTextYScalingSpinBox = QDoubleSpinBox()
+        self.modalScaleGraphicsItemTextYScalingSpinBox.setMinimum(0.0001)
+        self.modalScaleGraphicsItemTextYScalingSpinBox.setMaximum(1000.0)
+        self.modalScaleGraphicsItemTextYScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
         # Grid layout.
         gridLayout = QGridLayout()
         r = 0
@@ -10983,6 +11358,57 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         self.modalScaleGraphicsItemGroupBox.setLayout(gridLayout)
         
+        return self.modalScaleGraphicsItemGroupBox
+
+    def _buildTextGraphicsItemGroupBox(self):
+        """Builds the groupbox containing info to edit the
+        PriceBarChartSettings related to a TextGraphicsItem.
+
+        Returns:
+        QGroupBox obj containing all the created widgets.
+        """
+
+        self.textGraphicsItemGroupBox = \
+            QGroupBox("TextGraphicsItem settings:")
+
+        # textGraphicsItemDefaultFont (QFont)
+        self.textGraphicsItemDefaultFont = QFont()
+        self.textGraphicsItemDefaultFont.\
+            fromString(PriceBarChartSettings.\
+                       defaultTextGraphicsItemDefaultFontDescription)
+        self.textGraphicsItemDefaultFontLabel = \
+            QLabel("TextGraphicsItem default font:")
+        self.textGraphicsItemDefaultFontModifyButton = \
+            QPushButton("Modify")
+        self.textGraphicsItemDefaultFontResetButton = \
+            QPushButton("Reset to default")
+        
+        # textGraphicsItemDefaultColor (QColor)
+        self.textGraphicsItemDefaultColorLabel = \
+            QLabel("TextGraphicsItem default color:")
+        self.textGraphicsItemDefaultColorEditButton = \
+            ColorEditPushButton()
+        self.textGraphicsItemDefaultColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # textGraphicsItemDefaultXScaling (float).
+        self.textGraphicsItemDefaultXScalingLabel = \
+            QLabel("TextGraphicsItem default X scaling: ")
+        self.textGraphicsItemDefaultXScalingSpinBox = QDoubleSpinBox()
+        self.textGraphicsItemDefaultXScalingSpinBox.setMinimum(0.0001)
+        self.textGraphicsItemDefaultXScalingSpinBox.setMaximum(1000.0)
+        self.textGraphicsItemDefaultXScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # textGraphicsItemDefaultYScaling (float).
+        self.textGraphicsItemDefaultYScalingLabel = \
+            QLabel("TextGraphicsItem default Y scaling: ")
+        self.textGraphicsItemDefaultYScalingSpinBox = QDoubleSpinBox()
+        self.textGraphicsItemDefaultYScalingSpinBox.setMinimum(0.0001)
+        self.textGraphicsItemDefaultYScalingSpinBox.setMaximum(1000.0)
+        self.textGraphicsItemDefaultYScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
         # Grid layout.
         gridLayout = QGridLayout()
         r = 0
@@ -11004,7 +11430,7 @@ class PriceBarChartSettingsEditWidget(QWidget):
             addWidget(self.textGraphicsItemDefaultColorLabel, 
                       r, 0, al)
         gridLayout.\
-            addWidget(self.textGraphicsItemDefaultColorEditPushButton, 
+            addWidget(self.textGraphicsItemDefaultColorEditButton, 
                       r, 1, ar)
         gridLayout.addWidget\
             (self.textGraphicsItemDefaultColorResetButton, 
@@ -11035,6 +11461,57 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         self.textGraphicsItemGroupBox.setLayout(gridLayout)
         
+        return self.textGraphicsItemGroupBox
+    
+    def _buildPriceTimeInfoGraphicsItemGroupBox(self):
+        """Builds the groupbox containing info to edit the
+        PriceBarChartSettings related to a PriceTimeInfoGraphicsItem.
+
+        Returns:
+        QGroupBox obj containing all the created widgets.
+        """
+
+        self.priceTimeInfoGraphicsItemGroupBox = \
+            QGroupBox("PriceTimeInfoGraphicsItem settings:")
+
+        # priceTimeInfoGraphicsItemDefaultFont (QFont)
+        self.priceTimeInfoGraphicsItemDefaultFont = QFont()
+        self.priceTimeInfoGraphicsItemDefaultFont.\
+            fromString(PriceBarChartSettings.\
+                       defaultPriceTimeInfoGraphicsItemDefaultFontDescription)
+        self.priceTimeInfoGraphicsItemDefaultFontLabel = \
+            QLabel("PriceTimeInfoGraphicsItem default font:")
+        self.priceTimeInfoGraphicsItemDefaultFontModifyButton = \
+            QPushButton("Modify")
+        self.priceTimeInfoGraphicsItemDefaultFontResetButton = \
+            QPushButton("Reset to default")
+        
+        # priceTimeInfoGraphicsItemDefaultColor (QColor)
+        self.priceTimeInfoGraphicsItemDefaultColorLabel = \
+            QLabel("PriceTimeInfoGraphicsItem default color:")
+        self.priceTimeInfoGraphicsItemDefaultColorEditButton = \
+            ColorEditPushButton()
+        self.priceTimeInfoGraphicsItemDefaultColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # priceTimeInfoGraphicsItemDefaultXScaling (float).
+        self.priceTimeInfoGraphicsItemDefaultXScalingLabel = \
+            QLabel("PriceTimeInfoGraphicsItem default X scaling: ")
+        self.priceTimeInfoGraphicsItemDefaultXScalingSpinBox = QDoubleSpinBox()
+        self.priceTimeInfoGraphicsItemDefaultXScalingSpinBox.setMinimum(0.0001)
+        self.priceTimeInfoGraphicsItemDefaultXScalingSpinBox.setMaximum(1000.0)
+        self.priceTimeInfoGraphicsItemDefaultXScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # priceTimeInfoGraphicsItemDefaultYScaling (float).
+        self.priceTimeInfoGraphicsItemDefaultYScalingLabel = \
+            QLabel("PriceTimeInfoGraphicsItem default Y scaling: ")
+        self.priceTimeInfoGraphicsItemDefaultYScalingSpinBox = QDoubleSpinBox()
+        self.priceTimeInfoGraphicsItemDefaultYScalingSpinBox.setMinimum(0.0001)
+        self.priceTimeInfoGraphicsItemDefaultYScalingSpinBox.setMaximum(1000.0)
+        self.priceTimeInfoGraphicsItemDefaultYScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
         # Grid layout.
         gridLayout = QGridLayout()
         r = 0
@@ -11056,7 +11533,7 @@ class PriceBarChartSettingsEditWidget(QWidget):
             addWidget(self.priceTimeInfoGraphicsItemDefaultColorLabel, 
                       r, 0, al)
         gridLayout.\
-            addWidget(self.priceTimeInfoGraphicsItemDefaultColorEditPushButton, 
+            addWidget(self.priceTimeInfoGraphicsItemDefaultColorEditButton, 
                       r, 1, ar)
         gridLayout.addWidget\
             (self.priceTimeInfoGraphicsItemDefaultColorResetButton, 
@@ -11086,117 +11563,8 @@ class PriceBarChartSettingsEditWidget(QWidget):
         r += 1
 
         self.priceTimeInfoGraphicsItemGroupBox.setLayout(gridLayout)
-        
-        # Buttons at bottom.
-        self.resetAllToDefaultButton = \
-            QPushButton("Reset all to original default values")
-        self.okayButton = QPushButton("&Okay")
-        self.cancelButton = QPushButton("&Cancel")
-        self.buttonsAtBottomLayout = QHBoxLayout()
-        self.buttonsAtBottomLayout.addWidget(self.resetAllToDefaultButton)
-        self.buttonsAtBottomLayout.addStretch()
-        self.buttonsAtBottomLayout.addWidget(self.okayButton)
-        self.buttonsAtBottomLayout.addWidget(self.cancelButton)
 
-        # Put all layouts/groupboxes together into the widget.
-        self.mainLayout = QVBoxLayout()
-        self.mainLayout.addWidget(self.priceBarGraphicsItemGroupBox)
-        self.mainLayout.addWidget(self.barCountGraphicsItemGroupBox)
-        self.mainLayout.addWidget(self.timeMeasurementGraphicsItemGroupBox)
-        self.mainLayout.addWidget(self.modalScaleGraphicsItemGroupBox)
-        self.mainLayout.addWidget(self.textGraphicsItemGroupBox)
-        self.mainLayout.addWidget(self.priceTimeInfoGraphicsItemGroupBox)
-        self.mainLayout.addSpacing(10)
-        self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
-
-        self.setLayout(self.mainLayout)
-
-        # Now that all the widgets are created, load the values from the
-        # settings.
-        self.loadValuesFromSettings(self.priceBarChartSettings)
-
-        # Connect signals and slots.
-
-        self.textGraphicsItemDefaultFontModifyButton.clicked.connect(\
-            self._handleTextGraphicsItemDefaultFontModifyButtonClicked)
-        self.priceTimeInfoGraphicsItemDefaultFontModifyButton.clicked.connect(\
-            self._handlePriceTimeInfoGraphicsItemDefaultFontModifyButtonClicked)
-        
-        # Connect reset buttons.
-        self.priceBarGraphicsItemPenWidthResetButton.clicked.\
-            connect(self._handlePriceBarPenWidthResetButtonClicked)
-        self.priceBarGraphicsItemLeftExtensionWidthResetButton.clicked.\
-            connect(self._handlePriceBarLeftExtensionWidthResetButtonClicked)
-        self.priceBarGraphicsItemRightExtensionWidthResetButton.clicked.\
-            connect(self._handlePriceBarRightExtensionWidthResetButtonClicked)
-        self.barCountGraphicsItemBarHeightResetButton.clicked.\
-            connect(self._handleBarCountGraphicsItemBarHeightResetButtonClicked)
-        self.barCountGraphicsItemFontSizeResetButton.clicked.\
-            connect(self._handleBarCountGraphicsItemFontSizeResetButtonClicked)
-        self.barCountGraphicsItemTextXScalingResetButton.clicked.\
-            connect(\
-            self._handleBarCountGraphicsItemTextXScalingResetButtonClicked)
-        self.barCountGraphicsItemTextYScalingResetButton.clicked.\
-            connect(\
-            self._handleBarCountGraphicsItemTextYScalingResetButtonClicked)
-        self.timeMeasurementGraphicsItemBarHeightResetButton.clicked.\
-            connect(\
-            self._handleTimeMeasurementGraphicsItemBarHeightResetButtonClicked)
-        self.timeMeasurementGraphicsItemFontSizeResetButton.clicked.\
-            connect(\
-            self._handleTimeMeasurementGraphicsItemFontSizeResetButtonClicked)
-        self.timeMeasurementGraphicsItemTextXScalingResetButton.clicked.\
-            connect(\
-            self.\
-            _handleTimeMeasurementGraphicsItemTextXScalingResetButtonClicked)
-        self.timeMeasurementGraphicsItemTextYScalingResetButton.clicked.\
-            connect(\
-            self.\
-            _handleTimeMeasurementGraphicsItemTextYScalingResetButtonClicked)
-        self.modalScaleGraphicsItemColorResetButton.clicked.\
-            connect(\
-            self._handleModalScaleGraphicsItemColorResetButtonClicked)
-        self.modalScaleGraphicsItemTextColorResetButton.clicked.\
-            connect(\
-            self._handleModalScaleGraphicsItemTextColorResetButtonClicked)
-        self.modalScaleGraphicsItemTextXScalingResetButton.clicked.\
-            connect(\
-            self._handleModalScaleGraphicsItemTextXScalingResetButtonClicked)
-        self.modalScaleGraphicsItemTextYScalingResetButton.clicked.\
-            connect(\
-            self._handleModalScaleGraphicsItemTextYScalingResetButtonClicked)
-        self.textGraphicsItemDefaultFontResetButton.clicked.\
-            connect(self._handleTextGraphicsItemDefaultFontResetButtonClicked)
-        self.textGraphicsItemDefaultColorResetButton.clicked.\
-            connect(self._handleTextGraphicsItemDefaultColorResetButtonClicked)
-        self.textGraphicsItemDefaultXScalingResetButton.clicked.\
-            connect(\
-            self._handleTextGraphicsItemDefaultXScalingResetButtonClicked)
-        self.textGraphicsItemDefaultYScalingResetButton.clicked.\
-            connect(\
-            self._handleTextGraphicsItemDefaultYScalingResetButtonClicked)
-        self.priceTimeInfoGraphicsItemDefaultFontResetButton.clicked.\
-            connect(\
-            self._handlePriceTimeInfoGraphicsItemDefaultFontResetButtonClicked)
-        self.priceTimeInfoGraphicsItemDefaultColorResetButton.clicked.\
-            connect(\
-            self._handlePriceTimeInfoGraphicsItemDefaultColorResetButtonClicked)
-        self.priceTimeInfoGraphicsItemDefaultXScalingResetButton.clicked.\
-            connect(\
-            self.\
-            _handlePriceTimeInfoGraphicsItemDefaultXScalingResetButtonClicked)
-        self.priceTimeInfoGraphicsItemDefaultYScalingResetButton.clicked.\
-            connect(\
-            self.\
-            _handlePriceTimeInfoGraphicsItemDefaultYScalingResetButtonClicked)
-
-        self.resetAllToDefaultButton.clicked.\
-            connect(self._handleResetAllToDefaultButtonClicked)
-
-        # Connect okay and cancel buttons.
-        self.okayButton.clicked.connect(self._handleOkayButtonClicked)
-        self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
-
+        return self.priceTimeInfoGraphicsItemGroupBox
 
     def loadValuesFromSettings(self, priceBarChartSettings):
         """Loads the widgets with values from the given
@@ -11255,11 +11623,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
             setValue(self.priceBarChartSettings.\
                         timeMeasurementGraphicsItemBarHeight)
 
-        # timeMeasurementGraphicsItemFontSize (float).
-        self.timeMeasurementGraphicsItemFontSizeSpinBox.\
-            setValue(self.priceBarChartSettings.\
-                        timeMeasurementGraphicsItemFontSize)
-
         # timeMeasurementGraphicsItemTextXScaling (float).
         self.timeMeasurementGraphicsItemTextXScalingSpinBox.\
             setValue(self.priceBarChartSettings.\
@@ -11270,12 +11633,128 @@ class PriceBarChartSettingsEditWidget(QWidget):
             setValue(self.priceBarChartSettings.\
                         timeMeasurementGraphicsItemTextYScaling)
 
-        # modalScaleGraphicsItemColor (QColor object).
+        # timeMeasurementGraphicsItemDefaultFontDescription (str)
+        self.timeMeasurementGraphicsItemDefaultFont = QFont()
+        self.timeMeasurementGraphicsItemDefaultFont.\
+            fromString(self.priceBarChartSettings.\
+                       timeMeasurementGraphicsItemDefaultFontDescription)
+
+        # timeMeasurementGraphicsItemDefaultTextColor (QColor).
+        self.timeMeasurementGraphicsItemDefaultTextColorEditButton.\
+            setColor(self.priceBarChartSettings.\
+                     timeMeasurementGraphicsItemDefaultTextColor)
+
+        # timeMeasurementGraphicsItemDefaultColor (QColor).
+        self.timeMeasurementGraphicsItemDefaultColorEditButton.\
+            setColor(self.priceBarChartSettings.\
+                     timeMeasurementGraphicsItemDefaultColor)
+
+        # timeMeasurementGraphicsItemShowBarsTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowBarsTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowBarsTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowBarsTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowHoursTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowHoursTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowHoursTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowHoursTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowDaysTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowDaysTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowDaysTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowDaysTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowWeeksTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowWeeksTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowWeeksTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowWeeksTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowMonthsTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowMonthsTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowMonthsTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowMonthsTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowSqrtBarsTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowSqrtBarsTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowSqrtHoursTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowSqrtHoursTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowSqrtHoursTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrtHoursTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowSqrtDaysTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowSqrtDaysTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowSqrtDaysTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrtDaysTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowSqrtWeeksTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowSqrtWeeksTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowSqrtMonthsTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowSqrtMonthsTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # modalScaleGraphicsItemColor (QColor).
         self.modalScaleGraphicsItemColorEditButton.\
             setColor(self.priceBarChartSettings.\
                      modalScaleGraphicsItemBarColor)
 
-        # modalScaleGraphicsItemTextColor (QColor object).
+        # modalScaleGraphicsItemTextColor (QColor).
         self.modalScaleGraphicsItemTextColorEditButton.\
             setColor(self.priceBarChartSettings.\
                      modalScaleGraphicsItemTextColor)
@@ -11297,7 +11776,7 @@ class PriceBarChartSettingsEditWidget(QWidget):
                        textGraphicsItemDefaultFontDescription)
         
         # textGraphicsItemDefaultColor (QColor)
-        self.textGraphicsItemDefaultColorEditPushButton.\
+        self.textGraphicsItemDefaultColorEditButton.\
             setColor(self.priceBarChartSettings.\
                      textGraphicsItemDefaultColor)
         
@@ -11318,7 +11797,7 @@ class PriceBarChartSettingsEditWidget(QWidget):
                        priceTimeInfoGraphicsItemDefaultFontDescription)
         
         # priceTimeInfoGraphicsItemDefaultColor (QColor)
-        self.priceTimeInfoGraphicsItemDefaultColorEditPushButton.\
+        self.priceTimeInfoGraphicsItemDefaultColorEditButton.\
             setColor(self.priceBarChartSettings.\
                      priceTimeInfoGraphicsItemDefaultColor)
         
@@ -11373,10 +11852,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.priceBarChartSettings.timeMeasurementGraphicsItemBarHeight = \
             float(self.timeMeasurementGraphicsItemBarHeightSpinBox.value())
 
-        # timeMeasurementGraphicsItemFontSize (float).
-        self.priceBarChartSettings.timeMeasurementGraphicsItemFontSize = \
-            float(self.timeMeasurementGraphicsItemFontSizeSpinBox.value())
-
         # timeMeasurementGraphicsItemTextXScaling (float).
         self.priceBarChartSettings.timeMeasurementGraphicsItemTextXScaling = \
             float(self.timeMeasurementGraphicsItemTextXScalingSpinBox.value())
@@ -11385,11 +11860,128 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.priceBarChartSettings.timeMeasurementGraphicsItemTextYScaling = \
             float(self.timeMeasurementGraphicsItemTextYScalingSpinBox.value())
 
-        # modalScaleGraphicsItemTextColor (QColor object).
+        # timeMeasurementGraphicsItemDefaultFontDescription (str)
+        self.priceBarChartSettings.\
+            timeMeasurementGraphicsItemDefaultFontDescription = \
+            self.timeMeasurementGraphicsItemDefaultFont.toString()
+
+        # timeMeasurementGraphicsItemDefaultTextColor (QColor).
+        self.priceBarChartSettings.\
+            timeMeasurementGraphicsItemDefaultTextColor = \
+            self.timeMeasurementGraphicsItemDefaultTextColorEditButton.\
+            getColor()
+
+        # timeMeasurementGraphicsItemDefaultColor (QColor).
+        self.priceBarChartSettings.\
+            timeMeasurementGraphicsItemDefaultColor = \
+            self.timeMeasurementGraphicsItemDefaultColorEditButton.\
+            getColor()
+
+        # timeMeasurementGraphicsItemShowBarsTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowBarsTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowBarsTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowBarsTextFlag = False
+
+        # timeMeasurementGraphicsItemShowHoursTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowHoursTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowHoursTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowHoursTextFlag = False
+
+        # timeMeasurementGraphicsItemShowDaysTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowDaysTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowDaysTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowDaysTextFlag = False
+
+        # timeMeasurementGraphicsItemShowWeeksTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowWeeksTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowWeeksTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowWeeksTextFlag = False
+
+        # timeMeasurementGraphicsItemShowMonthsTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowMonthsTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowMonthsTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowMonthsTextFlag = False
+
+        # timeMeasurementGraphicsItemShowSqrtBarsTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrtBarsTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrtBarsTextFlag = False
+
+        # timeMeasurementGraphicsItemShowSqrtHoursTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowSqrtHoursTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrtHoursTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrtHoursTextFlag = False
+
+        # timeMeasurementGraphicsItemShowSqrtDaysTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowSqrtDaysTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrtDaysTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrtDaysTextFlag = False
+
+        # timeMeasurementGraphicsItemShowSqrtWeeksTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrtWeeksTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrtWeeksTextFlag = False
+
+        # timeMeasurementGraphicsItemShowSqrtMonthsTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrtMonthsTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrtMonthsTextFlag = False
+
+        # modalScaleGraphicsItemTextColor (QColor).
         self.priceBarChartSettings.modalScaleGraphicsItemBarColor = \
             self.modalScaleGraphicsItemColorEditButton.getColor()
 
-        # modalScaleGraphicsItemTextTextColor (QColor object).
+        # modalScaleGraphicsItemTextTextColor (QColor).
         self.priceBarChartSettings.modalScaleGraphicsItemTextColor = \
             self.modalScaleGraphicsItemTextColorEditButton.getColor()
             
@@ -11408,7 +12000,7 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         # textGraphicsItemDefaultColor (QColor)
         self.priceBarChartSettings.textGraphicsItemDefaultColor = \
-            self.textGraphicsItemDefaultColorEditPushButton.getColor()
+            self.textGraphicsItemDefaultColorEditButton.getColor()
 
         # textGraphicsItemDefaultXScaling (float).
         self.priceBarChartSettings.textGraphicsItemDefaultXScaling = \
@@ -11425,7 +12017,7 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         # priceTimeInfoGraphicsItemDefaultColor (QColor)
         self.priceBarChartSettings.priceTimeInfoGraphicsItemDefaultColor = \
-            self.priceTimeInfoGraphicsItemDefaultColorEditPushButton.getColor()
+            self.priceTimeInfoGraphicsItemDefaultColorEditButton.getColor()
 
         # priceTimeInfoGraphicsItemDefaultXScaling (float).
         self.priceBarChartSettings.priceTimeInfoGraphicsItemDefaultXScaling = \
@@ -11437,6 +12029,21 @@ class PriceBarChartSettingsEditWidget(QWidget):
         
         self.log.debug("Exiting saveValuesToSettings()")
 
+    def _handleTimeMeasurementGraphicsItemDefaultFontModifyButtonClicked(self):
+        """Called when the
+        self.timeMeasurementGraphicsItemDefaultFontModifyButton button is
+        clicked.  Brings up a dialog for editing the font, and saves
+        it if the dialog is accepted.
+        """
+
+        dialog = QFontDialog(self.timeMeasurementGraphicsItemDefaultFont)
+
+        rv = dialog.exec_()
+
+        if rv == QDialog.Accepted:
+            # Store the font in the member variable (not in the artifact).
+            self.timeMeasurementGraphicsItemDefaultFont = dialog.selectedFont()
+        
     def _handleTextGraphicsItemDefaultFontModifyButtonClicked(self):
         """Called when the
         self.textGraphicsItemDefaultFontModifyPushButton button is
@@ -11548,17 +12155,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         self.timeMeasurementGraphicsItemBarHeightSpinBox.setValue(value)
 
-    def _handleTimeMeasurementGraphicsItemFontSizeResetButtonClicked(self):
-        """Called when the timeMeasurementGraphicsItemFontSizeResetButton
-        is clicked.  Resets the widget value to the default value.
-        """
-
-        value = \
-            PriceBarChartSettings.\
-                defaultTimeMeasurementGraphicsItemFontSize
-
-        self.timeMeasurementGraphicsItemFontSizeSpinBox.setValue(value)
-
     def _handleTimeMeasurementGraphicsItemTextXScalingResetButtonClicked(self):
         """Called when the timeMeasurementGraphicsItemTextXScalingResetButton
         is clicked.  Resets the widget value to the default value.
@@ -11581,6 +12177,213 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         self.timeMeasurementGraphicsItemTextYScalingSpinBox.setValue(value)
 
+    def _handleTimeMeasurementGraphicsItemDefaultFontResetButtonClicked(self):
+        """Called when the
+        timeMeasurementGraphicsItemDefaultFontResetButton is clicked.
+        Resets the internal value to the default value.
+        """
+
+        self.timeMeasurementGraphicsItemDefaultFont = QFont()
+        self.timeMeasurementGraphicsItemDefaultFont.\
+            fromString(PriceBarChartSettings.\
+                       defaultTimeMeasurementGraphicsItemDefaultFontDescription)
+        
+    def _handleTimeMeasurementGraphicsItemDefaultTextColorResetButtonClicked(self):
+        """Called when the
+        timeMeasurementGraphicsItemDefaultTextColorResetButton is clicked.
+        Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultTimeMeasurementGraphicsItemDefaultTextColor
+
+        self.timeMeasurementGraphicsItemDefaultTextColorEditButton.\
+            setColor(value)
+
+    def _handleTimeMeasurementGraphicsItemDefaultColorResetButtonClicked(self):
+        """Called when the
+        timeMeasurementGraphicsItemDefaultColorResetButton is clicked.
+        Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultTimeMeasurementGraphicsItemDefaultColor
+
+        self.timeMeasurementGraphicsItemDefaultColorEditButton.\
+            setColor(value)
+
+    def _handleTimeMeasurementGraphicsItemShowBarsTextFlagResetButton(self):
+        """Called when the
+        timeMeasurementGraphicsItemShowBarsTextFlagResetButton
+        is clicked.  Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultTimeMeasurementGraphicsItemShowBarsTextFlag
+
+        if value == True:
+            self.timeMeasurementGraphicsItemShowBarsTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowBarsTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+            
+    def _handleTimeMeasurementGraphicsItemShowHoursTextFlagResetButton(self):
+        """Called when the
+        timeMeasurementGraphicsItemShowHoursTextFlagResetButton
+        is clicked.  Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultTimeMeasurementGraphicsItemShowHoursTextFlag
+
+        if value == True:
+            self.timeMeasurementGraphicsItemShowHoursTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowHoursTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+            
+    def _handleTimeMeasurementGraphicsItemShowDaysTextFlagResetButton(self):
+        """Called when the
+        timeMeasurementGraphicsItemShowDaysTextFlagResetButton
+        is clicked.  Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultTimeMeasurementGraphicsItemShowDaysTextFlag
+
+        if value == True:
+            self.timeMeasurementGraphicsItemShowDaysTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowDaysTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+            
+    def _handleTimeMeasurementGraphicsItemShowWeeksTextFlagResetButton(self):
+        """Called when the
+        timeMeasurementGraphicsItemShowWeeksTextFlagResetButton
+        is clicked.  Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultTimeMeasurementGraphicsItemShowWeeksTextFlag
+
+        if value == True:
+            self.timeMeasurementGraphicsItemShowWeeksTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowWeeksTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+            
+    def _handleTimeMeasurementGraphicsItemShowMonthsTextFlagResetButton(self):
+        """Called when the
+        timeMeasurementGraphicsItemShowMonthsTextFlagResetButton
+        is clicked.  Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultTimeMeasurementGraphicsItemShowMonthsTextFlag
+
+        if value == True:
+            self.timeMeasurementGraphicsItemShowMonthsTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowMonthsTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+            
+    def _handleTimeMeasurementGraphicsItemShowSqrtBarsTextFlagResetButton(self):
+        """Called when the
+        timeMeasurementGraphicsItemShowSqrtBarsTextFlagResetButton
+        is clicked.  Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultTimeMeasurementGraphicsItemShowSqrtBarsTextFlag
+
+        if value == True:
+            self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+            
+    def _handleTimeMeasurementGraphicsItemShowSqrtHoursTextFlagResetButton(self):
+        """Called when the
+        timeMeasurementGraphicsItemShowSqrtHoursTextFlagResetButton
+        is clicked.  Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultTimeMeasurementGraphicsItemShowSqrtHoursTextFlag
+
+        if value == True:
+            self.timeMeasurementGraphicsItemShowSqrtHoursTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrtHoursTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+            
+    def _handleTimeMeasurementGraphicsItemShowSqrtDaysTextFlagResetButton(self):
+        """Called when the
+        timeMeasurementGraphicsItemShowSqrtDaysTextFlagResetButton
+        is clicked.  Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultTimeMeasurementGraphicsItemShowSqrtDaysTextFlag
+
+        if value == True:
+            self.timeMeasurementGraphicsItemShowSqrtDaysTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrtDaysTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+            
+    def _handleTimeMeasurementGraphicsItemShowSqrtWeeksTextFlagResetButton(self):
+        """Called when the
+        timeMeasurementGraphicsItemShowSqrtWeeksTextFlagResetButton
+        is clicked.  Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultTimeMeasurementGraphicsItemShowSqrtWeeksTextFlag
+
+        if value == True:
+            self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+            
+    def _handleTimeMeasurementGraphicsItemShowSqrtMonthsTextFlagResetButton(self):
+        """Called when the
+        timeMeasurementGraphicsItemShowSqrtMonthsTextFlagResetButton
+        is clicked.  Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultTimeMeasurementGraphicsItemShowSqrtMonthsTextFlag
+
+        if value == True:
+            self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+            
     def _handleModalScaleGraphicsItemColorResetButtonClicked(self):
         """Called when the modalScaleGraphicsItemColorResetButton
         is clicked.  Resets the widget value to the default value.
@@ -11645,7 +12448,7 @@ class PriceBarChartSettingsEditWidget(QWidget):
               PriceBarChartSettings.\
               defaultTextGraphicsItemDefaultColor
 
-        self.textGraphicsItemDefaultColorEditPushButton.setColor(value)
+        self.textGraphicsItemDefaultColorEditButton.setColor(value)
 
     def _handleTextGraphicsItemDefaultXScalingResetButtonClicked(self):
         """Called when the textGraphicsItemDefaultXScalingResetButton is
@@ -11688,7 +12491,7 @@ class PriceBarChartSettingsEditWidget(QWidget):
               PriceBarChartSettings.\
               defaultPriceTimeInfoGraphicsItemDefaultColor
 
-        self.priceTimeInfoGraphicsItemDefaultColorEditPushButton.setColor(value)
+        self.priceTimeInfoGraphicsItemDefaultColorEditButton.setColor(value)
 
     def _handlePriceTimeInfoGraphicsItemDefaultXScalingResetButtonClicked(self):
         """Called when the
@@ -11726,9 +12529,21 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._handleBarCountGraphicsItemTextXScalingResetButtonClicked()
         self._handleBarCountGraphicsItemTextYScalingResetButtonClicked()
         self._handleTimeMeasurementGraphicsItemBarHeightResetButtonClicked()
-        self._handleTimeMeasurementGraphicsItemFontSizeResetButtonClicked()
         self._handleTimeMeasurementGraphicsItemTextXScalingResetButtonClicked()
         self._handleTimeMeasurementGraphicsItemTextYScalingResetButtonClicked()
+        self._handleTimeMeasurementGraphicsItemDefaultFontResetButtonClicked()
+        self._handleTimeMeasurementGraphicsItemDefaultTextColorResetButtonClicked()
+        self._handleTimeMeasurementGraphicsItemDefaultColorResetButtonClicked()
+        self._handleTimeMeasurementGraphicsItemShowBarsTextFlagResetButton()
+        self._handleTimeMeasurementGraphicsItemShowHoursTextFlagResetButton()
+        self._handleTimeMeasurementGraphicsItemShowDaysTextFlagResetButton()
+        self._handleTimeMeasurementGraphicsItemShowWeeksTextFlagResetButton()
+        self._handleTimeMeasurementGraphicsItemShowMonthsTextFlagResetButton()
+        self._handleTimeMeasurementGraphicsItemShowSqrtBarsTextFlagResetButton()
+        self._handleTimeMeasurementGraphicsItemShowSqrtHoursTextFlagResetButton()
+        self._handleTimeMeasurementGraphicsItemShowSqrtDaysTextFlagResetButton()
+        self._handleTimeMeasurementGraphicsItemShowSqrtWeeksTextFlagResetButton()
+        self._handleTimeMeasurementGraphicsItemShowSqrtMonthsTextFlagResetButton()
         self._handleModalScaleGraphicsItemColorResetButtonClicked()
         self._handleModalScaleGraphicsItemTextColorResetButtonClicked()
         self._handleModalScaleGraphicsItemTextXScalingResetButtonClicked()

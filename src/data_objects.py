@@ -256,35 +256,14 @@ class BirthInfo:
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = "[year={}, ".format(self.year) + \
-             "month={}, ".format(self.month) + \
-             "day={}, ".format(self.day) + \
-             "calendar={}, ".format(self.calendar) + \
-             "hour={}, ".format(self.hour) + \
-             "minute={}, ".format(self.minute) + \
-             "second={}, ".format(self.second) + \
-             "locationName={}, ".format(self.locationName) + \
-             "countryName={}, ".format(self.countryName) + \
-             "longitudeDegrees={}, ".format(self.longitudeDegrees) + \
-             "latitudeDegrees={}, ".format(self.latitudeDegrees) + \
-             "elevation={}, ".format(self.elevation) + \
-             "timezoneName={}, ".format(self.timezoneName) + \
-             "timezoneOffsetAbbreviation={}, ".\
-                format(self.timezoneOffsetAbbreviation) + \
-             "timezoneOffsetValueStr={}, ".\
-                format(self.timezoneOffsetValueStr) + \
-             "timezoneManualEntryHours={}, ".\
-                format(self.timezoneManualEntryHours) + \
-             "timezoneManualEntryMinutes={}, ".\
-                format(self.timezoneManualEntryMinutes) + \
-             "timezoneManualEntryEastWestComboBoxValue={}, ".\
-                format(self.timezoneManualEntryEastWestComboBoxValue) + \
-             "timeOffsetAutodetectedRadioButtonState={}, ".\
-                format(self.timeOffsetAutodetectedRadioButtonState) + \
-             "timeOffsetManualEntryRadioButtonState={}, ".\
-                format(self.timeOffsetManualEntryRadioButtonState) + \
-             "timeOffsetLMTRadioButtonState={}]".\
-                format(self.timeOffsetLMTRadioButtonState)
+        rv = "["
+
+        obj = self
+        for attr in dir(obj):
+            if attr.startswith("__") == False and attr != "toString":
+                rv += "{}={}, ".format(attr, getattr(obj, attr))
+
+        rv += "]"
 
         return rv
 
@@ -454,15 +433,16 @@ class PriceBar:
         # datetime.strftime() datetime.strftime() does not work on
         # years less than 1900.
         
-        return "[Timestamp={}, ".\
-                   format(Ephemeris.datetimeToStr(self.timestamp)) + \
-               "Open={}, ".format(self.open) + \
-               "High={}, ".format(self.high) + \
-               "Low={}, ".format(self.low) + \
-               "Close={}, ".format(self.close) + \
-               "OpenInterest={}, ".format(self.oi) + \
-               "Volume={}, ".format(self.vol) + \
-               "Tags={}]".format(self.tags)
+        rv = "["
+
+        obj = self
+        for attr in dir(obj):
+            if attr.startswith("__") == False and attr != "toString":
+                rv += "{}={}, ".format(attr, getattr(obj, attr))
+
+        rv += "]"
+
+        return rv
 
     def __str__(self):
         """Returns the string representation of the PriceBar data"""
@@ -805,12 +785,16 @@ class MusicalRatio:
     def toString(self):
         """Returns the string representation of the data."""
 
-        return "[ratio={}, ".format(self.ratio) + \
-               "description={}, ".format(self.description) + \
-               "numerator={}, ".format(self.numerator) + \
-               "denominator={}, ".format(self.denominator) + \
-               "enabled={}".format(self.enabled) + \
-               "]"
+        rv = "["
+
+        obj = self
+        for attr in dir(obj):
+            if attr.startswith("__") == False and attr != "toString":
+                rv += "{}={}, ".format(attr, getattr(obj, attr))
+
+        rv += "]"
+
+        return rv
 
     def __str__(self):
         """Returns the string representation of the PriceBar data"""
@@ -895,9 +879,14 @@ class PriceBarChartArtifact:
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = "[name={}, ".format(self.getInternalName()) + \
-             "pos=({}, {})".format(self.getPos().x(), self.getPos().y()) + \
-             "]"
+        rv = "["
+
+        obj = self
+        for attr in dir(obj):
+            if attr.startswith("__") == False and attr != "toString":
+                rv += "{}={}, ".format(attr, getattr(obj, attr))
+
+        rv += "]"
 
         return rv
 
@@ -961,16 +950,17 @@ class PriceBarChartBarCountArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = "[name={}, ".format(self.getInternalName()) + \
-             "pos=({}, {}), ".format(self.getPos().x(), self.getPos().y()) + \
-             "startPointF=({}, {}), ".format(self.getStartPointF().x(),
-                                             self.getStartPointF().y()) + \
-             "endPointF=({}, {}), ".format(self.getEndPointF().x(),
-                                           self.getEndPointF().y()) + \
-             "]"
+        rv = "["
+
+        obj = self
+        for attr in dir(obj):
+            if attr.startswith("__") == False and attr != "toString":
+                rv += "{}={}, ".format(attr, getattr(obj, attr))
+
+        rv += "]"
 
         return rv
-        
+
     def __getstate__(self):
         """Returns the object's state for pickling purposes."""
 
@@ -1024,6 +1014,306 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         self.startPointF = QPointF()
         self.endPointF = QPointF()
 
+        # Scaling of the text.
+        self.textXScaling = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemTextXScaling
+    
+        self.textYScaling = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemTextYScaling
+        
+        # QFont cannot be pickled, but we can utilize
+        # QFont.toString() and then QFont.fromString()
+        self.fontDescription = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemDefaultFontDescription
+        
+        # QColor can be pickled   
+        self.textColor = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemDefaultTextColor
+
+        # QColor can be pickled   
+        self.color = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemDefaultColor
+
+        # Scaling the text, to make it bigger or smaller.
+        self.textXScaling = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemTextXScaling
+        self.textYScaling = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemTextYScaling
+        
+        # Flags for displaying various text.
+        self.showBarsTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowBarsTextFlag
+        
+        self.showHoursTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowHoursTextFlag
+        
+        self.showDaysTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowDaysTextFlag
+        
+        self.showWeeksTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowWeeksTextFlag
+        
+        self.showMonthsTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowMonthsTextFlag
+        
+        self.showSqrtBarsTextFlag = \
+                PriceBarChartSettings.\
+                defaultTimeMeasurementGraphicsItemShowSqrtBarsTextFlag
+        
+        self.showSqrtHoursTextFlag = \
+                PriceBarChartSettings.\
+                defaultTimeMeasurementGraphicsItemShowSqrtHoursTextFlag
+        
+        self.showSqrtDaysTextFlag = \
+                PriceBarChartSettings.\
+                defaultTimeMeasurementGraphicsItemShowSqrtDaysTextFlag
+        
+        self.showSqrtWeeksTextFlag = \
+                PriceBarChartSettings.\
+                defaultTimeMeasurementGraphicsItemShowSqrtWeeksTextFlag
+        
+        self.showSqrtMonthsTextFlag = \
+                PriceBarChartSettings.\
+                defaultTimeMeasurementGraphicsItemShowSqrtMonthsTextFlag
+        
+
+    def setFont(self, font):
+        """Sets the font of this artifact's text.
+
+        Arguments:
+        font - QFont object that is used for the drawing of the text.
+        """
+
+        # QFont cannot be pickled, but we can utilize
+        # QFont.toString() and then QFont.fromString().
+        self.fontDescription = font.toString()
+
+    def getFont(self):
+        """Returns the font of this artifact's text as a QFont.
+        """
+
+        # We obtain the QFont by calling QFont.fromString().
+        font = QFont()
+        font.fromString(self.fontDescription)
+
+        return font
+        
+    def setTextColor(self, textColor):
+        """Sets the color for this artifact's text.
+
+        Arguments:
+        textColor - QColor object holding the color of the text.
+        """
+
+        self.textColor = textColor
+
+    def getTextColor(self):
+        """Returns the color of this artifact's text as a QColor."""
+
+        return self.textColor
+
+    def setColor(self, color):
+        """Sets the color for this artifact.
+
+        Arguments:
+        color - QColor object holding the color of the text.
+        """
+
+        self.color = color
+
+    def getColor(self):
+        """Returns the color of this artifact as a QColor."""
+
+        return self.color
+
+    def setTextXScaling(self, textXScaling):
+        """Sets the text X scaling, used in making the text 
+        bigger or smaller.
+
+        Arguments:
+        textXScaling - float value for the scaling used.
+                       1.0 is no change in scaling.
+        """
+
+        self.textXScaling = textXScaling
+
+    def getTextXScaling(self):
+        """Returns float value for the text X scaling, used in making
+        the text bigger or smaller.
+        """
+
+        return self.textXScaling
+        
+    def setTextYScaling(self, textYScaling):
+        """Sets the text Y scaling, used in making the text 
+        bigger or smaller.
+
+        Arguments:
+        textYScaling - float value for the scaling used.
+                       1.0 is no change in scaling.
+        """
+
+        self.textYScaling = textYScaling
+
+    def getTextYScaling(self):
+        """Returns float value for the text Y scaling, used in making
+        the text bigger or smaller.
+        """
+
+        return self.textYScaling
+        
+    def setShowBarsTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the number
+        of bars should be displayed.
+        """
+
+        self.showBarsTextFlag = flag
+        
+    def getShowBarsTextFlag(self):
+        """Returns the flag that indicates that the text for the
+        number of bars should be displayed.
+        """
+
+        return self.showBarsTextFlag
+        
+    def setShowHoursTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the number
+        of hours should be displayed.
+        """
+
+        self.showHoursTextFlag = flag
+        
+    def getShowHoursTextFlag(self):
+        """Returns the flag that indicates that the text for the
+        number of hours should be displayed.
+        """
+
+        return self.showHoursTextFlag
+        
+    def setShowDaysTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the number
+        of days should be displayed.
+        """
+
+        self.showDaysTextFlag = flag
+        
+    def getShowDaysTextFlag(self):
+        """Returns the flag that indicates that the text for the
+        number of days should be displayed.
+        """
+
+        return self.showDaysTextFlag
+        
+    def setShowWeeksTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the number
+        of weeks should be displayed.
+        """
+
+        self.showWeeksTextFlag = flag
+        
+    def getShowWeeksTextFlag(self):
+        """Returns the flag that indicates that the text for the
+        number of weeks should be displayed.
+        """
+
+        return self.showWeeksTextFlag
+        
+    def setShowMonthsTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the number
+        of months should be displayed.
+        """
+
+        self.showMonthsTextFlag = flag
+        
+    def getShowMonthsTextFlag(self):
+        """Returns the flag that indicates that the text for the
+        number of months should be displayed.
+        """
+
+        return self.showMonthsTextFlag
+        
+    def setShowSqrtBarsTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the sqrt of
+        the number of bars should be displayed.
+        """
+
+        self.showSqrtBarsTextFlag = flag
+        
+    def getShowSqrtBarsTextFlag(self):
+        """Returns the flag that indicates that the text for the sqrt
+        of the number of bars should be displayed.
+        """
+
+        return self.showSqrtBarsTextFlag
+        
+    def setShowSqrtHoursTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the sqrt of
+        the number of hours should be displayed.
+        """
+
+        self.showSqrtHoursTextFlag = flag
+        
+    def getShowSqrtHoursTextFlag(self):
+        """Returns the flag that indicates that the text for the sqrt
+        of the number of hours should be displayed.
+        """
+
+        return self.showSqrtHoursTextFlag
+        
+    def setShowSqrtDaysTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the sqrt of
+        the number of days should be displayed.
+        """
+
+        self.showSqrtDaysTextFlag = flag
+        
+    def getShowSqrtDaysTextFlag(self):
+        """Returns the flag that indicates that the text for the sqrt
+        of the number of days should be displayed.
+        """
+
+        return self.showSqrtDaysTextFlag
+        
+    def setShowSqrtWeeksTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the sqrt of
+        the number of weeks should be displayed.
+        """
+
+        self.showSqrtWeeksTextFlag = flag
+        
+    def getShowSqrtWeeksTextFlag(self):
+        """Returns the flag that indicates that the text for the sqrt
+        of the number of weeks should be displayed.
+        """
+
+        return self.showSqrtWeeksTextFlag
+        
+    def setShowSqrtMonthsTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the sqrt of
+        the number of months should be displayed.
+        """
+
+        self.showSqrtMonthsTextFlag = flag
+        
+    def getShowSqrtMonthsTextFlag(self):
+        """Returns the flag that indicates that the text for the sqrt
+        of the number of months should be displayed.
+        """
+
+        return self.showSqrtMonthsTextFlag
+        
     def setStartPointF(self, startPointF):
         """Stores the starting point of the TimeMeasurementArtifact.
         Arguments:
@@ -1060,16 +1350,17 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = "[name={}, ".format(self.getInternalName()) + \
-             "pos=({}, {}), ".format(self.getPos().x(), self.getPos().y()) + \
-             "startPointF=({}, {}), ".format(self.getStartPointF().x(),
-                                             self.getStartPointF().y()) + \
-             "endPointF=({}, {}), ".format(self.getEndPointF().x(),
-                                           self.getEndPointF().y()) + \
-             "]"
+        rv = "["
+
+        obj = self
+        for attr in dir(obj):
+            if attr.startswith("__") == False and attr != "toString":
+                rv += "{}={}, ".format(attr, getattr(obj, attr))
+
+        rv += "]"
 
         return rv
-        
+
     def __getstate__(self):
         """Returns the object's state for pickling purposes."""
 
@@ -1125,12 +1416,12 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
         # List of used ratios.
         self.musicalRatios = MusicalRatio.getIndianMusicalRatios()
         
-        # modalScaleGraphicsItemColor (QColor object).
+        # modalScaleGraphicsItemColor (QColor).
         self.modalScaleGraphicsItemBarColor = \
             PriceBarChartSettings.\
                 defaultModalScaleGraphicsItemBarColor
 
-        # modalScaleGraphicsItemTextColor (QColor object).
+        # modalScaleGraphicsItemTextColor (QColor).
         self.modalScaleGraphicsItemTextColor = \
             PriceBarChartSettings.\
                 defaultModalScaleGraphicsItemTextColor
@@ -1414,32 +1705,22 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        musicalRatiosStr = "["
-        for musicalRatio in self.musicalRatios:
-            musicalRatiosStr += musicalRatio.toString()
-        musicalRatiosStr += "]"
+        #musicalRatiosStr = "["
+        #for musicalRatio in self.musicalRatios:
+        #    musicalRatiosStr += musicalRatio.toString()
+        #musicalRatiosStr += "]"
         
-        rv = "[name={}, ".format(self.getInternalName()) + \
-             "pos=({}, {}), ".format(self.getPos().x(), self.getPos().y()) + \
-             "startPointF=({}, {}), ".format(self.getStartPointF().x(),
-                                             self.getStartPointF().y()) + \
-             "endPointF=({}, {}), ".format(self.getEndPointF().x(),
-                                           self.getEndPointF().y()) + \
-             "musicalRatios={}, ".format(musicalRatiosStr) + \
-             "reversedFlag={}, ".format(self.reversedFlag) + \
-             "textEnabledFlag={}, ".format(self.textEnabledFlag) + \
-             "modalScaleGraphicsItemBarColor={}, ".\
-             format(self.modalScaleGraphicsItemBarColor) + \
-             "modalScaleGraphicsItemTextColor={}, ".\
-             format(self.modalScaleGraphicsItemTextColor) + \
-             "modalScaleGraphicsItemBarHeight={}, ".\
-             format(self.modalScaleGraphicsItemBarHeight) + \
-             "modalScaleGraphicsItemFontSize={}".\
-             format(self.modalScaleGraphicsItemFontSize) + \
-             "]"
+        rv = "["
+
+        obj = self
+        for attr in dir(obj):
+            if attr.startswith("__") == False and attr != "toString":
+                rv += "{}={}, ".format(attr, getattr(obj, attr))
+
+        rv += "]"
 
         return rv
-        
+
     def __getstate__(self):
         """Returns the object's state for pickling purposes."""
 
@@ -2303,7 +2584,7 @@ class PriceBarChartSettings:
     defaultBarCountGraphicsItemFontSize = 1.0
 
     # Default value for the BarCountGraphicsItem text X scaling (float).
-    defaultBarCountGraphicsItemTextXScaling = 1
+    defaultBarCountGraphicsItemTextXScaling = 1.0
 
     # Default value for the BarCountGraphicsItem text Y scaling (float).
     defaultBarCountGraphicsItemTextYScaling = 0.2
@@ -2311,15 +2592,65 @@ class PriceBarChartSettings:
     # Default value for the TimeMeasurementGraphicsItem bar height (float).
     defaultTimeMeasurementGraphicsItemBarHeight = 0.2
 
-    # Default value for the TimeMeasurementGraphicsItem font size (float).
-    defaultTimeMeasurementGraphicsItemFontSize = 1.20
-
     # Default value for the TimeMeasurementGraphicsItem text X scaling (float).
-    defaultTimeMeasurementGraphicsItemTextXScaling = 1
+    defaultTimeMeasurementGraphicsItemTextXScaling = 0.2
 
     # Default value for the TimeMeasurementGraphicsItem text Y scaling (float).
-    defaultTimeMeasurementGraphicsItemTextYScaling = 0.2
+    defaultTimeMeasurementGraphicsItemTextYScaling = 0.04
 
+    # Default font (this is basically the QFont, serialized to
+    # str) for the TimeMeasurementGraphicsItem.  This includes the
+    # font size.
+    font = QFont("Andale Mono")
+    font.setPointSizeF(6)
+    defaultTimeMeasurementGraphicsItemDefaultFontDescription = font.toString()
+
+    # TimeMeasurementGraphicsItem default text color.
+    defaultTimeMeasurementGraphicsItemDefaultTextColor = QColor(Qt.black)
+    
+    # TimeMeasurementGraphicsItem default color.
+    defaultTimeMeasurementGraphicsItemDefaultColor = QColor(Qt.black)
+    
+    # Default value for the TimeMeasurementGraphicsItem
+    # showBarsTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowBarsTextFlag = True
+    
+    # Default value for the TimeMeasurementGraphicsItem
+    # showHoursTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowHoursTextFlag = True
+    
+    # Default value for the TimeMeasurementGraphicsItem
+    # showDaysTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowDaysTextFlag = True
+    
+    # Default value for the TimeMeasurementGraphicsItem
+    # showWeeksTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowWeeksTextFlag = True
+    
+    # Default value for the TimeMeasurementGraphicsItem
+    # showMonthsTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowMonthsTextFlag = True
+    
+    # Default value for the TimeMeasurementGraphicsItem
+    # showSqrtBarsTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowSqrtBarsTextFlag = True
+    
+    # Default value for the TimeMeasurementGraphicsItem
+    # showSqrtHoursTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowSqrtHoursTextFlag = True
+    
+    # Default value for the TimeMeasurementGraphicsItem
+    # showSqrtDaysTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowSqrtDaysTextFlag = True
+    
+    # Default value for the TimeMeasurementGraphicsItem
+    # showSqrtWeeksTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowSqrtWeeksTextFlag = True
+    
+    # Default value for the TimeMeasurementGraphicsItem
+    # showSqrtMonthsTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowSqrtMonthsTextFlag = True
+    
     # Default color for the bar of a ModalScaleGraphicsItem (QColor).
     defaultModalScaleGraphicsItemBarColor = QColor(Qt.black)
 
@@ -2432,11 +2763,6 @@ class PriceBarChartSettings:
             PriceBarChartSettings.\
                 defaultTimeMeasurementGraphicsItemBarHeight
 
-        # TimeMeasurementGraphicsItem font size (float).
-        self.timeMeasurementGraphicsItemFontSize = \
-            PriceBarChartSettings.\
-                defaultTimeMeasurementGraphicsItemFontSize
-
         # TimeMeasurementGraphicsItem text X scaling (float).
         self.timeMeasurementGraphicsItemTextXScaling = \
             PriceBarChartSettings.\
@@ -2446,6 +2772,73 @@ class PriceBarChartSettings:
         self.timeMeasurementGraphicsItemTextYScaling = \
             PriceBarChartSettings.\
                 defaultTimeMeasurementGraphicsItemTextYScaling
+
+        # Default font (this is basically the QFont, serialized to
+        # str) for the TimeMeasurementGraphicsItem.  This includes the
+        # font size.
+        self.timeMeasurementGraphicsItemDefaultFontDescription = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemDefaultFontDescription
+
+        # TimeMeasurementGraphicsItem default text color.
+        self.timeMeasurementGraphicsItemDefaultTextColor = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemDefaultTextColor
+        
+        # TimeMeasurementGraphicsItem default color.
+        self.timeMeasurementGraphicsItemDefaultColor = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemDefaultColor
+        
+        # TimeMeasurementGraphicsItem showBarsTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowBarsTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowBarsTextFlag
+    
+        # TimeMeasurementGraphicsItem showHoursTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowHoursTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowHoursTextFlag
+    
+        # TimeMeasurementGraphicsItem showDaysTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowDaysTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowDaysTextFlag
+    
+        # TimeMeasurementGraphicsItem showWeeksTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowWeeksTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowWeeksTextFlag
+    
+        # TimeMeasurementGraphicsItem showMonthsTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowMonthsTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowMonthsTextFlag
+    
+        # TimeMeasurementGraphicsItem showSqrtBarsTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrtBarsTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtBarsTextFlag
+    
+        # TimeMeasurementGraphicsItem showSqrtHoursTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrtHoursTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtHoursTextFlag
+    
+        # TimeMeasurementGraphicsItem showSqrtDaysTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrtDaysTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtDaysTextFlag
+    
+        # TimeMeasurementGraphicsItem showSqrtWeeksTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtWeeksTextFlag
+    
+        # TimeMeasurementGraphicsItem showSqrtMonthsTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtMonthsTextFlag
 
         # ModalScaleGraphicsItem bar color (QColor).
         self.modalScaleGraphicsItemBarColor = \
@@ -2541,63 +2934,16 @@ class PriceBarChartSettings:
     def toString(self):
         """Returns the string representation of this object."""
 
-        # List of PriceBarChart scalings used.
-        scalingsStr = ""
-        for scaling in self.priceBarChartGraphicsViewScalings:
-            scalingsStr += scaling.toString()
+        rv = "["
 
-        return "[classVersion={}, ".\
-               format(self.classVersion) + \
-               "priceBarChartGraphicsViewScalings=[{}], ".\
-               format(scalingsStr) + \
-               "priceBarGraphicsItemPenWidth={}, ".\
-               format(self.priceBarGraphicsItemPenWidth) + \
-               "priceBarGraphicsItemLeftExtensionWidth={}, ".\
-               format(self.priceBarGraphicsItemLeftExtensionWidth) + \
-               "priceBarGraphicsItemRightExtensionWidth={}, ".\
-               format(self.priceBarGraphicsItemRightExtensionWidth) + \
-               "barCountGraphicsItemBarHeight={}, ".\
-               format(self.barCountGraphicsItemBarHeight) + \
-               "barCountGraphicsItemFontSize={}, ".\
-               format(self.barCountGraphicsItemFontSize) + \
-               "barCountGraphicsItemTextXScaling={}, ".\
-               format(self.barCountGraphicsItemTextXScaling) + \
-               "barCountGraphicsItemTextYScaling={}, ".\
-               format(self.barCountGraphicsItemTextYScaling) + \
-               "timeMeasurementGraphicsItemBarHeight={}, ".\
-               format(self.timeMeasurementGraphicsItemBarHeight) + \
-               "timeMeasurementGraphicsItemFontSize={}, ".\
-               format(self.timeMeasurementGraphicsItemFontSize) + \
-               "timeMeasurementGraphicsItemTextXScaling={}, ".\
-               format(self.timeMeasurementGraphicsItemTextXScaling) + \
-               "timeMeasurementGraphicsItemTextYScaling={}, ".\
-               format(self.timeMeasurementGraphicsItemTextYScaling) + \
-               "modalScaleGraphicsItemBarColor={}, ".\
-               format(self.modalScaleGraphicsItemBarColor) + \
-               "modalScaleGraphicsItemTextColor={}, ".\
-               format(self.modalScaleGraphicsItemTextColor) + \
-               "modalScaleGraphicsItemTextXScaling={}, ".\
-               format(self.modalScaleGraphicsItemTextXScaling) + \
-               "modalScaleGraphicsItemTextYScaling={}, ".\
-               format(self.modalScaleGraphicsItemTextYScaling) + \
-               "textGraphicsItemDefaultFontDescription={}, ".\
-               format(self.textGraphicsItemDefaultFontDescription) + \
-               "textGraphicsItemDefaultColor={}, ".\
-               format(self.textGraphicsItemDefaultColor) + \
-               "textGraphicsItemDefaultXScaling={}, ".\
-               format(self.textGraphicsItemDefaultXScaling) + \
-               "textGraphicsItemDefaultYScaling={}, ".\
-               format(self.textGraphicsItemDefaultYScaling) + \
-               "priceTimeInfoGraphicsItemDefaultFontDescription={}, ".\
-               format(self.priceTimeInfoGraphicsItemDefaultFontDescription) + \
-               "priceTimeInfoGraphicsItemDefaultColor={}, ".\
-               format(self.priceTimeInfoGraphicsItemDefaultColor) + \
-               "priceTimeInfoGraphicsItemDefaultXScaling={}, ".\
-               format(self.priceTimeInfoGraphicsItemDefaultXScaling) + \
-               "priceTimeInfoGraphicsItemDefaultXScaling={}, ".\
-               format(self.priceTimeInfoGraphicsItemDefaultXScaling) + \
-               "]"
+        obj = self
+        for attr in dir(obj):
+            if attr.startswith("__") == False and attr != "toString":
+                rv += "{}={}, ".format(attr, getattr(obj, attr))
 
+        rv += "]"
+
+        return rv
 
     def __str__(self):
         """Returns the string representation of this object."""
@@ -2696,6 +3042,14 @@ if __name__=="__main__":
     print("Printing out PriceChartDocumentData ...")
     print("{}".format(pcdd.toString()))
 
+    print("")
+    print("Trying to print a PriceBarChartSettings.")
+    ppcs = PriceBarChartSettings()
+    print(ppcs.toString())
+
+    x = [1, 2, 3, 4]
+    print(x)
+    
     # Shutdown logging so all the file handles get flushed and 
     # cleanup can happen.
     logging.shutdown()

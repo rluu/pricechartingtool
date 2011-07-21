@@ -28,7 +28,6 @@ from data_objects import PriceBarChartModalScaleArtifact
 from data_objects import PriceBarChartTextArtifact
 from data_objects import PriceBarChartPriceTimeInfoArtifact
 from data_objects import PriceBarChartScaling
-from data_objects import PriceBarChartSettings
 
 from dialogs import TimestampEditWidget
 
@@ -542,6 +541,27 @@ class PriceBarChartTimeMeasurementArtifactEditWidget(QWidget):
         self.uuidLineEdit = QLineEdit()
         self.uuidLineEdit.setMinimumWidth(lineEditWidth)
 
+        self.xScalingLabel = QLabel("Text X Scaling:")
+        self.xScalingDoubleSpinBox = QDoubleSpinBox()
+        self.xScalingDoubleSpinBox.setMinimum(0.0)
+        self.xScalingDoubleSpinBox.setMaximum(999999999.0)
+        
+        self.yScalingLabel = QLabel("Text Y Scaling:")
+        self.yScalingDoubleSpinBox = QDoubleSpinBox()
+        self.yScalingDoubleSpinBox.setMinimum(0.0)
+        self.yScalingDoubleSpinBox.setMaximum(999999999.0)
+        
+        self.font = QFont()
+        self.fontLabel = QLabel("Font:")
+        self.fontValueLabel = QLabel(self.font.toString())
+        self.fontEditButton = QPushButton("Modify")
+
+        self.colorLabel = QLabel("Color: ")
+        self.colorEditButton = ColorEditPushButton()
+
+        self.textColorLabel = QLabel("Text color: ")
+        self.textColorEditButton = ColorEditPushButton()
+        
         self.priceLocationValueLabel = QLabel("Artifact location (in price):")
         self.priceLocationValueSpinBox = QDoubleSpinBox()
         self.priceLocationValueSpinBox.setMinimum(0.0)
@@ -559,6 +579,33 @@ class PriceBarChartTimeMeasurementArtifactEditWidget(QWidget):
         self.endPointDatetimeLocationWidget.okayButton.setVisible(False)
         self.endPointDatetimeLocationWidget.cancelButton.setVisible(False)
         
+        self.showBarsTextFlagCheckBox = \
+            QCheckBox("Show Bars Text")
+        self.showHoursTextFlagCheckBox = \
+            QCheckBox("Show Hours Text")
+        self.showDaysTextFlagCheckBox = \
+            QCheckBox("Show Days Text")
+        self.showWeeksTextFlagCheckBox = \
+            QCheckBox("Show Weeks Text")
+        self.showMonthsTextFlagCheckBox = \
+            QCheckBox("Show Months Text")
+        self.showSqrtBarsTextFlagCheckBox = \
+            QCheckBox("Show Sqrt Bars Text")
+        self.showSqrtHoursTextFlagCheckBox = \
+            QCheckBox("Show Sqrt Hours Text")
+        self.showSqrtDaysTextFlagCheckBox = \
+            QCheckBox("Show Sqrt Days Text")
+        self.showSqrtWeeksTextFlagCheckBox = \
+            QCheckBox("Show Sqrt Weeks Text")
+        self.showSqrtMonthsTextFlagCheckBox = \
+            QCheckBox("Show Sqrt Months Text")
+        
+        # Layout for just the font info.
+        self.fontLayout = QHBoxLayout()
+        self.fontLayout.addWidget(self.fontValueLabel)
+        self.fontLayout.addStretch()
+        self.fontLayout.addWidget(self.fontEditButton)
+
         # Layout.
         self.gridLayout = QGridLayout()
 
@@ -575,15 +622,58 @@ class PriceBarChartTimeMeasurementArtifactEditWidget(QWidget):
         self.gridLayout.addWidget(self.uuidLabel, r, 0, al)
         self.gridLayout.addWidget(self.uuidLineEdit, r, 1, al)
         r += 1
+        self.gridLayout.addWidget(self.xScalingLabel, r, 0, al)
+        self.gridLayout.addWidget(self.xScalingDoubleSpinBox, r, 1, al)
+        r += 1
+        self.gridLayout.addWidget(self.yScalingLabel, r, 0, al)
+        self.gridLayout.addWidget(self.yScalingDoubleSpinBox, r, 1, al)
+        r += 1
+        self.gridLayout.addWidget(self.fontLabel, r, 0, al)
+        self.gridLayout.addLayout(self.fontLayout, r, 1, al)
+        r += 1
+        self.gridLayout.addWidget(self.colorLabel, r, 0, al)
+        self.gridLayout.addWidget(self.colorEditButton, r, 1, al)
+        r += 1
+        self.gridLayout.addWidget(self.textColorLabel, r, 0, al)
+        self.gridLayout.addWidget(self.textColorEditButton, r, 1, al)
+        r += 1
         self.gridLayout.addWidget(self.priceLocationValueLabel, r, 0, al)
         self.gridLayout.addWidget(self.priceLocationValueSpinBox, r, 1, al)
         r += 1
 
+        # Layout just for the checkboxes for showing text.
+        self.showTextCheckBoxesLayout = QVBoxLayout()
+        self.showTextCheckBoxesLayout.addWidget(\
+            self.showBarsTextFlagCheckBox)
+        self.showTextCheckBoxesLayout.addWidget(\
+            self.showHoursTextFlagCheckBox)
+        self.showTextCheckBoxesLayout.addWidget(\
+            self.showDaysTextFlagCheckBox)
+        self.showTextCheckBoxesLayout.addWidget(\
+            self.showWeeksTextFlagCheckBox)
+        self.showTextCheckBoxesLayout.addWidget(\
+            self.showMonthsTextFlagCheckBox)
+        self.showTextCheckBoxesLayout.addWidget(\
+            self.showSqrtBarsTextFlagCheckBox)
+        self.showTextCheckBoxesLayout.addWidget(\
+            self.showSqrtHoursTextFlagCheckBox)
+        self.showTextCheckBoxesLayout.addWidget(\
+            self.showSqrtDaysTextFlagCheckBox)
+        self.showTextCheckBoxesLayout.addWidget(\
+            self.showSqrtWeeksTextFlagCheckBox)
+        self.showTextCheckBoxesLayout.addWidget(\
+            self.showSqrtMonthsTextFlagCheckBox)
+        tempLayout = self.showTextCheckBoxesLayout
+        self.showTextCheckBoxesLayout = QHBoxLayout()
+        self.showTextCheckBoxesLayout.addLayout(tempLayout)
+        self.showTextCheckBoxesLayout.addStretch()
+
+        # Put all the layouts together.
         self.layout = QVBoxLayout()
         self.layout.addLayout(self.gridLayout)
         self.layout.addWidget(self.startPointDatetimeLocationWidget)
         self.layout.addWidget(self.endPointDatetimeLocationWidget)
-        
+        self.layout.addLayout(self.showTextCheckBoxesLayout)
         self.groupBox.setLayout(self.layout)
 
         # Buttons at bottom.
@@ -666,10 +756,26 @@ class PriceBarChartTimeMeasurementArtifactEditWidget(QWidget):
         # Set the internal widgets as readonly or not depending on this flag.
         self.internalNameLineEdit.setReadOnly(True)
         self.uuidLineEdit.setReadOnly(True)
-        self.priceLocationValueSpinBox.setReadOnly(self.readOnlyFlag)
+        self.xScalingDoubleSpinBox.setEnabled(not self.readOnlyFlag)
+        self.yScalingDoubleSpinBox.setEnabled(not self.readOnlyFlag)
+        self.fontEditButton.setEnabled(not self.readOnlyFlag)
+        self.colorEditButton.setEnabled(not self.readOnlyFlag)
+        self.textColorEditButton.setEnabled(not self.readOnlyFlag)
+        self.priceLocationValueSpinBox.setEnabled(not self.readOnlyFlag)
         self.startPointDatetimeLocationWidget.setReadOnly(self.readOnlyFlag)
         self.endPointDatetimeLocationWidget.setReadOnly(self.readOnlyFlag)
-        
+
+        self.showBarsTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.showHoursTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.showDaysTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.showWeeksTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.showMonthsTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.showSqrtBarsTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.showSqrtHoursTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.showSqrtDaysTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.showSqrtWeeksTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.showSqrtMonthsTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
+
         # Don't allow the Okay button to be pressed for saving.
         self.okayButton.setEnabled(not self.readOnlyFlag)
         
@@ -709,9 +815,21 @@ class PriceBarChartTimeMeasurementArtifactEditWidget(QWidget):
         # Set the widgets.
         self.internalNameLineEdit.\
             setText(self.artifact.getInternalName())
+        
         self.uuidLineEdit.\
             setText(str(self.artifact.getUuid()))
+        
+        self.xScalingDoubleSpinBox.setValue(self.artifact.getTextXScaling())
+        self.yScalingDoubleSpinBox.setValue(self.artifact.getTextYScaling())
 
+        self.font = self.artifact.getFont()
+        self.fontValueLabel.setText(\
+            self._convertFontToNiceText(self.font))
+        
+        self.colorEditButton.setColor(self.artifact.getColor())
+        
+        self.textColorEditButton.setColor(self.artifact.getTextColor())
+        
         locationPointY = self.artifact.startPointF.y()
         locationPointPrice = self.convertObj.sceneYPosToPrice(locationPointY)
         self.priceLocationValueSpinBox.setValue(locationPointPrice)
@@ -725,7 +843,57 @@ class PriceBarChartTimeMeasurementArtifactEditWidget(QWidget):
         endPointDatetime = self.convertObj.sceneXPosToDatetime(endPointX)
         self.endPointDatetimeLocationWidget.\
             loadTimestamp(endPointDatetime)
-        
+
+        if self.artifact.getShowBarsTextFlag() == True:
+            self.showBarsTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showBarsTextFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getShowHoursTextFlag() == True:
+            self.showHoursTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showHoursTextFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getShowDaysTextFlag() == True:
+            self.showDaysTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showDaysTextFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getShowWeeksTextFlag() == True:
+            self.showWeeksTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showWeeksTextFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getShowMonthsTextFlag() == True:
+            self.showMonthsTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showMonthsTextFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getShowSqrtBarsTextFlag() == True:
+            self.showSqrtBarsTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showSqrtBarsTextFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getShowSqrtHoursTextFlag() == True:
+            self.showSqrtHoursTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showSqrtHoursTextFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getShowSqrtDaysTextFlag() == True:
+            self.showSqrtDaysTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showSqrtDaysTextFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getShowSqrtWeeksTextFlag() == True:
+            self.showSqrtWeeksTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showSqrtWeeksTextFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getShowSqrtMonthsTextFlag() == True:
+            self.showSqrtMonthsTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showSqrtMonthsTextFlagCheckBox.setCheckState(Qt.Unchecked)
+            
         self.log.debug("Exiting loadValues()")
         
     def saveValues(self):
@@ -745,11 +913,17 @@ class PriceBarChartTimeMeasurementArtifactEditWidget(QWidget):
         price = self.priceLocationValueSpinBox.value()
         y = self.convertObj.priceToSceneYPos(price)
 
+        textXScaling = self.xScalingDoubleSpinBox.value()
+        textYScaling = self.yScalingDoubleSpinBox.value()
+
         startPointDatetime = \
             self.startPointDatetimeLocationWidget.getTimestamp()
         endPointDatetime = \
             self.endPointDatetimeLocationWidget.getTimestamp()
-                          
+
+        color = self.colorEditButton.getColor()
+        textColor = self.textColorEditButton.getColor()
+
         startPointX = self.convertObj.datetimeToSceneXPos(startPointDatetime)
         endPointX = self.convertObj.datetimeToSceneXPos(endPointDatetime)
 
@@ -757,14 +931,71 @@ class PriceBarChartTimeMeasurementArtifactEditWidget(QWidget):
         startPointF = QPointF(startPointX, y)
         endPointF = QPointF(endPointX, y)
 
+        showBarsTextFlag = \
+            (self.showBarsTextFlagCheckBox.checkState() == Qt.Checked)
+        showHoursTextFlag = \
+            (self.showHoursTextFlagCheckBox.checkState() == Qt.Checked)
+        showDaysTextFlag = \
+            (self.showDaysTextFlagCheckBox.checkState() == Qt.Checked)
+        showWeeksTextFlag = \
+            (self.showWeeksTextFlagCheckBox.checkState() == Qt.Checked)
+        showMonthsTextFlag = \
+            (self.showMonthsTextFlagCheckBox.checkState() == Qt.Checked)
+        showSqrtBarsTextFlag = \
+                (self.showSqrtBarsTextFlagCheckBox.checkState() == Qt.Checked)
+        showSqrtHoursTextFlag = \
+                (self.showSqrtHoursTextFlagCheckBox.checkState() == Qt.Checked)
+        showSqrtDaysTextFlag = \
+                (self.showSqrtDaysTextFlagCheckBox.checkState() == Qt.Checked)
+        showSqrtWeeksTextFlag = \
+                (self.showSqrtWeeksTextFlagCheckBox.checkState() == Qt.Checked)
+        showSqrtMonthsTextFlag = \
+                (self.showSqrtMonthsTextFlagCheckBox.checkState() == Qt.Checked)
+        
         # Set the values in the artifact.
         self.artifact.setPos(posF)
+        self.artifact.setFont(self.font)
+        self.artifact.setTextXScaling(textXScaling)
+        self.artifact.setTextYScaling(textYScaling)
+        self.artifact.setColor(color)
+        self.artifact.setTextColor(textColor)
         self.artifact.setStartPointF(startPointF)
         self.artifact.setEndPointF(endPointF)
-
+        self.artifact.setShowBarsTextFlag(showBarsTextFlag)
+        self.artifact.setShowHoursTextFlag(showHoursTextFlag)
+        self.artifact.setShowDaysTextFlag(showDaysTextFlag)
+        self.artifact.setShowWeeksTextFlag(showWeeksTextFlag)
+        self.artifact.setShowMonthsTextFlag(showMonthsTextFlag)
+        self.artifact.setShowSqrtBarsTextFlag(showSqrtBarsTextFlag)
+        self.artifact.setShowSqrtHoursTextFlag(showSqrtHoursTextFlag)
+        self.artifact.setShowSqrtDaysTextFlag(showSqrtDaysTextFlag)
+        self.artifact.setShowSqrtWeeksTextFlag(showSqrtWeeksTextFlag)
+        self.artifact.setShowSqrtMonthsTextFlag(showSqrtMonthsTextFlag)
+        
         self.log.debug("Exiting saveValues()")
 
 
+    def _convertFontToNiceText(self, font):
+        """Converts the given QFont to some nice str for decribing in a label.
+        """
+
+        rv = "Family: {}".format(font.family()) + os.linesep + \
+             "Size: {}".format(font.pointSizeF())
+
+        return rv
+
+    def _handleFontEditButtonClicked(self):
+        """Called when the self.fontEditButton is clicked."""
+
+        dialog = QFontDialog(self.font)
+
+        rv = dialog.exec_()
+
+        if rv == QDialog.Accepted:
+            # Store the font in the member variable (not in the artifact).
+            self.font = dialog.selectedFont()
+            self.fontValueLabel.setText(self._convertFontToNiceText(self.font))
+        
     def _handleOkayButtonClicked(self):
         """Called when the okay button is clicked."""
 
