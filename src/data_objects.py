@@ -260,7 +260,9 @@ class BirthInfo:
 
         obj = self
         for attr in dir(obj):
-            if attr.startswith("__") == False and attr != "toString":
+            # If it doesn't start with '__' and if it's not callable.
+            if not attr.startswith('__') and \
+                   not hasattr(getattr(obj, attr), '__call__'):
                 rv += "{}={}, ".format(attr, getattr(obj, attr))
 
         rv += "]"
@@ -429,15 +431,13 @@ class PriceBar:
     def toString(self):
         """Returns the string representation of the PriceBar data"""
 
-        # Need to use Ephemeris.datetimeToStr() below because
-        # datetime.strftime() datetime.strftime() does not work on
-        # years less than 1900.
-        
         rv = "["
 
         obj = self
         for attr in dir(obj):
-            if attr.startswith("__") == False and attr != "toString":
+            # If it doesn't start with '__' and if it's not callable.
+            if not attr.startswith('__') and \
+                   not hasattr(getattr(obj, attr), '__call__'):
                 rv += "{}={}, ".format(attr, getattr(obj, attr))
 
         rv += "]"
@@ -789,7 +789,9 @@ class MusicalRatio:
 
         obj = self
         for attr in dir(obj):
-            if attr.startswith("__") == False and attr != "toString":
+            # If it doesn't start with '__' and if it's not callable.
+            if not attr.startswith('__') and \
+                   not hasattr(getattr(obj, attr), '__call__'):
                 rv += "{}={}, ".format(attr, getattr(obj, attr))
 
         rv += "]"
@@ -883,7 +885,9 @@ class PriceBarChartArtifact:
 
         obj = self
         for attr in dir(obj):
-            if attr.startswith("__") == False and attr != "toString":
+            # If it doesn't start with '__' and if it's not callable.
+            if not attr.startswith('__') and \
+                   not hasattr(getattr(obj, attr), '__call__'):
                 rv += "{}={}, ".format(attr, getattr(obj, attr))
 
         rv += "]"
@@ -954,7 +958,9 @@ class PriceBarChartBarCountArtifact(PriceBarChartArtifact):
 
         obj = self
         for attr in dir(obj):
-            if attr.startswith("__") == False and attr != "toString":
+            # If it doesn't start with '__' and if it's not callable.
+            if not attr.startswith('__') and \
+                   not hasattr(getattr(obj, attr), '__call__'):
                 rv += "{}={}, ".format(attr, getattr(obj, attr))
 
         rv += "]"
@@ -1004,8 +1010,9 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         self.classVersion = 1
 
         # Create the logger.
-        self.log = logging.\
-            getLogger("data_objects.PriceBarChartTimeMeasurementArtifact")
+        self.log = \
+            logging.getLogger(\
+            "data_objects.PriceBarChartTimeMeasurementArtifact")
 
         # Update the internal name so it is the artifact type plus the uuid.
         self.internalName = "TimeMeasurement_" + str(self.uuid)
@@ -1014,11 +1021,10 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         self.startPointF = QPointF()
         self.endPointF = QPointF()
 
-        # Scaling of the text.
+        # Scaling the text, to make it bigger or smaller.
         self.textXScaling = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemTextXScaling
-    
         self.textYScaling = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemTextYScaling
@@ -1039,14 +1045,6 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemDefaultColor
 
-        # Scaling the text, to make it bigger or smaller.
-        self.textXScaling = \
-            PriceBarChartSettings.\
-            defaultTimeMeasurementGraphicsItemTextXScaling
-        self.textYScaling = \
-            PriceBarChartSettings.\
-            defaultTimeMeasurementGraphicsItemTextYScaling
-        
         # Flags for displaying various text.
         self.showBarsTextFlag = \
             PriceBarChartSettings.\
@@ -1354,7 +1352,9 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
 
         obj = self
         for attr in dir(obj):
-            if attr.startswith("__") == False and attr != "toString":
+            # If it doesn't start with '__' and if it's not callable.
+            if not attr.startswith('__') and \
+                   not hasattr(getattr(obj, attr), '__call__'):
                 rv += "{}={}, ".format(attr, getattr(obj, attr))
 
         rv += "]"
@@ -1382,7 +1382,9 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         self.__dict__.update(state)
 
         # Re-open the logger because it was not pickled.
-        self.log = logging.getLogger("data_objects.PriceBarChartTimeMeasurementArtifact")
+        self.log = \
+            logging.getLogger(\
+            "data_objects.PriceBarChartTimeMeasurementArtifact")
 
         # Log that we set the state of this object.
         self.log.debug("Set state of a " +
@@ -1714,7 +1716,9 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
 
         obj = self
         for attr in dir(obj):
-            if attr.startswith("__") == False and attr != "toString":
+            # If it doesn't start with '__' and if it's not callable.
+            if not attr.startswith('__') and \
+                   not hasattr(getattr(obj, attr), '__call__'):
                 rv += "{}={}, ".format(attr, getattr(obj, attr))
 
         rv += "]"
@@ -1882,14 +1886,16 @@ class PriceBarChartTextArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = "[name={}, ".format(self.getInternalName()) + \
-             "pos=({}, {}), ".format(self.getPos().x(), self.getPos().y()) + \
-             "text='{}', ".format(self.text) + \
-             "fontDescription='{}', ".format(self.fontDescription) + \
-             "color={}, ".format(self.color) + \
-             "textXScaling={}, ".format(self.textXScaling) + \
-             "textYScaling={}".format(self.textYScaling) + \
-             "]"
+        rv = "["
+
+        obj = self
+        for attr in dir(obj):
+            # If it doesn't start with '__' and if it's not callable.
+            if not attr.startswith('__') and \
+                   not hasattr(getattr(obj, attr), '__call__'):
+                rv += "{}={}, ".format(attr, getattr(obj, attr))
+
+        rv += "]"
 
         return rv
 
@@ -2134,22 +2140,264 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = "[name={}, ".format(self.getInternalName()) + \
-             "pos=({}, {}), ".format(self.getPos().x(), self.getPos().y()) + \
-             "infoPointF=({}, {}), ".\
-             format(self.infoPointF.x(), self.infoPointF.y()) + \
-             "showTimestampFlag={}, ".format(self.showTimestampFlag) + \
-             "showPriceFlag={}, ".format(self.showPriceFlag) + \
-             "showSqrtOfPriceFlag={}, ".format(self.showSqrtOfPriceFlag) + \
-             "showTimeElapsedSinceBirthFlag={}, ".\
-             format(self.showTimeElapsedSinceBirthFlag) + \
-             "showSqrtOfTimeElapsedSinceBirthFlag={}, ".\
-             format(self.showSqrtOfTimeElapsedSinceBirthFlag) + \
-             "fontDescription='{}', ".format(self.fontDescription) + \
-             "color={}, ".format(self.color) + \
-             "textXScaling={}, ".format(self.textXScaling) + \
-             "textYScaling={}".format(self.textYScaling) + \
-             "]"
+        rv = "["
+
+        obj = self
+        for attr in dir(obj):
+            # If it doesn't start with '__' and if it's not callable.
+            if not attr.startswith('__') and \
+                   not hasattr(getattr(obj, attr), '__call__'):
+                rv += "{}={}, ".format(attr, getattr(obj, attr))
+
+        rv += "]"
+
+        return rv
+    
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = \
+            logging.getLogger("data_objects.PriceBarChartPriceTimeInfoArtifact")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " +
+                       PriceBarChartTextArtifact.__name__ +
+                       " object of version {}".format(self.classVersion))
+
+class PriceBarChartPriceMeasurementArtifact(PriceBarChartArtifact):
+    """PriceBarChartArtifact that indicates the price measurement starting 
+    at the given start and end prices, given as two QPointFs.
+    """
+    
+    def __init__(self):
+        super().__init__()
+        
+        # Set the version of this class (used for pickling and unpickling
+        # different versions of this class).
+        self.classVersion = 1
+
+        # Create the logger.
+        self.log = \
+            logging.getLogger(\
+            "data_objects.PriceBarChartPriceMeasurementArtifact")
+
+        # Update the internal name so it is the artifact type plus the uuid.
+        self.internalName = "PriceMeasurement_" + str(self.uuid)
+
+        # Start and end points of the artifact.
+        self.startPointF = QPointF()
+        self.endPointF = QPointF()
+
+        # Scaling the text, to make it bigger or smaller.
+        self.textXScaling = \
+            PriceBarChartSettings.\
+            defaultPriceMeasurementGraphicsItemTextXScaling
+        self.textYScaling = \
+            PriceBarChartSettings.\
+            defaultPriceMeasurementGraphicsItemTextYScaling
+        
+        # QFont cannot be pickled, but we can utilize
+        # QFont.toString() and then QFont.fromString()
+        self.fontDescription = \
+            PriceBarChartSettings.\
+            defaultPriceMeasurementGraphicsItemDefaultFontDescription
+        
+        # QColor can be pickled   
+        self.textColor = \
+            PriceBarChartSettings.\
+            defaultPriceMeasurementGraphicsItemDefaultTextColor
+
+        # QColor can be pickled   
+        self.color = \
+            PriceBarChartSettings.\
+            defaultPriceMeasurementGraphicsItemDefaultColor
+
+        # Flags for displaying various text.
+        self.showPriceRangeTextFlag = \
+            PriceBarChartSettings.\
+            defaultPriceMeasurementGraphicsItemShowPriceRangeTextFlag
+        
+        self.showSqrtPriceRangeTextFlag = \
+                PriceBarChartSettings.\
+                defaultPriceMeasurementGraphicsItemShowSqrtPriceRangeTextFlag
+        
+    def setFont(self, font):
+        """Sets the font of this artifact's text.
+
+        Arguments:
+        font - QFont object that is used for the drawing of the text.
+        """
+
+        # QFont cannot be pickled, but we can utilize
+        # QFont.toString() and then QFont.fromString().
+        self.fontDescription = font.toString()
+
+    def getFont(self):
+        """Returns the font of this artifact's text as a QFont.
+        """
+
+        # We obtain the QFont by calling QFont.fromString().
+        font = QFont()
+        font.fromString(self.fontDescription)
+
+        return font
+        
+    def setTextColor(self, textColor):
+        """Sets the color for this artifact's text.
+
+        Arguments:
+        textColor - QColor object holding the color of the text.
+        """
+
+        self.textColor = textColor
+
+    def getTextColor(self):
+        """Returns the color of this artifact's text as a QColor."""
+
+        return self.textColor
+
+    def setColor(self, color):
+        """Sets the color for this artifact.
+
+        Arguments:
+        color - QColor object holding the color of the text.
+        """
+
+        self.color = color
+
+    def getColor(self):
+        """Returns the color of this artifact as a QColor."""
+
+        return self.color
+
+    def setTextXScaling(self, textXScaling):
+        """Sets the text X scaling, used in making the text 
+        bigger or smaller.
+
+        Arguments:
+        textXScaling - float value for the scaling used.
+                       1.0 is no change in scaling.
+        """
+
+        self.textXScaling = textXScaling
+
+    def getTextXScaling(self):
+        """Returns float value for the text X scaling, used in making
+        the text bigger or smaller.
+        """
+
+        return self.textXScaling
+        
+    def setTextYScaling(self, textYScaling):
+        """Sets the text Y scaling, used in making the text 
+        bigger or smaller.
+
+        Arguments:
+        textYScaling - float value for the scaling used.
+                       1.0 is no change in scaling.
+        """
+
+        self.textYScaling = textYScaling
+
+    def getTextYScaling(self):
+        """Returns float value for the text Y scaling, used in making
+        the text bigger or smaller.
+        """
+
+        return self.textYScaling
+        
+    def setShowPriceRangeTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the price
+        range should be displayed.
+        """
+
+        self.showPriceRangeTextFlag = flag
+        
+    def getShowPriceRangeTextFlag(self):
+        """Returns the flag that indicates that the text for the
+        price range should be displayed.
+        """
+
+        return self.showPriceRangeTextFlag
+        
+    def setShowSqrtPriceRangeTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the sqrt of
+        the price range should be displayed.
+        """
+
+        self.showSqrtPriceRangeTextFlag = flag
+        
+    def getShowSqrtPriceRangeTextFlag(self):
+        """Returns the flag that indicates that the text for the sqrt
+        of the price range should be displayed.
+        """
+
+        return self.showSqrtPriceRangeTextFlag
+        
+    def setStartPointF(self, startPointF):
+        """Stores the starting point of the PriceMeasurementArtifact.
+        Arguments:
+
+        startPointF - QPointF for the starting point of the artifact.
+        """
+        
+        self.startPointF = startPointF
+        
+    def getStartPointF(self):
+        """Returns the starting point of the PriceMeasurementArtifact."""
+        
+        return self.startPointF
+        
+    def setEndPointF(self, endPointF):
+        """Stores the ending point of the PriceMeasurementArtifact.
+        Arguments:
+
+        endPointF - QPointF for the ending point of the artifact.
+        """
+        
+        self.endPointF = endPointF
+        
+    def getEndPointF(self):
+        """Returns the ending point of the PriceMeasurementArtifact."""
+        
+        return self.endPointF
+        
+    def __str__(self):
+        """Returns the string representation of this object."""
+
+        return self.toString()
+
+    def toString(self):
+        """Returns the string representation of this object."""
+
+        rv = "["
+
+        obj = self
+        for attr in dir(obj):
+            # If it doesn't start with '__' and if it's not callable.
+            if not attr.startswith('__') and \
+                   not hasattr(getattr(obj, attr), '__call__'):
+                rv += "{}={}, ".format(attr, getattr(obj, attr))
+
+        rv += "]"
 
         return rv
 
@@ -2175,11 +2423,12 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
 
         # Re-open the logger because it was not pickled.
         self.log = \
-            logging.getLogger("data_objects.PriceBarChartTextArtifact")
+            logging.getLogger(\
+            "data_objects.PriceBarChartPriceMeasurementArtifact")
 
         # Log that we set the state of this object.
         self.log.debug("Set state of a " +
-                       PriceBarChartTextArtifact.__name__ +
+                       PriceBarChartPriceMeasurementArtifact.__name__ +
                        " object of version {}".format(self.classVersion))
 
 class PriceBarChartScaling:
@@ -2274,11 +2523,19 @@ class PriceBarChartScaling:
     def toString(self):
         """Returns the string representation of this object."""
 
-        return "[name={}, ".format(self.name) + \
-                "description={}, ".format(self.description) + \
-                "unitsOfTime={}, ".format(self.unitsOfTime) + \
-                "unitsOfPrice={}]".format(self.unitsOfPrice)
+        rv = "["
 
+        obj = self
+        for attr in dir(obj):
+            # If it doesn't start with '__' and if it's not callable.
+            if not attr.startswith('__') and \
+                   not hasattr(getattr(obj, attr), '__call__'):
+                rv += "{}={}, ".format(attr, getattr(obj, attr))
+
+        rv += "]"
+
+        return rv
+    
     def __getstate__(self):
         """Returns the object's state for pickling purposes."""
 
@@ -2701,6 +2958,35 @@ class PriceBarChartSettings:
     # Default text Y scaling for the PriceTimeInfoGraphicsItem.
     defaultPriceTimeInfoGraphicsItemDefaultYScaling = 0.04
     
+    # Default value for the PriceMeasurementGraphicsItem bar width (float).
+    defaultPriceMeasurementGraphicsItemBarWidth = 1.0
+
+    # Default value for the PriceMeasurementGraphicsItem text X scaling (float).
+    defaultPriceMeasurementGraphicsItemTextXScaling = 0.2
+
+    # Default value for the PriceMeasurementGraphicsItem text Y scaling (float).
+    defaultPriceMeasurementGraphicsItemTextYScaling = 0.04
+
+    # Default font (this is basically the QFont, serialized to
+    # str) for the PriceMeasurementGraphicsItem.  This includes the
+    # font size.
+    font = QFont("Andale Mono")
+    font.setPointSizeF(6)
+    defaultPriceMeasurementGraphicsItemDefaultFontDescription = font.toString()
+
+    # PriceMeasurementGraphicsItem default text color.
+    defaultPriceMeasurementGraphicsItemDefaultTextColor = QColor(Qt.black)
+    
+    # PriceMeasurementGraphicsItem default color.
+    defaultPriceMeasurementGraphicsItemDefaultColor = QColor(Qt.black)
+    
+    # Default value for the PriceMeasurementGraphicsItem
+    # showPriceRangeTextFlag (bool).
+    defaultPriceMeasurementGraphicsItemShowPriceRangeTextFlag = True
+    
+    # Default value for the PriceMeasurementGraphicsItem
+    # showSqrtPriceRangeTextFlag (bool).
+    defaultPriceMeasurementGraphicsItemShowSqrtPriceRangeTextFlag = True
 
     def __init__(self):
         """"Initializes the PriceChartSettings to default values."""
@@ -2903,6 +3189,47 @@ class PriceBarChartSettings:
             PriceBarChartSettings.\
             defaultPriceTimeInfoGraphicsItemDefaultYScaling
 
+        # PriceMeasurementGraphicsItem default bar width (float).
+        self.priceMeasurementGraphicsItemDefaultBarWidth = \
+            PriceBarChartSettings.\
+            defaultPriceMeasurementGraphicsItemBarWidth
+            
+        # PriceMeasurementGraphicsItem default text X scaling (float).
+        self.priceMeasurementGraphicsItemDefaultTextXScaling = \
+            PriceBarChartSettings.\
+            defaultPriceMeasurementGraphicsItemTextXScaling
+
+        # PriceMeasurementGraphicsItem default text Y scaling (float).
+        self.priceMeasurementGraphicsItemDefaultTextYScaling = \
+            PriceBarChartSettings.\
+            defaultPriceMeasurementGraphicsItemTextYScaling
+
+        # PriceMeasurementGraphicsItem default font description (this
+        # is basically the QFont, serialized to str).  This includes
+        # the font size.
+        self.priceMeasurementGraphicsItemDefaultFontDescription = \
+            PriceBarChartSettings.\
+            defaultPriceMeasurementGraphicsItemDefaultFontDescription
+
+        # PriceMeasurementGraphicsItem default text color.
+        self.priceMeasurementGraphicsItemDefaultTextColor = \
+            PriceBarChartSettings.\
+            defaultPriceMeasurementGraphicsItemDefaultTextColor
+    
+        # PriceMeasurementGraphicsItem default color.
+        self.priceMeasurementGraphicsItemDefaultColor = \
+            PriceBarChartSettings.\
+            defaultPriceMeasurementGraphicsItemDefaultColor
+    
+        # PriceMeasurementGraphicsItem showPriceRangeTextFlag (bool).
+        self.priceMeasurementGraphicsItemShowPriceRangeTextFlag = \
+            PriceBarChartSettings.\
+            defaultPriceMeasurementGraphicsItemShowPriceRangeTextFlag
+    
+        # PriceMeasurementGraphicsItem showSqrtPriceRangeTextFlag (bool).
+        self.priceMeasurementGraphicsItemShowSqrtPriceRangeTextFlag = \
+            PriceBarChartSettings.\
+            defaultPriceMeasurementGraphicsItemShowSqrtPriceRangeTextFlag
 
     def __getstate__(self):
         """Returns the object's state for pickling purposes."""
@@ -3001,10 +3328,19 @@ class PriceBarSpreadsheetSettings:
     def toString(self):
         """Prints the string representation of this object."""
 
-        return "[classVersion={}".\
-                   format(self.classVersion) + \
-                "]"
+        rv = "["
 
+        obj = self
+        for attr in dir(obj):
+            # If it doesn't start with '__' and if it's not callable.
+            if not attr.startswith('__') and \
+                   not hasattr(getattr(obj, attr), '__call__'):
+                rv += "{}={}, ".format(attr, getattr(obj, attr))
+
+        rv += "]"
+
+        return rv
+    
     def __str__(self):
         """Returns the string representation of this object."""
 
@@ -3024,7 +3360,12 @@ if __name__=="__main__":
     pb2 = PriceBar(datetime.datetime.now(pytz.utc), 5, 10, 2, 5)
     time.sleep(1)
     pb3 = PriceBar(datetime.datetime.now(pytz.utc), 5, 8, 3, 5)
+
+    dt = datetime.datetime.now(pytz.utc)
+    dt = dt - datetime.timedelta(days=(365 * 800))
+    pb4 = PriceBar(dt, 5, 3, 4, 5)
     
+    pcdd.priceBars.append(pb4)
     pcdd.priceBars.append(pb3)
     pcdd.priceBars.append(pb2)
     pcdd.priceBars.append(pb1)
