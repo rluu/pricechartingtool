@@ -476,7 +476,7 @@ class PriceBar:
         self.log.debug("Set state of a " + PriceBar.__name__ +
                        " object of version {}".format(self.classVersion))
 
-class MusicalRatio:
+class MusicalRatio(Ratio):
     """Contains information about a musical ratio that makes up a note
     in a scale.  Includes the following information:
 
@@ -484,6 +484,7 @@ class MusicalRatio:
     - description of the ratio.
     - numerator of the fraction (if applicable)
     - denominator of the fraction (if applicable)
+    - enabled flag indicating whether or not the musical ratio is enabled.
     """
 
 
@@ -503,8 +504,11 @@ class MusicalRatio:
                     the fraction (if applicable)
         denominator - int value holding the denominator of the
                     fraction (if applicable)
+        enabled - bool value indicating if the musical ratio is
+                  enabled or disabled.
         """
-
+        super().__init__(ratio, description, enabled)
+        
         # Class version stored for pickling and unpickling.
         self.classVersion = 1
 
@@ -683,36 +687,6 @@ class MusicalRatio:
 
         return ratios
     
-    def getRatio(self):
-        """Returns the float ratio value.
-        """
-
-        return self.ratio
-
-    def setRatio(self, ratio):
-        """Sets the ratio.
-        
-        Arguments:
-        ratio - float value for the ratio.
-        """
-        
-        self.ratio = ratio
-    
-    def getDescription(self):
-        """Returns the str description value.
-        """
-
-        return self.description
-
-    def setDescription(self, description):
-        """Sets the description.
-        
-        Arguments:
-        description - str value for the description.
-        """
-        
-        self.description = description
-    
     def getNumerator(self):
         """Returns the int value that is the numerator portion of the
         fraction.  This can be None if it was not previously set.
@@ -746,27 +720,6 @@ class MusicalRatio:
         self.denominator = denominator
     
 
-    def isEnabled(self):
-        """Returns the whether or not the MusicalRatio is enabled.
-        """
-
-        return self.enabled
-    
-    def getEnabled(self):
-        """Returns the whether or not the MusicalRatio is enabled.
-        """
-
-        return self.enabled
-
-    def setEnabled(self, enabled):
-        """Sets whether or not the MusicalRatio is enabled.
-        
-        Arguments:
-        enabled - bool value for the enabled.
-        """
-        
-        self.enabled = enabled
-    
     def inverted(self):
         """Returns the same MusicalRatio, but just inverted.
         '(Inverted)' str is added to the description.
@@ -828,6 +781,208 @@ class MusicalRatio:
 
         # Log that we set the state of this object.
         self.log.debug("Set state of a " + MusicalRatio.__name__ +
+                       " object of version {}".format(self.classVersion))
+
+
+class Ratio:
+    """Contains information about a ratio.  Includes the
+    following information:
+
+    - float value for the ratio.
+    - description of the ratio (optional).
+    - enabled flag.
+    """
+
+    def __init__(self,
+                 ratio,
+                 description="",
+                 enabled=True):
+        """Initializes the PriceBar object.  
+
+        Arguments are as follows:
+        
+        ratio - float value holding the ratio.
+        description - str value holding the description of the ratio.
+        enabled - bool flag indicating if the ratio is enabled or not.
+        """
+
+        # Class version stored for pickling and unpickling.
+        self.classVersion = 1
+
+        # Logger object.
+        self.log = logging.getLogger("data_objects.Ratio")
+
+        self.ratio = ratio
+        self.description = description
+        self.enabled = enabled
+        
+    @staticmethod
+    def getSupportedFibRatios():
+        """Returns a list of Fibonacci Ratio objects that we plan on
+        supporting in this application.
+        """
+
+        # Return value.
+        ratios = []
+
+        # 0
+        ratios.append(Ratio(ratio=0.000,
+                               description="0.000",
+                               enabled=True))
+
+        # 1 / (phi^3)
+        ratios.append(Ratio(ratio=0.23606797695,
+                               description="0.236",
+                               enabled=True))
+        # 1 / (phi^2)
+        ratios.append(Ratio(ratio=0.38196601066,
+                               description="0.382",
+                               enabled=True))
+        
+        # 1 / phi
+        ratios.append(Ratio(ratio=0.61803398827,
+                               description="0.618",
+                               enabled=True))
+        
+        # 1 / math.pow(phi, 1/2)
+        ratios.append(Ratio(ratio=0.78615137745,
+                               description="0.786",
+                               enabled=True))
+        
+        # 1 / math.pow(phi, 1/3)
+        ratios.append(Ratio(ratio=0.85179964186,
+                               description="0.852",
+                               enabled=True))
+        
+        # 1
+        ratios.append(Ratio(ratio=1.000,
+                               description="1.000",
+                               enabled=True))
+
+        # math.pow(phi, 1/3)
+        ratios.append(Ratio(ratio=1.17398499701,
+                               description="1.174",
+                               enabled=True))
+        
+        # math.pow(phi, 1/2)
+        ratios.append(Ratio(ratio=1.27201965001,
+                               description="0.000",
+                               enabled=True))
+        
+        # phi
+        ratios.append(Ratio(ratio=1.61803398875,
+                               description="1.618",
+                               enabled=True))
+
+        # phi^2
+        ratios.append(Ratio(ratio=2.61803398859,
+                               description="2.618",
+                               enabled=True))
+        
+        # phi^3
+        ratios.append(Ratio(ratio=4.23606797711,
+                               description="4.236",
+                               enabled=True))
+        
+        return ratios
+    
+    def getRatio(self):
+        """Returns the float ratio value.
+        """
+
+        return self.ratio
+
+    def setRatio(self, ratio):
+        """Sets the ratio.
+        
+        Arguments:
+        ratio - float value for the ratio.
+        """
+        
+        self.ratio = ratio
+    
+    def getDescription(self):
+        """Returns the str description value.
+        """
+
+        return self.description
+
+    def setDescription(self, description):
+        """Sets the description.
+        
+        Arguments:
+        description - str value for the description.
+        """
+        
+        self.description = description
+    
+    def isEnabled(self):
+        """Returns the whether or not the MusicalRatio is enabled.
+        """
+
+        return self.enabled
+    
+    def getEnabled(self):
+        """Returns the whether or not the MusicalRatio is enabled.
+        """
+
+        return self.enabled
+
+    def setEnabled(self, enabled):
+        """Sets whether or not the MusicalRatio is enabled.
+        
+        Arguments:
+        enabled - bool value for the enabled.
+        """
+        
+        self.enabled = enabled
+    
+    def toString(self):
+        """Returns the string representation of the data."""
+
+        rv = "["
+
+        obj = self
+        for attr in dir(obj):
+            # If it doesn't start with '__' and if it's not callable.
+            if not attr.startswith('__') and \
+                   not hasattr(getattr(obj, attr), '__call__'):
+                rv += "{}={}, ".format(attr, getattr(obj, attr))
+
+        rv += "]"
+
+        return rv
+
+    def __str__(self):
+        """Returns the string representation of the PriceBar data"""
+
+        return self.toString()
+
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = logging.getLogger("data_objects.Ratio")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " + Ratio.__name__ +
                        " object of version {}".format(self.classVersion))
 
 
@@ -2431,6 +2586,295 @@ class PriceBarChartPriceMeasurementArtifact(PriceBarChartArtifact):
                        PriceBarChartPriceMeasurementArtifact.__name__ +
                        " object of version {}".format(self.classVersion))
 
+class PriceBarChartTimeRetracementArtifact(PriceBarChartArtifact):
+    """PriceBarChartArtifact that indicates the time
+    retracement starting at the given timestamp and the given ending
+    timestamp.
+    """
+    
+    def __init__(self):
+        super().__init__()
+        
+        # Set the version of this class (used for pickling and unpickling
+        # different versions of this class).
+        self.classVersion = 1
+
+        # Create the logger.
+        self.log = \
+            logging.getLogger(\
+            "data_objects.PriceBarChartTimeRetracementArtifact")
+
+        # Update the internal name so it is the artifact type plus the uuid.
+        self.internalName = "TimeRetracement_" + str(self.uuid)
+
+        # Start and end points of the artifact.
+        self.startPointF = QPointF()
+        self.endPointF = QPointF()
+
+        # Scaling the text, to make it bigger or smaller.
+        self.textXScaling = \
+            PriceBarChartSettings.\
+            defaultTimeRetracementGraphicsItemTextXScaling
+        self.textYScaling = \
+            PriceBarChartSettings.\
+            defaultTimeRetracementGraphicsItemTextYScaling
+        
+        # QFont cannot be pickled, but we can utilize
+        # QFont.toString() and then QFont.fromString()
+        self.fontDescription = \
+            PriceBarChartSettings.\
+            defaultTimeRetracementGraphicsItemDefaultFontDescription
+        
+        # QColor can be pickled
+        self.textColor = \
+            PriceBarChartSettings.\
+            defaultTimeRetracementGraphicsItemDefaultTextColor
+
+        # QColor can be pickled   
+        self.color = \
+            PriceBarChartSettings.\
+            defaultTimeRetracementGraphicsItemDefaultColor
+
+        # Flags for displaying various parts of the graphics item.
+        self.showFullLines = \
+            PriceBarChartSettings.\
+            defaultTimeRetracementGraphicsItemShowFullLinesFlag
+
+        self.showTimeText = \
+            PriceBarChartSettings.\
+            defaultTimeRetracementGraphicsItemShowTimeTextFlag
+        
+        self.showPercentText = \
+            PriceBarChartSettings.\
+            defaultTimeRetracementGraphicsItemShowPercentTextFlag
+
+        # List of Ratio objects for the different ratios supported.
+        self.ratios = \
+            PriceBarChartSettings.\
+            defaultTimeRetracementGraphicsItemRatios
+
+    def setFont(self, font):
+        """Sets the font of this artifact's text.
+
+        Arguments:
+        font - QFont object that is used for the drawing of the text.
+        """
+
+        # QFont cannot be pickled, but we can utilize
+        # QFont.toString() and then QFont.fromString().
+        self.fontDescription = font.toString()
+
+    def getFont(self):
+        """Returns the font of this artifact's text as a QFont.
+        """
+
+        # We obtain the QFont by calling QFont.fromString().
+        font = QFont()
+        font.fromString(self.fontDescription)
+
+        return font
+        
+    def setTextColor(self, textColor):
+        """Sets the color for this artifact's text.
+
+        Arguments:
+        textColor - QColor object holding the color of the text.
+        """
+
+        self.textColor = textColor
+
+    def getTextColor(self):
+        """Returns the color of this artifact's text as a QColor."""
+
+        return self.textColor
+
+    def setColor(self, color):
+        """Sets the color for this artifact.
+
+        Arguments:
+        color - QColor object holding the color of the text.
+        """
+
+        self.color = color
+
+    def getColor(self):
+        """Returns the color of this artifact as a QColor."""
+
+        return self.color
+
+    def setTextXScaling(self, textXScaling):
+        """Sets the text X scaling, used in making the text 
+        bigger or smaller.
+
+        Arguments:
+        textXScaling - float value for the scaling used.
+                       1.0 is no change in scaling.
+        """
+
+        self.textXScaling = textXScaling
+
+    def getTextXScaling(self):
+        """Returns float value for the text X scaling, used in making
+        the text bigger or smaller.
+        """
+
+        return self.textXScaling
+        
+    def setTextYScaling(self, textYScaling):
+        """Sets the text Y scaling, used in making the text 
+        bigger or smaller.
+
+        Arguments:
+        textYScaling - float value for the scaling used.
+                       1.0 is no change in scaling.
+        """
+
+        self.textYScaling = textYScaling
+
+    def getTextYScaling(self):
+        """Returns float value for the text Y scaling, used in making
+        the text bigger or smaller.
+        """
+
+        return self.textYScaling
+        
+    def setShowFullLinesFlag(self, flag):
+        """Sets the flag that indicates that the lines for the
+        retracement should be displayed.
+        """
+
+        self.showFullLinesFlag = flag
+        
+    def getShowFullLinesFlag(self):
+        """Returns the flag that indicates that the lines for the
+        retracement should be displayed.
+        """
+
+        return self.showFullLinesFlag
+        
+    def setShowTimeTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the
+        timestamp should be displayed.
+        """
+
+        self.showTimeText = flag
+        
+    def getShowTimeTextFlag(self):
+        """Returns the flag that indicates that the text for the
+        timestamp should be displayed.
+        """
+
+        return self.showTimeText
+        
+    def setShowPercentTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the
+        timestamp should be displayed.
+        """
+
+        self.showPercentText = flag
+        
+    def getShowPercentTextFlag(self):
+        """Returns the flag that indicates that the text for the
+        timestamp should be displayed.
+        """
+
+        return self.showPercentText
+
+    def setRatios(self, ratios):
+        """Sets the list of Ratio objects, which is the ratios
+        supported, and whether they are enabled or not for this
+        artifact.
+        """
+
+        self.ratios = ratios
+    
+    def getRatios(self):
+        """Returns a list of Ratio objects, which holds the ratios
+        supported, and whether they are enabled or not for this
+        artifact.
+        """
+
+        return self.ratios
+    
+    def setStartPointF(self, startPointF):
+        """Stores the starting point of the TimeRetracementArtifact.
+        Arguments:
+
+        startPointF - QPointF for the starting point of the artifact.
+        """
+        
+        self.startPointF = startPointF
+        
+    def getStartPointF(self):
+        """Returns the starting point of the TimeRetracementArtifact."""
+        
+        return self.startPointF
+        
+    def setEndPointF(self, endPointF):
+        """Stores the ending point of the TimeRetracementArtifact.
+        Arguments:
+
+        endPointF - QPointF for the ending point of the artifact.
+        """
+        
+        self.endPointF = endPointF
+        
+    def getEndPointF(self):
+        """Returns the ending point of the TimeRetracementArtifact."""
+        
+        return self.endPointF
+        
+    def __str__(self):
+        """Returns the string representation of this object."""
+
+        return self.toString()
+
+    def toString(self):
+        """Returns the string representation of this object."""
+
+        rv = "["
+
+        obj = self
+        for attr in dir(obj):
+            # If it doesn't start with '__' and if it's not callable.
+            if not attr.startswith('__') and \
+                   not hasattr(getattr(obj, attr), '__call__'):
+                rv += "{}={}, ".format(attr, getattr(obj, attr))
+
+        rv += "]"
+
+        return rv
+
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = \
+            logging.getLogger(\
+            "data_objects.PriceBarChartTimeRetracementArtifact")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " +
+                       PriceBarChartTimeRetracementArtifact.__name__ +
+                       " object of version {}".format(self.classVersion))
+
 class PriceBarChartScaling:
     """Class that holds information about the scaling of a PriceBarChart.
     """
@@ -2988,6 +3432,44 @@ class PriceBarChartSettings:
     # showSqrtPriceRangeTextFlag (bool).
     defaultPriceMeasurementGraphicsItemShowSqrtPriceRangeTextFlag = True
 
+    # Default value for the TimeRetracementGraphicsItem bar height (float).
+    defaultTimeRetracementGraphicsItemBarHeight = 0.2
+
+    # Default value for the TimeRetracementGraphicsItem text X scaling (float).
+    defaultTimeRetracementGraphicsItemTextXScaling = 0.2
+
+    # Default value for the TimeRetracementGraphicsItem text Y scaling (float).
+    defaultTimeRetracementGraphicsItemTextYScaling = 0.04
+
+    # Default font (this is basically the QFont, serialized to
+    # str) for the TimeRetracementGraphicsItem.  This includes the
+    # font size.
+    font = QFont("Andale Mono")
+    font.setPointSizeF(6)
+    defaultTimeRetracementGraphicsItemDefaultFontDescription = font.toString()
+
+    # TimeRetracementGraphicsItem default text color.
+    defaultTimeRetracementGraphicsItemDefaultTextColor = QColor(Qt.black)
+    
+    # TimeRetracementGraphicsItem default color.
+    defaultTimeRetracementGraphicsItemDefaultColor = QColor(Qt.black)
+    
+    # Default value for the TimeRetracementGraphicsItem
+    # showFullLinesFlag (bool).
+    defaultTimeRetracementGraphicsItemShowFullLinesFlag = True
+    
+    # Default value for the TimeRetracementGraphicsItem
+    # showTimeTextFlag (bool).
+    defaultTimeRetracementGraphicsItemShowTimeTextFlag = True
+    
+    # Default value for the TimeRetracementGraphicsItem
+    # showPercentTextFlag (bool).
+    defaultTimeRetracementGraphicsItemShowPercentTextFlag = True
+    
+    # Default value for the TimeRetracementGraphicsItem
+    # ratios (list of Ratio).
+    defaultTimeRetracementGraphicsItemRatios = Ratio.getSupportedFibRatios()
+    
     def __init__(self):
         """"Initializes the PriceChartSettings to default values."""
 
@@ -3231,6 +3713,58 @@ class PriceBarChartSettings:
             PriceBarChartSettings.\
             defaultPriceMeasurementGraphicsItemShowSqrtPriceRangeTextFlag
 
+        # TimeRetracementGraphicsItem bar height (float).
+        self.timeRetracementGraphicsItemBarHeight = \
+            PriceBarChartSettings.\
+                defaultTimeRetracementGraphicsItemBarHeight
+
+        # TimeRetracementGraphicsItem text X scaling (float).
+        self.timeRetracementGraphicsItemTextXScaling = \
+            PriceBarChartSettings.\
+                defaultTimeRetracementGraphicsItemTextXScaling
+
+        # TimeRetracementGraphicsItem text Y scaling (float).
+        self.timeRetracementGraphicsItemTextYScaling = \
+            PriceBarChartSettings.\
+                defaultTimeRetracementGraphicsItemTextYScaling
+
+        # Default font (this is basically the QFont, serialized to
+        # str) for the TimeRetracementGraphicsItem.  This includes the
+        # font size.
+        self.timeRetracementGraphicsItemDefaultFontDescription = \
+            PriceBarChartSettings.\
+            defaultTimeRetracementGraphicsItemDefaultFontDescription
+
+        # TimeRetracementGraphicsItem default text color.
+        self.timeRetracementGraphicsItemDefaultTextColor = \
+            PriceBarChartSettings.\
+            defaultTimeRetracementGraphicsItemDefaultTextColor
+        
+        # TimeRetracementGraphicsItem default color.
+        self.timeRetracementGraphicsItemDefaultColor = \
+            PriceBarChartSettings.\
+            defaultTimeRetracementGraphicsItemDefaultColor
+
+        # TimeRetracementGraphicsItem showFullLinesFlag (bool).
+        self.timeRetracementGraphicsItemShowFullLinesFlag = \
+            PriceBarChartSettings.\
+            defaultTimeRetracementGraphicsItemShowFullLinesFlag
+    
+        # TimeRetracementGraphicsItem showTimeTextFlag (bool).
+        self.timeRetracementGraphicsItemShowTimeTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeRetracementGraphicsItemShowTimeTextFlag
+    
+        # TimeRetracementGraphicsItem showPercentTextFlag (bool).
+        self.timeRetracementGraphicsItemShowPercentTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeRetracementGraphicsItemShowPercentTextFlag
+    
+        # TimeRetracementGraphicsItem ratios (list of Ratio).
+        self.timeRetracementGraphicsItemRatios = \
+            PriceBarChartSettings.\
+            defaultTimeRetracementGraphicsItemRatios
+    
     def __getstate__(self):
         """Returns the object's state for pickling purposes."""
 
