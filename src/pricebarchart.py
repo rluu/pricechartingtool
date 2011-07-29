@@ -1465,48 +1465,6 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         super().setPos(self.startPointF)
 
-    def _mousePosToNearestPriceBarX(self, pointF):
-        """Gets the X position value of the closest PriceBar (on the X
-        axis) to the given mouse position.
-
-        Arguments:
-        pointF - QPointF to do the lookup on.
-
-        Returns:
-        float value for the X value.  If there are no PriceBars, then it
-        returns the X given in the input pointF.
-        """
-
-        scene = self.scene()
-
-        # Get all the QGraphicsItems.
-        graphicsItems = scene.items()
-
-        closestPriceBarX = None
-        currClosestDistance = None
-
-        # Go through the PriceBarGraphicsItems and find the closest one in
-        # X coordinates.
-        for item in graphicsItems:
-            if isinstance(item, PriceBarGraphicsItem):
-
-                x = item.getPriceBarHighScenePoint().x()
-                distance = abs(pointF.x() - x)
-
-                if closestPriceBarX == None:
-                    closestPriceBarX = x
-                    currClosestDistance = distance
-                elif (currClosestDistance != None) and \
-                        (distance < currClosestDistance):
-
-                    closestPriceBarX = x
-                    currClosestDistance = distance
-                    
-        if closestPriceBarX == None:
-            closestPriceBarX = pointF.x()
-
-        return closestPriceBarX
-
     def recalculateBarCount(self):
         """Sets the internal variable holding the number of bars in the
         X space between:
@@ -2556,48 +2514,6 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             
             super().setPos(self.startPointF)
             
-
-    def _mousePosToNearestPriceBarX(self, pointF):
-        """Gets the X position value of the closest PriceBar (on the X
-        axis) to the given mouse position.
-
-        Arguments:
-        pointF - QPointF to do the lookup on.
-
-        Returns:
-        float value for the X value.  If there are no PriceBars, then it
-        returns the X given in the input pointF.
-        """
-
-        scene = self.scene()
-
-        # Get all the QGraphicsItems.
-        graphicsItems = scene.items()
-
-        closestPriceBarX = None
-        currClosestDistance = None
-
-        # Go through the PriceBarGraphicsItems and find the closest one in
-        # X coordinates.
-        for item in graphicsItems:
-            if isinstance(item, PriceBarGraphicsItem):
-
-                x = item.getPriceBarHighScenePoint().x()
-                distance = abs(pointF.x() - x)
-
-                if closestPriceBarX == None:
-                    closestPriceBarX = x
-                    currClosestDistance = distance
-                elif (currClosestDistance != None) and \
-                        (distance < currClosestDistance):
-
-                    closestPriceBarX = x
-                    currClosestDistance = distance
-                    
-        if closestPriceBarX == None:
-            closestPriceBarX = pointF.x()
-
-        return closestPriceBarX
 
     def recalculateTimeMeasurement(self):
         """Sets the internal variables:
@@ -3896,48 +3812,6 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Update the modalScale label text item positions.
             self.refreshTextItems()
             
-
-    def _mousePosToNearestPriceBarX(self, pointF):
-        """Gets the X position value of the closest PriceBar (on the X
-        axis) to the given mouse position.
-
-        Arguments:
-        pointF - QPointF to do the lookup on.
-
-        Returns:
-        float value for the X value.  If there are no PriceBars, then it
-        returns the X given in the input pointF.
-        """
-
-        scene = self.scene()
-
-        # Get all the QGraphicsItems.
-        graphicsItems = scene.items()
-
-        closestPriceBarX = None
-        currClosestDistance = None
-
-        # Go through the PriceBarGraphicsItems and find the closest one in
-        # X coordinates.
-        for item in graphicsItems:
-            if isinstance(item, PriceBarGraphicsItem):
-
-                x = item.getPriceBarHighScenePoint().x()
-                distance = abs(pointF.x() - x)
-
-                if closestPriceBarX == None:
-                    closestPriceBarX = x
-                    currClosestDistance = distance
-                elif (currClosestDistance != None) and \
-                        (distance < currClosestDistance):
-
-                    closestPriceBarX = x
-                    currClosestDistance = distance
-                    
-        if closestPriceBarX == None:
-            closestPriceBarX = pointF.x()
-
-        return closestPriceBarX
 
     def recalculateModalScale(self):
         """Updates the text items that represent the ticks on the
@@ -6484,10 +6358,25 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             PriceBarChartSettings.\
             defaultTimeRetracementGraphicsItemDefaultColor
 
-        # TimeRetracementGraphicsItem showBarsTextFlag (bool).
-        self.showBarsTextFlag = \
+        # TimeRetracementGraphicsItem showFullLinesFlag (bool).
+        self.showFullLinesFlag = \
             PriceBarChartSettings.\
-            defaultTimeRetracementGraphicsItemShowBarsTextFlag
+            defaultTimeRetracementGraphicsItemShowFullLinesFlag
+    
+        # TimeRetracementGraphicsItem showTimeTextFlag (bool).
+        self.showTimeTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeRetracementGraphicsItemShowTimeTextFlag
+    
+        # TimeRetracementGraphicsItem showPercentTextFlag (bool).
+        self.showPercentTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeRetracementGraphicsItemShowPercentTextFlag
+    
+        # TimeRetracementGraphicsItem ratios (bool).
+        self.ratios = \
+            PriceBarChartSettings.\
+            defaultTimeRetracementGraphicsItemRatios
     
         ############################################################
 
@@ -6510,49 +6399,61 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Ending point, in scene coordinates.
         self.endPointF = QPointF(0, 0)
 
-        # Variables holding the time retracement values.
-        self.numPriceBars = 0
-        self.numHours = 0
-        self.numDays = 0
-        self.numWeeks = 0
-        self.numMonths = 0
-
-        self.numSqrtPriceBars = 0
-        self.numSqrtHours = 0
-        self.numSqrtDays = 0
-        self.numSqrtWeeks = 0
-        self.numSqrtMonths = 0
+        # Degrees of text rotation.
+        self.rotationDegrees = 90.0
         
-        # Internal QGraphicsItem that holds the text of the bar count.
-        # Initialize to blank and set at the end point.
-        self.timeRetracementBarsText = QGraphicsSimpleTextItem("", self)
-        self.timeRetracementHoursText = QGraphicsSimpleTextItem("", self)
-        self.timeRetracementDaysText = QGraphicsSimpleTextItem("", self)
-        self.timeRetracementWeeksText = QGraphicsSimpleTextItem("", self)
-        self.timeRetracementMonthsText = QGraphicsSimpleTextItem("", self)
+        # Holds the QGraphicsSimpleTextItems for the texts associated
+        # with the ratios.
+        self.timeRetracementRatioTimeTexts = []
+        self.timeRetracementRatioPercentTexts = []
 
-        self.timeRetracementSqrtBarsText = QGraphicsSimpleTextItem("", self)
-        self.timeRetracementSqrtHoursText = QGraphicsSimpleTextItem("", self)
-        self.timeRetracementSqrtDaysText = QGraphicsSimpleTextItem("", self)
-        self.timeRetracementSqrtWeeksText = QGraphicsSimpleTextItem("", self)
-        self.timeRetracementSqrtMonthsText = QGraphicsSimpleTextItem("", self)
-
-        # List of text items as created above.  This is so we can more
-        # quickly and easily apply new settings.  It also helps for
-        # painting things nicely.
+        # Holds all the above text items, so that settings may be
+        # applied more easily.
         self.textItems = []
-        self.textItems.append(self.timeRetracementBarsText)
-        self.textItems.append(self.timeRetracementHoursText)
-        self.textItems.append(self.timeRetracementDaysText)
-        self.textItems.append(self.timeRetracementWeeksText)
-        self.textItems.append(self.timeRetracementMonthsText)
-        
-        self.textItems.append(self.timeRetracementSqrtBarsText)
-        self.textItems.append(self.timeRetracementSqrtHoursText)
-        self.textItems.append(self.timeRetracementSqrtDaysText)
-        self.textItems.append(self.timeRetracementSqrtWeeksText)
-        self.textItems.append(self.timeRetracementSqrtMonthsText)
 
+        # Create the text items and put them in the above lists.
+        self._recreateRatioTextItems()
+        
+        # Flag that indicates that verical dotted lines should be drawn.
+        self.drawVerticalDottedLinesFlag = False
+        
+        # Flags that indicate that the user is dragging either the start
+        # or end point of the QGraphicsItem.
+        self.draggingStartPointFlag = False
+        self.draggingEndPointFlag = False
+        self.clickScenePointF = None
+
+    def _recreateRatioTextItems():
+        """Re-creates the text items related to the Ratios in
+        self.ratios.  This includes making sure there are the correct
+        number of them, and making sure their settings are correct, as
+        expected.
+        """
+
+        # Disable and remove the old text items.
+        for textItem in self.textItems:
+            textItem.setEnabled(False)
+            textItem.setVisible(False)
+
+            self.scene().removeItem(textItem)
+
+        # Clear out the arrays holding the text items.
+        self.textItems = []
+        self.timeRetracementRatioTimeTexts = []
+        self.timeRetracementRatioPercentTexts = []
+
+        # Recreate the text items for all the ratios.  We recreate
+        # them to make sure we have enough items.
+        for ratio in self.ratios:
+            timeTextItem = QGraphicsSimpleTextItem("", self)
+            self.timeRetracementRatioTimeTexts.append(timeTextItem)
+            self.textItems.append(timeTextItem)
+            
+            percentTextItem = QGraphicsSimpleTextItem("", self)
+            self.timeRetracementRatioPercentTexts.append(percentTextItem)
+            self.textItems.append(percentTextItem)
+
+        # Apply location, and various other settings to the text items.
         for textItem in self.textItems:
             textItem.setPos(self.endPointF)
         
@@ -6577,17 +6478,9 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             textTransform = QTransform()
             textTransform.scale(self.timeRetracementTextXScaling, \
                                 self.timeRetracementTextYScaling)
+            textTransform.rotate(self.rotationDegrees)
             textItem.setTransform(textTransform)
 
-        # Flag that indicates that verical dotted lines should be drawn.
-        self.drawVerticalDottedLinesFlag = False
-        
-        # Flags that indicate that the user is dragging either the start
-        # or end point of the QGraphicsItem.
-        self.draggingStartPointFlag = False
-        self.draggingEndPointFlag = False
-        self.clickScenePointF = None
-        
     def setDrawVerticalDottedLinesFlag(self, flag):
         """If flag is set to true, then the vertical dotted lines are drawn.
         """
@@ -6636,114 +6529,63 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             priceBarChartSettings.\
             timeRetracementGraphicsItemDefaultColor
 
-        # TimeRetracementGraphicsItem showBarsTextFlag (bool).
-        self.showBarsTextFlag = \
+        # TimeRetracementGraphicsItem showFullLinesFlag (bool).
+        self.showFullLinesFlag = \
             priceBarChartSettings.\
-            timeRetracementGraphicsItemShowBarsTextFlag
+            timeRetracementGraphicsItemShowFullLinesFlag
     
-        # TimeRetracementGraphicsItem showHoursTextFlag (bool).
-        self.showHoursTextFlag = \
+        # TimeRetracementGraphicsItem showTimeTextFlag (bool).
+        self.showTimeTextFlag = \
             priceBarChartSettings.\
-            timeRetracementGraphicsItemShowHoursTextFlag
+            timeRetracementGraphicsItemShowTimeTextFlag
     
-        # TimeRetracementGraphicsItem showDaysTextFlag (bool).
-        self.showDaysTextFlag = \
+        # TimeRetracementGraphicsItem showPercentTextFlag (bool).
+        self.showPercentTextFlag = \
             priceBarChartSettings.\
-            timeRetracementGraphicsItemShowDaysTextFlag
+            timeRetracementGraphicsItemShowPercentTextFlag
     
-        # TimeRetracementGraphicsItem showWeeksTextFlag (bool).
-        self.showWeeksTextFlag = \
+        # TimeRetracementGraphicsItem ratios (bool).
+        self.ratios = \
             priceBarChartSettings.\
-            timeRetracementGraphicsItemShowWeeksTextFlag
+            timeRetracementGraphicsItemRatios
     
-        # TimeRetracementGraphicsItem showMonthsTextFlag (bool).
-        self.showMonthsTextFlag = \
-            priceBarChartSettings.\
-            timeRetracementGraphicsItemShowMonthsTextFlag
-    
-        # TimeRetracementGraphicsItem showSqrtBarsTextFlag (bool).
-        self.showSqrtBarsTextFlag = \
-            priceBarChartSettings.\
-            timeRetracementGraphicsItemShowSqrtBarsTextFlag
-    
-        # TimeRetracementGraphicsItem showSqrtHoursTextFlag (bool).
-        self.showSqrtHoursTextFlag = \
-            priceBarChartSettings.\
-            timeRetracementGraphicsItemShowSqrtHoursTextFlag
-    
-        # TimeRetracementGraphicsItem showSqrtDaysTextFlag (bool).
-        self.showSqrtDaysTextFlag = \
-            priceBarChartSettings.\
-            timeRetracementGraphicsItemShowSqrtDaysTextFlag
-    
-        # TimeRetracementGraphicsItem showSqrtWeeksTextFlag (bool).
-        self.showSqrtWeeksTextFlag = \
-            priceBarChartSettings.\
-            timeRetracementGraphicsItemShowSqrtWeeksTextFlag
-    
-        # TimeRetracementGraphicsItem showSqrtMonthsTextFlag (bool).
-        self.showSqrtMonthsTextFlag = \
-            priceBarChartSettings.\
-            timeRetracementGraphicsItemShowSqrtMonthsTextFlag
-
         ####################################################################
 
-        # Set specific items enabled or disabled, visible or not,
-        # based on the above flags being set.
+        # Recreate all the text items since we have a new set of
+        # Ratios.  This will also set the items to have the correct
+        # pen, color and other settings, as per the new settings
+        # values above.
+        self._recreateRatioTextItems()
         
-        # Set the text items as enabled or disabled, visible or invisible.
-        self.timeRetracementBarsText.setEnabled(self.showBarsTextFlag)
-        self.timeRetracementHoursText.setEnabled(self.showHoursTextFlag)
-        self.timeRetracementDaysText.setEnabled(self.showDaysTextFlag)
-        self.timeRetracementWeeksText.setEnabled(self.showWeeksTextFlag)
-        self.timeRetracementMonthsText.setEnabled(self.showMonthsTextFlag)
-
-        self.timeRetracementSqrtBarsText.setEnabled(self.showSqrtBarsTextFlag)
-        self.timeRetracementSqrtHoursText.setEnabled(self.showSqrtHoursTextFlag)
-        self.timeRetracementSqrtDaysText.setEnabled(self.showSqrtDaysTextFlag)
-        self.timeRetracementSqrtWeeksText.setEnabled(self.showSqrtWeeksTextFlag)
-        self.timeRetracementSqrtMonthsText.setEnabled(self.showSqrtMonthsTextFlag)
-        
-        self.timeRetracementBarsText.setVisible(self.showBarsTextFlag)
-        self.timeRetracementHoursText.setVisible(self.showHoursTextFlag)
-        self.timeRetracementDaysText.setVisible(self.showDaysTextFlag)
-        self.timeRetracementWeeksText.setVisible(self.showWeeksTextFlag)
-        self.timeRetracementMonthsText.setVisible(self.showMonthsTextFlag)
-
-        self.timeRetracementSqrtBarsText.setVisible(self.showSqrtBarsTextFlag)
-        self.timeRetracementSqrtHoursText.setVisible(self.showSqrtHoursTextFlag)
-        self.timeRetracementSqrtDaysText.setVisible(self.showSqrtDaysTextFlag)
-        self.timeRetracementSqrtWeeksText.setVisible(self.showSqrtWeeksTextFlag)
-        self.timeRetracementSqrtMonthsText.setVisible(self.showSqrtMonthsTextFlag)
-        
-        # Update all the text items with the new settings.
-        for textItem in self.textItems:
-            # Set the font of the text.
-            textItem.setFont(self.timeRetracementTextFont)
-        
-            # Set the pen color of the text.
-            self.timeRetracementTextPen = textItem.pen()
-            self.timeRetracementTextPen.\
-                setColor(self.timeRetracementGraphicsItemTextColor)
+        # Set the text items as enabled or disabled, visible or
+        # invisible, depending on whether the show flag is set.
+        for textItem in self.timeRetracementRatioTimeTexts:
+            textItem.setEnabled(self.showTimeTextFlag)
+            textItem.setVisible(self.showTimeTextFlag)
             
-            textItem.setPen(self.timeRetracementTextPen)
+        for textItem in self.timeRetracementRatioPercentTexts:
+            textItem.setEnabled(self.showPercentTextFlag)
+            textItem.setVisible(self.showPercentTextFlag)
 
-            # Set the brush color of the text.
-            self.timeRetracementTextBrush = textItem.brush()
-            self.timeRetracementTextBrush.\
-                setColor(self.timeRetracementGraphicsItemTextColor)
+        # Go through all the Ratio objects and disable texts if the
+        # Ratios are not enabled.  This will be a second pass-through
+        # of settings the text items, but this time, we do not enable
+        # them, we only disable them if the corresponding Ratio is disabled.
+        for i in range(self.ratios):
+            ratio = self.ratios[i]
             
-            textItem.setBrush(self.timeRetracementTextBrush)
+            if not ratio.isEnabled():
+                self.timeRetracementRatioTimeTexts[i].setEnabled(False)
+                self.timeRetracementRatioTimeTexts[i].setVisible(False)
 
-            # Apply some size scaling to the text.
-            textTransform = QTransform()
-            textTransform.scale(self.timeRetracementTextXScaling, \
-                                self.timeRetracementTextYScaling)
-            textItem.setTransform(textTransform)
+                self.timeRetracementRatioPercentTexts[i].setEnabled(False)
+                self.timeRetracementRatioPercentTexts[i].setVisible(False)
 
-        # Update the timeRetracement text item position.
+        # Update the timeRetracement text item position, and the
+        # calculation/text for the retracement.
         self._updateTextItemPositions()
-
+        self.recalculateTimeRetracement()
+        
         # Set the new color of the pen for drawing the bar.
         self.timeRetracementPen.\
             setColor(self.timeRetracementGraphicsItemColor)
@@ -6861,12 +6703,14 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                    format(self.draggingStartPointFlag))
                     self.setStartPointF(QPointF(event.scenePos().x(),
                                                 self.startPointF.y()))
+                    self.setEndPointF(QPointF(self.endPointF.x(),
+                                              event.scenePos().y()))
                     self.update()
                 elif self.draggingEndPointFlag == True:
                     self.log.debug("DEBUG: self.draggingEndPointFlag={}".
                                    format(self.draggingEndPointFlag))
                     self.setEndPointF(QPointF(event.scenePos().x(),
-                                              self.endPointF.y()))
+                                              event.scenePos().y()))
                     self.update()
                 else:
                     # This means that the user is dragging the whole
@@ -6874,7 +6718,10 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
                     # Do the move.
                     super().mouseMoveEvent(event)
-                    
+
+                    # Update calculation/text for the retracement.
+                    self.recalculateTimeRetracement()
+        
                     # Emit that the PriceBarChart has changed.
                     self.scene().priceBarChartChanged.emit()
             else:
@@ -6897,10 +6744,6 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             
             self.draggingStartPointFlag = False
 
-            # Make sure the starting point is to the left of the
-            # ending point.
-            self.normalizeStartAndEnd()
-
             self.prepareGeometryChange()
             
             self.scene().priceBarChartChanged.emit()
@@ -6910,10 +6753,6 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
                            "endPoint.")
             
             self.draggingEndPointFlag = False
-
-            # Make sure the starting point is to the left of the
-            # ending point.
-            self.normalizeStartAndEnd()
 
             self.prepareGeometryChange()
             
@@ -6943,6 +6782,9 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     newPos = self.startPointF + delta
                     self.setPos(newPos)
             
+                    # Update calculation/text for the retracement.
+                    self.recalculateTimeRetracement()
+        
             super().mouseReleaseEvent(event)
 
         self.log.debug("Exiting mouseReleaseEvent()")
@@ -6966,44 +6808,37 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
         
         # Update the timeRetracement label position.
-            
-        # X location where to place the item.
+        
+        # X range.  Used in calculations for the X coordinate of the text items.
         deltaX = self.endPointF.x() - self.startPointF.x()
-        x = deltaX / 2
 
-        # Starting Y location to place the text item.
-        startY = -2.0
+        # Remember, these text items are rotated, so what we are
+        # trying to do here is to put the time text to the left of the
+        # tick, and the percent text to the right of the tick.
+        
+        for i in range(self.ratios):
+            ratio = self.ratios[i]
 
-        # Amount to mutiply to get a largest offset from startY.
-        offsetY = 1.5
+            timeTextItem = self.timeRetracementRatioTimeTexts[i]
+            percentTextItem = self.timeRetracementRatioPercentTexts[i]
 
-        # j is the running index of the enabled text item.
-        j = 0
+            x = deltaX * ratio.getRatio()
+            y = 0
+            
+            timeTextItem.setPos(QPointF(x, y))
 
-        # Go through in reverse order since we are placing the
-        # items relative to the bar (moving outwards).
-        for i in reversed(range(len(self.textItems))):
-            # Get the current text item.
-            textItem = self.textItems[i]
+            offset = self.timeRetracementGraphicsItemBarHeight
+            x = x + offset
 
-            # Set the position no matter what, but only increment
-            # j if the item is enabled and displayed.  This is so
-            # we keep the text items on the graphicsScene close to
-            # its parent item.
-            y = (startY - (offsetY * j)) * \
-                self.timeRetracementGraphicsItemBarHeight
-            textItem.setPos(QPointF(x, y))
-            if textItem.isEnabled() and textItem.isVisible():
-                j += 1
-                    
+            percentTextItem.setPos(QPointF(x, y))
+
+
     def setStartPointF(self, pointF):
         """Sets the starting point of the bar count.  The value passed in
         is the mouse location in scene coordinates.  
         """
 
-        x = pointF.x()
-
-        newValue = QPointF(x, self.endPointF.y())
+        newValue = QPointF(pointF.x(), pointF.y())
 
         if self.startPointF != newValue: 
             self.startPointF = newValue
@@ -7023,9 +6858,7 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         is the mouse location in scene coordinates.  
         """
 
-        x = pointF.x()
-
-        newValue = QPointF(x, self.startPointF.y())
+        newValue = QPointF(pointF.x(), pointF.y())
 
         if self.endPointF != newValue:
             self.endPointF = newValue
@@ -7039,195 +6872,42 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 self.update()
 
     def normalizeStartAndEnd(self):
-        """Sets the starting point X location to be less than the ending
-        point X location.
+        """Does not do anything since normalization is not applicable
+        to this graphics item.
         """
 
-        if self.startPointF.x() > self.endPointF.x():
-            self.log.debug("Normalization of TimeRetracementGraphicsItem " +
-                           "required.")
-            
-            # Swap the points.
-            temp = self.startPointF
-            self.startPointF = self.endPointF
-            self.endPointF = temp
-
-            # Update the timeRetracement text item position.
-            self._updateTextItemPositions()
-            
-            self.recalculateTimeRetracement()
-            
-            super().setPos(self.startPointF)
-            
-
-    def _mousePosToNearestPriceBarX(self, pointF):
-        """Gets the X position value of the closest PriceBar (on the X
-        axis) to the given mouse position.
-
-        Arguments:
-        pointF - QPointF to do the lookup on.
-
-        Returns:
-        float value for the X value.  If there are no PriceBars, then it
-        returns the X given in the input pointF.
-        """
-
-        scene = self.scene()
-
-        # Get all the QGraphicsItems.
-        graphicsItems = scene.items()
-
-        closestPriceBarX = None
-        currClosestDistance = None
-
-        # Go through the PriceBarGraphicsItems and find the closest one in
-        # X coordinates.
-        for item in graphicsItems:
-            if isinstance(item, PriceBarGraphicsItem):
-
-                x = item.getPriceBarHighScenePoint().x()
-                distance = abs(pointF.x() - x)
-
-                if closestPriceBarX == None:
-                    closestPriceBarX = x
-                    currClosestDistance = distance
-                elif (currClosestDistance != None) and \
-                        (distance < currClosestDistance):
-
-                    closestPriceBarX = x
-                    currClosestDistance = distance
-                    
-        if closestPriceBarX == None:
-            closestPriceBarX = pointF.x()
-
-        return closestPriceBarX
+        # Do don't anything.
+        pass
 
     def recalculateTimeRetracement(self):
-        """Sets the internal variables:
-        
-            self.numPriceBars
-            self.numHours
-            self.numDays
-            self.numWeeks
-            self.numMonths
-
-            self.numSqrtPriceBars
-            self.numSqrtHours
-            self.numSqrtDays
-            self.numSqrtWeeks
-            self.numSqrtMonths
-
-        to hold the amount of time between the start and end points.
+        """Recalculates the timeRetracement and sets the text items'
+        text accordingly.
         """
 
         scene = self.scene()
 
-        # Reset the values.
-        self.numPriceBars = 0.0
-        self.numHours = 0.0
-        self.numDays = 0.0
-        self.numWeeks = 0.0
-        self.numMonths = 0.0
-
-        self.numSqrtPriceBars = 0.0
-        self.numSqrtHours = 0.0
-        self.numSqrtDays = 0.0
-        self.numSqrtWeeks = 0.0
-        self.numSqrtMonths = 0.0
+        # X range.  Used in calculations for the X coordinate of
+        # the text items.
+        deltaX = self.endPointF.x() - self.startPointF.x()
         
         if scene != None:
-            # Get all the QGraphicsItems.
-            graphicsItems = scene.items()
+            # Update the text of the internal items.
 
-            # Go through the PriceBarGraphicsItems and count the bars in
-            # between self.startPointF and self.endPointF.
-            for item in graphicsItems:
-                if isinstance(item, PriceBarGraphicsItem):
+            for i in range(self.ratios):
+                ratio = self.ratios[i]
 
-                    x = item.getPriceBarHighScenePoint().x()
+                timeTextItem = self.timeRetracementRatioTimeTexts[i]
+                percentTextItem = self.timeRetracementRatioPercentTexts[i]
 
-                    # Here we check for the bar being in between
-                    # the self.startPointF and the self.endPointF.
-                    # This handles the case when the start and end
-                    # points are reversed also.
-                    if (self.startPointF.x() < x <= self.endPointF.x()) or \
-                       (self.endPointF.x() < x <= self.startPointF.x()):
+                sceneXPos = deltaX * ratio.getRatio()
+                timestamp = self.scene().sceneXPosToDatetime(x)
 
-                        self.numPriceBars += 1
-        
-            # Calculate the number of (calendar) days.
-            startTimestamp = \
-                scene.sceneXPosToDatetime(self.startPointF.x())
-            timestampStr = Ephemeris.datetimeToDayStr(startTimestamp)
-            
-            self.log.debug("startTimestamp: " + timestampStr)
-            
-            endTimestamp = \
-                scene.sceneXPosToDatetime(self.endPointF.x())
-            timestampStr = Ephemeris.datetimeToDayStr(endTimestamp)
-            
-            self.log.debug("endTimestamp: " + timestampStr)
-            
-            timeDelta = endTimestamp - startTimestamp
-            
-            self.log.debug("timeDelta is: " + timeDelta.__str__())
-
-            # Calculate number of days.
-            self.numDays = timeDelta.days
-            self.numDays += (timeDelta.seconds / 86400.0)
-
-            # Calculate number of hours.
-            self.numHours = self.numDays * 24.0
-            
-            # Calculate number of weeks.
-            self.numWeeks = self.numDays / 7.0
-
-            # Calculate number of months.
-            daysInMonth = 365.242199 / 12.0
-            self.numMonths = self.numDays / daysInMonth
-
-            self.log.debug("self.numPriceBars={}".format(self.numPriceBars))
-            self.log.debug("self.numHours={}".format(self.numHours))
-            self.log.debug("self.numDays={}".format(self.numDays))
-            self.log.debug("self.numWeeks={}".format(self.numWeeks))
-            self.log.debug("self.numMonths={}".format(self.numMonths))
-            
-            self.numSqrtPriceBars = math.sqrt(abs(self.numPriceBars))
-            self.numSqrtHours = math.sqrt(abs(self.numHours))
-            self.numSqrtDays = math.sqrt(abs(self.numDays))
-            self.numSqrtWeeks = math.sqrt(abs(self.numWeeks))
-            self.numSqrtMonths = math.sqrt(abs(self.numMonths))
-
-            self.log.debug("self.numSqrtPriceBars={}".format(self.numSqrtPriceBars))
-            self.log.debug("self.numSqrtHours={}".format(self.numSqrtHours))
-            self.log.debug("self.numSqrtDays={}".format(self.numSqrtDays))
-            self.log.debug("self.numSqrtWeeks={}".format(self.numSqrtWeeks))
-            self.log.debug("self.numSqrtMonths={}".format(self.numSqrtMonths))
-            
-        # Update the text of the internal items.
-        barsText = "{} B".format(self.numPriceBars)
-        hoursText = "{:.2f} H".format(self.numHours)
-        daysText = "{:.2f} CD".format(self.numDays)
-        weeksText = "{:.2f} W".format(self.numWeeks)
-        monthsText = "{:.2f} M".format(self.numMonths)
-        
-        sqrtBarsText = "{:.2f} sqrt B".format(self.numSqrtPriceBars)
-        sqrtHoursText = "{:.2f} sqrt H".format(self.numSqrtHours)
-        sqrtDaysText = "{:.2f} sqrt CD".format(self.numSqrtDays)
-        sqrtWeeksText = "{:.2f} sqrt W".format(self.numSqrtWeeks)
-        sqrtMonthsText = "{:.2f} sqrt M".format(self.numSqrtMonths)
-        
-        self.timeRetracementBarsText.setText(barsText)
-        self.timeRetracementHoursText.setText(hoursText)
-        self.timeRetracementDaysText.setText(daysText)
-        self.timeRetracementWeeksText.setText(weeksText)
-        self.timeRetracementMonthsText.setText(monthsText)
-        
-        self.timeRetracementSqrtBarsText.setText(sqrtBarsText)
-        self.timeRetracementSqrtHoursText.setText(sqrtHoursText)
-        self.timeRetracementSqrtDaysText.setText(sqrtDaysText)
-        self.timeRetracementSqrtWeeksText.setText(sqrtWeeksText)
-        self.timeRetracementSqrtMonthsText.setText(sqrtMonthsText)
+                # Set texts.
+                timeText = "{}".format(Ephemeris.datetimeToDayStr(timestamp))
+                percentText = "{:.2f} %".format(ratio.getRatio() * 100)
+                
+                timeTextItem.setText(timeText)
+                percentTextItem.setText(percentText)
         
     def setArtifact(self, artifact):
         """Loads a given PriceBarChartTimeRetracementArtifact object's data
@@ -7258,74 +6938,46 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.timeRetracementGraphicsItemTextColor = self.artifact.getTextColor()
         self.timeRetracementPen.setColor(self.artifact.getColor())
         
-        self.showBarsTextFlag = self.artifact.getShowBarsTextFlag()
-        self.showHoursTextFlag = self.artifact.getShowHoursTextFlag()
-        self.showDaysTextFlag = self.artifact.getShowDaysTextFlag()
-        self.showWeeksTextFlag = self.artifact.getShowWeeksTextFlag()
-        self.showMonthsTextFlag = self.artifact.getShowMonthsTextFlag()
-        
-        self.showSqrtBarsTextFlag = self.artifact.getShowSqrtBarsTextFlag()
-        self.showSqrtHoursTextFlag = self.artifact.getShowSqrtHoursTextFlag()
-        self.showSqrtDaysTextFlag = self.artifact.getShowSqrtDaysTextFlag()
-        self.showSqrtWeeksTextFlag = self.artifact.getShowSqrtWeeksTextFlag()
-        self.showSqrtMonthsTextFlag = self.artifact.getShowSqrtMonthsTextFlag()
+        self.showFullLinesFlag = self.artifact.getShowFullLinesFlag()
+        self.showTimeTextFlag = self.artifact.getShowTimeTextFlag()
+        self.showPercentTextFlag = self.artifact.getShowPercentTextFlag()
+
+        self.ratios = self.artifact.getRatios()
 
         #############
 
-        # Set the text items as enabled or disabled, visible or invisible.
-        self.timeRetracementBarsText.setEnabled(self.showBarsTextFlag)
-        self.timeRetracementHoursText.setEnabled(self.showHoursTextFlag)
-        self.timeRetracementDaysText.setEnabled(self.showDaysTextFlag)
-        self.timeRetracementWeeksText.setEnabled(self.showWeeksTextFlag)
-        self.timeRetracementMonthsText.setEnabled(self.showMonthsTextFlag)
-
-        self.timeRetracementSqrtBarsText.setEnabled(self.showSqrtBarsTextFlag)
-        self.timeRetracementSqrtHoursText.setEnabled(self.showSqrtHoursTextFlag)
-        self.timeRetracementSqrtDaysText.setEnabled(self.showSqrtDaysTextFlag)
-        self.timeRetracementSqrtWeeksText.setEnabled(self.showSqrtWeeksTextFlag)
-        self.timeRetracementSqrtMonthsText.setEnabled(self.showSqrtMonthsTextFlag)
+        # Recreate the text items for the ratios.  This will also
+        # apply the new scaling and font, etc. as needed.
+        self._recreateRatioTextItems()
         
-        self.timeRetracementBarsText.setVisible(self.showBarsTextFlag)
-        self.timeRetracementHoursText.setVisible(self.showHoursTextFlag)
-        self.timeRetracementDaysText.setVisible(self.showDaysTextFlag)
-        self.timeRetracementWeeksText.setVisible(self.showWeeksTextFlag)
-        self.timeRetracementMonthsText.setVisible(self.showMonthsTextFlag)
-
-        self.timeRetracementSqrtBarsText.setVisible(self.showSqrtBarsTextFlag)
-        self.timeRetracementSqrtHoursText.setVisible(self.showSqrtHoursTextFlag)
-        self.timeRetracementSqrtDaysText.setVisible(self.showSqrtDaysTextFlag)
-        self.timeRetracementSqrtWeeksText.setVisible(self.showSqrtWeeksTextFlag)
-        self.timeRetracementSqrtMonthsText.setVisible(self.showSqrtMonthsTextFlag)
-        
-        # Update all the text items with the new settings.
-        for textItem in self.textItems:
-            # Set the font of the text.
-            textItem.setFont(self.timeRetracementTextFont)
-        
-            # Set the pen color of the text.
-            self.timeRetracementTextPen = textItem.pen()
-            self.timeRetracementTextPen.\
-                setColor(self.timeRetracementGraphicsItemTextColor)
+        # Set the text items as enabled or disabled, visible or
+        # invisible, depending on whether the show flag is set.
+        for textItem in self.timeRetracementRatioTimeTexts:
+            textItem.setEnabled(self.showTimeTextFlag)
+            textItem.setVisible(self.showTimeTextFlag)
             
-            textItem.setPen(self.timeRetracementTextPen)
+        for textItem in self.timeRetracementRatioPercentTexts:
+            textItem.setEnabled(self.showPercentTextFlag)
+            textItem.setVisible(self.showPercentTextFlag)
 
-            # Set the brush color of the text.
-            self.timeRetracementTextBrush = textItem.brush()
-            self.timeRetracementTextBrush.\
-                setColor(self.timeRetracementGraphicsItemTextColor)
+        # Go through all the Ratio objects and disable texts if the
+        # Ratios are not enabled.  This will be a second pass-through
+        # of settings the text items, but this time, we do not enable
+        # them, we only disable them if the corresponding Ratio is disabled.
+        for i in range(self.ratios):
+            ratio = self.ratios[i]
             
-            textItem.setBrush(self.timeRetracementTextBrush)
+            if not ratio.isEnabled():
+                self.timeRetracementRatioTimeTexts[i].setEnabled(False)
+                self.timeRetracementRatioTimeTexts[i].setVisible(False)
 
-            # Apply some size scaling to the text.
-            textTransform = QTransform()
-            textTransform.scale(self.timeRetracementTextXScaling, \
-                                self.timeRetracementTextYScaling)
-            textItem.setTransform(textTransform)
+                self.timeRetracementRatioPercentTexts[i].setEnabled(False)
+                self.timeRetracementRatioPercentTexts[i].setVisible(False)
 
         # Update the timeRetracement text item position.
         self._updateTextItemPositions()
             
-        # Need to recalculate the time retracement, since the start and end
+        # Need to recalculate the timeRetracement, since the start and end
         # points have changed.  Note, if no scene has been set for the
         # QGraphicsView, then the time retracements will be zero, since it
         # can't look up PriceBarGraphicsItems in the scene.
@@ -7353,17 +7005,11 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.artifact.setTextColor(self.timeRetracementGraphicsItemTextColor)
         self.artifact.setColor(self.timeRetracementPen.color())
         
-        self.artifact.setShowBarsTextFlag(self.showBarsTextFlag)
-        self.artifact.setShowHoursTextFlag(self.showHoursTextFlag)
-        self.artifact.setShowDaysTextFlag(self.showDaysTextFlag)
-        self.artifact.setShowWeeksTextFlag(self.showWeeksTextFlag)
-        self.artifact.setShowMonthsTextFlag(self.showMonthsTextFlag)
-        
-        self.artifact.setShowSqrtBarsTextFlag(self.showSqrtBarsTextFlag)
-        self.artifact.setShowSqrtHoursTextFlag(self.showSqrtHoursTextFlag)
-        self.artifact.setShowSqrtDaysTextFlag(self.showSqrtDaysTextFlag)
-        self.artifact.setShowSqrtWeeksTextFlag(self.showSqrtWeeksTextFlag)
-        self.artifact.setShowSqrtMonthsTextFlag(self.showSqrtMonthsTextFlag)
+        self.artifact.setShowFullLinesFlag(self.showFullLinesFlag)
+        self.artifact.setShowTimeTextFlag(self.showTimeTextFlag)
+        self.artifact.setShowPercentTextFlag(self.showPercentTextFlag)
+
+        self.artifact.setRatios(self.ratios)
         
         self.log.debug("Exiting getArtifact()")
         
@@ -7372,61 +7018,81 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
     def boundingRect(self):
         """Returns the bounding rectangle for this graphicsitem."""
 
-        # Coordinate (0, 0) in local coordinates is the center of 
-        # the vertical bar that is at the left portion of this widget,
-        # and represented in scene coordinates as the self.startPointF 
-        # location.
+        # Coordinate (0, 0) in local coordinates is the center of the
+        # vertical bar that is at startPointF.  If the user created
+        # the widget with the startPointF to the right of the
+        # endPointF, then the startPointF will have a higher X value
+        # than endPointF.
 
         # The QRectF returned is relative to this (0, 0) point.
 
+        # Bounding box here is the whole area that is painted.  That
+        # means we need to take into account whether or not the full
+        # lines are painted for the enabled ratios (for the Y hieght
+        # value).  We always include the endPointF, which is the 100%
+        # 'retracement'.
+
         # Get the QRectF with just the lines.
-        xDelta = self.endPointF.x() - self.startPointF.x()
 
-        topLeft = \
-            QPointF(0.0, -1.0 *
-                    (self.timeRetracementGraphicsItemBarHeight / 2.0))
+        # Keep track of x and y values.  Below is the stuff from paint().
+        xValues = []
+        yValues = []
         
-        bottomRight = \
-            QPointF(xDelta, 1.0 *
-                    (self.timeRetracementGraphicsItemBarHeight / 2.0))
+        # The left vertical bar part.
+        x1 = 0.0
+        y1 = 1.0 * (self.timeRetracementGraphicsItemBarHeight / 2.0)
+        x2 = 0.0
+        y2 = -1.0 * (self.timeRetracementGraphicsItemBarHeight / 2.0)
 
-        # Initalize to the above boundaries.  We will set them below.
-        localHighY = topLeft.y()
-        localLowY = bottomRight.y()
-        if self.drawVerticalDottedLinesFlag or self.isSelected():
+        xValues.append(x1)
+        xValues.append(x2)
+        yValues.append(y1)
+        yValues.append(y2)
+        
+        # The right vertical bar part.
+        xDelta = self.endPointF.x() - self.startPointF.x()
+        x1 = 0.0 + xDelta
+        y1 = 1.0 * (self.timeRetracementGraphicsItemBarHeight / 2.0)
+        x2 = 0.0 + xDelta
+        y2 = -1.0 * (self.timeRetracementGraphicsItemBarHeight / 2.0)
+
+        xValues.append(x1)
+        xValues.append(x2)
+        yValues.append(y1)
+        yValues.append(y2)
+        
+        # The vertical lines for all the enabled ratios.
+        if self.drawVerticalDottedLinesFlag or \
+               self.isSelected() or \
+               self.showFullLinesFlag == True:
+
             # Get the highest high, and lowest low PriceBar in local
             # coordinates.
             highestPrice = self.scene().getHighestPriceBar().high
             highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-            localHighestPriceBarY = \
-                       self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+            localHighY = \
+                self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
 
-            # Overwrite the high if it is larger.
-            if localHighestPriceBarY > localHighY:
-                localHighY = localHighestPriceBarY
-                
             lowestPrice = self.scene().getLowestPriceBar().low
             lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-            localLowestPriceBarY = \
-                      self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-            
-            # Overwrite the low if it is smaller.
-            if localLowestPriceBarY < localLowY:
-                localLowY = localLowestPriceBarY
-                
-        xValues = []
-        xValues.append(topLeft.x())
-        xValues.append(bottomRight.x())
+            localLowY = \
+                self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
 
-        yValues = []
-        yValues.append(topLeft.y())
-        yValues.append(bottomRight.y())
-        yValues.append(localHighY)
-        yValues.append(localLowY)
+            yValues.append(localHighY)
+            yValues.append(localLowY)
 
+        # Go through the ratios and track the x values for the enabled ratios.
+        for ratio in self.ratios:
+            if ratio.isEnabled():
+                # Calculate the x in local coordinates.
+                localX = xDelta * ratio.getRatio()
+                xValues.append(localX)
+        
+        # We have all x and y values now, so sort them to get the
+        # low and high.
         xValues.sort()
         yValues.sort()
-        
+
         # Find the smallest x and y.
         smallestX = xValues[0]
         smallestY = yValues[0]
@@ -7512,7 +7178,41 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         xValues.append(x2)
         yValues.append(y1)
         yValues.append(y2)
+
+        # Draw the vertical lines for all the enabled ratios.
+        for ratio in self.ratios:
+            if ratio.isEnabled():
+                localX = xDelta * ratio.getRatio()
+
+                x1 = localX
+                y1 = 1.0 * (self.timeRetracementGraphicsItemBarHeight / 2.0)
+                x2 = localX
+                y2 = -1.0 * (self.timeRetracementGraphicsItemBarHeight / 2.0)
         
+                painter.drawLine(QLineF(x1, y1, x2, y2))
+
+                xValues.append(x1)
+                xValues.append(x2)
+                yValues.append(y1)
+                yValues.append(y2)
+
+                # If the full lines flag is enabled, then draw the
+                # full length fo the line, from the 0 Y coordinate
+                # location to the self.endPointF.y() location, in
+                # local coordinates.
+                if self.showFullLinesFlag == True:
+                    x1 = x
+                    y1 = 0
+                    x2 = x
+                    y2 = self.mapFromScene(QPointF(0.0, self.endPointF.y())).y()
+        
+                    painter.drawLine(QLineF(x1, y1, x2, y2))
+
+                    xValues.append(x1)
+                    xValues.append(x2)
+                    yValues.append(y1)
+                    yValues.append(y2)
+
         # Draw vertical dotted lines at each enabled tick area if the
         # flag is set to do so, or if it is selected.
         if self.drawVerticalDottedLinesFlag == True or \
@@ -7554,36 +7254,36 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 yValues.sort()
                 smallestY = yValues[0]
                 largestY = yValues[-1]
+
+                # Draw the vertical lines for all the enabled ratios.
+                xDelta = self.endPointF.x() - self.startPointF.x()
+                for ratio in self.ratios:
+                    if ratio.isEnabled():
+                        x = xDelta * ratio.getRatio()
+
+                        x1 = x
+                        y1 = largestY
+                        x2 = x
+                        y2 = smallestY
+
+                        xValues.append(x1)
+                        xValues.append(x2)
+                        yValues.append(y1)
+                        yValues.append(y2)
+                    
+                        startPoint = QPointF(x1, y1)
+                        endPoint = QPointF(x2, y2)
+
+                        painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+                        painter.setBrush(Qt.NoBrush)
+                        painter.drawLine(startPoint, endPoint)
+                
+                        painter.setPen(QPen(option.palette.windowText(), 0,
+                                            Qt.DashLine))
+                        painter.setBrush(Qt.NoBrush)
+                        painter.drawLine(startPoint, endPoint)
         
-                # Vertical line at the beginning.
-                localPosX = 0.0
-                startPoint = QPointF(localPosX, largestY)
-                endPoint = QPointF(localPosX, smallestY)
-                        
-                painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
-                painter.setBrush(Qt.NoBrush)
-                painter.drawLine(startPoint, endPoint)
-                
-                painter.setPen(QPen(option.palette.windowText(), 0,
-                                    Qt.DashLine))
-                painter.setBrush(Qt.NoBrush)
-                painter.drawLine(startPoint, endPoint)
-            
-                # Vertical line at the end.
-                localPosX = 0.0 + xDelta
-                startPoint = QPointF(localPosX, largestY)
-                endPoint = QPointF(localPosX, smallestY)
-                        
-                painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
-                painter.setBrush(Qt.NoBrush)
-                painter.drawLine(startPoint, endPoint)
-                
-                painter.setPen(QPen(option.palette.windowText(), 0,
-                                    Qt.DashLine))
-                painter.setBrush(Qt.NoBrush)
-                painter.drawLine(startPoint, endPoint)
-                
-        # Draw the bounding rect if the item is selected.
+        # Draw the shape if the item is selected.
         if option.state & QStyle.State_Selected:
             pad = self.timeRetracementPen.widthF() / 2.0;
             penWidth = 0.0
