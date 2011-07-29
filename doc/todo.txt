@@ -19,6 +19,12 @@ DONE
 DONE        
 DONE
 
+  - Fibonnaci price retracement (which also implies extension since
+    they are the same).  FibPriceRetracementTool
+
+  - Fibonnaci time retracement (which also implies extension since
+    they are the same).  FibTimeRetracementTool.
+
   - Use 'snap' enabled flag for ptv tool.
 
       - Note it is already used for pricetimeinfo tool, but needs to
@@ -74,12 +80,6 @@ DONE
     rooted. and the musical scale is created from that, and then
     squared again to get the timestamp.
 
-
-  - Fibonnaci price retracement (which also implies extension since
-    they are the same).
-
-  - Fibonnaci time retracement (which also implies extension since
-    they are the same).
 
   - Pi spiral
   - Fibonnaci spiral

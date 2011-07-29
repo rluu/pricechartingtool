@@ -279,6 +279,13 @@ class MainWindow(QMainWindow):
         self.priceMeasurementToolAction.setStatusTip("Price Measurement Tool")
         self.priceMeasurementToolAction.setCheckable(True)
 
+        # Create the TimeRetracementToolAction
+        icon = QIcon()
+        self.timeRetracementToolAction = \
+            QAction(icon, "Time Retracement Tool", self)
+        self.timeRetracementToolAction.setStatusTip("Time Retracement Tool")
+        self.timeRetracementToolAction.setCheckable(True)
+
         # Create a QActionGroup because all these tool modes should be
         # exclusive.  
         self.toolActionGroup = QActionGroup(self)
@@ -294,6 +301,7 @@ class MainWindow(QMainWindow):
         self.toolActionGroup.addAction(self.textToolAction)
         self.toolActionGroup.addAction(self.priceTimeInfoToolAction)
         self.toolActionGroup.addAction(self.priceMeasurementToolAction)
+        self.toolActionGroup.addAction(self.timeRetracementToolAction)
         self.toolActionGroup.triggered.connect(self._toolsActionTriggered)
             
         # Default to the ReadOnlyPointerTool being checked by default.
@@ -401,6 +409,7 @@ class MainWindow(QMainWindow):
         self.toolsMenu.addAction(self.textToolAction)
         self.toolsMenu.addAction(self.priceTimeInfoToolAction)
         self.toolsMenu.addAction(self.priceMeasurementToolAction)
+        self.toolsMenu.addAction(self.timeRetracementToolAction)
 
         # Create the Window menu.
         self.windowMenu = self.menuBar().addMenu("&Window")
@@ -451,6 +460,7 @@ class MainWindow(QMainWindow):
         self.toolsToolBar.addAction(self.textToolAction)
         self.toolsToolBar.addAction(self.priceTimeInfoToolAction)
         self.toolsToolBar.addAction(self.priceMeasurementToolAction)
+        self.toolsToolBar.addAction(self.timeRetracementToolAction)
 
     def _createStatusBar(self):
         """Creates the QStatusBar by showing the message "Ready"."""
@@ -505,6 +515,7 @@ class MainWindow(QMainWindow):
         self.textToolAction.setEnabled(isActive)
         self.priceTimeInfoToolAction.setEnabled(isActive)
         self.priceMeasurementToolAction.setEnabled(isActive)
+        self.timeRetracementToolAction.setEnabled(isActive)
 
         self.closeChartAction.setEnabled(isActive)
         self.closeAllChartsAction.setEnabled(isActive)
@@ -541,6 +552,8 @@ class MainWindow(QMainWindow):
                 priceChartDocument.toPriceTimeInfoToolMode()
             elif self.priceMeasurementToolAction.isChecked():
                 priceChartDocument.toPriceMeasurementToolMode()
+            elif self.timeRetracementToolAction.isChecked():
+                priceChartDocument.toTimeRetracementToolMode()
             else:
                 self.log.warn("No ToolMode QAction is currently selected!")
 
@@ -1297,6 +1310,9 @@ class MainWindow(QMainWindow):
         elif qaction == self.priceMeasurementToolAction:
             self.log.debug("priceMeasurementToolAction triggered.")
             pcd.toPriceMeasurementToolMode()
+        elif qaction == self.timeRetracementToolAction:
+            self.log.debug("timeRetracementToolAction triggered.")
+            pcd.toTimeRetracementToolMode()
         else:
             self.log.warn("Unknown Tools QAction selected!  " + \
                 "There might be something wrong with the code, or " + \
@@ -2024,6 +2040,11 @@ class PriceChartDocument(QMdiSubWindow):
 
         self.widgets.toPriceMeasurementToolMode()
 
+    def toTimeRetracementToolMode(self):
+        """Changes the tool mode to be the TimeRetracementTool."""
+
+        self.widgets.toTimeRetracementToolMode()
+
     def _handlePriceChartDocumentWidgetChanged(self):
         """Slot for when the PriceBarDocumentWidget emits a signal to say
         that the widget(s) changed.  This means the document should be
@@ -2309,6 +2330,11 @@ class PriceChartDocumentWidget(QWidget):
         """Changes the tool mode to be the PriceMeasurementTool."""
 
         self.priceBarChartWidget.toPriceMeasurementToolMode()
+
+    def toTimeRetracementToolMode(self):
+        """Changes the tool mode to be the TimeRetracementTool."""
+
+        self.priceBarChartWidget.toTimeRetracementToolMode()
 
     def _handleWidgetChanged(self):
         """Handles when the internal widget has some kind of change

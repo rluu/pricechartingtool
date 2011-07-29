@@ -10509,12 +10509,18 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.priceMeasurementGraphicsItemGroupBox = \
             self._buildPriceMeasurementGraphicsItemGroupBox()
 
+        # QGroupBox to hold the edit widgets and form for
+        # TimeRetracementGraphicsItem.
+        self.timeRetracementGraphicsItemGroupBox = \
+            self._buildTimeRetracementGraphicsItemGroupBox()
+
         # Create group boxes for pages of settings that will go into a
         # QTabWidget.
         self.page1GroupBox = QGroupBox()
         self.page2GroupBox = QGroupBox()
         self.page3GroupBox = QGroupBox()
         self.page4GroupBox = QGroupBox()
+        self.page5GroupBox = QGroupBox()
 
         page1GroupBoxLayout = QVBoxLayout()
         page1GroupBoxLayout.addWidget(self.priceBarGraphicsItemGroupBox)
@@ -10535,6 +10541,10 @@ class PriceBarChartSettingsEditWidget(QWidget):
         page4GroupBoxLayout.addWidget(self.priceMeasurementGraphicsItemGroupBox)
         self.page4GroupBox.setLayout(page4GroupBoxLayout)
         
+        page5GroupBoxLayout = QVBoxLayout()
+        page5GroupBoxLayout.addWidget(self.timeRetracementGraphicsItemGroupBox)
+        self.page5GroupBox.setLayout(page5GroupBoxLayout)
+        
         # Create a QTabWidget to stack all the settings editing
         # widgets.
         self.tabWidget = QTabWidget()
@@ -10542,6 +10552,7 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.tabWidget.addTab(self.page2GroupBox, "Page 2")
         self.tabWidget.addTab(self.page3GroupBox, "Page 3")
         self.tabWidget.addTab(self.page4GroupBox, "Page 4")
+        self.tabWidget.addTab(self.page5GroupBox, "Page 5")
         
         # Buttons at bottom.
         self.resetAllToDefaultButton = \
@@ -10580,6 +10591,10 @@ class PriceBarChartSettingsEditWidget(QWidget):
             connect(\
             self.\
             _handlePriceMeasurementGraphicsItemDefaultFontModifyButtonClicked)
+        self.timeRetracementGraphicsItemDefaultFontModifyButton.clicked.\
+            connect(\
+            self.\
+            _handleTimeRetracementGraphicsItemDefaultFontModifyButtonClicked)
         
         # Connect reset buttons.
         self.priceBarGraphicsItemPenWidthResetButton.clicked.\
@@ -10728,7 +10743,44 @@ class PriceBarChartSettingsEditWidget(QWidget):
             clicked.connect(\
             self.\
             _handlePriceMeasurementGraphicsItemShowSqrtPriceRangeTextFlagResetButton)
-
+        self.timeRetracementGraphicsItemBarHeightResetButton.clicked.\
+            connect(\
+            self._handleTimeRetracementGraphicsItemBarHeightResetButtonClicked)
+        self.timeRetracementGraphicsItemTextXScalingResetButton.clicked.\
+            connect(\
+            self.\
+            _handleTimeRetracementGraphicsItemTextXScalingResetButtonClicked)
+        self.timeRetracementGraphicsItemTextYScalingResetButton.clicked.\
+            connect(\
+            self.\
+            _handleTimeRetracementGraphicsItemTextYScalingResetButtonClicked)
+        self.timeRetracementGraphicsItemDefaultFontResetButton.clicked.\
+            connect(\
+            self.\
+            _handleTimeRetracementGraphicsItemDefaultFontResetButtonClicked)
+        self.timeRetracementGraphicsItemDefaultTextColorResetButton.clicked.\
+            connect(\
+            self.\
+            _handleTimeRetracementGraphicsItemDefaultTextColorResetButtonClicked)
+        self.timeRetracementGraphicsItemDefaultColorResetButton.clicked.\
+            connect(\
+            self.\
+            _handleTimeRetracementGraphicsItemDefaultColorResetButtonClicked)
+        self.timeRetracementGraphicsItemShowFullLinesFlagResetButton.clicked.\
+            connect(\
+            self.\
+            _handleTimeRetracementGraphicsItemShowFullLinesFlagResetButton)
+        self.timeRetracementGraphicsItemShowTimeTextFlagResetButton.clicked.\
+            connect(\
+            self.\
+            _handleTimeRetracementGraphicsItemShowTimeTextFlagResetButton)
+        self.timeRetracementGraphicsItemShowPercentTextFlagResetButton.clicked.\
+            connect(\
+            self.\
+            _handleTimeRetracementGraphicsItemShowPercentTextFlagResetButton)
+        # No reset buttons are created for TimeRetracementGraphicsItem Ratios,
+        # so no need to connect signals for them.
+        
         self.resetAllToDefaultButton.clicked.\
             connect(self._handleResetAllToDefaultButtonClicked)
 
@@ -11820,6 +11872,263 @@ class PriceBarChartSettingsEditWidget(QWidget):
         
         return self.priceMeasurementGraphicsItemGroupBox
     
+    def _buildTimeRetracementGraphicsItemGroupBox(self):
+        """Builds the groupbox containing info to edit the
+        PriceBarChartSettings related to a TimeRetracementGraphicsItem.
+
+        Returns:
+        QGroupBox obj containing all the created widgets.
+        """
+
+        self.timeRetracementGraphicsItemGroupBox = \
+            QGroupBox("TimeRetracementGraphicsItem settings:")
+
+        # timeRetracementGraphicsItemBarHeight (float).
+        self.timeRetracementGraphicsItemBarHeightLabel = \
+            QLabel("TimeRetracementGraphicsItem bar height: ")
+        self.timeRetracementGraphicsItemBarHeightSpinBox = QDoubleSpinBox()
+        self.timeRetracementGraphicsItemBarHeightSpinBox.setMinimum(0.0)
+        self.timeRetracementGraphicsItemBarHeightSpinBox.setMaximum(1000.0)
+        self.timeRetracementGraphicsItemBarHeightResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # timeRetracementGraphicsItemTextXScaling (float).
+        self.timeRetracementGraphicsItemTextXScalingLabel = \
+            QLabel("TimeRetracementGraphicsItem text X scaling: ")
+        self.timeRetracementGraphicsItemTextXScalingSpinBox = QDoubleSpinBox()
+        self.timeRetracementGraphicsItemTextXScalingSpinBox.setMinimum(0.0001)
+        self.timeRetracementGraphicsItemTextXScalingSpinBox.setMaximum(1000.0)
+        self.timeRetracementGraphicsItemTextXScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # timeRetracementGraphicsItemTextYScaling (float).
+        self.timeRetracementGraphicsItemTextYScalingLabel = \
+            QLabel("TimeRetracementGraphicsItem text Y scaling: ")
+        self.timeRetracementGraphicsItemTextYScalingSpinBox = QDoubleSpinBox()
+        self.timeRetracementGraphicsItemTextYScalingSpinBox.setMinimum(0.0001)
+        self.timeRetracementGraphicsItemTextYScalingSpinBox.setMaximum(1000.0)
+        self.timeRetracementGraphicsItemTextYScalingResetButton = \
+            QPushButton("Reset to default")
+
+        # timeRetracementGraphicsItemDefaultFont (QFont)
+        self.timeRetracementGraphicsItemDefaultFont = QFont()
+        self.timeRetracementGraphicsItemDefaultFont.\
+            fromString(PriceBarChartSettings.\
+                       defaultTimeRetracementGraphicsItemDefaultFontDescription)
+        self.timeRetracementGraphicsItemDefaultFontLabel = \
+            QLabel("TimeRetracementGraphicsItem default font:")
+        self.timeRetracementGraphicsItemDefaultFontModifyButton = \
+            QPushButton("Modify")
+        self.timeRetracementGraphicsItemDefaultFontResetButton = \
+            QPushButton("Reset to default")
+        
+        # timeRetracementGraphicsItemDefaultTextColor (QColor)
+        self.timeRetracementGraphicsItemDefaultTextColorLabel = \
+            QLabel("TimeRetracementGraphicsItem default text color:")
+        self.timeRetracementGraphicsItemDefaultTextColorEditButton = \
+            ColorEditPushButton()
+        self.timeRetracementGraphicsItemDefaultTextColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # timeRetracementGraphicsItemDefaultColor (QColor)
+        self.timeRetracementGraphicsItemDefaultColorLabel = \
+            QLabel("TimeRetracementGraphicsItem default color:")
+        self.timeRetracementGraphicsItemDefaultColorEditButton = \
+            ColorEditPushButton()
+        self.timeRetracementGraphicsItemDefaultColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # timeRetracementGraphicsItemShowFullLinesFlag (bool).
+        self.timeRetracementGraphicsItemShowFullLinesFlagLabel = \
+            QLabel("TimeRetracementGraphicsItem show full lines:")
+        self.timeRetracementGraphicsItemShowFullLinesFlagCheckBox = \
+            QCheckBox()
+        self.timeRetracementGraphicsItemShowFullLinesFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.timeRetracementGraphicsItemShowFullLinesFlagResetButton = \
+            QPushButton("Reset to default")
+    
+        # timeRetracementGraphicsItemShowTimeTextFlag (bool).
+        self.timeRetracementGraphicsItemShowTimeTextFlagLabel = \
+            QLabel("TimeRetracementGraphicsItem show time text:")
+        self.timeRetracementGraphicsItemShowTimeTextFlagCheckBox = \
+            QCheckBox()
+        self.timeRetracementGraphicsItemShowTimeTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.timeRetracementGraphicsItemShowTimeTextFlagResetButton = \
+            QPushButton("Reset to default")
+    
+        # timeRetracementGraphicsItemShowPercentTextFlag (bool).
+        self.timeRetracementGraphicsItemShowPercentTextFlagLabel = \
+            QLabel("TimeRetracementGraphicsItem show percent text:")
+        self.timeRetracementGraphicsItemShowPercentTextFlagCheckBox = \
+            QCheckBox()
+        self.timeRetracementGraphicsItemShowPercentTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.timeRetracementGraphicsItemShowPercentTextFlagResetButton = \
+            QPushButton("Reset to default")
+
+        # TimeRetracement Ratios.
+        # There are no reset buttons for the ratios, just labels and checkboxes.
+        self.timeRetracementGraphicsItemRatioLabels = []
+        self.timeRetracementGraphicsItemRatioCheckBoxes = []
+        
+        for ratio in \
+            self.priceBarChartSettings.timeRetracementGraphicsItemRatios:
+
+            label = QLabel("TimeRetracementGraphicsItem ratio " +
+                           ratio.getDescription() + " enabled:")
+            checkBox = QCheckBox()
+
+            self.timeRetracementGraphicsItemRatioLabels.append(label)
+            self.timeRetracementGraphicsItemRatioCheckBoxes.append(checkBox)
+        
+
+        # Grid layout.
+        gridLayout = QGridLayout()
+        r = 0
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        gridLayout.\
+            addWidget(\
+            self.timeRetracementGraphicsItemBarHeightLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(self.timeRetracementGraphicsItemBarHeightSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.timeRetracementGraphicsItemBarHeightResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeRetracementGraphicsItemTextXScalingLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(self.timeRetracementGraphicsItemTextXScalingSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.timeRetracementGraphicsItemTextXScalingResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeRetracementGraphicsItemTextYScalingLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(self.timeRetracementGraphicsItemTextYScalingSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.timeRetracementGraphicsItemTextYScalingResetButton, 
+            r, 2, ar)
+        
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeRetracementGraphicsItemDefaultFontLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(self.timeRetracementGraphicsItemDefaultFontModifyButton, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.timeRetracementGraphicsItemDefaultFontResetButton, 
+            r, 2, ar)
+        
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeRetracementGraphicsItemDefaultTextColorLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeRetracementGraphicsItemDefaultTextColorEditButton, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.timeRetracementGraphicsItemDefaultTextColorResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeRetracementGraphicsItemDefaultColorLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeRetracementGraphicsItemDefaultColorEditButton, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.timeRetracementGraphicsItemDefaultColorResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeRetracementGraphicsItemShowFullLinesFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeRetracementGraphicsItemShowFullLinesFlagCheckBox, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.timeRetracementGraphicsItemShowFullLinesFlagResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeRetracementGraphicsItemShowTimeTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeRetracementGraphicsItemShowTimeTextFlagCheckBox, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.timeRetracementGraphicsItemShowTimeTextFlagResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeRetracementGraphicsItemShowPercentTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeRetracementGraphicsItemShowPercentTextFlagCheckBox, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.timeRetracementGraphicsItemShowPercentTextFlagResetButton, 
+            r, 2, ar)
+
+        r += 1
+        for i in range(len(self.priceBarChartSettings.\
+                           timeRetracementGraphicsItemRatios)):
+            gridLayout.\
+                addWidget(\
+                self.timeRetracementGraphicsItemRatioLabels[i], 
+                r, 0, al)
+            gridLayout.\
+                addWidget(\
+                self.timeRetracementGraphicsItemRatioCheckBoxes[i],
+                r, 1, ar)
+            r += 1
+
+        
+        self.timeRetracementGraphicsItemGroupBox.setLayout(gridLayout)
+        
+        return self.timeRetracementGraphicsItemGroupBox
+    
     def loadValuesFromSettings(self, priceBarChartSettings):
         """Loads the widgets with values from the given
         PriceBarChartSettings object.
@@ -12118,6 +12427,80 @@ class PriceBarChartSettingsEditWidget(QWidget):
                 priceMeasurementGraphicsItemShowSqrtPriceRangeTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
 
+        # timeRetracementGraphicsItemBarHeight (float).
+        self.timeRetracementGraphicsItemBarHeightSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        timeRetracementGraphicsItemBarHeight)
+
+        # timeRetracementGraphicsItemTextXScaling (float).
+        self.timeRetracementGraphicsItemTextXScalingSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        timeRetracementGraphicsItemTextXScaling)
+
+        # timeRetracementGraphicsItemTextYScaling (float).
+        self.timeRetracementGraphicsItemTextYScalingSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        timeRetracementGraphicsItemTextYScaling)
+
+        # timeRetracementGraphicsItemDefaultFontDescription (str)
+        self.timeRetracementGraphicsItemDefaultFont = QFont()
+        self.timeRetracementGraphicsItemDefaultFont.\
+            fromString(self.priceBarChartSettings.\
+                       timeRetracementGraphicsItemDefaultFontDescription)
+
+        # timeRetracementGraphicsItemDefaultTextColor (QColor).
+        self.timeRetracementGraphicsItemDefaultTextColorEditButton.\
+            setColor(self.priceBarChartSettings.\
+                     timeRetracementGraphicsItemDefaultTextColor)
+
+        # timeRetracementGraphicsItemDefaultColor (QColor).
+        self.timeRetracementGraphicsItemDefaultColorEditButton.\
+            setColor(self.priceBarChartSettings.\
+                     timeRetracementGraphicsItemDefaultColor)
+
+        # timeRetracementGraphicsItemShowFullLinesFlag (bool).
+        if self.priceBarChartSettings.\
+           timeRetracementGraphicsItemShowFullLinesFlag == True:
+            
+            self.timeRetracementGraphicsItemShowFullLinesFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeRetracementGraphicsItemShowFullLinesFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeRetracementGraphicsItemShowTimeTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeRetracementGraphicsItemShowTimeTextFlag == True:
+            
+            self.timeRetracementGraphicsItemShowTimeTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeRetracementGraphicsItemShowTimeTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeRetracementGraphicsItemShowPercentTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeRetracementGraphicsItemShowPercentTextFlag == True:
+            
+            self.timeRetracementGraphicsItemShowPercentTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeRetracementGraphicsItemShowPercentTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # TimeRetracement Ratios.
+        for i in range(len(self.priceBarChartSettings.\
+                           timeRetracementGraphicsItemRatios)):
+            # Check the checkbox if the ratio is enabled.
+            ratio = \
+                self.priceBarChartSettings.timeRetracementGraphicsItemRatios[i]
+
+            if ratio.isEnabled():
+                self.timeRetracementGraphicsItemRatioCheckBoxes[i].\
+                    setCheckState(Qt.Checked)
+            else:
+                self.timeRetracementGraphicsItemRatioCheckBoxes[i].\
+                    setCheckState(Qt.Unchecked)
         
         self.log.debug("Exiting loadValuesFromSettings()")
         
@@ -12387,6 +12770,78 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceBarChartSettings.\
                 priceMeasurementGraphicsItemShowSqrtPriceRangeTextFlag = False
 
+        # timeRetracementGraphicsItemBarHeight (float).
+        self.priceBarChartSettings.timeRetracementGraphicsItemBarHeight = \
+            float(self.timeRetracementGraphicsItemBarHeightSpinBox.value())
+
+        # timeRetracementGraphicsItemTextXScaling (float).
+        self.priceBarChartSettings.timeRetracementGraphicsItemTextXScaling = \
+            float(self.timeRetracementGraphicsItemTextXScalingSpinBox.value())
+
+        # timeRetracementGraphicsItemTextYScaling (float).
+        self.priceBarChartSettings.timeRetracementGraphicsItemTextYScaling = \
+            float(self.timeRetracementGraphicsItemTextYScalingSpinBox.value())
+
+        # timeRetracementGraphicsItemDefaultFontDescription (str)
+        self.priceBarChartSettings.\
+            timeRetracementGraphicsItemDefaultFontDescription = \
+            self.timeRetracementGraphicsItemDefaultFont.toString()
+
+        # timeRetracementGraphicsItemDefaultTextColor (QColor).
+        self.priceBarChartSettings.\
+            timeRetracementGraphicsItemDefaultTextColor = \
+            self.timeRetracementGraphicsItemDefaultTextColorEditButton.\
+            getColor()
+
+        # timeRetracementGraphicsItemDefaultColor (QColor).
+        self.priceBarChartSettings.\
+            timeRetracementGraphicsItemDefaultColor = \
+            self.timeRetracementGraphicsItemDefaultColorEditButton.\
+            getColor()
+
+        # timeRetracementGraphicsItemShowFullLinesFlag (bool).
+        if self.timeRetracementGraphicsItemShowFullLinesFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeRetracementGraphicsItemShowFullLinesFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeRetracementGraphicsItemShowFullLinesFlag = False
+
+        # timeRetracementGraphicsItemShowTimeTextFlag (bool).
+        if self.timeRetracementGraphicsItemShowTimeTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeRetracementGraphicsItemShowTimeTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeRetracementGraphicsItemShowTimeTextFlag = False
+
+        # timeRetracementGraphicsItemShowPercentTextFlag (bool).
+        if self.timeRetracementGraphicsItemShowPercentTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeRetracementGraphicsItemShowPercentTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeRetracementGraphicsItemShowPercentTextFlag = False
+
+        # TimeRetracement Ratios.
+        for i in range(len(self.priceBarChartSettings.\
+                           timeRetracementGraphicsItemRatios)):
+            
+            if self.timeRetracementGraphicsItemRatioCheckBoxes[i].\
+               checkState() == Qt.Checked:
+
+                self.priceBarChartSettings.\
+                    timeRetracementGraphicsItemRatios[i].setEnabled(True)
+            else:
+                self.priceBarChartSettings.\
+                    timeRetracementGraphicsItemRatios[i].setEnabled(False)
+        
         self.log.debug("Exiting saveValuesToSettings()")
 
     def _handleTimeMeasurementGraphicsItemDefaultFontModifyButtonClicked(self):
@@ -12448,6 +12903,21 @@ class PriceBarChartSettingsEditWidget(QWidget):
         if rv == QDialog.Accepted:
             # Store the font in the member variable (not in the artifact).
             self.priceMeasurementGraphicsItemDefaultFont = dialog.selectedFont()
+        
+    def _handleTimeRetracementGraphicsItemDefaultFontModifyButtonClicked(self):
+        """Called when the
+        self.timeRetracementGraphicsItemDefaultFontModifyButton button is
+        clicked.  Brings up a dialog for editing the font, and saves
+        it if the dialog is accepted.
+        """
+
+        dialog = QFontDialog(self.timeRetracementGraphicsItemDefaultFont)
+
+        rv = dialog.exec_()
+
+        if rv == QDialog.Accepted:
+            # Store the font in the member variable (not in the artifact).
+            self.timeRetracementGraphicsItemDefaultFont = dialog.selectedFont()
         
     def _handlePriceBarPenWidthResetButtonClicked(self):
         """Called when the penWidthResetButton is clicked.
@@ -12997,6 +13467,127 @@ class PriceBarChartSettingsEditWidget(QWidget):
                 priceMeasurementGraphicsItemShowSqrtPriceRangeTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
             
+    def _handleTimeRetracementGraphicsItemBarHeightResetButtonClicked(self):
+        """Called when the timeRetracementGraphicsItemBarHeightResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultTimeRetracementGraphicsItemBarHeight
+
+        self.timeRetracementGraphicsItemBarHeightSpinBox.setValue(value)
+
+    def _handleTimeRetracementGraphicsItemTextXScalingResetButtonClicked(self):
+        """Called when the timeRetracementGraphicsItemTextXScalingResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultTimeRetracementGraphicsItemTextXScaling
+
+        self.timeRetracementGraphicsItemTextXScalingSpinBox.setValue(value)
+
+    def _handleTimeRetracementGraphicsItemTextYScalingResetButtonClicked(self):
+        """Called when the timeRetracementGraphicsItemTextYScalingResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultTimeRetracementGraphicsItemTextYScaling
+
+        self.timeRetracementGraphicsItemTextYScalingSpinBox.setValue(value)
+
+    def _handleTimeRetracementGraphicsItemDefaultFontResetButtonClicked(self):
+        """Called when the
+        timeRetracementGraphicsItemDefaultFontResetButton is clicked.
+        Resets the internal value to the default value.
+        """
+
+        self.timeRetracementGraphicsItemDefaultFont = QFont()
+        self.timeRetracementGraphicsItemDefaultFont.\
+            fromString(PriceBarChartSettings.\
+                       defaultTimeRetracementGraphicsItemDefaultFontDescription)
+        
+    def _handleTimeRetracementGraphicsItemDefaultTextColorResetButtonClicked(self):
+        """Called when the
+        timeRetracementGraphicsItemDefaultTextColorResetButton is clicked.
+        Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultTimeRetracementGraphicsItemDefaultTextColor
+
+        self.timeRetracementGraphicsItemDefaultTextColorEditButton.\
+            setColor(value)
+
+    def _handleTimeRetracementGraphicsItemDefaultColorResetButtonClicked(self):
+        """Called when the
+        timeRetracementGraphicsItemDefaultColorResetButton is clicked.
+        Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultTimeRetracementGraphicsItemDefaultColor
+
+        self.timeRetracementGraphicsItemDefaultColorEditButton.\
+            setColor(value)
+
+    def _handleTimeRetracementGraphicsItemShowFullLinesFlagResetButton(self):
+        """Called when the
+        timeRetracementGraphicsItemShowFullLinesFlagResetButton
+        is clicked.  Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultTimeRetracementGraphicsItemShowFullLinesFlag
+
+        if value == True:
+            self.timeRetracementGraphicsItemShowFullLinesFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeRetracementGraphicsItemShowFullLinesFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+            
+    def _handleTimeRetracementGraphicsItemShowTimeTextFlagResetButton(self):
+        """Called when the
+        timeRetracementGraphicsItemShowTimeTextFlagResetButton
+        is clicked.  Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultTimeRetracementGraphicsItemShowTimeTextFlag
+
+        if value == True:
+            self.timeRetracementGraphicsItemShowTimeTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeRetracementGraphicsItemShowTimeTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+            
+    def _handleTimeRetracementGraphicsItemShowPercentTextFlagResetButton(self):
+        """Called when the
+        timeRetracementGraphicsItemShowPercentTextFlagResetButton
+        is clicked.  Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultTimeRetracementGraphicsItemShowPercentTextFlag
+
+        if value == True:
+            self.timeRetracementGraphicsItemShowPercentTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeRetracementGraphicsItemShowPercentTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+            
     def _handleResetAllToDefaultButtonClicked(self):
         """Called when the resetAllToDefaultButton is clicked.
         Resets the all the widget values in this widget to the default
@@ -13047,6 +13638,15 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._handlePriceMeasurementGraphicsItemDefaultColorResetButtonClicked()
         self._handlePriceMeasurementGraphicsItemShowPriceRangeTextFlagResetButton()
         self._handlePriceMeasurementGraphicsItemShowSqrtPriceRangeTextFlagResetButton()
+        self._handleTimeRetracementGraphicsItemBarHeightResetButtonClicked()
+        self._handleTimeRetracementGraphicsItemTextXScalingResetButtonClicked()
+        self._handleTimeRetracementGraphicsItemTextYScalingResetButtonClicked()
+        self._handleTimeRetracementGraphicsItemDefaultFontResetButtonClicked()
+        self._handleTimeRetracementGraphicsItemDefaultTextColorResetButtonClicked()
+        self._handleTimeRetracementGraphicsItemDefaultColorResetButtonClicked()
+        self._handleTimeRetracementGraphicsItemShowFullLinesFlagResetButton()
+        self._handleTimeRetracementGraphicsItemShowTimeTextFlagResetButton()
+        self._handleTimeRetracementGraphicsItemShowPercentTextFlagResetButton()
 
     def _handleOkayButtonClicked(self):
         """Called when the okay button is clicked."""

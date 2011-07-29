@@ -36,6 +36,7 @@ from data_objects import PriceBarChartModalScaleArtifact
 from data_objects import PriceBarChartTextArtifact
 from data_objects import PriceBarChartPriceTimeInfoArtifact
 from data_objects import PriceBarChartPriceMeasurementArtifact
+from data_objects import PriceBarChartTimeRetracementArtifact
 from data_objects import PriceBarChartScaling
 from data_objects import PriceBarChartSettings
 
@@ -50,6 +51,7 @@ from pricebarchart_dialogs import PriceBarChartModalScaleArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartTextArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartPriceTimeInfoArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartPriceMeasurementArtifactEditDialog
+from pricebarchart_dialogs import PriceBarChartTimeRetracementArtifactEditDialog
 
 # For edit dialogs.
 from dialogs import PriceBarEditDialog
@@ -6429,6 +6431,1378 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.scene().setAstroChart3(self.startPointF.x())
         
 
+class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
+    """QGraphicsItem that visualizes a PriceBar counter in the GraphicsView.
+
+    This item uses the origin point (0, 0) in item coordinates as the
+    center point height bar, on the start point (left part) of the bar ruler.
+
+    That means when a user creates a new TimeRetracementGraphicsItem
+    the position and points can be consistently set.
+    """
+    
+    def __init__(self, parent=None, scene=None):
+        super().__init__(parent, scene)
+
+        # Logger
+        self.log = logging.getLogger(\
+            "pricebarchart.TimeRetracementGraphicsItem")
+        
+        self.log.debug("Entered __init__().")
+
+        ############################################################
+        # Set default values for preferences/settings.
+        
+        # Height of the vertical bar drawn.
+        self.timeRetracementGraphicsItemBarHeight = \
+            PriceBarChartSettings.\
+                defaultTimeRetracementGraphicsItemBarHeight 
+ 
+        # X scaling of the text.
+        self.timeRetracementTextXScaling = \
+            PriceBarChartSettings.\
+                defaultTimeRetracementGraphicsItemTextXScaling 
+
+        # Y scaling of the text.
+        self.timeRetracementTextYScaling = \
+            PriceBarChartSettings.\
+                defaultTimeRetracementGraphicsItemTextYScaling 
+
+        # Font.
+        self.timeRetracementTextFont = QFont()
+        self.timeRetracementTextFont.fromString(\
+            PriceBarChartSettings.\
+            defaultTimeRetracementGraphicsItemDefaultFontDescription)
+        
+        # Color of the text that is associated with the graphicsitem.
+        self.timeRetracementGraphicsItemTextColor = \
+            PriceBarChartSettings.\
+            defaultTimeRetracementGraphicsItemDefaultTextColor
+
+        # Color of the item.
+        self.timeRetracementGraphicsItemColor = \
+            PriceBarChartSettings.\
+            defaultTimeRetracementGraphicsItemDefaultColor
+
+        # TimeRetracementGraphicsItem showBarsTextFlag (bool).
+        self.showBarsTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeRetracementGraphicsItemShowBarsTextFlag
+    
+        ############################################################
+
+        # Internal storage object, used for loading/saving (serialization).
+        self.artifact = PriceBarChartTimeRetracementArtifact()
+
+        # Read the QSettings preferences for the various parameters of
+        # this price bar.
+        self.loadSettingsFromAppPreferences()
+        
+        # Pen which is used to do the painting of the bar ruler.
+        self.timeRetracementPenWidth = 0.0
+        self.timeRetracementPen = QPen()
+        self.timeRetracementPen.setColor(self.timeRetracementGraphicsItemColor)
+        self.timeRetracementPen.setWidthF(self.timeRetracementPenWidth)
+        
+        # Starting point, in scene coordinates.
+        self.startPointF = QPointF(0, 0)
+
+        # Ending point, in scene coordinates.
+        self.endPointF = QPointF(0, 0)
+
+        # Variables holding the time retracement values.
+        self.numPriceBars = 0
+        self.numHours = 0
+        self.numDays = 0
+        self.numWeeks = 0
+        self.numMonths = 0
+
+        self.numSqrtPriceBars = 0
+        self.numSqrtHours = 0
+        self.numSqrtDays = 0
+        self.numSqrtWeeks = 0
+        self.numSqrtMonths = 0
+        
+        # Internal QGraphicsItem that holds the text of the bar count.
+        # Initialize to blank and set at the end point.
+        self.timeRetracementBarsText = QGraphicsSimpleTextItem("", self)
+        self.timeRetracementHoursText = QGraphicsSimpleTextItem("", self)
+        self.timeRetracementDaysText = QGraphicsSimpleTextItem("", self)
+        self.timeRetracementWeeksText = QGraphicsSimpleTextItem("", self)
+        self.timeRetracementMonthsText = QGraphicsSimpleTextItem("", self)
+
+        self.timeRetracementSqrtBarsText = QGraphicsSimpleTextItem("", self)
+        self.timeRetracementSqrtHoursText = QGraphicsSimpleTextItem("", self)
+        self.timeRetracementSqrtDaysText = QGraphicsSimpleTextItem("", self)
+        self.timeRetracementSqrtWeeksText = QGraphicsSimpleTextItem("", self)
+        self.timeRetracementSqrtMonthsText = QGraphicsSimpleTextItem("", self)
+
+        # List of text items as created above.  This is so we can more
+        # quickly and easily apply new settings.  It also helps for
+        # painting things nicely.
+        self.textItems = []
+        self.textItems.append(self.timeRetracementBarsText)
+        self.textItems.append(self.timeRetracementHoursText)
+        self.textItems.append(self.timeRetracementDaysText)
+        self.textItems.append(self.timeRetracementWeeksText)
+        self.textItems.append(self.timeRetracementMonthsText)
+        
+        self.textItems.append(self.timeRetracementSqrtBarsText)
+        self.textItems.append(self.timeRetracementSqrtHoursText)
+        self.textItems.append(self.timeRetracementSqrtDaysText)
+        self.textItems.append(self.timeRetracementSqrtWeeksText)
+        self.textItems.append(self.timeRetracementSqrtMonthsText)
+
+        for textItem in self.textItems:
+            textItem.setPos(self.endPointF)
+        
+            # Set the font of the text.
+            textItem.setFont(self.timeRetracementTextFont)
+        
+            # Set the pen color of the text.
+            self.timeRetracementTextPen = textItem.pen()
+            self.timeRetracementTextPen.\
+                setColor(self.timeRetracementGraphicsItemTextColor)
+            
+            textItem.setPen(self.timeRetracementTextPen)
+
+            # Set the brush color of the text.
+            self.timeRetracementTextBrush = textItem.brush()
+            self.timeRetracementTextBrush.\
+                setColor(self.timeRetracementGraphicsItemTextColor)
+            
+            textItem.setBrush(self.timeRetracementTextBrush)
+
+            # Apply some size scaling to the text.
+            textTransform = QTransform()
+            textTransform.scale(self.timeRetracementTextXScaling, \
+                                self.timeRetracementTextYScaling)
+            textItem.setTransform(textTransform)
+
+        # Flag that indicates that verical dotted lines should be drawn.
+        self.drawVerticalDottedLinesFlag = False
+        
+        # Flags that indicate that the user is dragging either the start
+        # or end point of the QGraphicsItem.
+        self.draggingStartPointFlag = False
+        self.draggingEndPointFlag = False
+        self.clickScenePointF = None
+        
+    def setDrawVerticalDottedLinesFlag(self, flag):
+        """If flag is set to true, then the vertical dotted lines are drawn.
+        """
+
+        self.drawVerticalDottedLinesFlag = flag
+
+        # Need to call this because the bounding box is updated with
+        # all the extra vertical lines being drawn.
+        self.prepareGeometryChange()
+        
+    def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings):
+        """Reads some of the parameters/settings of this
+        PriceBarGraphicsItem from the given PriceBarChartSettings object.
+        """
+
+        self.log.debug("Entered loadSettingsFromPriceBarChartSettings()")
+        
+        # Height of the vertical bar drawn.
+        self.timeRetracementGraphicsItemBarHeight = \
+            priceBarChartSettings.\
+                timeRetracementGraphicsItemBarHeight 
+ 
+        # X scaling of the text.
+        self.timeRetracementTextXScaling = \
+            priceBarChartSettings.\
+                timeRetracementGraphicsItemTextXScaling 
+
+        # Y scaling of the text.
+        self.timeRetracementTextYScaling = \
+            priceBarChartSettings.\
+                timeRetracementGraphicsItemTextYScaling 
+
+        # Font.
+        self.timeRetracementTextFont = QFont()
+        self.timeRetracementTextFont.fromString(\
+            priceBarChartSettings.\
+            timeRetracementGraphicsItemDefaultFontDescription)
+        
+        # Color of the text that is associated with the graphicsitem.
+        self.timeRetracementGraphicsItemTextColor = \
+            priceBarChartSettings.\
+            timeRetracementGraphicsItemDefaultTextColor
+
+        # Color of the item.
+        self.timeRetracementGraphicsItemColor = \
+            priceBarChartSettings.\
+            timeRetracementGraphicsItemDefaultColor
+
+        # TimeRetracementGraphicsItem showBarsTextFlag (bool).
+        self.showBarsTextFlag = \
+            priceBarChartSettings.\
+            timeRetracementGraphicsItemShowBarsTextFlag
+    
+        # TimeRetracementGraphicsItem showHoursTextFlag (bool).
+        self.showHoursTextFlag = \
+            priceBarChartSettings.\
+            timeRetracementGraphicsItemShowHoursTextFlag
+    
+        # TimeRetracementGraphicsItem showDaysTextFlag (bool).
+        self.showDaysTextFlag = \
+            priceBarChartSettings.\
+            timeRetracementGraphicsItemShowDaysTextFlag
+    
+        # TimeRetracementGraphicsItem showWeeksTextFlag (bool).
+        self.showWeeksTextFlag = \
+            priceBarChartSettings.\
+            timeRetracementGraphicsItemShowWeeksTextFlag
+    
+        # TimeRetracementGraphicsItem showMonthsTextFlag (bool).
+        self.showMonthsTextFlag = \
+            priceBarChartSettings.\
+            timeRetracementGraphicsItemShowMonthsTextFlag
+    
+        # TimeRetracementGraphicsItem showSqrtBarsTextFlag (bool).
+        self.showSqrtBarsTextFlag = \
+            priceBarChartSettings.\
+            timeRetracementGraphicsItemShowSqrtBarsTextFlag
+    
+        # TimeRetracementGraphicsItem showSqrtHoursTextFlag (bool).
+        self.showSqrtHoursTextFlag = \
+            priceBarChartSettings.\
+            timeRetracementGraphicsItemShowSqrtHoursTextFlag
+    
+        # TimeRetracementGraphicsItem showSqrtDaysTextFlag (bool).
+        self.showSqrtDaysTextFlag = \
+            priceBarChartSettings.\
+            timeRetracementGraphicsItemShowSqrtDaysTextFlag
+    
+        # TimeRetracementGraphicsItem showSqrtWeeksTextFlag (bool).
+        self.showSqrtWeeksTextFlag = \
+            priceBarChartSettings.\
+            timeRetracementGraphicsItemShowSqrtWeeksTextFlag
+    
+        # TimeRetracementGraphicsItem showSqrtMonthsTextFlag (bool).
+        self.showSqrtMonthsTextFlag = \
+            priceBarChartSettings.\
+            timeRetracementGraphicsItemShowSqrtMonthsTextFlag
+
+        ####################################################################
+
+        # Set specific items enabled or disabled, visible or not,
+        # based on the above flags being set.
+        
+        # Set the text items as enabled or disabled, visible or invisible.
+        self.timeRetracementBarsText.setEnabled(self.showBarsTextFlag)
+        self.timeRetracementHoursText.setEnabled(self.showHoursTextFlag)
+        self.timeRetracementDaysText.setEnabled(self.showDaysTextFlag)
+        self.timeRetracementWeeksText.setEnabled(self.showWeeksTextFlag)
+        self.timeRetracementMonthsText.setEnabled(self.showMonthsTextFlag)
+
+        self.timeRetracementSqrtBarsText.setEnabled(self.showSqrtBarsTextFlag)
+        self.timeRetracementSqrtHoursText.setEnabled(self.showSqrtHoursTextFlag)
+        self.timeRetracementSqrtDaysText.setEnabled(self.showSqrtDaysTextFlag)
+        self.timeRetracementSqrtWeeksText.setEnabled(self.showSqrtWeeksTextFlag)
+        self.timeRetracementSqrtMonthsText.setEnabled(self.showSqrtMonthsTextFlag)
+        
+        self.timeRetracementBarsText.setVisible(self.showBarsTextFlag)
+        self.timeRetracementHoursText.setVisible(self.showHoursTextFlag)
+        self.timeRetracementDaysText.setVisible(self.showDaysTextFlag)
+        self.timeRetracementWeeksText.setVisible(self.showWeeksTextFlag)
+        self.timeRetracementMonthsText.setVisible(self.showMonthsTextFlag)
+
+        self.timeRetracementSqrtBarsText.setVisible(self.showSqrtBarsTextFlag)
+        self.timeRetracementSqrtHoursText.setVisible(self.showSqrtHoursTextFlag)
+        self.timeRetracementSqrtDaysText.setVisible(self.showSqrtDaysTextFlag)
+        self.timeRetracementSqrtWeeksText.setVisible(self.showSqrtWeeksTextFlag)
+        self.timeRetracementSqrtMonthsText.setVisible(self.showSqrtMonthsTextFlag)
+        
+        # Update all the text items with the new settings.
+        for textItem in self.textItems:
+            # Set the font of the text.
+            textItem.setFont(self.timeRetracementTextFont)
+        
+            # Set the pen color of the text.
+            self.timeRetracementTextPen = textItem.pen()
+            self.timeRetracementTextPen.\
+                setColor(self.timeRetracementGraphicsItemTextColor)
+            
+            textItem.setPen(self.timeRetracementTextPen)
+
+            # Set the brush color of the text.
+            self.timeRetracementTextBrush = textItem.brush()
+            self.timeRetracementTextBrush.\
+                setColor(self.timeRetracementGraphicsItemTextColor)
+            
+            textItem.setBrush(self.timeRetracementTextBrush)
+
+            # Apply some size scaling to the text.
+            textTransform = QTransform()
+            textTransform.scale(self.timeRetracementTextXScaling, \
+                                self.timeRetracementTextYScaling)
+            textItem.setTransform(textTransform)
+
+        # Update the timeRetracement text item position.
+        self._updateTextItemPositions()
+
+        # Set the new color of the pen for drawing the bar.
+        self.timeRetracementPen.\
+            setColor(self.timeRetracementGraphicsItemColor)
+        
+        # Schedule an update.
+        self.update()
+
+        self.log.debug("Exiting loadSettingsFromPriceBarChartSettings()")
+        
+    def loadSettingsFromAppPreferences(self):
+        """Reads some of the parameters/settings of this
+        PriceBarGraphicsItem from the QSettings object. 
+        """
+
+        # No settings.
+        
+    def setPos(self, pos):
+        """Overwrites the QGraphicsItem setPos() function.
+
+        Here we use the new position to re-set the self.startPointF and
+        self.endPointF.
+
+        Arguments:
+        pos - QPointF holding the new position.
+        """
+        self.log.debug("Entered setPos()")
+        
+        super().setPos(pos)
+
+        newScenePos = pos
+
+        posDelta = newScenePos - self.startPointF
+
+        # Update the start and end points accordingly. 
+        self.startPointF = self.startPointF + posDelta
+        self.endPointF = self.endPointF + posDelta
+
+        if self.scene() != None:
+            self.recalculateTimeRetracement()
+            self.update()
+
+        self.log.debug("Exiting setPos()")
+        
+    def mousePressEvent(self, event):
+        """Overwrites the QGraphicsItem mousePressEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+
+        self.log.debug("Entered mousePressEvent()")
+        
+        # If the item is in read-only mode, simply call the parent
+        # implementation of this function.
+        if self.getReadOnlyFlag() == True:
+            super().mousePressEvent(event)
+        else:
+            # If the mouse press is within 1/5th of the bar length to the
+            # beginning or end points, then the user is trying to adjust
+            # the starting or ending points of the bar counter ruler.
+            scenePosX = event.scenePos().x()
+            self.log.debug("DEBUG: scenePosX={}".format(scenePosX))
+            
+            startingPointX = self.startPointF.x()
+            self.log.debug("DEBUG: startingPointX={}".format(startingPointX))
+            endingPointX = self.endPointF.x()
+            self.log.debug("DEBUG: endingPointX={}".format(endingPointX))
+            
+            diff = endingPointX - startingPointX
+            self.log.debug("DEBUG: diff={}".format(diff))
+
+            startThreshold = startingPointX + (diff * (1.0 / 5))
+            endThreshold = endingPointX - (diff * (1.0 / 5))
+
+            self.log.debug("DEBUG: startThreshold={}".format(startThreshold))
+            self.log.debug("DEBUG: endThreshold={}".format(endThreshold))
+
+            if scenePosX <= startThreshold:
+                self.draggingStartPointFlag = True
+                self.log.debug("DEBUG: self.draggingStartPointFlag={}".
+                               format(self.draggingStartPointFlag))
+            elif scenePosX >= endThreshold:
+                self.draggingEndPointFlag = True
+                self.log.debug("DEBUG: self.draggingEndPointFlag={}".
+                               format(self.draggingEndPointFlag))
+            else:
+                # The mouse has clicked the middle part of the
+                # QGraphicsItem, so pass the event to the parent, because
+                # the user wants to either select or drag-move the
+                # position of the QGraphicsItem.
+                self.log.debug("DEBUG:  Middle part clicked.  " + \
+                               "Passing to super().")
+
+                # Save the click position, so that if it is a drag, we
+                # can have something to reference from for setting the
+                # start and end positions when the user finally
+                # releases the mouse button.
+                self.clickScenePointF = event.scenePos()
+                
+                super().mousePressEvent(event)
+
+        self.log.debug("Leaving mousePressEvent()")
+        
+    def mouseMoveEvent(self, event):
+        """Overwrites the QGraphicsItem mouseMoveEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+
+        if event.buttons() & Qt.LeftButton:
+            if self.getReadOnlyFlag() == False:
+                if self.draggingStartPointFlag == True:
+                    self.log.debug("DEBUG: self.draggingStartPointFlag={}".
+                                   format(self.draggingStartPointFlag))
+                    self.setStartPointF(QPointF(event.scenePos().x(),
+                                                self.startPointF.y()))
+                    self.update()
+                elif self.draggingEndPointFlag == True:
+                    self.log.debug("DEBUG: self.draggingEndPointFlag={}".
+                                   format(self.draggingEndPointFlag))
+                    self.setEndPointF(QPointF(event.scenePos().x(),
+                                              self.endPointF.y()))
+                    self.update()
+                else:
+                    # This means that the user is dragging the whole
+                    # ruler.
+
+                    # Do the move.
+                    super().mouseMoveEvent(event)
+                    
+                    # Emit that the PriceBarChart has changed.
+                    self.scene().priceBarChartChanged.emit()
+            else:
+                super().mouseMoveEvent(event)
+        else:
+            super().mouseMoveEvent(event)
+
+    def mouseReleaseEvent(self, event):
+        """Overwrites the QGraphicsItem mouseReleaseEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+        
+        self.log.debug("Entered mouseReleaseEvent()")
+
+        if self.draggingStartPointFlag == True:
+            self.log.debug("mouseReleaseEvent() when previously dragging " + \
+                           "startPoint.")
+            
+            self.draggingStartPointFlag = False
+
+            # Make sure the starting point is to the left of the
+            # ending point.
+            self.normalizeStartAndEnd()
+
+            self.prepareGeometryChange()
+            
+            self.scene().priceBarChartChanged.emit()
+            
+        elif self.draggingEndPointFlag == True:
+            self.log.debug("mouseReleaseEvent() when previously dragging " +
+                           "endPoint.")
+            
+            self.draggingEndPointFlag = False
+
+            # Make sure the starting point is to the left of the
+            # ending point.
+            self.normalizeStartAndEnd()
+
+            self.prepareGeometryChange()
+            
+            self.scene().priceBarChartChanged.emit()
+            
+        else:
+            self.log.debug("mouseReleaseEvent() when NOT previously " + \
+                           "dragging an end.")
+
+            if self.getReadOnlyFlag() == False:
+                # Update the start and end positions.
+                self.log.debug("DEBUG: scenePos: x={}, y={}".
+                               format(event.scenePos().x(),
+                                      event.scenePos().y()))
+
+                # Calculate the difference between where the user released
+                # the button and where the user first clicked the item.
+                delta = event.scenePos() - self.clickScenePointF
+
+                self.log.debug("DEBUG: delta: x={}, y={}".
+                               format(delta.x(), delta.y()))
+
+                # If the delta is not zero, then update the start and
+                # end points by calling setPos() on the new calculated
+                # position.
+                if delta.x() != 0.0 and delta.y() != 0.0:
+                    newPos = self.startPointF + delta
+                    self.setPos(newPos)
+            
+            super().mouseReleaseEvent(event)
+
+        self.log.debug("Exiting mouseReleaseEvent()")
+
+    def setReadOnlyFlag(self, flag):
+        """Overwrites the PriceBarChartArtifactGraphicsItem setReadOnlyFlag()
+        function.
+        """
+
+        # Call the parent's function so that the flag gets set.
+        super().setReadOnlyFlag(flag)
+
+        # Make sure the drag flags are disabled.
+        if flag == True:
+            self.draggingStartPointFlag = False
+            self.draggingEndPointFlag = False
+
+    def _updateTextItemPositions(self):
+        """Updates the location of the internal text items based on
+        where the start and end points are.
+        """
+        
+        # Update the timeRetracement label position.
+            
+        # X location where to place the item.
+        deltaX = self.endPointF.x() - self.startPointF.x()
+        x = deltaX / 2
+
+        # Starting Y location to place the text item.
+        startY = -2.0
+
+        # Amount to mutiply to get a largest offset from startY.
+        offsetY = 1.5
+
+        # j is the running index of the enabled text item.
+        j = 0
+
+        # Go through in reverse order since we are placing the
+        # items relative to the bar (moving outwards).
+        for i in reversed(range(len(self.textItems))):
+            # Get the current text item.
+            textItem = self.textItems[i]
+
+            # Set the position no matter what, but only increment
+            # j if the item is enabled and displayed.  This is so
+            # we keep the text items on the graphicsScene close to
+            # its parent item.
+            y = (startY - (offsetY * j)) * \
+                self.timeRetracementGraphicsItemBarHeight
+            textItem.setPos(QPointF(x, y))
+            if textItem.isEnabled() and textItem.isVisible():
+                j += 1
+                    
+    def setStartPointF(self, pointF):
+        """Sets the starting point of the bar count.  The value passed in
+        is the mouse location in scene coordinates.  
+        """
+
+        x = pointF.x()
+
+        newValue = QPointF(x, self.endPointF.y())
+
+        if self.startPointF != newValue: 
+            self.startPointF = newValue
+
+            self.setPos(self.startPointF)
+
+            # Update the timeRetracement text item position.
+            self._updateTextItemPositions()
+            
+            if self.scene() != None:
+                # Re-calculate the timeretracement.
+                self.recalculateTimeRetracement()
+                self.update()
+                
+    def setEndPointF(self, pointF):
+        """Sets the ending point of the bar count.  The value passed in
+        is the mouse location in scene coordinates.  
+        """
+
+        x = pointF.x()
+
+        newValue = QPointF(x, self.startPointF.y())
+
+        if self.endPointF != newValue:
+            self.endPointF = newValue
+
+            # Update the timeRetracement text item position.
+            self._updateTextItemPositions()
+            
+            if self.scene() != None:
+                # Re-calculate the timeretracement.
+                self.recalculateTimeRetracement()
+                self.update()
+
+    def normalizeStartAndEnd(self):
+        """Sets the starting point X location to be less than the ending
+        point X location.
+        """
+
+        if self.startPointF.x() > self.endPointF.x():
+            self.log.debug("Normalization of TimeRetracementGraphicsItem " +
+                           "required.")
+            
+            # Swap the points.
+            temp = self.startPointF
+            self.startPointF = self.endPointF
+            self.endPointF = temp
+
+            # Update the timeRetracement text item position.
+            self._updateTextItemPositions()
+            
+            self.recalculateTimeRetracement()
+            
+            super().setPos(self.startPointF)
+            
+
+    def _mousePosToNearestPriceBarX(self, pointF):
+        """Gets the X position value of the closest PriceBar (on the X
+        axis) to the given mouse position.
+
+        Arguments:
+        pointF - QPointF to do the lookup on.
+
+        Returns:
+        float value for the X value.  If there are no PriceBars, then it
+        returns the X given in the input pointF.
+        """
+
+        scene = self.scene()
+
+        # Get all the QGraphicsItems.
+        graphicsItems = scene.items()
+
+        closestPriceBarX = None
+        currClosestDistance = None
+
+        # Go through the PriceBarGraphicsItems and find the closest one in
+        # X coordinates.
+        for item in graphicsItems:
+            if isinstance(item, PriceBarGraphicsItem):
+
+                x = item.getPriceBarHighScenePoint().x()
+                distance = abs(pointF.x() - x)
+
+                if closestPriceBarX == None:
+                    closestPriceBarX = x
+                    currClosestDistance = distance
+                elif (currClosestDistance != None) and \
+                        (distance < currClosestDistance):
+
+                    closestPriceBarX = x
+                    currClosestDistance = distance
+                    
+        if closestPriceBarX == None:
+            closestPriceBarX = pointF.x()
+
+        return closestPriceBarX
+
+    def recalculateTimeRetracement(self):
+        """Sets the internal variables:
+        
+            self.numPriceBars
+            self.numHours
+            self.numDays
+            self.numWeeks
+            self.numMonths
+
+            self.numSqrtPriceBars
+            self.numSqrtHours
+            self.numSqrtDays
+            self.numSqrtWeeks
+            self.numSqrtMonths
+
+        to hold the amount of time between the start and end points.
+        """
+
+        scene = self.scene()
+
+        # Reset the values.
+        self.numPriceBars = 0.0
+        self.numHours = 0.0
+        self.numDays = 0.0
+        self.numWeeks = 0.0
+        self.numMonths = 0.0
+
+        self.numSqrtPriceBars = 0.0
+        self.numSqrtHours = 0.0
+        self.numSqrtDays = 0.0
+        self.numSqrtWeeks = 0.0
+        self.numSqrtMonths = 0.0
+        
+        if scene != None:
+            # Get all the QGraphicsItems.
+            graphicsItems = scene.items()
+
+            # Go through the PriceBarGraphicsItems and count the bars in
+            # between self.startPointF and self.endPointF.
+            for item in graphicsItems:
+                if isinstance(item, PriceBarGraphicsItem):
+
+                    x = item.getPriceBarHighScenePoint().x()
+
+                    # Here we check for the bar being in between
+                    # the self.startPointF and the self.endPointF.
+                    # This handles the case when the start and end
+                    # points are reversed also.
+                    if (self.startPointF.x() < x <= self.endPointF.x()) or \
+                       (self.endPointF.x() < x <= self.startPointF.x()):
+
+                        self.numPriceBars += 1
+        
+            # Calculate the number of (calendar) days.
+            startTimestamp = \
+                scene.sceneXPosToDatetime(self.startPointF.x())
+            timestampStr = Ephemeris.datetimeToDayStr(startTimestamp)
+            
+            self.log.debug("startTimestamp: " + timestampStr)
+            
+            endTimestamp = \
+                scene.sceneXPosToDatetime(self.endPointF.x())
+            timestampStr = Ephemeris.datetimeToDayStr(endTimestamp)
+            
+            self.log.debug("endTimestamp: " + timestampStr)
+            
+            timeDelta = endTimestamp - startTimestamp
+            
+            self.log.debug("timeDelta is: " + timeDelta.__str__())
+
+            # Calculate number of days.
+            self.numDays = timeDelta.days
+            self.numDays += (timeDelta.seconds / 86400.0)
+
+            # Calculate number of hours.
+            self.numHours = self.numDays * 24.0
+            
+            # Calculate number of weeks.
+            self.numWeeks = self.numDays / 7.0
+
+            # Calculate number of months.
+            daysInMonth = 365.242199 / 12.0
+            self.numMonths = self.numDays / daysInMonth
+
+            self.log.debug("self.numPriceBars={}".format(self.numPriceBars))
+            self.log.debug("self.numHours={}".format(self.numHours))
+            self.log.debug("self.numDays={}".format(self.numDays))
+            self.log.debug("self.numWeeks={}".format(self.numWeeks))
+            self.log.debug("self.numMonths={}".format(self.numMonths))
+            
+            self.numSqrtPriceBars = math.sqrt(abs(self.numPriceBars))
+            self.numSqrtHours = math.sqrt(abs(self.numHours))
+            self.numSqrtDays = math.sqrt(abs(self.numDays))
+            self.numSqrtWeeks = math.sqrt(abs(self.numWeeks))
+            self.numSqrtMonths = math.sqrt(abs(self.numMonths))
+
+            self.log.debug("self.numSqrtPriceBars={}".format(self.numSqrtPriceBars))
+            self.log.debug("self.numSqrtHours={}".format(self.numSqrtHours))
+            self.log.debug("self.numSqrtDays={}".format(self.numSqrtDays))
+            self.log.debug("self.numSqrtWeeks={}".format(self.numSqrtWeeks))
+            self.log.debug("self.numSqrtMonths={}".format(self.numSqrtMonths))
+            
+        # Update the text of the internal items.
+        barsText = "{} B".format(self.numPriceBars)
+        hoursText = "{:.2f} H".format(self.numHours)
+        daysText = "{:.2f} CD".format(self.numDays)
+        weeksText = "{:.2f} W".format(self.numWeeks)
+        monthsText = "{:.2f} M".format(self.numMonths)
+        
+        sqrtBarsText = "{:.2f} sqrt B".format(self.numSqrtPriceBars)
+        sqrtHoursText = "{:.2f} sqrt H".format(self.numSqrtHours)
+        sqrtDaysText = "{:.2f} sqrt CD".format(self.numSqrtDays)
+        sqrtWeeksText = "{:.2f} sqrt W".format(self.numSqrtWeeks)
+        sqrtMonthsText = "{:.2f} sqrt M".format(self.numSqrtMonths)
+        
+        self.timeRetracementBarsText.setText(barsText)
+        self.timeRetracementHoursText.setText(hoursText)
+        self.timeRetracementDaysText.setText(daysText)
+        self.timeRetracementWeeksText.setText(weeksText)
+        self.timeRetracementMonthsText.setText(monthsText)
+        
+        self.timeRetracementSqrtBarsText.setText(sqrtBarsText)
+        self.timeRetracementSqrtHoursText.setText(sqrtHoursText)
+        self.timeRetracementSqrtDaysText.setText(sqrtDaysText)
+        self.timeRetracementSqrtWeeksText.setText(sqrtWeeksText)
+        self.timeRetracementSqrtMonthsText.setText(sqrtMonthsText)
+        
+    def setArtifact(self, artifact):
+        """Loads a given PriceBarChartTimeRetracementArtifact object's data
+        into this QGraphicsItem.
+
+        Arguments:
+        artifact - PriceBarChartTimeRetracementArtifact object with information
+                   about this TextGraphisItem
+        """
+
+        self.log.debug("Entering setArtifact()")
+
+        if isinstance(artifact, PriceBarChartTimeRetracementArtifact):
+            self.artifact = artifact
+        else:
+            raise TypeError("Expected artifact type: " + \
+                            "PriceBarChartTimeRetracementArtifact")
+
+        # Extract and set the internals according to the info 
+        # in this artifact object.
+        self.setPos(self.artifact.getPos())
+        self.setStartPointF(self.artifact.getStartPointF())
+        self.setEndPointF(self.artifact.getEndPointF())
+
+        self.timeRetracementTextXScaling = self.artifact.getTextXScaling()
+        self.timeRetracementTextYScaling = self.artifact.getTextYScaling()
+        self.timeRetracementTextFont = self.artifact.getFont()
+        self.timeRetracementGraphicsItemTextColor = self.artifact.getTextColor()
+        self.timeRetracementPen.setColor(self.artifact.getColor())
+        
+        self.showBarsTextFlag = self.artifact.getShowBarsTextFlag()
+        self.showHoursTextFlag = self.artifact.getShowHoursTextFlag()
+        self.showDaysTextFlag = self.artifact.getShowDaysTextFlag()
+        self.showWeeksTextFlag = self.artifact.getShowWeeksTextFlag()
+        self.showMonthsTextFlag = self.artifact.getShowMonthsTextFlag()
+        
+        self.showSqrtBarsTextFlag = self.artifact.getShowSqrtBarsTextFlag()
+        self.showSqrtHoursTextFlag = self.artifact.getShowSqrtHoursTextFlag()
+        self.showSqrtDaysTextFlag = self.artifact.getShowSqrtDaysTextFlag()
+        self.showSqrtWeeksTextFlag = self.artifact.getShowSqrtWeeksTextFlag()
+        self.showSqrtMonthsTextFlag = self.artifact.getShowSqrtMonthsTextFlag()
+
+        #############
+
+        # Set the text items as enabled or disabled, visible or invisible.
+        self.timeRetracementBarsText.setEnabled(self.showBarsTextFlag)
+        self.timeRetracementHoursText.setEnabled(self.showHoursTextFlag)
+        self.timeRetracementDaysText.setEnabled(self.showDaysTextFlag)
+        self.timeRetracementWeeksText.setEnabled(self.showWeeksTextFlag)
+        self.timeRetracementMonthsText.setEnabled(self.showMonthsTextFlag)
+
+        self.timeRetracementSqrtBarsText.setEnabled(self.showSqrtBarsTextFlag)
+        self.timeRetracementSqrtHoursText.setEnabled(self.showSqrtHoursTextFlag)
+        self.timeRetracementSqrtDaysText.setEnabled(self.showSqrtDaysTextFlag)
+        self.timeRetracementSqrtWeeksText.setEnabled(self.showSqrtWeeksTextFlag)
+        self.timeRetracementSqrtMonthsText.setEnabled(self.showSqrtMonthsTextFlag)
+        
+        self.timeRetracementBarsText.setVisible(self.showBarsTextFlag)
+        self.timeRetracementHoursText.setVisible(self.showHoursTextFlag)
+        self.timeRetracementDaysText.setVisible(self.showDaysTextFlag)
+        self.timeRetracementWeeksText.setVisible(self.showWeeksTextFlag)
+        self.timeRetracementMonthsText.setVisible(self.showMonthsTextFlag)
+
+        self.timeRetracementSqrtBarsText.setVisible(self.showSqrtBarsTextFlag)
+        self.timeRetracementSqrtHoursText.setVisible(self.showSqrtHoursTextFlag)
+        self.timeRetracementSqrtDaysText.setVisible(self.showSqrtDaysTextFlag)
+        self.timeRetracementSqrtWeeksText.setVisible(self.showSqrtWeeksTextFlag)
+        self.timeRetracementSqrtMonthsText.setVisible(self.showSqrtMonthsTextFlag)
+        
+        # Update all the text items with the new settings.
+        for textItem in self.textItems:
+            # Set the font of the text.
+            textItem.setFont(self.timeRetracementTextFont)
+        
+            # Set the pen color of the text.
+            self.timeRetracementTextPen = textItem.pen()
+            self.timeRetracementTextPen.\
+                setColor(self.timeRetracementGraphicsItemTextColor)
+            
+            textItem.setPen(self.timeRetracementTextPen)
+
+            # Set the brush color of the text.
+            self.timeRetracementTextBrush = textItem.brush()
+            self.timeRetracementTextBrush.\
+                setColor(self.timeRetracementGraphicsItemTextColor)
+            
+            textItem.setBrush(self.timeRetracementTextBrush)
+
+            # Apply some size scaling to the text.
+            textTransform = QTransform()
+            textTransform.scale(self.timeRetracementTextXScaling, \
+                                self.timeRetracementTextYScaling)
+            textItem.setTransform(textTransform)
+
+        # Update the timeRetracement text item position.
+        self._updateTextItemPositions()
+            
+        # Need to recalculate the time retracement, since the start and end
+        # points have changed.  Note, if no scene has been set for the
+        # QGraphicsView, then the time retracements will be zero, since it
+        # can't look up PriceBarGraphicsItems in the scene.
+        self.recalculateTimeRetracement()
+
+        self.log.debug("Exiting setArtifact()")
+
+    def getArtifact(self):
+        """Returns a PriceBarChartTimeRetracementArtifact for this
+        QGraphicsItem so that it may be pickled.
+        """
+        
+        self.log.debug("Entered getArtifact()")
+        
+        # Update the internal self.priceBarChartTimeRetracementArtifact 
+        # to be current, then return it.
+
+        self.artifact.setPos(self.pos())
+        self.artifact.setStartPointF(self.startPointF)
+        self.artifact.setEndPointF(self.endPointF)
+        
+        self.artifact.setTextXScaling(self.timeRetracementTextXScaling)
+        self.artifact.setTextYScaling(self.timeRetracementTextYScaling)
+        self.artifact.setFont(self.timeRetracementTextFont)
+        self.artifact.setTextColor(self.timeRetracementGraphicsItemTextColor)
+        self.artifact.setColor(self.timeRetracementPen.color())
+        
+        self.artifact.setShowBarsTextFlag(self.showBarsTextFlag)
+        self.artifact.setShowHoursTextFlag(self.showHoursTextFlag)
+        self.artifact.setShowDaysTextFlag(self.showDaysTextFlag)
+        self.artifact.setShowWeeksTextFlag(self.showWeeksTextFlag)
+        self.artifact.setShowMonthsTextFlag(self.showMonthsTextFlag)
+        
+        self.artifact.setShowSqrtBarsTextFlag(self.showSqrtBarsTextFlag)
+        self.artifact.setShowSqrtHoursTextFlag(self.showSqrtHoursTextFlag)
+        self.artifact.setShowSqrtDaysTextFlag(self.showSqrtDaysTextFlag)
+        self.artifact.setShowSqrtWeeksTextFlag(self.showSqrtWeeksTextFlag)
+        self.artifact.setShowSqrtMonthsTextFlag(self.showSqrtMonthsTextFlag)
+        
+        self.log.debug("Exiting getArtifact()")
+        
+        return self.artifact
+
+    def boundingRect(self):
+        """Returns the bounding rectangle for this graphicsitem."""
+
+        # Coordinate (0, 0) in local coordinates is the center of 
+        # the vertical bar that is at the left portion of this widget,
+        # and represented in scene coordinates as the self.startPointF 
+        # location.
+
+        # The QRectF returned is relative to this (0, 0) point.
+
+        # Get the QRectF with just the lines.
+        xDelta = self.endPointF.x() - self.startPointF.x()
+
+        topLeft = \
+            QPointF(0.0, -1.0 *
+                    (self.timeRetracementGraphicsItemBarHeight / 2.0))
+        
+        bottomRight = \
+            QPointF(xDelta, 1.0 *
+                    (self.timeRetracementGraphicsItemBarHeight / 2.0))
+
+        # Initalize to the above boundaries.  We will set them below.
+        localHighY = topLeft.y()
+        localLowY = bottomRight.y()
+        if self.drawVerticalDottedLinesFlag or self.isSelected():
+            # Get the highest high, and lowest low PriceBar in local
+            # coordinates.
+            highestPrice = self.scene().getHighestPriceBar().high
+            highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
+            localHighestPriceBarY = \
+                       self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+
+            # Overwrite the high if it is larger.
+            if localHighestPriceBarY > localHighY:
+                localHighY = localHighestPriceBarY
+                
+            lowestPrice = self.scene().getLowestPriceBar().low
+            lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+            localLowestPriceBarY = \
+                      self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+            
+            # Overwrite the low if it is smaller.
+            if localLowestPriceBarY < localLowY:
+                localLowY = localLowestPriceBarY
+                
+        xValues = []
+        xValues.append(topLeft.x())
+        xValues.append(bottomRight.x())
+
+        yValues = []
+        yValues.append(topLeft.y())
+        yValues.append(bottomRight.y())
+        yValues.append(localHighY)
+        yValues.append(localLowY)
+
+        xValues.sort()
+        yValues.sort()
+        
+        # Find the smallest x and y.
+        smallestX = xValues[0]
+        smallestY = yValues[0]
+        
+        # Find the largest x and y.
+        largestX = xValues[-1]
+        largestY = yValues[-1]
+            
+        rv = QRectF(QPointF(smallestX, smallestY),
+                    QPointF(largestX, largestY))
+
+        return rv
+
+    def shape(self):
+        """Overwrites the QGraphicsItem.shape() function to return a
+        more accurate shape for collision detection, hit tests, etc.
+        """
+
+        # Get the QRectF with just the lines.
+        xDelta = self.endPointF.x() - self.startPointF.x()
+        
+        topLeft = \
+            QPointF(0.0, -1.0 *
+                    (self.timeRetracementGraphicsItemBarHeight / 2.0))
+        
+        bottomRight = \
+            QPointF(xDelta, 1.0 *
+                    (self.timeRetracementGraphicsItemBarHeight / 2.0))
+
+        rectWithoutText = QRectF(topLeft, bottomRight)
+
+        painterPath = QPainterPath()
+        painterPath.addRect(rectWithoutText)
+
+        return painterPath
+        
+    def paint(self, painter, option, widget):
+        """Paints this QGraphicsItem.  Assumes that self.pen is set
+        to what we want for the drawing style.
+        """
+
+        if painter.pen() != self.timeRetracementPen:
+            painter.setPen(self.timeRetracementPen)
+        
+        # Keep track of x and y values.  We use this to draw the
+        # dotted lines later.
+        xValues = []
+        yValues = []
+        
+        # Draw the left vertical bar part.
+        x1 = 0.0
+        y1 = 1.0 * (self.timeRetracementGraphicsItemBarHeight / 2.0)
+        x2 = 0.0
+        y2 = -1.0 * (self.timeRetracementGraphicsItemBarHeight / 2.0)
+        painter.drawLine(QLineF(x1, y1, x2, y2))
+
+        xValues.append(x1)
+        xValues.append(x2)
+        yValues.append(y1)
+        yValues.append(y2)
+        
+        # Draw the right vertical bar part.
+        xDelta = self.endPointF.x() - self.startPointF.x()
+        x1 = 0.0 + xDelta
+        y1 = 1.0 * (self.timeRetracementGraphicsItemBarHeight / 2.0)
+        x2 = 0.0 + xDelta
+        y2 = -1.0 * (self.timeRetracementGraphicsItemBarHeight / 2.0)
+        painter.drawLine(QLineF(x1, y1, x2, y2))
+
+        xValues.append(x1)
+        xValues.append(x2)
+        yValues.append(y1)
+        yValues.append(y2)
+        
+        # Draw the middle horizontal line.
+        x1 = 0.0
+        y1 = 0.0
+        x2 = xDelta
+        y2 = 0.0
+        painter.drawLine(QLineF(x1, y1, x2, y2))
+
+        xValues.append(x1)
+        xValues.append(x2)
+        yValues.append(y1)
+        yValues.append(y2)
+        
+        # Draw vertical dotted lines at each enabled tick area if the
+        # flag is set to do so, or if it is selected.
+        if self.drawVerticalDottedLinesFlag == True or \
+           option.state & QStyle.State_Selected:
+
+            if self.scene() != None:
+                pad = self.timeRetracementPen.widthF() / 2.0;
+                penWidth = 0.0
+                fgcolor = option.palette.windowText().color()
+                # Ensure good contrast against fgcolor.
+                r = 255
+                g = 255
+                b = 255
+                if fgcolor.red() > 127:
+                    r = 0
+                if fgcolor.green() > 127:
+                    g = 0
+                if fgcolor.blue() > 127:
+                    b = 0
+                bgcolor = QColor(r, g, b)
+    
+                # Get the highest high, and lowest low PriceBar in local
+                # coordinates.
+                highestPrice = self.scene().getHighestPriceBar().high
+                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
+                localHighY = \
+                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                
+                lowestPrice = self.scene().getLowestPriceBar().low
+                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                localLowY = \
+                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                          
+                yValues.append(localHighY)
+                yValues.append(localLowY)
+
+                # We have all y values now, so sort them to get the
+                # low and high.
+                yValues.sort()
+                smallestY = yValues[0]
+                largestY = yValues[-1]
+        
+                # Vertical line at the beginning.
+                localPosX = 0.0
+                startPoint = QPointF(localPosX, largestY)
+                endPoint = QPointF(localPosX, smallestY)
+                        
+                painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+                painter.setBrush(Qt.NoBrush)
+                painter.drawLine(startPoint, endPoint)
+                
+                painter.setPen(QPen(option.palette.windowText(), 0,
+                                    Qt.DashLine))
+                painter.setBrush(Qt.NoBrush)
+                painter.drawLine(startPoint, endPoint)
+            
+                # Vertical line at the end.
+                localPosX = 0.0 + xDelta
+                startPoint = QPointF(localPosX, largestY)
+                endPoint = QPointF(localPosX, smallestY)
+                        
+                painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+                painter.setBrush(Qt.NoBrush)
+                painter.drawLine(startPoint, endPoint)
+                
+                painter.setPen(QPen(option.palette.windowText(), 0,
+                                    Qt.DashLine))
+                painter.setBrush(Qt.NoBrush)
+                painter.drawLine(startPoint, endPoint)
+                
+        # Draw the bounding rect if the item is selected.
+        if option.state & QStyle.State_Selected:
+            pad = self.timeRetracementPen.widthF() / 2.0;
+            penWidth = 0.0
+            fgcolor = option.palette.windowText().color()
+            
+            # Ensure good contrast against fgcolor.
+            r = 255
+            g = 255
+            b = 255
+            if fgcolor.red() > 127:
+                r = 0
+            if fgcolor.green() > 127:
+                g = 0
+            if fgcolor.blue() > 127:
+                b = 0
+            
+            bgcolor = QColor(r, g, b)
+            
+            painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawPath(self.shape())
+            
+            painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawPath(self.shape())
+
+    def appendActionsToContextMenu(self, menu, readOnlyMode=False):
+        """Modifies the given QMenu object to update the title and add
+        actions relevant to this TimeRetracementGraphicsItem.  Actions that
+        are triggered from this menu run various methods in the
+        TimeRetracementGraphicsItem to handle the desired functionality.
+        
+        Arguments:
+        menu - QMenu object to modify.
+        readOnlyMode - bool value that indicates the actions are to be
+                       readonly actions.
+        """
+
+        menu.setTitle(self.artifact.getInternalName())
+        
+        # These are the QActions that are in the menu.
+        parent = menu
+        selectAction = QAction("&Select", parent)
+        unselectAction = QAction("&Unselect", parent)
+        removeAction = QAction("Remove", parent)
+        infoAction = QAction("&Info", parent)
+        editAction = QAction("&Edit", parent)
+        setStartOnAstro1Action = \
+            QAction("Set start timestamp on Astro Chart &1", parent)
+        setStartOnAstro2Action = \
+            QAction("Set start timestamp on Astro Chart &2", parent)
+        setStartOnAstro3Action = \
+            QAction("Set start timestamp on Astro Chart &3", parent)
+        setEndOnAstro1Action = \
+            QAction("Set end timestamp on Astro Chart 1", parent)
+        setEndOnAstro2Action = \
+            QAction("Set end timestamp on Astro Chart 2", parent)
+        setEndOnAstro3Action = \
+            QAction("Set end timestamp on Astro Chart 3", parent)
+        
+        selectAction.triggered.\
+            connect(self._handleSelectAction)
+        unselectAction.triggered.\
+            connect(self._handleUnselectAction)
+        removeAction.triggered.\
+            connect(self._handleRemoveAction)
+        infoAction.triggered.\
+            connect(self._handleInfoAction)
+        editAction.triggered.\
+            connect(self._handleEditAction)
+        setStartOnAstro1Action.triggered.\
+            connect(self._handleSetStartOnAstro1Action)
+        setStartOnAstro2Action.triggered.\
+            connect(self._handleSetStartOnAstro2Action)
+        setStartOnAstro3Action.triggered.\
+            connect(self._handleSetStartOnAstro3Action)
+        setEndOnAstro1Action.triggered.\
+            connect(self._handleSetEndOnAstro1Action)
+        setEndOnAstro2Action.triggered.\
+            connect(self._handleSetEndOnAstro2Action)
+        setEndOnAstro3Action.triggered.\
+            connect(self._handleSetEndOnAstro3Action)
+        
+        # Enable or disable actions.
+        selectAction.setEnabled(True)
+        unselectAction.setEnabled(True)
+        removeAction.setEnabled(not readOnlyMode)
+        infoAction.setEnabled(True)
+        editAction.setEnabled(not readOnlyMode)
+        setStartOnAstro1Action.setEnabled(True)
+        setStartOnAstro2Action.setEnabled(True)
+        setStartOnAstro3Action.setEnabled(True)
+        setEndOnAstro1Action.setEnabled(True)
+        setEndOnAstro2Action.setEnabled(True)
+        setEndOnAstro3Action.setEnabled(True)
+
+        # Add the QActions to the menu.
+        menu.addAction(selectAction)
+        menu.addAction(unselectAction)
+        menu.addSeparator()
+        menu.addAction(removeAction)
+        menu.addSeparator()
+        menu.addAction(infoAction)
+        menu.addAction(editAction)
+        menu.addSeparator()
+        menu.addAction(setStartOnAstro1Action)
+        menu.addAction(setStartOnAstro2Action)
+        menu.addAction(setStartOnAstro3Action)
+        menu.addSeparator()
+        menu.addAction(setEndOnAstro1Action)
+        menu.addAction(setEndOnAstro2Action)
+        menu.addAction(setEndOnAstro3Action)
+
+    def _handleSelectAction(self):
+        """Causes the QGraphicsItem to become selected."""
+
+        self.setSelected(True)
+
+    def _handleUnselectAction(self):
+        """Causes the QGraphicsItem to become unselected."""
+
+        self.setSelected(False)
+
+    def _handleRemoveAction(self):
+        """Causes the QGraphicsItem to be removed from the scene."""
+        
+        scene = self.scene()
+        scene.removeItem(self)
+
+        # Emit signal to show that an item is removed.
+        # This sets the dirty flag.
+        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+        
+    def _handleInfoAction(self):
+        """Causes a dialog to be executed to show information about
+        the QGraphicsItem.
+        """
+
+        artifact = self.getArtifact()
+        dialog = PriceBarChartTimeRetracementArtifactEditDialog(artifact,
+                                                         self.scene(),
+                                                         readOnlyFlag=True)
+        
+        # Run the dialog.  We don't care about what is returned
+        # because the dialog is read-only.
+        rv = dialog.exec_()
+        
+    def _handleEditAction(self):
+        """Causes a dialog to be executed to edit information about
+        the QGraphicsItem.
+        """
+
+        artifact = self.getArtifact()
+        dialog = PriceBarChartTimeRetracementArtifactEditDialog(artifact,
+                                                         self.scene(),
+                                                         readOnlyFlag=False)
+        
+        rv = dialog.exec_()
+        
+        if rv == QDialog.Accepted:
+            # If the dialog is accepted then the underlying artifact
+            # object was modified.  Set the artifact to this
+            # PriceBarChartArtifactGraphicsItem, which will cause it to be
+            # reloaded in the scene.
+            self.setArtifact(artifact)
+
+            # Flag that a redraw of this QGraphicsItem is required.
+            self.update()
+
+            # Emit that the PriceBarChart has changed so that the
+            # dirty flag can be set.
+            self.scene().priceBarChartChanged.emit()
+        else:
+            # The user canceled so don't change anything.
+            pass
+        
+    def _handleSetStartOnAstro1Action(self):
+        """Causes the astro chart 1 to be set with the timestamp
+        of the start the TimeRetracementGraphicsItem.
+        """
+
+        self.scene().setAstroChart1(self.startPointF.x())
+        
+    def _handleSetStartOnAstro2Action(self):
+        """Causes the astro chart 2 to be set with the timestamp
+        of the start the TimeRetracementGraphicsItem.
+        """
+
+        self.scene().setAstroChart2(self.startPointF.x())
+        
+    def _handleSetStartOnAstro3Action(self):
+        """Causes the astro chart 3 to be set with the timestamp
+        of the start the TimeRetracementGraphicsItem.
+        """
+
+        self.scene().setAstroChart3(self.startPointF.x())
+        
+    def _handleSetEndOnAstro1Action(self):
+        """Causes the astro chart 1 to be set with the timestamp
+        of the end the TimeRetracementGraphicsItem.
+        """
+
+        self.scene().setAstroChart1(self.endPointF.x())
+
+    def _handleSetEndOnAstro2Action(self):
+        """Causes the astro chart 2 to be set with the timestamp
+        of the end the TimeRetracementGraphicsItem.
+        """
+
+        self.scene().setAstroChart2(self.endPointF.x())
+
+    def _handleSetEndOnAstro3Action(self):
+        """Causes the astro chart 3 to be set with the timestamp
+        of the end the TimeRetracementGraphicsItem.
+        """
+
+        self.scene().setAstroChart3(self.endPointF.x())
+
+
 class PriceBarChartWidget(QWidget):
     """Widget holding the QGraphicsScene and QGraphicsView that displays
     the PriceBar information along with other indicators and analysis
@@ -6474,7 +7848,8 @@ class PriceBarChartWidget(QWidget):
                 "ModalScaleTool"       : 7,
                 "TextTool"             : 8,
                 "PriceTimeInfoTool"    : 9,
-                "PriceMeasurementTool" : 10 }
+                "PriceMeasurementTool" : 10,
+                "TimeRetracementTool"  : 11 }
 
 
 
@@ -7008,6 +8383,26 @@ class PriceBarChartWidget(QWidget):
         
                 addedItemFlag = True
 
+            elif isinstance(artifact, PriceBarChartTimeRetracementArtifact):
+                self.log.debug("Loading artifact: " + artifact.toString())
+                
+                newItem = TimeRetracementGraphicsItem()
+                newItem.loadSettingsFromPriceBarChartSettings(\
+                    self.priceBarChartSettings)
+                newItem.setArtifact(artifact)
+
+                # Add the item.
+                self.graphicsScene.addItem(newItem)
+                
+                # Make sure the proper flags are set for the mode we're in.
+                self.graphicsView.setGraphicsItemFlagsPerCurrToolMode(newItem)
+
+                # Need to recalculate time retracement, since it wasn't in
+                # the QGraphicsScene until now.
+                newItem.recalculateTimeRetracement()
+        
+                addedItemFlag = True
+
         if addedItemFlag == True:
             # Emit that the PriceBarChart has changed.
             self.graphicsScene.priceBarChartChanged.emit()
@@ -7167,6 +8562,9 @@ class PriceBarChartWidget(QWidget):
             elif isinstance(item, PriceMeasurementGraphicsItem):
                 self.log.debug("Not applying settings to " +
                                "PriceMeasurementGraphicsItem.")
+            elif isinstance(item, TimeRetracementGraphicsItem):
+                self.log.debug("Not applying settings to " +
+                               "TimeRetracementGraphicsItem.")
 
         if settingsChangedFlag == True:
             # Emit that the PriceBarChart has changed, because we have
@@ -7317,6 +8715,18 @@ class PriceBarChartWidget(QWidget):
             self.graphicsView.toPriceMeasurementToolMode()
 
         self.log.debug("Exiting toPriceMeasurementToolMode()")
+
+    def toTimeRetracementToolMode(self):
+        """Changes the tool mode to be the TimeRetracementTool."""
+
+        self.log.debug("Entered toTimeRetracementToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != PriceBarChartWidget.ToolMode['TimeRetracementTool']:
+            self.toolMode = PriceBarChartWidget.ToolMode['TimeRetracementTool']
+            self.graphicsView.toTimeRetracementToolMode()
+
+        self.log.debug("Exiting toTimeRetracementToolMode()")
 
     def _handleMouseLocationUpdate(self, x, y):
         """Handles mouse location changes in the QGraphicsView.  
@@ -7920,7 +9330,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 "ModalScaleTool"       : 7,
                 "TextTool"             : 8,
                 "PriceTimeInfoTool"    : 9,
-                "PriceMeasurementTool" : 10 }
+                "PriceMeasurementTool" : 10,
+                "TimeRetracementTool"  : 11 }
 
     # Signal emitted when the mouse moves within the QGraphicsView.
     # The position emitted is in QGraphicsScene x, y, float coordinates.
@@ -7981,9 +9392,13 @@ class PriceBarChartGraphicsView(QGraphicsView):
         # as it is modified in PriceMeasurementToolMode.
         self.priceMeasurementGraphicsItem = None
 
+        # Variable used for storing the new TimeRetracementGraphicsItem,
+        # as it is modified in TimeRetracementToolMode.
+        self.timeRetracementGraphicsItem = None
+
         # Variable used for storing that snapping to the closest bar
         # high or low is enabled.  Used in PriceTimeInfoTool,
-        # TimeMeasurementTool and PriceMeasurementTool.
+        # TimeMeasurementTool, PriceMeasurementTool, TimeRetracementTool.
         self.snapEnabledFlag = True
 
         # Variable used for holding the PriceBarChartSettings.
@@ -8138,6 +9553,15 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PriceMeasurementTool']:
+
+            if isinstance(item, PriceBarGraphicsItem):
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+            elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                item.setReadOnlyFlag(True)
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['TimeRetracementTool']:
 
             if isinstance(item, PriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
@@ -8458,6 +9882,36 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.setGraphicsItemFlagsPerCurrToolMode(item)
                     
         self.log.debug("Exiting toPriceMeasurementToolMode()")
+
+    def toTimeRetracementToolMode(self):
+        """Changes the tool mode to be the TimeRetracementTool."""
+
+        self.log.debug("Entered toTimeRetracementToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != \
+                PriceBarChartGraphicsView.ToolMode['TimeRetracementTool']:
+
+            self.toolMode = \
+                PriceBarChartGraphicsView.ToolMode['TimeRetracementTool']
+
+            self.setCursor(QCursor(Qt.ArrowCursor))
+            self.setDragMode(QGraphicsView.NoDrag)
+
+            # Clear out internal working variables.
+            self.clickOnePointF = None
+            self.clickTwoPointF = None
+            self.timeRetracementGraphicsItem = None
+
+            scene = self.scene()
+            if scene != None:
+                scene.clearSelection()
+
+                items = scene.items()
+                for item in items:
+                    self.setGraphicsItemFlagsPerCurrToolMode(item)
+                    
+        self.log.debug("Exiting toTimeRetracementToolMode()")
 
     def createContextMenu(self, clickPosF, readOnlyFlag):
         """Creates a context menu for a right-click somewhere in
@@ -8835,6 +10289,32 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
                 self.priceMeasurementGraphicsItem = None
+            elif qkeyevent.key() == Qt.Key_Q:
+                # Turn on snap functionality.
+                self.snapEnabledFlag = True
+                self.log.debug("Snap mode enabled.")
+                self.statusMessageUpdate.emit("Snap mode enabled")
+            elif qkeyevent.key() == Qt.Key_W:
+                # Turn off snap functionality.
+                self.snapEnabledFlag = False
+                self.log.debug("Snap mode disabled.")
+                self.statusMessageUpdate.emit("Snap mode disabled")
+            else:
+                super().keyPressEvent(qkeyevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['TimeRetracementTool']:
+
+            if qkeyevent.key() == Qt.Key_Escape:
+                # Escape key causes any currently edited item to
+                # be removed and cleared out.  Temporary variables used
+                # are cleared out too.
+                if self.timeRetracementGraphicsItem != None:
+                    self.scene().removeItem(self.timeRetracementGraphicsItem)
+
+                self.clickOnePointF = None
+                self.clickTwoPointF = None
+                self.timeRetracementGraphicsItem = None
             elif qkeyevent.key() == Qt.Key_Q:
                 # Turn on snap functionality.
                 self.snapEnabledFlag = True
@@ -9698,6 +11178,157 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 else:
                     self.log.warn("Unexpected state reached.")
                     
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['TimeRetracementTool']:
+            
+            self.log.debug("Current toolMode is: TimeRetracementTool")
+
+            if qmouseevent.button() & Qt.LeftButton:
+                self.log.debug("Qt.LeftButton")
+                
+                if self.clickOnePointF == None:
+                    self.log.debug("clickOnePointF == None")
+                
+                    self.clickOnePointF = self.mapToScene(qmouseevent.pos())
+
+                    # If snap is enabled, then find the closest
+                    # pricebar time to the place clicked.
+                    if self.snapEnabledFlag == True:
+                        self.log.debug("Snap is enabled, so snapping to " +
+                                       "closest pricebar X.")
+                        
+                        infoPointF = self.mapToScene(qmouseevent.pos())
+                        x = self.scene().getClosestPriceBarX(infoPointF)
+
+                        # Use this X value.
+                        self.clickOnePointF.setX(x)
+                    
+                    # Create the TimeRetracementGraphicsItem and
+                    # initialize it to the mouse location.
+                    self.timeRetracementGraphicsItem = \
+                        TimeRetracementGraphicsItem()
+                    self.timeRetracementGraphicsItem.\
+                        loadSettingsFromPriceBarChartSettings(\
+                            self.priceBarChartSettings)
+        
+                    # Set the flag that indicates we should draw
+                    # dotted vertical lines at the tick areas.  We
+                    # will turn these off after the user fully
+                    # finishes adding the item.
+                    self.timeRetracementGraphicsItem.\
+                        setDrawVerticalDottedLinesFlag(True)
+        
+                    self.timeRetracementGraphicsItem.setPos(self.clickOnePointF)
+                    self.timeRetracementGraphicsItem.\
+                        setStartPointF(self.clickOnePointF)
+                    self.timeRetracementGraphicsItem.\
+                        setEndPointF(self.clickOnePointF)
+                    self.scene().addItem(self.timeRetracementGraphicsItem)
+                    
+                    # Make sure the proper flags are set for the mode we're in.
+                    self.setGraphicsItemFlagsPerCurrToolMode(\
+                        self.timeRetracementGraphicsItem)
+
+                elif self.clickOnePointF != None and \
+                    self.clickTwoPointF == None and \
+                    self.timeRetracementGraphicsItem != None:
+
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "timeRetracementGraphicsItem != None.")
+                    
+                    # Set the end point of the TimeRetracementGraphicsItem.
+                    self.clickTwoPointF = self.mapToScene(qmouseevent.pos())
+
+                    # If snap is enabled, then find the closest
+                    # pricebar time to the place clicked.
+                    if self.snapEnabledFlag == True:
+                        self.log.debug("Snap is enabled, so snapping to " +
+                                       "closest pricebar X.")
+                        
+                        infoPointF = self.mapToScene(qmouseevent.pos())
+                        x = self.scene().getClosestPriceBarX(infoPointF)
+
+                        # Use this X value.
+                        self.clickTwoPointF.setX(x)
+                    
+                    self.timeRetracementGraphicsItem.\
+                        setEndPointF(self.clickTwoPointF)
+                    self.timeRetracementGraphicsItem.normalizeStartAndEnd()
+        
+                    # Call getArtifact() so that the item's artifact
+                    # object gets updated and set.
+                    self.timeRetracementGraphicsItem.getArtifact()
+                                                
+                    # Unset the flag that indicates we should draw
+                    # dotted vertical lines at the tick areas.
+                    self.timeRetracementGraphicsItem.\
+                        setDrawVerticalDottedLinesFlag(False)
+                    
+                    # Emit that the PriceBarChart has changed.
+                    self.scene().priceBarChartArtifactGraphicsItemAdded.\
+                        emit(self.timeRetracementGraphicsItem)
+                    
+                    sceneBoundingRect = \
+                        self.timeRetracementGraphicsItem.sceneBoundingRect()
+                    
+                    self.log.debug("timeRetracementGraphicsItem " +
+                                   "officially added.  " +
+                                   "Its sceneBoundingRect is: {}.  ".\
+                                   format(sceneBoundingRect) +
+                                   "Its x range is: {} to {}.  ".\
+                                   format(sceneBoundingRect.left(),
+                                          sceneBoundingRect.right()) +
+                                   "Its y range is: {} to {}.  ".\
+                                   format(sceneBoundingRect.top(),
+                                          sceneBoundingRect.bottom()))
+                                   
+                    # Clear out working variables.
+                    self.clickOnePointF = None
+                    self.clickTwoPointF = None
+                    self.timeRetracementGraphicsItem = None
+                    
+                else:
+                    self.log.warn("Unexpected state reached.")
+                    
+            elif qmouseevent.button() & Qt.RightButton:
+                
+                self.log.debug("Qt.RightButton")
+                
+                if self.clickOnePointF != None and \
+                   self.clickTwoPointF == None and \
+                   self.timeRetracementGraphicsItem != None:
+
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "timeRetracementGraphicsItem != None.")
+                    
+                    # Right-click during setting the TimeRetracementGraphicsItem
+                    # causes the currently edited bar count item to be
+                    # removed and cleared out.  Temporary variables used
+                    # are cleared out too.
+                    self.scene().removeItem(self.timeRetracementGraphicsItem)
+
+                    self.clickOnePointF = None
+                    self.clickTwoPointF = None
+                    self.timeRetracementGraphicsItem = None
+                    
+                elif self.clickOnePointF == None and \
+                     self.clickTwoPointF == None and \
+                     self.timeRetracementGraphicsItem == None:
+                    
+                    self.log.debug("clickOnePointF == None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "timeRetracementGraphicsItem == None.")
+                    
+                    # Open a context menu at this location, in readonly mode.
+                    clickPosF = self.mapToScene(qmouseevent.pos())
+                    menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
+                    menu.exec_(qmouseevent.globalPos())
+                    
+                else:
+                    self.log.warn("Unexpected state reached.")
+                    
         else:
             self.log.warn("Current toolMode is: UNKNOWN.")
 
@@ -9786,6 +11417,12 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 PriceBarChartGraphicsView.ToolMode['PriceMeasurementTool']:
 
             self.log.debug("Current toolMode is: PriceMeasurementTool")
+            super().mouseReleaseEvent(qmouseevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['TimeRetracementTool']:
+
+            self.log.debug("Current toolMode is: TimeRetracementTool")
             super().mouseReleaseEvent(qmouseevent)
 
         else:
@@ -9906,6 +11543,20 @@ class PriceBarChartGraphicsView(QGraphicsView):
             else:
                 super().mouseMoveEvent(qmouseevent)
 
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['TimeRetracementTool']:
+
+            if self.clickOnePointF != None and \
+                self.timeRetracementGraphicsItem != None:
+
+                pos = self.mapToScene(qmouseevent.pos())
+                
+                # Update the end point of the current
+                # TimeRetracementGraphicsItem.
+                self.timeRetracementGraphicsItem.setEndPointF(pos)
+            else:
+                super().mouseMoveEvent(qmouseevent)
+
         else:
             # For any other mode we don't have specific functionality for,
             # just pass the event to the parent to handle.
@@ -9964,6 +11615,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
             self.setCursor(QCursor(Qt.ArrowCursor))
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PriceMeasurementTool']:
+            self.setCursor(QCursor(Qt.ArrowCursor))
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['TimeRetracementTool']:
             self.setCursor(QCursor(Qt.ArrowCursor))
         else:
             self.log.warn("Unknown toolMode while in enterEvent().")
