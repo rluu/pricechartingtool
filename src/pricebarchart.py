@@ -5,6 +5,9 @@ import os
 # For logging.
 import logging
 
+# For copy.deepcopy().
+import copy
+
 # For dynamically adding methods to instances.
 import types
 
@@ -1251,11 +1254,16 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.log.debug("DEBUG: startThreshold={}".format(startThreshold))
             self.log.debug("DEBUG: endThreshold={}".format(endThreshold))
 
-            if scenePosX <= startThreshold:
+            if startingPointX <= scenePosX <= startThreshold or \
+                   startingPointX >= scenePosX >= startThreshold:
+                
                 self.draggingStartPointFlag = True
                 self.log.debug("DEBUG: self.draggingStartPointFlag={}".
                                format(self.draggingStartPointFlag))
-            elif scenePosX >= endThreshold:
+
+            elif endingPointX <= scenePosX <= endThreshold or \
+                   endingPointX >= scenePosX >= endThreshold:
+                
                 self.draggingEndPointFlag = True
                 self.log.debug("DEBUG: self.draggingEndPointFlag={}".
                                format(self.draggingEndPointFlag))
@@ -2276,11 +2284,16 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.log.debug("DEBUG: startThreshold={}".format(startThreshold))
             self.log.debug("DEBUG: endThreshold={}".format(endThreshold))
 
-            if scenePosX <= startThreshold:
+            if startingPointX <= scenePosX <= startThreshold or \
+                   startingPointX >= scenePosX >= startThreshold:
+                
                 self.draggingStartPointFlag = True
                 self.log.debug("DEBUG: self.draggingStartPointFlag={}".
                                format(self.draggingStartPointFlag))
-            elif scenePosX >= endThreshold:
+                
+            elif endingPointX <= scenePosX <= endThreshold or \
+                   endingPointX >= scenePosX >= endThreshold:
+                
                 self.draggingEndPointFlag = True
                 self.log.debug("DEBUG: self.draggingEndPointFlag={}".
                                format(self.draggingEndPointFlag))
@@ -3553,11 +3566,16 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.log.debug("DEBUG: startThreshold={}".format(startThreshold))
             self.log.debug("DEBUG: endThreshold={}".format(endThreshold))
 
-            if scenePosX <= startThreshold:
+            if startingPointX <= scenePosX <= startThreshold or \
+                   startingPointX >= scenePosX >= startThreshold:
+                
                 self.draggingStartPointFlag = True
                 self.log.debug("DEBUG: self.draggingStartPointFlag={}".
                                format(self.draggingStartPointFlag))
-            elif scenePosX >= endThreshold:
+                
+            elif endingPointX <= scenePosX <= endThreshold or \
+                   endingPointX >= scenePosX >= endThreshold:
+                
                 self.draggingEndPointFlag = True
                 self.log.debug("DEBUG: self.draggingEndPointFlag={}".
                                format(self.draggingEndPointFlag))
@@ -6423,7 +6441,7 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.draggingEndPointFlag = False
         self.clickScenePointF = None
 
-    def _recreateRatioTextItems():
+    def _recreateRatioTextItems(self):
         """Re-creates the text items related to the Ratios in
         self.ratios.  This includes making sure there are the correct
         number of them, and making sure their settings are correct, as
@@ -6435,8 +6453,9 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             textItem.setEnabled(False)
             textItem.setVisible(False)
 
-            self.scene().removeItem(textItem)
-
+            if self.scene() != None:
+                self.scene().removeItem(textItem)
+                
         # Clear out the arrays holding the text items.
         self.textItems = []
         self.timeRetracementRatioTimeTexts = []
@@ -6546,49 +6565,16 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
     
         # TimeRetracementGraphicsItem ratios (bool).
         self.ratios = \
-            priceBarChartSettings.\
-            timeRetracementGraphicsItemRatios
-    
+            copy.deepcopy(priceBarChartSettings.\
+                          timeRetracementGraphicsItemRatios)
+        
         ####################################################################
 
-        # Recreate all the text items since we have a new set of
-        # Ratios.  This will also set the items to have the correct
-        # pen, color and other settings, as per the new settings
-        # values above.
-        self._recreateRatioTextItems()
-        
-        # Set the text items as enabled or disabled, visible or
-        # invisible, depending on whether the show flag is set.
-        for textItem in self.timeRetracementRatioTimeTexts:
-            textItem.setEnabled(self.showTimeTextFlag)
-            textItem.setVisible(self.showTimeTextFlag)
-            
-        for textItem in self.timeRetracementRatioPercentTexts:
-            textItem.setEnabled(self.showPercentTextFlag)
-            textItem.setVisible(self.showPercentTextFlag)
-
-        # Go through all the Ratio objects and disable texts if the
-        # Ratios are not enabled.  This will be a second pass-through
-        # of settings the text items, but this time, we do not enable
-        # them, we only disable them if the corresponding Ratio is disabled.
-        for i in range(self.ratios):
-            ratio = self.ratios[i]
-            
-            if not ratio.isEnabled():
-                self.timeRetracementRatioTimeTexts[i].setEnabled(False)
-                self.timeRetracementRatioTimeTexts[i].setVisible(False)
-
-                self.timeRetracementRatioPercentTexts[i].setEnabled(False)
-                self.timeRetracementRatioPercentTexts[i].setVisible(False)
-
-        # Update the timeRetracement text item position, and the
-        # calculation/text for the retracement.
-        self._updateTextItemPositions()
-        self.recalculateTimeRetracement()
-        
         # Set the new color of the pen for drawing the bar.
         self.timeRetracementPen.\
             setColor(self.timeRetracementGraphicsItemColor)
+        
+        self.setArtifact(self.artifact)
         
         # Schedule an update.
         self.update()
@@ -6663,11 +6649,16 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.log.debug("DEBUG: startThreshold={}".format(startThreshold))
             self.log.debug("DEBUG: endThreshold={}".format(endThreshold))
 
-            if scenePosX <= startThreshold:
+            if startingPointX <= scenePosX <= startThreshold or \
+                   startingPointX >= scenePosX >= startThreshold:
+                
                 self.draggingStartPointFlag = True
                 self.log.debug("DEBUG: self.draggingStartPointFlag={}".
                                format(self.draggingStartPointFlag))
-            elif scenePosX >= endThreshold:
+                
+            elif endingPointX <= scenePosX <= endThreshold or \
+                   endingPointX >= scenePosX >= endThreshold:
+                
                 self.draggingEndPointFlag = True
                 self.log.debug("DEBUG: self.draggingEndPointFlag={}".
                                format(self.draggingEndPointFlag))
@@ -6816,7 +6807,7 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # trying to do here is to put the time text to the left of the
         # tick, and the percent text to the right of the tick.
         
-        for i in range(self.ratios):
+        for i in range(len(self.ratios)):
             ratio = self.ratios[i]
 
             timeTextItem = self.timeRetracementRatioTimeTexts[i]
@@ -6827,7 +6818,7 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             
             timeTextItem.setPos(QPointF(x, y))
 
-            offset = self.timeRetracementGraphicsItemBarHeight
+            offset = self.timeRetracementGraphicsItemBarHeight * 10
             x = x + offset
 
             percentTextItem.setPos(QPointF(x, y))
@@ -6893,14 +6884,14 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         if scene != None:
             # Update the text of the internal items.
 
-            for i in range(self.ratios):
+            for i in range(len(self.ratios)):
                 ratio = self.ratios[i]
 
                 timeTextItem = self.timeRetracementRatioTimeTexts[i]
                 percentTextItem = self.timeRetracementRatioPercentTexts[i]
 
-                sceneXPos = deltaX * ratio.getRatio()
-                timestamp = self.scene().sceneXPosToDatetime(x)
+                sceneXPos = self.startPointF.x() + (deltaX * ratio.getRatio())
+                timestamp = self.scene().sceneXPosToDatetime(sceneXPos)
 
                 # Set texts.
                 timeText = "{}".format(Ephemeris.datetimeToDayStr(timestamp))
@@ -6964,7 +6955,7 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Ratios are not enabled.  This will be a second pass-through
         # of settings the text items, but this time, we do not enable
         # them, we only disable them if the corresponding Ratio is disabled.
-        for i in range(self.ratios):
+        for i in range(len(self.ratios)):
             ratio = self.ratios[i]
             
             if not ratio.isEnabled():
@@ -7034,7 +7025,8 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Get the QRectF with just the lines.
 
-        # Keep track of x and y values.  Below is the stuff from paint().
+        # Keep track of x and y values so we can get the largest and
+        # smallest x and y values.
         xValues = []
         yValues = []
         
@@ -7167,18 +7159,6 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         yValues.append(y1)
         yValues.append(y2)
         
-        # Draw the middle horizontal line.
-        x1 = 0.0
-        y1 = 0.0
-        x2 = xDelta
-        y2 = 0.0
-        painter.drawLine(QLineF(x1, y1, x2, y2))
-
-        xValues.append(x1)
-        xValues.append(x2)
-        yValues.append(y1)
-        yValues.append(y2)
-
         # Draw the vertical lines for all the enabled ratios.
         for ratio in self.ratios:
             if ratio.isEnabled():
@@ -7201,9 +7181,9 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 # location to the self.endPointF.y() location, in
                 # local coordinates.
                 if self.showFullLinesFlag == True:
-                    x1 = x
+                    x1 = localX
                     y1 = 0
-                    x2 = x
+                    x2 = localX
                     y2 = self.mapFromScene(QPointF(0.0, self.endPointF.y())).y()
         
                     painter.drawLine(QLineF(x1, y1, x2, y2))
@@ -7212,6 +7192,22 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     xValues.append(x2)
                     yValues.append(y1)
                     yValues.append(y2)
+
+        # Draw the middle horizontal line.
+        xValues.sort()
+        smallestX = xValues[0]
+        largestX = xValues[-1]
+        
+        x1 = smallestX
+        y1 = 0.0
+        x2 = largestX
+        y2 = 0.0
+        painter.drawLine(QLineF(x1, y1, x2, y2))
+
+        xValues.append(x1)
+        xValues.append(x2)
+        yValues.append(y1)
+        yValues.append(y2)
 
         # Draw vertical dotted lines at each enabled tick area if the
         # flag is set to do so, or if it is selected.

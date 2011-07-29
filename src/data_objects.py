@@ -574,7 +574,7 @@ class Ratio:
         # phi^3
         ratios.append(Ratio(ratio=4.23606797711,
                                description="4.236",
-                               enabled=True))
+                               enabled=False))
         
         return ratios
     
