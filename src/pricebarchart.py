@@ -40,6 +40,7 @@ from data_objects import PriceBarChartTextArtifact
 from data_objects import PriceBarChartPriceTimeInfoArtifact
 from data_objects import PriceBarChartPriceMeasurementArtifact
 from data_objects import PriceBarChartTimeRetracementArtifact
+from data_objects import PriceBarChartPriceRetracementArtifact
 from data_objects import PriceBarChartScaling
 from data_objects import PriceBarChartSettings
 
@@ -55,6 +56,7 @@ from pricebarchart_dialogs import PriceBarChartTextArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartPriceTimeInfoArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartPriceMeasurementArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartTimeRetracementArtifactEditDialog
+from pricebarchart_dialogs import PriceBarChartPriceRetracementArtifactEditDialog
 
 # For edit dialogs.
 from dialogs import PriceBarEditDialog
@@ -142,7 +144,7 @@ class PriceBarGraphicsItem(QGraphicsItem):
 
     def loadSettingsFromAppPreferences(self):
         """Reads some of the parameters/settings of this
-        PriceBarGraphicsItem from the QSettings object. 
+        GraphicsItem from the QSettings object. 
         """
 
         settings = QSettings()
@@ -826,7 +828,7 @@ class TextGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
     def loadSettingsFromAppPreferences(self):
         """Reads some of the parameters/settings of this
-        PriceBarGraphicsItem from the QSettings object. 
+        GraphicsItem from the QSettings object. 
         """
 
         # No settings.
@@ -1170,7 +1172,7 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
     def loadSettingsFromAppPreferences(self):
         """Reads some of the parameters/settings of this
-        PriceBarGraphicsItem from the QSettings object. 
+        GraphicsItem from the QSettings object. 
         """
 
         settings = QSettings()
@@ -1851,7 +1853,7 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         
 class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
-    """QGraphicsItem that visualizes a PriceBar counter in the GraphicsView.
+    """QGraphicsItem that visualizes a time measurement in the GraphicsView.
 
     This item uses the origin point (0, 0) in item coordinates as the
     center point height bar, on the start point (left part) of the bar ruler.
@@ -2042,7 +2044,7 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                 self.timeMeasurementTextYScaling)
             textItem.setTransform(textTransform)
 
-        # Flag that indicates that verical dotted lines should be drawn.
+        # Flag that indicates that vertical dotted lines should be drawn.
         self.drawVerticalDottedLinesFlag = False
         
         # Flags that indicate that the user is dragging either the start
@@ -2218,7 +2220,7 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
     def loadSettingsFromAppPreferences(self):
         """Reads some of the parameters/settings of this
-        PriceBarGraphicsItem from the QSettings object. 
+        GraphicsItem from the QSettings object. 
         """
 
         # No settings.
@@ -3302,7 +3304,7 @@ class VerticalTickGraphicsItem(QGraphicsItem):
 
                
 class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
-    """QGraphicsItem that visualizes a PriceBar counter in the GraphicsView.
+    """QGraphicsItem that visualizes a musical scale in the GraphicsView.
 
     This item uses the origin point (0, 0) in item coordinates as the
     center point height bar, on the start point (left part) of the bar ruler.
@@ -3436,7 +3438,7 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
             self.verticalTickItems.append(verticalTickItem)
 
-        # Flag that indicates that verical dotted lines should be drawn.
+        # Flag that indicates that vertical dotted lines should be drawn.
         self.drawVerticalDottedLinesFlag = False
         
         # Flags that indicate that the user is dragging either the start
@@ -3499,7 +3501,7 @@ class ModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
     def loadSettingsFromAppPreferences(self):
         """Reads some of the parameters/settings of this
-        PriceBarGraphicsItem from the QSettings object. 
+        GraphicsItem from the QSettings object. 
         """
 
         # No settings read from app preferences.
@@ -4851,7 +4853,7 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
     def loadSettingsFromAppPreferences(self):
         """Reads some of the parameters/settings of this
-        PriceBarGraphicsItem from the QSettings object. 
+        GraphicsItem from the QSettings object. 
         """
 
         # No settings.
@@ -5347,7 +5349,7 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                 self.priceMeasurementTextYScaling)
             textItem.setTransform(textTransform)
 
-        # Flag that indicates that verical dotted lines should be drawn.
+        # Flag that indicates that vertical dotted lines should be drawn.
         self.drawVerticalDottedLinesFlag = False
         
         # Flags that indicate that the user is dragging either the start
@@ -5469,7 +5471,7 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
     def loadSettingsFromAppPreferences(self):
         """Reads some of the parameters/settings of this
-        PriceBarGraphicsItem from the QSettings object. 
+        GraphicsItem from the QSettings object. 
         """
 
         # No settings.
@@ -6324,7 +6326,7 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
 
 class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
-    """QGraphicsItem that visualizes a PriceBar counter in the GraphicsView.
+    """QGraphicsItem that visualizes a time retracement in the GraphicsView.
 
     This item uses the origin point (0, 0) in item coordinates as the
     center point height bar, on the start point (left part) of the bar ruler.
@@ -6432,7 +6434,7 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Create the text items and put them in the above lists.
         self._recreateRatioTextItems()
         
-        # Flag that indicates that verical dotted lines should be drawn.
+        # Flag that indicates that vertical dotted lines should be drawn.
         self.drawVerticalDottedLinesFlag = False
         
         # Flags that indicate that the user is dragging either the start
@@ -6583,7 +6585,7 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
     def loadSettingsFromAppPreferences(self):
         """Reads some of the parameters/settings of this
-        PriceBarGraphicsItem from the QSettings object. 
+        GraphicsItem from the QSettings object. 
         """
 
         # No settings.
@@ -7019,7 +7021,7 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Bounding box here is the whole area that is painted.  That
         # means we need to take into account whether or not the full
-        # lines are painted for the enabled ratios (for the Y hieght
+        # lines are painted for the enabled ratios (for the Y height
         # value).  We always include the endPointF, which is the 100%
         # 'retracement'.
 
@@ -7499,6 +7501,1188 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.scene().setAstroChart3(self.endPointF.x())
 
 
+class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
+    """QGraphicsItem that visualizes a price retracement in the GraphicsView.
+
+    This item uses the origin point (0, 0) in item coordinates as the
+    center point width bar, on the start point (bottom part) of the bar ruler.
+
+    That means when a user creates a new PriceRetracementGraphicsItem
+    the position and points can be consistently set.
+    """
+    
+    def __init__(self, parent=None, scene=None):
+        super().__init__(parent, scene)
+
+        # Logger
+        self.log = logging.getLogger(\
+            "pricebarchart.PriceRetracementGraphicsItem")
+        
+        self.log.debug("Entered __init__().")
+
+        ############################################################
+        # Set default values for preferences/settings.
+        
+        # Width of the vertical bar drawn.
+        self.priceRetracementGraphicsItemBarWidth = \
+            PriceBarChartSettings.\
+                defaultPriceRetracementGraphicsItemBarWidth 
+ 
+        # X scaling of the text.
+        self.priceRetracementTextXScaling = \
+            PriceBarChartSettings.\
+                defaultPriceRetracementGraphicsItemTextXScaling 
+
+        # Y scaling of the text.
+        self.priceRetracementTextYScaling = \
+            PriceBarChartSettings.\
+                defaultPriceRetracementGraphicsItemTextYScaling 
+
+        # Font.
+        self.priceRetracementTextFont = QFont()
+        self.priceRetracementTextFont.fromString(\
+            PriceBarChartSettings.\
+            defaultPriceRetracementGraphicsItemDefaultFontDescription)
+        
+        # Color of the text that is associated with the graphicsitem.
+        self.priceRetracementGraphicsItemTextColor = \
+            PriceBarChartSettings.\
+            defaultPriceRetracementGraphicsItemDefaultTextColor
+
+        # Color of the item.
+        self.priceRetracementGraphicsItemColor = \
+            PriceBarChartSettings.\
+            defaultPriceRetracementGraphicsItemDefaultColor
+
+        # PriceRetracementGraphicsItem showFullLinesFlag (bool).
+        self.showFullLinesFlag = \
+            PriceBarChartSettings.\
+            defaultPriceRetracementGraphicsItemShowFullLinesFlag
+    
+        # PriceRetracementGraphicsItem showPriceTextFlag (bool).
+        self.showPriceTextFlag = \
+            PriceBarChartSettings.\
+            defaultPriceRetracementGraphicsItemShowPriceTextFlag
+    
+        # PriceRetracementGraphicsItem showPercentTextFlag (bool).
+        self.showPercentTextFlag = \
+            PriceBarChartSettings.\
+            defaultPriceRetracementGraphicsItemShowPercentTextFlag
+    
+        # PriceRetracementGraphicsItem ratios (bool).
+        self.ratios = \
+            PriceBarChartSettings.\
+            defaultPriceRetracementGraphicsItemRatios
+    
+        ############################################################
+
+        # Internal storage object, used for loading/saving (serialization).
+        self.artifact = PriceBarChartPriceRetracementArtifact()
+
+        # Read the QSettings preferences for the various parameters of
+        # this price bar.
+        self.loadSettingsFromAppPreferences()
+        
+        # Pen which is used to do the painting of the bar ruler.
+        self.priceRetracementPenWidth = 0.0
+        self.priceRetracementPen = QPen()
+        self.priceRetracementPen.\
+            setColor(self.priceRetracementGraphicsItemColor)
+        self.priceRetracementPen.\
+            setWidthF(self.priceRetracementPenWidth)
+        
+        # Starting point, in scene coordinates.
+        self.startPointF = QPointF(0, 0)
+
+        # Ending point, in scene coordinates.
+        self.endPointF = QPointF(0, 0)
+
+        # Degrees of text rotation.
+        self.rotationDegrees = 0.0
+        
+        # Holds the QGraphicsSimpleTextItems for the texts associated
+        # with the ratios.
+        self.priceRetracementRatioPriceTexts = []
+        self.priceRetracementRatioPercentTexts = []
+
+        # Holds all the above text items, so that settings may be
+        # applied more easily.
+        self.textItems = []
+
+        # Create the text items and put them in the above lists.
+        self._recreateRatioTextItems()
+        
+        # Flag that indicates that horizontal dotted lines should be drawn.
+        self.drawHorizontalDottedLinesFlag = False
+        
+        # Flags that indicate that the user is dragging either the start
+        # or end point of the QGraphicsItem.
+        self.draggingStartPointFlag = False
+        self.draggingEndPointFlag = False
+        self.clickScenePointF = None
+
+    def _recreateRatioTextItems(self):
+        """Re-creates the text items related to the Ratios in
+        self.ratios.  This includes making sure there are the correct
+        number of them, and making sure their settings are correct, as
+        expected.
+        """
+
+        # Disable and remove the old text items.
+        for textItem in self.textItems:
+            textItem.setEnabled(False)
+            textItem.setVisible(False)
+
+            if self.scene() != None:
+                self.scene().removeItem(textItem)
+                
+        # Clear out the arrays holding the text items.
+        self.textItems = []
+        self.priceRetracementRatioPriceTexts = []
+        self.priceRetracementRatioPercentTexts = []
+
+        # Recreate the text items for all the ratios.  We recreate
+        # them to make sure we have enough items.
+        for ratio in self.ratios:
+            priceTextItem = QGraphicsSimpleTextItem("", self)
+            self.priceRetracementRatioPriceTexts.append(priceTextItem)
+            self.textItems.append(priceTextItem)
+            
+            percentTextItem = QGraphicsSimpleTextItem("", self)
+            self.priceRetracementRatioPercentTexts.append(percentTextItem)
+            self.textItems.append(percentTextItem)
+
+        # Apply location, and various other settings to the text items.
+        for textItem in self.textItems:
+            textItem.setPos(self.endPointF)
+        
+            # Set the font of the text.
+            textItem.setFont(self.priceRetracementTextFont)
+        
+            # Set the pen color of the text.
+            self.priceRetracementTextPen = textItem.pen()
+            self.priceRetracementTextPen.\
+                setColor(self.priceRetracementGraphicsItemTextColor)
+            
+            textItem.setPen(self.priceRetracementTextPen)
+
+            # Set the brush color of the text.
+            self.priceRetracementTextBrush = textItem.brush()
+            self.priceRetracementTextBrush.\
+                setColor(self.priceRetracementGraphicsItemTextColor)
+            
+            textItem.setBrush(self.priceRetracementTextBrush)
+
+            # Apply some size scaling to the text.
+            textTransform = QTransform()
+            textTransform.scale(self.priceRetracementTextXScaling, \
+                                self.priceRetracementTextYScaling)
+            textTransform.rotate(self.rotationDegrees)
+            textItem.setTransform(textTransform)
+
+    def setDrawHorizontalDottedLinesFlag(self, flag):
+        """If flag is set to true, then the horizontal dotted lines are drawn.
+        """
+
+        self.drawHorizontalDottedLinesFlag = flag
+
+        # Need to call this because the bounding box is updated with
+        # all the extra horizontal lines being drawn.
+        self.prepareGeometryChange()
+        
+    def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings):
+        """Reads some of the parameters/settings of this
+        PriceBarGraphicsItem from the given PriceBarChartSettings object.
+        """
+
+        self.log.debug("Entered loadSettingsFromPriceBarChartSettings()")
+        
+        # Width of the horizontal bar drawn.
+        self.priceRetracementGraphicsItemBarWidth = \
+            priceBarChartSettings.\
+                priceRetracementGraphicsItemBarWidth 
+ 
+        # X scaling of the text.
+        self.priceRetracementTextXScaling = \
+            priceBarChartSettings.\
+                priceRetracementGraphicsItemTextXScaling 
+
+        # Y scaling of the text.
+        self.priceRetracementTextYScaling = \
+            priceBarChartSettings.\
+                priceRetracementGraphicsItemTextYScaling 
+
+        # Font.
+        self.priceRetracementTextFont = QFont()
+        self.priceRetracementTextFont.fromString(\
+            priceBarChartSettings.\
+            priceRetracementGraphicsItemDefaultFontDescription)
+        
+        # Color of the text that is associated with the graphicsitem.
+        self.priceRetracementGraphicsItemTextColor = \
+            priceBarChartSettings.\
+            priceRetracementGraphicsItemDefaultTextColor
+
+        # Color of the item.
+        self.priceRetracementGraphicsItemColor = \
+            priceBarChartSettings.\
+            priceRetracementGraphicsItemDefaultColor
+
+        # PriceRetracementGraphicsItem showFullLinesFlag (bool).
+        self.showFullLinesFlag = \
+            priceBarChartSettings.\
+            priceRetracementGraphicsItemShowFullLinesFlag
+    
+        # PriceRetracementGraphicsItem showPriceTextFlag (bool).
+        self.showPriceTextFlag = \
+            priceBarChartSettings.\
+            priceRetracementGraphicsItemShowPriceTextFlag
+    
+        # PriceRetracementGraphicsItem showPercentTextFlag (bool).
+        self.showPercentTextFlag = \
+            priceBarChartSettings.\
+            priceRetracementGraphicsItemShowPercentTextFlag
+    
+        # PriceRetracementGraphicsItem ratios (bool).
+        self.ratios = \
+            copy.deepcopy(priceBarChartSettings.\
+                          priceRetracementGraphicsItemRatios)
+        
+        ####################################################################
+
+        # Set the new color of the pen for drawing the bar.
+        self.priceRetracementPen.\
+            setColor(self.priceRetracementGraphicsItemColor)
+        
+        self.setArtifact(self.artifact)
+        
+        # Schedule an update.
+        self.update()
+
+        self.log.debug("Exiting loadSettingsFromPriceBarChartSettings()")
+        
+    def loadSettingsFromAppPreferences(self):
+        """Reads some of the parameters/settings of this
+        GraphicsItem from the QSettings object. 
+        """
+
+        # No settings.
+        
+    def setPos(self, pos):
+        """Overwrites the QGraphicsItem setPos() function.
+
+        Here we use the new position to re-set the self.startPointF and
+        self.endPointF.
+
+        Arguments:
+        pos - QPointF holding the new position.
+        """
+        self.log.debug("Entered setPos()")
+        
+        super().setPos(pos)
+
+        newScenePos = pos
+
+        posDelta = newScenePos - self.startPointF
+
+        # Update the start and end points accordingly. 
+        self.startPointF = self.startPointF + posDelta
+        self.endPointF = self.endPointF + posDelta
+
+        if self.scene() != None:
+            self.recalculatePriceRetracement()
+            self.update()
+
+        self.log.debug("Exiting setPos()")
+        
+    def mousePressEvent(self, event):
+        """Overwrites the QGraphicsItem mousePressEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+
+        self.log.debug("Entered mousePressEvent()")
+        
+        # If the item is in read-only mode, simply call the parent
+        # implementation of this function.
+        if self.getReadOnlyFlag() == True:
+            super().mousePressEvent(event)
+        else:
+            # If the mouse press is within 1/5th of the bar length to the
+            # beginning or end points, then the user is trying to adjust
+            # the starting or ending points of the bar counter ruler.
+            scenePosY = event.scenePos().y()
+            self.log.debug("DEBUG: scenePosY={}".format(scenePosY))
+            
+            startingPointY = self.startPointF.y()
+            self.log.debug("DEBUG: startingPointY={}".format(startingPointY))
+            endingPointY = self.endPointF.y()
+            self.log.debug("DEBUG: endingPointY={}".format(endingPointY))
+            
+            diff = endingPointY - startingPointY
+            self.log.debug("DEBUG: diff={}".format(diff))
+
+            startThreshold = startingPointY + (diff * (1.0 / 5))
+            endThreshold = endingPointY - (diff * (1.0 / 5))
+
+            self.log.debug("DEBUG: startThreshold={}".format(startThreshold))
+            self.log.debug("DEBUG: endThreshold={}".format(endThreshold))
+
+            if startingPointY <= scenePosY <= startThreshold or \
+                   startingPointY >= scenePosY >= startThreshold:
+                
+                self.draggingStartPointFlag = True
+                self.log.debug("DEBUG: self.draggingStartPointFlag={}".
+                               format(self.draggingStartPointFlag))
+                
+            elif endingPointY <= scenePosY <= endThreshold or \
+                   endingPointY >= scenePosY >= endThreshold:
+                
+                self.draggingEndPointFlag = True
+                self.log.debug("DEBUG: self.draggingEndPointFlag={}".
+                               format(self.draggingEndPointFlag))
+            else:
+                # The mouse has clicked the middle part of the
+                # QGraphicsItem, so pass the event to the parent, because
+                # the user wants to either select or drag-move the
+                # position of the QGraphicsItem.
+                self.log.debug("DEBUG:  Middle part clicked.  " + \
+                               "Passing to super().")
+
+                # Save the click position, so that if it is a drag, we
+                # can have something to reference from for setting the
+                # start and end positions when the user finally
+                # releases the mouse button.
+                self.clickScenePointF = event.scenePos()
+                
+                super().mousePressEvent(event)
+
+        self.log.debug("Leaving mousePressEvent()")
+        
+    def mouseMoveEvent(self, event):
+        """Overwrites the QGraphicsItem mouseMoveEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+
+        if event.buttons() & Qt.LeftButton:
+            if self.getReadOnlyFlag() == False:
+                if self.draggingStartPointFlag == True:
+                    self.log.debug("DEBUG: self.draggingStartPointFlag={}".
+                                   format(self.draggingStartPointFlag))
+                    # TODO:  test this and make sure it is what I want.
+                    self.setStartPointF(QPointF(self.startPointF.x(),
+                                                event.scenePos().y()))
+                    self.setEndPointF(QPointF(event.scenePos().x(),
+                                              self.endPointF.y()))
+                    self.update()
+                elif self.draggingEndPointFlag == True:
+                    self.log.debug("DEBUG: self.draggingEndPointFlag={}".
+                                   format(self.draggingEndPointFlag))
+                    self.setEndPointF(QPointF(event.scenePos().x(),
+                                              event.scenePos().y()))
+                    self.update()
+                else:
+                    # This means that the user is dragging the whole
+                    # ruler.
+
+                    # Do the move.
+                    super().mouseMoveEvent(event)
+
+                    # Update calculation/text for the retracement.
+                    self.recalculatePriceRetracement()
+        
+                    # Emit that the PriceBarChart has changed.
+                    self.scene().priceBarChartChanged.emit()
+            else:
+                super().mouseMoveEvent(event)
+        else:
+            super().mouseMoveEvent(event)
+
+    def mouseReleaseEvent(self, event):
+        """Overwrites the QGraphicsItem mouseReleaseEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+        
+        self.log.debug("Entered mouseReleaseEvent()")
+
+        if self.draggingStartPointFlag == True:
+            self.log.debug("mouseReleaseEvent() when previously dragging " + \
+                           "startPoint.")
+            
+            self.draggingStartPointFlag = False
+
+            self.prepareGeometryChange()
+            
+            self.scene().priceBarChartChanged.emit()
+            
+        elif self.draggingEndPointFlag == True:
+            self.log.debug("mouseReleaseEvent() when previously dragging " +
+                           "endPoint.")
+            
+            self.draggingEndPointFlag = False
+
+            self.prepareGeometryChange()
+            
+            self.scene().priceBarChartChanged.emit()
+            
+        else:
+            self.log.debug("mouseReleaseEvent() when NOT previously " + \
+                           "dragging an end.")
+
+            if self.getReadOnlyFlag() == False:
+                # Update the start and end positions.
+                self.log.debug("DEBUG: scenePos: x={}, y={}".
+                               format(event.scenePos().x(),
+                                      event.scenePos().y()))
+
+                # Calculate the difference between where the user released
+                # the button and where the user first clicked the item.
+                delta = event.scenePos() - self.clickScenePointF
+
+                self.log.debug("DEBUG: delta: x={}, y={}".
+                               format(delta.x(), delta.y()))
+
+                # If the delta is not zero, then update the start and
+                # end points by calling setPos() on the new calculated
+                # position.
+                if delta.x() != 0.0 and delta.y() != 0.0:
+                    newPos = self.startPointF + delta
+                    self.setPos(newPos)
+            
+                    # Update calculation/text for the retracement.
+                    self.recalculatePriceRetracement()
+        
+            super().mouseReleaseEvent(event)
+
+        self.log.debug("Exiting mouseReleaseEvent()")
+
+    def setReadOnlyFlag(self, flag):
+        """Overwrites the PriceBarChartArtifactGraphicsItem setReadOnlyFlag()
+        function.
+        """
+
+        # Call the parent's function so that the flag gets set.
+        super().setReadOnlyFlag(flag)
+
+        # Make sure the drag flags are disabled.
+        if flag == True:
+            self.draggingStartPointFlag = False
+            self.draggingEndPointFlag = False
+
+    def _updateTextItemPositions(self):
+        """Updates the location of the internal text items based on
+        where the start and end points are.
+        """
+        
+        # Update the priceRetracement label position.
+        
+        # Y range.  Used in calculations for the Y coordinate of the text items.
+        deltaY = self.endPointF.y() - self.startPointF.y()
+
+        for i in range(len(self.ratios)):
+            ratio = self.ratios[i]
+
+            priceTextItem = self.priceRetracementRatioPriceTexts[i]
+            percentTextItem = self.priceRetracementRatioPercentTexts[i]
+
+            x = 0
+            y = deltaY * ratio.getRatio()
+            
+            priceTextItem.setPos(QPointF(x, y))
+
+            offset = self.priceRetracementGraphicsItemBarWidth * 10
+            y = y - offset
+
+            percentTextItem.setPos(QPointF(x, y))
+
+
+    def setStartPointF(self, pointF):
+        """Sets the starting point of the bar count.  The value passed in
+        is the mouse location in scene coordinates.  
+        """
+
+        newValue = QPointF(pointF.x(), pointF.y())
+
+        if self.startPointF != newValue: 
+            self.startPointF = newValue
+
+            self.setPos(self.startPointF)
+
+            # Update the priceRetracement text item position.
+            self._updateTextItemPositions()
+            
+            if self.scene() != None:
+                # Re-calculate the priceretracement.
+                self.recalculatePriceRetracement()
+                self.update()
+                
+    def setEndPointF(self, pointF):
+        """Sets the ending point of the bar count.  The value passed in
+        is the mouse location in scene coordinates.  
+        """
+
+        newValue = QPointF(pointF.x(), pointF.y())
+
+        if self.endPointF != newValue:
+            self.endPointF = newValue
+
+            # Update the priceRetracement text item position.
+            self._updateTextItemPositions()
+            
+            if self.scene() != None:
+                # Re-calculate the priceretracement.
+                self.recalculatePriceRetracement()
+                self.update()
+
+    def normalizeStartAndEnd(self):
+        """Does not do anything since normalization is not applicable
+        to this graphics item.
+        """
+
+        # Do don't anything.
+        pass
+
+    def recalculatePriceRetracement(self):
+        """Recalculates the priceRetracement and sets the text items'
+        text accordingly.
+        """
+
+        scene = self.scene()
+
+        # Y range.  Used in calculations for the Y coordinate of
+        # the text items.
+        deltaY = self.endPointF.y() - self.startPointF.y()
+        
+        if scene != None:
+            # Update the text of the internal items.
+
+            for i in range(len(self.ratios)):
+                ratio = self.ratios[i]
+
+                priceTextItem = self.priceRetracementRatioPriceTexts[i]
+                percentTextItem = self.priceRetracementRatioPercentTexts[i]
+
+                sceneYPos = self.startPointF.y() + (deltaY * ratio.getRatio())
+                price = self.scene().sceneYPosToPrice(sceneYPos)
+
+                # Set texts.
+                priceText = "{}".format(Ephemeris.datepriceToDayStr(price))
+                percentText = "{:.2f} %".format(ratio.getRatio() * 100)
+                
+                priceTextItem.setText(priceText)
+                percentTextItem.setText(percentText)
+        
+    def setArtifact(self, artifact):
+        """Loads a given PriceBarChartPriceRetracementArtifact object's data
+        into this QGraphicsItem.
+
+        Arguments:
+        artifact - PriceBarChartPriceRetracementArtifact object with information
+                   about this TextGraphisItem
+        """
+
+        self.log.debug("Entering setArtifact()")
+
+        if isinstance(artifact, PriceBarChartPriceRetracementArtifact):
+            self.artifact = artifact
+        else:
+            raise TypeError("Expected artifact type: " + \
+                            "PriceBarChartPriceRetracementArtifact")
+
+        # Extract and set the internals according to the info 
+        # in this artifact object.
+        self.setPos(self.artifact.getPos())
+        self.setStartPointF(self.artifact.getStartPointF())
+        self.setEndPointF(self.artifact.getEndPointF())
+
+        self.priceRetracementTextXScaling = self.artifact.getTextXScaling()
+        self.priceRetracementTextYScaling = self.artifact.getTextYScaling()
+        self.priceRetracementTextFont = self.artifact.getFont()
+        self.priceRetracementGraphicsItemTextColor = \
+            self.artifact.getTextColor()
+        self.priceRetracementPen.setColor(self.artifact.getColor())
+        
+        self.showFullLinesFlag = self.artifact.getShowFullLinesFlag()
+        self.showPriceTextFlag = self.artifact.getShowPriceTextFlag()
+        self.showPercentTextFlag = self.artifact.getShowPercentTextFlag()
+
+        self.ratios = self.artifact.getRatios()
+
+        #############
+
+        # Recreate the text items for the ratios.  This will also
+        # apply the new scaling and font, etc. as needed.
+        self._recreateRatioTextItems()
+        
+        # Set the text items as enabled or disabled, visible or
+        # invisible, depending on whether the show flag is set.
+        for textItem in self.priceRetracementRatioPriceTexts:
+            textItem.setEnabled(self.showPriceTextFlag)
+            textItem.setVisible(self.showPriceTextFlag)
+            
+        for textItem in self.priceRetracementRatioPercentTexts:
+            textItem.setEnabled(self.showPercentTextFlag)
+            textItem.setVisible(self.showPercentTextFlag)
+
+        # Go through all the Ratio objects and disable texts if the
+        # Ratios are not enabled.  This will be a second pass-through
+        # of settings the text items, but this time, we do not enable
+        # them, we only disable them if the corresponding Ratio is disabled.
+        for i in range(len(self.ratios)):
+            ratio = self.ratios[i]
+            
+            if not ratio.isEnabled():
+                self.priceRetracementRatioPriceTexts[i].setEnabled(False)
+                self.priceRetracementRatioPriceTexts[i].setVisible(False)
+
+                self.priceRetracementRatioPercentTexts[i].setEnabled(False)
+                self.priceRetracementRatioPercentTexts[i].setVisible(False)
+
+        # Update the priceRetracement text item position.
+        self._updateTextItemPositions()
+            
+        # Need to recalculate the priceRetracement, since the start and end
+        # points have changed.  Note, if no scene has been set for the
+        # QGraphicsView, then the price retracements will be zero, since it
+        # can't look up PriceBarGraphicsItems in the scene.
+        self.recalculatePriceRetracement()
+
+        self.log.debug("Exiting setArtifact()")
+
+    def getArtifact(self):
+        """Returns a PriceBarChartPriceRetracementArtifact for this
+        QGraphicsItem so that it may be pickled.
+        """
+        
+        self.log.debug("Entered getArtifact()")
+        
+        # Update the internal self.priceBarChartPriceRetracementArtifact 
+        # to be current, then return it.
+
+        self.artifact.setPos(self.pos())
+        self.artifact.setStartPointF(self.startPointF)
+        self.artifact.setEndPointF(self.endPointF)
+        
+        self.artifact.setTextXScaling(self.priceRetracementTextXScaling)
+        self.artifact.setTextYScaling(self.priceRetracementTextYScaling)
+        self.artifact.setFont(self.priceRetracementTextFont)
+        self.artifact.setTextColor(self.priceRetracementGraphicsItemTextColor)
+        self.artifact.setColor(self.priceRetracementPen.color())
+        
+        self.artifact.setShowFullLinesFlag(self.showFullLinesFlag)
+        self.artifact.setShowPriceTextFlag(self.showPriceTextFlag)
+        self.artifact.setShowPercentTextFlag(self.showPercentTextFlag)
+
+        self.artifact.setRatios(self.ratios)
+        
+        self.log.debug("Exiting getArtifact()")
+        
+        return self.artifact
+
+    def boundingRect(self):
+        """Returns the bounding rectangle for this graphicsitem."""
+
+        # Coordinate (0, 0) in local coordinates is the center of the
+        # horizontal bar that is at startPointF.  If the user created
+        # the widget with the startPointF to the right of the
+        # endPointF, then the startPointF will have a higher X value
+        # than endPointF.
+
+        # The QRectF returned is relative to this (0, 0) point.
+
+        # Bounding box here is the whole area that is painted.  That
+        # means we need to take into account whether or not the full
+        # lines are painted for the enabled ratios (for the X width
+        # value).  We always include the endPointF, which is the 100%
+        # 'retracement'.
+
+        # Get the QRectF with just the lines.
+
+        # Keep track of x and y values so we can get the largest and
+        # smallest x and y values.
+        xValues = []
+        yValues = []
+        
+        # The bottom horizontal bar part.
+        x1 = 1.0 * (self.priceRetracementGraphicsItemBarWidth / 2.0)
+        y1 = 0.0
+        x2 = -1.0 * (self.priceRetracementGraphicsItemBarWidth / 2.0)
+        y2 = 0.0
+
+        xValues.append(x1)
+        xValues.append(x2)
+        yValues.append(y1)
+        yValues.append(y2)
+        
+        # The top horizontal bar part.
+        yDelta = self.endPointF.y() - self.startPointF.y()
+        x1 = 1.0 * (self.priceRetracementGraphicsItemBarWidth / 2.0)
+        y1 = 0.0 + yDelta
+        x2 = -1.0 * (self.priceRetracementGraphicsItemBarWidth / 2.0)
+        y2 = 0.0 + yDelta
+
+        xValues.append(x1)
+        xValues.append(x2)
+        yValues.append(y1)
+        yValues.append(y2)
+        
+        # The horizontal lines for all the enabled ratios.
+        if self.drawHorizontalDottedLinesFlag or \
+               self.isSelected() or \
+               self.showFullLinesFlag == True:
+
+            # Get the earliest and latest PriceBar timestamp in local
+            # coordinates.
+            earliestPriceBar = self.scene().getEarliestPriceBar()
+            smallestPriceBarX = \
+                self.scene().datetimeToSceneXPos(earliestPriceBar.timestamp)
+            localSmallestPriceBarX = \
+                self.mapFromScene(QPointF(smallestPriceBarX, 0.0)).x()
+            
+            latestPriceBar = self.scene().getLatestPriceBar()
+            largestPriceBarX = \
+                self.scene().datetimeToSceneXPos(latestPriceBar.timestamp)
+            localLargestPriceBarX = \
+                self.mapFromScene(QPointF(largestPriceBarX, 0.0)).x()
+
+
+            xValues.append(localSmallestPriceBarX)
+            xValues.append(localLargestPriceBarX)
+
+        # Go through the ratios and track the y values for the enabled ratios.
+        for ratio in self.ratios:
+            if ratio.isEnabled():
+                # Calculate the y in local coordinates.
+                localY = yDelta * ratio.getRatio()
+                yValues.append(localY)
+        
+        # We have all x and y values now, so sort them to get the
+        # low and high.
+        xValues.sort()
+        yValues.sort()
+
+        # Find the smallest x and y.
+        smallestX = xValues[0]
+        smallestY = yValues[0]
+        
+        # Find the largest x and y.
+        largestX = xValues[-1]
+        largestY = yValues[-1]
+            
+        rv = QRectF(QPointF(smallestX, smallestY),
+                    QPointF(largestX, largestY))
+
+        return rv
+
+    def shape(self):
+        """Overwrites the QGraphicsItem.shape() function to return a
+        more accurate shape for collision detection, hit tests, etc.
+        """
+
+        # Get the QRectF with just the lines.
+        yDelta = self.endPointF.y() - self.startPointF.y()
+        
+        topLeft = \
+            QPointF(-1.0 * (self.priceRetracementGraphicsItemBarWidth / 2.0),
+                    0.0)
+        
+        
+        bottomRight = \
+            QPointF(1.0 * (self.priceRetracementGraphicsItemBarWidth / 2.0),
+                    yDelta)
+
+        rectWithoutText = QRectF(topLeft, bottomRight)
+
+        painterPath = QPainterPath()
+        painterPath.addRect(rectWithoutText)
+
+        return painterPath
+        
+    def paint(self, painter, option, widget):
+        """Paints this QGraphicsItem.  Assumes that self.pen is set
+        to what we want for the drawing style.
+        """
+
+        if painter.pen() != self.priceRetracementPen:
+            painter.setPen(self.priceRetracementPen)
+        
+        # Keep track of x and y values.  We use this to draw the
+        # dotted lines later.
+        xValues = []
+        yValues = []
+        
+        # Draw the bottom horizontal bar part.
+        x1 = 1.0 * (self.priceRetracementGraphicsItemBarWidth / 2.0)
+        y1 = 0.0
+        x2 = -1.0 * (self.priceRetracementGraphicsItemBarWidth / 2.0)
+        y2 = 0.0
+        painter.drawLine(QLineF(x1, y1, x2, y2))
+
+        xValues.append(x1)
+        xValues.append(x2)
+        yValues.append(y1)
+        yValues.append(y2)
+        
+        # Draw the top horizontal bar part.
+        yDelta = self.endPointF.y() - self.startPointF.y()
+        x1 = 1.0 * (self.priceRetracementGraphicsItemBarWidth / 2.0)
+        y1 = 0.0 + yDelta
+        x2 = -1.0 * (self.priceRetracementGraphicsItemBarWidth / 2.0)
+        y2 = 0.0 + yDelta
+        painter.drawLine(QLineF(x1, y1, x2, y2))
+
+        xValues.append(x1)
+        xValues.append(x2)
+        yValues.append(y1)
+        yValues.append(y2)
+        
+        # Draw the horizontal lines for all the enabled ratios.
+        for ratio in self.ratios:
+            if ratio.isEnabled():
+                localY = yDelta * ratio.getRatio()
+
+                x1 = 1.0 * (self.priceRetracementGraphicsItemBarWidth / 2.0)
+                y1 = localY
+                x2 = -1.0 * (self.priceRetracementGraphicsItemBarWidth / 2.0)
+                y2 = localY
+        
+                painter.drawLine(QLineF(x1, y1, x2, y2))
+
+                xValues.append(x1)
+                xValues.append(x2)
+                yValues.append(y1)
+                yValues.append(y2)
+
+                # If the full lines flag is enabled, then draw the
+                # full length fo the line, from the 0 Y coordinate
+                # location to the self.endPointF.y() location, in
+                # local coordinates.
+                if self.showFullLinesFlag == True:
+                    x1 = 0
+                    y1 = localY
+                    x2 = self.mapFromScene(QPointF(0.0, self.endPointF.x())).x()
+                    y2 = localY
+        
+                    painter.drawLine(QLineF(x1, y1, x2, y2))
+
+                    xValues.append(x1)
+                    xValues.append(x2)
+                    yValues.append(y1)
+                    yValues.append(y2)
+
+        # Draw the middle horizontal line.
+        yValues.sort()
+        smallestY = yValues[0]
+        largestY = yValues[-1]
+        
+        x1 = 0.0
+        y1 = smallestY
+        x2 = 0.0
+        y2 = largestY
+        painter.drawLine(QLineF(x1, y1, x2, y2))
+
+        xValues.append(x1)
+        xValues.append(x2)
+        yValues.append(y1)
+        yValues.append(y2)
+
+        # Draw horizontal dotted lines at each enabled tick area if the
+        # flag is set to do so, or if it is selected.
+        if self.drawHorizontalDottedLinesFlag == True or \
+           option.state & QStyle.State_Selected:
+
+            if self.scene() != None:
+                pad = self.priceRetracementPen.widthF() / 2.0;
+                penWidth = 0.0
+                fgcolor = option.palette.windowText().color()
+                # Ensure good contrast against fgcolor.
+                r = 255
+                g = 255
+                b = 255
+                if fgcolor.red() > 127:
+                    r = 0
+                if fgcolor.green() > 127:
+                    g = 0
+                if fgcolor.blue() > 127:
+                    b = 0
+                bgcolor = QColor(r, g, b)
+    
+                # Get the earliest and latest PriceBar timestamp in local
+                # coordinates.
+                earliestPriceBar = self.scene().getEarliestPriceBar()
+                smallestPriceBarX = \
+                    self.scene().datetimeToSceneXPos(earliestPriceBar.timestamp)
+                localSmallestPriceBarX = \
+                    self.mapFromScene(QPointF(smallestPriceBarX, 0.0)).x()
+            
+                latestPriceBar = self.scene().getLatestPriceBar()
+                largestPriceBarX = \
+                    self.scene().datetimeToSceneXPos(latestPriceBar.timestamp)
+                localLargestPriceBarX = \
+                    self.mapFromScene(QPointF(largestPriceBarX, 0.0)).x()
+
+                xValues.append(localHighX)
+                xValues.append(localLowX)
+
+                # We have all x values now, so sort them to get the
+                # low and high.
+                xValues.sort()
+                smallestX = xValues[0]
+                largestX = xValues[-1]
+
+                # Draw the horizontal lines for all the enabled ratios.
+                yDelta = self.endPointF.y() - self.startPointF.y()
+                for ratio in self.ratios:
+                    if ratio.isEnabled():
+                        y = yDelta * ratio.getRatio()
+
+                        x1 = largestX
+                        y1 = y
+                        x2 = smallestX
+                        y2 = y
+
+                        xValues.append(x1)
+                        xValues.append(x2)
+                        yValues.append(y1)
+                        yValues.append(y2)
+                    
+                        startPoint = QPointF(x1, y1)
+                        endPoint = QPointF(x2, y2)
+
+                        painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+                        painter.setBrush(Qt.NoBrush)
+                        painter.drawLine(startPoint, endPoint)
+                
+                        painter.setPen(QPen(option.palette.windowText(), 0,
+                                            Qt.DashLine))
+                        painter.setBrush(Qt.NoBrush)
+                        painter.drawLine(startPoint, endPoint)
+        
+        # Draw the shape if the item is selected.
+        if option.state & QStyle.State_Selected:
+            pad = self.priceRetracementPen.widthF() / 2.0;
+            penWidth = 0.0
+            fgcolor = option.palette.windowText().color()
+            
+            # Ensure good contrast against fgcolor.
+            r = 255
+            g = 255
+            b = 255
+            if fgcolor.red() > 127:
+                r = 0
+            if fgcolor.green() > 127:
+                g = 0
+            if fgcolor.blue() > 127:
+                b = 0
+            
+            bgcolor = QColor(r, g, b)
+            
+            painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawPath(self.shape())
+            
+            painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawPath(self.shape())
+
+    def appendActionsToContextMenu(self, menu, readOnlyMode=False):
+        """Modifies the given QMenu object to update the title and add
+        actions relevant to this PriceRetracementGraphicsItem.  Actions that
+        are triggered from this menu run various methods in the
+        PriceRetracementGraphicsItem to handle the desired functionality.
+        
+        Arguments:
+        menu - QMenu object to modify.
+        readOnlyMode - bool value that indicates the actions are to be
+                       readonly actions.
+        """
+
+        menu.setTitle(self.artifact.getInternalName())
+        
+        # These are the QActions that are in the menu.
+        parent = menu
+        selectAction = QAction("&Select", parent)
+        unselectAction = QAction("&Unselect", parent)
+        removeAction = QAction("Remove", parent)
+        infoAction = QAction("&Info", parent)
+        editAction = QAction("&Edit", parent)
+        setStartOnAstro1Action = \
+            QAction("Set start timestamp on Astro Chart &1", parent)
+        setStartOnAstro2Action = \
+            QAction("Set start timestamp on Astro Chart &2", parent)
+        setStartOnAstro3Action = \
+            QAction("Set start timestamp on Astro Chart &3", parent)
+        setEndOnAstro1Action = \
+            QAction("Set end timestamp on Astro Chart 1", parent)
+        setEndOnAstro2Action = \
+            QAction("Set end timestamp on Astro Chart 2", parent)
+        setEndOnAstro3Action = \
+            QAction("Set end timestamp on Astro Chart 3", parent)
+        
+        selectAction.triggered.\
+            connect(self._handleSelectAction)
+        unselectAction.triggered.\
+            connect(self._handleUnselectAction)
+        removeAction.triggered.\
+            connect(self._handleRemoveAction)
+        infoAction.triggered.\
+            connect(self._handleInfoAction)
+        editAction.triggered.\
+            connect(self._handleEditAction)
+        setStartOnAstro1Action.triggered.\
+            connect(self._handleSetStartOnAstro1Action)
+        setStartOnAstro2Action.triggered.\
+            connect(self._handleSetStartOnAstro2Action)
+        setStartOnAstro3Action.triggered.\
+            connect(self._handleSetStartOnAstro3Action)
+        setEndOnAstro1Action.triggered.\
+            connect(self._handleSetEndOnAstro1Action)
+        setEndOnAstro2Action.triggered.\
+            connect(self._handleSetEndOnAstro2Action)
+        setEndOnAstro3Action.triggered.\
+            connect(self._handleSetEndOnAstro3Action)
+        
+        # Enable or disable actions.
+        selectAction.setEnabled(True)
+        unselectAction.setEnabled(True)
+        removeAction.setEnabled(not readOnlyMode)
+        infoAction.setEnabled(True)
+        editAction.setEnabled(not readOnlyMode)
+        setStartOnAstro1Action.setEnabled(True)
+        setStartOnAstro2Action.setEnabled(True)
+        setStartOnAstro3Action.setEnabled(True)
+        setEndOnAstro1Action.setEnabled(True)
+        setEndOnAstro2Action.setEnabled(True)
+        setEndOnAstro3Action.setEnabled(True)
+
+        # Add the QActions to the menu.
+        menu.addAction(selectAction)
+        menu.addAction(unselectAction)
+        menu.addSeparator()
+        menu.addAction(removeAction)
+        menu.addSeparator()
+        menu.addAction(infoAction)
+        menu.addAction(editAction)
+        menu.addSeparator()
+        menu.addAction(setStartOnAstro1Action)
+        menu.addAction(setStartOnAstro2Action)
+        menu.addAction(setStartOnAstro3Action)
+        menu.addSeparator()
+        menu.addAction(setEndOnAstro1Action)
+        menu.addAction(setEndOnAstro2Action)
+        menu.addAction(setEndOnAstro3Action)
+
+    def _handleSelectAction(self):
+        """Causes the QGraphicsItem to become selected."""
+
+        self.setSelected(True)
+
+    def _handleUnselectAction(self):
+        """Causes the QGraphicsItem to become unselected."""
+
+        self.setSelected(False)
+
+    def _handleRemoveAction(self):
+        """Causes the QGraphicsItem to be removed from the scene."""
+        
+        scene = self.scene()
+        scene.removeItem(self)
+
+        # Emit signal to show that an item is removed.
+        # This sets the dirty flag.
+        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+        
+    def _handleInfoAction(self):
+        """Causes a dialog to be executed to show information about
+        the QGraphicsItem.
+        """
+
+        artifact = self.getArtifact()
+        dialog = PriceBarChartPriceRetracementArtifactEditDialog(artifact,
+                                                         self.scene(),
+                                                         readOnlyFlag=True)
+        
+        # Run the dialog.  We don't care about what is returned
+        # because the dialog is read-only.
+        rv = dialog.exec_()
+        
+    def _handleEditAction(self):
+        """Causes a dialog to be executed to edit information about
+        the QGraphicsItem.
+        """
+
+        artifact = self.getArtifact()
+        dialog = PriceBarChartPriceRetracementArtifactEditDialog(artifact,
+                                                         self.scene(),
+                                                         readOnlyFlag=False)
+        
+        rv = dialog.exec_()
+        
+        if rv == QDialog.Accepted:
+            # If the dialog is accepted then the underlying artifact
+            # object was modified.  Set the artifact to this
+            # PriceBarChartArtifactGraphicsItem, which will cause it to be
+            # reloaded in the scene.
+            self.setArtifact(artifact)
+
+            # Flag that a redraw of this QGraphicsItem is required.
+            self.update()
+
+            # Emit that the PriceBarChart has changed so that the
+            # dirty flag can be set.
+            self.scene().priceBarChartChanged.emit()
+        else:
+            # The user canceled so don't change anything.
+            pass
+        
+    def _handleSetStartOnAstro1Action(self):
+        """Causes the astro chart 1 to be set with the timestamp
+        of the start the PriceRetracementGraphicsItem.
+        """
+
+        self.scene().setAstroChart1(self.startPointF.x())
+        
+    def _handleSetStartOnAstro2Action(self):
+        """Causes the astro chart 2 to be set with the timestamp
+        of the start the PriceRetracementGraphicsItem.
+        """
+
+        self.scene().setAstroChart2(self.startPointF.x())
+        
+    def _handleSetStartOnAstro3Action(self):
+        """Causes the astro chart 3 to be set with the timestamp
+        of the start the PriceRetracementGraphicsItem.
+        """
+
+        self.scene().setAstroChart3(self.startPointF.x())
+        
+    def _handleSetEndOnAstro1Action(self):
+        """Causes the astro chart 1 to be set with the timestamp
+        of the end the PriceRetracementGraphicsItem.
+        """
+
+        self.scene().setAstroChart1(self.endPointF.x())
+
+    def _handleSetEndOnAstro2Action(self):
+        """Causes the astro chart 2 to be set with the timestamp
+        of the end the PriceRetracementGraphicsItem.
+        """
+
+        self.scene().setAstroChart2(self.endPointF.x())
+
+    def _handleSetEndOnAstro3Action(self):
+        """Causes the astro chart 3 to be set with the timestamp
+        of the end the PriceRetracementGraphicsItem.
+        """
+
+        self.scene().setAstroChart3(self.endPointF.x())
+
+
 class PriceBarChartWidget(QWidget):
     """Widget holding the QGraphicsScene and QGraphicsView that displays
     the PriceBar information along with other indicators and analysis
@@ -7545,7 +8729,8 @@ class PriceBarChartWidget(QWidget):
                 "TextTool"             : 8,
                 "PriceTimeInfoTool"    : 9,
                 "PriceMeasurementTool" : 10,
-                "TimeRetracementTool"  : 11 }
+                "TimeRetracementTool"  : 11,
+                "PriceRetracementTool"  : 12 }
 
 
 
@@ -8099,6 +9284,26 @@ class PriceBarChartWidget(QWidget):
         
                 addedItemFlag = True
 
+            elif isinstance(artifact, PriceBarChartPriceRetracementArtifact):
+                self.log.debug("Loading artifact: " + artifact.toString())
+                
+                newItem = PriceRetracementGraphicsItem()
+                newItem.loadSettingsFromPriceBarChartSettings(\
+                    self.priceBarChartSettings)
+                newItem.setArtifact(artifact)
+
+                # Add the item.
+                self.graphicsScene.addItem(newItem)
+                
+                # Make sure the proper flags are set for the mode we're in.
+                self.graphicsView.setGraphicsItemFlagsPerCurrToolMode(newItem)
+
+                # Need to recalculate price retracement, since it wasn't in
+                # the QGraphicsScene until now.
+                newItem.recalculatePriceRetracement()
+        
+                addedItemFlag = True
+
         if addedItemFlag == True:
             # Emit that the PriceBarChart has changed.
             self.graphicsScene.priceBarChartChanged.emit()
@@ -8261,6 +9466,9 @@ class PriceBarChartWidget(QWidget):
             elif isinstance(item, TimeRetracementGraphicsItem):
                 self.log.debug("Not applying settings to " +
                                "TimeRetracementGraphicsItem.")
+            elif isinstance(item, PriceRetracementGraphicsItem):
+                self.log.debug("Not applying settings to " +
+                               "PriceRetracementGraphicsItem.")
 
         if settingsChangedFlag == True:
             # Emit that the PriceBarChart has changed, because we have
@@ -8423,6 +9631,20 @@ class PriceBarChartWidget(QWidget):
             self.graphicsView.toTimeRetracementToolMode()
 
         self.log.debug("Exiting toTimeRetracementToolMode()")
+
+    def toPriceRetracementToolMode(self):
+        """Changes the tool mode to be the PriceRetracementTool."""
+
+        self.log.debug("Entered toPriceRetracementToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != \
+               PriceBarChartWidget.ToolMode['PriceRetracementTool']:
+            
+            self.toolMode = PriceBarChartWidget.ToolMode['PriceRetracementTool']
+            self.graphicsView.toPriceRetracementToolMode()
+
+        self.log.debug("Exiting toPriceRetracementToolMode()")
 
     def _handleMouseLocationUpdate(self, x, y):
         """Handles mouse location changes in the QGraphicsView.  
@@ -9027,7 +10249,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 "TextTool"             : 8,
                 "PriceTimeInfoTool"    : 9,
                 "PriceMeasurementTool" : 10,
-                "TimeRetracementTool"  : 11 }
+                "TimeRetracementTool"  : 11,
+                "PriceRetracementTool" : 12 }
 
     # Signal emitted when the mouse moves within the QGraphicsView.
     # The position emitted is in QGraphicsScene x, y, float coordinates.
@@ -9092,9 +10315,14 @@ class PriceBarChartGraphicsView(QGraphicsView):
         # as it is modified in TimeRetracementToolMode.
         self.timeRetracementGraphicsItem = None
 
+        # Variable used for storing the new PriceRetracementGraphicsItem,
+        # as it is modified in PriceRetracementToolMode.
+        self.priceRetracementGraphicsItem = None
+
         # Variable used for storing that snapping to the closest bar
         # high or low is enabled.  Used in PriceTimeInfoTool,
-        # TimeMeasurementTool, PriceMeasurementTool, TimeRetracementTool.
+        # TimeMeasurementTool, PriceMeasurementTool,
+        # TimeRetracementTool, PriceRetracementTool.
         self.snapEnabledFlag = True
 
         # Variable used for holding the PriceBarChartSettings.
@@ -9258,6 +10486,15 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['TimeRetracementTool']:
+
+            if isinstance(item, PriceBarGraphicsItem):
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+            elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                item.setReadOnlyFlag(True)
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['PriceRetracementTool']:
 
             if isinstance(item, PriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
@@ -9608,6 +10845,36 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.setGraphicsItemFlagsPerCurrToolMode(item)
                     
         self.log.debug("Exiting toTimeRetracementToolMode()")
+
+    def toPriceRetracementToolMode(self):
+        """Changes the tool mode to be the PriceRetracementTool."""
+
+        self.log.debug("Entered toPriceRetracementToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != \
+                PriceBarChartGraphicsView.ToolMode['PriceRetracementTool']:
+
+            self.toolMode = \
+                PriceBarChartGraphicsView.ToolMode['PriceRetracementTool']
+
+            self.setCursor(QCursor(Qt.ArrowCursor))
+            self.setDragMode(QGraphicsView.NoDrag)
+
+            # Clear out internal working variables.
+            self.clickOnePointF = None
+            self.clickTwoPointF = None
+            self.priceRetracementGraphicsItem = None
+
+            scene = self.scene()
+            if scene != None:
+                scene.clearSelection()
+
+                items = scene.items()
+                for item in items:
+                    self.setGraphicsItemFlagsPerCurrToolMode(item)
+                    
+        self.log.debug("Exiting toPriceRetracementToolMode()")
 
     def createContextMenu(self, clickPosF, readOnlyFlag):
         """Creates a context menu for a right-click somewhere in
@@ -10011,6 +11278,32 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
                 self.timeRetracementGraphicsItem = None
+            elif qkeyevent.key() == Qt.Key_Q:
+                # Turn on snap functionality.
+                self.snapEnabledFlag = True
+                self.log.debug("Snap mode enabled.")
+                self.statusMessageUpdate.emit("Snap mode enabled")
+            elif qkeyevent.key() == Qt.Key_W:
+                # Turn off snap functionality.
+                self.snapEnabledFlag = False
+                self.log.debug("Snap mode disabled.")
+                self.statusMessageUpdate.emit("Snap mode disabled")
+            else:
+                super().keyPressEvent(qkeyevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['PriceRetracementTool']:
+
+            if qkeyevent.key() == Qt.Key_Escape:
+                # Escape key causes any currently edited item to
+                # be removed and cleared out.  Temporary variables used
+                # are cleared out too.
+                if self.priceRetracementGraphicsItem != None:
+                    self.scene().removeItem(self.priceRetracementGraphicsItem)
+
+                self.clickOnePointF = None
+                self.clickTwoPointF = None
+                self.priceRetracementGraphicsItem = None
             elif qkeyevent.key() == Qt.Key_Q:
                 # Turn on snap functionality.
                 self.snapEnabledFlag = True
@@ -11025,6 +12318,159 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 else:
                     self.log.warn("Unexpected state reached.")
                     
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['PriceRetracementTool']:
+            
+            self.log.debug("Current toolMode is: PriceRetracementTool")
+
+            if qmouseevent.button() & Qt.LeftButton:
+                self.log.debug("Qt.LeftButton")
+                
+                if self.clickOnePointF == None:
+                    self.log.debug("clickOnePointF == None")
+                
+                    self.clickOnePointF = self.mapToScene(qmouseevent.pos())
+
+                    # If snap is enabled, then find the closest
+                    # pricebar price to the place clicked.
+                    if self.snapEnabledFlag == True:
+                        self.log.debug("Snap is enabled, so snapping to " +
+                                       "closest pricebar price Y.")
+                        
+                        infoPointF = self.mapToScene(qmouseevent.pos())
+                        y = self.scene().getClosestPriceBarOHLCY(infoPointF)
+
+                        # Use this Y value.
+                        self.clickOnePointF.setY(y)
+                    
+                    # Create the PriceRetracementGraphicsItem and
+                    # initialize it to the mouse location.
+                    self.priceRetracementGraphicsItem = \
+                        PriceRetracementGraphicsItem()
+                    self.priceRetracementGraphicsItem.\
+                        loadSettingsFromPriceBarChartSettings(\
+                            self.priceBarChartSettings)
+        
+                    # Set the flag that indicates we should draw
+                    # dotted horizontal lines at the tick areas.  We
+                    # will turn these off after the user fully
+                    # finishes adding the item.
+                    self.priceRetracementGraphicsItem.\
+                        setDrawHorizontalDottedLinesFlag(True)
+        
+                    self.priceRetracementGraphicsItem.\
+                        setPos(self.clickOnePointF)
+                    self.priceRetracementGraphicsItem.\
+                        setStartPointF(self.clickOnePointF)
+                    self.priceRetracementGraphicsItem.\
+                        setEndPointF(self.clickOnePointF)
+                    self.scene().addItem(self.priceRetracementGraphicsItem)
+                    
+                    # Make sure the proper flags are set for the mode we're in.
+                    self.setGraphicsItemFlagsPerCurrToolMode(\
+                        self.priceRetracementGraphicsItem)
+
+                elif self.clickOnePointF != None and \
+                    self.clickTwoPointF == None and \
+                    self.priceRetracementGraphicsItem != None:
+
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "priceRetracementGraphicsItem != None.")
+                    
+                    # Set the end point of the PriceRetracementGraphicsItem.
+                    self.clickTwoPointF = self.mapToScene(qmouseevent.pos())
+
+                    # If snap is enabled, then find the closest
+                    # pricebar price to the place clicked.
+                    if self.snapEnabledFlag == True:
+                        self.log.debug("Snap is enabled, so snapping to " +
+                                       "closest pricebar price Y.")
+                        
+                        infoPointF = self.mapToScene(qmouseevent.pos())
+                        y = self.scene().getClosestPriceBarOHLCY(infoPointF)
+
+                        # Use this Y value.
+                        self.clickTwoPointF.setY(y)
+                    
+                    self.priceRetracementGraphicsItem.\
+                        setEndPointF(self.clickTwoPointF)
+                    self.priceRetracementGraphicsItem.normalizeStartAndEnd()
+        
+                    # Call getArtifact() so that the item's artifact
+                    # object gets updated and set.
+                    self.priceRetracementGraphicsItem.getArtifact()
+                                                
+                    # Unset the flag that indicates we should draw
+                    # dotted horizontal lines at the tick areas.
+                    self.priceRetracementGraphicsItem.\
+                        setDrawHorizontalDottedLinesFlag(False)
+                    
+                    # Emit that the PriceBarChart has changed.
+                    self.scene().priceBarChartArtifactGraphicsItemAdded.\
+                        emit(self.priceRetracementGraphicsItem)
+                    
+                    sceneBoundingRect = \
+                        self.priceRetracementGraphicsItem.sceneBoundingRect()
+                    
+                    self.log.debug("priceRetracementGraphicsItem " +
+                                   "officially added.  " +
+                                   "Its sceneBoundingRect is: {}.  ".\
+                                   format(sceneBoundingRect) +
+                                   "Its x range is: {} to {}.  ".\
+                                   format(sceneBoundingRect.left(),
+                                          sceneBoundingRect.right()) +
+                                   "Its y range is: {} to {}.  ".\
+                                   format(sceneBoundingRect.top(),
+                                          sceneBoundingRect.bottom()))
+                                   
+                    # Clear out working variables.
+                    self.clickOnePointF = None
+                    self.clickTwoPointF = None
+                    self.priceRetracementGraphicsItem = None
+                    
+                else:
+                    self.log.warn("Unexpected state reached.")
+                    
+            elif qmouseevent.button() & Qt.RightButton:
+                
+                self.log.debug("Qt.RightButton")
+                
+                if self.clickOnePointF != None and \
+                   self.clickTwoPointF == None and \
+                   self.priceRetracementGraphicsItem != None:
+
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "priceRetracementGraphicsItem != None.")
+                    
+                    # Right-click during setting the
+                    # PriceRetracementGraphicsItem causes the
+                    # currently edited bar count item to be removed
+                    # and cleared out.  Temporary variables used are
+                    # cleared out too.
+                    self.scene().removeItem(self.priceRetracementGraphicsItem)
+
+                    self.clickOnePointF = None
+                    self.clickTwoPointF = None
+                    self.priceRetracementGraphicsItem = None
+                    
+                elif self.clickOnePointF == None and \
+                     self.clickTwoPointF == None and \
+                     self.priceRetracementGraphicsItem == None:
+                    
+                    self.log.debug("clickOnePointF == None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "priceRetracementGraphicsItem == None.")
+                    
+                    # Open a context menu at this location, in readonly mode.
+                    clickPosF = self.mapToScene(qmouseevent.pos())
+                    menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
+                    menu.exec_(qmouseevent.globalPos())
+                    
+                else:
+                    self.log.warn("Unexpected state reached.")
+                    
         else:
             self.log.warn("Current toolMode is: UNKNOWN.")
 
@@ -11119,6 +12565,12 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 PriceBarChartGraphicsView.ToolMode['TimeRetracementTool']:
 
             self.log.debug("Current toolMode is: TimeRetracementTool")
+            super().mouseReleaseEvent(qmouseevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['PriceRetracementTool']:
+
+            self.log.debug("Current toolMode is: PriceRetracementTool")
             super().mouseReleaseEvent(qmouseevent)
 
         else:
@@ -11253,6 +12705,20 @@ class PriceBarChartGraphicsView(QGraphicsView):
             else:
                 super().mouseMoveEvent(qmouseevent)
 
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['PriceRetracementTool']:
+
+            if self.clickOnePointF != None and \
+                self.priceRetracementGraphicsItem != None:
+
+                pos = self.mapToScene(qmouseevent.pos())
+                
+                # Update the end point of the current
+                # PriceRetracementGraphicsItem.
+                self.priceRetracementGraphicsItem.setEndPointF(pos)
+            else:
+                super().mouseMoveEvent(qmouseevent)
+
         else:
             # For any other mode we don't have specific functionality for,
             # just pass the event to the parent to handle.
@@ -11314,6 +12780,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
             self.setCursor(QCursor(Qt.ArrowCursor))
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['TimeRetracementTool']:
+            self.setCursor(QCursor(Qt.ArrowCursor))
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['PriceRetracementTool']:
             self.setCursor(QCursor(Qt.ArrowCursor))
         else:
             self.log.warn("Unknown toolMode while in enterEvent().")

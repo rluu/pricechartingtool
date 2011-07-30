@@ -2875,6 +2875,295 @@ class PriceBarChartTimeRetracementArtifact(PriceBarChartArtifact):
                        PriceBarChartTimeRetracementArtifact.__name__ +
                        " object of version {}".format(self.classVersion))
 
+class PriceBarChartPriceRetracementArtifact(PriceBarChartArtifact):
+    """PriceBarChartArtifact that indicates the price
+    retracement starting at the given price and the given ending
+    price.
+    """
+    
+    def __init__(self):
+        super().__init__()
+        
+        # Set the version of this class (used for pickling and unpickling
+        # different versions of this class).
+        self.classVersion = 1
+
+        # Create the logger.
+        self.log = \
+            logging.getLogger(\
+            "data_objects.PriceBarChartPriceRetracementArtifact")
+
+        # Update the internal name so it is the artifact type plus the uuid.
+        self.internalName = "PriceRetracement_" + str(self.uuid)
+
+        # Start and end points of the artifact.
+        self.startPointF = QPointF()
+        self.endPointF = QPointF()
+
+        # Scaling the text, to make it bigger or smaller.
+        self.textXScaling = \
+            PriceBarChartSettings.\
+            defaultPriceRetracementGraphicsItemTextXScaling
+        self.textYScaling = \
+            PriceBarChartSettings.\
+            defaultPriceRetracementGraphicsItemTextYScaling
+        
+        # QFont cannot be pickled, but we can utilize
+        # QFont.toString() and then QFont.fromString()
+        self.fontDescription = \
+            PriceBarChartSettings.\
+            defaultPriceRetracementGraphicsItemDefaultFontDescription
+        
+        # QColor can be pickled
+        self.textColor = \
+            PriceBarChartSettings.\
+            defaultPriceRetracementGraphicsItemDefaultTextColor
+
+        # QColor can be pickled   
+        self.color = \
+            PriceBarChartSettings.\
+            defaultPriceRetracementGraphicsItemDefaultColor
+
+        # Flags for displaying various parts of the graphics item.
+        self.showFullLines = \
+            PriceBarChartSettings.\
+            defaultPriceRetracementGraphicsItemShowFullLinesFlag
+
+        self.showPriceText = \
+            PriceBarChartSettings.\
+            defaultPriceRetracementGraphicsItemShowPriceTextFlag
+        
+        self.showPercentText = \
+            PriceBarChartSettings.\
+            defaultPriceRetracementGraphicsItemShowPercentTextFlag
+
+        # List of Ratio objects for the different ratios supported.
+        self.ratios = \
+            PriceBarChartSettings.\
+            defaultPriceRetracementGraphicsItemRatios
+
+    def setFont(self, font):
+        """Sets the font of this artifact's text.
+
+        Arguments:
+        font - QFont object that is used for the drawing of the text.
+        """
+
+        # QFont cannot be pickled, but we can utilize
+        # QFont.toString() and then QFont.fromString().
+        self.fontDescription = font.toString()
+
+    def getFont(self):
+        """Returns the font of this artifact's text as a QFont.
+        """
+
+        # We obtain the QFont by calling QFont.fromString().
+        font = QFont()
+        font.fromString(self.fontDescription)
+
+        return font
+        
+    def setTextColor(self, textColor):
+        """Sets the color for this artifact's text.
+
+        Arguments:
+        textColor - QColor object holding the color of the text.
+        """
+
+        self.textColor = textColor
+
+    def getTextColor(self):
+        """Returns the color of this artifact's text as a QColor."""
+
+        return self.textColor
+
+    def setColor(self, color):
+        """Sets the color for this artifact.
+
+        Arguments:
+        color - QColor object holding the color of the text.
+        """
+
+        self.color = color
+
+    def getColor(self):
+        """Returns the color of this artifact as a QColor."""
+
+        return self.color
+
+    def setTextXScaling(self, textXScaling):
+        """Sets the text X scaling, used in making the text 
+        bigger or smaller.
+
+        Arguments:
+        textXScaling - float value for the scaling used.
+                       1.0 is no change in scaling.
+        """
+
+        self.textXScaling = textXScaling
+
+    def getTextXScaling(self):
+        """Returns float value for the text X scaling, used in making
+        the text bigger or smaller.
+        """
+
+        return self.textXScaling
+        
+    def setTextYScaling(self, textYScaling):
+        """Sets the text Y scaling, used in making the text 
+        bigger or smaller.
+
+        Arguments:
+        textYScaling - float value for the scaling used.
+                       1.0 is no change in scaling.
+        """
+
+        self.textYScaling = textYScaling
+
+    def getTextYScaling(self):
+        """Returns float value for the text Y scaling, used in making
+        the text bigger or smaller.
+        """
+
+        return self.textYScaling
+        
+    def setShowFullLinesFlag(self, flag):
+        """Sets the flag that indicates that the lines for the
+        retracement should be displayed.
+        """
+
+        self.showFullLines = flag
+        
+    def getShowFullLinesFlag(self):
+        """Returns the flag that indicates that the lines for the
+        retracement should be displayed.
+        """
+
+        return self.showFullLines
+        
+    def setShowPriceTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the
+        pricestamp should be displayed.
+        """
+
+        self.showPriceText = flag
+        
+    def getShowPriceTextFlag(self):
+        """Returns the flag that indicates that the text for the
+        price should be displayed.
+        """
+
+        return self.showPriceText
+        
+    def setShowPercentTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the
+        percent should be displayed.
+        """
+
+        self.showPercentText = flag
+        
+    def getShowPercentTextFlag(self):
+        """Returns the flag that indicates that the text for the
+        percent should be displayed.
+        """
+
+        return self.showPercentText
+
+    def setRatios(self, ratios):
+        """Sets the list of Ratio objects, which is the ratios
+        supported, and whether they are enabled or not for this
+        artifact.
+        """
+
+        self.ratios = ratios
+    
+    def getRatios(self):
+        """Returns a list of Ratio objects, which holds the ratios
+        supported, and whether they are enabled or not for this
+        artifact.
+        """
+
+        return self.ratios
+    
+    def setStartPointF(self, startPointF):
+        """Stores the starting point of the PriceRetracementArtifact.
+        Arguments:
+
+        startPointF - QPointF for the starting point of the artifact.
+        """
+        
+        self.startPointF = startPointF
+        
+    def getStartPointF(self):
+        """Returns the starting point of the PriceRetracementArtifact."""
+        
+        return self.startPointF
+        
+    def setEndPointF(self, endPointF):
+        """Stores the ending point of the PriceRetracementArtifact.
+        Arguments:
+
+        endPointF - QPointF for the ending point of the artifact.
+        """
+        
+        self.endPointF = endPointF
+        
+    def getEndPointF(self):
+        """Returns the ending point of the PriceRetracementArtifact."""
+        
+        return self.endPointF
+        
+    def __str__(self):
+        """Returns the string representation of this object."""
+
+        return self.toString()
+
+    def toString(self):
+        """Returns the string representation of this object."""
+
+        rv = "["
+
+        obj = self
+        for attr in dir(obj):
+            # If it doesn't start with '__' and if it's not callable.
+            if not attr.startswith('__') and \
+                   not hasattr(getattr(obj, attr), '__call__'):
+                rv += "{}={}, ".format(attr, getattr(obj, attr))
+
+        rv += "]"
+
+        return rv
+
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = \
+            logging.getLogger(\
+            "data_objects.PriceBarChartPriceRetracementArtifact")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " +
+                       PriceBarChartPriceRetracementArtifact.__name__ +
+                       " object of version {}".format(self.classVersion))
+
 class PriceBarChartScaling:
     """Class that holds information about the scaling of a PriceBarChart.
     """
@@ -3470,6 +3759,45 @@ class PriceBarChartSettings:
     # ratios (list of Ratio).
     defaultTimeRetracementGraphicsItemRatios = Ratio.getSupportedFibRatios()
     
+    # Default value for the PriceRetracementGraphicsItem bar width (float).
+    defaultPriceRetracementGraphicsItemBarWidth = 0.2
+
+    # Default value for the PriceRetracementGraphicsItem text X scaling (float).
+    defaultPriceRetracementGraphicsItemTextXScaling = 0.2
+
+    # Default value for the PriceRetracementGraphicsItem text Y scaling (float).
+    defaultPriceRetracementGraphicsItemTextYScaling = 0.04
+
+    # Default font (this is basically the QFont, serialized to
+    # str) for the PriceRetracementGraphicsItem.  This includes the
+    # font size.
+    font = QFont("Andale Mono")
+    font.setPointSizeF(6)
+    defaultPriceRetracementGraphicsItemDefaultFontDescription = font.toString()
+
+    # PriceRetracementGraphicsItem default text color.
+    defaultPriceRetracementGraphicsItemDefaultTextColor = QColor(Qt.black)
+    
+    # PriceRetracementGraphicsItem default color.
+    defaultPriceRetracementGraphicsItemDefaultColor = QColor(Qt.black)
+    
+    # Default value for the PriceRetracementGraphicsItem
+    # showFullLinesFlag (bool).
+    defaultPriceRetracementGraphicsItemShowFullLinesFlag = True
+    
+    # Default value for the PriceRetracementGraphicsItem
+    # showPriceTextFlag (bool).
+    defaultPriceRetracementGraphicsItemShowPriceTextFlag = True
+    
+    # Default value for the PriceRetracementGraphicsItem
+    # showPercentTextFlag (bool).
+    defaultPriceRetracementGraphicsItemShowPercentTextFlag = True
+    
+    # Default value for the PriceRetracementGraphicsItem
+    # ratios (list of Ratio).
+    defaultPriceRetracementGraphicsItemRatios = Ratio.getSupportedFibRatios()
+
+
     def __init__(self):
         """"Initializes the PriceChartSettings to default values."""
 
@@ -3764,7 +4092,60 @@ class PriceBarChartSettings:
         self.timeRetracementGraphicsItemRatios = \
             PriceBarChartSettings.\
             defaultTimeRetracementGraphicsItemRatios
+
+        # PriceRetracementGraphicsItem bar width (float).
+        self.priceRetracementGraphicsItemBarWidth = \
+            PriceBarChartSettings.\
+                defaultPriceRetracementGraphicsItemBarWidth
+
+        # PriceRetracementGraphicsItem text X scaling (float).
+        self.priceRetracementGraphicsItemTextXScaling = \
+            PriceBarChartSettings.\
+                defaultPriceRetracementGraphicsItemTextXScaling
+
+        # PriceRetracementGraphicsItem text Y scaling (float).
+        self.priceRetracementGraphicsItemTextYScaling = \
+            PriceBarChartSettings.\
+                defaultPriceRetracementGraphicsItemTextYScaling
+
+        # Default font (this is basically the QFont, serialized to
+        # str) for the PriceRetracementGraphicsItem.  This includes the
+        # font size.
+        self.priceRetracementGraphicsItemDefaultFontDescription = \
+            PriceBarChartSettings.\
+            defaultPriceRetracementGraphicsItemDefaultFontDescription
+
+        # PriceRetracementGraphicsItem default text color.
+        self.priceRetracementGraphicsItemDefaultTextColor = \
+            PriceBarChartSettings.\
+            defaultPriceRetracementGraphicsItemDefaultTextColor
+        
+        # PriceRetracementGraphicsItem default color.
+        self.priceRetracementGraphicsItemDefaultColor = \
+            PriceBarChartSettings.\
+            defaultPriceRetracementGraphicsItemDefaultColor
+
+        # PriceRetracementGraphicsItem showFullLinesFlag (bool).
+        self.priceRetracementGraphicsItemShowFullLinesFlag = \
+            PriceBarChartSettings.\
+            defaultPriceRetracementGraphicsItemShowFullLinesFlag
     
+        # PriceRetracementGraphicsItem showPriceTextFlag (bool).
+        self.priceRetracementGraphicsItemShowPriceTextFlag = \
+            PriceBarChartSettings.\
+            defaultPriceRetracementGraphicsItemShowPriceTextFlag
+    
+        # PriceRetracementGraphicsItem showPercentTextFlag (bool).
+        self.priceRetracementGraphicsItemShowPercentTextFlag = \
+            PriceBarChartSettings.\
+            defaultPriceRetracementGraphicsItemShowPercentTextFlag
+    
+        # PriceRetracementGraphicsItem ratios (list of Ratio).
+        self.priceRetracementGraphicsItemRatios = \
+            PriceBarChartSettings.\
+            defaultPriceRetracementGraphicsItemRatios
+
+
     def __getstate__(self):
         """Returns the object's state for pickling purposes."""
 

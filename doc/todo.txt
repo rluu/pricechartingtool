@@ -18,12 +18,12 @@ DONE        - text color
 DONE	
 DONE        
 DONE
+DONE  - Fibonnaci time retracement (which also implies extension since
+DONE    they are the same).  FibTimeRetracementTool.
+DONE
 
   - Fibonnaci price retracement (which also implies extension since
     they are the same).  FibPriceRetracementTool
-
-  - Fibonnaci time retracement (which also implies extension since
-    they are the same).  FibTimeRetracementTool.
 
   - Use 'snap' enabled flag for ptv tool.
 
