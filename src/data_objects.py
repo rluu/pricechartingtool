@@ -3760,7 +3760,7 @@ class PriceBarChartSettings:
     defaultTimeRetracementGraphicsItemRatios = Ratio.getSupportedFibRatios()
     
     # Default value for the PriceRetracementGraphicsItem bar width (float).
-    defaultPriceRetracementGraphicsItemBarWidth = 0.2
+    defaultPriceRetracementGraphicsItemBarWidth = 1.0
 
     # Default value for the PriceRetracementGraphicsItem text X scaling (float).
     defaultPriceRetracementGraphicsItemTextXScaling = 0.2

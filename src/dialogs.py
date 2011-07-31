@@ -10563,6 +10563,7 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.tabWidget.addTab(self.page3GroupBox, "Page 3")
         self.tabWidget.addTab(self.page4GroupBox, "Page 4")
         self.tabWidget.addTab(self.page5GroupBox, "Page 5")
+        self.tabWidget.addTab(self.page6GroupBox, "Page 6")
         
         # Buttons at bottom.
         self.resetAllToDefaultButton = \
@@ -14182,7 +14183,7 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceRetracementGraphicsItemShowPercentTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
             
-def _handleResetAllToDefaultButtonClicked(self):
+    def _handleResetAllToDefaultButtonClicked(self):
         """Called when the resetAllToDefaultButton is clicked.
         Resets the all the widget values in this widget to the default
         values.

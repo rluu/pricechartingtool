@@ -7995,7 +7995,7 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             
             priceTextItem.setPos(QPointF(x, y))
 
-            offset = self.priceRetracementGraphicsItemBarWidth * 10
+            offset = self.priceRetracementGraphicsItemBarWidth * 0.4
             y = y - offset
 
             percentTextItem.setPos(QPointF(x, y))
@@ -8071,7 +8071,7 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 price = self.scene().sceneYPosToPrice(sceneYPos)
 
                 # Set texts.
-                priceText = "{}".format(Ephemeris.datepriceToDayStr(price))
+                priceText = "{}".format(price)
                 percentText = "{:.2f} %".format(ratio.getRatio() * 100)
                 
                 priceTextItem.setText(priceText)
@@ -8365,7 +8365,7 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 if self.showFullLinesFlag == True:
                     x1 = 0
                     y1 = localY
-                    x2 = self.mapFromScene(QPointF(0.0, self.endPointF.x())).x()
+                    x2 = self.mapFromScene(QPointF(self.endPointF.x(), 0.0)).x()
                     y2 = localY
         
                     painter.drawLine(QLineF(x1, y1, x2, y2))
@@ -8426,8 +8426,8 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 localLargestPriceBarX = \
                     self.mapFromScene(QPointF(largestPriceBarX, 0.0)).x()
 
-                xValues.append(localHighX)
-                xValues.append(localLowX)
+                xValues.append(localLargestPriceBarX)
+                xValues.append(localSmallestPriceBarX)
 
                 # We have all x values now, so sort them to get the
                 # low and high.
