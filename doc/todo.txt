@@ -33,7 +33,9 @@ DONE    by default.
 
   - Split the modal-scale-tool to price-modal-scale and time-modal-scale.
     (and change it to restrict the x, y, etc.)
-    
+
+    - Add snap capability for vertical and horizontal values.
+
   - Line segment tool.  (when selected, box is drawn around it.  need
     property/setting for the invisible 'width' of the line segment.)
 

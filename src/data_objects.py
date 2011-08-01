@@ -29,12 +29,27 @@ class Util:
     def qColorToStr(qcolor):
         """Returns a string formatting of a QColor object."""
 
-        return "QColor(r={}, g={}, b={}, a={})".\
-               format(qcolor.red(),
+        #return "QColor(r={},g={},b={},a={})".\
+        #       format(qcolor.red(),
+        #              qcolor.green(),
+        #              qcolor.blue(),
+        #              qcolor.alpha())
+        
+        #return "QColor(h={},s={},v={},a={})".\
+        #       format(qcolor.hue(),
+        #              qcolor.saturation(),
+        #              qcolor.value(),
+        #              qcolor.alpha())
+    
+        return "QColor(h={},s={},v={},r={},g={},b={},a={})".\
+               format(qcolor.hue(),
+                      qcolor.saturation(),
+                      qcolor.value(),
+                      qcolor.red(),
                       qcolor.green(),
                       qcolor.blue(),
                       qcolor.alpha())
-    
+        
 class BirthInfo:
     """Contains data related to the birth of an entity or person.
     See the documentation for the '__init__()' function to see what
@@ -291,10 +306,12 @@ class BirthInfo:
                     rv += "{}=[".format(attr)
                     for item in attrObj:
                         rv += "{}, ".format(item)
+                    rv = rv.rstrip(', ')
                     rv += "]"
                 else:
                     rv += "{}={}, ".format(attr, attrObj)
                     
+        rv = rv.rstrip(', ')
         rv += "]"
 
         return rv
@@ -483,10 +500,12 @@ class PriceBar:
                     rv += "{}=[".format(attr)
                     for item in attrObj:
                         rv += "{}, ".format(item)
+                    rv = rv.rstrip(', ')
                     rv += "]"
                 else:
                     rv += "{}={}, ".format(attr, attrObj)
 
+        rv = rv.rstrip(', ')
         rv += "]"
 
         return rv
@@ -701,10 +720,12 @@ class Ratio:
                     rv += "{}=[".format(attr)
                     for item in attrObj:
                         rv += "{}, ".format(item)
+                    rv = rv.rstrip(', ')
                     rv += "]"
                 else:
                     rv += "{}={}, ".format(attr, attrObj)
 
+        rv = rv.rstrip(', ')
         rv += "]"
 
         return rv
@@ -1026,10 +1047,12 @@ class MusicalRatio(Ratio):
                     rv += "{}=[".format(attr)
                     for item in attrObj:
                         rv += "{}, ".format(item)
+                    rv = rv.rstrip(', ')
                     rv += "]"
                 else:
                     rv += "{}={}, ".format(attr, attrObj)
 
+        rv = rv.rstrip(', ')
         rv += "]"
 
         return rv
@@ -1139,10 +1162,12 @@ class PriceBarChartArtifact:
                     rv += "{}=[".format(attr)
                     for item in attrObj:
                         rv += "{}, ".format(item)
+                    rv = rv.rstrip(', ')
                     rv += "]"
                 else:
                     rv += "{}={}, ".format(attr, attrObj)
 
+        rv = rv.rstrip(', ')
         rv += "]"
 
         return rv
@@ -1229,10 +1254,12 @@ class PriceBarChartBarCountArtifact(PriceBarChartArtifact):
                     rv += "{}=[".format(attr)
                     for item in attrObj:
                         rv += "{}, ".format(item)
+                    rv = rv.rstrip(', ')
                     rv += "]"
                 else:
                     rv += "{}={}, ".format(attr, attrObj)
 
+        rv = rv.rstrip(', ')
         rv += "]"
 
         return rv
@@ -1640,10 +1667,12 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
                     rv += "{}=[".format(attr)
                     for item in attrObj:
                         rv += "{}, ".format(item)
+                    rv = rv.rstrip(', ')
                     rv += "]"
                 else:
                     rv += "{}={}, ".format(attr, attrObj)
 
+        rv = rv.rstrip(', ')
         rv += "]"
 
         return rv
@@ -1994,11 +2023,6 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        #musicalRatiosStr = "["
-        #for musicalRatio in self.musicalRatios:
-        #    musicalRatiosStr += musicalRatio.toString()
-        #musicalRatiosStr += "]"
-        
         rv = "["
 
         obj = self
@@ -2021,10 +2045,12 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
                     rv += "{}=[".format(attr)
                     for item in attrObj:
                         rv += "{}, ".format(item)
+                    rv = rv.rstrip(', ')
                     rv += "]"
                 else:
                     rv += "{}={}, ".format(attr, attrObj)
 
+        rv = rv.rstrip(', ')
         rv += "]"
 
         return rv
@@ -2212,10 +2238,12 @@ class PriceBarChartTextArtifact(PriceBarChartArtifact):
                     rv += "{}=[".format(attr)
                     for item in attrObj:
                         rv += "{}, ".format(item)
+                    rv = rv.rstrip(', ')
                     rv += "]"
                 else:
                     rv += "{}={}, ".format(attr, attrObj)
 
+        rv = rv.rstrip(', ')
         rv += "]"
 
         return rv
@@ -2516,10 +2544,12 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
                     rv += "{}=[".format(attr)
                     for item in attrObj:
                         rv += "{}, ".format(item)
+                    rv = rv.rstrip(', ')
                     rv += "]"
                 else:
                     rv += "{}={}, ".format(attr, attrObj)
 
+        rv = rv.rstrip(', ')
         rv += "]"
 
         return rv
@@ -2781,10 +2811,12 @@ class PriceBarChartPriceMeasurementArtifact(PriceBarChartArtifact):
                     rv += "{}=[".format(attr)
                     for item in attrObj:
                         rv += "{}, ".format(item)
+                    rv = rv.rstrip(', ')
                     rv += "]"
                 else:
                     rv += "{}={}, ".format(attr, attrObj)
 
+        rv = rv.rstrip(', ')
         rv += "]"
 
         return rv
@@ -3087,10 +3119,12 @@ class PriceBarChartTimeRetracementArtifact(PriceBarChartArtifact):
                     rv += "{}=[".format(attr)
                     for item in attrObj:
                         rv += "{}, ".format(item)
+                    rv = rv.rstrip(', ')
                     rv += "]"
                 else:
                     rv += "{}={}, ".format(attr, attrObj)
 
+        rv = rv.rstrip(', ')
         rv += "]"
 
         return rv
@@ -3393,10 +3427,12 @@ class PriceBarChartPriceRetracementArtifact(PriceBarChartArtifact):
                     rv += "{}=[".format(attr)
                     for item in attrObj:
                         rv += "{}, ".format(item)
+                    rv = rv.rstrip(', ')
                     rv += "]"
                 else:
                     rv += "{}={}, ".format(attr, attrObj)
 
+        rv = rv.rstrip(', ')
         rv += "]"
 
         return rv
@@ -3545,10 +3581,12 @@ class PriceBarChartScaling:
                     rv += "{}=[".format(attr)
                     for item in attrObj:
                         rv += "{}, ".format(item)
+                    rv = rv.rstrip(', ')
                     rv += "]"
                 else:
                     rv += "{}={}, ".format(attr, attrObj)
 
+        rv = rv.rstrip(', ')
         rv += "]"
 
         return rv
@@ -4530,10 +4568,12 @@ class PriceBarChartSettings:
                     rv += "{}=[".format(attr)
                     for item in attrObj:
                         rv += "{}, ".format(item)
+                    rv = rv.rstrip(', ')
                     rv += "]"
                 else:
                     rv += "{}={}, ".format(attr, attrObj)
 
+        rv = rv.rstrip(', ')
         rv += "]"
 
         return rv
@@ -4616,10 +4656,12 @@ class PriceBarSpreadsheetSettings:
                     rv += "{}=[".format(attr)
                     for item in attrObj:
                         rv += "{}, ".format(item)
+                    rv = rv.rstrip(', ')
                     rv += "]"
                 else:
                     rv += "{}={}, ".format(attr, attrObj)
 
+        rv = rv.rstrip(', ')
         rv += "]"
 
         return rv
