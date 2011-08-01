@@ -10531,6 +10531,8 @@ class PriceBarChartSettingsEditWidget(QWidget):
         page1GroupBoxLayout = QVBoxLayout()
         page1GroupBoxLayout.addWidget(self.priceBarGraphicsItemGroupBox)
         page1GroupBoxLayout.addWidget(self.barCountGraphicsItemGroupBox)
+        page1GroupBoxLayout.addWidget(self.modalScaleGraphicsItemGroupBox)
+        page1GroupBoxLayout.addWidget(self.textGraphicsItemGroupBox)
         self.page1GroupBox.setLayout(page1GroupBoxLayout)
 
         page2GroupBoxLayout = QVBoxLayout()
@@ -10538,22 +10540,17 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.page2GroupBox.setLayout(page2GroupBoxLayout)
 
         page3GroupBoxLayout = QVBoxLayout()
-        page3GroupBoxLayout.addWidget(self.modalScaleGraphicsItemGroupBox)
-        page3GroupBoxLayout.addWidget(self.textGraphicsItemGroupBox)
         page3GroupBoxLayout.addWidget(self.priceTimeInfoGraphicsItemGroupBox)
+        page3GroupBoxLayout.addWidget(self.priceMeasurementGraphicsItemGroupBox)
         self.page3GroupBox.setLayout(page3GroupBoxLayout)
-
+        
         page4GroupBoxLayout = QVBoxLayout()
-        page4GroupBoxLayout.addWidget(self.priceMeasurementGraphicsItemGroupBox)
+        page4GroupBoxLayout.addWidget(self.timeRetracementGraphicsItemGroupBox)
         self.page4GroupBox.setLayout(page4GroupBoxLayout)
         
         page5GroupBoxLayout = QVBoxLayout()
-        page5GroupBoxLayout.addWidget(self.timeRetracementGraphicsItemGroupBox)
+        page5GroupBoxLayout.addWidget(self.priceRetracementGraphicsItemGroupBox)
         self.page5GroupBox.setLayout(page5GroupBoxLayout)
-        
-        page6GroupBoxLayout = QVBoxLayout()
-        page6GroupBoxLayout.addWidget(self.priceRetracementGraphicsItemGroupBox)
-        self.page6GroupBox.setLayout(page6GroupBoxLayout)
         
         # Create a QTabWidget to stack all the settings editing
         # widgets.
@@ -10563,7 +10560,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.tabWidget.addTab(self.page3GroupBox, "Page 3")
         self.tabWidget.addTab(self.page4GroupBox, "Page 4")
         self.tabWidget.addTab(self.page5GroupBox, "Page 5")
-        self.tabWidget.addTab(self.page6GroupBox, "Page 6")
         
         # Buttons at bottom.
         self.resetAllToDefaultButton = \
@@ -11665,6 +11661,55 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.priceTimeInfoGraphicsItemDefaultYScalingResetButton = \
             QPushButton("Reset to default")
                                              
+        # priceTimeInfoGraphicsItemShowTimestampFlag (bool).
+        self.priceTimeInfoGraphicsItemShowTimestampFlagLabel = \
+            QLabel("PriceTimeInfoGraphicsItem show timestamp:")
+        self.priceTimeInfoGraphicsItemShowTimestampFlagCheckBox = \
+            QCheckBox()
+        self.priceTimeInfoGraphicsItemShowTimestampFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # priceTimeInfoGraphicsItemShowPriceFlag (bool).
+        self.priceTimeInfoGraphicsItemShowPriceFlagLabel = \
+            QLabel("PriceTimeInfoGraphicsItem show price:")
+        self.priceTimeInfoGraphicsItemShowPriceFlagCheckBox = \
+            QCheckBox()
+        self.priceTimeInfoGraphicsItemShowPriceFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # priceTimeInfoGraphicsItemShowSqrtPriceFlag (bool).
+        self.priceTimeInfoGraphicsItemShowSqrtPriceFlagLabel = \
+            QLabel("PriceTimeInfoGraphicsItem show sqrt(price):")
+        self.priceTimeInfoGraphicsItemShowSqrtPriceFlagCheckBox = \
+            QCheckBox()
+        self.priceTimeInfoGraphicsItemShowSqrtPriceFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # priceTimeInfoGraphicsItemShowTimeElapsedSinceBirthFlag (bool).
+        self.priceTimeInfoGraphicsItemShowTimeElapsedSinceBirthFlagLabel = \
+            QLabel("PriceTimeInfoGraphicsItem show time-elapsed-since-birth:")
+        self.priceTimeInfoGraphicsItemShowTimeElapsedSinceBirthFlagCheckBox = \
+            QCheckBox()
+        self.priceTimeInfoGraphicsItemShowTimeElapsedSinceBirthFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # priceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlag (bool).
+        self.priceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlagLabel = \
+            QLabel("PriceTimeInfoGraphicsItem " +
+                   "show sqrt(time-elapsed-since-birth):")
+        self.priceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlagCheckBox = \
+            QCheckBox()
+        self.priceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # priceTimeInfoGraphicsItemShowLineToInfoPointFlag (bool).
+        self.priceTimeInfoGraphicsItemShowLineToInfoPointFlagLabel = \
+            QLabel("PriceTimeInfoGraphicsItem show line to InfoPoint:")
+        self.priceTimeInfoGraphicsItemShowLineToInfoPointFlagCheckBox = \
+            QCheckBox()
+        self.priceTimeInfoGraphicsItemShowLineToInfoPointFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
         # Grid layout.
         gridLayout = QGridLayout()
         r = 0
@@ -11713,7 +11758,63 @@ class PriceBarChartSettingsEditWidget(QWidget):
         gridLayout.addWidget\
             (self.priceTimeInfoGraphicsItemDefaultYScalingResetButton, 
              r, 2, ar)
+        
         r += 1
+        gridLayout.\
+            addWidget(self.priceTimeInfoGraphicsItemShowTimestampFlagLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.priceTimeInfoGraphicsItemShowTimestampFlagCheckBox, 
+                      r, 1, ar)
+        
+        r += 1
+        gridLayout.\
+            addWidget(self.priceTimeInfoGraphicsItemShowPriceFlagLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.priceTimeInfoGraphicsItemShowPriceFlagCheckBox, 
+                      r, 1, ar)
+        
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.priceTimeInfoGraphicsItemShowSqrtPriceFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.priceTimeInfoGraphicsItemShowSqrtPriceFlagCheckBox, 
+            r, 1, ar)
+        
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.priceTimeInfoGraphicsItemShowTimeElapsedSinceBirthFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.priceTimeInfoGraphicsItemShowTimeElapsedSinceBirthFlagCheckBox,
+            r, 1, ar)
+        
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.priceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlagLabel,
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.priceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlagCheckBox, 
+            r, 1, ar)
+        
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.priceTimeInfoGraphicsItemShowLineToInfoPointFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.priceTimeInfoGraphicsItemShowLineToInfoPointFlagCheckBox, 
+            r, 1, ar)
+        
 
         self.priceTimeInfoGraphicsItemGroupBox.setLayout(gridLayout)
 
@@ -12686,6 +12787,70 @@ class PriceBarChartSettingsEditWidget(QWidget):
             setValue(self.priceBarChartSettings.\
                      priceTimeInfoGraphicsItemDefaultYScaling)
 
+        # priceTimeInfoGraphicsItemShowTimestampFlag (bool).
+        if self.priceBarChartSettings.\
+           priceTimeInfoGraphicsItemShowTimestampFlag == True:
+
+            self.priceTimeInfoGraphicsItemShowTimestampFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.priceTimeInfoGraphicsItemShowTimestampFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+    
+        # priceTimeInfoGraphicsItemShowPriceFlag (bool).
+        if self.priceBarChartSettings.\
+           priceTimeInfoGraphicsItemShowPriceFlag == True:
+
+            self.priceTimeInfoGraphicsItemShowPriceFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.priceTimeInfoGraphicsItemShowPriceFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+    
+        # priceTimeInfoGraphicsItemShowSqrtPriceFlag (bool).
+        if self.priceBarChartSettings.\
+           priceTimeInfoGraphicsItemShowSqrtPriceFlag == True:
+
+            self.priceTimeInfoGraphicsItemShowSqrtPriceFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.priceTimeInfoGraphicsItemShowSqrtPriceFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+    
+        # priceTimeInfoGraphicsItemShowTimeElapsedSinceBirthFlag (bool).
+        if self.priceBarChartSettings.\
+           priceTimeInfoGraphicsItemShowTimeElapsedSinceBirthFlag == True:
+
+            self.\
+            priceTimeInfoGraphicsItemShowTimeElapsedSinceBirthFlagCheckBox.\
+            setCheckState(Qt.Checked)
+        else:
+            self.\
+            priceTimeInfoGraphicsItemShowTimeElapsedSinceBirthFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # priceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlag (bool).
+        if self.priceBarChartSettings.\
+           priceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlag == True:
+            
+            self.\
+            priceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlagCheckBox.\
+            setCheckState(Qt.Checked)
+        else:
+            self.\
+            priceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # priceTimeInfoGraphicsItemShowLineToInfoPointFlag (bool).
+        if self.priceBarChartSettings.\
+           priceTimeInfoGraphicsItemShowLineToInfoPointFlag == True:
+
+            self.priceTimeInfoGraphicsItemShowLineToInfoPointFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.priceTimeInfoGraphicsItemShowLineToInfoPointFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
         # priceMeasurementGraphicsItemBarWidth (float).
         self.priceMeasurementGraphicsItemBarWidthSpinBox.\
             setValue(self.priceBarChartSettings.\
@@ -13104,6 +13269,67 @@ class PriceBarChartSettingsEditWidget(QWidget):
         # priceTimeInfoGraphicsItemDefaultYScaling (float).
         self.priceBarChartSettings.priceTimeInfoGraphicsItemDefaultYScaling = \
             float(self.priceTimeInfoGraphicsItemDefaultYScalingSpinBox.value())
+
+        # priceTimeInfoGraphicsItemShowTimestampFlag (bool).
+        if self.priceTimeInfoGraphicsItemShowTimestampFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                priceTimeInfoGraphicsItemShowTimestampFlag = True
+        else:
+            self.priceBarChartSettings.\
+                priceTimeInfoGraphicsItemShowTimestampFlag = False
+            
+        # priceTimeInfoGraphicsItemShowPriceFlag (bool).
+        if self.priceTimeInfoGraphicsItemShowPriceFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                priceTimeInfoGraphicsItemShowPriceFlag = True
+        else:
+            self.priceBarChartSettings.\
+                priceTimeInfoGraphicsItemShowPriceFlag = False
+
+        # priceTimeInfoGraphicsItemShowSqrtPriceFlag (bool).
+        if self.priceTimeInfoGraphicsItemShowSqrtPriceFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                priceTimeInfoGraphicsItemShowSqrtPriceFlag = True
+        else:
+            self.priceBarChartSettings.\
+                priceTimeInfoGraphicsItemShowSqrtPriceFlag = False
+
+        # priceTimeInfoGraphicsItemShowTimeElapsedSinceBirthFlag (bool).
+        if self.priceTimeInfoGraphicsItemShowTimeElapsedSinceBirthFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                priceTimeInfoGraphicsItemShowTimeElapsedSinceBirthFlag = True
+        else:
+            self.priceBarChartSettings.\
+                priceTimeInfoGraphicsItemShowTimeElapsedSinceBirthFlag = False
+
+        # priceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlag (bool).
+        if self.priceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlagCheckBox.checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                priceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlag = \
+                True
+        else:
+            self.priceBarChartSettings.\
+                priceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlag = \
+                False
+
+        # priceTimeInfoGraphicsItemShowLineToInfoPointFlag (bool).
+        if self.priceTimeInfoGraphicsItemShowLineToInfoPointFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                priceTimeInfoGraphicsItemShowLineToInfoPointFlag = True
+        else:
+            self.priceBarChartSettings.\
+                priceTimeInfoGraphicsItemShowLineToInfoPointFlag = False
 
         # priceMeasurementGraphicsItemBarWidth (float).
         self.priceBarChartSettings.\
@@ -15508,12 +15734,12 @@ class PriceBarEditWidget(QWidget):
 
         # Set the internal widgets as readonly or not depending on this flag.
         self.timestampEditWidget.setReadOnly(self.readOnlyFlag)
-        self.openPriceSpinBox.setReadOnly(self.readOnlyFlag)
-        self.highPriceSpinBox.setReadOnly(self.readOnlyFlag)
-        self.lowPriceSpinBox.setReadOnly(self.readOnlyFlag)
-        self.closePriceSpinBox.setReadOnly(self.readOnlyFlag)
-        self.openInterestSpinBox.setReadOnly(self.readOnlyFlag)
-        self.volumeSpinBox.setReadOnly(self.readOnlyFlag)
+        self.openPriceSpinBox.setEnabled(not self.readOnlyFlag)
+        self.highPriceSpinBox.setEnabled(not self.readOnlyFlag)
+        self.lowPriceSpinBox.setEnabled(not self.readOnlyFlag)
+        self.closePriceSpinBox.setEnabled(not self.readOnlyFlag)
+        self.openInterestSpinBox.setEnabled(not self.readOnlyFlag)
+        self.volumeSpinBox.setEnabled(not self.readOnlyFlag)
         self.tagsListEditButton.setEnabled(not self.readOnlyFlag)
 
         # Don't allow the Okay button to be pressed for saving.

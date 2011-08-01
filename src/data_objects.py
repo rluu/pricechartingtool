@@ -2274,13 +2274,6 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
         # Location of the point of the price and time info.
         self.infoPointF = QPointF()
 
-        # Flags for what to show in the text.
-        self.showTimestampFlag = True
-        self.showPriceFlag = True
-        self.showSqrtOfPriceFlag = True
-        self.showTimeElapsedSinceBirthFlag = True
-        self.showSqrtOfTimeElapsedSinceBirthFlag = True
-        
         # QFont cannot be pickled, but we can utilize
         # QFont.toString() and then QFont.fromString()
         self.fontDescription = \
@@ -2299,6 +2292,33 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
             PriceBarChartSettings.\
             defaultPriceTimeInfoGraphicsItemDefaultYScaling
         
+        # Flags for what to show in the text.
+        self.showTimestampFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeInfoGraphicsItemShowTimestampFlag
+        
+        self.showPriceFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeInfoGraphicsItemShowPriceFlag
+        
+        self.showSqrtPriceFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeInfoGraphicsItemShowSqrtPriceFlag
+        
+        self.showTimeElapsedSinceBirthFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeInfoGraphicsItemShowTimeElapsedSinceBirthFlag
+        
+        self.showSqrtTimeElapsedSinceBirthFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlag
+
+        # Flag to show the line from the text to the info point.
+        self.showLineToInfoPointFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeInfoGraphicsItemShowLineToInfoPointFlag
+        
+        
     def setInfoPointF(self, infoPointF):
         """Sets the point of info for the price and time, as a QPointF
         in scene coordinates.
@@ -2316,70 +2336,6 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
 
         return self.infoPointF
 
-    def setShowTimestampFlag(self, showTimestampFlag):
-        """Sets the flag for showing the timestamp in the text."""
-
-        self.showTimestampFlag = showTimestampFlag
-
-    def getShowTimestampFlag(self):
-        """Returns the flag for showing the timestamp in the text."""
-
-        return self.showTimestampFlag
-    
-    def setShowPriceFlag(self, showPriceFlag):
-        """Sets the flag for showing the price in the text."""
-
-        self.showPriceFlag = showPriceFlag
-
-    def getShowPriceFlag(self):
-        """Returns the flag for showing the price in the text."""
-
-        return self.showPriceFlag
-    
-    def setShowSqrtOfPriceFlag(self, showSqrtOfPriceFlag):
-        """Sets the flag for showing the square root of price in the
-        text.
-        """
-
-        self.showSqrtOfPriceFlag = showSqrtOfPriceFlag
-
-    def getShowSqrtOfPriceFlag(self):
-        """Returns the flag for showing the square root of price in
-        the text.
-        """
-
-        return self.showSqrtOfPriceFlag
-    
-    def setShowTimeElapsedSinceBirthFlag(self, showTimeElapsedSinceBirthFlag):
-        """Sets the flag for showing the time elapsed since birth in
-        the text.
-        """
-
-        self.showTimeElapsedSinceBirthFlag = showTimeElapsedSinceBirthFlag
-
-    def getShowTimeElapsedSinceBirthFlag(self):
-        """Returns the flag for showing the time elapsed since birth
-        in the text.
-        """
-
-        return self.showTimeElapsedSinceBirthFlag
-    
-    def setShowSqrtOfTimeElapsedSinceBirthFlag(\
-        self, showSqrtOfTimeElapsedSinceBirthFlag):
-        """Sets the flag for showing the square root of time elapsed
-        since birth in the text.
-        """
-
-        self.showSqrtOfTimeElapsedSinceBirthFlag = \
-            showSqrtOfTimeElapsedSinceBirthFlag
-
-    def getShowSqrtOfTimeElapsedSinceBirthFlag(self):
-        """Returns the flag for showing the square root of time
-        elapsed since birth in the text.
-        """
-
-        return self.showSqrtOfTimeElapsedSinceBirthFlag
-    
     def setFont(self, font):
         """Sets the font of this PriceBarChartPriceTimeInfoArtifact.
 
@@ -2453,6 +2409,83 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
 
         return self.textYScaling
         
+    def setShowTimestampFlag(self, showTimestampFlag):
+        """Sets the flag for showing the timestamp in the text."""
+
+        self.showTimestampFlag = showTimestampFlag
+
+    def getShowTimestampFlag(self):
+        """Returns the flag for showing the timestamp in the text."""
+
+        return self.showTimestampFlag
+    
+    def setShowPriceFlag(self, showPriceFlag):
+        """Sets the flag for showing the price in the text."""
+
+        self.showPriceFlag = showPriceFlag
+
+    def getShowPriceFlag(self):
+        """Returns the flag for showing the price in the text."""
+
+        return self.showPriceFlag
+    
+    def setShowSqrtPriceFlag(self, showSqrtPriceFlag):
+        """Sets the flag for showing the square root of price in the
+        text.
+        """
+
+        self.showSqrtPriceFlag = showSqrtPriceFlag
+
+    def getShowSqrtPriceFlag(self):
+        """Returns the flag for showing the square root of price in
+        the text.
+        """
+
+        return self.showSqrtPriceFlag
+    
+    def setShowTimeElapsedSinceBirthFlag(self, showTimeElapsedSinceBirthFlag):
+        """Sets the flag for showing the time elapsed since birth in
+        the text.
+        """
+
+        self.showTimeElapsedSinceBirthFlag = showTimeElapsedSinceBirthFlag
+
+    def getShowTimeElapsedSinceBirthFlag(self):
+        """Returns the flag for showing the time elapsed since birth
+        in the text.
+        """
+
+        return self.showTimeElapsedSinceBirthFlag
+    
+    def setShowSqrtTimeElapsedSinceBirthFlag(\
+        self, showSqrtTimeElapsedSinceBirthFlag):
+        """Sets the flag for showing the square root of time elapsed
+        since birth in the text.
+        """
+
+        self.showSqrtTimeElapsedSinceBirthFlag = \
+            showSqrtTimeElapsedSinceBirthFlag
+
+    def getShowSqrtTimeElapsedSinceBirthFlag(self):
+        """Returns the flag for showing the square root of time
+        elapsed since birth in the text.
+        """
+
+        return self.showSqrtTimeElapsedSinceBirthFlag
+    
+    def setShowLineToInfoPointFlag(self, showLineToInfoPointFlag):
+        """Sets the flag for showing the line from the text to the info point.
+        """
+
+        self.showLineToInfoPointFlag = showLineToInfoPointFlag
+
+    def getShowLineToInfoPointFlag(self):
+        """Returns the flag for showing the line from the text to the
+        info point.
+        """
+
+        return self.showLineToInfoPointFlag
+    
     def __str__(self):
         """Returns the string representation of this object."""
 
@@ -3941,7 +3974,31 @@ class PriceBarChartSettings:
     
     # Default text Y scaling for the PriceTimeInfoGraphicsItem.
     defaultPriceTimeInfoGraphicsItemDefaultYScaling = 0.04
-    
+
+    # Default value for the PriceTimeInfoGraphicsItem
+    # showTimestampFlag (bool).
+    defaultPriceTimeInfoGraphicsItemShowTimestampFlag = True
+
+    # Default value for the PriceTimeInfoGraphicsItem
+    # showPriceFlag (bool).
+    defaultPriceTimeInfoGraphicsItemShowPriceFlag = True
+
+    # Default value for the PriceTimeInfoGraphicsItem
+    # showSqrtPriceFlag (bool).
+    defaultPriceTimeInfoGraphicsItemShowSqrtPriceFlag = True
+
+    # Default value for the PriceTimeInfoGraphicsItem
+    # showTimeElapsedSinceBirthFlag (bool).
+    defaultPriceTimeInfoGraphicsItemShowTimeElapsedSinceBirthFlag = True
+
+    # Default value for the PriceTimeInfoGraphicsItem
+    # showSqrtTimeElapsedSinceBirthFlag (bool).
+    defaultPriceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlag = True
+
+    # Default value for the PriceTimeInfoGraphicsItem
+    # showLineToInfoPointFlag (bool).
+    defaultPriceTimeInfoGraphicsItemShowLineToInfoPointFlag = True
+
     # Default value for the PriceMeasurementGraphicsItem bar width (float).
     defaultPriceMeasurementGraphicsItemBarWidth = 1.0
 
@@ -4249,6 +4306,36 @@ class PriceBarChartSettings:
         self.priceTimeInfoGraphicsItemDefaultYScaling = \
             PriceBarChartSettings.\
             defaultPriceTimeInfoGraphicsItemDefaultYScaling
+
+        # PriceTimeInfoGraphicsItem showTimestampFlag (bool).
+        self.priceTimeInfoGraphicsItemShowTimestampFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeInfoGraphicsItemShowTimestampFlag
+
+        # PriceTimeInfoGraphicsItem showPriceFlag (bool).
+        self.priceTimeInfoGraphicsItemShowPriceFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeInfoGraphicsItemShowPriceFlag
+
+        # PriceTimeInfoGraphicsItem showSqrtPriceFlag (bool).
+        self.priceTimeInfoGraphicsItemShowSqrtPriceFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeInfoGraphicsItemShowSqrtPriceFlag
+
+        # PriceTimeInfoGraphicsItem showTimeElapsedSinceBirthFlag (bool).
+        self.priceTimeInfoGraphicsItemShowTimeElapsedSinceBirthFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeInfoGraphicsItemShowTimeElapsedSinceBirthFlag
+
+        # PriceTimeInfoGraphicsItem showSqrtTimeElapsedSinceBirthFlag (bool).
+        self.priceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlag
+
+        # PriceTimeInfoGraphicsItem showLineToInfoPointFlag (bool).
+        self.priceTimeInfoGraphicsItemShowLineToInfoPointFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeInfoGraphicsItemShowLineToInfoPointFlag
 
         # PriceMeasurementGraphicsItem default bar width (float).
         self.priceMeasurementGraphicsItemDefaultBarWidth = \

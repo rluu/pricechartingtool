@@ -871,7 +871,7 @@ class TextGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         if painter.pen() != self.textItemPen:
-            painter.setPen(self.textItemPen)
+            painter.setPen(QPen(self.textItemPen))
 
         # Draw a dashed-line surrounding the item if it is selected.
         if option.state & QStyle.State_Selected:
@@ -3293,7 +3293,7 @@ class VerticalTickGraphicsItem(QGraphicsItem):
         """
 
         if painter.pen() != self.pen:
-            painter.setPen(self.pen)
+            painter.setPen(QPen(self.pen))
             
         # Draw the left vertical bar part.
         x1 = 0.0
@@ -4626,7 +4626,7 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
                             self.artifact.getTextYScaling())
         self.textItem.setTransform(textTransform)
 
-        # Flag that indicates that we should draw the line to the
+        # Flag that indicates that we should draw a dotted line to the
         # infoPointF.
         self.drawLineToInfoPointFFlag = False
 
@@ -4763,7 +4763,7 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     os.linesep
         if self.artifact.getShowPriceFlag():
             text += "price={}".format(price) + os.linesep
-        if self.artifact.getShowSqrtOfPriceFlag():
+        if self.artifact.getShowSqrtPriceFlag():
             text += "sqrt(price)={}".format(math.sqrt(price)) + os.linesep
         if self.artifact.getShowTimeElapsedSinceBirthFlag():
             if self.birthInfo != None:
@@ -4775,7 +4775,7 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 xDiff = infoPointF.x() - birthX
 
                 text += "elapsed_t=={}".format(xDiff) + os.linesep
-        if self.artifact.getShowSqrtOfTimeElapsedSinceBirthFlag():
+        if self.artifact.getShowSqrtTimeElapsedSinceBirthFlag():
             if self.birthInfo != None:
                 # Get the birth timestamp and convert to X coordinate.
                 birthDtUtc = self.birthInfo.getBirthUtcDatetime()
@@ -4786,7 +4786,8 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
                 text += "sqrt(elapsed_t)=={}".format(math.sqrt(xDiff)) + \
                         os.linesep
-                
+
+        text = text.rstrip()
         self.textItem.setText(text)
         self.prepareGeometryChange()
         
@@ -4832,6 +4833,36 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                  priceBarChartSettings.\
                                  priceTimeInfoGraphicsItemDefaultYScaling)
 
+        # Set values in the artifact since that's what we reference to
+        # draw things.
+
+        # showTimestampFlag (bool).
+        self.artifact.setShowTimestampFlag(\
+            priceBarChartSettings.priceTimeInfoGraphicsItemShowTimestampFlag)
+
+        # showPriceFlag (bool).
+        self.artifact.setShowPriceFlag(\
+            priceBarChartSettings.priceTimeInfoGraphicsItemShowPriceFlag)
+        
+        # showSqrtPriceFlag (bool).
+        self.artifact.setShowSqrtPriceFlag(\
+            priceBarChartSettings.priceTimeInfoGraphicsItemShowSqrtPriceFlag)
+        
+        # showTimeElapsedSinceBirthFlag (bool).
+        self.artifact.setShowTimeElapsedSinceBirthFlag(\
+            priceBarChartSettings.\
+            priceTimeInfoGraphicsItemShowTimeElapsedSinceBirthFlag)
+        
+        # showSqrtTimeElapsedSinceBirthFlag (bool).
+        self.artifact.setShowSqrtTimeElapsedSinceBirthFlag(\
+            priceBarChartSettings.\
+            priceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlag)
+        
+        # showLineToInfoPointFlag (bool).
+        self.artifact.setShowLineToInfoPointFlag(\
+            priceBarChartSettings.\
+            priceTimeInfoGraphicsItemShowLineToInfoPointFlag)
+
         # Update the internal text item.
         self.textItem.setFont(self.textItemFont)
 
@@ -4845,6 +4876,10 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.textItem.setTransform(self.textTransform)
 
+        # Update text since the flags for what to display could have
+        # been updated.
+        self._updateText()
+        
         # Schedule an update.
         self.prepareGeometryChange()
         self.update()
@@ -5017,7 +5052,7 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
                        format(self.drawLineToInfoPointFFlag))
         
         if painter.pen() != self.textItemPen:
-            painter.setPen(self.textItemPen)
+            painter.setPen(QPen(self.textItemPen))
 
         if self.drawLineToInfoPointFFlag == True or \
                option.state & QStyle.State_Selected:
@@ -5074,6 +5109,45 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
             painter.setBrush(Qt.NoBrush)
             painter.drawLine(startLinePoint, endLinePoint)
         
+        elif self.artifact.getShowLineToInfoPointFlag() == True:
+            
+            self.log.debug("Drawing regular line to InfoPoint.")
+            
+            scaledTextRect = self._getScaledRectOfTextItem()
+            
+            topLeft = scaledTextRect.topLeft()
+            bottomRight = scaledTextRect.bottomRight()
+            localInfoPointF = self.mapFromScene(self.artifact.getInfoPointF())
+    
+            x = scaledTextRect.width() * 0.5
+            y = None
+            if localInfoPointF.y() > 0:
+                y = scaledTextRect.height()
+            else:
+                y = 0.0
+                
+            # Set the start and end points to the line.
+            startLinePoint = QPointF(x, y)
+            endLinePoint = localInfoPointF
+
+            self.log.debug("Start and end points of the line are: " +
+                           "({}, {}), ({}, {})".\
+                           format(startLinePoint.x(),
+                                  startLinePoint.y(),
+                                  endLinePoint.x(),
+                                  endLinePoint.y()))
+                           
+            # Draw the line.
+            pen = QPen()
+            pen.setColor(self.artifact.getColor())
+            painter.setPen(pen)
+            
+            brush = QBrush()
+            brush.setColor(self.artifact.getColor())
+            painter.setBrush(brush)
+            
+            painter.drawLine(startLinePoint, endLinePoint)
+            
         # Draw a dashed-line surrounding the item if it is selected.
         if option.state & QStyle.State_Selected:
             pad = self.textItemPen.widthF() / 2.0;

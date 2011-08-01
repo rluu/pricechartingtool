@@ -24,11 +24,12 @@ DONE
 DONE
 DONE  - Fibonnaci price retracement (which also implies extension since
 DONE    they are the same).  FibPriceRetracementTool
-
-  - Add an option to 'PriceTimeInfo' for a flag for drawing a line to
-    the info point.  (in: pricebarchartsettings, artifact, edit
-    widget/dialog and graphicsitem).  Also add pricebarchartsettings
-    for what measurements/text to display when creating the items by default.
+DONE
+DONE  - Add an option to 'PriceTimeInfo' for a flag for drawing a line to
+DONE    the info point.  (in: pricebarchartsettings, artifact, edit
+DONE    widget/dialog and graphicsitem).  Also add pricebarchartsettings
+DONE    for what measurements/text to display when creating the items 
+DONE    by default.
 
   - Split the modal-scale-tool to price-modal-scale and time-modal-scale.
     (and change it to restrict the x, y, etc.)
