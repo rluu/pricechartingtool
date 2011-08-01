@@ -22,6 +22,19 @@ from PyQt4.QtCore import QPointF
 # For datetime.datetime to str conversion.
 from ephemeris import Ephemeris
 
+class Util:
+    """Contains some generic static functions that may be helpful."""
+
+    @staticmethod
+    def qColorToStr(qcolor):
+        """Returns a string formatting of a QColor object."""
+
+        return "QColor(r={}, g={}, b={}, a={})".\
+               format(qcolor.red(),
+                      qcolor.green(),
+                      qcolor.blue(),
+                      qcolor.alpha())
+    
 class BirthInfo:
     """Contains data related to the birth of an entity or person.
     See the documentation for the '__init__()' function to see what
@@ -260,11 +273,28 @@ class BirthInfo:
 
         obj = self
         for attr in dir(obj):
-            # If it doesn't start with '__' and if it's not callable.
+            # Print if the attribute:
+            #   - Doesn't start with '__'.
+            #   - Isn't a Logger
+            #   - Isn't callable.
             if not attr.startswith('__') and \
+                   not isinstance(getattr(obj, attr), logging.Logger) and \
                    not hasattr(getattr(obj, attr), '__call__'):
-                rv += "{}={}, ".format(attr, getattr(obj, attr))
+                
+                attrObj = getattr(obj, attr)
 
+                # Do special handling for QColor objects and lists.
+                if isinstance(attrObj, QColor):
+                    rv += "{}={}, ".\
+                          format(attr, Util.qColorToStr(attrObj))
+                elif isinstance(attrObj, list):
+                    rv += "{}=[".format(attr)
+                    for item in attrObj:
+                        rv += "{}, ".format(item)
+                    rv += "]"
+                else:
+                    rv += "{}={}, ".format(attr, attrObj)
+                    
         rv += "]"
 
         return rv
@@ -435,10 +465,27 @@ class PriceBar:
 
         obj = self
         for attr in dir(obj):
-            # If it doesn't start with '__' and if it's not callable.
+            # Print if the attribute:
+            #   - Doesn't start with '__'.
+            #   - Isn't a Logger
+            #   - Isn't callable.
             if not attr.startswith('__') and \
+                   not isinstance(getattr(obj, attr), logging.Logger) and \
                    not hasattr(getattr(obj, attr), '__call__'):
-                rv += "{}={}, ".format(attr, getattr(obj, attr))
+                
+                attrObj = getattr(obj, attr)
+
+                # Do special handling for QColor objects and lists.
+                if isinstance(attrObj, QColor):
+                    rv += "{}={}, ".\
+                          format(attr, Util.qColorToStr(attrObj))
+                elif isinstance(attrObj, list):
+                    rv += "{}=[".format(attr)
+                    for item in attrObj:
+                        rv += "{}, ".format(item)
+                    rv += "]"
+                else:
+                    rv += "{}={}, ".format(attr, attrObj)
 
         rv += "]"
 
@@ -636,10 +683,27 @@ class Ratio:
 
         obj = self
         for attr in dir(obj):
-            # If it doesn't start with '__' and if it's not callable.
+            # Print if the attribute:
+            #   - Doesn't start with '__'.
+            #   - Isn't a Logger
+            #   - Isn't callable.
             if not attr.startswith('__') and \
+                   not isinstance(getattr(obj, attr), logging.Logger) and \
                    not hasattr(getattr(obj, attr), '__call__'):
-                rv += "{}={}, ".format(attr, getattr(obj, attr))
+                
+                attrObj = getattr(obj, attr)
+
+                # Do special handling for QColor objects and lists.
+                if isinstance(attrObj, QColor):
+                    rv += "{}={}, ".\
+                          format(attr, Util.qColorToStr(attrObj))
+                elif isinstance(attrObj, list):
+                    rv += "{}=[".format(attr)
+                    for item in attrObj:
+                        rv += "{}, ".format(item)
+                    rv += "]"
+                else:
+                    rv += "{}={}, ".format(attr, attrObj)
 
         rv += "]"
 
@@ -944,10 +1008,27 @@ class MusicalRatio(Ratio):
 
         obj = self
         for attr in dir(obj):
-            # If it doesn't start with '__' and if it's not callable.
+            # Print if the attribute:
+            #   - Doesn't start with '__'.
+            #   - Isn't a Logger
+            #   - Isn't callable.
             if not attr.startswith('__') and \
+                   not isinstance(getattr(obj, attr), logging.Logger) and \
                    not hasattr(getattr(obj, attr), '__call__'):
-                rv += "{}={}, ".format(attr, getattr(obj, attr))
+                
+                attrObj = getattr(obj, attr)
+
+                # Do special handling for QColor objects and lists.
+                if isinstance(attrObj, QColor):
+                    rv += "{}={}, ".\
+                          format(attr, Util.qColorToStr(attrObj))
+                elif isinstance(attrObj, list):
+                    rv += "{}=[".format(attr)
+                    for item in attrObj:
+                        rv += "{}, ".format(item)
+                    rv += "]"
+                else:
+                    rv += "{}={}, ".format(attr, attrObj)
 
         rv += "]"
 
@@ -1040,10 +1121,27 @@ class PriceBarChartArtifact:
 
         obj = self
         for attr in dir(obj):
-            # If it doesn't start with '__' and if it's not callable.
+            # Print if the attribute:
+            #   - Doesn't start with '__'.
+            #   - Isn't a Logger
+            #   - Isn't callable.
             if not attr.startswith('__') and \
+                   not isinstance(getattr(obj, attr), logging.Logger) and \
                    not hasattr(getattr(obj, attr), '__call__'):
-                rv += "{}={}, ".format(attr, getattr(obj, attr))
+                
+                attrObj = getattr(obj, attr)
+
+                # Do special handling for QColor objects and lists.
+                if isinstance(attrObj, QColor):
+                    rv += "{}={}, ".\
+                          format(attr, Util.qColorToStr(attrObj))
+                elif isinstance(attrObj, list):
+                    rv += "{}=[".format(attr)
+                    for item in attrObj:
+                        rv += "{}, ".format(item)
+                    rv += "]"
+                else:
+                    rv += "{}={}, ".format(attr, attrObj)
 
         rv += "]"
 
@@ -1113,10 +1211,27 @@ class PriceBarChartBarCountArtifact(PriceBarChartArtifact):
 
         obj = self
         for attr in dir(obj):
-            # If it doesn't start with '__' and if it's not callable.
+            # Print if the attribute:
+            #   - Doesn't start with '__'.
+            #   - Isn't a Logger
+            #   - Isn't callable.
             if not attr.startswith('__') and \
+                   not isinstance(getattr(obj, attr), logging.Logger) and \
                    not hasattr(getattr(obj, attr), '__call__'):
-                rv += "{}={}, ".format(attr, getattr(obj, attr))
+                
+                attrObj = getattr(obj, attr)
+
+                # Do special handling for QColor objects and lists.
+                if isinstance(attrObj, QColor):
+                    rv += "{}={}, ".\
+                          format(attr, Util.qColorToStr(attrObj))
+                elif isinstance(attrObj, list):
+                    rv += "{}=[".format(attr)
+                    for item in attrObj:
+                        rv += "{}, ".format(item)
+                    rv += "]"
+                else:
+                    rv += "{}={}, ".format(attr, attrObj)
 
         rv += "]"
 
@@ -1507,10 +1622,27 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
 
         obj = self
         for attr in dir(obj):
-            # If it doesn't start with '__' and if it's not callable.
+            # Print if the attribute:
+            #   - Doesn't start with '__'.
+            #   - Isn't a Logger
+            #   - Isn't callable.
             if not attr.startswith('__') and \
+                   not isinstance(getattr(obj, attr), logging.Logger) and \
                    not hasattr(getattr(obj, attr), '__call__'):
-                rv += "{}={}, ".format(attr, getattr(obj, attr))
+                
+                attrObj = getattr(obj, attr)
+
+                # Do special handling for QColor objects and lists.
+                if isinstance(attrObj, QColor):
+                    rv += "{}={}, ".\
+                          format(attr, Util.qColorToStr(attrObj))
+                elif isinstance(attrObj, list):
+                    rv += "{}=[".format(attr)
+                    for item in attrObj:
+                        rv += "{}, ".format(item)
+                    rv += "]"
+                else:
+                    rv += "{}={}, ".format(attr, attrObj)
 
         rv += "]"
 
@@ -1871,10 +2003,27 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
 
         obj = self
         for attr in dir(obj):
-            # If it doesn't start with '__' and if it's not callable.
+            # Print if the attribute:
+            #   - Doesn't start with '__'.
+            #   - Isn't a Logger
+            #   - Isn't callable.
             if not attr.startswith('__') and \
+                   not isinstance(getattr(obj, attr), logging.Logger) and \
                    not hasattr(getattr(obj, attr), '__call__'):
-                rv += "{}={}, ".format(attr, getattr(obj, attr))
+                
+                attrObj = getattr(obj, attr)
+
+                # Do special handling for QColor objects and lists.
+                if isinstance(attrObj, QColor):
+                    rv += "{}={}, ".\
+                          format(attr, Util.qColorToStr(attrObj))
+                elif isinstance(attrObj, list):
+                    rv += "{}=[".format(attr)
+                    for item in attrObj:
+                        rv += "{}, ".format(item)
+                    rv += "]"
+                else:
+                    rv += "{}={}, ".format(attr, attrObj)
 
         rv += "]"
 
@@ -2045,10 +2194,27 @@ class PriceBarChartTextArtifact(PriceBarChartArtifact):
 
         obj = self
         for attr in dir(obj):
-            # If it doesn't start with '__' and if it's not callable.
+            # Print if the attribute:
+            #   - Doesn't start with '__'.
+            #   - Isn't a Logger
+            #   - Isn't callable.
             if not attr.startswith('__') and \
+                   not isinstance(getattr(obj, attr), logging.Logger) and \
                    not hasattr(getattr(obj, attr), '__call__'):
-                rv += "{}={}, ".format(attr, getattr(obj, attr))
+                
+                attrObj = getattr(obj, attr)
+
+                # Do special handling for QColor objects and lists.
+                if isinstance(attrObj, QColor):
+                    rv += "{}={}, ".\
+                          format(attr, Util.qColorToStr(attrObj))
+                elif isinstance(attrObj, list):
+                    rv += "{}=[".format(attr)
+                    for item in attrObj:
+                        rv += "{}, ".format(item)
+                    rv += "]"
+                else:
+                    rv += "{}={}, ".format(attr, attrObj)
 
         rv += "]"
 
@@ -2299,10 +2465,27 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
 
         obj = self
         for attr in dir(obj):
-            # If it doesn't start with '__' and if it's not callable.
+            # Print if the attribute:
+            #   - Doesn't start with '__'.
+            #   - Isn't a Logger
+            #   - Isn't callable.
             if not attr.startswith('__') and \
+                   not isinstance(getattr(obj, attr), logging.Logger) and \
                    not hasattr(getattr(obj, attr), '__call__'):
-                rv += "{}={}, ".format(attr, getattr(obj, attr))
+                
+                attrObj = getattr(obj, attr)
+
+                # Do special handling for QColor objects and lists.
+                if isinstance(attrObj, QColor):
+                    rv += "{}={}, ".\
+                          format(attr, Util.qColorToStr(attrObj))
+                elif isinstance(attrObj, list):
+                    rv += "{}=[".format(attr)
+                    for item in attrObj:
+                        rv += "{}, ".format(item)
+                    rv += "]"
+                else:
+                    rv += "{}={}, ".format(attr, attrObj)
 
         rv += "]"
 
@@ -2547,10 +2730,27 @@ class PriceBarChartPriceMeasurementArtifact(PriceBarChartArtifact):
 
         obj = self
         for attr in dir(obj):
-            # If it doesn't start with '__' and if it's not callable.
+            # Print if the attribute:
+            #   - Doesn't start with '__'.
+            #   - Isn't a Logger
+            #   - Isn't callable.
             if not attr.startswith('__') and \
+                   not isinstance(getattr(obj, attr), logging.Logger) and \
                    not hasattr(getattr(obj, attr), '__call__'):
-                rv += "{}={}, ".format(attr, getattr(obj, attr))
+                
+                attrObj = getattr(obj, attr)
+
+                # Do special handling for QColor objects and lists.
+                if isinstance(attrObj, QColor):
+                    rv += "{}={}, ".\
+                          format(attr, Util.qColorToStr(attrObj))
+                elif isinstance(attrObj, list):
+                    rv += "{}=[".format(attr)
+                    for item in attrObj:
+                        rv += "{}, ".format(item)
+                    rv += "]"
+                else:
+                    rv += "{}={}, ".format(attr, attrObj)
 
         rv += "]"
 
@@ -2836,10 +3036,27 @@ class PriceBarChartTimeRetracementArtifact(PriceBarChartArtifact):
 
         obj = self
         for attr in dir(obj):
-            # If it doesn't start with '__' and if it's not callable.
+            # Print if the attribute:
+            #   - Doesn't start with '__'.
+            #   - Isn't a Logger
+            #   - Isn't callable.
             if not attr.startswith('__') and \
+                   not isinstance(getattr(obj, attr), logging.Logger) and \
                    not hasattr(getattr(obj, attr), '__call__'):
-                rv += "{}={}, ".format(attr, getattr(obj, attr))
+                
+                attrObj = getattr(obj, attr)
+
+                # Do special handling for QColor objects and lists.
+                if isinstance(attrObj, QColor):
+                    rv += "{}={}, ".\
+                          format(attr, Util.qColorToStr(attrObj))
+                elif isinstance(attrObj, list):
+                    rv += "{}=[".format(attr)
+                    for item in attrObj:
+                        rv += "{}, ".format(item)
+                    rv += "]"
+                else:
+                    rv += "{}={}, ".format(attr, attrObj)
 
         rv += "]"
 
@@ -3125,10 +3342,27 @@ class PriceBarChartPriceRetracementArtifact(PriceBarChartArtifact):
 
         obj = self
         for attr in dir(obj):
-            # If it doesn't start with '__' and if it's not callable.
+            # Print if the attribute:
+            #   - Doesn't start with '__'.
+            #   - Isn't a Logger
+            #   - Isn't callable.
             if not attr.startswith('__') and \
+                   not isinstance(getattr(obj, attr), logging.Logger) and \
                    not hasattr(getattr(obj, attr), '__call__'):
-                rv += "{}={}, ".format(attr, getattr(obj, attr))
+                
+                attrObj = getattr(obj, attr)
+
+                # Do special handling for QColor objects and lists.
+                if isinstance(attrObj, QColor):
+                    rv += "{}={}, ".\
+                          format(attr, Util.qColorToStr(attrObj))
+                elif isinstance(attrObj, list):
+                    rv += "{}=[".format(attr)
+                    for item in attrObj:
+                        rv += "{}, ".format(item)
+                    rv += "]"
+                else:
+                    rv += "{}={}, ".format(attr, attrObj)
 
         rv += "]"
 
@@ -3260,10 +3494,27 @@ class PriceBarChartScaling:
 
         obj = self
         for attr in dir(obj):
-            # If it doesn't start with '__' and if it's not callable.
+            # Print if the attribute:
+            #   - Doesn't start with '__'.
+            #   - Isn't a Logger
+            #   - Isn't callable.
             if not attr.startswith('__') and \
+                   not isinstance(getattr(obj, attr), logging.Logger) and \
                    not hasattr(getattr(obj, attr), '__call__'):
-                rv += "{}={}, ".format(attr, getattr(obj, attr))
+                
+                attrObj = getattr(obj, attr)
+
+                # Do special handling for QColor objects and lists.
+                if isinstance(attrObj, QColor):
+                    rv += "{}={}, ".\
+                          format(attr, Util.qColorToStr(attrObj))
+                elif isinstance(attrObj, list):
+                    rv += "{}=[".format(attr)
+                    for item in attrObj:
+                        rv += "{}, ".format(item)
+                    rv += "]"
+                else:
+                    rv += "{}={}, ".format(attr, attrObj)
 
         rv += "]"
 
@@ -4181,7 +4432,20 @@ class PriceBarChartSettings:
         obj = self
         for attr in dir(obj):
             if attr.startswith("__") == False and attr != "toString":
-                rv += "{}={}, ".format(attr, getattr(obj, attr))
+                
+                attrObj = getattr(obj, attr)
+
+                # Do special handling for QColor objects and lists.
+                if isinstance(attrObj, QColor):
+                    rv += "{}={}, ".\
+                          format(attr, Util.qColorToStr(attrObj))
+                elif isinstance(attrObj, list):
+                    rv += "{}=[".format(attr)
+                    for item in attrObj:
+                        rv += "{}, ".format(item)
+                    rv += "]"
+                else:
+                    rv += "{}={}, ".format(attr, attrObj)
 
         rv += "]"
 
@@ -4247,10 +4511,27 @@ class PriceBarSpreadsheetSettings:
 
         obj = self
         for attr in dir(obj):
-            # If it doesn't start with '__' and if it's not callable.
+            # Print if the attribute:
+            #   - Doesn't start with '__'.
+            #   - Isn't a Logger
+            #   - Isn't callable.
             if not attr.startswith('__') and \
+                   not isinstance(getattr(obj, attr), logging.Logger) and \
                    not hasattr(getattr(obj, attr), '__call__'):
-                rv += "{}={}, ".format(attr, getattr(obj, attr))
+                
+                attrObj = getattr(obj, attr)
+
+                # Do special handling for QColor objects and lists.
+                if isinstance(attrObj, QColor):
+                    rv += "{}={}, ".\
+                          format(attr, Util.qColorToStr(attrObj))
+                elif isinstance(attrObj, list):
+                    rv += "{}=[".format(attr)
+                    for item in attrObj:
+                        rv += "{}, ".format(item)
+                    rv += "]"
+                else:
+                    rv += "{}={}, ".format(attr, attrObj)
 
         rv += "]"
 

@@ -6576,8 +6576,43 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.timeRetracementPen.\
             setColor(self.timeRetracementGraphicsItemColor)
         
-        self.setArtifact(self.artifact)
+        # Recreate the text items for the ratios.  This will also
+        # apply the new scaling and font, etc. as needed.
+        self._recreateRatioTextItems()
         
+        # Set the text items as enabled or disabled, visible or
+        # invisible, depending on whether the show flag is set.
+        for textItem in self.timeRetracementRatioTimeTexts:
+            textItem.setEnabled(self.showTimeTextFlag)
+            textItem.setVisible(self.showTimeTextFlag)
+            
+        for textItem in self.timeRetracementRatioPercentTexts:
+            textItem.setEnabled(self.showPercentTextFlag)
+            textItem.setVisible(self.showPercentTextFlag)
+
+        # Go through all the Ratio objects and disable texts if the
+        # Ratios are not enabled.  This will be a second pass-through
+        # of settings the text items, but this time, we do not enable
+        # them, we only disable them if the corresponding Ratio is disabled.
+        for i in range(len(self.ratios)):
+            ratio = self.ratios[i]
+            
+            if not ratio.isEnabled():
+                self.timeRetracementRatioTimeTexts[i].setEnabled(False)
+                self.timeRetracementRatioTimeTexts[i].setVisible(False)
+
+                self.timeRetracementRatioPercentTexts[i].setEnabled(False)
+                self.timeRetracementRatioPercentTexts[i].setVisible(False)
+
+        # Update the timeRetracement text item position.
+        self._updateTextItemPositions()
+            
+        # Need to recalculate the timeRetracement, since the start and end
+        # points have changed.  Note, if no scene has been set for the
+        # QGraphicsView, then the time retracements will be zero, since it
+        # can't look up PriceBarGraphicsItems in the scene.
+        self.recalculateTimeRetracement()
+
         # Schedule an update.
         self.update()
 
@@ -7754,8 +7789,43 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.priceRetracementPen.\
             setColor(self.priceRetracementGraphicsItemColor)
         
-        self.setArtifact(self.artifact)
+        # Recreate the text items for the ratios.  This will also
+        # apply the new scaling and font, etc. as needed.
+        self._recreateRatioTextItems()
         
+        # Set the text items as enabled or disabled, visible or
+        # invisible, depending on whether the show flag is set.
+        for textItem in self.priceRetracementRatioPriceTexts:
+            textItem.setEnabled(self.showPriceTextFlag)
+            textItem.setVisible(self.showPriceTextFlag)
+            
+        for textItem in self.priceRetracementRatioPercentTexts:
+            textItem.setEnabled(self.showPercentTextFlag)
+            textItem.setVisible(self.showPercentTextFlag)
+
+        # Go through all the Ratio objects and disable texts if the
+        # Ratios are not enabled.  This will be a second pass-through
+        # of settings the text items, but this time, we do not enable
+        # them, we only disable them if the corresponding Ratio is disabled.
+        for i in range(len(self.ratios)):
+            ratio = self.ratios[i]
+            
+            if not ratio.isEnabled():
+                self.priceRetracementRatioPriceTexts[i].setEnabled(False)
+                self.priceRetracementRatioPriceTexts[i].setVisible(False)
+
+                self.priceRetracementRatioPercentTexts[i].setEnabled(False)
+                self.priceRetracementRatioPercentTexts[i].setVisible(False)
+
+        # Update the priceRetracement text item position.
+        self._updateTextItemPositions()
+            
+        # Need to recalculate the priceRetracement, since the start and end
+        # points have changed.  Note, if no scene has been set for the
+        # QGraphicsView, then the price retracements will be zero, since it
+        # can't look up PriceBarGraphicsItems in the scene.
+        self.recalculatePriceRetracement()
+
         # Schedule an update.
         self.update()
 

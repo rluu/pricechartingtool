@@ -25,14 +25,14 @@ class SettingsKeys():
         "ui/pricebarchart/higherPriceBarColor"
 
     # QSettings default value for the higherPriceBarColor (QColor object).
-    higherPriceBarColorSettingsDefValue = QColor(Qt.green)
+    higherPriceBarColorSettingsDefValue = QColor(0, 128, 0, 255)
 
     # QSettings key for the lowerPriceBarColor (QColor object).
     lowerPriceBarColorSettingsKey = \
         "ui/pricebarchart/lowerPriceBarColor"
 
     # QSettings default value for the lowerPriceBarColor (QColor object).
-    lowerPriceBarColorSettingsDefValue = QColor(Qt.red)
+    lowerPriceBarColorSettingsDefValue = QColor(128, 0, 0, 255)
 
     # QSettings key for the BarCountGraphicsItem color (QColor object).
     barCountGraphicsItemColorSettingsKey = \
