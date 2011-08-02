@@ -4673,7 +4673,8 @@ class PriceBarChartTimeRetracementArtifactEditWidget(QWidget):
 
         # Logger object for this class.
         self.log = logging.\
-            getLogger("pricebarchart_dialogs.PriceBarChartTimeRetracementArtifactEditWidget")
+            getLogger(\
+            "pricebarchart_dialogs.PriceBarChartTimeRetracementArtifactEditWidget")
 
         # Save off the artifact object.
         self.artifact = artifact
@@ -4732,18 +4733,18 @@ class PriceBarChartTimeRetracementArtifactEditWidget(QWidget):
         startPointPriceLocationValueLayout.\
             addWidget(self.startPointPriceLocationValueSpinBox)
 
-        self.endPointPriceLocationValueLabel = \
-            QLabel("TimeRetracement End Point (in price):")
-        self.endPointPriceLocationValueSpinBox = QDoubleSpinBox()
-        self.endPointPriceLocationValueSpinBox.setDecimals(4)
-        self.endPointPriceLocationValueSpinBox.setMinimum(0.0)
-        self.endPointPriceLocationValueSpinBox.setMaximum(999999999.0)
-        endPointPriceLocationValueLayout = QHBoxLayout()
-        endPointPriceLocationValueLayout.\
-            addWidget(self.endPointPriceLocationValueLabel)
-        endPointPriceLocationValueLayout.addStretch()
-        endPointPriceLocationValueLayout.\
-            addWidget(self.endPointPriceLocationValueSpinBox)
+        #self.endPointPriceLocationValueLabel = \
+        #    QLabel("TimeRetracement End Point (in price):")
+        #self.endPointPriceLocationValueSpinBox = QDoubleSpinBox()
+        #self.endPointPriceLocationValueSpinBox.setDecimals(4)
+        #self.endPointPriceLocationValueSpinBox.setMinimum(0.0)
+        #self.endPointPriceLocationValueSpinBox.setMaximum(999999999.0)
+        #endPointPriceLocationValueLayout = QHBoxLayout()
+        #endPointPriceLocationValueLayout.\
+        #    addWidget(self.endPointPriceLocationValueLabel)
+        #endPointPriceLocationValueLayout.addStretch()
+        #endPointPriceLocationValueLayout.\
+        #    addWidget(self.endPointPriceLocationValueSpinBox)
 
         self.startPointDatetimeLocationWidget = TimestampEditWidget()
         self.startPointDatetimeLocationWidget.groupBox.\
@@ -4808,7 +4809,7 @@ class PriceBarChartTimeRetracementArtifactEditWidget(QWidget):
         self.gridLayout.addWidget(self.textColorEditButton, r, 1, al)
         r += 1
         self.gridLayout.addLayout(startPointPriceLocationValueLayout, r, 0, al)
-        self.gridLayout.addLayout(endPointPriceLocationValueLayout, r, 1, al)
+        #self.gridLayout.addLayout(endPointPriceLocationValueLayout, r, 1, al)
         r += 1
         self.gridLayout.addWidget(self.startPointDatetimeLocationWidget,
                                   r, 0, al)
@@ -4927,8 +4928,8 @@ class PriceBarChartTimeRetracementArtifactEditWidget(QWidget):
         self.textColorEditButton.setEnabled(not self.readOnlyFlag)
         self.startPointPriceLocationValueSpinBox.\
             setEnabled(not self.readOnlyFlag)
-        self.endPointPriceLocationValueSpinBox.\
-            setEnabled(not self.readOnlyFlag)
+        #self.endPointPriceLocationValueSpinBox.\
+        #    setEnabled(not self.readOnlyFlag)
         self.startPointDatetimeLocationWidget.setReadOnly(self.readOnlyFlag)
         self.endPointDatetimeLocationWidget.setReadOnly(self.readOnlyFlag)
 
@@ -5004,7 +5005,7 @@ class PriceBarChartTimeRetracementArtifactEditWidget(QWidget):
         
         endPointY = self.artifact.endPointF.y()
         endPointPrice = self.convertObj.sceneYPosToPrice(endPointY)
-        self.endPointPriceLocationValueSpinBox.setValue(endPointPrice)
+        #self.endPointPriceLocationValueSpinBox.setValue(endPointPrice)
         
         endPointX = self.artifact.endPointF.x()
         endPointDatetime = self.convertObj.sceneXPosToDatetime(endPointX)
@@ -5055,8 +5056,9 @@ class PriceBarChartTimeRetracementArtifactEditWidget(QWidget):
         startPointPrice = self.startPointPriceLocationValueSpinBox.value()
         startPointY = self.convertObj.priceToSceneYPos(startPointPrice)
 
-        endPointPrice = self.endPointPriceLocationValueSpinBox.value()
-        endPointY = self.convertObj.priceToSceneYPos(endPointPrice)
+        #endPointPrice = self.endPointPriceLocationValueSpinBox.value()
+        #endPointY = self.convertObj.priceToSceneYPos(endPointPrice)
+        endPointY = startPointY
         
         startPointDatetime = \
             self.startPointDatetimeLocationWidget.getTimestamp()
@@ -5400,11 +5402,11 @@ class PriceBarChartPriceRetracementArtifactEditWidget(QWidget):
         self.startPointDatetimeLocationWidget.okayButton.setVisible(False)
         self.startPointDatetimeLocationWidget.cancelButton.setVisible(False)
         
-        self.endPointDatetimeLocationWidget = TimestampEditWidget()
-        self.endPointDatetimeLocationWidget.groupBox.\
-            setTitle("PriceRetracement End Point (in time)")
-        self.endPointDatetimeLocationWidget.okayButton.setVisible(False)
-        self.endPointDatetimeLocationWidget.cancelButton.setVisible(False)
+        #self.endPointDatetimeLocationWidget = TimestampEditWidget()
+        #self.endPointDatetimeLocationWidget.groupBox.\
+        #    setTitle("PriceRetracement End Point (in time)")
+        #self.endPointDatetimeLocationWidget.okayButton.setVisible(False)
+        #self.endPointDatetimeLocationWidget.cancelButton.setVisible(False)
         
         self.showFullLinesFlagCheckBox = \
             QCheckBox("Show Full Lines")
@@ -5461,8 +5463,8 @@ class PriceBarChartPriceRetracementArtifactEditWidget(QWidget):
         r += 1
         self.gridLayout.addWidget(self.startPointDatetimeLocationWidget,
                                   r, 0, al)
-        self.gridLayout.addWidget(self.endPointDatetimeLocationWidget,
-                                  r, 1, al)
+        #self.gridLayout.addWidget(self.endPointDatetimeLocationWidget,
+        #                          r, 1, al)
         r += 1
 
         # Layout just for the checkboxes for showing lines/text, and
@@ -5579,7 +5581,7 @@ class PriceBarChartPriceRetracementArtifactEditWidget(QWidget):
         self.endPointPriceLocationValueSpinBox.\
             setEnabled(not self.readOnlyFlag)
         self.startPointDatetimeLocationWidget.setReadOnly(self.readOnlyFlag)
-        self.endPointDatetimeLocationWidget.setReadOnly(self.readOnlyFlag)
+        #self.endPointDatetimeLocationWidget.setReadOnly(self.readOnlyFlag)
 
         self.showFullLinesFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.showPriceTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
@@ -5657,8 +5659,8 @@ class PriceBarChartPriceRetracementArtifactEditWidget(QWidget):
         
         endPointX = self.artifact.endPointF.x()
         endPointDatetime = self.convertObj.sceneXPosToDatetime(endPointX)
-        self.endPointDatetimeLocationWidget.\
-            loadTimestamp(endPointDatetime)
+        #self.endPointDatetimeLocationWidget.\
+        #    loadTimestamp(endPointDatetime)
 
         if self.artifact.getShowFullLinesFlag() == True:
             self.showFullLinesFlagCheckBox.setCheckState(Qt.Checked)
@@ -5696,7 +5698,7 @@ class PriceBarChartPriceRetracementArtifactEditWidget(QWidget):
 
         # Call save on the timestamp widgets.
         self.startPointDatetimeLocationWidget.saveTimestamp()
-        self.endPointDatetimeLocationWidget.saveTimestamp()
+        #self.endPointDatetimeLocationWidget.saveTimestamp()
         
         textXScaling = self.xScalingDoubleSpinBox.value()
         textYScaling = self.yScalingDoubleSpinBox.value()
@@ -5709,8 +5711,9 @@ class PriceBarChartPriceRetracementArtifactEditWidget(QWidget):
         
         startPointDatetime = \
             self.startPointDatetimeLocationWidget.getTimestamp()
-        endPointDatetime = \
-            self.endPointDatetimeLocationWidget.getTimestamp()
+        #endPointDatetime = \
+        #    self.endPointDatetimeLocationWidget.getTimestamp()
+        endPointDatetime = startPointDatetime
 
         color = self.colorEditButton.getColor()
         textColor = self.textColorEditButton.getColor()
