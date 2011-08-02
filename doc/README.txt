@@ -72,14 +72,30 @@ Steps to run the software:
 
 Shortcut keys:
 
-Modal Scale Tool:
+Time Modal Scale Tool:
   - Key_S: Rotate the modal scale left.
   - Key_G: Rotate the modal scale right.
   - Key_R: Reverse the direction of the modal scale.
 
-Price Time Info:
+Price Modal Scale Tool:
+  - Key_S: Rotate the modal scale down.
+  - Key_G: Rotate the modal scale up.
+  - Key_R: Reverse the direction of the modal scale.
+
+Snap key bindings are:
   - Key_Q: Turn snap mode on.
   - Key_W: Turn snap mode off.
+
+Snap key bindings are supported for the following tools:
+  - PriceTimeInfoTool
+  - TimeModalScaleTool
+  - PriceModalScaleTool
+  - TimeMeasurementTool
+  - PriceMeasurementTool
+  - TimeRetracementTool
+  - PriceRetracementTool
+
+  
 
 
 ##############################################################################

@@ -11810,9 +11810,17 @@ class PriceBarChartGraphicsView(QGraphicsView):
         self.priceRetracementGraphicsItem = None
 
         # Variable used for storing that snapping to the closest bar
-        # high or low is enabled.  Used in PriceTimeInfoTool,
-        # TimeMeasurementTool, PriceMeasurementTool,
-        # TimeRetracementTool, PriceRetracementTool.
+        # high or low is enabled.
+        #
+        # Used in:
+        #   - PriceTimeInfoTool
+        #   - TimeModalScaleTool
+        #   - PriceModalScaleTool
+        #   - TimeMeasurementTool
+        #   - PriceMeasurementTool
+        #   - TimeRetracementTool
+        #   - PriceRetracementTool
+        #
         self.snapEnabledFlag = True
 
         # Variable used for holding the PriceBarChartSettings.
