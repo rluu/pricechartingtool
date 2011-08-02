@@ -1707,7 +1707,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
                        PriceBarChartTimeMeasurementArtifact.__name__ +
                        " object of version {}".format(self.classVersion))
 
-class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
+class PriceBarChartTimeModalScaleArtifact(PriceBarChartArtifact):
     """PriceBarChartArtifact that indicates the time measurement starting 
     at the given PriceBar timestamp and the given Y offset from the 
     center of the bar.
@@ -1722,10 +1722,11 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
 
         # Create the logger.
         self.log = \
-            logging.getLogger("data_objects.PriceBarChartModalScaleArtifact")
+            logging.\
+            getLogger("data_objects.PriceBarChartTimeModalScaleArtifact")
 
         # Update the internal name so it is the artifact type plus the uuid.
-        self.internalName = "ModalScale_" + str(self.uuid)
+        self.internalName = "TimeModalScale_" + str(self.uuid)
 
         # Start and end points of the artifact.
         self.startPointF = QPointF()
@@ -1734,25 +1735,25 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
         # List of used ratios.
         self.musicalRatios = MusicalRatio.getIndianMusicalRatios()
         
-        # modalScaleGraphicsItemColor (QColor).
-        self.modalScaleGraphicsItemBarColor = \
+        # timeModalScaleGraphicsItemColor (QColor).
+        self.timeModalScaleGraphicsItemBarColor = \
             PriceBarChartSettings.\
-                defaultModalScaleGraphicsItemBarColor
+                defaultTimeModalScaleGraphicsItemBarColor
 
-        # modalScaleGraphicsItemTextColor (QColor).
-        self.modalScaleGraphicsItemTextColor = \
+        # timeModalScaleGraphicsItemTextColor (QColor).
+        self.timeModalScaleGraphicsItemTextColor = \
             PriceBarChartSettings.\
-                defaultModalScaleGraphicsItemTextColor
+                defaultTimeModalScaleGraphicsItemTextColor
 
-        # ModalScaleGraphicsItem bar height (float).
-        self.modalScaleGraphicsItemBarHeight = \
+        # TimeModalScaleGraphicsItem bar height (float).
+        self.timeModalScaleGraphicsItemBarHeight = \
             PriceBarChartSettings.\
-                defaultModalScaleGraphicsItemBarHeight
+                defaultTimeModalScaleGraphicsItemBarHeight
 
-        # ModalScaleGraphicsItem font size (float).
-        self.modalScaleGraphicsItemFontSize = \
+        # TimeModalScaleGraphicsItem font size (float).
+        self.timeModalScaleGraphicsItemFontSize = \
             PriceBarChartSettings.\
-                defaultModalScaleGraphicsItemFontSize
+                defaultTimeModalScaleGraphicsItemFontSize
 
         # Flag for whether or not the musicalRatios are in reverse
         # order.  This affects how ratios are referenced (from the
@@ -1764,7 +1765,7 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
         self.textEnabledFlag = False
         
     def setStartPointF(self, startPointF):
-        """Stores the starting point of the ModalScaleArtifact.
+        """Stores the starting point of the TimeModalScaleArtifact.
         Arguments:
 
         startPointF - QPointF for the starting point of the artifact.
@@ -1773,12 +1774,12 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
         self.startPointF = startPointF
         
     def getStartPointF(self):
-        """Returns the starting point of the ModalScaleArtifact."""
+        """Returns the starting point of the TimeModalScaleArtifact."""
         
         return self.startPointF
         
     def setEndPointF(self, endPointF):
-        """Stores the ending point of the ModalScaleArtifact.
+        """Stores the ending point of the TimeModalScaleArtifact.
         Arguments:
 
         endPointF - QPointF for the ending point of the artifact.
@@ -1787,7 +1788,7 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
         self.endPointF = endPointF
         
     def getEndPointF(self):
-        """Returns the ending point of the ModalScaleArtifact."""
+        """Returns the ending point of the TimeModalScaleArtifact."""
         
         return self.endPointF
 
@@ -1801,57 +1802,61 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
 
         self.musicalRatios = musicalRatios
 
-    def setModalScaleGraphicsItemBarColor(self, modalScaleGraphicsItemBarColor):
+    def setTimeModalScaleGraphicsItemBarColor(self, \
+            timeModalScaleGraphicsItemBarColor):
         """Sets the bar color.
         
         Arguments:
-        modalScaleGraphicsItemBarColor - QColor object for the bar color.
+        timeModalScaleGraphicsItemBarColor - QColor object for the bar color.
         """
         
-        self.modalScaleGraphicsItemBarColor = \
-            modalScaleGraphicsItemBarColor
+        self.timeModalScaleGraphicsItemBarColor = \
+            timeModalScaleGraphicsItemBarColor
 
-    def getModalScaleGraphicsItemBarColor(self):
+    def getTimeModalScaleGraphicsItemBarColor(self):
         """Gets the bar color as a QColor object."""
         
-        return self.modalScaleGraphicsItemBarColor
+        return self.timeModalScaleGraphicsItemBarColor
 
-    def setModalScaleGraphicsItemTextColor(self,
-                                           modalScaleGraphicsItemTextColor):
+    def setTimeModalScaleGraphicsItemTextColor(self,
+            timeModalScaleGraphicsItemTextColor):
         """Sets the text color.
         
         Arguments:
-        modalScaleGraphicsItemTextColor - QColor object for the text color.
+        timeModalScaleGraphicsItemTextColor - QColor object for the text color.
         """
 
-        self.modalScaleGraphicsItemTextColor = modalScaleGraphicsItemTextColor
+        self.timeModalScaleGraphicsItemTextColor = \
+            timeModalScaleGraphicsItemTextColor
         
-    def getModalScaleGraphicsItemTextColor(self):
+    def getTimeModalScaleGraphicsItemTextColor(self):
         """Gets the text color as a QColor object."""
 
-        return self.modalScaleGraphicsItemTextColor
+        return self.timeModalScaleGraphicsItemTextColor
         
-    def setModalScaleGraphicsItemBarHeight(self,
-                                           modalScaleGraphicsItemBarHeight):
-        """Sets the ModalScaleGraphicsItem bar height (float)."""
+    def setTimeModalScaleGraphicsItemBarHeight(self,
+            timeModalScaleGraphicsItemBarHeight):
+        """Sets the TimeModalScaleGraphicsItem bar height (float)."""
 
-        self.modalScaleGraphicsItemBarHeight = modalScaleGraphicsItemBarHeight
+        self.timeModalScaleGraphicsItemBarHeight = \
+            timeModalScaleGraphicsItemBarHeight
     
-    def getModalScaleGraphicsItemBarHeight(self):
-        """Returns the ModalScaleGraphicsItem bar height (float)."""
+    def getTimeModalScaleGraphicsItemBarHeight(self):
+        """Returns the TimeModalScaleGraphicsItem bar height (float)."""
 
-        return self.modalScaleGraphicsItemBarHeight
+        return self.timeModalScaleGraphicsItemBarHeight
     
-    def setModalScaleGraphicsItemFontSize(self,
-                                          modalScaleGraphicsItemFontSize):
+    def setTimeModalScaleGraphicsItemFontSize(self,
+            timeModalScaleGraphicsItemFontSize):
         """Sets the font size of the musical ratio text (float)."""
 
-        self.modalScaleGraphicsItemFontSize = modalScaleGraphicsItemFontSize
+        self.timeModalScaleGraphicsItemFontSize = \
+            timeModalScaleGraphicsItemFontSize
     
-    def getModalScaleGraphicsItemFontSize(self):
+    def getTimeModalScaleGraphicsItemFontSize(self):
         """Sets the font size of the musical ratio text (float)."""
 
-        return self.modalScaleGraphicsItemFontSize
+        return self.timeModalScaleGraphicsItemFontSize
     
     def isReversed(self):
         """Returns whether or not the musicalRatios are in reversed order.
@@ -2077,11 +2082,395 @@ class PriceBarChartModalScaleArtifact(PriceBarChartArtifact):
 
         # Re-open the logger because it was not pickled.
         self.log = \
-            logging.getLogger("data_objects.PriceBarChartModalScaleArtifact")
+            logging.\
+            getLogger("data_objects.PriceBarChartTimeModalScaleArtifact")
 
         # Log that we set the state of this object.
         self.log.debug("Set state of a " +
-                       PriceBarChartModalScaleArtifact.__name__ +
+                       PriceBarChartTimeModalScaleArtifact.__name__ +
+                       " object of version {}".format(self.classVersion))
+
+class PriceBarChartPriceModalScaleArtifact(PriceBarChartArtifact):
+    """PriceBarChartArtifact that indicates the time measurement starting 
+    at the given PriceBar timestamp and the given Y offset from the 
+    center of the bar.
+    """
+    
+    def __init__(self):
+        super().__init__()
+        
+        # Set the version of this class (used for pickling and unpickling
+        # different versions of this class).
+        self.classVersion = 1
+
+        # Create the logger.
+        self.log = \
+            logging.\
+            getLogger("data_objects.PriceBarChartPriceModalScaleArtifact")
+
+        # Update the internal name so it is the artifact type plus the uuid.
+        self.internalName = "PriceModalScale_" + str(self.uuid)
+
+        # Start and end points of the artifact.
+        self.startPointF = QPointF()
+        self.endPointF = QPointF()
+
+        # List of used ratios.
+        self.musicalRatios = MusicalRatio.getIndianMusicalRatios()
+        
+        # priceModalScaleGraphicsItemColor (QColor).
+        self.priceModalScaleGraphicsItemBarColor = \
+            PriceBarChartSettings.\
+                defaultPriceModalScaleGraphicsItemBarColor
+
+        # priceModalScaleGraphicsItemTextColor (QColor).
+        self.priceModalScaleGraphicsItemTextColor = \
+            PriceBarChartSettings.\
+                defaultPriceModalScaleGraphicsItemTextColor
+
+        # PriceModalScaleGraphicsItem bar width (float).
+        self.priceModalScaleGraphicsItemBarWidth = \
+            PriceBarChartSettings.\
+                defaultPriceModalScaleGraphicsItemBarWidth
+
+        # PriceModalScaleGraphicsItem font size (float).
+        self.priceModalScaleGraphicsItemFontSize = \
+            PriceBarChartSettings.\
+                defaultPriceModalScaleGraphicsItemFontSize
+
+        # Flag for whether or not the musicalRatios are in reverse
+        # order.  This affects how ratios are referenced (from the
+        # endpoint instead of from the startpoint).
+        self.reversedFlag = False
+
+        # Flag for whether or not the text is displayed for enabled
+        # MusicalRatios in self.musicalRatios.
+        self.textEnabledFlag = False
+        
+    def setStartPointF(self, startPointF):
+        """Stores the starting point of the PriceModalScaleArtifact.
+        Arguments:
+
+        startPointF - QPointF for the starting point of the artifact.
+        """
+        
+        self.startPointF = startPointF
+        
+    def getStartPointF(self):
+        """Returns the starting point of the PriceModalScaleArtifact."""
+        
+        return self.startPointF
+        
+    def setEndPointF(self, endPointF):
+        """Stores the ending point of the PriceModalScaleArtifact.
+        Arguments:
+
+        endPointF - QPointF for the ending point of the artifact.
+        """
+        
+        self.endPointF = endPointF
+        
+    def getEndPointF(self):
+        """Returns the ending point of the PriceModalScaleArtifact."""
+        
+        return self.endPointF
+
+    def getMusicalRatios(self):
+        """Returns the list of MusicalRatio objects."""
+
+        return self.musicalRatios
+        
+    def setMusicalRatios(self, musicalRatios):
+        """Sets the list of MusicalRatio objects."""
+
+        self.musicalRatios = musicalRatios
+
+    def setPriceModalScaleGraphicsItemBarColor(self, \
+            priceModalScaleGraphicsItemBarColor):
+        """Sets the bar color.
+        
+        Arguments:
+        priceModalScaleGraphicsItemBarColor - QColor object for the bar color.
+        """
+        
+        self.priceModalScaleGraphicsItemBarColor = \
+            priceModalScaleGraphicsItemBarColor
+
+    def getPriceModalScaleGraphicsItemBarColor(self):
+        """Gets the bar color as a QColor object."""
+        
+        return self.priceModalScaleGraphicsItemBarColor
+
+    def setPriceModalScaleGraphicsItemTextColor(self,
+            priceModalScaleGraphicsItemTextColor):
+        """Sets the text color.
+        
+        Arguments:
+        priceModalScaleGraphicsItemTextColor - QColor object for the text color.
+        """
+
+        self.priceModalScaleGraphicsItemTextColor = \
+            priceModalScaleGraphicsItemTextColor
+        
+    def getPriceModalScaleGraphicsItemTextColor(self):
+        """Gets the text color as a QColor object."""
+
+        return self.priceModalScaleGraphicsItemTextColor
+        
+    def setPriceModalScaleGraphicsItemBarWidth(self,
+            priceModalScaleGraphicsItemBarWidth):
+        """Sets the PriceModalScaleGraphicsItem bar width (float)."""
+
+        self.priceModalScaleGraphicsItemBarWidth = \
+            priceModalScaleGraphicsItemBarWidth
+    
+    def getPriceModalScaleGraphicsItemBarWidth(self):
+        """Returns the PriceModalScaleGraphicsItem bar width (float)."""
+
+        return self.priceModalScaleGraphicsItemBarWidth
+    
+    def setPriceModalScaleGraphicsItemFontSize(self,
+            priceModalScaleGraphicsItemFontSize):
+        """Sets the font size of the musical ratio text (float)."""
+
+        self.priceModalScaleGraphicsItemFontSize = \
+            priceModalScaleGraphicsItemFontSize
+    
+    def getPriceModalScaleGraphicsItemFontSize(self):
+        """Sets the font size of the musical ratio text (float)."""
+
+        return self.priceModalScaleGraphicsItemFontSize
+    
+    def isReversed(self):
+        """Returns whether or not the musicalRatios are in reversed order.
+        This value is used to tell how ratios are referenced (from the
+        endpoint instead of from the startpoint).
+        """
+
+        return self.reversedFlag
+
+    def setReversed(self, reversedFlag):
+        """Sets the reversed flag.  This value is used to tell how
+        the musical ratios are referenced (from the endpoint instead of from the
+        startpoint).
+
+        Arguments:
+        reversedFlag - bool value for whether or not the musicalRatios
+                       are reversed.
+        """
+
+        self.reversedFlag = reversedFlag
+        
+    def isTextEnabled(self):
+        """Returns whether or not the text is enabled for the
+        musicalRatios that are enabled.
+        """
+
+        return self.textEnabledFlag
+
+    def setTextEnabled(self, textEnabledFlag):
+        """Sets the textEnabled flag.  This value is used to tell
+        whether or not the text is enabled for the musicalRatios that
+        are enabled.
+
+        Arguments:
+        textEnabledFlag - bool value for whether or not the text is enabled.
+        """
+
+        self.textEnabledFlag = textEnabledFlag
+        
+    def getXYForMusicalRatio(self, index):
+        """Returns the x and y location of where this musical ratio
+        would exist, based on the MusicalRatio ordering and the
+        startPoint and endPoint locations.
+
+        Arguments:
+        
+        index - int value for index into self.musicalRatios that the
+        user is looking for the musical ratio for.  This value must be
+        within the valid index limits.
+        """
+
+        self.log.debug("Entered getXYForMusicalRatio({})".format(index))
+
+        # Validate input.
+        if index < 0:
+            self.log.error("getXYForMusicalRatio(): Invalid index: {}".
+                           format(index))
+            return
+        if len(self.musicalRatios) > 0 and index >= len(self.musicalRatios):
+            self.log.error("getXYForMusicalRatio(): Index out of range: {}".
+                           format(index))
+            return
+        
+        # Return values.
+        x = None
+        y = None
+
+        startPointX = self.startPointF.x()
+        startPointY = self.startPointF.y()
+        endPointX = self.endPointF.x()
+        endPointY = self.endPointF.y()
+
+        self.log.debug("startPoint is: ({}, {})".
+                       format(startPointX, startPointY))
+        self.log.debug("endPoint is: ({}, {})".
+                       format(endPointX, endPointY))
+        
+        deltaX = endPointX - startPointX
+        deltaY = endPointY - startPointY
+        
+        self.log.debug("deltaX is: {}".format(deltaX))
+        self.log.debug("deltaY is: {}".format(deltaY))
+        
+        # Need to maintain offsets so that if the ratios are rotated a
+        # certain way, then we have the correct starting point.
+        xOffset = 0.0
+        yOffset = 0.0
+
+        
+        self.log.debug("There are {} number of musical ratios.".\
+                       format(len(self.musicalRatios)))
+
+        for i in range(len(self.musicalRatios)):
+            musicalRatio = self.musicalRatios[i]
+            
+            self.log.debug("self.musicalRatios[{}].getRatio() is: {}".\
+                           format(i, musicalRatio.getRatio()))
+            if i == 0:
+                # Store the offset for future indexes.
+                xOffset = deltaX * (musicalRatio.getRatio() - 1.0)
+                yOffset = deltaY * (musicalRatio.getRatio() - 1.0)
+
+                self.log.debug("At i == 0.  xOffset={}, yOffset={}".\
+                               format(xOffset, yOffset))
+                
+            if i == index:
+                self.log.debug("At the i == index, where i == {}.".format(i))
+                self.log.debug("MusicalRatio is: {}".\
+                               format(musicalRatio.getRatio()))
+                
+                x = (deltaX * (musicalRatio.getRatio() - 1.0)) - xOffset
+                y = (deltaY * (musicalRatio.getRatio() - 1.0)) - yOffset
+
+                self.log.debug("(x={}, y={})".format(x, y))
+
+                # Normalize x and y to be within the range of
+                # [startPointX, endPointX] and [startPointY,
+                # endPointY]
+
+                # If we are reversed, then reference the offset x and
+                # y from the end point instead of the start point.
+                if self.isReversed() == False:
+                    x = startPointX + x
+                    y = startPointY + y
+                else:
+                    x = endPointX - x
+                    y = endPointY - y
+                    
+
+                self.log.debug("Adjusting to start points, (x={}, y={})".
+                               format(x, y))
+                
+                while x < startPointX and x < endPointX:
+                    x += abs(deltaX)
+                while x > startPointX and x > endPointX:
+                    x -= abs(deltaX)
+                while y < startPointY and y < endPointY:
+                    y += abs(deltaY)
+                while y > startPointY and y > endPointY:
+                    y -= abs(deltaY)
+
+                self.log.debug("For index {}, ".format(i) +
+                               "normalized x and y from startPoint is: " +
+                               "({}, {})".format(x, y))
+
+                # Break out of for loop because we found what we are
+                # looking for, which is the x and y values.
+                break
+
+        if x == None or y == None:
+            # This means that the index requested that the person
+            # passed in as a parameter is an index that doesn't map to
+            # list length of self.musicalRatios.
+            self.log.warn("getXYForMusicalRatio(): " +
+                          "Index provided is out of range!")
+            # Reset values to 0.
+            x = 0.0
+            y = 0.0
+            
+        self.log.debug("Exiting getXYForMusicalRatio({}), ".format(index) + \
+                       "Returning ({}, {})".format(x, y))
+        return (x, y)
+
+    def __str__(self):
+        """Returns the string representation of this object."""
+
+        return self.toString()
+
+    def toString(self):
+        """Returns the string representation of this object."""
+
+        rv = "["
+
+        obj = self
+        for attr in dir(obj):
+            # Print if the attribute:
+            #   - Doesn't start with '__'.
+            #   - Isn't a Logger
+            #   - Isn't callable.
+            if not attr.startswith('__') and \
+                   not isinstance(getattr(obj, attr), logging.Logger) and \
+                   not hasattr(getattr(obj, attr), '__call__'):
+                
+                attrObj = getattr(obj, attr)
+
+                # Do special handling for QColor objects and lists.
+                if isinstance(attrObj, QColor):
+                    rv += "{}={}, ".\
+                          format(attr, Util.qColorToStr(attrObj))
+                elif isinstance(attrObj, list):
+                    rv += "{}=[".format(attr)
+                    for item in attrObj:
+                        rv += "{}, ".format(item)
+                    rv = rv.rstrip(', ')
+                    rv += "]"
+                else:
+                    rv += "{}={}, ".format(attr, attrObj)
+
+        rv = rv.rstrip(', ')
+        rv += "]"
+
+        return rv
+
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = \
+            logging.\
+            getLogger("data_objects.PriceBarChartPriceModalScaleArtifact")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " +
+                       PriceBarChartPriceModalScaleArtifact.__name__ +
                        " object of version {}".format(self.classVersion))
 
 class PriceBarChartTextArtifact(PriceBarChartArtifact):
@@ -3963,23 +4352,41 @@ class PriceBarChartSettings:
     # showSqrtMonthsTextFlag (bool).
     defaultTimeMeasurementGraphicsItemShowSqrtMonthsTextFlag = True
     
-    # Default color for the bar of a ModalScaleGraphicsItem (QColor).
-    defaultModalScaleGraphicsItemBarColor = QColor(Qt.black)
+    # Default color for the bar of a TimeModalScaleGraphicsItem (QColor).
+    defaultTimeModalScaleGraphicsItemBarColor = QColor(Qt.black)
 
-    # Default color for the text of a ModalScaleGraphicsItem (QColor).
-    defaultModalScaleGraphicsItemTextColor = QColor(Qt.black)
+    # Default color for the text of a TimeModalScaleGraphicsItem (QColor).
+    defaultTimeModalScaleGraphicsItemTextColor = QColor(Qt.black)
     
-    # Default value for the ModalScaleGraphicsItem bar height (float).
-    defaultModalScaleGraphicsItemBarHeight = 0.3
+    # Default value for the TimeModalScaleGraphicsItem bar height (float).
+    defaultTimeModalScaleGraphicsItemBarHeight = 0.3
 
-    # Default value for the ModalScaleGraphicsItem font size (float).
-    defaultModalScaleGraphicsItemFontSize = 1.20
+    # Default value for the TimeModalScaleGraphicsItem font size (float).
+    defaultTimeModalScaleGraphicsItemFontSize = 1.20
 
-    # Default value for the ModalScaleGraphicsItem text X scaling (float).
-    defaultModalScaleGraphicsItemTextXScaling = 1
+    # Default value for the TimeModalScaleGraphicsItem text X scaling (float).
+    defaultTimeModalScaleGraphicsItemTextXScaling = 1
 
-    # Default value for the ModalScaleGraphicsItem text Y scaling (float).
-    defaultModalScaleGraphicsItemTextYScaling = 0.2
+    # Default value for the TimeModalScaleGraphicsItem text Y scaling (float).
+    defaultTimeModalScaleGraphicsItemTextYScaling = 0.2
+
+    # Default color for the bar of a PriceModalScaleGraphicsItem (QColor).
+    defaultPriceModalScaleGraphicsItemBarColor = QColor(Qt.black)
+
+    # Default color for the text of a PriceModalScaleGraphicsItem (QColor).
+    defaultPriceModalScaleGraphicsItemTextColor = QColor(Qt.black)
+    
+    # Default value for the PriceModalScaleGraphicsItem bar width (float).
+    defaultPriceModalScaleGraphicsItemBarWidth = 1.0
+
+    # Default value for the PriceModalScaleGraphicsItem font size (float).
+    defaultPriceModalScaleGraphicsItemFontSize = 1.20
+
+    # Default value for the PriceModalScaleGraphicsItem text X scaling (float).
+    defaultPriceModalScaleGraphicsItemTextXScaling = 1
+
+    # Default value for the PriceModalScaleGraphicsItem text Y scaling (float).
+    defaultPriceModalScaleGraphicsItemTextYScaling = 0.2
 
     # Default font description text (this is basically the QFont,
     # serialized to str) for the TextGraphicsItem.  This includes the
@@ -4282,25 +4689,45 @@ class PriceBarChartSettings:
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtMonthsTextFlag
 
-        # ModalScaleGraphicsItem bar color (QColor).
-        self.modalScaleGraphicsItemBarColor = \
+        # TimeModalScaleGraphicsItem bar color (QColor).
+        self.timeModalScaleGraphicsItemBarColor = \
             PriceBarChartSettings.\
-                defaultModalScaleGraphicsItemBarColor
+                defaultTimeModalScaleGraphicsItemBarColor
 
-        # ModalScaleGraphicsItem text color (QColor).
-        self.modalScaleGraphicsItemTextColor = \
+        # TimeModalScaleGraphicsItem text color (QColor).
+        self.timeModalScaleGraphicsItemTextColor = \
             PriceBarChartSettings.\
-                defaultModalScaleGraphicsItemTextColor
+                defaultTimeModalScaleGraphicsItemTextColor
 
-        # ModalScaleGraphicsItem text X scaling (float).
-        self.modalScaleGraphicsItemTextXScaling = \
+        # TimeModalScaleGraphicsItem text X scaling (float).
+        self.timeModalScaleGraphicsItemTextXScaling = \
             PriceBarChartSettings.\
-                defaultModalScaleGraphicsItemTextXScaling
+                defaultTimeModalScaleGraphicsItemTextXScaling
 
-        # ModalScaleGraphicsItem text Y scaling (float).
-        self.modalScaleGraphicsItemTextYScaling = \
+        # TimeModalScaleGraphicsItem text Y scaling (float).
+        self.timeModalScaleGraphicsItemTextYScaling = \
             PriceBarChartSettings.\
-                defaultModalScaleGraphicsItemTextYScaling
+                defaultTimeModalScaleGraphicsItemTextYScaling
+
+        # PriceModalScaleGraphicsItem bar color (QColor).
+        self.priceModalScaleGraphicsItemBarColor = \
+            PriceBarChartSettings.\
+                defaultPriceModalScaleGraphicsItemBarColor
+
+        # PriceModalScaleGraphicsItem text color (QColor).
+        self.priceModalScaleGraphicsItemTextColor = \
+            PriceBarChartSettings.\
+                defaultPriceModalScaleGraphicsItemTextColor
+
+        # PriceModalScaleGraphicsItem text X scaling (float).
+        self.priceModalScaleGraphicsItemTextXScaling = \
+            PriceBarChartSettings.\
+                defaultPriceModalScaleGraphicsItemTextXScaling
+
+        # PriceModalScaleGraphicsItem text Y scaling (float).
+        self.priceModalScaleGraphicsItemTextYScaling = \
+            PriceBarChartSettings.\
+                defaultPriceModalScaleGraphicsItemTextYScaling
 
         # Default font description text (this is basically the QFont,
         # serialized to str) for the TextGraphicsItem.  This includes the

@@ -251,12 +251,19 @@ class MainWindow(QMainWindow):
         self.timeMeasurementToolAction.setStatusTip("Time Measurement Tool")
         self.timeMeasurementToolAction.setCheckable(True)
 
-        # Create the ModalScaleToolAction
+        # Create the TimeModalScaleToolAction
         icon = QIcon()
-        self.modalScaleToolAction = \
-            QAction(icon, "Modal Scale Tool", self)
-        self.modalScaleToolAction.setStatusTip("Modal Scale Tool")
-        self.modalScaleToolAction.setCheckable(True)
+        self.timeModalScaleToolAction = \
+            QAction(icon, "Time Modal Scale Tool", self)
+        self.timeModalScaleToolAction.setStatusTip("Time Modal Scale Tool")
+        self.timeModalScaleToolAction.setCheckable(True)
+
+        # Create the PriceModalScaleToolAction
+        icon = QIcon()
+        self.priceModalScaleToolAction = \
+            QAction(icon, "Price Modal Scale Tool", self)
+        self.priceModalScaleToolAction.setStatusTip("Price Modal Scale Tool")
+        self.priceModalScaleToolAction.setCheckable(True)
 
         # Create the TextToolAction
         icon = QIcon()
@@ -304,7 +311,8 @@ class MainWindow(QMainWindow):
         self.toolActionGroup.addAction(self.zoomOutToolAction)
         self.toolActionGroup.addAction(self.barCountToolAction)
         self.toolActionGroup.addAction(self.timeMeasurementToolAction)
-        self.toolActionGroup.addAction(self.modalScaleToolAction)
+        self.toolActionGroup.addAction(self.timeModalScaleToolAction)
+        self.toolActionGroup.addAction(self.priceModalScaleToolAction)
         self.toolActionGroup.addAction(self.textToolAction)
         self.toolActionGroup.addAction(self.priceTimeInfoToolAction)
         self.toolActionGroup.addAction(self.priceMeasurementToolAction)
@@ -413,7 +421,8 @@ class MainWindow(QMainWindow):
         self.toolsMenu.addAction(self.zoomOutToolAction)
         self.toolsMenu.addAction(self.barCountToolAction)
         self.toolsMenu.addAction(self.timeMeasurementToolAction)
-        self.toolsMenu.addAction(self.modalScaleToolAction)
+        self.toolsMenu.addAction(self.timeModalScaleToolAction)
+        self.toolsMenu.addAction(self.priceModalScaleToolAction)
         self.toolsMenu.addAction(self.textToolAction)
         self.toolsMenu.addAction(self.priceTimeInfoToolAction)
         self.toolsMenu.addAction(self.priceMeasurementToolAction)
@@ -465,7 +474,8 @@ class MainWindow(QMainWindow):
         self.toolsToolBar.addAction(self.zoomOutToolAction)
         self.toolsToolBar.addAction(self.barCountToolAction)
         self.toolsToolBar.addAction(self.timeMeasurementToolAction)
-        self.toolsToolBar.addAction(self.modalScaleToolAction)
+        self.toolsToolBar.addAction(self.timeModalScaleToolAction)
+        self.toolsToolBar.addAction(self.priceModalScaleToolAction)
         self.toolsToolBar.addAction(self.textToolAction)
         self.toolsToolBar.addAction(self.priceTimeInfoToolAction)
         self.toolsToolBar.addAction(self.priceMeasurementToolAction)
@@ -521,7 +531,8 @@ class MainWindow(QMainWindow):
         self.zoomOutToolAction.setEnabled(isActive)
         self.barCountToolAction.setEnabled(isActive)
         self.timeMeasurementToolAction.setEnabled(isActive)
-        self.modalScaleToolAction.setEnabled(isActive)
+        self.timeModalScaleToolAction.setEnabled(isActive)
+        self.priceModalScaleToolAction.setEnabled(isActive)
         self.textToolAction.setEnabled(isActive)
         self.priceTimeInfoToolAction.setEnabled(isActive)
         self.priceMeasurementToolAction.setEnabled(isActive)
@@ -555,8 +566,10 @@ class MainWindow(QMainWindow):
                 priceChartDocument.toBarCountToolMode()
             elif self.timeMeasurementToolAction.isChecked():
                 priceChartDocument.toTimeMeasurementToolMode()
-            elif self.modalScaleToolAction.isChecked():
-                priceChartDocument.toModalScaleToolMode()
+            elif self.timeModalScaleToolAction.isChecked():
+                priceChartDocument.toTimeModalScaleToolMode()
+            elif self.priceModalScaleToolAction.isChecked():
+                priceChartDocument.toPriceModalScaleToolMode()
             elif self.textToolAction.isChecked():
                 priceChartDocument.toTextToolMode()
             elif self.priceTimeInfoToolAction.isChecked():
@@ -1311,9 +1324,12 @@ class MainWindow(QMainWindow):
         elif qaction == self.timeMeasurementToolAction:
             self.log.debug("timeMeasurementToolAction triggered.")
             pcd.toTimeMeasurementToolMode()
-        elif qaction == self.modalScaleToolAction:
-            self.log.debug("modalScaleToolAction triggered.")
-            pcd.toModalScaleToolMode()
+        elif qaction == self.timeModalScaleToolAction:
+            self.log.debug("timeModalScaleToolAction triggered.")
+            pcd.toTimeModalScaleToolMode()
+        elif qaction == self.priceModalScaleToolAction:
+            self.log.debug("priceModalScaleToolAction triggered.")
+            pcd.toPriceModalScaleToolMode()
         elif qaction == self.textToolAction:
             self.log.debug("textToolAction triggered.")
             pcd.toTextToolMode()
@@ -2036,10 +2052,15 @@ class PriceChartDocument(QMdiSubWindow):
 
         self.widgets.toTimeMeasurementToolMode()
 
-    def toModalScaleToolMode(self):
-        """Changes the tool mode to be the ModalScaleTool."""
+    def toTimeModalScaleToolMode(self):
+        """Changes the tool mode to be the TimeModalScaleTool."""
 
-        self.widgets.toModalScaleToolMode()
+        self.widgets.toTimeModalScaleToolMode()
+
+    def toPriceModalScaleToolMode(self):
+        """Changes the tool mode to be the PriceModalScaleTool."""
+
+        self.widgets.toPriceModalScaleToolMode()
 
     def toTextToolMode(self):
         """Changes the tool mode to be the TextTool."""
@@ -2332,10 +2353,15 @@ class PriceChartDocumentWidget(QWidget):
 
         self.priceBarChartWidget.toTimeMeasurementToolMode()
 
-    def toModalScaleToolMode(self):
-        """Changes the tool mode to be the ModalScaleTool."""
+    def toTimeModalScaleToolMode(self):
+        """Changes the tool mode to be the TimeModalScaleTool."""
 
-        self.priceBarChartWidget.toModalScaleToolMode()
+        self.priceBarChartWidget.toTimeModalScaleToolMode()
+
+    def toPriceModalScaleToolMode(self):
+        """Changes the tool mode to be the PriceModalScaleTool."""
+
+        self.priceBarChartWidget.toPriceModalScaleToolMode()
 
     def toTextToolMode(self):
         """Changes the tool mode to be the TextTool."""
