@@ -30,11 +30,10 @@ DONE    the info point.  (in: pricebarchartsettings, artifact, edit
 DONE    widget/dialog and graphicsitem).  Also add pricebarchartsettings
 DONE    for what measurements/text to display when creating the items 
 DONE    by default.
-
-  - Split the modal-scale-tool to price-modal-scale and time-modal-scale.
-    (and change it to restrict the x, y, etc.)
-
-    - Add snap capability for vertical and horizontal values.
+DONE
+DONE  - Split the modal-scale-tool to price-modal-scale and time-modal-scale.
+DONE    (and change it to restrict the x, y, etc.)
+DONE
 
   - Line segment tool.  (when selected, box is drawn around it.  need
     property/setting for the invisible 'width' of the line segment.)
@@ -126,7 +125,9 @@ DONE    by default.
       - Dialog to edit start and end datetime.
       - Option to modify lifespan (i.e. timerange).
 
-  - Ruler for all the other dasas (draggable ends and middle).
+  - Ruler for all the other dasas like dwi saptati sama dasa
+      (draggable ends and middle).
+
       - Dialog to edit start and end datetime.
       - Option to modify lifespan (i.e. timerange).
 
@@ -135,6 +136,9 @@ DONE    by default.
       Chart with pricebars in Calendar Days (CDs).
 
   - Narayana Dasa  --> How to implement this?
+
+  - Should snap be added also to when the user tries to drag
+    endpoints of various measurement widgets?  --> probably not.
 
   - In the astrologychart.SiderealRadixGraphicsItem, clean up the
     code.  Parameterize the pen/brush so that it has foreground color

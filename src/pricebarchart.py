@@ -12737,7 +12737,16 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
                 self.timeModalScaleGraphicsItem = None
-
+            elif qkeyevent.key() == Qt.Key_Q:
+                # Turn on snap functionality.
+                self.snapEnabledFlag = True
+                self.log.debug("Snap mode enabled.")
+                self.statusMessageUpdate.emit("Snap mode enabled")
+            elif qkeyevent.key() == Qt.Key_W:
+                # Turn off snap functionality.
+                self.snapEnabledFlag = False
+                self.log.debug("Snap mode disabled.")
+                self.statusMessageUpdate.emit("Snap mode disabled")
             else:
                 super().keyPressEvent(qkeyevent)
 
@@ -12750,11 +12759,20 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # are cleared out too.
                 if self.priceModalScaleGraphicsItem != None:
                     self.scene().removeItem(self.priceModalScaleGraphicsItem)
-
+                    
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
                 self.priceModalScaleGraphicsItem = None
-
+            elif qkeyevent.key() == Qt.Key_Q:
+                # Turn on snap functionality.
+                self.snapEnabledFlag = True
+                self.log.debug("Snap mode enabled.")
+                self.statusMessageUpdate.emit("Snap mode enabled")
+            elif qkeyevent.key() == Qt.Key_W:
+                # Turn off snap functionality.
+                self.snapEnabledFlag = False
+                self.log.debug("Snap mode disabled.")
+                self.statusMessageUpdate.emit("Snap mode disabled")
             else:
                 super().keyPressEvent(qkeyevent)
 
@@ -13271,6 +13289,18 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     
                     self.clickOnePointF = self.mapToScene(qmouseevent.pos())
 
+                    # If snap is enabled, then find the closest
+                    # pricebar time to the place clicked.
+                    if self.snapEnabledFlag == True:
+                        self.log.debug("Snap is enabled, so snapping to " +
+                                       "closest pricebar X.")
+                        
+                        infoPointF = self.mapToScene(qmouseevent.pos())
+                        x = self.scene().getClosestPriceBarX(infoPointF)
+
+                        # Use this X value.
+                        self.clickOnePointF.setX(x)
+                    
                     # Create the TimeModalScaleGraphicsItem and
                     # initialize it to the mouse location.
                     self.timeModalScaleGraphicsItem = \
@@ -13307,6 +13337,19 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     
                     # Set the end point of the TimeModalScaleGraphicsItem.
                     self.clickTwoPointF = self.mapToScene(qmouseevent.pos())
+
+                    # If snap is enabled, then find the closest
+                    # pricebar time to the place clicked.
+                    if self.snapEnabledFlag == True:
+                        self.log.debug("Snap is enabled, so snapping to " +
+                                       "closest pricebar X.")
+                        
+                        infoPointF = self.mapToScene(qmouseevent.pos())
+                        x = self.scene().getClosestPriceBarX(infoPointF)
+
+                        # Use this X value.
+                        self.clickTwoPointF.setX(x)
+                    
                     newEndPointF = QPointF(self.clickTwoPointF.x(),
                                            self.clickOnePointF.y())
                     self.timeModalScaleGraphicsItem.\
@@ -13397,6 +13440,18 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     
                     self.clickOnePointF = self.mapToScene(qmouseevent.pos())
 
+                    # If snap is enabled, then find the closest
+                    # pricebar price to the place clicked.
+                    if self.snapEnabledFlag == True:
+                        self.log.debug("Snap is enabled, so snapping to " +
+                                       "closest pricebar price Y.")
+                        
+                        infoPointF = self.mapToScene(qmouseevent.pos())
+                        y = self.scene().getClosestPriceBarOHLCY(infoPointF)
+
+                        # Use this Y value.
+                        self.clickOnePointF.setY(y)
+                    
                     # Create the PriceModalScaleGraphicsItem and
                     # initialize it to the mouse location.
                     self.priceModalScaleGraphicsItem = \
@@ -13433,6 +13488,19 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     
                     # Set the end point of the PriceModalScaleGraphicsItem.
                     self.clickTwoPointF = self.mapToScene(qmouseevent.pos())
+
+                    # If snap is enabled, then find the closest
+                    # pricebar price to the place clicked.
+                    if self.snapEnabledFlag == True:
+                        self.log.debug("Snap is enabled, so snapping to " +
+                                       "closest pricebar price Y.")
+                        
+                        infoPointF = self.mapToScene(qmouseevent.pos())
+                        y = self.scene().getClosestPriceBarOHLCY(infoPointF)
+
+                        # Use this Y value.
+                        self.clickTwoPointF.setY(y)
+                    
                     newEndPointF = \
                         QPointF(self.clickOnePointF.x(),
                                 self.clickTwoPointF.y())
