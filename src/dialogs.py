@@ -10524,6 +10524,11 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.priceRetracementGraphicsItemGroupBox = \
             self._buildPriceRetracementGraphicsItemGroupBox()
 
+        # QGroupBox to hold the edit widgets and form for
+        # PriceTimeVectorGraphicsItem.
+        self.priceTimeVectorGraphicsItemGroupBox = \
+            self._buildPriceTimeVectorGraphicsItemGroupBox()
+
         # Create group boxes for pages of settings that will go into a
         # QTabWidget.
         self.page1GroupBox = QGroupBox()
@@ -10538,7 +10543,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
         page1GroupBoxLayout.addWidget(self.barCountGraphicsItemGroupBox)
         page1GroupBoxLayout.addWidget(self.timeModalScaleGraphicsItemGroupBox)
         page1GroupBoxLayout.addWidget(self.priceModalScaleGraphicsItemGroupBox)
-        page1GroupBoxLayout.addWidget(self.textGraphicsItemGroupBox)
         self.page1GroupBox.setLayout(page1GroupBoxLayout)
 
         page2GroupBoxLayout = QVBoxLayout()
@@ -10557,7 +10561,12 @@ class PriceBarChartSettingsEditWidget(QWidget):
         page5GroupBoxLayout = QVBoxLayout()
         page5GroupBoxLayout.addWidget(self.priceRetracementGraphicsItemGroupBox)
         self.page5GroupBox.setLayout(page5GroupBoxLayout)
-        
+
+        page6GroupBoxLayout = QVBoxLayout()
+        page6GroupBoxLayout.addWidget(self.textGraphicsItemGroupBox)
+        page6GroupBoxLayout.addWidget(self.priceTimeVectorGraphicsItemGroupBox)
+        self.page6GroupBox.setLayout(page6GroupBoxLayout)
+
         # Create a QTabWidget to stack all the settings editing
         # widgets.
         self.tabWidget = QTabWidget()
@@ -10612,6 +10621,10 @@ class PriceBarChartSettingsEditWidget(QWidget):
             connect(\
             self.\
             _handlePriceRetracementGraphicsItemDefaultFontModifyButtonClicked)
+        self.priceTimeVectorGraphicsItemDefaultFontModifyButton.clicked.\
+            connect(\
+            self.\
+            _handlePriceTimeVectorGraphicsItemDefaultFontModifyButtonClicked)
         
         # Connect reset buttons.
         self.priceBarGraphicsItemPenWidthResetButton.clicked.\
@@ -10849,6 +10862,39 @@ class PriceBarChartSettingsEditWidget(QWidget):
         # No reset buttons are created for PriceRetracementGraphicsItem Ratios,
         # so no need to connect signals for them.
 
+        self.priceTimeVectorGraphicsItemBarWidthResetButton.clicked.\
+            connect(\
+            self._handlePriceTimeVectorGraphicsItemBarWidthResetButtonClicked)
+        self.priceTimeVectorGraphicsItemTextXScalingResetButton.clicked.\
+            connect(\
+            self.\
+            _handlePriceTimeVectorGraphicsItemTextXScalingResetButtonClicked)
+        self.priceTimeVectorGraphicsItemTextYScalingResetButton.clicked.\
+            connect(\
+            self.\
+            _handlePriceTimeVectorGraphicsItemTextYScalingResetButtonClicked)
+        self.priceTimeVectorGraphicsItemDefaultFontResetButton.clicked.\
+            connect(\
+            self.\
+            _handlePriceTimeVectorGraphicsItemDefaultFontResetButtonClicked)
+        self.priceTimeVectorGraphicsItemDefaultColorResetButton.clicked.\
+            connect(\
+            self._handlePriceTimeVectorGraphicsItemDefaultColorResetButtonClicked)
+        self.priceTimeVectorGraphicsItemDefaultTextColorResetButton.clicked.\
+            connect(\
+            self._handlePriceTimeVectorGraphicsItemDefaultTextColorResetButtonClicked)
+        self.priceTimeVectorGraphicsItemShowDistanceTextFlagResetButton.\
+            clicked.\
+            connect(\
+            self._handlePriceTimeVectorGraphicsItemShowDistanceTextFlagResetButtonClicked)
+        self.priceTimeVectorGraphicsItemShowSqrtDistanceTextFlagResetButton.\
+            clicked.\
+            connect(\
+            self._handlePriceTimeVectorGraphicsItemShowSqrtDistanceTextFlagResetButtonClicked)
+        self.priceTimeVectorGraphicsItemTiltedTextFlagResetButton.\
+            clicked.\
+            connect(\
+            self._handlePriceTimeVectorGraphicsItemTiltedTextFlagResetButtonClicked)
         
         self.resetAllToDefaultButton.clicked.\
             connect(self._handleResetAllToDefaultButtonClicked)
@@ -12666,6 +12712,235 @@ class PriceBarChartSettingsEditWidget(QWidget):
         
         return self.priceRetracementGraphicsItemGroupBox
     
+    def _buildPriceTimeVectorGraphicsItemGroupBox(self):
+        """Builds the groupbox containing info to edit the
+        PriceBarChartSettings related to a PriceTimeVectorGraphicsItem.
+
+        Returns:
+        QGroupBox obj containing all the created widgets.
+        """
+
+        self.priceTimeVectorGraphicsItemGroupBox = \
+            QGroupBox("PriceTimeVectorGraphicsItem settings:")
+
+        # priceTimeVectorGraphicsItemBarWidth (float).
+        self.priceTimeVectorGraphicsItemBarWidthLabel = \
+            QLabel("PriceTimeVectorGraphicsItem bar width: ")
+        self.priceTimeVectorGraphicsItemBarWidthSpinBox = QDoubleSpinBox()
+        self.priceTimeVectorGraphicsItemBarWidthSpinBox.setMinimum(0.0)
+        self.priceTimeVectorGraphicsItemBarWidthSpinBox.setMaximum(1000.0)
+        self.priceTimeVectorGraphicsItemBarWidthResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # priceTimeVectorGraphicsItemTextXScaling (float).
+        self.priceTimeVectorGraphicsItemTextXScalingLabel = \
+            QLabel("PriceTimeVectorGraphicsItem text X scaling: ")
+        self.priceTimeVectorGraphicsItemTextXScalingSpinBox = QDoubleSpinBox()
+        self.priceTimeVectorGraphicsItemTextXScalingSpinBox.setMinimum(0.0001)
+        self.priceTimeVectorGraphicsItemTextXScalingSpinBox.setMaximum(1000.0)
+        self.priceTimeVectorGraphicsItemTextXScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # priceTimeVectorGraphicsItemTextYScaling (float).
+        self.priceTimeVectorGraphicsItemTextYScalingLabel = \
+            QLabel("PriceTimeVectorGraphicsItem text Y scaling: ")
+        self.priceTimeVectorGraphicsItemTextYScalingSpinBox = QDoubleSpinBox()
+        self.priceTimeVectorGraphicsItemTextYScalingSpinBox.setMinimum(0.0001)
+        self.priceTimeVectorGraphicsItemTextYScalingSpinBox.setMaximum(1000.0)
+        self.priceTimeVectorGraphicsItemTextYScalingResetButton = \
+            QPushButton("Reset to default")
+
+        # priceTimeVectorGraphicsItemDefaultFont (QFont)
+        self.priceTimeVectorGraphicsItemDefaultFont = QFont()
+        self.priceTimeVectorGraphicsItemDefaultFont.\
+            fromString(PriceBarChartSettings.\
+                       defaultPriceTimeVectorGraphicsItemDefaultFontDescription)
+        self.priceTimeVectorGraphicsItemDefaultFontLabel = \
+            QLabel("PriceTimeVectorGraphicsItem default font:")
+        self.priceTimeVectorGraphicsItemDefaultFontModifyButton = \
+            QPushButton("Modify")
+        self.priceTimeVectorGraphicsItemDefaultFontResetButton = \
+            QPushButton("Reset to default")
+        
+        # priceTimeVectorGraphicsItemDefaultTextColor (QColor)
+        self.priceTimeVectorGraphicsItemDefaultTextColorLabel = \
+            QLabel("PriceTimeVectorGraphicsItem default text color:")
+        self.priceTimeVectorGraphicsItemDefaultTextColorEditButton = \
+            ColorEditPushButton()
+        self.priceTimeVectorGraphicsItemDefaultTextColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # priceTimeVectorGraphicsItemDefaultColor (QColor)
+        self.priceTimeVectorGraphicsItemDefaultColorLabel = \
+            QLabel("PriceTimeVectorGraphicsItem default color:")
+        self.priceTimeVectorGraphicsItemDefaultColorEditButton = \
+            ColorEditPushButton()
+        self.priceTimeVectorGraphicsItemDefaultColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # priceTimeVectorGraphicsItemShowDistanceTextFlag (bool).
+        self.priceTimeVectorGraphicsItemShowDistanceTextFlagLabel = \
+            QLabel("PriceTimeVectorGraphicsItem show distance text:")
+        self.priceTimeVectorGraphicsItemShowDistanceTextFlagCheckBox = \
+            QCheckBox()
+        self.priceTimeVectorGraphicsItemShowDistanceTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.priceTimeVectorGraphicsItemShowDistanceTextFlagResetButton = \
+            QPushButton("Reset to default")
+    
+        # priceTimeVectorGraphicsItemShowSqrtDistanceTextFlag (bool).
+        self.priceTimeVectorGraphicsItemShowSqrtDistanceTextFlagLabel = \
+            QLabel("PriceTimeVectorGraphicsItem show sqrt distance text:")
+        self.priceTimeVectorGraphicsItemShowSqrtDistanceTextFlagCheckBox = \
+            QCheckBox()
+        self.priceTimeVectorGraphicsItemShowSqrtDistanceTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.priceTimeVectorGraphicsItemShowSqrtDistanceTextFlagResetButton = \
+            QPushButton("Reset to default")
+    
+        # priceTimeVectorGraphicsItemTiltedTextFlag (bool).
+        self.priceTimeVectorGraphicsItemTiltedTextFlagLabel = \
+            QLabel("PriceTimeVectorGraphicsItem tilted text:")
+        self.priceTimeVectorGraphicsItemTiltedTextFlagCheckBox = \
+            QCheckBox()
+        self.priceTimeVectorGraphicsItemTiltedTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.priceTimeVectorGraphicsItemTiltedTextFlagResetButton = \
+            QPushButton("Reset to default")
+
+        # Grid layout.
+        gridLayout = QGridLayout()
+        r = 0
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemBarWidthLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(self.priceTimeVectorGraphicsItemBarWidthSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemBarWidthResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemTextXScalingLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(self.priceTimeVectorGraphicsItemTextXScalingSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemTextXScalingResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemTextYScalingLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(self.priceTimeVectorGraphicsItemTextYScalingSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemTextYScalingResetButton, 
+            r, 2, ar)
+        
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemDefaultFontLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(self.priceTimeVectorGraphicsItemDefaultFontModifyButton, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemDefaultFontResetButton, 
+            r, 2, ar)
+        
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemDefaultTextColorLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemDefaultTextColorEditButton, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemDefaultTextColorResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemDefaultColorLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemDefaultColorEditButton, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemDefaultColorResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemShowDistanceTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemShowDistanceTextFlagCheckBox, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemShowDistanceTextFlagResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemShowSqrtDistanceTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemShowSqrtDistanceTextFlagCheckBox, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemShowSqrtDistanceTextFlagResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemTiltedTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemTiltedTextFlagCheckBox, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemTiltedTextFlagResetButton, 
+            r, 2, ar)
+
+        r += 1
+        
+        self.priceTimeVectorGraphicsItemGroupBox.setLayout(gridLayout)
+        
+        return self.priceTimeVectorGraphicsItemGroupBox
+    
     def loadValuesFromSettings(self, priceBarChartSettings):
         """Loads the widgets with values from the given
         PriceBarChartSettings object.
@@ -13197,6 +13472,69 @@ class PriceBarChartSettingsEditWidget(QWidget):
             else:
                 self.priceRetracementGraphicsItemRatioCheckBoxes[i].\
                     setCheckState(Qt.Unchecked)
+
+        # priceTimeVectorGraphicsItemBarWidth (float).
+        self.priceTimeVectorGraphicsItemBarWidthSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        priceTimeVectorGraphicsItemBarWidth)
+
+        # priceTimeVectorGraphicsItemTextXScaling (float).
+        self.priceTimeVectorGraphicsItemTextXScalingSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        priceTimeVectorGraphicsItemTextXScaling)
+
+        # priceTimeVectorGraphicsItemTextYScaling (float).
+        self.priceTimeVectorGraphicsItemTextYScalingSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        priceTimeVectorGraphicsItemTextYScaling)
+
+        # priceTimeVectorGraphicsItemDefaultFontDescription (str)
+        self.priceTimeVectorGraphicsItemDefaultFont = QFont()
+        self.priceTimeVectorGraphicsItemDefaultFont.\
+            fromString(self.priceBarChartSettings.\
+                       priceTimeVectorGraphicsItemDefaultFontDescription)
+
+        # priceTimeVectorGraphicsItemDefaultTextColor (QColor).
+        self.priceTimeVectorGraphicsItemDefaultTextColorEditButton.\
+            setColor(self.priceBarChartSettings.\
+                     priceTimeVectorGraphicsItemDefaultTextColor)
+
+        # priceTimeVectorGraphicsItemDefaultColor (QColor).
+        self.priceTimeVectorGraphicsItemDefaultColorEditButton.\
+            setColor(self.priceBarChartSettings.\
+                     priceTimeVectorGraphicsItemDefaultColor)
+
+        # priceTimeVectorGraphicsItemShowDistanceFlag (bool).
+        if self.priceBarChartSettings.\
+           priceTimeVectorGraphicsItemShowDistanceFlag == True:
+            
+            self.priceTimeVectorGraphicsItemShowDistanceFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.priceTimeVectorGraphicsItemShowDistanceFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # priceTimeVectorGraphicsItemShowSqrtDistanceTextFlag (bool).
+        if self.priceBarChartSettings.\
+           priceTimeVectorGraphicsItemShowSqrtDistanceTextFlag == True:
+            
+            self.priceTimeVectorGraphicsItemShowSqrtDistanceTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.priceTimeVectorGraphicsItemShowSqrtDistanceTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # priceTimeVectorGraphicsItemTiltedTextFlag (bool).
+        if self.priceBarChartSettings.\
+           priceTimeVectorGraphicsItemTiltedTextFlag == True:
+            
+            self.priceTimeVectorGraphicsItemTiltedTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.priceTimeVectorGraphicsItemTiltedTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+
         
         self.log.debug("Exiting loadValuesFromSettings()")
         
@@ -13686,6 +14024,66 @@ class PriceBarChartSettingsEditWidget(QWidget):
             else:
                 self.priceBarChartSettings.\
                     priceRetracementGraphicsItemRatios[i].setEnabled(False)
+
+        # priceTimeVectorGraphicsItemBarWidth (float).
+        self.priceBarChartSettings.priceTimeVectorGraphicsItemBarWidth = \
+            float(self.priceTimeVectorGraphicsItemBarWidthSpinBox.value())
+
+        # priceTimeVectorGraphicsItemTextXScaling (float).
+        self.priceBarChartSettings.priceTimeVectorGraphicsItemTextXScaling = \
+            float(self.priceTimeVectorGraphicsItemTextXScalingSpinBox.value())
+
+        # priceTimeVectorGraphicsItemTextYScaling (float).
+        self.priceBarChartSettings.priceTimeVectorGraphicsItemTextYScaling = \
+            float(self.priceTimeVectorGraphicsItemTextYScalingSpinBox.value())
+
+        # priceTimeVectorGraphicsItemDefaultFontDescription (str)
+        self.priceBarChartSettings.\
+            priceTimeVectorGraphicsItemDefaultFontDescription = \
+            self.priceTimeVectorGraphicsItemDefaultFont.toString()
+
+        # priceTimeVectorGraphicsItemDefaultTextColor (QColor).
+        self.priceBarChartSettings.\
+            priceTimeVectorGraphicsItemDefaultTextColor = \
+            self.priceTimeVectorGraphicsItemDefaultTextColorEditButton.\
+            getColor()
+
+        # priceTimeVectorGraphicsItemDefaultColor (QColor).
+        self.priceBarChartSettings.\
+            priceTimeVectorGraphicsItemDefaultColor = \
+            self.priceTimeVectorGraphicsItemDefaultColorEditButton.\
+            getColor()
+
+        # priceTimeVectorGraphicsItemShowDistanceFlag (bool).
+        if self.priceTimeVectorGraphicsItemShowDistanceFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                priceTimeVectorGraphicsItemShowDistanceFlag = True
+        else:
+            self.priceBarChartSettings.\
+                priceTimeVectorGraphicsItemShowDistanceFlag = False
+
+        # priceTimeVectorGraphicsItemShowSqrtDistanceTextFlag (bool).
+        if self.priceTimeVectorGraphicsItemShowSqrtDistanceTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                priceTimeVectorGraphicsItemShowSqrtDistanceTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                priceTimeVectorGraphicsItemShowSqrtDistanceTextFlag = False
+
+        # priceTimeVectorGraphicsItemTiltedTextFlag (bool).
+        if self.priceTimeVectorGraphicsItemTiltedTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                priceTimeVectorGraphicsItemTiltedTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                priceTimeVectorGraphicsItemTiltedTextFlag = False
+
         
         self.log.debug("Exiting saveValuesToSettings()")
 
@@ -14614,6 +15012,127 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceRetracementGraphicsItemShowPercentTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
             
+    def _handlePriceTimeVectorGraphicsItemBarWidthResetButtonClicked(self):
+        """Called when the priceTimeVectorGraphicsItemBarWidthResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultPriceTimeVectorGraphicsItemBarWidth
+
+        self.priceTimeVectorGraphicsItemBarWidthSpinBox.setValue(value)
+
+    def _handlePriceTimeVectorGraphicsItemTextXScalingResetButtonClicked(self):
+        """Called when the priceTimeVectorGraphicsItemTextXScalingResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultPriceTimeVectorGraphicsItemTextXScaling
+
+        self.priceTimeVectorGraphicsItemTextXScalingSpinBox.setValue(value)
+
+    def _handlePriceTimeVectorGraphicsItemTextYScalingResetButtonClicked(self):
+        """Called when the priceTimeVectorGraphicsItemTextYScalingResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultPriceTimeVectorGraphicsItemTextYScaling
+
+        self.priceTimeVectorGraphicsItemTextYScalingSpinBox.setValue(value)
+
+    def _handlePriceTimeVectorGraphicsItemDefaultFontResetButtonClicked(self):
+        """Called when the
+        priceTimeVectorGraphicsItemDefaultFontResetButton is clicked.
+        Resets the internal value to the default value.
+        """
+
+        self.priceTimeVectorGraphicsItemDefaultFont = QFont()
+        self.priceTimeVectorGraphicsItemDefaultFont.\
+            fromString(PriceBarChartSettings.\
+                       defaultPriceTimeVectorGraphicsItemDefaultFontDescription)
+        
+    def _handlePriceTimeVectorGraphicsItemDefaultTextColorResetButtonClicked(self):
+        """Called when the
+        priceTimeVectorGraphicsItemDefaultTextColorResetButton is clicked.
+        Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultPriceTimeVectorGraphicsItemDefaultTextColor
+
+        self.priceTimeVectorGraphicsItemDefaultTextColorEditButton.\
+            setColor(value)
+
+    def _handlePriceTimeVectorGraphicsItemDefaultColorResetButtonClicked(self):
+        """Called when the
+        priceTimeVectorGraphicsItemDefaultColorResetButton is clicked.
+        Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultPriceTimeVectorGraphicsItemDefaultColor
+
+        self.priceTimeVectorGraphicsItemDefaultColorEditButton.\
+            setColor(value)
+
+    def _handlePriceTimeVectorGraphicsItemShowDistanceFlagResetButton(self):
+        """Called when the
+        priceTimeVectorGraphicsItemShowDistanceFlagResetButton
+        is clicked.  Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultPriceTimeVectorGraphicsItemShowDistanceFlag
+
+        if value == True:
+            self.priceTimeVectorGraphicsItemShowDistanceFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.priceTimeVectorGraphicsItemShowDistanceFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+            
+    def _handlePriceTimeVectorGraphicsItemShowSqrtDistanceTextFlagResetButton(self):
+        """Called when the
+        priceTimeVectorGraphicsItemShowSqrtDistanceTextFlagResetButton
+        is clicked.  Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultPriceTimeVectorGraphicsItemShowSqrtDistanceTextFlag
+
+        if value == True:
+            self.priceTimeVectorGraphicsItemShowSqrtDistanceTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.priceTimeVectorGraphicsItemShowSqrtDistanceTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+            
+    def _handlePriceTimeVectorGraphicsItemTiltedTextFlagResetButton(self):
+        """Called when the
+        priceTimeVectorGraphicsItemTiltedTextFlagResetButton
+        is clicked.  Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultPriceTimeVectorGraphicsItemTiltedTextFlag
+
+        if value == True:
+            self.priceTimeVectorGraphicsItemTiltedTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.priceTimeVectorGraphicsItemTiltedTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+            
     def _handleResetAllToDefaultButtonClicked(self):
         """Called when the resetAllToDefaultButton is clicked.
         Resets the all the widget values in this widget to the default
@@ -14694,6 +15213,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._handlePriceRetracementGraphicsItemShowFullLinesFlagResetButton()
         self._handlePriceRetracementGraphicsItemShowPriceTextFlagResetButton()
         self._handlePriceRetracementGraphicsItemShowPercentTextFlagResetButton()
+
+        self._handlePriceTimeVectorGraphicsItemBarWidthResetButtonClicked()
+        self._handlePriceTimeVectorGraphicsItemTextXScalingResetButtonClicked()
+        self._handlePriceTimeVectorGraphicsItemTextYScalingResetButtonClicked()
+        self._handlePriceTimeVectorGraphicsItemDefaultFontResetButtonClicked()
+        self._handlePriceTimeVectorGraphicsItemDefaultTextColorResetButtonClicked()
+        self._handlePriceTimeVectorGraphicsItemDefaultColorResetButtonClicked()
+        self._handlePriceTimeVectorGraphicsItemShowDistanceFlagResetButton()
+        self._handlePriceTimeVectorGraphicsItemShowSqrtDistanceTextFlagResetButton()
+        self._handlePriceTimeVectorGraphicsItemTiltedTextFlagResetButton()
 
     def _handleOkayButtonClicked(self):
         """Called when the okay button is clicked."""

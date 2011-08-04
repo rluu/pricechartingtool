@@ -39,12 +39,22 @@ DONE
     property/setting for the invisible 'width' of the line segment.)
 
   - PTV (Price-Time-Vector).
+
         - Distance (scaled).  (checkbox for text enabled)
 
         - Sqrt distance (scaled).  (checkbox for text enabled)
 
         - Option for tilted text.  (checkbox for enabled, 
                                     otherwise normal horizontal text)
+
+        So far, I modified:
+          data_objects.py.
+          dialogs.py
+
+        To modify:
+          pricebarchart_dialogs.py
+          pricebarchart.py
+          ui.py
 
   - Octave fan (which is a more general Gann fan).
      - Defined by origin and other 2 points.

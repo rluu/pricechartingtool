@@ -3856,6 +3856,304 @@ class PriceBarChartPriceRetracementArtifact(PriceBarChartArtifact):
                        PriceBarChartPriceRetracementArtifact.__name__ +
                        " object of version {}".format(self.classVersion))
 
+class PriceBarChartPriceTimeVectorArtifact(PriceBarChartArtifact):
+    """PriceBarChartArtifact that indicates the measurement of
+    distance and distance squared of a vector.
+    """
+    
+    def __init__(self):
+        super().__init__()
+        
+        # Set the version of this class (used for pickling and unpickling
+        # different versions of this class).
+        self.classVersion = 1
+
+        # Create the logger.
+        self.log = \
+            logging.\
+            getLogger("data_objects.PriceBarChartPriceTimeVectorArtifact")
+
+        # Update the internal name so it is the artifact type plus the uuid.
+        self.internalName = "PriceTimeVector_" + str(self.uuid)
+
+        # Start and end points of the artifact.
+        self.startPointF = QPointF()
+        self.endPointF = QPointF()
+
+        # Scaling the text, to make it bigger or smaller.
+        self.textXScaling = \
+            PriceBarChartSettings.\
+            defaultPriceTimeVectorGraphicsItemTextXScaling
+        self.textYScaling = \
+            PriceBarChartSettings.\
+            defaultPriceTimeVectorGraphicsItemTextYScaling
+        
+        # priceTimeVectorGraphicsItemColor (QColor).
+        self.priceTimeVectorGraphicsItemBarColor = \
+            PriceBarChartSettings.\
+                defaultPriceTimeVectorGraphicsItemBarColor
+
+        # priceTimeVectorGraphicsItemTextColor (QColor).
+        self.priceTimeVectorGraphicsItemTextColor = \
+            PriceBarChartSettings.\
+                defaultPriceTimeVectorGraphicsItemTextColor
+
+        # PriceTimeVectorGraphicsItem barWidth (float).
+        self.priceTimeVectorGraphicsItemBarWidth = \
+            PriceBarChartSettings.\
+                defaultPriceTimeVectorGraphicsItemBarWidth
+
+        # QFont cannot be pickled, but we can utilize
+        # QFont.toString() and then QFont.fromString()
+        self.fontDescription = \
+            PriceBarChartSettings.\
+            defaultPriceTimeVectorGraphicsItemDefaultFontDescription
+        
+        # Flag for whether or not the text is displayed for distance.
+        self.showDistanceTextFlag = \
+            PriceBarChartSettings.\
+                defaultPriceTimeVectorGraphicsItemShowDistanceTextFlag
+        
+        # Flag for whether or not the text is displayed for distance.
+        self.showSqrtDistanceTextFlag = \
+            PriceBarChartSettings.\
+                defaultPriceTimeVectorGraphicsItemShowSqrtDistanceTextFlag
+
+        # Flag for whether or not to show the text as tilted at the
+        # angle parallel to the line.
+        self.tiltedTextFlag = \
+            PriceBarChartSettings.\
+                defaultPriceTimeVectorGraphicsItemTiltedTextFlag
+                                
+    def setStartPointF(self, startPointF):
+        """Stores the starting point of the PriceTimeVectorArtifact.
+        Arguments:
+
+        startPointF - QPointF for the starting point of the artifact.
+        """
+        
+        self.startPointF = startPointF
+        
+    def getStartPointF(self):
+        """Returns the starting point of the PriceTimeVectorArtifact."""
+        
+        return self.startPointF
+        
+    def setEndPointF(self, endPointF):
+        """Stores the ending point of the PriceTimeVectorArtifact.
+        Arguments:
+
+        endPointF - QPointF for the ending point of the artifact.
+        """
+        
+        self.endPointF = endPointF
+        
+    def getEndPointF(self):
+        """Returns the ending point of the PriceTimeVectorArtifact."""
+        
+        return self.endPointF
+
+    def setTextXScaling(self, textXScaling):
+        """Sets the text X scaling, used in making the text 
+        bigger or smaller.
+
+        Arguments:
+        textXScaling - float value for the scaling used.
+                       1.0 is no change in scaling.
+        """
+
+        self.textXScaling = textXScaling
+
+    def getTextXScaling(self):
+        """Returns float value for the text X scaling, used in making
+        the text bigger or smaller.
+        """
+
+        return self.textXScaling
+        
+    def setTextYScaling(self, textYScaling):
+        """Sets the text Y scaling, used in making the text 
+        bigger or smaller.
+
+        Arguments:
+        textYScaling - float value for the scaling used.
+                       1.0 is no change in scaling.
+        """
+
+        self.textYScaling = textYScaling
+
+    def getTextYScaling(self):
+        """Returns float value for the text Y scaling, used in making
+        the text bigger or smaller.
+        """
+
+        return self.textYScaling
+        
+    def setPriceTimeVectorGraphicsItemBarColor(self, \
+            priceTimeVectorGraphicsItemBarColor):
+        """Sets the bar color.
+        
+        Arguments:
+        priceTimeVectorGraphicsItemBarColor - QColor object for the bar color.
+        """
+        
+        self.priceTimeVectorGraphicsItemBarColor = \
+            priceTimeVectorGraphicsItemBarColor
+
+    def getPriceTimeVectorGraphicsItemBarColor(self):
+        """Gets the bar color as a QColor object."""
+        
+        return self.priceTimeVectorGraphicsItemBarColor
+
+    def setPriceTimeVectorGraphicsItemTextColor(self,
+            priceTimeVectorGraphicsItemTextColor):
+        """Sets the text color.
+        
+        Arguments:
+        priceTimeVectorGraphicsItemTextColor - QColor object for the text color.
+        """
+
+        self.priceTimeVectorGraphicsItemTextColor = \
+            priceTimeVectorGraphicsItemTextColor
+        
+    def getPriceTimeVectorGraphicsItemTextColor(self):
+        """Gets the text color as a QColor object."""
+
+        return self.priceTimeVectorGraphicsItemTextColor
+        
+    def setPriceTimeVectorGraphicsItemBarWidth(self,
+            priceTimeVectorGraphicsItemBarWidth):
+        """Sets the PriceTimeVectorGraphicsItem bar width (float)."""
+
+        self.priceTimeVectorGraphicsItemBarWidth = \
+            priceTimeVectorGraphicsItemBarWidth
+    
+    def getPriceTimeVectorGraphicsItemBarWidth(self):
+        """Returns the PriceTimeVectorGraphicsItem bar width (float)."""
+
+        return self.priceTimeVectorGraphicsItemBarWidth
+    
+    def setFont(self, font):
+        """Sets the font of this artifact's text.
+
+        Arguments:
+        font - QFont object that is used for the drawing of the text.
+        """
+
+        # QFont cannot be pickled, but we can utilize
+        # QFont.toString() and then QFont.fromString().
+        self.fontDescription = font.toString()
+
+    def getFont(self):
+        """Returns the font of this artifact's text as a QFont.
+        """
+
+        # We obtain the QFont by calling QFont.fromString().
+        font = QFont()
+        font.fromString(self.fontDescription)
+
+        return font
+        
+    def getShowDistanceTextFlag(self):
+        """Returns the showDistanceTextFlag."""
+
+        return self.showDistanceTextFlag
+        
+    def setShowDistanceTextFlag(self, flag):
+        """Sets a new value for the showDistanceTextFlag."""
+
+        self.showDistanceTextFlag = flag
+        
+    def getSqrtShowDistanceTextFlag(self):
+        """Returns the sqrtShowDistanceTextFlag."""
+
+        return self.sqrtShowDistanceTextFlag
+        
+    def setSqrtShowDistanceTextFlag(self, flag):
+        """Sets a new value for the sqrtShowDistanceTextFlag."""
+
+        self.sqrtShowDistanceTextFlag = flag
+        
+    def getTiltedTextTextFlag(self):
+        """Returns the tiltedTextFlag."""
+
+        return self.tiltedTextFlag
+        
+    def setTiltedTextTextFlag(self, flag):
+        """Sets a new value for the tiltedTextFlag."""
+
+        self.tiltedTextFlag = flag
+        
+    def __str__(self):
+        """Returns the string representation of this object."""
+
+        return self.toString()
+
+    def toString(self):
+        """Returns the string representation of this object."""
+
+        rv = "["
+
+        obj = self
+        for attr in dir(obj):
+            # Print if the attribute:
+            #   - Doesn't start with '__'.
+            #   - Isn't a Logger
+            #   - Isn't callable.
+            if not attr.startswith('__') and \
+                   not isinstance(getattr(obj, attr), logging.Logger) and \
+                   not hasattr(getattr(obj, attr), '__call__'):
+                
+                attrObj = getattr(obj, attr)
+
+                # Do special handling for QColor objects and lists.
+                if isinstance(attrObj, QColor):
+                    rv += "{}={}, ".\
+                          format(attr, Util.qColorToStr(attrObj))
+                elif isinstance(attrObj, list):
+                    rv += "{}=[".format(attr)
+                    for item in attrObj:
+                        rv += "{}, ".format(item)
+                    rv = rv.rstrip(', ')
+                    rv += "]"
+                else:
+                    rv += "{}={}, ".format(attr, attrObj)
+
+        rv = rv.rstrip(', ')
+        rv += "]"
+
+        return rv
+
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = \
+            logging.\
+            getLogger("data_objects.PriceBarChartPriceTimeVectorArtifact")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " +
+                       PriceBarChartPriceTimeVectorArtifact.__name__ +
+                       " object of version {}".format(self.classVersion))
+
 class PriceBarChartScaling:
     """Class that holds information about the scaling of a PriceBarChart.
     """
@@ -4550,7 +4848,40 @@ class PriceBarChartSettings:
     # ratios (list of Ratio).
     defaultPriceRetracementGraphicsItemRatios = Ratio.getSupportedFibRatios()
 
+    # Default color for the bar of a PriceTimeVectorGraphicsItem (QColor).
+    defaultPriceTimeVectorGraphicsItemBarColor = QColor(Qt.black)
 
+    # Default color for the text of a PriceTimeVectorGraphicsItem (QColor).
+    defaultPriceTimeVectorGraphicsItemTextColor = QColor(Qt.black)
+    
+    # Default value for the PriceTimeVectorGraphicsItem bar width (float).
+    defaultPriceTimeVectorGraphicsItemBarWidth = 0.3
+
+    # Default value for the PriceTimeVectorGraphicsItem text X scaling (float).
+    defaultPriceTimeVectorGraphicsItemTextXScaling = 1.0
+
+    # Default value for the PriceTimeVectorGraphicsItem text Y scaling (float).
+    defaultPriceTimeVectorGraphicsItemTextYScaling = 0.2
+
+    # Default font (this is basically the QFont, serialized to
+    # str) for the PriceTimeVectorGraphicsItem.  This includes the
+    # font size.
+    font = QFont("Andale Mono")
+    font.setPointSizeF(6)
+    defaultPriceTimeVectorGraphicsItemDefaultFontDescription = font.toString()
+
+    # Default value for the PriceTimeVectorGraphicsItem
+    # showDistanceTextFlag (bool).
+    defaultPriceTimeVectorGraphicsItemShowDistanceTextFlag = True
+
+    # Default value for the PriceTimeVectorGraphicsItem 
+    # showSqrtDistanceTextFlag (bool).
+    defaultPriceTimeVectorGraphicsItemSqrtShowDistanceTextFlag = False
+
+    # Default value for the PriceTimeVectorGraphicsItem 
+    # tiltedTextFlag (bool).
+    defaultPriceTimeVectorGraphicsItemTiltedTextFlag = True
+    
     def __init__(self):
         """"Initializes the PriceChartSettings to default values."""
 
@@ -4948,7 +5279,53 @@ class PriceBarChartSettings:
             PriceBarChartSettings.\
             defaultPriceRetracementGraphicsItemRatios
 
+        # PriceTimeVectorGraphicsItem bar color (QColor).
+        self.priceTimeVectorGraphicsItemBarColor = \
+            PriceBarChartSettings.\
+            defaultPriceTimeVectorGraphicsItemBarColor
 
+        # PriceTimeVectorGraphicsItem text color (QColor).
+        self.priceTimeVectorGraphicsItemTextColor = \
+            PriceBarChartSettings.\
+            defaultPriceTimeVectorGraphicsItemTextColor
+    
+        # PriceTimeVectorGraphicsItem bar width (float).
+        self.priceTimeVectorGraphicsItemBarWidth = \
+            PriceBarChartSettings.\
+            defaultPriceTimeVectorGraphicsItemBarWidth
+
+        # PriceTimeVectorGraphicsItem text X scaling (float).
+        self.priceTimeVectorGraphicsItemTextXScaling = \
+            PriceBarChartSettings.\
+            defaultPriceTimeVectorGraphicsItemTextXScaling
+
+        # PriceTimeVectorGraphicsItem text Y scaling (float).
+        self.priceTimeVectorGraphicsItemTextYScaling = \
+            PriceBarChartSettings.\
+            defaultPriceTimeVectorGraphicsItemTextYScaling
+
+        # Default font (this is basically the QFont, serialized to
+        # str) for the PriceTimeVectorGraphicsItem.  This includes the
+        # font size.
+        self.priceTimeVectorGraphicsItemDefaultFontDescription = \
+            PriceBarChartSettings.\
+            defaultPriceTimeVectorGraphicsItemDefaultFontDescription
+
+        # PriceTimeVectorGraphicsItem showDistanceTextFlag (bool).
+        self.priceTimeVectorGraphicsItemShowDistanceTextFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeVectorGraphicsItemShowDistanceTextFlag
+
+        # PriceTimeVectorGraphicsItem showSqrtDistanceTextFlag (bool).
+        self.priceTimeVectorGraphicsItemSqrtShowDistanceTextFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeVectorGraphicsItemSqrtShowDistanceTextFlag
+
+        # PriceTimeVectorGraphicsItem tiltedTextFlag (bool).
+        self.priceTimeVectorGraphicsItemTiltedTextFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeVectorGraphicsItemTiltedTextFlag
+    
     def __getstate__(self):
         """Returns the object's state for pickling purposes."""
 
