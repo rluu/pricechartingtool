@@ -42,6 +42,7 @@ from data_objects import PriceBarChartPriceTimeInfoArtifact
 from data_objects import PriceBarChartPriceMeasurementArtifact
 from data_objects import PriceBarChartTimeRetracementArtifact
 from data_objects import PriceBarChartPriceRetracementArtifact
+from data_objects import PriceBarChartPriceTimeVectorArtifact
 from data_objects import PriceBarChartScaling
 from data_objects import PriceBarChartSettings
 
@@ -59,6 +60,7 @@ from pricebarchart_dialogs import PriceBarChartPriceTimeInfoArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartPriceMeasurementArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartTimeRetracementArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartPriceRetracementArtifactEditDialog
+from pricebarchart_dialogs import PriceBarChartPriceTimeVectorArtifactEditDialog
 
 # For edit dialogs.
 from dialogs import PriceBarEditDialog
@@ -228,7 +230,7 @@ class PriceBarGraphicsItem(QGraphicsItem):
             high = self.priceBar.high
             low = self.priceBar.low
 
-        priceMidpoint = (high + low) / 2.0
+        priceMidpoint = (high + low) * 0.5
 
         x = 0.0
         yOpen = -1.0 * (openPrice - priceMidpoint)
@@ -256,7 +258,7 @@ class PriceBarGraphicsItem(QGraphicsItem):
             high = self.priceBar.high
             low = self.priceBar.low
 
-        priceMidpoint = (high + low) / 2.0
+        priceMidpoint = (high + low) * 0.5
 
         x = 0.0
         yHigh = -1.0 * (high - priceMidpoint)
@@ -283,7 +285,7 @@ class PriceBarGraphicsItem(QGraphicsItem):
             high = self.priceBar.high
             low = self.priceBar.low
 
-        priceMidpoint = (high + low) / 2.0
+        priceMidpoint = (high + low) * 0.5
 
         x = 0.0
         yHigh = -1.0 * (high - priceMidpoint)
@@ -311,7 +313,7 @@ class PriceBarGraphicsItem(QGraphicsItem):
             high = self.priceBar.high
             low = self.priceBar.low
 
-        priceMidpoint = (high + low) / 2.0
+        priceMidpoint = (high + low) * 0.5
 
         x = 0.0
         yClose = -1.0 * (close - priceMidpoint)
@@ -331,7 +333,7 @@ class PriceBarGraphicsItem(QGraphicsItem):
         # The QRectF returned should be related to this point as the
         # center.
 
-        halfPenWidth = self.penWidth / 2.0
+        halfPenWidth = self.penWidth * 0.5
 
         openPrice = 0.0
         highPrice = 0.0
@@ -358,7 +360,7 @@ class PriceBarGraphicsItem(QGraphicsItem):
         priceRange = abs(highPrice - lowPrice)
 
         x = -1.0 * (self.leftExtensionWidth + halfPenWidth)
-        y = -1.0 * ((priceRange / 2.0) + halfPenWidth)
+        y = -1.0 * ((priceRange * 0.5) + halfPenWidth)
 
         height = halfPenWidth + priceRange + halfPenWidth
 
@@ -390,13 +392,13 @@ class PriceBarGraphicsItem(QGraphicsItem):
             closePrice = self.priceBar.close
 
         priceRange = abs(highPrice - lowPrice)
-        priceMidpoint = (highPrice + lowPrice) / 2.0
+        priceMidpoint = (highPrice + lowPrice) * 0.5
 
         # Draw the stem.
         x1 = 0.0
-        y1 = 1.0 * (priceRange / 2.0)
+        y1 = 1.0 * (priceRange * 0.5)
         x2 = 0.0
-        y2 = -1.0 * (priceRange / 2.0)
+        y2 = -1.0 * (priceRange * 0.5)
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
         # Draw the left extension (open price).
@@ -416,7 +418,7 @@ class PriceBarGraphicsItem(QGraphicsItem):
 
         # Draw the bounding rect if the item is selected.
         if option.state & QStyle.State_Selected:
-            pad = self.pen.widthF() / 2.0;
+            pad = self.pen.widthF() * 0.5;
             
             penWidth = 0.0
 
@@ -877,7 +879,7 @@ class TextGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Draw a dashed-line surrounding the item if it is selected.
         if option.state & QStyle.State_Selected:
-            pad = self.textItemPen.widthF() / 2.0;
+            pad = self.textItemPen.widthF() * 0.5;
             
             penWidth = 0.0
 
@@ -1593,10 +1595,10 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         xDelta = self.endPointF.x() - self.startPointF.x()
         
         topLeft = \
-            QPointF(0.0, -1.0 * (self.barCountGraphicsItemBarHeight / 2.0))
+            QPointF(0.0, -1.0 * (self.barCountGraphicsItemBarHeight * 0.5))
         
         bottomRight = \
-            QPointF(xDelta, 1.0 * (self.barCountGraphicsItemBarHeight / 2.0))
+            QPointF(xDelta, 1.0 * (self.barCountGraphicsItemBarHeight * 0.5))
         
         rectWithoutText = QRectF(topLeft, bottomRight)
 
@@ -1612,17 +1614,17 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         # Draw the left vertical bar part.
         x1 = 0.0
-        y1 = 1.0 * (self.barCountGraphicsItemBarHeight / 2.0)
+        y1 = 1.0 * (self.barCountGraphicsItemBarHeight * 0.5)
         x2 = 0.0
-        y2 = -1.0 * (self.barCountGraphicsItemBarHeight / 2.0)
+        y2 = -1.0 * (self.barCountGraphicsItemBarHeight * 0.5)
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
         # Draw the right vertical bar part.
         xDelta = self.endPointF.x() - self.startPointF.x()
         x1 = 0.0 + xDelta
-        y1 = 1.0 * (self.barCountGraphicsItemBarHeight / 2.0)
+        y1 = 1.0 * (self.barCountGraphicsItemBarHeight * 0.5)
         x2 = 0.0 + xDelta
-        y2 = -1.0 * (self.barCountGraphicsItemBarHeight / 2.0)
+        y2 = -1.0 * (self.barCountGraphicsItemBarHeight * 0.5)
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
         # Draw the middle horizontal line.
@@ -1634,7 +1636,7 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Draw the bounding rect if the item is selected.
         if option.state & QStyle.State_Selected:
-            pad = self.barCountPen.widthF() / 2.0;
+            pad = self.barCountPen.widthF() * 0.5;
             
             penWidth = 0.0
 
@@ -2441,7 +2443,7 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             
         # X location where to place the item.
         deltaX = self.endPointF.x() - self.startPointF.x()
-        x = deltaX / 2
+        x = deltaX * 0.5
 
         # Starting Y location to place the text item.
         startY = -2.0
@@ -2814,11 +2816,11 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         topLeft = \
             QPointF(0.0, -1.0 *
-                    (self.timeMeasurementGraphicsItemBarHeight / 2.0))
+                    (self.timeMeasurementGraphicsItemBarHeight * 0.5))
         
         bottomRight = \
             QPointF(xDelta, 1.0 *
-                    (self.timeMeasurementGraphicsItemBarHeight / 2.0))
+                    (self.timeMeasurementGraphicsItemBarHeight * 0.5))
 
         # Initalize to the above boundaries.  We will set them below.
         localHighY = topLeft.y()
@@ -2880,11 +2882,11 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         topLeft = \
             QPointF(0.0, -1.0 *
-                    (self.timeMeasurementGraphicsItemBarHeight / 2.0))
+                    (self.timeMeasurementGraphicsItemBarHeight * 0.5))
         
         bottomRight = \
             QPointF(xDelta, 1.0 *
-                    (self.timeMeasurementGraphicsItemBarHeight / 2.0))
+                    (self.timeMeasurementGraphicsItemBarHeight * 0.5))
 
         rectWithoutText = QRectF(topLeft, bottomRight)
 
@@ -2908,9 +2910,9 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         # Draw the left vertical bar part.
         x1 = 0.0
-        y1 = 1.0 * (self.timeMeasurementGraphicsItemBarHeight / 2.0)
+        y1 = 1.0 * (self.timeMeasurementGraphicsItemBarHeight * 0.5)
         x2 = 0.0
-        y2 = -1.0 * (self.timeMeasurementGraphicsItemBarHeight / 2.0)
+        y2 = -1.0 * (self.timeMeasurementGraphicsItemBarHeight * 0.5)
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
         xValues.append(x1)
@@ -2921,9 +2923,9 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Draw the right vertical bar part.
         xDelta = self.endPointF.x() - self.startPointF.x()
         x1 = 0.0 + xDelta
-        y1 = 1.0 * (self.timeMeasurementGraphicsItemBarHeight / 2.0)
+        y1 = 1.0 * (self.timeMeasurementGraphicsItemBarHeight * 0.5)
         x2 = 0.0 + xDelta
-        y2 = -1.0 * (self.timeMeasurementGraphicsItemBarHeight / 2.0)
+        y2 = -1.0 * (self.timeMeasurementGraphicsItemBarHeight * 0.5)
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
         xValues.append(x1)
@@ -2949,7 +2951,7 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
            option.state & QStyle.State_Selected:
 
             if self.scene() != None:
-                pad = self.timeMeasurementPen.widthF() / 2.0;
+                pad = self.timeMeasurementPen.widthF() * 0.5;
                 penWidth = 0.0
                 fgcolor = option.palette.windowText().color()
                 # Ensure good contrast against fgcolor.
@@ -3015,7 +3017,7 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 
         # Draw the bounding rect if the item is selected.
         if option.state & QStyle.State_Selected:
-            pad = self.timeMeasurementPen.widthF() / 2.0;
+            pad = self.timeMeasurementPen.widthF() * 0.5;
             penWidth = 0.0
             fgcolor = option.palette.windowText().color()
             
@@ -3282,10 +3284,10 @@ class VerticalTickGraphicsItem(QGraphicsItem):
         """Returns the bounding rectangle for this graphicsitem."""
 
         topLeft = QPointF(self.penWidth * -0.5,
-                          1.0 * self.barHeight / 2.0)
+                          1.0 * self.barHeight * 0.5)
         
         bottomRight = QPointF(self.penWidth * 0.5,
-                              -1.0 * self.barHeight / 2.0)
+                              -1.0 * self.barHeight * 0.5)
 
         return QRectF(topLeft, bottomRight).normalized()
 
@@ -3299,9 +3301,9 @@ class VerticalTickGraphicsItem(QGraphicsItem):
             
         # Draw the left vertical bar part.
         x1 = 0.0
-        y1 = 1.0 * (self.barHeight / 2.0)
+        y1 = 1.0 * (self.barHeight * 0.5)
         x2 = 0.0
-        y2 = -1.0 * (self.barHeight / 2.0)
+        y2 = -1.0 * (self.barHeight * 0.5)
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
                
@@ -3353,10 +3355,10 @@ class HorizontalTickGraphicsItem(QGraphicsItem):
     def boundingRect(self):
         """Returns the bounding rectangle for this graphicsitem."""
 
-        topLeft = QPointF(1.0 * self.barWidth / 2.0,
+        topLeft = QPointF(1.0 * self.barWidth * 0.5,
                           self.penWidth * -0.5)
         
-        bottomRight = QPointF(-1.0 * self.barWidth / 2.0,
+        bottomRight = QPointF(-1.0 * self.barWidth * 0.5,
                               self.penWidth * 0.5)
 
         return QRectF(topLeft, bottomRight).normalized()
@@ -3370,9 +3372,9 @@ class HorizontalTickGraphicsItem(QGraphicsItem):
             painter.setPen(QPen(self.pen))
             
         # Draw the left horizontal bar part.
-        x1 = 1.0 * (self.barWidth / 2.0)
+        x1 = 1.0 * (self.barWidth * 0.5)
         y1 = 0.0
-        x2 = -1.0 * (self.barWidth / 2.0)
+        x2 = -1.0 * (self.barWidth * 0.5)
         y2 = 0.0
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
@@ -3448,8 +3450,7 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Set the font of the text.
         self.timeModalScaleTextFont = QFont("Sans Serif")
         self.timeModalScaleTextFont.\
-            setPointSizeF(\
-            self.artifact.getTimeModalScaleGraphicsItemFontSize())
+            setPointSizeF(self.artifact.getFontSize())
 
         # Set the pen color of the text.
         self.timeModalScaleTextPen = self.dummyItem.pen()
@@ -3560,9 +3561,9 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Set values in the artifact.
         
-        self.artifact.setTimeModalScaleGraphicsItemBarColor(\
+        self.artifact.setColor(\
             self.timeModalScaleGraphicsItemColor)
-        self.artifact.setTimeModalScaleGraphicsItemTextColor(\
+        self.artifact.setTextColor(\
             self.timeModalScaleGraphicsItemTextColor)
 
         self.setArtifact(self.artifact)
@@ -3838,7 +3839,7 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     textItem.setTransform(textTransform)
                     
                 # Also set the position of the vertical tick line.
-                barHeight = artifact.getTimeModalScaleGraphicsItemBarHeight()
+                barHeight = artifact.getBarHeight()
                 self.verticalTickItems[i].setBarHeight(barHeight)
                 self.verticalTickItems[i].setPos(pointF)
                     
@@ -4019,17 +4020,13 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.setEndPointF(self.artifact.getEndPointF())
 
         self.timeModalScaleTextFont.\
-            setPointSizeF(\
-            self.artifact.getTimeModalScaleGraphicsItemFontSize())
+            setPointSizeF(self.artifact.getFontSize())
         self.timeModalScalePen.\
-            setColor(\
-            self.artifact.getTimeModalScaleGraphicsItemBarColor())
+            setColor(self.artifact.getColor())
         self.timeModalScaleTextPen.\
-            setColor(\
-            self.artifact.getTimeModalScaleGraphicsItemTextColor())
+            setColor(self.artifact.getTextColor())
         self.timeModalScaleTextBrush.\
-            setColor(\
-            self.artifact.getTimeModalScaleGraphicsItemTextColor())
+            setColor(self.artifact.getTextColor())
         
 
         # Need to recalculate the time measurement, since the start and end
@@ -4065,22 +4062,22 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         # The QRectF returned is relative to this (0, 0) point.
         barHeight = \
-            self.getArtifact().getTimeModalScaleGraphicsItemBarHeight()
+            self.getArtifact().getBarHeight()
         
         xTopLeft = 0.0
-        yTopLeft = 1.0 * (barHeight / 2.0)
+        yTopLeft = 1.0 * (barHeight * 0.5)
         
         xBottomLeft = 0.0
-        yBottomLeft = -1.0 * (barHeight / 2.0)
+        yBottomLeft = -1.0 * (barHeight * 0.5)
         
         xDelta = self.endPointF.x() - self.startPointF.x()
         yDelta = self.endPointF.y() - self.startPointF.y()
         
         xTopRight = 0.0 + xDelta
-        yTopRight = (1.0 * (barHeight / 2.0)) + yDelta
+        yTopRight = (1.0 * (barHeight * 0.5)) + yDelta
         
         xBottomRight = 0.0 + xDelta
-        yBottomRight = (-1.0 * (barHeight / 2.0)) + yDelta
+        yBottomRight = (-1.0 * (barHeight * 0.5)) + yDelta
 
         # Get the highest high, and lowest low PriceBar in local
         # coordinates.
@@ -4131,35 +4128,34 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         barHeight = \
-            self.getArtifact().getTimeModalScaleGraphicsItemBarHeight()
+            self.getArtifact().getBarHeight()
         
         # The QRectF returned is relative to this (0, 0) point.
 
         xTopLeft = 0.0
-        yTopLeft = 1.0 * (barHeight / 2.0)
+        yTopLeft = 1.0 * (barHeight * 0.5)
         topLeft = QPointF(xTopLeft, yTopLeft)
         
         xBottomLeft = 0.0
-        yBottomLeft = -1.0 * (barHeight / 2.0)
+        yBottomLeft = -1.0 * (barHeight * 0.5)
         bottomLeft = QPointF(xBottomLeft, yBottomLeft)
         
         xDelta = self.endPointF.x() - self.startPointF.x()
         yDelta = self.endPointF.y() - self.startPointF.y()
         
         xTopRight = 0.0 + xDelta
-        yTopRight = (1.0 * (barHeight / 2.0)) + yDelta
+        yTopRight = (1.0 * (barHeight * 0.5)) + yDelta
         topRight = QPointF(xTopRight, yTopRight)
         
         xBottomRight = 0.0 + xDelta
-        yBottomRight = (-1.0 * (barHeight / 2.0)) + yDelta
+        yBottomRight = (-1.0 * (barHeight * 0.5)) + yDelta
         bottomRight = QPointF(xBottomRight, yBottomRight)
 
-        points = [topLeft, topRight, bottomRight, bottomLeft]
-        polygon = QPolygonF(points)
+        rectWithoutText = QRectF(topLeft, bottomRight)
 
         painterPath = QPainterPath()
-        painterPath.addPolygon(polygon)
-
+        painterPath.addRect(rectWithoutText)
+        
         return painterPath
         
     def paint(self, painter, option, widget):
@@ -4175,7 +4171,7 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             painter.setPen(self.timeModalScalePen)
 
         artifact = self.getArtifact()
-        barHeight = artifact.getTimeModalScaleGraphicsItemBarHeight()
+        barHeight = artifact.getBarHeight()
 
         # Keep track of x and y values.  We use this to draw the
         # dotted lines later.
@@ -4184,9 +4180,9 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         # Draw the left vertical bar part.
         x1 = 0.0
-        y1 = 1.0 * (barHeight / 2.0)
+        y1 = 1.0 * (barHeight * 0.5)
         x2 = 0.0
-        y2 = -1.0 * (barHeight / 2.0)
+        y2 = -1.0 * (barHeight * 0.5)
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
         xValues.append(x1)
@@ -4198,9 +4194,9 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         xDelta = self.endPointF.x() - self.startPointF.x()
         yDelta = self.endPointF.y() - self.startPointF.y()
         x1 = 0.0 + xDelta
-        y1 = (1.0 * (barHeight / 2.0)) + yDelta
+        y1 = (1.0 * (barHeight * 0.5)) + yDelta
         x2 = 0.0 + xDelta
-        y2 = (-1.0 * (barHeight / 2.0)) + yDelta
+        y2 = (-1.0 * (barHeight * 0.5)) + yDelta
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
         xValues.append(x1)
@@ -4226,7 +4222,7 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
            option.state & QStyle.State_Selected:
 
             if self.scene() != None:
-                pad = self.timeModalScalePen.widthF() / 2.0;
+                pad = self.timeModalScalePen.widthF() * 0.5;
                 penWidth = 0.0
                 fgcolor = option.palette.windowText().color()
                 # Ensure good contrast against fgcolor.
@@ -4282,7 +4278,7 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             
         # Draw a dashed-line surrounding the item if it is selected.
         if option.state & QStyle.State_Selected:
-            pad = self.timeModalScalePen.widthF() / 2.0;
+            pad = self.timeModalScalePen.widthF() * 0.5;
             penWidth = 0.0
             fgcolor = option.palette.windowText().color()
             
@@ -4723,7 +4719,7 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.priceModalScaleTextFont = QFont("Sans Serif")
         self.priceModalScaleTextFont.\
             setPointSizeF(\
-            self.artifact.getPriceModalScaleGraphicsItemFontSize())
+            self.artifact.getFontSize())
 
         # Set the pen color of the text.
         self.priceModalScaleTextPen = self.dummyItem.pen()
@@ -4834,10 +4830,8 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Set values in the artifact.
         
-        self.artifact.setPriceModalScaleGraphicsItemBarColor(\
-            self.priceModalScaleGraphicsItemColor)
-        self.artifact.setPriceModalScaleGraphicsItemTextColor(\
-            self.priceModalScaleGraphicsItemTextColor)
+        self.artifact.setColor(self.priceModalScaleGraphicsItemColor)
+        self.artifact.setTextColor(self.priceModalScaleGraphicsItemTextColor)
 
         self.setArtifact(self.artifact)
         
@@ -5112,7 +5106,7 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     textItem.setTransform(textTransform)
                     
                 # Also set the position of the horizontal tick line.
-                barWidth = artifact.getPriceModalScaleGraphicsItemBarWidth()
+                barWidth = artifact.getBarWidth()
                 self.horizontalTickItems[i].setBarWidth(barWidth)
                 self.horizontalTickItems[i].setPos(pointF)
                     
@@ -5292,17 +5286,13 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.setEndPointF(self.artifact.getEndPointF())
 
         self.priceModalScaleTextFont.\
-            setPointSizeF(\
-            self.artifact.getPriceModalScaleGraphicsItemFontSize())
+            setPointSizeF(self.artifact.getFontSize())
         self.priceModalScalePen.\
-            setColor(\
-            self.artifact.getPriceModalScaleGraphicsItemBarColor())
+            setColor(self.artifact.getColor())
         self.priceModalScaleTextPen.\
-            setColor(\
-            self.artifact.getPriceModalScaleGraphicsItemTextColor())
+            setColor(self.artifact.getTextColor())
         self.priceModalScaleTextBrush.\
-            setColor(\
-            self.artifact.getPriceModalScaleGraphicsItemTextColor())
+            setColor(self.artifact.getTextColor())
         
 
         # Need to recalculate the price measurement, since the start and end
@@ -5337,22 +5327,22 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # location.
         
         barWidth = \
-            self.getArtifact().getPriceModalScaleGraphicsItemBarWidth()
+            self.getArtifact().getBarWidth()
         
         # The QRectF returned is relative to this (0, 0) point.
-        xBottomRight = 1.0 * (barWidth / 2.0)
+        xBottomRight = 1.0 * (barWidth * 0.5)
         yBottomRight = 0.0
         
-        xBottomLeft = -1.0 * (barWidth / 2.0)
+        xBottomLeft = -1.0 * (barWidth * 0.5)
         yBottomLeft = 0.0
         
         xDelta = self.endPointF.x() - self.startPointF.x()
         yDelta = self.endPointF.y() - self.startPointF.y()
         
-        xTopLeft = (-1.0 * (barWidth / 2.0)) + xDelta
+        xTopLeft = (-1.0 * (barWidth * 0.5)) + xDelta
         yTopLeft = 0.0 + yDelta
 
-        xTopRight = (1.0 * (barWidth / 2.0)) + xDelta
+        xTopRight = (1.0 * (barWidth * 0.5)) + xDelta
         yTopRight = 0.0 + yDelta
         
         # Get the last and first PriceBar's timestamp in local
@@ -5405,22 +5395,22 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         barWidth = \
-            self.getArtifact().getPriceModalScaleGraphicsItemBarWidth()
+            self.getArtifact().getBarWidth()
         
         # The QRectF returned is relative to this (0, 0) point.
-        xBottomRight = 1.0 * (barWidth / 2.0)
+        xBottomRight = 1.0 * (barWidth * 0.5)
         yBottomRight = 0.0
         
-        xBottomLeft = -1.0 * (barWidth / 2.0)
+        xBottomLeft = -1.0 * (barWidth * 0.5)
         yBottomLeft = 0.0
         
         xDelta = self.endPointF.x() - self.startPointF.x()
         yDelta = self.endPointF.y() - self.startPointF.y()
         
-        xTopLeft = (-1.0 * (barWidth / 2.0)) + xDelta
+        xTopLeft = (-1.0 * (barWidth * 0.5)) + xDelta
         yTopLeft = 0.0 + yDelta
 
-        xTopRight = (1.0 * (barWidth / 2.0)) + xDelta
+        xTopRight = (1.0 * (barWidth * 0.5)) + xDelta
         yTopRight = 0.0 + yDelta
         
         topLeft = QPointF(xTopLeft, yTopLeft)
@@ -5428,11 +5418,10 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         bottomRight = QPointF(xBottomRight, yBottomRight)
         bottomLeft = QPointF(xBottomLeft, yBottomLeft)
         
-        points = [topLeft, bottomLeft, bottomRight, topRight]
-        polygon = QPolygonF(points)
+        rectWithoutText = QRectF(topLeft, bottomRight)
 
         painterPath = QPainterPath()
-        painterPath.addPolygon(polygon)
+        painterPath.addRect(rectWithoutText)
 
         return painterPath
         
@@ -5449,7 +5438,7 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             painter.setPen(self.priceModalScalePen)
 
         artifact = self.getArtifact()
-        barWidth = artifact.getPriceModalScaleGraphicsItemBarWidth()
+        barWidth = artifact.getBarWidth()
 
         # Keep track of x and y values.  We use this to draw the
         # dotted lines later.
@@ -5457,9 +5446,9 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         yValues = []
         
         # Draw the left horizontal bar part.
-        x1 = 1.0 * (barWidth / 2.0)
+        x1 = 1.0 * (barWidth * 0.5)
         y1 = 0.0
-        x2 = -1.0 * (barWidth / 2.0)
+        x2 = -1.0 * (barWidth * 0.5)
         y2 = 0.0
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
@@ -5471,9 +5460,9 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Draw the right horizontal bar part.
         xDelta = self.endPointF.x() - self.startPointF.x()
         yDelta = self.endPointF.y() - self.startPointF.y()
-        x1 = (1.0 * (barWidth / 2.0)) + xDelta
+        x1 = (1.0 * (barWidth * 0.5)) + xDelta
         y1 = 0.0 + yDelta
-        x2 = (-1.0 * (barWidth / 2.0)) + xDelta
+        x2 = (-1.0 * (barWidth * 0.5)) + xDelta
         y2 = 0.0 + yDelta
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
@@ -5500,7 +5489,7 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
            option.state & QStyle.State_Selected:
 
             if self.scene() != None:
-                pad = self.priceModalScalePen.widthF() / 2.0;
+                pad = self.priceModalScalePen.widthF() * 0.5;
                 penWidth = 0.0
                 fgcolor = option.palette.windowText().color()
                 # Ensure good contrast against fgcolor.
@@ -5558,7 +5547,7 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             
         # Draw a dashed-line surrounding the item if it is selected.
         if option.state & QStyle.State_Selected:
-            pad = self.priceModalScalePen.widthF() / 2.0;
+            pad = self.priceModalScalePen.widthF() * 0.5;
             penWidth = 0.0
             fgcolor = option.palette.windowText().color()
             
@@ -6367,7 +6356,7 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
             
             # Draw a line to the infoPointF.  Below is setting the colors
             # and drawing parameters.
-            pad = self.textItemPen.widthF() / 2.0;
+            pad = self.textItemPen.widthF() * 0.5;
             penWidth = 0.0
             fgcolor = option.palette.windowText().color()
             
@@ -6456,7 +6445,7 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
             
         # Draw a dashed-line surrounding the item if it is selected.
         if option.state & QStyle.State_Selected:
-            pad = self.textItemPen.widthF() / 2.0;
+            pad = self.textItemPen.widthF() * 0.5;
 
             self.log.debug("Drawing selected dotted line.")
             
@@ -7065,7 +7054,7 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             
         # Y location where to place the item.
         deltaY = self.endPointF.y() - self.startPointF.y()
-        y = deltaY / 2
+        y = deltaY * 0.5
 
         # Starting Y location to place the text item.
         startY = y
@@ -7084,7 +7073,7 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # j if the item is enabled and displayed.  This is so
             # we keep the text items on the graphicsScene close to
             # its parent item.
-            x = self.priceMeasurementGraphicsItemBarWidth / 2.0
+            x = self.priceMeasurementGraphicsItemBarWidth * 0.5
             y = startY - \
                 ((offsetY * j) * self.priceMeasurementGraphicsItemBarWidth)
             textItem.setPos(QPointF(x, y))
@@ -7320,12 +7309,12 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         topLeft = \
             QPointF(-1.0 * \
-                    (self.priceMeasurementGraphicsItemBarWidth / 2.0),
+                    (self.priceMeasurementGraphicsItemBarWidth * 0.5),
                     0.0)
         
         bottomRight = \
             QPointF(1.0 * \
-                    (self.priceMeasurementGraphicsItemBarWidth / 2.0),
+                    (self.priceMeasurementGraphicsItemBarWidth * 0.5),
                     yDelta)
 
         # Initalize to the above boundaries.  We will set them below.
@@ -7389,11 +7378,11 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         yDelta = self.endPointF.y() - self.startPointF.y()
 
         topLeft = \
-            QPointF(-1.0 * (self.priceMeasurementGraphicsItemBarWidth / 2.0),
+            QPointF(-1.0 * (self.priceMeasurementGraphicsItemBarWidth * 0.5),
                     0.0)
         
         bottomRight = \
-            QPointF(1.0 * (self.priceMeasurementGraphicsItemBarWidth / 2.0),
+            QPointF(1.0 * (self.priceMeasurementGraphicsItemBarWidth * 0.5),
                     yDelta)
 
         rectWithoutText = QRectF(topLeft, bottomRight)
@@ -7417,9 +7406,9 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         yValues = []
         
         # Draw the start point horizontal bar part.
-        x1 = -1.0 * (self.priceMeasurementGraphicsItemBarWidth / 2.0)
+        x1 = -1.0 * (self.priceMeasurementGraphicsItemBarWidth * 0.5)
         y1 = 0.0
-        x2 = 1.0 * (self.priceMeasurementGraphicsItemBarWidth / 2.0)
+        x2 = 1.0 * (self.priceMeasurementGraphicsItemBarWidth * 0.5)
         y2 = 0.0
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
@@ -7430,9 +7419,9 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         # Draw the end point horizontal bar part.
         yDelta = self.endPointF.y() - self.startPointF.y()
-        x1 = -1.0 * (self.priceMeasurementGraphicsItemBarWidth / 2.0)
+        x1 = -1.0 * (self.priceMeasurementGraphicsItemBarWidth * 0.5)
         y1 = 0.0 + yDelta
-        x2 = 1.0 * (self.priceMeasurementGraphicsItemBarWidth / 2.0)
+        x2 = 1.0 * (self.priceMeasurementGraphicsItemBarWidth * 0.5)
         y2 = 0.0 + yDelta
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
@@ -7459,7 +7448,7 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
            option.state & QStyle.State_Selected:
 
             if self.scene() != None:
-                pad = self.priceMeasurementPen.widthF() / 2.0;
+                pad = self.priceMeasurementPen.widthF() * 0.5;
                 penWidth = 0.0
                 fgcolor = option.palette.windowText().color()
                 # Ensure good contrast against fgcolor.
@@ -7527,7 +7516,7 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 
         # Draw the bounding rect if the item is selected.
         if option.state & QStyle.State_Selected:
-            pad = self.priceMeasurementPen.widthF() / 2.0;
+            pad = self.priceMeasurementPen.widthF() * 0.5;
             penWidth = 0.0
             fgcolor = option.palette.windowText().color()
             
@@ -8449,9 +8438,9 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         # The left vertical bar part.
         x1 = 0.0
-        y1 = 1.0 * (self.timeRetracementGraphicsItemBarHeight / 2.0)
+        y1 = 1.0 * (self.timeRetracementGraphicsItemBarHeight * 0.5)
         x2 = 0.0
-        y2 = -1.0 * (self.timeRetracementGraphicsItemBarHeight / 2.0)
+        y2 = -1.0 * (self.timeRetracementGraphicsItemBarHeight * 0.5)
 
         xValues.append(x1)
         xValues.append(x2)
@@ -8461,9 +8450,9 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # The right vertical bar part.
         xDelta = self.endPointF.x() - self.startPointF.x()
         x1 = 0.0 + xDelta
-        y1 = 1.0 * (self.timeRetracementGraphicsItemBarHeight / 2.0)
+        y1 = 1.0 * (self.timeRetracementGraphicsItemBarHeight * 0.5)
         x2 = 0.0 + xDelta
-        y2 = -1.0 * (self.timeRetracementGraphicsItemBarHeight / 2.0)
+        y2 = -1.0 * (self.timeRetracementGraphicsItemBarHeight * 0.5)
 
         xValues.append(x1)
         xValues.append(x2)
@@ -8525,11 +8514,11 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         topLeft = \
             QPointF(0.0, -1.0 *
-                    (self.timeRetracementGraphicsItemBarHeight / 2.0))
+                    (self.timeRetracementGraphicsItemBarHeight * 0.5))
         
         bottomRight = \
             QPointF(xDelta, 1.0 *
-                    (self.timeRetracementGraphicsItemBarHeight / 2.0))
+                    (self.timeRetracementGraphicsItemBarHeight * 0.5))
 
         rectWithoutText = QRectF(topLeft, bottomRight)
 
@@ -8553,9 +8542,9 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         # Draw the left vertical bar part.
         x1 = 0.0
-        y1 = 1.0 * (self.timeRetracementGraphicsItemBarHeight / 2.0)
+        y1 = 1.0 * (self.timeRetracementGraphicsItemBarHeight * 0.5)
         x2 = 0.0
-        y2 = -1.0 * (self.timeRetracementGraphicsItemBarHeight / 2.0)
+        y2 = -1.0 * (self.timeRetracementGraphicsItemBarHeight * 0.5)
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
         xValues.append(x1)
@@ -8566,9 +8555,9 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Draw the right vertical bar part.
         xDelta = self.endPointF.x() - self.startPointF.x()
         x1 = 0.0 + xDelta
-        y1 = 1.0 * (self.timeRetracementGraphicsItemBarHeight / 2.0)
+        y1 = 1.0 * (self.timeRetracementGraphicsItemBarHeight * 0.5)
         x2 = 0.0 + xDelta
-        y2 = -1.0 * (self.timeRetracementGraphicsItemBarHeight / 2.0)
+        y2 = -1.0 * (self.timeRetracementGraphicsItemBarHeight * 0.5)
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
         xValues.append(x1)
@@ -8582,9 +8571,9 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 localX = xDelta * ratio.getRatio()
 
                 x1 = localX
-                y1 = 1.0 * (self.timeRetracementGraphicsItemBarHeight / 2.0)
+                y1 = 1.0 * (self.timeRetracementGraphicsItemBarHeight * 0.5)
                 x2 = localX
-                y2 = -1.0 * (self.timeRetracementGraphicsItemBarHeight / 2.0)
+                y2 = -1.0 * (self.timeRetracementGraphicsItemBarHeight * 0.5)
         
                 painter.drawLine(QLineF(x1, y1, x2, y2))
 
@@ -8632,7 +8621,7 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
            option.state & QStyle.State_Selected:
 
             if self.scene() != None:
-                pad = self.timeRetracementPen.widthF() / 2.0;
+                pad = self.timeRetracementPen.widthF() * 0.5;
                 penWidth = 0.0
                 fgcolor = option.palette.windowText().color()
                 # Ensure good contrast against fgcolor.
@@ -8698,7 +8687,7 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         # Draw the shape if the item is selected.
         if option.state & QStyle.State_Selected:
-            pad = self.timeRetracementPen.widthF() / 2.0;
+            pad = self.timeRetracementPen.widthF() * 0.5;
             penWidth = 0.0
             fgcolor = option.palette.windowText().color()
             
@@ -9592,15 +9581,15 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 self.priceRetracementRatioPercentTexts[i].setEnabled(False)
                 self.priceRetracementRatioPercentTexts[i].setVisible(False)
 
-        # Update the priceRetracement text item position.
-        self._updateTextItemPositions()
-            
         # Need to recalculate the priceRetracement, since the start and end
         # points have changed.  Note, if no scene has been set for the
         # QGraphicsView, then the price retracements will be zero, since it
         # can't look up PriceBarGraphicsItems in the scene.
         self.recalculatePriceRetracement()
 
+        # Update the priceRetracement text item position.
+        self._updateTextItemPositions()
+            
         self.log.debug("Exiting setArtifact()")
 
     def getArtifact(self):
@@ -9658,9 +9647,9 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         yValues = []
         
         # The bottom horizontal bar part.
-        x1 = 1.0 * (self.priceRetracementGraphicsItemBarWidth / 2.0)
+        x1 = 1.0 * (self.priceRetracementGraphicsItemBarWidth * 0.5)
         y1 = 0.0
-        x2 = -1.0 * (self.priceRetracementGraphicsItemBarWidth / 2.0)
+        x2 = -1.0 * (self.priceRetracementGraphicsItemBarWidth * 0.5)
         y2 = 0.0
 
         xValues.append(x1)
@@ -9670,9 +9659,9 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         # The top horizontal bar part.
         yDelta = self.endPointF.y() - self.startPointF.y()
-        x1 = 1.0 * (self.priceRetracementGraphicsItemBarWidth / 2.0)
+        x1 = 1.0 * (self.priceRetracementGraphicsItemBarWidth * 0.5)
         y1 = 0.0 + yDelta
-        x2 = -1.0 * (self.priceRetracementGraphicsItemBarWidth / 2.0)
+        x2 = -1.0 * (self.priceRetracementGraphicsItemBarWidth * 0.5)
         y2 = 0.0 + yDelta
 
         xValues.append(x1)
@@ -9737,12 +9726,12 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         yDelta = self.endPointF.y() - self.startPointF.y()
         
         topLeft = \
-            QPointF(-1.0 * (self.priceRetracementGraphicsItemBarWidth / 2.0),
+            QPointF(-1.0 * (self.priceRetracementGraphicsItemBarWidth * 0.5),
                     0.0)
         
         
         bottomRight = \
-            QPointF(1.0 * (self.priceRetracementGraphicsItemBarWidth / 2.0),
+            QPointF(1.0 * (self.priceRetracementGraphicsItemBarWidth * 0.5),
                     yDelta)
 
         rectWithoutText = QRectF(topLeft, bottomRight)
@@ -9766,9 +9755,9 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         yValues = []
         
         # Draw the bottom horizontal bar part.
-        x1 = 1.0 * (self.priceRetracementGraphicsItemBarWidth / 2.0)
+        x1 = 1.0 * (self.priceRetracementGraphicsItemBarWidth * 0.5)
         y1 = 0.0
-        x2 = -1.0 * (self.priceRetracementGraphicsItemBarWidth / 2.0)
+        x2 = -1.0 * (self.priceRetracementGraphicsItemBarWidth * 0.5)
         y2 = 0.0
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
@@ -9779,9 +9768,9 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         # Draw the top horizontal bar part.
         yDelta = self.endPointF.y() - self.startPointF.y()
-        x1 = 1.0 * (self.priceRetracementGraphicsItemBarWidth / 2.0)
+        x1 = 1.0 * (self.priceRetracementGraphicsItemBarWidth * 0.5)
         y1 = 0.0 + yDelta
-        x2 = -1.0 * (self.priceRetracementGraphicsItemBarWidth / 2.0)
+        x2 = -1.0 * (self.priceRetracementGraphicsItemBarWidth * 0.5)
         y2 = 0.0 + yDelta
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
@@ -9795,9 +9784,9 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             if ratio.isEnabled():
                 localY = yDelta * ratio.getRatio()
 
-                x1 = 1.0 * (self.priceRetracementGraphicsItemBarWidth / 2.0)
+                x1 = 1.0 * (self.priceRetracementGraphicsItemBarWidth * 0.5)
                 y1 = localY
-                x2 = -1.0 * (self.priceRetracementGraphicsItemBarWidth / 2.0)
+                x2 = -1.0 * (self.priceRetracementGraphicsItemBarWidth * 0.5)
                 y2 = localY
         
                 painter.drawLine(QLineF(x1, y1, x2, y2))
@@ -9846,7 +9835,7 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
            option.state & QStyle.State_Selected:
 
             if self.scene() != None:
-                pad = self.priceRetracementPen.widthF() / 2.0;
+                pad = self.priceRetracementPen.widthF() * 0.5;
                 penWidth = 0.0
                 fgcolor = option.palette.windowText().color()
                 # Ensure good contrast against fgcolor.
@@ -9914,7 +9903,7 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         # Draw the shape if the item is selected.
         if option.state & QStyle.State_Selected:
-            pad = self.priceRetracementPen.widthF() / 2.0;
+            pad = self.priceRetracementPen.widthF() * 0.5;
             penWidth = 0.0
             fgcolor = option.palette.windowText().color()
             
@@ -10132,6 +10121,1101 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.scene().setAstroChart3(self.endPointF.x())
 
 
+class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
+    """QGraphicsItem that visualizes a price retracement in the GraphicsView.
+
+    This item uses the origin point (0, 0) in item coordinates as the
+    center point width bar, on the start point (bottom part) of the bar ruler.
+
+    That means when a user creates a new PriceTimeVectorGraphicsItem
+    the position and points can be consistently set.
+    """
+    
+    def __init__(self, parent=None, scene=None):
+        super().__init__(parent, scene)
+
+        # Logger
+        self.log = logging.getLogger(\
+            "pricebarchart.PriceTimeVectorGraphicsItem")
+        
+        self.log.debug("Entered __init__().")
+
+        ############################################################
+        # Set default values for preferences/settings.
+        
+        # Width of the vertical bar drawn.
+        self.priceTimeVectorGraphicsItemBarWidth = \
+            PriceBarChartSettings.\
+                defaultPriceTimeVectorGraphicsItemBarWidth 
+ 
+        # X scaling of the text.
+        self.priceTimeVectorTextXScaling = \
+            PriceBarChartSettings.\
+                defaultPriceTimeVectorGraphicsItemTextXScaling 
+
+        # Y scaling of the text.
+        self.priceTimeVectorTextYScaling = \
+            PriceBarChartSettings.\
+                defaultPriceTimeVectorGraphicsItemTextYScaling 
+
+        # Font.
+        self.priceTimeVectorTextFont = QFont()
+        self.priceTimeVectorTextFont.fromString(\
+            PriceBarChartSettings.\
+            defaultPriceTimeVectorGraphicsItemDefaultFontDescription)
+        
+        # Color of the text that is associated with the graphicsitem.
+        self.priceTimeVectorGraphicsItemTextColor = \
+            PriceBarChartSettings.\
+            defaultPriceTimeVectorGraphicsItemTextColor
+
+        # Color of the item.
+        self.priceTimeVectorGraphicsItemColor = \
+            PriceBarChartSettings.\
+            defaultPriceTimeVectorGraphicsItemColor
+
+        # PriceTimeVectorGraphicsItem showDistanceTextFlag (bool).
+        self.showDistanceTextFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeVectorGraphicsItemShowDistanceTextFlag
+    
+        # PriceTimeVectorGraphicsItem showSqrtDistanceTextFlag (bool).
+        self.showSqrtDistanceTextFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeVectorGraphicsItemShowSqrtDistanceTextFlag
+    
+        # PriceTimeVectorGraphicsItem tiltedTextFlag (bool).
+        self.tiltedTextFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeVectorGraphicsItemTiltedTextFlag
+    
+        ############################################################
+
+        # Internal storage object, used for loading/saving (serialization).
+        self.artifact = PriceBarChartPriceTimeVectorArtifact()
+
+        # Read the QSettings preferences for the various parameters of
+        # this price bar.
+        self.loadSettingsFromAppPreferences()
+        
+        # Pen which is used to do the painting of the bar ruler.
+        self.priceTimeVectorPenWidth = 0.0
+        self.priceTimeVectorPen = QPen()
+        self.priceTimeVectorPen.\
+            setColor(self.priceTimeVectorGraphicsItemColor)
+        self.priceTimeVectorPen.\
+            setWidthF(self.priceTimeVectorPenWidth)
+        
+        # Starting point, in scene coordinates.
+        self.startPointF = QPointF(0, 0)
+
+        # Ending point, in scene coordinates.
+        self.endPointF = QPointF(0, 0)
+
+        # Degrees of text rotation.
+        self.rotationDegrees = 0.0
+
+        # Variable holding the distance measurement.
+        self.distance = 0.0
+        self.sqrtDistance = 0.0
+        
+        # Internal text items.
+        self.distanceText = QGraphicsSimpleTextItem("", self)
+        self.sqrtDistanceText = QGraphicsSimpleTextItem("", self)
+
+        # Transform object applied to the text items.
+        self.textTransform = QTransform()
+        
+        # Holds all the above text items, so that settings may be
+        # applied more easily.  It also helps for painting things
+        # nicely.
+        self.textItems = []
+        self.textItems.append(self.distanceText)
+        self.textItems.append(self.sqrtDistanceText)
+
+        for textItem in self.textItems:
+            textItem.setPos(self.endPointF)
+        
+            # Set the font of the text.
+            textItem.setFont(self.priceTimeVectorTextFont)
+        
+            # Set the pen color of the text.
+            self.priceTimeVectorTextPen = textItem.pen()
+            self.priceTimeVectorTextPen.\
+                setColor(self.priceTimeVectorGraphicsItemTextColor)
+            
+            textItem.setPen(self.priceTimeVectorTextPen)
+
+            # Set the brush color of the text.
+            self.priceTimeVectorTextBrush = textItem.brush()
+            self.priceTimeVectorTextBrush.\
+                setColor(self.priceTimeVectorGraphicsItemTextColor)
+            
+            textItem.setBrush(self.priceTimeVectorTextBrush)
+
+            # Apply some size scaling to the text.
+            self.textTransform = QTransform()
+            self.textTransform.scale(self.priceTimeVectorTextXScaling, \
+                                     self.priceTimeVectorTextYScaling)
+            textItem.setTransform(self.textTransform)
+
+        # Flags that indicate that the user is dragging either the start
+        # or end point of the QGraphicsItem.
+        self.draggingStartPointFlag = False
+        self.draggingEndPointFlag = False
+        self.clickScenePointF = None
+
+    def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings):
+        """Reads some of the parameters/settings of this
+        PriceBarGraphicsItem from the given PriceBarChartSettings object.
+        """
+
+        self.log.debug("Entered loadSettingsFromPriceBarChartSettings()")
+        
+        # Width of the horizontal bar drawn.
+        self.priceTimeVectorGraphicsItemBarWidth = \
+            priceBarChartSettings.\
+                priceTimeVectorGraphicsItemBarWidth 
+ 
+        # X scaling of the text.
+        self.priceTimeVectorTextXScaling = \
+            priceBarChartSettings.\
+                priceTimeVectorGraphicsItemTextXScaling 
+
+        # Y scaling of the text.
+        self.priceTimeVectorTextYScaling = \
+            priceBarChartSettings.\
+                priceTimeVectorGraphicsItemTextYScaling 
+
+        # Font.
+        self.priceTimeVectorTextFont = QFont()
+        self.priceTimeVectorTextFont.fromString(\
+            priceBarChartSettings.\
+            priceTimeVectorGraphicsItemDefaultFontDescription)
+        
+        # Color of the text that is associated with the graphicsitem.
+        self.priceTimeVectorGraphicsItemTextColor = \
+            priceBarChartSettings.\
+            priceTimeVectorGraphicsItemTextColor
+
+        # Color of the item.
+        self.priceTimeVectorGraphicsItemColor = \
+            priceBarChartSettings.\
+            priceTimeVectorGraphicsItemColor
+
+        # PriceTimeVectorGraphicsItem showDistanceTextFlag (bool).
+        self.showDistanceTextFlag = \
+            priceBarChartSettings.\
+            priceTimeVectorGraphicsItemShowDistanceTextFlag
+    
+        # PriceTimeVectorGraphicsItem showSqrtDistanceTextFlag (bool).
+        self.showSqrtDistanceTextFlag = \
+            priceBarChartSettings.\
+            priceTimeVectorGraphicsItemShowSqrtDistanceTextFlag
+    
+        # PriceTimeVectorGraphicsItem tiltedTextFlag (bool).
+        self.tiltedTextFlag = \
+            priceBarChartSettings.\
+            priceTimeVectorGraphicsItemTiltedTextFlag
+
+        ####################################################################
+
+        # Set the new color of the pen for drawing the bar.
+        self.priceTimeVectorPen.\
+            setColor(self.priceTimeVectorGraphicsItemColor)
+
+        # Set specific items enabled or disabled, visible or not,
+        # based on the above flags being set.
+        
+        # Update all the text items with the new settings.
+        for textItem in self.textItems:
+            # Set the font of the text.
+            textItem.setFont(self.priceTimeVectorTextFont)
+        
+            # Set the pen color of the text.
+            self.priceTimeVectorTextPen = textItem.pen()
+            self.priceTimeVectorTextPen.\
+                setColor(self.priceTimeVectorGraphicsItemTextColor)
+            
+            textItem.setPen(self.priceTimeVectorTextPen)
+
+            # Set the brush color of the text.
+            self.priceTimeVectorTextBrush = textItem.brush()
+            self.priceTimeVectorTextBrush.\
+                setColor(self.priceTimeVectorGraphicsItemTextColor)
+            
+            textItem.setBrush(self.priceTimeVectorTextBrush)
+
+            # Apply some size scaling to the text.
+            self.textTransform = QTransform()
+            self.textTransform.scale(self.priceTimeVectorTextXScaling, \
+                                     self.priceTimeVectorTextYScaling)
+            textItem.setTransform(self.textTransform)
+
+        # Set the text items as enabled or disabled, visible or
+        # invisible, depending on whether the show flag is set.
+        self.distanceText.setEnabled(self.showDistanceTextFlag)
+        self.distanceText.setVisible(self.showDistanceTextFlag)
+        
+        self.sqrtDistanceText.setEnabled(self.showSqrtDistanceTextFlag)
+        self.sqrtDistanceText.setVisible(self.showSqrtDistanceTextFlag)
+
+        # Need to recalculate the priceTimeVector, since the scaling
+        # or start/end points could have changed.  Note, if no scene
+        # has been set for the QGraphicsView, then the price
+        # retracements will be zero, since it can't look up
+        # PriceBarGraphicsItems in the scene.
+        self.recalculatePriceTimeVector()
+
+        # Update the priceTimeVector text item position.
+        self._updateTextItemPositions()
+        
+        # Schedule an update.
+        self.update()
+
+        self.log.debug("Exiting loadSettingsFromPriceBarChartSettings()")
+        
+    def loadSettingsFromAppPreferences(self):
+        """Reads some of the parameters/settings of this
+        GraphicsItem from the QSettings object. 
+        """
+
+        # No settings.
+        
+    def setPos(self, pos):
+        """Overwrites the QGraphicsItem setPos() function.
+
+        Here we use the new position to re-set the self.startPointF and
+        self.endPointF.
+
+        Arguments:
+        pos - QPointF holding the new position.
+        """
+        self.log.debug("Entered setPos()")
+        
+        super().setPos(pos)
+
+        newScenePos = pos
+
+        posDelta = newScenePos - self.startPointF
+
+        # Update the start and end points accordingly. 
+        self.startPointF = self.startPointF + posDelta
+        self.endPointF = self.endPointF + posDelta
+
+        if self.scene() != None:
+            self.recalculatePriceTimeVector()
+            self.update()
+
+        self.log.debug("Exiting setPos()")
+        
+    def mousePressEvent(self, event):
+        """Overwrites the QGraphicsItem mousePressEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+
+        self.log.debug("Entered mousePressEvent()")
+        
+        # If the item is in read-only mode, simply call the parent
+        # implementation of this function.
+        if self.getReadOnlyFlag() == True:
+            super().mousePressEvent(event)
+        else:
+            # If the mouse press is within 1/5th of the bar length to the
+            # beginning or end points, then the user is trying to adjust
+            # the starting or ending points of the bar counter ruler.
+            scenePosY = event.scenePos().y()
+            self.log.debug("DEBUG: scenePosY={}".format(scenePosY))
+            
+            startingPointY = self.startPointF.y()
+            self.log.debug("DEBUG: startingPointY={}".format(startingPointY))
+            endingPointY = self.endPointF.y()
+            self.log.debug("DEBUG: endingPointY={}".format(endingPointY))
+            
+            diff = endingPointY - startingPointY
+            self.log.debug("DEBUG: diff={}".format(diff))
+
+            startThresholdY = startingPointY + (diff * (1.0 / 5))
+            endThresholdY = endingPointY - (diff * (1.0 / 5))
+
+            self.log.debug("DEBUG: startThresholdY={}".format(startThresholdY))
+            self.log.debug("DEBUG: endThresholdY={}".format(endThresholdY))
+
+
+            scenePosX = event.scenePos().x()
+            self.log.debug("DEBUG: scenePosX={}".format(scenePosX))
+            
+            startingPointX = self.startPointF.x()
+            self.log.debug("DEBUG: startingPointX={}".format(startingPointX))
+            endingPointX = self.endPointF.x()
+            self.log.debug("DEBUG: endingPointX={}".format(endingPointX))
+            
+            diff = endingPointX - startingPointX
+            self.log.debug("DEBUG: diff={}".format(diff))
+
+            startThresholdX = startingPointX + (diff * (1.0 / 5))
+            endThresholdX = endingPointX - (diff * (1.0 / 5))
+
+            self.log.debug("DEBUG: startThresholdX={}".format(startThresholdX))
+            self.log.debug("DEBUG: endThresholdX={}".format(endThresholdX))
+
+
+            if startingPointY <= scenePosY <= startThresholdY or \
+                   startingPointY >= scenePosY >= startThresholdY or \
+                   startingPointX <= scenePosX <= startThresholdX or \
+                   startingPointX >= scenePosX >= startThresholdX:
+                
+                self.draggingStartPointFlag = True
+                self.log.debug("DEBUG: self.draggingStartPointFlag={}".
+                               format(self.draggingStartPointFlag))
+                
+            elif endingPointY <= scenePosY <= endThresholdY or \
+                     endingPointY >= scenePosY >= endThresholdY or \
+                     endingPointX <= scenePosX <= endThresholdX or \
+                     endingPointX >= scenePosX >= endThresholdX:
+                
+                self.draggingEndPointFlag = True
+                self.log.debug("DEBUG: self.draggingEndPointFlag={}".
+                               format(self.draggingEndPointFlag))
+            else:
+                # The mouse has clicked the middle part of the
+                # QGraphicsItem, so pass the event to the parent, because
+                # the user wants to either select or drag-move the
+                # position of the QGraphicsItem.
+                self.log.debug("DEBUG:  Middle part clicked.  " + \
+                               "Passing to super().")
+
+                # Save the click position, so that if it is a drag, we
+                # can have something to reference from for setting the
+                # start and end positions when the user finally
+                # releases the mouse button.
+                self.clickScenePointF = event.scenePos()
+                
+                super().mousePressEvent(event)
+
+        self.log.debug("Leaving mousePressEvent()")
+        
+    def mouseMoveEvent(self, event):
+        """Overwrites the QGraphicsItem mouseMoveEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+
+        if event.buttons() & Qt.LeftButton:
+            if self.getReadOnlyFlag() == False:
+                if self.draggingStartPointFlag == True:
+                    self.log.debug("DEBUG: self.draggingStartPointFlag={}".
+                                   format(self.draggingStartPointFlag))
+                    self.setStartPointF(QPointF(event.scenePos().x(),
+                                                event.scenePos().y()))
+                    self.update()
+                elif self.draggingEndPointFlag == True:
+                    self.log.debug("DEBUG: self.draggingEndPointFlag={}".
+                                   format(self.draggingEndPointFlag))
+                    self.setEndPointF(QPointF(event.scenePos().x(),
+                                              event.scenePos().y()))
+                    self.update()
+                else:
+                    # This means that the user is dragging the whole
+                    # ruler.
+
+                    # Do the move.
+                    super().mouseMoveEvent(event)
+
+                    # Update calculation/text for the retracement.
+                    self.recalculatePriceTimeVector()
+        
+                    # Emit that the PriceBarChart has changed.
+                    self.scene().priceBarChartChanged.emit()
+            else:
+                super().mouseMoveEvent(event)
+        else:
+            super().mouseMoveEvent(event)
+
+    def mouseReleaseEvent(self, event):
+        """Overwrites the QGraphicsItem mouseReleaseEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+        
+        self.log.debug("Entered mouseReleaseEvent()")
+
+        if self.draggingStartPointFlag == True:
+            self.log.debug("mouseReleaseEvent() when previously dragging " + \
+                           "startPoint.")
+            
+            self.draggingStartPointFlag = False
+
+            self.prepareGeometryChange()
+            
+            self.scene().priceBarChartChanged.emit()
+            
+        elif self.draggingEndPointFlag == True:
+            self.log.debug("mouseReleaseEvent() when previously dragging " +
+                           "endPoint.")
+            
+            self.draggingEndPointFlag = False
+
+            self.prepareGeometryChange()
+            
+            self.scene().priceBarChartChanged.emit()
+            
+        else:
+            self.log.debug("mouseReleaseEvent() when NOT previously " + \
+                           "dragging an end.")
+
+            if self.getReadOnlyFlag() == False:
+                # Update the start and end positions.
+                self.log.debug("DEBUG: scenePos: x={}, y={}".
+                               format(event.scenePos().x(),
+                                      event.scenePos().y()))
+
+                # Calculate the difference between where the user released
+                # the button and where the user first clicked the item.
+                delta = event.scenePos() - self.clickScenePointF
+
+                self.log.debug("DEBUG: delta: x={}, y={}".
+                               format(delta.x(), delta.y()))
+
+                # If the delta is not zero, then update the start and
+                # end points by calling setPos() on the new calculated
+                # position.
+                if delta.x() != 0.0 and delta.y() != 0.0:
+                    newPos = self.startPointF + delta
+                    self.setPos(newPos)
+            
+                    # Update calculation/text for the retracement.
+                    self.recalculatePriceTimeVector()
+        
+            super().mouseReleaseEvent(event)
+
+        self.log.debug("Exiting mouseReleaseEvent()")
+
+    def setReadOnlyFlag(self, flag):
+        """Overwrites the PriceBarChartArtifactGraphicsItem setReadOnlyFlag()
+        function.
+        """
+
+        # Call the parent's function so that the flag gets set.
+        super().setReadOnlyFlag(flag)
+
+        # Make sure the drag flags are disabled.
+        if flag == True:
+            self.draggingStartPointFlag = False
+            self.draggingEndPointFlag = False
+
+    def _updateTextItemPositions(self):
+        """Updates the location of the internal text items based on
+        where the start and end points are.
+        """
+        
+        # Update the priceTimeVector label position.
+        
+        # X and Y range.  Used in calculations for the Y coordinate of
+        # the text items.
+        deltaY = self.endPointF.y() - self.startPointF.y()
+        deltaX = self.endPointF.x() - self.startPointF.x()
+
+        self.log.debug("deltaY = {}".format(deltaY))
+        self.log.debug("deltaX = {}".format(deltaX))
+        
+        largestTextHeight = 0.0
+        largestTextWidth = 0.0
+
+        distanceTextBoundingRect = self.distanceText.boundingRect()
+        sqrtDistanceTextBoundingRect = self.sqrtDistanceText.boundingRect()
+
+        if distanceTextBoundingRect.width() > largestTextWidth:
+            largestTextWidth = distanceTextBoundingRect.width()
+        if sqrtDistanceTextBoundingRect.width() > largestTextWidth:
+            largestTextWidth = sqrtDistanceTextBoundingRect.width()
+            
+        if distanceTextBoundingRect.height() > largestTextHeight:
+            largestTextHeight = distanceTextBoundingRect.height()
+        if sqrtDistanceTextBoundingRect.height() > largestTextHeight:
+            largestTextHeight = sqrtDistanceTextBoundingRect.height()
+        
+        # Now replace the above with the scaled version of it. 
+        largestTextHeight = largestTextHeight * self.textTransform.m22()
+        largestTextWidth = largestTextWidth * self.textTransform.m11()
+
+        self.log.debug("largestTextHeight = {}".format(largestTextHeight))
+        self.log.debug("largestTextWidth = {}".format(largestTextWidth))
+        
+        # Get the x and y of the point to place the text, referenced
+        # on the line from start point to end point, but offset by a
+        # certain amount such that the largest text would be centered
+        # on the line.
+        midX = self.mapFromScene(\
+            QPointF(self.startPointF.x() + (deltaX * 0.5), 0.0)).x()
+        midY = self.mapFromScene(\
+            QPointF(0.0, self.startPointF.y() + (deltaY * 0.5))).y()
+
+        self.log.debug("midX={}, midY={}".format(midX, midY))
+                       
+        if self.tiltedTextFlag == True:
+            # TODO:  need to introduce scaling for calculating angles.
+            
+            angleDeg = QLineF(self.startPointF, self.endPointF).angle()
+            angleRad = math.radians(angleDeg)
+            self.rotationDegrees = angleDeg
+            self.log.debug("angleDeg={}".format(angleDeg))
+
+            # Calculate the shift amount from the midX and midY.
+            # Here below, 'largestTextWidth' is taken as the hypotenuse.
+            shiftTextX = math.cos(angleRad) * (0.5 * largestTextWidth)
+            shiftTextY = math.sin(angleRad) * (0.5 * largestTextWidth)
+            
+            self.log.debug("shiftTextX={}, shiftTextY={}".\
+                           format(shiftTextX, shiftTextY))
+
+            # TODO:  After scaling is introduced, re-try uncommented below to modify the startX and startY by shiftTextX and shiftTextY
+            
+            #startX = midX - shiftTextX
+            #startY = midY - shiftTextY
+            
+            startX = midX
+            startY = midY
+
+            self.log.debug("startX={}, startY={}".\
+                           format(startX, startY))
+            
+            # Now we have the point on the line from which the text is
+            # placed, but we need to move outwards from here at the
+            # tilted angle to display the text.
+
+            # j is the running index of the enabled text item.
+            j = 1
+
+            # Here below, 'largestTextHeight' is taken as the
+            # hypotenuse.
+            textOffsetX = math.sin(angleRad) * largestTextHeight
+            textOffsetY = math.cos(angleRad) * largestTextHeight
+            
+            self.log.debug("textOffsetX={}, textOffsetY={}".\
+                           format(textOffsetX, textOffsetY))
+            
+            # Go through in reverse order since we are placing the
+            # items relative to the bar (moving outwards).
+            for i in reversed(range(len(self.textItems))):
+                # Get the current text item.
+                textItem = self.textItems[i]
+                
+                # Set the position no matter what, but only increment
+                # j if the item is enabled and displayed.  This is so
+                # we keep the text items on the graphicsScene close to
+                # its parent item.
+                x = startX - (textOffsetX * j)
+                y = startY - (textOffsetY * j)
+                
+                #textItem.setPos(QPointF(x, y))
+                textItem.setPos(QPointF(startX, startY))
+                #textItem.setRotation(45)
+                textItem.setRotation(-1.0 * self.rotationDegrees)
+                
+                if textItem.isEnabled() and textItem.isVisible():
+                    j += 1
+        else:
+            startX = midX
+            startY = midY
+
+            # Amount to mutiply to get a largest offset from startY.
+            offsetY = largestTextHeight
+
+            # j is the running index of the enabled text item.
+            j = 0
+
+            # Go through in reverse order since we are placing the
+            # items relative to the bar (moving outwards).
+            for i in reversed(range(len(self.textItems))):
+                # Get the current text item.
+                textItem = self.textItems[i]
+
+                # Set the position no matter what, but only increment
+                # j if the item is enabled and displayed.  This is so
+                # we keep the text items on the graphicsScene close to
+                # its parent item.
+                x = startX
+                y = (startY - (offsetY * j)) * largestTextHeight
+                textItem.setPos(QPointF(x, y))
+                if textItem.isEnabled() and textItem.isVisible():
+                    j += 1
+
+
+    def setStartPointF(self, pointF):
+        """Sets the starting point of the bar count.  The value passed in
+        is the mouse location in scene coordinates.  
+        """
+
+        newValue = QPointF(pointF.x(), pointF.y())
+
+        if self.startPointF != newValue: 
+            self.startPointF = newValue
+
+            self.setPos(self.startPointF)
+
+            if self.scene() != None:
+                # Re-calculate the priceretracement.
+                self.recalculatePriceTimeVector()
+                self.update()
+                
+            # Update the priceTimeVector text item position.
+            self._updateTextItemPositions()
+            
+    def setEndPointF(self, pointF):
+        """Sets the ending point of the bar count.  The value passed in
+        is the mouse location in scene coordinates.  
+        """
+
+        newValue = QPointF(pointF.x(), pointF.y())
+
+        if self.endPointF != newValue:
+            self.endPointF = newValue
+
+            if self.scene() != None:
+                # Re-calculate the priceretracement.
+                self.recalculatePriceTimeVector()
+                self.update()
+
+            # Update the priceTimeVector text item position.
+            self._updateTextItemPositions()
+            
+    def normalizeStartAndEnd(self):
+        """Does not do anything since normalization is not applicable
+        to this graphics item.
+        """
+
+        # Do don't anything.
+        pass
+
+    def recalculatePriceTimeVector(self):
+        """Recalculates the priceTimeVector and sets the text items'
+        text accordingly.
+        """
+
+        scene = self.scene()
+
+        # X and Y range.  
+        deltaY = self.endPointF.y() - self.startPointF.y()
+        deltaX = self.endPointF.x() - self.startPointF.x()
+        
+        if scene != None:
+            # Update the text of the internal items.
+            distanceSquared = math.pow(deltaX, 2) + math.pow(deltaY, 2)
+            self.distance = math.pow(distanceSquared, 0.5)
+            self.sqrtDistance = math.pow(self.distance, 0.5)
+            
+            # Set texts.
+            distanceText = "{}".format(self.distance)
+            sqrtDistanceText = "{}".format(self.sqrtDistance)
+            
+            self.distanceText.setText("{}".format(self.distance))
+            self.sqrtDistanceText.setText("{}".format(self.sqrtDistance))
+        
+    def setArtifact(self, artifact):
+        """Loads a given PriceBarChartPriceTimeVectorArtifact object's data
+        into this QGraphicsItem.
+
+        Arguments:
+        artifact - PriceBarChartPriceTimeVectorArtifact object with information
+                   about this TextGraphisItem
+        """
+
+        self.log.debug("Entering setArtifact()")
+
+        if isinstance(artifact, PriceBarChartPriceTimeVectorArtifact):
+            self.artifact = artifact
+        else:
+            raise TypeError("Expected artifact type: " + \
+                            "PriceBarChartPriceTimeVectorArtifact")
+
+        # Extract and set the internals according to the info 
+        # in this artifact object.
+        self.setPos(self.artifact.getPos())
+        self.setStartPointF(self.artifact.getStartPointF())
+        self.setEndPointF(self.artifact.getEndPointF())
+
+        self.priceTimeVectorTextXScaling = self.artifact.getTextXScaling()
+        self.priceTimeVectorTextYScaling = self.artifact.getTextYScaling()
+        self.priceTimeVectorTextFont = self.artifact.getFont()
+        self.priceTimeVectorGraphicsItemTextColor = \
+            self.artifact.getTextColor()
+        self.priceTimeVectorPen.setColor(self.artifact.getColor())
+        
+        self.showDistanceTextFlag = \
+            self.artifact.getShowDistanceTextFlag()
+        self.showSqrtDistanceTextFlag = \
+            self.artifact.getShowSqrtDistanceTextFlag()
+        self.tiltedTextFlag = self.artifact.getTiltedTextFlag()
+
+        #############
+
+        for textItem in self.textItems:
+            textItem.setPos(self.endPointF)
+        
+            # Set the font of the text.
+            textItem.setFont(self.priceTimeVectorTextFont)
+        
+            # Set the pen color of the text.
+            self.priceTimeVectorTextPen = textItem.pen()
+            self.priceTimeVectorTextPen.\
+                setColor(self.priceTimeVectorGraphicsItemTextColor)
+            
+            textItem.setPen(self.priceTimeVectorTextPen)
+
+            # Set the brush color of the text.
+            self.priceTimeVectorTextBrush = textItem.brush()
+            self.priceTimeVectorTextBrush.\
+                setColor(self.priceTimeVectorGraphicsItemTextColor)
+            
+            textItem.setBrush(self.priceTimeVectorTextBrush)
+
+            # Apply some size scaling to the text.
+            self.textTransform = QTransform()
+            self.textTransform.scale(self.priceTimeVectorTextXScaling, \
+                                     self.priceTimeVectorTextYScaling)
+            textItem.setTransform(self.textTransform)
+
+        # Set the text items as enabled or disabled, visible or
+        # invisible, depending on whether the show flag is set.
+        self.distanceText.setEnabled(self.showDistanceTextFlag)
+        self.distanceText.setVisible(self.showDistanceTextFlag)
+        
+        self.sqrtDistanceText.setEnabled(self.showSqrtDistanceTextFlag)
+        self.sqrtDistanceText.setVisible(self.showSqrtDistanceTextFlag)
+
+        # Need to recalculate the priceTimeVector, since the scaling
+        # or start/end points may have changed.  Note, if no scene has
+        # been set for the QGraphicsView, then the price retracements
+        # will be zero, since it can't look up PriceBarGraphicsItems
+        # in the scene.
+        self.recalculatePriceTimeVector()
+
+        # Update the priceTimeVector text item position.
+        self._updateTextItemPositions()
+        
+        self.log.debug("Exiting setArtifact()")
+
+    def getArtifact(self):
+        """Returns a PriceBarChartPriceTimeVectorArtifact for this
+        QGraphicsItem so that it may be pickled.
+        """
+        
+        self.log.debug("Entered getArtifact()")
+        
+        # Update the internal self.priceBarChartPriceTimeVectorArtifact 
+        # to be current, then return it.
+
+        self.artifact.setPos(self.pos())
+        self.artifact.setStartPointF(self.startPointF)
+        self.artifact.setEndPointF(self.endPointF)
+
+        self.artifact.setTextXScaling(self.priceTimeVectorTextXScaling)
+        self.artifact.setTextYScaling(self.priceTimeVectorTextYScaling)
+        self.artifact.setFont(self.priceTimeVectorTextFont)
+        self.artifact.setTextColor(self.priceTimeVectorGraphicsItemTextColor)
+        self.artifact.setColor(self.priceTimeVectorPen.color())
+        
+        self.artifact.setShowDistanceTextFlag(self.showDistanceTextFlag)
+        self.artifact.setShowSqrtDistanceTextFlag(self.showSqrtDistanceTextFlag)
+        self.artifact.setTiltedTextFlag(self.tiltedTextFlag)
+
+        self.log.debug("Exiting getArtifact()")
+        
+        return self.artifact
+
+    def boundingRect(self):
+        """Returns the bounding rectangle for this graphicsitem."""
+
+        # Coordinate (0, 0) in local coordinates is the startPointF.
+        # If the user created the widget with the startPointF to the
+        # right of the endPointF, then the startPointF will have a
+        # higher X value than endPointF.
+
+        # The QRectF returned is relative to this (0, 0) point.
+
+        rv = self.shape().boundingRect()
+
+        return rv
+
+    def shape(self):
+        """Overwrites the QGraphicsItem.shape() function to return a
+        more accurate shape for collision detection, hit tests, etc.
+        """
+
+        # Calculate the points that would be the selection box area
+        # around the line.
+
+        localStartPointF = self.mapFromScene(self.startPointF)
+        localEndPointF = self.mapFromScene(self.endPointF)
+        
+        angleDeg = QLineF(localStartPointF, localEndPointF).angle()
+        angleRad = math.radians(angleDeg)
+        
+        shiftTextX = math.cos(angleRad) * \
+                     (0.5 * self.priceTimeVectorGraphicsItemBarWidth)
+        shiftTextY = math.sin(angleRad) * \
+                     (0.5 * self.priceTimeVectorGraphicsItemBarWidth)
+
+        # Create new points.
+        p1 = \
+            QPointF(localStartPointF.x() - shiftTextX,
+                    localStartPointF.y() - shiftTextY)
+        p2 = \
+            QPointF(localStartPointF.x() + shiftTextX,
+                    localStartPointF.y() + shiftTextY)
+        p3 = \
+            QPointF(localEndPointF.x() - shiftTextX,
+                    localEndPointF.y() - shiftTextY)
+        p4 = \
+            QPointF(localEndPointF.x() + shiftTextX,
+                    localEndPointF.y() + shiftTextY)
+
+        points = [p2, p1, p3, p4, p2]
+        polygon = QPolygonF(points)
+
+        painterPath = QPainterPath()
+        painterPath.addPolygon(polygon)
+
+        return painterPath
+        
+    def paint(self, painter, option, widget):
+        """Paints this QGraphicsItem.  Assumes that self.pen is set
+        to what we want for the drawing style.
+        """
+
+        if painter.pen() != self.priceTimeVectorPen:
+            painter.setPen(self.priceTimeVectorPen)
+        
+        # Draw the line.
+        localStartPointF = self.mapFromScene(self.startPointF)
+        localEndPointF = self.mapFromScene(self.endPointF)
+        painter.drawLine(QLineF(localStartPointF, localEndPointF))
+        
+        # Draw the shape if the item is selected.
+        if option.state & QStyle.State_Selected:
+            pad = self.priceTimeVectorPen.widthF() * 0.5;
+            penWidth = 0.0
+            fgcolor = option.palette.windowText().color()
+            
+            # Ensure good contrast against fgcolor.
+            r = 255
+            g = 255
+            b = 255
+            if fgcolor.red() > 127:
+                r = 0
+            if fgcolor.green() > 127:
+                g = 0
+            if fgcolor.blue() > 127:
+                b = 0
+            
+            bgcolor = QColor(r, g, b)
+            
+            painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawPath(self.shape())
+            
+            painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawPath(self.shape())
+
+    def appendActionsToContextMenu(self, menu, readOnlyMode=False):
+        """Modifies the given QMenu object to update the title and add
+        actions relevant to this PriceTimeVectorGraphicsItem.  Actions that
+        are triggered from this menu run various methods in the
+        PriceTimeVectorGraphicsItem to handle the desired functionality.
+        
+        Arguments:
+        menu - QMenu object to modify.
+        readOnlyMode - bool value that indicates the actions are to be
+                       readonly actions.
+        """
+
+        menu.setTitle(self.artifact.getInternalName())
+        
+        # These are the QActions that are in the menu.
+        parent = menu
+        selectAction = QAction("&Select", parent)
+        unselectAction = QAction("&Unselect", parent)
+        removeAction = QAction("Remove", parent)
+        infoAction = QAction("&Info", parent)
+        editAction = QAction("&Edit", parent)
+        setStartOnAstro1Action = \
+            QAction("Set start timestamp on Astro Chart &1", parent)
+        setStartOnAstro2Action = \
+            QAction("Set start timestamp on Astro Chart &2", parent)
+        setStartOnAstro3Action = \
+            QAction("Set start timestamp on Astro Chart &3", parent)
+        setEndOnAstro1Action = \
+            QAction("Set end timestamp on Astro Chart 1", parent)
+        setEndOnAstro2Action = \
+            QAction("Set end timestamp on Astro Chart 2", parent)
+        setEndOnAstro3Action = \
+            QAction("Set end timestamp on Astro Chart 3", parent)
+        
+        selectAction.triggered.\
+            connect(self._handleSelectAction)
+        unselectAction.triggered.\
+            connect(self._handleUnselectAction)
+        removeAction.triggered.\
+            connect(self._handleRemoveAction)
+        infoAction.triggered.\
+            connect(self._handleInfoAction)
+        editAction.triggered.\
+            connect(self._handleEditAction)
+        setStartOnAstro1Action.triggered.\
+            connect(self._handleSetStartOnAstro1Action)
+        setStartOnAstro2Action.triggered.\
+            connect(self._handleSetStartOnAstro2Action)
+        setStartOnAstro3Action.triggered.\
+            connect(self._handleSetStartOnAstro3Action)
+        setEndOnAstro1Action.triggered.\
+            connect(self._handleSetEndOnAstro1Action)
+        setEndOnAstro2Action.triggered.\
+            connect(self._handleSetEndOnAstro2Action)
+        setEndOnAstro3Action.triggered.\
+            connect(self._handleSetEndOnAstro3Action)
+        
+        # Enable or disable actions.
+        selectAction.setEnabled(True)
+        unselectAction.setEnabled(True)
+        removeAction.setEnabled(not readOnlyMode)
+        infoAction.setEnabled(True)
+        editAction.setEnabled(not readOnlyMode)
+        setStartOnAstro1Action.setEnabled(True)
+        setStartOnAstro2Action.setEnabled(True)
+        setStartOnAstro3Action.setEnabled(True)
+        setEndOnAstro1Action.setEnabled(True)
+        setEndOnAstro2Action.setEnabled(True)
+        setEndOnAstro3Action.setEnabled(True)
+
+        # Add the QActions to the menu.
+        menu.addAction(selectAction)
+        menu.addAction(unselectAction)
+        menu.addSeparator()
+        menu.addAction(removeAction)
+        menu.addSeparator()
+        menu.addAction(infoAction)
+        menu.addAction(editAction)
+        menu.addSeparator()
+        menu.addAction(setStartOnAstro1Action)
+        menu.addAction(setStartOnAstro2Action)
+        menu.addAction(setStartOnAstro3Action)
+        menu.addSeparator()
+        menu.addAction(setEndOnAstro1Action)
+        menu.addAction(setEndOnAstro2Action)
+        menu.addAction(setEndOnAstro3Action)
+
+    def _handleSelectAction(self):
+        """Causes the QGraphicsItem to become selected."""
+
+        self.setSelected(True)
+
+    def _handleUnselectAction(self):
+        """Causes the QGraphicsItem to become unselected."""
+
+        self.setSelected(False)
+
+    def _handleRemoveAction(self):
+        """Causes the QGraphicsItem to be removed from the scene."""
+        
+        scene = self.scene()
+        scene.removeItem(self)
+
+        # Emit signal to show that an item is removed.
+        # This sets the dirty flag.
+        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+        
+    def _handleInfoAction(self):
+        """Causes a dialog to be executed to show information about
+        the QGraphicsItem.
+        """
+
+        artifact = self.getArtifact()
+        dialog = PriceBarChartPriceTimeVectorArtifactEditDialog(artifact,
+                                                         self.scene(),
+                                                         readOnlyFlag=True)
+        
+        # Run the dialog.  We don't care about what is returned
+        # because the dialog is read-only.
+        rv = dialog.exec_()
+        
+    def _handleEditAction(self):
+        """Causes a dialog to be executed to edit information about
+        the QGraphicsItem.
+        """
+
+        artifact = self.getArtifact()
+        dialog = PriceBarChartPriceTimeVectorArtifactEditDialog(artifact,
+                                                         self.scene(),
+                                                         readOnlyFlag=False)
+        
+        rv = dialog.exec_()
+        
+        if rv == QDialog.Accepted:
+            # If the dialog is accepted then the underlying artifact
+            # object was modified.  Set the artifact to this
+            # PriceBarChartArtifactGraphicsItem, which will cause it to be
+            # reloaded in the scene.
+            self.setArtifact(artifact)
+
+            # Flag that a redraw of this QGraphicsItem is required.
+            self.update()
+
+            # Emit that the PriceBarChart has changed so that the
+            # dirty flag can be set.
+            self.scene().priceBarChartChanged.emit()
+        else:
+            # The user canceled so don't change anything.
+            pass
+        
+    def _handleSetStartOnAstro1Action(self):
+        """Causes the astro chart 1 to be set with the timestamp
+        of the start the PriceTimeVectorGraphicsItem.
+        """
+
+        self.scene().setAstroChart1(self.startPointF.x())
+        
+    def _handleSetStartOnAstro2Action(self):
+        """Causes the astro chart 2 to be set with the timestamp
+        of the start the PriceTimeVectorGraphicsItem.
+        """
+
+        self.scene().setAstroChart2(self.startPointF.x())
+        
+    def _handleSetStartOnAstro3Action(self):
+        """Causes the astro chart 3 to be set with the timestamp
+        of the start the PriceTimeVectorGraphicsItem.
+        """
+
+        self.scene().setAstroChart3(self.startPointF.x())
+        
+    def _handleSetEndOnAstro1Action(self):
+        """Causes the astro chart 1 to be set with the timestamp
+        of the end the PriceTimeVectorGraphicsItem.
+        """
+
+        self.scene().setAstroChart1(self.endPointF.x())
+
+    def _handleSetEndOnAstro2Action(self):
+        """Causes the astro chart 2 to be set with the timestamp
+        of the end the PriceTimeVectorGraphicsItem.
+        """
+
+        self.scene().setAstroChart2(self.endPointF.x())
+
+    def _handleSetEndOnAstro3Action(self):
+        """Causes the astro chart 3 to be set with the timestamp
+        of the end the PriceTimeVectorGraphicsItem.
+        """
+
+        self.scene().setAstroChart3(self.endPointF.x())
+
+
 class PriceBarChartWidget(QWidget):
     """Widget holding the QGraphicsScene and QGraphicsView that displays
     the PriceBar information along with other indicators and analysis
@@ -10180,7 +11264,8 @@ class PriceBarChartWidget(QWidget):
                 "PriceTimeInfoTool"    : 10,
                 "PriceMeasurementTool" : 11,
                 "TimeRetracementTool"  : 12,
-                "PriceRetracementTool"  : 13 }
+                "PriceRetracementTool" : 13,
+                "PriceTimeVectorTool"  : 14 }
 
 
 
@@ -10774,6 +11859,26 @@ class PriceBarChartWidget(QWidget):
         
                 addedItemFlag = True
 
+            elif isinstance(artifact, PriceBarChartPriceTimeVectorArtifact):
+                self.log.debug("Loading artifact: " + artifact.toString())
+                
+                newItem = PriceTimeVectorGraphicsItem()
+                newItem.loadSettingsFromPriceBarChartSettings(\
+                    self.priceBarChartSettings)
+                newItem.setArtifact(artifact)
+
+                # Add the item.
+                self.graphicsScene.addItem(newItem)
+                
+                # Make sure the proper flags are set for the mode we're in.
+                self.graphicsView.setGraphicsItemFlagsPerCurrToolMode(newItem)
+
+                # Need to recalculate, since it wasn't in the
+                # QGraphicsScene until now.
+                newItem.recalculatePriceTimeVector()
+        
+                addedItemFlag = True
+
         if addedItemFlag == True:
             # Emit that the PriceBarChart has changed.
             self.graphicsScene.priceBarChartChanged.emit()
@@ -10942,6 +12047,9 @@ class PriceBarChartWidget(QWidget):
             elif isinstance(item, PriceRetracementGraphicsItem):
                 self.log.debug("Not applying settings to " +
                                "PriceRetracementGraphicsItem.")
+            elif isinstance(item, PriceTimeVectorGraphicsItem):
+                self.log.debug("Not applying settings to " +
+                               "PriceTimeVectorGraphicsItem.")
 
         if settingsChangedFlag == True:
             # Emit that the PriceBarChart has changed, because we have
@@ -11130,6 +12238,20 @@ class PriceBarChartWidget(QWidget):
             self.graphicsView.toPriceRetracementToolMode()
 
         self.log.debug("Exiting toPriceRetracementToolMode()")
+
+    def toPriceTimeVectorToolMode(self):
+        """Changes the tool mode to be the PriceTimeVectorTool."""
+
+        self.log.debug("Entered toPriceTimeVectorToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != \
+               PriceBarChartWidget.ToolMode['PriceTimeVectorTool']:
+            
+            self.toolMode = PriceBarChartWidget.ToolMode['PriceTimeVectorTool']
+            self.graphicsView.toPriceTimeVectorToolMode()
+
+        self.log.debug("Exiting toPriceTimeVectorToolMode()")
 
     def _handleMouseLocationUpdate(self, x, y):
         """Handles mouse location changes in the QGraphicsView.  
@@ -11736,7 +12858,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 "PriceTimeInfoTool"    : 10,
                 "PriceMeasurementTool" : 11,
                 "TimeRetracementTool"  : 12,
-                "PriceRetracementTool" : 13 }
+                "PriceRetracementTool" : 13,
+                "PriceTimeVectorTool"  : 14 }
 
     # Signal emitted when the mouse moves within the QGraphicsView.
     # The position emitted is in QGraphicsScene x, y, float coordinates.
@@ -11809,6 +12932,10 @@ class PriceBarChartGraphicsView(QGraphicsView):
         # as it is modified in PriceRetracementToolMode.
         self.priceRetracementGraphicsItem = None
 
+        # Variable used for storing the new PriceTimeVectorGraphicsItem,
+        # as it is modified in PriceTimeVectorToolMode.
+        self.priceTimeVectorGraphicsItem = None
+
         # Variable used for storing that snapping to the closest bar
         # high or low is enabled.
         #
@@ -11820,6 +12947,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
         #   - PriceMeasurementTool
         #   - TimeRetracementTool
         #   - PriceRetracementTool
+        #   - PriceTimeVectorTool
         #
         self.snapEnabledFlag = True
 
@@ -12002,6 +13130,15 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PriceRetracementTool']:
+
+            if isinstance(item, PriceBarGraphicsItem):
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+            elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                item.setReadOnlyFlag(True)
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['PriceTimeVectorTool']:
 
             if isinstance(item, PriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
@@ -12412,6 +13549,36 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.setGraphicsItemFlagsPerCurrToolMode(item)
                     
         self.log.debug("Exiting toPriceRetracementToolMode()")
+
+    def toPriceTimeVectorToolMode(self):
+        """Changes the tool mode to be the PriceTimeVectorTool."""
+
+        self.log.debug("Entered toPriceTimeVectorToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != \
+                PriceBarChartGraphicsView.ToolMode['PriceTimeVectorTool']:
+
+            self.toolMode = \
+                PriceBarChartGraphicsView.ToolMode['PriceTimeVectorTool']
+
+            self.setCursor(QCursor(Qt.ArrowCursor))
+            self.setDragMode(QGraphicsView.NoDrag)
+
+            # Clear out internal working variables.
+            self.clickOnePointF = None
+            self.clickTwoPointF = None
+            self.priceTimeVectorGraphicsItem = None
+
+            scene = self.scene()
+            if scene != None:
+                scene.clearSelection()
+
+                items = scene.items()
+                for item in items:
+                    self.setGraphicsItemFlagsPerCurrToolMode(item)
+                    
+        self.log.debug("Exiting toPriceTimeVectorToolMode()")
 
     def createContextMenu(self, clickPosF, readOnlyFlag):
         """Creates a context menu for a right-click somewhere in
@@ -12889,6 +14056,32 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
                 self.priceRetracementGraphicsItem = None
+            elif qkeyevent.key() == Qt.Key_Q:
+                # Turn on snap functionality.
+                self.snapEnabledFlag = True
+                self.log.debug("Snap mode enabled.")
+                self.statusMessageUpdate.emit("Snap mode enabled")
+            elif qkeyevent.key() == Qt.Key_W:
+                # Turn off snap functionality.
+                self.snapEnabledFlag = False
+                self.log.debug("Snap mode disabled.")
+                self.statusMessageUpdate.emit("Snap mode disabled")
+            else:
+                super().keyPressEvent(qkeyevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['PriceTimeVectorTool']:
+
+            if qkeyevent.key() == Qt.Key_Escape:
+                # Escape key causes any currently edited item to
+                # be removed and cleared out.  Temporary variables used
+                # are cleared out too.
+                if self.priceTimeVectorGraphicsItem != None:
+                    self.scene().removeItem(self.priceTimeVectorGraphicsItem)
+
+                self.clickOnePointF = None
+                self.clickTwoPointF = None
+                self.priceTimeVectorGraphicsItem = None
             elif qkeyevent.key() == Qt.Key_Q:
                 # Turn on snap functionality.
                 self.snapEnabledFlag = True
@@ -14237,6 +15430,151 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 else:
                     self.log.warn("Unexpected state reached.")
                     
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['PriceTimeVectorTool']:
+            
+            self.log.debug("Current toolMode is: PriceTimeVectorTool")
+
+            if qmouseevent.button() & Qt.LeftButton:
+                self.log.debug("Qt.LeftButton")
+                
+                if self.clickOnePointF == None:
+                    self.log.debug("clickOnePointF == None")
+                
+                    self.clickOnePointF = self.mapToScene(qmouseevent.pos())
+
+                    # If snap is enabled, then find the closest
+                    # pricebar price to the place clicked.
+                    if self.snapEnabledFlag == True:
+                        self.log.debug("Snap is enabled, so snapping to " +
+                                       "closest pricebar X and Y.")
+                        
+                        infoPointF = self.mapToScene(qmouseevent.pos())
+                        closestPoint = \
+                            self.scene().getClosestPriceBarOHLCPoint(infoPointF)
+
+                        # Use these X and Y values.
+                        self.clickOnePointF.setX(closestPoint.x())
+                        self.clickOnePointF.setY(closestPoint.y())
+                    
+                    # Create the PriceTimeVectorGraphicsItem and
+                    # initialize it to the mouse location.
+                    self.priceTimeVectorGraphicsItem = \
+                        PriceTimeVectorGraphicsItem()
+                    self.priceTimeVectorGraphicsItem.\
+                        loadSettingsFromPriceBarChartSettings(\
+                            self.priceBarChartSettings)
+        
+                    self.priceTimeVectorGraphicsItem.\
+                        setPos(self.clickOnePointF)
+                    self.priceTimeVectorGraphicsItem.\
+                        setStartPointF(self.clickOnePointF)
+                    self.priceTimeVectorGraphicsItem.\
+                        setEndPointF(self.clickOnePointF)
+                    self.scene().addItem(self.priceTimeVectorGraphicsItem)
+                    
+                    # Make sure the proper flags are set for the mode we're in.
+                    self.setGraphicsItemFlagsPerCurrToolMode(\
+                        self.priceTimeVectorGraphicsItem)
+
+                elif self.clickOnePointF != None and \
+                    self.clickTwoPointF == None and \
+                    self.priceTimeVectorGraphicsItem != None:
+
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "priceTimeVectorGraphicsItem != None.")
+                    
+                    # Set the end point of the PriceTimeVectorGraphicsItem.
+                    self.clickTwoPointF = self.mapToScene(qmouseevent.pos())
+
+                    # If snap is enabled, then find the closest
+                    # pricebar price to the place clicked.
+                    if self.snapEnabledFlag == True:
+                        self.log.debug("Snap is enabled, so snapping to " +
+                                       "closest pricebar X and Y.")
+                        
+                        infoPointF = self.mapToScene(qmouseevent.pos())
+                        closestPoint = \
+                            self.scene().getClosestPriceBarOHLCPoint(infoPointF)
+
+                        # Use these X and Y values.
+                        self.clickTwoPointF.setX(closestPoint.x())
+                        self.clickTwoPointF.setY(closestPoint.y())
+                    
+                    self.priceTimeVectorGraphicsItem.\
+                        setEndPointF(self.clickTwoPointF)
+                    self.priceTimeVectorGraphicsItem.normalizeStartAndEnd()
+        
+                    # Call getArtifact() so that the item's artifact
+                    # object gets updated and set.
+                    self.priceTimeVectorGraphicsItem.getArtifact()
+                                                
+                    # Emit that the PriceBarChart has changed.
+                    self.scene().priceBarChartArtifactGraphicsItemAdded.\
+                        emit(self.priceTimeVectorGraphicsItem)
+                    
+                    sceneBoundingRect = \
+                        self.priceTimeVectorGraphicsItem.sceneBoundingRect()
+                    
+                    self.log.debug("priceTimeVectorGraphicsItem " +
+                                   "officially added.  " +
+                                   "Its sceneBoundingRect is: {}.  ".\
+                                   format(sceneBoundingRect) +
+                                   "Its x range is: {} to {}.  ".\
+                                   format(sceneBoundingRect.left(),
+                                          sceneBoundingRect.right()) +
+                                   "Its y range is: {} to {}.  ".\
+                                   format(sceneBoundingRect.top(),
+                                          sceneBoundingRect.bottom()))
+                    
+                    # Clear out working variables.
+                    self.clickOnePointF = None
+                    self.clickTwoPointF = None
+                    self.priceTimeVectorGraphicsItem = None
+                    
+                else:
+                    self.log.warn("Unexpected state reached.")
+                    
+            elif qmouseevent.button() & Qt.RightButton:
+                
+                self.log.debug("Qt.RightButton")
+                
+                if self.clickOnePointF != None and \
+                   self.clickTwoPointF == None and \
+                   self.priceTimeVectorGraphicsItem != None:
+
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "priceTimeVectorGraphicsItem != None.")
+                    
+                    # Right-click during setting the
+                    # PriceTimeVectorGraphicsItem causes the
+                    # currently edited bar count item to be removed
+                    # and cleared out.  Temporary variables used are
+                    # cleared out too.
+                    self.scene().removeItem(self.priceTimeVectorGraphicsItem)
+
+                    self.clickOnePointF = None
+                    self.clickTwoPointF = None
+                    self.priceTimeVectorGraphicsItem = None
+                    
+                elif self.clickOnePointF == None and \
+                     self.clickTwoPointF == None and \
+                     self.priceTimeVectorGraphicsItem == None:
+                    
+                    self.log.debug("clickOnePointF == None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "priceTimeVectorGraphicsItem == None.")
+                    
+                    # Open a context menu at this location, in readonly mode.
+                    clickPosF = self.mapToScene(qmouseevent.pos())
+                    menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
+                    menu.exec_(qmouseevent.globalPos())
+                    
+                else:
+                    self.log.warn("Unexpected state reached.")
+                    
         else:
             self.log.warn("Current toolMode is: UNKNOWN.")
 
@@ -14343,6 +15681,12 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 PriceBarChartGraphicsView.ToolMode['PriceRetracementTool']:
 
             self.log.debug("Current toolMode is: PriceRetracementTool")
+            super().mouseReleaseEvent(qmouseevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['PriceTimeVectorTool']:
+
+            self.log.debug("Current toolMode is: PriceTimeVectorTool")
             super().mouseReleaseEvent(qmouseevent)
 
         else:
@@ -14511,6 +15855,20 @@ class PriceBarChartGraphicsView(QGraphicsView):
             else:
                 super().mouseMoveEvent(qmouseevent)
 
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['PriceTimeVectorTool']:
+
+            if self.clickOnePointF != None and \
+                self.priceTimeVectorGraphicsItem != None:
+
+                pos = self.mapToScene(qmouseevent.pos())
+                
+                # Update the end point of the current
+                # PriceTimeVectorGraphicsItem.
+                self.priceTimeVectorGraphicsItem.setEndPointF(pos)
+            else:
+                super().mouseMoveEvent(qmouseevent)
+
         else:
             # For any other mode we don't have specific functionality for,
             # just pass the event to the parent to handle.
@@ -14578,6 +15936,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
             self.setCursor(QCursor(Qt.ArrowCursor))
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PriceRetracementTool']:
+            self.setCursor(QCursor(Qt.ArrowCursor))
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['PriceTimeVectorTool']:
             self.setCursor(QCursor(Qt.ArrowCursor))
         else:
             self.log.warn("Unknown toolMode while in enterEvent().")

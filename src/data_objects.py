@@ -1735,23 +1735,23 @@ class PriceBarChartTimeModalScaleArtifact(PriceBarChartArtifact):
         # List of used ratios.
         self.musicalRatios = MusicalRatio.getIndianMusicalRatios()
         
-        # timeModalScaleGraphicsItemColor (QColor).
-        self.timeModalScaleGraphicsItemBarColor = \
+        # color (QColor).
+        self.color = \
             PriceBarChartSettings.\
                 defaultTimeModalScaleGraphicsItemBarColor
 
-        # timeModalScaleGraphicsItemTextColor (QColor).
-        self.timeModalScaleGraphicsItemTextColor = \
+        # textColor (QColor).
+        self.textColor = \
             PriceBarChartSettings.\
                 defaultTimeModalScaleGraphicsItemTextColor
 
-        # TimeModalScaleGraphicsItem bar height (float).
-        self.timeModalScaleGraphicsItemBarHeight = \
+        # barHeight (float).
+        self.barHeight = \
             PriceBarChartSettings.\
                 defaultTimeModalScaleGraphicsItemBarHeight
 
-        # TimeModalScaleGraphicsItem font size (float).
-        self.timeModalScaleGraphicsItemFontSize = \
+        # fontSize (float).
+        self.fontSize = \
             PriceBarChartSettings.\
                 defaultTimeModalScaleGraphicsItemFontSize
 
@@ -1802,61 +1802,53 @@ class PriceBarChartTimeModalScaleArtifact(PriceBarChartArtifact):
 
         self.musicalRatios = musicalRatios
 
-    def setTimeModalScaleGraphicsItemBarColor(self, \
-            timeModalScaleGraphicsItemBarColor):
+    def setColor(self, color):
         """Sets the bar color.
         
         Arguments:
-        timeModalScaleGraphicsItemBarColor - QColor object for the bar color.
+        color - QColor object for the bar color.
         """
         
-        self.timeModalScaleGraphicsItemBarColor = \
-            timeModalScaleGraphicsItemBarColor
+        self.color = color
 
-    def getTimeModalScaleGraphicsItemBarColor(self):
+    def getColor(self):
         """Gets the bar color as a QColor object."""
         
-        return self.timeModalScaleGraphicsItemBarColor
+        return self.color
 
-    def setTimeModalScaleGraphicsItemTextColor(self,
-            timeModalScaleGraphicsItemTextColor):
+    def setTextColor(self, textColor):
         """Sets the text color.
         
         Arguments:
-        timeModalScaleGraphicsItemTextColor - QColor object for the text color.
+        textColor - QColor object for the text color.
         """
 
-        self.timeModalScaleGraphicsItemTextColor = \
-            timeModalScaleGraphicsItemTextColor
+        self.textColor = textColor
         
-    def getTimeModalScaleGraphicsItemTextColor(self):
+    def getTextColor(self):
         """Gets the text color as a QColor object."""
 
-        return self.timeModalScaleGraphicsItemTextColor
+        return self.textColor
         
-    def setTimeModalScaleGraphicsItemBarHeight(self,
-            timeModalScaleGraphicsItemBarHeight):
-        """Sets the TimeModalScaleGraphicsItem bar height (float)."""
+    def setBarHeight(self, barHeight):
+        """Sets the bar height (float)."""
 
-        self.timeModalScaleGraphicsItemBarHeight = \
-            timeModalScaleGraphicsItemBarHeight
+        self.barHeight = barHeight
     
-    def getTimeModalScaleGraphicsItemBarHeight(self):
-        """Returns the TimeModalScaleGraphicsItem bar height (float)."""
+    def getBarHeight(self):
+        """Returns the bar height (float)."""
 
-        return self.timeModalScaleGraphicsItemBarHeight
+        return self.barHeight
     
-    def setTimeModalScaleGraphicsItemFontSize(self,
-            timeModalScaleGraphicsItemFontSize):
+    def setFontSize(self, fontSize):
         """Sets the font size of the musical ratio text (float)."""
 
-        self.timeModalScaleGraphicsItemFontSize = \
-            timeModalScaleGraphicsItemFontSize
+        self.fontSize = fontSize
     
-    def getTimeModalScaleGraphicsItemFontSize(self):
+    def getFontSize(self):
         """Sets the font size of the musical ratio text (float)."""
 
-        return self.timeModalScaleGraphicsItemFontSize
+        return self.fontSize
     
     def isReversed(self):
         """Returns whether or not the musicalRatios are in reversed order.
@@ -2118,23 +2110,23 @@ class PriceBarChartPriceModalScaleArtifact(PriceBarChartArtifact):
         # List of used ratios.
         self.musicalRatios = MusicalRatio.getIndianMusicalRatios()
         
-        # priceModalScaleGraphicsItemColor (QColor).
-        self.priceModalScaleGraphicsItemBarColor = \
+        # color (QColor).
+        self.color = \
             PriceBarChartSettings.\
                 defaultPriceModalScaleGraphicsItemBarColor
 
-        # priceModalScaleGraphicsItemTextColor (QColor).
-        self.priceModalScaleGraphicsItemTextColor = \
+        # textColor (QColor).
+        self.textColor = \
             PriceBarChartSettings.\
                 defaultPriceModalScaleGraphicsItemTextColor
 
-        # PriceModalScaleGraphicsItem bar width (float).
-        self.priceModalScaleGraphicsItemBarWidth = \
+        # barWidth (float).
+        self.barWidth = \
             PriceBarChartSettings.\
                 defaultPriceModalScaleGraphicsItemBarWidth
 
-        # PriceModalScaleGraphicsItem font size (float).
-        self.priceModalScaleGraphicsItemFontSize = \
+        # fontSize (float).
+        self.fontSize = \
             PriceBarChartSettings.\
                 defaultPriceModalScaleGraphicsItemFontSize
 
@@ -2185,61 +2177,53 @@ class PriceBarChartPriceModalScaleArtifact(PriceBarChartArtifact):
 
         self.musicalRatios = musicalRatios
 
-    def setPriceModalScaleGraphicsItemBarColor(self, \
-            priceModalScaleGraphicsItemBarColor):
+    def setColor(self, color):
         """Sets the bar color.
         
         Arguments:
-        priceModalScaleGraphicsItemBarColor - QColor object for the bar color.
+        color - QColor object for the bar color.
         """
         
-        self.priceModalScaleGraphicsItemBarColor = \
-            priceModalScaleGraphicsItemBarColor
+        self.color = color
 
-    def getPriceModalScaleGraphicsItemBarColor(self):
+    def getColor(self):
         """Gets the bar color as a QColor object."""
         
-        return self.priceModalScaleGraphicsItemBarColor
+        return self.color
 
-    def setPriceModalScaleGraphicsItemTextColor(self,
-            priceModalScaleGraphicsItemTextColor):
+    def setTextColor(self, textColor):
         """Sets the text color.
         
         Arguments:
-        priceModalScaleGraphicsItemTextColor - QColor object for the text color.
+        textColor - QColor object for the text color.
         """
 
-        self.priceModalScaleGraphicsItemTextColor = \
-            priceModalScaleGraphicsItemTextColor
+        self.textColor = textColor
         
-    def getPriceModalScaleGraphicsItemTextColor(self):
+    def getTextColor(self):
         """Gets the text color as a QColor object."""
 
-        return self.priceModalScaleGraphicsItemTextColor
+        return self.textColor
         
-    def setPriceModalScaleGraphicsItemBarWidth(self,
-            priceModalScaleGraphicsItemBarWidth):
-        """Sets the PriceModalScaleGraphicsItem bar width (float)."""
+    def setBarWidth(self, barWidth):
+        """Sets the bar width (float)."""
 
-        self.priceModalScaleGraphicsItemBarWidth = \
-            priceModalScaleGraphicsItemBarWidth
+        self.barWidth = barWidth
     
-    def getPriceModalScaleGraphicsItemBarWidth(self):
-        """Returns the PriceModalScaleGraphicsItem bar width (float)."""
+    def getBarWidth(self):
+        """Returns the bar width (float)."""
 
-        return self.priceModalScaleGraphicsItemBarWidth
+        return self.barWidth
     
-    def setPriceModalScaleGraphicsItemFontSize(self,
-            priceModalScaleGraphicsItemFontSize):
+    def setFontSize(self, fontSize):
         """Sets the font size of the musical ratio text (float)."""
 
-        self.priceModalScaleGraphicsItemFontSize = \
-            priceModalScaleGraphicsItemFontSize
+        self.fontSize = fontSize
     
-    def getPriceModalScaleGraphicsItemFontSize(self):
+    def getFontSize(self):
         """Sets the font size of the musical ratio text (float)."""
 
-        return self.priceModalScaleGraphicsItemFontSize
+        return self.fontSize
     
     def isReversed(self):
         """Returns whether or not the musicalRatios are in reversed order.
@@ -3889,19 +3873,14 @@ class PriceBarChartPriceTimeVectorArtifact(PriceBarChartArtifact):
             defaultPriceTimeVectorGraphicsItemTextYScaling
         
         # priceTimeVectorGraphicsItemColor (QColor).
-        self.priceTimeVectorGraphicsItemBarColor = \
+        self.color = \
             PriceBarChartSettings.\
-                defaultPriceTimeVectorGraphicsItemBarColor
+                defaultPriceTimeVectorGraphicsItemColor
 
         # priceTimeVectorGraphicsItemTextColor (QColor).
-        self.priceTimeVectorGraphicsItemTextColor = \
+        self.textColor = \
             PriceBarChartSettings.\
                 defaultPriceTimeVectorGraphicsItemTextColor
-
-        # PriceTimeVectorGraphicsItem barWidth (float).
-        self.priceTimeVectorGraphicsItemBarWidth = \
-            PriceBarChartSettings.\
-                defaultPriceTimeVectorGraphicsItemBarWidth
 
         # QFont cannot be pickled, but we can utilize
         # QFont.toString() and then QFont.fromString()
@@ -3989,50 +3968,34 @@ class PriceBarChartPriceTimeVectorArtifact(PriceBarChartArtifact):
 
         return self.textYScaling
         
-    def setPriceTimeVectorGraphicsItemBarColor(self, \
-            priceTimeVectorGraphicsItemBarColor):
+    def setColor(self, color):
         """Sets the bar color.
         
         Arguments:
-        priceTimeVectorGraphicsItemBarColor - QColor object for the bar color.
+        color - QColor object for the bar color.
         """
         
-        self.priceTimeVectorGraphicsItemBarColor = \
-            priceTimeVectorGraphicsItemBarColor
+        self.color = color
 
-    def getPriceTimeVectorGraphicsItemBarColor(self):
+    def getColor(self):
         """Gets the bar color as a QColor object."""
         
-        return self.priceTimeVectorGraphicsItemBarColor
+        return self.color
 
-    def setPriceTimeVectorGraphicsItemTextColor(self,
-            priceTimeVectorGraphicsItemTextColor):
+    def setTextColor(self, textColor):
         """Sets the text color.
         
         Arguments:
-        priceTimeVectorGraphicsItemTextColor - QColor object for the text color.
+        textColor - QColor object for the text color.
         """
 
-        self.priceTimeVectorGraphicsItemTextColor = \
-            priceTimeVectorGraphicsItemTextColor
+        self.textColor = textColor
         
-    def getPriceTimeVectorGraphicsItemTextColor(self):
+    def getTextColor(self):
         """Gets the text color as a QColor object."""
 
-        return self.priceTimeVectorGraphicsItemTextColor
+        return self.textColor
         
-    def setPriceTimeVectorGraphicsItemBarWidth(self,
-            priceTimeVectorGraphicsItemBarWidth):
-        """Sets the PriceTimeVectorGraphicsItem bar width (float)."""
-
-        self.priceTimeVectorGraphicsItemBarWidth = \
-            priceTimeVectorGraphicsItemBarWidth
-    
-    def getPriceTimeVectorGraphicsItemBarWidth(self):
-        """Returns the PriceTimeVectorGraphicsItem bar width (float)."""
-
-        return self.priceTimeVectorGraphicsItemBarWidth
-    
     def setFont(self, font):
         """Sets the font of this artifact's text.
 
@@ -4064,22 +4027,22 @@ class PriceBarChartPriceTimeVectorArtifact(PriceBarChartArtifact):
 
         self.showDistanceTextFlag = flag
         
-    def getSqrtShowDistanceTextFlag(self):
-        """Returns the sqrtShowDistanceTextFlag."""
+    def getShowSqrtDistanceTextFlag(self):
+        """Returns the showSqrtDistanceTextFlag."""
 
-        return self.sqrtShowDistanceTextFlag
+        return self.showSqrtDistanceTextFlag
         
-    def setSqrtShowDistanceTextFlag(self, flag):
-        """Sets a new value for the sqrtShowDistanceTextFlag."""
+    def setShowSqrtDistanceTextFlag(self, flag):
+        """Sets a new value for the showSqrtDistanceTextFlag."""
 
-        self.sqrtShowDistanceTextFlag = flag
+        self.showSqrtDistanceTextFlag = flag
         
-    def getTiltedTextTextFlag(self):
+    def getTiltedTextFlag(self):
         """Returns the tiltedTextFlag."""
 
         return self.tiltedTextFlag
         
-    def setTiltedTextTextFlag(self, flag):
+    def setTiltedTextFlag(self, flag):
         """Sets a new value for the tiltedTextFlag."""
 
         self.tiltedTextFlag = flag
@@ -4849,7 +4812,7 @@ class PriceBarChartSettings:
     defaultPriceRetracementGraphicsItemRatios = Ratio.getSupportedFibRatios()
 
     # Default color for the bar of a PriceTimeVectorGraphicsItem (QColor).
-    defaultPriceTimeVectorGraphicsItemBarColor = QColor(Qt.black)
+    defaultPriceTimeVectorGraphicsItemColor = QColor(Qt.black)
 
     # Default color for the text of a PriceTimeVectorGraphicsItem (QColor).
     defaultPriceTimeVectorGraphicsItemTextColor = QColor(Qt.black)
@@ -4858,10 +4821,10 @@ class PriceBarChartSettings:
     defaultPriceTimeVectorGraphicsItemBarWidth = 0.3
 
     # Default value for the PriceTimeVectorGraphicsItem text X scaling (float).
-    defaultPriceTimeVectorGraphicsItemTextXScaling = 1.0
+    defaultPriceTimeVectorGraphicsItemTextXScaling = 0.2
 
     # Default value for the PriceTimeVectorGraphicsItem text Y scaling (float).
-    defaultPriceTimeVectorGraphicsItemTextYScaling = 0.2
+    defaultPriceTimeVectorGraphicsItemTextYScaling = 0.04
 
     # Default font (this is basically the QFont, serialized to
     # str) for the PriceTimeVectorGraphicsItem.  This includes the
@@ -4876,7 +4839,7 @@ class PriceBarChartSettings:
 
     # Default value for the PriceTimeVectorGraphicsItem 
     # showSqrtDistanceTextFlag (bool).
-    defaultPriceTimeVectorGraphicsItemSqrtShowDistanceTextFlag = False
+    defaultPriceTimeVectorGraphicsItemShowSqrtDistanceTextFlag = False
 
     # Default value for the PriceTimeVectorGraphicsItem 
     # tiltedTextFlag (bool).
@@ -5280,9 +5243,9 @@ class PriceBarChartSettings:
             defaultPriceRetracementGraphicsItemRatios
 
         # PriceTimeVectorGraphicsItem bar color (QColor).
-        self.priceTimeVectorGraphicsItemBarColor = \
+        self.priceTimeVectorGraphicsItemColor = \
             PriceBarChartSettings.\
-            defaultPriceTimeVectorGraphicsItemBarColor
+            defaultPriceTimeVectorGraphicsItemColor
 
         # PriceTimeVectorGraphicsItem text color (QColor).
         self.priceTimeVectorGraphicsItemTextColor = \
@@ -5317,9 +5280,9 @@ class PriceBarChartSettings:
             defaultPriceTimeVectorGraphicsItemShowDistanceTextFlag
 
         # PriceTimeVectorGraphicsItem showSqrtDistanceTextFlag (bool).
-        self.priceTimeVectorGraphicsItemSqrtShowDistanceTextFlag = \
+        self.priceTimeVectorGraphicsItemShowSqrtDistanceTextFlag = \
             PriceBarChartSettings.\
-            defaultPriceTimeVectorGraphicsItemSqrtShowDistanceTextFlag
+            defaultPriceTimeVectorGraphicsItemShowSqrtDistanceTextFlag
 
         # PriceTimeVectorGraphicsItem tiltedTextFlag (bool).
         self.priceTimeVectorGraphicsItemTiltedTextFlag = \
