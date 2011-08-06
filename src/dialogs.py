@@ -9575,6 +9575,7 @@ class PriceBarChartScalingEditWidget(QWidget):
         self.unitsOfTimeLabel = \
             QLabel("Units of time (dx):")
         self.unitsOfTimeSpinBox = QDoubleSpinBox()
+        self.unitsOfTimeSpinBox.setDecimals(4)
         self.unitsOfTimeSpinBox.setMinimum(0.000001)
         self.unitsOfTimeSpinBox.setMaximum(100000.0)
         self.unitsOfTimeSpinBox.setValue(1)
@@ -9583,9 +9584,28 @@ class PriceBarChartScalingEditWidget(QWidget):
         self.unitsOfPriceLabel = \
             QLabel("Units of price (dy):")
         self.unitsOfPriceSpinBox = QDoubleSpinBox()
+        self.unitsOfPriceSpinBox.setDecimals(4)
         self.unitsOfPriceSpinBox.setMinimum(0.000001)
         self.unitsOfPriceSpinBox.setMaximum(100000.0)
         self.unitsOfPriceSpinBox.setValue(1)
+
+        # viewScalingX (float).
+        self.viewScalingXLabel = \
+            QLabel("GraphicsView scalingX (sx):")
+        self.viewScalingXSpinBox = QDoubleSpinBox()
+        self.viewScalingXSpinBox.setDecimals(4)
+        self.viewScalingXSpinBox.setMinimum(0.000001)
+        self.viewScalingXSpinBox.setMaximum(100000.0)
+        self.viewScalingXSpinBox.setValue(1)
+
+        # viewScalingY (float).
+        self.viewScalingYLabel = \
+            QLabel("GraphicsView scalingY (sy):")
+        self.viewScalingYSpinBox = QDoubleSpinBox()
+        self.viewScalingYSpinBox.setDecimals(4)
+        self.viewScalingYSpinBox.setMinimum(0.000001)
+        self.viewScalingYSpinBox.setMaximum(100000.0)
+        self.viewScalingYSpinBox.setValue(1)
 
         # Form layout.
         self.formLayout = QFormLayout()
@@ -9597,7 +9617,11 @@ class PriceBarChartScalingEditWidget(QWidget):
                                self.unitsOfTimeSpinBox)
         self.formLayout.addRow(self.unitsOfPriceLabel, 
                                self.unitsOfPriceSpinBox)
-
+        self.formLayout.addRow(self.viewScalingXLabel,
+                               self.viewScalingXSpinBox)
+        self.formLayout.addRow(self.viewScalingYLabel,
+                               self.viewScalingYSpinBox)
+        
         self.groupBox.setLayout(self.formLayout)
 
         # Buttons at bottom.
@@ -9650,7 +9674,11 @@ class PriceBarChartScalingEditWidget(QWidget):
             setValue(self.priceBarChartScaling.getUnitsOfTime())
         self.unitsOfPriceSpinBox.\
             setValue(self.priceBarChartScaling.getUnitsOfPrice())
-
+        self.viewScalingXSpinBox.\
+            setValue(self.priceBarChartScaling.getViewScalingX())
+        self.viewScalingYSpinBox.\
+            setValue(self.priceBarChartScaling.getViewScalingY())
+        
         self.log.debug("Exiting loadScaling()")
         
     def saveScaling(self):
@@ -9667,6 +9695,10 @@ class PriceBarChartScalingEditWidget(QWidget):
             setUnitsOfTime(self.unitsOfTimeSpinBox.value())
         self.priceBarChartScaling.\
             setUnitsOfPrice(self.unitsOfPriceSpinBox.value())
+        self.priceBarChartScaling.\
+            setViewScalingX(self.viewScalingXSpinBox.value())
+        self.priceBarChartScaling.\
+            setViewScalingY(self.viewScalingYSpinBox.value())
 
         self.log.debug("Exiting saveScaling()")
 
@@ -9726,7 +9758,10 @@ class PriceBarChartScalingEditDialog(QDialog):
     def getPriceBarChartScaling(self):
         """Returns the internally stored PriceBarChartScaling object."""
 
-        return self.priceBarChartScaling
+        scaling = \
+            self.priceBarChartScalingEditWidget.getPriceBarChartScaling()
+        
+        return scaling
 
 class PriceBarChartScalingsListEditWidget(QWidget):
     """QWidget for editing the list of scalings used in a PriceBarChart.
@@ -9787,16 +9822,23 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         # Widgets for displaying the selected scaling from the list.
         self.selectedScalingNameLabel = QLabel("Name:")
         self.selectedScalingNameValueLabel = QLabel()
+        
         self.selectedScalingDescriptionLabel = QLabel("Description:")
         self.selectedScalingDescriptionTextEdit = QTextEdit()
         self.selectedScalingDescriptionTextEdit.setAcceptRichText(False)
         self.selectedScalingDescriptionTextEdit.setEnabled(False)
         self.selectedScalingDescriptionTextEdit.setTextColor(Qt.black)
         self.selectedScalingDescriptionTextEdit.setMaximumHeight(80)
+        
         self.selectedScalingUnitsOfTimeLabel = QLabel("Units of time:")
         self.selectedScalingUnitsOfTimeValueLabel = QLabel()
         self.selectedScalingUnitsOfPriceLabel = QLabel("Units of price:")
         self.selectedScalingUnitsOfPriceValueLabel = QLabel()
+        
+        self.selectedScalingViewScalingXLabel = QLabel("GraphicsView scalingX:")
+        self.selectedScalingViewScalingXValueLabel = QLabel()
+        self.selectedScalingViewScalingYLabel = QLabel("GraphicsView scalingY:")
+        self.selectedScalingViewScalingYValueLabel = QLabel()
 
         # Grid layout.  
         self.selectedScalingGridLayout = QGridLayout()
@@ -9827,7 +9869,18 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         self.selectedScalingGridLayout.\
             addWidget(self.selectedScalingUnitsOfPriceValueLabel, r, 1, al)
         r += 1
+        self.selectedScalingGridLayout.\
+            addWidget(self.selectedScalingViewScalingXLabel, r, 0, al)
+        self.selectedScalingGridLayout.\
+            addWidget(self.selectedScalingViewScalingXValueLabel, r, 1, al)
+        r += 1
+        self.selectedScalingGridLayout.\
+            addWidget(self.selectedScalingViewScalingYLabel, r, 0, al)
+        self.selectedScalingGridLayout.\
+            addWidget(self.selectedScalingViewScalingYValueLabel, r, 1, al)
+        r += 1
 
+        
         self.selectedScalingGroupBox.\
             setLayout(self.selectedScalingGridLayout)
 
@@ -9839,17 +9892,24 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         # Widgets for displaying the current scaling.
         self.currentScalingNameLabel = QLabel("Name:")
         self.currentScalingNameValueLabel = QLabel()
+        
         self.currentScalingDescriptionLabel = QLabel("Description:")
         self.currentScalingDescriptionTextEdit = QTextEdit()
         self.currentScalingDescriptionTextEdit.setAcceptRichText(False)
         self.currentScalingDescriptionTextEdit.setEnabled(False)
         self.currentScalingDescriptionTextEdit.setTextColor(Qt.black)
         self.currentScalingDescriptionTextEdit.setMaximumHeight(80)
+        
         self.currentScalingUnitsOfTimeLabel = QLabel("Units of time:")
         self.currentScalingUnitsOfTimeValueLabel = QLabel()
         self.currentScalingUnitsOfPriceLabel = QLabel("Units of price:")
         self.currentScalingUnitsOfPriceValueLabel = QLabel()
 
+        self.currentScalingViewScalingXLabel = QLabel("GraphicsView scalingX:")
+        self.currentScalingViewScalingXValueLabel = QLabel()
+        self.currentScalingViewScalingYLabel = QLabel("GraphicsView scalingY:")
+        self.currentScalingViewScalingYValueLabel = QLabel()
+        
         # Grid layout.  
         self.currentScalingGridLayout = QGridLayout()
 
@@ -9879,9 +9939,16 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         self.currentScalingGridLayout.\
             addWidget(self.currentScalingUnitsOfPriceValueLabel, r, 1, al)
         r += 1
-
-        self.currentScalingGroupBox.\
-            setLayout(self.currentScalingGridLayout)
+        self.currentScalingGridLayout.\
+            addWidget(self.currentScalingViewScalingXLabel, r, 0, al)
+        self.currentScalingGridLayout.\
+            addWidget(self.currentScalingViewScalingXValueLabel, r, 1, al)
+        r += 1
+        self.currentScalingGridLayout.\
+            addWidget(self.currentScalingViewScalingYLabel, r, 0, al)
+        self.currentScalingGridLayout.\
+            addWidget(self.currentScalingViewScalingYValueLabel, r, 1, al)
+        r += 1
 
         self.currentScalingGroupBox.\
             setLayout(self.currentScalingGridLayout)
@@ -10014,7 +10081,11 @@ class PriceBarChartScalingsListEditWidget(QWidget):
                 setText("{}".format(currentScaling.getUnitsOfTime()))
             self.currentScalingUnitsOfPriceValueLabel.\
                 setText("{}".format(currentScaling.getUnitsOfPrice()))
-
+            self.currentScalingViewScalingXValueLabel.\
+                setText("{}".format(currentScaling.getViewScalingX()))
+            self.currentScalingViewScalingYValueLabel.\
+                setText("{}".format(currentScaling.getViewScalingY()))
+                        
         self.log.debug("Exiting loadScalings()")
         
     def saveScalings(self):
@@ -10072,8 +10143,11 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         listWidgetItem = QListWidgetItem()
 
         scalingStr = scaling.name + \
-            " (sx={}, sy={})".format(scaling.getUnitsOfTime(),
-                                     scaling.getUnitsOfPrice())
+            " (dx={}, dy={}, sx={}, sy={})".\
+            format(scaling.getUnitsOfTime(),
+                   scaling.getUnitsOfPrice(),
+                   scaling.getViewScalingX(),
+                   scaling.getViewScalingY())
         listWidgetItem.setText(scalingStr)
 
         self.listWidget.addItem(listWidgetItem)
@@ -10110,6 +10184,10 @@ class PriceBarChartScalingsListEditWidget(QWidget):
                 setText("{}".format(selectedScaling.getUnitsOfTime()))
             self.selectedScalingUnitsOfPriceValueLabel.\
                 setText("{}".format(selectedScaling.getUnitsOfPrice()))
+            self.selectedScalingViewScalingXValueLabel.\
+                setText("{}".format(selectedScaling.getViewScalingX()))
+            self.selectedScalingViewScalingYValueLabel.\
+                setText("{}".format(selectedScaling.getViewScalingY()))
 
     def _handleAddScalingButtonClicked(self):
         """Called when the 'Add Scaling' button is clicked."""
@@ -10157,6 +10235,8 @@ class PriceBarChartScalingsListEditWidget(QWidget):
                     self.selectedScalingDescriptionTextEdit.setPlainText("")
                     self.selectedScalingUnitsOfTimeValueLabel.setText("")
                     self.selectedScalingUnitsOfPriceValueLabel.setText("")
+                    self.selectedScalingViewScalingXValueLabel.setText("")
+                    self.selectedScalingViewScalingYValueLabel.setText("")
 
             # Do some book-keeping to remove that scaling from the
             # internal list as well.
@@ -10193,7 +10273,11 @@ class PriceBarChartScalingsListEditWidget(QWidget):
                         setText("{}".format(currentScaling.getUnitsOfTime()))
                     self.currentScalingUnitsOfPriceValueLabel.\
                         setText("{}".format(currentScaling.getUnitsOfPrice()))
-
+                    self.currentScalingViewScalingXValueLabel.\
+                        setText("{}".format(currentScaling.getViewScalingX()))
+                    self.currentScalingViewScalingYValueLabel.\
+                        setText("{}".format(currentScaling.getViewScalingY()))
+                                    
                 else:
                     # The current scaling index was the one that was
                     # removed.  We have to use the index before this one,
@@ -10216,6 +10300,10 @@ class PriceBarChartScalingsListEditWidget(QWidget):
                             setText("")
                         self.currentScalingUnitsOfPriceValueLabel.\
                             setText("")
+                        self.currentScalingViewScalingXValueLabel.\
+                            setText("")
+                        self.currentScalingViewScalingYValueLabel.\
+                            setText("")
                     else:
                         # Update the display fields for the new current
                         # scaling.
@@ -10228,9 +10316,17 @@ class PriceBarChartScalingsListEditWidget(QWidget):
                         self.currentScalingDescriptionTextEdit.\
                             setPlainText(currentScaling.description)
                         self.currentScalingUnitsOfTimeValueLabel.\
-                            setText("{}".format(currentScaling.getUnitsOfTime()))
+                            setText("{}".format(currentScaling.\
+                                                getUnitsOfTime()))
                         self.currentScalingUnitsOfPriceValueLabel.\
-                            setText("{}".format(currentScaling.getUnitsOfPrice()))
+                            setText("{}".format(currentScaling.\
+                                                getUnitsOfPrice()))
+                        self.currentScalingViewScalingXValueLabel.\
+                            setText("{}".format(currentScaling.\
+                                                getViewScalingX()))
+                        self.currentScalingViewScalingYValueLabel.\
+                            setText("{}".format(currentScaling.\
+                                                getViewScalingY()))
             else:
                 # This means the current scaling index was a lower index
                 # than the one that was removed.  Nothing needs to be done
@@ -10256,8 +10352,11 @@ class PriceBarChartScalingsListEditWidget(QWidget):
             # Get the QListWidgetItem so we can update the text of it.
             listWidgetItem = self.listWidget.item(row)
             scalingStr = scaling.name + \
-                " (sx={}, sy={})".format(scaling.getUnitsOfTime(), 
-                                         scaling.getUnitsOfPrice())
+                " (dx={}, dy={}, sx={}, sy={})".\
+                format(scaling.getUnitsOfTime(), 
+                       scaling.getUnitsOfPrice(),
+                       scaling.getViewScalingX(),
+                       scaling.getViewScalingY())
             listWidgetItem.setText(scalingStr)
 
             # If this scaling is the current one, then update the current
@@ -10274,7 +10373,11 @@ class PriceBarChartScalingsListEditWidget(QWidget):
                     setText("{}".format(currentScaling.getUnitsOfTime()))
                 self.currentScalingUnitsOfPriceValueLabel.\
                     setText("{}".format(currentScaling.getUnitsOfPrice()))
-
+                self.currentScalingViewScalingXValueLabel.\
+                    setText("{}".format(currentScaling.getViewScalingX()))
+                self.currentScalingViewScalingYValueLabel.\
+                    setText("{}".format(currentScaling.getViewScalingY()))
+                
             # Update the widgets for this selection.
             self._handleScalingSelected()
 
@@ -10364,6 +10467,10 @@ class PriceBarChartScalingsListEditWidget(QWidget):
             setText("{}".format(currentScaling.getUnitsOfTime()))
         self.currentScalingUnitsOfPriceValueLabel.\
             setText("{}".format(currentScaling.getUnitsOfPrice()))
+        self.currentScalingViewScalingXValueLabel.\
+            setText("{}".format(currentScaling.getViewScalingX()))
+        self.currentScalingViewScalingYValueLabel.\
+            setText("{}".format(currentScaling.getViewScalingY()))
 
     def _handleOkayButtonClicked(self):
         """Called when the okay button is clicked."""

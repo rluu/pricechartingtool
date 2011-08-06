@@ -49,6 +49,42 @@ class Util:
                       qcolor.green(),
                       qcolor.blue(),
                       qcolor.alpha())
+
+    @staticmethod
+    def objToString(obj):
+        """Returns a string representing the given object's contents."""
+        
+        rv = "["
+
+        for attr in dir(obj):
+            # Print if the attribute:
+            #   - Doesn't start with '__'.
+            #   - Isn't a Logger
+            #   - Isn't callable.
+            if not attr.startswith('__') and \
+                   not isinstance(getattr(obj, attr), logging.Logger) and \
+                   not hasattr(getattr(obj, attr), '__call__'):
+                
+                attrObj = getattr(obj, attr)
+
+                # Do special handling for QColor objects and lists.
+                if isinstance(attrObj, QColor):
+                    rv += "{}={}, ".\
+                          format(attr, Util.qColorToStr(attrObj))
+                elif isinstance(attrObj, list):
+                    rv += "{}=[".format(attr)
+                    for item in attrObj:
+                        rv += "{}, ".format(item)
+                    rv = rv.rstrip(', ')
+                    rv += "]"
+                else:
+                    # Normal object that is not a QColor and not a list.
+                    rv += "{}={}, ".format(attr, attrObj)
+                    
+        rv = rv.rstrip(', ')
+        rv += "]"
+
+        return rv
         
 class BirthInfo:
     """Contains data related to the birth of an entity or person.
@@ -284,36 +320,8 @@ class BirthInfo:
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = "["
-
-        obj = self
-        for attr in dir(obj):
-            # Print if the attribute:
-            #   - Doesn't start with '__'.
-            #   - Isn't a Logger
-            #   - Isn't callable.
-            if not attr.startswith('__') and \
-                   not isinstance(getattr(obj, attr), logging.Logger) and \
-                   not hasattr(getattr(obj, attr), '__call__'):
-                
-                attrObj = getattr(obj, attr)
-
-                # Do special handling for QColor objects and lists.
-                if isinstance(attrObj, QColor):
-                    rv += "{}={}, ".\
-                          format(attr, Util.qColorToStr(attrObj))
-                elif isinstance(attrObj, list):
-                    rv += "{}=[".format(attr)
-                    for item in attrObj:
-                        rv += "{}, ".format(item)
-                    rv = rv.rstrip(', ')
-                    rv += "]"
-                else:
-                    rv += "{}={}, ".format(attr, attrObj)
-                    
-        rv = rv.rstrip(', ')
-        rv += "]"
-
+        rv = Util.objToString(self)
+        
         return rv
 
 
@@ -478,36 +486,8 @@ class PriceBar:
     def toString(self):
         """Returns the string representation of the PriceBar data"""
 
-        rv = "["
-
-        obj = self
-        for attr in dir(obj):
-            # Print if the attribute:
-            #   - Doesn't start with '__'.
-            #   - Isn't a Logger
-            #   - Isn't callable.
-            if not attr.startswith('__') and \
-                   not isinstance(getattr(obj, attr), logging.Logger) and \
-                   not hasattr(getattr(obj, attr), '__call__'):
-                
-                attrObj = getattr(obj, attr)
-
-                # Do special handling for QColor objects and lists.
-                if isinstance(attrObj, QColor):
-                    rv += "{}={}, ".\
-                          format(attr, Util.qColorToStr(attrObj))
-                elif isinstance(attrObj, list):
-                    rv += "{}=[".format(attr)
-                    for item in attrObj:
-                        rv += "{}, ".format(item)
-                    rv = rv.rstrip(', ')
-                    rv += "]"
-                else:
-                    rv += "{}={}, ".format(attr, attrObj)
-
-        rv = rv.rstrip(', ')
-        rv += "]"
-
+        rv = Util.objToString(self)
+        
         return rv
 
     def __str__(self):
@@ -698,36 +678,8 @@ class Ratio:
     def toString(self):
         """Returns the string representation of the data."""
 
-        rv = "["
-
-        obj = self
-        for attr in dir(obj):
-            # Print if the attribute:
-            #   - Doesn't start with '__'.
-            #   - Isn't a Logger
-            #   - Isn't callable.
-            if not attr.startswith('__') and \
-                   not isinstance(getattr(obj, attr), logging.Logger) and \
-                   not hasattr(getattr(obj, attr), '__call__'):
-                
-                attrObj = getattr(obj, attr)
-
-                # Do special handling for QColor objects and lists.
-                if isinstance(attrObj, QColor):
-                    rv += "{}={}, ".\
-                          format(attr, Util.qColorToStr(attrObj))
-                elif isinstance(attrObj, list):
-                    rv += "{}=[".format(attr)
-                    for item in attrObj:
-                        rv += "{}, ".format(item)
-                    rv = rv.rstrip(', ')
-                    rv += "]"
-                else:
-                    rv += "{}={}, ".format(attr, attrObj)
-
-        rv = rv.rstrip(', ')
-        rv += "]"
-
+        rv = Util.objToString(self)
+        
         return rv
 
     def __str__(self):
@@ -1025,36 +977,8 @@ class MusicalRatio(Ratio):
     def toString(self):
         """Returns the string representation of the data."""
 
-        rv = "["
-
-        obj = self
-        for attr in dir(obj):
-            # Print if the attribute:
-            #   - Doesn't start with '__'.
-            #   - Isn't a Logger
-            #   - Isn't callable.
-            if not attr.startswith('__') and \
-                   not isinstance(getattr(obj, attr), logging.Logger) and \
-                   not hasattr(getattr(obj, attr), '__call__'):
-                
-                attrObj = getattr(obj, attr)
-
-                # Do special handling for QColor objects and lists.
-                if isinstance(attrObj, QColor):
-                    rv += "{}={}, ".\
-                          format(attr, Util.qColorToStr(attrObj))
-                elif isinstance(attrObj, list):
-                    rv += "{}=[".format(attr)
-                    for item in attrObj:
-                        rv += "{}, ".format(item)
-                    rv = rv.rstrip(', ')
-                    rv += "]"
-                else:
-                    rv += "{}={}, ".format(attr, attrObj)
-
-        rv = rv.rstrip(', ')
-        rv += "]"
-
+        rv = Util.objToString(self)
+        
         return rv
 
     def __str__(self):
@@ -1140,36 +1064,8 @@ class PriceBarChartArtifact:
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = "["
-
-        obj = self
-        for attr in dir(obj):
-            # Print if the attribute:
-            #   - Doesn't start with '__'.
-            #   - Isn't a Logger
-            #   - Isn't callable.
-            if not attr.startswith('__') and \
-                   not isinstance(getattr(obj, attr), logging.Logger) and \
-                   not hasattr(getattr(obj, attr), '__call__'):
-                
-                attrObj = getattr(obj, attr)
-
-                # Do special handling for QColor objects and lists.
-                if isinstance(attrObj, QColor):
-                    rv += "{}={}, ".\
-                          format(attr, Util.qColorToStr(attrObj))
-                elif isinstance(attrObj, list):
-                    rv += "{}=[".format(attr)
-                    for item in attrObj:
-                        rv += "{}, ".format(item)
-                    rv = rv.rstrip(', ')
-                    rv += "]"
-                else:
-                    rv += "{}={}, ".format(attr, attrObj)
-
-        rv = rv.rstrip(', ')
-        rv += "]"
-
+        rv = Util.objToString(self)
+        
         return rv
 
 class PriceBarChartBarCountArtifact(PriceBarChartArtifact):
@@ -1232,36 +1128,8 @@ class PriceBarChartBarCountArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = "["
-
-        obj = self
-        for attr in dir(obj):
-            # Print if the attribute:
-            #   - Doesn't start with '__'.
-            #   - Isn't a Logger
-            #   - Isn't callable.
-            if not attr.startswith('__') and \
-                   not isinstance(getattr(obj, attr), logging.Logger) and \
-                   not hasattr(getattr(obj, attr), '__call__'):
-                
-                attrObj = getattr(obj, attr)
-
-                # Do special handling for QColor objects and lists.
-                if isinstance(attrObj, QColor):
-                    rv += "{}={}, ".\
-                          format(attr, Util.qColorToStr(attrObj))
-                elif isinstance(attrObj, list):
-                    rv += "{}=[".format(attr)
-                    for item in attrObj:
-                        rv += "{}, ".format(item)
-                    rv = rv.rstrip(', ')
-                    rv += "]"
-                else:
-                    rv += "{}={}, ".format(attr, attrObj)
-
-        rv = rv.rstrip(', ')
-        rv += "]"
-
+        rv = Util.objToString(self)
+        
         return rv
 
     def __getstate__(self):
@@ -1645,36 +1513,8 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = "["
-
-        obj = self
-        for attr in dir(obj):
-            # Print if the attribute:
-            #   - Doesn't start with '__'.
-            #   - Isn't a Logger
-            #   - Isn't callable.
-            if not attr.startswith('__') and \
-                   not isinstance(getattr(obj, attr), logging.Logger) and \
-                   not hasattr(getattr(obj, attr), '__call__'):
-                
-                attrObj = getattr(obj, attr)
-
-                # Do special handling for QColor objects and lists.
-                if isinstance(attrObj, QColor):
-                    rv += "{}={}, ".\
-                          format(attr, Util.qColorToStr(attrObj))
-                elif isinstance(attrObj, list):
-                    rv += "{}=[".format(attr)
-                    for item in attrObj:
-                        rv += "{}, ".format(item)
-                    rv = rv.rstrip(', ')
-                    rv += "]"
-                else:
-                    rv += "{}={}, ".format(attr, attrObj)
-
-        rv = rv.rstrip(', ')
-        rv += "]"
-
+        rv = Util.objToString(self)
+        
         return rv
 
     def __getstate__(self):
@@ -2020,36 +1860,8 @@ class PriceBarChartTimeModalScaleArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = "["
-
-        obj = self
-        for attr in dir(obj):
-            # Print if the attribute:
-            #   - Doesn't start with '__'.
-            #   - Isn't a Logger
-            #   - Isn't callable.
-            if not attr.startswith('__') and \
-                   not isinstance(getattr(obj, attr), logging.Logger) and \
-                   not hasattr(getattr(obj, attr), '__call__'):
-                
-                attrObj = getattr(obj, attr)
-
-                # Do special handling for QColor objects and lists.
-                if isinstance(attrObj, QColor):
-                    rv += "{}={}, ".\
-                          format(attr, Util.qColorToStr(attrObj))
-                elif isinstance(attrObj, list):
-                    rv += "{}=[".format(attr)
-                    for item in attrObj:
-                        rv += "{}, ".format(item)
-                    rv = rv.rstrip(', ')
-                    rv += "]"
-                else:
-                    rv += "{}={}, ".format(attr, attrObj)
-
-        rv = rv.rstrip(', ')
-        rv += "]"
-
+        rv = Util.objToString(self)
+        
         return rv
 
     def __getstate__(self):
@@ -2395,36 +2207,8 @@ class PriceBarChartPriceModalScaleArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = "["
-
-        obj = self
-        for attr in dir(obj):
-            # Print if the attribute:
-            #   - Doesn't start with '__'.
-            #   - Isn't a Logger
-            #   - Isn't callable.
-            if not attr.startswith('__') and \
-                   not isinstance(getattr(obj, attr), logging.Logger) and \
-                   not hasattr(getattr(obj, attr), '__call__'):
-                
-                attrObj = getattr(obj, attr)
-
-                # Do special handling for QColor objects and lists.
-                if isinstance(attrObj, QColor):
-                    rv += "{}={}, ".\
-                          format(attr, Util.qColorToStr(attrObj))
-                elif isinstance(attrObj, list):
-                    rv += "{}=[".format(attr)
-                    for item in attrObj:
-                        rv += "{}, ".format(item)
-                    rv = rv.rstrip(', ')
-                    rv += "]"
-                else:
-                    rv += "{}={}, ".format(attr, attrObj)
-
-        rv = rv.rstrip(', ')
-        rv += "]"
-
+        rv = Util.objToString(self)
+        
         return rv
 
     def __getstate__(self):
@@ -2589,36 +2373,8 @@ class PriceBarChartTextArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = "["
-
-        obj = self
-        for attr in dir(obj):
-            # Print if the attribute:
-            #   - Doesn't start with '__'.
-            #   - Isn't a Logger
-            #   - Isn't callable.
-            if not attr.startswith('__') and \
-                   not isinstance(getattr(obj, attr), logging.Logger) and \
-                   not hasattr(getattr(obj, attr), '__call__'):
-                
-                attrObj = getattr(obj, attr)
-
-                # Do special handling for QColor objects and lists.
-                if isinstance(attrObj, QColor):
-                    rv += "{}={}, ".\
-                          format(attr, Util.qColorToStr(attrObj))
-                elif isinstance(attrObj, list):
-                    rv += "{}=[".format(attr)
-                    for item in attrObj:
-                        rv += "{}, ".format(item)
-                    rv = rv.rstrip(', ')
-                    rv += "]"
-                else:
-                    rv += "{}={}, ".format(attr, attrObj)
-
-        rv = rv.rstrip(', ')
-        rv += "]"
-
+        rv = Util.objToString(self)
+        
         return rv
 
     def __getstate__(self):
@@ -2895,36 +2651,8 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = "["
-
-        obj = self
-        for attr in dir(obj):
-            # Print if the attribute:
-            #   - Doesn't start with '__'.
-            #   - Isn't a Logger
-            #   - Isn't callable.
-            if not attr.startswith('__') and \
-                   not isinstance(getattr(obj, attr), logging.Logger) and \
-                   not hasattr(getattr(obj, attr), '__call__'):
-                
-                attrObj = getattr(obj, attr)
-
-                # Do special handling for QColor objects and lists.
-                if isinstance(attrObj, QColor):
-                    rv += "{}={}, ".\
-                          format(attr, Util.qColorToStr(attrObj))
-                elif isinstance(attrObj, list):
-                    rv += "{}=[".format(attr)
-                    for item in attrObj:
-                        rv += "{}, ".format(item)
-                    rv = rv.rstrip(', ')
-                    rv += "]"
-                else:
-                    rv += "{}={}, ".format(attr, attrObj)
-
-        rv = rv.rstrip(', ')
-        rv += "]"
-
+        rv = Util.objToString(self)
+        
         return rv
     
     def __getstate__(self):
@@ -3162,36 +2890,8 @@ class PriceBarChartPriceMeasurementArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = "["
-
-        obj = self
-        for attr in dir(obj):
-            # Print if the attribute:
-            #   - Doesn't start with '__'.
-            #   - Isn't a Logger
-            #   - Isn't callable.
-            if not attr.startswith('__') and \
-                   not isinstance(getattr(obj, attr), logging.Logger) and \
-                   not hasattr(getattr(obj, attr), '__call__'):
-                
-                attrObj = getattr(obj, attr)
-
-                # Do special handling for QColor objects and lists.
-                if isinstance(attrObj, QColor):
-                    rv += "{}={}, ".\
-                          format(attr, Util.qColorToStr(attrObj))
-                elif isinstance(attrObj, list):
-                    rv += "{}=[".format(attr)
-                    for item in attrObj:
-                        rv += "{}, ".format(item)
-                    rv = rv.rstrip(', ')
-                    rv += "]"
-                else:
-                    rv += "{}={}, ".format(attr, attrObj)
-
-        rv = rv.rstrip(', ')
-        rv += "]"
-
+        rv = Util.objToString(self)
+        
         return rv
 
     def __getstate__(self):
@@ -3470,36 +3170,8 @@ class PriceBarChartTimeRetracementArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = "["
-
-        obj = self
-        for attr in dir(obj):
-            # Print if the attribute:
-            #   - Doesn't start with '__'.
-            #   - Isn't a Logger
-            #   - Isn't callable.
-            if not attr.startswith('__') and \
-                   not isinstance(getattr(obj, attr), logging.Logger) and \
-                   not hasattr(getattr(obj, attr), '__call__'):
-                
-                attrObj = getattr(obj, attr)
-
-                # Do special handling for QColor objects and lists.
-                if isinstance(attrObj, QColor):
-                    rv += "{}={}, ".\
-                          format(attr, Util.qColorToStr(attrObj))
-                elif isinstance(attrObj, list):
-                    rv += "{}=[".format(attr)
-                    for item in attrObj:
-                        rv += "{}, ".format(item)
-                    rv = rv.rstrip(', ')
-                    rv += "]"
-                else:
-                    rv += "{}={}, ".format(attr, attrObj)
-
-        rv = rv.rstrip(', ')
-        rv += "]"
-
+        rv = Util.objToString(self)
+        
         return rv
 
     def __getstate__(self):
@@ -3778,36 +3450,8 @@ class PriceBarChartPriceRetracementArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = "["
-
-        obj = self
-        for attr in dir(obj):
-            # Print if the attribute:
-            #   - Doesn't start with '__'.
-            #   - Isn't a Logger
-            #   - Isn't callable.
-            if not attr.startswith('__') and \
-                   not isinstance(getattr(obj, attr), logging.Logger) and \
-                   not hasattr(getattr(obj, attr), '__call__'):
-                
-                attrObj = getattr(obj, attr)
-
-                # Do special handling for QColor objects and lists.
-                if isinstance(attrObj, QColor):
-                    rv += "{}={}, ".\
-                          format(attr, Util.qColorToStr(attrObj))
-                elif isinstance(attrObj, list):
-                    rv += "{}=[".format(attr)
-                    for item in attrObj:
-                        rv += "{}, ".format(item)
-                    rv = rv.rstrip(', ')
-                    rv += "]"
-                else:
-                    rv += "{}={}, ".format(attr, attrObj)
-
-        rv = rv.rstrip(', ')
-        rv += "]"
-
+        rv = Util.objToString(self)
+        
         return rv
 
     def __getstate__(self):
@@ -4055,36 +3699,8 @@ class PriceBarChartPriceTimeVectorArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = "["
-
-        obj = self
-        for attr in dir(obj):
-            # Print if the attribute:
-            #   - Doesn't start with '__'.
-            #   - Isn't a Logger
-            #   - Isn't callable.
-            if not attr.startswith('__') and \
-                   not isinstance(getattr(obj, attr), logging.Logger) and \
-                   not hasattr(getattr(obj, attr), '__call__'):
-                
-                attrObj = getattr(obj, attr)
-
-                # Do special handling for QColor objects and lists.
-                if isinstance(attrObj, QColor):
-                    rv += "{}={}, ".\
-                          format(attr, Util.qColorToStr(attrObj))
-                elif isinstance(attrObj, list):
-                    rv += "{}=[".format(attr)
-                    for item in attrObj:
-                        rv += "{}, ".format(item)
-                    rv = rv.rstrip(', ')
-                    rv += "]"
-                else:
-                    rv += "{}={}, ".format(attr, attrObj)
-
-        rv = rv.rstrip(', ')
-        rv += "]"
-
+        rv = Util.objToString(self)
+        
         return rv
 
     def __getstate__(self):
@@ -4123,7 +3739,9 @@ class PriceBarChartScaling:
 
     def __init__(self, 
                  unitsOfTime=1.0, 
-                 unitsOfPrice=1.0, 
+                 unitsOfPrice=1.0,
+                 viewScalingX=1.0,
+                 viewScalingY=1.0,
                  name="", 
                  description=""):
         """Initializes the members in this class.  
@@ -4144,10 +3762,14 @@ class PriceBarChartScaling:
         self.unitsOfTime = unitsOfTime
         self.unitsOfPrice = unitsOfPrice
 
+        # Scaling used for the view.
+        self.viewScalingX = 1.0
+        self.viewScalingY = 1.0
+        
         # Set the internally stored QTransform.
         self.transform = QTransform()
         self.transform.reset()
-        self.transform.scale(self.unitsOfTime, self.unitsOfPrice)
+        self.transform.scale(self.viewScalingX, self.viewScalingY)
 
     def setUnitsOfTime(self, unitsOfTime):
         """Updates the units-of-time variable part of scaling.
@@ -4160,9 +3782,11 @@ class PriceBarChartScaling:
 
         self.unitsOfTime = unitsOfTime
 
-        self.transform.reset()
-        self.transform.scale(self.unitsOfTime, self.unitsOfPrice)
+    def getUnitsOfTime(self):
+        """Returns the units-of-time part of the ratio used in scaling."""
 
+        return self.unitsOfTime
+    
     def setUnitsOfPrice(self, unitsOfPrice):
         """Updates the units-of-price variable part of scaling.
 
@@ -4174,18 +3798,42 @@ class PriceBarChartScaling:
 
         self.unitsOfPrice = unitsOfPrice
 
-        self.transform.reset()
-        self.transform.scale(self.unitsOfTime, self.unitsOfPrice)
-
-    def getUnitsOfTime(self):
-        """Returns the units-of-time part of the ratio used in scaling."""
-
-        return self.unitsOfTime
-    
     def getUnitsOfPrice(self):
         """Returns the units-of-price part of the ratio used in scaling."""
 
         return self.unitsOfPrice
+
+    def setViewScalingX(self, viewScalingX):
+        """Sets the scaling used for the view, which is separate from
+        the normal scaling of units.
+        """
+
+        self.viewScalingX = viewScalingX
+
+        self._updateTransform()
+
+    def getViewScalingX(self):
+        """Gets the scaling used for the view, which is separate from
+        the normal scaling of units.
+        """
+
+        return self.viewScalingX
+
+    def setViewScalingY(self, viewScalingY):
+        """Sets the scaling used for the view, which is separate from
+        the normal scaling of units.
+        """
+
+        self.viewScalingY = viewScalingY
+
+        self._updateTransform()
+        
+    def getViewScalingY(self):
+        """Gets the scaling used for the view, which is separate from
+        the normal scaling of units.
+        """
+
+        return self.viewScalingY
 
     def getTransform(self):
         """Returns the QTransform holding the settings for scaling as
@@ -4201,6 +3849,14 @@ class PriceBarChartScaling:
                           self.transform.m32(),
                           self.transform.m33())
 
+    def _updateTransform(self):
+        """Updates the self.transform object with the view scaling
+        values set in this object.
+        """
+        
+        self.transform.reset()
+        self.transform.scale(self.viewScalingX, self.viewScalingY)
+        
     def __str__(self):
         """Returns the string representation of this object."""
 
@@ -4209,36 +3865,8 @@ class PriceBarChartScaling:
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = "["
-
-        obj = self
-        for attr in dir(obj):
-            # Print if the attribute:
-            #   - Doesn't start with '__'.
-            #   - Isn't a Logger
-            #   - Isn't callable.
-            if not attr.startswith('__') and \
-                   not isinstance(getattr(obj, attr), logging.Logger) and \
-                   not hasattr(getattr(obj, attr), '__call__'):
-                
-                attrObj = getattr(obj, attr)
-
-                # Do special handling for QColor objects and lists.
-                if isinstance(attrObj, QColor):
-                    rv += "{}={}, ".\
-                          format(attr, Util.qColorToStr(attrObj))
-                elif isinstance(attrObj, list):
-                    rv += "{}=[".format(attr)
-                    for item in attrObj:
-                        rv += "{}, ".format(item)
-                    rv = rv.rstrip(', ')
-                    rv += "]"
-                else:
-                    rv += "{}={}, ".format(attr, attrObj)
-
-        rv = rv.rstrip(', ')
-        rv += "]"
-
+        rv = Util.objToString(self)
+        
         return rv
     
     def __getstate__(self):
@@ -5319,30 +4947,8 @@ class PriceBarChartSettings:
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = "["
-
-        obj = self
-        for attr in dir(obj):
-            if attr.startswith("__") == False and attr != "toString":
-                
-                attrObj = getattr(obj, attr)
-
-                # Do special handling for QColor objects and lists.
-                if isinstance(attrObj, QColor):
-                    rv += "{}={}, ".\
-                          format(attr, Util.qColorToStr(attrObj))
-                elif isinstance(attrObj, list):
-                    rv += "{}=[".format(attr)
-                    for item in attrObj:
-                        rv += "{}, ".format(item)
-                    rv = rv.rstrip(', ')
-                    rv += "]"
-                else:
-                    rv += "{}={}, ".format(attr, attrObj)
-
-        rv = rv.rstrip(', ')
-        rv += "]"
-
+        rv = Util.objToString(self)
+        
         return rv
 
     def __str__(self):
@@ -5401,36 +5007,8 @@ class PriceBarSpreadsheetSettings:
     def toString(self):
         """Prints the string representation of this object."""
 
-        rv = "["
-
-        obj = self
-        for attr in dir(obj):
-            # Print if the attribute:
-            #   - Doesn't start with '__'.
-            #   - Isn't a Logger
-            #   - Isn't callable.
-            if not attr.startswith('__') and \
-                   not isinstance(getattr(obj, attr), logging.Logger) and \
-                   not hasattr(getattr(obj, attr), '__call__'):
-                
-                attrObj = getattr(obj, attr)
-
-                # Do special handling for QColor objects and lists.
-                if isinstance(attrObj, QColor):
-                    rv += "{}={}, ".\
-                          format(attr, Util.qColorToStr(attrObj))
-                elif isinstance(attrObj, list):
-                    rv += "{}=[".format(attr)
-                    for item in attrObj:
-                        rv += "{}, ".format(item)
-                    rv = rv.rstrip(', ')
-                    rv += "]"
-                else:
-                    rv += "{}={}, ".format(attr, attrObj)
-
-        rv = rv.rstrip(', ')
-        rv += "]"
-
+        rv = Util.objToString(self)
+        
         return rv
     
     def __str__(self):

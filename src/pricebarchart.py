@@ -11986,6 +11986,11 @@ class PriceBarChartWidget(QWidget):
 
             settingsChangedFlag = True
 
+        # Give the scaling to the QGraphicsScene so that it is
+        # available for scaling-related calculations that some of the
+        # graphics items/indicators.
+        self.graphicsScene.setScaling(scaling)
+        
         # Create a new QTransform that holds the scaling we want
         # but preserve the translation and other parts of the
         # transform from what is currently displayed in the
@@ -12343,6 +12348,10 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         # Logger
         self.log = logging.getLogger("pricebarchart.PriceBarChartGraphicsScene")
 
+        # Holds the scaling object which is used for scaling-related
+        # calculations.
+        self.scaling = PriceBarChartScaling()
+        
         # Holds the BirthInfo object.  This is used in calculating
         # information related to astrology.
         self.birthInfo = None
@@ -12359,6 +12368,21 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         self.priceBarChartArtifactGraphicsItemRemoved.\
             connect(self.priceBarChartChanged)
 
+    def setScaling(self, scaling):
+        """Sets the PriceBarChartScaling scaling object used for this
+        trading entity.  This scaling object is used for various
+        scaling-related calculations.  This function does not apply
+        scaling to the QGraphicsView.
+        """
+
+        self.scaling = scaling
+
+    def getScaling(self):
+        """Returns PriceBarChartScaling object being used for scaling.
+        """
+
+        return self.scaling
+    
     def setBirthInfo(self, birthInfo):
         """Sets the birth info for this trading entity.
         

@@ -43,20 +43,6 @@ DONE
           right or left by 2x.
 
   - PTV (Price-Time-Vector).
-
-        - Distance (scaled).  (checkbox for text enabled)
-
-        - Sqrt distance (scaled).  (checkbox for text enabled)
-
-        - Option for tilted text.  (checkbox for enabled, 
-                                    otherwise normal horizontal text)
-
-        So far, I modified:
-          data_objects.py.
-          dialogs.py
-          pricebarchart_dialogs.py
-          ui.py
-
         To modify:
           pricebarchart.py 
                 - Fix text angle and location (need to use scaling 
@@ -82,9 +68,9 @@ DONE
 
   - Update scaling class to be able to calculate the following (using scaling):
 
-      - Add to the scaling class, transform scaling values for the
-        graphics view, as separate variables from just the regular
-        scaling values.
+DONE      - Add to the scaling class, transform scaling values for the
+DONE        graphics view, as separate variables from just the regular
+DONE        scaling values.
 
       - Square root of a price (absolute).
 
