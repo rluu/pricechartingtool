@@ -47,6 +47,20 @@ License: Free for non-commercial use.
 
 ------------------------------------------------------------------------------
 
+http://www.psdgraphics.com/wp-content/uploads/2009/04/info-icon.jpg
+from:
+http://www.psdgraphics.com/icons/info-icon/
+Resolution: 800×600 px
+Full size preview: Info icon preview
+Size: 1.20 MB
+Format: PSD
+Color theme: blue, white
+Keywords: information icon, info button, more info
+License: Free for personal use
+Author: PSD Graphics
+
+------------------------------------------------------------------------------
+
 qt/pointer.png 
 from:
 qt-everywhere-opensource-src-4.6.3/examples/graphicsview/diagramscene/images/
@@ -60,17 +74,28 @@ Qt licensed for use from Trolltech.
 ------------------------------------------------------------------------------
 
 rluu/appIcon.png
+rluu/barCount.png
 rluu/gearGreen.png       (Modified an image from Tango Icon Library)
 rluu/handClosed.png
 rluu/handOpen.png
+rluu/lineSegment.png
 rluu/logo_ryan_d1.png
 rluu/pointerPencil.png   (Modified an image from iconspedia)
+rluu/priceMeasurement.png
+rluu/priceModalScale.png
+rluu/priceRetracement.png
+rluu/priceTimeInfo.png   (Modified an image from psdgraphics.com)
+rluu/ptv.png
 rluu/ryan_d1.png
+rluu/timeMeasurement.png
+rluu/timeModalScale.png
+rluu/timeRetracement.png
 rluu/zoomIn.png
 rluu/zoomInBlue.png      (Modified an image from Tango Icon Library)
 rluu/zoomOut.png
 rluu/zoomOutBlue.png     (Modified an image from Tango Icon Library)
 rluu/triangleRuler.png   (Modified an image from Tango Icon Library)
+
 
 Created by Ryan Luu.
 

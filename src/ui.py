@@ -239,69 +239,69 @@ class MainWindow(QMainWindow):
         self.zoomOutToolAction.setCheckable(True)
 
         # Create the BarCountToolAction
-        icon = QIcon()
+        icon = QIcon(":/images/rluu/barCount.png")
         self.barCountToolAction = QAction(icon, "Bar Count Tool", self)
         self.barCountToolAction.setStatusTip("Bar Count Tool")
         self.barCountToolAction.setCheckable(True)
 
         # Create the TimeMeasurementToolAction
-        icon = QIcon()
+        icon = QIcon(":/images/rluu/timeMeasurement.png")
         self.timeMeasurementToolAction = \
             QAction(icon, "Time Measurement Tool", self)
         self.timeMeasurementToolAction.setStatusTip("Time Measurement Tool")
         self.timeMeasurementToolAction.setCheckable(True)
 
+        # Create the PriceMeasurementToolAction
+        icon = QIcon(":/images/rluu/priceMeasurement.png")
+        self.priceMeasurementToolAction = \
+            QAction(icon, "Price Measurement Tool", self)
+        self.priceMeasurementToolAction.setStatusTip("Price Measurement Tool")
+        self.priceMeasurementToolAction.setCheckable(True)
+
         # Create the TimeModalScaleToolAction
-        icon = QIcon()
+        icon = QIcon(":/images/rluu/timeModalScale.png")
         self.timeModalScaleToolAction = \
             QAction(icon, "Time Modal Scale Tool", self)
         self.timeModalScaleToolAction.setStatusTip("Time Modal Scale Tool")
         self.timeModalScaleToolAction.setCheckable(True)
 
         # Create the PriceModalScaleToolAction
-        icon = QIcon()
+        icon = QIcon(":/images/rluu/priceModalScale.png")
         self.priceModalScaleToolAction = \
             QAction(icon, "Price Modal Scale Tool", self)
         self.priceModalScaleToolAction.setStatusTip("Price Modal Scale Tool")
         self.priceModalScaleToolAction.setCheckable(True)
 
         # Create the TextToolAction
-        icon = QIcon()
+        icon = QIcon(":/images/tango-icon-theme-0.8.90/32x32/mimetypes/font-x-generic.png")
         self.textToolAction = \
             QAction(icon, "Text Tool", self)
         self.textToolAction.setStatusTip("Text Tool")
         self.textToolAction.setCheckable(True)
 
         # Create the PriceTimeInfoToolAction
-        icon = QIcon()
+        icon = QIcon(":/images/rluu/priceTimeInfo.png")
         self.priceTimeInfoToolAction = \
             QAction(icon, "Price Time Info Tool", self)
         self.priceTimeInfoToolAction.setStatusTip("Price Time Info Tool")
         self.priceTimeInfoToolAction.setCheckable(True)
 
-        # Create the PriceMeasurementToolAction
-        icon = QIcon()
-        self.priceMeasurementToolAction = \
-            QAction(icon, "Price Measurement Tool", self)
-        self.priceMeasurementToolAction.setStatusTip("Price Measurement Tool")
-        self.priceMeasurementToolAction.setCheckable(True)
-
         # Create the TimeRetracementToolAction
-        icon = QIcon()
+        icon = QIcon(":/images/rluu/timeRetracement.png")
         self.timeRetracementToolAction = \
             QAction(icon, "Time Retracement Tool", self)
         self.timeRetracementToolAction.setStatusTip("Time Retracement Tool")
         self.timeRetracementToolAction.setCheckable(True)
 
         # Create the PriceRetracementToolAction
-        icon = QIcon()
+        icon = QIcon(":/images/rluu/priceRetracement.png")
         self.priceRetracementToolAction = \
             QAction(icon, "Price Retracement Tool", self)
         self.priceRetracementToolAction.setStatusTip("Price Retracement Tool")
         self.priceRetracementToolAction.setCheckable(True)
 
         # Create the PriceTimeVectorToolAction
-        icon = QIcon()
+        icon = QIcon(":/images/rluu/ptv.png")
         self.priceTimeVectorToolAction = \
             QAction(icon, "Price Time Vector Tool", self)
         self.priceTimeVectorToolAction.setStatusTip("Price Time Vector Tool")
@@ -318,13 +318,13 @@ class MainWindow(QMainWindow):
         self.toolActionGroup.addAction(self.zoomOutToolAction)
         self.toolActionGroup.addAction(self.barCountToolAction)
         self.toolActionGroup.addAction(self.timeMeasurementToolAction)
+        self.toolActionGroup.addAction(self.priceMeasurementToolAction)
         self.toolActionGroup.addAction(self.timeModalScaleToolAction)
         self.toolActionGroup.addAction(self.priceModalScaleToolAction)
-        self.toolActionGroup.addAction(self.textToolAction)
-        self.toolActionGroup.addAction(self.priceTimeInfoToolAction)
-        self.toolActionGroup.addAction(self.priceMeasurementToolAction)
         self.toolActionGroup.addAction(self.timeRetracementToolAction)
         self.toolActionGroup.addAction(self.priceRetracementToolAction)
+        self.toolActionGroup.addAction(self.textToolAction)
+        self.toolActionGroup.addAction(self.priceTimeInfoToolAction)
         self.toolActionGroup.addAction(self.priceTimeVectorToolAction)
         self.toolActionGroup.triggered.connect(self._toolsActionTriggered)
             
@@ -429,13 +429,13 @@ class MainWindow(QMainWindow):
         self.toolsMenu.addAction(self.zoomOutToolAction)
         self.toolsMenu.addAction(self.barCountToolAction)
         self.toolsMenu.addAction(self.timeMeasurementToolAction)
+        self.toolsMenu.addAction(self.priceMeasurementToolAction)
         self.toolsMenu.addAction(self.timeModalScaleToolAction)
         self.toolsMenu.addAction(self.priceModalScaleToolAction)
-        self.toolsMenu.addAction(self.textToolAction)
-        self.toolsMenu.addAction(self.priceTimeInfoToolAction)
-        self.toolsMenu.addAction(self.priceMeasurementToolAction)
         self.toolsMenu.addAction(self.timeRetracementToolAction)
         self.toolsMenu.addAction(self.priceRetracementToolAction)
+        self.toolsMenu.addAction(self.textToolAction)
+        self.toolsMenu.addAction(self.priceTimeInfoToolAction)
         self.toolsMenu.addAction(self.priceTimeVectorToolAction)
 
         # Create the Window menu.
@@ -483,13 +483,13 @@ class MainWindow(QMainWindow):
         self.toolsToolBar.addAction(self.zoomOutToolAction)
         self.toolsToolBar.addAction(self.barCountToolAction)
         self.toolsToolBar.addAction(self.timeMeasurementToolAction)
+        self.toolsToolBar.addAction(self.priceMeasurementToolAction)
         self.toolsToolBar.addAction(self.timeModalScaleToolAction)
         self.toolsToolBar.addAction(self.priceModalScaleToolAction)
-        self.toolsToolBar.addAction(self.textToolAction)
-        self.toolsToolBar.addAction(self.priceTimeInfoToolAction)
-        self.toolsToolBar.addAction(self.priceMeasurementToolAction)
         self.toolsToolBar.addAction(self.timeRetracementToolAction)
         self.toolsToolBar.addAction(self.priceRetracementToolAction)
+        self.toolsToolBar.addAction(self.textToolAction)
+        self.toolsToolBar.addAction(self.priceTimeInfoToolAction)
         self.toolsToolBar.addAction(self.priceTimeVectorToolAction)
 
     def _createStatusBar(self):
@@ -1357,6 +1357,7 @@ class MainWindow(QMainWindow):
             pcd.toTimeRetracementToolMode()
         elif qaction == self.priceRetracementToolAction:
             self.log.debug("priceRetracementToolAction triggered.")
+            pcd.toPriceRetracementToolMode()
         elif qaction == self.priceTimeVectorToolAction:
             self.log.debug("priceTimeVectorToolAction triggered.")
             pcd.toPriceTimeVectorToolMode()

@@ -12,12 +12,22 @@
     <file>images/qt/qt-logo.png</file>
 
     <file>images/rluu/appIcon.png</file>
+    <file>images/rluu/barCount.png</file>
     <file>images/rluu/gearGreen.png</file>
     <file>images/rluu/handClosed.png</file>
     <file>images/rluu/handOpen.png</file>
+    <file>images/rluu/lineSegment.png</file>
     <file>images/rluu/pointerPencil.png</file>
+    <file>images/rluu/priceMeasurement.png</file>
+    <file>images/rluu/priceModalScale.png</file>
+    <file>images/rluu/priceRetracement.png</file>
+    <file>images/rluu/priceTimeInfo.png</file>
+    <file>images/rluu/ptv.png</file>
     <file>images/rluu/logo_ryan_d1.png</file>
     <file>images/rluu/triangleRuler.png</file>
+    <file>images/rluu/timeMeasurement.png</file>
+    <file>images/rluu/timeModalScale.png</file>
+    <file>images/rluu/timeRetracement.png</file>
     <file>images/rluu/zoomIn.png</file>
     <file>images/rluu/zoomInBlue.png</file>
     <file>images/rluu/zoomOut.png</file>
@@ -33,6 +43,7 @@
     <file>images/tango-icon-theme-0.8.90/32x32/apps/internet-web-browser.png</file>
     <file>images/tango-icon-theme-0.8.90/32x32/categories/applications-system.png</file>
     <file>images/tango-icon-theme-0.8.90/32x32/categories/preferences-system.png</file>
+    <file>images/tango-icon-theme-0.8.90/32x32/mimetypes/font-x-generic.png</file>
     <file>images/tango-icon-theme-0.8.90/32x32/status/image-missing.png</file>
 
 </qresource>
