@@ -12496,6 +12496,219 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
             return float(price)
 
 
+    def convertPriceToScaledValue(self, price):
+        """Converts the given price value to a scaled value,
+        using the set scaling object.
+
+        Arguments:
+        price - float value for the price to convert to a scaled value.
+
+        Returns:
+        float value representing the scaled value of the given price.
+        """
+
+        scaledValue = price / self.scaling.getUnitsOfPrice()
+
+        return scaledValue
+        
+    def convertScaledValueToPrice(self, scaledValue):
+        """Converts the given scaled value to a price, using the set
+        scaling object.
+
+        Arguments:
+        scaledValue - float value to convert to a price value.
+
+        Returns:
+        float value representing the price.
+        """
+
+        price = scaledValue * self.scaling.getUnitsOfPrice()
+
+        return price
+        
+    def convertDatetimeToScaledValue(self, dt):
+        """Converts the given datetime to the scaled value, using the
+        set scaling object.  This returned value is the scaled value
+        relative to the birth time in self.birthInfo
+
+        Arguments:
+        dt - datetime.datetime object for the timestamp to convert to
+             a scaled value.
+
+        Returns:
+        float value representing the scaled value of the
+        given timestamp, from the birth timestamp.
+        """
+
+        birthDatetime = self.getBirthDatetime()
+        birthJd = Ephemeris.datetimeToJulianDay(birthDatetime)
+
+        currDatetime = dt
+        currJd = Ephemeris.datetimeToJulianDay(currDatetime)
+
+        jdDiff = currJd - birthJd
+
+        scaledValue = jdDiff / self.scaling.getUnitsOfTime()
+        
+        return scaledValue
+        
+    def convertScaledValueToDatetime(self, scaledValue, tzInfo=self.timezone):
+        """Converts the given scaled value to it's equivalent datetime using the
+        set scaling object.  
+
+        Arguments:
+        scaledValue - float value representing a scaled value that is to be
+                      converted to a timestamp value.
+        tzInfo - pytz.timezone object for the timezone to use for
+                 the datetime object returned.
+
+        Returns:
+        datetime.datetime object representing the timestamp for the
+        given scaled value.
+        """
+
+        jd = scaledValue * self.scaling.getUnitsOfTime()
+
+        dt = Ephemeris.julianDayToDatetime(jd, tzInfo)
+        
+        return dt
+
+    def getBirthPrice(self):
+        """Returns the open price at birth.  We assume here that the
+        first pricebar we have is the first pricebar of this trading
+        entity.
+
+        Returns:
+        float value for the birth price.  0.0 is returned if
+        there are no pricebars found.
+        """
+
+        openPrice = 0.0
+        earliestPriceBar = self.getEarliestPriceBar()
+        
+        if earliestPriceBar != None:
+            openPrice = earliestPriceBar.open
+
+        return openPrice
+        
+    def getBirthDatetime(self, tzInfo=self.timezone):
+        """Returns the datetime.datetime for the timestamp at birth.
+
+        Arguments:
+        tzInfo - pytz.timezone object that is the timezone to
+                 return the datetime in.  Default value for this is
+                 the timezone set in the set birth info object.
+        
+        Returns:
+        datetime.datetime for the birth timestamp.
+        """
+
+        birthInfo = self.birthInfo
+        
+        if self.birthInfo == None:
+            self.log.warn("Birth info is not set.  " +
+                          "Scaling calculations may not be accurate.")
+                          
+            birthInfo = BirthInfo()
+            
+        birthDatetime = birthInfo.getBirthUtcDatetime()
+        birthJd = Ephemeris.datetimeToJulianDay(birthDatetime)
+        dt = Ephemeris.julianDayToDatetime(jd, tzInfo)
+        
+        return dt
+        
+    def getBirthScaledPoint(self):
+        """Returns a QPointF for the birth price and time, converted
+        to independent unit values, and scaled appropriately using the
+        self.scaling scaling object.
+
+        There are two ways to set the Y for time:
+          - Assume that the open price is the point.
+          - Assume that zero price is this point.
+        
+        In this function, the first method is used.
+
+        Returns:
+        QPointF for the birth point in scaled unit-less values.
+        """
+
+        price = self.getBirthPrice()
+
+        # Time at birth is assumed to be 0.
+        jd = 0.0
+        
+        # Do scaling.
+        scaledPriceValue = price / self.scaling.getUnitsOfPrice()
+        scaledTimeValue = jd / self.scaling.getUnitsOfTime()
+
+        return QPointF(scaledTimeValue, scaledPriceValue)
+
+    def getBirthScaledPointOrigin(self):
+        """Returns a QPointF for the birth price and time, converted
+        to independent unit values, and scaled appropriately using the
+        self.scaling scaling object.
+
+        There are two ways to set the Y for time:
+          - Assume that the open price is the point.
+          - Assume that zero price is this point.
+        
+        In this function, the second method is used.
+        
+        Returns:
+        QPointF for the birth point in scaled unit-less values.
+        """
+
+        # Regardless of scaling, the origin birth point will be (0, 0).
+        return QPointF(0.0, 0.0)
+        
+    def convertScenePointToScaledPoint(self, pointF):
+        """Converts the given QPointF from the QGraphicsScene to a
+        scaled QPointF using the price and time scaling in
+        self.scaling.
+
+        Arguments:
+        pointF - QPointF object holding the QGraphicsScene point that
+                 the caller wants to convert to a scaled QPointF.
+
+        Returns:
+        QPointF holding a scaled QPointF equivalent to the given input point.
+        """
+
+        x = pointF.x()
+        y = pointF.y()
+
+        dt = self.sceneXPosToDatetime(x)
+        price = self.sceneYPosToPrice(y)
+
+        scaledX = self.convertDatetimeToScaledValue(dt)
+        scaledY = self.convertPriceToScaledValue(price)
+
+        return QPointF(scaledX, scaledY)
+
+    def convertScaledPointToScenePoint(self, pointF):
+        """Converts the given QPoint as a scaled QPointF, to a QPointF
+        that is represented in the QGraphicsScene.
+
+        Arguments:
+        pointF - QPointF object holding a scaled point that the user
+                 wants to convert to a QGraphicsScene point.
+
+        Returns:
+        QPointF holding a QPointF in a QGraphicsScene that is equivalent
+        to the given input point.
+        """
+
+        x = pointF.x()
+        y = pointF.y()
+
+        dt = self.convertScaledValueToDatetime(x)
+        price = self.convertScaledValueToPrice(y)
+
+        sceneX = self.datetimeToSceneXPos(dt)
+        sceneY = self.priceToSceneYPos(price)
+
+        return QPointF(sceneX, sceneY)
+    
     def getEarliestPriceBar(self):
         """Goes through all the PriceBars, looking at the one that has
         the earliest timestamp.  This pricebar is returned.
