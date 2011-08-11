@@ -2738,8 +2738,16 @@ class PriceBarChartPriceMeasurementArtifact(PriceBarChartArtifact):
             defaultPriceMeasurementGraphicsItemShowPriceRangeTextFlag
         
         self.showSqrtPriceRangeTextFlag = \
-                PriceBarChartSettings.\
-                defaultPriceMeasurementGraphicsItemShowSqrtPriceRangeTextFlag
+            PriceBarChartSettings.\
+            defaultPriceMeasurementGraphicsItemShowSqrtPriceRangeTextFlag
+
+        self.showScaledValueRangeTextFlag = \
+            PriceBarChartSettings.\
+            defaultPriceMeasurementGraphicsItemShowScaledValueRangeTextFlag
+
+        self.showSqrtScaledValueRangeTextFlag = \
+            PriceBarChartSettings.\
+            defaultPriceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag
         
     def setFont(self, font):
         """Sets the font of this artifact's text.
@@ -2854,6 +2862,34 @@ class PriceBarChartPriceMeasurementArtifact(PriceBarChartArtifact):
 
         return self.showSqrtPriceRangeTextFlag
         
+    def setShowScaledValueRangeTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the scaled
+        value representing the price range should be displayed.
+        """
+
+        self.showScaledValueRangeTextFlag = flag
+        
+    def getShowScaledValueRangeTextFlag(self):
+        """Returns the flag that indicates that the text for the
+        scaled value representing the price range should be displayed.
+        """
+
+        return self.showScaledValueRangeTextFlag
+
+    def setShowSqrtScaledValueRangeTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the sqrt of scaled
+        value representing the price range should be displayed.
+        """
+
+        self.showSqrtScaledValueRangeTextFlag = flag
+        
+    def getShowSqrtScaledValueRangeTextFlag(self):
+        """Returns the flag that indicates that the text for the sqrt of
+        scaled value representing the price range should be displayed.
+        """
+
+        return self.showSqrtScaledValueRangeTextFlag
+
     def setStartPointF(self, startPointF):
         """Stores the starting point of the PriceMeasurementArtifact.
         Arguments:
@@ -4363,6 +4399,14 @@ class PriceBarChartSettings:
     # showSqrtPriceRangeTextFlag (bool).
     defaultPriceMeasurementGraphicsItemShowSqrtPriceRangeTextFlag = True
 
+    # Default value for the PriceMeasurementGraphicsItem
+    # showScaledValueRangeTextFlag (bool).
+    defaultPriceMeasurementGraphicsItemShowScaledValueRangeTextFlag = True
+    
+    # Default value for the PriceMeasurementGraphicsItem
+    # showSqrtScaledValueRangeTextFlag (bool).
+    defaultPriceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag = True
+
     # Default value for the TimeRetracementGraphicsItem bar height (float).
     defaultTimeRetracementGraphicsItemBarHeight = 0.2
 
@@ -4766,6 +4810,16 @@ class PriceBarChartSettings:
             PriceBarChartSettings.\
             defaultPriceMeasurementGraphicsItemShowSqrtPriceRangeTextFlag
 
+        # PriceMeasurementGraphicsItem showScaledValueRangeTextFlag (bool).
+        self.priceMeasurementGraphicsItemShowScaledValueRangeTextFlag = \
+            PriceBarChartSettings.\
+            defaultPriceMeasurementGraphicsItemShowScaledValueRangeTextFlag
+    
+        # PriceMeasurementGraphicsItem showSqrtScaledValueRangeTextFlag (bool).
+        self.priceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag = \
+            PriceBarChartSettings.\
+            defaultPriceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag
+    
         # TimeRetracementGraphicsItem bar height (float).
         self.timeRetracementGraphicsItemBarHeight = \
             PriceBarChartSettings.\

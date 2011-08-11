@@ -1651,12 +1651,9 @@ class PriceChartDocument(QMdiSubWindow):
         # Set the birth info.
         self.widgets.setBirthInfo(self.priceChartDocumentData.birthInfo)
 
-        # Load pricebars and chart artifacts.
+        # Load pricebars.
         priceBars = self.priceChartDocumentData.priceBars
-        priceBarChartArtifacts = \
-            self.priceChartDocumentData.priceBarChartArtifacts
         self.widgets.loadPriceBars(priceBars)
-        self.widgets.loadPriceBarChartArtifacts(priceBarChartArtifacts)
 
         # Apply the settings objects.
         priceBarChartSettings = \
@@ -1667,6 +1664,11 @@ class PriceChartDocument(QMdiSubWindow):
         self.widgets.\
             applyPriceBarSpreadsheetSettings(priceBarSpreadsheetSettings)
 
+        # Load the chart artifacts.
+        priceBarChartArtifacts = \
+            self.priceChartDocumentData.priceBarChartArtifacts
+        self.widgets.loadPriceBarChartArtifacts(priceBarChartArtifacts)
+        
         # By default, set the flag as dirty.  
         # If this was an open/load from file, the caller of this 
         # function should themselves call the function to set the flag to

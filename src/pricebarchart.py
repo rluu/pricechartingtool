@@ -2160,7 +2160,7 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Set specific items enabled or disabled, visible or not,
         # based on the above flags being set.
         
-        # Set the text items as enabled or disabled, visible or invisible.
+        # Set the text items as enabled or disabled
         self.timeMeasurementBarsText.setEnabled(self.showBarsTextFlag)
         self.timeMeasurementHoursText.setEnabled(self.showHoursTextFlag)
         self.timeMeasurementDaysText.setEnabled(self.showDaysTextFlag)
@@ -2173,6 +2173,7 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.timeMeasurementSqrtWeeksText.setEnabled(self.showSqrtWeeksTextFlag)
         self.timeMeasurementSqrtMonthsText.setEnabled(self.showSqrtMonthsTextFlag)
         
+        # Set the text items as visible or invisible.
         self.timeMeasurementBarsText.setVisible(self.showBarsTextFlag)
         self.timeMeasurementHoursText.setVisible(self.showHoursTextFlag)
         self.timeMeasurementDaysText.setVisible(self.showDaysTextFlag)
@@ -2210,6 +2211,10 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                 self.timeMeasurementTextYScaling)
             textItem.setTransform(textTransform)
 
+        # Update the time measurement calculations since scaling could
+        # have changed.
+        self.recalculateTimeMeasurement()
+        
         # Update the timeMeasurement text item position.
         self._updateTextItemPositions()
 
@@ -2704,7 +2709,7 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         #############
 
-        # Set the text items as enabled or disabled, visible or invisible.
+        # Set the text items as enabled or disabled.
         self.timeMeasurementBarsText.setEnabled(self.showBarsTextFlag)
         self.timeMeasurementHoursText.setEnabled(self.showHoursTextFlag)
         self.timeMeasurementDaysText.setEnabled(self.showDaysTextFlag)
@@ -2717,6 +2722,7 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.timeMeasurementSqrtWeeksText.setEnabled(self.showSqrtWeeksTextFlag)
         self.timeMeasurementSqrtMonthsText.setEnabled(self.showSqrtMonthsTextFlag)
         
+        # Set the text items as visible or invisible.
         self.timeMeasurementBarsText.setVisible(self.showBarsTextFlag)
         self.timeMeasurementHoursText.setVisible(self.showHoursTextFlag)
         self.timeMeasurementDaysText.setVisible(self.showDaysTextFlag)
@@ -6026,6 +6032,11 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
     
         self.log.debug("Exiting setArtifact()")
 
+    def recalculatePriceTimeInfo(self):
+        """Just updates the text."""
+
+        self._updateText()
+        
     def _updateText(self):
         """Updates the text based on what is in the artifact.
         """
@@ -6057,9 +6068,9 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
             text += "t={}".format(Ephemeris.datetimeToDayStr(dt)) + \
                     os.linesep
         if self.artifact.getShowPriceFlag():
-            text += "price={}".format(price) + os.linesep
+            text += "p={}".format(price) + os.linesep
         if self.artifact.getShowSqrtPriceFlag():
-            text += "sqrt(price)={}".format(math.sqrt(price)) + os.linesep
+            text += "sqrt(p)={}".format(math.sqrt(price)) + os.linesep
         if self.artifact.getShowTimeElapsedSinceBirthFlag():
             if self.birthInfo != None:
                 # Get the birth timestamp and convert to X coordinate.
@@ -6652,6 +6663,16 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             PriceBarChartSettings.\
             defaultPriceMeasurementGraphicsItemShowSqrtPriceRangeTextFlag
     
+        # PriceMeasurementGraphicsItem showScaledValueRangeTextFlag (bool).
+        self.showScaledValueRangeTextFlag = \
+            PriceBarChartSettings.\
+            defaultPriceMeasurementGraphicsItemShowScaledValueRangeTextFlag
+    
+        # PriceMeasurementGraphicsItem showSqrtScaledValueRangeTextFlag (bool).
+        self.showSqrtScaledValueRangeTextFlag = \
+            PriceBarChartSettings.\
+            defaultPriceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag
+    
         ############################################################
 
         # Internal storage object, used for loading/saving (serialization).
@@ -6675,14 +6696,20 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.endPointF = QPointF(0, 0)
 
         # Variables holding the price measurement values.
-        self.priceRange = 0
-        self.sqrtPriceRange = 0
+        self.priceRange = 0.0
+        self.sqrtPriceRange = 0.0
+        self.scaledValueRange = 0.0
+        self.sqrtScaledValueRange = 0.0
         
         # Internal QGraphicsItem that holds the text of the price measurements.
         # Initialize to blank and set at the end point.
         self.priceMeasurementPriceRangeText = \
             QGraphicsSimpleTextItem("", self)
         self.priceMeasurementSqrtPriceRangeText = \
+            QGraphicsSimpleTextItem("", self)
+        self.priceMeasurementScaledValueRangeText = \
+            QGraphicsSimpleTextItem("", self)
+        self.priceMeasurementSqrtScaledValueRangeText = \
             QGraphicsSimpleTextItem("", self)
 
         # List of text items as created above.  This is so we can more
@@ -6691,6 +6718,8 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.textItems = []
         self.textItems.append(self.priceMeasurementPriceRangeText)
         self.textItems.append(self.priceMeasurementSqrtPriceRangeText)
+        self.textItems.append(self.priceMeasurementScaledValueRangeText)
+        self.textItems.append(self.priceMeasurementSqrtScaledValueRangeText)
 
         for textItem in self.textItems:
             textItem.setPos(self.endPointF)
@@ -6785,21 +6814,40 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             priceBarChartSettings.\
             priceMeasurementGraphicsItemShowSqrtPriceRangeTextFlag
     
+        # PriceMeasurementGraphicsItem showScaledValueRangeTextFlag (bool).
+        self.showScaledValueRangeTextFlag = \
+            priceBarChartSettings.\
+            priceMeasurementGraphicsItemShowScaledValueRangeTextFlag
+    
+        # PriceMeasurementGraphicsItem showSqrtScaledValueRangeTextFlag (bool).
+        self.showSqrtScaledValueRangeTextFlag = \
+            priceBarChartSettings.\
+            priceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag
+    
         ####################################################################
 
         # Set specific items enabled or disabled, visible or not,
         # based on the above flags being set.
         
-        # Set the text items as enabled or disabled, visible or invisible.
+        # Set the text items as enabled or disabled.
         self.priceMeasurementPriceRangeText.\
             setEnabled(self.showPriceRangeTextFlag)
         self.priceMeasurementSqrtPriceRangeText.\
             setEnabled(self.showSqrtPriceRangeTextFlag)
-        
+        self.priceMeasurementScaledValueRangeText.\
+            setEnabled(self.showScaledValueRangeTextFlag)
+        self.priceMeasurementSqrtScaledValueRangeText.\
+            setEnabled(self.showSqrtScaledValueRangeTextFlag)
+
+        # Set the text items as visible or invisible.
         self.priceMeasurementPriceRangeText.\
             setVisible(self.showPriceRangeTextFlag)
         self.priceMeasurementSqrtPriceRangeText.\
             setVisible(self.showSqrtPriceRangeTextFlag)
+        self.priceMeasurementScaledValueRangeText.\
+            setVisible(self.showScaledValueRangeTextFlag)
+        self.priceMeasurementSqrtScaledValueRangeText.\
+            setVisible(self.showSqrtScaledValueRangeTextFlag)
         
         # Update all the text items with the new settings.
         for textItem in self.textItems:
@@ -6826,6 +6874,9 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                 self.priceMeasurementTextYScaling)
             textItem.setTransform(textTransform)
 
+        # Recalculate the price measurement because scaling could have changed.
+        self.recalculatePriceMeasurement()
+        
         # Update the priceMeasurement text item position.
         self._updateTextItemPositions()
 
@@ -7149,6 +7200,8 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
             self.priceRange
             self.sqrtPriceRange
+            self.scaledValueRange
+            self.sqrtScaledValueRange
             
         to hold the amount of price between the start and end points.
         """
@@ -7158,6 +7211,8 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Reset the values.
         self.priceRange = 0.0
         self.sqrtPriceRange = 0.0
+        self.scaledValueRange = 0.0
+        self.sqrtScaledValueRange = 0.0
 
         if scene != None:
             startPointPrice = \
@@ -7168,18 +7223,34 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 scene.sceneYPosToPrice(self.endPointF.y())
             self.log.debug("endPointPrice: {}".format(endPointPrice))
 
-            self.priceRange = startPointPrice - endPointPrice
+            self.priceRange = abs(endPointPrice - startPointPrice)
             self.sqrtPriceRange = math.sqrt(abs(self.priceRange))
-
+            self.scaledValueRange = \
+                abs(scene.convertPriceToScaledValue(endPointPrice) - \
+                    scene.convertPriceToScaledValue(startPointPrice))
+            self.sqrtScaledValueRange = \
+                math.sqrt(abs(self.scaledValueRange))
+            
             self.log.debug("self.priceRange={}".format(self.priceRange))
             self.log.debug("self.sqrtPriceRange={}".format(self.sqrtPriceRange))
+            self.log.debug("self.scaledValueRange={}".\
+                           format(self.scaledValueRange))
+            self.log.debug("self.sqrtScaledValueRange={}".\
+                           format(self.sqrtScaledValueRange))
             
         # Update the text of the internal items.
-        priceRangeText = "{:.4f} range".format(self.priceRange)
-        sqrtPriceRangeText = "{:.4f} sqrt range".format(self.sqrtPriceRange)
+        priceRangeText = "{:.4f} p_range".format(self.priceRange)
+        sqrtPriceRangeText = "{:.4f} sqrt(p_range)".format(self.sqrtPriceRange)
+        scaledValueRangeText = "{:.4f} u_range".\
+                               format(self.scaledValueRange)
+        sqrtScaledValueRangeText = "{:.4f} sqrt(u_range)".\
+                               format(self.sqrtScaledValueRange)
         
         self.priceMeasurementPriceRangeText.setText(priceRangeText)
         self.priceMeasurementSqrtPriceRangeText.setText(sqrtPriceRangeText)
+        self.priceMeasurementScaledValueRangeText.setText(scaledValueRangeText)
+        self.priceMeasurementSqrtScaledValueRangeText.\
+            setText(sqrtScaledValueRangeText)
         
     def setArtifact(self, artifact):
         """Loads a given PriceBarChartPriceMeasurementArtifact object's data
@@ -7215,20 +7286,33 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.artifact.getShowPriceRangeTextFlag()
         self.showSqrtPriceRangeTextFlag = \
             self.artifact.getShowSqrtPriceRangeTextFlag()
+        self.showScaledValueRangeTextFlag = \
+            self.artifact.getShowScaledValueRangeTextFlag()
+        self.showSqrtScaledValueRangeTextFlag = \
+            self.artifact.getShowSqrtScaledValueRangeTextFlag()
 
         #############
 
-        # Set the text items as enabled or disabled, visible or invisible.
+        # Set the text items as enabled or disabled.
         self.priceMeasurementPriceRangeText.\
             setEnabled(self.showPriceRangeTextFlag)
         self.priceMeasurementSqrtPriceRangeText.\
             setEnabled(self.showSqrtPriceRangeTextFlag)
-        
+        self.priceMeasurementScaledValueRangeText.\
+            setEnabled(self.showScaledValueRangeTextFlag)
+        self.priceMeasurementSqrtScaledValueRangeText.\
+            setEnabled(self.showSqrtScaledValueRangeTextFlag)
+
+        # Set the text items as visible or invisible.
         self.priceMeasurementPriceRangeText.\
             setVisible(self.showPriceRangeTextFlag)
         self.priceMeasurementSqrtPriceRangeText.\
             setVisible(self.showSqrtPriceRangeTextFlag)
-        
+        self.priceMeasurementScaledValueRangeText.\
+            setVisible(self.showScaledValueRangeTextFlag)
+        self.priceMeasurementSqrtScaledValueRangeText.\
+            setVisible(self.showSqrtScaledValueRangeTextFlag)
+
         # Update all the text items with the new settings.
         for textItem in self.textItems:
             # Set the font of the text.
@@ -7289,6 +7373,10 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.showPriceRangeTextFlag)
         self.artifact.setShowSqrtPriceRangeTextFlag(\
             self.showSqrtPriceRangeTextFlag)
+        self.artifact.setShowScaledValueRangeTextFlag(\
+            self.showScaledValueRangeTextFlag)
+        self.artifact.setShowSqrtScaledValueRangeTextFlag(\
+            self.showSqrtScaledValueRangeTextFlag)
         
         self.log.debug("Exiting getArtifact()")
         
@@ -12031,6 +12119,8 @@ class PriceBarChartWidget(QWidget):
             elif isinstance(item, TimeMeasurementGraphicsItem):
                 self.log.debug("Not applying settings to " +
                                "TimeMeasurementGraphicsItem.")
+                # Redo calculations in case the scaling changed.
+                item.recalculateTimeMeasurement()
             elif isinstance(item, TimeModalScaleGraphicsItem):
                 self.log.debug("Not applying settings to " +
                                "TimeModalScaleGraphicsItem.")
@@ -12043,9 +12133,13 @@ class PriceBarChartWidget(QWidget):
             elif isinstance(item, PriceTimeInfoGraphicsItem):
                 self.log.debug("Not applying settings to " +
                                "PriceTimeInfoGraphicsItem.")
+                # Redo calculations in case the scaling changed.
+                item.recalculatePriceTimeInfo()
             elif isinstance(item, PriceMeasurementGraphicsItem):
                 self.log.debug("Not applying settings to " +
                                "PriceMeasurementGraphicsItem.")
+                # Redo calculations in case the scaling changed.
+                item.recalculatePriceMeasurement()
             elif isinstance(item, TimeRetracementGraphicsItem):
                 self.log.debug("Not applying settings to " +
                                "TimeRetracementGraphicsItem.")
@@ -12055,7 +12149,9 @@ class PriceBarChartWidget(QWidget):
             elif isinstance(item, PriceTimeVectorGraphicsItem):
                 self.log.debug("Not applying settings to " +
                                "PriceTimeVectorGraphicsItem.")
-
+                # Redo calculations in case the scaling changed.
+                item.recalculatePriceTimeVector()
+                
         if settingsChangedFlag == True:
             # Emit that the PriceBarChart has changed, because we have
             # updated the PriceBarChartSettings.
@@ -12552,7 +12648,7 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         
         return scaledValue
         
-    def convertScaledValueToDatetime(self, scaledValue, tzInfo=self.timezone):
+    def convertScaledValueToDatetime(self, scaledValue, tzInfo=None):
         """Converts the given scaled value to it's equivalent datetime using the
         set scaling object.  
 
@@ -12560,7 +12656,9 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         scaledValue - float value representing a scaled value that is to be
                       converted to a timestamp value.
         tzInfo - pytz.timezone object for the timezone to use for
-                 the datetime object returned.
+                 the datetime object returned.  If tzInfo is None, then
+                 the previously set timezone of this trading
+                 entity (self.timezone) is used.
 
         Returns:
         datetime.datetime object representing the timestamp for the
@@ -12569,6 +12667,9 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
 
         jd = scaledValue * self.scaling.getUnitsOfTime()
 
+        if tzInfo == None:
+            tzInfo = self.timezone
+            
         dt = Ephemeris.julianDayToDatetime(jd, tzInfo)
         
         return dt
@@ -12591,19 +12692,23 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
 
         return openPrice
         
-    def getBirthDatetime(self, tzInfo=self.timezone):
+    def getBirthDatetime(self, tzInfo=None):
         """Returns the datetime.datetime for the timestamp at birth.
 
         Arguments:
         tzInfo - pytz.timezone object that is the timezone to
-                 return the datetime in.  Default value for this is
-                 the timezone set in the set birth info object.
+                 return the datetime in.  If tzInfo is None,
+                 then the previously set timezone of this
+                 trading entity (self.timezone) is used.
         
         Returns:
         datetime.datetime for the birth timestamp.
         """
 
         birthInfo = self.birthInfo
+        
+        if tzInfo == None:
+            tzInfo = self.timezone
         
         if self.birthInfo == None:
             self.log.warn("Birth info is not set.  " +

@@ -4127,6 +4127,10 @@ class PriceBarChartPriceMeasurementArtifactEditWidget(QWidget):
             QCheckBox("Show Price Range Text")
         self.showSqrtPriceRangeTextFlagCheckBox = \
             QCheckBox("Show Sqrt Price Range Text")
+        self.showScaledValueRangeTextFlagCheckBox = \
+            QCheckBox("Show scaled value range text")
+        self.showSqrtScaledValueRangeTextFlagCheckBox = \
+            QCheckBox("Show sqrt scaled value range text")
         
         # Layout for just the font info.
         self.fontLayout = QHBoxLayout()
@@ -4182,6 +4186,10 @@ class PriceBarChartPriceMeasurementArtifactEditWidget(QWidget):
             self.showPriceRangeTextFlagCheckBox)
         self.showTextCheckBoxesLayout.addWidget(\
             self.showSqrtPriceRangeTextFlagCheckBox)
+        self.showTextCheckBoxesLayout.addWidget(\
+            self.showScaledValueRangeTextFlagCheckBox)
+        self.showTextCheckBoxesLayout.addWidget(\
+            self.showSqrtScaledValueRangeTextFlagCheckBox)
         tempLayout = self.showTextCheckBoxesLayout
         self.showTextCheckBoxesLayout = QHBoxLayout()
         self.showTextCheckBoxesLayout.addLayout(tempLayout)
@@ -4291,6 +4299,10 @@ class PriceBarChartPriceMeasurementArtifactEditWidget(QWidget):
             setEnabled(not self.readOnlyFlag)
         self.showSqrtPriceRangeTextFlagCheckBox.\
             setEnabled(not self.readOnlyFlag)
+        self.showScaledValueRangeTextFlagCheckBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.showSqrtScaledValueRangeTextFlagCheckBox.\
+            setEnabled(not self.readOnlyFlag)
 
         # Don't allow the Okay button to be pressed for saving.
         self.okayButton.setEnabled(not self.readOnlyFlag)
@@ -4370,6 +4382,22 @@ class PriceBarChartPriceMeasurementArtifactEditWidget(QWidget):
         else:
             self.showSqrtPriceRangeTextFlagCheckBox.setCheckState(Qt.Unchecked)
 
+        if self.artifact.getShowScaledValueRangeTextFlag() == True:
+            
+            self.showScaledValueRangeTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.showScaledValueRangeTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        if self.artifact.getShowSqrtScaledValueRangeTextFlag() == True:
+            
+            self.showSqrtScaledValueRangeTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.showSqrtScaledValueRangeTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+            
         self.log.debug("Exiting loadValues()")
         
     def saveValues(self):
@@ -4408,6 +4436,13 @@ class PriceBarChartPriceMeasurementArtifactEditWidget(QWidget):
             (self.showPriceRangeTextFlagCheckBox.checkState() == Qt.Checked)
         showSqrtPriceRangeTextFlag = \
             (self.showSqrtPriceRangeTextFlagCheckBox.checkState() == Qt.Checked)
+        showScaledValueRangeTextFlag = \
+            (self.showScaledValueRangeTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showSqrtScaledValueRangeTextFlag = \
+            (self.showSqrtScaledValueRangeTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        
         
         # Set the values in the artifact.
         self.artifact.setPos(posF)
@@ -4420,6 +4455,10 @@ class PriceBarChartPriceMeasurementArtifactEditWidget(QWidget):
         self.artifact.setEndPointF(endPointF)
         self.artifact.setShowPriceRangeTextFlag(showPriceRangeTextFlag)
         self.artifact.setShowSqrtPriceRangeTextFlag(showSqrtPriceRangeTextFlag)
+        self.artifact.setShowScaledValueRangeTextFlag(\
+            showScaledValueRangeTextFlag)
+        self.artifact.setShowSqrtScaledValueRangeTextFlag(\
+            showSqrtScaledValueRangeTextFlag)
         
         self.log.debug("Exiting saveValues()")
 

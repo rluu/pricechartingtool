@@ -10893,6 +10893,12 @@ class PriceBarChartSettingsEditWidget(QWidget):
             clicked.connect(\
             self.\
             _handlePriceMeasurementGraphicsItemShowSqrtPriceRangeTextFlagResetButton)
+        self.priceMeasurementGraphicsItemShowScaledValueRangeTextFlagResetButton.clicked.connect(\
+            self.\
+            _handlePriceMeasurementGraphicsItemShowScaledValueRangeTextFlagResetButton)
+        self.priceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagResetButton.clicked.connect(\
+            self.\
+            _handlePriceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagResetButton)
         self.timeRetracementGraphicsItemBarHeightResetButton.clicked.\
             connect(\
             self._handleTimeRetracementGraphicsItemBarHeightResetButtonClicked)
@@ -12184,6 +12190,23 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.priceMeasurementGraphicsItemShowSqrtPriceRangeTextFlagResetButton = \
             QPushButton("Reset to default")
     
+        # priceMeasurementGraphicsItemShowScaledValueRangeTextFlag (bool).
+        self.priceMeasurementGraphicsItemShowScaledValueRangeTextFlagLabel = \
+            QLabel("PriceMeasurementGraphicsItem show scaled value range text:")
+        self.priceMeasurementGraphicsItemShowScaledValueRangeTextFlagCheckBox = QCheckBox()
+        self.priceMeasurementGraphicsItemShowScaledValueRangeTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.priceMeasurementGraphicsItemShowScaledValueRangeTextFlagResetButton = QPushButton("Reset to default")
+    
+        # priceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag (bool).
+        self.priceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagLabel = \
+            QLabel("PriceMeasurementGraphicsItem show " +
+                   "sqrt of scaled value range text:")
+        self.priceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagCheckBox = QCheckBox()
+        self.priceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.priceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagResetButton = QPushButton("Reset to default")
+    
         # Grid layout.
         gridLayout = QGridLayout()
         r = 0
@@ -12301,7 +12324,35 @@ class PriceBarChartSettingsEditWidget(QWidget):
             r, 2, ar)
 
         r += 1
+        gridLayout.\
+            addWidget(\
+            self.priceMeasurementGraphicsItemShowScaledValueRangeTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.priceMeasurementGraphicsItemShowScaledValueRangeTextFlagCheckBox, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.priceMeasurementGraphicsItemShowScaledValueRangeTextFlagResetButton, 
+            r, 2, ar)
 
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.priceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.priceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagCheckBox, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.priceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagResetButton, 
+            r, 2, ar)
+
+        r += 1
+        
         self.priceMeasurementGraphicsItemGroupBox.setLayout(gridLayout)
         
         return self.priceMeasurementGraphicsItemGroupBox
@@ -13431,6 +13482,26 @@ class PriceBarChartSettingsEditWidget(QWidget):
                 priceMeasurementGraphicsItemShowSqrtPriceRangeTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
 
+        # priceMeasurementGraphicsItemShowScaledValueRangeTextFlag (bool).
+        if self.priceBarChartSettings.\
+           priceMeasurementGraphicsItemShowScaledValueRangeTextFlag == True:
+            
+            self.priceMeasurementGraphicsItemShowScaledValueRangeTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.priceMeasurementGraphicsItemShowScaledValueRangeTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # priceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag (bool).
+        if self.priceBarChartSettings.\
+           priceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag == True:
+            
+            self.priceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.priceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
         # timeRetracementGraphicsItemBarHeight (float).
         self.timeRetracementGraphicsItemBarHeightSpinBox.\
             setValue(self.priceBarChartSettings.\
@@ -13988,6 +14059,26 @@ class PriceBarChartSettingsEditWidget(QWidget):
         else:
             self.priceBarChartSettings.\
                 priceMeasurementGraphicsItemShowSqrtPriceRangeTextFlag = False
+
+        # priceMeasurementGraphicsItemShowScaledValueRangeTextFlag (bool).
+        if self.priceMeasurementGraphicsItemShowScaledValueRangeTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                priceMeasurementGraphicsItemShowScaledValueRangeTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                priceMeasurementGraphicsItemShowScaledValueRangeTextFlag = False
+
+        # priceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag (bool).
+        if self.priceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                priceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                priceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag = False
 
         # timeRetracementGraphicsItemBarHeight (float).
         self.priceBarChartSettings.timeRetracementGraphicsItemBarHeight = \
@@ -14893,6 +14984,40 @@ class PriceBarChartSettingsEditWidget(QWidget):
                 priceMeasurementGraphicsItemShowSqrtPriceRangeTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
             
+    def _handlePriceMeasurementGraphicsItemShowScaledValueRangeTextFlagResetButton(self):
+        """Called when the
+        priceMeasurementGraphicsItemShowScaledValueRangeTextFlagResetButton
+        is clicked.  Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultPriceMeasurementGraphicsItemShowScaledValueRangeTextFlag
+
+        if value == True:
+            self.priceMeasurementGraphicsItemShowScaledValueRangeTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.priceMeasurementGraphicsItemShowScaledValueRangeTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+            
+    def _handlePriceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagResetButton(self):
+        """Called when the
+        priceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagResetButton
+        is clicked.  Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultPriceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag
+
+        if value == True:
+            self.priceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.priceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+            
     def _handleTimeRetracementGraphicsItemBarHeightResetButtonClicked(self):
         """Called when the timeRetracementGraphicsItemBarHeightResetButton
         is clicked.  Resets the widget value to the default value.
@@ -15316,6 +15441,8 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._handlePriceMeasurementGraphicsItemDefaultColorResetButtonClicked()
         self._handlePriceMeasurementGraphicsItemShowPriceRangeTextFlagResetButton()
         self._handlePriceMeasurementGraphicsItemShowSqrtPriceRangeTextFlagResetButton()
+        self._handlePriceMeasurementGraphicsItemShowScaledValueRangeTextFlagResetButton()
+        self._handlePriceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagResetButton()
         
         self._handleTimeRetracementGraphicsItemBarHeightResetButtonClicked()
         self._handleTimeRetracementGraphicsItemTextXScalingResetButtonClicked()
