@@ -3512,6 +3512,14 @@ class PriceBarChartPriceTimeInfoArtifactEditWidget(QWidget):
             QCheckBox("Show time elapsed since birth")
         self.showSqrtTimeElapsedSinceBirthCheckBox = \
             QCheckBox("Show square root of time elapsed since birth")
+        self.showPriceScaledValueCheckBox = \
+            QCheckBox("Show price scaled value")
+        self.showSqrtPriceScaledValueCheckBox = \
+            QCheckBox("Show sqrt price scaled value")
+        self.showTimeScaledValueCheckBox = \
+            QCheckBox("Show time scaled value")
+        self.showSqrtTimeScaledValueCheckBox = \
+            QCheckBox("Show sqrt time scaled value")
         self.showLineToInfoPointCheckBox = \
             QCheckBox("Show line from text to the InfoPoint")
 
@@ -3582,6 +3590,18 @@ class PriceBarChartPriceTimeInfoArtifactEditWidget(QWidget):
         r += 1
         self.gridLayout.addWidget(\
             self.showSqrtTimeElapsedSinceBirthCheckBox, r, 0, al)
+        r += 1
+        self.gridLayout.addWidget(\
+            self.showPriceScaledValueCheckBox, r, 0, al)
+        r += 1
+        self.gridLayout.addWidget(\
+            self.showSqrtPriceScaledValueCheckBox, r, 0, al)
+        r += 1
+        self.gridLayout.addWidget(\
+            self.showTimeScaledValueCheckBox, r, 0, al)
+        r += 1
+        self.gridLayout.addWidget(\
+            self.showSqrtTimeScaledValueCheckBox, r, 0, al)
         r += 1
         self.gridLayout.addWidget(\
             self.showLineToInfoPointCheckBox, r, 0, al)
@@ -3695,6 +3715,14 @@ class PriceBarChartPriceTimeInfoArtifactEditWidget(QWidget):
         self.showTimeElapsedSinceBirthCheckBox.setEnabled(not self.readOnlyFlag)
         self.showSqrtTimeElapsedSinceBirthCheckBox.\
             setEnabled(not self.readOnlyFlag)
+        self.showPriceScaledValueCheckBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.showSqrtPriceScaledValueCheckBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.showTimeScaledValueCheckBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.showSqrtTimeScaledValueCheckBox.\
+            setEnabled(not self.readOnlyFlag)
         self.showLineToInfoPointCheckBox.\
             setEnabled(not self.readOnlyFlag)
         self.fontEditButton.setEnabled(not self.readOnlyFlag)
@@ -3795,6 +3823,34 @@ class PriceBarChartPriceTimeInfoArtifactEditWidget(QWidget):
             self.showSqrtTimeElapsedSinceBirthCheckBox.\
                 setCheckState(Qt.Unchecked)
 
+        if self.artifact.getShowPriceScaledValueFlag():
+            self.showPriceScaledValueCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.showPriceScaledValueCheckBox.\
+                setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getShowSqrtPriceScaledValueFlag():
+            self.showSqrtPriceScaledValueCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.showSqrtPriceScaledValueCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        if self.artifact.getShowTimeScaledValueFlag():
+            self.showTimeScaledValueCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.showTimeScaledValueCheckBox.\
+                setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getShowSqrtTimeScaledValueFlag():
+            self.showSqrtTimeScaledValueCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.showSqrtTimeScaledValueCheckBox.\
+                setCheckState(Qt.Unchecked)
+
         if self.artifact.getShowLineToInfoPointFlag():
             self.showLineToInfoPointCheckBox.\
                 setCheckState(Qt.Checked)
@@ -3878,10 +3934,32 @@ class PriceBarChartPriceTimeInfoArtifactEditWidget(QWidget):
         else:
             showSqrtTimeElapsedSinceBirthFlag = False
 
+        showPriceScaledValueFlag = None
+        if self.showPriceScaledValueCheckBox.checkState() == Qt.Checked:
+            showPriceScaledValueFlag = True
+        else:
+            showPriceScaledValueFlag = False
+
+        showSqrtPriceScaledValueFlag = None
+        if self.showSqrtPriceScaledValueCheckBox.checkState() == Qt.Checked:
+            showSqrtPriceScaledValueFlag = True
+        else:
+            showSqrtPriceScaledValueFlag = False
+
+        showTimeScaledValueFlag = None
+        if self.showTimeScaledValueCheckBox.checkState() == Qt.Checked:
+            showTimeScaledValueFlag = True
+        else:
+            showTimeScaledValueFlag = False
+
+        showSqrtTimeScaledValueFlag = None
+        if self.showSqrtTimeScaledValueCheckBox.checkState() == Qt.Checked:
+            showSqrtTimeScaledValueFlag = True
+        else:
+            showSqrtTimeScaledValueFlag = False
+
         showLineToInfoPointFlag = None
-        if self.showLineToInfoPointCheckBox.checkState() == \
-               Qt.Checked:
-            
+        if self.showLineToInfoPointCheckBox.checkState() == Qt.Checked:
             showLineToInfoPointFlag = True
         else:
             showLineToInfoPointFlag = False
@@ -3904,6 +3982,14 @@ class PriceBarChartPriceTimeInfoArtifactEditWidget(QWidget):
             showTimeElapsedSinceBirthFlag)
         self.artifact.setShowSqrtTimeElapsedSinceBirthFlag(\
             showSqrtTimeElapsedSinceBirthFlag)
+        self.artifact.setShowPriceScaledValueFlag(\
+            showPriceScaledValueFlag)
+        self.artifact.setShowSqrtPriceScaledValueFlag(\
+            showSqrtPriceScaledValueFlag)
+        self.artifact.setShowTimeScaledValueFlag(\
+            showTimeScaledValueFlag)
+        self.artifact.setShowSqrtTimeScaledValueFlag(\
+            showSqrtTimeScaledValueFlag)
         self.artifact.setShowLineToInfoPointFlag(\
             showLineToInfoPointFlag)
         self.artifact.setFont(font)

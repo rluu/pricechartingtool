@@ -12096,7 +12096,39 @@ class PriceBarChartSettingsEditWidget(QWidget):
             QCheckBox()
         self.priceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlagCheckBox.\
             setCheckState(Qt.Unchecked)
-    
+
+        # priceTimeInfoGraphicsItemShowPriceScaledValueFlag (bool).
+        self.priceTimeInfoGraphicsItemShowPriceScaledValueFlagLabel = \
+            QLabel("PriceTimeInfoGraphicsItem show price scaled value:")
+        self.priceTimeInfoGraphicsItemShowPriceScaledValueFlagCheckBox = \
+            QCheckBox()
+        self.priceTimeInfoGraphicsItemShowPriceScaledValueFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        
+        # priceTimeInfoGraphicsItemShowSqrtPriceScaledValueFlag (bool).
+        self.priceTimeInfoGraphicsItemShowSqrtPriceScaledValueFlagLabel = \
+            QLabel("PriceTimeInfoGraphicsItem show sqrt price scaled value:")
+        self.priceTimeInfoGraphicsItemShowSqrtPriceScaledValueFlagCheckBox = \
+            QCheckBox()
+        self.priceTimeInfoGraphicsItemShowSqrtPriceScaledValueFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        
+        # priceTimeInfoGraphicsItemShowTimeScaledValueFlag (bool).
+        self.priceTimeInfoGraphicsItemShowTimeScaledValueFlagLabel = \
+            QLabel("PriceTimeInfoGraphicsItem show time scaled value:")
+        self.priceTimeInfoGraphicsItemShowTimeScaledValueFlagCheckBox = \
+            QCheckBox()
+        self.priceTimeInfoGraphicsItemShowTimeScaledValueFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        
+        # priceTimeInfoGraphicsItemShowSqrtTimeScaledValueFlag (bool).
+        self.priceTimeInfoGraphicsItemShowSqrtTimeScaledValueFlagLabel = \
+            QLabel("PriceTimeInfoGraphicsItem show sqrt time scaled value:")
+        self.priceTimeInfoGraphicsItemShowSqrtTimeScaledValueFlagCheckBox = \
+            QCheckBox()
+        self.priceTimeInfoGraphicsItemShowSqrtTimeScaledValueFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        
         # priceTimeInfoGraphicsItemShowLineToInfoPointFlag (bool).
         self.priceTimeInfoGraphicsItemShowLineToInfoPointFlagLabel = \
             QLabel("PriceTimeInfoGraphicsItem show line to InfoPoint:")
@@ -12198,6 +12230,46 @@ class PriceBarChartSettingsEditWidget(QWidget):
         gridLayout.\
             addWidget(\
             self.priceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlagCheckBox, 
+            r, 1, ar)
+        
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.priceTimeInfoGraphicsItemShowPriceScaledValueFlagLabel,
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.priceTimeInfoGraphicsItemShowPriceScaledValueFlagCheckBox, 
+            r, 1, ar)
+        
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.priceTimeInfoGraphicsItemShowSqrtPriceScaledValueFlagLabel,
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.priceTimeInfoGraphicsItemShowSqrtPriceScaledValueFlagCheckBox,
+            r, 1, ar)
+        
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.priceTimeInfoGraphicsItemShowTimeScaledValueFlagLabel,
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.priceTimeInfoGraphicsItemShowTimeScaledValueFlagCheckBox,
+            r, 1, ar)
+        
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.priceTimeInfoGraphicsItemShowSqrtTimeScaledValueFlagLabel,
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.priceTimeInfoGraphicsItemShowSqrtTimeScaledValueFlagCheckBox,
             r, 1, ar)
         
         r += 1
@@ -13571,6 +13643,54 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.\
             priceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlagCheckBox.\
             setCheckState(Qt.Unchecked)
+
+        # priceTimeInfoGraphicsItemShowPriceScaledValueFlag (bool).
+        if self.priceBarChartSettings.\
+           priceTimeInfoGraphicsItemShowPriceScaledValueFlag == True:
+            
+            self.\
+            priceTimeInfoGraphicsItemShowPriceScaledValueFlagCheckBox.\
+            setCheckState(Qt.Checked)
+        else:
+            self.\
+            priceTimeInfoGraphicsItemShowPriceScaledValueFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # priceTimeInfoGraphicsItemShowSqrtPriceScaledValueFlag (bool).
+        if self.priceBarChartSettings.\
+           priceTimeInfoGraphicsItemShowSqrtPriceScaledValueFlag == True:
+            
+            self.\
+            priceTimeInfoGraphicsItemShowSqrtPriceScaledValueFlagCheckBox.\
+            setCheckState(Qt.Checked)
+        else:
+            self.\
+            priceTimeInfoGraphicsItemShowSqrtPriceScaledValueFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # priceTimeInfoGraphicsItemShowTimeScaledValueFlag (bool).
+        if self.priceBarChartSettings.\
+           priceTimeInfoGraphicsItemShowTimeScaledValueFlag == True:
+            
+            self.\
+            priceTimeInfoGraphicsItemShowTimeScaledValueFlagCheckBox.\
+            setCheckState(Qt.Checked)
+        else:
+            self.\
+            priceTimeInfoGraphicsItemShowTimeScaledValueFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # priceTimeInfoGraphicsItemShowSqrtTimeScaledValueFlag (bool).
+        if self.priceBarChartSettings.\
+           priceTimeInfoGraphicsItemShowSqrtTimeScaledValueFlag == True:
+            
+            self.\
+            priceTimeInfoGraphicsItemShowSqrtTimeScaledValueFlagCheckBox.\
+            setCheckState(Qt.Checked)
+        else:
+            self.\
+            priceTimeInfoGraphicsItemShowSqrtTimeScaledValueFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
     
         # priceTimeInfoGraphicsItemShowLineToInfoPointFlag (bool).
         if self.priceBarChartSettings.\
@@ -14190,6 +14310,42 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceBarChartSettings.\
                 priceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlag = \
                 False
+
+        # priceTimeInfoGraphicsItemShowPriceScaledValueFlag (bool).
+        if self.priceTimeInfoGraphicsItemShowPriceScaledValueFlagCheckBox.checkState() == Qt.Checked:
+            
+            self.priceBarChartSettings.\
+                priceTimeInfoGraphicsItemShowPriceScaledValueFlag = True
+        else:
+            self.priceBarChartSettings.\
+                priceTimeInfoGraphicsItemShowPriceScaledValueFlag = False
+
+        # priceTimeInfoGraphicsItemShowSqrtPriceScaledValueFlag (bool).
+        if self.priceTimeInfoGraphicsItemShowSqrtPriceScaledValueFlagCheckBox.checkState() == Qt.Checked:
+            
+            self.priceBarChartSettings.\
+                priceTimeInfoGraphicsItemShowSqrtPriceScaledValueFlag = True
+        else:
+            self.priceBarChartSettings.\
+                priceTimeInfoGraphicsItemShowSqrtPriceScaledValueFlag = False
+
+        # priceTimeInfoGraphicsItemShowTimeScaledValueFlag (bool).
+        if self.priceTimeInfoGraphicsItemShowTimeScaledValueFlagCheckBox.checkState() == Qt.Checked:
+            
+            self.priceBarChartSettings.\
+                priceTimeInfoGraphicsItemShowTimeScaledValueFlag = True
+        else:
+            self.priceBarChartSettings.\
+                priceTimeInfoGraphicsItemShowTimeScaledValueFlag = False
+
+        # priceTimeInfoGraphicsItemShowSqrtTimeScaledValueFlag (bool).
+        if self.priceTimeInfoGraphicsItemShowSqrtTimeScaledValueFlagCheckBox.checkState() == Qt.Checked:
+            
+            self.priceBarChartSettings.\
+                priceTimeInfoGraphicsItemShowSqrtTimeScaledValueFlag = True
+        else:
+            self.priceBarChartSettings.\
+                priceTimeInfoGraphicsItemShowSqrtTimeScaledValueFlag = False
 
         # priceTimeInfoGraphicsItemShowLineToInfoPointFlag (bool).
         if self.priceTimeInfoGraphicsItemShowLineToInfoPointFlagCheckBox.\

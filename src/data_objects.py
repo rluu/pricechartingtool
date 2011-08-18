@@ -2541,6 +2541,22 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
             PriceBarChartSettings.\
             defaultPriceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlag
 
+        self.showPriceScaledValueFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeInfoGraphicsItemShowPriceScaledValueFlag
+        
+        self.showSqrtPriceScaledValueFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeInfoGraphicsItemShowSqrtPriceScaledValueFlag
+        
+        self.showTimeScaledValueFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeInfoGraphicsItemShowTimeScaledValueFlag
+        
+        self.showSqrtTimeScaledValueFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeInfoGraphicsItemShowSqrtTimeScaledValueFlag
+        
         # Flag to show the line from the text to the info point.
         self.showLineToInfoPointFlag = \
             PriceBarChartSettings.\
@@ -2700,7 +2716,27 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
         """
 
         return self.showSqrtTimeElapsedSinceBirthFlag
-    
+
+    def setShowPriceScaledValueFlag(self, showPriceScaledValueFlag):
+        """Sets the flag for showing the price scaled value in the text."""
+
+        self.showPriceScaledValueFlag = showPriceScaledValueFlag
+        
+    def getShowPriceScaledValueFlag(self):
+        """Gets the flag for showing the price scaled value in the text."""
+
+        return self.showPriceScaledValueFlag
+        
+    def setShowTimeScaledValueFlag(self, showTimeScaledValueFlag):
+        """Sets the flag for showing the time scaled value in the text."""
+
+        self.showTimeScaledValueFlag = showTimeScaledValueFlag
+        
+    def getShowTimeScaledValueFlag(self):
+        """Gets the flag for showing the time scaled value in the text."""
+
+        return self.showTimeScaledValueFlag
+        
     def setShowLineToInfoPointFlag(self, showLineToInfoPointFlag):
         """Sets the flag for showing the line from the text to the info point.
         """
@@ -4453,6 +4489,22 @@ class PriceBarChartSettings:
     defaultPriceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlag = True
 
     # Default value for the PriceTimeInfoGraphicsItem
+    # showPriceScaledValueFlag (bool).
+    defaultPriceTimeInfoGraphicsItemShowPriceScaledValueFlag = True
+
+    # Default value for the PriceTimeInfoGraphicsItem
+    # showSqrtPriceScaledValueFlag (bool).
+    defaultPriceTimeInfoGraphicsItemShowSqrtPriceScaledValueFlag = True
+        
+    # Default value for the PriceTimeInfoGraphicsItem
+    # showTimeScaledValueFlag (bool).
+    defaultPriceTimeInfoGraphicsItemShowTimeScaledValueFlag = True
+
+    # Default value for the PriceTimeInfoGraphicsItem
+    # showSqrtTimeScaledValueFlag (bool).
+    defaultPriceTimeInfoGraphicsItemShowSqrtTimeScaledValueFlag = True
+        
+    # Default value for the PriceTimeInfoGraphicsItem
     # showLineToInfoPointFlag (bool).
     defaultPriceTimeInfoGraphicsItemShowLineToInfoPointFlag = True
 
@@ -4870,6 +4922,26 @@ class PriceBarChartSettings:
             PriceBarChartSettings.\
             defaultPriceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlag
 
+        # PriceTimeInfoGraphicsItem showPriceScaledValueFlag (bool).
+        self.priceTimeInfoGraphicsItemShowPriceScaledValueFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeInfoGraphicsItemShowPriceScaledValueFlag
+
+        # PriceTimeInfoGraphicsItem showSqrtPriceScaledValueFlag (bool).
+        self.priceTimeInfoGraphicsItemShowSqrtPriceScaledValueFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeInfoGraphicsItemShowSqrtPriceScaledValueFlag
+        
+        # PriceTimeInfoGraphicsItem showTimeScaledValueFlag (bool).
+        self.priceTimeInfoGraphicsItemShowTimeScaledValueFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeInfoGraphicsItemShowTimeScaledValueFlag
+
+        # PriceTimeInfoGraphicsItem showSqrtTimeScaledValueFlag (bool).
+        self.priceTimeInfoGraphicsItemShowSqrtTimeScaledValueFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeInfoGraphicsItemShowSqrtTimeScaledValueFlag
+        
         # PriceTimeInfoGraphicsItem showLineToInfoPointFlag (bool).
         self.priceTimeInfoGraphicsItemShowLineToInfoPointFlag = \
             PriceBarChartSettings.\

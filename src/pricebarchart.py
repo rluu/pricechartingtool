@@ -6219,10 +6219,13 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
         if self.artifact.getShowTimestampFlag():
             text += "t={}".format(Ephemeris.datetimeToDayStr(dt)) + \
                     os.linesep
+            
         if self.artifact.getShowPriceFlag():
             text += "p={}".format(price) + os.linesep
+            
         if self.artifact.getShowSqrtPriceFlag():
             text += "sqrt(p)={}".format(math.sqrt(price)) + os.linesep
+            
         if self.artifact.getShowTimeElapsedSinceBirthFlag():
             if self.birthInfo != None:
                 # Get the birth timestamp and convert to X coordinate.
@@ -6232,7 +6235,8 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 # Find the difference between the info points and birthX
                 xDiff = infoPointF.x() - birthX
 
-                text += "elapsed_t=={}".format(xDiff) + os.linesep
+                text += "t_elapsed={}".format(xDiff) + os.linesep
+                
         if self.artifact.getShowSqrtTimeElapsedSinceBirthFlag():
             if self.birthInfo != None:
                 # Get the birth timestamp and convert to X coordinate.
@@ -6242,8 +6246,26 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 # Find the difference between the info points and birthX
                 xDiff = infoPointF.x() - birthX
 
-                text += "sqrt(elapsed_t)=={}".format(math.sqrt(xDiff)) + \
+                text += "sqrt(t_elapsed)={}".format(math.sqrt(xDiff)) + \
                         os.linesep
+        
+        if self.artifact.getShowPriceScaledValueFlag():
+            scaledValue = self.convertObj.convertPriceToScaledValue(price)
+            text += "p_u={}".format(scaledValue) + os.linesep
+            
+        if self.artifact.getShowSqrtPriceScaledValueFlag():
+            scaledValue = self.convertObj.convertPriceToScaledValue(price)
+            sqrtScaledValue = math.sqrt(abs(scaledValue))
+            text += "sqrt(p_u)={}".format(sqrtScaledValue) + os.linesep
+            
+        if self.artifact.getShowTimeScaledValueFlag():
+            scaledValue = self.convertObj.convertDatetimeToScaledValue(dt)
+            text += "t_u={}".format(scaledValue) + os.linesep
+            
+        if self.artifact.getShowSqrtTimeScaledValueFlag():
+            scaledValue = self.convertObj.convertDatetimeToScaledValue(dt)
+            sqrtScaledValue = math.sqrt(abs(scaledValue))
+            text += "sqrt(t_u)={}".format(sqrtScaledValue) + os.linesep
 
         text = text.rstrip()
         self.textItem.setText(text)
@@ -6315,6 +6337,26 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.artifact.setShowSqrtTimeElapsedSinceBirthFlag(\
             priceBarChartSettings.\
             priceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlag)
+
+        # showPriceScaledValueFlag (bool).
+        self.artifact.setShowPriceScaledValueFlag(\
+            priceBarChartSettings.\
+            priceTimeInfoGraphicsItemShowPriceScaledValueFlag)
+        
+        # showSqrtPriceScaledValueFlag (bool).
+        self.artifact.setShowSqrtPriceScaledValueFlag(\
+            priceBarChartSettings.\
+            priceTimeInfoGraphicsItemShowSqrtPriceScaledValueFlag)
+        
+        # showTimeScaledValueFlag (bool).
+        self.artifact.setShowTimeScaledValueFlag(\
+            priceBarChartSettings.\
+            priceTimeInfoGraphicsItemShowTimeScaledValueFlag)
+        
+        # showSqrtTimeScaledValueFlag (bool).
+        self.artifact.setShowSqrtTimeScaledValueFlag(\
+            priceBarChartSettings.\
+            priceTimeInfoGraphicsItemShowSqrtTimeScaledValueFlag)
         
         # showLineToInfoPointFlag (bool).
         self.artifact.setShowLineToInfoPointFlag(\
