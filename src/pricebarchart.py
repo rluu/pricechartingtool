@@ -1958,6 +1958,26 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtMonthsTextFlag
 
+        # TimeMeasurementGraphicsItem showTimeRangeTextFlag (bool).
+        self.showTimeRangeTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowTimeRangeTextFlag
+    
+        # TimeMeasurementGraphicsItem showSqrtTimeRangeTextFlag (bool).
+        self.showSqrtTimeRangeTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtTimeRangeTextFlag
+    
+        # TimeMeasurementGraphicsItem showScaledValueRangeTextFlag (bool).
+        self.showScaledValueRangeTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowScaledValueRangeTextFlag
+    
+        # TimeMeasurementGraphicsItem showSqrtScaledValueRangeTextFlag (bool).
+        self.showSqrtScaledValueRangeTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag
+    
         ############################################################
 
         # Internal storage object, used for loading/saving (serialization).
@@ -1992,6 +2012,11 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.numSqrtWeeks = 0
         self.numSqrtMonths = 0
         
+        self.timeRange = 0.0
+        self.sqrtTimeRange = 0.0
+        self.scaledValueRange = 0.0
+        self.sqrtScaledValueRange = 0.0
+        
         # Internal QGraphicsItem that holds the text of the bar count.
         # Initialize to blank and set at the end point.
         self.timeMeasurementBarsText = QGraphicsSimpleTextItem("", self)
@@ -2005,6 +2030,15 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.timeMeasurementSqrtDaysText = QGraphicsSimpleTextItem("", self)
         self.timeMeasurementSqrtWeeksText = QGraphicsSimpleTextItem("", self)
         self.timeMeasurementSqrtMonthsText = QGraphicsSimpleTextItem("", self)
+
+        self.timeMeasurementTimeRangeText = \
+            QGraphicsSimpleTextItem("", self)
+        self.timeMeasurementSqrtTimeRangeText = \
+            QGraphicsSimpleTextItem("", self)
+        self.timeMeasurementScaledValueRangeText = \
+            QGraphicsSimpleTextItem("", self)
+        self.timeMeasurementSqrtScaledValueRangeText = \
+            QGraphicsSimpleTextItem("", self)
 
         # List of text items as created above.  This is so we can more
         # quickly and easily apply new settings.  It also helps for
@@ -2022,6 +2056,11 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.textItems.append(self.timeMeasurementSqrtWeeksText)
         self.textItems.append(self.timeMeasurementSqrtMonthsText)
 
+        self.textItems.append(self.timeMeasurementTimeRangeText)
+        self.textItems.append(self.timeMeasurementSqrtTimeRangeText)
+        self.textItems.append(self.timeMeasurementScaledValueRangeText)
+        self.textItems.append(self.timeMeasurementSqrtScaledValueRangeText)
+        
         for textItem in self.textItems:
             textItem.setPos(self.endPointF)
         
@@ -2155,6 +2194,26 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             priceBarChartSettings.\
             timeMeasurementGraphicsItemShowSqrtMonthsTextFlag
 
+        # TimeMeasurementGraphicsItem showTimeRangeTextFlag (bool).
+        self.showTimeRangeTextFlag = \
+            priceBarChartSettings.\
+            timeMeasurementGraphicsItemShowTimeRangeTextFlag
+    
+        # TimeMeasurementGraphicsItem showSqrtTimeRangeTextFlag (bool).
+        self.showSqrtTimeRangeTextFlag = \
+            priceBarChartSettings.\
+            timeMeasurementGraphicsItemShowSqrtTimeRangeTextFlag
+    
+        # TimeMeasurementGraphicsItem showScaledValueRangeTextFlag (bool).
+        self.showScaledValueRangeTextFlag = \
+            priceBarChartSettings.\
+            timeMeasurementGraphicsItemShowScaledValueRangeTextFlag
+    
+        # TimeMeasurementGraphicsItem showSqrtScaledValueRangeTextFlag (bool).
+        self.showSqrtScaledValueRangeTextFlag = \
+            priceBarChartSettings.\
+            timeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag
+    
         ####################################################################
 
         # Set specific items enabled or disabled, visible or not,
@@ -2172,6 +2231,15 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.timeMeasurementSqrtDaysText.setEnabled(self.showSqrtDaysTextFlag)
         self.timeMeasurementSqrtWeeksText.setEnabled(self.showSqrtWeeksTextFlag)
         self.timeMeasurementSqrtMonthsText.setEnabled(self.showSqrtMonthsTextFlag)
+
+        self.timeMeasurementTimeRangeText.\
+            setEnabled(self.showTimeRangeTextFlag)
+        self.timeMeasurementSqrtTimeRangeText.\
+            setEnabled(self.showSqrtTimeRangeTextFlag)
+        self.timeMeasurementScaledValueRangeText.\
+            setEnabled(self.showScaledValueRangeTextFlag)
+        self.timeMeasurementSqrtScaledValueRangeText.\
+            setEnabled(self.showSqrtScaledValueRangeTextFlag)
         
         # Set the text items as visible or invisible.
         self.timeMeasurementBarsText.setVisible(self.showBarsTextFlag)
@@ -2185,6 +2253,15 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.timeMeasurementSqrtDaysText.setVisible(self.showSqrtDaysTextFlag)
         self.timeMeasurementSqrtWeeksText.setVisible(self.showSqrtWeeksTextFlag)
         self.timeMeasurementSqrtMonthsText.setVisible(self.showSqrtMonthsTextFlag)
+
+        self.timeMeasurementTimeRangeText.\
+            setVisible(self.showTimeRangeTextFlag)
+        self.timeMeasurementSqrtTimeRangeText.\
+            setVisible(self.showSqrtTimeRangeTextFlag)
+        self.timeMeasurementScaledValueRangeText.\
+            setVisible(self.showScaledValueRangeTextFlag)
+        self.timeMeasurementSqrtScaledValueRangeText.\
+            setVisible(self.showSqrtScaledValueRangeTextFlag)
         
         # Update all the text items with the new settings.
         for textItem in self.textItems:
@@ -2554,6 +2631,11 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.numSqrtWeeks
             self.numSqrtMonths
 
+            self.timeRange
+            self.sqrtTimeRange
+            self.scaledValueRange
+            self.sqrtScaledValueRange
+            
         to hold the amount of time between the start and end points.
         """
 
@@ -2571,6 +2653,11 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.numSqrtDays = 0.0
         self.numSqrtWeeks = 0.0
         self.numSqrtMonths = 0.0
+        
+        self.timeRange = 0.0
+        self.sqrtTimeRange = 0.0
+        self.scaledValueRange = 0.0
+        self.sqrtScaledValueRange = 0.0
         
         if scene != None:
             # Get all the QGraphicsItems.
@@ -2623,23 +2710,41 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             daysInMonth = 365.242199 / 12.0
             self.numMonths = self.numDays / daysInMonth
 
+            # Calculate the time range.  (In what units?)
+            self.timeRange = abs(self.endPointF.x() - self.startPointF.x())
+
+            # Calculate the scaled value range.
+            self.scaledValueRange = \
+                abs(scene.convertDatetimeToScaledValue(endTimestamp) -
+                    scene.convertDatetimeToScaledValue(startTimestamp))
+            
             self.log.debug("self.numPriceBars={}".format(self.numPriceBars))
             self.log.debug("self.numHours={}".format(self.numHours))
             self.log.debug("self.numDays={}".format(self.numDays))
             self.log.debug("self.numWeeks={}".format(self.numWeeks))
             self.log.debug("self.numMonths={}".format(self.numMonths))
+            self.log.debug("self.timeRange={}".format(self.timeRange))
+            self.log.debug("self.scaledValueRange={}".
+                           format(self.scaledValueRange))
             
             self.numSqrtPriceBars = math.sqrt(abs(self.numPriceBars))
             self.numSqrtHours = math.sqrt(abs(self.numHours))
             self.numSqrtDays = math.sqrt(abs(self.numDays))
             self.numSqrtWeeks = math.sqrt(abs(self.numWeeks))
             self.numSqrtMonths = math.sqrt(abs(self.numMonths))
-
-            self.log.debug("self.numSqrtPriceBars={}".format(self.numSqrtPriceBars))
+            self.sqrtTimeRange = math.sqrt(abs(self.timeRange))
+            self.sqrtScaledValueRange = math.sqrt(abs(self.scaledValueRange))
+            
+            self.log.debug("self.numSqrtPriceBars={}".\
+                           format(self.numSqrtPriceBars))
             self.log.debug("self.numSqrtHours={}".format(self.numSqrtHours))
             self.log.debug("self.numSqrtDays={}".format(self.numSqrtDays))
             self.log.debug("self.numSqrtWeeks={}".format(self.numSqrtWeeks))
             self.log.debug("self.numSqrtMonths={}".format(self.numSqrtMonths))
+            self.log.debug("self.sqrtTimeRange={}".format(self.sqrtTimeRange))
+            self.log.debug("self.sqrtScaledValueRange={}".\
+                           format(self.sqrtScaledValueRange))
+
             
         # Update the text of the internal items.
         barsText = "{} B".format(self.numPriceBars)
@@ -2654,6 +2759,11 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         sqrtWeeksText = "{:.2f} sqrt W".format(self.numSqrtWeeks)
         sqrtMonthsText = "{:.2f} sqrt M".format(self.numSqrtMonths)
         
+        timeRangeText = "{:.4f}".format(self.timeRange)
+        sqrtTimeRangeText = "{:.4f}".format(self.sqrtTimeRange)
+        scaledValueRangeText = "{:.4f}".format(self.scaledValueRange)
+        sqrtScaledValueRangeText = "{:.4f}".format(self.sqrtScaledValueRange)
+        
         self.timeMeasurementBarsText.setText(barsText)
         self.timeMeasurementHoursText.setText(hoursText)
         self.timeMeasurementDaysText.setText(daysText)
@@ -2665,6 +2775,12 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.timeMeasurementSqrtDaysText.setText(sqrtDaysText)
         self.timeMeasurementSqrtWeeksText.setText(sqrtWeeksText)
         self.timeMeasurementSqrtMonthsText.setText(sqrtMonthsText)
+
+        self.timeMeasurementTimeRangeText.setText(timeRangeText)
+        self.timeMeasurementSqrtTimeRangeText.setText(sqrtTimeRangeText)
+        self.timeMeasurementScaledValueRangeText.setText(scaledValueRangeText)
+        self.timeMeasurementSqrtScaledValueRangeText.\
+            setText(sqrtScaledValueRangeText)
         
     def setArtifact(self, artifact):
         """Loads a given PriceBarChartTimeMeasurementArtifact object's data
@@ -2707,6 +2823,15 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.showSqrtWeeksTextFlag = self.artifact.getShowSqrtWeeksTextFlag()
         self.showSqrtMonthsTextFlag = self.artifact.getShowSqrtMonthsTextFlag()
 
+        self.showTimeRangeTextFlag = \
+            self.artifact.getShowTimeRangeTextFlag()
+        self.showSqrtTimeRangeTextFlag = \
+            self.artifact.getShowSqrtTimeRangeTextFlag()
+        self.showScaledValueRangeTextFlag = \
+            self.artifact.getShowScaledValueRangeTextFlag()
+        self.showSqrtScaledValueRangeTextFlag = \
+            self.artifact.getShowSqrtScaledValueRangeTextFlag()
+
         #############
 
         # Set the text items as enabled or disabled.
@@ -2721,6 +2846,15 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.timeMeasurementSqrtDaysText.setEnabled(self.showSqrtDaysTextFlag)
         self.timeMeasurementSqrtWeeksText.setEnabled(self.showSqrtWeeksTextFlag)
         self.timeMeasurementSqrtMonthsText.setEnabled(self.showSqrtMonthsTextFlag)
+
+        self.timeMeasurementTimeRangeText.\
+            setEnabled(self.showTimeRangeTextFlag)
+        self.timeMeasurementSqrtTimeRangeText.\
+            setEnabled(self.showSqrtTimeRangeTextFlag)
+        self.timeMeasurementScaledValueRangeText.\
+            setEnabled(self.showScaledValueRangeTextFlag)
+        self.timeMeasurementSqrtScaledValueRangeText.\
+            setEnabled(self.showSqrtScaledValueRangeTextFlag)
         
         # Set the text items as visible or invisible.
         self.timeMeasurementBarsText.setVisible(self.showBarsTextFlag)
@@ -2735,6 +2869,15 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.timeMeasurementSqrtWeeksText.setVisible(self.showSqrtWeeksTextFlag)
         self.timeMeasurementSqrtMonthsText.setVisible(self.showSqrtMonthsTextFlag)
         
+        self.timeMeasurementTimeRangeText.\
+            setVisible(self.showTimeRangeTextFlag)
+        self.timeMeasurementSqrtTimeRangeText.\
+            setVisible(self.showSqrtTimeRangeTextFlag)
+        self.timeMeasurementScaledValueRangeText.\
+            setVisible(self.showScaledValueRangeTextFlag)
+        self.timeMeasurementSqrtScaledValueRangeText.\
+            setVisible(self.showSqrtScaledValueRangeTextFlag)
+
         # Update all the text items with the new settings.
         for textItem in self.textItems:
             # Set the font of the text.
@@ -2802,6 +2945,15 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.artifact.setShowSqrtDaysTextFlag(self.showSqrtDaysTextFlag)
         self.artifact.setShowSqrtWeeksTextFlag(self.showSqrtWeeksTextFlag)
         self.artifact.setShowSqrtMonthsTextFlag(self.showSqrtMonthsTextFlag)
+
+        self.artifact.setShowTimeRangeTextFlag(\
+            self.showTimeRangeTextFlag)
+        self.artifact.setShowSqrtTimeRangeTextFlag(\
+            self.showSqrtTimeRangeTextFlag)
+        self.artifact.setShowScaledValueRangeTextFlag(\
+            self.showScaledValueRangeTextFlag)
+        self.artifact.setShowSqrtScaledValueRangeTextFlag(\
+            self.showSqrtScaledValueRangeTextFlag)
         
         self.log.debug("Exiting getArtifact()")
         

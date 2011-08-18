@@ -1251,7 +1251,22 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
                 PriceBarChartSettings.\
                 defaultTimeMeasurementGraphicsItemShowSqrtMonthsTextFlag
         
+        self.showTimeRangeTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowTimeRangeTextFlag
+        
+        self.showSqrtTimeRangeTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtTimeRangeTextFlag
 
+        self.showScaledValueRangeTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowScaledValueRangeTextFlag
+
+        self.showSqrtScaledValueRangeTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag
+        
     def setFont(self, font):
         """Sets the font of this artifact's text.
 
@@ -1477,6 +1492,62 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
 
         return self.showSqrtMonthsTextFlag
         
+    def setShowTimeRangeTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the time
+        range should be displayed.
+        """
+
+        self.showTimeRangeTextFlag = flag
+        
+    def getShowTimeRangeTextFlag(self):
+        """Returns the flag that indicates that the text for the
+        time range should be displayed.
+        """
+
+        return self.showTimeRangeTextFlag
+        
+    def setShowSqrtTimeRangeTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the sqrt of
+        the time range should be displayed.
+        """
+
+        self.showSqrtTimeRangeTextFlag = flag
+        
+    def getShowSqrtTimeRangeTextFlag(self):
+        """Returns the flag that indicates that the text for the sqrt
+        of the time range should be displayed.
+        """
+
+        return self.showSqrtTimeRangeTextFlag
+        
+    def setShowScaledValueRangeTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the scaled
+        value representing the time range should be displayed.
+        """
+
+        self.showScaledValueRangeTextFlag = flag
+        
+    def getShowScaledValueRangeTextFlag(self):
+        """Returns the flag that indicates that the text for the
+        scaled value representing the time range should be displayed.
+        """
+
+        return self.showScaledValueRangeTextFlag
+
+    def setShowSqrtScaledValueRangeTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the sqrt of scaled
+        value representing the time range should be displayed.
+        """
+
+        self.showSqrtScaledValueRangeTextFlag = flag
+        
+    def getShowSqrtScaledValueRangeTextFlag(self):
+        """Returns the flag that indicates that the text for the sqrt of
+        scaled value representing the time range should be displayed.
+        """
+
+        return self.showSqrtScaledValueRangeTextFlag
+
     def setStartPointF(self, startPointF):
         """Stores the starting point of the TimeMeasurementArtifact.
         Arguments:
@@ -4277,6 +4348,22 @@ class PriceBarChartSettings:
     # showSqrtMonthsTextFlag (bool).
     defaultTimeMeasurementGraphicsItemShowSqrtMonthsTextFlag = True
     
+    # Default value for the TimeMeasurementGraphicsItem
+    # showTimeRangeTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowTimeRangeTextFlag = True
+    
+    # Default value for the TimeMeasurementGraphicsItem
+    # showSqrtTimeRangeTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowSqrtTimeRangeTextFlag = True
+
+    # Default value for the TimeMeasurementGraphicsItem
+    # showScaledValueRangeTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowScaledValueRangeTextFlag = True
+    
+    # Default value for the TimeMeasurementGraphicsItem
+    # showSqrtScaledValueRangeTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag = True
+
     # Default color for the bar of a TimeModalScaleGraphicsItem (QColor).
     defaultTimeModalScaleGraphicsItemBarColor = QColor(Qt.black)
 
@@ -4655,6 +4742,26 @@ class PriceBarChartSettings:
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtMonthsTextFlag
 
+        # TimeMeasurementGraphicsItem showTimeRangeTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowTimeRangeTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowTimeRangeTextFlag
+    
+        # TimeMeasurementGraphicsItem showSqrtTimeRangeTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrtTimeRangeTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtTimeRangeTextFlag
+
+        # TimeMeasurementGraphicsItem showScaledValueRangeTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowScaledValueRangeTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowScaledValueRangeTextFlag
+    
+        # TimeMeasurementGraphicsItem showSqrtScaledValueRangeTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag
+    
         # TimeModalScaleGraphicsItem bar color (QColor).
         self.timeModalScaleGraphicsItemBarColor = \
             PriceBarChartSettings.\
