@@ -2727,15 +2727,45 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
 
         return self.showPriceScaledValueFlag
         
+    def setShowSqrtPriceScaledValueFlag(self, showSqrtPriceScaledValueFlag):
+        """Sets the flag for showing the sqrt of price scaled value in
+        the text.
+        """
+
+        self.showSqrtPriceScaledValueFlag = showSqrtPriceScaledValueFlag
+        
+    def getShowSqrtPriceScaledValueFlag(self):
+        """Gets the flag for showing the sqrt of price scaled value in
+        the text.
+        """
+
+        return self.showSqrtPriceScaledValueFlag
+        
     def setShowTimeScaledValueFlag(self, showTimeScaledValueFlag):
-        """Sets the flag for showing the time scaled value in the text."""
+        """Sets the flag for showing the time in scaled value units in
+        the text."""
 
         self.showTimeScaledValueFlag = showTimeScaledValueFlag
         
     def getShowTimeScaledValueFlag(self):
-        """Gets the flag for showing the time scaled value in the text."""
+        """Gets the flag for showing the time in scaled value units in
+        the text."""
 
         return self.showTimeScaledValueFlag
+        
+    def setShowSqrtTimeScaledValueFlag(self, showSqrtTimeScaledValueFlag):
+        """Sets the flag for showing the sqrt of time, in scaled value
+        units in the text.
+        """
+
+        self.showSqrtTimeScaledValueFlag = showSqrtTimeScaledValueFlag
+        
+    def getShowSqrtTimeScaledValueFlag(self):
+        """Gets the flag for showing the sqrt of time, in scaled value
+        units in the text.
+        """
+
+        return self.showSqrtTimeScaledValueFlag
         
     def setShowLineToInfoPointFlag(self, showLineToInfoPointFlag):
         """Sets the flag for showing the line from the text to the info point.

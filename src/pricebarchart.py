@@ -2759,10 +2759,14 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         sqrtWeeksText = "{:.2f} sqrt W".format(self.numSqrtWeeks)
         sqrtMonthsText = "{:.2f} sqrt M".format(self.numSqrtMonths)
         
-        timeRangeText = "{:.4f}".format(self.timeRange)
-        sqrtTimeRangeText = "{:.4f}".format(self.sqrtTimeRange)
-        scaledValueRangeText = "{:.4f}".format(self.scaledValueRange)
-        sqrtScaledValueRangeText = "{:.4f}".format(self.sqrtScaledValueRange)
+        timeRangeText = \
+            "{:.4f} t_range".format(self.timeRange)
+        sqrtTimeRangeText = \
+            "{:.4f} sqrt(t_range)".format(self.sqrtTimeRange)
+        scaledValueRangeText = \
+            "{:.4f} u_range".format(self.scaledValueRange)
+        sqrtScaledValueRangeText = \
+            "{:.4f} sqrt(u_range)".format(self.sqrtScaledValueRange)
         
         self.timeMeasurementBarsText.setText(barsText)
         self.timeMeasurementHoursText.setText(hoursText)
@@ -10514,56 +10518,51 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.distanceScaledValue = 0.0
         self.sqrtDistanceScaledValue = 0.0
         
-        # Internal text items.
-        self.distanceText = QGraphicsSimpleTextItem("", self)
-        self.sqrtDistanceText = QGraphicsSimpleTextItem("", self)
-        self.distanceScaledValueText = QGraphicsSimpleTextItem("", self)
-        self.sqrtDistanceScaledValueText = QGraphicsSimpleTextItem("", self)
+        # Internal text item.
+        self.textItem = QGraphicsSimpleTextItem("", self)
+        self.textItem.setPos(self.endPointF)
 
-        # Transform object applied to the text items.
+        # Transform object applied to the text item.
         self.textTransform = QTransform()
+
+        # Set the text item with the properties we want it to have.
+        self.reApplyTextItemAttributes(self.textItem)
         
-        # Holds all the above text items, so that settings may be
-        # applied more easily.  It also helps for painting things
-        # nicely.
-        self.textItems = []
-        self.textItems.append(self.distanceText)
-        self.textItems.append(self.sqrtDistanceText)
-        self.textItems.append(self.distanceScaledValueText)
-        self.textItems.append(self.sqrtDistanceScaledValueText)
-
-        for textItem in self.textItems:
-            textItem.setPos(self.endPointF)
-        
-            # Set the font of the text.
-            textItem.setFont(self.priceTimeVectorTextFont)
-        
-            # Set the pen color of the text.
-            self.priceTimeVectorTextPen = textItem.pen()
-            self.priceTimeVectorTextPen.\
-                setColor(self.priceTimeVectorGraphicsItemTextColor)
-            
-            textItem.setPen(self.priceTimeVectorTextPen)
-
-            # Set the brush color of the text.
-            self.priceTimeVectorTextBrush = textItem.brush()
-            self.priceTimeVectorTextBrush.\
-                setColor(self.priceTimeVectorGraphicsItemTextColor)
-            
-            textItem.setBrush(self.priceTimeVectorTextBrush)
-
-            # Apply some size scaling to the text.
-            self.textTransform = QTransform()
-            self.textTransform.scale(self.priceTimeVectorTextXScaling, \
-                                     self.priceTimeVectorTextYScaling)
-            textItem.setTransform(self.textTransform)
-
         # Flags that indicate that the user is dragging either the start
         # or end point of the QGraphicsItem.
         self.draggingStartPointFlag = False
         self.draggingEndPointFlag = False
         self.clickScenePointF = None
 
+    def reApplyTextItemAttributes(self, textItem):
+        """Takes the given text item and reapplies the pen, brush,
+        transform, etc. that should be set for the text item.
+        """
+        
+        # Set properties of the text item.
+        
+        # Set the font of the text.
+        textItem.setFont(self.priceTimeVectorTextFont)
+        
+        # Set the pen color of the text.
+        self.priceTimeVectorTextPen = textItem.pen()
+        self.priceTimeVectorTextPen.\
+            setColor(self.priceTimeVectorGraphicsItemTextColor)
+        textItem.setPen(self.priceTimeVectorTextPen)
+
+        # Set the brush color of the text.
+        self.priceTimeVectorTextBrush = textItem.brush()
+        self.priceTimeVectorTextBrush.\
+            setColor(self.priceTimeVectorGraphicsItemTextColor)
+        textItem.setBrush(self.priceTimeVectorTextBrush)
+
+        # Apply some size scaling to the text.
+        self.textTransform = QTransform()
+        self.textTransform.scale(self.priceTimeVectorTextXScaling, \
+                                 self.priceTimeVectorTextYScaling)
+        textItem.setTransform(self.textTransform)
+
+        
     def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings):
         """Reads some of the parameters/settings of this
         PriceBarGraphicsItem from the given PriceBarChartSettings object.
@@ -10634,52 +10633,9 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.priceTimeVectorPen.\
             setColor(self.priceTimeVectorGraphicsItemColor)
 
-        # Set specific items enabled or disabled, visible or not,
-        # based on the above flags being set.
+        # Set the text item with the properties we want it to have.
+        self.reApplyTextItemAttributes(self.textItem)
         
-        # Update all the text items with the new settings.
-        for textItem in self.textItems:
-            # Set the font of the text.
-            textItem.setFont(self.priceTimeVectorTextFont)
-        
-            # Set the pen color of the text.
-            self.priceTimeVectorTextPen = textItem.pen()
-            self.priceTimeVectorTextPen.\
-                setColor(self.priceTimeVectorGraphicsItemTextColor)
-            
-            textItem.setPen(self.priceTimeVectorTextPen)
-
-            # Set the brush color of the text.
-            self.priceTimeVectorTextBrush = textItem.brush()
-            self.priceTimeVectorTextBrush.\
-                setColor(self.priceTimeVectorGraphicsItemTextColor)
-            
-            textItem.setBrush(self.priceTimeVectorTextBrush)
-
-            # Apply some size scaling to the text.
-            self.textTransform = QTransform()
-            self.textTransform.scale(self.priceTimeVectorTextXScaling, \
-                                     self.priceTimeVectorTextYScaling)
-            textItem.setTransform(self.textTransform)
-
-        # Set the text items as enabled or disabled, visible or
-        # invisible, depending on whether the show flag is set.
-        self.distanceText.setEnabled(self.showDistanceTextFlag)
-        self.distanceText.setVisible(self.showDistanceTextFlag)
-        
-        self.sqrtDistanceText.setEnabled(self.showSqrtDistanceTextFlag)
-        self.sqrtDistanceText.setVisible(self.showSqrtDistanceTextFlag)
-
-        self.distanceScaledValueText.\
-            setEnabled(self.showDistanceScaledValueTextFlag)
-        self.distanceScaledValueText.\
-            setVisible(self.showDistanceScaledValueTextFlag)
-        
-        self.sqrtDistanceScaledValueText.\
-            setEnabled(self.showSqrtDistanceScaledValueTextFlag)
-        self.sqrtDistanceScaledValueText.\
-            setVisible(self.showSqrtDistanceScaledValueTextFlag)
-
         # Need to recalculate the priceTimeVector, since the scaling
         # or start/end points could have changed.  Note, if no scene
         # has been set for the QGraphicsView, then the price
@@ -10943,37 +10899,13 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.log.debug("deltaY = {}".format(deltaY))
         self.log.debug("deltaX = {}".format(deltaX))
         
-        largestTextHeight = 0.0
-        largestTextWidth = 0.0
-
         # Get bounding rectangles of text items.
-        distanceTextBoundingRect = self.distanceText.boundingRect()
-        sqrtDistanceTextBoundingRect = self.sqrtDistanceText.boundingRect()
-        distanceScaledValueTextBoundingRect = \
-            self.distanceScaledValueText.boundingRect()
-        sqrtDistanceScaledValueTextBoundingRect = \
-            self.sqrtDistanceScaledValueText.boundingRect()
+        boundingRect = self.textItem.boundingRect()
 
-        # Find largest text width.
-        if distanceTextBoundingRect.width() > largestTextWidth:
-            largestTextWidth = distanceTextBoundingRect.width()
-        if sqrtDistanceTextBoundingRect.width() > largestTextWidth:
-            largestTextWidth = sqrtDistanceTextBoundingRect.width()
-        if distanceScaledValueTextBoundingRect.width() > largestTextWidth:
-            largestTextWidth = distanceScaledValueTextBoundingRect.width()
-        if sqrtDistanceScaledValueTextBoundingRect.width() > largestTextWidth:
-            largestTextWidth = sqrtDistanceScaledValueTextBoundingRect.width()
-            
-        # Find largest text height.
-        if distanceTextBoundingRect.height() > largestTextHeight:
-            largestTextHeight = distanceTextBoundingRect.height()
-        if sqrtDistanceTextBoundingRect.height() > largestTextHeight:
-            largestTextHeight = sqrtDistanceTextBoundingRect.height()
-        if distanceScaledValueTextBoundingRect.height() > largestTextHeight:
-            largestTextHeight = distanceScaledValueTextBoundingRect.height()
-        if sqrtDistanceScaledValueTextBoundingRect.height() > largestTextHeight:
-            largestTextHeight = sqrtDistanceScaledValueTextBoundingRect.height()
-        
+        # Find largest text height and width.
+        largestTextHeight = boundingRect.height()
+        largestTextWidth = boundingRect.width()
+
         # Now replace the above with the scaled version of it. 
         largestTextHeight = largestTextHeight * self.textTransform.m22()
         largestTextWidth = largestTextWidth * self.textTransform.m11()
@@ -10992,9 +10924,9 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.log.debug("midX={}, midY={}".format(midX, midY))
                        
-        if self.tiltedTextFlag == True and self.scene != None:
+        if self.tiltedTextFlag == True and self.scene() != None:
             # Utilize scaling of the graphics view for angle calculations.
-            scaling = self.scene.getScaling()
+            scaling = self.scene().getScaling()
 
             viewScaledStartPoint = \
                 QPointF(self.startPointF.x() * scaling.getViewScalingX(),
@@ -11003,66 +10935,24 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 QPointF(self.endPointF.x() * scaling.getViewScalingX(),
                         self.endPointF.y() * scaling.getViewScalingY())
                                
-            angleDeg = QLineF(viewScaledStartPoint, viewScaledEndPoint)
-            angleRad = math.radians(angleDeg)
-            
-            self.rotationDegrees = angleDeg
+            angleDeg = QLineF(viewScaledStartPoint, viewScaledEndPoint).angle()
             self.log.debug("angleDeg={}".format(angleDeg))
 
-            # Calculate the shift amount from the midX and midY.
-            # Here below, 'largestTextWidth' is taken as the hypotenuse.
-            shiftTextX = math.cos(angleRad) * (0.5 * largestTextWidth)
-            shiftTextY = math.sin(angleRad) * (0.5 * largestTextWidth)
+            # Normalize the angle between 0 and 180 so that the text
+            # is always upright.
+            self.rotationDegrees = angleDeg
+            if 90 <= self.rotationDegrees <= 270:
+                self.rotationDegrees += 180
+        
+            self.log.debug("rotationDegrees={}".format(self.rotationDegrees))
+
+            startX = midX
+            startY = midY
+
+            self.log.debug("startX={}, startY={}".format(startX, startY))
             
-            self.log.debug("shiftTextX={}, shiftTextY={}".\
-                           format(shiftTextX, shiftTextY))
-
-            startX = midX - shiftTextX
-            startY = midY - shiftTextY
-
-            # TODO: Old stuff, remove later if the new way of doing
-            # startX and startY (see right above this comment) works okay.
-            #startX = midX
-            #startY = midY
-
-            self.log.debug("startX={}, startY={}".\
-                           format(startX, startY))
-            
-            # Now we have the point on the line from which the text is
-            # placed, but we need to move outwards from here at the
-            # tilted angle to display the text.
-
-            # j is the running index of the enabled text item.
-            j = 1
-
-            # Here below, 'largestTextHeight' is taken as the
-            # hypotenuse.
-            textOffsetX = math.sin(angleRad) * largestTextHeight
-            textOffsetY = math.cos(angleRad) * largestTextHeight
-            
-            self.log.debug("textOffsetX={}, textOffsetY={}".\
-                           format(textOffsetX, textOffsetY))
-            
-            # Go through in reverse order since we are placing the
-            # items relative to the bar (moving outwards).
-            for i in reversed(range(len(self.textItems))):
-                # Get the current text item.
-                textItem = self.textItems[i]
-                
-                # Set the position no matter what, but only increment
-                # j if the item is enabled and displayed.  This is so
-                # we keep the text items on the graphicsScene close to
-                # its parent item.
-                x = startX - (textOffsetX * j)
-                y = startY - (textOffsetY * j)
-                
-                #textItem.setPos(QPointF(x, y))
-                textItem.setPos(QPointF(startX, startY))
-                #textItem.setRotation(45)
-                textItem.setRotation(-1.0 * self.rotationDegrees)
-                
-                if textItem.isEnabled() and textItem.isVisible():
-                    j += 1
+            self.textItem.setPos(QPointF(startX, startY))
+            self.textItem.setRotation(-1.0 * self.rotationDegrees)
         else:
             startX = midX
             startY = midY
@@ -11070,24 +10960,10 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Amount to mutiply to get a largest offset from startY.
             offsetY = largestTextHeight
 
-            # j is the running index of the enabled text item.
-            j = 0
-
-            # Go through in reverse order since we are placing the
-            # items relative to the bar (moving outwards).
-            for i in reversed(range(len(self.textItems))):
-                # Get the current text item.
-                textItem = self.textItems[i]
-
-                # Set the position no matter what, but only increment
-                # j if the item is enabled and displayed.  This is so
-                # we keep the text items on the graphicsScene close to
-                # its parent item.
-                x = startX
-                y = (startY - (offsetY * j)) * largestTextHeight
-                textItem.setPos(QPointF(x, y))
-                if textItem.isEnabled() and textItem.isVisible():
-                    j += 1
+            x = startX
+            y = startY - offsetY
+            
+            self.textItem.setPos(QPointF(x, y))
 
 
     def setStartPointF(self, pointF):
@@ -11146,6 +11022,9 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # X and Y range.
         deltaY = self.endPointF.y() - self.startPointF.y()
         deltaX = self.endPointF.x() - self.startPointF.x()
+
+        # Text to set in the text item.
+        text = ""
         
         if scene != None:
             # Calculate the values for the PriceTimeVector.
@@ -11160,14 +11039,27 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.sqrtDistanceScaledValue = \
                 math.pow(self.distanceScaledValue, 0.5)
             
-            # Set text items.
-            self.distanceText.setText("{}".format(self.distance))
-            self.sqrtDistanceText.setText("{}".format(self.sqrtDistance))
-            self.distanceScaledValueText.\
-                setText("{}".format(self.distanceScaledValue))
-            self.sqrtDistanceScaledValueText.\
-                setText("{}".format(self.sqrtDistanceScaledValue))
-            
+            # Append text.
+            if self.showDistanceTextFlag == True:
+                text += "d={}".\
+                    format(self.distance) + os.linesep
+            if self.showSqrtDistanceTextFlag == True:
+                text += "sqrt(d)={}".\
+                    format(self.sqrtDistance) + os.linesep
+            if self.showDistanceScaledValueTextFlag == True:
+                text += "d_u={}".\
+                    format(self.distanceScaledValue) + os.linesep
+            if self.showSqrtDistanceScaledValueTextFlag == True:
+                text += "sqrt(d_u)={}".\
+                    format(self.sqrtDistanceScaledValue) + os.linesep
+        else:
+            # No scene, so keep text empty.
+            text = ""
+
+        text = text.rstrip()
+        self.textItem.setText(text)
+        self.prepareGeometryChange()
+        
     def setArtifact(self, artifact):
         """Loads a given PriceBarChartPriceTimeVectorArtifact object's data
         into this QGraphicsItem.
@@ -11210,53 +11102,11 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         #############
 
-        for textItem in self.textItems:
-            textItem.setPos(self.endPointF)
-        
-            # Set the font of the text.
-            textItem.setFont(self.priceTimeVectorTextFont)
-        
-            # Set the pen color of the text.
-            self.priceTimeVectorTextPen = textItem.pen()
-            self.priceTimeVectorTextPen.\
-                setColor(self.priceTimeVectorGraphicsItemTextColor)
-            
-            textItem.setPen(self.priceTimeVectorTextPen)
+        # Set the position.
+        self.textItem.setPos(self.endPointF)
 
-            # Set the brush color of the text.
-            self.priceTimeVectorTextBrush = textItem.brush()
-            self.priceTimeVectorTextBrush.\
-                setColor(self.priceTimeVectorGraphicsItemTextColor)
-            
-            textItem.setBrush(self.priceTimeVectorTextBrush)
-
-            # Apply some size scaling to the text.
-            self.textTransform = QTransform()
-            self.textTransform.scale(self.priceTimeVectorTextXScaling, \
-                                     self.priceTimeVectorTextYScaling)
-            textItem.setTransform(self.textTransform)
-
-        # Set the text items as enabled or disabled depending on
-        # whether the show flag is set.
-        self.distanceText.\
-            setEnabled(self.showDistanceTextFlag)
-        self.sqrtDistanceText.\
-            setEnabled(self.showSqrtDistanceTextFlag)
-        self.distanceScaledValueText.\
-            setEnabled(self.showDistanceScaledValueTextFlag)
-        self.sqrtDistanceScaledValueText.\
-            setEnabled(self.showSqrtDistanceScaledValueTextFlag)
-        
-        # Set the text items as visible or invisible depending on
-        # whether the show flag is set.
-        self.distanceText.\
-            setVisible(self.showDistanceTextFlag)
-        self.sqrtDistanceText.\
-            setVisible(self.showSqrtDistanceTextFlag)
-        self.distanceScaledValueText.\
-            setVisible(self.showDistanceScaledValueTextFlag)
-        self.sqrtDistanceScaledValueText.\
-            setVisible(self.showSqrtDistanceScaledValueTextFlag)
+        # Apply current attributes like color, brush, etc.
+        self.reApplyTextItemAttributes(self.textItem)
 
         # Need to recalculate the priceTimeVector, since the scaling
         # or start/end points may have changed.  Note, if no scene has
@@ -13004,7 +12854,7 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
             
         birthDatetime = birthInfo.getBirthUtcDatetime()
         birthJd = Ephemeris.datetimeToJulianDay(birthDatetime)
-        dt = Ephemeris.julianDayToDatetime(jd, tzInfo)
+        dt = Ephemeris.julianDayToDatetime(birthJd, tzInfo)
         
         return dt
         
@@ -14423,7 +14273,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
                 for item in selectedItems:
                     if isinstance(item, PriceBarChartArtifactGraphicsItem):
-                        
+
+                        self.log.debug("Removing item with artifact: " +
+                                       item.getArtifact().getInternalName())
                         scene.removeItem(item)
         
                         # Emit signal to show that an item is removed.
