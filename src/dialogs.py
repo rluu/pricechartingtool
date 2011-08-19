@@ -11019,6 +11019,14 @@ class PriceBarChartSettingsEditWidget(QWidget):
             clicked.\
             connect(\
             self._handlePriceTimeVectorGraphicsItemShowSqrtDistanceTextFlagResetButton)
+        self.priceTimeVectorGraphicsItemShowDistanceScaledValueTextFlagResetButton.\
+            clicked.\
+            connect(\
+            self._handlePriceTimeVectorGraphicsItemShowDistanceScaledValueTextFlagResetButton)
+        self.priceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlagResetButton.\
+            clicked.\
+            connect(\
+            self._handlePriceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlagResetButton)
         self.priceTimeVectorGraphicsItemTiltedTextFlagResetButton.\
             clicked.\
             connect(\
@@ -13140,6 +13148,26 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.priceTimeVectorGraphicsItemShowSqrtDistanceTextFlagResetButton = \
             QPushButton("Reset to default")
     
+        # priceTimeVectorGraphicsItemShowDistanceScaledValueTextFlag (bool).
+        self.priceTimeVectorGraphicsItemShowDistanceScaledValueTextFlagLabel = \
+            QLabel("PriceTimeVectorGraphicsItem show distance text:")
+        self.priceTimeVectorGraphicsItemShowDistanceScaledValueTextFlagCheckBox = \
+            QCheckBox()
+        self.priceTimeVectorGraphicsItemShowDistanceScaledValueTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.priceTimeVectorGraphicsItemShowDistanceScaledValueTextFlagResetButton = \
+            QPushButton("Reset to default")
+    
+        # priceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlag (bool).
+        self.priceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlagLabel = \
+            QLabel("PriceTimeVectorGraphicsItem show sqrt distance text:")
+        self.priceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlagCheckBox = \
+            QCheckBox()
+        self.priceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.priceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlagResetButton = \
+            QPushButton("Reset to default")
+    
         # priceTimeVectorGraphicsItemTiltedTextFlag (bool).
         self.priceTimeVectorGraphicsItemTiltedTextFlagLabel = \
             QLabel("PriceTimeVectorGraphicsItem tilted text:")
@@ -13261,6 +13289,34 @@ class PriceBarChartSettingsEditWidget(QWidget):
         gridLayout.\
             addWidget(\
             self.priceTimeVectorGraphicsItemShowSqrtDistanceTextFlagResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemShowDistanceScaledValueTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemShowDistanceScaledValueTextFlagCheckBox, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemShowDistanceScaledValueTextFlagResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlagCheckBox, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlagResetButton, 
             r, 2, ar)
 
         r += 1
@@ -13976,6 +14032,26 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceTimeVectorGraphicsItemShowSqrtDistanceTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
 
+        # priceTimeVectorGraphicsItemShowDistanceScaledValueTextFlag (bool).
+        if self.priceBarChartSettings.\
+           priceTimeVectorGraphicsItemShowDistanceScaledValueTextFlag == True:
+            
+            self.priceTimeVectorGraphicsItemShowDistanceScaledValueTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.priceTimeVectorGraphicsItemShowDistanceScaledValueTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # priceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlag (bool).
+        if self.priceBarChartSettings.\
+           priceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlag == True:
+            
+            self.priceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.priceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
         # priceTimeVectorGraphicsItemTiltedTextFlag (bool).
         if self.priceBarChartSettings.\
            priceTimeVectorGraphicsItemTiltedTextFlag == True:
@@ -14621,6 +14697,26 @@ class PriceBarChartSettingsEditWidget(QWidget):
         else:
             self.priceBarChartSettings.\
                 priceTimeVectorGraphicsItemShowSqrtDistanceTextFlag = False
+
+        # priceTimeVectorGraphicsItemShowDistanceScaledValueTextFlag (bool).
+        if self.priceTimeVectorGraphicsItemShowDistanceScaledValueTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                priceTimeVectorGraphicsItemShowDistanceScaledValueTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                priceTimeVectorGraphicsItemShowDistanceScaledValueTextFlag = False
+
+        # priceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlag (bool).
+        if self.priceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                priceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                priceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlag = False
 
         # priceTimeVectorGraphicsItemTiltedTextFlag (bool).
         if self.priceTimeVectorGraphicsItemTiltedTextFlagCheckBox.\
@@ -15751,8 +15847,8 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
     def _handlePriceTimeVectorGraphicsItemShowDistanceTextFlagResetButton(self):
         """Called when the
-        priceTimeVectorGraphicsItemShowDistanceTextFlagResetButton
-        is clicked.  Resets the internal value to the default value.
+        priceTimeVectorGraphicsItemShowDistanceTextFlagResetButton is
+        clicked.  Resets the internal value to the default value.
         """
 
         value = \
@@ -15781,6 +15877,40 @@ class PriceBarChartSettingsEditWidget(QWidget):
                 setCheckState(Qt.Checked)
         else:
             self.priceTimeVectorGraphicsItemShowSqrtDistanceTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+            
+    def _handlePriceTimeVectorGraphicsItemShowDistanceScaledValueTextFlagResetButton(self):
+        """Called when the
+        priceTimeVectorGraphicsItemShowDistanceScaledValueTextFlagResetButton
+        is clicked.  Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultPriceTimeVectorGraphicsItemShowDistanceScaledValueTextFlag
+
+        if value == True:
+            self.priceTimeVectorGraphicsItemShowDistanceScaledValueTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.priceTimeVectorGraphicsItemShowDistanceScaledValueTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+            
+    def _handlePriceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlagResetButton(self):
+        """Called when the
+        priceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlagResetButton
+        is clicked.  Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultPriceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlag
+
+        if value == True:
+            self.priceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.priceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
             
     def _handlePriceTimeVectorGraphicsItemTiltedTextFlagResetButton(self):
@@ -15895,6 +16025,8 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._handlePriceTimeVectorGraphicsItemDefaultColorResetButtonClicked()
         self._handlePriceTimeVectorGraphicsItemShowDistanceTextFlagResetButton()
         self._handlePriceTimeVectorGraphicsItemShowSqrtDistanceTextFlagResetButton()
+        self._handlePriceTimeVectorGraphicsItemShowDistanceScaledValueTextFlagResetButton()
+        self._handlePriceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlagResetButton()
         self._handlePriceTimeVectorGraphicsItemTiltedTextFlagResetButton()
 
     def _handleOkayButtonClicked(self):

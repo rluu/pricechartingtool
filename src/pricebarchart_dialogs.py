@@ -6212,9 +6212,13 @@ class PriceBarChartPriceTimeVectorArtifactEditWidget(QWidget):
         self.endPointDatetimeLocationWidget.cancelButton.setVisible(False)
         
         self.showDistanceTextFlagCheckBox = \
-            QCheckBox("Show Distance Text")
+            QCheckBox("Show distance text")
         self.showSqrtDistanceTextFlagCheckBox = \
-            QCheckBox("Show Sqrt Distance Text")
+            QCheckBox("Show sqrt distance text")
+        self.showDistanceScaledValueTextFlagCheckBox = \
+            QCheckBox("Show distance scaled value text")
+        self.showSqrtDistanceScaledValueTextFlagCheckBox = \
+            QCheckBox("Show sqrt distance scaled value text")
         self.tiltedTextFlagCheckBox = \
             QCheckBox("Tilted Text")
         
@@ -6271,6 +6275,10 @@ class PriceBarChartPriceTimeVectorArtifactEditWidget(QWidget):
             self.showDistanceTextFlagCheckBox)
         self.checkBoxesLayout.addWidget(\
             self.showSqrtDistanceTextFlagCheckBox)
+        self.checkBoxesLayout.addWidget(\
+            self.showDistanceScaledValueTextFlagCheckBox)
+        self.checkBoxesLayout.addWidget(\
+            self.showSqrtDistanceScaledValueTextFlagCheckBox)
         self.checkBoxesLayout.addWidget(\
             self.tiltedTextFlagCheckBox)
         tempLayout = self.checkBoxesLayout
@@ -6380,6 +6388,10 @@ class PriceBarChartPriceTimeVectorArtifactEditWidget(QWidget):
 
         self.showDistanceTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.showSqrtDistanceTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.showDistanceScaledValueTextFlagCheckBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.showSqrtDistanceScaledValueTextFlagCheckBox.\
+            setEnabled(not self.readOnlyFlag)
         self.tiltedTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
         
         # Don't allow the Okay button to be pressed for saving.
@@ -6464,6 +6476,20 @@ class PriceBarChartPriceTimeVectorArtifactEditWidget(QWidget):
         else:
             self.showSqrtDistanceTextFlagCheckBox.setCheckState(Qt.Unchecked)
             
+        if self.artifact.getShowDistanceScaledValueTextFlag() == True:
+            self.showDistanceScaledValueTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.showDistanceScaledValueTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        if self.artifact.getShowSqrtDistanceScaledValueTextFlag() == True:
+            self.showSqrtDistanceScaledValueTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.showSqrtDistanceScaledValueTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+            
         if self.artifact.getTiltedTextFlag() == True:
             self.tiltedTextFlagCheckBox.setCheckState(Qt.Checked)
         else:
@@ -6514,6 +6540,12 @@ class PriceBarChartPriceTimeVectorArtifactEditWidget(QWidget):
             (self.showDistanceTextFlagCheckBox.checkState() == Qt.Checked)
         showSqrtDistanceTextFlag = \
             (self.showSqrtDistanceTextFlagCheckBox.checkState() == Qt.Checked)
+        showDistanceScaledValueTextFlag = \
+            (self.showDistanceScaledValueTextFlagCheckBox.\
+             checkState() == Qt.Checked)
+        showSqrtDistanceScaledValueTextFlag = \
+            (self.showSqrtDistanceScaledValueTextFlagCheckBox.\
+             checkState() == Qt.Checked)
         tiltedTextFlag = \
             (self.tiltedTextFlagCheckBox.checkState() == Qt.Checked)
         
@@ -6528,6 +6560,10 @@ class PriceBarChartPriceTimeVectorArtifactEditWidget(QWidget):
         self.artifact.setEndPointF(endPointF)
         self.artifact.setShowDistanceTextFlag(showDistanceTextFlag)
         self.artifact.setShowSqrtDistanceTextFlag(showSqrtDistanceTextFlag)
+        self.artifact.setShowDistanceScaledValueTextFlag(\
+            showDistanceScaledValueTextFlag)
+        self.artifact.setShowSqrtDistanceScaledValueTextFlag(\
+            showSqrtDistanceScaledValueTextFlag)
         self.artifact.setTiltedTextFlag(tiltedTextFlag)
 
         self.log.debug("Exiting saveValues()")

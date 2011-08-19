@@ -35,15 +35,13 @@ DONE  - Split the modal-scale-tool to price-modal-scale and time-modal-scale.
 DONE    (and change it to restrict the x, y, etc.)
 DONE
 
-  - Need to apply scaling to:
-         - PriceTimeVector Tool
-
-     - Already done with applying scaling to (but needs full testing):
+  - Test the scaling calculations and positions of:
          - Price Measurement Tool
          - Time Measurement Tool
          - PriceTimeInfo Tool
+         - PriceTimeVector Tool
 
-  - Need to test conversion and scaling code. (of tool measurement indicators)
+  - Need to test conversion and scaling code. (of tool measurement indicators).
 
   - Need to add the following time measurements to the time measurement tool:
 

@@ -10466,6 +10466,17 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
             PriceBarChartSettings.\
             defaultPriceTimeVectorGraphicsItemShowSqrtDistanceTextFlag
     
+        # PriceTimeVectorGraphicsItem showDistanceScaledValueTextFlag (bool).
+        self.showDistanceScaledValueTextFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeVectorGraphicsItemShowDistanceScaledValueTextFlag
+    
+        # PriceTimeVectorGraphicsItem
+        # showSqrtDistanceScaledValueTextFlag (bool).
+        self.showSqrtDistanceScaledValueTextFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlag
+    
         # PriceTimeVectorGraphicsItem tiltedTextFlag (bool).
         self.tiltedTextFlag = \
             PriceBarChartSettings.\
@@ -10500,10 +10511,14 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Variable holding the distance measurement.
         self.distance = 0.0
         self.sqrtDistance = 0.0
+        self.distanceScaledValue = 0.0
+        self.sqrtDistanceScaledValue = 0.0
         
         # Internal text items.
         self.distanceText = QGraphicsSimpleTextItem("", self)
         self.sqrtDistanceText = QGraphicsSimpleTextItem("", self)
+        self.distanceScaledValueText = QGraphicsSimpleTextItem("", self)
+        self.sqrtDistanceScaledValueText = QGraphicsSimpleTextItem("", self)
 
         # Transform object applied to the text items.
         self.textTransform = QTransform()
@@ -10514,6 +10529,8 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.textItems = []
         self.textItems.append(self.distanceText)
         self.textItems.append(self.sqrtDistanceText)
+        self.textItems.append(self.distanceScaledValueText)
+        self.textItems.append(self.sqrtDistanceScaledValueText)
 
         for textItem in self.textItems:
             textItem.setPos(self.endPointF)
@@ -10595,6 +10612,17 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
             priceBarChartSettings.\
             priceTimeVectorGraphicsItemShowSqrtDistanceTextFlag
     
+        # PriceTimeVectorGraphicsItem showDistanceScaledValueTextFlag (bool).
+        self.showDistanceScaledValueTextFlag = \
+            priceBarChartSettings.\
+            priceTimeVectorGraphicsItemShowDistanceScaledValueTextFlag
+    
+        # PriceTimeVectorGraphicsItem
+        # showSqrtDistanceScaledValueTextFlag (bool).
+        self.showSqrtDistanceScaledValueTextFlag = \
+            priceBarChartSettings.\
+            priceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlag
+    
         # PriceTimeVectorGraphicsItem tiltedTextFlag (bool).
         self.tiltedTextFlag = \
             priceBarChartSettings.\
@@ -10641,6 +10669,16 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         self.sqrtDistanceText.setEnabled(self.showSqrtDistanceTextFlag)
         self.sqrtDistanceText.setVisible(self.showSqrtDistanceTextFlag)
+
+        self.distanceScaledValueText.\
+            setEnabled(self.showDistanceScaledValueTextFlag)
+        self.distanceScaledValueText.\
+            setVisible(self.showDistanceScaledValueTextFlag)
+        
+        self.sqrtDistanceScaledValueText.\
+            setEnabled(self.showSqrtDistanceScaledValueTextFlag)
+        self.sqrtDistanceScaledValueText.\
+            setVisible(self.showSqrtDistanceScaledValueTextFlag)
 
         # Need to recalculate the priceTimeVector, since the scaling
         # or start/end points could have changed.  Note, if no scene
@@ -10908,18 +10946,33 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
         largestTextHeight = 0.0
         largestTextWidth = 0.0
 
+        # Get bounding rectangles of text items.
         distanceTextBoundingRect = self.distanceText.boundingRect()
         sqrtDistanceTextBoundingRect = self.sqrtDistanceText.boundingRect()
+        distanceScaledValueTextBoundingRect = \
+            self.distanceScaledValueText.boundingRect()
+        sqrtDistanceScaledValueTextBoundingRect = \
+            self.sqrtDistanceScaledValueText.boundingRect()
 
+        # Find largest text width.
         if distanceTextBoundingRect.width() > largestTextWidth:
             largestTextWidth = distanceTextBoundingRect.width()
         if sqrtDistanceTextBoundingRect.width() > largestTextWidth:
             largestTextWidth = sqrtDistanceTextBoundingRect.width()
+        if distanceScaledValueTextBoundingRect.width() > largestTextWidth:
+            largestTextWidth = distanceScaledValueTextBoundingRect.width()
+        if sqrtDistanceScaledValueTextBoundingRect.width() > largestTextWidth:
+            largestTextWidth = sqrtDistanceScaledValueTextBoundingRect.width()
             
+        # Find largest text height.
         if distanceTextBoundingRect.height() > largestTextHeight:
             largestTextHeight = distanceTextBoundingRect.height()
         if sqrtDistanceTextBoundingRect.height() > largestTextHeight:
             largestTextHeight = sqrtDistanceTextBoundingRect.height()
+        if distanceScaledValueTextBoundingRect.height() > largestTextHeight:
+            largestTextHeight = distanceScaledValueTextBoundingRect.height()
+        if sqrtDistanceScaledValueTextBoundingRect.height() > largestTextHeight:
+            largestTextHeight = sqrtDistanceScaledValueTextBoundingRect.height()
         
         # Now replace the above with the scaled version of it. 
         largestTextHeight = largestTextHeight * self.textTransform.m22()
@@ -10939,11 +10992,20 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.log.debug("midX={}, midY={}".format(midX, midY))
                        
-        if self.tiltedTextFlag == True:
-            # TODO:  need to introduce scaling for calculating angles.
-            
-            angleDeg = QLineF(self.startPointF, self.endPointF).angle()
+        if self.tiltedTextFlag == True and self.scene != None:
+            # Utilize scaling of the graphics view for angle calculations.
+            scaling = self.scene.getScaling()
+
+            viewScaledStartPoint = \
+                QPointF(self.startPointF.x() * scaling.getViewScalingX(),
+                        self.startPointF.y() * scaling.getViewScalingY())
+            viewScaledEndPoint = \
+                QPointF(self.endPointF.x() * scaling.getViewScalingX(),
+                        self.endPointF.y() * scaling.getViewScalingY())
+                               
+            angleDeg = QLineF(viewScaledStartPoint, viewScaledEndPoint)
             angleRad = math.radians(angleDeg)
+            
             self.rotationDegrees = angleDeg
             self.log.debug("angleDeg={}".format(angleDeg))
 
@@ -10955,13 +11017,13 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.log.debug("shiftTextX={}, shiftTextY={}".\
                            format(shiftTextX, shiftTextY))
 
-            # TODO:  After scaling is introduced, re-try uncommented below to modify the startX and startY by shiftTextX and shiftTextY
-            
-            #startX = midX - shiftTextX
-            #startY = midY - shiftTextY
-            
-            startX = midX
-            startY = midY
+            startX = midX - shiftTextX
+            startY = midY - shiftTextY
+
+            # TODO: Old stuff, remove later if the new way of doing
+            # startX and startY (see right above this comment) works okay.
+            #startX = midX
+            #startY = midY
 
             self.log.debug("startX={}, startY={}".\
                            format(startX, startY))
@@ -11081,23 +11143,31 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         scene = self.scene()
 
-        # X and Y range.  
+        # X and Y range.
         deltaY = self.endPointF.y() - self.startPointF.y()
         deltaX = self.endPointF.x() - self.startPointF.x()
         
         if scene != None:
-            # Update the text of the internal items.
-            distanceSquared = math.pow(deltaX, 2) + math.pow(deltaY, 2)
-            self.distance = math.pow(distanceSquared, 0.5)
+            # Calculate the values for the PriceTimeVector.
+            line = QLineF(self.startPointF, self.endPointF)
+            self.distance = abs(line.length())
             self.sqrtDistance = math.pow(self.distance, 0.5)
+
+            scaledValueLine = \
+                QLineF(scene.convertScenePointToScaledPoint(self.startPointF),
+                       scene.convertScenePointToScaledPoint(self.endPointF))
+            self.distanceScaledValue = abs(scaledValueLine.length())
+            self.sqrtDistanceScaledValue = \
+                math.pow(self.distanceScaledValue, 0.5)
             
-            # Set texts.
-            distanceText = "{}".format(self.distance)
-            sqrtDistanceText = "{}".format(self.sqrtDistance)
-            
+            # Set text items.
             self.distanceText.setText("{}".format(self.distance))
             self.sqrtDistanceText.setText("{}".format(self.sqrtDistance))
-        
+            self.distanceScaledValueText.\
+                setText("{}".format(self.distanceScaledValue))
+            self.sqrtDistanceScaledValueText.\
+                setText("{}".format(self.sqrtDistanceScaledValue))
+            
     def setArtifact(self, artifact):
         """Loads a given PriceBarChartPriceTimeVectorArtifact object's data
         into this QGraphicsItem.
@@ -11132,6 +11202,10 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.artifact.getShowDistanceTextFlag()
         self.showSqrtDistanceTextFlag = \
             self.artifact.getShowSqrtDistanceTextFlag()
+        self.showDistanceScaledValueTextFlag = \
+            self.artifact.getShowDistanceScaledValueTextFlag()
+        self.showSqrtDistanceScaledValueTextFlag = \
+            self.artifact.getShowSqrtDistanceScaledValueTextFlag()
         self.tiltedTextFlag = self.artifact.getTiltedTextFlag()
 
         #############
@@ -11162,13 +11236,27 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                      self.priceTimeVectorTextYScaling)
             textItem.setTransform(self.textTransform)
 
-        # Set the text items as enabled or disabled, visible or
-        # invisible, depending on whether the show flag is set.
-        self.distanceText.setEnabled(self.showDistanceTextFlag)
-        self.distanceText.setVisible(self.showDistanceTextFlag)
+        # Set the text items as enabled or disabled depending on
+        # whether the show flag is set.
+        self.distanceText.\
+            setEnabled(self.showDistanceTextFlag)
+        self.sqrtDistanceText.\
+            setEnabled(self.showSqrtDistanceTextFlag)
+        self.distanceScaledValueText.\
+            setEnabled(self.showDistanceScaledValueTextFlag)
+        self.sqrtDistanceScaledValueText.\
+            setEnabled(self.showSqrtDistanceScaledValueTextFlag)
         
-        self.sqrtDistanceText.setEnabled(self.showSqrtDistanceTextFlag)
-        self.sqrtDistanceText.setVisible(self.showSqrtDistanceTextFlag)
+        # Set the text items as visible or invisible depending on
+        # whether the show flag is set.
+        self.distanceText.\
+            setVisible(self.showDistanceTextFlag)
+        self.sqrtDistanceText.\
+            setVisible(self.showSqrtDistanceTextFlag)
+        self.distanceScaledValueText.\
+            setVisible(self.showDistanceScaledValueTextFlag)
+        self.sqrtDistanceScaledValueText.\
+            setVisible(self.showSqrtDistanceScaledValueTextFlag)
 
         # Need to recalculate the priceTimeVector, since the scaling
         # or start/end points may have changed.  Note, if no scene has
@@ -11204,6 +11292,10 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         self.artifact.setShowDistanceTextFlag(self.showDistanceTextFlag)
         self.artifact.setShowSqrtDistanceTextFlag(self.showSqrtDistanceTextFlag)
+        self.artifact.setShowDistanceScaledValueTextFlag(\
+            self.showDistanceScaledValueTextFlag)
+        self.artifact.setShowSqrtDistanceScaledValueTextFlag(\
+            self.showSqrtDistanceScaledValueTextFlag)
         self.artifact.setTiltedTextFlag(self.tiltedTextFlag)
 
         self.log.debug("Exiting getArtifact()")
@@ -12604,7 +12696,7 @@ class PriceBarChartWidget(QWidget):
         
 class PriceBarChartGraphicsScene(QGraphicsScene):
     """QGraphicsScene holding all the pricebars and artifacts.
-    We subclass the QGraphicsScene to allow for future feature additions.
+    We inherit QGraphicsScene to allow for future feature additions.
     """
 
     # Signal emitted when there is an addition of a

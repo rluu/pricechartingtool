@@ -3685,6 +3685,18 @@ class PriceBarChartPriceTimeVectorArtifact(PriceBarChartArtifact):
             PriceBarChartSettings.\
                 defaultPriceTimeVectorGraphicsItemShowSqrtDistanceTextFlag
 
+        # Flag for whether or not the text is displayed for distance
+        # in scaledValue units.
+        self.showDistanceScaledValueTextFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeVectorGraphicsItemShowDistanceScaledValueTextFlag
+        
+        # Flag for whether or not the text is displayed for distance
+        # in scaledValue units.
+        self.showSqrtDistanceScaledValueTextFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlag
+
         # Flag for whether or not to show the text as tilted at the
         # angle parallel to the line.
         self.tiltedTextFlag = \
@@ -3823,6 +3835,26 @@ class PriceBarChartPriceTimeVectorArtifact(PriceBarChartArtifact):
         """Sets a new value for the showSqrtDistanceTextFlag."""
 
         self.showSqrtDistanceTextFlag = flag
+        
+    def getShowDistanceScaledValueTextFlag(self):
+        """Returns the showDistanceScaledValueTextFlag."""
+
+        return self.showDistanceScaledValueTextFlag
+        
+    def setShowDistanceScaledValueTextFlag(self, flag):
+        """Sets a new value for the showDistanceScaledValueTextFlag."""
+
+        self.showDistanceScaledValueTextFlag = flag
+        
+    def getShowSqrtDistanceScaledValueTextFlag(self):
+        """Returns the showSqrtDistanceScaledValueTextFlag."""
+
+        return self.showSqrtDistanceScaledValueTextFlag
+        
+    def setShowSqrtDistanceScaledValueTextFlag(self, flag):
+        """Sets a new value for the showSqrtDistanceScaledValueTextFlag."""
+
+        self.showSqrtDistanceScaledValueTextFlag = flag
         
     def getTiltedTextFlag(self):
         """Returns the tiltedTextFlag."""
@@ -4652,6 +4684,14 @@ class PriceBarChartSettings:
     # showSqrtDistanceTextFlag (bool).
     defaultPriceTimeVectorGraphicsItemShowSqrtDistanceTextFlag = False
 
+    # Default value for the PriceTimeVectorGraphicsItem
+    # showDistanceScaledValueTextFlag (bool).
+    defaultPriceTimeVectorGraphicsItemShowDistanceScaledValueTextFlag = True
+
+    # Default value for the PriceTimeVectorGraphicsItem 
+    # showSqrtDistanceScaledValueTextFlag (bool).
+    defaultPriceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlag = False
+
     # Default value for the PriceTimeVectorGraphicsItem 
     # tiltedTextFlag (bool).
     defaultPriceTimeVectorGraphicsItemTiltedTextFlag = True
@@ -5144,6 +5184,17 @@ class PriceBarChartSettings:
         self.priceTimeVectorGraphicsItemShowSqrtDistanceTextFlag = \
             PriceBarChartSettings.\
             defaultPriceTimeVectorGraphicsItemShowSqrtDistanceTextFlag
+
+        # PriceTimeVectorGraphicsItem showDistanceScaledValueTextFlag (bool).
+        self.priceTimeVectorGraphicsItemShowDistanceScaledValueTextFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeVectorGraphicsItemShowDistanceScaledValueTextFlag
+
+        # PriceTimeVectorGraphicsItem
+        # showSqrtDistanceScaledValueTextFlag (bool).
+        self.priceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlag
 
         # PriceTimeVectorGraphicsItem tiltedTextFlag (bool).
         self.priceTimeVectorGraphicsItemTiltedTextFlag = \
