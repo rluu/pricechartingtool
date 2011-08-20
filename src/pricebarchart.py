@@ -6225,10 +6225,10 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     os.linesep
             
         if self.artifact.getShowPriceFlag():
-            text += "p={}".format(price) + os.linesep
+            text += "p={:.4f}".format(price) + os.linesep
             
         if self.artifact.getShowSqrtPriceFlag():
-            text += "sqrt(p)={}".format(math.sqrt(price)) + os.linesep
+            text += "sqrt(p)={:.4f}".format(math.sqrt(price)) + os.linesep
             
         if self.artifact.getShowTimeElapsedSinceBirthFlag():
             if self.birthInfo != None:
@@ -6239,7 +6239,7 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 # Find the difference between the info points and birthX
                 xDiff = infoPointF.x() - birthX
 
-                text += "t_elapsed={}".format(xDiff) + os.linesep
+                text += "t_elapsed={:.4f}".format(xDiff) + os.linesep
                 
         if self.artifact.getShowSqrtTimeElapsedSinceBirthFlag():
             if self.birthInfo != None:
@@ -6250,26 +6250,26 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 # Find the difference between the info points and birthX
                 xDiff = infoPointF.x() - birthX
 
-                text += "sqrt(t_elapsed)={}".format(math.sqrt(xDiff)) + \
+                text += "sqrt(t_elapsed)={:.4f}".format(math.sqrt(xDiff)) + \
                         os.linesep
         
         if self.artifact.getShowPriceScaledValueFlag():
             scaledValue = self.convertObj.convertPriceToScaledValue(price)
-            text += "p_u={}".format(scaledValue) + os.linesep
+            text += "p_u={:.4f}".format(scaledValue) + os.linesep
             
         if self.artifact.getShowSqrtPriceScaledValueFlag():
             scaledValue = self.convertObj.convertPriceToScaledValue(price)
             sqrtScaledValue = math.sqrt(abs(scaledValue))
-            text += "sqrt(p_u)={}".format(sqrtScaledValue) + os.linesep
+            text += "sqrt(p_u)={:.4f}".format(sqrtScaledValue) + os.linesep
             
         if self.artifact.getShowTimeScaledValueFlag():
             scaledValue = self.convertObj.convertDatetimeToScaledValue(dt)
-            text += "t_u={}".format(scaledValue) + os.linesep
+            text += "t_u={:.4f}".format(scaledValue) + os.linesep
             
         if self.artifact.getShowSqrtTimeScaledValueFlag():
             scaledValue = self.convertObj.convertDatetimeToScaledValue(dt)
             sqrtScaledValue = math.sqrt(abs(scaledValue))
-            text += "sqrt(t_u)={}".format(sqrtScaledValue) + os.linesep
+            text += "sqrt(t_u)={:.4f}".format(sqrtScaledValue) + os.linesep
 
         text = text.rstrip()
         self.textItem.setText(text)
@@ -10884,6 +10884,15 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.draggingStartPointFlag = False
             self.draggingEndPointFlag = False
 
+    def refreshItem(self):
+        """Refreshes the item by recalculating and updating the text
+        position/rotation.
+        """
+
+        self.recalculatePriceTimeVector()
+        
+        self._updateTextItemPositions()
+        
     def _updateTextItemPositions(self):
         """Updates the location of the internal text items based on
         where the start and end points are.
@@ -10924,9 +10933,12 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.log.debug("midX={}, midY={}".format(midX, midY))
                        
-        if self.tiltedTextFlag == True and self.scene() != None:
-            # Utilize scaling of the graphics view for angle calculations.
-            scaling = self.scene().getScaling()
+        if self.tiltedTextFlag == True:
+            # Utilize scaling of the graphics view for angle
+            # calculations (if available).
+            scaling = PriceBarChartScaling()
+            if self.scene() != None:
+                scaling = self.scene().getScaling()
 
             viewScaledStartPoint = \
                 QPointF(self.startPointF.x() * scaling.getViewScalingX(),
@@ -10934,7 +10946,7 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
             viewScaledEndPoint = \
                 QPointF(self.endPointF.x() * scaling.getViewScalingX(),
                         self.endPointF.y() * scaling.getViewScalingY())
-                               
+            
             angleDeg = QLineF(viewScaledStartPoint, viewScaledEndPoint).angle()
             self.log.debug("angleDeg={}".format(angleDeg))
 
@@ -11041,16 +11053,16 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
             
             # Append text.
             if self.showDistanceTextFlag == True:
-                text += "d={}".\
+                text += "d={:.4f}".\
                     format(self.distance) + os.linesep
             if self.showSqrtDistanceTextFlag == True:
-                text += "sqrt(d)={}".\
+                text += "sqrt(d)={:.4f}".\
                     format(self.sqrtDistance) + os.linesep
             if self.showDistanceScaledValueTextFlag == True:
-                text += "d_u={}".\
+                text += "d_u={:.4f}".\
                     format(self.distanceScaledValue) + os.linesep
             if self.showSqrtDistanceScaledValueTextFlag == True:
-                text += "sqrt(d_u)={}".\
+                text += "sqrt(d_u)={:.4f}".\
                     format(self.sqrtDistanceScaledValue) + os.linesep
         else:
             # No scene, so keep text empty.
@@ -11162,7 +11174,15 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # The QRectF returned is relative to this (0, 0) point.
 
-        rv = self.shape().boundingRect()
+        textItemRectTopLeft = \
+            self.textItem.mapToParent(\
+            self.textItem.boundingRect().topLeft())
+        textItemRectBottomRight = \
+            self.textItem.mapToParent(\
+            self.textItem.boundingRect().bottomRight())
+                                
+        rv = self.shape().boundingRect() | \
+             QRectF(textItemRectTopLeft, textItemRectBottomRight)
 
         return rv
 
@@ -11174,30 +11194,46 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Calculate the points that would be the selection box area
         # around the line.
 
+        # Start and end points in local coordinates.
         localStartPointF = self.mapFromScene(self.startPointF)
         localEndPointF = self.mapFromScene(self.endPointF)
-        
-        angleDeg = QLineF(localStartPointF, localEndPointF).angle()
+
+        # Utilize scaling from the scene if it is available.
+        scaling = PriceBarChartScaling()
+        if self.scene() != None:
+            scaling = self.scene().getScaling()
+            
+        viewScaledStartPoint = \
+            QPointF(self.startPointF.x() * scaling.getViewScalingX(),
+                    self.startPointF.y() * scaling.getViewScalingY())
+        viewScaledEndPoint = \
+            QPointF(self.endPointF.x() * scaling.getViewScalingX(),
+                    self.endPointF.y() * scaling.getViewScalingY())
+
+        # Here we are calculating the angle of the text and the line
+        # as the user would see it.  Actual angle is different if we
+        # are calculating it from a scene perspective.
+        angleDeg = QLineF(viewScaledStartPoint, viewScaledEndPoint).angle()
         angleRad = math.radians(angleDeg)
         
-        shiftTextX = math.cos(angleRad) * \
+        shiftX = math.cos(angleRad) * \
                      (0.5 * self.priceTimeVectorGraphicsItemBarWidth)
-        shiftTextY = math.sin(angleRad) * \
+        shiftY = math.sin(angleRad) * \
                      (0.5 * self.priceTimeVectorGraphicsItemBarWidth)
 
         # Create new points.
         p1 = \
-            QPointF(localStartPointF.x() - shiftTextX,
-                    localStartPointF.y() - shiftTextY)
+            QPointF(localStartPointF.x() - shiftX,
+                    localStartPointF.y() - shiftY)
         p2 = \
-            QPointF(localStartPointF.x() + shiftTextX,
-                    localStartPointF.y() + shiftTextY)
+            QPointF(localStartPointF.x() + shiftX,
+                    localStartPointF.y() + shiftY)
         p3 = \
-            QPointF(localEndPointF.x() - shiftTextX,
-                    localEndPointF.y() - shiftTextY)
+            QPointF(localEndPointF.x() - shiftX,
+                    localEndPointF.y() - shiftY)
         p4 = \
-            QPointF(localEndPointF.x() + shiftTextX,
-                    localEndPointF.y() + shiftTextY)
+            QPointF(localEndPointF.x() + shiftX,
+                    localEndPointF.y() + shiftY)
 
         points = [p2, p1, p3, p4, p2]
         polygon = QPolygonF(points)
@@ -12097,10 +12133,10 @@ class PriceBarChartWidget(QWidget):
                 # Make sure the proper flags are set for the mode we're in.
                 self.graphicsView.setGraphicsItemFlagsPerCurrToolMode(newItem)
 
-                # Need to recalculate, since it wasn't in the
-                # QGraphicsScene until now.
-                newItem.recalculatePriceTimeVector()
-        
+                # Need to refresh the item (recalculate) since it
+                # wasn't in the QGraphicsScene until now.
+                newItem.refreshItem()
+
                 addedItemFlag = True
 
         if addedItemFlag == True:

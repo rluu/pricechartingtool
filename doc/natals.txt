@@ -1,0 +1,10 @@
+##############################################################################
+Natal birth dates/times of trading entities.
+##############################################################################
+
+30-year bond futures:
+August 22, 1977, the Chicago Board of Trade
+Source:
+http://www.cnbc.com/id/44036727/
+
+

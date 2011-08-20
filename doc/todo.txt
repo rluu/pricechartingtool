@@ -34,12 +34,26 @@ DONE
 DONE  - Split the modal-scale-tool to price-modal-scale and time-modal-scale.
 DONE    (and change it to restrict the x, y, etc.)
 DONE
+DONE  - TODO: Lower precision of text of the PTV calculated numbers.
+DONE
+DONE
+DONE - Bug: When loading a pricechartdocument, the PriceTimeVector
+DONE   graphics items don't apply the tilted text if the flag is set.  It
+DONE   works okay if you add additional PriceTimeVectors though.
+DONE
+DONE
+DONE
 
-  - Bug: When loading a pricechartdocument, the PriceTimeVector graphics items don't apply the tilted text if the flag is set.  It works okay if you add additional PriceTimeVectors though.
+  - PTV (Price-Time-Vector).
+        To modify:
+          pricebarchart.py 
+                - Fix text angle (it uses scaling, but is still not perfect).
+                - Make sure click-drag for moving the item works.
+                  Currently it only draws the text as it moves it.
+                - Make sure click-drag for moving start endpoint works.
+                - Make sure click-drag for moving end endpoint works.
 
   - Bug: Need to update the 'closest point' algorithm to use scaling so that the actual pricebar point that is closest to the mouse (in the view) is the one that is selected, not by the closest in the scene.
-
-  - TODO: Lower precision of text of the PTV calculated numbers.
 
   - Test the scaling calculations and positions of:
          - Price Measurement Tool
@@ -60,21 +74,8 @@ DONE
   - Line segment tool.  (when selected, box is drawn around it.  need
     property/setting for the invisible 'width' of the line segment.)
 
-
         - Need to add context menu option for extending line to the
           right or left by 2x.
-
-  - PTV (Price-Time-Vector).
-        To modify:
-          pricebarchart.py 
-                - Fix text angle and location (need to use scaling 
-                     for the angle).
-                - Fix shape to use scaling for drawing the dotted lines 
-                     so the box actually looks perpendicular to the angle.
-                - Make sure click-drag for moving the item works.
-                - Make sure click-drag for moving start endpoint works.
-                - Make sure click-drag for moving end endpoint works.
-
 
   - Octave fan (which is a more general Gann fan).
      - Defined by origin and other 2 points.
