@@ -35,7 +35,7 @@ Dependencies to build/run this project are:
 
   - Python 3.1
   - PyQt 4.7.5
-  - Qt 4.6.3
+  - Qt 4.7.1
   - pyswisseph 1.76
       (Uses Swiss Ephemeris version 1.76.00, which was released Aug. 4, 2009)
   - pytz 2010h 

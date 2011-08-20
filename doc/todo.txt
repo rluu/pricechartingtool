@@ -35,6 +35,12 @@ DONE  - Split the modal-scale-tool to price-modal-scale and time-modal-scale.
 DONE    (and change it to restrict the x, y, etc.)
 DONE
 
+  - Bug: When loading a pricechartdocument, the PriceTimeVector graphics items don't apply the tilted text if the flag is set.  It works okay if you add additional PriceTimeVectors though.
+
+  - Bug: Need to update the 'closest point' algorithm to use scaling so that the actual pricebar point that is closest to the mouse (in the view) is the one that is selected, not by the closest in the scene.
+
+  - TODO: Lower precision of text of the PTV calculated numbers.
+
   - Test the scaling calculations and positions of:
          - Price Measurement Tool
          - Time Measurement Tool
