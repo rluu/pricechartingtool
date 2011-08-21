@@ -89,6 +89,12 @@ DONE
      - Uses scaling.
      - Order is reversable
 
+  - Add a right-click option to all the items to open a timestamp in JHora. 
+     - Substeps:
+         - Create a .jhd file somewhere, maybe in /tmp/ ?  
+           Or maybe in ramdisk or in memory?
+         - System call to JHora on that above file.
+
   - Use 'snap' enabled flag for ptv tool and line segment tool.
 
       - Note it is already used for pricetimeinfo tool, but needs to

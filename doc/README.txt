@@ -94,7 +94,7 @@ Snap key bindings are supported for the following tools:
   - PriceMeasurementTool
   - TimeRetracementTool
   - PriceRetracementTool
-
+  - PriceTimeVectorTool
   
 
 
