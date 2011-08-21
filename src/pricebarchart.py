@@ -10532,7 +10532,10 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # or end point of the QGraphicsItem.
         self.draggingStartPointFlag = False
         self.draggingEndPointFlag = False
+
+        # Working variables for clicking and draging.
         self.clickScenePointF = None
+        self.origStartPointF = None
 
     def reApplyTextItemAttributes(self, textItem):
         """Takes the given text item and reapplies the pen, brush,
@@ -10768,6 +10771,7 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 # start and end positions when the user finally
                 # releases the mouse button.
                 self.clickScenePointF = event.scenePos()
+                self.origStartPointF = QPointF(self.startPointF)
                 
                 super().mousePressEvent(event)
 
@@ -10801,9 +10805,20 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     # Do the move.
                     super().mouseMoveEvent(event)
 
-                    # Update calculation/text for the retracement.
+                    # For some reason, setPos() is not getting called
+                    # until after the user releases the mouse button
+                    # after dragging.  So here we will calculate the
+                    # change ourselves and call setPos ourselves so
+                    # that the item is drawn correctly.
+                    delta = event.scenePos() - self.clickScenePointF
+                    if delta.x() != 0.0 and delta.y() != 0.0:
+                        newPos = self.origStartPointF + delta
+                        self.setPos(newPos)
+                    
+                    # Calculate Update calculation/text for the
+                    # retracement.
                     self.recalculatePriceTimeVector()
-        
+
                     # Emit that the PriceBarChart has changed.
                     self.scene().priceBarChartChanged.emit()
             else:
@@ -10861,7 +10876,7 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 # end points by calling setPos() on the new calculated
                 # position.
                 if delta.x() != 0.0 and delta.y() != 0.0:
-                    newPos = self.startPointF + delta
+                    newPos = self.origStartPointF + delta
                     self.setPos(newPos)
             
                     # Update calculation/text for the retracement.
@@ -10950,12 +10965,40 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
             angleDeg = QLineF(viewScaledStartPoint, viewScaledEndPoint).angle()
             self.log.debug("angleDeg={}".format(angleDeg))
 
-            # Normalize the angle between 0 and 180 so that the text
-            # is always upright.
+            # Normalize the angle so that the text is always upright.
             self.rotationDegrees = angleDeg
             if 90 <= self.rotationDegrees <= 270:
                 self.rotationDegrees += 180
-        
+            while self.rotationDegrees >= 360:
+                self.rotationDegrees -= 360
+            while self.rotationDegrees < 0:
+                self.rotationDegrees += 360
+
+            # Fudge factor since for some reason the text item doesn't
+            # exactly line up with the PTV line.
+            fudge = 0.0
+            if 0 < self.rotationDegrees <= 90:
+                self.log.debug("0 to 90")
+                removed = 45 - abs(45 - self.rotationDegrees)
+                fudge = removed * 0.19
+                self.rotationDegrees -= fudge
+            elif 90 < self.rotationDegrees <= 180:
+                self.log.debug("90 to 180")
+                removed = 45 - abs(135 - self.rotationDegrees)
+                fudge = removed * 0.12
+                self.rotationDegrees += fudge
+            elif 180 < self.rotationDegrees <= 270:
+                self.log.debug("180 to 270")
+                removed = 45 - abs(225 - self.rotationDegrees)
+                fudge = removed * 0.19
+                self.rotationDegrees -= fudge
+            elif 270 < self.rotationDegrees <= 360:
+                self.log.debug("270 to 360")
+                removed = 45 - abs(315 - self.rotationDegrees)
+                fudge = removed * 0.12
+                self.rotationDegrees += fudge
+            
+            self.rotationDegrees = -1.0 * self.rotationDegrees
             self.log.debug("rotationDegrees={}".format(self.rotationDegrees))
 
             startX = midX
@@ -10964,7 +11007,7 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.log.debug("startX={}, startY={}".format(startX, startY))
             
             self.textItem.setPos(QPointF(startX, startY))
-            self.textItem.setRotation(-1.0 * self.rotationDegrees)
+            self.textItem.setRotation(self.rotationDegrees)
         else:
             startX = midX
             startY = midY
@@ -11248,6 +11291,8 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
         to what we want for the drawing style.
         """
 
+        self.log.debug("PriceTimeVectorGraphicsItem.paint()")
+        
         if painter.pen() != self.priceTimeVectorPen:
             painter.setPen(self.priceTimeVectorPen)
         
@@ -12757,7 +12802,7 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         float value for the Y position that would match up with this price.
         """
 
-        # Make sure I don't return a negative 0.0.
+        # Below ensures the value returned is not -0.0 (negative 0.0).
         if (price != 0.0):
             return float(-1.0 * price)
         else:
@@ -13091,7 +13136,9 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         price per y.  This means the 'qgraphicsview' scaling of x and
         y (in appearance) is misleading when compared to actual
         coordinates.  So the algorithm works correctly, but may not
-        produce expected results due to a huge skew in scaling.
+        produce expected results due to a huge skew in scaling.  If
+        this is not what you want, then consider using
+        getClosestPriceBarOHLCViewPoint().
         
         Returns:
         QPointF - Point that is a scene pos of a open, high, low,
@@ -13200,6 +13247,172 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         
         return closestPoint
 
+    def getClosestPriceBarOHLCViewPoint(self, pointF):
+        """Goes through all the PriceBars, looking at the QPointF of
+        the open, high, low, and close of each pricebar (in price and
+        time), and tests it to locate the point out of all the bars
+        that is the closest to 'pointF' in the GraphicsView.  This
+        utilizes the graphics view scaling to see what is closest.  
+
+        Arguments:
+        pointF - QPointF object that is a point in scene
+        coordinates.  This point is used as a reference point to
+        calculate distances to the open, high, low, and close points
+        of the price bars.
+        
+        Returns:
+        QPointF - Point in scene coordinates of the closest pricebar's
+        open, high, low, or close (in price and time), when computed
+        using scaled view coordinates.
+        """
+        
+        self.log.debug("Entered getClosestPriceBarOHLCViewPoint()")
+        
+        # QPointF for the closest point.
+        closestPoint = None
+
+        # Smallest length of line from pointF to desired point.
+        smallestLength = None
+        
+        # PriceBarGraphicsItem that is the closest.
+        closestPriceBarGraphicsItem = None
+
+        # Scaling object to use.
+        scaling = self.scaling
+        
+        self.log.debug("PointF is: ({}, {})".format(pointF.x(), pointF.y()))
+
+        viewScaledPointF = QPointF(pointF.x() * scaling.getViewScalingX(),
+                                   pointF.y() * scaling.getViewScalingY())
+        
+        self.log.debug("View-scaled PointF is: ({}, {})".\
+                       format(viewScaledPointF.x(), viewScaledPointF.y()))
+
+        graphicsItems = self.items()
+
+        for item in graphicsItems:
+            if isinstance(item, PriceBarGraphicsItem):
+                # Get the points of the open, high, low, and close of
+                # this PriceBarGraphicsItem.
+                openPointF = item.getPriceBarOpenScenePoint()
+                highPointF = item.getPriceBarHighScenePoint()
+                lowPointF = item.getPriceBarLowScenePoint()
+                closePointF = item.getPriceBarCloseScenePoint()
+
+                self.log.debug("openPointF is: ({}, {})".
+                               format(openPointF.x(), openPointF.y()))
+                self.log.debug("highPointF is: ({}, {})".
+                               format(highPointF.x(), highPointF.y()))
+                self.log.debug("lowPointF is: ({}, {})".
+                               format(lowPointF.x(), lowPointF.y()))
+                self.log.debug("closePointF is: ({}, {})".
+                               format(closePointF.x(), closePointF.y()))
+
+                viewScaledOpenPointF = \
+                    QPointF(openPointF.x() * scaling.getViewScalingX(),
+                            openPointF.y() * scaling.getViewScalingY())
+                viewScaledHighPointF = \
+                    QPointF(highPointF.x() * scaling.getViewScalingX(),
+                            highPointF.y() * scaling.getViewScalingY())
+                viewScaledLowPointF = \
+                    QPointF(lowPointF.x() * scaling.getViewScalingX(),
+                            lowPointF.y() * scaling.getViewScalingY())
+                viewScaledClosePointF = \
+                    QPointF(closePointF.x() * scaling.getViewScalingX(),
+                            closePointF.y() * scaling.getViewScalingY())
+
+                self.log.debug("viewScaledOpenPointF is: ({}, {})".
+                               format(viewScaledOpenPointF.x(),
+                                      viewScaledOpenPointF.y()))
+                self.log.debug("viewScaledHighPointF is: ({}, {})".
+                               format(viewScaledHighPointF.x(),
+                                      viewScaledHighPointF.y()))
+                self.log.debug("viewScaledLowPointF is: ({}, {})".
+                               format(viewScaledLowPointF.x(),
+                                      viewScaledLowPointF.y()))
+                self.log.debug("viewScaledClosePointF is: ({}, {})".
+                               format(viewScaledClosePointF.x(),
+                                      viewScaledClosePointF.y()))
+
+                # Create lines so we can get the lengths between the points.
+                lineToOpen = QLineF(viewScaledPointF, viewScaledOpenPointF)
+                lineToHigh = QLineF(viewScaledPointF, viewScaledHighPointF)
+                lineToLow = QLineF(viewScaledPointF, viewScaledLowPointF)
+                lineToClose = QLineF(viewScaledPointF, viewScaledClosePointF)
+
+                lineToOpenLength = lineToOpen.length()
+                lineToHighLength = lineToHigh.length()
+                lineToLowLength = lineToLow.length()
+                lineToCloseLength = lineToClose.length()
+                
+                self.log.debug("lineToOpenLength is: {}".\
+                               format(lineToOpenLength))
+                self.log.debug("lineToHighLength is: {}".\
+                               format(lineToHighLength))
+                self.log.debug("lineToLowLength is: {}".\
+                               format(lineToLowLength))
+                self.log.debug("lineToCloseLength is: {}".\
+                               format(lineToCloseLength))
+
+                # Set the initial smallestLength as the first point if
+                # it is not set already.
+                if smallestLength == None:
+                    # Here we are keeping the scene coordinate, not the
+                    # view-scaled one.
+                    closestPoint = openPointF
+                    smallestLength = lineToOpen.length()
+                    closestPriceBarGraphicsItem = item
+
+                # Test the open, high, low, and close points to see if
+                # they are now the closest to pointF.
+                if lineToOpenLength < smallestLength:
+                    # Here we are keeping the scene coordinate, not the
+                    # view-scaled one.
+                    closestPoint = openPointF
+                    smallestLength = lineToOpenLength
+                    closestPriceBarGraphicsItem = item
+                    self.log.debug("New closest point is now: ({}, {})".\
+                                   format(closestPoint.x(),
+                                          closestPoint.y()))
+
+                if lineToHighLength < smallestLength:
+                    # Here we are keeping the scene coordinate, not the
+                    # view-scaled one.
+                    closestPoint = highPointF
+                    smallestLength = lineToHighLength
+                    closestPriceBarGraphicsItem = item
+                    self.log.debug("New closest point is now: ({}, {})".\
+                                   format(closestPoint.x(),
+                                          closestPoint.y()))
+
+                if lineToLowLength < smallestLength:
+                    # Here we are keeping the scene coordinate, not the
+                    # view-scaled one.
+                    closestPoint = lowPointF
+                    smallestLength = lineToLowLength
+                    closestPriceBarGraphicsItem = item
+                    self.log.debug("New closest point is now: ({}, {})".\
+                                   format(closestPoint.x(),
+                                          closestPoint.y()))
+
+                if lineToCloseLength < smallestLength:
+                    # Here we are keeping the scene coordinate, not the
+                    # view-scaled one.
+                    closestPoint = closePointF
+                    smallestLength = lineToCloseLength
+                    closestPriceBarGraphicsItem = item
+                    self.log.debug("New closest point is now: ({}, {})".\
+                                   format(closestPoint.x(),
+                                          closestPoint.y()))
+                    
+        self.log.debug("Closest point is: ({}, {})".\
+                       format(closestPoint.x(), closestPoint.y()))
+
+        self.log.debug("Exiting getClosestPriceBarOHLCViewPoint()")
+        
+        return closestPoint
+        
+        
     def getClosestPriceBarX(self, pointF):
         """Gets the X position value of the closest PriceBar (on the X
         axis) to the given QPointF position.
@@ -15392,7 +15605,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
                         # Find if there is a point closer to this
                         # infoPointF related to a PriceBarGraphicsItem.
                         barPoint = \
-                            self.scene().getClosestPriceBarOHLCPoint(infoPointF)
+                            self.scene().\
+                            getClosestPriceBarOHLCViewPoint(infoPointF)
 
                         # If a point was found, then use it as the info point.
                         if barPoint != None:
@@ -15967,7 +16181,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
                         
                         infoPointF = self.mapToScene(qmouseevent.pos())
                         closestPoint = \
-                            self.scene().getClosestPriceBarOHLCPoint(infoPointF)
+                            self.scene().\
+                            getClosestPriceBarOHLCViewPoint(infoPointF)
 
                         # Use these X and Y values.
                         self.clickOnePointF.setX(closestPoint.x())
@@ -16012,7 +16227,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
                         
                         infoPointF = self.mapToScene(qmouseevent.pos())
                         closestPoint = \
-                            self.scene().getClosestPriceBarOHLCPoint(infoPointF)
+                            self.scene().\
+                            getClosestPriceBarOHLCViewPoint(infoPointF)
 
                         # Use these X and Y values.
                         self.clickTwoPointF.setX(closestPoint.x())

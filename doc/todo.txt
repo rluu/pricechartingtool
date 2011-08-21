@@ -43,25 +43,27 @@ DONE   works okay if you add additional PriceTimeVectors though.
 DONE
 DONE
 DONE
-
-  - PTV (Price-Time-Vector).
-        To modify:
-          pricebarchart.py 
-                - Fix text angle (it uses scaling, but is still not perfect).
-                - Make sure click-drag for moving the item works.
-                  Currently it only draws the text as it moves it.
-                - Make sure click-drag for moving start endpoint works.
-                - Make sure click-drag for moving end endpoint works.
-
-  - Bug: Need to update the 'closest point' algorithm to use scaling so that the actual pricebar point that is closest to the mouse (in the view) is the one that is selected, not by the closest in the scene.
-
+DONE
+DONE  - PTV (Price-Time-Vector).
+DONE        To modify:
+DONE          pricebarchart.py 
+DONE                - Fix text angle (it uses scaling, but still not perfect).
+DONE                - Make sure click-drag for moving the item works.
+DONE                  Currently it only draws the text as it moves it.
+DONE                - Make sure click-drag for moving start endpoint works.
+DONE                - Make sure click-drag for moving end endpoint works.
+DONE
+DONE - Bug: Need to update the 'closest point' algorithm to use
+DONE   scaling so that the actual pricebar point that is closest to the mouse
+DONE   (in the view) is the one that is selected, not by the closest in the
+DONE   scene.
+DONE
+DONE
   - Test the scaling calculations and positions of:
          - Price Measurement Tool
          - Time Measurement Tool
          - PriceTimeInfo Tool
          - PriceTimeVector Tool
-
-  - Need to test conversion and scaling code. (of tool measurement indicators).
 
   - Need to add the following time measurements to the time measurement tool:
 
@@ -93,7 +95,7 @@ DONE
         be also changeable in other tool modes.  Make sure it doesn't
         get cleared between shifting to different tool modes.
 
-  - Update scaling class to be able to calculate the following (using scaling):
+  - Update scalixng class to be able to calculate the following (using scaling):
 
 DONE      - Add to the scaling class, transform scaling values for the
 DONE        graphics view, as separate variables from just the regular

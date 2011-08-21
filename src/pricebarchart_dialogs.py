@@ -6522,7 +6522,6 @@ class PriceBarChartPriceTimeVectorArtifactEditWidget(QWidget):
             self.startPointDatetimeLocationWidget.getTimestamp()
         endPointDatetime = \
             self.endPointDatetimeLocationWidget.getTimestamp()
-        endPointDatetime = startPointDatetime
 
         color = self.colorEditButton.getColor()
         textColor = self.textColorEditButton.getColor()
