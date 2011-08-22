@@ -100,6 +100,9 @@ DONE
          - PriceTimeInfo Tool
          - PriceTimeVector Tool
 
+  - Set sensible defaults for TimeMeasurementTool (which text to have
+    displayed by default).
+
   - Need to add the following time measurements to the time measurement tool:
 
          - Measurement in units of the ruling periods for all the
