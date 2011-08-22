@@ -534,12 +534,74 @@ class PriceBarChartTimeMeasurementArtifactEditWidget(QWidget):
         
         # Save off the readOnlyFlag
         self.readOnlyFlag = readOnlyFlag
-        
+
         # QGroupBox to hold the edit widgets and form.
-        self.groupBox = QGroupBox("PriceBarChartTimeMeasurementArtifact Data:")
+        self.groupBoxPage1 = self._createGroupBoxPage1()
+        self.groupBoxPage2 = self._createGroupBoxPage2()
+        self.groupBoxPage3 = self._createGroupBoxPage3()
+
+        # Create a QTabWidget to stack all the QGroupBox that have our
+        # edit widgets.
+        self.tabWidget = QTabWidget()
+        self.tabWidget.addTab(self.groupBoxPage1, "Page 1")
+        self.tabWidget.addTab(self.groupBoxPage2, "Page 2")
+        self.tabWidget.addTab(self.groupBoxPage3, "Page 3")
+        
+        # Buttons at bottom.
+        self.okayButton = QPushButton("&Okay")
+        self.cancelButton = QPushButton("&Cancel")
+        self.buttonsAtBottomLayout = QHBoxLayout()
+        self.buttonsAtBottomLayout.addStretch()
+        self.buttonsAtBottomLayout.addWidget(self.okayButton)
+        self.buttonsAtBottomLayout.addWidget(self.cancelButton)
+
+        
+        # Put all layouts/groupboxes together into the widget.
+        self.mainLayout = QVBoxLayout()
+        self.mainLayout.addWidget(self.tabWidget)
+        self.mainLayout.addSpacing(10)
+        self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
+
+        self.setLayout(self.mainLayout)
+        
+        self.setReadOnly(self.readOnlyFlag)
+        
+        # Now that all the widgets are created, load the values from the
+        # artifact object.
+        self.loadValues(self.artifact)
+
+        # Connect signals and slots.
+
+        self.fontEditButton.clicked.connect(\
+            self._handleFontEditButtonClicked)
+        
+        self.groupBoxPage2CheckAllButton.clicked.connect(\
+            self._handleGroupBoxPage2CheckAllButtonClicked)
+        self.groupBoxPage2UncheckAllButton.clicked.connect(\
+            self._handleGroupBoxPage2UncheckAllButtonClicked)
+        
+        self.groupBoxPage3CheckAllButton.clicked.connect(\
+            self._handleGroupBoxPage3CheckAllButtonClicked)
+        self.groupBoxPage3UncheckAllButton.clicked.connect(\
+            self._handleGroupBoxPage3UncheckAllButtonClicked)
+        
+        # Connect okay and cancel buttons.
+        self.okayButton.clicked.connect(self._handleOkayButtonClicked)
+        self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
 
 
+    def _createGroupBoxPage1(self):
+        """Creates a QGroupBox (and the widgets within it) for page1
+        of the edit widget, and then returns it.
+        """
+
+
+        self.groupBoxPage1 = \
+            QGroupBox("PriceBarChartTimeMeasurementArtifact Data (page 1):")
+        
         lineEditWidth = 420
+
+        # Create the edit widgets that will go on this page.
         
         self.internalNameLabel = QLabel("Internal name:")
         self.internalNameLineEdit = QLineEdit()
@@ -588,6 +650,67 @@ class PriceBarChartTimeMeasurementArtifactEditWidget(QWidget):
         self.endPointDatetimeLocationWidget.okayButton.setVisible(False)
         self.endPointDatetimeLocationWidget.cancelButton.setVisible(False)
         
+        # Layout for just the font info.
+        self.fontLayout = QHBoxLayout()
+        self.fontLayout.addWidget(self.fontValueLabel)
+        self.fontLayout.addStretch()
+        self.fontLayout.addWidget(self.fontEditButton)
+
+        # Layout.
+        gridLayout = QGridLayout()
+
+        # Row.
+        r = 0
+
+        # Alignments.
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        gridLayout.addWidget(self.internalNameLabel, r, 0, al)
+        gridLayout.addWidget(self.internalNameLineEdit, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.uuidLabel, r, 0, al)
+        gridLayout.addWidget(self.uuidLineEdit, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.xScalingLabel, r, 0, al)
+        gridLayout.addWidget(self.xScalingDoubleSpinBox, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.yScalingLabel, r, 0, al)
+        gridLayout.addWidget(self.yScalingDoubleSpinBox, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.fontLabel, r, 0, al)
+        gridLayout.addLayout(self.fontLayout, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.colorLabel, r, 0, al)
+        gridLayout.addWidget(self.colorEditButton, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.textColorLabel, r, 0, al)
+        gridLayout.addWidget(self.textColorEditButton, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.priceLocationValueLabel, r, 0, al)
+        gridLayout.addWidget(self.priceLocationValueSpinBox, r, 1, al)
+        r += 1
+
+        # Put all the layouts together.
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addWidget(self.startPointDatetimeLocationWidget)
+        layout.addWidget(self.endPointDatetimeLocationWidget)
+        
+        self.groupBoxPage1.setLayout(layout)
+
+        return self.groupBoxPage1
+
+
+    def _createGroupBoxPage2(self):
+        """Creates a QGroupBox (and the widgets within it) for page2
+        of the edit widget, and then returns it.
+        """
+
+        self.groupBoxPage2 = \
+            QGroupBox("PriceBarChartTimeMeasurementArtifact Data (page 2):")
+
+        # Create the QCheckBox widgets going on this page.
         self.showBarsTextFlagCheckBox = \
             QCheckBox("Show Bars Text")
         self.showSqrtBarsTextFlagCheckBox = \
@@ -630,6 +753,97 @@ class PriceBarChartTimeMeasurementArtifactEditWidget(QWidget):
             QCheckBox("Show sqrt scaled value range text")
         self.showSqrdScaledValueRangeTextFlagCheckBox = \
             QCheckBox("Show sqrd scaled value range text")
+
+        # Button for checkmarking all of the checkboxes on this page.
+        self.groupBoxPage2CheckAllButton = QPushButton("Check all below")
+        self.groupBoxPage2UncheckAllButton = QPushButton("Uncheck all below")
+
+        # Layout holding just the buttons for checking all the
+        # checkboxes or unchecking them all.
+        checkUncheckButtonsLayout = QHBoxLayout()
+        checkUncheckButtonsLayout.addWidget(\
+            self.groupBoxPage2CheckAllButton)
+        checkUncheckButtonsLayout.addWidget(\
+            self.groupBoxPage2UncheckAllButton)
+        checkUncheckButtonsLayout.addStretch()
+
+        # Layout on the left side holding about half of the checkboxes
+        # for this page.
+        showTextCheckBoxesLeftLayout = QVBoxLayout()
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.showBarsTextFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.showSqrtBarsTextFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.showSqrdBarsTextFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.showHoursTextFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.showSqrtHoursTextFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.showSqrdHoursTextFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.showDaysTextFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.showSqrtDaysTextFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.showSqrdDaysTextFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addStretch()
+
+        # Layout on the right side holding about half of the checkboxes
+        # for this page.
+        showTextCheckBoxesRightLayout = QVBoxLayout()
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.showWeeksTextFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.showSqrtWeeksTextFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.showSqrdWeeksTextFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.showMonthsTextFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.showSqrtMonthsTextFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.showSqrdMonthsTextFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.showTimeRangeTextFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.showSqrtTimeRangeTextFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.showSqrdTimeRangeTextFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.showScaledValueRangeTextFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.showSqrtScaledValueRangeTextFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.showSqrdScaledValueRangeTextFlagCheckBox)
+        showTextCheckBoxesRightLayout.addStretch()
+
+        # Layout for all the checkboxes.
+        checkBoxesLayout = QHBoxLayout()
+        checkBoxesLayout.addLayout(showTextCheckBoxesLeftLayout)
+        checkBoxesLayout.addLayout(showTextCheckBoxesRightLayout)
+
+        # Layout for this groupbox page.
+        layout = QVBoxLayout()
+        layout.addLayout(checkUncheckButtonsLayout)
+        layout.addSpacing(10)
+        layout.addLayout(checkBoxesLayout)
+
+        self.groupBoxPage2.setLayout(layout)
+
+        return self.groupBoxPage2
+
+    
+    def _createGroupBoxPage3(self):
+        """Creates a QGroupBox (and the widgets within it) for page3
+        of the edit widget, and then returns it.
+        """
+
+        self.groupBoxPage3 = \
+            QGroupBox("PriceBarChartTimeMeasurementArtifact Data (page 3):")
+
+        # Create the QCheckBox widgets going on this page.
         self.showAyanaTextFlagCheckBox = \
             QCheckBox("Show ayana (6 months/Sun) text")
         self.showSqrtAyanaTextFlagCheckBox = \
@@ -655,19 +869,17 @@ class PriceBarChartTimeMeasurementArtifactEditWidget(QWidget):
         self.showSqrdRtuTextFlagCheckBox = \
             QCheckBox("Show sqrd rtu (season of 2 months/Mercury) text")
         self.showMasaTextFlagCheckBox = \
-            QCheckBox("Show masa (full-moon to full-moon month/Jupiter) text")
+            QCheckBox("Show masa (lunar synodic month/Jupiter) text")
         self.showSqrtMasaTextFlagCheckBox = \
-            QCheckBox("Show sqrt masa " +
-                      "(full-moon to full-moon month/Jupiter) text")
+            QCheckBox("Show sqrt masa (lunar synodic month/Jupiter) text")
         self.showSqrdMasaTextFlagCheckBox = \
-            QCheckBox("Show sqrd masa " +
-                      "(full-moon to full-moon month/Jupiter) text")
+            QCheckBox("Show sqrd masa (lunar syndoci month/Jupiter) text")
         self.showPaksaTextFlagCheckBox = \
-            QCheckBox("Show paksa (15-day fortnight/Venus) text")
+            QCheckBox("Show paksa (fortnight/Venus) text")
         self.showSqrtPaksaTextFlagCheckBox = \
-            QCheckBox("Show sqrt paksa (15-day fortnight/Venus) text")
+            QCheckBox("Show sqrt paksa (fortnight/Venus) text")
         self.showSqrdPaksaTextFlagCheckBox = \
-            QCheckBox("Show sqrd paksa (15-day fortnight/Venus) text")
+            QCheckBox("Show sqrd paksa (fortnight/Venus) text")
         self.showSamaTextFlagCheckBox = \
             QCheckBox("Show sama (year/Saturn) text")
         self.showSqrtSamaTextFlagCheckBox = \
@@ -675,184 +887,87 @@ class PriceBarChartTimeMeasurementArtifactEditWidget(QWidget):
         self.showSqrdSamaTextFlagCheckBox = \
             QCheckBox("Show sqrd sama (year/Saturn) text")
         
-        # Layout for just the font info.
-        self.fontLayout = QHBoxLayout()
-        self.fontLayout.addWidget(self.fontValueLabel)
-        self.fontLayout.addStretch()
-        self.fontLayout.addWidget(self.fontEditButton)
+        # Button for checkmarking all of the checkboxes on this page.
+        self.groupBoxPage3CheckAllButton = QPushButton("Check all below")
+        self.groupBoxPage3UncheckAllButton = QPushButton("Uncheck all below")
 
-        # Layout.
-        self.gridLayout = QGridLayout()
+        # Layout holding just the buttons for checking all the
+        # checkboxes or unchecking them all.
+        checkUncheckButtonsLayout = QHBoxLayout()
+        checkUncheckButtonsLayout.addWidget(\
+            self.groupBoxPage3CheckAllButton)
+        checkUncheckButtonsLayout.addWidget(\
+            self.groupBoxPage3UncheckAllButton)
+        checkUncheckButtonsLayout.addStretch()
 
-        # Row.
-        r = 0
-
-        # Alignments.
-        al = Qt.AlignLeft
-        ar = Qt.AlignRight
-
-        self.gridLayout.addWidget(self.internalNameLabel, r, 0, al)
-        self.gridLayout.addWidget(self.internalNameLineEdit, r, 1, al)
-        r += 1
-        self.gridLayout.addWidget(self.uuidLabel, r, 0, al)
-        self.gridLayout.addWidget(self.uuidLineEdit, r, 1, al)
-        r += 1
-        self.gridLayout.addWidget(self.xScalingLabel, r, 0, al)
-        self.gridLayout.addWidget(self.xScalingDoubleSpinBox, r, 1, al)
-        r += 1
-        self.gridLayout.addWidget(self.yScalingLabel, r, 0, al)
-        self.gridLayout.addWidget(self.yScalingDoubleSpinBox, r, 1, al)
-        r += 1
-        self.gridLayout.addWidget(self.fontLabel, r, 0, al)
-        self.gridLayout.addLayout(self.fontLayout, r, 1, al)
-        r += 1
-        self.gridLayout.addWidget(self.colorLabel, r, 0, al)
-        self.gridLayout.addWidget(self.colorEditButton, r, 1, al)
-        r += 1
-        self.gridLayout.addWidget(self.textColorLabel, r, 0, al)
-        self.gridLayout.addWidget(self.textColorEditButton, r, 1, al)
-        r += 1
-        self.gridLayout.addWidget(self.priceLocationValueLabel, r, 0, al)
-        self.gridLayout.addWidget(self.priceLocationValueSpinBox, r, 1, al)
-        r += 1
-
-        # Layouts just for the checkboxes for showing text.
-
-        self.showTextCheckBoxesLeftLayout = QVBoxLayout()
-        self.showTextCheckBoxesLeftLayout.addWidget(\
-            self.showBarsTextFlagCheckBox)
-        self.showTextCheckBoxesLeftLayout.addWidget(\
-            self.showSqrtBarsTextFlagCheckBox)
-        self.showTextCheckBoxesLeftLayout.addWidget(\
-            self.showSqrdBarsTextFlagCheckBox)
-        self.showTextCheckBoxesLeftLayout.addWidget(\
-            self.showHoursTextFlagCheckBox)
-        self.showTextCheckBoxesLeftLayout.addWidget(\
-            self.showSqrtHoursTextFlagCheckBox)
-        self.showTextCheckBoxesLeftLayout.addWidget(\
-            self.showSqrdHoursTextFlagCheckBox)
-        self.showTextCheckBoxesLeftLayout.addWidget(\
-            self.showDaysTextFlagCheckBox)
-        self.showTextCheckBoxesLeftLayout.addWidget(\
-            self.showSqrtDaysTextFlagCheckBox)
-        self.showTextCheckBoxesLeftLayout.addWidget(\
-            self.showSqrdDaysTextFlagCheckBox)
-        self.showTextCheckBoxesLeftLayout.addWidget(\
-            self.showWeeksTextFlagCheckBox)
-        self.showTextCheckBoxesLeftLayout.addWidget(\
-            self.showSqrtWeeksTextFlagCheckBox)
-        self.showTextCheckBoxesLeftLayout.addWidget(\
-            self.showSqrdWeeksTextFlagCheckBox)
-        self.showTextCheckBoxesLeftLayout.addWidget(\
-            self.showMonthsTextFlagCheckBox)
-        self.showTextCheckBoxesLeftLayout.addWidget(\
-            self.showSqrtMonthsTextFlagCheckBox)
-        self.showTextCheckBoxesLeftLayout.addWidget(\
-            self.showSqrdMonthsTextFlagCheckBox)
-        self.showTextCheckBoxesLeftLayout.addWidget(\
-            self.showTimeRangeTextFlagCheckBox)
-        self.showTextCheckBoxesLeftLayout.addWidget(\
-            self.showSqrtTimeRangeTextFlagCheckBox)
-        self.showTextCheckBoxesLeftLayout.addWidget(\
-            self.showSqrdTimeRangeTextFlagCheckBox)
-        self.showTextCheckBoxesLeftLayout.addWidget(\
-            self.showScaledValueRangeTextFlagCheckBox)
-        self.showTextCheckBoxesLeftLayout.addWidget(\
-            self.showSqrtScaledValueRangeTextFlagCheckBox)
-        self.showTextCheckBoxesLeftLayout.addWidget(\
-            self.showSqrdScaledValueRangeTextFlagCheckBox)
-        self.showTextCheckBoxesLeftLayout.addStretch()
-
-
-        self.showTextCheckBoxesRightLayout = QVBoxLayout()
-        self.showTextCheckBoxesRightLayout.addWidget(\
+        # Layout on the left side holding about half of the checkboxes
+        # for this page.
+        showTextCheckBoxesLeftLayout = QVBoxLayout()
+        showTextCheckBoxesLeftLayout.addWidget(\
             self.showAyanaTextFlagCheckBox)
-        self.showTextCheckBoxesRightLayout.addWidget(\
+        showTextCheckBoxesLeftLayout.addWidget(\
             self.showSqrtAyanaTextFlagCheckBox)
-        self.showTextCheckBoxesRightLayout.addWidget(\
+        showTextCheckBoxesLeftLayout.addWidget(\
             self.showSqrdAyanaTextFlagCheckBox)
-        self.showTextCheckBoxesRightLayout.addWidget(\
+        showTextCheckBoxesLeftLayout.addWidget(\
             self.showMuhurtaTextFlagCheckBox)
-        self.showTextCheckBoxesRightLayout.addWidget(\
+        showTextCheckBoxesLeftLayout.addWidget(\
             self.showSqrtMuhurtaTextFlagCheckBox)
-        self.showTextCheckBoxesRightLayout.addWidget(\
+        showTextCheckBoxesLeftLayout.addWidget(\
             self.showSqrdMuhurtaTextFlagCheckBox)
-        self.showTextCheckBoxesRightLayout.addWidget(\
+        showTextCheckBoxesLeftLayout.addWidget(\
             self.showVaraTextFlagCheckBox)
-        self.showTextCheckBoxesRightLayout.addWidget(\
+        showTextCheckBoxesLeftLayout.addWidget(\
             self.showSqrtVaraTextFlagCheckBox)
-        self.showTextCheckBoxesRightLayout.addWidget(\
+        showTextCheckBoxesLeftLayout.addWidget(\
             self.showSqrdVaraTextFlagCheckBox)
-        self.showTextCheckBoxesRightLayout.addWidget(\
+        showTextCheckBoxesLeftLayout.addWidget(\
             self.showRtuTextFlagCheckBox)
-        self.showTextCheckBoxesRightLayout.addWidget(\
+        showTextCheckBoxesLeftLayout.addWidget(\
             self.showSqrtRtuTextFlagCheckBox)
-        self.showTextCheckBoxesRightLayout.addWidget(\
+        showTextCheckBoxesLeftLayout.addWidget(\
             self.showSqrdRtuTextFlagCheckBox)
-        self.showTextCheckBoxesRightLayout.addWidget(\
+        showTextCheckBoxesLeftLayout.addStretch()
+        
+        # Layout on the right side holding about half of the checkboxes
+        # for this page.
+        showTextCheckBoxesRightLayout = QVBoxLayout()
+        showTextCheckBoxesRightLayout.addWidget(\
             self.showMasaTextFlagCheckBox)
-        self.showTextCheckBoxesRightLayout.addWidget(\
+        showTextCheckBoxesRightLayout.addWidget(\
             self.showSqrtMasaTextFlagCheckBox)
-        self.showTextCheckBoxesRightLayout.addWidget(\
+        showTextCheckBoxesRightLayout.addWidget(\
             self.showSqrdMasaTextFlagCheckBox)
-        self.showTextCheckBoxesRightLayout.addWidget(\
+        showTextCheckBoxesRightLayout.addWidget(\
             self.showPaksaTextFlagCheckBox)
-        self.showTextCheckBoxesRightLayout.addWidget(\
+        showTextCheckBoxesRightLayout.addWidget(\
             self.showSqrtPaksaTextFlagCheckBox)
-        self.showTextCheckBoxesRightLayout.addWidget(\
+        showTextCheckBoxesRightLayout.addWidget(\
             self.showSqrdPaksaTextFlagCheckBox)
-        self.showTextCheckBoxesRightLayout.addWidget(\
+        showTextCheckBoxesRightLayout.addWidget(\
             self.showSamaTextFlagCheckBox)
-        self.showTextCheckBoxesRightLayout.addWidget(\
+        showTextCheckBoxesRightLayout.addWidget(\
             self.showSqrtSamaTextFlagCheckBox)
-        self.showTextCheckBoxesRightLayout.addWidget(\
+        showTextCheckBoxesRightLayout.addWidget(\
             self.showSqrdSamaTextFlagCheckBox)
+        showTextCheckBoxesRightLayout.addStretch()
 
-        # Put the left and right layouts for checkboxes together.
-        self.showTextCheckBoxesLayout = QHBoxLayout()
-        self.showTextCheckBoxesLayout.\
-            addLayout(self.showTextCheckBoxesLeftLayout)
-        self.showTextCheckBoxesLayout.\
-            addLayout(self.showTextCheckBoxesRightLayout)
+        # Layout for all the checkboxes.
+        checkBoxesLayout = QHBoxLayout()
+        checkBoxesLayout.addLayout(showTextCheckBoxesLeftLayout)
+        checkBoxesLayout.addLayout(showTextCheckBoxesRightLayout)
 
-        # Put all the layouts together.
-        self.layout = QVBoxLayout()
-        self.layout.addLayout(self.gridLayout)
-        self.layout.addWidget(self.startPointDatetimeLocationWidget)
-        self.layout.addWidget(self.endPointDatetimeLocationWidget)
-        self.layout.addLayout(self.showTextCheckBoxesLayout)
-        self.groupBox.setLayout(self.layout)
+        # Layout for this groupbox page.
+        layout = QVBoxLayout()
+        layout.addLayout(checkUncheckButtonsLayout)
+        layout.addSpacing(10)
+        layout.addLayout(checkBoxesLayout)
 
-        # Buttons at bottom.
-        self.okayButton = QPushButton("&Okay")
-        self.cancelButton = QPushButton("&Cancel")
-        self.buttonsAtBottomLayout = QHBoxLayout()
-        self.buttonsAtBottomLayout.addStretch()
-        self.buttonsAtBottomLayout.addWidget(self.okayButton)
-        self.buttonsAtBottomLayout.addWidget(self.cancelButton)
+        self.groupBoxPage3.setLayout(layout)
 
-        # Put all layouts/groupboxes together into the widget.
-        self.mainLayout = QVBoxLayout()
-        self.mainLayout.addWidget(self.groupBox) 
-        self.mainLayout.addSpacing(10)
-        self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
-
-        self.setLayout(self.mainLayout)
+        return self.groupBoxPage3
         
-        self.setReadOnly(self.readOnlyFlag)
         
-        # Now that all the widgets are created, load the values from the
-        # artifact object.
-        self.loadValues(self.artifact)
-
-        # Connect signals and slots.
-
-        self.fontEditButton.clicked.connect(self._handleFontEditButtonClicked)
-        
-        # Connect okay and cancel buttons.
-        self.okayButton.clicked.connect(self._handleOkayButtonClicked)
-        self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
-
     def setConvertObj(self, convertObj):
         """Sets the object that is used for the conversion between
         scene position and timestamp or price.
@@ -903,6 +1018,7 @@ class PriceBarChartTimeMeasurementArtifactEditWidget(QWidget):
         self.readOnlyFlag = readOnlyFlag
 
         # Set the internal widgets as readonly or not depending on this flag.
+        
         self.internalNameLineEdit.setReadOnly(True)
         self.uuidLineEdit.setReadOnly(True)
         self.xScalingDoubleSpinBox.setEnabled(not self.readOnlyFlag)
@@ -979,6 +1095,16 @@ class PriceBarChartTimeMeasurementArtifactEditWidget(QWidget):
         self.showSqrtSamaTextFlagCheckBox.\
             setEnabled(not self.readOnlyFlag)
         self.showSqrdSamaTextFlagCheckBox.\
+            setEnabled(not self.readOnlyFlag)
+
+        # Buttons for mass checking or unchecking.
+        self.groupBoxPage2CheckAllButton.\
+            setEnabled(not self.readOnlyFlag)
+        self.groupBoxPage2UncheckAllButton.\
+            setEnabled(not self.readOnlyFlag)
+        self.groupBoxPage3CheckAllButton.\
+            setEnabled(not self.readOnlyFlag)
+        self.groupBoxPage3UncheckAllButton.\
             setEnabled(not self.readOnlyFlag)
         
         # Don't allow the Okay button to be pressed for saving.
@@ -1507,6 +1633,210 @@ class PriceBarChartTimeMeasurementArtifactEditWidget(QWidget):
             # Store the font in the member variable (not in the artifact).
             self.font = dialog.selectedFont()
             self.fontValueLabel.setText(self._convertFontToNiceText(self.font))
+
+    def _handleGroupBoxPage2CheckAllButtonClicked(self):
+        """Called when the groupBoxPage2CheckAllButton is clicked.
+        This function will checkmark all the QCheckBox widgets in
+        page 2.
+        """
+
+        checkState = Qt.Checked
+        
+        self.showBarsTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrtBarsTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrdBarsTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showHoursTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrtHoursTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrdHoursTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showDaysTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrtDaysTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrdDaysTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showWeeksTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrtWeeksTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrdWeeksTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showMonthsTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrtMonthsTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrdMonthsTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showTimeRangeTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrtTimeRangeTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrdTimeRangeTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showScaledValueRangeTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrtScaledValueRangeTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrdScaledValueRangeTextFlagCheckBox.\
+            setCheckState(checkState)
+        
+    def _handleGroupBoxPage2UncheckAllButtonClicked(self):
+        """Called when the groupBoxPage2CheckAllButton is clicked.
+        This function will uncheckmark all the QCheckBox widgets in
+        page 2.
+        """
+
+        checkState = Qt.Unchecked
+        
+        self.showBarsTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrtBarsTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrdBarsTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showHoursTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrtHoursTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrdHoursTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showDaysTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrtDaysTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrdDaysTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showWeeksTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrtWeeksTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrdWeeksTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showMonthsTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrtMonthsTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrdMonthsTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showTimeRangeTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrtTimeRangeTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrdTimeRangeTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showScaledValueRangeTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrtScaledValueRangeTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrdScaledValueRangeTextFlagCheckBox.\
+            setCheckState(checkState)
+        
+    def _handleGroupBoxPage3CheckAllButtonClicked(self):
+        """Called when the groupBoxPage3CheckAllButton is clicked.
+        This function will checkmark all the QCheckBox widgets in
+        page 3.
+        """
+
+        checkState = Qt.Checked
+        
+        self.showAyanaTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrtAyanaTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrdAyanaTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showMuhurtaTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrtMuhurtaTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrdMuhurtaTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showVaraTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrtVaraTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrdVaraTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showRtuTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrtRtuTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrdRtuTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showMasaTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrtMasaTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrdMasaTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showPaksaTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrtPaksaTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrdPaksaTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSamaTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrtSamaTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrdSamaTextFlagCheckBox.\
+            setCheckState(checkState)
+        
+    def _handleGroupBoxPage3UncheckAllButtonClicked(self):
+        """Called when the groupBoxPage3CheckAllButton is clicked.
+        This function will uncheckmark all the QCheckBox widgets in
+        page 3.
+        """
+
+        checkState = Qt.Unchecked
+        
+        self.showAyanaTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrtAyanaTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrdAyanaTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showMuhurtaTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrtMuhurtaTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrdMuhurtaTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showVaraTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrtVaraTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrdVaraTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showRtuTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrtRtuTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrdRtuTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showMasaTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrtMasaTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrdMasaTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showPaksaTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrtPaksaTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrdPaksaTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSamaTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrtSamaTextFlagCheckBox.\
+            setCheckState(checkState)
+        self.showSqrdSamaTextFlagCheckBox.\
+            setCheckState(checkState)
         
     def _handleOkayButtonClicked(self):
         """Called when the okay button is clicked."""

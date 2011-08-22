@@ -1605,6 +1605,20 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
 
         return self.showWeeksTextFlag
         
+    def setShowSqrtWeeksTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the sqrt of
+        the number of weeks should be displayed.
+        """
+
+        self.showSqrtWeeksTextFlag = flag
+        
+    def getShowSqrtWeeksTextFlag(self):
+        """Returns the flag that indicates that the text for the sqrt
+        of the number of weeks should be displayed.
+        """
+
+        return self.showSqrtWeeksTextFlag
+        
     def setShowSqrdWeeksTextFlag(self, flag):
         """Sets the flag that indicates that the text for the sqrd of
         the number of weeks should be displayed.
