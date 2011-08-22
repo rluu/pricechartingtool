@@ -1215,41 +1215,61 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowBarsTextFlag
         
+        self.showSqrtBarsTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtBarsTextFlag
+        
+        self.showSqrdBarsTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdBarsTextFlag
+        
         self.showHoursTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowHoursTextFlag
+        
+        self.showSqrtHoursTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtHoursTextFlag
+        
+        self.showSqrdHoursTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdHoursTextFlag
         
         self.showDaysTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowDaysTextFlag
         
+        self.showSqrtDaysTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtDaysTextFlag
+        
+        self.showSqrdDaysTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdDaysTextFlag
+        
         self.showWeeksTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowWeeksTextFlag
+        
+        self.showSqrtWeeksTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtWeeksTextFlag
+        
+        self.showSqrdWeeksTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdWeeksTextFlag
         
         self.showMonthsTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowMonthsTextFlag
         
-        self.showSqrtBarsTextFlag = \
-                PriceBarChartSettings.\
-                defaultTimeMeasurementGraphicsItemShowSqrtBarsTextFlag
-        
-        self.showSqrtHoursTextFlag = \
-                PriceBarChartSettings.\
-                defaultTimeMeasurementGraphicsItemShowSqrtHoursTextFlag
-        
-        self.showSqrtDaysTextFlag = \
-                PriceBarChartSettings.\
-                defaultTimeMeasurementGraphicsItemShowSqrtDaysTextFlag
-        
-        self.showSqrtWeeksTextFlag = \
-                PriceBarChartSettings.\
-                defaultTimeMeasurementGraphicsItemShowSqrtWeeksTextFlag
-        
         self.showSqrtMonthsTextFlag = \
-                PriceBarChartSettings.\
-                defaultTimeMeasurementGraphicsItemShowSqrtMonthsTextFlag
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtMonthsTextFlag
+        
+        self.showSqrdMonthsTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdMonthsTextFlag
         
         self.showTimeRangeTextFlag = \
             PriceBarChartSettings.\
@@ -1259,6 +1279,10 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtTimeRangeTextFlag
 
+        self.showSqrdTimeRangeTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdTimeRangeTextFlag
+
         self.showScaledValueRangeTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowScaledValueRangeTextFlag
@@ -1266,6 +1290,95 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         self.showSqrtScaledValueRangeTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag
+
+        self.showSqrdScaledValueRangeTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdScaledValueRangeTextFlag
+
+        self.showAyanaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowAyanaTextFlag
+        
+        self.showSqrtAyanaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtAyanaTextFlag
+        
+        self.showSqrdAyanaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdAyanaTextFlag
+        
+        self.showMuhurtaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowMuhurtaTextFlag
+        
+        self.showSqrtMuhurtaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtMuhurtaTextFlag
+        
+        self.showSqrdMuhurtaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdMuhurtaTextFlag
+        
+        self.showVaraTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowVaraTextFlag
+        
+        self.showSqrtVaraTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtVaraTextFlag
+        
+        self.showSqrdVaraTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdVaraTextFlag
+        
+        self.showRtuTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowRtuTextFlag
+        
+        self.showSqrtRtuTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtRtuTextFlag
+        
+        self.showSqrdRtuTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdRtuTextFlag
+        
+        self.showMasaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowMasaTextFlag
+        
+        self.showSqrtMasaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtMasaTextFlag
+        
+        self.showSqrdMasaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdMasaTextFlag
+        
+        self.showPaksaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowPaksaTextFlag
+        
+        self.showSqrtPaksaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtPaksaTextFlag
+        
+        self.showSqrdPaksaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdPaksaTextFlag
+        
+        self.showSamaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSamaTextFlag
+        
+        self.showSqrtSamaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtSamaTextFlag
+        
+        self.showSqrdSamaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdSamaTextFlag
+        
         
     def setFont(self, font):
         """Sets the font of this artifact's text.
@@ -1366,62 +1479,6 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
 
         return self.showBarsTextFlag
         
-    def setShowHoursTextFlag(self, flag):
-        """Sets the flag that indicates that the text for the number
-        of hours should be displayed.
-        """
-
-        self.showHoursTextFlag = flag
-        
-    def getShowHoursTextFlag(self):
-        """Returns the flag that indicates that the text for the
-        number of hours should be displayed.
-        """
-
-        return self.showHoursTextFlag
-        
-    def setShowDaysTextFlag(self, flag):
-        """Sets the flag that indicates that the text for the number
-        of days should be displayed.
-        """
-
-        self.showDaysTextFlag = flag
-        
-    def getShowDaysTextFlag(self):
-        """Returns the flag that indicates that the text for the
-        number of days should be displayed.
-        """
-
-        return self.showDaysTextFlag
-        
-    def setShowWeeksTextFlag(self, flag):
-        """Sets the flag that indicates that the text for the number
-        of weeks should be displayed.
-        """
-
-        self.showWeeksTextFlag = flag
-        
-    def getShowWeeksTextFlag(self):
-        """Returns the flag that indicates that the text for the
-        number of weeks should be displayed.
-        """
-
-        return self.showWeeksTextFlag
-        
-    def setShowMonthsTextFlag(self, flag):
-        """Sets the flag that indicates that the text for the number
-        of months should be displayed.
-        """
-
-        self.showMonthsTextFlag = flag
-        
-    def getShowMonthsTextFlag(self):
-        """Returns the flag that indicates that the text for the
-        number of months should be displayed.
-        """
-
-        return self.showMonthsTextFlag
-        
     def setShowSqrtBarsTextFlag(self, flag):
         """Sets the flag that indicates that the text for the sqrt of
         the number of bars should be displayed.
@@ -1435,6 +1492,34 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         """
 
         return self.showSqrtBarsTextFlag
+        
+    def setShowSqrdBarsTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the sqrd of
+        the number of bars should be displayed.
+        """
+
+        self.showSqrdBarsTextFlag = flag
+        
+    def getShowSqrdBarsTextFlag(self):
+        """Returns the flag that indicates that the text for the sqrd
+        of the number of bars should be displayed.
+        """
+
+        return self.showSqrdBarsTextFlag
+        
+    def setShowHoursTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the number
+        of hours should be displayed.
+        """
+
+        self.showHoursTextFlag = flag
+        
+    def getShowHoursTextFlag(self):
+        """Returns the flag that indicates that the text for the
+        number of hours should be displayed.
+        """
+
+        return self.showHoursTextFlag
         
     def setShowSqrtHoursTextFlag(self, flag):
         """Sets the flag that indicates that the text for the sqrt of
@@ -1450,6 +1535,34 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
 
         return self.showSqrtHoursTextFlag
         
+    def setShowSqrdHoursTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the sqrd of
+        the number of hours should be displayed.
+        """
+
+        self.showSqrdHoursTextFlag = flag
+        
+    def getShowSqrdHoursTextFlag(self):
+        """Returns the flag that indicates that the text for the sqrd
+        of the number of hours should be displayed.
+        """
+
+        return self.showSqrdHoursTextFlag
+        
+    def setShowDaysTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the number
+        of days should be displayed.
+        """
+
+        self.showDaysTextFlag = flag
+        
+    def getShowDaysTextFlag(self):
+        """Returns the flag that indicates that the text for the
+        number of days should be displayed.
+        """
+
+        return self.showDaysTextFlag
+        
     def setShowSqrtDaysTextFlag(self, flag):
         """Sets the flag that indicates that the text for the sqrt of
         the number of days should be displayed.
@@ -1464,19 +1577,61 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
 
         return self.showSqrtDaysTextFlag
         
-    def setShowSqrtWeeksTextFlag(self, flag):
-        """Sets the flag that indicates that the text for the sqrt of
+    def setShowSqrdDaysTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the sqrd of
+        the number of days should be displayed.
+        """
+
+        self.showSqrdDaysTextFlag = flag
+        
+    def getShowSqrdDaysTextFlag(self):
+        """Returns the flag that indicates that the text for the sqrd
+        of the number of days should be displayed.
+        """
+
+        return self.showSqrdDaysTextFlag
+        
+    def setShowWeeksTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the number
+        of weeks should be displayed.
+        """
+
+        self.showWeeksTextFlag = flag
+        
+    def getShowWeeksTextFlag(self):
+        """Returns the flag that indicates that the text for the
+        number of weeks should be displayed.
+        """
+
+        return self.showWeeksTextFlag
+        
+    def setShowSqrdWeeksTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the sqrd of
         the number of weeks should be displayed.
         """
 
-        self.showSqrtWeeksTextFlag = flag
+        self.showSqrdWeeksTextFlag = flag
         
-    def getShowSqrtWeeksTextFlag(self):
-        """Returns the flag that indicates that the text for the sqrt
+    def getShowSqrdWeeksTextFlag(self):
+        """Returns the flag that indicates that the text for the sqrd
         of the number of weeks should be displayed.
         """
 
-        return self.showSqrtWeeksTextFlag
+        return self.showSqrdWeeksTextFlag
+        
+    def setShowMonthsTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the number
+        of months should be displayed.
+        """
+
+        self.showMonthsTextFlag = flag
+        
+    def getShowMonthsTextFlag(self):
+        """Returns the flag that indicates that the text for the
+        number of months should be displayed.
+        """
+
+        return self.showMonthsTextFlag
         
     def setShowSqrtMonthsTextFlag(self, flag):
         """Sets the flag that indicates that the text for the sqrt of
@@ -1491,6 +1646,20 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         """
 
         return self.showSqrtMonthsTextFlag
+        
+    def setShowSqrdMonthsTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the sqrd of
+        the number of months should be displayed.
+        """
+
+        self.showSqrdMonthsTextFlag = flag
+        
+    def getShowSqrdMonthsTextFlag(self):
+        """Returns the flag that indicates that the text for the sqrd
+        of the number of months should be displayed.
+        """
+
+        return self.showSqrdMonthsTextFlag
         
     def setShowTimeRangeTextFlag(self, flag):
         """Sets the flag that indicates that the text for the time
@@ -1520,6 +1689,20 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
 
         return self.showSqrtTimeRangeTextFlag
         
+    def setShowSqrdTimeRangeTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the sqrd of
+        the time range should be displayed.
+        """
+
+        self.showSqrdTimeRangeTextFlag = flag
+        
+    def getShowSqrdTimeRangeTextFlag(self):
+        """Returns the flag that indicates that the text for the sqrd
+        of the time range should be displayed.
+        """
+
+        return self.showSqrdTimeRangeTextFlag
+        
     def setShowScaledValueRangeTextFlag(self, flag):
         """Sets the flag that indicates that the text for the scaled
         value representing the time range should be displayed.
@@ -1547,6 +1730,320 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         """
 
         return self.showSqrtScaledValueRangeTextFlag
+
+    def setShowSqrdScaledValueRangeTextFlag(self, flag):
+        """Sets the flag that indicates that the text for the sqrd of scaled
+        value representing the time range should be displayed.
+        """
+
+        self.showSqrdScaledValueRangeTextFlag = flag
+        
+    def getShowSqrdScaledValueRangeTextFlag(self):
+        """Returns the flag that indicates that the text for the sqrd of
+        scaled value representing the time range should be displayed.
+        """
+
+        return self.showSqrdScaledValueRangeTextFlag
+
+    def setShowAyanaTextFlag(self, flag):
+        """Sets the flag that indicates that the text for ayana (6
+        months) count of time should be displayed.
+        """
+
+        self.showAyanaTextFlag = flag
+        
+    def getShowAyanaTextFlag(self):
+        """Returns the flag that indicates that the text for ayana (6
+        months) count of time should be displayed.
+        """
+
+        return self.showAyanaTextFlag
+
+    def setShowSqrtAyanaTextFlag(self, flag):
+        """Sets the flag that indicates that the text for sqrt ayana
+        (6 months) count of time should be displayed.
+        """
+
+        self.showSqrtAyanaTextFlag = flag
+        
+    def getShowSqrtAyanaTextFlag(self):
+        """Returns the flag that indicates that the text for sqrt
+        ayana (6 months) count of time should be displayed.
+        """
+
+        return self.showSqrtAyanaTextFlag
+
+    def setShowSqrdAyanaTextFlag(self, flag):
+        """Sets the flag that indicates that the text for sqrd ayana
+        (6 months) count of time should be displayed.
+        """
+
+        self.showSqrdAyanaTextFlag = flag
+        
+    def getShowSqrdAyanaTextFlag(self):
+        """Returns the flag that indicates that the text for sqrd
+        ayana (6 months) count of time should be displayed.
+        """
+
+        return self.showSqrdAyanaTextFlag
+
+    def setShowMuhurtaTextFlag(self, flag):
+        """Sets the flag that indicates that the text for muhurta (48
+        minutes) count of time should be displayed.
+        """
+
+        self.showMuhurtaTextFlag = flag
+        
+    def getShowMuhurtaTextFlag(self):
+        """Returns the flag that indicates that the text for muhurta
+        (48 minutes) count of time should be displayed.
+        """
+
+        return self.showMuhurtaTextFlag
+
+    def setShowSqrtMuhurtaTextFlag(self, flag):
+        """Sets the flag that indicates that the text for sqrt muhurta
+        (48 minutes) count of time should be displayed.
+        """
+
+        self.showSqrtMuhurtaTextFlag = flag
+        
+    def getShowSqrtMuhurtaTextFlag(self):
+        """Returns the flag that indicates that the text for sqrt
+        muhurta (48 minutes) count of time should be displayed.
+        """
+
+        return self.showSqrtMuhurtaTextFlag
+
+    def setShowSqrdMuhurtaTextFlag(self, flag):
+        """Sets the flag that indicates that the text for sqrd muhurta
+        (48 minutes) count of time should be displayed.
+        """
+
+        self.showSqrdMuhurtaTextFlag = flag
+        
+    def getShowSqrdMuhurtaTextFlag(self):
+        """Returns the flag that indicates that the text for sqrd
+        muhurta (48 minutes) count of time should be displayed.
+        """
+
+        return self.showSqrdMuhurtaTextFlag
+
+    def setShowVaraTextFlag(self, flag):
+        """Sets the flag that indicates that the text for vara
+        (24-hour day) count of time should be displayed.
+        """
+
+        self.showVaraTextFlag = flag
+        
+    def getShowVaraTextFlag(self):
+        """Returns the flag that indicates that the text for vara
+        (24-hour day) count of time should be displayed.
+        """
+
+        return self.showVaraTextFlag
+
+    def setShowSqrtVaraTextFlag(self, flag):
+        """Sets the flag that indicates that the text for sqrt vara
+        (24-hour day) count of time should be displayed.
+        """
+
+        self.showSqrtVaraTextFlag = flag
+        
+    def getShowSqrtVaraTextFlag(self):
+        """Returns the flag that indicates that the text for sqrt vara
+        (24-hour day) count of time should be displayed.
+        """
+
+        return self.showSqrtVaraTextFlag
+
+    def setShowSqrdVaraTextFlag(self, flag):
+        """Sets the flag that indicates that the text for sqrd vara
+        (24-hour day) count of time should be displayed.
+        """
+
+        self.showSqrdVaraTextFlag = flag
+        
+    def getShowSqrdVaraTextFlag(self):
+        """Returns the flag that indicates that the text for sqrd vara
+        (24-hour day) count of time should be displayed.
+        """
+
+        return self.showSqrdVaraTextFlag
+
+    def setShowRtuTextFlag(self, flag):
+        """Sets the flag that indicates that the text for rtu (season
+        of 2 months) count of time should be displayed.
+        """
+
+        self.showRtuTextFlag = flag
+        
+    def getShowRtuTextFlag(self):
+        """Returns the flag that indicates that the text for rtu
+        (season of 2 months) count of time should be displayed.
+        """
+
+        return self.showRtuTextFlag
+
+    def setShowSqrtRtuTextFlag(self, flag):
+        """Sets the flag that indicates that the text for sqrt rtu
+        (season of 2 months) count of time should be displayed.
+        """
+
+        self.showSqrtRtuTextFlag = flag
+        
+    def getShowSqrtRtuTextFlag(self):
+        """Returns the flag that indicates that the text for sqrt rtu
+        (season of 2 months) count of time should be displayed.
+        """
+
+        return self.showSqrtRtuTextFlag
+
+    def setShowSqrdRtuTextFlag(self, flag):
+        """Sets the flag that indicates that the text for sqrd rtu
+        (season of 2 months) count of time should be displayed.
+        """
+
+        self.showSqrdRtuTextFlag = flag
+        
+    def getShowSqrdRtuTextFlag(self):
+        """Returns the flag that indicates that the text for sqrd rtu
+        (season of 2 months) count of time should be displayed.
+        """
+
+        return self.showSqrdRtuTextFlag
+
+    def setShowMasaTextFlag(self, flag):
+        """Sets the flag that indicates that the text for masa
+        (full-moon to full-moon month) count of time should be
+        displayed.
+        """
+
+        self.showMasaTextFlag = flag
+        
+    def getShowMasaTextFlag(self):
+        """Returns the flag that indicates that the text for masa
+        (full-moon to full-moon month) count of time should be
+        displayed.
+        """
+
+        return self.showMasaTextFlag
+
+    def setShowSqrtMasaTextFlag(self, flag):
+        """Sets the flag that indicates that the text for sqrt masa
+        (full-moon to full-moon month) count of time should be
+        displayed.
+        """
+
+        self.showSqrtMasaTextFlag = flag
+        
+    def getShowSqrtMasaTextFlag(self):
+        """Returns the flag that indicates that the text for sqrt masa
+        (full-moon to full-moon month) count of time should be
+        displayed.
+        """
+
+        return self.showSqrtMasaTextFlag
+
+    def setShowSqrdMasaTextFlag(self, flag):
+        """Sets the flag that indicates that the text for sqrd masa
+        (full-moon to full-moon month) count of time should be
+        displayed.
+        """
+
+        self.showSqrdMasaTextFlag = flag
+        
+    def getShowSqrdMasaTextFlag(self):
+        """Returns the flag that indicates that the text for sqrd masa
+        (full-moon to full-moon month) count of time should be
+        displayed.
+        """
+
+        return self.showSqrdMasaTextFlag
+
+    def setShowPaksaTextFlag(self, flag):
+        """Sets the flag that indicates that the text for paksa
+        (15-day fortnight) count of time should be displayed.
+        """
+
+        self.showPaksaTextFlag = flag
+        
+    def getShowPaksaTextFlag(self):
+        """Returns the flag that indicates that the text for paksa
+        (15-day fortnight) count of time should be displayed.
+        """
+
+        return self.showPaksaTextFlag
+
+    def setShowSqrtPaksaTextFlag(self, flag):
+        """Sets the flag that indicates that the text for sqrt paksa
+        (15-day fortnight) count of time should be displayed.
+        """
+
+        self.showSqrtPaksaTextFlag = flag
+        
+    def getShowSqrtPaksaTextFlag(self):
+        """Returns the flag that indicates that the text for sqrt
+        paksa (15-day fortnight) count of time should be displayed.
+        """
+
+        return self.showSqrtPaksaTextFlag
+
+    def setShowSqrdPaksaTextFlag(self, flag):
+        """Sets the flag that indicates that the text for sqrd paksa
+        (15-day fortnight) count of time should be displayed.
+        """
+
+        self.showSqrdPaksaTextFlag = flag
+        
+    def getShowSqrdPaksaTextFlag(self):
+        """Returns the flag that indicates that the text for sqrd
+        paksa (15-day fortnight) count of time should be displayed.
+        """
+
+        return self.showSqrdPaksaTextFlag
+
+    def setShowSamaTextFlag(self, flag):
+        """Sets the flag that indicates that the text for sama (year) count
+        of time should be displayed.
+        """
+
+        self.showSamaTextFlag = flag
+        
+    def getShowSamaTextFlag(self):
+        """Returns the flag that indicates that the text for sama
+        (year) count of time should be displayed.
+        """
+
+        return self.showSamaTextFlag
+
+    def setShowSqrtSamaTextFlag(self, flag):
+        """Sets the flag that indicates that the text for sqrt sama
+        (year) count of time should be displayed.
+        """
+
+        self.showSqrtSamaTextFlag = flag
+        
+    def getShowSqrtSamaTextFlag(self):
+        """Returns the flag that indicates that the text for sqrt sama
+        (year) count of time should be displayed.
+        """
+
+        return self.showSqrtSamaTextFlag
+
+    def setShowSqrdSamaTextFlag(self, flag):
+        """Sets the flag that indicates that the text for sqrd sama
+        (year) count of time should be displayed.
+        """
+
+        self.showSqrdSamaTextFlag = flag
+        
+    def getShowSqrdSamaTextFlag(self):
+        """Returns the flag that indicates that the text for sqrd sama
+        (year) count of time should be displayed.
+        """
+
+        return self.showSqrdSamaTextFlag
 
     def setStartPointF(self, startPointF):
         """Stores the starting point of the TimeMeasurementArtifact.
@@ -4411,40 +4908,60 @@ class PriceBarChartSettings:
     defaultTimeMeasurementGraphicsItemShowBarsTextFlag = True
     
     # Default value for the TimeMeasurementGraphicsItem
-    # showHoursTextFlag (bool).
-    defaultTimeMeasurementGraphicsItemShowHoursTextFlag = True
-    
-    # Default value for the TimeMeasurementGraphicsItem
-    # showDaysTextFlag (bool).
-    defaultTimeMeasurementGraphicsItemShowDaysTextFlag = True
-    
-    # Default value for the TimeMeasurementGraphicsItem
-    # showWeeksTextFlag (bool).
-    defaultTimeMeasurementGraphicsItemShowWeeksTextFlag = True
-    
-    # Default value for the TimeMeasurementGraphicsItem
-    # showMonthsTextFlag (bool).
-    defaultTimeMeasurementGraphicsItemShowMonthsTextFlag = True
-    
-    # Default value for the TimeMeasurementGraphicsItem
     # showSqrtBarsTextFlag (bool).
     defaultTimeMeasurementGraphicsItemShowSqrtBarsTextFlag = True
+    
+    # Default value for the TimeMeasurementGraphicsItem
+    # showSqrdBarsTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowSqrdBarsTextFlag = True
+    
+    # Default value for the TimeMeasurementGraphicsItem
+    # showHoursTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowHoursTextFlag = True
     
     # Default value for the TimeMeasurementGraphicsItem
     # showSqrtHoursTextFlag (bool).
     defaultTimeMeasurementGraphicsItemShowSqrtHoursTextFlag = True
     
     # Default value for the TimeMeasurementGraphicsItem
+    # showSqrdHoursTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowSqrdHoursTextFlag = True
+    
+    # Default value for the TimeMeasurementGraphicsItem
+    # showDaysTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowDaysTextFlag = True
+    
+    # Default value for the TimeMeasurementGraphicsItem
     # showSqrtDaysTextFlag (bool).
     defaultTimeMeasurementGraphicsItemShowSqrtDaysTextFlag = True
+    
+    # Default value for the TimeMeasurementGraphicsItem
+    # showSqrdDaysTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowSqrdDaysTextFlag = True
+    
+    # Default value for the TimeMeasurementGraphicsItem
+    # showWeeksTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowWeeksTextFlag = True
     
     # Default value for the TimeMeasurementGraphicsItem
     # showSqrtWeeksTextFlag (bool).
     defaultTimeMeasurementGraphicsItemShowSqrtWeeksTextFlag = True
     
     # Default value for the TimeMeasurementGraphicsItem
+    # showSqrdWeeksTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowSqrdWeeksTextFlag = True
+    
+    # Default value for the TimeMeasurementGraphicsItem
+    # showMonthsTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowMonthsTextFlag = True
+    
+    # Default value for the TimeMeasurementGraphicsItem
     # showSqrtMonthsTextFlag (bool).
     defaultTimeMeasurementGraphicsItemShowSqrtMonthsTextFlag = True
+    
+    # Default value for the TimeMeasurementGraphicsItem
+    # showSqrdMonthsTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowSqrdMonthsTextFlag = True
     
     # Default value for the TimeMeasurementGraphicsItem
     # showTimeRangeTextFlag (bool).
@@ -4455,12 +4972,104 @@ class PriceBarChartSettings:
     defaultTimeMeasurementGraphicsItemShowSqrtTimeRangeTextFlag = True
 
     # Default value for the TimeMeasurementGraphicsItem
+    # showSqrdTimeRangeTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowSqrdTimeRangeTextFlag = True
+
+    # Default value for the TimeMeasurementGraphicsItem
     # showScaledValueRangeTextFlag (bool).
     defaultTimeMeasurementGraphicsItemShowScaledValueRangeTextFlag = True
     
     # Default value for the TimeMeasurementGraphicsItem
     # showSqrtScaledValueRangeTextFlag (bool).
     defaultTimeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag = True
+
+    # Default value for the TimeMeasurementGraphicsItem
+    # showSqrdScaledValueRangeTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowSqrdScaledValueRangeTextFlag = True
+
+    # Default value for the TimeMeasurementGraphicsItem
+    # showAyanaTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowAyanaTextFlag = True
+
+    # Default value for the TimeMeasurementGraphicsItem
+    # showSqrtAyanaTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowSqrtAyanaTextFlag = True
+
+    # Default value for the TimeMeasurementGraphicsItem
+    # showSqrdAyanaTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowSqrdAyanaTextFlag = True
+
+    # Default value for the TimeMeasurementGraphicsItem
+    # showMuhurtaTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowMuhurtaTextFlag = True
+
+    # Default value for the TimeMeasurementGraphicsItem
+    # showSqrtMuhurtaTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowSqrtMuhurtaTextFlag = True
+
+    # Default value for the TimeMeasurementGraphicsItem
+    # showSqrdMuhurtaTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowSqrdMuhurtaTextFlag = True
+
+    # Default value for the TimeMeasurementGraphicsItem
+    # showVaraTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowVaraTextFlag = True
+
+    # Default value for the TimeMeasurementGraphicsItem
+    # showSqrtVaraTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowSqrtVaraTextFlag = True
+
+    # Default value for the TimeMeasurementGraphicsItem
+    # showSqrdVaraTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowSqrdVaraTextFlag = True
+
+    # Default value for the TimeMeasurementGraphicsItem
+    # showRtuTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowRtuTextFlag = True
+
+    # Default value for the TimeMeasurementGraphicsItem
+    # showSqrtRtuTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowSqrtRtuTextFlag = True
+
+    # Default value for the TimeMeasurementGraphicsItem
+    # showSqrdRtuTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowSqrdRtuTextFlag = True
+
+    # Default value for the TimeMeasurementGraphicsItem
+    # showMasaTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowMasaTextFlag = True
+
+    # Default value for the TimeMeasurementGraphicsItem
+    # showSqrtMasaTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowSqrtMasaTextFlag = True
+
+    # Default value for the TimeMeasurementGraphicsItem
+    # showSqrdMasaTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowSqrdMasaTextFlag = True
+
+    # Default value for the TimeMeasurementGraphicsItem
+    # showPaksaTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowPaksaTextFlag = True
+
+    # Default value for the TimeMeasurementGraphicsItem
+    # showSqrtPaksaTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowSqrtPaksaTextFlag = True
+
+    # Default value for the TimeMeasurementGraphicsItem
+    # showSqrdPaksaTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowSqrdPaksaTextFlag = True
+
+    # Default value for the TimeMeasurementGraphicsItem
+    # showSamaTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowSamaTextFlag = True
+
+    # Default value for the TimeMeasurementGraphicsItem
+    # showSqrtSamaTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowSqrtSamaTextFlag = True
+
+    # Default value for the TimeMeasurementGraphicsItem
+    # showSqrdSamaTextFlag (bool).
+    defaultTimeMeasurementGraphicsItemShowSqrdSamaTextFlag = True
 
     # Default color for the bar of a TimeModalScaleGraphicsItem (QColor).
     defaultTimeModalScaleGraphicsItemBarColor = QColor(Qt.black)
@@ -4819,50 +5428,75 @@ class PriceBarChartSettings:
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowBarsTextFlag
     
-        # TimeMeasurementGraphicsItem showHoursTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowHoursTextFlag = \
-            PriceBarChartSettings.\
-            defaultTimeMeasurementGraphicsItemShowHoursTextFlag
-    
-        # TimeMeasurementGraphicsItem showDaysTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowDaysTextFlag = \
-            PriceBarChartSettings.\
-            defaultTimeMeasurementGraphicsItemShowDaysTextFlag
-    
-        # TimeMeasurementGraphicsItem showWeeksTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowWeeksTextFlag = \
-            PriceBarChartSettings.\
-            defaultTimeMeasurementGraphicsItemShowWeeksTextFlag
-    
-        # TimeMeasurementGraphicsItem showMonthsTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowMonthsTextFlag = \
-            PriceBarChartSettings.\
-            defaultTimeMeasurementGraphicsItemShowMonthsTextFlag
-    
         # TimeMeasurementGraphicsItem showSqrtBarsTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrtBarsTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtBarsTextFlag
+    
+        # TimeMeasurementGraphicsItem showSqrdBarsTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrdBarsTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdBarsTextFlag
+    
+        # TimeMeasurementGraphicsItem showHoursTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowHoursTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowHoursTextFlag
     
         # TimeMeasurementGraphicsItem showSqrtHoursTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrtHoursTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtHoursTextFlag
     
+        # TimeMeasurementGraphicsItem showSqrdHoursTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrdHoursTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdHoursTextFlag
+    
+        # TimeMeasurementGraphicsItem showDaysTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowDaysTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowDaysTextFlag
+    
         # TimeMeasurementGraphicsItem showSqrtDaysTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrtDaysTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtDaysTextFlag
+    
+        # TimeMeasurementGraphicsItem showSqrdDaysTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrdDaysTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdDaysTextFlag
+    
+        # TimeMeasurementGraphicsItem showWeeksTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowWeeksTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowWeeksTextFlag
     
         # TimeMeasurementGraphicsItem showSqrtWeeksTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtWeeksTextFlag
     
+        # TimeMeasurementGraphicsItem showSqrdWeeksTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrdWeeksTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdWeeksTextFlag
+    
+        # TimeMeasurementGraphicsItem showMonthsTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowMonthsTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowMonthsTextFlag
+    
         # TimeMeasurementGraphicsItem showSqrtMonthsTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtMonthsTextFlag
+
+        # TimeMeasurementGraphicsItem showSqrdMonthsTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrdMonthsTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdMonthsTextFlag
 
         # TimeMeasurementGraphicsItem showTimeRangeTextFlag (bool).
         self.timeMeasurementGraphicsItemShowTimeRangeTextFlag = \
@@ -4874,6 +5508,11 @@ class PriceBarChartSettings:
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtTimeRangeTextFlag
 
+        # TimeMeasurementGraphicsItem showSqrdTimeRangeTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrdTimeRangeTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdTimeRangeTextFlag
+
         # TimeMeasurementGraphicsItem showScaledValueRangeTextFlag (bool).
         self.timeMeasurementGraphicsItemShowScaledValueRangeTextFlag = \
             PriceBarChartSettings.\
@@ -4883,7 +5522,117 @@ class PriceBarChartSettings:
         self.timeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag
-    
+
+        # TimeMeasurementGraphicsItem showSqrdScaledValueRangeTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrdScaledValueRangeTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdScaledValueRangeTextFlag
+
+        # TimeMeasurementGraphicsItem showAyanaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowAyanaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowAyanaTextFlag
+
+        # TimeMeasurementGraphicsItem showSqrtAyanaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrtAyanaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtAyanaTextFlag
+
+        # TimeMeasurementGraphicsItem showSqrdAyanaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrdAyanaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdAyanaTextFlag
+
+        # TimeMeasurementGraphicsItem showMuhurtaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowMuhurtaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowMuhurtaTextFlag
+            
+        # TimeMeasurementGraphicsItem showSqrtMuhurtaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrtMuhurtaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtMuhurtaTextFlag
+            
+        # TimeMeasurementGraphicsItem showSqrdMuhurtaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrdMuhurtaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdMuhurtaTextFlag
+            
+        # TimeMeasurementGraphicsItem showVaraTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowVaraTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowVaraTextFlag
+            
+        # TimeMeasurementGraphicsItem showSqrtVaraTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrtVaraTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtVaraTextFlag
+            
+        # TimeMeasurementGraphicsItem showSqrdVaraTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrdVaraTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdVaraTextFlag
+            
+        # TimeMeasurementGraphicsItem showRtuTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowRtuTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowRtuTextFlag
+            
+        # TimeMeasurementGraphicsItem showSqrtRtuTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrtRtuTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtRtuTextFlag
+            
+        # TimeMeasurementGraphicsItem showSqrdRtuTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrdRtuTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdRtuTextFlag
+            
+        # TimeMeasurementGraphicsItem showMasaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowMasaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowMasaTextFlag
+            
+        # TimeMeasurementGraphicsItem showSqrtMasaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrtMasaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtMasaTextFlag
+            
+        # TimeMeasurementGraphicsItem showSqrdMasaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrdMasaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdMasaTextFlag
+            
+        # TimeMeasurementGraphicsItem showPaksaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowPaksaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowPaksaTextFlag
+            
+        # TimeMeasurementGraphicsItem showSqrtPaksaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrtPaksaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtPaksaTextFlag
+            
+        # TimeMeasurementGraphicsItem showSqrdPaksaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrdPaksaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdPaksaTextFlag
+            
+        # TimeMeasurementGraphicsItem showSamaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSamaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSamaTextFlag
+            
+        # TimeMeasurementGraphicsItem showSqrtSamaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrtSamaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtSamaTextFlag
+            
+        # TimeMeasurementGraphicsItem showSqrdSamaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrdSamaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdSamaTextFlag
+            
         # TimeModalScaleGraphicsItem bar color (QColor).
         self.timeModalScaleGraphicsItemBarColor = \
             PriceBarChartSettings.\

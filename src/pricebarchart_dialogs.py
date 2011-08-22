@@ -590,32 +590,90 @@ class PriceBarChartTimeMeasurementArtifactEditWidget(QWidget):
         
         self.showBarsTextFlagCheckBox = \
             QCheckBox("Show Bars Text")
-        self.showHoursTextFlagCheckBox = \
-            QCheckBox("Show Hours Text")
-        self.showDaysTextFlagCheckBox = \
-            QCheckBox("Show Days Text")
-        self.showWeeksTextFlagCheckBox = \
-            QCheckBox("Show Weeks Text")
-        self.showMonthsTextFlagCheckBox = \
-            QCheckBox("Show Months Text")
         self.showSqrtBarsTextFlagCheckBox = \
             QCheckBox("Show Sqrt Bars Text")
+        self.showSqrdBarsTextFlagCheckBox = \
+            QCheckBox("Show Sqrd Bars Text")
+        self.showHoursTextFlagCheckBox = \
+            QCheckBox("Show Hours Text")
         self.showSqrtHoursTextFlagCheckBox = \
             QCheckBox("Show Sqrt Hours Text")
+        self.showSqrdHoursTextFlagCheckBox = \
+            QCheckBox("Show Sqrd Hours Text")
+        self.showDaysTextFlagCheckBox = \
+            QCheckBox("Show Days Text")
         self.showSqrtDaysTextFlagCheckBox = \
             QCheckBox("Show Sqrt Days Text")
+        self.showSqrdDaysTextFlagCheckBox = \
+            QCheckBox("Show Sqrd Days Text")
+        self.showWeeksTextFlagCheckBox = \
+            QCheckBox("Show Weeks Text")
         self.showSqrtWeeksTextFlagCheckBox = \
             QCheckBox("Show Sqrt Weeks Text")
+        self.showSqrdWeeksTextFlagCheckBox = \
+            QCheckBox("Show Sqrd Weeks Text")
+        self.showMonthsTextFlagCheckBox = \
+            QCheckBox("Show Months Text")
         self.showSqrtMonthsTextFlagCheckBox = \
             QCheckBox("Show Sqrt Months Text")
+        self.showSqrdMonthsTextFlagCheckBox = \
+            QCheckBox("Show Sqrd Months Text")
         self.showTimeRangeTextFlagCheckBox = \
             QCheckBox("Show Time Range Text")
         self.showSqrtTimeRangeTextFlagCheckBox = \
             QCheckBox("Show Sqrt Time Range Text")
+        self.showSqrdTimeRangeTextFlagCheckBox = \
+            QCheckBox("Show Sqrd Time Range Text")
         self.showScaledValueRangeTextFlagCheckBox = \
             QCheckBox("Show scaled value range text")
         self.showSqrtScaledValueRangeTextFlagCheckBox = \
             QCheckBox("Show sqrt scaled value range text")
+        self.showSqrdScaledValueRangeTextFlagCheckBox = \
+            QCheckBox("Show sqrd scaled value range text")
+        self.showAyanaTextFlagCheckBox = \
+            QCheckBox("Show ayana (6 months/Sun) text")
+        self.showSqrtAyanaTextFlagCheckBox = \
+            QCheckBox("Show sqrt ayana (6 months/Sun) text")
+        self.showSqrdAyanaTextFlagCheckBox = \
+            QCheckBox("Show sqrd ayana (6 months/Sun) text")
+        self.showMuhurtaTextFlagCheckBox = \
+            QCheckBox("Show muhurta (48 minutes/Moon) text")
+        self.showSqrtMuhurtaTextFlagCheckBox = \
+            QCheckBox("Show sqrt muhurta (48 minutes/Moon) text")
+        self.showSqrdMuhurtaTextFlagCheckBox = \
+            QCheckBox("Show sqrd muhurta (48 minutes/Moon) text")
+        self.showVaraTextFlagCheckBox = \
+            QCheckBox("Show vara (24-hour day/Mars) text")
+        self.showSqrtVaraTextFlagCheckBox = \
+            QCheckBox("Show sqrt vara (24-hour day/Mars) text")
+        self.showSqrdVaraTextFlagCheckBox = \
+            QCheckBox("Show sqrd vara (24-hour day/Mars) text")
+        self.showRtuTextFlagCheckBox = \
+            QCheckBox("Show rtu (season of 2 months/Mercury) text")
+        self.showSqrtRtuTextFlagCheckBox = \
+            QCheckBox("Show sqrt rtu (season of 2 months/Mercury) text")
+        self.showSqrdRtuTextFlagCheckBox = \
+            QCheckBox("Show sqrd rtu (season of 2 months/Mercury) text")
+        self.showMasaTextFlagCheckBox = \
+            QCheckBox("Show masa (full-moon to full-moon month/Jupiter) text")
+        self.showSqrtMasaTextFlagCheckBox = \
+            QCheckBox("Show sqrt masa " +
+                      "(full-moon to full-moon month/Jupiter) text")
+        self.showSqrdMasaTextFlagCheckBox = \
+            QCheckBox("Show sqrd masa " +
+                      "(full-moon to full-moon month/Jupiter) text")
+        self.showPaksaTextFlagCheckBox = \
+            QCheckBox("Show paksa (15-day fortnight/Venus) text")
+        self.showSqrtPaksaTextFlagCheckBox = \
+            QCheckBox("Show sqrt paksa (15-day fortnight/Venus) text")
+        self.showSqrdPaksaTextFlagCheckBox = \
+            QCheckBox("Show sqrd paksa (15-day fortnight/Venus) text")
+        self.showSamaTextFlagCheckBox = \
+            QCheckBox("Show sama (year/Saturn) text")
+        self.showSqrtSamaTextFlagCheckBox = \
+            QCheckBox("Show sqrt sama (year/Saturn) text")
+        self.showSqrdSamaTextFlagCheckBox = \
+            QCheckBox("Show sqrd sama (year/Saturn) text")
         
         # Layout for just the font info.
         self.fontLayout = QHBoxLayout()
@@ -658,40 +716,104 @@ class PriceBarChartTimeMeasurementArtifactEditWidget(QWidget):
         self.gridLayout.addWidget(self.priceLocationValueSpinBox, r, 1, al)
         r += 1
 
-        # Layout just for the checkboxes for showing text.
-        self.showTextCheckBoxesLayout = QVBoxLayout()
-        self.showTextCheckBoxesLayout.addWidget(\
+        # Layouts just for the checkboxes for showing text.
+
+        self.showTextCheckBoxesLeftLayout = QVBoxLayout()
+        self.showTextCheckBoxesLeftLayout.addWidget(\
             self.showBarsTextFlagCheckBox)
-        self.showTextCheckBoxesLayout.addWidget(\
-            self.showHoursTextFlagCheckBox)
-        self.showTextCheckBoxesLayout.addWidget(\
-            self.showDaysTextFlagCheckBox)
-        self.showTextCheckBoxesLayout.addWidget(\
-            self.showWeeksTextFlagCheckBox)
-        self.showTextCheckBoxesLayout.addWidget(\
-            self.showMonthsTextFlagCheckBox)
-        self.showTextCheckBoxesLayout.addWidget(\
+        self.showTextCheckBoxesLeftLayout.addWidget(\
             self.showSqrtBarsTextFlagCheckBox)
-        self.showTextCheckBoxesLayout.addWidget(\
+        self.showTextCheckBoxesLeftLayout.addWidget(\
+            self.showSqrdBarsTextFlagCheckBox)
+        self.showTextCheckBoxesLeftLayout.addWidget(\
+            self.showHoursTextFlagCheckBox)
+        self.showTextCheckBoxesLeftLayout.addWidget(\
             self.showSqrtHoursTextFlagCheckBox)
-        self.showTextCheckBoxesLayout.addWidget(\
+        self.showTextCheckBoxesLeftLayout.addWidget(\
+            self.showSqrdHoursTextFlagCheckBox)
+        self.showTextCheckBoxesLeftLayout.addWidget(\
+            self.showDaysTextFlagCheckBox)
+        self.showTextCheckBoxesLeftLayout.addWidget(\
             self.showSqrtDaysTextFlagCheckBox)
-        self.showTextCheckBoxesLayout.addWidget(\
+        self.showTextCheckBoxesLeftLayout.addWidget(\
+            self.showSqrdDaysTextFlagCheckBox)
+        self.showTextCheckBoxesLeftLayout.addWidget(\
+            self.showWeeksTextFlagCheckBox)
+        self.showTextCheckBoxesLeftLayout.addWidget(\
             self.showSqrtWeeksTextFlagCheckBox)
-        self.showTextCheckBoxesLayout.addWidget(\
+        self.showTextCheckBoxesLeftLayout.addWidget(\
+            self.showSqrdWeeksTextFlagCheckBox)
+        self.showTextCheckBoxesLeftLayout.addWidget(\
+            self.showMonthsTextFlagCheckBox)
+        self.showTextCheckBoxesLeftLayout.addWidget(\
             self.showSqrtMonthsTextFlagCheckBox)
-        self.showTextCheckBoxesLayout.addWidget(\
+        self.showTextCheckBoxesLeftLayout.addWidget(\
+            self.showSqrdMonthsTextFlagCheckBox)
+        self.showTextCheckBoxesLeftLayout.addWidget(\
             self.showTimeRangeTextFlagCheckBox)
-        self.showTextCheckBoxesLayout.addWidget(\
+        self.showTextCheckBoxesLeftLayout.addWidget(\
             self.showSqrtTimeRangeTextFlagCheckBox)
-        self.showTextCheckBoxesLayout.addWidget(\
+        self.showTextCheckBoxesLeftLayout.addWidget(\
+            self.showSqrdTimeRangeTextFlagCheckBox)
+        self.showTextCheckBoxesLeftLayout.addWidget(\
             self.showScaledValueRangeTextFlagCheckBox)
-        self.showTextCheckBoxesLayout.addWidget(\
+        self.showTextCheckBoxesLeftLayout.addWidget(\
             self.showSqrtScaledValueRangeTextFlagCheckBox)
-        tempLayout = self.showTextCheckBoxesLayout
+        self.showTextCheckBoxesLeftLayout.addWidget(\
+            self.showSqrdScaledValueRangeTextFlagCheckBox)
+        self.showTextCheckBoxesLeftLayout.addStretch()
+
+
+        self.showTextCheckBoxesRightLayout = QVBoxLayout()
+        self.showTextCheckBoxesRightLayout.addWidget(\
+            self.showAyanaTextFlagCheckBox)
+        self.showTextCheckBoxesRightLayout.addWidget(\
+            self.showSqrtAyanaTextFlagCheckBox)
+        self.showTextCheckBoxesRightLayout.addWidget(\
+            self.showSqrdAyanaTextFlagCheckBox)
+        self.showTextCheckBoxesRightLayout.addWidget(\
+            self.showMuhurtaTextFlagCheckBox)
+        self.showTextCheckBoxesRightLayout.addWidget(\
+            self.showSqrtMuhurtaTextFlagCheckBox)
+        self.showTextCheckBoxesRightLayout.addWidget(\
+            self.showSqrdMuhurtaTextFlagCheckBox)
+        self.showTextCheckBoxesRightLayout.addWidget(\
+            self.showVaraTextFlagCheckBox)
+        self.showTextCheckBoxesRightLayout.addWidget(\
+            self.showSqrtVaraTextFlagCheckBox)
+        self.showTextCheckBoxesRightLayout.addWidget(\
+            self.showSqrdVaraTextFlagCheckBox)
+        self.showTextCheckBoxesRightLayout.addWidget(\
+            self.showRtuTextFlagCheckBox)
+        self.showTextCheckBoxesRightLayout.addWidget(\
+            self.showSqrtRtuTextFlagCheckBox)
+        self.showTextCheckBoxesRightLayout.addWidget(\
+            self.showSqrdRtuTextFlagCheckBox)
+        self.showTextCheckBoxesRightLayout.addWidget(\
+            self.showMasaTextFlagCheckBox)
+        self.showTextCheckBoxesRightLayout.addWidget(\
+            self.showSqrtMasaTextFlagCheckBox)
+        self.showTextCheckBoxesRightLayout.addWidget(\
+            self.showSqrdMasaTextFlagCheckBox)
+        self.showTextCheckBoxesRightLayout.addWidget(\
+            self.showPaksaTextFlagCheckBox)
+        self.showTextCheckBoxesRightLayout.addWidget(\
+            self.showSqrtPaksaTextFlagCheckBox)
+        self.showTextCheckBoxesRightLayout.addWidget(\
+            self.showSqrdPaksaTextFlagCheckBox)
+        self.showTextCheckBoxesRightLayout.addWidget(\
+            self.showSamaTextFlagCheckBox)
+        self.showTextCheckBoxesRightLayout.addWidget(\
+            self.showSqrtSamaTextFlagCheckBox)
+        self.showTextCheckBoxesRightLayout.addWidget(\
+            self.showSqrdSamaTextFlagCheckBox)
+
+        # Put the left and right layouts for checkboxes together.
         self.showTextCheckBoxesLayout = QHBoxLayout()
-        self.showTextCheckBoxesLayout.addLayout(tempLayout)
-        self.showTextCheckBoxesLayout.addStretch()
+        self.showTextCheckBoxesLayout.\
+            addLayout(self.showTextCheckBoxesLeftLayout)
+        self.showTextCheckBoxesLayout.\
+            addLayout(self.showTextCheckBoxesRightLayout)
 
         # Put all the layouts together.
         self.layout = QVBoxLayout()
@@ -793,22 +915,72 @@ class PriceBarChartTimeMeasurementArtifactEditWidget(QWidget):
         self.endPointDatetimeLocationWidget.setReadOnly(self.readOnlyFlag)
 
         self.showBarsTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
-        self.showHoursTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
-        self.showDaysTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
-        self.showWeeksTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
-        self.showMonthsTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.showSqrtBarsTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.showSqrdBarsTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.showHoursTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.showSqrtHoursTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.showSqrdHoursTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.showDaysTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.showSqrtDaysTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.showSqrdDaysTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.showWeeksTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.showSqrtWeeksTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.showSqrdWeeksTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.showMonthsTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.showSqrtMonthsTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.showSqrdMonthsTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.showTimeRangeTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.showSqrtTimeRangeTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.showSqrdTimeRangeTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.showScaledValueRangeTextFlagCheckBox.\
             setEnabled(not self.readOnlyFlag)
         self.showSqrtScaledValueRangeTextFlagCheckBox.\
             setEnabled(not self.readOnlyFlag)
-
+        self.showSqrdScaledValueRangeTextFlagCheckBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.showAyanaTextFlagCheckBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.showSqrtAyanaTextFlagCheckBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.showSqrdAyanaTextFlagCheckBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.showMuhurtaTextFlagCheckBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.showSqrtMuhurtaTextFlagCheckBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.showSqrdMuhurtaTextFlagCheckBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.showVaraTextFlagCheckBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.showSqrtVaraTextFlagCheckBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.showSqrdVaraTextFlagCheckBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.showRtuTextFlagCheckBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.showSqrtRtuTextFlagCheckBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.showSqrdRtuTextFlagCheckBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.showMasaTextFlagCheckBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.showSqrtMasaTextFlagCheckBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.showSqrdMasaTextFlagCheckBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.showPaksaTextFlagCheckBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.showSqrtPaksaTextFlagCheckBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.showSqrdPaksaTextFlagCheckBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.showSamaTextFlagCheckBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.showSqrtSamaTextFlagCheckBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.showSqrdSamaTextFlagCheckBox.\
+            setEnabled(not self.readOnlyFlag)
+        
         # Don't allow the Okay button to be pressed for saving.
         self.okayButton.setEnabled(not self.readOnlyFlag)
         
@@ -882,50 +1054,75 @@ class PriceBarChartTimeMeasurementArtifactEditWidget(QWidget):
         else:
             self.showBarsTextFlagCheckBox.setCheckState(Qt.Unchecked)
 
-        if self.artifact.getShowHoursTextFlag() == True:
-            self.showHoursTextFlagCheckBox.setCheckState(Qt.Checked)
-        else:
-            self.showHoursTextFlagCheckBox.setCheckState(Qt.Unchecked)
-            
-        if self.artifact.getShowDaysTextFlag() == True:
-            self.showDaysTextFlagCheckBox.setCheckState(Qt.Checked)
-        else:
-            self.showDaysTextFlagCheckBox.setCheckState(Qt.Unchecked)
-            
-        if self.artifact.getShowWeeksTextFlag() == True:
-            self.showWeeksTextFlagCheckBox.setCheckState(Qt.Checked)
-        else:
-            self.showWeeksTextFlagCheckBox.setCheckState(Qt.Unchecked)
-            
-        if self.artifact.getShowMonthsTextFlag() == True:
-            self.showMonthsTextFlagCheckBox.setCheckState(Qt.Checked)
-        else:
-            self.showMonthsTextFlagCheckBox.setCheckState(Qt.Unchecked)
-            
         if self.artifact.getShowSqrtBarsTextFlag() == True:
             self.showSqrtBarsTextFlagCheckBox.setCheckState(Qt.Checked)
         else:
             self.showSqrtBarsTextFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getShowSqrdBarsTextFlag() == True:
+            self.showSqrdBarsTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showSqrdBarsTextFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getShowHoursTextFlag() == True:
+            self.showHoursTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showHoursTextFlagCheckBox.setCheckState(Qt.Unchecked)
             
         if self.artifact.getShowSqrtHoursTextFlag() == True:
             self.showSqrtHoursTextFlagCheckBox.setCheckState(Qt.Checked)
         else:
             self.showSqrtHoursTextFlagCheckBox.setCheckState(Qt.Unchecked)
             
+        if self.artifact.getShowSqrdHoursTextFlag() == True:
+            self.showSqrdHoursTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showSqrdHoursTextFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getShowDaysTextFlag() == True:
+            self.showDaysTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showDaysTextFlagCheckBox.setCheckState(Qt.Unchecked)
+            
         if self.artifact.getShowSqrtDaysTextFlag() == True:
             self.showSqrtDaysTextFlagCheckBox.setCheckState(Qt.Checked)
         else:
             self.showSqrtDaysTextFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getShowSqrdDaysTextFlag() == True:
+            self.showSqrdDaysTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showSqrdDaysTextFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getShowWeeksTextFlag() == True:
+            self.showWeeksTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showWeeksTextFlagCheckBox.setCheckState(Qt.Unchecked)
             
         if self.artifact.getShowSqrtWeeksTextFlag() == True:
             self.showSqrtWeeksTextFlagCheckBox.setCheckState(Qt.Checked)
         else:
             self.showSqrtWeeksTextFlagCheckBox.setCheckState(Qt.Unchecked)
             
+        if self.artifact.getShowSqrdWeeksTextFlag() == True:
+            self.showSqrdWeeksTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showSqrdWeeksTextFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getShowMonthsTextFlag() == True:
+            self.showMonthsTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showMonthsTextFlagCheckBox.setCheckState(Qt.Unchecked)
+            
         if self.artifact.getShowSqrtMonthsTextFlag() == True:
             self.showSqrtMonthsTextFlagCheckBox.setCheckState(Qt.Checked)
         else:
             self.showSqrtMonthsTextFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getShowSqrdMonthsTextFlag() == True:
+            self.showSqrdMonthsTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showSqrdMonthsTextFlagCheckBox.setCheckState(Qt.Unchecked)
             
         if self.artifact.getShowTimeRangeTextFlag() == True:
             self.showTimeRangeTextFlagCheckBox.setCheckState(Qt.Checked)
@@ -937,8 +1134,12 @@ class PriceBarChartTimeMeasurementArtifactEditWidget(QWidget):
         else:
             self.showSqrtTimeRangeTextFlagCheckBox.setCheckState(Qt.Unchecked)
 
+        if self.artifact.getShowSqrdTimeRangeTextFlag() == True:
+            self.showSqrdTimeRangeTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showSqrdTimeRangeTextFlagCheckBox.setCheckState(Qt.Unchecked)
+
         if self.artifact.getShowScaledValueRangeTextFlag() == True:
-            
             self.showScaledValueRangeTextFlagCheckBox.\
                 setCheckState(Qt.Checked)
         else:
@@ -946,13 +1147,124 @@ class PriceBarChartTimeMeasurementArtifactEditWidget(QWidget):
                 setCheckState(Qt.Unchecked)
 
         if self.artifact.getShowSqrtScaledValueRangeTextFlag() == True:
-            
             self.showSqrtScaledValueRangeTextFlagCheckBox.\
                 setCheckState(Qt.Checked)
         else:
             self.showSqrtScaledValueRangeTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
             
+        if self.artifact.getShowSqrdScaledValueRangeTextFlag() == True:
+            self.showSqrdScaledValueRangeTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.showSqrdScaledValueRangeTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getShowAyanaTextFlag() == True:
+            self.showAyanaTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showAyanaTextFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getShowSqrtAyanaTextFlag() == True:
+            self.showSqrtAyanaTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showSqrtAyanaTextFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getShowSqrdAyanaTextFlag() == True:
+            self.showSqrdAyanaTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showSqrdAyanaTextFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getShowMuhurtaTextFlag() == True:
+            self.showMuhurtaTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showMuhurtaTextFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getShowSqrtMuhurtaTextFlag() == True:
+            self.showSqrtMuhurtaTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showSqrtMuhurtaTextFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getShowSqrdMuhurtaTextFlag() == True:
+            self.showSqrdMuhurtaTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showSqrdMuhurtaTextFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getShowVaraTextFlag() == True:
+            self.showVaraTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showVaraTextFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getShowSqrtVaraTextFlag() == True:
+            self.showSqrtVaraTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showSqrtVaraTextFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getShowSqrdVaraTextFlag() == True:
+            self.showSqrdVaraTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showSqrdVaraTextFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getShowRtuTextFlag() == True:
+            self.showRtuTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showRtuTextFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getShowSqrtRtuTextFlag() == True:
+            self.showSqrtRtuTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showSqrtRtuTextFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getShowSqrdRtuTextFlag() == True:
+            self.showSqrdRtuTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showSqrdRtuTextFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getShowMasaTextFlag() == True:
+            self.showMasaTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showMasaTextFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getShowSqrtMasaTextFlag() == True:
+            self.showSqrtMasaTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showSqrtMasaTextFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getShowSqrdMasaTextFlag() == True:
+            self.showSqrdMasaTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showSqrdMasaTextFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getShowPaksaTextFlag() == True:
+            self.showPaksaTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showPaksaTextFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getShowSqrtPaksaTextFlag() == True:
+            self.showSqrtPaksaTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showSqrtPaksaTextFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getShowSqrdPaksaTextFlag() == True:
+            self.showSqrdPaksaTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showSqrdPaksaTextFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getShowSamaTextFlag() == True:
+            self.showSamaTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showSamaTextFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getShowSqrtSamaTextFlag() == True:
+            self.showSqrtSamaTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showSqrtSamaTextFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getShowSqrdSamaTextFlag() == True:
+            self.showSqrdSamaTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showSqrdSamaTextFlagCheckBox.setCheckState(Qt.Unchecked)
+
         self.log.debug("Exiting loadValues()")
         
     def saveValues(self):
@@ -991,34 +1303,130 @@ class PriceBarChartTimeMeasurementArtifactEditWidget(QWidget):
         endPointF = QPointF(endPointX, y)
 
         showBarsTextFlag = \
-            (self.showBarsTextFlagCheckBox.checkState() == Qt.Checked)
-        showHoursTextFlag = \
-            (self.showHoursTextFlagCheckBox.checkState() == Qt.Checked)
-        showDaysTextFlag = \
-            (self.showDaysTextFlagCheckBox.checkState() == Qt.Checked)
-        showWeeksTextFlag = \
-            (self.showWeeksTextFlagCheckBox.checkState() == Qt.Checked)
-        showMonthsTextFlag = \
-            (self.showMonthsTextFlagCheckBox.checkState() == Qt.Checked)
+            (self.showBarsTextFlagCheckBox.checkState() == \
+             Qt.Checked)
         showSqrtBarsTextFlag = \
-                (self.showSqrtBarsTextFlagCheckBox.checkState() == Qt.Checked)
+            (self.showSqrtBarsTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showSqrdBarsTextFlag = \
+            (self.showSqrdBarsTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showHoursTextFlag = \
+            (self.showHoursTextFlagCheckBox.checkState() == \
+             Qt.Checked)
         showSqrtHoursTextFlag = \
-                (self.showSqrtHoursTextFlagCheckBox.checkState() == Qt.Checked)
+            (self.showSqrtHoursTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showSqrdHoursTextFlag = \
+            (self.showSqrdHoursTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showDaysTextFlag = \
+            (self.showDaysTextFlagCheckBox.checkState() == \
+             Qt.Checked)
         showSqrtDaysTextFlag = \
-                (self.showSqrtDaysTextFlagCheckBox.checkState() == Qt.Checked)
+            (self.showSqrtDaysTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showSqrdDaysTextFlag = \
+            (self.showSqrdDaysTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showWeeksTextFlag = \
+            (self.showWeeksTextFlagCheckBox.checkState() == \
+             Qt.Checked)
         showSqrtWeeksTextFlag = \
-                (self.showSqrtWeeksTextFlagCheckBox.checkState() == Qt.Checked)
+            (self.showSqrtWeeksTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showSqrdWeeksTextFlag = \
+            (self.showSqrdWeeksTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showMonthsTextFlag = \
+            (self.showMonthsTextFlagCheckBox.checkState() == \
+             Qt.Checked)
         showSqrtMonthsTextFlag = \
-                (self.showSqrtMonthsTextFlagCheckBox.checkState() == Qt.Checked)
+            (self.showSqrtMonthsTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showSqrdMonthsTextFlag = \
+            (self.showSqrdMonthsTextFlagCheckBox.checkState() == \
+             Qt.Checked)
         showTimeRangeTextFlag = \
-            (self.showTimeRangeTextFlagCheckBox.checkState() == Qt.Checked)
+            (self.showTimeRangeTextFlagCheckBox.checkState() == \
+             Qt.Checked)
         showSqrtTimeRangeTextFlag = \
-            (self.showSqrtTimeRangeTextFlagCheckBox.checkState() == Qt.Checked)
+            (self.showSqrtTimeRangeTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showSqrdTimeRangeTextFlag = \
+            (self.showSqrdTimeRangeTextFlagCheckBox.checkState() == \
+             Qt.Checked)
         showScaledValueRangeTextFlag = \
             (self.showScaledValueRangeTextFlagCheckBox.checkState() == \
              Qt.Checked)
         showSqrtScaledValueRangeTextFlag = \
             (self.showSqrtScaledValueRangeTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showSqrdScaledValueRangeTextFlag = \
+            (self.showSqrdScaledValueRangeTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showAyanaTextFlag = \
+            (self.showAyanaTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showSqrtAyanaTextFlag = \
+            (self.showSqrtAyanaTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showSqrdAyanaTextFlag = \
+            (self.showSqrdAyanaTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showMuhurtaTextFlag = \
+            (self.showMuhurtaTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showSqrtMuhurtaTextFlag = \
+            (self.showSqrtMuhurtaTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showSqrdMuhurtaTextFlag = \
+            (self.showSqrdMuhurtaTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showVaraTextFlag = \
+            (self.showVaraTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showSqrtVaraTextFlag = \
+            (self.showSqrtVaraTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showSqrdVaraTextFlag = \
+            (self.showSqrdVaraTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showRtuTextFlag = \
+            (self.showRtuTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showSqrtRtuTextFlag = \
+            (self.showSqrtRtuTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showSqrdRtuTextFlag = \
+            (self.showSqrdRtuTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showMasaTextFlag = \
+            (self.showMasaTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showSqrtMasaTextFlag = \
+            (self.showSqrtMasaTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showSqrdMasaTextFlag = \
+            (self.showSqrdMasaTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showPaksaTextFlag = \
+            (self.showPaksaTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showSqrtPaksaTextFlag = \
+            (self.showSqrtPaksaTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showSqrdPaksaTextFlag = \
+            (self.showSqrdPaksaTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showSamaTextFlag = \
+            (self.showSamaTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showSqrtSamaTextFlag = \
+            (self.showSqrtSamaTextFlagCheckBox.checkState() == \
+             Qt.Checked)
+        showSqrdSamaTextFlag = \
+            (self.showSqrdSamaTextFlagCheckBox.checkState() == \
              Qt.Checked)
         
         # Set the values in the artifact.
@@ -1031,21 +1439,50 @@ class PriceBarChartTimeMeasurementArtifactEditWidget(QWidget):
         self.artifact.setStartPointF(startPointF)
         self.artifact.setEndPointF(endPointF)
         self.artifact.setShowBarsTextFlag(showBarsTextFlag)
-        self.artifact.setShowHoursTextFlag(showHoursTextFlag)
-        self.artifact.setShowDaysTextFlag(showDaysTextFlag)
-        self.artifact.setShowWeeksTextFlag(showWeeksTextFlag)
-        self.artifact.setShowMonthsTextFlag(showMonthsTextFlag)
         self.artifact.setShowSqrtBarsTextFlag(showSqrtBarsTextFlag)
+        self.artifact.setShowSqrdBarsTextFlag(showSqrdBarsTextFlag)
+        self.artifact.setShowHoursTextFlag(showHoursTextFlag)
         self.artifact.setShowSqrtHoursTextFlag(showSqrtHoursTextFlag)
+        self.artifact.setShowSqrdHoursTextFlag(showSqrdHoursTextFlag)
+        self.artifact.setShowDaysTextFlag(showDaysTextFlag)
         self.artifact.setShowSqrtDaysTextFlag(showSqrtDaysTextFlag)
+        self.artifact.setShowSqrdDaysTextFlag(showSqrdDaysTextFlag)
+        self.artifact.setShowWeeksTextFlag(showWeeksTextFlag)
         self.artifact.setShowSqrtWeeksTextFlag(showSqrtWeeksTextFlag)
+        self.artifact.setShowSqrdWeeksTextFlag(showSqrdWeeksTextFlag)
+        self.artifact.setShowMonthsTextFlag(showMonthsTextFlag)
         self.artifact.setShowSqrtMonthsTextFlag(showSqrtMonthsTextFlag)
+        self.artifact.setShowSqrdMonthsTextFlag(showSqrdMonthsTextFlag)
         self.artifact.setShowTimeRangeTextFlag(showTimeRangeTextFlag)
         self.artifact.setShowSqrtTimeRangeTextFlag(showSqrtTimeRangeTextFlag)
+        self.artifact.setShowSqrdTimeRangeTextFlag(showSqrdTimeRangeTextFlag)
         self.artifact.setShowScaledValueRangeTextFlag(\
             showScaledValueRangeTextFlag)
         self.artifact.setShowSqrtScaledValueRangeTextFlag(\
             showSqrtScaledValueRangeTextFlag)
+        self.artifact.setShowSqrdScaledValueRangeTextFlag(\
+            showSqrdScaledValueRangeTextFlag)
+        self.artifact.setShowAyanaTextFlag(showAyanaTextFlag)
+        self.artifact.setShowSqrtAyanaTextFlag(showSqrtAyanaTextFlag)
+        self.artifact.setShowSqrdAyanaTextFlag(showSqrdAyanaTextFlag)
+        self.artifact.setShowMuhurtaTextFlag(showMuhurtaTextFlag)
+        self.artifact.setShowSqrtMuhurtaTextFlag(showSqrtMuhurtaTextFlag)
+        self.artifact.setShowSqrdMuhurtaTextFlag(showSqrdMuhurtaTextFlag)
+        self.artifact.setShowVaraTextFlag(showVaraTextFlag)
+        self.artifact.setShowSqrtVaraTextFlag(showSqrtVaraTextFlag)
+        self.artifact.setShowSqrdVaraTextFlag(showSqrdVaraTextFlag)
+        self.artifact.setShowRtuTextFlag(showRtuTextFlag)
+        self.artifact.setShowSqrtRtuTextFlag(showSqrtRtuTextFlag)
+        self.artifact.setShowSqrdRtuTextFlag(showSqrdRtuTextFlag)
+        self.artifact.setShowMasaTextFlag(showMasaTextFlag)
+        self.artifact.setShowSqrtMasaTextFlag(showSqrtMasaTextFlag)
+        self.artifact.setShowSqrdMasaTextFlag(showSqrdMasaTextFlag)
+        self.artifact.setShowPaksaTextFlag(showPaksaTextFlag)
+        self.artifact.setShowSqrtPaksaTextFlag(showSqrtPaksaTextFlag)
+        self.artifact.setShowSqrdPaksaTextFlag(showSqrdPaksaTextFlag)
+        self.artifact.setShowSamaTextFlag(showSamaTextFlag)
+        self.artifact.setShowSqrtSamaTextFlag(showSqrtSamaTextFlag)
+        self.artifact.setShowSqrdSamaTextFlag(showSqrdSamaTextFlag)
         
         self.log.debug("Exiting saveValues()")
 

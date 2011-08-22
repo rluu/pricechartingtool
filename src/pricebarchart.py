@@ -1870,9 +1870,10 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         super().__init__(parent, scene)
 
         # Logger
-        self.log = logging.getLogger("pricebarchart.TimeMeasurementGraphicsItem")
+        self.log = \
+            logging.getLogger("pricebarchart.TimeMeasurementGraphicsItem")
+        
         self.log.debug("Entered __init__().")
-
 
         ############################################################
         # Set default values for preferences/settings.
@@ -1913,50 +1914,75 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowBarsTextFlag
     
-        # TimeMeasurementGraphicsItem showHoursTextFlag (bool).
-        self.showHoursTextFlag = \
-            PriceBarChartSettings.\
-            defaultTimeMeasurementGraphicsItemShowHoursTextFlag
-    
-        # TimeMeasurementGraphicsItem showDaysTextFlag (bool).
-        self.showDaysTextFlag = \
-            PriceBarChartSettings.\
-            defaultTimeMeasurementGraphicsItemShowDaysTextFlag
-    
-        # TimeMeasurementGraphicsItem showWeeksTextFlag (bool).
-        self.showWeeksTextFlag = \
-            PriceBarChartSettings.\
-            defaultTimeMeasurementGraphicsItemShowWeeksTextFlag
-    
-        # TimeMeasurementGraphicsItem showMonthsTextFlag (bool).
-        self.showMonthsTextFlag = \
-            PriceBarChartSettings.\
-            defaultTimeMeasurementGraphicsItemShowMonthsTextFlag
-    
         # TimeMeasurementGraphicsItem showSqrtBarsTextFlag (bool).
         self.showSqrtBarsTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtBarsTextFlag
+    
+        # TimeMeasurementGraphicsItem showSqrdBarsTextFlag (bool).
+        self.showSqrdBarsTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdBarsTextFlag
+    
+        # TimeMeasurementGraphicsItem showHoursTextFlag (bool).
+        self.showHoursTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowHoursTextFlag
     
         # TimeMeasurementGraphicsItem showSqrtHoursTextFlag (bool).
         self.showSqrtHoursTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtHoursTextFlag
     
+        # TimeMeasurementGraphicsItem showSqrdHoursTextFlag (bool).
+        self.showSqrdHoursTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdHoursTextFlag
+    
+        # TimeMeasurementGraphicsItem showDaysTextFlag (bool).
+        self.showDaysTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowDaysTextFlag
+    
         # TimeMeasurementGraphicsItem showSqrtDaysTextFlag (bool).
         self.showSqrtDaysTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtDaysTextFlag
+    
+        # TimeMeasurementGraphicsItem showSqrdDaysTextFlag (bool).
+        self.showSqrdDaysTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdDaysTextFlag
+    
+        # TimeMeasurementGraphicsItem showWeeksTextFlag (bool).
+        self.showWeeksTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowWeeksTextFlag
     
         # TimeMeasurementGraphicsItem showSqrtWeeksTextFlag (bool).
         self.showSqrtWeeksTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtWeeksTextFlag
     
+        # TimeMeasurementGraphicsItem showSqrdWeeksTextFlag (bool).
+        self.showSqrdWeeksTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdWeeksTextFlag
+    
+        # TimeMeasurementGraphicsItem showMonthsTextFlag (bool).
+        self.showMonthsTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowMonthsTextFlag
+    
         # TimeMeasurementGraphicsItem showSqrtMonthsTextFlag (bool).
         self.showSqrtMonthsTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtMonthsTextFlag
+
+        # TimeMeasurementGraphicsItem showSqrdMonthsTextFlag (bool).
+        self.showSqrdMonthsTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdMonthsTextFlag
 
         # TimeMeasurementGraphicsItem showTimeRangeTextFlag (bool).
         self.showTimeRangeTextFlag = \
@@ -1968,6 +1994,11 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtTimeRangeTextFlag
     
+        # TimeMeasurementGraphicsItem showSqrdTimeRangeTextFlag (bool).
+        self.showSqrdTimeRangeTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdTimeRangeTextFlag
+    
         # TimeMeasurementGraphicsItem showScaledValueRangeTextFlag (bool).
         self.showScaledValueRangeTextFlag = \
             PriceBarChartSettings.\
@@ -1978,6 +2009,116 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag
     
+        # TimeMeasurementGraphicsItem showSqrdScaledValueRangeTextFlag (bool).
+        self.showSqrdScaledValueRangeTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdScaledValueRangeTextFlag
+
+        # TimeMeasurementGraphicsItem showAyanaTextFlag (bool).
+        self.showAyanaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowAyanaTextFlag
+
+        # TimeMeasurementGraphicsItem showSqrtAyanaTextFlag (bool).
+        self.showSqrtAyanaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtAyanaTextFlag
+
+        # TimeMeasurementGraphicsItem showSqrdAyanaTextFlag (bool).
+        self.showSqrdAyanaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdAyanaTextFlag
+
+        # TimeMeasurementGraphicsItem showMuhurtaTextFlag (bool).
+        self.showMuhurta = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowMuhurtaTextFlag
+
+        # TimeMeasurementGraphicsItem showSqrtMuhurtaTextFlag (bool).
+        self.showSqrtMuhurtaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtMuhurtaTextFlag
+
+        # TimeMeasurementGraphicsItem showSqrdMuhurtaTextFlag (bool).
+        self.showSqrdMuhurtaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdMuhurtaTextFlag
+
+        # TimeMeasurementGraphicsItem showVaraTextFlag (bool).
+        self.showVaraTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowVaraTextFlag
+
+        # TimeMeasurementGraphicsItem showSqrtVaraTextFlag (bool).
+        self.showSqrtVaraTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtVaraTextFlag
+
+        # TimeMeasurementGraphicsItem showSqrdVaraTextFlag (bool).
+        self.showSqrdVaraTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdVaraTextFlag
+
+        # TimeMeasurementGraphicsItem showRtuTextFlag (bool).
+        self.showRtuTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowRtuTextFlag
+
+        # TimeMeasurementGraphicsItem showSqrtRtuTextFlag (bool).
+        self.showSqrtRtuTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtRtuTextFlag
+
+        # TimeMeasurementGraphicsItem showSqrdRtuTextFlag (bool).
+        self.showSqrdRtuTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdRtuTextFlag
+
+        # TimeMeasurementGraphicsItem showMasaTextFlag (bool).
+        self.showMasaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowMasaTextFlag
+
+        # TimeMeasurementGraphicsItem showSqrtMasaTextFlag (bool).
+        self.showSqrtMasaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtMasaTextFlag
+
+        # TimeMeasurementGraphicsItem showSqrdMasaTextFlag (bool).
+        self.showSqrdMasaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdMasaTextFlag
+
+        # TimeMeasurementGraphicsItem showPaksaTextFlag (bool).
+        self.showPaksaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowPaksaTextFlag
+
+        # TimeMeasurementGraphicsItem showSqrtPaksaTextFlag (bool).
+        self.showSqrtPaksaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtPaksaTextFlag
+
+        # TimeMeasurementGraphicsItem showSqrdPaksaTextFlag (bool).
+        self.showSqrdPaksaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdPaksaTextFlag
+
+        # TimeMeasurementGraphicsItem showSamaTextFlag (bool).
+        self.showSamaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSamaTextFlag
+
+        # TimeMeasurementGraphicsItem showSqrtSamaTextFlag (bool).
+        self.showSqrtSamaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrtSamaTextFlag
+
+        # TimeMeasurementGraphicsItem showSqrdSamaTextFlag (bool).
+        self.showSqrdSamaTextFlag = \
+            PriceBarChartSettings.\
+            defaultTimeMeasurementGraphicsItemShowSqrdSamaTextFlag
+        
         ############################################################
 
         # Internal storage object, used for loading/saving (serialization).
@@ -2000,93 +2141,60 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.endPointF = QPointF(0, 0)
 
         # Variables holding the time measurement values.
-        self.numPriceBars = 0
-        self.numHours = 0
-        self.numDays = 0
-        self.numWeeks = 0
-        self.numMonths = 0
-
-        self.numSqrtPriceBars = 0
-        self.numSqrtHours = 0
-        self.numSqrtDays = 0
-        self.numSqrtWeeks = 0
-        self.numSqrtMonths = 0
-        
-        self.timeRange = 0.0
-        self.sqrtTimeRange = 0.0
-        self.scaledValueRange = 0.0
-        self.sqrtScaledValueRange = 0.0
+        self.numPriceBars = 0.0
+        self.numSqrtPriceBars = 0.0
+        self.numSqrdPriceBars = 0.0
+        self.numHours = 0.0
+        self.numSqrtHours = 0.0
+        self.numSqrdHours = 0.0
+        self.numDays = 0.0
+        self.numSqrtDays = 0.0
+        self.numSqrdDays = 0.0
+        self.numWeeks = 0.0
+        self.numSqrtWeeks = 0.0
+        self.numSqrdWeeks = 0.0
+        self.numMonths = 0.0
+        self.numSqrtMonths = 0.0
+        self.numSqrdMonths = 0.0
+        self.numTimeRange = 0.0
+        self.numSqrtTimeRange = 0.0
+        self.numSqrdTimeRange = 0.0
+        self.numScaledValueRange = 0.0
+        self.numSqrtScaledValueRange = 0.0
+        self.numSqrdScaledValueRange = 0.0
+        self.numAyana = 0.0
+        self.numSqrtAyana = 0.0
+        self.numSqrdAyana = 0.0
+        self.numMuhurta = 0.0
+        self.numSqrtMuhurta = 0.0
+        self.numSqrdMuhurta = 0.0
+        self.numVara = 0.0
+        self.numSqrtVara = 0.0
+        self.numSqrdVara = 0.0
+        self.numRtu = 0.0
+        self.numSqrtRtu = 0.0
+        self.numSqrdRtu = 0.0
+        self.numMasa = 0.0
+        self.numSqrtMasa = 0.0
+        self.numSqrdMasa = 0.0
+        self.numPaksa = 0.0
+        self.numSqrtPaksa = 0.0
+        self.numSqrdPaksa = 0.0
+        self.numSama = 0.0
+        self.numSqrtSama = 0.0
+        self.numSqrdSama = 0.0
         
         # Internal QGraphicsItem that holds the text of the bar count.
         # Initialize to blank and set at the end point.
-        self.timeMeasurementBarsText = QGraphicsSimpleTextItem("", self)
-        self.timeMeasurementHoursText = QGraphicsSimpleTextItem("", self)
-        self.timeMeasurementDaysText = QGraphicsSimpleTextItem("", self)
-        self.timeMeasurementWeeksText = QGraphicsSimpleTextItem("", self)
-        self.timeMeasurementMonthsText = QGraphicsSimpleTextItem("", self)
+        self.textItem = QGraphicsSimpleTextItem("", self)
+        self.textItem.setPos(self.endPointF)
 
-        self.timeMeasurementSqrtBarsText = QGraphicsSimpleTextItem("", self)
-        self.timeMeasurementSqrtHoursText = QGraphicsSimpleTextItem("", self)
-        self.timeMeasurementSqrtDaysText = QGraphicsSimpleTextItem("", self)
-        self.timeMeasurementSqrtWeeksText = QGraphicsSimpleTextItem("", self)
-        self.timeMeasurementSqrtMonthsText = QGraphicsSimpleTextItem("", self)
-
-        self.timeMeasurementTimeRangeText = \
-            QGraphicsSimpleTextItem("", self)
-        self.timeMeasurementSqrtTimeRangeText = \
-            QGraphicsSimpleTextItem("", self)
-        self.timeMeasurementScaledValueRangeText = \
-            QGraphicsSimpleTextItem("", self)
-        self.timeMeasurementSqrtScaledValueRangeText = \
-            QGraphicsSimpleTextItem("", self)
-
-        # List of text items as created above.  This is so we can more
-        # quickly and easily apply new settings.  It also helps for
-        # painting things nicely.
-        self.textItems = []
-        self.textItems.append(self.timeMeasurementBarsText)
-        self.textItems.append(self.timeMeasurementHoursText)
-        self.textItems.append(self.timeMeasurementDaysText)
-        self.textItems.append(self.timeMeasurementWeeksText)
-        self.textItems.append(self.timeMeasurementMonthsText)
+        # Transform object applied to the text item.
+        self.textTransform = QTransform()
         
-        self.textItems.append(self.timeMeasurementSqrtBarsText)
-        self.textItems.append(self.timeMeasurementSqrtHoursText)
-        self.textItems.append(self.timeMeasurementSqrtDaysText)
-        self.textItems.append(self.timeMeasurementSqrtWeeksText)
-        self.textItems.append(self.timeMeasurementSqrtMonthsText)
-
-        self.textItems.append(self.timeMeasurementTimeRangeText)
-        self.textItems.append(self.timeMeasurementSqrtTimeRangeText)
-        self.textItems.append(self.timeMeasurementScaledValueRangeText)
-        self.textItems.append(self.timeMeasurementSqrtScaledValueRangeText)
+        # Set the text item with the properties we want it to have.
+        self.reApplyTextItemAttributes(self.textItem)
         
-        for textItem in self.textItems:
-            textItem.setPos(self.endPointF)
-        
-            # Set the font of the text.
-            textItem.setFont(self.timeMeasurementTextFont)
-        
-            # Set the pen color of the text.
-            self.timeMeasurementTextPen = textItem.pen()
-            self.timeMeasurementTextPen.\
-                setColor(self.timeMeasurementGraphicsItemTextColor)
-            
-            textItem.setPen(self.timeMeasurementTextPen)
-
-            # Set the brush color of the text.
-            self.timeMeasurementTextBrush = textItem.brush()
-            self.timeMeasurementTextBrush.\
-                setColor(self.timeMeasurementGraphicsItemTextColor)
-            
-            textItem.setBrush(self.timeMeasurementTextBrush)
-
-            # Apply some size scaling to the text.
-            textTransform = QTransform()
-            textTransform.scale(self.timeMeasurementTextXScaling, \
-                                self.timeMeasurementTextYScaling)
-            textItem.setTransform(textTransform)
-
         # Flag that indicates that vertical dotted lines should be drawn.
         self.drawVerticalDottedLinesFlag = False
         
@@ -2095,6 +2203,37 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.draggingStartPointFlag = False
         self.draggingEndPointFlag = False
         self.clickScenePointF = None
+
+    def reApplyTextItemAttributes(self, textItem):
+        """Takes the given text item and reapplies the pen, brush,
+        transform, etc. that should be set for the text item.
+        """
+
+        # Set properties of the text item.
+        
+        # Set the font of the text.
+        textItem.setFont(self.timeMeasurementTextFont)
+        
+        # Set the pen color of the text.
+        self.timeMeasurementTextPen = textItem.pen()
+        self.timeMeasurementTextPen.\
+            setColor(self.timeMeasurementGraphicsItemTextColor)
+            
+        textItem.setPen(self.timeMeasurementTextPen)
+
+        # Set the brush color of the text.
+        self.timeMeasurementTextBrush = textItem.brush()
+        self.timeMeasurementTextBrush.\
+            setColor(self.timeMeasurementGraphicsItemTextColor)
+            
+        textItem.setBrush(self.timeMeasurementTextBrush)
+
+        # Apply some size scaling to the text.
+        self.textTransform = QTransform()
+        self.textTransform.scale(self.timeMeasurementTextXScaling, \
+                            self.timeMeasurementTextYScaling)
+        textItem.setTransform(textTransform)
+
         
     def setDrawVerticalDottedLinesFlag(self, flag):
         """If flag is set to true, then the vertical dotted lines are drawn.
@@ -2522,35 +2661,46 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
         
         # Update the timeMeasurement label position.
-            
-        # X location where to place the item.
+        
+        # Changes in x and y.
         deltaX = self.endPointF.x() - self.startPointF.x()
-        x = deltaX * 0.5
+        deltaY = self.endPointF.y() - self.startPointF.y()
+        
+        # Get bounding rectangle of text item.
+        boundingRect = self.textItem.boundingRect()
 
-        # Starting Y location to place the text item.
-        startY = -2.0
+        # Find largest text height and width.
+        largestTextHeight = boundingRect.height()
+        largestTextWidth = boundingRect.width()
+
+        # Now replace the above with the scaled version of it. 
+        largestTextHeight = largestTextHeight * self.textTransform.m22()
+        largestTextWidth = largestTextWidth * self.textTransform.m11()
+
+        self.log.debug("largestTextHeight = {}".format(largestTextHeight))
+        self.log.debug("largestTextWidth = {}".format(largestTextWidth))
+        
+        # Get the x and y of the point to place the text, referenced
+        # on the line from start point to end point, but offset by a
+        # certain amount such that the largest text would be centered
+        # on the line.
+        midX = self.mapFromScene(\
+            QPointF(self.startPointF.x() + (deltaX * 0.5), 0.0)).x()
+        midY = self.mapFromScene(\
+            QPointF(0.0, self.startPointF.y() + (deltaY * 0.5))).y()
+
+        self.log.debug("midX={}, midY={}".format(midX, midY))
+                       
+        startX = midX
+        startY = midY
 
         # Amount to mutiply to get a largest offset from startY.
-        offsetY = 1.5
+        offsetY = largestTextHeight
 
-        # j is the running index of the enabled text item.
-        j = 0
-
-        # Go through in reverse order since we are placing the
-        # items relative to the bar (moving outwards).
-        for i in reversed(range(len(self.textItems))):
-            # Get the current text item.
-            textItem = self.textItems[i]
-
-            # Set the position no matter what, but only increment
-            # j if the item is enabled and displayed.  This is so
-            # we keep the text items on the graphicsScene close to
-            # its parent item.
-            y = (startY - (offsetY * j)) * \
-                self.timeMeasurementGraphicsItemBarHeight
-            textItem.setPos(QPointF(x, y))
-            if textItem.isEnabled() and textItem.isVisible():
-                j += 1
+        x = startX
+        y = startY - offsetY
+            
+        self.textItem.setPos(QPointF(x, y))
                     
     def setStartPointF(self, pointF):
         """Sets the starting point of the bar count.  The value passed in
@@ -2619,22 +2769,48 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
     def recalculateTimeMeasurement(self):
         """Sets the internal variables:
         
-            self.numPriceBars
-            self.numHours
-            self.numDays
-            self.numWeeks
-            self.numMonths
-
-            self.numSqrtPriceBars
-            self.numSqrtHours
-            self.numSqrtDays
-            self.numSqrtWeeks
-            self.numSqrtMonths
-
-            self.timeRange
-            self.sqrtTimeRange
-            self.scaledValueRange
-            self.sqrtScaledValueRange
+        self.numPriceBars
+        self.numSqrtPriceBars
+        self.numSqrdPriceBars
+        self.numHours
+        self.numSqrtHours
+        self.numSqrdHours
+        self.numDays
+        self.numSqrtDays
+        self.numSqrdDays
+        self.numWeeks
+        self.numSqrtWeeks
+        self.numSqrdWeeks
+        self.numMonths
+        self.numSqrtMonths
+        self.numSqrdMonths
+        self.numTimeRange
+        self.numSqrtTimeRange
+        self.numSqrdTimeRange
+        self.numScaledValueRange
+        self.numSqrtScaledValueRange
+        self.numSqrdScaledValueRange
+        self.numAyana
+        self.numSqrtAyana
+        self.numSqrdAyana
+        self.numMuhurta
+        self.numSqrtMuhurta
+        self.numSqrdMuhurta
+        self.numVara
+        self.numSqrtVara
+        self.numSqrdVara
+        self.numRtu
+        self.numSqrtRtu
+        self.numSqrdRtu
+        self.numMasa
+        self.numSqrtMasa
+        self.numSqrdMasa
+        self.numPaksa
+        self.numSqrtPaksa
+        self.numSqrdPaksa
+        self.numSama
+        self.numSqrtSama
+        self.numSqrdSama
             
         to hold the amount of time between the start and end points.
         """
@@ -2643,21 +2819,47 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Reset the values.
         self.numPriceBars = 0.0
-        self.numHours = 0.0
-        self.numDays = 0.0
-        self.numWeeks = 0.0
-        self.numMonths = 0.0
-
         self.numSqrtPriceBars = 0.0
+        self.numSqrdPriceBars = 0.0
+        self.numHours = 0.0
         self.numSqrtHours = 0.0
+        self.numSqrdHours = 0.0
+        self.numDays = 0.0
         self.numSqrtDays = 0.0
+        self.numSqrdDays = 0.0
+        self.numWeeks = 0.0
         self.numSqrtWeeks = 0.0
+        self.numSqrdWeeks = 0.0
+        self.numMonths = 0.0
         self.numSqrtMonths = 0.0
-        
-        self.timeRange = 0.0
-        self.sqrtTimeRange = 0.0
-        self.scaledValueRange = 0.0
-        self.sqrtScaledValueRange = 0.0
+        self.numSqrdMonths = 0.0
+        self.numTimeRange = 0.0
+        self.numSqrtTimeRange = 0.0
+        self.numSqrdTimeRange = 0.0
+        self.numScaledValueRange = 0.0
+        self.numSqrtScaledValueRange = 0.0
+        self.numSqrdScaledValueRange = 0.0
+        self.numAyana = 0.0
+        self.numSqrtAyana = 0.0
+        self.numSqrdAyana = 0.0
+        self.numMuhurta = 0.0
+        self.numSqrtMuhurta = 0.0
+        self.numSqrdMuhurta = 0.0
+        self.numVara = 0.0
+        self.numSqrtVara = 0.0
+        self.numSqrdVara = 0.0
+        self.numRtu = 0.0
+        self.numSqrtRtu = 0.0
+        self.numSqrdRtu = 0.0
+        self.numMasa = 0.0
+        self.numSqrtMasa = 0.0
+        self.numSqrdMasa = 0.0
+        self.numPaksa = 0.0
+        self.numSqrtPaksa = 0.0
+        self.numSqrdPaksa = 0.0
+        self.numSama = 0.0
+        self.numSqrtSama = 0.0
+        self.numSqrdSama = 0.0
         
         if scene != None:
             # Get all the QGraphicsItems.
@@ -2682,14 +2884,14 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Calculate the number of (calendar) days.
             startTimestamp = \
                 scene.sceneXPosToDatetime(self.startPointF.x())
-            timestampStr = Ephemeris.datetimeToDayStr(startTimestamp)
             
+            timestampStr = Ephemeris.datetimeToDayStr(startTimestamp)
             self.log.debug("startTimestamp: " + timestampStr)
             
             endTimestamp = \
                 scene.sceneXPosToDatetime(self.endPointF.x())
-            timestampStr = Ephemeris.datetimeToDayStr(endTimestamp)
             
+            timestampStr = Ephemeris.datetimeToDayStr(endTimestamp)
             self.log.debug("endTimestamp: " + timestampStr)
             
             timeDelta = endTimestamp - startTimestamp
@@ -2707,84 +2909,273 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.numWeeks = self.numDays / 7.0
 
             # Calculate number of months.
-            daysInMonth = 365.242199 / 12.0
+            daysInTopicalYear = 365.242199
+            daysInMonth = daysInTopicalYear / 12.0
             self.numMonths = self.numDays / daysInMonth
 
-            # Calculate the time range.  (In what units?)
-            self.timeRange = abs(self.endPointF.x() - self.startPointF.x())
-
+            # Calculate the time range.  (In what units should we do
+            # this?... for now we will just use the default.)
+            self.numTimeRange = abs(self.endPointF.x() - self.startPointF.x())
+            
             # Calculate the scaled value range.
-            self.scaledValueRange = \
+            self.numScaledValueRange = \
                 abs(scene.convertDatetimeToScaledValue(endTimestamp) -
                     scene.convertDatetimeToScaledValue(startTimestamp))
+
+            # Calculate number of ayanas (6 months).
+            # Ayana is half of a tropical year (solstice to solstice).
+            daysInAyana = daysInTropicalYear / 2.0
+            self.numAyana = self.numDays / daysInAyana
+
+            # Calculate number of muhurtas (48 minutes).
+            minutesInDay = 1440
+            self.numMuhurta = (self.numDays * minutesInDay) / 48.0
+
+            # Calculate number of varas (24-hour day).
+            self.numVara = float(self.numDays)
+
+            # Calculate number of rtu (season of 2 months).  Although
+            # some authors say this is relative to sidereal zodiac, I
+            # believe it's supposed to be relative to divisions of a
+            # tropical year, so I will use that below.
+            daysInRtu = daysInTropicalYear / 6.0
+            self.numRtu = self.numDays / daysInRtu
+
+            # Calculate number of masa (lunar synodic months).
+            daysInLunarSynodicMonth = 29.530588853
+            self.numMasa = self.numDays / daysInLunarSynodicMonth
+            
+            # Calculate number of paksa (fortnights).
+            daysInPaksa = daysInLunarSynodicMonth / 2.0
+            self.numPaksa = self.numDays / daysInPaksa
+
+            # Calculate number of sama (solar year).
+            self.numSama = self.numDays / daysInTropicalYear
             
             self.log.debug("self.numPriceBars={}".format(self.numPriceBars))
             self.log.debug("self.numHours={}".format(self.numHours))
             self.log.debug("self.numDays={}".format(self.numDays))
             self.log.debug("self.numWeeks={}".format(self.numWeeks))
             self.log.debug("self.numMonths={}".format(self.numMonths))
-            self.log.debug("self.timeRange={}".format(self.timeRange))
-            self.log.debug("self.scaledValueRange={}".
-                           format(self.scaledValueRange))
-            
+            self.log.debug("self.numTimeRange={}".format(self.numTimeRange))
+            self.log.debug("self.numScaledValueRange={}".
+                           format(self.numScaledValueRange))
+            self.log.debug("self.numAyana={}".format(self.numAyana))
+            self.log.debug("self.numMuhurta={}".format(self.numMuhurta))
+            self.log.debug("self.numVara={}".format(self.numVara))
+            self.log.debug("self.numRtu={}".format(self.numRtu))
+            self.log.debug("self.numMasa={}".format(self.numMasa))
+            self.log.debug("self.numPaksa={}".format(self.numPaksa))
+            self.log.debug("self.numSama={}".format(self.numSama))
+
             self.numSqrtPriceBars = math.sqrt(abs(self.numPriceBars))
             self.numSqrtHours = math.sqrt(abs(self.numHours))
             self.numSqrtDays = math.sqrt(abs(self.numDays))
             self.numSqrtWeeks = math.sqrt(abs(self.numWeeks))
             self.numSqrtMonths = math.sqrt(abs(self.numMonths))
-            self.sqrtTimeRange = math.sqrt(abs(self.timeRange))
-            self.sqrtScaledValueRange = math.sqrt(abs(self.scaledValueRange))
-            
+            self.numSqrtTimeRange = math.sqrt(abs(self.numTimeRange))
+            self.numSqrtScaledValueRange = \
+                math.sqrt(abs(self.numScaledValueRange))
+            self.numSqrtAyana = math.sqrt(abs(self.numAyana))
+            self.numSqrtMuhurta = math.sqrt(abs(self.numMuhurta))
+            self.numSqrtVara = math.sqrt(abs(self.numVara))
+            self.numSqrtRtu = math.sqrt(abs(self.numRtu))
+            self.numSqrtMasa = math.sqrt(abs(self.numMasa))
+            self.numSqrtPaksa = math.sqrt(abs(self.numPaksa))
+            self.numSqrtSama = math.sqrt(abs(self.numSama))
+
             self.log.debug("self.numSqrtPriceBars={}".\
                            format(self.numSqrtPriceBars))
             self.log.debug("self.numSqrtHours={}".format(self.numSqrtHours))
             self.log.debug("self.numSqrtDays={}".format(self.numSqrtDays))
             self.log.debug("self.numSqrtWeeks={}".format(self.numSqrtWeeks))
             self.log.debug("self.numSqrtMonths={}".format(self.numSqrtMonths))
-            self.log.debug("self.sqrtTimeRange={}".format(self.sqrtTimeRange))
-            self.log.debug("self.sqrtScaledValueRange={}".\
-                           format(self.sqrtScaledValueRange))
+            self.log.debug("self.numSqrtTimeRange={}".\
+                format(self.numSqrtTimeRange))
+            self.log.debug("self.numSqrtScaledValueRange={}".\
+                format(self.numSqrtScaledValueRange))
+            self.log.debug("self.numSqrtAyana={}".format(self.numSqrtAyana))
+            self.log.debug("self.numSqrtMuhurta={}".format(self.numSqrtMuhurta))
+            self.log.debug("self.numSqrtVara={}".format(self.numSqrtVara))
+            self.log.debug("self.numSqrtRtu={}".format(self.numSqrtRtu))
+            self.log.debug("self.numSqrtMasa={}".format(self.numSqrtMasa))
+            self.log.debug("self.numSqrtPaksa={}".format(self.numSqrtPaksa))
+            self.log.debug("self.numSqrtSama={}".format(self.numSqrtSama))
 
+            self.numSqrdPriceBars = math.pow(self.numPriceBars, 2.0)
+            self.numSqrdHours = math.pow(self.numHours, 2.0)
+            self.numSqrdDays = math.pow(self.numDays, 2.0)
+            self.numSqrdWeeks = math.pow(self.numWeeks, 2.0)
+            self.numSqrdMonths = math.pow(self.numMonths, 2.0)
+            self.numSqrdTimeRange = math.pow(self.numTimeRange, 2.0)
+            self.numSqrdScaledValueRange = \
+                math.pow(self.numScaledValueRange, 2.0)
+            self.numSqrdAyana = math.pow(self.numAyana, 2.0)
+            self.numSqrdMuhurta = math.pow(self.numMuhurta, 2.0)
+            self.numSqrdVara = math.pow(self.numVara, 2.0)
+            self.numSqrdRtu = math.pow(self.numRtu, 2.0)
+            self.numSqrdMasa = math.pow(self.numMasa, 2.0)
+            self.numSqrdPaksa = math.pow(self.numPaksa, 2.0)
+            self.numSqrdSama = math.pow(self.numSama, 2.0)
             
+            self.log.debug("self.numSqrdPriceBars={}".\
+                           format(self.numSqrdPriceBars))
+            self.log.debug("self.numSqrdHours={}".format(self.numSqrdHours))
+            self.log.debug("self.numSqrdDays={}".format(self.numSqrdDays))
+            self.log.debug("self.numSqrdWeeks={}".format(self.numSqrdWeeks))
+            self.log.debug("self.numSqrdMonths={}".format(self.numSqrdMonths))
+            self.log.debug("self.numSqrdTimeRange={}".\
+                format(self.numSqrdTimeRange))
+            self.log.debug("self.numSqrdScaledValueRange={}".\
+                format(self.numSqrdScaledValueRange))
+            self.log.debug("self.numSqrdAyana={}".format(self.numSqrdAyana))
+            self.log.debug("self.numSqrdMuhurta={}".format(self.numSqrdMuhurta))
+            self.log.debug("self.numSqrdVara={}".format(self.numSqrdVara))
+            self.log.debug("self.numSqrdRtu={}".format(self.numSqrdRtu))
+            self.log.debug("self.numSqrdMasa={}".format(self.numSqrdMasa))
+            self.log.debug("self.numSqrdPaksa={}".format(self.numSqrdPaksa))
+            self.log.debug("self.numSqrdSama={}".format(self.numSqrdSama))
+
         # Update the text of the internal items.
         barsText = "{} B".format(self.numPriceBars)
-        hoursText = "{:.2f} H".format(self.numHours)
-        daysText = "{:.2f} CD".format(self.numDays)
-        weeksText = "{:.2f} W".format(self.numWeeks)
-        monthsText = "{:.2f} M".format(self.numMonths)
-        
         sqrtBarsText = "{:.2f} sqrt B".format(self.numSqrtPriceBars)
+        sqrdBarsText = "{:.2f} sqrd B".format(self.numSqrdPriceBars)
+        hoursText = "{:.2f} H".format(self.numHours)
         sqrtHoursText = "{:.2f} sqrt H".format(self.numSqrtHours)
+        sqrdHoursText = "{:.2f} sqrd H".format(self.numSqrdHours)
+        daysText = "{:.2f} CD".format(self.numDays)
         sqrtDaysText = "{:.2f} sqrt CD".format(self.numSqrtDays)
+        sqrdDaysText = "{:.2f} sqrd CD".format(self.numSqrdDays)
+        weeksText = "{:.2f} W".format(self.numWeeks)
         sqrtWeeksText = "{:.2f} sqrt W".format(self.numSqrtWeeks)
+        sqrdWeeksText = "{:.2f} sqrd W".format(self.numSqrdWeeks)
+        monthsText = "{:.2f} M".format(self.numMonths)
         sqrtMonthsText = "{:.2f} sqrt M".format(self.numSqrtMonths)
-        
+        sqrdMonthsText = "{:.2f} sqrd M".format(self.numSqrdMonths)
         timeRangeText = \
             "{:.4f} t_range".format(self.timeRange)
         sqrtTimeRangeText = \
             "{:.4f} sqrt(t_range)".format(self.sqrtTimeRange)
+        sqrdTimeRangeText = \
+            "{:.4f} sqrd(t_range)".format(self.sqrdTimeRange)
         scaledValueRangeText = \
             "{:.4f} u_range".format(self.scaledValueRange)
         sqrtScaledValueRangeText = \
             "{:.4f} sqrt(u_range)".format(self.sqrtScaledValueRange)
-        
-        self.timeMeasurementBarsText.setText(barsText)
-        self.timeMeasurementHoursText.setText(hoursText)
-        self.timeMeasurementDaysText.setText(daysText)
-        self.timeMeasurementWeeksText.setText(weeksText)
-        self.timeMeasurementMonthsText.setText(monthsText)
-        
-        self.timeMeasurementSqrtBarsText.setText(sqrtBarsText)
-        self.timeMeasurementSqrtHoursText.setText(sqrtHoursText)
-        self.timeMeasurementSqrtDaysText.setText(sqrtDaysText)
-        self.timeMeasurementSqrtWeeksText.setText(sqrtWeeksText)
-        self.timeMeasurementSqrtMonthsText.setText(sqrtMonthsText)
+        sqrdScaledValueRangeText = \
+            "{:.4f} sqrd(u_range)".format(self.sqrdScaledValueRange)
+        ayanaText = "{} ayana".format(self.numAyana)
+        sqrtAyanaText = "{} sqrt ayana".format(self.numSqrtAyana)
+        sqrdAyanaText = "{} sqrd ayana".format(self.numSqrdAyana)
+        muhurtaText = "{} muhurta".format(self.numMuhurta)
+        sqrtMuhurtaText = "{} sqrt muhurta".format(self.numSqrtMuhurta)
+        sqrdMuhurtaText = "{} sqrd muhurta".format(self.numSqrdMuhurta)
+        varaText = "{} vara".format(self.numVara)
+        sqrtVaraText = "{} sqrt vara".format(self.numSqrtVara)
+        sqrdVaraText = "{} sqrd vara".format(self.numSqrdVara)
+        rtuText = "{} rtu".format(self.numRtu)
+        sqrtRtuText = "{} sqrt rtu".format(self.numSqrtRtu)
+        sqrdRtuText = "{} sqrd rtu".format(self.numSqrdRtu)
+        masaText = "{} masa".format(self.numMasa)
+        sqrtMasaText = "{} sqrt masa".format(self.numSqrtMasa)
+        sqrdMasaText = "{} sqrd masa".format(self.numSqrdMasa)
+        paksaText = "{} paksa".format(self.numPaksa)
+        sqrtPaksaText = "{} sqrt paksa".format(self.numSqrtPaksa)
+        sqrdPaksaText = "{} sqrd paksa".format(self.numSqrdPaksa)
+        samaText = "{} sama".format(self.numSama)
+        sqrtSamaText = "{} sqrt sama".format(self.numSqrtSama)
+        sqrdSamaText = "{} sqrd sama".format(self.numSqrdSama)
 
-        self.timeMeasurementTimeRangeText.setText(timeRangeText)
-        self.timeMeasurementSqrtTimeRangeText.setText(sqrtTimeRangeText)
-        self.timeMeasurementScaledValueRangeText.setText(scaledValueRangeText)
-        self.timeMeasurementSqrtScaledValueRangeText.\
-            setText(sqrtScaledValueRangeText)
+        # Text to set in the text item.
+        text = ""
+
+        if self.showBarsTextFlag == True:
+            text += barsText + os.linesep
+        if self.showSqrtBarsTextFlag == True:
+            text += sqrtBarsText + os.linesep
+        if self.showSqrdBarsTextFlag == True:
+            text += sqrdBarsText + os.linesep
+        if self.showHoursTextFlag == True:
+            text += hoursText + os.linesep
+        if self.showSqrtHoursTextFlag == True:
+            text += sqrtHoursText + os.linesep
+        if self.showSqrdHoursTextFlag == True:
+            text += sqrdHoursText + os.linesep
+        if self.showDaysTextFlag == True:
+            text += daysText + os.linesep
+        if self.showSqrtDaysTextFlag == True:
+            text += sqrtDaysText + os.linesep
+        if self.showSqrdDaysTextFlag == True:
+            text += sqrdDaysText + os.linesep
+        if self.showWeeksTextFlag == True:
+            text += weeksText + os.linesep
+        if self.showSqrtWeeksTextFlag == True:
+            text += sqrtWeeksText + os.linesep
+        if self.showSqrdWeeksTextFlag == True:
+            text += sqrdWeeksText + os.linesep
+        if self.showMonthsTextFlag == True:
+            text += monthsText + os.linesep
+        if self.showSqrtMonthsTextFlag == True:
+            text += sqrtMonthsText + os.linesep
+        if self.showSqrdMonthsTextFlag == True:
+            text += sqrdMonthsText + os.linesep
+        if self.showTimeRangeTextFlag == True:
+            text += timeRangeText + os.linesep
+        if self.showSqrtTimeRangeTextFlag == True:
+            text += sqrtTimeRangeText + os.linesep
+        if self.showSqrdTimeRangeTextFlag == True:
+            text += sqrdTimeRangeText + os.linesep
+        if self.showScaledValueRangeTextFlag == True:
+            text += scaledValueRangeText + os.linesep
+        if self.showSqrtScaledValueRangeTextFlag == True:
+            text += sqrtScaledValueRangeText + os.linesep
+        if self.showSqrdScaledValueRangeTextFlag == True:
+            text += sqrdScaledValueRangeText + os.linesep
+        if self.showAyanaTextFlag == True:
+            text += ayanaText + os.linesep
+        if self.showSqrtAyanaTextFlag == True:
+            text += sqrtAyanaText + os.linesep
+        if self.showSqrdAyanaTextFlag == True:
+            text += sqrdAyanaText + os.linesep
+        if self.showMuhurtaTextFlag == True:
+            text += muhurtaText + os.linesep
+        if self.showSqrtMuhurtaTextFlag == True:
+            text += sqrtMuhurtaText + os.linesep
+        if self.showSqrdMuhurtaTextFlag == True:
+            text += sqrdMuhurtaText + os.linesep
+        if self.showVaraTextFlag == True:
+            text += varaText + os.linesep
+        if self.showSqrtVaraTextFlag == True:
+            text += sqrtVaraText + os.linesep
+        if self.showSqrdVaraTextFlag == True:
+            text += sqrdVaraText + os.linesep
+        if self.showRtuTextFlag == True:
+            text += rtuText + os.linesep
+        if self.showSqrtRtuTextFlag == True:
+            text += sqrtRtuText + os.linesep
+        if self.showSqrdRtuTextFlag == True:
+            text += sqrdRtuText + os.linesep
+        if self.showMasaTextFlag == True:
+            text += masaText + os.linesep
+        if self.showSqrtMasaTextFlag == True:
+            text += sqrtMasaText + os.linesep
+        if self.showSqrdMasaTextFlag == True:
+            text += sqrdMasaText + os.linesep
+        if self.showPaksaTextFlag == True:
+            text += paksaText + os.linesep
+        if self.showSqrtPaksaTextFlag == True:
+            text += sqrtPaksaText + os.linesep
+        if self.showSqrdPaksaTextFlag == True:
+            text += sqrdPaksaText + os.linesep
+        if self.showSamaTextFlag == True:
+            text += samaText + os.linesep
+        if self.showSqrtSamaTextFlag == True:
+            text += sqrtSamaText + os.linesep
+        if self.showSqrdSamaTextFlag == True:
+            text += sqrdSamaText + os.linesep
+
+
+        self.textItem.setText(text)
         
     def setArtifact(self, artifact):
         """Loads a given PriceBarChartTimeMeasurementArtifact object's data
@@ -2816,106 +3207,89 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.timeMeasurementPen.setColor(self.artifact.getColor())
         
         self.showBarsTextFlag = self.artifact.getShowBarsTextFlag()
-        self.showHoursTextFlag = self.artifact.getShowHoursTextFlag()
-        self.showDaysTextFlag = self.artifact.getShowDaysTextFlag()
-        self.showWeeksTextFlag = self.artifact.getShowWeeksTextFlag()
-        self.showMonthsTextFlag = self.artifact.getShowMonthsTextFlag()
-        
         self.showSqrtBarsTextFlag = self.artifact.getShowSqrtBarsTextFlag()
+        self.showSqrdBarsTextFlag = self.artifact.getShowSqrdBarsTextFlag()
+        self.showHoursTextFlag = self.artifact.getShowHoursTextFlag()
         self.showSqrtHoursTextFlag = self.artifact.getShowSqrtHoursTextFlag()
+        self.showSqrdHoursTextFlag = self.artifact.getShowSqrdHoursTextFlag()
+        self.showDaysTextFlag = self.artifact.getShowDaysTextFlag()
         self.showSqrtDaysTextFlag = self.artifact.getShowSqrtDaysTextFlag()
+        self.showSqrdDaysTextFlag = self.artifact.getShowSqrdDaysTextFlag()
+        self.showWeeksTextFlag = self.artifact.getShowWeeksTextFlag()
         self.showSqrtWeeksTextFlag = self.artifact.getShowSqrtWeeksTextFlag()
+        self.showSqrdWeeksTextFlag = self.artifact.getShowSqrdWeeksTextFlag()
+        self.showMonthsTextFlag = self.artifact.getShowMonthsTextFlag()
         self.showSqrtMonthsTextFlag = self.artifact.getShowSqrtMonthsTextFlag()
-
+        self.showSqrdMonthsTextFlag = self.artifact.getShowSqrdMonthsTextFlag()
         self.showTimeRangeTextFlag = \
             self.artifact.getShowTimeRangeTextFlag()
         self.showSqrtTimeRangeTextFlag = \
             self.artifact.getShowSqrtTimeRangeTextFlag()
+        self.showSqrdTimeRangeTextFlag = \
+            self.artifact.getShowSqrdTimeRangeTextFlag()
         self.showScaledValueRangeTextFlag = \
             self.artifact.getShowScaledValueRangeTextFlag()
         self.showSqrtScaledValueRangeTextFlag = \
             self.artifact.getShowSqrtScaledValueRangeTextFlag()
+        self.showSqrdScaledValueRangeTextFlag = \
+            self.artifact.getShowSqrdScaledValueRangeTextFlag()
+        self.showAyanaTextFlag = \
+            self.artifact.getShowAyanaTextFlag()
+        self.showSqrtAyanaTextFlag = \
+            self.artifact.getShowSqrtAyanaTextFlag()
+        self.showSqrdAyanaTextFlag = \
+            self.artifact.getShowSqrdAyanaTextFlag()
+        self.showMuhurtaTextFlag = \
+            self.artifact.getShowMuhurtaTextFlag()
+        self.showSqrtMuhurtaTextFlag = \
+            self.artifact.getShowSqrtMuhurtaTextFlag()
+        self.showSqrdMuhurtaTextFlag = \
+            self.artifact.getShowSqrdMuhurtaTextFlag()
+        self.showVaraTextFlag = \
+            self.artifact.getShowVaraTextFlag()
+        self.showSqrtVaraTextFlag = \
+            self.artifact.getShowSqrtVaraTextFlag()
+        self.showSqrdVaraTextFlag = \
+            self.artifact.getShowSqrdVaraTextFlag()
+        self.showRtuTextFlag = \
+            self.artifact.getShowRtuTextFlag()
+        self.showSqrtRtuTextFlag = \
+            self.artifact.getShowSqrtRtuTextFlag()
+        self.showSqrdRtuTextFlag = \
+            self.artifact.getShowSqrdRtuTextFlag()
+        self.showMasaTextFlag = \
+            self.artifact.getShowMasaTextFlag()
+        self.showSqrtMasaTextFlag = \
+            self.artifact.getShowSqrtMasaTextFlag()
+        self.showSqrdMasaTextFlag = \
+            self.artifact.getShowSqrdMasaTextFlag()
+        self.showPaksaTextFlag = \
+            self.artifact.getShowPaksaTextFlag()
+        self.showSqrtPaksaTextFlag = \
+            self.artifact.getShowSqrtPaksaTextFlag()
+        self.showSqrdPaksaTextFlag = \
+            self.artifact.getShowSqrdPaksaTextFlag()
+        self.showSamaTextFlag = \
+            self.artifact.getShowSamaTextFlag()
+        self.showSqrtSamaTextFlag = \
+            self.artifact.getShowSqrtSamaTextFlag()
+        self.showSqrdSamaTextFlag = \
+            self.artifact.getShowSqrdSamaTextFlag()
 
         #############
 
-        # Set the text items as enabled or disabled.
-        self.timeMeasurementBarsText.setEnabled(self.showBarsTextFlag)
-        self.timeMeasurementHoursText.setEnabled(self.showHoursTextFlag)
-        self.timeMeasurementDaysText.setEnabled(self.showDaysTextFlag)
-        self.timeMeasurementWeeksText.setEnabled(self.showWeeksTextFlag)
-        self.timeMeasurementMonthsText.setEnabled(self.showMonthsTextFlag)
+        # Update all the text item with the new settings.
+        self.reApplyTextItemAttributes(self.textItem)
 
-        self.timeMeasurementSqrtBarsText.setEnabled(self.showSqrtBarsTextFlag)
-        self.timeMeasurementSqrtHoursText.setEnabled(self.showSqrtHoursTextFlag)
-        self.timeMeasurementSqrtDaysText.setEnabled(self.showSqrtDaysTextFlag)
-        self.timeMeasurementSqrtWeeksText.setEnabled(self.showSqrtWeeksTextFlag)
-        self.timeMeasurementSqrtMonthsText.setEnabled(self.showSqrtMonthsTextFlag)
-
-        self.timeMeasurementTimeRangeText.\
-            setEnabled(self.showTimeRangeTextFlag)
-        self.timeMeasurementSqrtTimeRangeText.\
-            setEnabled(self.showSqrtTimeRangeTextFlag)
-        self.timeMeasurementScaledValueRangeText.\
-            setEnabled(self.showScaledValueRangeTextFlag)
-        self.timeMeasurementSqrtScaledValueRangeText.\
-            setEnabled(self.showSqrtScaledValueRangeTextFlag)
-        
-        # Set the text items as visible or invisible.
-        self.timeMeasurementBarsText.setVisible(self.showBarsTextFlag)
-        self.timeMeasurementHoursText.setVisible(self.showHoursTextFlag)
-        self.timeMeasurementDaysText.setVisible(self.showDaysTextFlag)
-        self.timeMeasurementWeeksText.setVisible(self.showWeeksTextFlag)
-        self.timeMeasurementMonthsText.setVisible(self.showMonthsTextFlag)
-
-        self.timeMeasurementSqrtBarsText.setVisible(self.showSqrtBarsTextFlag)
-        self.timeMeasurementSqrtHoursText.setVisible(self.showSqrtHoursTextFlag)
-        self.timeMeasurementSqrtDaysText.setVisible(self.showSqrtDaysTextFlag)
-        self.timeMeasurementSqrtWeeksText.setVisible(self.showSqrtWeeksTextFlag)
-        self.timeMeasurementSqrtMonthsText.setVisible(self.showSqrtMonthsTextFlag)
-        
-        self.timeMeasurementTimeRangeText.\
-            setVisible(self.showTimeRangeTextFlag)
-        self.timeMeasurementSqrtTimeRangeText.\
-            setVisible(self.showSqrtTimeRangeTextFlag)
-        self.timeMeasurementScaledValueRangeText.\
-            setVisible(self.showScaledValueRangeTextFlag)
-        self.timeMeasurementSqrtScaledValueRangeText.\
-            setVisible(self.showSqrtScaledValueRangeTextFlag)
-
-        # Update all the text items with the new settings.
-        for textItem in self.textItems:
-            # Set the font of the text.
-            textItem.setFont(self.timeMeasurementTextFont)
-        
-            # Set the pen color of the text.
-            self.timeMeasurementTextPen = textItem.pen()
-            self.timeMeasurementTextPen.\
-                setColor(self.timeMeasurementGraphicsItemTextColor)
-            
-            textItem.setPen(self.timeMeasurementTextPen)
-
-            # Set the brush color of the text.
-            self.timeMeasurementTextBrush = textItem.brush()
-            self.timeMeasurementTextBrush.\
-                setColor(self.timeMeasurementGraphicsItemTextColor)
-            
-            textItem.setBrush(self.timeMeasurementTextBrush)
-
-            # Apply some size scaling to the text.
-            textTransform = QTransform()
-            textTransform.scale(self.timeMeasurementTextXScaling, \
-                                self.timeMeasurementTextYScaling)
-            textItem.setTransform(textTransform)
-
-        # Update the timeMeasurement text item position.
-        self._updateTextItemPositions()
-            
         # Need to recalculate the time measurement, since the start and end
         # points have changed.  Note, if no scene has been set for the
         # QGraphicsView, then the time measurements will be zero, since it
         # can't look up PriceBarGraphicsItems in the scene.
         self.recalculateTimeMeasurement()
-
+        
+        # Update the timeMeasurement text item position.
+        self._updateTextItemPositions()
+        
         self.log.debug("Exiting setArtifact()")
 
     def getArtifact(self):
@@ -2939,25 +3313,53 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.artifact.setColor(self.timeMeasurementPen.color())
         
         self.artifact.setShowBarsTextFlag(self.showBarsTextFlag)
-        self.artifact.setShowHoursTextFlag(self.showHoursTextFlag)
-        self.artifact.setShowDaysTextFlag(self.showDaysTextFlag)
-        self.artifact.setShowWeeksTextFlag(self.showWeeksTextFlag)
-        self.artifact.setShowMonthsTextFlag(self.showMonthsTextFlag)
-        
         self.artifact.setShowSqrtBarsTextFlag(self.showSqrtBarsTextFlag)
+        self.artifact.setShowSqrdBarsTextFlag(self.showSqrdBarsTextFlag)
+        self.artifact.setShowHoursTextFlag(self.showHoursTextFlag)
         self.artifact.setShowSqrtHoursTextFlag(self.showSqrtHoursTextFlag)
+        self.artifact.setShowSqrdHoursTextFlag(self.showSqrdHoursTextFlag)
+        self.artifact.setShowDaysTextFlag(self.showDaysTextFlag)
         self.artifact.setShowSqrtDaysTextFlag(self.showSqrtDaysTextFlag)
+        self.artifact.setShowSqrdDaysTextFlag(self.showSqrdDaysTextFlag)
+        self.artifact.setShowWeeksTextFlag(self.showWeeksTextFlag)
         self.artifact.setShowSqrtWeeksTextFlag(self.showSqrtWeeksTextFlag)
+        self.artifact.setShowSqrdWeeksTextFlag(self.showSqrdWeeksTextFlag)
+        self.artifact.setShowMonthsTextFlag(self.showMonthsTextFlag)
         self.artifact.setShowSqrtMonthsTextFlag(self.showSqrtMonthsTextFlag)
-
+        self.artifact.setShowSqrdMonthsTextFlag(self.showSqrdMonthsTextFlag)
         self.artifact.setShowTimeRangeTextFlag(\
             self.showTimeRangeTextFlag)
         self.artifact.setShowSqrtTimeRangeTextFlag(\
             self.showSqrtTimeRangeTextFlag)
+        self.artifact.setShowSqrdTimeRangeTextFlag(\
+            self.showSqrdTimeRangeTextFlag)
         self.artifact.setShowScaledValueRangeTextFlag(\
             self.showScaledValueRangeTextFlag)
         self.artifact.setShowSqrtScaledValueRangeTextFlag(\
             self.showSqrtScaledValueRangeTextFlag)
+        self.artifact.setShowSqrdScaledValueRangeTextFlag(\
+            self.showSqrdScaledValueRangeTextFlag)
+        self.artifact.setShowAyanaTextFlag(self.showAyanaTextFlag)
+        self.artifact.setShowSqrtAyanaTextFlag(self.showSqrtAyanaTextFlag)
+        self.artifact.setShowSqrdAyanaTextFlag(self.showSqrdAyanaTextFlag)
+        self.artifact.setShowMuhurtaTextFlag(self.showMuhurtaTextFlag)
+        self.artifact.setShowSqrtMuhurtaTextFlag(self.showSqrtMuhurtaTextFlag)
+        self.artifact.setShowSqrdMuhurtaTextFlag(self.showSqrdMuhurtaTextFlag)
+        self.artifact.setShowVaraTextFlag(self.showVaraTextFlag)
+        self.artifact.setShowSqrtVaraTextFlag(self.showSqrtVaraTextFlag)
+        self.artifact.setShowSqrdVaraTextFlag(self.showSqrdVaraTextFlag)
+        self.artifact.setShowRtuTextFlag(self.showRtuTextFlag)
+        self.artifact.setShowSqrtRtuTextFlag(self.showSqrtRtuTextFlag)
+        self.artifact.setShowSqrdRtuTextFlag(self.showSqrdRtuTextFlag)
+        self.artifact.setShowMasaTextFlag(self.showMasaTextFlag)
+        self.artifact.setShowSqrtMasaTextFlag(self.showSqrtMasaTextFlag)
+        self.artifact.setShowSqrdMasaTextFlag(self.showSqrdMasaTextFlag)
+        self.artifact.setShowPaksaTextFlag(self.showPaksaTextFlag)
+        self.artifact.setShowSqrtPaksaTextFlag(self.showSqrtPaksaTextFlag)
+        self.artifact.setShowSqrdPaksaTextFlag(self.showSqrdPaksaTextFlag)
+        self.artifact.setShowSamaTextFlag(self.showSamaTextFlag)
+        self.artifact.setShowSqrtSamaTextFlag(self.showSqrtSamaTextFlag)
+        self.artifact.setShowSqrdSamaTextFlag(self.showSqrdSamaTextFlag)
         
         self.log.debug("Exiting getArtifact()")
         

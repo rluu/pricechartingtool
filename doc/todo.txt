@@ -59,6 +59,41 @@ DONE   (in the view) is the one that is selected, not by the closest in the
 DONE   scene.
 DONE
 DONE
+DONE
+DONE - Update scalixng class to be able to calculate the following
+DONE   (using scaling):
+DONE
+DONE      - Add to the scaling class, transform scaling values for the
+DONE        graphics view, as separate variables from just the regular
+DONE        scaling values.
+DONE
+DONE      - Square root of a price (absolute).
+DONE
+DONE      - Square root of a timestamp (elapsed time since birth).  
+DONE        With scaling applied.
+DONE
+DONE      - Distance between two points (with scaling applied):
+DONE            - Between points: Constant price, varying time.
+DONE            - Between points: Constant time, varying price.
+DONE            - Between points: Varying price and time.
+DONE      - Square root of distance between two points (with scaling applied):
+DONE            - Between points: Constant price, varying time.
+DONE            - Between points: Constant time, varying price.
+DONE            - Between points: Varying price and time.
+DONE
+DONE
+DONE - Return the amount of time elapsed since birth (with scaling
+DONE       applied).
+DONE
+DONE - Return the amount of price change since birth (with scaling applied).
+DONE
+DONE
+DONE  - For scaling of all the price/time calculations and their square
+DONE    roots, need to re-think how it all works (accessing the scaling
+DONE    class via the graphics scene), and make sure all calculations are
+DONE    correct and consistent.
+DONE
+
   - Test the scaling calculations and positions of:
          - Price Measurement Tool
          - Time Measurement Tool
@@ -71,7 +106,45 @@ DONE
            planets according to the vedic system.  (e.g. ayana,
            muhurta, etc.)
 
-         - Measurement in units of the kinds of moon measurements.
+         - Measurement in units of the kinds of moon/month measurements:
+
+             From wikipedia: http://en.wikipedia.org/wiki/Synodic_month
+
+             Month type 	Length in days
+             anomalistic 	27.554549878 − 0.000000010390 × Y
+             sidereal     	27.321661547 + 0.000000001857 × Y
+             tropical     	27.321582241 + 0.000000001506 × Y
+             draconic     	27.212220817 + 0.000000003833 × Y
+             synodic     	29.530588853 + 0.000000002162 × Y
+
+             - anomalistic month: moon's orbital period measured from 
+                 perigee to perigee.
+             - sidereal month: moon return to same sidereal longitude
+             - tropical month: moon return to same tropical longitude
+             - draconic month: moon return to node.
+             - synodic month: moon conjunction with sun to conjunction again.
+
+         - Measurements of solar years:
+             - Julian solar year: 365.25 days of 86400 SI seconds each.
+             - Gregorian calendar year: 365.2425 mean solar days
+             - Vernal equinox year: 365.2424 days
+             - tropical solar year: 365.24219 days  (this is the mean time)
+             - sidereal solar year: 365.256363004 days (this is the mean time) 
+	     - anomalistic solar year (time for earth to make a 
+               revolution around its apsides): 365.259636 days 
+               (this is the mean time.)
+             - draconic year: time for the Sun (as seen from Earth) to
+               complete one revolution with respect to the same lunar
+               node): 346.620075883 days (this is the mean time).
+             - lunar year: 12 full cycles of phases of the moon as
+               seen from Earth: Approx. 354.37 days.
+	       
+
+         - Measurement of all the planetary (heliocentric) synodic cycles.
+
+  - Add the vedic month on the astro charts.
+
+  - Add panchanga fields and the rulers onto the astro charts.
 
   - Line segment tool.  (when selected, box is drawn around it.  need
     property/setting for the invisible 'width' of the line segment.)
@@ -101,34 +174,6 @@ DONE
         be also changeable in other tool modes.  Make sure it doesn't
         get cleared between shifting to different tool modes.
 
-  - Update scalixng class to be able to calculate the following (using scaling):
-
-DONE      - Add to the scaling class, transform scaling values for the
-DONE        graphics view, as separate variables from just the regular
-DONE        scaling values.
-
-      - Square root of a price (absolute).
-
-      - Square root of a timestamp (elapsed time since birth).  
-        With scaling applied.
-
-      - Distance between two points (with scaling applied):
-            - Between points: Constant price, varying time.
-            - Between points: Constant time, varying price.
-            - Between points: Varying price and time.
-      - Square root of distance between two points (with scaling applied):
-            - Between points: Constant price, varying time.
-            - Between points: Constant time, varying price.
-            - Between points: Varying price and time.
-
-      - Return the amount of time elapsed since birth (with scaling applied).
-      - Return the amount of price change since birth (with scaling applied).
-
-  - For scaling of all the price/time calculations and their square
-    roots, need to re-think how it all works (accessing the scaling
-    class via the graphics scene), and make sure all calculations are
-    correct and consistent.
-
   - Add square root price modal scale.  (vertical bar) This is high
     and low price square rooted, and the musical scale from that, and
     then squared again to get the price.
@@ -141,6 +186,27 @@ DONE        scaling values.
   - Add code to re-read the CSV data file for new bars.  This is
     initiated upon loading the .pcd file and upon a button press
     somewhere (toolbar and on the menu?).
+
+  - Other time intervals that I may want to explore and check out
+    (from Jyotish knowledge):
+
+     - Length of time for hora lagna (2 times lagna)?
+     - Length of time for ghati lagna (5 times lagna)?
+     - Upgraha:
+         - Kaala
+         - Mrityu
+         - Gulika
+         - Mandi
+
+      - Note that a trading day in stocks is from 9:30 am to 4:00 pm. 
+        What are the holidays?  How many trading days a year?
+
+        What about for commodities?
+        What are the hours per day, and where do they fall?, etc.
+        How many holidays?  How many trading days a year?
+
+        - Remember horas have lords.  
+          There is Hora (Satya), and Mahaakaala Hora. --> See JHora options.
 
   - Pi spiral
   - Fibonnaci spiral

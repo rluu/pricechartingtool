@@ -10774,60 +10774,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
             connect(\
             self.\
             _handleTimeMeasurementGraphicsItemDefaultColorResetButtonClicked)
-        self.timeMeasurementGraphicsItemShowBarsTextFlagResetButton.clicked.\
-            connect(\
-            self.\
-            _handleTimeMeasurementGraphicsItemShowBarsTextFlagResetButton)
-        self.timeMeasurementGraphicsItemShowHoursTextFlagResetButton.clicked.\
-            connect(\
-            self.\
-            _handleTimeMeasurementGraphicsItemShowHoursTextFlagResetButton)
-        self.timeMeasurementGraphicsItemShowDaysTextFlagResetButton.clicked.\
-            connect(\
-            self.\
-            _handleTimeMeasurementGraphicsItemShowDaysTextFlagResetButton)
-        self.timeMeasurementGraphicsItemShowWeeksTextFlagResetButton.clicked.\
-            connect(\
-            self.\
-            _handleTimeMeasurementGraphicsItemShowWeeksTextFlagResetButton)
-        self.timeMeasurementGraphicsItemShowMonthsTextFlagResetButton.clicked.\
-            connect(\
-            self.\
-            _handleTimeMeasurementGraphicsItemShowMonthsTextFlagResetButton)
-        self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagResetButton.clicked.\
-            connect(\
-            self.\
-            _handleTimeMeasurementGraphicsItemShowSqrtBarsTextFlagResetButton)
-        self.timeMeasurementGraphicsItemShowSqrtHoursTextFlagResetButton.clicked.\
-            connect(\
-            self.\
-            _handleTimeMeasurementGraphicsItemShowSqrtHoursTextFlagResetButton)
-        self.timeMeasurementGraphicsItemShowSqrtDaysTextFlagResetButton.clicked.\
-            connect(\
-            self.\
-            _handleTimeMeasurementGraphicsItemShowSqrtDaysTextFlagResetButton)
-        self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagResetButton.clicked.\
-            connect(\
-            self.\
-            _handleTimeMeasurementGraphicsItemShowSqrtWeeksTextFlagResetButton)
-        self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlagResetButton.clicked.\
-            connect(\
-            self.\
-            _handleTimeMeasurementGraphicsItemShowSqrtMonthsTextFlagResetButton)
-        self.timeMeasurementGraphicsItemShowTimeRangeTextFlagResetButton.\
-            clicked.connect(\
-            self.\
-            _handleTimeMeasurementGraphicsItemShowTimeRangeTextFlagResetButton)
-        self.timeMeasurementGraphicsItemShowSqrtTimeRangeTextFlagResetButton.\
-            clicked.connect(\
-            self.\
-            _handleTimeMeasurementGraphicsItemShowSqrtTimeRangeTextFlagResetButton)
-        self.timeMeasurementGraphicsItemShowScaledValueRangeTextFlagResetButton.clicked.connect(\
-            self.\
-            _handleTimeMeasurementGraphicsItemShowScaledValueRangeTextFlagResetButton)
-        self.timeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagResetButton.clicked.connect(\
-            self.\
-            _handleTimeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagResetButton)
         self.timeModalScaleGraphicsItemColorResetButton.clicked.\
             connect(\
             self._handleTimeModalScaleGraphicsItemColorResetButtonClicked)
@@ -11294,8 +11240,22 @@ class PriceBarChartSettingsEditWidget(QWidget):
             QCheckBox()
         self.timeMeasurementGraphicsItemShowBarsTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
-        self.timeMeasurementGraphicsItemShowBarsTextFlagResetButton = \
-            QPushButton("Reset to default")
+    
+        # timeMeasurementGraphicsItemShowSqrtBarsTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem showSqrt bars text:")
+        self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # timeMeasurementGraphicsItemShowSqrdBarsTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrdBarsTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem showSqrd bars text:")
+        self.timeMeasurementGraphicsItemShowSqrdBarsTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowSqrdBarsTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
     
         # timeMeasurementGraphicsItemShowHoursTextFlag (bool).
         self.timeMeasurementGraphicsItemShowHoursTextFlagLabel = \
@@ -11304,48 +11264,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
             QCheckBox()
         self.timeMeasurementGraphicsItemShowHoursTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
-        self.timeMeasurementGraphicsItemShowHoursTextFlagResetButton = \
-            QPushButton("Reset to default")
-    
-        # timeMeasurementGraphicsItemShowDaysTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowDaysTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show days text:")
-        self.timeMeasurementGraphicsItemShowDaysTextFlagCheckBox = \
-            QCheckBox()
-        self.timeMeasurementGraphicsItemShowDaysTextFlagCheckBox.\
-            setCheckState(Qt.Unchecked)
-        self.timeMeasurementGraphicsItemShowDaysTextFlagResetButton = \
-            QPushButton("Reset to default")
-    
-        # timeMeasurementGraphicsItemShowWeeksTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowWeeksTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show weeks text:")
-        self.timeMeasurementGraphicsItemShowWeeksTextFlagCheckBox = \
-            QCheckBox()
-        self.timeMeasurementGraphicsItemShowWeeksTextFlagCheckBox.\
-            setCheckState(Qt.Unchecked)
-        self.timeMeasurementGraphicsItemShowWeeksTextFlagResetButton = \
-            QPushButton("Reset to default")
-    
-        # timeMeasurementGraphicsItemShowMonthsTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowMonthsTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show months text:")
-        self.timeMeasurementGraphicsItemShowMonthsTextFlagCheckBox = \
-            QCheckBox()
-        self.timeMeasurementGraphicsItemShowMonthsTextFlagCheckBox.\
-            setCheckState(Qt.Unchecked)
-        self.timeMeasurementGraphicsItemShowMonthsTextFlagResetButton = \
-            QPushButton("Reset to default")
-
-        # timeMeasurementGraphicsItemShowSqrtBarsTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem showSqrt bars text:")
-        self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagCheckBox = \
-            QCheckBox()
-        self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagCheckBox.\
-            setCheckState(Qt.Unchecked)
-        self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagResetButton = \
-            QPushButton("Reset to default")
     
         # timeMeasurementGraphicsItemShowSqrtHoursTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrtHoursTextFlagLabel = \
@@ -11354,8 +11272,22 @@ class PriceBarChartSettingsEditWidget(QWidget):
             QCheckBox()
         self.timeMeasurementGraphicsItemShowSqrtHoursTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
-        self.timeMeasurementGraphicsItemShowSqrtHoursTextFlagResetButton = \
-            QPushButton("Reset to default")
+    
+        # timeMeasurementGraphicsItemShowSqrdHoursTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrdHoursTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem showSqrd hours text:")
+        self.timeMeasurementGraphicsItemShowSqrdHoursTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowSqrdHoursTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # timeMeasurementGraphicsItemShowDaysTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowDaysTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show days text:")
+        self.timeMeasurementGraphicsItemShowDaysTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowDaysTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
     
         # timeMeasurementGraphicsItemShowSqrtDaysTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrtDaysTextFlagLabel = \
@@ -11364,19 +11296,39 @@ class PriceBarChartSettingsEditWidget(QWidget):
             QCheckBox()
         self.timeMeasurementGraphicsItemShowSqrtDaysTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
-        self.timeMeasurementGraphicsItemShowSqrtDaysTextFlagResetButton = \
-            QPushButton("Reset to default")
     
-        # timeMeasurementGraphicsItemShowSqrtWeeksTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem showSqrt weeks text:")
-        self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagCheckBox = \
+        # timeMeasurementGraphicsItemShowSqrdDaysTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrdDaysTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem showSqrd days text:")
+        self.timeMeasurementGraphicsItemShowSqrdDaysTextFlagCheckBox = \
             QCheckBox()
-        self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagCheckBox.\
+        self.timeMeasurementGraphicsItemShowSqrdDaysTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
-        self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagResetButton = \
-            QPushButton("Reset to default")
     
+        # timeMeasurementGraphicsItemShowWeeksTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowWeeksTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show weeks text:")
+        self.timeMeasurementGraphicsItemShowWeeksTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowWeeksTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # timeMeasurementGraphicsItemShowSqrdWeeksTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrdWeeksTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem showSqrd weeks text:")
+        self.timeMeasurementGraphicsItemShowSqrdWeeksTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowSqrdWeeksTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # timeMeasurementGraphicsItemShowMonthsTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowMonthsTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show months text:")
+        self.timeMeasurementGraphicsItemShowMonthsTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowMonthsTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
         # timeMeasurementGraphicsItemShowSqrtMonthsTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlagLabel = \
             QLabel("TimeMeasurementGraphicsItem showSqrt months text:")
@@ -11384,8 +11336,14 @@ class PriceBarChartSettingsEditWidget(QWidget):
             QCheckBox()
         self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
-        self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlagResetButton = \
-            QPushButton("Reset to default")
+
+        # timeMeasurementGraphicsItemShowSqrdMonthsTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrdMonthsTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem showSqrd months text:")
+        self.timeMeasurementGraphicsItemShowSqrdMonthsTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowSqrdMonthsTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowTimeRangeTextFlag (bool).
         self.timeMeasurementGraphicsItemShowTimeRangeTextFlagLabel = \
@@ -11394,8 +11352,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
             QCheckBox()
         self.timeMeasurementGraphicsItemShowTimeRangeTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
-        self.timeMeasurementGraphicsItemShowTimeRangeTextFlagResetButton = \
-            QPushButton("Reset to default")
     
         # timeMeasurementGraphicsItemShowSqrtTimeRangeTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrtTimeRangeTextFlagLabel = \
@@ -11404,25 +11360,229 @@ class PriceBarChartSettingsEditWidget(QWidget):
             QCheckBox()
         self.timeMeasurementGraphicsItemShowSqrtTimeRangeTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
-        self.timeMeasurementGraphicsItemShowSqrtTimeRangeTextFlagResetButton = \
-            QPushButton("Reset to default")
+    
+        # timeMeasurementGraphicsItemShowSqrdTimeRangeTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrdTimeRangeTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show sqrd time range text:")
+        self.timeMeasurementGraphicsItemShowSqrdTimeRangeTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowSqrdTimeRangeTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
     
         # timeMeasurementGraphicsItemShowScaledValueRangeTextFlag (bool).
         self.timeMeasurementGraphicsItemShowScaledValueRangeTextFlagLabel = \
             QLabel("TimeMeasurementGraphicsItem show scaled value range text:")
-        self.timeMeasurementGraphicsItemShowScaledValueRangeTextFlagCheckBox = QCheckBox()
+        self.timeMeasurementGraphicsItemShowScaledValueRangeTextFlagCheckBox = \
+            QCheckBox()
         self.timeMeasurementGraphicsItemShowScaledValueRangeTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
-        self.timeMeasurementGraphicsItemShowScaledValueRangeTextFlagResetButton = QPushButton("Reset to default")
     
         # timeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagLabel = \
             QLabel("TimeMeasurementGraphicsItem show " +
                    "sqrt of scaled value range text:")
-        self.timeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagCheckBox = QCheckBox()
+        self.timeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagCheckBox = \
+            QCheckBox()
         self.timeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
-        self.timeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagResetButton = QPushButton("Reset to default")
+    
+        # timeMeasurementGraphicsItemShowSqrdScaledValueRangeTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrdScaledValueRangeTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show " +
+                   "sqrd of scaled value range text:")
+        self.timeMeasurementGraphicsItemShowSqrdScaledValueRangeTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowSqrdScaledValueRangeTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # timeMeasurementGraphicsItemShowAyanaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowAyanaTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show " +
+                   "ayana (6 months/Sun) text:")
+        self.timeMeasurementGraphicsItemShowAyanaTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowAyanaTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # timeMeasurementGraphicsItemShowSqrtAyanaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrtAyanaTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show " +
+                   "sqrt of ayana (6 months/Sun) text:")
+        self.timeMeasurementGraphicsItemShowSqrtAyanaTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowSqrtAyanaTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # timeMeasurementGraphicsItemShowSqrdAyanaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrdAyanaTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show " +
+                   "sqrd of ayana (6 months/Sun) text:")
+        self.timeMeasurementGraphicsItemShowSqrdAyanaTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowSqrdAyanaTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # timeMeasurementGraphicsItemShowMuhurtaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowMuhurtaTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show " +
+                   "muhurta (48 minutes/Moon) text:")
+        self.timeMeasurementGraphicsItemShowMuhurtaTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowMuhurtaTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # timeMeasurementGraphicsItemShowSqrtMuhurtaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrtMuhurtaTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show " +
+                   "sqrt of muhurta (48 minutes/Moon) text:")
+        self.timeMeasurementGraphicsItemShowSqrtMuhurtaTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowSqrtMuhurtaTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # timeMeasurementGraphicsItemShowSqrdMuhurtaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrdMuhurtaTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show " +
+                   "sqrd of muhurta (48 minutes/Moon) text:")
+        self.timeMeasurementGraphicsItemShowSqrdMuhurtaTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowSqrdMuhurtaTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # timeMeasurementGraphicsItemShowVaraTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowVaraTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show " +
+                   "vara (24-hour day/Mars) text:")
+        self.timeMeasurementGraphicsItemShowVaraTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowVaraTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # timeMeasurementGraphicsItemShowSqrtVaraTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrtVaraTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show " +
+                   "sqrt of vara (24-hour day/Mars) text:")
+        self.timeMeasurementGraphicsItemShowSqrtVaraTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowSqrtVaraTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # timeMeasurementGraphicsItemShowSqrdVaraTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrdVaraTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show " +
+                   "sqrd of vara (24-hour day/Mars) text:")
+        self.timeMeasurementGraphicsItemShowSqrdVaraTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowSqrdVaraTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # timeMeasurementGraphicsItemShowRtuTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowRtuTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show " +
+                   "rtu (season of 2 months/Mercury) text:")
+        self.timeMeasurementGraphicsItemShowRtuTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowRtuTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # timeMeasurementGraphicsItemShowSqrtRtuTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrtRtuTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show " +
+                   "sqrt of rtu (season of 2 months/Mercury) text:")
+        self.timeMeasurementGraphicsItemShowSqrtRtuTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowSqrtRtuTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # timeMeasurementGraphicsItemShowSqrdRtuTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrdRtuTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show " +
+                   "sqrd of rtu (season of 2 months/Mercury) text:")
+        self.timeMeasurementGraphicsItemShowSqrdRtuTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowSqrdRtuTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # timeMeasurementGraphicsItemShowMasaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowMasaTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show " +
+                   "masa (full-moon to full-moon month/Jupiter) text:")
+        self.timeMeasurementGraphicsItemShowMasaTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowMasaTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # timeMeasurementGraphicsItemShowSqrtMasaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrtMasaTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show " +
+                   "sqrt of masa (full-moon to full-moon month/Jupiter) text:")
+        self.timeMeasurementGraphicsItemShowSqrtMasaTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowSqrtMasaTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # timeMeasurementGraphicsItemShowSqrdMasaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrdMasaTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show " +
+                   "sqrd of masa (full-moon to full-moon month/Jupiter) text:")
+        self.timeMeasurementGraphicsItemShowSqrdMasaTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowSqrdMasaTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # timeMeasurementGraphicsItemShowPaksaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowPaksaTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show " +
+                   "paksa (15-day fortnight/Venus) text:")
+        self.timeMeasurementGraphicsItemShowPaksaTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowPaksaTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # timeMeasurementGraphicsItemShowSqrtPaksaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrtPaksaTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show " +
+                   "sqrt of paksa (15-day fortnight/Venus) text:")
+        self.timeMeasurementGraphicsItemShowSqrtPaksaTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowSqrtPaksaTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # timeMeasurementGraphicsItemShowSqrdPaksaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrdPaksaTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show " +
+                   "sqrd of paksa (15-day fortnight/Venus) text:")
+        self.timeMeasurementGraphicsItemShowSqrdPaksaTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowSqrdPaksaTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # timeMeasurementGraphicsItemShowSamaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSamaTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show " +
+                   "sama (year/Saturn) text:")
+        self.timeMeasurementGraphicsItemShowSamaTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowSamaTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # timeMeasurementGraphicsItemShowSqrtSamaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrtSamaTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show " +
+                   "sqrt of sama (year/Saturn) text:")
+        self.timeMeasurementGraphicsItemShowSqrtSamaTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowSqrtSamaTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # timeMeasurementGraphicsItemShowSqrdSamaTextFlag (bool).
+        self.timeMeasurementGraphicsItemShowSqrdSamaTextFlagLabel = \
+            QLabel("TimeMeasurementGraphicsItem show " +
+                   "sqrd of sama (year/Saturn) text:")
+        self.timeMeasurementGraphicsItemShowSqrdSamaTextFlagCheckBox = \
+            QCheckBox()
+        self.timeMeasurementGraphicsItemShowSqrdSamaTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
     
 
         
@@ -11520,66 +11680,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
             addWidget(\
             self.timeMeasurementGraphicsItemShowBarsTextFlagCheckBox, 
             r, 1, ar)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowBarsTextFlagResetButton, 
-            r, 2, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowHoursTextFlagLabel, 
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowHoursTextFlagCheckBox, 
-            r, 1, ar)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowHoursTextFlagResetButton, 
-            r, 2, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowDaysTextFlagLabel, 
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowDaysTextFlagCheckBox, 
-            r, 1, ar)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowDaysTextFlagResetButton, 
-            r, 2, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowWeeksTextFlagLabel, 
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowWeeksTextFlagCheckBox, 
-            r, 1, ar)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowWeeksTextFlagResetButton, 
-            r, 2, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowMonthsTextFlagLabel, 
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowMonthsTextFlagCheckBox, 
-            r, 1, ar)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowMonthsTextFlagResetButton, 
-            r, 2, ar)
 
         r += 1
         gridLayout.\
@@ -11590,10 +11690,26 @@ class PriceBarChartSettingsEditWidget(QWidget):
             addWidget(\
             self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagCheckBox, 
             r, 1, ar)
+
+        r += 1
         gridLayout.\
             addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagResetButton, 
-            r, 2, ar)
+            self.timeMeasurementGraphicsItemShowSqrdBarsTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdBarsTextFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowHoursTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowHoursTextFlagCheckBox, 
+            r, 1, ar)
 
         r += 1
         gridLayout.\
@@ -11604,10 +11720,26 @@ class PriceBarChartSettingsEditWidget(QWidget):
             addWidget(\
             self.timeMeasurementGraphicsItemShowSqrtHoursTextFlagCheckBox, 
             r, 1, ar)
+
+        r += 1
         gridLayout.\
             addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtHoursTextFlagResetButton, 
-            r, 2, ar)
+            self.timeMeasurementGraphicsItemShowSqrdHoursTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdHoursTextFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowDaysTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowDaysTextFlagCheckBox, 
+            r, 1, ar)
 
         r += 1
         gridLayout.\
@@ -11618,10 +11750,26 @@ class PriceBarChartSettingsEditWidget(QWidget):
             addWidget(\
             self.timeMeasurementGraphicsItemShowSqrtDaysTextFlagCheckBox, 
             r, 1, ar)
+
+        r += 1
         gridLayout.\
             addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtDaysTextFlagResetButton, 
-            r, 2, ar)
+            self.timeMeasurementGraphicsItemShowSqrdDaysTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdDaysTextFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowWeeksTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowWeeksTextFlagCheckBox, 
+            r, 1, ar)
 
         r += 1
         gridLayout.\
@@ -11632,10 +11780,26 @@ class PriceBarChartSettingsEditWidget(QWidget):
             addWidget(\
             self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagCheckBox, 
             r, 1, ar)
+
+        r += 1
         gridLayout.\
             addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagResetButton, 
-            r, 2, ar)
+            self.timeMeasurementGraphicsItemShowSqrdWeeksTextFlagLabel,
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdWeeksTextFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowMonthsTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowMonthsTextFlagCheckBox, 
+            r, 1, ar)
 
         r += 1
         gridLayout.\
@@ -11646,10 +11810,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
             addWidget(\
             self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlagCheckBox, 
             r, 1, ar)
+
+        r += 1
         gridLayout.\
             addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlagResetButton, 
-            r, 2, ar)
+            self.timeMeasurementGraphicsItemShowSqrdMonthsTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdMonthsTextFlagCheckBox, 
+            r, 1, ar)
 
         r += 1
         gridLayout.\
@@ -11660,10 +11830,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
             addWidget(\
             self.timeMeasurementGraphicsItemShowTimeRangeTextFlagCheckBox, 
             r, 1, ar)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowTimeRangeTextFlagResetButton, 
-            r, 2, ar)
 
         r += 1
         gridLayout.\
@@ -11676,11 +11842,18 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.\
             timeMeasurementGraphicsItemShowSqrtTimeRangeTextFlagCheckBox, 
             r, 1, ar)
+
+        r += 1
         gridLayout.\
             addWidget(\
             self.\
-            timeMeasurementGraphicsItemShowSqrtTimeRangeTextFlagResetButton, 
-            r, 2, ar)
+            timeMeasurementGraphicsItemShowSqrdTimeRangeTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.\
+            timeMeasurementGraphicsItemShowSqrdTimeRangeTextFlagCheckBox, 
+            r, 1, ar)
 
         r += 1
         gridLayout.\
@@ -11691,10 +11864,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
             addWidget(\
             self.timeMeasurementGraphicsItemShowScaledValueRangeTextFlagCheckBox, 
             r, 1, ar)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowScaledValueRangeTextFlagResetButton, 
-            r, 2, ar)
 
         r += 1
         gridLayout.\
@@ -11705,13 +11874,228 @@ class PriceBarChartSettingsEditWidget(QWidget):
             addWidget(\
             self.timeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagCheckBox, 
             r, 1, ar)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagResetButton, 
-            r, 2, ar)
 
         r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdScaledValueRangeTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdScaledValueRangeTextFlagCheckBox, 
+            r, 1, ar)
 
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowAyanaTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowAyanaTextFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtAyanaTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtAyanaTextFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdAyanaTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdAyanaTextFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowMuhurtaTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowMuhurtaTextFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtMuhurtaTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtMuhurtaTextFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdMuhurtaTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdMuhurtaTextFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowVaraTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowVaraTextFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtVaraTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtVaraTextFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdVaraTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdVaraTextFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowRtuTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowRtuTextFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtRtuTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtRtuTextFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdRtuTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdRtuTextFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowMasaTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowMasaTextFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtMasaTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtMasaTextFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdMasaTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdMasaTextFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowPaksaTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowPaksaTextFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtPaksaTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtPaksaTextFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdPaksaTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdPaksaTextFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSamaTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSamaTextFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtSamaTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtSamaTextFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdSamaTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdSamaTextFlagCheckBox, 
+            r, 1, ar)
+
+        
         self.timeMeasurementGraphicsItemGroupBox.setLayout(gridLayout)
         
         return self.timeMeasurementGraphicsItemGroupBox
@@ -13432,46 +13816,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.timeMeasurementGraphicsItemShowBarsTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
 
-        # timeMeasurementGraphicsItemShowHoursTextFlag (bool).
-        if self.priceBarChartSettings.\
-           timeMeasurementGraphicsItemShowHoursTextFlag == True:
-            
-            self.timeMeasurementGraphicsItemShowHoursTextFlagCheckBox.\
-                setCheckState(Qt.Checked)
-        else:
-            self.timeMeasurementGraphicsItemShowHoursTextFlagCheckBox.\
-                setCheckState(Qt.Unchecked)
-
-        # timeMeasurementGraphicsItemShowDaysTextFlag (bool).
-        if self.priceBarChartSettings.\
-           timeMeasurementGraphicsItemShowDaysTextFlag == True:
-            
-            self.timeMeasurementGraphicsItemShowDaysTextFlagCheckBox.\
-                setCheckState(Qt.Checked)
-        else:
-            self.timeMeasurementGraphicsItemShowDaysTextFlagCheckBox.\
-                setCheckState(Qt.Unchecked)
-
-        # timeMeasurementGraphicsItemShowWeeksTextFlag (bool).
-        if self.priceBarChartSettings.\
-           timeMeasurementGraphicsItemShowWeeksTextFlag == True:
-            
-            self.timeMeasurementGraphicsItemShowWeeksTextFlagCheckBox.\
-                setCheckState(Qt.Checked)
-        else:
-            self.timeMeasurementGraphicsItemShowWeeksTextFlagCheckBox.\
-                setCheckState(Qt.Unchecked)
-
-        # timeMeasurementGraphicsItemShowMonthsTextFlag (bool).
-        if self.priceBarChartSettings.\
-           timeMeasurementGraphicsItemShowMonthsTextFlag == True:
-            
-            self.timeMeasurementGraphicsItemShowMonthsTextFlagCheckBox.\
-                setCheckState(Qt.Checked)
-        else:
-            self.timeMeasurementGraphicsItemShowMonthsTextFlagCheckBox.\
-                setCheckState(Qt.Unchecked)
-
         # timeMeasurementGraphicsItemShowSqrtBarsTextFlag (bool).
         if self.priceBarChartSettings.\
            timeMeasurementGraphicsItemShowSqrtBarsTextFlag == True:
@@ -13480,6 +13824,26 @@ class PriceBarChartSettingsEditWidget(QWidget):
                 setCheckState(Qt.Checked)
         else:
             self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowSqrdBarsTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowSqrdBarsTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowSqrdBarsTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrdBarsTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowHoursTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowHoursTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowHoursTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowHoursTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrtHoursTextFlag (bool).
@@ -13492,6 +13856,26 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.timeMeasurementGraphicsItemShowSqrtHoursTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
 
+        # timeMeasurementGraphicsItemShowSqrdHoursTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowSqrdHoursTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowSqrdHoursTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrdHoursTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowDaysTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowDaysTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowDaysTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowDaysTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
         # timeMeasurementGraphicsItemShowSqrtDaysTextFlag (bool).
         if self.priceBarChartSettings.\
            timeMeasurementGraphicsItemShowSqrtDaysTextFlag == True:
@@ -13500,6 +13884,26 @@ class PriceBarChartSettingsEditWidget(QWidget):
                 setCheckState(Qt.Checked)
         else:
             self.timeMeasurementGraphicsItemShowSqrtDaysTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowSqrdDaysTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowSqrdDaysTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowSqrdDaysTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrdDaysTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowWeeksTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowWeeksTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowWeeksTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowWeeksTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrtWeeksTextFlag (bool).
@@ -13512,6 +13916,26 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
 
+        # timeMeasurementGraphicsItemShowSqrdWeeksTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowSqrdWeeksTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowSqrdWeeksTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrdWeeksTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowMonthsTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowMonthsTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowMonthsTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowMonthsTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
         # timeMeasurementGraphicsItemShowSqrtMonthsTextFlag (bool).
         if self.priceBarChartSettings.\
            timeMeasurementGraphicsItemShowSqrtMonthsTextFlag == True:
@@ -13520,6 +13944,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
                 setCheckState(Qt.Checked)
         else:
             self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowSqrdMonthsTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowSqrdMonthsTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowSqrdMonthsTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrdMonthsTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowTimeRangeTextFlag (bool).
@@ -13544,6 +13978,18 @@ class PriceBarChartSettingsEditWidget(QWidget):
                 timeMeasurementGraphicsItemShowSqrtTimeRangeTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
 
+        # timeMeasurementGraphicsItemShowSqrdTimeRangeTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowSqrdTimeRangeTextFlag == True:
+            
+            self.\
+                timeMeasurementGraphicsItemShowSqrdTimeRangeTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.\
+                timeMeasurementGraphicsItemShowSqrdTimeRangeTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
         # timeMeasurementGraphicsItemShowScaledValueRangeTextFlag (bool).
         if self.priceBarChartSettings.\
            timeMeasurementGraphicsItemShowScaledValueRangeTextFlag == True:
@@ -13562,6 +14008,226 @@ class PriceBarChartSettingsEditWidget(QWidget):
                 setCheckState(Qt.Checked)
         else:
             self.timeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowSqrdScaledValueRangeTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowSqrdScaledValueRangeTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowSqrdScaledValueRangeTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrdScaledValueRangeTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowAyanaTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowAyanaTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowAyanaTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowAyanaTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowSqrtAyanaTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowSqrtAyanaTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowSqrtAyanaTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrtAyanaTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowSqrdAyanaTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowSqrdAyanaTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowSqrdAyanaTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrdAyanaTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowMuhurtaTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowMuhurtaTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowMuhurtaTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowMuhurtaTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowSqrtMuhurtaTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowSqrtMuhurtaTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowSqrtMuhurtaTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrtMuhurtaTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowSqrdMuhurtaTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowSqrdMuhurtaTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowSqrdMuhurtaTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrdMuhurtaTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowVaraTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowVaraTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowVaraTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowVaraTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowSqrtVaraTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowSqrtVaraTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowSqrtVaraTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrtVaraTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowSqrdVaraTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowSqrdVaraTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowSqrdVaraTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrdVaraTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowRtuTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowRtuTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowRtuTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowRtuTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowSqrtRtuTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowSqrtRtuTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowSqrtRtuTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrtRtuTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowSqrdRtuTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowSqrdRtuTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowSqrdRtuTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrdRtuTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowMasaTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowMasaTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowMasaTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowMasaTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowSqrtMasaTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowSqrtMasaTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowSqrtMasaTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrtMasaTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowSqrdMasaTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowSqrdMasaTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowSqrdMasaTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrdMasaTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowPaksaTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowPaksaTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowPaksaTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowPaksaTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowSqrtPaksaTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowSqrtPaksaTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowSqrtPaksaTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrtPaksaTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowSqrdPaksaTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowSqrdPaksaTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowSqrdPaksaTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrdPaksaTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowSamaTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowSamaTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowSamaTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSamaTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowSqrtSamaTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowSqrtSamaTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowSqrtSamaTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrtSamaTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeMeasurementGraphicsItemShowSqrdSamaTextFlag (bool).
+        if self.priceBarChartSettings.\
+           timeMeasurementGraphicsItemShowSqrdSamaTextFlag == True:
+            
+            self.timeMeasurementGraphicsItemShowSqrdSamaTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeMeasurementGraphicsItemShowSqrdSamaTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
 
         # timeModalScaleGraphicsItemColor (QColor).
@@ -14140,46 +14806,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceBarChartSettings.\
                 timeMeasurementGraphicsItemShowBarsTextFlag = False
 
-        # timeMeasurementGraphicsItemShowHoursTextFlag (bool).
-        if self.timeMeasurementGraphicsItemShowHoursTextFlagCheckBox.\
-           checkState() == Qt.Checked:
-
-            self.priceBarChartSettings.\
-                timeMeasurementGraphicsItemShowHoursTextFlag = True
-        else:
-            self.priceBarChartSettings.\
-                timeMeasurementGraphicsItemShowHoursTextFlag = False
-
-        # timeMeasurementGraphicsItemShowDaysTextFlag (bool).
-        if self.timeMeasurementGraphicsItemShowDaysTextFlagCheckBox.\
-           checkState() == Qt.Checked:
-
-            self.priceBarChartSettings.\
-                timeMeasurementGraphicsItemShowDaysTextFlag = True
-        else:
-            self.priceBarChartSettings.\
-                timeMeasurementGraphicsItemShowDaysTextFlag = False
-
-        # timeMeasurementGraphicsItemShowWeeksTextFlag (bool).
-        if self.timeMeasurementGraphicsItemShowWeeksTextFlagCheckBox.\
-           checkState() == Qt.Checked:
-
-            self.priceBarChartSettings.\
-                timeMeasurementGraphicsItemShowWeeksTextFlag = True
-        else:
-            self.priceBarChartSettings.\
-                timeMeasurementGraphicsItemShowWeeksTextFlag = False
-
-        # timeMeasurementGraphicsItemShowMonthsTextFlag (bool).
-        if self.timeMeasurementGraphicsItemShowMonthsTextFlagCheckBox.\
-           checkState() == Qt.Checked:
-
-            self.priceBarChartSettings.\
-                timeMeasurementGraphicsItemShowMonthsTextFlag = True
-        else:
-            self.priceBarChartSettings.\
-                timeMeasurementGraphicsItemShowMonthsTextFlag = False
-
         # timeMeasurementGraphicsItemShowSqrtBarsTextFlag (bool).
         if self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagCheckBox.\
            checkState() == Qt.Checked:
@@ -14189,6 +14815,26 @@ class PriceBarChartSettingsEditWidget(QWidget):
         else:
             self.priceBarChartSettings.\
                 timeMeasurementGraphicsItemShowSqrtBarsTextFlag = False
+
+        # timeMeasurementGraphicsItemShowSqrdBarsTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowSqrdBarsTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrdBarsTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrdBarsTextFlag = False
+
+        # timeMeasurementGraphicsItemShowHoursTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowHoursTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowHoursTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowHoursTextFlag = False
 
         # timeMeasurementGraphicsItemShowSqrtHoursTextFlag (bool).
         if self.timeMeasurementGraphicsItemShowSqrtHoursTextFlagCheckBox.\
@@ -14200,6 +14846,26 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceBarChartSettings.\
                 timeMeasurementGraphicsItemShowSqrtHoursTextFlag = False
 
+        # timeMeasurementGraphicsItemShowSqrdHoursTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowSqrdHoursTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrdHoursTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrdHoursTextFlag = False
+
+        # timeMeasurementGraphicsItemShowDaysTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowDaysTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowDaysTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowDaysTextFlag = False
+
         # timeMeasurementGraphicsItemShowSqrtDaysTextFlag (bool).
         if self.timeMeasurementGraphicsItemShowSqrtDaysTextFlagCheckBox.\
            checkState() == Qt.Checked:
@@ -14209,6 +14875,26 @@ class PriceBarChartSettingsEditWidget(QWidget):
         else:
             self.priceBarChartSettings.\
                 timeMeasurementGraphicsItemShowSqrtDaysTextFlag = False
+
+        # timeMeasurementGraphicsItemShowSqrdDaysTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowSqrdDaysTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrdDaysTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrdDaysTextFlag = False
+
+        # timeMeasurementGraphicsItemShowWeeksTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowWeeksTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowWeeksTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowWeeksTextFlag = False
 
         # timeMeasurementGraphicsItemShowSqrtWeeksTextFlag (bool).
         if self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagCheckBox.\
@@ -14220,6 +14906,26 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceBarChartSettings.\
                 timeMeasurementGraphicsItemShowSqrtWeeksTextFlag = False
 
+        # timeMeasurementGraphicsItemShowSqrdWeeksTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowSqrdWeeksTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrdWeeksTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrdWeeksTextFlag = False
+
+        # timeMeasurementGraphicsItemShowMonthsTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowMonthsTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowMonthsTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowMonthsTextFlag = False
+
         # timeMeasurementGraphicsItemShowSqrtMonthsTextFlag (bool).
         if self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlagCheckBox.\
            checkState() == Qt.Checked:
@@ -14229,6 +14935,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
         else:
             self.priceBarChartSettings.\
                 timeMeasurementGraphicsItemShowSqrtMonthsTextFlag = False
+
+        # timeMeasurementGraphicsItemShowSqrdMonthsTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowSqrdMonthsTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrdMonthsTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrdMonthsTextFlag = False
 
         # timeMeasurementGraphicsItemShowTimeRangeTextFlag (bool).
         if self.timeMeasurementGraphicsItemShowTimeRangeTextFlagCheckBox.\
@@ -14250,6 +14966,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceBarChartSettings.\
                 timeMeasurementGraphicsItemShowSqrtTimeRangeTextFlag = False
 
+        # timeMeasurementGraphicsItemShowSqrdTimeRangeTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowSqrdTimeRangeTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrdTimeRangeTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrdTimeRangeTextFlag = False
+
         # timeMeasurementGraphicsItemShowScaledValueRangeTextFlag (bool).
         if self.timeMeasurementGraphicsItemShowScaledValueRangeTextFlagCheckBox.\
            checkState() == Qt.Checked:
@@ -14269,6 +14995,226 @@ class PriceBarChartSettingsEditWidget(QWidget):
         else:
             self.priceBarChartSettings.\
                 timeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag = False
+
+        # timeMeasurementGraphicsItemShowSqrdScaledValueRangeTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowSqrdScaledValueRangeTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrdScaledValueRangeTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrdScaledValueRangeTextFlag = False
+
+        # timeMeasurementGraphicsItemShowAyanaTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowAyanaTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowAyanaTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowAyanaTextFlag = False
+
+        # timeMeasurementGraphicsItemShowSqrtAyanaTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowSqrtAyanaTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrtAyanaTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrtAyanaTextFlag = False
+
+        # timeMeasurementGraphicsItemShowSqrdAyanaTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowSqrdAyanaTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrdAyanaTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrdAyanaTextFlag = False
+
+        # timeMeasurementGraphicsItemShowMuhurtaTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowMuhurtaTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowMuhurtaTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowMuhurtaTextFlag = False
+
+        # timeMeasurementGraphicsItemShowSqrtMuhurtaTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowSqrtMuhurtaTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrtMuhurtaTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrtMuhurtaTextFlag = False
+
+        # timeMeasurementGraphicsItemShowSqrdMuhurtaTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowSqrdMuhurtaTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrdMuhurtaTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrdMuhurtaTextFlag = False
+
+        # timeMeasurementGraphicsItemShowVaraTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowVaraTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowVaraTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowVaraTextFlag = False
+
+        # timeMeasurementGraphicsItemShowSqrtVaraTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowSqrtVaraTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrtVaraTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrtVaraTextFlag = False
+
+        # timeMeasurementGraphicsItemShowSqrdVaraTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowSqrdVaraTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrdVaraTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrdVaraTextFlag = False
+
+        # timeMeasurementGraphicsItemShowRtuTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowRtuTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowRtuTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowRtuTextFlag = False
+
+        # timeMeasurementGraphicsItemShowSqrtRtuTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowSqrtRtuTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrtRtuTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrtRtuTextFlag = False
+
+        # timeMeasurementGraphicsItemShowSqrdRtuTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowSqrdRtuTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrdRtuTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrdRtuTextFlag = False
+
+        # timeMeasurementGraphicsItemShowMasaTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowMasaTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowMasaTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowMasaTextFlag = False
+
+        # timeMeasurementGraphicsItemShowSqrtMasaTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowSqrtMasaTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrtMasaTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrtMasaTextFlag = False
+
+        # timeMeasurementGraphicsItemShowSqrdMasaTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowSqrdMasaTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrdMasaTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrdMasaTextFlag = False
+
+        # timeMeasurementGraphicsItemShowPaksaTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowPaksaTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowPaksaTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowPaksaTextFlag = False
+
+        # timeMeasurementGraphicsItemShowSqrtPaksaTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowSqrtPaksaTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrtPaksaTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrtPaksaTextFlag = False
+
+        # timeMeasurementGraphicsItemShowSqrdPaksaTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowSqrdPaksaTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrdPaksaTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrdPaksaTextFlag = False
+
+        # timeMeasurementGraphicsItemShowSamaTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowSamaTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSamaTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSamaTextFlag = False
+
+        # timeMeasurementGraphicsItemShowSqrtSamaTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowSqrtSamaTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrtSamaTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrtSamaTextFlag = False
+
+        # timeMeasurementGraphicsItemShowSqrdSamaTextFlag (bool).
+        if self.timeMeasurementGraphicsItemShowSqrdSamaTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrdSamaTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeMeasurementGraphicsItemShowSqrdSamaTextFlag = False
 
         # timeModalScaleGraphicsItemTextColor (QColor).
         self.priceBarChartSettings.timeModalScaleGraphicsItemBarColor = \
@@ -14976,246 +15922,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.timeMeasurementGraphicsItemDefaultColorEditButton.\
             setColor(value)
 
-    def _handleTimeMeasurementGraphicsItemShowBarsTextFlagResetButton(self):
-        """Called when the
-        timeMeasurementGraphicsItemShowBarsTextFlagResetButton
-        is clicked.  Resets the internal value to the default value.
-        """
-
-        value = \
-              PriceBarChartSettings.\
-              defaultTimeMeasurementGraphicsItemShowBarsTextFlag
-
-        if value == True:
-            self.timeMeasurementGraphicsItemShowBarsTextFlagCheckBox.\
-                setCheckState(Qt.Checked)
-        else:
-            self.timeMeasurementGraphicsItemShowBarsTextFlagCheckBox.\
-                setCheckState(Qt.Unchecked)
-            
-    def _handleTimeMeasurementGraphicsItemShowHoursTextFlagResetButton(self):
-        """Called when the
-        timeMeasurementGraphicsItemShowHoursTextFlagResetButton
-        is clicked.  Resets the internal value to the default value.
-        """
-
-        value = \
-              PriceBarChartSettings.\
-              defaultTimeMeasurementGraphicsItemShowHoursTextFlag
-
-        if value == True:
-            self.timeMeasurementGraphicsItemShowHoursTextFlagCheckBox.\
-                setCheckState(Qt.Checked)
-        else:
-            self.timeMeasurementGraphicsItemShowHoursTextFlagCheckBox.\
-                setCheckState(Qt.Unchecked)
-            
-    def _handleTimeMeasurementGraphicsItemShowDaysTextFlagResetButton(self):
-        """Called when the
-        timeMeasurementGraphicsItemShowDaysTextFlagResetButton
-        is clicked.  Resets the internal value to the default value.
-        """
-
-        value = \
-              PriceBarChartSettings.\
-              defaultTimeMeasurementGraphicsItemShowDaysTextFlag
-
-        if value == True:
-            self.timeMeasurementGraphicsItemShowDaysTextFlagCheckBox.\
-                setCheckState(Qt.Checked)
-        else:
-            self.timeMeasurementGraphicsItemShowDaysTextFlagCheckBox.\
-                setCheckState(Qt.Unchecked)
-            
-    def _handleTimeMeasurementGraphicsItemShowWeeksTextFlagResetButton(self):
-        """Called when the
-        timeMeasurementGraphicsItemShowWeeksTextFlagResetButton
-        is clicked.  Resets the internal value to the default value.
-        """
-
-        value = \
-              PriceBarChartSettings.\
-              defaultTimeMeasurementGraphicsItemShowWeeksTextFlag
-
-        if value == True:
-            self.timeMeasurementGraphicsItemShowWeeksTextFlagCheckBox.\
-                setCheckState(Qt.Checked)
-        else:
-            self.timeMeasurementGraphicsItemShowWeeksTextFlagCheckBox.\
-                setCheckState(Qt.Unchecked)
-            
-    def _handleTimeMeasurementGraphicsItemShowMonthsTextFlagResetButton(self):
-        """Called when the
-        timeMeasurementGraphicsItemShowMonthsTextFlagResetButton
-        is clicked.  Resets the internal value to the default value.
-        """
-
-        value = \
-              PriceBarChartSettings.\
-              defaultTimeMeasurementGraphicsItemShowMonthsTextFlag
-
-        if value == True:
-            self.timeMeasurementGraphicsItemShowMonthsTextFlagCheckBox.\
-                setCheckState(Qt.Checked)
-        else:
-            self.timeMeasurementGraphicsItemShowMonthsTextFlagCheckBox.\
-                setCheckState(Qt.Unchecked)
-            
-    def _handleTimeMeasurementGraphicsItemShowSqrtBarsTextFlagResetButton(self):
-        """Called when the
-        timeMeasurementGraphicsItemShowSqrtBarsTextFlagResetButton
-        is clicked.  Resets the internal value to the default value.
-        """
-
-        value = \
-              PriceBarChartSettings.\
-              defaultTimeMeasurementGraphicsItemShowSqrtBarsTextFlag
-
-        if value == True:
-            self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagCheckBox.\
-                setCheckState(Qt.Checked)
-        else:
-            self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagCheckBox.\
-                setCheckState(Qt.Unchecked)
-            
-    def _handleTimeMeasurementGraphicsItemShowSqrtHoursTextFlagResetButton(self):
-        """Called when the
-        timeMeasurementGraphicsItemShowSqrtHoursTextFlagResetButton
-        is clicked.  Resets the internal value to the default value.
-        """
-
-        value = \
-              PriceBarChartSettings.\
-              defaultTimeMeasurementGraphicsItemShowSqrtHoursTextFlag
-
-        if value == True:
-            self.timeMeasurementGraphicsItemShowSqrtHoursTextFlagCheckBox.\
-                setCheckState(Qt.Checked)
-        else:
-            self.timeMeasurementGraphicsItemShowSqrtHoursTextFlagCheckBox.\
-                setCheckState(Qt.Unchecked)
-            
-    def _handleTimeMeasurementGraphicsItemShowSqrtDaysTextFlagResetButton(self):
-        """Called when the
-        timeMeasurementGraphicsItemShowSqrtDaysTextFlagResetButton
-        is clicked.  Resets the internal value to the default value.
-        """
-
-        value = \
-              PriceBarChartSettings.\
-              defaultTimeMeasurementGraphicsItemShowSqrtDaysTextFlag
-
-        if value == True:
-            self.timeMeasurementGraphicsItemShowSqrtDaysTextFlagCheckBox.\
-                setCheckState(Qt.Checked)
-        else:
-            self.timeMeasurementGraphicsItemShowSqrtDaysTextFlagCheckBox.\
-                setCheckState(Qt.Unchecked)
-            
-    def _handleTimeMeasurementGraphicsItemShowSqrtWeeksTextFlagResetButton(self):
-        """Called when the
-        timeMeasurementGraphicsItemShowSqrtWeeksTextFlagResetButton
-        is clicked.  Resets the internal value to the default value.
-        """
-
-        value = \
-              PriceBarChartSettings.\
-              defaultTimeMeasurementGraphicsItemShowSqrtWeeksTextFlag
-
-        if value == True:
-            self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagCheckBox.\
-                setCheckState(Qt.Checked)
-        else:
-            self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagCheckBox.\
-                setCheckState(Qt.Unchecked)
-            
-    def _handleTimeMeasurementGraphicsItemShowSqrtMonthsTextFlagResetButton(self):
-        """Called when the
-        timeMeasurementGraphicsItemShowSqrtMonthsTextFlagResetButton
-        is clicked.  Resets the internal value to the default value.
-        """
-
-        value = \
-              PriceBarChartSettings.\
-              defaultTimeMeasurementGraphicsItemShowSqrtMonthsTextFlag
-
-        if value == True:
-            self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlagCheckBox.\
-                setCheckState(Qt.Checked)
-        else:
-            self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlagCheckBox.\
-                setCheckState(Qt.Unchecked)
-            
-    def _handleTimeMeasurementGraphicsItemShowTimeRangeTextFlagResetButton(self):
-        """Called when the
-        timeMeasurementGraphicsItemShowTimeRangeTextFlagResetButton
-        is clicked.  Resets the internal value to the default value.
-        """
-
-        value = \
-              PriceBarChartSettings.\
-              defaultTimeMeasurementGraphicsItemShowTimeRangeTextFlag
-
-        if value == True:
-            self.timeMeasurementGraphicsItemShowTimeRangeTextFlagCheckBox.\
-                setCheckState(Qt.Checked)
-        else:
-            self.timeMeasurementGraphicsItemShowTimeRangeTextFlagCheckBox.\
-                setCheckState(Qt.Unchecked)
-            
-    def _handleTimeMeasurementGraphicsItemShowSqrtTimeRangeTextFlagResetButton(self):
-        """Called when the
-        timeMeasurementGraphicsItemShowSqrtTimeRangeTextFlagResetButton
-        is clicked.  Resets the internal value to the default value.
-        """
-
-        value = \
-              PriceBarChartSettings.\
-              defaultTimeMeasurementGraphicsItemShowSqrtTimeRangeTextFlag
-
-        if value == True:
-            self.\
-                timeMeasurementGraphicsItemShowSqrtTimeRangeTextFlagCheckBox.\
-                setCheckState(Qt.Checked)
-        else:
-            self.\
-                timeMeasurementGraphicsItemShowSqrtTimeRangeTextFlagCheckBox.\
-                setCheckState(Qt.Unchecked)
-            
-    def _handleTimeMeasurementGraphicsItemShowScaledValueRangeTextFlagResetButton(self):
-        """Called when the
-        timeMeasurementGraphicsItemShowScaledValueRangeTextFlagResetButton
-        is clicked.  Resets the internal value to the default value.
-        """
-
-        value = \
-              PriceBarChartSettings.\
-              defaultTimeMeasurementGraphicsItemShowScaledValueRangeTextFlag
-
-        if value == True:
-            self.timeMeasurementGraphicsItemShowScaledValueRangeTextFlagCheckBox.\
-                setCheckState(Qt.Checked)
-        else:
-            self.timeMeasurementGraphicsItemShowScaledValueRangeTextFlagCheckBox.\
-                setCheckState(Qt.Unchecked)
-            
-    def _handleTimeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagResetButton(self):
-        """Called when the
-        timeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagResetButton
-        is clicked.  Resets the internal value to the default value.
-        """
-
-        value = \
-              PriceBarChartSettings.\
-              defaultTimeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag
-
-        if value == True:
-            self.timeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagCheckBox.\
-                setCheckState(Qt.Checked)
-        else:
-            self.timeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagCheckBox.\
-                setCheckState(Qt.Unchecked)
-            
     def _handleTimeModalScaleGraphicsItemColorResetButtonClicked(self):
         """Called when the timeModalScaleGraphicsItemColorResetButton
         is clicked.  Resets the widget value to the default value.
@@ -15951,20 +16657,6 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._handleTimeMeasurementGraphicsItemDefaultFontResetButtonClicked()
         self._handleTimeMeasurementGraphicsItemDefaultTextColorResetButtonClicked()
         self._handleTimeMeasurementGraphicsItemDefaultColorResetButtonClicked()
-        self._handleTimeMeasurementGraphicsItemShowBarsTextFlagResetButton()
-        self._handleTimeMeasurementGraphicsItemShowHoursTextFlagResetButton()
-        self._handleTimeMeasurementGraphicsItemShowDaysTextFlagResetButton()
-        self._handleTimeMeasurementGraphicsItemShowWeeksTextFlagResetButton()
-        self._handleTimeMeasurementGraphicsItemShowMonthsTextFlagResetButton()
-        self._handleTimeMeasurementGraphicsItemShowSqrtBarsTextFlagResetButton()
-        self._handleTimeMeasurementGraphicsItemShowSqrtHoursTextFlagResetButton()
-        self._handleTimeMeasurementGraphicsItemShowSqrtDaysTextFlagResetButton()
-        self._handleTimeMeasurementGraphicsItemShowSqrtWeeksTextFlagResetButton()
-        self._handleTimeMeasurementGraphicsItemShowSqrtMonthsTextFlagResetButton()
-        self._handleTimeMeasurementGraphicsItemShowTimeRangeTextFlagResetButton()
-        self._handleTimeMeasurementGraphicsItemShowSqrtTimeRangeTextFlagResetButton()
-        self._handleTimeMeasurementGraphicsItemShowScaledValueRangeTextFlagResetButton()
-        self._handleTimeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagResetButton()
         
         self._handleTimeModalScaleGraphicsItemColorResetButtonClicked()
         self._handleTimeModalScaleGraphicsItemTextColorResetButtonClicked()
