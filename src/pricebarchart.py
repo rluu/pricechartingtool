@@ -43,6 +43,7 @@ from data_objects import PriceBarChartPriceMeasurementArtifact
 from data_objects import PriceBarChartTimeRetracementArtifact
 from data_objects import PriceBarChartPriceRetracementArtifact
 from data_objects import PriceBarChartPriceTimeVectorArtifact
+from data_objects import PriceBarChartLineSegmentArtifact
 from data_objects import PriceBarChartScaling
 from data_objects import PriceBarChartSettings
 
@@ -61,6 +62,7 @@ from pricebarchart_dialogs import PriceBarChartPriceMeasurementArtifactEditDialo
 from pricebarchart_dialogs import PriceBarChartTimeRetracementArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartPriceRetracementArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartPriceTimeVectorArtifactEditDialog
+from pricebarchart_dialogs import PriceBarChartLineSegmentArtifactEditDialog
 
 # For edit dialogs.
 from dialogs import PriceBarEditDialog
@@ -12019,6 +12021,1152 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.scene().setAstroChart3(self.endPointF.x())
 
 
+class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
+    """QGraphicsItem that visualizes a price retracement in the GraphicsView.
+
+    This item uses the origin point (0, 0) in item coordinates as the
+    center point width bar, on the start point (bottom part) of the bar ruler.
+
+    That means when a user creates a new LineSegmentGraphicsItem
+    the position and points can be consistently set.
+    """
+    
+    def __init__(self, parent=None, scene=None):
+        super().__init__(parent, scene)
+
+        # Logger
+        self.log = logging.getLogger(\
+            "pricebarchart.LineSegmentGraphicsItem")
+        
+        self.log.debug("Entered __init__().")
+
+        # Constant value for the multiple amount to extend the start
+        # or end points.  This shows up in the right-click context
+        # menu option for extending the start or end points.
+        self.extendMultiple = 1.6
+        
+        ############################################################
+        # Set default values for preferences/settings.
+        
+        # Width of the vertical bar drawn.
+        self.lineSegmentGraphicsItemBarWidth = \
+            PriceBarChartSettings.\
+                defaultLineSegmentGraphicsItemBarWidth 
+ 
+        # X scaling of the text.
+        self.lineSegmentTextXScaling = \
+            PriceBarChartSettings.\
+                defaultLineSegmentGraphicsItemTextXScaling 
+
+        # Y scaling of the text.
+        self.lineSegmentTextYScaling = \
+            PriceBarChartSettings.\
+                defaultLineSegmentGraphicsItemTextYScaling 
+
+        # Font.
+        self.lineSegmentTextFont = QFont()
+        self.lineSegmentTextFont.fromString(\
+            PriceBarChartSettings.\
+            defaultLineSegmentGraphicsItemDefaultFontDescription)
+        
+        # Color of the text that is associated with the graphicsitem.
+        self.lineSegmentGraphicsItemTextColor = \
+            PriceBarChartSettings.\
+            defaultLineSegmentGraphicsItemTextColor
+
+        # Color of the item.
+        self.lineSegmentGraphicsItemColor = \
+            PriceBarChartSettings.\
+            defaultLineSegmentGraphicsItemColor
+
+        # LineSegmentGraphicsItem tiltedTextFlag (bool).
+        self.tiltedTextFlag = \
+            PriceBarChartSettings.\
+            defaultLineSegmentGraphicsItemTiltedTextFlag
+    
+        # LineSegmentGraphicsItem angleTextFlag (bool).
+        self.angleTextFlag = \
+            PriceBarChartSettings.\
+            defaultLineSegmentGraphicsItemAngleTextFlag
+    
+        ############################################################
+
+        # Internal storage object, used for loading/saving (serialization).
+        self.artifact = PriceBarChartLineSegmentArtifact()
+
+        # Read the QSettings preferences for the various parameters of
+        # this price bar.
+        self.loadSettingsFromAppPreferences()
+        
+        # Pen which is used to do the painting of the bar ruler.
+        self.lineSegmentPenWidth = 0.0
+        self.lineSegmentPen = QPen()
+        self.lineSegmentPen.\
+            setColor(self.lineSegmentGraphicsItemColor)
+        self.lineSegmentPen.\
+            setWidthF(self.lineSegmentPenWidth)
+        
+        # Starting point, in scene coordinates.
+        self.startPointF = QPointF(0, 0)
+
+        # Ending point, in scene coordinates.
+        self.endPointF = QPointF(0, 0)
+
+        # Degrees of text rotation.
+        self.rotationDegrees = 0.0
+
+        # Internal text item.
+        self.textItem = QGraphicsSimpleTextItem("", self)
+        self.textItem.setPos(self.endPointF)
+
+        # Transform object applied to the text item.
+        self.textTransform = QTransform()
+
+        # Set the text item with the properties we want it to have.
+        self.reApplyTextItemAttributes(self.textItem)
+        
+        # Flags that indicate that the user is dragging either the start
+        # or end point of the QGraphicsItem.
+        self.draggingStartPointFlag = False
+        self.draggingEndPointFlag = False
+
+        # Working variables for clicking and draging.
+        self.clickScenePointF = None
+        self.origStartPointF = None
+
+    def reApplyTextItemAttributes(self, textItem):
+        """Takes the given text item and reapplies the pen, brush,
+        transform, etc. that should be set for the text item.
+        """
+        
+        # Set properties of the text item.
+        
+        # Set the font of the text.
+        textItem.setFont(self.lineSegmentTextFont)
+        
+        # Set the pen color of the text.
+        self.lineSegmentTextPen = textItem.pen()
+        self.lineSegmentTextPen.\
+            setColor(self.lineSegmentGraphicsItemTextColor)
+        textItem.setPen(self.lineSegmentTextPen)
+
+        # Set the brush color of the text.
+        self.lineSegmentTextBrush = textItem.brush()
+        self.lineSegmentTextBrush.\
+            setColor(self.lineSegmentGraphicsItemTextColor)
+        textItem.setBrush(self.lineSegmentTextBrush)
+
+        # Apply some size scaling to the text.
+        self.textTransform = QTransform()
+        self.textTransform.scale(self.lineSegmentTextXScaling, \
+                                 self.lineSegmentTextYScaling)
+        textItem.setTransform(self.textTransform)
+
+        
+    def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings):
+        """Reads some of the parameters/settings of this
+        PriceBarGraphicsItem from the given PriceBarChartSettings object.
+        """
+
+        self.log.debug("Entered loadSettingsFromPriceBarChartSettings()")
+        
+        # Width of the horizontal bar drawn.
+        self.lineSegmentGraphicsItemBarWidth = \
+            priceBarChartSettings.\
+                lineSegmentGraphicsItemBarWidth 
+ 
+        # X scaling of the text.
+        self.lineSegmentTextXScaling = \
+            priceBarChartSettings.\
+                lineSegmentGraphicsItemTextXScaling 
+
+        # Y scaling of the text.
+        self.lineSegmentTextYScaling = \
+            priceBarChartSettings.\
+                lineSegmentGraphicsItemTextYScaling 
+
+        # Font.
+        self.lineSegmentTextFont = QFont()
+        self.lineSegmentTextFont.fromString(\
+            priceBarChartSettings.\
+            lineSegmentGraphicsItemDefaultFontDescription)
+        
+        # Color of the text that is associated with the graphicsitem.
+        self.lineSegmentGraphicsItemTextColor = \
+            priceBarChartSettings.\
+            lineSegmentGraphicsItemTextColor
+
+        # Color of the item.
+        self.lineSegmentGraphicsItemColor = \
+            priceBarChartSettings.\
+            lineSegmentGraphicsItemColor
+
+        # LineSegmentGraphicsItem tiltedTextFlag (bool).
+        self.tiltedTextFlag = \
+            priceBarChartSettings.\
+            lineSegmentGraphicsItemTiltedTextFlag
+
+        # LineSegmentGraphicsItem angleTextFlag (bool).
+        self.angleTextFlag = \
+            priceBarChartSettings.\
+            lineSegmentGraphicsItemAngleTextFlag
+
+        ####################################################################
+
+        # Set the new color of the pen for drawing the bar.
+        self.lineSegmentPen.\
+            setColor(self.lineSegmentGraphicsItemColor)
+
+        # Set the text item with the properties we want it to have.
+        self.reApplyTextItemAttributes(self.textItem)
+        
+        # Need to recalculate the lineSegment, since the scaling
+        # or start/end points could have changed.  Note, if no scene
+        # has been set for the QGraphicsView, then the price
+        # retracements will be zero, since it can't look up
+        # PriceBarGraphicsItems in the scene.
+        self.recalculateLineSegment()
+
+        # Update the lineSegment text item position.
+        self._updateTextItemPositions()
+        
+        # Schedule an update.
+        self.update()
+
+        self.log.debug("Exiting loadSettingsFromPriceBarChartSettings()")
+        
+    def loadSettingsFromAppPreferences(self):
+        """Reads some of the parameters/settings of this
+        GraphicsItem from the QSettings object. 
+        """
+
+        # No settings.
+        
+    def setPos(self, pos):
+        """Overwrites the QGraphicsItem setPos() function.
+
+        Here we use the new position to re-set the self.startPointF and
+        self.endPointF.
+
+        Arguments:
+        pos - QPointF holding the new position.
+        """
+        self.log.debug("Entered setPos()")
+        
+        super().setPos(pos)
+
+        newScenePos = pos
+
+        posDelta = newScenePos - self.startPointF
+
+        # Update the start and end points accordingly. 
+        self.startPointF = self.startPointF + posDelta
+        self.endPointF = self.endPointF + posDelta
+
+        if self.scene() != None:
+            self.recalculateLineSegment()
+            self.update()
+
+        self.log.debug("Exiting setPos()")
+        
+    def mousePressEvent(self, event):
+        """Overwrites the QGraphicsItem mousePressEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+
+        self.log.debug("Entered mousePressEvent()")
+        
+        # If the item is in read-only mode, simply call the parent
+        # implementation of this function.
+        if self.getReadOnlyFlag() == True:
+            super().mousePressEvent(event)
+        else:
+            # If the mouse press is within 1/5th of the bar length to the
+            # beginning or end points, then the user is trying to adjust
+            # the starting or ending points of the bar counter ruler.
+            scenePosY = event.scenePos().y()
+            self.log.debug("DEBUG: scenePosY={}".format(scenePosY))
+            
+            startingPointY = self.startPointF.y()
+            self.log.debug("DEBUG: startingPointY={}".format(startingPointY))
+            endingPointY = self.endPointF.y()
+            self.log.debug("DEBUG: endingPointY={}".format(endingPointY))
+            
+            diff = endingPointY - startingPointY
+            self.log.debug("DEBUG: diff={}".format(diff))
+
+            startThresholdY = startingPointY + (diff * (1.0 / 5))
+            endThresholdY = endingPointY - (diff * (1.0 / 5))
+
+            self.log.debug("DEBUG: startThresholdY={}".format(startThresholdY))
+            self.log.debug("DEBUG: endThresholdY={}".format(endThresholdY))
+
+
+            scenePosX = event.scenePos().x()
+            self.log.debug("DEBUG: scenePosX={}".format(scenePosX))
+            
+            startingPointX = self.startPointF.x()
+            self.log.debug("DEBUG: startingPointX={}".format(startingPointX))
+            endingPointX = self.endPointF.x()
+            self.log.debug("DEBUG: endingPointX={}".format(endingPointX))
+            
+            diff = endingPointX - startingPointX
+            self.log.debug("DEBUG: diff={}".format(diff))
+
+            startThresholdX = startingPointX + (diff * (1.0 / 5))
+            endThresholdX = endingPointX - (diff * (1.0 / 5))
+
+            self.log.debug("DEBUG: startThresholdX={}".format(startThresholdX))
+            self.log.debug("DEBUG: endThresholdX={}".format(endThresholdX))
+
+
+            if startingPointY <= scenePosY <= startThresholdY or \
+                   startingPointY >= scenePosY >= startThresholdY or \
+                   startingPointX <= scenePosX <= startThresholdX or \
+                   startingPointX >= scenePosX >= startThresholdX:
+                
+                self.draggingStartPointFlag = True
+                self.log.debug("DEBUG: self.draggingStartPointFlag={}".
+                               format(self.draggingStartPointFlag))
+                
+            elif endingPointY <= scenePosY <= endThresholdY or \
+                     endingPointY >= scenePosY >= endThresholdY or \
+                     endingPointX <= scenePosX <= endThresholdX or \
+                     endingPointX >= scenePosX >= endThresholdX:
+                
+                self.draggingEndPointFlag = True
+                self.log.debug("DEBUG: self.draggingEndPointFlag={}".
+                               format(self.draggingEndPointFlag))
+            else:
+                # The mouse has clicked the middle part of the
+                # QGraphicsItem, so pass the event to the parent, because
+                # the user wants to either select or drag-move the
+                # position of the QGraphicsItem.
+                self.log.debug("DEBUG:  Middle part clicked.  " + \
+                               "Passing to super().")
+
+                # Save the click position, so that if it is a drag, we
+                # can have something to reference from for setting the
+                # start and end positions when the user finally
+                # releases the mouse button.
+                self.clickScenePointF = event.scenePos()
+                self.origStartPointF = QPointF(self.startPointF)
+                
+                super().mousePressEvent(event)
+
+        self.log.debug("Leaving mousePressEvent()")
+        
+    def mouseMoveEvent(self, event):
+        """Overwrites the QGraphicsItem mouseMoveEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+
+        if event.buttons() & Qt.LeftButton:
+            if self.getReadOnlyFlag() == False:
+                if self.draggingStartPointFlag == True:
+                    self.log.debug("DEBUG: self.draggingStartPointFlag={}".
+                                   format(self.draggingStartPointFlag))
+                    self.setStartPointF(QPointF(event.scenePos().x(),
+                                                event.scenePos().y()))
+                    self.update()
+                elif self.draggingEndPointFlag == True:
+                    self.log.debug("DEBUG: self.draggingEndPointFlag={}".
+                                   format(self.draggingEndPointFlag))
+                    self.setEndPointF(QPointF(event.scenePos().x(),
+                                              event.scenePos().y()))
+                    self.update()
+                else:
+                    # This means that the user is dragging the whole
+                    # ruler.
+
+                    # Do the move.
+                    super().mouseMoveEvent(event)
+
+                    # For some reason, setPos() is not getting called
+                    # until after the user releases the mouse button
+                    # after dragging.  So here we will calculate the
+                    # change ourselves and call setPos ourselves so
+                    # that the item is drawn correctly.
+                    delta = event.scenePos() - self.clickScenePointF
+                    if delta.x() != 0.0 and delta.y() != 0.0:
+                        newPos = self.origStartPointF + delta
+                        self.setPos(newPos)
+                    
+                    # Calculate Update calculation/text for the
+                    # retracement.
+                    self.recalculateLineSegment()
+
+                    # Emit that the PriceBarChart has changed.
+                    self.scene().priceBarChartChanged.emit()
+            else:
+                super().mouseMoveEvent(event)
+        else:
+            super().mouseMoveEvent(event)
+
+    def mouseReleaseEvent(self, event):
+        """Overwrites the QGraphicsItem mouseReleaseEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+        
+        self.log.debug("Entered mouseReleaseEvent()")
+
+        if self.draggingStartPointFlag == True:
+            self.log.debug("mouseReleaseEvent() when previously dragging " + \
+                           "startPoint.")
+            
+            self.draggingStartPointFlag = False
+
+            self.prepareGeometryChange()
+            
+            self.scene().priceBarChartChanged.emit()
+            
+        elif self.draggingEndPointFlag == True:
+            self.log.debug("mouseReleaseEvent() when previously dragging " +
+                           "endPoint.")
+            
+            self.draggingEndPointFlag = False
+
+            self.prepareGeometryChange()
+            
+            self.scene().priceBarChartChanged.emit()
+            
+        else:
+            self.log.debug("mouseReleaseEvent() when NOT previously " + \
+                           "dragging an end.")
+
+            if self.getReadOnlyFlag() == False:
+                # Update the start and end positions.
+                self.log.debug("DEBUG: scenePos: x={}, y={}".
+                               format(event.scenePos().x(),
+                                      event.scenePos().y()))
+
+                # Calculate the difference between where the user released
+                # the button and where the user first clicked the item.
+                delta = event.scenePos() - self.clickScenePointF
+
+                self.log.debug("DEBUG: delta: x={}, y={}".
+                               format(delta.x(), delta.y()))
+
+                # If the delta is not zero, then update the start and
+                # end points by calling setPos() on the new calculated
+                # position.
+                if delta.x() != 0.0 and delta.y() != 0.0:
+                    newPos = self.origStartPointF + delta
+                    self.setPos(newPos)
+            
+                    # Update calculation/text for the retracement.
+                    self.recalculateLineSegment()
+        
+            super().mouseReleaseEvent(event)
+
+        self.log.debug("Exiting mouseReleaseEvent()")
+
+    def setReadOnlyFlag(self, flag):
+        """Overwrites the PriceBarChartArtifactGraphicsItem setReadOnlyFlag()
+        function.
+        """
+
+        # Call the parent's function so that the flag gets set.
+        super().setReadOnlyFlag(flag)
+
+        # Make sure the drag flags are disabled.
+        if flag == True:
+            self.draggingStartPointFlag = False
+            self.draggingEndPointFlag = False
+
+    def refreshItem(self):
+        """Refreshes the item by recalculating and updating the text
+        position/rotation.
+        """
+
+        self.recalculateLineSegment()
+        
+        self._updateTextItemPositions()
+        
+    def _updateTextItemPositions(self):
+        """Updates the location of the internal text items based on
+        where the start and end points are.
+        """
+        
+        # Update the lineSegment label position.
+        
+        # X and Y range.  Used in calculations for the Y coordinate of
+        # the text items.
+        deltaY = self.endPointF.y() - self.startPointF.y()
+        deltaX = self.endPointF.x() - self.startPointF.x()
+
+        self.log.debug("deltaY = {}".format(deltaY))
+        self.log.debug("deltaX = {}".format(deltaX))
+        
+        # Get bounding rectangles of text items.
+        boundingRect = self.textItem.boundingRect()
+
+        # Find largest text height and width.
+        largestTextHeight = boundingRect.height()
+        largestTextWidth = boundingRect.width()
+
+        # Now replace the above with the scaled version of it. 
+        largestTextHeight = largestTextHeight * self.textTransform.m22()
+        largestTextWidth = largestTextWidth * self.textTransform.m11()
+
+        self.log.debug("largestTextHeight = {}".format(largestTextHeight))
+        self.log.debug("largestTextWidth = {}".format(largestTextWidth))
+        
+        # Get the x and y of the point to place the text, referenced
+        # on the line from start point to end point, but offset by a
+        # certain amount such that the largest text would be centered
+        # on the line.
+        midX = self.mapFromScene(\
+            QPointF(self.startPointF.x() + (deltaX * 0.5), 0.0)).x()
+        midY = self.mapFromScene(\
+            QPointF(0.0, self.startPointF.y() + (deltaY * 0.5))).y()
+
+        self.log.debug("midX={}, midY={}".format(midX, midY))
+                       
+        if self.tiltedTextFlag == True:
+            # Utilize scaling of the graphics view for angle
+            # calculations (if available).
+            scaling = PriceBarChartScaling()
+            if self.scene() != None:
+                scaling = self.scene().getScaling()
+
+            viewScaledStartPoint = \
+                QPointF(self.startPointF.x() * scaling.getViewScalingX(),
+                        self.startPointF.y() * scaling.getViewScalingY())
+            viewScaledEndPoint = \
+                QPointF(self.endPointF.x() * scaling.getViewScalingX(),
+                        self.endPointF.y() * scaling.getViewScalingY())
+            
+            angleDeg = QLineF(viewScaledStartPoint, viewScaledEndPoint).angle()
+            self.log.debug("angleDeg={}".format(angleDeg))
+
+            # Normalize the angle so that the text is always upright.
+            self.rotationDegrees = angleDeg
+            if 90 <= self.rotationDegrees <= 270:
+                self.rotationDegrees += 180
+            while self.rotationDegrees >= 360:
+                self.rotationDegrees -= 360
+            while self.rotationDegrees < 0:
+                self.rotationDegrees += 360
+
+            # Fudge factor since for some reason the text item doesn't
+            # exactly line up with the PTV line.
+            fudge = 0.0
+            if 0 < self.rotationDegrees <= 90:
+                self.log.debug("0 to 90")
+                removed = 45 - abs(45 - self.rotationDegrees)
+                fudge = removed * 0.19
+                self.rotationDegrees -= fudge
+            elif 90 < self.rotationDegrees <= 180:
+                self.log.debug("90 to 180")
+                removed = 45 - abs(135 - self.rotationDegrees)
+                fudge = removed * 0.12
+                self.rotationDegrees += fudge
+            elif 180 < self.rotationDegrees <= 270:
+                self.log.debug("180 to 270")
+                removed = 45 - abs(225 - self.rotationDegrees)
+                fudge = removed * 0.19
+                self.rotationDegrees -= fudge
+            elif 270 < self.rotationDegrees <= 360:
+                self.log.debug("270 to 360")
+                removed = 45 - abs(315 - self.rotationDegrees)
+                fudge = removed * 0.12
+                self.rotationDegrees += fudge
+            
+            self.rotationDegrees = -1.0 * self.rotationDegrees
+            self.log.debug("rotationDegrees={}".format(self.rotationDegrees))
+
+            startX = midX
+            startY = midY
+
+            self.log.debug("startX={}, startY={}".format(startX, startY))
+            
+            self.textItem.setPos(QPointF(startX, startY))
+            self.textItem.setRotation(self.rotationDegrees)
+        else:
+            startX = midX
+            startY = midY
+
+            # Amount to mutiply to get a largest offset from startY.
+            offsetY = largestTextHeight
+
+            x = startX
+            y = startY - offsetY
+            
+            self.textItem.setPos(QPointF(x, y))
+
+
+    def setStartPointF(self, pointF):
+        """Sets the starting point of the bar count.  The value passed in
+        is the mouse location in scene coordinates.  
+        """
+
+        newValue = QPointF(pointF.x(), pointF.y())
+
+        if self.startPointF != newValue: 
+            self.startPointF = newValue
+
+            self.setPos(self.startPointF)
+
+            if self.scene() != None:
+                # Re-calculate the priceretracement.
+                self.recalculateLineSegment()
+                self.update()
+                
+            # Update the lineSegment text item position.
+            self._updateTextItemPositions()
+            
+    def setEndPointF(self, pointF):
+        """Sets the ending point of the bar count.  The value passed in
+        is the mouse location in scene coordinates.  
+        """
+
+        newValue = QPointF(pointF.x(), pointF.y())
+
+        if self.endPointF != newValue:
+            self.endPointF = newValue
+
+            if self.scene() != None:
+                # Re-calculate the priceretracement.
+                self.recalculateLineSegment()
+                self.update()
+
+            # Update the lineSegment text item position.
+            self._updateTextItemPositions()
+            
+    def normalizeStartAndEnd(self):
+        """Does not do anything since normalization is not applicable
+        to this graphics item.
+        """
+
+        # Do don't anything.
+        pass
+
+    def recalculateLineSegment(self):
+        """Recalculates the lineSegment and sets the text items'
+        text accordingly.
+        """
+
+        scene = self.scene()
+
+        # X and Y range.
+        deltaY = self.endPointF.y() - self.startPointF.y()
+        deltaX = self.endPointF.x() - self.startPointF.x()
+
+        # Text to set in the text item.
+        text = ""
+        
+        if scene != None:
+            # Calculate the angle for the scaled LineSegment.
+            scaledValueLine = \
+                QLineF(scene.convertScenePointToScaledPoint(self.startPointF),
+                       scene.convertScenePointToScaledPoint(self.endPointF))
+            
+            # Set the text.
+            if self.angleTextFlag == True:
+                # Subtract from 30 since the angle given is in the
+                # opposite rotational direction from what we want to
+                # display it as.
+                angle = 360.0 - scaledValueLine.angle()
+
+                # Show downward angles as negative instead of from 270 to 360.
+                if 270.0 <= angle < 360.0:
+                    angle -= 360.0
+
+                # Text as the scaled angle.
+                text += "{:.2f} deg".format(angle) + os.linesep
+        else:
+            # No scene, so keep text empty.
+            text = ""
+
+        text = text.rstrip()
+        self.textItem.setText(text)
+        self.prepareGeometryChange()
+        
+    def setArtifact(self, artifact):
+        """Loads a given PriceBarChartLineSegmentArtifact object's data
+        into this QGraphicsItem.
+
+        Arguments:
+        artifact - PriceBarChartLineSegmentArtifact object with information
+                   about this TextGraphisItem
+        """
+
+        self.log.debug("Entering setArtifact()")
+
+        if isinstance(artifact, PriceBarChartLineSegmentArtifact):
+            self.artifact = artifact
+        else:
+            raise TypeError("Expected artifact type: " + \
+                            "PriceBarChartLineSegmentArtifact")
+
+        # Extract and set the internals according to the info 
+        # in this artifact object.
+        self.setPos(self.artifact.getPos())
+        self.setStartPointF(self.artifact.getStartPointF())
+        self.setEndPointF(self.artifact.getEndPointF())
+
+        self.lineSegmentTextXScaling = self.artifact.getTextXScaling()
+        self.lineSegmentTextYScaling = self.artifact.getTextYScaling()
+        self.lineSegmentTextFont = self.artifact.getFont()
+        self.lineSegmentGraphicsItemTextColor = \
+            self.artifact.getTextColor()
+        self.lineSegmentPen.setColor(self.artifact.getColor())
+        
+        self.tiltedTextFlag = self.artifact.getTiltedTextFlag()
+        self.angleTextFlag = self.artifact.getAngleTextFlag()
+
+        #############
+
+        # Set the position.
+        self.textItem.setPos(self.endPointF)
+
+        # Apply current attributes like color, brush, etc.
+        self.reApplyTextItemAttributes(self.textItem)
+
+        # Need to recalculate the lineSegment, since the scaling
+        # or start/end points may have changed.  Note, if no scene has
+        # been set for the QGraphicsView, then the price retracements
+        # will be zero, since it can't look up PriceBarGraphicsItems
+        # in the scene.
+        self.recalculateLineSegment()
+
+        # Update the lineSegment text item position.
+        self._updateTextItemPositions()
+        
+        self.log.debug("Exiting setArtifact()")
+
+    def getArtifact(self):
+        """Returns a PriceBarChartLineSegmentArtifact for this
+        QGraphicsItem so that it may be pickled.
+        """
+        
+        self.log.debug("Entered getArtifact()")
+        
+        # Update the internal self.priceBarChartLineSegmentArtifact 
+        # to be current, then return it.
+
+        self.artifact.setPos(self.pos())
+        self.artifact.setStartPointF(self.startPointF)
+        self.artifact.setEndPointF(self.endPointF)
+
+        self.artifact.setTextXScaling(self.lineSegmentTextXScaling)
+        self.artifact.setTextYScaling(self.lineSegmentTextYScaling)
+        self.artifact.setFont(self.lineSegmentTextFont)
+        self.artifact.setTextColor(self.lineSegmentGraphicsItemTextColor)
+        self.artifact.setColor(self.lineSegmentPen.color())
+        
+        self.artifact.setTiltedTextFlag(self.tiltedTextFlag)
+        self.artifact.setAngleTextFlag(self.angleTextFlag)
+
+        self.log.debug("Exiting getArtifact()")
+        
+        return self.artifact
+
+    def boundingRect(self):
+        """Returns the bounding rectangle for this graphicsitem."""
+
+        # Coordinate (0, 0) in local coordinates is the startPointF.
+        # If the user created the widget with the startPointF to the
+        # right of the endPointF, then the startPointF will have a
+        # higher X value than endPointF.
+
+        # The QRectF returned is relative to this (0, 0) point.
+
+        textItemRectTopLeft = \
+            self.textItem.mapToParent(\
+            self.textItem.boundingRect().topLeft())
+        textItemRectBottomRight = \
+            self.textItem.mapToParent(\
+            self.textItem.boundingRect().bottomRight())
+                                
+        rv = self.shape().boundingRect() | \
+             QRectF(textItemRectTopLeft, textItemRectBottomRight)
+
+        return rv
+
+    def shape(self):
+        """Overwrites the QGraphicsItem.shape() function to return a
+        more accurate shape for collision detection, hit tests, etc.
+        """
+
+        # Calculate the points that would be the selection box area
+        # around the line.
+
+        # Start and end points in local coordinates.
+        localStartPointF = self.mapFromScene(self.startPointF)
+        localEndPointF = self.mapFromScene(self.endPointF)
+
+        # Utilize scaling from the scene if it is available.
+        scaling = PriceBarChartScaling()
+        if self.scene() != None:
+            scaling = self.scene().getScaling()
+            
+        viewScaledStartPoint = \
+            QPointF(self.startPointF.x() * scaling.getViewScalingX(),
+                    self.startPointF.y() * scaling.getViewScalingY())
+        viewScaledEndPoint = \
+            QPointF(self.endPointF.x() * scaling.getViewScalingX(),
+                    self.endPointF.y() * scaling.getViewScalingY())
+
+        # Here we are calculating the angle of the text and the line
+        # as the user would see it.  Actual angle is different if we
+        # are calculating it from a scene perspective.
+        angleDeg = QLineF(viewScaledStartPoint, viewScaledEndPoint).angle()
+        angleRad = math.radians(angleDeg)
+        
+        shiftX = math.cos(angleRad) * \
+                     (0.5 * self.lineSegmentGraphicsItemBarWidth)
+        shiftY = math.sin(angleRad) * \
+                     (0.5 * self.lineSegmentGraphicsItemBarWidth)
+
+        # Create new points.
+        p1 = \
+            QPointF(localStartPointF.x() - shiftX,
+                    localStartPointF.y() - shiftY)
+        p2 = \
+            QPointF(localStartPointF.x() + shiftX,
+                    localStartPointF.y() + shiftY)
+        p3 = \
+            QPointF(localEndPointF.x() - shiftX,
+                    localEndPointF.y() - shiftY)
+        p4 = \
+            QPointF(localEndPointF.x() + shiftX,
+                    localEndPointF.y() + shiftY)
+
+        points = [p2, p1, p3, p4, p2]
+        polygon = QPolygonF(points)
+
+        painterPath = QPainterPath()
+        painterPath.addPolygon(polygon)
+
+        return painterPath
+        
+    def paint(self, painter, option, widget):
+        """Paints this QGraphicsItem.  Assumes that self.pen is set
+        to what we want for the drawing style.
+        """
+
+        self.log.debug("LineSegmentGraphicsItem.paint()")
+        
+        if painter.pen() != self.lineSegmentPen:
+            painter.setPen(self.lineSegmentPen)
+        
+        # Draw the line.
+        localStartPointF = self.mapFromScene(self.startPointF)
+        localEndPointF = self.mapFromScene(self.endPointF)
+        painter.drawLine(QLineF(localStartPointF, localEndPointF))
+        
+        # Draw the shape if the item is selected.
+        if option.state & QStyle.State_Selected:
+            pad = self.lineSegmentPen.widthF() * 0.5;
+            penWidth = 0.0
+            fgcolor = option.palette.windowText().color()
+            
+            # Ensure good contrast against fgcolor.
+            r = 255
+            g = 255
+            b = 255
+            if fgcolor.red() > 127:
+                r = 0
+            if fgcolor.green() > 127:
+                g = 0
+            if fgcolor.blue() > 127:
+                b = 0
+            
+            bgcolor = QColor(r, g, b)
+            
+            painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawPath(self.shape())
+            
+            painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawPath(self.shape())
+
+    def appendActionsToContextMenu(self, menu, readOnlyMode=False):
+        """Modifies the given QMenu object to update the title and add
+        actions relevant to this LineSegmentGraphicsItem.  Actions that
+        are triggered from this menu run various methods in the
+        LineSegmentGraphicsItem to handle the desired functionality.
+        
+        Arguments:
+        menu - QMenu object to modify.
+        readOnlyMode - bool value that indicates the actions are to be
+                       readonly actions.
+        """
+
+        menu.setTitle(self.artifact.getInternalName())
+        
+        # These are the QActions that are in the menu.
+        parent = menu
+        selectAction = QAction("&Select", parent)
+        unselectAction = QAction("&Unselect", parent)
+        removeAction = QAction("Remove", parent)
+        infoAction = QAction("&Info", parent)
+        editAction = QAction("&Edit", parent)
+        extendStartPointAction = \
+            QAction("Ex&tend start point {}-fold".\
+                    format(self.extendMultiple), parent)
+        extendEndPointAction = \
+            QAction("E&xtend end point by {}-fold".\
+                    format(self.extendMultiple), parent)
+        
+        setStartOnAstro1Action = \
+            QAction("Set start timestamp on Astro Chart &1", parent)
+        setStartOnAstro2Action = \
+            QAction("Set start timestamp on Astro Chart &2", parent)
+        setStartOnAstro3Action = \
+            QAction("Set start timestamp on Astro Chart &3", parent)
+        setEndOnAstro1Action = \
+            QAction("Set end timestamp on Astro Chart 1", parent)
+        setEndOnAstro2Action = \
+            QAction("Set end timestamp on Astro Chart 2", parent)
+        setEndOnAstro3Action = \
+            QAction("Set end timestamp on Astro Chart 3", parent)
+        
+        selectAction.triggered.\
+            connect(self._handleSelectAction)
+        unselectAction.triggered.\
+            connect(self._handleUnselectAction)
+        removeAction.triggered.\
+            connect(self._handleRemoveAction)
+        infoAction.triggered.\
+            connect(self._handleInfoAction)
+        editAction.triggered.\
+            connect(self._handleEditAction)
+        extendStartPointAction.triggered.\
+            connect(self._handleExtendStartPointAction)
+        extendEndPointAction.triggered.\
+            connect(self._handleExtendEndPointAction)
+        setStartOnAstro1Action.triggered.\
+            connect(self._handleSetStartOnAstro1Action)
+        setStartOnAstro2Action.triggered.\
+            connect(self._handleSetStartOnAstro2Action)
+        setStartOnAstro3Action.triggered.\
+            connect(self._handleSetStartOnAstro3Action)
+        setEndOnAstro1Action.triggered.\
+            connect(self._handleSetEndOnAstro1Action)
+        setEndOnAstro2Action.triggered.\
+            connect(self._handleSetEndOnAstro2Action)
+        setEndOnAstro3Action.triggered.\
+            connect(self._handleSetEndOnAstro3Action)
+        
+        # Enable or disable actions.
+        selectAction.setEnabled(True)
+        unselectAction.setEnabled(True)
+        removeAction.setEnabled(not readOnlyMode)
+        infoAction.setEnabled(True)
+        editAction.setEnabled(not readOnlyMode)
+        extendStartPointAction.setEnabled(not readOnlyMode)
+        extendEndPointAction.setEnabled(not readOnlyMode)
+        setStartOnAstro1Action.setEnabled(True)
+        setStartOnAstro2Action.setEnabled(True)
+        setStartOnAstro3Action.setEnabled(True)
+        setEndOnAstro1Action.setEnabled(True)
+        setEndOnAstro2Action.setEnabled(True)
+        setEndOnAstro3Action.setEnabled(True)
+
+        # Add the QActions to the menu.
+        menu.addAction(selectAction)
+        menu.addAction(unselectAction)
+        menu.addSeparator()
+        menu.addAction(removeAction)
+        menu.addSeparator()
+        menu.addAction(infoAction)
+        menu.addAction(editAction)
+        menu.addSeparator()
+        menu.addAction(extendStartPointAction)
+        menu.addAction(extendEndPointAction)
+        menu.addSeparator()
+        menu.addAction(setStartOnAstro1Action)
+        menu.addAction(setStartOnAstro2Action)
+        menu.addAction(setStartOnAstro3Action)
+        menu.addSeparator()
+        menu.addAction(setEndOnAstro1Action)
+        menu.addAction(setEndOnAstro2Action)
+        menu.addAction(setEndOnAstro3Action)
+
+    def _handleSelectAction(self):
+        """Causes the QGraphicsItem to become selected."""
+
+        self.setSelected(True)
+
+    def _handleUnselectAction(self):
+        """Causes the QGraphicsItem to become unselected."""
+
+        self.setSelected(False)
+
+    def _handleRemoveAction(self):
+        """Causes the QGraphicsItem to be removed from the scene."""
+        
+        scene = self.scene()
+        scene.removeItem(self)
+
+        # Emit signal to show that an item is removed.
+        # This sets the dirty flag.
+        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+        
+    def _handleInfoAction(self):
+        """Causes a dialog to be executed to show information about
+        the QGraphicsItem.
+        """
+
+        artifact = self.getArtifact()
+        dialog = PriceBarChartLineSegmentArtifactEditDialog(artifact,
+                                                         self.scene(),
+                                                         readOnlyFlag=True)
+        
+        # Run the dialog.  We don't care about what is returned
+        # because the dialog is read-only.
+        rv = dialog.exec_()
+        
+    def _handleEditAction(self):
+        """Causes a dialog to be executed to edit information about
+        the QGraphicsItem.
+        """
+
+        artifact = self.getArtifact()
+        dialog = PriceBarChartLineSegmentArtifactEditDialog(artifact,
+                                                         self.scene(),
+                                                         readOnlyFlag=False)
+        
+        rv = dialog.exec_()
+        
+        if rv == QDialog.Accepted:
+            # If the dialog is accepted then the underlying artifact
+            # object was modified.  Set the artifact to this
+            # PriceBarChartArtifactGraphicsItem, which will cause it to be
+            # reloaded in the scene.
+            self.setArtifact(artifact)
+
+            # Flag that a redraw of this QGraphicsItem is required.
+            self.update()
+
+            # Emit that the PriceBarChart has changed so that the
+            # dirty flag can be set.
+            self.scene().priceBarChartChanged.emit()
+        else:
+            # The user canceled so don't change anything.
+            pass
+        
+    def _handleExtendStartPointAction(self):
+        """Updates the QGraphicsItem so that the start point is a
+        self.extendMultiple of the current distance away from end
+        point.  The artifact is edited too to correspond with this change.
+        """
+
+        # Get the X and Y deltas between the start and end points.
+        deltaX = self.endPointF.x() - self.startPointF.x()
+        deltaY = self.endPointF.y() - self.startPointF.y()
+
+        # Calculate the new offsets from the end point.
+        offsetX = deltaX * self.extendMultiple
+        offsetY = deltaY * self.extendMultiple
+
+        # Calculate new start point X and Y values.
+        newStartPointX = self.endPointF.x() - offsetX
+        newStartPointY = self.endPointF.y() - offsetY
+
+        # Update the QGraphicsItem manually.
+        newStartPointF = QPointF(newStartPointX, newStartPointY)
+        
+        # Call the parent version for setPos(), not the self version
+        # because the self version moves both the start and end
+        # points.  We want to keep the end point the same.
+        super().setPos(newStartPointF)
+        self.startPointF = newStartPointF
+        
+        # Update the artifact.
+        self.artifact.setPos(self.startPointF)
+        self.artifact.setStartPointF(self.startPointF)
+
+        # Refresh the item so that the textItem and drawing can be updated.
+        self.refreshItem()
+
+        # Emit that the chart has changed.
+        self.scene().priceBarChartChanged.emit()
+        
+    def _handleExtendEndPointAction(self):
+        """Updates the QGraphicsItem so that the end point is a
+        self.extendMultiple of the current distance away from start
+        point.  The artifact is edited too to correspond with this change.
+        """
+
+        # Get the X and Y deltas between the start and end points.
+        deltaX = self.endPointF.x() - self.startPointF.x()
+        deltaY = self.endPointF.y() - self.startPointF.y()
+
+        # Calculate the new offsets from the end point.
+        offsetX = deltaX * self.extendMultiple
+        offsetY = deltaY * self.extendMultiple
+
+        # Calculate new end point X and Y values.
+        newEndPointX = self.startPointF.x() + offsetX
+        newEndPointY = self.startPointF.y() + offsetY
+
+        # Update the QGraphicsItem manually.
+        newEndPointF = QPointF(newEndPointX, newEndPointY)
+        self.setEndPointF(newEndPointF)
+        
+        # Update the artifact.
+        self.artifact.setEndPointF(newEndPointF)
+        
+        # Refresh the item so that the textItem and drawing can be updated.
+        self.refreshItem()
+        
+        # Emit that the chart has changed.
+        self.scene().priceBarChartChanged.emit()
+        
+    def _handleSetStartOnAstro1Action(self):
+        """Causes the astro chart 1 to be set with the timestamp
+        of the start the LineSegmentGraphicsItem.
+        """
+
+        self.scene().setAstroChart1(self.startPointF.x())
+        
+    def _handleSetStartOnAstro2Action(self):
+        """Causes the astro chart 2 to be set with the timestamp
+        of the start the LineSegmentGraphicsItem.
+        """
+
+        self.scene().setAstroChart2(self.startPointF.x())
+        
+    def _handleSetStartOnAstro3Action(self):
+        """Causes the astro chart 3 to be set with the timestamp
+        of the start the LineSegmentGraphicsItem.
+        """
+
+        self.scene().setAstroChart3(self.startPointF.x())
+        
+    def _handleSetEndOnAstro1Action(self):
+        """Causes the astro chart 1 to be set with the timestamp
+        of the end the LineSegmentGraphicsItem.
+        """
+
+        self.scene().setAstroChart1(self.endPointF.x())
+
+    def _handleSetEndOnAstro2Action(self):
+        """Causes the astro chart 2 to be set with the timestamp
+        of the end the LineSegmentGraphicsItem.
+        """
+
+        self.scene().setAstroChart2(self.endPointF.x())
+
+    def _handleSetEndOnAstro3Action(self):
+        """Causes the astro chart 3 to be set with the timestamp
+        of the end the LineSegmentGraphicsItem.
+        """
+
+        self.scene().setAstroChart3(self.endPointF.x())
+
+
 class PriceBarChartWidget(QWidget):
     """Widget holding the QGraphicsScene and QGraphicsView that displays
     the PriceBar information along with other indicators and analysis
@@ -12068,7 +13216,8 @@ class PriceBarChartWidget(QWidget):
                 "PriceMeasurementTool" : 11,
                 "TimeRetracementTool"  : 12,
                 "PriceRetracementTool" : 13,
-                "PriceTimeVectorTool"  : 14 }
+                "PriceTimeVectorTool"  : 14,
+                "LineSegmentTool"  : 15 }
 
 
 
@@ -12682,6 +13831,26 @@ class PriceBarChartWidget(QWidget):
 
                 addedItemFlag = True
 
+            elif isinstance(artifact, PriceBarChartLineSegmentArtifact):
+                self.log.debug("Loading artifact: " + artifact.toString())
+                
+                newItem = LineSegmentGraphicsItem()
+                newItem.loadSettingsFromPriceBarChartSettings(\
+                    self.priceBarChartSettings)
+                newItem.setArtifact(artifact)
+
+                # Add the item.
+                self.graphicsScene.addItem(newItem)
+                
+                # Make sure the proper flags are set for the mode we're in.
+                self.graphicsView.setGraphicsItemFlagsPerCurrToolMode(newItem)
+
+                # Need to refresh the item (recalculate) since it
+                # wasn't in the QGraphicsScene until now.
+                newItem.refreshItem()
+
+                addedItemFlag = True
+
         if addedItemFlag == True:
             # Emit that the PriceBarChart has changed.
             self.graphicsScene.priceBarChartChanged.emit()
@@ -12866,6 +14035,11 @@ class PriceBarChartWidget(QWidget):
                                "PriceTimeVectorGraphicsItem.")
                 # Redo calculations in case the scaling changed.
                 item.recalculatePriceTimeVector()
+            elif isinstance(item, LineSegmentGraphicsItem):
+                self.log.debug("Not applying settings to " +
+                               "LineSegmentGraphicsItem.")
+                # Redo calculations in case the scaling changed.
+                item.recalculateLineSegment()
                 
         if settingsChangedFlag == True:
             # Emit that the PriceBarChart has changed, because we have
@@ -13068,6 +14242,20 @@ class PriceBarChartWidget(QWidget):
             self.graphicsView.toPriceTimeVectorToolMode()
 
         self.log.debug("Exiting toPriceTimeVectorToolMode()")
+
+    def toLineSegmentToolMode(self):
+        """Changes the tool mode to be the LineSegmentTool."""
+
+        self.log.debug("Entered toLineSegmentToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != \
+               PriceBarChartWidget.ToolMode['LineSegmentTool']:
+            
+            self.toolMode = PriceBarChartWidget.ToolMode['LineSegmentTool']
+            self.graphicsView.toLineSegmentToolMode()
+
+        self.log.debug("Exiting toLineSegmentToolMode()")
 
     def _handleMouseLocationUpdate(self, x, y):
         """Handles mouse location changes in the QGraphicsView.  
@@ -14084,7 +15272,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 "PriceMeasurementTool" : 11,
                 "TimeRetracementTool"  : 12,
                 "PriceRetracementTool" : 13,
-                "PriceTimeVectorTool"  : 14 }
+                "PriceTimeVectorTool"  : 14,
+                "LineSegmentTool"  : 15 }
 
     # Signal emitted when the mouse moves within the QGraphicsView.
     # The position emitted is in QGraphicsScene x, y, float coordinates.
@@ -14161,6 +15350,10 @@ class PriceBarChartGraphicsView(QGraphicsView):
         # as it is modified in PriceTimeVectorToolMode.
         self.priceTimeVectorGraphicsItem = None
 
+        # Variable used for storing the new LineSegmentGraphicsItem,
+        # as it is modified in LineSegmentToolMode.
+        self.lineSegmentGraphicsItem = None
+
         # Variable used for storing that snapping to the closest bar
         # high or low is enabled.
         #
@@ -14173,6 +15366,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
         #   - TimeRetracementTool
         #   - PriceRetracementTool
         #   - PriceTimeVectorTool
+        #   - LineSegmentTool
         #
         self.snapEnabledFlag = True
 
@@ -14364,6 +15558,15 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PriceTimeVectorTool']:
+
+            if isinstance(item, PriceBarGraphicsItem):
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+            elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                item.setReadOnlyFlag(True)
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['LineSegmentTool']:
 
             if isinstance(item, PriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
@@ -14804,6 +16007,36 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.setGraphicsItemFlagsPerCurrToolMode(item)
                     
         self.log.debug("Exiting toPriceTimeVectorToolMode()")
+
+    def toLineSegmentToolMode(self):
+        """Changes the tool mode to be the LineSegmentTool."""
+
+        self.log.debug("Entered toLineSegmentToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != \
+                PriceBarChartGraphicsView.ToolMode['LineSegmentTool']:
+
+            self.toolMode = \
+                PriceBarChartGraphicsView.ToolMode['LineSegmentTool']
+
+            self.setCursor(QCursor(Qt.ArrowCursor))
+            self.setDragMode(QGraphicsView.NoDrag)
+
+            # Clear out internal working variables.
+            self.clickOnePointF = None
+            self.clickTwoPointF = None
+            self.lineSegmentGraphicsItem = None
+
+            scene = self.scene()
+            if scene != None:
+                scene.clearSelection()
+
+                items = scene.items()
+                for item in items:
+                    self.setGraphicsItemFlagsPerCurrToolMode(item)
+                    
+        self.log.debug("Exiting toLineSegmentToolMode()")
 
     def createContextMenu(self, clickPosF, readOnlyFlag):
         """Creates a context menu for a right-click somewhere in
@@ -15309,6 +16542,32 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
                 self.priceTimeVectorGraphicsItem = None
+            elif qkeyevent.key() == Qt.Key_Q:
+                # Turn on snap functionality.
+                self.snapEnabledFlag = True
+                self.log.debug("Snap mode enabled.")
+                self.statusMessageUpdate.emit("Snap mode enabled")
+            elif qkeyevent.key() == Qt.Key_W:
+                # Turn off snap functionality.
+                self.snapEnabledFlag = False
+                self.log.debug("Snap mode disabled.")
+                self.statusMessageUpdate.emit("Snap mode disabled")
+            else:
+                super().keyPressEvent(qkeyevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['LineSegmentTool']:
+
+            if qkeyevent.key() == Qt.Key_Escape:
+                # Escape key causes any currently edited item to
+                # be removed and cleared out.  Temporary variables used
+                # are cleared out too.
+                if self.lineSegmentGraphicsItem != None:
+                    self.scene().removeItem(self.lineSegmentGraphicsItem)
+
+                self.clickOnePointF = None
+                self.clickTwoPointF = None
+                self.lineSegmentGraphicsItem = None
             elif qkeyevent.key() == Qt.Key_Q:
                 # Turn on snap functionality.
                 self.snapEnabledFlag = True
@@ -16805,6 +18064,153 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 else:
                     self.log.warn("Unexpected state reached.")
                     
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['LineSegmentTool']:
+            
+            self.log.debug("Current toolMode is: LineSegmentTool")
+
+            if qmouseevent.button() & Qt.LeftButton:
+                self.log.debug("Qt.LeftButton")
+                
+                if self.clickOnePointF == None:
+                    self.log.debug("clickOnePointF == None")
+                
+                    self.clickOnePointF = self.mapToScene(qmouseevent.pos())
+
+                    # If snap is enabled, then find the closest
+                    # pricebar price to the place clicked.
+                    if self.snapEnabledFlag == True:
+                        self.log.debug("Snap is enabled, so snapping to " +
+                                       "closest pricebar X and Y.")
+                        
+                        infoPointF = self.mapToScene(qmouseevent.pos())
+                        closestPoint = \
+                            self.scene().\
+                            getClosestPriceBarOHLCViewPoint(infoPointF)
+
+                        # Use these X and Y values.
+                        self.clickOnePointF.setX(closestPoint.x())
+                        self.clickOnePointF.setY(closestPoint.y())
+                    
+                    # Create the LineSegmentGraphicsItem and
+                    # initialize it to the mouse location.
+                    self.lineSegmentGraphicsItem = \
+                        LineSegmentGraphicsItem()
+                    self.lineSegmentGraphicsItem.\
+                        loadSettingsFromPriceBarChartSettings(\
+                            self.priceBarChartSettings)
+        
+                    self.lineSegmentGraphicsItem.\
+                        setPos(self.clickOnePointF)
+                    self.lineSegmentGraphicsItem.\
+                        setStartPointF(self.clickOnePointF)
+                    self.lineSegmentGraphicsItem.\
+                        setEndPointF(self.clickOnePointF)
+                    self.scene().addItem(self.lineSegmentGraphicsItem)
+                    
+                    # Make sure the proper flags are set for the mode we're in.
+                    self.setGraphicsItemFlagsPerCurrToolMode(\
+                        self.lineSegmentGraphicsItem)
+
+                elif self.clickOnePointF != None and \
+                    self.clickTwoPointF == None and \
+                    self.lineSegmentGraphicsItem != None:
+
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "lineSegmentGraphicsItem != None.")
+                    
+                    # Set the end point of the LineSegmentGraphicsItem.
+                    self.clickTwoPointF = self.mapToScene(qmouseevent.pos())
+
+                    # If snap is enabled, then find the closest
+                    # pricebar price to the place clicked.
+                    if self.snapEnabledFlag == True:
+                        self.log.debug("Snap is enabled, so snapping to " +
+                                       "closest pricebar X and Y.")
+                        
+                        infoPointF = self.mapToScene(qmouseevent.pos())
+                        closestPoint = \
+                            self.scene().\
+                            getClosestPriceBarOHLCViewPoint(infoPointF)
+
+                        # Use these X and Y values.
+                        self.clickTwoPointF.setX(closestPoint.x())
+                        self.clickTwoPointF.setY(closestPoint.y())
+                    
+                    self.lineSegmentGraphicsItem.\
+                        setEndPointF(self.clickTwoPointF)
+                    self.lineSegmentGraphicsItem.normalizeStartAndEnd()
+        
+                    # Call getArtifact() so that the item's artifact
+                    # object gets updated and set.
+                    self.lineSegmentGraphicsItem.getArtifact()
+                                                
+                    # Emit that the PriceBarChart has changed.
+                    self.scene().priceBarChartArtifactGraphicsItemAdded.\
+                        emit(self.lineSegmentGraphicsItem)
+                    
+                    sceneBoundingRect = \
+                        self.lineSegmentGraphicsItem.sceneBoundingRect()
+                    
+                    self.log.debug("lineSegmentGraphicsItem " +
+                                   "officially added.  " +
+                                   "Its sceneBoundingRect is: {}.  ".\
+                                   format(sceneBoundingRect) +
+                                   "Its x range is: {} to {}.  ".\
+                                   format(sceneBoundingRect.left(),
+                                          sceneBoundingRect.right()) +
+                                   "Its y range is: {} to {}.  ".\
+                                   format(sceneBoundingRect.top(),
+                                          sceneBoundingRect.bottom()))
+                    
+                    # Clear out working variables.
+                    self.clickOnePointF = None
+                    self.clickTwoPointF = None
+                    self.lineSegmentGraphicsItem = None
+                    
+                else:
+                    self.log.warn("Unexpected state reached.")
+                    
+            elif qmouseevent.button() & Qt.RightButton:
+                
+                self.log.debug("Qt.RightButton")
+                
+                if self.clickOnePointF != None and \
+                   self.clickTwoPointF == None and \
+                   self.lineSegmentGraphicsItem != None:
+
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "lineSegmentGraphicsItem != None.")
+                    
+                    # Right-click during setting the
+                    # LineSegmentGraphicsItem causes the
+                    # currently edited bar count item to be removed
+                    # and cleared out.  Temporary variables used are
+                    # cleared out too.
+                    self.scene().removeItem(self.lineSegmentGraphicsItem)
+
+                    self.clickOnePointF = None
+                    self.clickTwoPointF = None
+                    self.lineSegmentGraphicsItem = None
+                    
+                elif self.clickOnePointF == None and \
+                     self.clickTwoPointF == None and \
+                     self.lineSegmentGraphicsItem == None:
+                    
+                    self.log.debug("clickOnePointF == None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "lineSegmentGraphicsItem == None.")
+                    
+                    # Open a context menu at this location, in readonly mode.
+                    clickPosF = self.mapToScene(qmouseevent.pos())
+                    menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
+                    menu.exec_(qmouseevent.globalPos())
+                    
+                else:
+                    self.log.warn("Unexpected state reached.")
+                    
         else:
             self.log.warn("Current toolMode is: UNKNOWN.")
 
@@ -16917,6 +18323,12 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 PriceBarChartGraphicsView.ToolMode['PriceTimeVectorTool']:
 
             self.log.debug("Current toolMode is: PriceTimeVectorTool")
+            super().mouseReleaseEvent(qmouseevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['LineSegmentTool']:
+
+            self.log.debug("Current toolMode is: LineSegmentTool")
             super().mouseReleaseEvent(qmouseevent)
 
         else:
@@ -17099,6 +18511,20 @@ class PriceBarChartGraphicsView(QGraphicsView):
             else:
                 super().mouseMoveEvent(qmouseevent)
 
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['LineSegmentTool']:
+
+            if self.clickOnePointF != None and \
+                self.lineSegmentGraphicsItem != None:
+
+                pos = self.mapToScene(qmouseevent.pos())
+                
+                # Update the end point of the current
+                # LineSegmentGraphicsItem.
+                self.lineSegmentGraphicsItem.setEndPointF(pos)
+            else:
+                super().mouseMoveEvent(qmouseevent)
+
         else:
             # For any other mode we don't have specific functionality for,
             # just pass the event to the parent to handle.
@@ -17169,6 +18595,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
             self.setCursor(QCursor(Qt.ArrowCursor))
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PriceTimeVectorTool']:
+            self.setCursor(QCursor(Qt.ArrowCursor))
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['LineSegmentTool']:
             self.setCursor(QCursor(Qt.ArrowCursor))
         else:
             self.log.warn("Unknown toolMode while in enterEvent().")

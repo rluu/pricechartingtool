@@ -4465,6 +4465,241 @@ class PriceBarChartPriceTimeVectorArtifact(PriceBarChartArtifact):
                        PriceBarChartPriceTimeVectorArtifact.__name__ +
                        " object of version {}".format(self.classVersion))
 
+class PriceBarChartLineSegmentArtifact(PriceBarChartArtifact):
+    """PriceBarChartArtifact that indicates a line segment on the
+    graphics scene.
+    """
+    
+    def __init__(self):
+        super().__init__()
+        
+        # Set the version of this class (used for pickling and unpickling
+        # different versions of this class).
+        self.classVersion = 1
+
+        # Create the logger.
+        self.log = \
+            logging.\
+            getLogger("data_objects.PriceBarChartLineSegmentArtifact")
+
+        # Update the internal name so it is the artifact type plus the uuid.
+        self.internalName = "LineSegment_" + str(self.uuid)
+
+        # Start and end points of the artifact.
+        self.startPointF = QPointF()
+        self.endPointF = QPointF()
+
+        # Scaling the text, to make it bigger or smaller.
+        self.textXScaling = \
+            PriceBarChartSettings.\
+            defaultLineSegmentGraphicsItemTextXScaling
+        self.textYScaling = \
+            PriceBarChartSettings.\
+            defaultLineSegmentGraphicsItemTextYScaling
+        
+        # lineSegmentGraphicsItemColor (QColor).
+        self.color = \
+            PriceBarChartSettings.\
+                defaultLineSegmentGraphicsItemColor
+
+        # lineSegmentGraphicsItemTextColor (QColor).
+        self.textColor = \
+            PriceBarChartSettings.\
+                defaultLineSegmentGraphicsItemTextColor
+
+        # QFont cannot be pickled, but we can utilize
+        # QFont.toString() and then QFont.fromString()
+        self.fontDescription = \
+            PriceBarChartSettings.\
+            defaultLineSegmentGraphicsItemDefaultFontDescription
+        
+        # Flag for whether or not to show the text as tilted at the
+        # angle parallel to the line.
+        self.tiltedTextFlag = \
+            PriceBarChartSettings.\
+            defaultLineSegmentGraphicsItemTiltedTextFlag
+
+        # Flag for whether or not to show the text holding the scaled
+        # angle of the LineSegment.
+        self.angleTextFlag = \
+            PriceBarChartSettings.\
+            defaultLineSegmentGraphicsItemAngleTextFlag
+        
+    def setStartPointF(self, startPointF):
+        """Stores the starting point of the LineSegmentArtifact.
+        Arguments:
+
+        startPointF - QPointF for the starting point of the artifact.
+        """
+        
+        self.startPointF = startPointF
+        
+    def getStartPointF(self):
+        """Returns the starting point of the LineSegmentArtifact."""
+        
+        return self.startPointF
+        
+    def setEndPointF(self, endPointF):
+        """Stores the ending point of the LineSegmentArtifact.
+        Arguments:
+
+        endPointF - QPointF for the ending point of the artifact.
+        """
+        
+        self.endPointF = endPointF
+        
+    def getEndPointF(self):
+        """Returns the ending point of the LineSegmentArtifact."""
+        
+        return self.endPointF
+
+    def setTextXScaling(self, textXScaling):
+        """Sets the text X scaling, used in making the text 
+        bigger or smaller.
+
+        Arguments:
+        textXScaling - float value for the scaling used.
+                       1.0 is no change in scaling.
+        """
+
+        self.textXScaling = textXScaling
+
+    def getTextXScaling(self):
+        """Returns float value for the text X scaling, used in making
+        the text bigger or smaller.
+        """
+
+        return self.textXScaling
+        
+    def setTextYScaling(self, textYScaling):
+        """Sets the text Y scaling, used in making the text 
+        bigger or smaller.
+
+        Arguments:
+        textYScaling - float value for the scaling used.
+                       1.0 is no change in scaling.
+        """
+
+        self.textYScaling = textYScaling
+
+    def getTextYScaling(self):
+        """Returns float value for the text Y scaling, used in making
+        the text bigger or smaller.
+        """
+
+        return self.textYScaling
+        
+    def setColor(self, color):
+        """Sets the bar color.
+        
+        Arguments:
+        color - QColor object for the bar color.
+        """
+        
+        self.color = color
+
+    def getColor(self):
+        """Gets the bar color as a QColor object."""
+        
+        return self.color
+
+    def setTextColor(self, textColor):
+        """Sets the text color.
+        
+        Arguments:
+        textColor - QColor object for the text color.
+        """
+
+        self.textColor = textColor
+        
+    def getTextColor(self):
+        """Gets the text color as a QColor object."""
+
+        return self.textColor
+        
+    def setFont(self, font):
+        """Sets the font of this artifact's text.
+
+        Arguments:
+        font - QFont object that is used for the drawing of the text.
+        """
+
+        # QFont cannot be pickled, but we can utilize
+        # QFont.toString() and then QFont.fromString().
+        self.fontDescription = font.toString()
+
+    def getFont(self):
+        """Returns the font of this artifact's text as a QFont.
+        """
+
+        # We obtain the QFont by calling QFont.fromString().
+        font = QFont()
+        font.fromString(self.fontDescription)
+
+        return font
+        
+    def getTiltedTextFlag(self):
+        """Returns the tiltedTextFlag."""
+
+        return self.tiltedTextFlag
+        
+    def setTiltedTextFlag(self, flag):
+        """Sets a new value for the tiltedTextFlag."""
+
+        self.tiltedTextFlag = flag
+        
+    def getAngleTextFlag(self):
+        """Returns the angleTextFlag."""
+
+        return self.angleTextFlag
+        
+    def setAngleTextFlag(self, flag):
+        """Sets a new value for the angleTextFlag."""
+
+        self.angleTextFlag = flag
+        
+    def __str__(self):
+        """Returns the string representation of this object."""
+
+        return self.toString()
+
+    def toString(self):
+        """Returns the string representation of this object."""
+
+        rv = Util.objToString(self)
+        
+        return rv
+
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = \
+            logging.\
+            getLogger("data_objects.PriceBarChartLineSegmentArtifact")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " +
+                       PriceBarChartLineSegmentArtifact.__name__ +
+                       " object of version {}".format(self.classVersion))
+
 class PriceBarChartScaling:
     """Class that holds information about the scaling of a PriceBarChart.
     """
@@ -5369,6 +5604,36 @@ class PriceBarChartSettings:
     # angleTextFlag (bool).
     defaultPriceTimeVectorGraphicsItemAngleTextFlag = True
     
+    # Default color for the bar of a LineSegmentGraphicsItem (QColor).
+    defaultLineSegmentGraphicsItemColor = QColor(Qt.black)
+
+    # Default color for the text of a LineSegmentGraphicsItem (QColor).
+    defaultLineSegmentGraphicsItemTextColor = QColor(Qt.black)
+    
+    # Default value for the LineSegmentGraphicsItem bar width (float).
+    defaultLineSegmentGraphicsItemBarWidth = 0.3
+
+    # Default value for the LineSegmentGraphicsItem text X scaling (float).
+    defaultLineSegmentGraphicsItemTextXScaling = 0.2
+
+    # Default value for the LineSegmentGraphicsItem text Y scaling (float).
+    defaultLineSegmentGraphicsItemTextYScaling = 0.04
+
+    # Default font (this is basically the QFont, serialized to
+    # str) for the LineSegmentGraphicsItem.  This includes the
+    # font size.
+    font = QFont("Andale Mono")
+    font.setPointSizeF(6)
+    defaultLineSegmentGraphicsItemDefaultFontDescription = font.toString()
+
+    # Default value for the LineSegmentGraphicsItem 
+    # tiltedTextFlag (bool).
+    defaultLineSegmentGraphicsItemTiltedTextFlag = True
+    
+    # Default value for the LineSegmentGraphicsItem 
+    # angleTextFlag (bool).
+    defaultLineSegmentGraphicsItemAngleTextFlag = False
+    
     def __init__(self):
         """"Initializes the PriceChartSettings to default values."""
 
@@ -6018,6 +6283,48 @@ class PriceBarChartSettings:
         self.priceTimeVectorGraphicsItemAngleTextFlag = \
             PriceBarChartSettings.\
             defaultPriceTimeVectorGraphicsItemAngleTextFlag
+    
+        # LineSegmentGraphicsItem bar color (QColor).
+        self.lineSegmentGraphicsItemColor = \
+            PriceBarChartSettings.\
+            defaultLineSegmentGraphicsItemColor
+
+        # LineSegmentGraphicsItem text color (QColor).
+        self.lineSegmentGraphicsItemTextColor = \
+            PriceBarChartSettings.\
+            defaultLineSegmentGraphicsItemTextColor
+    
+        # LineSegmentGraphicsItem bar width (float).
+        self.lineSegmentGraphicsItemBarWidth = \
+            PriceBarChartSettings.\
+            defaultLineSegmentGraphicsItemBarWidth
+
+        # LineSegmentGraphicsItem text X scaling (float).
+        self.lineSegmentGraphicsItemTextXScaling = \
+            PriceBarChartSettings.\
+            defaultLineSegmentGraphicsItemTextXScaling
+
+        # LineSegmentGraphicsItem text Y scaling (float).
+        self.lineSegmentGraphicsItemTextYScaling = \
+            PriceBarChartSettings.\
+            defaultLineSegmentGraphicsItemTextYScaling
+
+        # Default font (this is basically the QFont, serialized to
+        # str) for the LineSegmentGraphicsItem.  This includes the
+        # font size.
+        self.lineSegmentGraphicsItemDefaultFontDescription = \
+            PriceBarChartSettings.\
+            defaultLineSegmentGraphicsItemDefaultFontDescription
+
+        # LineSegmentGraphicsItem tiltedTextFlag (bool).
+        self.lineSegmentGraphicsItemTiltedTextFlag = \
+            PriceBarChartSettings.\
+            defaultLineSegmentGraphicsItemTiltedTextFlag
+    
+        # LineSegmentGraphicsItem angleTextFlag (bool).
+        self.lineSegmentGraphicsItemAngleTextFlag = \
+            PriceBarChartSettings.\
+            defaultLineSegmentGraphicsItemAngleTextFlag
     
     def __getstate__(self):
         """Returns the object's state for pickling purposes."""

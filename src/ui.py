@@ -307,6 +307,13 @@ class MainWindow(QMainWindow):
         self.priceTimeVectorToolAction.setStatusTip("Price Time Vector Tool")
         self.priceTimeVectorToolAction.setCheckable(True)
 
+        # Create the LineSegmentToolAction
+        icon = QIcon()
+        self.lineSegmentToolAction = \
+            QAction(icon, "Line Segment Tool", self)
+        self.lineSegmentToolAction.setStatusTip("Line Segment Tool")
+        self.lineSegmentToolAction.setCheckable(True)
+
         # Create a QActionGroup because all these tool modes should be
         # exclusive.  
         self.toolActionGroup = QActionGroup(self)
@@ -326,6 +333,7 @@ class MainWindow(QMainWindow):
         self.toolActionGroup.addAction(self.textToolAction)
         self.toolActionGroup.addAction(self.priceTimeInfoToolAction)
         self.toolActionGroup.addAction(self.priceTimeVectorToolAction)
+        self.toolActionGroup.addAction(self.lineSegmentToolAction)
         self.toolActionGroup.triggered.connect(self._toolsActionTriggered)
             
         # Default to the ReadOnlyPointerTool being checked by default.
@@ -437,6 +445,7 @@ class MainWindow(QMainWindow):
         self.toolsMenu.addAction(self.textToolAction)
         self.toolsMenu.addAction(self.priceTimeInfoToolAction)
         self.toolsMenu.addAction(self.priceTimeVectorToolAction)
+        self.toolsMenu.addAction(self.lineSegmentToolAction)
 
         # Create the Window menu.
         self.windowMenu = self.menuBar().addMenu("&Window")
@@ -491,6 +500,7 @@ class MainWindow(QMainWindow):
         self.toolsToolBar.addAction(self.textToolAction)
         self.toolsToolBar.addAction(self.priceTimeInfoToolAction)
         self.toolsToolBar.addAction(self.priceTimeVectorToolAction)
+        self.toolsToolBar.addAction(self.lineSegmentToolAction)
 
     def _createStatusBar(self):
         """Creates the QStatusBar by showing the message "Ready"."""
@@ -549,6 +559,7 @@ class MainWindow(QMainWindow):
         self.timeRetracementToolAction.setEnabled(isActive)
         self.priceRetracementToolAction.setEnabled(isActive)
         self.priceTimeVectorToolAction.setEnabled(isActive)
+        self.lineSegmentToolAction.setEnabled(isActive)
 
         self.closeChartAction.setEnabled(isActive)
         self.closeAllChartsAction.setEnabled(isActive)
@@ -593,6 +604,8 @@ class MainWindow(QMainWindow):
                 priceChartDocument.toPriceRetracementToolMode()
             elif self.priceTimeVectorToolAction.isChecked():
                 priceChartDocument.toPriceTimeVectorToolMode()
+            elif self.lineSegmentToolAction.isChecked():
+                priceChartDocument.toLineSegmentToolMode()
             else:
                 self.log.warn("No ToolMode QAction is currently selected!")
 
@@ -1361,6 +1374,9 @@ class MainWindow(QMainWindow):
         elif qaction == self.priceTimeVectorToolAction:
             self.log.debug("priceTimeVectorToolAction triggered.")
             pcd.toPriceTimeVectorToolMode()
+        elif qaction == self.lineSegmentToolAction:
+            self.log.debug("lineSegmentToolAction triggered.")
+            pcd.toLineSegmentToolMode()
         else:
             self.log.warn("Unknown Tools QAction selected!  " + \
                 "There might be something wrong with the code, or " + \
@@ -2110,6 +2126,11 @@ class PriceChartDocument(QMdiSubWindow):
 
         self.widgets.toPriceTimeVectorToolMode()
 
+    def toLineSegmentToolMode(self):
+        """Changes the tool mode to be the LineSegmentTool."""
+
+        self.widgets.toLineSegmentToolMode()
+
     def _handlePriceChartDocumentWidgetChanged(self):
         """Slot for when the PriceBarDocumentWidget emits a signal to say
         that the widget(s) changed.  This means the document should be
@@ -2415,6 +2436,11 @@ class PriceChartDocumentWidget(QWidget):
         """Changes the tool mode to be the PriceTimeVectorTool."""
 
         self.priceBarChartWidget.toPriceTimeVectorToolMode()
+
+    def toLineSegmentToolMode(self):
+        """Changes the tool mode to be the LineSegmentTool."""
+
+        self.priceBarChartWidget.toLineSegmentToolMode()
 
     def _handleWidgetChanged(self):
         """Handles when the internal widget has some kind of change
