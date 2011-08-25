@@ -11592,8 +11592,17 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 text += "sqrt(d_u)={:.4f}".\
                     format(self.sqrtDistanceScaledValue) + os.linesep
             if self.angleTextFlag == True:
-                text += "scaled_angle={:.2f} deg".\
-                    format(360.0 - scaledValueLine.angle()) + os.linesep
+                # Subtract from 30 since the angle given is in the
+                # opposite rotational direction from what we want to
+                # display it as.
+                angle = 360.0 - scaledValueLine.angle()
+
+                # Show downward angles as negative instead of from 180 to 360.
+                if 270.0 <= angle < 360.0:
+                    angle -= 360.0
+
+                # Text as the scaled angle.
+                text += "{:.2f} deg".format(angle) + os.linesep
         else:
             # No scene, so keep text empty.
             text = ""
