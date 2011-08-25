@@ -11597,7 +11597,7 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 # display it as.
                 angle = 360.0 - scaledValueLine.angle()
 
-                # Show downward angles as negative instead of from 180 to 360.
+                # Show downward angles as negative instead of from 270 to 360.
                 if 270.0 <= angle < 360.0:
                     angle -= 360.0
 
