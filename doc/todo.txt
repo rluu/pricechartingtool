@@ -102,9 +102,66 @@ DONE         - Time Measurement Tool
 DONE         - PriceTimeInfo Tool
 DONE         - PriceTimeVector Tool
 DONE
+DONE  - Line segment tool.  (when selected, box is drawn around it.  need
+DONE    property/setting for the invisible 'width' of the line segment.)
+DONE
+DONE        - Need to add context menu option for extending line to the
+DONE          right or left by 2x.
+DONE
+DONE        - Use 'snap' enabled flag for line segment tool.
+DONE
 
   - Set sensible defaults for TimeMeasurementTool (which text to have
     displayed by default).
+
+  - Add a menu for various actions (Menu called 'Astro Actions' or
+    'Miscellaneous Actions'?).
+
+    Options to add are (may need to organize this better):
+
+      - Enable/disabling of mouse-pointer-position to astro chart 1
+        for the current PriceChartDocument.
+
+      - Enable/disabling of mouse-pointer-position to astro chart 2
+        for the current PriceChartDocument.
+
+      - Enable/disabling of mouse-pointer-position to astro chart 3
+        for the current PriceChartDocument.
+
+      - Opening JHora (no arguments, so the current time).
+        This calls some function in MainWindow to do the work (with
+        no args for the birthTime and birthLoction).
+
+      - Open JHora with the current PriceChartDocument's birth time/location.
+        This calls the current document's launchJHora() function with
+        the document's birthInfo and birth timestamp.  launchJHora()
+        will do the necessary signal emits to eventually call
+        MainWindow's launching function for JHora.
+
+      - Open JHora with the current PriceChartDocument's location/timezone, but
+        at the current moment in time (now).
+
+      - Set the current PriceChartDocument's birth time/location in
+        its astro chart 1.
+
+      - Set the current moment in time (now) in the current
+        PriceChartDocument's astro chart 1 with the
+        PriceChartDocument's location/timezone.
+
+      - Set the current PriceChartDocument's birth time/location in
+        its astro chart 2.
+
+      - Set the current moment in time (now) in the current
+        PriceChartDocument's astro chart 2 with the
+        PriceChartDocument's location/timezone.
+
+      - Set the current PriceChartDocument's birth time/location in
+        its astro chart 3.
+
+      - Set the current moment in time (now) in the current
+        PriceChartDocument's astro chart 3 with the
+        PriceChartDocument's location/timezone.
+
 
   - Need to add the following time measurements to the time measurement tool:
 
@@ -154,14 +211,6 @@ DONE
     astro charts.
 
   - Add panchanga fields and the rulers onto the astro charts.
-
-  - Line segment tool.  (when selected, box is drawn around it.  need
-    property/setting for the invisible 'width' of the line segment.)
-
-        - Need to add context menu option for extending line to the
-          right or left by 2x.
-
-        - Use 'snap' enabled flag for line segment tool.
 
   - Octave fan (which is a more general Gann fan).
      - Defined by origin and other 2 points.
@@ -280,8 +329,10 @@ DONE
 
   - Need to implement the following:
      - traditional circle astro charts.
+        - May need zoom for this.
      - vedic astro charts.
      - square of 9 and other number charts.
+        - May need zoom for this.
      - spreadsheet widget (chart).
 
      - Things to think about:
@@ -291,3 +342,5 @@ DONE
          circle astro chart overlapping the square of 9 on a
          QGraphicsScene.  That way I can do a transform on one
          (rotation) to anchor or align one with the other.
+
+         May need zoom for this.

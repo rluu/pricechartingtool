@@ -5635,7 +5635,7 @@ class PriceBarChartSettings:
     defaultLineSegmentGraphicsItemAngleTextFlag = False
     
     def __init__(self):
-        """"Initializes the PriceChartSettings to default values."""
+        """Initializes the PriceChartSettings to default values."""
 
         # Logger
         self.log = logging.getLogger("data_objects.PriceBarChartSettings")

@@ -2214,9 +2214,11 @@ class PriceChartDocumentWidget(QWidget):
         #    connect(self._handleCurrentTimestampChanged)
         
         # TODO:  Add methods to handle for the following astro signals:
+        # TODO:  Make sure to handle the timezone stuff (and test thoroughly).
         # self.priceBarChartWidget.astroChart1Update
         # self.priceBarChartWidget.astroChart2Update
         # self.priceBarChartWidget.astroChart3Update
+        # self.priceBarChartWidget.jhoraLaunch
         
     def setBirthInfo(self, birthInfo):
         """Sets the birth info for this trading entity.
@@ -2451,6 +2453,27 @@ class PriceChartDocumentWidget(QWidget):
 
         self.priceChartDocumentWidgetChanged.emit()
 
+    def jhoraLaunch(self, dt=None):
+        """Opens JHora with the given datetime.datetime timestamp.
+        Uses the currently set self.birthInfo object for timezone
+        information.
+        
+        Arguments:
+        
+        dt - datetime.datetime object holding the timestamp to use for
+             launching and viewing in JHora.  If dt is None, then JHora is
+             opened with the current time (the default behavior of JHora
+             with no file argument).
+        """
+
+        # TODO:  write this function.
+        
+        # My thoughts: Should I just bubble this up again two more
+        # times (via emitting signals) all the way up to MainWindow?
+        # And then from here we will launch JHora.  Passing it up from
+        # here we should include the relevant birthInfo/timezone.
+        pass
+        
     def _handleCurrentTimestampChanged(self, dt):
         """Handles when the current mouse cursor datetime changes.
         This just calls certain widgets to update their
