@@ -4242,8 +4242,14 @@ class PriceBarChartPriceTimeVectorArtifact(PriceBarChartArtifact):
         # angle parallel to the line.
         self.tiltedTextFlag = \
             PriceBarChartSettings.\
-                defaultPriceTimeVectorGraphicsItemTiltedTextFlag
-                                
+            defaultPriceTimeVectorGraphicsItemTiltedTextFlag
+
+        # Flag for whether or not to show the text holding the scaled
+        # angle of the PriceTimeVector.
+        self.angleTextFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeVectorGraphicsItemAngleTextFlag
+        
     def setStartPointF(self, startPointF):
         """Stores the starting point of the PriceTimeVectorArtifact.
         Arguments:
@@ -4406,6 +4412,16 @@ class PriceBarChartPriceTimeVectorArtifact(PriceBarChartArtifact):
         """Sets a new value for the tiltedTextFlag."""
 
         self.tiltedTextFlag = flag
+        
+    def getAngleTextFlag(self):
+        """Returns the angleTextFlag."""
+
+        return self.angleTextFlag
+        
+    def setAngleTextFlag(self, flag):
+        """Sets a new value for the angleTextFlag."""
+
+        self.angleTextFlag = flag
         
     def __str__(self):
         """Returns the string representation of this object."""
@@ -5349,6 +5365,10 @@ class PriceBarChartSettings:
     # tiltedTextFlag (bool).
     defaultPriceTimeVectorGraphicsItemTiltedTextFlag = True
     
+    # Default value for the PriceTimeVectorGraphicsItem 
+    # angleTextFlag (bool).
+    defaultPriceTimeVectorGraphicsItemAngleTextFlag = True
+    
     def __init__(self):
         """"Initializes the PriceChartSettings to default values."""
 
@@ -5993,6 +6013,11 @@ class PriceBarChartSettings:
         self.priceTimeVectorGraphicsItemTiltedTextFlag = \
             PriceBarChartSettings.\
             defaultPriceTimeVectorGraphicsItemTiltedTextFlag
+    
+        # PriceTimeVectorGraphicsItem angleTextFlag (bool).
+        self.priceTimeVectorGraphicsItemAngleTextFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeVectorGraphicsItemAngleTextFlag
     
     def __getstate__(self):
         """Returns the object's state for pickling purposes."""

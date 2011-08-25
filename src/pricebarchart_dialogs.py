@@ -6986,6 +6986,8 @@ class PriceBarChartPriceTimeVectorArtifactEditWidget(QWidget):
             QCheckBox("Show distance scaled value text")
         self.showSqrtDistanceScaledValueTextFlagCheckBox = \
             QCheckBox("Show sqrt distance scaled value text")
+        self.angleTextFlagCheckBox = \
+            QCheckBox("Show angle of the PriceTimeVector text")
         self.tiltedTextFlagCheckBox = \
             QCheckBox("Tilted Text")
         
@@ -7046,6 +7048,8 @@ class PriceBarChartPriceTimeVectorArtifactEditWidget(QWidget):
             self.showDistanceScaledValueTextFlagCheckBox)
         self.checkBoxesLayout.addWidget(\
             self.showSqrtDistanceScaledValueTextFlagCheckBox)
+        self.checkBoxesLayout.addWidget(\
+            self.angleTextFlagCheckBox)
         self.checkBoxesLayout.addWidget(\
             self.tiltedTextFlagCheckBox)
         tempLayout = self.checkBoxesLayout
@@ -7160,6 +7164,7 @@ class PriceBarChartPriceTimeVectorArtifactEditWidget(QWidget):
         self.showSqrtDistanceScaledValueTextFlagCheckBox.\
             setEnabled(not self.readOnlyFlag)
         self.tiltedTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.angleTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
         
         # Don't allow the Okay button to be pressed for saving.
         self.okayButton.setEnabled(not self.readOnlyFlag)
@@ -7262,6 +7267,11 @@ class PriceBarChartPriceTimeVectorArtifactEditWidget(QWidget):
         else:
             self.tiltedTextFlagCheckBox.setCheckState(Qt.Unchecked)
 
+        if self.artifact.getAngleTextFlag() == True:
+            self.angleTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.angleTextFlagCheckBox.setCheckState(Qt.Unchecked)
+
         self.log.debug("Exiting loadValues()")
         
     def saveValues(self):
@@ -7314,6 +7324,8 @@ class PriceBarChartPriceTimeVectorArtifactEditWidget(QWidget):
              checkState() == Qt.Checked)
         tiltedTextFlag = \
             (self.tiltedTextFlagCheckBox.checkState() == Qt.Checked)
+        angleTextFlag = \
+            (self.angleTextFlagCheckBox.checkState() == Qt.Checked)
         
         # Set the values in the artifact.
         self.artifact.setPos(posF)
@@ -7331,6 +7343,7 @@ class PriceBarChartPriceTimeVectorArtifactEditWidget(QWidget):
         self.artifact.setShowSqrtDistanceScaledValueTextFlag(\
             showSqrtDistanceScaledValueTextFlag)
         self.artifact.setTiltedTextFlag(tiltedTextFlag)
+        self.artifact.setAngleTextFlag(angleTextFlag)
 
         self.log.debug("Exiting saveValues()")
 

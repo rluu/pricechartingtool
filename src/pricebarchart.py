@@ -10960,6 +10960,11 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
             PriceBarChartSettings.\
             defaultPriceTimeVectorGraphicsItemTiltedTextFlag
     
+        # PriceTimeVectorGraphicsItem angleTextFlag (bool).
+        self.angleTextFlag = \
+            PriceBarChartSettings.\
+            defaultPriceTimeVectorGraphicsItemAngleTextFlag
+    
         ############################################################
 
         # Internal storage object, used for loading/saving (serialization).
@@ -11103,6 +11108,11 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.tiltedTextFlag = \
             priceBarChartSettings.\
             priceTimeVectorGraphicsItemTiltedTextFlag
+
+        # PriceTimeVectorGraphicsItem angleTextFlag (bool).
+        self.angleTextFlag = \
+            priceBarChartSettings.\
+            priceTimeVectorGraphicsItemAngleTextFlag
 
         ####################################################################
 
@@ -11581,6 +11591,9 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
             if self.showSqrtDistanceScaledValueTextFlag == True:
                 text += "sqrt(d_u)={:.4f}".\
                     format(self.sqrtDistanceScaledValue) + os.linesep
+            if self.angleTextFlag == True:
+                text += "scaled_angle={:.2f} deg".\
+                    format(360.0 - scaledValueLine.angle()) + os.linesep
         else:
             # No scene, so keep text empty.
             text = ""
@@ -11628,6 +11641,7 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.showSqrtDistanceScaledValueTextFlag = \
             self.artifact.getShowSqrtDistanceScaledValueTextFlag()
         self.tiltedTextFlag = self.artifact.getTiltedTextFlag()
+        self.angleTextFlag = self.artifact.getAngleTextFlag()
 
         #############
 
@@ -11676,6 +11690,7 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.artifact.setShowSqrtDistanceScaledValueTextFlag(\
             self.showSqrtDistanceScaledValueTextFlag)
         self.artifact.setTiltedTextFlag(self.tiltedTextFlag)
+        self.artifact.setAngleTextFlag(self.angleTextFlag)
 
         self.log.debug("Exiting getArtifact()")
         

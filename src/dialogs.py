@@ -11001,6 +11001,10 @@ class PriceBarChartSettingsEditWidget(QWidget):
             clicked.\
             connect(\
             self._handlePriceTimeVectorGraphicsItemTiltedTextFlagResetButton)
+        self.priceTimeVectorGraphicsItemAngleTextFlagResetButton.\
+            clicked.\
+            connect(\
+            self._handlePriceTimeVectorGraphicsItemAngleTextFlagResetButton)
         
         self.resetAllToDefaultButton.clicked.\
             connect(self._handleResetAllToDefaultButtonClicked)
@@ -13651,6 +13655,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.priceTimeVectorGraphicsItemTiltedTextFlagResetButton = \
             QPushButton("Reset to default")
 
+        # priceTimeVectorGraphicsItemAngleTextFlag (bool).
+        self.priceTimeVectorGraphicsItemAngleTextFlagLabel = \
+            QLabel("PriceTimeVectorGraphicsItem angle text:")
+        self.priceTimeVectorGraphicsItemAngleTextFlagCheckBox = \
+            QCheckBox()
+        self.priceTimeVectorGraphicsItemAngleTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.priceTimeVectorGraphicsItemAngleTextFlagResetButton = \
+            QPushButton("Reset to default")
+
         # Grid layout.
         gridLayout = QGridLayout()
         r = 0
@@ -13804,6 +13818,20 @@ class PriceBarChartSettingsEditWidget(QWidget):
         gridLayout.\
             addWidget(\
             self.priceTimeVectorGraphicsItemTiltedTextFlagResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemAngleTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemAngleTextFlagCheckBox, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.priceTimeVectorGraphicsItemAngleTextFlagResetButton, 
             r, 2, ar)
 
         r += 1
@@ -14817,6 +14845,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceTimeVectorGraphicsItemTiltedTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
 
+        # priceTimeVectorGraphicsItemAngleTextFlag (bool).
+        if self.priceBarChartSettings.\
+           priceTimeVectorGraphicsItemAngleTextFlag == True:
+            
+            self.priceTimeVectorGraphicsItemAngleTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.priceTimeVectorGraphicsItemAngleTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
 
         
         self.log.debug("Exiting loadValuesFromSettings()")
@@ -15762,6 +15800,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
         else:
             self.priceBarChartSettings.\
                 priceTimeVectorGraphicsItemTiltedTextFlag = False
+
+        # priceTimeVectorGraphicsItemAngleTextFlag (bool).
+        if self.priceTimeVectorGraphicsItemAngleTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                priceTimeVectorGraphicsItemAngleTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                priceTimeVectorGraphicsItemAngleTextFlag = False
 
         
         self.log.debug("Exiting saveValuesToSettings()")
@@ -17017,6 +17065,23 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceTimeVectorGraphicsItemTiltedTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
             
+    def _handlePriceTimeVectorGraphicsItemAngleTextFlagResetButton(self):
+        """Called when the
+        priceTimeVectorGraphicsItemAngleTextFlagResetButton
+        is clicked.  Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultPriceTimeVectorGraphicsItemAngleTextFlag
+
+        if value == True:
+            self.priceTimeVectorGraphicsItemAngleTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.priceTimeVectorGraphicsItemAngleTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+            
     def _handleResetAllToDefaultButtonClicked(self):
         """Called when the resetAllToDefaultButton is clicked.
         Resets the all the widget values in this widget to the default
@@ -17101,6 +17166,7 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._handlePriceTimeVectorGraphicsItemShowDistanceScaledValueTextFlagResetButton()
         self._handlePriceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlagResetButton()
         self._handlePriceTimeVectorGraphicsItemTiltedTextFlagResetButton()
+        self._handlePriceTimeVectorGraphicsItemAngleTextFlagResetButton()
 
     def _handleOkayButtonClicked(self):
         """Called when the okay button is clicked."""
