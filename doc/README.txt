@@ -70,7 +70,7 @@ Steps to run the software:
 
 ##############################################################################
 
-Shortcut keys:
+Shortcut keys (also listed in the Help menu):
 
 Tool Modes:
   - Key_F1: ReadOnlyPointerToolAction
