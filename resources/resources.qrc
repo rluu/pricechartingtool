@@ -3,6 +3,8 @@
 <qresource>
     <file>images/aaa-banners/grad23.gif</file>
 
+    <file>images/downloadatoz.com/MLHotKey.icon.gif</file>
+
     <file>images/gann/HowToMakeProfitsInCommodities.png</file>
     <file>images/gann/sqof9.png</file>
 
@@ -17,13 +19,13 @@
     <file>images/rluu/handClosed.png</file>
     <file>images/rluu/handOpen.png</file>
     <file>images/rluu/lineSegment.png</file>
+    <file>images/rluu/logo_ryan_d1.png</file>
     <file>images/rluu/pointerPencil.png</file>
     <file>images/rluu/priceMeasurement.png</file>
     <file>images/rluu/priceModalScale.png</file>
     <file>images/rluu/priceRetracement.png</file>
     <file>images/rluu/priceTimeInfo.png</file>
     <file>images/rluu/ptv.png</file>
-    <file>images/rluu/logo_ryan_d1.png</file>
     <file>images/rluu/triangleRuler.png</file>
     <file>images/rluu/timeMeasurement.png</file>
     <file>images/rluu/timeModalScale.png</file>

@@ -81,6 +81,10 @@ class MainWindow(QMainWindow):
         self.mdiArea.subWindowActivated.connect(self._updateActions)
         self.mdiArea.subWindowActivated.connect(self._updateWindowMenu)
 
+        # Variable holding the most recently activated QAction for a
+        # tool mode related to creating QGraphicsItems.
+        self.mostRecentGraphicsItemToolModeAction = None
+        
         # Create actions, menus, toolbars, statusbar, widgets, etc.
         self._createActions()
         self._createMenus()
@@ -308,7 +312,7 @@ class MainWindow(QMainWindow):
         self.priceTimeVectorToolAction.setCheckable(True)
 
         # Create the LineSegmentToolAction
-        icon = QIcon()
+        icon = QIcon(":/images/rluu/lineSegment.png")
         self.lineSegmentToolAction = \
             QAction(icon, "Line Segment Tool", self)
         self.lineSegmentToolAction.setStatusTip("Line Segment Tool")
@@ -391,6 +395,13 @@ class MainWindow(QMainWindow):
 
         ####################
         # Create actions for the Help menu.
+
+        self.showShortcutKeysAction = \
+            QAction(QIcon(":/images/downloadatoz.com/MLHotKey.icon.gif"),
+                    "&Shortcut Keys", self)
+        self.showShortcutKeysAction.setStatusTip("Show shortcut keys")
+        self.showShortcutKeysAction.triggered.connect(self._showShortcutKeys)
+        
         self.aboutAction = QAction(self.appIcon, "&About", self)
         self.aboutAction.\
             setStatusTip("Show information about this application.")
@@ -456,6 +467,7 @@ class MainWindow(QMainWindow):
 
         # Create the Help menu.
         self.helpMenu = self.menuBar().addMenu("&Help")
+        self.helpMenu.addAction(self.showShortcutKeysAction)
         self.helpMenu.addAction(self.aboutAction)
         self.helpMenu.addAction(self.aboutQtAction)
 
@@ -1197,8 +1209,6 @@ class MainWindow(QMainWindow):
 
         self.log.debug("Exiting _editPriceChartDocumentData()")
 
-        # TODO:  write this function.
-
     def _editPriceBarChartSettings(self):
         """Opens up a PriceBarChartSettingsEditDialog to edit
         the PriceBarChartSettings associated with the current active
@@ -1346,36 +1356,47 @@ class MainWindow(QMainWindow):
             pcd.toZoomOutToolMode()
         elif qaction == self.barCountToolAction:
             self.log.debug("barCountToolAction triggered.")
+            self.mostRecentGraphicsItemToolModeAction = qaction
             pcd.toBarCountToolMode()
         elif qaction == self.timeMeasurementToolAction:
             self.log.debug("timeMeasurementToolAction triggered.")
+            self.mostRecentGraphicsItemToolModeAction = qaction
             pcd.toTimeMeasurementToolMode()
         elif qaction == self.timeModalScaleToolAction:
             self.log.debug("timeModalScaleToolAction triggered.")
+            self.mostRecentGraphicsItemToolModeAction = qaction
             pcd.toTimeModalScaleToolMode()
         elif qaction == self.priceModalScaleToolAction:
             self.log.debug("priceModalScaleToolAction triggered.")
+            self.mostRecentGraphicsItemToolModeAction = qaction
             pcd.toPriceModalScaleToolMode()
         elif qaction == self.textToolAction:
             self.log.debug("textToolAction triggered.")
+            self.mostRecentGraphicsItemToolModeAction = qaction
             pcd.toTextToolMode()
         elif qaction == self.priceTimeInfoToolAction:
             self.log.debug("priceTimeInfoToolAction triggered.")
+            self.mostRecentGraphicsItemToolModeAction = qaction
             pcd.toPriceTimeInfoToolMode()
         elif qaction == self.priceMeasurementToolAction:
             self.log.debug("priceMeasurementToolAction triggered.")
+            self.mostRecentGraphicsItemToolModeAction = qaction
             pcd.toPriceMeasurementToolMode()
         elif qaction == self.timeRetracementToolAction:
             self.log.debug("timeRetracementToolAction triggered.")
+            self.mostRecentGraphicsItemToolModeAction = qaction
             pcd.toTimeRetracementToolMode()
         elif qaction == self.priceRetracementToolAction:
             self.log.debug("priceRetracementToolAction triggered.")
+            self.mostRecentGraphicsItemToolModeAction = qaction
             pcd.toPriceRetracementToolMode()
         elif qaction == self.priceTimeVectorToolAction:
             self.log.debug("priceTimeVectorToolAction triggered.")
+            self.mostRecentGraphicsItemToolModeAction = qaction
             pcd.toPriceTimeVectorToolMode()
         elif qaction == self.lineSegmentToolAction:
             self.log.debug("lineSegmentToolAction triggered.")
+            self.mostRecentGraphicsItemToolModeAction = qaction
             pcd.toLineSegmentToolMode()
         else:
             self.log.warn("Unknown Tools QAction selected!  " + \
@@ -1384,6 +1405,95 @@ class MainWindow(QMainWindow):
             
         self.log.debug("Exiting _toolsActionTriggered()")
 
+    
+    def keyPressEvent(self, qkeyevent):
+        """Overwrites the QGraphicsView.keyPressEvent() function.
+        Called when a key is pressed.
+        """
+
+        self.log.debug("Entered keyPressEvent()")
+
+        if qkeyevent.key() == Qt.Key_F1:
+            self.log.debug("Key Pressed: Qt.Key_F1")
+            
+            # Trigger ReadOnlyPointerToolAction.
+            if self.readOnlyPointerToolAction.isEnabled():
+                self.readOnlyPointerToolAction.trigger()
+                
+        elif qkeyevent.key() == Qt.Key_F2:
+            self.log.debug("Key Pressed: Qt.Key_F2")
+            
+            # Trigger PointerToolAction.
+            if self.pointerToolAction.isEnabled():
+                self.pointerToolAction.trigger()
+
+        elif qkeyevent.key() == Qt.Key_F3:
+            self.log.debug("Key Pressed: Qt.Key_F3")
+
+            # Trigger HandToolAction.
+            if self.handToolAction.isEnabled():
+                self.handToolAction.trigger()
+
+        elif qkeyevent.key() == Qt.Key_F4:
+            self.log.debug("Key Pressed: Qt.Key_F4")
+            
+            # Trigger the last used QGraphicsItem tool mode QAction.
+            if self.mostRecentGraphicsItemToolModeAction != None:
+                if self.mostRecentGraphicsItemToolModeAction.isEnabled():
+                    self.mostRecentGraphicsItemToolModeAction.trigger()
+
+        else:
+            # For any other key just pass the event to the parent to handle.
+            super().keyPressEvent(qkeyevent)
+            
+        self.log.debug("Exiting keyPressEvent()")
+
+    def _showShortcutKeys(self):
+        """Opens up a popup window displaying information about the
+        supported shortcut keys.
+        """
+        
+        endl = os.linesep
+
+        title = "Shortcut Keys"
+
+        message = \
+"""
+Shortcut keys:
+
+Tool Modes:
+  - Key_F1: ReadOnlyPointerToolAction
+  - Key_F2: PointerToolAction
+  - Key_F3: HandToolAction
+  - Key_F4: Trigger the last used tool mode (that is not one of the above).
+
+Time Modal Scale Tool:
+  - Key_S: Rotate the modal scale left.
+  - Key_G: Rotate the modal scale right.
+  - Key_R: Reverse the direction of the modal scale.
+
+Price Modal Scale Tool:
+  - Key_S: Rotate the modal scale down.
+  - Key_G: Rotate the modal scale up.
+  - Key_R: Reverse the direction of the modal scale.
+
+Snap key bindings are:
+  - Key_Q: Turn snap mode on.
+  - Key_W: Turn snap mode off.
+
+Snap key bindings are supported for the following tools:
+  - PriceTimeInfoTool
+  - TimeModalScaleTool
+  - PriceModalScaleTool
+  - TimeMeasurementTool
+  - PriceMeasurementTool
+  - TimeRetracementTool
+  - PriceRetracementTool
+  - PriceTimeVectorTool
+"""
+        
+        QMessageBox.about(self, title, message)
+        
     def _about(self):
         """Opens a popup window displaying information about this
         application.

@@ -4158,7 +4158,7 @@ def testRadixPlanetGraphicsItem():
                                 SettingsKeys.planetJupiterBackgroundColorDefValue,
                                 degree=5.0,
                                 velocity=4.0,
-                                wheelNumber=1,
+                                wheelNumber=2,
                                 parent=chartItem)
     venus = \
         RadixPlanetGraphicsItem("Venus",
@@ -4169,7 +4169,7 @@ def testRadixPlanetGraphicsItem():
                                 SettingsKeys.planetVenusBackgroundColorDefValue,
                                 degree=9.0,
                                 velocity=-2.0,
-                                wheelNumber=0,
+                                wheelNumber=1,
                                 parent=chartItem)
     
 
@@ -4674,11 +4674,11 @@ if __name__=="__main__":
     QCoreApplication.setApplicationName(appName)
         
     # Various tests to run:
-    #testSiderealRadixChartGraphicsItem()
-    #testRadixPlanetGraphicsItem()
-    #testDeclinationChartGraphicsItem()
+    testSiderealRadixChartGraphicsItem()
+    testRadixPlanetGraphicsItem()
+    testDeclinationChartGraphicsItem()
     testPlanetDeclinationGraphicsItem()
-    #testLongitudeSpeedChartGraphicsItem()
+    testLongitudeSpeedChartGraphicsItem()
     testPlanetLongitudeSpeedGraphicsItem()
     #testPlanetaryInfoTableWidget()
     #testPlanetaryInfoTableGraphicsItem()

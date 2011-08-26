@@ -11775,7 +11775,7 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     angle -= 360.0
 
                 # Text as the scaled angle.
-                text += "{:.2f} deg".format(angle) + os.linesep
+                text += "{:.4f} deg".format(angle) + os.linesep
         else:
             # No scene, so keep text empty.
             text = ""
@@ -12877,7 +12877,7 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     angle -= 360.0
 
                 # Text as the scaled angle.
-                text += "{:.2f} deg".format(angle) + os.linesep
+                text += "{:.4f} deg".format(angle) + os.linesep
         else:
             # No scene, so keep text empty.
             text = ""
@@ -16466,15 +16466,18 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
         self.log.debug("Entered wheelEvent()")
 
-        # Get the mouse location.  This will be the new center.
-        newCenterPointF = self.mapToScene(qwheelevent.pos())
-
+        # Save the old transformation anchor and change the current on
+        # to anchor under the mouse.  We will put it back at the end
+        # of this method.
+        oldViewportAnchor = self.transformationAnchor()
+        self.setTransformationAnchor(QGraphicsView.AnchorUnderMouse)
+        
         # Get the QSetting key for the zoom scaling amounts.
         settings = QSettings()
         scaleFactor = \
             float(settings.value(self.zoomScaleFactorSettingsKey, \
                   SettingsKeys.zoomScaleFactorSettingsDefValue))
-
+        
         # Actually do the scaling of the view.
         if qwheelevent.delta() > 0:
             # Zoom in.
@@ -16483,9 +16486,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
             # Zoom out.
             self.scale(1.0 / scaleFactor, 1.0 / scaleFactor)
 
-        # Center on the new center.
-        self.centerOn(newCenterPointF)
-
+        # Put the old transformation anchor back.
+        self.setTransformationAnchor(oldViewportAnchor)
+        
         self.log.debug("Exiting wheelEvent()")
 
     def keyPressEvent(self, qkeyevent):

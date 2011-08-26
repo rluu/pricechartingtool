@@ -72,6 +72,12 @@ Steps to run the software:
 
 Shortcut keys:
 
+Tool Modes:
+  - Key_F1: ReadOnlyPointerToolAction
+  - Key_F2: PointerToolAction
+  - Key_F3: HandToolAction
+  - Key_F4: Trigger the last used tool mode (that is not one of the above).
+
 Time Modal Scale Tool:
   - Key_S: Rotate the modal scale left.
   - Key_G: Rotate the modal scale right.
