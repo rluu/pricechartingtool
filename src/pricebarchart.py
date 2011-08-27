@@ -4112,8 +4112,7 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             PriceBarChartSettings.\
                 defaultTimeModalScaleGraphicsItemBarColor
 
-        # Color of the text that is associated with the bar count
-        # graphicsitem.
+        # Color of the text that is associated with the graphicsitem.
         self.timeModalScaleGraphicsItemTextColor = \
             PriceBarChartSettings.\
                 defaultTimeModalScaleGraphicsItemTextColor
@@ -4732,8 +4731,8 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             setColor(self.artifact.getTextColor())
         self.timeModalScaleTextBrush.\
             setColor(self.artifact.getTextColor())
-        
 
+        
         # Need to recalculate the time measurement, since the start and end
         # points have changed.  Note, if no scene has been set for the
         # QGraphicsView, then the measurements will be zero.
@@ -4752,7 +4751,7 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.artifact.setPos(self.pos())
         self.artifact.setStartPointF(self.startPointF)
         self.artifact.setEndPointF(self.endPointF)
-
+        
         # Everything else gets modified only by the edit dialog.
         
         return self.artifact
@@ -4878,6 +4877,10 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         artifact = self.getArtifact()
         barHeight = artifact.getBarHeight()
 
+        # Get the start and end points in local coordinates.
+        localStartPointF = self.mapFromScene(self.startPointF)
+        localEndPointF = self.mapFromScene(self.endPointF)
+
         # Keep track of x and y values.  We use this to draw the
         # dotted lines later.
         xValues = []
@@ -4980,7 +4983,33 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                             Qt.DashLine))
                         painter.setBrush(Qt.NoBrush)
                         painter.drawLine(startPoint, endPoint)
-            
+
+                # Draw the vertical line for the start point.
+                startPoint = QPointF(localStartPointF.x(), largestY)
+                endPoint = QPointF(localStartPointF.x(), smallestY)
+                
+                painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+                painter.setBrush(Qt.NoBrush)
+                painter.drawLine(startPoint, endPoint)
+                
+                painter.setPen(QPen(option.palette.windowText(), 0,
+                                    Qt.DashLine))
+                painter.setBrush(Qt.NoBrush)
+                painter.drawLine(startPoint, endPoint)
+
+                # Draw the vertical line for the end point.
+                startPoint = QPointF(localEndPointF.x(), largestY)
+                endPoint = QPointF(localEndPointF.x(), smallestY)
+                
+                painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+                painter.setBrush(Qt.NoBrush)
+                painter.drawLine(startPoint, endPoint)
+                
+                painter.setPen(QPen(option.palette.windowText(), 0,
+                                    Qt.DashLine))
+                painter.setBrush(Qt.NoBrush)
+                painter.drawLine(startPoint, endPoint)
+
         # Draw a dashed-line surrounding the item if it is selected.
         if option.state & QStyle.State_Selected:
             pad = self.timeModalScalePen.widthF() * 0.5;
@@ -6171,6 +6200,10 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         artifact = self.getArtifact()
         barWidth = artifact.getBarWidth()
 
+        # Get the start and end points in local coordinates.
+        localStartPointF = self.mapFromScene(self.startPointF)
+        localEndPointF = self.mapFromScene(self.endPointF)
+
         # Keep track of x and y values.  We use this to draw the
         # dotted lines later.
         xValues = []
@@ -6276,6 +6309,33 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                         painter.setBrush(Qt.NoBrush)
                         painter.drawLine(startPoint, endPoint)
             
+                # Draw the horizontal line for the start point.
+                startPoint = QPointF(largestX, localStartPointF.y())
+                endPoint = QPointF(smallestX, localStartPointF.y())
+                
+                painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+                painter.setBrush(Qt.NoBrush)
+                painter.drawLine(startPoint, endPoint)
+                
+                painter.setPen(QPen(option.palette.windowText(), 0,
+                                    Qt.DashLine))
+                painter.setBrush(Qt.NoBrush)
+                painter.drawLine(startPoint, endPoint)
+
+                # Draw the horizontal line for the end point.
+                startPoint = QPointF(largestX, localEndPointF.y())
+                endPoint = QPointF(smallestX, localEndPointF.y())
+                
+                painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+                painter.setBrush(Qt.NoBrush)
+                painter.drawLine(startPoint, endPoint)
+                
+                painter.setPen(QPen(option.palette.windowText(), 0,
+                                    Qt.DashLine))
+                painter.setBrush(Qt.NoBrush)
+                painter.drawLine(startPoint, endPoint)
+
+                
         # Draw a dashed-line surrounding the item if it is selected.
         if option.state & QStyle.State_Selected:
             pad = self.priceModalScalePen.widthF() * 0.5;

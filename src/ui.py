@@ -1490,6 +1490,7 @@ Snap key bindings are supported for the following tools:
   - TimeRetracementTool
   - PriceRetracementTool
   - PriceTimeVectorTool
+  - LineSegmentTool
 """
         
         QMessageBox.about(self, title, message)
