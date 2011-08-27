@@ -4719,6 +4719,7 @@ class PriceBarChartPriceTimeInfoArtifactEditWidget(QWidget):
 
         # Call save on the timestamp widget.
         self.datetimeLocationWidget.saveTimestamp()
+        self.priceTimeInfoPointDatetimeLocationWidget.saveTimestamp()
         
         # Position and start point for this artifact are the same values.
         price = self.priceLocationValueSpinBox.value()
@@ -4812,6 +4813,7 @@ class PriceBarChartPriceTimeInfoArtifactEditWidget(QWidget):
         
         # Set the values in the artifact.
         self.artifact.setPos(posF)
+        self.artifact.setInfoPointF(priceTimeInfoPoint)
         self.artifact.setShowTimestampFlag(showTimestampFlag)
         self.artifact.setShowPriceFlag(showPriceFlag)
         self.artifact.setShowSqrtPriceFlag(showSqrtPriceFlag)

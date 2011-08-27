@@ -7358,6 +7358,14 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
         removeAction = QAction("Remove", parent)
         infoAction = QAction("&Info", parent)
         editAction = QAction("&Edit", parent)
+        setAstro1Action = \
+            QAction("Set info point timestamp on Astro Chart &1", parent)
+        setAstro2Action = \
+            QAction("Set info point timestamp on Astro Chart &2", parent)
+        setAstro3Action = \
+            QAction("Set info point timestamp on Astro Chart &3", parent)
+        openJHoraAction = \
+            QAction("Open JHor&a with info point timestamp", parent)
         
         selectAction.triggered.\
             connect(self._handleSelectAction)
@@ -7369,6 +7377,14 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleInfoAction)
         editAction.triggered.\
             connect(self._handleEditAction)
+        setAstro1Action.triggered.\
+            connect(self._handleSetAstro1Action)
+        setAstro2Action.triggered.\
+            connect(self._handleSetAstro2Action)
+        setAstro3Action.triggered.\
+            connect(self._handleSetAstro3Action)
+        openJHoraAction.triggered.\
+            connect(self._handleOpenJHoraAction)
         
         # Enable or disable actions.
         selectAction.setEnabled(True)
@@ -7376,6 +7392,10 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
         removeAction.setEnabled(not readOnlyMode)
         infoAction.setEnabled(True)
         editAction.setEnabled(not readOnlyMode)
+        setAstro1Action.setEnabled(True)
+        setAstro2Action.setEnabled(True)
+        setAstro3Action.setEnabled(True)
+        openJHoraAction.setEnabled(True)
 
         # Add the QActions to the menu.
         menu.addAction(selectAction)
@@ -7385,6 +7405,11 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addSeparator()
         menu.addAction(infoAction)
         menu.addAction(editAction)
+        menu.addSeparator()
+        menu.addAction(setAstro1Action)
+        menu.addAction(setAstro2Action)
+        menu.addAction(setAstro3Action)
+        menu.addAction(openJHoraAction)
 
     def _handleSelectAction(self):
         """Causes the QGraphicsItem to become selected."""
@@ -7453,6 +7478,38 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # The user canceled so don't change anything.
             pass
         
+    def _handleSetAstro1Action(self):
+        """Causes the astro chart 1 to be set with the timestamp
+        of this PriceBarGraphicsItem.
+        """
+
+        # The GraphicsItem's scene X position represents the time.
+        self.scene().setAstroChart1(self.artifact.getInfoPointF().x())
+        
+    def _handleSetAstro2Action(self):
+        """Causes the astro chart 2 to be set with the timestamp
+        of this PriceBarGraphicsItem.
+        """
+
+        # The GraphicsItem's scene X position represents the time.
+        self.scene().setAstroChart2(self.artifact.getInfoPointF().x())
+        
+    def _handleSetAstro3Action(self):
+        """Causes the astro chart 3 to be set with the timestamp
+        of this PriceBarGraphicsItem.
+        """
+
+        # The GraphicsItem's scene X position represents the time.
+        self.scene().setAstroChart3(self.artifact.getInfoPointF().x())
+
+    def _handleOpenJHoraAction(self):
+        """Causes the timestamp of this PriceBarGraphicsItem to be
+        opened in JHora.
+        """
+
+        # The GraphicsItem's scene X position represents the time.
+        self.scene().openJHora(self.artifact.getInfoPointF().x())
+
         
 class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
     """QGraphicsItem that visualizes a measurement ruler for price in
