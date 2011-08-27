@@ -2048,142 +2048,14 @@ class PriceBarChartTimeModalScaleArtifactEditWidget(QWidget):
         self.readOnlyFlag = readOnlyFlag
         
         # QGroupBox to hold the edit widgets and form.
-        self.groupBox = QGroupBox("PriceBarChartTimeModalScaleArtifact Data:")
+        self.groupBoxPage1 = self._createGroupBoxPage1()
+        self.groupBoxPage2 = self._createGroupBoxPage2()
 
-        lineEditWidth = 420
-        
-        self.internalNameLabel = QLabel("Internal name:")
-        self.internalNameLineEdit = QLineEdit()
-        self.internalNameLineEdit.setMinimumWidth(lineEditWidth)
-
-        self.uuidLabel = QLabel("Uuid:")
-        self.uuidLineEdit = QLineEdit()
-        self.uuidLineEdit.setMinimumWidth(lineEditWidth)
-
-        self.colorLabel = QLabel("Bar color: ")
-        self.colorEditButton = ColorEditPushButton()
-
-        self.textColorLabel = QLabel("Text color: ")
-        self.textColorEditButton = ColorEditPushButton()
-        
-        self.barHeightValueLabel = \
-            QLabel("TimeModalScale bar height:")
-        self.barHeightValueSpinBox = QDoubleSpinBox()
-        self.barHeightValueSpinBox.setMinimum(0.0)
-        self.barHeightValueSpinBox.setMaximum(999999999.0)
-
-        self.textFontSizeValueLabel = \
-            QLabel("Text font size:")
-        self.textFontSizeValueSpinBox = QDoubleSpinBox()
-        self.textFontSizeValueSpinBox.setMinimum(0.0)
-        self.textFontSizeValueSpinBox.setMaximum(999999999.0)
-
-        self.textEnabledLabel = QLabel("Text is enabled:")
-        self.textEnabledCheckBox = QCheckBox()
-        self.textEnabledCheckBox.setCheckState(Qt.Unchecked)
-        
-        self.rotateDownButton = QPushButton("Rotate Down")
-        self.rotateUpButton = QPushButton("Rotate Up")
-        self.reverseButton = QPushButton("Reverse")
-        self.checkMarkAllButton = QPushButton("Check All")
-        self.checkMarkNoneButton = QPushButton("Check None")
-        
-        self.rotateButtonsLayout = QHBoxLayout()
-        self.rotateButtonsLayout.addWidget(self.rotateDownButton)
-        self.rotateButtonsLayout.addWidget(self.rotateUpButton)
-        self.rotateButtonsLayout.addWidget(self.reverseButton)
-        self.rotateButtonsLayout.addWidget(self.checkMarkAllButton)
-        self.rotateButtonsLayout.addWidget(self.checkMarkNoneButton)
-        self.rotateButtonsLayout.addStretch()
-        
-        self.startPointPriceValueLabel = \
-            QLabel("TimeModalScale Start Point (in price):")
-        self.startPointPriceValueSpinBox = QDoubleSpinBox()
-        self.startPointPriceValueSpinBox.setDecimals(4)
-        self.startPointPriceValueSpinBox.setMinimum(0.0)
-        self.startPointPriceValueSpinBox.setMaximum(999999999.0)
-        startPointPriceValueLayout = QHBoxLayout()
-        startPointPriceValueLayout.addWidget(self.startPointPriceValueLabel)
-        startPointPriceValueLayout.addStretch()
-        startPointPriceValueLayout.addWidget(self.startPointPriceValueSpinBox)
-        
-        self.startPointDatetimeLocationWidget = TimestampEditWidget()
-        self.startPointDatetimeLocationWidget.groupBox.\
-            setTitle("TimeModalScale Start Point (in time)")
-        self.startPointDatetimeLocationWidget.okayButton.setVisible(False)
-        self.startPointDatetimeLocationWidget.cancelButton.setVisible(False)
-        
-        #self.endPointPriceValueLabel = \
-        #    QLabel("TimeModalScale End Point (in price):")
-        #self.endPointPriceValueSpinBox = QDoubleSpinBox()
-        #self.endPointPriceValueSpinBox.setDecimals(4)
-        #self.endPointPriceValueSpinBox.setMinimum(0.0)
-        #self.endPointPriceValueSpinBox.setMaximum(999999999.0)
-        #endPointPriceValueLayout = QHBoxLayout()
-        #endPointPriceValueLayout.addWidget(self.endPointPriceValueLabel)
-        #endPointPriceValueLayout.addStretch()
-        #endPointPriceValueLayout.addWidget(self.endPointPriceValueSpinBox)
-        
-        self.endPointDatetimeLocationWidget = TimestampEditWidget()
-        self.endPointDatetimeLocationWidget.groupBox.\
-            setTitle("TimeModalScale End Point (in time)")
-        self.endPointDatetimeLocationWidget.okayButton.setVisible(False)
-        self.endPointDatetimeLocationWidget.cancelButton.setVisible(False)
-        
-        # Layout.
-        self.gridLayout = QGridLayout()
-
-        # Row.
-        r = 0
-
-        # Alignments.
-        al = Qt.AlignLeft
-        ar = Qt.AlignRight
-
-        self.gridLayout.addWidget(self.internalNameLabel, r, 0, al)
-        self.gridLayout.addWidget(self.internalNameLineEdit, r, 1, al)
-        r += 1
-        self.gridLayout.addWidget(self.uuidLabel, r, 0, al)
-        self.gridLayout.addWidget(self.uuidLineEdit, r, 1, al)
-        r += 1
-        self.gridLayout.addWidget(self.colorLabel, r, 0, al)
-        self.gridLayout.addWidget(self.colorEditButton, r, 1, al)
-        r += 1
-        self.gridLayout.addWidget(self.textColorLabel, r, 0, al)
-        self.gridLayout.addWidget(self.textColorEditButton, r, 1, al)
-        r += 1
-        self.gridLayout.addWidget(self.barHeightValueLabel, r, 0, al)
-        self.gridLayout.addWidget(self.barHeightValueSpinBox, r, 1, al)
-        r += 1
-        self.gridLayout.addWidget(self.textFontSizeValueLabel, r, 0, al)
-        self.gridLayout.addWidget(self.textFontSizeValueSpinBox, r, 1, al)
-        r += 1
-        self.gridLayout.addWidget(self.textEnabledLabel, r, 0, al)
-        self.gridLayout.addWidget(self.textEnabledCheckBox, r, 1, al)
-        r += 1
-        self.gridLayout.addLayout(startPointPriceValueLayout, r, 0, al)
-        #self.gridLayout.addLayout(endPointPriceValueLayout, r, 1, al)
-        r += 1
-        self.gridLayout.addWidget(self.startPointDatetimeLocationWidget,
-                                  r, 0, al)
-        self.gridLayout.addWidget(self.endPointDatetimeLocationWidget,
-                                  r, 1, al)
-        r += 1
-
-        # Layout for the musical ratio intervals.
-        self.musicalRatiosGridLayout = QGridLayout()
-        self.numMusicalRatios = 0
-
-        # Holds the list of QCheckBox objects corresponding to the
-        # MusicalRatios (ordered) in the artifact. 
-        self.checkBoxes = []
-        
-        self.layout = QVBoxLayout()
-        self.layout.addLayout(self.gridLayout)
-        self.layout.addLayout(self.rotateButtonsLayout)
-        self.layout.addLayout(self.musicalRatiosGridLayout)
-        
-        self.groupBox.setLayout(self.layout)
+        # Create a QTabWidget to stack all the QGroupBox that have our
+        # edit widgets.
+        self.tabWidget = QTabWidget()
+        self.tabWidget.addTab(self.groupBoxPage1, "Page 1")
+        self.tabWidget.addTab(self.groupBoxPage2, "Page 2")
 
         # Buttons at bottom.
         self.okayButton = QPushButton("&Okay")
@@ -2195,7 +2067,7 @@ class PriceBarChartTimeModalScaleArtifactEditWidget(QWidget):
 
         # Put all layouts/groupboxes together into the widget.
         self.mainLayout = QVBoxLayout()
-        self.mainLayout.addWidget(self.groupBox)
+        self.mainLayout.addWidget(self.tabWidget)
         self.mainLayout.addSpacing(10)
         self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
 
@@ -2245,6 +2117,167 @@ class PriceBarChartTimeModalScaleArtifactEditWidget(QWidget):
         self.okayButton.clicked.connect(self._handleOkayButtonClicked)
         self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
 
+    def _createGroupBoxPage1(self):
+        """Creates a QGroupBox (and the widgets within it) for page1
+        of the edit widget, and then returns it.
+        """
+
+        self.groupBoxPage1 = \
+            QGroupBox("PriceBarChartTimeModalScaleArtifact Data (page 1):")
+        
+        lineEditWidth = 420
+        
+        self.internalNameLabel = QLabel("Internal name:")
+        self.internalNameLineEdit = QLineEdit()
+        self.internalNameLineEdit.setMinimumWidth(lineEditWidth)
+
+        self.uuidLabel = QLabel("Uuid:")
+        self.uuidLineEdit = QLineEdit()
+        self.uuidLineEdit.setMinimumWidth(lineEditWidth)
+
+        self.colorLabel = QLabel("Bar color: ")
+        self.colorEditButton = ColorEditPushButton()
+
+        self.textColorLabel = QLabel("Text color: ")
+        self.textColorEditButton = ColorEditPushButton()
+        
+        self.barHeightValueLabel = \
+            QLabel("TimeModalScale bar height:")
+        self.barHeightValueSpinBox = QDoubleSpinBox()
+        self.barHeightValueSpinBox.setMinimum(0.0)
+        self.barHeightValueSpinBox.setMaximum(999999999.0)
+
+        self.textFontSizeValueLabel = \
+            QLabel("Text font size:")
+        self.textFontSizeValueSpinBox = QDoubleSpinBox()
+        self.textFontSizeValueSpinBox.setMinimum(0.0)
+        self.textFontSizeValueSpinBox.setMaximum(999999999.0)
+
+        self.textEnabledLabel = QLabel("Text is enabled:")
+        self.textEnabledCheckBox = QCheckBox()
+        self.textEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        self.startPointPriceValueLabel = \
+            QLabel("TimeModalScale Start Point (in price):")
+        self.startPointPriceValueSpinBox = QDoubleSpinBox()
+        self.startPointPriceValueSpinBox.setDecimals(4)
+        self.startPointPriceValueSpinBox.setMinimum(0.0)
+        self.startPointPriceValueSpinBox.setMaximum(999999999.0)
+        startPointPriceValueLayout = QHBoxLayout()
+        startPointPriceValueLayout.addWidget(self.startPointPriceValueLabel)
+        startPointPriceValueLayout.addStretch()
+        startPointPriceValueLayout.addWidget(self.startPointPriceValueSpinBox)
+        
+        self.startPointDatetimeLocationWidget = TimestampEditWidget()
+        self.startPointDatetimeLocationWidget.groupBox.\
+            setTitle("TimeModalScale Start Point (in time)")
+        self.startPointDatetimeLocationWidget.okayButton.setVisible(False)
+        self.startPointDatetimeLocationWidget.cancelButton.setVisible(False)
+        
+        #self.endPointPriceValueLabel = \
+        #    QLabel("TimeModalScale End Point (in price):")
+        #self.endPointPriceValueSpinBox = QDoubleSpinBox()
+        #self.endPointPriceValueSpinBox.setDecimals(4)
+        #self.endPointPriceValueSpinBox.setMinimum(0.0)
+        #self.endPointPriceValueSpinBox.setMaximum(999999999.0)
+        #endPointPriceValueLayout = QHBoxLayout()
+        #endPointPriceValueLayout.addWidget(self.endPointPriceValueLabel)
+        #endPointPriceValueLayout.addStretch()
+        #endPointPriceValueLayout.addWidget(self.endPointPriceValueSpinBox)
+        
+        self.endPointDatetimeLocationWidget = TimestampEditWidget()
+        self.endPointDatetimeLocationWidget.groupBox.\
+            setTitle("TimeModalScale End Point (in time)")
+        self.endPointDatetimeLocationWidget.okayButton.setVisible(False)
+        self.endPointDatetimeLocationWidget.cancelButton.setVisible(False)
+        
+        # Layout.
+        gridLayout = QGridLayout()
+
+        # Row.
+        r = 0
+
+        # Alignments.
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        gridLayout.addWidget(self.internalNameLabel, r, 0, al)
+        gridLayout.addWidget(self.internalNameLineEdit, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.uuidLabel, r, 0, al)
+        gridLayout.addWidget(self.uuidLineEdit, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.colorLabel, r, 0, al)
+        gridLayout.addWidget(self.colorEditButton, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.textColorLabel, r, 0, al)
+        gridLayout.addWidget(self.textColorEditButton, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.barHeightValueLabel, r, 0, al)
+        gridLayout.addWidget(self.barHeightValueSpinBox, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.textFontSizeValueLabel, r, 0, al)
+        gridLayout.addWidget(self.textFontSizeValueSpinBox, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.textEnabledLabel, r, 0, al)
+        gridLayout.addWidget(self.textEnabledCheckBox, r, 1, al)
+        r += 1
+        gridLayout.addLayout(startPointPriceValueLayout, r, 0, al)
+        #gridLayout.addLayout(endPointPriceValueLayout, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.startPointDatetimeLocationWidget,
+                                  r, 0, al)
+        gridLayout.addWidget(self.endPointDatetimeLocationWidget,
+                                  r, 1, al)
+        r += 1
+
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addStretch()
+        
+        self.groupBoxPage1.setLayout(layout)
+
+        return self.groupBoxPage1
+    
+    def _createGroupBoxPage2(self):
+        """Creates a QGroupBox (and the widgets within it) for page2
+        of the edit widget, and then returns it.
+        """
+
+        self.groupBoxPage2 = \
+            QGroupBox("PriceBarChartTimeModalScaleArtifact Data (page 2):")
+        
+        self.rotateDownButton = QPushButton("Rotate Down")
+        self.rotateUpButton = QPushButton("Rotate Up")
+        self.reverseButton = QPushButton("Reverse")
+        self.checkMarkAllButton = QPushButton("Check All")
+        self.checkMarkNoneButton = QPushButton("Check None")
+        
+        rotateButtonsLayout = QHBoxLayout()
+        rotateButtonsLayout.addWidget(self.rotateDownButton)
+        rotateButtonsLayout.addWidget(self.rotateUpButton)
+        rotateButtonsLayout.addWidget(self.reverseButton)
+        rotateButtonsLayout.addWidget(self.checkMarkAllButton)
+        rotateButtonsLayout.addWidget(self.checkMarkNoneButton)
+        rotateButtonsLayout.addStretch()
+        
+        # Layout for the musical ratio intervals.
+        self.musicalRatiosGridLayout = QGridLayout()
+        self.numMusicalRatios = 0
+
+        # Holds the list of QCheckBox objects corresponding to the
+        # MusicalRatios (ordered) in the artifact. 
+        self.checkBoxes = []
+        
+        layout = QVBoxLayout()
+        layout.addLayout(rotateButtonsLayout)
+        layout.addLayout(self.musicalRatiosGridLayout)
+        layout.addStretch()
+        
+        self.groupBoxPage2.setLayout(layout)
+
+        return self.groupBoxPage2
+        
     def setConvertObj(self, convertObj):
         """Sets the object that is used for the conversion between
         scene position and timestamp or price.
@@ -2881,141 +2914,14 @@ class PriceBarChartPriceModalScaleArtifactEditWidget(QWidget):
         self.readOnlyFlag = readOnlyFlag
         
         # QGroupBox to hold the edit widgets and form.
-        self.groupBox = QGroupBox("PriceBarChartPriceModalScaleArtifact Data:")
+        self.groupBoxPage1 = self._createGroupBoxPage1()
+        self.groupBoxPage2 = self._createGroupBoxPage2()
 
-        lineEditWidth = 420
-        
-        self.internalNameLabel = QLabel("Internal name:")
-        self.internalNameLineEdit = QLineEdit()
-        self.internalNameLineEdit.setMinimumWidth(lineEditWidth)
-
-        self.uuidLabel = QLabel("Uuid:")
-        self.uuidLineEdit = QLineEdit()
-        self.uuidLineEdit.setMinimumWidth(lineEditWidth)
-
-        self.colorLabel = QLabel("Bar color: ")
-        self.colorEditButton = ColorEditPushButton()
-
-        self.textColorLabel = QLabel("Text color: ")
-        self.textColorEditButton = ColorEditPushButton()
-        
-        self.barWidthValueLabel = QLabel("PriceModalScale bar width:")
-        self.barWidthValueSpinBox = QDoubleSpinBox()
-        self.barWidthValueSpinBox.setMinimum(0.0)
-        self.barWidthValueSpinBox.setMaximum(999999999.0)
-
-        self.textFontSizeValueLabel = \
-            QLabel("Text font size:")
-        self.textFontSizeValueSpinBox = QDoubleSpinBox()
-        self.textFontSizeValueSpinBox.setMinimum(0.0)
-        self.textFontSizeValueSpinBox.setMaximum(999999999.0)
-
-        self.textEnabledLabel = QLabel("Text is enabled:")
-        self.textEnabledCheckBox = QCheckBox()
-        self.textEnabledCheckBox.setCheckState(Qt.Unchecked)
-        
-        self.rotateDownButton = QPushButton("Rotate Down")
-        self.rotateUpButton = QPushButton("Rotate Up")
-        self.reverseButton = QPushButton("Reverse")
-        self.checkMarkAllButton = QPushButton("Check All")
-        self.checkMarkNoneButton = QPushButton("Check None")
-        
-        self.rotateButtonsLayout = QHBoxLayout()
-        self.rotateButtonsLayout.addWidget(self.rotateDownButton)
-        self.rotateButtonsLayout.addWidget(self.rotateUpButton)
-        self.rotateButtonsLayout.addWidget(self.reverseButton)
-        self.rotateButtonsLayout.addWidget(self.checkMarkAllButton)
-        self.rotateButtonsLayout.addWidget(self.checkMarkNoneButton)
-        self.rotateButtonsLayout.addStretch()
-        
-        self.startPointPriceValueLabel = \
-            QLabel("PriceModalScale Start Point (in price):")
-        self.startPointPriceValueSpinBox = QDoubleSpinBox()
-        self.startPointPriceValueSpinBox.setDecimals(4)
-        self.startPointPriceValueSpinBox.setMinimum(0.0)
-        self.startPointPriceValueSpinBox.setMaximum(999999999.0)
-        startPointPriceValueLayout = QHBoxLayout()
-        startPointPriceValueLayout.addWidget(self.startPointPriceValueLabel)
-        startPointPriceValueLayout.addStretch()
-        startPointPriceValueLayout.addWidget(self.startPointPriceValueSpinBox)
-        
-        self.startPointDatetimeLocationWidget = TimestampEditWidget()
-        self.startPointDatetimeLocationWidget.groupBox.\
-            setTitle("PriceModalScale Start Point (in time)")
-        self.startPointDatetimeLocationWidget.okayButton.setVisible(False)
-        self.startPointDatetimeLocationWidget.cancelButton.setVisible(False)
-        
-        self.endPointPriceValueLabel = \
-            QLabel("PriceModalScale End Point (in price):")
-        self.endPointPriceValueSpinBox = QDoubleSpinBox()
-        self.endPointPriceValueSpinBox.setDecimals(4)
-        self.endPointPriceValueSpinBox.setMinimum(0.0)
-        self.endPointPriceValueSpinBox.setMaximum(999999999.0)
-        endPointPriceValueLayout = QHBoxLayout()
-        endPointPriceValueLayout.addWidget(self.endPointPriceValueLabel)
-        endPointPriceValueLayout.addStretch()
-        endPointPriceValueLayout.addWidget(self.endPointPriceValueSpinBox)
-        
-        #self.endPointDatetimeLocationWidget = TimestampEditWidget()
-        #self.endPointDatetimeLocationWidget.groupBox.\
-        #    setTitle("PriceModalScale End Point (in time)")
-        #self.endPointDatetimeLocationWidget.okayButton.setVisible(False)
-        #self.endPointDatetimeLocationWidget.cancelButton.setVisible(False)
-        
-        # Layout.
-        self.gridLayout = QGridLayout()
-
-        # Row.
-        r = 0
-
-        # Alignments.
-        al = Qt.AlignLeft
-        ar = Qt.AlignRight
-
-        self.gridLayout.addWidget(self.internalNameLabel, r, 0, al)
-        self.gridLayout.addWidget(self.internalNameLineEdit, r, 1, al)
-        r += 1
-        self.gridLayout.addWidget(self.uuidLabel, r, 0, al)
-        self.gridLayout.addWidget(self.uuidLineEdit, r, 1, al)
-        r += 1
-        self.gridLayout.addWidget(self.colorLabel, r, 0, al)
-        self.gridLayout.addWidget(self.colorEditButton, r, 1, al)
-        r += 1
-        self.gridLayout.addWidget(self.textColorLabel, r, 0, al)
-        self.gridLayout.addWidget(self.textColorEditButton, r, 1, al)
-        r += 1
-        self.gridLayout.addWidget(self.barWidthValueLabel, r, 0, al)
-        self.gridLayout.addWidget(self.barWidthValueSpinBox, r, 1, al)
-        r += 1
-        self.gridLayout.addWidget(self.textFontSizeValueLabel, r, 0, al)
-        self.gridLayout.addWidget(self.textFontSizeValueSpinBox, r, 1, al)
-        r += 1
-        self.gridLayout.addWidget(self.textEnabledLabel, r, 0, al)
-        self.gridLayout.addWidget(self.textEnabledCheckBox, r, 1, al)
-        r += 1
-        self.gridLayout.addLayout(startPointPriceValueLayout, r, 0, al)
-        self.gridLayout.addLayout(endPointPriceValueLayout, r, 1, al)
-        r += 1
-        self.gridLayout.addWidget(self.startPointDatetimeLocationWidget,
-                                  r, 0, al)
-        #self.gridLayout.addWidget(self.endPointDatetimeLocationWidget,
-        #                          r, 1, al)
-        r += 1
-
-        # Layout for the musical ratio intervals.
-        self.musicalRatiosGridLayout = QGridLayout()
-        self.numMusicalRatios = 0
-
-        # Holds the list of QCheckBox objects corresponding to the
-        # MusicalRatios (ordered) in the artifact. 
-        self.checkBoxes = []
-        
-        self.layout = QVBoxLayout()
-        self.layout.addLayout(self.gridLayout)
-        self.layout.addLayout(self.rotateButtonsLayout)
-        self.layout.addLayout(self.musicalRatiosGridLayout)
-        
-        self.groupBox.setLayout(self.layout)
+        # Create a QTabWidget to stack all the QGroupBox that have our
+        # edit widgets.
+        self.tabWidget = QTabWidget()
+        self.tabWidget.addTab(self.groupBoxPage1, "Page 1")
+        self.tabWidget.addTab(self.groupBoxPage2, "Page 2")
 
         # Buttons at bottom.
         self.okayButton = QPushButton("&Okay")
@@ -3027,10 +2933,10 @@ class PriceBarChartPriceModalScaleArtifactEditWidget(QWidget):
 
         # Put all layouts/groupboxes together into the widget.
         self.mainLayout = QVBoxLayout()
-        self.mainLayout.addWidget(self.groupBox)
+        self.mainLayout.addWidget(self.tabWidget)
         self.mainLayout.addSpacing(10)
         self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
-
+        
         self.setLayout(self.mainLayout)
         
         # Now that all the widgets are created, load the values from the
@@ -3077,6 +2983,166 @@ class PriceBarChartPriceModalScaleArtifactEditWidget(QWidget):
         self.okayButton.clicked.connect(self._handleOkayButtonClicked)
         self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
 
+    def _createGroupBoxPage1(self):
+        """Creates a QGroupBox (and the widgets within it) for page1
+        of the edit widget, and then returns it.
+        """
+
+        self.groupBoxPage1 = \
+            QGroupBox("PriceBarChartPriceModalScaleArtifact Data (page 1):")
+        
+        lineEditWidth = 420
+        
+        self.internalNameLabel = QLabel("Internal name:")
+        self.internalNameLineEdit = QLineEdit()
+        self.internalNameLineEdit.setMinimumWidth(lineEditWidth)
+
+        self.uuidLabel = QLabel("Uuid:")
+        self.uuidLineEdit = QLineEdit()
+        self.uuidLineEdit.setMinimumWidth(lineEditWidth)
+
+        self.colorLabel = QLabel("Bar color: ")
+        self.colorEditButton = ColorEditPushButton()
+
+        self.textColorLabel = QLabel("Text color: ")
+        self.textColorEditButton = ColorEditPushButton()
+        
+        self.barWidthValueLabel = QLabel("PriceModalScale bar width:")
+        self.barWidthValueSpinBox = QDoubleSpinBox()
+        self.barWidthValueSpinBox.setMinimum(0.0)
+        self.barWidthValueSpinBox.setMaximum(999999999.0)
+
+        self.textFontSizeValueLabel = \
+            QLabel("Text font size:")
+        self.textFontSizeValueSpinBox = QDoubleSpinBox()
+        self.textFontSizeValueSpinBox.setMinimum(0.0)
+        self.textFontSizeValueSpinBox.setMaximum(999999999.0)
+
+        self.textEnabledLabel = QLabel("Text is enabled:")
+        self.textEnabledCheckBox = QCheckBox()
+        self.textEnabledCheckBox.setCheckState(Qt.Unchecked)
+        
+        self.startPointPriceValueLabel = \
+            QLabel("PriceModalScale Start Point (in price):")
+        self.startPointPriceValueSpinBox = QDoubleSpinBox()
+        self.startPointPriceValueSpinBox.setDecimals(4)
+        self.startPointPriceValueSpinBox.setMinimum(0.0)
+        self.startPointPriceValueSpinBox.setMaximum(999999999.0)
+        startPointPriceValueLayout = QHBoxLayout()
+        startPointPriceValueLayout.addWidget(self.startPointPriceValueLabel)
+        startPointPriceValueLayout.addStretch()
+        startPointPriceValueLayout.addWidget(self.startPointPriceValueSpinBox)
+        
+        self.startPointDatetimeLocationWidget = TimestampEditWidget()
+        self.startPointDatetimeLocationWidget.groupBox.\
+            setTitle("PriceModalScale Start Point (in time)")
+        self.startPointDatetimeLocationWidget.okayButton.setVisible(False)
+        self.startPointDatetimeLocationWidget.cancelButton.setVisible(False)
+        
+        self.endPointPriceValueLabel = \
+            QLabel("PriceModalScale End Point (in price):")
+        self.endPointPriceValueSpinBox = QDoubleSpinBox()
+        self.endPointPriceValueSpinBox.setDecimals(4)
+        self.endPointPriceValueSpinBox.setMinimum(0.0)
+        self.endPointPriceValueSpinBox.setMaximum(999999999.0)
+        endPointPriceValueLayout = QHBoxLayout()
+        endPointPriceValueLayout.addWidget(self.endPointPriceValueLabel)
+        endPointPriceValueLayout.addStretch()
+        endPointPriceValueLayout.addWidget(self.endPointPriceValueSpinBox)
+        
+        #self.endPointDatetimeLocationWidget = TimestampEditWidget()
+        #self.endPointDatetimeLocationWidget.groupBox.\
+        #    setTitle("PriceModalScale End Point (in time)")
+        #self.endPointDatetimeLocationWidget.okayButton.setVisible(False)
+        #self.endPointDatetimeLocationWidget.cancelButton.setVisible(False)
+        
+        # Layout.
+        gridLayout = QGridLayout()
+
+        # Row.
+        r = 0
+
+        # Alignments.
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        gridLayout.addWidget(self.internalNameLabel, r, 0, al)
+        gridLayout.addWidget(self.internalNameLineEdit, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.uuidLabel, r, 0, al)
+        gridLayout.addWidget(self.uuidLineEdit, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.colorLabel, r, 0, al)
+        gridLayout.addWidget(self.colorEditButton, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.textColorLabel, r, 0, al)
+        gridLayout.addWidget(self.textColorEditButton, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.barWidthValueLabel, r, 0, al)
+        gridLayout.addWidget(self.barWidthValueSpinBox, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.textFontSizeValueLabel, r, 0, al)
+        gridLayout.addWidget(self.textFontSizeValueSpinBox, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.textEnabledLabel, r, 0, al)
+        gridLayout.addWidget(self.textEnabledCheckBox, r, 1, al)
+        r += 1
+        gridLayout.addLayout(startPointPriceValueLayout, r, 0, al)
+        gridLayout.addLayout(endPointPriceValueLayout, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.startPointDatetimeLocationWidget,
+                                  r, 0, al)
+        #gridLayout.addWidget(self.endPointDatetimeLocationWidget,
+        #                          r, 1, al)
+        r += 1
+
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addStretch()
+        
+        self.groupBoxPage1.setLayout(layout)
+
+        return self.groupBoxPage1
+    
+    def _createGroupBoxPage2(self):
+        """Creates a QGroupBox (and the widgets within it) for page2
+        of the edit widget, and then returns it.
+        """
+
+        self.groupBoxPage2 = \
+            QGroupBox("PriceBarChartPriceModalScaleArtifact Data (page 2):")
+
+        self.rotateDownButton = QPushButton("Rotate Down")
+        self.rotateUpButton = QPushButton("Rotate Up")
+        self.reverseButton = QPushButton("Reverse")
+        self.checkMarkAllButton = QPushButton("Check All")
+        self.checkMarkNoneButton = QPushButton("Check None")
+        
+        rotateButtonsLayout = QHBoxLayout()
+        rotateButtonsLayout.addWidget(self.rotateDownButton)
+        rotateButtonsLayout.addWidget(self.rotateUpButton)
+        rotateButtonsLayout.addWidget(self.reverseButton)
+        rotateButtonsLayout.addWidget(self.checkMarkAllButton)
+        rotateButtonsLayout.addWidget(self.checkMarkNoneButton)
+        rotateButtonsLayout.addStretch()
+        
+        # Layout for the musical ratio intervals.
+        self.musicalRatiosGridLayout = QGridLayout()
+        self.numMusicalRatios = 0
+
+        # Holds the list of QCheckBox objects corresponding to the
+        # MusicalRatios (ordered) in the artifact. 
+        self.checkBoxes = []
+        
+        layout = QVBoxLayout()
+        layout.addLayout(rotateButtonsLayout)
+        layout.addLayout(self.musicalRatiosGridLayout)
+        layout.addStretch()
+        
+        self.groupBoxPage2.setLayout(layout)
+
+        return self.groupBoxPage2
+        
     def setConvertObj(self, convertObj):
         """Sets the object that is used for the conversion between
         scene position and timestamp or price.

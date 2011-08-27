@@ -4106,7 +4106,7 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         ############################################################
         # Set default values for preferences/settings.
-        
+
         # Color of the graphicsitem bar.
         self.timeModalScaleGraphicsItemColor = \
             PriceBarChartSettings.\
@@ -4175,14 +4175,13 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                             self.timeModalScaleTextYScaling)
         textTransform.rotate(self.rotationDegrees)
         
-        # Below is a 2-dimensional list of (3
+        # Below is a 2-dimensional list of (2
         # QGraphicsSimpleTextItems), for each of the MusicalRatios in
-        # the PriceBarChartTimeModalScaleArtifact.  The 3 texts displayed
+        # the PriceBarChartTimeModalScaleArtifact.  The 2 texts displayed
         # for each MusicalRatio is:
         #
         # 1) Fraction (or float if no numerator and no denominator is set).
-        # 2) Price value.
-        # 3) Timestamp value.
+        # 2) Timestamp value.
         #
         self.musicalRatioTextItems = []
 
@@ -4243,6 +4242,11 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         ########
         
+        # List of used musical ratios.
+        musicalRatios = \
+            copy.deepcopy(priceBarChartSettings.\
+                          timeModalScaleGraphicsItemMusicalRatios)
+        
         # TimeModalScaleGraphicsItem bar color (QColor).
         self.timeModalScaleGraphicsItemColor = \
             priceBarChartSettings.timeModalScaleGraphicsItemBarColor
@@ -4261,14 +4265,19 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             priceBarChartSettings.\
                 timeModalScaleGraphicsItemTextYScaling 
 
+        # textEnabledFlag (bool).
+        textEnabledFlag = \
+            priceBarChartSettings.\
+            timeModalScaleGraphicsItemTextEnabledFlag
+
         ########
 
         # Set values in the artifact.
-        
-        self.artifact.setColor(\
-            self.timeModalScaleGraphicsItemColor)
-        self.artifact.setTextColor(\
-            self.timeModalScaleGraphicsItemTextColor)
+
+        self.artifact.setMusicalRatios(musicalRatios)
+        self.artifact.setColor(self.timeModalScaleGraphicsItemColor)
+        self.artifact.setTextColor(self.timeModalScaleGraphicsItemTextColor)
+        self.artifact.setTextEnabled(textEnabledFlag)
 
         self.setArtifact(self.artifact)
         
@@ -4877,10 +4886,6 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         artifact = self.getArtifact()
         barHeight = artifact.getBarHeight()
 
-        # Get the start and end points in local coordinates.
-        localStartPointF = self.mapFromScene(self.startPointF)
-        localEndPointF = self.mapFromScene(self.endPointF)
-
         # Keep track of x and y values.  We use this to draw the
         # dotted lines later.
         xValues = []
@@ -4985,8 +4990,8 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                         painter.drawLine(startPoint, endPoint)
 
                 # Draw the vertical line for the start point.
-                startPoint = QPointF(localStartPointF.x(), largestY)
-                endPoint = QPointF(localStartPointF.x(), smallestY)
+                startPoint = QPointF(0.0, largestY)
+                endPoint = QPointF(0.0, smallestY)
                 
                 painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
                 painter.setBrush(Qt.NoBrush)
@@ -4998,8 +5003,8 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 painter.drawLine(startPoint, endPoint)
 
                 # Draw the vertical line for the end point.
-                startPoint = QPointF(localEndPointF.x(), largestY)
-                endPoint = QPointF(localEndPointF.x(), smallestY)
+                startPoint = QPointF(0.0 + xDelta, largestY)
+                endPoint = QPointF(0.0 + xDelta, smallestY)
                 
                 painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
                 painter.setBrush(Qt.NoBrush)
@@ -5500,14 +5505,13 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                             self.priceModalScaleTextYScaling)
         textTransform.rotate(self.rotationDegrees)
         
-        # Below is a 2-dimensional list of (3
+        # Below is a 2-dimensional list of (2
         # QGraphicsSimpleTextItems), for each of the MusicalRatios in
-        # the PriceBarChartPriceModalScaleArtifact.  The 3 texts displayed
+        # the PriceBarChartPriceModalScaleArtifact.  The 2 texts displayed
         # for each MusicalRatio is:
         #
         # 1) Fraction (or float if no numerator and no denominator is set).
-        # 2) Price value.
-        # 3) Timestamp value.
+        # 2) Price value
         #
         self.musicalRatioTextItems = []
 
@@ -5568,6 +5572,11 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         ########
         
+        # List of used musical ratios.
+        musicalRatios = \
+            copy.deepcopy(priceBarChartSettings.\
+                          priceModalScaleGraphicsItemMusicalRatios)
+        
         # PriceModalScaleGraphicsItem bar color (QColor).
         self.priceModalScaleGraphicsItemColor = \
             priceBarChartSettings.priceModalScaleGraphicsItemBarColor
@@ -5586,12 +5595,19 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             priceBarChartSettings.\
                 priceModalScaleGraphicsItemTextYScaling 
 
+        # textEnabledFlag (bool).
+        textEnabledFlag = \
+            priceBarChartSettings.\
+            priceModalScaleGraphicsItemTextEnabledFlag
+
         ########
 
         # Set values in the artifact.
         
+        self.artifact.setMusicalRatios(musicalRatios)
         self.artifact.setColor(self.priceModalScaleGraphicsItemColor)
         self.artifact.setTextColor(self.priceModalScaleGraphicsItemTextColor)
+        self.artifact.setTextEnabled(textEnabledFlag)
 
         self.setArtifact(self.artifact)
         
@@ -6200,10 +6216,6 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         artifact = self.getArtifact()
         barWidth = artifact.getBarWidth()
 
-        # Get the start and end points in local coordinates.
-        localStartPointF = self.mapFromScene(self.startPointF)
-        localEndPointF = self.mapFromScene(self.endPointF)
-
         # Keep track of x and y values.  We use this to draw the
         # dotted lines later.
         xValues = []
@@ -6310,8 +6322,8 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                         painter.drawLine(startPoint, endPoint)
             
                 # Draw the horizontal line for the start point.
-                startPoint = QPointF(largestX, localStartPointF.y())
-                endPoint = QPointF(smallestX, localStartPointF.y())
+                startPoint = QPointF(largestX, 0.0)
+                endPoint = QPointF(smallestX, 0.0)
                 
                 painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
                 painter.setBrush(Qt.NoBrush)
@@ -6323,8 +6335,8 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 painter.drawLine(startPoint, endPoint)
 
                 # Draw the horizontal line for the end point.
-                startPoint = QPointF(largestX, localEndPointF.y())
-                endPoint = QPointF(smallestX, localEndPointF.y())
+                startPoint = QPointF(largestX, 0.0 + yDelta)
+                endPoint = QPointF(smallestX, 0.0 + yDelta)
                 
                 painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
                 painter.setBrush(Qt.NoBrush)

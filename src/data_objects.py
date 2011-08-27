@@ -8,6 +8,9 @@ import logging
 # For generation of unique PriceBarChartArtifact identifiers.
 import uuid
 
+# For inspect.stack().
+import inspect
+
 # For timestamps and timezone information.
 import datetime
 import pytz
@@ -926,6 +929,219 @@ class MusicalRatio(Ratio):
 
         return ratios
     
+    @staticmethod
+    def getMusicalRatiosForTimeModalScaleGraphicsItem():
+        """Returns a list of MusicalRatios to be used for the
+        TimeModalScale.
+        """
+
+        musicalRatios = MusicalRatio.getIndianMusicalRatios()
+
+        # Set certain MusicalRatios as enabled or disabled.
+        for i in range(len(musicalRatios)):
+            musicalRatio = musicalRatios[i]
+
+            numerator = musicalRatio.getNumerator()
+            denominator = musicalRatio.getDenominator()
+            
+            if numerator == 1 and denominator == 1:
+                musicalRatio.setEnabled(True)
+            elif numerator == 256 and denominator == 243:
+                musicalRatio.setEnabled(False)
+            elif numerator == 16 and denominator == 15:
+                musicalRatio.setEnabled(False)
+            elif numerator == 10 and denominator == 9:
+                musicalRatio.setEnabled(False)
+            elif numerator == 9 and denominator == 8:
+                musicalRatio.setEnabled(True)
+            elif numerator == 32 and denominator == 27:
+                musicalRatio.setEnabled(False)
+            elif numerator == 6 and denominator == 5:
+                musicalRatio.setEnabled(False)
+            elif numerator == 5 and denominator == 4:
+                musicalRatio.setEnabled(True)
+            elif numerator == 81 and denominator == 64:
+                musicalRatio.setEnabled(False)
+            elif numerator == 4 and denominator == 3:
+                musicalRatio.setEnabled(True)
+            elif numerator == 27 and denominator == 20:
+                musicalRatio.setEnabled(False)
+            elif numerator == 45 and denominator == 32:
+                musicalRatio.setEnabled(False)
+            elif numerator == 729 and denominator == 512:
+                musicalRatio.setEnabled(False)
+            elif numerator == 3 and denominator == 2:
+                musicalRatio.setEnabled(True)
+            elif numerator == 128 and denominator == 81:
+                musicalRatio.setEnabled(False)
+            elif numerator == 8 and denominator == 5:
+                musicalRatio.setEnabled(False)
+            elif numerator == 5 and denominator == 3:
+                musicalRatio.setEnabled(True)
+            elif numerator == 27 and denominator == 16:
+                musicalRatio.setEnabled(False)
+            elif numerator == 16 and denominator == 9:
+                musicalRatio.setEnabled(False)
+            elif numerator == 9 and denominator == 5:
+                musicalRatio.setEnabled(False)
+            elif numerator == 15 and denominator == 8:
+                musicalRatio.setEnabled(True)
+            elif numerator == 243 and denominator == 128:
+                musicalRatio.setEnabled(False)
+            elif numerator == 2 and denominator == 1:
+                musicalRatio.setEnabled(False)
+            else:
+                currMethodName = inspect.stack()[0][3] + "()"
+                
+                print("WARNING: " + currMethodName + ": " + 
+                      "Unknown musical ratio: " + musicalRatio.toString())
+                
+                musicalRatio.setEnabled(False)
+
+        return musicalRatios
+    
+    @staticmethod
+    def getMusicalRatiosForPriceModalScaleGraphicsItem():
+        """Returns a list of MusicalRatios to be used for the
+        PriceModalScale.
+        """
+
+        musicalRatios = MusicalRatio.getIndianMusicalRatios()
+
+        # Set certain MusicalRatios as enabled or disabled.
+        for i in range(len(musicalRatios)):
+            musicalRatio = musicalRatios[i]
+
+            numerator = musicalRatio.getNumerator()
+            denominator = musicalRatio.getDenominator()
+            
+            if numerator == 1 and denominator == 1:
+                musicalRatio.setEnabled(True)
+            elif numerator == 256 and denominator == 243:
+                musicalRatio.setEnabled(False)
+            elif numerator == 16 and denominator == 15:
+                musicalRatio.setEnabled(False)
+            elif numerator == 10 and denominator == 9:
+                musicalRatio.setEnabled(False)
+            elif numerator == 9 and denominator == 8:
+                musicalRatio.setEnabled(True)
+            elif numerator == 32 and denominator == 27:
+                musicalRatio.setEnabled(False)
+            elif numerator == 6 and denominator == 5:
+                musicalRatio.setEnabled(False)
+            elif numerator == 5 and denominator == 4:
+                musicalRatio.setEnabled(True)
+            elif numerator == 81 and denominator == 64:
+                musicalRatio.setEnabled(False)
+            elif numerator == 4 and denominator == 3:
+                musicalRatio.setEnabled(True)
+            elif numerator == 27 and denominator == 20:
+                musicalRatio.setEnabled(False)
+            elif numerator == 45 and denominator == 32:
+                musicalRatio.setEnabled(False)
+            elif numerator == 729 and denominator == 512:
+                musicalRatio.setEnabled(False)
+            elif numerator == 3 and denominator == 2:
+                musicalRatio.setEnabled(True)
+            elif numerator == 128 and denominator == 81:
+                musicalRatio.setEnabled(False)
+            elif numerator == 8 and denominator == 5:
+                musicalRatio.setEnabled(False)
+            elif numerator == 5 and denominator == 3:
+                musicalRatio.setEnabled(True)
+            elif numerator == 27 and denominator == 16:
+                musicalRatio.setEnabled(False)
+            elif numerator == 16 and denominator == 9:
+                musicalRatio.setEnabled(False)
+            elif numerator == 9 and denominator == 5:
+                musicalRatio.setEnabled(False)
+            elif numerator == 15 and denominator == 8:
+                musicalRatio.setEnabled(True)
+            elif numerator == 243 and denominator == 128:
+                musicalRatio.setEnabled(False)
+            elif numerator == 2 and denominator == 1:
+                musicalRatio.setEnabled(False)
+            else:
+                currMethodName = inspect.stack()[0][3] + "()"
+                
+                print("WARNING: " + currMethodName + ": " + 
+                      "Unknown musical ratio: " + musicalRatio.toString())
+                
+                musicalRatio.setEnabled(False)
+
+        return musicalRatios
+    
+    @staticmethod
+    def getMusicalRatiosForOctaveFanGraphicsItem():
+        """Returns a list of MusicalRatios to be used for the
+        PriceModalScale.
+        """
+
+        musicalRatios = MusicalRatio.getIndianMusicalRatios()
+
+        # Set certain MusicalRatios as enabled or disabled.
+        for i in range(len(musicalRatios)):
+            musicalRatio = musicalRatios[i]
+
+            numerator = musicalRatio.getNumerator()
+            denominator = musicalRatio.getDenominator()
+            
+            if numerator == 1 and denominator == 1:
+                musicalRatio.setEnabled(True)
+            elif numerator == 256 and denominator == 243:
+                musicalRatio.setEnabled(False)
+            elif numerator == 16 and denominator == 15:
+                musicalRatio.setEnabled(False)
+            elif numerator == 10 and denominator == 9:
+                musicalRatio.setEnabled(False)
+            elif numerator == 9 and denominator == 8:
+                musicalRatio.setEnabled(True)
+            elif numerator == 32 and denominator == 27:
+                musicalRatio.setEnabled(False)
+            elif numerator == 6 and denominator == 5:
+                musicalRatio.setEnabled(False)
+            elif numerator == 5 and denominator == 4:
+                musicalRatio.setEnabled(True)
+            elif numerator == 81 and denominator == 64:
+                musicalRatio.setEnabled(False)
+            elif numerator == 4 and denominator == 3:
+                musicalRatio.setEnabled(True)
+            elif numerator == 27 and denominator == 20:
+                musicalRatio.setEnabled(False)
+            elif numerator == 45 and denominator == 32:
+                musicalRatio.setEnabled(False)
+            elif numerator == 729 and denominator == 512:
+                musicalRatio.setEnabled(False)
+            elif numerator == 3 and denominator == 2:
+                musicalRatio.setEnabled(True)
+            elif numerator == 128 and denominator == 81:
+                musicalRatio.setEnabled(False)
+            elif numerator == 8 and denominator == 5:
+                musicalRatio.setEnabled(False)
+            elif numerator == 5 and denominator == 3:
+                musicalRatio.setEnabled(True)
+            elif numerator == 27 and denominator == 16:
+                musicalRatio.setEnabled(False)
+            elif numerator == 16 and denominator == 9:
+                musicalRatio.setEnabled(False)
+            elif numerator == 9 and denominator == 5:
+                musicalRatio.setEnabled(False)
+            elif numerator == 15 and denominator == 8:
+                musicalRatio.setEnabled(True)
+            elif numerator == 243 and denominator == 128:
+                musicalRatio.setEnabled(False)
+            elif numerator == 2 and denominator == 1:
+                musicalRatio.setEnabled(False)
+            else:
+                currMethodName = inspect.stack()[0][3] + "()"
+                
+                print("WARNING: " + currMethodName + ": " + 
+                      "Unknown musical ratio: " + musicalRatio.toString())
+                
+                musicalRatio.setEnabled(False)
+
+        return musicalRatios
+    
     def getNumerator(self):
         """Returns the int value that is the numerator portion of the
         fraction.  This can be None if it was not previously set.
@@ -958,7 +1174,16 @@ class MusicalRatio(Ratio):
         
         self.denominator = denominator
     
+    def isEnabled(self):
+        """Returns True if the MusicalRatio is set as enabled."""
 
+        return self.enabled
+
+    def setEnabled(self, enabledFlag):
+        """Sets whether or not the MusicalRatio is set as enabled."""
+        
+        self.enabled = enabledFlag
+        
     def inverted(self):
         """Returns the same MusicalRatio, but just inverted.
         '(Inverted)' str is added to the description.
@@ -2154,8 +2379,10 @@ class PriceBarChartTimeModalScaleArtifact(PriceBarChartArtifact):
         self.startPointF = QPointF()
         self.endPointF = QPointF()
 
-        # List of used ratios.
-        self.musicalRatios = MusicalRatio.getIndianMusicalRatios()
+        # List of used musical ratios.
+        self.musicalRatios = \
+            PriceBarChartSettings.\
+                defaultTimeModalScaleGraphicsItemMusicalRatios
         
         # color (QColor).
         self.color = \
@@ -2184,7 +2411,9 @@ class PriceBarChartTimeModalScaleArtifact(PriceBarChartArtifact):
 
         # Flag for whether or not the text is displayed for enabled
         # MusicalRatios in self.musicalRatios.
-        self.textEnabledFlag = False
+        self.textEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultTimeModalScaleGraphicsItemTextEnabledFlag
         
     def setStartPointF(self, startPointF):
         """Stores the starting point of the TimeModalScaleArtifact.
@@ -2531,7 +2760,9 @@ class PriceBarChartPriceModalScaleArtifact(PriceBarChartArtifact):
 
         # Flag for whether or not the text is displayed for enabled
         # MusicalRatios in self.musicalRatios.
-        self.textEnabledFlag = False
+        self.textEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPriceModalScaleGraphicsItemTextEnabledFlag
         
     def setStartPointF(self, startPointF):
         """Stores the starting point of the PriceModalScaleArtifact.
@@ -4700,6 +4931,372 @@ class PriceBarChartLineSegmentArtifact(PriceBarChartArtifact):
                        PriceBarChartLineSegmentArtifact.__name__ +
                        " object of version {}".format(self.classVersion))
 
+class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
+    """PriceBarChartArtifact that indicates the time measurement starting 
+    at the given PriceBar timestamp and the given Y offset from the 
+    center of the bar.
+    """
+    
+    def __init__(self):
+        super().__init__()
+        
+        # Set the version of this class (used for pickling and unpickling
+        # different versions of this class).
+        self.classVersion = 1
+
+        # Create the logger.
+        self.log = \
+            logging.\
+            getLogger("data_objects.PriceBarChartOctaveFanArtifact")
+
+        # Update the internal name so it is the artifact type plus the uuid.
+        self.internalName = "OctaveFan_" + str(self.uuid)
+
+        # Origin point and the two leg points of the artifact.
+        self.originPointF = QPointF()
+        self.leg1PointF = QPointF()
+        self.leg2PointF = QPointF()
+        
+        # List of used ratios.
+        self.musicalRatios = MusicalRatio.getIndianMusicalRatios()
+        
+        # color (QColor).
+        self.color = \
+            PriceBarChartSettings.\
+                defaultOctaveFanGraphicsItemBarColor
+        
+        # textColor (QColor).
+        self.textColor = \
+            PriceBarChartSettings.\
+                defaultOctaveFanGraphicsItemTextColor
+        
+        # barWidth (float).
+        self.barWidth = \
+            PriceBarChartSettings.\
+                defaultOctaveFanGraphicsItemBarWidth
+        
+        # fontSize (float).
+        self.fontSize = \
+            PriceBarChartSettings.\
+                defaultOctaveFanGraphicsItemFontSize
+
+        # Flag for whether or not the musicalRatios are in reverse
+        # order.  This affects how ratios are referenced (from the
+        # endpoint instead of from the startpoint).
+        self.reversedFlag = False
+
+        # Flag for whether or not the text is displayed for enabled
+        # MusicalRatios in self.musicalRatios.
+        self.textEnabledFlag = False
+        
+    def setOriginPointF(self, originPointF):
+        """Stores the origin point of the OctaveFanArtifact.
+        Arguments:
+
+        originPointF - QPointF for the origin point of the artifact.
+        """
+        
+        self.originPointF = originPointF
+        
+    def getOriginPointF(self):
+        """Returns the origin point of the OctaveFanArtifact."""
+        
+        return self.originPointF
+        
+    def setLeg1PointF(self, leg1PointF):
+        """Stores the leg1 point of the OctaveFanArtifact.
+        Arguments:
+
+        leg1PointF - QPointF for the leg1 point of the artifact.
+        """
+        
+        self.leg1PointF = leg1PointF
+        
+    def getLeg1PointF(self):
+        """Returns the leg1 point of the OctaveFanArtifact."""
+        
+        return self.leg1PointF
+
+    def setLeg2PointF(self, leg2PointF):
+        """Stores the leg2 point of the OctaveFanArtifact.
+        Arguments:
+
+        leg2PointF - QPointF for the leg2 point of the artifact.
+        """
+        
+        self.leg2PointF = leg2PointF
+        
+    def getLeg2PointF(self):
+        """Returns the leg2 point of the OctaveFanArtifact."""
+        
+        return self.leg2PointF
+
+    def getMusicalRatios(self):
+        """Returns the list of MusicalRatio objects."""
+
+        return self.musicalRatios
+        
+    def setMusicalRatios(self, musicalRatios):
+        """Sets the list of MusicalRatio objects."""
+
+        self.musicalRatios = musicalRatios
+
+    def setColor(self, color):
+        """Sets the bar color.
+        
+        Arguments:
+        color - QColor object for the bar color.
+        """
+        
+        self.color = color
+
+    def getColor(self):
+        """Gets the bar color as a QColor object."""
+        
+        return self.color
+
+    def setTextColor(self, textColor):
+        """Sets the text color.
+        
+        Arguments:
+        textColor - QColor object for the text color.
+        """
+
+        self.textColor = textColor
+        
+    def getTextColor(self):
+        """Gets the text color as a QColor object."""
+
+        return self.textColor
+        
+    def setBarWidth(self, barWidth):
+        """Sets the bar width (float)."""
+
+        self.barWidth = barWidth
+    
+    def getBarWidth(self):
+        """Returns the bar width (float)."""
+
+        return self.barWidth
+    
+    def setFontSize(self, fontSize):
+        """Sets the font size of the musical ratio text (float)."""
+
+        self.fontSize = fontSize
+    
+    def getFontSize(self):
+        """Sets the font size of the musical ratio text (float)."""
+
+        return self.fontSize
+    
+    def isReversed(self):
+        """Returns whether or not the musicalRatios are in reversed order.
+        This value is used to tell how ratios are referenced (from the
+        endpoint instead of from the startpoint).
+        """
+
+        return self.reversedFlag
+
+    def setReversed(self, reversedFlag):
+        """Sets the reversed flag.  This value is used to tell how
+        the musical ratios are referenced (from the endpoint instead of from the
+        startpoint).
+
+        Arguments:
+        reversedFlag - bool value for whether or not the musicalRatios
+                       are reversed.
+        """
+
+        self.reversedFlag = reversedFlag
+        
+    def isTextEnabled(self):
+        """Returns whether or not the text is enabled for the
+        musicalRatios that are enabled.
+        """
+
+        return self.textEnabledFlag
+
+    def setTextEnabled(self, textEnabledFlag):
+        """Sets the textEnabled flag.  This value is used to tell
+        whether or not the text is enabled for the musicalRatios that
+        are enabled.
+
+        Arguments:
+        textEnabledFlag - bool value for whether or not the text is enabled.
+        """
+
+        self.textEnabledFlag = textEnabledFlag
+        
+    def getXYForMusicalRatio(self, index):
+        """Returns the x and y location of where this musical ratio
+        would exist, based on the MusicalRatio ordering and the
+        originPointF, leg1PointF, and leg2PointF locations.
+
+        Arguments:
+        
+        index - int value for index into self.musicalRatios that the
+        user is looking for the musical ratio for.  This value must be
+        within the valid index limits.
+        """
+
+        self.log.debug("Entered getXYForMusicalRatio({})".format(index))
+
+        # TODO: need to re-write this method so that it applies to the
+        # 3 points, and the point returned is along the outter edge of
+        # a rect created by the 3 points.
+        
+        # Validate input.
+        if index < 0:
+            self.log.error("getXYForMusicalRatio(): Invalid index: {}".
+                           format(index))
+            return
+        if len(self.musicalRatios) > 0 and index >= len(self.musicalRatios):
+            self.log.error("getXYForMusicalRatio(): Index out of range: {}".
+                           format(index))
+            return
+        
+        # Return values.
+        x = None
+        y = None
+
+        startPointX = self.startPointF.x()
+        startPointY = self.startPointF.y()
+        endPointX = self.endPointF.x()
+        endPointY = self.endPointF.y()
+
+        self.log.debug("startPoint is: ({}, {})".
+                       format(startPointX, startPointY))
+        self.log.debug("endPoint is: ({}, {})".
+                       format(endPointX, endPointY))
+        
+        deltaX = endPointX - startPointX
+        deltaY = endPointY - startPointY
+        
+        self.log.debug("deltaX is: {}".format(deltaX))
+        self.log.debug("deltaY is: {}".format(deltaY))
+        
+        # Need to maintain offsets so that if the ratios are rotated a
+        # certain way, then we have the correct starting point.
+        xOffset = 0.0
+        yOffset = 0.0
+
+        
+        self.log.debug("There are {} number of musical ratios.".\
+                       format(len(self.musicalRatios)))
+
+        for i in range(len(self.musicalRatios)):
+            musicalRatio = self.musicalRatios[i]
+            
+            self.log.debug("self.musicalRatios[{}].getRatio() is: {}".\
+                           format(i, musicalRatio.getRatio()))
+            if i == 0:
+                # Store the offset for future indexes.
+                xOffset = deltaX * (musicalRatio.getRatio() - 1.0)
+                yOffset = deltaY * (musicalRatio.getRatio() - 1.0)
+
+                self.log.debug("At i == 0.  xOffset={}, yOffset={}".\
+                               format(xOffset, yOffset))
+                
+            if i == index:
+                self.log.debug("At the i == index, where i == {}.".format(i))
+                self.log.debug("MusicalRatio is: {}".\
+                               format(musicalRatio.getRatio()))
+                
+                x = (deltaX * (musicalRatio.getRatio() - 1.0)) - xOffset
+                y = (deltaY * (musicalRatio.getRatio() - 1.0)) - yOffset
+
+                self.log.debug("(x={}, y={})".format(x, y))
+
+                # Normalize x and y to be within the range of
+                # [startPointX, endPointX] and [startPointY,
+                # endPointY]
+
+                # If we are reversed, then reference the offset x and
+                # y from the end point instead of the start point.
+                if self.isReversed() == False:
+                    x = startPointX + x
+                    y = startPointY + y
+                else:
+                    x = endPointX - x
+                    y = endPointY - y
+                    
+
+                self.log.debug("Adjusting to start points, (x={}, y={})".
+                               format(x, y))
+                
+                while x < startPointX and x < endPointX:
+                    x += abs(deltaX)
+                while x > startPointX and x > endPointX:
+                    x -= abs(deltaX)
+                while y < startPointY and y < endPointY:
+                    y += abs(deltaY)
+                while y > startPointY and y > endPointY:
+                    y -= abs(deltaY)
+
+                self.log.debug("For index {}, ".format(i) +
+                               "normalized x and y from startPoint is: " +
+                               "({}, {})".format(x, y))
+
+                # Break out of for loop because we found what we are
+                # looking for, which is the x and y values.
+                break
+
+        if x == None or y == None:
+            # This means that the index requested that the person
+            # passed in as a parameter is an index that doesn't map to
+            # list length of self.musicalRatios.
+            self.log.warn("getXYForMusicalRatio(): " +
+                          "Index provided is out of range!")
+            # Reset values to 0.
+            x = 0.0
+            y = 0.0
+            
+        self.log.debug("Exiting getXYForMusicalRatio({}), ".format(index) + \
+                       "Returning ({}, {})".format(x, y))
+        return (x, y)
+
+    def __str__(self):
+        """Returns the string representation of this object."""
+
+        return self.toString()
+
+    def toString(self):
+        """Returns the string representation of this object."""
+
+        rv = Util.objToString(self)
+        
+        return rv
+
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = \
+            logging.\
+            getLogger("data_objects.PriceBarChartOctaveFanArtifact")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " +
+                       PriceBarChartOctaveFanArtifact.__name__ +
+                       " object of version {}".format(self.classVersion))
+
 class PriceBarChartScaling:
     """Class that holds information about the scaling of a PriceBarChart.
     """
@@ -5336,6 +5933,11 @@ class PriceBarChartSettings:
     # showSqrdSamaTextFlag (bool).
     defaultTimeMeasurementGraphicsItemShowSqrdSamaTextFlag = True
 
+    # Default musical ratios enabled in a
+    # TimeModalScaleGraphicsItem (list of MusicalRatio)
+    defaultTimeModalScaleGraphicsItemMusicalRatios = \
+        MusicalRatio.getMusicalRatiosForTimeModalScaleGraphicsItem()
+    
     # Default color for the bar of a TimeModalScaleGraphicsItem (QColor).
     defaultTimeModalScaleGraphicsItemBarColor = QColor(Qt.black)
 
@@ -5354,6 +5956,15 @@ class PriceBarChartSettings:
     # Default value for the TimeModalScaleGraphicsItem text Y scaling (float).
     defaultTimeModalScaleGraphicsItemTextYScaling = 0.2
 
+    # Default value for the TimeModalScaleGraphicsItem
+    # textEnabledFlag (bool).
+    defaultTimeModalScaleGraphicsItemTextEnabledFlag = True
+
+    # Default musical ratios enabled in a
+    # PriceModalScaleGraphicsItem (list of MusicalRatio)
+    defaultPriceModalScaleGraphicsItemMusicalRatios = \
+        MusicalRatio.getMusicalRatiosForPriceModalScaleGraphicsItem()
+    
     # Default color for the bar of a PriceModalScaleGraphicsItem (QColor).
     defaultPriceModalScaleGraphicsItemBarColor = QColor(Qt.black)
 
@@ -5371,6 +5982,10 @@ class PriceBarChartSettings:
 
     # Default value for the PriceModalScaleGraphicsItem text Y scaling (float).
     defaultPriceModalScaleGraphicsItemTextYScaling = 0.2
+
+    # Default value for the PriceModalScaleGraphicsItem
+    # textEnabledFlag (bool).
+    defaultPriceModalScaleGraphicsItemTextEnabledFlag = True
 
     # Default font description text (this is basically the QFont,
     # serialized to str) for the TextGraphicsItem.  This includes the
@@ -5932,6 +6547,11 @@ class PriceBarChartSettings:
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrdSamaTextFlag
             
+        # TimeModalScaleGraphicsItem musical ratios (list of MusicalRatio).
+        self.timeModalScaleGraphicsItemMusicalRatios = \
+            PriceBarChartSettings.\
+                defaultTimeModalScaleGraphicsItemMusicalRatios
+
         # TimeModalScaleGraphicsItem bar color (QColor).
         self.timeModalScaleGraphicsItemBarColor = \
             PriceBarChartSettings.\
@@ -5952,6 +6572,16 @@ class PriceBarChartSettings:
             PriceBarChartSettings.\
                 defaultTimeModalScaleGraphicsItemTextYScaling
 
+        # TimeModalScaleGraphicsItem textEnabledFlag (bool).
+        self.timeModalScaleGraphicsItemTextEnabledFlag = \
+            PriceBarChartSettings.\
+                defaultTimeModalScaleGraphicsItemTextEnabledFlag
+
+        # PriceModalScaleGraphicsItem musical ratios (list of MusicalRatio).
+        self.priceModalScaleGraphicsItemMusicalRatios = \
+            PriceBarChartSettings.\
+                defaultPriceModalScaleGraphicsItemMusicalRatios
+
         # PriceModalScaleGraphicsItem bar color (QColor).
         self.priceModalScaleGraphicsItemBarColor = \
             PriceBarChartSettings.\
@@ -5971,6 +6601,11 @@ class PriceBarChartSettings:
         self.priceModalScaleGraphicsItemTextYScaling = \
             PriceBarChartSettings.\
                 defaultPriceModalScaleGraphicsItemTextYScaling
+
+        # PriceModalScaleGraphicsItem textEnabledFlag (bool).
+        self.priceModalScaleGraphicsItemTextEnabledFlag = \
+            PriceBarChartSettings.\
+                defaultPriceModalScaleGraphicsItemTextEnabledFlag
 
         # Default font description text (this is basically the QFont,
         # serialized to str) for the TextGraphicsItem.  This includes the
@@ -6325,7 +6960,7 @@ class PriceBarChartSettings:
         self.lineSegmentGraphicsItemAngleTextFlag = \
             PriceBarChartSettings.\
             defaultLineSegmentGraphicsItemAngleTextFlag
-    
+
     def __getstate__(self):
         """Returns the object's state for pickling purposes."""
 

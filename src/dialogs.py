@@ -4,6 +4,9 @@ import os
 import sys
 import io
 
+# For copy.deepcopy().
+import copy
+
 # For access to urllib errors.
 import urllib.error
 
@@ -10643,66 +10646,62 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.lineSegmentGraphicsItemGroupBox = \
             self._buildLineSegmentGraphicsItemGroupBox()
 
-        # Create group boxes for pages of settings that will go into a
-        # QTabWidget.
-        self.page1GroupBox = QGroupBox()
-        self.page2GroupBox = QGroupBox()
-        self.page3GroupBox = QGroupBox()
-        self.page4GroupBox = QGroupBox()
-        self.page5GroupBox = QGroupBox()
-        self.page6GroupBox = QGroupBox()
-        self.page7GroupBox = QGroupBox()
-        self.page8GroupBox = QGroupBox()
-
-        page1GroupBoxLayout = QVBoxLayout()
-        page1GroupBoxLayout.addWidget(self.priceBarGraphicsItemGroupBox)
-        page1GroupBoxLayout.addWidget(self.barCountGraphicsItemGroupBox)
-        page1GroupBoxLayout.addWidget(self.timeModalScaleGraphicsItemGroupBox)
-        page1GroupBoxLayout.addWidget(self.priceModalScaleGraphicsItemGroupBox)
-        self.page1GroupBox.setLayout(page1GroupBoxLayout)
-
-        page2GroupBoxLayout = QVBoxLayout()
-        page2GroupBoxLayout.addWidget(self.timeMeasurementGraphicsItemGroupBox1)
-        self.page2GroupBox.setLayout(page2GroupBoxLayout)
-
-        page3GroupBoxLayout = QVBoxLayout()
-        page3GroupBoxLayout.addWidget(self.timeMeasurementGraphicsItemGroupBox2)
-        self.page3GroupBox.setLayout(page3GroupBoxLayout)
-        
-        page4GroupBoxLayout = QVBoxLayout()
-        page4GroupBoxLayout.addWidget(self.priceTimeInfoGraphicsItemGroupBox)
-        page4GroupBoxLayout.addWidget(self.priceMeasurementGraphicsItemGroupBox)
-        self.page4GroupBox.setLayout(page4GroupBoxLayout)
-        
-        page5GroupBoxLayout = QVBoxLayout()
-        page5GroupBoxLayout.addWidget(self.timeRetracementGraphicsItemGroupBox)
-        self.page5GroupBox.setLayout(page5GroupBoxLayout)
-
-        page6GroupBoxLayout = QVBoxLayout()
-        page6GroupBoxLayout.addWidget(self.priceRetracementGraphicsItemGroupBox)
-        self.page6GroupBox.setLayout(page6GroupBoxLayout)
-
-        page7GroupBoxLayout = QVBoxLayout()
-        page7GroupBoxLayout.addWidget(self.textGraphicsItemGroupBox)
-        page7GroupBoxLayout.addWidget(self.priceTimeVectorGraphicsItemGroupBox)
-        self.page7GroupBox.setLayout(page7GroupBoxLayout)
-
-        page8GroupBoxLayout = QVBoxLayout()
-        page8GroupBoxLayout.addWidget(self.lineSegmentGraphicsItemGroupBox)
-        self.page8GroupBox.setLayout(page8GroupBoxLayout)
-        
         # Create a QTabWidget to stack all the settings editing
         # widgets.
         self.tabWidget = QTabWidget()
-        self.tabWidget.addTab(self.page1GroupBox, "Page 1")
-        self.tabWidget.addTab(self.page2GroupBox, "Page 2")
-        self.tabWidget.addTab(self.page3GroupBox, "Page 3")
-        self.tabWidget.addTab(self.page4GroupBox, "Page 4")
-        self.tabWidget.addTab(self.page5GroupBox, "Page 5")
-        self.tabWidget.addTab(self.page6GroupBox, "Page 6")
-        self.tabWidget.addTab(self.page7GroupBox, "Page 7")
-        self.tabWidget.addTab(self.page8GroupBox, "Page 8")
         
+        self.tabWidget.addTab(self.priceBarGraphicsItemGroupBox,
+                              QIcon(":/images/rluu/priceBar.png"),
+                              "")
+
+        self.tabWidget.addTab(self.barCountGraphicsItemGroupBox,
+                              QIcon(":/images/rluu/barCount.png"),
+                              "")
+        
+        self.tabWidget.addTab(self.timeMeasurementGraphicsItemGroupBox1,
+                              QIcon(":/images/rluu/timeMeasurement.png"),
+                              "(1)")
+        
+        self.tabWidget.addTab(self.timeMeasurementGraphicsItemGroupBox2,
+                              QIcon(":/images/rluu/timeMeasurement.png"),
+                              "(2)")
+
+        self.tabWidget.addTab(self.timeModalScaleGraphicsItemGroupBox,
+                              QIcon(":/images/rluu/timeModalScale.png"),
+                              "")
+
+        self.tabWidget.addTab(self.priceModalScaleGraphicsItemGroupBox,
+                              QIcon(":/images/rluu/priceModalScale.png"),
+                              "")
+
+        self.tabWidget.addTab(self.textGraphicsItemGroupBox,
+                              QIcon(":/images/tango-icon-theme-0.8.90/32x32/mimetypes/font-x-generic.png"),
+                              "")
+
+        self.tabWidget.addTab(self.priceTimeInfoGraphicsItemGroupBox,
+                              QIcon(":/images/rluu/priceTimeInfo.png"),
+                              "")
+
+        self.tabWidget.addTab(self.priceMeasurementGraphicsItemGroupBox,
+                              QIcon(":/images/rluu/priceMeasurement.png"),
+                              "")
+
+        self.tabWidget.addTab(self.timeRetracementGraphicsItemGroupBox,
+                              QIcon(":/images/rluu/timeRetracement.png"),
+                              "")
+
+        self.tabWidget.addTab(self.priceRetracementGraphicsItemGroupBox,
+                              QIcon(":/images/rluu/priceRetracement.png"),
+                              "")
+
+        self.tabWidget.addTab(self.priceTimeVectorGraphicsItemGroupBox,
+                              QIcon(":/images/rluu/ptv.png"),
+                              "")
+
+        self.tabWidget.addTab(self.lineSegmentGraphicsItemGroupBox,
+                              QIcon(":/images/rluu/lineSegment.png"),
+                              "")
+
         # Buttons at bottom.
         self.resetAllToDefaultButton = \
             QPushButton("Reset all to original default values")
@@ -10825,6 +10824,9 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.timeModalScaleGraphicsItemTextYScalingResetButton.clicked.\
             connect(\
             self._handleTimeModalScaleGraphicsItemTextYScalingResetButtonClicked)
+        self.timeModalScaleGraphicsItemTextEnabledFlagResetButton.clicked.\
+            connect(\
+            self._handleTimeModalScaleGraphicsItemTextEnabledFlagResetButtonClicked)
         self.priceModalScaleGraphicsItemColorResetButton.clicked.\
             connect(\
             self._handlePriceModalScaleGraphicsItemColorResetButtonClicked)
@@ -10837,6 +10839,9 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.priceModalScaleGraphicsItemTextYScalingResetButton.clicked.\
             connect(\
             self._handlePriceModalScaleGraphicsItemTextYScalingResetButtonClicked)
+        self.priceModalScaleGraphicsItemTextEnabledFlagResetButton.clicked.\
+            connect(\
+            self._handlePriceModalScaleGraphicsItemTextEnabledFlagResetButtonClicked)
         self.textGraphicsItemDefaultFontResetButton.clicked.\
             connect(self._handleTextGraphicsItemDefaultFontResetButtonClicked)
         self.textGraphicsItemDefaultColorResetButton.clicked.\
@@ -11135,7 +11140,11 @@ class PriceBarChartSettingsEditWidget(QWidget):
              r, 2, ar)
         r += 1
 
-        self.priceBarGraphicsItemGroupBox.setLayout(gridLayout)
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addStretch()
+        
+        self.priceBarGraphicsItemGroupBox.setLayout(layout)
 
         return self.priceBarGraphicsItemGroupBox
 
@@ -11237,7 +11246,11 @@ class PriceBarChartSettingsEditWidget(QWidget):
              r, 2, ar)
         r += 1
 
-        self.barCountGraphicsItemGroupBox.setLayout(gridLayout)
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addStretch()
+        
+        self.barCountGraphicsItemGroupBox.setLayout(layout)
         
         return self.barCountGraphicsItemGroupBox
 
@@ -11794,7 +11807,11 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.timeMeasurementGraphicsItemShowSqrdScaledValueRangeTextFlagCheckBox, 
             r, 1, ar)
 
-        self.timeMeasurementGraphicsItemGroupBox1.setLayout(gridLayout)
+        groupBox1Layout = QVBoxLayout()
+        groupBox1Layout.addLayout(gridLayout)
+        groupBox1Layout.addStretch()
+        
+        self.timeMeasurementGraphicsItemGroupBox1.setLayout(groupBox1Layout)
         
         return self.timeMeasurementGraphicsItemGroupBox1
     
@@ -12283,6 +12300,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.timeModalScaleGraphicsItemTextYScalingResetButton = \
             QPushButton("Reset to default")
                                              
+        # timeModalScaleGraphicsItemTextEnabledFlag (bool).
+        self.timeModalScaleGraphicsItemTextEnabledFlagLabel = \
+            QLabel("TimeModalScaleGraphicsItem text is enabled: ")
+        self.timeModalScaleGraphicsItemTextEnabledFlagCheckBox = \
+            QCheckBox()
+        self.timeModalScaleGraphicsItemTextEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.timeModalScaleGraphicsItemTextEnabledFlagResetButton = \
+            QPushButton("Reset to default")
+        
         # Grid layout.
         gridLayout = QGridLayout()
         r = 0
@@ -12331,9 +12358,81 @@ class PriceBarChartSettingsEditWidget(QWidget):
             addWidget(\
             self.timeModalScaleGraphicsItemTextYScalingResetButton, 
             r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(self.timeModalScaleGraphicsItemTextEnabledFlagLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.timeModalScaleGraphicsItemTextEnabledFlagCheckBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.timeModalScaleGraphicsItemTextEnabledFlagResetButton, 
+            r, 2, ar)
+
         r += 1
 
-        self.timeModalScaleGraphicsItemGroupBox.setLayout(gridLayout)
+
+        self.timeModalScaleGraphicsItemRotateDownButton = \
+            QPushButton("Rotate Down")
+        self.timeModalScaleGraphicsItemRotateUpButton = \
+            QPushButton("Rotate Up")
+        self.timeModalScaleGraphicsItemCheckMarkAllButton = \
+            QPushButton("Check All")
+        self.timeModalScaleGraphicsItemCheckMarkNoneButton = \
+            QPushButton("Check None")
+        self.timeModalScaleGraphicsItemMusicalRatiosResetButton = \
+            QPushButton("Reset to default")
+        
+        rotateButtonsLayout = QHBoxLayout()
+        rotateButtonsLayout.addWidget(\
+            self.timeModalScaleGraphicsItemRotateDownButton)
+        rotateButtonsLayout.addWidget(\
+            self.timeModalScaleGraphicsItemRotateUpButton)
+        rotateButtonsLayout.addWidget(\
+            self.timeModalScaleGraphicsItemCheckMarkAllButton)
+        rotateButtonsLayout.addWidget(\
+            self.timeModalScaleGraphicsItemCheckMarkNoneButton)
+        rotateButtonsLayout.addWidget(\
+            self.timeModalScaleGraphicsItemMusicalRatiosResetButton)
+        rotateButtonsLayout.addStretch()
+        
+        # Layout for the musical ratio intervals.
+        self.timeModalScaleGraphicsItemMusicalRatiosGridLayout = QGridLayout()
+
+        # Holds a list of MusicalRatio objects that is the 'working
+        # copy' in this edit widget.  This gets saved to the
+        # underlying self.priceBarChartSettings object upon clicking okay.
+        self.timeModalScaleGraphicsItemMusicalRatios = list()
+        
+        # Holds the list of QCheckBox objects corresponding to the
+        # MusicalRatios (ordered) in the artifact. 
+        self.timeModalScaleGraphicsItemCheckBoxes = []
+        
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addLayout(rotateButtonsLayout)
+        layout.addLayout(\
+            self.timeModalScaleGraphicsItemMusicalRatiosGridLayout)
+        layout.addStretch()
+        
+        self.timeModalScaleGraphicsItemGroupBox.setLayout(layout)
+
+        # Connect signals and slots.
+        self.timeModalScaleGraphicsItemRotateDownButton.clicked.connect(\
+            self._handleTimeModalScaleGraphicsItemRotateDownButtonClicked)
+        self.timeModalScaleGraphicsItemRotateUpButton.clicked.connect(\
+            self._handleTimeModalScaleGraphicsItemRotateUpButtonClicked)
+        self.timeModalScaleGraphicsItemCheckMarkAllButton.clicked.connect(\
+            self._handleTimeModalScaleGraphicsItemCheckMarkAllButtonClicked)
+        self.timeModalScaleGraphicsItemCheckMarkNoneButton.clicked.connect(\
+            self._handleTimeModalScaleGraphicsItemCheckMarkNoneButtonClicked)
+        self.timeModalScaleGraphicsItemMusicalRatiosResetButton.clicked.\
+            connect(\
+            self.\
+            _handleTimeModalScaleGraphicsItemMusicalRatiosResetButtonClicked)
+
         
         return self.timeModalScaleGraphicsItemGroupBox
 
@@ -12381,6 +12480,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.priceModalScaleGraphicsItemTextYScalingResetButton = \
             QPushButton("Reset to default")
                                              
+        # priceModalScaleGraphicsItemTextEnabledFlag (bool).
+        self.priceModalScaleGraphicsItemTextEnabledFlagLabel = \
+            QLabel("PriceModalScaleGraphicsItem text is enabled: ")
+        self.priceModalScaleGraphicsItemTextEnabledFlagCheckBox = \
+            QCheckBox()
+        self.priceModalScaleGraphicsItemTextEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.priceModalScaleGraphicsItemTextEnabledFlagResetButton = \
+            QPushButton("Reset to default")
+        
         # Grid layout.
         gridLayout = QGridLayout()
         r = 0
@@ -12429,9 +12538,81 @@ class PriceBarChartSettingsEditWidget(QWidget):
             addWidget(\
             self.priceModalScaleGraphicsItemTextYScalingResetButton, 
             r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(self.priceModalScaleGraphicsItemTextEnabledFlagLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.priceModalScaleGraphicsItemTextEnabledFlagCheckBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.priceModalScaleGraphicsItemTextEnabledFlagResetButton, 
+            r, 2, ar)
+
         r += 1
 
-        self.priceModalScaleGraphicsItemGroupBox.setLayout(gridLayout)
+
+        self.priceModalScaleGraphicsItemRotateDownButton = \
+            QPushButton("Rotate Down")
+        self.priceModalScaleGraphicsItemRotateUpButton = \
+            QPushButton("Rotate Up")
+        self.priceModalScaleGraphicsItemCheckMarkAllButton = \
+            QPushButton("Check All")
+        self.priceModalScaleGraphicsItemCheckMarkNoneButton = \
+            QPushButton("Check None")
+        self.priceModalScaleGraphicsItemMusicalRatiosResetButton = \
+            QPushButton("Reset to default")
+        
+        rotateButtonsLayout = QHBoxLayout()
+        rotateButtonsLayout.addWidget(\
+            self.priceModalScaleGraphicsItemRotateDownButton)
+        rotateButtonsLayout.addWidget(\
+            self.priceModalScaleGraphicsItemRotateUpButton)
+        rotateButtonsLayout.addWidget(\
+            self.priceModalScaleGraphicsItemCheckMarkAllButton)
+        rotateButtonsLayout.addWidget(\
+            self.priceModalScaleGraphicsItemCheckMarkNoneButton)
+        rotateButtonsLayout.addWidget(\
+            self.priceModalScaleGraphicsItemMusicalRatiosResetButton)
+        rotateButtonsLayout.addStretch()
+        
+        # Layout for the musical ratio intervals.
+        self.priceModalScaleGraphicsItemMusicalRatiosGridLayout = QGridLayout()
+
+        # Holds a list of MusicalRatio objects that is the 'working
+        # copy' in this edit widget.  This gets saved to the
+        # underlying self.priceBarChartSettings object upon clicking okay.
+        self.priceModalScaleGraphicsItemMusicalRatios = list()
+        
+        # Holds the list of QCheckBox objects corresponding to the
+        # MusicalRatios (ordered) in the artifact. 
+        self.priceModalScaleGraphicsItemCheckBoxes = []
+        
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addLayout(rotateButtonsLayout)
+        layout.addLayout(\
+            self.priceModalScaleGraphicsItemMusicalRatiosGridLayout)
+        layout.addStretch()
+        
+        self.priceModalScaleGraphicsItemGroupBox.setLayout(layout)
+
+        # Connect signals and slots.
+        self.priceModalScaleGraphicsItemRotateDownButton.clicked.connect(\
+            self._handlePriceModalScaleGraphicsItemRotateDownButtonClicked)
+        self.priceModalScaleGraphicsItemRotateUpButton.clicked.connect(\
+            self._handlePriceModalScaleGraphicsItemRotateUpButtonClicked)
+        self.priceModalScaleGraphicsItemCheckMarkAllButton.clicked.connect(\
+            self._handlePriceModalScaleGraphicsItemCheckMarkAllButtonClicked)
+        self.priceModalScaleGraphicsItemCheckMarkNoneButton.clicked.connect(\
+            self._handlePriceModalScaleGraphicsItemCheckMarkNoneButtonClicked)
+        self.priceModalScaleGraphicsItemMusicalRatiosResetButton.clicked.\
+            connect(\
+            self.\
+            _handlePriceModalScaleGraphicsItemMusicalRatiosResetButtonClicked)
+
         
         return self.priceModalScaleGraphicsItemGroupBox
 
@@ -12534,7 +12715,11 @@ class PriceBarChartSettingsEditWidget(QWidget):
              r, 2, ar)
         r += 1
 
-        self.textGraphicsItemGroupBox.setLayout(gridLayout)
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addStretch()
+        
+        self.textGraphicsItemGroupBox.setLayout(layout)
         
         return self.textGraphicsItemGroupBox
     
@@ -12814,7 +12999,11 @@ class PriceBarChartSettingsEditWidget(QWidget):
             r, 1, ar)
         
 
-        self.priceTimeInfoGraphicsItemGroupBox.setLayout(gridLayout)
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addStretch()
+        
+        self.priceTimeInfoGraphicsItemGroupBox.setLayout(layout)
 
         return self.priceTimeInfoGraphicsItemGroupBox
 
@@ -13067,7 +13256,11 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         r += 1
         
-        self.priceMeasurementGraphicsItemGroupBox.setLayout(gridLayout)
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addStretch()
+        
+        self.priceMeasurementGraphicsItemGroupBox.setLayout(layout)
         
         return self.priceMeasurementGraphicsItemGroupBox
     
@@ -13324,7 +13517,11 @@ class PriceBarChartSettingsEditWidget(QWidget):
             r += 1
 
         
-        self.timeRetracementGraphicsItemGroupBox.setLayout(gridLayout)
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addStretch()
+        
+        self.timeRetracementGraphicsItemGroupBox.setLayout(layout)
         
         return self.timeRetracementGraphicsItemGroupBox
     
@@ -13581,7 +13778,11 @@ class PriceBarChartSettingsEditWidget(QWidget):
             r += 1
 
         
-        self.priceRetracementGraphicsItemGroupBox.setLayout(gridLayout)
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addStretch()
+        
+        self.priceRetracementGraphicsItemGroupBox.setLayout(layout)
         
         return self.priceRetracementGraphicsItemGroupBox
     
@@ -13882,7 +14083,11 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         r += 1
         
-        self.priceTimeVectorGraphicsItemGroupBox.setLayout(gridLayout)
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addStretch()
+        
+        self.priceTimeVectorGraphicsItemGroupBox.setLayout(layout)
         
         return self.priceTimeVectorGraphicsItemGroupBox
     
@@ -14087,7 +14292,11 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         r += 1
         
-        self.lineSegmentGraphicsItemGroupBox.setLayout(gridLayout)
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addStretch()
+        
+        self.lineSegmentGraphicsItemGroupBox.setLayout(layout)
         
         return self.lineSegmentGraphicsItemGroupBox
     
@@ -14618,6 +14827,23 @@ class PriceBarChartSettingsEditWidget(QWidget):
             setValue(self.priceBarChartSettings.\
                         timeModalScaleGraphicsItemTextYScaling)
 
+        # timeModalScaleGraphicsItemTextEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           timeModalScaleGraphicsItemTextEnabledFlag == True:
+
+            self.timeModalScaleGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeModalScaleGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # timeModalScaleGraphicsItemMusicalRatios (list of MusicalRatio)
+        self.timeModalScaleGraphicsItemMusicalRatios = \
+            copy.deepcopy(self.priceBarChartSettings.\
+                          timeModalScaleGraphicsItemMusicalRatios)
+        self._timeModalScaleGraphicsItemReloadMusicalRatiosGrid(\
+            self.timeModalScaleGraphicsItemMusicalRatios)
+        
         # priceModalScaleGraphicsItemColor (QColor).
         self.priceModalScaleGraphicsItemColorEditButton.\
             setColor(self.priceBarChartSettings.\
@@ -14638,6 +14864,23 @@ class PriceBarChartSettingsEditWidget(QWidget):
             setValue(self.priceBarChartSettings.\
                         priceModalScaleGraphicsItemTextYScaling)
 
+        # priceModalScaleGraphicsItemTextEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           priceModalScaleGraphicsItemTextEnabledFlag == True:
+
+            self.priceModalScaleGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.priceModalScaleGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # priceModalScaleGraphicsItemMusicalRatios (list of MusicalRatio)
+        self.priceModalScaleGraphicsItemMusicalRatios = \
+            copy.deepcopy(self.priceBarChartSettings.\
+                          priceModalScaleGraphicsItemMusicalRatios)
+        self._priceModalScaleGraphicsItemReloadMusicalRatiosGrid(\
+            self.priceModalScaleGraphicsItemMusicalRatios)
+        
         # textGraphicsItemDefaultFont (QFont)
         self.textGraphicsItemDefaultFont = QFont()
         self.textGraphicsItemDefaultFont.\
@@ -15661,6 +15904,20 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.priceBarChartSettings.timeModalScaleGraphicsItemTextYScaling = \
             float(self.timeModalScaleGraphicsItemTextYScalingSpinBox.value())
         
+        # timeModalScaleGraphicsItemTextEnabledFlag (bool).
+        if self.timeModalScaleGraphicsItemTextEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+            
+            self.priceBarChartSettings.\
+                timeModalScaleGraphicsItemTextEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                timeModalScaleGraphicsItemTextEnabledFlag = False
+        
+        # timeModalScaleGraphicsItemMusicalRatios (list of MusicalRatio)
+        self.priceBarChartSettings.timeModalScaleGraphicsItemMusicalRatios = \
+            self.timeModalScaleGraphicsItemMusicalRatios
+           
         # priceModalScaleGraphicsItemTextColor (QColor).
         self.priceBarChartSettings.priceModalScaleGraphicsItemBarColor = \
             self.priceModalScaleGraphicsItemColorEditButton.getColor()
@@ -15677,6 +15934,20 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.priceBarChartSettings.priceModalScaleGraphicsItemTextYScaling = \
             float(self.priceModalScaleGraphicsItemTextYScalingSpinBox.value())
         
+        # priceModalScaleGraphicsItemTextEnabledFlag (bool).
+        if self.priceModalScaleGraphicsItemTextEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+            
+            self.priceBarChartSettings.\
+                priceModalScaleGraphicsItemTextEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                priceModalScaleGraphicsItemTextEnabledFlag = False
+        
+        # priceModalScaleGraphicsItemMusicalRatios (list of MusicalRatio)
+        self.priceBarChartSettings.priceModalScaleGraphicsItemMusicalRatios = \
+            self.priceModalScaleGraphicsItemMusicalRatios
+           
         # textGraphicsItemDefaultFont (QFont)
         self.priceBarChartSettings.\
             textGraphicsItemDefaultFontDescription = \
@@ -16164,6 +16435,7 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         
         self.log.debug("Exiting saveValuesToSettings()")
+
 
     def _handleTimeMeasurementGraphicsItemDefaultFontModifyButtonClicked(self):
         """Called when the
@@ -16717,6 +16989,173 @@ class PriceBarChartSettingsEditWidget(QWidget):
             setCheckState(checkState)
 
 
+    def _timeModalScaleGraphicsItemReloadMusicalRatiosGrid(self,
+                                                           musicalRatios):
+        """Clears and recreates the
+        self.timeModalScaleGraphicsItemMusicalRatiosGridLayout
+        according to the values in 'musicalRatios'.
+
+        Arguments:
+        
+        musicalRatios - list of MusicalRatio objects to use to
+                        populate the grid layout.
+        """
+
+        musicalRatiosGridLayout = \
+            self.timeModalScaleGraphicsItemMusicalRatiosGridLayout
+        
+        # Remove any old widgets that were in the grid layout from
+        # the grid layout..
+        for r in range(musicalRatiosGridLayout.rowCount()):
+            for c in range(musicalRatiosGridLayout.columnCount()):
+                # Get the QLayoutItem.
+                item = musicalRatiosGridLayout.itemAtPosition(r, c)
+                if item != None:
+                    # Get the widget in the layout item.
+                    widget = item.widget()
+                    if widget != None:
+                        widget.setEnabled(False)
+                        widget.setVisible(False)
+                        widget.setParent(None)
+
+                        # Actually remove the widget from the
+                        # QGridLayout.  
+                        musicalRatiosGridLayout.removeWidget(widget)
+                                
+        # Row.
+        r = 0
+        # Alignments.
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        # Create the musical ratio items in the
+        # musicalRatiosGridLayout QGridLayout.
+        self.timeModalScaleGraphicsItemMusicalRatios = musicalRatios
+        numMusicalRatios = len(self.timeModalScaleGraphicsItemMusicalRatios)
+
+        # Clear the checkboxes list.
+        self.timeModalScaleGraphicsItemCheckBoxes = []
+
+        rangeUsed = range(numMusicalRatios)
+            
+        for i in rangeUsed:
+            musicalRatio = musicalRatios[i]
+            
+            checkBox = QCheckBox("{}".format(musicalRatio.getRatio()))
+
+            # Set the check state based on whether or not the musical
+            # ratio is enabled.
+            if musicalRatio.isEnabled():
+                checkBox.setCheckState(Qt.Checked)
+            else:
+                checkBox.setCheckState(Qt.Unchecked)
+
+            # Connect the signal to the slot function
+            # _handleCheckMarkToggled().  That function will update
+            # the self.artifact's musicalRatios with new check state.
+            checkBox.stateChanged.connect(\
+                self._handleTimeModalScaleGraphicsItemCheckMarkToggled)
+            
+            # Append to our list of checkboxes so that we can
+            # reference them later and see what values are used in
+            # them.  
+            self.timeModalScaleGraphicsItemCheckBoxes.append(checkBox)
+            
+            descriptionLabel = QLabel(musicalRatio.getDescription())
+
+            # Actually add the widgets to the grid layout.
+            musicalRatiosGridLayout.\
+                addWidget(checkBox, r, 0, al)
+            musicalRatiosGridLayout.\
+                addWidget(descriptionLabel, r, 1, al)
+
+            r += 1
+
+
+    def _handleTimeModalScaleGraphicsItemCheckMarkToggled(self):
+        """Called when the user checkmarks or uncheckmarks a musical
+        ratio checkbox in the TimeModalScaleGraphicsItem groupbox widgets.
+        This will update the internally kept musicalRatio values.
+        """
+
+        # Go through all the musicalRatios in the widget, and set them
+        # as enabled or disabled in the artifact, based on the check
+        # state of the QCheckBox objects in self.checkBoxes.
+        for i in range(len(self.timeModalScaleGraphicsItemCheckBoxes)):
+            oldValue = \
+                self.timeModalScaleGraphicsItemMusicalRatios[i].isEnabled()
+            
+            newValue = None
+            if self.timeModalScaleGraphicsItemCheckBoxes[i].\
+                   checkState() == Qt.Checked:
+                
+                newValue = True
+            else:
+                newValue = False
+            
+            if oldValue != newValue:
+                self.log.debug("Updating enabled state of " +
+                               "timeModalScaleGraphicsItemMusicalRatio" +
+                               "[{}] from {} to {}".\
+                               format(i, oldValue, newValue))
+                self.timeModalScaleGraphicsItemMusicalRatios[i].\
+                    setEnabled(newValue)
+            else:
+                #self.log.debug("No update to " +
+                #               "timeModalScaleGraphicsItemMusicalRatio" +
+                #               "[{}]".format(i))
+                pass
+        
+    def _handleTimeModalScaleGraphicsItemRotateDownButtonClicked(self):
+        """Called when the 'Rotate Down' button is clicked."""
+
+        # Get all the musicalRatios.
+        musicalRatios = self.timeModalScaleGraphicsItemMusicalRatios
+
+        # Put the last musical ratio in the front.
+        if len(musicalRatios) > 0:
+            lastRatio = musicalRatios.pop(len(musicalRatios) - 1)
+            musicalRatios.insert(0, lastRatio)
+
+        # Reload the musicalRatiosGrid.
+        self._timeModalScaleGraphicsItemReloadMusicalRatiosGrid(musicalRatios)
+    
+    def _handleTimeModalScaleGraphicsItemRotateUpButtonClicked(self):
+        """Called when the 'Rotate Up' button is clicked."""
+
+        # Get all the musicalRatios.
+        musicalRatios = self.timeModalScaleGraphicsItemMusicalRatios
+        
+        # Put the first musical ratio in the back.
+        if len(musicalRatios) > 0:
+            firstRatio = musicalRatios.pop(0)
+            musicalRatios.append(firstRatio)
+        
+        # Reload the musicalRatiosGrid.
+        self._timeModalScaleGraphicsItemReloadMusicalRatiosGrid(musicalRatios)
+    
+    def _handleTimeModalScaleGraphicsItemCheckMarkAllButtonClicked(self):
+        """Called when the 'Check All' button is clicked."""
+
+        for checkBox in self.timeModalScaleGraphicsItemCheckBoxes:
+            checkBox.setCheckState(Qt.Checked)
+
+        # Call this to update the internal artifact object according
+        # to what the widgets have set (in this case, the 'enabled'
+        # checkboxes).
+        self._handleTimeModalScaleGraphicsItemCheckMarkToggled()
+        
+    def _handleTimeModalScaleGraphicsItemCheckMarkNoneButtonClicked(self):
+        """Called when the 'Check None' button is clicked."""
+
+        for checkBox in self.timeModalScaleGraphicsItemCheckBoxes:
+            checkBox.setCheckState(Qt.Unchecked)
+
+        # Call this to update the internal artifact object according
+        # to what the widgets have set (in this case, the 'enabled'
+        # checkboxes).
+        self._handleTimeModalScaleGraphicsItemCheckMarkToggled()
+
     def _handleTimeModalScaleGraphicsItemColorResetButtonClicked(self):
         """Called when the timeModalScaleGraphicsItemColorResetButton
         is clicked.  Resets the widget value to the default value.
@@ -16761,6 +17200,203 @@ class PriceBarChartSettingsEditWidget(QWidget):
                 defaultTimeModalScaleGraphicsItemTextYScaling
 
         self.timeModalScaleGraphicsItemTextYScalingSpinBox.setValue(value)
+
+    def _handleTimeModalScaleGraphicsItemTextEnabledFlagResetButtonClicked(self):
+        """Called when the timeModalScaleGraphicsItemTextEnabledFlagResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultTimeModalScaleGraphicsItemTextEnabledFlag
+
+        if value == True:
+            self.timeModalScaleGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.timeModalScaleGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+    def _handleTimeModalScaleGraphicsItemMusicalRatiosResetButtonClicked(self):
+        """Called when the 'Reset to default' button is clicked for
+        the TimeModalScaleGraphicsItem's MusicalRatios.
+        """
+
+        value = \
+            copy.deepcopy(PriceBarChartSettings.\
+                          defaultTimeModalScaleGraphicsItemMusicalRatios)
+        
+        self.timeModalScaleGraphicsItemMusicalRatios = value
+        
+        self._timeModalScaleGraphicsItemReloadMusicalRatiosGrid(\
+            self.timeModalScaleGraphicsItemMusicalRatios)
+        
+    def _priceModalScaleGraphicsItemReloadMusicalRatiosGrid(self,
+                                                           musicalRatios):
+        """Clears and recreates the
+        self.priceModalScaleGraphicsItemMusicalRatiosGridLayout
+        according to the values in 'musicalRatios'.
+
+        Arguments:
+        
+        musicalRatios - list of MusicalRatio objects to use to
+                        populate the grid layout.
+        """
+
+        musicalRatiosGridLayout = \
+            self.priceModalScaleGraphicsItemMusicalRatiosGridLayout
+        
+        # Remove any old widgets that were in the grid layout from
+        # the grid layout..
+        for r in range(musicalRatiosGridLayout.rowCount()):
+            for c in range(musicalRatiosGridLayout.columnCount()):
+                # Get the QLayoutItem.
+                item = musicalRatiosGridLayout.itemAtPosition(r, c)
+                if item != None:
+                    # Get the widget in the layout item.
+                    widget = item.widget()
+                    if widget != None:
+                        widget.setEnabled(False)
+                        widget.setVisible(False)
+                        widget.setParent(None)
+
+                        # Actually remove the widget from the
+                        # QGridLayout.  
+                        musicalRatiosGridLayout.removeWidget(widget)
+                                
+        # Row.
+        r = 0
+        # Alignments.
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        # Create the musical ratio items in the
+        # musicalRatiosGridLayout QGridLayout.
+        self.priceModalScaleGraphicsItemMusicalRatios = musicalRatios
+        numMusicalRatios = len(self.priceModalScaleGraphicsItemMusicalRatios)
+
+        # Clear the checkboxes list.
+        self.priceModalScaleGraphicsItemCheckBoxes = []
+
+        rangeUsed = range(numMusicalRatios)
+            
+        for i in rangeUsed:
+            musicalRatio = musicalRatios[i]
+            
+            checkBox = QCheckBox("{}".format(musicalRatio.getRatio()))
+
+            # Set the check state based on whether or not the musical
+            # ratio is enabled.
+            if musicalRatio.isEnabled():
+                checkBox.setCheckState(Qt.Checked)
+            else:
+                checkBox.setCheckState(Qt.Unchecked)
+
+            # Connect the signal to the slot function
+            # _handleCheckMarkToggled().  That function will update
+            # the self.artifact's musicalRatios with new check state.
+            checkBox.stateChanged.connect(\
+                self._handlePriceModalScaleGraphicsItemCheckMarkToggled)
+            
+            # Append to our list of checkboxes so that we can
+            # reference them later and see what values are used in
+            # them.  
+            self.priceModalScaleGraphicsItemCheckBoxes.append(checkBox)
+            
+            descriptionLabel = QLabel(musicalRatio.getDescription())
+
+            # Actually add the widgets to the grid layout.
+            musicalRatiosGridLayout.\
+                addWidget(checkBox, r, 0, al)
+            musicalRatiosGridLayout.\
+                addWidget(descriptionLabel, r, 1, al)
+
+            r += 1
+
+
+    def _handlePriceModalScaleGraphicsItemCheckMarkToggled(self):
+        """Called when the user checkmarks or uncheckmarks a musical
+        ratio checkbox in the PriceModalScaleGraphicsItem groupbox widgets.
+        This will update the internally kept musicalRatio values.
+        """
+
+        # Go through all the musicalRatios in the widget, and set them
+        # as enabled or disabled in the artifact, based on the check
+        # state of the QCheckBox objects in self.checkBoxes.
+        for i in range(len(self.priceModalScaleGraphicsItemCheckBoxes)):
+            oldValue = \
+                self.priceModalScaleGraphicsItemMusicalRatios[i].isEnabled()
+            
+            newValue = None
+            if self.priceModalScaleGraphicsItemCheckBoxes[i].\
+                   checkState() == Qt.Checked:
+                
+                newValue = True
+            else:
+                newValue = False
+            
+            if oldValue != newValue:
+                self.log.debug("Updating enabled state of " +
+                               "priceModalScaleGraphicsItemMusicalRatio" +
+                               "[{}] from {} to {}".\
+                               format(i, oldValue, newValue))
+                self.priceModalScaleGraphicsItemMusicalRatios[i].\
+                    setEnabled(newValue)
+            else:
+                #self.log.debug("No update to " +
+                #               "priceModalScaleGraphicsItemMusicalRatio" +
+                #               "[{}]".format(i))
+                pass
+        
+    def _handlePriceModalScaleGraphicsItemRotateDownButtonClicked(self):
+        """Called when the 'Rotate Down' button is clicked."""
+
+        # Get all the musicalRatios.
+        musicalRatios = self.priceModalScaleGraphicsItemMusicalRatios
+
+        # Put the last musical ratio in the front.
+        if len(musicalRatios) > 0:
+            lastRatio = musicalRatios.pop(len(musicalRatios) - 1)
+            musicalRatios.insert(0, lastRatio)
+
+        # Reload the musicalRatiosGrid.
+        self._priceModalScaleGraphicsItemReloadMusicalRatiosGrid(musicalRatios)
+    
+    def _handlePriceModalScaleGraphicsItemRotateUpButtonClicked(self):
+        """Called when the 'Rotate Up' button is clicked."""
+
+        # Get all the musicalRatios.
+        musicalRatios = self.priceModalScaleGraphicsItemMusicalRatios
+        
+        # Put the first musical ratio in the back.
+        if len(musicalRatios) > 0:
+            firstRatio = musicalRatios.pop(0)
+            musicalRatios.append(firstRatio)
+        
+        # Reload the musicalRatiosGrid.
+        self._priceModalScaleGraphicsItemReloadMusicalRatiosGrid(musicalRatios)
+    
+    def _handlePriceModalScaleGraphicsItemCheckMarkAllButtonClicked(self):
+        """Called when the 'Check All' button is clicked."""
+
+        for checkBox in self.priceModalScaleGraphicsItemCheckBoxes:
+            checkBox.setCheckState(Qt.Checked)
+
+        # Call this to update the internal artifact object according
+        # to what the widgets have set (in this case, the 'enabled'
+        # checkboxes).
+        self._handlePriceModalScaleGraphicsItemCheckMarkToggled()
+        
+    def _handlePriceModalScaleGraphicsItemCheckMarkNoneButtonClicked(self):
+        """Called when the 'Check None' button is clicked."""
+
+        for checkBox in self.priceModalScaleGraphicsItemCheckBoxes:
+            checkBox.setCheckState(Qt.Unchecked)
+
+        # Call this to update the internal artifact object according
+        # to what the widgets have set (in this case, the 'enabled'
+        # checkboxes).
+        self._handlePriceModalScaleGraphicsItemCheckMarkToggled()
 
     def _handlePriceModalScaleGraphicsItemColorResetButtonClicked(self):
         """Called when the priceModalScaleGraphicsItemColorResetButton
@@ -16807,6 +17443,36 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         self.priceModalScaleGraphicsItemTextYScalingSpinBox.setValue(value)
 
+    def _handlePriceModalScaleGraphicsItemTextEnabledFlagResetButtonClicked(self):
+        """Called when the priceModalScaleGraphicsItemTextEnabledFlagResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultPriceModalScaleGraphicsItemTextEnabledFlag
+
+        if value == True:
+            self.priceModalScaleGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.priceModalScaleGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+    def _handlePriceModalScaleGraphicsItemMusicalRatiosResetButtonClicked(self):
+        """Called when the 'Reset to default' button is clicked for
+        the PriceModalScaleGraphicsItem's MusicalRatios.
+        """
+
+        value = \
+            copy.deepcopy(PriceBarChartSettings.\
+                          defaultPriceModalScaleGraphicsItemMusicalRatios)
+        
+        self.priceModalScaleGraphicsItemMusicalRatios = value
+        
+        self._priceModalScaleGraphicsItemReloadMusicalRatiosGrid(\
+            self.priceModalScaleGraphicsItemMusicalRatios)
+        
     def _handleTextGraphicsItemDefaultFontResetButtonClicked(self):
         """Called when the textGraphicsItemDefaultFontResetButton is clicked.
         Resets the internal value to the default value.
@@ -17578,11 +18244,15 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._handleTimeModalScaleGraphicsItemTextColorResetButtonClicked()
         self._handleTimeModalScaleGraphicsItemTextXScalingResetButtonClicked()
         self._handleTimeModalScaleGraphicsItemTextYScalingResetButtonClicked()
+        self._handleTimeModalScaleGraphicsItemTextEnabledFlagResetButtonClicked()
+        self._handleTimeModalScaleGraphicsItemMusicalRatiosResetButtonClicked()
         
         self._handlePriceModalScaleGraphicsItemColorResetButtonClicked()
         self._handlePriceModalScaleGraphicsItemTextColorResetButtonClicked()
         self._handlePriceModalScaleGraphicsItemTextXScalingResetButtonClicked()
         self._handlePriceModalScaleGraphicsItemTextYScalingResetButtonClicked()
+        self._handlePriceModalScaleGraphicsItemTextEnabledFlagResetButtonClicked()
+        self._handlePriceModalScaleGraphicsItemMusicalRatiosResetButtonClicked()
         
         self._handleTextGraphicsItemDefaultFontResetButtonClicked()
         self._handleTextGraphicsItemDefaultColorResetButtonClicked()

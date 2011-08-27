@@ -90,6 +90,7 @@ rluu/handOpen.png
 rluu/lineSegment.png
 rluu/logo_ryan_d1.png
 rluu/pointerPencil.png   (Modified an image from iconspedia)
+rluu/priceBar.png
 rluu/priceMeasurement.png
 rluu/priceModalScale.png
 rluu/priceRetracement.png
