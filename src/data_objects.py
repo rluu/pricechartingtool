@@ -4970,10 +4970,10 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
             PriceBarChartSettings.\
                 defaultOctaveFanGraphicsItemTextColor
         
-        # barWidth (float).
-        self.barWidth = \
+        # barHeight (float).
+        self.barHeight = \
             PriceBarChartSettings.\
-                defaultOctaveFanGraphicsItemBarWidth
+                defaultOctaveFanGraphicsItemBarHeight
         
         # fontSize (float).
         self.fontSize = \
@@ -5069,15 +5069,15 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
 
         return self.textColor
         
-    def setBarWidth(self, barWidth):
-        """Sets the bar width (float)."""
+    def setBarHeight(self, barHeight):
+        """Sets the bar height (float)."""
 
-        self.barWidth = barWidth
+        self.barHeight = barHeight
     
-    def getBarWidth(self):
-        """Returns the bar width (float)."""
+    def getBarHeight(self):
+        """Returns the bar height (float)."""
 
-        return self.barWidth
+        return self.barHeight
     
     def setFontSize(self, fontSize):
         """Sets the font size of the musical ratio text (float)."""
@@ -5143,7 +5143,9 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
 
         # TODO: need to re-write this method so that it applies to the
         # 3 points, and the point returned is along the outter edge of
-        # a rect created by the 3 points.
+        # a rect created by the 3 points.  USE SCALING!!!  This may
+        # mean I need to pass the convert object or scaling object to
+        # this function.
         
         # Validate input.
         if index < 0:
@@ -6249,6 +6251,33 @@ class PriceBarChartSettings:
     # angleTextFlag (bool).
     defaultLineSegmentGraphicsItemAngleTextFlag = False
     
+    # Default musical ratios enabled in a
+    # OctaveFanGraphicsItem (list of MusicalRatio)
+    defaultOctaveFanGraphicsItemMusicalRatios = \
+        MusicalRatio.getMusicalRatiosForOctaveFanGraphicsItem()
+    
+    # Default color for the bar of a OctaveFanGraphicsItem (QColor).
+    defaultOctaveFanGraphicsItemBarColor = QColor(Qt.black)
+
+    # Default color for the text of a OctaveFanGraphicsItem (QColor).
+    defaultOctaveFanGraphicsItemTextColor = QColor(Qt.black)
+    
+    # Default value for the OctaveFanGraphicsItem bar height (float).
+    defaultOctaveFanGraphicsItemBarHeight = 0.3
+
+    # Default value for the OctaveFanGraphicsItem font size (float).
+    defaultOctaveFanGraphicsItemFontSize = 1.20
+
+    # Default value for the OctaveFanGraphicsItem text X scaling (float).
+    defaultOctaveFanGraphicsItemTextXScaling = 1
+
+    # Default value for the OctaveFanGraphicsItem text Y scaling (float).
+    defaultOctaveFanGraphicsItemTextYScaling = 0.2
+
+    # Default value for the OctaveFanGraphicsItem
+    # textEnabledFlag (bool).
+    defaultOctaveFanGraphicsItemTextEnabledFlag = True
+
     def __init__(self):
         """Initializes the PriceChartSettings to default values."""
 
@@ -6960,6 +6989,36 @@ class PriceBarChartSettings:
         self.lineSegmentGraphicsItemAngleTextFlag = \
             PriceBarChartSettings.\
             defaultLineSegmentGraphicsItemAngleTextFlag
+
+        # OctaveFanGraphicsItem musical ratios (list of MusicalRatio).
+        self.octaveFanGraphicsItemMusicalRatios = \
+            PriceBarChartSettings.\
+                defaultOctaveFanGraphicsItemMusicalRatios
+
+        # OctaveFanGraphicsItem bar color (QColor).
+        self.octaveFanGraphicsItemBarColor = \
+            PriceBarChartSettings.\
+                defaultOctaveFanGraphicsItemBarColor
+
+        # OctaveFanGraphicsItem text color (QColor).
+        self.octaveFanGraphicsItemTextColor = \
+            PriceBarChartSettings.\
+                defaultOctaveFanGraphicsItemTextColor
+
+        # OctaveFanGraphicsItem text X scaling (float).
+        self.octaveFanGraphicsItemTextXScaling = \
+            PriceBarChartSettings.\
+                defaultOctaveFanGraphicsItemTextXScaling
+
+        # OctaveFanGraphicsItem text Y scaling (float).
+        self.octaveFanGraphicsItemTextYScaling = \
+            PriceBarChartSettings.\
+                defaultOctaveFanGraphicsItemTextYScaling
+
+        # OctaveFanGraphicsItem textEnabledFlag (bool).
+        self.octaveFanGraphicsItemTextEnabledFlag = \
+            PriceBarChartSettings.\
+                defaultOctaveFanGraphicsItemTextEnabledFlag
 
     def __getstate__(self):
         """Returns the object's state for pickling purposes."""

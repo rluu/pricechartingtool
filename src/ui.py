@@ -318,6 +318,13 @@ class MainWindow(QMainWindow):
         self.lineSegmentToolAction.setStatusTip("Line Segment Tool")
         self.lineSegmentToolAction.setCheckable(True)
 
+        # Create the OctaveFanToolAction
+        icon = QIcon(":/images/rluu/octaveFan.png")
+        self.octaveFanToolAction = \
+            QAction(icon, "Time Modal Scale Tool", self)
+        self.octaveFanToolAction.setStatusTip("Time Modal Scale Tool")
+        self.octaveFanToolAction.setCheckable(True)
+
         # Create a QActionGroup because all these tool modes should be
         # exclusive.  
         self.toolActionGroup = QActionGroup(self)
@@ -338,6 +345,7 @@ class MainWindow(QMainWindow):
         self.toolActionGroup.addAction(self.priceTimeInfoToolAction)
         self.toolActionGroup.addAction(self.priceTimeVectorToolAction)
         self.toolActionGroup.addAction(self.lineSegmentToolAction)
+        self.toolActionGroup.addAction(self.octaveFanToolAction)
         self.toolActionGroup.triggered.connect(self._toolsActionTriggered)
             
         # Default to the ReadOnlyPointerTool being checked by default.
@@ -457,6 +465,7 @@ class MainWindow(QMainWindow):
         self.toolsMenu.addAction(self.priceTimeInfoToolAction)
         self.toolsMenu.addAction(self.priceTimeVectorToolAction)
         self.toolsMenu.addAction(self.lineSegmentToolAction)
+        self.toolsMenu.addAction(self.octaveFanToolAction)
 
         # Create the Window menu.
         self.windowMenu = self.menuBar().addMenu("&Window")
@@ -513,6 +522,7 @@ class MainWindow(QMainWindow):
         self.toolsToolBar.addAction(self.priceTimeInfoToolAction)
         self.toolsToolBar.addAction(self.priceTimeVectorToolAction)
         self.toolsToolBar.addAction(self.lineSegmentToolAction)
+        self.toolsToolBar.addAction(self.octaveFanToolAction)
 
     def _createStatusBar(self):
         """Creates the QStatusBar by showing the message "Ready"."""
@@ -572,6 +582,7 @@ class MainWindow(QMainWindow):
         self.priceRetracementToolAction.setEnabled(isActive)
         self.priceTimeVectorToolAction.setEnabled(isActive)
         self.lineSegmentToolAction.setEnabled(isActive)
+        self.octaveFanToolAction.setEnabled(isActive)
 
         self.closeChartAction.setEnabled(isActive)
         self.closeAllChartsAction.setEnabled(isActive)
@@ -618,6 +629,8 @@ class MainWindow(QMainWindow):
                 priceChartDocument.toPriceTimeVectorToolMode()
             elif self.lineSegmentToolAction.isChecked():
                 priceChartDocument.toLineSegmentToolMode()
+            elif self.octaveFanToolAction.isChecked():
+                priceChartDocument.toOctaveFanToolMode()
             else:
                 self.log.warn("No ToolMode QAction is currently selected!")
 
@@ -1398,6 +1411,10 @@ class MainWindow(QMainWindow):
             self.log.debug("lineSegmentToolAction triggered.")
             self.mostRecentGraphicsItemToolModeAction = qaction
             pcd.toLineSegmentToolMode()
+        elif qaction == self.octaveFanToolAction:
+            self.log.debug("octaveFanToolAction triggered.")
+            self.mostRecentGraphicsItemToolModeAction = qaction
+            pcd.toOctaveFanToolMode()
         else:
             self.log.warn("Unknown Tools QAction selected!  " + \
                 "There might be something wrong with the code, or " + \
@@ -1491,6 +1508,7 @@ Snap key bindings are supported for the following tools:
   - PriceRetracementTool
   - PriceTimeVectorTool
   - LineSegmentTool
+  - OctaveFanTool
 """
         
         QMessageBox.about(self, title, message)
@@ -2242,6 +2260,11 @@ class PriceChartDocument(QMdiSubWindow):
 
         self.widgets.toLineSegmentToolMode()
 
+    def toOctaveFanToolMode(self):
+        """Changes the tool mode to be the OctaveFanTool."""
+
+        self.widgets.toOctaveFanToolMode()
+
     def _handlePriceChartDocumentWidgetChanged(self):
         """Slot for when the PriceBarDocumentWidget emits a signal to say
         that the widget(s) changed.  This means the document should be
@@ -2554,6 +2577,11 @@ class PriceChartDocumentWidget(QWidget):
         """Changes the tool mode to be the LineSegmentTool."""
 
         self.priceBarChartWidget.toLineSegmentToolMode()
+
+    def toOctaveFanToolMode(self):
+        """Changes the tool mode to be the OctaveFanTool."""
+
+        self.priceBarChartWidget.toOctaveFanToolMode()
 
     def _handleWidgetChanged(self):
         """Handles when the internal widget has some kind of change

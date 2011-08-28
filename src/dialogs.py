@@ -10646,6 +10646,11 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.lineSegmentGraphicsItemGroupBox = \
             self._buildLineSegmentGraphicsItemGroupBox()
 
+        # QGroupBox to hold the edit widgets and form for
+        # OctaveFanGraphicsItem.
+        self.octaveFanGraphicsItemGroupBox = \
+            self._buildOctaveFanGraphicsItemGroupBox()
+
         # Create a QTabWidget to stack all the settings editing
         # widgets.
         self.tabWidget = QTabWidget()
@@ -10700,6 +10705,10 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         self.tabWidget.addTab(self.lineSegmentGraphicsItemGroupBox,
                               QIcon(":/images/rluu/lineSegment.png"),
+                              "")
+
+        self.tabWidget.addTab(self.octaveFanGraphicsItemGroupBox,
+                              QIcon(":/images/rluu/octaveFan.png"),
                               "")
 
         # Buttons at bottom.
@@ -11056,6 +11065,21 @@ class PriceBarChartSettingsEditWidget(QWidget):
             connect(\
             self._handleLineSegmentGraphicsItemAngleTextFlagResetButton)
         
+        self.octaveFanGraphicsItemColorResetButton.clicked.\
+            connect(\
+            self._handleOctaveFanGraphicsItemColorResetButtonClicked)
+        self.octaveFanGraphicsItemTextColorResetButton.clicked.\
+            connect(\
+            self._handleOctaveFanGraphicsItemTextColorResetButtonClicked)
+        self.octaveFanGraphicsItemTextXScalingResetButton.clicked.\
+            connect(\
+            self._handleOctaveFanGraphicsItemTextXScalingResetButtonClicked)
+        self.octaveFanGraphicsItemTextYScalingResetButton.clicked.\
+            connect(\
+            self._handleOctaveFanGraphicsItemTextYScalingResetButtonClicked)
+        self.octaveFanGraphicsItemTextEnabledFlagResetButton.clicked.\
+            connect(\
+            self._handleOctaveFanGraphicsItemTextEnabledFlagResetButtonClicked)
 
         self.resetAllToDefaultButton.clicked.\
             connect(self._handleResetAllToDefaultButtonClicked)
@@ -14300,6 +14324,186 @@ class PriceBarChartSettingsEditWidget(QWidget):
         
         return self.lineSegmentGraphicsItemGroupBox
     
+    def _buildOctaveFanGraphicsItemGroupBox(self):
+        """Builds the groupbox containing info to edit the
+        PriceBarChartSettings related to a OctaveFanGraphicsItem.
+
+        Returns:
+        QGroupBox obj containing all the created widgets.
+        """
+
+        self.octaveFanGraphicsItemGroupBox = \
+            QGroupBox("OctaveFanGraphicsItem settings:")
+
+        # PriceBarChart octaveFanGraphicsItemColor (QColor).
+        self.octaveFanGraphicsItemColorLabel = \
+            QLabel("OctaveFanGraphicsItem color: ")
+        self.octaveFanGraphicsItemColorEditButton = ColorEditPushButton()
+        self.octaveFanGraphicsItemColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # PriceBarChart octaveFanGraphicsItemTextColor (QColor).
+        self.octaveFanGraphicsItemTextColorLabel = \
+            QLabel("OctaveFanGraphicsItem text color: ")
+        self.octaveFanGraphicsItemTextColorEditButton = \
+            ColorEditPushButton()
+        self.octaveFanGraphicsItemTextColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # octaveFanGraphicsItemTextXScaling (float).
+        self.octaveFanGraphicsItemTextXScalingLabel = \
+            QLabel("OctaveFanGraphicsItem text X scaling: ")
+        self.octaveFanGraphicsItemTextXScalingSpinBox = QDoubleSpinBox()
+        self.octaveFanGraphicsItemTextXScalingSpinBox.setMinimum(0.0001)
+        self.octaveFanGraphicsItemTextXScalingSpinBox.setMaximum(1000.0)
+        self.octaveFanGraphicsItemTextXScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # octaveFanGraphicsItemTextYScaling (float).
+        self.octaveFanGraphicsItemTextYScalingLabel = \
+            QLabel("OctaveFanGraphicsItem text Y scaling: ")
+        self.octaveFanGraphicsItemTextYScalingSpinBox = QDoubleSpinBox()
+        self.octaveFanGraphicsItemTextYScalingSpinBox.setMinimum(0.0001)
+        self.octaveFanGraphicsItemTextYScalingSpinBox.setMaximum(1000.0)
+        self.octaveFanGraphicsItemTextYScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # octaveFanGraphicsItemTextEnabledFlag (bool).
+        self.octaveFanGraphicsItemTextEnabledFlagLabel = \
+            QLabel("OctaveFanGraphicsItem text is enabled: ")
+        self.octaveFanGraphicsItemTextEnabledFlagCheckBox = \
+            QCheckBox()
+        self.octaveFanGraphicsItemTextEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.octaveFanGraphicsItemTextEnabledFlagResetButton = \
+            QPushButton("Reset to default")
+        
+        # Grid layout.
+        gridLayout = QGridLayout()
+        r = 0
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        gridLayout.\
+            addWidget(self.octaveFanGraphicsItemColorLabel,
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.octaveFanGraphicsItemColorEditButton,
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(self.octaveFanGraphicsItemColorResetButton,
+                      r, 2, ar)
+        r += 1
+        gridLayout.\
+            addWidget(self.octaveFanGraphicsItemTextColorLabel,
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.octaveFanGraphicsItemTextColorEditButton,
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(self.octaveFanGraphicsItemTextColorResetButton,
+                      r, 2, ar)
+        r += 1
+        gridLayout.\
+            addWidget(self.octaveFanGraphicsItemTextXScalingLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.octaveFanGraphicsItemTextXScalingSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.octaveFanGraphicsItemTextXScalingResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(self.octaveFanGraphicsItemTextYScalingLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.octaveFanGraphicsItemTextYScalingSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.octaveFanGraphicsItemTextYScalingResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(self.octaveFanGraphicsItemTextEnabledFlagLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.octaveFanGraphicsItemTextEnabledFlagCheckBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.octaveFanGraphicsItemTextEnabledFlagResetButton, 
+            r, 2, ar)
+
+        r += 1
+
+
+        self.octaveFanGraphicsItemRotateDownButton = \
+            QPushButton("Rotate Down")
+        self.octaveFanGraphicsItemRotateUpButton = \
+            QPushButton("Rotate Up")
+        self.octaveFanGraphicsItemCheckMarkAllButton = \
+            QPushButton("Check All")
+        self.octaveFanGraphicsItemCheckMarkNoneButton = \
+            QPushButton("Check None")
+        self.octaveFanGraphicsItemMusicalRatiosResetButton = \
+            QPushButton("Reset to default")
+        
+        rotateButtonsLayout = QHBoxLayout()
+        rotateButtonsLayout.addWidget(\
+            self.octaveFanGraphicsItemRotateDownButton)
+        rotateButtonsLayout.addWidget(\
+            self.octaveFanGraphicsItemRotateUpButton)
+        rotateButtonsLayout.addWidget(\
+            self.octaveFanGraphicsItemCheckMarkAllButton)
+        rotateButtonsLayout.addWidget(\
+            self.octaveFanGraphicsItemCheckMarkNoneButton)
+        rotateButtonsLayout.addWidget(\
+            self.octaveFanGraphicsItemMusicalRatiosResetButton)
+        rotateButtonsLayout.addStretch()
+        
+        # Layout for the musical ratio intervals.
+        self.octaveFanGraphicsItemMusicalRatiosGridLayout = QGridLayout()
+
+        # Holds a list of MusicalRatio objects that is the 'working
+        # copy' in this edit widget.  This gets saved to the
+        # underlying self.priceBarChartSettings object upon clicking okay.
+        self.octaveFanGraphicsItemMusicalRatios = list()
+        
+        # Holds the list of QCheckBox objects corresponding to the
+        # MusicalRatios (ordered) in the artifact. 
+        self.octaveFanGraphicsItemCheckBoxes = []
+        
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addLayout(rotateButtonsLayout)
+        layout.addLayout(\
+            self.octaveFanGraphicsItemMusicalRatiosGridLayout)
+        layout.addStretch()
+        
+        self.octaveFanGraphicsItemGroupBox.setLayout(layout)
+
+        # Connect signals and slots.
+        self.octaveFanGraphicsItemRotateDownButton.clicked.connect(\
+            self._handleOctaveFanGraphicsItemRotateDownButtonClicked)
+        self.octaveFanGraphicsItemRotateUpButton.clicked.connect(\
+            self._handleOctaveFanGraphicsItemRotateUpButtonClicked)
+        self.octaveFanGraphicsItemCheckMarkAllButton.clicked.connect(\
+            self._handleOctaveFanGraphicsItemCheckMarkAllButtonClicked)
+        self.octaveFanGraphicsItemCheckMarkNoneButton.clicked.connect(\
+            self._handleOctaveFanGraphicsItemCheckMarkNoneButtonClicked)
+        self.octaveFanGraphicsItemMusicalRatiosResetButton.clicked.\
+            connect(\
+            self.\
+            _handleOctaveFanGraphicsItemMusicalRatiosResetButtonClicked)
+
+        
+        return self.octaveFanGraphicsItemGroupBox
+
     def loadValuesFromSettings(self, priceBarChartSettings):
         """Loads the widgets with values from the given
         PriceBarChartSettings object.
@@ -15400,7 +15604,42 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.lineSegmentGraphicsItemAngleTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
 
+        # octaveFanGraphicsItemColor (QColor).
+        self.octaveFanGraphicsItemColorEditButton.\
+            setColor(self.priceBarChartSettings.\
+                     octaveFanGraphicsItemBarColor)
 
+        # octaveFanGraphicsItemTextColor (QColor).
+        self.octaveFanGraphicsItemTextColorEditButton.\
+            setColor(self.priceBarChartSettings.\
+                     octaveFanGraphicsItemTextColor)
+
+        # octaveFanGraphicsItemTextXScaling (float).
+        self.octaveFanGraphicsItemTextXScalingSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        octaveFanGraphicsItemTextXScaling)
+
+        # octaveFanGraphicsItemTextYScaling (float).
+        self.octaveFanGraphicsItemTextYScalingSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        octaveFanGraphicsItemTextYScaling)
+
+        # octaveFanGraphicsItemTextEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           octaveFanGraphicsItemTextEnabledFlag == True:
+
+            self.octaveFanGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.octaveFanGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # octaveFanGraphicsItemMusicalRatios (list of MusicalRatio)
+        self.octaveFanGraphicsItemMusicalRatios = \
+            copy.deepcopy(self.priceBarChartSettings.\
+                          octaveFanGraphicsItemMusicalRatios)
+        self._octaveFanGraphicsItemReloadMusicalRatiosGrid(\
+            self.octaveFanGraphicsItemMusicalRatios)
         
         self.log.debug("Exiting loadValuesFromSettings()")
         
@@ -16433,6 +16672,35 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceBarChartSettings.\
                 lineSegmentGraphicsItemAngleTextFlag = False
 
+        # octaveFanGraphicsItemTextColor (QColor).
+        self.priceBarChartSettings.octaveFanGraphicsItemBarColor = \
+            self.octaveFanGraphicsItemColorEditButton.getColor()
+
+        # octaveFanGraphicsItemTextTextColor (QColor).
+        self.priceBarChartSettings.octaveFanGraphicsItemTextColor = \
+            self.octaveFanGraphicsItemTextColorEditButton.getColor()
+            
+        # octaveFanGraphicsItemTextXScaling (float).
+        self.priceBarChartSettings.octaveFanGraphicsItemTextXScaling = \
+            float(self.octaveFanGraphicsItemTextXScalingSpinBox.value())
+
+        # octaveFanGraphicsItemTextYScaling (float).
+        self.priceBarChartSettings.octaveFanGraphicsItemTextYScaling = \
+            float(self.octaveFanGraphicsItemTextYScalingSpinBox.value())
+        
+        # octaveFanGraphicsItemTextEnabledFlag (bool).
+        if self.octaveFanGraphicsItemTextEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+            
+            self.priceBarChartSettings.\
+                octaveFanGraphicsItemTextEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                octaveFanGraphicsItemTextEnabledFlag = False
+        
+        # octaveFanGraphicsItemMusicalRatios (list of MusicalRatio)
+        self.priceBarChartSettings.octaveFanGraphicsItemMusicalRatios = \
+            self.octaveFanGraphicsItemMusicalRatios
         
         self.log.debug("Exiting saveValuesToSettings()")
 
@@ -18218,6 +18486,248 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.lineSegmentGraphicsItemAngleTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
             
+    def _octaveFanGraphicsItemReloadMusicalRatiosGrid(self,
+                                                           musicalRatios):
+        """Clears and recreates the
+        self.octaveFanGraphicsItemMusicalRatiosGridLayout
+        according to the values in 'musicalRatios'.
+
+        Arguments:
+        
+        musicalRatios - list of MusicalRatio objects to use to
+                        populate the grid layout.
+        """
+
+        musicalRatiosGridLayout = \
+            self.octaveFanGraphicsItemMusicalRatiosGridLayout
+        
+        # Remove any old widgets that were in the grid layout from
+        # the grid layout..
+        for r in range(musicalRatiosGridLayout.rowCount()):
+            for c in range(musicalRatiosGridLayout.columnCount()):
+                # Get the QLayoutItem.
+                item = musicalRatiosGridLayout.itemAtPosition(r, c)
+                if item != None:
+                    # Get the widget in the layout item.
+                    widget = item.widget()
+                    if widget != None:
+                        widget.setEnabled(False)
+                        widget.setVisible(False)
+                        widget.setParent(None)
+
+                        # Actually remove the widget from the
+                        # QGridLayout.  
+                        musicalRatiosGridLayout.removeWidget(widget)
+                                
+        # Row.
+        r = 0
+        # Alignments.
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        # Create the musical ratio items in the
+        # musicalRatiosGridLayout QGridLayout.
+        self.octaveFanGraphicsItemMusicalRatios = musicalRatios
+        numMusicalRatios = len(self.octaveFanGraphicsItemMusicalRatios)
+
+        # Clear the checkboxes list.
+        self.octaveFanGraphicsItemCheckBoxes = []
+
+        rangeUsed = range(numMusicalRatios)
+            
+        for i in rangeUsed:
+            musicalRatio = musicalRatios[i]
+            
+            checkBox = QCheckBox("{}".format(musicalRatio.getRatio()))
+
+            # Set the check state based on whether or not the musical
+            # ratio is enabled.
+            if musicalRatio.isEnabled():
+                checkBox.setCheckState(Qt.Checked)
+            else:
+                checkBox.setCheckState(Qt.Unchecked)
+
+            # Connect the signal to the slot function
+            # _handleCheckMarkToggled().  That function will update
+            # the self.artifact's musicalRatios with new check state.
+            checkBox.stateChanged.connect(\
+                self._handleOctaveFanGraphicsItemCheckMarkToggled)
+            
+            # Append to our list of checkboxes so that we can
+            # reference them later and see what values are used in
+            # them.  
+            self.octaveFanGraphicsItemCheckBoxes.append(checkBox)
+            
+            descriptionLabel = QLabel(musicalRatio.getDescription())
+
+            # Actually add the widgets to the grid layout.
+            musicalRatiosGridLayout.\
+                addWidget(checkBox, r, 0, al)
+            musicalRatiosGridLayout.\
+                addWidget(descriptionLabel, r, 1, al)
+
+            r += 1
+
+
+    def _handleOctaveFanGraphicsItemCheckMarkToggled(self):
+        """Called when the user checkmarks or uncheckmarks a musical
+        ratio checkbox in the OctaveFanGraphicsItem groupbox widgets.
+        This will update the internally kept musicalRatio values.
+        """
+
+        # Go through all the musicalRatios in the widget, and set them
+        # as enabled or disabled in the artifact, based on the check
+        # state of the QCheckBox objects in self.checkBoxes.
+        for i in range(len(self.octaveFanGraphicsItemCheckBoxes)):
+            oldValue = \
+                self.octaveFanGraphicsItemMusicalRatios[i].isEnabled()
+            
+            newValue = None
+            if self.octaveFanGraphicsItemCheckBoxes[i].\
+                   checkState() == Qt.Checked:
+                
+                newValue = True
+            else:
+                newValue = False
+            
+            if oldValue != newValue:
+                self.log.debug("Updating enabled state of " +
+                               "octaveFanGraphicsItemMusicalRatio" +
+                               "[{}] from {} to {}".\
+                               format(i, oldValue, newValue))
+                self.octaveFanGraphicsItemMusicalRatios[i].\
+                    setEnabled(newValue)
+            else:
+                #self.log.debug("No update to " +
+                #               "octaveFanGraphicsItemMusicalRatio" +
+                #               "[{}]".format(i))
+                pass
+        
+    def _handleOctaveFanGraphicsItemRotateDownButtonClicked(self):
+        """Called when the 'Rotate Down' button is clicked."""
+
+        # Get all the musicalRatios.
+        musicalRatios = self.octaveFanGraphicsItemMusicalRatios
+
+        # Put the last musical ratio in the front.
+        if len(musicalRatios) > 0:
+            lastRatio = musicalRatios.pop(len(musicalRatios) - 1)
+            musicalRatios.insert(0, lastRatio)
+
+        # Reload the musicalRatiosGrid.
+        self._octaveFanGraphicsItemReloadMusicalRatiosGrid(musicalRatios)
+    
+    def _handleOctaveFanGraphicsItemRotateUpButtonClicked(self):
+        """Called when the 'Rotate Up' button is clicked."""
+
+        # Get all the musicalRatios.
+        musicalRatios = self.octaveFanGraphicsItemMusicalRatios
+        
+        # Put the first musical ratio in the back.
+        if len(musicalRatios) > 0:
+            firstRatio = musicalRatios.pop(0)
+            musicalRatios.append(firstRatio)
+        
+        # Reload the musicalRatiosGrid.
+        self._octaveFanGraphicsItemReloadMusicalRatiosGrid(musicalRatios)
+    
+    def _handleOctaveFanGraphicsItemCheckMarkAllButtonClicked(self):
+        """Called when the 'Check All' button is clicked."""
+
+        for checkBox in self.octaveFanGraphicsItemCheckBoxes:
+            checkBox.setCheckState(Qt.Checked)
+
+        # Call this to update the internal artifact object according
+        # to what the widgets have set (in this case, the 'enabled'
+        # checkboxes).
+        self._handleOctaveFanGraphicsItemCheckMarkToggled()
+        
+    def _handleOctaveFanGraphicsItemCheckMarkNoneButtonClicked(self):
+        """Called when the 'Check None' button is clicked."""
+
+        for checkBox in self.octaveFanGraphicsItemCheckBoxes:
+            checkBox.setCheckState(Qt.Unchecked)
+
+        # Call this to update the internal artifact object according
+        # to what the widgets have set (in this case, the 'enabled'
+        # checkboxes).
+        self._handleOctaveFanGraphicsItemCheckMarkToggled()
+
+    def _handleOctaveFanGraphicsItemColorResetButtonClicked(self):
+        """Called when the octaveFanGraphicsItemColorResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultOctaveFanGraphicsItemBarColor
+        
+        self.octaveFanGraphicsItemColorEditButton.setColor(value)
+
+    def _handleOctaveFanGraphicsItemTextColorResetButtonClicked(self):
+        """Called when the
+        octaveFanGraphicsItemTextColorResetButton is clicked.
+        Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultOctaveFanGraphicsItemTextColor
+        
+        self.octaveFanGraphicsItemTextColorEditButton.setColor(value)
+
+    def _handleOctaveFanGraphicsItemTextXScalingResetButtonClicked(self):
+        """Called when the octaveFanGraphicsItemTextXScalingResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultOctaveFanGraphicsItemTextXScaling
+
+        self.octaveFanGraphicsItemTextXScalingSpinBox.setValue(value)
+
+    def _handleOctaveFanGraphicsItemTextYScalingResetButtonClicked(self):
+        """Called when the octaveFanGraphicsItemTextYScalingResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultOctaveFanGraphicsItemTextYScaling
+
+        self.octaveFanGraphicsItemTextYScalingSpinBox.setValue(value)
+
+    def _handleOctaveFanGraphicsItemTextEnabledFlagResetButtonClicked(self):
+        """Called when the octaveFanGraphicsItemTextEnabledFlagResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultOctaveFanGraphicsItemTextEnabledFlag
+
+        if value == True:
+            self.octaveFanGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.octaveFanGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+    def _handleOctaveFanGraphicsItemMusicalRatiosResetButtonClicked(self):
+        """Called when the 'Reset to default' button is clicked for
+        the OctaveFanGraphicsItem's MusicalRatios.
+        """
+
+        value = \
+            copy.deepcopy(PriceBarChartSettings.\
+                          defaultOctaveFanGraphicsItemMusicalRatios)
+        
+        self.octaveFanGraphicsItemMusicalRatios = value
+        
+        self._octaveFanGraphicsItemReloadMusicalRatiosGrid(\
+            self.octaveFanGraphicsItemMusicalRatios)
+        
     def _handleResetAllToDefaultButtonClicked(self):
         """Called when the resetAllToDefaultButton is clicked.
         Resets the all the widget values in this widget to the default
@@ -18316,6 +18826,13 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._handleLineSegmentGraphicsItemDefaultColorResetButtonClicked()
         self._handleLineSegmentGraphicsItemTiltedTextFlagResetButton()
         self._handleLineSegmentGraphicsItemAngleTextFlagResetButton()
+
+        self._handleOctaveFanGraphicsItemColorResetButtonClicked()
+        self._handleOctaveFanGraphicsItemTextColorResetButtonClicked()
+        self._handleOctaveFanGraphicsItemTextXScalingResetButtonClicked()
+        self._handleOctaveFanGraphicsItemTextYScalingResetButtonClicked()
+        self._handleOctaveFanGraphicsItemTextEnabledFlagResetButtonClicked()
+        self._handleOctaveFanGraphicsItemMusicalRatiosResetButtonClicked()
 
     def _handleOkayButtonClicked(self):
         """Called when the okay button is clicked."""
