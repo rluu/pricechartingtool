@@ -13579,8 +13579,8 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.octaveFanPen.setColor(self.octaveFanGraphicsItemColor)
         self.octaveFanPen.setWidthF(self.octaveFanPenWidth)
         
-        # Starting point, in scene coordinates.
-        self.startPointF = QPointF(0, 0)
+        # Origin point, in scene coordinates.
+        self.originPointF = QPointF(0, 0)
 
         # Leg1 point, in scene coordinates.
         self.leg1PointF = QPointF(0, 0)
@@ -13659,7 +13659,7 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         # Flags that indicate that the user is dragging either the
         # origin, leg1 or leg2 points of the QGraphicsItem.
-        self.draggingStartPointFlag = False
+        self.draggingOriginPointFlag = False
         self.draggingLeg1PointFlag = False
         self.draggingLeg2PointFlag = False
         self.clickScenePointF = None
@@ -13780,46 +13780,145 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # origin or leg points, then the user is trying to adjust
             # the origin or leg points.
 
-            # TODO:  Need to re-write this function, taking into account the whole rect and the leg points.  Okay, so maybe we'll do this:
-            # create a function in this class called 'line segment bounding rect', or something similar, and that function just creates the shape for surrounding a line segment that makes up this graphics item, from origin to an endpoint.  The shape returned is what should be dotted-lined when it is selected.  From this for the origin-to-leg1 and and origin-to-leg2 line segments, we will call boundingRect() on that shape and base our calculations off of that.  If both qualify for being in the 1/5th portion, then we will resort to whichever point is closer distance-wise to the leg1 or leg2 point.  
-
-            # TODO:  start replacing 'end' and coding from here.
+            # Get the click point in scene coordinates.
+            clickScenePos = event.scenePos()
+            clickScenePosX = clickScenePos.x()
+            clickScenePosY = clickScenePos.y()
             
-            scenePosX = event.scenePos().x()
-            self.log.debug("DEBUG: scenePosX={}".format(scenePosX))
+            self.log.debug("DEBUG: clickScenePosX={}".format(clickScenePosX))
+            self.log.debug("DEBUG: clickScenePosY={}".format(clickScenePosY))
+
+
+            # TODO:  write the function 'self.getShapeOfLineSegment()' so that the below use of it will work.  The function should utilize scaling for also incorporating the tilt of the line.
             
-            startingPointX = self.startPointF.x()
-            self.log.debug("DEBUG: startingPointX={}".format(startingPointX))
-            endingPointX = self.endPointF.x()
-            self.log.debug("DEBUG: endingPointX={}".format(endingPointX))
+            # Get the shape of the line segments of the legs.  The
+            # returned QPainterPath is in scene coordinates.
+            shapeOfOriginToLeg1Point = \
+                self.getShapeOfLineSegment(self.originPointF, self.leg1PointF)
+            shapeOfOriginToLeg2Point = \
+                self.getShapeOfLineSegment(self.originPointF, self.leg2PointF)
+
+            # Flags that hold whether the click was inside the leg1
+            # line segment or leg2 line segment.
+            insideLeg1LineSegment = False
+            insideLeg2LineSegment = False
+
+            # Holds the QRectF of either leg1LineSegment orl leg2LineSegment.
+            rectF = None
             
-            diff = endingPointX - startingPointX
-            self.log.debug("DEBUG: diff={}".format(diff))
+            if shapeOfOriginToLeg1Point.contains(clickScenePos) == True:
 
-            startThreshold = startingPointX + (diff * (1.0 / 5))
-            endThreshold = endingPointX - (diff * (1.0 / 5))
+                insideLeg1LineSegment = True
+                
+                # Turn the shape into a bounding rect and determine the
+                # 1/5th point from the ends using x and y values of that
+                # bounding rect.  This rect below is in scene coordinates.
+                rectF = shapeOfOriginToLeg1Point.boundingRect()
 
-            self.log.debug("DEBUG: startThreshold={}".format(startThreshold))
-            self.log.debug("DEBUG: endThreshold={}".format(endThreshold))
+            elif shapeOfOriginToLeg2Point.contains(clickScenePos) == True:
+                self.log.debug("Click point is within the line segment from " +
+                               "origin point to leg2 point.")
 
-            if startingPointX <= scenePosX <= startThreshold or \
-                   startingPointX >= scenePosX >= startThreshold:
+                insideLeg2LineSegment = True
                 
-                self.draggingStartPointFlag = True
-                self.log.debug("DEBUG: self.draggingStartPointFlag={}".
-                               format(self.draggingStartPointFlag))
+                # Turn the shape into a bounding rect and determine the
+                # 1/5th point from the ends using x and y values of that
+                # bounding rect.  This rect below is in scene coordinates.
+                rectF = shapeOfOriginToLeg2Point.boundingRect()
+
+
+            self.log.debug("insideLeg1LineSegment={}".\
+                           format(insideLeg1LineSegment))
+            self.log.debug("insideLeg2LineSegment={}".\
+                           format(insideLeg2LineSegment))
+
+            # Handle the case that the click was inside a line segment
+            # that makes up the outter edge of this fan.
+            if insideLeg1LineSegment == True or insideLeg2LineSegment == True:
+            
+                self.log.debug("boundingRect  is: " +
+                               "(x={}, y={}, w={}, h={})".\
+                               format(rectF.x(),
+                                      rectF.y(),
+                                      rectF.width(),
+                                      rectF.height()))
+
+                # Here we will get various points that make up the
+                # bounding rect of this line segment.  We will create
+                # two sub-rectangles that are 1/5th the portion of x
+                # and y of the original rectangle.  The click point
+                # being inside one of these sub-rectangles will tell
+                # us if the click was near the origin point or if it
+                # was near the end leg point.  
+
+                startingPointX = rectF.x()
+                startingPointY = rectF.y()
+
+                endingPointX = rectF.x() + rectF.width()
+                endingPointY = rectF.y() + rectF.height()
                 
-            elif endingPointX <= scenePosX <= endThreshold or \
-                   endingPointX >= scenePosX >= endThreshold:
+                self.log.debug("DEBUG: startingPointX={}, startingPointY={}".\
+                               format(startingPointX, startingPointY))
+                self.log.debug("DEBUG: endingPointX={}, endingPointY={}".\
+                               format(endingPointX, endingPointY))
                 
-                self.draggingEndPointFlag = True
-                self.log.debug("DEBUG: self.draggingEndPointFlag={}".
-                               format(self.draggingEndPointFlag))
-            else:
-                # The mouse has clicked the middle part of the
-                # QGraphicsItem, so pass the event to the parent, because
-                # the user wants to either select or drag-move the
-                # position of the QGraphicsItem.
+                startThresholdX = startingPointX + (rectF.width() * (1.0 / 5))
+                endThresholdX = endingPointX - (rectF.width() * (1.0 / 5))
+
+                startThresholdY = startingPointY + (rectF.height() * (1.0 / 5))
+                endThresholdY = endingPointY - (rectF.height() * (1.0 / 5))
+                
+                self.log.debug("DEBUG: startThresholdX={}".\
+                               format(startThresholdX))
+                self.log.debug("DEBUG: endThresholdX={}".\
+                               format(endThresholdX))
+
+                self.log.debug("DEBUG: startThresholdY={}".\
+                               format(startThresholdY))
+                self.log.debug("DEBUG: endThresholdY={}".\
+                               format(endThresholdY))
+
+                startingPointRect = \
+                    QRectF(QPointF(startingPointX, startingPointY),
+                           QPointF(startThresholdX, startThresholdY))
+                
+                endingPointRect = \
+                    QRectF(QPointF(endingPointX, endingPointY),
+                           QPointF(endThresholdX, endThresholdY))
+
+                if startingPointRect.contains(clickScenePos):
+                    
+                    self.draggingOriginPointFlag = True
+                    self.log.debug("DEBUG: self.draggingOriginPointFlag={}".
+                                   format(self.draggingOriginPointFlag))
+
+                elif endingPointRect.contains(clickScenePos):
+
+                    if insideLeg1LineSegment == True:
+                        self.draggingLeg1PointFlag = True
+                        self.log.debug("DEBUG: self.draggingLeg1PointFlag={}".
+                                       format(self.draggingLeg1PointFlag))
+                        
+                    elif insideLeg2LineSegment == True:
+                        self.draggingLeg2PointFlag = True
+                        self.log.debug("DEBUG: self.draggingLeg2PointFlag={}".
+                                       format(self.draggingLeg2PointFlag))
+
+                else:
+
+                    self.log.debug("Middle area of the line segment clicked.")
+
+
+            # If none of the drag point flags are set, then the user
+            # has clicked somewhere in teh middle part of the
+            # QGraphicsItem (somewhere not close to an endpoint).
+            if self.draggingOriginPointFlag == False and \
+                self.draggingLeg1PointFlag == False and \
+                self.draggingLeg2PointFlag == False:
+                
+                # Pass the event to the parent, because the user wants
+                # to either select or drag-move the position of the
+                # QGraphicsItem.
                 self.log.debug("DEBUG:  Middle part clicked.  " + \
                                "Passing to super().")
 
@@ -13842,21 +13941,28 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         if event.buttons() & Qt.LeftButton:
             if self.getReadOnlyFlag() == False:
-                if self.draggingStartPointFlag == True:
-                    self.log.debug("DEBUG: self.draggingStartPointFlag={}".
-                                   format(self.draggingStartPointFlag))
-                    self.setStartPointF(QPointF(event.scenePos().x(),
-                                                self.startPointF.y()))
-                    self.update()
-                elif self.draggingEndPointFlag == True:
-                    self.log.debug("DEBUG: self.draggingEndPointFlag={}".
-                                   format(self.draggingEndPointFlag))
-                    self.setEndPointF(QPointF(event.scenePos().x(),
-                                              self.endPointF.y()))
-                    self.update()
+                
+                if self.draggingOriginPointFlag == True:
+                    self.log.debug("DEBUG: self.draggingOriginPointFlag={}".
+                                   format(self.draggingOriginPointFlag))
+                    self.setOriginPointF(QPointF(event.scenePos()))
+                    self.prepareGeometryChange()
+                    
+                elif self.draggingLeg1PointFlag == True:
+                    self.log.debug("DEBUG: self.draggingLeg1PointFlag={}".
+                                   format(self.draggingLeg1PointFlag))
+                    self.setLeg1PointF(QPointF(event.scenePos()))
+                    self.prepareGeometryChange()
+
+                elif self.draggingLeg2PointFlag == True:
+                    self.log.debug("DEBUG: self.draggingLeg2PointFlag={}".
+                                   format(self.draggingLeg2PointFlag))
+                    self.setLeg2PointF(QPointF(event.scenePos()))
+                    self.prepareGeometryChange()
+                    
                 else:
                     # This means that the user is dragging the whole
-                    # ruler.
+                    # item.
 
                     # Do the move.
                     super().mouseMoveEvent(event)
@@ -13877,25 +13983,39 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         self.log.debug("Entered mouseReleaseEvent()")
 
-        if self.draggingStartPointFlag == True:
+        if self.draggingOriginPointFlag == True:
             self.log.debug("mouseReleaseEvent() when previously dragging " + \
-                           "startPoint.")
+                           "originPoint.")
             
-            self.draggingStartPointFlag = False
+            self.draggingOriginPointFlag = False
 
             # Make sure the starting point is to the left of the
             # ending point.
             #self.normalizeStartAndEnd()
-            
+
             self.prepareGeometryChange()
             
             self.scene().priceBarChartChanged.emit()
             
-        elif self.draggingEndPointFlag == True:
+        elif self.draggingLeg1PointFlag == True:
             self.log.debug("mouseReleaseEvent() when previously dragging " +
-                           "endPoint.")
+                           "leg1Point.")
             
-            self.draggingEndPointFlag = False
+            self.draggingLeg1PointFlag = False
+
+            # Make sure the starting point is to the left of the
+            # ending point.
+            #self.normalizeStartAndEnd()
+
+            self.prepareGeometryChange()
+            
+            self.scene().priceBarChartChanged.emit()
+            
+        elif self.draggingLeg2PointFlag == True:
+            self.log.debug("mouseReleaseEvent() when previously dragging " +
+                           "leg2Point.")
+            
+            self.draggingLeg2PointFlag = False
 
             # Make sure the starting point is to the left of the
             # ending point.
@@ -13926,7 +14046,7 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 # end points by calling setPos() on the new calculated
                 # position.
                 if delta.x() != 0.0 and delta.y() != 0.0:
-                    newPos = self.startPointF + delta
+                    newPos = self.originPointF + delta
                     self.setPos(newPos)
 
             super().mouseReleaseEvent(event)
@@ -13943,14 +14063,19 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Make sure the drag flags are disabled.
         if flag == True:
-            self.draggingStartPointFlag = False
-            self.draggingEndPointFlag = False
+            self.draggingOriginPointFlag = False
+            self.draggingLeg1PointFlag = False
+            self.draggingLeg2PointFlag = False
 
     def refreshTextItems(self):
         """Sets the positions of the text items for the MusicalRatios,
         and updates the text so that they are current.
         """
 
+        # TODO: redo this function for OctaveFan, and continue fixing
+        # this class's functions.
+
+        
         # Update the octaveFan label text item texts.
         if self.scene() != None:
             self.recalculateOctaveFan()
