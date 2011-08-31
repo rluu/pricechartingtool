@@ -13606,34 +13606,21 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.octaveFanTextBrush.\
             setColor(self.octaveFanGraphicsItemTextColor)
 
-        # Degrees of text rotation.
-        self.rotationDegrees = 90.0
-        
         # Size scaling for the text.
         textTransform = QTransform()
         textTransform.scale(self.octaveFanTextXScaling, \
                             self.octaveFanTextYScaling)
-        textTransform.rotate(self.rotationDegrees)
+        textTransform.rotate(0.0)
         
-        # Below is a 2-dimensional list of (2
-        # QGraphicsSimpleTextItems), for each of the MusicalRatios in
-        # the PriceBarChartOctaveFanArtifact.  The 2 texts displayed
-        # for each MusicalRatio is:
-        #
-        # 1) Fraction (or float if no numerator and no denominator is set).
-        # 2) Timestamp value.
+        # Below is a list of QGraphicsSimpleTextItems, for each of the
+        # MusicalRatios in the PriceBarChartOctaveFanArtifact.  The
+        # text contains the musical interval fraction, and the angle
+        # of the line.
         #
         self.musicalRatioTextItems = []
 
-        # Below is a list of VerticalTickGraphicsItems that correspond
-        # to each of the musicalRatios.
-        self.verticalTickItems = []
-        
         # Initialize to blank and set at the leg1 point.
         for musicalRatio in range(len(self.artifact.getMusicalRatios())):
-            verticalTickItem = VerticalTickGraphicsItem(self)
-            verticalTickItem.setPos(self.leg1PointF)
-            verticalTickItem.setPen(self.octaveFanPen)
             
             fractionTextItem = QGraphicsSimpleTextItem("", self)
             fractionTextItem.setPos(self.leg1PointF)
@@ -13642,17 +13629,9 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             fractionTextItem.setBrush(self.octaveFanTextBrush)
             fractionTextItem.setTransform(textTransform)
             
-            timestampTextItem = QGraphicsSimpleTextItem("", self)
-            timestampTextItem.setPos(self.leg1PointF)
-            timestampTextItem.setFont(self.octaveFanTextFont)
-            timestampTextItem.setPen(self.octaveFanTextPen)
-            timestampTextItem.setBrush(self.octaveFanTextBrush)
-            timestampTextItem.setTransform(textTransform)
-            
             self.musicalRatioTextItems.\
-                append([fractionTextItem, timestampTextItem])
+                append(fractionTextItem)
 
-            self.verticalTickItems.append(verticalTickItem)
 
         # Flag that indicates that vertical dotted lines should be drawn.
         self.drawVerticalDottedLinesFlag = False
@@ -14072,10 +14051,6 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         and updates the text so that they are current.
         """
 
-        # TODO: redo this function for OctaveFan, and continue fixing
-        # this class's functions.
-
-        
         # Update the octaveFan label text item texts.
         if self.scene() != None:
             self.recalculateOctaveFan()
@@ -14097,52 +14072,44 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 (x, y) = artifact.getXYForMusicalRatio(i)
 
                 # Map those x and y to local coordinates.
-                pointF = self.mapFromScene(QPointF(x, y))
+                scenePointF = QPointF(x, y)
+                localPointF = self.mapFromScene(scenePointF)
 
+                # TODO: write the function used below called calculateTextRotationDegrees.
+
+                # Get the number of degrees to rotate the text by,
+                # utilizing scaling.
+                rotationDegrees = \
+                    self.calculateTextRotationDegrees(self.originPointF,
+                                                      scenePointF)
+                
                 # Create the text transform to use.
                 textTransform = QTransform()
                 textTransform.scale(self.octaveFanTextXScaling, \
                                     self.octaveFanTextYScaling)
-                textTransform.rotate(self.rotationDegrees)
-                
-                # Get the text items for this point on the scale.
-                listOfTextItems = self.musicalRatioTextItems[i]
+                textTransform.rotate(rotationDegrees)
 
-                # For each text item for that point on the scale,
-                # set the position.
-                for j in range(len(listOfTextItems)):
-                    textItem = listOfTextItems[j]
-                    # The position set is not exactly at (x, y),
-                    # but instead at an offset slightly below that
-                    # point so that multiple texts dont' overlap
-                    # each other.
-                    offsetX = (textItem.boundingRect().height() * 0.54) * j
-                    textItem.setPos(QPointF(pointF.x() - offsetX,
-                                            pointF.y()))
-                    textItem.setFont(self.octaveFanTextFont)
-                    textItem.setPen(self.octaveFanTextPen)
-                    textItem.setBrush(self.octaveFanTextBrush)
-                    textItem.setTransform(textTransform)
-                    
-                # Also set the position of the vertical tick line.
-                barHeight = artifact.getBarHeight()
-                self.verticalTickItems[i].setBarHeight(barHeight)
-                self.verticalTickItems[i].setPos(pointF)
-                    
-            # Call update on this item since positions and child items
-            # were updated.
-            self.prepareGeometryChange()
-            self.update()
+                # Get the text item for this point on the scale.
+                textItem = self.musicalRatioTextItems[i]
 
-    def setStartPointF(self, pointF):
-        """Sets the starting point of the octaveFan.  The value passed in
+                # Set the position and other attributes.
+                textItem.setPos(localPointF)
+                textItem.setFont(self.octaveFanTextFont)
+                textItem.setPen(self.octaveFanTextPen)
+                textItem.setBrush(self.octaveFanTextBrush)
+                textItem.setTransform(textTransform)
+
+
+            
+    def setOriginPointF(self, pointF):
+        """Sets the origin point of the octaveFan.  The value passed in
         is the mouse location in scene coordinates.  
         """
 
-        if self.startPointF != pointF: 
-            self.startPointF = pointF
+        if self.originPointF != pointF: 
+            self.originPointF = pointF
 
-            self.setPos(self.startPointF)
+            self.setPos(self.originPointF)
             
             # Update the octaveFan label text item positions.
             self.refreshTextItems()            
@@ -14150,18 +14117,18 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             if self.scene() != None:
-                self.update()
+                self.prepareGeometryChange()
 
-    def setEndPointF(self, pointF):
-        """Sets the ending point of the octaveFan.  The value passed in
+    def setLeg1PointF(self, pointF):
+        """Sets the leg1ing point of the octaveFan.  The value passed in
         is the mouse location in scene coordinates.  
         """
 
-        if self.endPointF != pointF:
-            self.endPointF = pointF
+        if self.leg1PointF != pointF:
+            self.leg1PointF = pointF
 
             self.log.debug("OctaveFanGraphicsItem." +
-                           "setEndPointF(QPointF({}, {}))".\
+                           "setLeg1PointF(QPointF({}, {}))".\
                            format(pointF.x(), pointF.y()))
             
             # Update the octaveFan label text item positions.
@@ -14170,32 +14137,37 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             if self.scene() != None:
-                self.update()
+                self.prepareGeometryChange()
 
-    def normalizeStartAndEnd(self):
-        """Sets the starting point X location to be less than the ending
-        point X location.
+    def setLeg2PointF(self, pointF):
+        """Sets the leg2ing point of the octaveFan.  The value passed in
+        is the mouse location in scene coordinates.  
         """
 
-        #if self.startPointF.x() > self.endPointF.x():
-        #    self.log.debug("Normalization of OctaveFanGraphicsItem " +
-        #                   "required.")
-        #    
-        #    # Swap the points.
-        #    temp = self.startPointF
-        #    self.startPointF = self.endPointF
-        #    self.endPointF = temp
-        #
-        #    super().setPos(self.startPointF)
-        #    
-        #    # Update the octaveFan label text item positions.
-        #    self.refreshTextItems()
+        if self.leg2PointF != pointF:
+            self.leg2PointF = pointF
+
+            self.log.debug("OctaveFanGraphicsItem." +
+                           "setLeg2PointF(QPointF({}, {}))".\
+                           format(pointF.x(), pointF.y()))
+            
+            # Update the octaveFan label text item positions.
+            self.refreshTextItems()
+
+            # Call update on this item since positions and child items
+            # were updated.
+            if self.scene() != None:
+                self.prepareGeometryChange()
+
+    def normalizeStartAndEnd(self):
+        """Does nothing since we do not normalize points for this class."""
+
         pass
 
     def recalculateOctaveFan(self):
-        """Updates the text items that represent the ticks on the
+        """Updates the text items that tell about the fann lines on the
         modal scale.  These texts will have accurate values for where
-        the notes are in terms of price and time.
+        the notes are in terms of angle.
 
         In this process, it also sets the internal variables such that
         a call to self.getArtifact().getXYForMusicalRatio(index) can
@@ -14210,77 +14182,57 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             for i in range(len(musicalRatios)):
                 musicalRatio = musicalRatios[i]
 
+                (x, y) = artifact.getXYForMusicalRatio(i)
+                sceneEndPointF = QPointF(x, y)
+                
                 if musicalRatio.isEnabled():
                     # Enable and make visible.
 
-                    # Get the text items for this point on the scale.
-                    listOfTextItems = self.musicalRatioTextItems[i]
+                    # Get the text item for this point on the scale.
+                    textItem = self.musicalRatioTextItems[i]
                     
-                    # For the text items for that point on the scale,
-                    # set the text.  
-                    for j in range(len(listOfTextItems)):
-                        textItem = listOfTextItems[j]
+                    # Make the text visible if it is enabled.
+                    textEnabled = artifact.isTextEnabled()
+                    textItem.setEnabled(textEnabled)
+                    textItem.setVisible(textEnabled)
 
-                        # Make the text visible if it is enabled.
-                        textEnabled = artifact.isTextEnabled()
-                        textItem.setEnabled(textEnabled)
-                        textItem.setVisible(textEnabled)
+                    # If text isn't enabled, there's no need to
+                    # set the text for it.  Go to the next text item.
+                    if textEnabled == False:
+                        continue
 
-                        # If text isn't enabled, there's no need to
-                        # set the text for it.  Go to the next text item.
-                        if textEnabled == False:
-                            continue
+                    # Text to set in the text item.
+                    text = ""
+
+                    # Append the text for the fraction of the musical note.
+                    numerator = musicalRatio.getNumerator()
+                    denominator = musicalRatio.getDenominator()
+
+                    if numerator != None and denominator != None:
+                        text += \
+                            "{}/{}".format(numerator, denominator) + os.linesep
+
+                    # TODO: write the function used below called calculateScaledAngleDegrees.
                     
-                        if j == 0:
-                            # Fraction text.  This is either the
-                            # fraction (if the numerator and
-                            # denominator are available), or the float
-                            # value for the ratio.
-                            
-                            numerator = musicalRatio.getNumerator()
-                            denominator = musicalRatio.getDenominator()
-                            
-                            if numerator != None and denominator != None:
-                                fractionText = \
-                                    "{}/{}".format(numerator, denominator)
-                                textItem.setText(fractionText)
-                            else:
-                                ratio = musicalRatio.getRatio()
-                                ratioText = "{}".format(ratio)
-                                textItem.setText(ratioText)
-                        elif j == 1:
-                            # Timestamp text.
-                            
-                            # Get the x location and then convert to a datetime.
-                            (x, y) = artifact.getXYForMusicalRatio(i)
-                            timestamp = \
-                                self.scene().sceneXPosToDatetime(x)
-                            timestampText = \
-                                Ephemeris.datetimeToDayStr(timestamp)
-                            textItem.setText(timestampText)
+                    # Append the text for the angle of the line.
+                    scaledAngleDegrees = \
+                        self.calculateScaledAngleDegrees(self.originPointF,
+                                                            sceneEndPointF)
+                    text += "{:.4f} deg".format(scaledAngleDegrees) + os.linesep
 
-                    # Also enable and set the vertical tick line.
-                    self.verticalTickItems[i].setVisible(True)
-                    self.verticalTickItems[i].setEnabled(True)
-                            
+                    # Set the text to the text item.
+                    text = text.rstrip()
+                    textItem.setText(text)
+                    
                 else:
                     # Disable and make not visable.
                     
-                    # Get the text items for this point on the scale.
-                    listOfTextItems = self.musicalRatioTextItems[i]
+                    # Get the text item for this point on the scale.
+                    textItem = self.musicalRatioTextItems[i]
                     
-                    # For each text item for that point on the scale,
-                    # set as disabled and not visible.
-                    for j in range(len(listOfTextItems)):
-                        textItem = listOfTextItems[j]
-                        textItem.setVisible(False)
-                        textItem.setEnabled(False)
-
-                    # Also disable the vertical tick line.
-                    self.verticalTickItems[i].setVisible(False)
-                    self.verticalTickItems[i].setEnabled(False)
-                    
-
+                    textItem.setVisible(False)
+                    textItem.setEnabled(False)
+                
                         
     def setArtifact(self, artifact):
         """Loads a given PriceBarChartOctaveFanArtifact object's data
@@ -14302,8 +14254,9 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Extract and set the internals according to the info 
         # in this artifact object.
         self.setPos(self.artifact.getPos())
-        self.setStartPointF(self.artifact.getStartPointF())
-        self.setEndPointF(self.artifact.getEndPointF())
+        self.setOriginPointF(self.artifact.getOriginPointF())
+        self.setLeg1PointF(self.artifact.getLeg1PointF())
+        self.setLeg2PointF(self.artifact.getLeg2PointF())
 
         self.octaveFanTextFont.\
             setPointSizeF(self.artifact.getFontSize())
@@ -14315,9 +14268,9 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             setColor(self.artifact.getTextColor())
 
         
-        # Need to recalculate the time measurement, since the start and end
+        # Need to recalculate the angles, since the origin, leg1 and leg2
         # points have changed.  Note, if no scene has been set for the
-        # QGraphicsView, then the measurements will be zero.
+        # QGraphicsView, then the measurements may not be valid.
         self.refreshTextItems()
 
         self.log.debug("Exiting setArtifact()")
@@ -14331,8 +14284,9 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # to be current, then return it.
 
         self.artifact.setPos(self.pos())
-        self.artifact.setStartPointF(self.startPointF)
-        self.artifact.setEndPointF(self.endPointF)
+        self.artifact.setOriginPointF(self.originPointF)
+        self.artifact.setLeg1PointF(self.leg1PointF)
+        self.artifact.setLeg2PointF(self.leg2PointF)
         
         # Everything else gets modified only by the edit dialog.
         
@@ -14341,6 +14295,8 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
     def boundingRect(self):
         """Returns the bounding rectangle for this graphicsitem."""
 
+        # TODO:  start coding and fixing this class from this function onwards.
+        
         # Coordinate (0, 0) in local coordinates is the center of 
         # the vertical bar that is at the left portion of this widget,
         # and represented in scene coordinates as the self.startPointF 
