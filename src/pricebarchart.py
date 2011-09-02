@@ -3555,6 +3555,9 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
     def shape(self):
         """Overwrites the QGraphicsItem.shape() function to return a
         more accurate shape for collision detection, hit tests, etc.
+
+        Returns:
+        QPainterPath object holding the shape of this QGraphicsItem.
         """
 
         # Get the QRectF with just the lines.
@@ -4840,6 +4843,9 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
     def shape(self):
         """Overwrites the QGraphicsItem.shape() function to return a
         more accurate shape for collision detection, hit tests, etc.
+
+        Returns:
+        QPainterPath object holding the shape of this QGraphicsItem.
         """
 
         barHeight = \
@@ -6170,6 +6176,9 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
     def shape(self):
         """Overwrites the QGraphicsItem.shape() function to return a
         more accurate shape for collision detection, hit tests, etc.
+
+        Returns:
+        QPainterPath object holding the shape of this QGraphicsItem.
         """
 
         barWidth = \
@@ -7182,6 +7191,9 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
     def shape(self):
         """Overwrites the QGraphicsItem.shape() function to return a
         more accurate shape for collision detection, hit tests, etc.
+
+        Returns:
+        QPainterPath object holding the shape of this QGraphicsItem.
         """
 
         self.log.debug("Entering shape()")
@@ -8371,6 +8383,9 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
     def shape(self):
         """Overwrites the QGraphicsItem.shape() function to return a
         more accurate shape for collision detection, hit tests, etc.
+
+        Returns:
+        QPainterPath object holding the shape of this QGraphicsItem.
         """
 
         # Get the QRectF with just the lines.
@@ -9519,6 +9534,9 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
     def shape(self):
         """Overwrites the QGraphicsItem.shape() function to return a
         more accurate shape for collision detection, hit tests, etc.
+
+        Returns:
+        QPainterPath object holding the shape of this QGraphicsItem.
         """
 
         # Get the QRectF with just the lines.
@@ -10758,6 +10776,9 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
     def shape(self):
         """Overwrites the QGraphicsItem.shape() function to return a
         more accurate shape for collision detection, hit tests, etc.
+
+        Returns:
+        QPainterPath object holding the shape of this QGraphicsItem.
         """
 
         # Get the QRectF with just the lines.
@@ -12025,15 +12046,18 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
         textItemRectBottomRight = \
             self.textItem.mapToParent(\
             self.textItem.boundingRect().bottomRight())
-                                
+        
         rv = self.shape().boundingRect() | \
              QRectF(textItemRectTopLeft, textItemRectBottomRight)
-
+        
         return rv
 
     def shape(self):
         """Overwrites the QGraphicsItem.shape() function to return a
         more accurate shape for collision detection, hit tests, etc.
+
+        Returns:
+        QPainterPath object holding the shape of this QGraphicsItem.
         """
 
         # Calculate the points that would be the selection box area
@@ -12060,7 +12084,7 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # are calculating it from a scene perspective.
         angleDeg = QLineF(viewScaledStartPoint, viewScaledEndPoint).angle()
         angleRad = math.radians(angleDeg)
-        
+
         shiftX = math.cos(angleRad) * \
                      (0.5 * self.priceTimeVectorGraphicsItemBarWidth)
         shiftY = math.sin(angleRad) * \
@@ -13122,6 +13146,9 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
     def shape(self):
         """Overwrites the QGraphicsItem.shape() function to return a
         more accurate shape for collision detection, hit tests, etc.
+
+        Returns:
+        QPainterPath object holding the shape of this QGraphicsItem.
         """
 
         # Calculate the points that would be the selection box area
@@ -13525,10 +13552,7 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
     """QGraphicsItem that visualizes a musical scale in the GraphicsView.
 
     This item uses the origin point (0, 0) in item coordinates as the
-    center point height bar, on the start point (left part) of the bar ruler.
-
-    That means when a user creates a new OctaveFanGraphicsItem
-    the position and points can be consistently set.
+    origin point.
     """
     
     def __init__(self, parent=None, scene=None):
@@ -13716,7 +13740,7 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
     def setPos(self, pos):
         """Overwrites the QGraphicsItem setPos() function.
 
-        Here we use the new position to re-set the self.startPointF,
+        Here we use the new position to re-set the self.originPointF,
         self.leg1PointF, and self.leg2PointF
 
         Arguments:
@@ -13728,10 +13752,10 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         newScenePos = pos
 
-        posDelta = newScenePos - self.startPointF
+        posDelta = newScenePos - self.originPointF
 
         # Update the start, leg1 and leg2 points accordingly. 
-        self.startPointF = self.startPointF + posDelta
+        self.originPointF = self.originPointF + posDelta
         self.leg1PointF = self.leg1PointF + posDelta
         self.leg2PointF = self.leg2PointF + posDelta
 
@@ -13768,8 +13792,6 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.log.debug("DEBUG: clickScenePosY={}".format(clickScenePosY))
 
 
-            # TODO:  write the function 'self.getShapeOfLineSegment()' so that the below use of it will work.  The function should utilize scaling for also incorporating the tilt of the line.
-            
             # Get the shape of the line segments of the legs.  The
             # returned QPainterPath is in scene coordinates.
             shapeOfOriginToLeg1Point = \
@@ -13784,11 +13806,11 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
             # Holds the QRectF of either leg1LineSegment orl leg2LineSegment.
             rectF = None
-            
+
             if shapeOfOriginToLeg1Point.contains(clickScenePos) == True:
 
                 insideLeg1LineSegment = True
-                
+
                 # Turn the shape into a bounding rect and determine the
                 # 1/5th point from the ends using x and y values of that
                 # bounding rect.  This rect below is in scene coordinates.
@@ -13799,7 +13821,7 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                "origin point to leg2 point.")
 
                 insideLeg2LineSegment = True
-                
+
                 # Turn the shape into a bounding rect and determine the
                 # 1/5th point from the ends using x and y values of that
                 # bounding rect.  This rect below is in scene coordinates.
@@ -13814,7 +13836,7 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Handle the case that the click was inside a line segment
             # that makes up the outter edge of this fan.
             if insideLeg1LineSegment == True or insideLeg2LineSegment == True:
-            
+
                 self.log.debug("boundingRect  is: " +
                                "(x={}, y={}, w={}, h={})".\
                                format(rectF.x(),
@@ -13835,18 +13857,18 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
                 endingPointX = rectF.x() + rectF.width()
                 endingPointY = rectF.y() + rectF.height()
-                
+
                 self.log.debug("DEBUG: startingPointX={}, startingPointY={}".\
                                format(startingPointX, startingPointY))
                 self.log.debug("DEBUG: endingPointX={}, endingPointY={}".\
                                format(endingPointX, endingPointY))
-                
+
                 startThresholdX = startingPointX + (rectF.width() * (1.0 / 5))
                 endThresholdX = endingPointX - (rectF.width() * (1.0 / 5))
 
                 startThresholdY = startingPointY + (rectF.height() * (1.0 / 5))
                 endThresholdY = endingPointY - (rectF.height() * (1.0 / 5))
-                
+
                 self.log.debug("DEBUG: startThresholdX={}".\
                                format(startThresholdX))
                 self.log.debug("DEBUG: endThresholdX={}".\
@@ -13860,13 +13882,13 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 startingPointRect = \
                     QRectF(QPointF(startingPointX, startingPointY),
                            QPointF(startThresholdX, startThresholdY))
-                
+
                 endingPointRect = \
                     QRectF(QPointF(endingPointX, endingPointY),
                            QPointF(endThresholdX, endThresholdY))
 
                 if startingPointRect.contains(clickScenePos):
-                    
+
                     self.draggingOriginPointFlag = True
                     self.log.debug("DEBUG: self.draggingOriginPointFlag={}".
                                    format(self.draggingOriginPointFlag))
@@ -13877,7 +13899,7 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                         self.draggingLeg1PointFlag = True
                         self.log.debug("DEBUG: self.draggingLeg1PointFlag={}".
                                        format(self.draggingLeg1PointFlag))
-                        
+
                     elif insideLeg2LineSegment == True:
                         self.draggingLeg2PointFlag = True
                         self.log.debug("DEBUG: self.draggingLeg2PointFlag={}".
@@ -13894,7 +13916,7 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             if self.draggingOriginPointFlag == False and \
                 self.draggingLeg1PointFlag == False and \
                 self.draggingLeg2PointFlag == False:
-                
+
                 # Pass the event to the parent, because the user wants
                 # to either select or drag-move the position of the
                 # QGraphicsItem.
@@ -13906,7 +13928,7 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 # start and end positions when the user finally
                 # releases the mouse button.
                 self.clickScenePointF = event.scenePos()
-                
+
                 super().mousePressEvent(event)
 
         self.log.debug("Leaving mousePressEvent()")
@@ -14075,8 +14097,6 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 scenePointF = QPointF(x, y)
                 localPointF = self.mapFromScene(scenePointF)
 
-                # TODO: write the function used below called calculateTextRotationDegrees.
-
                 # Get the number of degrees to rotate the text by,
                 # utilizing scaling.
                 rotationDegrees = \
@@ -14212,12 +14232,10 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                         text += \
                             "{}/{}".format(numerator, denominator) + os.linesep
 
-                    # TODO: write the function used below called calculateScaledAngleDegrees.
-                    
                     # Append the text for the angle of the line.
                     scaledAngleDegrees = \
                         self.calculateScaledAngleDegrees(self.originPointF,
-                                                            sceneEndPointF)
+                                                         sceneEndPointF)
                     text += "{:.4f} deg".format(scaledAngleDegrees) + os.linesep
 
                     # Set the text to the text item.
@@ -14292,83 +14310,199 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         return self.artifact
 
+    def getShapeOfLineSegment(self, startPointF, endPointF):
+        """Returns the shape as a QPainterPath of the line segment
+        constructed via the two input QPointFs.  The shape is
+        constructed by a rectangle around the start and end points.
+        The rectangle is tilted based on the angle of the start and
+        end points in view-scaled coordinates.  The bar height used is
+        whatever is returned by self.artifact.getBarHeight().
+
+        Arguments: 
+        startPointF - QPointF representing the start point of the line segment.
+        endPointF - QPointF representing the end point of the line segment.
+
+        Returns:
+        QPainterPath object holding the shape of the rectangle around
+        the line segment.
+        """
+        
+        # Utilize scaling from the scene if it is available.
+        scaling = PriceBarChartScaling()
+        if self.scene() != None:
+            scaling = self.scene().getScaling()
+            
+        viewScaledStartPoint = \
+            QPointF(startPointF.x() * scaling.getViewScalingX(),
+                    startPointF.y() * scaling.getViewScalingY())
+        viewScaledEndPoint = \
+            QPointF(endPointF.x() * scaling.getViewScalingX(),
+                    endPointF.y() * scaling.getViewScalingY())
+
+        # Here we are calculating the angle of the text and the line
+        # as the user would see it.  Actual angle is different if we
+        # are calculating it from a scene perspective.
+        angleDeg = QLineF(viewScaledStartPoint, viewScaledEndPoint).angle()
+        angleRad = math.radians(angleDeg)
+
+        shiftX = math.sin(angleRad) * \
+                     (0.5 * self.artifact.getBarHeight())
+        shiftY = math.cos(angleRad) * \
+                     (0.5 * self.artifact.getBarHeight())
+        
+        # Create new points.
+        p1 = \
+            QPointF(localStartPointF.x() - shiftX,
+                    localStartPointF.y() - shiftY)
+        p2 = \
+            QPointF(localStartPointF.x() + shiftX,
+                    localStartPointF.y() + shiftY)
+        p3 = \
+            QPointF(localEndPointF.x() - shiftX,
+                    localEndPointF.y() - shiftY)
+        p4 = \
+            QPointF(localEndPointF.x() + shiftX,
+                    localEndPointF.y() + shiftY)
+
+        points = [p2, p1, p3, p4, p2]
+        polygon = QPolygonF(points)
+
+        painterPath = QPainterPath()
+        painterPath.addPolygon(polygon)
+        
+        return painterPath
+
+    def calculateTextRotationDegrees(self, startPointF, endPointF):
+        """Calculates the number of degrees that a
+        QGraphicsSimpleTextItem should be rotated so that it is
+        parallel to the line constructed by the 'startPointF' and
+        'endPointF' parameters.  ViewScaling is utilized to determine the angle.
+
+        Arguments:
+        startPointF - start point of the line segment to align the
+                      text's angle with.
+        endPointF   - start point of the line segment to align the
+                      text's angle with.
+
+        Returns:
+        float value holding angle that the text needs to be rotated, in degrees.
+        """
+
+        # Return value.
+        angleDeg = 0.0
+        
+        # Determine the number of degrees to rotate the text by,
+        # utilizing scaling.
+        if self.scene() != None:
+            scaling = self.scene().getScaling()
+
+            viewScaledStartPoint = \
+                QPointF(startPointF.x() * scaling.getViewScalingX(),
+                        startPointF.y() * scaling.getViewScalingY())
+            viewScaledEndPoint = \
+                QPointF(endPointF.x() * scaling.getViewScalingX(),
+                        endPointF.y() * scaling.getViewScalingY())
+            
+            angleDeg = QLineF(viewScaledStartPoint, viewScaledEndPoint).angle()
+            self.log.debug("Scaled angleDeg before normalizing and fudge, " +
+                           "angleDeg={}".format(angleDeg))
+        else:
+            # No scaling is available, so just do the unscaled angle.
+            angleDeg = QLineF(startPointF, endPointF).angle()
+            self.log.debug("Unscaled angleDeg before normalizing and fudge, " +
+                           "angleDeg={}".format(angleDeg))
+            
+        # Normalize the angle so that the text is always upright.
+        if 90 <= angleDeg <= 270:
+            angleDeg += 180
+        while angleDeg >= 360:
+            angleDeg -= 360
+        while angleDeg < 0:
+            angleDeg += 360
+
+        self.log.debug("Before fudge, angleDeg={}".format(angleDeg))
+        
+        # Fudge factor since for some reason the text item doesn't
+        # exactly line up with the line.
+        fudge = 0.0
+        if 0 < angleDeg <= 90:
+            self.log.debug("0 to 90")
+            removed = 45 - abs(45 - angleDeg)
+            fudge = removed * 0.19
+            angleDeg -= fudge
+        elif 90 < angleDeg <= 180:
+            self.log.debug("90 to 180")
+            removed = 45 - abs(135 - angleDeg)
+            fudge = removed * 0.12
+            angleDeg += fudge
+        elif 180 < angleDeg <= 270:
+            self.log.debug("180 to 270")
+            removed = 45 - abs(225 - angleDeg)
+            fudge = removed * 0.19
+            angleDeg -= fudge
+        elif 270 < angleDeg <= 360:
+            self.log.debug("270 to 360")
+            removed = 45 - abs(315 - angleDeg)
+            fudge = removed * 0.12
+            angleDeg += fudge
+            
+        angleDeg = -1.0 * angleDeg
+        self.log.debug("angleDeg={}".format(angleDeg))
+
+        return angleDeg
+    
+    def calculateScaledAngleDegrees(self, startPointF, endPointF):
+        """Calculates the number of degrees of angle between
+        'startPointF' and 'endPointF'.  This angle is calculated
+        utilizing scaling stored in the PriceBarChartGraphicsScene
+        returned by self.scene().
+
+        Arguments:
+        startPointF - start point of the line segment.
+        endPointF   - start point of the line segment.
+
+        Returns:
+        float value holding the scaled angle, in degrees.
+        """
+
+        angleDeg = 0.0
+
+        if self.scene() != None:
+            scene = self.scene()
+        
+            startScaledPoint = scene.convertScenePointToScaledPoint(startPointF)
+            endScaledPoint = scene.convertScenePointToScaledPoint(endPointF)
+        
+            angleDeg = QLineF(startScaledPoint, endScaledPoint).angle()
+        else:
+            # Scene is not set, so don't apply scaling, and just
+            # return the angle with unscaled points.
+            angleDeg = QLineF(startPointF, endPointF).angle()
+            
+        return angleDeg
+        
     def boundingRect(self):
         """Returns the bounding rectangle for this graphicsitem."""
 
-        # TODO:  start coding and fixing this class from this function onwards.
+        # Coordinate (0, 0) in local coordinates is origin point.
         
-        # Coordinate (0, 0) in local coordinates is the center of 
-        # the vertical bar that is at the left portion of this widget,
-        # and represented in scene coordinates as the self.startPointF 
-        # location.
-        
-        # The QRectF returned is relative to this (0, 0) point.
-        barHeight = \
-            self.getArtifact().getBarHeight()
-        
-        xTopLeft = 0.0
-        yTopLeft = 1.0 * (barHeight * 0.5)
-        
-        xBottomLeft = 0.0
-        yBottomLeft = -1.0 * (barHeight * 0.5)
-        
-        xDelta = self.endPointF.x() - self.startPointF.x()
-        yDelta = self.endPointF.y() - self.startPointF.y()
-        
-        xTopRight = 0.0 + xDelta
-        yTopRight = (1.0 * (barHeight * 0.5)) + yDelta
-        
-        xBottomRight = 0.0 + xDelta
-        yBottomRight = (-1.0 * (barHeight * 0.5)) + yDelta
-
-        # Get the highest high, and lowest low PriceBar in local
-        # coordinates.
-        highestPrice = self.scene().getHighestPriceBar().high
-        highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-        localHighY = \
-            self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
-
-        lowestPrice = self.scene().getLowestPriceBar().low
-        lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-        localLowY = \
-            self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-                          
-
-        xValues = []
-        xValues.append(xTopLeft)
-        xValues.append(xBottomLeft)
-        xValues.append(xTopRight)
-        xValues.append(xBottomRight)
-
-        yValues = []
-        yValues.append(yTopLeft)
-        yValues.append(yBottomLeft)
-        yValues.append(yTopRight)
-        yValues.append(yBottomRight)
-        yValues.append(localHighY)
-        yValues.append(localLowY)
-        
-        xValues.sort()
-        yValues.sort()
-        
-        # Find the smallest x and y.
-        smallestX = xValues[0]
-        smallestY = yValues[0]
-        
-        # Find the largest x and y.
-        largestX = xValues[-1]
-        largestY = yValues[-1]
-            
-        rv = QRectF(QPointF(smallestX, smallestY),
-                    QPointF(largestX, largestY))
+        rv = self.shape().boundingRect()
 
         return rv
 
     def shape(self):
         """Overwrites the QGraphicsItem.shape() function to return a
         more accurate shape for collision detection, hit tests, etc.
+
+        Returns:
+        QPainterPath object holding the shape of this QGraphicsItem.
         """
 
+        # TODO: start coding and fixing this class from this function
+        # onwards.  Don't forget to shift everything from scene
+        # coordinates to local ones, so that the (0, 0) in local
+        # coordinates is the origin point.
+        
         barHeight = \
             self.getArtifact().getBarHeight()
         
