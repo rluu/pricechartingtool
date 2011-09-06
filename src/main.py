@@ -43,10 +43,12 @@ APP_DATE = __date__
 
 # Directory where log files will be written.
 #LOG_DIR = os.path.join(sys.path[0], "logs")
-LOG_DIR = os.path.join(sys.path[0], "../logs")
+LOG_DIR = os.path.join(sys.path[0],
+                       ".." + os.sep + "logs")
 
 # Location of the config file for logging.
-LOG_CONFIG_FILE = os.path.join(sys.path[0], "../conf/logging.conf")
+LOG_CONFIG_FILE = os.path.join(sys.path[0],
+                               ".." + os.sep + "conf" + os.sep + "logging.conf")
 
 # Application author
 APP_AUTHOR = "Ryan Luu"
@@ -63,7 +65,14 @@ def main():
     (options, args) = parseCommandlineArgs()
     
     # Set up the logger.
-    logging.config.fileConfig(LOG_CONFIG_FILE)
+    
+    # Parsing the log config file doesn't work on the current version
+    # of cx_Freeze (on Windows and on Mac).  The author of cx_Freeze
+    # knows about this bug and hopefully the next release of cx_Freeze
+    # addresses this issue.  Until then, only parse the config file if
+    # this file is referenced as a .py file.
+    if sys.argv[0].split(".")[-1] == "py":
+        logging.config.fileConfig(LOG_CONFIG_FILE)
     log = logging.getLogger("main")
 
     log.info("##########################################");

@@ -41,6 +41,13 @@ Dependencies to build/run this project are:
   - pytz 2010h 
       (Modified version of this release that is compatible with Python 3)
 
+Note: 
+
+  If compiling SIP or PyQt on Windows platform using MinGW, use the following 
+  configure command so that the environment can be detected correctly: 
+
+     python configure.py -p win32-g++
+
 ##############################################################################
 
 Steps to run the software:
