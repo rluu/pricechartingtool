@@ -1089,7 +1089,7 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
         # Return value.
         rv = 0.0
 
-        # TODO:  decide if I should keep it at 0.0.
+        # TODO:  Decide if I should always return terminalRadiusForWheelNumber at 0.0.
         return rv
     
         if wheelNumber > 0 and wheelNumber <= len(self.wheelNumberCircleRadius):
@@ -3603,7 +3603,7 @@ class AstrologyChartWidget(QWidget):
         self.helioSidRadixChartGraphicsItem = SiderealRadixChartGraphicsItem()
         self.helioSidRadixChartGraphicsItem.setScale(0.5)
 
-        # TODO:  I've left out this table for now, since it doesn't add much value and is slow.
+        # TODO:  Uncomment below to re-add PlanetaryInfoTableGraphicsItem().  It's left out because it doesn't add much value and is slow.
         #self.planetaryInfoTable = PlanetaryInfoTableGraphicsItem()
         
         self.declinationChart = DeclinationChartGraphicsItem()

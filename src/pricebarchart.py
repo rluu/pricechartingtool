@@ -47,6 +47,7 @@ from data_objects import PriceBarChartLineSegmentArtifact
 from data_objects import PriceBarChartOctaveFanArtifact
 from data_objects import PriceBarChartScaling
 from data_objects import PriceBarChartSettings
+from data_objects import Util
 
 # For conversions from julian day to datetime.datetime and vice versa.
 from ephemeris import Ephemeris
@@ -886,7 +887,7 @@ class TextGraphicsItem(PriceBarChartArtifactGraphicsItem):
         return textItemBoundingRect
 
     def paint(self, painter, option, widget):
-        """Paints this QGraphicsItem.  Assumes that self.pen is set
+        """Paints this QGraphicsItem.  Assumes that self.textItemPen is set
         to what we want for the drawing style.
         """
 
@@ -1621,7 +1622,7 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         return rectWithoutText
 
     def paint(self, painter, option, widget):
-        """Paints this QGraphicsItem.  Assumes that self.pen is set
+        """Paints this QGraphicsItem.  Assumes that self.barCountPen is set
         to what we want for the drawing style.
         """
 
@@ -3579,8 +3580,9 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         return painterPath
         
     def paint(self, painter, option, widget):
-        """Paints this QGraphicsItem.  Assumes that self.pen is set
-        to what we want for the drawing style.
+        """Paints this QGraphicsItem.  Assumes that
+        self.timeMeasurementPen is set to what we want for the drawing
+        style.
         """
 
         if painter.pen() != self.timeMeasurementPen:
@@ -4880,8 +4882,9 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         return painterPath
         
     def paint(self, painter, option, widget):
-        """Paints this QGraphicsItem.  Assumes that self.pen is set
-        to what we want for the drawing style.
+        """Paints this QGraphicsItem.  Assumes that
+        self.timeModalScalePen is set to what we want for the drawing
+        style.
         """
 
         self.log.debug("Entered TimeModalScaleGraphicsItem.paint().  " +
@@ -6213,8 +6216,9 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         return painterPath
         
     def paint(self, painter, option, widget):
-        """Paints this QGraphicsItem.  Assumes that self.pen is set
-        to what we want for the drawing style.
+        """Paints this QGraphicsItem.  Assumes that
+        self.priceModalScalePen is set to what we want for the drawing
+        style.
         """
 
         self.log.debug("Entered PriceModalScaleGraphicsItem.paint().  " +
@@ -7215,7 +7219,7 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
         return painterPath
         
     def paint(self, painter, option, widget):
-        """Paints this QGraphicsItem.  Assumes that self.pen is set
+        """Paints this QGraphicsItem.  Assumes that self.textItemPen is set
         to what we want for the drawing style.
         """
 
@@ -8407,8 +8411,9 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         return painterPath
         
     def paint(self, painter, option, widget):
-        """Paints this QGraphicsItem.  Assumes that self.pen is set
-        to what we want for the drawing style.
+        """Paints this QGraphicsItem.  Assumes that
+        self.priceMeasurementPen is set to what we want for the
+        drawing style.
         """
 
         if painter.pen() != self.priceMeasurementPen:
@@ -9558,8 +9563,9 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         return painterPath
         
     def paint(self, painter, option, widget):
-        """Paints this QGraphicsItem.  Assumes that self.pen is set
-        to what we want for the drawing style.
+        """Paints this QGraphicsItem.  Assumes that
+        self.timeRetracementPen is set to what we want for the drawing
+        style.
         """
 
         if painter.pen() != self.timeRetracementPen:
@@ -10801,8 +10807,9 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         return painterPath
         
     def paint(self, painter, option, widget):
-        """Paints this QGraphicsItem.  Assumes that self.pen is set
-        to what we want for the drawing style.
+        """Paints this QGraphicsItem.  Assumes that
+        self.priceRetracementPen is set to what we want for the
+        drawing style.
         """
 
         if painter.pen() != self.priceRetracementPen:
@@ -11778,10 +11785,8 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.rotationDegrees = angleDeg
             if 90 <= self.rotationDegrees <= 270:
                 self.rotationDegrees += 180
-            while self.rotationDegrees >= 360:
-                self.rotationDegrees -= 360
-            while self.rotationDegrees < 0:
-                self.rotationDegrees += 360
+            self.rotationDegrees = \
+                Util.toNormalizedAngle(self.rotationDegrees)
 
             # Fudge factor since for some reason the text item doesn't
             # exactly line up with the PTV line.
@@ -12113,8 +12118,9 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
         return painterPath
         
     def paint(self, painter, option, widget):
-        """Paints this QGraphicsItem.  Assumes that self.pen is set
-        to what we want for the drawing style.
+        """Paints this QGraphicsItem.  Assumes that
+        self.priceTimeVectorPen is set to what we want for the drawing
+        style.
         """
 
         self.log.debug("PriceTimeVectorGraphicsItem.paint()")
@@ -12902,10 +12908,8 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.rotationDegrees = angleDeg
             if 90 <= self.rotationDegrees <= 270:
                 self.rotationDegrees += 180
-            while self.rotationDegrees >= 360:
-                self.rotationDegrees -= 360
-            while self.rotationDegrees < 0:
-                self.rotationDegrees += 360
+            self.rotationDegrees = \
+                Util.toNormalizedAngle(self.rotationDegrees)
 
             # Fudge factor since for some reason the text item doesn't
             # exactly line up with the PTV line.
@@ -13204,7 +13208,7 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
         return painterPath
         
     def paint(self, painter, option, widget):
-        """Paints this QGraphicsItem.  Assumes that self.pen is set
+        """Paints this QGraphicsItem.  Assumes that self.lineSegmentPen is set
         to what we want for the drawing style.
         """
 
@@ -13593,6 +13597,9 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Internal storage object, used for loading/saving (serialization).
         self.artifact = PriceBarChartOctaveFanArtifact()
 
+        # Convert object.
+        self.convertObj = None
+        
         # Read the QSettings preferences for the various parameters of
         # this price bar.
         self.loadSettingsFromAppPreferences()
@@ -13657,9 +13664,6 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 append(fractionTextItem)
 
 
-        # Flag that indicates that vertical dotted lines should be drawn.
-        self.drawVerticalDottedLinesFlag = False
-        
         # Flags that indicate that the user is dragging either the
         # origin, leg1 or leg2 points of the QGraphicsItem.
         self.draggingOriginPointFlag = False
@@ -13667,15 +13671,15 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.draggingLeg2PointFlag = False
         self.clickScenePointF = None
 
-    def setDrawVerticalDottedLinesFlag(self, flag):
-        """If flag is set to true, then the vertical dotted lines are drawn.
+    def setConvertObj(self, convertObj):
+        """Object for doing conversions from x and datetime and y to
+        price.  This should be the graphics scene.  This is used for
+        doing conversions from a scene point to price or datetime.  It
+        is also used so we can convert price or datetime to a scaled
+        value.
         """
 
-        self.drawVerticalDottedLinesFlag = flag
-        
-        # Need to call this because the bounding box is updated with
-        # all the extra vertical lines being drawn.
-        self.prepareGeometryChange()
+        self.convertObj = convertObj
         
     def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings):
         """Reads some of the parameters/settings of this
@@ -14202,7 +14206,7 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             for i in range(len(musicalRatios)):
                 musicalRatio = musicalRatios[i]
 
-                (x, y) = artifact.getXYForMusicalRatio(i)
+                (x, y) = self.getXYForMusicalRatio(artifact, i)
                 sceneEndPointF = QPointF(x, y)
                 
                 if musicalRatio.isEnabled():
@@ -14310,6 +14314,309 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         return self.artifact
 
+    def getXYForMusicalRatio(self, artifact, index):
+        """Returns the x and y location of where this musical ratio
+        point would exist, based on the MusicalRatio ordering and the
+        originPointF, leg1PointF, and leg2PointF locations.  This
+        method does it's calculation based on 3 points, and the point
+        returned is along the outter edge of a rectangle created by
+        the 3 points.  The calculated point returned is based angular
+        musical ratios.  This function utilizes scaling!  
+
+        Arguments:
+        
+        artifact - PriceBarChartOctaveFanArtifact object to use to
+                   extract underlying required values for computation.
+        
+        index - int value for index into self.musicalRatios that the
+                user is looking for the musical ratio for.  This value
+                must be within the valid index limits.
+
+        Returns:
+        
+        Tuple of 2 floats, representing (x, y) point in scene
+        coordinates.  This is where the musical ratio would exist.
+        """
+
+        self.log.debug("Entered getXYForMusicalRatio({})".format(index))
+
+        # This object needs either the self.convertObj set, or the
+        # parent graphicsscene set or else it won't have the capacity
+        # to do price and datetime conversions to scaled coordinates.
+        if self.convertObj == None:
+            if self.scene() == None:
+                self.log.error("This function requires that " + \
+                               "self.convertObj be set for conversion " + \
+                               "calculations.")
+                return
+            else:
+                self.convertObj = self.scene()
+
+        # Get the musical ratios from the artifact.
+        musicalRatios = artifact.getMusicalRatios()
+        
+        # Validate input.
+        if index < 0:
+            self.log.error("getXYForMusicalRatio(): Invalid index: {}".
+                           format(index))
+            return
+        if len(musicalRatios) > 0 and index >= len(musicalRatios):
+            self.log.error("getXYForMusicalRatio(): Index out of range: {}".
+                           format(index))
+            return
+
+        # Return values.
+        x = None
+        y = None
+
+        # Calculate scene originPointF, leg1PointF and leg2PointF points.
+        unscaledOriginPointF = artifact.getOriginPointF()
+        unscaledLeg1PointF = artifact.getLeg1PointF()
+        unscaledLeg2PointF = artifact.getLeg2PointF()
+        
+        self.log.debug("unscaledOriginPointF is: ({}, {})".
+                       format(unscaledOriginPointF.x(),
+                              unscaledOriginPointF.y()))
+        self.log.debug("unscaledLeg1PointF is: ({}, {})".
+                       format(unscaledLeg1PointF.x(),
+                              unscaledLeg1PointF.y()))
+        self.log.debug("unscaledLeg2PointF is: ({}, {})".
+                       format(unscaledLeg2PointF.x(),
+                              unscaledLeg2PointF.y()))
+        
+        # Calculate scaled originPointF, leg1PointF and leg2PointF points.
+        scaledOriginPointF = \
+            self.convertObj.convertScenePointToScaledPoint(\
+            artifact.getOriginPointF())
+        scaledLeg1PointF = \
+            self.convertObj.convertScenePointToScaledPoint(\
+            artifact.getLeg1PointF())
+        scaledLeg2PointF = \
+            self.convertObj.convertScenePointToScaledPoint(\
+            artifact.getLeg2PointF())
+        
+        self.log.debug("scaledOriginPointF is: ({}, {})".
+                       format(scaledOriginPointF.x(),
+                              scaledOriginPointF.y()))
+        self.log.debug("scaledLeg1PointF is: ({}, {})".
+                       format(scaledLeg1PointF.x(),
+                              scaledLeg1PointF.y()))
+        self.log.debug("scaledLeg2PointF is: ({}, {})".
+                       format(scaledLeg2PointF.x(),
+                              scaledLeg2PointF.y()))
+
+        # Calculate the angle between the two line segments.
+        leg1 = QLineF(scaledOriginPointF, scaledLeg1PointF)
+        leg2 = QLineF(scaledOriginPointF, scaledLeg2PointF)
+
+        # The angle returned by QLineF.angleTo() is always normalized.
+        angleDegDelta = leg1.angleTo(leg2)
+        
+        # If the delta angle is greater than 180, then subtract 360
+        # because we don't want to draw the fan on the undesired side
+        # of the angle.
+        if angleDegDelta > 180:
+            angleDegDelta -= 360
+        
+        self.log.debug("Angle range between line segments " + \
+                       "leg1 and leg2 is: {} deg".format(angleDeg))
+        
+        # Need to maintain offsets so that if the ratios are rotated a
+        # certain way, then we have the correct starting point.
+        angleDegOffset = 0.0
+
+        self.log.debug("There are {} number of musical ratios.".\
+                       format(len(musicalRatios)))
+
+        for i in range(len(musicalRatios)):
+            musicalRatio = musicalRatios[i]
+            
+            self.log.debug("musicalRatios[{}].getRatio() is: {}".\
+                           format(i, musicalRatio.getRatio()))
+            if i == 0:
+                # Store the offset for future indexes.
+                angleDegOffset = \
+                    angleDegDelta * (musicalRatio.getRatio() - 1.0)
+                
+                self.log.debug("At i == 0.  angleDegOffset={}".\
+                               format(angleDegOffset))
+                
+            if i == index:
+                self.log.debug("At the i == index, where i == {}.".format(i))
+                self.log.debug("MusicalRatio is: {}".\
+                               format(musicalRatio.getRatio()))
+                
+                angleDeg = \
+                    (angleDegDelta * (musicalRatio.getRatio() - 1.0)) - \
+                    angleDegOffset
+
+                self.log.debug("(angleDeg={})".format(angleDeg))
+
+                # If we are reversed, then reference the offset angle
+                # from the leg1 angle instead of the leg2 angle.
+                if self.isReversed() == False:
+                    angleDeg = leg1.angle() + angleDeg
+                else:
+                    angleDeg = leg2.angle() - angleDeg
+
+                self.log.debug("Adjusting to leg point angles, (angleDeg={})".
+                               format(angleDeg))
+
+                # Normalize angleDeg be within the range of
+                # leg1.angle() and leg2.angle().  We have to jump
+                # around a bit here to do the calculations because
+                # points could be around the 0 degree point at
+                # 3 o'clock.
+
+                # Calculate which leg's angle the angleDeg is closest to.
+                lineToAngleDeg = \
+                    QLineF(scaledOriginPointF, scaledLeg1PointF).\
+                    setAngle(angleDeg)
+                angleToLeg1 = lineToAngleDeg.angleTo(leg1)
+                angleToLeg2 = lineToAngleDeg.angleTo(leg2)
+
+                # Find the closest path, based on which side of 180 it is.
+                if angleToLeg1 > 180:
+                    angleToLeg1 -= 360
+                if angleToLeg2 > 180:
+                    angleToLeg1 -= 360
+
+                # Adjust angleDeg based on which leg is closer.
+                # Here we should only require one adjustment.
+                if abs(angleToLeg1) < abs(angleToLeg2):
+                    # lineToAngleDeg is closer to leg1.
+                    if angleToLeg1 >= 0:
+                        angleDeg += abs(angleDegDelta)
+                    if angleToLeg1 < 0:
+                        angleDeg -= abs(angleDegDelta)
+                else:
+                    # lineToAngleDeg is closer to leg2.
+                    if angleToLeg2 >= 0:
+                        angleDeg += abs(angleDegDelta)
+                    if angleToLeg2 < 0:
+                        angleDeg -= abs(angleDegDelta)
+                
+                self.log.debug("For index {}, ".format(i) +
+                               "normalized angleDeg is: " +
+                               "{}".format(angleDeg))
+
+                # Now that we have the angle, determine the
+                # intersection point along the edge of the rectangle.
+
+                # Find the smallest x and y values, and the largest x
+                # and y values of the 3 points: scaledOriginPointF,
+                # scaledLeg1PointF, and scaledLeg2PointF.  These will
+                # be used to construct 4 line segments, which we will
+                # use for calculating intersection points with the
+                # line segment drawn from scaledOriginPointF at an
+                # angle of 'angleDeg'.
+                xValues = []
+                xValues.append(scaledOriginPointF.x())
+                xValues.append(scaledLeg1PointF.x())
+                xValues.append(scaledLeg2PointF.x())
+
+                yValues = []
+                yValues.append(scaledOriginPointF.y())
+                yValues.append(scaledLeg1PointF.y())
+                yValues.append(scaledLeg2PointF.y())
+
+                xValues.sort()
+                yValues.sort()
+
+                # Find the smallest x and y.
+                smallestX = xValues[0]
+                smallestY = yValues[0]
+        
+                # Find the largest x and y.
+                largestX = xValues[-1]
+                largestY = yValues[-1]
+
+                # Rectangle bounding all 3 points.
+                containingRectF = \
+                    QRectF(QPointF(smallestX, smallestY),
+                           QPointF(largestX, largestY))
+                
+                # Four lines that bound the 3 points.
+                line1 = QLineF(smallestX, smallestY,
+                               smallestX, largestY)
+                line2 = QLineF(smallestX, smallestY,
+                               largestX, smallestY)
+                line3 = QLineF(largestX, largestY,
+                               largestX, smallestY)
+                line4 = QLineF(largestX, largestY,
+                               smallestX, largestY)
+                lines = []
+                lines.append(line1)
+                lines.append(line2)
+                lines.append(line3)
+                lines.append(line4)
+                
+                # Get the line from scaledOriginPointF outwards at the
+                # 'angleDeg' angle.  We just don't know what length it
+                # should be.
+                lineToAngleDeg = \
+                    QLineF(scaledOriginPointF, scaledLeg1PointF).\
+                    setAngle(angleDeg)
+
+                # Find the intesections with the line segments in 'lines'.
+                intersectionPoints = []
+                for l in lines:
+                    # Implementation is based on Graphics Gems III's
+                    # "Faster Line Segment Intersection"
+
+                    p1 = lineToAngleDeg.p1()
+                    p2 = lineToAngleDeg.p2()
+                    
+                    a = p2 - p1
+                    b = l.p1() - l.p2()
+                    c = p1 - l.p1()
+
+                    denominator = ((a.y() * b.x()) - (a.x() * b.y()))
+                    
+                    if denominator == 0 or denominator == float('inf'):
+                        # No intersection.
+                        continue
+
+                    reciprocal = 1.0 / denominator
+                    na = ((b.y() * c.x()) - (b.x() * c.y())) * reciprocal
+
+                    intersectionPoint = p1 + (a * na)
+                    intersectionPoints.append(intersectionPoint)
+
+
+                # Process the intersection points.
+                for p in intersectionPoints:
+                    # Only look at intersection points that are within or
+                    # on the edge of 'containingRectF'.
+                    proper = False
+                    if containingRectF.contains(p, proper):
+                        # Here we just need to find which point has us
+                        # keep the line segment length in the correct
+                        # polarity.
+
+                        # TODO:  continue coding from here.
+                        
+
+                        
+                        
+                # Break out of for loop because we found what we are
+                # looking for, which is the x and y.
+                break
+
+        if x == None or y == None:
+            # This means that the index requested that the person
+            # passed in as a parameter is an index that doesn't map to
+            # list length of self.musicalRatios.
+            self.log.warn("getXYForMusicalRatio(): " +
+                          "Index provided is out of range!")
+            # Reset values to 0.
+            x = 0.0
+            y = 0.0
+            
+        self.log.debug("Exiting getXYForMusicalRatio({}), ".format(index) + \
+                       "Returning ({}, {})".format(x, y))
+        return (x, y)
+
     def getShapeOfLineSegment(self, startPointF, endPointF):
         """Returns the shape as a QPainterPath of the line segment
         constructed via the two input QPointFs.  The shape is
@@ -14318,13 +14625,19 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         end points in view-scaled coordinates.  The bar height used is
         whatever is returned by self.artifact.getBarHeight().
 
-        Arguments: 
-        startPointF - QPointF representing the start point of the line segment.
-        endPointF - QPointF representing the end point of the line segment.
+        Arguments:
+        
+        startPointF - QPointF representing the start point of the line
+                      segment in either scene or local coordinates.
+        endPointF   - QPointF representing the end point of the line segment
+                      in either scene or local scene coordinates.
 
         Returns:
         QPainterPath object holding the shape of the rectangle around
-        the line segment.
+        the line segment.  If the start and end points are given in
+        local coordinates, then the QPainterPath returned will also be
+        in local coordinates, otherwise the QPainterPath returned will
+        be in scene coordinates.
         """
         
         # Utilize scaling from the scene if it is available.
@@ -14415,10 +14728,7 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Normalize the angle so that the text is always upright.
         if 90 <= angleDeg <= 270:
             angleDeg += 180
-        while angleDeg >= 360:
-            angleDeg -= 360
-        while angleDeg < 0:
-            angleDeg += 360
+        angleDeg = Util.toNormalizedAngle(angleDeg)
 
         self.log.debug("Before fudge, angleDeg={}".format(angleDeg))
         
@@ -14495,188 +14805,96 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         more accurate shape for collision detection, hit tests, etc.
 
         Returns:
-        QPainterPath object holding the shape of this QGraphicsItem.
+        QPainterPath object holding the shape of this QGraphicsItem,
+        in local item coordinates.
         """
 
-        # TODO: start coding and fixing this class from this function
-        # onwards.  Don't forget to shift everything from scene
-        # coordinates to local ones, so that the (0, 0) in local
-        # coordinates is the origin point.
-        
-        barHeight = \
-            self.getArtifact().getBarHeight()
-        
-        # The QRectF returned is relative to this (0, 0) point.
+        # Get the origin point in scene and local coordinates.
+        sceneOriginPointF = self.originPointF
+        localOriginPointF = QPointF(0.0, 0.0)
 
-        xTopLeft = 0.0
-        yTopLeft = 1.0 * (barHeight * 0.5)
-        topLeft = QPointF(xTopLeft, yTopLeft)
-        
-        xBottomLeft = 0.0
-        yBottomLeft = -1.0 * (barHeight * 0.5)
-        bottomLeft = QPointF(xBottomLeft, yBottomLeft)
-        
-        xDelta = self.endPointF.x() - self.startPointF.x()
-        yDelta = self.endPointF.y() - self.startPointF.y()
-        
-        xTopRight = 0.0 + xDelta
-        yTopRight = (1.0 * (barHeight * 0.5)) + yDelta
-        topRight = QPointF(xTopRight, yTopRight)
-        
-        xBottomRight = 0.0 + xDelta
-        yBottomRight = (-1.0 * (barHeight * 0.5)) + yDelta
-        bottomRight = QPointF(xBottomRight, yBottomRight)
-
-        rectWithoutText = QRectF(topLeft, bottomRight)
-
+        # Holds the QPainterPath of the whole item (in local coordinates).
         painterPath = QPainterPath()
-        painterPath.addRect(rectWithoutText)
-        
+
+        # Add the path for the shape of the line segment created by
+        # points self.originPointF to self.leg1PointF.  
+        localLeg1PointF = self.leg1PointF - self.originPointF
+        leg1PainterPath = \
+            self.getShapeOfLineSegment(localOriginPointF, localLeg1PointF)
+        painterPath.addPath(leg1PainterPath)
+
+        # Add the path for the shape of the line segment created by
+        # points self.originPointF to self.leg2PointF.
+        localLeg2PointF = self.leg2PointF - self.originPointF
+        leg2PainterPath = \
+            self.getShapeOfLineSegment(localOriginPointF, localLeg2PointF)
+        painterPath.addPath(leg2PainterPath)
+
+        # Go through each line of each enabled musical ratio, getting
+        # the shape of the line segment and add that path to
+        # 'painterPath'.
+        artifact = self.getArtifact()
+        musicalRatios = artifact.getMusicalRatios()
+        for i in range(len(musicalRatios)):
+            musicalRatio = musicalRatios[i]
+
+            # Only add the path if the musical ratio is enabled.
+            if musicalRatio.isEnabled():
+                # Get the end point.
+                (x, y) = artifact.getXYForMusicalRatio(i)
+                sceneEndPointF = QPointF(x, y)
+
+                # Do conversion to local coordinates.
+                localEndPointF = sceneEndPointF - sceneOriginPointF
+
+                # Get the painter path.
+                endPointPainterPath = \
+                    self.getShapeOfLineSegment(localOriginPointF,
+                                               localEndPointF)
+
+                # Add the path to 'painterPath'.
+                painterPath.addPath(endPointPainterPath)
+            
+        # The 'painterPath' should now have all the paths for the tilted
+        # rectangles that make up the whole item.
         return painterPath
-        
+
     def paint(self, painter, option, widget):
-        """Paints this QGraphicsItem.  Assumes that self.pen is set
+        """Paints this QGraphicsItem.  Assumes that self.octaveFanPen is set
         to what we want for the drawing style.
         """
 
         self.log.debug("Entered OctaveFanGraphicsItem.paint().  " +
                        "pos is: ({}, {})".format(self.pos().x(),
                                                  self.pos().y()))
-                       
+        
         if painter.pen() != self.octaveFanPen:
             painter.setPen(self.octaveFanPen)
 
+        # Get the origin point in scene and local coordinates.
+        sceneOriginPointF = self.originPointF
+        localOriginPointF = QPointF(0.0, 0.0)
+        
+        # For each musical ratio that is enabled, draw it as a line
+        # segment from the origin point to the end point of that
+        # musical ratio.
         artifact = self.getArtifact()
-        barHeight = artifact.getBarHeight()
+        musicalRatios = artifact.getMusicalRatios()
+        for i in range(len(musicalRatios)):
+            musicalRatio = musicalRatios[i]
 
-        # Keep track of x and y values.  We use this to draw the
-        # dotted lines later.
-        xValues = []
-        yValues = []
-        
-        # Draw the left vertical bar part.
-        x1 = 0.0
-        y1 = 1.0 * (barHeight * 0.5)
-        x2 = 0.0
-        y2 = -1.0 * (barHeight * 0.5)
-        painter.drawLine(QLineF(x1, y1, x2, y2))
+            # Only add the path if the musical ratio is enabled.
+            if musicalRatio.isEnabled():
+                # Get the end point.
+                (x, y) = artifact.getXYForMusicalRatio(i)
+                sceneEndPointF = QPointF(x, y)
+            
+                # Do conversion to local coordinates.
+                localEndPointF = sceneEndPointF - sceneOriginPointF
 
-        xValues.append(x1)
-        xValues.append(x2)
-        yValues.append(y1)
-        yValues.append(y2)
-        
-        # Draw the right vertical bar part.
-        xDelta = self.endPointF.x() - self.startPointF.x()
-        yDelta = self.endPointF.y() - self.startPointF.y()
-        x1 = 0.0 + xDelta
-        y1 = (1.0 * (barHeight * 0.5)) + yDelta
-        x2 = 0.0 + xDelta
-        y2 = (-1.0 * (barHeight * 0.5)) + yDelta
-        painter.drawLine(QLineF(x1, y1, x2, y2))
-
-        xValues.append(x1)
-        xValues.append(x2)
-        yValues.append(y1)
-        yValues.append(y2)
-        
-        # Draw the middle line.
-        x1 = 0.0
-        y1 = 0.0
-        x2 = xDelta
-        y2 = yDelta
-        painter.drawLine(QLineF(x1, y1, x2, y2))
-
-        xValues.append(x1)
-        xValues.append(x2)
-        yValues.append(y1)
-        yValues.append(y2)
-        
-        # Draw vertical dotted lines at each enabled musicalRatio if
-        # the flag is set to do so, or if it is selected.
-        if self.drawVerticalDottedLinesFlag == True or \
-           option.state & QStyle.State_Selected:
-
-            if self.scene() != None:
-                pad = self.octaveFanPen.widthF() * 0.5;
-                penWidth = 0.0
-                fgcolor = option.palette.windowText().color()
-                # Ensure good contrast against fgcolor.
-                r = 255
-                g = 255
-                b = 255
-                if fgcolor.red() > 127:
-                    r = 0
-                if fgcolor.green() > 127:
-                    g = 0
-                if fgcolor.blue() > 127:
-                    b = 0
-                bgcolor = QColor(r, g, b)
-    
-                # Get the highest high, and lowest low PriceBar in local
-                # coordinates.
-                highestPrice = self.scene().getHighestPriceBar().high
-                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-                localHighY = \
-                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
-                
-                lowestPrice = self.scene().getLowestPriceBar().low
-                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-                localLowY = \
-                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-                          
-                yValues.append(localHighY)
-                yValues.append(localLowY)
-
-                # We have all y values now, so sort them to get the
-                # low and high.
-                yValues.sort()
-                smallestY = yValues[0]
-                largestY = yValues[-1]
-        
-                for verticalTickItem in self.verticalTickItems:
-                    if verticalTickItem.isEnabled() and \
-                       verticalTickItem.isVisible():
-                    
-                        localPosX = verticalTickItem.pos().x()
-
-                        startPoint = QPointF(localPosX, largestY)
-                        endPoint = QPointF(localPosX, smallestY)
-                        
-                        painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
-                        painter.setBrush(Qt.NoBrush)
-                        painter.drawLine(startPoint, endPoint)
-                
-                        painter.setPen(QPen(option.palette.windowText(), 0,
-                                            Qt.DashLine))
-                        painter.setBrush(Qt.NoBrush)
-                        painter.drawLine(startPoint, endPoint)
-
-                # Draw the vertical line for the start point.
-                startPoint = QPointF(0.0, largestY)
-                endPoint = QPointF(0.0, smallestY)
-                
-                painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
-                painter.setBrush(Qt.NoBrush)
-                painter.drawLine(startPoint, endPoint)
-                
-                painter.setPen(QPen(option.palette.windowText(), 0,
-                                    Qt.DashLine))
-                painter.setBrush(Qt.NoBrush)
-                painter.drawLine(startPoint, endPoint)
-
-                # Draw the vertical line for the end point.
-                startPoint = QPointF(0.0 + xDelta, largestY)
-                endPoint = QPointF(0.0 + xDelta, smallestY)
-                
-                painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
-                painter.setBrush(Qt.NoBrush)
-                painter.drawLine(startPoint, endPoint)
-                
-                painter.setPen(QPen(option.palette.windowText(), 0,
-                                    Qt.DashLine))
-                painter.setBrush(Qt.NoBrush)
-                painter.drawLine(startPoint, endPoint)
+                # Draw the line segment for this musical ratio.
+                painter.drawLine(QLineF(sceneOriginPointF,
+                                        localEndPointF))
 
         # Draw a dashed-line surrounding the item if it is selected.
         if option.state & QStyle.State_Selected:
@@ -14730,23 +14948,14 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         rotateUpAction = QAction("Rotate Up", parent)
         reverseAction = QAction("Reverse", parent)
         
-        setStartOnAstro1Action = \
-            QAction("Set start timestamp on Astro Chart &1", parent)
-        setStartOnAstro2Action = \
-            QAction("Set start timestamp on Astro Chart &2", parent)
-        setStartOnAstro3Action = \
-            QAction("Set start timestamp on Astro Chart &3", parent)
-        openStartInJHoraAction = \
-            QAction("Open JHor&a with start timestamp", parent)
-        
-        setEndOnAstro1Action = \
-            QAction("Set end timestamp on Astro Chart 1", parent)
-        setEndOnAstro2Action = \
-            QAction("Set end timestamp on Astro Chart 2", parent)
-        setEndOnAstro3Action = \
-            QAction("Set end timestamp on Astro Chart 3", parent)
-        openEndInJHoraAction = \
-            QAction("Open JHora with end timestamp", parent)
+        setOriginOnAstro1Action = \
+            QAction("Set origin timestamp on Astro Chart &1", parent)
+        setOriginOnAstro2Action = \
+            QAction("Set origin timestamp on Astro Chart &2", parent)
+        setOriginOnAstro3Action = \
+            QAction("Set origin timestamp on Astro Chart &3", parent)
+        openOriginInJHoraAction = \
+            QAction("Open JHor&a with origin timestamp", parent)
         
         selectAction.triggered.\
             connect(self._handleSelectAction)
@@ -14772,14 +14981,6 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetStartOnAstro3Action)
         openStartInJHoraAction.triggered.\
             connect(self._handleOpenStartInJHoraAction)
-        setEndOnAstro1Action.triggered.\
-            connect(self._handleSetEndOnAstro1Action)
-        setEndOnAstro2Action.triggered.\
-            connect(self._handleSetEndOnAstro2Action)
-        setEndOnAstro3Action.triggered.\
-            connect(self._handleSetEndOnAstro3Action)
-        openEndInJHoraAction.triggered.\
-            connect(self._handleOpenEndInJHoraAction)
         
         # Enable or disable actions.
         selectAction.setEnabled(True)
@@ -14794,10 +14995,6 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         setStartOnAstro2Action.setEnabled(True)
         setStartOnAstro3Action.setEnabled(True)
         openStartInJHoraAction.setEnabled(True)
-        setEndOnAstro1Action.setEnabled(True)
-        setEndOnAstro2Action.setEnabled(True)
-        setEndOnAstro3Action.setEnabled(True)
-        openEndInJHoraAction.setEnabled(True)
 
         # Add the QActions to the menu.
         menu.addAction(selectAction)
@@ -14815,11 +15012,6 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addAction(setStartOnAstro2Action)
         menu.addAction(setStartOnAstro3Action)
         menu.addAction(openStartInJHoraAction)
-        menu.addSeparator()
-        menu.addAction(setEndOnAstro1Action)
-        menu.addAction(setEndOnAstro2Action)
-        menu.addAction(setEndOnAstro3Action)
-        menu.addAction(openEndInJHoraAction)
 
     def rotateDown(self):
         """Causes the OctaveFanGraphicsItem to have its musicalRatios
@@ -15047,33 +15239,6 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.scene().openJHora(self.startPointF.x())
         
-    def _handleSetEndOnAstro1Action(self):
-        """Causes the astro chart 1 to be set with the timestamp
-        of the end the OctaveFanGraphicsItem.
-        """
-
-        self.scene().setAstroChart1(self.endPointF.x())
-
-    def _handleSetEndOnAstro2Action(self):
-        """Causes the astro chart 2 to be set with the timestamp
-        of the end the OctaveFanGraphicsItem.
-        """
-
-        self.scene().setAstroChart2(self.endPointF.x())
-
-    def _handleSetEndOnAstro3Action(self):
-        """Causes the astro chart 3 to be set with the timestamp
-        of the end the OctaveFanGraphicsItem.
-        """
-
-        self.scene().setAstroChart3(self.endPointF.x())
-
-    def _handleOpenEndInJHoraAction(self):
-        """Causes the the timestamp of the end the
-        OctaveFanGraphicsItem to be opened in JHora.
-        """
-
-        self.scene().openJHora(self.endPointF.x())
         
 class PriceBarChartWidget(QWidget):
     """Widget holding the QGraphicsScene and QGraphicsView that displays

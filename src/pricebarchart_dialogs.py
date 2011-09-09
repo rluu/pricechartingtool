@@ -8930,10 +8930,11 @@ class PriceBarChartOctaveFanArtifactEditWidget(QWidget):
             
             descriptionLabel = QLabel(musicalRatio.getDescription())
 
-            # Use QLabels to
-            # display the price and timestamp information.
+            # TODO: need to fix this up so that the arguments are correct for this call.
             (x, y) = self.artifact.getXYForMusicalRatio(i)
                 
+            # Use QLabels to display the price and timestamp
+            # information.
             price = self.convertObj.sceneYPosToPrice(y)
             priceStr = "{}".format(price)
             priceWidget = QLabel(priceStr)

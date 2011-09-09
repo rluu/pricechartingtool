@@ -2318,7 +2318,7 @@ class PriceChartDocumentWidget(QWidget):
         # Create the internal widgets displayed.
         self.priceBarChartWidget = PriceBarChartWidget()
         self.priceBarSpreadsheetWidget = PriceBarSpreadsheetWidget()
-        # TODO:  uncomment to at the table planetary info table widget.
+        # TODO:  uncomment below get the table planetary info table widget.
         #self.planetaryInfoTableWidget = PlanetaryInfoTableWidget()
 
         # TODO:  Add QSplitters to divide the above internal widgets.
@@ -2332,7 +2332,7 @@ class PriceChartDocumentWidget(QWidget):
 
         hlayout = QHBoxLayout()
         hlayout.addLayout(vlayout)
-        # TODO:  Uncomment to re-add the PlanetaryInfoTableWidget.
+        # TODO:  Uncomment to get the PlanetaryInfoTableWidget.
         #hlayout.addWidget(self.planetaryInfoTableWidget)
 
         self.setLayout(hlayout)
@@ -2343,7 +2343,7 @@ class PriceChartDocumentWidget(QWidget):
         self.priceBarChartWidget.statusMessageUpdate.\
             connect(self.statusMessageUpdate)
                                    
-        # TODO:  Uncomment to re-add the PlanetaryInfoTableWidget.
+        # TODO:  Uncomment to get the PlanetaryInfoTableWidget.
         #self.priceBarChartWidget.currentTimestampChanged.\
         #    connect(self._handleCurrentTimestampChanged)
         
@@ -2605,7 +2605,7 @@ class PriceChartDocumentWidget(QWidget):
              with no file argument).
         """
 
-        # TODO:  write this function.
+        # TODO:  write this jhoraLaunch() function.
         
         # My thoughts: Should I just bubble this up again two more
         # times (via emitting signals) all the way up to MainWindow?

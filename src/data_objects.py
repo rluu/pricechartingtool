@@ -29,6 +29,26 @@ class Util:
     """Contains some generic static functions that may be helpful."""
 
     @staticmethod
+    def toNormalizedAngle(self, angleDeg):
+        """Normalizes the given angle to a value in the range [0, 360).
+
+        Arguments:
+        angleDeg - float value in degrees of an angle to normalize.
+
+        Returns:
+        float value holding the equivalent angle, but in the range [0, 360).
+        """
+
+        a = float(angleDeg)
+        
+        while a < 0.0:
+            a += 360.0
+        while a >= 360.0:
+            a -= 360.0
+
+        return a
+    
+    @staticmethod
     def qColorToStr(qcolor):
         """Returns a string formatting of a QColor object."""
 
@@ -2549,6 +2569,11 @@ class PriceBarChartTimeModalScaleArtifact(PriceBarChartArtifact):
         index - int value for index into self.musicalRatios that the
         user is looking for the musical ratio for.  This value must be
         within the valid index limits.
+
+        Returns:
+        
+        Tuple of 2 floats, representing (x, y) point.  This is where
+        the musical ratio would exist.
         """
 
         self.log.debug("Entered getXYForMusicalRatio({})".format(index))
@@ -2898,6 +2923,11 @@ class PriceBarChartPriceModalScaleArtifact(PriceBarChartArtifact):
         index - int value for index into self.musicalRatios that the
         user is looking for the musical ratio for.  This value must be
         within the valid index limits.
+
+        Returns:
+        
+        Tuple of 2 floats, representing (x, y) point.  This is where
+        the musical ratio would exist.
         """
 
         self.log.debug("Entered getXYForMusicalRatio({})".format(index))
@@ -5127,136 +5157,6 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
 
         self.textEnabledFlag = textEnabledFlag
         
-    def getXYForMusicalRatio(self, index):
-        """Returns the x and y location of where this musical ratio
-        would exist, based on the MusicalRatio ordering and the
-        originPointF, leg1PointF, and leg2PointF locations.
-
-        Arguments:
-        
-        index - int value for index into self.musicalRatios that the
-        user is looking for the musical ratio for.  This value must be
-        within the valid index limits.
-        """
-
-        self.log.debug("Entered getXYForMusicalRatio({})".format(index))
-
-        # TODO: need to re-write this method so that it applies to the
-        # 3 points, and the point returned is along the outter edge of
-        # a rect created by the 3 points.  USE SCALING!!!  This may
-        # mean I need to pass the convert object or scaling object to
-        # this function.
-        
-        # Validate input.
-        if index < 0:
-            self.log.error("getXYForMusicalRatio(): Invalid index: {}".
-                           format(index))
-            return
-        if len(self.musicalRatios) > 0 and index >= len(self.musicalRatios):
-            self.log.error("getXYForMusicalRatio(): Index out of range: {}".
-                           format(index))
-            return
-        
-        # Return values.
-        x = None
-        y = None
-
-        startPointX = self.startPointF.x()
-        startPointY = self.startPointF.y()
-        endPointX = self.endPointF.x()
-        endPointY = self.endPointF.y()
-
-        self.log.debug("startPoint is: ({}, {})".
-                       format(startPointX, startPointY))
-        self.log.debug("endPoint is: ({}, {})".
-                       format(endPointX, endPointY))
-        
-        deltaX = endPointX - startPointX
-        deltaY = endPointY - startPointY
-        
-        self.log.debug("deltaX is: {}".format(deltaX))
-        self.log.debug("deltaY is: {}".format(deltaY))
-        
-        # Need to maintain offsets so that if the ratios are rotated a
-        # certain way, then we have the correct starting point.
-        xOffset = 0.0
-        yOffset = 0.0
-
-        
-        self.log.debug("There are {} number of musical ratios.".\
-                       format(len(self.musicalRatios)))
-
-        for i in range(len(self.musicalRatios)):
-            musicalRatio = self.musicalRatios[i]
-            
-            self.log.debug("self.musicalRatios[{}].getRatio() is: {}".\
-                           format(i, musicalRatio.getRatio()))
-            if i == 0:
-                # Store the offset for future indexes.
-                xOffset = deltaX * (musicalRatio.getRatio() - 1.0)
-                yOffset = deltaY * (musicalRatio.getRatio() - 1.0)
-
-                self.log.debug("At i == 0.  xOffset={}, yOffset={}".\
-                               format(xOffset, yOffset))
-                
-            if i == index:
-                self.log.debug("At the i == index, where i == {}.".format(i))
-                self.log.debug("MusicalRatio is: {}".\
-                               format(musicalRatio.getRatio()))
-                
-                x = (deltaX * (musicalRatio.getRatio() - 1.0)) - xOffset
-                y = (deltaY * (musicalRatio.getRatio() - 1.0)) - yOffset
-
-                self.log.debug("(x={}, y={})".format(x, y))
-
-                # Normalize x and y to be within the range of
-                # [startPointX, endPointX] and [startPointY,
-                # endPointY]
-
-                # If we are reversed, then reference the offset x and
-                # y from the end point instead of the start point.
-                if self.isReversed() == False:
-                    x = startPointX + x
-                    y = startPointY + y
-                else:
-                    x = endPointX - x
-                    y = endPointY - y
-                    
-
-                self.log.debug("Adjusting to start points, (x={}, y={})".
-                               format(x, y))
-                
-                while x < startPointX and x < endPointX:
-                    x += abs(deltaX)
-                while x > startPointX and x > endPointX:
-                    x -= abs(deltaX)
-                while y < startPointY and y < endPointY:
-                    y += abs(deltaY)
-                while y > startPointY and y > endPointY:
-                    y -= abs(deltaY)
-
-                self.log.debug("For index {}, ".format(i) +
-                               "normalized x and y from startPoint is: " +
-                               "({}, {})".format(x, y))
-
-                # Break out of for loop because we found what we are
-                # looking for, which is the x and y values.
-                break
-
-        if x == None or y == None:
-            # This means that the index requested that the person
-            # passed in as a parameter is an index that doesn't map to
-            # list length of self.musicalRatios.
-            self.log.warn("getXYForMusicalRatio(): " +
-                          "Index provided is out of range!")
-            # Reset values to 0.
-            x = 0.0
-            y = 0.0
-            
-        self.log.debug("Exiting getXYForMusicalRatio({}), ".format(index) + \
-                       "Returning ({}, {})".format(x, y))
-        return (x, y)
-
     def __str__(self):
         """Returns the string representation of this object."""
 
@@ -7076,7 +6976,7 @@ class PriceBarSpreadsheetSettings:
         # different versions of this class).
         self.classVersion = 1
 
-        # TODO:  fill this info in for PriceBarSpreadsheetSettings.
+        # TODO:  write this __init__ function for PriceBarSpreadsheetSettings.
 
     def __getstate__(self):
         """Returns the object's state for pickling purposes."""

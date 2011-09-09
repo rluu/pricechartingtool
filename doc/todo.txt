@@ -111,11 +111,28 @@ DONE
 DONE        - Use 'snap' enabled flag for line segment tool.
 DONE
 
+  - I need to move OctaveFanGraphicsItem's getXYForMusicalRatio()
+    function back into artifact in data_object.py, and change the
+    function arguments so that it accepts:
+
+         - musicalRatio index
+         - origin point
+         - leg1 point
+         - leg2 point
+
+     After doing that, from the OctaveFanGraphicsItem class, we will
+     make the call to the artifact's getXYForMusicalRatio(), passing
+     to it the scaledValue points of origin, leg1, and leg2.
+     
+     I believe the edit dialog already has self.convertObj, and those
+     will need to be verified that they do convert the 3 points to
+     scaledValue points before calling getXYForMusicalRatio().
+
   - Set sensible defaults for TimeMeasurementTool (which text to have
     displayed by default).
 
-  - Add a menu for various actions (Menu called 'Astro Actions' or
-    'Miscellaneous Actions'?).
+  - Add a menu in QMainWindow for various actions (Menu called 'Astro
+    Actions' or 'Miscellaneous Actions'?).
 
     Options to add are (may need to organize this better):
 
@@ -221,6 +238,14 @@ DONE
      - Defined by origin and other 2 points.
      - Uses scaling.
      - Order is reversable
+
+  - Add a right-click option to all the items to copy the following
+    (as separate options, and as applicable) to the copy-and-paste
+    clipboard:
+
+        - Just the price as a string
+        - Just the timestamp as a string
+        - Both the price and timestamp, as a string of two lines.
 
   - Add a right-click option to all the items to open a timestamp in JHora. 
      - Substeps:
