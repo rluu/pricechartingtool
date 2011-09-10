@@ -5157,6 +5157,295 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
 
         self.textEnabledFlag = textEnabledFlag
         
+    def getXYForMusicalRatio(self,
+                             index, 
+                             scaledOriginPointF,
+                             scaledLeg1PointF,
+                             scaledLeg2PointF):
+        """Returns the x and y location of where this musical ratio
+        point would exist, based on the MusicalRatio ordering and the
+        scaledOriginPointF, scaledLeg1PointF, and scaledLeg2PointF
+        locations.  This method does it's calculation based on 3
+        points, and the point returned is along the outter edge of a
+        bounding rectangle created by the 3 points.  The calculated point
+        returned is based angular musical ratios.  
+
+        Arguments:
+        
+        index - int value for index into self.musicalRatios that the
+                user is looking for the musical ratio for.  This value
+                must be within the valid index limits.
+        scaledOriginPointF - Origin point of the octave fan, in scaled
+                             coordinates.
+        scaledLeg1PointF   - Leg1 point of the octave fan, in scaled
+                             coordinates.
+        scaledLeg2PointF   - Leg2 point of the octave fan, in scaled
+                             coordinates.
+
+        Returns:
+        
+        Tuple of 2 floats, representing (x, y) point in scaled
+        coordinates.  This is where the musical ratio would exist.
+        The caller must then unscale it back to scene or local
+        coordinates as needed.
+        """
+
+        self.log.debug("Entered getXYForMusicalRatio({})".format(index))
+
+        artifact = self
+        
+        # Get the musical ratios from the artifact.
+        musicalRatios = artifact.getMusicalRatios()
+        
+        # Validate input.
+        if index < 0:
+            self.log.error("getXYForMusicalRatio(): Invalid index: {}".
+                           format(index))
+            return
+        if len(musicalRatios) > 0 and index >= len(musicalRatios):
+            self.log.error("getXYForMusicalRatio(): Index out of range: {}".
+                           format(index))
+            return
+
+        # Return values.
+        x = None
+        y = None
+
+        # Calculate the angle between the two line segments.
+        leg1 = QLineF(scaledOriginPointF, scaledLeg1PointF)
+        leg2 = QLineF(scaledOriginPointF, scaledLeg2PointF)
+
+        # The angle returned by QLineF.angleTo() is always normalized.
+        angleDegDelta = leg1.angleTo(leg2)
+        
+        # If the delta angle is greater than 180, then subtract 360
+        # because we don't want to draw the fan on the undesired side
+        # of the angle.
+        if angleDegDelta > 180:
+            angleDegDelta -= 360
+        
+        self.log.debug("Angle range between line segments " + \
+                       "leg1 and leg2 is: {} deg".format(angleDeg))
+        
+        # Need to maintain offsets so that if the ratios are rotated a
+        # certain way, then we have the correct starting point.
+        angleDegOffset = 0.0
+
+        self.log.debug("There are {} number of musical ratios.".\
+                       format(len(musicalRatios)))
+
+        for i in range(len(musicalRatios)):
+            musicalRatio = musicalRatios[i]
+            
+            self.log.debug("musicalRatios[{}].getRatio() is: {}".\
+                           format(i, musicalRatio.getRatio()))
+            if i == 0:
+                # Store the offset for future indexes.
+                angleDegOffset = \
+                    angleDegDelta * (musicalRatio.getRatio() - 1.0)
+                
+                self.log.debug("At i == 0.  angleDegOffset={}".\
+                               format(angleDegOffset))
+                
+            if i == index:
+                self.log.debug("At the i == index, where i == {}.".format(i))
+                self.log.debug("MusicalRatio is: {}".\
+                               format(musicalRatio.getRatio()))
+                
+                angleDeg = \
+                    (angleDegDelta * (musicalRatio.getRatio() - 1.0)) - \
+                    angleDegOffset
+
+                self.log.debug("(angleDeg={})".format(angleDeg))
+
+                # If we are reversed, then reference the offset angle
+                # from the leg1 angle instead of the leg2 angle.
+                if self.isReversed() == False:
+                    angleDeg = leg1.angle() + angleDeg
+                else:
+                    angleDeg = leg2.angle() - angleDeg
+
+                self.log.debug("Adjusting to leg point angles, (angleDeg={})".
+                               format(angleDeg))
+
+                # Normalize angleDeg be within the range of
+                # leg1.angle() and leg2.angle().  We have to jump
+                # around a bit here to do the calculations because
+                # points could be around the 0 degree point at
+                # 3 o'clock.
+
+                # Calculate which leg's angle the angleDeg is closest to.
+                lineToAngleDeg = \
+                    QLineF(scaledOriginPointF, scaledLeg1PointF).\
+                    setAngle(angleDeg)
+                angleToLeg1 = lineToAngleDeg.angleTo(leg1)
+                angleToLeg2 = lineToAngleDeg.angleTo(leg2)
+
+                # Find the closest path, based on which side of 180 it is.
+                if angleToLeg1 > 180:
+                    angleToLeg1 -= 360
+                if angleToLeg2 > 180:
+                    angleToLeg1 -= 360
+
+                # Adjust angleDeg based on which leg is closer.
+                # Here we should only require one adjustment.
+                if abs(angleToLeg1) < abs(angleToLeg2):
+                    # lineToAngleDeg is closer to leg1.
+                    if angleToLeg1 >= 0:
+                        angleDeg += abs(angleDegDelta)
+                    if angleToLeg1 < 0:
+                        angleDeg -= abs(angleDegDelta)
+                else:
+                    # lineToAngleDeg is closer to leg2.
+                    if angleToLeg2 >= 0:
+                        angleDeg += abs(angleDegDelta)
+                    if angleToLeg2 < 0:
+                        angleDeg -= abs(angleDegDelta)
+                
+                self.log.debug("For index {}, ".format(i) +
+                               "normalized angleDeg to within " +
+                               "leg1 and leg2 is: {}".format(angleDeg))
+
+                # Now that we have the angle, determine the
+                # intersection point along the edge of the rectangle.
+
+                # Find the smallest x and y values, and the largest x
+                # and y values of the 3 points: scaledOriginPointF,
+                # scaledLeg1PointF, and scaledLeg2PointF.  These will
+                # be used to construct 4 line segments, which we will
+                # use for calculating intersection points with the
+                # line segment drawn from scaledOriginPointF at an
+                # angle of 'angleDeg'.
+                xValues = []
+                xValues.append(scaledOriginPointF.x())
+                xValues.append(scaledLeg1PointF.x())
+                xValues.append(scaledLeg2PointF.x())
+
+                yValues = []
+                yValues.append(scaledOriginPointF.y())
+                yValues.append(scaledLeg1PointF.y())
+                yValues.append(scaledLeg2PointF.y())
+
+                xValues.sort()
+                yValues.sort()
+
+                # Find the smallest x and y.
+                smallestX = xValues[0]
+                smallestY = yValues[0]
+        
+                # Find the largest x and y.
+                largestX = xValues[-1]
+                largestY = yValues[-1]
+
+                # Rectangle bounding all 3 points.
+                containingRectF = \
+                    QRectF(QPointF(smallestX, smallestY),
+                           QPointF(largestX, largestY))
+                
+                # Four lines that bound the 3 points.
+                line1 = QLineF(smallestX, smallestY,
+                               smallestX, largestY)
+                line2 = QLineF(smallestX, smallestY,
+                               largestX, smallestY)
+                line3 = QLineF(largestX, largestY,
+                               largestX, smallestY)
+                line4 = QLineF(largestX, largestY,
+                               smallestX, largestY)
+                lines = []
+                lines.append(line1)
+                lines.append(line2)
+                lines.append(line3)
+                lines.append(line4)
+                
+                # Get the line from scaledOriginPointF outwards at the
+                # 'angleDeg' angle.  We just don't know what length it
+                # should be.
+                lineToAngleDeg = \
+                    QLineF(scaledOriginPointF, scaledLeg1PointF).\
+                    setAngle(angleDeg)
+
+                # Find the intesections with the line segments in 'lines'.
+                intersectionPoints = []
+                for l in lines:
+                    # Implementation is based on Graphics Gems III's
+                    # "Faster Line Segment Intersection"
+
+                    p1 = lineToAngleDeg.p1()
+                    p2 = lineToAngleDeg.p2()
+                    
+                    a = p2 - p1
+                    b = l.p1() - l.p2()
+                    c = p1 - l.p1()
+
+                    denominator = ((a.y() * b.x()) - (a.x() * b.y()))
+                    
+                    if denominator == 0 or denominator == float('inf'):
+                        # No intersection.
+                        continue
+
+                    reciprocal = 1.0 / denominator
+                    na = ((b.y() * c.x()) - (b.x() * c.y())) * reciprocal
+
+                    intersectionPoint = p1 + (a * na)
+                    intersectionPoints.append(intersectionPoint)
+
+
+                # Normalized angleDeg.
+                normalizedAngleDeg = Util.toNormalizedAngle(angleDeg)
+                
+                # Process the intersection points.
+                closestPointToCorrectAngle = None
+                smallestAngleDiff = None
+                
+                for p in intersectionPoints:
+                    # Only look at intersection points that are within or
+                    # on the edge of 'containingRectF'.
+                    proper = False
+                    if containingRectF.contains(p, proper):
+
+                        angle = QLineF(scaledOriginPointF, p).angle()
+                        diff = abs(normalizedAngleDeg - \
+                                   Util.toNormalizedAngle(angle))
+
+                        if closestPointToCorrectAngle == None and \
+                           smallestAngleDiff == None:
+
+                            closestPointToCorrectAngle = p
+                            smallestAngleDiff = diff
+
+                        elif diff < smallestAngleDiff:
+                            
+                            closestPointToCorrectAngle = p
+                            smallestAngleDiff = diff
+
+                if closestPointToCorrectAngle == None:
+                    # Couldn't find any intersection points.
+                    self.log.warn("Couldn't find any intersection points!")
+                    x = None
+                    y = None
+                else:
+                    # The closest point it the point we are looking for.
+                    x = closestPointToCorrectAngle.x()
+                    y = closestPointToCorrectAngle.y()
+                    
+                # Break out of for loop since we handled the index we
+                # were looking to process.
+                break
+
+        if x == None or y == None:
+            # This means that the index requested that the person
+            # passed in as a parameter is an index that doesn't map to
+            # list length of self.musicalRatios.
+            self.log.warn("getXYForMusicalRatio(): " +
+                          "Index provided is out of range!")
+            # Reset values to 0.
+            x = 0.0
+            y = 0.0
+            
+        self.log.debug("Exiting getXYForMusicalRatio({}), ".format(index) + \
+                       "Returning ({}, {})".format(x, y))
+        return (x, y)
+
     def __str__(self):
         """Returns the string representation of this object."""
 

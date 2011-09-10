@@ -8930,16 +8930,63 @@ class PriceBarChartOctaveFanArtifactEditWidget(QWidget):
             
             descriptionLabel = QLabel(musicalRatio.getDescription())
 
-            # TODO: need to fix this up so that the arguments are correct for this call.
-            (x, y) = self.artifact.getXYForMusicalRatio(i)
-                
+
+            # Get the unscaled originPointF, leg1PointF, and leg2PointF.
+            unscaledOriginPointF = artifact.getOriginPointF()
+            unscaledLeg1PointF = artifact.getLeg1PointF()
+            unscaledLeg2PointF = artifact.getLeg2PointF()
+
+            self.log.debug("unscaledOriginPointF is: ({}, {})".
+                           format(unscaledOriginPointF.x(),
+                                  unscaledOriginPointF.y()))
+            self.log.debug("unscaledLeg1PointF is: ({}, {})".
+                           format(unscaledLeg1PointF.x(),
+                                  unscaledLeg1PointF.y()))
+            self.log.debug("unscaledLeg2PointF is: ({}, {})".
+                           format(unscaledLeg2PointF.x(),
+                                  unscaledLeg2PointF.y()))
+
+            # Calculate scaled originPointF, leg1PointF and
+            # leg2PointF points.
+            scaledOriginPointF = \
+                self.convertObj.convertScenePointToScaledPoint(\
+                artifact.getOriginPointF())
+            scaledLeg1PointF = \
+                self.convertObj.convertScenePointToScaledPoint(\
+                artifact.getLeg1PointF())
+            scaledLeg2PointF = \
+                self.convertObj.convertScenePointToScaledPoint(\
+                artifact.getLeg2PointF())
+        
+            self.log.debug("scaledOriginPointF is: ({}, {})".
+                           format(scaledOriginPointF.x(),
+                                  scaledOriginPointF.y()))
+            self.log.debug("scaledLeg1PointF is: ({}, {})".
+                           format(scaledLeg1PointF.x(),
+                          scaledLeg1PointF.y()))
+            self.log.debug("scaledLeg2PointF is: ({}, {})".
+                           format(scaledLeg2PointF.x(),
+                                  scaledLeg2PointF.y()))
+
+            # Get the x and y position that will be the endpoint of
+            # the fan line.  This function returns
+            # the x and y in scaled coordinates so we must
+            # remember to convert those values afterwards.
+            (x, y) = \
+                self.artifact.getXYForMusicalRatio(i)
+
+            # Map those x and y to scene coordinates.
+            scenePointF = \
+                self.convertObj.convertScaledPointToScenePoint(\
+                QPointF(x, y))
+            
             # Use QLabels to display the price and timestamp
             # information.
-            price = self.convertObj.sceneYPosToPrice(y)
+            price = self.convertObj.sceneYPosToPrice(scenePointF.y())
             priceStr = "{}".format(price)
             priceWidget = QLabel(priceStr)
 
-            timestamp = self.convertObj.sceneXPosToDatetime(x)
+            timestamp = self.convertObj.sceneXPosToDatetime(scenePointF.x())
             timestampStr = Ephemeris.datetimeToDayStr(timestamp)
             timestampWidget = QLabel(timestampStr)
 
