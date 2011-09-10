@@ -21,6 +21,8 @@ from PyQt4.QtGui import QFont
 from PyQt4.QtGui import QColor
 from PyQt4.QtCore import Qt
 from PyQt4.QtCore import QPointF
+from PyQt4.QtCore import QLineF
+from PyQt4.QtCore import QRectF
 
 # For datetime.datetime to str conversion.
 from ephemeris import Ephemeris
@@ -29,7 +31,7 @@ class Util:
     """Contains some generic static functions that may be helpful."""
 
     @staticmethod
-    def toNormalizedAngle(self, angleDeg):
+    def toNormalizedAngle(angleDeg):
         """Normalizes the given angle to a value in the range [0, 360).
 
         Arguments:
@@ -5192,10 +5194,8 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
 
         self.log.debug("Entered getXYForMusicalRatio({})".format(index))
 
-        artifact = self
-        
-        # Get the musical ratios from the artifact.
-        musicalRatios = artifact.getMusicalRatios()
+        # Get the musical ratios.
+        musicalRatios = self.getMusicalRatios()
         
         # Validate input.
         if index < 0:
@@ -5224,8 +5224,8 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
         if angleDegDelta > 180:
             angleDegDelta -= 360
         
-        self.log.debug("Angle range between line segments " + \
-                       "leg1 and leg2 is: {} deg".format(angleDeg))
+        self.log.debug("Angle difference between line segments " + \
+                       "leg1 and leg2 is: {} deg".format(angleDegDelta))
         
         # Need to maintain offsets so that if the ratios are rotated a
         # certain way, then we have the correct starting point.
@@ -5275,9 +5275,8 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
                 # 3 o'clock.
 
                 # Calculate which leg's angle the angleDeg is closest to.
-                lineToAngleDeg = \
-                    QLineF(scaledOriginPointF, scaledLeg1PointF).\
-                    setAngle(angleDeg)
+                lineToAngleDeg = QLineF(scaledOriginPointF, scaledLeg1PointF)
+                lineToAngleDeg.setAngle(angleDeg)
                 angleToLeg1 = lineToAngleDeg.angleTo(leg1)
                 angleToLeg2 = lineToAngleDeg.angleTo(leg2)
 
@@ -5360,9 +5359,8 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
                 # Get the line from scaledOriginPointF outwards at the
                 # 'angleDeg' angle.  We just don't know what length it
                 # should be.
-                lineToAngleDeg = \
-                    QLineF(scaledOriginPointF, scaledLeg1PointF).\
-                    setAngle(angleDeg)
+                lineToAngleDeg = QLineF(scaledOriginPointF, scaledLeg1PointF)
+                lineToAngleDeg.setAngle(angleDeg)
 
                 # Find the intesections with the line segments in 'lines'.
                 intersectionPoints = []
@@ -5400,8 +5398,7 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
                 for p in intersectionPoints:
                     # Only look at intersection points that are within or
                     # on the edge of 'containingRectF'.
-                    proper = False
-                    if containingRectF.contains(p, proper):
+                    if containingRectF.contains(p):
 
                         angle = QLineF(scaledOriginPointF, p).angle()
                         diff = abs(normalizedAngleDeg - \

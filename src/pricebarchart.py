@@ -6775,7 +6775,11 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
         stuff before we even add the item to the scene.
         """
 
+        self.log.debug("Entered setConvertObj()")
+        
         self.convertObj = convertObj
+        
+        self.log.debug("Exiting setConvertObj()")
         
     def setBirthInfo(self, birthInfo):
         """Sets the internal BirthInfo object so that time elapsed
@@ -13663,7 +13667,6 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.musicalRatioTextItems.\
                 append(fractionTextItem)
 
-
         # Flags that indicate that the user is dragging either the
         # origin, leg1 or leg2 points of the QGraphicsItem.
         self.draggingOriginPointFlag = False
@@ -13679,7 +13682,11 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         value.
         """
 
+        self.log.debug("Entered setConvertObj()")
+        
         self.convertObj = convertObj
+        
+        self.log.debug("Exiting setConvertObj()")
         
     def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings):
         """Reads some of the parameters/settings of this
@@ -14072,13 +14079,35 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.draggingLeg1PointFlag = False
             self.draggingLeg2PointFlag = False
 
+    def refreshItem(self):
+        """Refreshes the item by recalculating and updating the text
+        position/rotation.
+        """
+
+        self.recalculateOctaveFan()
+        
+        self.refreshTextItems()
+        
     def refreshTextItems(self):
         """Sets the positions of the text items for the MusicalRatios,
         and updates the text so that they are current.
         """
 
+        # If the self.convertObj is None, then try to use the scene if the
+        # scene isn't None.
+        scene = self.scene()
+        if self.convertObj == None:
+            if scene != None:
+                self.log.debug("self.convertObj wasn't set, but self.scene() " +
+                               "is not None, so we're going to set " +
+                               "self.convertObj to the scene")
+                self.convertObj = self.scene()
+            else:
+                self.log.debug("Both self.convertObj and " + \
+                               "self.scene() are None.")
+
         # Update the octaveFan label text item texts.
-        if self.scene() != None:
+        if self.scene() != None and self.convertObj != None:
             self.recalculateOctaveFan()
 
             # Traverse the 2-dimensional list and set the position of
@@ -14237,24 +14266,74 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Updates the text items that tell about the fann lines on the
         modal scale.  These texts will have accurate values for where
         the notes are in terms of angle.
-
-        In this process, it also sets the internal variables such that
-        a call to self.getArtifact().getXYForMusicalRatio(index) can
-        be made and a value returned that is accurate.
         """
 
+        # If the self.convertObj is None, then try to use the scene if the
+        # scene isn't None.
         scene = self.scene()
+        if self.convertObj == None:
+            if scene != None:
+                self.log.debug("self.convertObj wasn't set, but self.scene() " +
+                               "is not None, so we're going to set " +
+                               "self.convertObj to the scene")
+                self.convertObj = self.scene()
+            else:
+                self.log.debug("Both self.convertObj and " + \
+                               "self.scene() are None.")
 
-        if scene != None:
+        # Now recalculate if we have a convertObj to use for scaling
+        # conversion calculation.
+        if self.convertObj != None:
+        
+            # Get the origin point in scene, scaled, and local coordinates.
+            sceneOriginPointF = self.originPointF
+            scaledOriginPointF = \
+                self.convertObj.convertScenePointToScaledPoint(\
+                self.originPointF)
+            localOriginPointF = QPointF(0.0, 0.0)
+    
+            # Get the leg1 point in scene, scaled, and local coordinates.
+            sceneLeg1PointF = self.leg1PointF
+            scaledLeg1PointF = \
+                self.convertObj.convertScenePointToScaledPoint(\
+                self.leg1PointF)
+            localLeg1PointF = QPointF(0.0, 0.0) + \
+                              (self.leg1PointF - self.originPointF)
+            
+            # Get the leg2 point in scene, scaled, and local coordinates.
+            sceneLeg2PointF = self.leg2PointF
+            scaledLeg2PointF = \
+                self.convertObj.convertScenePointToScaledPoint(\
+                self.leg2PointF)
+            localLeg2PointF = QPointF(0.0, 0.0) + \
+                              (self.leg2PointF - self.originPointF)
+
+
+            # Go through each musical ratio.
             artifact = self.getArtifact()
             musicalRatios = artifact.getMusicalRatios()
             for i in range(len(musicalRatios)):
                 musicalRatio = musicalRatios[i]
 
-                (x, y) = self.getXYForMusicalRatio(artifact, i)
-                sceneEndPointF = QPointF(x, y)
-                
                 if musicalRatio.isEnabled():
+                    # Get the x and y position that will be the end point.
+                    # This function returns the x and y in scaled
+                    # coordinates so we must remember to convert those
+                    # values afterwards.
+                    (x, y) = \
+                        artifact.getXYForMusicalRatio(i,
+                                                      scaledOriginPointF,
+                                                      scaledLeg1PointF,
+                                                      scaledLeg2PointF)
+            
+                    # Map those x and y to local coordinates.
+                    sceneEndPointF = \
+                        self.convertObj.convertScaledPointToScenePoint(\
+                        QPointF(x, y))
+                    
+                    # Do conversion to local coordinates.
+                    localEndPointF = sceneEndPointF - sceneOriginPointF
+
                     # Enable and make visible.
 
                     # Get the text item for this point on the scale.
@@ -14407,17 +14486,17 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         # Create new points.
         p1 = \
-            QPointF(localStartPointF.x() - shiftX,
-                    localStartPointF.y() - shiftY)
+            QPointF(startPointF.x() - shiftX,
+                    startPointF.y() - shiftY)
         p2 = \
-            QPointF(localStartPointF.x() + shiftX,
-                    localStartPointF.y() + shiftY)
+            QPointF(startPointF.x() + shiftX,
+                    startPointF.y() + shiftY)
         p3 = \
-            QPointF(localEndPointF.x() - shiftX,
-                    localEndPointF.y() - shiftY)
+            QPointF(endPointF.x() - shiftX,
+                    endPointF.y() - shiftY)
         p4 = \
-            QPointF(localEndPointF.x() + shiftX,
-                    localEndPointF.y() + shiftY)
+            QPointF(endPointF.x() + shiftX,
+                    endPointF.y() + shiftY)
 
         points = [p2, p1, p3, p4, p2]
         polygon = QPolygonF(points)
@@ -14506,12 +14585,11 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
     def calculateScaledAngleDegrees(self, startPointF, endPointF):
         """Calculates the number of degrees of angle between
         'startPointF' and 'endPointF'.  This angle is calculated
-        utilizing scaling stored in the PriceBarChartGraphicsScene
-        returned by self.scene().
+        utilizing scaling conversion from self.convertObj.
 
         Arguments:
-        startPointF - start point of the line segment.
-        endPointF   - start point of the line segment.
+        startPointF - start point of the line segment, in scene coordinates.
+        endPointF   - start point of the line segment, in scene coordinates.
 
         Returns:
         float value holding the scaled angle, in degrees.
@@ -14519,16 +14597,29 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         angleDeg = 0.0
 
-        if self.scene() != None:
-            scene = self.scene()
-        
-            startScaledPoint = scene.convertScenePointToScaledPoint(startPointF)
-            endScaledPoint = scene.convertScenePointToScaledPoint(endPointF)
+        # If the self.convertObj is None, then try to use the scene if the
+        # scene isn't None.
+        scene = self.scene()
+        if self.convertObj == None:
+            if scene != None:
+                self.log.debug("self.convertObj wasn't set, but self.scene() " +
+                               "is not None, so we're going to set " +
+                               "self.convertObj to the scene")
+                self.convertObj = self.scene()
+            else:
+                self.log.debug("Both self.convertObj and " + \
+                               "self.scene() are None.")
+
+        if self.convertObj != None:
+            startScaledPoint = \
+                self.convertObj.convertScenePointToScaledPoint(startPointF)
+            endScaledPoint = \
+                self.convertObj.convertScenePointToScaledPoint(endPointF)
         
             angleDeg = QLineF(startScaledPoint, endScaledPoint).angle()
         else:
-            # Scene is not set, so don't apply scaling, and just
-            # return the angle with unscaled points.
+            # Convert object is not set, so don't apply scaling, and
+            # just return the angle with unscaled points.
             angleDeg = QLineF(startPointF, endPointF).angle()
             
         return angleDeg
@@ -14551,51 +14642,105 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         in local item coordinates.
         """
 
-        # Get the origin point in scene and local coordinates.
-        sceneOriginPointF = self.originPointF
-        localOriginPointF = QPointF(0.0, 0.0)
-
+        # Return value.
         # Holds the QPainterPath of the whole item (in local coordinates).
         painterPath = QPainterPath()
 
-        # Add the path for the shape of the line segment created by
-        # points self.originPointF to self.leg1PointF.  
-        localLeg1PointF = self.leg1PointF - self.originPointF
-        leg1PainterPath = \
-            self.getShapeOfLineSegment(localOriginPointF, localLeg1PointF)
-        painterPath.addPath(leg1PainterPath)
+        # If the self.convertObj is None, then try to use the scene if the
+        # scene isn't None.
+        scene = self.scene()
+        if self.convertObj == None:
+            if scene != None:
+                self.log.debug("self.convertObj wasn't set, but self.scene() " +
+                               "is not None, so we're going to set " +
+                               "self.convertObj to the scene")
+                self.convertObj = self.scene()
+            else:
+                self.log.debug("Both self.convertObj and " + \
+                               "self.scene() are None.")
 
-        # Add the path for the shape of the line segment created by
-        # points self.originPointF to self.leg2PointF.
-        localLeg2PointF = self.leg2PointF - self.originPointF
-        leg2PainterPath = \
-            self.getShapeOfLineSegment(localOriginPointF, localLeg2PointF)
-        painterPath.addPath(leg2PainterPath)
+        if scene != None and self.convertObj != None:
+            # Scene exists and we can do scaling conversions.
+            # Continue to calculate the painterPath.
+            
+            # Get the origin point in scene, scaled, and local coordinates.
+            sceneOriginPointF = self.originPointF
+            scaledOriginPointF = \
+                self.convertObj.convertScenePointToScaledPoint(\
+                self.originPointF)
+            localOriginPointF = QPointF(0.0, 0.0)
+    
+            # Get the leg1 point in scene, scaled, and local coordinates.
+            sceneLeg1PointF = self.leg1PointF
+            scaledLeg1PointF = \
+                self.convertObj.convertScenePointToScaledPoint(\
+                self.leg1PointF)
+            localLeg1PointF = QPointF(0.0, 0.0) + \
+                              (self.leg1PointF - self.originPointF)
+            
+            # Get the leg2 point in scene, scaled, and local coordinates.
+            sceneLeg2PointF = self.leg2PointF
+            scaledLeg2PointF = \
+                self.convertObj.convertScenePointToScaledPoint(\
+                self.leg2PointF)
+            localLeg2PointF = QPointF(0.0, 0.0) + \
+                              (self.leg2PointF - self.originPointF)
+    
+            # Add the path for the shape of the line segment created by
+            # points self.originPointF to self.leg1PointF.  
+            localLeg1PointF = self.leg1PointF - self.originPointF
+            leg1PainterPath = \
+                self.getShapeOfLineSegment(localOriginPointF, localLeg1PointF)
+            painterPath.addPath(leg1PainterPath)
+            
+            # Add the path for the shape of the line segment created by
+            # points self.originPointF to self.leg2PointF.
+            localLeg2PointF = self.leg2PointF - self.originPointF
+            leg2PainterPath = \
+                self.getShapeOfLineSegment(localOriginPointF, localLeg2PointF)
+            painterPath.addPath(leg2PainterPath)
+            
+            # Go through each line of each enabled musical ratio, getting
+            # the shape of the line segment and add that path to
+            # 'painterPath'.
+            artifact = self.getArtifact()
+            musicalRatios = artifact.getMusicalRatios()
+            for i in range(len(musicalRatios)):
+                musicalRatio = musicalRatios[i]
+    
+                # Only add the path if the musical ratio is enabled.
+                if musicalRatio.isEnabled():
+                    # Get the x and y position that will be the end point.
+                    # This function returns the x and y in scaled
+                    # coordinates so we must remember to convert those
+                    # values afterwards.
+                    (x, y) = \
+                        artifact.getXYForMusicalRatio(i,
+                                                      scaledOriginPointF,
+                                                      scaledLeg1PointF,
+                                                      scaledLeg2PointF)
+            
+                    # Map those x and y to local coordinates.
+                    sceneEndPointF = \
+                        self.convertObj.convertScaledPointToScenePoint(\
+                        QPointF(x, y))
+                
+                    # Do conversion to local coordinates.
+                    localEndPointF = sceneEndPointF - sceneOriginPointF
+    
+                    # Get the painter path.
+                    endPointPainterPath = \
+                        self.getShapeOfLineSegment(localOriginPointF,
+                                                   localEndPointF)
+    
+                    # Add the path to 'painterPath'.
+                    painterPath.addPath(endPointPainterPath)
 
-        # Go through each line of each enabled musical ratio, getting
-        # the shape of the line segment and add that path to
-        # 'painterPath'.
-        artifact = self.getArtifact()
-        musicalRatios = artifact.getMusicalRatios()
-        for i in range(len(musicalRatios)):
-            musicalRatio = musicalRatios[i]
-
-            # Only add the path if the musical ratio is enabled.
-            if musicalRatio.isEnabled():
-                # Get the end point.
-                (x, y) = artifact.getXYForMusicalRatio(i)
-                sceneEndPointF = QPointF(x, y)
-
-                # Do conversion to local coordinates.
-                localEndPointF = sceneEndPointF - sceneOriginPointF
-
-                # Get the painter path.
-                endPointPainterPath = \
-                    self.getShapeOfLineSegment(localOriginPointF,
-                                               localEndPointF)
-
-                # Add the path to 'painterPath'.
-                painterPath.addPath(endPointPainterPath)
+        else:
+            # Scene doesn't exist or we can't scaling conversions.
+            # No calculations to do since it won't get plotted anyways.
+            self.log.debug("Tried to get shape scene isn't set.")
+            pass
             
         # The 'painterPath' should now have all the paths for the tilted
         # rectangles that make up the whole item.
@@ -14613,9 +14758,51 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         if painter.pen() != self.octaveFanPen:
             painter.setPen(self.octaveFanPen)
 
-        # Get the origin point in scene and local coordinates.
+        # If the self.convertObj is None, then try to use the scene if the
+        # scene isn't None.
+        scene = self.scene()
+        if self.convertObj == None:
+            if scene != None:
+                self.log.debug("self.convertObj wasn't set, but self.scene() " +
+                               "is not None, so we're going to set " +
+                               "self.convertObj to the scene")
+                self.convertObj = self.scene()
+            else:
+                self.log.debug("Both self.convertObj and " + \
+                               "self.scene() are None.")
+                # No scene, so don't paint anything.
+                self.log.debug("There's no scene so we won't paint anything.")
+                return
+
+        # Get the origin point in scene, scaled, and local coordinates.
         sceneOriginPointF = self.originPointF
+        scaledOriginPointF = \
+            self.convertObj.convertScenePointToScaledPoint(\
+            self.originPointF)
         localOriginPointF = QPointF(0.0, 0.0)
+
+        # Get the leg1 point in scene, scaled, and local coordinates.
+        sceneLeg1PointF = self.leg1PointF
+        scaledLeg1PointF = \
+            self.convertObj.convertScenePointToScaledPoint(\
+            self.leg1PointF)
+        localLeg1PointF = QPointF(0.0, 0.0) + \
+                          (self.leg1PointF - self.originPointF)
+        
+        # Get the leg2 point in scene, scaled, and local coordinates.
+        sceneLeg2PointF = self.leg2PointF
+        scaledLeg2PointF = \
+            self.convertObj.convertScenePointToScaledPoint(\
+            self.leg2PointF)
+        localLeg2PointF = QPointF(0.0, 0.0) + \
+                          (self.leg2PointF - self.originPointF)
+
+        
+        # Always draw the line from origin point to leg1 point.
+        painter.drawLine(QLineF(localOriginPointF, localLeg1PointF))
+        
+        # Always draw the line from origin point to leg2 point.
+        painter.drawLine(QLineF(localOriginPointF, localLeg2PointF))
         
         # For each musical ratio that is enabled, draw it as a line
         # segment from the origin point to the end point of that
@@ -14627,15 +14814,26 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
             # Only add the path if the musical ratio is enabled.
             if musicalRatio.isEnabled():
-                # Get the end point.
-                (x, y) = artifact.getXYForMusicalRatio(i)
-                sceneEndPointF = QPointF(x, y)
+                # Get the x and y position that will be the end point.
+                # This function returns the x and y in scaled
+                # coordinates so we must remember to convert those
+                # values afterwards.
+                (x, y) = \
+                    artifact.getXYForMusicalRatio(i,
+                                                  scaledOriginPointF,
+                                                  scaledLeg1PointF,
+                                                  scaledLeg2PointF)
+        
+                # Map those x and y to local coordinates.
+                sceneEndPointF = \
+                    self.convertObj.convertScaledPointToScenePoint(\
+                    QPointF(x, y))
             
                 # Do conversion to local coordinates.
                 localEndPointF = sceneEndPointF - sceneOriginPointF
 
                 # Draw the line segment for this musical ratio.
-                painter.drawLine(QLineF(sceneOriginPointF,
+                painter.drawLine(QLineF(localOriginPointF,
                                         localEndPointF))
 
         # Draw a dashed-line surrounding the item if it is selected.
@@ -15035,7 +15233,8 @@ class PriceBarChartWidget(QWidget):
                 "TimeRetracementTool"  : 12,
                 "PriceRetracementTool" : 13,
                 "PriceTimeVectorTool"  : 14,
-                "LineSegmentTool"      : 15 }
+                "LineSegmentTool"      : 15,
+                "OctaveFanTool"        : 16 }
 
 
 
@@ -15671,6 +15870,31 @@ class PriceBarChartWidget(QWidget):
 
                 addedItemFlag = True
 
+            elif isinstance(artifact, PriceBarChartOctaveFanArtifact):
+                self.log.debug("Loading artifact: " + artifact.toString())
+                
+                newItem = OctaveFanGraphicsItem()
+                newItem.loadSettingsFromPriceBarChartSettings(\
+                    self.priceBarChartSettings)
+        
+                # Set the conversion object as the scene so that it
+                # can do initial calculations for the text to display.
+                newItem.setConvertObj(self.graphicsScene)
+
+                newItem.setArtifact(artifact)
+
+                # Add the item.
+                self.graphicsScene.addItem(newItem)
+                
+                # Make sure the proper flags are set for the mode we're in.
+                self.graphicsView.setGraphicsItemFlagsPerCurrToolMode(newItem)
+
+                # Need to refresh the item (recalculate) since it
+                # wasn't in the QGraphicsScene until now.
+                newItem.refreshItem()
+                
+                addedItemFlag = True
+
         if addedItemFlag == True:
             # Emit that the PriceBarChart has changed.
             self.graphicsScene.priceBarChartChanged.emit()
@@ -15860,6 +16084,11 @@ class PriceBarChartWidget(QWidget):
                                "LineSegmentGraphicsItem.")
                 # Redo calculations in case the scaling changed.
                 item.recalculateLineSegment()
+            elif isinstance(item, OctaveFanGraphicsItem):
+                self.log.debug("Not applying settings to " +
+                               "OctaveFanGraphicsItem.")
+                # Redo calculations in case the scaling changed.
+                item.recalculateOctaveFan()
                 
         if settingsChangedFlag == True:
             # Emit that the PriceBarChart has changed, because we have
@@ -16076,6 +16305,20 @@ class PriceBarChartWidget(QWidget):
             self.graphicsView.toLineSegmentToolMode()
 
         self.log.debug("Exiting toLineSegmentToolMode()")
+
+    def toOctaveFanToolMode(self):
+        """Changes the tool mode to be the OctaveFanTool."""
+
+        self.log.debug("Entered toOctaveFanToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != \
+               PriceBarChartWidget.ToolMode['OctaveFanTool']:
+            
+            self.toolMode = PriceBarChartWidget.ToolMode['OctaveFanTool']
+            self.graphicsView.toOctaveFanToolMode()
+
+        self.log.debug("Exiting toOctaveFanToolMode()")
 
     def _handleMouseLocationUpdate(self, x, y):
         """Handles mouse location changes in the QGraphicsView.  
@@ -17116,7 +17359,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 "TimeRetracementTool"  : 12,
                 "PriceRetracementTool" : 13,
                 "PriceTimeVectorTool"  : 14,
-                "LineSegmentTool"      : 15 }
+                "LineSegmentTool"      : 15,
+                "OctaveFanTool"        : 16 }
 
     # Signal emitted when the mouse moves within the QGraphicsView.
     # The position emitted is in QGraphicsScene x, y, float coordinates.
@@ -17152,6 +17396,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
         # modes for various purposes).
         self.clickOnePointF = None
         self.clickTwoPointF = None
+        self.clickThreePointF = None
 
         # Variable used for storing the new BarCountGraphicsItem,
         # as it is modified in BarCountToolMode.
@@ -17197,6 +17442,10 @@ class PriceBarChartGraphicsView(QGraphicsView):
         # as it is modified in LineSegmentToolMode.
         self.lineSegmentGraphicsItem = None
 
+        # Variable used for storing the new OctaveFanGraphicsItem,
+        # as it is modified in OctaveFanToolMode.
+        self.octaveFanGraphicsItem = None
+
         # Variable used for storing that snapping to the closest bar
         # high or low is enabled.
         #
@@ -17210,6 +17459,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
         #   - PriceRetracementTool
         #   - PriceTimeVectorTool
         #   - LineSegmentTool
+        #   - OctaveFanTool
         #
         self.snapEnabledFlag = True
 
@@ -17410,6 +17660,15 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['LineSegmentTool']:
+
+            if isinstance(item, PriceBarGraphicsItem):
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+            elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                item.setReadOnlyFlag(True)
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['OctaveFanTool']:
 
             if isinstance(item, PriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
@@ -17881,6 +18140,37 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     
         self.log.debug("Exiting toLineSegmentToolMode()")
 
+    def toOctaveFanToolMode(self):
+        """Changes the tool mode to be the OctaveFanTool."""
+
+        self.log.debug("Entered toOctaveFanToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != \
+                PriceBarChartGraphicsView.ToolMode['OctaveFanTool']:
+
+            self.toolMode = \
+                PriceBarChartGraphicsView.ToolMode['OctaveFanTool']
+
+            self.setCursor(QCursor(Qt.ArrowCursor))
+            self.setDragMode(QGraphicsView.NoDrag)
+
+            # Clear out internal working variables.
+            self.clickOnePointF = None
+            self.clickTwoPointF = None
+            self.clickThreePointF = None
+            self.octaveFanGraphicsItem = None
+
+            scene = self.scene()
+            if scene != None:
+                scene.clearSelection()
+
+                items = scene.items()
+                for item in items:
+                    self.setGraphicsItemFlagsPerCurrToolMode(item)
+                    
+        self.log.debug("Exiting toOctaveFanToolMode()")
+
     def createContextMenu(self, clickPosF, readOnlyFlag):
         """Creates a context menu for a right-click somewhere in
         the QGraphicsView, and returns it.
@@ -18161,6 +18451,19 @@ class PriceBarChartGraphicsView(QGraphicsView):
                             item.reverse()
                             self.statusMessageUpdate.emit(\
                                 "PriceModalScaleGraphicsItem reversed")
+                    elif isinstance(item, OctaveFanGraphicsItem):
+                        if qkeyevent.key() == Qt.Key_S:
+                            item.rotateUp()
+                            self.statusMessageUpdate.emit(\
+                                "OctaveFanGraphicsItem rotated UP")
+                        elif qkeyevent.key() == Qt.Key_G:
+                            item.rotateDown()
+                            self.statusMessageUpdate.emit(\
+                                "OctaveFanGraphicsItem rotated DOWN")
+                        elif qkeyevent.key() == Qt.Key_R:
+                            item.reverse()
+                            self.statusMessageUpdate.emit(\
+                                "OctaveFanGraphicsItem reversed")
 
                 # Pass the key event upwards in case it applies to
                 # something else (like a parent widget).
@@ -18433,6 +18736,33 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
                 self.lineSegmentGraphicsItem = None
+            elif qkeyevent.key() == Qt.Key_Q:
+                # Turn on snap functionality.
+                self.snapEnabledFlag = True
+                self.log.debug("Snap mode enabled.")
+                self.statusMessageUpdate.emit("Snap mode enabled")
+            elif qkeyevent.key() == Qt.Key_W:
+                # Turn off snap functionality.
+                self.snapEnabledFlag = False
+                self.log.debug("Snap mode disabled.")
+                self.statusMessageUpdate.emit("Snap mode disabled")
+            else:
+                super().keyPressEvent(qkeyevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['OctaveFanTool']:
+
+            if qkeyevent.key() == Qt.Key_Escape:
+                # Escape key causes any currently edited item to
+                # be removed and cleared out.  Temporary variables used
+                # are cleared out too.
+                if self.octaveFanGraphicsItem != None:
+                    self.scene().removeItem(self.octaveFanGraphicsItem)
+
+                self.clickOnePointF = None
+                self.clickTwoPointF = None
+                self.clickThreePointF = None
+                self.octaveFanGraphicsItem = None
             elif qkeyevent.key() == Qt.Key_Q:
                 # Turn on snap functionality.
                 self.snapEnabledFlag = True
@@ -20076,6 +20406,225 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 else:
                     self.log.warn("Unexpected state reached.")
                     
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['OctaveFanTool']:
+            
+            self.log.debug("Current toolMode is: OctaveFanTool")
+
+            if qmouseevent.button() & Qt.LeftButton:
+                self.log.debug("Qt.LeftButton")
+                
+                if self.clickOnePointF == None:
+                    self.log.debug("clickOnePointF is None.")
+                    
+                    self.clickOnePointF = self.mapToScene(qmouseevent.pos())
+
+                    # If snap is enabled, then find the closest
+                    # pricebar time to the place clicked.
+                    if self.snapEnabledFlag == True:
+                        self.log.debug("Snap is enabled, so snapping to " +
+                                       "closest pricebar X.")
+                        
+                        originPointF = self.mapToScene(qmouseevent.pos())
+                        
+                        # Find if there is a point closer to this
+                        # originPointF related to a PriceBarGraphicsItem.
+                        barPoint = \
+                            self.scene().\
+                            getClosestPriceBarOHLCViewPoint(originPointF)
+
+                        # If a point was found, then use it as the origin point.
+                        if barPoint != None:
+                            originPointF = barPoint
+                            
+                            # Set this also as the first click point,
+                            # as if the user clicked perfectly.
+                            self.clickOnePointF = originPointF
+
+                    # Create the OctaveFanGraphicsItem and
+                    # initialize it to the mouse location.
+                    self.octaveFanGraphicsItem = \
+                        OctaveFanGraphicsItem()
+                    self.octaveFanGraphicsItem.\
+                        loadSettingsFromPriceBarChartSettings(\
+                            self.priceBarChartSettings)
+
+                    # Set the conversion object as the scene so that it
+                    # can do scaling calculations.
+                    self.octaveFanGraphicsItem.\
+                        setConvertObj(self.scene())
+
+                    self.octaveFanGraphicsItem.\
+                        setPos(self.clickOnePointF)
+                    self.octaveFanGraphicsItem.\
+                        setOriginPointF(self.clickOnePointF)
+                    self.octaveFanGraphicsItem.\
+                        setLeg1PointF(self.clickOnePointF)
+                    self.octaveFanGraphicsItem.\
+                        setLeg2PointF(self.clickOnePointF)
+                    
+                    self.scene().addItem(self.octaveFanGraphicsItem)
+                    
+                    # Make sure the proper flags are set for the mode we're in.
+                    self.setGraphicsItemFlagsPerCurrToolMode(\
+                        self.octaveFanGraphicsItem)
+
+                elif self.clickOnePointF != None and \
+                    self.clickTwoPointF == None and \
+                    self.clickThreePointF == None and \
+                    self.octaveFanGraphicsItem != None:
+
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "clickThreePointF == None and " +
+                                   "octaveFanGraphicsItem != None.")
+                    
+                    # Set the click two point of the OctaveFanGraphicsItem.
+                    self.clickTwoPointF = self.mapToScene(qmouseevent.pos())
+
+                    # If snap is enabled, then find the closest
+                    # pricebar time to the place clicked.
+                    if self.snapEnabledFlag == True:
+                        self.log.debug("Snap is enabled, so snapping to " +
+                                       "closest pricebar X.")
+                        
+                        leg1PointF = self.mapToScene(qmouseevent.pos())
+                        
+                        # Find if there is a point closer to this
+                        # leg1PointF related to a PriceBarGraphicsItem.
+                        barPoint = \
+                            self.scene().\
+                            getClosestPriceBarOHLCViewPoint(leg1PointF)
+
+                        # If a point was found, then use it as the leg1 point.
+                        if barPoint != None:
+                            leg1PointF = barPoint
+                            
+                            # Set this also as the second click point,
+                            # as if the user clicked perfectly.
+                            self.clickTwoPointF = leg1PointF
+                    
+                    self.octaveFanGraphicsItem.\
+                        setLeg1PointF(leg1PointF)
+                    self.octaveFanGraphicsItem.\
+                        setLeg2PointF(leg1PointF)
+                    
+                elif self.clickOnePointF != None and \
+                    self.clickTwoPointF != None and \
+                    self.clickThreePointF == None and \
+                    self.octaveFanGraphicsItem != None:
+
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF != None and " +
+                                   "clickThreePointF == None and " +
+                                   "octaveFanGraphicsItem != None.")
+                    
+                    # Set the click three point of the OctaveFanGraphicsItem.
+                    self.clickThreePointF = self.mapToScene(qmouseevent.pos())
+
+                    # If snap is enabled, then find the closest
+                    # pricebar time to the place clicked.
+                    if self.snapEnabledFlag == True:
+                        self.log.debug("Snap is enabled, so snapping to " +
+                                       "closest pricebar X.")
+                        
+                        leg2PointF = self.mapToScene(qmouseevent.pos())
+                        
+                        # Find if there is a point closer to this
+                        # leg2PointF related to a PriceBarGraphicsItem.
+                        barPoint = \
+                            self.scene().\
+                            getClosestPriceBarOHLCViewPoint(leg2PointF)
+
+                        # If a point was found, then use it as the leg2 point.
+                        if barPoint != None:
+                            leg2PointF = barPoint
+                            
+                            # Set this also as the third click point,
+                            # as if the user clicked perfectly.
+                            self.clickThreePointF = leg2PointF
+                    
+                    self.octaveFanGraphicsItem.\
+                        setLeg2PointF(leg2PointF)
+                    
+                    # Unset the flag that indicates we should draw
+                    # dotted vertical lines at the tick areas.
+                    self.octaveFanGraphicsItem.\
+                        setDrawDottedLinesFlag(False)
+                    
+                    # Call getArtifact() so that the item's artifact
+                    # object gets updated and set.
+                    self.octaveFanGraphicsItem.getArtifact()
+                    
+                    # Emit that the PriceBarChart has changed.
+                    self.scene().priceBarChartArtifactGraphicsItemAdded.\
+                        emit(self.octaveFanGraphicsItem)
+                    
+                    sceneBoundingRect = \
+                        self.octaveFanGraphicsItem.sceneBoundingRect()
+                    
+                    self.log.debug("octaveFanGraphicsItem " +
+                                   "officially added.  " +
+                                   "Its sceneBoundingRect is: {}.  ".\
+                                   format(sceneBoundingRect) +
+                                   "Its x range is: {} to {}.  ".\
+                                   format(sceneBoundingRect.left(),
+                                          sceneBoundingRect.right()) +
+                                   "Its y range is: {} to {}.  ".\
+                                   format(sceneBoundingRect.top(),
+                                          sceneBoundingRect.bottom()))
+
+                    # Clear out working variables.
+                    self.clickOnePointF = None
+                    self.clickTwoPointF = None
+                    self.clickThreePointF = None
+                    self.octaveFanGraphicsItem = None
+                    
+                else:
+                    self.log.warn("Unexpected state reached.")
+                    
+            elif qmouseevent.button() & Qt.RightButton:
+                self.log.debug("Qt.RightButton")
+                
+                if self.clickOnePointF != None and \
+                   self.clickTwoPointF == None and \
+                   self.clickThreePointF == None and \
+                   self.octaveFanGraphicsItem != None:
+
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "clickThreePointF == None and " +
+                                   "octaveFanGraphicsItem != None.")
+                    
+                    # Right-click during setting the OctaveFanGraphicsItem
+                    # causes the currently edited bar count item to be
+                    # removed and cleared out.  Temporary variables used
+                    # are cleared out too.
+                    self.scene().removeItem(self.octaveFanGraphicsItem)
+
+                    self.clickOnePointF = None
+                    self.clickTwoPointF = None
+                    self.clickThreePointF = None
+                    self.octaveFanGraphicsItem = None
+                    
+                elif self.clickOnePointF == None and \
+                     self.clickTwoPointF == None and \
+                     self.clickThreePointF == None and \
+                     self.octaveFanGraphicsItem == None:
+                    
+                    self.log.debug("clickOnePointF == None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "clickThreePointF == None and " +
+                                   "octaveFanGraphicsItem == None.")
+                    
+                    # Open a context menu at this location, in readonly mode.
+                    clickPosF = self.mapToScene(qmouseevent.pos())
+                    menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
+                    menu.exec_(qmouseevent.globalPos())
+                    
+                else:
+                    self.log.warn("Unexpected state reached.")
+
         else:
             self.log.warn("Current toolMode is: UNKNOWN.")
 
@@ -20194,6 +20743,12 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 PriceBarChartGraphicsView.ToolMode['LineSegmentTool']:
 
             self.log.debug("Current toolMode is: LineSegmentTool")
+            super().mouseReleaseEvent(qmouseevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['OctaveFanTool']:
+
+            self.log.debug("Current toolMode is: OctaveFanTool")
             super().mouseReleaseEvent(qmouseevent)
 
         else:
@@ -20390,6 +20945,35 @@ class PriceBarChartGraphicsView(QGraphicsView):
             else:
                 super().mouseMoveEvent(qmouseevent)
 
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['OctaveFanTool']:
+
+            if self.clickOnePointF != None and \
+                self.clickTwoPointF == None and \
+                self.clickThreePointF == None and \
+                self.octaveFanGraphicsItem != None:
+
+                pos = self.mapToScene(qmouseevent.pos())
+                
+                # Update the leg1 and leg2 points of the current
+                # OctaveFanGraphicsItem.
+                self.octaveFanGraphicsItem.setLeg1PointF(pos)
+                self.octaveFanGraphicsItem.setLeg2PointF(pos)
+                
+            elif self.clickOnePointF != None and \
+                 self.clickTwoPointF == None and \
+                 self.clickThreePointF == None and \
+                 self.octaveFanGraphicsItem != None:
+
+                pos = self.mapToScene(qmouseevent.pos())
+                
+                # Update the leg2 point of the current
+                # OctaveFanGraphicsItem.
+                self.octaveFanGraphicsItem.setLeg2PointF(pos)
+                
+            else:
+                super().mouseMoveEvent(qmouseevent)
+
         else:
             # For any other mode we don't have specific functionality for,
             # just pass the event to the parent to handle.
@@ -20464,6 +21048,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['LineSegmentTool']:
             self.setCursor(QCursor(Qt.ArrowCursor))
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['OctaveFanTool']:
+            self.setCursor(QCursor(Qt.ArrowCursor))
         else:
             self.log.warn("Unknown toolMode while in enterEvent().")
 
@@ -20495,4 +21082,3 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
         self.log.debug("Exiting leaveEvent()")
 
-    
