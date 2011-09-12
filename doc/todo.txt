@@ -111,22 +111,8 @@ DONE
 DONE        - Use 'snap' enabled flag for line segment tool.
 DONE
 
-  - I need to move OctaveFanGraphicsItem's getXYForMusicalRatio()
-    function back into artifact in data_object.py, and change the
-    function arguments so that it accepts:
-
-         - musicalRatio index
-         - origin point
-         - leg1 point
-         - leg2 point
-
-     After doing that, from the OctaveFanGraphicsItem class, we will
-     make the call to the artifact's getXYForMusicalRatio(), passing
-     to it the scaledValue points of origin, leg1, and leg2.
-     
-     I believe the edit dialog already has self.convertObj, and those
-     will need to be verified that they do convert the 3 points to
-     scaledValue points before calling getXYForMusicalRatio().
+  - Need to do debugging to figure out why the fan isn't in the right
+    expected location/area for OctaveFanTool.
 
   - Set sensible defaults for TimeMeasurementTool (which text to have
     displayed by default).
