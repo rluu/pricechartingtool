@@ -20,7 +20,8 @@ import swisseph as swe
 ##############################################################################
 
 # Directory where the swiss ephemeris files are located.
-SWISS_EPHEMERIS_DATA_DIR = os.path.join(sys.path[0], "../data/ephe")
+SWISS_EPHEMERIS_DATA_DIR = \
+    os.path.abspath(os.path.join(sys.path[0], "../data/ephe"))
 
 ##############################################################################
 
@@ -454,9 +455,19 @@ class Ephemeris:
         Ephemeris.log.debug("secs={}, secsTruncated={}, usecs={}".\
                             format(secs, secsTruncated, usecs))
 
+        # Make sure the year is within the min and max year range.
+        if year < datetime.MINYEAR:
+            raise ValueError("Year value '{}'".format(year) +
+                             "is less than datetime.MINYEAR value " +
+                             "{}.".format(datetime.MINYEAR))
+        elif year > datetime.MAXYEAR:
+            raise ValueError("Year value '{}'".format(year) +
+                             "is greater than datetime.MAXYEAR value " +
+                             "{}.".format(datetime.MAXYEAR))
+
         # Create a datetime.datetime in UTC.
         dtUtc = datetime.datetime(year, month, day, hour, mins, 
-                                  secsTruncated, usecs, pytz.utc)
+                                      secsTruncated, usecs, pytz.utc)
 
         # Convert to the timezone specified.
         dt = tzInfo.normalize(dtUtc.astimezone(tzInfo))

@@ -5207,16 +5207,79 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
                            format(index))
             return
 
+
         # Return values.
         x = None
         y = None
+
+
+        # Simple test cases when some points are the same value.
+        if scaledOriginPointF == scaledLeg1PointF and \
+           scaledOriginPointF == scaledLeg2PointF:
+
+            # All three points the same.
+            self.log.debug("All three points are the same, so we will " +
+                           "return the same point as the position " +
+                           "of the musical ratio.")
+            x = scaledOriginPointF.x()
+            y = scaledOriginPointF.y()
+            return (x, y)
+        
+        elif scaledOriginPointF == scaledLeg1PointF and \
+             scaledOriginPointF != scaledLeg2PointF:
+
+            # scaledOriginPointF and scaledLeg1PointF points are the same.
+            self.log.debug("scaledOriginPointF and scaledLeg1PointF " +
+                           "are equal, so we will" +
+                           "return the scaledLeg2PointF as the " +
+                           "position of the same point as the position " +
+                           "of the musical ratio.")
+            x = scaledLeg2PointF.x()
+            y = scaledLeg2PointF.y()
+            return (x, y)
+
+        elif scaledOriginPointF != scaledLeg1PointF and \
+             scaledOriginPointF == scaledLeg2PointF:
+            
+            # scaledOriginPointF and scaledLeg2PointF points are the same.
+            self.log.debug("scaledOriginPointF and scaledLeg2PointF " +
+                           "are equal, so we will" +
+                           "return the scaledLeg1PointF as the " +
+                           "position of the same point as the position " +
+                           "of the musical ratio.")
+            x = scaledLeg1PointF.x()
+            y = scaledLeg1PointF.y()
+            return (x, y)
+
+        else:
+            
+            # All three points the different.
+            self.log.debug("All three points are different, so " +
+                           "continuing on to do the calculations.")
+
+        self.log.debug("scaledOriginPointF is: ({}, {})".\
+                       format(scaledOriginPointF.x(),
+                              scaledOriginPointF.y()))
+        self.log.debug("scaledLeg1PointF is: ({}, {})".\
+                       format(scaledLeg1PointF.x(),
+                              scaledLeg1PointF.y()))
+        self.log.debug("scaledLeg2PointF is: ({}, {})".\
+                       format(scaledLeg2PointF.x(),
+                              scaledLeg2PointF.y()))
 
         # Calculate the angle between the two line segments.
         leg1 = QLineF(scaledOriginPointF, scaledLeg1PointF)
         leg2 = QLineF(scaledOriginPointF, scaledLeg2PointF)
 
+        self.log.debug("Angle of leg1 is: {}".format(leg1.angle()))
+        self.log.debug("Angle of leg2 is: {}".format(leg2.angle()))
+        
+        
         # The angle returned by QLineF.angleTo() is always normalized.
         angleDegDelta = leg1.angleTo(leg2)
+
+        self.log.debug("Angle of leg1 to leg2 is: " +
+                       "angleDegDelta == {} deg".format(angleDegDelta))
         
         # If the delta angle is greater than 180, then subtract 360
         # because we don't want to draw the fan on the undesired side
@@ -5224,8 +5287,8 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
         if angleDegDelta > 180:
             angleDegDelta -= 360
         
-        self.log.debug("Angle difference between line segments " + \
-                       "leg1 and leg2 is: {} deg".format(angleDegDelta))
+        self.log.debug("Adjusted angle difference is: " + \
+                       "angleDegDelta == {} deg".format(angleDegDelta))
         
         # Need to maintain offsets so that if the ratios are rotated a
         # certain way, then we have the correct starting point.

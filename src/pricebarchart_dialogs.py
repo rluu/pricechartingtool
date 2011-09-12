@@ -8932,9 +8932,9 @@ class PriceBarChartOctaveFanArtifactEditWidget(QWidget):
 
 
             # Get the unscaled originPointF, leg1PointF, and leg2PointF.
-            unscaledOriginPointF = artifact.getOriginPointF()
-            unscaledLeg1PointF = artifact.getLeg1PointF()
-            unscaledLeg2PointF = artifact.getLeg2PointF()
+            unscaledOriginPointF = self.artifact.getOriginPointF()
+            unscaledLeg1PointF = self.artifact.getLeg1PointF()
+            unscaledLeg2PointF = self.artifact.getLeg2PointF()
 
             self.log.debug("unscaledOriginPointF is: ({}, {})".
                            format(unscaledOriginPointF.x(),
@@ -8950,13 +8950,13 @@ class PriceBarChartOctaveFanArtifactEditWidget(QWidget):
             # leg2PointF points.
             scaledOriginPointF = \
                 self.convertObj.convertScenePointToScaledPoint(\
-                artifact.getOriginPointF())
+                self.artifact.getOriginPointF())
             scaledLeg1PointF = \
                 self.convertObj.convertScenePointToScaledPoint(\
-                artifact.getLeg1PointF())
+                self.artifact.getLeg1PointF())
             scaledLeg2PointF = \
                 self.convertObj.convertScenePointToScaledPoint(\
-                artifact.getLeg2PointF())
+                self.artifact.getLeg2PointF())
         
             self.log.debug("scaledOriginPointF is: ({}, {})".
                            format(scaledOriginPointF.x(),
@@ -8973,7 +8973,10 @@ class PriceBarChartOctaveFanArtifactEditWidget(QWidget):
             # the x and y in scaled coordinates so we must
             # remember to convert those values afterwards.
             (x, y) = \
-                self.artifact.getXYForMusicalRatio(i)
+                self.artifact.getXYForMusicalRatio(i,
+                                                   scaledOriginPointF,
+                                                   scaledLeg1PointF,
+                                                   scaledLeg2PointF)
 
             # Map those x and y to scene coordinates.
             scenePointF = \
