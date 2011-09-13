@@ -31,21 +31,21 @@ class Util:
     """Contains some generic static functions that may be helpful."""
 
     @staticmethod
-    def fuzzyIsEqual(f1, f2, maxRelativeError=0.000000001):
+    def fuzzyIsEqual(f1, f2, maxDiff=0.000000001):
         """Fuzzy test for floating point values being equal.
         
         Arguments:
         f1 - float value to test against variable f2.
         f2 - float value to test against variable f1.
-        maxRelativeError - float value for the maximum difference before
-                           f1 and f2 are not considered equal.
+        maxDiff - float value for the maximum difference before
+                  f1 and f2 are not considered equal.
 
         Returns:
-        bool value - True if the values are within maxRelativeError
+        bool value - True if the values are within maxDiff
                      from each other, False otherwise.
         """
 
-        if abs(f1 - f2) <= maxRelativeError:
+        if abs(f1 - f2) <= maxDiff:
             return True
         else:
             return False
