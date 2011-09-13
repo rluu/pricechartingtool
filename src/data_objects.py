@@ -31,6 +31,15 @@ class Util:
     """Contains some generic static functions that may be helpful."""
 
     @staticmethod
+    def fuzzyIsEqual(f1, f2):
+        """Fuzzy test for floating point values being equal."""
+
+        if abs(f1 - f2) < 0.000000001:
+            return True
+        else:
+            return False
+    
+    @staticmethod
     def toNormalizedAngle(angleDeg):
         """Normalizes the given angle to a value in the range [0, 360).
 
@@ -5306,7 +5315,7 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
                 # Store the offset for future indexes.
                 angleDegOffset = \
                     angleDegDelta * (musicalRatio.getRatio() - 1.0)
-                
+
                 self.log.debug("At i == 0.  angleDegOffset={}".\
                                format(angleDegOffset))
                 
@@ -5323,12 +5332,19 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
 
                 # If we are reversed, then reference the offset angle
                 # from the leg1 angle instead of the leg2 angle.
+                self.log.debug("self.isReversed() == {}".\
+                               format(self.isReversed()))
                 if self.isReversed() == False:
                     angleDeg = leg1.angle() + angleDeg
                 else:
                     angleDeg = leg2.angle() - angleDeg
 
                 self.log.debug("Adjusting to leg point angles, (angleDeg={})".
+                               format(angleDeg))
+
+                angleDeg = Util.toNormalizedAngle(angleDeg)
+                
+                self.log.debug("After normalizing angleDeg, (angleDeg={})".
                                format(angleDeg))
 
                 # Normalize angleDeg be within the range of
@@ -5343,27 +5359,62 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
                 angleToLeg1 = lineToAngleDeg.angleTo(leg1)
                 angleToLeg2 = lineToAngleDeg.angleTo(leg2)
 
-                # Find the closest path, based on which side of 180 it is.
-                if angleToLeg1 > 180:
-                    angleToLeg1 -= 360
-                if angleToLeg2 > 180:
-                    angleToLeg1 -= 360
+                self.log.debug("angleToLeg1 == {} deg".format(angleToLeg1))
+                self.log.debug("angleToLeg2 == {} deg".format(angleToLeg2))
 
-                # Adjust angleDeg based on which leg is closer.
-                # Here we should only require one adjustment.
-                if abs(angleToLeg1) < abs(angleToLeg2):
-                    # lineToAngleDeg is closer to leg1.
-                    if angleToLeg1 >= 0:
+                if angleDegDelta >= 0:
+                    # leg2 is higher in angle than leg1.
+                    self.log.debug("leg2 is higher in angle than leg1.")
+                    
+                    if Util.fuzzyIsEqual(angleToLeg2, 0.0) and \
+                             self.isReversed():
+                        self.log.debug("At leg2 angle while reversed.  " + \
+                                       "Adjusting to be perfect.")
+                        angleDeg = leg2.angle()
+                    elif angleToLeg1 < 180 and angleToLeg2 < 180:
+                        self.log.debug("Below fan.  Adjusting.")
                         angleDeg += abs(angleDegDelta)
-                    if angleToLeg1 < 0:
+                    elif angleToLeg1 >= 180 and angleToLeg2 < 180:
+                        self.log.debug("Within bounds.")
+                    elif angleToLeg1 >= 180 and angleToLeg2 >= 180:
+                        self.log.debug("Above fan.  Adjusting.")
                         angleDeg -= abs(angleDegDelta)
+                    else:
+                        self.log.warn("Unknown case.  " + \
+                                      "Variables are: " + \
+                                      "angleDegDelta == {}".\
+                                      format(angleDegDelta) + \
+                                      "angleToLeg1 == {}".\
+                                      format(angleToLeg1) + \
+                                      "angleToLeg2 == {}".\
+                                      format(angleToLeg2))
                 else:
-                    # lineToAngleDeg is closer to leg2.
-                    if angleToLeg2 >= 0:
+                    # leg1 is higher in angle than leg2.
+                    self.log.debug("leg1 is higher in angle than leg2.")
+
+                    if Util.fuzzyIsEqual(angleToLeg2, 0.0) and \
+                             self.isReversed():
+                        self.log.debug("At leg2 angle while reversed.  " + \
+                                       "Adjusting to be perfect.")
+                        angleDeg = leg2.angle()
+                    elif angleToLeg1 < 180 and angleToLeg2 < 180:
+                        self.log.debug("Below fan.  Adjusting.")
                         angleDeg += abs(angleDegDelta)
-                    if angleToLeg2 < 0:
+                    elif angleToLeg1 < 180 and angleToLeg2 >= 180:
+                        self.log.debug("Within bounds.")
+                    elif angleToLeg1 >= 180 and angleToLeg2 >= 180:
+                        self.log.debug("Above fan.  Adjusting.")
                         angleDeg -= abs(angleDegDelta)
-                
+                    else:
+                        self.log.warn("Unknown case.  " + \
+                                      "Variables are: " + \
+                                      "angleDegDelta == {}".\
+                                      format(angleDegDelta) + \
+                                      "angleToLeg1 == {}".\
+                                      format(angleToLeg1) + \
+                                      "angleToLeg2 == {}".\
+                                      format(angleToLeg2))
+                        
                 self.log.debug("For index {}, ".format(i) +
                                "normalized angleDeg to within " +
                                "leg1 and leg2 is: {}".format(angleDeg))
@@ -5440,7 +5491,9 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
 
                     denominator = ((a.y() * b.x()) - (a.x() * b.y()))
                     
-                    if denominator == 0 or denominator == float('inf'):
+                    if Util.fuzzyIsEqual(denominator, 0.0) or \
+                           denominator == float('inf'):
+                        
                         # No intersection.
                         continue
 

@@ -5297,7 +5297,9 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
             # Refresh everything.
             self.refreshTextItems()
-        
+
+            self.update()
+            
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
             self.scene().priceBarChartChanged.emit()
@@ -5348,6 +5350,8 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
         
+            self.update()
+            
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
             self.scene().priceBarChartChanged.emit()
@@ -5363,6 +5367,8 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Refresh everything.
         self.refreshTextItems()
         
+        self.update()
+            
         # Emit that the PriceBarChart has changed so that the
         # dirty flag can be set.
         self.scene().priceBarChartChanged.emit()
@@ -6608,7 +6614,9 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
             # Refresh everything.
             self.refreshTextItems()
-        
+
+            self.update()
+            
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
             self.scene().priceBarChartChanged.emit()
@@ -6659,6 +6667,8 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
         
+            self.update()
+            
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
             self.scene().priceBarChartChanged.emit()
@@ -6674,6 +6684,8 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Refresh everything.
         self.refreshTextItems()
         
+        self.update()
+            
         # Emit that the PriceBarChart has changed so that the
         # dirty flag can be set.
         self.scene().priceBarChartChanged.emit()
@@ -12403,8 +12415,8 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.log.debug("Entered __init__().")
 
         # Constant value for the multiple amount to extend the start
-        # or end points.  This shows up in the right-click context
-        # menu option for extending the start or end points.
+        # or end points.  This feature shows up as an option in the
+        # right-click context menu option.
         self.extendMultiple = 1.6
         
         ############################################################
@@ -13274,12 +13286,18 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
         removeAction = QAction("Remove", parent)
         infoAction = QAction("&Info", parent)
         editAction = QAction("&Edit", parent)
-        extendStartPointAction = \
-            QAction("Ex&tend start point {}-fold".\
-                    format(self.extendMultiple), parent)
         extendEndPointAction = \
-            QAction("E&xtend end point by {}-fold".\
+            QAction("E&xtend end point to {}-fold".\
                     format(self.extendMultiple), parent)
+        shortenEndPointAction = \
+            QAction("Shor&ten end point to {}-fold".\
+                    format(1.0 / self.extendMultiple), parent)
+        extendStartPointAction = \
+            QAction("Exte&nd start point to {}-fold".\
+                    format(self.extendMultiple), parent)
+        shortenStartPointAction = \
+            QAction("S&horten start point to {}-fold".\
+                    format(1.0 / self.extendMultiple), parent)
         
         setStartOnAstro1Action = \
             QAction("Set start timestamp on Astro Chart &1", parent)
@@ -13308,10 +13326,14 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleInfoAction)
         editAction.triggered.\
             connect(self._handleEditAction)
-        extendStartPointAction.triggered.\
-            connect(self._handleExtendStartPointAction)
         extendEndPointAction.triggered.\
             connect(self._handleExtendEndPointAction)
+        shortenEndPointAction.triggered.\
+            connect(self._handleShortenEndPointAction)
+        extendStartPointAction.triggered.\
+            connect(self._handleExtendStartPointAction)
+        shortenStartPointAction.triggered.\
+            connect(self._handleShortenStartPointAction)
         setStartOnAstro1Action.triggered.\
             connect(self._handleSetStartOnAstro1Action)
         setStartOnAstro2Action.triggered.\
@@ -13335,8 +13357,10 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
         removeAction.setEnabled(not readOnlyMode)
         infoAction.setEnabled(True)
         editAction.setEnabled(not readOnlyMode)
-        extendStartPointAction.setEnabled(not readOnlyMode)
         extendEndPointAction.setEnabled(not readOnlyMode)
+        shortenEndPointAction.setEnabled(not readOnlyMode)
+        extendStartPointAction.setEnabled(not readOnlyMode)
+        shortenStartPointAction.setEnabled(not readOnlyMode)
         setStartOnAstro1Action.setEnabled(True)
         setStartOnAstro2Action.setEnabled(True)
         setStartOnAstro3Action.setEnabled(True)
@@ -13355,8 +13379,10 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addAction(infoAction)
         menu.addAction(editAction)
         menu.addSeparator()
-        menu.addAction(extendStartPointAction)
         menu.addAction(extendEndPointAction)
+        menu.addAction(shortenEndPointAction)
+        menu.addAction(extendStartPointAction)
+        menu.addAction(shortenStartPointAction)
         menu.addSeparator()
         menu.addAction(setStartOnAstro1Action)
         menu.addAction(setStartOnAstro2Action)
@@ -13431,10 +13457,74 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # The user canceled so don't change anything.
             pass
         
-    def _handleExtendStartPointAction(self):
-        """Updates the QGraphicsItem so that the start point is a
-        self.extendMultiple of the current distance away from end
+    def _handleExtendEndPointAction(self):
+        """Updates the QGraphicsItem so that the end point is
+        (self.extendMultiple) fold of the current distance away from start
         point.  The artifact is edited too to correspond with this change.
+        """
+
+        # Get the X and Y deltas between the start and end points.
+        deltaX = self.endPointF.x() - self.startPointF.x()
+        deltaY = self.endPointF.y() - self.startPointF.y()
+
+        # Calculate the new offsets from the end point.
+        offsetX = deltaX * self.extendMultiple
+        offsetY = deltaY * self.extendMultiple
+
+        # Calculate new end point X and Y values.
+        newEndPointX = self.startPointF.x() + offsetX
+        newEndPointY = self.startPointF.y() + offsetY
+
+        # Update the QGraphicsItem manually.
+        newEndPointF = QPointF(newEndPointX, newEndPointY)
+        self.setEndPointF(newEndPointF)
+        
+        # Update the artifact.
+        self.artifact.setEndPointF(newEndPointF)
+        
+        # Refresh the item so that the textItem and drawing can be updated.
+        self.refreshItem()
+        
+        # Emit that the chart has changed.
+        self.scene().priceBarChartChanged.emit()
+        
+    def _handleShortenEndPointAction(self):
+        """Updates the QGraphicsItem so that the end point is
+        (1.0 / self.extendMultiple) fold of the current distance away from
+        start point.  The artifact is edited too to correspond with
+        this change.
+        """
+
+        # Get the X and Y deltas between the start and end points.
+        deltaX = self.endPointF.x() - self.startPointF.x()
+        deltaY = self.endPointF.y() - self.startPointF.y()
+
+        # Calculate the new offsets from the end point.
+        offsetX = deltaX * (1.0 / self.extendMultiple)
+        offsetY = deltaY * (1.0 / self.extendMultiple)
+
+        # Calculate new end point X and Y values.
+        newEndPointX = self.startPointF.x() + offsetX
+        newEndPointY = self.startPointF.y() + offsetY
+
+        # Update the QGraphicsItem manually.
+        newEndPointF = QPointF(newEndPointX, newEndPointY)
+        self.setEndPointF(newEndPointF)
+        
+        # Update the artifact.
+        self.artifact.setEndPointF(newEndPointF)
+        
+        # Refresh the item so that the textItem and drawing can be updated.
+        self.refreshItem()
+        
+        # Emit that the chart has changed.
+        self.scene().priceBarChartChanged.emit()
+        
+    def _handleExtendStartPointAction(self):
+        """Updates the QGraphicsItem so that the start point is
+        (self.extendMultiple) fold of the current distance away from
+        end point.  The artifact is edited too to correspond with this
+        change.
         """
 
         # Get the X and Y deltas between the start and end points.
@@ -13468,10 +13558,11 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Emit that the chart has changed.
         self.scene().priceBarChartChanged.emit()
         
-    def _handleExtendEndPointAction(self):
-        """Updates the QGraphicsItem so that the end point is a
-        self.extendMultiple of the current distance away from start
-        point.  The artifact is edited too to correspond with this change.
+    def _handleShortenStartPointAction(self):
+        """Updates the QGraphicsItem so that the start point is
+        (1.0 / self.extendMultiple) fold of the current distance away
+        from end point.  The artifact is edited too to correspond with
+        this change.
         """
 
         # Get the X and Y deltas between the start and end points.
@@ -13479,23 +13570,29 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
         deltaY = self.endPointF.y() - self.startPointF.y()
 
         # Calculate the new offsets from the end point.
-        offsetX = deltaX * self.extendMultiple
-        offsetY = deltaY * self.extendMultiple
+        offsetX = deltaX * (1.0 / self.extendMultiple)
+        offsetY = deltaY * (1.0 / self.extendMultiple)
 
-        # Calculate new end point X and Y values.
-        newEndPointX = self.startPointF.x() + offsetX
-        newEndPointY = self.startPointF.y() + offsetY
+        # Calculate new start point X and Y values.
+        newStartPointX = self.endPointF.x() - offsetX
+        newStartPointY = self.endPointF.y() - offsetY
 
         # Update the QGraphicsItem manually.
-        newEndPointF = QPointF(newEndPointX, newEndPointY)
-        self.setEndPointF(newEndPointF)
+        newStartPointF = QPointF(newStartPointX, newStartPointY)
+        
+        # Call the parent version for setPos(), not the self version
+        # because the self version moves both the start and end
+        # points.  We want to keep the end point the same.
+        super().setPos(newStartPointF)
+        self.startPointF = newStartPointF
         
         # Update the artifact.
-        self.artifact.setEndPointF(newEndPointF)
-        
+        self.artifact.setPos(self.startPointF)
+        self.artifact.setStartPointF(self.startPointF)
+
         # Refresh the item so that the textItem and drawing can be updated.
         self.refreshItem()
-        
+
         # Emit that the chart has changed.
         self.scene().priceBarChartChanged.emit()
         
@@ -13573,6 +13670,11 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         self.log.debug("Entered __init__().")
 
+        # Constant value for the multiple amount to extend the
+        # leg1PointF or leg2PointF points.  This feature shows up as
+        # an option in the right-click context menu option.
+        self.extendMultiple = 1.6
+        
         ############################################################
         # Set default values for preferences/settings.
 
@@ -14361,10 +14463,13 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                             "{}/{}".format(numerator, denominator) + os.linesep
 
                     # Append the text for the angle of the line.
-                    scaledAngleDegrees = \
-                        self.calculateScaledAngleDegrees(self.originPointF,
-                                                         sceneEndPointF)
-                    text += "{:.4f} deg".format(scaledAngleDegrees) + os.linesep
+                    # Uncomment below to re-add the scaled angle to the text.
+                    #scaledAngleDegrees = \
+                    #    self.calculateScaledAngleDegrees(self.originPointF,
+                    #                                     sceneEndPointF)
+                    #text += "{:.4f} deg".format(scaledAngleDegrees) + \
+                    #        os.linesep
+
 
                     # Set the text to the text item.
                     text = text.rstrip()
@@ -15038,6 +15143,18 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         rotateDownAction = QAction("Rotate Down", parent)
         rotateUpAction = QAction("Rotate Up", parent)
         reverseAction = QAction("Reverse", parent)
+        extendLeg1PointAction = \
+            QAction("E&xtend leg1 point to {}-fold".\
+                    format(self.extendMultiple), parent)
+        shortenLeg1PointAction = \
+            QAction("Shor&ten leg1 point to {}-fold".\
+                    format(1.0 / self.extendMultiple), parent)
+        extendLeg2PointAction = \
+            QAction("Exte&nd leg2 point to {}-fold".\
+                    format(self.extendMultiple), parent)
+        shortenLeg2PointAction = \
+            QAction("S&horten leg2 point to {}-fold".\
+                    format(1.0 / self.extendMultiple), parent)
         
         setOriginOnAstro1Action = \
             QAction("Set origin timestamp on Astro Chart &1", parent)
@@ -15064,6 +15181,14 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleRotateUpAction)
         reverseAction.triggered.\
             connect(self._handleReverseAction)
+        extendLeg1PointAction.triggered.\
+            connect(self._handleExtendLeg1PointAction)
+        shortenLeg1PointAction.triggered.\
+            connect(self._handleShortenLeg1PointAction)
+        extendLeg2PointAction.triggered.\
+            connect(self._handleExtendLeg2PointAction)
+        shortenLeg2PointAction.triggered.\
+            connect(self._handleShortenLeg2PointAction)
         setOriginOnAstro1Action.triggered.\
             connect(self._handleSetOriginOnAstro1Action)
         setOriginOnAstro2Action.triggered.\
@@ -15082,6 +15207,10 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         rotateDownAction.setEnabled(not readOnlyMode)
         rotateUpAction.setEnabled(not readOnlyMode)
         reverseAction.setEnabled(not readOnlyMode)
+        extendLeg1PointAction.setEnabled(not readOnlyMode)
+        shortenLeg1PointAction.setEnabled(not readOnlyMode)
+        extendLeg2PointAction.setEnabled(not readOnlyMode)
+        shortenLeg2PointAction.setEnabled(not readOnlyMode)
         setOriginOnAstro1Action.setEnabled(True)
         setOriginOnAstro2Action.setEnabled(True)
         setOriginOnAstro3Action.setEnabled(True)
@@ -15098,6 +15227,11 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addAction(rotateDownAction)
         menu.addAction(rotateUpAction)
         menu.addAction(reverseAction)
+        menu.addSeparator()
+        menu.addAction(extendLeg1PointAction)
+        menu.addAction(shortenLeg1PointAction)
+        menu.addAction(extendLeg2PointAction)
+        menu.addAction(shortenLeg2PointAction)
         menu.addSeparator()
         menu.addAction(setOriginOnAstro1Action)
         menu.addAction(setOriginOnAstro2Action)
@@ -15233,6 +15367,8 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
         
+            self.update()
+        
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
             self.scene().priceBarChartChanged.emit()
@@ -15282,6 +15418,8 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
             # Refresh everything.
             self.refreshTextItems()
+
+            self.update()
         
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -15298,8 +15436,144 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Refresh everything.
         self.refreshTextItems()
         
+        self.update()
+            
         # Emit that the PriceBarChart has changed so that the
         # dirty flag can be set.
+        self.scene().priceBarChartChanged.emit()
+        
+    def _handleExtendLeg1PointAction(self):
+        """Updates the QGraphicsItem so that the leg1 point is
+        (self.extendMultiple) fold of the current distance away from origin
+        point.  The artifact is edited too to correspond with this change.
+        """
+
+        # Get the X and Y deltas between the start and end points.
+        deltaX = self.leg1PointF.x() - self.originPointF.x()
+        deltaY = self.leg1PointF.y() - self.originPointF.y()
+
+        # Calculate the new offsets from the end point.
+        offsetX = deltaX * self.extendMultiple
+        offsetY = deltaY * self.extendMultiple
+
+        # Calculate new end point X and Y values.
+        newEndPointX = self.originPointF.x() + offsetX
+        newEndPointY = self.originPointF.y() + offsetY
+
+        # Update the QGraphicsItem manually.
+        newEndPointF = QPointF(newEndPointX, newEndPointY)
+        self.setLeg1PointF(newEndPointF)
+        
+        # Update the artifact.
+        self.artifact.setLeg1PointF(newEndPointF)
+        
+        # Refresh the item so that the textItem and drawing can be updated.
+        self.refreshItem()
+
+        self.update()
+        
+        # Emit that the chart has changed.
+        self.scene().priceBarChartChanged.emit()
+        
+    def _handleShortenLeg1PointAction(self):
+        """Updates the QGraphicsItem so that the leg1 point is
+        (1.0 / self.extendMultiple) fold of the current distance away from
+        origin point.  The artifact is edited too to correspond with
+        this change.
+        """
+
+        # Get the X and Y deltas between the start and end points.
+        deltaX = self.leg1PointF.x() - self.originPointF.x()
+        deltaY = self.leg1PointF.y() - self.originPointF.y()
+
+        # Calculate the new offsets from the end point.
+        offsetX = deltaX * (1.0 / self.extendMultiple)
+        offsetY = deltaY * (1.0 / self.extendMultiple)
+
+        # Calculate new end point X and Y values.
+        newEndPointX = self.originPointF.x() + offsetX
+        newEndPointY = self.originPointF.y() + offsetY
+
+        # Update the QGraphicsItem manually.
+        newEndPointF = QPointF(newEndPointX, newEndPointY)
+        self.setLeg1PointF(newEndPointF)
+        
+        # Update the artifact.
+        self.artifact.setLeg1PointF(newEndPointF)
+        
+        # Refresh the item so that the textItem and drawing can be updated.
+        self.refreshItem()
+
+        self.update()
+        
+        # Emit that the chart has changed.
+        self.scene().priceBarChartChanged.emit()
+        
+    def _handleExtendLeg2PointAction(self):
+        """Updates the QGraphicsItem so that the leg2 point is
+        (self.extendMultiple) fold of the current distance away from origin
+        point.  The artifact is edited too to correspond with this change.
+        """
+
+        # Get the X and Y deltas between the start and end points.
+        deltaX = self.leg2PointF.x() - self.originPointF.x()
+        deltaY = self.leg2PointF.y() - self.originPointF.y()
+
+        # Calculate the new offsets from the end point.
+        offsetX = deltaX * self.extendMultiple
+        offsetY = deltaY * self.extendMultiple
+
+        # Calculate new end point X and Y values.
+        newEndPointX = self.originPointF.x() + offsetX
+        newEndPointY = self.originPointF.y() + offsetY
+
+        # Update the QGraphicsItem manually.
+        newEndPointF = QPointF(newEndPointX, newEndPointY)
+        self.setLeg2PointF(newEndPointF)
+        
+        # Update the artifact.
+        self.artifact.setLeg2PointF(newEndPointF)
+        
+        # Refresh the item so that the textItem and drawing can be updated.
+        self.refreshItem()
+
+        self.update()
+        
+        # Emit that the chart has changed.
+        self.scene().priceBarChartChanged.emit()
+        
+    def _handleShortenLeg2PointAction(self):
+        """Updates the QGraphicsItem so that the leg2 point is
+        (1.0 / self.extendMultiple) fold of the current distance away from
+        origin point.  The artifact is edited too to correspond with
+        this change.
+        """
+
+        # Get the X and Y deltas between the start and end points.
+        deltaX = self.leg2PointF.x() - self.originPointF.x()
+        deltaY = self.leg2PointF.y() - self.originPointF.y()
+
+        # Calculate the new offsets from the end point.
+        offsetX = deltaX * (1.0 / self.extendMultiple)
+        offsetY = deltaY * (1.0 / self.extendMultiple)
+
+        # Calculate new end point X and Y values.
+        newEndPointX = self.originPointF.x() + offsetX
+        newEndPointY = self.originPointF.y() + offsetY
+
+        # Update the QGraphicsItem manually.
+        newEndPointF = QPointF(newEndPointX, newEndPointY)
+        self.setLeg2PointF(newEndPointF)
+        
+        # Update the artifact.
+        self.artifact.setLeg2PointF(newEndPointF)
+        
+        # Refresh the item so that the textItem and drawing can be updated.
+        self.refreshItem()
+
+        self.update()
+        
+        # Emit that the chart has changed.
         self.scene().priceBarChartChanged.emit()
         
     def _handleSetOriginOnAstro1Action(self):

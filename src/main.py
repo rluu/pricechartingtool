@@ -41,14 +41,20 @@ APP_VERSION = __version__
 # Application Date obtain from last subversion commit date.
 APP_DATE = __date__
 
+# Location of the source directory, based on this main.py file.
+SRC_DIR = os.path.abspath(sys.path[0])
+
 # Directory where log files will be written.
-#LOG_DIR = os.path.join(sys.path[0], "logs")
-LOG_DIR = os.path.join(sys.path[0],
-                       ".." + os.sep + "logs")
+LOG_DIR = \
+    os.path.abspath(os.path.join(SRC_DIR,
+                                 ".." + os.sep + "logs"))
 
 # Location of the config file for logging.
-LOG_CONFIG_FILE = os.path.join(sys.path[0],
-                               ".." + os.sep + "conf" + os.sep + "logging.conf")
+LOG_CONFIG_FILE = \
+    os.path.abspath(os.path.join(SRC_DIR,
+                                 ".." + os.sep +
+                                 "conf" + os.sep +
+                                 "logging.conf"))
 
 # Application author
 APP_AUTHOR = "Ryan Luu"

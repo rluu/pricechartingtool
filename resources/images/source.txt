@@ -84,11 +84,13 @@ Qt licensed for use from Trolltech.
 
 rluu/appIcon.png
 rluu/barCount.png
+rluu/fibFan.png
 rluu/gearGreen.png       (Modified an image from Tango Icon Library)
 rluu/handClosed.png
 rluu/handOpen.png
 rluu/lineSegment.png
 rluu/logo_ryan_d1.png
+rluu/octaveFan.png
 rluu/pointerPencil.png   (Modified an image from iconspedia)
 rluu/priceBar.png
 rluu/priceMeasurement.png

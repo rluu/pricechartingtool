@@ -15,11 +15,13 @@
 
     <file>images/rluu/appIcon.png</file>
     <file>images/rluu/barCount.png</file>
+    <file>images/rluu/fibFan.png</file>
     <file>images/rluu/gearGreen.png</file>
     <file>images/rluu/handClosed.png</file>
     <file>images/rluu/handOpen.png</file>
     <file>images/rluu/lineSegment.png</file>
     <file>images/rluu/logo_ryan_d1.png</file>
+    <file>images/rluu/octaveFan.png</file>
     <file>images/rluu/pointerPencil.png</file>
     <file>images/rluu/priceBar.png</file>
     <file>images/rluu/priceMeasurement.png</file>
