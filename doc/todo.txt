@@ -111,8 +111,10 @@ DONE
 DONE        - Use 'snap' enabled flag for line segment tool.
 DONE
 
-  - Need to do debugging to figure out why the fan isn't in the right
-    expected location/area for OctaveFanTool.
+  - Need to fix OctaveFan so that we can drag endpoints of the legs or
+    the origin to change those points.  Currently, dragging just moves
+    the whole item.  If I'm writing FibFan, then this fix needs to be
+    applied to that also.
 
   - Set sensible defaults for TimeMeasurementTool (which text to have
     displayed by default).

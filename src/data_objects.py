@@ -4984,9 +4984,8 @@ class PriceBarChartLineSegmentArtifact(PriceBarChartArtifact):
                        " object of version {}".format(self.classVersion))
 
 class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
-    """PriceBarChartArtifact that indicates the time measurement starting 
-    at the given PriceBar timestamp and the given Y offset from the 
-    center of the bar.
+    """PriceBarChartArtifact that indicates the the data elements of a
+    OctaveFanGraphicsItem.
     """
     
     def __init__(self):
@@ -5610,6 +5609,656 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
         # Log that we set the state of this object.
         self.log.debug("Set state of a " +
                        PriceBarChartOctaveFanArtifact.__name__ +
+                       " object of version {}".format(self.classVersion))
+
+class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
+    """PriceBarChartArtifact that indicates the the data elements of a
+    FibFanGraphicsItem.
+    """
+    
+    def __init__(self):
+        super().__init__()
+        
+        # Set the version of this class (used for pickling and unpickling
+        # different versions of this class).
+        self.classVersion = 1
+
+        # Create the logger.
+        self.log = \
+            logging.\
+            getLogger("data_objects.PriceBarChartFibFanArtifact")
+
+        # Update the internal name so it is the artifact type plus the uuid.
+        self.internalName = "FibFan_" + str(self.uuid)
+
+        # Origin point and the two leg points of the artifact.
+        self.originPointF = QPointF()
+        self.leg1PointF = QPointF()
+        self.leg2PointF = QPointF()
+        
+        # Scaling the text, to make it bigger or smaller.
+        self.textXScaling = \
+            PriceBarChartSettings.\
+            defaultFibFanGraphicsItemTextXScaling
+        self.textYScaling = \
+            PriceBarChartSettings.\
+            defaultFibFanGraphicsItemTextYScaling
+        
+        # QFont cannot be pickled, but we can utilize
+        # QFont.toString() and then QFont.fromString()
+        self.fontDescription = \
+            PriceBarChartSettings.\
+            defaultFibFanGraphicsItemDefaultFontDescription
+        
+        # QColor can be pickled
+        self.textColor = \
+            PriceBarChartSettings.\
+            defaultFibFanGraphicsItemDefaultTextColor
+
+        # QColor can be pickled   
+        self.color = \
+            PriceBarChartSettings.\
+            defaultFibFanGraphicsItemDefaultColor
+
+        # List of Ratio objects for the different ratios supported.
+        self.ratios = \
+            PriceBarChartSettings.\
+            defaultFibFanGraphicsItemRatios
+
+        # barHeight (float).
+        self.barHeight = \
+            PriceBarChartSettings.\
+                defaultFibFanGraphicsItemBarHeight
+        
+        # Flag for whether or not the text is displayed for enabled
+        # MusicalRatios in self.musicalRatios.
+        self.textEnabledFlag = False
+        
+    def setOriginPointF(self, originPointF):
+        """Stores the origin point of the FibFanArtifact.
+        Arguments:
+
+        originPointF - QPointF for the origin point of the artifact.
+        """
+        
+        self.originPointF = originPointF
+        
+    def getOriginPointF(self):
+        """Returns the origin point of the FibFanArtifact."""
+        
+        return self.originPointF
+        
+    def setLeg1PointF(self, leg1PointF):
+        """Stores the leg1 point of the FibFanArtifact.
+        Arguments:
+
+        leg1PointF - QPointF for the leg1 point of the artifact.
+        """
+        
+        self.leg1PointF = leg1PointF
+        
+    def getLeg1PointF(self):
+        """Returns the leg1 point of the FibFanArtifact."""
+        
+        return self.leg1PointF
+
+    def setLeg2PointF(self, leg2PointF):
+        """Stores the leg2 point of the FibFanArtifact.
+        Arguments:
+
+        leg2PointF - QPointF for the leg2 point of the artifact.
+        """
+        
+        self.leg2PointF = leg2PointF
+        
+    def getLeg2PointF(self):
+        """Returns the leg2 point of the FibFanArtifact."""
+        
+        return self.leg2PointF
+
+    def setTextXScaling(self, textXScaling):
+        """Sets the text X scaling, used in making the text 
+        bigger or smaller.
+
+        Arguments:
+        textXScaling - float value for the scaling used.
+                       1.0 is no change in scaling.
+        """
+
+        self.textXScaling = textXScaling
+
+    def getTextXScaling(self):
+        """Returns float value for the text X scaling, used in making
+        the text bigger or smaller.
+        """
+
+        return self.textXScaling
+        
+    def setTextYScaling(self, textYScaling):
+        """Sets the text Y scaling, used in making the text 
+        bigger or smaller.
+
+        Arguments:
+        textYScaling - float value for the scaling used.
+                       1.0 is no change in scaling.
+        """
+
+        self.textYScaling = textYScaling
+
+    def getTextYScaling(self):
+        """Returns float value for the text Y scaling, used in making
+        the text bigger or smaller.
+        """
+
+        return self.textYScaling
+        
+    def setFont(self, font):
+        """Sets the font of this artifact's text.
+
+        Arguments:
+        font - QFont object that is used for the drawing of the text.
+        """
+
+        # QFont cannot be pickled, but we can utilize
+        # QFont.toString() and then QFont.fromString().
+        self.fontDescription = font.toString()
+
+    def getFont(self):
+        """Returns the font of this artifact's text as a QFont.
+        """
+
+        # We obtain the QFont by calling QFont.fromString().
+        font = QFont()
+        font.fromString(self.fontDescription)
+
+        return font
+        
+    def setTextColor(self, textColor):
+        """Sets the color for this artifact's text.
+
+        Arguments:
+        textColor - QColor object holding the color of the text.
+        """
+
+        self.textColor = textColor
+
+    def getTextColor(self):
+        """Returns the color of this artifact's text as a QColor."""
+
+        return self.textColor
+
+    def setColor(self, color):
+        """Sets the bar color.
+        
+        Arguments:
+        color - QColor object for the bar color.
+        """
+        
+        self.color = color
+
+    def getColor(self):
+        """Gets the bar color as a QColor object."""
+        
+        return self.color
+
+    def setBarHeight(self, barHeight):
+        """Sets the bar height (float)."""
+
+        self.barHeight = barHeight
+    
+    def getBarHeight(self):
+        """Returns the bar height (float)."""
+
+        return self.barHeight
+    
+    def isTextEnabled(self):
+        """Returns whether or not the text is enabled for the
+        ratios that are enabled.
+        """
+
+        return self.textEnabledFlag
+
+    def setTextEnabled(self, textEnabledFlag):
+        """Sets the textEnabled flag.  This value is used to tell
+        whether or not the text is enabled for the ratios that
+        are enabled.
+
+        Arguments:
+        textEnabledFlag - bool value for whether or not the text is enabled.
+        """
+
+        self.textEnabledFlag = textEnabledFlag
+        
+    def setRatios(self, ratios):
+        """Sets the list of Ratio objects, which is the ratios
+        supported, and whether they are enabled or not for this
+        artifact.
+        """
+
+        self.ratios = ratios
+    
+    def getRatios(self):
+        """Returns a list of Ratio objects, which holds the ratios
+        supported, and whether they are enabled or not for this
+        artifact.
+        """
+
+        return self.ratios
+    
+    def getXYForRatio(self,
+                      index, 
+                      scaledOriginPointF,
+                      scaledLeg1PointF,
+                      scaledLeg2PointF):
+        """Returns the x and y location of where this ratio point
+        would exist, based on the Ratio ordering and the
+        scaledOriginPointF, scaledLeg1PointF, and scaledLeg2PointF
+        locations.  This method does it's calculation based on 3
+        points, and the point returned is along the outter edge of a
+        bounding rectangle created by the 3 points.  The calculated
+        point returned is based angular ratios.
+
+        Arguments:
+        
+        index - int value for index into self.ratios that the
+                user is looking for the ratio for.  This value
+                must be within the valid index limits.
+        scaledOriginPointF - Origin point of the fib fan, in scaled
+                             coordinates.
+        scaledLeg1PointF   - Leg1 point of the fib fan, in scaled
+                             coordinates.
+        scaledLeg2PointF   - Leg2 point of the fib fan, in scaled
+                             coordinates.
+
+        Returns:
+        
+        Tuple of 2 floats, representing (x, y) point in scaled
+        coordinates.  This is where the ratio would exist.
+        The caller must then unscale it back to scene or local
+        coordinates as needed.
+        """
+
+        self.log.debug("Entered getXYForRatio({})".format(index))
+
+        # Get the ratios.
+        ratios = self.getRatios()
+        
+        # Validate input.
+        if index < 0:
+            self.log.error("getXYForRatio(): Invalid index: {}".
+                           format(index))
+            return
+        if len(ratios) > 0 and index >= len(ratios):
+            self.log.error("getXYForRatio(): Index out of range: {}".
+                           format(index))
+            return
+
+
+        # Return values.
+        x = None
+        y = None
+
+
+        # Simple test cases when some points are the same value.
+        if scaledOriginPointF == scaledLeg1PointF and \
+           scaledOriginPointF == scaledLeg2PointF:
+
+            # All three points the same.
+            self.log.debug("All three points are the same, so we will " +
+                           "return the same point as the position " +
+                           "of the ratio.")
+            x = scaledOriginPointF.x()
+            y = scaledOriginPointF.y()
+            return (x, y)
+        
+        elif scaledOriginPointF == scaledLeg1PointF and \
+             scaledOriginPointF != scaledLeg2PointF:
+
+            # scaledOriginPointF and scaledLeg1PointF points are the same.
+            self.log.debug("scaledOriginPointF and scaledLeg1PointF " +
+                           "are equal, so we will" +
+                           "return the scaledLeg2PointF as the " +
+                           "position of the same point as the position " +
+                           "of the ratio.")
+            x = scaledLeg2PointF.x()
+            y = scaledLeg2PointF.y()
+            return (x, y)
+
+        elif scaledOriginPointF != scaledLeg1PointF and \
+             scaledOriginPointF == scaledLeg2PointF:
+            
+            # scaledOriginPointF and scaledLeg2PointF points are the same.
+            self.log.debug("scaledOriginPointF and scaledLeg2PointF " +
+                           "are equal, so we will" +
+                           "return the scaledLeg1PointF as the " +
+                           "position of the same point as the position " +
+                           "of the ratio.")
+            x = scaledLeg1PointF.x()
+            y = scaledLeg1PointF.y()
+            return (x, y)
+
+        else:
+            
+            # All three points the different.
+            self.log.debug("All three points are different, so " +
+                           "continuing on to do the calculations.")
+
+        self.log.debug("scaledOriginPointF is: ({}, {})".\
+                       format(scaledOriginPointF.x(),
+                              scaledOriginPointF.y()))
+        self.log.debug("scaledLeg1PointF is: ({}, {})".\
+                       format(scaledLeg1PointF.x(),
+                              scaledLeg1PointF.y()))
+        self.log.debug("scaledLeg2PointF is: ({}, {})".\
+                       format(scaledLeg2PointF.x(),
+                              scaledLeg2PointF.y()))
+
+        # Calculate the angle between the two line segments.
+        leg1 = QLineF(scaledOriginPointF, scaledLeg1PointF)
+        leg2 = QLineF(scaledOriginPointF, scaledLeg2PointF)
+
+        self.log.debug("Angle of leg1 is: {}".format(leg1.angle()))
+        self.log.debug("Angle of leg2 is: {}".format(leg2.angle()))
+        
+        
+        # The angle returned by QLineF.angleTo() is always normalized.
+        angleDegDelta = leg1.angleTo(leg2)
+
+        self.log.debug("Angle of leg1 to leg2 is: " +
+                       "angleDegDelta == {} deg".format(angleDegDelta))
+        
+        # If the delta angle is greater than 180, then subtract 360
+        # because we don't want to draw the fan on the undesired side
+        # of the angle.
+        if angleDegDelta > 180:
+            angleDegDelta -= 360
+        
+        self.log.debug("Adjusted angle difference is: " + \
+                       "angleDegDelta == {} deg".format(angleDegDelta))
+        
+        # Need to maintain offsets so that if the ratios are rotated a
+        # certain way, then we have the correct starting point.
+        angleDegOffset = 0.0
+
+        self.log.debug("There are {} number of ratios.".\
+                       format(len(ratios)))
+
+        for i in range(len(ratios)):
+            ratio = ratios[i]
+            
+            self.log.debug("ratios[{}].getRatio() is: {}".\
+                           format(i, ratio.getRatio()))
+            if i == 0:
+                # Store the offset for future indexes.
+                angleDegOffset = \
+                    angleDegDelta * (ratio.getRatio() - 1.0)
+
+                self.log.debug("At i == 0.  angleDegOffset={}".\
+                               format(angleDegOffset))
+                
+            if i == index:
+                self.log.debug("At the i == index, where i == {}.".format(i))
+                self.log.debug("ratio is: {}".\
+                               format(ratio.getRatio()))
+                
+                angleDeg = \
+                    (angleDegDelta * (ratio.getRatio() - 1.0)) - \
+                    angleDegOffset
+
+                self.log.debug("(angleDeg={})".format(angleDeg))
+
+                angleDeg = leg1.angle() + angleDeg
+
+                self.log.debug("Adjusting to leg point angles, (angleDeg={})".
+                               format(angleDeg))
+
+                angleDeg = Util.toNormalizedAngle(angleDeg)
+                
+                self.log.debug("After normalizing angleDeg, (angleDeg={})".
+                               format(angleDeg))
+
+                # Normalize angleDeg be within the range of
+                # leg1.angle() and leg2.angle().  We have to jump
+                # around a bit here to do the calculations because
+                # points could be around the 0 degree point at
+                # 3 o'clock.
+
+                # Calculate which leg's angle the angleDeg is closest to.
+                lineToAngleDeg = QLineF(scaledOriginPointF, scaledLeg1PointF)
+                lineToAngleDeg.setAngle(angleDeg)
+                angleToLeg1 = lineToAngleDeg.angleTo(leg1)
+                angleToLeg2 = lineToAngleDeg.angleTo(leg2)
+
+                self.log.debug("angleToLeg1 == {} deg".format(angleToLeg1))
+                self.log.debug("angleToLeg2 == {} deg".format(angleToLeg2))
+
+                if angleDegDelta >= 0:
+                    # leg2 is higher in angle than leg1.
+                    self.log.debug("leg2 is higher in angle than leg1.")
+                    
+                    if angleToLeg1 < 180 and angleToLeg2 < 180:
+                        self.log.debug("Below fan.  Adjusting.")
+                        angleDeg += abs(angleDegDelta)
+                    elif angleToLeg1 >= 180 and angleToLeg2 < 180:
+                        self.log.debug("Within bounds.")
+                    elif angleToLeg1 >= 180 and angleToLeg2 >= 180:
+                        self.log.debug("Above fan.  Adjusting.")
+                        angleDeg -= abs(angleDegDelta)
+                    else:
+                        self.log.warn("Unknown case.  " + \
+                                      "Variables are: " + \
+                                      "angleDegDelta == {}".\
+                                      format(angleDegDelta) + \
+                                      "angleToLeg1 == {}".\
+                                      format(angleToLeg1) + \
+                                      "angleToLeg2 == {}".\
+                                      format(angleToLeg2))
+                else:
+                    # leg1 is higher in angle than leg2.
+                    self.log.debug("leg1 is higher in angle than leg2.")
+
+                    if angleToLeg1 < 180 and angleToLeg2 < 180:
+                        self.log.debug("Below fan.  Adjusting.")
+                        angleDeg += abs(angleDegDelta)
+                    elif angleToLeg1 < 180 and angleToLeg2 >= 180:
+                        self.log.debug("Within bounds.")
+                    elif angleToLeg1 >= 180 and angleToLeg2 >= 180:
+                        self.log.debug("Above fan.  Adjusting.")
+                        angleDeg -= abs(angleDegDelta)
+                    else:
+                        self.log.warn("Unknown case.  " + \
+                                      "Variables are: " + \
+                                      "angleDegDelta == {}".\
+                                      format(angleDegDelta) + \
+                                      "angleToLeg1 == {}".\
+                                      format(angleToLeg1) + \
+                                      "angleToLeg2 == {}".\
+                                      format(angleToLeg2))
+                        
+                self.log.debug("For index {}, ".format(i) +
+                               "normalized angleDeg to within " +
+                               "leg1 and leg2 is: {}".format(angleDeg))
+
+                # Now that we have the angle, determine the
+                # intersection point along the edge of the rectangle.
+
+                # Find the smallest x and y values, and the largest x
+                # and y values of the 3 points: scaledOriginPointF,
+                # scaledLeg1PointF, and scaledLeg2PointF.  These will
+                # be used to construct 4 line segments, which we will
+                # use for calculating intersection points with the
+                # line segment drawn from scaledOriginPointF at an
+                # angle of 'angleDeg'.
+                xValues = []
+                xValues.append(scaledOriginPointF.x())
+                xValues.append(scaledLeg1PointF.x())
+                xValues.append(scaledLeg2PointF.x())
+
+                yValues = []
+                yValues.append(scaledOriginPointF.y())
+                yValues.append(scaledLeg1PointF.y())
+                yValues.append(scaledLeg2PointF.y())
+
+                xValues.sort()
+                yValues.sort()
+
+                # Find the smallest x and y.
+                smallestX = xValues[0]
+                smallestY = yValues[0]
+        
+                # Find the largest x and y.
+                largestX = xValues[-1]
+                largestY = yValues[-1]
+
+                # Rectangle bounding all 3 points.
+                containingRectF = \
+                    QRectF(QPointF(smallestX, smallestY),
+                           QPointF(largestX, largestY))
+                
+                # Four lines that bound the 3 points.
+                line1 = QLineF(smallestX, smallestY,
+                               smallestX, largestY)
+                line2 = QLineF(smallestX, smallestY,
+                               largestX, smallestY)
+                line3 = QLineF(largestX, largestY,
+                               largestX, smallestY)
+                line4 = QLineF(largestX, largestY,
+                               smallestX, largestY)
+                lines = []
+                lines.append(line1)
+                lines.append(line2)
+                lines.append(line3)
+                lines.append(line4)
+                
+                # Get the line from scaledOriginPointF outwards at the
+                # 'angleDeg' angle.  We just don't know what length it
+                # should be.
+                lineToAngleDeg = QLineF(scaledOriginPointF, scaledLeg1PointF)
+                lineToAngleDeg.setAngle(angleDeg)
+
+                # Find the intesections with the line segments in 'lines'.
+                intersectionPoints = []
+                for l in lines:
+                    # Implementation is based on Graphics Gems III's
+                    # "Faster Line Segment Intersection"
+
+                    p1 = lineToAngleDeg.p1()
+                    p2 = lineToAngleDeg.p2()
+                    
+                    a = p2 - p1
+                    b = l.p1() - l.p2()
+                    c = p1 - l.p1()
+
+                    denominator = ((a.y() * b.x()) - (a.x() * b.y()))
+                    
+                    if Util.fuzzyIsEqual(denominator, 0.0) or \
+                           denominator == float('inf'):
+                        
+                        # No intersection.
+                        continue
+
+                    reciprocal = 1.0 / denominator
+                    na = ((b.y() * c.x()) - (b.x() * c.y())) * reciprocal
+
+                    intersectionPoint = p1 + (a * na)
+                    intersectionPoints.append(intersectionPoint)
+
+
+                # Normalized angleDeg.
+                normalizedAngleDeg = Util.toNormalizedAngle(angleDeg)
+                
+                # Process the intersection points.
+                closestPointToCorrectAngle = None
+                smallestAngleDiff = None
+                
+                for p in intersectionPoints:
+                    # Only look at intersection points that are within or
+                    # on the edge of 'containingRectF'.
+                    if containingRectF.contains(p):
+
+                        angle = QLineF(scaledOriginPointF, p).angle()
+                        diff = abs(normalizedAngleDeg - \
+                                   Util.toNormalizedAngle(angle))
+
+                        if closestPointToCorrectAngle == None and \
+                           smallestAngleDiff == None:
+
+                            closestPointToCorrectAngle = p
+                            smallestAngleDiff = diff
+
+                        elif diff < smallestAngleDiff:
+                            
+                            closestPointToCorrectAngle = p
+                            smallestAngleDiff = diff
+
+                if closestPointToCorrectAngle == None:
+                    # Couldn't find any intersection points.
+                    self.log.warn("Couldn't find any intersection points!")
+                    x = None
+                    y = None
+                else:
+                    # The closest point it the point we are looking for.
+                    x = closestPointToCorrectAngle.x()
+                    y = closestPointToCorrectAngle.y()
+                    
+                # Break out of for loop since we handled the index we
+                # were looking to process.
+                break
+
+        if x == None or y == None:
+            # This means that the index requested that the person
+            # passed in as a parameter is an index that doesn't map to
+            # list length of self.ratios.
+            self.log.warn("getXYForRatio(): " +
+                          "Index provided is out of range!")
+            # Reset values to 0.
+            x = 0.0
+            y = 0.0
+            
+        self.log.debug("Exiting getXYForRatio({}), ".format(index) + \
+                       "Returning ({}, {})".format(x, y))
+        return (x, y)
+
+    def __str__(self):
+        """Returns the string representation of this object."""
+
+        return self.toString()
+
+    def toString(self):
+        """Returns the string representation of this object."""
+
+        rv = Util.objToString(self)
+        
+        return rv
+
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = \
+            logging.\
+            getLogger("data_objects.PriceBarChartFibFanArtifact")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " +
+                       PriceBarChartFibFanArtifact.__name__ +
                        " object of version {}".format(self.classVersion))
 
 class PriceBarChartScaling:
@@ -6591,6 +7240,38 @@ class PriceBarChartSettings:
     # textEnabledFlag (bool).
     defaultOctaveFanGraphicsItemTextEnabledFlag = True
 
+    # Default value for the FibFanGraphicsItem text X scaling (float).
+    defaultFibFanGraphicsItemTextXScaling = 0.2
+
+    # Default value for the FibFanGraphicsItem text Y scaling (float).
+    defaultFibFanGraphicsItemTextYScaling = 0.04
+
+    # Default font (this is basically the QFont, serialized to
+    # str) for the FibFanGraphicsItem.  This includes the
+    # font size.
+    font = QFont("Andale Mono")
+    font.setPointSizeF(6)
+    defaultFibFanGraphicsItemDefaultFontDescription = font.toString()
+
+    # FibFanGraphicsItem default text color.
+    defaultFibFanGraphicsItemDefaultTextColor = QColor(Qt.black)
+    
+    # FibFanGraphicsItem default color.
+    defaultFibFanGraphicsItemDefaultColor = QColor(Qt.black)
+    
+    # Default value for the FibFanGraphicsItem
+    # ratios (list of Ratio).
+    defaultFibFanGraphicsItemRatios = Ratio.getSupportedFibRatios()
+    
+    # Default value for the FibFanGraphicsItem bar height (float).
+    defaultFibFanGraphicsItemBarHeight = 0.2
+
+    # Default value for the FibFanGraphicsItem
+    # textEnabledFlag (bool).
+    defaultFibFanGraphicsItemTextEnabledFlag = True
+
+
+
     def __init__(self):
         """Initializes the PriceChartSettings to default values."""
 
@@ -7332,6 +8013,48 @@ class PriceBarChartSettings:
         self.octaveFanGraphicsItemTextEnabledFlag = \
             PriceBarChartSettings.\
                 defaultOctaveFanGraphicsItemTextEnabledFlag
+
+        # FibFanGraphicsItem text X scaling (float).
+        self.fibFanGraphicsItemTextXScaling = \
+            PriceBarChartSettings.\
+            defaultFibFanGraphicsItemTextXScaling
+
+        # FibFanGraphicsItem text Y scaling (float).
+        self.fibFanGraphicsItemTextYScaling = \
+            PriceBarChartSettings.\
+            defaultFibFanGraphicsItemTextYScaling
+
+        # Default font (this is basically the QFont, serialized to
+        # str) for the FibFanGraphicsItem.  This includes the
+        # font size.
+        self.fibFanGraphicsItemDefaultFontDescription = \
+            PriceBarChartSettings.\
+            defaultFibFanGraphicsItemDefaultFontDescription
+
+        # FibFanGraphicsItem default text color.
+        self.fibFanGraphicsItemDefaultTextColor = \
+            PriceBarChartSettings.\
+            defaultFibFanGraphicsItemDefaultTextColor
+    
+        # FibFanGraphicsItem default color.
+        self.fibFanGraphicsItemDefaultColor = \
+            PriceBarChartSettings.\
+            defaultFibFanGraphicsItemDefaultColor
+    
+        # FibFanGraphicsItem ratios (list of Ratio).
+        self.fibFanGraphicsItemRatios = \
+            PriceBarChartSettings.\
+            defaultFibFanGraphicsItemRatios
+
+        # FibFanGraphicsItem bar height (float).
+        self.fibFanGraphicsItemBarHeight = \
+            PriceBarChartSettings.\
+            defaultFibFanGraphicsItemBarHeight
+
+        # FibFanGraphicsItem textEnabledFlag (bool).
+        self.fibFanGraphicsItemTextEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultFibFanGraphicsItemTextEnabledFlag
 
     def __getstate__(self):
         """Returns the object's state for pickling purposes."""
