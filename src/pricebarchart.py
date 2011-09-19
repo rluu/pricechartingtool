@@ -45,6 +45,7 @@ from data_objects import PriceBarChartPriceRetracementArtifact
 from data_objects import PriceBarChartPriceTimeVectorArtifact
 from data_objects import PriceBarChartLineSegmentArtifact
 from data_objects import PriceBarChartOctaveFanArtifact
+from data_objects import PriceBarChartFibFanArtifact
 from data_objects import PriceBarChartScaling
 from data_objects import PriceBarChartSettings
 from data_objects import Util
@@ -66,6 +67,7 @@ from pricebarchart_dialogs import PriceBarChartPriceRetracementArtifactEditDialo
 from pricebarchart_dialogs import PriceBarChartPriceTimeVectorArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartLineSegmentArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartOctaveFanArtifactEditDialog
+from pricebarchart_dialogs import PriceBarChartFibFanArtifactEditDialog
 
 # For edit dialogs.
 from dialogs import PriceBarEditDialog
@@ -8812,8 +8814,8 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
     
         # TimeRetracementGraphicsItem ratios (bool).
         self.ratios = \
-            PriceBarChartSettings.\
-            defaultTimeRetracementGraphicsItemRatios
+            copy.deepcopy(PriceBarChartSettings.\
+                          defaultTimeRetracementGraphicsItemRatios)
     
         ############################################################
 
@@ -10053,8 +10055,8 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
     
         # PriceRetracementGraphicsItem ratios (bool).
         self.ratios = \
-            PriceBarChartSettings.\
-            defaultPriceRetracementGraphicsItemRatios
+            copy.deepcopy(PriceBarChartSettings.\
+                          defaultPriceRetracementGraphicsItemRatios)
     
         ############################################################
 
@@ -15605,6 +15607,1836 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.scene().openJHora(self.originPointF.x())
         
         
+class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
+    """QGraphicsItem that visualizes a fibonacci retracement fan in
+    the GraphicsView.
+
+    This item uses the origin point (0, 0) in item coordinates as the
+    origin point.
+    """
+    
+    def __init__(self, parent=None, scene=None):
+        super().__init__(parent, scene)
+
+        # Logger
+        self.log = \
+            logging.getLogger(\
+            "pricebarchart.FibFanGraphicsItem")
+        
+        self.log.debug("Entered __init__().")
+
+        # Constant value for the multiple amount to extend the
+        # leg1PointF or leg2PointF points.  This feature shows up as
+        # an option in the right-click context menu option.
+        self.extendMultiple = 1.6
+        
+        ############################################################
+        # Set default values for preferences/settings.
+
+        # Height of the vertical bar drawn.
+        self.fibFanGraphicsItemBarHeight = \
+            PriceBarChartSettings.\
+                defaultFibFanGraphicsItemBarHeight 
+ 
+        # Font.
+        self.fibFanTextFont = QFont()
+        self.fibFanTextFont.fromString(\
+            PriceBarChartSettings.\
+            defaultFibFanGraphicsItemDefaultFontDescription)
+        
+        # Color of the text that is associated with the graphicsitem.
+        self.fibFanGraphicsItemTextColor = \
+            PriceBarChartSettings.\
+                defaultFibFanGraphicsItemTextColor
+
+        # Color of the graphicsitem.
+        self.fibFanGraphicsItemColor = \
+            PriceBarChartSettings.\
+                defaultFibFanGraphicsItemBarColor
+
+        # X scaling of the text.
+        self.fibFanTextXScaling = \
+            PriceBarChartSettings.\
+                defaultFibFanGraphicsItemTextXScaling 
+
+        # Y scaling of the text.
+        self.fibFanTextYScaling = \
+            PriceBarChartSettings.\
+                defaultFibFanGraphicsItemTextYScaling 
+
+        # textEnabledFlag (bool).
+        self.textEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultFibFanGraphicsItemTextEnabledFlag
+    
+        # Ratios (bool).
+        self.ratios = \
+            copy.deepcopy(PriceBarChartSettings.\
+                          defaultFibFanGraphicsItemRatios)
+    
+        ############################################################
+
+        # Internal storage object, used for loading/saving (serialization).
+        self.artifact = PriceBarChartFibFanArtifact()
+
+        # Convert object.
+        self.convertObj = None
+        
+        # Read the QSettings preferences for the various parameters of
+        # this price bar.
+        self.loadSettingsFromAppPreferences()
+        
+        # Pen which is used to do the painting of the bar ruler.
+        self.fibFanPenWidth = 0.0
+        self.fibFanPen = QPen()
+        self.fibFanPen.setColor(self.fibFanGraphicsItemColor)
+        self.fibFanPen.setWidthF(self.fibFanPenWidth)
+        
+        # Origin point, in scene coordinates.
+        self.originPointF = QPointF(0, 0)
+
+        # Leg1 point, in scene coordinates.
+        self.leg1PointF = QPointF(0, 0)
+
+        # Leg2 point, in scene coordinates.
+        self.leg2PointF = QPointF(0, 0)
+
+        # Dummy item.
+        self.dummyItem = QGraphicsSimpleTextItem("", self)
+        
+        # Set the pen color of the text.
+        self.fibFanTextPen = self.dummyItem.pen()
+        self.fibFanTextPen.\
+            setColor(self.fibFanGraphicsItemTextColor)
+
+        # Set the brush color of the text.
+        self.fibFanTextBrush = self.dummyItem.brush()
+        self.fibFanTextBrush.\
+            setColor(self.fibFanGraphicsItemTextColor)
+
+        # Size scaling for the text.
+        textTransform = QTransform()
+        textTransform.scale(self.fibFanTextXScaling, \
+                            self.fibFanTextYScaling)
+        textTransform.rotate(0.0)
+        
+        # Below is a list of QGraphicsSimpleTextItems, for each of the
+        # Ratios in the PriceBarChartFibFanArtifact.  The
+        # text contains the interval fraction, and the angle
+        # of the line.
+        #
+        self.ratioTextItems = []
+
+        # Initialize to blank and set at the leg1 point.
+        for ratio in range(len(self.artifact.getRatios())):
+            
+            fractionTextItem = QGraphicsSimpleTextItem("", self)
+            fractionTextItem.setPos(self.leg1PointF)
+            fractionTextItem.setFont(self.fibFanTextFont)
+            fractionTextItem.setPen(self.fibFanTextPen)
+            fractionTextItem.setBrush(self.fibFanTextBrush)
+            fractionTextItem.setTransform(textTransform)
+            
+            self.ratioTextItems.\
+                append(fractionTextItem)
+
+        # Flags that indicate that the user is dragging either the
+        # origin, leg1 or leg2 points of the QGraphicsItem.
+        self.draggingOriginPointFlag = False
+        self.draggingLeg1PointFlag = False
+        self.draggingLeg2PointFlag = False
+        self.clickScenePointF = None
+
+    def setConvertObj(self, convertObj):
+        """Object for doing conversions from x and datetime and y to
+        price.  This should be the graphics scene.  This is used for
+        doing conversions from a scene point to price or datetime.  It
+        is also used so we can convert price or datetime to a scaled
+        value.
+        """
+
+        self.log.debug("Entered setConvertObj()")
+        
+        self.convertObj = convertObj
+        
+        self.log.debug("Exiting setConvertObj()")
+        
+    def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings):
+        """Reads some of the parameters/settings of this
+        PriceBarGraphicsItem from the given PriceBarChartSettings object.
+        """
+
+        self.log.debug("Entered loadSettingsFromPriceBarChartSettings()")
+
+        ########
+        
+        # Height of the vertical bar drawn.
+        self.fibFanGraphicsItemBarHeight = \
+            priceBarChartSettings.\
+            fibFanGraphicsItemBarHeight 
+ 
+        # Font.
+        self.fibFanTextFont = QFont()
+        self.fibFanTextFont.fromString(\
+            priceBarChartSettings.\
+            fibFanGraphicsItemDefaultFontDescription)
+        
+        # Color of the text that is associated with the graphicsitem.
+        self.fibFanGraphicsItemTextColor = \
+            priceBarChartSettings.\
+            fibFanGraphicsItemTextColor
+
+        # Color of the graphicsitem.
+        self.fibFanGraphicsItemColor = \
+            priceBarChartSettings.\
+            fibFanGraphicsItemBarColor
+
+        # X scaling of the text.
+        self.fibFanTextXScaling = \
+            priceBarChartSettings.\
+            fibFanGraphicsItemTextXScaling 
+
+        # Y scaling of the text.
+        self.fibFanTextYScaling = \
+            priceBarChartSettings.\
+            fibFanGraphicsItemTextYScaling 
+
+        # textEnabledFlag (bool).
+        self.textEnabledFlag = \
+            priceBarChartSettings.\
+            fibFanGraphicsItemTextEnabledFlag
+
+        # Ratios (bool).
+        self.ratios = \
+            copy.deepcopy(priceBarChartSettings.\
+                          fibFanGraphicsItemRatios)
+        
+        ########
+
+        # Set values in the artifact.
+        self.artifact.setBarHeight(self.fibFanGraphicsItemBarHeight)
+        self.artifact.setFont(self.fibFanTextFont)
+        self.artifact.setColor(self.fibFanGraphicsItemColor)
+        self.artifact.setTextColor(self.fibFanGraphicsItemTextColor)
+        self.artifact.setTextXScaling(self.fibFanTextXScaling)
+        self.artifact.setTextYScaling(self.fibFanTextYScaling)
+        self.artifact.setTextEnabled(self.textEnabledFlag)
+        
+        self.artifact.setRatios(self.ratios)
+        
+        self.setArtifact(self.artifact)
+        
+        self.refreshTextItems()
+        
+        self.log.debug("Exiting loadSettingsFromPriceBarChartSettings()")
+        
+    def loadSettingsFromAppPreferences(self):
+        """Reads some of the parameters/settings of this
+        GraphicsItem from the QSettings object. 
+        """
+
+        # No settings read from app preferences.
+        pass
+        
+    def setPos(self, pos):
+        """Overwrites the QGraphicsItem setPos() function.
+
+        Here we use the new position to re-set the self.originPointF,
+        self.leg1PointF, and self.leg2PointF
+
+        Arguments:
+        pos - QPointF holding the new position.
+        """
+        self.log.debug("Entered setPos()")
+        
+        super().setPos(pos)
+
+        newScenePos = pos
+
+        posDelta = newScenePos - self.originPointF
+
+        # Update the start, leg1 and leg2 points accordingly. 
+        self.originPointF = self.originPointF + posDelta
+        self.leg1PointF = self.leg1PointF + posDelta
+        self.leg2PointF = self.leg2PointF + posDelta
+
+        if self.scene() != None:
+            self.refreshTextItems()
+            self.update()
+
+        self.log.debug("Exiting setPos()")
+        
+    def mousePressEvent(self, event):
+        """Overwrites the QGraphicsItem mousePressEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+
+        self.log.debug("Entered mousePressEvent()")
+        
+        # If the item is in read-only mode, simply call the parent
+        # implementation of this function.
+        if self.getReadOnlyFlag() == True:
+            super().mousePressEvent(event)
+        else:
+            # If the mouse press is within 1/5th of the bar length to the
+            # origin or leg points, then the user is trying to adjust
+            # the origin or leg points.
+
+            # Get the click point in scene coordinates.
+            clickScenePos = event.scenePos()
+            clickScenePosX = clickScenePos.x()
+            clickScenePosY = clickScenePos.y()
+            
+            self.log.debug("DEBUG: clickScenePosX={}".format(clickScenePosX))
+            self.log.debug("DEBUG: clickScenePosY={}".format(clickScenePosY))
+
+
+            # Get the shape of the line segments of the legs.  The
+            # returned QPainterPath is in scene coordinates.
+            shapeOfOriginToLeg1Point = \
+                self.getShapeOfLineSegment(self.originPointF, self.leg1PointF)
+            shapeOfOriginToLeg2Point = \
+                self.getShapeOfLineSegment(self.originPointF, self.leg2PointF)
+
+            # Flags that hold whether the click was inside the leg1
+            # line segment or leg2 line segment.
+            insideLeg1LineSegment = False
+            insideLeg2LineSegment = False
+
+            # Holds the QRectF of either leg1LineSegment orl leg2LineSegment.
+            rectF = None
+
+            if shapeOfOriginToLeg1Point.contains(clickScenePos) == True:
+
+                insideLeg1LineSegment = True
+
+                # Turn the shape into a bounding rect and determine the
+                # 1/5th point from the ends using x and y values of that
+                # bounding rect.  This rect below is in scene coordinates.
+                rectF = shapeOfOriginToLeg1Point.boundingRect()
+
+            elif shapeOfOriginToLeg2Point.contains(clickScenePos) == True:
+                self.log.debug("Click point is within the line segment from " +
+                               "origin point to leg2 point.")
+
+                insideLeg2LineSegment = True
+
+                # Turn the shape into a bounding rect and determine the
+                # 1/5th point from the ends using x and y values of that
+                # bounding rect.  This rect below is in scene coordinates.
+                rectF = shapeOfOriginToLeg2Point.boundingRect()
+
+
+            self.log.debug("insideLeg1LineSegment={}".\
+                           format(insideLeg1LineSegment))
+            self.log.debug("insideLeg2LineSegment={}".\
+                           format(insideLeg2LineSegment))
+
+            # Handle the case that the click was inside a line segment
+            # that makes up the outter edge of this fan.
+            if insideLeg1LineSegment == True or insideLeg2LineSegment == True:
+
+                self.log.debug("boundingRect  is: " +
+                               "(x={}, y={}, w={}, h={})".\
+                               format(rectF.x(),
+                                      rectF.y(),
+                                      rectF.width(),
+                                      rectF.height()))
+
+                # Here we will get various points that make up the
+                # bounding rect of this line segment.  We will create
+                # two sub-rectangles that are 1/5th the portion of x
+                # and y of the original rectangle.  The click point
+                # being inside one of these sub-rectangles will tell
+                # us if the click was near the origin point or if it
+                # was near the end leg point.  
+
+                startingPointX = rectF.x()
+                startingPointY = rectF.y()
+
+                endingPointX = rectF.x() + rectF.width()
+                endingPointY = rectF.y() + rectF.height()
+
+                self.log.debug("DEBUG: startingPointX={}, startingPointY={}".\
+                               format(startingPointX, startingPointY))
+                self.log.debug("DEBUG: endingPointX={}, endingPointY={}".\
+                               format(endingPointX, endingPointY))
+
+                startThresholdX = startingPointX + (rectF.width() * (1.0 / 5))
+                endThresholdX = endingPointX - (rectF.width() * (1.0 / 5))
+
+                startThresholdY = startingPointY + (rectF.height() * (1.0 / 5))
+                endThresholdY = endingPointY - (rectF.height() * (1.0 / 5))
+
+                self.log.debug("DEBUG: startThresholdX={}".\
+                               format(startThresholdX))
+                self.log.debug("DEBUG: endThresholdX={}".\
+                               format(endThresholdX))
+
+                self.log.debug("DEBUG: startThresholdY={}".\
+                               format(startThresholdY))
+                self.log.debug("DEBUG: endThresholdY={}".\
+                               format(endThresholdY))
+
+                startingPointRect = \
+                    QRectF(QPointF(startingPointX, startingPointY),
+                           QPointF(startThresholdX, startThresholdY))
+
+                endingPointRect = \
+                    QRectF(QPointF(endingPointX, endingPointY),
+                           QPointF(endThresholdX, endThresholdY))
+
+                if startingPointRect.contains(clickScenePos):
+
+                    self.draggingOriginPointFlag = True
+                    self.log.debug("DEBUG: self.draggingOriginPointFlag={}".
+                                   format(self.draggingOriginPointFlag))
+
+                elif endingPointRect.contains(clickScenePos):
+
+                    if insideLeg1LineSegment == True:
+                        self.draggingLeg1PointFlag = True
+                        self.log.debug("DEBUG: self.draggingLeg1PointFlag={}".
+                                       format(self.draggingLeg1PointFlag))
+
+                    elif insideLeg2LineSegment == True:
+                        self.draggingLeg2PointFlag = True
+                        self.log.debug("DEBUG: self.draggingLeg2PointFlag={}".
+                                       format(self.draggingLeg2PointFlag))
+
+                else:
+
+                    self.log.debug("Middle area of the line segment clicked.")
+
+
+            # If none of the drag point flags are set, then the user
+            # has clicked somewhere in teh middle part of the
+            # QGraphicsItem (somewhere not close to an endpoint).
+            if self.draggingOriginPointFlag == False and \
+                self.draggingLeg1PointFlag == False and \
+                self.draggingLeg2PointFlag == False:
+
+                # Pass the event to the parent, because the user wants
+                # to either select or drag-move the position of the
+                # QGraphicsItem.
+                self.log.debug("DEBUG:  Middle part clicked.  " + \
+                               "Passing to super().")
+
+                # Save the click position, so that if it is a drag, we
+                # can have something to reference from for setting the
+                # start and end positions when the user finally
+                # releases the mouse button.
+                self.clickScenePointF = event.scenePos()
+
+                super().mousePressEvent(event)
+
+        self.log.debug("Leaving mousePressEvent()")
+        
+    def mouseMoveEvent(self, event):
+        """Overwrites the QGraphicsItem mouseMoveEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+
+        if event.buttons() & Qt.LeftButton:
+            if self.getReadOnlyFlag() == False:
+                
+                if self.draggingOriginPointFlag == True:
+                    self.log.debug("DEBUG: self.draggingOriginPointFlag={}".
+                                   format(self.draggingOriginPointFlag))
+                    self.setOriginPointF(QPointF(event.scenePos()))
+                    self.prepareGeometryChange()
+                    
+                elif self.draggingLeg1PointFlag == True:
+                    self.log.debug("DEBUG: self.draggingLeg1PointFlag={}".
+                                   format(self.draggingLeg1PointFlag))
+                    self.setLeg1PointF(QPointF(event.scenePos()))
+                    self.prepareGeometryChange()
+
+                elif self.draggingLeg2PointFlag == True:
+                    self.log.debug("DEBUG: self.draggingLeg2PointFlag={}".
+                                   format(self.draggingLeg2PointFlag))
+                    self.setLeg2PointF(QPointF(event.scenePos()))
+                    self.prepareGeometryChange()
+                    
+                else:
+                    # This means that the user is dragging the whole
+                    # item.
+
+                    # Do the move.
+                    super().mouseMoveEvent(event)
+                    
+                    # Emit that the PriceBarChart has changed.
+                    self.scene().priceBarChartChanged.emit()
+            else:
+                super().mouseMoveEvent(event)
+        else:
+            super().mouseMoveEvent(event)
+
+    def mouseReleaseEvent(self, event):
+        """Overwrites the QGraphicsItem mouseReleaseEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+        
+        self.log.debug("Entered mouseReleaseEvent()")
+
+        if self.draggingOriginPointFlag == True:
+            self.log.debug("mouseReleaseEvent() when previously dragging " + \
+                           "originPoint.")
+            
+            self.draggingOriginPointFlag = False
+
+            # Make sure the starting point is to the left of the
+            # ending point.
+            #self.normalizeStartAndEnd()
+
+            self.prepareGeometryChange()
+            
+            self.scene().priceBarChartChanged.emit()
+            
+        elif self.draggingLeg1PointFlag == True:
+            self.log.debug("mouseReleaseEvent() when previously dragging " +
+                           "leg1Point.")
+            
+            self.draggingLeg1PointFlag = False
+
+            # Make sure the starting point is to the left of the
+            # ending point.
+            #self.normalizeStartAndEnd()
+
+            self.prepareGeometryChange()
+            
+            self.scene().priceBarChartChanged.emit()
+            
+        elif self.draggingLeg2PointFlag == True:
+            self.log.debug("mouseReleaseEvent() when previously dragging " +
+                           "leg2Point.")
+            
+            self.draggingLeg2PointFlag = False
+
+            # Make sure the starting point is to the left of the
+            # ending point.
+            #self.normalizeStartAndEnd()
+
+            self.prepareGeometryChange()
+            
+            self.scene().priceBarChartChanged.emit()
+            
+        else:
+            self.log.debug("mouseReleaseEvent() when NOT previously " + \
+                           "dragging an end.")
+
+            if self.getReadOnlyFlag() == False:
+                # Update the start and end positions.
+                self.log.debug("DEBUG: scenePos: x={}, y={}".
+                               format(event.scenePos().x(),
+                                      event.scenePos().y()))
+
+                # Calculate the difference between where the user released
+                # the button and where the user first clicked the item.
+                delta = event.scenePos() - self.clickScenePointF
+
+                self.log.debug("DEBUG: delta: x={}, y={}".
+                               format(delta.x(), delta.y()))
+
+                # If the delta is not zero, then update the start and
+                # end points by calling setPos() on the new calculated
+                # position.
+                if delta.x() != 0.0 and delta.y() != 0.0:
+                    newPos = self.originPointF + delta
+                    self.setPos(newPos)
+
+            super().mouseReleaseEvent(event)
+
+        self.log.debug("Exiting mouseReleaseEvent()")
+
+    def setReadOnlyFlag(self, flag):
+        """Overwrites the PriceBarChartArtifactGraphicsItem setReadOnlyFlag()
+        function.
+        """
+
+        # Call the parent's function so that the flag gets set.
+        super().setReadOnlyFlag(flag)
+
+        # Make sure the drag flags are disabled.
+        if flag == True:
+            self.draggingOriginPointFlag = False
+            self.draggingLeg1PointFlag = False
+            self.draggingLeg2PointFlag = False
+
+    def refreshItem(self):
+        """Refreshes the item by recalculating and updating the text
+        position/rotation.
+        """
+
+        self.recalculateFibFan()
+        
+        self.refreshTextItems()
+        
+    def refreshTextItems(self):
+        """Sets the positions of the text items for the Ratios,
+        and updates the text so that they are current.
+        """
+
+        # If the self.convertObj is None, then try to use the scene if the
+        # scene isn't None.
+        scene = self.scene()
+        if self.convertObj == None:
+            if scene != None:
+                self.log.debug("self.convertObj wasn't set, but self.scene() " +
+                               "is not None, so we're going to set " +
+                               "self.convertObj to the scene")
+                self.convertObj = self.scene()
+            else:
+                self.log.debug("Both self.convertObj and " + \
+                               "self.scene() are None.")
+
+        # Update the fibFan label text item texts.
+        if self.scene() != None and self.convertObj != None:
+            self.recalculateFibFan()
+
+            # Traverse the 2-dimensional list and set the position of
+            # each of the text items.
+            artifact = self.getArtifact()
+            for i in range(len(artifact.getRatios())):
+                # Get the Ratio that corresponds to this index.
+                ratio = artifact.getRatios()[i]
+
+                # Here we always set the positions of everything.  If
+                # the ratio not enabled, then the corresponding
+                # graphics items would have gotten disabled in the
+                # self.recalculateFibFan() call above.
+
+                # Get the unscaled originPointF, leg1PointF, and leg2PointF.
+                unscaledOriginPointF = artifact.getOriginPointF()
+                unscaledLeg1PointF = artifact.getLeg1PointF()
+                unscaledLeg2PointF = artifact.getLeg2PointF()
+
+                self.log.debug("unscaledOriginPointF is: ({}, {})".
+                               format(unscaledOriginPointF.x(),
+                                      unscaledOriginPointF.y()))
+                self.log.debug("unscaledLeg1PointF is: ({}, {})".
+                               format(unscaledLeg1PointF.x(),
+                                      unscaledLeg1PointF.y()))
+                self.log.debug("unscaledLeg2PointF is: ({}, {})".
+                               format(unscaledLeg2PointF.x(),
+                                      unscaledLeg2PointF.y()))
+
+                # Calculate scaled originPointF, leg1PointF and
+                # leg2PointF points.
+                scaledOriginPointF = \
+                    self.convertObj.convertScenePointToScaledPoint(\
+                    artifact.getOriginPointF())
+                scaledLeg1PointF = \
+                    self.convertObj.convertScenePointToScaledPoint(\
+                    artifact.getLeg1PointF())
+                scaledLeg2PointF = \
+                    self.convertObj.convertScenePointToScaledPoint(\
+                    artifact.getLeg2PointF())
+        
+                self.log.debug("scaledOriginPointF is: ({}, {})".
+                               format(scaledOriginPointF.x(),
+                                      scaledOriginPointF.y()))
+                self.log.debug("scaledLeg1PointF is: ({}, {})".
+                               format(scaledLeg1PointF.x(),
+                              scaledLeg1PointF.y()))
+                self.log.debug("scaledLeg2PointF is: ({}, {})".
+                               format(scaledLeg2PointF.x(),
+                                      scaledLeg2PointF.y()))
+
+                # Get the x and y position that will be the new
+                # position of the text item.  This function returns
+                # the x and y in scaled coordinates so we must
+                # remember to convert those values afterwards.
+                (x, y) = \
+                    artifact.getXYForRatio(i,
+                                           scaledOriginPointF,
+                                           scaledLeg1PointF,
+                                           scaledLeg2PointF)
+                
+                # Map those x and y to local coordinates.
+                scenePointF = \
+                    self.convertObj.convertScaledPointToScenePoint(\
+                    QPointF(x, y))
+                localPointF = self.mapFromScene(scenePointF)
+                
+                # Get the number of degrees to rotate the text by,
+                # utilizing scaling.
+                rotationDegrees = \
+                    self.calculateTextRotationDegrees(self.originPointF,
+                                                      scenePointF)
+                
+                # Create the text transform to use.
+                textTransform = QTransform()
+                textTransform.scale(self.fibFanTextXScaling, \
+                                    self.fibFanTextYScaling)
+                textTransform.rotate(rotationDegrees)
+
+                # Get the text item for this point on the scale.
+                textItem = self.ratioTextItems[i]
+
+                # Set the position and other attributes.
+                textItem.setPos(localPointF)
+                textItem.setFont(self.fibFanTextFont)
+                textItem.setPen(self.fibFanTextPen)
+                textItem.setBrush(self.fibFanTextBrush)
+                textItem.setTransform(textTransform)
+
+
+            
+    def setOriginPointF(self, pointF):
+        """Sets the origin point of the fibFan.  The value passed in
+        is the mouse location in scene coordinates.  
+        """
+
+        if self.originPointF != pointF: 
+            self.originPointF = pointF
+
+            self.setPos(self.originPointF)
+            
+            # Update the fibFan label text item positions.
+            self.refreshTextItems()            
+
+            # Call update on this item since positions and child items
+            # were updated.
+            if self.scene() != None:
+                self.prepareGeometryChange()
+
+    def setLeg1PointF(self, pointF):
+        """Sets the leg1ing point of the fibFan.  The value passed in
+        is the mouse location in scene coordinates.  
+        """
+
+        if self.leg1PointF != pointF:
+            self.leg1PointF = pointF
+
+            self.log.debug("FibFanGraphicsItem." +
+                           "setLeg1PointF(QPointF({}, {}))".\
+                           format(pointF.x(), pointF.y()))
+            
+            # Update the fibFan label text item positions.
+            self.refreshTextItems()
+            
+            # Call update on this item since positions and child items
+            # were updated.
+            if self.scene() != None:
+                self.prepareGeometryChange()
+
+    def setLeg2PointF(self, pointF):
+        """Sets the leg2ing point of the fibFan.  The value passed in
+        is the mouse location in scene coordinates.  
+        """
+
+        if self.leg2PointF != pointF:
+            self.leg2PointF = pointF
+
+            self.log.debug("FibFanGraphicsItem." +
+                           "setLeg2PointF(QPointF({}, {}))".\
+                           format(pointF.x(), pointF.y()))
+            
+            # Update the fibFan label text item positions.
+            self.refreshTextItems()
+
+            # Call update on this item since positions and child items
+            # were updated.
+            if self.scene() != None:
+                self.prepareGeometryChange()
+
+    def normalizeStartAndEnd(self):
+        """Does nothing since we do not normalize points for this class."""
+
+        pass
+
+    def recalculateFibFan(self):
+        """Updates the text items that tell about the fann lines on the
+        modal scale.  These texts will have accurate values for where
+        the notes are in terms of angle.
+        """
+
+        # If the self.convertObj is None, then try to use the scene if the
+        # scene isn't None.
+        scene = self.scene()
+        if self.convertObj == None:
+            if scene != None:
+                self.log.debug("self.convertObj wasn't set, but self.scene() " +
+                               "is not None, so we're going to set " +
+                               "self.convertObj to the scene")
+                self.convertObj = self.scene()
+            else:
+                self.log.debug("Both self.convertObj and " + \
+                               "self.scene() are None.")
+
+        # Now recalculate if we have a convertObj to use for scaling
+        # conversion calculation.
+        if self.convertObj != None:
+        
+            # Get the origin point in scene, scaled, and local coordinates.
+            sceneOriginPointF = self.originPointF
+            scaledOriginPointF = \
+                self.convertObj.convertScenePointToScaledPoint(\
+                self.originPointF)
+            localOriginPointF = QPointF(0.0, 0.0)
+    
+            # Get the leg1 point in scene, scaled, and local coordinates.
+            sceneLeg1PointF = self.leg1PointF
+            scaledLeg1PointF = \
+                self.convertObj.convertScenePointToScaledPoint(\
+                self.leg1PointF)
+            localLeg1PointF = QPointF(0.0, 0.0) + \
+                              (self.leg1PointF - self.originPointF)
+            
+            # Get the leg2 point in scene, scaled, and local coordinates.
+            sceneLeg2PointF = self.leg2PointF
+            scaledLeg2PointF = \
+                self.convertObj.convertScenePointToScaledPoint(\
+                self.leg2PointF)
+            localLeg2PointF = QPointF(0.0, 0.0) + \
+                              (self.leg2PointF - self.originPointF)
+
+
+            # Go through each ratio.
+            artifact = self.getArtifact()
+            ratios = artifact.getRatios()
+            for i in range(len(ratios)):
+                ratio = ratios[i]
+
+                if ratio.isEnabled():
+                    # Get the x and y position that will be the end point.
+                    # This function returns the x and y in scaled
+                    # coordinates so we must remember to convert those
+                    # values afterwards.
+                    (x, y) = \
+                        artifact.getXYForRatio(i,
+                                               scaledOriginPointF,
+                                               scaledLeg1PointF,
+                                               scaledLeg2PointF)
+            
+                    # Map those x and y to local coordinates.
+                    sceneEndPointF = \
+                        self.convertObj.convertScaledPointToScenePoint(\
+                        QPointF(x, y))
+                    
+                    # Do conversion to local coordinates.
+                    localEndPointF = sceneEndPointF - sceneOriginPointF
+
+                    # Enable and make visible.
+
+                    # Get the text item for this point on the scale.
+                    textItem = self.ratioTextItems[i]
+                    
+                    # Make the text visible if it is enabled.
+                    textEnabled = artifact.isTextEnabled()
+                    textItem.setEnabled(textEnabled)
+                    textItem.setVisible(textEnabled)
+
+                    # If text isn't enabled, there's no need to
+                    # set the text for it.  Go to the next text item.
+                    if textEnabled == False:
+                        continue
+
+                    # Text to set in the text item.
+                    text = ""
+
+                    # Append the text for the fraction of the ratio.
+                    numerator = ratio.getNumerator()
+                    denominator = ratio.getDenominator()
+
+                    if numerator != None and denominator != None:
+                        text += \
+                            "{}/{}".format(numerator, denominator) + os.linesep
+
+                    # Append the text for the angle of the line.
+                    # Uncomment below to re-add the scaled angle to the text.
+                    #scaledAngleDegrees = \
+                    #    self.calculateScaledAngleDegrees(self.originPointF,
+                    #                                     sceneEndPointF)
+                    #text += "{:.4f} deg".format(scaledAngleDegrees) + \
+                    #        os.linesep
+
+
+                    # Set the text to the text item.
+                    text = text.rstrip()
+                    textItem.setText(text)
+                    
+                else:
+                    # Disable and make not visable.
+                    
+                    # Get the text item for this point on the scale.
+                    textItem = self.ratioTextItems[i]
+                    
+                    textItem.setVisible(False)
+                    textItem.setEnabled(False)
+                
+                        
+    def setArtifact(self, artifact):
+        """Loads a given PriceBarChartFibFanArtifact object's data
+        into this QGraphicsItem.
+
+        Arguments:
+        artifact - PriceBarChartFibFanArtifact object with information
+                   about this TextGraphisItem
+        """
+
+        self.log.debug("Entering setArtifact()")
+
+        if isinstance(artifact, PriceBarChartFibFanArtifact):
+            self.artifact = artifact
+        else:
+            raise TypeError("Expected artifact type: " + \
+                            "PriceBarChartFibFanArtifact")
+
+        # Extract and set the internals according to the info 
+        # in this artifact object.
+        self.setPos(self.artifact.getPos())
+        self.setOriginPointF(self.artifact.getOriginPointF())
+        self.setLeg1PointF(self.artifact.getLeg1PointF())
+        self.setLeg2PointF(self.artifact.getLeg2PointF())
+
+        self.fibFanTextFont.\
+            setPointSizeF(self.artifact.getFontSize())
+        self.fibFanPen.\
+            setColor(self.artifact.getColor())
+        self.fibFanTextPen.\
+            setColor(self.artifact.getTextColor())
+        self.fibFanTextBrush.\
+            setColor(self.artifact.getTextColor())
+
+        
+        # Need to recalculate the angles, since the origin, leg1 and leg2
+        # points have changed.  Note, if no scene has been set for the
+        # QGraphicsView, then the measurements may not be valid.
+        self.refreshTextItems()
+
+        self.log.debug("Exiting setArtifact()")
+
+    def getArtifact(self):
+        """Returns a PriceBarChartFibFanArtifact for this
+        QGraphicsItem so that it may be pickled.
+        """
+        
+        # Update the internal self.priceBarChartFibFanArtifact 
+        # to be current, then return it.
+
+        self.artifact.setPos(self.pos())
+        self.artifact.setOriginPointF(self.originPointF)
+        self.artifact.setLeg1PointF(self.leg1PointF)
+        self.artifact.setLeg2PointF(self.leg2PointF)
+        
+        # Everything else gets modified only by the edit dialog.
+        
+        return self.artifact
+
+    def getShapeOfLineSegment(self, startPointF, endPointF):
+        """Returns the shape as a QPainterPath of the line segment
+        constructed via the two input QPointFs.  The shape is
+        constructed by a rectangle around the start and end points.
+        The rectangle is tilted based on the angle of the start and
+        end points in view-scaled coordinates.  The bar height used is
+        whatever is returned by self.artifact.getBarHeight().
+
+        Arguments:
+        
+        startPointF - QPointF representing the start point of the line
+                      segment in either scene or local coordinates.
+        endPointF   - QPointF representing the end point of the line segment
+                      in either scene or local scene coordinates.
+
+        Returns:
+        QPainterPath object holding the shape of the rectangle around
+        the line segment.  If the start and end points are given in
+        local coordinates, then the QPainterPath returned will also be
+        in local coordinates, otherwise the QPainterPath returned will
+        be in scene coordinates.
+        """
+
+        self.log.debug("Entered getShapeOfLineSegment()")
+        
+        self.log.debug("startPointF is: ({}, {})".\
+                       format(startPointF.x(),
+                              startPointF.y()))
+        self.log.debug("endPointF is: ({}, {})".\
+                       format(endPointF.x(),
+                              endPointF.y()))
+
+        tempRect = QRectF(startPointF, endPointF)
+        self.log.debug("Bounding rect of the two points beforehand is: " + 
+                       "x={}, y={}, w={}, h={}".\
+                       format(tempRect.x(),
+                              tempRect.y(),
+                              tempRect.width(),
+                              tempRect.height()))
+        
+        # Utilize scaling from the scene if it is available.
+        scaling = PriceBarChartScaling()
+        if self.scene() != None:
+            scaling = self.scene().getScaling()
+            
+        viewScaledStartPoint = \
+            QPointF(startPointF.x() * scaling.getViewScalingX(),
+                    startPointF.y() * scaling.getViewScalingY())
+        viewScaledEndPoint = \
+            QPointF(endPointF.x() * scaling.getViewScalingX(),
+                    endPointF.y() * scaling.getViewScalingY())
+
+        angleDeg = QLineF(viewScaledStartPoint, viewScaledEndPoint).angle()
+        angleRad = math.radians(angleDeg)
+
+        self.log.debug("angleDeg is: {}".format(angleDeg))
+        self.log.debug("angleRad is: {}".format(angleRad))
+
+        shiftX = math.cos(angleRad) * \
+                     (0.5 * self.artifact.getBarHeight())
+        shiftY = math.sin(angleRad) * \
+                     (0.5 * self.artifact.getBarHeight())
+        
+        self.log.debug("shiftX is: {}".format(shiftX))
+        self.log.debug("shiftY is: {}".format(shiftY))
+
+        
+        # Create new points.
+        p1 = \
+            QPointF(startPointF.x() - shiftX,
+                    startPointF.y() - shiftY)
+        p2 = \
+            QPointF(startPointF.x() + shiftX,
+                    startPointF.y() + shiftY)
+        p3 = \
+            QPointF(endPointF.x() - shiftX,
+                    endPointF.y() - shiftY)
+        p4 = \
+            QPointF(endPointF.x() + shiftX,
+                    endPointF.y() + shiftY)
+
+        self.log.debug("p1 is: ({}, {})".format(p1.x(), p1.y()))
+        self.log.debug("p2 is: ({}, {})".format(p2.x(), p2.y()))
+        self.log.debug("p3 is: ({}, {})".format(p3.x(), p3.y()))
+        self.log.debug("p4 is: ({}, {})".format(p4.x(), p4.y()))
+
+        points = [p2, p1, p3, p4, p2]
+        polygon = QPolygonF(points)
+
+        painterPath = QPainterPath()
+        painterPath.addPolygon(polygon)
+
+
+        tempRect = painterPath.boundingRect()
+        self.log.debug("Bounding rect of polygon afterwards is: " + 
+                       "x={}, y={}, w={}, h={}".\
+                       format(tempRect.x(),
+                              tempRect.y(),
+                              tempRect.width(),
+                              tempRect.height()))
+        
+        return painterPath
+
+    def calculateTextRotationDegrees(self, startPointF, endPointF):
+        """Calculates the number of degrees that a
+        QGraphicsSimpleTextItem should be rotated so that it is
+        parallel to the line constructed by the 'startPointF' and
+        'endPointF' parameters.  ViewScaling is utilized to determine the angle.
+
+        Arguments:
+        startPointF - start point of the line segment to align the
+                      text's angle with.
+        endPointF   - start point of the line segment to align the
+                      text's angle with.
+
+        Returns:
+        float value holding angle that the text needs to be rotated, in degrees.
+        """
+
+        # Return value.
+        angleDeg = 0.0
+        
+        # Determine the number of degrees to rotate the text by,
+        # utilizing scaling.
+        if self.scene() != None:
+            scaling = self.scene().getScaling()
+
+            viewScaledStartPoint = \
+                QPointF(startPointF.x() * scaling.getViewScalingX(),
+                        startPointF.y() * scaling.getViewScalingY())
+            viewScaledEndPoint = \
+                QPointF(endPointF.x() * scaling.getViewScalingX(),
+                        endPointF.y() * scaling.getViewScalingY())
+            
+            angleDeg = QLineF(viewScaledStartPoint, viewScaledEndPoint).angle()
+            self.log.debug("Scaled angleDeg before normalizing and fudge, " +
+                           "angleDeg={}".format(angleDeg))
+        else:
+            # No scaling is available, so just do the unscaled angle.
+            angleDeg = QLineF(startPointF, endPointF).angle()
+            self.log.debug("Unscaled angleDeg before normalizing and fudge, " +
+                           "angleDeg={}".format(angleDeg))
+            
+        # Normalize the angle so that the text is always upright.
+        if 90 <= angleDeg <= 270:
+            angleDeg += 180
+        angleDeg = Util.toNormalizedAngle(angleDeg)
+
+        self.log.debug("Before fudge, angleDeg={}".format(angleDeg))
+        
+        # Fudge factor since for some reason the text item doesn't
+        # exactly line up with the line.
+        fudge = 0.0
+        if 0 < angleDeg <= 90:
+            self.log.debug("0 to 90")
+            removed = 45 - abs(45 - angleDeg)
+            fudge = removed * 0.19
+            angleDeg -= fudge
+        elif 90 < angleDeg <= 180:
+            self.log.debug("90 to 180")
+            removed = 45 - abs(135 - angleDeg)
+            fudge = removed * 0.12
+            angleDeg += fudge
+        elif 180 < angleDeg <= 270:
+            self.log.debug("180 to 270")
+            removed = 45 - abs(225 - angleDeg)
+            fudge = removed * 0.19
+            angleDeg -= fudge
+        elif 270 < angleDeg <= 360:
+            self.log.debug("270 to 360")
+            removed = 45 - abs(315 - angleDeg)
+            fudge = removed * 0.12
+            angleDeg += fudge
+            
+        angleDeg = -1.0 * angleDeg
+        self.log.debug("angleDeg={}".format(angleDeg))
+
+        return angleDeg
+    
+    def calculateScaledAngleDegrees(self, startPointF, endPointF):
+        """Calculates the number of degrees of angle between
+        'startPointF' and 'endPointF'.  This angle is calculated
+        utilizing scaling conversion from self.convertObj.
+
+        Arguments:
+        startPointF - start point of the line segment, in scene coordinates.
+        endPointF   - start point of the line segment, in scene coordinates.
+
+        Returns:
+        float value holding the scaled angle, in degrees.
+        """
+
+        angleDeg = 0.0
+
+        # If the self.convertObj is None, then try to use the scene if the
+        # scene isn't None.
+        scene = self.scene()
+        if self.convertObj == None:
+            if scene != None:
+                self.log.debug("self.convertObj wasn't set, but self.scene() " +
+                               "is not None, so we're going to set " +
+                               "self.convertObj to the scene")
+                self.convertObj = self.scene()
+            else:
+                self.log.debug("Both self.convertObj and " + \
+                               "self.scene() are None.")
+
+        if self.convertObj != None:
+            startScaledPoint = \
+                self.convertObj.convertScenePointToScaledPoint(startPointF)
+            endScaledPoint = \
+                self.convertObj.convertScenePointToScaledPoint(endPointF)
+        
+            angleDeg = QLineF(startScaledPoint, endScaledPoint).angle()
+        else:
+            # Convert object is not set, so don't apply scaling, and
+            # just return the angle with unscaled points.
+            angleDeg = QLineF(startPointF, endPointF).angle()
+            
+        return angleDeg
+        
+    def boundingRect(self):
+        """Returns the bounding rectangle for this graphicsitem."""
+
+        # Coordinate (0, 0) in local coordinates is origin point.
+        
+        rv = self.shape().boundingRect()
+
+        return rv
+
+    def shape(self):
+        """Overwrites the QGraphicsItem.shape() function to return a
+        more accurate shape for collision detection, hit tests, etc.
+
+        Returns:
+        QPainterPath object holding the shape of this QGraphicsItem,
+        in local item coordinates.
+        """
+
+        self.log.debug("Entered shape().")
+
+        # Return value.
+        # Holds the QPainterPath of the whole item (in local coordinates).
+        painterPath = QPainterPath()
+
+        # If the self.convertObj is None, then try to use the scene if the
+        # scene isn't None.
+        scene = self.scene()
+        if self.convertObj == None:
+            if scene != None:
+                self.log.debug("self.convertObj wasn't set, but self.scene() " +
+                               "is not None, so we're going to set " +
+                               "self.convertObj to the scene")
+                self.convertObj = self.scene()
+            else:
+                self.log.debug("Both self.convertObj and " + \
+                               "self.scene() are None.")
+
+        if scene != None and self.convertObj != None:
+            # Scene exists and we can do scaling conversions.
+            # Continue to calculate the painterPath.
+            
+            # Get the origin point in scene, scaled, and local coordinates.
+            sceneOriginPointF = self.originPointF
+            scaledOriginPointF = \
+                self.convertObj.convertScenePointToScaledPoint(\
+                self.originPointF)
+            localOriginPointF = QPointF(0.0, 0.0)
+
+            self.log.debug("sceneOriginPointF is: ({}, {})".\
+                           format(sceneOriginPointF.x(),
+                                  sceneOriginPointF.y()))
+            self.log.debug("scaledOriginPointF is: ({}, {})".\
+                           format(scaledOriginPointF.x(),
+                                  scaledOriginPointF.y()))
+            self.log.debug("localOriginPointF is: ({}, {})".\
+                           format(localOriginPointF.x(),
+                                  localOriginPointF.y()))
+                           
+            # Get the leg1 point in scene, scaled, and local coordinates.
+            sceneLeg1PointF = self.leg1PointF
+            scaledLeg1PointF = \
+                self.convertObj.convertScenePointToScaledPoint(\
+                self.leg1PointF)
+            localLeg1PointF = QPointF(0.0, 0.0) + \
+                              (self.leg1PointF - self.originPointF)
+            
+            self.log.debug("sceneLeg1PointF is: ({}, {})".\
+                           format(sceneLeg1PointF.x(),
+                                  sceneLeg1PointF.y()))
+            self.log.debug("scaledLeg1PointF is: ({}, {})".\
+                           format(scaledLeg1PointF.x(),
+                                  scaledLeg1PointF.y()))
+            self.log.debug("localLeg1PointF is: ({}, {})".\
+                           format(localLeg1PointF.x(),
+                                  localLeg1PointF.y()))
+            
+            # Get the leg2 point in scene, scaled, and local coordinates.
+            sceneLeg2PointF = self.leg2PointF
+            scaledLeg2PointF = \
+                self.convertObj.convertScenePointToScaledPoint(\
+                self.leg2PointF)
+            localLeg2PointF = QPointF(0.0, 0.0) + \
+                              (self.leg2PointF - self.originPointF)
+    
+            self.log.debug("sceneLeg2PointF is: ({}, {})".\
+                           format(sceneLeg2PointF.x(),
+                                  sceneLeg2PointF.y()))
+            self.log.debug("scaledLeg2PointF is: ({}, {})".\
+                           format(scaledLeg2PointF.x(),
+                                  scaledLeg2PointF.y()))
+            self.log.debug("localLeg2PointF is: ({}, {})".\
+                           format(localLeg2PointF.x(),
+                                  localLeg2PointF.y()))
+
+            
+            tempRect = painterPath.boundingRect()
+            self.log.debug("Before adding paths, bounding rect of " +
+                           "PainterPath is: " +
+                           "x={}, y={}, w={}, h={}".\
+                           format(tempRect.x(),
+                                  tempRect.y(),
+                                  tempRect.width(),
+                                  tempRect.height()))
+                           
+            # Add the path for the shape of the line segment created by
+            # points self.originPointF to self.leg1PointF.  
+            leg1PainterPath = \
+                self.getShapeOfLineSegment(localOriginPointF, localLeg1PointF)
+            painterPath.addPath(leg1PainterPath)
+
+
+            tempRect = painterPath.boundingRect()
+            self.log.debug("After adding leg1PainterPath, bounding rect of " +
+                           "PainterPath is: " +
+                           "x={}, y={}, w={}, h={}".\
+                           format(tempRect.x(),
+                                  tempRect.y(),
+                                  tempRect.width(),
+                                  tempRect.height()))
+            
+            
+            # Add the path for the shape of the line segment created by
+            # points self.originPointF to self.leg2PointF.
+            leg2PainterPath = \
+                self.getShapeOfLineSegment(localOriginPointF, localLeg2PointF)
+            painterPath.addPath(leg2PainterPath)
+
+
+            tempRect = painterPath.boundingRect()
+            self.log.debug("After adding leg2PainterPath, bounding rect of " +
+                           "PainterPath is: " +
+                           "x={}, y={}, w={}, h={}".\
+                           format(tempRect.x(),
+                                  tempRect.y(),
+                                  tempRect.width(),
+                                  tempRect.height()))
+
+            
+            # Go through each line of each enabled ratio, getting
+            # the shape of the line segment and add that path to
+            # 'painterPath'.
+            artifact = self.getArtifact()
+            ratios = artifact.getRatios()
+            for i in range(len(ratios)):
+                ratio = ratios[i]
+    
+                # Only add the path if the ratio is enabled.
+                if ratio.isEnabled():
+                    # Get the x and y position that will be the end point.
+                    # This function returns the x and y in scaled
+                    # coordinates so we must remember to convert those
+                    # values afterwards.
+                    (x, y) = \
+                        artifact.getXYForRatio(i,
+                                               scaledOriginPointF,
+                                               scaledLeg1PointF,
+                                               scaledLeg2PointF)
+
+                    self.log.debug("Ratio point X and Y for index " +
+                                   "{} in scaled coordinates is: ".format(i) +
+                                   "({}, {})".format(x, y))
+                    
+                    # Map those x and y to local coordinates.
+                    sceneEndPointF = \
+                        self.convertObj.convertScaledPointToScenePoint(\
+                        QPointF(x, y))
+
+                    self.log.debug("Mapping that point to scene coords is " + 
+                                   "({}, {})".format(sceneEndPointF.x(),
+                                                     sceneEndPointF.y()))
+                
+                    # Do conversion to local coordinates.
+                    localEndPointF = sceneEndPointF - sceneOriginPointF
+    
+                    self.log.debug("Mapping that point to local coords is " + 
+                                   "({}, {})".format(localEndPointF.x(),
+                                                     localEndPointF.y()))
+                
+                    # Get the painter path.
+                    endPointPainterPath = \
+                        self.getShapeOfLineSegment(localOriginPointF,
+                                                   localEndPointF)
+
+                    tempRect = painterPath.boundingRect()
+                    self.log.debug("Path for " +
+                                   "index {} ".format(i) +
+                                   "has bounding rect: " +
+                                   "x={}, y={}, w={}, h={}".\
+                                   format(tempRect.x(),
+                                          tempRect.y(),
+                                          tempRect.width(),
+                                          tempRect.height()))
+    
+                    # Add the path to 'painterPath'.
+                    painterPath.addPath(endPointPainterPath)
+
+
+                    tempRect = painterPath.boundingRect()
+                    self.log.debug("After adding path for " +
+                                   "index {}, ".format(i) +
+                                   "bounding rect of " +
+                                   "PainterPath is: " +
+                                   "x={}, y={}, w={}, h={}".\
+                                   format(tempRect.x(),
+                                          tempRect.y(),
+                                          tempRect.width(),
+                                          tempRect.height()))
+    
+        else:
+            # Scene doesn't exist or we can't scaling conversions.
+            # No calculations to do since it won't get plotted anyways.
+            self.log.debug("Tried to get shape scene isn't set.")
+            pass
+            
+
+        self.log.debug("Exiting shape(). " +
+                       "PainterPath being returned has a bounding rect of: " + 
+                       "x={}, y={}, w={}, h={}".\
+                       format(painterPath.boundingRect().x(),
+                              painterPath.boundingRect().y(),
+                              painterPath.boundingRect().width(),
+                              painterPath.boundingRect().height()))
+
+        # The 'painterPath' should now have all the paths for the tilted
+        # rectangles that make up the whole item.
+        return painterPath
+
+    def paint(self, painter, option, widget):
+        """Paints this QGraphicsItem.  Assumes that self.fibFanPen is set
+        to what we want for the drawing style.
+        """
+
+        self.log.debug("Entered FibFanGraphicsItem.paint().  " +
+                       "pos is: ({}, {})".\
+                       format(self.pos().x(), self.pos().y()) +
+                       os.linesep +
+                       "self.originPointF == ({}, {})".\
+                       format(self.originPointF.x(), self.originPointF.y()) +
+                       os.linesep +
+                       "self.leg1PointF == ({}, {})".\
+                       format(self.leg1PointF.x(), self.leg1PointF.y()) +
+                       os.linesep +
+                       "self.leg2PointF == ({}, {})".\
+                       format(self.leg2PointF.x(), self.leg2PointF.y()))
+        
+        if painter.pen() != self.fibFanPen:
+            painter.setPen(self.fibFanPen)
+
+        # If the self.convertObj is None, then try to use the scene if the
+        # scene isn't None.
+        scene = self.scene()
+        if self.convertObj == None:
+            if scene != None:
+                self.log.debug("self.convertObj wasn't set, but self.scene() " +
+                               "is not None, so we're going to set " +
+                               "self.convertObj to the scene")
+                self.convertObj = self.scene()
+            else:
+                self.log.debug("Both self.convertObj and " + \
+                               "self.scene() are None.")
+                # No scene, so don't paint anything.
+                self.log.debug("There's no scene so we won't paint anything.")
+                return
+
+        # Get the origin point in scene, scaled, and local coordinates.
+        sceneOriginPointF = self.originPointF
+        scaledOriginPointF = \
+            self.convertObj.convertScenePointToScaledPoint(\
+            self.originPointF)
+        localOriginPointF = QPointF(0.0, 0.0)
+
+        # Get the leg1 point in scene, scaled, and local coordinates.
+        sceneLeg1PointF = self.leg1PointF
+        scaledLeg1PointF = \
+            self.convertObj.convertScenePointToScaledPoint(\
+            self.leg1PointF)
+        localLeg1PointF = QPointF(0.0, 0.0) + \
+                          (self.leg1PointF - self.originPointF)
+        
+        # Get the leg2 point in scene, scaled, and local coordinates.
+        sceneLeg2PointF = self.leg2PointF
+        scaledLeg2PointF = \
+            self.convertObj.convertScenePointToScaledPoint(\
+            self.leg2PointF)
+        localLeg2PointF = QPointF(0.0, 0.0) + \
+                          (self.leg2PointF - self.originPointF)
+
+        
+        # Always draw the line from origin point to leg1 point.
+        painter.drawLine(QLineF(localOriginPointF, localLeg1PointF))
+        
+        # Always draw the line from origin point to leg2 point.
+        painter.drawLine(QLineF(localOriginPointF, localLeg2PointF))
+        
+        # For each ratio that is enabled, draw it as a line
+        # segment from the origin point to the end point of that
+        # ratio.
+        artifact = self.getArtifact()
+        ratios = artifact.getRatios()
+        for i in range(len(ratios)):
+            ratio = ratios[i]
+
+            # Only add the path if the ratio is enabled.
+            if ratio.isEnabled():
+                # Get the x and y position that will be the end point.
+                # This function returns the x and y in scaled
+                # coordinates so we must remember to convert those
+                # values afterwards.
+                (x, y) = \
+                    artifact.getXYForRatio(i,
+                                           scaledOriginPointF,
+                                           scaledLeg1PointF,
+                                           scaledLeg2PointF)
+        
+                # Map those x and y to local coordinates.
+                sceneEndPointF = \
+                    self.convertObj.convertScaledPointToScenePoint(\
+                    QPointF(x, y))
+            
+                # Do conversion to local coordinates.
+                localEndPointF = sceneEndPointF - sceneOriginPointF
+
+                # Draw the line segment for this ratio.
+                painter.drawLine(QLineF(localOriginPointF,
+                                        localEndPointF))
+
+        # Draw a dashed-line surrounding the item if it is selected.
+        if option.state & QStyle.State_Selected:
+            pad = self.fibFanPen.widthF() * 0.5;
+            penWidth = 0.0
+            fgcolor = option.palette.windowText().color()
+            
+            # Ensure good contrast against fgcolor.
+            r = 255
+            g = 255
+            b = 255
+            if fgcolor.red() > 127:
+                r = 0
+            if fgcolor.green() > 127:
+                g = 0
+            if fgcolor.blue() > 127:
+                b = 0
+            
+            bgcolor = QColor(r, g, b)
+            
+            painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawPath(self.shape())
+            
+            painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawPath(self.shape())
+            
+        self.log.debug("Exiting FibFanGraphicsItem.paint().")
+
+    def appendActionsToContextMenu(self, menu, readOnlyMode=False):
+        """Modifies the given QMenu object to update the title and add
+        actions relevant to this FibFanGraphicsItem.  Actions that
+        are triggered from this menu run various methods in the
+        FibFanGraphicsItem to handle the desired functionality.
+        
+        Arguments:
+        menu - QMenu object to modify.
+        readOnlyMode - bool value that indicates the actions are to be
+                       readonly actions.
+        """
+
+        menu.setTitle(self.artifact.getInternalName())
+        
+        # These are the QActions that are in the menu.
+        parent = menu
+        selectAction = QAction("&Select", parent)
+        unselectAction = QAction("&Unselect", parent)
+        removeAction = QAction("Remove", parent)
+        infoAction = QAction("&Info", parent)
+        editAction = QAction("&Edit", parent)
+        extendLeg1PointAction = \
+            QAction("E&xtend leg1 point to {}-fold".\
+                    format(self.extendMultiple), parent)
+        shortenLeg1PointAction = \
+            QAction("Shor&ten leg1 point to {}-fold".\
+                    format(1.0 / self.extendMultiple), parent)
+        extendLeg2PointAction = \
+            QAction("Exte&nd leg2 point to {}-fold".\
+                    format(self.extendMultiple), parent)
+        shortenLeg2PointAction = \
+            QAction("S&horten leg2 point to {}-fold".\
+                    format(1.0 / self.extendMultiple), parent)
+        
+        setOriginOnAstro1Action = \
+            QAction("Set origin timestamp on Astro Chart &1", parent)
+        setOriginOnAstro2Action = \
+            QAction("Set origin timestamp on Astro Chart &2", parent)
+        setOriginOnAstro3Action = \
+            QAction("Set origin timestamp on Astro Chart &3", parent)
+        openOriginInJHoraAction = \
+            QAction("Open JHor&a with origin timestamp", parent)
+        
+        selectAction.triggered.\
+            connect(self._handleSelectAction)
+        unselectAction.triggered.\
+            connect(self._handleUnselectAction)
+        removeAction.triggered.\
+            connect(self._handleRemoveAction)
+        infoAction.triggered.\
+            connect(self._handleInfoAction)
+        editAction.triggered.\
+            connect(self._handleEditAction)
+        extendLeg1PointAction.triggered.\
+            connect(self._handleExtendLeg1PointAction)
+        shortenLeg1PointAction.triggered.\
+            connect(self._handleShortenLeg1PointAction)
+        extendLeg2PointAction.triggered.\
+            connect(self._handleExtendLeg2PointAction)
+        shortenLeg2PointAction.triggered.\
+            connect(self._handleShortenLeg2PointAction)
+        setOriginOnAstro1Action.triggered.\
+            connect(self._handleSetOriginOnAstro1Action)
+        setOriginOnAstro2Action.triggered.\
+            connect(self._handleSetOriginOnAstro2Action)
+        setOriginOnAstro3Action.triggered.\
+            connect(self._handleSetOriginOnAstro3Action)
+        openOriginInJHoraAction.triggered.\
+            connect(self._handleOpenOriginInJHoraAction)
+        
+        # Enable or disable actions.
+        selectAction.setEnabled(True)
+        unselectAction.setEnabled(True)
+        removeAction.setEnabled(not readOnlyMode)
+        infoAction.setEnabled(True)
+        editAction.setEnabled(not readOnlyMode)
+        extendLeg1PointAction.setEnabled(not readOnlyMode)
+        shortenLeg1PointAction.setEnabled(not readOnlyMode)
+        extendLeg2PointAction.setEnabled(not readOnlyMode)
+        shortenLeg2PointAction.setEnabled(not readOnlyMode)
+        setOriginOnAstro1Action.setEnabled(True)
+        setOriginOnAstro2Action.setEnabled(True)
+        setOriginOnAstro3Action.setEnabled(True)
+        openOriginInJHoraAction.setEnabled(True)
+
+        # Add the QActions to the menu.
+        menu.addAction(selectAction)
+        menu.addAction(unselectAction)
+        menu.addSeparator()
+        menu.addAction(removeAction)
+        menu.addSeparator()
+        menu.addAction(infoAction)
+        menu.addAction(editAction)
+        menu.addSeparator()
+        menu.addAction(extendLeg1PointAction)
+        menu.addAction(shortenLeg1PointAction)
+        menu.addAction(extendLeg2PointAction)
+        menu.addAction(shortenLeg2PointAction)
+        menu.addSeparator()
+        menu.addAction(setOriginOnAstro1Action)
+        menu.addAction(setOriginOnAstro2Action)
+        menu.addAction(setOriginOnAstro3Action)
+        menu.addAction(openOriginInJHoraAction)
+
+    def _handleSelectAction(self):
+        """Causes the QGraphicsItem to become selected."""
+
+        self.setSelected(True)
+
+    def _handleUnselectAction(self):
+        """Causes the QGraphicsItem to become unselected."""
+
+        self.setSelected(False)
+
+    def _handleRemoveAction(self):
+        """Causes the QGraphicsItem to be removed from the scene."""
+        
+        scene = self.scene()
+        scene.removeItem(self)
+
+        # Emit signal to show that an item is removed.
+        # This sets the dirty flag.
+        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+        
+    def _handleInfoAction(self):
+        """Causes a dialog to be executed to show information about
+        the QGraphicsItem.
+        """
+
+        artifact = self.getArtifact()
+        dialog = PriceBarChartFibFanArtifactEditDialog(artifact,
+                                                           self.scene(),
+                                                           readOnlyFlag=True)
+        
+        # Run the dialog.  We don't care about what is returned
+        # because the dialog is read-only.
+        rv = dialog.exec_()
+        
+    def _handleEditAction(self):
+        """Causes a dialog to be executed to edit information about
+        the QGraphicsItem.
+        """
+
+        artifact = self.getArtifact()
+        dialog = PriceBarChartFibFanArtifactEditDialog(artifact,
+                                                         self.scene(),
+                                                         readOnlyFlag=False)
+        
+        rv = dialog.exec_()
+        
+        if rv == QDialog.Accepted:
+            # If the dialog is accepted then get the new artifact and
+            # set it to this PriceBarChartArtifactGraphicsItem, which
+            # will cause it to be reloaded in the scene.
+            artifact = dialog.getArtifact()
+            self.setArtifact(artifact)
+
+            # Flag that a redraw of this QGraphicsItem is required.
+            self.update()
+
+            # Emit that the PriceBarChart has changed so that the
+            # dirty flag can be set.
+            self.scene().priceBarChartChanged.emit()
+        else:
+            # The user canceled so don't change anything.
+            pass
+        
+    def _handleExtendLeg1PointAction(self):
+        """Updates the QGraphicsItem so that the leg1 point is
+        (self.extendMultiple) fold of the current distance away from origin
+        point.  The artifact is edited too to correspond with this change.
+        """
+
+        # Get the X and Y deltas between the start and end points.
+        deltaX = self.leg1PointF.x() - self.originPointF.x()
+        deltaY = self.leg1PointF.y() - self.originPointF.y()
+
+        # Calculate the new offsets from the end point.
+        offsetX = deltaX * self.extendMultiple
+        offsetY = deltaY * self.extendMultiple
+
+        # Calculate new end point X and Y values.
+        newEndPointX = self.originPointF.x() + offsetX
+        newEndPointY = self.originPointF.y() + offsetY
+
+        # Update the QGraphicsItem manually.
+        newEndPointF = QPointF(newEndPointX, newEndPointY)
+        self.setLeg1PointF(newEndPointF)
+        
+        # Update the artifact.
+        self.artifact.setLeg1PointF(newEndPointF)
+        
+        # Refresh the item so that the textItem and drawing can be updated.
+        self.refreshItem()
+
+        self.update()
+        
+        # Emit that the chart has changed.
+        self.scene().priceBarChartChanged.emit()
+        
+    def _handleShortenLeg1PointAction(self):
+        """Updates the QGraphicsItem so that the leg1 point is
+        (1.0 / self.extendMultiple) fold of the current distance away from
+        origin point.  The artifact is edited too to correspond with
+        this change.
+        """
+
+        # Get the X and Y deltas between the start and end points.
+        deltaX = self.leg1PointF.x() - self.originPointF.x()
+        deltaY = self.leg1PointF.y() - self.originPointF.y()
+
+        # Calculate the new offsets from the end point.
+        offsetX = deltaX * (1.0 / self.extendMultiple)
+        offsetY = deltaY * (1.0 / self.extendMultiple)
+
+        # Calculate new end point X and Y values.
+        newEndPointX = self.originPointF.x() + offsetX
+        newEndPointY = self.originPointF.y() + offsetY
+
+        # Update the QGraphicsItem manually.
+        newEndPointF = QPointF(newEndPointX, newEndPointY)
+        self.setLeg1PointF(newEndPointF)
+        
+        # Update the artifact.
+        self.artifact.setLeg1PointF(newEndPointF)
+        
+        # Refresh the item so that the textItem and drawing can be updated.
+        self.refreshItem()
+
+        self.update()
+        
+        # Emit that the chart has changed.
+        self.scene().priceBarChartChanged.emit()
+        
+    def _handleExtendLeg2PointAction(self):
+        """Updates the QGraphicsItem so that the leg2 point is
+        (self.extendMultiple) fold of the current distance away from origin
+        point.  The artifact is edited too to correspond with this change.
+        """
+
+        # Get the X and Y deltas between the start and end points.
+        deltaX = self.leg2PointF.x() - self.originPointF.x()
+        deltaY = self.leg2PointF.y() - self.originPointF.y()
+
+        # Calculate the new offsets from the end point.
+        offsetX = deltaX * self.extendMultiple
+        offsetY = deltaY * self.extendMultiple
+
+        # Calculate new end point X and Y values.
+        newEndPointX = self.originPointF.x() + offsetX
+        newEndPointY = self.originPointF.y() + offsetY
+
+        # Update the QGraphicsItem manually.
+        newEndPointF = QPointF(newEndPointX, newEndPointY)
+        self.setLeg2PointF(newEndPointF)
+        
+        # Update the artifact.
+        self.artifact.setLeg2PointF(newEndPointF)
+        
+        # Refresh the item so that the textItem and drawing can be updated.
+        self.refreshItem()
+
+        self.update()
+        
+        # Emit that the chart has changed.
+        self.scene().priceBarChartChanged.emit()
+        
+    def _handleShortenLeg2PointAction(self):
+        """Updates the QGraphicsItem so that the leg2 point is
+        (1.0 / self.extendMultiple) fold of the current distance away from
+        origin point.  The artifact is edited too to correspond with
+        this change.
+        """
+
+        # Get the X and Y deltas between the start and end points.
+        deltaX = self.leg2PointF.x() - self.originPointF.x()
+        deltaY = self.leg2PointF.y() - self.originPointF.y()
+
+        # Calculate the new offsets from the end point.
+        offsetX = deltaX * (1.0 / self.extendMultiple)
+        offsetY = deltaY * (1.0 / self.extendMultiple)
+
+        # Calculate new end point X and Y values.
+        newEndPointX = self.originPointF.x() + offsetX
+        newEndPointY = self.originPointF.y() + offsetY
+
+        # Update the QGraphicsItem manually.
+        newEndPointF = QPointF(newEndPointX, newEndPointY)
+        self.setLeg2PointF(newEndPointF)
+        
+        # Update the artifact.
+        self.artifact.setLeg2PointF(newEndPointF)
+        
+        # Refresh the item so that the textItem and drawing can be updated.
+        self.refreshItem()
+
+        self.update()
+        
+        # Emit that the chart has changed.
+        self.scene().priceBarChartChanged.emit()
+        
+    def _handleSetOriginOnAstro1Action(self):
+        """Causes the astro chart 1 to be set with the timestamp
+        of the origin the FibFanGraphicsItem.
+        """
+
+        self.scene().setAstroChart1(self.originPointF.x())
+        
+    def _handleSetOriginOnAstro2Action(self):
+        """Causes the astro chart 2 to be set with the timestamp
+        of the origin the FibFanGraphicsItem.
+        """
+
+        self.scene().setAstroChart2(self.originPointF.x())
+        
+    def _handleSetOriginOnAstro3Action(self):
+        """Causes the astro chart 3 to be set with the timestamp
+        of the origin the FibFanGraphicsItem.
+        """
+
+        self.scene().setAstroChart3(self.originPointF.x())
+        
+    def _handleOpenOriginInJHoraAction(self):
+        """Causes the the timestamp of the origin the
+        FibFanGraphicsItem to be opened in JHora.
+        """
+
+        self.scene().openJHora(self.originPointF.x())
+        
+        
 class PriceBarChartWidget(QWidget):
     """Widget holding the QGraphicsScene and QGraphicsView that displays
     the PriceBar information along with other indicators and analysis
@@ -15659,7 +17491,8 @@ class PriceBarChartWidget(QWidget):
                 "PriceRetracementTool" : 13,
                 "PriceTimeVectorTool"  : 14,
                 "LineSegmentTool"      : 15,
-                "OctaveFanTool"        : 16 }
+                "OctaveFanTool"        : 16,
+                "FibFanTool"           : 17 }
 
 
 
@@ -16320,6 +18153,31 @@ class PriceBarChartWidget(QWidget):
                 
                 addedItemFlag = True
 
+            elif isinstance(artifact, PriceBarChartFibFanArtifact):
+                self.log.debug("Loading artifact: " + artifact.toString())
+                
+                newItem = FibFanGraphicsItem()
+                newItem.loadSettingsFromPriceBarChartSettings(\
+                    self.priceBarChartSettings)
+        
+                # Set the conversion object as the scene so that it
+                # can do initial calculations for the text to display.
+                newItem.setConvertObj(self.graphicsScene)
+
+                newItem.setArtifact(artifact)
+
+                # Add the item.
+                self.graphicsScene.addItem(newItem)
+                
+                # Make sure the proper flags are set for the mode we're in.
+                self.graphicsView.setGraphicsItemFlagsPerCurrToolMode(newItem)
+
+                # Need to refresh the item (recalculate) since it
+                # wasn't in the QGraphicsScene until now.
+                newItem.refreshItem()
+                
+                addedItemFlag = True
+
         if addedItemFlag == True:
             # Emit that the PriceBarChart has changed.
             self.graphicsScene.priceBarChartChanged.emit()
@@ -16514,6 +18372,11 @@ class PriceBarChartWidget(QWidget):
                                "OctaveFanGraphicsItem.")
                 # Redo calculations in case the scaling changed.
                 item.recalculateOctaveFan()
+            elif isinstance(item, FibFanGraphicsItem):
+                self.log.debug("Not applying settings to " +
+                               "FibFanGraphicsItem.")
+                # Redo calculations in case the scaling changed.
+                item.recalculateFibFan()
                 
         if settingsChangedFlag == True:
             # Emit that the PriceBarChart has changed, because we have
@@ -16744,6 +18607,20 @@ class PriceBarChartWidget(QWidget):
             self.graphicsView.toOctaveFanToolMode()
 
         self.log.debug("Exiting toOctaveFanToolMode()")
+
+    def toFibFanToolMode(self):
+        """Changes the tool mode to be the FibFanTool."""
+
+        self.log.debug("Entered toFibFanToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != \
+               PriceBarChartWidget.ToolMode['FibFanTool']:
+            
+            self.toolMode = PriceBarChartWidget.ToolMode['FibFanTool']
+            self.graphicsView.toFibFanToolMode()
+
+        self.log.debug("Exiting toFibFanToolMode()")
 
     def _handleMouseLocationUpdate(self, x, y):
         """Handles mouse location changes in the QGraphicsView.  
@@ -17804,7 +19681,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 "PriceRetracementTool" : 13,
                 "PriceTimeVectorTool"  : 14,
                 "LineSegmentTool"      : 15,
-                "OctaveFanTool"        : 16 }
+                "OctaveFanTool"        : 16,
+                "FibFanTool"           : 17 }
 
     # Signal emitted when the mouse moves within the QGraphicsView.
     # The position emitted is in QGraphicsScene x, y, float coordinates.
@@ -17890,6 +19768,10 @@ class PriceBarChartGraphicsView(QGraphicsView):
         # as it is modified in OctaveFanToolMode.
         self.octaveFanGraphicsItem = None
 
+        # Variable used for storing the new FibFanGraphicsItem,
+        # as it is modified in FibFanToolMode.
+        self.fibFanGraphicsItem = None
+
         # Variable used for storing that snapping to the closest bar
         # high or low is enabled.
         #
@@ -17904,6 +19786,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
         #   - PriceTimeVectorTool
         #   - LineSegmentTool
         #   - OctaveFanTool
+        #   - FibFanTool
         #
         self.snapEnabledFlag = True
 
@@ -18113,6 +19996,15 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['OctaveFanTool']:
+
+            if isinstance(item, PriceBarGraphicsItem):
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+            elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                item.setReadOnlyFlag(True)
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['FibFanTool']:
 
             if isinstance(item, PriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
@@ -18614,6 +20506,37 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.setGraphicsItemFlagsPerCurrToolMode(item)
                     
         self.log.debug("Exiting toOctaveFanToolMode()")
+
+    def toFibFanToolMode(self):
+        """Changes the tool mode to be the FibFanTool."""
+
+        self.log.debug("Entered toFibFanToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != \
+                PriceBarChartGraphicsView.ToolMode['FibFanTool']:
+
+            self.toolMode = \
+                PriceBarChartGraphicsView.ToolMode['FibFanTool']
+
+            self.setCursor(QCursor(Qt.ArrowCursor))
+            self.setDragMode(QGraphicsView.NoDrag)
+
+            # Clear out internal working variables.
+            self.clickOnePointF = None
+            self.clickTwoPointF = None
+            self.clickThreePointF = None
+            self.fibFanGraphicsItem = None
+
+            scene = self.scene()
+            if scene != None:
+                scene.clearSelection()
+
+                items = scene.items()
+                for item in items:
+                    self.setGraphicsItemFlagsPerCurrToolMode(item)
+                    
+        self.log.debug("Exiting toFibFanToolMode()")
 
     def createContextMenu(self, clickPosF, readOnlyFlag):
         """Creates a context menu for a right-click somewhere in
@@ -19207,6 +21130,33 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 self.clickTwoPointF = None
                 self.clickThreePointF = None
                 self.octaveFanGraphicsItem = None
+            elif qkeyevent.key() == Qt.Key_Q:
+                # Turn on snap functionality.
+                self.snapEnabledFlag = True
+                self.log.debug("Snap mode enabled.")
+                self.statusMessageUpdate.emit("Snap mode enabled")
+            elif qkeyevent.key() == Qt.Key_W:
+                # Turn off snap functionality.
+                self.snapEnabledFlag = False
+                self.log.debug("Snap mode disabled.")
+                self.statusMessageUpdate.emit("Snap mode disabled")
+            else:
+                super().keyPressEvent(qkeyevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['FibFanTool']:
+
+            if qkeyevent.key() == Qt.Key_Escape:
+                # Escape key causes any currently edited item to
+                # be removed and cleared out.  Temporary variables used
+                # are cleared out too.
+                if self.fibFanGraphicsItem != None:
+                    self.scene().removeItem(self.fibFanGraphicsItem)
+
+                self.clickOnePointF = None
+                self.clickTwoPointF = None
+                self.clickThreePointF = None
+                self.fibFanGraphicsItem = None
             elif qkeyevent.key() == Qt.Key_Q:
                 # Turn on snap functionality.
                 self.snapEnabledFlag = True
@@ -21111,6 +23061,267 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 else:
                     self.log.warn("Unexpected state reached.")
 
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['FibFanTool']:
+            
+            self.log.debug("Current toolMode is: FibFanTool")
+
+            if qmouseevent.button() & Qt.LeftButton:
+                self.log.debug("Qt.LeftButton")
+                
+                if self.clickOnePointF == None:
+                    self.log.debug("clickOnePointF is None.")
+                    
+                    self.clickOnePointF = self.mapToScene(qmouseevent.pos())
+
+                    self.log.debug("clickOnePointF is now set to ({}, {}).".\
+                                   format(self.clickOnePointF.x(),
+                                          self.clickOnePointF.y()))
+
+                    # If snap is enabled, then find the closest
+                    # pricebar time to the place clicked.
+                    if self.snapEnabledFlag == True:
+                        self.log.debug("Snap is enabled, so snapping to " +
+                                       "closest pricebar X and Y.")
+                        
+                        originPointF = self.mapToScene(qmouseevent.pos())
+                        
+                        # Find if there is a point closer to this
+                        # originPointF related to a PriceBarGraphicsItem.
+                        barPoint = \
+                            self.scene().\
+                            getClosestPriceBarOHLCViewPoint(originPointF)
+
+                        # If a point was found, then use it as the origin point.
+                        if barPoint != None:
+                            self.log.debug("Non-null barPoint returned.")
+                            originPointF = barPoint
+                            
+                            # Set this also as the first click point,
+                            # as if the user clicked perfectly.
+                            self.clickOnePointF = originPointF
+
+                            self.log.debug("clickOnePointF is now set to " +
+                                           "({}, {}).".\
+                                           format(self.clickOnePointF.x(),
+                                                  self.clickOnePointF.y()))
+                    
+                    # Create the FibFanGraphicsItem and
+                    # initialize it to the mouse location.
+                    self.fibFanGraphicsItem = \
+                        FibFanGraphicsItem()
+                    self.fibFanGraphicsItem.\
+                        loadSettingsFromPriceBarChartSettings(\
+                            self.priceBarChartSettings)
+
+                    # Set the conversion object as the scene so that it
+                    # can do scaling calculations.
+                    self.fibFanGraphicsItem.\
+                        setConvertObj(self.scene())
+
+                    self.log.debug("Done setting convert obj.  " +
+                                   "Now setting points...")
+
+                    self.log.debug("Setting pos...")
+                    
+                    self.fibFanGraphicsItem.\
+                        setPos(self.clickOnePointF)
+
+                    self.log.debug("Setting origin point...")
+
+                    self.fibFanGraphicsItem.\
+                        setOriginPointF(self.clickOnePointF)
+
+                    self.log.debug("Setting leg1 point...")
+                    
+                    self.fibFanGraphicsItem.\
+                        setLeg1PointF(self.clickOnePointF)
+
+                    self.log.debug("Setting leg2 point...")
+                    
+                    self.fibFanGraphicsItem.\
+                        setLeg2PointF(self.clickOnePointF)
+
+                    self.log.debug("Position of item to add is: ({}, {})".\
+                                   format(self.fibFanGraphicsItem.pos().x(),
+                                          self.fibFanGraphicsItem.pos().y()))
+
+
+                    self.log.debug("Bounding rect of item to add is: " +
+                                   "x={}, y={}, w={}, h={}".\
+                       format(self.fibFanGraphicsItem.boundingRect().x(),
+                              self.fibFanGraphicsItem.boundingRect().y(),
+                              self.fibFanGraphicsItem.boundingRect().width(),
+                              self.fibFanGraphicsItem.boundingRect().height()))
+                    
+                    self.log.debug("Bounding rect of shape is: " +
+                                   "x={}, y={}, w={}, h={}".\
+                       format(self.fibFanGraphicsItem.shape().boundingRect().x(),
+                              self.fibFanGraphicsItem.shape().boundingRect().y(),
+                              self.fibFanGraphicsItem.shape().boundingRect().width(),
+                              self.fibFanGraphicsItem.shape().boundingRect().height()))
+                    
+                    self.log.debug("Adding to scene...")
+                    
+                    self.scene().addItem(self.fibFanGraphicsItem)
+
+                    self.log.debug("Making sure correct flags are set...")
+                    
+                    # Make sure the proper flags are set for the mode we're in.
+                    self.setGraphicsItemFlagsPerCurrToolMode(\
+                        self.fibFanGraphicsItem)
+
+                elif self.clickOnePointF != None and \
+                    self.clickTwoPointF == None and \
+                    self.clickThreePointF == None and \
+                    self.fibFanGraphicsItem != None:
+
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "clickThreePointF == None and " +
+                                   "fibFanGraphicsItem != None.")
+                    
+                    # Set the click two point of the FibFanGraphicsItem.
+                    self.clickTwoPointF = self.mapToScene(qmouseevent.pos())
+
+                    # If snap is enabled, then find the closest
+                    # pricebar time to the place clicked.
+                    if self.snapEnabledFlag == True:
+                        self.log.debug("Snap is enabled, so snapping to " +
+                                       "closest pricebar X.")
+                        
+                        leg1PointF = self.mapToScene(qmouseevent.pos())
+                        
+                        # Find if there is a point closer to this
+                        # leg1PointF related to a PriceBarGraphicsItem.
+                        barPoint = \
+                            self.scene().\
+                            getClosestPriceBarOHLCViewPoint(leg1PointF)
+
+                        # If a point was found, then use it as the leg1 point.
+                        if barPoint != None:
+                            leg1PointF = barPoint
+                            
+                            # Set this also as the second click point,
+                            # as if the user clicked perfectly.
+                            self.clickTwoPointF = leg1PointF
+                    
+                    self.fibFanGraphicsItem.\
+                        setLeg1PointF(leg1PointF)
+                    self.fibFanGraphicsItem.\
+                        setLeg2PointF(leg1PointF)
+                    
+                elif self.clickOnePointF != None and \
+                    self.clickTwoPointF != None and \
+                    self.clickThreePointF == None and \
+                    self.fibFanGraphicsItem != None:
+
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF != None and " +
+                                   "clickThreePointF == None and " +
+                                   "fibFanGraphicsItem != None.")
+                    
+                    # Set the click three point of the FibFanGraphicsItem.
+                    self.clickThreePointF = self.mapToScene(qmouseevent.pos())
+
+                    # If snap is enabled, then find the closest
+                    # pricebar time to the place clicked.
+                    if self.snapEnabledFlag == True:
+                        self.log.debug("Snap is enabled, so snapping to " +
+                                       "closest pricebar X.")
+                        
+                        leg2PointF = self.mapToScene(qmouseevent.pos())
+                        
+                        # Find if there is a point closer to this
+                        # leg2PointF related to a PriceBarGraphicsItem.
+                        barPoint = \
+                            self.scene().\
+                            getClosestPriceBarOHLCViewPoint(leg2PointF)
+
+                        # If a point was found, then use it as the leg2 point.
+                        if barPoint != None:
+                            leg2PointF = barPoint
+                            
+                            # Set this also as the third click point,
+                            # as if the user clicked perfectly.
+                            self.clickThreePointF = leg2PointF
+                    
+                    self.fibFanGraphicsItem.\
+                        setLeg2PointF(leg2PointF)
+                    
+                    # Call getArtifact() so that the item's artifact
+                    # object gets updated and set.
+                    self.fibFanGraphicsItem.getArtifact()
+                    
+                    # Emit that the PriceBarChart has changed.
+                    self.scene().priceBarChartArtifactGraphicsItemAdded.\
+                        emit(self.fibFanGraphicsItem)
+                    
+                    sceneBoundingRect = \
+                        self.fibFanGraphicsItem.sceneBoundingRect()
+                    
+                    self.log.debug("fibFanGraphicsItem " +
+                                   "officially added.  " +
+                                   "Its sceneBoundingRect is: {}.  ".\
+                                   format(sceneBoundingRect) +
+                                   "Its x range is: {} to {}.  ".\
+                                   format(sceneBoundingRect.left(),
+                                          sceneBoundingRect.right()) +
+                                   "Its y range is: {} to {}.  ".\
+                                   format(sceneBoundingRect.top(),
+                                          sceneBoundingRect.bottom()))
+
+                    # Clear out working variables.
+                    self.clickOnePointF = None
+                    self.clickTwoPointF = None
+                    self.clickThreePointF = None
+                    self.fibFanGraphicsItem = None
+                    
+                else:
+                    self.log.warn("Unexpected state reached.")
+                    
+            elif qmouseevent.button() & Qt.RightButton:
+                self.log.debug("Qt.RightButton")
+                
+                if self.clickOnePointF != None and \
+                   self.clickTwoPointF == None and \
+                   self.clickThreePointF == None and \
+                   self.fibFanGraphicsItem != None:
+
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "clickThreePointF == None and " +
+                                   "fibFanGraphicsItem != None.")
+                    
+                    # Right-click during setting the FibFanGraphicsItem
+                    # causes the currently edited bar count item to be
+                    # removed and cleared out.  Temporary variables used
+                    # are cleared out too.
+                    self.scene().removeItem(self.fibFanGraphicsItem)
+
+                    self.clickOnePointF = None
+                    self.clickTwoPointF = None
+                    self.clickThreePointF = None
+                    self.fibFanGraphicsItem = None
+                    
+                elif self.clickOnePointF == None and \
+                     self.clickTwoPointF == None and \
+                     self.clickThreePointF == None and \
+                     self.fibFanGraphicsItem == None:
+                    
+                    self.log.debug("clickOnePointF == None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "clickThreePointF == None and " +
+                                   "fibFanGraphicsItem == None.")
+                    
+                    # Open a context menu at this location, in readonly mode.
+                    clickPosF = self.mapToScene(qmouseevent.pos())
+                    menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
+                    menu.exec_(qmouseevent.globalPos())
+                    
+                else:
+                    self.log.warn("Unexpected state reached.")
+
         else:
             self.log.warn("Current toolMode is: UNKNOWN.")
 
@@ -21235,6 +23446,12 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 PriceBarChartGraphicsView.ToolMode['OctaveFanTool']:
 
             self.log.debug("Current toolMode is: OctaveFanTool")
+            super().mouseReleaseEvent(qmouseevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['FibFanTool']:
+
+            self.log.debug("Current toolMode is: FibFanTool")
             super().mouseReleaseEvent(qmouseevent)
 
         else:
@@ -21472,6 +23689,47 @@ class PriceBarChartGraphicsView(QGraphicsView):
             else:
                 super().mouseMoveEvent(qmouseevent)
 
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['FibFanTool']:
+
+            if self.clickOnePointF != None and \
+                self.clickTwoPointF == None and \
+                self.clickThreePointF == None and \
+                self.fibFanGraphicsItem != None:
+
+                self.log.debug("FibFanTool: " +
+                               "Moving when clickOnePointF has " +
+                               "been set already.")
+                
+                pos = self.mapToScene(qmouseevent.pos())
+
+                self.log.debug("pos is: ({}, {})".format(pos.x(), pos.y()))
+                
+                # Update the leg1 and leg2 points of the current
+                # FibFanGraphicsItem.
+                self.fibFanGraphicsItem.setLeg1PointF(pos)
+                self.fibFanGraphicsItem.setLeg2PointF(pos)
+                
+            elif self.clickOnePointF != None and \
+                 self.clickTwoPointF != None and \
+                 self.clickThreePointF == None and \
+                 self.fibFanGraphicsItem != None:
+
+                self.log.debug("FibFanTool: " +
+                               "Moving when clickTwoPointF has " +
+                               "been set already.")
+                
+                pos = self.mapToScene(qmouseevent.pos())
+                
+                self.log.debug("pos is: ({}, {})".format(pos.x(), pos.y()))
+                
+                # Update the leg2 point of the current
+                # FibFanGraphicsItem.
+                self.fibFanGraphicsItem.setLeg2PointF(pos)
+                
+            else:
+                super().mouseMoveEvent(qmouseevent)
+
         else:
             # For any other mode we don't have specific functionality for,
             # just pass the event to the parent to handle.
@@ -21548,6 +23806,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
             self.setCursor(QCursor(Qt.ArrowCursor))
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['OctaveFanTool']:
+            self.setCursor(QCursor(Qt.ArrowCursor))
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['FibFanTool']:
             self.setCursor(QCursor(Qt.ArrowCursor))
         else:
             self.log.warn("Unknown toolMode while in enterEvent().")

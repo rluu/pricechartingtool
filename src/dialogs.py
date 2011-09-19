@@ -10651,6 +10651,11 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.octaveFanGraphicsItemGroupBox = \
             self._buildOctaveFanGraphicsItemGroupBox()
 
+        # QGroupBox to hold the edit widgets and form for
+        # FibFanGraphicsItem.
+        self.fibFanGraphicsItemGroupBox = \
+            self._buildFibFanGraphicsItemGroupBox()
+
         # Create a QTabWidget to stack all the settings editing
         # widgets.
         self.tabWidget = QTabWidget()
@@ -10711,6 +10716,10 @@ class PriceBarChartSettingsEditWidget(QWidget):
                               QIcon(":/images/rluu/octaveFan.png"),
                               "")
 
+        self.tabWidget.addTab(self.fibFanGraphicsItemGroupBox,
+                              QIcon(":/images/rluu/fibFan.png"),
+                              "")
+
         # Buttons at bottom.
         self.resetAllToDefaultButton = \
             QPushButton("Reset all to original default values")
@@ -10764,6 +10773,10 @@ class PriceBarChartSettingsEditWidget(QWidget):
             connect(\
             self.\
             _handleLineSegmentGraphicsItemDefaultFontModifyButtonClicked)
+        self.fibFanGraphicsItemDefaultFontModifyButton.clicked.\
+            connect(\
+            self.\
+            _handleFibFanGraphicsItemDefaultFontModifyButtonClicked)
         
         # Connect reset buttons.
         self.priceBarGraphicsItemPenWidthResetButton.clicked.\
@@ -11080,6 +11093,36 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.octaveFanGraphicsItemTextEnabledFlagResetButton.clicked.\
             connect(\
             self._handleOctaveFanGraphicsItemTextEnabledFlagResetButtonClicked)
+
+        self.fibFanGraphicsItemTextXScalingResetButton.clicked.\
+            connect(\
+            self.\
+            _handleFibFanGraphicsItemTextXScalingResetButtonClicked)
+        self.fibFanGraphicsItemTextYScalingResetButton.clicked.\
+            connect(\
+            self.\
+            _handleFibFanGraphicsItemTextYScalingResetButtonClicked)
+        self.fibFanGraphicsItemDefaultFontResetButton.clicked.\
+            connect(\
+            self.\
+            _handleFibFanGraphicsItemDefaultFontResetButtonClicked)
+        self.fibFanGraphicsItemDefaultTextColorResetButton.clicked.\
+            connect(\
+            self.\
+            _handleFibFanGraphicsItemDefaultTextColorResetButtonClicked)
+        self.fibFanGraphicsItemDefaultColorResetButton.clicked.\
+            connect(\
+            self.\
+            _handleFibFanGraphicsItemDefaultColorResetButtonClicked)
+        self.fibFanGraphicsItemBarHeightResetButton.clicked.\
+            connect(\
+            self._handleFibFanGraphicsItemBarHeightResetButtonClicked)
+        self.fibFanGraphicsItemTextEnabledFlagResetButton.clicked.\
+            connect(\
+            self.\
+            _handleFibFanGraphicsItemTextEnabledFlagResetButton)
+
+
 
         self.resetAllToDefaultButton.clicked.\
             connect(self._handleResetAllToDefaultButtonClicked)
@@ -14504,6 +14547,219 @@ class PriceBarChartSettingsEditWidget(QWidget):
         
         return self.octaveFanGraphicsItemGroupBox
 
+    def _buildFibFanGraphicsItemGroupBox(self):
+        """Builds the groupbox containing info to edit the
+        PriceBarChartSettings related to a FibFanGraphicsItem.
+
+        Returns:
+        QGroupBox obj containing all the created widgets.
+        """
+
+        self.fibFanGraphicsItemGroupBox = \
+            QGroupBox("FibFanGraphicsItem settings:")
+
+        # fibFanGraphicsItemTextXScaling (float).
+        self.fibFanGraphicsItemTextXScalingLabel = \
+            QLabel("FibFanGraphicsItem text X scaling: ")
+        self.fibFanGraphicsItemTextXScalingSpinBox = QDoubleSpinBox()
+        self.fibFanGraphicsItemTextXScalingSpinBox.setMinimum(0.0001)
+        self.fibFanGraphicsItemTextXScalingSpinBox.setMaximum(1000.0)
+        self.fibFanGraphicsItemTextXScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # fibFanGraphicsItemTextYScaling (float).
+        self.fibFanGraphicsItemTextYScalingLabel = \
+            QLabel("FibFanGraphicsItem text Y scaling: ")
+        self.fibFanGraphicsItemTextYScalingSpinBox = QDoubleSpinBox()
+        self.fibFanGraphicsItemTextYScalingSpinBox.setMinimum(0.0001)
+        self.fibFanGraphicsItemTextYScalingSpinBox.setMaximum(1000.0)
+        self.fibFanGraphicsItemTextYScalingResetButton = \
+            QPushButton("Reset to default")
+
+        # fibFanGraphicsItemDefaultFont (QFont)
+        self.fibFanGraphicsItemDefaultFont = QFont()
+        self.fibFanGraphicsItemDefaultFont.\
+            fromString(PriceBarChartSettings.\
+                       defaultFibFanGraphicsItemDefaultFontDescription)
+        self.fibFanGraphicsItemDefaultFontLabel = \
+            QLabel("FibFanGraphicsItem default font:")
+        self.fibFanGraphicsItemDefaultFontModifyButton = \
+            QPushButton("Modify")
+        self.fibFanGraphicsItemDefaultFontResetButton = \
+            QPushButton("Reset to default")
+        
+        # fibFanGraphicsItemDefaultTextColor (QColor)
+        self.fibFanGraphicsItemDefaultTextColorLabel = \
+            QLabel("FibFanGraphicsItem default text color:")
+        self.fibFanGraphicsItemDefaultTextColorEditButton = \
+            ColorEditPushButton()
+        self.fibFanGraphicsItemDefaultTextColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # fibFanGraphicsItemDefaultColor (QColor)
+        self.fibFanGraphicsItemDefaultColorLabel = \
+            QLabel("FibFanGraphicsItem default color:")
+        self.fibFanGraphicsItemDefaultColorEditButton = \
+            ColorEditPushButton()
+        self.fibFanGraphicsItemDefaultColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # fibFanGraphicsItemBarHeight (float).
+        self.fibFanGraphicsItemBarHeightLabel = \
+            QLabel("FibFanGraphicsItem bar height: ")
+        self.fibFanGraphicsItemBarHeightSpinBox = QDoubleSpinBox()
+        self.fibFanGraphicsItemBarHeightSpinBox.setMinimum(0.0)
+        self.fibFanGraphicsItemBarHeightSpinBox.setMaximum(1000.0)
+        self.fibFanGraphicsItemBarHeightResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # fibFanGraphicsItemTextEnabledFlag (bool).
+        self.fibFanGraphicsItemTextEnabledFlagLabel = \
+            QLabel("FibFanGraphicsItem text enabled:")
+        self.fibFanGraphicsItemTextEnabledFlagCheckBox = \
+            QCheckBox()
+        self.fibFanGraphicsItemTextEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.fibFanGraphicsItemTextEnabledFlagResetButton = \
+            QPushButton("Reset to default")
+
+        # FibFan Ratios.
+        # There are no reset buttons for the ratios, just labels and checkboxes.
+        self.fibFanGraphicsItemRatioLabels = []
+        self.fibFanGraphicsItemRatioCheckBoxes = []
+        
+        for ratio in \
+            self.priceBarChartSettings.fibFanGraphicsItemRatios:
+
+            label = QLabel("FibFanGraphicsItem ratio " +
+                           ratio.getDescription() + " enabled:")
+            checkBox = QCheckBox()
+
+            self.fibFanGraphicsItemRatioLabels.append(label)
+            self.fibFanGraphicsItemRatioCheckBoxes.append(checkBox)
+        
+
+        # Grid layout.
+        gridLayout = QGridLayout()
+        r = 0
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        gridLayout.\
+            addWidget(\
+            self.fibFanGraphicsItemTextXScalingLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(self.fibFanGraphicsItemTextXScalingSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.fibFanGraphicsItemTextXScalingResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.fibFanGraphicsItemTextYScalingLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(self.fibFanGraphicsItemTextYScalingSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.fibFanGraphicsItemTextYScalingResetButton, 
+            r, 2, ar)
+        
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.fibFanGraphicsItemDefaultFontLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(self.fibFanGraphicsItemDefaultFontModifyButton, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.fibFanGraphicsItemDefaultFontResetButton, 
+            r, 2, ar)
+        
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.fibFanGraphicsItemDefaultTextColorLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.fibFanGraphicsItemDefaultTextColorEditButton, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.fibFanGraphicsItemDefaultTextColorResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.fibFanGraphicsItemDefaultColorLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.fibFanGraphicsItemDefaultColorEditButton, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.fibFanGraphicsItemDefaultColorResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.fibFanGraphicsItemBarHeightLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(self.fibFanGraphicsItemBarHeightSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.fibFanGraphicsItemBarHeightResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.fibFanGraphicsItemTextEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.fibFanGraphicsItemTextEnabledFlagCheckBox, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.fibFanGraphicsItemTextEnabledFlagResetButton, 
+            r, 2, ar)
+
+        r += 1
+        for i in range(len(self.priceBarChartSettings.\
+                           fibFanGraphicsItemRatios)):
+            gridLayout.\
+                addWidget(\
+                self.fibFanGraphicsItemRatioLabels[i], 
+                r, 0, al)
+            gridLayout.\
+                addWidget(\
+                self.fibFanGraphicsItemRatioCheckBoxes[i],
+                r, 1, ar)
+            r += 1
+
+        
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addStretch()
+        
+        self.fibFanGraphicsItemGroupBox.setLayout(layout)
+        
+        return self.fibFanGraphicsItemGroupBox
+    
     def loadValuesFromSettings(self, priceBarChartSettings):
         """Loads the widgets with values from the given
         PriceBarChartSettings object.
@@ -15640,6 +15896,61 @@ class PriceBarChartSettingsEditWidget(QWidget):
                           octaveFanGraphicsItemMusicalRatios)
         self._octaveFanGraphicsItemReloadMusicalRatiosGrid(\
             self.octaveFanGraphicsItemMusicalRatios)
+
+        # fibFanGraphicsItemTextXScaling (float).
+        self.fibFanGraphicsItemTextXScalingSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        fibFanGraphicsItemTextXScaling)
+
+        # fibFanGraphicsItemTextYScaling (float).
+        self.fibFanGraphicsItemTextYScalingSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        fibFanGraphicsItemTextYScaling)
+
+        # fibFanGraphicsItemDefaultFontDescription (str)
+        self.fibFanGraphicsItemDefaultFont = QFont()
+        self.fibFanGraphicsItemDefaultFont.\
+            fromString(self.priceBarChartSettings.\
+                       fibFanGraphicsItemDefaultFontDescription)
+
+        # fibFanGraphicsItemDefaultTextColor (QColor).
+        self.fibFanGraphicsItemDefaultTextColorEditButton.\
+            setColor(self.priceBarChartSettings.\
+                     fibFanGraphicsItemDefaultTextColor)
+
+        # fibFanGraphicsItemDefaultColor (QColor).
+        self.fibFanGraphicsItemDefaultColorEditButton.\
+            setColor(self.priceBarChartSettings.\
+                     fibFanGraphicsItemDefaultColor)
+
+        # fibFanGraphicsItemBarHeight (float).
+        self.fibFanGraphicsItemBarHeightSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        fibFanGraphicsItemBarHeight)
+
+        # fibFanGraphicsItemTextEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           fibFanGraphicsItemTextEnabledFlag == True:
+            
+            self.fibFanGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.fibFanGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # FibFan Ratios.
+        for i in range(len(self.priceBarChartSettings.\
+                           fibFanGraphicsItemRatios)):
+            # Check the checkbox if the ratio is enabled.
+            ratio = \
+                self.priceBarChartSettings.fibFanGraphicsItemRatios[i]
+
+            if ratio.isEnabled():
+                self.fibFanGraphicsItemRatioCheckBoxes[i].\
+                    setCheckState(Qt.Checked)
+            else:
+                self.fibFanGraphicsItemRatioCheckBoxes[i].\
+                    setCheckState(Qt.Unchecked)
         
         self.log.debug("Exiting loadValuesFromSettings()")
         
@@ -16701,6 +17012,58 @@ class PriceBarChartSettingsEditWidget(QWidget):
         # octaveFanGraphicsItemMusicalRatios (list of MusicalRatio)
         self.priceBarChartSettings.octaveFanGraphicsItemMusicalRatios = \
             self.octaveFanGraphicsItemMusicalRatios
+
+        # fibFanGraphicsItemTextXScaling (float).
+        self.priceBarChartSettings.fibFanGraphicsItemTextXScaling = \
+            float(self.fibFanGraphicsItemTextXScalingSpinBox.value())
+
+        # fibFanGraphicsItemTextYScaling (float).
+        self.priceBarChartSettings.fibFanGraphicsItemTextYScaling = \
+            float(self.fibFanGraphicsItemTextYScalingSpinBox.value())
+
+        # fibFanGraphicsItemDefaultFontDescription (str)
+        self.priceBarChartSettings.\
+            fibFanGraphicsItemDefaultFontDescription = \
+            self.fibFanGraphicsItemDefaultFont.toString()
+
+        # fibFanGraphicsItemDefaultTextColor (QColor).
+        self.priceBarChartSettings.\
+            fibFanGraphicsItemDefaultTextColor = \
+            self.fibFanGraphicsItemDefaultTextColorEditButton.\
+            getColor()
+
+        # fibFanGraphicsItemDefaultColor (QColor).
+        self.priceBarChartSettings.\
+            fibFanGraphicsItemDefaultColor = \
+            self.fibFanGraphicsItemDefaultColorEditButton.\
+            getColor()
+
+        # fibFanGraphicsItemBarHeight (float).
+        self.priceBarChartSettings.fibFanGraphicsItemBarHeight = \
+            float(self.fibFanGraphicsItemBarHeightSpinBox.value())
+
+        # fibFanGraphicsItemTextEnabledFlag (bool).
+        if self.fibFanGraphicsItemTextEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                fibFanGraphicsItemTextEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                fibFanGraphicsItemTextEnabledFlag = False
+
+        # FibFan Ratios.
+        for i in range(len(self.priceBarChartSettings.\
+                           fibFanGraphicsItemRatios)):
+            
+            if self.fibFanGraphicsItemRatioCheckBoxes[i].\
+               checkState() == Qt.Checked:
+
+                self.priceBarChartSettings.\
+                    fibFanGraphicsItemRatios[i].setEnabled(True)
+            else:
+                self.priceBarChartSettings.\
+                    fibFanGraphicsItemRatios[i].setEnabled(False)
         
         self.log.debug("Exiting saveValuesToSettings()")
 
@@ -16824,6 +17187,21 @@ class PriceBarChartSettingsEditWidget(QWidget):
         if rv == QDialog.Accepted:
             # Store the font in the member variable (not in the artifact).
             self.lineSegmentGraphicsItemDefaultFont = dialog.selectedFont()
+        
+    def _handleFibFanGraphicsItemDefaultFontModifyButtonClicked(self):
+        """Called when the
+        self.fibFanGraphicsItemDefaultFontModifyButton button is
+        clicked.  Brings up a dialog for editing the font, and saves
+        it if the dialog is accepted.
+        """
+
+        dialog = QFontDialog(self.fibFanGraphicsItemDefaultFont)
+
+        rv = dialog.exec_()
+
+        if rv == QDialog.Accepted:
+            # Store the font in the member variable (not in the artifact).
+            self.fibFanGraphicsItemDefaultFont = dialog.selectedFont()
         
     def _handlePriceBarPenWidthResetButtonClicked(self):
         """Called when the penWidthResetButton is clicked.
@@ -18727,7 +19105,94 @@ class PriceBarChartSettingsEditWidget(QWidget):
         
         self._octaveFanGraphicsItemReloadMusicalRatiosGrid(\
             self.octaveFanGraphicsItemMusicalRatios)
+
+    def _handleFibFanGraphicsItemTextXScalingResetButtonClicked(self):
+        """Called when the fibFanGraphicsItemTextXScalingResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultFibFanGraphicsItemTextXScaling
+
+        self.fibFanGraphicsItemTextXScalingSpinBox.setValue(value)
+
+    def _handleFibFanGraphicsItemTextYScalingResetButtonClicked(self):
+        """Called when the fibFanGraphicsItemTextYScalingResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultFibFanGraphicsItemTextYScaling
+
+        self.fibFanGraphicsItemTextYScalingSpinBox.setValue(value)
+
+    def _handleFibFanGraphicsItemDefaultFontResetButtonClicked(self):
+        """Called when the
+        fibFanGraphicsItemDefaultFontResetButton is clicked.
+        Resets the internal value to the default value.
+        """
+
+        self.fibFanGraphicsItemDefaultFont = QFont()
+        self.fibFanGraphicsItemDefaultFont.\
+            fromString(PriceBarChartSettings.\
+                       defaultFibFanGraphicsItemDefaultFontDescription)
         
+    def _handleFibFanGraphicsItemDefaultTextColorResetButtonClicked(self):
+        """Called when the
+        fibFanGraphicsItemDefaultTextColorResetButton is clicked.
+        Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultFibFanGraphicsItemDefaultTextColor
+
+        self.fibFanGraphicsItemDefaultTextColorEditButton.\
+            setColor(value)
+
+    def _handleFibFanGraphicsItemDefaultColorResetButtonClicked(self):
+        """Called when the
+        fibFanGraphicsItemDefaultColorResetButton is clicked.
+        Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultFibFanGraphicsItemDefaultColor
+
+        self.fibFanGraphicsItemDefaultColorEditButton.\
+            setColor(value)
+
+    def _handleFibFanGraphicsItemBarHeightResetButtonClicked(self):
+        """Called when the fibFanGraphicsItemBarHeightResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultFibFanGraphicsItemBarHeight
+
+        self.fibFanGraphicsItemBarHeightSpinBox.setValue(value)
+
+    def _handleFibFanGraphicsItemTextEnabledFlagResetButton(self):
+        """Called when the
+        fibFanGraphicsItemTextEnabledFlagResetButton
+        is clicked.  Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultFibFanGraphicsItemTextEnabledFlag
+
+        if value == True:
+            self.fibFanGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.fibFanGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+            
     def _handleResetAllToDefaultButtonClicked(self):
         """Called when the resetAllToDefaultButton is clicked.
         Resets the all the widget values in this widget to the default
@@ -18833,6 +19298,15 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._handleOctaveFanGraphicsItemTextYScalingResetButtonClicked()
         self._handleOctaveFanGraphicsItemTextEnabledFlagResetButtonClicked()
         self._handleOctaveFanGraphicsItemMusicalRatiosResetButtonClicked()
+
+        self._handleFibFanGraphicsItemTextXScalingResetButtonClicked()
+        self._handleFibFanGraphicsItemTextYScalingResetButtonClicked()
+        self._handleFibFanGraphicsItemDefaultFontResetButtonClicked()
+        self._handleFibFanGraphicsItemDefaultTextColorResetButtonClicked()
+        self._handleFibFanGraphicsItemDefaultColorResetButtonClicked()
+        self._handleFibFanGraphicsItemBarHeightResetButtonClicked()
+        self._handleFibFanGraphicsItemTextEnabledFlagResetButton()
+        
 
     def _handleOkayButtonClicked(self):
         """Called when the okay button is clicked."""

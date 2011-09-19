@@ -37,6 +37,7 @@ from data_objects import PriceBarChartPriceRetracementArtifact
 from data_objects import PriceBarChartPriceTimeVectorArtifact
 from data_objects import PriceBarChartLineSegmentArtifact
 from data_objects import PriceBarChartOctaveFanArtifact
+from data_objects import PriceBarChartFibFanArtifact
 
 from data_objects import PriceBarChartScaling
 
@@ -7599,61 +7600,6 @@ class PriceBarChartPriceTimeVectorArtifactEditDialog(QDialog):
         return self.artifact
 
 
-def testPriceBarChartBarCountArtifactEditDialog():
-    print("Running " + inspect.stack()[0][3] + "()")
-    
-    # Create an artifact.
-    artifact = PriceBarChartBarCountArtifact()
-
-    # Set the artifact's position and start/end points.  It needs to
-    # be at a position where the converted datetime.datetime is
-    # greater than the datetime.datetime.MINYEAR.
-    # A X value of 2450000 is in year 1995.
-    pos = QPointF(2450000, -1000)
-    artifact.setPos(pos)
-    artifact.setStartPointF(pos)
-    artifact.setEndPointF(QPoint(pos.x() + 1000, pos.y()))
-
-    # Create an object for doing unit conversions.
-    eastern = pytz.timezone('US/Eastern')
-    from pricebarchart import PriceBarChartGraphicsScene
-    convertObj = PriceBarChartGraphicsScene()
-    convertObj.setTimezone(eastern)
-    
-    # Run the dialog in readonly mode.
-    print("Before (readonly), " +
-          "PriceBarChartBarCountArtifact: {}".\
-          format(artifact.toString()))
-    dialog = PriceBarChartBarCountArtifactEditDialog(artifact,
-                                                     convertObj,
-                                                     readOnlyFlag=True)
-    rv = dialog.exec_()
-    if rv == QDialog.Accepted:
-        print("Accepted")
-    else:
-        print("Rejected")
-    print("After  (readonly), " +
-          "PriceBarChartBarCountArtifact: {}".\
-          format(artifact.toString()))
-
-    
-    # Run the dialog in non-readonly mode.
-    print("Before (not readonly), " +
-          "PriceBarChartBarCountArtifact: {}".\
-          format(artifact.toString()))
-    dialog = PriceBarChartBarCountArtifactEditDialog(artifact,
-                                                     convertObj,
-                                                     readOnlyFlag=False)
-    rv = dialog.exec_()
-    if rv == QDialog.Accepted:
-        print("Accepted")
-    else:
-        print("Rejected")
-    print("After  (not readonly), " +
-          "PriceBarChartBarCountArtifact: {}".\
-          format(artifact.toString()))
-
-    
 class PriceBarChartLineSegmentArtifactEditWidget(QWidget):
     """QWidget for editing some of the member objects in a
     PriceBarChartLineSegmentArtifact within the context of a
@@ -9361,8 +9307,739 @@ class PriceBarChartOctaveFanArtifactEditDialog(QDialog):
             return self.artifact
 
 
+class PriceBarChartFibFanArtifactEditWidget(QWidget):
+    """QWidget for editing some of the member objects in a
+    PriceBarChartFibFanArtifact within the context of a
+    PriceBarChart.  This means that fields that are editable in the
+    widgets are not actually a one-to-one mapping with the members in
+    a PriceBarChartFibFanArtifact.  They are derivatives of it such
+    that the user can modify it without having to do the underlying
+    conversions.
+    """
+
+    # Signal emitted when the Okay button is clicked and 
+    # validation succeeded.
+    okayButtonClicked = QtCore.pyqtSignal()
+
+    # Signal emitted when the Cancel button is clicked.
+    cancelButtonClicked = QtCore.pyqtSignal()
+
+    def __init__(self,
+                 artifact,
+                 convertObj,
+                 readOnlyFlag=False,
+                 parent=None):
+        """QWidget for editing some of the fields of a
+        PriceBarChartFibFanArtifact object.
+
+        Arguments:
+        artifact - PriceBarChartFibFanArtifact object to edit.
+        convertObj - PriceBarChartGraphicsScene object that is used for
+                unit conversions (x position to time, y position to price).
+        readOnlyFlag - bool value used to set the widgets in readonly mode.
+        """
+
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger(\
+            "pricebarchart_dialogs.PriceBarChartFibFanArtifactEditWidget")
+
+        # Save off the artifact object.
+        self.artifact = artifact
+
+        # Save off the scene object used for unit conversions.
+        self.convertObj = convertObj
+        
+        # Save off the readOnlyFlag
+        self.readOnlyFlag = readOnlyFlag
+        
+        # QGroupBox to hold the edit widgets and form.
+        self.groupBoxPage1 = self._createGroupBoxPage1()
+        self.groupBoxPage2 = self._createGroupBoxPage2()
+
+        # Create a QTabWidget to stack all the QGroupBox that have our
+        # edit widgets.
+        self.tabWidget = QTabWidget()
+        self.tabWidget.addTab(self.groupBoxPage1, "Page 1")
+        self.tabWidget.addTab(self.groupBoxPage2, "Page 2")
+
+        # Buttons at bottom.
+        self.okayButton = QPushButton("&Okay")
+        self.cancelButton = QPushButton("&Cancel")
+        self.buttonsAtBottomLayout = QHBoxLayout()
+        self.buttonsAtBottomLayout.addStretch()
+        self.buttonsAtBottomLayout.addWidget(self.okayButton)
+        self.buttonsAtBottomLayout.addWidget(self.cancelButton)
+
+        # Put all layouts/groupboxes together into the widget.
+        self.mainLayout = QVBoxLayout()
+        self.mainLayout.addWidget(self.tabWidget)
+        self.mainLayout.addSpacing(10)
+        self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
+
+        self.setLayout(self.mainLayout)
+        
+        # Now that all the widgets are created, load the values from the
+        # artifact object.
+        self.loadValues(artifact)
+
+        self.setReadOnly(self.readOnlyFlag)
+        
+        # Connect signals and slots.
+
+        self.fontEditButton.clicked.\
+            connect(self._handleFontEditButtonClicked)
+        self.barHeightValueSpinBox.valueChanged.\
+            connect(self._handleBarHeightValueSpinBoxChanged)
+        self.textFontSizeValueSpinBox.valueChanged.\
+            connect(self._handleTextFontSizeValueSpinBoxChanged)
+        self.textEnabledCheckBox.stateChanged.\
+            connect(self._handleTextEnabledCheckBoxToggled)
+        
+        # Connect okay and cancel buttons.
+        self.okayButton.clicked.connect(self._handleOkayButtonClicked)
+        self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
+
+    def _createGroupBoxPage1(self):
+        """Creates a QGroupBox (and the widgets within it) for page1
+        of the edit widget, and then returns it.
+        """
+
+        self.groupBoxPage1 = \
+            QGroupBox("PriceBarChartFibFanArtifact Data (page 1):")
+        
+        lineEditWidth = 420
+        
+        self.internalNameLabel = QLabel("Internal name:")
+        self.internalNameLineEdit = QLineEdit()
+        self.internalNameLineEdit.setMinimumWidth(lineEditWidth)
+
+        self.uuidLabel = QLabel("Uuid:")
+        self.uuidLineEdit = QLineEdit()
+        self.uuidLineEdit.setMinimumWidth(lineEditWidth)
+
+        self.xScalingLabel = QLabel("Text X Scaling:")
+        self.xScalingDoubleSpinBox = QDoubleSpinBox()
+        self.xScalingDoubleSpinBox.setMinimum(0.0)
+        self.xScalingDoubleSpinBox.setMaximum(999999999.0)
+        
+        self.yScalingLabel = QLabel("Text Y Scaling:")
+        self.yScalingDoubleSpinBox = QDoubleSpinBox()
+        self.yScalingDoubleSpinBox.setMinimum(0.0)
+        self.yScalingDoubleSpinBox.setMaximum(999999999.0)
+        
+        self.font = QFont()
+        self.fontLabel = QLabel("Font:")
+        self.fontValueLabel = QLabel(self.font.toString())
+        self.fontEditButton = QPushButton("Modify")
+
+        self.colorLabel = QLabel("Color: ")
+        self.colorEditButton = ColorEditPushButton()
+
+        self.textColorLabel = QLabel("Text color: ")
+        self.textColorEditButton = ColorEditPushButton()
+        
+        self.barHeightValueLabel = \
+            QLabel("FibFan bar height:")
+        self.barHeightValueSpinBox = QDoubleSpinBox()
+        self.barHeightValueSpinBox.setMinimum(0.0)
+        self.barHeightValueSpinBox.setMaximum(999999999.0)
+
+        self.textEnabledLabel = QLabel("Text is enabled:")
+        self.textEnabledCheckBox = QCheckBox()
+        self.textEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        self.originPointPriceValueLabel = \
+            QLabel("FibFan Origin Point (in price):")
+        self.originPointPriceValueSpinBox = QDoubleSpinBox()
+        self.originPointPriceValueSpinBox.setDecimals(4)
+        self.originPointPriceValueSpinBox.setMinimum(0.0)
+        self.originPointPriceValueSpinBox.setMaximum(999999999.0)
+        originPointPriceValueLayout = QHBoxLayout()
+        originPointPriceValueLayout.addWidget(self.originPointPriceValueLabel)
+        originPointPriceValueLayout.addStretch()
+        originPointPriceValueLayout.addWidget(self.originPointPriceValueSpinBox)
+        
+        self.originPointDatetimeLocationWidget = TimestampEditWidget()
+        self.originPointDatetimeLocationWidget.groupBox.\
+            setTitle("FibFan Origin Point (in time)")
+        self.originPointDatetimeLocationWidget.okayButton.setVisible(False)
+        self.originPointDatetimeLocationWidget.cancelButton.setVisible(False)
+        
+        self.leg1PointPriceValueLabel = \
+            QLabel("FibFan Leg1 Point (in price):")
+        self.leg1PointPriceValueSpinBox = QDoubleSpinBox()
+        self.leg1PointPriceValueSpinBox.setDecimals(4)
+        self.leg1PointPriceValueSpinBox.setMinimum(0.0)
+        self.leg1PointPriceValueSpinBox.setMaximum(999999999.0)
+        leg1PointPriceValueLayout = QHBoxLayout()
+        leg1PointPriceValueLayout.addWidget(self.leg1PointPriceValueLabel)
+        leg1PointPriceValueLayout.addStretch()
+        leg1PointPriceValueLayout.addWidget(self.leg1PointPriceValueSpinBox)
+        
+        self.leg1PointDatetimeLocationWidget = TimestampEditWidget()
+        self.leg1PointDatetimeLocationWidget.groupBox.\
+            setTitle("FibFan Leg1 Point (in time)")
+        self.leg1PointDatetimeLocationWidget.okayButton.setVisible(False)
+        self.leg1PointDatetimeLocationWidget.cancelButton.setVisible(False)
+        
+        self.leg2PointPriceValueLabel = \
+            QLabel("FibFan Leg2 Point (in price):")
+        self.leg2PointPriceValueSpinBox = QDoubleSpinBox()
+        self.leg2PointPriceValueSpinBox.setDecimals(4)
+        self.leg2PointPriceValueSpinBox.setMinimum(0.0)
+        self.leg2PointPriceValueSpinBox.setMaximum(999999999.0)
+        leg2PointPriceValueLayout = QHBoxLayout()
+        leg2PointPriceValueLayout.addWidget(self.leg2PointPriceValueLabel)
+        leg2PointPriceValueLayout.addStretch()
+        leg2PointPriceValueLayout.addWidget(self.leg2PointPriceValueSpinBox)
+        
+        self.leg2PointDatetimeLocationWidget = TimestampEditWidget()
+        self.leg2PointDatetimeLocationWidget.groupBox.\
+            setTitle("FibFan Leg2 Point (in time)")
+        self.leg2PointDatetimeLocationWidget.okayButton.setVisible(False)
+        self.leg2PointDatetimeLocationWidget.cancelButton.setVisible(False)
+        
+        
+        # Layout for just the font info.
+        self.fontLayout = QHBoxLayout()
+        self.fontLayout.addWidget(self.fontValueLabel)
+        self.fontLayout.addStretch()
+        self.fontLayout.addWidget(self.fontEditButton)
+
+        # Layout.
+        self.gridLayout = QGridLayout()
+
+        # Row.
+        r = 0
+
+        # Alignments.
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        self.gridLayout.addWidget(self.internalNameLabel, r, 0, al)
+        self.gridLayout.addWidget(self.internalNameLineEdit, r, 1, al)
+        r += 1
+        self.gridLayout.addWidget(self.uuidLabel, r, 0, al)
+        self.gridLayout.addWidget(self.uuidLineEdit, r, 1, al)
+        r += 1
+        self.gridLayout.addWidget(self.xScalingLabel, r, 0, al)
+        self.gridLayout.addWidget(self.xScalingDoubleSpinBox, r, 1, al)
+        r += 1
+        self.gridLayout.addWidget(self.yScalingLabel, r, 0, al)
+        self.gridLayout.addWidget(self.yScalingDoubleSpinBox, r, 1, al)
+        r += 1
+        self.gridLayout.addWidget(self.fontLabel, r, 0, al)
+        self.gridLayout.addLayout(self.fontLayout, r, 1, al)
+        r += 1
+        self.gridLayout.addWidget(self.colorLabel, r, 0, al)
+        self.gridLayout.addWidget(self.colorEditButton, r, 1, al)
+        r += 1
+        self.gridLayout.addWidget(self.textColorLabel, r, 0, al)
+        self.gridLayout.addWidget(self.textColorEditButton, r, 1, al)
+        r += 1
+        self.gridLayout.addWidget(self.barHeightValueLabel, r, 0, al)
+        self.gridLayout.addWidget(self.barHeightValueSpinBox, r, 1, al)
+        r += 1
+        self.gridLayout.addLayout(originPointPriceValueLayout, r, 0, al)
+        self.gridLayout.addLayout(leg1PointPriceValueLayout, r, 1, al)
+        r += 1
+        self.gridLayout.addWidget(self.originPointDatetimeLocationWidget,
+                                  r, 0, al)
+        self.gridLayout.addWidget(self.leg1PointDatetimeLocationWidget,
+                                  r, 1, al)
+        r += 1
+        #self.gridLayout.addWidget(self.,
+        #                          r, 0, al)
+        self.gridLayout.addWidget(self.leg2PointPriceValueLayout,
+                                  r, 1, al)
+        r += 1
+        #self.gridLayout.addWidget(self.,
+        #                          r, 0, al)
+        self.gridLayout.addWidget(self.leg2PointDatetimeLocationWidget,
+                                  r, 1, al)
+        r += 1
+
+
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addStretch()
+        
+        self.groupBoxPage1.setLayout(layout)
+
+        return self.groupBoxPage1
+
+    def _createGroupBoxPage2(self):
+        """Creates a QGroupBox (and the widgets within it) for page2
+        of the edit widget, and then returns it.
+        """
+
+        self.groupBoxPage2 = \
+            QGroupBox("PriceBarChartFibFanArtifact Data (page 2):")
+
+        
+        self.ratioCheckBoxes = []
+        for ratio in self.artifact.getRatios():
+            checkBox = \
+                QCheckBox("Ratio " + ratio.getDescription() + " enabled")
+            self.ratioCheckBoxes.append(checkBox)
+        
+        # Layout just for the checkboxes (enabled ratios, etc.).
+        checkBoxesLayout = QVBoxLayout()
+        for checkBox in self.ratioCheckBoxes:
+            checkBoxesLayout.addWidget(checkBox)
+        tempLayout = checkBoxesLayout
+        
+        checkBoxesLayout = QHBoxLayout()
+        checkBoxesLayout.addLayout(tempLayout)
+        checkBoxesLayout.addStretch()
+
+        layout = QVBoxLayout()
+        layout.addLayout(checkBoxesLayout)
+        layout.addStretch()
+        
+        self.groupBoxPage2.setLayout(layout)
+
+        return self.groupBoxPage2
+
+    def setConvertObj(self, convertObj):
+        """Sets the object that is used for the conversion between
+        scene position and timestamp or price.
+
+        Arguments:
+        convertObj - PriceBarChartGraphicsScene object that is used
+                     for scene position conversions of X point to
+                     timestamp and Y point to price.
+        """
+
+        self.convertObj = convertObj
+
+        # Need to reload the artifact, so that the proper conversion
+        # is done with the new conversion object.
+        self.loadValues(self.artifact)
+        
+    def getConvertObj(self):
+        """Returns the object used for conversion calculations between
+        scene position point and timestamp or price.
+
+        Returns:
+        PriceBarChartGraphicsScene object that is used
+        for scene position conversions of X point to
+        timestamp and Y point to price.
+        """
+
+        return self.convertObj
+    
+        
+    def getArtifact(self):
+        """Returns the internally stored artifact object.
+
+        Note: If saveValues() was called previously, then this object
+        was updated with the values from the edit widgets.
+        """
+
+        return self.artifact
+        
+    def setReadOnly(self, readOnlyFlag):
+        """Sets the internal edit widgets to be read only or not
+        depending on the bool state of readOnlyFlag.
+
+        Arguments:
+        readOnlyFlag - bool value indicating whether the widget is in
+        ReadOnly mode.
+        """
+
+        self.readOnlyFlag = readOnlyFlag
+
+        # Set the internal widgets as readonly or not depending on this flag.
+        self.internalNameLineEdit.setReadOnly(True)
+        self.uuidLineEdit.setReadOnly(True)
+        self.xScalingDoubleSpinBox.setEnabled(not self.readOnlyFlag)
+        self.yScalingDoubleSpinBox.setEnabled(not self.readOnlyFlag)
+        self.fontEditButton.setEnabled(not self.readOnlyFlag)
+        self.colorEditButton.setEnabled(not self.readOnlyFlag)
+        self.textColorEditButton.setEnabled(not self.readOnlyFlag)
+        self.barHeightValueSpinBox.setEnabled(not self.readOnlyFlag)
+        self.textEnabledCheckBox.setEnabled(not self.readOnlyFlag)
+        
+        self.originPointPriceValueSpinBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.leg1PointPriceValueSpinBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.leg2PointPriceValueSpinBox.\
+            setEnabled(not self.readOnlyFlag)
+
+        self.originPointDatetimeLocationWidget.setReadOnly(self.readOnlyFlag)
+        self.leg1PointDatetimeLocationWidget.setReadOnly(self.readOnlyFlag)
+        self.leg2PointDatetimeLocationWidget.setReadOnly(self.readOnlyFlag)
+
+        for checkBox in self.ratioCheckBoxes:
+            checkBox.setEnabled(not self.readOnlyFlag)
+            
+        # Don't allow the Okay button to be pressed for saving.
+        self.okayButton.setEnabled(not self.readOnlyFlag)
+        
+    def getReadOnly(self):
+        """Returns the flag that indicates that this widget is in
+        read-only mode.  If the returned value is True, then it means
+        the user cannot edit any of the fields in the PriceBar.
+        """
+        
+        return self.readOnlyFlag
+
+    def loadValues(self, artifact):
+        """Loads the widgets with values from the given
+        PriceBarChartFibFanArtifact.
+
+        Note: Upon calling saveValues(), the edit widget overwrites
+        the values in the object pointed to by 'artifact' with the
+        values in the edit widgets.
+
+        Arguments:
+        
+        artifact - PriceBarChartFibFanArtifact object to load the
+        values into the edit widgets.  
+        """
+
+        self.log.debug("Entered loadValues()")
+
+        # Check inputs.
+        if artifact == None:
+            self.log.error("Invalid parameter to " + \
+                           "loadValues().  artifact can't be None.")
+            self.log.debug("Exiting loadValues()")
+            return
+        else:
+            self.artifact = artifact
+
+        # Set the widgets.
+        self.internalNameLineEdit.\
+            setText(self.artifact.getInternalName())
+        
+        self.uuidLineEdit.\
+            setText(str(self.artifact.getUuid()))
+        
+        self.xScalingDoubleSpinBox.setValue(self.artifact.getTextXScaling())
+        self.yScalingDoubleSpinBox.setValue(self.artifact.getTextYScaling())
+
+        self.font = self.artifact.getFont()
+        self.fontValueLabel.setText(\
+            self._convertFontToNiceText(self.font))
+        
+        self.colorEditButton.setColor(self.artifact.getColor())
+        
+        self.textColorEditButton.setColor(self.artifact.getTextColor())
+
+        self.barHeightValueSpinBox.setValue(self.artifact.getBarHeight())
+        
+        if self.artifact.isTextEnabled() == True:
+            self.textEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.textEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        originPointY = self.artifact.originPointF.y()
+        originPointPrice = self.convertObj.sceneYPosToPrice(originPointY)
+        self.originPointPriceLocationValueSpinBox.setValue(originPointPrice)
+        
+        originPointX = self.artifact.originPointF.x()
+        originPointDatetime = self.convertObj.sceneXPosToDatetime(originPointX)
+        self.originPointDatetimeLocationWidget.\
+            loadTimestamp(originPointDatetime)
+        
+
+        leg1PointY = self.artifact.leg1PointF.y()
+        leg1PointPrice = self.convertObj.sceneYPosToPrice(leg1PointY)
+        self.leg1PointPriceLocationValueSpinBox.setValue(leg1PointPrice)
+        
+        leg1PointX = self.artifact.leg1PointF.x()
+        leg1PointDatetime = self.convertObj.sceneXPosToDatetime(leg1PointX)
+        self.leg1PointDatetimeLocationWidget.\
+            loadTimestamp(leg1PointDatetime)
+
+        
+        leg2PointY = self.artifact.leg2PointF.y()
+        leg2PointPrice = self.convertObj.sceneYPosToPrice(leg2PointY)
+        self.leg2PointPriceLocationValueSpinBox.setValue(leg2PointPrice)
+        
+        leg2PointX = self.artifact.leg2PointF.x()
+        leg2PointDatetime = self.convertObj.sceneXPosToDatetime(leg2PointX)
+        self.leg2PointDatetimeLocationWidget.\
+            loadTimestamp(leg2PointDatetime)
+        
+
+        ratios = self.artifact.getRatios()
+        for i in range(len(ratios)):
+            ratio = ratios[i]
+            
+            if ratio.isEnabled() == True:
+                self.ratioCheckBoxes[i].setCheckState(Qt.Checked)
+            else:
+                self.ratioCheckBoxes[i].setCheckState(Qt.Unchecked)
+            
+        self.log.debug("Exiting loadValues()")
+        
+    def saveValues(self):
+        """Saves the values in the widgets to the
+        PriceBarChartFibFanArtifact object passed in this class's
+        constructor or the loadValues() function.
+        """
+    
+        self.log.debug("Entered saveValues()")
+
+        # Call save on the timestamp widgets.
+        self.originPointDatetimeLocationWidget.saveTimestamp()
+        self.leg1PointDatetimeLocationWidget.saveTimestamp()
+        self.leg2PointDatetimeLocationWidget.saveTimestamp()
+        
+        textXScaling = self.xScalingDoubleSpinBox.value()
+        textYScaling = self.yScalingDoubleSpinBox.value()
+
+        originPointPrice = self.originPointPriceLocationValueSpinBox.value()
+        originPointY = self.convertObj.priceToSceneYPos(originPointPrice)
+
+        leg1PointPrice = self.leg1PointPriceLocationValueSpinBox.value()
+        leg1PointY = self.convertObj.priceToSceneYPos(leg1PointPrice)
+
+        leg2PointPrice = self.leg2PointPriceLocationValueSpinBox.value()
+        leg2PointY = self.convertObj.priceToSceneYPos(leg2PointPrice)
+
+        
+        originPointDatetime = \
+            self.originPointDatetimeLocationWidget.getTimestamp()
+        leg1PointDatetime = \
+            self.leg1PointDatetimeLocationWidget.getTimestamp()
+        leg2PointDatetime = \
+            self.leg2PointDatetimeLocationWidget.getTimestamp()
+
+        color = self.colorEditButton.getColor()
+        textColor = self.textColorEditButton.getColor()
+        barHeight = self.barHeightValueSpinBox.value()
+        
+        originPointX = self.convertObj.datetimeToSceneXPos(originPointDatetime)
+        leg1PointX = self.convertObj.datetimeToSceneXPos(leg1PointDatetime)
+        leg2PointX = self.convertObj.datetimeToSceneXPos(leg2PointDatetime)
+
+        # Position and start point should be the same values.
+
+        posF = QPointF(originPointX, originPointY)
+        originPointF = QPointF(originPointX, originPointY)
+        leg1PointF = QPointF(leg1PointX, leg1PointY)
+        leg2PointF = QPointF(leg2PointX, leg2PointY)
+
+        textEnabledFlag = \
+            (self.textEnabledFlagCheckBox.checkState() == Qt.Checked)
+        
+        ratioEnabledFlags = []
+        for checkBox in self.ratioCheckBoxes:
+            if checkBox.checkState() == Qt.Checked:
+                ratioEnabledFlags.append(True)
+            else:
+                ratioEnabledFlags.append(False)
+                
+        # Set the values in the artifact.
+        self.artifact.setPos(posF)
+        self.artifact.setFont(self.font)
+        self.artifact.setTextXScaling(textXScaling)
+        self.artifact.setTextYScaling(textYScaling)
+        self.artifact.setColor(color)
+        self.artifact.setTextColor(textColor)
+        self.artifact.setBarHeight(barHeight)
+        self.artifact.setOriginPointF(originPointF)
+        self.artifact.setLeg1PointF(leg1PointF)
+        self.artifact.setLeg2PointF(leg2PointF)
+        self.artifact.setTextEnabled(textEnabledFlag)
+
+        ratios = self.artifact.getRatios()
+        for i in range(len(ratioEnabledFlags)):
+            flag = ratioEnabledFlags[i]
+            ratios[i].setEnabled(flag)
+        
+        self.log.debug("Exiting saveValues()")
+
+
+    def _convertFontToNiceText(self, font):
+        """Converts the given QFont to some nice str for decribing in a label.
+        """
+
+        rv = "Family: {}".format(font.family()) + os.linesep + \
+             "Size: {}".format(font.pointSizeF())
+
+        return rv
+
+    def _handleFontEditButtonClicked(self):
+        """Called when the self.fontEditButton is clicked."""
+
+        dialog = QFontDialog(self.font)
+
+        rv = dialog.exec_()
+
+        if rv == QDialog.Accepted:
+            # Store the font in the member variable (not in the artifact).
+            self.font = dialog.selectedFont()
+            self.fontValueLabel.setText(self._convertFontToNiceText(self.font))
+        
+    def _handleOkayButtonClicked(self):
+        """Called when the okay button is clicked."""
+
+        self.saveValues()
+        self.okayButtonClicked.emit()
+
+    def _handleCancelButtonClicked(self):
+        """Called when the cancel button is clicked."""
+
+        self.cancelButtonClicked.emit()
+
+
+class PriceBarChartFibFanArtifactEditDialog(QDialog):
+    """QDialog for editing some of the members objects in a 
+    PriceBarChartFibFanArtifact.
+    """
+
+    def __init__(self,
+                 priceBarChartFibFanArtifact,
+                 convertObj,
+                 readOnlyFlag=False,
+                 parent=None):
+        """Initializes the dialog and internal widget with the values
+        from the given PriceBarChartFibFanArtifact.
+        
+        Note: The 'priceBarChartFibFanArtifact' object gets modified
+        if the user clicks the 'Okay' button.
+
+        Arguments:
+        artifact - PriceBarChartFibFanArtifact object to edit.
+                   This object gets modified if the user clicks the
+                   'Okay' button.
+        convertObj - PriceBarChartGraphicsScene object that is used for
+                unit conversions (x position to time, y position to price).
+        readOnlyFlag - bool value used to set the widgets in readonly mode.
+        """
+
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.getLogger(\
+        "pricebarchart_dialogs.PriceBarChartFibFanArtifactEditDialog")
+
+        self.setWindowTitle("Edit PriceBarChartFibFanArtifact Data")
+
+        # Check input.
+        if not isinstance(priceBarChartFibFanArtifact,
+                          PriceBarChartFibFanArtifact):
+            self.log.error("Input type invalid to " +
+                           self.__class__.__name__ +
+                           " constructor.")
+            return
+
+        # Save a reference to the artifact object.
+        self.artifact = priceBarChartFibFanArtifact
+
+        # Save a reference to the conversion object.
+        self.convertObj = convertObj
+        
+        # Save the readOnlyFlag value.
+        self.readOnlyFlag = readOnlyFlag
+        
+        # Create the contents.
+        self.editWidget = \
+            PriceBarChartFibFanArtifactEditWidget(self.artifact,
+                                                    self.convertObj,
+                                                    self.readOnlyFlag)
+        
+        # Setup the layout.
+        layout = QVBoxLayout()
+        layout.addWidget(self.editWidget)
+        self.setLayout(layout)
+
+        self.editWidget.okayButtonClicked.connect(self.accept)
+        self.editWidget.cancelButtonClicked.connect(self.reject)
+
+    def setReadOnly(self, readOnlyFlag):
+        """Sets the internal edit widgets to be read only or not
+        depending on the bool state of readOnlyFlag.
+
+        Arguments:
+        readOnlyFlag - bool value indicating whether the widget is in
+                       ReadOnly mode.
+        """
+
+        self.readOnlyFlag = readOnlyFlag
+
+        self.editWidget.setReadOnly(self.readOnlyFlag)
+        
+    def getReadOnly(self):
+        """Returns the flag that indicates that this widget is in
+        read-only mode.  If the returned value is True, then it means
+        the user cannot edit any of the fields.
+        """
+        
+        return self.readOnlyFlag
+
+    def setConvertObj(self, convertObj):
+        """Sets the object that is used for the conversion between
+        scene position and timestamp or price.
+
+        Arguments:
+        convertObj - PriceBarChartGraphicsScene object that is used
+                     for scene position conversions of X point to
+                     timestamp and Y point to price.
+        """
+
+        self.convertObj = convertObj
+
+        self.editWidget.setConvertObj(self.convertObj)
+        
+    def getConvertObj(self):
+        """Returns the object used for conversion calculations between
+        scene position point and timestamp or price.
+
+        Returns:
+        PriceBarChartGraphicsScene object that is used
+        for scene position conversions of X point to
+        timestamp and Y point to price.
+        """
+
+        return self.convertObj
+    
+    def setArtifact(self, artifact):
+        """Loads the edit widget with the given artifact object.
+        
+        Note:  Upon clicking 'Okay' this object will be modified.
+
+        Arguments:
+        artifact - PriceBarChartFibFanArtifact object to load the
+                   widgets with.
+        """
+
+        # Check input.
+        if not isinstance(artifact,
+                          PriceBarChartFibFanArtifact):
+            self.log.error("Input type invalid to " +
+                           self.__class__.__name__ +
+                           ".setArtifact()")
+            return
+
+        self.artifact = artifact
+
+        self.editWidget.loadValues(self.artifact)
+
+    def getArtifact(self):
+        """Returns a reference to the internally stored artifact object.
+        
+        Note: If the 'Okay' button was previously clicked, then this
+        object is modified with the widget's values, otherwise it is
+        unchanged.
+        """
+
+        return self.artifact
+
+
+
 ##############################################################################
     
+
 def testPriceBarChartBarCountArtifactEditDialog():
     print("Running " + inspect.stack()[0][3] + "()")
     
@@ -9903,7 +10580,6 @@ def testPriceBarChartPriceTimeVectorArtifactEditDialog():
           "PriceBarChartPriceTimeVectorArtifact: {}".\
           format(artifact.toString()))
     
-
 def testPriceBarChartLineSegmentArtifactEditDialog():
     print("Running " + inspect.stack()[0][3] + "()")
     
@@ -10013,6 +10689,61 @@ def testPriceBarChartOctaveFanArtifactEditDialog():
           format(artifact.toString()))
     
 
+def testPriceBarChartFibFanArtifactEditDialog():
+    print("Running " + inspect.stack()[0][3] + "()")
+    
+    # Create an artifact.
+    artifact = PriceBarChartFibFanArtifact()
+
+    # Set the artifact's position and start/end points.  It needs to
+    # be at a position where the converted datetime.datetime is
+    # greater than the datetime.datetime.MINYEAR.
+    # A X value of 2450000 is in year 1995.
+    pos = QPointF(2450000, -1000)
+    artifact.setPos(pos)
+    artifact.setStartPointF(pos)
+    artifact.setEndPointF(QPoint(pos.x() + 1000, pos.y() - 1000))
+
+    # Create an object for doing unit conversions.
+    eastern = pytz.timezone('US/Eastern')
+    from pricebarchart import PriceBarChartGraphicsScene
+    convertObj = PriceBarChartGraphicsScene()
+    convertObj.setTimezone(eastern)
+    
+    # Run the dialog in readonly mode.
+    print("Before (readonly), " +
+          "PriceBarChartFibFanArtifact: {}".\
+          format(artifact.toString()))
+    dialog = PriceBarChartFibFanArtifactEditDialog(artifact,
+                                                     convertObj,
+                                                     readOnlyFlag=True)
+    rv = dialog.exec_()
+    if rv == QDialog.Accepted:
+        print("Accepted")
+    else:
+        print("Rejected")
+    print("After  (readonly), " +
+          "PriceBarChartFibFanArtifact: {}".\
+          format(artifact.toString()))
+
+    
+    # Run the dialog in non-readonly mode.
+    print("Before (not readonly), " +
+          "PriceBarChartFibFanArtifact: {}".\
+          format(artifact.toString()))
+    dialog = PriceBarChartFibFanArtifactEditDialog(artifact,
+                                                     convertObj,
+                                                     readOnlyFlag=False)
+    rv = dialog.exec_()
+    if rv == QDialog.Accepted:
+        print("Accepted")
+    else:
+        print("Rejected")
+    print("After  (not readonly), " +
+          "PriceBarChartFibFanArtifact: {}".\
+          format(artifact.toString()))
+    
+
 # For debugging the module during development.  
 if __name__=="__main__":
     # For inspect.stack().
@@ -10048,8 +10779,9 @@ if __name__=="__main__":
     #testPriceBarChartPriceRetracementArtifactEditDialog()
     #testPriceBarChartPriceTimeVectorArtifactEditDialog()
     #testPriceBarChartLineSegmentArtifactEditDialog()
-    testPriceBarChartOctaveFanArtifactEditDialog()
-
+    #testPriceBarChartOctaveFanArtifactEditDialog()
+    testPriceBarChartFibFanArtifactEditDialog()
+    
     # Exit the app when all windows are closed.
     app.connect(app, SIGNAL("lastWindowClosed()"), logging.shutdown)
     app.connect(app, SIGNAL("lastWindowClosed()"), app, SLOT("quit()"))

@@ -322,8 +322,15 @@ class MainWindow(QMainWindow):
         icon = QIcon(":/images/rluu/octaveFan.png")
         self.octaveFanToolAction = \
             QAction(icon, "Time Modal Scale Tool", self)
-        self.octaveFanToolAction.setStatusTip("Time Modal Scale Tool")
+        self.octaveFanToolAction.setStatusTip("Octave Fan Tool")
         self.octaveFanToolAction.setCheckable(True)
+
+        # Create the FibFanToolAction
+        icon = QIcon(":/images/rluu/fibFan.png")
+        self.fibFanToolAction = \
+            QAction(icon, "Time Modal Scale Tool", self)
+        self.fibFanToolAction.setStatusTip("Fibonacci Fan Tool")
+        self.fibFanToolAction.setCheckable(True)
 
         # Create a QActionGroup because all these tool modes should be
         # exclusive.  
@@ -346,6 +353,7 @@ class MainWindow(QMainWindow):
         self.toolActionGroup.addAction(self.priceTimeVectorToolAction)
         self.toolActionGroup.addAction(self.lineSegmentToolAction)
         self.toolActionGroup.addAction(self.octaveFanToolAction)
+        self.toolActionGroup.addAction(self.fibFanToolAction)
         self.toolActionGroup.triggered.connect(self._toolsActionTriggered)
             
         # Default to the ReadOnlyPointerTool being checked by default.
@@ -466,6 +474,7 @@ class MainWindow(QMainWindow):
         self.toolsMenu.addAction(self.priceTimeVectorToolAction)
         self.toolsMenu.addAction(self.lineSegmentToolAction)
         self.toolsMenu.addAction(self.octaveFanToolAction)
+        self.toolsMenu.addAction(self.fibFanToolAction)
 
         # Create the Window menu.
         self.windowMenu = self.menuBar().addMenu("&Window")
@@ -523,6 +532,7 @@ class MainWindow(QMainWindow):
         self.toolsToolBar.addAction(self.priceTimeVectorToolAction)
         self.toolsToolBar.addAction(self.lineSegmentToolAction)
         self.toolsToolBar.addAction(self.octaveFanToolAction)
+        self.toolsToolBar.addAction(self.fibFanToolAction)
 
     def _createStatusBar(self):
         """Creates the QStatusBar by showing the message "Ready"."""
@@ -583,6 +593,7 @@ class MainWindow(QMainWindow):
         self.priceTimeVectorToolAction.setEnabled(isActive)
         self.lineSegmentToolAction.setEnabled(isActive)
         self.octaveFanToolAction.setEnabled(isActive)
+        self.fibFanToolAction.setEnabled(isActive)
 
         self.closeChartAction.setEnabled(isActive)
         self.closeAllChartsAction.setEnabled(isActive)
@@ -631,6 +642,8 @@ class MainWindow(QMainWindow):
                 priceChartDocument.toLineSegmentToolMode()
             elif self.octaveFanToolAction.isChecked():
                 priceChartDocument.toOctaveFanToolMode()
+            elif self.fibFanToolAction.isChecked():
+                priceChartDocument.toFibFanToolMode()
             else:
                 self.log.warn("No ToolMode QAction is currently selected!")
 
@@ -1415,6 +1428,10 @@ class MainWindow(QMainWindow):
             self.log.debug("octaveFanToolAction triggered.")
             self.mostRecentGraphicsItemToolModeAction = qaction
             pcd.toOctaveFanToolMode()
+        elif qaction == self.fibFanToolAction:
+            self.log.debug("fibFanToolAction triggered.")
+            self.mostRecentGraphicsItemToolModeAction = qaction
+            pcd.toFibFanToolMode()
         else:
             self.log.warn("Unknown Tools QAction selected!  " + \
                 "There might be something wrong with the code, or " + \
@@ -1509,6 +1526,7 @@ Snap key bindings are supported for the following tools:
   - PriceTimeVectorTool
   - LineSegmentTool
   - OctaveFanTool
+  - FibFanTool
 """
         
         QMessageBox.about(self, title, message)
@@ -2265,6 +2283,11 @@ class PriceChartDocument(QMdiSubWindow):
 
         self.widgets.toOctaveFanToolMode()
 
+    def toFibFanToolMode(self):
+        """Changes the tool mode to be the FibFanTool."""
+
+        self.widgets.toFibFanToolMode()
+
     def _handlePriceChartDocumentWidgetChanged(self):
         """Slot for when the PriceBarDocumentWidget emits a signal to say
         that the widget(s) changed.  This means the document should be
@@ -2582,6 +2605,11 @@ class PriceChartDocumentWidget(QWidget):
         """Changes the tool mode to be the OctaveFanTool."""
 
         self.priceBarChartWidget.toOctaveFanToolMode()
+
+    def toFibFanToolMode(self):
+        """Changes the tool mode to be the FibFanTool."""
+
+        self.priceBarChartWidget.toFibFanToolMode()
 
     def _handleWidgetChanged(self):
         """Handles when the internal widget has some kind of change
