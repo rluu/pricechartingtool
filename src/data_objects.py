@@ -5021,11 +5021,6 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
             PriceBarChartSettings.\
                 defaultOctaveFanGraphicsItemTextColor
         
-        # barHeight (float).
-        self.barHeight = \
-            PriceBarChartSettings.\
-                defaultOctaveFanGraphicsItemBarHeight
-        
         # fontSize (float).
         self.fontSize = \
             PriceBarChartSettings.\
@@ -5120,16 +5115,6 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
 
         return self.textColor
         
-    def setBarHeight(self, barHeight):
-        """Sets the bar height (float)."""
-
-        self.barHeight = barHeight
-    
-    def getBarHeight(self):
-        """Returns the bar height (float)."""
-
-        return self.barHeight
-    
     def setFontSize(self, fontSize):
         """Sets the font size of the musical ratio text (float)."""
 
@@ -5665,11 +5650,6 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
             PriceBarChartSettings.\
             defaultFibFanGraphicsItemRatios
 
-        # barHeight (float).
-        self.barHeight = \
-            PriceBarChartSettings.\
-                defaultFibFanGraphicsItemBarHeight
-        
         # Flag for whether or not the text is displayed for enabled
         # MusicalRatios in self.musicalRatios.
         self.textEnabledFlag = False
@@ -5801,16 +5781,6 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
         
         return self.color
 
-    def setBarHeight(self, barHeight):
-        """Sets the bar height (float)."""
-
-        self.barHeight = barHeight
-    
-    def getBarHeight(self):
-        """Returns the bar height (float)."""
-
-        return self.barHeight
-    
     def isTextEnabled(self):
         """Returns whether or not the text is enabled for the
         ratios that are enabled.
@@ -5967,11 +5937,10 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
         self.log.debug("Angle of leg1 to leg2 is: " +
                        "angleDegDelta == {} deg".format(angleDegDelta))
         
-        # If the delta angle is greater than 180, then subtract 360
-        # because we don't want to draw the fan on the undesired side
-        # of the angle.
-        if angleDegDelta > 180:
-            angleDegDelta -= 360
+        # As opposed to how things are done in the other fan tool,
+        # we don't want to do any adjusting, so the below is commented out.
+        #if angleDegDelta > 180:
+        #    angleDegDelta -= 360
         
         self.log.debug("Adjusted angle difference is: " + \
                        "angleDegDelta == {} deg".format(angleDegDelta))
@@ -5991,7 +5960,7 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
             if i == 0:
                 # Store the offset for future indexes.
                 angleDegOffset = \
-                    angleDegDelta * (ratio.getRatio() - 1.0)
+                    angleDegDelta * (ratio.getRatio())
 
                 self.log.debug("At i == 0.  angleDegOffset={}".\
                                format(angleDegOffset))
@@ -6002,7 +5971,7 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
                                format(ratio.getRatio()))
                 
                 angleDeg = \
-                    (angleDegDelta * (ratio.getRatio() - 1.0)) - \
+                    (angleDegDelta * ratio.getRatio()) - \
                     angleDegOffset
 
                 self.log.debug("(angleDeg={})".format(angleDeg))
@@ -6017,87 +5986,36 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
                 self.log.debug("After normalizing angleDeg, (angleDeg={})".
                                format(angleDeg))
 
-                # Normalize angleDeg be within the range of
-                # leg1.angle() and leg2.angle().  We have to jump
-                # around a bit here to do the calculations because
-                # points could be around the 0 degree point at
-                # 3 o'clock.
-
-                # Calculate which leg's angle the angleDeg is closest to.
-                lineToAngleDeg = QLineF(scaledOriginPointF, scaledLeg1PointF)
-                lineToAngleDeg.setAngle(angleDeg)
-                angleToLeg1 = lineToAngleDeg.angleTo(leg1)
-                angleToLeg2 = lineToAngleDeg.angleTo(leg2)
-
-                self.log.debug("angleToLeg1 == {} deg".format(angleToLeg1))
-                self.log.debug("angleToLeg2 == {} deg".format(angleToLeg2))
-
-                if angleDegDelta >= 0:
-                    # leg2 is higher in angle than leg1.
-                    self.log.debug("leg2 is higher in angle than leg1.")
-                    
-                    if angleToLeg1 < 180 and angleToLeg2 < 180:
-                        self.log.debug("Below fan.  Adjusting.")
-                        angleDeg += abs(angleDegDelta)
-                    elif angleToLeg1 >= 180 and angleToLeg2 < 180:
-                        self.log.debug("Within bounds.")
-                    elif angleToLeg1 >= 180 and angleToLeg2 >= 180:
-                        self.log.debug("Above fan.  Adjusting.")
-                        angleDeg -= abs(angleDegDelta)
-                    else:
-                        self.log.warn("Unknown case.  " + \
-                                      "Variables are: " + \
-                                      "angleDegDelta == {}".\
-                                      format(angleDegDelta) + \
-                                      "angleToLeg1 == {}".\
-                                      format(angleToLeg1) + \
-                                      "angleToLeg2 == {}".\
-                                      format(angleToLeg2))
-                else:
-                    # leg1 is higher in angle than leg2.
-                    self.log.debug("leg1 is higher in angle than leg2.")
-
-                    if angleToLeg1 < 180 and angleToLeg2 < 180:
-                        self.log.debug("Below fan.  Adjusting.")
-                        angleDeg += abs(angleDegDelta)
-                    elif angleToLeg1 < 180 and angleToLeg2 >= 180:
-                        self.log.debug("Within bounds.")
-                    elif angleToLeg1 >= 180 and angleToLeg2 >= 180:
-                        self.log.debug("Above fan.  Adjusting.")
-                        angleDeg -= abs(angleDegDelta)
-                    else:
-                        self.log.warn("Unknown case.  " + \
-                                      "Variables are: " + \
-                                      "angleDegDelta == {}".\
-                                      format(angleDegDelta) + \
-                                      "angleToLeg1 == {}".\
-                                      format(angleToLeg1) + \
-                                      "angleToLeg2 == {}".\
-                                      format(angleToLeg2))
-                        
-                self.log.debug("For index {}, ".format(i) +
-                               "normalized angleDeg to within " +
-                               "leg1 and leg2 is: {}".format(angleDeg))
-
                 # Now that we have the angle, determine the
-                # intersection point along the edge of the rectangle.
-
+                # intersection point along the edge of the giant
+                # rectangle.
+                
                 # Find the smallest x and y values, and the largest x
-                # and y values of the 3 points: scaledOriginPointF,
-                # scaledLeg1PointF, and scaledLeg2PointF.  These will
-                # be used to construct 4 line segments, which we will
-                # use for calculating intersection points with the
-                # line segment drawn from scaledOriginPointF at an
-                # angle of 'angleDeg'.
+                # and y values of the 3 points bounding
+                # scaledOriginPointF, from all directions:
+                # scaledOriginPointF, scaledLeg1PointF, and
+                # scaledLeg2PointF.  These will be used to construct 4
+                # line segments, which we will use for calculating
+                # intersection points with the line segment drawn from
+                # scaledOriginPointF at an angle of 'angleDeg'.
                 xValues = []
                 xValues.append(scaledOriginPointF.x())
                 xValues.append(scaledLeg1PointF.x())
                 xValues.append(scaledLeg2PointF.x())
+                xValues.append(scaledOriginPointF.x() - \
+                               (scaledLeg1PointF.x() - scaledOriginPointF.x()))
+                xValues.append(scaledOriginPointF.x() - \
+                               (scaledLeg2PointF.x() - scaledOriginPointF.x()))
 
+                
                 yValues = []
                 yValues.append(scaledOriginPointF.y())
                 yValues.append(scaledLeg1PointF.y())
                 yValues.append(scaledLeg2PointF.y())
+                yValues.append(scaledOriginPointF.y() - \
+                               (scaledLeg1PointF.y() - scaledOriginPointF.y()))
+                yValues.append(scaledOriginPointF.y() - \
+                               (scaledLeg2PointF.y() - scaledOriginPointF.y()))
 
                 xValues.sort()
                 yValues.sort()
@@ -6110,12 +6028,12 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
                 largestX = xValues[-1]
                 largestY = yValues[-1]
 
-                # Rectangle bounding all 3 points.
+                # Rectangle bounding the points.
                 containingRectF = \
                     QRectF(QPointF(smallestX, smallestY),
                            QPointF(largestX, largestY))
                 
-                # Four lines that bound the 3 points.
+                # Four lines that bound the points.
                 line1 = QLineF(smallestX, smallestY,
                                smallestX, largestY)
                 line2 = QLineF(smallestX, smallestY,
@@ -7144,7 +7062,7 @@ class PriceBarChartSettings:
     defaultPriceTimeVectorGraphicsItemTextColor = QColor(Qt.black)
     
     # Default value for the PriceTimeVectorGraphicsItem bar width (float).
-    defaultPriceTimeVectorGraphicsItemBarWidth = 0.3
+    defaultPriceTimeVectorGraphicsItemBarWidth = 3.3
 
     # Default value for the PriceTimeVectorGraphicsItem text X scaling (float).
     defaultPriceTimeVectorGraphicsItemTextXScaling = 0.2
@@ -7190,7 +7108,7 @@ class PriceBarChartSettings:
     defaultLineSegmentGraphicsItemTextColor = QColor(Qt.black)
     
     # Default value for the LineSegmentGraphicsItem bar width (float).
-    defaultLineSegmentGraphicsItemBarWidth = 0.3
+    defaultLineSegmentGraphicsItemBarWidth = 3.3
 
     # Default value for the LineSegmentGraphicsItem text X scaling (float).
     defaultLineSegmentGraphicsItemTextXScaling = 0.2
@@ -7225,7 +7143,7 @@ class PriceBarChartSettings:
     defaultOctaveFanGraphicsItemTextColor = QColor(Qt.black)
     
     # Default value for the OctaveFanGraphicsItem bar height (float).
-    defaultOctaveFanGraphicsItemBarHeight = 0.3
+    defaultOctaveFanGraphicsItemBarHeight = 3.3
 
     # Default value for the OctaveFanGraphicsItem font size (float).
     defaultOctaveFanGraphicsItemFontSize = 1.20
@@ -7264,7 +7182,7 @@ class PriceBarChartSettings:
     defaultFibFanGraphicsItemRatios = Ratio.getSupportedFibRatios()
     
     # Default value for the FibFanGraphicsItem bar height (float).
-    defaultFibFanGraphicsItemBarHeight = 0.2
+    defaultFibFanGraphicsItemBarHeight = 3.3
 
     # Default value for the FibFanGraphicsItem
     # textEnabledFlag (bool).
@@ -7989,6 +7907,11 @@ class PriceBarChartSettings:
             PriceBarChartSettings.\
                 defaultOctaveFanGraphicsItemMusicalRatios
 
+        # OctaveFanGraphicsItem bar height (float)
+        self.octaveFanGraphicsItemBarHeight = \
+            PriceBarChartSettings.\
+            defaultOctaveFanGraphicsItemBarHeight
+        
         # OctaveFanGraphicsItem bar color (QColor).
         self.octaveFanGraphicsItemBarColor = \
             PriceBarChartSettings.\

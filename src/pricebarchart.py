@@ -12108,11 +12108,16 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
         angleDeg = QLineF(viewScaledStartPoint, viewScaledEndPoint).angle()
         angleRad = math.radians(angleDeg)
 
-        shiftX = math.cos(angleRad) * \
-                     (0.5 * self.priceTimeVectorGraphicsItemBarWidth)
-        shiftY = math.sin(angleRad) * \
-                     (0.5 * self.priceTimeVectorGraphicsItemBarWidth)
+        shiftX = math.sin(angleRad) * \
+                     (0.5 * self.priceTimeVectorGraphicsItemBarWidth) / \
+                     scaling.getViewScalingX()
+        
+        shiftY = math.cos(angleRad) * \
+                     (0.5 * self.priceTimeVectorGraphicsItemBarWidth) / \
+                     scaling.getViewScalingY()
 
+        self.log.debug("shiftX={}, shiftY={}".format(shiftX, shiftY))
+        
         # Create new points.
         p1 = \
             QPointF(localStartPointF.x() - shiftX,
@@ -12126,7 +12131,7 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
         p4 = \
             QPointF(localEndPointF.x() + shiftX,
                     localEndPointF.y() + shiftY)
-
+        
         points = [p2, p1, p3, p4, p2]
         polygon = QPolygonF(points)
 
@@ -13198,10 +13203,13 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
         angleDeg = QLineF(viewScaledStartPoint, viewScaledEndPoint).angle()
         angleRad = math.radians(angleDeg)
         
-        shiftX = math.cos(angleRad) * \
-                     (0.5 * self.lineSegmentGraphicsItemBarWidth)
-        shiftY = math.sin(angleRad) * \
-                     (0.5 * self.lineSegmentGraphicsItemBarWidth)
+        shiftX = math.sin(angleRad) * \
+                     (0.5 * self.lineSegmentGraphicsItemBarWidth) / \
+                     scaling.getViewScalingX()
+        
+        shiftY = math.cos(angleRad) * \
+                     (0.5 * self.lineSegmentGraphicsItemBarWidth) / \
+                     scaling.getViewScalingY()
 
         # Create new points.
         p1 = \
@@ -13680,6 +13688,11 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         ############################################################
         # Set default values for preferences/settings.
 
+        # Bar height.
+        self.octaveFanBarHeight = \
+            PriceBarChartSettings.\
+                defaultOctaveFanGraphicsItemBarHeight
+                                
         # Color of the graphicsitem bar.
         self.octaveFanGraphicsItemColor = \
             PriceBarChartSettings.\
@@ -13806,6 +13819,11 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             copy.deepcopy(priceBarChartSettings.\
                           octaveFanGraphicsItemMusicalRatios)
         
+        # Bar height.
+        self.octaveFanBarHeight = \
+            priceBarChartSettings.\
+            defaultOctaveFanGraphicsItemBarHeight
+        
         # OctaveFanGraphicsItem bar color (QColor).
         self.octaveFanGraphicsItemColor = \
             priceBarChartSettings.octaveFanGraphicsItemBarColor
@@ -13919,17 +13937,11 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             insideLeg1LineSegment = False
             insideLeg2LineSegment = False
 
-            # Holds the QRectF of either leg1LineSegment orl leg2LineSegment.
-            rectF = None
-
             if shapeOfOriginToLeg1Point.contains(clickScenePos) == True:
+                self.log.debug("Click point is within the line segment from " +
+                               "origin point to leg1 point.")
 
                 insideLeg1LineSegment = True
-
-                # Turn the shape into a bounding rect and determine the
-                # 1/5th point from the ends using x and y values of that
-                # bounding rect.  This rect below is in scene coordinates.
-                rectF = shapeOfOriginToLeg1Point.boundingRect()
 
             elif shapeOfOriginToLeg2Point.contains(clickScenePos) == True:
                 self.log.debug("Click point is within the line segment from " +
@@ -13937,52 +13949,38 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
                 insideLeg2LineSegment = True
 
-                # Turn the shape into a bounding rect and determine the
-                # 1/5th point from the ends using x and y values of that
-                # bounding rect.  This rect below is in scene coordinates.
-                rectF = shapeOfOriginToLeg2Point.boundingRect()
-
-
+            
             self.log.debug("insideLeg1LineSegment={}".\
                            format(insideLeg1LineSegment))
+            
             self.log.debug("insideLeg2LineSegment={}".\
                            format(insideLeg2LineSegment))
 
+                
             # Handle the case that the click was inside a line segment
             # that makes up the outter edge of this fan.
-            if insideLeg1LineSegment == True or insideLeg2LineSegment == True:
+            if insideLeg1LineSegment == True:
+                
+                startingPointX = self.originPointF.x()
+                startingPointY = self.originPointF.y()
 
-                self.log.debug("boundingRect  is: " +
-                               "(x={}, y={}, w={}, h={})".\
-                               format(rectF.x(),
-                                      rectF.y(),
-                                      rectF.width(),
-                                      rectF.height()))
-
-                # Here we will get various points that make up the
-                # bounding rect of this line segment.  We will create
-                # two sub-rectangles that are 1/5th the portion of x
-                # and y of the original rectangle.  The click point
-                # being inside one of these sub-rectangles will tell
-                # us if the click was near the origin point or if it
-                # was near the end leg point.  
-
-                startingPointX = rectF.x()
-                startingPointY = rectF.y()
-
-                endingPointX = rectF.x() + rectF.width()
-                endingPointY = rectF.y() + rectF.height()
-
+                endingPointX = self.leg1PointF.x()
+                endingPointY = self.leg1PointF.y()
+                
                 self.log.debug("DEBUG: startingPointX={}, startingPointY={}".\
                                format(startingPointX, startingPointY))
                 self.log.debug("DEBUG: endingPointX={}, endingPointY={}".\
                                format(endingPointX, endingPointY))
 
-                startThresholdX = startingPointX + (rectF.width() * (1.0 / 5))
-                endThresholdX = endingPointX - (rectF.width() * (1.0 / 5))
+                startThresholdX = startingPointX + \
+                                  ((endingPointX - startingPointX) * (1.0 / 5))
+                endThresholdX = endingPointX - \
+                                  ((endingPointX - startingPointX) * (1.0 / 5))
 
-                startThresholdY = startingPointY + (rectF.height() * (1.0 / 5))
-                endThresholdY = endingPointY - (rectF.height() * (1.0 / 5))
+                startThresholdY = startingPointY + \
+                                  ((endingPointY - startingPointY) * (1.0 / 5))
+                endThresholdY = endingPointY - \
+                                  ((endingPointY - startingPointY) * (1.0 / 5))
 
                 self.log.debug("DEBUG: startThresholdX={}".\
                                format(startThresholdX))
@@ -13999,8 +13997,8 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                            QPointF(startThresholdX, startThresholdY))
 
                 endingPointRect = \
-                    QRectF(QPointF(endingPointX, endingPointY),
-                           QPointF(endThresholdX, endThresholdY))
+                    QRectF(QPointF(endThresholdX, endThresholdY),
+                           QPointF(endingPointX, endingPointY))
 
                 if startingPointRect.contains(clickScenePos):
 
@@ -14010,19 +14008,73 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
                 elif endingPointRect.contains(clickScenePos):
 
-                    if insideLeg1LineSegment == True:
-                        self.draggingLeg1PointFlag = True
-                        self.log.debug("DEBUG: self.draggingLeg1PointFlag={}".
-                                       format(self.draggingLeg1PointFlag))
-
-                    elif insideLeg2LineSegment == True:
-                        self.draggingLeg2PointFlag = True
-                        self.log.debug("DEBUG: self.draggingLeg2PointFlag={}".
-                                       format(self.draggingLeg2PointFlag))
+                    self.draggingLeg1PointFlag = True
+                    self.log.debug("DEBUG: self.draggingLeg1PointFlag={}".
+                                   format(self.draggingLeg1PointFlag))
 
                 else:
+                    self.log.debug("Not-endpoints part of the " +
+                                   "line segment clicked.")
+            
+            elif insideLeg2LineSegment == True:
+                
+                startingPointX = self.originPointF.x()
+                startingPointY = self.originPointF.y()
 
-                    self.log.debug("Middle area of the line segment clicked.")
+                endingPointX = self.leg2PointF.x()
+                endingPointY = self.leg2PointF.y()
+                
+                self.log.debug("DEBUG: startingPointX={}, startingPointY={}".\
+                               format(startingPointX, startingPointY))
+                self.log.debug("DEBUG: endingPointX={}, endingPointY={}".\
+                               format(endingPointX, endingPointY))
+
+                startThresholdX = startingPointX + \
+                                  ((endingPointX - startingPointX) * (1.0 / 5))
+                endThresholdX = endingPointX - \
+                                  ((endingPointX - startingPointX) * (1.0 / 5))
+
+                startThresholdY = startingPointY + \
+                                  ((endingPointY - startingPointY) * (1.0 / 5))
+                endThresholdY = endingPointY - \
+                                  ((endingPointY - startingPointY) * (1.0 / 5))
+
+                self.log.debug("DEBUG: startThresholdX={}".\
+                               format(startThresholdX))
+                self.log.debug("DEBUG: endThresholdX={}".\
+                               format(endThresholdX))
+
+                self.log.debug("DEBUG: startThresholdY={}".\
+                               format(startThresholdY))
+                self.log.debug("DEBUG: endThresholdY={}".\
+                               format(endThresholdY))
+
+                startingPointRect = \
+                    QRectF(QPointF(startingPointX, startingPointY),
+                           QPointF(startThresholdX, startThresholdY))
+
+                endingPointRect = \
+                    QRectF(QPointF(endThresholdX, endThresholdY),
+                           QPointF(endingPointX, endingPointY))
+
+                if startingPointRect.contains(clickScenePos):
+
+                    self.draggingOriginPointFlag = True
+                    self.log.debug("DEBUG: self.draggingOriginPointFlag={}".
+                                   format(self.draggingOriginPointFlag))
+
+                elif endingPointRect.contains(clickScenePos):
+
+                    self.draggingLeg2PointFlag = True
+                    self.log.debug("DEBUG: self.draggingLeg2PointFlag={}".
+                                   format(self.draggingLeg2PointFlag))
+            
+                else:
+                    self.log.debug("Not-endpoints part of the " +
+                                   "line segment clicked.")
+                    
+            else:
+                self.log.debug("Middle area of the line segment clicked.")
 
 
             # If none of the drag point flags are set, then the user
@@ -14551,7 +14603,7 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         constructed by a rectangle around the start and end points.
         The rectangle is tilted based on the angle of the start and
         end points in view-scaled coordinates.  The bar height used is
-        whatever is returned by self.artifact.getBarHeight().
+        whatever is returned by self.octaveFanBarHeight.
 
         Arguments:
         
@@ -14603,10 +14655,14 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.log.debug("angleDeg is: {}".format(angleDeg))
         self.log.debug("angleRad is: {}".format(angleRad))
 
-        shiftX = math.cos(angleRad) * \
-                     (0.5 * self.artifact.getBarHeight())
-        shiftY = math.sin(angleRad) * \
-                     (0.5 * self.artifact.getBarHeight())
+        
+        shiftX = math.sin(angleRad) * \
+                     (0.5 * self.octaveFanBarHeight) / \
+                     scaling.getViewScalingX()
+                     
+        shiftY = math.cos(angleRad) * \
+                     (0.5 * self.octaveFanBarHeight) / \
+                     scaling.getViewScalingY()
         
         self.log.debug("shiftX is: {}".format(shiftX))
         self.log.debug("shiftY is: {}".format(shiftY))
@@ -15059,7 +15115,7 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         # Always draw the line from origin point to leg2 point.
         painter.drawLine(QLineF(localOriginPointF, localLeg2PointF))
-        
+
         # For each musical ratio that is enabled, draw it as a line
         # segment from the origin point to the end point of that
         # musical ratio.
@@ -15634,7 +15690,7 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Set default values for preferences/settings.
 
         # Height of the vertical bar drawn.
-        self.fibFanGraphicsItemBarHeight = \
+        self.fibFanBarHeight = \
             PriceBarChartSettings.\
                 defaultFibFanGraphicsItemBarHeight 
  
@@ -15647,12 +15703,12 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Color of the text that is associated with the graphicsitem.
         self.fibFanGraphicsItemTextColor = \
             PriceBarChartSettings.\
-                defaultFibFanGraphicsItemTextColor
+                defaultFibFanGraphicsItemDefaultTextColor
 
         # Color of the graphicsitem.
         self.fibFanGraphicsItemColor = \
             PriceBarChartSettings.\
-                defaultFibFanGraphicsItemBarColor
+                defaultFibFanGraphicsItemDefaultColor
 
         # X scaling of the text.
         self.fibFanTextXScaling = \
@@ -15771,7 +15827,7 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         ########
         
         # Height of the vertical bar drawn.
-        self.fibFanGraphicsItemBarHeight = \
+        self.fibFanBarHeight = \
             priceBarChartSettings.\
             fibFanGraphicsItemBarHeight 
  
@@ -15784,12 +15840,12 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Color of the text that is associated with the graphicsitem.
         self.fibFanGraphicsItemTextColor = \
             priceBarChartSettings.\
-            fibFanGraphicsItemTextColor
+            fibFanGraphicsItemDefaultTextColor
 
         # Color of the graphicsitem.
         self.fibFanGraphicsItemColor = \
             priceBarChartSettings.\
-            fibFanGraphicsItemBarColor
+            fibFanGraphicsItemDefaultColor
 
         # X scaling of the text.
         self.fibFanTextXScaling = \
@@ -15814,7 +15870,6 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         ########
 
         # Set values in the artifact.
-        self.artifact.setBarHeight(self.fibFanGraphicsItemBarHeight)
         self.artifact.setFont(self.fibFanTextFont)
         self.artifact.setColor(self.fibFanGraphicsItemColor)
         self.artifact.setTextColor(self.fibFanGraphicsItemTextColor)
@@ -15905,17 +15960,11 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             insideLeg1LineSegment = False
             insideLeg2LineSegment = False
 
-            # Holds the QRectF of either leg1LineSegment orl leg2LineSegment.
-            rectF = None
-
             if shapeOfOriginToLeg1Point.contains(clickScenePos) == True:
+                self.log.debug("Click point is within the line segment from " +
+                               "origin point to leg1 point.")
 
                 insideLeg1LineSegment = True
-
-                # Turn the shape into a bounding rect and determine the
-                # 1/5th point from the ends using x and y values of that
-                # bounding rect.  This rect below is in scene coordinates.
-                rectF = shapeOfOriginToLeg1Point.boundingRect()
 
             elif shapeOfOriginToLeg2Point.contains(clickScenePos) == True:
                 self.log.debug("Click point is within the line segment from " +
@@ -15923,52 +15972,37 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
                 insideLeg2LineSegment = True
 
-                # Turn the shape into a bounding rect and determine the
-                # 1/5th point from the ends using x and y values of that
-                # bounding rect.  This rect below is in scene coordinates.
-                rectF = shapeOfOriginToLeg2Point.boundingRect()
-
 
             self.log.debug("insideLeg1LineSegment={}".\
                            format(insideLeg1LineSegment))
             self.log.debug("insideLeg2LineSegment={}".\
                            format(insideLeg2LineSegment))
 
+                
             # Handle the case that the click was inside a line segment
             # that makes up the outter edge of this fan.
-            if insideLeg1LineSegment == True or insideLeg2LineSegment == True:
+            if insideLeg1LineSegment == True:
+                
+                startingPointX = self.originPointF.x()
+                startingPointY = self.originPointF.y()
 
-                self.log.debug("boundingRect  is: " +
-                               "(x={}, y={}, w={}, h={})".\
-                               format(rectF.x(),
-                                      rectF.y(),
-                                      rectF.width(),
-                                      rectF.height()))
-
-                # Here we will get various points that make up the
-                # bounding rect of this line segment.  We will create
-                # two sub-rectangles that are 1/5th the portion of x
-                # and y of the original rectangle.  The click point
-                # being inside one of these sub-rectangles will tell
-                # us if the click was near the origin point or if it
-                # was near the end leg point.  
-
-                startingPointX = rectF.x()
-                startingPointY = rectF.y()
-
-                endingPointX = rectF.x() + rectF.width()
-                endingPointY = rectF.y() + rectF.height()
-
+                endingPointX = self.leg1PointF.x()
+                endingPointY = self.leg1PointF.y()
+                
                 self.log.debug("DEBUG: startingPointX={}, startingPointY={}".\
                                format(startingPointX, startingPointY))
                 self.log.debug("DEBUG: endingPointX={}, endingPointY={}".\
                                format(endingPointX, endingPointY))
 
-                startThresholdX = startingPointX + (rectF.width() * (1.0 / 5))
-                endThresholdX = endingPointX - (rectF.width() * (1.0 / 5))
+                startThresholdX = startingPointX + \
+                                  ((endingPointX - startingPointX) * (1.0 / 5))
+                endThresholdX = endingPointX - \
+                                  ((endingPointX - startingPointX) * (1.0 / 5))
 
-                startThresholdY = startingPointY + (rectF.height() * (1.0 / 5))
-                endThresholdY = endingPointY - (rectF.height() * (1.0 / 5))
+                startThresholdY = startingPointY + \
+                                  ((endingPointY - startingPointY) * (1.0 / 5))
+                endThresholdY = endingPointY - \
+                                  ((endingPointY - startingPointY) * (1.0 / 5))
 
                 self.log.debug("DEBUG: startThresholdX={}".\
                                format(startThresholdX))
@@ -15985,8 +16019,8 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                            QPointF(startThresholdX, startThresholdY))
 
                 endingPointRect = \
-                    QRectF(QPointF(endingPointX, endingPointY),
-                           QPointF(endThresholdX, endThresholdY))
+                    QRectF(QPointF(endThresholdX, endThresholdY),
+                           QPointF(endingPointX, endingPointY))
 
                 if startingPointRect.contains(clickScenePos):
 
@@ -15996,19 +16030,73 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
                 elif endingPointRect.contains(clickScenePos):
 
-                    if insideLeg1LineSegment == True:
-                        self.draggingLeg1PointFlag = True
-                        self.log.debug("DEBUG: self.draggingLeg1PointFlag={}".
-                                       format(self.draggingLeg1PointFlag))
-
-                    elif insideLeg2LineSegment == True:
-                        self.draggingLeg2PointFlag = True
-                        self.log.debug("DEBUG: self.draggingLeg2PointFlag={}".
-                                       format(self.draggingLeg2PointFlag))
+                    self.draggingLeg1PointFlag = True
+                    self.log.debug("DEBUG: self.draggingLeg1PointFlag={}".
+                                   format(self.draggingLeg1PointFlag))
 
                 else:
+                    self.log.debug("Not-endpoints part of the " +
+                                   "line segment clicked.")
+            
+            elif insideLeg2LineSegment == True:
+                
+                startingPointX = self.originPointF.x()
+                startingPointY = self.originPointF.y()
 
-                    self.log.debug("Middle area of the line segment clicked.")
+                endingPointX = self.leg2PointF.x()
+                endingPointY = self.leg2PointF.y()
+                
+                self.log.debug("DEBUG: startingPointX={}, startingPointY={}".\
+                               format(startingPointX, startingPointY))
+                self.log.debug("DEBUG: endingPointX={}, endingPointY={}".\
+                               format(endingPointX, endingPointY))
+
+                startThresholdX = startingPointX + \
+                                  ((endingPointX - startingPointX) * (1.0 / 5))
+                endThresholdX = endingPointX - \
+                                  ((endingPointX - startingPointX) * (1.0 / 5))
+
+                startThresholdY = startingPointY + \
+                                  ((endingPointY - startingPointY) * (1.0 / 5))
+                endThresholdY = endingPointY - \
+                                  ((endingPointY - startingPointY) * (1.0 / 5))
+
+                self.log.debug("DEBUG: startThresholdX={}".\
+                               format(startThresholdX))
+                self.log.debug("DEBUG: endThresholdX={}".\
+                               format(endThresholdX))
+
+                self.log.debug("DEBUG: startThresholdY={}".\
+                               format(startThresholdY))
+                self.log.debug("DEBUG: endThresholdY={}".\
+                               format(endThresholdY))
+
+                startingPointRect = \
+                    QRectF(QPointF(startingPointX, startingPointY),
+                           QPointF(startThresholdX, startThresholdY))
+
+                endingPointRect = \
+                    QRectF(QPointF(endThresholdX, endThresholdY),
+                           QPointF(endingPointX, endingPointY))
+
+                if startingPointRect.contains(clickScenePos):
+
+                    self.draggingOriginPointFlag = True
+                    self.log.debug("DEBUG: self.draggingOriginPointFlag={}".
+                                   format(self.draggingOriginPointFlag))
+
+                elif endingPointRect.contains(clickScenePos):
+
+                    self.draggingLeg2PointFlag = True
+                    self.log.debug("DEBUG: self.draggingLeg2PointFlag={}".
+                                   format(self.draggingLeg2PointFlag))
+            
+                else:
+                    self.log.debug("Not-endpoints part of the " +
+                                   "line segment clicked.")
+                    
+            else:
+                self.log.debug("Middle area of the line segment clicked.")
 
 
             # If none of the drag point flags are set, then the user
@@ -16443,13 +16531,8 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     text = ""
 
                     # Append the text for the fraction of the ratio.
-                    numerator = ratio.getNumerator()
-                    denominator = ratio.getDenominator()
-
-                    if numerator != None and denominator != None:
-                        text += \
-                            "{}/{}".format(numerator, denominator) + os.linesep
-
+                    text += "{}".format(ratio.getDescription()) + os.linesep
+                    
                     # Append the text for the angle of the line.
                     # Uncomment below to re-add the scaled angle to the text.
                     #scaledAngleDegrees = \
@@ -16497,8 +16580,8 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.setLeg1PointF(self.artifact.getLeg1PointF())
         self.setLeg2PointF(self.artifact.getLeg2PointF())
 
-        self.fibFanTextFont.\
-            setPointSizeF(self.artifact.getFontSize())
+        self.fibFanTextFont = self.artifact.getFont()
+        
         self.fibFanPen.\
             setColor(self.artifact.getColor())
         self.fibFanTextPen.\
@@ -16537,7 +16620,7 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         constructed by a rectangle around the start and end points.
         The rectangle is tilted based on the angle of the start and
         end points in view-scaled coordinates.  The bar height used is
-        whatever is returned by self.artifact.getBarHeight().
+        whatever is returned by self.fibFanBarHeight.
 
         Arguments:
         
@@ -16589,10 +16672,13 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.log.debug("angleDeg is: {}".format(angleDeg))
         self.log.debug("angleRad is: {}".format(angleRad))
 
-        shiftX = math.cos(angleRad) * \
-                     (0.5 * self.artifact.getBarHeight())
-        shiftY = math.sin(angleRad) * \
-                     (0.5 * self.artifact.getBarHeight())
+        shiftX = math.sin(angleRad) * \
+                     (0.5 * self.fibFanBarHeight) / \
+                     scaling.getViewScalingX()
+        
+        shiftY = math.cos(angleRad) * \
+                     (0.5 * self.fibFanBarHeight) / \
+                     scaling.getViewScalingY()
         
         self.log.debug("shiftX is: {}".format(shiftX))
         self.log.debug("shiftY is: {}".format(shiftY))

@@ -8427,8 +8427,6 @@ class PriceBarChartOctaveFanArtifactEditWidget(QWidget):
         
         # Connect signals and slots.
 
-        self.barHeightValueSpinBox.valueChanged.\
-            connect(self._handleBarHeightValueSpinBoxChanged)
         self.textFontSizeValueSpinBox.valueChanged.\
             connect(self._handleTextFontSizeValueSpinBoxChanged)
         self.textEnabledCheckBox.stateChanged.\
@@ -8491,12 +8489,6 @@ class PriceBarChartOctaveFanArtifactEditWidget(QWidget):
         self.textColorLabel = QLabel("Text color: ")
         self.textColorEditButton = ColorEditPushButton()
         
-        self.barHeightValueLabel = \
-            QLabel("OctaveFan bar height:")
-        self.barHeightValueSpinBox = QDoubleSpinBox()
-        self.barHeightValueSpinBox.setMinimum(0.0)
-        self.barHeightValueSpinBox.setMaximum(999999999.0)
-
         self.textFontSizeValueLabel = \
             QLabel("Text font size:")
         self.textFontSizeValueSpinBox = QDoubleSpinBox()
@@ -8579,9 +8571,6 @@ class PriceBarChartOctaveFanArtifactEditWidget(QWidget):
         r += 1
         gridLayout.addWidget(self.textColorLabel, r, 0, al)
         gridLayout.addWidget(self.textColorEditButton, r, 1, al)
-        r += 1
-        gridLayout.addWidget(self.barHeightValueLabel, r, 0, al)
-        gridLayout.addWidget(self.barHeightValueSpinBox, r, 1, al)
         r += 1
         gridLayout.addWidget(self.textFontSizeValueLabel, r, 0, al)
         gridLayout.addWidget(self.textFontSizeValueSpinBox, r, 1, al)
@@ -8703,7 +8692,6 @@ class PriceBarChartOctaveFanArtifactEditWidget(QWidget):
         self.uuidLineEdit.setReadOnly(True)
         self.colorEditButton.setEnabled(not self.readOnlyFlag)
         self.textColorEditButton.setEnabled(not self.readOnlyFlag)
-        self.barHeightValueSpinBox.setEnabled(not self.readOnlyFlag)
         self.textFontSizeValueSpinBox.setEnabled(not self.readOnlyFlag)
         self.textEnabledCheckBox.setEnabled(not self.readOnlyFlag)
         self.rotateDownButton.setEnabled(not self.readOnlyFlag)
@@ -8769,7 +8757,6 @@ class PriceBarChartOctaveFanArtifactEditWidget(QWidget):
             setText(str(self.artifact.getUuid()))
         self.colorEditButton.setColor(self.artifact.getColor())
         self.textColorEditButton.setColor(self.artifact.getTextColor())
-        self.barHeightValueSpinBox.setValue(self.artifact.getBarHeight())
         self.textFontSizeValueSpinBox.setValue(self.artifact.getFontSize())
                                         
         if self.artifact.isTextEnabled():
@@ -9013,11 +9000,6 @@ class PriceBarChartOctaveFanArtifactEditWidget(QWidget):
 
         self.log.debug("Exiting saveValues()")
 
-    def _handleBarHeightValueSpinBoxChanged(self):
-        """Called when the self.barHeightValueSpinBox is modified."""
-
-        self.artifact.setBarHeight(self.barHeightValueSpinBox.value())
-        
     def _handleTextFontSizeValueSpinBoxChanged(self):
         """Called when the self.textFontSizeValueSpinBox is modified."""
 
@@ -9391,12 +9373,6 @@ class PriceBarChartFibFanArtifactEditWidget(QWidget):
 
         self.fontEditButton.clicked.\
             connect(self._handleFontEditButtonClicked)
-        self.barHeightValueSpinBox.valueChanged.\
-            connect(self._handleBarHeightValueSpinBoxChanged)
-        self.textFontSizeValueSpinBox.valueChanged.\
-            connect(self._handleTextFontSizeValueSpinBoxChanged)
-        self.textEnabledCheckBox.stateChanged.\
-            connect(self._handleTextEnabledCheckBoxToggled)
         
         # Connect okay and cancel buttons.
         self.okayButton.clicked.connect(self._handleOkayButtonClicked)
@@ -9441,12 +9417,6 @@ class PriceBarChartFibFanArtifactEditWidget(QWidget):
         self.textColorLabel = QLabel("Text color: ")
         self.textColorEditButton = ColorEditPushButton()
         
-        self.barHeightValueLabel = \
-            QLabel("FibFan bar height:")
-        self.barHeightValueSpinBox = QDoubleSpinBox()
-        self.barHeightValueSpinBox.setMinimum(0.0)
-        self.barHeightValueSpinBox.setMaximum(999999999.0)
-
         self.textEnabledLabel = QLabel("Text is enabled:")
         self.textEnabledCheckBox = QCheckBox()
         self.textEnabledCheckBox.setCheckState(Qt.Unchecked)
@@ -9510,7 +9480,7 @@ class PriceBarChartFibFanArtifactEditWidget(QWidget):
         self.fontLayout.addWidget(self.fontEditButton)
 
         # Layout.
-        self.gridLayout = QGridLayout()
+        gridLayout = QGridLayout()
 
         # Row.
         r = 0
@@ -9519,46 +9489,46 @@ class PriceBarChartFibFanArtifactEditWidget(QWidget):
         al = Qt.AlignLeft
         ar = Qt.AlignRight
 
-        self.gridLayout.addWidget(self.internalNameLabel, r, 0, al)
-        self.gridLayout.addWidget(self.internalNameLineEdit, r, 1, al)
+        gridLayout.addWidget(self.internalNameLabel, r, 0, al)
+        gridLayout.addWidget(self.internalNameLineEdit, r, 1, al)
         r += 1
-        self.gridLayout.addWidget(self.uuidLabel, r, 0, al)
-        self.gridLayout.addWidget(self.uuidLineEdit, r, 1, al)
+        gridLayout.addWidget(self.uuidLabel, r, 0, al)
+        gridLayout.addWidget(self.uuidLineEdit, r, 1, al)
         r += 1
-        self.gridLayout.addWidget(self.xScalingLabel, r, 0, al)
-        self.gridLayout.addWidget(self.xScalingDoubleSpinBox, r, 1, al)
+        gridLayout.addWidget(self.xScalingLabel, r, 0, al)
+        gridLayout.addWidget(self.xScalingDoubleSpinBox, r, 1, al)
         r += 1
-        self.gridLayout.addWidget(self.yScalingLabel, r, 0, al)
-        self.gridLayout.addWidget(self.yScalingDoubleSpinBox, r, 1, al)
+        gridLayout.addWidget(self.yScalingLabel, r, 0, al)
+        gridLayout.addWidget(self.yScalingDoubleSpinBox, r, 1, al)
         r += 1
-        self.gridLayout.addWidget(self.fontLabel, r, 0, al)
-        self.gridLayout.addLayout(self.fontLayout, r, 1, al)
+        gridLayout.addWidget(self.fontLabel, r, 0, al)
+        gridLayout.addLayout(self.fontLayout, r, 1, al)
         r += 1
-        self.gridLayout.addWidget(self.colorLabel, r, 0, al)
-        self.gridLayout.addWidget(self.colorEditButton, r, 1, al)
+        gridLayout.addWidget(self.colorLabel, r, 0, al)
+        gridLayout.addWidget(self.colorEditButton, r, 1, al)
         r += 1
-        self.gridLayout.addWidget(self.textColorLabel, r, 0, al)
-        self.gridLayout.addWidget(self.textColorEditButton, r, 1, al)
+        gridLayout.addWidget(self.textColorLabel, r, 0, al)
+        gridLayout.addWidget(self.textColorEditButton, r, 1, al)
         r += 1
-        self.gridLayout.addWidget(self.barHeightValueLabel, r, 0, al)
-        self.gridLayout.addWidget(self.barHeightValueSpinBox, r, 1, al)
+        gridLayout.addWidget(self.textEnabledLabel, r, 0, al)
+        gridLayout.addWidget(self.textEnabledCheckBox, r, 1, al)
         r += 1
-        self.gridLayout.addLayout(originPointPriceValueLayout, r, 0, al)
-        self.gridLayout.addLayout(leg1PointPriceValueLayout, r, 1, al)
+        gridLayout.addLayout(originPointPriceValueLayout, r, 0, al)
+        gridLayout.addLayout(leg1PointPriceValueLayout, r, 1, al)
         r += 1
-        self.gridLayout.addWidget(self.originPointDatetimeLocationWidget,
+        gridLayout.addWidget(self.originPointDatetimeLocationWidget,
                                   r, 0, al)
-        self.gridLayout.addWidget(self.leg1PointDatetimeLocationWidget,
+        gridLayout.addWidget(self.leg1PointDatetimeLocationWidget,
                                   r, 1, al)
         r += 1
-        #self.gridLayout.addWidget(self.,
+        #gridLayout.addWidget(self.,
         #                          r, 0, al)
-        self.gridLayout.addWidget(self.leg2PointPriceValueLayout,
+        gridLayout.addLayout(leg2PointPriceValueLayout,
                                   r, 1, al)
         r += 1
-        #self.gridLayout.addWidget(self.,
+        #gridLayout.addWidget(self.,
         #                          r, 0, al)
-        self.gridLayout.addWidget(self.leg2PointDatetimeLocationWidget,
+        gridLayout.addWidget(self.leg2PointDatetimeLocationWidget,
                                   r, 1, al)
         r += 1
 
@@ -9661,7 +9631,6 @@ class PriceBarChartFibFanArtifactEditWidget(QWidget):
         self.fontEditButton.setEnabled(not self.readOnlyFlag)
         self.colorEditButton.setEnabled(not self.readOnlyFlag)
         self.textColorEditButton.setEnabled(not self.readOnlyFlag)
-        self.barHeightValueSpinBox.setEnabled(not self.readOnlyFlag)
         self.textEnabledCheckBox.setEnabled(not self.readOnlyFlag)
         
         self.originPointPriceValueSpinBox.\
@@ -9732,16 +9701,14 @@ class PriceBarChartFibFanArtifactEditWidget(QWidget):
         
         self.textColorEditButton.setColor(self.artifact.getTextColor())
 
-        self.barHeightValueSpinBox.setValue(self.artifact.getBarHeight())
-        
         if self.artifact.isTextEnabled() == True:
-            self.textEnabledFlagCheckBox.setCheckState(Qt.Checked)
+            self.textEnabledCheckBox.setCheckState(Qt.Checked)
         else:
-            self.textEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+            self.textEnabledCheckBox.setCheckState(Qt.Unchecked)
 
         originPointY = self.artifact.originPointF.y()
         originPointPrice = self.convertObj.sceneYPosToPrice(originPointY)
-        self.originPointPriceLocationValueSpinBox.setValue(originPointPrice)
+        self.originPointPriceValueSpinBox.setValue(originPointPrice)
         
         originPointX = self.artifact.originPointF.x()
         originPointDatetime = self.convertObj.sceneXPosToDatetime(originPointX)
@@ -9751,7 +9718,7 @@ class PriceBarChartFibFanArtifactEditWidget(QWidget):
 
         leg1PointY = self.artifact.leg1PointF.y()
         leg1PointPrice = self.convertObj.sceneYPosToPrice(leg1PointY)
-        self.leg1PointPriceLocationValueSpinBox.setValue(leg1PointPrice)
+        self.leg1PointPriceValueSpinBox.setValue(leg1PointPrice)
         
         leg1PointX = self.artifact.leg1PointF.x()
         leg1PointDatetime = self.convertObj.sceneXPosToDatetime(leg1PointX)
@@ -9761,7 +9728,7 @@ class PriceBarChartFibFanArtifactEditWidget(QWidget):
         
         leg2PointY = self.artifact.leg2PointF.y()
         leg2PointPrice = self.convertObj.sceneYPosToPrice(leg2PointY)
-        self.leg2PointPriceLocationValueSpinBox.setValue(leg2PointPrice)
+        self.leg2PointPriceValueSpinBox.setValue(leg2PointPrice)
         
         leg2PointX = self.artifact.leg2PointF.x()
         leg2PointDatetime = self.convertObj.sceneXPosToDatetime(leg2PointX)
@@ -9796,13 +9763,13 @@ class PriceBarChartFibFanArtifactEditWidget(QWidget):
         textXScaling = self.xScalingDoubleSpinBox.value()
         textYScaling = self.yScalingDoubleSpinBox.value()
 
-        originPointPrice = self.originPointPriceLocationValueSpinBox.value()
+        originPointPrice = self.originPointPriceValueSpinBox.value()
         originPointY = self.convertObj.priceToSceneYPos(originPointPrice)
 
-        leg1PointPrice = self.leg1PointPriceLocationValueSpinBox.value()
+        leg1PointPrice = self.leg1PointPriceValueSpinBox.value()
         leg1PointY = self.convertObj.priceToSceneYPos(leg1PointPrice)
 
-        leg2PointPrice = self.leg2PointPriceLocationValueSpinBox.value()
+        leg2PointPrice = self.leg2PointPriceValueSpinBox.value()
         leg2PointY = self.convertObj.priceToSceneYPos(leg2PointPrice)
 
         
@@ -9815,21 +9782,20 @@ class PriceBarChartFibFanArtifactEditWidget(QWidget):
 
         color = self.colorEditButton.getColor()
         textColor = self.textColorEditButton.getColor()
-        barHeight = self.barHeightValueSpinBox.value()
         
         originPointX = self.convertObj.datetimeToSceneXPos(originPointDatetime)
         leg1PointX = self.convertObj.datetimeToSceneXPos(leg1PointDatetime)
         leg2PointX = self.convertObj.datetimeToSceneXPos(leg2PointDatetime)
-
+        
         # Position and start point should be the same values.
-
+        
         posF = QPointF(originPointX, originPointY)
         originPointF = QPointF(originPointX, originPointY)
         leg1PointF = QPointF(leg1PointX, leg1PointY)
         leg2PointF = QPointF(leg2PointX, leg2PointY)
-
+        
         textEnabledFlag = \
-            (self.textEnabledFlagCheckBox.checkState() == Qt.Checked)
+            (self.textEnabledCheckBox.checkState() == Qt.Checked)
         
         ratioEnabledFlags = []
         for checkBox in self.ratioCheckBoxes:
@@ -9845,7 +9811,6 @@ class PriceBarChartFibFanArtifactEditWidget(QWidget):
         self.artifact.setTextYScaling(textYScaling)
         self.artifact.setColor(color)
         self.artifact.setTextColor(textColor)
-        self.artifact.setBarHeight(barHeight)
         self.artifact.setOriginPointF(originPointF)
         self.artifact.setLeg1PointF(leg1PointF)
         self.artifact.setLeg2PointF(leg2PointF)

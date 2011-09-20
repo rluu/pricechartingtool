@@ -2,12 +2,6 @@
 
 Outstanding things to work on going forward:
 
-
-  - Need to fix OctaveFan (and FibFan) so that we can drag endpoints
-    of the legs or the origin to change those points.  Currently,
-    dragging just moves the whole item.  If I'm writing FibFan, then
-    this fix needs to be applied to that also.
-
   - Set sensible defaults for TimeMeasurementTool (which text to have
     displayed by default).
 

@@ -11078,6 +11078,9 @@ class PriceBarChartSettingsEditWidget(QWidget):
             connect(\
             self._handleLineSegmentGraphicsItemAngleTextFlagResetButton)
         
+        self.octaveFanGraphicsItemBarHeightResetButton.clicked.\
+            connect(\
+            self._handleOctaveFanGraphicsItemBarHeightResetButtonClicked)
         self.octaveFanGraphicsItemColorResetButton.clicked.\
             connect(\
             self._handleOctaveFanGraphicsItemColorResetButtonClicked)
@@ -14378,6 +14381,15 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.octaveFanGraphicsItemGroupBox = \
             QGroupBox("OctaveFanGraphicsItem settings:")
 
+        # PriceBarChart octaveFanGraphicsItemBarHeight (float).
+        self.octaveFanGraphicsItemBarHeightLabel = \
+            QLabel("OctaveFanGraphicsItem bar height: ")
+        self.octaveFanGraphicsItemBarHeightSpinBox = QDoubleSpinBox()
+        self.octaveFanGraphicsItemBarHeightSpinBox.setMinimum(0.0001)
+        self.octaveFanGraphicsItemBarHeightSpinBox.setMaximum(1000.0)
+        self.octaveFanGraphicsItemBarHeightResetButton = \
+            QPushButton("Reset to default")
+        
         # PriceBarChart octaveFanGraphicsItemColor (QColor).
         self.octaveFanGraphicsItemColorLabel = \
             QLabel("OctaveFanGraphicsItem color: ")
@@ -14427,6 +14439,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
         al = Qt.AlignLeft
         ar = Qt.AlignRight
 
+        gridLayout.\
+            addWidget(self.octaveFanGraphicsItemBarHeightLabel,
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.octaveFanGraphicsItemBarHeightSpinBox,
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(self.octaveFanGraphicsItemBarHeightResetButton,
+                      r, 2, ar)
+        r += 1
         gridLayout.\
             addWidget(self.octaveFanGraphicsItemColorLabel,
                       r, 0, al)
@@ -15860,6 +15882,11 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.lineSegmentGraphicsItemAngleTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
 
+        # octaveFanGraphicsItemBarHeight (float).
+        self.octaveFanGraphicsItemBarHeightSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                     octaveFanGraphicsItemBarHeight)
+
         # octaveFanGraphicsItemColor (QColor).
         self.octaveFanGraphicsItemColorEditButton.\
             setColor(self.priceBarChartSettings.\
@@ -16982,6 +17009,10 @@ class PriceBarChartSettingsEditWidget(QWidget):
         else:
             self.priceBarChartSettings.\
                 lineSegmentGraphicsItemAngleTextFlag = False
+
+        # octaveFanGraphicsItemBarHeight (float).
+        self.priceBarChartSettings.octaveFanGraphicsItemBarHeight = \
+            float(self.octaveFanGraphicsItemBarHeightSpinBox.value())
 
         # octaveFanGraphicsItemTextColor (QColor).
         self.priceBarChartSettings.octaveFanGraphicsItemBarColor = \
@@ -19031,6 +19062,17 @@ class PriceBarChartSettingsEditWidget(QWidget):
         # checkboxes).
         self._handleOctaveFanGraphicsItemCheckMarkToggled()
 
+    def _handleOctaveFanGraphicsItemBarHeightResetButtonClicked(self):
+        """Called when the octaveFanGraphicsItemBarHeightResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+            defaultOctaveFanGraphicsItemBarHeight
+        
+        self.octaveFanGraphicsItemBarHeightSpinBox.setValue(value)
+
     def _handleOctaveFanGraphicsItemColorResetButtonClicked(self):
         """Called when the octaveFanGraphicsItemColorResetButton
         is clicked.  Resets the widget value to the default value.
@@ -19292,6 +19334,7 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._handleLineSegmentGraphicsItemTiltedTextFlagResetButton()
         self._handleLineSegmentGraphicsItemAngleTextFlagResetButton()
 
+        self._handleOctaveFanGraphicsItemBarHeightResetButtonClicked()
         self._handleOctaveFanGraphicsItemColorResetButtonClicked()
         self._handleOctaveFanGraphicsItemTextColorResetButtonClicked()
         self._handleOctaveFanGraphicsItemTextXScalingResetButtonClicked()
