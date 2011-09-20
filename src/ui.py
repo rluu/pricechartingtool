@@ -873,6 +873,10 @@ class MainWindow(QMainWindow):
             priceChartDocument.statusMessageUpdate[str].\
                 connect(self.showInStatusBar)
 
+            # Connect signal for launching JHora.
+            priceChartDocument.jhoraLaunch.\
+                connect(self.handleJhoraLaunch)
+
             # Add this priceChartDocument to the list of subwindows
             self._addSubWindow(priceChartDocument)
 
@@ -971,6 +975,10 @@ class MainWindow(QMainWindow):
                 # Connect the signal for updating the status bar message.
                 priceChartDocument.statusMessageUpdate[str].\
                     connect(self.showInStatusBar)
+
+                # Connect signal for launching JHora.
+                priceChartDocument.jhoraLaunch.\
+                    connect(self.handleJhoraLaunch)
 
                 # Now Add this priceChartDocument to the list of subwindows
                 self._addSubWindow(priceChartDocument)
@@ -1075,6 +1083,223 @@ class MainWindow(QMainWindow):
         self.statusBar().showMessage(text, 
                                      MainWindow.defaultStatusBarMsgTimeMsec)
 
+    def handleJhoraLaunch(self, dt=None, birthInfo=None):
+        """Opens JHora with the given datetime.datetime timestamp.
+        Uses the currently set self.birthInfo object for timezone
+        information.
+        
+        Arguments:
+        
+        dt - datetime.datetime object holding the timestamp to use for
+             launching and viewing in JHora.  This is used to get the
+             julian day.  If dt is None, then JHora is opened with the
+             current time (the default behavior of JHora with no file
+             argument).
+
+        birthInfo - BirthInfo object holding information about the
+                    location/altitude and timezone.  If None, then the
+                    default UTC BirthInfo will be used.
+        """
+
+        self.log.debug("Entered handleJhoraLaunch()")
+
+        # TODO:  proof-read this below.  What is the actual behavior I want?  Update this function's comments/documentation once I have it all figured out.
+        
+        if dt == None and birthInfo == None:
+            # Just open JHora without file specified.
+            self.log.debug("dt == None and birthInfo == None.") 
+        else:
+            if birthInfo == None:
+                self.log.debug("birthInfo passed is None.  Using UTC.") 
+                birthInfo = BirthInfo()
+            if dt == None:
+                self.log.debug("dt passed is None.  Using the current time " +
+                               "in the birthInfo's timezone.") 
+                dt = datetime.datetime.now(\
+                    pytz.timezone(birthInfo.timezoneName))
+                
+        self.log.debug("Values being used: " +
+                       "dt='{}', birthInfo='{}'".\
+                       format(Ephemeris.datetimeToStr(dt),
+                              birthInfo.toString()))
+        
+        # Create the file to open JHora with.
+        f = QTemporaryFile("pricebarchart_XXXXXX.jhd")
+
+        if f.open(QIODevice::ReadWrite):
+            # Format of the file is all text with Windows newlines:
+            #
+            # <1>\r\n
+            # <2>\r\n
+            # <3>\r\n
+            # <4>.<5>\r\n
+            # <6>.<7>\r\n
+            # <8>.<9>\r\n
+            # <10>.<11>\r\n
+            # <12>\r\n
+            # <13>\r\n
+            # <14>\r\n
+            # <15>\r\n
+            # <16>\r\n
+            # <17>\r\n
+            # <18>\r\n
+            # <19>\r\n
+            # <20>\r\n
+            # <21>\r\n
+            # <22>\r\n
+            #
+            # Where the above values are described as:
+            # <1>: Month as an integer.
+            # <2>: Day-of-month as an integer.
+            # <3>: Year as an integer.
+            # <4>: Hour as an integer.
+            # <5>: Minutes.  This includes the seconds as a float
+            #      within it, but with no decimals.  This value is 15
+            #      characters long.
+            # 
+            #      For example:
+            #        - 35 minutes and 45 seconds would be: "357500000000000"
+            #        -  5 minutes and 37 seconds would be: "056166666666666"
+            # 
+            # <6>: Hours of timezone offset as an int.
+            #      Negative values represent East of GMT, and
+            #      positive values represent West of GMT.
+            #
+            #      Example:
+            #        "-9" for 9 Hours East of GMT
+            #        "9" for 9 Hours West of GMT
+            #
+            # <7>: Minutes of timezone offset, as an float multiplied
+            #      by 10000, with no decimal.  Note when times are in LMT,
+            #      digits past the first 2 digits are used.
+            #
+            #      Example:
+            #        "400000" for 40 minutes.
+            # 
+            # <8>: Longitude degrees as an int.
+            #      Negative values represent degrees East.
+            #
+            #      Example:
+            #        "-144.580000"
+            #        "144.580000"
+            #
+            # <9>: Longitude minutes and seconds, displayed as an int
+            #      but text is as a float multitplied to have 6 digits of
+            #      precision total.
+            #
+            #      Example:
+            #        "586833" for 58 minutes 41 seconds
+            #
+            # <10>: Latitude degrees as an int.
+            #      Negative values represent degrees South.
+            #
+            #      Example:
+            #        "-37" for 37 degrees South.
+            #
+            # <11>: Latitude minutes and seconds, displayed as an int
+            #      but text is as a float multitplied to have 6 digits
+            #      of precision total.
+            #
+            #      Example:
+            #        "496500" for 49 minutes 39 seconds
+            # 
+            # <12>: Altitude in meters above sea level,
+            #      as a float with 6 digits of precision.  
+            #
+            #      Example:
+            #      "42.000000"
+            #
+            # <13>: Hours of timezone offset in standard time, as a
+            #      float with 6 digits of precision.  Negative values
+            #      represent East of GMT, and positive values
+            #      represent West of GMT.
+            #
+            #      Example:
+            #        "-9.833333" for 9 Hours 50 Minutes East of GMT
+            #        "9.833333" for 9 Hours 50 Minutes West of GMT
+            #
+            # <14>: Hours of timezone offset if the timestamp is in
+            #      daylight savings.  If the location is not in daylight
+            #      savings, then this value will show up as the same as
+            #      string <13>.
+            #
+            # <15>: "0" if the location is within the United States.
+            #       "1" if the location is outside the United States.
+            #
+            # <16>: int value.  This is a zero-based index into either
+            #      the list of US States or into the list of Countries.
+            #
+            #      Example:
+            #        "11" for Australia
+            #        "301" for Virginia, USA
+            #
+            # <17>: String value for the city name.
+            #
+            #      Example:
+            #        "Arlington"
+            #        "Melbourne"
+            #
+            # <18>: String value for the US State or the Country.
+            #
+            #      Example:
+            #        "Virginia,^USA"
+            #        "Australia"
+            #
+            # <19>: "0" if the timestamp is in the Julian calendar.
+            #       "1" if the timestamp is in the Gregorian calendar.
+            #
+            # <20>: Atmospheric pressure in mbar (hPa).
+            #      This is a float value with 6 digits of precision.
+            #
+            #      Example:
+            #        "1013.250000" for 1013.25.
+            #
+            # <21>: Atmospheric temperature in degrees Celsius.
+            #      This is a float value with 6 digits of precision.
+            #
+            #      Example:
+            #        "20.000000" for 20 degrees celsius.
+            # 
+            # <22>: "0" for unknown gender
+            #       "1" for male gender
+            #       "2" for female gender
+            #
+
+            # <5>
+            minutes = float(dt.minute) + float(dt.second / 60.0)
+            minutes *= 10000000000000
+            minutes = int(minutes)
+            field5 = "{}".format(minutes)
+            
+            self.debug("field5 is: ***{}***".format(field5))
+            
+            text = ""
+            text += "{}\r\n".format(dt.month)
+            text += "{}\r\n".format(dt.day)
+            text += "{}\r\n".format(dt.year)
+            text += "{}.{}\r\n".format(dt.hour, field5)
+            text += "{}.{}\r\n".format(birthInfo.)
+            
+            # TODO: write this jhoraLaunch() function.
+        
+            
+        else:
+            errMsg = "Could not open a temporary file for JHora."
+            self.log.error(errMsg)
+            
+            title = "Error"
+            text = errMsg
+            buttons = QMessageBox.Ok
+            defaultButton = QMessageBox.NoButton
+            
+            QMessageBox.warning(self, title, text, buttons, defaultButton)
+            
+        # Launch JHora with the file just created.
+        
+        
+        self.log.debug("Exiting handleJhoraLaunch()")
+        pass
+        
     def _print(self):
         """Opens up a dialog for printing the current selected document."""
 
@@ -1585,6 +1810,10 @@ class PriceChartDocument(QMdiSubWindow):
     # Signal emitted when the object wants to display something to the
     # status bar.
     statusMessageUpdate = QtCore.pyqtSignal(str)
+
+    # Signal emitted when the user desires to view a datetime.datetime
+    # in JHora.
+    jhoraLaunch = QtCore.pyqtSignal(datetime.datetime, BirthInfo)
     
     def __init__(self, parent=None):
         """Creates the QMdiSubWindow with the internal widgets,
@@ -1630,6 +1859,9 @@ class PriceChartDocument(QMdiSubWindow):
             connect(self._handlePriceChartDocumentWidgetChanged)
         self.widgets.statusMessageUpdate.\
             connect(self.statusMessageUpdate)
+        self.widgets.jhoraLaunch.\
+            connect(self.handleJhoraLaunch)
+        
         self.log.debug("Exiting PriceChartDocument()")
 
     def picklePriceChartDocumentDataToFile(self, filename):
@@ -2288,6 +2520,22 @@ class PriceChartDocument(QMdiSubWindow):
 
         self.widgets.toFibFanToolMode()
 
+    def handleJhoraLaunch(self, dt, birthInfo):
+        """Handles a launch of JHora with the given datetime.datetime.
+        This function assumes that the birth information is available
+        via self.getBirthInfo().
+
+        Arguments:
+        dt - datetime.datetime object holding the timestamp to use for
+             launching and viewing in JHora.  This is used to get the
+             julian day.
+        birthInfo - BirthInfo object with the information about
+                    birth set (e.g., birth location, elevation, etc.)
+        """
+
+        # Pass the command onto the parent MainWindow to handle.
+        self.jhoraLaunch.emit(dt, birthInfo)
+        
     def _handlePriceChartDocumentWidgetChanged(self):
         """Slot for when the PriceBarDocumentWidget emits a signal to say
         that the widget(s) changed.  This means the document should be
@@ -2298,7 +2546,7 @@ class PriceChartDocument(QMdiSubWindow):
             self.setDirtyFlag(True)
 
     def toString(self):
-        """Returns the str representation of this class object.
+        """Returns the str representation of this object.
         """
 
         # Return value.
@@ -2313,7 +2561,7 @@ class PriceChartDocument(QMdiSubWindow):
         return rv
 
     def __str__(self):
-        """Returns the str representation of this class object.
+        """Returns the str representation of this object.
         """
 
         return self.toString() 
@@ -2331,6 +2579,10 @@ class PriceChartDocumentWidget(QWidget):
 
     # Signal emitted when a status message should be printed.
     statusMessageUpdate = QtCore.pyqtSignal(str)
+    
+    # Signal emitted when the user desires to view a datetime.datetime
+    # in JHora.
+    jhoraLaunch = QtCore.pyqtSignal(datetime.datetime, BirthInfo)
     
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -2365,7 +2617,9 @@ class PriceChartDocumentWidget(QWidget):
             connect(self._handleWidgetChanged)
         self.priceBarChartWidget.statusMessageUpdate.\
             connect(self.statusMessageUpdate)
-                                   
+        self.priceBarChartWidget.jhoraLaunch.\
+            connect(self.handleJhoraLaunch)
+        
         # TODO:  Uncomment to get the PlanetaryInfoTableWidget.
         #self.priceBarChartWidget.currentTimestampChanged.\
         #    connect(self._handleCurrentTimestampChanged)
@@ -2620,26 +2874,19 @@ class PriceChartDocumentWidget(QWidget):
 
         self.priceChartDocumentWidgetChanged.emit()
 
-    def jhoraLaunch(self, dt=None):
-        """Opens JHora with the given datetime.datetime timestamp.
-        Uses the currently set self.birthInfo object for timezone
-        information.
-        
+    def handleJhoraLaunch(self, dt):
+        """Handles a launch of JHora with the given datetime.datetime.
+        This function assumes that the birth information is available
+        via self.birthInfo.
+
         Arguments:
-        
         dt - datetime.datetime object holding the timestamp to use for
-             launching and viewing in JHora.  If dt is None, then JHora is
-             opened with the current time (the default behavior of JHora
-             with no file argument).
+             launching and viewing in JHora.  This is used to get the
+             julian day.
         """
 
-        # TODO:  write this jhoraLaunch() function.
-        
-        # My thoughts: Should I just bubble this up again two more
-        # times (via emitting signals) all the way up to MainWindow?
-        # And then from here we will launch JHora.  Passing it up from
-        # here we should include the relevant birthInfo/timezone.
-        pass
+        # Pass the command onto the parent MainWindow to handle.
+        self.jhoraLaunch.emit(dt, self.birthInfo)
         
     def _handleCurrentTimestampChanged(self, dt):
         """Handles when the current mouse cursor datetime changes.
