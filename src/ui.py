@@ -1091,10 +1091,9 @@ class MainWindow(QMainWindow):
         Arguments:
         
         dt - datetime.datetime object holding the timestamp to use for
-             launching and viewing in JHora.  This is used to get the
-             julian day.  If dt is None, then JHora is opened with the
-             current time (the default behavior of JHora with no file
-             argument).
+             launching and viewing in JHora.  If dt is None, then
+             JHora is opened with the current time (the default
+             behavior of JHora with no file argument).
 
         birthInfo - BirthInfo object holding information about the
                     location/altitude and timezone.  If None, then the
@@ -1124,167 +1123,24 @@ class MainWindow(QMainWindow):
                               birthInfo.toString()))
         
         # Create the file to open JHora with.
-        f = QTemporaryFile("pricebarchart_XXXXXX.jhd")
+        f = QTemporaryFile("tmp_pricebarchart_XXXXXX.jhd")
 
-        if f.open(QIODevice::ReadWrite):
-            # Format of the file is all text with Windows newlines:
-            #
-            # <1>\r\n
-            # <2>\r\n
-            # <3>\r\n
-            # <4>.<5>\r\n
-            # <6>.<7>\r\n
-            # <8>.<9>\r\n
-            # <10>.<11>\r\n
-            # <12>\r\n
-            # <13>\r\n
-            # <14>\r\n
-            # <15>\r\n
-            # <16>\r\n
-            # <17>\r\n
-            # <18>\r\n
-            # <19>\r\n
-            # <20>\r\n
-            # <21>\r\n
-            # <22>\r\n
-            #
-            # Where the above values are described as:
-            # <1>: Month as an integer.
-            # <2>: Day-of-month as an integer.
-            # <3>: Year as an integer.
-            # <4>: Hour as an integer.
-            # <5>: Minutes.  This includes the seconds as a float
-            #      within it, but with no decimals.  This value is 15
-            #      characters long.
-            # 
-            #      For example:
-            #        - 35 minutes and 45 seconds would be: "357500000000000"
-            #        -  5 minutes and 37 seconds would be: "056166666666666"
-            # 
-            # <6>: Hours of timezone offset as an int.
-            #      Negative values represent East of GMT, and
-            #      positive values represent West of GMT.
-            #
-            #      Example:
-            #        "-9" for 9 Hours East of GMT
-            #        "9" for 9 Hours West of GMT
-            #
-            # <7>: Minutes of timezone offset, as an float multiplied
-            #      by 10000, with no decimal.  Note when times are in LMT,
-            #      digits past the first 2 digits are used.
-            #
-            #      Example:
-            #        "400000" for 40 minutes.
-            # 
-            # <8>: Longitude degrees as an int.
-            #      Negative values represent degrees East.
-            #
-            #      Example:
-            #        "-144.580000"
-            #        "144.580000"
-            #
-            # <9>: Longitude minutes and seconds, displayed as an int
-            #      but text is as a float multitplied to have 6 digits of
-            #      precision total.
-            #
-            #      Example:
-            #        "586833" for 58 minutes 41 seconds
-            #
-            # <10>: Latitude degrees as an int.
-            #      Negative values represent degrees South.
-            #
-            #      Example:
-            #        "-37" for 37 degrees South.
-            #
-            # <11>: Latitude minutes and seconds, displayed as an int
-            #      but text is as a float multitplied to have 6 digits
-            #      of precision total.
-            #
-            #      Example:
-            #        "496500" for 49 minutes 39 seconds
-            # 
-            # <12>: Altitude in meters above sea level,
-            #      as a float with 6 digits of precision.  
-            #
-            #      Example:
-            #      "42.000000"
-            #
-            # <13>: Hours of timezone offset in standard time, as a
-            #      float with 6 digits of precision.  Negative values
-            #      represent East of GMT, and positive values
-            #      represent West of GMT.
-            #
-            #      Example:
-            #        "-9.833333" for 9 Hours 50 Minutes East of GMT
-            #        "9.833333" for 9 Hours 50 Minutes West of GMT
-            #
-            # <14>: Hours of timezone offset if the timestamp is in
-            #      daylight savings.  If the location is not in daylight
-            #      savings, then this value will show up as the same as
-            #      string <13>.
-            #
-            # <15>: "0" if the location is within the United States.
-            #       "1" if the location is outside the United States.
-            #
-            # <16>: int value.  This is a zero-based index into either
-            #      the list of US States or into the list of Countries.
-            #
-            #      Example:
-            #        "11" for Australia
-            #        "301" for Virginia, USA
-            #
-            # <17>: String value for the city name.
-            #
-            #      Example:
-            #        "Arlington"
-            #        "Melbourne"
-            #
-            # <18>: String value for the US State or the Country.
-            #
-            #      Example:
-            #        "Virginia,^USA"
-            #        "Australia"
-            #
-            # <19>: "0" if the timestamp is in the Julian calendar.
-            #       "1" if the timestamp is in the Gregorian calendar.
-            #
-            # <20>: Atmospheric pressure in mbar (hPa).
-            #      This is a float value with 6 digits of precision.
-            #
-            #      Example:
-            #        "1013.250000" for 1013.25.
-            #
-            # <21>: Atmospheric temperature in degrees Celsius.
-            #      This is a float value with 6 digits of precision.
-            #
-            #      Example:
-            #        "20.000000" for 20 degrees celsius.
-            # 
-            # <22>: "0" for unknown gender
-            #       "1" for male gender
-            #       "2" for female gender
-            #
+        if f.open(QIODevice.ReadWrite):
+            
+            # Get the text to go into the file from the input parameters.
+            text = self._generateJHoraFileText(dt, birthInfo)
 
-            # <5>
-            minutes = float(dt.minute) + float(dt.second / 60.0)
-            minutes *= 10000000000000
-            minutes = int(minutes)
-            field5 = "{}".format(minutes)
             
-            self.debug("field5 is: ***{}***".format(field5))
+            # TODO: write the rest of this jhoraLaunch() function.
+
+            # Write to the file.
             
-            text = ""
-            text += "{}\r\n".format(dt.month)
-            text += "{}\r\n".format(dt.day)
-            text += "{}\r\n".format(dt.year)
-            text += "{}.{}\r\n".format(dt.hour, field5)
-            text += "{}.{}\r\n".format(birthInfo.)
+            # Launch JHora with the file just created.
             
-            # TODO: write this jhoraLaunch() function.
-        
             
         else:
-            errMsg = "Could not open a temporary file for JHora."
+            errMsg = "JHora launch failed because: " + os.linsep + \
+                     "Could not open a temporary file for JHora."
             self.log.error(errMsg)
             
             title = "Error"
@@ -1294,11 +1150,497 @@ class MainWindow(QMainWindow):
             
             QMessageBox.warning(self, title, text, buttons, defaultButton)
             
-        # Launch JHora with the file just created.
-        
         
         self.log.debug("Exiting handleJhoraLaunch()")
         pass
+
+    def _generateJHoraFileText(self, dt, birthInfo):
+        """Generates the text that would be in a JHora .jhd file, for
+        the information given in the specified datetime.datetime and
+        BirthInfo.
+        
+        Arguments:
+        
+        dt - datetime.datetime object holding the timestamp to use for
+             launching and viewing in JHora.  
+
+        birthInfo - BirthInfo object holding information about the
+                    location/altitude and timezone.
+
+
+        Notes on text format:
+
+        # Format of the file is all text with Windows newlines:
+        #
+        # <1>\r\n
+        # <2>\r\n
+        # <3>\r\n
+        # <4>.<5>\r\n
+        # <6>.<7>\r\n
+        # <8>.<9>\r\n
+        # <10>.<11>\r\n
+        # <12>\r\n
+        # <13>\r\n
+        # <14>\r\n
+        # <15>\r\n
+        # <16>\r\n
+        # <17>\r\n
+        # <18>\r\n
+        # <19>\r\n
+        # <20>\r\n
+        # <21>\r\n
+        # <22>\r\n
+        #
+        # Where the above values are described as:
+        # <1>: Month as an integer.
+        # <2>: Day-of-month as an integer.
+        # <3>: Year as an integer.
+        # <4>: Hour as an integer.
+        # <5>: Minutes.  This includes the seconds as a float
+        #      within it, but with no decimals.  This value is 15
+        #      characters long.
+        # 
+        #      For example:
+        #        - 35 minutes and 45 seconds would be: "357500000000000"
+        #        -  5 minutes and 37 seconds would be: "056166666666666"
+        # 
+        # <6>: Hours of timezone offset in standard time, as an int.
+        #      Negative values represent East of GMT, and
+        #      positive values represent West of GMT.
+        #
+        #      Example:
+        #        "-9" for 9 Hours East of GMT
+        #        "9" for 9 Hours West of GMT
+        #
+        # <7>: Minutes of timezone offset in standard time, as an
+        #      float multiplied by 10000, with no decimal.  Note
+        #      when times are in LMT, digits past the first 2
+        #      digits are used.
+        #
+        #      Example:
+        #        "400000" for 40 minutes.
+        # 
+        # <8>: Longitude degrees as an int.
+        #      Negative values represent degrees East.
+        #
+        #      Example:
+        #        "-144"
+        #        "144"
+        #
+        # <9>: Longitude minutes and seconds, displayed as an int
+        #      but text is as a float multitplied to have 6 digits of
+        #      precision total.
+        #
+        #      Example:
+        #        "586833" for 58 minutes 41 seconds
+        #
+        # <10>: Latitude degrees as an int.
+        #      Negative values represent degrees South.
+        #
+        #      Example:
+        #        "-37" for 37 degrees South.
+        #
+        # <11>: Latitude minutes and seconds, displayed as an int
+        #      but text is as a float multitplied to have 6 digits
+        #      of precision total.
+        #
+        #      Example:
+        #        "496500" for 49 minutes 39 seconds
+        # 
+        # <12>: Altitude in meters above sea level,
+        #      as a float with 6 digits of precision.  
+        #
+        #      Example:
+        #      "42.000000"
+        #
+        # <13>: Hours of timezone offset in standard time, as a
+        #      float with 6 digits of precision.  Negative values
+        #      represent East of GMT, and positive values
+        #      represent West of GMT.
+        #
+        #      Example:
+        #        "-9.833333" for 9 Hours 50 Minutes East of GMT
+        #        "9.833333" for 9 Hours 50 Minutes West of GMT
+        #
+        # <14>: Hours of timezone offset if the timestamp is in
+        #      daylight savings.  If the location is not in daylight
+        #      savings, then this value will show up as the same as
+        #      string <13>.
+        #
+        # <15>: "0" if the location is within the United States.
+        #       "1" if the location is outside the United States.
+        #
+        # <16>: int value.  This is a zero-based index into either
+        #      the list of US States or into the list of Countries.
+        #
+        #      Example:
+        #        "11" for Australia
+        #        "301" for Virginia, USA
+        #
+        # <17>: String value for the city name.
+        #
+        #      Example:
+        #        "Arlington"
+        #        "Melbourne"
+        #
+        # <18>: String value for the US State or the Country.
+        #
+        #      Example:
+        #        "Virginia,^USA"
+        #        "Australia"
+        #
+        # <19>: "0" if the timestamp is in the Julian calendar.
+        #       "1" if the timestamp is in the Gregorian calendar.
+        #
+        # <20>: Atmospheric pressure in mbar (hPa).
+        #      This is a float value with 6 digits of precision.
+        #
+        #      Example:
+        #        "1013.250000" for 1013.25.
+        #
+        # <21>: Atmospheric temperature in degrees Celsius.
+        #      This is a float value with 6 digits of precision.
+        #
+        #      Example:
+        #        "20.000000" for 20 degrees celsius.
+        # 
+        # <22>: "0" for unknown gender
+        #       "1" for male gender
+        #       "2" for female gender
+        #
+        #################################################################
+        """
+
+        self.log.debug("dt at input is: " + Ephemeris.datetimeToStr(dt))
+
+        # TODO:  Datetime needs to be localized to the timezone in birthInfo.
+
+        
+        # <1>: Month as an integer.
+        field1 = dt.month
+
+        # <2>: Day-of-month as an integer.
+        field2 = dt.day
+
+        # <3>: Year as an integer.
+        field3 = dt.year
+
+        # <4>: Hour as an integer.
+        field4 = dt.hour
+
+        # <5>: Minutes.  This includes the seconds as a float
+        #      within it, but with no decimals.  This value is 15
+        #      characters long.
+        # 
+        #      For example:
+        #        - 35 minutes and 45 seconds would be: "357500000000000"
+        #        -  5 minutes and 37 seconds would be: "056166666666666"
+        # 
+        minutes = float(dt.minute) + float(dt.second / 60.0)
+        minutes *= 10000000000000
+        minutes = int(minutes)
+        field5 = "{}".format(minutes)
+        self.log.debug("field5 is: {}".format(field5))
+
+        # <6>: Hours of timezone offset in standard time, as an int.
+        #      Negative values represent East of GMT, and
+        #      positive values represent West of GMT.
+        #
+        #      Example:
+        #        "-9" for 9 Hours East of GMT
+        #        "9" for 9 Hours West of GMT
+        #
+        field6 = ""
+        totalMinutesOffset = 0
+            
+        if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
+            hoursTimezoneOffset = 0
+            minutesTimezoneOffset = 0
+            tzinfoObj = pytz.timezone(birthInfo.timezoneName)
+            self.log.debug("birthInfo.timezoneName is: " + \
+                           birthInfo.timezoneName)
+            offsetTimedelta = tzinfoObj._utcoffset
+            totalMinutesOffset = \
+                int(round((offsetTimedelta.days * 60 * 24) + \
+                          (offsetTimedelta.seconds / 60)))
+            hoursTimezoneOffset = totalMinutesOffset // 60
+            field6 = "{}".format(hoursTimezoneOffset)
+        elif birthInfo.timeOffsetManualEntryRadioButtonState == True:
+            totalMinutesOffset = \
+                (birthInfo.timezoneManualEntryHours * 60) + \
+                (birthInfo.timezoneManualEntryMinutes)
+                
+            if birthInfo.timezoneManualEntryEastWestComboBoxValue == "E":
+                totalMinutesOffset *= -1
+                    
+            hoursTimezoneOffset = totalMinutesOffset // 60
+            field6 = "{}".format(hoursTimezoneOffset)
+                
+        elif birthInfo.timeOffsetLMTRadioButtonState == True:
+            ratioOfDay = birthInfo.longitudeDegrees / 360.0
+            minutesInDay = 60 * 24
+            totalMinutesOffset = ratioOfDay * minutesInDay
+                
+            hoursTimezoneOffset = math.floor(totalMinutesOffset / 60.0)
+            field6 = "{}".format(hoursTimezoneOffset)
+                
+        self.log.debug("field6 is: {}".format(field6))
+                
+
+        # <7>: Minutes of timezone offset in standard time, as an
+        #      float multiplied by 10000, with no decimal.  Note
+        #      when times are in LMT, digits past the first 2
+        #      digits are used.
+        #
+        #      Example:
+        #        "400000" for 40 minutes.
+        # 
+        minutesTimezoneOffset = totalMinutesOffset % 60
+        field7 = "{}".format(minutesTimezoneOffset * 10000)
+        self.log.debug("field7 is: {}".format(field7))
+            
+        # <8>: Longitude degrees as an int.
+        #      Negative values represent degrees East.
+        #
+        #      Example:
+        #        "-144"
+        #        "144"
+        #
+        field8 = "{}".format(math.floor(birthInfo.longitudeDegrees))
+            
+        # <9>: Longitude minutes and seconds, displayed as an int
+        #      but text is as a float multitplied to have 6 digits of
+        #      precision total.
+        #
+        #      Example:
+        #        "586833" for 58 minutes 41 seconds
+        #
+        wholeDegs = math.floor(birthInfo.longitudeDegrees)
+        fractionalDegs = birthInfo.longitudeDegrees - wholeDegs
+        value = math.floor(fractionalDegs * 1000000)
+        field9 = "{}".format(value)
+
+        # <10>: Latitude degrees as an int.
+        #      Negative values represent degrees South.
+        #
+        #      Example:
+        #        "-37" for 37 degrees South.
+        #
+        field10 = "{}".format(math.floor(birthInfo.latitudeDegrees))
+
+        # <11>: Latitude minutes and seconds, displayed as an int
+        #      but text is as a float multitplied to have 6 digits
+        #      of precision total.
+        #
+        #      Example:
+        #        "496500" for 49 minutes 39 seconds
+        # 
+        wholeDegs = math.floor(birthInfo.latitudeDegrees)
+        fractionalDegs = birthInfo.latitudeDegrees - wholeDegs
+        value = math.floor(fractionalDegs * 1000000)
+        field11 = "{}".format(value)
+            
+        # <12>: Altitude in meters above sea level,
+        #      as a float with 6 digits of precision.  
+        #
+        #      Example:
+        #      "42.000000"
+        #
+        field12 = "{:.6}".format(float(birthInfo.elevation))
+        self.log.debug("field12 (altitude) is: " + field12)
+            
+        # <13>: Hours of timezone offset in standard time, as a
+        #      float with 6 digits of precision.  Negative values
+        #      represent East of GMT, and positive values
+        #      represent West of GMT.
+        #
+        #      Example:
+        #        "-9.833333" for 9 Hours 50 Minutes East of GMT
+        #        "9.833333" for 9 Hours 50 Minutes West of GMT
+        #
+
+        # Utilizes 'totalMinutesOffset' calculated earlier in field 6.
+        hoursTimezoneOffsetFloat = totalMinutesOffset / 60.0
+        field13 = "{:.6}".format(hoursTimezoneOffsetFloat)
+        self.log.debug("field13 is: " + field13)
+
+        # <14>: Hours of timezone offset if the timestamp is in
+        #      daylight savings.  If the location is not in daylight
+        #      savings, then this value will show up as the same as
+        #      string <13>.
+        #
+        field14 = ""
+        if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
+            # TODO: need to rewrite how this field is calculated
+            # because we need to look at the timezone of the
+            # datetime 'dt', not datetime in the birthInfo object.
+                
+            # Utilize detection of timezone with the datetime.
+                
+            # birthInfo.timezoneOffsetValueStr is a string in the
+            # form "+0500" or "-0200", etc.
+            try:
+                intVal = int(birthInfo.timezoneOffsetValueStr)
+                hoursTimezoneOffset = intVal // 100
+                minutesTimezoneOffset = intVal % 100
+
+                hoursTimezoneOffsetFloat = \
+                   hoursTimezoneOffset + (minutesTimezoneOffset / 60.0)
+                field14 = "{:.6}".format(hoursTimezoneOffsetFloat)
+                    
+            except ValueError as e:
+                       
+                errMsg = "Error parsing " + \
+                   "birthInfo.timezoneOffsetValueStr '{}'".\
+                   format(birthInfo.timezoneOffsetValueStr) + \
+                   " to int."
+                self.log.error(errMsg)
+                       
+                title = "Error"
+                text = errMsg
+                buttons = QMessageBox.Ok
+                defaultButton = QMessageBox.NoButton
+                    
+                QMessageBox.warning(self, title, text, buttons,
+                                    defaultButton)
+        else:
+            # User-specified timezone offset or LMT, so use the
+            # value in field13.
+            field14 = field13
+            
+        self.log.debug("field14 is: " + field14)
+
+        # <15>: "0" if the location is within the United States.
+        #       "1" if the location is outside the United States.
+        field15 = ""
+        if birthInfo.countryName == "United States":
+            self.log.debug("field15 indicates wtihin United States.")
+            field15 = "0"
+        else:
+            self.log.debug("field15 indicates outside United States.")
+            field15 = "1"
+            
+        # <16>: int value.  This is a zero-based index into either
+        #      the list of US States or into the list of Countries.
+        #
+        #      Example:
+        #        "11" for Australia
+        #        "301" for Virginia, USA
+        #
+        
+        # We don't have the actual full list, so just set it to index 0.
+        field16 = "0"
+
+        # <17>: String value for the city name.
+        #
+        #      Example:
+        #        "Arlington"
+        #        "Melbourne"
+        #
+        field17 = birthInfo.locationName
+
+        # <18>: String value for the US State or the Country.
+        #
+        #      Example:
+        #        "Virginia,^USA"
+        #        "Australia"
+        #
+            
+        field18 = ""
+        if birthInfo.countryName == "United States":
+            field18 = "USA"
+        else:
+            field18 = birthInfo.countryName
+        
+        # <19>: "0" if the timestamp is in the Julian calendar.
+        #       "1" if the timestamp is in the Gregorian calendar.
+        #
+            
+        field19 = ""
+        if birthInfo.calendar == "Julian":
+            field19 = "0"
+        else:
+            field19 = "1"
+            
+        # <20>: Atmospheric pressure in mbar (hPa).
+        #      This is a float value with 6 digits of precision.
+        #
+        #      Example:
+        #        "1013.250000" for 1013.25.
+        #
+            
+        # We don't actually record gather this information, so
+        # just use a value within the expected range.
+        field20 = "{:.6}".format(1023.0)
+            
+        # <21>: Atmospheric temperature in degrees Celsius.
+        #      This is a float value with 6 digits of precision.
+        #
+        #      Example:
+        #        "20.000000" for 20 degrees celsius.
+        # 
+
+        # We don't actually record gather this information, so
+        # just use a value within the expected range.
+        # 21 degrees Celsius is about 70 degrees Fahrenheit.
+        field21 = "{:.6}".format(21.0)
+
+        # <22>: "0" for unknown gender
+        #       "1" for male gender
+        #       "2" for female gender
+        
+        field22 = "0"
+
+        # Below, {0} is a dummy value, just so the numbers line up
+        # with the variable names.
+        dummyStr = ""
+        text = "{0}" + \
+               "{1}\r\n" + \
+               "{2}\r\n" + \
+               "{3}\r\n" + \
+               "{4}.{5}\r\n" + \
+               "{6}.{7}\r\n" + \
+               "{8}.{9}\r\n" + \
+               "{10}.{11}\r\n" + \
+               "{12}\r\n" + \
+               "{13}\r\n" + \
+               "{14}\r\n" + \
+               "{15}\r\n" + \
+               "{16}\r\n" + \
+               "{17}\r\n" + \
+               "{18}\r\n" + \
+               "{19}\r\n" + \
+               "{20}\r\n" + \
+               "{21}\r\n" + \
+               "{22}\r\n"
+        text = text.format(dummyStr,
+                           field1,
+                           field2,
+                           field3,
+                           field4,
+                           field5,
+                           field6,
+                           field7,
+                           field8,
+                           field9,
+                           field10,
+                           field11,
+                           field12,
+                           field13,
+                           field14,
+                           field15,
+                           field16,
+                           field17,
+                           field18,
+                           field19,
+                           field20,
+                           field21,
+                           field22)
+
+        self.log.debug("text is: ***" + text + "***")
+        
+        return text
+    
         
     def _print(self):
         """Opens up a dialog for printing the current selected document."""

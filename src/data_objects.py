@@ -272,7 +272,6 @@ class BirthInfo:
             self.log.error(errStr)
             raise ValueError(errStr)
 
-
     def getBirthUtcDatetime(self):
         """Takes the date, time and timezone information in this 
         object and converts it to a UTC datetime.datetime object,

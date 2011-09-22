@@ -9001,15 +9001,10 @@ class BirthInfoEditWidget(QWidget):
 
         # If there are search results, then select the first result.
         if self.birthPlaceSearchResultsComboBox.count() > 0:
+            # Selecting the result here will automatically cause the
+            # self.countriesComboBox to be set, matching the search
+            # result selected.
             self.birthPlaceSearchResultsComboBox.setCurrentIndex(0)
-
-        # Here we clear the country selected in the self.countriesComboBox 
-        # that # is used for searching in a specified country.  We do this to
-        # prevent the user from being confused about the fact that the 
-        # results are for a search in all countries, not the country 
-        # listened in that selection combo box.  
-        # Index 0 here is just an empty string entry.
-        self.countriesComboBox.setCurrentIndex(0)
 
         self.log.debug("Leaving _handleSearchInAllCountriesButtonClicked()")
 
@@ -9044,15 +9039,11 @@ class BirthInfoEditWidget(QWidget):
 
         # If there are search results, then select the first result.
         if self.birthPlaceSearchResultsComboBox.count() > 0:
+            # Selecting the result here will automatically cause the
+            # self.countriesComboBox to be set, matching the search
+            # result selected.
             self.birthPlaceSearchResultsComboBox.setCurrentIndex(0)
 
-        # Here we clear the country selected in the self.countriesComboBox 
-        # that # is used for searching in a specified country.  We do this to
-        # prevent the user from being confused about the fact that the 
-        # results are for a search in all countries, not the country 
-        # listened in that selection combo box.  
-        # Index 0 here is just an empty string entry.
-        self.countriesComboBox.setCurrentIndex(0)
 
         self.log.debug("Leaving _handleSearchInUsaButtonClicked()")
 
@@ -9112,6 +9103,9 @@ class BirthInfoEditWidget(QWidget):
 
         # If there are search results, then select the first result.
         if self.birthPlaceSearchResultsComboBox.count() > 0:
+            # Selecting the result here will automatically cause the
+            # self.countriesComboBox to be set, matching the search
+            # result selected.
             self.birthPlaceSearchResultsComboBox.setCurrentIndex(0)
 
         self.log.\
@@ -9193,6 +9187,20 @@ class BirthInfoEditWidget(QWidget):
             self.log.error("GeoInfo is None, when it should have " + \
                            "been an actual object!")
             return
+
+        # Set the self.countriesComboBox to match whatever the geoInfo has.
+        countryName = geoInfo.countryName
+        indexToSet = self.countriesComboBox.findText(countryName)
+            
+        if indexToSet == -1:
+            self.log.warn("Unknown country name: " + countryName)
+                
+            # Set the country names selection to index 0, which is blank.
+            self.countriesComboBox.setCurrentIndex(0)
+                
+        else:
+            # Valid index, so set the combo box.
+            self.countriesComboBox.setCurrentIndex(indexToSet)
 
         # Try to use the timezone in geoInfo first.  If that doesn't 
         # work, then the do a query for the timezone using the latitude and
