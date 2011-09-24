@@ -110,6 +110,20 @@ Snap key bindings are supported for the following tools:
   - PriceTimeVectorTool
   - LineSegmentTool
   
+##############################################################################
+
+Note: 
+
+Temporary JHora .jhd files that are created will be placed in directory:
+
+   For Linux:
+     ~/.wine/drive_c/PriceChartingTool/data/
+
+   For Mac OS X:
+     ~/.wine/drive_c/PriceChartingTool/data/
+
+   For Microsoft Windows:
+     C:\PriceChartingTool\data\
 
 
 ##############################################################################

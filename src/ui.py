@@ -8,6 +8,9 @@ import pickle
 # For logging.
 import logging
 
+# For launching JHora.
+import subprocess
+
 from PyQt4 import QtCore
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -1087,59 +1090,161 @@ class MainWindow(QMainWindow):
         """Opens JHora with the given datetime.datetime timestamp.
         Uses the currently set self.birthInfo object for timezone
         information.
+
+        If 'dt' is None, then JHora is opened without any arguments given.
+        Otherwise, both 'dt' and 'birthInfo' need to be set.
         
         Arguments:
         
         dt - datetime.datetime object holding the timestamp to use for
              launching and viewing in JHora.  If dt is None, then
-             JHora is opened with the current time (the default
-             behavior of JHora with no file argument).
+             JHora is opened without any arguments.
 
         birthInfo - BirthInfo object holding information about the
-                    location/altitude and timezone.  If None, then the
-                    default UTC BirthInfo will be used.
+                    location/altitude and timezone.  This must be set
+                    if 'dt' is not None.
         """
 
         self.log.debug("Entered handleJhoraLaunch()")
 
-        # TODO:  proof-read this below.  What is the actual behavior I want?  Update this function's comments/documentation once I have it all figured out.
-        
-        if dt == None and birthInfo == None:
-            # Just open JHora without file specified.
-            self.log.debug("dt == None and birthInfo == None.") 
+        # Check to make sure inputs are provided as expected.
+        if dt == None:
+            # Just open JHora without any file specified.
+            self.log.debug("dt == None and birthInfo == None.")
+            
+            # Launch JHora.
+            self._execJHora()
+            
+        elif dt != None and birthInfo != None:
+            # Normal case for specifying a timestamp with birthInfo.
+            self.log.debug("dt != None and birthInfo != None.")
+            
         else:
-            if birthInfo == None:
-                self.log.debug("birthInfo passed is None.  Using UTC.") 
-                birthInfo = BirthInfo()
-            if dt == None:
-                self.log.debug("dt passed is None.  Using the current time " +
-                               "in the birthInfo's timezone.") 
-                dt = datetime.datetime.now(\
-                    pytz.timezone(birthInfo.timezoneName))
-                
+            self.log.error("If 'dt' argument is provided, " +
+                           "then birthInfo cannot be None.") 
+            return
+        
         self.log.debug("Values being used: " +
                        "dt='{}', birthInfo='{}'".\
                        format(Ephemeris.datetimeToStr(dt),
                               birthInfo.toString()))
+
+        # Make a directory to store our temporary .jhd files.
+        # Optimally, we would like to place it within JHora's 'data'
+        # directory, but that doesn't work because that directory path
+        # has spaces and os.makedirs() will choke on that.
+
+        # This is chart destination directory path, in the filename format
+        # readable on the current operating system.
+        chartDestPath = ""
+
+        # This is the chart destination directory path, in the filename format
+        # readable on Posix systems (Unix, Linux, Mac OS X).
+        chartDestPathPosix = ""
         
+        # This is the chart destination directory path, in the filename format
+        # readable on Microsoft Windows systems.
+        chartDestPathWin = ""
+        
+        try:
+            if os.name == "posix":
+                self.log.debug("posix")
+
+                chartDestPathPosix = \
+                    os.path.expanduser('~') + os.sep + \
+                    ".wine/drive_c/" + self.appName + "/data"
+                chartDestPathWin = \
+                    "C:\\" + self.appName + "\\data"
+                
+                self.log.debug("chartDestPathPosix == " + chartDestPathPosix)
+                self.log.debug("chartDestPathWin == " + chartDestPathWin)
+                self.log.debug("os.path.exists(chartDestPathPosix) == {}".\
+                               format(os.path.exists(chartDestPathPosix)))
+                self.log.debug("os.path.isdir(chartDestPathPosix) == {}".\
+                               format(os.path.isdir(chartDestPathPosix)))
+                
+                if os.path.exists(chartDestPathPosix) and \
+                       os.path.isdir(chartDestPathPosix):
+                    
+                    self.log.debug("Good, directory exists: " +
+                                   chartDestPathPosix)
+                    
+                else:
+                    self.log.debug("making dirs: " + chartDestPathPosix)
+                    os.makedirs(chartDestPathPosix)
+
+                    
+                chartDestPath = chartDestPathPosix
+                
+            elif os.name == "nt":
+                self.log.debug("nt")
+            
+                chartDestPathWin = \
+                    "C:\\" + self.appName + "\\data"
+
+                self.log.debug("chartDestPathWin == " + chartDestPathWin)
+                self.log.debug("os.path.exists(chartDestPathWin) == {}".\
+                               format(os.path.exists(chartDestPathWin)))
+                self.log.debug("os.path.isdir(chartDestPathWin) == {}".\
+                               format(os.path.isdir(chartDestPathWin)))
+                
+                if os.path.exists(chartDestPathWin) and \
+                       os.path.isdir(chartDestPathWin):
+                    
+                    self.log.debug("Good, directory exists: " + \
+                                   chartDestPathWin)
+                else:
+                    self.log.debug("making dirs: " + chartDestPathWin)
+                    os.makedirs(chartDestPathWin)
+
+                chartDestPath = chartDestPathWin
+                
+            else:
+                self.log.warn("Operating system unsupported: " + os.name)
+                return
+            
+        except os.error as e:
+            
+            self.log.error("Error while trying to ensure the " +
+                           "JHora chart destination directory exists.  " +
+                           "{}".format(e))
+            
         # Create the file to open JHora with.
-        f = QTemporaryFile("tmp_pricebarchart_XXXXXX.jhd")
+        filenameTemplate = chartDestPath + os.sep + \
+                           "tmp_" + self.appName + "_XXXXXX.jhd"
+        self.log.debug("filenameTemplate == " + filenameTemplate)
+        
+        f = QTemporaryFile(filenameTemplate)
+
+        # Need to disable auto-remove because the QTemporaryFile gets
+        # destroyed (garbage collected) before JHora is launched and
+        # can read the file.
+        f.setAutoRemove(False)
 
         if f.open(QIODevice.ReadWrite):
             
             # Get the text to go into the file from the input parameters.
             text = self._generateJHoraFileText(dt, birthInfo)
 
-            
-            # TODO: write the rest of this jhoraLaunch() function.
-
             # Write to the file.
-            
+            utf8EncodedText = text.encode('utf-8')
+            f.writeData(utf8EncodedText)
+            f.close()
+
             # Launch JHora with the file just created.
+
+            # Get the filename in the Windows path format since that's
+            # all wine or Windows knows how to see.
+            filename = chartDestPathWin + "\\" + \
+                       os.path.basename(f.fileName())
             
+            self.log.debug("f.fileName() == " + f.fileName())
+            self.log.debug("filename == " + filename)
+
+            self._execJHora(filename)
             
         else:
-            errMsg = "JHora launch failed because: " + os.linsep + \
+            errMsg = "JHora launch failed because: " + os.linesep + \
                      "Could not open a temporary file for JHora."
             self.log.error(errMsg)
             
@@ -1152,8 +1257,54 @@ class MainWindow(QMainWindow):
             
         
         self.log.debug("Exiting handleJhoraLaunch()")
-        pass
 
+    def _execJHora(self, filename=None):
+        """Runs the executable JHora.
+
+        Arguments:
+        
+        filename - str containing the full path of the .jhd to open.
+                   This argument can be None if opening JHora without
+                   any arguments is desired.
+        """
+
+        toExec = ""
+        
+        if os.name == "posix":
+            
+            toExec = \
+                "wine " + \
+                os.path.expanduser('~') + os.sep + \
+                ".wine/drive_c/Program\\ Files/Jagannatha\\ Hora/bin/jhora.exe"
+            
+            if filename != None:
+                toExec += " \"" + filename + "\""
+            
+            self.log.debug("Launching JHora.  toExec is: " + toExec)
+            
+            p = subprocess.Popen(toExec, shell=True)
+            
+            self.log.debug("JHora launched.")
+            
+        elif os.name == "nt":
+            
+            toExec = \
+                "C:\\Program Files\\Jagannatha Hora\\bin\\jhora.exe"
+            
+            if filename != None:
+                toExec += " \"" + filename + "\""
+            
+            self.log.debug("Launching JHora.  toExec is: " + toExec)
+
+            p = subprocess.Popen(toExec)
+            
+            self.log.debug("JHora launched.")
+            
+        else:
+            self.log.warn("Operating system unsupported: " + os.name)
+
+        
+        
     def _generateJHoraFileText(self, dt, birthInfo):
         """Generates the text that would be in a JHora .jhd file, for
         the information given in the specified datetime.datetime and
@@ -1313,20 +1464,43 @@ class MainWindow(QMainWindow):
 
         self.log.debug("dt at input is: " + Ephemeris.datetimeToStr(dt))
 
-        # TODO:  Datetime needs to be localized to the timezone in birthInfo.
-
+        # Datetime 'dt' needs to be localized to the timezone used in
+        # birthInfo so that we may have it if we need it.  Assuming
+        # 'dt' is already localized to UTC, GMT, or some other
+        # timezone (it is not native and thus has a tzinfo set), then
+        # in theory there should be no ambiguity when converting
+        # between them.
+        tzinfoObj = pytz.timezone(birthInfo.timezoneName)
+        relocalizedDt = tzinfoObj.normalize(dt.astimezone(tzinfoObj))
         
+            
         # <1>: Month as an integer.
-        field1 = dt.month
-
+        field1 = ""
+        if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
+            field1 = "{}".format(relocalizedDt.month)
+        else:
+            field1 = "{}".format(dt.month)
+        
         # <2>: Day-of-month as an integer.
-        field2 = dt.day
+        field2 = ""
+        if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
+            field2 = "{}".format(relocalizedDt.day)
+        else:
+            field2 = "{}".format(dt.day)
 
         # <3>: Year as an integer.
-        field3 = dt.year
+        field3 = ""
+        if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
+            field3 = "{}".format(relocalizedDt.year)
+        else:
+            field3 = "{}".format(dt.year)
 
         # <4>: Hour as an integer.
-        field4 = dt.hour
+        field4 = ""
+        if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
+            field4 = "{}".format(relocalizedDt.hour)
+        else:
+            field4 = "{}".format(dt.hour)
 
         # <5>: Minutes.  This includes the seconds as a float
         #      within it, but with no decimals.  This value is 15
@@ -1336,12 +1510,22 @@ class MainWindow(QMainWindow):
         #        - 35 minutes and 45 seconds would be: "357500000000000"
         #        -  5 minutes and 37 seconds would be: "056166666666666"
         # 
-        minutes = float(dt.minute) + float(dt.second / 60.0)
-        minutes *= 10000000000000
-        minutes = int(minutes)
-        field5 = "{}".format(minutes)
-        self.log.debug("field5 is: {}".format(field5))
+        field5 = ""
+        if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
+            minutes = float(relocalizedDt.minute) + \
+                      float(relocalizedDt.second / 60.0)
+            minutes *= 10000000000000
+            minutes = int(minutes)
+            field5 = "{}".format(minutes)
+        else:
+            minutes = float(dt.minute) + \
+                      float(dt.second / 60.0)
+            minutes *= 10000000000000
+            minutes = int(minutes)
+            field5 = "{}".format(minutes)
 
+        self.log.debug("field5 is: {}".format(field5))
+        
         # <6>: Hours of timezone offset in standard time, as an int.
         #      Negative values represent East of GMT, and
         #      positive values represent West of GMT.
@@ -1471,38 +1655,15 @@ class MainWindow(QMainWindow):
         #
         field14 = ""
         if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
-            # TODO: need to rewrite how this field is calculated
-            # because we need to look at the timezone of the
-            # datetime 'dt', not datetime in the birthInfo object.
-                
-            # Utilize detection of timezone with the datetime.
-                
-            # birthInfo.timezoneOffsetValueStr is a string in the
-            # form "+0500" or "-0200", etc.
-            try:
-                intVal = int(birthInfo.timezoneOffsetValueStr)
-                hoursTimezoneOffset = intVal // 100
-                minutesTimezoneOffset = intVal % 100
-
-                hoursTimezoneOffsetFloat = \
-                   hoursTimezoneOffset + (minutesTimezoneOffset / 60.0)
-                field14 = "{:.6}".format(hoursTimezoneOffsetFloat)
-                    
-            except ValueError as e:
-                       
-                errMsg = "Error parsing " + \
-                   "birthInfo.timezoneOffsetValueStr '{}'".\
-                   format(birthInfo.timezoneOffsetValueStr) + \
-                   " to int."
-                self.log.error(errMsg)
-                       
-                title = "Error"
-                text = errMsg
-                buttons = QMessageBox.Ok
-                defaultButton = QMessageBox.NoButton
-                    
-                QMessageBox.warning(self, title, text, buttons,
-                                    defaultButton)
+            # This value is calculated for relocalizedDt, as opposed
+            # to previous calculations where done on the birthInfo
+            # timezone information.
+            offsetTimedelta = tzinfoObj.utcoffset(relocalizedDt)
+            totalMinutesOffset = \
+                int(round((offsetTimedelta.days * 60 * 24) + \
+                          (offsetTimedelta.seconds / 60)))
+            hoursTimezoneOffsetFloat = totalMinutesOffset / 60.0
+            field14 = "{:.6}".format(hoursTimezoneOffsetFloat)
         else:
             # User-specified timezone offset or LMT, so use the
             # value in field13.
