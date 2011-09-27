@@ -1472,7 +1472,6 @@ class MainWindow(QMainWindow):
         # between them.
         tzinfoObj = pytz.timezone(birthInfo.timezoneName)
         relocalizedDt = tzinfoObj.normalize(dt.astimezone(tzinfoObj))
-        
             
         # <1>: Month as an integer.
         field1 = ""
@@ -1658,7 +1657,7 @@ class MainWindow(QMainWindow):
             # This value is calculated for relocalizedDt, as opposed
             # to previous calculations where done on the birthInfo
             # timezone information.
-            offsetTimedelta = tzinfoObj.utcoffset(relocalizedDt)
+            offsetTimedelta = relocalizedDt.utcoffset()
             totalMinutesOffset = \
                 int(round((offsetTimedelta.days * 60 * 24) + \
                           (offsetTimedelta.seconds / 60)))
