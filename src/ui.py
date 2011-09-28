@@ -212,15 +212,105 @@ class MainWindow(QMainWindow):
         
 
         ####################
-        # Create actions for the Tools Menu.
+        # Create actions for the Astro Menu.
 
+        self.trackMouseToAstroChart1Action = \
+            QAction("Link mouse pos to Astro Chart 1", self)
+        self.trackMouseToAstroChart1Action.setCheckable(True)
+        self.trackMouseToAstroChart1Action.\
+            setStatusTip("Link mouse pos to Astro Chart 1")
+        self.trackMouseToAstroChart1Action.triggered.\
+            connect(self._handleTrackMouseToAstroChartAction)
+        
+        self.trackMouseToAstroChart2Action = \
+            QAction("Link mouse pos to Astro Chart 2", self)
+        self.trackMouseToAstroChart2Action.setCheckable(True)
+        self.trackMouseToAstroChart2Action.\
+            setStatusTip("Link mouse pos to Astro Chart 2")
+        self.trackMouseToAstroChart2Action.triggered.\
+            connect(self._handleTrackMouseToAstroChartAction)
+        
+        self.trackMouseToAstroChart3Action = \
+            QAction("Link mouse pos to Astro Chart 3", self)
+        self.trackMouseToAstroChart3Action.setCheckable(True)
+        self.trackMouseToAstroChart3Action.\
+            setStatusTip("Link mouse pos to Astro Chart 3")
+        self.trackMouseToAstroChart3Action.triggered.\
+            connect(self._handleTrackMouseToAstroChartAction)
+
+        self.openJHoraWithNoArgsAction = \
+            QAction("Open JHora with no args", self)
+        self.openJHoraWithNoArgsAction.\
+            setStatusTip("Open JHora without any command-line arguments")
+        self.openJHoraWithNoArgsAction.triggered.\
+            connect(self._handleOpenJHoraWithNoArgsAction)
+
+        self.openJHoraWithLocalizedNowAction = \
+            QAcdtion("Open JHora with 'now'")
+        self.openJHoraWithLocalizedNowAction.setStatusTip(\
+            "Open JHora with the current time in the active " + \
+            "chart's BirthInfo timezone.")
+        self.openJHoraWithLocalizedNowAction.triggered.\
+            connect(self._handleOpenJHoraWithLocalizedNowAction)
+        
+        self.openJHoraWithBirthInfoAction = \
+            QAction("Open JHora with the chart's birth info", self)
+        self.openJHoraWithBirthInfoAction.\
+            setStatusTip("Open JHora with the active chart's BirthInfo")
+        self.openJHoraWithBirthInfoAction.triggered.\
+            connect(self._handleOpenJHoraWithBirthInfoAction)
+
+        self.openAstroChart1WithBirthInfoAction = \
+            QAction("Set BirthInfo to Astro Chart 1", self)
+        self.openAstroChart1WithBirthInfoAction.triggered.\
+            connect(self._handleOpenAstroChart1WithBirthInfoAction)
+        
+        self.openAstroChart2WithBirthInfoAction = \
+            QAction("Set BirthInfo to Astro Chart 2", self)
+        self.openAstroChart2WithBirthInfoAction.triggered.\
+            connect(self._handleOpenAstroChart2WithBirthInfoAction)
+        
+        self.openAstroChart3WithBirthInfoAction = \
+            QAction("Set BirthInfo to Astro Chart 3", self)
+        self.openAstroChart3WithBirthInfoAction.triggered.\
+            connect(self._handleOpenAstroChart3WithBirthInfoAction)
+        
+        self.openAstroChart1WithNowAction = \
+            QAction("Set 'now' to Astro Chart 1", self)
+        self.openAstroChart1WithNowAction.triggered.\
+            connect(self._handleOpenAstroChart1WithNowAction)
+        self.openAstroChart2WithNowAction = \
+            QAction("Set 'now' to Astro Chart 2", self)
+        self.openAstroChart2WithNowAction.triggered.\
+            connect(self._handleOpenAstroChart2WithNowAction)
+        self.openAstroChart3WithNowAction = \
+            QAction("Set 'now' to Astro Chart 3", self)
+        self.openAstroChart3WithNowAction.triggered.\
+            connect(self._handleOpenAstroChart3WithNowAction)
+        
+        self.clearAstroChart1Action = \
+            QAction("Clear Astro Chart 1", self)
+        self.clearAstroChart1Action.triggered.\
+            connect(self._handleClearAstroChart1Action)
+        self.clearAstroChart2Action = \
+            QAction("Cleaar Astro Chart 2", self)
+        self.clearAstroChart2Action.triggered.\
+            connect(self._handleClearAstroChart2Action)
+        self.clearAstroChart3Action = \
+            QAction("Clear Astro Chart 3", self)
+        self.clearAstroChart3Action.triggered.\
+            connect(self._handleClearAstroChart3Action)
+        
+        ####################
+        # Create actions for the Tools Menu.
+        
         # Create the ReadOnlyPointerToolAction.
         icon = QIcon(":/images/qt/pointer.png")
         self.readOnlyPointerToolAction = \
             QAction(icon, "Read-Only Pointer Tool", self)
         self.readOnlyPointerToolAction.setStatusTip("Read-Only Pointer Tool")
         self.readOnlyPointerToolAction.setCheckable(True)
-
+        
         # Create the PointerToolAction.
         icon = QIcon(":/images/rluu/pointerPencil.png")
         self.pointerToolAction = QAction(icon, "Pointer Tool", self)
@@ -458,6 +548,28 @@ class MainWindow(QMainWindow):
         self.editMenu.addAction(self.editPriceBarChartSettingsAction)
         self.editMenu.addAction(self.editPriceBarChartScalingAction)
 
+        # Create the Astro menu.
+        self.astroMenu = self.menuBar().addMenu("&Astro")
+        self.astroMenu.addAction(self.trackMouseToAstroChart1Action)
+        self.astroMenu.addAction(self.trackMouseToAstroChart2Action)
+        self.astroMenu.addAction(self.trackMouseToAstroChart3Action)
+        self.astroMenu.addSeparator()
+        self.astroMenu.addAction(self.openJHoraWithNoArgsAction)
+        self.astroMenu.addAction(self.openJHoraWithLocalizedNowAction)
+        self.astroMenu.addAction(self.openJHoraWithBirthInfoAction)
+        self.astroMenu.addSeparator()
+        self.astroMenu.addAction(self.openAstroChart1WithBirthInfoAction)
+        self.astroMenu.addAction(self.openAstroChart2WithBirthInfoAction)
+        self.astroMenu.addAction(self.openAstroChart3WithBirthInfoAction)
+        self.astroMenu.addSeparator()
+        self.astroMenu.addAction(self.openAstroChart1WithNowAction)
+        self.astroMenu.addAction(self.openAstroChart2WithNowAction)
+        self.astroMenu.addAction(self.openAstroChart3WithNowAction)
+        self.astroMenu.addSeparator()
+        self.astroMenu.addAction(self.clearAstroChart1Action)
+        self.astroMenu.addAction(self.clearAstroChart2Action)
+        self.astroMenu.addAction(self.clearAstroChart3Action)
+        
         # Create the Tools menu
         self.toolsMenu = self.menuBar().addMenu("&Tools")
         self.toolsMenu.addAction(self.readOnlyPointerToolAction)
@@ -579,6 +691,22 @@ class MainWindow(QMainWindow):
         self.editPriceBarChartSettingsAction.setEnabled(isActive)
         self.editPriceBarChartScalingAction.setEnabled(isActive)
 
+        self.trackMouseToAstroChart1Action.setEnabled(isActive)
+        self.trackMouseToAstroChart2Action.setEnabled(isActive)
+        self.trackMouseToAstroChart3Action.setEnabled(isActive)
+        self.openJHoraWithNoArgsAction.setEnabled(True)
+        self.openJHoraWithLocalizedNowAction.setEnabled(isActive)
+        self.openJHoraWithBirthInfoAction.setEnabled(isActive)
+        self.openAstroChart1WithBirthInfoAction.setEnabled(isActive)
+        self.openAstroChart2WithBirthInfoAction.setEnabled(isActive)
+        self.openAstroChart3WithBirthInfoAction.setEnabled(isActive)
+        self.openAstroChart1WithNowAction.setEnabled(isActive)
+        self.openAstroChart2WithNowAction.setEnabled(isActive)
+        self.openAstroChart3WithNowAction.setEnabled(isActive)
+        self.clearAstroChart1Action.setEnabled(isActive)
+        self.clearAstroChart2Action.setEnabled(isActive)
+        self.clearAstroChart3Action.setEnabled(isActive)
+
         self.readOnlyPointerToolAction.setEnabled(isActive)
         self.pointerToolAction.setEnabled(isActive)
         self.handToolAction.setEnabled(isActive)
@@ -608,6 +736,17 @@ class MainWindow(QMainWindow):
         self.aboutAction.setEnabled(True)
         self.aboutQtAction.setEnabled(True)
 
+        # Depending on whether or not the trackMouseToAstroChart
+        # actions are checked, then set the priceChartDocument to
+        # correspond to that.
+        if isActive:
+            if self.trackMouseToAstroChart1Action.isChecked():
+                priceChartDocument.setTrackMouseToAstroChart1(True)
+            if self.trackMouseToAstroChart2Action.isChecked():
+                priceChartDocument.setTrackMouseToAstroChart2(True)
+            if self.trackMouseToAstroChart3Action.isChecked():
+                priceChartDocument.setTrackMouseToAstroChart3(True)
+        
         # Depending on what ToolMode QAction is checked,
         # set the priceChartDocument to be in that mode.
         if isActive:
@@ -2074,6 +2213,176 @@ class MainWindow(QMainWindow):
 
         self.log.debug("Exiting _editPriceBarChartScaling()")
 
+    def _handleTrackMouseToAstroChartAction(self):
+        """Slot function that is called when the user triggers the QActions:
+        self.trackMouseToAstroChart1Action,
+        self.trackMouseToAstroChart2Action,
+        self.trackMouseToAstroChart3Action.
+        """
+        
+        # These Astro actions only make sense to be triggered if
+        # there is a PriceChartDocument open and active.  Check to
+        # make sure that is true.
+        pcd = self.getActivePriceChartDocument()
+        if pcd == None:
+            return
+
+        flag1 = self.trackMouseToAstroChart1Action.isChecked()
+        flag2 = self.trackMouseToAstroChart2Action.isChecked()
+        flag3 = self.trackMouseToAstroChart3Action.isChecked()
+        
+        pcd.setTrackMouseToAstroChart1(flag1)
+        pcd.setTrackMouseToAstroChart2(flag2)
+        pcd.setTrackMouseToAstroChart3(flag3)
+
+
+    def _handleOpenJHoraWithNoArgsAction(self):
+        """Slot function that is called when the
+        self.openJHoraWithNoArgsAction QAction is triggered.
+        """
+        
+        self._execJHora()
+
+    def _handleOpenJHoraWithLocalizedNowAction(self):
+        """Slot function that is called when the
+        self.openJHoraWithLocalizedNowAction QAction is triggered.
+        """
+        
+        pcd = self.getActivePriceChartDocument()
+        if pcd == None:
+            return
+
+        # Get the BirthInfo (location, timezone, etc.) for the current
+        # active chart.
+        birthInfo = pcd.getBirthInfo()
+        tzinfoObj = pytz.timezone(birthInfo.timezoneName)
+
+        # Localize the 'now' timestamp.
+        localizedDt = datetime.datetime.now(tzinfoObj)
+
+        # Open JHora with these values.
+        self.handleJhoraLaunch(localizedDt, birthInfo)
+
+    def _handleOpenJHoraWithBirthInfoAction(self):
+        """Slot function that is called when the
+        self.openJHoraWithBirthInfoAction QAction is triggered.
+        """
+
+        pcd = self.getActivePriceChartDocument()
+        if pcd == None:
+            return
+
+        # Get the BirthInfo (location, timezone, etc.) for the current
+        # active chart.
+        birthInfo = pcd.getBirthInfo()
+        tzinfoObj = pytz.timezone(birthInfo.timezoneName)
+
+        # Localize the birth timestamp.
+        utcBirthDt = birthInfo.getBirthUtcDatetime()
+        localizedDt = tzinfoObj.normalize(utcBirthDt.astimezone(tzinfoObj))
+
+        # Open JHora with these values.
+        self.handleJhoraLaunch(localizedDt, birthInfo)
+
+    def _handleOpenAstroChart1WithBirthInfoAction(self):
+        """Slot function that is called when the
+        self.openAstroChart1WithBirthInfoAction QAction is triggered.
+        """
+
+        pcd = self.getActivePriceChartDocument()
+        if pcd == None:
+            return
+
+        pcd.setAstroChart1WithBirthInfo()
+        
+    def _handleOpenAstroChart2WithBirthInfoAction(self):
+        """Slot function that is called when the
+        self.openAstroChart2WithBirthInfoAction QAction is triggered.
+        """
+
+        pcd = self.getActivePriceChartDocument()
+        if pcd == None:
+            return
+
+        pcd.setAstroChart1WithBirthInfo()
+
+    def _handleOpenAstroChart3WithBirthInfoAction(self):
+        """Slot function that is called when the
+        self.openAstroChart3WithBirthInfoAction QAction is triggered.
+        """
+
+        pcd = self.getActivePriceChartDocument()
+        if pcd == None:
+            return
+
+        pcd.setAstroChart1WithBirthInfo()
+        
+    def _handleOpenAstroChart1WithNowAction(self):
+        """Slot function that is called when the
+        self.openAstroChart1WithNowAction QAction is triggered.
+        """
+
+        pcd = self.getActivePriceChartDocument()
+        if pcd == None:
+            return
+
+        pcd.setAstroChart1WithNow()
+
+    def _handleOpenAstroChart2WithNowAction(self):
+        """Slot function that is called when the
+        self.openAstroChart2WithNowAction QAction is triggered.
+        """
+
+        pcd = self.getActivePriceChartDocument()
+        if pcd == None:
+            return
+
+        pcd.setAstroChart2WithNow()
+
+    def _handleOpenAstroChart3WithNowAction(self):
+        """Slot function that is called when the
+        self.openAstroChart3WithNowAction QAction is triggered.
+        """
+
+        pcd = self.getActivePriceChartDocument()
+        if pcd == None:
+            return
+
+        pcd.setAstroChart3WithNow()
+
+    def _handleClearAstroChart1Action(self):
+        """Slot function that is called when the
+        self.clearAstroChart1Action QAction is triggered.
+        """
+
+        pcd = self.getActivePriceChartDocument()
+        if pcd == None:
+            return
+
+        pcd.clearAstroChart1()
+
+    def _handleClearAstroChart2Action(self):
+        """Slot function that is called when the
+        self.clearAstroChart2Action QAction is triggered.
+        """
+
+        pcd = self.getActivePriceChartDocument()
+        if pcd == None:
+            return
+
+        pcd.clearAstroChart2()
+
+    def _handleClearAstroChart3Action(self):
+        """Slot function that is called when the
+        self.clearAstroChart3Action QAction is triggered.
+        """
+
+        pcd = self.getActivePriceChartDocument()
+        if pcd == None:
+            return
+
+        pcd.clearAstroChart3()
+
     def _toolsActionTriggered(self, qaction):
         """Slot function that is called when a Tools menu QAction is
         selected/activated.  This changes the Tools mode to whatever the
@@ -3037,6 +3346,87 @@ class PriceChartDocument(QMdiSubWindow):
 
         # Pass the command onto the parent MainWindow to handle.
         self.jhoraLaunch.emit(dt, birthInfo)
+
+    def setTrackMouseToAstroChart1(self, flag):
+        """Sets the link-connection enabled or disabled for the
+        pricebarchart mouse position to AstroChart1.
+
+        Arguments:
+        flag - True if the link is to be enabled, False if the link
+               is to be disabled.
+        """
+
+        self.widgets.setTrackMouseToAstroChart1(flag)
+        
+    def setTrackMouseToAstroChart2(self, flag):
+        """Sets the link-connection enabled or disabled for the
+        pricebarchart mouse position to AstroChart2.
+
+        Arguments:
+        flag - True if the link is to be enabled, False if the link
+               is to be disabled.
+        """
+
+        self.widgets.setTrackMouseToAstroChart2(flag)
+        
+    def setTrackMouseToAstroChart3(self, flag):
+        """Sets the link-connection enabled or disabled for the
+        pricebarchart mouse position to AstroChart3.
+
+        Arguments:
+        flag - True if the link is to be enabled, False if the link
+               is to be disabled.
+        """
+
+        self.widgets.setTrackMouseToAstroChart3(flag)
+
+    def setAstroChart1WithBirthInfo(self):
+        """Sets AstroChart1 with the info in the BirthInfo of this document.
+        """
+        
+        self.widgets.setAstroChart1WithBirthInfo()
+        
+    def setAstroChart2WithBirthInfo(self):
+        """Sets AstroChart2 with the info in the BirthInfo of this document.
+        """
+        
+        self.widgets.setAstroChart2WithBirthInfo()
+        
+    def setAstroChart3WithBirthInfo(self):
+        """Sets AstroChart3 with the info in the BirthInfo of this document.
+        """
+        
+        self.widgets.setAstroChart3WithBirthInfo()
+    
+    def setAstroChart1WithNow(self):
+        """Sets AstroChart1 with the current time."""
+        
+        self.widgets.setAstroChart1WithNow()
+        
+    def setAstroChart2WithNow(self):
+        """Sets AstroChart2 with the current time."""
+        
+        self.widgets.setAstroChart2WithNow()
+        
+    def setAstroChart3WithNow(self):
+        """Sets AstroChart3 with the current time."""
+        
+        self.widgets.setAstroChart3WithNow()
+
+    def clearAstroChart1(self):
+        """Clears the AstroChart1."""
+
+        self.widgets.clearAstroChart1()
+        
+    def clearAstroChart2(self):
+        """Clears the AstroChart2."""
+
+        self.widgets.clearAstroChart2()
+        
+    def clearAstroChart3(self):
+        """Clears the AstroChart3."""
+
+        self.widgets.clearAstroChart3()
         
     def _handlePriceChartDocumentWidgetChanged(self):
         """Slot for when the PriceBarDocumentWidget emits a signal to say
@@ -3376,6 +3766,99 @@ class PriceChartDocumentWidget(QWidget):
 
         self.priceChartDocumentWidgetChanged.emit()
 
+    def setTrackMouseToAstroChart1(self, flag):
+        """Sets the link-connection enabled or disabled for the
+        pricebarchart mouse position to AstroChart1.
+
+        Arguments:
+        flag - True if the link is to be enabled, False if the link
+               is to be disabled.
+        """
+
+        # TODO:  write this function.
+        pass
+        
+    def setTrackMouseToAstroChart2(self, flag):
+        """Sets the link-connection enabled or disabled for the
+        pricebarchart mouse position to AstroChart2.
+
+        Arguments:
+        flag - True if the link is to be enabled, False if the link
+               is to be disabled.
+        """
+
+        # TODO:  write this function.
+        pass
+        
+    def setTrackMouseToAstroChart3(self, flag):
+        """Sets the link-connection enabled or disabled for the
+        pricebarchart mouse position to AstroChart3.
+
+        Arguments:
+        flag - True if the link is to be enabled, False if the link
+               is to be disabled.
+        """
+
+        # TODO:  write this function.
+        pass
+
+    def setAstroChart1WithBirthInfo(self):
+        """Sets AstroChart1 with the info in the BirthInfo of this document.
+        """
+        
+        # TODO:  write this function.
+        pass
+        
+    def setAstroChart2WithBirthInfo(self):
+        """Sets AstroChart2 with the info in the BirthInfo of this document.
+        """
+        
+        # TODO:  write this function.
+        pass
+        
+    def setAstroChart3WithBirthInfo(self):
+        """Sets AstroChart3 with the info in the BirthInfo of this document.
+        """
+        
+        # TODO:  write this function.
+        pass
+    
+    def setAstroChart1WithNow(self):
+        """Sets AstroChart1 with the current time."""
+        
+        # TODO:  write this function.
+        pass
+        
+    def setAstroChart2WithNow(self):
+        """Sets AstroChart2 with the current time."""
+        
+        # TODO:  write this function.
+        pass
+        
+    def setAstroChart3WithNow(self):
+        """Sets AstroChart3 with the current time."""
+        
+        # TODO:  write this function.
+        pass
+
+    def clearAstroChart1(self):
+        """Clears the AstroChart1."""
+
+        # TODO:  write this function.
+        pass
+        
+    def clearAstroChart2(self):
+        """Clears the AstroChart2."""
+
+        # TODO:  write this function.
+        pass
+        
+    def clearAstroChart3(self):
+        """Clears the AstroChart3."""
+
+        # TODO:  write this function.
+        pass
+        
     def handleJhoraLaunch(self, dt):
         """Handles a launch of JHora with the given datetime.datetime.
         This function assumes that the birth information is available

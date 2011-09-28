@@ -2,6 +2,9 @@
 
 Outstanding things to work on going forward:
 
+TODO:  Programmatically write code to remove the temp .jhd files if the file(s) are older than 3 months.  Add comment to README.txt to let the user know this.
+
+
   - Set sensible defaults for TimeMeasurementTool (which text to have
     displayed by default).
 
