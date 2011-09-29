@@ -19899,7 +19899,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
         # parts of pricebars.  And while performance isn't as great in
         # the FullViewportUpdate mode, we dont' have many things dynamically
         # updating and changing, so it isn't too big of an issue.
-        self.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
+        #self.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
 
     def setPriceBarChartSettings(self, priceBarChartSettings):
         """Stores the reference to PriceBarChartSettings to be used in

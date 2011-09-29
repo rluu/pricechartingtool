@@ -3,7 +3,13 @@
 Outstanding things to work on going forward:
 
 TODO:  Programmatically write code to remove the temp .jhd files if the file(s) are older than 3 months.  Add comment to README.txt to let the user know this.
+  - Add a clearAstroChartX(flag) function to astrologychart.py.
+    and also add clearAstroChart1(flag), 2, 3.
 
+  - Add to pricebarchart.py a signal to bubble up the current mouse
+    position so that ui.py's PriceChartDocumentWidget can handle it
+    and figure out whether or not to propagate that to the astrology
+    chart.
 
   - Set sensible defaults for TimeMeasurementTool (which text to have
     displayed by default).

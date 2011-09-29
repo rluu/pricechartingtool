@@ -3549,6 +3549,68 @@ class PlanetaryInfoTableGraphicsItem(QGraphicsProxyWidget):
         self.planetaryInfoTableWidget.load(planetaryInfos)
         
 
+class AstrologyChartGraphicsView(QGraphicsView):
+    """QGraphicsView that visualizes the QGraphicsScene in a
+    AstrologyChartWidget.
+    """
+
+    def __init__(self, parent=None):
+        """Pass-through to the QGraphicsView constructor."""
+
+        super().__init__(parent)
+
+        # Logger
+        self.log = \
+            logging.getLogger("pricebarchart.PriceBarChartGraphicsView")
+        self.log.debug("Entered __init__()")
+
+        self.setResizeAnchor(QGraphicsView.AnchorUnderMouse)
+        self.setInteractive(True)
+        
+        # Set some rendering settings so things draw nicely.
+        self.setRenderHints(QPainter.Antialiasing | 
+                            QPainter.TextAntialiasing | 
+                            QPainter.SmoothPixmapTransform)
+
+        # Set to FullViewportUpdate update mode.
+        #
+        # The default is normally QGraphicsView.MinimalViewportUpdate, but
+        # this caused us to have missing parts of artifacts and missing
+        # parts of pricebars.  And while performance isn't as great in
+        # the FullViewportUpdate mode, we dont' have many things dynamically
+        # updating and changing, so it isn't too big of an issue.
+        #self.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
+
+        # For dragging to see different parts of the view.
+        self.setDragMode(QGraphicsView.ScrollHandDrag)
+        
+    def wheelEvent(self, qwheelevent):
+        """Triggered when the mouse wheel is scrolled."""
+
+        # Save the old transformation anchor and change the current on
+        # to anchor under the mouse.  We will put it back at the end
+        # of this method.
+        oldViewportAnchor = self.transformationAnchor()
+        self.setTransformationAnchor(QGraphicsView.AnchorUnderMouse)
+        
+        # Get the QSetting key for the zoom scaling amounts.
+        settings = QSettings()
+        scaleFactor = \
+            float(settings.value(SettingsKeys.zoomScaleFactorSettingsKey, \
+                                 SettingsKeys.zoomScaleFactorSettingsDefValue))
+        
+        # Actually do the scaling of the view.
+        if qwheelevent.delta() > 0:
+            # Zoom in.
+            self.scale(scaleFactor, scaleFactor)
+        else:
+            # Zoom out.
+            self.scale(1.0 / scaleFactor, 1.0 / scaleFactor)
+
+        # Put the old transformation anchor back.
+        self.setTransformationAnchor(oldViewportAnchor)
+
+        
 class AstrologyChartWidget(QWidget):
     """Widget holding the QGraphicsScene and QGraphicsView that displays
     the Astrology information (circle radix and table of PlanetaryInfos).
@@ -3574,7 +3636,7 @@ class AstrologyChartWidget(QWidget):
 
         # Create the QGraphicsView and QGraphicsScene for the display portion.
         self.graphicsScene = QGraphicsScene()
-        self.graphicsView = QGraphicsView()
+        self.graphicsView = AstrologyChartGraphicsView()
         self.graphicsView.setScene(self.graphicsScene)
 
         self.graphicsView.setResizeAnchor(QGraphicsView.AnchorUnderMouse)
@@ -3592,8 +3654,8 @@ class AstrologyChartWidget(QWidget):
         # while performance isn't as great in the FullViewportUpdate mode,
         # we dont' have many things dynamically updating and changing, so
         # it isn't too big of an issue.
-        self.graphicsView.\
-            setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
+        #self.graphicsView.\
+        #    setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
 
         # Add and setup things in the QGraphicsScene.
         self.geoSidRadixChartGraphicsItem = SiderealRadixChartGraphicsItem()
@@ -4119,7 +4181,8 @@ def testSiderealRadixChartGraphicsItem():
     dialog.setLayout(layout)
 
     dialog.exec_()
-    
+
+
 def testRadixPlanetGraphicsItem():
     print("Running " + inspect.stack()[0][3] + "()")
     
@@ -4674,10 +4737,10 @@ if __name__=="__main__":
     QCoreApplication.setApplicationName(appName)
         
     # Various tests to run:
-    testSiderealRadixChartGraphicsItem()
-    testRadixPlanetGraphicsItem()
-    testDeclinationChartGraphicsItem()
-    testPlanetDeclinationGraphicsItem()
+    #testSiderealRadixChartGraphicsItem()
+    #testRadixPlanetGraphicsItem()
+    #testDeclinationChartGraphicsItem()
+    #testPlanetDeclinationGraphicsItem()
     testLongitudeSpeedChartGraphicsItem()
     testPlanetLongitudeSpeedGraphicsItem()
     #testPlanetaryInfoTableWidget()

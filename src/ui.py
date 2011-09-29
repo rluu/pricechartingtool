@@ -29,6 +29,7 @@ from data_objects import PriceChartDocumentData
 # For widgets used in the ui.
 from pricebarchart import *
 from pricebarspreadsheet import *
+from astrologychart import AstrologyChartWidget
 from astrologychart import PlanetaryInfoTableWidget
 
 class MainWindow(QMainWindow):
@@ -246,7 +247,7 @@ class MainWindow(QMainWindow):
             connect(self._handleOpenJHoraWithNoArgsAction)
 
         self.openJHoraWithLocalizedNowAction = \
-            QAcdtion("Open JHora with 'now'")
+            QAction("Open JHora with 'now'", self)
         self.openJHoraWithLocalizedNowAction.setStatusTip(\
             "Open JHora with the current time in the active " + \
             "chart's BirthInfo timezone.")
@@ -3482,46 +3483,59 @@ class PriceChartDocumentWidget(QWidget):
 
         self.birthInfo = BirthInfo()
 
+        # Flags for linking the mouse position of PriceBarChart to the
+        # AstroCharts.
+        self.trackMouseToAstroChart1Enabled = False
+        self.trackMouseToAstroChart2Enabled = False
+        self.trackMouseToAstroChart3Enabled = False
+
         # Create the internal widgets displayed.
         self.priceBarChartWidget = PriceBarChartWidget()
         self.priceBarSpreadsheetWidget = PriceBarSpreadsheetWidget()
+        self.astrologyChartWidget = AstrologyChartWidget()
+        
         # TODO:  uncomment below get the table planetary info table widget.
         #self.planetaryInfoTableWidget = PlanetaryInfoTableWidget()
 
-        # TODO:  Add QSplitters to divide the above internal widgets.
-
         self.setBirthInfo(self.birthInfo)
 
+        # QSplitters to divide the internal widgets.
+        hsplitter = QSplitter(self)
+        hsplitter.setOrientation(Qt.Horizontal)
+        hsplitter.addWidget(self.priceBarChartWidget)
+        hsplitter.addWidget(self.astrologyChartWidget)
+
+        vsplitter = QSplitter(self)
+        vsplitter.setOrientation(Qt.Vertical)
+        vsplitter.addWidget(hsplitter)
+        vsplitter.addWidget(self.priceBarSpreadsheetWidget)
+        
         # Setup the layout.
         vlayout = QVBoxLayout()
-        vlayout.addWidget(self.priceBarChartWidget)
-        vlayout.addWidget(self.priceBarSpreadsheetWidget)
-
-        hlayout = QHBoxLayout()
-        hlayout.addLayout(vlayout)
+        vlayout.addWidget(vsplitter)
+        
         # TODO:  Uncomment to get the PlanetaryInfoTableWidget.
         #hlayout.addWidget(self.planetaryInfoTableWidget)
 
-        self.setLayout(hlayout)
+        self.setLayout(vlayout)
 
         # Connect signals and slots.
         self.priceBarChartWidget.priceBarChartChanged.\
             connect(self._handleWidgetChanged)
         self.priceBarChartWidget.statusMessageUpdate.\
             connect(self.statusMessageUpdate)
+        self.priceBarChartWidget.astroChart1Update.\
+            connect(self.astrologyChartWidget.setAstroChart1Datetime)
+        self.priceBarChartWidget.astroChart2Update.\
+            connect(self.astrologyChartWidget.setAstroChart2Datetime)
+        self.priceBarChartWidget.astroChart3Update.\
+            connect(self.astrologyChartWidget.setAstroChart3Datetime)
         self.priceBarChartWidget.jhoraLaunch.\
             connect(self.handleJhoraLaunch)
         
         # TODO:  Uncomment to get the PlanetaryInfoTableWidget.
         #self.priceBarChartWidget.currentTimestampChanged.\
         #    connect(self._handleCurrentTimestampChanged)
-        
-        # TODO:  Add methods to handle for the following astro signals:
-        # TODO:  Make sure to handle the timezone stuff (and test thoroughly).
-        # self.priceBarChartWidget.astroChart1Update
-        # self.priceBarChartWidget.astroChart2Update
-        # self.priceBarChartWidget.astroChart3Update
-        # self.priceBarChartWidget.jhoraLaunch
         
     def setBirthInfo(self, birthInfo):
         """Sets the birth info for this trading entity.
@@ -3533,9 +3547,12 @@ class PriceChartDocumentWidget(QWidget):
 
         self.birthInfo = birthInfo
 
-        # Give the self.priceBarChartWidget the birth time as well.
+        # Give the self.priceBarChartWidget the birth time.
         self.priceBarChartWidget.setBirthInfo(self.birthInfo)
-
+        
+        # Give the self.astrologyChartWidget the birth time.
+        self.astrologyChartWidget.setBirthInfo(self.birthInfo)
+        
     def setDescriptionText(self, text):
         """Sets the description text of this PriceChartDocument.
         
@@ -3775,8 +3792,7 @@ class PriceChartDocumentWidget(QWidget):
                is to be disabled.
         """
 
-        # TODO:  write this function.
-        pass
+        self.trackMouseToAstroChart1Enabled = flag
         
     def setTrackMouseToAstroChart2(self, flag):
         """Sets the link-connection enabled or disabled for the
@@ -3787,8 +3803,7 @@ class PriceChartDocumentWidget(QWidget):
                is to be disabled.
         """
 
-        # TODO:  write this function.
-        pass
+        self.trackMouseToAstroChart2Enabled = flag
         
     def setTrackMouseToAstroChart3(self, flag):
         """Sets the link-connection enabled or disabled for the
@@ -3799,48 +3814,86 @@ class PriceChartDocumentWidget(QWidget):
                is to be disabled.
         """
 
-        # TODO:  write this function.
-        pass
+        self.trackMouseToAstroChart3Enabled = flag
 
     def setAstroChart1WithBirthInfo(self):
         """Sets AstroChart1 with the info in the BirthInfo of this document.
         """
         
-        # TODO:  write this function.
-        pass
+        # Get the timezone for the BirthInfo.
+        tzinfoObj = pytz.timezone(self.birthInfo.timezoneName)
+
+        # Localize the birth timestamp.
+        utcBirthDt = self.birthInfo.getBirthUtcDatetime()
+        localizedDt = tzinfoObj.normalize(utcBirthDt.astimezone(tzinfoObj))
+
+        # Open AstroChart1 with this value.
+        self.astrologyChartWidget.setAstroChart1Datetime(localizedDt)
         
     def setAstroChart2WithBirthInfo(self):
         """Sets AstroChart2 with the info in the BirthInfo of this document.
         """
         
-        # TODO:  write this function.
-        pass
+        # Get the timezone for the BirthInfo.
+        tzinfoObj = pytz.timezone(self.birthInfo.timezoneName)
+
+        # Localize the birth timestamp.
+        utcBirthDt = self.birthInfo.getBirthUtcDatetime()
+        localizedDt = tzinfoObj.normalize(utcBirthDt.astimezone(tzinfoObj))
+
+        # Open AstroChart2 with this value.
+        self.astrologyChartWidget.setAstroChart2Datetime(localizedDt)
         
     def setAstroChart3WithBirthInfo(self):
         """Sets AstroChart3 with the info in the BirthInfo of this document.
         """
         
-        # TODO:  write this function.
-        pass
-    
+        # Get the timezone for the BirthInfo.
+        tzinfoObj = pytz.timezone(self.birthInfo.timezoneName)
+
+        # Localize the birth timestamp.
+        utcBirthDt = self.birthInfo.getBirthUtcDatetime()
+        localizedDt = tzinfoObj.normalize(utcBirthDt.astimezone(tzinfoObj))
+
+        # Open AstroChart3 with this value.
+        self.astrologyChartWidget.setAstroChart3Datetime(localizedDt)
+        
     def setAstroChart1WithNow(self):
         """Sets AstroChart1 with the current time."""
         
-        # TODO:  write this function.
-        pass
+        # Get the timezone for the BirthInfo.
+        tzinfoObj = pytz.timezone(self.birthInfo.timezoneName)
+
+        # Localize the 'now' timestamp.
+        localizedDt = datetime.datetime.now(tzinfoObj)
+
+        # Open AstroChart1 with this value.
+        self.astrologyChartWidget.setAstroChart1Datetime(localizedDt)
         
     def setAstroChart2WithNow(self):
         """Sets AstroChart2 with the current time."""
         
-        # TODO:  write this function.
-        pass
+        # Get the timezone for the BirthInfo.
+        tzinfoObj = pytz.timezone(self.birthInfo.timezoneName)
+
+        # Localize the 'now' timestamp.
+        localizedDt = datetime.datetime.now(tzinfoObj)
+
+        # Open AstroChart2 with this value.
+        self.astrologyChartWidget.setAstroChart2Datetime(localizedDt)
         
     def setAstroChart3WithNow(self):
         """Sets AstroChart3 with the current time."""
         
-        # TODO:  write this function.
-        pass
+        # Get the timezone for the BirthInfo.
+        tzinfoObj = pytz.timezone(self.birthInfo.timezoneName)
 
+        # Localize the 'now' timestamp.
+        localizedDt = datetime.datetime.now(tzinfoObj)
+
+        # Open AstroChart3 with this value.
+        self.astrologyChartWidget.setAstroChart3Datetime(localizedDt)
+        
     def clearAstroChart1(self):
         """Clears the AstroChart1."""
 
