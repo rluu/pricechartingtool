@@ -10664,6 +10664,11 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.fibFanGraphicsItemGroupBox = \
             self._buildFibFanGraphicsItemGroupBox()
 
+        # QGroupBox to hold the edit widgets and form for
+        # GannFanGraphicsItem.
+        self.gannFanGraphicsItemGroupBox = \
+            self._buildGannFanGraphicsItemGroupBox()
+
         # Create a QTabWidget to stack all the settings editing
         # widgets.
         self.tabWidget = QTabWidget()
@@ -10728,6 +10733,10 @@ class PriceBarChartSettingsEditWidget(QWidget):
                               QIcon(":/images/rluu/fibFan.png"),
                               "")
 
+        self.tabWidget.addTab(self.gannFanGraphicsItemGroupBox,
+                              QIcon(":/images/rluu/gannFan.png"),
+                              "")
+
         # Buttons at bottom.
         self.resetAllToDefaultButton = \
             QPushButton("Reset all to original default values")
@@ -10785,6 +10794,10 @@ class PriceBarChartSettingsEditWidget(QWidget):
             connect(\
             self.\
             _handleFibFanGraphicsItemDefaultFontModifyButtonClicked)
+        self.gannFanGraphicsItemDefaultFontModifyButton.clicked.\
+            connect(\
+            self.\
+            _handleGannFanGraphicsItemDefaultFontModifyButtonClicked)
         
         # Connect reset buttons.
         self.priceBarGraphicsItemPenWidthResetButton.clicked.\
@@ -11132,6 +11145,34 @@ class PriceBarChartSettingsEditWidget(QWidget):
             connect(\
             self.\
             _handleFibFanGraphicsItemTextEnabledFlagResetButton)
+
+        self.gannFanGraphicsItemTextXScalingResetButton.clicked.\
+            connect(\
+            self.\
+            _handleGannFanGraphicsItemTextXScalingResetButtonClicked)
+        self.gannFanGraphicsItemTextYScalingResetButton.clicked.\
+            connect(\
+            self.\
+            _handleGannFanGraphicsItemTextYScalingResetButtonClicked)
+        self.gannFanGraphicsItemDefaultFontResetButton.clicked.\
+            connect(\
+            self.\
+            _handleGannFanGraphicsItemDefaultFontResetButtonClicked)
+        self.gannFanGraphicsItemDefaultTextColorResetButton.clicked.\
+            connect(\
+            self.\
+            _handleGannFanGraphicsItemDefaultTextColorResetButtonClicked)
+        self.gannFanGraphicsItemDefaultColorResetButton.clicked.\
+            connect(\
+            self.\
+            _handleGannFanGraphicsItemDefaultColorResetButtonClicked)
+        self.gannFanGraphicsItemBarHeightResetButton.clicked.\
+            connect(\
+            self._handleGannFanGraphicsItemBarHeightResetButtonClicked)
+        self.gannFanGraphicsItemTextEnabledFlagResetButton.clicked.\
+            connect(\
+            self.\
+            _handleGannFanGraphicsItemTextEnabledFlagResetButton)
 
 
 
@@ -14790,6 +14831,219 @@ class PriceBarChartSettingsEditWidget(QWidget):
         
         return self.fibFanGraphicsItemGroupBox
     
+    def _buildGannFanGraphicsItemGroupBox(self):
+        """Builds the groupbox containing info to edit the
+        PriceBarChartSettings related to a GannFanGraphicsItem.
+
+        Returns:
+        QGroupBox obj containing all the created widgets.
+        """
+
+        self.gannFanGraphicsItemGroupBox = \
+            QGroupBox("GannFanGraphicsItem settings:")
+
+        # gannFanGraphicsItemTextXScaling (float).
+        self.gannFanGraphicsItemTextXScalingLabel = \
+            QLabel("GannFanGraphicsItem text X scaling: ")
+        self.gannFanGraphicsItemTextXScalingSpinBox = QDoubleSpinBox()
+        self.gannFanGraphicsItemTextXScalingSpinBox.setMinimum(0.0001)
+        self.gannFanGraphicsItemTextXScalingSpinBox.setMaximum(1000.0)
+        self.gannFanGraphicsItemTextXScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # gannFanGraphicsItemTextYScaling (float).
+        self.gannFanGraphicsItemTextYScalingLabel = \
+            QLabel("GannFanGraphicsItem text Y scaling: ")
+        self.gannFanGraphicsItemTextYScalingSpinBox = QDoubleSpinBox()
+        self.gannFanGraphicsItemTextYScalingSpinBox.setMinimum(0.0001)
+        self.gannFanGraphicsItemTextYScalingSpinBox.setMaximum(1000.0)
+        self.gannFanGraphicsItemTextYScalingResetButton = \
+            QPushButton("Reset to default")
+
+        # gannFanGraphicsItemDefaultFont (QFont)
+        self.gannFanGraphicsItemDefaultFont = QFont()
+        self.gannFanGraphicsItemDefaultFont.\
+            fromString(PriceBarChartSettings.\
+                       defaultGannFanGraphicsItemDefaultFontDescription)
+        self.gannFanGraphicsItemDefaultFontLabel = \
+            QLabel("GannFanGraphicsItem default font:")
+        self.gannFanGraphicsItemDefaultFontModifyButton = \
+            QPushButton("Modify")
+        self.gannFanGraphicsItemDefaultFontResetButton = \
+            QPushButton("Reset to default")
+        
+        # gannFanGraphicsItemDefaultTextColor (QColor)
+        self.gannFanGraphicsItemDefaultTextColorLabel = \
+            QLabel("GannFanGraphicsItem default text color:")
+        self.gannFanGraphicsItemDefaultTextColorEditButton = \
+            ColorEditPushButton()
+        self.gannFanGraphicsItemDefaultTextColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # gannFanGraphicsItemDefaultColor (QColor)
+        self.gannFanGraphicsItemDefaultColorLabel = \
+            QLabel("GannFanGraphicsItem default color:")
+        self.gannFanGraphicsItemDefaultColorEditButton = \
+            ColorEditPushButton()
+        self.gannFanGraphicsItemDefaultColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # gannFanGraphicsItemBarHeight (float).
+        self.gannFanGraphicsItemBarHeightLabel = \
+            QLabel("GannFanGraphicsItem bar height: ")
+        self.gannFanGraphicsItemBarHeightSpinBox = QDoubleSpinBox()
+        self.gannFanGraphicsItemBarHeightSpinBox.setMinimum(0.0)
+        self.gannFanGraphicsItemBarHeightSpinBox.setMaximum(1000.0)
+        self.gannFanGraphicsItemBarHeightResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # gannFanGraphicsItemTextEnabledFlag (bool).
+        self.gannFanGraphicsItemTextEnabledFlagLabel = \
+            QLabel("GannFanGraphicsItem text enabled:")
+        self.gannFanGraphicsItemTextEnabledFlagCheckBox = \
+            QCheckBox()
+        self.gannFanGraphicsItemTextEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.gannFanGraphicsItemTextEnabledFlagResetButton = \
+            QPushButton("Reset to default")
+
+        # GannFan Ratios.
+        # There are no reset buttons for the ratios, just labels and checkboxes.
+        self.gannFanGraphicsItemRatioLabels = []
+        self.gannFanGraphicsItemRatioCheckBoxes = []
+        
+        for ratio in \
+            self.priceBarChartSettings.gannFanGraphicsItemRatios:
+
+            label = QLabel("GannFanGraphicsItem ratio " +
+                           ratio.getDescription() + " enabled:")
+            checkBox = QCheckBox()
+
+            self.gannFanGraphicsItemRatioLabels.append(label)
+            self.gannFanGraphicsItemRatioCheckBoxes.append(checkBox)
+        
+
+        # Grid layout.
+        gridLayout = QGridLayout()
+        r = 0
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        gridLayout.\
+            addWidget(\
+            self.gannFanGraphicsItemTextXScalingLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(self.gannFanGraphicsItemTextXScalingSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.gannFanGraphicsItemTextXScalingResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.gannFanGraphicsItemTextYScalingLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(self.gannFanGraphicsItemTextYScalingSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.gannFanGraphicsItemTextYScalingResetButton, 
+            r, 2, ar)
+        
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.gannFanGraphicsItemDefaultFontLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(self.gannFanGraphicsItemDefaultFontModifyButton, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.gannFanGraphicsItemDefaultFontResetButton, 
+            r, 2, ar)
+        
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.gannFanGraphicsItemDefaultTextColorLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.gannFanGraphicsItemDefaultTextColorEditButton, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.gannFanGraphicsItemDefaultTextColorResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.gannFanGraphicsItemDefaultColorLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.gannFanGraphicsItemDefaultColorEditButton, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.gannFanGraphicsItemDefaultColorResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.gannFanGraphicsItemBarHeightLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(self.gannFanGraphicsItemBarHeightSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.gannFanGraphicsItemBarHeightResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.gannFanGraphicsItemTextEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.gannFanGraphicsItemTextEnabledFlagCheckBox, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.gannFanGraphicsItemTextEnabledFlagResetButton, 
+            r, 2, ar)
+
+        r += 1
+        for i in range(len(self.priceBarChartSettings.\
+                           gannFanGraphicsItemRatios)):
+            gridLayout.\
+                addWidget(\
+                self.gannFanGraphicsItemRatioLabels[i], 
+                r, 0, al)
+            gridLayout.\
+                addWidget(\
+                self.gannFanGraphicsItemRatioCheckBoxes[i],
+                r, 1, ar)
+            r += 1
+
+        
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addStretch()
+        
+        self.gannFanGraphicsItemGroupBox.setLayout(layout)
+        
+        return self.gannFanGraphicsItemGroupBox
+    
     def loadValuesFromSettings(self, priceBarChartSettings):
         """Loads the widgets with values from the given
         PriceBarChartSettings object.
@@ -15986,6 +16240,62 @@ class PriceBarChartSettingsEditWidget(QWidget):
             else:
                 self.fibFanGraphicsItemRatioCheckBoxes[i].\
                     setCheckState(Qt.Unchecked)
+
+        # gannFanGraphicsItemTextXScaling (float).
+        self.gannFanGraphicsItemTextXScalingSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        gannFanGraphicsItemTextXScaling)
+
+        # gannFanGraphicsItemTextYScaling (float).
+        self.gannFanGraphicsItemTextYScalingSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        gannFanGraphicsItemTextYScaling)
+
+        # gannFanGraphicsItemDefaultFontDescription (str)
+        self.gannFanGraphicsItemDefaultFont = QFont()
+        self.gannFanGraphicsItemDefaultFont.\
+            fromString(self.priceBarChartSettings.\
+                       gannFanGraphicsItemDefaultFontDescription)
+
+        # gannFanGraphicsItemDefaultTextColor (QColor).
+        self.gannFanGraphicsItemDefaultTextColorEditButton.\
+            setColor(self.priceBarChartSettings.\
+                     gannFanGraphicsItemDefaultTextColor)
+
+        # gannFanGraphicsItemDefaultColor (QColor).
+        self.gannFanGraphicsItemDefaultColorEditButton.\
+            setColor(self.priceBarChartSettings.\
+                     gannFanGraphicsItemDefaultColor)
+
+        # gannFanGraphicsItemBarHeight (float).
+        self.gannFanGraphicsItemBarHeightSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        gannFanGraphicsItemBarHeight)
+
+        # gannFanGraphicsItemTextEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           gannFanGraphicsItemTextEnabledFlag == True:
+            
+            self.gannFanGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.gannFanGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # GannFan Ratios.
+        for i in range(len(self.priceBarChartSettings.\
+                           gannFanGraphicsItemRatios)):
+            # Check the checkbox if the ratio is enabled.
+            ratio = \
+                self.priceBarChartSettings.gannFanGraphicsItemRatios[i]
+
+            if ratio.isEnabled():
+                self.gannFanGraphicsItemRatioCheckBoxes[i].\
+                    setCheckState(Qt.Checked)
+            else:
+                self.gannFanGraphicsItemRatioCheckBoxes[i].\
+                    setCheckState(Qt.Unchecked)
+        
         
         self.log.debug("Exiting loadValuesFromSettings()")
         
@@ -17104,6 +17414,58 @@ class PriceBarChartSettingsEditWidget(QWidget):
                 self.priceBarChartSettings.\
                     fibFanGraphicsItemRatios[i].setEnabled(False)
         
+        # gannFanGraphicsItemTextXScaling (float).
+        self.priceBarChartSettings.gannFanGraphicsItemTextXScaling = \
+            float(self.gannFanGraphicsItemTextXScalingSpinBox.value())
+
+        # gannFanGraphicsItemTextYScaling (float).
+        self.priceBarChartSettings.gannFanGraphicsItemTextYScaling = \
+            float(self.gannFanGraphicsItemTextYScalingSpinBox.value())
+
+        # gannFanGraphicsItemDefaultFontDescription (str)
+        self.priceBarChartSettings.\
+            gannFanGraphicsItemDefaultFontDescription = \
+            self.gannFanGraphicsItemDefaultFont.toString()
+
+        # gannFanGraphicsItemDefaultTextColor (QColor).
+        self.priceBarChartSettings.\
+            gannFanGraphicsItemDefaultTextColor = \
+            self.gannFanGraphicsItemDefaultTextColorEditButton.\
+            getColor()
+
+        # gannFanGraphicsItemDefaultColor (QColor).
+        self.priceBarChartSettings.\
+            gannFanGraphicsItemDefaultColor = \
+            self.gannFanGraphicsItemDefaultColorEditButton.\
+            getColor()
+
+        # gannFanGraphicsItemBarHeight (float).
+        self.priceBarChartSettings.gannFanGraphicsItemBarHeight = \
+            float(self.gannFanGraphicsItemBarHeightSpinBox.value())
+
+        # gannFanGraphicsItemTextEnabledFlag (bool).
+        if self.gannFanGraphicsItemTextEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                gannFanGraphicsItemTextEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                gannFanGraphicsItemTextEnabledFlag = False
+
+        # GannFan Ratios.
+        for i in range(len(self.priceBarChartSettings.\
+                           gannFanGraphicsItemRatios)):
+            
+            if self.gannFanGraphicsItemRatioCheckBoxes[i].\
+               checkState() == Qt.Checked:
+
+                self.priceBarChartSettings.\
+                    gannFanGraphicsItemRatios[i].setEnabled(True)
+            else:
+                self.priceBarChartSettings.\
+                    gannFanGraphicsItemRatios[i].setEnabled(False)
+        
         self.log.debug("Exiting saveValuesToSettings()")
 
 
@@ -17241,6 +17603,21 @@ class PriceBarChartSettingsEditWidget(QWidget):
         if rv == QDialog.Accepted:
             # Store the font in the member variable (not in the artifact).
             self.fibFanGraphicsItemDefaultFont = dialog.selectedFont()
+        
+    def _handleGannFanGraphicsItemDefaultFontModifyButtonClicked(self):
+        """Called when the
+        self.gannFanGraphicsItemDefaultFontModifyButton button is
+        clicked.  Brings up a dialog for editing the font, and saves
+        it if the dialog is accepted.
+        """
+
+        dialog = QFontDialog(self.gannFanGraphicsItemDefaultFont)
+
+        rv = dialog.exec_()
+
+        if rv == QDialog.Accepted:
+            # Store the font in the member variable (not in the artifact).
+            self.gannFanGraphicsItemDefaultFont = dialog.selectedFont()
         
     def _handlePriceBarPenWidthResetButtonClicked(self):
         """Called when the penWidthResetButton is clicked.
@@ -19242,6 +19619,93 @@ class PriceBarChartSettingsEditWidget(QWidget):
         else:
             self.fibFanGraphicsItemTextEnabledFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
+
+    def _handleGannFanGraphicsItemTextXScalingResetButtonClicked(self):
+        """Called when the gannFanGraphicsItemTextXScalingResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultGannFanGraphicsItemTextXScaling
+
+        self.gannFanGraphicsItemTextXScalingSpinBox.setValue(value)
+
+    def _handleGannFanGraphicsItemTextYScalingResetButtonClicked(self):
+        """Called when the gannFanGraphicsItemTextYScalingResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultGannFanGraphicsItemTextYScaling
+
+        self.gannFanGraphicsItemTextYScalingSpinBox.setValue(value)
+
+    def _handleGannFanGraphicsItemDefaultFontResetButtonClicked(self):
+        """Called when the
+        gannFanGraphicsItemDefaultFontResetButton is clicked.
+        Resets the internal value to the default value.
+        """
+
+        self.gannFanGraphicsItemDefaultFont = QFont()
+        self.gannFanGraphicsItemDefaultFont.\
+            fromString(PriceBarChartSettings.\
+                       defaultGannFanGraphicsItemDefaultFontDescription)
+        
+    def _handleGannFanGraphicsItemDefaultTextColorResetButtonClicked(self):
+        """Called when the
+        gannFanGraphicsItemDefaultTextColorResetButton is clicked.
+        Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultGannFanGraphicsItemDefaultTextColor
+
+        self.gannFanGraphicsItemDefaultTextColorEditButton.\
+            setColor(value)
+
+    def _handleGannFanGraphicsItemDefaultColorResetButtonClicked(self):
+        """Called when the
+        gannFanGraphicsItemDefaultColorResetButton is clicked.
+        Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultGannFanGraphicsItemDefaultColor
+
+        self.gannFanGraphicsItemDefaultColorEditButton.\
+            setColor(value)
+
+    def _handleGannFanGraphicsItemBarHeightResetButtonClicked(self):
+        """Called when the gannFanGraphicsItemBarHeightResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultGannFanGraphicsItemBarHeight
+
+        self.gannFanGraphicsItemBarHeightSpinBox.setValue(value)
+
+    def _handleGannFanGraphicsItemTextEnabledFlagResetButton(self):
+        """Called when the
+        gannFanGraphicsItemTextEnabledFlagResetButton
+        is clicked.  Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultGannFanGraphicsItemTextEnabledFlag
+
+        if value == True:
+            self.gannFanGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.gannFanGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
             
     def _handleResetAllToDefaultButtonClicked(self):
         """Called when the resetAllToDefaultButton is clicked.
@@ -19357,6 +19821,14 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._handleFibFanGraphicsItemDefaultColorResetButtonClicked()
         self._handleFibFanGraphicsItemBarHeightResetButtonClicked()
         self._handleFibFanGraphicsItemTextEnabledFlagResetButton()
+        
+        self._handleGannFanGraphicsItemTextXScalingResetButtonClicked()
+        self._handleGannFanGraphicsItemTextYScalingResetButtonClicked()
+        self._handleGannFanGraphicsItemDefaultFontResetButtonClicked()
+        self._handleGannFanGraphicsItemDefaultTextColorResetButtonClicked()
+        self._handleGannFanGraphicsItemDefaultColorResetButtonClicked()
+        self._handleGannFanGraphicsItemBarHeightResetButtonClicked()
+        self._handleGannFanGraphicsItemTextEnabledFlagResetButton()
         
 
     def _handleOkayButtonClicked(self):

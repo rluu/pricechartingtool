@@ -426,6 +426,13 @@ class MainWindow(QMainWindow):
         self.fibFanToolAction.setStatusTip("Fibonacci Fan Tool")
         self.fibFanToolAction.setCheckable(True)
 
+        # Create the GannFanToolAction
+        icon = QIcon(":/images/rluu/gannFan.png")
+        self.gannFanToolAction = \
+            QAction(icon, "Time Modal Scale Tool", self)
+        self.gannFanToolAction.setStatusTip("Gannonacci Fan Tool")
+        self.gannFanToolAction.setCheckable(True)
+
         # Create a QActionGroup because all these tool modes should be
         # exclusive.  
         self.toolActionGroup = QActionGroup(self)
@@ -448,6 +455,7 @@ class MainWindow(QMainWindow):
         self.toolActionGroup.addAction(self.lineSegmentToolAction)
         self.toolActionGroup.addAction(self.octaveFanToolAction)
         self.toolActionGroup.addAction(self.fibFanToolAction)
+        self.toolActionGroup.addAction(self.gannFanToolAction)
         self.toolActionGroup.triggered.connect(self._toolsActionTriggered)
             
         # Default to the ReadOnlyPointerTool being checked by default.
@@ -591,6 +599,7 @@ class MainWindow(QMainWindow):
         self.toolsMenu.addAction(self.lineSegmentToolAction)
         self.toolsMenu.addAction(self.octaveFanToolAction)
         self.toolsMenu.addAction(self.fibFanToolAction)
+        self.toolsMenu.addAction(self.gannFanToolAction)
 
         # Create the Window menu.
         self.windowMenu = self.menuBar().addMenu("&Window")
@@ -649,6 +658,7 @@ class MainWindow(QMainWindow):
         self.toolsToolBar.addAction(self.lineSegmentToolAction)
         self.toolsToolBar.addAction(self.octaveFanToolAction)
         self.toolsToolBar.addAction(self.fibFanToolAction)
+        self.toolsToolBar.addAction(self.gannFanToolAction)
 
     def _createStatusBar(self):
         """Creates the QStatusBar by showing the message "Ready"."""
@@ -726,6 +736,7 @@ class MainWindow(QMainWindow):
         self.lineSegmentToolAction.setEnabled(isActive)
         self.octaveFanToolAction.setEnabled(isActive)
         self.fibFanToolAction.setEnabled(isActive)
+        self.gannFanToolAction.setEnabled(isActive)
 
         self.closeChartAction.setEnabled(isActive)
         self.closeAllChartsAction.setEnabled(isActive)
@@ -787,6 +798,8 @@ class MainWindow(QMainWindow):
                 priceChartDocument.toOctaveFanToolMode()
             elif self.fibFanToolAction.isChecked():
                 priceChartDocument.toFibFanToolMode()
+            elif self.gannFanToolAction.isChecked():
+                priceChartDocument.toGannFanToolMode()
             else:
                 self.log.warn("No ToolMode QAction is currently selected!")
 
@@ -2471,6 +2484,10 @@ class MainWindow(QMainWindow):
             self.log.debug("fibFanToolAction triggered.")
             self.mostRecentGraphicsItemToolModeAction = qaction
             pcd.toFibFanToolMode()
+        elif qaction == self.gannFanToolAction:
+            self.log.debug("gannFanToolAction triggered.")
+            self.mostRecentGraphicsItemToolModeAction = qaction
+            pcd.toGannFanToolMode()
         else:
             self.log.warn("Unknown Tools QAction selected!  " + \
                 "There might be something wrong with the code, or " + \
@@ -2566,6 +2583,7 @@ Snap key bindings are supported for the following tools:
   - LineSegmentTool
   - OctaveFanTool
   - FibFanTool
+  - GannFanTool
 """
         
         QMessageBox.about(self, title, message)
@@ -3334,6 +3352,11 @@ class PriceChartDocument(QMdiSubWindow):
 
         self.widgets.toFibFanToolMode()
 
+    def toGannFanToolMode(self):
+        """Changes the tool mode to be the GannFanTool."""
+
+        self.widgets.toGannFanToolMode()
+
     def handleJhoraLaunch(self, dt, birthInfo):
         """Handles a launch of JHora with the given datetime.datetime.
         This function assumes that the birth information is available
@@ -3769,6 +3792,11 @@ class PriceChartDocumentWidget(QWidget):
         """Changes the tool mode to be the FibFanTool."""
 
         self.priceBarChartWidget.toFibFanToolMode()
+
+    def toGannFanToolMode(self):
+        """Changes the tool mode to be the GannFanTool."""
+
+        self.priceBarChartWidget.toGannFanToolMode()
 
     def _handleWidgetChanged(self):
         """Handles when the internal widget has some kind of change
