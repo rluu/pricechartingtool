@@ -4146,7 +4146,95 @@ class AstrologyChartWidget(QWidget):
         # Update the rest of the astro widgets.
         self.setAstroChartXDatetime(chartNum, dt)
 
+    def clearAstroChartX(self, chartNum):
+        """Clears the astrology chart 'chartNum' within the radix
+        chart and other charts.
 
+        Arguments:
+        chartNum - int value holding the chart number to update.
+        """
+
+        # Wheel number (chart number) that will be updated.
+        wheelNumber = chartNum
+
+        # Location label does not need to be updated here because
+        # it gets updated when the BirthInfo gets set in this
+        # widget.
+
+        # Clear the datetime label widgets depending on which chartNum.
+        if chartNum == 1:
+            self.astroChart1DatetimeLabelWidget.setText("Chart 1:  ")
+        elif chartNum == 2:
+            self.astroChart2DatetimeLabelWidget.setText("Chart 2:  ")
+        elif chartNum == 3:
+            self.astroChart3DatetimeLabelWidget.setText("Chart 3:  ")
+        else:
+            self.log.warn("Unknown chartNum: {}".format(chartNum))
+
+        # Update the declination chart.
+        for planetName in self._getPlanetNamesToDisplayForDeclination():
+            planetDeclinationGraphicsItem = \
+                self.declinationChart.\
+                getPlanetDeclinationGraphicsItem(planetName, chartNum)
+
+            # If an item is found with the given name on the chart
+            # number, then remove that item.
+            if planetDeclinationGraphicsItem != None:
+                self.graphicsScene.removeItem(planetDeclinationGraphicsItem)
+        
+        # Remove QGraphicsItems on each radix chart.
+        
+        # Get the PlanetaryInfo objects.  The location values in this
+        # list aren't used.  We only need this so we have a list of
+        # planet names used.
+        planets = self._getPlanetaryInfosForDatetime(\
+            datetime.datetime.now(pytz.utc))
+
+        for planet in planets:
+            
+            # Update the Geocentric Sidereal chart.
+            radixPlanetGraphicsItem = \
+                self.geoSidRadixChartGraphicsItem.\
+                getRadixPlanetGraphicsItem(planet.name, wheelNumber)
+            
+            if radixPlanetGraphicsItem != None:
+                self.graphicsScene.removeItem(radixPlanetGraphicsItem)
+
+            # Update the Geocentric Tropical chart.
+            radixPlanetGraphicsItem = \
+                self.geoTropRadixChartGraphicsItem.\
+                getRadixPlanetGraphicsItem(planet.name, wheelNumber)
+            
+            if radixPlanetGraphicsItem != None:
+                self.graphicsScene.removeItem(radixPlanetGraphicsItem)
+            
+            # Update the Heliocentric Sidereal chart.
+            radixPlanetGraphicsItem = \
+                self.helioSidRadixChartGraphicsItem.\
+                getRadixPlanetGraphicsItem(planet.name, wheelNumber)
+            
+            if radixPlanetGraphicsItem != None:
+                self.graphicsScene.removeItem(radixPlanetGraphicsItem)
+
+    def clearAstroChart1(self):
+        """Clears the AstroChart1 of all planet-related objects."""
+
+        chartNum = 1
+        self.clearAstroChartX(chartNum)
+        
+    def clearAstroChart2(self):
+        """Clears the AstroChart2 of all planet-related objects."""
+
+        chartNum = 2
+        self.clearAstroChartX(chartNum)
+        
+    def clearAstroChart3(self):
+        """Clears the AstroChart3 of all planet-related objects."""
+
+        chartNum = 3
+        self.clearAstroChartX(chartNum)
+        
+        
 def testSiderealRadixChartGraphicsItem():
     print("Running " + inspect.stack()[0][3] + "()")
 

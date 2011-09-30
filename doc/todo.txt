@@ -2,7 +2,12 @@
 
 Outstanding things to work on going forward:
 
-TODO:  Programmatically write code to remove the temp .jhd files if the file(s) are older than 3 months.  Add comment to README.txt to let the user know this.
+TODO:  
+
+  - Programmatically write code to remove the temp .jhd files if the
+    file(s) are older than 3 months.  Add comment to README.txt to let
+    the user know this.
+
   - Add a clearAstroChartX(flag) function to astrologychart.py.
     and also add clearAstroChart1(flag), 2, 3.
 
@@ -13,55 +18,6 @@ TODO:  Programmatically write code to remove the temp .jhd files if the file(s) 
 
   - Set sensible defaults for TimeMeasurementTool (which text to have
     displayed by default).
-
-  - Add a menu in QMainWindow for various actions (Menu called 'Astro
-    Actions' or 'Miscellaneous Actions'?).
-
-    Options to add are (may need to organize this better):
-
-      - Enable/disabling of mouse-pointer-position to astro chart 1
-        for the current PriceChartDocument.
-
-      - Enable/disabling of mouse-pointer-position to astro chart 2
-        for the current PriceChartDocument.
-
-      - Enable/disabling of mouse-pointer-position to astro chart 3
-        for the current PriceChartDocument.
-
-      - Opening JHora (no arguments, so the current time).
-        This calls some function in MainWindow to do the work (with
-        no args for the birthTime and birthLoction).
-
-      - Open JHora with the current PriceChartDocument's birth time/location.
-        This calls the current document's launchJHora() function with
-        the document's birthInfo and birth timestamp.  launchJHora()
-        will do the necessary signal emits to eventually call
-        MainWindow's launching function for JHora.
-
-      - Open JHora with the current PriceChartDocument's location/timezone, but
-        at the current moment in time (now).
-
-      - Set the current PriceChartDocument's birth time/location in
-        its astro chart 1.
-
-      - Set the current moment in time (now) in the current
-        PriceChartDocument's astro chart 1 with the
-        PriceChartDocument's location/timezone.
-
-      - Set the current PriceChartDocument's birth time/location in
-        its astro chart 2.
-
-      - Set the current moment in time (now) in the current
-        PriceChartDocument's astro chart 2 with the
-        PriceChartDocument's location/timezone.
-
-      - Set the current PriceChartDocument's birth time/location in
-        its astro chart 3.
-
-      - Set the current moment in time (now) in the current
-        PriceChartDocument's astro chart 3 with the
-        PriceChartDocument's location/timezone.
-
 
   - Need to add the following time measurements to the time measurement tool:
 
@@ -112,16 +68,6 @@ TODO:  Programmatically write code to remove the temp .jhd files if the file(s) 
 
   - Add panchanga fields and the rulers onto the astro charts.
 
-  - Octave fan (which is a more general Gann fan).
-     - Defined by origin and other 2 points.
-     - Uses scaling.
-     - Order is reversable, and has capability to be modal (shifting).
-
-  - Fibonnaci fan
-     - Defined by origin and other 2 points.
-     - Uses scaling.
-     - Order is reversable
-
   - Add a right-click option to all the items to copy the following
     (as separate options, and as applicable) to the copy-and-paste
     clipboard:
@@ -129,12 +75,6 @@ TODO:  Programmatically write code to remove the temp .jhd files if the file(s) 
         - Just the price as a string
         - Just the timestamp as a string
         - Both the price and timestamp, as a string of two lines.
-
-  - Add a right-click option to all the items to open a timestamp in JHora. 
-     - Substeps:
-         - Create a .jhd file somewhere, maybe in /tmp/ ?  
-           Or maybe in ramdisk or in memory?
-         - System call to JHora on that above file.
 
   - Add square root price modal scale.  (vertical bar) This is high
     and low price square rooted, and the musical scale from that, and

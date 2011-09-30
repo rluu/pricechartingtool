@@ -1946,10 +1946,12 @@ class MainWindow(QMainWindow):
         """Opens up a dialog for printing the current selected document."""
 
         self.log.debug("Entered _print()")
+        
         # TODO: implement this _print() function.
         QMessageBox.information(self, 
                                 "Not yet implemented", 
                                 "This feature has not yet been implemented.")
+        
         self.log.debug("Exiting _print()")
 
 
@@ -3493,8 +3495,6 @@ class PriceChartDocumentWidget(QWidget):
         self.priceBarChartWidget = PriceBarChartWidget()
         self.priceBarSpreadsheetWidget = PriceBarSpreadsheetWidget()
         self.astrologyChartWidget = AstrologyChartWidget()
-        
-        # TODO:  uncomment below get the table planetary info table widget.
         #self.planetaryInfoTableWidget = PlanetaryInfoTableWidget()
 
         self.setBirthInfo(self.birthInfo)
@@ -3513,9 +3513,7 @@ class PriceChartDocumentWidget(QWidget):
         # Setup the layout.
         vlayout = QVBoxLayout()
         vlayout.addWidget(vsplitter)
-        
-        # TODO:  Uncomment to get the PlanetaryInfoTableWidget.
-        #hlayout.addWidget(self.planetaryInfoTableWidget)
+        #vlayout.addWidget(self.planetaryInfoTableWidget)
 
         self.setLayout(vlayout)
 
@@ -3532,10 +3530,8 @@ class PriceChartDocumentWidget(QWidget):
             connect(self.astrologyChartWidget.setAstroChart3Datetime)
         self.priceBarChartWidget.jhoraLaunch.\
             connect(self.handleJhoraLaunch)
-        
-        # TODO:  Uncomment to get the PlanetaryInfoTableWidget.
-        #self.priceBarChartWidget.currentTimestampChanged.\
-        #    connect(self._handleCurrentTimestampChanged)
+        self.priceBarChartWidget.currentTimestampChanged.\
+            connect(self._handleCurrentTimestampChanged)
         
     def setBirthInfo(self, birthInfo):
         """Sets the birth info for this trading entity.
@@ -3897,20 +3893,17 @@ class PriceChartDocumentWidget(QWidget):
     def clearAstroChart1(self):
         """Clears the AstroChart1."""
 
-        # TODO:  write this function.
-        pass
+        self.astrologyChartWidget.clearAstroChart1()
         
     def clearAstroChart2(self):
         """Clears the AstroChart2."""
 
-        # TODO:  write this function.
-        pass
+        self.astrologyChartWidget.clearAstroChart2()
         
     def clearAstroChart3(self):
         """Clears the AstroChart3."""
 
-        # TODO:  write this function.
-        pass
+        self.astrologyChartWidget.clearAstroChart3()
         
     def handleJhoraLaunch(self, dt):
         """Handles a launch of JHora with the given datetime.datetime.
@@ -3928,62 +3921,16 @@ class PriceChartDocumentWidget(QWidget):
         
     def _handleCurrentTimestampChanged(self, dt):
         """Handles when the current mouse cursor datetime changes.
-        This just calls certain widgets to update their
-        display of what the current time is.  For example,
-        the PlanetaryInfoTableWidget would need to have it's info reloaded
-        with the planetary locations for that timestamp.
+        This just calls certain astrology widgets to update their
+        display of what the current time is.  
         """
 
-        # TODO:  this stuff probably will be deprecated as I handle this type of stuff in AstrologyChartWidget.  The below will need to change to call teh appropriate function of AstrologyChartWidget.
-        
-        
-        # Set the location (required).
-        Ephemeris.setGeographicPosition(self.birthInfo.longitudeDegrees,
-                                        self.birthInfo.latitudeDegrees,
-                                        self.birthInfo.elevation)
-
-        # Get planetary info for all the planets.
-        planets = []
-
-        # TODO:  Add more 'planets' (planetary calculations) here as more
-        # are available.
-        
-        p = Ephemeris.getSunPlanetaryInfo(dt)
-        planets.append(p)
-        p = Ephemeris.getMoonPlanetaryInfo(dt)
-        planets.append(p)
-        p = Ephemeris.getMercuryPlanetaryInfo(dt)
-        planets.append(p)
-        p = Ephemeris.getVenusPlanetaryInfo(dt)
-        planets.append(p)
-        p = Ephemeris.getMarsPlanetaryInfo(dt)
-        planets.append(p)
-        p = Ephemeris.getJupiterPlanetaryInfo(dt)
-        planets.append(p)
-        p = Ephemeris.getSaturnPlanetaryInfo(dt)
-        planets.append(p)
-        p = Ephemeris.getUranusPlanetaryInfo(dt)
-        planets.append(p)
-        p = Ephemeris.getNeptunePlanetaryInfo(dt)
-        planets.append(p)
-        p = Ephemeris.getPlutoPlanetaryInfo(dt)
-        planets.append(p)
-        p = Ephemeris.getMeanNorthNodePlanetaryInfo(dt)
-        planets.append(p)
-        p = Ephemeris.getTrueNorthNodePlanetaryInfo(dt)
-        planets.append(p)
-        p = Ephemeris.getMeanLunarApogeePlanetaryInfo(dt)
-        planets.append(p)
-        p = Ephemeris.getOsculatingLunarApogeePlanetaryInfo(dt)
-        planets.append(p)
-        p = Ephemeris.getInterpolatedLunarApogeePlanetaryInfo(dt)
-        planets.append(p)
-        p = Ephemeris.getInterpolatedLunarPerigeePlanetaryInfo(dt)
-        planets.append(p)
-        p = Ephemeris.getEarthPlanetaryInfo(dt)
-        planets.append(p)
-        p = Ephemeris.getChironPlanetaryInfo(dt)
-        planets.append(p)
-
-        self.planetaryInfoTableWidget.load(planets)
+        if self.trackMouseToAstroChart1Enabled:
+            self.astrologyChartWidget.setAstroChart1Datetime(dt)
+            
+        if self.trackMouseToAstroChart2Enabled:
+            self.astrologyChartWidget.setAstroChart2Datetime(dt)
+            
+        if self.trackMouseToAstroChart3Enabled:
+            self.astrologyChartWidget.setAstroChart3Datetime(dt)
 
