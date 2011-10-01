@@ -679,7 +679,7 @@ class Ratio:
 
         # 0
         ratios.append(Ratio(ratio=0.000,
-                               description="",
+                               description="0x1",
                                enabled=True))
 
         # 1 / 8
@@ -729,7 +729,7 @@ class Ratio:
         
         # 1
         ratios.append(Ratio(ratio=1.000,
-                               description="",
+                               description="1x0",
                                enabled=True))
 
         return ratios
@@ -5625,6 +5625,53 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
                 lines.append(line3)
                 lines.append(line4)
                 
+                # Here in the process, I'm trying to handle special
+                # cases of 0, 90, 180, 270 degrees where the end
+                # values are easily defined since it appears to choke
+                # up the algorithm below.
+                if Util.fuzzyIsEqual(angleDeg, 0.0) or \
+                       Util.fuzzyIsEqual(angleDeg, -0.0):
+                    self.log.debug("Special case angle: 0.0")
+                    x = largestX
+                    y = scaledOriginPointF.y()
+                    
+                    # Break out of for loop since we handled the index we
+                    # were looking to process.
+                    break
+                
+                elif Util.fuzzyIsEqual(angleDeg, 90.0) or \
+                         Util.fuzzyIsEqual(angleDeg, -270.0):
+                    self.log.debug("Special case angle: 90.0")
+                    x = scaledOriginPointF.x()
+                    y = smallestY
+                    
+                    # Break out of for loop since we handled the index we
+                    # were looking to process.
+                    break
+                    
+                elif Util.fuzzyIsEqual(angleDeg, 180.0) or \
+                         Util.fuzzyIsEqual(angleDeg, -180.0):
+                    self.log.debug("Special case angle: 180.0")
+                    x = smallestX
+                    y = scaledOriginPointF.y()
+                    
+                    # Break out of for loop since we handled the index we
+                    # were looking to process.
+                    break
+                    
+                elif Util.fuzzyIsEqual(angleDeg, 270.0) or \
+                         Util.fuzzyIsEqual(angleDeg, -90.0):
+                    self.log.debug("Special case angle: 270.0")
+                    x = scaledOriginPointF.x()
+                    y = largestY
+                    
+                    # Break out of for loop since we handled the index we
+                    # were looking to process.
+                    break
+
+                else:
+                    self.log.debug("Regular case.")
+                    
                 # Get the line from scaledOriginPointF outwards at the
                 # 'angleDeg' angle.  We just don't know what length it
                 # should be.
@@ -6208,6 +6255,53 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
                 lines.append(line3)
                 lines.append(line4)
                 
+                # Here in the process, I'm trying to handle special
+                # cases of 0, 90, 180, 270 degrees where the end
+                # values are easily defined since it appears to choke
+                # up the algorithm below.
+                if Util.fuzzyIsEqual(angleDeg, 0.0) or \
+                       Util.fuzzyIsEqual(angleDeg, -0.0):
+                    self.log.debug("Special case angle: 0.0")
+                    x = largestX
+                    y = scaledOriginPointF.y()
+                    
+                    # Break out of for loop since we handled the index we
+                    # were looking to process.
+                    break
+                
+                elif Util.fuzzyIsEqual(angleDeg, 90.0) or \
+                         Util.fuzzyIsEqual(angleDeg, -270.0):
+                    self.log.debug("Special case angle: 90.0")
+                    x = scaledOriginPointF.x()
+                    y = smallestY
+                    
+                    # Break out of for loop since we handled the index we
+                    # were looking to process.
+                    break
+                    
+                elif Util.fuzzyIsEqual(angleDeg, 180.0) or \
+                         Util.fuzzyIsEqual(angleDeg, -180.0):
+                    self.log.debug("Special case angle: 180.0")
+                    x = smallestX
+                    y = scaledOriginPointF.y()
+                    
+                    # Break out of for loop since we handled the index we
+                    # were looking to process.
+                    break
+                    
+                elif Util.fuzzyIsEqual(angleDeg, 270.0) or \
+                         Util.fuzzyIsEqual(angleDeg, -90.0):
+                    self.log.debug("Special case angle: 270.0")
+                    x = scaledOriginPointF.x()
+                    y = largestY
+                    
+                    # Break out of for loop since we handled the index we
+                    # were looking to process.
+                    break
+
+                else:
+                    self.log.debug("Regular case.")
+                    
                 # Get the line from scaledOriginPointF outwards at the
                 # 'angleDeg' angle.  We just don't know what length it
                 # should be.
@@ -6680,10 +6774,9 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
         self.log.debug("Angle of leg1 to leg2 is: " +
                        "angleDegDelta == {} deg".format(angleDegDelta))
         
-        # As opposed to how things are done in the other fan tool,
-        # we don't want to do any adjusting, so the below is commented out.
-        #if angleDegDelta > 180:
-        #    angleDegDelta -= 360
+        # Adjust so that the angle is between (-180 and 180].
+        if angleDegDelta > 180:
+            angleDegDelta -= 360
         
         self.log.debug("Adjusted angle difference is: " + \
                        "angleDegDelta == {} deg".format(angleDegDelta))
@@ -6732,7 +6825,7 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
                 # Now that we have the angle, determine the
                 # intersection point along the edge of the giant
                 # rectangle.
-                
+
                 # Find the smallest x and y values, and the largest x
                 # and y values of the 3 points bounding
                 # scaledOriginPointF, from all directions:
@@ -6745,20 +6838,20 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
                 xValues.append(scaledOriginPointF.x())
                 xValues.append(scaledLeg1PointF.x())
                 xValues.append(scaledLeg2PointF.x())
-                xValues.append(scaledOriginPointF.x() - \
-                               (scaledLeg1PointF.x() - scaledOriginPointF.x()))
-                xValues.append(scaledOriginPointF.x() - \
-                               (scaledLeg2PointF.x() - scaledOriginPointF.x()))
+                #xValues.append(scaledOriginPointF.x() - \
+                #               (scaledLeg1PointF.x() - scaledOriginPointF.x()))
+                #xValues.append(scaledOriginPointF.x() - \
+                #               (scaledLeg2PointF.x() - scaledOriginPointF.x()))
 
                 
                 yValues = []
                 yValues.append(scaledOriginPointF.y())
                 yValues.append(scaledLeg1PointF.y())
                 yValues.append(scaledLeg2PointF.y())
-                yValues.append(scaledOriginPointF.y() - \
-                               (scaledLeg1PointF.y() - scaledOriginPointF.y()))
-                yValues.append(scaledOriginPointF.y() - \
-                               (scaledLeg2PointF.y() - scaledOriginPointF.y()))
+                #yValues.append(scaledOriginPointF.y() - \
+                #               (scaledLeg1PointF.y() - scaledOriginPointF.y()))
+                #yValues.append(scaledOriginPointF.y() - \
+                #               (scaledLeg2PointF.y() - scaledOriginPointF.y()))
 
                 xValues.sort()
                 yValues.sort()
@@ -6775,7 +6868,7 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
                 containingRectF = \
                     QRectF(QPointF(smallestX, smallestY),
                            QPointF(largestX, largestY))
-                
+
                 # Four lines that bound the points.
                 line1 = QLineF(smallestX, smallestY,
                                smallestX, largestY)
@@ -6790,7 +6883,54 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
                 lines.append(line2)
                 lines.append(line3)
                 lines.append(line4)
+
+                # Here in the process, I'm trying to handle special
+                # cases of 0, 90, 180, 270 degrees where the end
+                # values are easily defined since it appears to choke
+                # up the algorithm below.
+                if Util.fuzzyIsEqual(angleDeg, 0.0) or \
+                       Util.fuzzyIsEqual(angleDeg, -0.0):
+                    self.log.debug("Special case angle: 0.0")
+                    x = largestX
+                    y = scaledOriginPointF.y()
+                    
+                    # Break out of for loop since we handled the index we
+                    # were looking to process.
+                    break
                 
+                elif Util.fuzzyIsEqual(angleDeg, 90.0) or \
+                         Util.fuzzyIsEqual(angleDeg, -270.0):
+                    self.log.debug("Special case angle: 90.0")
+                    x = scaledOriginPointF.x()
+                    y = smallestY
+                    
+                    # Break out of for loop since we handled the index we
+                    # were looking to process.
+                    break
+                    
+                elif Util.fuzzyIsEqual(angleDeg, 180.0) or \
+                         Util.fuzzyIsEqual(angleDeg, -180.0):
+                    self.log.debug("Special case angle: 180.0")
+                    x = smallestX
+                    y = scaledOriginPointF.y()
+                    
+                    # Break out of for loop since we handled the index we
+                    # were looking to process.
+                    break
+                    
+                elif Util.fuzzyIsEqual(angleDeg, 270.0) or \
+                         Util.fuzzyIsEqual(angleDeg, -90.0):
+                    self.log.debug("Special case angle: 270.0")
+                    x = scaledOriginPointF.x()
+                    y = largestY
+                    
+                    # Break out of for loop since we handled the index we
+                    # were looking to process.
+                    break
+
+                else:
+                    self.log.debug("Regular case.")
+                    
                 # Get the line from scaledOriginPointF outwards at the
                 # 'angleDeg' angle.  We just don't know what length it
                 # should be.
@@ -7952,7 +8092,7 @@ class PriceBarChartSettings:
     
     # Default value for the GannFanGraphicsItem
     # ratios (list of Ratio).
-    defaultGannFanGraphicsItemRatios = Ratio.getSupportedGannRatios()
+    defaultGannFanGraphicsItemRatios = Ratio.getSupportedGannFanRatios()
     
     # Default value for the GannFanGraphicsItem bar height (float).
     defaultGannFanGraphicsItemBarHeight = 3.3

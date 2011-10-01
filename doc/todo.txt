@@ -8,6 +8,8 @@ TODO:
     file(s) are older than 3 months.  Add comment to README.txt to let
     the user know this.
 
+  - Add Gann Fan tool.
+
   - Add a clearAstroChartX(flag) function to astrologychart.py.
     and also add clearAstroChart1(flag), 2, 3.
 

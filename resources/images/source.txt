@@ -85,6 +85,7 @@ Qt licensed for use from Trolltech.
 rluu/appIcon.png
 rluu/barCount.png
 rluu/fibFan.png
+rluu/gannFan.png
 rluu/gearGreen.png       (Modified an image from Tango Icon Library)
 rluu/handClosed.png
 rluu/handOpen.png

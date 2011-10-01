@@ -20345,17 +20345,17 @@ class PriceBarChartWidget(QWidget):
                 self.log.debug("Not applying settings to " +
                                "OctaveFanGraphicsItem.")
                 # Redo calculations in case the scaling changed.
-                item.recalculateOctaveFan()
+                item.refreshItem()
             elif isinstance(item, FibFanGraphicsItem):
                 self.log.debug("Not applying settings to " +
                                "FibFanGraphicsItem.")
                 # Redo calculations in case the scaling changed.
-                item.recalculateFibFan()
+                item.refreshItem()
             elif isinstance(item, GannFanGraphicsItem):
                 self.log.debug("Not applying settings to " +
                                "GannFanGraphicsItem.")
                 # Redo calculations in case the scaling changed.
-                item.recalculateGannFan()
+                item.refreshItem()
                 
         if settingsChangedFlag == True:
             # Emit that the PriceBarChart has changed, because we have
@@ -20890,7 +20890,7 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
     def convertDatetimeToScaledValue(self, dt):
         """Converts the given datetime to the scaled value, using the
         set scaling object.  This returned value is the scaled value
-        relative to the birth time in self.birthInfo
+        relative to the birth time in self.birthInfo.  
 
         Arguments:
         dt - datetime.datetime object for the timestamp to convert to
@@ -20930,13 +20930,14 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         given scaled value.
         """
 
-        jd = scaledValue * self.scaling.getUnitsOfTime()
-
+        jdDiff = scaledValue * self.scaling.getUnitsOfTime()
+        jd = birthJd + jdDiff
+        
         if tzInfo == None:
             tzInfo = self.timezone
             
         dt = Ephemeris.julianDayToDatetime(jd, tzInfo)
-        
+
         return dt
 
     def getBirthPrice(self):
@@ -21034,7 +21035,8 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
     def convertScenePointToScaledPoint(self, pointF):
         """Converts the given QPointF from the QGraphicsScene to a
         scaled QPointF using the price and time scaling in
-        self.scaling.
+        self.scaling.  Scaled X is relative to the birth time.  Birth
+        time is scaled X value 0.
 
         Arguments:
         pointF - QPointF object holding the QGraphicsScene point that
@@ -21051,7 +21053,7 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         # we get an exception when using high scaling values:
         #
         # ValueError: year is out of range
-        
+        #
         #dt = self.sceneXPosToDatetime(sceneX)
         #price = self.sceneYPosToPrice(sceneY)
         #scaledX = self.convertDatetimeToScaledValue(dt)
@@ -21059,10 +21061,17 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
 
         # Instead, we will just do the multiply ourselves, manually,
         # and not use the ephemeris.
-        scaledX = sceneX / self.scaling.getUnitsOfTime()
+
+        # Determine the scaled X value.
+        birthDatetime = self.getBirthDatetime()
+        birthJd = Ephemeris.datetimeToJulianDay(birthDatetime)
+        currJd = sceneX
+        jdDiff = currJd - birthJd
+        scaledX = jdDiff / self.scaling.getUnitsOfTime()
+
+        # Determine the scaled Y value.
         scaledY = sceneY / self.scaling.getUnitsOfPrice()
         
-
         return QPointF(scaledX, scaledY)
 
     def convertScaledPointToScenePoint(self, pointF):
@@ -21093,8 +21102,16 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
 
         # Instead, we will just do the multiply ourselves, manually,
         # and not use the ephemeris.
-        sceneX = scaledX * self.scaling.getUnitsOfTime()
-        sceneY = scaledY * self.scaling.getUnitsOfPrice()
+
+        # Determine the scene X value.
+        birthDatetime = self.getBirthDatetime()
+        birthJd = Ephemeris.datetimeToJulianDay(birthDatetime)
+        jdDiff = scaledX * self.scaling.getUnitsOfTime()
+        jd = birthJd + jdDiff
+        sceneX = jd
+
+        # Determine the scene Y value.
+        sceneY = self.convertScaledValueToPrice(scaledY)
         
         return QPointF(sceneX, sceneY)
     
@@ -25521,11 +25538,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # coordinates.  From this information we will set
                     # the click point.
 
-                    # Get scaling if available.
-                    scaling = PriceBarChartScaling()
-                    if self.scene() != None:
-                        scaling = self.scene().getScaling()
-
+                    scaling = self.scene().getScaling()
+                    
                     viewScaledClickOnePointF = \
                         QPointF(self.clickOnePointF.x() * \
                                 scaling.getViewScalingX(),
@@ -26091,11 +26105,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # view coordinates.  From this information we will set
                 # the next click point.
 
-                # Get scaling if available.
-                scaling = PriceBarChartScaling()
-                if self.scene() != None:
-                    scaling = self.scene().getScaling()
-
+                scaling = self.scene().getScaling()
+                
                 viewScaledClickOnePointF = \
                     QPointF(self.clickOnePointF.x() * scaling.getViewScalingX(),
                             self.clickOnePointF.y() * scaling.getViewScalingY())

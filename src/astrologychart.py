@@ -3579,7 +3579,7 @@ class AstrologyChartGraphicsView(QGraphicsView):
         # parts of pricebars.  And while performance isn't as great in
         # the FullViewportUpdate mode, we dont' have many things dynamically
         # updating and changing, so it isn't too big of an issue.
-        #self.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
+        self.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
 
         # For dragging to see different parts of the view.
         self.setDragMode(QGraphicsView.ScrollHandDrag)
@@ -3654,8 +3654,8 @@ class AstrologyChartWidget(QWidget):
         # while performance isn't as great in the FullViewportUpdate mode,
         # we dont' have many things dynamically updating and changing, so
         # it isn't too big of an issue.
-        #self.graphicsView.\
-        #    setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
+        self.graphicsView.\
+            setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
 
         # Add and setup things in the QGraphicsScene.
         self.geoSidRadixChartGraphicsItem = SiderealRadixChartGraphicsItem()
@@ -4256,7 +4256,7 @@ def testSiderealRadixChartGraphicsItem():
     # parts of pricebars.  And while performance isn't as great in
     # the FullViewportUpdate mode, we dont' have many things dynamically
     # updating and changing, so it isn't too big of an issue.
-    #view.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
+    view.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
     
     item = SiderealRadixChartGraphicsItem()
     
@@ -4294,7 +4294,7 @@ def testRadixPlanetGraphicsItem():
     # parts of pricebars.  And while performance isn't as great in
     # the FullViewportUpdate mode, we dont' have many things dynamically
     # updating and changing, so it isn't too big of an issue.
-    #view.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
+    view.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
     
     chartItem = SiderealRadixChartGraphicsItem()
     
@@ -4354,7 +4354,7 @@ def testDeclinationChartGraphicsItem():
     # parts of pricebars.  And while performance isn't as great in
     # the FullViewportUpdate mode, we dont' have many things dynamically
     # updating and changing, so it isn't too big of an issue.
-    #view.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
+    view.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
     
     chartItem = DeclinationChartGraphicsItem()
     
@@ -4391,7 +4391,7 @@ def testPlanetDeclinationGraphicsItem():
     # parts of pricebars.  And while performance isn't as great in
     # the FullViewportUpdate mode, we dont' have many things dynamically
     # updating and changing, so it isn't too big of an issue.
-    #view.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
+    view.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
     
     chartItem = DeclinationChartGraphicsItem()
     scene.addItem(chartItem)
@@ -4504,7 +4504,7 @@ def testLongitudeSpeedChartGraphicsItem():
     # parts of pricebars.  And while performance isn't as great in
     # the FullViewportUpdate mode, we dont' have many things dynamically
     # updating and changing, so it isn't too big of an issue.
-    #view.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
+    view.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
     
     chartItem = LongitudeSpeedChartGraphicsItem(maxSpeed=32.0,
                                                 minSpeed=-10.0)
@@ -4543,7 +4543,7 @@ def testPlanetLongitudeSpeedGraphicsItem():
     # parts of pricebars.  And while performance isn't as great in
     # the FullViewportUpdate mode, we dont' have many things dynamically
     # updating and changing, so it isn't too big of an issue.
-    #view.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
+    view.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
     
     chartItem = LongitudeSpeedChartGraphicsItem(maxSpeed=16.0,
                                                 minSpeed=-5.0)
@@ -4668,7 +4668,7 @@ def testPlanetaryInfoTableGraphicsItem():
     # parts of pricebars.  And while performance isn't as great in
     # the FullViewportUpdate mode, we dont' have many things dynamically
     # updating and changing, so it isn't too big of an issue.
-    #view.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
+    view.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
     
     # Get the current time, which we will use to get planetary info.
     #now = datetime.datetime.utcnow()
