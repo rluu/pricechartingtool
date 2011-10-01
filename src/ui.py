@@ -422,15 +422,15 @@ class MainWindow(QMainWindow):
         # Create the FibFanToolAction
         icon = QIcon(":/images/rluu/fibFan.png")
         self.fibFanToolAction = \
-            QAction(icon, "Time Modal Scale Tool", self)
+            QAction(icon, "Fib Fan Tool", self)
         self.fibFanToolAction.setStatusTip("Fibonacci Fan Tool")
         self.fibFanToolAction.setCheckable(True)
 
         # Create the GannFanToolAction
         icon = QIcon(":/images/rluu/gannFan.png")
         self.gannFanToolAction = \
-            QAction(icon, "Time Modal Scale Tool", self)
-        self.gannFanToolAction.setStatusTip("Gannonacci Fan Tool")
+            QAction(icon, "Gann Fan Tool", self)
+        self.gannFanToolAction.setStatusTip("Gann Fan Tool")
         self.gannFanToolAction.setCheckable(True)
 
         # Create a QActionGroup because all these tool modes should be

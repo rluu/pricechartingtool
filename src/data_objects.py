@@ -679,47 +679,57 @@ class Ratio:
 
         # 0
         ratios.append(Ratio(ratio=0.000,
-                               description="0.000",
+                               description="",
                                enabled=True))
 
         # 1 / 8
         ratios.append(Ratio(ratio=0.125,
-                               description="0.125",
+                               description="1x4",
+                               enabled=True))
+        
+        # 1 / 6
+        ratios.append(Ratio(ratio=1.0/6.0,
+                               description="1x3",
                                enabled=True))
         
         # 1 / 4
         ratios.append(Ratio(ratio=0.250,
-                               description="0.250",
+                               description="1x2",
                                enabled=True))
         
         # 1 / 3
         ratios.append(Ratio(ratio=1.0/3.0,
-                               description="0.333",
+                               description="1x1.5",
                                enabled=True))
         
         # 1 / 2
         ratios.append(Ratio(ratio=0.500,
-                               description="0.500",
+                               description="1x1",
                                enabled=True))
         
         # 2 / 3
         ratios.append(Ratio(ratio=2.0/3.0,
-                               description="0.666",
+                               description="1.5x1",
                                enabled=True))
         
         # 3 / 4
         ratios.append(Ratio(ratio=0.750,
-                               description="0.750",
+                               description="2x1",
+                               enabled=True))
+        
+        # 5 / 6
+        ratios.append(Ratio(ratio=5.0/6.0,
+                               description="3x1",
                                enabled=True))
         
         # 7 / 8
         ratios.append(Ratio(ratio=0.875,
-                               description="0.875",
+                               description="4x1",
                                enabled=True))
         
         # 1
         ratios.append(Ratio(ratio=1.000,
-                               description="1.000",
+                               description="",
                                enabled=True))
 
         return ratios
