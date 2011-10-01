@@ -10669,6 +10669,11 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.gannFanGraphicsItemGroupBox = \
             self._buildGannFanGraphicsItemGroupBox()
 
+        # QGroupBox to hold the edit widgets and form for
+        # VimsottariDasaGraphicsItem.
+        self.vimsottariDasaGraphicsItemGroupBox = \
+            self._buildVimsottariDasaGraphicsItemGroupBox()
+
         # Create a QTabWidget to stack all the settings editing
         # widgets.
         self.tabWidget = QTabWidget()
@@ -10735,6 +10740,10 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         self.tabWidget.addTab(self.gannFanGraphicsItemGroupBox,
                               QIcon(":/images/rluu/gannFan.png"),
+                              "")
+
+        self.tabWidget.addTab(self.vimsottariDasaGraphicsItemGroupBox,
+                              QIcon(":/images/rluu/vimsottariDasa.png"),
                               "")
 
         # Buttons at bottom.
@@ -11174,6 +11183,21 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.\
             _handleGannFanGraphicsItemTextEnabledFlagResetButton)
 
+        self.vimsottariDasaGraphicsItemColorResetButton.clicked.\
+            connect(\
+            self._handleVimsottariDasaGraphicsItemColorResetButtonClicked)
+        self.vimsottariDasaGraphicsItemTextColorResetButton.clicked.\
+            connect(\
+            self._handleVimsottariDasaGraphicsItemTextColorResetButtonClicked)
+        self.vimsottariDasaGraphicsItemTextXScalingResetButton.clicked.\
+            connect(\
+            self._handleVimsottariDasaGraphicsItemTextXScalingResetButtonClicked)
+        self.vimsottariDasaGraphicsItemTextYScalingResetButton.clicked.\
+            connect(\
+            self._handleVimsottariDasaGraphicsItemTextYScalingResetButtonClicked)
+        self.vimsottariDasaGraphicsItemTextEnabledFlagResetButton.clicked.\
+            connect(\
+            self._handleVimsottariDasaGraphicsItemTextEnabledFlagResetButtonClicked)
 
 
         self.resetAllToDefaultButton.clicked.\
@@ -15044,6 +15068,186 @@ class PriceBarChartSettingsEditWidget(QWidget):
         
         return self.gannFanGraphicsItemGroupBox
     
+    def _buildVimsottariDasaGraphicsItemGroupBox(self):
+        """Builds the groupbox containing info to edit the
+        PriceBarChartSettings related to a VimsottariDasaGraphicsItem.
+
+        Returns:
+        QGroupBox obj containing all the created widgets.
+        """
+
+        self.vimsottariDasaGraphicsItemGroupBox = \
+            QGroupBox("VimsottariDasaGraphicsItem settings:")
+
+        # PriceBarChart vimsottariDasaGraphicsItemColor (QColor).
+        self.vimsottariDasaGraphicsItemColorLabel = \
+            QLabel("VimsottariDasaGraphicsItem color: ")
+        self.vimsottariDasaGraphicsItemColorEditButton = ColorEditPushButton()
+        self.vimsottariDasaGraphicsItemColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # PriceBarChart vimsottariDasaGraphicsItemTextColor (QColor).
+        self.vimsottariDasaGraphicsItemTextColorLabel = \
+            QLabel("VimsottariDasaGraphicsItem text color: ")
+        self.vimsottariDasaGraphicsItemTextColorEditButton = \
+            ColorEditPushButton()
+        self.vimsottariDasaGraphicsItemTextColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # vimsottariDasaGraphicsItemTextXScaling (float).
+        self.vimsottariDasaGraphicsItemTextXScalingLabel = \
+            QLabel("VimsottariDasaGraphicsItem text X scaling: ")
+        self.vimsottariDasaGraphicsItemTextXScalingSpinBox = QDoubleSpinBox()
+        self.vimsottariDasaGraphicsItemTextXScalingSpinBox.setMinimum(0.0001)
+        self.vimsottariDasaGraphicsItemTextXScalingSpinBox.setMaximum(1000.0)
+        self.vimsottariDasaGraphicsItemTextXScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # vimsottariDasaGraphicsItemTextYScaling (float).
+        self.vimsottariDasaGraphicsItemTextYScalingLabel = \
+            QLabel("VimsottariDasaGraphicsItem text Y scaling: ")
+        self.vimsottariDasaGraphicsItemTextYScalingSpinBox = QDoubleSpinBox()
+        self.vimsottariDasaGraphicsItemTextYScalingSpinBox.setMinimum(0.0001)
+        self.vimsottariDasaGraphicsItemTextYScalingSpinBox.setMaximum(1000.0)
+        self.vimsottariDasaGraphicsItemTextYScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # vimsottariDasaGraphicsItemTextEnabledFlag (bool).
+        self.vimsottariDasaGraphicsItemTextEnabledFlagLabel = \
+            QLabel("VimsottariDasaGraphicsItem text is enabled: ")
+        self.vimsottariDasaGraphicsItemTextEnabledFlagCheckBox = \
+            QCheckBox()
+        self.vimsottariDasaGraphicsItemTextEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.vimsottariDasaGraphicsItemTextEnabledFlagResetButton = \
+            QPushButton("Reset to default")
+        
+        # Grid layout.
+        gridLayout = QGridLayout()
+        r = 0
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        gridLayout.\
+            addWidget(self.vimsottariDasaGraphicsItemColorLabel,
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.vimsottariDasaGraphicsItemColorEditButton,
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(self.vimsottariDasaGraphicsItemColorResetButton,
+                      r, 2, ar)
+        r += 1
+        gridLayout.\
+            addWidget(self.vimsottariDasaGraphicsItemTextColorLabel,
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.vimsottariDasaGraphicsItemTextColorEditButton,
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(self.vimsottariDasaGraphicsItemTextColorResetButton,
+                      r, 2, ar)
+        r += 1
+        gridLayout.\
+            addWidget(self.vimsottariDasaGraphicsItemTextXScalingLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.vimsottariDasaGraphicsItemTextXScalingSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.vimsottariDasaGraphicsItemTextXScalingResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(self.vimsottariDasaGraphicsItemTextYScalingLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.vimsottariDasaGraphicsItemTextYScalingSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.vimsottariDasaGraphicsItemTextYScalingResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(self.vimsottariDasaGraphicsItemTextEnabledFlagLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.vimsottariDasaGraphicsItemTextEnabledFlagCheckBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.vimsottariDasaGraphicsItemTextEnabledFlagResetButton, 
+            r, 2, ar)
+
+        r += 1
+
+
+        self.vimsottariDasaGraphicsItemRotateDownButton = \
+            QPushButton("Rotate Down")
+        self.vimsottariDasaGraphicsItemRotateUpButton = \
+            QPushButton("Rotate Up")
+        self.vimsottariDasaGraphicsItemCheckMarkAllButton = \
+            QPushButton("Check All")
+        self.vimsottariDasaGraphicsItemCheckMarkNoneButton = \
+            QPushButton("Check None")
+        self.vimsottariDasaGraphicsItemMusicalRatiosResetButton = \
+            QPushButton("Reset to default")
+        
+        rotateButtonsLayout = QHBoxLayout()
+        rotateButtonsLayout.addWidget(\
+            self.vimsottariDasaGraphicsItemRotateDownButton)
+        rotateButtonsLayout.addWidget(\
+            self.vimsottariDasaGraphicsItemRotateUpButton)
+        rotateButtonsLayout.addWidget(\
+            self.vimsottariDasaGraphicsItemCheckMarkAllButton)
+        rotateButtonsLayout.addWidget(\
+            self.vimsottariDasaGraphicsItemCheckMarkNoneButton)
+        rotateButtonsLayout.addWidget(\
+            self.vimsottariDasaGraphicsItemMusicalRatiosResetButton)
+        rotateButtonsLayout.addStretch()
+        
+        # Layout for the musical ratio intervals.
+        self.vimsottariDasaGraphicsItemMusicalRatiosGridLayout = QGridLayout()
+
+        # Holds a list of MusicalRatio objects that is the 'working
+        # copy' in this edit widget.  This gets saved to the
+        # underlying self.priceBarChartSettings object upon clicking okay.
+        self.vimsottariDasaGraphicsItemMusicalRatios = list()
+        
+        # Holds the list of QCheckBox objects corresponding to the
+        # MusicalRatios (ordered) in the artifact. 
+        self.vimsottariDasaGraphicsItemCheckBoxes = []
+        
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addLayout(rotateButtonsLayout)
+        layout.addLayout(\
+            self.vimsottariDasaGraphicsItemMusicalRatiosGridLayout)
+        layout.addStretch()
+        
+        self.vimsottariDasaGraphicsItemGroupBox.setLayout(layout)
+
+        # Connect signals and slots.
+        self.vimsottariDasaGraphicsItemRotateDownButton.clicked.connect(\
+            self._handleVimsottariDasaGraphicsItemRotateDownButtonClicked)
+        self.vimsottariDasaGraphicsItemRotateUpButton.clicked.connect(\
+            self._handleVimsottariDasaGraphicsItemRotateUpButtonClicked)
+        self.vimsottariDasaGraphicsItemCheckMarkAllButton.clicked.connect(\
+            self._handleVimsottariDasaGraphicsItemCheckMarkAllButtonClicked)
+        self.vimsottariDasaGraphicsItemCheckMarkNoneButton.clicked.connect(\
+            self._handleVimsottariDasaGraphicsItemCheckMarkNoneButtonClicked)
+        self.vimsottariDasaGraphicsItemMusicalRatiosResetButton.clicked.\
+            connect(\
+            self.\
+            _handleVimsottariDasaGraphicsItemMusicalRatiosResetButtonClicked)
+
+        
+        return self.vimsottariDasaGraphicsItemGroupBox
+
     def loadValuesFromSettings(self, priceBarChartSettings):
         """Loads the widgets with values from the given
         PriceBarChartSettings object.
@@ -16296,6 +16500,43 @@ class PriceBarChartSettingsEditWidget(QWidget):
                 self.gannFanGraphicsItemRatioCheckBoxes[i].\
                     setCheckState(Qt.Unchecked)
         
+        # vimsottariDasaGraphicsItemColor (QColor).
+        self.vimsottariDasaGraphicsItemColorEditButton.\
+            setColor(self.priceBarChartSettings.\
+                     vimsottariDasaGraphicsItemBarColor)
+
+        # vimsottariDasaGraphicsItemTextColor (QColor).
+        self.vimsottariDasaGraphicsItemTextColorEditButton.\
+            setColor(self.priceBarChartSettings.\
+                     vimsottariDasaGraphicsItemTextColor)
+
+        # vimsottariDasaGraphicsItemTextXScaling (float).
+        self.vimsottariDasaGraphicsItemTextXScalingSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        vimsottariDasaGraphicsItemTextXScaling)
+
+        # vimsottariDasaGraphicsItemTextYScaling (float).
+        self.vimsottariDasaGraphicsItemTextYScalingSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        vimsottariDasaGraphicsItemTextYScaling)
+
+        # vimsottariDasaGraphicsItemTextEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           vimsottariDasaGraphicsItemTextEnabledFlag == True:
+
+            self.vimsottariDasaGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.vimsottariDasaGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # vimsottariDasaGraphicsItemMusicalRatios (list of MusicalRatio)
+        self.vimsottariDasaGraphicsItemMusicalRatios = \
+            copy.deepcopy(self.priceBarChartSettings.\
+                          vimsottariDasaGraphicsItemMusicalRatios)
+        self._vimsottariDasaGraphicsItemReloadMusicalRatiosGrid(\
+            self.vimsottariDasaGraphicsItemMusicalRatios)
+        
         
         self.log.debug("Exiting loadValuesFromSettings()")
         
@@ -17466,6 +17707,36 @@ class PriceBarChartSettingsEditWidget(QWidget):
                 self.priceBarChartSettings.\
                     gannFanGraphicsItemRatios[i].setEnabled(False)
         
+        # vimsottariDasaGraphicsItemTextColor (QColor).
+        self.priceBarChartSettings.vimsottariDasaGraphicsItemBarColor = \
+            self.vimsottariDasaGraphicsItemColorEditButton.getColor()
+
+        # vimsottariDasaGraphicsItemTextTextColor (QColor).
+        self.priceBarChartSettings.vimsottariDasaGraphicsItemTextColor = \
+            self.vimsottariDasaGraphicsItemTextColorEditButton.getColor()
+            
+        # vimsottariDasaGraphicsItemTextXScaling (float).
+        self.priceBarChartSettings.vimsottariDasaGraphicsItemTextXScaling = \
+            float(self.vimsottariDasaGraphicsItemTextXScalingSpinBox.value())
+
+        # vimsottariDasaGraphicsItemTextYScaling (float).
+        self.priceBarChartSettings.vimsottariDasaGraphicsItemTextYScaling = \
+            float(self.vimsottariDasaGraphicsItemTextYScalingSpinBox.value())
+        
+        # vimsottariDasaGraphicsItemTextEnabledFlag (bool).
+        if self.vimsottariDasaGraphicsItemTextEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+            
+            self.priceBarChartSettings.\
+                vimsottariDasaGraphicsItemTextEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                vimsottariDasaGraphicsItemTextEnabledFlag = False
+        
+        # vimsottariDasaGraphicsItemMusicalRatios (list of MusicalRatio)
+        self.priceBarChartSettings.vimsottariDasaGraphicsItemMusicalRatios = \
+            self.vimsottariDasaGraphicsItemMusicalRatios
+           
         self.log.debug("Exiting saveValuesToSettings()")
 
 
@@ -19707,6 +19978,248 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.gannFanGraphicsItemTextEnabledFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
             
+    def _vimsottariDasaGraphicsItemReloadMusicalRatiosGrid(self,
+                                                           musicalRatios):
+        """Clears and recreates the
+        self.vimsottariDasaGraphicsItemMusicalRatiosGridLayout
+        according to the values in 'musicalRatios'.
+
+        Arguments:
+        
+        musicalRatios - list of MusicalRatio objects to use to
+                        populate the grid layout.
+        """
+
+        musicalRatiosGridLayout = \
+            self.vimsottariDasaGraphicsItemMusicalRatiosGridLayout
+        
+        # Remove any old widgets that were in the grid layout from
+        # the grid layout..
+        for r in range(musicalRatiosGridLayout.rowCount()):
+            for c in range(musicalRatiosGridLayout.columnCount()):
+                # Get the QLayoutItem.
+                item = musicalRatiosGridLayout.itemAtPosition(r, c)
+                if item != None:
+                    # Get the widget in the layout item.
+                    widget = item.widget()
+                    if widget != None:
+                        widget.setEnabled(False)
+                        widget.setVisible(False)
+                        widget.setParent(None)
+
+                        # Actually remove the widget from the
+                        # QGridLayout.  
+                        musicalRatiosGridLayout.removeWidget(widget)
+                                
+        # Row.
+        r = 0
+        # Alignments.
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        # Create the musical ratio items in the
+        # musicalRatiosGridLayout QGridLayout.
+        self.vimsottariDasaGraphicsItemMusicalRatios = musicalRatios
+        numMusicalRatios = len(self.vimsottariDasaGraphicsItemMusicalRatios)
+
+        # Clear the checkboxes list.
+        self.vimsottariDasaGraphicsItemCheckBoxes = []
+
+        rangeUsed = range(numMusicalRatios)
+            
+        for i in rangeUsed:
+            musicalRatio = musicalRatios[i]
+            
+            checkBox = QCheckBox("{}".format(musicalRatio.getRatio()))
+
+            # Set the check state based on whether or not the musical
+            # ratio is enabled.
+            if musicalRatio.isEnabled():
+                checkBox.setCheckState(Qt.Checked)
+            else:
+                checkBox.setCheckState(Qt.Unchecked)
+
+            # Connect the signal to the slot function
+            # _handleCheckMarkToggled().  That function will update
+            # the self.artifact's musicalRatios with new check state.
+            checkBox.stateChanged.connect(\
+                self._handleVimsottariDasaGraphicsItemCheckMarkToggled)
+            
+            # Append to our list of checkboxes so that we can
+            # reference them later and see what values are used in
+            # them.  
+            self.vimsottariDasaGraphicsItemCheckBoxes.append(checkBox)
+            
+            descriptionLabel = QLabel(musicalRatio.getDescription())
+
+            # Actually add the widgets to the grid layout.
+            musicalRatiosGridLayout.\
+                addWidget(checkBox, r, 0, al)
+            musicalRatiosGridLayout.\
+                addWidget(descriptionLabel, r, 1, al)
+
+            r += 1
+
+
+    def _handleVimsottariDasaGraphicsItemCheckMarkToggled(self):
+        """Called when the user checkmarks or uncheckmarks a musical
+        ratio checkbox in the VimsottariDasaGraphicsItem groupbox widgets.
+        This will update the internally kept musicalRatio values.
+        """
+
+        # Go through all the musicalRatios in the widget, and set them
+        # as enabled or disabled in the artifact, based on the check
+        # state of the QCheckBox objects in self.checkBoxes.
+        for i in range(len(self.vimsottariDasaGraphicsItemCheckBoxes)):
+            oldValue = \
+                self.vimsottariDasaGraphicsItemMusicalRatios[i].isEnabled()
+            
+            newValue = None
+            if self.vimsottariDasaGraphicsItemCheckBoxes[i].\
+                   checkState() == Qt.Checked:
+                
+                newValue = True
+            else:
+                newValue = False
+            
+            if oldValue != newValue:
+                self.log.debug("Updating enabled state of " +
+                               "vimsottariDasaGraphicsItemMusicalRatio" +
+                               "[{}] from {} to {}".\
+                               format(i, oldValue, newValue))
+                self.vimsottariDasaGraphicsItemMusicalRatios[i].\
+                    setEnabled(newValue)
+            else:
+                #self.log.debug("No update to " +
+                #               "vimsottariDasaGraphicsItemMusicalRatio" +
+                #               "[{}]".format(i))
+                pass
+        
+    def _handleVimsottariDasaGraphicsItemRotateDownButtonClicked(self):
+        """Called when the 'Rotate Down' button is clicked."""
+
+        # Get all the musicalRatios.
+        musicalRatios = self.vimsottariDasaGraphicsItemMusicalRatios
+
+        # Put the last musical ratio in the front.
+        if len(musicalRatios) > 0:
+            lastRatio = musicalRatios.pop(len(musicalRatios) - 1)
+            musicalRatios.insert(0, lastRatio)
+
+        # Reload the musicalRatiosGrid.
+        self._vimsottariDasaGraphicsItemReloadMusicalRatiosGrid(musicalRatios)
+    
+    def _handleVimsottariDasaGraphicsItemRotateUpButtonClicked(self):
+        """Called when the 'Rotate Up' button is clicked."""
+
+        # Get all the musicalRatios.
+        musicalRatios = self.vimsottariDasaGraphicsItemMusicalRatios
+        
+        # Put the first musical ratio in the back.
+        if len(musicalRatios) > 0:
+            firstRatio = musicalRatios.pop(0)
+            musicalRatios.append(firstRatio)
+        
+        # Reload the musicalRatiosGrid.
+        self._vimsottariDasaGraphicsItemReloadMusicalRatiosGrid(musicalRatios)
+    
+    def _handleVimsottariDasaGraphicsItemCheckMarkAllButtonClicked(self):
+        """Called when the 'Check All' button is clicked."""
+
+        for checkBox in self.vimsottariDasaGraphicsItemCheckBoxes:
+            checkBox.setCheckState(Qt.Checked)
+
+        # Call this to update the internal artifact object according
+        # to what the widgets have set (in this case, the 'enabled'
+        # checkboxes).
+        self._handleVimsottariDasaGraphicsItemCheckMarkToggled()
+        
+    def _handleVimsottariDasaGraphicsItemCheckMarkNoneButtonClicked(self):
+        """Called when the 'Check None' button is clicked."""
+
+        for checkBox in self.vimsottariDasaGraphicsItemCheckBoxes:
+            checkBox.setCheckState(Qt.Unchecked)
+
+        # Call this to update the internal artifact object according
+        # to what the widgets have set (in this case, the 'enabled'
+        # checkboxes).
+        self._handleVimsottariDasaGraphicsItemCheckMarkToggled()
+
+    def _handleVimsottariDasaGraphicsItemColorResetButtonClicked(self):
+        """Called when the vimsottariDasaGraphicsItemColorResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultVimsottariDasaGraphicsItemBarColor
+        
+        self.vimsottariDasaGraphicsItemColorEditButton.setColor(value)
+
+    def _handleVimsottariDasaGraphicsItemTextColorResetButtonClicked(self):
+        """Called when the
+        vimsottariDasaGraphicsItemTextColorResetButton is clicked.
+        Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultVimsottariDasaGraphicsItemTextColor
+        
+        self.vimsottariDasaGraphicsItemTextColorEditButton.setColor(value)
+
+    def _handleVimsottariDasaGraphicsItemTextXScalingResetButtonClicked(self):
+        """Called when the vimsottariDasaGraphicsItemTextXScalingResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultVimsottariDasaGraphicsItemTextXScaling
+
+        self.vimsottariDasaGraphicsItemTextXScalingSpinBox.setValue(value)
+
+    def _handleVimsottariDasaGraphicsItemTextYScalingResetButtonClicked(self):
+        """Called when the vimsottariDasaGraphicsItemTextYScalingResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultVimsottariDasaGraphicsItemTextYScaling
+
+        self.vimsottariDasaGraphicsItemTextYScalingSpinBox.setValue(value)
+
+    def _handleVimsottariDasaGraphicsItemTextEnabledFlagResetButtonClicked(self):
+        """Called when the vimsottariDasaGraphicsItemTextEnabledFlagResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultVimsottariDasaGraphicsItemTextEnabledFlag
+
+        if value == True:
+            self.vimsottariDasaGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.vimsottariDasaGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+    def _handleVimsottariDasaGraphicsItemMusicalRatiosResetButtonClicked(self):
+        """Called when the 'Reset to default' button is clicked for
+        the VimsottariDasaGraphicsItem's MusicalRatios.
+        """
+
+        value = \
+            copy.deepcopy(PriceBarChartSettings.\
+                          defaultVimsottariDasaGraphicsItemMusicalRatios)
+        
+        self.vimsottariDasaGraphicsItemMusicalRatios = value
+        
+        self._vimsottariDasaGraphicsItemReloadMusicalRatiosGrid(\
+            self.vimsottariDasaGraphicsItemMusicalRatios)
+        
     def _handleResetAllToDefaultButtonClicked(self):
         """Called when the resetAllToDefaultButton is clicked.
         Resets the all the widget values in this widget to the default
@@ -19830,6 +20343,12 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._handleGannFanGraphicsItemBarHeightResetButtonClicked()
         self._handleGannFanGraphicsItemTextEnabledFlagResetButton()
         
+        self._handleVimsottariDasaGraphicsItemColorResetButtonClicked()
+        self._handleVimsottariDasaGraphicsItemTextColorResetButtonClicked()
+        self._handleVimsottariDasaGraphicsItemTextXScalingResetButtonClicked()
+        self._handleVimsottariDasaGraphicsItemTextYScalingResetButtonClicked()
+        self._handleVimsottariDasaGraphicsItemTextEnabledFlagResetButtonClicked()
+        self._handleVimsottariDasaGraphicsItemMusicalRatiosResetButtonClicked()
 
     def _handleOkayButtonClicked(self):
         """Called when the okay button is clicked."""

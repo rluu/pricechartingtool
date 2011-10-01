@@ -7062,6 +7062,362 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
                        PriceBarChartGannFanArtifact.__name__ +
                        " object of version {}".format(self.classVersion))
 
+class PriceBarChartVimsottariDasaArtifact(PriceBarChartArtifact):
+    """PriceBarChartArtifact that indicates the time measurement starting 
+    at the given PriceBar timestamp and the given Y offset from the 
+    center of the bar.
+    """
+    
+    def __init__(self):
+        super().__init__()
+        
+        # Set the version of this class (used for pickling and unpickling
+        # different versions of this class).
+        self.classVersion = 1
+
+        # Create the logger.
+        self.log = \
+            logging.\
+            getLogger("data_objects.PriceBarChartVimsottariDasaArtifact")
+
+        # Update the internal name so it is the artifact type plus the uuid.
+        self.internalName = "VimsottariDasa_" + str(self.uuid)
+
+        # Start and end points of the artifact.
+        self.startPointF = QPointF()
+        self.endPointF = QPointF()
+
+        # List of used musical ratios.
+        self.musicalRatios = \
+            PriceBarChartSettings.\
+                defaultVimsottariDasaGraphicsItemMusicalRatios
+        
+        # color (QColor).
+        self.color = \
+            PriceBarChartSettings.\
+                defaultVimsottariDasaGraphicsItemBarColor
+
+        # textColor (QColor).
+        self.textColor = \
+            PriceBarChartSettings.\
+                defaultVimsottariDasaGraphicsItemTextColor
+
+        # barHeight (float).
+        self.barHeight = \
+            PriceBarChartSettings.\
+                defaultVimsottariDasaGraphicsItemBarHeight
+
+        # fontSize (float).
+        self.fontSize = \
+            PriceBarChartSettings.\
+                defaultVimsottariDasaGraphicsItemFontSize
+
+        # Flag for whether or not the musicalRatios are in reverse
+        # order.  This affects how ratios are referenced (from the
+        # endpoint instead of from the startpoint).
+        self.reversedFlag = False
+
+        # Flag for whether or not the text is displayed for enabled
+        # MusicalRatios in self.musicalRatios.
+        self.textEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultVimsottariDasaGraphicsItemTextEnabledFlag
+        
+    def setStartPointF(self, startPointF):
+        """Stores the starting point of the VimsottariDasaArtifact.
+        Arguments:
+
+        startPointF - QPointF for the starting point of the artifact.
+        """
+        
+        self.startPointF = startPointF
+        
+    def getStartPointF(self):
+        """Returns the starting point of the VimsottariDasaArtifact."""
+        
+        return self.startPointF
+        
+    def setEndPointF(self, endPointF):
+        """Stores the ending point of the VimsottariDasaArtifact.
+        Arguments:
+
+        endPointF - QPointF for the ending point of the artifact.
+        """
+        
+        self.endPointF = endPointF
+        
+    def getEndPointF(self):
+        """Returns the ending point of the VimsottariDasaArtifact."""
+        
+        return self.endPointF
+
+    def getMusicalRatios(self):
+        """Returns the list of MusicalRatio objects."""
+
+        return self.musicalRatios
+        
+    def setMusicalRatios(self, musicalRatios):
+        """Sets the list of MusicalRatio objects."""
+
+        self.musicalRatios = musicalRatios
+
+    def setColor(self, color):
+        """Sets the bar color.
+        
+        Arguments:
+        color - QColor object for the bar color.
+        """
+        
+        self.color = color
+
+    def getColor(self):
+        """Gets the bar color as a QColor object."""
+        
+        return self.color
+
+    def setTextColor(self, textColor):
+        """Sets the text color.
+        
+        Arguments:
+        textColor - QColor object for the text color.
+        """
+
+        self.textColor = textColor
+        
+    def getTextColor(self):
+        """Gets the text color as a QColor object."""
+
+        return self.textColor
+        
+    def setBarHeight(self, barHeight):
+        """Sets the bar height (float)."""
+
+        self.barHeight = barHeight
+    
+    def getBarHeight(self):
+        """Returns the bar height (float)."""
+
+        return self.barHeight
+    
+    def setFontSize(self, fontSize):
+        """Sets the font size of the musical ratio text (float)."""
+
+        self.fontSize = fontSize
+    
+    def getFontSize(self):
+        """Sets the font size of the musical ratio text (float)."""
+
+        return self.fontSize
+    
+    def isReversed(self):
+        """Returns whether or not the musicalRatios are in reversed order.
+        This value is used to tell how ratios are referenced (from the
+        endpoint instead of from the startpoint).
+        """
+
+        return self.reversedFlag
+
+    def setReversed(self, reversedFlag):
+        """Sets the reversed flag.  This value is used to tell how
+        the musical ratios are referenced (from the endpoint instead of from the
+        startpoint).
+
+        Arguments:
+        reversedFlag - bool value for whether or not the musicalRatios
+                       are reversed.
+        """
+
+        self.reversedFlag = reversedFlag
+        
+    def isTextEnabled(self):
+        """Returns whether or not the text is enabled for the
+        musicalRatios that are enabled.
+        """
+
+        return self.textEnabledFlag
+
+    def setTextEnabled(self, textEnabledFlag):
+        """Sets the textEnabled flag.  This value is used to tell
+        whether or not the text is enabled for the musicalRatios that
+        are enabled.
+
+        Arguments:
+        textEnabledFlag - bool value for whether or not the text is enabled.
+        """
+
+        self.textEnabledFlag = textEnabledFlag
+        
+    def getXYForMusicalRatio(self, index):
+        """Returns the x and y location of where this musical ratio
+        would exist, based on the MusicalRatio ordering and the
+        startPoint and endPoint locations.
+
+        Arguments:
+        
+        index - int value for index into self.musicalRatios that the
+        user is looking for the musical ratio for.  This value must be
+        within the valid index limits.
+
+        Returns:
+        
+        Tuple of 2 floats, representing (x, y) point.  This is where
+        the musical ratio would exist.
+        """
+
+        self.log.debug("Entered getXYForMusicalRatio({})".format(index))
+
+        # Validate input.
+        if index < 0:
+            self.log.error("getXYForMusicalRatio(): Invalid index: {}".
+                           format(index))
+            return
+        if len(self.musicalRatios) > 0 and index >= len(self.musicalRatios):
+            self.log.error("getXYForMusicalRatio(): Index out of range: {}".
+                           format(index))
+            return
+        
+        # Return values.
+        x = None
+        y = None
+
+        startPointX = self.startPointF.x()
+        startPointY = self.startPointF.y()
+        endPointX = self.endPointF.x()
+        endPointY = self.endPointF.y()
+
+        self.log.debug("startPoint is: ({}, {})".
+                       format(startPointX, startPointY))
+        self.log.debug("endPoint is: ({}, {})".
+                       format(endPointX, endPointY))
+        
+        deltaX = endPointX - startPointX
+        deltaY = endPointY - startPointY
+        
+        self.log.debug("deltaX is: {}".format(deltaX))
+        self.log.debug("deltaY is: {}".format(deltaY))
+        
+        # Need to maintain offsets so that if the ratios are rotated a
+        # certain way, then we have the correct starting point.
+        xOffset = 0.0
+        yOffset = 0.0
+
+        
+        self.log.debug("There are {} number of musical ratios.".\
+                       format(len(self.musicalRatios)))
+
+        for i in range(len(self.musicalRatios)):
+            musicalRatio = self.musicalRatios[i]
+            
+            self.log.debug("self.musicalRatios[{}].getRatio() is: {}".\
+                           format(i, musicalRatio.getRatio()))
+            if i == 0:
+                # Store the offset for future indexes.
+                xOffset = deltaX * (musicalRatio.getRatio() - 1.0)
+                yOffset = deltaY * (musicalRatio.getRatio() - 1.0)
+
+                self.log.debug("At i == 0.  xOffset={}, yOffset={}".\
+                               format(xOffset, yOffset))
+                
+            if i == index:
+                self.log.debug("At the i == index, where i == {}.".format(i))
+                self.log.debug("MusicalRatio is: {}".\
+                               format(musicalRatio.getRatio()))
+                
+                x = (deltaX * (musicalRatio.getRatio() - 1.0)) - xOffset
+                y = (deltaY * (musicalRatio.getRatio() - 1.0)) - yOffset
+
+                self.log.debug("(x={}, y={})".format(x, y))
+
+                # Normalize x and y to be within the range of
+                # [startPointX, endPointX] and [startPointY,
+                # endPointY]
+
+                # If we are reversed, then reference the offset x and
+                # y from the end point instead of the start point.
+                if self.isReversed() == False:
+                    x = startPointX + x
+                    y = startPointY + y
+                else:
+                    x = endPointX - x
+                    y = endPointY - y
+                    
+
+                self.log.debug("Adjusting to start points, (x={}, y={})".
+                               format(x, y))
+                
+                while x < startPointX and x < endPointX:
+                    x += abs(deltaX)
+                while x > startPointX and x > endPointX:
+                    x -= abs(deltaX)
+                while y < startPointY and y < endPointY:
+                    y += abs(deltaY)
+                while y > startPointY and y > endPointY:
+                    y -= abs(deltaY)
+
+                self.log.debug("For index {}, ".format(i) +
+                               "normalized x and y from startPoint is: " +
+                               "({}, {})".format(x, y))
+
+                # Break out of for loop because we found what we are
+                # looking for, which is the x and y values.
+                break
+
+        if x == None or y == None:
+            # This means that the index requested that the person
+            # passed in as a parameter is an index that doesn't map to
+            # list length of self.musicalRatios.
+            self.log.warn("getXYForMusicalRatio(): " +
+                          "Index provided is out of range!")
+            # Reset values to 0.
+            x = 0.0
+            y = 0.0
+            
+        self.log.debug("Exiting getXYForMusicalRatio({}), ".format(index) + \
+                       "Returning ({}, {})".format(x, y))
+        return (x, y)
+
+    def __str__(self):
+        """Returns the string representation of this object."""
+
+        return self.toString()
+
+    def toString(self):
+        """Returns the string representation of this object."""
+
+        rv = Util.objToString(self)
+        
+        return rv
+
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = \
+            logging.\
+            getLogger("data_objects.PriceBarChartVimsottariDasaArtifact")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " +
+                       PriceBarChartVimsottariDasaArtifact.__name__ +
+                       " object of version {}".format(self.classVersion))
+
 class PriceBarChartScaling:
     """Class that holds information about the scaling of a PriceBarChart.
     """
@@ -8101,6 +8457,33 @@ class PriceBarChartSettings:
     # textEnabledFlag (bool).
     defaultGannFanGraphicsItemTextEnabledFlag = True
 
+    # Default musical ratios enabled in a
+    # VimsottariDasaGraphicsItem (list of MusicalRatio)
+    defaultVimsottariDasaGraphicsItemMusicalRatios = \
+        MusicalRatio.getVimsottariDasaMusicalRatios()
+    
+    # Default color for the bar of a VimsottariDasaGraphicsItem (QColor).
+    defaultVimsottariDasaGraphicsItemBarColor = QColor(Qt.black)
+
+    # Default color for the text of a VimsottariDasaGraphicsItem (QColor).
+    defaultVimsottariDasaGraphicsItemTextColor = QColor(Qt.black)
+    
+    # Default value for the VimsottariDasaGraphicsItem bar height (float).
+    defaultVimsottariDasaGraphicsItemBarHeight = 0.3
+
+    # Default value for the VimsottariDasaGraphicsItem font size (float).
+    defaultVimsottariDasaGraphicsItemFontSize = 1.20
+
+    # Default value for the VimsottariDasaGraphicsItem text X scaling (float).
+    defaultVimsottariDasaGraphicsItemTextXScaling = 1
+
+    # Default value for the VimsottariDasaGraphicsItem text Y scaling (float).
+    defaultVimsottariDasaGraphicsItemTextYScaling = 0.2
+
+    # Default value for the VimsottariDasaGraphicsItem
+    # textEnabledFlag (bool).
+    defaultVimsottariDasaGraphicsItemTextEnabledFlag = True
+
 
 
     def __init__(self):
@@ -8933,6 +9316,36 @@ class PriceBarChartSettings:
         self.gannFanGraphicsItemTextEnabledFlag = \
             PriceBarChartSettings.\
             defaultGannFanGraphicsItemTextEnabledFlag
+
+        # VimsottariDasaGraphicsItem musical ratios (list of MusicalRatio).
+        self.vimsottariDasaGraphicsItemMusicalRatios = \
+            PriceBarChartSettings.\
+                defaultVimsottariDasaGraphicsItemMusicalRatios
+
+        # VimsottariDasaGraphicsItem bar color (QColor).
+        self.vimsottariDasaGraphicsItemBarColor = \
+            PriceBarChartSettings.\
+                defaultVimsottariDasaGraphicsItemBarColor
+
+        # VimsottariDasaGraphicsItem text color (QColor).
+        self.vimsottariDasaGraphicsItemTextColor = \
+            PriceBarChartSettings.\
+                defaultVimsottariDasaGraphicsItemTextColor
+
+        # VimsottariDasaGraphicsItem text X scaling (float).
+        self.vimsottariDasaGraphicsItemTextXScaling = \
+            PriceBarChartSettings.\
+                defaultVimsottariDasaGraphicsItemTextXScaling
+
+        # VimsottariDasaGraphicsItem text Y scaling (float).
+        self.vimsottariDasaGraphicsItemTextYScaling = \
+            PriceBarChartSettings.\
+                defaultVimsottariDasaGraphicsItemTextYScaling
+
+        # VimsottariDasaGraphicsItem textEnabledFlag (bool).
+        self.vimsottariDasaGraphicsItemTextEnabledFlag = \
+            PriceBarChartSettings.\
+                defaultVimsottariDasaGraphicsItemTextEnabledFlag
 
 
     def __getstate__(self):

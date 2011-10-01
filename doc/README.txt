@@ -112,6 +112,7 @@ Snap key bindings are supported for the following tools:
   - OctaveFanTool
   - FibFanTool
   - GannFanTool
+  - VimsottariDasaTool
   
 ##############################################################################
 
