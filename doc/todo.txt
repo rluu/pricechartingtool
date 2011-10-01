@@ -4,19 +4,15 @@ Outstanding things to work on going forward:
 
 TODO:  
 
-  - Programmatically write code to remove the temp .jhd files if the
-    file(s) are older than 3 months.  Add comment to README.txt to let
-    the user know this.
+  - Ruler for Vimsottari dasa (draggable ends and middle).
+      - Dialog to edit start and end datetime.
+      - Option to modify lifespan (i.e. timerange).
 
-  - Add Gann Fan tool.
+  - Ruler for all the other dasas like dwi saptati sama dasa
+      (draggable ends and middle).
 
-  - Add a clearAstroChartX(flag) function to astrologychart.py.
-    and also add clearAstroChart1(flag), 2, 3.
-
-  - Add to pricebarchart.py a signal to bubble up the current mouse
-    position so that ui.py's PriceChartDocumentWidget can handle it
-    and figure out whether or not to propagate that to the astrology
-    chart.
+      - Dialog to edit start and end datetime.
+      - Option to modify lifespan (i.e. timerange).
 
   - Set sensible defaults for TimeMeasurementTool (which text to have
     displayed by default).
@@ -130,24 +126,15 @@ TODO:
          - Irrational and suspected irrational numbers
          - Hypercomplex numbers
 
-  - Ruler for Vimsottari dasa (draggable ends and middle).
-      - Dialog to edit start and end datetime.
-      - Option to modify lifespan (i.e. timerange).
-
-  - Ruler for all the other dasas like dwi saptati sama dasa
-      (draggable ends and middle).
-
-      - Dialog to edit start and end datetime.
-      - Option to modify lifespan (i.e. timerange).
-
   - Modal charts (implement later?):
       Chart with pricebars in Trading Days (TDs).
       Chart with pricebars in Calendar Days (CDs).
 
   - Narayana Dasa  --> How to implement this?
 
-  - Should snap be added also to when the user tries to drag
-    endpoints of various measurement widgets?  --> probably not.
+  - Programmatically write code to remove the temp .jhd files if the
+    file(s) are older than 3 months.  Add comment to README.txt to let
+    the user know this.
 
   - In the astrologychart.SiderealRadixGraphicsItem, clean up the
     code.  Parameterize the pen/brush so that it has foreground color
@@ -156,14 +143,6 @@ TODO:
     and other charts on top of it.
 
   - Add other QGraphicsItems and functionality for the astrology chart.
-
-  - Need to create icons for the different new modes for creating indicators.
-     - BarCount
-     - etc.
-
-  - Need to implement 'snap' functionality, for snapping to a whole bar, 
-    bottom/top of a bar, or to the closest integer X (day) for 
-    charting the astro chart.
 
   - Turn the __main__() functions in each source file into a list of
     calls to testXXXXX() functions... one for each of the classes
@@ -178,8 +157,6 @@ TODO:
     (shad bala and ashtakavarga).
 
   - Need to implement the following:
-     - traditional circle astro charts.
-        - May need zoom for this.
      - vedic astro charts.
      - square of 9 and other number charts.
         - May need zoom for this.
