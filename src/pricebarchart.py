@@ -19470,7 +19470,7 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             setColor(self.vimsottariDasaGraphicsItemTextColor)
 
         # Degrees of text rotation.
-        self.rotationDegrees = 90.0
+        self.rotationDegrees = 0.0
         
         # Size scaling for the text.
         textTransform = QTransform()
@@ -19481,9 +19481,9 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Below is a 2-dimensional list of (2
         # QGraphicsSimpleTextItems), for each of the MusicalRatios in
         # the PriceBarChartVimsottariDasaArtifact.  The 2 texts displayed
-        # for each MusicalRatio is:
+        # for each MusicalRatio are:
         #
-        # 1) Fraction (or float if no numerator and no denominator is set).
+        # 1) Dasa lord.
         # 2) Timestamp value.
         #
         self.musicalRatioTextItems = []
@@ -19498,12 +19498,12 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             verticalTickItem.setPos(self.endPointF)
             verticalTickItem.setPen(self.vimsottariDasaPen)
             
-            fractionTextItem = QGraphicsSimpleTextItem("", self)
-            fractionTextItem.setPos(self.endPointF)
-            fractionTextItem.setFont(self.vimsottariDasaTextFont)
-            fractionTextItem.setPen(self.vimsottariDasaTextPen)
-            fractionTextItem.setBrush(self.vimsottariDasaTextBrush)
-            fractionTextItem.setTransform(textTransform)
+            dasaLordTextItem = QGraphicsSimpleTextItem("", self)
+            dasaLordTextItem.setPos(self.endPointF)
+            dasaLordTextItem.setFont(self.vimsottariDasaTextFont)
+            dasaLordTextItem.setPen(self.vimsottariDasaTextPen)
+            dasaLordTextItem.setBrush(self.vimsottariDasaTextBrush)
+            dasaLordTextItem.setTransform(textTransform)
             
             timestampTextItem = QGraphicsSimpleTextItem("", self)
             timestampTextItem.setPos(self.endPointF)
@@ -19513,7 +19513,7 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             timestampTextItem.setTransform(textTransform)
             
             self.musicalRatioTextItems.\
-                append([fractionTextItem, timestampTextItem])
+                append([dasaLordTextItem, timestampTextItem])
 
             self.verticalTickItems.append(verticalTickItem)
 
@@ -19842,13 +19842,18 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 # set the position.
                 for j in range(len(listOfTextItems)):
                     textItem = listOfTextItems[j]
-                    # The position set is not exactly at (x, y),
-                    # but instead at an offset slightly below that
-                    # point so that multiple texts dont' overlap
-                    # each other.
-                    offsetX = (textItem.boundingRect().height() * 0.54) * j
-                    textItem.setPos(QPointF(pointF.x() - offsetX,
-                                            pointF.y()))
+                    # The position set is not exactly at (x, y), but
+                    # instead at a slight offset so that it is more
+                    # visible.
+                    if j == 0:
+                        # Dasa lord.
+                        offsetX = (textItem.boundingRect().height() * 0.16)
+                        textItem.setPos(QPointF(pointF.x() + offsetX,
+                                                pointF.y()))
+                    elif j == 1:
+                        # Timestamp.
+                        textItem.setPos(pointF)
+                        
                     textItem.setFont(self.vimsottariDasaTextFont)
                     textItem.setPen(self.vimsottariDasaTextPen)
                     textItem.setBrush(self.vimsottariDasaTextBrush)
@@ -19962,32 +19967,25 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
                             continue
                     
                         if j == 0:
-                            # Fraction text.  This is either the
-                            # fraction (if the numerator and
-                            # denominator are available), or the float
-                            # value for the ratio.
+                            # Dasa lord text.
+                            textItem.setText(musicalRatio.getDescription())
                             
-                            numerator = musicalRatio.getNumerator()
-                            denominator = musicalRatio.getDenominator()
-                            
-                            if numerator != None and denominator != None:
-                                fractionText = \
-                                    "{}/{}".format(numerator, denominator)
-                                textItem.setText(fractionText)
-                            else:
-                                ratio = musicalRatio.getRatio()
-                                ratioText = "{}".format(ratio)
-                                textItem.setText(ratioText)
                         elif j == 1:
                             # Timestamp text.
-                            
+
+                            # For this particular graphics item, we'll not have
+                            # a timestamp text.
+                            textItem.setEnabled(False)
+                            textItem.setVisible(False)
+                            continue
+                        
                             # Get the x location and then convert to a datetime.
-                            (x, y) = artifact.getXYForMusicalRatio(i)
-                            timestamp = \
-                                self.scene().sceneXPosToDatetime(x)
-                            timestampText = \
-                                Ephemeris.datetimeToDayStr(timestamp)
-                            textItem.setText(timestampText)
+                            #(x, y) = artifact.getXYForMusicalRatio(i)
+                            #timestamp = \
+                            #    self.scene().sceneXPosToDatetime(x)
+                            #timestampText = \
+                            #    Ephemeris.datetimeToDayStr(timestamp)
+                            #textItem.setText(timestampText)
 
                     # Also enable and set the vertical tick line.
                     self.verticalTickItems[i].setVisible(True)

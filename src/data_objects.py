@@ -24,8 +24,14 @@ from PyQt4.QtCore import QPointF
 from PyQt4.QtCore import QLineF
 from PyQt4.QtCore import QRectF
 
+# For getting QSettings values.
+from PyQt4.QtCore import QSettings
+
 # For datetime.datetime to str conversion.
 from ephemeris import Ephemeris
+
+# For QSettings keys.
+from settings import SettingsKeys
 
 class Util:
     """Contains some generic static functions that may be helpful."""
@@ -1258,6 +1264,8 @@ class MusicalRatio(Ratio):
         # Return value.
         ratios = []
 
+        settings = QSettings()
+
         ketu = 7.0
         venus = 20.0
         sun = 6.0
@@ -1272,72 +1280,223 @@ class MusicalRatio(Ratio):
         
         # Ketu.
         ketuStart = 0.0
+        key = SettingsKeys.planetMeanSouthNodeAbbreviationKey
+        defaultValue = SettingsKeys.planetMeanSouthNodeAbbreviationDefValue
+        ketuDescription = settings.value(key, defaultValue)
         ratios.append(MusicalRatio(ratio=float(ketuStart / total),
-                                   description="\u260a",
+                                   description=ketuDescription,
                                    numerator=int(ketuStart),
                                    denominator=int(total),
                                    enabled=True))
 
         # Venus.
         venusStart = ketuStart + ketu
+        key = SettingsKeys.planetVenusAbbreviationKey
+        defaultValue = SettingsKeys.planetVenusAbbreviationDefValue
+        venusDescription = settings.value(key, defaultValue)
         ratios.append(MusicalRatio(ratio=float(venusStart / total),
-                                   description="\u2640",
+                                   description=venusDescription,
                                    numerator=int(venusStart),
                                    denominator=int(total),
                                    enabled=True))
         
         # Sun.
         sunStart = venusStart + venus
+        key = SettingsKeys.planetSunAbbreviationKey
+        defaultValue = SettingsKeys.planetSunAbbreviationDefValue
+        sunDescription = settings.value(key, defaultValue)
         ratios.append(MusicalRatio(ratio=float(sunStart / total),
-                                   description="\u2609",
+                                   description=sunDescription,
                                    numerator=int(sunStart),
                                    denominator=int(total),
                                    enabled=True))
 
         # Moon.
         moonStart = sunStart + sun
+        key = SettingsKeys.planetMoonAbbreviationKey
+        defaultValue = SettingsKeys.planetMoonAbbreviationDefValue
+        moonDescription = settings.value(key, defaultValue)
         ratios.append(MusicalRatio(ratio=float(moonStart / total),
-                                   description="\u263d",
+                                   description=moonDescription,
                                    numerator=int(moonStart),
                                    denominator=int(total),
                                    enabled=True))
 
         # Mars.
         marsStart = moonStart + moon
+        key = SettingsKeys.planetMarsAbbreviationKey
+        defaultValue = SettingsKeys.planetMarsAbbreviationDefValue
+        marsDescription = settings.value(key, defaultValue)
         ratios.append(MusicalRatio(ratio=float(marsStart / total),
-                                   description="\u2642",
+                                   description=marsDescription,
                                    numerator=int(marsStart),
                                    denominator=int(total),
                                    enabled=True))
 
         # Rahu.
         rahuStart = marsStart + mars
+        key = SettingsKeys.planetMeanNorthNodeAbbreviationKey
+        defaultValue = SettingsKeys.planetMeanNorthNodeAbbreviationDefValue
+        rahuDescription = settings.value(key, defaultValue)
         ratios.append(MusicalRatio(ratio=float(rahuStart / total),
-                                   description="\u260a",
+                                   description=rahuDescription,
                                    numerator=int(rahuStart),
                                    denominator=int(total),
                                    enabled=True))
 
         # Jupiter.
         jupiterStart = rahuStart + rahu
+        key = SettingsKeys.planetJupiterAbbreviationKey
+        defaultValue = SettingsKeys.planetJupiterAbbreviationDefValue
+        jupiterDescription = settings.value(key, defaultValue)
         ratios.append(MusicalRatio(ratio=float(jupiterStart / total),
-                                   description="\u2643",
+                                   description=jupiterDescription,
                                    numerator=int(jupiterStart),
                                    denominator=int(total),
                                    enabled=True))
 
         # Saturn.
         saturnStart = jupiterStart + jupiter
+        key = SettingsKeys.planetSaturnAbbreviationKey
+        defaultValue = SettingsKeys.planetSaturnAbbreviationDefValue
+        saturnDescription = settings.value(key, defaultValue)
         ratios.append(MusicalRatio(ratio=float(saturnStart / total),
-                                   description="\u2644",
+                                   description=saturnDescription,
                                    numerator=int(saturnStart),
                                    denominator=int(total),
                                    enabled=True))
 
         # Mercury.
         mercuryStart = saturnStart + saturn
+        key = SettingsKeys.planetMercuryAbbreviationKey
+        defaultValue = SettingsKeys.planetMercuryAbbreviationDefValue
+        mercuryDescription = settings.value(key, defaultValue)
         ratios.append(MusicalRatio(ratio=float(mercuryStart / total),
-                                   description="\u263f",
+                                   description=mercuryDescription,
+                                   numerator=int(mercuryStart),
+                                   denominator=int(total),
+                                   enabled=True))
+
+        return ratios
+    
+    @staticmethod
+    def getAshtottariDasaMusicalRatios():
+        """Returns a list of MusicalRatio objects that we plan on
+        supporting for Ashtottari dasa in this application.
+        """
+
+        # TODO:  fix this function so that the ratios used are correct for Astottari dasa.
+        
+        # Return value.
+        ratios = []
+
+        ketu = 7.0
+        venus = 20.0
+        sun = 6.0
+        moon = 10.0
+        mars = 7.0
+        rahu = 18.0
+        jupiter = 16.0
+        saturn = 19.0
+        mercury = 17.0
+        
+        total = 120.0
+        
+        # Ketu.
+        ketuStart = 0.0
+        key = SettingsKeys.planetMeanSouthNodeAbbreviationKey
+        defaultValue = SettingsKeys.planetMeanSouthNodeAbbreviationDefValue
+        ketuDescription = settings.value(key, defaultValue)
+        ratios.append(MusicalRatio(ratio=float(ketuStart / total),
+                                   description=ketuDescription,
+                                   numerator=int(ketuStart),
+                                   denominator=int(total),
+                                   enabled=True))
+
+        # Venus.
+        venusStart = ketuStart + ketu
+        key = SettingsKeys.planetVenusAbbreviationKey
+        defaultValue = SettingsKeys.planetVenusAbbreviationDefValue
+        venusDescription = settings.value(key, defaultValue)
+        ratios.append(MusicalRatio(ratio=float(venusStart / total),
+                                   description=venusDescription,
+                                   numerator=int(venusStart),
+                                   denominator=int(total),
+                                   enabled=True))
+        
+        # Sun.
+        sunStart = venusStart + venus
+        key = SettingsKeys.planetSunAbbreviationKey
+        defaultValue = SettingsKeys.planetSunAbbreviationDefValue
+        sunDescription = settings.value(key, defaultValue)
+        ratios.append(MusicalRatio(ratio=float(sunStart / total),
+                                   description=sunDescription,
+                                   numerator=int(sunStart),
+                                   denominator=int(total),
+                                   enabled=True))
+
+        # Moon.
+        moonStart = sunStart + sun
+        key = SettingsKeys.planetMoonAbbreviationKey
+        defaultValue = SettingsKeys.planetMoonAbbreviationDefValue
+        moonDescription = settings.value(key, defaultValue)
+        ratios.append(MusicalRatio(ratio=float(moonStart / total),
+                                   description=moonDescription,
+                                   numerator=int(moonStart),
+                                   denominator=int(total),
+                                   enabled=True))
+
+        # Mars.
+        marsStart = moonStart + moon
+        key = SettingsKeys.planetMarsAbbreviationKey
+        defaultValue = SettingsKeys.planetMarsAbbreviationDefValue
+        marsDescription = settings.value(key, defaultValue)
+        ratios.append(MusicalRatio(ratio=float(marsStart / total),
+                                   description=marsDescription,
+                                   numerator=int(marsStart),
+                                   denominator=int(total),
+                                   enabled=True))
+
+        # Rahu.
+        rahuStart = marsStart + mars
+        key = SettingsKeys.planetMeanNorthNodeAbbreviationKey
+        defaultValue = SettingsKeys.planetMeanNorthNodeAbbreviationDefValue
+        rahuDescription = settings.value(key, defaultValue)
+        ratios.append(MusicalRatio(ratio=float(rahuStart / total),
+                                   description=rahuDescription,
+                                   numerator=int(rahuStart),
+                                   denominator=int(total),
+                                   enabled=True))
+
+        # Jupiter.
+        jupiterStart = rahuStart + rahu
+        key = SettingsKeys.planetJupiterAbbreviationKey
+        defaultValue = SettingsKeys.planetJupiterAbbreviationDefValue
+        jupiterDescription = settings.value(key, defaultValue)
+        ratios.append(MusicalRatio(ratio=float(jupiterStart / total),
+                                   description=jupiterDescription,
+                                   numerator=int(jupiterStart),
+                                   denominator=int(total),
+                                   enabled=True))
+
+        # Saturn.
+        saturnStart = jupiterStart + jupiter
+        key = SettingsKeys.planetSaturnAbbreviationKey
+        defaultValue = SettingsKeys.planetSaturnAbbreviationDefValue
+        saturnDescription = settings.value(key, defaultValue)
+        ratios.append(MusicalRatio(ratio=float(saturnStart / total),
+                                   description=saturnDescription,
+                                   numerator=int(saturnStart),
+                                   denominator=int(total),
+                                   enabled=True))
+
+        # Mercury.
+        mercuryStart = saturnStart + saturn
+        key = SettingsKeys.planetMercuryAbbreviationKey
+        defaultValue = SettingsKeys.planetMercuryAbbreviationDefValue
+        mercuryDescription = settings.value(key, defaultValue)
+        ratios.append(MusicalRatio(ratio=float(mercuryStart / total),
+                                   description=mercuryDescription,
                                    numerator=int(mercuryStart),
                                    denominator=int(total),
                                    enabled=True))
