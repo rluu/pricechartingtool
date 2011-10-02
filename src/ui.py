@@ -436,9 +436,16 @@ class MainWindow(QMainWindow):
         # Create the VimsottariDasaToolAction
         icon = QIcon(":/images/rluu/vimsottariDasa.png")
         self.vimsottariDasaToolAction = \
-            QAction(icon, "Time Modal Scale Tool", self)
+            QAction(icon, "Vimsottari Dasa Tool", self)
         self.vimsottariDasaToolAction.setStatusTip("Vimsottari Dasa Tool")
         self.vimsottariDasaToolAction.setCheckable(True)
+
+        # Create the AshtottariDasaToolAction
+        icon = QIcon(":/images/rluu/ashtottariDasa.png")
+        self.ashtottariDasaToolAction = \
+            QAction(icon, "Ashtottari Dasa Tool", self)
+        self.ashtottariDasaToolAction.setStatusTip("Ashtottari Dasa Tool")
+        self.ashtottariDasaToolAction.setCheckable(True)
 
         # Create a QActionGroup because all these tool modes should be
         # exclusive.  
@@ -464,6 +471,7 @@ class MainWindow(QMainWindow):
         self.toolActionGroup.addAction(self.fibFanToolAction)
         self.toolActionGroup.addAction(self.gannFanToolAction)
         self.toolActionGroup.addAction(self.vimsottariDasaToolAction)
+        self.toolActionGroup.addAction(self.ashtottariDasaToolAction)
         self.toolActionGroup.triggered.connect(self._toolsActionTriggered)
             
         # Default to the ReadOnlyPointerTool being checked by default.
@@ -609,6 +617,7 @@ class MainWindow(QMainWindow):
         self.toolsMenu.addAction(self.fibFanToolAction)
         self.toolsMenu.addAction(self.gannFanToolAction)
         self.toolsMenu.addAction(self.vimsottariDasaToolAction)
+        self.toolsMenu.addAction(self.ashtottariDasaToolAction)
 
         # Create the Window menu.
         self.windowMenu = self.menuBar().addMenu("&Window")
@@ -669,6 +678,7 @@ class MainWindow(QMainWindow):
         self.toolsToolBar.addAction(self.fibFanToolAction)
         self.toolsToolBar.addAction(self.gannFanToolAction)
         self.toolsToolBar.addAction(self.vimsottariDasaToolAction)
+        self.toolsToolBar.addAction(self.ashtottariDasaToolAction)
 
     def _createStatusBar(self):
         """Creates the QStatusBar by showing the message "Ready"."""
@@ -748,6 +758,7 @@ class MainWindow(QMainWindow):
         self.fibFanToolAction.setEnabled(isActive)
         self.gannFanToolAction.setEnabled(isActive)
         self.vimsottariDasaToolAction.setEnabled(isActive)
+        self.ashtottariDasaToolAction.setEnabled(isActive)
 
         self.closeChartAction.setEnabled(isActive)
         self.closeAllChartsAction.setEnabled(isActive)
@@ -813,6 +824,8 @@ class MainWindow(QMainWindow):
                 priceChartDocument.toGannFanToolMode()
             elif self.vimsottariDasaToolAction.isChecked():
                 priceChartDocument.toVimsottariDasaToolMode()
+            elif self.ashtottariDasaToolAction.isChecked():
+                priceChartDocument.toAshtottariDasaToolMode()
             else:
                 self.log.warn("No ToolMode QAction is currently selected!")
 
@@ -2505,6 +2518,10 @@ class MainWindow(QMainWindow):
             self.log.debug("vimsottariDasaToolAction triggered.")
             self.mostRecentGraphicsItemToolModeAction = qaction
             pcd.toVimsottariDasaToolMode()
+        elif qaction == self.ashtottariDasaToolAction:
+            self.log.debug("ashtottariDasaToolAction triggered.")
+            self.mostRecentGraphicsItemToolModeAction = qaction
+            pcd.toAshtottariDasaToolMode()
         else:
             self.log.warn("Unknown Tools QAction selected!  " + \
                 "There might be something wrong with the code, or " + \
@@ -2602,6 +2619,7 @@ Snap key bindings are supported for the following tools:
   - FibFanTool
   - GannFanTool
   - VimsottariDasaTool
+  - AshtottariDasaTool
 """
         
         QMessageBox.about(self, title, message)
@@ -3380,6 +3398,11 @@ class PriceChartDocument(QMdiSubWindow):
 
         self.widgets.toVimsottariDasaToolMode()
 
+    def toAshtottariDasaToolMode(self):
+        """Changes the tool mode to be the AshtottariDasaTool."""
+
+        self.widgets.toAshtottariDasaToolMode()
+
     def handleJhoraLaunch(self, dt, birthInfo):
         """Handles a launch of JHora with the given datetime.datetime.
         This function assumes that the birth information is available
@@ -3825,6 +3848,11 @@ class PriceChartDocumentWidget(QWidget):
         """Changes the tool mode to be the VimsottariDasaTool."""
 
         self.priceBarChartWidget.toVimsottariDasaToolMode()
+
+    def toAshtottariDasaToolMode(self):
+        """Changes the tool mode to be the AshtottariDasaTool."""
+
+        self.priceBarChartWidget.toAshtottariDasaToolMode()
 
     def _handleWidgetChanged(self):
         """Handles when the internal widget has some kind of change

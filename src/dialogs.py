@@ -10674,6 +10674,11 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.vimsottariDasaGraphicsItemGroupBox = \
             self._buildVimsottariDasaGraphicsItemGroupBox()
 
+        # QGroupBox to hold the edit widgets and form for
+        # AshtottariDasaGraphicsItem.
+        self.ashtottariDasaGraphicsItemGroupBox = \
+            self._buildAshtottariDasaGraphicsItemGroupBox()
+
         # Create a QTabWidget to stack all the settings editing
         # widgets.
         self.tabWidget = QTabWidget()
@@ -10744,6 +10749,10 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         self.tabWidget.addTab(self.vimsottariDasaGraphicsItemGroupBox,
                               QIcon(":/images/rluu/vimsottariDasa.png"),
+                              "")
+
+        self.tabWidget.addTab(self.ashtottariDasaGraphicsItemGroupBox,
+                              QIcon(":/images/rluu/ashtottariDasa.png"),
                               "")
 
         # Buttons at bottom.
@@ -11198,6 +11207,22 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.vimsottariDasaGraphicsItemTextEnabledFlagResetButton.clicked.\
             connect(\
             self._handleVimsottariDasaGraphicsItemTextEnabledFlagResetButtonClicked)
+
+        self.ashtottariDasaGraphicsItemColorResetButton.clicked.\
+            connect(\
+            self._handleAshtottariDasaGraphicsItemColorResetButtonClicked)
+        self.ashtottariDasaGraphicsItemTextColorResetButton.clicked.\
+            connect(\
+            self._handleAshtottariDasaGraphicsItemTextColorResetButtonClicked)
+        self.ashtottariDasaGraphicsItemTextXScalingResetButton.clicked.\
+            connect(\
+            self._handleAshtottariDasaGraphicsItemTextXScalingResetButtonClicked)
+        self.ashtottariDasaGraphicsItemTextYScalingResetButton.clicked.\
+            connect(\
+            self._handleAshtottariDasaGraphicsItemTextYScalingResetButtonClicked)
+        self.ashtottariDasaGraphicsItemTextEnabledFlagResetButton.clicked.\
+            connect(\
+            self._handleAshtottariDasaGraphicsItemTextEnabledFlagResetButtonClicked)
 
 
         self.resetAllToDefaultButton.clicked.\
@@ -15248,6 +15273,186 @@ class PriceBarChartSettingsEditWidget(QWidget):
         
         return self.vimsottariDasaGraphicsItemGroupBox
 
+    def _buildAshtottariDasaGraphicsItemGroupBox(self):
+        """Builds the groupbox containing info to edit the
+        PriceBarChartSettings related to a AshtottariDasaGraphicsItem.
+
+        Returns:
+        QGroupBox obj containing all the created widgets.
+        """
+
+        self.ashtottariDasaGraphicsItemGroupBox = \
+            QGroupBox("AshtottariDasaGraphicsItem settings:")
+
+        # PriceBarChart ashtottariDasaGraphicsItemColor (QColor).
+        self.ashtottariDasaGraphicsItemColorLabel = \
+            QLabel("AshtottariDasaGraphicsItem color: ")
+        self.ashtottariDasaGraphicsItemColorEditButton = ColorEditPushButton()
+        self.ashtottariDasaGraphicsItemColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # PriceBarChart ashtottariDasaGraphicsItemTextColor (QColor).
+        self.ashtottariDasaGraphicsItemTextColorLabel = \
+            QLabel("AshtottariDasaGraphicsItem text color: ")
+        self.ashtottariDasaGraphicsItemTextColorEditButton = \
+            ColorEditPushButton()
+        self.ashtottariDasaGraphicsItemTextColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # ashtottariDasaGraphicsItemTextXScaling (float).
+        self.ashtottariDasaGraphicsItemTextXScalingLabel = \
+            QLabel("AshtottariDasaGraphicsItem text X scaling: ")
+        self.ashtottariDasaGraphicsItemTextXScalingSpinBox = QDoubleSpinBox()
+        self.ashtottariDasaGraphicsItemTextXScalingSpinBox.setMinimum(0.0001)
+        self.ashtottariDasaGraphicsItemTextXScalingSpinBox.setMaximum(1000.0)
+        self.ashtottariDasaGraphicsItemTextXScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # ashtottariDasaGraphicsItemTextYScaling (float).
+        self.ashtottariDasaGraphicsItemTextYScalingLabel = \
+            QLabel("AshtottariDasaGraphicsItem text Y scaling: ")
+        self.ashtottariDasaGraphicsItemTextYScalingSpinBox = QDoubleSpinBox()
+        self.ashtottariDasaGraphicsItemTextYScalingSpinBox.setMinimum(0.0001)
+        self.ashtottariDasaGraphicsItemTextYScalingSpinBox.setMaximum(1000.0)
+        self.ashtottariDasaGraphicsItemTextYScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # ashtottariDasaGraphicsItemTextEnabledFlag (bool).
+        self.ashtottariDasaGraphicsItemTextEnabledFlagLabel = \
+            QLabel("AshtottariDasaGraphicsItem text is enabled: ")
+        self.ashtottariDasaGraphicsItemTextEnabledFlagCheckBox = \
+            QCheckBox()
+        self.ashtottariDasaGraphicsItemTextEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.ashtottariDasaGraphicsItemTextEnabledFlagResetButton = \
+            QPushButton("Reset to default")
+        
+        # Grid layout.
+        gridLayout = QGridLayout()
+        r = 0
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        gridLayout.\
+            addWidget(self.ashtottariDasaGraphicsItemColorLabel,
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.ashtottariDasaGraphicsItemColorEditButton,
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(self.ashtottariDasaGraphicsItemColorResetButton,
+                      r, 2, ar)
+        r += 1
+        gridLayout.\
+            addWidget(self.ashtottariDasaGraphicsItemTextColorLabel,
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.ashtottariDasaGraphicsItemTextColorEditButton,
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(self.ashtottariDasaGraphicsItemTextColorResetButton,
+                      r, 2, ar)
+        r += 1
+        gridLayout.\
+            addWidget(self.ashtottariDasaGraphicsItemTextXScalingLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.ashtottariDasaGraphicsItemTextXScalingSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.ashtottariDasaGraphicsItemTextXScalingResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(self.ashtottariDasaGraphicsItemTextYScalingLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.ashtottariDasaGraphicsItemTextYScalingSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.ashtottariDasaGraphicsItemTextYScalingResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(self.ashtottariDasaGraphicsItemTextEnabledFlagLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.ashtottariDasaGraphicsItemTextEnabledFlagCheckBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.ashtottariDasaGraphicsItemTextEnabledFlagResetButton, 
+            r, 2, ar)
+
+        r += 1
+
+
+        self.ashtottariDasaGraphicsItemRotateDownButton = \
+            QPushButton("Rotate Down")
+        self.ashtottariDasaGraphicsItemRotateUpButton = \
+            QPushButton("Rotate Up")
+        self.ashtottariDasaGraphicsItemCheckMarkAllButton = \
+            QPushButton("Check All")
+        self.ashtottariDasaGraphicsItemCheckMarkNoneButton = \
+            QPushButton("Check None")
+        self.ashtottariDasaGraphicsItemMusicalRatiosResetButton = \
+            QPushButton("Reset to default")
+        
+        rotateButtonsLayout = QHBoxLayout()
+        rotateButtonsLayout.addWidget(\
+            self.ashtottariDasaGraphicsItemRotateDownButton)
+        rotateButtonsLayout.addWidget(\
+            self.ashtottariDasaGraphicsItemRotateUpButton)
+        rotateButtonsLayout.addWidget(\
+            self.ashtottariDasaGraphicsItemCheckMarkAllButton)
+        rotateButtonsLayout.addWidget(\
+            self.ashtottariDasaGraphicsItemCheckMarkNoneButton)
+        rotateButtonsLayout.addWidget(\
+            self.ashtottariDasaGraphicsItemMusicalRatiosResetButton)
+        rotateButtonsLayout.addStretch()
+        
+        # Layout for the musical ratio intervals.
+        self.ashtottariDasaGraphicsItemMusicalRatiosGridLayout = QGridLayout()
+
+        # Holds a list of MusicalRatio objects that is the 'working
+        # copy' in this edit widget.  This gets saved to the
+        # underlying self.priceBarChartSettings object upon clicking okay.
+        self.ashtottariDasaGraphicsItemMusicalRatios = list()
+        
+        # Holds the list of QCheckBox objects corresponding to the
+        # MusicalRatios (ordered) in the artifact. 
+        self.ashtottariDasaGraphicsItemCheckBoxes = []
+        
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addLayout(rotateButtonsLayout)
+        layout.addLayout(\
+            self.ashtottariDasaGraphicsItemMusicalRatiosGridLayout)
+        layout.addStretch()
+        
+        self.ashtottariDasaGraphicsItemGroupBox.setLayout(layout)
+
+        # Connect signals and slots.
+        self.ashtottariDasaGraphicsItemRotateDownButton.clicked.connect(\
+            self._handleAshtottariDasaGraphicsItemRotateDownButtonClicked)
+        self.ashtottariDasaGraphicsItemRotateUpButton.clicked.connect(\
+            self._handleAshtottariDasaGraphicsItemRotateUpButtonClicked)
+        self.ashtottariDasaGraphicsItemCheckMarkAllButton.clicked.connect(\
+            self._handleAshtottariDasaGraphicsItemCheckMarkAllButtonClicked)
+        self.ashtottariDasaGraphicsItemCheckMarkNoneButton.clicked.connect(\
+            self._handleAshtottariDasaGraphicsItemCheckMarkNoneButtonClicked)
+        self.ashtottariDasaGraphicsItemMusicalRatiosResetButton.clicked.\
+            connect(\
+            self.\
+            _handleAshtottariDasaGraphicsItemMusicalRatiosResetButtonClicked)
+
+        
+        return self.ashtottariDasaGraphicsItemGroupBox
+
     def loadValuesFromSettings(self, priceBarChartSettings):
         """Loads the widgets with values from the given
         PriceBarChartSettings object.
@@ -16537,6 +16742,43 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._vimsottariDasaGraphicsItemReloadMusicalRatiosGrid(\
             self.vimsottariDasaGraphicsItemMusicalRatios)
         
+        # ashtottariDasaGraphicsItemColor (QColor).
+        self.ashtottariDasaGraphicsItemColorEditButton.\
+            setColor(self.priceBarChartSettings.\
+                     ashtottariDasaGraphicsItemBarColor)
+
+        # ashtottariDasaGraphicsItemTextColor (QColor).
+        self.ashtottariDasaGraphicsItemTextColorEditButton.\
+            setColor(self.priceBarChartSettings.\
+                     ashtottariDasaGraphicsItemTextColor)
+
+        # ashtottariDasaGraphicsItemTextXScaling (float).
+        self.ashtottariDasaGraphicsItemTextXScalingSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        ashtottariDasaGraphicsItemTextXScaling)
+
+        # ashtottariDasaGraphicsItemTextYScaling (float).
+        self.ashtottariDasaGraphicsItemTextYScalingSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        ashtottariDasaGraphicsItemTextYScaling)
+
+        # ashtottariDasaGraphicsItemTextEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           ashtottariDasaGraphicsItemTextEnabledFlag == True:
+
+            self.ashtottariDasaGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.ashtottariDasaGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # ashtottariDasaGraphicsItemMusicalRatios (list of MusicalRatio)
+        self.ashtottariDasaGraphicsItemMusicalRatios = \
+            copy.deepcopy(self.priceBarChartSettings.\
+                          ashtottariDasaGraphicsItemMusicalRatios)
+        self._ashtottariDasaGraphicsItemReloadMusicalRatiosGrid(\
+            self.ashtottariDasaGraphicsItemMusicalRatios)
+        
         
         self.log.debug("Exiting loadValuesFromSettings()")
         
@@ -17736,6 +17978,36 @@ class PriceBarChartSettingsEditWidget(QWidget):
         # vimsottariDasaGraphicsItemMusicalRatios (list of MusicalRatio)
         self.priceBarChartSettings.vimsottariDasaGraphicsItemMusicalRatios = \
             self.vimsottariDasaGraphicsItemMusicalRatios
+           
+        # ashtottariDasaGraphicsItemTextColor (QColor).
+        self.priceBarChartSettings.ashtottariDasaGraphicsItemBarColor = \
+            self.ashtottariDasaGraphicsItemColorEditButton.getColor()
+
+        # ashtottariDasaGraphicsItemTextTextColor (QColor).
+        self.priceBarChartSettings.ashtottariDasaGraphicsItemTextColor = \
+            self.ashtottariDasaGraphicsItemTextColorEditButton.getColor()
+            
+        # ashtottariDasaGraphicsItemTextXScaling (float).
+        self.priceBarChartSettings.ashtottariDasaGraphicsItemTextXScaling = \
+            float(self.ashtottariDasaGraphicsItemTextXScalingSpinBox.value())
+
+        # ashtottariDasaGraphicsItemTextYScaling (float).
+        self.priceBarChartSettings.ashtottariDasaGraphicsItemTextYScaling = \
+            float(self.ashtottariDasaGraphicsItemTextYScalingSpinBox.value())
+        
+        # ashtottariDasaGraphicsItemTextEnabledFlag (bool).
+        if self.ashtottariDasaGraphicsItemTextEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+            
+            self.priceBarChartSettings.\
+                ashtottariDasaGraphicsItemTextEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                ashtottariDasaGraphicsItemTextEnabledFlag = False
+        
+        # ashtottariDasaGraphicsItemMusicalRatios (list of MusicalRatio)
+        self.priceBarChartSettings.ashtottariDasaGraphicsItemMusicalRatios = \
+            self.ashtottariDasaGraphicsItemMusicalRatios
            
         self.log.debug("Exiting saveValuesToSettings()")
 
@@ -20220,6 +20492,248 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._vimsottariDasaGraphicsItemReloadMusicalRatiosGrid(\
             self.vimsottariDasaGraphicsItemMusicalRatios)
         
+    def _ashtottariDasaGraphicsItemReloadMusicalRatiosGrid(self,
+                                                           musicalRatios):
+        """Clears and recreates the
+        self.ashtottariDasaGraphicsItemMusicalRatiosGridLayout
+        according to the values in 'musicalRatios'.
+
+        Arguments:
+        
+        musicalRatios - list of MusicalRatio objects to use to
+                        populate the grid layout.
+        """
+
+        musicalRatiosGridLayout = \
+            self.ashtottariDasaGraphicsItemMusicalRatiosGridLayout
+        
+        # Remove any old widgets that were in the grid layout from
+        # the grid layout..
+        for r in range(musicalRatiosGridLayout.rowCount()):
+            for c in range(musicalRatiosGridLayout.columnCount()):
+                # Get the QLayoutItem.
+                item = musicalRatiosGridLayout.itemAtPosition(r, c)
+                if item != None:
+                    # Get the widget in the layout item.
+                    widget = item.widget()
+                    if widget != None:
+                        widget.setEnabled(False)
+                        widget.setVisible(False)
+                        widget.setParent(None)
+
+                        # Actually remove the widget from the
+                        # QGridLayout.  
+                        musicalRatiosGridLayout.removeWidget(widget)
+                                
+        # Row.
+        r = 0
+        # Alignments.
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        # Create the musical ratio items in the
+        # musicalRatiosGridLayout QGridLayout.
+        self.ashtottariDasaGraphicsItemMusicalRatios = musicalRatios
+        numMusicalRatios = len(self.ashtottariDasaGraphicsItemMusicalRatios)
+
+        # Clear the checkboxes list.
+        self.ashtottariDasaGraphicsItemCheckBoxes = []
+
+        rangeUsed = range(numMusicalRatios)
+            
+        for i in rangeUsed:
+            musicalRatio = musicalRatios[i]
+            
+            checkBox = QCheckBox("{}".format(musicalRatio.getRatio()))
+
+            # Set the check state based on whether or not the musical
+            # ratio is enabled.
+            if musicalRatio.isEnabled():
+                checkBox.setCheckState(Qt.Checked)
+            else:
+                checkBox.setCheckState(Qt.Unchecked)
+
+            # Connect the signal to the slot function
+            # _handleCheckMarkToggled().  That function will update
+            # the self.artifact's musicalRatios with new check state.
+            checkBox.stateChanged.connect(\
+                self._handleAshtottariDasaGraphicsItemCheckMarkToggled)
+            
+            # Append to our list of checkboxes so that we can
+            # reference them later and see what values are used in
+            # them.  
+            self.ashtottariDasaGraphicsItemCheckBoxes.append(checkBox)
+            
+            descriptionLabel = QLabel(musicalRatio.getDescription())
+
+            # Actually add the widgets to the grid layout.
+            musicalRatiosGridLayout.\
+                addWidget(checkBox, r, 0, al)
+            musicalRatiosGridLayout.\
+                addWidget(descriptionLabel, r, 1, al)
+
+            r += 1
+
+
+    def _handleAshtottariDasaGraphicsItemCheckMarkToggled(self):
+        """Called when the user checkmarks or uncheckmarks a musical
+        ratio checkbox in the AshtottariDasaGraphicsItem groupbox widgets.
+        This will update the internally kept musicalRatio values.
+        """
+
+        # Go through all the musicalRatios in the widget, and set them
+        # as enabled or disabled in the artifact, based on the check
+        # state of the QCheckBox objects in self.checkBoxes.
+        for i in range(len(self.ashtottariDasaGraphicsItemCheckBoxes)):
+            oldValue = \
+                self.ashtottariDasaGraphicsItemMusicalRatios[i].isEnabled()
+            
+            newValue = None
+            if self.ashtottariDasaGraphicsItemCheckBoxes[i].\
+                   checkState() == Qt.Checked:
+                
+                newValue = True
+            else:
+                newValue = False
+            
+            if oldValue != newValue:
+                self.log.debug("Updating enabled state of " +
+                               "ashtottariDasaGraphicsItemMusicalRatio" +
+                               "[{}] from {} to {}".\
+                               format(i, oldValue, newValue))
+                self.ashtottariDasaGraphicsItemMusicalRatios[i].\
+                    setEnabled(newValue)
+            else:
+                #self.log.debug("No update to " +
+                #               "ashtottariDasaGraphicsItemMusicalRatio" +
+                #               "[{}]".format(i))
+                pass
+        
+    def _handleAshtottariDasaGraphicsItemRotateDownButtonClicked(self):
+        """Called when the 'Rotate Down' button is clicked."""
+
+        # Get all the musicalRatios.
+        musicalRatios = self.ashtottariDasaGraphicsItemMusicalRatios
+
+        # Put the last musical ratio in the front.
+        if len(musicalRatios) > 0:
+            lastRatio = musicalRatios.pop(len(musicalRatios) - 1)
+            musicalRatios.insert(0, lastRatio)
+
+        # Reload the musicalRatiosGrid.
+        self._ashtottariDasaGraphicsItemReloadMusicalRatiosGrid(musicalRatios)
+    
+    def _handleAshtottariDasaGraphicsItemRotateUpButtonClicked(self):
+        """Called when the 'Rotate Up' button is clicked."""
+
+        # Get all the musicalRatios.
+        musicalRatios = self.ashtottariDasaGraphicsItemMusicalRatios
+        
+        # Put the first musical ratio in the back.
+        if len(musicalRatios) > 0:
+            firstRatio = musicalRatios.pop(0)
+            musicalRatios.append(firstRatio)
+        
+        # Reload the musicalRatiosGrid.
+        self._ashtottariDasaGraphicsItemReloadMusicalRatiosGrid(musicalRatios)
+    
+    def _handleAshtottariDasaGraphicsItemCheckMarkAllButtonClicked(self):
+        """Called when the 'Check All' button is clicked."""
+
+        for checkBox in self.ashtottariDasaGraphicsItemCheckBoxes:
+            checkBox.setCheckState(Qt.Checked)
+
+        # Call this to update the internal artifact object according
+        # to what the widgets have set (in this case, the 'enabled'
+        # checkboxes).
+        self._handleAshtottariDasaGraphicsItemCheckMarkToggled()
+        
+    def _handleAshtottariDasaGraphicsItemCheckMarkNoneButtonClicked(self):
+        """Called when the 'Check None' button is clicked."""
+
+        for checkBox in self.ashtottariDasaGraphicsItemCheckBoxes:
+            checkBox.setCheckState(Qt.Unchecked)
+
+        # Call this to update the internal artifact object according
+        # to what the widgets have set (in this case, the 'enabled'
+        # checkboxes).
+        self._handleAshtottariDasaGraphicsItemCheckMarkToggled()
+
+    def _handleAshtottariDasaGraphicsItemColorResetButtonClicked(self):
+        """Called when the ashtottariDasaGraphicsItemColorResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultAshtottariDasaGraphicsItemBarColor
+        
+        self.ashtottariDasaGraphicsItemColorEditButton.setColor(value)
+
+    def _handleAshtottariDasaGraphicsItemTextColorResetButtonClicked(self):
+        """Called when the
+        ashtottariDasaGraphicsItemTextColorResetButton is clicked.
+        Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultAshtottariDasaGraphicsItemTextColor
+        
+        self.ashtottariDasaGraphicsItemTextColorEditButton.setColor(value)
+
+    def _handleAshtottariDasaGraphicsItemTextXScalingResetButtonClicked(self):
+        """Called when the ashtottariDasaGraphicsItemTextXScalingResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultAshtottariDasaGraphicsItemTextXScaling
+
+        self.ashtottariDasaGraphicsItemTextXScalingSpinBox.setValue(value)
+
+    def _handleAshtottariDasaGraphicsItemTextYScalingResetButtonClicked(self):
+        """Called when the ashtottariDasaGraphicsItemTextYScalingResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultAshtottariDasaGraphicsItemTextYScaling
+
+        self.ashtottariDasaGraphicsItemTextYScalingSpinBox.setValue(value)
+
+    def _handleAshtottariDasaGraphicsItemTextEnabledFlagResetButtonClicked(self):
+        """Called when the ashtottariDasaGraphicsItemTextEnabledFlagResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultAshtottariDasaGraphicsItemTextEnabledFlag
+
+        if value == True:
+            self.ashtottariDasaGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.ashtottariDasaGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+    def _handleAshtottariDasaGraphicsItemMusicalRatiosResetButtonClicked(self):
+        """Called when the 'Reset to default' button is clicked for
+        the AshtottariDasaGraphicsItem's MusicalRatios.
+        """
+
+        value = \
+            copy.deepcopy(PriceBarChartSettings.\
+                          defaultAshtottariDasaGraphicsItemMusicalRatios)
+        
+        self.ashtottariDasaGraphicsItemMusicalRatios = value
+        
+        self._ashtottariDasaGraphicsItemReloadMusicalRatiosGrid(\
+            self.ashtottariDasaGraphicsItemMusicalRatios)
+        
     def _handleResetAllToDefaultButtonClicked(self):
         """Called when the resetAllToDefaultButton is clicked.
         Resets the all the widget values in this widget to the default
@@ -20349,6 +20863,13 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._handleVimsottariDasaGraphicsItemTextYScalingResetButtonClicked()
         self._handleVimsottariDasaGraphicsItemTextEnabledFlagResetButtonClicked()
         self._handleVimsottariDasaGraphicsItemMusicalRatiosResetButtonClicked()
+
+        self._handleAshtottariDasaGraphicsItemColorResetButtonClicked()
+        self._handleAshtottariDasaGraphicsItemTextColorResetButtonClicked()
+        self._handleAshtottariDasaGraphicsItemTextXScalingResetButtonClicked()
+        self._handleAshtottariDasaGraphicsItemTextYScalingResetButtonClicked()
+        self._handleAshtottariDasaGraphicsItemTextEnabledFlagResetButtonClicked()
+        self._handleAshtottariDasaGraphicsItemMusicalRatiosResetButtonClicked()
 
     def _handleOkayButtonClicked(self):
         """Called when the okay button is clicked."""
