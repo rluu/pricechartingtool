@@ -10679,6 +10679,11 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.ashtottariDasaGraphicsItemGroupBox = \
             self._buildAshtottariDasaGraphicsItemGroupBox()
 
+        # QGroupBox to hold the edit widgets and form for
+        # YoginiDasaGraphicsItem.
+        self.yoginiDasaGraphicsItemGroupBox = \
+            self._buildYoginiDasaGraphicsItemGroupBox()
+
         # Create a QTabWidget to stack all the settings editing
         # widgets.
         self.tabWidget = QTabWidget()
@@ -10753,6 +10758,10 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         self.tabWidget.addTab(self.ashtottariDasaGraphicsItemGroupBox,
                               QIcon(":/images/rluu/ashtottariDasa.png"),
+                              "")
+
+        self.tabWidget.addTab(self.yoginiDasaGraphicsItemGroupBox,
+                              QIcon(":/images/rluu/yoginiDasa.png"),
                               "")
 
         # Buttons at bottom.
@@ -11223,6 +11232,22 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.ashtottariDasaGraphicsItemTextEnabledFlagResetButton.clicked.\
             connect(\
             self._handleAshtottariDasaGraphicsItemTextEnabledFlagResetButtonClicked)
+
+        self.yoginiDasaGraphicsItemColorResetButton.clicked.\
+            connect(\
+            self._handleYoginiDasaGraphicsItemColorResetButtonClicked)
+        self.yoginiDasaGraphicsItemTextColorResetButton.clicked.\
+            connect(\
+            self._handleYoginiDasaGraphicsItemTextColorResetButtonClicked)
+        self.yoginiDasaGraphicsItemTextXScalingResetButton.clicked.\
+            connect(\
+            self._handleYoginiDasaGraphicsItemTextXScalingResetButtonClicked)
+        self.yoginiDasaGraphicsItemTextYScalingResetButton.clicked.\
+            connect(\
+            self._handleYoginiDasaGraphicsItemTextYScalingResetButtonClicked)
+        self.yoginiDasaGraphicsItemTextEnabledFlagResetButton.clicked.\
+            connect(\
+            self._handleYoginiDasaGraphicsItemTextEnabledFlagResetButtonClicked)
 
 
         self.resetAllToDefaultButton.clicked.\
@@ -15453,6 +15478,186 @@ class PriceBarChartSettingsEditWidget(QWidget):
         
         return self.ashtottariDasaGraphicsItemGroupBox
 
+    def _buildYoginiDasaGraphicsItemGroupBox(self):
+        """Builds the groupbox containing info to edit the
+        PriceBarChartSettings related to a YoginiDasaGraphicsItem.
+
+        Returns:
+        QGroupBox obj containing all the created widgets.
+        """
+
+        self.yoginiDasaGraphicsItemGroupBox = \
+            QGroupBox("YoginiDasaGraphicsItem settings:")
+
+        # PriceBarChart yoginiDasaGraphicsItemColor (QColor).
+        self.yoginiDasaGraphicsItemColorLabel = \
+            QLabel("YoginiDasaGraphicsItem color: ")
+        self.yoginiDasaGraphicsItemColorEditButton = ColorEditPushButton()
+        self.yoginiDasaGraphicsItemColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # PriceBarChart yoginiDasaGraphicsItemTextColor (QColor).
+        self.yoginiDasaGraphicsItemTextColorLabel = \
+            QLabel("YoginiDasaGraphicsItem text color: ")
+        self.yoginiDasaGraphicsItemTextColorEditButton = \
+            ColorEditPushButton()
+        self.yoginiDasaGraphicsItemTextColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # yoginiDasaGraphicsItemTextXScaling (float).
+        self.yoginiDasaGraphicsItemTextXScalingLabel = \
+            QLabel("YoginiDasaGraphicsItem text X scaling: ")
+        self.yoginiDasaGraphicsItemTextXScalingSpinBox = QDoubleSpinBox()
+        self.yoginiDasaGraphicsItemTextXScalingSpinBox.setMinimum(0.0001)
+        self.yoginiDasaGraphicsItemTextXScalingSpinBox.setMaximum(1000.0)
+        self.yoginiDasaGraphicsItemTextXScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # yoginiDasaGraphicsItemTextYScaling (float).
+        self.yoginiDasaGraphicsItemTextYScalingLabel = \
+            QLabel("YoginiDasaGraphicsItem text Y scaling: ")
+        self.yoginiDasaGraphicsItemTextYScalingSpinBox = QDoubleSpinBox()
+        self.yoginiDasaGraphicsItemTextYScalingSpinBox.setMinimum(0.0001)
+        self.yoginiDasaGraphicsItemTextYScalingSpinBox.setMaximum(1000.0)
+        self.yoginiDasaGraphicsItemTextYScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # yoginiDasaGraphicsItemTextEnabledFlag (bool).
+        self.yoginiDasaGraphicsItemTextEnabledFlagLabel = \
+            QLabel("YoginiDasaGraphicsItem text is enabled: ")
+        self.yoginiDasaGraphicsItemTextEnabledFlagCheckBox = \
+            QCheckBox()
+        self.yoginiDasaGraphicsItemTextEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.yoginiDasaGraphicsItemTextEnabledFlagResetButton = \
+            QPushButton("Reset to default")
+        
+        # Grid layout.
+        gridLayout = QGridLayout()
+        r = 0
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        gridLayout.\
+            addWidget(self.yoginiDasaGraphicsItemColorLabel,
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.yoginiDasaGraphicsItemColorEditButton,
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(self.yoginiDasaGraphicsItemColorResetButton,
+                      r, 2, ar)
+        r += 1
+        gridLayout.\
+            addWidget(self.yoginiDasaGraphicsItemTextColorLabel,
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.yoginiDasaGraphicsItemTextColorEditButton,
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(self.yoginiDasaGraphicsItemTextColorResetButton,
+                      r, 2, ar)
+        r += 1
+        gridLayout.\
+            addWidget(self.yoginiDasaGraphicsItemTextXScalingLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.yoginiDasaGraphicsItemTextXScalingSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.yoginiDasaGraphicsItemTextXScalingResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(self.yoginiDasaGraphicsItemTextYScalingLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.yoginiDasaGraphicsItemTextYScalingSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.yoginiDasaGraphicsItemTextYScalingResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(self.yoginiDasaGraphicsItemTextEnabledFlagLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.yoginiDasaGraphicsItemTextEnabledFlagCheckBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.yoginiDasaGraphicsItemTextEnabledFlagResetButton, 
+            r, 2, ar)
+
+        r += 1
+
+
+        self.yoginiDasaGraphicsItemRotateDownButton = \
+            QPushButton("Rotate Down")
+        self.yoginiDasaGraphicsItemRotateUpButton = \
+            QPushButton("Rotate Up")
+        self.yoginiDasaGraphicsItemCheckMarkAllButton = \
+            QPushButton("Check All")
+        self.yoginiDasaGraphicsItemCheckMarkNoneButton = \
+            QPushButton("Check None")
+        self.yoginiDasaGraphicsItemMusicalRatiosResetButton = \
+            QPushButton("Reset to default")
+        
+        rotateButtonsLayout = QHBoxLayout()
+        rotateButtonsLayout.addWidget(\
+            self.yoginiDasaGraphicsItemRotateDownButton)
+        rotateButtonsLayout.addWidget(\
+            self.yoginiDasaGraphicsItemRotateUpButton)
+        rotateButtonsLayout.addWidget(\
+            self.yoginiDasaGraphicsItemCheckMarkAllButton)
+        rotateButtonsLayout.addWidget(\
+            self.yoginiDasaGraphicsItemCheckMarkNoneButton)
+        rotateButtonsLayout.addWidget(\
+            self.yoginiDasaGraphicsItemMusicalRatiosResetButton)
+        rotateButtonsLayout.addStretch()
+        
+        # Layout for the musical ratio intervals.
+        self.yoginiDasaGraphicsItemMusicalRatiosGridLayout = QGridLayout()
+
+        # Holds a list of MusicalRatio objects that is the 'working
+        # copy' in this edit widget.  This gets saved to the
+        # underlying self.priceBarChartSettings object upon clicking okay.
+        self.yoginiDasaGraphicsItemMusicalRatios = list()
+        
+        # Holds the list of QCheckBox objects corresponding to the
+        # MusicalRatios (ordered) in the artifact. 
+        self.yoginiDasaGraphicsItemCheckBoxes = []
+        
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addLayout(rotateButtonsLayout)
+        layout.addLayout(\
+            self.yoginiDasaGraphicsItemMusicalRatiosGridLayout)
+        layout.addStretch()
+        
+        self.yoginiDasaGraphicsItemGroupBox.setLayout(layout)
+
+        # Connect signals and slots.
+        self.yoginiDasaGraphicsItemRotateDownButton.clicked.connect(\
+            self._handleYoginiDasaGraphicsItemRotateDownButtonClicked)
+        self.yoginiDasaGraphicsItemRotateUpButton.clicked.connect(\
+            self._handleYoginiDasaGraphicsItemRotateUpButtonClicked)
+        self.yoginiDasaGraphicsItemCheckMarkAllButton.clicked.connect(\
+            self._handleYoginiDasaGraphicsItemCheckMarkAllButtonClicked)
+        self.yoginiDasaGraphicsItemCheckMarkNoneButton.clicked.connect(\
+            self._handleYoginiDasaGraphicsItemCheckMarkNoneButtonClicked)
+        self.yoginiDasaGraphicsItemMusicalRatiosResetButton.clicked.\
+            connect(\
+            self.\
+            _handleYoginiDasaGraphicsItemMusicalRatiosResetButtonClicked)
+
+        
+        return self.yoginiDasaGraphicsItemGroupBox
+
     def loadValuesFromSettings(self, priceBarChartSettings):
         """Loads the widgets with values from the given
         PriceBarChartSettings object.
@@ -16779,6 +16984,43 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._ashtottariDasaGraphicsItemReloadMusicalRatiosGrid(\
             self.ashtottariDasaGraphicsItemMusicalRatios)
         
+        # yoginiDasaGraphicsItemColor (QColor).
+        self.yoginiDasaGraphicsItemColorEditButton.\
+            setColor(self.priceBarChartSettings.\
+                     yoginiDasaGraphicsItemBarColor)
+
+        # yoginiDasaGraphicsItemTextColor (QColor).
+        self.yoginiDasaGraphicsItemTextColorEditButton.\
+            setColor(self.priceBarChartSettings.\
+                     yoginiDasaGraphicsItemTextColor)
+
+        # yoginiDasaGraphicsItemTextXScaling (float).
+        self.yoginiDasaGraphicsItemTextXScalingSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        yoginiDasaGraphicsItemTextXScaling)
+
+        # yoginiDasaGraphicsItemTextYScaling (float).
+        self.yoginiDasaGraphicsItemTextYScalingSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        yoginiDasaGraphicsItemTextYScaling)
+
+        # yoginiDasaGraphicsItemTextEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           yoginiDasaGraphicsItemTextEnabledFlag == True:
+
+            self.yoginiDasaGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.yoginiDasaGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # yoginiDasaGraphicsItemMusicalRatios (list of MusicalRatio)
+        self.yoginiDasaGraphicsItemMusicalRatios = \
+            copy.deepcopy(self.priceBarChartSettings.\
+                          yoginiDasaGraphicsItemMusicalRatios)
+        self._yoginiDasaGraphicsItemReloadMusicalRatiosGrid(\
+            self.yoginiDasaGraphicsItemMusicalRatios)
+        
         
         self.log.debug("Exiting loadValuesFromSettings()")
         
@@ -18008,6 +18250,36 @@ class PriceBarChartSettingsEditWidget(QWidget):
         # ashtottariDasaGraphicsItemMusicalRatios (list of MusicalRatio)
         self.priceBarChartSettings.ashtottariDasaGraphicsItemMusicalRatios = \
             self.ashtottariDasaGraphicsItemMusicalRatios
+           
+        # yoginiDasaGraphicsItemTextColor (QColor).
+        self.priceBarChartSettings.yoginiDasaGraphicsItemBarColor = \
+            self.yoginiDasaGraphicsItemColorEditButton.getColor()
+
+        # yoginiDasaGraphicsItemTextTextColor (QColor).
+        self.priceBarChartSettings.yoginiDasaGraphicsItemTextColor = \
+            self.yoginiDasaGraphicsItemTextColorEditButton.getColor()
+            
+        # yoginiDasaGraphicsItemTextXScaling (float).
+        self.priceBarChartSettings.yoginiDasaGraphicsItemTextXScaling = \
+            float(self.yoginiDasaGraphicsItemTextXScalingSpinBox.value())
+
+        # yoginiDasaGraphicsItemTextYScaling (float).
+        self.priceBarChartSettings.yoginiDasaGraphicsItemTextYScaling = \
+            float(self.yoginiDasaGraphicsItemTextYScalingSpinBox.value())
+        
+        # yoginiDasaGraphicsItemTextEnabledFlag (bool).
+        if self.yoginiDasaGraphicsItemTextEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+            
+            self.priceBarChartSettings.\
+                yoginiDasaGraphicsItemTextEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                yoginiDasaGraphicsItemTextEnabledFlag = False
+        
+        # yoginiDasaGraphicsItemMusicalRatios (list of MusicalRatio)
+        self.priceBarChartSettings.yoginiDasaGraphicsItemMusicalRatios = \
+            self.yoginiDasaGraphicsItemMusicalRatios
            
         self.log.debug("Exiting saveValuesToSettings()")
 
@@ -20733,6 +21005,248 @@ class PriceBarChartSettingsEditWidget(QWidget):
         
         self._ashtottariDasaGraphicsItemReloadMusicalRatiosGrid(\
             self.ashtottariDasaGraphicsItemMusicalRatios)
+
+    def _yoginiDasaGraphicsItemReloadMusicalRatiosGrid(self,
+                                                           musicalRatios):
+        """Clears and recreates the
+        self.yoginiDasaGraphicsItemMusicalRatiosGridLayout
+        according to the values in 'musicalRatios'.
+
+        Arguments:
+        
+        musicalRatios - list of MusicalRatio objects to use to
+                        populate the grid layout.
+        """
+
+        musicalRatiosGridLayout = \
+            self.yoginiDasaGraphicsItemMusicalRatiosGridLayout
+        
+        # Remove any old widgets that were in the grid layout from
+        # the grid layout..
+        for r in range(musicalRatiosGridLayout.rowCount()):
+            for c in range(musicalRatiosGridLayout.columnCount()):
+                # Get the QLayoutItem.
+                item = musicalRatiosGridLayout.itemAtPosition(r, c)
+                if item != None:
+                    # Get the widget in the layout item.
+                    widget = item.widget()
+                    if widget != None:
+                        widget.setEnabled(False)
+                        widget.setVisible(False)
+                        widget.setParent(None)
+
+                        # Actually remove the widget from the
+                        # QGridLayout.  
+                        musicalRatiosGridLayout.removeWidget(widget)
+                                
+        # Row.
+        r = 0
+        # Alignments.
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        # Create the musical ratio items in the
+        # musicalRatiosGridLayout QGridLayout.
+        self.yoginiDasaGraphicsItemMusicalRatios = musicalRatios
+        numMusicalRatios = len(self.yoginiDasaGraphicsItemMusicalRatios)
+
+        # Clear the checkboxes list.
+        self.yoginiDasaGraphicsItemCheckBoxes = []
+
+        rangeUsed = range(numMusicalRatios)
+            
+        for i in rangeUsed:
+            musicalRatio = musicalRatios[i]
+            
+            checkBox = QCheckBox("{}".format(musicalRatio.getRatio()))
+
+            # Set the check state based on whether or not the musical
+            # ratio is enabled.
+            if musicalRatio.isEnabled():
+                checkBox.setCheckState(Qt.Checked)
+            else:
+                checkBox.setCheckState(Qt.Unchecked)
+
+            # Connect the signal to the slot function
+            # _handleCheckMarkToggled().  That function will update
+            # the self.artifact's musicalRatios with new check state.
+            checkBox.stateChanged.connect(\
+                self._handleYoginiDasaGraphicsItemCheckMarkToggled)
+            
+            # Append to our list of checkboxes so that we can
+            # reference them later and see what values are used in
+            # them.  
+            self.yoginiDasaGraphicsItemCheckBoxes.append(checkBox)
+            
+            descriptionLabel = QLabel(musicalRatio.getDescription())
+
+            # Actually add the widgets to the grid layout.
+            musicalRatiosGridLayout.\
+                addWidget(checkBox, r, 0, al)
+            musicalRatiosGridLayout.\
+                addWidget(descriptionLabel, r, 1, al)
+
+            r += 1
+
+
+    def _handleYoginiDasaGraphicsItemCheckMarkToggled(self):
+        """Called when the user checkmarks or uncheckmarks a musical
+        ratio checkbox in the YoginiDasaGraphicsItem groupbox widgets.
+        This will update the internally kept musicalRatio values.
+        """
+
+        # Go through all the musicalRatios in the widget, and set them
+        # as enabled or disabled in the artifact, based on the check
+        # state of the QCheckBox objects in self.checkBoxes.
+        for i in range(len(self.yoginiDasaGraphicsItemCheckBoxes)):
+            oldValue = \
+                self.yoginiDasaGraphicsItemMusicalRatios[i].isEnabled()
+            
+            newValue = None
+            if self.yoginiDasaGraphicsItemCheckBoxes[i].\
+                   checkState() == Qt.Checked:
+                
+                newValue = True
+            else:
+                newValue = False
+            
+            if oldValue != newValue:
+                self.log.debug("Updating enabled state of " +
+                               "yoginiDasaGraphicsItemMusicalRatio" +
+                               "[{}] from {} to {}".\
+                               format(i, oldValue, newValue))
+                self.yoginiDasaGraphicsItemMusicalRatios[i].\
+                    setEnabled(newValue)
+            else:
+                #self.log.debug("No update to " +
+                #               "yoginiDasaGraphicsItemMusicalRatio" +
+                #               "[{}]".format(i))
+                pass
+        
+    def _handleYoginiDasaGraphicsItemRotateDownButtonClicked(self):
+        """Called when the 'Rotate Down' button is clicked."""
+
+        # Get all the musicalRatios.
+        musicalRatios = self.yoginiDasaGraphicsItemMusicalRatios
+
+        # Put the last musical ratio in the front.
+        if len(musicalRatios) > 0:
+            lastRatio = musicalRatios.pop(len(musicalRatios) - 1)
+            musicalRatios.insert(0, lastRatio)
+
+        # Reload the musicalRatiosGrid.
+        self._yoginiDasaGraphicsItemReloadMusicalRatiosGrid(musicalRatios)
+    
+    def _handleYoginiDasaGraphicsItemRotateUpButtonClicked(self):
+        """Called when the 'Rotate Up' button is clicked."""
+
+        # Get all the musicalRatios.
+        musicalRatios = self.yoginiDasaGraphicsItemMusicalRatios
+        
+        # Put the first musical ratio in the back.
+        if len(musicalRatios) > 0:
+            firstRatio = musicalRatios.pop(0)
+            musicalRatios.append(firstRatio)
+        
+        # Reload the musicalRatiosGrid.
+        self._yoginiDasaGraphicsItemReloadMusicalRatiosGrid(musicalRatios)
+    
+    def _handleYoginiDasaGraphicsItemCheckMarkAllButtonClicked(self):
+        """Called when the 'Check All' button is clicked."""
+
+        for checkBox in self.yoginiDasaGraphicsItemCheckBoxes:
+            checkBox.setCheckState(Qt.Checked)
+
+        # Call this to update the internal artifact object according
+        # to what the widgets have set (in this case, the 'enabled'
+        # checkboxes).
+        self._handleYoginiDasaGraphicsItemCheckMarkToggled()
+        
+    def _handleYoginiDasaGraphicsItemCheckMarkNoneButtonClicked(self):
+        """Called when the 'Check None' button is clicked."""
+
+        for checkBox in self.yoginiDasaGraphicsItemCheckBoxes:
+            checkBox.setCheckState(Qt.Unchecked)
+
+        # Call this to update the internal artifact object according
+        # to what the widgets have set (in this case, the 'enabled'
+        # checkboxes).
+        self._handleYoginiDasaGraphicsItemCheckMarkToggled()
+
+    def _handleYoginiDasaGraphicsItemColorResetButtonClicked(self):
+        """Called when the yoginiDasaGraphicsItemColorResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultYoginiDasaGraphicsItemBarColor
+        
+        self.yoginiDasaGraphicsItemColorEditButton.setColor(value)
+
+    def _handleYoginiDasaGraphicsItemTextColorResetButtonClicked(self):
+        """Called when the
+        yoginiDasaGraphicsItemTextColorResetButton is clicked.
+        Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultYoginiDasaGraphicsItemTextColor
+        
+        self.yoginiDasaGraphicsItemTextColorEditButton.setColor(value)
+
+    def _handleYoginiDasaGraphicsItemTextXScalingResetButtonClicked(self):
+        """Called when the yoginiDasaGraphicsItemTextXScalingResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultYoginiDasaGraphicsItemTextXScaling
+
+        self.yoginiDasaGraphicsItemTextXScalingSpinBox.setValue(value)
+
+    def _handleYoginiDasaGraphicsItemTextYScalingResetButtonClicked(self):
+        """Called when the yoginiDasaGraphicsItemTextYScalingResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultYoginiDasaGraphicsItemTextYScaling
+
+        self.yoginiDasaGraphicsItemTextYScalingSpinBox.setValue(value)
+
+    def _handleYoginiDasaGraphicsItemTextEnabledFlagResetButtonClicked(self):
+        """Called when the yoginiDasaGraphicsItemTextEnabledFlagResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultYoginiDasaGraphicsItemTextEnabledFlag
+
+        if value == True:
+            self.yoginiDasaGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.yoginiDasaGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+    def _handleYoginiDasaGraphicsItemMusicalRatiosResetButtonClicked(self):
+        """Called when the 'Reset to default' button is clicked for
+        the YoginiDasaGraphicsItem's MusicalRatios.
+        """
+
+        value = \
+            copy.deepcopy(PriceBarChartSettings.\
+                          defaultYoginiDasaGraphicsItemMusicalRatios)
+        
+        self.yoginiDasaGraphicsItemMusicalRatios = value
+        
+        self._yoginiDasaGraphicsItemReloadMusicalRatiosGrid(\
+            self.yoginiDasaGraphicsItemMusicalRatios)
         
     def _handleResetAllToDefaultButtonClicked(self):
         """Called when the resetAllToDefaultButton is clicked.
@@ -20870,6 +21384,13 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._handleAshtottariDasaGraphicsItemTextYScalingResetButtonClicked()
         self._handleAshtottariDasaGraphicsItemTextEnabledFlagResetButtonClicked()
         self._handleAshtottariDasaGraphicsItemMusicalRatiosResetButtonClicked()
+
+        self._handleYoginiDasaGraphicsItemColorResetButtonClicked()
+        self._handleYoginiDasaGraphicsItemTextColorResetButtonClicked()
+        self._handleYoginiDasaGraphicsItemTextXScalingResetButtonClicked()
+        self._handleYoginiDasaGraphicsItemTextYScalingResetButtonClicked()
+        self._handleYoginiDasaGraphicsItemTextEnabledFlagResetButtonClicked()
+        self._handleYoginiDasaGraphicsItemMusicalRatiosResetButtonClicked()
 
     def _handleOkayButtonClicked(self):
         """Called when the okay button is clicked."""
