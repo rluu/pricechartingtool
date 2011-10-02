@@ -14,6 +14,7 @@
     <file>images/qt/qt-logo.png</file>
 
     <file>images/rluu/appIcon.png</file>
+    <file>images/rluu/ashtottariDasa.png</file>
     <file>images/rluu/barCount.png</file>
     <file>images/rluu/fibFan.png</file>
     <file>images/rluu/gannFan.png</file>
@@ -34,6 +35,8 @@
     <file>images/rluu/timeMeasurement.png</file>
     <file>images/rluu/timeModalScale.png</file>
     <file>images/rluu/timeRetracement.png</file>
+    <file>images/rluu/vimsottariDasa.png</file>
+    <file>images/rluu/yoginiDasa.png</file>
     <file>images/rluu/zoomIn.png</file>
     <file>images/rluu/zoomInBlue.png</file>
     <file>images/rluu/zoomOut.png</file>
