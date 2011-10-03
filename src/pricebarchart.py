@@ -50,6 +50,7 @@ from data_objects import PriceBarChartGannFanArtifact
 from data_objects import PriceBarChartVimsottariDasaArtifact
 from data_objects import PriceBarChartAshtottariDasaArtifact
 from data_objects import PriceBarChartYoginiDasaArtifact
+from data_objects import PriceBarChartDwisaptatiSamaDasaArtifact
 from data_objects import PriceBarChartScaling
 from data_objects import PriceBarChartSettings
 from data_objects import Util
@@ -76,6 +77,7 @@ from pricebarchart_dialogs import PriceBarChartGannFanArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartVimsottariDasaArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartAshtottariDasaArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartYoginiDasaArtifactEditDialog
+from pricebarchart_dialogs import PriceBarChartDwisaptatiSamaDasaArtifactEditDialog
 
 # For edit dialogs.
 from dialogs import PriceBarEditDialog
@@ -23399,6 +23401,1342 @@ class YoginiDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.scene().openJHora(self.endPointF.x())
         
+class DwisaptatiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
+    """QGraphicsItem that visualizes a musical scale in the GraphicsView.
+
+    This item uses the origin point (0, 0) in item coordinates as the
+    center point height bar, on the start point (left part) of the bar ruler.
+
+    That means when a user creates a new DwisaptatiSamaDasaGraphicsItem
+    the position and points can be consistently set.
+    """
+    
+    def __init__(self, parent=None, scene=None):
+        super().__init__(parent, scene)
+
+        # Logger
+        self.log = \
+            logging.getLogger(\
+            "pricebarchart.DwisaptatiSamaDasaGraphicsItem")
+        
+        self.log.debug("Entered __init__().")
+
+        ############################################################
+        # Set default values for preferences/settings.
+
+        # Color of the graphicsitem bar.
+        self.dwisaptatiSamaDasaGraphicsItemColor = \
+            PriceBarChartSettings.\
+                defaultDwisaptatiSamaDasaGraphicsItemBarColor
+
+        # Color of the text that is associated with the graphicsitem.
+        self.dwisaptatiSamaDasaGraphicsItemTextColor = \
+            PriceBarChartSettings.\
+                defaultDwisaptatiSamaDasaGraphicsItemTextColor
+
+        # X scaling of the text.
+        self.dwisaptatiSamaDasaTextXScaling = \
+            PriceBarChartSettings.\
+                defaultDwisaptatiSamaDasaGraphicsItemTextXScaling 
+
+        # Y scaling of the text.
+        self.dwisaptatiSamaDasaTextYScaling = \
+            PriceBarChartSettings.\
+                defaultDwisaptatiSamaDasaGraphicsItemTextYScaling 
+
+        ############################################################
+
+        # Internal storage object, used for loading/saving (serialization).
+        self.artifact = PriceBarChartDwisaptatiSamaDasaArtifact()
+
+        # Read the QSettings preferences for the various parameters of
+        # this price bar.
+        self.loadSettingsFromAppPreferences()
+        
+        # Pen which is used to do the painting of the bar ruler.
+        self.dwisaptatiSamaDasaPenWidth = 0.0
+        self.dwisaptatiSamaDasaPen = QPen()
+        self.dwisaptatiSamaDasaPen.setColor(self.dwisaptatiSamaDasaGraphicsItemColor)
+        self.dwisaptatiSamaDasaPen.setWidthF(self.dwisaptatiSamaDasaPenWidth)
+        
+        # Starting point, in scene coordinates.
+        self.startPointF = QPointF(0, 0)
+
+        # Ending point, in scene coordinates.
+        self.endPointF = QPointF(0, 0)
+
+        # Dummy item.
+        self.dummyItem = QGraphicsSimpleTextItem("", self)
+        
+        # Set the font of the text.
+        self.dwisaptatiSamaDasaTextFont = QFont("Sans Serif")
+        self.dwisaptatiSamaDasaTextFont.\
+            setPointSizeF(self.artifact.getFontSize())
+
+        # Set the pen color of the text.
+        self.dwisaptatiSamaDasaTextPen = self.dummyItem.pen()
+        self.dwisaptatiSamaDasaTextPen.\
+            setColor(self.dwisaptatiSamaDasaGraphicsItemTextColor)
+
+        # Set the brush color of the text.
+        self.dwisaptatiSamaDasaTextBrush = self.dummyItem.brush()
+        self.dwisaptatiSamaDasaTextBrush.\
+            setColor(self.dwisaptatiSamaDasaGraphicsItemTextColor)
+
+        # Degrees of text rotation.
+        self.rotationDegrees = 0.0
+        
+        # Size scaling for the text.
+        textTransform = QTransform()
+        textTransform.scale(self.dwisaptatiSamaDasaTextXScaling, \
+                            self.dwisaptatiSamaDasaTextYScaling)
+        textTransform.rotate(self.rotationDegrees)
+        
+        # Below is a 2-dimensional list of (2
+        # QGraphicsSimpleTextItems), for each of the MusicalRatios in
+        # the PriceBarChartDwisaptatiSamaDasaArtifact.  The 2 texts displayed
+        # for each MusicalRatio are:
+        #
+        # 1) Dasa lord.
+        # 2) Timestamp value.
+        #
+        self.musicalRatioTextItems = []
+
+        # Below is a list of VerticalTickGraphicsItems that correspond
+        # to each of the musicalRatios.
+        self.verticalTickItems = []
+        
+        # Initialize to blank and set at the end point.
+        for musicalRatio in range(len(self.artifact.getMusicalRatios())):
+            verticalTickItem = VerticalTickGraphicsItem(self)
+            verticalTickItem.setPos(self.endPointF)
+            verticalTickItem.setPen(self.dwisaptatiSamaDasaPen)
+            
+            dasaLordTextItem = QGraphicsSimpleTextItem("", self)
+            dasaLordTextItem.setPos(self.endPointF)
+            dasaLordTextItem.setFont(self.dwisaptatiSamaDasaTextFont)
+            dasaLordTextItem.setPen(self.dwisaptatiSamaDasaTextPen)
+            dasaLordTextItem.setBrush(self.dwisaptatiSamaDasaTextBrush)
+            dasaLordTextItem.setTransform(textTransform)
+            
+            timestampTextItem = QGraphicsSimpleTextItem("", self)
+            timestampTextItem.setPos(self.endPointF)
+            timestampTextItem.setFont(self.dwisaptatiSamaDasaTextFont)
+            timestampTextItem.setPen(self.dwisaptatiSamaDasaTextPen)
+            timestampTextItem.setBrush(self.dwisaptatiSamaDasaTextBrush)
+            timestampTextItem.setTransform(textTransform)
+            
+            self.musicalRatioTextItems.\
+                append([dasaLordTextItem, timestampTextItem])
+
+            self.verticalTickItems.append(verticalTickItem)
+
+        # Flag that indicates that vertical dotted lines should be drawn.
+        self.drawVerticalDottedLinesFlag = False
+        
+        # Flags that indicate that the user is dragging either the start
+        # or end point of the QGraphicsItem.
+        self.draggingStartPointFlag = False
+        self.draggingEndPointFlag = False
+        self.clickScenePointF = None
+
+    def setDrawVerticalDottedLinesFlag(self, flag):
+        """If flag is set to true, then the vertical dotted lines are drawn.
+        """
+
+        self.drawVerticalDottedLinesFlag = flag
+        
+        # Need to call this because the bounding box is updated with
+        # all the extra vertical lines being drawn.
+        self.prepareGeometryChange()
+        
+    def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings):
+        """Reads some of the parameters/settings of this
+        PriceBarGraphicsItem from the given PriceBarChartSettings object.
+        """
+
+        self.log.debug("Entered loadSettingsFromPriceBarChartSettings()")
+
+        ########
+        
+        # List of used musical ratios.
+        musicalRatios = \
+            copy.deepcopy(priceBarChartSettings.\
+                          dwisaptatiSamaDasaGraphicsItemMusicalRatios)
+        
+        # DwisaptatiSamaDasaGraphicsItem bar color (QColor).
+        self.dwisaptatiSamaDasaGraphicsItemColor = \
+            priceBarChartSettings.dwisaptatiSamaDasaGraphicsItemBarColor
+
+        # DwisaptatiSamaDasaGraphicsItem text color (QColor).
+        self.dwisaptatiSamaDasaGraphicsItemTextColor = \
+            priceBarChartSettings.dwisaptatiSamaDasaGraphicsItemTextColor
+        
+        # X scaling of the text.
+        self.dwisaptatiSamaDasaTextXScaling = \
+            priceBarChartSettings.\
+                dwisaptatiSamaDasaGraphicsItemTextXScaling 
+
+        # Y scaling of the text.
+        self.dwisaptatiSamaDasaTextYScaling = \
+            priceBarChartSettings.\
+                dwisaptatiSamaDasaGraphicsItemTextYScaling 
+
+        # textEnabledFlag (bool).
+        textEnabledFlag = \
+            priceBarChartSettings.\
+            dwisaptatiSamaDasaGraphicsItemTextEnabledFlag
+
+        ########
+
+        # Set values in the artifact.
+
+        self.artifact.setMusicalRatios(musicalRatios)
+        self.artifact.setColor(self.dwisaptatiSamaDasaGraphicsItemColor)
+        self.artifact.setTextColor(self.dwisaptatiSamaDasaGraphicsItemTextColor)
+        self.artifact.setTextEnabled(textEnabledFlag)
+
+        self.setArtifact(self.artifact)
+        
+        self.refreshTextItems()
+        
+        self.log.debug("Exiting loadSettingsFromPriceBarChartSettings()")
+        
+    def loadSettingsFromAppPreferences(self):
+        """Reads some of the parameters/settings of this
+        GraphicsItem from the QSettings object. 
+        """
+
+        # No settings read from app preferences.
+        pass
+        
+    def setPos(self, pos):
+        """Overwrites the QGraphicsItem setPos() function.
+
+        Here we use the new position to re-set the self.startPointF and
+        self.endPointF.
+
+        Arguments:
+        pos - QPointF holding the new position.
+        """
+        self.log.debug("Entered setPos()")
+        
+        super().setPos(pos)
+
+        newScenePos = pos
+
+        posDelta = newScenePos - self.startPointF
+
+        # Update the start and end points accordingly. 
+        self.startPointF = self.startPointF + posDelta
+        self.endPointF = self.endPointF + posDelta
+
+        if self.scene() != None:
+            self.refreshTextItems()
+            self.update()
+
+        self.log.debug("Exiting setPos()")
+        
+    def mousePressEvent(self, event):
+        """Overwrites the QGraphicsItem mousePressEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+
+        self.log.debug("Entered mousePressEvent()")
+        
+        # If the item is in read-only mode, simply call the parent
+        # implementation of this function.
+        if self.getReadOnlyFlag() == True:
+            super().mousePressEvent(event)
+        else:
+            # If the mouse press is within 1/5th of the bar length to the
+            # beginning or end points, then the user is trying to adjust
+            # the starting or ending points of the bar counter ruler.
+            scenePosX = event.scenePos().x()
+            self.log.debug("DEBUG: scenePosX={}".format(scenePosX))
+            
+            startingPointX = self.startPointF.x()
+            self.log.debug("DEBUG: startingPointX={}".format(startingPointX))
+            endingPointX = self.endPointF.x()
+            self.log.debug("DEBUG: endingPointX={}".format(endingPointX))
+            
+            diff = endingPointX - startingPointX
+            self.log.debug("DEBUG: diff={}".format(diff))
+
+            startThreshold = startingPointX + (diff * (1.0 / 5))
+            endThreshold = endingPointX - (diff * (1.0 / 5))
+
+            self.log.debug("DEBUG: startThreshold={}".format(startThreshold))
+            self.log.debug("DEBUG: endThreshold={}".format(endThreshold))
+
+            if startingPointX <= scenePosX <= startThreshold or \
+                   startingPointX >= scenePosX >= startThreshold:
+                
+                self.draggingStartPointFlag = True
+                self.log.debug("DEBUG: self.draggingStartPointFlag={}".
+                               format(self.draggingStartPointFlag))
+                
+            elif endingPointX <= scenePosX <= endThreshold or \
+                   endingPointX >= scenePosX >= endThreshold:
+                
+                self.draggingEndPointFlag = True
+                self.log.debug("DEBUG: self.draggingEndPointFlag={}".
+                               format(self.draggingEndPointFlag))
+            else:
+                # The mouse has clicked the middle part of the
+                # QGraphicsItem, so pass the event to the parent, because
+                # the user wants to either select or drag-move the
+                # position of the QGraphicsItem.
+                self.log.debug("DEBUG:  Middle part clicked.  " + \
+                               "Passing to super().")
+
+                # Save the click position, so that if it is a drag, we
+                # can have something to reference from for setting the
+                # start and end positions when the user finally
+                # releases the mouse button.
+                self.clickScenePointF = event.scenePos()
+                
+                super().mousePressEvent(event)
+
+        self.log.debug("Leaving mousePressEvent()")
+        
+    def mouseMoveEvent(self, event):
+        """Overwrites the QGraphicsItem mouseMoveEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+
+        if event.buttons() & Qt.LeftButton:
+            if self.getReadOnlyFlag() == False:
+                if self.draggingStartPointFlag == True:
+                    self.log.debug("DEBUG: self.draggingStartPointFlag={}".
+                                   format(self.draggingStartPointFlag))
+                    self.setStartPointF(QPointF(event.scenePos().x(),
+                                                self.startPointF.y()))
+                    self.update()
+                elif self.draggingEndPointFlag == True:
+                    self.log.debug("DEBUG: self.draggingEndPointFlag={}".
+                                   format(self.draggingEndPointFlag))
+                    self.setEndPointF(QPointF(event.scenePos().x(),
+                                              self.endPointF.y()))
+                    self.update()
+                else:
+                    # This means that the user is dragging the whole
+                    # ruler.
+
+                    # Do the move.
+                    super().mouseMoveEvent(event)
+                    
+                    # Emit that the PriceBarChart has changed.
+                    self.scene().priceBarChartChanged.emit()
+            else:
+                super().mouseMoveEvent(event)
+        else:
+            super().mouseMoveEvent(event)
+
+    def mouseReleaseEvent(self, event):
+        """Overwrites the QGraphicsItem mouseReleaseEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+        
+        self.log.debug("Entered mouseReleaseEvent()")
+
+        if self.draggingStartPointFlag == True:
+            self.log.debug("mouseReleaseEvent() when previously dragging " + \
+                           "startPoint.")
+            
+            self.draggingStartPointFlag = False
+
+            # Make sure the starting point is to the left of the
+            # ending point.
+            #self.normalizeStartAndEnd()
+            
+            self.prepareGeometryChange()
+            
+            self.scene().priceBarChartChanged.emit()
+            
+        elif self.draggingEndPointFlag == True:
+            self.log.debug("mouseReleaseEvent() when previously dragging " +
+                           "endPoint.")
+            
+            self.draggingEndPointFlag = False
+
+            # Make sure the starting point is to the left of the
+            # ending point.
+            #self.normalizeStartAndEnd()
+
+            self.prepareGeometryChange()
+            
+            self.scene().priceBarChartChanged.emit()
+            
+        else:
+            self.log.debug("mouseReleaseEvent() when NOT previously " + \
+                           "dragging an end.")
+
+            if self.getReadOnlyFlag() == False:
+                # Update the start and end positions.
+                self.log.debug("DEBUG: scenePos: x={}, y={}".
+                               format(event.scenePos().x(),
+                                      event.scenePos().y()))
+
+                # Calculate the difference between where the user released
+                # the button and where the user first clicked the item.
+                delta = event.scenePos() - self.clickScenePointF
+
+                self.log.debug("DEBUG: delta: x={}, y={}".
+                               format(delta.x(), delta.y()))
+
+                # If the delta is not zero, then update the start and
+                # end points by calling setPos() on the new calculated
+                # position.
+                if delta.x() != 0.0 and delta.y() != 0.0:
+                    newPos = self.startPointF + delta
+                    self.setPos(newPos)
+
+            super().mouseReleaseEvent(event)
+
+        self.log.debug("Exiting mouseReleaseEvent()")
+
+    def setReadOnlyFlag(self, flag):
+        """Overwrites the PriceBarChartArtifactGraphicsItem setReadOnlyFlag()
+        function.
+        """
+
+        # Call the parent's function so that the flag gets set.
+        super().setReadOnlyFlag(flag)
+
+        # Make sure the drag flags are disabled.
+        if flag == True:
+            self.draggingStartPointFlag = False
+            self.draggingEndPointFlag = False
+
+    def refreshTextItems(self):
+        """Sets the positions of the text items for the MusicalRatios,
+        and updates the text so that they are current.
+        """
+
+        # Update the dwisaptatiSamaDasa label text item texts.
+        if self.scene() != None:
+            self.recalculateDwisaptatiSamaDasa()
+
+            # Traverse the 2-dimensional list and set the position of
+            # each of the text items.
+            artifact = self.getArtifact()
+            for i in range(len(artifact.getMusicalRatios())):
+                # Get the MusicalRatio that corresponds to this index.
+                musicalRatio = artifact.getMusicalRatios()[i]
+
+                # Here we always set the positions of everything.  If
+                # the musicalRatio not enabled, then the corresponding
+                # graphics items would have gotten disabled in the
+                # self.recalculateDwisaptatiSamaDasa() call above.
+                
+                # Get the x and y position that will be the new
+                # position of the text item.
+                (x, y) = artifact.getXYForMusicalRatio(i)
+
+                # Map those x and y to local coordinates.
+                pointF = self.mapFromScene(QPointF(x, y))
+
+                # Create the text transform to use.
+                textTransform = QTransform()
+                textTransform.scale(self.dwisaptatiSamaDasaTextXScaling, \
+                                    self.dwisaptatiSamaDasaTextYScaling)
+                textTransform.rotate(self.rotationDegrees)
+                
+                # Get the text items for this point on the scale.
+                listOfTextItems = self.musicalRatioTextItems[i]
+
+                # For each text item for that point on the scale,
+                # set the position.
+                for j in range(len(listOfTextItems)):
+                    textItem = listOfTextItems[j]
+                    # The position set is not exactly at (x, y), but
+                    # instead at a slight offset so that it is more
+                    # visible.
+                    if j == 0:
+                        # Dasa lord.
+                        offsetX = (textItem.boundingRect().height() * 0.16)
+                        textItem.setPos(QPointF(pointF.x() + offsetX,
+                                                pointF.y()))
+                    elif j == 1:
+                        # Timestamp.
+                        textItem.setPos(pointF)
+                        
+                    textItem.setFont(self.dwisaptatiSamaDasaTextFont)
+                    textItem.setPen(self.dwisaptatiSamaDasaTextPen)
+                    textItem.setBrush(self.dwisaptatiSamaDasaTextBrush)
+                    textItem.setTransform(textTransform)
+                    
+                # Also set the position of the vertical tick line.
+                barHeight = artifact.getBarHeight()
+                self.verticalTickItems[i].setBarHeight(barHeight)
+                self.verticalTickItems[i].setPos(pointF)
+                    
+            # Call update on this item since positions and child items
+            # were updated.
+            self.prepareGeometryChange()
+            self.update()
+
+    def setStartPointF(self, pointF):
+        """Sets the starting point of the dwisaptatiSamaDasa.  The value passed in
+        is the mouse location in scene coordinates.  
+        """
+
+        if self.startPointF != pointF: 
+            self.startPointF = pointF
+
+            self.setPos(self.startPointF)
+            
+            # Update the dwisaptatiSamaDasa label text item positions.
+            self.refreshTextItems()            
+
+            # Call update on this item since positions and child items
+            # were updated.
+            if self.scene() != None:
+                self.update()
+
+    def setEndPointF(self, pointF):
+        """Sets the ending point of the dwisaptatiSamaDasa.  The value passed in
+        is the mouse location in scene coordinates.  
+        """
+
+        if self.endPointF != pointF:
+            self.endPointF = pointF
+
+            self.log.debug("DwisaptatiSamaDasaGraphicsItem." +
+                           "setEndPointF(QPointF({}, {}))".\
+                           format(pointF.x(), pointF.y()))
+            
+            # Update the dwisaptatiSamaDasa label text item positions.
+            self.refreshTextItems()
+
+            # Call update on this item since positions and child items
+            # were updated.
+            if self.scene() != None:
+                self.update()
+
+    def normalizeStartAndEnd(self):
+        """Sets the starting point X location to be less than the ending
+        point X location.
+        """
+
+        #if self.startPointF.x() > self.endPointF.x():
+        #    self.log.debug("Normalization of DwisaptatiSamaDasaGraphicsItem " +
+        #                   "required.")
+        #    
+        #    # Swap the points.
+        #    temp = self.startPointF
+        #    self.startPointF = self.endPointF
+        #    self.endPointF = temp
+        #
+        #    super().setPos(self.startPointF)
+        #    
+        #    # Update the dwisaptatiSamaDasa label text item positions.
+        #    self.refreshTextItems()
+        pass
+
+    def recalculateDwisaptatiSamaDasa(self):
+        """Updates the text items that represent the ticks on the
+        modal scale.  These texts will have accurate values for where
+        the notes are in terms of price and time.
+
+        In this process, it also sets the internal variables such that
+        a call to self.getArtifact().getXYForMusicalRatio(index) can
+        be made and a value returned that is accurate.
+        """
+
+        scene = self.scene()
+
+        if scene != None:
+            artifact = self.getArtifact()
+            musicalRatios = artifact.getMusicalRatios()
+            for i in range(len(musicalRatios)):
+                musicalRatio = musicalRatios[i]
+
+                if musicalRatio.isEnabled():
+                    # Enable and make visible.
+
+                    # Get the text items for this point on the scale.
+                    listOfTextItems = self.musicalRatioTextItems[i]
+                    
+                    # For the text items for that point on the scale,
+                    # set the text.  
+                    for j in range(len(listOfTextItems)):
+                        textItem = listOfTextItems[j]
+
+                        # Make the text visible if it is enabled.
+                        textEnabled = artifact.isTextEnabled()
+                        textItem.setEnabled(textEnabled)
+                        textItem.setVisible(textEnabled)
+
+                        # If text isn't enabled, there's no need to
+                        # set the text for it.  Go to the next text item.
+                        if textEnabled == False:
+                            continue
+                    
+                        if j == 0:
+                            # Dasa lord text.
+                            textItem.setText(musicalRatio.getDescription())
+                            
+                        elif j == 1:
+                            # Timestamp text.
+
+                            # For this particular graphics item, we'll not have
+                            # a timestamp text.
+                            textItem.setEnabled(False)
+                            textItem.setVisible(False)
+                            continue
+                        
+                            # Get the x location and then convert to a datetime.
+                            #(x, y) = artifact.getXYForMusicalRatio(i)
+                            #timestamp = \
+                            #    self.scene().sceneXPosToDatetime(x)
+                            #timestampText = \
+                            #    Ephemeris.datetimeToDayStr(timestamp)
+                            #textItem.setText(timestampText)
+
+                    # Also enable and set the vertical tick line.
+                    self.verticalTickItems[i].setVisible(True)
+                    self.verticalTickItems[i].setEnabled(True)
+                            
+                else:
+                    # Disable and make not visable.
+                    
+                    # Get the text items for this point on the scale.
+                    listOfTextItems = self.musicalRatioTextItems[i]
+                    
+                    # For each text item for that point on the scale,
+                    # set as disabled and not visible.
+                    for j in range(len(listOfTextItems)):
+                        textItem = listOfTextItems[j]
+                        textItem.setVisible(False)
+                        textItem.setEnabled(False)
+
+                    # Also disable the vertical tick line.
+                    self.verticalTickItems[i].setVisible(False)
+                    self.verticalTickItems[i].setEnabled(False)
+                    
+
+                        
+    def setArtifact(self, artifact):
+        """Loads a given PriceBarChartDwisaptatiSamaDasaArtifact object's data
+        into this QGraphicsItem.
+
+        Arguments:
+        artifact - PriceBarChartDwisaptatiSamaDasaArtifact object with information
+                   about this TextGraphisItem
+        """
+
+        self.log.debug("Entering setArtifact()")
+
+        if isinstance(artifact, PriceBarChartDwisaptatiSamaDasaArtifact):
+            self.artifact = artifact
+        else:
+            raise TypeError("Expected artifact type: " + \
+                            "PriceBarChartDwisaptatiSamaDasaArtifact")
+
+        # Extract and set the internals according to the info 
+        # in this artifact object.
+        self.setPos(self.artifact.getPos())
+        self.setStartPointF(self.artifact.getStartPointF())
+        self.setEndPointF(self.artifact.getEndPointF())
+
+        self.dwisaptatiSamaDasaTextFont.\
+            setPointSizeF(self.artifact.getFontSize())
+        self.dwisaptatiSamaDasaPen.\
+            setColor(self.artifact.getColor())
+        self.dwisaptatiSamaDasaTextPen.\
+            setColor(self.artifact.getTextColor())
+        self.dwisaptatiSamaDasaTextBrush.\
+            setColor(self.artifact.getTextColor())
+
+        
+        # Need to recalculate the time measurement, since the start and end
+        # points have changed.  Note, if no scene has been set for the
+        # QGraphicsView, then the measurements will be zero.
+        self.refreshTextItems()
+
+        self.log.debug("Exiting setArtifact()")
+
+    def getArtifact(self):
+        """Returns a PriceBarChartDwisaptatiSamaDasaArtifact for this
+        QGraphicsItem so that it may be pickled.
+        """
+        
+        # Update the internal self.priceBarChartDwisaptatiSamaDasaArtifact 
+        # to be current, then return it.
+
+        self.artifact.setPos(self.pos())
+        self.artifact.setStartPointF(self.startPointF)
+        self.artifact.setEndPointF(self.endPointF)
+        
+        # Everything else gets modified only by the edit dialog.
+        
+        return self.artifact
+
+    def boundingRect(self):
+        """Returns the bounding rectangle for this graphicsitem."""
+
+        # Coordinate (0, 0) in local coordinates is the center of 
+        # the vertical bar that is at the left portion of this widget,
+        # and represented in scene coordinates as the self.startPointF 
+        # location.
+        
+        # The QRectF returned is relative to this (0, 0) point.
+        barHeight = \
+            self.getArtifact().getBarHeight()
+        
+        xTopLeft = 0.0
+        yTopLeft = 1.0 * (barHeight * 0.5)
+        
+        xBottomLeft = 0.0
+        yBottomLeft = -1.0 * (barHeight * 0.5)
+        
+        xDelta = self.endPointF.x() - self.startPointF.x()
+        yDelta = self.endPointF.y() - self.startPointF.y()
+        
+        xTopRight = 0.0 + xDelta
+        yTopRight = (1.0 * (barHeight * 0.5)) + yDelta
+        
+        xBottomRight = 0.0 + xDelta
+        yBottomRight = (-1.0 * (barHeight * 0.5)) + yDelta
+
+        # Get the highest high, and lowest low PriceBar in local
+        # coordinates.
+        highestPrice = self.scene().getHighestPriceBar().high
+        highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
+        localHighY = \
+            self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+
+        lowestPrice = self.scene().getLowestPriceBar().low
+        lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+        localLowY = \
+            self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                          
+
+        xValues = []
+        xValues.append(xTopLeft)
+        xValues.append(xBottomLeft)
+        xValues.append(xTopRight)
+        xValues.append(xBottomRight)
+
+        yValues = []
+        yValues.append(yTopLeft)
+        yValues.append(yBottomLeft)
+        yValues.append(yTopRight)
+        yValues.append(yBottomRight)
+        yValues.append(localHighY)
+        yValues.append(localLowY)
+        
+        xValues.sort()
+        yValues.sort()
+        
+        # Find the smallest x and y.
+        smallestX = xValues[0]
+        smallestY = yValues[0]
+        
+        # Find the largest x and y.
+        largestX = xValues[-1]
+        largestY = yValues[-1]
+            
+        rv = QRectF(QPointF(smallestX, smallestY),
+                    QPointF(largestX, largestY))
+
+        return rv
+
+    def shape(self):
+        """Overwrites the QGraphicsItem.shape() function to return a
+        more accurate shape for collision detection, hit tests, etc.
+
+        Returns:
+        QPainterPath object holding the shape of this QGraphicsItem.
+        """
+
+        barHeight = \
+            self.getArtifact().getBarHeight()
+        
+        # The QRectF returned is relative to this (0, 0) point.
+
+        xTopLeft = 0.0
+        yTopLeft = 1.0 * (barHeight * 0.5)
+        topLeft = QPointF(xTopLeft, yTopLeft)
+        
+        xBottomLeft = 0.0
+        yBottomLeft = -1.0 * (barHeight * 0.5)
+        bottomLeft = QPointF(xBottomLeft, yBottomLeft)
+        
+        xDelta = self.endPointF.x() - self.startPointF.x()
+        yDelta = self.endPointF.y() - self.startPointF.y()
+        
+        xTopRight = 0.0 + xDelta
+        yTopRight = (1.0 * (barHeight * 0.5)) + yDelta
+        topRight = QPointF(xTopRight, yTopRight)
+        
+        xBottomRight = 0.0 + xDelta
+        yBottomRight = (-1.0 * (barHeight * 0.5)) + yDelta
+        bottomRight = QPointF(xBottomRight, yBottomRight)
+
+        rectWithoutText = QRectF(topLeft, bottomRight)
+
+        painterPath = QPainterPath()
+        painterPath.addRect(rectWithoutText)
+        
+        return painterPath
+        
+    def paint(self, painter, option, widget):
+        """Paints this QGraphicsItem.  Assumes that
+        self.dwisaptatiSamaDasaPen is set to what we want for the drawing
+        style.
+        """
+
+        self.log.debug("Entered DwisaptatiSamaDasaGraphicsItem.paint().  " +
+                       "pos is: ({}, {})".format(self.pos().x(),
+                                                 self.pos().y()))
+                       
+        if painter.pen() != self.dwisaptatiSamaDasaPen:
+            painter.setPen(self.dwisaptatiSamaDasaPen)
+
+        artifact = self.getArtifact()
+        barHeight = artifact.getBarHeight()
+
+        # Keep track of x and y values.  We use this to draw the
+        # dotted lines later.
+        xValues = []
+        yValues = []
+        
+        # Draw the left vertical bar part.
+        x1 = 0.0
+        y1 = 1.0 * (barHeight * 0.5)
+        x2 = 0.0
+        y2 = -1.0 * (barHeight * 0.5)
+        painter.drawLine(QLineF(x1, y1, x2, y2))
+
+        xValues.append(x1)
+        xValues.append(x2)
+        yValues.append(y1)
+        yValues.append(y2)
+        
+        # Draw the right vertical bar part.
+        xDelta = self.endPointF.x() - self.startPointF.x()
+        yDelta = self.endPointF.y() - self.startPointF.y()
+        x1 = 0.0 + xDelta
+        y1 = (1.0 * (barHeight * 0.5)) + yDelta
+        x2 = 0.0 + xDelta
+        y2 = (-1.0 * (barHeight * 0.5)) + yDelta
+        painter.drawLine(QLineF(x1, y1, x2, y2))
+
+        xValues.append(x1)
+        xValues.append(x2)
+        yValues.append(y1)
+        yValues.append(y2)
+        
+        # Draw the middle line.
+        x1 = 0.0
+        y1 = 0.0
+        x2 = xDelta
+        y2 = yDelta
+        painter.drawLine(QLineF(x1, y1, x2, y2))
+
+        xValues.append(x1)
+        xValues.append(x2)
+        yValues.append(y1)
+        yValues.append(y2)
+        
+        # Draw vertical dotted lines at each enabled musicalRatio if
+        # the flag is set to do so, or if it is selected.
+        if self.drawVerticalDottedLinesFlag == True or \
+           option.state & QStyle.State_Selected:
+
+            if self.scene() != None:
+                pad = self.dwisaptatiSamaDasaPen.widthF() * 0.5;
+                penWidth = 0.0
+                fgcolor = option.palette.windowText().color()
+                # Ensure good contrast against fgcolor.
+                r = 255
+                g = 255
+                b = 255
+                if fgcolor.red() > 127:
+                    r = 0
+                if fgcolor.green() > 127:
+                    g = 0
+                if fgcolor.blue() > 127:
+                    b = 0
+                bgcolor = QColor(r, g, b)
+    
+                # Get the highest high, and lowest low PriceBar in local
+                # coordinates.
+                highestPrice = self.scene().getHighestPriceBar().high
+                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
+                localHighY = \
+                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                
+                lowestPrice = self.scene().getLowestPriceBar().low
+                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                localLowY = \
+                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                          
+                yValues.append(localHighY)
+                yValues.append(localLowY)
+
+                # We have all y values now, so sort them to get the
+                # low and high.
+                yValues.sort()
+                smallestY = yValues[0]
+                largestY = yValues[-1]
+        
+                for verticalTickItem in self.verticalTickItems:
+                    if verticalTickItem.isEnabled() and \
+                       verticalTickItem.isVisible():
+                    
+                        localPosX = verticalTickItem.pos().x()
+
+                        startPoint = QPointF(localPosX, largestY)
+                        endPoint = QPointF(localPosX, smallestY)
+                        
+                        painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+                        painter.setBrush(Qt.NoBrush)
+                        painter.drawLine(startPoint, endPoint)
+                
+                        painter.setPen(QPen(option.palette.windowText(), 0,
+                                            Qt.DashLine))
+                        painter.setBrush(Qt.NoBrush)
+                        painter.drawLine(startPoint, endPoint)
+
+                # Draw the vertical line for the start point.
+                startPoint = QPointF(0.0, largestY)
+                endPoint = QPointF(0.0, smallestY)
+                
+                painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+                painter.setBrush(Qt.NoBrush)
+                painter.drawLine(startPoint, endPoint)
+                
+                painter.setPen(QPen(option.palette.windowText(), 0,
+                                    Qt.DashLine))
+                painter.setBrush(Qt.NoBrush)
+                painter.drawLine(startPoint, endPoint)
+
+                # Draw the vertical line for the end point.
+                startPoint = QPointF(0.0 + xDelta, largestY)
+                endPoint = QPointF(0.0 + xDelta, smallestY)
+                
+                painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+                painter.setBrush(Qt.NoBrush)
+                painter.drawLine(startPoint, endPoint)
+                
+                painter.setPen(QPen(option.palette.windowText(), 0,
+                                    Qt.DashLine))
+                painter.setBrush(Qt.NoBrush)
+                painter.drawLine(startPoint, endPoint)
+
+        # Draw a dashed-line surrounding the item if it is selected.
+        if option.state & QStyle.State_Selected:
+            pad = self.dwisaptatiSamaDasaPen.widthF() * 0.5;
+            penWidth = 0.0
+            fgcolor = option.palette.windowText().color()
+            
+            # Ensure good contrast against fgcolor.
+            r = 255
+            g = 255
+            b = 255
+            if fgcolor.red() > 127:
+                r = 0
+            if fgcolor.green() > 127:
+                g = 0
+            if fgcolor.blue() > 127:
+                b = 0
+            
+            bgcolor = QColor(r, g, b)
+            
+            painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawPath(self.shape())
+            
+            painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawPath(self.shape())
+
+    def appendActionsToContextMenu(self, menu, readOnlyMode=False):
+        """Modifies the given QMenu object to update the title and add
+        actions relevant to this DwisaptatiSamaDasaGraphicsItem.  Actions that
+        are triggered from this menu run various methods in the
+        DwisaptatiSamaDasaGraphicsItem to handle the desired functionality.
+        
+        Arguments:
+        menu - QMenu object to modify.
+        readOnlyMode - bool value that indicates the actions are to be
+                       readonly actions.
+        """
+
+        menu.setTitle(self.artifact.getInternalName())
+        
+        # These are the QActions that are in the menu.
+        parent = menu
+        selectAction = QAction("&Select", parent)
+        unselectAction = QAction("&Unselect", parent)
+        removeAction = QAction("Remove", parent)
+        infoAction = QAction("&Info", parent)
+        editAction = QAction("&Edit", parent)
+        rotateDownAction = QAction("Rotate Down", parent)
+        rotateUpAction = QAction("Rotate Up", parent)
+        reverseAction = QAction("Reverse", parent)
+        
+        setStartOnAstro1Action = \
+            QAction("Set start timestamp on Astro Chart &1", parent)
+        setStartOnAstro2Action = \
+            QAction("Set start timestamp on Astro Chart &2", parent)
+        setStartOnAstro3Action = \
+            QAction("Set start timestamp on Astro Chart &3", parent)
+        openStartInJHoraAction = \
+            QAction("Open JHor&a with start timestamp", parent)
+        
+        setEndOnAstro1Action = \
+            QAction("Set end timestamp on Astro Chart 1", parent)
+        setEndOnAstro2Action = \
+            QAction("Set end timestamp on Astro Chart 2", parent)
+        setEndOnAstro3Action = \
+            QAction("Set end timestamp on Astro Chart 3", parent)
+        openEndInJHoraAction = \
+            QAction("Open JHora with end timestamp", parent)
+        
+        selectAction.triggered.\
+            connect(self._handleSelectAction)
+        unselectAction.triggered.\
+            connect(self._handleUnselectAction)
+        removeAction.triggered.\
+            connect(self._handleRemoveAction)
+        infoAction.triggered.\
+            connect(self._handleInfoAction)
+        editAction.triggered.\
+            connect(self._handleEditAction)
+        rotateDownAction.triggered.\
+            connect(self._handleRotateDownAction)
+        rotateUpAction.triggered.\
+            connect(self._handleRotateUpAction)
+        reverseAction.triggered.\
+            connect(self._handleReverseAction)
+        setStartOnAstro1Action.triggered.\
+            connect(self._handleSetStartOnAstro1Action)
+        setStartOnAstro2Action.triggered.\
+            connect(self._handleSetStartOnAstro2Action)
+        setStartOnAstro3Action.triggered.\
+            connect(self._handleSetStartOnAstro3Action)
+        openStartInJHoraAction.triggered.\
+            connect(self._handleOpenStartInJHoraAction)
+        setEndOnAstro1Action.triggered.\
+            connect(self._handleSetEndOnAstro1Action)
+        setEndOnAstro2Action.triggered.\
+            connect(self._handleSetEndOnAstro2Action)
+        setEndOnAstro3Action.triggered.\
+            connect(self._handleSetEndOnAstro3Action)
+        openEndInJHoraAction.triggered.\
+            connect(self._handleOpenEndInJHoraAction)
+        
+        # Enable or disable actions.
+        selectAction.setEnabled(True)
+        unselectAction.setEnabled(True)
+        removeAction.setEnabled(not readOnlyMode)
+        infoAction.setEnabled(True)
+        editAction.setEnabled(not readOnlyMode)
+        rotateDownAction.setEnabled(not readOnlyMode)
+        rotateUpAction.setEnabled(not readOnlyMode)
+        reverseAction.setEnabled(not readOnlyMode)
+        setStartOnAstro1Action.setEnabled(True)
+        setStartOnAstro2Action.setEnabled(True)
+        setStartOnAstro3Action.setEnabled(True)
+        openStartInJHoraAction.setEnabled(True)
+        setEndOnAstro1Action.setEnabled(True)
+        setEndOnAstro2Action.setEnabled(True)
+        setEndOnAstro3Action.setEnabled(True)
+        openEndInJHoraAction.setEnabled(True)
+
+        # Add the QActions to the menu.
+        menu.addAction(selectAction)
+        menu.addAction(unselectAction)
+        menu.addSeparator()
+        menu.addAction(removeAction)
+        menu.addSeparator()
+        menu.addAction(infoAction)
+        menu.addAction(editAction)
+        menu.addAction(rotateDownAction)
+        menu.addAction(rotateUpAction)
+        menu.addAction(reverseAction)
+        menu.addSeparator()
+        menu.addAction(setStartOnAstro1Action)
+        menu.addAction(setStartOnAstro2Action)
+        menu.addAction(setStartOnAstro3Action)
+        menu.addAction(openStartInJHoraAction)
+        menu.addSeparator()
+        menu.addAction(setEndOnAstro1Action)
+        menu.addAction(setEndOnAstro2Action)
+        menu.addAction(setEndOnAstro3Action)
+        menu.addAction(openEndInJHoraAction)
+
+    def rotateDown(self):
+        """Causes the DwisaptatiSamaDasaGraphicsItem to have its musicalRatios
+        rotated down (to the right).
+        """
+
+        self._handleRotateDownAction()
+        
+    def rotateUp(self):
+        """Causes the DwisaptatiSamaDasaGraphicsItem to have its musicalRatios
+        rotated up (to the left).
+        """
+        
+        self._handleRotateUpAction()
+
+    def reverse(self):
+        """Causes the DwisaptatiSamaDasaGraphicsItem to have its musicalRatios
+        reversed.
+        """
+
+        self._handleReverseAction()
+        
+    def _handleSelectAction(self):
+        """Causes the QGraphicsItem to become selected."""
+
+        self.setSelected(True)
+
+    def _handleUnselectAction(self):
+        """Causes the QGraphicsItem to become unselected."""
+
+        self.setSelected(False)
+
+    def _handleRemoveAction(self):
+        """Causes the QGraphicsItem to be removed from the scene."""
+        
+        scene = self.scene()
+        scene.removeItem(self)
+
+        # Emit signal to show that an item is removed.
+        # This sets the dirty flag.
+        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+        
+    def _handleInfoAction(self):
+        """Causes a dialog to be executed to show information about
+        the QGraphicsItem.
+        """
+
+        artifact = self.getArtifact()
+        dialog = PriceBarChartDwisaptatiSamaDasaArtifactEditDialog(artifact,
+                                                           self.scene(),
+                                                           readOnlyFlag=True)
+        
+        # Run the dialog.  We don't care about what is returned
+        # because the dialog is read-only.
+        rv = dialog.exec_()
+        
+    def _handleEditAction(self):
+        """Causes a dialog to be executed to edit information about
+        the QGraphicsItem.
+        """
+
+        artifact = self.getArtifact()
+        dialog = PriceBarChartDwisaptatiSamaDasaArtifactEditDialog(artifact,
+                                                         self.scene(),
+                                                         readOnlyFlag=False)
+        
+        rv = dialog.exec_()
+        
+        if rv == QDialog.Accepted:
+            # If the dialog is accepted then get the new artifact and
+            # set it to this PriceBarChartArtifactGraphicsItem, which
+            # will cause it to be reloaded in the scene.
+            artifact = dialog.getArtifact()
+            self.setArtifact(artifact)
+
+            # Flag that a redraw of this QGraphicsItem is required.
+            self.update()
+
+            # Emit that the PriceBarChart has changed so that the
+            # dirty flag can be set.
+            self.scene().priceBarChartChanged.emit()
+        else:
+            # The user canceled so don't change anything.
+            pass
+        
+    def _handleRotateDownAction(self):
+        """Causes the DwisaptatiSamaDasaGraphicsItem to have its musicalRatios
+        rotated down (to the right).
+        """
+
+        # Get all the musicalRatios in the internally stored artifact.
+        musicalRatios = self.getArtifact().getMusicalRatios()
+
+        # See how many enabled musicalRatios there are.  
+        numEnabledMusicalRatios = 0
+        for musicalRatio in musicalRatios:
+            if musicalRatio.isEnabled():
+                numEnabledMusicalRatios += 1
+                
+        if len(musicalRatios) > 0 and numEnabledMusicalRatios > 0:
+
+            if self.artifact.isReversed() == False:
+                # Put the last musicalRatio in the front.
+                lastRatio = musicalRatios.pop(len(musicalRatios) - 1)
+                musicalRatios.insert(0, lastRatio)
+        
+                # Rotate down until there is a musicalRatio at the
+                # beginning that is enabled.
+                while musicalRatios[0].isEnabled() == False:
+                    # Put the last musicalRatio in the front.
+                    lastRatio = musicalRatios.pop(len(musicalRatios) - 1)
+                    musicalRatios.insert(0, lastRatio)
+            else:
+                # Put the first musicalRatio in the back.
+                firstRatio = musicalRatios.pop(0)
+                musicalRatios.append(firstRatio)
+        
+                # Rotate until there is a musicalRatio at the
+                # beginning that is enabled.
+                while musicalRatios[0].isEnabled() == False:
+                    # Put the first musicalRatio in the back.
+                    firstRatio = musicalRatios.pop(0)
+                    musicalRatios.append(firstRatio)
+                
+            # Overwrite the old list in the internally stored artifact.
+            self.artifact.setMusicalRatios(musicalRatios)
+
+            # Refresh everything.
+            self.refreshTextItems()
+
+            self.update()
+            
+            # Emit that the PriceBarChart has changed so that the
+            # dirty flag can be set.
+            self.scene().priceBarChartChanged.emit()
+        
+    def _handleRotateUpAction(self):
+        """Causes the DwisaptatiSamaDasaGraphicsItem to have its musicalRatios
+        rotated up (to the left).
+        """
+        
+        # Get all the musicalRatios in the internally stored artifact.
+        musicalRatios = self.getArtifact().getMusicalRatios()
+        
+        # See how many enabled musicalRatios there are.  
+        numEnabledMusicalRatios = 0
+        for musicalRatio in musicalRatios:
+            if musicalRatio.isEnabled():
+                numEnabledMusicalRatios += 1
+                
+        if len(musicalRatios) > 0 and numEnabledMusicalRatios > 0:
+
+            if self.artifact.isReversed() == False:
+                # Put the first musicalRatio in the back.
+                firstRatio = musicalRatios.pop(0)
+                musicalRatios.append(firstRatio)
+        
+                # Rotate until there is a musicalRatio at the
+                # beginning that is enabled.
+                while musicalRatios[0].isEnabled() == False:
+                    # Put the first musicalRatio in the back.
+                    firstRatio = musicalRatios.pop(0)
+                    musicalRatios.append(firstRatio)
+            else:
+                # Put the last musicalRatio in the front.
+                lastRatio = musicalRatios.pop(len(musicalRatios) - 1)
+                musicalRatios.insert(0, lastRatio)
+        
+                # Rotate down until there is a musicalRatio at the
+                # beginning that is enabled.
+                while musicalRatios[0].isEnabled() == False:
+                    # Put the last musicalRatio in the front.
+                    lastRatio = musicalRatios.pop(len(musicalRatios) - 1)
+                    musicalRatios.insert(0, lastRatio)
+                
+
+            # Overwrite the old list in the internally stored artifact.
+            self.artifact.setMusicalRatios(musicalRatios)
+
+            # Refresh everything.
+            self.refreshTextItems()
+        
+            self.update()
+            
+            # Emit that the PriceBarChart has changed so that the
+            # dirty flag can be set.
+            self.scene().priceBarChartChanged.emit()
+
+    def _handleReverseAction(self):
+        """Causes the DwisaptatiSamaDasaGraphicsItem to have its musicalRatios
+        reversed.
+        """
+        
+        # Flip the flag that indicates that the musical ratios are reversed.
+        self.artifact.setReversed(not self.artifact.isReversed())
+        
+        # Refresh everything.
+        self.refreshTextItems()
+        
+        self.update()
+            
+        # Emit that the PriceBarChart has changed so that the
+        # dirty flag can be set.
+        self.scene().priceBarChartChanged.emit()
+        
+    def _handleSetStartOnAstro1Action(self):
+        """Causes the astro chart 1 to be set with the timestamp
+        of the start the DwisaptatiSamaDasaGraphicsItem.
+        """
+
+        self.scene().setAstroChart1(self.startPointF.x())
+        
+    def _handleSetStartOnAstro2Action(self):
+        """Causes the astro chart 2 to be set with the timestamp
+        of the start the DwisaptatiSamaDasaGraphicsItem.
+        """
+
+        self.scene().setAstroChart2(self.startPointF.x())
+        
+    def _handleSetStartOnAstro3Action(self):
+        """Causes the astro chart 3 to be set with the timestamp
+        of the start the DwisaptatiSamaDasaGraphicsItem.
+        """
+
+        self.scene().setAstroChart3(self.startPointF.x())
+        
+    def _handleOpenStartInJHoraAction(self):
+        """Causes the the timestamp of the start the
+        DwisaptatiSamaDasaGraphicsItem to be opened in JHora.
+        """
+
+        self.scene().openJHora(self.startPointF.x())
+        
+    def _handleSetEndOnAstro1Action(self):
+        """Causes the astro chart 1 to be set with the timestamp
+        of the end the DwisaptatiSamaDasaGraphicsItem.
+        """
+
+        self.scene().setAstroChart1(self.endPointF.x())
+
+    def _handleSetEndOnAstro2Action(self):
+        """Causes the astro chart 2 to be set with the timestamp
+        of the end the DwisaptatiSamaDasaGraphicsItem.
+        """
+
+        self.scene().setAstroChart2(self.endPointF.x())
+
+    def _handleSetEndOnAstro3Action(self):
+        """Causes the astro chart 3 to be set with the timestamp
+        of the end the DwisaptatiSamaDasaGraphicsItem.
+        """
+
+        self.scene().setAstroChart3(self.endPointF.x())
+
+    def _handleOpenEndInJHoraAction(self):
+        """Causes the the timestamp of the end the
+        DwisaptatiSamaDasaGraphicsItem to be opened in JHora.
+        """
+
+        self.scene().openJHora(self.endPointF.x())
+        
 class PriceBarChartWidget(QWidget):
     """Widget holding the QGraphicsScene and QGraphicsView that displays
     the PriceBar information along with other indicators and analysis
@@ -23437,28 +24775,29 @@ class PriceBarChartWidget(QWidget):
     jhoraLaunch = QtCore.pyqtSignal(datetime.datetime)
     
     # Tool modes that this widget can be in.
-    ToolMode = {"ReadOnlyPointerTool"  : 0,
-                "PointerTool"          : 1,
-                "HandTool"             : 2,
-                "ZoomInTool"           : 3,
-                "ZoomOutTool"          : 4,
-                "BarCountTool"         : 5,
-                "TimeMeasurementTool"  : 6,
-                "TimeModalScaleTool"   : 7,
-                "PriceModalScaleTool"  : 8,
-                "TextTool"             : 9,
-                "PriceTimeInfoTool"    : 10,
-                "PriceMeasurementTool" : 11,
-                "TimeRetracementTool"  : 12,
-                "PriceRetracementTool" : 13,
-                "PriceTimeVectorTool"  : 14,
-                "LineSegmentTool"      : 15,
-                "OctaveFanTool"        : 16,
-                "FibFanTool"           : 17,
-                "GannFanTool"          : 18,
-                "VimsottariDasaTool"   : 19,
-                "AshtottariDasaTool"   : 20,
-                "YoginiDasaTool"       : 21 }
+    ToolMode = {"ReadOnlyPointerTool"    : 0,
+                "PointerTool"            : 1,
+                "HandTool"               : 2,
+                "ZoomInTool"             : 3,
+                "ZoomOutTool"            : 4,
+                "BarCountTool"           : 5,
+                "TimeMeasurementTool"    : 6,
+                "TimeModalScaleTool"     : 7,
+                "PriceModalScaleTool"    : 8,
+                "TextTool"               : 9,
+                "PriceTimeInfoTool"      : 10,
+                "PriceMeasurementTool"   : 11,
+                "TimeRetracementTool"    : 12,
+                "PriceRetracementTool"   : 13,
+                "PriceTimeVectorTool"    : 14,
+                "LineSegmentTool"        : 15,
+                "OctaveFanTool"          : 16,
+                "FibFanTool"             : 17,
+                "GannFanTool"            : 18,
+                "VimsottariDasaTool"     : 19,
+                "AshtottariDasaTool"     : 20,
+                "YoginiDasaTool"         : 21,
+                "DwisaptatiSamaDasaTool" : 22 }
 
 
     def __init__(self, parent=None):
@@ -24228,6 +25567,26 @@ class PriceBarChartWidget(QWidget):
         
                 addedItemFlag = True
 
+            elif isinstance(artifact, PriceBarChartDwisaptatiSamaDasaArtifact):
+                self.log.debug("Loading artifact: " + artifact.toString())
+                
+                newItem = DwisaptatiSamaDasaGraphicsItem()
+                newItem.loadSettingsFromPriceBarChartSettings(\
+                    self.priceBarChartSettings)
+                newItem.setArtifact(artifact)
+
+                # Add the item.
+                self.graphicsScene.addItem(newItem)
+                
+                # Make sure the proper flags are set for the mode we're in.
+                self.graphicsView.setGraphicsItemFlagsPerCurrToolMode(newItem)
+
+                # Need to recalculate musicalRatios in the scale,
+                # since it wasn't in the QGraphicsScene until now.
+                newItem.refreshTextItems()
+        
+                addedItemFlag = True
+
         if addedItemFlag == True:
             # Emit that the PriceBarChart has changed.
             self.graphicsScene.priceBarChartChanged.emit()
@@ -24441,6 +25800,9 @@ class PriceBarChartWidget(QWidget):
             elif isinstance(item, YoginiDasaGraphicsItem):
                 self.log.debug("Not applying settings to " +
                                "YoginiDasaGraphicsItem.")
+            elif isinstance(item, DwisaptatiSamaDasaGraphicsItem):
+                self.log.debug("Not applying settings to " +
+                               "DwisaptatiSamaDasaGraphicsItem.")
                 
         if settingsChangedFlag == True:
             # Emit that the PriceBarChart has changed, because we have
@@ -24735,6 +26097,21 @@ class PriceBarChartWidget(QWidget):
             self.graphicsView.toYoginiDasaToolMode()
 
         self.log.debug("Exiting toYoginiDasaToolMode()")
+
+    def toDwisaptatiSamaDasaToolMode(self):
+        """Changes the tool mode to be the DwisaptatiSamaDasaTool."""
+
+        self.log.debug("Entered toDwisaptatiSamaDasaToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != \
+               PriceBarChartWidget.ToolMode['DwisaptatiSamaDasaTool']:
+            
+            self.toolMode = \
+                PriceBarChartWidget.ToolMode['DwisaptatiSamaDasaTool']
+            self.graphicsView.toDwisaptatiSamaDasaToolMode()
+
+        self.log.debug("Exiting toDwisaptatiSamaDasaToolMode()")
 
     def _handleMouseLocationUpdate(self, x, y):
         """Handles mouse location changes in the QGraphicsView.  
@@ -25796,28 +27173,29 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
 
     # Tool modes that this widget can be in.
-    ToolMode = {"ReadOnlyPointerTool"  : 0,
-                "PointerTool"          : 1,
-                "HandTool"             : 2,
-                "ZoomInTool"           : 3,
-                "ZoomOutTool"          : 4,
-                "BarCountTool"         : 5,
-                "TimeMeasurementTool"  : 6,
-                "TimeModalScaleTool"   : 7,
-                "PriceModalScaleTool"  : 8,
-                "TextTool"             : 9,
-                "PriceTimeInfoTool"    : 10,
-                "PriceMeasurementTool" : 11,
-                "TimeRetracementTool"  : 12,
-                "PriceRetracementTool" : 13,
-                "PriceTimeVectorTool"  : 14,
-                "LineSegmentTool"      : 15,
-                "OctaveFanTool"        : 16,
-                "FibFanTool"           : 17,
-                "GannFanTool"          : 18,
-                "VimsottariDasaTool"   : 19,
-                "AshtottariDasaTool"   : 20,
-                "YoginiDasaTool"       : 21 }
+    ToolMode = {"ReadOnlyPointerTool"    : 0,
+                "PointerTool"            : 1,
+                "HandTool"               : 2,
+                "ZoomInTool"             : 3,
+                "ZoomOutTool"            : 4,
+                "BarCountTool"           : 5,
+                "TimeMeasurementTool"    : 6,
+                "TimeModalScaleTool"     : 7,
+                "PriceModalScaleTool"    : 8,
+                "TextTool"               : 9,
+                "PriceTimeInfoTool"      : 10,
+                "PriceMeasurementTool"   : 11,
+                "TimeRetracementTool"    : 12,
+                "PriceRetracementTool"   : 13,
+                "PriceTimeVectorTool"    : 14,
+                "LineSegmentTool"        : 15,
+                "OctaveFanTool"          : 16,
+                "FibFanTool"             : 17,
+                "GannFanTool"            : 18,
+                "VimsottariDasaTool"     : 19,
+                "AshtottariDasaTool"     : 20,
+                "YoginiDasaTool"         : 21,
+                "DwisaptatiSamaDasaTool" : 22 }
 
     # Signal emitted when the mouse moves within the QGraphicsView.
     # The position emitted is in QGraphicsScene x, y, float coordinates.
@@ -25923,6 +27301,10 @@ class PriceBarChartGraphicsView(QGraphicsView):
         # as it is modified in YoginiDasaToolMode.
         self.yoginiDasaGraphicsItem = None
 
+        # Variable used for storing the new DwisaptatiSamaDasaGraphicsItem,
+        # as it is modified in DwisaptatiSamaDasaToolMode.
+        self.dwisaptatiSamaDasaGraphicsItem = None
+
         # Variable used for storing that snapping to the closest bar
         # high or low is enabled.
         #
@@ -25942,6 +27324,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
         #   - VimsottariDasaTool
         #   - AshtottariDasaTool
         #   - YoginiDasaTool
+        #   - DwisaptatiSamaDasaTool
         #
         self.snapEnabledFlag = True
 
@@ -26196,6 +27579,15 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['YoginiDasaTool']:
+
+            if isinstance(item, PriceBarGraphicsItem):
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+            elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                item.setReadOnlyFlag(True)
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['DwisaptatiSamaDasaTool']:
 
             if isinstance(item, PriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
@@ -26850,6 +28242,36 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     
         self.log.debug("Exiting toYoginiDasaToolMode()")
 
+    def toDwisaptatiSamaDasaToolMode(self):
+        """Changes the tool mode to be the DwisaptatiSamaDasaTool."""
+
+        self.log.debug("Entered toDwisaptatiSamaDasaToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != \
+                PriceBarChartGraphicsView.ToolMode['DwisaptatiSamaDasaTool']:
+
+            self.toolMode = \
+                PriceBarChartGraphicsView.ToolMode['DwisaptatiSamaDasaTool']
+
+            self.setCursor(QCursor(Qt.ArrowCursor))
+            self.setDragMode(QGraphicsView.NoDrag)
+
+            # Clear out internal working variables.
+            self.clickOnePointF = None
+            self.clickTwoPointF = None
+            self.dwisaptatiSamaDasaGraphicsItem = None
+
+            scene = self.scene()
+            if scene != None:
+                scene.clearSelection()
+
+                items = scene.items()
+                for item in items:
+                    self.setGraphicsItemFlagsPerCurrToolMode(item)
+                    
+        self.log.debug("Exiting toDwisaptatiSamaDasaToolMode()")
+
     def createContextMenu(self, clickPosF, readOnlyFlag):
         """Creates a context menu for a right-click somewhere in
         the QGraphicsView, and returns it.
@@ -27182,6 +28604,19 @@ class PriceBarChartGraphicsView(QGraphicsView):
                             item.reverse()
                             self.statusMessageUpdate.emit(\
                                 "YoginiDasaGraphicsItem reversed")
+                    elif isinstance(item, DwisaptatiSamaDasaGraphicsItem):
+                        if qkeyevent.key() == Qt.Key_S:
+                            item.rotateUp()
+                            self.statusMessageUpdate.emit(\
+                                "DwisaptatiSamaDasaGraphicsItem rotated UP")
+                        elif qkeyevent.key() == Qt.Key_G:
+                            item.rotateDown()
+                            self.statusMessageUpdate.emit(\
+                                "DwisaptatiSamaDasaGraphicsItem rotated DOWN")
+                        elif qkeyevent.key() == Qt.Key_R:
+                            item.reverse()
+                            self.statusMessageUpdate.emit(\
+                                "DwisaptatiSamaDasaGraphicsItem reversed")
 
                 # Pass the key event upwards in case it applies to
                 # something else (like a parent widget).
@@ -27613,6 +29048,32 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
                 self.yoginiDasaGraphicsItem = None
+            elif qkeyevent.key() == Qt.Key_Q:
+                # Turn on snap functionality.
+                self.snapEnabledFlag = True
+                self.log.debug("Snap mode enabled.")
+                self.statusMessageUpdate.emit("Snap mode enabled")
+            elif qkeyevent.key() == Qt.Key_W:
+                # Turn off snap functionality.
+                self.snapEnabledFlag = False
+                self.log.debug("Snap mode disabled.")
+                self.statusMessageUpdate.emit("Snap mode disabled")
+            else:
+                super().keyPressEvent(qkeyevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['DwisaptatiSamaDasaTool']:
+
+            if qkeyevent.key() == Qt.Key_Escape:
+                # Escape key causes any currently edited item to
+                # be removed and cleared out.  Temporary variables used
+                # are cleared out too.
+                if self.dwisaptatiSamaDasaGraphicsItem != None:
+                    self.scene().removeItem(self.dwisaptatiSamaDasaGraphicsItem)
+
+                self.clickOnePointF = None
+                self.clickTwoPointF = None
+                self.dwisaptatiSamaDasaGraphicsItem = None
             elif qkeyevent.key() == Qt.Key_Q:
                 # Turn on snap functionality.
                 self.snapEnabledFlag = True
@@ -30083,7 +31544,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.vimsottariDasaGraphicsItem.\
                         setDrawVerticalDottedLinesFlag(True)
                     
-                    self.vimsottariDasaGraphicsItem.setPos(self.clickOnePointF)
+                    self.vimsottariDasaGraphicsItem.\
+                        setPos(self.clickOnePointF)
                     self.vimsottariDasaGraphicsItem.\
                         setStartPointF(self.clickOnePointF)
                     self.vimsottariDasaGraphicsItem.\
@@ -30234,7 +31696,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.ashtottariDasaGraphicsItem.\
                         setDrawVerticalDottedLinesFlag(True)
                     
-                    self.ashtottariDasaGraphicsItem.setPos(self.clickOnePointF)
+                    self.ashtottariDasaGraphicsItem.\
+                        setPos(self.clickOnePointF)
                     self.ashtottariDasaGraphicsItem.\
                         setStartPointF(self.clickOnePointF)
                     self.ashtottariDasaGraphicsItem.\
@@ -30385,7 +31848,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.yoginiDasaGraphicsItem.\
                         setDrawVerticalDottedLinesFlag(True)
                     
-                    self.yoginiDasaGraphicsItem.setPos(self.clickOnePointF)
+                    self.yoginiDasaGraphicsItem.\
+                        setPos(self.clickOnePointF)
                     self.yoginiDasaGraphicsItem.\
                         setStartPointF(self.clickOnePointF)
                     self.yoginiDasaGraphicsItem.\
@@ -30487,6 +31951,159 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.log.debug("clickOnePointF == None, and " +
                                    "clickTwoPointF == None and " +
                                    "yoginiDasaGraphicsItem == None.")
+                    
+                    # Open a context menu at this location, in readonly mode.
+                    clickPosF = self.mapToScene(qmouseevent.pos())
+                    menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
+                    menu.exec_(qmouseevent.globalPos())
+                    
+                else:
+                    self.log.warn("Unexpected state reached.")
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['DwisaptatiSamaDasaTool']:
+            
+            self.log.debug("Current toolMode is: DwisaptatiSamaDasaTool")
+
+            if qmouseevent.button() & Qt.LeftButton:
+                self.log.debug("Qt.LeftButton")
+                
+                if self.clickOnePointF == None:
+                    self.log.debug("clickOnePointF is None.")
+                    
+                    self.clickOnePointF = self.mapToScene(qmouseevent.pos())
+
+                    # If snap is enabled, then find the closest
+                    # pricebar time to the place clicked.
+                    if self.snapEnabledFlag == True:
+                        self.log.debug("Snap is enabled, so snapping to " +
+                                       "closest pricebar X.")
+                        
+                        infoPointF = self.mapToScene(qmouseevent.pos())
+                        x = self.scene().getClosestPriceBarX(infoPointF)
+
+                        # Use this X value.
+                        self.clickOnePointF.setX(x)
+                    
+                    # Create the DwisaptatiSamaDasaGraphicsItem and
+                    # initialize it to the mouse location.
+                    self.dwisaptatiSamaDasaGraphicsItem = \
+                        DwisaptatiSamaDasaGraphicsItem()
+                    self.dwisaptatiSamaDasaGraphicsItem.\
+                        loadSettingsFromPriceBarChartSettings(\
+                            self.priceBarChartSettings)
+
+                    # Set the flag that indicates we should draw
+                    # dotted vertical lines at the tick areas.  We
+                    # will turn these off after the user fully
+                    # finishes adding the item.
+                    self.dwisaptatiSamaDasaGraphicsItem.\
+                        setDrawVerticalDottedLinesFlag(True)
+                    
+                    self.dwisaptatiSamaDasaGraphicsItem.\
+                        setPos(self.clickOnePointF)
+                    self.dwisaptatiSamaDasaGraphicsItem.\
+                        setStartPointF(self.clickOnePointF)
+                    self.dwisaptatiSamaDasaGraphicsItem.\
+                        setEndPointF(self.clickOnePointF)
+                    self.scene().addItem(self.dwisaptatiSamaDasaGraphicsItem)
+                    
+                    # Make sure the proper flags are set for the mode we're in.
+                    self.setGraphicsItemFlagsPerCurrToolMode(\
+                        self.dwisaptatiSamaDasaGraphicsItem)
+
+                elif self.clickOnePointF != None and \
+                    self.clickTwoPointF == None and \
+                    self.dwisaptatiSamaDasaGraphicsItem != None:
+
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "dwisaptatiSamaDasaGraphicsItem != None.")
+                    
+                    # Set the end point of the DwisaptatiSamaDasaGraphicsItem.
+                    self.clickTwoPointF = self.mapToScene(qmouseevent.pos())
+
+                    # If snap is enabled, then find the closest
+                    # pricebar time to the place clicked.
+                    if self.snapEnabledFlag == True:
+                        self.log.debug("Snap is enabled, so snapping to " +
+                                       "closest pricebar X.")
+                        
+                        infoPointF = self.mapToScene(qmouseevent.pos())
+                        x = self.scene().getClosestPriceBarX(infoPointF)
+
+                        # Use this X value.
+                        self.clickTwoPointF.setX(x)
+                    
+                    newEndPointF = QPointF(self.clickTwoPointF.x(),
+                                           self.clickOnePointF.y())
+                    self.dwisaptatiSamaDasaGraphicsItem.\
+                        setEndPointF(newEndPointF)
+                    self.dwisaptatiSamaDasaGraphicsItem.normalizeStartAndEnd()
+
+                    # Unset the flag that indicates we should draw
+                    # dotted vertical lines at the tick areas.
+                    self.dwisaptatiSamaDasaGraphicsItem.\
+                        setDrawVerticalDottedLinesFlag(False)
+                    
+                    # Call getArtifact() so that the item's artifact
+                    # object gets updated and set.
+                    self.dwisaptatiSamaDasaGraphicsItem.getArtifact()
+                    
+                    # Emit that the PriceBarChart has changed.
+                    self.scene().priceBarChartArtifactGraphicsItemAdded.\
+                        emit(self.dwisaptatiSamaDasaGraphicsItem)
+                    
+                    sceneBoundingRect = \
+                        self.dwisaptatiSamaDasaGraphicsItem.sceneBoundingRect()
+                    self.log.debug("dwisaptatiSamaDasaGraphicsItem " +
+                                   "officially added.  " +
+                                   "Its sceneBoundingRect is: {}.  ".\
+                                   format(sceneBoundingRect) +
+                                   "Its x range is: {} to {}.  ".\
+                                   format(sceneBoundingRect.left(),
+                                          sceneBoundingRect.right()) +
+                                   "Its y range is: {} to {}.  ".\
+                                   format(sceneBoundingRect.top(),
+                                          sceneBoundingRect.bottom()))
+
+                    # Clear out working variables.
+                    self.clickOnePointF = None
+                    self.clickTwoPointF = None
+                    self.dwisaptatiSamaDasaGraphicsItem = None
+                    
+                else:
+                    self.log.warn("Unexpected state reached.")
+                    
+            elif qmouseevent.button() & Qt.RightButton:
+                self.log.debug("Qt.RightButton")
+                
+                if self.clickOnePointF != None and \
+                   self.clickTwoPointF == None and \
+                   self.dwisaptatiSamaDasaGraphicsItem != None:
+
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "dwisaptatiSamaDasaGraphicsItem != None.")
+                    
+                    # Right-click during setting the
+                    # DwisaptatiSamaDasaGraphicsItem causes the
+                    # currently edited bar count item to be removed
+                    # and cleared out.  Temporary variables used are
+                    # cleared out too.
+                    self.scene().removeItem(self.dwisaptatiSamaDasaGraphicsItem)
+
+                    self.clickOnePointF = None
+                    self.clickTwoPointF = None
+                    self.dwisaptatiSamaDasaGraphicsItem = None
+                    
+                elif self.clickOnePointF == None and \
+                     self.clickTwoPointF == None and \
+                     self.dwisaptatiSamaDasaGraphicsItem == None:
+                    
+                    self.log.debug("clickOnePointF == None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "dwisaptatiSamaDasaGraphicsItem == None.")
                     
                     # Open a context menu at this location, in readonly mode.
                     clickPosF = self.mapToScene(qmouseevent.pos())
@@ -30650,6 +32267,12 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 PriceBarChartGraphicsView.ToolMode['YoginiDasaTool']:
 
             self.log.debug("Current toolMode is: YoginiDasaTool")
+            super().mouseReleaseEvent(qmouseevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['DwisaptatiSamaDasaTool']:
+
+            self.log.debug("Current toolMode is: DwisaptatiSamaDasaTool")
             super().mouseReleaseEvent(qmouseevent)
 
         else:
@@ -31061,6 +32684,23 @@ class PriceBarChartGraphicsView(QGraphicsView):
             else:
                 super().mouseMoveEvent(qmouseevent)
 
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['DwisaptatiSamaDasaTool']:
+
+            if self.clickOnePointF != None and \
+                self.dwisaptatiSamaDasaGraphicsItem != None:
+
+                pos = self.mapToScene(qmouseevent.pos())
+                
+                # Update the end point of the current
+                # DwisaptatiSamaDasaGraphicsItem.
+                newEndPointF = \
+                    QPointF(pos.x(),
+                            self.dwisaptatiSamaDasaGraphicsItem.endPointF.y())
+                self.dwisaptatiSamaDasaGraphicsItem.setEndPointF(newEndPointF)
+            else:
+                super().mouseMoveEvent(qmouseevent)
+
         else:
             # For any other mode we don't have specific functionality for,
             # just pass the event to the parent to handle.
@@ -31152,6 +32792,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
             self.setCursor(QCursor(Qt.ArrowCursor))
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['YoginiDasaTool']:
+            self.setCursor(QCursor(Qt.ArrowCursor))
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['DwisaptatiSamaDasaTool']:
             self.setCursor(QCursor(Qt.ArrowCursor))
         else:
             self.log.warn("Unknown toolMode while in enterEvent().")
