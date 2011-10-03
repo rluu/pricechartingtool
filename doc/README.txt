@@ -116,6 +116,7 @@ Snap key bindings are supported for the following tools:
   - AshtottariDasaTool
   - YoginiDasaTool
   - DwisaptatiSamaDasaTool
+  - ShattrimsaSamaDasaTool
   
 ##############################################################################
 
