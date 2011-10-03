@@ -121,6 +121,7 @@ Snap key bindings are supported for the following tools:
   - ChaturaseetiSamaDasaTool
   - SataabdikaDasaTool
   - ShodasottariDasaTool
+  - PanchottariDasaTool
   
 ##############################################################################
 
