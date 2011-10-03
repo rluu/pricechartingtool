@@ -1909,8 +1909,8 @@ class MusicalRatio(Ratio):
 
         # Ketu.
         ketuStart = jupiterStart + jupiter
-        key = SettingsKeys.planetKetuAbbreviationKey
-        defaultValue = SettingsKeys.planetKetuAbbreviationDefValue
+        key = SettingsKeys.planetMeanSouthNodeAbbreviationKey
+        defaultValue = SettingsKeys.planetMeanSouthNodeAbbreviationDefValue
         ketuDescription = settings.value(key, defaultValue)
         ratios.append(MusicalRatio(ratio=float(ketuStart / total),
                                    description=ketuDescription,
@@ -2256,8 +2256,8 @@ class MusicalRatio(Ratio):
 
         # Ketu.
         ketuStart = saturnStart + saturn
-        key = SettingsKeys.planetKetuAbbreviationKey
-        defaultValue = SettingsKeys.planetKetuAbbreviationDefValue
+        key = SettingsKeys.planetMeanSouthNodeAbbreviationKey
+        defaultValue = SettingsKeys.planetMeanSouthNodeAbbreviationDefValue
         ketuDescription = settings.value(key, defaultValue)
         ratios.append(MusicalRatio(ratio=float(ketuStart / total),
                                    description=ketuDescription,
@@ -2509,8 +2509,8 @@ class MusicalRatio(Ratio):
 
         # Rahu.
         rahuStart = saturnStart + saturn
-        key = SettingsKeys.planetRahuAbbreviationKey
-        defaultValue = SettingsKeys.planetRahuAbbreviationDefValue
+        key = SettingsKeys.planetMeanNorthNodeAbbreviationKey
+        defaultValue = SettingsKeys.planetMeanNorthNodeAbbreviationDefValue
         rahuDescription = settings.value(key, defaultValue)
         ratios.append(MusicalRatio(ratio=float(rahuStart / total),
                                    description=rahuDescription,

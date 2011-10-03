@@ -85,6 +85,9 @@ Qt licensed for use from Trolltech.
 rluu/appIcon.png
 rluu/ashtottariDasa.png
 rluu/barCount.png
+rluu/chaturaseetiSamaDasa.png
+rluu/dwadasottariDasa.png
+rluu/dwisaptatiSamaDasa.png
 rluu/fibFan.png
 rluu/gannFan.png
 rluu/gearGreen.png       (Modified an image from Tango Icon Library)
@@ -93,6 +96,7 @@ rluu/handOpen.png
 rluu/lineSegment.png
 rluu/logo_ryan_d1.png
 rluu/octaveFan.png
+rluu/panchottariDasa.png
 rluu/pointerPencil.png   (Modified an image from iconspedia)
 rluu/priceBar.png
 rluu/priceMeasurement.png
@@ -101,6 +105,10 @@ rluu/priceRetracement.png
 rluu/priceTimeInfo.png   (Modified an image from psdgraphics.com)
 rluu/ptv.png
 rluu/ryan_d1.png
+rluu/sataabdikaDasa.png
+rluu/shashtihayaniDasa.png
+rluu/shattrimsaSamaDasa.png
+rluu/shodasottariDasa.png
 rluu/timeMeasurement.png
 rluu/timeModalScale.png
 rluu/timeRetracement.png

@@ -15,6 +15,9 @@
 
     <file>images/rluu/appIcon.png</file>
     <file>images/rluu/ashtottariDasa.png</file>
+    <file>images/rluu/chaturaseetiSamaDasa.png</file>
+    <file>images/rluu/dwadasottariDasa.png</file>
+    <file>images/rluu/dwisaptatiSamaDasa.png</file>
     <file>images/rluu/barCount.png</file>
     <file>images/rluu/fibFan.png</file>
     <file>images/rluu/gannFan.png</file>
@@ -24,6 +27,7 @@
     <file>images/rluu/lineSegment.png</file>
     <file>images/rluu/logo_ryan_d1.png</file>
     <file>images/rluu/octaveFan.png</file>
+    <file>images/rluu/panchottariDasa.png</file>
     <file>images/rluu/pointerPencil.png</file>
     <file>images/rluu/priceBar.png</file>
     <file>images/rluu/priceMeasurement.png</file>
@@ -31,10 +35,14 @@
     <file>images/rluu/priceRetracement.png</file>
     <file>images/rluu/priceTimeInfo.png</file>
     <file>images/rluu/ptv.png</file>
-    <file>images/rluu/triangleRuler.png</file>
+    <file>images/rluu/sataabdikaDasa.png</file>
+    <file>images/rluu/shashtihayaniDasa.png</file>
+    <file>images/rluu/shattrimsaSamaDasa.png</file>
+    <file>images/rluu/shodasottariDasa.png</file>
     <file>images/rluu/timeMeasurement.png</file>
     <file>images/rluu/timeModalScale.png</file>
     <file>images/rluu/timeRetracement.png</file>
+    <file>images/rluu/triangleRuler.png</file>
     <file>images/rluu/vimsottariDasa.png</file>
     <file>images/rluu/yoginiDasa.png</file>
     <file>images/rluu/zoomIn.png</file>
