@@ -1259,6 +1259,15 @@ class MusicalRatio(Ratio):
     def getVimsottariDasaMusicalRatios():
         """Returns a list of MusicalRatio objects that we plan on
         supporting for Vimsottari dasa in this application.
+
+        Dasa description:
+        Vimsottari dasa is a general purpose nakshatra dasa that shows
+        all the events in a native's life from the vantage point of
+        native's mind.  It tracks the changes throughout one's life.
+        It is one of the most important of all dasas in Kali Yuga.
+        Though it is normally started from moon's nakshatra it can
+        also be started from Kshema, Utpanna and Adhana taras, lagna,
+        Maandi and Trisphuta.
         """
 
         # Return value.
@@ -1383,6 +1392,16 @@ class MusicalRatio(Ratio):
     def getAshtottariDasaMusicalRatios():
         """Returns a list of MusicalRatio objects that we plan on
         supporting for Ashtottari dasa in this application.
+
+        Dasa description:
+        Ashtottari dasa is a popular nakshatra dasa.  Some hold it to
+        be universally applicable.  Some apply it for daytime births
+        in Krishna paksha and night time births in Sukla paksha.  Some
+        apply it when Rahu is in a trine or quadrant from lagna lord
+        (but not in lagna).  As it is based on a 108-year cycle, some
+        use it as an ayur dasa and time death from it.  As only chara
+        karakas figure in it, some use it as a dasa that shows
+        sustenance and raja yogas.
         """
 
         # Return value.
@@ -1495,6 +1514,10 @@ class MusicalRatio(Ratio):
     def getYoginiDasaMusicalRatios():
         """Returns a list of MusicalRatio objects that we plan on
         supporting for Yogini dasa in this application.
+        
+        Dasa description:
+        Yogini dasa is a tantrik dasa that shows the impact of various
+        Yoginis on a person at various times.
         """
 
         # Return value.
@@ -1607,8 +1630,12 @@ class MusicalRatio(Ratio):
     def getDwisaptatiSamaDasaMusicalRatios():
         """Returns a list of MusicalRatio objects that we plan on
         supporting for DwisaptatiSama dasa in this application.
-        """
 
+        Dasa description:
+        Dwi-saptati sama dasa is a conditional nakshatra dasa that is
+        applicable if lagna lord is in 7th or 7th lord is in lagna.
+        """
+        
         # Return value.
         ratios = []
 
@@ -1719,6 +1746,11 @@ class MusicalRatio(Ratio):
     def getShattrimsaSamaDasaMusicalRatios():
         """Returns a list of MusicalRatio objects that we plan on
         supporting for ShattrimsaSama dasa in this application.
+
+        Dasa description:
+        Shat-trimsa sama dasa is a conditional nakshatra dasa that is
+        applicable for daytime births in Sun's hora and night-time
+        births in Moon's hora.
         """
 
         # Return value.
@@ -1831,6 +1863,10 @@ class MusicalRatio(Ratio):
     def getDwadasottariDasaMusicalRatios():
         """Returns a list of MusicalRatio objects that we plan on
         supporting for Dwadasottari dasa in this application.
+
+        Dasa description:
+        Dwadasottari dasa is a conditional nakshatra dasa that is
+        applicable if lagna is in Venusian amsa.
         """
 
         # Return value.
@@ -1943,6 +1979,10 @@ class MusicalRatio(Ratio):
     def getChaturaseetiSamaDasaMusicalRatios():
         """Returns a list of MusicalRatio objects that we plan on
         supporting for ChaturaseetiSama dasa in this application.
+
+        Dasa description:
+        Chaturaseeti sama dasa is a conditional nakshatra dasa that is
+        applicable if the 10th lord is in the 10th house.
         """
 
         # Return value.
@@ -2043,6 +2083,10 @@ class MusicalRatio(Ratio):
     def getSataabdikaDasaMusicalRatios():
         """Returns a list of MusicalRatio objects that we plan on
         supporting for Sataabdika dasa in this application.
+
+        Dasa description:
+        Sataabdika dasa is a conditional nakshatra dasa that is
+        applicable if lagna is in vargottama.
         """
 
         # Return value.
@@ -2137,6 +2181,123 @@ class MusicalRatio(Ratio):
                                    denominator=int(total),
                                    enabled=True))
 
+        return ratios
+    
+    @staticmethod
+    def getShodasottariDasaMusicalRatios():
+        """Returns a list of MusicalRatio objects that we plan on
+        supporting for Shodasottari dasa in this application.
+
+        Dasa description:
+        Shodasottari dasa is a conditional nakshatra dasa that is
+        applicable if lagna is in Moon's hora in Krishna paksha or in
+        Sun's hora in Sukla paksha.
+        """
+        
+        # Return value.
+        ratios = []
+        
+        settings = QSettings()
+
+        sun = 11.0
+        mars = 12.0
+        jupiter = 13.0
+        saturn = 14.0
+        ketu = 15.0
+        moon = 16.0
+        mercury = 17.0
+        venus = 18.0
+        
+        total = 116.0
+        
+        # Sun.
+        sunStart = 0.0
+        key = SettingsKeys.planetSunAbbreviationKey
+        defaultValue = SettingsKeys.planetSunAbbreviationDefValue
+        sunDescription = settings.value(key, defaultValue)
+        ratios.append(MusicalRatio(ratio=float(sunStart / total),
+                                   description=sunDescription,
+                                   numerator=int(sunStart),
+                                   denominator=int(total),
+                                   enabled=True))
+
+        # Mars.
+        marsStart = sunStart + sun
+        key = SettingsKeys.planetMarsAbbreviationKey
+        defaultValue = SettingsKeys.planetMarsAbbreviationDefValue
+        marsDescription = settings.value(key, defaultValue)
+        ratios.append(MusicalRatio(ratio=float(marsStart / total),
+                                   description=marsDescription,
+                                   numerator=int(marsStart),
+                                   denominator=int(total),
+                                   enabled=True))
+
+        # Jupiter.
+        jupiterStart = marsStart + mars
+        key = SettingsKeys.planetJupiterAbbreviationKey
+        defaultValue = SettingsKeys.planetJupiterAbbreviationDefValue
+        jupiterDescription = settings.value(key, defaultValue)
+        ratios.append(MusicalRatio(ratio=float(jupiterStart / total),
+                                   description=jupiterDescription,
+                                   numerator=int(jupiterStart),
+                                   denominator=int(total),
+                                   enabled=True))
+
+        # Saturn.
+        saturnStart = jupiterStart + jupiter
+        key = SettingsKeys.planetSaturnAbbreviationKey
+        defaultValue = SettingsKeys.planetSaturnAbbreviationDefValue
+        saturnDescription = settings.value(key, defaultValue)
+        ratios.append(MusicalRatio(ratio=float(saturnStart / total),
+                                   description=saturnDescription,
+                                   numerator=int(saturnStart),
+                                   denominator=int(total),
+                                   enabled=True))
+
+        # Ketu.
+        ketuStart = saturnStart + saturn
+        key = SettingsKeys.planetKetuAbbreviationKey
+        defaultValue = SettingsKeys.planetKetuAbbreviationDefValue
+        ketuDescription = settings.value(key, defaultValue)
+        ratios.append(MusicalRatio(ratio=float(ketuStart / total),
+                                   description=ketuDescription,
+                                   numerator=int(ketuStart),
+                                   denominator=int(total),
+                                   enabled=True))
+
+        # Moon.
+        moonStart = ketuStart + ketu
+        key = SettingsKeys.planetMoonAbbreviationKey
+        defaultValue = SettingsKeys.planetMoonAbbreviationDefValue
+        moonDescription = settings.value(key, defaultValue)
+        ratios.append(MusicalRatio(ratio=float(moonStart / total),
+                                   description=moonDescription,
+                                   numerator=int(moonStart),
+                                   denominator=int(total),
+                                   enabled=True))
+
+        # Mercury.
+        mercuryStart = moonStart + moon
+        key = SettingsKeys.planetMercuryAbbreviationKey
+        defaultValue = SettingsKeys.planetMercuryAbbreviationDefValue
+        mercuryDescription = settings.value(key, defaultValue)
+        ratios.append(MusicalRatio(ratio=float(mercuryStart / total),
+                                   description=mercuryDescription,
+                                   numerator=int(mercuryStart),
+                                   denominator=int(total),
+                                   enabled=True))
+
+        # Venus.
+        venusStart = mercuryStart + mercury
+        key = SettingsKeys.planetVenusAbbreviationKey
+        defaultValue = SettingsKeys.planetVenusAbbreviationDefValue
+        venusDescription = settings.value(key, defaultValue)
+        ratios.append(MusicalRatio(ratio=float(venusStart / total),
+                                   description=venusDescription,
+                                   numerator=int(venusStart),
+                                   denominator=int(total),
+                                   enabled=True))
+        
         return ratios
     
     def getNumerator(self):
@@ -10705,6 +10866,362 @@ class PriceBarChartSataabdikaDasaArtifact(PriceBarChartArtifact):
                        PriceBarChartSataabdikaDasaArtifact.__name__ +
                        " object of version {}".format(self.classVersion))
 
+class PriceBarChartShodasottariDasaArtifact(PriceBarChartArtifact):
+    """PriceBarChartArtifact that indicates the time measurement starting 
+    at the given PriceBar timestamp and the given Y offset from the 
+    center of the bar.
+    """
+    
+    def __init__(self):
+        super().__init__()
+        
+        # Set the version of this class (used for pickling and unpickling
+        # different versions of this class).
+        self.classVersion = 1
+
+        # Create the logger.
+        self.log = \
+            logging.\
+            getLogger("data_objects.PriceBarChartShodasottariDasaArtifact")
+
+        # Update the internal name so it is the artifact type plus the uuid.
+        self.internalName = "ShodasottariDasa_" + str(self.uuid)
+
+        # Start and end points of the artifact.
+        self.startPointF = QPointF()
+        self.endPointF = QPointF()
+
+        # List of used musical ratios.
+        self.musicalRatios = \
+            PriceBarChartSettings.\
+                defaultShodasottariDasaGraphicsItemMusicalRatios
+        
+        # color (QColor).
+        self.color = \
+            PriceBarChartSettings.\
+                defaultShodasottariDasaGraphicsItemBarColor
+
+        # textColor (QColor).
+        self.textColor = \
+            PriceBarChartSettings.\
+                defaultShodasottariDasaGraphicsItemTextColor
+
+        # barHeight (float).
+        self.barHeight = \
+            PriceBarChartSettings.\
+                defaultShodasottariDasaGraphicsItemBarHeight
+
+        # fontSize (float).
+        self.fontSize = \
+            PriceBarChartSettings.\
+                defaultShodasottariDasaGraphicsItemFontSize
+
+        # Flag for whether or not the musicalRatios are in reverse
+        # order.  This affects how ratios are referenced (from the
+        # endpoint instead of from the startpoint).
+        self.reversedFlag = False
+
+        # Flag for whether or not the text is displayed for enabled
+        # MusicalRatios in self.musicalRatios.
+        self.textEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultShodasottariDasaGraphicsItemTextEnabledFlag
+        
+    def setStartPointF(self, startPointF):
+        """Stores the starting point of the ShodasottariDasaArtifact.
+        Arguments:
+
+        startPointF - QPointF for the starting point of the artifact.
+        """
+        
+        self.startPointF = startPointF
+        
+    def getStartPointF(self):
+        """Returns the starting point of the ShodasottariDasaArtifact."""
+        
+        return self.startPointF
+        
+    def setEndPointF(self, endPointF):
+        """Stores the ending point of the ShodasottariDasaArtifact.
+        Arguments:
+
+        endPointF - QPointF for the ending point of the artifact.
+        """
+        
+        self.endPointF = endPointF
+        
+    def getEndPointF(self):
+        """Returns the ending point of the ShodasottariDasaArtifact."""
+        
+        return self.endPointF
+
+    def getMusicalRatios(self):
+        """Returns the list of MusicalRatio objects."""
+
+        return self.musicalRatios
+        
+    def setMusicalRatios(self, musicalRatios):
+        """Sets the list of MusicalRatio objects."""
+
+        self.musicalRatios = musicalRatios
+
+    def setColor(self, color):
+        """Sets the bar color.
+        
+        Arguments:
+        color - QColor object for the bar color.
+        """
+        
+        self.color = color
+
+    def getColor(self):
+        """Gets the bar color as a QColor object."""
+        
+        return self.color
+
+    def setTextColor(self, textColor):
+        """Sets the text color.
+        
+        Arguments:
+        textColor - QColor object for the text color.
+        """
+
+        self.textColor = textColor
+        
+    def getTextColor(self):
+        """Gets the text color as a QColor object."""
+
+        return self.textColor
+        
+    def setBarHeight(self, barHeight):
+        """Sets the bar height (float)."""
+
+        self.barHeight = barHeight
+    
+    def getBarHeight(self):
+        """Returns the bar height (float)."""
+
+        return self.barHeight
+    
+    def setFontSize(self, fontSize):
+        """Sets the font size of the musical ratio text (float)."""
+
+        self.fontSize = fontSize
+    
+    def getFontSize(self):
+        """Sets the font size of the musical ratio text (float)."""
+
+        return self.fontSize
+    
+    def isReversed(self):
+        """Returns whether or not the musicalRatios are in reversed order.
+        This value is used to tell how ratios are referenced (from the
+        endpoint instead of from the startpoint).
+        """
+
+        return self.reversedFlag
+
+    def setReversed(self, reversedFlag):
+        """Sets the reversed flag.  This value is used to tell how
+        the musical ratios are referenced (from the endpoint instead of from the
+        startpoint).
+
+        Arguments:
+        reversedFlag - bool value for whether or not the musicalRatios
+                       are reversed.
+        """
+
+        self.reversedFlag = reversedFlag
+        
+    def isTextEnabled(self):
+        """Returns whether or not the text is enabled for the
+        musicalRatios that are enabled.
+        """
+
+        return self.textEnabledFlag
+
+    def setTextEnabled(self, textEnabledFlag):
+        """Sets the textEnabled flag.  This value is used to tell
+        whether or not the text is enabled for the musicalRatios that
+        are enabled.
+
+        Arguments:
+        textEnabledFlag - bool value for whether or not the text is enabled.
+        """
+
+        self.textEnabledFlag = textEnabledFlag
+        
+    def getXYForMusicalRatio(self, index):
+        """Returns the x and y location of where this musical ratio
+        would exist, based on the MusicalRatio ordering and the
+        startPoint and endPoint locations.
+
+        Arguments:
+        
+        index - int value for index into self.musicalRatios that the
+        user is looking for the musical ratio for.  This value must be
+        within the valid index limits.
+
+        Returns:
+        
+        Tuple of 2 floats, representing (x, y) point.  This is where
+        the musical ratio would exist.
+        """
+
+        self.log.debug("Entered getXYForMusicalRatio({})".format(index))
+
+        # Validate input.
+        if index < 0:
+            self.log.error("getXYForMusicalRatio(): Invalid index: {}".
+                           format(index))
+            return
+        if len(self.musicalRatios) > 0 and index >= len(self.musicalRatios):
+            self.log.error("getXYForMusicalRatio(): Index out of range: {}".
+                           format(index))
+            return
+        
+        # Return values.
+        x = None
+        y = None
+
+        startPointX = self.startPointF.x()
+        startPointY = self.startPointF.y()
+        endPointX = self.endPointF.x()
+        endPointY = self.endPointF.y()
+
+        self.log.debug("startPoint is: ({}, {})".
+                       format(startPointX, startPointY))
+        self.log.debug("endPoint is: ({}, {})".
+                       format(endPointX, endPointY))
+        
+        deltaX = endPointX - startPointX
+        deltaY = endPointY - startPointY
+        
+        self.log.debug("deltaX is: {}".format(deltaX))
+        self.log.debug("deltaY is: {}".format(deltaY))
+        
+        # Need to maintain offsets so that if the ratios are rotated a
+        # certain way, then we have the correct starting point.
+        xOffset = 0.0
+        yOffset = 0.0
+
+        
+        self.log.debug("There are {} number of musical ratios.".\
+                       format(len(self.musicalRatios)))
+
+        for i in range(len(self.musicalRatios)):
+            musicalRatio = self.musicalRatios[i]
+            
+            self.log.debug("self.musicalRatios[{}].getRatio() is: {}".\
+                           format(i, musicalRatio.getRatio()))
+            if i == 0:
+                # Store the offset for future indexes.
+                xOffset = deltaX * (musicalRatio.getRatio() - 1.0)
+                yOffset = deltaY * (musicalRatio.getRatio() - 1.0)
+
+                self.log.debug("At i == 0.  xOffset={}, yOffset={}".\
+                               format(xOffset, yOffset))
+                
+            if i == index:
+                self.log.debug("At the i == index, where i == {}.".format(i))
+                self.log.debug("MusicalRatio is: {}".\
+                               format(musicalRatio.getRatio()))
+                
+                x = (deltaX * (musicalRatio.getRatio() - 1.0)) - xOffset
+                y = (deltaY * (musicalRatio.getRatio() - 1.0)) - yOffset
+
+                self.log.debug("(x={}, y={})".format(x, y))
+
+                # Normalize x and y to be within the range of
+                # [startPointX, endPointX] and [startPointY,
+                # endPointY]
+
+                # If we are reversed, then reference the offset x and
+                # y from the end point instead of the start point.
+                if self.isReversed() == False:
+                    x = startPointX + x
+                    y = startPointY + y
+                else:
+                    x = endPointX - x
+                    y = endPointY - y
+                    
+
+                self.log.debug("Adjusting to start points, (x={}, y={})".
+                               format(x, y))
+                
+                while x < startPointX and x < endPointX:
+                    x += abs(deltaX)
+                while x > startPointX and x > endPointX:
+                    x -= abs(deltaX)
+                while y < startPointY and y < endPointY:
+                    y += abs(deltaY)
+                while y > startPointY and y > endPointY:
+                    y -= abs(deltaY)
+
+                self.log.debug("For index {}, ".format(i) +
+                               "normalized x and y from startPoint is: " +
+                               "({}, {})".format(x, y))
+
+                # Break out of for loop because we found what we are
+                # looking for, which is the x and y values.
+                break
+
+        if x == None or y == None:
+            # This means that the index requested that the person
+            # passed in as a parameter is an index that doesn't map to
+            # list length of self.musicalRatios.
+            self.log.warn("getXYForMusicalRatio(): " +
+                          "Index provided is out of range!")
+            # Reset values to 0.
+            x = 0.0
+            y = 0.0
+            
+        self.log.debug("Exiting getXYForMusicalRatio({}), ".format(index) + \
+                       "Returning ({}, {})".format(x, y))
+        return (x, y)
+
+    def __str__(self):
+        """Returns the string representation of this object."""
+
+        return self.toString()
+
+    def toString(self):
+        """Returns the string representation of this object."""
+
+        rv = Util.objToString(self)
+        
+        return rv
+
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = \
+            logging.\
+            getLogger("data_objects.PriceBarChartShodasottariDasaArtifact")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " +
+                       PriceBarChartShodasottariDasaArtifact.__name__ +
+                       " object of version {}".format(self.classVersion))
+
 class PriceBarChartScaling:
     """Class that holds information about the scaling of a PriceBarChart.
     """
@@ -11970,6 +12487,35 @@ class PriceBarChartSettings:
     # textEnabledFlag (bool).
     defaultSataabdikaDasaGraphicsItemTextEnabledFlag = True
 
+    # Default musical ratios enabled in a
+    # ShodasottariDasaGraphicsItem (list of MusicalRatio)
+    defaultShodasottariDasaGraphicsItemMusicalRatios = \
+        MusicalRatio.getShodasottariDasaMusicalRatios()
+    
+    # Default color for the bar of a ShodasottariDasaGraphicsItem (QColor).
+    defaultShodasottariDasaGraphicsItemBarColor = QColor(Qt.black)
+
+    # Default color for the text of a ShodasottariDasaGraphicsItem (QColor).
+    defaultShodasottariDasaGraphicsItemTextColor = QColor(Qt.black)
+    
+    # Default value for the ShodasottariDasaGraphicsItem bar height (float).
+    defaultShodasottariDasaGraphicsItemBarHeight = 0.3
+
+    # Default value for the ShodasottariDasaGraphicsItem font size (float).
+    defaultShodasottariDasaGraphicsItemFontSize = 1.20
+
+    # Default value for the ShodasottariDasaGraphicsItem text X
+    # scaling (float).
+    defaultShodasottariDasaGraphicsItemTextXScaling = 1
+
+    # Default value for the ShodasottariDasaGraphicsItem text Y
+    # scaling (float).
+    defaultShodasottariDasaGraphicsItemTextYScaling = 0.2
+
+    # Default value for the ShodasottariDasaGraphicsItem
+    # textEnabledFlag (bool).
+    defaultShodasottariDasaGraphicsItemTextEnabledFlag = True
+
 
     def __init__(self):
         """Initializes the PriceChartSettings to default values."""
@@ -13043,6 +13589,37 @@ class PriceBarChartSettings:
         self.sataabdikaDasaGraphicsItemTextEnabledFlag = \
             PriceBarChartSettings.\
                 defaultSataabdikaDasaGraphicsItemTextEnabledFlag
+
+        # ShodasottariDasaGraphicsItem musical ratios
+        # (list of MusicalRatio).
+        self.shodasottariDasaGraphicsItemMusicalRatios = \
+            PriceBarChartSettings.\
+                defaultShodasottariDasaGraphicsItemMusicalRatios
+
+        # ShodasottariDasaGraphicsItem bar color (QColor).
+        self.shodasottariDasaGraphicsItemBarColor = \
+            PriceBarChartSettings.\
+                defaultShodasottariDasaGraphicsItemBarColor
+
+        # ShodasottariDasaGraphicsItem text color (QColor).
+        self.shodasottariDasaGraphicsItemTextColor = \
+            PriceBarChartSettings.\
+                defaultShodasottariDasaGraphicsItemTextColor
+
+        # ShodasottariDasaGraphicsItem text X scaling (float).
+        self.shodasottariDasaGraphicsItemTextXScaling = \
+            PriceBarChartSettings.\
+                defaultShodasottariDasaGraphicsItemTextXScaling
+
+        # ShodasottariDasaGraphicsItem text Y scaling (float).
+        self.shodasottariDasaGraphicsItemTextYScaling = \
+            PriceBarChartSettings.\
+                defaultShodasottariDasaGraphicsItemTextYScaling
+
+        # ShodasottariDasaGraphicsItem textEnabledFlag (bool).
+        self.shodasottariDasaGraphicsItemTextEnabledFlag = \
+            PriceBarChartSettings.\
+                defaultShodasottariDasaGraphicsItemTextEnabledFlag
 
 
     def __getstate__(self):
