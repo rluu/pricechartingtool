@@ -513,6 +513,14 @@ class MainWindow(QMainWindow):
             setStatusTip("Panchottari Dasa Tool")
         self.panchottariDasaToolAction.setCheckable(True)
 
+        # Create the ShashtihayaniDasaToolAction
+        icon = QIcon(":/images/rluu/shashtihayaniDasa.png")
+        self.shashtihayaniDasaToolAction = \
+            QAction(icon, "Shashtihayani Dasa Tool", self)
+        self.shashtihayaniDasaToolAction.\
+            setStatusTip("Shashtihayani Dasa Tool")
+        self.shashtihayaniDasaToolAction.setCheckable(True)
+
         # Create a QActionGroup because all these tool modes should be
         # exclusive.  
         self.toolActionGroup = QActionGroup(self)
@@ -546,6 +554,7 @@ class MainWindow(QMainWindow):
         self.toolActionGroup.addAction(self.sataabdikaDasaToolAction)
         self.toolActionGroup.addAction(self.shodasottariDasaToolAction)
         self.toolActionGroup.addAction(self.panchottariDasaToolAction)
+        self.toolActionGroup.addAction(self.shashtihayaniDasaToolAction)
         self.toolActionGroup.triggered.connect(self._toolsActionTriggered)
             
         # Default to the ReadOnlyPointerTool being checked by default.
@@ -700,6 +709,7 @@ class MainWindow(QMainWindow):
         self.toolsMenu.addAction(self.sataabdikaDasaToolAction)
         self.toolsMenu.addAction(self.shodasottariDasaToolAction)
         self.toolsMenu.addAction(self.panchottariDasaToolAction)
+        self.toolsMenu.addAction(self.shashtihayaniDasaToolAction)
 
         # Create the Window menu.
         self.windowMenu = self.menuBar().addMenu("&Window")
@@ -769,6 +779,7 @@ class MainWindow(QMainWindow):
         self.toolsToolBar.addAction(self.sataabdikaDasaToolAction)
         self.toolsToolBar.addAction(self.shodasottariDasaToolAction)
         self.toolsToolBar.addAction(self.panchottariDasaToolAction)
+        self.toolsToolBar.addAction(self.shashtihayaniDasaToolAction)
 
     def _createStatusBar(self):
         """Creates the QStatusBar by showing the message "Ready"."""
@@ -857,6 +868,7 @@ class MainWindow(QMainWindow):
         self.sataabdikaDasaToolAction.setEnabled(isActive)
         self.shodasottariDasaToolAction.setEnabled(isActive)
         self.panchottariDasaToolAction.setEnabled(isActive)
+        self.shashtihayaniDasaToolAction.setEnabled(isActive)
 
         self.closeChartAction.setEnabled(isActive)
         self.closeAllChartsAction.setEnabled(isActive)
@@ -940,6 +952,8 @@ class MainWindow(QMainWindow):
                 priceChartDocument.toShodasottariDasaToolMode()
             elif self.panchottariDasaToolAction.isChecked():
                 priceChartDocument.toPanchottariDasaToolMode()
+            elif self.shashtihayaniDasaToolAction.isChecked():
+                priceChartDocument.toShashtihayaniDasaToolMode()
             else:
                 self.log.warn("No ToolMode QAction is currently selected!")
 
@@ -2668,6 +2682,10 @@ class MainWindow(QMainWindow):
             self.log.debug("panchottariDasaToolAction triggered.")
             self.mostRecentGraphicsItemToolModeAction = qaction
             pcd.toPanchottariDasaToolMode()
+        elif qaction == self.shashtihayaniDasaToolAction:
+            self.log.debug("shashtihayaniDasaToolAction triggered.")
+            self.mostRecentGraphicsItemToolModeAction = qaction
+            pcd.toShashtihayaniDasaToolMode()
         else:
             self.log.warn("Unknown Tools QAction selected!  " + \
                 "There might be something wrong with the code, or " + \
@@ -2774,6 +2792,7 @@ Snap key bindings are supported for the following tools:
   - SataabdikaDasaTool
   - ShodasottariDasaTool
   - PanchottariDasaTool
+  - ShashtihayaniDasaTool
 """
         
         QMessageBox.about(self, title, message)
@@ -3597,6 +3616,11 @@ class PriceChartDocument(QMdiSubWindow):
 
         self.widgets.toPanchottariDasaToolMode()
 
+    def toShashtihayaniDasaToolMode(self):
+        """Changes the tool mode to be the ShashtihayaniDasaTool."""
+
+        self.widgets.toShashtihayaniDasaToolMode()
+
     def handleJhoraLaunch(self, dt, birthInfo):
         """Handles a launch of JHora with the given datetime.datetime.
         This function assumes that the birth information is available
@@ -4087,6 +4111,11 @@ class PriceChartDocumentWidget(QWidget):
         """Changes the tool mode to be the PanchottariDasaTool."""
 
         self.priceBarChartWidget.toPanchottariDasaToolMode()
+
+    def toShashtihayaniDasaToolMode(self):
+        """Changes the tool mode to be the ShashtihayaniDasaTool."""
+
+        self.priceBarChartWidget.toShashtihayaniDasaToolMode()
 
     def _handleWidgetChanged(self):
         """Handles when the internal widget has some kind of change
