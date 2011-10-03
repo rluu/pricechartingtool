@@ -10704,6 +10704,11 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.chaturaseetiSamaDasaGraphicsItemGroupBox = \
             self._buildChaturaseetiSamaDasaGraphicsItemGroupBox()
 
+        # QGroupBox to hold the edit widgets and form for
+        # SataabdikaDasaGraphicsItem.
+        self.sataabdikaDasaGraphicsItemGroupBox = \
+            self._buildSataabdikaDasaGraphicsItemGroupBox()
+
         # Create a QTabWidget to stack all the settings editing
         # widgets.
         self.tabWidget = QTabWidget()
@@ -10798,6 +10803,10 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         self.tabWidget.addTab(self.chaturaseetiSamaDasaGraphicsItemGroupBox,
                               QIcon(":/images/rluu/chaturaseetiSamaDasa.png"),
+                              "")
+
+        self.tabWidget.addTab(self.sataabdikaDasaGraphicsItemGroupBox,
+                              QIcon(":/images/rluu/sataabdikaDasa.png"),
                               "")
 
         # Buttons at bottom.
@@ -11348,6 +11357,22 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.chaturaseetiSamaDasaGraphicsItemTextEnabledFlagResetButton.clicked.\
             connect(\
             self._handleChaturaseetiSamaDasaGraphicsItemTextEnabledFlagResetButtonClicked)
+
+        self.sataabdikaDasaGraphicsItemColorResetButton.clicked.\
+            connect(\
+            self._handleSataabdikaDasaGraphicsItemColorResetButtonClicked)
+        self.sataabdikaDasaGraphicsItemTextColorResetButton.clicked.\
+            connect(\
+            self._handleSataabdikaDasaGraphicsItemTextColorResetButtonClicked)
+        self.sataabdikaDasaGraphicsItemTextXScalingResetButton.clicked.\
+            connect(\
+            self._handleSataabdikaDasaGraphicsItemTextXScalingResetButtonClicked)
+        self.sataabdikaDasaGraphicsItemTextYScalingResetButton.clicked.\
+            connect(\
+            self._handleSataabdikaDasaGraphicsItemTextYScalingResetButtonClicked)
+        self.sataabdikaDasaGraphicsItemTextEnabledFlagResetButton.clicked.\
+            connect(\
+            self._handleSataabdikaDasaGraphicsItemTextEnabledFlagResetButtonClicked)
 
 
         self.resetAllToDefaultButton.clicked.\
@@ -16478,6 +16503,186 @@ class PriceBarChartSettingsEditWidget(QWidget):
         
         return self.chaturaseetiSamaDasaGraphicsItemGroupBox
 
+    def _buildSataabdikaDasaGraphicsItemGroupBox(self):
+        """Builds the groupbox containing info to edit the
+        PriceBarChartSettings related to a SataabdikaDasaGraphicsItem.
+
+        Returns:
+        QGroupBox obj containing all the created widgets.
+        """
+
+        self.sataabdikaDasaGraphicsItemGroupBox = \
+            QGroupBox("SataabdikaDasaGraphicsItem settings:")
+
+        # PriceBarChart sataabdikaDasaGraphicsItemColor (QColor).
+        self.sataabdikaDasaGraphicsItemColorLabel = \
+            QLabel("SataabdikaDasaGraphicsItem color: ")
+        self.sataabdikaDasaGraphicsItemColorEditButton = ColorEditPushButton()
+        self.sataabdikaDasaGraphicsItemColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # PriceBarChart sataabdikaDasaGraphicsItemTextColor (QColor).
+        self.sataabdikaDasaGraphicsItemTextColorLabel = \
+            QLabel("SataabdikaDasaGraphicsItem text color: ")
+        self.sataabdikaDasaGraphicsItemTextColorEditButton = \
+            ColorEditPushButton()
+        self.sataabdikaDasaGraphicsItemTextColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # sataabdikaDasaGraphicsItemTextXScaling (float).
+        self.sataabdikaDasaGraphicsItemTextXScalingLabel = \
+            QLabel("SataabdikaDasaGraphicsItem text X scaling: ")
+        self.sataabdikaDasaGraphicsItemTextXScalingSpinBox = QDoubleSpinBox()
+        self.sataabdikaDasaGraphicsItemTextXScalingSpinBox.setMinimum(0.0001)
+        self.sataabdikaDasaGraphicsItemTextXScalingSpinBox.setMaximum(1000.0)
+        self.sataabdikaDasaGraphicsItemTextXScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # sataabdikaDasaGraphicsItemTextYScaling (float).
+        self.sataabdikaDasaGraphicsItemTextYScalingLabel = \
+            QLabel("SataabdikaDasaGraphicsItem text Y scaling: ")
+        self.sataabdikaDasaGraphicsItemTextYScalingSpinBox = QDoubleSpinBox()
+        self.sataabdikaDasaGraphicsItemTextYScalingSpinBox.setMinimum(0.0001)
+        self.sataabdikaDasaGraphicsItemTextYScalingSpinBox.setMaximum(1000.0)
+        self.sataabdikaDasaGraphicsItemTextYScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # sataabdikaDasaGraphicsItemTextEnabledFlag (bool).
+        self.sataabdikaDasaGraphicsItemTextEnabledFlagLabel = \
+            QLabel("SataabdikaDasaGraphicsItem text is enabled: ")
+        self.sataabdikaDasaGraphicsItemTextEnabledFlagCheckBox = \
+            QCheckBox()
+        self.sataabdikaDasaGraphicsItemTextEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.sataabdikaDasaGraphicsItemTextEnabledFlagResetButton = \
+            QPushButton("Reset to default")
+        
+        # Grid layout.
+        gridLayout = QGridLayout()
+        r = 0
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        gridLayout.\
+            addWidget(self.sataabdikaDasaGraphicsItemColorLabel,
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.sataabdikaDasaGraphicsItemColorEditButton,
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(self.sataabdikaDasaGraphicsItemColorResetButton,
+                      r, 2, ar)
+        r += 1
+        gridLayout.\
+            addWidget(self.sataabdikaDasaGraphicsItemTextColorLabel,
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.sataabdikaDasaGraphicsItemTextColorEditButton,
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(self.sataabdikaDasaGraphicsItemTextColorResetButton,
+                      r, 2, ar)
+        r += 1
+        gridLayout.\
+            addWidget(self.sataabdikaDasaGraphicsItemTextXScalingLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.sataabdikaDasaGraphicsItemTextXScalingSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.sataabdikaDasaGraphicsItemTextXScalingResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(self.sataabdikaDasaGraphicsItemTextYScalingLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.sataabdikaDasaGraphicsItemTextYScalingSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.sataabdikaDasaGraphicsItemTextYScalingResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(self.sataabdikaDasaGraphicsItemTextEnabledFlagLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.sataabdikaDasaGraphicsItemTextEnabledFlagCheckBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.sataabdikaDasaGraphicsItemTextEnabledFlagResetButton, 
+            r, 2, ar)
+
+        r += 1
+
+
+        self.sataabdikaDasaGraphicsItemRotateDownButton = \
+            QPushButton("Rotate Down")
+        self.sataabdikaDasaGraphicsItemRotateUpButton = \
+            QPushButton("Rotate Up")
+        self.sataabdikaDasaGraphicsItemCheckMarkAllButton = \
+            QPushButton("Check All")
+        self.sataabdikaDasaGraphicsItemCheckMarkNoneButton = \
+            QPushButton("Check None")
+        self.sataabdikaDasaGraphicsItemMusicalRatiosResetButton = \
+            QPushButton("Reset to default")
+        
+        rotateButtonsLayout = QHBoxLayout()
+        rotateButtonsLayout.addWidget(\
+            self.sataabdikaDasaGraphicsItemRotateDownButton)
+        rotateButtonsLayout.addWidget(\
+            self.sataabdikaDasaGraphicsItemRotateUpButton)
+        rotateButtonsLayout.addWidget(\
+            self.sataabdikaDasaGraphicsItemCheckMarkAllButton)
+        rotateButtonsLayout.addWidget(\
+            self.sataabdikaDasaGraphicsItemCheckMarkNoneButton)
+        rotateButtonsLayout.addWidget(\
+            self.sataabdikaDasaGraphicsItemMusicalRatiosResetButton)
+        rotateButtonsLayout.addStretch()
+        
+        # Layout for the musical ratio intervals.
+        self.sataabdikaDasaGraphicsItemMusicalRatiosGridLayout = QGridLayout()
+
+        # Holds a list of MusicalRatio objects that is the 'working
+        # copy' in this edit widget.  This gets saved to the
+        # underlying self.priceBarChartSettings object upon clicking okay.
+        self.sataabdikaDasaGraphicsItemMusicalRatios = list()
+        
+        # Holds the list of QCheckBox objects corresponding to the
+        # MusicalRatios (ordered) in the artifact. 
+        self.sataabdikaDasaGraphicsItemCheckBoxes = []
+        
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addLayout(rotateButtonsLayout)
+        layout.addLayout(\
+            self.sataabdikaDasaGraphicsItemMusicalRatiosGridLayout)
+        layout.addStretch()
+        
+        self.sataabdikaDasaGraphicsItemGroupBox.setLayout(layout)
+
+        # Connect signals and slots.
+        self.sataabdikaDasaGraphicsItemRotateDownButton.clicked.connect(\
+            self._handleSataabdikaDasaGraphicsItemRotateDownButtonClicked)
+        self.sataabdikaDasaGraphicsItemRotateUpButton.clicked.connect(\
+            self._handleSataabdikaDasaGraphicsItemRotateUpButtonClicked)
+        self.sataabdikaDasaGraphicsItemCheckMarkAllButton.clicked.connect(\
+            self._handleSataabdikaDasaGraphicsItemCheckMarkAllButtonClicked)
+        self.sataabdikaDasaGraphicsItemCheckMarkNoneButton.clicked.connect(\
+            self._handleSataabdikaDasaGraphicsItemCheckMarkNoneButtonClicked)
+        self.sataabdikaDasaGraphicsItemMusicalRatiosResetButton.clicked.\
+            connect(\
+            self.\
+            _handleSataabdikaDasaGraphicsItemMusicalRatiosResetButtonClicked)
+
+        
+        return self.sataabdikaDasaGraphicsItemGroupBox
+
     def loadValuesFromSettings(self, priceBarChartSettings):
         """Loads the widgets with values from the given
         PriceBarChartSettings object.
@@ -17989,6 +18194,43 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._chaturaseetiSamaDasaGraphicsItemReloadMusicalRatiosGrid(\
             self.chaturaseetiSamaDasaGraphicsItemMusicalRatios)
         
+        # sataabdikaDasaGraphicsItemColor (QColor).
+        self.sataabdikaDasaGraphicsItemColorEditButton.\
+            setColor(self.priceBarChartSettings.\
+                     sataabdikaDasaGraphicsItemBarColor)
+
+        # sataabdikaDasaGraphicsItemTextColor (QColor).
+        self.sataabdikaDasaGraphicsItemTextColorEditButton.\
+            setColor(self.priceBarChartSettings.\
+                     sataabdikaDasaGraphicsItemTextColor)
+
+        # sataabdikaDasaGraphicsItemTextXScaling (float).
+        self.sataabdikaDasaGraphicsItemTextXScalingSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        sataabdikaDasaGraphicsItemTextXScaling)
+
+        # sataabdikaDasaGraphicsItemTextYScaling (float).
+        self.sataabdikaDasaGraphicsItemTextYScalingSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        sataabdikaDasaGraphicsItemTextYScaling)
+
+        # sataabdikaDasaGraphicsItemTextEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           sataabdikaDasaGraphicsItemTextEnabledFlag == True:
+
+            self.sataabdikaDasaGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.sataabdikaDasaGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # sataabdikaDasaGraphicsItemMusicalRatios (list of MusicalRatio)
+        self.sataabdikaDasaGraphicsItemMusicalRatios = \
+            copy.deepcopy(self.priceBarChartSettings.\
+                          sataabdikaDasaGraphicsItemMusicalRatios)
+        self._sataabdikaDasaGraphicsItemReloadMusicalRatiosGrid(\
+            self.sataabdikaDasaGraphicsItemMusicalRatios)
+        
         
         self.log.debug("Exiting loadValuesFromSettings()")
         
@@ -19368,6 +19610,36 @@ class PriceBarChartSettingsEditWidget(QWidget):
         # chaturaseetiSamaDasaGraphicsItemMusicalRatios (list of MusicalRatio)
         self.priceBarChartSettings.chaturaseetiSamaDasaGraphicsItemMusicalRatios = \
             self.chaturaseetiSamaDasaGraphicsItemMusicalRatios
+           
+        # sataabdikaDasaGraphicsItemTextColor (QColor).
+        self.priceBarChartSettings.sataabdikaDasaGraphicsItemBarColor = \
+            self.sataabdikaDasaGraphicsItemColorEditButton.getColor()
+
+        # sataabdikaDasaGraphicsItemTextTextColor (QColor).
+        self.priceBarChartSettings.sataabdikaDasaGraphicsItemTextColor = \
+            self.sataabdikaDasaGraphicsItemTextColorEditButton.getColor()
+            
+        # sataabdikaDasaGraphicsItemTextXScaling (float).
+        self.priceBarChartSettings.sataabdikaDasaGraphicsItemTextXScaling = \
+            float(self.sataabdikaDasaGraphicsItemTextXScalingSpinBox.value())
+
+        # sataabdikaDasaGraphicsItemTextYScaling (float).
+        self.priceBarChartSettings.sataabdikaDasaGraphicsItemTextYScaling = \
+            float(self.sataabdikaDasaGraphicsItemTextYScalingSpinBox.value())
+        
+        # sataabdikaDasaGraphicsItemTextEnabledFlag (bool).
+        if self.sataabdikaDasaGraphicsItemTextEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+            
+            self.priceBarChartSettings.\
+                sataabdikaDasaGraphicsItemTextEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                sataabdikaDasaGraphicsItemTextEnabledFlag = False
+        
+        # sataabdikaDasaGraphicsItemMusicalRatios (list of MusicalRatio)
+        self.priceBarChartSettings.sataabdikaDasaGraphicsItemMusicalRatios = \
+            self.sataabdikaDasaGraphicsItemMusicalRatios
            
 
         self.log.debug("Exiting saveValuesToSettings()")
@@ -23309,6 +23581,249 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._chaturaseetiSamaDasaGraphicsItemReloadMusicalRatiosGrid(\
             self.chaturaseetiSamaDasaGraphicsItemMusicalRatios)
 
+    def _sataabdikaDasaGraphicsItemReloadMusicalRatiosGrid(self,
+                                                           musicalRatios):
+        """Clears and recreates the
+        self.sataabdikaDasaGraphicsItemMusicalRatiosGridLayout
+        according to the values in 'musicalRatios'.
+
+        Arguments:
+        
+        musicalRatios - list of MusicalRatio objects to use to
+                        populate the grid layout.
+        """
+
+        musicalRatiosGridLayout = \
+            self.sataabdikaDasaGraphicsItemMusicalRatiosGridLayout
+        
+        # Remove any old widgets that were in the grid layout from
+        # the grid layout..
+        for r in range(musicalRatiosGridLayout.rowCount()):
+            for c in range(musicalRatiosGridLayout.columnCount()):
+                # Get the QLayoutItem.
+                item = musicalRatiosGridLayout.itemAtPosition(r, c)
+                if item != None:
+                    # Get the widget in the layout item.
+                    widget = item.widget()
+                    if widget != None:
+                        widget.setEnabled(False)
+                        widget.setVisible(False)
+                        widget.setParent(None)
+
+                        # Actually remove the widget from the
+                        # QGridLayout.  
+                        musicalRatiosGridLayout.removeWidget(widget)
+                                
+        # Row.
+        r = 0
+        # Alignments.
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        # Create the musical ratio items in the
+        # musicalRatiosGridLayout QGridLayout.
+        self.sataabdikaDasaGraphicsItemMusicalRatios = musicalRatios
+        numMusicalRatios = len(self.sataabdikaDasaGraphicsItemMusicalRatios)
+
+        # Clear the checkboxes list.
+        self.sataabdikaDasaGraphicsItemCheckBoxes = []
+
+        rangeUsed = range(numMusicalRatios)
+            
+        for i in rangeUsed:
+            musicalRatio = musicalRatios[i]
+            
+            checkBox = QCheckBox("{}".format(musicalRatio.getRatio()))
+
+            # Set the check state based on whether or not the musical
+            # ratio is enabled.
+            if musicalRatio.isEnabled():
+                checkBox.setCheckState(Qt.Checked)
+            else:
+                checkBox.setCheckState(Qt.Unchecked)
+
+            # Connect the signal to the slot function
+            # _handleCheckMarkToggled().  That function will update
+            # the self.artifact's musicalRatios with new check state.
+            checkBox.stateChanged.connect(\
+                self._handleSataabdikaDasaGraphicsItemCheckMarkToggled)
+            
+            # Append to our list of checkboxes so that we can
+            # reference them later and see what values are used in
+            # them.  
+            self.sataabdikaDasaGraphicsItemCheckBoxes.append(checkBox)
+            
+            descriptionLabel = QLabel(musicalRatio.getDescription())
+
+            # Actually add the widgets to the grid layout.
+            musicalRatiosGridLayout.\
+                addWidget(checkBox, r, 0, al)
+            musicalRatiosGridLayout.\
+                addWidget(descriptionLabel, r, 1, al)
+
+            r += 1
+
+
+    def _handleSataabdikaDasaGraphicsItemCheckMarkToggled(self):
+        """Called when the user checkmarks or uncheckmarks a musical
+        ratio checkbox in the SataabdikaDasaGraphicsItem groupbox widgets.
+        This will update the internally kept musicalRatio values.
+        """
+
+        # Go through all the musicalRatios in the widget, and set them
+        # as enabled or disabled in the artifact, based on the check
+        # state of the QCheckBox objects in self.checkBoxes.
+        for i in range(len(self.sataabdikaDasaGraphicsItemCheckBoxes)):
+            oldValue = \
+                self.sataabdikaDasaGraphicsItemMusicalRatios[i].isEnabled()
+            
+            newValue = None
+            if self.sataabdikaDasaGraphicsItemCheckBoxes[i].\
+                   checkState() == Qt.Checked:
+                
+                newValue = True
+            else:
+                newValue = False
+            
+            if oldValue != newValue:
+                self.log.debug("Updating enabled state of " +
+                               "sataabdikaDasaGraphicsItemMusicalRatio" +
+                               "[{}] from {} to {}".\
+                               format(i, oldValue, newValue))
+                self.sataabdikaDasaGraphicsItemMusicalRatios[i].\
+                    setEnabled(newValue)
+            else:
+                #self.log.debug("No update to " +
+                #               "sataabdikaDasaGraphicsItemMusicalRatio" +
+                #               "[{}]".format(i))
+                pass
+        
+    def _handleSataabdikaDasaGraphicsItemRotateDownButtonClicked(self):
+        """Called when the 'Rotate Down' button is clicked."""
+
+        # Get all the musicalRatios.
+        musicalRatios = self.sataabdikaDasaGraphicsItemMusicalRatios
+
+        # Put the last musical ratio in the front.
+        if len(musicalRatios) > 0:
+            lastRatio = musicalRatios.pop(len(musicalRatios) - 1)
+            musicalRatios.insert(0, lastRatio)
+
+        # Reload the musicalRatiosGrid.
+        self._sataabdikaDasaGraphicsItemReloadMusicalRatiosGrid(musicalRatios)
+    
+    def _handleSataabdikaDasaGraphicsItemRotateUpButtonClicked(self):
+        """Called when the 'Rotate Up' button is clicked."""
+
+        # Get all the musicalRatios.
+        musicalRatios = self.sataabdikaDasaGraphicsItemMusicalRatios
+        
+        # Put the first musical ratio in the back.
+        if len(musicalRatios) > 0:
+            firstRatio = musicalRatios.pop(0)
+            musicalRatios.append(firstRatio)
+        
+        # Reload the musicalRatiosGrid.
+        self._sataabdikaDasaGraphicsItemReloadMusicalRatiosGrid(musicalRatios)
+    
+    def _handleSataabdikaDasaGraphicsItemCheckMarkAllButtonClicked(self):
+        """Called when the 'Check All' button is clicked."""
+
+        for checkBox in self.sataabdikaDasaGraphicsItemCheckBoxes:
+            checkBox.setCheckState(Qt.Checked)
+
+        # Call this to update the internal artifact object according
+        # to what the widgets have set (in this case, the 'enabled'
+        # checkboxes).
+        self._handleSataabdikaDasaGraphicsItemCheckMarkToggled()
+        
+    def _handleSataabdikaDasaGraphicsItemCheckMarkNoneButtonClicked(self):
+        """Called when the 'Check None' button is clicked."""
+
+        for checkBox in self.sataabdikaDasaGraphicsItemCheckBoxes:
+            checkBox.setCheckState(Qt.Unchecked)
+
+        # Call this to update the internal artifact object according
+        # to what the widgets have set (in this case, the 'enabled'
+        # checkboxes).
+        self._handleSataabdikaDasaGraphicsItemCheckMarkToggled()
+
+    def _handleSataabdikaDasaGraphicsItemColorResetButtonClicked(self):
+        """Called when the sataabdikaDasaGraphicsItemColorResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultSataabdikaDasaGraphicsItemBarColor
+        
+        self.sataabdikaDasaGraphicsItemColorEditButton.setColor(value)
+
+    def _handleSataabdikaDasaGraphicsItemTextColorResetButtonClicked(self):
+        """Called when the
+        sataabdikaDasaGraphicsItemTextColorResetButton is clicked.
+        Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultSataabdikaDasaGraphicsItemTextColor
+        
+        self.sataabdikaDasaGraphicsItemTextColorEditButton.setColor(value)
+
+    def _handleSataabdikaDasaGraphicsItemTextXScalingResetButtonClicked(self):
+        """Called when the sataabdikaDasaGraphicsItemTextXScalingResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultSataabdikaDasaGraphicsItemTextXScaling
+
+        self.sataabdikaDasaGraphicsItemTextXScalingSpinBox.setValue(value)
+
+    def _handleSataabdikaDasaGraphicsItemTextYScalingResetButtonClicked(self):
+        """Called when the sataabdikaDasaGraphicsItemTextYScalingResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultSataabdikaDasaGraphicsItemTextYScaling
+
+        self.sataabdikaDasaGraphicsItemTextYScalingSpinBox.setValue(value)
+
+    def _handleSataabdikaDasaGraphicsItemTextEnabledFlagResetButtonClicked(self):
+        """Called when the
+        sataabdikaDasaGraphicsItemTextEnabledFlagResetButton is
+        clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultSataabdikaDasaGraphicsItemTextEnabledFlag
+
+        if value == True:
+            self.sataabdikaDasaGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.sataabdikaDasaGraphicsItemTextEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+    def _handleSataabdikaDasaGraphicsItemMusicalRatiosResetButtonClicked(self):
+        """Called when the 'Reset to default' button is clicked for
+        the SataabdikaDasaGraphicsItem's MusicalRatios.
+        """
+
+        value = \
+            copy.deepcopy(PriceBarChartSettings.\
+                          defaultSataabdikaDasaGraphicsItemMusicalRatios)
+        
+        self.sataabdikaDasaGraphicsItemMusicalRatios = value
+        
+        self._sataabdikaDasaGraphicsItemReloadMusicalRatiosGrid(\
+            self.sataabdikaDasaGraphicsItemMusicalRatios)
+
     def _handleResetAllToDefaultButtonClicked(self):
         """Called when the resetAllToDefaultButton is clicked.
         Resets the all the widget values in this widget to the default
@@ -23480,6 +23995,13 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._handleChaturaseetiSamaDasaGraphicsItemTextYScalingResetButtonClicked()
         self._handleChaturaseetiSamaDasaGraphicsItemTextEnabledFlagResetButtonClicked()
         self._handleChaturaseetiSamaDasaGraphicsItemMusicalRatiosResetButtonClicked()
+
+        self._handleSataabdikaDasaGraphicsItemColorResetButtonClicked()
+        self._handleSataabdikaDasaGraphicsItemTextColorResetButtonClicked()
+        self._handleSataabdikaDasaGraphicsItemTextXScalingResetButtonClicked()
+        self._handleSataabdikaDasaGraphicsItemTextYScalingResetButtonClicked()
+        self._handleSataabdikaDasaGraphicsItemTextEnabledFlagResetButtonClicked()
+        self._handleSataabdikaDasaGraphicsItemMusicalRatiosResetButtonClicked()
 
     def _handleOkayButtonClicked(self):
         """Called when the okay button is clicked."""
