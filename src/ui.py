@@ -2,6 +2,9 @@
 # For obtaining the line separator and directory separator.
 import os
 
+# For comparing timestamps on files.
+import time
+
 # For serializing and unserializing objects.
 import pickle
 
@@ -106,6 +109,8 @@ class MainWindow(QMainWindow):
         self.setWindowTitle(self.appName)
         self.setWindowIcon(self.appIcon)
 
+        # Remove old temporary .jhd files that were created by us.
+        self.removeOldTemporaryJHoraFiles()
 
     def _createActions(self):
         """Creates all the QAction objects that will be mapped to the 
@@ -1299,6 +1304,9 @@ class MainWindow(QMainWindow):
 
                 self.showInStatusBar(statusBarMessage)
 
+                # Update the QSettings value for the default open
+                # location if the directory is different.
+                
                 # Get the directory where this file lives.
                 loc = filename.rfind(os.sep)
                 directory = filename[:loc]
@@ -1436,6 +1444,99 @@ class MainWindow(QMainWindow):
                        format(Ephemeris.datetimeToStr(dt),
                               birthInfo.toString()))
 
+        
+        # This is chart destination directory path, in the filename format
+        # readable on the current operating system.
+        chartDestPath = ""
+
+        # This is the chart destination directory path, in the filename format
+        # readable on Posix systems (Unix, Linux, Mac OS X).
+        chartDestPathPosix = ""
+        
+        # This is the chart destination directory path, in the filename format
+        # readable on Microsoft Windows systems.
+        chartDestPathWin = ""
+
+        # Create the appropriate directory and return the paths.
+        (chartDestPath, chartDestPathPosix, chartDestPathWin) = \
+            self._getJHoraChartDestPath()
+
+        self.log.debug("chartDestPath == " + chartDestPath)
+        self.log.debug("chartDestPathPosix == " + chartDestPathPosix)
+        self.log.debug("chartDestPathWin == " + chartDestPathWin)
+        
+        # Create the file to open JHora with.
+        filenameTemplate = chartDestPath + os.sep + \
+                           "tmp_" + self.appName + "_XXXXXX.jhd"
+        self.log.debug("filenameTemplate == " + filenameTemplate)
+        
+        f = QTemporaryFile(filenameTemplate)
+
+        # Need to disable auto-remove because the QTemporaryFile gets
+        # destroyed (garbage collected) before JHora is launched and
+        # can read the file.
+        f.setAutoRemove(False)
+
+        if f.open(QIODevice.ReadWrite):
+            
+            # Get the text to go into the file from the input parameters.
+            text = self._generateJHoraFileText(dt, birthInfo)
+
+            # Write to the file.
+            utf8EncodedText = text.encode('utf-8')
+            f.writeData(utf8EncodedText)
+            f.close()
+
+            # Launch JHora with the file just created.
+
+            # Get the filename in the Windows path format since that's
+            # all wine or Windows knows how to see.
+            filename = chartDestPathWin + "\\" + \
+                       os.path.basename(f.fileName())
+            
+            self.log.debug("f.fileName() == " + f.fileName())
+            self.log.debug("filename == " + filename)
+
+            self._execJHora(filename)
+            
+        else:
+            errMsg = "JHora launch failed because: " + os.linesep + \
+                     "Could not open a temporary file for JHora."
+            self.log.error(errMsg)
+            
+            title = "Error"
+            text = errMsg
+            buttons = QMessageBox.Ok
+            defaultButton = QMessageBox.NoButton
+            
+            QMessageBox.warning(self, title, text, buttons, defaultButton)
+            
+        
+        self.log.debug("Exiting handleJhoraLaunch()")
+
+    def _getJHoraChartDestPath(self):
+        """Returns a tuple of 3 paths (based on operating system) for
+        where the JHora .jhd files will be saved to.  The formula for
+        this path is based on operating system and application name.
+        See code below for details.  This function also creates the
+        directory if it doesn't exist already.
+
+        Returns:
+        tuple of three items:
+           - chartDestPath (str)
+               This is chart destination directory path, in the
+               filename format readable on the current operating system.
+           - chartDestPathPosix (str)
+               This is the chart destination directory path, in the
+               filename format readable on Posix systems (Unix, Linux,
+               Mac OS X).
+           - chartDestPathWin (str)
+               This is the chart destination directory path, in the
+               filename format readable on Microsoft Windows systems.
+        """
+
+        self.log.debug("Entered _getJHoraChartDestPath()")
+        
         # Make a directory to store our temporary .jhd files.
         # Optimally, we would like to place it within JHora's 'data'
         # directory, but that doesn't work because that directory path
@@ -1516,55 +1617,14 @@ class MainWindow(QMainWindow):
                            "JHora chart destination directory exists.  " +
                            "{}".format(e))
             
-        # Create the file to open JHora with.
-        filenameTemplate = chartDestPath + os.sep + \
-                           "tmp_" + self.appName + "_XXXXXX.jhd"
-        self.log.debug("filenameTemplate == " + filenameTemplate)
+        self.log.debug("chartDestPath == " + chartDestPath)
+        self.log.debug("chartDestPathPosix == " + chartDestPathPosix)
+        self.log.debug("chartDestPathWin == " + chartDestPathWin)
         
-        f = QTemporaryFile(filenameTemplate)
-
-        # Need to disable auto-remove because the QTemporaryFile gets
-        # destroyed (garbage collected) before JHora is launched and
-        # can read the file.
-        f.setAutoRemove(False)
-
-        if f.open(QIODevice.ReadWrite):
-            
-            # Get the text to go into the file from the input parameters.
-            text = self._generateJHoraFileText(dt, birthInfo)
-
-            # Write to the file.
-            utf8EncodedText = text.encode('utf-8')
-            f.writeData(utf8EncodedText)
-            f.close()
-
-            # Launch JHora with the file just created.
-
-            # Get the filename in the Windows path format since that's
-            # all wine or Windows knows how to see.
-            filename = chartDestPathWin + "\\" + \
-                       os.path.basename(f.fileName())
-            
-            self.log.debug("f.fileName() == " + f.fileName())
-            self.log.debug("filename == " + filename)
-
-            self._execJHora(filename)
-            
-        else:
-            errMsg = "JHora launch failed because: " + os.linesep + \
-                     "Could not open a temporary file for JHora."
-            self.log.error(errMsg)
-            
-            title = "Error"
-            text = errMsg
-            buttons = QMessageBox.Ok
-            defaultButton = QMessageBox.NoButton
-            
-            QMessageBox.warning(self, title, text, buttons, defaultButton)
-            
+        self.log.debug("Exiting _getJHoraChartDestPath()")
         
-        self.log.debug("Exiting handleJhoraLaunch()")
-
+        return (chartDestPath, chartDestPathPosix, chartDestPathWin)
+    
     def _execJHora(self, filename=None):
         """Runs the executable JHora.
 
@@ -1769,6 +1829,8 @@ class MainWindow(QMainWindow):
         #################################################################
         """
 
+        self.log.debug("Entered _generateJHoraFileText()")
+        
         self.log.debug("dt at input is: " + Ephemeris.datetimeToStr(dt))
 
         # Datetime 'dt' needs to be localized to the timezone used in
@@ -2106,8 +2168,69 @@ class MainWindow(QMainWindow):
 
         self.log.debug("text is: ***" + text + "***")
         
+        self.log.debug("Exiting _generateJHoraFileText()")
+        
         return text
     
+        
+    def removeOldTemporaryJHoraFiles(self):
+        """Removes any old .jhd files that were previously created by this
+        application.  By old, this means older than 180 days.
+        """
+
+        self.log.debug("Entered removeOldTemporaryJHoraFiles()")
+        
+        # This is chart destination directory path, in the filename format
+        # readable on the current operating system.
+        chartDestPath = ""
+
+        # This is the chart destination directory path, in the filename format
+        # readable on Posix systems (Unix, Linux, Mac OS X).
+        chartDestPathPosix = ""
+        
+        # This is the chart destination directory path, in the filename format
+        # readable on Microsoft Windows systems.
+        chartDestPathWin = ""
+
+        # Get the directory path.
+        (chartDestPath, chartDestPathPosix, chartDestPathWin) = \
+            self._getJHoraChartDestPath()
+
+        # Current time in seconds since epoch.
+        currTimeSecs = int(time.time())
+        self.log.debug("Current time is: {}".format(currTimeSecs))
+
+        # Time threshold to keep the .jhd data files.
+        secsInDay = 60 * 60 * 24
+        timeThresholdSecs = currTimeSecs - (180 * secsInDay)
+        
+        self.log.info("Scanning for old .jhd files to remove " +
+                      "in directory: {}".format(chartDestPath))
+        
+        for f in os.listdir(chartDestPath):
+            fullFilename = chartDestPath + os.sep + f
+            self.log.debug("Looking at file: {}".format(fullFilename))
+            statinfo = os.lstat(fullFilename)
+            
+            self.log.debug("Most recent access time is: {}".\
+                           format(statinfo.st_atime))
+            self.log.debug("Most recent mod time is:    {}".\
+                           format(statinfo.st_atime))
+            
+            if statinfo.st_atime < timeThresholdSecs:
+                # Older than our threshold, so try to remove the file.
+                try:
+                    self.log.info("Removing file: {}".\
+                                  format(fullFilename))
+                    os.remove(fullFilename)
+                except OSError as e:
+                    # This can happen on Windows if the file is
+                    # currently in use.
+                    self.log.warn("Failed to remove old temporary .jhd file " +
+                                  "{} because: {}".\
+                                  format(f, e))
+            
+        self.log.debug("Exiting removeOldTemporaryJHoraFiles()")
         
     def _print(self):
         """Opens up a dialog for printing the current selected document."""
@@ -3471,6 +3594,9 @@ class PriceChartDocument(QMdiSubWindow):
         self.log.debug("Exiting saveAsChart().  Returning {}".format(rv))
         return rv
 
+    # TODO:  add a function to this class here that does a check to the data file that the pricebars were loaded from.  If the file doesn't exist, then prompt the user for a new filename (and allow for canceling).  If the filename of the backing CSV file is found, then check through that CSV to see if there are any inconsistencies.  If there are different pricebars (certain ones added/missing or bad data pruned),  and if there are new pricebars, prompt the user for actions to take.  
+
+    
     def toReadOnlyPointerToolMode(self):
         """Changes the tool mode to be the ReadOnlyPointerTool."""
 

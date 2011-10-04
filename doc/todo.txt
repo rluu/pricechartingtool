@@ -4,15 +4,9 @@ Outstanding things to work on going forward:
 
 TODO:  
 
-  - Ruler for Vimsottari dasa (draggable ends and middle).
-      - Dialog to edit start and end datetime.
-      - Option to modify lifespan (i.e. timerange).
-
-  - Ruler for all the other dasas like dwi saptati sama dasa
-      (draggable ends and middle).
-
-      - Dialog to edit start and end datetime.
-      - Option to modify lifespan (i.e. timerange).
+  - Add code to re-read the CSV data file for new bars.  This is
+    initiated upon loading the .pcd file and upon a button press
+    somewhere (toolbar and on the menu?).
 
   - Set sensible defaults for TimeMeasurementTool (which text to have
     displayed by default).
@@ -61,6 +55,9 @@ TODO:
                      synodic cycles.
          - Later: Measurement of all the planetary (geocentric) cycles.
 
+  - Dasa measurement tools:
+      - Should I add an option to modify dasa lifespan (i.e. timerange).
+
   - Add the vedic month (what nakshatra the full moon is in) on the
     astro charts.
 
@@ -82,10 +79,6 @@ TODO:
     earlier timestamp square rooted, to the later timestamp square
     rooted. and the musical scale is created from that, and then
     squared again to get the timestamp.
-
-  - Add code to re-read the CSV data file for new bars.  This is
-    initiated upon loading the .pcd file and upon a button press
-    somewhere (toolbar and on the menu?).
 
   - Other time intervals that I may want to explore and check out
     (from Jyotish knowledge):
@@ -131,10 +124,6 @@ TODO:
       Chart with pricebars in Calendar Days (CDs).
 
   - Narayana Dasa  --> How to implement this?
-
-  - Programmatically write code to remove the temp .jhd files if the
-    file(s) are older than 3 months.  Add comment to README.txt to let
-    the user know this.
 
   - In the astrologychart.SiderealRadixGraphicsItem, clean up the
     code.  Parameterize the pen/brush so that it has foreground color

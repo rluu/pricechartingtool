@@ -34,14 +34,20 @@ Requirements:
 Dependencies to build/run this project are:
 
   - Python 3.1
-  - PyQt 4.7.5
-  - Qt 4.7.1
+  - PyQt 4.8.5
+  - Qt 4.7.4
   - pyswisseph 1.76
       (Uses Swiss Ephemeris version 1.76.00, which was released Aug. 4, 2009)
   - pytz 2010h 
       (Modified version of this release that is compatible with Python 3)
 
-Note: 
+Notes: 
+
+  If compiling Qt from source on Linux, make sure to include the
+  following tags or else the subsequent PyQt compile will fail when
+  trying to find phonon header files:
+
+     [rluu@vapor qt-src-dir]$ ./configure -phonon -phonon-backend
 
   If compiling SIP or PyQt on Windows platform using MinGW, use the following 
   configure command so that the environment can be detected correctly: 
@@ -139,6 +145,8 @@ Temporary JHora .jhd files that are created will be placed in directory:
    For Microsoft Windows:
      C:\PriceChartingTool\data\
 
+The files in the above paths will be removed at startup if the file is
+older than 180 days.
 
 ##############################################################################
 
