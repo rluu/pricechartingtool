@@ -540,6 +540,62 @@ class PriceBar:
         
         return rv
 
+    def __eq__(self, other):
+        """Returns True if the two PriceBars are equal."""
+        
+        rv = True
+
+        leftObj = self
+        rightObj = other
+
+        if rightObj == None:
+            return False
+        
+        self.log.debug("leftObj: {}".format(leftObj.toString()))
+        self.log.debug("rightObj: {}".format(rightObj.toString()))
+
+        if leftObj.classVersion != rightObj.classVersion:
+            self.log.debug("classVersion differs.")
+            rv = False
+        if leftObj.open != rightObj.open:
+            self.log.debug("open differs.")
+            rv = False
+        if leftObj.high != rightObj.high:
+            self.log.debug("high differs.")
+            rv = False
+        if leftObj.low != rightObj.low:
+            self.log.debug("low differs.")
+            rv = False
+        if leftObj.close != rightObj.close:
+            self.log.debug("close differs.")
+            rv = False
+        if leftObj.oi != rightObj.oi:
+            self.log.debug("oi differs.")
+            rv = False
+        if leftObj.vol != rightObj.vol:
+            self.log.debug("vol differs.")
+            rv = False
+            
+        if len(leftObj.tags) != len(rightObj.tags):
+            self.log.debug("len(tags) differs.")
+            rv = False
+        else:
+            for i in range(len(leftObj.tags)):
+                if leftObj.tags[i] != rightObj.tags[i]:
+                    self.log.debug("tags differs.")
+                    rv = False
+                    break
+
+        self.log.debug("__eq__() returning: {}".format(rv))
+        
+        return rv
+
+    def __ne__(self, other):
+        """Returns True if the PriceBars are not equal.
+        Returns False otherwise."""
+
+        return not self.__eq__(other)
+    
     def __str__(self):
         """Returns the string representation of the PriceBar data"""
 

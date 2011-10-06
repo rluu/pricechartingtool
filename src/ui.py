@@ -149,6 +149,18 @@ class MainWindow(QMainWindow):
         self.saveAsChartAction.setStatusTip("Save the Chart as a new file")
         self.saveAsChartAction.triggered.connect(self._saveAsChart)
 
+        # Create the checkSourceDataFileForPriceBarUpdatesAction.
+        # TODO: add an icon
+        icon = QIcon()
+        self.checkSourceDataFileForPriceBarUpdatesAction = \
+            QAction(icon, "Chec&k for PriceBar data updates", self)
+        #self.checkSourceDataFileForPriceBarUpdatesAction.\
+        #    setShortcut("Ctrl+")
+        self.checkSourceDataFileForPriceBarUpdatesAction.\
+            setStatusTip("Check source data file for PriceBar updates")
+        self.checkSourceDataFileForPriceBarUpdatesAction.triggered.\
+            connect(self._handleCheckSourceDataFileForPriceBarUpdatesAction)
+        
         # Create the printAction.
         icon = QIcon(":/images/tango-icon-theme-0.8.90/32x32/actions/document-print.png")
         self.printAction = QAction(icon, "&Print", self)
@@ -648,6 +660,9 @@ class MainWindow(QMainWindow):
         self.fileMenu.addAction(self.saveChartAction)
         self.fileMenu.addAction(self.saveAsChartAction)
         self.fileMenu.addSeparator()
+        self.fileMenu.addAction(\
+            self.checkSourceDataFileForPriceBarUpdatesAction)
+        self.fileMenu.addSeparator()
         self.fileMenu.addAction(self.printAction)
         self.fileMenu.addAction(self.printPreviewAction)
         self.fileMenu.addSeparator()
@@ -740,6 +755,9 @@ class MainWindow(QMainWindow):
         self.fileToolBar.addAction(self.openChartAction)
         self.fileToolBar.addAction(self.saveChartAction)
         self.fileToolBar.addSeparator()
+        self.fileToolBar.addAction(\
+            self.checkSourceDataFileForPriceBarUpdatesAction)
+        self.fileToolBar.addSeparator()
         self.fileToolBar.addAction(self.printAction)
         self.fileToolBar.addAction(self.printPreviewAction)
 
@@ -818,6 +836,7 @@ class MainWindow(QMainWindow):
 
         self.saveChartAction.setEnabled(isActive)
         self.saveAsChartAction.setEnabled(isActive)
+        self.checkSourceDataFileForPriceBarUpdatesAction.setEnabled(isActive)
         self.printAction.setEnabled(isActive)
         self.printPreviewAction.setEnabled(isActive)
         self.exitAppAction.setEnabled(True)
@@ -1401,6 +1420,27 @@ class MainWindow(QMainWindow):
         self.statusBar().showMessage(text, 
                                      MainWindow.defaultStatusBarMsgTimeMsec)
 
+    def _handleCheckSourceDataFileForPriceBarUpdatesAction(self):
+        """Handles when the
+        self.checkSourceDataFileForPriceBarUpdatesAction QAction is
+        triggered.  Here we check for any updates to PriceBar data
+        from the current active PriceChartDocument's backing CSV data
+        file.
+        """
+
+        self.log.debug("Entered " +
+                       "_handleCheckSourceDataFileForPriceBarUpdatesAction")
+
+        subwindow = self.mdiArea.currentSubWindow()
+
+        if isinstance(subwindow, PriceChartDocument) == True:
+            priceChartDocument = subwindow
+
+            priceChartDocument.checkSourceDataFileForPriceBarUpdates()
+            
+        self.log.debug("Exiting " +
+                       "_handleCheckSourceDataFileForPriceBarUpdatesAction")
+        
     def handleJhoraLaunch(self, dt=None, birthInfo=None):
         """Opens JHora with the given datetime.datetime timestamp.
         Uses the currently set self.birthInfo object for timezone
@@ -3594,9 +3634,169 @@ class PriceChartDocument(QMdiSubWindow):
         self.log.debug("Exiting saveAsChart().  Returning {}".format(rv))
         return rv
 
-    # TODO:  add a function to this class here that does a check to the data file that the pricebars were loaded from.  If the file doesn't exist, then prompt the user for a new filename (and allow for canceling).  If the filename of the backing CSV file is found, then check through that CSV to see if there are any inconsistencies.  If there are different pricebars (certain ones added/missing or bad data pruned),  and if there are new pricebars, prompt the user for actions to take.  
+    def checkSourceDataFileForPriceBarUpdates(self):
+        """Checks the original data file from which we got the
+        PriceBars to see if there are any updates.  If there aren't
+        any differences from when we originally loaded the PriceBars,
+        then nothing happens.  If there are differences, then we'll
+        prompt for what action to take, whether not to update, or to
+        take the new update.
+        """
 
-    
+        self.log.debug("Entered checkSourceDataFileForPriceBarUpdates()")
+
+        # First, make sure the original data source CSV file still
+        # exists on the file system where we think it is.
+        dataSourceFilename = self.priceChartDocumentData.priceBarsFileFilename
+        numLinesToSkip = self.priceChartDocumentData.priceBarsFileNumLinesToSkip
+        currPriceBars  = self.priceChartDocumentData.priceBars
+
+        self.log.info("Checking to see if the data source CSV file " +
+                       "'{}' exists...".format(dataSourceFilename))
+        
+        if not os.path.exists(dataSourceFilename):
+            self.log.info("Data source file does not exist.  " +
+                          "Trying to rectify the situation...")
+        
+            # Popup to let the user know that the backing data source
+            # file couldn't be found.  Prompt to see if the user wants
+            # to set a new path of the file.
+            parent = self
+            title = "Data source file missing"
+            text = "The CSV text file that was previously used to obtain " + \
+                   "the PriceBars can no longer be found.  " + \
+                   os.linesep + os.linesep + \
+                   "Would you like to re-set the path of the CSV file now?"
+            buttons = QMessageBox.Yes | QMessageBox.No
+            defaultButton = QMessageBox.NoButton
+        
+            buttonClicked = \
+                QMessageBox.warning(parent, title, text, buttons, defaultButton)
+
+            if buttonClicked == QMessageBox.No:
+                # No action desired.
+                self.log.info("User declined to update the path to the " +
+                              "data source CSV file.")
+                return
+            else:
+                # Prompt for file.
+
+                filename = ""
+                keepTrying = True
+
+                # Keep trying until we succeed or the user decides to
+                # stop trying.
+                while keepTrying == True:
+                    self.log.debug("Prompting for the file...")
+                    widget = LoadDataFileWidget()
+                    widget.hide()
+                    widget.handleBrowseButtonClicked()
+                    filename = widget.filenameLineEdit.text()
+                    
+                    if filename == "":
+                        self.log.debug("An error or invalid file was selected.")
+                        
+                        parent = self
+                        title = "Open file"
+                        text = "A valid CSV text file was not selected.  " + \
+                               os.linesep + os.linesep + \
+                               "Want to try to select a file again?"
+                        buttons = QMessageBox.Yes | QMessageBox.No
+                        defaultButton = QMessageBox.Yes
+                        
+                        buttonClicked = \
+                            QMessageBox.question(parent, title, text,
+                                                 buttons, defaultButton)
+
+                        if buttonClicked == QMessageBox.Yes:
+                            keepTrying = True
+                            self.log.debug("User wants to select a file again.")
+                        
+                        else:
+                            keepTrying = False
+                            self.log.info("User declined to update the " +
+                                          "path to the data source CSV file.")
+                            
+                if filename != "":
+                    text = "Updating the data source filename from " + \
+                           "{} to {}".\
+                           format(dataSourceFilename, filename)
+                    self.log.info(text)
+                    self.statusMessageUpdate.emit(text)
+
+                    self.priceChartDocumentData.priceBarsFileFilename = filename
+                    dataSourceFilename = filename
+                    
+                    self.setDirtyFlag(True)
+                    
+        # If we are still in this function at this point, then the
+        # data source filename should be a valid file.
+        self.log.info("The data source file has now been confirmed to exist.")
+        
+        # Make sure the CSV data file is in a valid format.
+        self.log.info("Now validating the data in the file...")
+        widget = LoadDataFileWidget()
+        widget.filenameLineEdit.setText(dataSourceFilename)
+        widget.skipLinesSpinBox.setValue(numLinesToSkip)
+        widget.handleValidateButtonClicked()
+        if not widget.isValidated():
+            self.log.warn("Data source file failed validation: {}".\
+                          format(dataSourceFilename))
+            parent = self
+            title = "Data source file validation"
+            text = "While trying to check for new PriceBar data " + \
+                "from the backing data source CSV file ({})".\
+                format(dataSourceFilename) + \
+                ", an error occured because validation failed.  " + \
+                "Validation failed because: {}".\
+                format(widget.validationStatusLabel.text()) + \
+                os.linesep + os.linesep + \
+                "Please check the backing data source CSV file and " + \
+                "correct any format problems before retrying to " + \
+                "update with new PriceBar data."
+            
+            buttons = QMessageBox.Ok
+            defaultButton = QMessageBox.Ok
+            
+            buttonClicked = \
+                QMessageBox.warning(parent, title, text,
+                                    buttons, defaultButton)
+            return
+        else:
+            self.log.info("Data validation succeeded.")
+
+        # TODO:  Find out what is going on with the timezone when importing price bars.  Am I just assuming the timestamp is UTC and then converting the timestamp to the timezone as given in the wizard?  Or am I taking the timestamp as assumed to be in that given timezone from the wizard.
+        # TODO:  Find out if I need to do any special conversions.
+        
+        newPriceBars = widget.getPriceBars()
+
+        
+        
+        # If there are differences, prompt via a dialog for action to take.
+        dialog = PriceBarsCompareDialog(currPriceBars, newPriceBars, self)
+        if not dialog.arePriceBarListsEqual():
+            self.log.debug("PriceBar lists are different.")
+            
+            rv = dialog.exec_()
+            if rv == QDialog.Accepted:
+                self.log.info("Overwriting current PriceBars with the " +
+                              "new PriceBars.")
+
+                self.priceChartDocumentData.priceBars = newPriceBars
+                self.setDirtyFlag(True)
+                
+                self.statusMessageUpdate.emit("PriceBars were updated.")
+
+            else:
+                self.log.debug("Keeping current PriceBars.")
+                self.statusMessageUpdate.emit("PriceBars unchanged.")
+        else:
+            self.log.debug("PriceBar lists are the same.  " + \
+                           "No additional actions are required.")
+            self.statusMessageUpdate.emit("PriceBars are still up to date.")
+        
+        self.log.debug("Exiting checkSourceDataFileForPriceBarUpdates()")
+        
     def toReadOnlyPointerToolMode(self):
         """Changes the tool mode to be the ReadOnlyPointerTool."""
 

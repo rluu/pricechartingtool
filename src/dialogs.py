@@ -862,7 +862,7 @@ class LoadDataFileWidget(QWidget):
         """
 
         self.log.debug("convertLineToPriceBar(line='{}')".format(line))
-
+        
         # Return value.
         retVal = None
 
@@ -27058,7 +27058,274 @@ class PriceBarEditDialog(QDialog):
 
         return self.readOnly
 
+class PriceBarsCompareDialog(QDialog):
+    """QDialog for comparing PriceBar lists.  This handles the dialog
+    for when they differ.  This is used when updating a
+    PriceChartDocumentData's PriceBars with a new set of PriceBars.
+    """
 
+    def __init__(self, priceBarsOrig=[], priceBarsNew=[], parent=None):
+        """Initializes the internal widgets to hold the
+        PriceBar in the priceBar variable.
+
+        Arguments:
+        
+        priceBarsOrig - PriceBar list from the data stored in the
+        PriceChartDocumentData.
+
+        priceBarsNew - PriceBar list from the new source.
+        """
+
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger("widgets.PriceBarsCompareDialog")
+        
+        self.setWindowTitle("PriceBars Comparison")
+
+        # Save references to each of the PriceBar lists.
+        self.priceBarsOrig = priceBarsOrig
+        self.priceBarsNew = priceBarsNew
+
+        # Index where the two PriceBar lists start to deviate.  This
+        # value is calculated and set with
+        # self.getIndexOfDifference(), and is only valid if the two
+        # lists are indeed different.
+        self.indexOfDifference = self.getIndexOfDifference()
+
+        
+        # Set the dialog window title.
+        title = "PriceBar data differs"
+        self.setWindowTitle(title)
+
+        # Str holding the timestamp of the first different pricebar timestamp.
+        timestampStr = ""
+        if self.indexOfDifference != -1 and \
+               self.indexOfDifference < len(self.priceBarsOrig):
+            
+            pb = self.priceBarsOrig[self.indexOfDifference]
+            timestampStr = Ephemeris.datetimeToStr(pb.timestamp)
+            
+        elif self.indexOfDifference != -1 and \
+                self.indexOfDifference < len(self.priceBarsNew):
+
+            pb = self.priceBarsNew[self.indexOfDifference]
+            timestampStr = Ephemeris.datetimeToStr(pb.timestamp)
+
+        # Text displayed in the dialog.
+        text = "PriceBars differ between the current " + \
+               "PriceChartDocumentData and the source data CSV file.  " + \
+               os.linesep + \
+               "Timestamp of first different PriceBar is: {}".\
+               format(timestampStr) + \
+               os.linesep + os.linesep + \
+               "What would you like to do?" + \
+               os.linesep + os.linesep
+        self.textLabel = QLabel(text, self)
+
+        # Labels that are headings for the list widgets.
+        self.origPriceBarsLabel = QLabel("Current PriceBars:")
+        self.newPriceBarsLabel = QLabel("New PriceBars:")
+        
+        # Populate list widgets with PriceBar information strings.
+        self.origPriceBarsListWidget = QListWidget()
+        for priceBar in self.priceBarsOrig:
+            entryText = \
+                "[t={}, o={}, h={}, l={}, c={}, oi={}, vol={}, tags={}, ".\
+                format(Ephemeris.datetimeToStr(priceBar.timestamp),
+                       priceBar.open,
+                       priceBar.high,
+                       priceBar.low,
+                       priceBar.close,
+                       priceBar.oi,
+                       priceBar.vol,
+                       priceBar.tags) + \
+                "classVersion={}]".format(priceBar.classVersion)
+            self.origPriceBarsListWidget.addItem(entryText)
+            
+        self.newPriceBarsListWidget = QListWidget()
+        for priceBar in self.priceBarsNew:
+            entryText = \
+                "[t={}, o={}, h={}, l={}, c={}, oi={}, vol={}, tags={}, ".\
+                format(Ephemeris.datetimeToStr(priceBar.timestamp),
+                       priceBar.open,
+                       priceBar.high,
+                       priceBar.low,
+                       priceBar.close,
+                       priceBar.oi,
+                       priceBar.vol,
+                       priceBar.tags) + \
+                "classVersion={}]".format(priceBar.classVersion)
+            self.newPriceBarsListWidget.addItem(entryText)
+
+        # Buttons for various actions that the user can take.  
+        self.keepButton = \
+            QPushButton("Keep current set of PriceBars" + os.linesep + \
+                        "(No update)")
+        self.updateButton = \
+            QPushButton("Use the new PriceBars" + os.linesep + \
+                        "(Overwrite)")
+
+        # Put everything into layouts.
+        origPriceBarsLayout = QVBoxLayout()
+        origPriceBarsLayout.addWidget(self.origPriceBarsLabel)
+        origPriceBarsLayout.addWidget(self.origPriceBarsListWidget)
+        
+        newPriceBarsLayout = QVBoxLayout()
+        newPriceBarsLayout.addWidget(self.newPriceBarsLabel)
+        newPriceBarsLayout.addWidget(self.newPriceBarsListWidget)
+        
+        hlayout = QHBoxLayout()
+        hlayout.addLayout(origPriceBarsLayout)
+        hlayout.addLayout(newPriceBarsLayout)
+
+        buttonsAtBottomLayout = QHBoxLayout()
+        buttonsAtBottomLayout.addStretch()
+        buttonsAtBottomLayout.addWidget(self.keepButton)
+        buttonsAtBottomLayout.addWidget(self.updateButton)
+        
+        vlayout = QVBoxLayout()
+        vlayout.addWidget(self.textLabel)
+        vlayout.addLayout(hlayout)
+        vlayout.addSpacing(10)
+        vlayout.addLayout(buttonsAtBottomLayout)
+
+        # Set the main layout.
+        self.setLayout(vlayout)
+
+        # Connect signals and slots.
+        self.keepButton.clicked.\
+            connect(self.handleKeepButtonClicked)
+        self.updateButton.clicked.\
+            connect(self.handleUpdateButtonClicked)
+
+    def setOrigPriceBars(self, priceBars):
+        """Sets what will be interpreted as the original list of
+        PriceBars currently set and used.
+
+        Arguments:
+        priceBars - list of PriceBar objects.
+        """
+
+        self.priceBarsOrig = priceBars
+        
+    def setNewPriceBars(self, priceBars):
+        """Sets what will be interpreted as the candidate new list of
+        PriceBars.
+        
+        Arguments:
+        priceBars - list of PriceBar objects.
+        """
+
+        self.priceBarsNew = priceBars
+        
+    def getOrigPriceBars(self):
+        """Returns what is set as the current list of PriceBars
+        currently used.
+        """
+
+        return self.priceBarsOrig
+        
+    def getNewPriceBars(self, priceBars):
+        """Returns what is set as the candidate new list of PriceBars."""
+
+        return self.priceBarsNew
+        
+    def arePriceBarListsEqual(self):
+        """Returns True if the two PriceBar lists are equal (hold the
+        same PriceBar values in each of their respective lists).
+        False otherwise.
+
+        Note: This also stores the self.indexOfDifference value for
+        where the two lists start to differ, if they are different.
+        """
+        
+        # See if there are any differences in PriceBars.
+
+        # Index into the lists where the differences start.
+        self.indexOfDifference = -1
+        
+        # Assume the PriceBars in 'currPriceBars' and 'newPriceBars'
+        # are the same unless proven otherwise.
+        priceBarsAreTheSame = True
+
+        if len(self.priceBarsOrig) > len(self.priceBarsNew):
+            self.log.debug("len(self.priceBarsOrig) > len(self.priceBarsNew)")
+            
+            priceBarsAreTheSame = False
+            
+            # Set the indexOfDifference as the first current price bar
+            # that is not in the new price bars.  If there are
+            # differences before this point, the variable will get
+            # overwritten with a smaller number later in this subroutine.
+            self.indexOfDifference = len(self.priceBarsOrig)
+            
+        elif len(self.priceBarsOrig) < len(self.priceBarsNew):
+            self.log.debug("len(self.priceBarsOrig) < len(self.priceBarsNew)")
+            
+            priceBarsAreTheSame = False
+            
+            # Set the indexOfDifference as the first new price bar.
+            # If there are differences before this point, the variable
+            # will get overwritten with a smaller number later in this
+            # subroutine.
+            self.indexOfDifference = len(self.priceBarsOrig)
+
+        # Find out where the difference starts.
+        for i in range(len(self.priceBarsOrig)):
+            if not (i < len(self.priceBarsOrig) and i < len(self.priceBarsNew)):
+                self.log.debug("i=={} is out of range of one of the lists.".\
+                               format(i))
+                priceBarsAreTheSame = False
+                self.indexOfDifference = i
+                break
+            
+            self.log.debug("Comparing self.priceBarsOrig[{}]".format(i) + \
+                           " with self.priceBarsNew[{}]:".format(i))
+            self.log.debug("self.priceBarsOrig[{}] == {}".\
+                           format(i, self.priceBarsOrig[i]))
+            self.log.debug("self.priceBarsNew[{}] == {}".\
+                           format(i, self.priceBarsNew[i]))
+            
+            if self.priceBarsOrig[i] == self.priceBarsNew[i]:
+                self.log.debug("Equal.")
+            else:
+                self.log.debug("Not equal!")
+                priceBarsAreTheSame = False
+                self.indexOfDifference = i
+                break
+            
+        return priceBarsAreTheSame
+
+    def getIndexOfDifference(self):
+        """Returns the index where the PriceBar lists begin to differ.
+        This value is only valid if self.arePriceBarListsEqual()
+        returns True.
+        """
+
+        if self.arePriceBarListsEqual() == True:
+            self.indexOfDifference = -1
+        
+        return self.indexOfDifference
+            
+    def handleKeepButtonClicked(self):
+        """Handles when the self.keepButton is clicked.  This rejects
+        any changes to the current PriceBars.
+        """
+
+        self.reject()
+        
+    def handleUpdateButtonClicked(self):
+        """Handles when the self.updateButton is clicked.  This
+        accepts that the current PriceBars will be overwritten with
+        the new PriceBar values.
+        """
+
+        self.accept()
+        
+##############################################################################
+    
 def testPriceChartDocumentLoadDataFileWizardPage():
     print("Running " + inspect.stack()[0][3] + "()")
     loadDataFileWizardPage = \
@@ -27094,7 +27361,6 @@ def testBirthInfoEditDialog():
         print("BirthInfo accepted is: " + bied.getBirthInfo().toString())
     else:
         print("Rejected!")
-
         
 def testPriceChartDocumentWizard():
     print("Running " + inspect.stack()[0][3] + "()")
@@ -27111,7 +27377,6 @@ def testPriceChartDocumentWizard():
     else:
         print("Rejected!")
 
-    
 def testPriceBarChartScalingsListEditDialog():
     print("Running " + inspect.stack()[0][3] + "()")
     
@@ -27234,8 +27499,61 @@ def testPriceBarEditDialog():
     priceBars.append(pb2)
     priceBars.append(pb3)
     
+def testPriceBarsCompareDialog():
+    print("Running " + inspect.stack()[0][3] + "()")
 
+    pb1tags = ["HH", "L", "LLLL", "HappyTag"]
+    pb1 = PriceBar(datetime.datetime.now(pytz.utc),
+                   5, 9, 1, 5, 100, 200, pb1tags)
+    
+    pb2tags = ["LL", "HL", "HHHH", "Tag324"]
+    pb2 = PriceBar(datetime.datetime.now(pytz.utc),
+                   5, 10, 2, 5, 200, 400, pb2tags)
 
+    pb3tags = ["asdf", "qwer", "z", "ZXXXZ"]
+    pb3 = PriceBar(datetime.datetime.now(pytz.utc),
+                   5, 8, 3, 5, 300, 600, pb3tags)
+
+    print("PriceBar before: {}".format(pb1.toString()))
+
+    # Original price bars.
+    priceBarsOrig = []
+    priceBarsOrig.append(pb1)
+    priceBarsOrig.append(pb2)
+    priceBarsOrig.append(pb3)
+
+    # Make a copy of each of the above PriceBars.
+    pb4 = copy.deepcopy(pb1)
+    pb5 = copy.deepcopy(pb2)
+    pb6 = copy.deepcopy(pb3)
+
+    # New price bars.
+    priceBarsNew = []
+    priceBarsNew.append(pb4)
+    priceBarsNew.append(pb5)
+    priceBarsNew.append(pb6)
+
+    # Test different return values by modifying what is in
+    # 'priceBarsNew' above.  Various test cases are: Change the list order,
+    # add an extra entry, etc.
+    
+    # Create the dialog and run various scenarios.
+    dialog = PriceBarsCompareDialog(priceBarsOrig, priceBarsNew)
+
+    print("PriceBarsCompareDialog.arePriceBarListsEqual() == {}".\
+          format(dialog.arePriceBarListsEqual()))
+    print("PriceBarsCompareDialog.arePriceBarListsEqual() == {}".\
+          format(dialog.arePriceBarListsEqual()))
+    
+    rv = dialog.exec_()
+    if rv == QDialog.Accepted:
+        print("Accepted")
+    else:
+        print("Rejected")
+    
+
+##############################################################################
+        
 # For debugging the module during development.  
 if __name__=="__main__":
     # For inspect.stack().
@@ -27267,7 +27585,7 @@ if __name__=="__main__":
     #testTimestampEditDialog()
     #testPriceBarTagEditDialog()
     #testPriceBarEditDialog()
-    
+    testPriceBarsCompareDialog()
 
     # Exit the app when all windows are closed.
     app.connect(app, SIGNAL("lastWindowClosed()"), logging.shutdown)
