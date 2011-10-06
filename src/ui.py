@@ -150,12 +150,9 @@ class MainWindow(QMainWindow):
         self.saveAsChartAction.triggered.connect(self._saveAsChart)
 
         # Create the checkSourceDataFileForPriceBarUpdatesAction.
-        # TODO: add an icon
-        icon = QIcon()
+        icon = QIcon(":/images/tango-icon-theme-0.8.90/32x32/actions/view-refresh.png")
         self.checkSourceDataFileForPriceBarUpdatesAction = \
             QAction(icon, "Chec&k for PriceBar data updates", self)
-        #self.checkSourceDataFileForPriceBarUpdatesAction.\
-        #    setShortcut("Ctrl+")
         self.checkSourceDataFileForPriceBarUpdatesAction.\
             setStatusTip("Check source data file for PriceBar updates")
         self.checkSourceDataFileForPriceBarUpdatesAction.triggered.\
@@ -3638,9 +3635,9 @@ class PriceChartDocument(QMdiSubWindow):
         """Checks the original data file from which we got the
         PriceBars to see if there are any updates.  If there aren't
         any differences from when we originally loaded the PriceBars,
-        then nothing happens.  If there are differences, then we'll
-        prompt for what action to take, whether not to update, or to
-        take the new update.
+        then a statusMessageUpdate is emitted, but nothing else
+        happens.  If there are differences, then we'll prompt for
+        whether to update or not.
         """
 
         self.log.debug("Entered checkSourceDataFileForPriceBarUpdates()")
@@ -3650,6 +3647,7 @@ class PriceChartDocument(QMdiSubWindow):
         dataSourceFilename = self.priceChartDocumentData.priceBarsFileFilename
         numLinesToSkip = self.priceChartDocumentData.priceBarsFileNumLinesToSkip
         currPriceBars  = self.priceChartDocumentData.priceBars
+        timezoneObj = self.priceChartDocumentData.locationTimezone
 
         self.log.info("Checking to see if the data source CSV file " +
                        "'{}' exists...".format(dataSourceFilename))
@@ -3692,6 +3690,9 @@ class PriceChartDocument(QMdiSubWindow):
                     widget.hide()
                     widget.handleBrowseButtonClicked()
                     filename = widget.filenameLineEdit.text()
+
+                    self.log.debug("filename selected is: {}".\
+                                   format(filename))
                     
                     if filename == "":
                         self.log.debug("An error or invalid file was selected.")
@@ -3716,7 +3717,10 @@ class PriceChartDocument(QMdiSubWindow):
                             keepTrying = False
                             self.log.info("User declined to update the " +
                                           "path to the data source CSV file.")
-                            
+                    else:
+                        # We have a filename now.
+                        keepTrying = False
+                
                 if filename != "":
                     text = "Updating the data source filename from " + \
                            "{} to {}".\
@@ -3735,7 +3739,10 @@ class PriceChartDocument(QMdiSubWindow):
         
         # Make sure the CSV data file is in a valid format.
         self.log.info("Now validating the data in the file...")
-        widget = LoadDataFileWidget()
+
+        wizard = PriceChartDocumentWizard()
+        widget = \
+            wizard.priceChartDocumentLoadDataFileWizardPage.loadDataFileWidget
         widget.filenameLineEdit.setText(dataSourceFilename)
         widget.skipLinesSpinBox.setValue(numLinesToSkip)
         widget.handleValidateButtonClicked()
@@ -3744,15 +3751,15 @@ class PriceChartDocument(QMdiSubWindow):
                           format(dataSourceFilename))
             parent = self
             title = "Data source file validation"
+            linesep = "<br />"
             text = "While trying to check for new PriceBar data " + \
                 "from the backing data source CSV file ({})".\
                 format(dataSourceFilename) + \
                 ", an error occured because validation failed.  " + \
-                "Validation failed because: {}".\
-                format(widget.validationStatusLabel.text()) + \
-                os.linesep + os.linesep + \
-                "Please check the backing data source CSV file and " + \
-                "correct any format problems before retrying to " + \
+                linesep + linesep + \
+                "{}".format(widget.validationStatusLabel.text()) + \
+                linesep + linesep + \
+                "Please correct any format problems before retrying to " + \
                 "update with new PriceBar data."
             
             buttons = QMessageBox.Ok
@@ -3765,12 +3772,24 @@ class PriceChartDocument(QMdiSubWindow):
         else:
             self.log.info("Data validation succeeded.")
 
-        # TODO:  Find out what is going on with the timezone when importing price bars.  Am I just assuming the timestamp is UTC and then converting the timestamp to the timezone as given in the wizard?  Or am I taking the timestamp as assumed to be in that given timezone from the wizard.
-        # TODO:  Find out if I need to do any special conversions.
-        
-        newPriceBars = widget.getPriceBars()
-
-        
+        # Get the list of new PriceBars.  Here we need to utilize the
+        # PriceChartDocumentWizard because the timestamps in the
+        # PriceBars need to be in the localized timezone.  This is
+        # done by utilizing the wizard and calling the same method we
+        # used to create PriceBars originally, but first we must make
+        # sure the wizard has all the values it needs (timezone,
+        # etc.), just like if we loaded the ui via the user.
+        comboBox = wizard.priceChartDocumentLocationTimezoneWizardPage.\
+                   locationTimezoneEditWidget.timezoneComboBox
+        index = comboBox.findText(timezoneObj.zone)
+        if index == -1:
+            self.log.error("Couldn't find the timezone in the QComboBox: " + \
+                           "{}".format(timezoneObj.zone))
+            QMessageBox.warning("Error occurred.  Check the log files for why.")
+            return
+        else:
+            comboBox.setCurrentIndex(index)
+        newPriceBars = wizard.getPriceBars()
         
         # If there are differences, prompt via a dialog for action to take.
         dialog = PriceBarsCompareDialog(currPriceBars, newPriceBars, self)
@@ -3782,18 +3801,25 @@ class PriceChartDocument(QMdiSubWindow):
                 self.log.info("Overwriting current PriceBars with the " +
                               "new PriceBars.")
 
+                # Overwrite list of PriceBars.
                 self.priceChartDocumentData.priceBars = newPriceBars
-                self.setDirtyFlag(True)
-                
-                self.statusMessageUpdate.emit("PriceBars were updated.")
 
+                # Update the UI.
+                self.widgets.clearAllPriceBars()
+                self.widgets.loadPriceBars(\
+                    self.priceChartDocumentData.priceBars)
+
+                # Set the dirty flag since now priceBars are different.
+                self.setDirtyFlag(True)
+
+                self.statusMessageUpdate.emit("PriceBars were updated.")
             else:
                 self.log.debug("Keeping current PriceBars.")
                 self.statusMessageUpdate.emit("PriceBars unchanged.")
         else:
             self.log.debug("PriceBar lists are the same.  " + \
                            "No additional actions are required.")
-            self.statusMessageUpdate.emit("PriceBars are still up to date.")
+            self.statusMessageUpdate.emit("PriceBars are currently up to date.")
         
         self.log.debug("Exiting checkSourceDataFileForPriceBarUpdates()")
         
@@ -4121,7 +4147,7 @@ class PriceChartDocumentWidget(QWidget):
         vsplitter = QSplitter(self)
         vsplitter.setOrientation(Qt.Vertical)
         vsplitter.addWidget(hsplitter)
-        vsplitter.addWidget(self.priceBarSpreadsheetWidget)
+        #vsplitter.addWidget(self.priceBarSpreadsheetWidget)
         
         # Setup the layout.
         vlayout = QVBoxLayout()

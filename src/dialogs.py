@@ -630,15 +630,25 @@ class LoadDataFileWidget(QWidget):
             # as a Python list of str objects now.  This is different from
             # the PyQt 4.6.
             selectedFiles = dialog.selectedFiles()
+            
+            self.log.debug("Selected files length is: {}".\
+                           format(len(selectedFiles)))
+            self.log.debug("Selected files is: {}".format(selectedFiles))
+            
             if len(selectedFiles) != 0:
                 filename = str(selectedFiles[0])
 
+                self.log.debug("Setting self.filenameLineEdit with " +
+                               "filename: {}".format(filename))
+                
                 # Set the QLineEdit with the filename.
                 self.filenameLineEdit.setText(filename)
 
                 # Get the directory where this file lives.
                 loc = filename.rfind(os.sep)
                 directory = filename[:loc]
+
+                self.log.debug("Directory is: {}".format(directory))
 
                 # If the directory of the file chosen is different
                 # from the directory of the file chosen last time, 
@@ -982,7 +992,7 @@ class LocationTimezoneEditWidget(QWidget):
         # Flag to determine if we have an internet connection and can reach
         # GeoNames web service.
 
-        # TODO: Uncomment the line below after testing of the app is done.
+        # TODO: Uncomment the 'GeoNames.canConnectToWebService()' line below after testing of the app is done.
         # I have it commented because I don't want to spam their
         # server while testing my own app.  Also, remove the line below
         # that one that sets the flag to True.

@@ -4,10 +4,6 @@ Outstanding things to work on going forward:
 
 TODO:  
 
-  - Add code to re-read the CSV data file for new bars.  This is
-    initiated upon loading the .pcd file and upon a button press
-    somewhere (toolbar and on the menu?).
-
   - Set sensible defaults for TimeMeasurementTool (which text to have
     displayed by default).
 
@@ -56,7 +52,7 @@ TODO:
          - Later: Measurement of all the planetary (geocentric) cycles.
 
   - Dasa measurement tools:
-      - Should I add an option to modify dasa lifespan (i.e. timerange).
+      - Should I add an option to modify dasa lifespan (i.e. timerange)?
 
   - Add the vedic month (what nakshatra the full moon is in) on the
     astro charts.
