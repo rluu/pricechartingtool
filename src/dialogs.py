@@ -26178,10 +26178,19 @@ class TimestampEditWidget(QWidget):
         # Create a native datetime with no tzinfo set.
         dt = datetime.datetime(year, month, day, hour, minute, second, \
                                tzinfo=None)
+
+        self.log.debug("saveTimestamp(): values are: " +
+                       "year={}, month={}, day={}, ".\
+                       format(year, month, day) + \
+                       "hour={}, minute={}, second={}".\
+                       format(hour, minute, second))
         
         # Get from the timezone combobox the Timezone string.
         timezoneString = str(self.timezoneComboBox.currentText())
 
+        self.log.debug("saveTimestamp(): timezoneString is: {}".\
+                       format(timezoneString))
+        
         # Create a timezone object.
         tzinfoObj = pytz.timezone(timezoneString)
 
@@ -26213,7 +26222,7 @@ class TimestampEditWidget(QWidget):
             daylightText = self.daylightComboBox.currentText()
 
             if daylightText == dtDstTrue.tzname():
-                self.dt = dtDstTrue
+                selfc.dt = dtDstTrue
             elif daylightText == dtDstFalse.tzname():
                 self.dt = dtDstFalse
             else:
@@ -26226,6 +26235,10 @@ class TimestampEditWidget(QWidget):
                 self.log.error(errStr)
                 QMessageBox.warning(None, "Error", errStr)
 
+
+        self.log.debug("saveTimestamp(): Saved timestamp: {}".\
+                       format(Ephemeris.datetimeToStr(self.dt)))
+        
         self.log.debug("Exiting saveTimestamp()")
 
     def getTimestamp(self):

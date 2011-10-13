@@ -175,7 +175,7 @@ class PriceBarGraphicsItem(QGraphicsItem):
         self.pen.setWidthF(self.penWidth)
 
         # Schedule an update.
-        self.update()
+        self.prepareGeometryChange()
 
 
     def loadSettingsFromAppPreferences(self):
@@ -221,7 +221,7 @@ class PriceBarGraphicsItem(QGraphicsItem):
             self.setPriceBarColor(Qt.black)
 
         # Schedule an update to redraw the QGraphicsItem.
-        self.update()
+        self.prepareGeometryChange()
 
         self.log.debug("Leaving setPriceBar().")
 
@@ -611,7 +611,7 @@ class PriceBarGraphicsItem(QGraphicsItem):
             self.setPos(QPointF(x, y))
 
             # Flag that a redraw of this QGraphicsItem is required.
-            self.update()
+            self.prepareGeometryChange()
             
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -870,7 +870,6 @@ class TextGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Schedule an update.
         self.prepareGeometryChange()
-        self.update()
 
         self.log.debug("Exiting loadSettingsFromPriceBarChartSettings()")
         
@@ -1055,7 +1054,7 @@ class TextGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
-            self.update()
+            self.prepareGeometryChange()
 
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -1214,7 +1213,7 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.barCountText.setTransform(textTransform)
 
         # Schedule an update.
-        self.update()
+        self.prepareGeometryChange()
 
         self.log.debug("Exiting loadSettingsFromPriceBarChartSettings()")
         
@@ -1264,7 +1263,7 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         if self.scene() != None:
             self.recalculateBarCount()
-            self.update()
+            self.prepareGeometryChange()
 
         self.log.debug("Exiting setPos()")
         
@@ -1349,13 +1348,13 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                    format(self.draggingStartPointFlag))
                     self.setStartPointF(QPointF(event.scenePos().x(),
                                                 self.startPointF.y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 elif self.draggingEndPointFlag == True:
                     self.log.debug("DEBUG: self.draggingEndPointFlag={}".
                                    format(self.draggingEndPointFlag))
                     self.setEndPointF(QPointF(event.scenePos().x(),
                                               self.endPointF.y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 else:
                     # This means that the user is dragging the whole
                     # ruler.  Do the move, but also set emit that the
@@ -1470,7 +1469,7 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
             if self.scene() != None:
                 # Re-calculate the bar count.
                 self.recalculateBarCount()
-                self.update()
+                self.prepareGeometryChange()
 
     def setEndPointF(self, pointF):
         """Sets the ending point of the bar count.  The value passed in
@@ -1495,7 +1494,7 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
             if self.scene() != None:
                 # Re-calculate the bar count.
                 self.recalculateBarCount()
-                self.update()
+                self.prepareGeometryChange()
 
     def normalizeStartAndEnd(self):
         """Sets the starting point X location to be less than the ending
@@ -1595,9 +1594,14 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Extract and set the internals according to the info 
         # in this artifact object.
-        self.setPos(self.artifact.getPos())
-        self.setStartPointF(self.artifact.getStartPointF())
-        self.setEndPointF(self.artifact.getEndPointF())
+
+        # Grab the points from the artifact so that the values don't
+        # change while we set them in this item.
+        startPointF = self.artifact.getStartPointF()
+        endPointF = self.artifact.getEndPointF()
+        self.setPos(startPointF)
+        self.setStartPointF(startPointF)
+        self.setEndPointF(endPointF)
 
         # Need to recalculate the bar count, since the start and end
         # points have changed.  Note, if no scene has been set for the
@@ -1862,7 +1866,7 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
-            self.update()
+            self.prepareGeometryChange()
 
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -2582,7 +2586,7 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             setColor(self.timeMeasurementGraphicsItemColor)
         
         # Schedule an update.
-        self.update()
+        self.prepareGeometryChange()
 
         self.log.debug("Exiting loadSettingsFromPriceBarChartSettings()")
         
@@ -2616,7 +2620,7 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         if self.scene() != None:
             self.recalculateTimeMeasurement()
-            self.update()
+            self.prepareGeometryChange()
 
         self.log.debug("Exiting setPos()")
         
@@ -2699,13 +2703,13 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                    format(self.draggingStartPointFlag))
                     self.setStartPointF(QPointF(event.scenePos().x(),
                                                 self.startPointF.y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 elif self.draggingEndPointFlag == True:
                     self.log.debug("DEBUG: self.draggingEndPointFlag={}".
                                    format(self.draggingEndPointFlag))
                     self.setEndPointF(QPointF(event.scenePos().x(),
                                               self.endPointF.y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 else:
                     # This means that the user is dragging the whole
                     # ruler.
@@ -2866,7 +2870,7 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             if self.scene() != None:
                 # Re-calculate the timemeasurement.
                 self.recalculateTimeMeasurement()
-                self.update()
+                self.prepareGeometryChange()
                 
     def setEndPointF(self, pointF):
         """Sets the ending point of the bar count.  The value passed in
@@ -2886,7 +2890,7 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             if self.scene() != None:
                 # Re-calculate the timemeasurement.
                 self.recalculateTimeMeasurement()
-                self.update()
+                self.prepareGeometryChange()
 
     def normalizeStartAndEnd(self):
         """Sets the starting point X location to be less than the ending
@@ -3208,27 +3212,27 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             "{:.4f} sqrt(u_range)".format(self.numSqrtScaledValueRange)
         sqrdScaledValueRangeText = \
             "{:.4f} sqrd(u_range)".format(self.numSqrdScaledValueRange)
-        ayanaText = "{} ayana".format(self.numAyana)
-        sqrtAyanaText = "{} sqrt ayana".format(self.numSqrtAyana)
-        sqrdAyanaText = "{} sqrd ayana".format(self.numSqrdAyana)
-        muhurtaText = "{} muhurta".format(self.numMuhurta)
-        sqrtMuhurtaText = "{} sqrt muhurta".format(self.numSqrtMuhurta)
-        sqrdMuhurtaText = "{} sqrd muhurta".format(self.numSqrdMuhurta)
-        varaText = "{} vara".format(self.numVara)
-        sqrtVaraText = "{} sqrt vara".format(self.numSqrtVara)
-        sqrdVaraText = "{} sqrd vara".format(self.numSqrdVara)
-        rtuText = "{} rtu".format(self.numRtu)
-        sqrtRtuText = "{} sqrt rtu".format(self.numSqrtRtu)
-        sqrdRtuText = "{} sqrd rtu".format(self.numSqrdRtu)
-        masaText = "{} masa".format(self.numMasa)
-        sqrtMasaText = "{} sqrt masa".format(self.numSqrtMasa)
-        sqrdMasaText = "{} sqrd masa".format(self.numSqrdMasa)
-        paksaText = "{} paksa".format(self.numPaksa)
-        sqrtPaksaText = "{} sqrt paksa".format(self.numSqrtPaksa)
-        sqrdPaksaText = "{} sqrd paksa".format(self.numSqrdPaksa)
-        samaText = "{} sama".format(self.numSama)
-        sqrtSamaText = "{} sqrt sama".format(self.numSqrtSama)
-        sqrdSamaText = "{} sqrd sama".format(self.numSqrdSama)
+        ayanaText = "{:.2f} ayana".format(self.numAyana)
+        sqrtAyanaText = "{:.2f} sqrt ayana".format(self.numSqrtAyana)
+        sqrdAyanaText = "{:.2f} sqrd ayana".format(self.numSqrdAyana)
+        muhurtaText = "{:.2f} muhurta".format(self.numMuhurta)
+        sqrtMuhurtaText = "{:.2f} sqrt muhurta".format(self.numSqrtMuhurta)
+        sqrdMuhurtaText = "{:.2f} sqrd muhurta".format(self.numSqrdMuhurta)
+        varaText = "{:.2f} vara".format(self.numVara)
+        sqrtVaraText = "{:.2f} sqrt vara".format(self.numSqrtVara)
+        sqrdVaraText = "{:.2f} sqrd vara".format(self.numSqrdVara)
+        rtuText = "{:.2f} rtu".format(self.numRtu)
+        sqrtRtuText = "{:.2f} sqrt rtu".format(self.numSqrtRtu)
+        sqrdRtuText = "{:.2f} sqrd rtu".format(self.numSqrdRtu)
+        masaText = "{:.2f} masa".format(self.numMasa)
+        sqrtMasaText = "{:.2f} sqrt masa".format(self.numSqrtMasa)
+        sqrdMasaText = "{:.2f} sqrd masa".format(self.numSqrdMasa)
+        paksaText = "{:.2f} paksa".format(self.numPaksa)
+        sqrtPaksaText = "{:.2f} sqrt paksa".format(self.numSqrtPaksa)
+        sqrdPaksaText = "{:.2f} sqrd paksa".format(self.numSqrdPaksa)
+        samaText = "{:.2f} sama".format(self.numSama)
+        sqrtSamaText = "{:.2f} sqrt sama".format(self.numSqrtSama)
+        sqrdSamaText = "{:.2f} sqrd sama".format(self.numSqrdSama)
 
         # Text to set in the text item.
         text = ""
@@ -3340,9 +3344,14 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Extract and set the internals according to the info 
         # in this artifact object.
-        self.setPos(self.artifact.getPos())
-        self.setStartPointF(self.artifact.getStartPointF())
-        self.setEndPointF(self.artifact.getEndPointF())
+
+        # Grab the points from the artifact so that the values don't
+        # change while we set them in this item.
+        startPointF = self.artifact.getStartPointF()
+        endPointF = self.artifact.getEndPointF()
+        self.setPos(startPointF)
+        self.setStartPointF(startPointF)
+        self.setEndPointF(endPointF)
 
         self.timeMeasurementTextXScaling = self.artifact.getTextXScaling()
         self.timeMeasurementTextYScaling = self.artifact.getTextYScaling()
@@ -3909,7 +3918,7 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
-            self.update()
+            self.prepareGeometryChange()
 
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -4350,7 +4359,7 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         if self.scene() != None:
             self.refreshTextItems()
-            self.update()
+            self.prepareGeometryChange()
 
         self.log.debug("Exiting setPos()")
         
@@ -4433,13 +4442,13 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                    format(self.draggingStartPointFlag))
                     self.setStartPointF(QPointF(event.scenePos().x(),
                                                 self.startPointF.y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 elif self.draggingEndPointFlag == True:
                     self.log.debug("DEBUG: self.draggingEndPointFlag={}".
                                    format(self.draggingEndPointFlag))
                     self.setEndPointF(QPointF(event.scenePos().x(),
                                               self.endPointF.y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 else:
                     # This means that the user is dragging the whole
                     # ruler.
@@ -4593,7 +4602,6 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             self.prepareGeometryChange()
-            self.update()
 
     def setStartPointF(self, pointF):
         """Sets the starting point of the timeModalScale.  The value passed in
@@ -4611,7 +4619,7 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             if self.scene() != None:
-                self.update()
+                self.prepareGeometryChange()
 
     def setEndPointF(self, pointF):
         """Sets the ending point of the timeModalScale.  The value passed in
@@ -4631,7 +4639,7 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             if self.scene() != None:
-                self.update()
+                self.prepareGeometryChange()
 
     def normalizeStartAndEnd(self):
         """Sets the starting point X location to be less than the ending
@@ -4762,9 +4770,14 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Extract and set the internals according to the info 
         # in this artifact object.
-        self.setPos(self.artifact.getPos())
-        self.setStartPointF(self.artifact.getStartPointF())
-        self.setEndPointF(self.artifact.getEndPointF())
+
+        # Grab the points from the artifact so that the values don't
+        # change while we set them in this item.
+        startPointF = self.artifact.getStartPointF()
+        endPointF = self.artifact.getEndPointF()
+        self.setPos(startPointF)
+        self.setStartPointF(startPointF)
+        self.setEndPointF(endPointF)
 
         self.timeModalScaleTextFont.\
             setPointSizeF(self.artifact.getFontSize())
@@ -5271,7 +5284,7 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
-            self.update()
+            self.prepareGeometryChange()
 
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -5325,7 +5338,7 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
 
-            self.update()
+            self.prepareGeometryChange()
             
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -5377,7 +5390,7 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
         
-            self.update()
+            self.prepareGeometryChange()
             
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -5394,7 +5407,7 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Refresh everything.
         self.refreshTextItems()
         
-        self.update()
+        self.prepareGeometryChange()
             
         # Emit that the PriceBarChart has changed so that the
         # dirty flag can be set.
@@ -5690,7 +5703,7 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         if self.scene() != None:
             self.refreshTextItems()
-            self.update()
+            self.prepareGeometryChange()
 
         self.log.debug("Exiting setPos()")
         
@@ -5773,13 +5786,13 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                    format(self.draggingStartPointFlag))
                     self.setStartPointF(QPointF(self.startPointF.x(),
                                                 event.scenePos().y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 elif self.draggingEndPointFlag == True:
                     self.log.debug("DEBUG: self.draggingEndPointFlag={}".
                                    format(self.draggingEndPointFlag))
                     self.setEndPointF(QPointF(self.endPointF.x(),
                                               event.scenePos().y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 else:
                     # This means that the user is dragging the whole
                     # ruler.
@@ -5933,7 +5946,6 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             self.prepareGeometryChange()
-            self.update()
 
     def setStartPointF(self, pointF):
         """Sets the starting point of the priceModalScale.  The value passed in
@@ -5951,7 +5963,7 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             if self.scene() != None:
-                self.update()
+                self.prepareGeometryChange()
 
     def setEndPointF(self, pointF):
         """Sets the ending point of the priceModalScale.  The value passed in
@@ -5971,7 +5983,7 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             if self.scene() != None:
-                self.update()
+                self.prepareGeometryChange()
 
     def normalizeStartAndEnd(self):
         """Sets the starting point X location to be less than the ending
@@ -6101,9 +6113,14 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Extract and set the internals according to the info 
         # in this artifact object.
-        self.setPos(self.artifact.getPos())
-        self.setStartPointF(self.artifact.getStartPointF())
-        self.setEndPointF(self.artifact.getEndPointF())
+
+        # Grab the points from the artifact so that the values don't
+        # change while we set them in this item.
+        startPointF = self.artifact.getStartPointF()
+        endPointF = self.artifact.getEndPointF()
+        self.setPos(startPointF)
+        self.setStartPointF(startPointF)
+        self.setEndPointF(endPointF)
 
         self.priceModalScaleTextFont.\
             setPointSizeF(self.artifact.getFontSize())
@@ -6588,7 +6605,7 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
-            self.update()
+            self.prepareGeometryChange()
 
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -6642,7 +6659,7 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
 
-            self.update()
+            self.prepareGeometryChange()
             
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -6694,7 +6711,7 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
         
-            self.update()
+            self.prepareGeometryChange()
             
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -6711,7 +6728,7 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Refresh everything.
         self.refreshTextItems()
         
-        self.update()
+        self.prepareGeometryChange()
             
         # Emit that the PriceBarChart has changed so that the
         # dirty flag can be set.
@@ -6829,7 +6846,7 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Update the text according to what's in infoPointF and birthInfo.
         self._updateText()
-        self.update()
+        self.prepareGeometryChange()
         
     def getBirthInfo(self):
         """Returns the internal BirthInfo object.
@@ -6893,7 +6910,7 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                      self.artifact.getTextYScaling())
             self.textItem.setTransform(self.textTransform)
 
-            self.update()
+            self.prepareGeometryChange()
         else:
             raise TypeError("Expected artifact type: " +
                             "PriceBarChartPriceTimeInfoArtifact")
@@ -7098,7 +7115,6 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
         # Schedule an update.
         self.prepareGeometryChange()
-        self.update()
 
         self.log.debug("Exiting loadSettingsFromPriceBarChartSettings()")
         
@@ -7142,7 +7158,7 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
             pos = QPointF(posX, posY)
             self.setPos(pos)
 
-        self.update()
+        self.prepareGeometryChange()
         
     def setPos(self, pos):
         """Overwrites the QGraphicsItem setPos() function.
@@ -7530,7 +7546,7 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
-            self.update()
+            self.prepareGeometryChange()
 
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -7855,7 +7871,7 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             setColor(self.priceMeasurementGraphicsItemColor)
         
         # Schedule an update.
-        self.update()
+        self.prepareGeometryChange()
 
         self.log.debug("Exiting loadSettingsFromPriceBarChartSettings()")
         
@@ -7889,7 +7905,7 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         if self.scene() != None:
             self.recalculatePriceMeasurement()
-            self.update()
+            self.prepareGeometryChange()
 
         self.log.debug("Exiting setPos()")
         
@@ -7967,13 +7983,13 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                    format(self.draggingStartPointFlag))
                     self.setStartPointF(QPointF(self.startPointF.x(),
                                                 event.scenePos().y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 elif self.draggingEndPointFlag == True:
                     self.log.debug("DEBUG: self.draggingEndPointFlag={}".
                                    format(self.draggingEndPointFlag))
                     self.setEndPointF(QPointF(self.endPointF.x(),
                                               event.scenePos().y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 else:
                     # This means that the user is dragging the whole
                     # ruler.
@@ -8121,7 +8137,7 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             if self.scene() != None:
                 # Re-calculate the pricemeasurement.
                 self.recalculatePriceMeasurement()
-                self.update()
+                self.prepareGeometryChange()
                 
     def setEndPointF(self, pointF):
         """Sets the ending point of the bar count.  The value passed in
@@ -8141,7 +8157,7 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             if self.scene() != None:
                 # Re-calculate the pricemeasurement.
                 self.recalculatePriceMeasurement()
-                self.update()
+                self.prepareGeometryChange()
 
     def normalizeStartAndEnd(self):
         """Sets the starting point X location to be less than the ending
@@ -8241,9 +8257,14 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Extract and set the internals according to the info 
         # in this artifact object.
-        self.setPos(self.artifact.getPos())
-        self.setStartPointF(self.artifact.getStartPointF())
-        self.setEndPointF(self.artifact.getEndPointF())
+
+        # Grab the points from the artifact so that the values don't
+        # change while we set them in this item.
+        startPointF = self.artifact.getStartPointF()
+        endPointF = self.artifact.getEndPointF()
+        self.setPos(startPointF)
+        self.setStartPointF(startPointF)
+        self.setEndPointF(endPointF)
 
         self.priceMeasurementTextXScaling = self.artifact.getTextXScaling()
         self.priceMeasurementTextYScaling = self.artifact.getTextYScaling()
@@ -8731,7 +8752,7 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
-            self.update()
+            self.prepareGeometryChange()
 
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -9058,7 +9079,7 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.recalculateTimeRetracement()
 
         # Schedule an update.
-        self.update()
+        self.prepareGeometryChange()
 
         self.log.debug("Exiting loadSettingsFromPriceBarChartSettings()")
         
@@ -9092,7 +9113,7 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         if self.scene() != None:
             self.recalculateTimeRetracement()
-            self.update()
+            self.prepareGeometryChange()
 
         self.log.debug("Exiting setPos()")
         
@@ -9177,13 +9198,13 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                                 self.startPointF.y()))
                     self.setEndPointF(QPointF(self.endPointF.x(),
                                               event.scenePos().y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 elif self.draggingEndPointFlag == True:
                     self.log.debug("DEBUG: self.draggingEndPointFlag={}".
                                    format(self.draggingEndPointFlag))
                     self.setEndPointF(QPointF(event.scenePos().x(),
                                               event.scenePos().y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 else:
                     # This means that the user is dragging the whole
                     # ruler.
@@ -9323,7 +9344,7 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             if self.scene() != None:
                 # Re-calculate the timeretracement.
                 self.recalculateTimeRetracement()
-                self.update()
+                self.prepareGeometryChange()
                 
     def setEndPointF(self, pointF):
         """Sets the ending point of the bar count.  The value passed in
@@ -9341,7 +9362,7 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             if self.scene() != None:
                 # Re-calculate the timeretracement.
                 self.recalculateTimeRetracement()
-                self.update()
+                self.prepareGeometryChange()
 
     def normalizeStartAndEnd(self):
         """Does not do anything since normalization is not applicable
@@ -9400,9 +9421,14 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Extract and set the internals according to the info 
         # in this artifact object.
-        self.setPos(self.artifact.getPos())
-        self.setStartPointF(self.artifact.getStartPointF())
-        self.setEndPointF(self.artifact.getEndPointF())
+
+        # Grab the points from the artifact so that the values don't
+        # change while we set them in this item.
+        startPointF = self.artifact.getStartPointF()
+        endPointF = self.artifact.getEndPointF()
+        self.setPos(startPointF)
+        self.setStartPointF(startPointF)
+        self.setEndPointF(endPointF)
 
         self.timeRetracementTextXScaling = self.artifact.getTextXScaling()
         self.timeRetracementTextYScaling = self.artifact.getTextYScaling()
@@ -9944,7 +9970,7 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
-            self.update()
+            self.prepareGeometryChange()
 
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -10301,7 +10327,7 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.recalculatePriceRetracement()
 
         # Schedule an update.
-        self.update()
+        self.prepareGeometryChange()
 
         self.log.debug("Exiting loadSettingsFromPriceBarChartSettings()")
         
@@ -10335,7 +10361,7 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         if self.scene() != None:
             self.recalculatePriceRetracement()
-            self.update()
+            self.prepareGeometryChange()
 
         self.log.debug("Exiting setPos()")
         
@@ -10420,13 +10446,13 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                                 event.scenePos().y()))
                     self.setEndPointF(QPointF(event.scenePos().x(),
                                               self.endPointF.y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 elif self.draggingEndPointFlag == True:
                     self.log.debug("DEBUG: self.draggingEndPointFlag={}".
                                    format(self.draggingEndPointFlag))
                     self.setEndPointF(QPointF(event.scenePos().x(),
                                               event.scenePos().y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 else:
                     # This means that the user is dragging the whole
                     # ruler.
@@ -10562,7 +10588,7 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             if self.scene() != None:
                 # Re-calculate the priceretracement.
                 self.recalculatePriceRetracement()
-                self.update()
+                self.prepareGeometryChange()
                 
     def setEndPointF(self, pointF):
         """Sets the ending point of the bar count.  The value passed in
@@ -10580,7 +10606,7 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             if self.scene() != None:
                 # Re-calculate the priceretracement.
                 self.recalculatePriceRetracement()
-                self.update()
+                self.prepareGeometryChange()
 
     def normalizeStartAndEnd(self):
         """Does not do anything since normalization is not applicable
@@ -10639,9 +10665,14 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Extract and set the internals according to the info 
         # in this artifact object.
-        self.setPos(self.artifact.getPos())
-        self.setStartPointF(self.artifact.getStartPointF())
-        self.setEndPointF(self.artifact.getEndPointF())
+
+        # Grab the points from the artifact so that the values don't
+        # change while we set them in this item.
+        startPointF = self.artifact.getStartPointF()
+        endPointF = self.artifact.getEndPointF()
+        self.setPos(startPointF)
+        self.setStartPointF(startPointF)
+        self.setEndPointF(endPointF)
 
         self.priceRetracementTextXScaling = self.artifact.getTextXScaling()
         self.priceRetracementTextYScaling = self.artifact.getTextYScaling()
@@ -11190,7 +11221,7 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
-            self.update()
+            self.prepareGeometryChange()
 
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -11509,7 +11540,7 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self._updateTextItemPositions()
         
         # Schedule an update.
-        self.update()
+        self.prepareGeometryChange()
 
         self.log.debug("Exiting loadSettingsFromPriceBarChartSettings()")
         
@@ -11543,7 +11574,7 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         if self.scene() != None:
             self.recalculatePriceTimeVector()
-            self.update()
+            self.prepareGeometryChange()
 
         self.log.debug("Exiting setPos()")
         
@@ -11650,13 +11681,13 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                    format(self.draggingStartPointFlag))
                     self.setStartPointF(QPointF(event.scenePos().x(),
                                                 event.scenePos().y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 elif self.draggingEndPointFlag == True:
                     self.log.debug("DEBUG: self.draggingEndPointFlag={}".
                                    format(self.draggingEndPointFlag))
                     self.setEndPointF(QPointF(event.scenePos().x(),
                                               event.scenePos().y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 else:
                     # This means that the user is dragging the whole
                     # ruler.
@@ -11893,7 +11924,7 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
             if self.scene() != None:
                 # Re-calculate the priceretracement.
                 self.recalculatePriceTimeVector()
-                self.update()
+                self.prepareGeometryChange()
                 
             # Update the priceTimeVector text item position.
             self._updateTextItemPositions()
@@ -11911,7 +11942,7 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
             if self.scene() != None:
                 # Re-calculate the priceretracement.
                 self.recalculatePriceTimeVector()
-                self.update()
+                self.prepareGeometryChange()
 
             # Update the priceTimeVector text item position.
             self._updateTextItemPositions()
@@ -11953,16 +11984,16 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
             
             # Append text.
             if self.showDistanceTextFlag == True:
-                text += "d={:.4f}".\
+                text += "d={:.3f}".\
                     format(self.distance) + os.linesep
             if self.showSqrtDistanceTextFlag == True:
-                text += "sqrt(d)={:.4f}".\
+                text += "sqrt(d)={:.3f}".\
                     format(self.sqrtDistance) + os.linesep
             if self.showDistanceScaledValueTextFlag == True:
-                text += "d_u={:.4f}".\
+                text += "d_u={:.3f}".\
                     format(self.distanceScaledValue) + os.linesep
             if self.showSqrtDistanceScaledValueTextFlag == True:
-                text += "sqrt(d_u)={:.4f}".\
+                text += "sqrt(d_u)={:.3f}".\
                     format(self.sqrtDistanceScaledValue) + os.linesep
             if self.angleTextFlag == True:
                 # Subtract from 30 since the angle given is in the
@@ -11975,7 +12006,7 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     angle -= 360.0
 
                 # Text as the scaled angle.
-                text += "{:.4f} deg".format(angle) + os.linesep
+                text += "{:.3f} deg".format(angle) + os.linesep
         else:
             # No scene, so keep text empty.
             text = ""
@@ -12003,9 +12034,14 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Extract and set the internals according to the info 
         # in this artifact object.
-        self.setPos(self.artifact.getPos())
-        self.setStartPointF(self.artifact.getStartPointF())
-        self.setEndPointF(self.artifact.getEndPointF())
+
+        # Grab the points from the artifact so that the values don't
+        # change while we set them in this item.
+        startPointF = self.artifact.getStartPointF()
+        endPointF = self.artifact.getEndPointF()
+        self.setPos(startPointF)
+        self.setStartPointF(startPointF)
+        self.setEndPointF(endPointF)
 
         self.priceTimeVectorTextXScaling = self.artifact.getTextXScaling()
         self.priceTimeVectorTextYScaling = self.artifact.getTextYScaling()
@@ -12361,7 +12397,7 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
-            self.update()
+            self.prepareGeometryChange()
 
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -12637,7 +12673,7 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self._updateTextItemPositions()
         
         # Schedule an update.
-        self.update()
+        self.prepareGeometryChange()
 
         self.log.debug("Exiting loadSettingsFromPriceBarChartSettings()")
         
@@ -12671,7 +12707,7 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         if self.scene() != None:
             self.recalculateLineSegment()
-            self.update()
+            self.prepareGeometryChange()
 
         self.log.debug("Exiting setPos()")
         
@@ -12778,13 +12814,13 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                    format(self.draggingStartPointFlag))
                     self.setStartPointF(QPointF(event.scenePos().x(),
                                                 event.scenePos().y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 elif self.draggingEndPointFlag == True:
                     self.log.debug("DEBUG: self.draggingEndPointFlag={}".
                                    format(self.draggingEndPointFlag))
                     self.setEndPointF(QPointF(event.scenePos().x(),
                                               event.scenePos().y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 else:
                     # This means that the user is dragging the whole
                     # ruler.
@@ -13021,7 +13057,7 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
             if self.scene() != None:
                 # Re-calculate the priceretracement.
                 self.recalculateLineSegment()
-                self.update()
+                self.prepareGeometryChange()
                 
             # Update the lineSegment text item position.
             self._updateTextItemPositions()
@@ -13039,7 +13075,7 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
             if self.scene() != None:
                 # Re-calculate the priceretracement.
                 self.recalculateLineSegment()
-                self.update()
+                self.prepareGeometryChange()
 
             # Update the lineSegment text item position.
             self._updateTextItemPositions()
@@ -13112,9 +13148,14 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Extract and set the internals according to the info 
         # in this artifact object.
-        self.setPos(self.artifact.getPos())
-        self.setStartPointF(self.artifact.getStartPointF())
-        self.setEndPointF(self.artifact.getEndPointF())
+
+        # Grab the points from the artifact so that the values don't
+        # change while we set them in this item.
+        startPointF = self.artifact.getStartPointF()
+        endPointF = self.artifact.getEndPointF()
+        self.setPos(startPointF)
+        self.setStartPointF(startPointF)
+        self.setEndPointF(endPointF)
 
         self.lineSegmentTextXScaling = self.artifact.getTextXScaling()
         self.lineSegmentTextYScaling = self.artifact.getTextYScaling()
@@ -13483,7 +13524,7 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
-            self.update()
+            self.prepareGeometryChange()
 
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -13919,7 +13960,7 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         if self.scene() != None:
             self.refreshTextItems()
-            self.update()
+            self.prepareGeometryChange()
 
         self.log.debug("Exiting setPos()")
         
@@ -14583,10 +14624,15 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Extract and set the internals according to the info 
         # in this artifact object.
-        self.setPos(self.artifact.getPos())
-        self.setOriginPointF(self.artifact.getOriginPointF())
-        self.setLeg1PointF(self.artifact.getLeg1PointF())
-        self.setLeg2PointF(self.artifact.getLeg2PointF())
+
+        # Grab the points from the artifact so that the values don't
+        # change while we set them in this item.
+        originPointF = self.artifact.getOriginPointF()
+        leg1PointF = self.artifact.getLeg1PointF()
+        leg2PointF = self.artifact.getLeg2PointF()
+        self.setOriginPointF(originPointF)
+        self.setLeg1PointF(leg1PointF)
+        self.setLeg2PointF(leg2PointF)
 
         self.octaveFanTextFont.\
             setPointSizeF(self.artifact.getFontSize())
@@ -15396,7 +15442,7 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
-            self.update()
+            self.prepareGeometryChange()
 
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -15450,7 +15496,7 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
         
-            self.update()
+            self.prepareGeometryChange()
         
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -15502,7 +15548,7 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
 
-            self.update()
+            self.prepareGeometryChange()
         
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -15519,7 +15565,7 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Refresh everything.
         self.refreshTextItems()
         
-        self.update()
+        self.prepareGeometryChange()
             
         # Emit that the PriceBarChart has changed so that the
         # dirty flag can be set.
@@ -15553,7 +15599,7 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Refresh the item so that the textItem and drawing can be updated.
         self.refreshItem()
 
-        self.update()
+        self.prepareGeometryChange()
         
         # Emit that the chart has changed.
         self.scene().priceBarChartChanged.emit()
@@ -15587,7 +15633,7 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Refresh the item so that the textItem and drawing can be updated.
         self.refreshItem()
 
-        self.update()
+        self.prepareGeometryChange()
         
         # Emit that the chart has changed.
         self.scene().priceBarChartChanged.emit()
@@ -15620,7 +15666,7 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Refresh the item so that the textItem and drawing can be updated.
         self.refreshItem()
 
-        self.update()
+        self.prepareGeometryChange()
         
         # Emit that the chart has changed.
         self.scene().priceBarChartChanged.emit()
@@ -15654,7 +15700,7 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Refresh the item so that the textItem and drawing can be updated.
         self.refreshItem()
 
-        self.update()
+        self.prepareGeometryChange()
         
         # Emit that the chart has changed.
         self.scene().priceBarChartChanged.emit()
@@ -15942,7 +15988,7 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         if self.scene() != None:
             self.refreshTextItems()
-            self.update()
+            self.prepareGeometryChange()
 
         self.log.debug("Exiting setPos()")
         
@@ -16600,10 +16646,15 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Extract and set the internals according to the info 
         # in this artifact object.
-        self.setPos(self.artifact.getPos())
-        self.setOriginPointF(self.artifact.getOriginPointF())
-        self.setLeg1PointF(self.artifact.getLeg1PointF())
-        self.setLeg2PointF(self.artifact.getLeg2PointF())
+
+        # Grab the points from the artifact so that the values don't
+        # change while we set them in this item.
+        originPointF = self.artifact.getOriginPointF()
+        leg1PointF = self.artifact.getLeg1PointF()
+        leg2PointF = self.artifact.getLeg2PointF()
+        self.setOriginPointF(originPointF)
+        self.setLeg1PointF(leg1PointF)
+        self.setLeg2PointF(leg2PointF)
 
         self.fibFanTextFont = self.artifact.getFont()
         
@@ -17376,7 +17427,7 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
-            self.update()
+            self.prepareGeometryChange()
 
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -17413,7 +17464,7 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Refresh the item so that the textItem and drawing can be updated.
         self.refreshItem()
 
-        self.update()
+        self.prepareGeometryChange()
         
         # Emit that the chart has changed.
         self.scene().priceBarChartChanged.emit()
@@ -17447,7 +17498,7 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Refresh the item so that the textItem and drawing can be updated.
         self.refreshItem()
 
-        self.update()
+        self.prepareGeometryChange()
         
         # Emit that the chart has changed.
         self.scene().priceBarChartChanged.emit()
@@ -17480,7 +17531,7 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Refresh the item so that the textItem and drawing can be updated.
         self.refreshItem()
 
-        self.update()
+        self.prepareGeometryChange()
         
         # Emit that the chart has changed.
         self.scene().priceBarChartChanged.emit()
@@ -17514,7 +17565,7 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Refresh the item so that the textItem and drawing can be updated.
         self.refreshItem()
 
-        self.update()
+        self.prepareGeometryChange()
         
         # Emit that the chart has changed.
         self.scene().priceBarChartChanged.emit()
@@ -17802,7 +17853,7 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         if self.scene() != None:
             self.refreshTextItems()
-            self.update()
+            self.prepareGeometryChange()
 
         self.log.debug("Exiting setPos()")
         
@@ -18460,10 +18511,15 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Extract and set the internals according to the info 
         # in this artifact object.
-        self.setPos(self.artifact.getPos())
-        self.setOriginPointF(self.artifact.getOriginPointF())
-        self.setLeg1PointF(self.artifact.getLeg1PointF())
-        self.setLeg2PointF(self.artifact.getLeg2PointF())
+
+        # Grab the points from the artifact so that the values don't
+        # change while we set them in this item.
+        originPointF = self.artifact.getOriginPointF()
+        leg1PointF = self.artifact.getLeg1PointF()
+        leg2PointF = self.artifact.getLeg2PointF()
+        self.setOriginPointF(originPointF)
+        self.setLeg1PointF(leg1PointF)
+        self.setLeg2PointF(leg2PointF)
 
         self.gannFanTextFont = self.artifact.getFont()
         
@@ -19236,7 +19292,7 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
-            self.update()
+            self.prepareGeometryChange()
 
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -19273,7 +19329,7 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Refresh the item so that the textItem and drawing can be updated.
         self.refreshItem()
 
-        self.update()
+        self.prepareGeometryChange()
         
         # Emit that the chart has changed.
         self.scene().priceBarChartChanged.emit()
@@ -19307,7 +19363,7 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Refresh the item so that the textItem and drawing can be updated.
         self.refreshItem()
 
-        self.update()
+        self.prepareGeometryChange()
         
         # Emit that the chart has changed.
         self.scene().priceBarChartChanged.emit()
@@ -19340,7 +19396,7 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Refresh the item so that the textItem and drawing can be updated.
         self.refreshItem()
 
-        self.update()
+        self.prepareGeometryChange()
         
         # Emit that the chart has changed.
         self.scene().priceBarChartChanged.emit()
@@ -19374,7 +19430,7 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Refresh the item so that the textItem and drawing can be updated.
         self.refreshItem()
 
-        self.update()
+        self.prepareGeometryChange()
         
         # Emit that the chart has changed.
         self.scene().priceBarChartChanged.emit()
@@ -19640,7 +19696,7 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         if self.scene() != None:
             self.refreshTextItems()
-            self.update()
+            self.prepareGeometryChange()
 
         self.log.debug("Exiting setPos()")
         
@@ -19723,13 +19779,13 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                    format(self.draggingStartPointFlag))
                     self.setStartPointF(QPointF(event.scenePos().x(),
                                                 self.startPointF.y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 elif self.draggingEndPointFlag == True:
                     self.log.debug("DEBUG: self.draggingEndPointFlag={}".
                                    format(self.draggingEndPointFlag))
                     self.setEndPointF(QPointF(event.scenePos().x(),
                                               self.endPointF.y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 else:
                     # This means that the user is dragging the whole
                     # ruler.
@@ -19888,13 +19944,15 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             self.prepareGeometryChange()
-            self.update()
+            self.prepareGeometryChange()
 
     def setStartPointF(self, pointF):
         """Sets the starting point of the vimsottariDasa.  The value passed in
         is the mouse location in scene coordinates.  
         """
 
+        self.log.debug("Entered setStartPointF().  pointF == {}".format(pointF))
+        
         if self.startPointF != pointF: 
             self.startPointF = pointF
 
@@ -19906,13 +19964,17 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             if self.scene() != None:
-                self.update()
+                self.prepareGeometryChange()
+                
+        self.log.debug("Exiting setStartPointF().")
 
     def setEndPointF(self, pointF):
         """Sets the ending point of the vimsottariDasa.  The value passed in
         is the mouse location in scene coordinates.  
         """
 
+        self.log.debug("Entered setEndPointF().  pointF == {}".format(pointF))
+        
         if self.endPointF != pointF:
             self.endPointF = pointF
 
@@ -19926,7 +19988,9 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             if self.scene() != None:
-                self.update()
+                self.prepareGeometryChange()
+
+        self.log.debug("Exiting setEndPointF().")
 
     def normalizeStartAndEnd(self):
         """Sets the starting point X location to be less than the ending
@@ -20042,6 +20106,15 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.log.debug("Entering setArtifact()")
 
+        self.log.debug("self.artifact.getStartPointF() == {}".\
+                       format(self.artifact.getStartPointF()))
+        self.log.debug("self.artifact.getEndPointF() == {}".\
+                       format(self.artifact.getEndPointF()))
+        self.log.debug("artifact.getStartPointF() == {}".\
+                       format(artifact.getStartPointF()))
+        self.log.debug("artifact.getEndPointF() == {}".\
+                       format(artifact.getEndPointF()))
+                       
         if isinstance(artifact, PriceBarChartVimsottariDasaArtifact):
             self.artifact = artifact
         else:
@@ -20050,10 +20123,33 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Extract and set the internals according to the info 
         # in this artifact object.
-        self.setPos(self.artifact.getPos())
-        self.setStartPointF(self.artifact.getStartPointF())
-        self.setEndPointF(self.artifact.getEndPointF())
 
+        self.log.debug("self.artifact.getStartPointF() == {}".\
+                       format(self.artifact.getStartPointF()))
+        self.log.debug("self.artifact.getEndPointF() == {}".\
+                       format(self.artifact.getEndPointF()))
+        self.log.debug("artifact.getStartPointF() == {}".\
+                       format(artifact.getStartPointF()))
+        self.log.debug("artifact.getEndPointF() == {}".\
+                       format(artifact.getEndPointF()))
+                       
+        # Grab the points from the artifact so that the values don't
+        # change while we set them in this item.
+        startPointF = self.artifact.getStartPointF()
+        endPointF = self.artifact.getEndPointF()
+        self.setPos(startPointF)
+        self.setStartPointF(startPointF)
+        self.setEndPointF(endPointF)
+        
+        self.log.debug("self.artifact.getStartPointF() == {}".\
+                       format(self.artifact.getStartPointF()))
+        self.log.debug("self.artifact.getEndPointF() == {}".\
+                       format(self.artifact.getEndPointF()))
+        self.log.debug("artifact.getStartPointF() == {}".\
+                       format(artifact.getStartPointF()))
+        self.log.debug("artifact.getEndPointF() == {}".\
+                       format(artifact.getEndPointF()))
+                       
         self.vimsottariDasaTextFont.\
             setPointSizeF(self.artifact.getFontSize())
         self.vimsottariDasaPen.\
@@ -20556,10 +20652,14 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # set it to this PriceBarChartArtifactGraphicsItem, which
             # will cause it to be reloaded in the scene.
             artifact = dialog.getArtifact()
-            self.setArtifact(artifact)
 
+            self.log.debug("Dialog accepted.  Artifact returned is: {}".\
+                           format(artifact.toString()))
+
+            self.setArtifact(artifact)
+            
             # Flag that a redraw of this QGraphicsItem is required.
-            self.update()
+            self.prepareGeometryChange()
 
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -20613,7 +20713,7 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
 
-            self.update()
+            self.prepareGeometryChange()
             
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -20665,7 +20765,7 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
         
-            self.update()
+            self.prepareGeometryChange()
             
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -20682,7 +20782,7 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Refresh everything.
         self.refreshTextItems()
         
-        self.update()
+        self.prepareGeometryChange()
             
         # Emit that the PriceBarChart has changed so that the
         # dirty flag can be set.
@@ -20976,7 +21076,7 @@ class AshtottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         if self.scene() != None:
             self.refreshTextItems()
-            self.update()
+            self.prepareGeometryChange()
 
         self.log.debug("Exiting setPos()")
         
@@ -21059,13 +21159,13 @@ class AshtottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                    format(self.draggingStartPointFlag))
                     self.setStartPointF(QPointF(event.scenePos().x(),
                                                 self.startPointF.y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 elif self.draggingEndPointFlag == True:
                     self.log.debug("DEBUG: self.draggingEndPointFlag={}".
                                    format(self.draggingEndPointFlag))
                     self.setEndPointF(QPointF(event.scenePos().x(),
                                               self.endPointF.y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 else:
                     # This means that the user is dragging the whole
                     # ruler.
@@ -21224,7 +21324,7 @@ class AshtottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             self.prepareGeometryChange()
-            self.update()
+            self.prepareGeometryChange()
 
     def setStartPointF(self, pointF):
         """Sets the starting point of the ashtottariDasa.  The value passed in
@@ -21242,7 +21342,7 @@ class AshtottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             if self.scene() != None:
-                self.update()
+                self.prepareGeometryChange()
 
     def setEndPointF(self, pointF):
         """Sets the ending point of the ashtottariDasa.  The value passed in
@@ -21262,7 +21362,7 @@ class AshtottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             if self.scene() != None:
-                self.update()
+                self.prepareGeometryChange()
 
     def normalizeStartAndEnd(self):
         """Sets the starting point X location to be less than the ending
@@ -21386,9 +21486,14 @@ class AshtottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Extract and set the internals according to the info 
         # in this artifact object.
-        self.setPos(self.artifact.getPos())
-        self.setStartPointF(self.artifact.getStartPointF())
-        self.setEndPointF(self.artifact.getEndPointF())
+
+        # Grab the points from the artifact so that the values don't
+        # change while we set them in this item.
+        startPointF = self.artifact.getStartPointF()
+        endPointF = self.artifact.getEndPointF()
+        self.setPos(startPointF)
+        self.setStartPointF(startPointF)
+        self.setEndPointF(endPointF)
 
         self.ashtottariDasaTextFont.\
             setPointSizeF(self.artifact.getFontSize())
@@ -21895,7 +22000,7 @@ class AshtottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
-            self.update()
+            self.prepareGeometryChange()
 
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -21949,7 +22054,7 @@ class AshtottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
 
-            self.update()
+            self.prepareGeometryChange()
             
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -22001,7 +22106,7 @@ class AshtottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
         
-            self.update()
+            self.prepareGeometryChange()
             
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -22018,7 +22123,7 @@ class AshtottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Refresh everything.
         self.refreshTextItems()
         
-        self.update()
+        self.prepareGeometryChange()
             
         # Emit that the PriceBarChart has changed so that the
         # dirty flag can be set.
@@ -22312,7 +22417,7 @@ class YoginiDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         if self.scene() != None:
             self.refreshTextItems()
-            self.update()
+            self.prepareGeometryChange()
 
         self.log.debug("Exiting setPos()")
         
@@ -22395,13 +22500,13 @@ class YoginiDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                    format(self.draggingStartPointFlag))
                     self.setStartPointF(QPointF(event.scenePos().x(),
                                                 self.startPointF.y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 elif self.draggingEndPointFlag == True:
                     self.log.debug("DEBUG: self.draggingEndPointFlag={}".
                                    format(self.draggingEndPointFlag))
                     self.setEndPointF(QPointF(event.scenePos().x(),
                                               self.endPointF.y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 else:
                     # This means that the user is dragging the whole
                     # ruler.
@@ -22560,7 +22665,7 @@ class YoginiDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             self.prepareGeometryChange()
-            self.update()
+            self.prepareGeometryChange()
 
     def setStartPointF(self, pointF):
         """Sets the starting point of the yoginiDasa.  The value passed in
@@ -22578,7 +22683,7 @@ class YoginiDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             if self.scene() != None:
-                self.update()
+                self.prepareGeometryChange()
 
     def setEndPointF(self, pointF):
         """Sets the ending point of the yoginiDasa.  The value passed in
@@ -22598,7 +22703,7 @@ class YoginiDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             if self.scene() != None:
-                self.update()
+                self.prepareGeometryChange()
 
     def normalizeStartAndEnd(self):
         """Sets the starting point X location to be less than the ending
@@ -22722,9 +22827,14 @@ class YoginiDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Extract and set the internals according to the info 
         # in this artifact object.
-        self.setPos(self.artifact.getPos())
-        self.setStartPointF(self.artifact.getStartPointF())
-        self.setEndPointF(self.artifact.getEndPointF())
+
+        # Grab the points from the artifact so that the values don't
+        # change while we set them in this item.
+        startPointF = self.artifact.getStartPointF()
+        endPointF = self.artifact.getEndPointF()
+        self.setPos(startPointF)
+        self.setStartPointF(startPointF)
+        self.setEndPointF(endPointF)
 
         self.yoginiDasaTextFont.\
             setPointSizeF(self.artifact.getFontSize())
@@ -23231,7 +23341,7 @@ class YoginiDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
-            self.update()
+            self.prepareGeometryChange()
 
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -23285,7 +23395,7 @@ class YoginiDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
 
-            self.update()
+            self.prepareGeometryChange()
             
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -23337,7 +23447,7 @@ class YoginiDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
         
-            self.update()
+            self.prepareGeometryChange()
             
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -23354,7 +23464,7 @@ class YoginiDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Refresh everything.
         self.refreshTextItems()
         
-        self.update()
+        self.prepareGeometryChange()
             
         # Emit that the PriceBarChart has changed so that the
         # dirty flag can be set.
@@ -23648,7 +23758,7 @@ class DwisaptatiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         if self.scene() != None:
             self.refreshTextItems()
-            self.update()
+            self.prepareGeometryChange()
 
         self.log.debug("Exiting setPos()")
         
@@ -23731,13 +23841,13 @@ class DwisaptatiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                    format(self.draggingStartPointFlag))
                     self.setStartPointF(QPointF(event.scenePos().x(),
                                                 self.startPointF.y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 elif self.draggingEndPointFlag == True:
                     self.log.debug("DEBUG: self.draggingEndPointFlag={}".
                                    format(self.draggingEndPointFlag))
                     self.setEndPointF(QPointF(event.scenePos().x(),
                                               self.endPointF.y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 else:
                     # This means that the user is dragging the whole
                     # ruler.
@@ -23896,7 +24006,6 @@ class DwisaptatiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             self.prepareGeometryChange()
-            self.update()
 
     def setStartPointF(self, pointF):
         """Sets the starting point of the dwisaptatiSamaDasa.  The value passed in
@@ -23914,7 +24023,7 @@ class DwisaptatiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             if self.scene() != None:
-                self.update()
+                self.prepareGeometryChange()
 
     def setEndPointF(self, pointF):
         """Sets the ending point of the dwisaptatiSamaDasa.  The value passed in
@@ -23934,7 +24043,7 @@ class DwisaptatiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             if self.scene() != None:
-                self.update()
+                self.prepareGeometryChange()
 
     def normalizeStartAndEnd(self):
         """Sets the starting point X location to be less than the ending
@@ -24058,9 +24167,14 @@ class DwisaptatiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Extract and set the internals according to the info 
         # in this artifact object.
-        self.setPos(self.artifact.getPos())
-        self.setStartPointF(self.artifact.getStartPointF())
-        self.setEndPointF(self.artifact.getEndPointF())
+
+        # Grab the points from the artifact so that the values don't
+        # change while we set them in this item.
+        startPointF = self.artifact.getStartPointF()
+        endPointF = self.artifact.getEndPointF()
+        self.setPos(startPointF)
+        self.setStartPointF(startPointF)
+        self.setEndPointF(endPointF)
 
         self.dwisaptatiSamaDasaTextFont.\
             setPointSizeF(self.artifact.getFontSize())
@@ -24567,7 +24681,7 @@ class DwisaptatiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
-            self.update()
+            self.prepareGeometryChange()
 
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -24621,7 +24735,7 @@ class DwisaptatiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
 
-            self.update()
+            self.prepareGeometryChange()
             
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -24673,7 +24787,7 @@ class DwisaptatiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
         
-            self.update()
+            self.prepareGeometryChange()
             
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -24690,7 +24804,7 @@ class DwisaptatiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Refresh everything.
         self.refreshTextItems()
         
-        self.update()
+        self.prepareGeometryChange()
             
         # Emit that the PriceBarChart has changed so that the
         # dirty flag can be set.
@@ -24984,7 +25098,7 @@ class ShattrimsaSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         if self.scene() != None:
             self.refreshTextItems()
-            self.update()
+            self.prepareGeometryChange()
 
         self.log.debug("Exiting setPos()")
         
@@ -25067,13 +25181,13 @@ class ShattrimsaSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                    format(self.draggingStartPointFlag))
                     self.setStartPointF(QPointF(event.scenePos().x(),
                                                 self.startPointF.y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 elif self.draggingEndPointFlag == True:
                     self.log.debug("DEBUG: self.draggingEndPointFlag={}".
                                    format(self.draggingEndPointFlag))
                     self.setEndPointF(QPointF(event.scenePos().x(),
                                               self.endPointF.y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 else:
                     # This means that the user is dragging the whole
                     # ruler.
@@ -25232,7 +25346,6 @@ class ShattrimsaSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             self.prepareGeometryChange()
-            self.update()
 
     def setStartPointF(self, pointF):
         """Sets the starting point of the shattrimsaSamaDasa.  The value passed in
@@ -25250,7 +25363,7 @@ class ShattrimsaSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             if self.scene() != None:
-                self.update()
+                self.prepareGeometryChange()
 
     def setEndPointF(self, pointF):
         """Sets the ending point of the shattrimsaSamaDasa.  The value passed in
@@ -25270,7 +25383,7 @@ class ShattrimsaSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             if self.scene() != None:
-                self.update()
+                self.prepareGeometryChange()
 
     def normalizeStartAndEnd(self):
         """Sets the starting point X location to be less than the ending
@@ -25394,9 +25507,14 @@ class ShattrimsaSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Extract and set the internals according to the info 
         # in this artifact object.
-        self.setPos(self.artifact.getPos())
-        self.setStartPointF(self.artifact.getStartPointF())
-        self.setEndPointF(self.artifact.getEndPointF())
+
+        # Grab the points from the artifact so that the values don't
+        # change while we set them in this item.
+        startPointF = self.artifact.getStartPointF()
+        endPointF = self.artifact.getEndPointF()
+        self.setPos(startPointF)
+        self.setStartPointF(startPointF)
+        self.setEndPointF(endPointF)
 
         self.shattrimsaSamaDasaTextFont.\
             setPointSizeF(self.artifact.getFontSize())
@@ -25903,7 +26021,7 @@ class ShattrimsaSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
-            self.update()
+            self.prepareGeometryChange()
 
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -25957,7 +26075,7 @@ class ShattrimsaSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
 
-            self.update()
+            self.prepareGeometryChange()
             
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -26009,7 +26127,7 @@ class ShattrimsaSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
         
-            self.update()
+            self.prepareGeometryChange()
             
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -26026,7 +26144,7 @@ class ShattrimsaSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Refresh everything.
         self.refreshTextItems()
         
-        self.update()
+        self.prepareGeometryChange()
             
         # Emit that the PriceBarChart has changed so that the
         # dirty flag can be set.
@@ -26320,7 +26438,7 @@ class DwadasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         if self.scene() != None:
             self.refreshTextItems()
-            self.update()
+            self.prepareGeometryChange()
 
         self.log.debug("Exiting setPos()")
         
@@ -26403,13 +26521,13 @@ class DwadasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                    format(self.draggingStartPointFlag))
                     self.setStartPointF(QPointF(event.scenePos().x(),
                                                 self.startPointF.y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 elif self.draggingEndPointFlag == True:
                     self.log.debug("DEBUG: self.draggingEndPointFlag={}".
                                    format(self.draggingEndPointFlag))
                     self.setEndPointF(QPointF(event.scenePos().x(),
                                               self.endPointF.y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 else:
                     # This means that the user is dragging the whole
                     # ruler.
@@ -26568,7 +26686,6 @@ class DwadasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             self.prepareGeometryChange()
-            self.update()
 
     def setStartPointF(self, pointF):
         """Sets the starting point of the dwadasottariDasa.  The value passed in
@@ -26586,7 +26703,7 @@ class DwadasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             if self.scene() != None:
-                self.update()
+                self.prepareGeometryChange()
 
     def setEndPointF(self, pointF):
         """Sets the ending point of the dwadasottariDasa.  The value passed in
@@ -26606,7 +26723,7 @@ class DwadasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             if self.scene() != None:
-                self.update()
+                self.prepareGeometryChange()
 
     def normalizeStartAndEnd(self):
         """Sets the starting point X location to be less than the ending
@@ -26730,9 +26847,14 @@ class DwadasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Extract and set the internals according to the info 
         # in this artifact object.
-        self.setPos(self.artifact.getPos())
-        self.setStartPointF(self.artifact.getStartPointF())
-        self.setEndPointF(self.artifact.getEndPointF())
+
+        # Grab the points from the artifact so that the values don't
+        # change while we set them in this item.
+        startPointF = self.artifact.getStartPointF()
+        endPointF = self.artifact.getEndPointF()
+        self.setPos(startPointF)
+        self.setStartPointF(startPointF)
+        self.setEndPointF(endPointF)
 
         self.dwadasottariDasaTextFont.\
             setPointSizeF(self.artifact.getFontSize())
@@ -27239,7 +27361,7 @@ class DwadasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
-            self.update()
+            self.prepareGeometryChange()
 
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -27293,7 +27415,7 @@ class DwadasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
 
-            self.update()
+            self.prepareGeometryChange()
             
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -27345,7 +27467,7 @@ class DwadasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
         
-            self.update()
+            self.prepareGeometryChange()
             
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -27362,7 +27484,7 @@ class DwadasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Refresh everything.
         self.refreshTextItems()
         
-        self.update()
+        self.prepareGeometryChange()
             
         # Emit that the PriceBarChart has changed so that the
         # dirty flag can be set.
@@ -27656,7 +27778,7 @@ class ChaturaseetiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         if self.scene() != None:
             self.refreshTextItems()
-            self.update()
+            self.prepareGeometryChange()
 
         self.log.debug("Exiting setPos()")
         
@@ -27739,13 +27861,13 @@ class ChaturaseetiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                    format(self.draggingStartPointFlag))
                     self.setStartPointF(QPointF(event.scenePos().x(),
                                                 self.startPointF.y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 elif self.draggingEndPointFlag == True:
                     self.log.debug("DEBUG: self.draggingEndPointFlag={}".
                                    format(self.draggingEndPointFlag))
                     self.setEndPointF(QPointF(event.scenePos().x(),
                                               self.endPointF.y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 else:
                     # This means that the user is dragging the whole
                     # ruler.
@@ -27904,7 +28026,6 @@ class ChaturaseetiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             self.prepareGeometryChange()
-            self.update()
 
     def setStartPointF(self, pointF):
         """Sets the starting point of the chaturaseetiSamaDasa.  The value passed in
@@ -27922,7 +28043,7 @@ class ChaturaseetiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             if self.scene() != None:
-                self.update()
+                self.prepareGeometryChange()
 
     def setEndPointF(self, pointF):
         """Sets the ending point of the chaturaseetiSamaDasa.  The value passed in
@@ -27942,7 +28063,7 @@ class ChaturaseetiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             if self.scene() != None:
-                self.update()
+                self.prepareGeometryChange()
 
     def normalizeStartAndEnd(self):
         """Sets the starting point X location to be less than the ending
@@ -28066,9 +28187,14 @@ class ChaturaseetiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Extract and set the internals according to the info 
         # in this artifact object.
-        self.setPos(self.artifact.getPos())
-        self.setStartPointF(self.artifact.getStartPointF())
-        self.setEndPointF(self.artifact.getEndPointF())
+
+        # Grab the points from the artifact so that the values don't
+        # change while we set them in this item.
+        startPointF = self.artifact.getStartPointF()
+        endPointF = self.artifact.getEndPointF()
+        self.setPos(startPointF)
+        self.setStartPointF(startPointF)
+        self.setEndPointF(endPointF)
 
         self.chaturaseetiSamaDasaTextFont.\
             setPointSizeF(self.artifact.getFontSize())
@@ -28575,7 +28701,7 @@ class ChaturaseetiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
-            self.update()
+            self.prepareGeometryChange()
 
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -28629,7 +28755,7 @@ class ChaturaseetiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
 
-            self.update()
+            self.prepareGeometryChange()
             
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -28681,7 +28807,7 @@ class ChaturaseetiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
         
-            self.update()
+            self.prepareGeometryChange()
             
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -28698,7 +28824,7 @@ class ChaturaseetiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Refresh everything.
         self.refreshTextItems()
         
-        self.update()
+        self.prepareGeometryChange()
             
         # Emit that the PriceBarChart has changed so that the
         # dirty flag can be set.
@@ -28992,7 +29118,7 @@ class SataabdikaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         if self.scene() != None:
             self.refreshTextItems()
-            self.update()
+            self.prepareGeometryChange()
 
         self.log.debug("Exiting setPos()")
         
@@ -29075,13 +29201,13 @@ class SataabdikaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                    format(self.draggingStartPointFlag))
                     self.setStartPointF(QPointF(event.scenePos().x(),
                                                 self.startPointF.y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 elif self.draggingEndPointFlag == True:
                     self.log.debug("DEBUG: self.draggingEndPointFlag={}".
                                    format(self.draggingEndPointFlag))
                     self.setEndPointF(QPointF(event.scenePos().x(),
                                               self.endPointF.y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 else:
                     # This means that the user is dragging the whole
                     # ruler.
@@ -29240,7 +29366,6 @@ class SataabdikaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             self.prepareGeometryChange()
-            self.update()
 
     def setStartPointF(self, pointF):
         """Sets the starting point of the sataabdikaDasa.  The value passed in
@@ -29258,7 +29383,7 @@ class SataabdikaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             if self.scene() != None:
-                self.update()
+                self.prepareGeometryChange()
 
     def setEndPointF(self, pointF):
         """Sets the ending point of the sataabdikaDasa.  The value passed in
@@ -29278,7 +29403,7 @@ class SataabdikaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             if self.scene() != None:
-                self.update()
+                self.prepareGeometryChange()
 
     def normalizeStartAndEnd(self):
         """Sets the starting point X location to be less than the ending
@@ -29402,9 +29527,14 @@ class SataabdikaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Extract and set the internals according to the info 
         # in this artifact object.
-        self.setPos(self.artifact.getPos())
-        self.setStartPointF(self.artifact.getStartPointF())
-        self.setEndPointF(self.artifact.getEndPointF())
+
+        # Grab the points from the artifact so that the values don't
+        # change while we set them in this item.
+        startPointF = self.artifact.getStartPointF()
+        endPointF = self.artifact.getEndPointF()
+        self.setPos(startPointF)
+        self.setStartPointF(startPointF)
+        self.setEndPointF(endPointF)
 
         self.sataabdikaDasaTextFont.\
             setPointSizeF(self.artifact.getFontSize())
@@ -29911,7 +30041,7 @@ class SataabdikaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
-            self.update()
+            self.prepareGeometryChange()
 
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -29965,7 +30095,7 @@ class SataabdikaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
 
-            self.update()
+            self.prepareGeometryChange()
             
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -30017,7 +30147,7 @@ class SataabdikaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
         
-            self.update()
+            self.prepareGeometryChange()
             
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -30034,7 +30164,7 @@ class SataabdikaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Refresh everything.
         self.refreshTextItems()
         
-        self.update()
+        self.prepareGeometryChange()
             
         # Emit that the PriceBarChart has changed so that the
         # dirty flag can be set.
@@ -30151,8 +30281,10 @@ class ShodasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Pen which is used to do the painting of the bar ruler.
         self.shodasottariDasaPenWidth = 0.0
         self.shodasottariDasaPen = QPen()
-        self.shodasottariDasaPen.setColor(self.shodasottariDasaGraphicsItemColor)
-        self.shodasottariDasaPen.setWidthF(self.shodasottariDasaPenWidth)
+        self.shodasottariDasaPen.\
+            setColor(self.shodasottariDasaGraphicsItemColor)
+        self.shodasottariDasaPen.\
+            setWidthF(self.shodasottariDasaPenWidth)
         
         # Starting point, in scene coordinates.
         self.startPointF = QPointF(0, 0)
@@ -30328,7 +30460,7 @@ class ShodasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         if self.scene() != None:
             self.refreshTextItems()
-            self.update()
+            self.prepareGeometryChange()
 
         self.log.debug("Exiting setPos()")
         
@@ -30411,13 +30543,13 @@ class ShodasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                    format(self.draggingStartPointFlag))
                     self.setStartPointF(QPointF(event.scenePos().x(),
                                                 self.startPointF.y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 elif self.draggingEndPointFlag == True:
                     self.log.debug("DEBUG: self.draggingEndPointFlag={}".
                                    format(self.draggingEndPointFlag))
                     self.setEndPointF(QPointF(event.scenePos().x(),
                                               self.endPointF.y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 else:
                     # This means that the user is dragging the whole
                     # ruler.
@@ -30576,7 +30708,6 @@ class ShodasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             self.prepareGeometryChange()
-            self.update()
 
     def setStartPointF(self, pointF):
         """Sets the starting point of the shodasottariDasa.  The value passed in
@@ -30594,7 +30725,7 @@ class ShodasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             if self.scene() != None:
-                self.update()
+                self.prepareGeometryChange()
 
     def setEndPointF(self, pointF):
         """Sets the ending point of the shodasottariDasa.  The value passed in
@@ -30614,7 +30745,7 @@ class ShodasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             if self.scene() != None:
-                self.update()
+                self.prepareGeometryChange()
 
     def normalizeStartAndEnd(self):
         """Sets the starting point X location to be less than the ending
@@ -30738,9 +30869,14 @@ class ShodasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Extract and set the internals according to the info 
         # in this artifact object.
-        self.setPos(self.artifact.getPos())
-        self.setStartPointF(self.artifact.getStartPointF())
-        self.setEndPointF(self.artifact.getEndPointF())
+
+        # Grab the points from the artifact so that the values don't
+        # change while we set them in this item.
+        startPointF = self.artifact.getStartPointF()
+        endPointF = self.artifact.getEndPointF()
+        self.setPos(startPointF)
+        self.setStartPointF(startPointF)
+        self.setEndPointF(endPointF)
 
         self.shodasottariDasaTextFont.\
             setPointSizeF(self.artifact.getFontSize())
@@ -31244,10 +31380,13 @@ class ShodasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # set it to this PriceBarChartArtifactGraphicsItem, which
             # will cause it to be reloaded in the scene.
             artifact = dialog.getArtifact()
+            self.log.debug("Dialog accepted.  Artifact is: {}".\
+                           format(artifact.toString()))
+            
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
-            self.update()
+            self.prepareGeometryChange()
 
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -31301,7 +31440,7 @@ class ShodasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
 
-            self.update()
+            self.prepareGeometryChange()
             
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -31353,7 +31492,7 @@ class ShodasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
         
-            self.update()
+            self.prepareGeometryChange()
             
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -31370,7 +31509,7 @@ class ShodasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Refresh everything.
         self.refreshTextItems()
         
-        self.update()
+        self.prepareGeometryChange()
             
         # Emit that the PriceBarChart has changed so that the
         # dirty flag can be set.
@@ -31664,7 +31803,7 @@ class PanchottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         if self.scene() != None:
             self.refreshTextItems()
-            self.update()
+            self.prepareGeometryChange()
 
         self.log.debug("Exiting setPos()")
         
@@ -31747,13 +31886,13 @@ class PanchottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                    format(self.draggingStartPointFlag))
                     self.setStartPointF(QPointF(event.scenePos().x(),
                                                 self.startPointF.y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 elif self.draggingEndPointFlag == True:
                     self.log.debug("DEBUG: self.draggingEndPointFlag={}".
                                    format(self.draggingEndPointFlag))
                     self.setEndPointF(QPointF(event.scenePos().x(),
                                               self.endPointF.y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 else:
                     # This means that the user is dragging the whole
                     # ruler.
@@ -31912,7 +32051,6 @@ class PanchottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             self.prepareGeometryChange()
-            self.update()
 
     def setStartPointF(self, pointF):
         """Sets the starting point of the panchottariDasa.  The value passed in
@@ -31930,7 +32068,7 @@ class PanchottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             if self.scene() != None:
-                self.update()
+                self.prepareGeometryChange()
 
     def setEndPointF(self, pointF):
         """Sets the ending point of the panchottariDasa.  The value passed in
@@ -31950,7 +32088,7 @@ class PanchottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             if self.scene() != None:
-                self.update()
+                self.prepareGeometryChange()
 
     def normalizeStartAndEnd(self):
         """Sets the starting point X location to be less than the ending
@@ -32074,9 +32212,14 @@ class PanchottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Extract and set the internals according to the info 
         # in this artifact object.
-        self.setPos(self.artifact.getPos())
-        self.setStartPointF(self.artifact.getStartPointF())
-        self.setEndPointF(self.artifact.getEndPointF())
+
+        # Grab the points from the artifact so that the values don't
+        # change while we set them in this item.
+        startPointF = self.artifact.getStartPointF()
+        endPointF = self.artifact.getEndPointF()
+        self.setPos(startPointF)
+        self.setStartPointF(startPointF)
+        self.setEndPointF(endPointF)
 
         self.panchottariDasaTextFont.\
             setPointSizeF(self.artifact.getFontSize())
@@ -32583,7 +32726,7 @@ class PanchottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
-            self.update()
+            self.prepareGeometryChange()
 
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -32637,7 +32780,7 @@ class PanchottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
 
-            self.update()
+            self.prepareGeometryChange()
             
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -32689,7 +32832,7 @@ class PanchottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
         
-            self.update()
+            self.prepareGeometryChange()
             
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -32706,7 +32849,7 @@ class PanchottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Refresh everything.
         self.refreshTextItems()
         
-        self.update()
+        self.prepareGeometryChange()
             
         # Emit that the PriceBarChart has changed so that the
         # dirty flag can be set.
@@ -33000,7 +33143,7 @@ class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         if self.scene() != None:
             self.refreshTextItems()
-            self.update()
+            self.prepareGeometryChange()
 
         self.log.debug("Exiting setPos()")
         
@@ -33083,13 +33226,13 @@ class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                    format(self.draggingStartPointFlag))
                     self.setStartPointF(QPointF(event.scenePos().x(),
                                                 self.startPointF.y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 elif self.draggingEndPointFlag == True:
                     self.log.debug("DEBUG: self.draggingEndPointFlag={}".
                                    format(self.draggingEndPointFlag))
                     self.setEndPointF(QPointF(event.scenePos().x(),
                                               self.endPointF.y()))
-                    self.update()
+                    self.prepareGeometryChange()
                 else:
                     # This means that the user is dragging the whole
                     # ruler.
@@ -33248,7 +33391,6 @@ class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             self.prepareGeometryChange()
-            self.update()
 
     def setStartPointF(self, pointF):
         """Sets the starting point of the shashtihayaniDasa.  The value passed in
@@ -33266,7 +33408,7 @@ class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             if self.scene() != None:
-                self.update()
+                self.prepareGeometryChange()
 
     def setEndPointF(self, pointF):
         """Sets the ending point of the shashtihayaniDasa.  The value passed in
@@ -33286,7 +33428,7 @@ class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Call update on this item since positions and child items
             # were updated.
             if self.scene() != None:
-                self.update()
+                self.prepareGeometryChange()
 
     def normalizeStartAndEnd(self):
         """Sets the starting point X location to be less than the ending
@@ -33410,9 +33552,14 @@ class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Extract and set the internals according to the info 
         # in this artifact object.
-        self.setPos(self.artifact.getPos())
-        self.setStartPointF(self.artifact.getStartPointF())
-        self.setEndPointF(self.artifact.getEndPointF())
+
+        # Grab the points from the artifact so that the values don't
+        # change while we set them in this item.
+        startPointF = self.artifact.getStartPointF()
+        endPointF = self.artifact.getEndPointF()
+        self.setPos(startPointF)
+        self.setStartPointF(startPointF)
+        self.setEndPointF(endPointF)
 
         self.shashtihayaniDasaTextFont.\
             setPointSizeF(self.artifact.getFontSize())
@@ -33919,7 +34066,7 @@ class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
-            self.update()
+            self.prepareGeometryChange()
 
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -33973,7 +34120,7 @@ class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
 
-            self.update()
+            self.prepareGeometryChange()
             
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -34025,7 +34172,7 @@ class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Refresh everything.
             self.refreshTextItems()
         
-            self.update()
+            self.prepareGeometryChange()
             
             # Emit that the PriceBarChart has changed so that the
             # dirty flag can be set.
@@ -34042,8 +34189,8 @@ class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Refresh everything.
         self.refreshTextItems()
         
-        self.update()
-            
+        self.prepareGeometryChange()
+        
         # Emit that the PriceBarChart has changed so that the
         # dirty flag can be set.
         self.scene().priceBarChartChanged.emit()
