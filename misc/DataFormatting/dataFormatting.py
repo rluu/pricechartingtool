@@ -172,7 +172,7 @@ sortedListOfFiles = []
 
 for f in os.listdir(sourceDataDirectory):
     fullFilename = sourceDataDirectory + os.sep + f
-    print("DEBUG: Looking at file: {}".format(fullFilename))
+    #print("DEBUG: Looking at file: {}".format(fullFilename))
     #print("DEBUG: Basename of file is: {}".format(f))
     sortedListOfFiles.append(fullFilename)
 
@@ -194,11 +194,15 @@ for f in tempList:
     for i in range(len(basename)):
         if basename[i].isdigit():
             numStr += basename[i]
-    num = int(numStr)
-    #print("DEBUG: num is: {}".format(num))
-    if num >= earliestTwoDigitYear:
-        #print("DEBUG: appending: {}".format(f))
-        sortedListOfFiles.append(f)
+    if numStr == "":
+        print("Warning: numStr is empty for file: {}".format(f))
+    else:
+        num = int(numStr)
+        #print("DEBUG: num is: {}".format(num))
+        if num >= earliestTwoDigitYear:
+            #print("DEBUG: appending: {}".format(f))
+            sortedListOfFiles.append(f)
+            
 # Now put into 'sortedListOfFiles' all the files that wrapped around year 2000.
 for f in tempList:
     basename = os.path.basename(f)
@@ -206,11 +210,14 @@ for f in tempList:
     for i in range(len(basename)):
         if basename[i].isdigit():
             numStr += basename[i]
-    num = int(numStr)
-    #print("DEBUG: num is: {}".format(num))
-    if num < earliestTwoDigitYear:
-        #print("DEBUG: appending: {}".format(f))
-        sortedListOfFiles.append(f)
+    if numStr == "":
+        print("Warning: numStr is empty for file: {}".format(f))
+    else:
+        num = int(numStr)
+        #print("DEBUG: num is: {}".format(num))
+        if num < earliestTwoDigitYear:
+            #print("DEBUG: appending: {}".format(f))
+            sortedListOfFiles.append(f)
 
 # List 'sortedListOfFiles' now has all the filenames of the source CSV
 # data files, in the order we should extract dates and price data.
@@ -243,9 +250,9 @@ for f in tempList:
                     #print("DEBUG: found matching contract month.")
                     sortedListOfFiles.append(f)
 
-print("DEBUG: Using the following files in the following order: ")
-for f in sortedListOfFiles:
-    print("DEBUG: f: {}".format(f))
+#print("DEBUG: Using the following files in the following order: ")
+#for f in sortedListOfFiles:
+#    print("DEBUG: f: {}".format(f))
 
 # List of all the lines that will go into the destination file.
 consolidatedDataLines = []
