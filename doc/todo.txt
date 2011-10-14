@@ -4,6 +4,10 @@ Outstanding things to work on going forward:
 
 TODO:  
 
+  - Improve getStockDataFromGoogle.py so that the user doesn't have to
+    manually split up the queries into 15-year chunks, as is the case
+    now.
+
   - Set sensible defaults for TimeMeasurementTool (which text to have
     displayed by default).
 
