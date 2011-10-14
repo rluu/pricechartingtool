@@ -569,8 +569,9 @@ class PriceBarGraphicsItem(QGraphicsItem):
         """Causes the QGraphicsItem to be removed from the scene."""
 
         scene = self.scene()
-        scene.removeItem(self)
-        scene.priceBarChartChanged.emit()
+        if scene != None:
+            scene.removeItem(self)
+            scene.priceBarChartChanged.emit()
 
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -1010,11 +1011,13 @@ class TextGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to be removed from the scene."""
         
         scene = self.scene()
-        scene.removeItem(self)
 
-        # Emit signal to show that an item is removed.
-        # This sets the dirty flag.
-        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+        if scene != None:
+            scene.removeItem(self)
+
+            # Emit signal to show that an item is removed.
+            # This sets the dirty flag.
+            scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
         
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -1826,11 +1829,12 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to be removed from the scene."""
         
         scene = self.scene()
-        scene.removeItem(self)
+        if scene != None:
+            scene.removeItem(self)
 
-        # Emit signal to show that an item is removed.
-        # This sets the dirty flag.
-        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+            # Emit signal to show that an item is removed.
+            # This sets the dirty flag.
+            scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
         
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -3878,11 +3882,12 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to be removed from the scene."""
         
         scene = self.scene()
-        scene.removeItem(self)
+        if scene != None:
+            scene.removeItem(self)
 
-        # Emit signal to show that an item is removed.
-        # This sets the dirty flag.
-        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+            # Emit signal to show that an item is removed.
+            # This sets the dirty flag.
+            scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
         
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -5244,11 +5249,12 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to be removed from the scene."""
         
         scene = self.scene()
-        scene.removeItem(self)
+        if scene != None:
+            scene.removeItem(self)
 
-        # Emit signal to show that an item is removed.
-        # This sets the dirty flag.
-        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+            # Emit signal to show that an item is removed.
+            # This sets the dirty flag.
+            scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
         
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -6565,11 +6571,12 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to be removed from the scene."""
         
         scene = self.scene()
-        scene.removeItem(self)
+        if scene != None:
+            scene.removeItem(self)
 
-        # Emit signal to show that an item is removed.
-        # This sets the dirty flag.
-        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+            # Emit signal to show that an item is removed.
+            # This sets the dirty flag.
+            scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
         
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -7502,11 +7509,12 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to be removed from the scene."""
         
         scene = self.scene()
-        scene.removeItem(self)
+        if scene != None:
+            scene.removeItem(self)
 
-        # Emit signal to show that an item is removed.
-        # This sets the dirty flag.
-        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+            # Emit signal to show that an item is removed.
+            # This sets the dirty flag.
+            scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
         
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -8712,11 +8720,12 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to be removed from the scene."""
         
         scene = self.scene()
-        scene.removeItem(self)
+        if scene != None:
+            scene.removeItem(self)
 
-        # Emit signal to show that an item is removed.
-        # This sets the dirty flag.
-        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+            # Emit signal to show that an item is removed.
+            # This sets the dirty flag.
+            scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
         
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -9930,11 +9939,12 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to be removed from the scene."""
         
         scene = self.scene()
-        scene.removeItem(self)
+        if scene != None:
+            scene.removeItem(self)
 
-        # Emit signal to show that an item is removed.
-        # This sets the dirty flag.
-        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+            # Emit signal to show that an item is removed.
+            # This sets the dirty flag.
+            scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
         
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -11181,11 +11191,12 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to be removed from the scene."""
         
         scene = self.scene()
-        scene.removeItem(self)
+        if scene != None:
+            scene.removeItem(self)
 
-        # Emit signal to show that an item is removed.
-        # This sets the dirty flag.
-        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+            # Emit signal to show that an item is removed.
+            # This sets the dirty flag.
+            scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
         
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -12357,11 +12368,12 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to be removed from the scene."""
         
         scene = self.scene()
-        scene.removeItem(self)
+        if scene != None:
+            scene.removeItem(self)
 
-        # Emit signal to show that an item is removed.
-        # This sets the dirty flag.
-        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+            # Emit signal to show that an item is removed.
+            # This sets the dirty flag.
+            scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
         
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -13484,11 +13496,12 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to be removed from the scene."""
         
         scene = self.scene()
-        scene.removeItem(self)
+        if scene != None:
+            scene.removeItem(self)
 
-        # Emit signal to show that an item is removed.
-        # This sets the dirty flag.
-        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+            # Emit signal to show that an item is removed.
+            # This sets the dirty flag.
+            scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
         
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -15402,11 +15415,12 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to be removed from the scene."""
         
         scene = self.scene()
-        scene.removeItem(self)
+        if scene != None:
+            scene.removeItem(self)
 
-        # Emit signal to show that an item is removed.
-        # This sets the dirty flag.
-        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+            # Emit signal to show that an item is removed.
+            # This sets the dirty flag.
+            scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
         
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -17387,11 +17401,12 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to be removed from the scene."""
         
         scene = self.scene()
-        scene.removeItem(self)
+        if scene != None:
+            scene.removeItem(self)
 
-        # Emit signal to show that an item is removed.
-        # This sets the dirty flag.
-        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+            # Emit signal to show that an item is removed.
+            # This sets the dirty flag.
+            scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
         
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -19252,11 +19267,12 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to be removed from the scene."""
         
         scene = self.scene()
-        scene.removeItem(self)
+        if scene != None:
+            scene.removeItem(self)
 
-        # Emit signal to show that an item is removed.
-        # This sets the dirty flag.
-        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+            # Emit signal to show that an item is removed.
+            # This sets the dirty flag.
+            scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
         
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -20615,11 +20631,12 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to be removed from the scene."""
         
         scene = self.scene()
-        scene.removeItem(self)
+        if scene != None:
+            scene.removeItem(self)
 
-        # Emit signal to show that an item is removed.
-        # This sets the dirty flag.
-        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+            # Emit signal to show that an item is removed.
+            # This sets the dirty flag.
+            scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
         
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -21960,11 +21977,12 @@ class AshtottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to be removed from the scene."""
         
         scene = self.scene()
-        scene.removeItem(self)
+        if scene != None:
+            scene.removeItem(self)
 
-        # Emit signal to show that an item is removed.
-        # This sets the dirty flag.
-        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+            # Emit signal to show that an item is removed.
+            # This sets the dirty flag.
+            scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
         
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -23301,11 +23319,12 @@ class YoginiDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to be removed from the scene."""
         
         scene = self.scene()
-        scene.removeItem(self)
+        if scene != None:
+            scene.removeItem(self)
 
-        # Emit signal to show that an item is removed.
-        # This sets the dirty flag.
-        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+            # Emit signal to show that an item is removed.
+            # This sets the dirty flag.
+            scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
         
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -24641,11 +24660,12 @@ class DwisaptatiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to be removed from the scene."""
         
         scene = self.scene()
-        scene.removeItem(self)
+        if scene != None:
+            scene.removeItem(self)
 
-        # Emit signal to show that an item is removed.
-        # This sets the dirty flag.
-        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+            # Emit signal to show that an item is removed.
+            # This sets the dirty flag.
+            scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
         
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -25981,11 +26001,12 @@ class ShattrimsaSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to be removed from the scene."""
         
         scene = self.scene()
-        scene.removeItem(self)
+        if scene != None:
+            scene.removeItem(self)
 
-        # Emit signal to show that an item is removed.
-        # This sets the dirty flag.
-        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+            # Emit signal to show that an item is removed.
+            # This sets the dirty flag.
+            scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
         
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -27321,11 +27342,12 @@ class DwadasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to be removed from the scene."""
         
         scene = self.scene()
-        scene.removeItem(self)
+        if scene != None:
+            scene.removeItem(self)
 
-        # Emit signal to show that an item is removed.
-        # This sets the dirty flag.
-        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+            # Emit signal to show that an item is removed.
+            # This sets the dirty flag.
+            scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
         
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -28661,11 +28683,12 @@ class ChaturaseetiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to be removed from the scene."""
         
         scene = self.scene()
-        scene.removeItem(self)
+        if scene != None:
+            scene.removeItem(self)
 
-        # Emit signal to show that an item is removed.
-        # This sets the dirty flag.
-        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+            # Emit signal to show that an item is removed.
+            # This sets the dirty flag.
+            scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
         
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -30001,11 +30024,12 @@ class SataabdikaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to be removed from the scene."""
         
         scene = self.scene()
-        scene.removeItem(self)
+        if scene != None:
+            scene.removeItem(self)
 
-        # Emit signal to show that an item is removed.
-        # This sets the dirty flag.
-        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+            # Emit signal to show that an item is removed.
+            # This sets the dirty flag.
+            scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
         
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -31343,11 +31367,12 @@ class ShodasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to be removed from the scene."""
         
         scene = self.scene()
-        scene.removeItem(self)
+        if scene != None:
+            scene.removeItem(self)
 
-        # Emit signal to show that an item is removed.
-        # This sets the dirty flag.
-        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+            # Emit signal to show that an item is removed.
+            # This sets the dirty flag.
+            scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
         
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -32686,11 +32711,12 @@ class PanchottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to be removed from the scene."""
         
         scene = self.scene()
-        scene.removeItem(self)
+        if scene != None:
+            scene.removeItem(self)
 
-        # Emit signal to show that an item is removed.
-        # This sets the dirty flag.
-        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+            # Emit signal to show that an item is removed.
+            # This sets the dirty flag.
+            scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
         
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -34026,11 +34052,12 @@ class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to be removed from the scene."""
         
         scene = self.scene()
-        scene.removeItem(self)
+        if scene != None:
+            scene.removeItem(self)
 
-        # Emit signal to show that an item is removed.
-        # This sets the dirty flag.
-        scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+            # Emit signal to show that an item is removed.
+            # This sets the dirty flag.
+            scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
         
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
@@ -34659,7 +34686,8 @@ class PriceBarChartWidget(QWidget):
         # Only remove the PriceBarGraphicsItem items.
         for item in graphicsItems:
             if isinstance(item, PriceBarGraphicsItem):
-                self.graphicsScene.removeItem(item)
+                if item.scene() != None:
+                    self.graphicsScene.removeItem(item)
 
         # Update the labels describing the pricebarchart.
         self.updateFirstPriceBarTimestampLabel(None)
@@ -35293,7 +35321,8 @@ class PriceBarChartWidget(QWidget):
             if isinstance(item, PriceBarChartArtifactGraphicsItem):
                 self.log.debug("Removing QGraphicsItem for artifact " + \
                                item.toString())
-                self.graphicsScene.removeItem(item)
+                if item.scene() != None:
+                    self.graphicsScene.removeItem(item)
                 
                 removedItemFlag = True
 
@@ -38624,7 +38653,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
                         self.log.debug("Removing item with artifact: " +
                                        item.getArtifact().getInternalName())
-                        scene.removeItem(item)
+                        if item.scene() != None:
+                            scene.removeItem(item)
         
                         # Emit signal to show that an item is removed.
                         # This sets the dirty flag.
@@ -38848,7 +38878,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # be removed and cleared out.  Temporary variables used
                 # are cleared out too.
                 if self.barCountGraphicsItem != None:
-                    self.scene().removeItem(self.barCountGraphicsItem)
+                    if self.barCountGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.barCountGraphicsItem)
 
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
@@ -38865,7 +38897,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # be removed and cleared out.  Temporary variables used
                 # are cleared out too.
                 if self.timeMeasurementGraphicsItem != None:
-                    self.scene().removeItem(self.timeMeasurementGraphicsItem)
+                    if self.timeMeasurementGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.timeMeasurementGraphicsItem)
 
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
@@ -38891,7 +38925,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # be removed and cleared out.  Temporary variables used
                 # are cleared out too.
                 if self.timeModalScaleGraphicsItem != None:
-                    self.scene().removeItem(self.timeModalScaleGraphicsItem)
+                    if self.timeModalScaleGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.timeModalScaleGraphicsItem)
 
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
@@ -38917,7 +38953,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # be removed and cleared out.  Temporary variables used
                 # are cleared out too.
                 if self.priceModalScaleGraphicsItem != None:
-                    self.scene().removeItem(self.priceModalScaleGraphicsItem)
+                    if self.priceModalScaleGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.priceModalScaleGraphicsItem)
                     
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
@@ -38943,7 +38981,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # be removed and cleared out.  Temporary variables used
                 # are cleared out too.
                 if self.textGraphicsItem != None:
-                    self.scene().removeItem(self.textGraphicsItem)
+                    if self.textGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.textGraphicsItem)
 
                 self.textGraphicsItem = None
             else:
@@ -38957,7 +38997,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # be removed and cleared out.  Temporary variables used
                 # are cleared out too.
                 if self.priceTimeInfoGraphicsItem != None:
-                    self.scene().removeItem(self.priceTimeInfoGraphicsItem)
+                    if self.priceTimeInfoGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.priceTimeInfoGraphicsItem)
 
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
@@ -38983,7 +39025,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # be removed and cleared out.  Temporary variables used
                 # are cleared out too.
                 if self.priceMeasurementGraphicsItem != None:
-                    self.scene().removeItem(self.priceMeasurementGraphicsItem)
+                    if self.priceMeasurementGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.priceMeasurementGraphicsItem)
 
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
@@ -39009,7 +39053,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # be removed and cleared out.  Temporary variables used
                 # are cleared out too.
                 if self.timeRetracementGraphicsItem != None:
-                    self.scene().removeItem(self.timeRetracementGraphicsItem)
+                    if self.timeRetracementGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.timeRetracementGraphicsItem)
 
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
@@ -39035,7 +39081,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # be removed and cleared out.  Temporary variables used
                 # are cleared out too.
                 if self.priceRetracementGraphicsItem != None:
-                    self.scene().removeItem(self.priceRetracementGraphicsItem)
+                    if self.priceRetracementGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.priceRetracementGraphicsItem)
 
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
@@ -39061,7 +39109,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # be removed and cleared out.  Temporary variables used
                 # are cleared out too.
                 if self.priceTimeVectorGraphicsItem != None:
-                    self.scene().removeItem(self.priceTimeVectorGraphicsItem)
+                    if self.priceTimeVectorGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.priceTimeVectorGraphicsItem)
 
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
@@ -39087,7 +39137,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # be removed and cleared out.  Temporary variables used
                 # are cleared out too.
                 if self.lineSegmentGraphicsItem != None:
-                    self.scene().removeItem(self.lineSegmentGraphicsItem)
+                    if self.lineSegmentGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.lineSegmentGraphicsItem)
 
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
@@ -39113,7 +39165,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # be removed and cleared out.  Temporary variables used
                 # are cleared out too.
                 if self.octaveFanGraphicsItem != None:
-                    self.scene().removeItem(self.octaveFanGraphicsItem)
+                    if self.octaveFanGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.octaveFanGraphicsItem)
 
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
@@ -39140,7 +39194,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # be removed and cleared out.  Temporary variables used
                 # are cleared out too.
                 if self.fibFanGraphicsItem != None:
-                    self.scene().removeItem(self.fibFanGraphicsItem)
+                    if self.fibFanGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.fibFanGraphicsItem)
 
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
@@ -39167,7 +39223,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # be removed and cleared out.  Temporary variables used
                 # are cleared out too.
                 if self.gannFanGraphicsItem != None:
-                    self.scene().removeItem(self.gannFanGraphicsItem)
+                    if self.gannFanGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.gannFanGraphicsItem)
 
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
@@ -39194,7 +39252,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # be removed and cleared out.  Temporary variables used
                 # are cleared out too.
                 if self.vimsottariDasaGraphicsItem != None:
-                    self.scene().removeItem(self.vimsottariDasaGraphicsItem)
+                    if self.vimsottariDasaGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.vimsottariDasaGraphicsItem)
 
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
@@ -39220,7 +39280,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # be removed and cleared out.  Temporary variables used
                 # are cleared out too.
                 if self.ashtottariDasaGraphicsItem != None:
-                    self.scene().removeItem(self.ashtottariDasaGraphicsItem)
+                    if self.ashtottariDasaGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.ashtottariDasaGraphicsItem)
 
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
@@ -39246,7 +39308,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # be removed and cleared out.  Temporary variables used
                 # are cleared out too.
                 if self.yoginiDasaGraphicsItem != None:
-                    self.scene().removeItem(self.yoginiDasaGraphicsItem)
+                    if self.yoginiDasaGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.yoginiDasaGraphicsItem)
 
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
@@ -39272,7 +39336,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # be removed and cleared out.  Temporary variables used
                 # are cleared out too.
                 if self.dwisaptatiSamaDasaGraphicsItem != None:
-                    self.scene().removeItem(self.dwisaptatiSamaDasaGraphicsItem)
+                    if self.dwisaptatiSamaDasaGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.dwisaptatiSamaDasaGraphicsItem)
 
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
@@ -39298,7 +39364,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # be removed and cleared out.  Temporary variables used
                 # are cleared out too.
                 if self.shattrimsaSamaDasaGraphicsItem != None:
-                    self.scene().removeItem(self.shattrimsaSamaDasaGraphicsItem)
+                    if self.shattrimsaSamaDasaGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.shattrimsaSamaDasaGraphicsItem)
 
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
@@ -39324,7 +39392,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # be removed and cleared out.  Temporary variables used
                 # are cleared out too.
                 if self.dwadasottariDasaGraphicsItem != None:
-                    self.scene().removeItem(self.dwadasottariDasaGraphicsItem)
+                    if self.dwadasottariDasaGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.dwadasottariDasaGraphicsItem)
 
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
@@ -39350,8 +39420,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # be removed and cleared out.  Temporary variables used
                 # are cleared out too.
                 if self.chaturaseetiSamaDasaGraphicsItem != None:
-                    self.scene().\
-                        removeItem(self.chaturaseetiSamaDasaGraphicsItem)
+                    if self.chaturaseetiSamaDasaGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.chaturaseetiSamaDasaGraphicsItem)
 
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
@@ -39377,8 +39448,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # be removed and cleared out.  Temporary variables used
                 # are cleared out too.
                 if self.sataabdikaDasaGraphicsItem != None:
-                    self.scene().\
-                        removeItem(self.sataabdikaDasaGraphicsItem)
+                    if self.sataabdikaDasaGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.sataabdikaDasaGraphicsItem)
 
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
@@ -39404,8 +39476,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # be removed and cleared out.  Temporary variables used
                 # are cleared out too.
                 if self.shodasottariDasaGraphicsItem != None:
-                    self.scene().\
-                        removeItem(self.shodasottariDasaGraphicsItem)
+                    if self.shodasottariDasaGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.shodasottariDasaGraphicsItem)
 
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
@@ -39431,8 +39504,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # be removed and cleared out.  Temporary variables used
                 # are cleared out too.
                 if self.panchottariDasaGraphicsItem != None:
-                    self.scene().\
-                        removeItem(self.panchottariDasaGraphicsItem)
+                    if self.panchottariDasaGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.panchottariDasaGraphicsItem)
 
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
@@ -39458,8 +39532,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # be removed and cleared out.  Temporary variables used
                 # are cleared out too.
                 if self.shashtihayaniDasaGraphicsItem != None:
-                    self.scene().\
-                        removeItem(self.shashtihayaniDasaGraphicsItem)
+                    if self.shashtihayaniDasaGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.shashtihayaniDasaGraphicsItem)
 
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
@@ -39686,7 +39761,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # causes the currently edited bar count item to be
                     # removed and cleared out.  Temporary variables used
                     # are cleared out too.
-                    self.scene().removeItem(self.barCountGraphicsItem)
+                    self.barCountGraphicsItem.scene() != None:
+                        self.scene().removeItem(self.barCountGraphicsItem)
 
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
@@ -39837,7 +39913,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # causes the currently edited bar count item to be
                     # removed and cleared out.  Temporary variables used
                     # are cleared out too.
-                    self.scene().removeItem(self.timeMeasurementGraphicsItem)
+                    if self.timeMeasurementGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.timeMeasurementGraphicsItem)
 
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
@@ -39988,7 +40066,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # causes the currently edited bar count item to be
                     # removed and cleared out.  Temporary variables used
                     # are cleared out too.
-                    self.scene().removeItem(self.timeModalScaleGraphicsItem)
+                    if self.timeModalScaleGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.timeModalScaleGraphicsItem)
 
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
@@ -40140,7 +40220,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # causes the currently edited bar count item to be
                     # removed and cleared out.  Temporary variables used
                     # are cleared out too.
-                    self.scene().removeItem(self.priceModalScaleGraphicsItem)
+                    if self.priceModalScaleGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.priceModalScaleGraphicsItem)
 
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
@@ -40334,7 +40416,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # causes the currently edited item to be
                     # removed and cleared out.  Temporary variables used
                     # are cleared out too.
-                    self.scene().removeItem(self.priceTimeInfoGraphicsItem)
+                    if self.priceTimeInfoGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.priceTimeInfoGraphicsItem)
 
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
@@ -40487,7 +40571,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # currently edited bar count item to be removed
                     # and cleared out.  Temporary variables used are
                     # cleared out too.
-                    self.scene().removeItem(self.priceMeasurementGraphicsItem)
+                    if self.priceMeasurementGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.priceMeasurementGraphicsItem)
 
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
@@ -40638,7 +40724,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # causes the currently edited bar count item to be
                     # removed and cleared out.  Temporary variables used
                     # are cleared out too.
-                    self.scene().removeItem(self.timeRetracementGraphicsItem)
+                    if self.timeRetracementGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.timeRetracementGraphicsItem)
 
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
@@ -40791,7 +40879,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # currently edited bar count item to be removed
                     # and cleared out.  Temporary variables used are
                     # cleared out too.
-                    self.scene().removeItem(self.priceRetracementGraphicsItem)
+                    if self.priceRetracementGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.priceRetracementGraphicsItem)
 
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
@@ -40938,7 +41028,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # currently edited bar count item to be removed
                     # and cleared out.  Temporary variables used are
                     # cleared out too.
-                    self.scene().removeItem(self.priceTimeVectorGraphicsItem)
+                    if self.priceTimeVectorGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.priceTimeVectorGraphicsItem)
 
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
@@ -41085,7 +41177,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # currently edited bar count item to be removed
                     # and cleared out.  Temporary variables used are
                     # cleared out too.
-                    self.scene().removeItem(self.lineSegmentGraphicsItem)
+                    if self.lineSegmentGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.lineSegmentGraphicsItem)
 
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
@@ -41343,7 +41437,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # causes the currently edited bar count item to be
                     # removed and cleared out.  Temporary variables used
                     # are cleared out too.
-                    self.scene().removeItem(self.octaveFanGraphicsItem)
+                    if self.octaveFanGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.octaveFanGraphicsItem)
 
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
@@ -41604,7 +41700,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # causes the currently edited bar count item to be
                     # removed and cleared out.  Temporary variables used
                     # are cleared out too.
-                    self.scene().removeItem(self.fibFanGraphicsItem)
+                    if self.fibFanGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.fibFanGraphicsItem)
 
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
@@ -41869,7 +41967,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # causes the currently edited bar count item to be
                     # removed and cleared out.  Temporary variables used
                     # are cleared out too.
-                    self.scene().removeItem(self.gannFanGraphicsItem)
+                    if self.gannFanGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.gannFanGraphicsItem)
 
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
@@ -42024,7 +42124,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # causes the currently edited bar count item to be
                     # removed and cleared out.  Temporary variables used
                     # are cleared out too.
-                    self.scene().removeItem(self.vimsottariDasaGraphicsItem)
+                    if self.vimsottariDasaGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.vimsottariDasaGraphicsItem)
 
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
@@ -42176,7 +42278,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # causes the currently edited bar count item to be
                     # removed and cleared out.  Temporary variables used
                     # are cleared out too.
-                    self.scene().removeItem(self.ashtottariDasaGraphicsItem)
+                    if self.ashtottariDasaGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.ashtottariDasaGraphicsItem)
 
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
@@ -42328,7 +42432,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # causes the currently edited bar count item to be
                     # removed and cleared out.  Temporary variables used
                     # are cleared out too.
-                    self.scene().removeItem(self.yoginiDasaGraphicsItem)
+                    if self.yoginiDasaGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.yoginiDasaGraphicsItem)
 
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
@@ -42481,7 +42587,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # currently edited bar count item to be removed
                     # and cleared out.  Temporary variables used are
                     # cleared out too.
-                    self.scene().removeItem(self.dwisaptatiSamaDasaGraphicsItem)
+                    if self.dwisaptatiSamaDasaGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.dwisaptatiSamaDasaGraphicsItem)
 
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
@@ -42634,7 +42742,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # currently edited bar count item to be removed
                     # and cleared out.  Temporary variables used are
                     # cleared out too.
-                    self.scene().removeItem(self.shattrimsaSamaDasaGraphicsItem)
+                    if self.shattrimsaSamaDasaGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.shattrimsaSamaDasaGraphicsItem)
 
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
@@ -42787,7 +42897,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # currently edited bar count item to be removed
                     # and cleared out.  Temporary variables used are
                     # cleared out too.
-                    self.scene().removeItem(self.dwadasottariDasaGraphicsItem)
+                    if self.dwadasottariDasaGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.dwadasottariDasaGraphicsItem)
 
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
@@ -42940,8 +43052,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # currently edited bar count item to be removed
                     # and cleared out.  Temporary variables used are
                     # cleared out too.
-                    self.scene().\
-                        removeItem(self.chaturaseetiSamaDasaGraphicsItem)
+                    if self.chaturaseetiSamaDasaGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.chaturaseetiSamaDasaGraphicsItem)
 
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
@@ -43094,8 +43207,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # currently edited bar count item to be removed
                     # and cleared out.  Temporary variables used are
                     # cleared out too.
-                    self.scene().\
-                        removeItem(self.sataabdikaDasaGraphicsItem)
+                    if self.sataabdikaDasaGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.sataabdikaDasaGraphicsItem)
 
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
@@ -43248,8 +43362,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # currently edited bar count item to be removed
                     # and cleared out.  Temporary variables used are
                     # cleared out too.
-                    self.scene().\
-                        removeItem(self.shodasottariDasaGraphicsItem)
+                    if self.shodasottariDasaGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.shodasottariDasaGraphicsItem)
 
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
@@ -43402,8 +43517,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # currently edited bar count item to be removed
                     # and cleared out.  Temporary variables used are
                     # cleared out too.
-                    self.scene().\
-                        removeItem(self.panchottariDasaGraphicsItem)
+                    if self.panchottariDasaGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.panchottariDasaGraphicsItem)
 
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
@@ -43556,8 +43672,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # currently edited bar count item to be removed
                     # and cleared out.  Temporary variables used are
                     # cleared out too.
-                    self.scene().\
-                        removeItem(self.shashtihayaniDasaGraphicsItem)
+                    if self.shashtihayaniDasaGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.shashtihayaniDasaGraphicsItem)
 
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
