@@ -4731,7 +4731,8 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                 self.scene().sceneXPosToDatetime(x)
                             timestampText = \
                                 Ephemeris.datetimeToDayStr(timestamp)
-                            textItem.setText(timestampText)
+                            # TODO:  Commented out temporarily.  Uncomment later when ready to have the timestamp text again.
+                            #textItem.setText(timestampText)
 
                     # Also enable and set the vertical tick line.
                     self.verticalTickItems[i].setVisible(True)
@@ -39761,8 +39762,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # causes the currently edited bar count item to be
                     # removed and cleared out.  Temporary variables used
                     # are cleared out too.
-                    self.barCountGraphicsItem.scene() != None:
-                        self.scene().removeItem(self.barCountGraphicsItem)
+                    if self.barCountGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.barCountGraphicsItem)
 
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
