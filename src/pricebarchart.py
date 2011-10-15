@@ -3549,23 +3549,27 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         if self.drawVerticalDottedLinesFlag or self.isSelected():
             # Get the highest high, and lowest low PriceBar in local
             # coordinates.
-            highestPrice = self.scene().getHighestPriceBar().high
-            highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-            localHighestPriceBarY = \
-                       self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+            highestPriceBar = self.scene().getHighestPriceBar()
+            if highestPriceBar != None:
+                highestPrice = highestPriceBar.high
+                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
+                localHighestPriceBarY = \
+                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
 
-            # Overwrite the high if it is larger.
-            if localHighestPriceBarY > localHighY:
-                localHighY = localHighestPriceBarY
-                
-            lowestPrice = self.scene().getLowestPriceBar().low
-            lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-            localLowestPriceBarY = \
-                      self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                # Overwrite the high if it is larger.
+                if localHighestPriceBarY > localHighY:
+                    localHighY = localHighestPriceBarY
+
+            lowestPriceBar = self.scene().getLowestPriceBar()
+            if lowestPriceBar != None:
+                lowestPrice = lowestPriceBar.low
+                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                localLowestPriceBarY = \
+                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
             
-            # Overwrite the low if it is smaller.
-            if localLowestPriceBarY < localLowY:
-                localLowY = localLowestPriceBarY
+                # Overwrite the low if it is smaller.
+                if localLowestPriceBarY < localLowY:
+                    localLowY = localLowestPriceBarY
                 
         xValues = []
         xValues.append(topLeft.x())
@@ -3693,18 +3697,22 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
     
                 # Get the highest high, and lowest low PriceBar in local
                 # coordinates.
-                highestPrice = self.scene().getHighestPriceBar().high
-                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-                localHighY = \
-                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                highestPriceBar = self.scene().getHighestPriceBar()
+                if highestPriceBar != None:
+                    highestPrice = highestPriceBar.high
+                    highestPriceBarY = \
+                        self.scene().priceToSceneYPos(highestPrice)
+                    localHighY = \
+                        self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                    yValues.append(localHighY)
                 
-                lowestPrice = self.scene().getLowestPriceBar().low
-                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-                localLowY = \
-                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-                          
-                yValues.append(localHighY)
-                yValues.append(localLowY)
+                lowestPriceBar = self.scene().getLowestPriceBar()
+                if lowestPriceBar != None:
+                    lowestPrice = lowestPriceBar.low
+                    lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                    localLowY = \
+                        self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                    yValues.append(localLowY)
 
                 # We have all y values now, so sort them to get the
                 # low and high.
@@ -4846,19 +4854,6 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         xBottomRight = 0.0 + xDelta
         yBottomRight = (-1.0 * (barHeight * 0.5)) + yDelta
 
-        # Get the highest high, and lowest low PriceBar in local
-        # coordinates.
-        highestPrice = self.scene().getHighestPriceBar().high
-        highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-        localHighY = \
-            self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
-
-        lowestPrice = self.scene().getLowestPriceBar().low
-        lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-        localLowY = \
-            self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-                          
-
         xValues = []
         xValues.append(xTopLeft)
         xValues.append(xBottomLeft)
@@ -4870,8 +4865,25 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         yValues.append(yBottomLeft)
         yValues.append(yTopRight)
         yValues.append(yBottomRight)
-        yValues.append(localHighY)
-        yValues.append(localLowY)
+        
+        if self.isSelected():
+            # Get the highest high, and lowest low PriceBar in local
+            # coordinates.
+            highestPriceBar = self.scene().getHighestPriceBar()
+            if highestPriceBar != None:
+                highestPrice = highestPriceBar.high
+                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
+                localHighY = \
+                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                yValues.append(localHighY)
+
+            lowestPriceBar = self.scene().getLowestPriceBar()
+            if lowestPriceBar != None:
+                lowestPrice = lowestPriceBar.low
+                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                localLowY = \
+                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                yValues.append(localLowY)
         
         xValues.sort()
         yValues.sort()
@@ -5010,18 +5022,22 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
     
                 # Get the highest high, and lowest low PriceBar in local
                 # coordinates.
-                highestPrice = self.scene().getHighestPriceBar().high
-                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-                localHighY = \
-                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                highestPriceBar = self.scene().getHighestPriceBar()
+                if highestPriceBar != None:
+                    highestPrice = highestPriceBar.high
+                    highestPriceBarY = \
+                        self.scene().priceToSceneYPos(highestPrice)
+                    localHighY = \
+                        self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                    yValues.append(localHighY)
                 
-                lowestPrice = self.scene().getLowestPriceBar().low
-                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-                localLowY = \
-                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-                          
-                yValues.append(localHighY)
-                yValues.append(localLowY)
+                lowestPriceBar = self.scene().getLowestPriceBar()
+                if lowestPriceBar != None:
+                    lowestPrice = lowestPriceBar.low
+                    lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                    localLowY = \
+                        self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                    yValues.append(localLowY)
 
                 # We have all y values now, so sort them to get the
                 # low and high.
@@ -6192,27 +6208,30 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         xTopRight = (1.0 * (barWidth * 0.5)) + xDelta
         yTopRight = 0.0 + yDelta
         
-        # Get the last and first PriceBar's timestamp in local
-        # coordinates.
-        earliestPriceBar = self.scene().getEarliestPriceBar()
-        smallestPriceBarX = \
-            self.scene().datetimeToSceneXPos(earliestPriceBar.timestamp)
-        localSmallestPriceBarX = \
-            self.mapFromScene(QPointF(smallestPriceBarX, 0.0)).x()
-
-        latestPriceBar = self.scene().getLatestPriceBar()
-        largestPriceBarX = \
-            self.scene().datetimeToSceneXPos(latestPriceBar.timestamp)
-        localLargestPriceBarX = \
-            self.mapFromScene(QPointF(largestPriceBarX, 0.0)).x()
-                
         xValues = []
         xValues.append(xTopLeft)
         xValues.append(xBottomLeft)
         xValues.append(xTopRight)
         xValues.append(xBottomRight)
-        xValues.append(localSmallestPriceBarX)
-        xValues.append(localLargestPriceBarX)
+        
+        # Get the last and first PriceBar's timestamp in local
+        # coordinates.
+        if self.drawHorizontalDottedLinesFlag == True or self.isSelected():
+            earliestPriceBar = self.scene().getEarliestPriceBar()
+            if earliestPriceBar != None:
+                smallestPriceBarX = \
+                    self.scene().datetimeToSceneXPos(earliestPriceBar.timestamp)
+                localSmallestPriceBarX = \
+                    self.mapFromScene(QPointF(smallestPriceBarX, 0.0)).x()
+                xValues.append(localSmallestPriceBarX)
+                
+            latestPriceBar = self.scene().getLatestPriceBar()
+            if latestPriceBar != None:
+                largestPriceBarX = \
+                    self.scene().datetimeToSceneXPos(latestPriceBar.timestamp)
+                localLargestPriceBarX = \
+                    self.mapFromScene(QPointF(largestPriceBarX, 0.0)).x()
+                xValues.append(localLargestPriceBarX)
         
         yValues = []
         yValues.append(yTopLeft)
@@ -6358,19 +6377,22 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 # Get the last and first PriceBar's timestamp in local
                 # coordinates.
                 earliestPriceBar = self.scene().getEarliestPriceBar()
-                smallestPriceBarX = \
-                    self.scene().datetimeToSceneXPos(earliestPriceBar.timestamp)
-                localSmallestPriceBarX = \
-                    self.mapFromScene(QPointF(smallestPriceBarX, 0.0)).x()
-
-                latestPriceBar = self.scene().getLatestPriceBar()
-                largestPriceBarX = \
-                    self.scene().datetimeToSceneXPos(latestPriceBar.timestamp)
-                localLargestPriceBarX = \
-                    self.mapFromScene(QPointF(largestPriceBarX, 0.0)).x()
+                if earliestPriceBar != None:
+                    smallestPriceBarX = \
+                        self.scene().\
+                        datetimeToSceneXPos(earliestPriceBar.timestamp)
+                    localSmallestPriceBarX = \
+                        self.mapFromScene(QPointF(smallestPriceBarX, 0.0)).x()
+                    xValues.append(localSmallestPriceBarX)
                 
-                xValues.append(localSmallestPriceBarX)
-                xValues.append(localLargestPriceBarX)
+                latestPriceBar = self.scene().getLatestPriceBar()
+                if latestPriceBar != None:
+                    largestPriceBarX = \
+                        self.scene().\
+                        datetimeToSceneXPos(latestPriceBar.timestamp)
+                    localLargestPriceBarX = \
+                        self.mapFromScene(QPointF(largestPriceBarX, 0.0)).x()
+                    xValues.append(localLargestPriceBarX)
 
                 # We have all x values now, so sort them to get the
                 # low and high.
@@ -8415,24 +8437,26 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Get the last and first PriceBar's timestamp in local
             # coordinates.
             earliestPriceBar = self.scene().getEarliestPriceBar()
-            smallestPriceBarX = \
-                self.scene().datetimeToSceneXPos(earliestPriceBar.timestamp)
-            localSmallestPriceBarX = \
-                self.mapFromScene(QPointF(smallestPriceBarX, 0.0)).x()
+            if earliestPriceBar != None:
+                smallestPriceBarX = \
+                    self.scene().datetimeToSceneXPos(earliestPriceBar.timestamp)
+                localSmallestPriceBarX = \
+                    self.mapFromScene(QPointF(smallestPriceBarX, 0.0)).x()
 
-            # Overwrite the low if it is smaller.
-            if localSmallestPriceBarX < localLowX:
-                localLowX = localSmallestPriceBarX
+                # Overwrite the low if it is smaller.
+                if localSmallestPriceBarX < localLowX:
+                    localLowX = localSmallestPriceBarX
             
             latestPriceBar = self.scene().getLatestPriceBar()
-            largestPriceBarX = \
-                self.scene().datetimeToSceneXPos(latestPriceBar.timestamp)
-            localLargestPriceBarX = \
-                self.mapFromScene(QPointF(largestPriceBarX, 0.0)).x()
+            if latestPriceBar != None:
+                largestPriceBarX = \
+                    self.scene().datetimeToSceneXPos(latestPriceBar.timestamp)
+                localLargestPriceBarX = \
+                    self.mapFromScene(QPointF(largestPriceBarX, 0.0)).x()
         
-            # Overwrite the high if it is larger.
-            if localLargestPriceBarX > localHighX:
-                localHighX = localLargestPriceBarX
+                # Overwrite the high if it is larger.
+                if localLargestPriceBarX > localHighX:
+                    localHighX = localLargestPriceBarX
             
         xValues = []
         xValues.append(topLeft.x())
@@ -8561,19 +8585,22 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 # Get the last and first PriceBar's timestamp in local
                 # coordinates.
                 earliestPriceBar = self.scene().getEarliestPriceBar()
-                smallestPriceBarX = \
-                    self.scene().datetimeToSceneXPos(earliestPriceBar.timestamp)
-                localSmallestPriceBarX = \
-                    self.mapFromScene(QPointF(smallestPriceBarX, 0.0)).x()
+                if earliestPriceBar != None:
+                    smallestPriceBarX = \
+                        self.scene().\
+                        datetimeToSceneXPos(earliestPriceBar.timestamp)
+                    localSmallestPriceBarX = \
+                        self.mapFromScene(QPointF(smallestPriceBarX, 0.0)).x()
+                    xValues.append(localSmallestPriceBarX)
 
                 latestPriceBar = self.scene().getLatestPriceBar()
-                largestPriceBarX = \
-                    self.scene().datetimeToSceneXPos(latestPriceBar.timestamp)
-                localLargestPriceBarX = \
-                    self.mapFromScene(QPointF(largestPriceBarX, 0.0)).x()
-            
-                xValues.append(localSmallestPriceBarX)
-                xValues.append(localLargestPriceBarX)
+                if latestPriceBar != None:
+                    largestPriceBarX = \
+                        self.scene().\
+                        datetimeToSceneXPos(latestPriceBar.timestamp)
+                    localLargestPriceBarX = \
+                        self.mapFromScene(QPointF(largestPriceBarX, 0.0)).x()
+                    xValues.append(localLargestPriceBarX)
 
                 # We have all x values now, so sort them to get the
                 # low and high.
@@ -9580,18 +9607,21 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
             # Get the highest high, and lowest low PriceBar in local
             # coordinates.
-            highestPrice = self.scene().getHighestPriceBar().high
-            highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-            localHighY = \
-                self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+            highestPriceBar = self.scene().getHighestPriceBar()
+            if highestPriceBar != None:
+                highestPrice = highestPriceBar.high
+                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
+                localHighY = \
+                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                yValues.append(localHighY)
 
-            lowestPrice = self.scene().getLowestPriceBar().low
-            lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-            localLowY = \
-                self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-
-            yValues.append(localHighY)
-            yValues.append(localLowY)
+            lowestPriceBar = self.scene().getLowestPriceBar()
+            if lowestPriceBar != None:
+                lowestPrice = lowestPriceBar.low
+                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                localLowY = \
+                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                yValues.append(localLowY)
 
         # Go through the ratios and track the x values for the enabled ratios.
         for ratio in self.ratios:
@@ -9756,18 +9786,22 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
     
                 # Get the highest high, and lowest low PriceBar in local
                 # coordinates.
-                highestPrice = self.scene().getHighestPriceBar().high
-                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-                localHighY = \
-                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
-                
-                lowestPrice = self.scene().getLowestPriceBar().low
-                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-                localLowY = \
-                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-                          
-                yValues.append(localHighY)
-                yValues.append(localLowY)
+                highestPriceBar = self.scene().getHighestPriceBar()
+                if highestPriceBar != None:
+                    highestPrice = highestPriceBar.high
+                    highestPriceBarY = \
+                        self.scene().priceToSceneYPos(highestPrice)
+                    localHighY = \
+                        self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                    yValues.append(localHighY)
+
+                lowestPriceBar = self.scene().getLowestPriceBar()
+                if lowestPriceBar != None:
+                    lowestPrice = lowestPriceBar.low
+                    lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                    localLowY = \
+                        self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                    yValues.append(localLowY)
 
                 # We have all y values now, so sort them to get the
                 # low and high.
@@ -10827,20 +10861,22 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Get the earliest and latest PriceBar timestamp in local
             # coordinates.
             earliestPriceBar = self.scene().getEarliestPriceBar()
-            smallestPriceBarX = \
-                self.scene().datetimeToSceneXPos(earliestPriceBar.timestamp)
-            localSmallestPriceBarX = \
-                self.mapFromScene(QPointF(smallestPriceBarX, 0.0)).x()
+            if earliestPriceBar != None:
+                smallestPriceBarX = \
+                    self.scene().\
+                    datetimeToSceneXPos(earliestPriceBar.timestamp)
+                localSmallestPriceBarX = \
+                    self.mapFromScene(QPointF(smallestPriceBarX, 0.0)).x()
+                xValues.append(localSmallestPriceBarX)
             
             latestPriceBar = self.scene().getLatestPriceBar()
-            largestPriceBarX = \
-                self.scene().datetimeToSceneXPos(latestPriceBar.timestamp)
-            localLargestPriceBarX = \
-                self.mapFromScene(QPointF(largestPriceBarX, 0.0)).x()
-
-
-            xValues.append(localSmallestPriceBarX)
-            xValues.append(localLargestPriceBarX)
+            if latestPriceBar != None:
+                largestPriceBarX = \
+                    self.scene().\
+                    datetimeToSceneXPos(latestPriceBar.timestamp)
+                localLargestPriceBarX = \
+                    self.mapFromScene(QPointF(largestPriceBarX, 0.0)).x()
+                xValues.append(localLargestPriceBarX)
 
         # Go through the ratios and track the y values for the enabled ratios.
         for ratio in self.ratios:
@@ -11007,19 +11043,22 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 # Get the earliest and latest PriceBar timestamp in local
                 # coordinates.
                 earliestPriceBar = self.scene().getEarliestPriceBar()
-                smallestPriceBarX = \
-                    self.scene().datetimeToSceneXPos(earliestPriceBar.timestamp)
-                localSmallestPriceBarX = \
-                    self.mapFromScene(QPointF(smallestPriceBarX, 0.0)).x()
+                if earliestPriceBar != None:
+                    smallestPriceBarX = \
+                        self.scene().\
+                        datetimeToSceneXPos(earliestPriceBar.timestamp)
+                    localSmallestPriceBarX = \
+                        self.mapFromScene(QPointF(smallestPriceBarX, 0.0)).x()
+                    xValues.append(localSmallestPriceBarX)
             
                 latestPriceBar = self.scene().getLatestPriceBar()
-                largestPriceBarX = \
-                    self.scene().datetimeToSceneXPos(latestPriceBar.timestamp)
-                localLargestPriceBarX = \
-                    self.mapFromScene(QPointF(largestPriceBarX, 0.0)).x()
-
-                xValues.append(localLargestPriceBarX)
-                xValues.append(localSmallestPriceBarX)
+                if latestPriceBar != None:
+                    largestPriceBarX = \
+                        self.scene().\
+                        datetimeToSceneXPos(latestPriceBar.timestamp)
+                    localLargestPriceBarX = \
+                        self.mapFromScene(QPointF(largestPriceBarX, 0.0)).x()
+                    xValues.append(localLargestPriceBarX)
 
                 # We have all x values now, so sort them to get the
                 # low and high.
@@ -20230,19 +20269,6 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         xBottomRight = 0.0 + xDelta
         yBottomRight = (-1.0 * (barHeight * 0.5)) + yDelta
 
-        # Get the highest high, and lowest low PriceBar in local
-        # coordinates.
-        highestPrice = self.scene().getHighestPriceBar().high
-        highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-        localHighY = \
-            self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
-
-        lowestPrice = self.scene().getLowestPriceBar().low
-        lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-        localLowY = \
-            self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-                          
-
         xValues = []
         xValues.append(xTopLeft)
         xValues.append(xBottomLeft)
@@ -20254,8 +20280,25 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         yValues.append(yBottomLeft)
         yValues.append(yTopRight)
         yValues.append(yBottomRight)
-        yValues.append(localHighY)
-        yValues.append(localLowY)
+
+        if self.isSelected():
+            # Get the highest high, and lowest low PriceBar in local
+            # coordinates.
+            highestPriceBar = self.scene().getHighestPriceBar()
+            if highestPriceBar != None:
+                highestPrice = highestPriceBar.high
+                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
+                localHighY = \
+                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                yValues.append(localHighY)
+
+            lowestPriceBar = self.scene().getLowestPriceBar()
+            if lowestPriceBar != None:
+                lowestPrice = lowestPriceBar.low
+                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                localLowY = \
+                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                yValues.append(localLowY)
         
         xValues.sort()
         yValues.sort()
@@ -20394,18 +20437,22 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     
                 # Get the highest high, and lowest low PriceBar in local
                 # coordinates.
-                highestPrice = self.scene().getHighestPriceBar().high
-                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-                localHighY = \
-                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                highestPriceBar = self.scene().getHighestPriceBar()
+                if highestPriceBar != None:
+                    highestPrice = highestPriceBar.high
+                    highestPriceBarY = \
+                        self.scene().priceToSceneYPos(highestPrice)
+                    localHighY = \
+                        self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                    yValues.append(localHighY)
                 
-                lowestPrice = self.scene().getLowestPriceBar().low
-                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-                localLowY = \
-                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-                          
-                yValues.append(localHighY)
-                yValues.append(localLowY)
+                lowestPriceBar = self.scene().getLowestPriceBar()
+                if lowestPriceBar != None:
+                    lowestPrice = lowestPriceBar.low
+                    lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                    localLowY = \
+                        self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                    yValues.append(localLowY)
 
                 # We have all y values now, so sort them to get the
                 # low and high.
@@ -21576,19 +21623,6 @@ class AshtottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         xBottomRight = 0.0 + xDelta
         yBottomRight = (-1.0 * (barHeight * 0.5)) + yDelta
 
-        # Get the highest high, and lowest low PriceBar in local
-        # coordinates.
-        highestPrice = self.scene().getHighestPriceBar().high
-        highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-        localHighY = \
-            self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
-
-        lowestPrice = self.scene().getLowestPriceBar().low
-        lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-        localLowY = \
-            self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-                          
-
         xValues = []
         xValues.append(xTopLeft)
         xValues.append(xBottomLeft)
@@ -21600,8 +21634,25 @@ class AshtottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         yValues.append(yBottomLeft)
         yValues.append(yTopRight)
         yValues.append(yBottomRight)
-        yValues.append(localHighY)
-        yValues.append(localLowY)
+
+        if self.isSelected():
+            # Get the highest high, and lowest low PriceBar in local
+            # coordinates.
+            highestPriceBar = self.scene().getHighestPriceBar()
+            if highestPriceBar != None:
+                highestPrice = highestPriceBar.high
+                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
+                localHighY = \
+                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                yValues.append(localHighY)
+
+            lowestPriceBar = self.scene().getLowestPriceBar()
+            if lowestPriceBar != None:
+                lowestPrice = lowestPriceBar.low
+                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                localLowY = \
+                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                yValues.append(localLowY)
         
         xValues.sort()
         yValues.sort()
@@ -21740,18 +21791,22 @@ class AshtottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     
                 # Get the highest high, and lowest low PriceBar in local
                 # coordinates.
-                highestPrice = self.scene().getHighestPriceBar().high
-                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-                localHighY = \
-                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                highestPriceBar = self.scene().getHighestPriceBar()
+                if highestPriceBar != None:
+                    highestPrice = highestPriceBar.high
+                    highestPriceBarY = \
+                        self.scene().priceToSceneYPos(highestPrice)
+                    localHighY = \
+                        self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                    yValues.append(localHighY)
                 
-                lowestPrice = self.scene().getLowestPriceBar().low
-                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-                localLowY = \
-                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-                          
-                yValues.append(localHighY)
-                yValues.append(localLowY)
+                lowestPriceBar = self.scene().getLowestPriceBar()
+                if lowestPriceBar != None:
+                    lowestPrice = lowestPriceBar.low
+                    lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                    localLowY = \
+                        self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                    yValues.append(localLowY)
 
                 # We have all y values now, so sort them to get the
                 # low and high.
@@ -22918,19 +22973,6 @@ class YoginiDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         xBottomRight = 0.0 + xDelta
         yBottomRight = (-1.0 * (barHeight * 0.5)) + yDelta
 
-        # Get the highest high, and lowest low PriceBar in local
-        # coordinates.
-        highestPrice = self.scene().getHighestPriceBar().high
-        highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-        localHighY = \
-            self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
-
-        lowestPrice = self.scene().getLowestPriceBar().low
-        lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-        localLowY = \
-            self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-                          
-
         xValues = []
         xValues.append(xTopLeft)
         xValues.append(xBottomLeft)
@@ -22942,8 +22984,25 @@ class YoginiDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         yValues.append(yBottomLeft)
         yValues.append(yTopRight)
         yValues.append(yBottomRight)
-        yValues.append(localHighY)
-        yValues.append(localLowY)
+
+        if self.isSelected():
+            # Get the highest high, and lowest low PriceBar in local
+            # coordinates.
+            highestPriceBar = self.scene().getHighestPriceBar()
+            if highestPriceBar != None:
+                highestPrice = highestPriceBar.high
+                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
+                localHighY = \
+                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                yValues.append(localHighY)
+
+            lowestPriceBar = self.scene().getLowestPriceBar()
+            if lowestPriceBar != None:
+                lowestPrice = lowestPriceBar.low
+                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                localLowY = \
+                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                yValues.append(localLowY)
         
         xValues.sort()
         yValues.sort()
@@ -23082,18 +23141,22 @@ class YoginiDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     
                 # Get the highest high, and lowest low PriceBar in local
                 # coordinates.
-                highestPrice = self.scene().getHighestPriceBar().high
-                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-                localHighY = \
-                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                highestPriceBar = self.scene().getHighestPriceBar()
+                if highestPriceBar != None:
+                    highestPrice = highestPriceBar.high
+                    highestPriceBarY = \
+                        self.scene().priceToSceneYPos(highestPrice)
+                    localHighY = \
+                        self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                    yValues.append(localHighY)
                 
-                lowestPrice = self.scene().getLowestPriceBar().low
-                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-                localLowY = \
-                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-                          
-                yValues.append(localHighY)
-                yValues.append(localLowY)
+                lowestPriceBar = self.scene().getLowestPriceBar()
+                if lowestPriceBar != None:
+                    lowestPrice = lowestPriceBar.low
+                    lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                    localLowY = \
+                        self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                    yValues.append(localLowY)
 
                 # We have all y values now, so sort them to get the
                 # low and high.
@@ -24259,19 +24322,6 @@ class DwisaptatiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         xBottomRight = 0.0 + xDelta
         yBottomRight = (-1.0 * (barHeight * 0.5)) + yDelta
 
-        # Get the highest high, and lowest low PriceBar in local
-        # coordinates.
-        highestPrice = self.scene().getHighestPriceBar().high
-        highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-        localHighY = \
-            self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
-
-        lowestPrice = self.scene().getLowestPriceBar().low
-        lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-        localLowY = \
-            self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-                          
-
         xValues = []
         xValues.append(xTopLeft)
         xValues.append(xBottomLeft)
@@ -24283,8 +24333,25 @@ class DwisaptatiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         yValues.append(yBottomLeft)
         yValues.append(yTopRight)
         yValues.append(yBottomRight)
-        yValues.append(localHighY)
-        yValues.append(localLowY)
+
+        if self.isSelected():
+            # Get the highest high, and lowest low PriceBar in local
+            # coordinates.
+            highestPriceBar = self.scene().getHighestPriceBar()
+            if highestPriceBar != None:
+                highestPrice = highestPriceBar.high
+                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
+                localHighY = \
+                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                yValues.append(localHighY)
+
+            lowestPriceBar = self.scene().getLowestPriceBar()
+            if lowestPriceBar != None:
+                lowestPrice = lowestPriceBar.low
+                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                localLowY = \
+                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                yValues.append(localLowY)
         
         xValues.sort()
         yValues.sort()
@@ -24423,18 +24490,22 @@ class DwisaptatiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     
                 # Get the highest high, and lowest low PriceBar in local
                 # coordinates.
-                highestPrice = self.scene().getHighestPriceBar().high
-                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-                localHighY = \
-                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                highestPriceBar = self.scene().getHighestPriceBar()
+                if highestPriceBar != None:
+                    highestPrice = highestPriceBar.high
+                    highestPriceBarY = \
+                        self.scene().priceToSceneYPos(highestPrice)
+                    localHighY = \
+                        self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                    yValues.append(localHighY)
                 
-                lowestPrice = self.scene().getLowestPriceBar().low
-                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-                localLowY = \
-                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-                          
-                yValues.append(localHighY)
-                yValues.append(localLowY)
+                lowestPriceBar = self.scene().getLowestPriceBar()
+                if lowestPriceBar != None:
+                    lowestPrice = lowestPriceBar.low
+                    lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                    localLowY = \
+                        self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                    yValues.append(localLowY)
 
                 # We have all y values now, so sort them to get the
                 # low and high.
@@ -25600,19 +25671,6 @@ class ShattrimsaSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         xBottomRight = 0.0 + xDelta
         yBottomRight = (-1.0 * (barHeight * 0.5)) + yDelta
 
-        # Get the highest high, and lowest low PriceBar in local
-        # coordinates.
-        highestPrice = self.scene().getHighestPriceBar().high
-        highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-        localHighY = \
-            self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
-
-        lowestPrice = self.scene().getLowestPriceBar().low
-        lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-        localLowY = \
-            self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-                          
-
         xValues = []
         xValues.append(xTopLeft)
         xValues.append(xBottomLeft)
@@ -25624,8 +25682,25 @@ class ShattrimsaSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         yValues.append(yBottomLeft)
         yValues.append(yTopRight)
         yValues.append(yBottomRight)
-        yValues.append(localHighY)
-        yValues.append(localLowY)
+
+        if self.isSelected():
+            # Get the highest high, and lowest low PriceBar in local
+            # coordinates.
+            highestPriceBar = self.scene().getHighestPriceBar()
+            if highestPriceBar != None:
+                highestPrice = highestPriceBar.high
+                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
+                localHighY = \
+                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                yValues.append(localHighY)
+
+            lowestPriceBar = self.scene().getLowestPriceBar()
+            if lowestPriceBar != None:
+                lowestPrice = lowestPriceBar.low
+                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                localLowY = \
+                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                yValues.append(localLowY)
         
         xValues.sort()
         yValues.sort()
@@ -25764,18 +25839,22 @@ class ShattrimsaSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     
                 # Get the highest high, and lowest low PriceBar in local
                 # coordinates.
-                highestPrice = self.scene().getHighestPriceBar().high
-                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-                localHighY = \
-                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                highestPriceBar = self.scene().getHighestPriceBar()
+                if highestPriceBar != None:
+                    highestPrice = highestPriceBar.high
+                    highestPriceBarY = \
+                        self.scene().priceToSceneYPos(highestPrice)
+                    localHighY = \
+                        self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                    yValues.append(localHighY)
                 
-                lowestPrice = self.scene().getLowestPriceBar().low
-                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-                localLowY = \
-                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-                          
-                yValues.append(localHighY)
-                yValues.append(localLowY)
+                lowestPriceBar = self.scene().getLowestPriceBar()
+                if lowestPriceBar != None:
+                    lowestPrice = lowestPriceBar.low
+                    lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                    localLowY = \
+                        self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                    yValues.append(localLowY)
 
                 # We have all y values now, so sort them to get the
                 # low and high.
@@ -26941,19 +27020,6 @@ class DwadasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         xBottomRight = 0.0 + xDelta
         yBottomRight = (-1.0 * (barHeight * 0.5)) + yDelta
 
-        # Get the highest high, and lowest low PriceBar in local
-        # coordinates.
-        highestPrice = self.scene().getHighestPriceBar().high
-        highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-        localHighY = \
-            self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
-
-        lowestPrice = self.scene().getLowestPriceBar().low
-        lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-        localLowY = \
-            self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-                          
-
         xValues = []
         xValues.append(xTopLeft)
         xValues.append(xBottomLeft)
@@ -26965,8 +27031,25 @@ class DwadasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         yValues.append(yBottomLeft)
         yValues.append(yTopRight)
         yValues.append(yBottomRight)
-        yValues.append(localHighY)
-        yValues.append(localLowY)
+
+        if self.isSelected():
+            # Get the highest high, and lowest low PriceBar in local
+            # coordinates.
+            highestPriceBar = self.scene().getHighestPriceBar()
+            if highestPriceBar != None:
+                highestPrice = highestPriceBar.high
+                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
+                localHighY = \
+                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                yValues.append(localHighY)
+
+            lowestPriceBar = self.scene().getLowestPriceBar()
+            if lowestPriceBar != None:
+                lowestPrice = lowestPriceBar.low
+                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                localLowY = \
+                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                yValues.append(localLowY)
         
         xValues.sort()
         yValues.sort()
@@ -27105,18 +27188,22 @@ class DwadasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     
                 # Get the highest high, and lowest low PriceBar in local
                 # coordinates.
-                highestPrice = self.scene().getHighestPriceBar().high
-                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-                localHighY = \
-                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                highestPriceBar = self.scene().getHighestPriceBar()
+                if highestPriceBar != None:
+                    highestPrice = highestPriceBar.high
+                    highestPriceBarY = \
+                        self.scene().priceToSceneYPos(highestPrice)
+                    localHighY = \
+                        self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                    yValues.append(localHighY)
                 
-                lowestPrice = self.scene().getLowestPriceBar().low
-                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-                localLowY = \
-                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-                          
-                yValues.append(localHighY)
-                yValues.append(localLowY)
+                lowestPriceBar = self.scene().getLowestPriceBar()
+                if lowestPriceBar != None:
+                    lowestPrice = lowestPriceBar.low
+                    lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                    localLowY = \
+                        self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                    yValues.append(localLowY)
 
                 # We have all y values now, so sort them to get the
                 # low and high.
@@ -28282,19 +28369,6 @@ class ChaturaseetiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         xBottomRight = 0.0 + xDelta
         yBottomRight = (-1.0 * (barHeight * 0.5)) + yDelta
 
-        # Get the highest high, and lowest low PriceBar in local
-        # coordinates.
-        highestPrice = self.scene().getHighestPriceBar().high
-        highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-        localHighY = \
-            self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
-
-        lowestPrice = self.scene().getLowestPriceBar().low
-        lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-        localLowY = \
-            self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-                          
-
         xValues = []
         xValues.append(xTopLeft)
         xValues.append(xBottomLeft)
@@ -28306,8 +28380,25 @@ class ChaturaseetiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         yValues.append(yBottomLeft)
         yValues.append(yTopRight)
         yValues.append(yBottomRight)
-        yValues.append(localHighY)
-        yValues.append(localLowY)
+
+        if self.isSelected():
+            # Get the highest high, and lowest low PriceBar in local
+            # coordinates.
+            highestPriceBar = self.scene().getHighestPriceBar()
+            if highestPriceBar != None:
+                highestPrice = highestPriceBar.high
+                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
+                localHighY = \
+                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                yValues.append(localHighY)
+
+            lowestPriceBar = self.scene().getLowestPriceBar()
+            if lowestPriceBar != None:
+                lowestPrice = lowestPriceBar.low
+                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                localLowY = \
+                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                yValues.append(localLowY)
         
         xValues.sort()
         yValues.sort()
@@ -28446,18 +28537,22 @@ class ChaturaseetiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     
                 # Get the highest high, and lowest low PriceBar in local
                 # coordinates.
-                highestPrice = self.scene().getHighestPriceBar().high
-                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-                localHighY = \
-                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                highestPriceBar = self.scene().getHighestPriceBar()
+                if highestPriceBar != None:
+                    highestPrice = highestPriceBar.high
+                    highestPriceBarY = \
+                        self.scene().priceToSceneYPos(highestPrice)
+                    localHighY = \
+                        self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                    yValues.append(localHighY)
                 
-                lowestPrice = self.scene().getLowestPriceBar().low
-                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-                localLowY = \
-                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-                          
-                yValues.append(localHighY)
-                yValues.append(localLowY)
+                lowestPriceBar = self.scene().getLowestPriceBar()
+                if lowestPriceBar != None:
+                    lowestPrice = lowestPriceBar.low
+                    lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                    localLowY = \
+                        self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                    yValues.append(localLowY)
 
                 # We have all y values now, so sort them to get the
                 # low and high.
@@ -29623,19 +29718,6 @@ class SataabdikaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         xBottomRight = 0.0 + xDelta
         yBottomRight = (-1.0 * (barHeight * 0.5)) + yDelta
 
-        # Get the highest high, and lowest low PriceBar in local
-        # coordinates.
-        highestPrice = self.scene().getHighestPriceBar().high
-        highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-        localHighY = \
-            self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
-
-        lowestPrice = self.scene().getLowestPriceBar().low
-        lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-        localLowY = \
-            self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-                          
-
         xValues = []
         xValues.append(xTopLeft)
         xValues.append(xBottomLeft)
@@ -29647,8 +29729,25 @@ class SataabdikaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         yValues.append(yBottomLeft)
         yValues.append(yTopRight)
         yValues.append(yBottomRight)
-        yValues.append(localHighY)
-        yValues.append(localLowY)
+
+        if self.isSelected():
+            # Get the highest high, and lowest low PriceBar in local
+            # coordinates.
+            highestPriceBar = self.scene().getHighestPriceBar()
+            if highestPriceBar != None:
+                highestPrice = highestPriceBar.high
+                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
+                localHighY = \
+                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                yValues.append(localHighY)
+
+            lowestPriceBar = self.scene().getLowestPriceBar()
+            if lowestPriceBar != None:
+                lowestPrice = lowestPriceBar.low
+                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                localLowY = \
+                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                yValues.append(localLowY)
         
         xValues.sort()
         yValues.sort()
@@ -29787,18 +29886,22 @@ class SataabdikaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     
                 # Get the highest high, and lowest low PriceBar in local
                 # coordinates.
-                highestPrice = self.scene().getHighestPriceBar().high
-                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-                localHighY = \
-                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                highestPriceBar = self.scene().getHighestPriceBar()
+                if highestPriceBar != None:
+                    highestPrice = highestPriceBar.high
+                    highestPriceBarY = \
+                        self.scene().priceToSceneYPos(highestPrice)
+                    localHighY = \
+                        self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                    yValues.append(localHighY)
                 
-                lowestPrice = self.scene().getLowestPriceBar().low
-                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-                localLowY = \
-                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-                          
-                yValues.append(localHighY)
-                yValues.append(localLowY)
+                lowestPriceBar = self.scene().getLowestPriceBar()
+                if lowestPriceBar != None:
+                    lowestPrice = lowestPriceBar.low
+                    lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                    localLowY = \
+                        self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                    yValues.append(localLowY)
 
                 # We have all y values now, so sort them to get the
                 # low and high.
@@ -30966,19 +31069,6 @@ class ShodasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         xBottomRight = 0.0 + xDelta
         yBottomRight = (-1.0 * (barHeight * 0.5)) + yDelta
 
-        # Get the highest high, and lowest low PriceBar in local
-        # coordinates.
-        highestPrice = self.scene().getHighestPriceBar().high
-        highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-        localHighY = \
-            self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
-
-        lowestPrice = self.scene().getLowestPriceBar().low
-        lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-        localLowY = \
-            self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-                          
-
         xValues = []
         xValues.append(xTopLeft)
         xValues.append(xBottomLeft)
@@ -30990,8 +31080,25 @@ class ShodasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         yValues.append(yBottomLeft)
         yValues.append(yTopRight)
         yValues.append(yBottomRight)
-        yValues.append(localHighY)
-        yValues.append(localLowY)
+
+        if self.isSelected():
+            # Get the highest high, and lowest low PriceBar in local
+            # coordinates.
+            highestPriceBar = self.scene().getHighestPriceBar()
+            if highestPriceBar != None:
+                highestPrice = highestPriceBar.high
+                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
+                localHighY = \
+                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                yValues.append(localHighY)
+
+            lowestPriceBar = self.scene().getLowestPriceBar()
+            if lowestPriceBar != None:
+                lowestPrice = lowestPriceBar.low
+                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                localLowY = \
+                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                yValues.append(localLowY)
         
         xValues.sort()
         yValues.sort()
@@ -31130,18 +31237,22 @@ class ShodasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     
                 # Get the highest high, and lowest low PriceBar in local
                 # coordinates.
-                highestPrice = self.scene().getHighestPriceBar().high
-                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-                localHighY = \
-                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                highestPriceBar = self.scene().getHighestPriceBar()
+                if highestPriceBar != None:
+                    highestPrice = highestPriceBar.high
+                    highestPriceBarY = \
+                        self.scene().priceToSceneYPos(highestPrice)
+                    localHighY = \
+                        self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                    yValues.append(localHighY)
                 
-                lowestPrice = self.scene().getLowestPriceBar().low
-                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-                localLowY = \
-                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-                          
-                yValues.append(localHighY)
-                yValues.append(localLowY)
+                lowestPriceBar = self.scene().getLowestPriceBar()
+                if lowestPriceBar != None:
+                    lowestPrice = lowestPriceBar.low
+                    lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                    localLowY = \
+                        self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                    yValues.append(localLowY)
 
                 # We have all y values now, so sort them to get the
                 # low and high.
@@ -32310,19 +32421,6 @@ class PanchottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         xBottomRight = 0.0 + xDelta
         yBottomRight = (-1.0 * (barHeight * 0.5)) + yDelta
 
-        # Get the highest high, and lowest low PriceBar in local
-        # coordinates.
-        highestPrice = self.scene().getHighestPriceBar().high
-        highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-        localHighY = \
-            self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
-
-        lowestPrice = self.scene().getLowestPriceBar().low
-        lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-        localLowY = \
-            self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-                          
-
         xValues = []
         xValues.append(xTopLeft)
         xValues.append(xBottomLeft)
@@ -32334,8 +32432,25 @@ class PanchottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         yValues.append(yBottomLeft)
         yValues.append(yTopRight)
         yValues.append(yBottomRight)
-        yValues.append(localHighY)
-        yValues.append(localLowY)
+
+        if self.isSelected():
+            # Get the highest high, and lowest low PriceBar in local
+            # coordinates.
+            highestPriceBar = self.scene().getHighestPriceBar()
+            if highestPriceBar != None:
+                highestPrice = highestPriceBar.high
+                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
+                localHighY = \
+                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                yValues.append(localHighY)
+
+            lowestPriceBar = self.scene().getLowestPriceBar()
+            if lowestPriceBar != None:
+                lowestPrice = lowestPriceBar.low
+                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                localLowY = \
+                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                yValues.append(localLowY)
         
         xValues.sort()
         yValues.sort()
@@ -32474,18 +32589,22 @@ class PanchottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     
                 # Get the highest high, and lowest low PriceBar in local
                 # coordinates.
-                highestPrice = self.scene().getHighestPriceBar().high
-                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-                localHighY = \
-                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                highestPriceBar = self.scene().getHighestPriceBar()
+                if highestPriceBar != None:
+                    highestPrice = highestPriceBar.high
+                    highestPriceBarY = \
+                        self.scene().priceToSceneYPos(highestPrice)
+                    localHighY = \
+                        self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                    yValues.append(localHighY)
                 
-                lowestPrice = self.scene().getLowestPriceBar().low
-                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-                localLowY = \
-                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-                          
-                yValues.append(localHighY)
-                yValues.append(localLowY)
+                lowestPriceBar = self.scene().getLowestPriceBar()
+                if lowestPriceBar != None:
+                    lowestPrice = lowestPriceBar.low
+                    lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                    localLowY = \
+                        self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                    yValues.append(localLowY)
 
                 # We have all y values now, so sort them to get the
                 # low and high.
@@ -33651,19 +33770,6 @@ class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         xBottomRight = 0.0 + xDelta
         yBottomRight = (-1.0 * (barHeight * 0.5)) + yDelta
 
-        # Get the highest high, and lowest low PriceBar in local
-        # coordinates.
-        highestPrice = self.scene().getHighestPriceBar().high
-        highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-        localHighY = \
-            self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
-
-        lowestPrice = self.scene().getLowestPriceBar().low
-        lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-        localLowY = \
-            self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-                          
-
         xValues = []
         xValues.append(xTopLeft)
         xValues.append(xBottomLeft)
@@ -33675,8 +33781,25 @@ class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         yValues.append(yBottomLeft)
         yValues.append(yTopRight)
         yValues.append(yBottomRight)
-        yValues.append(localHighY)
-        yValues.append(localLowY)
+
+        if self.isSelected():
+            # Get the highest high, and lowest low PriceBar in local
+            # coordinates.
+            highestPriceBar = self.scene().getHighestPriceBar()
+            if highestPriceBar != None:
+                highestPrice = highestPriceBar.high
+                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
+                localHighY = \
+                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                yValues.append(localHighY)
+
+            lowestPriceBar = self.scene().getLowestPriceBar()
+            if lowestPriceBar != None:
+                lowestPrice = lowestPriceBar.low
+                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                localLowY = \
+                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                yValues.append(localLowY)
         
         xValues.sort()
         yValues.sort()
@@ -33815,18 +33938,22 @@ class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     
                 # Get the highest high, and lowest low PriceBar in local
                 # coordinates.
-                highestPrice = self.scene().getHighestPriceBar().high
-                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
-                localHighY = \
-                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                highestPriceBar = self.scene().getHighestPriceBar()
+                if highestPriceBar != None:
+                    highestPrice = highestPriceBar.high
+                    highestPriceBarY = \
+                        self.scene().priceToSceneYPos(highestPrice)
+                    localHighY = \
+                        self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                    yValues.append(localHighY)
                 
-                lowestPrice = self.scene().getLowestPriceBar().low
-                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
-                localLowY = \
-                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
-                          
-                yValues.append(localHighY)
-                yValues.append(localLowY)
+                lowestPriceBar = self.scene().getLowestPriceBar()
+                if lowestPriceBar != None:
+                    lowestPrice = lowestPriceBar.low
+                    lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                    localLowY = \
+                        self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                    yValues.append(localLowY)
 
                 # We have all y values now, so sort them to get the
                 # low and high.
