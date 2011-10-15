@@ -3990,7 +3990,7 @@ class PriceBarChartTimeModalScaleArtifact(PriceBarChartArtifact):
         the musical ratio would exist.
         """
 
-        self.log.debug("Entered getXYForMusicalRatio({})".format(index))
+        #self.log.debug("Entered getXYForMusicalRatio({})".format(index))
 
         # Validate input.
         if index < 0:
@@ -4011,16 +4011,16 @@ class PriceBarChartTimeModalScaleArtifact(PriceBarChartArtifact):
         endPointX = self.endPointF.x()
         endPointY = self.endPointF.y()
 
-        self.log.debug("startPoint is: ({}, {})".
-                       format(startPointX, startPointY))
-        self.log.debug("endPoint is: ({}, {})".
-                       format(endPointX, endPointY))
+        #self.log.debug("startPoint is: ({}, {})".
+        #               format(startPointX, startPointY))
+        #self.log.debug("endPoint is: ({}, {})".
+        #               format(endPointX, endPointY))
         
         deltaX = endPointX - startPointX
         deltaY = endPointY - startPointY
         
-        self.log.debug("deltaX is: {}".format(deltaX))
-        self.log.debug("deltaY is: {}".format(deltaY))
+        #self.log.debug("deltaX is: {}".format(deltaX))
+        #self.log.debug("deltaY is: {}".format(deltaY))
         
         # Need to maintain offsets so that if the ratios are rotated a
         # certain way, then we have the correct starting point.
@@ -4028,31 +4028,31 @@ class PriceBarChartTimeModalScaleArtifact(PriceBarChartArtifact):
         yOffset = 0.0
 
         
-        self.log.debug("There are {} number of musical ratios.".\
-                       format(len(self.musicalRatios)))
+        #self.log.debug("There are {} number of musical ratios.".\
+        #               format(len(self.musicalRatios)))
 
         for i in range(len(self.musicalRatios)):
             musicalRatio = self.musicalRatios[i]
             
-            self.log.debug("self.musicalRatios[{}].getRatio() is: {}".\
-                           format(i, musicalRatio.getRatio()))
+            #self.log.debug("self.musicalRatios[{}].getRatio() is: {}".\
+            #               format(i, musicalRatio.getRatio()))
             if i == 0:
                 # Store the offset for future indexes.
                 xOffset = deltaX * (musicalRatio.getRatio() - 1.0)
                 yOffset = deltaY * (musicalRatio.getRatio() - 1.0)
 
-                self.log.debug("At i == 0.  xOffset={}, yOffset={}".\
-                               format(xOffset, yOffset))
+                #self.log.debug("At i == 0.  xOffset={}, yOffset={}".\
+                #               format(xOffset, yOffset))
                 
             if i == index:
-                self.log.debug("At the i == index, where i == {}.".format(i))
-                self.log.debug("MusicalRatio is: {}".\
-                               format(musicalRatio.getRatio()))
+                #self.log.debug("At the i == index, where i == {}.".format(i))
+                #self.log.debug("MusicalRatio is: {}".\
+                #               format(musicalRatio.getRatio()))
                 
                 x = (deltaX * (musicalRatio.getRatio() - 1.0)) - xOffset
                 y = (deltaY * (musicalRatio.getRatio() - 1.0)) - yOffset
 
-                self.log.debug("(x={}, y={})".format(x, y))
+                #self.log.debug("(x={}, y={})".format(x, y))
 
                 # Normalize x and y to be within the range of
                 # [startPointX, endPointX] and [startPointY,
@@ -4068,8 +4068,8 @@ class PriceBarChartTimeModalScaleArtifact(PriceBarChartArtifact):
                     y = endPointY - y
                     
 
-                self.log.debug("Adjusting to start points, (x={}, y={})".
-                               format(x, y))
+                #self.log.debug("Adjusting to start points, (x={}, y={})".
+                #               format(x, y))
                 
                 while x < startPointX and x < endPointX:
                     x += abs(deltaX)
@@ -4080,9 +4080,9 @@ class PriceBarChartTimeModalScaleArtifact(PriceBarChartArtifact):
                 while y > startPointY and y > endPointY:
                     y -= abs(deltaY)
 
-                self.log.debug("For index {}, ".format(i) +
-                               "normalized x and y from startPoint is: " +
-                               "({}, {})".format(x, y))
+                #self.log.debug("For index {}, ".format(i) +
+                #               "normalized x and y from startPoint is: " +
+                #               "({}, {})".format(x, y))
 
                 # Break out of for loop because we found what we are
                 # looking for, which is the x and y values.
@@ -4098,8 +4098,8 @@ class PriceBarChartTimeModalScaleArtifact(PriceBarChartArtifact):
             x = 0.0
             y = 0.0
             
-        self.log.debug("Exiting getXYForMusicalRatio({}), ".format(index) + \
-                       "Returning ({}, {})".format(x, y))
+        #self.log.debug("Exiting getXYForMusicalRatio({}), ".format(index) + \
+        #               "Returning ({}, {})".format(x, y))
         return (x, y)
 
     def __str__(self):
@@ -4344,7 +4344,7 @@ class PriceBarChartPriceModalScaleArtifact(PriceBarChartArtifact):
         the musical ratio would exist.
         """
 
-        self.log.debug("Entered getXYForMusicalRatio({})".format(index))
+        #self.log.debug("Entered getXYForMusicalRatio({})".format(index))
 
         # Validate input.
         if index < 0:
@@ -4365,16 +4365,16 @@ class PriceBarChartPriceModalScaleArtifact(PriceBarChartArtifact):
         endPointX = self.endPointF.x()
         endPointY = self.endPointF.y()
 
-        self.log.debug("startPoint is: ({}, {})".
-                       format(startPointX, startPointY))
-        self.log.debug("endPoint is: ({}, {})".
-                       format(endPointX, endPointY))
+        #self.log.debug("startPoint is: ({}, {})".
+        #               format(startPointX, startPointY))
+        #self.log.debug("endPoint is: ({}, {})".
+        #               format(endPointX, endPointY))
         
         deltaX = endPointX - startPointX
         deltaY = endPointY - startPointY
         
-        self.log.debug("deltaX is: {}".format(deltaX))
-        self.log.debug("deltaY is: {}".format(deltaY))
+        #self.log.debug("deltaX is: {}".format(deltaX))
+        #self.log.debug("deltaY is: {}".format(deltaY))
         
         # Need to maintain offsets so that if the ratios are rotated a
         # certain way, then we have the correct starting point.
@@ -4382,31 +4382,31 @@ class PriceBarChartPriceModalScaleArtifact(PriceBarChartArtifact):
         yOffset = 0.0
 
         
-        self.log.debug("There are {} number of musical ratios.".\
-                       format(len(self.musicalRatios)))
+        #self.log.debug("There are {} number of musical ratios.".\
+        #               format(len(self.musicalRatios)))
 
         for i in range(len(self.musicalRatios)):
             musicalRatio = self.musicalRatios[i]
             
-            self.log.debug("self.musicalRatios[{}].getRatio() is: {}".\
-                           format(i, musicalRatio.getRatio()))
+            #self.log.debug("self.musicalRatios[{}].getRatio() is: {}".\
+            #               format(i, musicalRatio.getRatio()))
             if i == 0:
                 # Store the offset for future indexes.
                 xOffset = deltaX * (musicalRatio.getRatio() - 1.0)
                 yOffset = deltaY * (musicalRatio.getRatio() - 1.0)
 
-                self.log.debug("At i == 0.  xOffset={}, yOffset={}".\
-                               format(xOffset, yOffset))
+                #self.log.debug("At i == 0.  xOffset={}, yOffset={}".\
+                #               format(xOffset, yOffset))
                 
             if i == index:
-                self.log.debug("At the i == index, where i == {}.".format(i))
-                self.log.debug("MusicalRatio is: {}".\
-                               format(musicalRatio.getRatio()))
+                #self.log.debug("At the i == index, where i == {}.".format(i))
+                #self.log.debug("MusicalRatio is: {}".\
+                #               format(musicalRatio.getRatio()))
                 
                 x = (deltaX * (musicalRatio.getRatio() - 1.0)) - xOffset
                 y = (deltaY * (musicalRatio.getRatio() - 1.0)) - yOffset
 
-                self.log.debug("(x={}, y={})".format(x, y))
+                #self.log.debug("(x={}, y={})".format(x, y))
 
                 # Normalize x and y to be within the range of
                 # [startPointX, endPointX] and [startPointY,
@@ -4434,9 +4434,9 @@ class PriceBarChartPriceModalScaleArtifact(PriceBarChartArtifact):
                 while y > startPointY and y > endPointY:
                     y -= abs(deltaY)
 
-                self.log.debug("For index {}, ".format(i) +
-                               "normalized x and y from startPoint is: " +
-                               "({}, {})".format(x, y))
+                #self.log.debug("For index {}, ".format(i) +
+                #               "normalized x and y from startPoint is: " +
+                #               "({}, {})".format(x, y))
 
                 # Break out of for loop because we found what we are
                 # looking for, which is the x and y values.
@@ -4452,8 +4452,8 @@ class PriceBarChartPriceModalScaleArtifact(PriceBarChartArtifact):
             x = 0.0
             y = 0.0
             
-        self.log.debug("Exiting getXYForMusicalRatio({}), ".format(index) + \
-                       "Returning ({}, {})".format(x, y))
+        #self.log.debug("Exiting getXYForMusicalRatio({}), ".format(index) + \
+        #               "Returning ({}, {})".format(x, y))
         return (x, y)
 
     def __str__(self):
@@ -6588,7 +6588,7 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
         coordinates as needed.
         """
 
-        self.log.debug("Entered getXYForMusicalRatio({})".format(index))
+        #self.log.debug("Entered getXYForMusicalRatio({})".format(index))
 
         # Get the musical ratios.
         musicalRatios = self.getMusicalRatios()
@@ -6614,9 +6614,9 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
            scaledOriginPointF == scaledLeg2PointF:
 
             # All three points the same.
-            self.log.debug("All three points are the same, so we will " +
-                           "return the same point as the position " +
-                           "of the musical ratio.")
+            #self.log.debug("All three points are the same, so we will " +
+            #               "return the same point as the position " +
+            #               "of the musical ratio.")
             x = scaledOriginPointF.x()
             y = scaledOriginPointF.y()
             return (x, y)
@@ -6625,11 +6625,11 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
              scaledOriginPointF != scaledLeg2PointF:
 
             # scaledOriginPointF and scaledLeg1PointF points are the same.
-            self.log.debug("scaledOriginPointF and scaledLeg1PointF " +
-                           "are equal, so we will" +
-                           "return the scaledLeg2PointF as the " +
-                           "position of the same point as the position " +
-                           "of the musical ratio.")
+            #self.log.debug("scaledOriginPointF and scaledLeg1PointF " +
+            #               "are equal, so we will" +
+            #               "return the scaledLeg2PointF as the " +
+            #               "position of the same point as the position " +
+            #               "of the musical ratio.")
             x = scaledLeg2PointF.x()
             y = scaledLeg2PointF.y()
             return (x, y)
@@ -6638,11 +6638,11 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
              scaledOriginPointF == scaledLeg2PointF:
             
             # scaledOriginPointF and scaledLeg2PointF points are the same.
-            self.log.debug("scaledOriginPointF and scaledLeg2PointF " +
-                           "are equal, so we will" +
-                           "return the scaledLeg1PointF as the " +
-                           "position of the same point as the position " +
-                           "of the musical ratio.")
+            #self.log.debug("scaledOriginPointF and scaledLeg2PointF " +
+            #               "are equal, so we will" +
+            #               "return the scaledLeg1PointF as the " +
+            #               "position of the same point as the position " +
+            #               "of the musical ratio.")
             x = scaledLeg1PointF.x()
             y = scaledLeg1PointF.y()
             return (x, y)
@@ -6653,29 +6653,29 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
             self.log.debug("All three points are different, so " +
                            "continuing on to do the calculations.")
 
-        self.log.debug("scaledOriginPointF is: ({}, {})".\
-                       format(scaledOriginPointF.x(),
-                              scaledOriginPointF.y()))
-        self.log.debug("scaledLeg1PointF is: ({}, {})".\
-                       format(scaledLeg1PointF.x(),
-                              scaledLeg1PointF.y()))
-        self.log.debug("scaledLeg2PointF is: ({}, {})".\
-                       format(scaledLeg2PointF.x(),
-                              scaledLeg2PointF.y()))
+        #self.log.debug("scaledOriginPointF is: ({}, {})".\
+        #               format(scaledOriginPointF.x(),
+        #                      scaledOriginPointF.y()))
+        #self.log.debug("scaledLeg1PointF is: ({}, {})".\
+        #               format(scaledLeg1PointF.x(),
+        #                      scaledLeg1PointF.y()))
+        #self.log.debug("scaledLeg2PointF is: ({}, {})".\
+        #               format(scaledLeg2PointF.x(),
+        #                      scaledLeg2PointF.y()))
 
         # Calculate the angle between the two line segments.
         leg1 = QLineF(scaledOriginPointF, scaledLeg1PointF)
         leg2 = QLineF(scaledOriginPointF, scaledLeg2PointF)
 
-        self.log.debug("Angle of leg1 is: {}".format(leg1.angle()))
-        self.log.debug("Angle of leg2 is: {}".format(leg2.angle()))
+        #self.log.debug("Angle of leg1 is: {}".format(leg1.angle()))
+        #self.log.debug("Angle of leg2 is: {}".format(leg2.angle()))
         
         
         # The angle returned by QLineF.angleTo() is always normalized.
         angleDegDelta = leg1.angleTo(leg2)
 
-        self.log.debug("Angle of leg1 to leg2 is: " +
-                       "angleDegDelta == {} deg".format(angleDegDelta))
+        #self.log.debug("Angle of leg1 to leg2 is: " +
+        #               "angleDegDelta == {} deg".format(angleDegDelta))
         
         # If the delta angle is greater than 180, then subtract 360
         # because we don't want to draw the fan on the undesired side
@@ -6683,56 +6683,56 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
         if angleDegDelta > 180:
             angleDegDelta -= 360
         
-        self.log.debug("Adjusted angle difference is: " + \
-                       "angleDegDelta == {} deg".format(angleDegDelta))
+        #self.log.debug("Adjusted angle difference is: " + \
+        #               "angleDegDelta == {} deg".format(angleDegDelta))
         
         # Need to maintain offsets so that if the ratios are rotated a
         # certain way, then we have the correct starting point.
         angleDegOffset = 0.0
 
-        self.log.debug("There are {} number of musical ratios.".\
-                       format(len(musicalRatios)))
+        #self.log.debug("There are {} number of musical ratios.".\
+        #               format(len(musicalRatios)))
 
         for i in range(len(musicalRatios)):
             musicalRatio = musicalRatios[i]
             
-            self.log.debug("musicalRatios[{}].getRatio() is: {}".\
-                           format(i, musicalRatio.getRatio()))
+            #self.log.debug("musicalRatios[{}].getRatio() is: {}".\
+            #               format(i, musicalRatio.getRatio()))
             if i == 0:
                 # Store the offset for future indexes.
                 angleDegOffset = \
                     angleDegDelta * (musicalRatio.getRatio() - 1.0)
 
-                self.log.debug("At i == 0.  angleDegOffset={}".\
-                               format(angleDegOffset))
+                #self.log.debug("At i == 0.  angleDegOffset={}".\
+                #               format(angleDegOffset))
                 
             if i == index:
-                self.log.debug("At the i == index, where i == {}.".format(i))
-                self.log.debug("MusicalRatio is: {}".\
-                               format(musicalRatio.getRatio()))
+                #self.log.debug("At the i == index, where i == {}.".format(i))
+                #self.log.debug("MusicalRatio is: {}".\
+                #               format(musicalRatio.getRatio()))
                 
                 angleDeg = \
                     (angleDegDelta * (musicalRatio.getRatio() - 1.0)) - \
                     angleDegOffset
 
-                self.log.debug("(angleDeg={})".format(angleDeg))
+                #self.log.debug("(angleDeg={})".format(angleDeg))
 
                 # If we are reversed, then reference the offset angle
                 # from the leg1 angle instead of the leg2 angle.
-                self.log.debug("self.isReversed() == {}".\
-                               format(self.isReversed()))
+                #self.log.debug("self.isReversed() == {}".\
+                #               format(self.isReversed()))
                 if self.isReversed() == False:
                     angleDeg = leg1.angle() + angleDeg
                 else:
                     angleDeg = leg2.angle() - angleDeg
 
-                self.log.debug("Adjusting to leg point angles, (angleDeg={})".
-                               format(angleDeg))
+                #self.log.debug("Adjusting to leg point angles, (angleDeg={})".
+                #               format(angleDeg))
 
                 angleDeg = Util.toNormalizedAngle(angleDeg)
                 
-                self.log.debug("After normalizing angleDeg, (angleDeg={})".
-                               format(angleDeg))
+                #self.log.debug("After normalizing angleDeg, (angleDeg={})".
+                #               format(angleDeg))
 
                 # Normalize angleDeg be within the range of
                 # leg1.angle() and leg2.angle().  We have to jump
@@ -6746,8 +6746,8 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
                 angleToLeg1 = lineToAngleDeg.angleTo(leg1)
                 angleToLeg2 = lineToAngleDeg.angleTo(leg2)
 
-                self.log.debug("angleToLeg1 == {} deg".format(angleToLeg1))
-                self.log.debug("angleToLeg2 == {} deg".format(angleToLeg2))
+                #self.log.debug("angleToLeg1 == {} deg".format(angleToLeg1))
+                #self.log.debug("angleToLeg2 == {} deg".format(angleToLeg2))
 
                 if angleDegDelta >= 0:
                     # leg2 is higher in angle than leg1.
@@ -6802,9 +6802,9 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
                                       "angleToLeg2 == {}".\
                                       format(angleToLeg2))
                         
-                self.log.debug("For index {}, ".format(i) +
-                               "normalized angleDeg to within " +
-                               "leg1 and leg2 is: {}".format(angleDeg))
+                #self.log.debug("For index {}, ".format(i) +
+                #               "normalized angleDeg to within " +
+                #               "leg1 and leg2 is: {}".format(angleDeg))
 
                 # Now that we have the angle, determine the
                 # intersection point along the edge of the rectangle.
@@ -7313,9 +7313,9 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
            scaledOriginPointF == scaledLeg2PointF:
 
             # All three points the same.
-            self.log.debug("All three points are the same, so we will " +
-                           "return the same point as the position " +
-                           "of the ratio.")
+            #self.log.debug("All three points are the same, so we will " +
+            #               "return the same point as the position " +
+            #               "of the ratio.")
             x = scaledOriginPointF.x()
             y = scaledOriginPointF.y()
             return (x, y)
@@ -7324,11 +7324,11 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
              scaledOriginPointF != scaledLeg2PointF:
 
             # scaledOriginPointF and scaledLeg1PointF points are the same.
-            self.log.debug("scaledOriginPointF and scaledLeg1PointF " +
-                           "are equal, so we will" +
-                           "return the scaledLeg2PointF as the " +
-                           "position of the same point as the position " +
-                           "of the ratio.")
+            #self.log.debug("scaledOriginPointF and scaledLeg1PointF " +
+            #               "are equal, so we will" +
+            #               "return the scaledLeg2PointF as the " +
+            #               "position of the same point as the position " +
+            #               "of the ratio.")
             x = scaledLeg2PointF.x()
             y = scaledLeg2PointF.y()
             return (x, y)
@@ -7337,11 +7337,11 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
              scaledOriginPointF == scaledLeg2PointF:
             
             # scaledOriginPointF and scaledLeg2PointF points are the same.
-            self.log.debug("scaledOriginPointF and scaledLeg2PointF " +
-                           "are equal, so we will" +
-                           "return the scaledLeg1PointF as the " +
-                           "position of the same point as the position " +
-                           "of the ratio.")
+            #self.log.debug("scaledOriginPointF and scaledLeg2PointF " +
+            #               "are equal, so we will" +
+            #               "return the scaledLeg1PointF as the " +
+            #               "position of the same point as the position " +
+            #               "of the ratio.")
             x = scaledLeg1PointF.x()
             y = scaledLeg1PointF.y()
             return (x, y)
@@ -7352,78 +7352,78 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
             self.log.debug("All three points are different, so " +
                            "continuing on to do the calculations.")
 
-        self.log.debug("scaledOriginPointF is: ({}, {})".\
-                       format(scaledOriginPointF.x(),
-                              scaledOriginPointF.y()))
-        self.log.debug("scaledLeg1PointF is: ({}, {})".\
-                       format(scaledLeg1PointF.x(),
-                              scaledLeg1PointF.y()))
-        self.log.debug("scaledLeg2PointF is: ({}, {})".\
-                       format(scaledLeg2PointF.x(),
-                              scaledLeg2PointF.y()))
+        #self.log.debug("scaledOriginPointF is: ({}, {})".\
+        #               format(scaledOriginPointF.x(),
+        #                      scaledOriginPointF.y()))
+        #self.log.debug("scaledLeg1PointF is: ({}, {})".\
+        #               format(scaledLeg1PointF.x(),
+        #                      scaledLeg1PointF.y()))
+        #self.log.debug("scaledLeg2PointF is: ({}, {})".\
+        #               format(scaledLeg2PointF.x(),
+        #                      scaledLeg2PointF.y()))
 
         # Calculate the angle between the two line segments.
         leg1 = QLineF(scaledOriginPointF, scaledLeg1PointF)
         leg2 = QLineF(scaledOriginPointF, scaledLeg2PointF)
 
-        self.log.debug("Angle of leg1 is: {}".format(leg1.angle()))
-        self.log.debug("Angle of leg2 is: {}".format(leg2.angle()))
+        #self.log.debug("Angle of leg1 is: {}".format(leg1.angle()))
+        #self.log.debug("Angle of leg2 is: {}".format(leg2.angle()))
         
         
         # The angle returned by QLineF.angleTo() is always normalized.
         angleDegDelta = leg1.angleTo(leg2)
 
-        self.log.debug("Angle of leg1 to leg2 is: " +
-                       "angleDegDelta == {} deg".format(angleDegDelta))
+        #self.log.debug("Angle of leg1 to leg2 is: " +
+        #               "angleDegDelta == {} deg".format(angleDegDelta))
         
         # As opposed to how things are done in the other fan tool,
         # we don't want to do any adjusting, so the below is commented out.
         #if angleDegDelta > 180:
         #    angleDegDelta -= 360
         
-        self.log.debug("Adjusted angle difference is: " + \
-                       "angleDegDelta == {} deg".format(angleDegDelta))
+        #self.log.debug("Adjusted angle difference is: " + \
+        #               "angleDegDelta == {} deg".format(angleDegDelta))
         
         # Need to maintain offsets so that if the ratios are rotated a
         # certain way, then we have the correct starting point.
         angleDegOffset = 0.0
 
-        self.log.debug("There are {} number of ratios.".\
-                       format(len(ratios)))
+        #self.log.debug("There are {} number of ratios.".\
+        #               format(len(ratios)))
 
         for i in range(len(ratios)):
             ratio = ratios[i]
             
-            self.log.debug("ratios[{}].getRatio() is: {}".\
-                           format(i, ratio.getRatio()))
+            #self.log.debug("ratios[{}].getRatio() is: {}".\
+            #               format(i, ratio.getRatio()))
             if i == 0:
                 # Store the offset for future indexes.
                 angleDegOffset = \
                     angleDegDelta * (ratio.getRatio())
 
-                self.log.debug("At i == 0.  angleDegOffset={}".\
-                               format(angleDegOffset))
+                #self.log.debug("At i == 0.  angleDegOffset={}".\
+                #               format(angleDegOffset))
                 
             if i == index:
-                self.log.debug("At the i == index, where i == {}.".format(i))
-                self.log.debug("ratio is: {}".\
-                               format(ratio.getRatio()))
+                #self.log.debug("At the i == index, where i == {}.".format(i))
+                #self.log.debug("ratio is: {}".\
+                #               format(ratio.getRatio()))
                 
                 angleDeg = \
                     (angleDegDelta * ratio.getRatio()) - \
                     angleDegOffset
 
-                self.log.debug("(angleDeg={})".format(angleDeg))
+                #self.log.debug("(angleDeg={})".format(angleDeg))
 
                 angleDeg = leg1.angle() + angleDeg
 
-                self.log.debug("Adjusting to leg point angles, (angleDeg={})".
-                               format(angleDeg))
+                #self.log.debug("Adjusting to leg point angles, (angleDeg={})".
+                #               format(angleDeg))
 
                 angleDeg = Util.toNormalizedAngle(angleDeg)
                 
-                self.log.debug("After normalizing angleDeg, (angleDeg={})".
-                               format(angleDeg))
+                #self.log.debug("After normalizing angleDeg, (angleDeg={})".
+                #               format(angleDeg))
 
                 # Now that we have the angle, determine the
                 # intersection point along the edge of the giant
@@ -7917,7 +7917,7 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
         coordinates as needed.
         """
 
-        self.log.debug("Entered getXYForRatio({})".format(index))
+        #self.log.debug("Entered getXYForRatio({})".format(index))
 
         # Get the ratios.
         ratios = self.getRatios()
@@ -7943,9 +7943,9 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
            scaledOriginPointF == scaledLeg2PointF:
 
             # All three points the same.
-            self.log.debug("All three points are the same, so we will " +
-                           "return the same point as the position " +
-                           "of the ratio.")
+            #self.log.debug("All three points are the same, so we will " +
+            #               "return the same point as the position " +
+            #               "of the ratio.")
             x = scaledOriginPointF.x()
             y = scaledOriginPointF.y()
             return (x, y)
@@ -7954,11 +7954,11 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
              scaledOriginPointF != scaledLeg2PointF:
 
             # scaledOriginPointF and scaledLeg1PointF points are the same.
-            self.log.debug("scaledOriginPointF and scaledLeg1PointF " +
-                           "are equal, so we will" +
-                           "return the scaledLeg2PointF as the " +
-                           "position of the same point as the position " +
-                           "of the ratio.")
+            #self.log.debug("scaledOriginPointF and scaledLeg1PointF " +
+            #               "are equal, so we will" +
+            #               "return the scaledLeg2PointF as the " +
+            #               "position of the same point as the position " +
+            #               "of the ratio.")
             x = scaledLeg2PointF.x()
             y = scaledLeg2PointF.y()
             return (x, y)
@@ -7967,11 +7967,11 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
              scaledOriginPointF == scaledLeg2PointF:
             
             # scaledOriginPointF and scaledLeg2PointF points are the same.
-            self.log.debug("scaledOriginPointF and scaledLeg2PointF " +
-                           "are equal, so we will" +
-                           "return the scaledLeg1PointF as the " +
-                           "position of the same point as the position " +
-                           "of the ratio.")
+            #self.log.debug("scaledOriginPointF and scaledLeg2PointF " +
+            #               "are equal, so we will" +
+            #               "return the scaledLeg1PointF as the " +
+            #               "position of the same point as the position " +
+            #               "of the ratio.")
             x = scaledLeg1PointF.x()
             y = scaledLeg1PointF.y()
             return (x, y)
@@ -7982,77 +7982,77 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
             self.log.debug("All three points are different, so " +
                            "continuing on to do the calculations.")
 
-        self.log.debug("scaledOriginPointF is: ({}, {})".\
-                       format(scaledOriginPointF.x(),
-                              scaledOriginPointF.y()))
-        self.log.debug("scaledLeg1PointF is: ({}, {})".\
-                       format(scaledLeg1PointF.x(),
-                              scaledLeg1PointF.y()))
-        self.log.debug("scaledLeg2PointF is: ({}, {})".\
-                       format(scaledLeg2PointF.x(),
-                              scaledLeg2PointF.y()))
+        #self.log.debug("scaledOriginPointF is: ({}, {})".\
+        #               format(scaledOriginPointF.x(),
+        #                      scaledOriginPointF.y()))
+        #self.log.debug("scaledLeg1PointF is: ({}, {})".\
+        #               format(scaledLeg1PointF.x(),
+        #                      scaledLeg1PointF.y()))
+        #self.log.debug("scaledLeg2PointF is: ({}, {})".\
+        #               format(scaledLeg2PointF.x(),
+        #                      scaledLeg2PointF.y()))
 
         # Calculate the angle between the two line segments.
         leg1 = QLineF(scaledOriginPointF, scaledLeg1PointF)
         leg2 = QLineF(scaledOriginPointF, scaledLeg2PointF)
 
-        self.log.debug("Angle of leg1 is: {}".format(leg1.angle()))
-        self.log.debug("Angle of leg2 is: {}".format(leg2.angle()))
+        #self.log.debug("Angle of leg1 is: {}".format(leg1.angle()))
+        #self.log.debug("Angle of leg2 is: {}".format(leg2.angle()))
         
         
         # The angle returned by QLineF.angleTo() is always normalized.
         angleDegDelta = leg1.angleTo(leg2)
 
-        self.log.debug("Angle of leg1 to leg2 is: " +
-                       "angleDegDelta == {} deg".format(angleDegDelta))
+        #self.log.debug("Angle of leg1 to leg2 is: " +
+        #               "angleDegDelta == {} deg".format(angleDegDelta))
         
         # Adjust so that the angle is between (-180 and 180].
         if angleDegDelta > 180:
             angleDegDelta -= 360
         
-        self.log.debug("Adjusted angle difference is: " + \
-                       "angleDegDelta == {} deg".format(angleDegDelta))
+        #self.log.debug("Adjusted angle difference is: " + \
+        #               "angleDegDelta == {} deg".format(angleDegDelta))
         
         # Need to maintain offsets so that if the ratios are rotated a
         # certain way, then we have the correct starting point.
         angleDegOffset = 0.0
 
-        self.log.debug("There are {} number of ratios.".\
-                       format(len(ratios)))
+        #self.log.debug("There are {} number of ratios.".\
+        #               format(len(ratios)))
 
         for i in range(len(ratios)):
             ratio = ratios[i]
             
-            self.log.debug("ratios[{}].getRatio() is: {}".\
-                           format(i, ratio.getRatio()))
+            #self.log.debug("ratios[{}].getRatio() is: {}".\
+            #               format(i, ratio.getRatio()))
             if i == 0:
                 # Store the offset for future indexes.
                 angleDegOffset = \
                     angleDegDelta * (ratio.getRatio())
 
-                self.log.debug("At i == 0.  angleDegOffset={}".\
-                               format(angleDegOffset))
+                #self.log.debug("At i == 0.  angleDegOffset={}".\
+                #               format(angleDegOffset))
                 
             if i == index:
-                self.log.debug("At the i == index, where i == {}.".format(i))
-                self.log.debug("ratio is: {}".\
-                               format(ratio.getRatio()))
+                #self.log.debug("At the i == index, where i == {}.".format(i))
+                #self.log.debug("ratio is: {}".\
+                #               format(ratio.getRatio()))
                 
                 angleDeg = \
                     (angleDegDelta * ratio.getRatio()) - \
                     angleDegOffset
 
-                self.log.debug("(angleDeg={})".format(angleDeg))
+                #self.log.debug("(angleDeg={})".format(angleDeg))
 
                 angleDeg = leg1.angle() + angleDeg
 
-                self.log.debug("Adjusting to leg point angles, (angleDeg={})".
-                               format(angleDeg))
+                #self.log.debug("Adjusting to leg point angles, (angleDeg={})".
+                #               format(angleDeg))
 
                 angleDeg = Util.toNormalizedAngle(angleDeg)
                 
-                self.log.debug("After normalizing angleDeg, (angleDeg={})".
-                               format(angleDeg))
+                #self.log.debug("After normalizing angleDeg, (angleDeg={})".
+                #               format(angleDeg))
 
                 # Now that we have the angle, determine the
                 # intersection point along the edge of the giant

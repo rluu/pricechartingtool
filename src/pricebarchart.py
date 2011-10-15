@@ -426,27 +426,28 @@ class PriceBarGraphicsItem(QGraphicsItem):
         priceRange = abs(highPrice - lowPrice)
         priceMidpoint = (highPrice + lowPrice) * 0.5
 
+        halfPriceRange = priceRange * 0.5
+
         # Draw the stem.
         x1 = 0.0
-        y1 = 1.0 * (priceRange * 0.5)
+        y1 = 1.0 * halfPriceRange
         x2 = 0.0
-        y2 = -1.0 * (priceRange * 0.5)
-        painter.drawLine(QLineF(x1, y1, x2, y2))
+        y2 = -1.0 * halfPriceRange
+        painter.drawLine(x1, y1, x2, y2)
 
         # Draw the left extension (open price).
         x1 = 0.0
         y1 = -1.0 * (openPrice - priceMidpoint)
         x2 = -1.0 * self.leftExtensionWidth
         y2 = y1
-
-        painter.drawLine(QLineF(x1, y1, x2, y2))
+        painter.drawLine(x1, y1, x2, y2)
 
         # Draw the right extension (close price).
         x1 = 0.0
         y1 = -1.0 * (closePrice - priceMidpoint)
         x2 = 1.0 * self.rightExtensionWidth
         y2 = y1
-        painter.drawLine(QLineF(x1, y1, x2, y2))
+        painter.drawLine(x1, y1, x2, y2)
 
         # Draw the bounding rect if the item is selected.
         if option.state & QStyle.State_Selected:
@@ -468,14 +469,16 @@ class PriceBarGraphicsItem(QGraphicsItem):
                 b = 0
             
             bgcolor = QColor(r, g, b)
+
+            boundingRect = self.boundingRect()
             
             painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
             painter.setBrush(Qt.NoBrush)
-            painter.drawRect(self.boundingRect())
+            painter.drawRect(boundingRect)
             
             painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
             painter.setBrush(Qt.NoBrush)
-            painter.drawRect(self.boundingRect())
+            painter.drawRect(boundingRect)
 
     def appendActionsToContextMenu(self, menu, readOnlyMode=False):
         """Modifies the given QMenu object to update the title and add
@@ -942,13 +945,15 @@ class TextGraphicsItem(PriceBarChartArtifactGraphicsItem):
             
             bgcolor = QColor(r, g, b)
             
+            boundingRect = self.boundingRect()
+            
             painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
             painter.setBrush(Qt.NoBrush)
-            painter.drawRect(self.boundingRect())
+            painter.drawRect(boundingRect)
             
             painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
             painter.setBrush(Qt.NoBrush)
-            painter.drawRect(self.boundingRect())
+            painter.drawRect(boundingRect)
 
     def appendActionsToContextMenu(self, menu, readOnlyMode=False):
         """Modifies the given QMenu object to update the title and add
@@ -1706,13 +1711,15 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
             
             bgcolor = QColor(r, g, b)
             
+            boundingRect = self.boundingRect()
+            
             painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
             painter.setBrush(Qt.NoBrush)
-            painter.drawRect(self.boundingRect())
+            painter.drawRect(boundingRect)
             
             painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
             painter.setBrush(Qt.NoBrush)
-            painter.drawRect(self.boundingRect())
+            painter.drawRect(boundingRect)
 
     def appendActionsToContextMenu(self, menu, readOnlyMode=False):
         """Modifies the given QMenu object to update the title and add
@@ -4740,7 +4747,8 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                 self.scene().sceneXPosToDatetime(x)
                             timestampText = \
                                 Ephemeris.datetimeToDayStr(timestamp)
-                            textItem.setText(timestampText)
+                            # TODO:  This below has been temporarily commented out.  Uncomment when done working without timestamps.
+                            #textItem.setText(timestampText)
 
                     # Also enable and set the vertical tick line.
                     self.verticalTickItems[i].setVisible(True)
@@ -14404,15 +14412,15 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 unscaledLeg1PointF = artifact.getLeg1PointF()
                 unscaledLeg2PointF = artifact.getLeg2PointF()
 
-                self.log.debug("unscaledOriginPointF is: ({}, {})".
-                               format(unscaledOriginPointF.x(),
-                                      unscaledOriginPointF.y()))
-                self.log.debug("unscaledLeg1PointF is: ({}, {})".
-                               format(unscaledLeg1PointF.x(),
-                                      unscaledLeg1PointF.y()))
-                self.log.debug("unscaledLeg2PointF is: ({}, {})".
-                               format(unscaledLeg2PointF.x(),
-                                      unscaledLeg2PointF.y()))
+                #self.log.debug("unscaledOriginPointF is: ({}, {})".
+                #               format(unscaledOriginPointF.x(),
+                #                      unscaledOriginPointF.y()))
+                #self.log.debug("unscaledLeg1PointF is: ({}, {})".
+                #               format(unscaledLeg1PointF.x(),
+                #                      unscaledLeg1PointF.y()))
+                #self.log.debug("unscaledLeg2PointF is: ({}, {})".
+                #               format(unscaledLeg2PointF.x(),
+                #                      unscaledLeg2PointF.y()))
 
                 # Calculate scaled originPointF, leg1PointF and
                 # leg2PointF points.
@@ -14426,15 +14434,15 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     self.convertObj.convertScenePointToScaledPoint(\
                     artifact.getLeg2PointF())
         
-                self.log.debug("scaledOriginPointF is: ({}, {})".
-                               format(scaledOriginPointF.x(),
-                                      scaledOriginPointF.y()))
-                self.log.debug("scaledLeg1PointF is: ({}, {})".
-                               format(scaledLeg1PointF.x(),
-                              scaledLeg1PointF.y()))
-                self.log.debug("scaledLeg2PointF is: ({}, {})".
-                               format(scaledLeg2PointF.x(),
-                                      scaledLeg2PointF.y()))
+                #self.log.debug("scaledOriginPointF is: ({}, {})".
+                #               format(scaledOriginPointF.x(),
+                #                      scaledOriginPointF.y()))
+                #self.log.debug("scaledLeg1PointF is: ({}, {})".
+                #               format(scaledLeg1PointF.x(),
+                #              scaledLeg1PointF.y()))
+                #self.log.debug("scaledLeg2PointF is: ({}, {})".
+                #               format(scaledLeg2PointF.x(),
+                #                      scaledLeg2PointF.y()))
 
                 # Get the x and y position that will be the new
                 # position of the text item.  This function returns
@@ -14748,20 +14756,20 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.log.debug("Entered getShapeOfLineSegment()")
         
-        self.log.debug("startPointF is: ({}, {})".\
-                       format(startPointF.x(),
-                              startPointF.y()))
-        self.log.debug("endPointF is: ({}, {})".\
-                       format(endPointF.x(),
-                              endPointF.y()))
+        #self.log.debug("startPointF is: ({}, {})".\
+        #               format(startPointF.x(),
+        #                      startPointF.y()))
+        #self.log.debug("endPointF is: ({}, {})".\
+        #               format(endPointF.x(),
+        #                      endPointF.y()))
 
-        tempRect = QRectF(startPointF, endPointF)
-        self.log.debug("Bounding rect of the two points beforehand is: " + 
-                       "x={}, y={}, w={}, h={}".\
-                       format(tempRect.x(),
-                              tempRect.y(),
-                              tempRect.width(),
-                              tempRect.height()))
+        #tempRect = QRectF(startPointF, endPointF)
+        #self.log.debug("Bounding rect of the two points beforehand is: " + 
+        #               "x={}, y={}, w={}, h={}".\
+        #               format(tempRect.x(),
+        #                      tempRect.y(),
+        #                      tempRect.width(),
+        #                      tempRect.height()))
         
         # Utilize scaling from the scene if it is available.
         scaling = PriceBarChartScaling()
@@ -14778,8 +14786,8 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         angleDeg = QLineF(viewScaledStartPoint, viewScaledEndPoint).angle()
         angleRad = math.radians(angleDeg)
 
-        self.log.debug("angleDeg is: {}".format(angleDeg))
-        self.log.debug("angleRad is: {}".format(angleRad))
+        #self.log.debug("angleDeg is: {}".format(angleDeg))
+        #self.log.debug("angleRad is: {}".format(angleRad))
 
         
         shiftX = math.sin(angleRad) * \
@@ -14790,8 +14798,8 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                      (0.5 * self.octaveFanBarHeight) / \
                      scaling.getViewScalingY()
         
-        self.log.debug("shiftX is: {}".format(shiftX))
-        self.log.debug("shiftY is: {}".format(shiftY))
+        #self.log.debug("shiftX is: {}".format(shiftX))
+        #self.log.debug("shiftY is: {}".format(shiftY))
 
         
         # Create new points.
@@ -14808,10 +14816,10 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QPointF(endPointF.x() + shiftX,
                     endPointF.y() + shiftY)
 
-        self.log.debug("p1 is: ({}, {})".format(p1.x(), p1.y()))
-        self.log.debug("p2 is: ({}, {})".format(p2.x(), p2.y()))
-        self.log.debug("p3 is: ({}, {})".format(p3.x(), p3.y()))
-        self.log.debug("p4 is: ({}, {})".format(p4.x(), p4.y()))
+        #self.log.debug("p1 is: ({}, {})".format(p1.x(), p1.y()))
+        #self.log.debug("p2 is: ({}, {})".format(p2.x(), p2.y()))
+        #self.log.debug("p3 is: ({}, {})".format(p3.x(), p3.y()))
+        #self.log.debug("p4 is: ({}, {})".format(p4.x(), p4.y()))
 
         points = [p2, p1, p3, p4, p2]
         polygon = QPolygonF(points)
@@ -14820,13 +14828,13 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         painterPath.addPolygon(polygon)
 
 
-        tempRect = painterPath.boundingRect()
-        self.log.debug("Bounding rect of polygon afterwards is: " + 
-                       "x={}, y={}, w={}, h={}".\
-                       format(tempRect.x(),
-                              tempRect.y(),
-                              tempRect.width(),
-                              tempRect.height()))
+        #tempRect = painterPath.boundingRect()
+        #self.log.debug("Bounding rect of polygon afterwards is: " + 
+        #               "x={}, y={}, w={}, h={}".\
+        #               format(tempRect.x(),
+        #                      tempRect.y(),
+        #                      tempRect.width(),
+        #                      tempRect.height()))
         
         return painterPath
 
@@ -14966,7 +14974,7 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         in local item coordinates.
         """
 
-        self.log.debug("Entered shape().")
+        #self.log.debug("Entered shape().")
 
         # Return value.
         # Holds the QPainterPath of the whole item (in local coordinates).
@@ -14977,9 +14985,9 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         scene = self.scene()
         if self.convertObj == None:
             if scene != None:
-                self.log.debug("self.convertObj wasn't set, but self.scene() " +
-                               "is not None, so we're going to set " +
-                               "self.convertObj to the scene")
+                self.log.debug("self.convertObj wasn't set, but " +
+                               "self.scene() is not None, so we're " +
+                               "going to set self.convertObj to the scene")
                 self.convertObj = self.scene()
             else:
                 self.log.debug("Both self.convertObj and " + \
@@ -14996,15 +15004,15 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 self.originPointF)
             localOriginPointF = QPointF(0.0, 0.0)
 
-            self.log.debug("sceneOriginPointF is: ({}, {})".\
-                           format(sceneOriginPointF.x(),
-                                  sceneOriginPointF.y()))
-            self.log.debug("scaledOriginPointF is: ({}, {})".\
-                           format(scaledOriginPointF.x(),
-                                  scaledOriginPointF.y()))
-            self.log.debug("localOriginPointF is: ({}, {})".\
-                           format(localOriginPointF.x(),
-                                  localOriginPointF.y()))
+            #self.log.debug("sceneOriginPointF is: ({}, {})".\
+            #               format(sceneOriginPointF.x(),
+            #                      sceneOriginPointF.y()))
+            #self.log.debug("scaledOriginPointF is: ({}, {})".\
+            #               format(scaledOriginPointF.x(),
+            #                      scaledOriginPointF.y()))
+            #self.log.debug("localOriginPointF is: ({}, {})".\
+            #               format(localOriginPointF.x(),
+            #                      localOriginPointF.y()))
                            
             # Get the leg1 point in scene, scaled, and local coordinates.
             sceneLeg1PointF = self.leg1PointF
@@ -15014,15 +15022,15 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             localLeg1PointF = QPointF(0.0, 0.0) + \
                               (self.leg1PointF - self.originPointF)
             
-            self.log.debug("sceneLeg1PointF is: ({}, {})".\
-                           format(sceneLeg1PointF.x(),
-                                  sceneLeg1PointF.y()))
-            self.log.debug("scaledLeg1PointF is: ({}, {})".\
-                           format(scaledLeg1PointF.x(),
-                                  scaledLeg1PointF.y()))
-            self.log.debug("localLeg1PointF is: ({}, {})".\
-                           format(localLeg1PointF.x(),
-                                  localLeg1PointF.y()))
+            #self.log.debug("sceneLeg1PointF is: ({}, {})".\
+            #               format(sceneLeg1PointF.x(),
+            #                      sceneLeg1PointF.y()))
+            #self.log.debug("scaledLeg1PointF is: ({}, {})".\
+            #               format(scaledLeg1PointF.x(),
+            #                      scaledLeg1PointF.y()))
+            #self.log.debug("localLeg1PointF is: ({}, {})".\
+            #               format(localLeg1PointF.x(),
+            #                      localLeg1PointF.y()))
             
             # Get the leg2 point in scene, scaled, and local coordinates.
             sceneLeg2PointF = self.leg2PointF
@@ -15032,25 +15040,25 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             localLeg2PointF = QPointF(0.0, 0.0) + \
                               (self.leg2PointF - self.originPointF)
     
-            self.log.debug("sceneLeg2PointF is: ({}, {})".\
-                           format(sceneLeg2PointF.x(),
-                                  sceneLeg2PointF.y()))
-            self.log.debug("scaledLeg2PointF is: ({}, {})".\
-                           format(scaledLeg2PointF.x(),
-                                  scaledLeg2PointF.y()))
-            self.log.debug("localLeg2PointF is: ({}, {})".\
-                           format(localLeg2PointF.x(),
-                                  localLeg2PointF.y()))
+            #self.log.debug("sceneLeg2PointF is: ({}, {})".\
+            #               format(sceneLeg2PointF.x(),
+            #                      sceneLeg2PointF.y()))
+            #self.log.debug("scaledLeg2PointF is: ({}, {})".\
+            #               format(scaledLeg2PointF.x(),
+            #                      scaledLeg2PointF.y()))
+            #self.log.debug("localLeg2PointF is: ({}, {})".\
+            #               format(localLeg2PointF.x(),
+            #                      localLeg2PointF.y()))
 
             
-            tempRect = painterPath.boundingRect()
-            self.log.debug("Before adding paths, bounding rect of " +
-                           "PainterPath is: " +
-                           "x={}, y={}, w={}, h={}".\
-                           format(tempRect.x(),
-                                  tempRect.y(),
-                                  tempRect.width(),
-                                  tempRect.height()))
+            #tempRect = painterPath.boundingRect()
+            #self.log.debug("Before adding paths, bounding rect of " +
+            #               "PainterPath is: " +
+            #               "x={}, y={}, w={}, h={}".\
+            #               format(tempRect.x(),
+            #                      tempRect.y(),
+            #                      tempRect.width(),
+            #                      tempRect.height()))
                            
             # Add the path for the shape of the line segment created by
             # points self.originPointF to self.leg1PointF.  
@@ -15059,14 +15067,14 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             painterPath.addPath(leg1PainterPath)
 
 
-            tempRect = painterPath.boundingRect()
-            self.log.debug("After adding leg1PainterPath, bounding rect of " +
-                           "PainterPath is: " +
-                           "x={}, y={}, w={}, h={}".\
-                           format(tempRect.x(),
-                                  tempRect.y(),
-                                  tempRect.width(),
-                                  tempRect.height()))
+            #tempRect = painterPath.boundingRect()
+            #self.log.debug("After adding leg1PainterPath, bounding rect of " +
+            #               "PainterPath is: " +
+            #               "x={}, y={}, w={}, h={}".\
+            #               format(tempRect.x(),
+            #                      tempRect.y(),
+            #                      tempRect.width(),
+            #                      tempRect.height()))
             
             
             # Add the path for the shape of the line segment created by
@@ -15076,14 +15084,14 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             painterPath.addPath(leg2PainterPath)
 
 
-            tempRect = painterPath.boundingRect()
-            self.log.debug("After adding leg2PainterPath, bounding rect of " +
-                           "PainterPath is: " +
-                           "x={}, y={}, w={}, h={}".\
-                           format(tempRect.x(),
-                                  tempRect.y(),
-                                  tempRect.width(),
-                                  tempRect.height()))
+            #tempRect = painterPath.boundingRect()
+            #self.log.debug("After adding leg2PainterPath, bounding rect of " +
+            #               "PainterPath is: " +
+            #               "x={}, y={}, w={}, h={}".\
+            #               format(tempRect.x(),
+            #                      tempRect.y(),
+            #                      tempRect.width(),
+            #                      tempRect.height()))
 
             
             # Go through each line of each enabled musical ratio, getting
@@ -15106,55 +15114,55 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                                       scaledLeg1PointF,
                                                       scaledLeg2PointF)
 
-                    self.log.debug("Musical ratio point X and Y for index " +
-                                   "{} in scaled coordinates is: ".format(i) +
-                                   "({}, {})".format(x, y))
+                    #self.log.debug("Musical ratio point X and Y for index " +
+                    #               "{} in scaled coordinates is: ".format(i) +
+                    #               "({}, {})".format(x, y))
                     
                     # Map those x and y to local coordinates.
                     sceneEndPointF = \
                         self.convertObj.convertScaledPointToScenePoint(\
                         QPointF(x, y))
 
-                    self.log.debug("Mapping that point to scene coords is " + 
-                                   "({}, {})".format(sceneEndPointF.x(),
-                                                     sceneEndPointF.y()))
+                    #self.log.debug("Mapping that point to scene coords is " + 
+                    #               "({}, {})".format(sceneEndPointF.x(),
+                    #                                 sceneEndPointF.y()))
                 
                     # Do conversion to local coordinates.
                     localEndPointF = sceneEndPointF - sceneOriginPointF
     
-                    self.log.debug("Mapping that point to local coords is " + 
-                                   "({}, {})".format(localEndPointF.x(),
-                                                     localEndPointF.y()))
+                    #self.log.debug("Mapping that point to local coords is " + 
+                    #               "({}, {})".format(localEndPointF.x(),
+                    #                                 localEndPointF.y()))
                 
                     # Get the painter path.
                     endPointPainterPath = \
                         self.getShapeOfLineSegment(localOriginPointF,
                                                    localEndPointF)
 
-                    tempRect = painterPath.boundingRect()
-                    self.log.debug("Path for " +
-                                   "index {} ".format(i) +
-                                   "has bounding rect: " +
-                                   "x={}, y={}, w={}, h={}".\
-                                   format(tempRect.x(),
-                                          tempRect.y(),
-                                          tempRect.width(),
-                                          tempRect.height()))
+                    #tempRect = painterPath.boundingRect()
+                    #self.log.debug("Path for " +
+                    #               "index {} ".format(i) +
+                    #               "has bounding rect: " +
+                    #               "x={}, y={}, w={}, h={}".\
+                    #               format(tempRect.x(),
+                    #                      tempRect.y(),
+                    #                      tempRect.width(),
+                    #                      tempRect.height()))
     
                     # Add the path to 'painterPath'.
                     painterPath.addPath(endPointPainterPath)
 
 
-                    tempRect = painterPath.boundingRect()
-                    self.log.debug("After adding path for " +
-                                   "index {}, ".format(i) +
-                                   "bounding rect of " +
-                                   "PainterPath is: " +
-                                   "x={}, y={}, w={}, h={}".\
-                                   format(tempRect.x(),
-                                          tempRect.y(),
-                                          tempRect.width(),
-                                          tempRect.height()))
+                    #tempRect = painterPath.boundingRect()
+                    #self.log.debug("After adding path for " +
+                    #               "index {}, ".format(i) +
+                    #               "bounding rect of " +
+                    #               "PainterPath is: " +
+                    #               "x={}, y={}, w={}, h={}".\
+                    #               format(tempRect.x(),
+                    #                      tempRect.y(),
+                    #                      tempRect.width(),
+                    #                      tempRect.height()))
     
         else:
             # Scene doesn't exist or we can't scaling conversions.
@@ -15163,13 +15171,12 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             pass
             
 
-        self.log.debug("Exiting shape(). " +
-                       "PainterPath being returned has a bounding rect of: " + 
-                       "x={}, y={}, w={}, h={}".\
-                       format(painterPath.boundingRect().x(),
-                              painterPath.boundingRect().y(),
-                              painterPath.boundingRect().width(),
-                              painterPath.boundingRect().height()))
+        rect = painterPath.boundingRect()
+        
+        #self.log.debug("Exiting shape(). " +
+        #               "PainterPath being returned has a bounding rect of: " + 
+        #               "x={}, y={}, w={}, h={}".\
+        #               format(rect.x(), rect.y(), rect.width(), rect.height()))
 
         # The 'painterPath' should now have all the paths for the tilted
         # rectangles that make up the whole item.
@@ -15180,18 +15187,18 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         to what we want for the drawing style.
         """
 
-        self.log.debug("Entered OctaveFanGraphicsItem.paint().  " +
-                       "pos is: ({}, {})".\
-                       format(self.pos().x(), self.pos().y()) +
-                       os.linesep +
-                       "self.originPointF == ({}, {})".\
-                       format(self.originPointF.x(), self.originPointF.y()) +
-                       os.linesep +
-                       "self.leg1PointF == ({}, {})".\
-                       format(self.leg1PointF.x(), self.leg1PointF.y()) +
-                       os.linesep +
-                       "self.leg2PointF == ({}, {})".\
-                       format(self.leg2PointF.x(), self.leg2PointF.y()))
+        #self.log.debug("Entered OctaveFanGraphicsItem.paint().  " +
+        #               "pos is: ({}, {})".\
+        #               format(self.pos().x(), self.pos().y()) +
+        #               os.linesep +
+        #               "self.originPointF == ({}, {})".\
+        #               format(self.originPointF.x(), self.originPointF.y()) +
+        #               os.linesep +
+        #               "self.leg1PointF == ({}, {})".\
+        #               format(self.leg1PointF.x(), self.leg1PointF.y()) +
+        #               os.linesep +
+        #               "self.leg2PointF == ({}, {})".\
+        #               format(self.leg2PointF.x(), self.leg2PointF.y()))
         
         if painter.pen() != self.octaveFanPen:
             painter.setPen(self.octaveFanPen)
@@ -15224,23 +15231,21 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         scaledLeg1PointF = \
             self.convertObj.convertScenePointToScaledPoint(\
             self.leg1PointF)
-        localLeg1PointF = QPointF(0.0, 0.0) + \
-                          (self.leg1PointF - self.originPointF)
+        localLeg1PointF = self.leg1PointF - self.originPointF
         
         # Get the leg2 point in scene, scaled, and local coordinates.
         sceneLeg2PointF = self.leg2PointF
         scaledLeg2PointF = \
             self.convertObj.convertScenePointToScaledPoint(\
             self.leg2PointF)
-        localLeg2PointF = QPointF(0.0, 0.0) + \
-                          (self.leg2PointF - self.originPointF)
+        localLeg2PointF = self.leg2PointF - self.originPointF
 
         
         # Always draw the line from origin point to leg1 point.
-        painter.drawLine(QLineF(localOriginPointF, localLeg1PointF))
+        painter.drawLine(localOriginPointF, localLeg1PointF)
         
         # Always draw the line from origin point to leg2 point.
-        painter.drawLine(QLineF(localOriginPointF, localLeg2PointF))
+        painter.drawLine(localOriginPointF, localLeg2PointF)
 
         # For each musical ratio that is enabled, draw it as a line
         # segment from the origin point to the end point of that
@@ -15271,8 +15276,7 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 localEndPointF = sceneEndPointF - sceneOriginPointF
 
                 # Draw the line segment for this musical ratio.
-                painter.drawLine(QLineF(localOriginPointF,
-                                        localEndPointF))
+                painter.drawLine(localOriginPointF, localEndPointF)
 
         # Draw a dashed-line surrounding the item if it is selected.
         if option.state & QStyle.State_Selected:
@@ -16432,15 +16436,15 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 unscaledLeg1PointF = artifact.getLeg1PointF()
                 unscaledLeg2PointF = artifact.getLeg2PointF()
 
-                self.log.debug("unscaledOriginPointF is: ({}, {})".
-                               format(unscaledOriginPointF.x(),
-                                      unscaledOriginPointF.y()))
-                self.log.debug("unscaledLeg1PointF is: ({}, {})".
-                               format(unscaledLeg1PointF.x(),
-                                      unscaledLeg1PointF.y()))
-                self.log.debug("unscaledLeg2PointF is: ({}, {})".
-                               format(unscaledLeg2PointF.x(),
-                                      unscaledLeg2PointF.y()))
+                #self.log.debug("unscaledOriginPointF is: ({}, {})".
+                #               format(unscaledOriginPointF.x(),
+                #                      unscaledOriginPointF.y()))
+                #self.log.debug("unscaledLeg1PointF is: ({}, {})".
+                #               format(unscaledLeg1PointF.x(),
+                #                      unscaledLeg1PointF.y()))
+                #self.log.debug("unscaledLeg2PointF is: ({}, {})".
+                #               format(unscaledLeg2PointF.x(),
+                #                      unscaledLeg2PointF.y()))
 
                 # Calculate scaled originPointF, leg1PointF and
                 # leg2PointF points.
@@ -16454,15 +16458,15 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     self.convertObj.convertScenePointToScaledPoint(\
                     artifact.getLeg2PointF())
         
-                self.log.debug("scaledOriginPointF is: ({}, {})".
-                               format(scaledOriginPointF.x(),
-                                      scaledOriginPointF.y()))
-                self.log.debug("scaledLeg1PointF is: ({}, {})".
-                               format(scaledLeg1PointF.x(),
-                              scaledLeg1PointF.y()))
-                self.log.debug("scaledLeg2PointF is: ({}, {})".
-                               format(scaledLeg2PointF.x(),
-                                      scaledLeg2PointF.y()))
+                #self.log.debug("scaledOriginPointF is: ({}, {})".
+                #               format(scaledOriginPointF.x(),
+                #                      scaledOriginPointF.y()))
+                #self.log.debug("scaledLeg1PointF is: ({}, {})".
+                #               format(scaledLeg1PointF.x(),
+                #              scaledLeg1PointF.y()))
+                #self.log.debug("scaledLeg2PointF is: ({}, {})".
+                #               format(scaledLeg2PointF.x(),
+                #                      scaledLeg2PointF.y()))
 
                 # Get the x and y position that will be the new
                 # position of the text item.  This function returns
@@ -16771,20 +16775,20 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.log.debug("Entered getShapeOfLineSegment()")
         
-        self.log.debug("startPointF is: ({}, {})".\
-                       format(startPointF.x(),
-                              startPointF.y()))
-        self.log.debug("endPointF is: ({}, {})".\
-                       format(endPointF.x(),
-                              endPointF.y()))
+        #self.log.debug("startPointF is: ({}, {})".\
+        #               format(startPointF.x(),
+        #                      startPointF.y()))
+        #self.log.debug("endPointF is: ({}, {})".\
+        #               format(endPointF.x(),
+        #                      endPointF.y()))
 
-        tempRect = QRectF(startPointF, endPointF)
-        self.log.debug("Bounding rect of the two points beforehand is: " + 
-                       "x={}, y={}, w={}, h={}".\
-                       format(tempRect.x(),
-                              tempRect.y(),
-                              tempRect.width(),
-                              tempRect.height()))
+        #tempRect = QRectF(startPointF, endPointF)
+        #self.log.debug("Bounding rect of the two points beforehand is: " + 
+        #               "x={}, y={}, w={}, h={}".\
+        #               format(tempRect.x(),
+        #                      tempRect.y(),
+        #                      tempRect.width(),
+        #                      tempRect.height()))
         
         # Utilize scaling from the scene if it is available.
         scaling = PriceBarChartScaling()
@@ -16812,9 +16816,8 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                      (0.5 * self.fibFanBarHeight) / \
                      scaling.getViewScalingY()
         
-        self.log.debug("shiftX is: {}".format(shiftX))
-        self.log.debug("shiftY is: {}".format(shiftY))
-
+        #self.log.debug("shiftX is: {}".format(shiftX))
+        #self.log.debug("shiftY is: {}".format(shiftY))
         
         # Create new points.
         p1 = \
@@ -16830,10 +16833,10 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QPointF(endPointF.x() + shiftX,
                     endPointF.y() + shiftY)
 
-        self.log.debug("p1 is: ({}, {})".format(p1.x(), p1.y()))
-        self.log.debug("p2 is: ({}, {})".format(p2.x(), p2.y()))
-        self.log.debug("p3 is: ({}, {})".format(p3.x(), p3.y()))
-        self.log.debug("p4 is: ({}, {})".format(p4.x(), p4.y()))
+        #self.log.debug("p1 is: ({}, {})".format(p1.x(), p1.y()))
+        #self.log.debug("p2 is: ({}, {})".format(p2.x(), p2.y()))
+        #self.log.debug("p3 is: ({}, {})".format(p3.x(), p3.y()))
+        #self.log.debug("p4 is: ({}, {})".format(p4.x(), p4.y()))
 
         points = [p2, p1, p3, p4, p2]
         polygon = QPolygonF(points)
@@ -16842,13 +16845,13 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         painterPath.addPolygon(polygon)
 
 
-        tempRect = painterPath.boundingRect()
-        self.log.debug("Bounding rect of polygon afterwards is: " + 
-                       "x={}, y={}, w={}, h={}".\
-                       format(tempRect.x(),
-                              tempRect.y(),
-                              tempRect.width(),
-                              tempRect.height()))
+        #tempRect = painterPath.boundingRect()
+        #self.log.debug("Bounding rect of polygon afterwards is: " + 
+        #               "x={}, y={}, w={}, h={}".\
+        #               format(tempRect.x(),
+        #                      tempRect.y(),
+        #                      tempRect.width(),
+        #                      tempRect.height()))
         
         return painterPath
 
@@ -16988,7 +16991,7 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         in local item coordinates.
         """
 
-        self.log.debug("Entered shape().")
+        #self.log.debug("Entered shape().")
 
         # Return value.
         # Holds the QPainterPath of the whole item (in local coordinates).
@@ -17018,15 +17021,15 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 self.originPointF)
             localOriginPointF = QPointF(0.0, 0.0)
 
-            self.log.debug("sceneOriginPointF is: ({}, {})".\
-                           format(sceneOriginPointF.x(),
-                                  sceneOriginPointF.y()))
-            self.log.debug("scaledOriginPointF is: ({}, {})".\
-                           format(scaledOriginPointF.x(),
-                                  scaledOriginPointF.y()))
-            self.log.debug("localOriginPointF is: ({}, {})".\
-                           format(localOriginPointF.x(),
-                                  localOriginPointF.y()))
+            #self.log.debug("sceneOriginPointF is: ({}, {})".\
+            #               format(sceneOriginPointF.x(),
+            #                      sceneOriginPointF.y()))
+            #self.log.debug("scaledOriginPointF is: ({}, {})".\
+            #               format(scaledOriginPointF.x(),
+            #                      scaledOriginPointF.y()))
+            #self.log.debug("localOriginPointF is: ({}, {})".\
+            #               format(localOriginPointF.x(),
+            #                      localOriginPointF.y()))
                            
             # Get the leg1 point in scene, scaled, and local coordinates.
             sceneLeg1PointF = self.leg1PointF
@@ -17036,15 +17039,15 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             localLeg1PointF = QPointF(0.0, 0.0) + \
                               (self.leg1PointF - self.originPointF)
             
-            self.log.debug("sceneLeg1PointF is: ({}, {})".\
-                           format(sceneLeg1PointF.x(),
-                                  sceneLeg1PointF.y()))
-            self.log.debug("scaledLeg1PointF is: ({}, {})".\
-                           format(scaledLeg1PointF.x(),
-                                  scaledLeg1PointF.y()))
-            self.log.debug("localLeg1PointF is: ({}, {})".\
-                           format(localLeg1PointF.x(),
-                                  localLeg1PointF.y()))
+            #self.log.debug("sceneLeg1PointF is: ({}, {})".\
+            #               format(sceneLeg1PointF.x(),
+            #                      sceneLeg1PointF.y()))
+            #self.log.debug("scaledLeg1PointF is: ({}, {})".\
+            #               format(scaledLeg1PointF.x(),
+            #                      scaledLeg1PointF.y()))
+            #self.log.debug("localLeg1PointF is: ({}, {})".\
+            #               format(localLeg1PointF.x(),
+            #                      localLeg1PointF.y()))
             
             # Get the leg2 point in scene, scaled, and local coordinates.
             sceneLeg2PointF = self.leg2PointF
@@ -17054,25 +17057,25 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             localLeg2PointF = QPointF(0.0, 0.0) + \
                               (self.leg2PointF - self.originPointF)
     
-            self.log.debug("sceneLeg2PointF is: ({}, {})".\
-                           format(sceneLeg2PointF.x(),
-                                  sceneLeg2PointF.y()))
-            self.log.debug("scaledLeg2PointF is: ({}, {})".\
-                           format(scaledLeg2PointF.x(),
-                                  scaledLeg2PointF.y()))
-            self.log.debug("localLeg2PointF is: ({}, {})".\
-                           format(localLeg2PointF.x(),
-                                  localLeg2PointF.y()))
+            #self.log.debug("sceneLeg2PointF is: ({}, {})".\
+            #               format(sceneLeg2PointF.x(),
+            #                      sceneLeg2PointF.y()))
+            #self.log.debug("scaledLeg2PointF is: ({}, {})".\
+            #               format(scaledLeg2PointF.x(),
+            #                      scaledLeg2PointF.y()))
+            #self.log.debug("localLeg2PointF is: ({}, {})".\
+            #               format(localLeg2PointF.x(),
+            #                      localLeg2PointF.y()))
 
             
-            tempRect = painterPath.boundingRect()
-            self.log.debug("Before adding paths, bounding rect of " +
-                           "PainterPath is: " +
-                           "x={}, y={}, w={}, h={}".\
-                           format(tempRect.x(),
-                                  tempRect.y(),
-                                  tempRect.width(),
-                                  tempRect.height()))
+            #tempRect = painterPath.boundingRect()
+            #self.log.debug("Before adding paths, bounding rect of " +
+            #               "PainterPath is: " +
+            #               "x={}, y={}, w={}, h={}".\
+            #               format(tempRect.x(),
+            #                      tempRect.y(),
+            #                      tempRect.width(),
+            #                      tempRect.height()))
                            
             # Add the path for the shape of the line segment created by
             # points self.originPointF to self.leg1PointF.  
@@ -17081,14 +17084,14 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             painterPath.addPath(leg1PainterPath)
 
 
-            tempRect = painterPath.boundingRect()
-            self.log.debug("After adding leg1PainterPath, bounding rect of " +
-                           "PainterPath is: " +
-                           "x={}, y={}, w={}, h={}".\
-                           format(tempRect.x(),
-                                  tempRect.y(),
-                                  tempRect.width(),
-                                  tempRect.height()))
+            #tempRect = painterPath.boundingRect()
+            #self.log.debug("After adding leg1PainterPath, bounding rect of " +
+            #               "PainterPath is: " +
+            #               "x={}, y={}, w={}, h={}".\
+            #               format(tempRect.x(),
+            #                      tempRect.y(),
+            #                      tempRect.width(),
+            #                      tempRect.height()))
             
             
             # Add the path for the shape of the line segment created by
@@ -17098,14 +17101,14 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             painterPath.addPath(leg2PainterPath)
 
 
-            tempRect = painterPath.boundingRect()
-            self.log.debug("After adding leg2PainterPath, bounding rect of " +
-                           "PainterPath is: " +
-                           "x={}, y={}, w={}, h={}".\
-                           format(tempRect.x(),
-                                  tempRect.y(),
-                                  tempRect.width(),
-                                  tempRect.height()))
+            #tempRect = painterPath.boundingRect()
+            #self.log.debug("After adding leg2PainterPath, bounding rect of " +
+            #               "PainterPath is: " +
+            #               "x={}, y={}, w={}, h={}".\
+            #               format(tempRect.x(),
+            #                      tempRect.y(),
+            #                      tempRect.width(),
+            #                      tempRect.height()))
 
             
             # Go through each line of each enabled ratio, getting
@@ -17128,55 +17131,55 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                                scaledLeg1PointF,
                                                scaledLeg2PointF)
 
-                    self.log.debug("Ratio point X and Y for index " +
-                                   "{} in scaled coordinates is: ".format(i) +
-                                   "({}, {})".format(x, y))
+                    #self.log.debug("Ratio point X and Y for index " +
+                    #               "{} in scaled coordinates is: ".format(i) +
+                    #               "({}, {})".format(x, y))
                     
                     # Map those x and y to local coordinates.
                     sceneEndPointF = \
                         self.convertObj.convertScaledPointToScenePoint(\
                         QPointF(x, y))
 
-                    self.log.debug("Mapping that point to scene coords is " + 
-                                   "({}, {})".format(sceneEndPointF.x(),
-                                                     sceneEndPointF.y()))
+                    #self.log.debug("Mapping that point to scene coords is " + 
+                    #               "({}, {})".format(sceneEndPointF.x(),
+                    #                                 sceneEndPointF.y()))
                 
                     # Do conversion to local coordinates.
                     localEndPointF = sceneEndPointF - sceneOriginPointF
     
-                    self.log.debug("Mapping that point to local coords is " + 
-                                   "({}, {})".format(localEndPointF.x(),
-                                                     localEndPointF.y()))
+                    #self.log.debug("Mapping that point to local coords is " + 
+                    #               "({}, {})".format(localEndPointF.x(),
+                    #                                 localEndPointF.y()))
                 
                     # Get the painter path.
                     endPointPainterPath = \
                         self.getShapeOfLineSegment(localOriginPointF,
                                                    localEndPointF)
 
-                    tempRect = painterPath.boundingRect()
-                    self.log.debug("Path for " +
-                                   "index {} ".format(i) +
-                                   "has bounding rect: " +
-                                   "x={}, y={}, w={}, h={}".\
-                                   format(tempRect.x(),
-                                          tempRect.y(),
-                                          tempRect.width(),
-                                          tempRect.height()))
+                    #tempRect = painterPath.boundingRect()
+                    #self.log.debug("Path for " +
+                    #               "index {} ".format(i) +
+                    #               "has bounding rect: " +
+                    #               "x={}, y={}, w={}, h={}".\
+                    #               format(tempRect.x(),
+                    #                      tempRect.y(),
+                    #                      tempRect.width(),
+                    #                      tempRect.height()))
     
                     # Add the path to 'painterPath'.
                     painterPath.addPath(endPointPainterPath)
 
 
-                    tempRect = painterPath.boundingRect()
-                    self.log.debug("After adding path for " +
-                                   "index {}, ".format(i) +
-                                   "bounding rect of " +
-                                   "PainterPath is: " +
-                                   "x={}, y={}, w={}, h={}".\
-                                   format(tempRect.x(),
-                                          tempRect.y(),
-                                          tempRect.width(),
-                                          tempRect.height()))
+                    #tempRect = painterPath.boundingRect()
+                    #self.log.debug("After adding path for " +
+                    #               "index {}, ".format(i) +
+                    #               "bounding rect of " +
+                    #               "PainterPath is: " +
+                    #               "x={}, y={}, w={}, h={}".\
+                    #               format(tempRect.x(),
+                    #                      tempRect.y(),
+                    #                      tempRect.width(),
+                    #                      tempRect.height()))
     
         else:
             # Scene doesn't exist or we can't scaling conversions.
@@ -17185,13 +17188,13 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             pass
             
 
-        self.log.debug("Exiting shape(). " +
-                       "PainterPath being returned has a bounding rect of: " + 
-                       "x={}, y={}, w={}, h={}".\
-                       format(painterPath.boundingRect().x(),
-                              painterPath.boundingRect().y(),
-                              painterPath.boundingRect().width(),
-                              painterPath.boundingRect().height()))
+        #self.log.debug("Exiting shape(). " +
+        #               "PainterPath being returned has a bounding rect of: " + 
+        #               "x={}, y={}, w={}, h={}".\
+        #               format(painterPath.boundingRect().x(),
+        #                      painterPath.boundingRect().y(),
+        #                      painterPath.boundingRect().width(),
+        #                      painterPath.boundingRect().height()))
 
         # The 'painterPath' should now have all the paths for the tilted
         # rectangles that make up the whole item.
@@ -17202,18 +17205,18 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         to what we want for the drawing style.
         """
 
-        self.log.debug("Entered FibFanGraphicsItem.paint().  " +
-                       "pos is: ({}, {})".\
-                       format(self.pos().x(), self.pos().y()) +
-                       os.linesep +
-                       "self.originPointF == ({}, {})".\
-                       format(self.originPointF.x(), self.originPointF.y()) +
-                       os.linesep +
-                       "self.leg1PointF == ({}, {})".\
-                       format(self.leg1PointF.x(), self.leg1PointF.y()) +
-                       os.linesep +
-                       "self.leg2PointF == ({}, {})".\
-                       format(self.leg2PointF.x(), self.leg2PointF.y()))
+        #self.log.debug("Entered FibFanGraphicsItem.paint().  " +
+        #               "pos is: ({}, {})".\
+        #               format(self.pos().x(), self.pos().y()) +
+        #               os.linesep +
+        #               "self.originPointF == ({}, {})".\
+        #               format(self.originPointF.x(), self.originPointF.y()) +
+        #               os.linesep +
+        #               "self.leg1PointF == ({}, {})".\
+        #               format(self.leg1PointF.x(), self.leg1PointF.y()) +
+        #               os.linesep +
+        #               "self.leg2PointF == ({}, {})".\
+        #               format(self.leg2PointF.x(), self.leg2PointF.y()))
         
         if painter.pen() != self.fibFanPen:
             painter.setPen(self.fibFanPen)
@@ -17246,23 +17249,21 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         scaledLeg1PointF = \
             self.convertObj.convertScenePointToScaledPoint(\
             self.leg1PointF)
-        localLeg1PointF = QPointF(0.0, 0.0) + \
-                          (self.leg1PointF - self.originPointF)
+        localLeg1PointF = self.leg1PointF - self.originPointF
         
         # Get the leg2 point in scene, scaled, and local coordinates.
         sceneLeg2PointF = self.leg2PointF
         scaledLeg2PointF = \
             self.convertObj.convertScenePointToScaledPoint(\
             self.leg2PointF)
-        localLeg2PointF = QPointF(0.0, 0.0) + \
-                          (self.leg2PointF - self.originPointF)
+        localLeg2PointF = self.leg2PointF - self.originPointF
 
         
         # Always draw the line from origin point to leg1 point.
-        painter.drawLine(QLineF(localOriginPointF, localLeg1PointF))
+        painter.drawLine(localOriginPointF, localLeg1PointF)
         
         # Always draw the line from origin point to leg2 point.
-        painter.drawLine(QLineF(localOriginPointF, localLeg2PointF))
+        painter.drawLine(localOriginPointF, localLeg2PointF)
         
         # For each ratio that is enabled, draw it as a line
         # segment from the origin point to the end point of that
@@ -17293,8 +17294,7 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 localEndPointF = sceneEndPointF - sceneOriginPointF
 
                 # Draw the line segment for this ratio.
-                painter.drawLine(QLineF(localOriginPointF,
-                                        localEndPointF))
+                painter.drawLine(localOriginPointF, localEndPointF)
 
         # Draw a dashed-line surrounding the item if it is selected.
         if option.state & QStyle.State_Selected:
@@ -18298,15 +18298,15 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 unscaledLeg1PointF = artifact.getLeg1PointF()
                 unscaledLeg2PointF = artifact.getLeg2PointF()
 
-                self.log.debug("unscaledOriginPointF is: ({}, {})".
-                               format(unscaledOriginPointF.x(),
-                                      unscaledOriginPointF.y()))
-                self.log.debug("unscaledLeg1PointF is: ({}, {})".
-                               format(unscaledLeg1PointF.x(),
-                                      unscaledLeg1PointF.y()))
-                self.log.debug("unscaledLeg2PointF is: ({}, {})".
-                               format(unscaledLeg2PointF.x(),
-                                      unscaledLeg2PointF.y()))
+                #self.log.debug("unscaledOriginPointF is: ({}, {})".
+                #               format(unscaledOriginPointF.x(),
+                #                      unscaledOriginPointF.y()))
+                #self.log.debug("unscaledLeg1PointF is: ({}, {})".
+                #               format(unscaledLeg1PointF.x(),
+                #                      unscaledLeg1PointF.y()))
+                #self.log.debug("unscaledLeg2PointF is: ({}, {})".
+                #               format(unscaledLeg2PointF.x(),
+                #                      unscaledLeg2PointF.y()))
 
                 # Calculate scaled originPointF, leg1PointF and
                 # leg2PointF points.
@@ -18320,15 +18320,15 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     self.convertObj.convertScenePointToScaledPoint(\
                     artifact.getLeg2PointF())
         
-                self.log.debug("scaledOriginPointF is: ({}, {})".
-                               format(scaledOriginPointF.x(),
-                                      scaledOriginPointF.y()))
-                self.log.debug("scaledLeg1PointF is: ({}, {})".
-                               format(scaledLeg1PointF.x(),
-                              scaledLeg1PointF.y()))
-                self.log.debug("scaledLeg2PointF is: ({}, {})".
-                               format(scaledLeg2PointF.x(),
-                                      scaledLeg2PointF.y()))
+                #self.log.debug("scaledOriginPointF is: ({}, {})".
+                #               format(scaledOriginPointF.x(),
+                #                      scaledOriginPointF.y()))
+                #self.log.debug("scaledLeg1PointF is: ({}, {})".
+                #               format(scaledLeg1PointF.x(),
+                #              scaledLeg1PointF.y()))
+                #self.log.debug("scaledLeg2PointF is: ({}, {})".
+                #               format(scaledLeg2PointF.x(),
+                #                      scaledLeg2PointF.y()))
 
                 # Get the x and y position that will be the new
                 # position of the text item.  This function returns
@@ -18468,16 +18468,14 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             scaledLeg1PointF = \
                 self.convertObj.convertScenePointToScaledPoint(\
                 self.leg1PointF)
-            localLeg1PointF = QPointF(0.0, 0.0) + \
-                              (self.leg1PointF - self.originPointF)
+            localLeg1PointF = self.leg1PointF - self.originPointF
             
             # Get the leg2 point in scene, scaled, and local coordinates.
             sceneLeg2PointF = self.leg2PointF
             scaledLeg2PointF = \
                 self.convertObj.convertScenePointToScaledPoint(\
                 self.leg2PointF)
-            localLeg2PointF = QPointF(0.0, 0.0) + \
-                              (self.leg2PointF - self.originPointF)
+            localLeg2PointF = self.leg2PointF - self.originPointF
 
 
             # Go through each ratio.
@@ -18637,20 +18635,20 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.log.debug("Entered getShapeOfLineSegment()")
         
-        self.log.debug("startPointF is: ({}, {})".\
-                       format(startPointF.x(),
-                              startPointF.y()))
-        self.log.debug("endPointF is: ({}, {})".\
-                       format(endPointF.x(),
-                              endPointF.y()))
+        #self.log.debug("startPointF is: ({}, {})".\
+        #               format(startPointF.x(),
+        #                      startPointF.y()))
+        #self.log.debug("endPointF is: ({}, {})".\
+        #               format(endPointF.x(),
+        #                      endPointF.y()))
 
-        tempRect = QRectF(startPointF, endPointF)
-        self.log.debug("Bounding rect of the two points beforehand is: " + 
-                       "x={}, y={}, w={}, h={}".\
-                       format(tempRect.x(),
-                              tempRect.y(),
-                              tempRect.width(),
-                              tempRect.height()))
+        #tempRect = QRectF(startPointF, endPointF)
+        #self.log.debug("Bounding rect of the two points beforehand is: " + 
+        #               "x={}, y={}, w={}, h={}".\
+        #               format(tempRect.x(),
+        #                      tempRect.y(),
+        #                      tempRect.width(),
+        #                      tempRect.height()))
         
         # Utilize scaling from the scene if it is available.
         scaling = PriceBarChartScaling()
@@ -18667,8 +18665,8 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         angleDeg = QLineF(viewScaledStartPoint, viewScaledEndPoint).angle()
         angleRad = math.radians(angleDeg)
 
-        self.log.debug("angleDeg is: {}".format(angleDeg))
-        self.log.debug("angleRad is: {}".format(angleRad))
+        #self.log.debug("angleDeg is: {}".format(angleDeg))
+        #self.log.debug("angleRad is: {}".format(angleRad))
 
         shiftX = math.sin(angleRad) * \
                      (0.5 * self.gannFanBarHeight) / \
@@ -18678,8 +18676,8 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                      (0.5 * self.gannFanBarHeight) / \
                      scaling.getViewScalingY()
         
-        self.log.debug("shiftX is: {}".format(shiftX))
-        self.log.debug("shiftY is: {}".format(shiftY))
+        #self.log.debug("shiftX is: {}".format(shiftX))
+        #self.log.debug("shiftY is: {}".format(shiftY))
 
         
         # Create new points.
@@ -18696,10 +18694,10 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QPointF(endPointF.x() + shiftX,
                     endPointF.y() + shiftY)
 
-        self.log.debug("p1 is: ({}, {})".format(p1.x(), p1.y()))
-        self.log.debug("p2 is: ({}, {})".format(p2.x(), p2.y()))
-        self.log.debug("p3 is: ({}, {})".format(p3.x(), p3.y()))
-        self.log.debug("p4 is: ({}, {})".format(p4.x(), p4.y()))
+        #self.log.debug("p1 is: ({}, {})".format(p1.x(), p1.y()))
+        #self.log.debug("p2 is: ({}, {})".format(p2.x(), p2.y()))
+        #self.log.debug("p3 is: ({}, {})".format(p3.x(), p3.y()))
+        #self.log.debug("p4 is: ({}, {})".format(p4.x(), p4.y()))
 
         points = [p2, p1, p3, p4, p2]
         polygon = QPolygonF(points)
@@ -18708,13 +18706,13 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         painterPath.addPolygon(polygon)
 
 
-        tempRect = painterPath.boundingRect()
-        self.log.debug("Bounding rect of polygon afterwards is: " + 
-                       "x={}, y={}, w={}, h={}".\
-                       format(tempRect.x(),
-                              tempRect.y(),
-                              tempRect.width(),
-                              tempRect.height()))
+        #tempRect = painterPath.boundingRect()
+        #self.log.debug("Bounding rect of polygon afterwards is: " + 
+        #               "x={}, y={}, w={}, h={}".\
+        #               format(tempRect.x(),
+        #                      tempRect.y(),
+        #                      tempRect.width(),
+        #                      tempRect.height()))
         
         return painterPath
 
@@ -18854,7 +18852,7 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         in local item coordinates.
         """
 
-        self.log.debug("Entered shape().")
+        #self.log.debug("Entered shape().")
 
         # Return value.
         # Holds the QPainterPath of the whole item (in local coordinates).
@@ -18884,15 +18882,15 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 self.originPointF)
             localOriginPointF = QPointF(0.0, 0.0)
 
-            self.log.debug("sceneOriginPointF is: ({}, {})".\
-                           format(sceneOriginPointF.x(),
-                                  sceneOriginPointF.y()))
-            self.log.debug("scaledOriginPointF is: ({}, {})".\
-                           format(scaledOriginPointF.x(),
-                                  scaledOriginPointF.y()))
-            self.log.debug("localOriginPointF is: ({}, {})".\
-                           format(localOriginPointF.x(),
-                                  localOriginPointF.y()))
+            #self.log.debug("sceneOriginPointF is: ({}, {})".\
+            #               format(sceneOriginPointF.x(),
+            #                      sceneOriginPointF.y()))
+            #self.log.debug("scaledOriginPointF is: ({}, {})".\
+            #               format(scaledOriginPointF.x(),
+            #                      scaledOriginPointF.y()))
+            #self.log.debug("localOriginPointF is: ({}, {})".\
+            #               format(localOriginPointF.x(),
+            #                      localOriginPointF.y()))
                            
             # Get the leg1 point in scene, scaled, and local coordinates.
             sceneLeg1PointF = self.leg1PointF
@@ -18902,15 +18900,15 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             localLeg1PointF = QPointF(0.0, 0.0) + \
                               (self.leg1PointF - self.originPointF)
             
-            self.log.debug("sceneLeg1PointF is: ({}, {})".\
-                           format(sceneLeg1PointF.x(),
-                                  sceneLeg1PointF.y()))
-            self.log.debug("scaledLeg1PointF is: ({}, {})".\
-                           format(scaledLeg1PointF.x(),
-                                  scaledLeg1PointF.y()))
-            self.log.debug("localLeg1PointF is: ({}, {})".\
-                           format(localLeg1PointF.x(),
-                                  localLeg1PointF.y()))
+            #self.log.debug("sceneLeg1PointF is: ({}, {})".\
+            #               format(sceneLeg1PointF.x(),
+            #                      sceneLeg1PointF.y()))
+            #self.log.debug("scaledLeg1PointF is: ({}, {})".\
+            #               format(scaledLeg1PointF.x(),
+            #                      scaledLeg1PointF.y()))
+            #self.log.debug("localLeg1PointF is: ({}, {})".\
+            #               format(localLeg1PointF.x(),
+            #                      localLeg1PointF.y()))
             
             # Get the leg2 point in scene, scaled, and local coordinates.
             sceneLeg2PointF = self.leg2PointF
@@ -18920,25 +18918,25 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             localLeg2PointF = QPointF(0.0, 0.0) + \
                               (self.leg2PointF - self.originPointF)
     
-            self.log.debug("sceneLeg2PointF is: ({}, {})".\
-                           format(sceneLeg2PointF.x(),
-                                  sceneLeg2PointF.y()))
-            self.log.debug("scaledLeg2PointF is: ({}, {})".\
-                           format(scaledLeg2PointF.x(),
-                                  scaledLeg2PointF.y()))
-            self.log.debug("localLeg2PointF is: ({}, {})".\
-                           format(localLeg2PointF.x(),
-                                  localLeg2PointF.y()))
+            #self.log.debug("sceneLeg2PointF is: ({}, {})".\
+            #               format(sceneLeg2PointF.x(),
+            #                      sceneLeg2PointF.y()))
+            #self.log.debug("scaledLeg2PointF is: ({}, {})".\
+            #               format(scaledLeg2PointF.x(),
+            #                      scaledLeg2PointF.y()))
+            #self.log.debug("localLeg2PointF is: ({}, {})".\
+            #               format(localLeg2PointF.x(),
+            #                      localLeg2PointF.y()))
 
             
-            tempRect = painterPath.boundingRect()
-            self.log.debug("Before adding paths, bounding rect of " +
-                           "PainterPath is: " +
-                           "x={}, y={}, w={}, h={}".\
-                           format(tempRect.x(),
-                                  tempRect.y(),
-                                  tempRect.width(),
-                                  tempRect.height()))
+            #tempRect = painterPath.boundingRect()
+            #self.log.debug("Before adding paths, bounding rect of " +
+            #               "PainterPath is: " +
+            #               "x={}, y={}, w={}, h={}".\
+            #               format(tempRect.x(),
+            #                      tempRect.y(),
+            #                      tempRect.width(),
+            #                      tempRect.height()))
                            
             # Add the path for the shape of the line segment created by
             # points self.originPointF to self.leg1PointF.  
@@ -18947,14 +18945,14 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             painterPath.addPath(leg1PainterPath)
 
 
-            tempRect = painterPath.boundingRect()
-            self.log.debug("After adding leg1PainterPath, bounding rect of " +
-                           "PainterPath is: " +
-                           "x={}, y={}, w={}, h={}".\
-                           format(tempRect.x(),
-                                  tempRect.y(),
-                                  tempRect.width(),
-                                  tempRect.height()))
+            #tempRect = painterPath.boundingRect()
+            #self.log.debug("After adding leg1PainterPath, bounding rect of " +
+            #               "PainterPath is: " +
+            #               "x={}, y={}, w={}, h={}".\
+            #               format(tempRect.x(),
+            #                      tempRect.y(),
+            #                      tempRect.width(),
+            #                      tempRect.height()))
             
             
             # Add the path for the shape of the line segment created by
@@ -18964,14 +18962,14 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             painterPath.addPath(leg2PainterPath)
 
 
-            tempRect = painterPath.boundingRect()
-            self.log.debug("After adding leg2PainterPath, bounding rect of " +
-                           "PainterPath is: " +
-                           "x={}, y={}, w={}, h={}".\
-                           format(tempRect.x(),
-                                  tempRect.y(),
-                                  tempRect.width(),
-                                  tempRect.height()))
+            #tempRect = painterPath.boundingRect()
+            #self.log.debug("After adding leg2PainterPath, bounding rect of " +
+            #               "PainterPath is: " +
+            #               "x={}, y={}, w={}, h={}".\
+            #               format(tempRect.x(),
+            #                      tempRect.y(),
+            #                      tempRect.width(),
+            #                      tempRect.height()))
 
             
             # Go through each line of each enabled ratio, getting
@@ -18994,55 +18992,55 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                                scaledLeg1PointF,
                                                scaledLeg2PointF)
 
-                    self.log.debug("Ratio point X and Y for index " +
-                                   "{} in scaled coordinates is: ".format(i) +
-                                   "({}, {})".format(x, y))
+                    #self.log.debug("Ratio point X and Y for index " +
+                    #               "{} in scaled coordinates is: ".format(i) +
+                    #               "({}, {})".format(x, y))
                     
                     # Map those x and y to local coordinates.
                     sceneEndPointF = \
                         self.convertObj.convertScaledPointToScenePoint(\
                         QPointF(x, y))
 
-                    self.log.debug("Mapping that point to scene coords is " + 
-                                   "({}, {})".format(sceneEndPointF.x(),
-                                                     sceneEndPointF.y()))
+                    #self.log.debug("Mapping that point to scene coords is " + 
+                    #               "({}, {})".format(sceneEndPointF.x(),
+                    #                                 sceneEndPointF.y()))
                 
                     # Do conversion to local coordinates.
                     localEndPointF = sceneEndPointF - sceneOriginPointF
     
-                    self.log.debug("Mapping that point to local coords is " + 
-                                   "({}, {})".format(localEndPointF.x(),
-                                                     localEndPointF.y()))
+                    #self.log.debug("Mapping that point to local coords is " + 
+                    #               "({}, {})".format(localEndPointF.x(),
+                    #                                 localEndPointF.y()))
                 
                     # Get the painter path.
                     endPointPainterPath = \
                         self.getShapeOfLineSegment(localOriginPointF,
                                                    localEndPointF)
 
-                    tempRect = painterPath.boundingRect()
-                    self.log.debug("Path for " +
-                                   "index {} ".format(i) +
-                                   "has bounding rect: " +
-                                   "x={}, y={}, w={}, h={}".\
-                                   format(tempRect.x(),
-                                          tempRect.y(),
-                                          tempRect.width(),
-                                          tempRect.height()))
+                    #tempRect = painterPath.boundingRect()
+                    #self.log.debug("Path for " +
+                    #               "index {} ".format(i) +
+                    #               "has bounding rect: " +
+                    #               "x={}, y={}, w={}, h={}".\
+                    #               format(tempRect.x(),
+                    #                      tempRect.y(),
+                    #                      tempRect.width(),
+                    #                      tempRect.height()))
     
                     # Add the path to 'painterPath'.
                     painterPath.addPath(endPointPainterPath)
 
 
-                    tempRect = painterPath.boundingRect()
-                    self.log.debug("After adding path for " +
-                                   "index {}, ".format(i) +
-                                   "bounding rect of " +
-                                   "PainterPath is: " +
-                                   "x={}, y={}, w={}, h={}".\
-                                   format(tempRect.x(),
-                                          tempRect.y(),
-                                          tempRect.width(),
-                                          tempRect.height()))
+                    #tempRect = painterPath.boundingRect()
+                    #self.log.debug("After adding path for " +
+                    #               "index {}, ".format(i) +
+                    #               "bounding rect of " +
+                    #               "PainterPath is: " +
+                    #               "x={}, y={}, w={}, h={}".\
+                    #               format(tempRect.x(),
+                    #                      tempRect.y(),
+                    #                      tempRect.width(),
+                    #                      tempRect.height()))
     
         else:
             # Scene doesn't exist or we can't scaling conversions.
@@ -19051,13 +19049,13 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             pass
             
 
-        self.log.debug("Exiting shape(). " +
-                       "PainterPath being returned has a bounding rect of: " + 
-                       "x={}, y={}, w={}, h={}".\
-                       format(painterPath.boundingRect().x(),
-                              painterPath.boundingRect().y(),
-                              painterPath.boundingRect().width(),
-                              painterPath.boundingRect().height()))
+        #self.log.debug("Exiting shape(). " +
+        #               "PainterPath being returned has a bounding rect of: " + 
+        #               "x={}, y={}, w={}, h={}".\
+        #               format(painterPath.boundingRect().x(),
+        #                      painterPath.boundingRect().y(),
+        #                      painterPath.boundingRect().width(),
+        #                      painterPath.boundingRect().height()))
 
         # The 'painterPath' should now have all the paths for the tilted
         # rectangles that make up the whole item.
@@ -19068,18 +19066,18 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         to what we want for the drawing style.
         """
 
-        self.log.debug("Entered GannFanGraphicsItem.paint().  " +
-                       "pos is: ({}, {})".\
-                       format(self.pos().x(), self.pos().y()) +
-                       os.linesep +
-                       "self.originPointF == ({}, {})".\
-                       format(self.originPointF.x(), self.originPointF.y()) +
-                       os.linesep +
-                       "self.leg1PointF == ({}, {})".\
-                       format(self.leg1PointF.x(), self.leg1PointF.y()) +
-                       os.linesep +
-                       "self.leg2PointF == ({}, {})".\
-                       format(self.leg2PointF.x(), self.leg2PointF.y()))
+        #self.log.debug("Entered GannFanGraphicsItem.paint().  " +
+        #               "pos is: ({}, {})".\
+        #               format(self.pos().x(), self.pos().y()) +
+        #               os.linesep +
+        #               "self.originPointF == ({}, {})".\
+        #               format(self.originPointF.x(), self.originPointF.y()) +
+        #               os.linesep +
+        #               "self.leg1PointF == ({}, {})".\
+        #               format(self.leg1PointF.x(), self.leg1PointF.y()) +
+        #               os.linesep +
+        #               "self.leg2PointF == ({}, {})".\
+        #               format(self.leg2PointF.x(), self.leg2PointF.y()))
         
         if painter.pen() != self.gannFanPen:
             painter.setPen(self.gannFanPen)
@@ -19112,23 +19110,21 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         scaledLeg1PointF = \
             self.convertObj.convertScenePointToScaledPoint(\
             self.leg1PointF)
-        localLeg1PointF = QPointF(0.0, 0.0) + \
-                          (self.leg1PointF - self.originPointF)
+        localLeg1PointF = self.leg1PointF - self.originPointF
         
         # Get the leg2 point in scene, scaled, and local coordinates.
         sceneLeg2PointF = self.leg2PointF
         scaledLeg2PointF = \
             self.convertObj.convertScenePointToScaledPoint(\
             self.leg2PointF)
-        localLeg2PointF = QPointF(0.0, 0.0) + \
-                          (self.leg2PointF - self.originPointF)
+        localLeg2PointF = self.leg2PointF - self.originPointF
 
         
         # Always draw the line from origin point to leg1 point.
-        painter.drawLine(QLineF(localOriginPointF, localLeg1PointF))
+        painter.drawLine(localOriginPointF, localLeg1PointF)
         
         # Always draw the line from origin point to leg2 point.
-        painter.drawLine(QLineF(localOriginPointF, localLeg2PointF))
+        painter.drawLine(localOriginPointF, localLeg2PointF)
         
         # For each ratio that is enabled, draw it as a line
         # segment from the origin point to the end point of that
@@ -19159,8 +19155,7 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 localEndPointF = sceneEndPointF - sceneOriginPointF
 
                 # Draw the line segment for this ratio.
-                painter.drawLine(QLineF(localOriginPointF,
-                                        localEndPointF))
+                painter.drawLine(localOriginPointF, localEndPointF)
 
         # Draw a dashed-line surrounding the item if it is selected.
         if option.state & QStyle.State_Selected:
@@ -34791,8 +34786,8 @@ class PriceBarChartWidget(QWidget):
         # Set the labels for the timestamps of the first and 
         # last pricebars.
         if len(priceBars) > 0:
-            firstPriceBar = priceBars[0]
-            lastPriceBar = priceBars[-1]
+            firstPriceBar = self.graphicsScene.getEarliestPriceBar()
+            lastPriceBar = self.graphicsScene.getLatestPriceBar()
 
             self.updateFirstPriceBarTimestampLabel(firstPriceBar)
             self.updateLastPriceBarTimestampLabel(lastPriceBar)
@@ -34802,6 +34797,8 @@ class PriceBarChartWidget(QWidget):
             self.updateFirstPriceBarTimestampLabel(None)
             self.updateLastPriceBarTimestampLabel(None)
             self.updateNumPriceBarsLabel(len(priceBars))
+
+            self.graphicsScene.clearCachedPriceBars()
             
         self.log.debug("Leaving loadPriceBars({} pricebars)".\
                        format(len(priceBars)))
@@ -34824,7 +34821,7 @@ class PriceBarChartWidget(QWidget):
         self.updateLastPriceBarTimestampLabel(None)
         self.updateNumPriceBarsLabel(0)
         self.updateSelectedPriceBarLabels(None)
-
+        self.graphicsScene.clearCachedPriceBars()
 
     def getPriceBarChartArtifacts(self):
         """Returns the list of PriceBarChartArtifacts that have been used
@@ -36180,6 +36177,14 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         # We need to do this to prevent segmentation faults in Qt's
         # use of a BspTreeIndex.
         self.setItemIndexMethod(QGraphicsScene.NoIndex)
+
+        # Holds references to the highest, lowest, earliest and latest
+        # PriceBars.  This is so we don't re-compute it every time we
+        # need it.  The values are set when PriceBars are loaded or cleared.
+        self.highestPriceBar = None
+        self.lowestPriceBar = None
+        self.earliestPriceBar = None
+        self.latestPriceBar = None
         
         # Adding or removing an artifact graphics item counts as
         # something changed.
@@ -36573,7 +36578,18 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         sceneY = self.convertScaledValueToPrice(scaledY)
         
         return QPointF(sceneX, sceneY)
-    
+
+    def clearCachedPriceBars(self):
+        """Clears what we pre-determined was the highest, lowest,
+        earliest and latest PriceBars.  These will be recalculated the
+        next time the user wants the reference to the specific PriceBar.
+        """
+        
+        self.highestPriceBar = None
+        self.lowestPriceBar = None
+        self.earliestPriceBar = None
+        self.latestPriceBar = None
+        
     def getEarliestPriceBar(self):
         """Goes through all the PriceBars, looking at the one that has
         the earliest timestamp.  This pricebar is returned.
@@ -36582,6 +36598,10 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         PriceBar - PriceBar object that has the earliest timestamp.
         """
 
+        # Use pre-determined value if available.
+        if self.earliestPriceBar != None:
+            return self.earliestPriceBar
+        
         earliestPriceBar = None
         
         graphicsItems = self.items()
@@ -36594,6 +36614,9 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
                     earliestPriceBar = pb
                 elif pb.timestamp < earliestPriceBar.timestamp:
                     earliestPriceBar = pb
+
+        # Cache for later usage.
+        self.earliestPriceBar = earliestPriceBar
                     
         return earliestPriceBar
 
@@ -36605,6 +36628,10 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         PriceBar - PriceBar object that has the latest timestamp.
         """
 
+        # Use pre-determined value if available.
+        if self.latestPriceBar != None:
+            return self.latestPriceBar
+        
         latestPriceBar = None
         
         graphicsItems = self.items()
@@ -36617,7 +36644,10 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
                     latestPriceBar = pb
                 elif pb.timestamp > latestPriceBar.timestamp:
                     latestPriceBar = pb
-                    
+
+        # Cache for later usage.
+        self.latestPriceBar = latestPriceBar
+        
         return latestPriceBar
 
     def getHighestPriceBar(self):
@@ -36628,6 +36658,10 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         PriceBar - PriceBar object for the highest pricebar in price.
         """
 
+        # Use pre-determined value if available.
+        if self.highestPriceBar != None:
+            return self.highestPriceBar
+        
         highestPriceBar = None
         
         graphicsItems = self.items()
@@ -36641,7 +36675,9 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
                 elif pb.hasHigherHighThan(highestPriceBar):
                     highestPriceBar = pb
                     
-        
+        # Cache for later usage.
+        self.highestPriceBar = highestPriceBar
+
         return highestPriceBar
 
     def getLowestPriceBar(self):
@@ -36652,6 +36688,10 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         PriceBar - PriceBar object for the lowest pricebar in price.
         """
 
+        # Use pre-determined value if available.
+        if self.lowestPriceBar != None:
+            return self.lowestPriceBar
+        
         lowestPriceBar = None
         
         graphicsItems = self.items()
@@ -36665,6 +36705,9 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
                 elif pb.hasLowerLowThan(lowestPriceBar):
                     lowestPriceBar = pb
         
+        # Cache for later usage.
+        self.lowestPriceBar = lowestPriceBar
+
         return lowestPriceBar
 
     def getClosestPriceBarOHLCPoint(self, pointF):
@@ -36700,6 +36743,13 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         # PriceBarGraphicsItem that is the closest.
         closestPriceBarGraphicsItem = None
         
+        # Allocate lines ahead of time so we don't have
+        # to create and destroy a whole bunch of them in the loop.
+        lineToOpen = QLineF()
+        lineToHigh = QLineF()
+        lineToLow = QLineF()
+        lineToClose = QLineF()
+
         graphicsItems = self.items()
 
         self.log.debug("PointF is: ({}, {})".format(pointF.x(), pointF.y()))
@@ -36713,34 +36763,34 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
                 lowPointF = item.getPriceBarLowScenePoint()
                 closePointF = item.getPriceBarCloseScenePoint()
 
-                self.log.debug("openPointF is: ({}, {})".
-                               format(openPointF.x(), openPointF.y()))
-                self.log.debug("highPointF is: ({}, {})".
-                               format(highPointF.x(), highPointF.y()))
-                self.log.debug("lowPointF is: ({}, {})".
-                               format(lowPointF.x(), lowPointF.y()))
-                self.log.debug("closePointF is: ({}, {})".
-                               format(closePointF.x(), closePointF.y()))
+                #self.log.debug("openPointF is: ({}, {})".
+                #               format(openPointF.x(), openPointF.y()))
+                #self.log.debug("highPointF is: ({}, {})".
+                #               format(highPointF.x(), highPointF.y()))
+                #self.log.debug("lowPointF is: ({}, {})".
+                #               format(lowPointF.x(), lowPointF.y()))
+                #self.log.debug("closePointF is: ({}, {})".
+                #               format(closePointF.x(), closePointF.y()))
 
                 # Create lines so we can get the lengths between the points.
-                lineToOpen = QLineF(pointF, openPointF)
-                lineToHigh = QLineF(pointF, highPointF)
-                lineToLow = QLineF(pointF, lowPointF)
-                lineToClose = QLineF(pointF, closePointF)
+                lineToOpen.setPoints(pointF, openPointF)
+                lineToHigh.setPoints(pointF, highPointF)
+                lineToLow.setPoints(pointF, lowPointF)
+                lineToClose.setPoints(pointF, closePointF)
 
                 lineToOpenLength = lineToOpen.length()
                 lineToHighLength = lineToHigh.length()
                 lineToLowLength = lineToLow.length()
                 lineToCloseLength = lineToClose.length()
                 
-                self.log.debug("lineToOpenLength is: {}".\
-                               format(lineToOpenLength))
-                self.log.debug("lineToHighLength is: {}".\
-                               format(lineToHighLength))
-                self.log.debug("lineToLowLength is: {}".\
-                               format(lineToLowLength))
-                self.log.debug("lineToCloseLength is: {}".\
-                               format(lineToCloseLength))
+                #self.log.debug("lineToOpenLength is: {}".\
+                #               format(lineToOpenLength))
+                #self.log.debug("lineToHighLength is: {}".\
+                #               format(lineToHighLength))
+                #self.log.debug("lineToLowLength is: {}".\
+                #               format(lineToLowLength))
+                #self.log.debug("lineToCloseLength is: {}".\
+                #               format(lineToCloseLength))
 
                 # Set the initial smallestLength as the first point if
                 # it is not set already.
@@ -36755,33 +36805,33 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
                     closestPoint = openPointF
                     smallestLength = lineToOpenLength
                     closestPriceBarGraphicsItem = item
-                    self.log.debug("New closest point is now: " +
-                                   "({}, {})".format(closestPoint.x(),
-                                                     closestPoint.y()))
+                    #self.log.debug("New closest point is now: " +
+                    #               "({}, {})".format(closestPoint.x(),
+                    #                                 closestPoint.y()))
 
                 if lineToHighLength < smallestLength:
                     closestPoint = highPointF
                     smallestLength = lineToHighLength
                     closestPriceBarGraphicsItem = item
-                    self.log.debug("New closest point is now: " +
-                                   "({}, {})".format(closestPoint.x(),
-                                                     closestPoint.y()))
+                    #self.log.debug("New closest point is now: " +
+                    #               "({}, {})".format(closestPoint.x(),
+                    #                                 closestPoint.y()))
 
                 if lineToLowLength < smallestLength:
                     closestPoint = lowPointF
                     smallestLength = lineToLowLength
                     closestPriceBarGraphicsItem = item
-                    self.log.debug("New closest point is now: " +
-                                   "({}, {})".format(closestPoint.x(),
-                                                     closestPoint.y()))
+                    #self.log.debug("New closest point is now: " +
+                    #               "({}, {})".format(closestPoint.x(),
+                    #                                 closestPoint.y()))
 
                 if lineToCloseLength < smallestLength:
                     closestPoint = closePointF
                     smallestLength = lineToCloseLength
                     closestPriceBarGraphicsItem = item
-                    self.log.debug("New closest point is now: " +
-                                   "({}, {})".format(closestPoint.x(),
-                                                     closestPoint.y()))
+                    #self.log.debug("New closest point is now: " +
+                    #               "({}, {})".format(closestPoint.x(),
+                    #                                 closestPoint.y()))
                     
         self.log.debug("Closest point is: ({}, {})".format(closestPoint.x(),
                                                            closestPoint.y()))
@@ -36831,6 +36881,17 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         self.log.debug("View-scaled PointF is: ({}, {})".\
                        format(viewScaledPointF.x(), viewScaledPointF.y()))
 
+        # Allocate the points and lines ahead of time so we don't have
+        # to create and destroy a whole bunch of them in the loop.
+        viewScaledOpenPointF = QPointF()
+        viewScaledHighPointF = QPointF()
+        viewScaledLowPointF = QPointF()
+        viewScaledClosePointF = QPointF()
+        lineToOpen = QLineF()
+        lineToHigh = QLineF()
+        lineToLow = QLineF()
+        lineToClose = QLineF()
+
         graphicsItems = self.items()
 
         for item in graphicsItems:
@@ -36851,18 +36912,25 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
                 #self.log.debug("closePointF is: ({}, {})".
                 #               format(closePointF.x(), closePointF.y()))
 
-                viewScaledOpenPointF = \
-                    QPointF(openPointF.x() * scaling.getViewScalingX(),
-                            openPointF.y() * scaling.getViewScalingY())
-                viewScaledHighPointF = \
-                    QPointF(highPointF.x() * scaling.getViewScalingX(),
-                            highPointF.y() * scaling.getViewScalingY())
-                viewScaledLowPointF = \
-                    QPointF(lowPointF.x() * scaling.getViewScalingX(),
-                            lowPointF.y() * scaling.getViewScalingY())
-                viewScaledClosePointF = \
-                    QPointF(closePointF.x() * scaling.getViewScalingX(),
-                            closePointF.y() * scaling.getViewScalingY())
+                viewScaledOpenPointF.\
+                    setX(openPointF.x() * scaling.getViewScalingX())
+                viewScaledOpenPointF.\
+                    setY(openPointF.y() * scaling.getViewScalingY())
+                
+                viewScaledHighPointF.\
+                    setX(highPointF.x() * scaling.getViewScalingX())
+                viewScaledHighPointF.\
+                    setY(highPointF.y() * scaling.getViewScalingY())
+                
+                viewScaledLowPointF.\
+                    setX(lowPointF.x() * scaling.getViewScalingX())
+                viewScaledLowPointF.\
+                    setY(lowPointF.y() * scaling.getViewScalingY())
+                
+                viewScaledClosePointF.\
+                    setX(closePointF.x() * scaling.getViewScalingX())
+                viewScaledClosePointF.\
+                    setY(closePointF.y() * scaling.getViewScalingY())
 
                 #self.log.debug("viewScaledOpenPointF is: ({}, {})".
                 #               format(viewScaledOpenPointF.x(),
@@ -36878,10 +36946,10 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
                 #                      viewScaledClosePointF.y()))
 
                 # Create lines so we can get the lengths between the points.
-                lineToOpen = QLineF(viewScaledPointF, viewScaledOpenPointF)
-                lineToHigh = QLineF(viewScaledPointF, viewScaledHighPointF)
-                lineToLow = QLineF(viewScaledPointF, viewScaledLowPointF)
-                lineToClose = QLineF(viewScaledPointF, viewScaledClosePointF)
+                lineToOpen.setPoints(viewScaledPointF, viewScaledOpenPointF)
+                lineToHigh.setPoints(viewScaledPointF, viewScaledHighPointF)
+                lineToLow.setPoints(viewScaledPointF, viewScaledLowPointF)
+                lineToClose.setPoints(viewScaledPointF, viewScaledClosePointF)
 
                 lineToOpenLength = lineToOpen.length()
                 lineToHighLength = lineToHigh.length()
@@ -36914,9 +36982,9 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
                     closestPoint = openPointF
                     smallestLength = lineToOpenLength
                     closestPriceBarGraphicsItem = item
-                    self.log.debug("New closest point is now: ({}, {})".\
-                                   format(closestPoint.x(),
-                                          closestPoint.y()))
+                    #self.log.debug("New closest point is now: ({}, {})".\
+                    #               format(closestPoint.x(),
+                    #                      closestPoint.y()))
 
                 if lineToHighLength < smallestLength:
                     # Here we are keeping the scene coordinate, not the
@@ -36924,9 +36992,9 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
                     closestPoint = highPointF
                     smallestLength = lineToHighLength
                     closestPriceBarGraphicsItem = item
-                    self.log.debug("New closest point is now: ({}, {})".\
-                                   format(closestPoint.x(),
-                                          closestPoint.y()))
+                    #self.log.debug("New closest point is now: ({}, {})".\
+                    #               format(closestPoint.x(),
+                    #                      closestPoint.y()))
 
                 if lineToLowLength < smallestLength:
                     # Here we are keeping the scene coordinate, not the
@@ -36934,9 +37002,9 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
                     closestPoint = lowPointF
                     smallestLength = lineToLowLength
                     closestPriceBarGraphicsItem = item
-                    self.log.debug("New closest point is now: ({}, {})".\
-                                   format(closestPoint.x(),
-                                          closestPoint.y()))
+                    #self.log.debug("New closest point is now: ({}, {})".\
+                    #               format(closestPoint.x(),
+                    #                      closestPoint.y()))
 
                 if lineToCloseLength < smallestLength:
                     # Here we are keeping the scene coordinate, not the
@@ -36944,9 +37012,9 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
                     closestPoint = closePointF
                     smallestLength = lineToCloseLength
                     closestPriceBarGraphicsItem = item
-                    self.log.debug("New closest point is now: ({}, {})".\
-                                   format(closestPoint.x(),
-                                          closestPoint.y()))
+                    #self.log.debug("New closest point is now: ({}, {})".\
+                    #               format(closestPoint.x(),
+                    #                      closestPoint.y()))
                     
         self.log.debug("Closest point is: ({}, {})".\
                        format(closestPoint.x(), closestPoint.y()))

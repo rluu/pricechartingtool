@@ -144,7 +144,22 @@ def parseCommandlineArgs():
 ##############################################################################
 
 if __name__=="__main__":
-    exitCode = main()
+    
+    # Program return code.
+    exitCode = 0
+
+    # Change this flag to turn on profiling.
+    # Note: When profiling is turned on, the output is printed to
+    # stdout at the time Python exits, so make sure you redirect stdout
+    # to a file if you want to analyze it!
+    turnOnProfiler = False
+
+    if turnOnProfiler == True:
+        import cProfile
+        cProfile.run("main()")
+    else:
+        exitCode = main()
+    
     sys.exit(exitCode)
 
 ##############################################################################
