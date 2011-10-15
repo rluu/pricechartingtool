@@ -4740,8 +4740,7 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                 self.scene().sceneXPosToDatetime(x)
                             timestampText = \
                                 Ephemeris.datetimeToDayStr(timestamp)
-                            # TODO:  Commented out temporarily.  Uncomment later when ready to have the timestamp text again.
-                            #textItem.setText(timestampText)
+                            textItem.setText(timestampText)
 
                     # Also enable and set the vertical tick line.
                     self.verticalTickItems[i].setVisible(True)
@@ -36176,6 +36175,11 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         # used in conversions of scene position X value to
         # datetime.datetime.
         self.timezone = pytz.utc
+
+        # Set the indexing method to be QGraphicsScene.NoIndex.
+        # We need to do this to prevent segmentation faults in Qt's
+        # use of a BspTreeIndex.
+        self.setItemIndexMethod(QGraphicsScene.NoIndex)
         
         # Adding or removing an artifact graphics item counts as
         # something changed.
@@ -41163,7 +41167,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     if self.priceTimeVectorGraphicsItem.scene() != None:
                         self.scene().\
                             removeItem(self.priceTimeVectorGraphicsItem)
-
+                        
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
                     self.priceTimeVectorGraphicsItem = None
@@ -41418,20 +41422,22 @@ class PriceBarChartGraphicsView(QGraphicsView):
                                    format(self.octaveFanGraphicsItem.pos().x(),
                                           self.octaveFanGraphicsItem.pos().y()))
 
-
+                    boundingRect = self.octaveFanGraphicsItem.boundingRect()
+                    shape = self.octaveFanGraphicsItem.shape()
+                    
                     self.log.debug("Bounding rect of item to add is: " +
                                    "x={}, y={}, w={}, h={}".\
-                       format(self.octaveFanGraphicsItem.boundingRect().x(),
-                              self.octaveFanGraphicsItem.boundingRect().y(),
-                              self.octaveFanGraphicsItem.boundingRect().width(),
-                              self.octaveFanGraphicsItem.boundingRect().height()))
+                       format(boundingRect.x(),
+                              boundingRect.y(),
+                              boundingRect.width(),
+                              boundingRect.height()))
                     
                     self.log.debug("Bounding rect of shape is: " +
                                    "x={}, y={}, w={}, h={}".\
-                       format(self.octaveFanGraphicsItem.shape().boundingRect().x(),
-                              self.octaveFanGraphicsItem.shape().boundingRect().y(),
-                              self.octaveFanGraphicsItem.shape().boundingRect().width(),
-                              self.octaveFanGraphicsItem.shape().boundingRect().height()))
+                       format(shape.boundingRect().x(),
+                              shape.boundingRect().y(),
+                              shape.boundingRect().width(),
+                              shape.boundingRect().height()))
                     
                     self.log.debug("Adding to scene...")
                     
@@ -41556,12 +41562,10 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 self.log.debug("Qt.RightButton")
                 
                 if self.clickOnePointF != None and \
-                   self.clickTwoPointF == None and \
                    self.clickThreePointF == None and \
                    self.octaveFanGraphicsItem != None:
 
                     self.log.debug("clickOnePointF != None, and " +
-                                   "clickTwoPointF == None and " +
                                    "clickThreePointF == None and " +
                                    "octaveFanGraphicsItem != None.")
                     
@@ -41681,20 +41685,22 @@ class PriceBarChartGraphicsView(QGraphicsView):
                                    format(self.fibFanGraphicsItem.pos().x(),
                                           self.fibFanGraphicsItem.pos().y()))
 
-
+                    boundingRect = self.fibFanGraphicsItem.boundingRect()
+                    shape = self.fibFanGraphicsItem.shape()
+                    
                     self.log.debug("Bounding rect of item to add is: " +
                                    "x={}, y={}, w={}, h={}".\
-                       format(self.fibFanGraphicsItem.boundingRect().x(),
-                              self.fibFanGraphicsItem.boundingRect().y(),
-                              self.fibFanGraphicsItem.boundingRect().width(),
-                              self.fibFanGraphicsItem.boundingRect().height()))
+                       format(boundingRect.x(),
+                              boundingRect.y(),
+                              boundingRect.width(),
+                              boundingRect.height()))
                     
                     self.log.debug("Bounding rect of shape is: " +
                                    "x={}, y={}, w={}, h={}".\
-                       format(self.fibFanGraphicsItem.shape().boundingRect().x(),
-                              self.fibFanGraphicsItem.shape().boundingRect().y(),
-                              self.fibFanGraphicsItem.shape().boundingRect().width(),
-                              self.fibFanGraphicsItem.shape().boundingRect().height()))
+                       format(shape.boundingRect().x(),
+                              shape.boundingRect().y(),
+                              shape.boundingRect().width(),
+                              shape.boundingRect().height()))
                     
                     self.log.debug("Adding to scene...")
                     
@@ -41819,12 +41825,10 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 self.log.debug("Qt.RightButton")
                 
                 if self.clickOnePointF != None and \
-                   self.clickTwoPointF == None and \
                    self.clickThreePointF == None and \
                    self.fibFanGraphicsItem != None:
 
                     self.log.debug("clickOnePointF != None, and " +
-                                   "clickTwoPointF == None and " +
                                    "clickThreePointF == None and " +
                                    "fibFanGraphicsItem != None.")
                     
@@ -41944,24 +41948,22 @@ class PriceBarChartGraphicsView(QGraphicsView):
                                    format(self.gannFanGraphicsItem.pos().x(),
                                           self.gannFanGraphicsItem.pos().y()))
 
-
+                    boundingRect = self.gannFanGraphicsItem.boundingRect()
+                    shape = self.gannFanGraphicsItem.shape()
+                    
                     self.log.debug("Bounding rect of item to add is: " +
                                    "x={}, y={}, w={}, h={}".\
-                       format(self.gannFanGraphicsItem.boundingRect().x(),
-                              self.gannFanGraphicsItem.boundingRect().y(),
-                              self.gannFanGraphicsItem.boundingRect().width(),
-                              self.gannFanGraphicsItem.boundingRect().height()))
+                       format(boundingRect.x(),
+                              boundingRect.y(),
+                              boundingRect.width(),
+                              boundingRect.height()))
                     
                     self.log.debug("Bounding rect of shape is: " +
                                    "x={}, y={}, w={}, h={}".\
-                       format(self.gannFanGraphicsItem.shape().\
-                              boundingRect().x(),
-                              self.gannFanGraphicsItem.shape().\
-                              boundingRect().y(),
-                              self.gannFanGraphicsItem.shape().\
-                              boundingRect().width(),
-                              self.gannFanGraphicsItem.shape().\
-                              boundingRect().height()))
+                       format(shape.boundingRect().x(),
+                              shape.boundingRect().y(),
+                              shape.boundingRect().width(),
+                              shape.boundingRect().height()))
                     
                     self.log.debug("Adding to scene...")
                     
@@ -42086,12 +42088,10 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 self.log.debug("Qt.RightButton")
                 
                 if self.clickOnePointF != None and \
-                   self.clickTwoPointF == None and \
                    self.clickThreePointF == None and \
                    self.gannFanGraphicsItem != None:
 
                     self.log.debug("clickOnePointF != None, and " +
-                                   "clickTwoPointF == None and " +
                                    "clickThreePointF == None and " +
                                    "gannFanGraphicsItem != None.")
                     
