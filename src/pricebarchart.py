@@ -4591,7 +4591,8 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     # but instead at an offset slightly below that
                     # point so that multiple texts dont' overlap
                     # each other.
-                    offsetX = (textItem.boundingRect().height() * 0.54) * j
+                    offsetX = (textItem.boundingRect().height() * \
+                               self.timeModalScaleTextYScaling * 0.95) * j
                     textItem.setPos(QPointF(pointF.x() - offsetX,
                                             pointF.y()))
                     textItem.setFont(self.timeModalScaleTextFont)
@@ -5937,7 +5938,9 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     # but instead at an offset slightly below that
                     # point so that multiple texts dont' overlap
                     # each other.
-                    offsetY = (textItem.boundingRect().height() * 0.11) * j
+                    offsetY = (textItem.boundingRect().height() * \
+                               self.priceModalScaleTextYScaling * 0.95) * j
+                    #offsetY = self.getArtifact().getBarWidth() * 1.0 * j
                     textItem.setPos(QPointF(pointF.x(),
                                             pointF.y() + offsetY))
                     textItem.setFont(self.priceModalScaleTextFont)

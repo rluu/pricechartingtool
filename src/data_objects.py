@@ -12858,7 +12858,7 @@ class PriceBarChartSettings:
     defaultTimeModalScaleGraphicsItemTextColor = QColor(Qt.black)
     
     # Default value for the TimeModalScaleGraphicsItem bar height (float).
-    defaultTimeModalScaleGraphicsItemBarHeight = 4.0
+    defaultTimeModalScaleGraphicsItemBarHeight = 20.0
 
     # Default value for the TimeModalScaleGraphicsItem font size (float).
     defaultTimeModalScaleGraphicsItemFontSize = 1.20
@@ -12885,7 +12885,7 @@ class PriceBarChartSettings:
     defaultPriceModalScaleGraphicsItemTextColor = QColor(Qt.black)
     
     # Default value for the PriceModalScaleGraphicsItem bar width (float).
-    defaultPriceModalScaleGraphicsItemBarWidth = 1.0
+    defaultPriceModalScaleGraphicsItemBarWidth = 20.0
 
     # Default value for the PriceModalScaleGraphicsItem font size (float).
     defaultPriceModalScaleGraphicsItemFontSize = 1.20

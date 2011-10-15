@@ -17,6 +17,7 @@ Note:
 
   Soybeans and some symbols may be different across provider.  
 
-  Example: PriceData uses 'S' for CBOT pit soybeans and TFC uses 'SB'
-  for CBOT pit soybeans.
+  Example: PriceData uses 'S' for CBOT pit soybeans, and TFC uses 'SB'
+  for CBOT pit soybeans and 'ZS' for CBOT electronic soybeans.
+
 

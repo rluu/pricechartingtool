@@ -22,7 +22,7 @@ SCRIPTS_DIR=$PCT_DIR/misc/DataFormatting
 TFC_EODFUTURES_SOURCE_DIR=/home/rluu/programming/DataScraper_TFCCommodityCharts/data
 
 # Trading entity symbol.
-SYMBOL=SB
+SYMBOL=ZS
 
 # Contract month letters.  (If all letters are specified, then if no
 # input files are found for a certain contract month, then the output
