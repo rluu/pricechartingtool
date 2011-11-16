@@ -3634,8 +3634,15 @@ class AstrologyChartWidget(QWidget):
         
         # Create the contents.
 
-        # Create the QGraphicsView and QGraphicsScene for the display portion.
+        # Create the QGraphicsScene.
         self.graphicsScene = QGraphicsScene()
+
+        # Set the indexing method to be QGraphicsScene.NoIndex.
+        # We need to do this to prevent segmentation faults in Qt's
+        # use of a BspTreeIndex.
+        self.graphicsScene.setItemIndexMethod(QGraphicsScene.NoIndex)
+        
+        # Create the QGraphicsView.
         self.graphicsView = AstrologyChartGraphicsView()
         self.graphicsView.setScene(self.graphicsScene)
 

@@ -4,18 +4,43 @@ Outstanding things to work on going forward:
 
 TODO:  
 
+  - Remove Sun from heliocentric astrology chart.
+  - Remove Moon and nodes from heliocentric astrology chart.
+  - Remove Earth from geocentric astrology chart.
+
+  - Add MOF, COE, etc. to astrology chart.
+
+  - Change display of degrees to use the astrology signs.
+
+  - Add lines for astrology aspects on the astrology chart.  Add to
+    app preferences settings for customizing the colors of different
+    aspects, and for orbs for each aspect.
+
+  - Change the context menu on all artifact graphics items so that
+    'Remove' action can be done via 'r' key when the context menu is
+    present.
+
+  - Add to measurement-type artifact graphics items a function that
+    will return the distance in scaled units.  When this is done, then
+    add functionality to the top of the document widget (the area
+    where high/low/open/close, current timestamp, etc. is) that will
+    print the ratio between the two measurements, in both directions.
+    So if one line has length 6 and the other has length 9, then we
+    would see:
+
+           1:1.5 and 1:0.666
+        or 1.5 and 0.666
+
+           and 
+
+           6:9 and 9:6
+
   - Improve getStockDataFromGoogle.py so that the user doesn't have to
     manually split up the queries into 15-year chunks, as is the case
     now.
 
-  - Set sensible defaults for TimeMeasurementTool (which text to have
-    displayed by default).
-
-  - Need to add the following time measurements to the time measurement tool:
-
-         DONE- Measurement in units of the ruling periods for all the
-         DONE  planets according to the vedic system.  (e.g. ayana,
-         DONE  muhurta, etc.)
+  - Consider adding the following time measurements to the time
+    measurement tool:
 
          - Later: Measurement in units of the kinds of moon/month measurements:
 
@@ -160,3 +185,16 @@ TODO:
          (rotation) to anchor or align one with the other.
 
          May need zoom for this.
+
+##############################################################################
+
+TODO's that are done:
+
+DONE  - Set sensible defaults for TimeMeasurementTool (which text to have
+DONE    displayed by default).
+
+
+DONE- Measurement in units of the ruling periods for all the
+DONE  planets according to the vedic system.  (e.g. ayana,
+DONE  muhurta, etc.)
+

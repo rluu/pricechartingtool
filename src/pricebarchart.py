@@ -4722,15 +4722,48 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                             continue
                     
                         if j == 0:
-                            # Fraction text.  This is either the
-                            # fraction (if the numerator and
+                            # The text here is either the note in a
+                            # scale (do, re, me, fa, sol, la, ti, do)
+                            # or the fraction (if the numerator and
                             # denominator are available), or the float
                             # value for the ratio.
+
+                            # The note string is obtained from the
+                            # description and is located within the
+                            # 3rd set of parenthesis.
+                            noteText = ""
+                            description = musicalRatio.getDescription()
+                            firstOpenParenPos = \
+                                description.find("(", 0)
+                            secondOpenParenPos = \
+                                description.find("(", firstOpenParenPos + 1)
+                            thirdOpenParenPos = \
+                                description.find("(", secondOpenParenPos + 1)
+                            firstCloseParenPos = \
+                                description.find(")", 0)
+                            secondCloseParenPos = \
+                                description.find(")", firstCloseParenPos + 1)
+                            thirdCloseParenPos = \
+                                description.find(")", secondCloseParenPos + 1)
                             
+                            if firstOpenParenPos != -1 and \
+                               firstCloseParenPos != -1 and \
+                               secondOpenParenPos != -1 and \
+                               secondCloseParenPos != -1 and \
+                               thirdOpenParenPos != -1 and \
+                               thirdCloseParenPos != -1:
+
+                                start = thirdOpenParenPos + 1
+                                end = thirdCloseParenPos
+                                noteText = description[start:end]
+
+                            # Get the numerator and denominator.
                             numerator = musicalRatio.getNumerator()
                             denominator = musicalRatio.getDenominator()
-                            
-                            if numerator != None and denominator != None:
+
+                            if noteText != "":
+                                textItem.setText(noteText)
+                            elif numerator != None and denominator != None:
                                 fractionText = \
                                     "{}/{}".format(numerator, denominator)
                                 textItem.setText(fractionText)
@@ -34499,12 +34532,15 @@ class PriceBarChartWidget(QWidget):
         self.numPriceBarsLabel = QLabel("")
         
         localizedTimestampStr = "Mouse time: "
-        utcTimestampStr = "Mouse time: "
+        utcTimestampStr       = "Mouse time: "
+        jdTimestampStr        = "Mouse jd:   "
         priceStr = "Mouse price: " 
         self.cursorLocalizedTimestampLabel = \
             QLabel(localizedTimestampStr)
         self.cursorUtcTimestampLabel = \
             QLabel(utcTimestampStr)
+        self.cursorJdTimestampLabel = \
+            QLabel(jdTimestampStr)
         self.cursorPriceLabel = \
             QLabel(priceStr)
 
@@ -34534,6 +34570,7 @@ class PriceBarChartWidget(QWidget):
         smallMonospacedFont.setPointSize(7)
         self.cursorLocalizedTimestampLabel.setFont(smallMonospacedFont)
         self.cursorUtcTimestampLabel.setFont(smallMonospacedFont)
+        self.cursorJdTimestampLabel.setFont(smallMonospacedFont)
         self.cursorPriceLabel.setFont(smallMonospacedFont)
         
         # Create the QGraphicsView and QGraphicsScene for the display portion.
@@ -34551,6 +34588,7 @@ class PriceBarChartWidget(QWidget):
         cursorInfoLayout = QVBoxLayout()
         cursorInfoLayout.addWidget(self.cursorLocalizedTimestampLabel)
         cursorInfoLayout.addWidget(self.cursorUtcTimestampLabel)
+        cursorInfoLayout.addWidget(self.cursorJdTimestampLabel)
         cursorInfoLayout.addWidget(self.cursorPriceLabel)
        
         priceBarPricesLayout = QVBoxLayout()
@@ -34692,7 +34730,8 @@ class PriceBarChartWidget(QWidget):
         """
 
         localizedTimestampStr = "Mouse time: "
-        utcTimestampStr = "Mouse time: "
+        utcTimestampStr       = "Mouse time: "
+        jdTimestampStr        = "Mouse jd:   "
         priceStr = "Mouse price: " 
 
         # Set the values if the X and Y positions are valid.
@@ -34706,11 +34745,14 @@ class PriceBarChartWidget(QWidget):
             localizedTimestampStr += Ephemeris.datetimeToDayStr(timestamp)
             utcTimestampStr += \
                 Ephemeris.datetimeToDayStr(timestamp.astimezone(pytz.utc))
+            jdTimestampStr += \
+                str(Ephemeris.datetimeToJulianDay(timestamp))
             priceStr += "{}".format(price)
 
         # Actually set the text to the widgets.
         self.cursorLocalizedTimestampLabel.setText(localizedTimestampStr)
         self.cursorUtcTimestampLabel.setText(utcTimestampStr)
+        self.cursorJdTimestampLabel.setText(jdTimestampStr)
         self.cursorPriceLabel.setText(priceStr)
 
     def updateSelectedPriceBarLabels(self, priceBar=None):
@@ -35447,7 +35489,7 @@ class PriceBarChartWidget(QWidget):
         for item in graphicsItems:
             if isinstance(item, PriceBarChartArtifactGraphicsItem):
                 self.log.debug("Removing QGraphicsItem for artifact " + \
-                               item.toString())
+                               item.getArtifact().toString())
                 if item.scene() != None:
                     self.graphicsScene.removeItem(item)
                 
