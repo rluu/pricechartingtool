@@ -54,6 +54,11 @@ from optparse import OptionParser
 # For logging.
 import logging
 
+# For PyQt UI classes.
+from PyQt4 import QtCore
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
+
 # Include some PriceChartingTool modules.
 # This assumes that the relative directory from this script is: ../../src
 thisScriptDir = os.path.dirname(os.path.abspath(__file__))
@@ -100,6 +105,7 @@ log.setLevel(logLevel)
 
 def shutdown(rc):
     """Exits the script, but first flushes all logging handles, etc."""
+    Ephemeris.closeEphemeris()
     logging.shutdown()
     sys.exit(rc)
 
@@ -306,6 +312,20 @@ else:
 
 
 ##############################################################################
+
+# Initialize Ephemeris (required).
+Ephemeris.initialize()
+
+# Set application details so the we can use QSettings default
+# constructor later.
+appAuthor = "Ryan Luu"
+appName = "PriceChartingTool"
+QCoreApplication.setOrganizationName(appAuthor)
+QCoreApplication.setApplicationName(appName)
+
+# Create the Qt application.
+app = QApplication(sys.argv)
+app.setApplicationName(appName)
 
 # Open the PriceChartDocument file.
 log.info("Loading PriceChartDocument '{}' ...".format(pcdFile))

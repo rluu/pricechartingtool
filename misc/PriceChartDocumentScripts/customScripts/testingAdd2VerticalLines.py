@@ -10,6 +10,15 @@
 # For logging.
 import logging
 
+# For timestamps and timezone information.
+import datetime
+import pytz
+
+# For PyQt UI classes.
+from PyQt4 import QtCore
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
+
 # Include some PriceChartingTool modules.
 from ephemeris import Ephemeris
 from data_objects import *
@@ -151,10 +160,8 @@ def modifyPCDD(pcdd, tag):
     pcdd.priceBarChartArtifacts.append(line2Artifact)
 
     log.debug("Done appending two lines.")
-              
-    # TODO:  remove the below line (rv=1) during/after testing.
-    rv = 1
-    
+
+    rv = 0
     return rv
 
         
