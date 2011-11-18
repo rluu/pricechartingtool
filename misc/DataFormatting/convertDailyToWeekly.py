@@ -21,7 +21,11 @@ import copy
 # For parsing command-line options
 from optparse import OptionParser  
 
+# For logging.
+import logging
+
 import datetime
+
 
 ##############################################################################
 # Global Variables
@@ -48,6 +52,19 @@ headerLine = "\"Date\",\"Open\",\"High\",\"Low\",\"Close\",\"Volume\",\"OpenInt\
 
 # Use Windows newlines.
 newline = "\r\n"
+
+# For logging.
+logging.basicConfig(level=logging.INFO,
+                    format='%(levelname)s: %(message)s')
+moduleName = globals()['__name__']
+log = logging.getLogger(moduleName)
+
+##############################################################################
+
+def shutdown(rc):
+    """Exits the script, but first flushes all logging handles, etc."""
+    logging.shutdown()
+    sys.exit(rc)
 
 ##############################################################################
 
@@ -85,27 +102,27 @@ parser.add_option("--output-file",
 if (options.version == True):
     print(os.path.basename(sys.argv[0]) + " (Version " + VERSION + ")")
     print("By Ryan Luu, ryanluu@gmail.com")
-    sys.exit(0)
+    shutdown(0)
 
 
 if (options.inputFile == None):
-    print("Error: Please specify an input file to the " + \
-          "--input-file option.")
-    sys.exit(1)
+    log.error("Please specify an input file to the " + \
+              "--input-file option.")
+    shutdown(1)
 else:
     # Make sure the input file path is good.
     if not os.path.exists(options.inputFile):
-        print("Error: The input file provided does not exist: {}".\
-              format(options.inputFile))
-        sys.exit(1)
+        log.error("The input file provided does not exist: {}".\
+                  format(options.inputFile))
+        shutdown(1)
         
     # Save the value.
     inputFile = options.inputFile
 
 if (options.outputFile == None):
-    print("Error: Please specify an output filename to the " + \
-          "--output-file option.")
-    sys.exit(1)
+    log.error("Please specify an output filename to the " + \
+              "--output-file option.")
+    shutdown(1)
 else:
     outputFile = options.outputFile
 
@@ -137,9 +154,9 @@ with open(inputFile) as f:
             fields = line.split(",")
             numFieldsExpected = 7
             if len(fields) != numFieldsExpected:
-                print("Error: Line does not have {} data fields".\
-                      format(numFieldsExpected))
-                sys.exit(1)
+                log.error("Line does not have {} data fields".\
+                          format(numFieldsExpected))
+                shutdown(1)
             
             dateStr = fields[0].strip()
             openStr = fields[1].strip()
@@ -151,11 +168,11 @@ with open(inputFile) as f:
             
             # Make sure date is the right length.
             if len(dateStr) != 10:
-                print("Error: dateStr is not the expected number " +
-                      "of characters: " + dateStr)
-                sys.exit(1)
+                log.error("dateStr is not the expected number " +
+                          "of characters: " + dateStr)
+                shutdown(1)
                 
-            #print("DEBUG: dateStr == {}".format(dateStr))
+            log.debug("dateStr == {}".format(dateStr))
             monthStr = dateStr[0:2]
             dayStr = dateStr[3:5]
             yearStr = dateStr[6:10]
@@ -171,13 +188,13 @@ with open(inputFile) as f:
             isoWeekdayNumber = -1
             (isoYearNumber, isoWeekNumber, isoWeekdayNumber) = d.isocalendar()
             
-            #print("DEBUG: " + \
-            #      "isoYearNumber={}, isoWeekNumber={}, isoWeekdayNumber={}".\
-            #      format(isoYearNumber, isoWeekNumber, isoWeekdayNumber))
+            log.debug(\
+                  "isoYearNumber={}, isoWeekNumber={}, isoWeekdayNumber={}".\
+                  format(isoYearNumber, isoWeekNumber, isoWeekdayNumber))
             
             if currentWeekHasValues == False:
-                #print("DEBUG: currentWeekHasValues == {}".\
-                #      format(currentWeekHasValues))
+                log.debug("currentWeekHasValues == {}".\
+                          format(currentWeekHasValues))
                 
                 currentWeekDateStr = dateStr
                 currentWeekOpen = float(openStr)
@@ -193,30 +210,30 @@ with open(inputFile) as f:
                 continue
             else:
                 
-                #print("DEBUG: isoYearNumber={}, currentWeekIsoYearNumber={}".\
-                #      format(isoYearNumber, currentWeekIsoYearNumber))
-                #print("DEBUG: isoWeekNumber={}, currentWeekIsoWeekNumber={}".\
-                #      format(isoWeekNumber, currentWeekIsoWeekNumber))
+                log.debug("isoYearNumber={}, currentWeekIsoYearNumber={}".\
+                          format(isoYearNumber, currentWeekIsoYearNumber))
+                log.debug("isoWeekNumber={}, currentWeekIsoWeekNumber={}".\
+                          format(isoWeekNumber, currentWeekIsoWeekNumber))
 
                 if isoYearNumber < currentWeekIsoYearNumber:
-                    print("Error: The input file is supposed to be " + \
+                    log.error("The input file is supposed to be " + \
                           "in chronological order!  Failed at line: {}".\
                           format(line))
-                    sys.exit(1)
+                    shutdown(1)
                     
                 elif isoYearNumber == currentWeekIsoYearNumber and \
                          isoWeekNumber < currentWeekIsoWeekNumber:
-                    print("Error: The input file is supposed to be " + \
+                    log.error("The input file is supposed to be " + \
                           "in chronological order!  Failed at line: {}".\
                           format(line))
 
-                    sys.exit(1)
+                    shutdown(1)
                     
                 elif isoYearNumber == currentWeekIsoYearNumber and \
                        isoWeekNumber == currentWeekIsoWeekNumber:
                     # The new date is in the same week as 'currentWeek'.
                     # Update the values as required.
-                    print("DEBUG: Date {} is within SAME week.".\
+                    log.debug("Date {} is within SAME week.".\
                           format(d.isoformat()))
                     
                     priceValues = []
@@ -241,7 +258,7 @@ with open(inputFile) as f:
                       isoWeekNumber > currentWeekIsoWeekNumber) or \
                       (isoYearNumber > currentWeekIsoYearNumber):
                     
-                    print("DEBUG: Date {} is in a NEW week.".\
+                    log.debug("Date {} is in a NEW week.".\
                           format(d.isoformat()))
 
                     # The new date is in a week that is later than the
@@ -272,7 +289,7 @@ with open(inputFile) as f:
                     currentWeekHasValues = True
                     
                 else:
-                    print("DEBUG: Should never get here.")
+                    log.debug("Should never get here.")
                     
                     
         i += 1
@@ -291,7 +308,7 @@ with open(inputFile) as f:
         convertedLines.append(convertedLine)
 
 
-print("DEBUG: Total number of weeks in output file is: {}".\
+log.debug("Total number of weeks in output file is: {}".\
       format(len(convertedLines)))
 
 # Insert header line.
@@ -301,6 +318,7 @@ convertedLines.insert(0, headerLine)
 with open(outputFile, "w") as f:
     for line in convertedLines:
         f.write(line + newline)
-        
-print("Done.")
 
+        
+log.info("Done.")
+shutdown(0)

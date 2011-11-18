@@ -21,6 +21,9 @@ import copy
 # For parsing command-line options
 from optparse import OptionParser  
 
+# For logging.
+import logging
+
 ##############################################################################
 # Global Variables
 ##############################################################################
@@ -58,6 +61,19 @@ headerLine = "\"Date\",\"Open\",\"High\",\"Low\",\"Close\",\"Volume\",\"OpenInt\
 
 # Use Windows newlines.
 newline = "\r\n"
+
+# For logging.
+logging.basicConfig(level=logging.INFO,
+                    format='%(levelname)s: %(message)s')
+moduleName = globals()['__name__']
+log = logging.getLogger(moduleName)
+
+##############################################################################
+
+def shutdown(rc):
+    """Exits the script, but first flushes all logging handles, etc."""
+    logging.shutdown()
+    sys.exit(rc)
 
 ##############################################################################
 
@@ -110,56 +126,56 @@ parser.add_option("--earliest-two-digit-year",
 if (options.version == True):
     print(os.path.basename(sys.argv[0]) + " (Version " + VERSION + ")")
     print("By Ryan Luu, ryanluu@gmail.com")
-    sys.exit(0)
+    shutdown(0)
 
 
 if (options.sourceDataDir == None):
-    print("Error: Please specify a directory path to the " + \
+    log.error("Please specify a directory path to the " + \
           "--source-data-dir option.")
-    sys.exit(1)
+    shutdown(1)
 else:
     # Make sure the source data path is good.
     if not os.path.exists(options.sourceDataDir):
-        print("Error: Source data directory provided does not exist: {}".\
+        log.error("Source data directory provided does not exist: {}".\
               format(options.sourceDataDir))
-        sys.exit(1)
+        shutdown(1)
     if not os.path.isdir(options.sourceDataDir):
-        print("Error: Source data directory is not a directory: {}".\
+        log.error("Source data directory is not a directory: {}".\
               format(options.sourceDataDir))
-        sys.exit(1)
+        shutdown(1)
 
     # Save the value.
     sourceDataDirectory = options.sourceDataDir
 
     
 if (options.contractMonth == None):
-    print("Error: Please specify a contract month letter to the " + \
+    log.error("Please specify a contract month letter to the " + \
           "--contract-letter option.")
-    sys.exit(1)
+    shutdown(1)
 else:
     if len(options.contractMonth) > 1:
-        print("Error: Please specify only 1 letter for the contract month.")
-        sys.exit(1)
+        log.error("Please specify only 1 letter for the contract month.")
+        shutdown(1)
     elif not options.contractMonth.isalpha():
-        print("Error: Non-letter character was specified to contract month.")
-        sys.exit(1)
+        log.error("Non-letter character was specified to contract month.")
+        shutdown(1)
     else:
         # Set it to upper-case value.
         contractMonth = options.contractMonth.upper()
     
 if (options.outputFile == None):
-    print("Error: Please specify an output filename to the " + \
+    log.error("Please specify an output filename to the " + \
           "--output-file option.")
-    sys.exit(1)
+    shutdown(1)
 else:
     destinationFilename = options.outputFile
 
 if options.earliestTwoDigitYear != None:
     if not (0 <= options.earliestTwoDigitYear < 100):
-        print("Error: Please specify a non-negative number " + \
+        log.error("Please specify a non-negative number " + \
               "less than 100 to the " + \
               "--earliest-two-digit-year option.")
-        sys.exit(1)
+        shutdown(1)
     else:
         earliestTwoDigitYear = options.earliestTwoDigitYear
 
@@ -172,16 +188,16 @@ sortedListOfFiles = []
 
 for f in os.listdir(sourceDataDirectory):
     fullFilename = sourceDataDirectory + os.sep + f
-    #print("DEBUG: Looking at file: {}".format(fullFilename))
-    #print("DEBUG: Basename of file is: {}".format(f))
+    log.debug("Looking at file: {}".format(fullFilename))
+    log.debug("Basename of file is: {}".format(f))
     sortedListOfFiles.append(fullFilename)
 
-#print("DEBUG: sorting list...")
+log.debug("sorting list...")
 sortedListOfFiles.sort()
 
-#print("DEBUG: sorted list is: ")
-#for f in sortedListOfFiles:
-#    print("DEBUG: f is: {}".format(f))
+log.debug("sorted list is: ")
+for f in sortedListOfFiles:
+    log.debug("f is: {}".format(f))
 
 
 # Handle special case where the 2-digit year wraps around 00.
@@ -195,12 +211,12 @@ for f in tempList:
         if basename[i].isdigit():
             numStr += basename[i]
     if numStr == "":
-        print("Warning: numStr is empty for file: {}".format(f))
+        log.warn("numStr is empty for file: {}".format(f))
     else:
         num = int(numStr)
-        #print("DEBUG: num is: {}".format(num))
+        log.debug("num is: {}".format(num))
         if num >= earliestTwoDigitYear:
-            #print("DEBUG: appending: {}".format(f))
+            log.debug("appending: {}".format(f))
             sortedListOfFiles.append(f)
             
 # Now put into 'sortedListOfFiles' all the files that wrapped around year 2000.
@@ -211,21 +227,21 @@ for f in tempList:
         if basename[i].isdigit():
             numStr += basename[i]
     if numStr == "":
-        print("Warning: numStr is empty for file: {}".format(f))
+        log.warn("Warning: numStr is empty for file: {}".format(f))
     else:
         num = int(numStr)
-        #print("DEBUG: num is: {}".format(num))
+        log.debug("num is: {}".format(num))
         if num < earliestTwoDigitYear:
-            #print("DEBUG: appending: {}".format(f))
+            log.debug("appending: {}".format(f))
             sortedListOfFiles.append(f)
 
 # List 'sortedListOfFiles' now has all the filenames of the source CSV
 # data files, in the order we should extract dates and price data.
 
 
-#print("DEBUG: Before filtering contract month, the files are: ")
-#for f in sortedListOfFiles:
-#    print("DEBUG: f: {}".format(f))
+log.debug("Before filtering contract month, the files are: ")
+for f in sortedListOfFiles:
+    log.debug("f: {}".format(f))
 
 # Go through the list and remove the ones that aren't in the desired
 # contact month.
@@ -236,7 +252,7 @@ for f in tempList:
     numStr = ""
     foundDigit = False
     for i in range(len(basename)):
-        #print("DEBUG: basename[{}]: {}".format(i, basename[i]))
+        log.debug("basename[{}]: {}".format(i, basename[i]))
         if basename[i].isdigit():
             foundDigit = True
             numStr += basename[i]
@@ -247,35 +263,35 @@ for f in tempList:
                 if basename[i].isalpha() and \
                    basename[i].upper() == contractMonth:
 
-                    #print("DEBUG: found matching contract month.")
+                    log.debug("found matching contract month.")
                     sortedListOfFiles.append(f)
 
-#print("DEBUG: Using the following files in the following order: ")
-#for f in sortedListOfFiles:
-#    print("DEBUG: f: {}".format(f))
+log.debug("Using the following files in the following order: ")
+for f in sortedListOfFiles:
+    log.debug("f: {}".format(f))
 
 # List of all the lines that will go into the destination file.
 consolidatedDataLines = []
 consolidatedDataLines.append(headerLine)
 
 for filename in sortedListOfFiles:
-    print("Analyzing file '{}' ...".format(filename))
+    log.info("Analyzing file '{}' ...".format(filename))
     with open(filename) as f:
         i = 0
         for line in f:
             if i < linesToSkip:
-                #print("DEBUG: Skipping this line (i={}) ...".format(i))
+                log.debug("Skipping this line (i={}) ...".format(i))
                 pass
             else:
-                #print("DEBUG: Checking this line (i={}) ...".format(i))
+                log.debug("Checking this line (i={}) ...".format(i))
                 
                 # Check the number of fields.
                 fields = line.split(",")
                 numFieldsExpected = 7
                 if len(fields) != numFieldsExpected:
-                    print("Error: Line does not have {} data fields".\
+                    log.error("Line does not have {} data fields".\
                           format(numFieldsExpected))
-                    sys.exit(1)
+                    shutdown(1)
                     
                 dateStr = fields[0] 
                 #openStr = fields[1]
@@ -285,30 +301,31 @@ for filename in sortedListOfFiles:
                 #volumeStr = fields[5]
                 #openIntStr = fields[6]
 
-                #print("DEBUG: dateStr == {}".format(dateStr))
+                log.debug("dateStr == {}".format(dateStr))
                 
                 dateExistsAlready = False
                 for l in consolidatedDataLines:
                     if l.startswith(dateStr):
-                        #print("DEBUG: dateStr '{}' is old.".\
-                        #      format(dateStr))
+                        log.debug("dateStr '{}' is old.".\
+                                  format(dateStr))
                         dateExistsAlready = True
                         break
                 if dateExistsAlready == False:
-                    #print("DEBUG: dateStr '{}' is new.  Adding to list.".\
-                    #      format(dateStr))
+                    log.debug("dateStr '{}' is new.  Adding to list.".\
+                              format(dateStr))
                     consolidatedDataLines.append(line)
             i += 1
 
-print("Done reading all the files.")
-print("Writing to destination file '{}' ...".format(destinationFilename))
+log.info("Done reading all the files.")
+log.info("Writing to destination file '{}' ...".format(destinationFilename))
                     
 # Write to file, truncating if it already exists.
 with open(destinationFilename, "w") as f:
     for line in consolidatedDataLines:
         f.write(line.rstrip() + newline)
         
-print("Done.")
+log.info("Done.")
+shutdown(0)
 
 #    statinfo = os.lstat(fullFilename)
 #    self.log.debug("Most recent access time is: {}".\

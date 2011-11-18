@@ -30,6 +30,9 @@ import errno
 # For parsing command-line options
 from optparse import OptionParser  
 
+# For logging.
+import logging
+
 # For connecting to the server via HTTP
 import http.cookiejar
 import urllib
@@ -81,6 +84,18 @@ defaultHttpHeaders = \
 defaultEarliestTwoDigitYear = 28
 earliestTwoDigitYear = defaultEarliestTwoDigitYear
 
+# For logging.
+logging.basicConfig(level=logging.INFO,
+                    format='%(levelname)s: %(message)s')
+moduleName = globals()['__name__']
+log = logging.getLogger(moduleName)
+
+##############################################################################
+
+def shutdown(rc):
+    """Exits the script, but first flushes all logging handles, etc."""
+    logging.shutdown()
+    sys.exit(rc)
 
 ##############################################################################
 
@@ -92,9 +107,9 @@ def convertStringToFormattedDate(timestampStr):
 
     # Check input.
     if len(timestampStr) != 8 or timestampStr.isnumeric() == False:
-        print("Error: Timestamp string must be in the format 'YYYYYMMDD'.  " + \
+        log.error("Timestamp string must be in the format 'YYYYYMMDD'.  " + \
               "Timestamp string given was: {}".format(timestampStr))
-        sys.exit(1)
+        shutdown(1)
 
     yearStr = timestampStr[0:4]
     monthStr = timestampStr[4:6]
@@ -129,12 +144,12 @@ def convertStringToFormattedDate(timestampStr):
     day = int(dayStr)
     dayStr = "{}".format(day)
     
-    #print("DEBUG: yearStr={}, monthStr={}, dayStr={}".\
-    #      format(yearStr, monthStr, dayStr))
+    log.debug("yearStr={}, monthStr={}, dayStr={}".\
+              format(yearStr, monthStr, dayStr))
 
     rv = "{}+{}%2C+{}".format(monthStr, dayStr, yearStr)
 
-    #print("DEBUG:  returning: {}".format(rv))
+    log.debug(" returning: {}".format(rv))
     
     return rv
 
@@ -146,9 +161,9 @@ def reformatGoogleDateField(dateStr):
     
     dateFields = dateStr.split("-")
     if len(dateFields) != 3:
-        print("Error: Field for date is not in the expected format: {}".\
+        log.error("Field for date is not in the expected format: {}".\
               format(dateStr) + "  Line for this entry is: {}".format(line))
-        sys.exit(1)
+        shutdown(1)
 
     dayStr = dateFields[0]
     monthStr = dateFields[1]
@@ -156,17 +171,17 @@ def reformatGoogleDateField(dateStr):
 
     # Check inputs.
     if (len(dayStr) != 1 and len(dayStr) != 2) or (not dayStr.isnumeric()):
-        print("Error: day in dateStr is not in the expected format.  " + \
+        log.error("day in dateStr is not in the expected format.  " + \
               "dateStr given is: {}".format(dateStr))
-        sys.exit(1)
+        shutdown(1)
     if len(monthStr) != 3:
-        print("Error: month in dateStr is not in the expected format.  " + \
+        log.error("month in dateStr is not in the expected format.  " + \
               "dateStr given is: {}".format(dateStr))
-        sys.exit(1)
+        shutdown(1)
     if len(yearStr) != 2 or (not yearStr.isnumeric()):
-        print("Error: year in dateStr is not in the expected format.  " + \
+        log.error("year in dateStr is not in the expected format.  " + \
               "dateStr given is: {}".format(dateStr))
-        sys.exit(1)
+        shutdown(1)
 
     # Make sure dayStr is two characters when we're done looking at it.
     if len(dayStr) == 1:
@@ -199,9 +214,9 @@ def reformatGoogleDateField(dateStr):
     elif monthStr == "dec":
         monthStr = "12"
     else:
-        print("Error: month in dateStr is not in the expected format.  " + \
+        log.error("month in dateStr is not in the expected format.  " + \
               "dateStr given is: {}".format(dateStr))
-        sys.exit(1)
+        shutdown(1)
 
     # Convert the two-digit year to a 4-digit one.
     twoDigitYearInt = int(yearStr)
@@ -237,9 +252,9 @@ def reformatGoogleFinanceDataLine(line):
     fields = line.split(",")
     
     if len(fields) != 6:
-        print("Error: Input line from Google isn't in the expected format.  " +\
+        log.error("Input line from Google isn't in the expected format.  " +\
               "Line given is: {}".format(line))
-        sys.exit(1)
+        shutdown(1)
 
     dateStr = fields[0]
     openStr = fields[1]
@@ -251,25 +266,25 @@ def reformatGoogleFinanceDataLine(line):
         
     # Check inputs.
     if not isNumber(openStr):
-        print("Error: Field for open price is not a valid number: {}".\
+        log.error("Field for open price is not a valid number: {}".\
               format(openStr) + "  Line for this entry is: {}".format(line))
-        sys.exit(1)
+        shutdown(1)
     if not isNumber(highStr):
-        print("Error: Field for high price is not a valid number: {}".\
+        log.error("Field for high price is not a valid number: {}".\
               format(highStr) + "  Line for this entry is: {}".format(line))
-        sys.exit(1)
+        shutdown(1)
     if not isNumber(lowStr):
-        print("Error: Field for low price is not a valid number: {}".\
+        log.error("Field for low price is not a valid number: {}".\
               format(lowStr) + "  Line for this entry is: {}".format(line))
-        sys.exit(1)
+        shutdown(1)
     if not isNumber(closeStr):
-        print("Error: Field for close price is not a valid number: {}".\
+        log.error("Field for close price is not a valid number: {}".\
               format(closeStr) + "  Line for this entry is: {}".format(line))
-        sys.exit(1)
+        shutdown(1)
     if not isNumber(volumeStr):
-        print("Error: Field for volume price is not a valid number: {}".\
+        log.error("Field for volume price is not a valid number: {}".\
               format(volumeStr) + "  Line for this entry is: {}".format(line))
-        sys.exit(1)
+        shutdown(1)
 
     dateStr = reformatGoogleDateField(dateStr)
     openIntStr = "0"
@@ -283,7 +298,7 @@ def reformatGoogleFinanceDataLine(line):
                 volumeStr,
                 openIntStr)
 
-    #print("DEBUG:  Converted line from '{}' to '{}'".format(line, rv))
+    log.debug(" Converted line from '{}' to '{}'".format(line, rv))
     
     return rv
 
@@ -361,44 +376,44 @@ parser.add_option("--earliest-two-digit-year",
 if options.version == True:
     print(os.path.basename(sys.argv[0]) + " (Version " + VERSION + ")")
     print("By Ryan Luu, ryanluu@gmail.com")
-    sys.exit(0)
+    shutdown(0)
 
 
 if options.stockSymbol == None:
-    print("Error: Please specify a stock symbol to the " + \
+    log.error("Please specify a stock symbol to the " + \
           "--stock-symbol option.")
-    sys.exit(1)
+    shutdown(1)
 else:
     # Set it to upper-case value.
     stockSymbol = options.stockSymbol.strip()
 
 if options.startTimestamp == None:
-    print("Error: Please specify a starting timestamp to the " + \
+    log.error("Please specify a starting timestamp to the " + \
           "--start-timestamp option.")
-    sys.exit(1)
+    shutdown(1)
 else:
     startTimestamp = options.startTimestamp
           
 if options.endTimestamp == None:
-    print("Error: Please specify a ending timestamp to the " + \
+    log.error("Please specify a ending timestamp to the " + \
           "--end-timestamp option.")
-    sys.exit(1)
+    shutdown(1)
 else:
     endTimestamp = options.endTimestamp
           
 if options.outputFile == None:
-    print("Error: Please specify an output filename to the " + \
+    log.error("Please specify an output filename to the " + \
           "--output-file option.")
-    sys.exit(1)
+    shutdown(1)
 else:
     outputFile = options.outputFile
 
 if options.earliestTwoDigitYear != None:
     if not (0 <= options.earliestTwoDigitYear < 100):
-        print("Error: Please specify a non-negative number " + \
+        log.error("Please specify a non-negative number " + \
               "less than 100 to the " + \
               "--earliest-two-digit-year option.")
-        sys.exit(1)
+        shutdown(1)
     else:
         earliestTwoDigitYear = options.earliestTwoDigitYear
         
@@ -412,27 +427,27 @@ url = "http://www.google.com/finance/historical?q=" + stockSymbol + \
       "&enddate={}".format(formattedEndTimestamp) + \
       "&output=csv"
 
-print("Obtaining stock price data by accessing URL: {}".format(url))
+log.info("Obtaining stock price data by accessing URL: {}".format(url))
 
 opener = urllib.request.build_opener()
 request = urllib.request.Request(url)
 opener.addheaders = defaultHttpHeaders
 
-print("Opening HTTP request.")
+log.info("Opening HTTP request.")
 response = opener.open(request)
 
-print("Reading HTTP response.")
+log.info("Reading HTTP response.")
 data = response.read().decode()
 
-print("Processing and reformatting the data ...")
+log.info("Processing and reformatting the data ...")
 
-#print("DEBUG:  Data read from {} is: ***{}***".format(url, data))
+log.debug(" Data read from {} is: ***{}***".format(url, data))
 outputLines = data.split("\n")
 
 if len(outputLines) > 0:
     index = 0
     if outputLines[index].find("Date,Open,High,Low,Close,Volume") != -1:
-        #print("DEBUG: Found header line.")
+        log.debug("Found header line.")
         outputLines.pop(index)
 
 # Reverse the order of the bars, since we want the lines in our file
@@ -445,21 +460,21 @@ for line in outputLines:
         reformattedLine = reformatGoogleFinanceDataLine(line.strip())
         reformattedLines.append(reformattedLine)
 
-print("Obtained a total of {} price bars.".format(len(reformattedLines)))
+log.info("Obtained a total of {} price bars.".format(len(reformattedLines)))
 
 if len(reformattedLines) > 0:
-    print("Earliest PriceBar is: {}".format(reformattedLines[0]))
-    print("Latest   PriceBar is: {}".format(reformattedLines[-1]))
+    log.info("Earliest PriceBar is: {}".format(reformattedLines[0]))
+    log.info("Latest   PriceBar is: {}".format(reformattedLines[-1]))
       
 # Write to file, truncating if it already exists.
-print("Writing to output file '{}' ...".format(outputFile))
+log.info("Writing to output file '{}' ...".format(outputFile))
 
 with open(outputFile, "w") as f:
     f.write(headerLine + newline)
     for line in reformattedLines:
         f.write(line + newline)
         
-print("Done.")
-sys.exit(0)
+log.info("Done.")
+shutdown(0)
 
 

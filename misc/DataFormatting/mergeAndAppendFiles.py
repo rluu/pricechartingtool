@@ -27,6 +27,9 @@ import copy
 # For parsing command-line options
 from optparse import OptionParser  
 
+# For logging.
+import logging
+
 ##############################################################################
 # Global Variables
 ##############################################################################
@@ -51,6 +54,19 @@ headerLine = "\"Date\",\"Open\",\"High\",\"Low\",\"Close\",\"Volume\",\"OpenInt\
 
 # Use Windows newlines.
 newline = "\r\n"
+
+# For logging.
+logging.basicConfig(level=logging.INFO,
+                    format='%(levelname)s: %(message)s')
+moduleName = globals()['__name__']
+log = logging.getLogger(moduleName)
+
+##############################################################################
+
+def shutdown(rc):
+    """Exits the script, but first flushes all logging handles, etc."""
+    logging.shutdown()
+    sys.exit(rc)
 
 ##############################################################################
 
@@ -87,20 +103,20 @@ parser.add_option("--input-file",
 if (options.version == True):
     print(os.path.basename(sys.argv[0]) + " (Version " + VERSION + ")")
     print("By Ryan Luu, ryanluu@gmail.com")
-    sys.exit(0)
+    shutdown(0)
 
 if (options.outputFile == None):
-    print("Error: Please specify an output file to the " + \
+    log.error("Please specify an output file to the " + \
           "--output-file option.")
-    sys.exit(1)
+    shutdown(1)
 else:
     # Save the value.
     destinationFilename = options.outputFile
 
 if (options.inputFile == None or len(options.inputFile) == 0):
-    print("Error: Please specify input file(s) to the " + \
+    log.error("Please specify input file(s) to the " + \
           "--input-file option.")
-    sys.exit(1)
+    shutdown(1)
 else:
     for f in options.inputFile:
         sourceDataFiles.append(f)
@@ -129,52 +145,52 @@ def lineToComparableNumber(line):
 
     dateStrSplit = dateStr.split("/")
     if len(dateStrSplit) != 3:
-        print("ERROR: Format of the date was not 'MM/DD/YYYY'.  Line was: {}".\
+        log.error("Format of the date was not 'MM/DD/YYYY'.  Line was: {}".\
               format(line))
-        sys.exit(1)
+        shutdown(1)
 
     monthStr = dateStrSplit[0]
     dayStr = dateStrSplit[1]
     yearStr = dateStrSplit[2]
 
     if len(monthStr) != 2:
-        print("Month in the date is not two characters long")
-        sys.exit(1)
+        log.error("Month in the date is not two characters long")
+        shutdown(1)
     if len(dayStr) != 2:
-        print("Day in the date is not two characters long")
-        sys.exit(1)
+        log.error("Day in the date is not two characters long")
+        shutdown(1)
     if len(yearStr) != 4:
-        print("Year in the date is not four characters long")
-        sys.exit(1)
+        log.error("Year in the date is not four characters long")
+        shutdown(1)
 
     try:
         monthInt = int(monthStr)
         if monthInt < 1 or monthInt > 12:
-            print("Month in the date is not between 1 and 12")
-            sys.exit(1)
+            log.error("Month in the date is not between 1 and 12")
+            shutdown(1)
     except ValueError as e:
-        print("Month in the date is not a number")
-        sys.exit(1)
+        log.error("Month in the date is not a number")
+        shutdown(1)
 
     try:
         dayInt = int(dayStr)
         if dayInt < 1 or dayInt > 31:
-            print("Day in the date is not between 1 and 31")
-            sys.exit(1)
+            log.error("Day in the date is not between 1 and 31")
+            shutdown(1)
     except ValueError as e:
-        print("Day in the date is not a number")
-        sys.exit(1)
+        log.error("Day in the date is not a number")
+        shutdown(1)
 
     try:
         yearInt = int(yearStr)
     except ValueError as e:
-        print("Year in the date is not a number")
-        sys.exit(1)
+        log.error("Year in the date is not a number")
+        shutdown(1)
 
     numericalValue = int(yearStr + monthStr + dayStr)
 
-    #print("DEBUG: Convert line '{}' to numericalValue: '{}'".\
-    #      format(line, numericalValue))
+    log.debug("Convert line '{}' to numericalValue: '{}'".\
+          format(line, numericalValue))
     
     return numericalValue
 
@@ -217,26 +233,26 @@ consolidatedDataLines = []
 for filename in sourceDataFiles:
     # Make sure the source data path is good.
     if not os.path.exists(filename):
-        print("Error: Path does not exist: {}".format(filename))
-        sys.exit(1)
+        log.error("Path does not exist: {}".format(filename))
+        shutdown(1)
         
-    print("Analyzing file '{}' ...".format(filename))
+    log.info("Analyzing file '{}' ...".format(filename))
     with open(filename) as f:
         i = 0
         for line in f:
             if i < linesToSkip:
-                #print("DEBUG: Skipping this line (i={}) ...".format(i))
+                log.debug("Skipping this line (i={}) ...".format(i))
                 pass
             else:
-                #print("DEBUG: Checking this line (i={}) ...".format(i))
+                log.debug("Checking this line (i={}) ...".format(i))
                 
                 # Check the number of fields.
                 fields = line.split(",")
                 numFieldsExpected = 7
                 if len(fields) != numFieldsExpected:
-                    print("Error: Line does not have {} data fields".\
+                    log.error("Line does not have {} data fields".\
                           format(numFieldsExpected))
-                    sys.exit(1)
+                    shutdown(1)
                     
                 dateStr = fields[0] 
                 #openStr = fields[1]
@@ -246,35 +262,36 @@ for filename in sourceDataFiles:
                 #volumeStr = fields[5]
                 #openIntStr = fields[6]
 
-                #print("DEBUG: dateStr == {}".format(dateStr))
+                log.debug("dateStr == {}".format(dateStr))
                 
                 dateExistsAlready = False
                 for l in consolidatedDataLines:
                     if l.startswith(dateStr):
-                        print("DEBUG: dateStr '{}' is old.".\
+                        log.debug("dateStr '{}' is old.".\
                               format(dateStr))
                         dateExistsAlready = True
                         break
                 if dateExistsAlready == False:
-                    print("DEBUG: dateStr '{}' is new.  Adding to list.".\
+                    log.debug("dateStr '{}' is new.  Adding to list.".\
                           format(dateStr))
                     consolidatedDataLines.append(line)
             i += 1
 
-print("Done reading all the files.")
+log.info("Done reading all the files.")
 
 # Sort the consolidatedDataLines by the timestamp field.
-print("Sorting all lines by timestamp...")
+log.info("Sorting all lines by timestamp...")
 consolidatedDataLines.sort(key=cmp_to_key(compLines))
 
 # Prepend header line.
 consolidatedDataLines.insert(0, headerLine)
 
-print("Writing to destination file '{}' ...".format(destinationFilename))
+log.info("Writing to destination file '{}' ...".format(destinationFilename))
 
 # Write to file, truncating if it already exists.
 with open(destinationFilename, "w") as f:
     for line in consolidatedDataLines:
         f.write(line.rstrip() + newline)
         
-print("Done.")
+log.info("Done.")
+shutdown(0)

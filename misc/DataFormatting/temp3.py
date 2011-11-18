@@ -7,6 +7,9 @@ import sys
 import os
 import copy
 
+# For logging.
+import logging
+
 # Header line to put as the first line of text in the destination file.
 headerLine = "\"Date\",\"Open\",\"High\",\"Low\",\"Close\",\"Volume\",\"OpenInt\""
 linesToSkip = 2
@@ -17,6 +20,19 @@ outputFile = "/tmp/Wheat_Annual_England_1259_1938.txt"
 
 # Use Windows newlines.
 newline = "\r\n"
+
+# For logging.
+logging.basicConfig(level=logging.INFO,
+                    format='%(levelname)s: %(message)s')
+moduleName = globals()['__name__']
+log = logging.getLogger(moduleName)
+
+##############################################################################
+
+def shutdown(rc):
+    """Exits the script, but first flushes all logging handles, etc."""
+    logging.shutdown()
+    sys.exit(rc)
 
 ##############################################################################
 
@@ -36,12 +52,12 @@ with open(inputFile) as f:
 
             # Make sure date is the right length.
             if len(dateStr) != 10:
-                print("Error: dateStr is not the expected number " +
+                log.error("dateStr is not the expected number " +
                       "of characters: " + dateStr)
-                sys.exit(1)
+                shutdown(1)
                 
-            print("DEBUG: dateStr == ***{}***".format(dateStr))
-            print("DEBUG: priceStr == ***{}***".format(priceStr))
+            log.debug("dateStr == ***{}***".format(dateStr))
+            log.debug("priceStr == ***{}***".format(priceStr))
 
             monthStr = dateStr[0:2]
             dayStr   = dateStr[3:5]
@@ -102,5 +118,5 @@ with open(outputFile, "w") as f:
     for line in convertedLines:
         f.write(line.rstrip() + newline)
         
-print("Done.")
-
+log.info("Done.")
+shutdown(0)
