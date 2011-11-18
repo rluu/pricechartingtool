@@ -2647,7 +2647,7 @@ class MainWindow(QMainWindow):
         if pcd == None:
             return
 
-        pcd.setAstroChart1WithBirthInfo()
+        pcd.setAstroChart2WithBirthInfo()
 
     def _handleOpenAstroChart3WithBirthInfoAction(self):
         """Slot function that is called when the
@@ -2658,7 +2658,7 @@ class MainWindow(QMainWindow):
         if pcd == None:
             return
 
-        pcd.setAstroChart1WithBirthInfo()
+        pcd.setAstroChart3WithBirthInfo()
         
     def _handleOpenAstroChart1WithNowAction(self):
         """Slot function that is called when the
