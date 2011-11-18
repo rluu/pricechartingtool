@@ -280,6 +280,105 @@ class BirthInfo:
             self.log.error(errStr)
             raise ValueError(errStr)
 
+    def getBirthLocalizedDatetime(self):
+        """Takes the date, time and timezone information in this
+        object and attempts to convert it to a localized
+        datetime.datetime to be returned.  There is no guarentee that
+        the datetime.datetime to be returned is localized.
+
+        If the 'self.timeOffsetAutodetectedRadioButtonState' flag is
+        set, a localized datetime.datetime for the birth time will be
+        returned.
+
+        If the 'self.timeOffsetAutodetectedRadioButtonState' flag is
+        NOT set (some other option was selected, like user-specified
+        or LMT), then a UTC datetime.datetime for the birth time will
+        be returned.
+
+        Returns:
+        datetime.datetime that represents the birth time.  Best effort
+        is made to localize this datetime.
+        """
+
+        self.log.debug("Entered getBirthLocalizedDatetime()")
+
+        # Return value.
+        datetimeObj = None
+
+        # Create a native datetime.datetime object first.
+        nativeDatetimeObj = \
+            datetime.datetime(self.year,
+                              self.month,
+                              self.day,
+                              self.hour,
+                              self.minute,
+                              self.second)
+
+        # See which timezone mode is specified.
+
+        if self.timeOffsetAutodetectedRadioButtonState == True:
+            self.log.debug("timeOffsetAutodetectedRadioButtonState == True")
+
+            # Create a timezone object to be used.
+            timezone = pytz.timezone(self.timezoneName)
+
+            # Localize the datetime.datetime to the timezone specified.
+            localizedDatetimeObj = timezone.localize(nativeDatetimeObj)
+
+            # Set the datetime.datetime to the return value.
+            datetimeObj = localizedDatetimeObj
+
+        elif self.timeOffsetManualEntryRadioButtonState == True:
+            self.log.debug("timeOffsetManualEntryRadioButtonState == True")
+            
+            # Localize the datetime.datetime as UTC.
+            utcDatetimeObj = pytz.utc.localize(nativeDatetimeObj)
+
+            # Add the offset.  We can do this type of arithmetic
+            # because the datetime.datetime is now in UTC and there
+            # are no daylight savings shifts to worry about.
+            numSeconds = \
+                (self.timezoneManualEntryHours * 60 * 60) + \
+                (self.timezoneManualEntryMinutes * 60)
+
+            if self.timezoneManualEntryEastWestComboBoxValue == 'E':
+                numSeconds *= -1
+
+            datetimeObj = \
+                utcDatetimeObj + datetime.timedelta(seconds=numSeconds)
+            
+        elif self.timeOffsetLMTRadioButtonState == True:
+            self.log.debug("timeOffsetLMTRadioButtonState == True")
+            
+            # For the LMT conversion to UTC, should I be
+            # taking into account the axis tilt of the Earth (23.5
+            # degrees) and the precession of the equinoxes for the
+            # calculation of the time offset from UTC?
+
+            # Perhaps that's the right way to do it, but I'm lazy
+            # and will just do the technique advocated and used by
+            # everyone else, which is a simple 4 minutes of time for
+            # each 1 arc degree of longitude.
+
+
+            # Localize the datetime.datetime as UTC.
+            utcDatetimeObj = pytz.utc.localize(nativeDatetimeObj)
+
+            # Use 4 minutes of time offset for each longitude degree away
+            # from 0.
+            timeShiftMinutes = self.longitudeDegrees * -4.0
+
+            # Add the time delta and use that as the datetime.
+            datetimeObj = \
+                utcDatetimeObj + datetime.timedelta(minutes=timeShiftMinutes)
+        else:
+            # Log an error.  This should never happen since we checked
+            # the inputs in __init__().
+            self.log.warn("None of the known timezone offset options were set!")
+
+        self.log.debug("Leaving getBirthLocalizedDatetime()")
+        return datetimeObj
+    
     def getBirthUtcDatetime(self):
         """Takes the date, time and timezone information in this 
         object and converts it to a UTC datetime.datetime object,
