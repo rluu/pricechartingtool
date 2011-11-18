@@ -12942,31 +12942,31 @@ class PriceBarChartSettings:
 
     # Default value for the PriceTimeInfoGraphicsItem
     # showSqrtPriceFlag (bool).
-    defaultPriceTimeInfoGraphicsItemShowSqrtPriceFlag = True
+    defaultPriceTimeInfoGraphicsItemShowSqrtPriceFlag = False
 
     # Default value for the PriceTimeInfoGraphicsItem
     # showTimeElapsedSinceBirthFlag (bool).
-    defaultPriceTimeInfoGraphicsItemShowTimeElapsedSinceBirthFlag = True
+    defaultPriceTimeInfoGraphicsItemShowTimeElapsedSinceBirthFlag = False
 
     # Default value for the PriceTimeInfoGraphicsItem
     # showSqrtTimeElapsedSinceBirthFlag (bool).
-    defaultPriceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlag = True
+    defaultPriceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlag = False
 
     # Default value for the PriceTimeInfoGraphicsItem
     # showPriceScaledValueFlag (bool).
-    defaultPriceTimeInfoGraphicsItemShowPriceScaledValueFlag = True
+    defaultPriceTimeInfoGraphicsItemShowPriceScaledValueFlag = False
 
     # Default value for the PriceTimeInfoGraphicsItem
     # showSqrtPriceScaledValueFlag (bool).
-    defaultPriceTimeInfoGraphicsItemShowSqrtPriceScaledValueFlag = True
+    defaultPriceTimeInfoGraphicsItemShowSqrtPriceScaledValueFlag = False
         
     # Default value for the PriceTimeInfoGraphicsItem
     # showTimeScaledValueFlag (bool).
-    defaultPriceTimeInfoGraphicsItemShowTimeScaledValueFlag = True
+    defaultPriceTimeInfoGraphicsItemShowTimeScaledValueFlag = False
 
     # Default value for the PriceTimeInfoGraphicsItem
     # showSqrtTimeScaledValueFlag (bool).
-    defaultPriceTimeInfoGraphicsItemShowSqrtTimeScaledValueFlag = True
+    defaultPriceTimeInfoGraphicsItemShowSqrtTimeScaledValueFlag = False
         
     # Default value for the PriceTimeInfoGraphicsItem
     # showLineToInfoPointFlag (bool).
