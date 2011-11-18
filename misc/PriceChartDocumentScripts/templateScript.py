@@ -26,16 +26,21 @@ def modifyPCDD(pcdd, tag):
 
     Arguments:
     pcdd - PriceChartDocumentData object that will be modified.
-    tag  - str containing the tag.
+    tag  - str containing the tag.  The value of this field
+           may be "" if a tag is not specified by the user.
 
     Returns:
     0 if the changes are to be saved to file.
     1 if the changes are NOT to be saved to file.
     """
 
+    # Return value.
+    rv = 0
+    
     #print("okay, so the object is this: {}".format(pcdd.toString()))
     log.debug("THIS IS FROM INSIDE")
+    rv = 1
     
-    return 1
+    return rv
 
         

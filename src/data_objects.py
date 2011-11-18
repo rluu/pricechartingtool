@@ -106,6 +106,7 @@ class Util:
         """Returns a string representing the given object's contents."""
         
         rv = "["
+        rv += "{}, ".format(type(obj))
 
         for attr in dir(obj):
             # Print if the attribute:
@@ -127,12 +128,13 @@ class Util:
                     for item in attrObj:
                         rv += "{}, ".format(item)
                     rv = rv.rstrip(', ')
-                    rv += "]"
+                    rv += "], "
                 else:
                     # Normal object that is not a QColor and not a list.
                     rv += "{}={}, ".format(attr, attrObj)
-                    
-        rv = rv.rstrip(', ')
+
+        if rv.endswith(", "):
+            rv = rv[:-2]
         rv += "]"
 
         return rv
@@ -2676,6 +2678,11 @@ class MusicalRatio(Ratio):
 class PriceBarChartArtifact:
     """Base class for user-added artifacts in the PriceBarChartWidget.
     Sub-classes to this must be pickleable.
+
+    This class includes tags as a list of str.  Tags are to identify
+    artifacts with certain attributes.  This is useful if artifacts
+    are added or removed via an external script.  They can seek and
+    reference artifacts they added or removed by tags.  
     """
     
     def __init__(self):
@@ -2690,7 +2697,10 @@ class PriceBarChartArtifact:
         
         # Position of the artifact QGraphicsItem.
         self.position = QPointF()
-        
+
+        # Tags
+        self.tags = []
+
     def setPos(self, pointF):
         """Stores the position of the artifact, in scene coordinates.
         Arguments:
@@ -2715,6 +2725,40 @@ class PriceBarChartArtifact:
         
         return self.uuid
 
+    def addTag(self, tagToAdd):
+        """Adds a given tag string to the tags for this artifact.
+
+        Arguments:
+        tagToAdd - str that holds the tag.
+        """
+
+        # Strip any leading or trailing whitespace
+        tagToAdd = tagToAdd.strip()
+
+        # The tag added must be non-empty and must not already exist in the
+        # list.
+        if tagToAdd != "" and tagToAdd not in self.tags:
+            self.tags.append(tagToAdd)
+
+    def hasTag(self, tagToCheck):
+        """Returns True if the given 'tagToCheck' str is in the list of tags."""
+
+        if tagToCheck in self.tags:
+            return True
+        else:
+            return False
+
+    def clearTags(self):
+        """Clears all the tags associated with this PriceBar."""
+
+        self.tags = []
+
+    def removeTag(self, tagToRemove):
+        """Removes a given tag string from the tags in this PriceBar."""
+
+        while tagToRemove in self.tags:
+            self.tags.remove(tagToRemove)
+
     def __str__(self):
         """Returns the string representation of this object."""
 
@@ -2726,6 +2770,7 @@ class PriceBarChartArtifact:
         rv = Util.objToString(self)
         
         return rv
+
 
 class PriceBarChartBarCountArtifact(PriceBarChartArtifact):
     """PriceBarChartArtifact that indicates bar counts starting 
@@ -12563,7 +12608,9 @@ class PriceChartDocumentData:
             artifactStrings += "[{}]".format(artifact.toString())
         artifactStrings += "]"
             
-        return "[classVersion={}, ".\
+        return "[{}, ".\
+                   format(type(self)) + \
+                "classVersion={}, ".\
                    format(self.classVersion) + \
                 "description={}, ".\
                     format(self.description) + \
