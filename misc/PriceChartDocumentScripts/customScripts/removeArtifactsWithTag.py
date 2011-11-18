@@ -66,7 +66,8 @@ def processPCDD(pcdd, tag):
 
     
     numArtifacts = len(pcdd.priceBarChartArtifacts)
-    log.info("Number of artifacts in this pcdd: {}".format(numArtifacts))
+    log.info("Number of artifacts in this pcdd beforehand: {}".\
+             format(numArtifacts))
 
     for i in reversed(range(numArtifacts)):
         artifact = pcdd.priceBarChartArtifacts[i]
@@ -81,12 +82,9 @@ def processPCDD(pcdd, tag):
 
             
     numArtifacts = len(pcdd.priceBarChartArtifacts)
-    log.debug("Number of artifacts in this pcdd afterwards: {}".\
+    log.info("Number of artifacts in this pcdd afterwards: {}".\
              format(numArtifacts))
 
-    # TODO:  remove the below line (rv=1) during/after testing.
-    rv = 1
-    
     return rv
 
         
