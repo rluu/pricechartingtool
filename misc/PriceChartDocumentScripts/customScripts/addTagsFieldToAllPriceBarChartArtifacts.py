@@ -2,13 +2,25 @@
 ##############################################################################
 # Description:
 #
-#   Template module for modifying a PriceChartDocumentData object via
-#   modifyPriceChartDocument.py.
+#   Module for modifying a PCDD by adding the 'tags' empty list to all
+#   PriceBarChartArtifacts that don't already have that field in their
+#   object dictionary.  This was needed because I intended to support
+#   additional tagging functionality for all artifacts, and to be able
+#   to add and remove them via tags.
 #
 ##############################################################################
 
 # For logging.
 import logging
+
+# Include some PriceChartingTool modules.
+from ephemeris import Ephemeris
+from data_objects import *
+from pricebarchart import PriceBarChartGraphicsScene
+
+##############################################################################
+# Global variables
+##############################################################################
 
 # For logging.
 #logLevel = logging.DEBUG
@@ -22,7 +34,11 @@ log.setLevel(logLevel)
 
 def modifyPCDD(pcdd, tag):
     """Modifies the PriceChartDocumentData object's internal artifacts
-    with the given tag.
+    by adding the 'tags' empty list to all PriceBarChartArtifacts that
+    don't already have that field in their object dictionary.  This was
+    needed because I intended to support additional tagging
+    functionality for all artifacts, and to be able to add and
+    remove them via tags.
 
     Arguments:
     pcdd - PriceChartDocumentData object that will be modified.
@@ -38,12 +54,10 @@ def modifyPCDD(pcdd, tag):
     # Return value.
     rv = 0
     
-    #print("pcdd == {}".format(pcdd.toString()))
-    
-    log.info("Number of artifacts in this pcdd: {}".\
-              format(len(pcdd.priceBarChartArtifacts)))
-    
-    for i in range(len(pcdd.priceBarChartArtifacts)):
+    numArtifacts = len(pcdd.priceBarChartArtifacts)
+    log.info("Number of artifacts in this pcdd: {}".format(numArtifacts))
+
+    for i in range(numArtifacts):
         artifact = pcdd.priceBarChartArtifacts[i]
         headerStr = "[{}]: ".format(i)
         

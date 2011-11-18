@@ -54,7 +54,7 @@ from optparse import OptionParser
 # For logging.
 import logging
 
-# Include PriceChartingTool file modules.
+# Include some PriceChartingTool modules.
 # This assumes that the relative directory from this script is: ../../src
 thisScriptDir = os.path.dirname(os.path.abspath(__file__))
 srcDir = os.path.dirname(os.path.dirname(thisScriptDir)) + os.sep + "src"
@@ -62,6 +62,7 @@ if srcDir not in sys.path:
     sys.path.insert(0, srcDir)
 from ephemeris import Ephemeris
 from data_objects import *
+from pricebarchart import PriceBarChartGraphicsScene
 
 ##############################################################################
 # Global Variables
@@ -88,8 +89,8 @@ tag = ""
 scriptFile = ""
 
 # For logging.
-logLevel = logging.DEBUG
-#logLevel = logging.INFO
+#logLevel = logging.DEBUG
+logLevel = logging.INFO
 logging.basicConfig(format='%(levelname)s: %(message)s')
 moduleName = globals()['__name__']
 log = logging.getLogger(moduleName)
@@ -267,12 +268,14 @@ log.debug("printFlag == {}".format(printFlag))
 if (options.tag != None):
     strippedTag = options.tag.strip()
     if strippedTag.find(" ") != -1:
-        tag = strippedTag
-        log.debug("tag == {}".format(tag))
-    else:
+        # Found a space in the tag.
         log.error("The tag should not have any spaces.")
         shutdown(1)
-
+    else:
+        # Good, no spaces in the tag.
+        tag = strippedTag
+        log.debug("tag == {}".format(tag))
+        
 # Get the script filename.
 if (options.scriptFile != None):
     log.debug("options.scriptFile == {}".format(options.scriptFile))
@@ -328,10 +331,10 @@ if scriptFile != "":
     importedModule = \
         __import__(moduleName, globals(), locals(), [], 0)
     
-    log.info("Running modification code from external code module...")
+    log.info("Running module '{}' ...".format(moduleName))
     rc = importedModule.modifyPCDD(priceChartDocumentData, tag)
     
-    log.info("Modifications complete.")
+    log.info("Finished running external code.")
 
     # Check the return code of the function from the external code module.
     if rc == 0:
@@ -342,7 +345,7 @@ if scriptFile != "":
             picklePriceChartDocumentDataToFile(priceChartDocumentData, pcdFile)
 
         if saveSuccess == True:
-            log.info("Modifications saved.")
+            log.info("Modifications have been saved.")
         else:
             log.error("Saving failed.  " + \
                       "Please see previous error messages for why.")
