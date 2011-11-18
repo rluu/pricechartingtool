@@ -29,8 +29,8 @@ from pricebarchart import PriceBarChartGraphicsScene
 ##############################################################################
 
 # For logging.
-logLevel = logging.DEBUG
-#logLevel = logging.INFO
+#logLevel = logging.DEBUG
+logLevel = logging.INFO
 logging.basicConfig(format='%(levelname)s: %(message)s')
 moduleName = globals()['__name__']
 log = logging.getLogger(moduleName)
@@ -38,7 +38,7 @@ log.setLevel(logLevel)
 
 ##############################################################################
 
-def modifyPCDD(pcdd, tag):
+def processPCDD(pcdd, tag):
     """Lists all the unique artifact tags in a
     PriceChartDocumentData object.
 
@@ -78,7 +78,7 @@ def modifyPCDD(pcdd, tag):
                     # Increment the count.
                     uniqueTags[tag] = uniqueTags[tag] + 1
                     
-                log.info("Tag='{}', ArtifactCount={}".\
+                log.debug("Tag='{}', ArtifactCount={}".\
                         format(tag, uniqueTags[tag]))
             
     log.info("Number of unique tags: {}".format(len(uniqueTags.keys())))

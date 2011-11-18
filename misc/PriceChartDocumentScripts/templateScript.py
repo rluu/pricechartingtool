@@ -38,7 +38,7 @@ log.setLevel(logLevel)
 
 ##############################################################################
 
-def modifyPCDD(pcdd, tag):
+def processPCDD(pcdd, tag):
     """Modifies the PriceChartDocumentData object's internal artifacts
     with the given tag.
 

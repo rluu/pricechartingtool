@@ -41,7 +41,7 @@ log.setLevel(logLevel)
 
 ##############################################################################
 
-def modifyPCDD(pcdd, tag):
+def processPCDD(pcdd, tag):
     """Modifies the PriceChartDocumentData object's internal artifacts
     by adding the 'tags' empty list to all PriceBarChartArtifacts that
     don't already have that field in their object dictionary.  This was

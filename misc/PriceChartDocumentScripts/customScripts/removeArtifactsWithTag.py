@@ -3,7 +3,7 @@
 # Description:
 #
 #   Module for modifying a PCDD by removing all the artifacts that
-#   have a matching tag with the one specified to modifyPCCD().
+#   have a matching tag with the one specified to processPCCD().
 #
 ##############################################################################
 
@@ -38,7 +38,7 @@ log.setLevel(logLevel)
 
 ##############################################################################
 
-def modifyPCDD(pcdd, tag):
+def processPCDD(pcdd, tag):
     """Modifies the PriceChartDocumentData object's internal artifacts
     by removing all PriceBarChartArtifacts that have a matching tag
     with the one specified to this function.

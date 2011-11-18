@@ -28,7 +28,7 @@
 #
 #    The specified script file should have a function called:
 #
-#    def modifyPCDD(pcdd, tag):
+#    def processPCDD(pcdd, tag):
 #        """Modifies the PriceChartDocumentData object's internal artifacts
 #        with the given tag.
 #
@@ -352,7 +352,7 @@ if scriptFile != "":
         __import__(moduleName, globals(), locals(), [], 0)
     
     log.info("Running module '{}' ...".format(moduleName))
-    rc = importedModule.modifyPCDD(priceChartDocumentData, tag)
+    rc = importedModule.processPCDD(priceChartDocumentData, tag)
     
     log.info("Finished running external code.")
 

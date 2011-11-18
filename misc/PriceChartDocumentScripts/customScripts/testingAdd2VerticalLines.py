@@ -38,7 +38,7 @@ log.setLevel(logLevel)
 
 ##############################################################################
 
-def modifyPCDD(pcdd, tag):
+def processPCDD(pcdd, tag):
     """Module for drawing two veritcal lines (line segments) at 1/3
     and 2/3 of the way through the price chart.  The lines will have a
     tag str matching the given tag parameter.
