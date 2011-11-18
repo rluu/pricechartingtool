@@ -2,6 +2,12 @@
 # For obtaining the line separator and directory separator.
 import os
 
+# For obtaining information about the operating system platform.
+import platform
+
+# For getting memory usage information.
+import resource
+
 # For comparing timestamps on files.
 import time
 
@@ -633,6 +639,11 @@ class MainWindow(QMainWindow):
         self.showShortcutKeysAction.setStatusTip("Show shortcut keys")
         self.showShortcutKeysAction.triggered.connect(self._showShortcutKeys)
         
+        self.memoryUsageAction = QAction(self.appIcon, "&Memory Usage", self)
+        self.memoryUsageAction.\
+            setStatusTip("Show application memory utilization.")
+        self.memoryUsageAction.triggered.connect(self._memoryUsage)
+
         self.aboutAction = QAction(self.appIcon, "&About", self)
         self.aboutAction.\
             setStatusTip("Show information about this application.")
@@ -738,6 +749,7 @@ class MainWindow(QMainWindow):
         # Create the Help menu.
         self.helpMenu = self.menuBar().addMenu("&Help")
         self.helpMenu.addAction(self.showShortcutKeysAction)
+        self.helpMenu.addAction(self.memoryUsageAction)
         self.helpMenu.addAction(self.aboutAction)
         self.helpMenu.addAction(self.aboutQtAction)
 
@@ -898,6 +910,7 @@ class MainWindow(QMainWindow):
         self.nextSubWindowAction.setEnabled(isActive)
         self.previousSubWindowAction.setEnabled(isActive)
 
+        self.memoryUsageAction.setEnabled(True)
         self.aboutAction.setEnabled(True)
         self.aboutQtAction.setEnabled(True)
 
@@ -2957,6 +2970,127 @@ Snap key bindings are supported for the following tools:
         
         QMessageBox.about(self, title, message)
         
+    def _memoryUsage(self):
+        """Opens a popup window displaying memory utilization
+        information about this application.
+
+        Source info on how to do this is from:
+        http://stackoverflow.com/questions/938733/python-total-memory-used
+        """
+
+        endl = os.linesep
+
+        title = "Memory Usage"
+
+        message = ""
+        
+        
+        if platform.system() == "Linux":
+            # Linux.
+            message += self.appName + " process status:" + endl + endl
+
+            procStatusFilename = "/proc/{}/status".format(os.getpid())
+
+            try:
+                f = open(procStatusFilename)
+                for line in f:
+                    if line.startswith("Name:") or \
+                       line.startswith("Pid:") or \
+                       line.startswith("FDSize:") or \
+                       line.startswith("VmPeak:") or \
+                       line.startswith("VmSize:") or \
+                       line.startswith("VmRSS:") or \
+                       line.startswith("VmStk:"):
+
+                        message += line
+                f.close()
+                
+                message += endl
+                message += endl
+                message += "Note: " + endl + endl
+                message += "Name   == Command run by this process" + endl
+                message += "Pid    == Thread ID" + endl
+                message += "FDSize == Number of file descriptors" + endl
+                message += "VmPeak == Peak virtual memory size" + endl
+                message += "VmSize == Virtual memory size" + endl
+                message += "VmRSS  == Resident set size" + endl
+                message += "VmStk  == Stack size" + endl
+                
+            except IOError as e:
+                errMsg = "Could not open '{}' to read process status." + \
+                         "  {}".format(e)
+                self.log.warn(errMsg)
+                message += errMsg
+                
+        elif platform.system() == "Windows":
+            # Windows.  The below is untested.
+            message += self.appName + " memory usage:" + endl + endl
+
+            from wmi import WMI
+            w = WMI('.')
+            result = w.query("SELECT WorkingSet FROM Win32_PerfRawData_PerfProc_Process WHERE IDProcess={}".format(os.getpid()))
+            #bytes = int(result[0]['WorkingSet'])
+            bytes = int(result[0].WorkingSet)
+
+            kilobytes = bytes / 1024
+            megabytes = kilobytes / 1024
+            
+            message += "Bytes: {}".format(bytes) + endl + \
+                       "Kilobytes: {}".format(kilobytes) + endl + \
+                       "Megabytes: {}".format(megabytes) + endl
+            
+        elif platform.system() == "Darwin":
+            # MacOS X.
+            message += self.appName + " memory usage:" + endl + endl
+
+            # Call ps on this and get the output.
+            outputBinary = \
+                subprocess.check_output(\
+                "ps aux | grep -i python | grep -v 'grep' | grep {}".\
+                format(os.getpid()),
+                stderr=subprocess.STDOUT,
+                shell=True)
+            
+            outputText = outputBinary.decode("utf-8")
+
+            # Go through all the results of ps.
+            foundFlag = False
+            for line in outputText.split(os.linesep):
+                
+                splitLine = line.split()
+
+                # Make sure we don't have an incomplete line.
+                if len(splitLine) > 8:
+                    # Process ID.
+                    pidStr = splitLine[1]
+                    
+                    # VSZ (Virtual Set Size).
+                    vszStr = splitLine[4]
+
+                    # RSS (Resident Set Size).
+                    rssStr = splitLine[5]
+
+                    # Only use the values if the process id matches.
+                    if os.getpid() == int(pidStr):
+                        message += "Pid: {}".format(pidStr) + endl
+                        message += "VSZ: {} KB".format(vszStr) + endl
+                        message += "RSS: {} KB".format(rssStr) + endl
+                        foundFlag = True
+                        break
+
+            if foundFlag == True:
+                message += endl
+                message += "Note:" + endl + endl
+                message += "Pid == Process ID" + endl
+                message += "VSZ == Virtual Set Size" + endl
+                message += "RSS == Resident Set Size" + endl
+        else:
+            message += "Unable to determine Memory usage."
+
+        QMessageBox.about(self, title, message)
+
+        
+
     def _about(self):
         """Opens a popup window displaying information about this
         application.
