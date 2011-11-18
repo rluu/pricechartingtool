@@ -8843,7 +8843,7 @@ class BirthInfoEditWidget(QWidget):
         self.longitudeMinutesSpinBox.setValue(lonMinutes)
         self.longitudeSecondsSpinBox.setValue(lonSeconds)
 
-        # Need to convert latitude from float value to degrees, minutes,
+        # Convert latitude from a float value to degrees, minutes,
         # seconds and North/South polarity.
         (latDegrees, latMinutes, latSeconds, latPolarity) = \
             GeoInfo.latitudeToDegMinSec(birthInfoObj.latitudeDegrees)
