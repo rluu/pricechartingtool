@@ -351,10 +351,10 @@ if scriptFile != "":
     importedModule = \
         __import__(moduleName, globals(), locals(), [], 0)
     
-    log.info("Running module '{}' ...".format(moduleName))
+    log.info("Running external code module '{}' ...".format(moduleName))
     rc = importedModule.processPCDD(priceChartDocumentData, tag)
     
-    log.info("Finished running external code.")
+    log.info("Finished running external code module.")
 
     # Check the return code of the function from the external code module.
     if rc == 0:
