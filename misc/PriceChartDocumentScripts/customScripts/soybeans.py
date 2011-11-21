@@ -41,7 +41,7 @@ log = logging.getLogger(moduleName)
 log.setLevel(logLevel)
 
 # Start and ending timestamps for drawing.
-startDt = datetime.datetime(year=2000, month=1, day=1,
+startDt = datetime.datetime(year=1970, month=1, day=1,
                             hour=0, minute=0, second=0,
                             tzinfo=pytz.utc)
 endDt   = datetime.datetime(year=2020, month=1, day=1,
@@ -73,10 +73,15 @@ def processPCDD(pcdd, tag):
     # Return value.
     rv = 0
 
-    success = \
-        PlanetaryCombinationsLibrary.\
-        addSaturnUranus15xHelioVerticalLines(pcdd, startDt, endDt,
-                                             highPrice, lowPrice)
+    success = PlanetaryCombinationsLibrary.\
+        addHelioVenusConjunctOrTrineJupiterVerticalLines(\
+        pcdd, startDt, endDt, highPrice, lowPrice)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addHelioSaturnUranus15xVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addGeoSaturnUranus15xVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice)
     
     if success == True:
         log.debug("Success!")
