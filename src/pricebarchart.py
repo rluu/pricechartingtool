@@ -511,6 +511,7 @@ class PriceBarGraphicsItem(QGraphicsItem):
         setAstro2Action = QAction("Set timestamp on Astro Chart &2", parent)
         setAstro3Action = QAction("Set timestamp on Astro Chart &3", parent)
         openJHoraAction = QAction("Open JHor&a with timestamp", parent)
+        openAstrologAction = QAction("Open As&trolog with timestamp", parent)
         
         selectAction.triggered.\
             connect(self._handleSelectAction)
@@ -530,6 +531,8 @@ class PriceBarGraphicsItem(QGraphicsItem):
             connect(self._handleSetAstro3Action)
         openJHoraAction.triggered.\
             connect(self._handleOpenJHoraAction)
+        openAstrologAction.triggered.\
+            connect(self._handleOpenAstrologAction)
                     
         # Enable or disable actions.
         selectAction.setEnabled(True)
@@ -541,6 +544,7 @@ class PriceBarGraphicsItem(QGraphicsItem):
         setAstro2Action.setEnabled(True)
         setAstro3Action.setEnabled(True)
         openJHoraAction.setEnabled(True)
+        openAstrologAction.setEnabled(True)
 
         # Add the QActions to the menu.
         menu.addAction(selectAction)
@@ -555,6 +559,7 @@ class PriceBarGraphicsItem(QGraphicsItem):
         menu.addAction(setAstro2Action)
         menu.addAction(setAstro3Action)
         menu.addAction(openJHoraAction)
+        menu.addAction(openAstrologAction)
         
         return menu
 
@@ -655,6 +660,14 @@ class PriceBarGraphicsItem(QGraphicsItem):
 
         # The GraphicsItem's scene X position represents the time.
         self.scene().openJHora(self.scenePos().x())
+        
+    def _handleOpenAstrologAction(self):
+        """Causes the timestamp of this PriceBarGraphicsItem to be
+        opened in Astrolog.
+        """
+
+        # The GraphicsItem's scene X position represents the time.
+        self.scene().openAstrolog(self.scenePos().x())
         
 class PriceBarChartArtifactGraphicsItem(QGraphicsItem):
     """QGraphicsItem that has members to indicate and set the
@@ -1751,6 +1764,8 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set start timestamp on Astro Chart &3", parent)
         openStartInJHoraAction = \
             QAction("Open JHor&a with start timestamp", parent)
+        openStartInAstrologAction = \
+            QAction("Open As&trolog with start timestamp", parent)
         
         setEndOnAstro1Action = \
             QAction("Set end timestamp on Astro Chart 1", parent)
@@ -1760,6 +1775,8 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set end timestamp on Astro Chart 3", parent)
         openEndInJHoraAction = \
             QAction("Open JHora with end timestamp", parent)
+        openEndInAstrologAction = \
+            QAction("Open Astrolog with end timestamp", parent)
         
         selectAction.triggered.\
             connect(self._handleSelectAction)
@@ -1779,6 +1796,8 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetStartOnAstro3Action)
         openStartInJHoraAction.triggered.\
             connect(self._handleOpenStartInJHoraAction)
+        openStartInAstrologAction.triggered.\
+            connect(self._handleOpenStartInAstrologAction)
         setEndOnAstro1Action.triggered.\
             connect(self._handleSetEndOnAstro1Action)
         setEndOnAstro2Action.triggered.\
@@ -1787,6 +1806,8 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetEndOnAstro3Action)
         openEndInJHoraAction.triggered.\
             connect(self._handleOpenEndInJHoraAction)
+        openEndInAstrologAction.triggered.\
+            connect(self._handleOpenEndInAstrologAction)
         
         # Enable or disable actions.
         selectAction.setEnabled(True)
@@ -1798,10 +1819,12 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         setStartOnAstro2Action.setEnabled(True)
         setStartOnAstro3Action.setEnabled(True)
         openStartInJHoraAction.setEnabled(True)
+        openStartInAstrologAction.setEnabled(True)
         setEndOnAstro1Action.setEnabled(True)
         setEndOnAstro2Action.setEnabled(True)
         setEndOnAstro3Action.setEnabled(True)
         openEndInJHoraAction.setEnabled(True)
+        openEndInAstrologAction.setEnabled(True)
 
         # Add the QActions to the menu.
         menu.addAction(selectAction)
@@ -1816,11 +1839,13 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addAction(setStartOnAstro2Action)
         menu.addAction(setStartOnAstro3Action)
         menu.addAction(openStartInJHoraAction)
+        menu.addAction(openStartInAstrologAction)
         menu.addSeparator()
         menu.addAction(setEndOnAstro1Action)
         menu.addAction(setEndOnAstro2Action)
         menu.addAction(setEndOnAstro3Action)
         menu.addAction(openEndInJHoraAction)
+        menu.addAction(openEndInAstrologAction)
 
     def _handleSelectAction(self):
         """Causes the QGraphicsItem to become selected."""
@@ -1914,6 +1939,13 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.scene().openJHora(self.startPointF.x())
         
+    def _handleOpenStartInAstrologAction(self):
+        """Causes the the timestamp of the start the
+        BarCountGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.startPointF.x())
+        
     def _handleSetEndOnAstro1Action(self):
         """Causes the astro chart 1 to be set with the timestamp
         of the end the BarCountGraphicsItem.
@@ -1941,6 +1973,13 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         self.scene().openJHora(self.endPointF.x())
+        
+    def _handleOpenEndInAstrologAction(self):
+        """Causes the the timestamp of the end the
+        BarCountGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.endPointF.x())
         
         
 class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
@@ -3812,6 +3851,8 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set start timestamp on Astro Chart &3", parent)
         openStartInJHoraAction = \
             QAction("Open JHor&a with start timestamp", parent)
+        openStartInAstrologAction = \
+            QAction("Open As&trolog with start timestamp", parent)
         
         setEndOnAstro1Action = \
             QAction("Set end timestamp on Astro Chart 1", parent)
@@ -3821,6 +3862,8 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set end timestamp on Astro Chart 3", parent)
         openEndInJHoraAction = \
             QAction("Open JHora with end timestamp", parent)
+        openEndInAstrologAction = \
+            QAction("Open Astrolog with end timestamp", parent)
         
         selectAction.triggered.\
             connect(self._handleSelectAction)
@@ -3840,6 +3883,8 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetStartOnAstro3Action)
         openStartInJHoraAction.triggered.\
             connect(self._handleOpenStartInJHoraAction)
+        openStartInAstrologAction.triggered.\
+            connect(self._handleOpenStartInAstrologAction)
         setEndOnAstro1Action.triggered.\
             connect(self._handleSetEndOnAstro1Action)
         setEndOnAstro2Action.triggered.\
@@ -3848,6 +3893,8 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetEndOnAstro3Action)
         openEndInJHoraAction.triggered.\
             connect(self._handleOpenEndInJHoraAction)
+        openEndInAstrologAction.triggered.\
+            connect(self._handleOpenEndInAstrologAction)
         
         # Enable or disable actions.
         selectAction.setEnabled(True)
@@ -3859,10 +3906,12 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         setStartOnAstro2Action.setEnabled(True)
         setStartOnAstro3Action.setEnabled(True)
         openStartInJHoraAction.setEnabled(True)
+        openStartInAstrologAction.setEnabled(True)
         setEndOnAstro1Action.setEnabled(True)
         setEndOnAstro2Action.setEnabled(True)
         setEndOnAstro3Action.setEnabled(True)
         openEndInJHoraAction.setEnabled(True)
+        openEndInAstrologAction.setEnabled(True)
 
         # Add the QActions to the menu.
         menu.addAction(selectAction)
@@ -3877,11 +3926,13 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addAction(setStartOnAstro2Action)
         menu.addAction(setStartOnAstro3Action)
         menu.addAction(openStartInJHoraAction)
+        menu.addAction(openStartInAstrologAction)
         menu.addSeparator()
         menu.addAction(setEndOnAstro1Action)
         menu.addAction(setEndOnAstro2Action)
         menu.addAction(setEndOnAstro3Action)
         menu.addAction(openEndInJHoraAction)
+        menu.addAction(openEndInAstrologAction)
 
     def _handleSelectAction(self):
         """Causes the QGraphicsItem to become selected."""
@@ -3975,6 +4026,13 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.scene().openJHora(self.startPointF.x())
         
+    def _handleOpenStartInAstrologAction(self):
+        """Causes the the timestamp of the start the
+        TimeMeasurementGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.startPointF.x())
+        
     def _handleSetEndOnAstro1Action(self):
         """Causes the astro chart 1 to be set with the timestamp
         of the end the TimeMeasurementGraphicsItem.
@@ -4002,6 +4060,13 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         self.scene().openJHora(self.endPointF.x())
+        
+    def _handleOpenEndInAstrologAction(self):
+        """Causes the the timestamp of the end the
+        TimeMeasurementGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.endPointF.x())
         
 class VerticalTickGraphicsItem(QGraphicsItem):
     """QGraphicsItem that draws a vertical tick line. """
@@ -5189,6 +5254,8 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set start timestamp on Astro Chart &3", parent)
         openStartInJHoraAction = \
             QAction("Open JHor&a with start timestamp", parent)
+        openStartInAstrologAction = \
+            QAction("Open As&trolog with start timestamp", parent)
         
         setEndOnAstro1Action = \
             QAction("Set end timestamp on Astro Chart 1", parent)
@@ -5198,6 +5265,8 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set end timestamp on Astro Chart 3", parent)
         openEndInJHoraAction = \
             QAction("Open JHora with end timestamp", parent)
+        openEndInAstrologAction = \
+            QAction("Open Astrolog with end timestamp", parent)
         
         selectAction.triggered.\
             connect(self._handleSelectAction)
@@ -5223,6 +5292,8 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetStartOnAstro3Action)
         openStartInJHoraAction.triggered.\
             connect(self._handleOpenStartInJHoraAction)
+        openStartInAstrologAction.triggered.\
+            connect(self._handleOpenStartInAstrologAction)
         setEndOnAstro1Action.triggered.\
             connect(self._handleSetEndOnAstro1Action)
         setEndOnAstro2Action.triggered.\
@@ -5231,6 +5302,8 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetEndOnAstro3Action)
         openEndInJHoraAction.triggered.\
             connect(self._handleOpenEndInJHoraAction)
+        openEndInAstrologAction.triggered.\
+            connect(self._handleOpenEndInAstrologAction)
         
         # Enable or disable actions.
         selectAction.setEnabled(True)
@@ -5245,10 +5318,12 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         setStartOnAstro2Action.setEnabled(True)
         setStartOnAstro3Action.setEnabled(True)
         openStartInJHoraAction.setEnabled(True)
+        openStartInAstrologAction.setEnabled(True)
         setEndOnAstro1Action.setEnabled(True)
         setEndOnAstro2Action.setEnabled(True)
         setEndOnAstro3Action.setEnabled(True)
         openEndInJHoraAction.setEnabled(True)
+        openEndInAstrologAction.setEnabled(True)
 
         # Add the QActions to the menu.
         menu.addAction(selectAction)
@@ -5266,11 +5341,13 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addAction(setStartOnAstro2Action)
         menu.addAction(setStartOnAstro3Action)
         menu.addAction(openStartInJHoraAction)
+        menu.addAction(openStartInAstrologAction)
         menu.addSeparator()
         menu.addAction(setEndOnAstro1Action)
         menu.addAction(setEndOnAstro2Action)
         menu.addAction(setEndOnAstro3Action)
         menu.addAction(openEndInJHoraAction)
+        menu.addAction(openEndInAstrologAction)
 
     def rotateDown(self):
         """Causes the TimeModalScaleGraphicsItem to have its musicalRatios
@@ -5505,6 +5582,13 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.scene().openJHora(self.startPointF.x())
         
+    def _handleOpenStartInAstrologAction(self):
+        """Causes the the timestamp of the start the
+        TimeModalScaleGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.startPointF.x())
+        
     def _handleSetEndOnAstro1Action(self):
         """Causes the astro chart 1 to be set with the timestamp
         of the end the TimeModalScaleGraphicsItem.
@@ -5532,6 +5616,13 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         self.scene().openJHora(self.endPointF.x())
+        
+    def _handleOpenEndInAstrologAction(self):
+        """Causes the the timestamp of the end the
+        TimeModalScaleGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.endPointF.x())
         
 class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
     """QGraphicsItem that visualizes a musical scale in the GraphicsView.
@@ -6545,6 +6636,8 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set start timestamp on Astro Chart &3", parent)
         openStartInJHoraAction = \
             QAction("Open JHor&a with start timestamp", parent)
+        openStartInAstrologAction = \
+            QAction("Open As&trolog with start timestamp", parent)
 
         selectAction.triggered.\
             connect(self._handleSelectAction)
@@ -6570,6 +6663,8 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetStartOnAstro3Action)
         openStartInJHoraAction.triggered.\
             connect(self._handleOpenStartInJHoraAction)
+        openStartInAstrologAction.triggered.\
+            connect(self._handleOpenStartInAstrologAction)
         
         # Enable or disable actions.
         selectAction.setEnabled(True)
@@ -6584,6 +6679,7 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         setStartOnAstro2Action.setEnabled(True)
         setStartOnAstro3Action.setEnabled(True)
         openStartInJHoraAction.setEnabled(True)
+        openStartInAstrologAction.setEnabled(True)
 
         # Add the QActions to the menu.
         menu.addAction(selectAction)
@@ -6601,6 +6697,7 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addAction(setStartOnAstro2Action)
         menu.addAction(setStartOnAstro3Action)
         menu.addAction(openStartInJHoraAction)
+        menu.addAction(openStartInAstrologAction)
 
     def rotateDown(self):
         """Causes the TimeModalScaleGraphicsItem to have its musicalRatios
@@ -6834,6 +6931,13 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         self.scene().openJHora(self.startPointF.x())
+        
+    def _handleOpenStartInAstrologAction(self):
+        """Causes the the timestamp of the start the
+        PriceModalScaleGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.startPointF.x())
         
         
 class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
@@ -7516,6 +7620,8 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set info point timestamp on Astro Chart &3", parent)
         openJHoraAction = \
             QAction("Open JHor&a with info point timestamp", parent)
+        openAstrologAction = \
+            QAction("Open As&trolog with timestamp", parent)
         
         selectAction.triggered.\
             connect(self._handleSelectAction)
@@ -7535,6 +7641,8 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetAstro3Action)
         openJHoraAction.triggered.\
             connect(self._handleOpenJHoraAction)
+        openAstrologAction.triggered.\
+            connect(self._handleOpenAstrologAction)
         
         # Enable or disable actions.
         selectAction.setEnabled(True)
@@ -7546,6 +7654,7 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
         setAstro2Action.setEnabled(True)
         setAstro3Action.setEnabled(True)
         openJHoraAction.setEnabled(True)
+        openAstrologAction.setEnabled(True)
 
         # Add the QActions to the menu.
         menu.addAction(selectAction)
@@ -7560,6 +7669,7 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addAction(setAstro2Action)
         menu.addAction(setAstro3Action)
         menu.addAction(openJHoraAction)
+        menu.addAction(openAstrologAction)
 
     def _handleSelectAction(self):
         """Causes the QGraphicsItem to become selected."""
@@ -7660,6 +7770,14 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # The GraphicsItem's scene X position represents the time.
         self.scene().openJHora(self.artifact.getInfoPointF().x())
+
+    def _handleOpenAstrologAction(self):
+        """Causes the timestamp of this PriceBarGraphicsItem to be
+        opened in Astrolog.
+        """
+
+        # The GraphicsItem's scene X position represents the time.
+        self.scene().openAstrolog(self.artifact.getInfoPointF().x())
 
         
 class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
@@ -8732,6 +8850,8 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set start timestamp on Astro Chart &3", parent)
         openStartInJHoraAction = \
             QAction("Open JHor&a with start timestamp", parent)
+        openStartInAstrologAction = \
+            QAction("Open As&trolog with start timestamp", parent)
         
         selectAction.triggered.\
             connect(self._handleSelectAction)
@@ -8751,6 +8871,8 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetStartOnAstro3Action)
         openStartInJHoraAction.triggered.\
             connect(self._handleOpenStartInJHoraAction)
+        openStartInAstrologAction.triggered.\
+            connect(self._handleOpenStartInAstrologAction)
         
         # Enable or disable actions.
         selectAction.setEnabled(True)
@@ -8762,6 +8884,7 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         setStartOnAstro2Action.setEnabled(True)
         setStartOnAstro3Action.setEnabled(True)
         openStartInJHoraAction.setEnabled(True)
+        openStartInAstrologAction.setEnabled(True)
 
         # Add the QActions to the menu.
         menu.addAction(selectAction)
@@ -8776,6 +8899,7 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addAction(setStartOnAstro2Action)
         menu.addAction(setStartOnAstro3Action)
         menu.addAction(openStartInJHoraAction)
+        menu.addAction(openStartInAstrologAction)
 
     def _handleSelectAction(self):
         """Causes the QGraphicsItem to become selected."""
@@ -8868,6 +8992,13 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         self.scene().openJHora(self.startPointF.x())
+        
+    def _handleOpenStartInAstrologAction(self):
+        """Causes the the timestamp of the start the
+        TimeMeasurementGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.startPointF.x())
         
 
 class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
@@ -9933,6 +10064,8 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set start timestamp on Astro Chart &3", parent)
         openStartInJHoraAction = \
             QAction("Open JHor&a with start timestamp", parent)
+        openStartInAstrologAction = \
+            QAction("Open As&trolog with start timestamp", parent)
         setEndOnAstro1Action = \
             QAction("Set end timestamp on Astro Chart 1", parent)
         setEndOnAstro2Action = \
@@ -9941,6 +10074,8 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set end timestamp on Astro Chart 3", parent)
         openEndInJHoraAction = \
             QAction("Open JHora with end timestamp", parent)
+        openEndInAstrologAction = \
+            QAction("Open Astrolog with end timestamp", parent)
         
         selectAction.triggered.\
             connect(self._handleSelectAction)
@@ -9960,6 +10095,8 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetStartOnAstro3Action)
         openStartInJHoraAction.triggered.\
             connect(self._handleOpenStartInJHoraAction)
+        openStartInAstrologAction.triggered.\
+            connect(self._handleOpenStartInAstrologAction)
         setEndOnAstro1Action.triggered.\
             connect(self._handleSetEndOnAstro1Action)
         setEndOnAstro2Action.triggered.\
@@ -9968,6 +10105,8 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetEndOnAstro3Action)
         openEndInJHoraAction.triggered.\
             connect(self._handleOpenEndInJHoraAction)
+        openEndInAstrologAction.triggered.\
+            connect(self._handleOpenEndInAstrologAction)
         
         # Enable or disable actions.
         selectAction.setEnabled(True)
@@ -9979,10 +10118,12 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         setStartOnAstro2Action.setEnabled(True)
         setStartOnAstro3Action.setEnabled(True)
         openStartInJHoraAction.setEnabled(True)
+        openStartInAstrologAction.setEnabled(True)
         setEndOnAstro1Action.setEnabled(True)
         setEndOnAstro2Action.setEnabled(True)
         setEndOnAstro3Action.setEnabled(True)
         openEndInJHoraAction.setEnabled(True)
+        openEndInAstrologAction.setEnabled(True)
 
         # Add the QActions to the menu.
         menu.addAction(selectAction)
@@ -9997,11 +10138,13 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addAction(setStartOnAstro2Action)
         menu.addAction(setStartOnAstro3Action)
         menu.addAction(openStartInJHoraAction)
+        menu.addAction(openStartInAstrologAction)
         menu.addSeparator()
         menu.addAction(setEndOnAstro1Action)
         menu.addAction(setEndOnAstro2Action)
         menu.addAction(setEndOnAstro3Action)
         menu.addAction(openEndInJHoraAction)
+        menu.addAction(openEndInAstrologAction)
 
     def _handleSelectAction(self):
         """Causes the QGraphicsItem to become selected."""
@@ -10095,6 +10238,13 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.scene().openJHora(self.startPointF.x())
         
+    def _handleOpenStartInAstrologAction(self):
+        """Causes the the timestamp of the start the
+        TimeRetracementGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.startPointF.x())
+        
     def _handleSetEndOnAstro1Action(self):
         """Causes the astro chart 1 to be set with the timestamp
         of the end the TimeRetracementGraphicsItem.
@@ -10122,6 +10272,13 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         self.scene().openJHora(self.endPointF.x())
+
+    def _handleOpenEndInAstrologAction(self):
+        """Causes the the timestamp of the end the
+        TimeRetracementGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.endPointF.x())
 
 
 class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
@@ -11190,6 +11347,8 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set start timestamp on Astro Chart &3", parent)
         openStartInJHoraAction = \
             QAction("Open JHor&a with start timestamp", parent)
+        openStartInAstrologAction = \
+            QAction("Open As&trolog with start timestamp", parent)
         setEndOnAstro1Action = \
             QAction("Set end timestamp on Astro Chart 1", parent)
         setEndOnAstro2Action = \
@@ -11198,6 +11357,8 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set end timestamp on Astro Chart 3", parent)
         openEndInJHoraAction = \
             QAction("Open JHora with end timestamp", parent)
+        openEndInAstrologAction = \
+            QAction("Open Astrolog with end timestamp", parent)
         
         selectAction.triggered.\
             connect(self._handleSelectAction)
@@ -11217,6 +11378,8 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetStartOnAstro3Action)
         openStartInJHoraAction.triggered.\
             connect(self._handleOpenStartInJHoraAction)
+        openStartInAstrologAction.triggered.\
+            connect(self._handleOpenStartInAstrologAction)
         setEndOnAstro1Action.triggered.\
             connect(self._handleSetEndOnAstro1Action)
         setEndOnAstro2Action.triggered.\
@@ -11225,6 +11388,8 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetEndOnAstro3Action)
         openEndInJHoraAction.triggered.\
             connect(self._handleOpenEndInJHoraAction)
+        openEndInAstrologAction.triggered.\
+            connect(self._handleOpenEndInAstrologAction)
         
         # Enable or disable actions.
         selectAction.setEnabled(True)
@@ -11236,10 +11401,12 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         setStartOnAstro2Action.setEnabled(True)
         setStartOnAstro3Action.setEnabled(True)
         openStartInJHoraAction.setEnabled(True)
+        openStartInAstrologAction.setEnabled(True)
         setEndOnAstro1Action.setEnabled(True)
         setEndOnAstro2Action.setEnabled(True)
         setEndOnAstro3Action.setEnabled(True)
         openEndInJHoraAction.setEnabled(True)
+        openEndInAstrologAction.setEnabled(True)
 
         # Add the QActions to the menu.
         menu.addAction(selectAction)
@@ -11254,11 +11421,13 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addAction(setStartOnAstro2Action)
         menu.addAction(setStartOnAstro3Action)
         menu.addAction(openStartInJHoraAction)
+        menu.addAction(openStartInAstrologAction)
         menu.addSeparator()
         menu.addAction(setEndOnAstro1Action)
         menu.addAction(setEndOnAstro2Action)
         menu.addAction(setEndOnAstro3Action)
         menu.addAction(openEndInJHoraAction)
+        menu.addAction(openEndInAstrologAction)
 
     def _handleSelectAction(self):
         """Causes the QGraphicsItem to become selected."""
@@ -11352,6 +11521,13 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.scene().openJHora(self.startPointF.x())
         
+    def _handleOpenStartInAstrologAction(self):
+        """Causes the the timestamp of the start the
+        PriceRetracementGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.startPointF.x())
+        
     def _handleSetEndOnAstro1Action(self):
         """Causes the astro chart 1 to be set with the timestamp
         of the end the PriceRetracementGraphicsItem.
@@ -11379,6 +11555,13 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         self.scene().openJHora(self.endPointF.x())
+        
+    def _handleOpenEndInAstrologAction(self):
+        """Causes the the timestamp of the end the
+        PriceRetracementGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.endPointF.x())
         
 
 class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
@@ -12367,6 +12550,8 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set start timestamp on Astro Chart &3", parent)
         openStartInJHoraAction = \
             QAction("Open JHor&a with start timestamp", parent)
+        openStartInAstrologAction = \
+            QAction("Open As&trolog with start timestamp", parent)
         setEndOnAstro1Action = \
             QAction("Set end timestamp on Astro Chart 1", parent)
         setEndOnAstro2Action = \
@@ -12375,6 +12560,8 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set end timestamp on Astro Chart 3", parent)
         openEndInJHoraAction = \
             QAction("Open JHora with end timestamp", parent)
+        openEndInAstrologAction = \
+            QAction("Open Astrolog with end timestamp", parent)
         
         selectAction.triggered.\
             connect(self._handleSelectAction)
@@ -12394,6 +12581,8 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetStartOnAstro3Action)
         openStartInJHoraAction.triggered.\
             connect(self._handleOpenStartInJHoraAction)
+        openStartInAstrologAction.triggered.\
+            connect(self._handleOpenStartInAstrologAction)
         setEndOnAstro1Action.triggered.\
             connect(self._handleSetEndOnAstro1Action)
         setEndOnAstro2Action.triggered.\
@@ -12402,6 +12591,8 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetEndOnAstro3Action)
         openEndInJHoraAction.triggered.\
             connect(self._handleOpenEndInJHoraAction)
+        openEndInAstrologAction.triggered.\
+            connect(self._handleOpenEndInAstrologAction)
         
         # Enable or disable actions.
         selectAction.setEnabled(True)
@@ -12413,10 +12604,12 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
         setStartOnAstro2Action.setEnabled(True)
         setStartOnAstro3Action.setEnabled(True)
         openStartInJHoraAction.setEnabled(True)
+        openStartInAstrologAction.setEnabled(True)
         setEndOnAstro1Action.setEnabled(True)
         setEndOnAstro2Action.setEnabled(True)
         setEndOnAstro3Action.setEnabled(True)
         openEndInJHoraAction.setEnabled(True)
+        openEndInAstrologAction.setEnabled(True)
 
         # Add the QActions to the menu.
         menu.addAction(selectAction)
@@ -12431,11 +12624,13 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addAction(setStartOnAstro2Action)
         menu.addAction(setStartOnAstro3Action)
         menu.addAction(openStartInJHoraAction)
+        menu.addAction(openStartInAstrologAction)
         menu.addSeparator()
         menu.addAction(setEndOnAstro1Action)
         menu.addAction(setEndOnAstro2Action)
         menu.addAction(setEndOnAstro3Action)
         menu.addAction(openEndInJHoraAction)
+        menu.addAction(openEndInAstrologAction)
 
     def _handleSelectAction(self):
         """Causes the QGraphicsItem to become selected."""
@@ -12529,6 +12724,13 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.scene().openJHora(self.startPointF.x())
         
+    def _handleOpenStartInAstrologAction(self):
+        """Causes the the timestamp of the start the
+        PriceTimeVectorGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.startPointF.x())
+        
     def _handleSetEndOnAstro1Action(self):
         """Causes the astro chart 1 to be set with the timestamp
         of the end the PriceTimeVectorGraphicsItem.
@@ -12556,6 +12758,13 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         self.scene().openJHora(self.endPointF.x())
+        
+    def _handleOpenEndInAstrologAction(self):
+        """Causes the the timestamp of the end the
+        PriceTimeVectorGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.endPointF.x())
         
 
 class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
@@ -13478,6 +13687,8 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set start timestamp on Astro Chart &3", parent)
         openStartInJHoraAction = \
             QAction("Open JHor&a with start timestamp", parent)
+        openStartInAstrologAction = \
+            QAction("Open As&trolog with start timestamp", parent)
         setEndOnAstro1Action = \
             QAction("Set end timestamp on Astro Chart 1", parent)
         setEndOnAstro2Action = \
@@ -13486,6 +13697,8 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set end timestamp on Astro Chart 3", parent)
         openEndInJHoraAction = \
             QAction("Open JHora with end timestamp", parent)
+        openEndInAstrologAction = \
+            QAction("Open Astrolog with end timestamp", parent)
         
         selectAction.triggered.\
             connect(self._handleSelectAction)
@@ -13513,6 +13726,8 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetStartOnAstro3Action)
         openStartInJHoraAction.triggered.\
             connect(self._handleOpenStartInJHoraAction)
+        openStartInAstrologAction.triggered.\
+            connect(self._handleOpenStartInAstrologAction)
         setEndOnAstro1Action.triggered.\
             connect(self._handleSetEndOnAstro1Action)
         setEndOnAstro2Action.triggered.\
@@ -13521,6 +13736,8 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetEndOnAstro3Action)
         openEndInJHoraAction.triggered.\
             connect(self._handleOpenEndInJHoraAction)
+        openEndInAstrologAction.triggered.\
+            connect(self._handleOpenEndInAstrologAction)
         
         # Enable or disable actions.
         selectAction.setEnabled(True)
@@ -13536,10 +13753,12 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
         setStartOnAstro2Action.setEnabled(True)
         setStartOnAstro3Action.setEnabled(True)
         openStartInJHoraAction.setEnabled(True)
+        openStartInAstrologAction.setEnabled(True)
         setEndOnAstro1Action.setEnabled(True)
         setEndOnAstro2Action.setEnabled(True)
         setEndOnAstro3Action.setEnabled(True)
         openEndInJHoraAction.setEnabled(True)
+        openEndInAstrologAction.setEnabled(True)
 
         # Add the QActions to the menu.
         menu.addAction(selectAction)
@@ -13559,11 +13778,13 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addAction(setStartOnAstro2Action)
         menu.addAction(setStartOnAstro3Action)
         menu.addAction(openStartInJHoraAction)
+        menu.addAction(openStartInAstrologAction)
         menu.addSeparator()
         menu.addAction(setEndOnAstro1Action)
         menu.addAction(setEndOnAstro2Action)
         menu.addAction(setEndOnAstro3Action)
         menu.addAction(openEndInJHoraAction)
+        menu.addAction(openEndInAstrologAction)
 
     def _handleSelectAction(self):
         """Causes the QGraphicsItem to become selected."""
@@ -13796,6 +14017,13 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.scene().openJHora(self.startPointF.x())
         
+    def _handleOpenStartInAstrologAction(self):
+        """Causes the the timestamp of the start the
+        LineSegmentGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.startPointF.x())
+        
     def _handleSetEndOnAstro1Action(self):
         """Causes the astro chart 1 to be set with the timestamp
         of the end the LineSegmentGraphicsItem.
@@ -13823,6 +14051,13 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         self.scene().openJHora(self.endPointF.x())
+        
+    def _handleOpenEndInAstrologAction(self):
+        """Causes the the timestamp of the end the
+        LineSegmentGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.endPointF.x())
         
 
 class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
@@ -15385,6 +15620,8 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set origin timestamp on Astro Chart &3", parent)
         openOriginInJHoraAction = \
             QAction("Open JHor&a with origin timestamp", parent)
+        openOriginInAstrologAction = \
+            QAction("Open Astrolog with origin timestamp", parent)
         
         selectAction.triggered.\
             connect(self._handleSelectAction)
@@ -15418,6 +15655,8 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetOriginOnAstro3Action)
         openOriginInJHoraAction.triggered.\
             connect(self._handleOpenOriginInJHoraAction)
+        openOriginInAstrologAction.triggered.\
+            connect(self._handleOpenOriginInAstrologAction)
         
         # Enable or disable actions.
         selectAction.setEnabled(True)
@@ -15436,6 +15675,7 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         setOriginOnAstro2Action.setEnabled(True)
         setOriginOnAstro3Action.setEnabled(True)
         openOriginInJHoraAction.setEnabled(True)
+        openOriginInAstrologAction.setEnabled(True)
 
         # Add the QActions to the menu.
         menu.addAction(selectAction)
@@ -15458,6 +15698,7 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addAction(setOriginOnAstro2Action)
         menu.addAction(setOriginOnAstro3Action)
         menu.addAction(openOriginInJHoraAction)
+        menu.addAction(openOriginInAstrologAction)
 
     def rotateDown(self):
         """Causes the OctaveFanGraphicsItem to have its musicalRatios
@@ -15825,6 +16066,13 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         self.scene().openJHora(self.originPointF.x())
+        
+    def _handleOpenOriginInAstrologAction(self):
+        """Causes the the timestamp of the origin the
+        OctaveFanGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.originPointF.x())
         
         
 class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
@@ -17400,6 +17648,8 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set origin timestamp on Astro Chart &3", parent)
         openOriginInJHoraAction = \
             QAction("Open JHor&a with origin timestamp", parent)
+        openOriginInAstrologAction = \
+            QAction("Open Astrolog with origin timestamp", parent)
         
         selectAction.triggered.\
             connect(self._handleSelectAction)
@@ -17427,6 +17677,8 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetOriginOnAstro3Action)
         openOriginInJHoraAction.triggered.\
             connect(self._handleOpenOriginInJHoraAction)
+        openOriginInAstrologAction.triggered.\
+            connect(self._handleOpenOriginInAstrologAction)
         
         # Enable or disable actions.
         selectAction.setEnabled(True)
@@ -17442,6 +17694,7 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         setOriginOnAstro2Action.setEnabled(True)
         setOriginOnAstro3Action.setEnabled(True)
         openOriginInJHoraAction.setEnabled(True)
+        openOriginInAstrologAction.setEnabled(True)
 
         # Add the QActions to the menu.
         menu.addAction(selectAction)
@@ -17461,6 +17714,7 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addAction(setOriginOnAstro2Action)
         menu.addAction(setOriginOnAstro3Action)
         menu.addAction(openOriginInJHoraAction)
+        menu.addAction(openOriginInAstrologAction)
 
     def _handleSelectAction(self):
         """Causes the QGraphicsItem to become selected."""
@@ -17687,6 +17941,13 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         self.scene().openJHora(self.originPointF.x())
+        
+    def _handleOpenOriginInAstrologAction(self):
+        """Causes the the timestamp of the origin the
+        FibFanGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.originPointF.x())
         
         
 class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
@@ -19261,6 +19522,8 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set origin timestamp on Astro Chart &3", parent)
         openOriginInJHoraAction = \
             QAction("Open JHor&a with origin timestamp", parent)
+        openOriginInAstrologAction = \
+            QAction("Open Astrolog with origin timestamp", parent)
         
         selectAction.triggered.\
             connect(self._handleSelectAction)
@@ -19288,6 +19551,8 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetOriginOnAstro3Action)
         openOriginInJHoraAction.triggered.\
             connect(self._handleOpenOriginInJHoraAction)
+        openOriginInAstrologAction.triggered.\
+            connect(self._handleOpenOriginInAstrologAction)
         
         # Enable or disable actions.
         selectAction.setEnabled(True)
@@ -19303,6 +19568,7 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         setOriginOnAstro2Action.setEnabled(True)
         setOriginOnAstro3Action.setEnabled(True)
         openOriginInJHoraAction.setEnabled(True)
+        openOriginInAstrologAction.setEnabled(True)
 
         # Add the QActions to the menu.
         menu.addAction(selectAction)
@@ -19322,6 +19588,7 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addAction(setOriginOnAstro2Action)
         menu.addAction(setOriginOnAstro3Action)
         menu.addAction(openOriginInJHoraAction)
+        menu.addAction(openOriginInAstrologAction)
 
     def _handleSelectAction(self):
         """Causes the QGraphicsItem to become selected."""
@@ -19548,6 +19815,13 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         self.scene().openJHora(self.originPointF.x())
+        
+    def _handleOpenOriginInAstrologAction(self):
+        """Causes the the timestamp of the origin the
+        GannFanGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.originPointF.x())
         
         
 class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
@@ -20591,6 +20865,8 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set start timestamp on Astro Chart &3", parent)
         openStartInJHoraAction = \
             QAction("Open JHor&a with start timestamp", parent)
+        openStartInAstrologAction = \
+            QAction("Open As&trolog with start timestamp", parent)
         
         setEndOnAstro1Action = \
             QAction("Set end timestamp on Astro Chart 1", parent)
@@ -20600,6 +20876,8 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set end timestamp on Astro Chart 3", parent)
         openEndInJHoraAction = \
             QAction("Open JHora with end timestamp", parent)
+        openEndInAstrologAction = \
+            QAction("Open Astrolog with end timestamp", parent)
         
         selectAction.triggered.\
             connect(self._handleSelectAction)
@@ -20625,6 +20903,8 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetStartOnAstro3Action)
         openStartInJHoraAction.triggered.\
             connect(self._handleOpenStartInJHoraAction)
+        openStartInAstrologAction.triggered.\
+            connect(self._handleOpenStartInAstrologAction)
         setEndOnAstro1Action.triggered.\
             connect(self._handleSetEndOnAstro1Action)
         setEndOnAstro2Action.triggered.\
@@ -20633,6 +20913,8 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetEndOnAstro3Action)
         openEndInJHoraAction.triggered.\
             connect(self._handleOpenEndInJHoraAction)
+        openEndInAstrologAction.triggered.\
+            connect(self._handleOpenEndInAstrologAction)
         
         # Enable or disable actions.
         selectAction.setEnabled(True)
@@ -20647,10 +20929,12 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         setStartOnAstro2Action.setEnabled(True)
         setStartOnAstro3Action.setEnabled(True)
         openStartInJHoraAction.setEnabled(True)
+        openStartInAstrologAction.setEnabled(True)
         setEndOnAstro1Action.setEnabled(True)
         setEndOnAstro2Action.setEnabled(True)
         setEndOnAstro3Action.setEnabled(True)
         openEndInJHoraAction.setEnabled(True)
+        openEndInAstrologAction.setEnabled(True)
 
         # Add the QActions to the menu.
         menu.addAction(selectAction)
@@ -20668,11 +20952,13 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addAction(setStartOnAstro2Action)
         menu.addAction(setStartOnAstro3Action)
         menu.addAction(openStartInJHoraAction)
+        menu.addAction(openStartInAstrologAction)
         menu.addSeparator()
         menu.addAction(setEndOnAstro1Action)
         menu.addAction(setEndOnAstro2Action)
         menu.addAction(setEndOnAstro3Action)
         menu.addAction(openEndInJHoraAction)
+        menu.addAction(openEndInAstrologAction)
 
     def rotateDown(self):
         """Causes the VimsottariDasaGraphicsItem to have its musicalRatios
@@ -20911,6 +21197,13 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.scene().openJHora(self.startPointF.x())
         
+    def _handleOpenStartInAstrologAction(self):
+        """Causes the the timestamp of the start the
+        VimsottariDasaGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.startPointF.x())
+        
     def _handleSetEndOnAstro1Action(self):
         """Causes the astro chart 1 to be set with the timestamp
         of the end the VimsottariDasaGraphicsItem.
@@ -20938,6 +21231,13 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         self.scene().openJHora(self.endPointF.x())
+        
+    def _handleOpenEndInAstrologAction(self):
+        """Causes the the timestamp of the end the
+        VimsottariDasaGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.endPointF.x())
         
 class AshtottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     """QGraphicsItem that visualizes a musical scale in the GraphicsView.
@@ -21945,6 +22245,8 @@ class AshtottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set start timestamp on Astro Chart &3", parent)
         openStartInJHoraAction = \
             QAction("Open JHor&a with start timestamp", parent)
+        openStartInAstrologAction = \
+            QAction("Open As&trolog with start timestamp", parent)
         
         setEndOnAstro1Action = \
             QAction("Set end timestamp on Astro Chart 1", parent)
@@ -21954,6 +22256,8 @@ class AshtottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set end timestamp on Astro Chart 3", parent)
         openEndInJHoraAction = \
             QAction("Open JHora with end timestamp", parent)
+        openEndInAstrologAction = \
+            QAction("Open Astrolog with end timestamp", parent)
         
         selectAction.triggered.\
             connect(self._handleSelectAction)
@@ -21979,6 +22283,8 @@ class AshtottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetStartOnAstro3Action)
         openStartInJHoraAction.triggered.\
             connect(self._handleOpenStartInJHoraAction)
+        openStartInAstrologAction.triggered.\
+            connect(self._handleOpenStartInAstrologAction)
         setEndOnAstro1Action.triggered.\
             connect(self._handleSetEndOnAstro1Action)
         setEndOnAstro2Action.triggered.\
@@ -21987,6 +22293,8 @@ class AshtottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetEndOnAstro3Action)
         openEndInJHoraAction.triggered.\
             connect(self._handleOpenEndInJHoraAction)
+        openEndInAstrologAction.triggered.\
+            connect(self._handleOpenEndInAstrologAction)
         
         # Enable or disable actions.
         selectAction.setEnabled(True)
@@ -22001,10 +22309,12 @@ class AshtottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         setStartOnAstro2Action.setEnabled(True)
         setStartOnAstro3Action.setEnabled(True)
         openStartInJHoraAction.setEnabled(True)
+        openStartInAstrologAction.setEnabled(True)
         setEndOnAstro1Action.setEnabled(True)
         setEndOnAstro2Action.setEnabled(True)
         setEndOnAstro3Action.setEnabled(True)
         openEndInJHoraAction.setEnabled(True)
+        openEndInAstrologAction.setEnabled(True)
 
         # Add the QActions to the menu.
         menu.addAction(selectAction)
@@ -22022,11 +22332,13 @@ class AshtottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addAction(setStartOnAstro2Action)
         menu.addAction(setStartOnAstro3Action)
         menu.addAction(openStartInJHoraAction)
+        menu.addAction(openStartInAstrologAction)
         menu.addSeparator()
         menu.addAction(setEndOnAstro1Action)
         menu.addAction(setEndOnAstro2Action)
         menu.addAction(setEndOnAstro3Action)
         menu.addAction(openEndInJHoraAction)
+        menu.addAction(openEndInAstrologAction)
 
     def rotateDown(self):
         """Causes the AshtottariDasaGraphicsItem to have its musicalRatios
@@ -22261,6 +22573,13 @@ class AshtottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.scene().openJHora(self.startPointF.x())
         
+    def _handleOpenStartInAstrologAction(self):
+        """Causes the the timestamp of the start the
+        AshtottariDasaGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.startPointF.x())
+        
     def _handleSetEndOnAstro1Action(self):
         """Causes the astro chart 1 to be set with the timestamp
         of the end the AshtottariDasaGraphicsItem.
@@ -22288,6 +22607,13 @@ class AshtottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         self.scene().openJHora(self.endPointF.x())
+        
+    def _handleOpenEndInAstrologAction(self):
+        """Causes the the timestamp of the end the
+        AshtottariDasaGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.endPointF.x())
         
 class YoginiDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     """QGraphicsItem that visualizes a musical scale in the GraphicsView.
@@ -23295,6 +23621,8 @@ class YoginiDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set start timestamp on Astro Chart &3", parent)
         openStartInJHoraAction = \
             QAction("Open JHor&a with start timestamp", parent)
+        openStartInAstrologAction = \
+            QAction("Open As&trolog with start timestamp", parent)
         
         setEndOnAstro1Action = \
             QAction("Set end timestamp on Astro Chart 1", parent)
@@ -23304,6 +23632,8 @@ class YoginiDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set end timestamp on Astro Chart 3", parent)
         openEndInJHoraAction = \
             QAction("Open JHora with end timestamp", parent)
+        openEndInAstrologAction = \
+            QAction("Open Astrolog with end timestamp", parent)
         
         selectAction.triggered.\
             connect(self._handleSelectAction)
@@ -23329,6 +23659,8 @@ class YoginiDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetStartOnAstro3Action)
         openStartInJHoraAction.triggered.\
             connect(self._handleOpenStartInJHoraAction)
+        openStartInAstrologAction.triggered.\
+            connect(self._handleOpenStartInAstrologAction)
         setEndOnAstro1Action.triggered.\
             connect(self._handleSetEndOnAstro1Action)
         setEndOnAstro2Action.triggered.\
@@ -23337,6 +23669,8 @@ class YoginiDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetEndOnAstro3Action)
         openEndInJHoraAction.triggered.\
             connect(self._handleOpenEndInJHoraAction)
+        openEndInAstrologAction.triggered.\
+            connect(self._handleOpenEndInAstrologAction)
         
         # Enable or disable actions.
         selectAction.setEnabled(True)
@@ -23351,10 +23685,12 @@ class YoginiDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         setStartOnAstro2Action.setEnabled(True)
         setStartOnAstro3Action.setEnabled(True)
         openStartInJHoraAction.setEnabled(True)
+        openStartInAstrologAction.setEnabled(True)
         setEndOnAstro1Action.setEnabled(True)
         setEndOnAstro2Action.setEnabled(True)
         setEndOnAstro3Action.setEnabled(True)
         openEndInJHoraAction.setEnabled(True)
+        openEndInAstrologAction.setEnabled(True)
 
         # Add the QActions to the menu.
         menu.addAction(selectAction)
@@ -23372,11 +23708,13 @@ class YoginiDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addAction(setStartOnAstro2Action)
         menu.addAction(setStartOnAstro3Action)
         menu.addAction(openStartInJHoraAction)
+        menu.addAction(openStartInAstrologAction)
         menu.addSeparator()
         menu.addAction(setEndOnAstro1Action)
         menu.addAction(setEndOnAstro2Action)
         menu.addAction(setEndOnAstro3Action)
         menu.addAction(openEndInJHoraAction)
+        menu.addAction(openEndInAstrologAction)
 
     def rotateDown(self):
         """Causes the YoginiDasaGraphicsItem to have its musicalRatios
@@ -23611,6 +23949,13 @@ class YoginiDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.scene().openJHora(self.startPointF.x())
         
+    def _handleOpenStartInAstrologAction(self):
+        """Causes the the timestamp of the start the
+        YoginiDasaGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.startPointF.x())
+        
     def _handleSetEndOnAstro1Action(self):
         """Causes the astro chart 1 to be set with the timestamp
         of the end the YoginiDasaGraphicsItem.
@@ -23638,6 +23983,13 @@ class YoginiDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         self.scene().openJHora(self.endPointF.x())
+        
+    def _handleOpenEndInAstrologAction(self):
+        """Causes the the timestamp of the end the
+        YoginiDasaGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.endPointF.x())
         
 class DwisaptatiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     """QGraphicsItem that visualizes a musical scale in the GraphicsView.
@@ -24644,6 +24996,8 @@ class DwisaptatiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set start timestamp on Astro Chart &3", parent)
         openStartInJHoraAction = \
             QAction("Open JHor&a with start timestamp", parent)
+        openStartInAstrologAction = \
+            QAction("Open As&trolog with start timestamp", parent)
         
         setEndOnAstro1Action = \
             QAction("Set end timestamp on Astro Chart 1", parent)
@@ -24653,6 +25007,8 @@ class DwisaptatiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set end timestamp on Astro Chart 3", parent)
         openEndInJHoraAction = \
             QAction("Open JHora with end timestamp", parent)
+        openEndInAstrologAction = \
+            QAction("Open Astrolog with end timestamp", parent)
         
         selectAction.triggered.\
             connect(self._handleSelectAction)
@@ -24678,6 +25034,8 @@ class DwisaptatiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetStartOnAstro3Action)
         openStartInJHoraAction.triggered.\
             connect(self._handleOpenStartInJHoraAction)
+        openStartInAstrologAction.triggered.\
+            connect(self._handleOpenStartInAstrologAction)
         setEndOnAstro1Action.triggered.\
             connect(self._handleSetEndOnAstro1Action)
         setEndOnAstro2Action.triggered.\
@@ -24686,6 +25044,8 @@ class DwisaptatiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetEndOnAstro3Action)
         openEndInJHoraAction.triggered.\
             connect(self._handleOpenEndInJHoraAction)
+        openEndInAstrologAction.triggered.\
+            connect(self._handleOpenEndInAstrologAction)
         
         # Enable or disable actions.
         selectAction.setEnabled(True)
@@ -24700,10 +25060,12 @@ class DwisaptatiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         setStartOnAstro2Action.setEnabled(True)
         setStartOnAstro3Action.setEnabled(True)
         openStartInJHoraAction.setEnabled(True)
+        openStartInAstrologAction.setEnabled(True)
         setEndOnAstro1Action.setEnabled(True)
         setEndOnAstro2Action.setEnabled(True)
         setEndOnAstro3Action.setEnabled(True)
         openEndInJHoraAction.setEnabled(True)
+        openEndInAstrologAction.setEnabled(True)
 
         # Add the QActions to the menu.
         menu.addAction(selectAction)
@@ -24721,11 +25083,13 @@ class DwisaptatiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addAction(setStartOnAstro2Action)
         menu.addAction(setStartOnAstro3Action)
         menu.addAction(openStartInJHoraAction)
+        menu.addAction(openStartInAstrologAction)
         menu.addSeparator()
         menu.addAction(setEndOnAstro1Action)
         menu.addAction(setEndOnAstro2Action)
         menu.addAction(setEndOnAstro3Action)
         menu.addAction(openEndInJHoraAction)
+        menu.addAction(openEndInAstrologAction)
 
     def rotateDown(self):
         """Causes the DwisaptatiSamaDasaGraphicsItem to have its musicalRatios
@@ -24960,6 +25324,13 @@ class DwisaptatiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.scene().openJHora(self.startPointF.x())
         
+    def _handleOpenStartInAstrologAction(self):
+        """Causes the the timestamp of the start the
+        DwisaptatiSamaDasaGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.startPointF.x())
+        
     def _handleSetEndOnAstro1Action(self):
         """Causes the astro chart 1 to be set with the timestamp
         of the end the DwisaptatiSamaDasaGraphicsItem.
@@ -24987,6 +25358,13 @@ class DwisaptatiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         self.scene().openJHora(self.endPointF.x())
+        
+    def _handleOpenEndInAstrologAction(self):
+        """Causes the the timestamp of the end the
+        DwisaptatiSamaDasaGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.endPointF.x())
         
 class ShattrimsaSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     """QGraphicsItem that visualizes a musical scale in the GraphicsView.
@@ -25993,6 +26371,8 @@ class ShattrimsaSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set start timestamp on Astro Chart &3", parent)
         openStartInJHoraAction = \
             QAction("Open JHor&a with start timestamp", parent)
+        openStartInAstrologAction = \
+            QAction("Open As&trolog with start timestamp", parent)
         
         setEndOnAstro1Action = \
             QAction("Set end timestamp on Astro Chart 1", parent)
@@ -26002,6 +26382,8 @@ class ShattrimsaSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set end timestamp on Astro Chart 3", parent)
         openEndInJHoraAction = \
             QAction("Open JHora with end timestamp", parent)
+        openEndInAstrologAction = \
+            QAction("Open Astrolog with end timestamp", parent)
         
         selectAction.triggered.\
             connect(self._handleSelectAction)
@@ -26027,6 +26409,8 @@ class ShattrimsaSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetStartOnAstro3Action)
         openStartInJHoraAction.triggered.\
             connect(self._handleOpenStartInJHoraAction)
+        openStartInAstrologAction.triggered.\
+            connect(self._handleOpenStartInAstrologAction)
         setEndOnAstro1Action.triggered.\
             connect(self._handleSetEndOnAstro1Action)
         setEndOnAstro2Action.triggered.\
@@ -26035,6 +26419,8 @@ class ShattrimsaSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetEndOnAstro3Action)
         openEndInJHoraAction.triggered.\
             connect(self._handleOpenEndInJHoraAction)
+        openEndInAstrologAction.triggered.\
+            connect(self._handleOpenEndInAstrologAction)
         
         # Enable or disable actions.
         selectAction.setEnabled(True)
@@ -26049,10 +26435,12 @@ class ShattrimsaSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         setStartOnAstro2Action.setEnabled(True)
         setStartOnAstro3Action.setEnabled(True)
         openStartInJHoraAction.setEnabled(True)
+        openStartInAstrologAction.setEnabled(True)
         setEndOnAstro1Action.setEnabled(True)
         setEndOnAstro2Action.setEnabled(True)
         setEndOnAstro3Action.setEnabled(True)
         openEndInJHoraAction.setEnabled(True)
+        openEndInAstrologAction.setEnabled(True)
 
         # Add the QActions to the menu.
         menu.addAction(selectAction)
@@ -26070,11 +26458,13 @@ class ShattrimsaSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addAction(setStartOnAstro2Action)
         menu.addAction(setStartOnAstro3Action)
         menu.addAction(openStartInJHoraAction)
+        menu.addAction(openStartInAstrologAction)
         menu.addSeparator()
         menu.addAction(setEndOnAstro1Action)
         menu.addAction(setEndOnAstro2Action)
         menu.addAction(setEndOnAstro3Action)
         menu.addAction(openEndInJHoraAction)
+        menu.addAction(openEndInAstrologAction)
 
     def rotateDown(self):
         """Causes the ShattrimsaSamaDasaGraphicsItem to have its musicalRatios
@@ -26309,6 +26699,13 @@ class ShattrimsaSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.scene().openJHora(self.startPointF.x())
         
+    def _handleOpenStartInAstrologAction(self):
+        """Causes the the timestamp of the start the
+        ShattrimsaSamaDasaGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.startPointF.x())
+        
     def _handleSetEndOnAstro1Action(self):
         """Causes the astro chart 1 to be set with the timestamp
         of the end the ShattrimsaSamaDasaGraphicsItem.
@@ -26336,6 +26733,13 @@ class ShattrimsaSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         self.scene().openJHora(self.endPointF.x())
+        
+    def _handleOpenEndInAstrologAction(self):
+        """Causes the the timestamp of the end the
+        ShattrimsaSamaDasaGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.endPointF.x())
         
 class DwadasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     """QGraphicsItem that visualizes a musical scale in the GraphicsView.
@@ -27342,6 +27746,8 @@ class DwadasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set start timestamp on Astro Chart &3", parent)
         openStartInJHoraAction = \
             QAction("Open JHor&a with start timestamp", parent)
+        openStartInAstrologAction = \
+            QAction("Open As&trolog with start timestamp", parent)
         
         setEndOnAstro1Action = \
             QAction("Set end timestamp on Astro Chart 1", parent)
@@ -27351,6 +27757,8 @@ class DwadasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set end timestamp on Astro Chart 3", parent)
         openEndInJHoraAction = \
             QAction("Open JHora with end timestamp", parent)
+        openEndInAstrologAction = \
+            QAction("Open Astrolog with end timestamp", parent)
         
         selectAction.triggered.\
             connect(self._handleSelectAction)
@@ -27376,6 +27784,8 @@ class DwadasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetStartOnAstro3Action)
         openStartInJHoraAction.triggered.\
             connect(self._handleOpenStartInJHoraAction)
+        openStartInAstrologAction.triggered.\
+            connect(self._handleOpenStartInAstrologAction)
         setEndOnAstro1Action.triggered.\
             connect(self._handleSetEndOnAstro1Action)
         setEndOnAstro2Action.triggered.\
@@ -27384,6 +27794,8 @@ class DwadasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetEndOnAstro3Action)
         openEndInJHoraAction.triggered.\
             connect(self._handleOpenEndInJHoraAction)
+        openEndInAstrologAction.triggered.\
+            connect(self._handleOpenEndInAstrologAction)
         
         # Enable or disable actions.
         selectAction.setEnabled(True)
@@ -27398,10 +27810,12 @@ class DwadasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         setStartOnAstro2Action.setEnabled(True)
         setStartOnAstro3Action.setEnabled(True)
         openStartInJHoraAction.setEnabled(True)
+        openStartInAstrologAction.setEnabled(True)
         setEndOnAstro1Action.setEnabled(True)
         setEndOnAstro2Action.setEnabled(True)
         setEndOnAstro3Action.setEnabled(True)
         openEndInJHoraAction.setEnabled(True)
+        openEndInAstrologAction.setEnabled(True)
 
         # Add the QActions to the menu.
         menu.addAction(selectAction)
@@ -27419,11 +27833,13 @@ class DwadasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addAction(setStartOnAstro2Action)
         menu.addAction(setStartOnAstro3Action)
         menu.addAction(openStartInJHoraAction)
+        menu.addAction(openStartInAstrologAction)
         menu.addSeparator()
         menu.addAction(setEndOnAstro1Action)
         menu.addAction(setEndOnAstro2Action)
         menu.addAction(setEndOnAstro3Action)
         menu.addAction(openEndInJHoraAction)
+        menu.addAction(openEndInAstrologAction)
 
     def rotateDown(self):
         """Causes the DwadasottariDasaGraphicsItem to have its musicalRatios
@@ -27658,6 +28074,13 @@ class DwadasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.scene().openJHora(self.startPointF.x())
         
+    def _handleOpenStartInAstrologAction(self):
+        """Causes the the timestamp of the start the
+        DwadasottariDasaGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.startPointF.x())
+        
     def _handleSetEndOnAstro1Action(self):
         """Causes the astro chart 1 to be set with the timestamp
         of the end the DwadasottariDasaGraphicsItem.
@@ -27685,6 +28108,13 @@ class DwadasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         self.scene().openJHora(self.endPointF.x())
+        
+    def _handleOpenEndInAstrologAction(self):
+        """Causes the the timestamp of the end the
+        DwadasottariDasaGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.endPointF.x())
         
 class ChaturaseetiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     """QGraphicsItem that visualizes a musical scale in the GraphicsView.
@@ -28691,6 +29121,8 @@ class ChaturaseetiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set start timestamp on Astro Chart &3", parent)
         openStartInJHoraAction = \
             QAction("Open JHor&a with start timestamp", parent)
+        openStartInAstrologAction = \
+            QAction("Open As&trolog with start timestamp", parent)
         
         setEndOnAstro1Action = \
             QAction("Set end timestamp on Astro Chart 1", parent)
@@ -28700,6 +29132,8 @@ class ChaturaseetiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set end timestamp on Astro Chart 3", parent)
         openEndInJHoraAction = \
             QAction("Open JHora with end timestamp", parent)
+        openEndInAstrologAction = \
+            QAction("Open Astrolog with end timestamp", parent)
         
         selectAction.triggered.\
             connect(self._handleSelectAction)
@@ -28725,6 +29159,8 @@ class ChaturaseetiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetStartOnAstro3Action)
         openStartInJHoraAction.triggered.\
             connect(self._handleOpenStartInJHoraAction)
+        openStartInAstrologAction.triggered.\
+            connect(self._handleOpenStartInAstrologAction)
         setEndOnAstro1Action.triggered.\
             connect(self._handleSetEndOnAstro1Action)
         setEndOnAstro2Action.triggered.\
@@ -28733,6 +29169,8 @@ class ChaturaseetiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetEndOnAstro3Action)
         openEndInJHoraAction.triggered.\
             connect(self._handleOpenEndInJHoraAction)
+        openEndInAstrologAction.triggered.\
+            connect(self._handleOpenEndInAstrologAction)
         
         # Enable or disable actions.
         selectAction.setEnabled(True)
@@ -28747,10 +29185,12 @@ class ChaturaseetiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         setStartOnAstro2Action.setEnabled(True)
         setStartOnAstro3Action.setEnabled(True)
         openStartInJHoraAction.setEnabled(True)
+        openStartInAstrologAction.setEnabled(True)
         setEndOnAstro1Action.setEnabled(True)
         setEndOnAstro2Action.setEnabled(True)
         setEndOnAstro3Action.setEnabled(True)
         openEndInJHoraAction.setEnabled(True)
+        openEndInAstrologAction.setEnabled(True)
 
         # Add the QActions to the menu.
         menu.addAction(selectAction)
@@ -28768,11 +29208,13 @@ class ChaturaseetiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addAction(setStartOnAstro2Action)
         menu.addAction(setStartOnAstro3Action)
         menu.addAction(openStartInJHoraAction)
+        menu.addAction(openStartInAstrologAction)
         menu.addSeparator()
         menu.addAction(setEndOnAstro1Action)
         menu.addAction(setEndOnAstro2Action)
         menu.addAction(setEndOnAstro3Action)
         menu.addAction(openEndInJHoraAction)
+        menu.addAction(openEndInAstrologAction)
 
     def rotateDown(self):
         """Causes the ChaturaseetiSamaDasaGraphicsItem to have its musicalRatios
@@ -29007,6 +29449,13 @@ class ChaturaseetiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.scene().openJHora(self.startPointF.x())
         
+    def _handleOpenStartInAstrologAction(self):
+        """Causes the the timestamp of the start the
+        ChaturaseetiSamaDasaGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.startPointF.x())
+        
     def _handleSetEndOnAstro1Action(self):
         """Causes the astro chart 1 to be set with the timestamp
         of the end the ChaturaseetiSamaDasaGraphicsItem.
@@ -29034,6 +29483,13 @@ class ChaturaseetiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         self.scene().openJHora(self.endPointF.x())
+        
+    def _handleOpenEndInAstrologAction(self):
+        """Causes the the timestamp of the end the
+        ChaturaseetiSamaDasaGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.endPointF.x())
         
 class SataabdikaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     """QGraphicsItem that visualizes a musical scale in the GraphicsView.
@@ -30040,6 +30496,8 @@ class SataabdikaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set start timestamp on Astro Chart &3", parent)
         openStartInJHoraAction = \
             QAction("Open JHor&a with start timestamp", parent)
+        openStartInAstrologAction = \
+            QAction("Open As&trolog with start timestamp", parent)
         
         setEndOnAstro1Action = \
             QAction("Set end timestamp on Astro Chart 1", parent)
@@ -30049,6 +30507,8 @@ class SataabdikaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set end timestamp on Astro Chart 3", parent)
         openEndInJHoraAction = \
             QAction("Open JHora with end timestamp", parent)
+        openEndInAstrologAction = \
+            QAction("Open Astrolog with end timestamp", parent)
         
         selectAction.triggered.\
             connect(self._handleSelectAction)
@@ -30074,6 +30534,8 @@ class SataabdikaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetStartOnAstro3Action)
         openStartInJHoraAction.triggered.\
             connect(self._handleOpenStartInJHoraAction)
+        openStartInAstrologAction.triggered.\
+            connect(self._handleOpenStartInAstrologAction)
         setEndOnAstro1Action.triggered.\
             connect(self._handleSetEndOnAstro1Action)
         setEndOnAstro2Action.triggered.\
@@ -30082,6 +30544,8 @@ class SataabdikaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetEndOnAstro3Action)
         openEndInJHoraAction.triggered.\
             connect(self._handleOpenEndInJHoraAction)
+        openEndInAstrologAction.triggered.\
+            connect(self._handleOpenEndInAstrologAction)
         
         # Enable or disable actions.
         selectAction.setEnabled(True)
@@ -30096,10 +30560,12 @@ class SataabdikaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         setStartOnAstro2Action.setEnabled(True)
         setStartOnAstro3Action.setEnabled(True)
         openStartInJHoraAction.setEnabled(True)
+        openStartInAstrologAction.setEnabled(True)
         setEndOnAstro1Action.setEnabled(True)
         setEndOnAstro2Action.setEnabled(True)
         setEndOnAstro3Action.setEnabled(True)
         openEndInJHoraAction.setEnabled(True)
+        openEndInAstrologAction.setEnabled(True)
 
         # Add the QActions to the menu.
         menu.addAction(selectAction)
@@ -30117,11 +30583,13 @@ class SataabdikaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addAction(setStartOnAstro2Action)
         menu.addAction(setStartOnAstro3Action)
         menu.addAction(openStartInJHoraAction)
+        menu.addAction(openStartInAstrologAction)
         menu.addSeparator()
         menu.addAction(setEndOnAstro1Action)
         menu.addAction(setEndOnAstro2Action)
         menu.addAction(setEndOnAstro3Action)
         menu.addAction(openEndInJHoraAction)
+        menu.addAction(openEndInAstrologAction)
 
     def rotateDown(self):
         """Causes the SataabdikaDasaGraphicsItem to have its musicalRatios
@@ -30356,6 +30824,13 @@ class SataabdikaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.scene().openJHora(self.startPointF.x())
         
+    def _handleOpenStartInAstrologAction(self):
+        """Causes the the timestamp of the start the
+        SataabdikaDasaGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.startPointF.x())
+        
     def _handleSetEndOnAstro1Action(self):
         """Causes the astro chart 1 to be set with the timestamp
         of the end the SataabdikaDasaGraphicsItem.
@@ -30383,6 +30858,13 @@ class SataabdikaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         self.scene().openJHora(self.endPointF.x())
+        
+    def _handleOpenEndInAstrologAction(self):
+        """Causes the the timestamp of the end the
+        SataabdikaDasaGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.endPointF.x())
         
 class ShodasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     """QGraphicsItem that visualizes a musical scale in the GraphicsView.
@@ -31391,6 +31873,8 @@ class ShodasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set start timestamp on Astro Chart &3", parent)
         openStartInJHoraAction = \
             QAction("Open JHor&a with start timestamp", parent)
+        openStartInAstrologAction = \
+            QAction("Open As&trolog with start timestamp", parent)
         
         setEndOnAstro1Action = \
             QAction("Set end timestamp on Astro Chart 1", parent)
@@ -31400,6 +31884,8 @@ class ShodasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set end timestamp on Astro Chart 3", parent)
         openEndInJHoraAction = \
             QAction("Open JHora with end timestamp", parent)
+        openEndInAstrologAction = \
+            QAction("Open Astrolog with end timestamp", parent)
         
         selectAction.triggered.\
             connect(self._handleSelectAction)
@@ -31425,6 +31911,8 @@ class ShodasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetStartOnAstro3Action)
         openStartInJHoraAction.triggered.\
             connect(self._handleOpenStartInJHoraAction)
+        openStartInAstrologAction.triggered.\
+            connect(self._handleOpenStartInAstrologAction)
         setEndOnAstro1Action.triggered.\
             connect(self._handleSetEndOnAstro1Action)
         setEndOnAstro2Action.triggered.\
@@ -31433,6 +31921,8 @@ class ShodasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetEndOnAstro3Action)
         openEndInJHoraAction.triggered.\
             connect(self._handleOpenEndInJHoraAction)
+        openEndInAstrologAction.triggered.\
+            connect(self._handleOpenEndInAstrologAction)
         
         # Enable or disable actions.
         selectAction.setEnabled(True)
@@ -31447,10 +31937,12 @@ class ShodasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         setStartOnAstro2Action.setEnabled(True)
         setStartOnAstro3Action.setEnabled(True)
         openStartInJHoraAction.setEnabled(True)
+        openStartInAstrologAction.setEnabled(True)
         setEndOnAstro1Action.setEnabled(True)
         setEndOnAstro2Action.setEnabled(True)
         setEndOnAstro3Action.setEnabled(True)
         openEndInJHoraAction.setEnabled(True)
+        openEndInAstrologAction.setEnabled(True)
 
         # Add the QActions to the menu.
         menu.addAction(selectAction)
@@ -31468,11 +31960,13 @@ class ShodasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addAction(setStartOnAstro2Action)
         menu.addAction(setStartOnAstro3Action)
         menu.addAction(openStartInJHoraAction)
+        menu.addAction(openStartInAstrologAction)
         menu.addSeparator()
         menu.addAction(setEndOnAstro1Action)
         menu.addAction(setEndOnAstro2Action)
         menu.addAction(setEndOnAstro3Action)
         menu.addAction(openEndInJHoraAction)
+        menu.addAction(openEndInAstrologAction)
 
     def rotateDown(self):
         """Causes the ShodasottariDasaGraphicsItem to have its musicalRatios
@@ -31710,6 +32204,13 @@ class ShodasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.scene().openJHora(self.startPointF.x())
         
+    def _handleOpenStartInAstrologAction(self):
+        """Causes the the timestamp of the start the
+        ShodasottariDasaGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.startPointF.x())
+        
     def _handleSetEndOnAstro1Action(self):
         """Causes the astro chart 1 to be set with the timestamp
         of the end the ShodasottariDasaGraphicsItem.
@@ -31737,6 +32238,13 @@ class ShodasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         self.scene().openJHora(self.endPointF.x())
+        
+    def _handleOpenEndInAstrologAction(self):
+        """Causes the the timestamp of the end the
+        ShodasottariDasaGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.endPointF.x())
         
 class PanchottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     """QGraphicsItem that visualizes a musical scale in the GraphicsView.
@@ -32743,6 +33251,8 @@ class PanchottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set start timestamp on Astro Chart &3", parent)
         openStartInJHoraAction = \
             QAction("Open JHor&a with start timestamp", parent)
+        openStartInAstrologAction = \
+            QAction("Open As&trolog with start timestamp", parent)
         
         setEndOnAstro1Action = \
             QAction("Set end timestamp on Astro Chart 1", parent)
@@ -32752,6 +33262,8 @@ class PanchottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set end timestamp on Astro Chart 3", parent)
         openEndInJHoraAction = \
             QAction("Open JHora with end timestamp", parent)
+        openEndInAstrologAction = \
+            QAction("Open Astrolog with end timestamp", parent)
         
         selectAction.triggered.\
             connect(self._handleSelectAction)
@@ -32777,6 +33289,8 @@ class PanchottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetStartOnAstro3Action)
         openStartInJHoraAction.triggered.\
             connect(self._handleOpenStartInJHoraAction)
+        openStartInAstrologAction.triggered.\
+            connect(self._handleOpenStartInAstrologAction)
         setEndOnAstro1Action.triggered.\
             connect(self._handleSetEndOnAstro1Action)
         setEndOnAstro2Action.triggered.\
@@ -32785,6 +33299,8 @@ class PanchottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetEndOnAstro3Action)
         openEndInJHoraAction.triggered.\
             connect(self._handleOpenEndInJHoraAction)
+        openEndInAstrologAction.triggered.\
+            connect(self._handleOpenEndInAstrologAction)
         
         # Enable or disable actions.
         selectAction.setEnabled(True)
@@ -32799,10 +33315,12 @@ class PanchottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         setStartOnAstro2Action.setEnabled(True)
         setStartOnAstro3Action.setEnabled(True)
         openStartInJHoraAction.setEnabled(True)
+        openStartInAstrologAction.setEnabled(True)
         setEndOnAstro1Action.setEnabled(True)
         setEndOnAstro2Action.setEnabled(True)
         setEndOnAstro3Action.setEnabled(True)
         openEndInJHoraAction.setEnabled(True)
+        openEndInAstrologAction.setEnabled(True)
 
         # Add the QActions to the menu.
         menu.addAction(selectAction)
@@ -32820,11 +33338,13 @@ class PanchottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addAction(setStartOnAstro2Action)
         menu.addAction(setStartOnAstro3Action)
         menu.addAction(openStartInJHoraAction)
+        menu.addAction(openStartInAstrologAction)
         menu.addSeparator()
         menu.addAction(setEndOnAstro1Action)
         menu.addAction(setEndOnAstro2Action)
         menu.addAction(setEndOnAstro3Action)
         menu.addAction(openEndInJHoraAction)
+        menu.addAction(openEndInAstrologAction)
 
     def rotateDown(self):
         """Causes the PanchottariDasaGraphicsItem to have its musicalRatios
@@ -33059,6 +33579,13 @@ class PanchottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.scene().openJHora(self.startPointF.x())
         
+    def _handleOpenStartInAstrologAction(self):
+        """Causes the the timestamp of the start the
+        PanchottariDasaGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.startPointF.x())
+        
     def _handleSetEndOnAstro1Action(self):
         """Causes the astro chart 1 to be set with the timestamp
         of the end the PanchottariDasaGraphicsItem.
@@ -33086,6 +33613,13 @@ class PanchottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         self.scene().openJHora(self.endPointF.x())
+        
+    def _handleOpenEndInAstrologAction(self):
+        """Causes the the timestamp of the end the
+        PanchottariDasaGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.endPointF.x())
         
 class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     """QGraphicsItem that visualizes a musical scale in the GraphicsView.
@@ -34092,6 +34626,8 @@ class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set start timestamp on Astro Chart &3", parent)
         openStartInJHoraAction = \
             QAction("Open JHor&a with start timestamp", parent)
+        openStartInAstrologAction = \
+            QAction("Open As&trolog with start timestamp", parent)
         
         setEndOnAstro1Action = \
             QAction("Set end timestamp on Astro Chart 1", parent)
@@ -34101,6 +34637,8 @@ class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             QAction("Set end timestamp on Astro Chart 3", parent)
         openEndInJHoraAction = \
             QAction("Open JHora with end timestamp", parent)
+        openEndInAstrologAction = \
+            QAction("Open Astrolog with end timestamp", parent)
         
         selectAction.triggered.\
             connect(self._handleSelectAction)
@@ -34126,6 +34664,8 @@ class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetStartOnAstro3Action)
         openStartInJHoraAction.triggered.\
             connect(self._handleOpenStartInJHoraAction)
+        openStartInAstrologAction.triggered.\
+            connect(self._handleOpenStartInAstrologAction)
         setEndOnAstro1Action.triggered.\
             connect(self._handleSetEndOnAstro1Action)
         setEndOnAstro2Action.triggered.\
@@ -34134,6 +34674,8 @@ class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             connect(self._handleSetEndOnAstro3Action)
         openEndInJHoraAction.triggered.\
             connect(self._handleOpenEndInJHoraAction)
+        openEndInAstrologAction.triggered.\
+            connect(self._handleOpenEndInAstrologAction)
         
         # Enable or disable actions.
         selectAction.setEnabled(True)
@@ -34148,10 +34690,12 @@ class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         setStartOnAstro2Action.setEnabled(True)
         setStartOnAstro3Action.setEnabled(True)
         openStartInJHoraAction.setEnabled(True)
+        openStartInAstrologAction.setEnabled(True)
         setEndOnAstro1Action.setEnabled(True)
         setEndOnAstro2Action.setEnabled(True)
         setEndOnAstro3Action.setEnabled(True)
         openEndInJHoraAction.setEnabled(True)
+        openEndInAstrologAction.setEnabled(True)
 
         # Add the QActions to the menu.
         menu.addAction(selectAction)
@@ -34169,11 +34713,13 @@ class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         menu.addAction(setStartOnAstro2Action)
         menu.addAction(setStartOnAstro3Action)
         menu.addAction(openStartInJHoraAction)
+        menu.addAction(openStartInAstrologAction)
         menu.addSeparator()
         menu.addAction(setEndOnAstro1Action)
         menu.addAction(setEndOnAstro2Action)
         menu.addAction(setEndOnAstro3Action)
         menu.addAction(openEndInJHoraAction)
+        menu.addAction(openEndInAstrologAction)
 
     def rotateDown(self):
         """Causes the ShashtihayaniDasaGraphicsItem to have its musicalRatios
@@ -34408,6 +34954,13 @@ class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.scene().openJHora(self.startPointF.x())
         
+    def _handleOpenStartInAstrologAction(self):
+        """Causes the the timestamp of the start the
+        ShashtihayaniDasaGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.startPointF.x())
+        
     def _handleSetEndOnAstro1Action(self):
         """Causes the astro chart 1 to be set with the timestamp
         of the end the ShashtihayaniDasaGraphicsItem.
@@ -34435,6 +34988,13 @@ class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """
 
         self.scene().openJHora(self.endPointF.x())
+        
+    def _handleOpenEndInAstrologAction(self):
+        """Causes the the timestamp of the end the
+        ShashtihayaniDasaGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.endPointF.x())
         
 class PriceBarChartWidget(QWidget):
     """Widget holding the QGraphicsScene and QGraphicsView that displays
@@ -34472,6 +35032,10 @@ class PriceBarChartWidget(QWidget):
     # Signal emitted when the user desires to view a datetime.datetime
     # in JHora.
     jhoraLaunch = QtCore.pyqtSignal(datetime.datetime)
+    
+    # Signal emitted when the user desires to view a datetime.datetime
+    # in Astrolog.
+    astrologLaunch = QtCore.pyqtSignal(datetime.datetime)
     
     # Tool modes that this widget can be in.
     ToolMode = {"ReadOnlyPointerTool"      : 0,
@@ -34629,6 +35193,8 @@ class PriceBarChartWidget(QWidget):
             connect(self.astroChart3Update)
         self.graphicsScene.jhoraLaunch.\
             connect(self.jhoraLaunch)
+        self.graphicsScene.astrologLaunch.\
+            connect(self.astrologLaunch)
         
         self.log.debug("Leaving __init__()")
 
@@ -36194,6 +36760,10 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
     # in JHora.
     jhoraLaunch = QtCore.pyqtSignal(datetime.datetime)
     
+    # Signal emitted when the user desires to view a datetime.datetime
+    # in Astrolog.
+    astrologLaunch = QtCore.pyqtSignal(datetime.datetime)
+    
     def __init__(self, parent=None):
         """Pass-through to the QGraphicsScene constructor."""
 
@@ -37236,6 +37806,25 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         # Emit the desired signal so that the JHora can be launched
         # for this datetime.datetime.
         self.jhoraLaunch.emit(dt)
+
+    def openAstrolog(self, x):
+        """Opens the Astrolog application with the timestamp represented
+        by the X coordinate value.  This function uses the birth
+        location/timezone set in self.birthInfo.
+        
+        Arguments:
+        x - float value for the X position in the QGraphicsScene.  The
+            X value represents a certain timestamp (unconverted).
+            This function will do the necessary conversion from X
+            value to datetime.datetime timestamp.
+        """
+
+        # Convert from X to datetime.datetime.
+        dt = self.sceneXPosToDatetime(x)
+        
+        # Emit the desired signal so that the Astrolog can be launched
+        # for this datetime.datetime.
+        self.astrologLaunch.emit(dt)
 
 class PriceBarChartGraphicsView(QGraphicsView):
     """QGraphicsView that visualizes the main QGraphicsScene.
@@ -38740,6 +39329,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
         setAstro2Action = QAction("Set timestamp on Astro Chart 2", parent)
         setAstro3Action = QAction("Set timestamp on Astro Chart 3", parent)
         openJHoraAction = QAction("Open JHora with timestamp", parent)
+        openAstrologAction = QAction("Open Astrolog with timestamp", parent)
 
         # Define a method to add to each instance.
         def handleActionTriggered(self):
@@ -38758,12 +39348,16 @@ class PriceBarChartGraphicsView(QGraphicsView):
         openJHoraAction.handleActionTriggered = \
             types.MethodType(handleActionTriggered,
                              openJHoraAction)
+        openAstrologAction.handleActionTriggered = \
+            types.MethodType(handleActionTriggered,
+                             openAstrologAction)
         
         # Store in the actions, the scene position as a QPointF.
         setAstro1Action.setData(clickPosF)
         setAstro2Action.setData(clickPosF)
         setAstro3Action.setData(clickPosF)
         openJHoraAction.setData(clickPosF)
+        openAstrologAction.setData(clickPosF)
 
         # Connect the triggered signal to the signal we appended
         # to the instances.
@@ -38775,6 +39369,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
             connect(setAstro3Action.handleActionTriggered)
         openJHoraAction.triggered.\
             connect(openJHoraAction.handleActionTriggered)
+        openAstrologAction.triggered.\
+            connect(openAstrologAction.handleActionTriggered)
         
         QtCore.QObject.connect(setAstro1Action,
                                QtCore.SIGNAL("actionTriggered(QPointF)"),
@@ -38788,6 +39384,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
         QtCore.QObject.connect(openJHoraAction,
                                QtCore.SIGNAL("actionTriggered(QPointF)"),
                                self._handleOpenJHoraAction)
+        QtCore.QObject.connect(openAstrologAction,
+                               QtCore.SIGNAL("actionTriggered(QPointF)"),
+                               self._handleOpenAstrologAction)
 
         # TODO: add more options here for showing the sq-of-9,
         # etc. for this price/time.
@@ -38796,6 +39395,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
         menu.addAction(setAstro2Action)
         menu.addAction(setAstro3Action)
         menu.addAction(openJHoraAction)
+        menu.addAction(openAstrologAction)
         return menu
     
     def _handleSetAstro1Action(self, clickPosF):
@@ -38829,6 +39429,14 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
         # The GraphicsItem's scene X position represents the time.
         self.scene().openJHora(clickPosF.x())
+        
+    def _handleOpenAstrologAction(self, clickPosF):
+        """Causes the timestamp of this GraphicsItem to be opened in
+        Astrolog.
+        """
+
+        # The GraphicsItem's scene X position represents the time.
+        self.scene().openAstrolog(clickPosF.x())
         
     def wheelEvent(self, qwheelevent):
         """Triggered when the mouse wheel is scrolled."""

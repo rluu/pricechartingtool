@@ -26222,7 +26222,7 @@ class TimestampEditWidget(QWidget):
             daylightText = self.daylightComboBox.currentText()
 
             if daylightText == dtDstTrue.tzname():
-                selfc.dt = dtDstTrue
+                self.dt = dtDstTrue
             elif daylightText == dtDstFalse.tzname():
                 self.dt = dtDstFalse
             else:

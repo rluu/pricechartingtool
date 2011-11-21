@@ -17,8 +17,12 @@ import pickle
 # For logging.
 import logging
 
-# For launching JHora.
+# For launching JHora and Astrolog.
 import subprocess
+
+# For timezones in datetime.datetime objects.
+import datetime
+import pytz
 
 from PyQt4 import QtCore
 from PyQt4.QtCore import *
@@ -115,9 +119,12 @@ class MainWindow(QMainWindow):
         self.setWindowTitle(self.appName)
         self.setWindowIcon(self.appIcon)
 
-        # Remove old temporary .jhd files that were created by us.
+        # Remove old temporary JHora .jhd files that were created by us.
         self.removeOldTemporaryJHoraFiles()
 
+        # Remove old temporary Astrolog .txt files that were created by us.
+        self.removeOldTemporaryAstrologFiles()
+        
     def _createActions(self):
         """Creates all the QAction objects that will be mapped to the 
         choices on the menu, toolbar and keyboard shortcuts."""
@@ -281,6 +288,28 @@ class MainWindow(QMainWindow):
         self.openJHoraWithBirthInfoAction.triggered.\
             connect(self._handleOpenJHoraWithBirthInfoAction)
 
+        self.openAstrologWithNoArgsAction = \
+            QAction("Open Astrolog with no args", self)
+        self.openAstrologWithNoArgsAction.\
+            setStatusTip("Open Astrolog without any command-line arguments")
+        self.openAstrologWithNoArgsAction.triggered.\
+            connect(self._handleOpenAstrologWithNoArgsAction)
+
+        self.openAstrologWithLocalizedNowAction = \
+            QAction("Open Astrolog with 'now'", self)
+        self.openAstrologWithLocalizedNowAction.setStatusTip(\
+            "Open Astrolog with the current time in the active " + \
+            "chart's BirthInfo timezone.")
+        self.openAstrologWithLocalizedNowAction.triggered.\
+            connect(self._handleOpenAstrologWithLocalizedNowAction)
+        
+        self.openAstrologWithBirthInfoAction = \
+            QAction("Open Astrolog with the chart's birth info", self)
+        self.openAstrologWithBirthInfoAction.\
+            setStatusTip("Open Astrolog with the active chart's BirthInfo")
+        self.openAstrologWithBirthInfoAction.triggered.\
+            connect(self._handleOpenAstrologWithBirthInfoAction)
+
         self.openAstroChart1WithBirthInfoAction = \
             QAction("Set BirthInfo to Astro Chart 1", self)
         self.openAstroChart1WithBirthInfoAction.triggered.\
@@ -314,7 +343,7 @@ class MainWindow(QMainWindow):
         self.clearAstroChart1Action.triggered.\
             connect(self._handleClearAstroChart1Action)
         self.clearAstroChart2Action = \
-            QAction("Cleaar Astro Chart 2", self)
+            QAction("Clear Astro Chart 2", self)
         self.clearAstroChart2Action.triggered.\
             connect(self._handleClearAstroChart2Action)
         self.clearAstroChart3Action = \
@@ -694,6 +723,10 @@ class MainWindow(QMainWindow):
         self.astroMenu.addAction(self.openJHoraWithLocalizedNowAction)
         self.astroMenu.addAction(self.openJHoraWithBirthInfoAction)
         self.astroMenu.addSeparator()
+        self.astroMenu.addAction(self.openAstrologWithNoArgsAction)
+        self.astroMenu.addAction(self.openAstrologWithLocalizedNowAction)
+        self.astroMenu.addAction(self.openAstrologWithBirthInfoAction)
+        self.astroMenu.addSeparator()
         self.astroMenu.addAction(self.openAstroChart1WithBirthInfoAction)
         self.astroMenu.addAction(self.openAstroChart2WithBirthInfoAction)
         self.astroMenu.addAction(self.openAstroChart3WithBirthInfoAction)
@@ -862,6 +895,9 @@ class MainWindow(QMainWindow):
         self.openJHoraWithNoArgsAction.setEnabled(True)
         self.openJHoraWithLocalizedNowAction.setEnabled(isActive)
         self.openJHoraWithBirthInfoAction.setEnabled(isActive)
+        self.openAstrologWithNoArgsAction.setEnabled(True)
+        self.openAstrologWithLocalizedNowAction.setEnabled(isActive)
+        self.openAstrologWithBirthInfoAction.setEnabled(isActive)
         self.openAstroChart1WithBirthInfoAction.setEnabled(isActive)
         self.openAstroChart2WithBirthInfoAction.setEnabled(isActive)
         self.openAstroChart3WithBirthInfoAction.setEnabled(isActive)
@@ -1221,6 +1257,10 @@ class MainWindow(QMainWindow):
             priceChartDocument.jhoraLaunch.\
                 connect(self.handleJhoraLaunch)
 
+            # Connect signal for launching Astrolog.
+            priceChartDocument.astrologLaunch.\
+                connect(self.handleAstrologLaunch)
+
             # Add this priceChartDocument to the list of subwindows
             self._addSubWindow(priceChartDocument)
 
@@ -1323,6 +1363,10 @@ class MainWindow(QMainWindow):
                 # Connect signal for launching JHora.
                 priceChartDocument.jhoraLaunch.\
                     connect(self.handleJhoraLaunch)
+
+                # Connect signal for launching Astrolog.
+                priceChartDocument.astrologLaunch.\
+                    connect(self.handleAstrologLaunch)
 
                 # Now Add this priceChartDocument to the list of subwindows
                 self._addSubWindow(priceChartDocument)
@@ -1587,7 +1631,7 @@ class MainWindow(QMainWindow):
 
         self.log.debug("Entered _getJHoraChartDestPath()")
         
-        # Make a directory to store our temporary .jhd files.
+        # Make a directory to store our temporary JHora .jhd files.
         # Optimally, we would like to place it within JHora's 'data'
         # directory, but that doesn't work because that directory path
         # has spaces and os.makedirs() will choke on that.
@@ -1680,7 +1724,7 @@ class MainWindow(QMainWindow):
 
         Arguments:
         
-        filename - str containing the full path of the .jhd to open.
+        filename - str containing the full path of the JHora .jhd to open.
                    This argument can be None if opening JHora without
                    any arguments is desired.
         """
@@ -1891,7 +1935,7 @@ class MainWindow(QMainWindow):
         # between them.
         tzinfoObj = pytz.timezone(birthInfo.timezoneName)
         relocalizedDt = tzinfoObj.normalize(dt.astimezone(tzinfoObj))
-            
+
         # <1>: Month as an integer.
         field1 = ""
         if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
@@ -1965,7 +2009,9 @@ class MainWindow(QMainWindow):
             totalMinutesOffset = \
                 int(round((offsetTimedelta.days * 60 * 24) + \
                           (offsetTimedelta.seconds / 60)))
-            hoursTimezoneOffset = totalMinutesOffset // 60
+            hoursTimezoneOffset = abs(totalMinutesOffset) // 60
+            if totalMinutesOffset < 0 and hoursTimezoneOffset != 0:
+                hoursTimezoneOffset *= -1
             field6 = "{}".format(hoursTimezoneOffset)
         elif birthInfo.timeOffsetManualEntryRadioButtonState == True:
             totalMinutesOffset = \
@@ -1975,17 +2021,21 @@ class MainWindow(QMainWindow):
             if birthInfo.timezoneManualEntryEastWestComboBoxValue == "E":
                 totalMinutesOffset *= -1
                     
-            hoursTimezoneOffset = totalMinutesOffset // 60
+            hoursTimezoneOffset = abs(totalMinutesOffset) // 60
+            if totalMinutesOffset < 0 and hoursTimezoneOffset != 0:
+                hoursTimezoneOffset *= -1
             field6 = "{}".format(hoursTimezoneOffset)
-                
+            
         elif birthInfo.timeOffsetLMTRadioButtonState == True:
             ratioOfDay = birthInfo.longitudeDegrees / 360.0
             minutesInDay = 60 * 24
             totalMinutesOffset = ratioOfDay * minutesInDay
                 
-            hoursTimezoneOffset = math.floor(totalMinutesOffset / 60.0)
+            hoursTimezoneOffset = abs(totalMinutesOffset) // 60
+            if totalMinutesOffset < 0 and hoursTimezoneOffset != 0:
+                hoursTimezoneOffset *= -1
             field6 = "{}".format(hoursTimezoneOffset)
-                
+            
         self.log.debug("field6 is: {}".format(field6))
                 
 
@@ -1997,10 +2047,10 @@ class MainWindow(QMainWindow):
         #      Example:
         #        "400000" for 40 minutes.
         # 
-        minutesTimezoneOffset = totalMinutesOffset % 60
+        minutesTimezoneOffset = abs(totalMinutesOffset) % 60
         field7 = "{}".format(minutesTimezoneOffset * 10000)
         self.log.debug("field7 is: {}".format(field7))
-            
+        
         # <8>: Longitude degrees as an int.
         #      Negative values represent degrees East.
         #
@@ -2076,7 +2126,15 @@ class MainWindow(QMainWindow):
             # This value is calculated for relocalizedDt, as opposed
             # to previous calculations where done on the birthInfo
             # timezone information.
-            offsetTimedelta = relocalizedDt.utcoffset()
+
+            # TODO:  Find out why the below utcoffset() doesn't want to take the is_dst parameter.  Is pytz not importing correctly?  I thought that I might need it in case the datetime has an ambiguous timezone offset.  For now, I will just use the datetime.tzinfo version of the utcoffset() function.
+            # 
+            #offsetTimedelta = \
+            #    tzinfoObj.utcoffset(relocalizedDt,
+            #                        is_dst=relocalizedDt.timetuple().tm_isdst)
+            offsetTimedelta = \
+                tzinfoObj.utcoffset(relocalizedDt)
+            
             totalMinutesOffset = \
                 int(round((offsetTimedelta.days * 60 * 24) + \
                           (offsetTimedelta.seconds / 60)))
@@ -2224,7 +2282,7 @@ class MainWindow(QMainWindow):
     
         
     def removeOldTemporaryJHoraFiles(self):
-        """Removes any old .jhd files that were previously created by this
+        """Removes any old JHora .jhd files that were previously created by this
         application.  By old, this means older than 180 days.
         """
 
@@ -2250,11 +2308,11 @@ class MainWindow(QMainWindow):
         currTimeSecs = int(time.time())
         self.log.debug("Current time is: {}".format(currTimeSecs))
 
-        # Time threshold to keep the .jhd data files.
+        # Time threshold to keep the JHora .jhd data files.
         secsInDay = 60 * 60 * 24
         timeThresholdSecs = currTimeSecs - (180 * secsInDay)
         
-        self.log.info("Scanning for old .jhd files to remove " +
+        self.log.info("Scanning for old JHora .jhd files to remove " +
                       "in directory: {}".format(chartDestPath))
         
         for f in os.listdir(chartDestPath):
@@ -2276,11 +2334,663 @@ class MainWindow(QMainWindow):
                 except OSError as e:
                     # This can happen on Windows if the file is
                     # currently in use.
-                    self.log.warn("Failed to remove old temporary .jhd file " +
-                                  "{} because: {}".\
+                    self.log.warn("Failed to remove old temporary " +
+                                  "JHora .jhd file {} because: {}".\
                                   format(f, e))
             
         self.log.debug("Exiting removeOldTemporaryJHoraFiles()")
+        
+##############################################################################
+
+    def handleAstrologLaunch(self, dt=None, birthInfo=None):
+        """Opens Astrolog with the given datetime.datetime timestamp.
+        Uses the currently set self.birthInfo object for timezone
+        information.
+
+        If 'dt' is None, then Astrolog is opened without any arguments given.
+        Otherwise, both 'dt' and 'birthInfo' need to be set.
+        
+        Arguments:
+        
+        dt - datetime.datetime object holding the timestamp to use for
+             launching and viewing in Astrolog.  If dt is None, then
+             Astrolog is opened without any arguments.
+
+        birthInfo - BirthInfo object holding information about the
+                    location/altitude and timezone.  This must be set
+                    if 'dt' is not None.
+        """
+
+        self.log.debug("Entered handleAstrologLaunch()")
+
+        # Check to make sure inputs are provided as expected.
+        if dt == None:
+            # Just open Astrolog without any file specified.
+            self.log.debug("dt == None and birthInfo == None.")
+            
+            # Launch Astrolog.
+            self._execAstrolog()
+            
+        elif dt != None and birthInfo != None:
+            # Normal case for specifying a timestamp with birthInfo.
+            self.log.debug("dt != None and birthInfo != None.")
+            
+        else:
+            self.log.error("If 'dt' argument is provided, " +
+                           "then birthInfo cannot be None.") 
+            return
+        
+        self.log.debug("Values being used: " +
+                       "dt='{}', birthInfo='{}'".\
+                       format(Ephemeris.datetimeToStr(dt),
+                              birthInfo.toString()))
+
+        
+        # This is chart destination directory path, in the filename format
+        # readable on the current operating system.
+        chartDestPath = ""
+
+        # This is the chart destination directory path, in the filename format
+        # readable on Posix systems (Unix, Linux, Mac OS X).
+        chartDestPathPosix = ""
+        
+        # This is the chart destination directory path, in the filename format
+        # readable on Microsoft Windows systems.
+        chartDestPathWin = ""
+
+        # Create the appropriate directory and return the paths.
+        (chartDestPath, chartDestPathPosix, chartDestPathWin) = \
+            self._getAstrologChartDestPath()
+
+        self.log.debug("chartDestPath == " + chartDestPath)
+        self.log.debug("chartDestPathPosix == " + chartDestPathPosix)
+        self.log.debug("chartDestPathWin == " + chartDestPathWin)
+        
+        # Create the file to open Astrolog with.
+        filenameTemplate = chartDestPath + os.sep + \
+                           "tmp_" + self.appName + "_Astrolog_XXXXXX.txt"
+        self.log.debug("filenameTemplate == " + filenameTemplate)
+        
+        f = QTemporaryFile(filenameTemplate)
+
+        # Need to disable auto-remove because the QTemporaryFile gets
+        # destroyed (garbage collected) before Astrolog is launched and
+        # can read the file.
+        f.setAutoRemove(False)
+
+        if f.open(QIODevice.ReadWrite):
+            
+            # Get the text to go into the file from the input parameters.
+            text = self._generateAstrologFileText(dt, birthInfo)
+
+            # Write to the file.
+            utf8EncodedText = text.encode('utf-8')
+            f.writeData(utf8EncodedText)
+            f.close()
+
+            # Launch Astrolog with the file just created.
+
+            # Get the filename in the Windows path format since that's
+            # all wine or Windows knows how to see.
+            filename = chartDestPathWin + "\\" + \
+                       os.path.basename(f.fileName())
+            
+            self.log.debug("f.fileName() == " + f.fileName())
+            self.log.debug("filename == " + filename)
+
+            self._execAstrolog(filename)
+            
+        else:
+            errMsg = "Astrolog launch failed because: " + os.linesep + \
+                     "Could not open a temporary file for Astrolog."
+            self.log.error(errMsg)
+            
+            title = "Error"
+            text = errMsg
+            buttons = QMessageBox.Ok
+            defaultButton = QMessageBox.NoButton
+            
+            QMessageBox.warning(self, title, text, buttons, defaultButton)
+            
+        
+        self.log.debug("Exiting handleAstrologLaunch()")
+
+    def _getAstrologChartDestPath(self):
+        """Returns a tuple of 3 paths (based on operating system) for
+        where the Astrolog .txt files will be saved to.  The formula for
+        this path is based on operating system and application name.
+        See code below for details.  This function also creates the
+        directory if it doesn't exist already.
+
+        Returns:
+        tuple of three items:
+           - chartDestPath (str)
+               This is chart destination directory path, in the
+               filename format readable on the current operating system.
+           - chartDestPathPosix (str)
+               This is the chart destination directory path, in the
+               filename format readable on Posix systems (Unix, Linux,
+               Mac OS X).
+           - chartDestPathWin (str)
+               This is the chart destination directory path, in the
+               filename format readable on Microsoft Windows systems.
+        """
+
+        self.log.debug("Entered _getAstrologChartDestPath()")
+        
+        # Make a directory to store our temporary .txt files.
+        # Optimally, we would like to place it within Astrolog's 'data'
+        # directory, but that doesn't work because that directory path
+        # has spaces and os.makedirs() will choke on that.
+
+        # This is chart destination directory path, in the filename format
+        # readable on the current operating system.
+        chartDestPath = ""
+
+        # This is the chart destination directory path, in the filename format
+        # readable on Posix systems (Unix, Linux, Mac OS X).
+        chartDestPathPosix = ""
+        
+        # This is the chart destination directory path, in the filename format
+        # readable on Microsoft Windows systems.
+        chartDestPathWin = ""
+        
+        try:
+            if os.name == "posix":
+                self.log.debug("posix")
+
+                chartDestPathPosix = \
+                    os.path.expanduser('~') + os.sep + \
+                    ".wine/drive_c/" + self.appName + "/data"
+                chartDestPathWin = \
+                    "C:\\" + self.appName + "\\data"
+                
+                self.log.debug("chartDestPathPosix == " + chartDestPathPosix)
+                self.log.debug("chartDestPathWin == " + chartDestPathWin)
+                self.log.debug("os.path.exists(chartDestPathPosix) == {}".\
+                               format(os.path.exists(chartDestPathPosix)))
+                self.log.debug("os.path.isdir(chartDestPathPosix) == {}".\
+                               format(os.path.isdir(chartDestPathPosix)))
+                
+                if os.path.exists(chartDestPathPosix) and \
+                       os.path.isdir(chartDestPathPosix):
+                    
+                    self.log.debug("Good, directory exists: " +
+                                   chartDestPathPosix)
+                    
+                else:
+                    self.log.debug("making dirs: " + chartDestPathPosix)
+                    os.makedirs(chartDestPathPosix)
+
+                    
+                chartDestPath = chartDestPathPosix
+                
+            elif os.name == "nt":
+                self.log.debug("nt")
+            
+                chartDestPathWin = \
+                    "C:\\" + self.appName + "\\data"
+
+                self.log.debug("chartDestPathWin == " + chartDestPathWin)
+                self.log.debug("os.path.exists(chartDestPathWin) == {}".\
+                               format(os.path.exists(chartDestPathWin)))
+                self.log.debug("os.path.isdir(chartDestPathWin) == {}".\
+                               format(os.path.isdir(chartDestPathWin)))
+                
+                if os.path.exists(chartDestPathWin) and \
+                       os.path.isdir(chartDestPathWin):
+                    
+                    self.log.debug("Good, directory exists: " + \
+                                   chartDestPathWin)
+                else:
+                    self.log.debug("making dirs: " + chartDestPathWin)
+                    os.makedirs(chartDestPathWin)
+
+                chartDestPath = chartDestPathWin
+                
+            else:
+                self.log.warn("Operating system unsupported: " + os.name)
+                return
+            
+        except os.error as e:
+            
+            self.log.error("Error while trying to ensure the " +
+                           "Astrolog chart destination directory exists.  " +
+                           "{}".format(e))
+            
+        self.log.debug("chartDestPath == " + chartDestPath)
+        self.log.debug("chartDestPathPosix == " + chartDestPathPosix)
+        self.log.debug("chartDestPathWin == " + chartDestPathWin)
+        
+        self.log.debug("Exiting _getAstrologChartDestPath()")
+        
+        return (chartDestPath, chartDestPathPosix, chartDestPathWin)
+    
+    def _execAstrolog(self, filename=None):
+        """Runs the executable Astrolog.
+
+        Arguments:
+        
+        filename - str containing the full path of the Astrolog .txt to open.
+                   This argument can be None if opening Astrolog without
+                   any arguments is desired.
+        """
+
+        toExec = ""
+        
+        if os.name == "posix":
+            
+            toExec = \
+                "wine " + \
+                os.path.expanduser('~') + os.sep + \
+                ".wine/drive_c/ASTROLOG/ASTROLOG.EXE"
+            
+            if filename != None:
+                toExec += " -i \"" + filename + "\""
+            
+            self.log.debug("Launching Astrolog.  toExec is: " + toExec)
+            
+            p = subprocess.Popen(toExec, shell=True)
+            
+            self.log.debug("Astrolog launched.")
+            
+        elif os.name == "nt":
+            
+            toExec = \
+                "C:\\ASTROLOG\\ASTROLOG.EXE"
+            
+            if filename != None:
+                toExec += " -i \"" + filename + "\""
+            
+            self.log.debug("Launching Astrolog.  toExec is: " + toExec)
+
+            p = subprocess.Popen(toExec)
+            
+            self.log.debug("Astrolog launched.")
+            
+        else:
+            self.log.warn("Operating system unsupported: " + os.name)
+
+        
+        
+    def _generateAstrologFileText(self, dt, birthInfo):
+        """Generates the text that would be in a Astrolog .txt file, for
+        the information given in the specified datetime.datetime and
+        BirthInfo.
+        
+        Arguments:
+        
+        dt - datetime.datetime object holding the timestamp to use for
+             launching and viewing in Astrolog.  
+
+        birthInfo - BirthInfo object holding information about the
+                    location/altitude and timezone.
+
+
+        Notes on text format:
+
+        # Format of the file is all text with Windows newlines:
+        #
+        # @0102  ; Astrolog chart info.\r\n
+        # /qb <1> <2> <3> <4>:<5><6> <7> <8>  <9>:<10><11> <12>:<13><14>\r\n
+        # /zi "" ""\r\n
+        #
+        #
+        # Where the above values are described as:
+        # <1>: Month as a 3-letter string with the first letter capitalized.
+        # <2>: Day-of-month as an integer.
+        # <3>: Year as an integer.
+        # <4>: Hour, in 12-hour time, as an integer.  If the number for
+        #      the hour is only 1 digit, then leave a space in the first
+        #      place.
+        # <5>: Minutes, as a two-digit number.
+        # <6>: "am" if in the first half of the day,
+        #      "pm" if in the second half of the day.
+        # <7>: "ST" if in standard time (not daylight savings).
+        #      "DT" if in daylight time.
+        # <8>: Time offset from GMT.  Format is:
+        #
+        #      1) First charcter is either '+' or '-'.  Time
+        #         offsets that are West of GMT are represented by a
+        #         '+', East of GMT is '-'.
+        #      2) Next one or two characters is the hours offset,
+        #         as a 1 or 2 digit int.
+        #      3) Next character is a ':'.
+        #      4) Next two characters are the minutes offset.
+        #
+        #      Example:
+        #
+        #      +5:00   for 5 hours west of GMT.
+        # 
+        # <9>: Longitude degrees (two characters), displayed as a
+        #      positive int.  If the value is only 1 digit, then leave
+        #      a space in the first character location.
+        #
+        # <10>: Longitude minutes (two characters), displayed as a
+        #      positive int.  
+        #
+        # <11>: Longitude polarity.  "E" for East, and "W" for west.
+        #
+        # <12>: Latitude degrees (two characters), displayed as a
+        #      positive int.  If the value is only 1 digit, then leave
+        #      a space in the first character location.
+        #
+        # <13>: Latitude minutes (two characters), displayed as an
+        #       positive int.
+        #
+        # <14>: Latitude polarity.  "N" for North, and "S" for South.
+        #
+        #        
+        # Examples:
+        #
+        # @0102  ; Astrolog chart info.\r\n
+        # /qb Oct 25 1983  2:34pm ST +5:00  77:08W 38:53N\r\n
+        # /zi "" ""\r\n
+        #
+        # @0102  ; Astrolog chart info.\r\n
+        # /qb Jul 21 2011  2:52pm DT +5:00  77:24W 38:53N\r\n
+        # /zi "" ""\r\n
+        #
+        # @0102  ; Astrolog chart info.\r\n
+        # /qb Jul 1 2011  2:52pm DT -5:00   6:00E  8:53N\r\n
+        # /zi "" ""\r\n
+        #
+        # @0102  ; Astrolog chart info.\r\n
+        # /qb Jul 21 2011 12:52pm DT -5:00  20:00E 38:53N\r\n
+        # /zi "" ""\r\n
+        #
+        #################################################################
+        """
+
+        self.log.debug("Entered _generateAstrologFileText()")
+        
+        self.log.debug("dt at input is: " + Ephemeris.datetimeToStr(dt))
+
+        # Datetime 'dt' needs to be localized to the timezone used in
+        # birthInfo so that we may have it if we need it.  Assuming
+        # 'dt' is already localized to UTC, GMT, or some other
+        # timezone (it is not native and thus has a tzinfo set), then
+        # in theory there should be no ambiguity when converting
+        # between them.
+        tzinfoObj = pytz.timezone(birthInfo.timezoneName)
+        relocalizedDt = tzinfoObj.normalize(dt.astimezone(tzinfoObj))
+            
+        # <1>: Month as a 3-letter string with the first letter capitalized.
+        field1 = ""
+        if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
+            field1 = Util.monthNumberToAbbrev(relocalizedDt.month)
+        else:
+            field1 = Util.monthNumberToAbbrev(dt.month)
+        
+        # <2>: Day-of-month as an integer.
+        field2 = ""
+        if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
+            field2 = "{}".format(relocalizedDt.day)
+        else:
+            field2 = "{}".format(dt.day)
+
+        # <3>: Year as an integer.
+        field3 = ""
+        if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
+            field3 = "{}".format(relocalizedDt.year)
+        else:
+            field3 = "{}".format(dt.year)
+
+        # <4>: Hour, in 12-hour time, as an integer.  If the number for
+        #      the hour is only 1 digit, then leave a space in the first
+        #      place.
+        field4 = ""
+        # <6>: "am" if in the first half of the day,
+        #      "pm" if in the second half of the day.
+        field6 = ""
+        hourToUse = None
+        if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
+            hourToUse = relocalizedDt.hour
+        else:
+            hourToUse = dt.hour
+            
+        if hourToUse == 0:
+            field4 = "12"
+        elif 0 < hourToUse < 13:
+            field4 = "{}".format(hourToUse)
+        elif 13 <= hourToUse < 24:
+            field4 = "{}".format(hourToUse - 12)
+            
+        if hourToUse < 13:
+            field6 = "am"
+        else:
+            field6 = "pm"
+
+        # <5>: Minutes, as a two-digit number.
+        field5 = ""
+        if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
+            minutes = float(relocalizedDt.minute) + \
+                      float(relocalizedDt.second / 60.0)
+            minutes = round(minutes)
+            field5 = "{}".format(minutes)
+        else:
+            minutes = float(dt.minute) + \
+                      float(dt.second / 60.0)
+            minutes = round(minutes)
+            field5 = "{}".format(minutes)
+        if len(field5) == 1:
+            field5 = "0" + field5
+            
+        self.log.debug("field5 is: {}".format(field5))
+        
+        # <7>: "ST" if in standard time (not daylight savings).
+        #      "DT" if in daylight time.
+        field7 = ""
+        if relocalizedDt.timetuple().tm_isdst == True:
+            field7 = "DT"
+        else:
+            field7 = "ST"
+            
+        # <8>: Time offset from GMT.  Format is:
+        #
+        #      1) First charcter is either '+' or '-'.  Time
+        #         offsets that are West of GMT are represented by a
+        #         '+', East of GMT is '-'.
+        #      2) Next one or two characters is the hours offset,
+        #         as a 1 or 2 digit int.
+        #      3) Next character is a ':'.
+        #      4) Next two characters are the minutes offset.
+        #
+        #      Example:
+        #
+        #      +5:00   for 5 hours west of GMT.
+        # 
+        field8 = ""
+        totalMinutesOffset = 0
+            
+        if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
+            hoursTimezoneOffset = 0
+            minutesTimezoneOffset = 0
+            tzinfoObj = pytz.timezone(birthInfo.timezoneName)
+            self.log.debug("birthInfo.timezoneName is: " + \
+                           birthInfo.timezoneName)
+            # TODO:  Find out why the below utcoffset() doesn't want to take the is_dst parameter.  Is pytz not importing correctly?  I thought that I might need it in case the datetime has an ambiguous timezone offset.  For now, I will just use the datetime.tzinfo version of the utcoffset() function.
+            #
+            #offsetTimedelta = \
+            #    tzinfoObj.utcoffset(relocalizedDt,
+            #                        is_dst=relocalizedDt.timetuple().tm_isdst)
+            offsetTimedelta = \
+                tzinfoObj.utcoffset(relocalizedDt)
+            
+            totalMinutesOffset = \
+                int(round((offsetTimedelta.days * 60 * 24) + \
+                          (offsetTimedelta.seconds / 60)))
+            
+        elif birthInfo.timeOffsetManualEntryRadioButtonState == True:
+            totalMinutesOffset = \
+                (birthInfo.timezoneManualEntryHours * 60) + \
+                (birthInfo.timezoneManualEntryMinutes)
+                
+            if birthInfo.timezoneManualEntryEastWestComboBoxValue == "E":
+                totalMinutesOffset *= -1
+                    
+        elif birthInfo.timeOffsetLMTRadioButtonState == True:
+            ratioOfDay = birthInfo.longitudeDegrees / 360.0
+            minutesInDay = 60 * 24
+            totalMinutesOffset = ratioOfDay * minutesInDay
+            
+        hoursTimezoneOffset = abs(totalMinutesOffset) // 60
+            
+        if totalMinutesOffset <= 0:
+            field8 += "+"
+        else:
+            field8 += "-"
+        field8 += "{}".format(hoursTimezoneOffset) + ":"
+        minutesPart = "{}".format(int(abs(totalMinutesOffset) % 60))
+        if len(minutesPart) == 1:
+            field8 += "0" + minutesPart
+        else:
+            field8 += minutesPart
+            
+        self.log.debug("field8 is: {}".format(field6))
+
+                
+        # <9>: Longitude degrees (two characters), displayed as a
+        #      positive int.  If the value is only 1 digit, then leave
+        #      a space in the first character location.
+        #
+        field9 = "{}".format(math.floor(abs(birthInfo.longitudeDegrees)))
+        if len(field9) == 1:
+            field9 = " " + field9
+        
+        # <10>: Longitude minutes (two characters), displayed as a
+        #      positive int.  
+        wholeDegs = math.floor(abs(birthInfo.longitudeDegrees))
+        fractionalDegs = abs(birthInfo.longitudeDegrees) - wholeDegs
+        value = math.floor(fractionalDegs * 60.0)
+        field10 = "{}".format(value)
+        if len(field10) == 1:
+            field10 = "0" + field10
+
+        # <11>: Longitude polarity.  "E" for East, and "W" for west.
+        field11 = ""
+        if birthInfo.longitudeDegrees >= 0:
+            field11 = "E"
+        else:
+            field11 = "W"
+        
+        # <12>: Latitude degrees (two characters), displayed as a
+        #      positive int.  If the value is only 1 digit, then leave
+        #      a space in the first character location.
+        #
+        field12 = "{}".format(math.floor(abs(birthInfo.latitudeDegrees)))
+        if len(field12) == 1:
+            field12 = " " + field12
+        
+        # <13>: Latitude minutes (two characters), displayed as an
+        #       positive int.
+        #
+        wholeDegs = math.floor(abs(birthInfo.latitudeDegrees))
+        fractionalDegs = abs(birthInfo.latitudeDegrees) - wholeDegs
+        value = math.floor(fractionalDegs * 60)
+        field13 = "{}".format(value)
+        if len(field13) == 1:
+            field13 = "0" + field13
+        
+        # <14>: Latitude polarity.  "N" for North, and "S" for South.
+        #
+        field14 = ""
+        if birthInfo.latitudeDegrees >= 0:
+            field14 = "N"
+        else:
+            field14 = "S"
+
+        # Below, {0} is a dummy value, just so the numbers line up
+        # with the variable names.
+        dummyStr = ""
+        text = "{0}" + \
+               "@0102  ; Astrolog chart info.\r\n" + \
+               "/qb {1} {2} {3} {4}:{5}{6} {7} {8}  " + \
+               "{9}:{10}{11} {12}:{13}{14}\r\n" + \
+               "zi \"\" \"\"\r\n"
+        text = text.format(dummyStr,
+                           field1,
+                           field2,
+                           field3,
+                           field4,
+                           field5,
+                           field6,
+                           field7,
+                           field8,
+                           field9,
+                           field10,
+                           field11,
+                           field12,
+                           field13,
+                           field14)
+
+        self.log.debug("text is: ***" + text + "***")
+        
+        self.log.debug("Exiting _generateAstrologFileText()")
+        
+        return text
+    
+        
+    def removeOldTemporaryAstrologFiles(self):
+        """Removes any old Astrolog .txt files that were previously
+        created by this application.  By old, this means older than
+        180 days.
+        """
+        
+        self.log.debug("Entered removeOldTemporaryAstrologFiles()")
+        
+        # This is chart destination directory path, in the filename format
+        # readable on the current operating system.
+        chartDestPath = ""
+
+        # This is the chart destination directory path, in the filename format
+        # readable on Posix systems (Unix, Linux, Mac OS X).
+        chartDestPathPosix = ""
+        
+        # This is the chart destination directory path, in the filename format
+        # readable on Microsoft Windows systems.
+        chartDestPathWin = ""
+
+        # Get the directory path.
+        (chartDestPath, chartDestPathPosix, chartDestPathWin) = \
+            self._getAstrologChartDestPath()
+
+        # Current time in seconds since epoch.
+        currTimeSecs = int(time.time())
+        self.log.debug("Current time is: {}".format(currTimeSecs))
+
+        # Time threshold to keep the Astrolog .txt data files.
+        secsInDay = 60 * 60 * 24
+        timeThresholdSecs = currTimeSecs - (180 * secsInDay)
+        
+        self.log.info("Scanning for old Astrolog .txt files to remove " +
+                      "in directory: {}".format(chartDestPath))
+        
+        for f in os.listdir(chartDestPath):
+            fullFilename = chartDestPath + os.sep + f
+            self.log.debug("Looking at file: {}".format(fullFilename))
+            statinfo = os.lstat(fullFilename)
+            
+            self.log.debug("Most recent access time is: {}".\
+                           format(statinfo.st_atime))
+            self.log.debug("Most recent mod time is:    {}".\
+                           format(statinfo.st_atime))
+            
+            if statinfo.st_atime < timeThresholdSecs:
+                # Older than our threshold, so try to remove the file.
+                try:
+                    self.log.info("Removing file: {}".\
+                                  format(fullFilename))
+                    os.remove(fullFilename)
+                except OSError as e:
+                    # This can happen on Windows if the file is
+                    # currently in use.
+                    self.log.warn("Failed to remove old temporary " +
+                                  "Astrolog .txt file {} because: {}".\
+                                  format(f, e))
+        
+        self.log.debug("Exiting removeOldTemporaryAstrologFiles()")
+        
         
     def _print(self):
         """Opens up a dialog for printing the current selected document."""
@@ -2626,6 +3336,54 @@ class MainWindow(QMainWindow):
 
         # Open JHora with these values.
         self.handleJhoraLaunch(localizedDt, birthInfo)
+
+    def _handleOpenAstrologWithNoArgsAction(self):
+        """Slot function that is called when the
+        self.openAstrologWithNoArgsAction QAction is triggered.
+        """
+        
+        self._execAstrolog()
+
+    def _handleOpenAstrologWithLocalizedNowAction(self):
+        """Slot function that is called when the
+        self.openAstrologWithLocalizedNowAction QAction is triggered.
+        """
+        
+        pcd = self.getActivePriceChartDocument()
+        if pcd == None:
+            return
+
+        # Get the BirthInfo (location, timezone, etc.) for the current
+        # active chart.
+        birthInfo = pcd.getBirthInfo()
+        tzinfoObj = pytz.timezone(birthInfo.timezoneName)
+
+        # Localize the 'now' timestamp.
+        localizedDt = datetime.datetime.now(tzinfoObj)
+
+        # Open Astrolog with these values.
+        self.handleAstrologLaunch(localizedDt, birthInfo)
+
+    def _handleOpenAstrologWithBirthInfoAction(self):
+        """Slot function that is called when the
+        self.openAstrologWithBirthInfoAction QAction is triggered.
+        """
+
+        pcd = self.getActivePriceChartDocument()
+        if pcd == None:
+            return
+
+        # Get the BirthInfo (location, timezone, etc.) for the current
+        # active chart.
+        birthInfo = pcd.getBirthInfo()
+        tzinfoObj = pytz.timezone(birthInfo.timezoneName)
+
+        # Localize the birth timestamp.
+        utcBirthDt = birthInfo.getBirthUtcDatetime()
+        localizedDt = tzinfoObj.normalize(utcBirthDt.astimezone(tzinfoObj))
+
+        # Open Astrolog with these values.
+        self.handleAstrologLaunch(localizedDt, birthInfo)
 
     def _handleOpenAstroChart1WithBirthInfoAction(self):
         """Slot function that is called when the
@@ -3150,6 +3908,10 @@ class PriceChartDocument(QMdiSubWindow):
     # in JHora.
     jhoraLaunch = QtCore.pyqtSignal(datetime.datetime, BirthInfo)
     
+    # Signal emitted when the user desires to view a datetime.datetime
+    # in Astrolog.
+    astrologLaunch = QtCore.pyqtSignal(datetime.datetime, BirthInfo)
+    
     def __init__(self, parent=None):
         """Creates the QMdiSubWindow with the internal widgets,
         and loads the given PriceChartDocumentData object.
@@ -3196,6 +3958,8 @@ class PriceChartDocument(QMdiSubWindow):
             connect(self.statusMessageUpdate)
         self.widgets.jhoraLaunch.\
             connect(self.handleJhoraLaunch)
+        self.widgets.astrologLaunch.\
+            connect(self.handleAstrologLaunch)
         
         self.log.debug("Exiting PriceChartDocument()")
 
@@ -4123,6 +4887,22 @@ class PriceChartDocument(QMdiSubWindow):
         # Pass the command onto the parent MainWindow to handle.
         self.jhoraLaunch.emit(dt, birthInfo)
 
+    def handleAstrologLaunch(self, dt, birthInfo):
+        """Handles a launch of Astrolog with the given datetime.datetime.
+        This function assumes that the birth information is available
+        via self.getBirthInfo().
+
+        Arguments:
+        dt - datetime.datetime object holding the timestamp to use for
+             launching and viewing in Astrolog.  This is used to get the
+             julian day.
+        birthInfo - BirthInfo object with the information about
+                    birth set (e.g., birth location, elevation, etc.)
+        """
+
+        # Pass the command onto the parent MainWindow to handle.
+        self.astrologLaunch.emit(dt, birthInfo)
+
     def setTrackMouseToAstroChart1(self, flag):
         """Sets the link-connection enabled or disabled for the
         pricebarchart mouse position to AstroChart1.
@@ -4252,6 +5032,10 @@ class PriceChartDocumentWidget(QWidget):
     # in JHora.
     jhoraLaunch = QtCore.pyqtSignal(datetime.datetime, BirthInfo)
     
+    # Signal emitted when the user desires to view a datetime.datetime
+    # in Astrolog.
+    astrologLaunch = QtCore.pyqtSignal(datetime.datetime, BirthInfo)
+    
     def __init__(self, parent=None):
         super().__init__(parent)
         self.log = logging.getLogger("ui.PriceChartDocumentWidget")
@@ -4303,6 +5087,8 @@ class PriceChartDocumentWidget(QWidget):
             connect(self.astrologyChartWidget.setAstroChart3Datetime)
         self.priceBarChartWidget.jhoraLaunch.\
             connect(self.handleJhoraLaunch)
+        self.priceBarChartWidget.astrologLaunch.\
+            connect(self.handleAstrologLaunch)
         self.priceBarChartWidget.currentTimestampChanged.\
             connect(self._handleCurrentTimestampChanged)
         
@@ -4751,6 +5537,20 @@ class PriceChartDocumentWidget(QWidget):
 
         # Pass the command onto the parent MainWindow to handle.
         self.jhoraLaunch.emit(dt, self.birthInfo)
+        
+    def handleAstrologLaunch(self, dt):
+        """Handles a launch of Astrolog with the given datetime.datetime.
+        This function assumes that the birth information is available
+        via self.birthInfo.
+
+        Arguments:
+        dt - datetime.datetime object holding the timestamp to use for
+             launching and viewing in Astrolog.  This is used to get the
+             julian day.
+        """
+
+        # Pass the command onto the parent MainWindow to handle.
+        self.astrologLaunch.emit(dt, self.birthInfo)
         
     def _handleCurrentTimestampChanged(self, dt):
         """Handles when the current mouse cursor datetime changes.

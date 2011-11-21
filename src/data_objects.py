@@ -37,6 +37,52 @@ class Util:
     """Contains some generic static functions that may be helpful."""
 
     @staticmethod
+    def monthNumberToAbbrev(monthNumber):
+        """Converts the given month number to a 3-letter abbreviation
+        for the month.  The monthNumber is 1-based, so 1 will convert
+        to 'Jan'.
+
+        Arguments:
+        monthNumber - int for the month number, where 1 represents January.
+
+        Returns:
+        str value holding the month abbreviation (e.g. 'Jan').  If the
+                  input is invalid, then None is returned.
+        
+        """
+
+        rv = None
+
+        if monthNumber == 1:
+            rv = "Jan"
+        elif monthNumber == 2:
+            rv = "Feb"
+        elif monthNumber == 3:
+            rv = "Mar"
+        elif monthNumber == 4:
+            rv = "Apr"
+        elif monthNumber == 5:
+            rv = "May"
+        elif monthNumber == 6:
+            rv = "Jun"
+        elif monthNumber == 7:
+            rv = "Jul"
+        elif monthNumber == 8:
+            rv = "Aug"
+        elif monthNumber == 9:
+            rv = "Sep"
+        elif monthNumber == 10:
+            rv = "Oct"
+        elif monthNumber == 11:
+            rv = "Nov"
+        elif monthNumber == 12:
+            rv = "Dec"
+        else:
+            rv = None
+
+        return rv
+            
+    @staticmethod
     def fuzzyIsEqual(f1, f2, maxDiff=0.000000001):
         """Fuzzy test for floating point values being equal.
         
