@@ -1285,7 +1285,8 @@ class AppPreferencesEditWidget(QWidget):
             self._buildNonPlanetSymbolSettingsWidget()
         self.signSymbolSettingsGroupBox = \
             self._buildSignSymbolSettingsWidget()
-
+        self.aspectSettingsGroupBox = \
+            self._buildAspectSettingsWidget()
 
         # Create a QTabWidget to stack all the settings editing widgets.
         self.tabWidget = QTabWidget()
@@ -1297,7 +1298,9 @@ class AppPreferencesEditWidget(QWidget):
                               "Non-Planet Symbols")
         self.tabWidget.addTab(self.signSymbolSettingsGroupBox,
                               "Zodiac Symbols")
-
+        self.tabWidget.addTab(self.aspectSettingsGroupBox,
+                              "Planet Aspects")
+        
         # Buttons at bottom.
         self.okayButton = QPushButton("&Okay")
         self.cancelButton = QPushButton("&Cancel")
@@ -1337,7 +1340,9 @@ class AppPreferencesEditWidget(QWidget):
             connect(self._handleNonPlanetSymbolResetAllToDefaultButtonClicked)
         self.signSymbolResetAllToDefaultButton.clicked.\
             connect(self._handleSignSymbolResetAllToDefaultButtonClicked)
-
+        self.aspectResetAllToDefaultButton.clicked.\
+            connect(self._handleAspectResetAllToDefaultButtonClicked)
+        
         # Connect okay and cancel buttons.
         self.okayButton.clicked.connect(self._handleOkayButtonClicked)
         self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
@@ -3363,6 +3368,359 @@ class AppPreferencesEditWidget(QWidget):
 
         return self.signSymbolSettingsGroupBox
 
+    def _buildAspectSettingsWidget(self):
+        """Builds a QWidget for editing the settings of planetary aspects as
+        displayed in the UI.
+
+        Returned widget is self.aspectSettingsGroupBox.
+        """
+
+        self.aspectSettingsGroupBox = QGroupBox("Planet aspect settings:")
+        
+        formLayout = QFormLayout()
+        formLayout.setLabelAlignment(Qt.AlignLeft)
+
+        # Conjunction.
+        self.aspectConjunctionEnabledLabel = \
+            QLabel("Conjunction enabled:")
+        self.aspectConjunctionEnabledCheckBox = \
+            QCheckBox()
+        formLayout.\
+            addRow(self.aspectConjunctionEnabledLabel,
+                   self.aspectConjunctionEnabledCheckBox)
+        self.aspectConjunctionAngleLabel = \
+            QLabel("Conjunction angle (degrees):")
+        self.aspectConjunctionAngleSpinBox = \
+            QDoubleSpinBox()
+        self.aspectConjunctionAngleSpinBox.setMinimum(0.0)
+        self.aspectConjunctionAngleSpinBox.setMaximum(360.0)
+        formLayout.\
+            addRow(self.aspectConjunctionAngleLabel,
+                   self.aspectConjunctionAngleSpinBox)
+        self.aspectConjunctionOrbLabel = \
+            QLabel("Conjunction orb (degrees):")
+        self.aspectConjunctionOrbSpinBox = \
+            QDoubleSpinBox()
+        self.aspectConjunctionOrbSpinBox.setMinimum(0.0)
+        self.aspectConjunctionOrbSpinBox.setMaximum(30.0)
+        formLayout.\
+            addRow(self.aspectConjunctionOrbLabel,
+                   self.aspectConjunctionOrbSpinBox)
+        self.aspectConjunctionColorLabel = \
+            QLabel("Conjunction color:")
+        self.aspectConjunctionColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.aspectConjunctionColorLabel,
+                   self.aspectConjunctionColorEditButton)
+        
+        # Opposition.
+        self.aspectOppositionEnabledLabel = \
+            QLabel("Opposition enabled:")
+        self.aspectOppositionEnabledCheckBox = \
+            QCheckBox()
+        formLayout.\
+            addRow(self.aspectOppositionEnabledLabel,
+                   self.aspectOppositionEnabledCheckBox)
+        self.aspectOppositionAngleLabel = \
+            QLabel("Opposition angle (degrees):")
+        self.aspectOppositionAngleSpinBox = \
+            QDoubleSpinBox()
+        self.aspectOppositionAngleSpinBox.setMinimum(0.0)
+        self.aspectOppositionAngleSpinBox.setMaximum(360.0)
+        formLayout.\
+            addRow(self.aspectOppositionAngleLabel,
+                   self.aspectOppositionAngleSpinBox)
+        self.aspectOppositionOrbLabel = \
+            QLabel("Opposition orb (degrees):")
+        self.aspectOppositionOrbSpinBox = \
+            QDoubleSpinBox()
+        self.aspectOppositionOrbSpinBox.setMinimum(0.0)
+        self.aspectOppositionOrbSpinBox.setMaximum(30.0)
+        formLayout.\
+            addRow(self.aspectOppositionOrbLabel,
+                   self.aspectOppositionOrbSpinBox)
+        self.aspectOppositionColorLabel = \
+            QLabel("Opposition color:")
+        self.aspectOppositionColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.aspectOppositionColorLabel,
+                   self.aspectOppositionColorEditButton)
+        
+        # Square.
+        self.aspectSquareEnabledLabel = \
+            QLabel("Square enabled:")
+        self.aspectSquareEnabledCheckBox = \
+            QCheckBox()
+        formLayout.\
+            addRow(self.aspectSquareEnabledLabel,
+                   self.aspectSquareEnabledCheckBox)
+        self.aspectSquareAngleLabel = \
+            QLabel("Square angle (degrees):")
+        self.aspectSquareAngleSpinBox = \
+            QDoubleSpinBox()
+        self.aspectSquareAngleSpinBox.setMinimum(0.0)
+        self.aspectSquareAngleSpinBox.setMaximum(360.0)
+        formLayout.\
+            addRow(self.aspectSquareAngleLabel,
+                   self.aspectSquareAngleSpinBox)
+        self.aspectSquareOrbLabel = \
+            QLabel("Square orb (degrees):")
+        self.aspectSquareOrbSpinBox = \
+            QDoubleSpinBox()
+        self.aspectSquareOrbSpinBox.setMinimum(0.0)
+        self.aspectSquareOrbSpinBox.setMaximum(30.0)
+        formLayout.\
+            addRow(self.aspectSquareOrbLabel,
+                   self.aspectSquareOrbSpinBox)
+        self.aspectSquareColorLabel = \
+            QLabel("Square color:")
+        self.aspectSquareColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.aspectSquareColorLabel,
+                   self.aspectSquareColorEditButton)
+        
+        # Trine.
+        self.aspectTrineEnabledLabel = \
+            QLabel("Trine enabled:")
+        self.aspectTrineEnabledCheckBox = \
+            QCheckBox()
+        formLayout.\
+            addRow(self.aspectTrineEnabledLabel,
+                   self.aspectTrineEnabledCheckBox)
+        self.aspectTrineAngleLabel = \
+            QLabel("Trine angle (degrees):")
+        self.aspectTrineAngleSpinBox = \
+            QDoubleSpinBox()
+        self.aspectTrineAngleSpinBox.setMinimum(0.0)
+        self.aspectTrineAngleSpinBox.setMaximum(360.0)
+        formLayout.\
+            addRow(self.aspectTrineAngleLabel,
+                   self.aspectTrineAngleSpinBox)
+        self.aspectTrineOrbLabel = \
+            QLabel("Trine orb (degrees):")
+        self.aspectTrineOrbSpinBox = \
+            QDoubleSpinBox()
+        self.aspectTrineOrbSpinBox.setMinimum(0.0)
+        self.aspectTrineOrbSpinBox.setMaximum(30.0)
+        formLayout.\
+            addRow(self.aspectTrineOrbLabel,
+                   self.aspectTrineOrbSpinBox)
+        self.aspectTrineColorLabel = \
+            QLabel("Trine color:")
+        self.aspectTrineColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.aspectTrineColorLabel,
+                   self.aspectTrineColorEditButton)
+        
+        # Sextile.
+        self.aspectSextileEnabledLabel = \
+            QLabel("Sextile enabled:")
+        self.aspectSextileEnabledCheckBox = \
+            QCheckBox()
+        formLayout.\
+            addRow(self.aspectSextileEnabledLabel,
+                   self.aspectSextileEnabledCheckBox)
+        self.aspectSextileAngleLabel = \
+            QLabel("Sextile angle (degrees):")
+        self.aspectSextileAngleSpinBox = \
+            QDoubleSpinBox()
+        self.aspectSextileAngleSpinBox.setMinimum(0.0)
+        self.aspectSextileAngleSpinBox.setMaximum(360.0)
+        formLayout.\
+            addRow(self.aspectSextileAngleLabel,
+                   self.aspectSextileAngleSpinBox)
+        self.aspectSextileOrbLabel = \
+            QLabel("Sextile orb (degrees):")
+        self.aspectSextileOrbSpinBox = \
+            QDoubleSpinBox()
+        self.aspectSextileOrbSpinBox.setMinimum(0.0)
+        self.aspectSextileOrbSpinBox.setMaximum(30.0)
+        formLayout.\
+            addRow(self.aspectSextileOrbLabel,
+                   self.aspectSextileOrbSpinBox)
+        self.aspectSextileColorLabel = \
+            QLabel("Sextile color:")
+        self.aspectSextileColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.aspectSextileColorLabel,
+                   self.aspectSextileColorEditButton)
+        
+        # Inconjunct.
+        self.aspectInconjunctEnabledLabel = \
+            QLabel("Inconjunct enabled:")
+        self.aspectInconjunctEnabledCheckBox = \
+            QCheckBox()
+        formLayout.\
+            addRow(self.aspectInconjunctEnabledLabel,
+                   self.aspectInconjunctEnabledCheckBox)
+        self.aspectInconjunctAngleLabel = \
+            QLabel("Inconjunct angle (degrees):")
+        self.aspectInconjunctAngleSpinBox = \
+            QDoubleSpinBox()
+        self.aspectInconjunctAngleSpinBox.setMinimum(0.0)
+        self.aspectInconjunctAngleSpinBox.setMaximum(360.0)
+        formLayout.\
+            addRow(self.aspectInconjunctAngleLabel,
+                   self.aspectInconjunctAngleSpinBox)
+        self.aspectInconjunctOrbLabel = \
+            QLabel("Inconjunct orb (degrees):")
+        self.aspectInconjunctOrbSpinBox = \
+            QDoubleSpinBox()
+        self.aspectInconjunctOrbSpinBox.setMinimum(0.0)
+        self.aspectInconjunctOrbSpinBox.setMaximum(30.0)
+        formLayout.\
+            addRow(self.aspectInconjunctOrbLabel,
+                   self.aspectInconjunctOrbSpinBox)
+        self.aspectInconjunctColorLabel = \
+            QLabel("Inconjunct color:")
+        self.aspectInconjunctColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.aspectInconjunctColorLabel,
+                   self.aspectInconjunctColorEditButton)
+        
+        # Semisextile.
+        self.aspectSemisextileEnabledLabel = \
+            QLabel("Semisextile enabled:")
+        self.aspectSemisextileEnabledCheckBox = \
+            QCheckBox()
+        formLayout.\
+            addRow(self.aspectSemisextileEnabledLabel,
+                   self.aspectSemisextileEnabledCheckBox)
+        self.aspectSemisextileAngleLabel = \
+            QLabel("Semisextile angle (degrees):")
+        self.aspectSemisextileAngleSpinBox = \
+            QDoubleSpinBox()
+        self.aspectSemisextileAngleSpinBox.setMinimum(0.0)
+        self.aspectSemisextileAngleSpinBox.setMaximum(360.0)
+        formLayout.\
+            addRow(self.aspectSemisextileAngleLabel,
+                   self.aspectSemisextileAngleSpinBox)
+        self.aspectSemisextileOrbLabel = \
+            QLabel("Semisextile orb (degrees):")
+        self.aspectSemisextileOrbSpinBox = \
+            QDoubleSpinBox()
+        self.aspectSemisextileOrbSpinBox.setMinimum(0.0)
+        self.aspectSemisextileOrbSpinBox.setMaximum(30.0)
+        formLayout.\
+            addRow(self.aspectSemisextileOrbLabel,
+                   self.aspectSemisextileOrbSpinBox)
+        self.aspectSemisextileColorLabel = \
+            QLabel("Semisextile color:")
+        self.aspectSemisextileColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.aspectSemisextileColorLabel,
+                   self.aspectSemisextileColorEditButton)
+        
+        # Semisquare.
+        self.aspectSemisquareEnabledLabel = \
+            QLabel("Semisquare enabled:")
+        self.aspectSemisquareEnabledCheckBox = \
+            QCheckBox()
+        formLayout.\
+            addRow(self.aspectSemisquareEnabledLabel,
+                   self.aspectSemisquareEnabledCheckBox)
+        self.aspectSemisquareAngleLabel = \
+            QLabel("Semisquare angle (degrees):")
+        self.aspectSemisquareAngleSpinBox = \
+            QDoubleSpinBox()
+        self.aspectSemisquareAngleSpinBox.setMinimum(0.0)
+        self.aspectSemisquareAngleSpinBox.setMaximum(360.0)
+        formLayout.\
+            addRow(self.aspectSemisquareAngleLabel,
+                   self.aspectSemisquareAngleSpinBox)
+        self.aspectSemisquareOrbLabel = \
+            QLabel("Semisquare orb (degrees):")
+        self.aspectSemisquareOrbSpinBox = \
+            QDoubleSpinBox()
+        self.aspectSemisquareOrbSpinBox.setMinimum(0.0)
+        self.aspectSemisquareOrbSpinBox.setMaximum(30.0)
+        formLayout.\
+            addRow(self.aspectSemisquareOrbLabel,
+                   self.aspectSemisquareOrbSpinBox)
+        self.aspectSemisquareColorLabel = \
+            QLabel("Semisquare color:")
+        self.aspectSemisquareColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.aspectSemisquareColorLabel,
+                   self.aspectSemisquareColorEditButton)
+        
+        # Sesquiquadrate.
+        self.aspectSesquiquadrateEnabledLabel = \
+            QLabel("Sesquiquadrate enabled:")
+        self.aspectSesquiquadrateEnabledCheckBox = \
+            QCheckBox()
+        formLayout.\
+            addRow(self.aspectSesquiquadrateEnabledLabel,
+                   self.aspectSesquiquadrateEnabledCheckBox)
+        self.aspectSesquiquadrateAngleLabel = \
+            QLabel("Sesquiquadrate angle (degrees):")
+        self.aspectSesquiquadrateAngleSpinBox = \
+            QDoubleSpinBox()
+        self.aspectSesquiquadrateAngleSpinBox.setMinimum(0.0)
+        self.aspectSesquiquadrateAngleSpinBox.setMaximum(360.0)
+        formLayout.\
+            addRow(self.aspectSesquiquadrateAngleLabel,
+                   self.aspectSesquiquadrateAngleSpinBox)
+        self.aspectSesquiquadrateOrbLabel = \
+            QLabel("Sesquiquadrate orb (degrees):")
+        self.aspectSesquiquadrateOrbSpinBox = \
+            QDoubleSpinBox()
+        self.aspectSesquiquadrateOrbSpinBox.setMinimum(0.0)
+        self.aspectSesquiquadrateOrbSpinBox.setMaximum(30.0)
+        formLayout.\
+            addRow(self.aspectSesquiquadrateOrbLabel,
+                   self.aspectSesquiquadrateOrbSpinBox)
+        self.aspectSesquiquadrateColorLabel = \
+            QLabel("Sesquiquadrate color:")
+        self.aspectSesquiquadrateColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.aspectSesquiquadrateColorLabel,
+                   self.aspectSesquiquadrateColorEditButton)
+        
+        # Label to tell the user that not all settings will be applied
+        # on existing windows when the 'Okay' button is pressed.
+        endl = os.linesep
+        noteLabel = \
+            QLabel("Note: Upon clicking the 'Okay' button, the new " + \
+                   "settings may not be immediately " + \
+                   endl + \
+                   "applied to the open PriceChartDocuments.  " + \
+                   "You may need to close and re-open " + \
+                   endl + \
+                   "the PriceChartDocuments to get the changes.")
+
+        # Button for resetting all the above edit widgets.
+        self.aspectResetAllToDefaultButton = \
+            QPushButton("Reset all the above to original default values")
+
+        hlayout = QHBoxLayout()
+        hlayout.addWidget(self.aspectResetAllToDefaultButton)
+        hlayout.addStretch()
+
+        vlayout = QVBoxLayout()
+        vlayout.addLayout(formLayout)
+        vlayout.addSpacing(20)
+        vlayout.addWidget(noteLabel)
+        vlayout.addSpacing(10)
+        vlayout.addLayout(hlayout)
+
+        self.aspectSettingsGroupBox.setLayout(vlayout)
+
+        scrollArea = QScrollArea()
+        scrollArea.setWidget(self.aspectSettingsGroupBox)
+        self.aspectSettingsGroupBox = scrollArea
+
+        return self.aspectSettingsGroupBox
+
     def loadValuesFromSettings(self):
         """Loads the widgets with values from the QSettings object.
 
@@ -3379,6 +3737,7 @@ class AppPreferencesEditWidget(QWidget):
         self._planetSymbolLoadValuesFromSettings()
         self._nonPlanetSymbolLoadValuesFromSettings()
         self._signSymbolLoadValuesFromSettings()
+        self._aspectLoadValuesFromSettings()
         
         self.log.debug("Exiting loadValuesFromSettings()")
         
@@ -3398,6 +3757,7 @@ class AppPreferencesEditWidget(QWidget):
         self._planetSymbolSaveValuesToSettings()
         self._nonPlanetSymbolSaveValuesToSettings()
         self._signSymbolSaveValuesToSettings()
+        self._aspectSaveValuesToSettings()
         
         self.log.debug("Exiting saveValuesToSettings()")
 
@@ -4880,6 +5240,234 @@ class AppPreferencesEditWidget(QWidget):
             setColor(value)
 
 
+    def _aspectLoadValuesFromSettings(self):
+        """Loads the widgets with values from the QSettings object.
+
+        This method uses QSettings and assumes that the
+        calls to QCoreApplication.setOrganizationName(), and
+        QCoreApplication.setApplicationName() have been called previously.
+        This is so that the QSettings constructor can be called without 
+        any parameters specified.
+        """
+
+        settings = QSettings()
+
+        # Conjunction.
+        key = SettingsKeys.aspectConjunctionEnabledKey
+        value = bool(settings.value(key, \
+            SettingsKeys.aspectConjunctionEnabledDefValue))
+        if value == True:
+            self.aspectConjunctionEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectConjunctionEnabledCheckBox.setCheckState(Qt.Unchecked)
+        
+        key = SettingsKeys.aspectConjunctionAngleKey
+        value = float(settings.value(key, \
+            SettingsKeys.aspectConjunctionAngleDefValue))
+        self.aspectConjunctionAngleSpinBox.setValue(value)
+        
+        key = SettingsKeys.aspectConjunctionOrbKey
+        value = float(settings.value(key, \
+            SettingsKeys.aspectConjunctionOrbDefValue))
+        self.aspectConjunctionOrbSpinBox.setValue(value)
+
+        key = SettingsKeys.aspectConjunctionColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.aspectConjunctionColorDefValue))
+        self.aspectConjunctionColorEditButton.setColor(value)
+        
+        # Opposition.
+        key = SettingsKeys.aspectOppositionEnabledKey
+        value = bool(settings.value(key, \
+            SettingsKeys.aspectOppositionEnabledDefValue))
+        if value == True:
+            self.aspectOppositionEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectOppositionEnabledCheckBox.setCheckState(Qt.Unchecked)
+        
+        key = SettingsKeys.aspectOppositionAngleKey
+        value = float(settings.value(key, \
+            SettingsKeys.aspectOppositionAngleDefValue))
+        self.aspectOppositionAngleSpinBox.setValue(value)
+        
+        key = SettingsKeys.aspectOppositionOrbKey
+        value = float(settings.value(key, \
+            SettingsKeys.aspectOppositionOrbDefValue))
+        self.aspectOppositionOrbSpinBox.setValue(value)
+        
+        key = SettingsKeys.aspectOppositionColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.aspectOppositionColorDefValue))
+        self.aspectOppositionColorEditButton.setColor(value)
+        
+        # Square.
+        key = SettingsKeys.aspectSquareEnabledKey
+        value = bool(settings.value(key, \
+            SettingsKeys.aspectSquareEnabledDefValue))
+        if value == True:
+            self.aspectSquareEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectSquareEnabledCheckBox.setCheckState(Qt.Unchecked)
+        
+        key = SettingsKeys.aspectSquareAngleKey
+        value = float(settings.value(key, \
+            SettingsKeys.aspectSquareAngleDefValue))
+        self.aspectSquareAngleSpinBox.setValue(value)
+        
+        key = SettingsKeys.aspectSquareOrbKey
+        value = float(settings.value(key, \
+            SettingsKeys.aspectSquareOrbDefValue))
+        self.aspectSquareOrbSpinBox.setValue(value)
+        
+        key = SettingsKeys.aspectSquareColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.aspectSquareColorDefValue))
+        self.aspectSquareColorEditButton.setColor(value)
+        
+        # Trine.
+        key = SettingsKeys.aspectTrineEnabledKey
+        value = bool(settings.value(key, \
+            SettingsKeys.aspectTrineEnabledDefValue))
+        if value == True:
+            self.aspectTrineEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectTrineEnabledCheckBox.setCheckState(Qt.Unchecked)
+        
+        key = SettingsKeys.aspectTrineAngleKey
+        value = float(settings.value(key, \
+            SettingsKeys.aspectTrineAngleDefValue))
+        self.aspectTrineAngleSpinBox.setValue(value)
+        
+        key = SettingsKeys.aspectTrineOrbKey
+        value = float(settings.value(key, \
+            SettingsKeys.aspectTrineOrbDefValue))
+        self.aspectTrineOrbSpinBox.setValue(value)
+        
+        key = SettingsKeys.aspectTrineColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.aspectTrineColorDefValue))
+        self.aspectTrineColorEditButton.setColor(value)
+        
+        # Sextile.
+        key = SettingsKeys.aspectSextileEnabledKey
+        value = bool(settings.value(key, \
+            SettingsKeys.aspectSextileEnabledDefValue))
+        if value == True:
+            self.aspectSextileEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectSextileEnabledCheckBox.setCheckState(Qt.Unchecked)
+        
+        key = SettingsKeys.aspectSextileAngleKey
+        value = float(settings.value(key, \
+            SettingsKeys.aspectSextileAngleDefValue))
+        self.aspectSextileAngleSpinBox.setValue(value)
+        
+        key = SettingsKeys.aspectSextileOrbKey
+        value = float(settings.value(key, \
+            SettingsKeys.aspectSextileOrbDefValue))
+        self.aspectSextileOrbSpinBox.setValue(value)
+        
+        key = SettingsKeys.aspectSextileColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.aspectSextileColorDefValue))
+        self.aspectSextileColorEditButton.setColor(value)
+        
+        # Inconjunct.
+        key = SettingsKeys.aspectInconjunctEnabledKey
+        value = bool(settings.value(key, \
+            SettingsKeys.aspectInconjunctEnabledDefValue))
+        if value == True:
+            self.aspectInconjunctEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectInconjunctEnabledCheckBox.setCheckState(Qt.Unchecked)
+        
+        key = SettingsKeys.aspectInconjunctAngleKey
+        value = float(settings.value(key, \
+            SettingsKeys.aspectInconjunctAngleDefValue))
+        self.aspectInconjunctAngleSpinBox.setValue(value)
+        
+        key = SettingsKeys.aspectInconjunctOrbKey
+        value = float(settings.value(key, \
+            SettingsKeys.aspectInconjunctOrbDefValue))
+        self.aspectInconjunctOrbSpinBox.setValue(value)
+        
+        key = SettingsKeys.aspectInconjunctColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.aspectInconjunctColorDefValue))
+        self.aspectInconjunctColorEditButton.setColor(value)
+        
+        # Semisextile.
+        key = SettingsKeys.aspectSemisextileEnabledKey
+        value = bool(settings.value(key, \
+            SettingsKeys.aspectSemisextileEnabledDefValue))
+        if value == True:
+            self.aspectSemisextileEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectSemisextileEnabledCheckBox.setCheckState(Qt.Unchecked)
+        
+        key = SettingsKeys.aspectSemisextileAngleKey
+        value = float(settings.value(key, \
+            SettingsKeys.aspectSemisextileAngleDefValue))
+        self.aspectSemisextileAngleSpinBox.setValue(value)
+        
+        key = SettingsKeys.aspectSemisextileOrbKey
+        value = float(settings.value(key, \
+            SettingsKeys.aspectSemisextileOrbDefValue))
+        self.aspectSemisextileOrbSpinBox.setValue(value)
+        
+        key = SettingsKeys.aspectSemisextileColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.aspectSemisextileColorDefValue))
+        self.aspectSemisextileColorEditButton.setColor(value)
+        
+        # Semisquare.
+        key = SettingsKeys.aspectSemisquareEnabledKey
+        value = bool(settings.value(key, \
+            SettingsKeys.aspectSemisquareEnabledDefValue))
+        if value == True:
+            self.aspectSemisquareEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectSemisquareEnabledCheckBox.setCheckState(Qt.Unchecked)
+        
+        key = SettingsKeys.aspectSemisquareAngleKey
+        value = float(settings.value(key, \
+            SettingsKeys.aspectSemisquareAngleDefValue))
+        self.aspectSemisquareAngleSpinBox.setValue(value)
+        
+        key = SettingsKeys.aspectSemisquareOrbKey
+        value = float(settings.value(key, \
+            SettingsKeys.aspectSemisquareOrbDefValue))
+        self.aspectSemisquareOrbSpinBox.setValue(value)
+        
+        key = SettingsKeys.aspectSemisquareColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.aspectSemisquareColorDefValue))
+        self.aspectSemisquareColorEditButton.setColor(value)
+        
+        # Sesquiquadrate.
+        key = SettingsKeys.aspectSesquiquadrateEnabledKey
+        value = bool(settings.value(key, \
+            SettingsKeys.aspectSesquiquadrateEnabledDefValue))
+        if value == True:
+            self.aspectSesquiquadrateEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectSesquiquadrateEnabledCheckBox.setCheckState(Qt.Unchecked)
+        
+        key = SettingsKeys.aspectSesquiquadrateAngleKey
+        value = float(settings.value(key, \
+            SettingsKeys.aspectSesquiquadrateAngleDefValue))
+        self.aspectSesquiquadrateAngleSpinBox.setValue(value)
+        
+        key = SettingsKeys.aspectSesquiquadrateOrbKey
+        value = float(settings.value(key, \
+            SettingsKeys.aspectSesquiquadrateOrbDefValue))
+        self.aspectSesquiquadrateOrbSpinBox.setValue(value)
+        
+        key = SettingsKeys.aspectSesquiquadrateColorKey
+        value = QColor(settings.value(key, \
+            SettingsKeys.aspectSesquiquadrateColorDefValue))
+        self.aspectSesquiquadrateColorEditButton.setColor(value)
+        
 
     def _priceBarSaveValuesToSettings(self):
         """Saves the values in the widgets to the QSettings object.
@@ -7279,6 +7867,397 @@ class AppPreferencesEditWidget(QWidget):
             settings.setValue(key, newValue)
 
 
+    def _aspectSaveValuesToSettings(self):
+        """Saves the values in the widgets to the QSettings object.
+
+        This method uses QSettings and assumes that the
+        calls to QCoreApplication.setOrganizationName(), and
+        QCoreApplication.setApplicationName() have been called previously
+        This is so that the QSettings constructor can be called without 
+        any parameters specified.
+        """
+
+        settings = QSettings()
+    
+        # Conjunction.
+        key = SettingsKeys.aspectConjunctionEnabledKey
+        newValue = \
+            (self.aspectConjunctionEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        if settings.contains(key):
+            oldValue = bool(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.aspectConjunctionAngleKey
+        newValue = \
+            self.aspectConjunctionAngleSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.aspectConjunctionOrbKey
+        newValue = \
+            self.aspectConjunctionOrbSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.aspectConjunctionColorKey
+        newValue = \
+            self.aspectConjunctionColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Opposition.
+        key = SettingsKeys.aspectOppositionEnabledKey
+        newValue = \
+            (self.aspectOppositionEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        if settings.contains(key):
+            oldValue = bool(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.aspectOppositionAngleKey
+        newValue = \
+            self.aspectOppositionAngleSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.aspectOppositionOrbKey
+        newValue = \
+            self.aspectOppositionOrbSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.aspectOppositionColorKey
+        newValue = \
+            self.aspectOppositionColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Square.
+        key = SettingsKeys.aspectSquareEnabledKey
+        newValue = \
+            (self.aspectSquareEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        if settings.contains(key):
+            oldValue = bool(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.aspectSquareAngleKey
+        newValue = \
+            self.aspectSquareAngleSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.aspectSquareOrbKey
+        newValue = \
+            self.aspectSquareOrbSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.aspectSquareColorKey
+        newValue = \
+            self.aspectSquareColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Trine.
+        key = SettingsKeys.aspectTrineEnabledKey
+        newValue = \
+            (self.aspectTrineEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        if settings.contains(key):
+            oldValue = bool(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.aspectTrineAngleKey
+        newValue = \
+            self.aspectTrineAngleSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.aspectTrineOrbKey
+        newValue = \
+            self.aspectTrineOrbSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.aspectTrineColorKey
+        newValue = \
+            self.aspectTrineColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Sextile.
+        key = SettingsKeys.aspectSextileEnabledKey
+        newValue = \
+            (self.aspectSextileEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        if settings.contains(key):
+            oldValue = bool(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.aspectSextileAngleKey
+        newValue = \
+            self.aspectSextileAngleSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.aspectSextileOrbKey
+        newValue = \
+            self.aspectSextileOrbSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.aspectSextileColorKey
+        newValue = \
+            self.aspectSextileColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Inconjunct.
+        key = SettingsKeys.aspectInconjunctEnabledKey
+        newValue = \
+            (self.aspectInconjunctEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        if settings.contains(key):
+            oldValue = bool(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.aspectInconjunctAngleKey
+        newValue = \
+            self.aspectInconjunctAngleSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.aspectInconjunctOrbKey
+        newValue = \
+            self.aspectInconjunctOrbSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.aspectInconjunctColorKey
+        newValue = \
+            self.aspectInconjunctColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Semisextile.
+        key = SettingsKeys.aspectSemisextileEnabledKey
+        newValue = \
+            (self.aspectSemisextileEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        if settings.contains(key):
+            oldValue = bool(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.aspectSemisextileAngleKey
+        newValue = \
+            self.aspectSemisextileAngleSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.aspectSemisextileOrbKey
+        newValue = \
+            self.aspectSemisextileOrbSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.aspectSemisextileColorKey
+        newValue = \
+            self.aspectSemisextileColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Semisquare.
+        key = SettingsKeys.aspectSemisquareEnabledKey
+        newValue = \
+            (self.aspectSemisquareEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        if settings.contains(key):
+            oldValue = bool(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.aspectSemisquareAngleKey
+        newValue = \
+            self.aspectSemisquareAngleSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.aspectSemisquareOrbKey
+        newValue = \
+            self.aspectSemisquareOrbSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.aspectSemisquareColorKey
+        newValue = \
+            self.aspectSemisquareColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Sesquiquadrate.
+        key = SettingsKeys.aspectSesquiquadrateEnabledKey
+        newValue = \
+            (self.aspectSesquiquadrateEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        if settings.contains(key):
+            oldValue = bool(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.aspectSesquiquadrateAngleKey
+        newValue = \
+            self.aspectSesquiquadrateAngleSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.aspectSesquiquadrateOrbKey
+        newValue = \
+            self.aspectSesquiquadrateOrbSpinBox.value()
+        if settings.contains(key):
+            oldValue = float(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.aspectSesquiquadrateColorKey
+        newValue = \
+            self.aspectSesquiquadrateColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = QColor(settings.value(key))
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+
     def _handleZoomScaleFactorResetButtonClicked(self):
         """Called when the zoomScaleFactorResetButton is clicked.
         Resets the widget value to the default value.
@@ -7895,6 +8874,157 @@ class AppPreferencesEditWidget(QWidget):
         self.planetPiscesBackgroundColorEditButton.\
             setColor(SettingsKeys.signPiscesBackgroundColorDefValue)
 
+    def _handleAspectResetAllToDefaultButtonClicked(self):
+        """Called when the aspectResetAllToDefaultButton is clicked
+        for the Planet aspect settings.  
+        Resets the all the widget values in this widget tab to the default
+        values.
+        """
+        
+        # Conjunction.
+        value = bool(SettingsKeys.aspectConjunctionEnabledDefValue)
+        if value == True:
+            self.aspectConjunctionEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectConjunctionEnabledCheckBox.setCheckState(Qt.Unchecked)
+        
+        value = float(SettingsKeys.aspectConjunctionAngleDefValue)
+        self.aspectConjunctionAngleSpinBox.setValue(value)
+        
+        value = float(SettingsKeys.aspectConjunctionOrbDefValue)
+        self.aspectConjunctionOrbSpinBox.setValue(value)
+
+        value = QColor(SettingsKeys.aspectConjunctionColorDefValue)
+        self.aspectConjunctionColorEditButton.setColor(value)
+        
+        # Opposition.
+        value = bool(SettingsKeys.aspectOppositionEnabledDefValue)
+        if value == True:
+            self.aspectOppositionEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectOppositionEnabledCheckBox.setCheckState(Qt.Unchecked)
+        
+        value = float(SettingsKeys.aspectOppositionAngleDefValue)
+        self.aspectOppositionAngleSpinBox.setValue(value)
+        
+        value = float(SettingsKeys.aspectOppositionOrbDefValue)
+        self.aspectOppositionOrbSpinBox.setValue(value)
+        
+        value = QColor(SettingsKeys.aspectOppositionColorDefValue)
+        self.aspectOppositionColorEditButton.setColor(value)
+        
+        # Square.
+        value = bool(SettingsKeys.aspectSquareEnabledDefValue)
+        if value == True:
+            self.aspectSquareEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectSquareEnabledCheckBox.setCheckState(Qt.Unchecked)
+        
+        value = float(SettingsKeys.aspectSquareAngleDefValue)
+        self.aspectSquareAngleSpinBox.setValue(value)
+        
+        value = float(SettingsKeys.aspectSquareOrbDefValue)
+        self.aspectSquareOrbSpinBox.setValue(value)
+        
+        value = QColor(SettingsKeys.aspectSquareColorDefValue)
+        self.aspectSquareColorEditButton.setColor(value)
+        
+        # Trine.
+        value = bool(SettingsKeys.aspectTrineEnabledDefValue)
+        if value == True:
+            self.aspectTrineEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectTrineEnabledCheckBox.setCheckState(Qt.Unchecked)
+        
+        value = float(SettingsKeys.aspectTrineAngleDefValue)
+        self.aspectTrineAngleSpinBox.setValue(value)
+        
+        value = float(SettingsKeys.aspectTrineOrbDefValue)
+        self.aspectTrineOrbSpinBox.setValue(value)
+        
+        value = QColor(SettingsKeys.aspectTrineColorDefValue)
+        self.aspectTrineColorEditButton.setColor(value)
+        
+        # Sextile.
+        value = bool(SettingsKeys.aspectSextileEnabledDefValue)
+        if value == True:
+            self.aspectSextileEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectSextileEnabledCheckBox.setCheckState(Qt.Unchecked)
+        
+        value = float(SettingsKeys.aspectSextileAngleDefValue)
+        self.aspectSextileAngleSpinBox.setValue(value)
+        
+        value = float(SettingsKeys.aspectSextileOrbDefValue)
+        self.aspectSextileOrbSpinBox.setValue(value)
+        
+        value = QColor(SettingsKeys.aspectSextileColorDefValue)
+        self.aspectSextileColorEditButton.setColor(value)
+        
+        # Inconjunct.
+        value = bool(SettingsKeys.aspectInconjunctEnabledDefValue)
+        if value == True:
+            self.aspectInconjunctEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectInconjunctEnabledCheckBox.setCheckState(Qt.Unchecked)
+        
+        value = float(SettingsKeys.aspectInconjunctAngleDefValue)
+        self.aspectInconjunctAngleSpinBox.setValue(value)
+        
+        value = float(SettingsKeys.aspectInconjunctOrbDefValue)
+        self.aspectInconjunctOrbSpinBox.setValue(value)
+        
+        value = QColor(SettingsKeys.aspectInconjunctColorDefValue)
+        self.aspectInconjunctColorEditButton.setColor(value)
+        
+        # Semisextile.
+        value = bool(SettingsKeys.aspectSemisextileEnabledDefValue)
+        if value == True:
+            self.aspectSemisextileEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectSemisextileEnabledCheckBox.setCheckState(Qt.Unchecked)
+        
+        value = float(SettingsKeys.aspectSemisextileAngleDefValue)
+        self.aspectSemisextileAngleSpinBox.setValue(value)
+        
+        value = float(SettingsKeys.aspectSemisextileOrbDefValue)
+        self.aspectSemisextileOrbSpinBox.setValue(value)
+        
+        value = QColor(SettingsKeys.aspectSemisextileColorDefValue)
+        self.aspectSemisextileColorEditButton.setColor(value)
+        
+        # Semisquare.
+        value = bool(SettingsKeys.aspectSemisquareEnabledDefValue)
+        if value == True:
+            self.aspectSemisquareEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectSemisquareEnabledCheckBox.setCheckState(Qt.Unchecked)
+        
+        value = float(SettingsKeys.aspectSemisquareAngleDefValue)
+        self.aspectSemisquareAngleSpinBox.setValue(value)
+        
+        value = float(SettingsKeys.aspectSemisquareOrbDefValue)
+        self.aspectSemisquareOrbSpinBox.setValue(value)
+        
+        value = QColor(SettingsKeys.aspectSemisquareColorDefValue)
+        self.aspectSemisquareColorEditButton.setColor(value)
+        
+        # Sesquiquadrate.
+        value = bool(SettingsKeys.aspectSesquiquadrateEnabledDefValue)
+        if value == True:
+            self.aspectSesquiquadrateEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectSesquiquadrateEnabledCheckBox.setCheckState(Qt.Unchecked)
+        
+        value = float(SettingsKeys.aspectSesquiquadrateAngleDefValue)
+        self.aspectSesquiquadrateAngleSpinBox.setValue(value)
+        
+        value = float(SettingsKeys.aspectSesquiquadrateOrbDefValue)
+        self.aspectSesquiquadrateOrbSpinBox.setValue(value)
+        
+        value = QColor(SettingsKeys.aspectSesquiquadrateColorDefValue)
+        self.aspectSesquiquadrateColorEditButton.setColor(value)
+        
 
     def _handleOkayButtonClicked(self):
         """Called when the okay button is clicked."""

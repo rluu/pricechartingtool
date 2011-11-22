@@ -1728,5 +1728,345 @@ class SettingsKeys():
 
 
 
+    # QSettings key for the aspect Conjunction name.
+    aspectConjunctionNameKey = \
+        "ui/astrology/aspectConjunctionName"
+
+    # QSettings default value for the aspect Conjunction name.
+    aspectConjunctionNameDefValue = \
+        "Conjunction"
+    
+    # QSettings key for the aspect Conjunction angle.
+    aspectConjunctionAngleKey = \
+        "ui/astrology/aspectConjunctionAngle"
+
+    # QSettings default value for the aspect Conjunction angle (float).
+    aspectConjunctionAngleDefValue = float(0.0)
+    
+    # QSettings key for the aspect Conjunction being enabled.
+    aspectConjunctionEnabledKey = \
+        "ui/astrology/aspectConjunctionEnabled"
+
+    # QSettings default value for the aspect Conjunction being enabled.
+    aspectConjunctionEnabledDefValue = True
+    
+    # QSettings key for the aspect Conjunction color.
+    aspectConjunctionColorKey = \
+        "ui/astrology/aspectConjunctionColor"
+
+    # QSettings default value for the aspect Conjunction color.
+    aspectConjunctionColorDefValue = QColor(Qt.darkYellow)
+
+    # QSettings key for the aspect Conjunction orb in degrees.
+    aspectConjunctionOrbKey = \
+        "ui/astrology/aspectConjunctionOrb"
+
+    # QSettings default value for the aspect Conjunction orb in degrees (float).
+    aspectConjunctionOrbDefValue = float(6.0)
+
+
+    
+    # QSettings key for the aspect Opposition name.
+    aspectOppositionNameKey = \
+        "ui/astrology/aspectOppositionName"
+
+    # QSettings default value for the aspect Opposition name.
+    aspectOppositionNameDefValue = \
+        "Opposition"
+    
+    # QSettings key for the aspect Opposition angle.
+    aspectOppositionAngleKey = \
+        "ui/astrology/aspectOppositionAngle"
+
+    # QSettings default value for the aspect Opposition angle (float).
+    aspectOppositionAngleDefValue = float(180.0)
+    
+    # QSettings key for the aspect Opposition being enabled.
+    aspectOppositionEnabledKey = \
+        "ui/astrology/aspectOppositionEnabled"
+
+    # QSettings default value for the aspect Opposition being enabled.
+    aspectOppositionEnabledDefValue = True
+    
+    # QSettings key for the aspect Opposition color.
+    aspectOppositionColorKey = \
+        "ui/astrology/aspectOppositionColor"
+
+    # QSettings default value for the aspect Opposition color.
+    aspectOppositionColorDefValue = QColor(Qt.blue)
+
+    # QSettings key for the aspect Opposition orb in degrees.
+    aspectOppositionOrbKey = \
+        "ui/astrology/aspectOppositionOrb"
+
+    # QSettings default value for the aspect Opposition orb in degrees (float).
+    aspectOppositionOrbDefValue = float(6.0)
+
+
+
+    # QSettings key for the aspect Square name.
+    aspectSquareNameKey = \
+        "ui/astrology/aspectSquareName"
+
+    # QSettings default value for the aspect Square name.
+    aspectSquareNameDefValue = \
+        "Square"
+    
+    # QSettings key for the aspect Square angle.
+    aspectSquareAngleKey = \
+        "ui/astrology/aspectSquareAngle"
+
+    # QSettings default value for the aspect Square angle (float).
+    aspectSquareAngleDefValue = float(90.0)
+    
+    # QSettings key for the aspect Square being enabled.
+    aspectSquareEnabledKey = \
+        "ui/astrology/aspectSquareEnabled"
+
+    # QSettings default value for the aspect Square being enabled.
+    aspectSquareEnabledDefValue = True
+    
+    # QSettings key for the aspect Square color.
+    aspectSquareColorKey = \
+        "ui/astrology/aspectSquareColor"
+
+    # QSettings default value for the aspect Square color.
+    aspectSquareColorDefValue = QColor(Qt.red)
+
+    # QSettings key for the aspect Square orb in degrees.
+    aspectSquareOrbKey = \
+        "ui/astrology/aspectSquareOrb"
+
+    # QSettings default value for the aspect Square orb in degrees (float).
+    aspectSquareOrbDefValue = float(6.0)
+
+
+
+    # QSettings key for the aspect Trine name.
+    aspectTrineNameKey = \
+        "ui/astrology/aspectTrineName"
+
+    # QSettings default value for the aspect Trine name.
+    aspectTrineNameDefValue = \
+        "Trine"
+    
+    # QSettings key for the aspect Trine angle.
+    aspectTrineAngleKey = \
+        "ui/astrology/aspectTrineAngle"
+
+    # QSettings default value for the aspect Trine angle (float).
+    aspectTrineAngleDefValue = float(120.0)
+    
+    # QSettings key for the aspect Trine being enabled.
+    aspectTrineEnabledKey = \
+        "ui/astrology/aspectTrineEnabled"
+
+    # QSettings default value for the aspect Trine being enabled.
+    aspectTrineEnabledDefValue = True
+    
+    # QSettings key for the aspect Trine color.
+    aspectTrineColorKey = \
+        "ui/astrology/aspectTrineColor"
+
+    # QSettings default value for the aspect Trine color.
+    aspectTrineColorDefValue = QColor(Qt.darkGreen)
+
+    # QSettings key for the aspect Trine orb in degrees.
+    aspectTrineOrbKey = \
+        "ui/astrology/aspectTrineOrb"
+
+    # QSettings default value for the aspect Trine orb in degrees (float).
+    aspectTrineOrbDefValue = float(6.0)
+
+
+
+    # QSettings key for the aspect Sextile name.
+    aspectSextileNameKey = \
+        "ui/astrology/aspectSextileName"
+
+    # QSettings default value for the aspect Sextile name.
+    aspectSextileNameDefValue = \
+        "Sextile"
+    
+    # QSettings key for the aspect Sextile angle.
+    aspectSextileAngleKey = \
+        "ui/astrology/aspectSextileAngle"
+
+    # QSettings default value for the aspect Sextile angle (float).
+    aspectSextileAngleDefValue = float(60.0)
+    
+    # QSettings key for the aspect Sextile being enabled.
+    aspectSextileEnabledKey = \
+        "ui/astrology/aspectSextileEnabled"
+
+    # QSettings default value for the aspect Sextile being enabled.
+    aspectSextileEnabledDefValue = True
+    
+    # QSettings key for the aspect Sextile color.
+    aspectSextileColorKey = \
+        "ui/astrology/aspectSextileColor"
+
+    # QSettings default value for the aspect Sextile color.
+    aspectSextileColorDefValue = QColor(Qt.darkCyan)
+
+    # QSettings key for the aspect Sextile orb in degrees.
+    aspectSextileOrbKey = \
+        "ui/astrology/aspectSextileOrb"
+
+    # QSettings default value for the aspect Sextile orb in degrees (float).
+    aspectSextileOrbDefValue = float(5.0)
+
+
+
+    # QSettings key for the aspect Inconjunct name.
+    aspectInconjunctNameKey = \
+        "ui/astrology/aspectInconjunctName"
+
+    # QSettings default value for the aspect Inconjunct name.
+    aspectInconjunctNameDefValue = \
+        "Inconjunct"
+    
+    # QSettings key for the aspect Inconjunct angle.
+    aspectInconjunctAngleKey = \
+        "ui/astrology/aspectInconjunctAngle"
+
+    # QSettings default value for the aspect Inconjunct angle (float).
+    aspectInconjunctAngleDefValue = float(150.0)
+    
+    # QSettings key for the aspect Inconjunct being enabled.
+    aspectInconjunctEnabledKey = \
+        "ui/astrology/aspectInconjunctEnabled"
+
+    # QSettings default value for the aspect Inconjunct being enabled.
+    aspectInconjunctEnabledDefValue = False
+    
+    # QSettings key for the aspect Inconjunct color.
+    aspectInconjunctColorKey = \
+        "ui/astrology/aspectInconjunctColor"
+
+    # QSettings default value for the aspect Inconjunct color.
+    aspectInconjunctColorDefValue = QColor(Qt.magenta)
+
+    # QSettings key for the aspect Inconjunct orb in degrees.
+    aspectInconjunctOrbKey = \
+        "ui/astrology/aspectInconjunctOrb"
+
+    # QSettings default value for the aspect Inconjunct orb in degrees (float).
+    aspectInconjunctOrbDefValue = float(3.0)
+
+
+
+    # QSettings key for the aspect Semisextile name.
+    aspectSemisextileNameKey = \
+        "ui/astrology/aspectSemisextileName"
+
+    # QSettings default value for the aspect Semisextile name.
+    aspectSemisextileNameDefValue = \
+        "Semisextile"
+    
+    # QSettings key for the aspect Semisextile angle.
+    aspectSemisextileAngleKey = \
+        "ui/astrology/aspectSemisextileAngle"
+
+    # QSettings default value for the aspect Semisextile angle (float).
+    aspectSemisextileAngleDefValue = float(30.0)
+    
+    # QSettings key for the aspect Semisextile being enabled.
+    aspectSemisextileEnabledKey = \
+        "ui/astrology/aspectSemisextileEnabled"
+
+    # QSettings default value for the aspect Semisextile being enabled.
+    aspectSemisextileEnabledDefValue = False
+    
+    # QSettings key for the aspect Semisextile color.
+    aspectSemisextileColorKey = \
+        "ui/astrology/aspectSemisextileColor"
+
+    # QSettings default value for the aspect Semisextile color.
+    aspectSemisextileColorDefValue = QColor(Qt.magenta)
+
+    # QSettings key for the aspect Semisextile orb in degrees.
+    aspectSemisextileOrbKey = \
+        "ui/astrology/aspectSemisextileOrb"
+
+    # QSettings default value for the aspect Semisextile orb in degrees (float).
+    aspectSemisextileOrbDefValue = float(3.0)
+
+
+
+    # QSettings key for the aspect Semisquare name.
+    aspectSemisquareNameKey = \
+        "ui/astrology/aspectSemisquareName"
+
+    # QSettings default value for the aspect Semisquare name.
+    aspectSemisquareNameDefValue = \
+        "Semisquare"
+    
+    # QSettings key for the aspect Semisquare angle.
+    aspectSemisquareAngleKey = \
+        "ui/astrology/aspectSemisquareAngle"
+
+    # QSettings default value for the aspect Semisquare angle (float).
+    aspectSemisquareAngleDefValue = float(45.0)
+    
+    # QSettings key for the aspect Semisquare being enabled.
+    aspectSemisquareEnabledKey = \
+        "ui/astrology/aspectSemisquareEnabled"
+
+    # QSettings default value for the aspect Semisquare being enabled.
+    aspectSemisquareEnabledDefValue = False
+    
+    # QSettings key for the aspect Semisquare color.
+    aspectSemisquareColorKey = \
+        "ui/astrology/aspectSemisquareColor"
+
+    # QSettings default value for the aspect Semisquare color.
+    aspectSemisquareColorDefValue = QColor(Qt.darkYellow)
+
+    # QSettings key for the aspect Semisquare orb in degrees.
+    aspectSemisquareOrbKey = \
+        "ui/astrology/aspectSemisquareOrb"
+
+    # QSettings default value for the aspect Semisquare orb in degrees (float).
+    aspectSemisquareOrbDefValue = float(3.0)
+
+
+
+    # QSettings key for the aspect Sesquiquadrate name.
+    aspectSesquiquadrateNameKey = \
+        "ui/astrology/aspectSesquiquadrateName"
+
+    # QSettings default value for the aspect Sesquiquadrate name.
+    aspectSesquiquadrateNameDefValue = \
+        "Sesquiquadrate"
+    
+    # QSettings key for the aspect Sesquiquadrate angle.
+    aspectSesquiquadrateAngleKey = \
+        "ui/astrology/aspectSesquiquadrateAngle"
+
+    # QSettings default value for the aspect Sesquiquadrate angle (float).
+    aspectSesquiquadrateAngleDefValue = float(135.0)
+    
+    # QSettings key for the aspect Sesquiquadrate being enabled.
+    aspectSesquiquadrateEnabledKey = \
+        "ui/astrology/aspectSesquiquadrateEnabled"
+
+    # QSettings default value for the aspect Sesquiquadrate being enabled.
+    aspectSesquiquadrateEnabledDefValue = False
+    
+    # QSettings key for the aspect Sesquiquadrate color.
+    aspectSesquiquadrateColorKey = \
+        "ui/astrology/aspectSesquiquadrateColor"
+
+    # QSettings default value for the aspect Sesquiquadrate color.
+    aspectSesquiquadrateColorDefValue = QColor(Qt.darkYellow)
+
+    # QSettings key for the aspect Sesquiquadrate orb in degrees.
+    aspectSesquiquadrateOrbKey = \
+        "ui/astrology/aspectSesquiquadrateOrb"
+
+    # QSettings default value for the aspect Sesquiquadrate orb in degrees (float).
+    aspectSesquiquadrateOrbDefValue = float(3.0)
+
 
 
