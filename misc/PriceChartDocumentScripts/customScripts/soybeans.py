@@ -33,8 +33,8 @@ from planetaryCombinationsLibrary import PlanetaryCombinationsLibrary
 ##############################################################################
 
 # For logging.
-logLevel = logging.DEBUG
-#logLevel = logging.INFO
+#logLevel = logging.DEBUG
+logLevel = logging.INFO
 logging.basicConfig(format='%(levelname)s: %(message)s')
 moduleName = globals()['__name__']
 log = logging.getLogger(moduleName)
@@ -44,9 +44,12 @@ log.setLevel(logLevel)
 startDt = datetime.datetime(year=1970, month=1, day=1,
                             hour=0, minute=0, second=0,
                             tzinfo=pytz.utc)
-endDt   = datetime.datetime(year=2020, month=1, day=1,
+endDt   = datetime.datetime(year=1972, month=1, day=1,
                             hour=0, minute=0, second=0,
                             tzinfo=pytz.utc)
+#endDt   = datetime.datetime(year=2020, month=1, day=1,
+#                            hour=0, minute=0, second=0,
+#                            tzinfo=pytz.utc)
 
 # High and low price limits for drawing the vertical lines.
 highPrice = 2000.0
@@ -73,9 +76,37 @@ def processPCDD(pcdd, tag):
     # Return value.
     rv = 0
 
+    #success = PlanetaryCombinationsLibrary.\
+    #    addHelioVenusJupiter120xVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addHelioMars150NeptuneVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addHelioNeptune150MarsVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addHelioVenus150NeptuneVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addHelioNeptune150VenusVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addGeoVenusSaturn120xVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addGeoMarsJupiter30xVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addGeoMarsSaturn120xVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice)
     success = PlanetaryCombinationsLibrary.\
-        addHelioVenusConjunctOrTrineJupiterVerticalLines(\
+        addGeoMercuryJupiter90xVerticalLines(\
         pcdd, startDt, endDt, highPrice, lowPrice)
+    
+    
+    
+    
     #success = PlanetaryCombinationsLibrary.\
     #    addHelioSaturnUranus15xVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice)
