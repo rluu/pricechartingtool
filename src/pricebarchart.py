@@ -12768,13 +12768,7 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
 
 class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
-    """QGraphicsItem that visualizes a price retracement in the GraphicsView.
-
-    This item uses the origin point (0, 0) in item coordinates as the
-    center point width bar, on the start point (bottom part) of the bar ruler.
-
-    That means when a user creates a new LineSegmentGraphicsItem
-    the position and points can be consistently set.
+    """QGraphicsItem that visualizes a line segment in the GraphicsView.
     """
     
     def __init__(self, parent=None, scene=None):

@@ -933,7 +933,64 @@ class AstrologyUtils:
 
         return rv
     
+
+class RadixChartAspectGraphicsItem(QGraphicsItem):
+    """QGraphicsItem that represents an aspect on a Radix Chart."""
+
+    # TODO:  shouldn't the createAspectIfApplicable() function below be in class RadixChartGraphicsItem?  Think about this to see what makes sense.
+    @staticmethod
+    def createAspectIfApplicable(p1Degree, p2Degree, parent):
+        """Creates a RadixChartAspectGraphicsItem that is
+        a child of 'parent', if the degrees in
+        'p1Degree' and 'p2Degree' make an aspect that is enabled.
+        The color and brush will be set accordingly, depending on the aspect.
+        
+        Note: If no aspect applies, then None is returned.  This only
+        creates aspect types that are enabled and configured in
+        Application Preferences (QSettings).
+
+        Arguments:
+        p1Degree - float value for the degrees of the first planet.
+        p2Degree - float value for the degrees of the second planet.
+        parent - RadixChartGraphicsItem that is the parent for this aspect.
+
+        Returns:
+        
+        If an aspect applies to the given degrees, then an
+        RadixChartAspectGraphicsItem object is returned.  This object
+        will have'parent' as the parent RadixChartGraphicsItem.
+        
+        If no enabled aspect applies to the given degrees, then None
+        is returned.
+        """
+        
+        # TODO:  read QSettings to find out which aspects are enabled.
+        
+        pass
+        
     
+    def __init__(self, parent=None, scene=None):
+        super().__init__(parent, scene)
+    
+        # Logger
+        self.log = \
+            logging.getLogger("astrologychart.RadixChartAspectGraphicsItem")
+
+        # Pen and brush for the painting.
+        self.pen = QPen()
+        self.pen.setColor(QColor(Qt.black))
+        self.pen.setWidthF(0.0)
+        self.brush = self.pen.brush()
+        self.brush.setColor(Qt.black)
+        self.brush.setStyle(Qt.SolidPattern)
+        self.pen.setBrush(brush)
+
+        
+        self.aspectName = "UNKNOWN"
+        #self.aspectOrb = 0.0
+
+        # TODO:  finish coding the rest of this class.
+        
 class RadixChartGraphicsItem(QGraphicsItem):
     """QGraphicsItem that is the circle astrology chart."""
 
@@ -1134,6 +1191,22 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
 
         return None
 
+    def redrawAspects(self, wheelNumber):
+    
+        """If drawing aspects is enabled via Application Preferences
+        (QSettings), then this function draws aspects between the
+        RadixPlanetGraphicsItems in the given wheelNumber.  The
+        aspects drawn are according to the aspects enabled and
+        configured in Application Preferences (QSettings).
+
+        Arguments:
+
+        wheelNumber - int value holding the wheel number that the
+        aspects are drawn for.
+        """
+        
+        # TODO:  write code here.
+        pass
         
     def getInnerRasiRadius(self):
         """Returns the radius of the inner Rasi circle."""
@@ -3841,28 +3914,28 @@ class AstrologyChartWidget(QWidget):
         
         p = Ephemeris.getSunPlanetaryInfo(dt)
         planets.append(p)
-        p = Ephemeris.getMoonPlanetaryInfo(dt)
-        planets.append(p)
+        #p = Ephemeris.getMoonPlanetaryInfo(dt)
+        #planets.append(p)
         p = Ephemeris.getMercuryPlanetaryInfo(dt)
         planets.append(p)
         p = Ephemeris.getVenusPlanetaryInfo(dt)
         planets.append(p)
-        p = Ephemeris.getMarsPlanetaryInfo(dt)
-        planets.append(p)
+        #p = Ephemeris.getMarsPlanetaryInfo(dt)
+        #planets.append(p)
         p = Ephemeris.getJupiterPlanetaryInfo(dt)
         planets.append(p)
-        p = Ephemeris.getSaturnPlanetaryInfo(dt)
-        planets.append(p)
-        p = Ephemeris.getUranusPlanetaryInfo(dt)
-        planets.append(p)
-        p = Ephemeris.getNeptunePlanetaryInfo(dt)
-        planets.append(p)
-        p = Ephemeris.getPlutoPlanetaryInfo(dt)
-        planets.append(p)
-        p = Ephemeris.getMeanNorthNodePlanetaryInfo(dt)
-        planets.append(p)
-        p = Ephemeris.getTrueNorthNodePlanetaryInfo(dt)
-        planets.append(p)
+        #p = Ephemeris.getSaturnPlanetaryInfo(dt)
+        #planets.append(p)
+        #p = Ephemeris.getUranusPlanetaryInfo(dt)
+        #planets.append(p)
+        #p = Ephemeris.getNeptunePlanetaryInfo(dt)
+        #planets.append(p)
+        #p = Ephemeris.getPlutoPlanetaryInfo(dt)
+        #planets.append(p)
+        #p = Ephemeris.getMeanNorthNodePlanetaryInfo(dt)
+        #planets.append(p)
+        #p = Ephemeris.getTrueNorthNodePlanetaryInfo(dt)
+        #planets.append(p)
         #p = Ephemeris.getMeanLunarApogeePlanetaryInfo(dt)
         #planets.append(p)
         #p = Ephemeris.getOsculatingLunarApogeePlanetaryInfo(dt)
@@ -3871,8 +3944,8 @@ class AstrologyChartWidget(QWidget):
         #planets.append(p)
         #p = Ephemeris.getInterpolatedLunarPerigeePlanetaryInfo(dt)
         #planets.append(p)
-        p = Ephemeris.getEarthPlanetaryInfo(dt)
-        planets.append(p)
+        #p = Ephemeris.getEarthPlanetaryInfo(dt)
+        #planets.append(p)
         #p = Ephemeris.getChironPlanetaryInfo(dt)
         #planets.append(p)
         
@@ -3882,7 +3955,7 @@ class AstrologyChartWidget(QWidget):
         """Function to return a list of planet names that should be
         used to display declination information.  This is used because
         some planets don't make sense to chart on declination and it
-        just clouds up the view..
+        just clouds up the view.
         """
 
         toDisplay = \
@@ -3899,7 +3972,103 @@ class AstrologyChartWidget(QWidget):
 
         return toDisplay
         
-        
+    def _getPlanetNamesToDisplayForGeoSidRadixChart():
+        """Function to returna list of planet names that can be
+        used to display longitude information.  This is used because
+        some planets don't make sense in this chart and it just clouds
+        up the view.
+        """
+
+        toDisplay = \
+            ["Ascendant",
+             "Midheaven",
+             "HoraLagna",
+             "GhatiLagna",
+             "MeanLunarApogee",
+             "OsculatingLunarApogee",
+             "InterpolatedLunarApogee",
+             "InterpolatedLunarPerigee",
+             "Sun",
+             "Moon",
+             "Mercury",
+             "Venus",
+             #"Earth",
+             "Mars",
+             "Jupiter",
+             "Saturn",
+             "Uranus",
+             "Neptune",
+             "Pluto",
+             "MeanNorthNode",
+             "MeanSouthNode",
+             "TrueNorthNode",
+             "TrueSouthNode",
+             "Ceres",
+             "Pallas",
+             "Juno",
+             "Vesta",
+             "Chiron",
+             "Gulika",
+             "Mandi",
+             "MeanOfFive",
+             "CycleOfEight"]
+
+        return toDisplay
+
+    def _getPlanetNamesToDisplayForGeoTropRadixChart():
+        """Function to returna list of planet names that can be
+        used to display longitude information.  This is used because
+        some planets don't make sense in this chart and it just clouds
+        up the view.
+        """
+
+        # Use the same values for Geocentric Tropical as used in
+        # Geocentric Sidereal.
+        return self._getPlanetNamesToDisplayForGeoSidRadixChart()
+
+    def _getPlanetNamesToDisplayForHelioSidRadixChart():
+        """Function to returna list of planet names that can be
+        used to display longitude information.  This is used because
+        some planets don't make sense in this chart and it just clouds
+        up the view.
+        """
+
+        toDisplay = \
+            [#"Ascendant",
+             #"Midheaven",
+             #"HoraLagna",
+             #"GhatiLagna",
+             #"MeanLunarApogee",
+             #"OsculatingLunarApogee",
+             #"InterpolatedLunarApogee",
+             #"InterpolatedLunarPerigee",
+             "Sun",
+             #"Moon",
+             "Mercury",
+             "Venus",
+             "Earth",
+             "Mars",
+             "Jupiter",
+             "Saturn",
+             "Uranus",
+             "Neptune",
+             "Pluto",
+             #"MeanNorthNode",
+             #"MeanSouthNode",
+             #"TrueNorthNode",
+             #"TrueSouthNode",
+             #"Ceres",
+             #"Pallas",
+             #"Juno",
+             #"Vesta",
+             #"Chiron",
+             #"Gulika",
+             #"Mandi",
+             "MeanOfFive",
+             "CycleOfEight"]
+
+        return toDisplay
+
     def setAstroChartXDatetime(self, chartNum, dt):
         """Sets the datetime of astrology chart 'chartNum'
         within the radix chart and other charts.
@@ -3951,134 +4120,166 @@ class AstrologyChartWidget(QWidget):
 
             
             # Geocentric Sidereal.
-            radixPlanetGraphicsItem = \
-                self.geoSidRadixChartGraphicsItem.\
-                getRadixPlanetGraphicsItem(planet.name, wheelNumber)
-            if radixPlanetGraphicsItem == None:
-                # No RadixPlanetGraphicsItem exists for this planet yet,
-                # so create it.
+            if planet.name in \
+                   self._getPlanetNamesToDisplayForGeoSidRadixChart():
 
-                # Get all the info needed to create it.
-                glyph = \
-                    AstrologyUtils.getGlyphForPlanetName(planet.name)
-                fontSize = \
-                    AstrologyUtils.getGlyphFontSizeForPlanetName(planet.name)
-                abbrev = \
-                    AstrologyUtils.getAbbreviationForPlanetName(planet.name)
-                foregroundColor = \
-                    AstrologyUtils.getForegroundColorForPlanetName(planet.name)
-                backgroundColor = \
-                    AstrologyUtils.getBackgroundColorForPlanetName(planet.name)
-                degree = planet.geocentric['sidereal']['longitude']
-                velocity = planet.geocentric['sidereal']['longitude_speed']
-                parent = self.geoSidRadixChartGraphicsItem
-
-                # Create the RadixPlanetGraphicsItem.
                 radixPlanetGraphicsItem = \
-                    RadixPlanetGraphicsItem(planet.name,
-                                            glyph,
-                                            fontSize,
-                                            abbrev,
-                                            foregroundColor,
-                                            backgroundColor,
-                                            degree,
-                                            velocity,
-                                            wheelNumber,
-                                            parent)
-            else:
-                # The item exists already, so just update it with new
-                # values.
-                degree = planet.geocentric['sidereal']['longitude']
-                velocity = planet.geocentric['sidereal']['longitude_speed']
+                    self.geoSidRadixChartGraphicsItem.\
+                    getRadixPlanetGraphicsItem(planet.name, wheelNumber)
                 
-                radixPlanetGraphicsItem.setDegreeAndVelocity(degree, velocity)
-
+                if radixPlanetGraphicsItem == None:
+                    # No RadixPlanetGraphicsItem exists for this planet yet,
+                    # so create it.
+                    
+                    # Get all the info needed to create it.
+                    glyph = \
+                        AstrologyUtils.\
+                        getGlyphForPlanetName(planet.name)
+                    fontSize = \
+                        AstrologyUtils.\
+                        getGlyphFontSizeForPlanetName(planet.name)
+                    abbrev = \
+                        AstrologyUtils.\
+                        getAbbreviationForPlanetName(planet.name)
+                    foregroundColor = \
+                        AstrologyUtils.\
+                        getForegroundColorForPlanetName(planet.name)
+                    backgroundColor = \
+                        AstrologyUtils.\
+                        getBackgroundColorForPlanetName(planet.name)
+                    degree = planet.geocentric['sidereal']['longitude']
+                    velocity = planet.geocentric['sidereal']['longitude_speed']
+                    parent = self.geoSidRadixChartGraphicsItem
+    
+                    # Create the RadixPlanetGraphicsItem.
+                    radixPlanetGraphicsItem = \
+                        RadixPlanetGraphicsItem(planet.name,
+                                                glyph,
+                                                fontSize,
+                                                abbrev,
+                                                foregroundColor,
+                                                backgroundColor,
+                                                degree,
+                                                velocity,
+                                                wheelNumber,
+                                                parent)
+                else:
+                    # The item exists already, so just update it with new
+                    # values.
+                    degree = planet.geocentric['sidereal']['longitude']
+                    velocity = planet.geocentric['sidereal']['longitude_speed']
+                    
+                    radixPlanetGraphicsItem.\
+                        setDegreeAndVelocity(degree, velocity)
 
             # Geocentric Tropical.
-            radixPlanetGraphicsItem = \
-                self.geoTropRadixChartGraphicsItem.\
-                getRadixPlanetGraphicsItem(planet.name, wheelNumber)
-            if radixPlanetGraphicsItem == None:
-                # No RadixPlanetGraphicsItem exists for this planet yet,
-                # so create it.
-
-                # Get all the info needed to create it.
-                glyph = \
-                    AstrologyUtils.getGlyphForPlanetName(planet.name)
-                fontSize = \
-                    AstrologyUtils.getGlyphFontSizeForPlanetName(planet.name)
-                abbrev = \
-                    AstrologyUtils.getAbbreviationForPlanetName(planet.name)
-                foregroundColor = \
-                    AstrologyUtils.getForegroundColorForPlanetName(planet.name)
-                backgroundColor = \
-                    AstrologyUtils.getBackgroundColorForPlanetName(planet.name)
-                degree = planet.geocentric['tropical']['longitude']
-                velocity = planet.geocentric['tropical']['longitude_speed']
-                parent = self.geoTropRadixChartGraphicsItem
-
-                # Create the RadixPlanetGraphicsItem.
-                radixPlanetGraphicsItem = \
-                    RadixPlanetGraphicsItem(planet.name,
-                                            glyph,
-                                            fontSize,
-                                            abbrev,
-                                            foregroundColor,
-                                            backgroundColor,
-                                            degree,
-                                            velocity,
-                                            wheelNumber,
-                                            parent)
-            else:
-                # The item exists already, so just update it with new
-                # values.
-                degree = planet.geocentric['tropical']['longitude']
-                velocity = planet.geocentric['tropical']['longitude_speed']
+            if planet.name in \
+                   self._getPlanetNamesToDisplayForGeoTropRadixChart():
                 
-                radixPlanetGraphicsItem.setDegreeAndVelocity(degree, velocity)
+                radixPlanetGraphicsItem = \
+                    self.geoTropRadixChartGraphicsItem.\
+                    getRadixPlanetGraphicsItem(planet.name, wheelNumber)
+                
+                if radixPlanetGraphicsItem == None:
+                    # No RadixPlanetGraphicsItem exists for this planet yet,
+                    # so create it.
+    
+                    # Get all the info needed to create it.
+                    glyph = \
+                        AstrologyUtils.\
+                        getGlyphForPlanetName(planet.name)
+                    fontSize = \
+                        AstrologyUtils.\
+                        getGlyphFontSizeForPlanetName(planet.name)
+                    abbrev = \
+                        AstrologyUtils.\
+                        getAbbreviationForPlanetName(planet.name)
+                    foregroundColor = \
+                        AstrologyUtils.\
+                        getForegroundColorForPlanetName(planet.name)
+                    backgroundColor = \
+                        AstrologyUtils.\
+                        getBackgroundColorForPlanetName(planet.name)
+                    degree = planet.geocentric['tropical']['longitude']
+                    velocity = planet.geocentric['tropical']['longitude_speed']
+                    parent = self.geoTropRadixChartGraphicsItem
+                    
+                    # Create the RadixPlanetGraphicsItem.
+                    radixPlanetGraphicsItem = \
+                        RadixPlanetGraphicsItem(planet.name,
+                                                glyph,
+                                                fontSize,
+                                                abbrev,
+                                                foregroundColor,
+                                                backgroundColor,
+                                                degree,
+                                                velocity,
+                                                wheelNumber,
+                                                parent)
+                else:
+                    # The item exists already, so just update it with new
+                    # values.
+                    degree = planet.geocentric['tropical']['longitude']
+                    velocity = planet.geocentric['tropical']['longitude_speed']
+                    
+                    radixPlanetGraphicsItem.\
+                        setDegreeAndVelocity(degree, velocity)
 
             # Heliocentric Sidereal.
-            radixPlanetGraphicsItem = \
-                self.helioSidRadixChartGraphicsItem.\
-                getRadixPlanetGraphicsItem(planet.name, wheelNumber)
-            if radixPlanetGraphicsItem == None:
-                # No RadixPlanetGraphicsItem exists for this planet yet,
-                # so create it.
-
-                # Get all the info needed to create it.
-                glyph = \
-                    AstrologyUtils.getGlyphForPlanetName(planet.name)
-                fontSize = \
-                    AstrologyUtils.getGlyphFontSizeForPlanetName(planet.name)
-                abbrev = \
-                    AstrologyUtils.getAbbreviationForPlanetName(planet.name)
-                foregroundColor = \
-                    AstrologyUtils.getForegroundColorForPlanetName(planet.name)
-                backgroundColor = \
-                    AstrologyUtils.getBackgroundColorForPlanetName(planet.name)
-                degree = planet.heliocentric['sidereal']['longitude']
-                velocity = planet.heliocentric['sidereal']['longitude_speed']
-                parent = self.helioSidRadixChartGraphicsItem
-
-                # Create the RadixPlanetGraphicsItem.
-                radixPlanetGraphicsItem = \
-                    RadixPlanetGraphicsItem(planet.name,
-                                            glyph,
-                                            fontSize,
-                                            abbrev,
-                                            foregroundColor,
-                                            backgroundColor,
-                                            degree,
-                                            velocity,
-                                            wheelNumber,
-                                            parent)
-            else:
-                # The item exists already, so just update it with new
-                # values.
-                degree = planet.heliocentric['sidereal']['longitude']
-                velocity = planet.heliocentric['sidereal']['longitude_speed']
+            if planet.name in _getPlanetNamesToDisplayForHelioSidRadixChart():
                 
-                radixPlanetGraphicsItem.setDegreeAndVelocity(degree, velocity)
+                radixPlanetGraphicsItem = \
+                    self.helioSidRadixChartGraphicsItem.\
+                    getRadixPlanetGraphicsItem(planet.name, wheelNumber)
+                
+                if radixPlanetGraphicsItem == None:
+                    # No RadixPlanetGraphicsItem exists for this planet yet,
+                    # so create it.
+    
+                    # Get all the info needed to create it.
+                    glyph = \
+                        AstrologyUtils.\
+                        getGlyphForPlanetName(planet.name)
+                    fontSize = \
+                        AstrologyUtils.\
+                        getGlyphFontSizeForPlanetName(planet.name)
+                    abbrev = \
+                        AstrologyUtils.\
+                        getAbbreviationForPlanetName(planet.name)
+                    foregroundColor = \
+                        AstrologyUtils.\
+                        getForegroundColorForPlanetName(planet.name)
+                    backgroundColor = \
+                        AstrologyUtils.\
+                        getBackgroundColorForPlanetName(planet.name)
+                    degree = \
+                        planet.heliocentric['sidereal']['longitude']
+                    velocity = \
+                        planet.heliocentric['sidereal']['longitude_speed']
+                    parent = self.helioSidRadixChartGraphicsItem
+    
+                    # Create the RadixPlanetGraphicsItem.
+                    radixPlanetGraphicsItem = \
+                        RadixPlanetGraphicsItem(planet.name,
+                                                glyph,
+                                                fontSize,
+                                                abbrev,
+                                                foregroundColor,
+                                                backgroundColor,
+                                                degree,
+                                                velocity,
+                                                wheelNumber,
+                                                parent)
+                else:
+                    # The item exists already, so just update it with new
+                    # values.
+                    degree = \
+                        planet.heliocentric['sidereal']['longitude']
+                    velocity = \
+                        planet.heliocentric['sidereal']['longitude_speed']
+                    
+                    radixPlanetGraphicsItem.\
+                        setDegreeAndVelocity(degree, velocity)
 
             
     def setAstroChart1Datetime(self, dt):
