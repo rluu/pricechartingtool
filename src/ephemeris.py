@@ -345,10 +345,11 @@ class Ephemeris:
         altitudeMeters  - Altitude in meters.
         """
 
-        debugStr = "Entering setGeographicPosition(lon={}, lat={}, alt={})"
-        Ephemeris.log.debug(debugStr.format(geoLongitudeDeg, 
-                                            geoLatitudeDeg,
-                                            altitudeMeters))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            debugStr = "Entering setGeographicPosition(lon={}, lat={}, alt={})"
+            Ephemeris.log.debug(debugStr.format(geoLongitudeDeg, 
+                                                geoLatitudeDeg,
+                                                altitudeMeters))
 
         if geoLongitudeDeg < -180 or geoLongitudeDeg > 180:
             Ephemeris.log.warn("Longitude specified was not between " + \
@@ -365,14 +366,15 @@ class Ephemeris:
         Ephemeris.geoLatitudeDeg = geoLatitudeDeg
         Ephemeris.geoAltitudeMeters = altitudeMeters
 
-        infoStr = "Setting geographic location to: " + \
-            "(lon={}, lat={}, alt={})".\
-            format(Ephemeris.geoLongitudeDeg,
-                   Ephemeris.geoLatitudeDeg,
-                   Ephemeris.geoAltitudeMeters)
-        Ephemeris.log.info(infoStr)
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            infoStr = "Setting geographic location to: " + \
+                      "(lon={}, lat={}, alt={})".\
+                      format(Ephemeris.geoLongitudeDeg,
+                             Ephemeris.geoLatitudeDeg,
+                             Ephemeris.geoAltitudeMeters)
+            Ephemeris.log.debug(infoStr)
 
-        Ephemeris.log.debug("Leaving setGeographicPosition()")
+            Ephemeris.log.debug("Leaving setGeographicPosition()")
 
 
     @staticmethod
@@ -391,7 +393,8 @@ class Ephemeris:
         to a Julian Day utilizes the Swiss Ephemeris.
         """
 
-        Ephemeris.log.debug("Entering datetimeToJulianDay({})".format(dt))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("Entering datetimeToJulianDay({})".format(dt))
 
         # Error checking of the input datetime object.
         if (dt.tzinfo == None):
@@ -402,7 +405,8 @@ class Ephemeris:
         # Convert to UTC.
         dtUtc = pytz.utc.normalize(dt.astimezone(pytz.utc))
 
-        Ephemeris.log.debug("datetime converted to UTC is: {}".format(dtUtc))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("datetime converted to UTC is: {}".format(dtUtc))
 
         # Get the Julian Day as calculated by Swiss Ephemeris.
         cal = swe.GREG_CAL
@@ -414,12 +418,13 @@ class Ephemeris:
         # We use the Julian Day for Universal Time (UT).
         jd = jd_ut
         
-        debugStr = "Swiss Ephemeris converted UTC datetime({}) to " + \
-                   "jd_et={}, jd_ut={}.  Using jd_ut as julian day."
-        Ephemeris.log.debug(debugStr.format(dtUtc, jd_et, jd_ut))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            debugStr = "Swiss Ephemeris converted UTC datetime({}) to " + \
+                       "jd_et={}, jd_ut={}.  Using jd_ut as julian day."
+            Ephemeris.log.debug(debugStr.format(dtUtc, jd_et, jd_ut))
 
-        Ephemeris.log.debug("Leaving datetimeToJulianDay() and " + \
-                            "returning {}".format(jd))
+            Ephemeris.log.debug("Leaving datetimeToJulianDay() and " + \
+                                "returning {}".format(jd))
         return jd
 
 
@@ -434,16 +439,18 @@ class Ephemeris:
         do the conversion and calculation.
         """
         
-        Ephemeris.log.debug("Entering julianDayToDatetime({}, {})".\
-                            format(jd, tzInfo))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("Entering julianDayToDatetime({}, {})".\
+                                format(jd, tzInfo))
 
         gregFlag = 1
         (year, month, day, hour, mins, secs) = swe.jdut1_to_utc(jd, gregFlag)
 
-        debugStr = "Got converted values from Swiss Ephemeris: " + \
-                   "year={}, month={}, day={}, hour={}, mins={}, secs={}"
-        Ephemeris.log.debug(debugStr.\
-                            format(year, month, day, hour, mins, secs))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            debugStr = "Got converted values from Swiss Ephemeris: " + \
+                       "year={}, month={}, day={}, hour={}, mins={}, secs={}"
+            Ephemeris.log.debug(debugStr.\
+                                format(year, month, day, hour, mins, secs))
 
         # Here we need to convert a float seconds to an integer seconds 
         # plus a integer microseconds.  
@@ -452,8 +459,9 @@ class Ephemeris:
         if usecs > 999999:
             usecs = 999999
             
-        Ephemeris.log.debug("secs={}, secsTruncated={}, usecs={}".\
-                            format(secs, secsTruncated, usecs))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("secs={}, secsTruncated={}, usecs={}".\
+                                format(secs, secsTruncated, usecs))
 
         # Make sure the year is within the min and max year range.
         if year < datetime.MINYEAR:
@@ -472,8 +480,9 @@ class Ephemeris:
         # Convert to the timezone specified.
         dt = tzInfo.normalize(dtUtc.astimezone(tzInfo))
 
-        Ephemeris.log.debug("Returning julian day converted from " + \
-                            "jd={} to datetime={}".format(jd, dt))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("Returning julian day converted from " + \
+                                "jd={} to datetime={}".format(jd, dt))
 
         return dt
 
@@ -629,15 +638,18 @@ class Ephemeris:
         http://jyotish-blog.blogspot.com/2005/12/ayanamsha-in-jhora-702-vs-swiss.html
         """
 
-        Ephemeris.log.debug("Entering setSiderealZodiac()")
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("Entering setSiderealZodiac()")
+            Ephemeris.log.debug("swe.FLG_SIDEREAL == {}".format(swe.FLG_SIDEREAL))
+            Ephemeris.log.debug("iflag before: {}".format(Ephemeris.iflag))
 
-        Ephemeris.log.debug("swe.FLG_SIDEREAL == {}".format(swe.FLG_SIDEREAL))
-        Ephemeris.log.debug("iflag before: {}".format(Ephemeris.iflag))
         Ephemeris.iflag |= swe.FLG_SIDEREAL
-        Ephemeris.log.debug("iflag after: {}".format(Ephemeris.iflag))
+
         swe.set_sid_mode(swe.SIDM_LAHIRI)
 
-        Ephemeris.log.debug("Leaving setSiderealZodiac()")
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("iflag after: {}".format(Ephemeris.iflag))
+            Ephemeris.log.debug("Leaving setSiderealZodiac()")
 
     @staticmethod
     def setTropicalZodiac():
@@ -645,41 +657,48 @@ class Ephemeris:
         calculations
         """
 
-        Ephemeris.log.debug("Entering setTropicalZodiac()")
-
-        Ephemeris.log.debug("swe.FLG_SIDEREAL == {}".format(swe.FLG_SIDEREAL))
-        Ephemeris.log.debug("iflag before: {}".format(Ephemeris.iflag))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("Entering setTropicalZodiac()")
+            Ephemeris.log.debug("swe.FLG_SIDEREAL == {}".format(swe.FLG_SIDEREAL))
+            Ephemeris.log.debug("iflag before: {}".format(Ephemeris.iflag))
+            
         Ephemeris.iflag &= (~swe.FLG_SIDEREAL)
-        Ephemeris.log.debug("iflag after: {}".format(Ephemeris.iflag))
 
-        Ephemeris.log.debug("Leaving setTropicalZodiac()")
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("iflag after: {}".format(Ephemeris.iflag))
+            Ephemeris.log.debug("Leaving setTropicalZodiac()")
         
 
     @staticmethod
     def setTruePlanetaryPositions():
         """Initializes the settings to use the true planetary positions"""
 
-        Ephemeris.log.debug("Entering setTruePlanetaryPositions()")
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("Entering setTruePlanetaryPositions()")
+            Ephemeris.log.debug("swe.FLG_TRUEPOS == {}".format(swe.FLG_TRUEPOS))
+            Ephemeris.log.debug("iflag before: {}".format(Ephemeris.iflag))
 
-        Ephemeris.log.debug("swe.FLG_TRUEPOS == {}".format(swe.FLG_TRUEPOS))
-        Ephemeris.log.debug("iflag before: {}".format(Ephemeris.iflag))
+            
         Ephemeris.iflag |= swe.FLG_TRUEPOS
-        Ephemeris.log.debug("iflag after: {}".format(Ephemeris.iflag))
 
-        Ephemeris.log.debug("Leaving setTruePlanetaryPositions()")
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("iflag after: {}".format(Ephemeris.iflag))
+            Ephemeris.log.debug("Leaving setTruePlanetaryPositions()")
 
     @staticmethod
     def setApparentPlanetaryPositions():
         """Initializes the settings to use the true planetary positions"""
 
-        Ephemeris.log.debug("Entering setApparentPlanetaryPositions()")
-
-        Ephemeris.log.debug("swe.FLG_TRUEPOS == {}".format(swe.FLG_TRUEPOS))
-        Ephemeris.log.debug("iflag before: {}".format(Ephemeris.iflag))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("Entering setApparentPlanetaryPositions()")
+            Ephemeris.log.debug("swe.FLG_TRUEPOS == {}".format(swe.FLG_TRUEPOS))
+            Ephemeris.log.debug("iflag before: {}".format(Ephemeris.iflag))
+            
         Ephemeris.iflag &= (~swe.FLG_TRUEPOS)
-        Ephemeris.log.debug("iflag after: {}".format(Ephemeris.iflag))
 
-        Ephemeris.log.debug("Leaving setApparentPlanetaryPositions()")
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("iflag after: {}".format(Ephemeris.iflag))
+            Ephemeris.log.debug("Leaving setApparentPlanetaryPositions()")
 
 
     @staticmethod
@@ -688,8 +707,9 @@ class Ephemeris:
         calculations.
         """
 
-        debugStr ="Clearing flags for different coordinate systems." 
-        Ephemeris.log.debug(debugStr)
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            debugStr ="Clearing flags for different coordinate systems." 
+            Ephemeris.log.debug(debugStr)
 
         Ephemeris.iflag &= (~swe.FLG_EQUATORIAL)
         Ephemeris.iflag &= (~swe.FLG_XYZ)
@@ -711,7 +731,9 @@ class Ephemeris:
          )
         """
 
-        Ephemeris.log.debug("setEclipticalCoordinateSystemFlag()")
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("setEclipticalCoordinateSystemFlag()")
+            
         # Just clear the coordinate system flags.  Ecliptical coordinates 
         # is the default, so we don't need to do anything more than just 
         # clear the flags. 
@@ -733,7 +755,9 @@ class Ephemeris:
          )
         """
 
-        Ephemeris.log.debug("setEquatorialCoordinateSystemFlag()")
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("setEquatorialCoordinateSystemFlag()")
+            
         Ephemeris.__clearCoordinateSystemFlags()
         Ephemeris.iflag |= swe.FLG_EQUATORIAL
 
@@ -752,7 +776,9 @@ class Ephemeris:
         )
         """
 
-        Ephemeris.log.debug("setRectangularCoordinateSystemFlag()")
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("setRectangularCoordinateSystemFlag()")
+            
         Ephemeris.__clearCoordinateSystemFlags()
         Ephemeris.iflag |= swe.FLG_XYZ
 
@@ -760,7 +786,9 @@ class Ephemeris:
     def setRadiansCoordinateSystemFlag():
         """Sets the ephemeris to return results in radians coordinates"""
 
-        Ephemeris.log.debug("setRadiansCoordinateSystemFlag()")
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("setRadiansCoordinateSystemFlag()")
+            
         Ephemeris.__clearCoordinateSystemFlags()
         Ephemeris.iflag |= swe.FLG_RADIANS
 
@@ -771,14 +799,18 @@ class Ephemeris:
         return values in degrees.
         """
 
-        Ephemeris.log.debug("unsetRadiansCoordinateSystemFlag()")
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("unsetRadiansCoordinateSystemFlag()")
+            
         Ephemeris.iflag &= (~swe.FLG_RADIANS)
 
     @staticmethod
     def setHeliocentricCalculations():
         """Sets the flag to do heliocentric calculations."""
 
-        Ephemeris.log.debug("setHeliocentricCalculations()")
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("setHeliocentricCalculations()")
+            
         Ephemeris.iflag &= (~swe.FLG_TOPOCTR)
         Ephemeris.iflag |= swe.FLG_HELCTR
         
@@ -786,7 +818,9 @@ class Ephemeris:
     def setGeocentricCalculations():
         """Sets the flag to do geocentric calculations."""
 
-        Ephemeris.log.debug("setGeocentricCalculations()")
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("setGeocentricCalculations()")
+            
         Ephemeris.iflag &= (~swe.FLG_HELCTR)
         Ephemeris.iflag &= (~swe.FLG_TOPOCTR)
         
@@ -794,7 +828,9 @@ class Ephemeris:
     def setTopocentricCalculations():
         """Sets the flag to do topocentric calculations."""
 
-        Ephemeris.log.debug("setTopocentricCalculations()")
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("setTopocentricCalculations()")
+            
         Ephemeris.iflag &= (~swe.FLG_HELCTR)
         Ephemeris.iflag |= swe.FLG_TOPOCTR
 
@@ -813,8 +849,9 @@ class Ephemeris:
         flag - Integer for what flags to use in the calculation.
         """
         
-        Ephemeris.log.debug("Entering calc_ut(jd={}, planet={}, flag={})".\
-                format(jd, planet, flag))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("Entering calc_ut(jd={}, planet={}, flag={})".\
+                                format(jd, planet, flag))
 
         # Do the calculation.
         (arg1, arg2, arg3, arg4, arg5, arg6) = swe.calc_ut(jd, planet, flag)
@@ -824,8 +861,9 @@ class Ephemeris:
             Ephemeris.__logDebugCalcUTInfo(jd, planet, flag, 
                                            arg1, arg2, arg3, arg4, arg5, arg6)
         
-        Ephemeris.log.debug("Leaving calc_ut(jd={}, planet={}, flag={})".\
-                format(jd, planet, flag))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("Leaving calc_ut(jd={}, planet={}, flag={})".\
+                                format(jd, planet, flag))
 
         # Return calculated values.
         return (arg1, arg2, arg3, arg4, arg5, arg6)
@@ -899,9 +937,10 @@ class Ephemeris:
                - swe.FLG_RADIANS
         """
 
-        Ephemeris.log.debug("Entering swe_houses_ex(" + \
-                "jd={}, ".format(jd) + \
-                "houseSystem={})".format(houseSystem))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("Entering swe_houses_ex(" + \
+                                "jd={}, ".format(jd) + \
+                                "houseSystem={})".format(houseSystem))
 
         # Do the calculation.
         (cusps, ascmc) = \
@@ -921,9 +960,10 @@ class Ephemeris:
                                             cusps,
                                             ascmc)
         
-        Ephemeris.log.debug("Leaving swe_houses_ex(" + \
-                "jd={}, ".format(jd) + \
-                "houseSystem={})".format(houseSystem))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("Leaving swe_houses_ex(" + \
+                                "jd={}, ".format(jd) + \
+                                "houseSystem={})".format(houseSystem))
 
         # Return calculated values.
         return (cusps, ascmc)
@@ -1237,9 +1277,14 @@ class Ephemeris:
         all the fields available.
         """
 
-        debugStr = "Entered getPlanetaryInfo(planet={}, datetime={}"
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            debugStr = "Entered getPlanetaryInfo(planet={}, datetime={}"
+            planetName = Ephemeris.getPlanetNameForId(planet)
+            Ephemeris.log.debug(debugStr.format(planetName, dt))
+
+
+        # Get the planet name.
         planetName = Ephemeris.getPlanetNameForId(planet)
-        Ephemeris.log.debug(debugStr.format(planetName, dt))
 
         # Convert time to Julian Day.
         jd = Ephemeris.datetimeToJulianDay(dt)
@@ -1621,8 +1666,9 @@ class Ephemeris:
                                       topocentricDict,
                                       heliocentricDict)
 
-        debugStr = "Leaving getPlanetaryInfo(planet={}, datetime={}"
-        Ephemeris.log.debug(debugStr.format(planetName, dt))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            debugStr = "Leaving getPlanetaryInfo(planet={}, datetime={}"
+            Ephemeris.log.debug(debugStr.format(planetName, dt))
 
         return planetaryInfo
 
@@ -1640,8 +1686,9 @@ class Ephemeris:
                     converted to UTC for getting the planetary info.
         """
 
-        Ephemeris.log.debug("getSunPlanetaryInfo({})".\
-                            format(timestamp))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("getSunPlanetaryInfo({})".\
+                                format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.SUN, timestamp)
 
@@ -1656,8 +1703,9 @@ class Ephemeris:
                     converted to UTC for getting the planetary info.
         """
 
-        Ephemeris.log.debug("getMoonPlanetaryInfo({})".\
-                            format(timestamp))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("getMoonPlanetaryInfo({})".\
+                                format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.MOON, timestamp)
 
@@ -1672,8 +1720,9 @@ class Ephemeris:
                     converted to UTC for getting the planetary info.
         """
 
-        Ephemeris.log.debug("getMercuryPlanetaryInfo({})".\
-                            format(timestamp))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("getMercuryPlanetaryInfo({})".\
+                                format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.MERCURY, timestamp)
 
@@ -1688,8 +1737,9 @@ class Ephemeris:
                     converted to UTC for getting the planetary info.
         """
 
-        Ephemeris.log.debug("getVenusPlanetaryInfo({})".\
-                            format(timestamp))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("getVenusPlanetaryInfo({})".\
+                                format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.VENUS, timestamp)
 
@@ -1704,8 +1754,9 @@ class Ephemeris:
                     converted to UTC for getting the planetary info.
         """
 
-        Ephemeris.log.debug("getMarsPlanetaryInfo({})".\
-                            format(timestamp))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("getMarsPlanetaryInfo({})".\
+                                format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.MARS, timestamp)
 
@@ -1720,8 +1771,9 @@ class Ephemeris:
                     converted to UTC for getting the planetary info.
         """
 
-        Ephemeris.log.debug("getJupiterPlanetaryInfo({})".\
-                            format(timestamp))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("getJupiterPlanetaryInfo({})".\
+                                format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.JUPITER, timestamp)
 
@@ -1736,8 +1788,9 @@ class Ephemeris:
                     converted to UTC for getting the planetary info.
         """
 
-        Ephemeris.log.debug("getSaturnPlanetaryInfo({})".\
-                            format(timestamp))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("getSaturnPlanetaryInfo({})".\
+                                format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.SATURN, timestamp)
 
@@ -1752,8 +1805,9 @@ class Ephemeris:
                     converted to UTC for getting the planetary info.
         """
 
-        Ephemeris.log.debug("getUranusPlanetaryInfo({})".\
-                            format(timestamp))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("getUranusPlanetaryInfo({})".\
+                                format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.URANUS, timestamp)
 
@@ -1768,8 +1822,9 @@ class Ephemeris:
                     converted to UTC for getting the planetary info.
         """
 
-        Ephemeris.log.debug("getNeptunePlanetaryInfo({})".\
-                            format(timestamp))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("getNeptunePlanetaryInfo({})".\
+                                format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.NEPTUNE, timestamp)
 
@@ -1784,8 +1839,9 @@ class Ephemeris:
                     converted to UTC for getting the planetary info.
         """
 
-        Ephemeris.log.debug("getPlutoPlanetaryInfo({})".\
-                            format(timestamp))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("getPlutoPlanetaryInfo({})".\
+                                format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.PLUTO, timestamp)
 
@@ -1800,8 +1856,9 @@ class Ephemeris:
                     converted to UTC for getting the planetary info.
         """
 
-        Ephemeris.log.debug("getMeanNorthNodePlanetaryInfo({})".\
-                            format(timestamp))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("getMeanNorthNodePlanetaryInfo({})".\
+                                format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.MEAN_NODE, timestamp)
 
@@ -1816,8 +1873,9 @@ class Ephemeris:
                     converted to UTC for getting the planetary info.
         """
 
-        Ephemeris.log.debug("getTrueNorthNodePlanetaryInfo({})".\
-                            format(timestamp))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("getTrueNorthNodePlanetaryInfo({})".\
+                                format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.TRUE_NODE, timestamp)
 
@@ -1832,8 +1890,9 @@ class Ephemeris:
                     converted to UTC for getting the planetary info.
         """
 
-        Ephemeris.log.debug("getMeanLunarApogeePlanetaryInfo({})".\
-                            format(timestamp))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("getMeanLunarApogeePlanetaryInfo({})".\
+                                format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.MEAN_APOG, timestamp)
 
@@ -1848,8 +1907,9 @@ class Ephemeris:
                     converted to UTC for getting the planetary info.
         """
 
-        Ephemeris.log.debug("getOsculatingLunarApogeePlanetaryInfo({})".\
-                            format(timestamp))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("getOsculatingLunarApogeePlanetaryInfo({})".\
+                                format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.OSCU_APOG, timestamp)
 
@@ -1864,8 +1924,9 @@ class Ephemeris:
                     converted to UTC for getting the planetary info.
         """
 
-        Ephemeris.log.debug("getInterpolatedLunarApogeePlanetaryInfo({})".\
-                            format(timestamp))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("getInterpolatedLunarApogeePlanetaryInfo({})".\
+                                format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.INTP_APOG, timestamp)
 
@@ -1880,8 +1941,9 @@ class Ephemeris:
                     converted to UTC for getting the planetary info.
         """
 
-        Ephemeris.log.debug("getInterpolatedLunarPerigeePlanetaryInfo({})".\
-                            format(timestamp))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("getInterpolatedLunarPerigeePlanetaryInfo({})".\
+                                format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.INTP_PERG, timestamp)
 
@@ -1896,8 +1958,9 @@ class Ephemeris:
                     converted to UTC for getting the planetary info.
         """
 
-        Ephemeris.log.debug("getEarthPlanetaryInfo({})".\
-                            format(timestamp))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("getEarthPlanetaryInfo({})".\
+                                format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.EARTH, timestamp)
 
@@ -1912,8 +1975,9 @@ class Ephemeris:
                     converted to UTC for getting the planetary info.
         """
 
-        Ephemeris.log.debug("getChironPlanetaryInfo({})".\
-                            format(timestamp))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("getChironPlanetaryInfo({})".\
+                                format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.CHIRON, timestamp)
 
@@ -1928,8 +1992,9 @@ class Ephemeris:
                     converted to UTC for getting the planetary info.
         """
 
-        Ephemeris.log.debug("getPholusPlanetaryInfo({})".\
-                            format(timestamp))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("getPholusPlanetaryInfo({})".\
+                                format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.PHOLUS, timestamp)
 
@@ -1944,8 +2009,9 @@ class Ephemeris:
                     converted to UTC for getting the planetary info.
         """
 
-        Ephemeris.log.debug("getCeresPlanetaryInfo({})".\
-                            format(timestamp))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("getCeresPlanetaryInfo({})".\
+                                format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.CERES, timestamp)
 
@@ -1960,8 +2026,9 @@ class Ephemeris:
                     converted to UTC for getting the planetary info.
         """
 
-        Ephemeris.log.debug("getPallasPlanetaryInfo({})".\
-                            format(timestamp))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("getPallasPlanetaryInfo({})".\
+                                format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.PALLAS, timestamp)
 
@@ -1976,8 +2043,9 @@ class Ephemeris:
                     converted to UTC for getting the planetary info.
         """
 
-        Ephemeris.log.debug("getJunoPlanetaryInfo({})".\
-                            format(timestamp))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("getJunoPlanetaryInfo({})".\
+                                format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.JUNO, timestamp)
 
@@ -1992,8 +2060,9 @@ class Ephemeris:
                     converted to UTC for getting the planetary info.
         """
 
-        Ephemeris.log.debug("getVestaPlanetaryInfo({})".\
-                            format(timestamp))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("getVestaPlanetaryInfo({})".\
+                                format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.VESTA, timestamp)
 

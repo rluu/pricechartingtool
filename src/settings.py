@@ -1728,6 +1728,55 @@ class SettingsKeys():
 
 
 
+    # QSettings key for aspects enabled on astrology chart 1.
+    aspectAstrologyChart1EnabledKey = \
+        "ui/astrology/aspectAstrologyChart1Enabled"
+
+    # QSettings default value for aspect enabled on astrology chart 1.
+    aspectAstrologyChart1EnabledDefValue = \
+        True
+    
+    # QSettings key for aspects enabled on astrology chart 2.
+    aspectAstrologyChart2EnabledKey = \
+        "ui/astrology/aspectAstrologyChart2Enabled"
+
+    # QSettings default value for aspect enabled on astrology chart 2.
+    aspectAstrologyChart2EnabledDefValue = \
+        True
+    
+    # QSettings key for aspects enabled on astrology chart 3.
+    aspectAstrologyChart3EnabledKey = \
+        "ui/astrology/aspectAstrologyChart3Enabled"
+
+    # QSettings default value for aspect enabled on astrology chart 3.
+    aspectAstrologyChart3EnabledDefValue = \
+        True
+
+    # QSettings key for aspects enabled between astrology chart 1 and 2.
+    aspectBtwnAstrologyChart1And2EnabledKey = \
+        "ui/astrology/aspectBtwnAstrologyChart1And2Enabled"
+    
+    # QSettings default value for aspects enabled between astrology chart 1 and 2.
+    aspectBtwnAstrologyChart1And2EnabledDefValue = \
+        False
+    
+    # QSettings key for aspects enabled between astrology chart 1 and 3.
+    aspectBtwnAstrologyChart1And3EnabledKey = \
+        "ui/astrology/aspectBtwnAstrologyChart1And3Enabled"
+    
+    # QSettings default value for aspects enabled between astrology chart 1 and 3.
+    aspectBtwnAstrologyChart1And3EnabledDefValue = \
+        False
+    
+    # QSettings key for aspects enabled between astrology chart 2 and 3.
+    aspectBtwnAstrologyChart2And3EnabledKey = \
+        "ui/astrology/aspectBtwnAstrologyChart2And3Enabled"
+    
+    # QSettings default value for aspects enabled between astrology chart 2 and 3.
+    aspectBtwnAstrologyChart2And3EnabledDefValue = \
+        False
+
+    
     # QSettings key for the aspect Conjunction name.
     aspectConjunctionNameKey = \
         "ui/astrology/aspectConjunctionName"

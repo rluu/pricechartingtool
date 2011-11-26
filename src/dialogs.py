@@ -481,7 +481,8 @@ class LoadDataFileWidget(QWidget):
 
         # Default directory to start the file open dialog.
         key = self.defaultPriceBarDataOpenDirectorySettingsKey
-        self.defaultPriceBarDataOpenDirectory = settings.value(key, "")
+        self.defaultPriceBarDataOpenDirectory = \
+            settings.value(key, "", type=str)
 
         self.log.debug("Exiting readSettings()")
 
@@ -502,7 +503,7 @@ class LoadDataFileWidget(QWidget):
 
         # Default directory to start the file open dialog.
         key = self.defaultPriceBarDataOpenDirectorySettingsKey
-        settingsValue = settings.value(key, "")
+        settingsValue = settings.value(key, "", type=str)
 
         if self.defaultPriceBarDataOpenDirectory != settingsValue:
             newValue = self.defaultPriceBarDataOpenDirectory
@@ -3376,16 +3377,73 @@ class AppPreferencesEditWidget(QWidget):
         """
 
         self.aspectSettingsGroupBox = QGroupBox("Planet aspect settings:")
-        
-        formLayout = QFormLayout()
-        formLayout.setLabelAlignment(Qt.AlignLeft)
 
+        formLayoutAbove = QFormLayout()
+        formLayoutAbove.setLabelAlignment(Qt.AlignLeft)
+        
+        formLayoutBelow = QFormLayout()
+        formLayoutBelow.setLabelAlignment(Qt.AlignLeft)
+
+        # Aspects enabled on Astrology Chart 1.
+        self.aspectAstrologyChart1EnabledLabel = \
+            QLabel("Aspects on Astrology Chart 1 enabled:")
+        self.aspectAstrologyChart1EnabledCheckBox = \
+            QCheckBox()
+        formLayoutAbove.\
+            addRow(self.aspectAstrologyChart1EnabledLabel,
+                   self.aspectAstrologyChart1EnabledCheckBox)
+        
+        # Aspects enabled on Astrology Chart 2.
+        self.aspectAstrologyChart2EnabledLabel = \
+            QLabel("Aspects on Astrology Chart 2 enabled:")
+        self.aspectAstrologyChart2EnabledCheckBox = \
+            QCheckBox()
+        formLayoutAbove.\
+            addRow(self.aspectAstrologyChart2EnabledLabel,
+                   self.aspectAstrologyChart2EnabledCheckBox)
+        
+        # Aspects enabled on Astrology Chart 3.
+        self.aspectAstrologyChart3EnabledLabel = \
+            QLabel("Aspects on Astrology Chart 3 enabled:")
+        self.aspectAstrologyChart3EnabledCheckBox = \
+            QCheckBox()
+        formLayoutAbove.\
+            addRow(self.aspectAstrologyChart3EnabledLabel,
+                   self.aspectAstrologyChart3EnabledCheckBox)
+
+        # Aspects enabled between Astrology Chart 1 and 2.
+        self.aspectBtwnAstrologyChart1And2EnabledLabel = \
+            QLabel("Aspects between Astrology Chart 1 and 2 enabled:")
+        self.aspectBtwnAstrologyChart1And2EnabledCheckBox = \
+            QCheckBox()
+        formLayoutAbove.\
+            addRow(self.aspectBtwnAstrologyChart1And2EnabledLabel,
+                   self.aspectBtwnAstrologyChart1And2EnabledCheckBox)
+        
+        # Aspects enabled between Astrology Chart 1 and 3.
+        self.aspectBtwnAstrologyChart1And3EnabledLabel = \
+            QLabel("Aspects between Astrology Chart 1 and 3 enabled:")
+        self.aspectBtwnAstrologyChart1And3EnabledCheckBox = \
+            QCheckBox()
+        formLayoutAbove.\
+            addRow(self.aspectBtwnAstrologyChart1And3EnabledLabel,
+                   self.aspectBtwnAstrologyChart1And3EnabledCheckBox)
+        
+        # Aspects enabled between Astrology Chart 2 and 3.
+        self.aspectBtwnAstrologyChart2And3EnabledLabel = \
+            QLabel("Aspects between Astrology Chart 2 and 3 enabled:")
+        self.aspectBtwnAstrologyChart2And3EnabledCheckBox = \
+            QCheckBox()
+        formLayoutAbove.\
+            addRow(self.aspectBtwnAstrologyChart2And3EnabledLabel,
+                   self.aspectBtwnAstrologyChart2And3EnabledCheckBox)
+        
         # Conjunction.
         self.aspectConjunctionEnabledLabel = \
             QLabel("Conjunction enabled:")
         self.aspectConjunctionEnabledCheckBox = \
             QCheckBox()
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectConjunctionEnabledLabel,
                    self.aspectConjunctionEnabledCheckBox)
         self.aspectConjunctionAngleLabel = \
@@ -3394,7 +3452,7 @@ class AppPreferencesEditWidget(QWidget):
             QDoubleSpinBox()
         self.aspectConjunctionAngleSpinBox.setMinimum(0.0)
         self.aspectConjunctionAngleSpinBox.setMaximum(360.0)
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectConjunctionAngleLabel,
                    self.aspectConjunctionAngleSpinBox)
         self.aspectConjunctionOrbLabel = \
@@ -3403,14 +3461,14 @@ class AppPreferencesEditWidget(QWidget):
             QDoubleSpinBox()
         self.aspectConjunctionOrbSpinBox.setMinimum(0.0)
         self.aspectConjunctionOrbSpinBox.setMaximum(30.0)
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectConjunctionOrbLabel,
                    self.aspectConjunctionOrbSpinBox)
         self.aspectConjunctionColorLabel = \
             QLabel("Conjunction color:")
         self.aspectConjunctionColorEditButton = \
             ColorEditPushButton()
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectConjunctionColorLabel,
                    self.aspectConjunctionColorEditButton)
         
@@ -3419,7 +3477,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("Opposition enabled:")
         self.aspectOppositionEnabledCheckBox = \
             QCheckBox()
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectOppositionEnabledLabel,
                    self.aspectOppositionEnabledCheckBox)
         self.aspectOppositionAngleLabel = \
@@ -3428,7 +3486,7 @@ class AppPreferencesEditWidget(QWidget):
             QDoubleSpinBox()
         self.aspectOppositionAngleSpinBox.setMinimum(0.0)
         self.aspectOppositionAngleSpinBox.setMaximum(360.0)
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectOppositionAngleLabel,
                    self.aspectOppositionAngleSpinBox)
         self.aspectOppositionOrbLabel = \
@@ -3437,14 +3495,14 @@ class AppPreferencesEditWidget(QWidget):
             QDoubleSpinBox()
         self.aspectOppositionOrbSpinBox.setMinimum(0.0)
         self.aspectOppositionOrbSpinBox.setMaximum(30.0)
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectOppositionOrbLabel,
                    self.aspectOppositionOrbSpinBox)
         self.aspectOppositionColorLabel = \
             QLabel("Opposition color:")
         self.aspectOppositionColorEditButton = \
             ColorEditPushButton()
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectOppositionColorLabel,
                    self.aspectOppositionColorEditButton)
         
@@ -3453,7 +3511,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("Square enabled:")
         self.aspectSquareEnabledCheckBox = \
             QCheckBox()
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectSquareEnabledLabel,
                    self.aspectSquareEnabledCheckBox)
         self.aspectSquareAngleLabel = \
@@ -3462,7 +3520,7 @@ class AppPreferencesEditWidget(QWidget):
             QDoubleSpinBox()
         self.aspectSquareAngleSpinBox.setMinimum(0.0)
         self.aspectSquareAngleSpinBox.setMaximum(360.0)
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectSquareAngleLabel,
                    self.aspectSquareAngleSpinBox)
         self.aspectSquareOrbLabel = \
@@ -3471,14 +3529,14 @@ class AppPreferencesEditWidget(QWidget):
             QDoubleSpinBox()
         self.aspectSquareOrbSpinBox.setMinimum(0.0)
         self.aspectSquareOrbSpinBox.setMaximum(30.0)
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectSquareOrbLabel,
                    self.aspectSquareOrbSpinBox)
         self.aspectSquareColorLabel = \
             QLabel("Square color:")
         self.aspectSquareColorEditButton = \
             ColorEditPushButton()
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectSquareColorLabel,
                    self.aspectSquareColorEditButton)
         
@@ -3487,7 +3545,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("Trine enabled:")
         self.aspectTrineEnabledCheckBox = \
             QCheckBox()
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectTrineEnabledLabel,
                    self.aspectTrineEnabledCheckBox)
         self.aspectTrineAngleLabel = \
@@ -3496,7 +3554,7 @@ class AppPreferencesEditWidget(QWidget):
             QDoubleSpinBox()
         self.aspectTrineAngleSpinBox.setMinimum(0.0)
         self.aspectTrineAngleSpinBox.setMaximum(360.0)
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectTrineAngleLabel,
                    self.aspectTrineAngleSpinBox)
         self.aspectTrineOrbLabel = \
@@ -3505,14 +3563,14 @@ class AppPreferencesEditWidget(QWidget):
             QDoubleSpinBox()
         self.aspectTrineOrbSpinBox.setMinimum(0.0)
         self.aspectTrineOrbSpinBox.setMaximum(30.0)
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectTrineOrbLabel,
                    self.aspectTrineOrbSpinBox)
         self.aspectTrineColorLabel = \
             QLabel("Trine color:")
         self.aspectTrineColorEditButton = \
             ColorEditPushButton()
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectTrineColorLabel,
                    self.aspectTrineColorEditButton)
         
@@ -3521,7 +3579,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("Sextile enabled:")
         self.aspectSextileEnabledCheckBox = \
             QCheckBox()
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectSextileEnabledLabel,
                    self.aspectSextileEnabledCheckBox)
         self.aspectSextileAngleLabel = \
@@ -3530,7 +3588,7 @@ class AppPreferencesEditWidget(QWidget):
             QDoubleSpinBox()
         self.aspectSextileAngleSpinBox.setMinimum(0.0)
         self.aspectSextileAngleSpinBox.setMaximum(360.0)
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectSextileAngleLabel,
                    self.aspectSextileAngleSpinBox)
         self.aspectSextileOrbLabel = \
@@ -3539,14 +3597,14 @@ class AppPreferencesEditWidget(QWidget):
             QDoubleSpinBox()
         self.aspectSextileOrbSpinBox.setMinimum(0.0)
         self.aspectSextileOrbSpinBox.setMaximum(30.0)
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectSextileOrbLabel,
                    self.aspectSextileOrbSpinBox)
         self.aspectSextileColorLabel = \
             QLabel("Sextile color:")
         self.aspectSextileColorEditButton = \
             ColorEditPushButton()
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectSextileColorLabel,
                    self.aspectSextileColorEditButton)
         
@@ -3555,7 +3613,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("Inconjunct enabled:")
         self.aspectInconjunctEnabledCheckBox = \
             QCheckBox()
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectInconjunctEnabledLabel,
                    self.aspectInconjunctEnabledCheckBox)
         self.aspectInconjunctAngleLabel = \
@@ -3564,7 +3622,7 @@ class AppPreferencesEditWidget(QWidget):
             QDoubleSpinBox()
         self.aspectInconjunctAngleSpinBox.setMinimum(0.0)
         self.aspectInconjunctAngleSpinBox.setMaximum(360.0)
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectInconjunctAngleLabel,
                    self.aspectInconjunctAngleSpinBox)
         self.aspectInconjunctOrbLabel = \
@@ -3573,14 +3631,14 @@ class AppPreferencesEditWidget(QWidget):
             QDoubleSpinBox()
         self.aspectInconjunctOrbSpinBox.setMinimum(0.0)
         self.aspectInconjunctOrbSpinBox.setMaximum(30.0)
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectInconjunctOrbLabel,
                    self.aspectInconjunctOrbSpinBox)
         self.aspectInconjunctColorLabel = \
             QLabel("Inconjunct color:")
         self.aspectInconjunctColorEditButton = \
             ColorEditPushButton()
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectInconjunctColorLabel,
                    self.aspectInconjunctColorEditButton)
         
@@ -3589,7 +3647,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("Semisextile enabled:")
         self.aspectSemisextileEnabledCheckBox = \
             QCheckBox()
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectSemisextileEnabledLabel,
                    self.aspectSemisextileEnabledCheckBox)
         self.aspectSemisextileAngleLabel = \
@@ -3598,7 +3656,7 @@ class AppPreferencesEditWidget(QWidget):
             QDoubleSpinBox()
         self.aspectSemisextileAngleSpinBox.setMinimum(0.0)
         self.aspectSemisextileAngleSpinBox.setMaximum(360.0)
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectSemisextileAngleLabel,
                    self.aspectSemisextileAngleSpinBox)
         self.aspectSemisextileOrbLabel = \
@@ -3607,14 +3665,14 @@ class AppPreferencesEditWidget(QWidget):
             QDoubleSpinBox()
         self.aspectSemisextileOrbSpinBox.setMinimum(0.0)
         self.aspectSemisextileOrbSpinBox.setMaximum(30.0)
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectSemisextileOrbLabel,
                    self.aspectSemisextileOrbSpinBox)
         self.aspectSemisextileColorLabel = \
             QLabel("Semisextile color:")
         self.aspectSemisextileColorEditButton = \
             ColorEditPushButton()
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectSemisextileColorLabel,
                    self.aspectSemisextileColorEditButton)
         
@@ -3623,7 +3681,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("Semisquare enabled:")
         self.aspectSemisquareEnabledCheckBox = \
             QCheckBox()
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectSemisquareEnabledLabel,
                    self.aspectSemisquareEnabledCheckBox)
         self.aspectSemisquareAngleLabel = \
@@ -3632,7 +3690,7 @@ class AppPreferencesEditWidget(QWidget):
             QDoubleSpinBox()
         self.aspectSemisquareAngleSpinBox.setMinimum(0.0)
         self.aspectSemisquareAngleSpinBox.setMaximum(360.0)
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectSemisquareAngleLabel,
                    self.aspectSemisquareAngleSpinBox)
         self.aspectSemisquareOrbLabel = \
@@ -3641,14 +3699,14 @@ class AppPreferencesEditWidget(QWidget):
             QDoubleSpinBox()
         self.aspectSemisquareOrbSpinBox.setMinimum(0.0)
         self.aspectSemisquareOrbSpinBox.setMaximum(30.0)
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectSemisquareOrbLabel,
                    self.aspectSemisquareOrbSpinBox)
         self.aspectSemisquareColorLabel = \
             QLabel("Semisquare color:")
         self.aspectSemisquareColorEditButton = \
             ColorEditPushButton()
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectSemisquareColorLabel,
                    self.aspectSemisquareColorEditButton)
         
@@ -3657,7 +3715,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("Sesquiquadrate enabled:")
         self.aspectSesquiquadrateEnabledCheckBox = \
             QCheckBox()
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectSesquiquadrateEnabledLabel,
                    self.aspectSesquiquadrateEnabledCheckBox)
         self.aspectSesquiquadrateAngleLabel = \
@@ -3666,7 +3724,7 @@ class AppPreferencesEditWidget(QWidget):
             QDoubleSpinBox()
         self.aspectSesquiquadrateAngleSpinBox.setMinimum(0.0)
         self.aspectSesquiquadrateAngleSpinBox.setMaximum(360.0)
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectSesquiquadrateAngleLabel,
                    self.aspectSesquiquadrateAngleSpinBox)
         self.aspectSesquiquadrateOrbLabel = \
@@ -3675,14 +3733,14 @@ class AppPreferencesEditWidget(QWidget):
             QDoubleSpinBox()
         self.aspectSesquiquadrateOrbSpinBox.setMinimum(0.0)
         self.aspectSesquiquadrateOrbSpinBox.setMaximum(30.0)
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectSesquiquadrateOrbLabel,
                    self.aspectSesquiquadrateOrbSpinBox)
         self.aspectSesquiquadrateColorLabel = \
             QLabel("Sesquiquadrate color:")
         self.aspectSesquiquadrateColorEditButton = \
             ColorEditPushButton()
-        formLayout.\
+        formLayoutBelow.\
             addRow(self.aspectSesquiquadrateColorLabel,
                    self.aspectSesquiquadrateColorEditButton)
         
@@ -3702,12 +3760,19 @@ class AppPreferencesEditWidget(QWidget):
         self.aspectResetAllToDefaultButton = \
             QPushButton("Reset all the above to original default values")
 
+        # Frame as a separator.
+        sep1 = QFrame()
+        sep1.setFrameShape(QFrame.HLine)
+        sep1.setFrameShadow(QFrame.Sunken)
+        
         hlayout = QHBoxLayout()
         hlayout.addWidget(self.aspectResetAllToDefaultButton)
         hlayout.addStretch()
 
         vlayout = QVBoxLayout()
-        vlayout.addLayout(formLayout)
+        vlayout.addLayout(formLayoutAbove)
+        vlayout.addWidget(sep1)
+        vlayout.addLayout(formLayoutBelow)
         vlayout.addSpacing(20)
         vlayout.addWidget(noteLabel)
         vlayout.addSpacing(10)
@@ -3777,32 +3842,37 @@ class AppPreferencesEditWidget(QWidget):
     
         # PriceBarChart zoom-in/out scale factor (float).
         key = SettingsKeys.zoomScaleFactorSettingsKey 
-        value = float(settings.value(key, \
-            SettingsKeys.zoomScaleFactorSettingsDefValue))
+        value = settings.value(key, \
+            SettingsKeys.zoomScaleFactorSettingsDefValue,
+            type=float)
         self.zoomScaleFactorSpinBox.setValue(value)
 
         # PriceBarChart higherPriceBarColor (QColor).
         key = SettingsKeys.higherPriceBarColorSettingsKey 
-        value = QColor(settings.value(key, \
-            SettingsKeys.higherPriceBarColorSettingsDefValue))
+        value = settings.value(key, \
+            SettingsKeys.higherPriceBarColorSettingsDefValue,
+            type=QColor)
         self.higherPriceBarColorEditButton.setColor(value)
 
         # PriceBarChart lowerPriceBarColor (QColor).
         key = SettingsKeys.lowerPriceBarColorSettingsKey 
-        value = QColor(settings.value(key, \
-            SettingsKeys.lowerPriceBarColorSettingsDefValue))
+        value = settings.value(key, \
+            SettingsKeys.lowerPriceBarColorSettingsDefValue,
+            type=QColor)
         self.lowerPriceBarColorEditButton.setColor(value)
 
         # PriceBarChart barCountGraphicsItemColor (QColor).
         key = SettingsKeys.barCountGraphicsItemColorSettingsKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.barCountGraphicsItemColorSettingsDefValue))
+        value = settings.value(key, \
+            SettingsKeys.barCountGraphicsItemColorSettingsDefValue,
+            type=QColor)
         self.barCountGraphicsItemColorEditButton.setColor(value)
 
         # PriceBarChart barCountGraphicsItemTextColor (QColor).
         key = SettingsKeys.barCountGraphicsItemTextColorSettingsKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.barCountGraphicsItemTextColorSettingsDefValue))
+        value = settings.value(key, \
+            SettingsKeys.barCountGraphicsItemTextColorSettingsDefValue,
+            type=QColor)
         self.barCountGraphicsItemTextColorEditButton.setColor(value)
 
 
@@ -3820,745 +3890,865 @@ class AppPreferencesEditWidget(QWidget):
 
         # Sun
         key = SettingsKeys.planetSunGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetSunGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetSunGlyphUnicodeDefValue,
+            type=str)
         self.planetSunGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetSunGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetSunGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetSunGlyphFontSizeDefValue,
+            type=float)
         self.planetSunGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetSunAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetSunAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetSunAbbreviationDefValue,
+            type=str)
         self.planetSunAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetSunForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetSunForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetSunForegroundColorDefValue,
+            type=QColor)
         self.planetSunForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetSunBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetSunBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetSunBackgroundColorDefValue,
+            type=QColor)
         self.planetSunBackgroundColorEditButton.\
             setColor(value)
 
         # Moon
         key = SettingsKeys.planetMoonGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetMoonGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMoonGlyphUnicodeDefValue,
+            type=str)
         self.planetMoonGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetMoonGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetMoonGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMoonGlyphFontSizeDefValue,
+            type=float)
         self.planetMoonGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetMoonAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetMoonAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMoonAbbreviationDefValue,
+            type=str)
         self.planetMoonAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetMoonForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetMoonForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMoonForegroundColorDefValue,
+            type=QColor)
         self.planetMoonForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetMoonBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetMoonBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMoonBackgroundColorDefValue,
+            type=QColor)
         self.planetMoonBackgroundColorEditButton.\
             setColor(value)
 
         # Mercury
         key = SettingsKeys.planetMercuryGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetMercuryGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMercuryGlyphUnicodeDefValue,
+            type=str)
         self.planetMercuryGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetMercuryGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetMercuryGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMercuryGlyphFontSizeDefValue,
+            type=float)
         self.planetMercuryGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetMercuryAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetMercuryAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMercuryAbbreviationDefValue,
+            type=str)
         self.planetMercuryAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetMercuryForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetMercuryForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMercuryForegroundColorDefValue,
+            type=QColor)
         self.planetMercuryForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetMercuryBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetMercuryBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMercuryBackgroundColorDefValue,
+            type=QColor)
         self.planetMercuryBackgroundColorEditButton.\
             setColor(value)
 
         # Venus
         key = SettingsKeys.planetVenusGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetVenusGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetVenusGlyphUnicodeDefValue,
+            type=str)
         self.planetVenusGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetVenusGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetVenusGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetVenusGlyphFontSizeDefValue,
+            type=float)
         self.planetVenusGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetVenusAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetVenusAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetVenusAbbreviationDefValue,
+            type=str)
         self.planetVenusAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetVenusForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetVenusForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetVenusForegroundColorDefValue,
+            type=QColor)
         self.planetVenusForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetVenusBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetVenusBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetVenusBackgroundColorDefValue,
+            type=QColor)
         self.planetVenusBackgroundColorEditButton.\
             setColor(value)
 
         # Earth
         key = SettingsKeys.planetEarthGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetEarthGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetEarthGlyphUnicodeDefValue,
+            type=str)
         self.planetEarthGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetEarthGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetEarthGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetEarthGlyphFontSizeDefValue,
+            type=float)
         self.planetEarthGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetEarthAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetEarthAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetEarthAbbreviationDefValue,
+            type=str)
         self.planetEarthAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetEarthForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetEarthForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetEarthForegroundColorDefValue,
+            type=QColor)
         self.planetEarthForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetEarthBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetEarthBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetEarthBackgroundColorDefValue,
+            type=QColor)
         self.planetEarthBackgroundColorEditButton.\
             setColor(value)
 
         # Mars
         key = SettingsKeys.planetMarsGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetMarsGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMarsGlyphUnicodeDefValue,
+            type=str)
         self.planetMarsGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetMarsGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetMarsGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMarsGlyphFontSizeDefValue,
+            type=float)
         self.planetMarsGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetMarsAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetMarsAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMarsAbbreviationDefValue,
+            type=str)
         self.planetMarsAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetMarsForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetMarsForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMarsForegroundColorDefValue,
+            type=QColor)
         self.planetMarsForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetMarsBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetMarsBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMarsBackgroundColorDefValue,
+            type=QColor)
         self.planetMarsBackgroundColorEditButton.\
             setColor(value)
 
         # Jupiter
         key = SettingsKeys.planetJupiterGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetJupiterGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetJupiterGlyphUnicodeDefValue,
+            type=str)
         self.planetJupiterGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetJupiterGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetJupiterGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetJupiterGlyphFontSizeDefValue,
+            type=float)
         self.planetJupiterGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetJupiterAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetJupiterAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetJupiterAbbreviationDefValue,
+            type=str)
         self.planetJupiterAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetJupiterForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetJupiterForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetJupiterForegroundColorDefValue,
+            type=QColor)
         self.planetJupiterForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetJupiterBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetJupiterBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetJupiterBackgroundColorDefValue,
+            type=QColor)
         self.planetJupiterBackgroundColorEditButton.\
             setColor(value)
 
         # Saturn
         key = SettingsKeys.planetSaturnGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetSaturnGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetSaturnGlyphUnicodeDefValue,
+            type=str)
         self.planetSaturnGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetSaturnGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetSaturnGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetSaturnGlyphFontSizeDefValue,
+            type=float)
         self.planetSaturnGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetSaturnAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetSaturnAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetSaturnAbbreviationDefValue,
+            type=str)
         self.planetSaturnAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetSaturnForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetSaturnForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetSaturnForegroundColorDefValue,
+            type=QColor)
         self.planetSaturnForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetSaturnBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetSaturnBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetSaturnBackgroundColorDefValue,
+            type=QColor)
         self.planetSaturnBackgroundColorEditButton.\
             setColor(value)
 
         # Uranus
         key = SettingsKeys.planetUranusGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetUranusGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetUranusGlyphUnicodeDefValue,
+            type=str)
         self.planetUranusGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetUranusGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetUranusGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetUranusGlyphFontSizeDefValue,
+            type=float)
         self.planetUranusGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetUranusAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetUranusAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetUranusAbbreviationDefValue,
+            type=str)
         self.planetUranusAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetUranusForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetUranusForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetUranusForegroundColorDefValue,
+            type=QColor)
         self.planetUranusForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetUranusBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetUranusBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetUranusBackgroundColorDefValue,
+            type=QColor)
         self.planetUranusBackgroundColorEditButton.\
             setColor(value)
 
         # Neptune
         key = SettingsKeys.planetNeptuneGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetNeptuneGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetNeptuneGlyphUnicodeDefValue,
+            type=str)
         self.planetNeptuneGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetNeptuneGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetNeptuneGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetNeptuneGlyphFontSizeDefValue,
+            type=float)
         self.planetNeptuneGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetNeptuneAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetNeptuneAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetNeptuneAbbreviationDefValue,
+            type=str)
         self.planetNeptuneAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetNeptuneForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetNeptuneForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetNeptuneForegroundColorDefValue,
+            type=QColor)
         self.planetNeptuneForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetNeptuneBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetNeptuneBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetNeptuneBackgroundColorDefValue,
+            type=QColor)
         self.planetNeptuneBackgroundColorEditButton.\
             setColor(value)
 
         # Pluto
         key = SettingsKeys.planetPlutoGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetPlutoGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetPlutoGlyphUnicodeDefValue,
+            type=str)
         self.planetPlutoGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetPlutoGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetPlutoGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetPlutoGlyphFontSizeDefValue,
+            type=float)
         self.planetPlutoGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetPlutoAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetPlutoAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetPlutoAbbreviationDefValue,
+            type=str)
         self.planetPlutoAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetPlutoForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetPlutoForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetPlutoForegroundColorDefValue,
+            type=QColor)
         self.planetPlutoForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetPlutoBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetPlutoBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetPlutoBackgroundColorDefValue,
+            type=QColor)
         self.planetPlutoBackgroundColorEditButton.\
             setColor(value)
 
         # MeanNorthNode
         key = SettingsKeys.planetMeanNorthNodeGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetMeanNorthNodeGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMeanNorthNodeGlyphUnicodeDefValue,
+            type=str)
         self.planetMeanNorthNodeGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetMeanNorthNodeGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetMeanNorthNodeGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMeanNorthNodeGlyphFontSizeDefValue,
+            type=float)
         self.planetMeanNorthNodeGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetMeanNorthNodeAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetMeanNorthNodeAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMeanNorthNodeAbbreviationDefValue,
+            type=str)
         self.planetMeanNorthNodeAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetMeanNorthNodeForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetMeanNorthNodeForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMeanNorthNodeForegroundColorDefValue,
+            type=QColor)
         self.planetMeanNorthNodeForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetMeanNorthNodeBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetMeanNorthNodeBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMeanNorthNodeBackgroundColorDefValue,
+            type=QColor)
         self.planetMeanNorthNodeBackgroundColorEditButton.\
             setColor(value)
 
         # MeanSouthNode
         key = SettingsKeys.planetMeanSouthNodeGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetMeanSouthNodeGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMeanSouthNodeGlyphUnicodeDefValue,
+            type=str)
         self.planetMeanSouthNodeGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetMeanSouthNodeGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetMeanSouthNodeGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMeanSouthNodeGlyphFontSizeDefValue,
+            type=float)
         self.planetMeanSouthNodeGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetMeanSouthNodeAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetMeanSouthNodeAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMeanSouthNodeAbbreviationDefValue,
+            type=str)
         self.planetMeanSouthNodeAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetMeanSouthNodeForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetMeanSouthNodeForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMeanSouthNodeForegroundColorDefValue,
+            type=QColor)
         self.planetMeanSouthNodeForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetMeanSouthNodeBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetMeanSouthNodeBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMeanSouthNodeBackgroundColorDefValue,
+            type=QColor)
         self.planetMeanSouthNodeBackgroundColorEditButton.\
             setColor(value)
 
         # TrueNorthNode
         key = SettingsKeys.planetTrueNorthNodeGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetTrueNorthNodeGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetTrueNorthNodeGlyphUnicodeDefValue,
+            type=str)
         self.planetTrueNorthNodeGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetTrueNorthNodeGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetTrueNorthNodeGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetTrueNorthNodeGlyphFontSizeDefValue,
+            type=float)
         self.planetTrueNorthNodeGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetTrueNorthNodeAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetTrueNorthNodeAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetTrueNorthNodeAbbreviationDefValue,
+            type=str)
         self.planetTrueNorthNodeAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetTrueNorthNodeForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetTrueNorthNodeForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetTrueNorthNodeForegroundColorDefValue,
+            type=QColor)
         self.planetTrueNorthNodeForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetTrueNorthNodeBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetTrueNorthNodeBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetTrueNorthNodeBackgroundColorDefValue,
+            type=QColor)
         self.planetTrueNorthNodeBackgroundColorEditButton.\
             setColor(value)
 
         # TrueSouthNode
         key = SettingsKeys.planetTrueSouthNodeGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetTrueSouthNodeGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetTrueSouthNodeGlyphUnicodeDefValue,
+            type=str)
         self.planetTrueSouthNodeGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetTrueSouthNodeGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetTrueSouthNodeGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetTrueSouthNodeGlyphFontSizeDefValue,
+            type=float)
         self.planetTrueSouthNodeGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetTrueSouthNodeAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetTrueSouthNodeAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetTrueSouthNodeAbbreviationDefValue,
+            type=str)
         self.planetTrueSouthNodeAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetTrueSouthNodeForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetTrueSouthNodeForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetTrueSouthNodeForegroundColorDefValue,
+            type=QColor)
         self.planetTrueSouthNodeForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetTrueSouthNodeBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetTrueSouthNodeBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetTrueSouthNodeBackgroundColorDefValue,
+            type=QColor)
         self.planetTrueSouthNodeBackgroundColorEditButton.\
             setColor(value)
 
         # Ceres
         key = SettingsKeys.planetCeresGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetCeresGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetCeresGlyphUnicodeDefValue,
+            type=str)
         self.planetCeresGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetCeresGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetCeresGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetCeresGlyphFontSizeDefValue,
+            type=float)
         self.planetCeresGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetCeresAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetCeresAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetCeresAbbreviationDefValue,
+            type=str)
         self.planetCeresAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetCeresForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetCeresForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetCeresForegroundColorDefValue,
+            type=QColor)
         self.planetCeresForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetCeresBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetCeresBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetCeresBackgroundColorDefValue,
+            type=QColor)
         self.planetCeresBackgroundColorEditButton.\
             setColor(value)
 
         # Pallas
         key = SettingsKeys.planetPallasGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetPallasGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetPallasGlyphUnicodeDefValue,
+            type=str)
         self.planetPallasGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetPallasGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetPallasGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetPallasGlyphFontSizeDefValue,
+            type=float)
         self.planetPallasGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetPallasAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetPallasAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetPallasAbbreviationDefValue,
+            type=str)
         self.planetPallasAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetPallasForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetPallasForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetPallasForegroundColorDefValue,
+            type=QColor)
         self.planetPallasForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetPallasBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetPallasBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetPallasBackgroundColorDefValue,
+            type=QColor)
         self.planetPallasBackgroundColorEditButton.\
             setColor(value)
 
         # Juno
         key = SettingsKeys.planetJunoGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetJunoGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetJunoGlyphUnicodeDefValue,
+            type=str)
         self.planetJunoGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetJunoGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetJunoGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetJunoGlyphFontSizeDefValue,
+            type=float)
         self.planetJunoGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetJunoAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetJunoAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetJunoAbbreviationDefValue,
+            type=str)
         self.planetJunoAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetJunoForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetJunoForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetJunoForegroundColorDefValue,
+            type=QColor)
         self.planetJunoForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetJunoBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetJunoBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetJunoBackgroundColorDefValue,
+            type=QColor)
         self.planetJunoBackgroundColorEditButton.\
             setColor(value)
 
         # Vesta
         key = SettingsKeys.planetVestaGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetVestaGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetVestaGlyphUnicodeDefValue,
+            type=str)
         self.planetVestaGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetVestaGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetVestaGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetVestaGlyphFontSizeDefValue,
+            type=float)
         self.planetVestaGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetVestaAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetVestaAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetVestaAbbreviationDefValue,
+            type=str)
         self.planetVestaAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetVestaForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetVestaForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetVestaForegroundColorDefValue,
+            type=QColor)
         self.planetVestaForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetVestaBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetVestaBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetVestaBackgroundColorDefValue,
+            type=QColor)
         self.planetVestaBackgroundColorEditButton.\
             setColor(value)
 
         # Chiron
         key = SettingsKeys.planetChironGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetChironGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetChironGlyphUnicodeDefValue,
+            type=str)
         self.planetChironGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetChironGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetChironGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetChironGlyphFontSizeDefValue,
+            type=float)
         self.planetChironGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetChironAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetChironAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetChironAbbreviationDefValue,
+            type=str)
         self.planetChironAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetChironForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetChironForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetChironForegroundColorDefValue,
+            type=QColor)
         self.planetChironForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetChironBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetChironBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetChironBackgroundColorDefValue,
+            type=QColor)
         self.planetChironBackgroundColorEditButton.\
             setColor(value)
 
         # Gulika
         key = SettingsKeys.planetGulikaGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetGulikaGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetGulikaGlyphUnicodeDefValue,
+            type=str)
         self.planetGulikaGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetGulikaGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetGulikaGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetGulikaGlyphFontSizeDefValue,
+            type=float)
         self.planetGulikaGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetGulikaAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetGulikaAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetGulikaAbbreviationDefValue,
+            type=str)
         self.planetGulikaAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetGulikaForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetGulikaForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetGulikaForegroundColorDefValue,
+            type=QColor)
         self.planetGulikaForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetGulikaBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetGulikaBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetGulikaBackgroundColorDefValue,
+            type=QColor)
         self.planetGulikaBackgroundColorEditButton.\
             setColor(value)
 
         # Mandi
         key = SettingsKeys.planetMandiGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetMandiGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMandiGlyphUnicodeDefValue,
+            type=str)
         self.planetMandiGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetMandiGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetMandiGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMandiGlyphFontSizeDefValue,
+            type=float)
         self.planetMandiGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetMandiAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetMandiAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMandiAbbreviationDefValue,
+            type=str)
         self.planetMandiAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetMandiForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetMandiForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMandiForegroundColorDefValue,
+            type=QColor)
         self.planetMandiForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetMandiBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetMandiBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMandiBackgroundColorDefValue,
+            type=QColor)
         self.planetMandiBackgroundColorEditButton.\
             setColor(value)
 
         # MeanOfFive
         key = SettingsKeys.planetMeanOfFiveGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetMeanOfFiveGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMeanOfFiveGlyphUnicodeDefValue,
+            type=str)
         self.planetMeanOfFiveGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetMeanOfFiveGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetMeanOfFiveGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMeanOfFiveGlyphFontSizeDefValue,
+            type=float)
         self.planetMeanOfFiveGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetMeanOfFiveAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetMeanOfFiveAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMeanOfFiveAbbreviationDefValue,
+            type=str)
         self.planetMeanOfFiveAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetMeanOfFiveForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetMeanOfFiveForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMeanOfFiveForegroundColorDefValue,
+            type=QColor)
         self.planetMeanOfFiveForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetMeanOfFiveBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetMeanOfFiveBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMeanOfFiveBackgroundColorDefValue,
+            type=QColor)
         self.planetMeanOfFiveBackgroundColorEditButton.\
             setColor(value)
 
         # CycleOfEight
         key = SettingsKeys.planetCycleOfEightGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetCycleOfEightGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetCycleOfEightGlyphUnicodeDefValue,
+            type=str)
         self.planetCycleOfEightGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetCycleOfEightGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetCycleOfEightGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetCycleOfEightGlyphFontSizeDefValue,
+            type=float)
         self.planetCycleOfEightGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetCycleOfEightAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetCycleOfEightAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetCycleOfEightAbbreviationDefValue,
+            type=str)
         self.planetCycleOfEightAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetCycleOfEightForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetCycleOfEightForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetCycleOfEightForegroundColorDefValue,
+            type=QColor)
         self.planetCycleOfEightForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetCycleOfEightBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetCycleOfEightBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetCycleOfEightBackgroundColorDefValue,
+            type=QColor)
         self.planetCycleOfEightBackgroundColorEditButton.\
             setColor(value)
 
@@ -4577,280 +4767,325 @@ class AppPreferencesEditWidget(QWidget):
 
         # Retrograde
         key = SettingsKeys.planetRetrogradeGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetRetrogradeGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetRetrogradeGlyphUnicodeDefValue,
+            type=str)
         self.planetRetrogradeGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetRetrogradeGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetRetrogradeGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetRetrogradeGlyphFontSizeDefValue,
+            type=float)
         self.planetRetrogradeGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetRetrogradeAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetRetrogradeAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetRetrogradeAbbreviationDefValue,
+            type=str)
         self.planetRetrogradeAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetRetrogradeForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetRetrogradeForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetRetrogradeForegroundColorDefValue,
+            type=QColor)
         self.planetRetrogradeForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetRetrogradeBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetRetrogradeBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetRetrogradeBackgroundColorDefValue,
+            type=QColor)
         self.planetRetrogradeBackgroundColorEditButton.\
             setColor(value)
 
         # Ascendant
         key = SettingsKeys.planetAscendantGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetAscendantGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetAscendantGlyphUnicodeDefValue,
+            type=str)
         self.planetAscendantGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetAscendantGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetAscendantGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetAscendantGlyphFontSizeDefValue,
+            type=float)
         self.planetAscendantGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetAscendantAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetAscendantAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetAscendantAbbreviationDefValue,
+            type=str)
         self.planetAscendantAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetAscendantForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetAscendantForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetAscendantForegroundColorDefValue,
+            type=QColor)
         self.planetAscendantForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetAscendantBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetAscendantBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetAscendantBackgroundColorDefValue,
+            type=QColor)
         self.planetAscendantBackgroundColorEditButton.\
             setColor(value)
 
         # Midheaven
         key = SettingsKeys.planetMidheavenGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetMidheavenGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMidheavenGlyphUnicodeDefValue,
+            type=str)
         self.planetMidheavenGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetMidheavenGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetMidheavenGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMidheavenGlyphFontSizeDefValue,
+            type=float)
         self.planetMidheavenGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetMidheavenAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetMidheavenAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMidheavenAbbreviationDefValue,
+            type=str)
         self.planetMidheavenAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetMidheavenForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetMidheavenForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMidheavenForegroundColorDefValue,
+            type=QColor)
         self.planetMidheavenForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetMidheavenBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetMidheavenBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMidheavenBackgroundColorDefValue,
+            type=QColor)
         self.planetMidheavenBackgroundColorEditButton.\
             setColor(value)
 
         # HoraLagna
         key = SettingsKeys.planetHoraLagnaGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetHoraLagnaGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetHoraLagnaGlyphUnicodeDefValue,
+            type=str)
         self.planetHoraLagnaGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetHoraLagnaGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetHoraLagnaGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetHoraLagnaGlyphFontSizeDefValue,
+            type=float)
         self.planetHoraLagnaGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetHoraLagnaAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetHoraLagnaAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetHoraLagnaAbbreviationDefValue,
+            type=str)
         self.planetHoraLagnaAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetHoraLagnaForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetHoraLagnaForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetHoraLagnaForegroundColorDefValue,
+            type=QColor)
         self.planetHoraLagnaForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetHoraLagnaBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetHoraLagnaBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetHoraLagnaBackgroundColorDefValue,
+            type=QColor)
         self.planetHoraLagnaBackgroundColorEditButton.\
             setColor(value)
 
         # GhatiLagna
         key = SettingsKeys.planetGhatiLagnaGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetGhatiLagnaGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetGhatiLagnaGlyphUnicodeDefValue,
+            type=str)
         self.planetGhatiLagnaGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetGhatiLagnaGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetGhatiLagnaGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetGhatiLagnaGlyphFontSizeDefValue,
+            type=float)
         self.planetGhatiLagnaGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetGhatiLagnaAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetGhatiLagnaAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetGhatiLagnaAbbreviationDefValue,
+            type=str)
         self.planetGhatiLagnaAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetGhatiLagnaForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetGhatiLagnaForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetGhatiLagnaForegroundColorDefValue,
+            type=QColor)
         self.planetGhatiLagnaForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetGhatiLagnaBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetGhatiLagnaBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetGhatiLagnaBackgroundColorDefValue,
+            type=QColor)
         self.planetGhatiLagnaBackgroundColorEditButton.\
             setColor(value)
 
         # MeanLunarApogee
         key = SettingsKeys.planetMeanLunarApogeeGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetMeanLunarApogeeGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMeanLunarApogeeGlyphUnicodeDefValue,
+            type=str)
         self.planetMeanLunarApogeeGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetMeanLunarApogeeGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetMeanLunarApogeeGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMeanLunarApogeeGlyphFontSizeDefValue,
+            type=float)
         self.planetMeanLunarApogeeGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetMeanLunarApogeeAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetMeanLunarApogeeAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMeanLunarApogeeAbbreviationDefValue,
+            type=str)
         self.planetMeanLunarApogeeAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetMeanLunarApogeeForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetMeanLunarApogeeForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMeanLunarApogeeForegroundColorDefValue,
+            type=QColor)
         self.planetMeanLunarApogeeForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetMeanLunarApogeeBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetMeanLunarApogeeBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetMeanLunarApogeeBackgroundColorDefValue,
+            type=QColor)
         self.planetMeanLunarApogeeBackgroundColorEditButton.\
             setColor(value)
 
         # OsculatingLunarApogee
         key = SettingsKeys.planetOsculatingLunarApogeeGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetOsculatingLunarApogeeGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetOsculatingLunarApogeeGlyphUnicodeDefValue,
+            type=str)
         self.planetOsculatingLunarApogeeGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetOsculatingLunarApogeeGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetOsculatingLunarApogeeGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetOsculatingLunarApogeeGlyphFontSizeDefValue,
+            type=float)
         self.planetOsculatingLunarApogeeGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetOsculatingLunarApogeeAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetOsculatingLunarApogeeAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetOsculatingLunarApogeeAbbreviationDefValue,
+            type=str)
         self.planetOsculatingLunarApogeeAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetOsculatingLunarApogeeForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetOsculatingLunarApogeeForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetOsculatingLunarApogeeForegroundColorDefValue,
+            type=QColor)
         self.planetOsculatingLunarApogeeForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetOsculatingLunarApogeeBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetOsculatingLunarApogeeBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetOsculatingLunarApogeeBackgroundColorDefValue,
+            type=QColor)
         self.planetOsculatingLunarApogeeBackgroundColorEditButton.\
             setColor(value)
 
         # InterpolatedLunarApogee
         key = SettingsKeys.planetInterpolatedLunarApogeeGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetInterpolatedLunarApogeeGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetInterpolatedLunarApogeeGlyphUnicodeDefValue,
+            type=str)
         self.planetInterpolatedLunarApogeeGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetInterpolatedLunarApogeeGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetInterpolatedLunarApogeeGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetInterpolatedLunarApogeeGlyphFontSizeDefValue,
+            type=float)
         self.planetInterpolatedLunarApogeeGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetInterpolatedLunarApogeeAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetInterpolatedLunarApogeeAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetInterpolatedLunarApogeeAbbreviationDefValue,
+            type=str)
         self.planetInterpolatedLunarApogeeAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetInterpolatedLunarApogeeForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetInterpolatedLunarApogeeForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetInterpolatedLunarApogeeForegroundColorDefValue,
+            type=QColor)
         self.planetInterpolatedLunarApogeeForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetInterpolatedLunarApogeeBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetInterpolatedLunarApogeeBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetInterpolatedLunarApogeeBackgroundColorDefValue,
+            type=QColor)
         self.planetInterpolatedLunarApogeeBackgroundColorEditButton.\
             setColor(value)
 
         # InterpolatedLunarPerigee
         key = SettingsKeys.planetInterpolatedLunarPerigeeGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetInterpolatedLunarPerigeeGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetInterpolatedLunarPerigeeGlyphUnicodeDefValue,
+            type=str)
         self.planetInterpolatedLunarPerigeeGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetInterpolatedLunarPerigeeGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.planetInterpolatedLunarPerigeeGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetInterpolatedLunarPerigeeGlyphFontSizeDefValue,
+            type=float)
         self.planetInterpolatedLunarPerigeeGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.planetInterpolatedLunarPerigeeAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.planetInterpolatedLunarPerigeeAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetInterpolatedLunarPerigeeAbbreviationDefValue,
+            type=str)
         self.planetInterpolatedLunarPerigeeAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.planetInterpolatedLunarPerigeeForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetInterpolatedLunarPerigeeForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetInterpolatedLunarPerigeeForegroundColorDefValue,
+            type=QColor)
         self.planetInterpolatedLunarPerigeeForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.planetInterpolatedLunarPerigeeBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.planetInterpolatedLunarPerigeeBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.planetInterpolatedLunarPerigeeBackgroundColorDefValue,
+            type=QColor)
         self.planetInterpolatedLunarPerigeeBackgroundColorEditButton.\
             setColor(value)
 
@@ -4869,373 +5104,433 @@ class AppPreferencesEditWidget(QWidget):
 
         # Aries
         key = SettingsKeys.signAriesGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.signAriesGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signAriesGlyphUnicodeDefValue,
+            type=str)
         self.planetAriesGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.signAriesGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.signAriesGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signAriesGlyphFontSizeDefValue,
+            type=float)
         self.planetAriesGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.signAriesAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.signAriesAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signAriesAbbreviationDefValue,
+            type=str)
         self.planetAriesAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.signAriesForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.signAriesForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signAriesForegroundColorDefValue,
+            type=QColor)
         self.planetAriesForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.signAriesBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.signAriesBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signAriesBackgroundColorDefValue,
+            type=QColor)
         self.planetAriesBackgroundColorEditButton.\
             setColor(value)
 
         # Taurus
         key = SettingsKeys.signTaurusGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.signTaurusGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signTaurusGlyphUnicodeDefValue,
+            type=str)
         self.planetTaurusGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.signTaurusGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.signTaurusGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signTaurusGlyphFontSizeDefValue,
+            type=float)
         self.planetTaurusGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.signTaurusAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.signTaurusAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signTaurusAbbreviationDefValue,
+            type=str)
         self.planetTaurusAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.signTaurusForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.signTaurusForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signTaurusForegroundColorDefValue,
+            type=QColor)
         self.planetTaurusForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.signTaurusBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.signTaurusBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signTaurusBackgroundColorDefValue,
+            type=QColor)
         self.planetTaurusBackgroundColorEditButton.\
             setColor(value)
 
         # Gemini
         key = SettingsKeys.signGeminiGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.signGeminiGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signGeminiGlyphUnicodeDefValue,
+            type=str)
         self.planetGeminiGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.signGeminiGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.signGeminiGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signGeminiGlyphFontSizeDefValue,
+            type=float)
         self.planetGeminiGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.signGeminiAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.signGeminiAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signGeminiAbbreviationDefValue,
+            type=str)
         self.planetGeminiAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.signGeminiForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.signGeminiForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signGeminiForegroundColorDefValue,
+            type=QColor)
         self.planetGeminiForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.signGeminiBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.signGeminiBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signGeminiBackgroundColorDefValue,
+            type=QColor)
         self.planetGeminiBackgroundColorEditButton.\
             setColor(value)
 
         # Cancer
         key = SettingsKeys.signCancerGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.signCancerGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signCancerGlyphUnicodeDefValue,
+            type=str)
         self.planetCancerGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.signCancerGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.signCancerGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signCancerGlyphFontSizeDefValue,
+            type=float)
         self.planetCancerGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.signCancerAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.signCancerAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signCancerAbbreviationDefValue,
+            type=str)
         self.planetCancerAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.signCancerForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.signCancerForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signCancerForegroundColorDefValue,
+            type=QColor)
         self.planetCancerForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.signCancerBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.signCancerBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signCancerBackgroundColorDefValue,
+            type=QColor)
         self.planetCancerBackgroundColorEditButton.\
             setColor(value)
 
         # Leo
         key = SettingsKeys.signLeoGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.signLeoGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signLeoGlyphUnicodeDefValue,
+            type=str)
         self.planetLeoGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.signLeoGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.signLeoGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signLeoGlyphFontSizeDefValue,
+            type=float)
         self.planetLeoGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.signLeoAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.signLeoAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signLeoAbbreviationDefValue,
+            type=str)
         self.planetLeoAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.signLeoForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.signLeoForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signLeoForegroundColorDefValue,
+            type=QColor)
         self.planetLeoForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.signLeoBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.signLeoBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signLeoBackgroundColorDefValue,
+            type=QColor)
         self.planetLeoBackgroundColorEditButton.\
             setColor(value)
 
         # Virgo
         key = SettingsKeys.signVirgoGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.signVirgoGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signVirgoGlyphUnicodeDefValue,
+            type=str)
         self.planetVirgoGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.signVirgoGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.signVirgoGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signVirgoGlyphFontSizeDefValue,
+            type=float)
         self.planetVirgoGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.signVirgoAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.signVirgoAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signVirgoAbbreviationDefValue,
+            type=str)
         self.planetVirgoAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.signVirgoForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.signVirgoForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signVirgoForegroundColorDefValue,
+            type=QColor)
         self.planetVirgoForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.signVirgoBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.signVirgoBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signVirgoBackgroundColorDefValue,
+            type=QColor)
         self.planetVirgoBackgroundColorEditButton.\
             setColor(value)
 
         # Libra
         key = SettingsKeys.signLibraGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.signLibraGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signLibraGlyphUnicodeDefValue,
+            type=str)
         self.planetLibraGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.signLibraGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.signLibraGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signLibraGlyphFontSizeDefValue,
+            type=float)
         self.planetLibraGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.signLibraAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.signLibraAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signLibraAbbreviationDefValue,
+            type=str)
         self.planetLibraAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.signLibraForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.signLibraForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signLibraForegroundColorDefValue,
+            type=QColor)
         self.planetLibraForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.signLibraBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.signLibraBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signLibraBackgroundColorDefValue,
+            type=QColor)
         self.planetLibraBackgroundColorEditButton.\
             setColor(value)
 
         # Scorpio
         key = SettingsKeys.signScorpioGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.signScorpioGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signScorpioGlyphUnicodeDefValue,
+            type=str)
         self.planetScorpioGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.signScorpioGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.signScorpioGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signScorpioGlyphFontSizeDefValue,
+            type=float)
         self.planetScorpioGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.signScorpioAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.signScorpioAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signScorpioAbbreviationDefValue,
+            type=str)
         self.planetScorpioAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.signScorpioForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.signScorpioForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signScorpioForegroundColorDefValue,
+            type=QColor)
         self.planetScorpioForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.signScorpioBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.signScorpioBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signScorpioBackgroundColorDefValue,
+            type=QColor)
         self.planetScorpioBackgroundColorEditButton.\
             setColor(value)
 
         # Sagittarius
         key = SettingsKeys.signSagittariusGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.signSagittariusGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signSagittariusGlyphUnicodeDefValue,
+            type=str)
         self.planetSagittariusGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.signSagittariusGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.signSagittariusGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signSagittariusGlyphFontSizeDefValue,
+            type=float)
         self.planetSagittariusGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.signSagittariusAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.signSagittariusAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signSagittariusAbbreviationDefValue,
+            type=str)
         self.planetSagittariusAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.signSagittariusForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.signSagittariusForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signSagittariusForegroundColorDefValue,
+            type=QColor)
         self.planetSagittariusForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.signSagittariusBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.signSagittariusBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signSagittariusBackgroundColorDefValue,
+            type=QColor)
         self.planetSagittariusBackgroundColorEditButton.\
             setColor(value)
 
         # Capricorn
         key = SettingsKeys.signCapricornGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.signCapricornGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signCapricornGlyphUnicodeDefValue,
+            type=str)
         self.planetCapricornGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.signCapricornGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.signCapricornGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signCapricornGlyphFontSizeDefValue,
+            type=float)
         self.planetCapricornGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.signCapricornAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.signCapricornAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signCapricornAbbreviationDefValue,
+            type=str)
         self.planetCapricornAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.signCapricornForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.signCapricornForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signCapricornForegroundColorDefValue,
+            type=QColor)
         self.planetCapricornForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.signCapricornBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.signCapricornBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signCapricornBackgroundColorDefValue,
+            type=QColor)
         self.planetCapricornBackgroundColorEditButton.\
             setColor(value)
 
         # Aquarius
         key = SettingsKeys.signAquariusGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.signAquariusGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signAquariusGlyphUnicodeDefValue,
+            type=str)
         self.planetAquariusGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.signAquariusGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.signAquariusGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signAquariusGlyphFontSizeDefValue,
+            type=float)
         self.planetAquariusGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.signAquariusAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.signAquariusAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signAquariusAbbreviationDefValue,
+            type=str)
         self.planetAquariusAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.signAquariusForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.signAquariusForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signAquariusForegroundColorDefValue,
+            type=QColor)
         self.planetAquariusForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.signAquariusBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.signAquariusBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signAquariusBackgroundColorDefValue,
+            type=QColor)
         self.planetAquariusBackgroundColorEditButton.\
             setColor(value)
 
         # Pisces
         key = SettingsKeys.signPiscesGlyphUnicodeKey
-        value = str(settings.value(key, \
-            SettingsKeys.signPiscesGlyphUnicodeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signPiscesGlyphUnicodeDefValue,
+            type=str)
         self.planetPiscesGlyphUnicodeLineEdit.\
             setText(value)
 
         key = SettingsKeys.signPiscesGlyphFontSizeKey
-        value = float(settings.value(key, \
-            SettingsKeys.signPiscesGlyphFontSizeDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signPiscesGlyphFontSizeDefValue,
+            type=float)
         self.planetPiscesGlyphFontSizeSpinBox.\
             setValue(value)
 
         key = SettingsKeys.signPiscesAbbreviationKey
-        value = str(settings.value(key, \
-            SettingsKeys.signPiscesAbbreviationDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signPiscesAbbreviationDefValue,
+            type=str)
         self.planetPiscesAbbreviationLineEdit.\
             setText(value)
 
         key = SettingsKeys.signPiscesForegroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.signPiscesForegroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signPiscesForegroundColorDefValue,
+            type=QColor)
         self.planetPiscesForegroundColorEditButton.\
             setColor(value)
 
         key = SettingsKeys.signPiscesBackgroundColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.signPiscesBackgroundColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.signPiscesBackgroundColorDefValue,
+            type=QColor)
         self.planetPiscesBackgroundColorEditButton.\
             setColor(value)
 
@@ -5250,225 +5545,325 @@ class AppPreferencesEditWidget(QWidget):
         any parameters specified.
         """
 
+        self.log.debug("Entered _aspectLoadValuesFromSettings()")
+        
         settings = QSettings()
+
+        # Aspects enabled on Astrology Chart 1.
+        key = SettingsKeys.aspectAstrologyChart1EnabledKey
+        value = settings.value(key,
+            SettingsKeys.aspectAstrologyChart1EnabledDefValue,
+            type=bool)
+        if value == True:
+            self.aspectAstrologyChart1EnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectAstrologyChart1EnabledCheckBox.setCheckState(Qt.Unchecked)
+        
+        # Aspects enabled on Astrology Chart 2.
+        key = SettingsKeys.aspectAstrologyChart2EnabledKey
+        value = settings.value(key,
+            SettingsKeys.aspectAstrologyChart2EnabledDefValue,
+            type=bool)
+        if value == True:
+            self.aspectAstrologyChart2EnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectAstrologyChart2EnabledCheckBox.setCheckState(Qt.Unchecked)
+        
+        # Aspects enabled on Astrology Chart 3.
+        key = SettingsKeys.aspectAstrologyChart3EnabledKey
+        value = settings.value(key,
+            SettingsKeys.aspectAstrologyChart3EnabledDefValue,
+            type=bool)
+        if value == True:
+            self.aspectAstrologyChart3EnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectAstrologyChart3EnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        # Aspects enabled between Astrology Chart 1 and 2.
+        key = SettingsKeys.aspectBtwnAstrologyChart1And2EnabledKey
+        value = settings.value(key,
+            SettingsKeys.aspectBtwnAstrologyChart1And2EnabledDefValue,
+            type=bool)
+        if value == True:
+            self.aspectBtwnAstrologyChart1And2EnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectBtwnAstrologyChart1And2EnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        # Aspects enabled between Astrology Chart 1 and 3.
+        key = SettingsKeys.aspectBtwnAstrologyChart1And3EnabledKey
+        value = settings.value(key,
+            SettingsKeys.aspectBtwnAstrologyChart1And3EnabledDefValue,
+            type=bool)
+        if value == True:
+            self.aspectBtwnAstrologyChart1And3EnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectBtwnAstrologyChart1And3EnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        # Aspects enabled between Astrology Chart 2 and 3.
+        key = SettingsKeys.aspectBtwnAstrologyChart2And3EnabledKey
+        value = settings.value(key,
+            SettingsKeys.aspectBtwnAstrologyChart2And3EnabledDefValue,
+            type=bool)
+        if value == True:
+            self.aspectBtwnAstrologyChart2And3EnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectBtwnAstrologyChart2And3EnabledCheckBox.setCheckState(Qt.Unchecked)
 
         # Conjunction.
         key = SettingsKeys.aspectConjunctionEnabledKey
-        value = bool(settings.value(key, \
-            SettingsKeys.aspectConjunctionEnabledDefValue))
+        value = settings.value(key,
+            SettingsKeys.aspectConjunctionEnabledDefValue,
+            type=bool)
         if value == True:
             self.aspectConjunctionEnabledCheckBox.setCheckState(Qt.Checked)
         else:
             self.aspectConjunctionEnabledCheckBox.setCheckState(Qt.Unchecked)
         
         key = SettingsKeys.aspectConjunctionAngleKey
-        value = float(settings.value(key, \
-            SettingsKeys.aspectConjunctionAngleDefValue))
+        value = settings.value(key, \
+            SettingsKeys.aspectConjunctionAngleDefValue,
+            type=float)
         self.aspectConjunctionAngleSpinBox.setValue(value)
         
         key = SettingsKeys.aspectConjunctionOrbKey
-        value = float(settings.value(key, \
-            SettingsKeys.aspectConjunctionOrbDefValue))
+        value = settings.value(key, \
+            SettingsKeys.aspectConjunctionOrbDefValue,
+            type=float)
         self.aspectConjunctionOrbSpinBox.setValue(value)
 
         key = SettingsKeys.aspectConjunctionColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.aspectConjunctionColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.aspectConjunctionColorDefValue,
+            type=QColor)
         self.aspectConjunctionColorEditButton.setColor(value)
         
         # Opposition.
         key = SettingsKeys.aspectOppositionEnabledKey
-        value = bool(settings.value(key, \
-            SettingsKeys.aspectOppositionEnabledDefValue))
+        value = settings.value(key,
+            SettingsKeys.aspectOppositionEnabledDefValue,
+            type=bool)
         if value == True:
             self.aspectOppositionEnabledCheckBox.setCheckState(Qt.Checked)
         else:
             self.aspectOppositionEnabledCheckBox.setCheckState(Qt.Unchecked)
         
         key = SettingsKeys.aspectOppositionAngleKey
-        value = float(settings.value(key, \
-            SettingsKeys.aspectOppositionAngleDefValue))
+        value = settings.value(key, \
+            SettingsKeys.aspectOppositionAngleDefValue,
+            type=float)
         self.aspectOppositionAngleSpinBox.setValue(value)
         
         key = SettingsKeys.aspectOppositionOrbKey
-        value = float(settings.value(key, \
-            SettingsKeys.aspectOppositionOrbDefValue))
+        value = settings.value(key, \
+            SettingsKeys.aspectOppositionOrbDefValue,
+            type=float)
         self.aspectOppositionOrbSpinBox.setValue(value)
         
         key = SettingsKeys.aspectOppositionColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.aspectOppositionColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.aspectOppositionColorDefValue,
+            type=QColor)
         self.aspectOppositionColorEditButton.setColor(value)
         
         # Square.
         key = SettingsKeys.aspectSquareEnabledKey
-        value = bool(settings.value(key, \
-            SettingsKeys.aspectSquareEnabledDefValue))
+        value = settings.value(key,
+            SettingsKeys.aspectSquareEnabledDefValue,
+            type=bool)
         if value == True:
             self.aspectSquareEnabledCheckBox.setCheckState(Qt.Checked)
         else:
             self.aspectSquareEnabledCheckBox.setCheckState(Qt.Unchecked)
         
         key = SettingsKeys.aspectSquareAngleKey
-        value = float(settings.value(key, \
-            SettingsKeys.aspectSquareAngleDefValue))
+        value = settings.value(key, \
+            SettingsKeys.aspectSquareAngleDefValue,
+            type=float)
         self.aspectSquareAngleSpinBox.setValue(value)
         
         key = SettingsKeys.aspectSquareOrbKey
-        value = float(settings.value(key, \
-            SettingsKeys.aspectSquareOrbDefValue))
+        value = settings.value(key, \
+            SettingsKeys.aspectSquareOrbDefValue,
+            type=float)
         self.aspectSquareOrbSpinBox.setValue(value)
         
         key = SettingsKeys.aspectSquareColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.aspectSquareColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.aspectSquareColorDefValue,
+            type=QColor)
         self.aspectSquareColorEditButton.setColor(value)
         
         # Trine.
         key = SettingsKeys.aspectTrineEnabledKey
-        value = bool(settings.value(key, \
-            SettingsKeys.aspectTrineEnabledDefValue))
+        value = settings.value(key,
+            SettingsKeys.aspectTrineEnabledDefValue,
+            type=bool)
         if value == True:
             self.aspectTrineEnabledCheckBox.setCheckState(Qt.Checked)
         else:
             self.aspectTrineEnabledCheckBox.setCheckState(Qt.Unchecked)
         
         key = SettingsKeys.aspectTrineAngleKey
-        value = float(settings.value(key, \
-            SettingsKeys.aspectTrineAngleDefValue))
+        value = settings.value(key, \
+            SettingsKeys.aspectTrineAngleDefValue,
+            type=float)
         self.aspectTrineAngleSpinBox.setValue(value)
         
         key = SettingsKeys.aspectTrineOrbKey
-        value = float(settings.value(key, \
-            SettingsKeys.aspectTrineOrbDefValue))
+        value = settings.value(key, \
+            SettingsKeys.aspectTrineOrbDefValue,
+            type=float)
         self.aspectTrineOrbSpinBox.setValue(value)
         
         key = SettingsKeys.aspectTrineColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.aspectTrineColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.aspectTrineColorDefValue,
+            type=QColor)
         self.aspectTrineColorEditButton.setColor(value)
         
         # Sextile.
         key = SettingsKeys.aspectSextileEnabledKey
-        value = bool(settings.value(key, \
-            SettingsKeys.aspectSextileEnabledDefValue))
+        value = settings.value(key,
+            SettingsKeys.aspectSextileEnabledDefValue,
+            type=bool)
         if value == True:
             self.aspectSextileEnabledCheckBox.setCheckState(Qt.Checked)
         else:
             self.aspectSextileEnabledCheckBox.setCheckState(Qt.Unchecked)
         
         key = SettingsKeys.aspectSextileAngleKey
-        value = float(settings.value(key, \
-            SettingsKeys.aspectSextileAngleDefValue))
+        value = settings.value(key, \
+            SettingsKeys.aspectSextileAngleDefValue,
+            type=float)
         self.aspectSextileAngleSpinBox.setValue(value)
         
         key = SettingsKeys.aspectSextileOrbKey
-        value = float(settings.value(key, \
-            SettingsKeys.aspectSextileOrbDefValue))
+        value = settings.value(key, \
+            SettingsKeys.aspectSextileOrbDefValue,
+            type=float)
         self.aspectSextileOrbSpinBox.setValue(value)
         
         key = SettingsKeys.aspectSextileColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.aspectSextileColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.aspectSextileColorDefValue,
+            type=QColor)
         self.aspectSextileColorEditButton.setColor(value)
         
         # Inconjunct.
         key = SettingsKeys.aspectInconjunctEnabledKey
-        value = bool(settings.value(key, \
-            SettingsKeys.aspectInconjunctEnabledDefValue))
+        value = settings.value(key,
+            SettingsKeys.aspectInconjunctEnabledDefValue,
+            type=bool)
         if value == True:
             self.aspectInconjunctEnabledCheckBox.setCheckState(Qt.Checked)
         else:
             self.aspectInconjunctEnabledCheckBox.setCheckState(Qt.Unchecked)
         
         key = SettingsKeys.aspectInconjunctAngleKey
-        value = float(settings.value(key, \
-            SettingsKeys.aspectInconjunctAngleDefValue))
+        value = settings.value(key, \
+            SettingsKeys.aspectInconjunctAngleDefValue,
+            type=float)
         self.aspectInconjunctAngleSpinBox.setValue(value)
         
         key = SettingsKeys.aspectInconjunctOrbKey
-        value = float(settings.value(key, \
-            SettingsKeys.aspectInconjunctOrbDefValue))
+        value = settings.value(key, \
+            SettingsKeys.aspectInconjunctOrbDefValue,
+            type=float)
         self.aspectInconjunctOrbSpinBox.setValue(value)
         
         key = SettingsKeys.aspectInconjunctColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.aspectInconjunctColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.aspectInconjunctColorDefValue,
+            type=QColor)
         self.aspectInconjunctColorEditButton.setColor(value)
         
         # Semisextile.
         key = SettingsKeys.aspectSemisextileEnabledKey
-        value = bool(settings.value(key, \
-            SettingsKeys.aspectSemisextileEnabledDefValue))
+        value = settings.value(key,
+            SettingsKeys.aspectSemisextileEnabledDefValue,
+            type=bool)
         if value == True:
             self.aspectSemisextileEnabledCheckBox.setCheckState(Qt.Checked)
         else:
             self.aspectSemisextileEnabledCheckBox.setCheckState(Qt.Unchecked)
         
         key = SettingsKeys.aspectSemisextileAngleKey
-        value = float(settings.value(key, \
-            SettingsKeys.aspectSemisextileAngleDefValue))
+        value = settings.value(key, \
+            SettingsKeys.aspectSemisextileAngleDefValue,
+            type=float)
         self.aspectSemisextileAngleSpinBox.setValue(value)
         
         key = SettingsKeys.aspectSemisextileOrbKey
-        value = float(settings.value(key, \
-            SettingsKeys.aspectSemisextileOrbDefValue))
+        value = settings.value(key, \
+            SettingsKeys.aspectSemisextileOrbDefValue,
+            type=float)
         self.aspectSemisextileOrbSpinBox.setValue(value)
         
         key = SettingsKeys.aspectSemisextileColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.aspectSemisextileColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.aspectSemisextileColorDefValue,
+            type=QColor)
         self.aspectSemisextileColorEditButton.setColor(value)
         
         # Semisquare.
         key = SettingsKeys.aspectSemisquareEnabledKey
-        value = bool(settings.value(key, \
-            SettingsKeys.aspectSemisquareEnabledDefValue))
+        value = settings.value(key,
+            SettingsKeys.aspectSemisquareEnabledDefValue,
+            type=bool)
         if value == True:
             self.aspectSemisquareEnabledCheckBox.setCheckState(Qt.Checked)
         else:
             self.aspectSemisquareEnabledCheckBox.setCheckState(Qt.Unchecked)
         
         key = SettingsKeys.aspectSemisquareAngleKey
-        value = float(settings.value(key, \
-            SettingsKeys.aspectSemisquareAngleDefValue))
+        value = settings.value(key, \
+            SettingsKeys.aspectSemisquareAngleDefValue,
+            type=float)
         self.aspectSemisquareAngleSpinBox.setValue(value)
         
         key = SettingsKeys.aspectSemisquareOrbKey
-        value = float(settings.value(key, \
-            SettingsKeys.aspectSemisquareOrbDefValue))
+        value = settings.value(key, \
+            SettingsKeys.aspectSemisquareOrbDefValue,
+            type=float)
         self.aspectSemisquareOrbSpinBox.setValue(value)
         
         key = SettingsKeys.aspectSemisquareColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.aspectSemisquareColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.aspectSemisquareColorDefValue,
+            type=QColor)
         self.aspectSemisquareColorEditButton.setColor(value)
         
         # Sesquiquadrate.
         key = SettingsKeys.aspectSesquiquadrateEnabledKey
-        value = bool(settings.value(key, \
-            SettingsKeys.aspectSesquiquadrateEnabledDefValue))
+        value = settings.value(key,
+            SettingsKeys.aspectSesquiquadrateEnabledDefValue,
+            type=bool)
         if value == True:
             self.aspectSesquiquadrateEnabledCheckBox.setCheckState(Qt.Checked)
         else:
             self.aspectSesquiquadrateEnabledCheckBox.setCheckState(Qt.Unchecked)
         
         key = SettingsKeys.aspectSesquiquadrateAngleKey
-        value = float(settings.value(key, \
-            SettingsKeys.aspectSesquiquadrateAngleDefValue))
+        value = settings.value(key, \
+            SettingsKeys.aspectSesquiquadrateAngleDefValue,
+            type=float)
         self.aspectSesquiquadrateAngleSpinBox.setValue(value)
         
         key = SettingsKeys.aspectSesquiquadrateOrbKey
-        value = float(settings.value(key, \
-            SettingsKeys.aspectSesquiquadrateOrbDefValue))
+        value = settings.value(key, \
+            SettingsKeys.aspectSesquiquadrateOrbDefValue,
+            type=float)
         self.aspectSesquiquadrateOrbSpinBox.setValue(value)
         
         key = SettingsKeys.aspectSesquiquadrateColorKey
-        value = QColor(settings.value(key, \
-            SettingsKeys.aspectSesquiquadrateColorDefValue))
+        value = settings.value(key, \
+            SettingsKeys.aspectSesquiquadrateColorDefValue,
+            type=QColor)
         self.aspectSesquiquadrateColorEditButton.setColor(value)
-        
 
+        self.log.debug("Exiting _aspectLoadValuesFromSettings()")
+
+        
     def _priceBarSaveValuesToSettings(self):
         """Saves the values in the widgets to the QSettings object.
         This does it for the PriceBarChart settings.
@@ -5486,7 +5881,7 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.zoomScaleFactorSettingsKey 
         newValue = self.zoomScaleFactorSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5496,7 +5891,7 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.higherPriceBarColorSettingsKey 
         newValue = self.higherPriceBarColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5506,7 +5901,7 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.lowerPriceBarColorSettingsKey 
         newValue = self.lowerPriceBarColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5516,7 +5911,7 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.barCountGraphicsItemColorSettingsKey
         newValue = self.barCountGraphicsItemColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5526,7 +5921,7 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.barCountGraphicsItemTextColorSettingsKey
         newValue = self.barCountGraphicsItemTextColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5550,7 +5945,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetSunGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5560,7 +5955,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetSunGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5570,7 +5965,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetSunAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5580,7 +5975,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetSunForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5590,7 +5985,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetSunBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5601,7 +5996,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMoonGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5611,7 +6006,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMoonGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5621,7 +6016,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMoonAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5631,7 +6026,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMoonForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5641,7 +6036,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMoonBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5652,7 +6047,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMercuryGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5662,7 +6057,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMercuryGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5672,7 +6067,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMercuryAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5682,7 +6077,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMercuryForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5692,7 +6087,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMercuryBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5703,7 +6098,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetVenusGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5713,7 +6108,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetVenusGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5723,7 +6118,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
                     self.planetVenusAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5733,7 +6128,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetVenusForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5743,7 +6138,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetVenusBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5754,7 +6149,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetEarthGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5764,7 +6159,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetEarthGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5774,7 +6169,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetEarthAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5784,7 +6179,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetEarthForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5794,7 +6189,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetEarthBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5805,7 +6200,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMarsGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5815,7 +6210,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMarsGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5825,7 +6220,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMarsAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5835,7 +6230,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMarsForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5845,7 +6240,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMarsBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5856,7 +6251,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetJupiterGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5866,7 +6261,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetJupiterGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5876,7 +6271,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetJupiterAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5886,7 +6281,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetJupiterForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5896,7 +6291,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetJupiterBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5907,7 +6302,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetSaturnGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5917,7 +6312,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetSaturnGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5927,7 +6322,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetSaturnAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5937,7 +6332,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetSaturnForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5947,7 +6342,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetSaturnBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5958,7 +6353,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetUranusGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5968,7 +6363,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetUranusGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5978,7 +6373,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetUranusAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5988,7 +6383,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetUranusForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -5998,7 +6393,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetUranusBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6009,7 +6404,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetNeptuneGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6019,7 +6414,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetNeptuneGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6029,7 +6424,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetNeptuneAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6039,7 +6434,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetNeptuneForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6049,7 +6444,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetNeptuneBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6060,7 +6455,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetPlutoGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6070,7 +6465,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetPlutoGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6080,7 +6475,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetPlutoAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6090,7 +6485,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetPlutoForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6100,7 +6495,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetPlutoBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6111,7 +6506,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMeanNorthNodeGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6121,7 +6516,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMeanNorthNodeGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6131,7 +6526,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMeanNorthNodeAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6141,7 +6536,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMeanNorthNodeForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6151,7 +6546,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMeanNorthNodeBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6162,7 +6557,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMeanSouthNodeGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6172,7 +6567,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMeanSouthNodeGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6182,7 +6577,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMeanSouthNodeAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6192,7 +6587,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMeanSouthNodeForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6202,7 +6597,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMeanSouthNodeBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6213,7 +6608,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetTrueNorthNodeGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6223,7 +6618,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetTrueNorthNodeGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6233,7 +6628,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetTrueNorthNodeAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6243,7 +6638,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetTrueNorthNodeForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6253,7 +6648,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetTrueNorthNodeBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6264,7 +6659,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetTrueSouthNodeGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6274,7 +6669,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetTrueSouthNodeGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6284,7 +6679,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetTrueSouthNodeAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6294,7 +6689,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetTrueSouthNodeForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6304,7 +6699,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetTrueSouthNodeBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6315,7 +6710,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetCeresGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6325,7 +6720,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetCeresGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6335,7 +6730,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetCeresAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6345,7 +6740,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetCeresForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6355,7 +6750,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetCeresBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6366,7 +6761,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetPallasGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6376,7 +6771,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetPallasGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6386,7 +6781,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetPallasAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6396,7 +6791,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetPallasForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6406,7 +6801,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetPallasBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6417,7 +6812,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetJunoGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6427,7 +6822,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetJunoGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6437,7 +6832,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetJunoAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6447,7 +6842,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetJunoForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6457,7 +6852,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetJunoBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6468,7 +6863,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetVestaGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6478,7 +6873,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetVestaGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6488,7 +6883,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetVestaAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6498,7 +6893,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetVestaForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6508,7 +6903,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetVestaBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6519,7 +6914,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetChironGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6529,7 +6924,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetChironGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6539,7 +6934,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetChironAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6549,7 +6944,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetChironForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6559,7 +6954,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetChironBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6570,7 +6965,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetGulikaGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6580,7 +6975,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetGulikaGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6590,7 +6985,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetGulikaAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6600,7 +6995,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetGulikaForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6610,7 +7005,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetGulikaBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6621,7 +7016,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMandiGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6631,7 +7026,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMandiGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6641,7 +7036,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMandiAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6651,7 +7046,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMandiForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6661,7 +7056,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMandiBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6672,7 +7067,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMeanOfFiveGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6682,7 +7077,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMeanOfFiveGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6692,7 +7087,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMeanOfFiveAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6702,7 +7097,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMeanOfFiveForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6712,7 +7107,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMeanOfFiveBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6723,7 +7118,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetCycleOfEightGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6733,7 +7128,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetCycleOfEightGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6743,7 +7138,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetCycleOfEightAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6753,7 +7148,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetCycleOfEightForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6763,7 +7158,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetCycleOfEightBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6787,7 +7182,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetRetrogradeGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6797,7 +7192,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetRetrogradeGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6807,7 +7202,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetRetrogradeAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6817,7 +7212,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetRetrogradeForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6827,7 +7222,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetRetrogradeBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6838,7 +7233,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetAscendantGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6848,7 +7243,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetAscendantGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6858,7 +7253,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetAscendantAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6868,7 +7263,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetAscendantForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6878,7 +7273,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetAscendantBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6889,7 +7284,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMidheavenGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6899,7 +7294,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMidheavenGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6909,7 +7304,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMidheavenAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6919,7 +7314,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMidheavenForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6929,7 +7324,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMidheavenBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6940,7 +7335,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetHoraLagnaGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6950,7 +7345,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetHoraLagnaGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6960,7 +7355,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetHoraLagnaAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6970,7 +7365,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetHoraLagnaForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6980,7 +7375,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetHoraLagnaBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -6991,7 +7386,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetGhatiLagnaGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7001,7 +7396,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetGhatiLagnaGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7011,7 +7406,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetGhatiLagnaAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7021,7 +7416,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetGhatiLagnaForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7031,7 +7426,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetGhatiLagnaBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7042,7 +7437,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMeanLunarApogeeGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7052,7 +7447,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMeanLunarApogeeGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7062,7 +7457,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMeanLunarApogeeAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7072,7 +7467,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMeanLunarApogeeForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7082,7 +7477,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetMeanLunarApogeeBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7093,7 +7488,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetOsculatingLunarApogeeGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7103,7 +7498,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetOsculatingLunarApogeeGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7113,7 +7508,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetOsculatingLunarApogeeAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7123,7 +7518,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetOsculatingLunarApogeeForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7133,7 +7528,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetOsculatingLunarApogeeBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7144,7 +7539,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetInterpolatedLunarApogeeGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7154,7 +7549,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetInterpolatedLunarApogeeGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7164,7 +7559,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetInterpolatedLunarApogeeAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7174,7 +7569,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetInterpolatedLunarApogeeForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7184,7 +7579,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetInterpolatedLunarApogeeBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7195,7 +7590,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetInterpolatedLunarPerigeeGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7205,7 +7600,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetInterpolatedLunarPerigeeGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7215,7 +7610,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetInterpolatedLunarPerigeeAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7225,7 +7620,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetInterpolatedLunarPerigeeForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7235,7 +7630,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetInterpolatedLunarPerigeeBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7259,7 +7654,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetAriesGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7269,7 +7664,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetAriesGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7279,7 +7674,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetAriesAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7289,7 +7684,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetAriesForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7299,7 +7694,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetAriesBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7310,7 +7705,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetTaurusGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7320,7 +7715,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetTaurusGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7330,7 +7725,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetTaurusAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7340,7 +7735,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetTaurusForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7350,7 +7745,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetTaurusBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7361,7 +7756,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetGeminiGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7371,7 +7766,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetGeminiGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7381,7 +7776,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetGeminiAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7391,7 +7786,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetGeminiForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7401,7 +7796,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetGeminiBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7412,7 +7807,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetCancerGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7422,7 +7817,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetCancerGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7432,7 +7827,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetCancerAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7442,7 +7837,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetCancerForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7452,7 +7847,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetCancerBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7463,7 +7858,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetLeoGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7473,7 +7868,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetLeoGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7483,7 +7878,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetLeoAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7493,7 +7888,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetLeoForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7503,7 +7898,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetLeoBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7514,7 +7909,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetVirgoGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7524,7 +7919,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetVirgoGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7534,7 +7929,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetVirgoAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7544,7 +7939,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetVirgoForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7554,7 +7949,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetVirgoBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7565,7 +7960,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetLibraGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7575,7 +7970,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetLibraGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7585,7 +7980,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetLibraAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7595,7 +7990,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetLibraForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7605,7 +8000,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetLibraBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7616,7 +8011,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetScorpioGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7626,7 +8021,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetScorpioGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7636,7 +8031,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetScorpioAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7646,7 +8041,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetScorpioForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7656,7 +8051,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetScorpioBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7667,7 +8062,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetSagittariusGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7677,7 +8072,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetSagittariusGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7687,7 +8082,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetSagittariusAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7697,7 +8092,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetSagittariusForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7707,7 +8102,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetSagittariusBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7718,7 +8113,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetCapricornGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7728,7 +8123,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetCapricornGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7738,7 +8133,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetCapricornAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7748,7 +8143,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetCapricornForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7758,7 +8153,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetCapricornBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7769,7 +8164,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetAquariusGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7779,7 +8174,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetAquariusGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7789,7 +8184,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetAquariusAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7799,7 +8194,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetAquariusForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7809,7 +8204,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetAquariusBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7820,7 +8215,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetPiscesGlyphUnicodeLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7830,7 +8225,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetPiscesGlyphFontSizeSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7840,7 +8235,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetPiscesAbbreviationLineEdit.text()
         if settings.contains(key):
-            oldValue = str(settings.value(key))
+            oldValue = settings.value(key, type=str)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7850,7 +8245,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetPiscesForegroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7860,7 +8255,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.planetPiscesBackgroundColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7877,15 +8272,91 @@ class AppPreferencesEditWidget(QWidget):
         any parameters specified.
         """
 
+        self.log.debug("Entered _aspectSaveValuesToSettings()")
+        
         settings = QSettings()
     
+        # Aspects enabled on Astrology Chart 1.
+        key = SettingsKeys.aspectAstrologyChart1EnabledKey
+        newValue = \
+            self.aspectAstrologyChart1EnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        # Aspects enabled on Astrology Chart 2.
+        key = SettingsKeys.aspectAstrologyChart2EnabledKey
+        newValue = \
+            self.aspectAstrologyChart2EnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+        
+        # Aspects enabled on Astrology Chart 3.
+        key = SettingsKeys.aspectAstrologyChart3EnabledKey
+        newValue = \
+            self.aspectAstrologyChart3EnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Aspects enabled between Astrology Chart 1 and 2.
+        key = SettingsKeys.aspectBtwnAstrologyChart1And2EnabledKey
+        newValue = \
+            self.aspectBtwnAstrologyChart1And2EnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Aspects enabled between Astrology Chart 1 and 3.
+        key = SettingsKeys.aspectBtwnAstrologyChart1And3EnabledKey
+        newValue = \
+            self.aspectBtwnAstrologyChart1And3EnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Aspects enabled between Astrology Chart 2 and 3.
+        key = SettingsKeys.aspectBtwnAstrologyChart2And3EnabledKey
+        newValue = \
+            self.aspectBtwnAstrologyChart2And3EnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
         # Conjunction.
         key = SettingsKeys.aspectConjunctionEnabledKey
         newValue = \
-            (self.aspectConjunctionEnabledCheckBox.\
-             checkState() == Qt.Checked)
+            self.aspectConjunctionEnabledCheckBox.\
+            checkState() == Qt.Checked
         if settings.contains(key):
-            oldValue = bool(settings.value(key))
+            oldValue = settings.value(key, type=bool)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7895,7 +8366,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.aspectConjunctionAngleSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7905,7 +8376,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.aspectConjunctionOrbSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7915,7 +8386,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.aspectConjunctionColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7924,10 +8395,10 @@ class AppPreferencesEditWidget(QWidget):
         # Opposition.
         key = SettingsKeys.aspectOppositionEnabledKey
         newValue = \
-            (self.aspectOppositionEnabledCheckBox.\
-             checkState() == Qt.Checked)
+            self.aspectOppositionEnabledCheckBox.\
+            checkState() == Qt.Checked
         if settings.contains(key):
-            oldValue = bool(settings.value(key))
+            oldValue = settings.value(key, type=bool)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7937,7 +8408,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.aspectOppositionAngleSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7947,7 +8418,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.aspectOppositionOrbSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7957,7 +8428,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.aspectOppositionColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7966,10 +8437,10 @@ class AppPreferencesEditWidget(QWidget):
         # Square.
         key = SettingsKeys.aspectSquareEnabledKey
         newValue = \
-            (self.aspectSquareEnabledCheckBox.\
-             checkState() == Qt.Checked)
+            self.aspectSquareEnabledCheckBox.\
+            checkState() == Qt.Checked
         if settings.contains(key):
-            oldValue = bool(settings.value(key))
+            oldValue = settings.value(key, type=bool)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7979,7 +8450,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.aspectSquareAngleSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7989,7 +8460,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.aspectSquareOrbSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -7999,7 +8470,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.aspectSquareColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -8008,10 +8479,10 @@ class AppPreferencesEditWidget(QWidget):
         # Trine.
         key = SettingsKeys.aspectTrineEnabledKey
         newValue = \
-            (self.aspectTrineEnabledCheckBox.\
-             checkState() == Qt.Checked)
+            self.aspectTrineEnabledCheckBox.\
+            checkState() == Qt.Checked
         if settings.contains(key):
-            oldValue = bool(settings.value(key))
+            oldValue = settings.value(key, type=bool)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -8021,7 +8492,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.aspectTrineAngleSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -8031,7 +8502,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.aspectTrineOrbSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -8041,7 +8512,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.aspectTrineColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -8050,10 +8521,10 @@ class AppPreferencesEditWidget(QWidget):
         # Sextile.
         key = SettingsKeys.aspectSextileEnabledKey
         newValue = \
-            (self.aspectSextileEnabledCheckBox.\
-             checkState() == Qt.Checked)
+            self.aspectSextileEnabledCheckBox.\
+            checkState() == Qt.Checked
         if settings.contains(key):
-            oldValue = bool(settings.value(key))
+            oldValue = settings.value(key, type=bool)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -8063,7 +8534,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.aspectSextileAngleSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -8073,7 +8544,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.aspectSextileOrbSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -8083,7 +8554,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.aspectSextileColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -8092,10 +8563,10 @@ class AppPreferencesEditWidget(QWidget):
         # Inconjunct.
         key = SettingsKeys.aspectInconjunctEnabledKey
         newValue = \
-            (self.aspectInconjunctEnabledCheckBox.\
-             checkState() == Qt.Checked)
+            self.aspectInconjunctEnabledCheckBox.\
+            checkState() == Qt.Checked
         if settings.contains(key):
-            oldValue = bool(settings.value(key))
+            oldValue = settings.value(key, type=bool)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -8105,7 +8576,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.aspectInconjunctAngleSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -8115,7 +8586,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.aspectInconjunctOrbSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -8125,7 +8596,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.aspectInconjunctColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -8134,10 +8605,10 @@ class AppPreferencesEditWidget(QWidget):
         # Semisextile.
         key = SettingsKeys.aspectSemisextileEnabledKey
         newValue = \
-            (self.aspectSemisextileEnabledCheckBox.\
-             checkState() == Qt.Checked)
+            self.aspectSemisextileEnabledCheckBox.\
+            checkState() == Qt.Checked
         if settings.contains(key):
-            oldValue = bool(settings.value(key))
+            oldValue = settings.value(key, type=bool)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -8147,7 +8618,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.aspectSemisextileAngleSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -8157,7 +8628,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.aspectSemisextileOrbSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -8167,7 +8638,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.aspectSemisextileColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -8176,10 +8647,10 @@ class AppPreferencesEditWidget(QWidget):
         # Semisquare.
         key = SettingsKeys.aspectSemisquareEnabledKey
         newValue = \
-            (self.aspectSemisquareEnabledCheckBox.\
-             checkState() == Qt.Checked)
+            self.aspectSemisquareEnabledCheckBox.\
+            checkState() == Qt.Checked
         if settings.contains(key):
-            oldValue = bool(settings.value(key))
+            oldValue = settings.value(key, type=bool)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -8189,7 +8660,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.aspectSemisquareAngleSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -8199,7 +8670,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.aspectSemisquareOrbSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -8209,7 +8680,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.aspectSemisquareColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -8218,10 +8689,10 @@ class AppPreferencesEditWidget(QWidget):
         # Sesquiquadrate.
         key = SettingsKeys.aspectSesquiquadrateEnabledKey
         newValue = \
-            (self.aspectSesquiquadrateEnabledCheckBox.\
-             checkState() == Qt.Checked)
+            self.aspectSesquiquadrateEnabledCheckBox.\
+            checkState() == Qt.Checked
         if settings.contains(key):
-            oldValue = bool(settings.value(key))
+            oldValue = settings.value(key, type=bool)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -8231,7 +8702,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.aspectSesquiquadrateAngleSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -8241,7 +8712,7 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.aspectSesquiquadrateOrbSpinBox.value()
         if settings.contains(key):
-            oldValue = float(settings.value(key))
+            oldValue = settings.value(key, type=float)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
@@ -8251,12 +8722,11 @@ class AppPreferencesEditWidget(QWidget):
         newValue = \
             self.aspectSesquiquadrateColorEditButton.getColor()
         if settings.contains(key):
-            oldValue = QColor(settings.value(key))
+            oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
                 settings.setValue(key, newValue)
         else:
             settings.setValue(key, newValue)
-
 
     def _handleZoomScaleFactorResetButtonClicked(self):
         """Called when the zoomScaleFactorResetButton is clicked.
@@ -8880,7 +9350,49 @@ class AppPreferencesEditWidget(QWidget):
         Resets the all the widget values in this widget tab to the default
         values.
         """
-        
+
+        # Aspects enabled on Astrology Chart 1.
+        value = bool(SettingsKeys.aspectAstrologyChart1EnabledDefValue)
+        if value == True:
+            self.aspectAstrologyChart1EnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectAstrologyChart1EnabledCheckBox.setCheckState(Qt.Unchecked)
+            
+        # Aspects enabled on Astrology Chart 2.
+        value = bool(SettingsKeys.aspectAstrologyChart2EnabledDefValue)
+        if value == True:
+            self.aspectAstrologyChart2EnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectAstrologyChart2EnabledCheckBox.setCheckState(Qt.Unchecked)
+            
+        # Aspects enabled on Astrology Chart 3.
+        value = bool(SettingsKeys.aspectAstrologyChart3EnabledDefValue)
+        if value == True:
+            self.aspectAstrologyChart3EnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectAstrologyChart3EnabledCheckBox.setCheckState(Qt.Unchecked)
+            
+        # Aspects enabled between Astrology Chart 1 and 2.
+        value = bool(SettingsKeys.aspectBtwnAstrologyChart1And2EnabledDefValue)
+        if value == True:
+            self.aspectBtwnAstrologyChart1And2EnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectBtwnAstrologyChart1And2EnabledCheckBox.setCheckState(Qt.Unchecked)
+            
+        # Aspects enabled between Astrology Chart 1 and 3.
+        value = bool(SettingsKeys.aspectBtwnAstrologyChart1And3EnabledDefValue)
+        if value == True:
+            self.aspectBtwnAstrologyChart1And3EnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectBtwnAstrologyChart1And3EnabledCheckBox.setCheckState(Qt.Unchecked)
+            
+        # Aspects enabled between Astrology Chart 2 and 3.
+        value = bool(SettingsKeys.aspectBtwnAstrologyChart2And3EnabledDefValue)
+        if value == True:
+            self.aspectBtwnAstrologyChart2And3EnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.aspectBtwnAstrologyChart2And3EnabledCheckBox.setCheckState(Qt.Unchecked)
+            
         # Conjunction.
         value = bool(SettingsKeys.aspectConjunctionEnabledDefValue)
         if value == True:

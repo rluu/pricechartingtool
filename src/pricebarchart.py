@@ -190,14 +190,14 @@ class PriceBarGraphicsItem(QGraphicsItem):
         defaultValue = \
             SettingsKeys.higherPriceBarColorSettingsDefValue
         self.higherPriceBarColor = \
-            QColor(settings.value(key, defaultValue))
+            settings.value(key, defaultValue, type=QColor)
 
         # lowerPriceBarColor
         key = SettingsKeys.lowerPriceBarColorSettingsKey
         defaultValue = \
             SettingsKeys.lowerPriceBarColorSettingsDefValue
         self.lowerPriceBarColor = \
-            QColor(settings.value(key, defaultValue))
+            settings.value(key, defaultValue, type=QColor)
 
 
     def setPriceBar(self, priceBar):
@@ -1250,14 +1250,14 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         defaultValue = \
             SettingsKeys.barCountGraphicsItemColorSettingsDefValue
         self.barCountGraphicsItemColor = \
-            QColor(settings.value(key, defaultValue))
+            settings.value(key, defaultValue, type=QColor)
 
         # barCountGraphicsItemTextColor
         key = SettingsKeys.barCountGraphicsItemTextColorSettingsKey
         defaultValue = \
             SettingsKeys.barCountGraphicsItemTextColorSettingsDefValue
         self.barCountGraphicsItemTextColor = \
-            QColor(settings.value(key, defaultValue))
+            settings.value(key, defaultValue, type=QColor)
         
     def setPos(self, pos):
         """Overwrites the QGraphicsItem setPos() function.
@@ -39446,8 +39446,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
         # Get the QSetting key for the zoom scaling amounts.
         settings = QSettings()
         scaleFactor = \
-            float(settings.value(self.zoomScaleFactorSettingsKey, \
-                  SettingsKeys.zoomScaleFactorSettingsDefValue))
+            settings.value(self.zoomScaleFactorSettingsKey, \
+                           SettingsKeys.zoomScaleFactorSettingsDefValue,
+                           type=float)
         
         # Actually do the scaling of the view.
         if qwheelevent.delta() > 0:
@@ -40477,8 +40478,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # Get the QSetting key for the zoom scaling amounts.
                 settings = QSettings()
                 scaleFactor = \
-                    float(settings.value(self.zoomScaleFactorSettingsKey, \
-                            SettingsKeys.zoomScaleFactorSettingsDefValue))
+                    settings.value(self.zoomScaleFactorSettingsKey, \
+                        SettingsKeys.zoomScaleFactorSettingsDefValue,
+                        type=float)
 
                 # Actually do the scaling of the view.
                 self.scale(scaleFactor, scaleFactor)
@@ -40505,8 +40507,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # Get the QSetting key for the zoom scaling amounts.
                 settings = QSettings()
                 scaleFactor = \
-                    float(settings.value(self.zoomScaleFactorSettingsKey, \
-                            SettingsKeys.zoomScaleFactorSettingsDefValue))
+                    settings.value(self.zoomScaleFactorSettingsKey, \
+                        SettingsKeys.zoomScaleFactorSettingsDefValue,
+                        type=float)
 
                 # Actually do the scaling of the view.
                 self.scale(1.0 / scaleFactor, 1.0 / scaleFactor)

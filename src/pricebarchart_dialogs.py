@@ -18,9 +18,6 @@ from PyQt4 import QtCore
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-# For QSettings keys.
-from settings import SettingsKeys
-
 # For PriceBars and artifacts in the chart.
 from data_objects import BirthInfo
 from data_objects import PriceBar
@@ -7661,9 +7658,6 @@ class PriceBarChartLineSegmentArtifactEditWidget(QWidget):
         
         # QGroupBox to hold the edit widgets and form.
         self.groupBox = QGroupBox("PriceBarChartLineSegmentArtifact Data:")
-
-        # Settings object.
-        settings = QSettings()
 
         # Value for extending the line segment by a certain multiple
         # of the length.

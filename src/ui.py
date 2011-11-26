@@ -1166,16 +1166,15 @@ class MainWindow(QMainWindow):
 
         # Window geometry.
         self.windowGeometry = \
-            settings.value("ui/MainWindow/windowGeometry")
+            settings.value("ui/MainWindow/windowGeometry", type=QByteArray)
         if self.windowGeometry == None:
             self.windowGeometry = QByteArray()
             
         # Window state.
         self.windowState = \
-            settings.value("ui/MainWindow/windowState")
+            settings.value("ui/MainWindow/windowState", type=QByteArray)
         if self.windowState == None:
             self.windowState = QByteArray()
-
 
         self.log.debug("Exiting _readSettings()")
 
@@ -1198,15 +1197,18 @@ class MainWindow(QMainWindow):
         # Only write the settings if the value has changed.
 
         # Window geometry.
-        if settings.value("ui/MainWindow/windowGeometry") != \
+        if settings.value("ui/MainWindow/windowGeometry", type=QByteArray) != \
                 self.saveGeometry():
 
             settings.setValue("ui/MainWindow/windowGeometry", 
                               self.saveGeometry())
 
         # Window state.
-        if settings.value("ui/MainWindow/windowState") != self.saveState():
-            settings.setValue("ui/MainWindow/windowState", self.saveState())
+        if settings.value("ui/MainWindow/windowState", type=QByteArray) != \
+               self.saveState():
+            
+            settings.setValue("ui/MainWindow/windowState",
+                              self.saveState())
 
 
         self.log.debug("Exiting _writeSettings()")
@@ -1291,7 +1293,9 @@ class MainWindow(QMainWindow):
         # PriceChartDocument.
         settings = QSettings()
         defaultPriceChartDocumentOpenDirectory = \
-            settings.value("ui/defaultPriceChartDocumentOpenDirectory", "")
+            settings.value("ui/defaultPriceChartDocumentOpenDirectory",
+                           "",
+                           type=str)
 
         filename = \
             QFileDialog.\
@@ -4459,7 +4463,9 @@ class PriceChartDocument(QMdiSubWindow):
         # PriceChartDocument.
         settings = QSettings()
         defaultPriceChartDocumentSaveDirectory = \
-            settings.value("ui/defaultPriceChartDocumentSaveDirectory", "")
+            settings.value("ui/defaultPriceChartDocumentSaveDirectory",
+                           "",
+                           type=str)
 
         # Prompt for what filename to save the data to.
         filename = QFileDialog.\

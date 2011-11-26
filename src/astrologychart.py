@@ -26,6 +26,9 @@ from settings import SettingsKeys
 # For BirthInfo.
 from data_objects import BirthInfo
 
+# For various utility functions.
+from data_objects import Util
+
 # For conversions from julian day to datetime.datetime and vice versa.
 from ephemeris import Ephemeris
 
@@ -75,55 +78,79 @@ class AstrologyUtils:
         
         signGlyphs = [\
             settings.value(SettingsKeys.signAriesGlyphUnicodeKey,
-                           SettingsKeys.signAriesGlyphUnicodeDefValue),
+                           SettingsKeys.signAriesGlyphUnicodeDefValue,
+                           type=str),
             settings.value(SettingsKeys.signTaurusGlyphUnicodeKey,
-                           SettingsKeys.signTaurusGlyphUnicodeDefValue),
+                           SettingsKeys.signTaurusGlyphUnicodeDefValue,
+                           type=str),
             settings.value(SettingsKeys.signGeminiGlyphUnicodeKey,
-                           SettingsKeys.signGeminiGlyphUnicodeDefValue),
+                           SettingsKeys.signGeminiGlyphUnicodeDefValue,
+                           type=str),
             settings.value(SettingsKeys.signCancerGlyphUnicodeKey,
-                           SettingsKeys.signCancerGlyphUnicodeDefValue),
+                           SettingsKeys.signCancerGlyphUnicodeDefValue,
+                           type=str),
             settings.value(SettingsKeys.signLeoGlyphUnicodeKey,
-                           SettingsKeys.signLeoGlyphUnicodeDefValue),
+                           SettingsKeys.signLeoGlyphUnicodeDefValue,
+                           type=str),
             settings.value(SettingsKeys.signVirgoGlyphUnicodeKey,
-                           SettingsKeys.signVirgoGlyphUnicodeDefValue),
+                           SettingsKeys.signVirgoGlyphUnicodeDefValue,
+                           type=str),
             settings.value(SettingsKeys.signLibraGlyphUnicodeKey,
-                           SettingsKeys.signLibraGlyphUnicodeDefValue),
+                           SettingsKeys.signLibraGlyphUnicodeDefValue,
+                           type=str),
             settings.value(SettingsKeys.signScorpioGlyphUnicodeKey,
-                           SettingsKeys.signScorpioGlyphUnicodeDefValue),
+                           SettingsKeys.signScorpioGlyphUnicodeDefValue,
+                           type=str),
             settings.value(SettingsKeys.signSagittariusGlyphUnicodeKey,
-                           SettingsKeys.signSagittariusGlyphUnicodeDefValue),
+                           SettingsKeys.signSagittariusGlyphUnicodeDefValue,
+                           type=str),
             settings.value(SettingsKeys.signCapricornGlyphUnicodeKey,
-                           SettingsKeys.signCapricornGlyphUnicodeDefValue),
+                           SettingsKeys.signCapricornGlyphUnicodeDefValue,
+                           type=str),
             settings.value(SettingsKeys.signAquariusGlyphUnicodeKey,
-                           SettingsKeys.signAquariusGlyphUnicodeDefValue),
+                           SettingsKeys.signAquariusGlyphUnicodeDefValue,
+                           type=str),
             settings.value(SettingsKeys.signPiscesGlyphUnicodeKey,
-                           SettingsKeys.signPiscesGlyphUnicodeDefValue)]
+                           SettingsKeys.signPiscesGlyphUnicodeDefValue,
+                           type=str)]
 
         signAbbreviations = [\
             settings.value(SettingsKeys.signAriesAbbreviationKey,
-                           SettingsKeys.signAriesAbbreviationDefValue),
+                           SettingsKeys.signAriesAbbreviationDefValue,
+                           type=str),
             settings.value(SettingsKeys.signTaurusAbbreviationKey,
-                           SettingsKeys.signTaurusAbbreviationDefValue),
+                           SettingsKeys.signTaurusAbbreviationDefValue,
+                           type=str),
             settings.value(SettingsKeys.signGeminiAbbreviationKey,
-                           SettingsKeys.signGeminiAbbreviationDefValue),
+                           SettingsKeys.signGeminiAbbreviationDefValue,
+                           type=str),
             settings.value(SettingsKeys.signCancerAbbreviationKey,
-                           SettingsKeys.signCancerAbbreviationDefValue),
+                           SettingsKeys.signCancerAbbreviationDefValue,
+                           type=str),
             settings.value(SettingsKeys.signLeoAbbreviationKey,
-                           SettingsKeys.signLeoAbbreviationDefValue),
+                           SettingsKeys.signLeoAbbreviationDefValue,
+                           type=str),
             settings.value(SettingsKeys.signVirgoAbbreviationKey,
-                           SettingsKeys.signVirgoAbbreviationDefValue),
+                           SettingsKeys.signVirgoAbbreviationDefValue,
+                           type=str),
             settings.value(SettingsKeys.signLibraAbbreviationKey,
-                           SettingsKeys.signLibraAbbreviationDefValue),
+                           SettingsKeys.signLibraAbbreviationDefValue,
+                           type=str),
             settings.value(SettingsKeys.signScorpioAbbreviationKey,
-                           SettingsKeys.signScorpioAbbreviationDefValue),
+                           SettingsKeys.signScorpioAbbreviationDefValue,
+                           type=str),
             settings.value(SettingsKeys.signSagittariusAbbreviationKey,
-                           SettingsKeys.signSagittariusAbbreviationDefValue),
+                           SettingsKeys.signSagittariusAbbreviationDefValue,
+                           type=str),
             settings.value(SettingsKeys.signCapricornAbbreviationKey,
-                           SettingsKeys.signCapricornAbbreviationDefValue),
+                           SettingsKeys.signCapricornAbbreviationDefValue,
+                           type=str),
             settings.value(SettingsKeys.signAquariusAbbreviationKey,
-                           SettingsKeys.signAquariusAbbreviationDefValue),
+                           SettingsKeys.signAquariusAbbreviationDefValue,
+                           type=str),
             settings.value(SettingsKeys.signPiscesAbbreviationKey,
-                           SettingsKeys.signPiscesAbbreviationDefValue)]
+                           SettingsKeys.signPiscesAbbreviationDefValue,
+                           type=str)]
 
         degreesStr = "{: >2}".format(degrees)
         rasiStr = signGlyphs[rasi]
@@ -937,60 +964,756 @@ class AstrologyUtils:
 class RadixChartAspectGraphicsItem(QGraphicsItem):
     """QGraphicsItem that represents an aspect on a Radix Chart."""
 
-    # TODO:  shouldn't the createAspectIfApplicable() function below be in class RadixChartGraphicsItem?  Think about this to see what makes sense.
-    @staticmethod
-    def createAspectIfApplicable(p1Degree, p2Degree, parent):
-        """Creates a RadixChartAspectGraphicsItem that is
-        a child of 'parent', if the degrees in
-        'p1Degree' and 'p2Degree' make an aspect that is enabled.
-        The color and brush will be set accordingly, depending on the aspect.
-        
-        Note: If no aspect applies, then None is returned.  This only
-        creates aspect types that are enabled and configured in
-        Application Preferences (QSettings).
-
-        Arguments:
-        p1Degree - float value for the degrees of the first planet.
-        p2Degree - float value for the degrees of the second planet.
-        parent - RadixChartGraphicsItem that is the parent for this aspect.
-
-        Returns:
-        
-        If an aspect applies to the given degrees, then an
-        RadixChartAspectGraphicsItem object is returned.  This object
-        will have'parent' as the parent RadixChartGraphicsItem.
-        
-        If no enabled aspect applies to the given degrees, then None
-        is returned.
-        """
-        
-        # TODO:  read QSettings to find out which aspects are enabled.
-        
-        pass
-        
-    
     def __init__(self, parent=None, scene=None):
         super().__init__(parent, scene)
     
         # Logger
         self.log = \
             logging.getLogger("astrologychart.RadixChartAspectGraphicsItem")
+            
+        # Name of the aspect that is applied.
+        self.aspectName = None
 
+        # Angle of the aspect that is applied (the ideal exact angle).
+        self.aspectAngle = None
+        
+        # Orb setting that makes the aspect applicable.
+        self.aspectOrb = None
+
+        # Actual aspect angle between the two planets.
+        self.actualAspectAngle = None
+        
+        # Actual orb between the two planets.
+        self.actualAspectOrb = None
+        
+        # Color of the drawn line.
+        self.color = None
+
+        # Brush style.
+        self.brushStyle = None
+        
+        # Degree of the first planet.
+        self.p1Degree = None
+
+        # Degree of the second planet.
+        self.p2Degree = None
+
+        # Wheel number of the first planet.
+        self.p1WheelNumber = None
+        
+        # Wheel number of the second planet.
+        self.p2WheelNumber = None
+        
+        # Use QSettings to get application preferences related to the
+        # aspects.
+        self.settings = QSettings()
+
+        # Keep a running total of the different number of aspects that
+        # apply between these two planets.  Ideally, only one aspect
+        # type should apply, but this can happen if the orb is really
+        # large.  In this case, we would log a warning and use the last
+        # applicable aspect tested.
+        self.numAspectMatches = 0
+        
+        # Start and end points of the line segment, in parent coordinates.
+        # These are used by the paint function.
+        self.startPointF = QPointF(0.0, 0.0)
+        self.endPointF = QPointF(0.0, 0.0)
+        
+        # Set to not enabled and not visible by default, until other
+        # parameters are set.
+        self.setEnabled(False)
+        self.setVisible(False)
+
+    def setForPlanets(self, p1Degree, p2Degree,
+                            p1WheelNumber, p2WheelNumber):
+        """Sets the item so that it is applicable for the above parameters.
+        
+        Arguments:
+        p1Degree      - Degrees of longitude for the planet 1.
+        p2Degree      - Degrees of longitude for the planet 2.
+        p1WheelNumber - Wheel number applicable to planet 1.
+        p2WheelNumber - Wheel number applicable to planet 2.
+        """
+        
+
+        if self.log.isEnabledFor(logging.DEBUG) == True:
+            self.log.debug("Entered setForPlanets()")
+            self.log.debug("p1Degree == {}".format(p1Degree))
+            self.log.debug("p2Degree == {}".format(p2Degree))
+            self.log.debug("p1WheelNumber == {}".format(p1WheelNumber))
+            self.log.debug("p2WheelNumber == {}".format(p2WheelNumber))
+
+        # Set the enabled flag to True unless we find a case where it
+        # should be False.
+        enabledFlag = True
+        
+        # Reset the count for the number of aspect matches.
+        self.numAspectMatches = 0
+        
+        # See if the wheel numbers used are applicable.
+        
+        if (p1WheelNumber == 1 or p2WheelNumber == 1) and \
+            self.settings.value(\
+            SettingsKeys.aspectAstrologyChart1EnabledKey, \
+            SettingsKeys.aspectAstrologyChart1EnabledDefValue,
+            type=bool) == False:
+
+            enabledFlag = False
+
+        if (p1WheelNumber == 2 or p2WheelNumber == 2) and \
+            self.settings.value(\
+            SettingsKeys.aspectAstrologyChart2EnabledKey, \
+            SettingsKeys.aspectAstrologyChart2EnabledDefValue,
+            type=bool) == False:
+
+            enabledFlag = False
+        
+        if (p1WheelNumber == 3 or p2WheelNumber == 3) and \
+            self.settings.value(\
+            SettingsKeys.aspectAstrologyChart3EnabledKey, \
+            SettingsKeys.aspectAstrologyChart3EnabledDefValue,
+            type=bool) == False:
+
+            enabledFlag = False
+        
+        if ((p1WheelNumber == 1 and p2WheelNumber == 2) or \
+            (p1WheelNumber == 2 and p2WheelNumber == 1)) and \
+            self.settings.value(\
+            SettingsKeys.aspectBtwnAstrologyChart1And2EnabledKey, \
+            SettingsKeys.aspectBtwnAstrologyChart1And2EnabledDefValue,
+            type=bool) == False:
+
+            enabledFlag = False
+            
+        if ((p1WheelNumber == 1 and p2WheelNumber == 3) or \
+            (p1WheelNumber == 3 and p2WheelNumber == 1)) and \
+            self.settings.value(\
+            SettingsKeys.aspectBtwnAstrologyChart1And3EnabledKey, \
+            SettingsKeys.aspectBtwnAstrologyChart1And3EnabledDefValue,
+            type=bool) == False:
+
+            enabledFlag = False
+            
+        if ((p1WheelNumber == 2 and p2WheelNumber == 3) or \
+            (p1WheelNumber == 3 and p2WheelNumber == 2)) and \
+            self.settings.value(\
+            SettingsKeys.aspectBtwnAstrologyChart2And3EnabledKey, \
+            SettingsKeys.aspectBtwnAstrologyChart2And3EnabledDefValue,
+            type=bool) == False:
+
+            enabledFlag = False
+
+        if enabledFlag == False:
+            # If this particular combination of chart wheel numbers is
+            # not enabled, then set to the item to disabled and return.
+            self.log.debug("Not enabled.")
+            
+            # Set all values to None.
+            self.aspectName = None
+            self.aspectAngle = None
+            self.aspectOrb = None
+            self.actualAspectAngle = None
+            self.actualAspectOrb = None
+            self.color = None
+            self.p1Degree = None
+            self.p2Degree = None
+            self.p1WheelNumber = None
+            self.p2WheelNumber = None
+
+            # Set as disabled and not visible.
+            self.setEnabled(False)
+            self.setVisible(False)
+
+            # Return.
+            return
+
+        # Calculate the diffs to determine what kind of aspect this
+        # would be.
+        diff = Util.toNormalizedAngle(p2Degree - p1Degree)
+
+        if self.log.isEnabledFor(logging.DEBUG) == True:
+            self.log.debug("diff == {}".format(diff))
+        
+        # Conjunction.
+        if self.settings.value(\
+            SettingsKeys.aspectConjunctionEnabledKey, \
+            SettingsKeys.aspectConjunctionEnabledDefValue,
+            type=bool) == True:
+
+            # Values from QSettings, related to this aspect.
+            name = \
+                self.settings.value(\
+                SettingsKeys.aspectConjunctionNameKey,
+                SettingsKeys.aspectConjunctionNameDefValue,
+                type=str)
+            
+            angle = \
+                self.settings.value(\
+                SettingsKeys.aspectConjunctionAngleKey,
+                SettingsKeys.aspectConjunctionAngleDefValue,
+                type=float)
+
+            orb = \
+                self.settings.value(\
+                SettingsKeys.aspectConjunctionOrbKey,
+                SettingsKeys.aspectConjunctionOrbDefValue,
+                type=float)
+
+            color = \
+                self.settings.value(\
+                SettingsKeys.aspectConjunctionColorKey,
+                SettingsKeys.aspectConjunctionColorDefValue,
+                type=QColor)
+
+            self._matchTest(\
+                name, angle, orb, color,
+                p1Degree, p2Degree, p1WheelNumber, p2WheelNumber,
+                diff)
+
+        # Opposition.
+        if self.settings.value(\
+            SettingsKeys.aspectOppositionEnabledKey, \
+            SettingsKeys.aspectOppositionEnabledDefValue,
+            type=bool) == True:
+
+            # Values from QSettings, related to this aspect.
+            name = \
+                self.settings.value(\
+                SettingsKeys.aspectOppositionNameKey,
+                SettingsKeys.aspectOppositionNameDefValue,
+                type=str)
+            
+            angle = \
+                self.settings.value(\
+                SettingsKeys.aspectOppositionAngleKey,
+                SettingsKeys.aspectOppositionAngleDefValue,
+                type=float)
+
+            orb = \
+                self.settings.value(\
+                SettingsKeys.aspectOppositionOrbKey,
+                SettingsKeys.aspectOppositionOrbDefValue,
+                type=float)
+
+            color = \
+                self.settings.value(\
+                SettingsKeys.aspectOppositionColorKey,
+                SettingsKeys.aspectOppositionColorDefValue,
+                type=QColor)
+
+            self._matchTest(\
+                name, angle, orb, color,
+                p1Degree, p2Degree, p1WheelNumber, p2WheelNumber,
+                diff)
+
+        # Square.
+        if self.settings.value(\
+            SettingsKeys.aspectSquareEnabledKey, \
+            SettingsKeys.aspectSquareEnabledDefValue,
+            type=bool) == True:
+
+            # Values from QSettings, related to this aspect.
+            name = \
+                self.settings.value(\
+                SettingsKeys.aspectSquareNameKey,
+                SettingsKeys.aspectSquareNameDefValue,
+                type=str)
+            
+            angle = \
+                self.settings.value(\
+                SettingsKeys.aspectSquareAngleKey,
+                SettingsKeys.aspectSquareAngleDefValue,
+                type=float)
+
+            orb = \
+                self.settings.value(\
+                SettingsKeys.aspectSquareOrbKey,
+                SettingsKeys.aspectSquareOrbDefValue,
+                type=float)
+
+            color = \
+                self.settings.value(\
+                SettingsKeys.aspectSquareColorKey,
+                SettingsKeys.aspectSquareColorDefValue,
+                type=QColor)
+
+            self._matchTest(\
+                name, angle, orb, color,
+                p1Degree, p2Degree, p1WheelNumber, p2WheelNumber,
+                diff)
+
+        # Trine.
+        if self.settings.value(\
+            SettingsKeys.aspectTrineEnabledKey, \
+            SettingsKeys.aspectTrineEnabledDefValue,
+            type=bool) == True:
+
+            # Values from QSettings, related to this aspect.
+            name = \
+                self.settings.value(\
+                SettingsKeys.aspectTrineNameKey,
+                SettingsKeys.aspectTrineNameDefValue,
+                type=str)
+            
+            angle = \
+                self.settings.value(\
+                SettingsKeys.aspectTrineAngleKey,
+                SettingsKeys.aspectTrineAngleDefValue,
+                type=float)
+
+            orb = \
+                self.settings.value(\
+                SettingsKeys.aspectTrineOrbKey,
+                SettingsKeys.aspectTrineOrbDefValue,
+                type=float)
+
+            color = \
+                self.settings.value(\
+                SettingsKeys.aspectTrineColorKey,
+                SettingsKeys.aspectTrineColorDefValue,
+                type=QColor)
+
+            self._matchTest(\
+                name, angle, orb, color,
+                p1Degree, p2Degree, p1WheelNumber, p2WheelNumber,
+                diff)
+
+        # Sextile.
+        if self.settings.value(\
+            SettingsKeys.aspectSextileEnabledKey, \
+            SettingsKeys.aspectSextileEnabledDefValue,
+            type=bool) == True:
+
+            # Values from QSettings, related to this aspect.
+            name = \
+                self.settings.value(\
+                SettingsKeys.aspectSextileNameKey,
+                SettingsKeys.aspectSextileNameDefValue,
+                type=str)
+            
+            angle = \
+                self.settings.value(\
+                SettingsKeys.aspectSextileAngleKey,
+                SettingsKeys.aspectSextileAngleDefValue,
+                type=float)
+
+            orb = \
+                self.settings.value(\
+                SettingsKeys.aspectSextileOrbKey,
+                SettingsKeys.aspectSextileOrbDefValue,
+                type=float)
+
+            color = \
+                self.settings.value(\
+                SettingsKeys.aspectSextileColorKey,
+                SettingsKeys.aspectSextileColorDefValue,
+                type=QColor)
+
+            self._matchTest(\
+                name, angle, orb, color,
+                p1Degree, p2Degree, p1WheelNumber, p2WheelNumber,
+                diff)
+
+        # Inconjunct.
+        if self.settings.value(\
+            SettingsKeys.aspectInconjunctEnabledKey, \
+            SettingsKeys.aspectInconjunctEnabledDefValue,
+            type=bool) == True:
+
+            # Values from QSettings, related to this aspect.
+            name = \
+                self.settings.value(\
+                SettingsKeys.aspectInconjunctNameKey,
+                SettingsKeys.aspectInconjunctNameDefValue,
+                type=str)
+            
+            angle = \
+                self.settings.value(\
+                SettingsKeys.aspectInconjunctAngleKey,
+                SettingsKeys.aspectInconjunctAngleDefValue,
+                type=float)
+
+            orb = \
+                self.settings.value(\
+                SettingsKeys.aspectInconjunctOrbKey,
+                SettingsKeys.aspectInconjunctOrbDefValue,
+                type=float)
+
+            color = \
+                self.settings.value(\
+                SettingsKeys.aspectInconjunctColorKey,
+                SettingsKeys.aspectInconjunctColorDefValue,
+                type=QColor)
+
+            self._matchTest(\
+                name, angle, orb, color,
+                p1Degree, p2Degree, p1WheelNumber, p2WheelNumber,
+                diff)
+
+        # Semisextile.
+        if self.settings.value(\
+            SettingsKeys.aspectSemisextileEnabledKey, \
+            SettingsKeys.aspectSemisextileEnabledDefValue,
+            type=bool) == True:
+
+            # Values from QSettings, related to this aspect.
+            name = \
+                self.settings.value(\
+                SettingsKeys.aspectSemisextileNameKey,
+                SettingsKeys.aspectSemisextileNameDefValue,
+                type=str)
+            
+            angle = \
+                self.settings.value(\
+                SettingsKeys.aspectSemisextileAngleKey,
+                SettingsKeys.aspectSemisextileAngleDefValue,
+                type=float)
+
+            orb = \
+                self.settings.value(\
+                SettingsKeys.aspectSemisextileOrbKey,
+                SettingsKeys.aspectSemisextileOrbDefValue,
+                type=float)
+
+            color = \
+                self.settings.value(\
+                SettingsKeys.aspectSemisextileColorKey,
+                SettingsKeys.aspectSemisextileColorDefValue,
+                type=QColor)
+
+            self._matchTest(\
+                name, angle, orb, color,
+                p1Degree, p2Degree, p1WheelNumber, p2WheelNumber,
+                diff)
+
+        # Semisquare.
+        if self.settings.value(\
+            SettingsKeys.aspectSemisquareEnabledKey, \
+            SettingsKeys.aspectSemisquareEnabledDefValue,
+            type=bool) == True:
+
+            # Values from QSettings, related to this aspect.
+            name = \
+                self.settings.value(\
+                SettingsKeys.aspectSemisquareNameKey,
+                SettingsKeys.aspectSemisquareNameDefValue,
+                type=str)
+            
+            angle = \
+                self.settings.value(\
+                SettingsKeys.aspectSemisquareAngleKey,
+                SettingsKeys.aspectSemisquareAngleDefValue,
+                type=float)
+
+            orb = \
+                self.settings.value(\
+                SettingsKeys.aspectSemisquareOrbKey,
+                SettingsKeys.aspectSemisquareOrbDefValue,
+                type=float)
+
+            color = \
+                self.settings.value(\
+                SettingsKeys.aspectSemisquareColorKey,
+                SettingsKeys.aspectSemisquareColorDefValue,
+                type=QColor)
+
+            self._matchTest(\
+                name, angle, orb, color,
+                p1Degree, p2Degree, p1WheelNumber, p2WheelNumber,
+                diff)
+
+        # Sesquiquadrate.
+        if self.settings.value(\
+            SettingsKeys.aspectSesquiquadrateEnabledKey, \
+            SettingsKeys.aspectSesquiquadrateEnabledDefValue,
+            type=bool) == True:
+
+            # Values from QSettings, related to this aspect.
+            name = \
+                self.settings.value(\
+                SettingsKeys.aspectSesquiquadrateNameKey,
+                SettingsKeys.aspectSesquiquadrateNameDefValue,
+                type=str)
+            
+            angle = \
+                self.settings.value(\
+                SettingsKeys.aspectSesquiquadrateAngleKey,
+                SettingsKeys.aspectSesquiquadrateAngleDefValue,
+                type=float)
+
+            orb = \
+                self.settings.value(\
+                SettingsKeys.aspectSesquiquadrateOrbKey,
+                SettingsKeys.aspectSesquiquadrateOrbDefValue,
+                type=float)
+
+            color = \
+                self.settings.value(\
+                SettingsKeys.aspectSesquiquadrateColorKey,
+                SettingsKeys.aspectSesquiquadrateColorDefValue,
+                type=QColor)
+
+            self._matchTest(\
+                name, angle, orb, color,
+                p1Degree, p2Degree, p1WheelNumber, p2WheelNumber,
+                diff)
+
+        if self.log.isEnabledFor(logging.DEBUG) == True:
+            self.log.debug("self.numAspectMatches == {}".format(self.numAspectMatches))
+        
+        if self.numAspectMatches == 0:
+            # No matches.  Set all values to None.
+            self.aspectName = None
+            self.aspectAngle = None
+            self.aspectOrb = None
+            self.actualAspectAngle = None
+            self.actualAspectOrb = None
+            self.color = None
+            self.p1Degree = None
+            self.p2Degree = None
+            self.p1WheelNumber = None
+            self.p2WheelNumber = None
+
+            self.setEnabled(False)
+            self.setVisible(False)
+            
+        elif self.numAspectMatches > 1:
+                self.log.warn("Matched more than one aspect type!  " +
+                              "Only using the last match '{}'".\
+                              format(self.aspectName))
+            
+        if self.log.isEnabledFor(logging.DEBUG) == True:
+            self.log.debug("Exiting setForPlanets()")
+
+
+    def _matchTest(self, name, angle, orb, color,
+                   p1Degree, p2Degree,
+                   p1WheelNumber, p2WheelNumber,
+                   diff):
+        """Helper function to do comparisons for aspect match.  If
+        there's a match, then class member variables are set
+        appropriately for the setting.
+
+        Arguments:
+        name  - str value for the name of the aspect.
+        angle - float value for the angle of the desired aspect.
+        orb   - float value for the degrees of aspect orb allowable.
+        color - QColor object for the color to use if drawing this aspect.
+        p1Degree - float value for the degree of planet 1.
+        p2Degree - float value for the degree of planet 2.
+        p1WheelNumber - int value for the wheel number of planet 1.
+        p2WheelNumber - int value for the wheel number of planet 2.
+        diff - float value for the normalized difference in degrees
+               between planet 1 and 2.
+               
+        Returns:
+        True if a match was found, False otherwise.
+        """
+
+        if self.log.isEnabledFor(logging.DEBUG) == True:
+            self.log.debug("Entered _matchTest()")
+
+        # Return value.
+        rv = False
+        
+        # Move all angle values to between 0 and 1080 so that we
+        # don't have to worry about degree overlaps on the
+        # boundaries.
+        shiftedAngle = angle
+        if shiftedAngle < 360:
+            shiftedAngle += 360
+
+        minValue = shiftedAngle - orb
+        maxValue = shiftedAngle + orb
+        
+        shiftedDiff = diff
+        if shiftedDiff < 360:
+            shiftedDiff += 360
+
+        if self.log.isEnabledFor(logging.DEBUG) == True and True == False:
+            self.log.debug("name == {}".format(name))
+            self.log.debug("angle == {}".format(angle))
+            self.log.debug("orb == {}".format(orb))
+            self.log.debug("p1Degree == {}".format(p1Degree))
+            self.log.debug("p2Degree == {}".format(p2Degree))
+            self.log.debug("p1WheelNumber == {}".format(p1WheelNumber))
+            self.log.debug("p2WheelNumber == {}".format(p2WheelNumber))
+            self.log.debug("diff == {}".format(diff))
+            self.log.debug("shiftedAngle == {}".format(shiftedAngle))
+            self.log.debug("minValue == {}".format(minValue))
+            self.log.debug("maxValue == {}".format(maxValue))
+            self.log.debug("shiftedDiff == {}".format(shiftedDiff))
+
+        if minValue <= shiftedDiff <= maxValue:
+            # Aspect applies.
+            self.numAspectMatches += 1
+            
+            # Set the values.
+            self.aspectName = name
+            self.aspectAngle = angle
+            self.aspectOrb = orb
+            self.actualAspectAngle = diff
+            self.actualAspectOrb = diff - angle
+            self.color = color
+            self.p1Degree = p1Degree
+            self.p2Degree = p2Degree
+            self.p1WheelNumber = p1WheelNumber
+            self.p2WheelNumber = p2WheelNumber
+
+            # Set the brush style.
+            # Here we have 7 different brush styles.
+            numSlices = 7
+            orbRangeSlice = abs(self.aspectOrb) / numSlices
+            if self.actualAspectOrb > 180:
+                sliceNum = math.floor(abs(self.actualAspectOrb - 360.0) / orbRangeSlice)
+            else:
+                sliceNum = math.floor(abs(self.actualAspectOrb) / orbRangeSlice)
+            
+            if sliceNum == 0:
+                self.brushStyle = Qt.SolidPattern
+            elif sliceNum == 1:
+                self.brushStyle = Qt.Dense3Pattern
+            elif sliceNum == 2:
+                self.brushStyle = Qt.Dense4Pattern
+            elif sliceNum == 3:
+                self.brushStyle = Qt.Dense5Pattern
+            elif sliceNum == 4:
+                self.brushStyle = Qt.Dense5Pattern
+            elif sliceNum == 5:
+                self.brushStyle = Qt.Dense6Pattern
+            elif sliceNum == 6:
+                self.brushStyle = Qt.Dense6Pattern
+            else:
+                self.log.error("Invalid sliceNum.  Please investigate why.")
+                self.brushStyle = Qt.NoBrush
+
+            if self.log.isEnabledFor(logging.DEBUG) == True and True == False:
+                self.log.debug("self.aspectName == {}".format(self.aspectName))
+                self.log.debug("self.aspectAngle == {}".format(self.aspectAngle))
+                self.log.debug("self.aspectOrb == {}".format(self.aspectOrb))
+                self.log.debug("self.actualAspectAngle == {}".format(self.actualAspectAngle))
+                self.log.debug("self.actualAspectOrb == {}".format(self.actualAspectOrb))
+                self.log.debug("self.p1Degree == {}".format(self.p1Degree))
+                self.log.debug("self.p2Degree == {}".format(self.p2Degree))
+                self.log.debug("self.p1WheelNumber == {}".format(self.p1WheelNumber))
+                self.log.debug("self.p2WheelNumber == {}".format(self.p2WheelNumber))
+                self.log.debug("self.brushStyle == {}".format(self.brushStyle))
+                self.log.debug("orbRangeSlice == {}".format(orbRangeSlice))
+                self.log.debug("sliceNum == {}".format(sliceNum))
+
+                self.log.debug("Matched aspect {}".format(self.aspectName))
+            
+            self.setEnabled(True)
+            self.setVisible(True)
+            self.update()
+            self.prepareGeometryChange()
+            
+            rv = True
+        else:
+            rv = False
+
+        if self.log.isEnabledFor(logging.DEBUG) == True:
+            self.log.debug("Exiting _matchTest()")
+        
+        return rv
+    
+            
+    def __str__(self):
+        """Returns a str representing this object's contents."""
+
+        return self.toString()
+        
+    def toString(self):
+        """Returns a str representing this object's contents."""
+
+        return Util.objToString(self)
+        
+    def boundingRect(self):
+        """Returns the bounding rectangle for this graphicsitem."""
+
+        # Coordinate (0, 0) is the location where the center of the
+        # circular radix chart.  
+
+        # If there are circles for where the planets are drawn (which
+        # there should be), then set the radius as the first circle
+        # drawn.  This is the one with the smallest radius.
+
+        # Get the radius.
+        radius = 0.0
+        parent = self.parentItem()
+        if parent != None and isinstance(parent, RadixChartGraphicsItem) == True:
+            radius = parent.getInnerRasiRadius()
+            # TODO:  Remove the line below if the above works.
+            #radius = parent.getRadiusForWheelNumber(1)
+        else:
+            return QRectF()
+            
+        diameter = radius + radius
+        
+        x = -1.0 * radius
+        y = -1.0 * radius
+        width = diameter
+        height = diameter
+        
+        return QRectF(x, y, width, height)
+    
+    def paint(self, painter, option, widget):
+        """Paints this QGraphicsItem. """
+
+        if self.log.isEnabledFor(logging.DEBUG) == True:
+            self.log.debug("Entered paint()")
+        
+        # Coordinate (0, 0) is the location where the center of the
+        # circular radix chart.  
+
+        # Only paint if the item is enabled and visible.
+        if self.isEnabled() == False or self.isVisible() == False:
+            return
+        
+        # Get the radius.
+        radius = 0.0
+        parent = self.parentItem()
+        if parent != None and isinstance(parent, RadixChartGraphicsItem) == True:
+            radius = parent.getInnerRasiRadius()
+            if self.log.isEnabledFor(logging.DEBUG) == True:
+                self.log.debug("radius obtained from parent is: {}".format(radius))
+        else:
+            self.log.error("Unsupported parent QGraphicsItem type.")
+
+        if Util.fuzzyIsEqual(radius, 0.0):
+            if self.log.isEnabledFor(logging.DEBUG) == True:
+                self.log.debug("Radius is 0.0.  Not drawing anything.")
+            return
+        
+        # Start and end points of the line segment, in parent coordinates.
+        # Use the QLineF function to convert from polar coordinates to
+        # cartesian.
+        self.startPointF = \
+            QLineF.fromPolar(radius, self.p1Degree + 180.0).p2()
+        self.endPointF = \
+            QLineF.fromPolar(radius, self.p2Degree + 180.0).p2()
+        
         # Pen and brush for the painting.
-        self.pen = QPen()
-        self.pen.setColor(QColor(Qt.black))
-        self.pen.setWidthF(0.0)
-        self.brush = self.pen.brush()
-        self.brush.setColor(Qt.black)
-        self.brush.setStyle(Qt.SolidPattern)
-        self.pen.setBrush(brush)
-
+        pen = painter.pen()
+        pen.setColor(self.color)
+        pen.setWidthF(0.0)
+        brush = pen.brush()
+        brush.setColor(self.color)
+        brush.setStyle(self.brushStyle)
+        pen.setBrush(brush)
+        painter.setPen(pen)
         
-        self.aspectName = "UNKNOWN"
-        #self.aspectOrb = 0.0
+        # Draw the line.
+        painter.drawLine(self.startPointF, self.endPointF)
 
-        # TODO:  finish coding the rest of this class.
+        if self.log.isEnabledFor(logging.DEBUG) == True:
+            self.log.debug("Line was drawn from: ({}, {}) to ({}, {})".\
+                           format(self.startPointF.x(), self.startPointF.y(),
+                                  self.endPointF.x(), self.endPointF.y()))
+            self.log.debug("Exiting paint()")
         
+
 class RadixChartGraphicsItem(QGraphicsItem):
     """QGraphicsItem that is the circle astrology chart."""
 
@@ -1032,6 +1755,7 @@ class RadixChartGraphicsItem(QGraphicsItem):
 
         return 0.0
 
+    
 class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
     """QGraphicsItem that is the circle chart with the following labels on
     the edges:
@@ -1091,11 +1815,11 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
         self.rasiLabelFont = QFont()
         self.rasiLabelFont.setFamily("Lucida Console")
         self.rasiLabelFont.setPointSize(14)
-
+        
         self.nakshatraLabelFont = QFont()
         self.nakshatraLabelFont.setFamily("Lucida Console")
         self.nakshatraLabelFont.setPointSize(10)
-
+        
         self.navamsaLabelFont = QFont()
         self.navamsaLabelFont.setFamily("Lucida Console")
         self.navamsaLabelFont.setPointSize(9)
@@ -1146,9 +1870,10 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
         # Return value.
         rv = 0.0
 
-        # TODO:  Decide if I should always return terminalRadiusForWheelNumber at 0.0.
-        return rv
-    
+        # TODO:  Decide if I should always return the same terminalRadiusForWheelNumber for all.
+        return self.getInnerRasiRadius()
+        #return rv
+
         if wheelNumber > 0 and wheelNumber <= len(self.wheelNumberCircleRadius):
             rv = self.wheelNumberCircleRadius[wheelNumber-1]
         elif wheelNumber == 0:
@@ -1191,22 +1916,66 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
 
         return None
 
-    def redrawAspects(self, wheelNumber):
-    
+    def redrawAspects(self):
         """If drawing aspects is enabled via Application Preferences
         (QSettings), then this function draws aspects between the
         RadixPlanetGraphicsItems in the given wheelNumber.  The
         aspects drawn are according to the aspects enabled and
         configured in Application Preferences (QSettings).
-
-        Arguments:
-
-        wheelNumber - int value holding the wheel number that the
-        aspects are drawn for.
         """
+
+        if self.log.isEnabledFor(logging.DEBUG) == True:
+            self.log.debug("Entered redrawAspects()")
         
-        # TODO:  write code here.
-        pass
+        # Get the child GraphicsItems.
+        children = self.childItems()
+
+        # Get all planet graphics items, and all aspect graphics items.
+        planets = []
+        aspects = []
+        
+        # Go through them and look at the ones that are
+        # RadixPlanetGraphicsItem.
+        for child in children:
+            if isinstance(child, RadixPlanetGraphicsItem):
+                planets.append(child)
+            elif isinstance(child, RadixChartAspectGraphicsItem):
+                aspects.append(child)
+
+        if self.log.isEnabledFor(logging.DEBUG) == True:
+            self.log.debug("len(planets) == {}".format(len(planets)))
+            self.log.debug("len(aspects) == {}".format(len(aspects)))
+        
+        # Remove all previously used aspects.
+        for aspect in aspects:
+            self.scene().removeItem(aspect)
+        aspects = []
+        
+        # Check for aspects with planets in all combinations.
+        for i in range(len(planets)):
+            for j in range(len(planets)):
+                p1 = planets[i]
+                p2 = planets[j]
+
+                if self.log.isEnabledFor(logging.DEBUG) == True:
+                    self.log.debug("p1 is: name={}, wheelNumber={}, degree={}".\
+                                   format(p1.planetName,
+                                          p1.wheelNumber,
+                                          p1.degree))
+                    self.log.debug("p2 is: name={}, wheelNumber={}, degree={}".\
+                                   format(p2.planetName,
+                                          p2.wheelNumber,
+                                          p2.degree))
+                
+                if not (p1 is p2):
+                    aspect = RadixChartAspectGraphicsItem(parent=self)
+                    aspect.setForPlanets(p1.getDegree(),
+                                         p2.getDegree(),
+                                         p1.getWheelNumber(),
+                                         p2.getWheelNumber())
+                    
+        if self.log.isEnabledFor(logging.DEBUG) == True:
+            self.log.debug("Exiting redrawAspects()")
         
     def getInnerRasiRadius(self):
         """Returns the radius of the inner Rasi circle."""
@@ -1545,10 +2314,12 @@ class RadixPlanetGraphicsItem(QGraphicsItem):
         #settings = QSettings()
         #self.planetRetrogradeGlyphUnicode = \
         #    settings.value(SettingsKeys.planetRetrogradeGlyphUnicodeKey,
-        #                   SettingsKeys.planetRetrogradeGlyphUnicodeDefValue)
+        #                   SettingsKeys.planetRetrogradeGlyphUnicodeDefValue,
+        #                   type=str)
         #self.planetRetrogradeGlyphFontSize = \
         #    settings.value(SettingsKeys.planetRetrogradeGlyphFontSizeKey,
-        #                   SettingsKeys.planetRetrogradeGlyphFontSizeDefValue)
+        #                   SettingsKeys.planetRetrogradeGlyphFontSizeDefValue,
+        #                   type=float)
         
         # Radius from the origin to draw this planet.
         self.drawPointRadius = 0.0
@@ -1719,6 +2490,16 @@ class RadixPlanetGraphicsItem(QGraphicsItem):
 
         return self.planetBackgroundColor
 
+    def __str__(self):
+        """Returns a str representing this object's contents."""
+
+        return self.toString()
+        
+    def toString(self):
+        """Returns a str representing this object's contents."""
+
+        return Util.objToString(self)
+        
     def boundingRect(self):
         """Returns the bounding rectangle for this graphicsitem.
 
@@ -3669,8 +4450,9 @@ class AstrologyChartGraphicsView(QGraphicsView):
         # Get the QSetting key for the zoom scaling amounts.
         settings = QSettings()
         scaleFactor = \
-            float(settings.value(SettingsKeys.zoomScaleFactorSettingsKey, \
-                                 SettingsKeys.zoomScaleFactorSettingsDefValue))
+            settings.value(SettingsKeys.zoomScaleFactorSettingsKey, \
+                           SettingsKeys.zoomScaleFactorSettingsDefValue,
+                           type=float)
         
         # Actually do the scaling of the view.
         if qwheelevent.delta() > 0:
@@ -3972,7 +4754,7 @@ class AstrologyChartWidget(QWidget):
 
         return toDisplay
         
-    def _getPlanetNamesToDisplayForGeoSidRadixChart():
+    def _getPlanetNamesToDisplayForGeoSidRadixChart(self):
         """Function to returna list of planet names that can be
         used to display longitude information.  This is used because
         some planets don't make sense in this chart and it just clouds
@@ -4015,7 +4797,7 @@ class AstrologyChartWidget(QWidget):
 
         return toDisplay
 
-    def _getPlanetNamesToDisplayForGeoTropRadixChart():
+    def _getPlanetNamesToDisplayForGeoTropRadixChart(self):
         """Function to returna list of planet names that can be
         used to display longitude information.  This is used because
         some planets don't make sense in this chart and it just clouds
@@ -4026,7 +4808,7 @@ class AstrologyChartWidget(QWidget):
         # Geocentric Sidereal.
         return self._getPlanetNamesToDisplayForGeoSidRadixChart()
 
-    def _getPlanetNamesToDisplayForHelioSidRadixChart():
+    def _getPlanetNamesToDisplayForHelioSidRadixChart(self):
         """Function to returna list of planet names that can be
         used to display longitude information.  This is used because
         some planets don't make sense in this chart and it just clouds
@@ -4226,7 +5008,8 @@ class AstrologyChartWidget(QWidget):
                         setDegreeAndVelocity(degree, velocity)
 
             # Heliocentric Sidereal.
-            if planet.name in _getPlanetNamesToDisplayForHelioSidRadixChart():
+            if planet.name in \
+                   self._getPlanetNamesToDisplayForHelioSidRadixChart():
                 
                 radixPlanetGraphicsItem = \
                     self.helioSidRadixChartGraphicsItem.\
@@ -4281,7 +5064,17 @@ class AstrologyChartWidget(QWidget):
                     radixPlanetGraphicsItem.\
                         setDegreeAndVelocity(degree, velocity)
 
-            
+        # Update the aspects for the radix charts.
+
+        # Geocentric Sidereal.
+        self.geoSidRadixChartGraphicsItem.redrawAspects()
+        
+        # Geocentric Tropical.
+        self.geoTropRadixChartGraphicsItem.redrawAspects()
+
+        # Heliocentric Sidereal.
+        self.helioSidRadixChartGraphicsItem.redrawAspects()
+
     def setAstroChart1Datetime(self, dt):
         """Sets the datetime of astrology chart 1 within the radix chart.
 
@@ -4423,6 +5216,18 @@ class AstrologyChartWidget(QWidget):
             
             if radixPlanetGraphicsItem != None:
                 self.graphicsScene.removeItem(radixPlanetGraphicsItem)
+
+
+        # Update the aspects for the radix charts.
+
+        # Geocentric Sidereal.
+        self.geoSidRadixChartGraphicsItem.redrawAspects()
+        
+        # Geocentric Tropical.
+        self.geoTropRadixChartGraphicsItem.redrawAspects()
+
+        # Heliocentric Sidereal.
+        self.helioSidRadixChartGraphicsItem.redrawAspects()
 
     def clearAstroChart1(self):
         """Clears the AstroChart1 of all planet-related objects."""
