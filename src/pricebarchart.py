@@ -35111,7 +35111,7 @@ class PriceBarChartWidget(QWidget):
         
         # These labels will have smaller font.
         smallFont = QFont()
-        smallFont.setPointSize(7)
+        smallFont.setPointSize(8)
         self.descriptionLabel.setFont(smallFont)
         self.firstPriceBarTimestampLabel.setFont(smallFont)
         self.lastPriceBarTimestampLabel.setFont(smallFont)
@@ -35125,7 +35125,7 @@ class PriceBarChartWidget(QWidget):
         # Set the cursor timestamp labels as being in a monospaced font.
         smallMonospacedFont = QFont()
         smallMonospacedFont.setFamily("DejaVu Sans Mono")
-        smallMonospacedFont.setPointSize(7)
+        smallMonospacedFont.setPointSize(8)
         self.cursorLocalizedTimestampLabel.setFont(smallMonospacedFont)
         self.cursorUtcTimestampLabel.setFont(smallMonospacedFont)
         self.cursorJdTimestampLabel.setFont(smallMonospacedFont)

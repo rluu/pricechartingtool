@@ -3953,7 +3953,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
         # Set the font so that it is mono-spaced.
         courierFont = QFont()
         courierFont.setFamily("Courier")
-        courierFont.setPointSize(8)
+        courierFont.setPointSize(9)
         self.setFont(courierFont)
 
         # Strings for the different types of planetary coordinate systems.

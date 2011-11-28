@@ -5169,20 +5169,20 @@ class PriceChartDocumentWidget(QWidget):
 
 
         # QSplitters to divide the internal widgets.
-        hsplitter = QSplitter(self)
-        hsplitter.setOrientation(Qt.Horizontal)
-        hsplitter.addWidget(self.priceBarChartWidget)
-        hsplitter.addWidget(self.astrologyChartWidget)
-
         vsplitter = QSplitter(self)
         vsplitter.setOrientation(Qt.Vertical)
-        vsplitter.addWidget(hsplitter)
+        vsplitter.addWidget(self.astrologyChartWidget)
         vsplitter.addWidget(self.planetaryInfoTableWidget)
         #vsplitter.addWidget(self.priceBarSpreadsheetWidget)
         
+        hsplitter = QSplitter(self)
+        hsplitter.setOrientation(Qt.Horizontal)
+        hsplitter.addWidget(self.priceBarChartWidget)
+        hsplitter.addWidget(vsplitter)
+
         # Setup the layout.
         vlayout = QVBoxLayout()
-        vlayout.addWidget(vsplitter)
+        vlayout.addWidget(hsplitter)
 
         self.setLayout(vlayout)
 
@@ -5787,18 +5787,18 @@ class PriceChartDocumentWidget(QWidget):
         This just calls certain astrology widgets to update their
         display of what the current time is.  
         """
-
+        
         if self.astrologyChartWidgetEnabled:
             
             if self.trackMouseToAstroChart1Enabled:
                 self.astrologyChartWidget.setAstroChart1Datetime(dt)
-            
+                
             if self.trackMouseToAstroChart2Enabled:
                 self.astrologyChartWidget.setAstroChart2Datetime(dt)
-            
+                
             if self.trackMouseToAstroChart3Enabled:
                 self.astrologyChartWidget.setAstroChart3Datetime(dt)
-
+                
         if self.planetaryInfoTableWidgetEnabled:
             
             if self.trackMouseToAstroChart1Enabled or \
@@ -5806,3 +5806,4 @@ class PriceChartDocumentWidget(QWidget):
                    self.trackMouseToAstroChart3Enabled:
                 
                 self._updatePlanetaryInfoTable(dt)
+                
