@@ -482,7 +482,7 @@ class LoadDataFileWidget(QWidget):
         # Default directory to start the file open dialog.
         key = self.defaultPriceBarDataOpenDirectorySettingsKey
         self.defaultPriceBarDataOpenDirectory = \
-            settings.value(key, "", type=str)
+            settings.value(key, defaultValue="", type=str)
 
         self.log.debug("Exiting readSettings()")
 
@@ -503,7 +503,7 @@ class LoadDataFileWidget(QWidget):
 
         # Default directory to start the file open dialog.
         key = self.defaultPriceBarDataOpenDirectorySettingsKey
-        settingsValue = settings.value(key, "", type=str)
+        settingsValue = settings.value(key, defaultValue="", type=str)
 
         if self.defaultPriceBarDataOpenDirectory != settingsValue:
             newValue = self.defaultPriceBarDataOpenDirectory
@@ -2417,6 +2417,123 @@ class AppPreferencesEditWidget(QWidget):
         formLayout.\
             addRow(self.planetCycleOfEightBackgroundColorLabel,
                    self.planetCycleOfEightBackgroundColorEditButton)
+
+        # AvgMaJuSaUrNePl
+        self.planetAvgMaJuSaUrNePlGlyphUnicodeLabel = \
+            QLabel("AvgMaJuSaUrNePl unicode glyph:")
+        self.planetAvgMaJuSaUrNePlGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAvgMaJuSaUrNePlGlyphUnicodeLabel,
+                   self.planetAvgMaJuSaUrNePlGlyphUnicodeLineEdit)
+        self.planetAvgMaJuSaUrNePlGlyphFontSizeLabel = \
+            QLabel("AvgMaJuSaUrNePl glyph font size:")
+        self.planetAvgMaJuSaUrNePlGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetAvgMaJuSaUrNePlGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetAvgMaJuSaUrNePlGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetAvgMaJuSaUrNePlGlyphFontSizeLabel,
+                   self.planetAvgMaJuSaUrNePlGlyphFontSizeSpinBox)
+        self.planetAvgMaJuSaUrNePlAbbreviationLabel = \
+            QLabel("AvgMaJuSaUrNePl abbreviation:")
+        self.planetAvgMaJuSaUrNePlAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAvgMaJuSaUrNePlAbbreviationLabel,
+                   self.planetAvgMaJuSaUrNePlAbbreviationLineEdit)
+        self.planetAvgMaJuSaUrNePlForegroundColorLabel = \
+            QLabel("AvgMaJuSaUrNePl foreground color:")
+        self.planetAvgMaJuSaUrNePlForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAvgMaJuSaUrNePlForegroundColorLabel,
+                   self.planetAvgMaJuSaUrNePlForegroundColorEditButton)
+        self.planetAvgMaJuSaUrNePlBackgroundColorLabel = \
+            QLabel("AvgMaJuSaUrNePl background color:")
+        self.planetAvgMaJuSaUrNePlBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAvgMaJuSaUrNePlBackgroundColorLabel,
+                   self.planetAvgMaJuSaUrNePlBackgroundColorEditButton)
+
+        # AvgJuSaUrNe
+        self.planetAvgJuSaUrNeGlyphUnicodeLabel = \
+            QLabel("AvgJuSaUrNe unicode glyph:")
+        self.planetAvgJuSaUrNeGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAvgJuSaUrNeGlyphUnicodeLabel,
+                   self.planetAvgJuSaUrNeGlyphUnicodeLineEdit)
+        self.planetAvgJuSaUrNeGlyphFontSizeLabel = \
+            QLabel("AvgJuSaUrNe glyph font size:")
+        self.planetAvgJuSaUrNeGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetAvgJuSaUrNeGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetAvgJuSaUrNeGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetAvgJuSaUrNeGlyphFontSizeLabel,
+                   self.planetAvgJuSaUrNeGlyphFontSizeSpinBox)
+        self.planetAvgJuSaUrNeAbbreviationLabel = \
+            QLabel("AvgJuSaUrNe abbreviation:")
+        self.planetAvgJuSaUrNeAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAvgJuSaUrNeAbbreviationLabel,
+                   self.planetAvgJuSaUrNeAbbreviationLineEdit)
+        self.planetAvgJuSaUrNeForegroundColorLabel = \
+            QLabel("AvgJuSaUrNe foreground color:")
+        self.planetAvgJuSaUrNeForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAvgJuSaUrNeForegroundColorLabel,
+                   self.planetAvgJuSaUrNeForegroundColorEditButton)
+        self.planetAvgJuSaUrNeBackgroundColorLabel = \
+            QLabel("AvgJuSaUrNe background color:")
+        self.planetAvgJuSaUrNeBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAvgJuSaUrNeBackgroundColorLabel,
+                   self.planetAvgJuSaUrNeBackgroundColorEditButton)
+
+        # AvgJuSa
+        self.planetAvgJuSaGlyphUnicodeLabel = \
+            QLabel("AvgJuSa unicode glyph:")
+        self.planetAvgJuSaGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAvgJuSaGlyphUnicodeLabel,
+                   self.planetAvgJuSaGlyphUnicodeLineEdit)
+        self.planetAvgJuSaGlyphFontSizeLabel = \
+            QLabel("AvgJuSa glyph font size:")
+        self.planetAvgJuSaGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetAvgJuSaGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetAvgJuSaGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetAvgJuSaGlyphFontSizeLabel,
+                   self.planetAvgJuSaGlyphFontSizeSpinBox)
+        self.planetAvgJuSaAbbreviationLabel = \
+            QLabel("AvgJuSa abbreviation:")
+        self.planetAvgJuSaAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAvgJuSaAbbreviationLabel,
+                   self.planetAvgJuSaAbbreviationLineEdit)
+        self.planetAvgJuSaForegroundColorLabel = \
+            QLabel("AvgJuSa foreground color:")
+        self.planetAvgJuSaForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAvgJuSaForegroundColorLabel,
+                   self.planetAvgJuSaForegroundColorEditButton)
+        self.planetAvgJuSaBackgroundColorLabel = \
+            QLabel("AvgJuSa background color:")
+        self.planetAvgJuSaBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAvgJuSaBackgroundColorLabel,
+                   self.planetAvgJuSaBackgroundColorEditButton)
 
 
         # Label to tell the user that not all settings will be applied
@@ -4752,6 +4869,114 @@ class AppPreferencesEditWidget(QWidget):
         self.planetCycleOfEightBackgroundColorEditButton.\
             setColor(value)
 
+        # AvgMaJuSaUrNePl
+        key = SettingsKeys.planetAvgMaJuSaUrNePlGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAvgMaJuSaUrNePlGlyphUnicodeDefValue,
+            type=str)
+        self.planetAvgMaJuSaUrNePlGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetAvgMaJuSaUrNePlGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAvgMaJuSaUrNePlGlyphFontSizeDefValue,
+            type=float)
+        self.planetAvgMaJuSaUrNePlGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetAvgMaJuSaUrNePlAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetAvgMaJuSaUrNePlAbbreviationDefValue,
+            type=str)
+        self.planetAvgMaJuSaUrNePlAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetAvgMaJuSaUrNePlForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetAvgMaJuSaUrNePlForegroundColorDefValue,
+            type=QColor)
+        self.planetAvgMaJuSaUrNePlForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetAvgMaJuSaUrNePlBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetAvgMaJuSaUrNePlBackgroundColorDefValue,
+            type=QColor)
+        self.planetAvgMaJuSaUrNePlBackgroundColorEditButton.\
+            setColor(value)
+
+        # AvgJuSaUrNe
+        key = SettingsKeys.planetAvgJuSaUrNeGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAvgJuSaUrNeGlyphUnicodeDefValue,
+            type=str)
+        self.planetAvgJuSaUrNeGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetAvgJuSaUrNeGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAvgJuSaUrNeGlyphFontSizeDefValue,
+            type=float)
+        self.planetAvgJuSaUrNeGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetAvgJuSaUrNeAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetAvgJuSaUrNeAbbreviationDefValue,
+            type=str)
+        self.planetAvgJuSaUrNeAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetAvgJuSaUrNeForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetAvgJuSaUrNeForegroundColorDefValue,
+            type=QColor)
+        self.planetAvgJuSaUrNeForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetAvgJuSaUrNeBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetAvgJuSaUrNeBackgroundColorDefValue,
+            type=QColor)
+        self.planetAvgJuSaUrNeBackgroundColorEditButton.\
+            setColor(value)
+
+        # AvgJuSa
+        key = SettingsKeys.planetAvgJuSaGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAvgJuSaGlyphUnicodeDefValue,
+            type=str)
+        self.planetAvgJuSaGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetAvgJuSaGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAvgJuSaGlyphFontSizeDefValue,
+            type=float)
+        self.planetAvgJuSaGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetAvgJuSaAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetAvgJuSaAbbreviationDefValue,
+            type=str)
+        self.planetAvgJuSaAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetAvgJuSaForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetAvgJuSaForegroundColorDefValue,
+            type=QColor)
+        self.planetAvgJuSaForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetAvgJuSaBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetAvgJuSaBackgroundColorDefValue,
+            type=QColor)
+        self.planetAvgJuSaBackgroundColorEditButton.\
+            setColor(value)
+
 
     def _nonPlanetSymbolLoadValuesFromSettings(self):
         """Loads the widgets with values from the QSettings object.
@@ -5551,7 +5776,7 @@ class AppPreferencesEditWidget(QWidget):
 
         # Aspects enabled on Astrology Chart 1.
         key = SettingsKeys.aspectAstrologyChart1EnabledKey
-        value = settings.value(key,
+        value = settings.value(key, \
             SettingsKeys.aspectAstrologyChart1EnabledDefValue,
             type=bool)
         if value == True:
@@ -5561,7 +5786,7 @@ class AppPreferencesEditWidget(QWidget):
         
         # Aspects enabled on Astrology Chart 2.
         key = SettingsKeys.aspectAstrologyChart2EnabledKey
-        value = settings.value(key,
+        value = settings.value(key, \
             SettingsKeys.aspectAstrologyChart2EnabledDefValue,
             type=bool)
         if value == True:
@@ -5571,7 +5796,7 @@ class AppPreferencesEditWidget(QWidget):
         
         # Aspects enabled on Astrology Chart 3.
         key = SettingsKeys.aspectAstrologyChart3EnabledKey
-        value = settings.value(key,
+        value = settings.value(key, \
             SettingsKeys.aspectAstrologyChart3EnabledDefValue,
             type=bool)
         if value == True:
@@ -5581,7 +5806,7 @@ class AppPreferencesEditWidget(QWidget):
 
         # Aspects enabled between Astrology Chart 1 and 2.
         key = SettingsKeys.aspectBtwnAstrologyChart1And2EnabledKey
-        value = settings.value(key,
+        value = settings.value(key, \
             SettingsKeys.aspectBtwnAstrologyChart1And2EnabledDefValue,
             type=bool)
         if value == True:
@@ -5591,7 +5816,7 @@ class AppPreferencesEditWidget(QWidget):
 
         # Aspects enabled between Astrology Chart 1 and 3.
         key = SettingsKeys.aspectBtwnAstrologyChart1And3EnabledKey
-        value = settings.value(key,
+        value = settings.value(key, \
             SettingsKeys.aspectBtwnAstrologyChart1And3EnabledDefValue,
             type=bool)
         if value == True:
@@ -5601,7 +5826,7 @@ class AppPreferencesEditWidget(QWidget):
 
         # Aspects enabled between Astrology Chart 2 and 3.
         key = SettingsKeys.aspectBtwnAstrologyChart2And3EnabledKey
-        value = settings.value(key,
+        value = settings.value(key, \
             SettingsKeys.aspectBtwnAstrologyChart2And3EnabledDefValue,
             type=bool)
         if value == True:
@@ -5611,7 +5836,7 @@ class AppPreferencesEditWidget(QWidget):
 
         # Conjunction.
         key = SettingsKeys.aspectConjunctionEnabledKey
-        value = settings.value(key,
+        value = settings.value(key, \
             SettingsKeys.aspectConjunctionEnabledDefValue,
             type=bool)
         if value == True:
@@ -5639,7 +5864,7 @@ class AppPreferencesEditWidget(QWidget):
         
         # Opposition.
         key = SettingsKeys.aspectOppositionEnabledKey
-        value = settings.value(key,
+        value = settings.value(key, \
             SettingsKeys.aspectOppositionEnabledDefValue,
             type=bool)
         if value == True:
@@ -5667,7 +5892,7 @@ class AppPreferencesEditWidget(QWidget):
         
         # Square.
         key = SettingsKeys.aspectSquareEnabledKey
-        value = settings.value(key,
+        value = settings.value(key, \
             SettingsKeys.aspectSquareEnabledDefValue,
             type=bool)
         if value == True:
@@ -5695,7 +5920,7 @@ class AppPreferencesEditWidget(QWidget):
         
         # Trine.
         key = SettingsKeys.aspectTrineEnabledKey
-        value = settings.value(key,
+        value = settings.value(key, \
             SettingsKeys.aspectTrineEnabledDefValue,
             type=bool)
         if value == True:
@@ -5723,7 +5948,7 @@ class AppPreferencesEditWidget(QWidget):
         
         # Sextile.
         key = SettingsKeys.aspectSextileEnabledKey
-        value = settings.value(key,
+        value = settings.value(key, \
             SettingsKeys.aspectSextileEnabledDefValue,
             type=bool)
         if value == True:
@@ -5751,7 +5976,7 @@ class AppPreferencesEditWidget(QWidget):
         
         # Inconjunct.
         key = SettingsKeys.aspectInconjunctEnabledKey
-        value = settings.value(key,
+        value = settings.value(key, \
             SettingsKeys.aspectInconjunctEnabledDefValue,
             type=bool)
         if value == True:
@@ -5779,7 +6004,7 @@ class AppPreferencesEditWidget(QWidget):
         
         # Semisextile.
         key = SettingsKeys.aspectSemisextileEnabledKey
-        value = settings.value(key,
+        value = settings.value(key, \
             SettingsKeys.aspectSemisextileEnabledDefValue,
             type=bool)
         if value == True:
@@ -5807,7 +6032,7 @@ class AppPreferencesEditWidget(QWidget):
         
         # Semisquare.
         key = SettingsKeys.aspectSemisquareEnabledKey
-        value = settings.value(key,
+        value = settings.value(key, \
             SettingsKeys.aspectSemisquareEnabledDefValue,
             type=bool)
         if value == True:
@@ -5835,7 +6060,7 @@ class AppPreferencesEditWidget(QWidget):
         
         # Sesquiquadrate.
         key = SettingsKeys.aspectSesquiquadrateEnabledKey
-        value = settings.value(key,
+        value = settings.value(key, \
             SettingsKeys.aspectSesquiquadrateEnabledDefValue,
             type=bool)
         if value == True:
@@ -7157,6 +7382,159 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.planetCycleOfEightBackgroundColorKey
         newValue = \
             self.planetCycleOfEightBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # AvgMaJuSaUrNePl
+        key = SettingsKeys.planetAvgMaJuSaUrNePlGlyphUnicodeKey
+        newValue = \
+            self.planetAvgMaJuSaUrNePlGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAvgMaJuSaUrNePlGlyphFontSizeKey
+        newValue = \
+            self.planetAvgMaJuSaUrNePlGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAvgMaJuSaUrNePlAbbreviationKey
+        newValue = \
+            self.planetAvgMaJuSaUrNePlAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAvgMaJuSaUrNePlForegroundColorKey
+        newValue = \
+            self.planetAvgMaJuSaUrNePlForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAvgMaJuSaUrNePlBackgroundColorKey
+        newValue = \
+            self.planetAvgMaJuSaUrNePlBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # AvgJuSaUrNe
+        key = SettingsKeys.planetAvgJuSaUrNeGlyphUnicodeKey
+        newValue = \
+            self.planetAvgJuSaUrNeGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAvgJuSaUrNeGlyphFontSizeKey
+        newValue = \
+            self.planetAvgJuSaUrNeGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAvgJuSaUrNeAbbreviationKey
+        newValue = \
+            self.planetAvgJuSaUrNeAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAvgJuSaUrNeForegroundColorKey
+        newValue = \
+            self.planetAvgJuSaUrNeForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAvgJuSaUrNeBackgroundColorKey
+        newValue = \
+            self.planetAvgJuSaUrNeBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # AvgJuSa
+        key = SettingsKeys.planetAvgJuSaGlyphUnicodeKey
+        newValue = \
+            self.planetAvgJuSaGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAvgJuSaGlyphFontSizeKey
+        newValue = \
+            self.planetAvgJuSaGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAvgJuSaAbbreviationKey
+        newValue = \
+            self.planetAvgJuSaAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAvgJuSaForegroundColorKey
+        newValue = \
+            self.planetAvgJuSaForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAvgJuSaBackgroundColorKey
+        newValue = \
+            self.planetAvgJuSaBackgroundColorEditButton.getColor()
         if settings.contains(key):
             oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
@@ -9075,6 +9453,42 @@ class AppPreferencesEditWidget(QWidget):
             setColor(SettingsKeys.planetCycleOfEightForegroundColorDefValue)
         self.planetCycleOfEightBackgroundColorEditButton.\
             setColor(SettingsKeys.planetCycleOfEightBackgroundColorDefValue)
+
+        # AvgMaJuSaUrNePl
+        self.planetAvgMaJuSaUrNePlGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetAvgMaJuSaUrNePlGlyphUnicodeDefValue)
+        self.planetAvgMaJuSaUrNePlGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetAvgMaJuSaUrNePlGlyphFontSizeDefValue)
+        self.planetAvgMaJuSaUrNePlAbbreviationLineEdit.\
+            setText(SettingsKeys.planetAvgMaJuSaUrNePlAbbreviationDefValue)
+        self.planetAvgMaJuSaUrNePlForegroundColorEditButton.\
+            setColor(SettingsKeys.planetAvgMaJuSaUrNePlForegroundColorDefValue)
+        self.planetAvgMaJuSaUrNePlBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetAvgMaJuSaUrNePlBackgroundColorDefValue)
+
+        # AvgJuSaUrNe
+        self.planetAvgJuSaUrNeGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetAvgJuSaUrNeGlyphUnicodeDefValue)
+        self.planetAvgJuSaUrNeGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetAvgJuSaUrNeGlyphFontSizeDefValue)
+        self.planetAvgJuSaUrNeAbbreviationLineEdit.\
+            setText(SettingsKeys.planetAvgJuSaUrNeAbbreviationDefValue)
+        self.planetAvgJuSaUrNeForegroundColorEditButton.\
+            setColor(SettingsKeys.planetAvgJuSaUrNeForegroundColorDefValue)
+        self.planetAvgJuSaUrNeBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetAvgJuSaUrNeBackgroundColorDefValue)
+
+        # AvgJuSa
+        self.planetAvgJuSaGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetAvgJuSaGlyphUnicodeDefValue)
+        self.planetAvgJuSaGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetAvgJuSaGlyphFontSizeDefValue)
+        self.planetAvgJuSaAbbreviationLineEdit.\
+            setText(SettingsKeys.planetAvgJuSaAbbreviationDefValue)
+        self.planetAvgJuSaForegroundColorEditButton.\
+            setColor(SettingsKeys.planetAvgJuSaForegroundColorDefValue)
+        self.planetAvgJuSaBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetAvgJuSaBackgroundColorDefValue)
 
     def _handleNonPlanetSymbolResetAllToDefaultButtonClicked(self):
         """Called when the nonPlanetSymbolResetAllToDefaultButton is clicked

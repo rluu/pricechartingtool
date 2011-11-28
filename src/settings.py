@@ -1284,6 +1284,117 @@ class SettingsKeys():
 
 
 
+    # QSettings key for the planet glyph unicode of the AvgMaJuSaUrNePl.
+    planetAvgMaJuSaUrNePlGlyphUnicodeKey = \
+        "ui/astrology/avgMaJuSaUrNePlGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the AvgMaJuSaUrNePl.
+    planetAvgMaJuSaUrNePlGlyphUnicodeDefValue = "AvgMaJuSaUrNePl"
+
+    # QSettings key for the planet glyph font size of the AvgMaJuSaUrNePl.
+    planetAvgMaJuSaUrNePlGlyphFontSizeKey = \
+        "ui/astrology/avgMaJuSaUrNePlGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the AvgMaJuSaUrNePl.
+    planetAvgMaJuSaUrNePlGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the AvgMaJuSaUrNePl.
+    planetAvgMaJuSaUrNePlAbbreviationKey = \
+        "ui/astrology/avgMaJuSaUrNePlAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the AvgMaJuSaUrNePl.
+    planetAvgMaJuSaUrNePlAbbreviationDefValue = "AvgMaJuSaUrNePl"
+
+    # QSettings key for the foreground color of the AvgMaJuSaUrNePl.
+    planetAvgMaJuSaUrNePlForegroundColorKey = \
+        "ui/astrology/avgMaJuSaUrNePlForegroundColor"
+
+    # QSettings default value for the foreground color of the AvgMaJuSaUrNePl.
+    planetAvgMaJuSaUrNePlForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the AvgMaJuSaUrNePl.
+    planetAvgMaJuSaUrNePlBackgroundColorKey = \
+        "ui/astrology/avgMaJuSaUrNePlBackgroundColor"
+
+    # QSettings default value for the background color of the AvgMaJuSaUrNePl.
+    planetAvgMaJuSaUrNePlBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the AvgJuSaUrNe.
+    planetAvgJuSaUrNeGlyphUnicodeKey = \
+        "ui/astrology/avgJuSaUrNeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the AvgJuSaUrNe.
+    planetAvgJuSaUrNeGlyphUnicodeDefValue = "AvgJuSaUrNe"
+
+    # QSettings key for the planet glyph font size of the AvgJuSaUrNe.
+    planetAvgJuSaUrNeGlyphFontSizeKey = \
+        "ui/astrology/avgJuSaUrNeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the AvgJuSaUrNe.
+    planetAvgJuSaUrNeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the AvgJuSaUrNe.
+    planetAvgJuSaUrNeAbbreviationKey = \
+        "ui/astrology/avgJuSaUrNeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the AvgJuSaUrNe.
+    planetAvgJuSaUrNeAbbreviationDefValue = "AvgJuSaUrNe"
+
+    # QSettings key for the foreground color of the AvgJuSaUrNe.
+    planetAvgJuSaUrNeForegroundColorKey = \
+        "ui/astrology/avgJuSaUrNeForegroundColor"
+
+    # QSettings default value for the foreground color of the AvgJuSaUrNe.
+    planetAvgJuSaUrNeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the AvgJuSaUrNe.
+    planetAvgJuSaUrNeBackgroundColorKey = \
+        "ui/astrology/avgJuSaUrNeBackgroundColor"
+
+    # QSettings default value for the background color of the AvgJuSaUrNe.
+    planetAvgJuSaUrNeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the AvgJuSa.
+    planetAvgJuSaGlyphUnicodeKey = \
+        "ui/astrology/avgJuSaGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the AvgJuSa.
+    planetAvgJuSaGlyphUnicodeDefValue = "AvgJuSa"
+
+    # QSettings key for the planet glyph font size of the AvgJuSa.
+    planetAvgJuSaGlyphFontSizeKey = \
+        "ui/astrology/avgJuSaGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the AvgJuSa.
+    planetAvgJuSaGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the AvgJuSa.
+    planetAvgJuSaAbbreviationKey = \
+        "ui/astrology/avgJuSaAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the AvgJuSa.
+    planetAvgJuSaAbbreviationDefValue = "AvgJuSa"
+
+    # QSettings key for the foreground color of the AvgJuSa.
+    planetAvgJuSaForegroundColorKey = \
+        "ui/astrology/avgJuSaForegroundColor"
+
+    # QSettings default value for the foreground color of the AvgJuSa.
+    planetAvgJuSaForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the AvgJuSa.
+    planetAvgJuSaBackgroundColorKey = \
+        "ui/astrology/avgJuSaBackgroundColor"
+
+    # QSettings default value for the background color of the AvgJuSa.
+    planetAvgJuSaBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
     # QSettings key for the sign glyph unicode of the Aries.
     signAriesGlyphUnicodeKey = \
         "ui/astrology/ariesGlyphUnicode"

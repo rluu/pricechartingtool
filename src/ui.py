@@ -1166,13 +1166,17 @@ class MainWindow(QMainWindow):
 
         # Window geometry.
         self.windowGeometry = \
-            settings.value("ui/MainWindow/windowGeometry", type=QByteArray)
+            settings.value("ui/MainWindow/windowGeometry",
+                           defaultValue=None,
+                           type=QByteArray)
         if self.windowGeometry == None:
             self.windowGeometry = QByteArray()
             
         # Window state.
         self.windowState = \
-            settings.value("ui/MainWindow/windowState", type=QByteArray)
+            settings.value("ui/MainWindow/windowState",
+                           defaultValue=None,
+                           type=QByteArray)
         if self.windowState == None:
             self.windowState = QByteArray()
 
@@ -1197,14 +1201,18 @@ class MainWindow(QMainWindow):
         # Only write the settings if the value has changed.
 
         # Window geometry.
-        if settings.value("ui/MainWindow/windowGeometry", type=QByteArray) != \
+        if settings.value("ui/MainWindow/windowGeometry",
+                          defaultValue=None,
+                          type=QByteArray) != \
                 self.saveGeometry():
 
             settings.setValue("ui/MainWindow/windowGeometry", 
                               self.saveGeometry())
 
         # Window state.
-        if settings.value("ui/MainWindow/windowState", type=QByteArray) != \
+        if settings.value("ui/MainWindow/windowState",
+                          defaultValue=None,
+                          type=QByteArray) != \
                self.saveState():
             
             settings.setValue("ui/MainWindow/windowState",
@@ -1294,7 +1302,7 @@ class MainWindow(QMainWindow):
         settings = QSettings()
         defaultPriceChartDocumentOpenDirectory = \
             settings.value("ui/defaultPriceChartDocumentOpenDirectory",
-                           "",
+                           defaultValue="",
                            type=str)
 
         filename = \
@@ -4464,7 +4472,7 @@ class PriceChartDocument(QMdiSubWindow):
         settings = QSettings()
         defaultPriceChartDocumentSaveDirectory = \
             settings.value("ui/defaultPriceChartDocumentSaveDirectory",
-                           "",
+                           defaultValue="",
                            type=str)
 
         # Prompt for what filename to save the data to.

@@ -228,135 +228,150 @@ class AstrologyUtils:
         """
 
         settings = QSettings()
+
+        # Return value.
+        rv = None
         
         if planetName == "Ascendant":
-            rv = settings.\
-                value(SettingsKeys.planetAscendantGlyphUnicodeKey,
-                      SettingsKeys.planetAscendantGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetAscendantGlyphUnicodeKey,
+                                SettingsKeys.planetAscendantGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "Midheaven":
-            rv = settings.\
-                value(SettingsKeys.planetMidheavenGlyphUnicodeKey,
-                      SettingsKeys.planetMidheavenGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetMidheavenGlyphUnicodeKey,
+                                SettingsKeys.planetMidheavenGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "HoraLagna":
-            rv = settings.\
-                value(SettingsKeys.planetHoraLagnaGlyphUnicodeKey,
-                      SettingsKeys.planetHoraLagnaGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetHoraLagnaGlyphUnicodeKey,
+                                SettingsKeys.planetHoraLagnaGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "GhatiLagna":
-            rv = settings.\
-                value(SettingsKeys.planetGhatiLagnaGlyphUnicodeKey,
-                      SettingsKeys.planetGhatiLagnaGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetGhatiLagnaGlyphUnicodeKey,
+                                SettingsKeys.planetGhatiLagnaGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "MeanLunarApogee":
-            rv = settings.\
-                value(SettingsKeys.planetMeanLunarApogeeGlyphUnicodeKey,
-                      SettingsKeys.planetMeanLunarApogeeGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetMeanLunarApogeeGlyphUnicodeKey,
+                                SettingsKeys.planetMeanLunarApogeeGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "OsculatingLunarApogee":
-            rv = settings.\
-                value(SettingsKeys.planetOsculatingLunarApogeeGlyphUnicodeKey,
-                      SettingsKeys.planetOsculatingLunarApogeeGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetOsculatingLunarApogeeGlyphUnicodeKey,
+                                SettingsKeys.planetOsculatingLunarApogeeGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "InterpolatedLunarApogee":
-            rv = settings.\
-                value(SettingsKeys.planetInterpolatedLunarApogeeGlyphUnicodeKey,
-                      SettingsKeys.planetInterpolatedLunarApogeeGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetInterpolatedLunarApogeeGlyphUnicodeKey,
+                                SettingsKeys.planetInterpolatedLunarApogeeGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "InterpolatedLunarPerigee":
-            rv = settings.\
-                value(SettingsKeys.planetInterpolatedLunarPerigeeGlyphUnicodeKey,
-                      SettingsKeys.planetInterpolatedLunarPerigeeGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetInterpolatedLunarPerigeeGlyphUnicodeKey,
+                                SettingsKeys.planetInterpolatedLunarPerigeeGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "Sun":
-            rv = settings.\
-                value(SettingsKeys.planetSunGlyphUnicodeKey,
-                      SettingsKeys.planetSunGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetSunGlyphUnicodeKey,
+                                SettingsKeys.planetSunGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "Moon":
-            rv = settings.\
-                value(SettingsKeys.planetMoonGlyphUnicodeKey,
-                      SettingsKeys.planetMoonGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetMoonGlyphUnicodeKey,
+                                SettingsKeys.planetMoonGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "Mercury":
-            rv = settings.\
-                value(SettingsKeys.planetMercuryGlyphUnicodeKey,
-                      SettingsKeys.planetMercuryGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetMercuryGlyphUnicodeKey,
+                                SettingsKeys.planetMercuryGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "Venus":
-            rv = settings.\
-                value(SettingsKeys.planetVenusGlyphUnicodeKey,
-                      SettingsKeys.planetVenusGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetVenusGlyphUnicodeKey,
+                                SettingsKeys.planetVenusGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "Earth":
-            rv = settings.\
-                value(SettingsKeys.planetEarthGlyphUnicodeKey,
-                      SettingsKeys.planetEarthGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetEarthGlyphUnicodeKey,
+                                SettingsKeys.planetEarthGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "Mars":
-            rv = settings.\
-                value(SettingsKeys.planetMarsGlyphUnicodeKey,
-                      SettingsKeys.planetMarsGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetMarsGlyphUnicodeKey,
+                                SettingsKeys.planetMarsGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "Jupiter":
-            rv = settings.\
-                value(SettingsKeys.planetJupiterGlyphUnicodeKey,
-                      SettingsKeys.planetJupiterGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetJupiterGlyphUnicodeKey,
+                                SettingsKeys.planetJupiterGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "Saturn":
-            rv = settings.\
-                value(SettingsKeys.planetSaturnGlyphUnicodeKey,
-                      SettingsKeys.planetSaturnGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetSaturnGlyphUnicodeKey,
+                                SettingsKeys.planetSaturnGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "Uranus":
-            rv = settings.\
-                value(SettingsKeys.planetUranusGlyphUnicodeKey,
-                      SettingsKeys.planetUranusGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetUranusGlyphUnicodeKey,
+                                SettingsKeys.planetUranusGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "Neptune":
-            rv = settings.\
-                value(SettingsKeys.planetNeptuneGlyphUnicodeKey,
-                      SettingsKeys.planetNeptuneGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetNeptuneGlyphUnicodeKey,
+                                SettingsKeys.planetNeptuneGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "Pluto":
-            rv = settings.\
-                value(SettingsKeys.planetPlutoGlyphUnicodeKey,
-                      SettingsKeys.planetPlutoGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetPlutoGlyphUnicodeKey,
+                                SettingsKeys.planetPlutoGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "MeanNorthNode":
-            rv = settings.\
-                value(SettingsKeys.planetMeanNorthNodeGlyphUnicodeKey,
-                      SettingsKeys.planetMeanNorthNodeGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetMeanNorthNodeGlyphUnicodeKey,
+                                SettingsKeys.planetMeanNorthNodeGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "MeanSouthNode":
-            rv = settings.\
-                value(SettingsKeys.planetMeanSouthNodeGlyphUnicodeKey,
-                      SettingsKeys.planetMeanSouthNodeGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetMeanSouthNodeGlyphUnicodeKey,
+                                SettingsKeys.planetMeanSouthNodeGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "TrueNorthNode":
-            rv = settings.\
-                value(SettingsKeys.planetTrueNorthNodeGlyphUnicodeKey,
-                      SettingsKeys.planetTrueNorthNodeGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetTrueNorthNodeGlyphUnicodeKey,
+                                SettingsKeys.planetTrueNorthNodeGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "TrueSouthNode":
-            rv = settings.\
-                value(SettingsKeys.planetTrueSouthNodeGlyphUnicodeKey,
-                      SettingsKeys.planetTrueSouthNodeGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetTrueSouthNodeGlyphUnicodeKey,
+                                SettingsKeys.planetTrueSouthNodeGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "Ceres":
-            rv = settings.\
-                value(SettingsKeys.planetCeresGlyphUnicodeKey,
-                      SettingsKeys.planetCeresGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetCeresGlyphUnicodeKey,
+                                SettingsKeys.planetCeresGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "Pallas":
-            rv = settings.\
-                value(SettingsKeys.planetPallasGlyphUnicodeKey,
-                      SettingsKeys.planetPallasGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetPallasGlyphUnicodeKey,
+                                SettingsKeys.planetPallasGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "Juno":
-            rv = settings.\
-                value(SettingsKeys.planetJunoGlyphUnicodeKey,
-                      SettingsKeys.planetJunoGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetJunoGlyphUnicodeKey,
+                                SettingsKeys.planetJunoGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "Vesta":
-            rv = settings.\
-                value(SettingsKeys.planetVestaGlyphUnicodeKey,
-                      SettingsKeys.planetVestaGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetVestaGlyphUnicodeKey,
+                                SettingsKeys.planetVestaGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "Chiron":
-            rv = settings.\
-                value(SettingsKeys.planetChironGlyphUnicodeKey,
-                      SettingsKeys.planetChironGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetChironGlyphUnicodeKey,
+                                SettingsKeys.planetChironGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "Gulika":
-            rv = settings.\
-                value(SettingsKeys.planetGulikaGlyphUnicodeKey,
-                      SettingsKeys.planetGulikaGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetGulikaGlyphUnicodeKey,
+                                SettingsKeys.planetGulikaGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "Mandi":
-            rv = settings.\
-                value(SettingsKeys.planetMandiGlyphUnicodeKey,
-                      SettingsKeys.planetMandiGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetMandiGlyphUnicodeKey,
+                                SettingsKeys.planetMandiGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "MeanOfFive":
-            rv = settings.\
-                value(SettingsKeys.planetMeanOfFiveGlyphUnicodeKey,
-                      SettingsKeys.planetMeanOfFiveGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetMeanOfFiveGlyphUnicodeKey,
+                                SettingsKeys.planetMeanOfFiveGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "CycleOfEight":
-            rv = settings.\
-                value(SettingsKeys.planetCycleOfEightGlyphUnicodeKey,
-                      SettingsKeys.planetCycleOfEightGlyphUnicodeDefValue)
+            rv = settings.value(SettingsKeys.planetCycleOfEightGlyphUnicodeKey,
+                                SettingsKeys.planetCycleOfEightGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "AvgMaJuSaUrNePl":
+            rv = settings.value(SettingsKeys.planetAvgMaJuSaUrNePlGlyphUnicodeKey,
+                                SettingsKeys.planetAvgMaJuSaUrNePlGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "AvgJuSaUrNe":
+            rv = settings.value(SettingsKeys.planetAvgJuSaUrNeGlyphUnicodeKey,
+                                SettingsKeys.planetAvgJuSaUrNeGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "AvgJuSa":
+            rv = settings.value(SettingsKeys.planetAvgJuSaGlyphUnicodeKey,
+                                SettingsKeys.planetAvgJuSaGlyphUnicodeDefValue,
+                                type=str)
         else:
             rv = "???"
             self.log.warn("Could not find glyph for planet: " + \
@@ -377,135 +392,150 @@ class AstrologyUtils:
         """
 
         settings = QSettings()
+
+        # Return value.
+        rv = None
         
         if planetName == "Ascendant":
-            rv = float(settings.\
-                value(SettingsKeys.planetAscendantGlyphFontSizeKey,
-                      SettingsKeys.planetAscendantGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetAscendantGlyphFontSizeKey,
+                                SettingsKeys.planetAscendantGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "Midheaven":
-            rv = float(settings.\
-                value(SettingsKeys.planetMidheavenGlyphFontSizeKey,
-                      SettingsKeys.planetMidheavenGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetMidheavenGlyphFontSizeKey,
+                                SettingsKeys.planetMidheavenGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "HoraLagna":
-            rv = float(settings.\
-                value(SettingsKeys.planetHoraLagnaGlyphFontSizeKey,
-                      SettingsKeys.planetHoraLagnaGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetHoraLagnaGlyphFontSizeKey,
+                                SettingsKeys.planetHoraLagnaGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "GhatiLagna":
-            rv = float(settings.\
-                value(SettingsKeys.planetGhatiLagnaGlyphFontSizeKey,
-                      SettingsKeys.planetGhatiLagnaGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetGhatiLagnaGlyphFontSizeKey,
+                                SettingsKeys.planetGhatiLagnaGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "MeanLunarApogee":
-            rv = float(settings.\
-                value(SettingsKeys.planetMeanLunarApogeeGlyphFontSizeKey,
-                      SettingsKeys.planetMeanLunarApogeeGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetMeanLunarApogeeGlyphFontSizeKey,
+                                SettingsKeys.planetMeanLunarApogeeGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "OsculatingLunarApogee":
-            rv = float(settings.\
-                value(SettingsKeys.planetOsculatingLunarApogeeGlyphFontSizeKey,
-                      SettingsKeys.planetOsculatingLunarApogeeGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetOsculatingLunarApogeeGlyphFontSizeKey,
+                                SettingsKeys.planetOsculatingLunarApogeeGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "InterpolatedLunarApogee":
-            rv = float(settings.\
-                value(SettingsKeys.planetInterpolatedLunarApogeeGlyphFontSizeKey,
-                      SettingsKeys.planetInterpolatedLunarApogeeGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetInterpolatedLunarApogeeGlyphFontSizeKey,
+                                SettingsKeys.planetInterpolatedLunarApogeeGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "InterpolatedLunarPerigee":
-            rv = float(settings.\
-                value(SettingsKeys.planetInterpolatedLunarPerigeeGlyphFontSizeKey,
-                      SettingsKeys.planetInterpolatedLunarPerigeeGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetInterpolatedLunarPerigeeGlyphFontSizeKey,
+                                SettingsKeys.planetInterpolatedLunarPerigeeGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "Sun":
-            rv = float(settings.\
-                value(SettingsKeys.planetSunGlyphFontSizeKey,
-                      SettingsKeys.planetSunGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetSunGlyphFontSizeKey,
+                                SettingsKeys.planetSunGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "Moon":
-            rv = float(settings.\
-                value(SettingsKeys.planetMoonGlyphFontSizeKey,
-                      SettingsKeys.planetMoonGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetMoonGlyphFontSizeKey,
+                                SettingsKeys.planetMoonGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "Mercury":
-            rv = float(settings.\
-                value(SettingsKeys.planetMercuryGlyphFontSizeKey,
-                      SettingsKeys.planetMercuryGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetMercuryGlyphFontSizeKey,
+                                SettingsKeys.planetMercuryGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "Venus":
-            rv = float(settings.\
-                value(SettingsKeys.planetVenusGlyphFontSizeKey,
-                      SettingsKeys.planetVenusGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetVenusGlyphFontSizeKey,
+                                SettingsKeys.planetVenusGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "Earth":
-            rv = float(settings.\
-                value(SettingsKeys.planetEarthGlyphFontSizeKey,
-                      SettingsKeys.planetEarthGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetEarthGlyphFontSizeKey,
+                                SettingsKeys.planetEarthGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "Mars":
-            rv = float(settings.\
-                value(SettingsKeys.planetMarsGlyphFontSizeKey,
-                      SettingsKeys.planetMarsGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetMarsGlyphFontSizeKey,
+                                SettingsKeys.planetMarsGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "Jupiter":
-            rv = float(settings.\
-                value(SettingsKeys.planetJupiterGlyphFontSizeKey,
-                      SettingsKeys.planetJupiterGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetJupiterGlyphFontSizeKey,
+                                SettingsKeys.planetJupiterGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "Saturn":
-            rv = float(settings.\
-                value(SettingsKeys.planetSaturnGlyphFontSizeKey,
-                      SettingsKeys.planetSaturnGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetSaturnGlyphFontSizeKey,
+                                SettingsKeys.planetSaturnGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "Uranus":
-            rv = float(settings.\
-                value(SettingsKeys.planetUranusGlyphFontSizeKey,
-                      SettingsKeys.planetUranusGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetUranusGlyphFontSizeKey,
+                                SettingsKeys.planetUranusGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "Neptune":
-            rv = float(settings.\
-                value(SettingsKeys.planetNeptuneGlyphFontSizeKey,
-                      SettingsKeys.planetNeptuneGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetNeptuneGlyphFontSizeKey,
+                                SettingsKeys.planetNeptuneGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "Pluto":
-            rv = float(settings.\
-                value(SettingsKeys.planetPlutoGlyphFontSizeKey,
-                      SettingsKeys.planetPlutoGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetPlutoGlyphFontSizeKey,
+                                SettingsKeys.planetPlutoGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "MeanNorthNode":
-            rv = float(settings.\
-                value(SettingsKeys.planetMeanNorthNodeGlyphFontSizeKey,
-                      SettingsKeys.planetMeanNorthNodeGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetMeanNorthNodeGlyphFontSizeKey,
+                                SettingsKeys.planetMeanNorthNodeGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "MeanSouthNode":
-            rv = float(settings.\
-                value(SettingsKeys.planetMeanSouthNodeGlyphFontSizeKey,
-                      SettingsKeys.planetMeanSouthNodeGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetMeanSouthNodeGlyphFontSizeKey,
+                                SettingsKeys.planetMeanSouthNodeGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "TrueNorthNode":
-            rv = float(settings.\
-                value(SettingsKeys.planetTrueNorthNodeGlyphFontSizeKey,
-                      SettingsKeys.planetTrueNorthNodeGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetTrueNorthNodeGlyphFontSizeKey,
+                                SettingsKeys.planetTrueNorthNodeGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "TrueSouthNode":
-            rv = float(settings.\
-                value(SettingsKeys.planetTrueSouthNodeGlyphFontSizeKey,
-                      SettingsKeys.planetTrueSouthNodeGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetTrueSouthNodeGlyphFontSizeKey,
+                                SettingsKeys.planetTrueSouthNodeGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "Ceres":
-            rv = float(settings.\
-                value(SettingsKeys.planetCeresGlyphFontSizeKey,
-                      SettingsKeys.planetCeresGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetCeresGlyphFontSizeKey,
+                                SettingsKeys.planetCeresGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "Pallas":
-            rv = float(settings.\
-                value(SettingsKeys.planetPallasGlyphFontSizeKey,
-                      SettingsKeys.planetPallasGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetPallasGlyphFontSizeKey,
+                                SettingsKeys.planetPallasGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "Juno":
-            rv = float(settings.\
-                value(SettingsKeys.planetJunoGlyphFontSizeKey,
-                      SettingsKeys.planetJunoGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetJunoGlyphFontSizeKey,
+                                SettingsKeys.planetJunoGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "Vesta":
-            rv = float(settings.\
-                value(SettingsKeys.planetVestaGlyphFontSizeKey,
-                      SettingsKeys.planetVestaGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetVestaGlyphFontSizeKey,
+                                SettingsKeys.planetVestaGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "Chiron":
-            rv = float(settings.\
-                value(SettingsKeys.planetChironGlyphFontSizeKey,
-                      SettingsKeys.planetChironGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetChironGlyphFontSizeKey,
+                                SettingsKeys.planetChironGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "Gulika":
-            rv = float(settings.\
-                value(SettingsKeys.planetGulikaGlyphFontSizeKey,
-                      SettingsKeys.planetGulikaGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetGulikaGlyphFontSizeKey,
+                                SettingsKeys.planetGulikaGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "Mandi":
-            rv = float(settings.\
-                value(SettingsKeys.planetMandiGlyphFontSizeKey,
-                      SettingsKeys.planetMandiGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetMandiGlyphFontSizeKey,
+                                SettingsKeys.planetMandiGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "MeanOfFive":
-            rv = float(settings.\
-                value(SettingsKeys.planetMeanOfFiveGlyphFontSizeKey,
-                      SettingsKeys.planetMeanOfFiveGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetMeanOfFiveGlyphFontSizeKey,
+                                SettingsKeys.planetMeanOfFiveGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "CycleOfEight":
-            rv = float(settings.\
-                value(SettingsKeys.planetCycleOfEightGlyphFontSizeKey,
-                      SettingsKeys.planetCycleOfEightGlyphFontSizeDefValue))
+            rv = settings.value(SettingsKeys.planetCycleOfEightGlyphFontSizeKey,
+                                SettingsKeys.planetCycleOfEightGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "AvgMaJuSaUrNePl":
+            rv = settings.value(SettingsKeys.planetAvgMaJuSaUrNePlGlyphFontSizeKey,
+                                SettingsKeys.planetAvgMaJuSaUrNePlGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "AvgJuSaUrNe":
+            rv = settings.value(SettingsKeys.planetAvgJuSaUrNeGlyphFontSizeKey,
+                                SettingsKeys.planetAvgJuSaUrNeGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "AvgJuSa":
+            rv = settings.value(SettingsKeys.planetAvgJuSaGlyphFontSizeKey,
+                                SettingsKeys.planetAvgJuSaGlyphFontSizeDefValue,
+                                type=float)
         else:
             rv = 10.0
             self.log.warn("Could not find glyph font size for planet: " + \
@@ -526,135 +556,150 @@ class AstrologyUtils:
         """
 
         settings = QSettings()
+
+        # Return value.
+        rv = None
         
         if planetName == "Ascendant":
-            rv = settings.\
-                value(SettingsKeys.planetAscendantAbbreviationKey,
-                      SettingsKeys.planetAscendantAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetAscendantAbbreviationKey,
+                                SettingsKeys.planetAscendantAbbreviationDefValue,
+                                type=str)
         elif planetName == "Midheaven":
-            rv = settings.\
-                value(SettingsKeys.planetMidheavenAbbreviationKey,
-                      SettingsKeys.planetMidheavenAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetMidheavenAbbreviationKey,
+                                SettingsKeys.planetMidheavenAbbreviationDefValue,
+                                type=str)
         elif planetName == "HoraLagna":
-            rv = settings.\
-                value(SettingsKeys.planetHoraLagnaAbbreviationKey,
-                      SettingsKeys.planetHoraLagnaAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetHoraLagnaAbbreviationKey,
+                                SettingsKeys.planetHoraLagnaAbbreviationDefValue,
+                                type=str)
         elif planetName == "GhatiLagna":
-            rv = settings.\
-                value(SettingsKeys.planetGhatiLagnaAbbreviationKey,
-                      SettingsKeys.planetGhatiLagnaAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetGhatiLagnaAbbreviationKey,
+                                SettingsKeys.planetGhatiLagnaAbbreviationDefValue,
+                                type=str)
         elif planetName == "MeanLunarApogee":
-            rv = settings.\
-                value(SettingsKeys.planetMeanLunarApogeeAbbreviationKey,
-                      SettingsKeys.planetMeanLunarApogeeAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetMeanLunarApogeeAbbreviationKey,
+                                SettingsKeys.planetMeanLunarApogeeAbbreviationDefValue,
+                                type=str)
         elif planetName == "OsculatingLunarApogee":
-            rv = settings.\
-                value(SettingsKeys.planetOsculatingLunarApogeeAbbreviationKey,
-                      SettingsKeys.planetOsculatingLunarApogeeAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetOsculatingLunarApogeeAbbreviationKey,
+                                SettingsKeys.planetOsculatingLunarApogeeAbbreviationDefValue,
+                                type=str)
         elif planetName == "InterpolatedLunarApogee":
-            rv = settings.\
-                value(SettingsKeys.planetInterpolatedLunarApogeeAbbreviationKey,
-                      SettingsKeys.planetInterpolatedLunarApogeeAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetInterpolatedLunarApogeeAbbreviationKey,
+                                SettingsKeys.planetInterpolatedLunarApogeeAbbreviationDefValue,
+                                type=str)
         elif planetName == "InterpolatedLunarPerigee":
-            rv = settings.\
-                value(SettingsKeys.planetInterpolatedLunarPerigeeAbbreviationKey,
-                      SettingsKeys.planetInterpolatedLunarPerigeeAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetInterpolatedLunarPerigeeAbbreviationKey,
+                                SettingsKeys.planetInterpolatedLunarPerigeeAbbreviationDefValue,
+                                type=str)
         elif planetName == "Sun":
-            rv = settings.\
-                value(SettingsKeys.planetSunAbbreviationKey,
-                      SettingsKeys.planetSunAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetSunAbbreviationKey,
+                                SettingsKeys.planetSunAbbreviationDefValue,
+                                type=str)
         elif planetName == "Moon":
-            rv = settings.\
-                value(SettingsKeys.planetMoonAbbreviationKey,
-                      SettingsKeys.planetMoonAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetMoonAbbreviationKey,
+                                SettingsKeys.planetMoonAbbreviationDefValue,
+                                type=str)
         elif planetName == "Mercury":
-            rv = settings.\
-                value(SettingsKeys.planetMercuryAbbreviationKey,
-                      SettingsKeys.planetMercuryAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetMercuryAbbreviationKey,
+                                SettingsKeys.planetMercuryAbbreviationDefValue,
+                                type=str)
         elif planetName == "Venus":
-            rv = settings.\
-                value(SettingsKeys.planetVenusAbbreviationKey,
-                      SettingsKeys.planetVenusAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetVenusAbbreviationKey,
+                                SettingsKeys.planetVenusAbbreviationDefValue,
+                                type=str)
         elif planetName == "Earth":
-            rv = settings.\
-                value(SettingsKeys.planetEarthAbbreviationKey,
-                      SettingsKeys.planetEarthAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetEarthAbbreviationKey,
+                                SettingsKeys.planetEarthAbbreviationDefValue,
+                                type=str)
         elif planetName == "Mars":
-            rv = settings.\
-                value(SettingsKeys.planetMarsAbbreviationKey,
-                      SettingsKeys.planetMarsAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetMarsAbbreviationKey,
+                                SettingsKeys.planetMarsAbbreviationDefValue,
+                                type=str)
         elif planetName == "Jupiter":
-            rv = settings.\
-                value(SettingsKeys.planetJupiterAbbreviationKey,
-                      SettingsKeys.planetJupiterAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetJupiterAbbreviationKey,
+                                SettingsKeys.planetJupiterAbbreviationDefValue,
+                                type=str)
         elif planetName == "Saturn":
-            rv = settings.\
-                value(SettingsKeys.planetSaturnAbbreviationKey,
-                      SettingsKeys.planetSaturnAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetSaturnAbbreviationKey,
+                                SettingsKeys.planetSaturnAbbreviationDefValue,
+                                type=str)
         elif planetName == "Uranus":
-            rv = settings.\
-                value(SettingsKeys.planetUranusAbbreviationKey,
-                      SettingsKeys.planetUranusAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetUranusAbbreviationKey,
+                                SettingsKeys.planetUranusAbbreviationDefValue,
+                                type=str)
         elif planetName == "Neptune":
-            rv = settings.\
-                value(SettingsKeys.planetNeptuneAbbreviationKey,
-                      SettingsKeys.planetNeptuneAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetNeptuneAbbreviationKey,
+                                SettingsKeys.planetNeptuneAbbreviationDefValue,
+                                type=str)
         elif planetName == "Pluto":
-            rv = settings.\
-                value(SettingsKeys.planetPlutoAbbreviationKey,
-                      SettingsKeys.planetPlutoAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetPlutoAbbreviationKey,
+                                SettingsKeys.planetPlutoAbbreviationDefValue,
+                                type=str)
         elif planetName == "MeanNorthNode":
-            rv = settings.\
-                value(SettingsKeys.planetMeanNorthNodeAbbreviationKey,
-                      SettingsKeys.planetMeanNorthNodeAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetMeanNorthNodeAbbreviationKey,
+                                SettingsKeys.planetMeanNorthNodeAbbreviationDefValue,
+                                type=str)
         elif planetName == "MeanSouthNode":
-            rv = settings.\
-                value(SettingsKeys.planetMeanSouthNodeAbbreviationKey,
-                      SettingsKeys.planetMeanSouthNodeAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetMeanSouthNodeAbbreviationKey,
+                                SettingsKeys.planetMeanSouthNodeAbbreviationDefValue,
+                                type=str)
         elif planetName == "TrueNorthNode":
-            rv = settings.\
-                value(SettingsKeys.planetTrueNorthNodeAbbreviationKey,
-                      SettingsKeys.planetTrueNorthNodeAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetTrueNorthNodeAbbreviationKey,
+                                SettingsKeys.planetTrueNorthNodeAbbreviationDefValue,
+                                type=str)
         elif planetName == "TrueSouthNode":
-            rv = settings.\
-                value(SettingsKeys.planetTrueSouthNodeAbbreviationKey,
-                      SettingsKeys.planetTrueSouthNodeAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetTrueSouthNodeAbbreviationKey,
+                                SettingsKeys.planetTrueSouthNodeAbbreviationDefValue,
+                                type=str)
         elif planetName == "Ceres":
-            rv = settings.\
-                value(SettingsKeys.planetCeresAbbreviationKey,
-                      SettingsKeys.planetCeresAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetCeresAbbreviationKey,
+                                SettingsKeys.planetCeresAbbreviationDefValue,
+                                type=str)
         elif planetName == "Pallas":
-            rv = settings.\
-                value(SettingsKeys.planetPallasAbbreviationKey,
-                      SettingsKeys.planetPallasAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetPallasAbbreviationKey,
+                                SettingsKeys.planetPallasAbbreviationDefValue,
+                                type=str)
         elif planetName == "Juno":
-            rv = settings.\
-                value(SettingsKeys.planetJunoAbbreviationKey,
-                      SettingsKeys.planetJunoAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetJunoAbbreviationKey,
+                                SettingsKeys.planetJunoAbbreviationDefValue,
+                                type=str)
         elif planetName == "Vesta":
-            rv = settings.\
-                value(SettingsKeys.planetVestaAbbreviationKey,
-                      SettingsKeys.planetVestaAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetVestaAbbreviationKey,
+                                SettingsKeys.planetVestaAbbreviationDefValue,
+                                type=str)
         elif planetName == "Chiron":
-            rv = settings.\
-                value(SettingsKeys.planetChironAbbreviationKey,
-                      SettingsKeys.planetChironAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetChironAbbreviationKey,
+                                SettingsKeys.planetChironAbbreviationDefValue,
+                                type=str)
         elif planetName == "Gulika":
-            rv = settings.\
-                value(SettingsKeys.planetGulikaAbbreviationKey,
-                      SettingsKeys.planetGulikaAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetGulikaAbbreviationKey,
+                                SettingsKeys.planetGulikaAbbreviationDefValue,
+                                type=str)
         elif planetName == "Mandi":
-            rv = settings.\
-                value(SettingsKeys.planetMandiAbbreviationKey,
-                      SettingsKeys.planetMandiAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetMandiAbbreviationKey,
+                                SettingsKeys.planetMandiAbbreviationDefValue,
+                                type=str)
         elif planetName == "MeanOfFive":
-            rv = settings.\
-                value(SettingsKeys.planetMeanOfFiveAbbreviationKey,
-                      SettingsKeys.planetMeanOfFiveAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetMeanOfFiveAbbreviationKey,
+                                SettingsKeys.planetMeanOfFiveAbbreviationDefValue,
+                                type=str)
         elif planetName == "CycleOfEight":
-            rv = settings.\
-                value(SettingsKeys.planetCycleOfEightAbbreviationKey,
-                      SettingsKeys.planetCycleOfEightAbbreviationDefValue)
+            rv = settings.value(SettingsKeys.planetCycleOfEightAbbreviationKey,
+                                SettingsKeys.planetCycleOfEightAbbreviationDefValue,
+                                type=str)
+        elif planetName == "AvgMaJuSaUrNePl":
+            rv = settings.value(SettingsKeys.planetAvgMaJuSaUrNePlAbbreviationKey,
+                                SettingsKeys.planetAvgMaJuSaUrNePlAbbreviationDefValue,
+                                type=str)
+        elif planetName == "AvgJuSaUrNe":
+            rv = settings.value(SettingsKeys.planetAvgJuSaUrNeAbbreviationKey,
+                                SettingsKeys.planetAvgJuSaUrNeAbbreviationDefValue,
+                                type=str)
+        elif planetName == "AvgJuSa":
+            rv = settings.value(SettingsKeys.planetAvgJuSaAbbreviationKey,
+                                SettingsKeys.planetAvgJuSaAbbreviationDefValue,
+                                type=str)
         else:
             rv = "???"
             self.log.warn("Could not find abbreviation for planet: " + \
@@ -675,135 +720,150 @@ class AstrologyUtils:
         """
 
         settings = QSettings()
+
+        # Return value.
+        rv = None
         
         if planetName == "Ascendant":
-            rv = settings.\
-                value(SettingsKeys.planetAscendantForegroundColorKey,
-                      SettingsKeys.planetAscendantForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetAscendantForegroundColorKey,
+                                SettingsKeys.planetAscendantForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Midheaven":
-            rv = settings.\
-                value(SettingsKeys.planetMidheavenForegroundColorKey,
-                      SettingsKeys.planetMidheavenForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetMidheavenForegroundColorKey,
+                                SettingsKeys.planetMidheavenForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "HoraLagna":
-            rv = settings.\
-                value(SettingsKeys.planetHoraLagnaForegroundColorKey,
-                      SettingsKeys.planetHoraLagnaForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetHoraLagnaForegroundColorKey,
+                                SettingsKeys.planetHoraLagnaForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "GhatiLagna":
-            rv = settings.\
-                value(SettingsKeys.planetGhatiLagnaForegroundColorKey,
-                      SettingsKeys.planetGhatiLagnaForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetGhatiLagnaForegroundColorKey,
+                                SettingsKeys.planetGhatiLagnaForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "MeanLunarApogee":
-            rv = settings.\
-                value(SettingsKeys.planetMeanLunarApogeeForegroundColorKey,
-                      SettingsKeys.planetMeanLunarApogeeForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetMeanLunarApogeeForegroundColorKey,
+                                SettingsKeys.planetMeanLunarApogeeForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "OsculatingLunarApogee":
-            rv = settings.\
-                value(SettingsKeys.planetOsculatingLunarApogeeForegroundColorKey,
-                      SettingsKeys.planetOsculatingLunarApogeeForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetOsculatingLunarApogeeForegroundColorKey,
+                                SettingsKeys.planetOsculatingLunarApogeeForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "InterpolatedLunarApogee":
-            rv = settings.\
-                value(SettingsKeys.planetInterpolatedLunarApogeeForegroundColorKey,
-                      SettingsKeys.planetInterpolatedLunarApogeeForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetInterpolatedLunarApogeeForegroundColorKey,
+                                SettingsKeys.planetInterpolatedLunarApogeeForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "InterpolatedLunarPerigee":
-            rv = settings.\
-                value(SettingsKeys.planetInterpolatedLunarPerigeeForegroundColorKey,
-                      SettingsKeys.planetInterpolatedLunarPerigeeForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetInterpolatedLunarPerigeeForegroundColorKey,
+                                SettingsKeys.planetInterpolatedLunarPerigeeForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Sun":
-            rv = settings.\
-                value(SettingsKeys.planetSunForegroundColorKey,
-                      SettingsKeys.planetSunForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetSunForegroundColorKey,
+                                SettingsKeys.planetSunForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Moon":
-            rv = settings.\
-                value(SettingsKeys.planetMoonForegroundColorKey,
-                      SettingsKeys.planetMoonForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetMoonForegroundColorKey,
+                                SettingsKeys.planetMoonForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Mercury":
-            rv = settings.\
-                value(SettingsKeys.planetMercuryForegroundColorKey,
-                      SettingsKeys.planetMercuryForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetMercuryForegroundColorKey,
+                                SettingsKeys.planetMercuryForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Venus":
-            rv = settings.\
-                value(SettingsKeys.planetVenusForegroundColorKey,
-                      SettingsKeys.planetVenusForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetVenusForegroundColorKey,
+                                SettingsKeys.planetVenusForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Earth":
-            rv = settings.\
-                value(SettingsKeys.planetEarthForegroundColorKey,
-                      SettingsKeys.planetEarthForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetEarthForegroundColorKey,
+                                SettingsKeys.planetEarthForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Mars":
-            rv = settings.\
-                value(SettingsKeys.planetMarsForegroundColorKey,
-                      SettingsKeys.planetMarsForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetMarsForegroundColorKey,
+                                SettingsKeys.planetMarsForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Jupiter":
-            rv = settings.\
-                value(SettingsKeys.planetJupiterForegroundColorKey,
-                      SettingsKeys.planetJupiterForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetJupiterForegroundColorKey,
+                                SettingsKeys.planetJupiterForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Saturn":
-            rv = settings.\
-                value(SettingsKeys.planetSaturnForegroundColorKey,
-                      SettingsKeys.planetSaturnForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetSaturnForegroundColorKey,
+                                SettingsKeys.planetSaturnForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Uranus":
-            rv = settings.\
-                value(SettingsKeys.planetUranusForegroundColorKey,
-                      SettingsKeys.planetUranusForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetUranusForegroundColorKey,
+                                SettingsKeys.planetUranusForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Neptune":
-            rv = settings.\
-                value(SettingsKeys.planetNeptuneForegroundColorKey,
-                      SettingsKeys.planetNeptuneForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetNeptuneForegroundColorKey,
+                                SettingsKeys.planetNeptuneForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Pluto":
-            rv = settings.\
-                value(SettingsKeys.planetPlutoForegroundColorKey,
-                      SettingsKeys.planetPlutoForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetPlutoForegroundColorKey,
+                                SettingsKeys.planetPlutoForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "MeanNorthNode":
-            rv = settings.\
-                value(SettingsKeys.planetMeanNorthNodeForegroundColorKey,
-                      SettingsKeys.planetMeanNorthNodeForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetMeanNorthNodeForegroundColorKey,
+                                SettingsKeys.planetMeanNorthNodeForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "MeanSouthNode":
-            rv = settings.\
-                value(SettingsKeys.planetMeanSouthNodeForegroundColorKey,
-                      SettingsKeys.planetMeanSouthNodeForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetMeanSouthNodeForegroundColorKey,
+                                SettingsKeys.planetMeanSouthNodeForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "TrueNorthNode":
-            rv = settings.\
-                value(SettingsKeys.planetTrueNorthNodeForegroundColorKey,
-                      SettingsKeys.planetTrueNorthNodeForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetTrueNorthNodeForegroundColorKey,
+                                SettingsKeys.planetTrueNorthNodeForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "TrueSouthNode":
-            rv = settings.\
-                value(SettingsKeys.planetTrueSouthNodeForegroundColorKey,
-                      SettingsKeys.planetTrueSouthNodeForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetTrueSouthNodeForegroundColorKey,
+                                SettingsKeys.planetTrueSouthNodeForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Ceres":
-            rv = settings.\
-                value(SettingsKeys.planetCeresForegroundColorKey,
-                      SettingsKeys.planetCeresForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetCeresForegroundColorKey,
+                                SettingsKeys.planetCeresForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Pallas":
-            rv = settings.\
-                value(SettingsKeys.planetPallasForegroundColorKey,
-                      SettingsKeys.planetPallasForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetPallasForegroundColorKey,
+                                SettingsKeys.planetPallasForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Juno":
-            rv = settings.\
-                value(SettingsKeys.planetJunoForegroundColorKey,
-                      SettingsKeys.planetJunoForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetJunoForegroundColorKey,
+                                SettingsKeys.planetJunoForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Vesta":
-            rv = settings.\
-                value(SettingsKeys.planetVestaForegroundColorKey,
-                      SettingsKeys.planetVestaForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetVestaForegroundColorKey,
+                                SettingsKeys.planetVestaForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Chiron":
-            rv = settings.\
-                value(SettingsKeys.planetChironForegroundColorKey,
-                      SettingsKeys.planetChironForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetChironForegroundColorKey,
+                                SettingsKeys.planetChironForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Gulika":
-            rv = settings.\
-                value(SettingsKeys.planetGulikaForegroundColorKey,
-                      SettingsKeys.planetGulikaForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetGulikaForegroundColorKey,
+                                SettingsKeys.planetGulikaForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Mandi":
-            rv = settings.\
-                value(SettingsKeys.planetMandiForegroundColorKey,
-                      SettingsKeys.planetMandiForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetMandiForegroundColorKey,
+                                SettingsKeys.planetMandiForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "MeanOfFive":
-            rv = settings.\
-                value(SettingsKeys.planetMeanOfFiveForegroundColorKey,
-                      SettingsKeys.planetMeanOfFiveForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetMeanOfFiveForegroundColorKey,
+                                SettingsKeys.planetMeanOfFiveForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "CycleOfEight":
-            rv = settings.\
-                value(SettingsKeys.planetCycleOfEightForegroundColorKey,
-                      SettingsKeys.planetCycleOfEightForegroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetCycleOfEightForegroundColorKey,
+                                SettingsKeys.planetCycleOfEightForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "AvgMaJuSaUrNePl":
+            rv = settings.value(SettingsKeys.planetAvgMaJuSaUrNePlForegroundColorKey,
+                                SettingsKeys.planetAvgMaJuSaUrNePlForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "AvgJuSaUrNe":
+            rv = settings.value(SettingsKeys.planetAvgJuSaUrNeForegroundColorKey,
+                                SettingsKeys.planetAvgJuSaUrNeForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "AvgJuSa":
+            rv = settings.value(SettingsKeys.planetAvgJuSaForegroundColorKey,
+                                SettingsKeys.planetAvgJuSaForegroundColorDefValue,\
+                                type=QColor)
         else:
             rv = QColor(Qt.black)
             self.log.warn("Could not find foreground color for planet: " + \
@@ -824,135 +884,150 @@ class AstrologyUtils:
         """
 
         settings = QSettings()
+
+        # Return value.
+        rv = None
         
         if planetName == "Ascendant":
-            rv = settings.\
-                value(SettingsKeys.planetAscendantBackgroundColorKey,
-                      SettingsKeys.planetAscendantBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetAscendantBackgroundColorKey,
+                                SettingsKeys.planetAscendantBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Midheaven":
-            rv = settings.\
-                value(SettingsKeys.planetMidheavenBackgroundColorKey,
-                      SettingsKeys.planetMidheavenBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetMidheavenBackgroundColorKey,
+                                SettingsKeys.planetMidheavenBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "HoraLagna":
-            rv = settings.\
-                value(SettingsKeys.planetHoraLagnaBackgroundColorKey,
-                      SettingsKeys.planetHoraLagnaBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetHoraLagnaBackgroundColorKey,
+                                SettingsKeys.planetHoraLagnaBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "GhatiLagna":
-            rv = settings.\
-                value(SettingsKeys.planetGhatiLagnaBackgroundColorKey,
-                      SettingsKeys.planetGhatiLagnaBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetGhatiLagnaBackgroundColorKey,
+                                SettingsKeys.planetGhatiLagnaBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "MeanLunarApogee":
-            rv = settings.\
-                value(SettingsKeys.planetMeanLunarApogeeBackgroundColorKey,
-                      SettingsKeys.planetMeanLunarApogeeBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetMeanLunarApogeeBackgroundColorKey,
+                                SettingsKeys.planetMeanLunarApogeeBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "OsculatingLunarApogee":
-            rv = settings.\
-                value(SettingsKeys.planetOsculatingLunarApogeeBackgroundColorKey,
-                      SettingsKeys.planetOsculatingLunarApogeeBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetOsculatingLunarApogeeBackgroundColorKey,
+                                SettingsKeys.planetOsculatingLunarApogeeBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "InterpolatedLunarApogee":
-            rv = settings.\
-                value(SettingsKeys.planetInterpolatedLunarApogeeBackgroundColorKey,
-                      SettingsKeys.planetInterpolatedLunarApogeeBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetInterpolatedLunarApogeeBackgroundColorKey,
+                                SettingsKeys.planetInterpolatedLunarApogeeBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "InterpolatedLunarPerigee":
-            rv = settings.\
-                value(SettingsKeys.planetInterpolatedLunarPerigeeBackgroundColorKey,
-                      SettingsKeys.planetInterpolatedLunarPerigeeBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetInterpolatedLunarPerigeeBackgroundColorKey,
+                                SettingsKeys.planetInterpolatedLunarPerigeeBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Sun":
-            rv = settings.\
-                value(SettingsKeys.planetSunBackgroundColorKey,
-                      SettingsKeys.planetSunBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetSunBackgroundColorKey,
+                                SettingsKeys.planetSunBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Moon":
-            rv = settings.\
-                value(SettingsKeys.planetMoonBackgroundColorKey,
-                      SettingsKeys.planetMoonBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetMoonBackgroundColorKey,
+                                SettingsKeys.planetMoonBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Mercury":
-            rv = settings.\
-                value(SettingsKeys.planetMercuryBackgroundColorKey,
-                      SettingsKeys.planetMercuryBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetMercuryBackgroundColorKey,
+                                SettingsKeys.planetMercuryBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Venus":
-            rv = settings.\
-                value(SettingsKeys.planetVenusBackgroundColorKey,
-                      SettingsKeys.planetVenusBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetVenusBackgroundColorKey,
+                                SettingsKeys.planetVenusBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Earth":
-            rv = settings.\
-                value(SettingsKeys.planetEarthBackgroundColorKey,
-                      SettingsKeys.planetEarthBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetEarthBackgroundColorKey,
+                                SettingsKeys.planetEarthBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Mars":
-            rv = settings.\
-                value(SettingsKeys.planetMarsBackgroundColorKey,
-                      SettingsKeys.planetMarsBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetMarsBackgroundColorKey,
+                                SettingsKeys.planetMarsBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Jupiter":
-            rv = settings.\
-                value(SettingsKeys.planetJupiterBackgroundColorKey,
-                      SettingsKeys.planetJupiterBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetJupiterBackgroundColorKey,
+                                SettingsKeys.planetJupiterBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Saturn":
-            rv = settings.\
-                value(SettingsKeys.planetSaturnBackgroundColorKey,
-                      SettingsKeys.planetSaturnBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetSaturnBackgroundColorKey,
+                                SettingsKeys.planetSaturnBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Uranus":
-            rv = settings.\
-                value(SettingsKeys.planetUranusBackgroundColorKey,
-                      SettingsKeys.planetUranusBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetUranusBackgroundColorKey,
+                                SettingsKeys.planetUranusBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Neptune":
-            rv = settings.\
-                value(SettingsKeys.planetNeptuneBackgroundColorKey,
-                      SettingsKeys.planetNeptuneBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetNeptuneBackgroundColorKey,
+                                SettingsKeys.planetNeptuneBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Pluto":
-            rv = settings.\
-                value(SettingsKeys.planetPlutoBackgroundColorKey,
-                      SettingsKeys.planetPlutoBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetPlutoBackgroundColorKey,
+                                SettingsKeys.planetPlutoBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "MeanNorthNode":
-            rv = settings.\
-                value(SettingsKeys.planetMeanNorthNodeBackgroundColorKey,
-                      SettingsKeys.planetMeanNorthNodeBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetMeanNorthNodeBackgroundColorKey,
+                                SettingsKeys.planetMeanNorthNodeBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "MeanSouthNode":
-            rv = settings.\
-                value(SettingsKeys.planetMeanSouthNodeBackgroundColorKey,
-                      SettingsKeys.planetMeanSouthNodeBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetMeanSouthNodeBackgroundColorKey,
+                                SettingsKeys.planetMeanSouthNodeBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "TrueNorthNode":
-            rv = settings.\
-                value(SettingsKeys.planetTrueNorthNodeBackgroundColorKey,
-                      SettingsKeys.planetTrueNorthNodeBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetTrueNorthNodeBackgroundColorKey,
+                                SettingsKeys.planetTrueNorthNodeBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "TrueSouthNode":
-            rv = settings.\
-                value(SettingsKeys.planetTrueSouthNodeBackgroundColorKey,
-                      SettingsKeys.planetTrueSouthNodeBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetTrueSouthNodeBackgroundColorKey,
+                                SettingsKeys.planetTrueSouthNodeBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Ceres":
-            rv = settings.\
-                value(SettingsKeys.planetCeresBackgroundColorKey,
-                      SettingsKeys.planetCeresBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetCeresBackgroundColorKey,
+                                SettingsKeys.planetCeresBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Pallas":
-            rv = settings.\
-                value(SettingsKeys.planetPallasBackgroundColorKey,
-                      SettingsKeys.planetPallasBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetPallasBackgroundColorKey,
+                                SettingsKeys.planetPallasBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Juno":
-            rv = settings.\
-                value(SettingsKeys.planetJunoBackgroundColorKey,
-                      SettingsKeys.planetJunoBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetJunoBackgroundColorKey,
+                                SettingsKeys.planetJunoBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Vesta":
-            rv = settings.\
-                value(SettingsKeys.planetVestaBackgroundColorKey,
-                      SettingsKeys.planetVestaBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetVestaBackgroundColorKey,
+                                SettingsKeys.planetVestaBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Chiron":
-            rv = settings.\
-                value(SettingsKeys.planetChironBackgroundColorKey,
-                      SettingsKeys.planetChironBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetChironBackgroundColorKey,
+                                SettingsKeys.planetChironBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Gulika":
-            rv = settings.\
-                value(SettingsKeys.planetGulikaBackgroundColorKey,
-                      SettingsKeys.planetGulikaBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetGulikaBackgroundColorKey,
+                                SettingsKeys.planetGulikaBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Mandi":
-            rv = settings.\
-                value(SettingsKeys.planetMandiBackgroundColorKey,
-                      SettingsKeys.planetMandiBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetMandiBackgroundColorKey,
+                                SettingsKeys.planetMandiBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "MeanOfFive":
-            rv = settings.\
-                value(SettingsKeys.planetMeanOfFiveBackgroundColorKey,
-                      SettingsKeys.planetMeanOfFiveBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetMeanOfFiveBackgroundColorKey,
+                                SettingsKeys.planetMeanOfFiveBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "CycleOfEight":
-            rv = settings.\
-                value(SettingsKeys.planetCycleOfEightBackgroundColorKey,
-                      SettingsKeys.planetCycleOfEightBackgroundColorDefValue)
+            rv = settings.value(SettingsKeys.planetCycleOfEightBackgroundColorKey,
+                                SettingsKeys.planetCycleOfEightBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "AvgMaJuSaUrNePl":
+            rv = settings.value(SettingsKeys.planetAvgMaJuSaUrNePlBackgroundColorKey,
+                                SettingsKeys.planetAvgMaJuSaUrNePlBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "AvgJuSaUrNe":
+            rv = settings.value(SettingsKeys.planetAvgJuSaUrNeBackgroundColorKey,
+                                SettingsKeys.planetAvgJuSaUrNeBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "AvgJuSa":
+            rv = settings.value(SettingsKeys.planetAvgJuSaBackgroundColorKey,
+                                SettingsKeys.planetAvgJuSaBackgroundColorDefValue,\
+                                type=QColor)
         else:
             rv = QColor(Qt.transparent)
             self.log.warn("Could not find background color for planet: " + \
@@ -4693,43 +4768,30 @@ class AstrologyChartWidget(QWidget):
 
         # TODO:  Add more 'planets' (planetary calculations) here as more
         # are available.
-        
-        p = Ephemeris.getSunPlanetaryInfo(dt)
-        planets.append(p)
-        #p = Ephemeris.getMoonPlanetaryInfo(dt)
-        #planets.append(p)
-        p = Ephemeris.getMercuryPlanetaryInfo(dt)
-        planets.append(p)
-        p = Ephemeris.getVenusPlanetaryInfo(dt)
-        planets.append(p)
-        #p = Ephemeris.getMarsPlanetaryInfo(dt)
-        #planets.append(p)
-        p = Ephemeris.getJupiterPlanetaryInfo(dt)
-        planets.append(p)
-        #p = Ephemeris.getSaturnPlanetaryInfo(dt)
-        #planets.append(p)
-        #p = Ephemeris.getUranusPlanetaryInfo(dt)
-        #planets.append(p)
-        #p = Ephemeris.getNeptunePlanetaryInfo(dt)
-        #planets.append(p)
-        #p = Ephemeris.getPlutoPlanetaryInfo(dt)
-        #planets.append(p)
-        #p = Ephemeris.getMeanNorthNodePlanetaryInfo(dt)
-        #planets.append(p)
-        #p = Ephemeris.getTrueNorthNodePlanetaryInfo(dt)
-        #planets.append(p)
-        #p = Ephemeris.getMeanLunarApogeePlanetaryInfo(dt)
-        #planets.append(p)
-        #p = Ephemeris.getOsculatingLunarApogeePlanetaryInfo(dt)
-        #planets.append(p)
-        #p = Ephemeris.getInterpolatedLunarApogeePlanetaryInfo(dt)
-        #planets.append(p)
-        #p = Ephemeris.getInterpolatedLunarPerigeePlanetaryInfo(dt)
-        #planets.append(p)
-        #p = Ephemeris.getEarthPlanetaryInfo(dt)
-        #planets.append(p)
-        #p = Ephemeris.getChironPlanetaryInfo(dt)
-        #planets.append(p)
+
+        planets.append(Ephemeris.getSunPlanetaryInfo(dt))
+        planets.append(Ephemeris.getMoonPlanetaryInfo(dt))
+        planets.append(Ephemeris.getMercuryPlanetaryInfo(dt))
+        planets.append(Ephemeris.getVenusPlanetaryInfo(dt))
+        planets.append(Ephemeris.getMarsPlanetaryInfo(dt))
+        planets.append(Ephemeris.getJupiterPlanetaryInfo(dt))
+        planets.append(Ephemeris.getSaturnPlanetaryInfo(dt))
+        planets.append(Ephemeris.getUranusPlanetaryInfo(dt))
+        planets.append(Ephemeris.getNeptunePlanetaryInfo(dt))
+        planets.append(Ephemeris.getPlutoPlanetaryInfo(dt))
+        planets.append(Ephemeris.getMeanNorthNodePlanetaryInfo(dt))
+        planets.append(Ephemeris.getTrueNorthNodePlanetaryInfo(dt))
+        planets.append(Ephemeris.getMeanLunarApogeePlanetaryInfo(dt))
+        planets.append(Ephemeris.getOsculatingLunarApogeePlanetaryInfo(dt))
+        planets.append(Ephemeris.getInterpolatedLunarApogeePlanetaryInfo(dt))
+        planets.append(Ephemeris.getInterpolatedLunarPerigeePlanetaryInfo(dt))
+        planets.append(Ephemeris.getEarthPlanetaryInfo(dt))
+        planets.append(Ephemeris.getChironPlanetaryInfo(dt))
+        planets.append(Ephemeris.getMOFPlanetaryInfo(dt))
+        planets.append(Ephemeris.getCOEPlanetaryInfo(dt))
+        planets.append(Ephemeris.getAvgMaJuSaUrNePlPlanetaryInfo(dt))
+        planets.append(Ephemeris.getAvgJuSaUrNePlanetaryInfo(dt))
+        planets.append(Ephemeris.getAvgJuSaPlanetaryInfo(dt))
         
         return planets
 
@@ -4750,7 +4812,12 @@ class AstrologyChartWidget(QWidget):
              "Saturn",
              "Uranus",
              "Neptune",
-             "Pluto"]
+             "Pluto",
+             "MeanOfFive",
+             "CycleOfEight",
+             "AvgMaJuSaUrNePl",
+             "AvgJuSaUrNe",
+             "AvgJuSa"]
 
         return toDisplay
         
@@ -4766,10 +4833,10 @@ class AstrologyChartWidget(QWidget):
              "Midheaven",
              "HoraLagna",
              "GhatiLagna",
-             "MeanLunarApogee",
-             "OsculatingLunarApogee",
-             "InterpolatedLunarApogee",
-             "InterpolatedLunarPerigee",
+             #"MeanLunarApogee",
+             #"OsculatingLunarApogee",
+             #"InterpolatedLunarApogee",
+             #"InterpolatedLunarPerigee",
              "Sun",
              "Moon",
              "Mercury",
@@ -4785,15 +4852,18 @@ class AstrologyChartWidget(QWidget):
              "MeanSouthNode",
              "TrueNorthNode",
              "TrueSouthNode",
-             "Ceres",
-             "Pallas",
-             "Juno",
-             "Vesta",
-             "Chiron",
+             #"Ceres",
+             #"Pallas",
+             #"Juno",
+             #"Vesta",
+             #"Chiron",
              "Gulika",
              "Mandi",
              "MeanOfFive",
-             "CycleOfEight"]
+             "CycleOfEight",
+             "AvgMaJuSaUrNePl",
+             "AvgJuSaUrNe",
+             "AvgJuSa"]
 
         return toDisplay
 
@@ -4824,7 +4894,7 @@ class AstrologyChartWidget(QWidget):
              #"OsculatingLunarApogee",
              #"InterpolatedLunarApogee",
              #"InterpolatedLunarPerigee",
-             "Sun",
+             #"Sun",
              #"Moon",
              "Mercury",
              "Venus",
@@ -4847,7 +4917,10 @@ class AstrologyChartWidget(QWidget):
              #"Gulika",
              #"Mandi",
              "MeanOfFive",
-             "CycleOfEight"]
+             "CycleOfEight",
+             "AvgMaJuSaUrNePl",
+             "AvgJuSaUrNe",
+             "AvgJuSa"]
 
         return toDisplay
 

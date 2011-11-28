@@ -4,6 +4,9 @@ import os
 import sys
 import inspect
 
+# For copy.deepcopy()
+import copy
+
 # For datetimes
 import datetime
 
@@ -701,6 +704,406 @@ class Ephemeris:
             Ephemeris.log.debug("Leaving setApparentPlanetaryPositions()")
 
 
+    @staticmethod
+    def createAveragedPlanetaryInfo(planetName, planetaryInfos):
+        """Creates a new PlanetaryInfo object from the averages of all
+        values in 'planetaryInfos'.  In the created PlanetaryInfo
+        object, the 'id' field will be set to an invalid ID.
+
+        Arguments:
+        planetName     - Name of the new PlanetaryInfo to create.
+        planetaryInfos - list of PlanetaryInfo objects that will be
+                         used to create the new PlanetaryInfo object.
+                         It is assumed that the 'dt' field is the same
+                         value in all these PlanetaryInfo objects, and
+                         the 'julianDay' field is the same value also.
+
+        Returns:
+        PlanetaryInfo object that represents the average of the given planets.
+        """
+
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("Entered createAveragedPlanetaryInfo()")
+            Ephemeris.log.debug("planetName == {}".format(planetName))
+            Ephemeris.log.debug("len(planetaryInfos) == {}".\
+                                format(len(planetaryInfos)))
+
+        # Check input arguments to make sure there is at least 1
+        # PlanetaryInfo.
+        numPIs = len(planetaryInfos)
+        if numPIs == 0:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.warn("Passed an empty list of PlanetaryInfos to " + \
+                               functName + "()")
+            return None
+
+        # Return value.
+        rv = None
+        
+        for p in planetaryInfos:
+            if rv == None:
+                # First PlanetaryInfo in the list.  Just start off
+                # with a copy.
+                rv = copy.deepcopy(p)
+
+                # Change the name and id fields.
+                rv.name = planetName
+                
+                # Use an invalid ID.
+                #
+                # (Note: The number chosen has no meaning.
+                # I couldn't use -1, because -1 stands for SE_ECL_NUT.
+                # See documentation of the Swiss Ephemeris, in
+                # file: pyswisseph-1.76.00-0/doc/swephprg.htm)
+                #
+                rv.id = -9999
+                
+            else:
+                # Not the first PlanetaryInfo.  Just sum the field values.
+                rv.geocentric['tropical']['longitude'] += \
+                    p.geocentric['tropical']['longitude']
+                rv.geocentric['tropical']['latitude'] += \
+                    p.geocentric['tropical']['latitude']
+                rv.geocentric['tropical']['distance'] += \
+                    p.geocentric['tropical']['distance']
+                rv.geocentric['tropical']['longitude_speed'] += \
+                    p.geocentric['tropical']['longitude_speed']
+                rv.geocentric['tropical']['latitude_speed'] += \
+                    p.geocentric['tropical']['latitude_speed']
+                rv.geocentric['tropical']['distance_speed'] += \
+                    p.geocentric['tropical']['distance_speed']
+                rv.geocentric['tropical']['rectascension'] += \
+                    p.geocentric['tropical']['rectascension']
+                rv.geocentric['tropical']['declination'] += \
+                    p.geocentric['tropical']['declination']
+                rv.geocentric['tropical']['distance'] += \
+                    p.geocentric['tropical']['distance']
+                rv.geocentric['tropical']['rectascension_speed'] += \
+                    p.geocentric['tropical']['rectascension_speed']
+                rv.geocentric['tropical']['declination_speed'] += \
+                    p.geocentric['tropical']['declination_speed']
+                rv.geocentric['tropical']['distance_speed'] += \
+                    p.geocentric['tropical']['distance_speed']
+                rv.geocentric['tropical']['X'] += \
+                    p.geocentric['tropical']['X']
+                rv.geocentric['tropical']['Y'] += \
+                    p.geocentric['tropical']['Y']
+                rv.geocentric['tropical']['Z'] += \
+                    p.geocentric['tropical']['Z']
+                rv.geocentric['tropical']['dX'] += \
+                    p.geocentric['tropical']['dX']
+                rv.geocentric['tropical']['dY'] += \
+                    p.geocentric['tropical']['dY']
+                rv.geocentric['tropical']['dZ'] += \
+                    p.geocentric['tropical']['dZ']
+
+                rv.geocentric['sidereal']['longitude'] += \
+                    p.geocentric['sidereal']['longitude']
+                rv.geocentric['sidereal']['latitude'] += \
+                    p.geocentric['sidereal']['latitude']
+                rv.geocentric['sidereal']['distance'] += \
+                    p.geocentric['sidereal']['distance']
+                rv.geocentric['sidereal']['longitude_speed'] += \
+                    p.geocentric['sidereal']['longitude_speed']
+                rv.geocentric['sidereal']['latitude_speed'] += \
+                    p.geocentric['sidereal']['latitude_speed']
+                rv.geocentric['sidereal']['distance_speed'] += \
+                    p.geocentric['sidereal']['distance_speed']
+                rv.geocentric['sidereal']['rectascension'] += \
+                    p.geocentric['sidereal']['rectascension']
+                rv.geocentric['sidereal']['declination'] += \
+                    p.geocentric['sidereal']['declination']
+                rv.geocentric['sidereal']['distance'] += \
+                    p.geocentric['sidereal']['distance']
+                rv.geocentric['sidereal']['rectascension_speed'] += \
+                    p.geocentric['sidereal']['rectascension_speed']
+                rv.geocentric['sidereal']['declination_speed'] += \
+                    p.geocentric['sidereal']['declination_speed']
+                rv.geocentric['sidereal']['distance_speed'] += \
+                    p.geocentric['sidereal']['distance_speed']
+                rv.geocentric['sidereal']['X'] += \
+                    p.geocentric['sidereal']['X']
+                rv.geocentric['sidereal']['Y'] += \
+                    p.geocentric['sidereal']['Y']
+                rv.geocentric['sidereal']['Z'] += \
+                    p.geocentric['sidereal']['Z']
+                rv.geocentric['sidereal']['dX'] += \
+                    p.geocentric['sidereal']['dX']
+                rv.geocentric['sidereal']['dY'] += \
+                    p.geocentric['sidereal']['dY']
+                rv.geocentric['sidereal']['dZ'] += \
+                    p.geocentric['sidereal']['dZ']
+
+                rv.topocentric['tropical']['longitude'] += \
+                    p.topocentric['tropical']['longitude']
+                rv.topocentric['tropical']['latitude'] += \
+                    p.topocentric['tropical']['latitude']
+                rv.topocentric['tropical']['distance'] += \
+                    p.topocentric['tropical']['distance']
+                rv.topocentric['tropical']['longitude_speed'] += \
+                    p.topocentric['tropical']['longitude_speed']
+                rv.topocentric['tropical']['latitude_speed'] += \
+                    p.topocentric['tropical']['latitude_speed']
+                rv.topocentric['tropical']['distance_speed'] += \
+                    p.topocentric['tropical']['distance_speed']
+                rv.topocentric['tropical']['rectascension'] += \
+                    p.topocentric['tropical']['rectascension']
+                rv.topocentric['tropical']['declination'] += \
+                    p.topocentric['tropical']['declination']
+                rv.topocentric['tropical']['distance'] += \
+                    p.topocentric['tropical']['distance']
+                rv.topocentric['tropical']['rectascension_speed'] += \
+                    p.topocentric['tropical']['rectascension_speed']
+                rv.topocentric['tropical']['declination_speed'] += \
+                    p.topocentric['tropical']['declination_speed']
+                rv.topocentric['tropical']['distance_speed'] += \
+                    p.topocentric['tropical']['distance_speed']
+                rv.topocentric['tropical']['X'] += \
+                    p.topocentric['tropical']['X']
+                rv.topocentric['tropical']['Y'] += \
+                    p.topocentric['tropical']['Y']
+                rv.topocentric['tropical']['Z'] += \
+                    p.topocentric['tropical']['Z']
+                rv.topocentric['tropical']['dX'] += \
+                    p.topocentric['tropical']['dX']
+                rv.topocentric['tropical']['dY'] += \
+                    p.topocentric['tropical']['dY']
+                rv.topocentric['tropical']['dZ'] += \
+                    p.topocentric['tropical']['dZ']
+
+                rv.topocentric['sidereal']['longitude'] += \
+                    p.topocentric['sidereal']['longitude']
+                rv.topocentric['sidereal']['latitude'] += \
+                    p.topocentric['sidereal']['latitude']
+                rv.topocentric['sidereal']['distance'] += \
+                    p.topocentric['sidereal']['distance']
+                rv.topocentric['sidereal']['longitude_speed'] += \
+                    p.topocentric['sidereal']['longitude_speed']
+                rv.topocentric['sidereal']['latitude_speed'] += \
+                    p.topocentric['sidereal']['latitude_speed']
+                rv.topocentric['sidereal']['distance_speed'] += \
+                    p.topocentric['sidereal']['distance_speed']
+                rv.topocentric['sidereal']['rectascension'] += \
+                    p.topocentric['sidereal']['rectascension']
+                rv.topocentric['sidereal']['declination'] += \
+                    p.topocentric['sidereal']['declination']
+                rv.topocentric['sidereal']['distance'] += \
+                    p.topocentric['sidereal']['distance']
+                rv.topocentric['sidereal']['rectascension_speed'] += \
+                    p.topocentric['sidereal']['rectascension_speed']
+                rv.topocentric['sidereal']['declination_speed'] += \
+                    p.topocentric['sidereal']['declination_speed']
+                rv.topocentric['sidereal']['distance_speed'] += \
+                    p.topocentric['sidereal']['distance_speed']
+                rv.topocentric['sidereal']['X'] += \
+                    p.topocentric['sidereal']['X']
+                rv.topocentric['sidereal']['Y'] += \
+                    p.topocentric['sidereal']['Y']
+                rv.topocentric['sidereal']['Z'] += \
+                    p.topocentric['sidereal']['Z']
+                rv.topocentric['sidereal']['dX'] += \
+                    p.topocentric['sidereal']['dX']
+                rv.topocentric['sidereal']['dY'] += \
+                    p.topocentric['sidereal']['dY']
+                rv.topocentric['sidereal']['dZ'] += \
+                    p.topocentric['sidereal']['dZ']
+
+                rv.heliocentric['tropical']['longitude'] += \
+                    p.heliocentric['tropical']['longitude']
+                rv.heliocentric['tropical']['latitude'] += \
+                    p.heliocentric['tropical']['latitude']
+                rv.heliocentric['tropical']['distance'] += \
+                    p.heliocentric['tropical']['distance']
+                rv.heliocentric['tropical']['longitude_speed'] += \
+                    p.heliocentric['tropical']['longitude_speed']
+                rv.heliocentric['tropical']['latitude_speed'] += \
+                    p.heliocentric['tropical']['latitude_speed']
+                rv.heliocentric['tropical']['distance_speed'] += \
+                    p.heliocentric['tropical']['distance_speed']
+                rv.heliocentric['tropical']['rectascension'] += \
+                    p.heliocentric['tropical']['rectascension']
+                rv.heliocentric['tropical']['declination'] += \
+                    p.heliocentric['tropical']['declination']
+                rv.heliocentric['tropical']['distance'] += \
+                    p.heliocentric['tropical']['distance']
+                rv.heliocentric['tropical']['rectascension_speed'] += \
+                    p.heliocentric['tropical']['rectascension_speed']
+                rv.heliocentric['tropical']['declination_speed'] += \
+                    p.heliocentric['tropical']['declination_speed']
+                rv.heliocentric['tropical']['distance_speed'] += \
+                    p.heliocentric['tropical']['distance_speed']
+                rv.heliocentric['tropical']['X'] += \
+                    p.heliocentric['tropical']['X']
+                rv.heliocentric['tropical']['Y'] += \
+                    p.heliocentric['tropical']['Y']
+                rv.heliocentric['tropical']['Z'] += \
+                    p.heliocentric['tropical']['Z']
+                rv.heliocentric['tropical']['dX'] += \
+                    p.heliocentric['tropical']['dX']
+                rv.heliocentric['tropical']['dY'] += \
+                    p.heliocentric['tropical']['dY']
+                rv.heliocentric['tropical']['dZ'] += \
+                    p.heliocentric['tropical']['dZ']
+
+                rv.heliocentric['sidereal']['longitude'] += \
+                    p.heliocentric['sidereal']['longitude']
+                rv.heliocentric['sidereal']['latitude'] += \
+                    p.heliocentric['sidereal']['latitude']
+                rv.heliocentric['sidereal']['distance'] += \
+                    p.heliocentric['sidereal']['distance']
+                rv.heliocentric['sidereal']['longitude_speed'] += \
+                    p.heliocentric['sidereal']['longitude_speed']
+                rv.heliocentric['sidereal']['latitude_speed'] += \
+                    p.heliocentric['sidereal']['latitude_speed']
+                rv.heliocentric['sidereal']['distance_speed'] += \
+                    p.heliocentric['sidereal']['distance_speed']
+                rv.heliocentric['sidereal']['rectascension'] += \
+                    p.heliocentric['sidereal']['rectascension']
+                rv.heliocentric['sidereal']['declination'] += \
+                    p.heliocentric['sidereal']['declination']
+                rv.heliocentric['sidereal']['distance'] += \
+                    p.heliocentric['sidereal']['distance']
+                rv.heliocentric['sidereal']['rectascension_speed'] += \
+                    p.heliocentric['sidereal']['rectascension_speed']
+                rv.heliocentric['sidereal']['declination_speed'] += \
+                    p.heliocentric['sidereal']['declination_speed']
+                rv.heliocentric['sidereal']['distance_speed'] += \
+                    p.heliocentric['sidereal']['distance_speed']
+                rv.heliocentric['sidereal']['X'] += \
+                    p.heliocentric['sidereal']['X']
+                rv.heliocentric['sidereal']['Y'] += \
+                    p.heliocentric['sidereal']['Y']
+                rv.heliocentric['sidereal']['Z'] += \
+                    p.heliocentric['sidereal']['Z']
+                rv.heliocentric['sidereal']['dX'] += \
+                    p.heliocentric['sidereal']['dX']
+                rv.heliocentric['sidereal']['dY'] += \
+                    p.heliocentric['sidereal']['dY']
+                rv.heliocentric['sidereal']['dZ'] += \
+                    p.heliocentric['sidereal']['dZ']
+
+        # Now 'rv' should be a PlanetaryInfo object with all fields
+        # holding the sum of the field values from the given
+        # PlanetaryInfo objects.  Here we will now divide to get the
+        # average.
+        rv.geocentric['tropical']['longitude'] /= numPIs
+        rv.geocentric['tropical']['latitude'] /= numPIs
+        rv.geocentric['tropical']['distance'] /= numPIs
+        rv.geocentric['tropical']['longitude_speed'] /= numPIs
+        rv.geocentric['tropical']['latitude_speed'] /= numPIs
+        rv.geocentric['tropical']['distance_speed'] /= numPIs
+        rv.geocentric['tropical']['rectascension'] /= numPIs
+        rv.geocentric['tropical']['declination'] /= numPIs
+        rv.geocentric['tropical']['distance'] /= numPIs
+        rv.geocentric['tropical']['rectascension_speed'] /= numPIs
+        rv.geocentric['tropical']['declination_speed'] /= numPIs
+        rv.geocentric['tropical']['distance_speed'] /= numPIs
+        rv.geocentric['tropical']['X'] /= numPIs
+        rv.geocentric['tropical']['Y'] /= numPIs
+        rv.geocentric['tropical']['Z'] /= numPIs
+        rv.geocentric['tropical']['dX'] /= numPIs
+        rv.geocentric['tropical']['dY'] /= numPIs
+        rv.geocentric['tropical']['dZ'] /= numPIs
+
+        rv.geocentric['sidereal']['longitude'] /= numPIs
+        rv.geocentric['sidereal']['latitude'] /= numPIs
+        rv.geocentric['sidereal']['distance'] /= numPIs
+        rv.geocentric['sidereal']['longitude_speed'] /= numPIs
+        rv.geocentric['sidereal']['latitude_speed'] /= numPIs
+        rv.geocentric['sidereal']['distance_speed'] /= numPIs
+        rv.geocentric['sidereal']['rectascension'] /= numPIs
+        rv.geocentric['sidereal']['declination'] /= numPIs
+        rv.geocentric['sidereal']['distance'] /= numPIs
+        rv.geocentric['sidereal']['rectascension_speed'] /= numPIs
+        rv.geocentric['sidereal']['declination_speed'] /= numPIs
+        rv.geocentric['sidereal']['distance_speed'] /= numPIs
+        rv.geocentric['sidereal']['X'] /= numPIs
+        rv.geocentric['sidereal']['Y'] /= numPIs
+        rv.geocentric['sidereal']['Z'] /= numPIs
+        rv.geocentric['sidereal']['dX'] /= numPIs
+        rv.geocentric['sidereal']['dY'] /= numPIs
+        rv.geocentric['sidereal']['dZ'] /= numPIs
+
+        rv.topocentric['tropical']['longitude'] /= numPIs
+        rv.topocentric['tropical']['latitude'] /= numPIs
+        rv.topocentric['tropical']['distance'] /= numPIs
+        rv.topocentric['tropical']['longitude_speed'] /= numPIs
+        rv.topocentric['tropical']['latitude_speed'] /= numPIs
+        rv.topocentric['tropical']['distance_speed'] /= numPIs
+        rv.topocentric['tropical']['rectascension'] /= numPIs
+        rv.topocentric['tropical']['declination'] /= numPIs
+        rv.topocentric['tropical']['distance'] /= numPIs
+        rv.topocentric['tropical']['rectascension_speed'] /= numPIs
+        rv.topocentric['tropical']['declination_speed'] /= numPIs
+        rv.topocentric['tropical']['distance_speed'] /= numPIs
+        rv.topocentric['tropical']['X'] /= numPIs
+        rv.topocentric['tropical']['Y'] /= numPIs
+        rv.topocentric['tropical']['Z'] /= numPIs
+        rv.topocentric['tropical']['dX'] /= numPIs
+        rv.topocentric['tropical']['dY'] /= numPIs
+        rv.topocentric['tropical']['dZ'] /= numPIs
+
+        rv.topocentric['sidereal']['longitude'] /= numPIs
+        rv.topocentric['sidereal']['latitude'] /= numPIs
+        rv.topocentric['sidereal']['distance'] /= numPIs
+        rv.topocentric['sidereal']['longitude_speed'] /= numPIs
+        rv.topocentric['sidereal']['latitude_speed'] /= numPIs
+        rv.topocentric['sidereal']['distance_speed'] /= numPIs
+        rv.topocentric['sidereal']['rectascension'] /= numPIs
+        rv.topocentric['sidereal']['declination'] /= numPIs
+        rv.topocentric['sidereal']['distance'] /= numPIs
+        rv.topocentric['sidereal']['rectascension_speed'] /= numPIs
+        rv.topocentric['sidereal']['declination_speed'] /= numPIs
+        rv.topocentric['sidereal']['distance_speed'] /= numPIs
+        rv.topocentric['sidereal']['X'] /= numPIs
+        rv.topocentric['sidereal']['Y'] /= numPIs
+        rv.topocentric['sidereal']['Z'] /= numPIs
+        rv.topocentric['sidereal']['dX'] /= numPIs
+        rv.topocentric['sidereal']['dY'] /= numPIs
+        rv.topocentric['sidereal']['dZ'] /= numPIs
+
+        rv.heliocentric['tropical']['longitude'] /= numPIs
+        rv.heliocentric['tropical']['latitude'] /= numPIs
+        rv.heliocentric['tropical']['distance'] /= numPIs
+        rv.heliocentric['tropical']['longitude_speed'] /= numPIs
+        rv.heliocentric['tropical']['latitude_speed'] /= numPIs
+        rv.heliocentric['tropical']['distance_speed'] /= numPIs
+        rv.heliocentric['tropical']['rectascension'] /= numPIs
+        rv.heliocentric['tropical']['declination'] /= numPIs
+        rv.heliocentric['tropical']['distance'] /= numPIs
+        rv.heliocentric['tropical']['rectascension_speed'] /= numPIs
+        rv.heliocentric['tropical']['declination_speed'] /= numPIs
+        rv.heliocentric['tropical']['distance_speed'] /= numPIs
+        rv.heliocentric['tropical']['X'] /= numPIs
+        rv.heliocentric['tropical']['Y'] /= numPIs
+        rv.heliocentric['tropical']['Z'] /= numPIs
+        rv.heliocentric['tropical']['dX'] /= numPIs
+        rv.heliocentric['tropical']['dY'] /= numPIs
+        rv.heliocentric['tropical']['dZ'] /= numPIs
+
+        rv.heliocentric['sidereal']['longitude'] /= numPIs
+        rv.heliocentric['sidereal']['latitude'] /= numPIs
+        rv.heliocentric['sidereal']['distance'] /= numPIs
+        rv.heliocentric['sidereal']['longitude_speed'] /= numPIs
+        rv.heliocentric['sidereal']['latitude_speed'] /= numPIs
+        rv.heliocentric['sidereal']['distance_speed'] /= numPIs
+        rv.heliocentric['sidereal']['rectascension'] /= numPIs
+        rv.heliocentric['sidereal']['declination'] /= numPIs
+        rv.heliocentric['sidereal']['distance'] /= numPIs
+        rv.heliocentric['sidereal']['rectascension_speed'] /= numPIs
+        rv.heliocentric['sidereal']['declination_speed'] /= numPIs
+        rv.heliocentric['sidereal']['distance_speed'] /= numPIs
+        rv.heliocentric['sidereal']['X'] /= numPIs
+        rv.heliocentric['sidereal']['Y'] /= numPIs
+        rv.heliocentric['sidereal']['Z'] /= numPIs
+        rv.heliocentric['sidereal']['dX'] /= numPIs
+        rv.heliocentric['sidereal']['dY'] /= numPIs
+        rv.heliocentric['sidereal']['dZ'] /= numPIs
+
+
+        return rv
+        
     @staticmethod
     def __clearCoordinateSystemFlags():
         """Private function that clears the flags for the coordinate position
@@ -1677,7 +2080,7 @@ class Ephemeris:
 
     @staticmethod
     def getSunPlanetaryInfo(timestamp):
-        """Returns a Python dictionary containing information about the Sun at
+        """Returns a PlanetaryInfo containing information about the Sun at
         the given timestamp. 
         
         Parameters:
@@ -1687,14 +2090,14 @@ class Ephemeris:
         """
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            Ephemeris.log.debug("getSunPlanetaryInfo({})".\
-                                format(timestamp))
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.SUN, timestamp)
 
     @staticmethod
     def getMoonPlanetaryInfo(timestamp):
-        """Returns a Python dictionary containing information about the Moon at
+        """Returns a PlanetaryInfo containing information about the Moon at
         the given timestamp. 
         
         Parameters:
@@ -1704,14 +2107,14 @@ class Ephemeris:
         """
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            Ephemeris.log.debug("getMoonPlanetaryInfo({})".\
-                                format(timestamp))
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.MOON, timestamp)
 
     @staticmethod
     def getMercuryPlanetaryInfo(timestamp):
-        """Returns a Python dictionary containing information about
+        """Returns a PlanetaryInfo containing information about
         the Mercury at the given timestamp.
         
         Parameters:
@@ -1721,14 +2124,14 @@ class Ephemeris:
         """
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            Ephemeris.log.debug("getMercuryPlanetaryInfo({})".\
-                                format(timestamp))
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.MERCURY, timestamp)
 
     @staticmethod
     def getVenusPlanetaryInfo(timestamp):
-        """Returns a Python dictionary containing information about
+        """Returns a PlanetaryInfo containing information about
         the Venus at the given timestamp.
         
         Parameters:
@@ -1738,14 +2141,14 @@ class Ephemeris:
         """
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            Ephemeris.log.debug("getVenusPlanetaryInfo({})".\
-                                format(timestamp))
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.VENUS, timestamp)
 
     @staticmethod
     def getMarsPlanetaryInfo(timestamp):
-        """Returns a Python dictionary containing information about
+        """Returns a PlanetaryInfo containing information about
         the Mars at the given timestamp.
         
         Parameters:
@@ -1755,14 +2158,14 @@ class Ephemeris:
         """
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            Ephemeris.log.debug("getMarsPlanetaryInfo({})".\
-                                format(timestamp))
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.MARS, timestamp)
 
     @staticmethod
     def getJupiterPlanetaryInfo(timestamp):
-        """Returns a Python dictionary containing information about
+        """Returns a PlanetaryInfo containing information about
         the Jupiter at the given timestamp.
         
         Parameters:
@@ -1772,14 +2175,14 @@ class Ephemeris:
         """
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            Ephemeris.log.debug("getJupiterPlanetaryInfo({})".\
-                                format(timestamp))
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.JUPITER, timestamp)
 
     @staticmethod
     def getSaturnPlanetaryInfo(timestamp):
-        """Returns a Python dictionary containing information about
+        """Returns a PlanetaryInfo containing information about
         the Saturn at the given timestamp.
         
         Parameters:
@@ -1789,14 +2192,14 @@ class Ephemeris:
         """
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            Ephemeris.log.debug("getSaturnPlanetaryInfo({})".\
-                                format(timestamp))
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.SATURN, timestamp)
 
     @staticmethod
     def getUranusPlanetaryInfo(timestamp):
-        """Returns a Python dictionary containing information about
+        """Returns a PlanetaryInfo containing information about
         the Uranus at the given timestamp.
         
         Parameters:
@@ -1806,14 +2209,14 @@ class Ephemeris:
         """
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            Ephemeris.log.debug("getUranusPlanetaryInfo({})".\
-                                format(timestamp))
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.URANUS, timestamp)
 
     @staticmethod
     def getNeptunePlanetaryInfo(timestamp):
-        """Returns a Python dictionary containing information about
+        """Returns a PlanetaryInfo containing information about
         the Neptune at the given timestamp.
         
         Parameters:
@@ -1823,14 +2226,14 @@ class Ephemeris:
         """
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            Ephemeris.log.debug("getNeptunePlanetaryInfo({})".\
-                                format(timestamp))
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.NEPTUNE, timestamp)
 
     @staticmethod
     def getPlutoPlanetaryInfo(timestamp):
-        """Returns a Python dictionary containing information about
+        """Returns a PlanetaryInfo containing information about
         the Pluto at the given timestamp.
         
         Parameters:
@@ -1840,14 +2243,14 @@ class Ephemeris:
         """
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            Ephemeris.log.debug("getPlutoPlanetaryInfo({})".\
-                                format(timestamp))
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.PLUTO, timestamp)
 
     @staticmethod
     def getMeanNorthNodePlanetaryInfo(timestamp):
-        """Returns a Python dictionary containing information about
+        """Returns a PlanetaryInfo containing information about
         the MeanNorthNode at the given timestamp.
         
         Parameters:
@@ -1857,14 +2260,14 @@ class Ephemeris:
         """
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            Ephemeris.log.debug("getMeanNorthNodePlanetaryInfo({})".\
-                                format(timestamp))
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.MEAN_NODE, timestamp)
 
     @staticmethod
     def getTrueNorthNodePlanetaryInfo(timestamp):
-        """Returns a Python dictionary containing information about
+        """Returns a PlanetaryInfo containing information about
         the TrueNorthNode at the given timestamp.
         
         Parameters:
@@ -1874,14 +2277,14 @@ class Ephemeris:
         """
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            Ephemeris.log.debug("getTrueNorthNodePlanetaryInfo({})".\
-                                format(timestamp))
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.TRUE_NODE, timestamp)
 
     @staticmethod
     def getMeanLunarApogeePlanetaryInfo(timestamp):
-        """Returns a Python dictionary containing information about
+        """Returns a PlanetaryInfo containing information about
         the MeanLunarApogee at the given timestamp.
         
         Parameters:
@@ -1891,14 +2294,14 @@ class Ephemeris:
         """
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            Ephemeris.log.debug("getMeanLunarApogeePlanetaryInfo({})".\
-                                format(timestamp))
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.MEAN_APOG, timestamp)
 
     @staticmethod
     def getOsculatingLunarApogeePlanetaryInfo(timestamp):
-        """Returns a Python dictionary containing information about
+        """Returns a PlanetaryInfo containing information about
         the OsculatingLunarApogee at the given timestamp.
         
         Parameters:
@@ -1908,14 +2311,14 @@ class Ephemeris:
         """
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            Ephemeris.log.debug("getOsculatingLunarApogeePlanetaryInfo({})".\
-                                format(timestamp))
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.OSCU_APOG, timestamp)
 
     @staticmethod
     def getInterpolatedLunarApogeePlanetaryInfo(timestamp):
-        """Returns a Python dictionary containing information about
+        """Returns a PlanetaryInfo containing information about
         the InterpolatedLunarApogee at the given timestamp.
         
         Parameters:
@@ -1925,14 +2328,14 @@ class Ephemeris:
         """
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            Ephemeris.log.debug("getInterpolatedLunarApogeePlanetaryInfo({})".\
-                                format(timestamp))
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.INTP_APOG, timestamp)
 
     @staticmethod
     def getInterpolatedLunarPerigeePlanetaryInfo(timestamp):
-        """Returns a Python dictionary containing information about
+        """Returns a PlanetaryInfo containing information about
         the InterpolatedLunarPerigee at the given timestamp.
         
         Parameters:
@@ -1942,14 +2345,14 @@ class Ephemeris:
         """
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            Ephemeris.log.debug("getInterpolatedLunarPerigeePlanetaryInfo({})".\
-                                format(timestamp))
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.INTP_PERG, timestamp)
 
     @staticmethod
     def getEarthPlanetaryInfo(timestamp):
-        """Returns a Python dictionary containing information about
+        """Returns a PlanetaryInfo containing information about
         the Earth at the given timestamp.
         
         Parameters:
@@ -1959,14 +2362,14 @@ class Ephemeris:
         """
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            Ephemeris.log.debug("getEarthPlanetaryInfo({})".\
-                                format(timestamp))
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.EARTH, timestamp)
 
     @staticmethod
     def getChironPlanetaryInfo(timestamp):
-        """Returns a Python dictionary containing information about
+        """Returns a PlanetaryInfo containing information about
         the Chiron at the given timestamp.
         
         Parameters:
@@ -1976,14 +2379,14 @@ class Ephemeris:
         """
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            Ephemeris.log.debug("getChironPlanetaryInfo({})".\
-                                format(timestamp))
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.CHIRON, timestamp)
 
     @staticmethod
     def getPholusPlanetaryInfo(timestamp):
-        """Returns a Python dictionary containing information about
+        """Returns a PlanetaryInfo containing information about
         the Pholus at the given timestamp.
         
         Parameters:
@@ -1993,14 +2396,14 @@ class Ephemeris:
         """
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            Ephemeris.log.debug("getPholusPlanetaryInfo({})".\
-                                format(timestamp))
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.PHOLUS, timestamp)
 
     @staticmethod
     def getCeresPlanetaryInfo(timestamp):
-        """Returns a Python dictionary containing information about
+        """Returns a PlanetaryInfo containing information about
         the Ceres at the given timestamp.
         
         Parameters:
@@ -2010,14 +2413,14 @@ class Ephemeris:
         """
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            Ephemeris.log.debug("getCeresPlanetaryInfo({})".\
-                                format(timestamp))
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.CERES, timestamp)
 
     @staticmethod
     def getPallasPlanetaryInfo(timestamp):
-        """Returns a Python dictionary containing information about
+        """Returns a PlanetaryInfo containing information about
         the Pallas at the given timestamp.
         
         Parameters:
@@ -2027,14 +2430,14 @@ class Ephemeris:
         """
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            Ephemeris.log.debug("getPallasPlanetaryInfo({})".\
-                                format(timestamp))
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.PALLAS, timestamp)
 
     @staticmethod
     def getJunoPlanetaryInfo(timestamp):
-        """Returns a Python dictionary containing information about
+        """Returns a PlanetaryInfo containing information about
         the Juno at the given timestamp.
         
         Parameters:
@@ -2044,14 +2447,14 @@ class Ephemeris:
         """
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            Ephemeris.log.debug("getJunoPlanetaryInfo({})".\
-                                format(timestamp))
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.JUNO, timestamp)
 
     @staticmethod
     def getVestaPlanetaryInfo(timestamp):
-        """Returns a Python dictionary containing information about
+        """Returns a PlanetaryInfo containing information about
         the Vesta at the given timestamp.
         
         Parameters:
@@ -2061,11 +2464,179 @@ class Ephemeris:
         """
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            Ephemeris.log.debug("getVestaPlanetaryInfo({})".\
-                                format(timestamp))
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
 
         return Ephemeris.getPlanetaryInfo(swe.VESTA, timestamp)
 
+    @staticmethod
+    def getMOFPlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about
+        the 'Mean Of Five' (MOF) at the given timestamp.
+        
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which 
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
+        saturnPI  = Ephemeris.getSaturnPlanetaryInfo(timestamp)
+        uranusPI  = Ephemeris.getUranusPlanetaryInfo(timestamp)
+        neptunePI = Ephemeris.getNeptunePlanetaryInfo(timestamp)
+        plutoPI   = Ephemeris.getPlutoPlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(jupiterPI)
+        planetaryInfos.append(saturnPI)
+        planetaryInfos.append(uranusPI)
+        planetaryInfos.append(neptunePI)
+        planetaryInfos.append(plutoPI)
+
+        planetName = "MeanOfFive"
+        rv = Ephemeris.createAveragedPlanetaryInfo(planetName, planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getCOEPlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about
+        the 'Cycle Of Eight' (COE) at the given timestamp.
+        This is the average of Mercury, Venus, Mars, Jupiter, Saturn,
+        Uranus, Neptune, and Pluto.
+        
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which 
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        mercuryPI = Ephemeris.getMercuryPlanetaryInfo(timestamp)
+        venusPI   = Ephemeris.getVenusPlanetaryInfo(timestamp)
+        marsPI    = Ephemeris.getMarsPlanetaryInfo(timestamp)
+        jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
+        saturnPI  = Ephemeris.getSaturnPlanetaryInfo(timestamp)
+        uranusPI  = Ephemeris.getUranusPlanetaryInfo(timestamp)
+        neptunePI = Ephemeris.getNeptunePlanetaryInfo(timestamp)
+        plutoPI   = Ephemeris.getPlutoPlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(mercuryPI)
+        planetaryInfos.append(venusPI)
+        planetaryInfos.append(marsPI)
+        planetaryInfos.append(jupiterPI)
+        planetaryInfos.append(saturnPI)
+        planetaryInfos.append(uranusPI)
+        planetaryInfos.append(neptunePI)
+        planetaryInfos.append(plutoPI)
+
+        planetName = "CycleOfEight"
+        rv = Ephemeris.createAveragedPlanetaryInfo(planetName, planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getAvgMaJuSaUrNePlPlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        average of the 6 outer planets (Mars to Pluto) at the given
+        timestamp.
+        
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which 
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        marsPI    = Ephemeris.getMarsPlanetaryInfo(timestamp)
+        jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
+        saturnPI  = Ephemeris.getSaturnPlanetaryInfo(timestamp)
+        uranusPI  = Ephemeris.getUranusPlanetaryInfo(timestamp)
+        neptunePI = Ephemeris.getNeptunePlanetaryInfo(timestamp)
+        plutoPI   = Ephemeris.getPlutoPlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(marsPI)
+        planetaryInfos.append(jupiterPI)
+        planetaryInfos.append(saturnPI)
+        planetaryInfos.append(uranusPI)
+        planetaryInfos.append(neptunePI)
+        planetaryInfos.append(plutoPI)
+
+        planetName = "AvgMaJuSaUrNePl"
+        rv = Ephemeris.createAveragedPlanetaryInfo(planetName, planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getAvgJuSaUrNePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        average of 4 outer planets (Jupiter, Saturn, Uranus, Neptune)
+        at the given timestamp.
+        
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which 
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
+        saturnPI  = Ephemeris.getSaturnPlanetaryInfo(timestamp)
+        uranusPI  = Ephemeris.getUranusPlanetaryInfo(timestamp)
+        neptunePI = Ephemeris.getNeptunePlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(jupiterPI)
+        planetaryInfos.append(saturnPI)
+        planetaryInfos.append(uranusPI)
+        planetaryInfos.append(neptunePI)
+
+        planetName = "AvgJuSaUrNe"
+        rv = Ephemeris.createAveragedPlanetaryInfo(planetName, planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getAvgJuSaPlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        average of Jupiter and Saturn at the given timestamp.
+        
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which 
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
+        saturnPI  = Ephemeris.getSaturnPlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(jupiterPI)
+        planetaryInfos.append(saturnPI)
+
+        planetName = "AvgJuSa"
+        rv = Ephemeris.createAveragedPlanetaryInfo(planetName, planetaryInfos)
+
+        return rv
 
 def testGetPlanetaryInfos():
     print("Running " + inspect.stack()[0][3] + "()")
@@ -2144,6 +2715,21 @@ def testGetPlanetaryInfos():
     print("    At {}, planet '{}' has the following info: \n{}".\
             format(now, p.name, p.toString()))
     p = Ephemeris.getVestaPlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getMOFPlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getCOEPlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getAvgMaJuSaUrNePlPlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getAvgJuSaUrNePlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getAvgJuSaPlanetaryInfo(now)
     print("    At {}, planet '{}' has the following info: \n{}".\
             format(now, p.name, p.toString()))
 
