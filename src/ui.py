@@ -242,6 +242,22 @@ class MainWindow(QMainWindow):
         ####################
         # Create actions for the Astro Menu.
 
+        self.enableAndShowPlanetaryInfoTableAction = \
+            QAction("Enable Planetary Info Table", self)
+        self.enableAndShowPlanetaryInfoTableAction.setCheckable(True)
+        self.enableAndShowPlanetaryInfoTableAction.\
+            setStatusTip("Enable Planetary Info Table")
+        self.enableAndShowPlanetaryInfoTableAction.triggered.\
+            connect(self._handleEnableAndShowPlanetaryInfoTableAction)
+        
+        self.enableAndShowAstrologyChartAction = \
+            QAction("Enable AstrologyChart", self)
+        self.enableAndShowAstrologyChartAction.setCheckable(True)
+        self.enableAndShowAstrologyChartAction.\
+            setStatusTip("Enable AstrologyChart")
+        self.enableAndShowAstrologyChartAction.triggered.\
+            connect(self._handleEnableAndShowAstrologyChartAction)
+        
         self.trackMouseToAstroChart1Action = \
             QAction("Link mouse pos to Astro Chart 1", self)
         self.trackMouseToAstroChart1Action.setCheckable(True)
@@ -715,6 +731,9 @@ class MainWindow(QMainWindow):
 
         # Create the Astro menu.
         self.astroMenu = self.menuBar().addMenu("&Astro")
+        self.astroMenu.addAction(self.enableAndShowPlanetaryInfoTableAction)
+        self.astroMenu.addAction(self.enableAndShowAstrologyChartAction)
+        self.astroMenu.addSeparator()
         self.astroMenu.addAction(self.trackMouseToAstroChart1Action)
         self.astroMenu.addAction(self.trackMouseToAstroChart2Action)
         self.astroMenu.addAction(self.trackMouseToAstroChart3Action)
@@ -889,6 +908,8 @@ class MainWindow(QMainWindow):
         self.editPriceBarChartSettingsAction.setEnabled(isActive)
         self.editPriceBarChartScalingAction.setEnabled(isActive)
 
+        self.enableAndShowPlanetaryInfoTableAction.setEnabled(isActive)
+        self.enableAndShowAstrologyChartAction.setEnabled(isActive)
         self.trackMouseToAstroChart1Action.setEnabled(isActive)
         self.trackMouseToAstroChart2Action.setEnabled(isActive)
         self.trackMouseToAstroChart3Action.setEnabled(isActive)
@@ -954,12 +975,20 @@ class MainWindow(QMainWindow):
         # actions are checked, then set the priceChartDocument to
         # correspond to that.
         if isActive:
-            if self.trackMouseToAstroChart1Action.isChecked():
-                priceChartDocument.setTrackMouseToAstroChart1(True)
-            if self.trackMouseToAstroChart2Action.isChecked():
-                priceChartDocument.setTrackMouseToAstroChart2(True)
-            if self.trackMouseToAstroChart3Action.isChecked():
-                priceChartDocument.setTrackMouseToAstroChart3(True)
+            flag = self.enableAndShowPlanetaryInfoTableAction.isChecked()
+            priceChartDocument.setEnableAndShowPlanetaryInfoTable(flag)
+            
+            flag = self.enableAndShowAstrologyChartAction.isChecked()
+            priceChartDocument.setEnableAndShowAstrologyChart(flag)
+
+            flag = self.trackMouseToAstroChart1Action.isChecked()
+            priceChartDocument.setTrackMouseToAstroChart1(flag)
+
+            flag = self.trackMouseToAstroChart2Action.isChecked()
+            priceChartDocument.setTrackMouseToAstroChart2(flag)
+
+            flag = self.trackMouseToAstroChart3Action.isChecked()
+            priceChartDocument.setTrackMouseToAstroChart3(flag)
         
         # Depending on what ToolMode QAction is checked,
         # set the priceChartDocument to be in that mode.
@@ -3278,6 +3307,38 @@ class MainWindow(QMainWindow):
 
         self.log.debug("Exiting _editPriceBarChartScaling()")
 
+    def _handleEnableAndShowPlanetaryInfoTableAction(self):
+        """Slot function that is called when the user triggers the
+        QAction 'self.enableAndShowPlanetaryInfoTableAction'.
+        """
+        
+        # This Astro action only makes sense to be triggered if there
+        # is a PriceChartDocument open and active.  Check to make sure
+        # that is true.
+        pcd = self.getActivePriceChartDocument()
+        if pcd == None:
+            return
+
+        flag = self.enableAndShowPlanetaryInfoTableAction.isChecked()
+        
+        pcd.setEnableAndShowPlanetaryInfoTable(flag)
+
+    def _handleEnableAndShowAstrologyChartAction(self):
+        """Slot function that is called when the user triggers the
+        QAction 'self.enableAndShowAstrologyChartAction'.
+        """
+        
+        # This Astro action only makes sense to be triggered if there
+        # is a PriceChartDocument open and active.  Check to make sure
+        # that is true.
+        pcd = self.getActivePriceChartDocument()
+        if pcd == None:
+            return
+
+        flag = self.enableAndShowAstrologyChartAction.isChecked()
+        
+        pcd.setEnableAndShowAstrologyChart(flag)
+
     def _handleTrackMouseToAstroChartAction(self):
         """Slot function that is called when the user triggers the QActions:
         self.trackMouseToAstroChart1Action,
@@ -4917,6 +4978,30 @@ class PriceChartDocument(QMdiSubWindow):
         # Pass the command onto the parent MainWindow to handle.
         self.astrologLaunch.emit(dt, birthInfo)
 
+    def setEnableAndShowPlanetaryInfoTable(self, flag):
+        """Shows and sets the link-connection enabled or disabled for
+        the PlanetaryInfoTable.
+
+        Arguments:
+        
+        flag - True if the link is to be enabled and widget shown,
+               False if the link is to be disabled and widget hidden.
+        """
+
+        self.widgets.setEnableAndShowPlanetaryInfoTable(flag)
+        
+    def setEnableAndShowAstrologyChart(self, flag):
+        """Shows and sets the link-connection enabled or disabled for
+        the AstrologyChart.
+
+        Arguments:
+        
+        flag - True if the link is to be enabled and widget shown,
+               False if the link is to be disabled and widget hidden.
+        """
+
+        self.widgets.setEnableAndShowAstrologyChart(flag)
+        
     def setTrackMouseToAstroChart1(self, flag):
         """Sets the link-connection enabled or disabled for the
         pricebarchart mouse position to AstroChart1.
@@ -5056,19 +5141,32 @@ class PriceChartDocumentWidget(QWidget):
 
         self.birthInfo = BirthInfo()
 
+        # Flags for showing and linking the PlanetaryInfoTable and
+        # Astrology Chart.
+        self.planetaryInfoTableWidgetEnabled = False
+        self.astrologyChartWidgetEnabled = False
+        
         # Flags for linking the mouse position of PriceBarChart to the
         # AstroCharts.
         self.trackMouseToAstroChart1Enabled = False
         self.trackMouseToAstroChart2Enabled = False
         self.trackMouseToAstroChart3Enabled = False
-
+        
         # Create the internal widgets displayed.
         self.priceBarChartWidget = PriceBarChartWidget()
         self.priceBarSpreadsheetWidget = PriceBarSpreadsheetWidget()
         self.astrologyChartWidget = AstrologyChartWidget()
-        #self.planetaryInfoTableWidget = PlanetaryInfoTableWidget()
+        self.planetaryInfoTableWidget = PlanetaryInfoTableWidget()
 
+        # Set the PlanetaryInfoTable and the AstrologyChartWidget to
+        # being not visible initially.  User can enable it if he or
+        # she wants to use it.
+        self.astrologyChartWidget.setVisible(False)
+        self.planetaryInfoTableWidget.setVisible(False)
+
+        # Set the birth info.
         self.setBirthInfo(self.birthInfo)
+
 
         # QSplitters to divide the internal widgets.
         hsplitter = QSplitter(self)
@@ -5079,12 +5177,12 @@ class PriceChartDocumentWidget(QWidget):
         vsplitter = QSplitter(self)
         vsplitter.setOrientation(Qt.Vertical)
         vsplitter.addWidget(hsplitter)
+        vsplitter.addWidget(self.planetaryInfoTableWidget)
         #vsplitter.addWidget(self.priceBarSpreadsheetWidget)
         
         # Setup the layout.
         vlayout = QVBoxLayout()
         vlayout.addWidget(vsplitter)
-        #vlayout.addWidget(self.planetaryInfoTableWidget)
 
         self.setLayout(vlayout)
 
@@ -5093,12 +5191,6 @@ class PriceChartDocumentWidget(QWidget):
             connect(self._handleWidgetChanged)
         self.priceBarChartWidget.statusMessageUpdate.\
             connect(self.statusMessageUpdate)
-        self.priceBarChartWidget.astroChart1Update.\
-            connect(self.astrologyChartWidget.setAstroChart1Datetime)
-        self.priceBarChartWidget.astroChart2Update.\
-            connect(self.astrologyChartWidget.setAstroChart2Datetime)
-        self.priceBarChartWidget.astroChart3Update.\
-            connect(self.astrologyChartWidget.setAstroChart3Datetime)
         self.priceBarChartWidget.jhoraLaunch.\
             connect(self.handleJhoraLaunch)
         self.priceBarChartWidget.astrologLaunch.\
@@ -5412,6 +5504,88 @@ class PriceChartDocumentWidget(QWidget):
 
         self.priceChartDocumentWidgetChanged.emit()
 
+    def _updatePlanetaryInfoTable(self, dt):
+        """Updates the cell values in the PlanetaryInfoTable by
+        utilizing 'self.astrologyChartWidget'.
+        """
+
+        planetaryInfos = \
+            self.astrologyChartWidget.getPlanetaryInfosForDatetime(dt)
+
+        self.planetaryInfoTableWidget.load(planetaryInfos)
+
+    def setEnableAndShowPlanetaryInfoTable(self, flag):
+        """Shows and sets the link-connection enabled or disabled for
+        the PlanetaryInfoTable.
+        
+        Arguments:
+        
+        flag - True if the link is to be enabled and widget shown,
+        False if the link is to be disabled and widget hidden.
+        """
+        
+        if self.planetaryInfoTableWidgetEnabled == True and flag == False:
+
+            self.priceBarChartWidget.astroChart1Update.\
+                disconnect(self._updatePlanetaryInfoTable)
+            self.priceBarChartWidget.astroChart2Update.\
+                disconnect(self._updatePlanetaryInfoTable)
+            self.priceBarChartWidget.astroChart3Update.\
+                disconnect(self._updatePlanetaryInfoTable)
+            
+            self.planetaryInfoTableWidget.setVisible(flag)
+            
+            self.planetaryInfoTableWidgetEnabled = flag
+            
+        elif self.planetaryInfoTableWidgetEnabled == False and flag == True:
+
+            self.priceBarChartWidget.astroChart1Update.\
+                connect(self._updatePlanetaryInfoTable)
+            self.priceBarChartWidget.astroChart2Update.\
+                connect(self._updatePlanetaryInfoTable)
+            self.priceBarChartWidget.astroChart3Update.\
+                connect(self._updatePlanetaryInfoTable)
+        
+            self.planetaryInfoTableWidget.setVisible(flag)
+            
+            self.planetaryInfoTableWidgetEnabled = flag
+            
+    def setEnableAndShowAstrologyChart(self, flag):
+        """Shows and sets the link-connection enabled or disabled for
+        the AstrologyChart.
+
+        Arguments:
+        
+        flag - True if the link is to be enabled and widget shown,
+               False if the link is to be disabled and widget hidden.
+        """
+
+        if self.astrologyChartWidgetEnabled == True and flag == False:
+            
+            self.priceBarChartWidget.astroChart1Update.\
+                disconnect(self.astrologyChartWidget.setAstroChart1Datetime)
+            self.priceBarChartWidget.astroChart2Update.\
+                disconnect(self.astrologyChartWidget.setAstroChart2Datetime)
+            self.priceBarChartWidget.astroChart3Update.\
+                disconnect(self.astrologyChartWidget.setAstroChart3Datetime)
+        
+            self.astrologyChartWidget.setVisible(flag)
+
+            self.astrologyChartWidgetEnabled = flag
+            
+        elif self.astrologyChartWidgetEnabled == False and flag == True:
+            
+            self.priceBarChartWidget.astroChart1Update.\
+                connect(self.astrologyChartWidget.setAstroChart1Datetime)
+            self.priceBarChartWidget.astroChart2Update.\
+                connect(self.astrologyChartWidget.setAstroChart2Datetime)
+            self.priceBarChartWidget.astroChart3Update.\
+                connect(self.astrologyChartWidget.setAstroChart3Datetime)
+        
+            self.astrologyChartWidget.setVisible(flag)
+            
+            self.astrologyChartWidgetEnabled = flag
+            
     def setTrackMouseToAstroChart1(self, flag):
         """Sets the link-connection enabled or disabled for the
         pricebarchart mouse position to AstroChart1.
@@ -5451,13 +5625,18 @@ class PriceChartDocumentWidget(QWidget):
         
         # Get the timezone for the BirthInfo.
         tzinfoObj = pytz.timezone(self.birthInfo.timezoneName)
-
+            
         # Localize the birth timestamp.
         utcBirthDt = self.birthInfo.getBirthUtcDatetime()
         localizedDt = tzinfoObj.normalize(utcBirthDt.astimezone(tzinfoObj))
+            
+        if self.astrologyChartWidgetEnabled:
+            # Open AstroChart1 with this value.
+            self.astrologyChartWidget.setAstroChart1Datetime(localizedDt)
 
-        # Open AstroChart1 with this value.
-        self.astrologyChartWidget.setAstroChart1Datetime(localizedDt)
+        if self.planetaryInfoTableWidgetEnabled:
+            # Set PlanetaryInfoTable with this value.
+            self._updatePlanetaryInfoTable(localizedDt)
         
     def setAstroChart2WithBirthInfo(self):
         """Sets AstroChart2 with the info in the BirthInfo of this document.
@@ -5465,13 +5644,18 @@ class PriceChartDocumentWidget(QWidget):
         
         # Get the timezone for the BirthInfo.
         tzinfoObj = pytz.timezone(self.birthInfo.timezoneName)
-
+        
         # Localize the birth timestamp.
         utcBirthDt = self.birthInfo.getBirthUtcDatetime()
         localizedDt = tzinfoObj.normalize(utcBirthDt.astimezone(tzinfoObj))
-
-        # Open AstroChart2 with this value.
-        self.astrologyChartWidget.setAstroChart2Datetime(localizedDt)
+        
+        if self.astrologyChartWidgetEnabled:
+            # Open AstroChart2 with this value.
+            self.astrologyChartWidget.setAstroChart2Datetime(localizedDt)
+        
+        if self.planetaryInfoTableWidgetEnabled:
+            # Set PlanetaryInfoTable with this value.
+            self._updatePlanetaryInfoTable(localizedDt)
         
     def setAstroChart3WithBirthInfo(self):
         """Sets AstroChart3 with the info in the BirthInfo of this document.
@@ -5479,65 +5663,97 @@ class PriceChartDocumentWidget(QWidget):
         
         # Get the timezone for the BirthInfo.
         tzinfoObj = pytz.timezone(self.birthInfo.timezoneName)
-
+            
         # Localize the birth timestamp.
         utcBirthDt = self.birthInfo.getBirthUtcDatetime()
         localizedDt = tzinfoObj.normalize(utcBirthDt.astimezone(tzinfoObj))
-
-        # Open AstroChart3 with this value.
-        self.astrologyChartWidget.setAstroChart3Datetime(localizedDt)
+            
+        if self.astrologyChartWidgetEnabled:
+            # Open AstroChart3 with this value.
+            self.astrologyChartWidget.setAstroChart3Datetime(localizedDt)
+        
+        if self.planetaryInfoTableWidgetEnabled:
+            # Set PlanetaryInfoTable with this value.
+            self._updatePlanetaryInfoTable(localizedDt)
         
     def setAstroChart1WithNow(self):
         """Sets AstroChart1 with the current time."""
-        
+
         # Get the timezone for the BirthInfo.
         tzinfoObj = pytz.timezone(self.birthInfo.timezoneName)
-
+        
         # Localize the 'now' timestamp.
         localizedDt = datetime.datetime.now(tzinfoObj)
-
-        # Open AstroChart1 with this value.
-        self.astrologyChartWidget.setAstroChart1Datetime(localizedDt)
+        
+        if self.astrologyChartWidgetEnabled:
+            # Open AstroChart1 with this value.
+            self.astrologyChartWidget.setAstroChart1Datetime(localizedDt)
+        
+        if self.planetaryInfoTableWidgetEnabled:
+            # Set PlanetaryInfoTable with this value.
+            self._updatePlanetaryInfoTable(localizedDt)
         
     def setAstroChart2WithNow(self):
         """Sets AstroChart2 with the current time."""
         
         # Get the timezone for the BirthInfo.
         tzinfoObj = pytz.timezone(self.birthInfo.timezoneName)
-
+        
         # Localize the 'now' timestamp.
         localizedDt = datetime.datetime.now(tzinfoObj)
-
-        # Open AstroChart2 with this value.
-        self.astrologyChartWidget.setAstroChart2Datetime(localizedDt)
+        
+        if self.astrologyChartWidgetEnabled:
+            # Open AstroChart2 with this value.
+            self.astrologyChartWidget.setAstroChart2Datetime(localizedDt)
+        
+        if self.planetaryInfoTableWidgetEnabled:
+            # Set PlanetaryInfoTable with this value.
+            self._updatePlanetaryInfoTable(localizedDt)
         
     def setAstroChart3WithNow(self):
         """Sets AstroChart3 with the current time."""
         
         # Get the timezone for the BirthInfo.
         tzinfoObj = pytz.timezone(self.birthInfo.timezoneName)
-
+            
         # Localize the 'now' timestamp.
         localizedDt = datetime.datetime.now(tzinfoObj)
-
-        # Open AstroChart3 with this value.
-        self.astrologyChartWidget.setAstroChart3Datetime(localizedDt)
+        
+        if self.astrologyChartWidgetEnabled:
+            # Open AstroChart3 with this value.
+            self.astrologyChartWidget.setAstroChart3Datetime(localizedDt)
+        
+        if self.planetaryInfoTableWidgetEnabled:
+            # Set PlanetaryInfoTable with this value.
+            self._updatePlanetaryInfoTable(localizedDt)
         
     def clearAstroChart1(self):
         """Clears the AstroChart1."""
 
-        self.astrologyChartWidget.clearAstroChart1()
+        if self.astrologyChartWidgetEnabled:
+            self.astrologyChartWidget.clearAstroChart1()
         
+        if self.planetaryInfoTableWidgetEnabled:
+            self.planetaryInfoTableWidget.clear()
+            
     def clearAstroChart2(self):
         """Clears the AstroChart2."""
 
-        self.astrologyChartWidget.clearAstroChart2()
+        if self.astrologyChartWidgetEnabled:
+            self.astrologyChartWidget.clearAstroChart2()
         
+        if self.planetaryInfoTableWidgetEnabled:
+            self.planetaryInfoTableWidget.clear()
+            
     def clearAstroChart3(self):
         """Clears the AstroChart3."""
 
-        self.astrologyChartWidget.clearAstroChart3()
+        if self.astrologyChartWidgetEnabled:
+            self.astrologyChartWidget.clearAstroChart3()
         
+        if self.planetaryInfoTableWidgetEnabled:
+            self.planetaryInfoTableWidget.clear()
+            
     def handleJhoraLaunch(self, dt):
         """Handles a launch of JHora with the given datetime.datetime.
         This function assumes that the birth information is available
@@ -5572,12 +5788,21 @@ class PriceChartDocumentWidget(QWidget):
         display of what the current time is.  
         """
 
-        if self.trackMouseToAstroChart1Enabled:
-            self.astrologyChartWidget.setAstroChart1Datetime(dt)
+        if self.astrologyChartWidgetEnabled:
             
-        if self.trackMouseToAstroChart2Enabled:
-            self.astrologyChartWidget.setAstroChart2Datetime(dt)
+            if self.trackMouseToAstroChart1Enabled:
+                self.astrologyChartWidget.setAstroChart1Datetime(dt)
             
-        if self.trackMouseToAstroChart3Enabled:
-            self.astrologyChartWidget.setAstroChart3Datetime(dt)
+            if self.trackMouseToAstroChart2Enabled:
+                self.astrologyChartWidget.setAstroChart2Datetime(dt)
+            
+            if self.trackMouseToAstroChart3Enabled:
+                self.astrologyChartWidget.setAstroChart3Datetime(dt)
 
+        if self.planetaryInfoTableWidgetEnabled:
+            
+            if self.trackMouseToAstroChart1Enabled or \
+                   self.trackMouseToAstroChart2Enabled or \
+                   self.trackMouseToAstroChart3Enabled:
+                
+                self._updatePlanetaryInfoTable(dt)

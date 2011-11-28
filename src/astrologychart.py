@@ -4088,6 +4088,12 @@ class PlanetaryInfoTableWidget(QTableWidget):
         self.cellDoubleClicked.\
             connect(self._handleCellDoubleClicked)
 
+    def clear(self):
+        """Clears all the rows in the table.  """
+
+        # Load an empty list of PlanetaryInfos to clear.
+        self.load([])
+        
     def load(self, planetaryInfos):
         """Loads the widgets with the given list of PlanetaryInfo
         objects.
@@ -4095,29 +4101,76 @@ class PlanetaryInfoTableWidget(QTableWidget):
         
         self.log.debug("Entered load()")
 
-        self.setRowCount(len(planetaryInfos))
+        # Make a list of PlanetaryInfos that will actually be loaded,
+        # based on if the planet name matches the ones returned by
+        # self._getPlanetNamesToDisplayForTable().
+        toLoad = []
+        for p in planetaryInfos:
+            if p.name in self._getPlanetNamesToDisplayForTable():
+                toLoad.append(p)
+
+        self.setRowCount(len(toLoad))
         self.clearContents()
 
-        for i in range(len(planetaryInfos)):
+        # Load the PlanetaryInfos.
+        for i in range(len(toLoad)):
 
-            p = planetaryInfos[i]
-
-            if i >= len(self.planetaryInfos):
+            p = toLoad[i]
+            
+            if len(self.planetaryInfos) != 0 and i >= len(self.planetaryInfos):
                 self._appendPlanetaryInfo(p)
             else:
                 self._replaceRowWithPlanetaryInfo(i, p)
 
-        self.planetaryInfos = planetaryInfos
+        self.planetaryInfos = toLoad
 
         self.log.debug("Exiting load()")
 
-    def sizeHint(self):
-        """Overwrites QWidget.sizeHint() to make the widget display
-        all columns without requiring a scrollbar.
+    def _getPlanetNamesToDisplayForTable(self):
+        """Function to return a list of planet names that should be
+        used to display in the table cells.  This is to help lessen
+        the possibly excessive amount of info in the table.
         """
 
-        return QSize(1180, 640)
-    
+        toDisplay = \
+            ["Ascendant",
+             "Midheaven",
+             #"HoraLagna",
+             #"GhatiLagna",
+             #"MeanLunarApogee",
+             #"OsculatingLunarApogee",
+             #"InterpolatedLunarApogee",
+             #"InterpolatedLunarPerigee",
+             "Sun",
+             "Moon",
+             "Mercury",
+             "Venus",
+             "Earth",
+             "Mars",
+             "Jupiter",
+             "Saturn",
+             "Uranus",
+             "Neptune",
+             "Pluto",
+             "MeanNorthNode",
+             "MeanSouthNode",
+             "TrueNorthNode",
+             "TrueSouthNode",
+             #"Ceres",
+             #"Pallas",
+             #"Juno",
+             #"Vesta",
+             #"Chiron",
+             #"Gulika",
+             #"Mandi",
+             "MeanOfFive",
+             "CycleOfEight",
+             "AvgMaJuSaUrNePl",
+             "AvgJuSaUrNe",
+             "AvgJuSa"]
+
+        return toDisplay
+        
     def _handleCellDoubleClicked(self, row, column):
         """Triggered when an item is double-clicked.  
         
@@ -4476,7 +4529,6 @@ class PlanetaryInfoTableGraphicsItem(QGraphicsProxyWidget):
         """
         
         self.planetaryInfoTableWidget.load(planetaryInfos)
-        
 
 class AstrologyChartGraphicsView(QGraphicsView):
     """QGraphicsView that visualizes the QGraphicsScene in a
@@ -4602,9 +4654,6 @@ class AstrologyChartWidget(QWidget):
         self.helioSidRadixChartGraphicsItem = SiderealRadixChartGraphicsItem()
         self.helioSidRadixChartGraphicsItem.setScale(0.5)
 
-        # TODO:  Uncomment below to re-add PlanetaryInfoTableGraphicsItem().  It's left out because it doesn't add much value and is slow.
-        #self.planetaryInfoTable = PlanetaryInfoTableGraphicsItem()
-        
         self.declinationChart = DeclinationChartGraphicsItem()
         self.declinationChart.setScale(0.8)
 
@@ -4706,13 +4755,6 @@ class AstrologyChartWidget(QWidget):
         self.helioSidRadixChartLabel.setPos(x, y)
         x += radixLength
 
-        x = 0.0
-        y = 0.0
-        y += 0.5 * radixLength
-        x += 0.5 * radixLength
-        #self.planetaryInfoTable.setPos(x, y)
-
-        
         # Add all the items to the QGraphicsScene.
         self.graphicsScene.addItem(self.locationLabelProxyWidget)
         self.graphicsScene.addItem(self.astroChart1DatetimeLabelProxyWidget)
@@ -4720,8 +4762,6 @@ class AstrologyChartWidget(QWidget):
         self.graphicsScene.addItem(self.astroChart3DatetimeLabelProxyWidget)
     
         self.graphicsScene.addItem(self.declinationChart)
-        
-        #self.graphicsScene.addItem(self.planetaryInfoTable)
         
         self.graphicsScene.addItem(self.geoSidRadixChartGraphicsItem)
         self.graphicsScene.addItem(self.geoTropRadixChartGraphicsItem)
@@ -4752,7 +4792,7 @@ class AstrologyChartWidget(QWidget):
 
         self.birthInfo = birthInfo
 
-    def _getPlanetaryInfosForDatetime(self, dt):
+    def getPlanetaryInfosForDatetime(self, dt):
         """Helper function for getting a list of PlanetaryInfo objects
         to display in the astrology chart.
 
@@ -4937,7 +4977,7 @@ class AstrologyChartWidget(QWidget):
         wheelNumber = chartNum
 
         # Get the PlanetaryInfo objects.
-        planets = self._getPlanetaryInfosForDatetime(dt)
+        planets = self.getPlanetaryInfosForDatetime(dt)
 
         # Update the planets' QGraphicsItems on each radix chart.
         for planet in planets:
@@ -5261,7 +5301,7 @@ class AstrologyChartWidget(QWidget):
         # Get the PlanetaryInfo objects.  The location values in this
         # list aren't used.  We only need this so we have a list of
         # planet names used.
-        planets = self._getPlanetaryInfosForDatetime(\
+        planets = self.getPlanetaryInfosForDatetime(\
             datetime.datetime.now(pytz.utc))
 
         for planet in planets:
