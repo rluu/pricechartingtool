@@ -7134,7 +7134,7 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
             text += "p={:.4f}".format(price) + os.linesep
             
         if self.artifact.getShowSqrtPriceFlag():
-            text += "sqrt(p)={:.4f}".format(math.sqrt(price)) + os.linesep
+            text += "sqrt(p)={:.4f}".format(math.sqrt(abs(price))) + os.linesep
             
         if self.artifact.getShowTimeElapsedSinceBirthFlag():
             if self.birthInfo != None:
@@ -7156,7 +7156,8 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 # Find the difference between the info points and birthX
                 xDiff = infoPointF.x() - birthX
 
-                text += "sqrt(t_elapsed)={:.4f}".format(math.sqrt(xDiff)) + \
+                text += "sqrt(t_elapsed)={:.4f}".\
+                        format(math.sqrt(abs(xDiff))) + \
                         os.linesep
         
         if self.artifact.getShowPriceScaledValueFlag():
