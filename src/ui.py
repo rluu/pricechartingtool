@@ -4785,14 +4785,30 @@ class PriceChartDocument(QMdiSubWindow):
                 # Set the dirty flag since now priceBars are different.
                 self.setDirtyFlag(True)
 
-                self.statusMessageUpdate.emit("PriceBars were updated.")
+                parent = self
+                title = "Information"
+                linesep = "<br />"
+                text = "PriceBars were updated."
+                QMessageBox.information(parent, title, text)
+
             else:
                 self.log.debug("Keeping current PriceBars.")
-                self.statusMessageUpdate.emit("PriceBars unchanged.")
+
+                parent = self
+                title = "Information"
+                linesep = "<br />"
+                text = "PriceBars unchanged."
+                QMessageBox.information(parent, title, text)
+                
         else:
             self.log.debug("PriceBar lists are the same.  " + \
                            "No additional actions are required.")
-            self.statusMessageUpdate.emit("PriceBars are currently up to date.")
+
+            parent = self
+            title = "Information"
+            linesep = "<br />"
+            text = "PriceBars are already up to date.  "
+            QMessageBox.information(parent, title, text)
         
         self.log.debug("Exiting checkSourceDataFileForPriceBarUpdates()")
         
