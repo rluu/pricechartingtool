@@ -366,10 +366,10 @@ class BirthInfo:
             self.log.debug("timeOffsetAutodetectedRadioButtonState == True")
 
             # Create a timezone object to be used.
-            timezone = pytz.timezone(self.timezoneName)
+            tzinfoObj = pytz.timezone(self.timezoneName)
 
             # Localize the datetime.datetime to the timezone specified.
-            localizedDatetimeObj = timezone.localize(nativeDatetimeObj)
+            localizedDatetimeObj = tzinfoObj.localize(nativeDatetimeObj)
 
             # Set the datetime.datetime to the return value.
             datetimeObj = localizedDatetimeObj
@@ -12840,28 +12840,28 @@ class PriceBarChartSettings:
     defaultBarCountGraphicsItemBarHeight = 4.0
 
     # Default value for the BarCountGraphicsItem font size (float).
-    defaultBarCountGraphicsItemFontSize = 1.0
+    defaultBarCountGraphicsItemFontSize = 10.0
 
     # Default value for the BarCountGraphicsItem text X scaling (float).
-    defaultBarCountGraphicsItemTextXScaling = 0.8
+    defaultBarCountGraphicsItemTextXScaling = 1.0
 
     # Default value for the BarCountGraphicsItem text Y scaling (float).
-    defaultBarCountGraphicsItemTextYScaling = 0.8
+    defaultBarCountGraphicsItemTextYScaling = 1.0
 
     # Default value for the TimeMeasurementGraphicsItem bar height (float).
-    defaultTimeMeasurementGraphicsItemBarHeight = 4.0
+    defaultTimeMeasurementGraphicsItemBarHeight = 8.0
 
     # Default value for the TimeMeasurementGraphicsItem text X scaling (float).
-    defaultTimeMeasurementGraphicsItemTextXScaling = 0.8
+    defaultTimeMeasurementGraphicsItemTextXScaling = 1.0
 
     # Default value for the TimeMeasurementGraphicsItem text Y scaling (float).
-    defaultTimeMeasurementGraphicsItemTextYScaling = 0.8
+    defaultTimeMeasurementGraphicsItemTextYScaling = 1.0
 
     # Default font (this is basically the QFont, serialized to
     # str) for the TimeMeasurementGraphicsItem.  This includes the
     # font size.
-    font = QFont("Andale Mono")
-    font.setPointSizeF(6)
+    font = QFont("Droid Sans Mono")
+    font.setPointSizeF(8)
     defaultTimeMeasurementGraphicsItemDefaultFontDescription = font.toString()
 
     # TimeMeasurementGraphicsItem default text color.
@@ -13050,16 +13050,16 @@ class PriceBarChartSettings:
     defaultTimeModalScaleGraphicsItemTextColor = QColor(Qt.black)
     
     # Default value for the TimeModalScaleGraphicsItem bar height (float).
-    defaultTimeModalScaleGraphicsItemBarHeight = 20.0
+    defaultTimeModalScaleGraphicsItemBarHeight = 14.0
 
     # Default value for the TimeModalScaleGraphicsItem font size (float).
-    defaultTimeModalScaleGraphicsItemFontSize = 1.20
+    defaultTimeModalScaleGraphicsItemFontSize = 8.0
 
     # Default value for the TimeModalScaleGraphicsItem text X scaling (float).
-    defaultTimeModalScaleGraphicsItemTextXScaling = 3.0
+    defaultTimeModalScaleGraphicsItemTextXScaling = 1.0
 
     # Default value for the TimeModalScaleGraphicsItem text Y scaling (float).
-    defaultTimeModalScaleGraphicsItemTextYScaling = 3.0
+    defaultTimeModalScaleGraphicsItemTextYScaling = 1.0
 
     # Default value for the TimeModalScaleGraphicsItem
     # textEnabledFlag (bool).
@@ -13077,16 +13077,16 @@ class PriceBarChartSettings:
     defaultPriceModalScaleGraphicsItemTextColor = QColor(Qt.black)
     
     # Default value for the PriceModalScaleGraphicsItem bar width (float).
-    defaultPriceModalScaleGraphicsItemBarWidth = 20.0
+    defaultPriceModalScaleGraphicsItemBarWidth = 14.0
 
     # Default value for the PriceModalScaleGraphicsItem font size (float).
-    defaultPriceModalScaleGraphicsItemFontSize = 1.20
+    defaultPriceModalScaleGraphicsItemFontSize = 8.0
 
     # Default value for the PriceModalScaleGraphicsItem text X scaling (float).
-    defaultPriceModalScaleGraphicsItemTextXScaling = 3.0
+    defaultPriceModalScaleGraphicsItemTextXScaling = 1.0
 
     # Default value for the PriceModalScaleGraphicsItem text Y scaling (float).
-    defaultPriceModalScaleGraphicsItemTextYScaling = 3.0
+    defaultPriceModalScaleGraphicsItemTextYScaling = 1.0
 
     # Default value for the PriceModalScaleGraphicsItem
     # textEnabledFlag (bool).
@@ -13111,18 +13111,18 @@ class PriceBarChartSettings:
     # Default font description text (this is basically the QFont,
     # serialized to str) for the PriceTimeInfoGraphicsItem.  This
     # includes the font size.
-    font = QFont("DejaVu Sans Mono")
-    font.setPointSizeF(6)
+    font = QFont("Droid Sans")
+    font.setPointSizeF(8)
     defaultPriceTimeInfoGraphicsItemDefaultFontDescription = font.toString()
 
     # Default font color for the PriceTimeInfoGraphicsItem.
     defaultPriceTimeInfoGraphicsItemDefaultColor = QColor(Qt.black)
     
     # Default text X scaling for the PriceTimeInfoGraphicsItem.
-    defaultPriceTimeInfoGraphicsItemDefaultXScaling = 0.8
+    defaultPriceTimeInfoGraphicsItemDefaultXScaling = 1.0
     
     # Default text Y scaling for the PriceTimeInfoGraphicsItem.
-    defaultPriceTimeInfoGraphicsItemDefaultYScaling = 0.8
+    defaultPriceTimeInfoGraphicsItemDefaultYScaling = 1.0
 
     # Default value for the PriceTimeInfoGraphicsItem
     # showTimestampFlag (bool).
@@ -13165,19 +13165,19 @@ class PriceBarChartSettings:
     defaultPriceTimeInfoGraphicsItemShowLineToInfoPointFlag = True
 
     # Default value for the PriceMeasurementGraphicsItem bar width (float).
-    defaultPriceMeasurementGraphicsItemBarWidth = 1.0
+    defaultPriceMeasurementGraphicsItemBarWidth = 4.0
 
     # Default value for the PriceMeasurementGraphicsItem text X scaling (float).
-    defaultPriceMeasurementGraphicsItemTextXScaling = 0.8
+    defaultPriceMeasurementGraphicsItemTextXScaling = 1.0
 
     # Default value for the PriceMeasurementGraphicsItem text Y scaling (float).
-    defaultPriceMeasurementGraphicsItemTextYScaling = 0.8
+    defaultPriceMeasurementGraphicsItemTextYScaling = 1.0
 
     # Default font (this is basically the QFont, serialized to
     # str) for the PriceMeasurementGraphicsItem.  This includes the
     # font size.
-    font = QFont("Andale Mono")
-    font.setPointSizeF(6)
+    font = QFont("Droid Sans Mono")
+    font.setPointSizeF(8)
     defaultPriceMeasurementGraphicsItemDefaultFontDescription = font.toString()
 
     # PriceMeasurementGraphicsItem default text color.
@@ -13192,30 +13192,30 @@ class PriceBarChartSettings:
     
     # Default value for the PriceMeasurementGraphicsItem
     # showSqrtPriceRangeTextFlag (bool).
-    defaultPriceMeasurementGraphicsItemShowSqrtPriceRangeTextFlag = True
+    defaultPriceMeasurementGraphicsItemShowSqrtPriceRangeTextFlag = False
 
     # Default value for the PriceMeasurementGraphicsItem
     # showScaledValueRangeTextFlag (bool).
-    defaultPriceMeasurementGraphicsItemShowScaledValueRangeTextFlag = True
+    defaultPriceMeasurementGraphicsItemShowScaledValueRangeTextFlag = False
     
     # Default value for the PriceMeasurementGraphicsItem
     # showSqrtScaledValueRangeTextFlag (bool).
-    defaultPriceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag = True
+    defaultPriceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag = False
 
     # Default value for the TimeRetracementGraphicsItem bar height (float).
     defaultTimeRetracementGraphicsItemBarHeight = 4.0
 
     # Default value for the TimeRetracementGraphicsItem text X scaling (float).
-    defaultTimeRetracementGraphicsItemTextXScaling = 0.8
+    defaultTimeRetracementGraphicsItemTextXScaling = 1.0
 
     # Default value for the TimeRetracementGraphicsItem text Y scaling (float).
-    defaultTimeRetracementGraphicsItemTextYScaling = 0.8
+    defaultTimeRetracementGraphicsItemTextYScaling = 1.0
 
     # Default font (this is basically the QFont, serialized to
     # str) for the TimeRetracementGraphicsItem.  This includes the
     # font size.
     font = QFont("Andale Mono")
-    font.setPointSizeF(6)
+    font.setPointSizeF(7)
     defaultTimeRetracementGraphicsItemDefaultFontDescription = font.toString()
 
     # TimeRetracementGraphicsItem default text color.
@@ -13241,19 +13241,19 @@ class PriceBarChartSettings:
     defaultTimeRetracementGraphicsItemRatios = Ratio.getSupportedFibRatios()
     
     # Default value for the PriceRetracementGraphicsItem bar width (float).
-    defaultPriceRetracementGraphicsItemBarWidth = 1.0
+    defaultPriceRetracementGraphicsItemBarWidth = 4.0
 
     # Default value for the PriceRetracementGraphicsItem text X scaling (float).
-    defaultPriceRetracementGraphicsItemTextXScaling = 0.8
+    defaultPriceRetracementGraphicsItemTextXScaling = 1.0
 
     # Default value for the PriceRetracementGraphicsItem text Y scaling (float).
-    defaultPriceRetracementGraphicsItemTextYScaling = 0.8
+    defaultPriceRetracementGraphicsItemTextYScaling = 1.0
 
     # Default font (this is basically the QFont, serialized to
     # str) for the PriceRetracementGraphicsItem.  This includes the
     # font size.
     font = QFont("Andale Mono")
-    font.setPointSizeF(6)
+    font.setPointSizeF(7)
     defaultPriceRetracementGraphicsItemDefaultFontDescription = font.toString()
 
     # PriceRetracementGraphicsItem default text color.
@@ -13302,7 +13302,7 @@ class PriceBarChartSettings:
 
     # Default value for the PriceTimeVectorGraphicsItem
     # showDistanceTextFlag (bool).
-    defaultPriceTimeVectorGraphicsItemShowDistanceTextFlag = True
+    defaultPriceTimeVectorGraphicsItemShowDistanceTextFlag = False
 
     # Default value for the PriceTimeVectorGraphicsItem 
     # showSqrtDistanceTextFlag (bool).
@@ -13322,7 +13322,7 @@ class PriceBarChartSettings:
     
     # Default value for the PriceTimeVectorGraphicsItem 
     # angleTextFlag (bool).
-    defaultPriceTimeVectorGraphicsItemAngleTextFlag = True
+    defaultPriceTimeVectorGraphicsItemAngleTextFlag = False
     
     # Default color for the bar of a LineSegmentGraphicsItem (QColor).
     defaultLineSegmentGraphicsItemColor = QColor(Qt.black)
@@ -13369,23 +13369,23 @@ class PriceBarChartSettings:
     defaultOctaveFanGraphicsItemBarHeight = 3.3
 
     # Default value for the OctaveFanGraphicsItem font size (float).
-    defaultOctaveFanGraphicsItemFontSize = 1.20
+    defaultOctaveFanGraphicsItemFontSize = 5.0
 
     # Default value for the OctaveFanGraphicsItem text X scaling (float).
-    defaultOctaveFanGraphicsItemTextXScaling = 4.0
+    defaultOctaveFanGraphicsItemTextXScaling = 1.0
 
     # Default value for the OctaveFanGraphicsItem text Y scaling (float).
-    defaultOctaveFanGraphicsItemTextYScaling = 4.0
+    defaultOctaveFanGraphicsItemTextYScaling = 1.0
 
     # Default value for the OctaveFanGraphicsItem
     # textEnabledFlag (bool).
     defaultOctaveFanGraphicsItemTextEnabledFlag = True
 
     # Default value for the FibFanGraphicsItem text X scaling (float).
-    defaultFibFanGraphicsItemTextXScaling = 4.0
+    defaultFibFanGraphicsItemTextXScaling = 1.0
 
     # Default value for the FibFanGraphicsItem text Y scaling (float).
-    defaultFibFanGraphicsItemTextYScaling = 4.0
+    defaultFibFanGraphicsItemTextYScaling = 1.0
 
     # Default font (this is basically the QFont, serialized to
     # str) for the FibFanGraphicsItem.  This includes the
@@ -13412,10 +13412,10 @@ class PriceBarChartSettings:
     defaultFibFanGraphicsItemTextEnabledFlag = True
 
     # Default value for the GannFanGraphicsItem text X scaling (float).
-    defaultGannFanGraphicsItemTextXScaling = 4.0
+    defaultGannFanGraphicsItemTextXScaling = 1.0
 
     # Default value for the GannFanGraphicsItem text Y scaling (float).
-    defaultGannFanGraphicsItemTextYScaling = 4.0
+    defaultGannFanGraphicsItemTextYScaling = 1.0
 
     # Default font (this is basically the QFont, serialized to
     # str) for the GannFanGraphicsItem.  This includes the
@@ -13456,13 +13456,13 @@ class PriceBarChartSettings:
     defaultVimsottariDasaGraphicsItemBarHeight = 4.0
 
     # Default value for the VimsottariDasaGraphicsItem font size (float).
-    defaultVimsottariDasaGraphicsItemFontSize = 1.20
+    defaultVimsottariDasaGraphicsItemFontSize = 5.0
 
     # Default value for the VimsottariDasaGraphicsItem text X scaling (float).
-    defaultVimsottariDasaGraphicsItemTextXScaling = 4.0
+    defaultVimsottariDasaGraphicsItemTextXScaling = 1.0
 
     # Default value for the VimsottariDasaGraphicsItem text Y scaling (float).
-    defaultVimsottariDasaGraphicsItemTextYScaling = 4.0
+    defaultVimsottariDasaGraphicsItemTextYScaling = 1.0
 
     # Default value for the VimsottariDasaGraphicsItem
     # textEnabledFlag (bool).
@@ -13483,13 +13483,13 @@ class PriceBarChartSettings:
     defaultAshtottariDasaGraphicsItemBarHeight = 4.0
 
     # Default value for the AshtottariDasaGraphicsItem font size (float).
-    defaultAshtottariDasaGraphicsItemFontSize = 1.20
+    defaultAshtottariDasaGraphicsItemFontSize = 5.0
 
     # Default value for the AshtottariDasaGraphicsItem text X scaling (float).
-    defaultAshtottariDasaGraphicsItemTextXScaling = 4.0
+    defaultAshtottariDasaGraphicsItemTextXScaling = 1.0
 
     # Default value for the AshtottariDasaGraphicsItem text Y scaling (float).
-    defaultAshtottariDasaGraphicsItemTextYScaling = 4.0
+    defaultAshtottariDasaGraphicsItemTextYScaling = 1.0
 
     # Default value for the AshtottariDasaGraphicsItem
     # textEnabledFlag (bool).
@@ -13510,13 +13510,13 @@ class PriceBarChartSettings:
     defaultYoginiDasaGraphicsItemBarHeight = 4.0
 
     # Default value for the YoginiDasaGraphicsItem font size (float).
-    defaultYoginiDasaGraphicsItemFontSize = 1.20
+    defaultYoginiDasaGraphicsItemFontSize = 5.0
 
     # Default value for the YoginiDasaGraphicsItem text X scaling (float).
-    defaultYoginiDasaGraphicsItemTextXScaling = 4.0
+    defaultYoginiDasaGraphicsItemTextXScaling = 1.0
 
     # Default value for the YoginiDasaGraphicsItem text Y scaling (float).
-    defaultYoginiDasaGraphicsItemTextYScaling = 4.0
+    defaultYoginiDasaGraphicsItemTextYScaling = 1.0
 
     # Default value for the YoginiDasaGraphicsItem
     # textEnabledFlag (bool).
@@ -13537,15 +13537,15 @@ class PriceBarChartSettings:
     defaultDwisaptatiSamaDasaGraphicsItemBarHeight = 4.0
 
     # Default value for the DwisaptatiSamaDasaGraphicsItem font size (float).
-    defaultDwisaptatiSamaDasaGraphicsItemFontSize = 1.20
+    defaultDwisaptatiSamaDasaGraphicsItemFontSize = 5.0
 
     # Default value for the DwisaptatiSamaDasaGraphicsItem text X
     # scaling (float).
-    defaultDwisaptatiSamaDasaGraphicsItemTextXScaling = 4.0
+    defaultDwisaptatiSamaDasaGraphicsItemTextXScaling = 1.0
 
     # Default value for the DwisaptatiSamaDasaGraphicsItem text Y
     # scaling (float).
-    defaultDwisaptatiSamaDasaGraphicsItemTextYScaling = 4.0
+    defaultDwisaptatiSamaDasaGraphicsItemTextYScaling = 1.0
 
     # Default value for the DwisaptatiSamaDasaGraphicsItem
     # textEnabledFlag (bool).
@@ -13566,15 +13566,15 @@ class PriceBarChartSettings:
     defaultShattrimsaSamaDasaGraphicsItemBarHeight = 4.0
 
     # Default value for the ShattrimsaSamaDasaGraphicsItem font size (float).
-    defaultShattrimsaSamaDasaGraphicsItemFontSize = 1.20
+    defaultShattrimsaSamaDasaGraphicsItemFontSize = 5.0
 
     # Default value for the ShattrimsaSamaDasaGraphicsItem text X
     # scaling (float).
-    defaultShattrimsaSamaDasaGraphicsItemTextXScaling = 4.0
+    defaultShattrimsaSamaDasaGraphicsItemTextXScaling = 1.0
 
     # Default value for the ShattrimsaSamaDasaGraphicsItem text Y
     # scaling (float).
-    defaultShattrimsaSamaDasaGraphicsItemTextYScaling = 4.0
+    defaultShattrimsaSamaDasaGraphicsItemTextYScaling = 1.0
 
     # Default value for the ShattrimsaSamaDasaGraphicsItem
     # textEnabledFlag (bool).
@@ -13595,15 +13595,15 @@ class PriceBarChartSettings:
     defaultDwadasottariDasaGraphicsItemBarHeight = 4.0
 
     # Default value for the DwadasottariDasaGraphicsItem font size (float).
-    defaultDwadasottariDasaGraphicsItemFontSize = 1.20
+    defaultDwadasottariDasaGraphicsItemFontSize = 5.0
 
     # Default value for the DwadasottariDasaGraphicsItem text X
     # scaling (float).
-    defaultDwadasottariDasaGraphicsItemTextXScaling = 4.0
+    defaultDwadasottariDasaGraphicsItemTextXScaling = 1.0
 
     # Default value for the DwadasottariDasaGraphicsItem text Y
     # scaling (float).
-    defaultDwadasottariDasaGraphicsItemTextYScaling = 4.0
+    defaultDwadasottariDasaGraphicsItemTextYScaling = 1.0
 
     # Default value for the DwadasottariDasaGraphicsItem
     # textEnabledFlag (bool).
@@ -13624,15 +13624,15 @@ class PriceBarChartSettings:
     defaultChaturaseetiSamaDasaGraphicsItemBarHeight = 4.0
 
     # Default value for the ChaturaseetiSamaDasaGraphicsItem font size (float).
-    defaultChaturaseetiSamaDasaGraphicsItemFontSize = 1.20
+    defaultChaturaseetiSamaDasaGraphicsItemFontSize = 5.0
 
     # Default value for the ChaturaseetiSamaDasaGraphicsItem text X
     # scaling (float).
-    defaultChaturaseetiSamaDasaGraphicsItemTextXScaling = 4.0
+    defaultChaturaseetiSamaDasaGraphicsItemTextXScaling = 1.0
 
     # Default value for the ChaturaseetiSamaDasaGraphicsItem text Y
     # scaling (float).
-    defaultChaturaseetiSamaDasaGraphicsItemTextYScaling = 4.0
+    defaultChaturaseetiSamaDasaGraphicsItemTextYScaling = 1.0
 
     # Default value for the ChaturaseetiSamaDasaGraphicsItem
     # textEnabledFlag (bool).
@@ -13653,15 +13653,15 @@ class PriceBarChartSettings:
     defaultSataabdikaDasaGraphicsItemBarHeight = 4.0
 
     # Default value for the SataabdikaDasaGraphicsItem font size (float).
-    defaultSataabdikaDasaGraphicsItemFontSize = 1.20
+    defaultSataabdikaDasaGraphicsItemFontSize = 5.0
 
     # Default value for the SataabdikaDasaGraphicsItem text X
     # scaling (float).
-    defaultSataabdikaDasaGraphicsItemTextXScaling = 4.0
+    defaultSataabdikaDasaGraphicsItemTextXScaling = 1.0
 
     # Default value for the SataabdikaDasaGraphicsItem text Y
     # scaling (float).
-    defaultSataabdikaDasaGraphicsItemTextYScaling = 4.0
+    defaultSataabdikaDasaGraphicsItemTextYScaling = 1.0
 
     # Default value for the SataabdikaDasaGraphicsItem
     # textEnabledFlag (bool).
@@ -13682,15 +13682,15 @@ class PriceBarChartSettings:
     defaultShodasottariDasaGraphicsItemBarHeight = 4.0
 
     # Default value for the ShodasottariDasaGraphicsItem font size (float).
-    defaultShodasottariDasaGraphicsItemFontSize = 1.20
+    defaultShodasottariDasaGraphicsItemFontSize = 5.0
 
     # Default value for the ShodasottariDasaGraphicsItem text X
     # scaling (float).
-    defaultShodasottariDasaGraphicsItemTextXScaling = 4.0
+    defaultShodasottariDasaGraphicsItemTextXScaling = 1.0
 
     # Default value for the ShodasottariDasaGraphicsItem text Y
     # scaling (float).
-    defaultShodasottariDasaGraphicsItemTextYScaling = 4.0
+    defaultShodasottariDasaGraphicsItemTextYScaling = 1.0
 
     # Default value for the ShodasottariDasaGraphicsItem
     # textEnabledFlag (bool).
@@ -13711,15 +13711,15 @@ class PriceBarChartSettings:
     defaultPanchottariDasaGraphicsItemBarHeight = 4.0
 
     # Default value for the PanchottariDasaGraphicsItem font size (float).
-    defaultPanchottariDasaGraphicsItemFontSize = 1.20
+    defaultPanchottariDasaGraphicsItemFontSize = 5.0
 
     # Default value for the PanchottariDasaGraphicsItem text X
     # scaling (float).
-    defaultPanchottariDasaGraphicsItemTextXScaling = 4.0
+    defaultPanchottariDasaGraphicsItemTextXScaling = 1.0
 
     # Default value for the PanchottariDasaGraphicsItem text Y
     # scaling (float).
-    defaultPanchottariDasaGraphicsItemTextYScaling = 4.0
+    defaultPanchottariDasaGraphicsItemTextYScaling = 1.0
 
     # Default value for the PanchottariDasaGraphicsItem
     # textEnabledFlag (bool).
@@ -13740,15 +13740,15 @@ class PriceBarChartSettings:
     defaultShashtihayaniDasaGraphicsItemBarHeight = 4.0
 
     # Default value for the ShashtihayaniDasaGraphicsItem font size (float).
-    defaultShashtihayaniDasaGraphicsItemFontSize = 1.20
+    defaultShashtihayaniDasaGraphicsItemFontSize = 5.0
 
     # Default value for the ShashtihayaniDasaGraphicsItem text X
     # scaling (float).
-    defaultShashtihayaniDasaGraphicsItemTextXScaling = 4.0
+    defaultShashtihayaniDasaGraphicsItemTextXScaling = 1.0
 
     # Default value for the ShashtihayaniDasaGraphicsItem text Y
     # scaling (float).
-    defaultShashtihayaniDasaGraphicsItemTextYScaling = 4.0
+    defaultShashtihayaniDasaGraphicsItemTextYScaling = 1.0
 
     # Default value for the ShashtihayaniDasaGraphicsItem
     # textEnabledFlag (bool).

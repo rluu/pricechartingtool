@@ -1976,7 +1976,7 @@ class MainWindow(QMainWindow):
         # between them.
         tzinfoObj = pytz.timezone(birthInfo.timezoneName)
         relocalizedDt = tzinfoObj.normalize(dt.astimezone(tzinfoObj))
-
+        
         # <1>: Month as an integer.
         field1 = ""
         if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
@@ -2043,17 +2043,20 @@ class MainWindow(QMainWindow):
         if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
             hoursTimezoneOffset = 0
             minutesTimezoneOffset = 0
-            tzinfoObj = pytz.timezone(birthInfo.timezoneName)
-            self.log.debug("birthInfo.timezoneName is: " + \
-                           birthInfo.timezoneName)
-            offsetTimedelta = tzinfoObj._utcoffset
+
+            offsetTimedelta = birthInfo.getBirthLocalizedDatetime().utcoffset()
+            self.log.debug("offsetTimedelta == {}".format(offsetTimedelta))
+
             totalMinutesOffset = \
                 int(round((offsetTimedelta.days * 60 * 24) + \
                           (offsetTimedelta.seconds / 60)))
             hoursTimezoneOffset = abs(totalMinutesOffset) // 60
-            if totalMinutesOffset < 0 and hoursTimezoneOffset != 0:
+            
+            if totalMinutesOffset > 0 and hoursTimezoneOffset != 0:
                 hoursTimezoneOffset *= -1
+            
             field6 = "{}".format(hoursTimezoneOffset)
+            
         elif birthInfo.timeOffsetManualEntryRadioButtonState == True:
             totalMinutesOffset = \
                 (birthInfo.timezoneManualEntryHours * 60) + \
@@ -2099,7 +2102,12 @@ class MainWindow(QMainWindow):
         #        "-144"
         #        "144"
         #
-        field8 = "{}".format(math.floor(birthInfo.longitudeDegrees))
+        value = None
+        if birthInfo.longitudeDegrees > 0:
+            value = -1 * math.floor(birthInfo.longitudeDegrees)
+        else:
+            value = math.floor(-1 * birthInfo.longitudeDegrees)
+        field8 = "{}".format(value)
             
         # <9>: Longitude minutes and seconds, displayed as an int
         #      but text is as a float multitplied to have 6 digits of
@@ -2153,7 +2161,7 @@ class MainWindow(QMainWindow):
         #
 
         # Utilizes 'totalMinutesOffset' calculated earlier in field 6.
-        hoursTimezoneOffsetFloat = totalMinutesOffset / 60.0
+        hoursTimezoneOffsetFloat = -1 * totalMinutesOffset / 60.0
         field13 = "{:.6}".format(hoursTimezoneOffsetFloat)
         self.log.debug("field13 is: " + field13)
 
@@ -2168,18 +2176,13 @@ class MainWindow(QMainWindow):
             # to previous calculations where done on the birthInfo
             # timezone information.
 
-            # TODO:  Find out why the below utcoffset() doesn't want to take the is_dst parameter.  Is pytz not importing correctly?  I thought that I might need it in case the datetime has an ambiguous timezone offset.  For now, I will just use the datetime.tzinfo version of the utcoffset() function.
-            # 
-            #offsetTimedelta = \
-            #    tzinfoObj.utcoffset(relocalizedDt,
-            #                        is_dst=relocalizedDt.timetuple().tm_isdst)
-            offsetTimedelta = \
-                tzinfoObj.utcoffset(relocalizedDt)
+            offsetTimedelta = relocalizedDt.utcoffset()
+            self.log.debug("offsetTimedelta == {}".format(offsetTimedelta))
             
             totalMinutesOffset = \
                 int(round((offsetTimedelta.days * 60 * 24) + \
                           (offsetTimedelta.seconds / 60)))
-            hoursTimezoneOffsetFloat = totalMinutesOffset / 60.0
+            hoursTimezoneOffsetFloat = -1 * totalMinutesOffset / 60.0
             field14 = "{:.6}".format(hoursTimezoneOffsetFloat)
         else:
             # User-specified timezone offset or LMT, so use the
@@ -2381,8 +2384,6 @@ class MainWindow(QMainWindow):
             
         self.log.debug("Exiting removeOldTemporaryJHoraFiles()")
         
-##############################################################################
-
     def handleAstrologLaunch(self, dt=None, birthInfo=None):
         """Opens Astrolog with the given datetime.datetime timestamp.
         Uses the currently set self.birthInfo object for timezone
@@ -2827,7 +2828,7 @@ class MainWindow(QMainWindow):
         else:
             field7 = "ST"
             
-        # <8>: Time offset from GMT.  Format is:
+        # <8>: Time offset from GMT in standard time.  Format is:
         #
         #      1) First charcter is either '+' or '-'.  Time
         #         offsets that are West of GMT are represented by a
@@ -2847,16 +2848,14 @@ class MainWindow(QMainWindow):
         if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
             hoursTimezoneOffset = 0
             minutesTimezoneOffset = 0
+            
             tzinfoObj = pytz.timezone(birthInfo.timezoneName)
             self.log.debug("birthInfo.timezoneName is: " + \
                            birthInfo.timezoneName)
-            # TODO:  Find out why the below utcoffset() doesn't want to take the is_dst parameter.  Is pytz not importing correctly?  I thought that I might need it in case the datetime has an ambiguous timezone offset.  For now, I will just use the datetime.tzinfo version of the utcoffset() function.
-            #
-            #offsetTimedelta = \
-            #    tzinfoObj.utcoffset(relocalizedDt,
-            #                        is_dst=relocalizedDt.timetuple().tm_isdst)
-            offsetTimedelta = \
-                tzinfoObj.utcoffset(relocalizedDt)
+
+            offsetTimedelta = tzinfoObj._utcoffset
+            self.log.debug("During standard time, offsetTimedelta == {}".\
+                           format(offsetTimedelta))
             
             totalMinutesOffset = \
                 int(round((offsetTimedelta.days * 60 * 24) + \

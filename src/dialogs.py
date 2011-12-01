@@ -10557,17 +10557,26 @@ class BirthInfoEditWidget(QWidget):
         self.lmtRadioButton = \
             QRadioButton("Local Mean &Time (for really old dates)")
         
-        self.timeOffsetLayout = QVBoxLayout()
-        self.timeOffsetLayout.addWidget(self.autodetectedOffsetRadioButton)
-        self.timeOffsetLayout.addLayout(self.timezoneLayout)
-        self.timeOffsetLayout.addLayout(self.timeOffsetValueLayout)
-        self.timeOffsetLayout.addWidget(self.manualEntryRadioButton)
-        self.timeOffsetLayout.addLayout(self.timeOffsetManualEntryLayout)
-        self.timeOffsetLayout.addWidget(self.lmtRadioButton)
+        self.timeOffsetInternalLayout = QVBoxLayout()
+        self.timeOffsetInternalLayout.\
+            addWidget(self.autodetectedOffsetRadioButton)
+        self.timeOffsetInternalLayout.\
+            addLayout(self.timezoneLayout)
+        self.timeOffsetInternalLayout.\
+            addLayout(self.timeOffsetValueLayout)
+        self.timeOffsetInternalLayout.\
+            addWidget(self.manualEntryRadioButton)
+        self.timeOffsetInternalLayout.\
+            addLayout(self.timeOffsetManualEntryLayout)
+        self.timeOffsetInternalLayout.\
+            addWidget(self.lmtRadioButton)
 
         self.timeOffsetGroupBox = QGroupBox("Time Offset")
-        self.timeOffsetGroupBox.setLayout(self.timeOffsetLayout)
-
+        self.timeOffsetGroupBox.setLayout(self.timeOffsetInternalLayout)
+        
+        self.timeOffsetLayout = QVBoxLayout()
+        self.timeOffsetLayout.addWidget(self.timeOffsetGroupBox)
+        self.timeOffsetLayout.addStretch()
 
         # Buttons at bottom.
         self.okayButton = QPushButton("&Okay")
@@ -10578,12 +10587,22 @@ class BirthInfoEditWidget(QWidget):
         self.buttonsAtBottomLayout.addWidget(self.cancelButton)
 
         # Put all layouts/groupboxes together into the widget.
-        self.mainLayout = QVBoxLayout()
-        self.mainLayout.addWidget(self.birthTimeGroupBox) 
-        self.mainLayout.addWidget(self.birthLocationGroupBox) 
-        self.mainLayout.addWidget(self.timeOffsetGroupBox) 
-        self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
+        self.mainLayout = QGridLayout()
+        self.mainLayout.addWidget(self.birthTimeGroupBox)
 
+        # Row.
+        r = 0
+        
+        # Alignment.
+        al = Qt.AlignLeft
+
+        self.mainLayout.addWidget(self.birthTimeGroupBox, r, 0, al)
+        r += 1
+        self.mainLayout.addWidget(self.birthLocationGroupBox, r, 0, al)
+        self.mainLayout.addLayout(self.timeOffsetLayout, r, 1, al)
+        r += 1
+        self.mainLayout.addLayout(self.buttonsAtBottomLayout, r, 1, al)
+        
         self.setLayout(self.mainLayout)
 
         # Connect signals and slots.
@@ -11478,7 +11497,6 @@ class BirthInfoEditWidget(QWidget):
             datetime.datetime(year, month, day, hour, minute, second)
         localizedDatetimeObj = tzinfoObj.localize(datetimeObj)
 
-
         # Here we are creating the string that will be displayed in the label
         # holding the timezone and time offset info.
 
@@ -11486,11 +11504,20 @@ class BirthInfoEditWidget(QWidget):
         offsetStr = \
             Ephemeris.getTimezoneOffsetFromDatetime(localizedDatetimeObj)
 
+        self.log.debug("datetimeObj is: {}".format(datetimeObj))
+        self.log.debug("localizedDatetimeObj is: {}".\
+                       format(Ephemeris.datetimeToStr(localizedDatetimeObj)))
+        self.log.debug("timezoneString is: {}".format(timezoneString))
+        self.log.debug("tzinfoObj is: {}".format(tzinfoObj))
+        self.log.debug("offsetStr is: {}".format(offsetStr))
+        
         # Here tzname() won't return None because we explicitly specified a
         # pytz tzinfo to the datetime above.
         timeOffsetString = \
             localizedDatetimeObj.tzname() + " " + offsetStr
 
+        self.log.debug("timeOffsetString is: {}".format(timeOffsetString))
+        
         # Set the label.
         self.timezoneOffsetValueLabel.setText(timeOffsetString)
 

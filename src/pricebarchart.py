@@ -9532,7 +9532,7 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             
             timeTextItem.setPos(QPointF(x, y))
 
-            offset = self.timeRetracementGraphicsItemBarHeight * 10
+            offset = self.timeRetracementTextFont.pointSizeF() * 1.4
             x = x + offset
 
             percentTextItem.setPos(QPointF(x, y))
@@ -10810,7 +10810,7 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             
             priceTextItem.setPos(QPointF(x, y))
 
-            offset = self.priceRetracementGraphicsItemBarWidth * 0.4
+            offset = self.priceRetracementTextFont.pointSizeF() * 1.4
             y = y - offset
 
             percentTextItem.setPos(QPointF(x, y))
