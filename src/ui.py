@@ -2044,7 +2044,7 @@ class MainWindow(QMainWindow):
             hoursTimezoneOffset = 0
             minutesTimezoneOffset = 0
 
-            offsetTimedelta = birthInfo.getBirthLocalizedDatetime().utcoffset()
+            offsetTimedelta = relocalizedDt.utcoffset()
             self.log.debug("offsetTimedelta == {}".format(offsetTimedelta))
 
             totalMinutesOffset = \
@@ -3387,6 +3387,9 @@ class MainWindow(QMainWindow):
         # Localize the 'now' timestamp.
         localizedDt = datetime.datetime.now(tzinfoObj)
 
+        self.log.debug("localized now dt is: {}".\
+                       format(Ephemeris.datetimeToStr(localizedDt)))
+                       
         # Open JHora with these values.
         self.handleJhoraLaunch(localizedDt, birthInfo)
 
@@ -3402,11 +3405,9 @@ class MainWindow(QMainWindow):
         # Get the BirthInfo (location, timezone, etc.) for the current
         # active chart.
         birthInfo = pcd.getBirthInfo()
-        tzinfoObj = pytz.timezone(birthInfo.timezoneName)
 
-        # Localize the birth timestamp.
-        utcBirthDt = birthInfo.getBirthUtcDatetime()
-        localizedDt = tzinfoObj.normalize(utcBirthDt.astimezone(tzinfoObj))
+        # Get the localized datetime of birth.
+        localizedDt = birthInfo.getBirthLocalizedDatetime()
 
         # Open JHora with these values.
         self.handleJhoraLaunch(localizedDt, birthInfo)
