@@ -2690,7 +2690,8 @@ class MainWindow(QMainWindow):
         #      "pm" if in the second half of the day.
         # <7>: "ST" if in standard time (not daylight savings).
         #      "DT" if in daylight time.
-        # <8>: Time offset from GMT.  Format is:
+        # <8>: Time offset from GMT when in standard time (i.e. when
+        #      not in daylight savings time).  Format is:
         #
         #      1) First charcter is either '+' or '-'.  Time
         #         offsets that are West of GMT are represented by a
@@ -2828,7 +2829,8 @@ class MainWindow(QMainWindow):
         else:
             field7 = "ST"
             
-        # <8>: Time offset from GMT in standard time.  Format is:
+        # <8>: Time offset from GMT when in standard time (i.e. when
+        #      not in daylight savings time).  Format is:
         #
         #      1) First charcter is either '+' or '-'.  Time
         #         offsets that are West of GMT are represented by a
