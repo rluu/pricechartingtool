@@ -38,8 +38,15 @@ class AstrologyUtils:
     various astrological values and fields.
     """
 
+    # Number of degrees in a Biblical Circle. (float)
+    degreesInBiblicalCircle = 360.18
+
+    # Number of degrees in a 360-degree Circle. (float)
+    degreesInCircle = 360.0
+
+    
     @staticmethod
-    def convertFromLongitudeToStrWithRasiAbbrev(longitude):
+    def convertLongitudeToStrWithRasiAbbrev(longitude):
         """Takes a float longitude value and converts it to a string
         in the format: 23 <RASI_GLYPH> 24' 14"
         
@@ -166,7 +173,14 @@ class AstrologyUtils:
         return rv
 
     @staticmethod
-    def convertFromLongitudeToNakshatraAbbrev(longitude):
+    def convertAngleToStrWithRasiAbbrev(longitude):
+        """Alias of convertLongitudeToStrWithRasiAbbrev(longitude)."""
+
+        return AstrologyUtils.convertAngleToStrWithRasiAbbrev(longitude)
+        
+        
+    @staticmethod
+    def convertLongitudeToNakshatraAbbrev(longitude):
         """Takes a float longitude value and converts it to a string
         that is the nakshatra abbreviation for that longitude.
         
@@ -214,6 +228,144 @@ class AstrologyUtils:
         index = math.floor(longitude / (360 / 27))
         
         return nakshatraAbbrevs[index]
+
+    @staticmethod
+    def convertCircleAngleToBiblicalCircleAngle(angle):
+        """Converts the given angle in degrees of a 360-degree circle,
+        to an angle in degrees of a 360 degree 10 minute 48 second
+        circle (A.K.A Biblical Circle).
+
+        Arguments:
+        angle - float value for the angle in units of degrees in a
+                360-degree circle.
+
+        Returns:
+        float value for the angle in units of degrees in a
+        360 deg 10' 48" Biblical circle.
+        """
+
+        
+        proportionOfCircle = \
+            angle / AstrologyUtils.degreesInCircle
+
+        biblicalAngle = \
+            proportionOfCircle * AstrologyUtils.degreesInBiblicalCircle
+        
+        return biblicalAngle
+    
+    def convertBiblicalCircleAngleToCircleAngle(biblicalAngle):
+        """Converts the given angle in degrees of a 360 degree 10
+        minute 48 second circle (A.K.A Biblical Circle) to an angle in
+        degrees of a 360-degree circle.
+
+        Arguments:
+        biblicalAngle - float value for the angle in units of degrees in a
+                        360 deg 10' 48" Biblical circle.
+
+        Returns:
+        float value for the angle in units of degrees in a 360-degree circle.
+        """
+
+        
+        proportionOfCircle = \
+            biblicalAngle / AstrologyUtils.degreesInBiblicalCircle
+
+        angle = \
+            proportionOfCircle * AstrologyUtils.degreesInCircle
+        
+        return angle
+    
+    @staticmethod
+    def convertBiblicalAngleToStrWithRasiAbbrev(biblicalAngle):
+        """Takes a angle in Biblical degrees and converts it to a string
+        in the format: 23 <RASI_GLYPH> 24' 14" that represents the
+        zodiac location for that angle.
+        
+        Arguments:
+        biblicalAngle - float value for the angle in units of degrees in a
+                        360 deg 10' 48" Biblical circle.
+
+        Returns:
+        str - String that is in the above format.  It will always be a
+        fixed number of characters.  This means that if it is 8
+        degrees, or 8 minutes, or 8 seconds, the string will have a
+        space prefixing the 8.
+        """
+
+        angle = \
+            AstrologyUtils.convertBiblicalCircleAngleToCircleAngle(\
+            biblicalAngle)
+
+        return AstrologyUtils.convertLongitudeToStrWithRasiAbbrev(angle)
+
+    @staticmethod
+    def convertDegMinSecToAngle(degrees, minutes, seconds):
+        """Converts the given degrees, minutes and seconds into a
+        float value representing the same angle.
+
+        Arguments:
+        degrees - int value for the degrees of the angle.  This may be negative.
+        minutes - int value for the minutes of the angle.
+        minutes - int value for the seconds of the angle.
+        """
+
+        angle = degrees + (minutes / 60) + (seconds / 3600)
+
+        return angle
+        
+    @staticmethod
+    def convertAngleToDegMinSec(angle):
+        """Converts the given angle as a float and returns a tuple of
+        int values containing the equivalent amount of degrees,
+        minutes and seconds.
+        
+        Arguments:
+        angle - float value holding the angle to convert.
+
+        Returns:
+        tuple of 3 ints (degrees, minutes, seconds), that represent the angle.
+        """
+
+        degrees = int(math.floor(angle))
+
+        leftOver1 = 60.0 * (angle - degrees)
+        minutes = int(math.floor(leftOver1))
+
+        leftOver2 = 60.0 * (leftOver1 - minutes)
+        seconds = int(round(leftOver2))
+
+        # Handle roll-over due to seconds rounding up to 60.
+        if seconds == 60:
+            minutes += 1
+            seconds = 0
+
+            if minutes == 60:
+                degrees += 1
+                minutes = 0
+
+        return (degrees, minutes, seconds)
+        
+    def convertAngleToDegMinSecStr(angle):
+        """Converts the given angle as a float and returns a str that
+        is the value in the format:  XXX° YY' ZZ"
+        
+        If the angle does not fill the digits, a space will be used so
+        that the output is fixed width.
+        
+        Arguments:
+        angle - float value holding the angle to convert.
+
+        Returns:
+        str value holding the converted angle with degrees, minutes
+        and seconds printed.
+        """
+
+        (degrees, minutes, seconds) = \
+            AstrologyUtils.convertAngleToDegMinSec(angle)
+
+        rv = "{:>3}° {:>2}' {:>2}\"".format(degrees, minutes, seconds)
+
+        return rv
         
     @staticmethod
     def getGlyphForPlanetName(planetName):
@@ -3339,7 +3491,7 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
 
         # The 'ruler' bar displayed is a fixed size.  Speed values are
         # scaled to a Y value to fit in the ruler bar.  See the
-        # convertFromSpeedToYLocation() function for the conversion
+        # convertSpeedToYLocation() function for the conversion
         # algorithm sed.
         self.rulerWidth = 20.0
         self.rulerHeight = 120.0
@@ -3395,7 +3547,7 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
         return self.minSpeed
     
         
-    def convertFromSpeedToYValue(self, speed):
+    def convertSpeedToYValue(self, speed):
         """Converts the given longitude speed (in degrees per day) to
         the coordinate Y value where speed should be plotted.  This
         algorithm sets the minSpeed Y value as the 0 anchor point,
@@ -3432,9 +3584,9 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
 
         return yValue
 
-    def convertFromYValueToSpeed(self, y):
+    def convertYValueToSpeed(self, y):
         """Converts the given y value to a longitude speed (in degrees per day).
-        This method does the inverse of convertFromSpeedToYValue().
+        This method does the inverse of convertSpeedToYValue().
 
         Arguments:
         y - float value that is the Y coordinate location where the speed
@@ -3504,7 +3656,7 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
         
         # Max speed.
         x1 = self.textXLoc
-        y1 = self.convertFromSpeedToYValue(maxSpeed)
+        y1 = self.convertSpeedToYValue(maxSpeed)
         # The below format is:
         # - Two digits of precision.
         # - Followed by the degree symbol.
@@ -3519,7 +3671,7 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
         
         # Min speed.
         x1 = self.textXLoc
-        y1 = self.convertFromSpeedToYValue(minSpeed)
+        y1 = self.convertSpeedToYValue(minSpeed)
         # The below format is:
         # - Two digits of precision.
         # - Followed by the degree symbol.
@@ -3535,7 +3687,7 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
         # Zero speed.
         zeroSpeed = 0.0
         x1 = self.textXLoc
-        y1 = self.convertFromSpeedToYValue(zeroSpeed)
+        y1 = self.convertSpeedToYValue(zeroSpeed)
         # The below format is:
         # - Two digits of precision.
         # - Followed by the degree symbol.
@@ -3600,7 +3752,7 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
 
         # Draw the 0 line.
         x1 = 0
-        y1 = self.convertFromSpeedToYValue(0)
+        y1 = self.convertSpeedToYValue(0)
         x2 = self.rulerWidth
         y2 = y1
         painter.drawLine(x1, y1, x2, y2)
@@ -3612,7 +3764,7 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
 
         # Max speed.
         x1 = self.textXLoc
-        y1 = self.convertFromSpeedToYValue(maxSpeed)
+        y1 = self.convertSpeedToYValue(maxSpeed)
         # The below format is:
         # - Two digits of precision.
         # - Followed by the degree symbol.
@@ -3627,7 +3779,7 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
 
         # Min speed.
         x1 = self.textXLoc
-        y1 = self.convertFromSpeedToYValue(minSpeed)
+        y1 = self.convertSpeedToYValue(minSpeed)
         # The below format is:
         # - Two digits of precision.
         # - Followed by the degree symbol.
@@ -3643,7 +3795,7 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
         # Zero speed.
         zeroSpeed = 0.0
         x1 = self.textXLoc
-        y1 = self.convertFromSpeedToYValue(zeroSpeed)
+        y1 = self.convertSpeedToYValue(zeroSpeed)
         # The below format is:
         # - Two digits of precision.
         # - Followed by the degree symbol.
@@ -3813,7 +3965,7 @@ class PlanetLongitudeSpeedGraphicsItem(QGraphicsItem):
 
         # QRectF for the line.
         x1 = 0.0
-        y1 = self.parentChartGraphicsItem.convertFromSpeedToYValue(self.speed)
+        y1 = self.parentChartGraphicsItem.convertSpeedToYValue(self.speed)
         x2 = self.lineEndX
         y2 = y1
         lineRect = QRectF(QPointF(x1, y1), QPointF(x2, y2)).normalized()
@@ -3829,7 +3981,7 @@ class PlanetLongitudeSpeedGraphicsItem(QGraphicsItem):
         transform = QTransform()
         textX = self.lineEndX
         textY = self.parentChartGraphicsItem.\
-                convertFromSpeedToYValue(self.speed)
+                convertSpeedToYValue(self.speed)
         transform.translate(textX, textY)
         transformedTextPath = QPainterPath()
         transformedTextPath.addPath(transform.map(textPath))
@@ -3839,10 +3991,10 @@ class PlanetLongitudeSpeedGraphicsItem(QGraphicsItem):
         rulerFillAreaRectF = \
             QRectF(QPointF(0.0,
                            self.parentChartGraphicsItem.\
-                           convertFromSpeedToYValue(0.0)),
+                           convertSpeedToYValue(0.0)),
                    QPointF(self.rulerWidth,
                            self.parentChartGraphicsItem.\
-                           convertFromSpeedToYValue(self.speed))).normalized()
+                           convertSpeedToYValue(self.speed))).normalized()
 
         # Unite all rectangles.
         rv = lineRect.united(textRect).united(rulerFillAreaRectF)
@@ -3877,7 +4029,7 @@ class PlanetLongitudeSpeedGraphicsItem(QGraphicsItem):
 
         # Draw the line.
         x1 = 0.0
-        y1 = self.parentChartGraphicsItem.convertFromSpeedToYValue(self.speed)
+        y1 = self.parentChartGraphicsItem.convertSpeedToYValue(self.speed)
         x2 = self.lineEndX
         y2 = y1
         painter.drawLine(x1, y1, x2, y2)
@@ -3895,7 +4047,7 @@ class PlanetLongitudeSpeedGraphicsItem(QGraphicsItem):
         transform = QTransform()
         textX = self.lineEndX
         textY = self.parentChartGraphicsItem.\
-                convertFromSpeedToYValue(self.speed)
+                convertSpeedToYValue(self.speed)
         transform.translate(textX, textY)
         transformedTextPath = QPainterPath()
         transformedTextPath.addPath(transform.map(textPath))
@@ -3907,10 +4059,10 @@ class PlanetLongitudeSpeedGraphicsItem(QGraphicsItem):
         rulerFillAreaRectF = \
             QRectF(QPointF(0.0,
                            self.parentChartGraphicsItem.\
-                           convertFromSpeedToYValue(0.0)),
+                           convertSpeedToYValue(0.0)),
                    QPointF(self.rulerWidth,
                            self.parentChartGraphicsItem.\
-                           convertFromSpeedToYValue(self.speed))).normalized()
+                           convertSpeedToYValue(self.speed))).normalized()
         if self.speed >= 0.0:
             painter.setBrush(self.positiveSpeedBrush)
         else:
@@ -4374,21 +4526,21 @@ class PlanetaryInfoTableWidget(QTableWidget):
         longitude = p.geocentric[tropical]['longitude']
         valueStr = \
                  AstrologyUtils.\
-                 convertFromLongitudeToStrWithRasiAbbrev(longitude)
+                 convertLongitudeToStrWithRasiAbbrev(longitude)
         self._setItemAndToolTip(row, col, valueStr)
         col += 1
 
         longitude = p.geocentric[sidereal]['longitude']
         valueStr = \
                  AstrologyUtils.\
-                 convertFromLongitudeToStrWithRasiAbbrev(longitude)
+                 convertLongitudeToStrWithRasiAbbrev(longitude)
         self._setItemAndToolTip(row, col, valueStr)
         col += 1
 
         longitude = p.geocentric[sidereal]['longitude']
         valueStr = \
                  AstrologyUtils.\
-                 convertFromLongitudeToNakshatraAbbrev(longitude)
+                 convertLongitudeToNakshatraAbbrev(longitude)
         self._setItemAndToolTip(row, col, valueStr)
         col += 1
 
@@ -4420,14 +4572,14 @@ class PlanetaryInfoTableWidget(QTableWidget):
         longitude = p.heliocentric[sidereal]['longitude']
         valueStr = \
                  AstrologyUtils.\
-                 convertFromLongitudeToStrWithRasiAbbrev(longitude)
+                 convertLongitudeToStrWithRasiAbbrev(longitude)
         self._setItemAndToolTip(row, col, valueStr)
         col += 1
 
         longitude = p.heliocentric[sidereal]['longitude']
         valueStr = \
                  AstrologyUtils.\
-                 convertFromLongitudeToNakshatraAbbrev(longitude)
+                 convertLongitudeToNakshatraAbbrev(longitude)
         self._setItemAndToolTip(row, col, valueStr)
         col += 1
 
@@ -5360,7 +5512,49 @@ class AstrologyChartWidget(QWidget):
         chartNum = 3
         self.clearAstroChartX(chartNum)
         
-        
+
+def testConvertAngleToDegMinSecStr():
+    print("Running " + inspect.stack()[0][3] + "()")
+    
+    angles = [-0.0,
+              0.0,
+              0,
+              0.1,
+              0.11111,
+              0.8,
+              133.333333,
+              120,
+              144,
+              2,
+              360,
+              721.314]
+
+    for angle in angles:
+        formattedStr = AstrologyUtils.convertAngleToDegMinSecStr(angle)
+        print("    Angle {:>10} == {}".format(angle, formattedStr))
+
+def testConvertAngleToDegMinSec():
+    print("Running " + inspect.stack()[0][3] + "()")
+
+    angles = [-0.0,
+              0.0,
+              0,
+              0.1,
+              0.11111,
+              0.8,
+              133.333333,
+              120,
+              144,
+              2,
+              360,
+              721.314]
+
+    for angle in angles:
+        (deg, min, sec) = AstrologyUtils.convertAngleToDegMinSec(angle)
+
+        print("    Angle {:>10} == {} deg {} min {} sec".\
+              format(angle, deg, min, sec))
+    
 def testSiderealRadixChartGraphicsItem():
     print("Running " + inspect.stack()[0][3] + "()")
 
@@ -5951,15 +6145,17 @@ if __name__=="__main__":
     QCoreApplication.setApplicationName(appName)
         
     # Various tests to run:
+    testConvertAngleToDegMinSecStr()
+    testConvertAngleToDegMinSec()
     #testSiderealRadixChartGraphicsItem()
     #testRadixPlanetGraphicsItem()
     #testDeclinationChartGraphicsItem()
     #testPlanetDeclinationGraphicsItem()
-    testLongitudeSpeedChartGraphicsItem()
-    testPlanetLongitudeSpeedGraphicsItem()
+    #testLongitudeSpeedChartGraphicsItem()
+    #testPlanetLongitudeSpeedGraphicsItem()
     #testPlanetaryInfoTableWidget()
     #testPlanetaryInfoTableGraphicsItem()
-    testAstrologyChartWidget()
+    #testAstrologyChartWidget()
     
     # Exit the app when all windows are closed.
     app.connect(app, SIGNAL("lastWindowClosed()"), logging.shutdown)
