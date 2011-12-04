@@ -2885,6 +2885,11 @@ class PriceBarChartArtifact:
         if tagToAdd != "" and tagToAdd not in self.tags:
             self.tags.append(tagToAdd)
 
+    def getTags(self):
+        """Returns a list of str that are the tags for this artifact."""
+
+        return self.tags
+    
     def hasTag(self, tagToCheck):
         """Returns True if the given 'tagToCheck' str is in the list of tags."""
 
@@ -12668,6 +12673,20 @@ class PriceChartDocumentData:
 
         self.userNotes = userNotes
 
+    def getPriceBarsFileFilename(self):
+        """Returns the source data file filename which we got the
+        PriceBar data from.
+        """
+
+        return self.priceBarsFileFilename
+        
+    def setPriceBarsFileFilename(self, filename):
+        """Sets the source data file filename which we got the
+        PriceBar data from.
+        """
+
+        self.priceBarsFileFilename = filename
+        
     def loadWizardData(self,
                        priceBars,
                        priceBarsFileFilename, 

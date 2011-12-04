@@ -27745,10 +27745,18 @@ class PriceChartDocumentDataEditWidget(QWidget):
         self.descriptionLineEdit = QLineEdit()
         self.descriptionLabel.setBuddy(self.descriptionLineEdit)
 
+        # User notes.
         self.userNotesLabel = QLabel("&User notes:")
         self.userNotesTextEdit = QTextEdit()
         self.userNotesTextEdit.setAcceptRichText(False)
         self.userNotesLabel.setBuddy(self.userNotesTextEdit)
+
+        # Source data file which we got the PriceBar data from.
+        self.priceBarsFileFilenameLabel = \
+            QLabel("S&ource PriceBar data file.")
+        self.priceBarsFileFilenameLineEdit = QLineEdit()
+        self.priceBarsFileFilenameLabel.\
+            setBuddy(self.priceBarsFileFilenameLineEdit)
         
         # Form layout.
         self.formLayout = QFormLayout()
@@ -27756,9 +27764,11 @@ class PriceChartDocumentDataEditWidget(QWidget):
                                self.descriptionLineEdit)
         self.formLayout.addRow(self.userNotesLabel,
                                self.userNotesTextEdit)
+        self.formLayout.addRow(self.priceBarsFileFilenameLabel,
+                               self.priceBarsFileFilenameLineEdit)
 
         self.pcddGroupBox.setLayout(self.formLayout)
-
+        
         # Buttons at bottom.
         self.okayButton = QPushButton("&Okay")
         self.cancelButton = QPushButton("&Cancel")
@@ -27812,6 +27822,10 @@ class PriceChartDocumentDataEditWidget(QWidget):
         self.userNotesTextEdit.\
             setPlainText(self.priceChartDocumentData.getUserNotes())
 
+        # Source data file which we got the PriceBar data from.
+        self.priceBarsFileFilenameLineEdit.\
+            setText(self.priceChartDocumentData.getPriceBarsFileFilename())
+        
         self.log.debug("Exiting loadValues()")
         
     def saveValues(self):
@@ -27829,6 +27843,10 @@ class PriceChartDocumentDataEditWidget(QWidget):
         self.priceChartDocumentData.\
             setUserNotes(self.userNotesTextEdit.toPlainText())
 
+        # Source data file which we got the PriceBar data from.
+        self.priceChartDocumentData.\
+            setPriceBarsFileFilename(self.priceBarsFileFilenameLineEdit.text())
+        
         self.log.debug("Exiting saveValues()")
 
 

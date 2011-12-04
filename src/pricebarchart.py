@@ -504,7 +504,7 @@ class PriceBarGraphicsItem(QGraphicsItem):
         parent = menu
         selectAction = QAction("&Select", parent)
         unselectAction = QAction("&Unselect", parent)
-        removeAction = QAction("Remove", parent)
+        removeAction = QAction("&Remove", parent)
         infoAction = QAction("&Info", parent)
         editAction = QAction("&Edit", parent)
         setAstro1Action = QAction("Set timestamp on Astro Chart &1", parent)
@@ -683,7 +683,7 @@ class PriceBarChartArtifactGraphicsItem(QGraphicsItem):
         
         self.readOnlyFlag = True
         self.artifact = None
-        
+
     def setReadOnlyFlag(self, flag):
         self.readOnlyFlag = flag
 
@@ -715,15 +715,64 @@ class PriceBarChartArtifactGraphicsItem(QGraphicsItem):
         self.log.debug("Entered " + \
                        "PriceBarChartArtifactGraphicsItem.getArtifact()")
         
-        if artifact == None:
+        if self.artifact == None:
             raise TypeError("Expected artifact to be not None.")
 
         self.log.debug("Exiting " + \
                        "PriceBarChartArtifactGraphicsItem.getArtifact()")
         
-        return artifact
+        return self.artifact
 
+    def mousePressEvent(self, event):
+        """Overwrites the QGraphicsItem mousePressEvent() function.
 
+        If the item is on the scene and the internal artifact has
+        tags, then this function causes that info to be outputted on
+        the status bar.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+
+        self.log.debug(\
+            "Entered PriceBarChartArtifactGraphicsItem.mousePressEvent()")
+        
+        # Pass on the mousePressEvent call.
+        super().mousePressEvent(event)
+
+        self.maybePrintTagsToStatusBar()
+        
+        self.log.debug(\
+            "Exiting PriceBarChartArtifactGraphicsItem.mousePressEvent()")
+
+    def maybePrintTagsToStatusBar(self):
+        """If the item is on the scene and the internal artifact has
+        tags, then this function causes that info to be outputted on
+        the status bar.
+        """
+        
+        scene = self.scene()
+
+        if scene != None and self.artifact != None:
+            
+            # Only act if there are tags for this item artifact.
+            tags = self.artifact.getTags()
+            
+            if len(tags) > 0:
+                
+                statusStr = "Tags: ["
+                
+                for tag in tags:
+                    statusStr += tag + ", "
+                    
+                if statusStr.endswith(", "):
+                    statusStr = statusStr[:-2]
+                    
+                statusStr += "]"
+                
+                scene.statusMessageUpdate.emit(statusStr)
+
+        
 class TextGraphicsItem(PriceBarChartArtifactGraphicsItem):
     """QGraphicsItem that visualizes a PriceBarChartTextArtifact."""
     
@@ -984,7 +1033,7 @@ class TextGraphicsItem(PriceBarChartArtifactGraphicsItem):
         parent = menu
         selectAction = QAction("&Select", parent)
         unselectAction = QAction("&Unselect", parent)
-        removeAction = QAction("Remove", parent)
+        removeAction = QAction("&Remove", parent)
         infoAction = QAction("&Info", parent)
         editAction = QAction("&Edit", parent)
         
@@ -1019,7 +1068,8 @@ class TextGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to become selected."""
 
         self.setSelected(True)
-
+        self.maybePrintTagsToStatusBar()
+        
     def _handleUnselectAction(self):
         """Causes the QGraphicsItem to become unselected."""
 
@@ -1752,7 +1802,7 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         parent = menu
         selectAction = QAction("&Select", parent)
         unselectAction = QAction("&Unselect", parent)
-        removeAction = QAction("Remove", parent)
+        removeAction = QAction("&Remove", parent)
         infoAction = QAction("&Info", parent)
         editAction = QAction("&Edit", parent)
         
@@ -1851,6 +1901,7 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to become selected."""
 
         self.setSelected(True)
+        self.maybePrintTagsToStatusBar()
 
     def _handleUnselectAction(self):
         """Causes the QGraphicsItem to become unselected."""
@@ -3839,7 +3890,7 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         parent = menu
         selectAction = QAction("&Select", parent)
         unselectAction = QAction("&Unselect", parent)
-        removeAction = QAction("Remove", parent)
+        removeAction = QAction("&Remove", parent)
         infoAction = QAction("&Info", parent)
         editAction = QAction("&Edit", parent)
         
@@ -3938,6 +3989,7 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to become selected."""
 
         self.setSelected(True)
+        self.maybePrintTagsToStatusBar()
 
     def _handleUnselectAction(self):
         """Causes the QGraphicsItem to become unselected."""
@@ -5239,7 +5291,7 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         parent = menu
         selectAction = QAction("&Select", parent)
         unselectAction = QAction("&Unselect", parent)
-        removeAction = QAction("Remove", parent)
+        removeAction = QAction("&Remove", parent)
         infoAction = QAction("&Info", parent)
         editAction = QAction("&Edit", parent)
         rotateDownAction = QAction("Rotate Down", parent)
@@ -5374,6 +5426,7 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to become selected."""
 
         self.setSelected(True)
+        self.maybePrintTagsToStatusBar()
 
     def _handleUnselectAction(self):
         """Causes the QGraphicsItem to become unselected."""
@@ -6621,7 +6674,7 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         parent = menu
         selectAction = QAction("&Select", parent)
         unselectAction = QAction("&Unselect", parent)
-        removeAction = QAction("Remove", parent)
+        removeAction = QAction("&Remove", parent)
         infoAction = QAction("&Info", parent)
         editAction = QAction("&Edit", parent)
         rotateDownAction = QAction("Rotate Down", parent)
@@ -6724,6 +6777,7 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to become selected."""
 
         self.setSelected(True)
+        self.maybePrintTagsToStatusBar()
 
     def _handleUnselectAction(self):
         """Causes the QGraphicsItem to become unselected."""
@@ -7610,7 +7664,7 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
         parent = menu
         selectAction = QAction("&Select", parent)
         unselectAction = QAction("&Unselect", parent)
-        removeAction = QAction("Remove", parent)
+        removeAction = QAction("&Remove", parent)
         infoAction = QAction("&Info", parent)
         editAction = QAction("&Edit", parent)
         setAstro1Action = \
@@ -7676,6 +7730,7 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to become selected."""
 
         self.setSelected(True)
+        self.maybePrintTagsToStatusBar()
 
     def _handleUnselectAction(self):
         """Causes the QGraphicsItem to become unselected."""
@@ -8840,7 +8895,7 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         parent = menu
         selectAction = QAction("&Select", parent)
         unselectAction = QAction("&Unselect", parent)
-        removeAction = QAction("Remove", parent)
+        removeAction = QAction("&Remove", parent)
         infoAction = QAction("&Info", parent)
         editAction = QAction("&Edit", parent)
         setStartOnAstro1Action = \
@@ -8906,6 +8961,7 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to become selected."""
 
         self.setSelected(True)
+        self.maybePrintTagsToStatusBar()
 
     def _handleUnselectAction(self):
         """Causes the QGraphicsItem to become unselected."""
@@ -10054,7 +10110,7 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         parent = menu
         selectAction = QAction("&Select", parent)
         unselectAction = QAction("&Unselect", parent)
-        removeAction = QAction("Remove", parent)
+        removeAction = QAction("&Remove", parent)
         infoAction = QAction("&Info", parent)
         editAction = QAction("&Edit", parent)
         setStartOnAstro1Action = \
@@ -10151,6 +10207,7 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to become selected."""
 
         self.setSelected(True)
+        self.maybePrintTagsToStatusBar()
 
     def _handleUnselectAction(self):
         """Causes the QGraphicsItem to become unselected."""
@@ -11337,7 +11394,7 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         parent = menu
         selectAction = QAction("&Select", parent)
         unselectAction = QAction("&Unselect", parent)
-        removeAction = QAction("Remove", parent)
+        removeAction = QAction("&Remove", parent)
         infoAction = QAction("&Info", parent)
         editAction = QAction("&Edit", parent)
         setStartOnAstro1Action = \
@@ -11434,6 +11491,7 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to become selected."""
 
         self.setSelected(True)
+        self.maybePrintTagsToStatusBar()
 
     def _handleUnselectAction(self):
         """Causes the QGraphicsItem to become unselected."""
@@ -12540,7 +12598,7 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
         parent = menu
         selectAction = QAction("&Select", parent)
         unselectAction = QAction("&Unselect", parent)
-        removeAction = QAction("Remove", parent)
+        removeAction = QAction("&Remove", parent)
         infoAction = QAction("&Info", parent)
         editAction = QAction("&Edit", parent)
         setStartOnAstro1Action = \
@@ -12637,6 +12695,7 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to become selected."""
 
         self.setSelected(True)
+        self.maybePrintTagsToStatusBar()
 
     def _handleUnselectAction(self):
         """Causes the QGraphicsItem to become unselected."""
@@ -12865,12 +12924,12 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Set the text item with the properties we want it to have.
         self.reApplyTextItemAttributes(self.textItem)
-        
+
         # Flags that indicate that the user is dragging either the start
         # or end point of the QGraphicsItem.
         self.draggingStartPointFlag = False
         self.draggingEndPointFlag = False
-
+        
         # Working variables for clicking and draging.
         self.clickScenePointF = None
         self.origStartPointF = None
@@ -13658,7 +13717,7 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
         parent = menu
         selectAction = QAction("&Select", parent)
         unselectAction = QAction("&Unselect", parent)
-        removeAction = QAction("Remove", parent)
+        removeAction = QAction("&Remove", parent)
         infoAction = QAction("&Info", parent)
         editAction = QAction("&Edit", parent)
         extendEndPointAction = \
@@ -13785,6 +13844,7 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to become selected."""
 
         self.setSelected(True)
+        self.maybePrintTagsToStatusBar()
 
     def _handleUnselectAction(self):
         """Causes the QGraphicsItem to become unselected."""
@@ -15588,7 +15648,7 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         parent = menu
         selectAction = QAction("&Select", parent)
         unselectAction = QAction("&Unselect", parent)
-        removeAction = QAction("Remove", parent)
+        removeAction = QAction("&Remove", parent)
         infoAction = QAction("&Info", parent)
         editAction = QAction("&Edit", parent)
         rotateDownAction = QAction("Rotate Down", parent)
@@ -15720,6 +15780,7 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to become selected."""
 
         self.setSelected(True)
+        self.maybePrintTagsToStatusBar()
 
     def _handleUnselectAction(self):
         """Causes the QGraphicsItem to become unselected."""
@@ -17619,7 +17680,7 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         parent = menu
         selectAction = QAction("&Select", parent)
         unselectAction = QAction("&Unselect", parent)
-        removeAction = QAction("Remove", parent)
+        removeAction = QAction("&Remove", parent)
         infoAction = QAction("&Info", parent)
         editAction = QAction("&Edit", parent)
         extendLeg1PointAction = \
@@ -17715,6 +17776,7 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to become selected."""
 
         self.setSelected(True)
+        self.maybePrintTagsToStatusBar()
 
     def _handleUnselectAction(self):
         """Causes the QGraphicsItem to become unselected."""
@@ -19493,7 +19555,7 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         parent = menu
         selectAction = QAction("&Select", parent)
         unselectAction = QAction("&Unselect", parent)
-        removeAction = QAction("Remove", parent)
+        removeAction = QAction("&Remove", parent)
         infoAction = QAction("&Info", parent)
         editAction = QAction("&Edit", parent)
         extendLeg1PointAction = \
@@ -19589,6 +19651,7 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to become selected."""
 
         self.setSelected(True)
+        self.maybePrintTagsToStatusBar()
 
     def _handleUnselectAction(self):
         """Causes the QGraphicsItem to become unselected."""
@@ -20845,7 +20908,7 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         parent = menu
         selectAction = QAction("&Select", parent)
         unselectAction = QAction("&Unselect", parent)
-        removeAction = QAction("Remove", parent)
+        removeAction = QAction("&Remove", parent)
         infoAction = QAction("&Info", parent)
         editAction = QAction("&Edit", parent)
         rotateDownAction = QAction("Rotate Down", parent)
@@ -20980,6 +21043,7 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to become selected."""
 
         self.setSelected(True)
+        self.maybePrintTagsToStatusBar()
 
     def _handleUnselectAction(self):
         """Causes the QGraphicsItem to become unselected."""
@@ -22225,7 +22289,7 @@ class AshtottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         parent = menu
         selectAction = QAction("&Select", parent)
         unselectAction = QAction("&Unselect", parent)
-        removeAction = QAction("Remove", parent)
+        removeAction = QAction("&Remove", parent)
         infoAction = QAction("&Info", parent)
         editAction = QAction("&Edit", parent)
         rotateDownAction = QAction("Rotate Down", parent)
@@ -22360,6 +22424,7 @@ class AshtottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to become selected."""
 
         self.setSelected(True)
+        self.maybePrintTagsToStatusBar()
 
     def _handleUnselectAction(self):
         """Causes the QGraphicsItem to become unselected."""
@@ -23601,7 +23666,7 @@ class YoginiDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         parent = menu
         selectAction = QAction("&Select", parent)
         unselectAction = QAction("&Unselect", parent)
-        removeAction = QAction("Remove", parent)
+        removeAction = QAction("&Remove", parent)
         infoAction = QAction("&Info", parent)
         editAction = QAction("&Edit", parent)
         rotateDownAction = QAction("Rotate Down", parent)
@@ -23736,6 +23801,7 @@ class YoginiDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to become selected."""
 
         self.setSelected(True)
+        self.maybePrintTagsToStatusBar()
 
     def _handleUnselectAction(self):
         """Causes the QGraphicsItem to become unselected."""
@@ -24976,7 +25042,7 @@ class DwisaptatiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         parent = menu
         selectAction = QAction("&Select", parent)
         unselectAction = QAction("&Unselect", parent)
-        removeAction = QAction("Remove", parent)
+        removeAction = QAction("&Remove", parent)
         infoAction = QAction("&Info", parent)
         editAction = QAction("&Edit", parent)
         rotateDownAction = QAction("Rotate Down", parent)
@@ -25111,6 +25177,7 @@ class DwisaptatiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to become selected."""
 
         self.setSelected(True)
+        self.maybePrintTagsToStatusBar()
 
     def _handleUnselectAction(self):
         """Causes the QGraphicsItem to become unselected."""
@@ -26351,7 +26418,7 @@ class ShattrimsaSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         parent = menu
         selectAction = QAction("&Select", parent)
         unselectAction = QAction("&Unselect", parent)
-        removeAction = QAction("Remove", parent)
+        removeAction = QAction("&Remove", parent)
         infoAction = QAction("&Info", parent)
         editAction = QAction("&Edit", parent)
         rotateDownAction = QAction("Rotate Down", parent)
@@ -26486,6 +26553,7 @@ class ShattrimsaSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to become selected."""
 
         self.setSelected(True)
+        self.maybePrintTagsToStatusBar()
 
     def _handleUnselectAction(self):
         """Causes the QGraphicsItem to become unselected."""
@@ -27726,7 +27794,7 @@ class DwadasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         parent = menu
         selectAction = QAction("&Select", parent)
         unselectAction = QAction("&Unselect", parent)
-        removeAction = QAction("Remove", parent)
+        removeAction = QAction("&Remove", parent)
         infoAction = QAction("&Info", parent)
         editAction = QAction("&Edit", parent)
         rotateDownAction = QAction("Rotate Down", parent)
@@ -27861,6 +27929,7 @@ class DwadasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to become selected."""
 
         self.setSelected(True)
+        self.maybePrintTagsToStatusBar()
 
     def _handleUnselectAction(self):
         """Causes the QGraphicsItem to become unselected."""
@@ -29101,7 +29170,7 @@ class ChaturaseetiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         parent = menu
         selectAction = QAction("&Select", parent)
         unselectAction = QAction("&Unselect", parent)
-        removeAction = QAction("Remove", parent)
+        removeAction = QAction("&Remove", parent)
         infoAction = QAction("&Info", parent)
         editAction = QAction("&Edit", parent)
         rotateDownAction = QAction("Rotate Down", parent)
@@ -29236,6 +29305,7 @@ class ChaturaseetiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to become selected."""
 
         self.setSelected(True)
+        self.maybePrintTagsToStatusBar()
 
     def _handleUnselectAction(self):
         """Causes the QGraphicsItem to become unselected."""
@@ -30476,7 +30546,7 @@ class SataabdikaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         parent = menu
         selectAction = QAction("&Select", parent)
         unselectAction = QAction("&Unselect", parent)
-        removeAction = QAction("Remove", parent)
+        removeAction = QAction("&Remove", parent)
         infoAction = QAction("&Info", parent)
         editAction = QAction("&Edit", parent)
         rotateDownAction = QAction("Rotate Down", parent)
@@ -30611,6 +30681,7 @@ class SataabdikaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to become selected."""
 
         self.setSelected(True)
+        self.maybePrintTagsToStatusBar()
 
     def _handleUnselectAction(self):
         """Causes the QGraphicsItem to become unselected."""
@@ -31853,7 +31924,7 @@ class ShodasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         parent = menu
         selectAction = QAction("&Select", parent)
         unselectAction = QAction("&Unselect", parent)
-        removeAction = QAction("Remove", parent)
+        removeAction = QAction("&Remove", parent)
         infoAction = QAction("&Info", parent)
         editAction = QAction("&Edit", parent)
         rotateDownAction = QAction("Rotate Down", parent)
@@ -31988,6 +32059,7 @@ class ShodasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to become selected."""
 
         self.setSelected(True)
+        self.maybePrintTagsToStatusBar()
 
     def _handleUnselectAction(self):
         """Causes the QGraphicsItem to become unselected."""
@@ -33231,7 +33303,7 @@ class PanchottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         parent = menu
         selectAction = QAction("&Select", parent)
         unselectAction = QAction("&Unselect", parent)
-        removeAction = QAction("Remove", parent)
+        removeAction = QAction("&Remove", parent)
         infoAction = QAction("&Info", parent)
         editAction = QAction("&Edit", parent)
         rotateDownAction = QAction("Rotate Down", parent)
@@ -33366,6 +33438,7 @@ class PanchottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to become selected."""
 
         self.setSelected(True)
+        self.maybePrintTagsToStatusBar()
 
     def _handleUnselectAction(self):
         """Causes the QGraphicsItem to become unselected."""
@@ -34606,7 +34679,7 @@ class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         parent = menu
         selectAction = QAction("&Select", parent)
         unselectAction = QAction("&Unselect", parent)
-        removeAction = QAction("Remove", parent)
+        removeAction = QAction("&Remove", parent)
         infoAction = QAction("&Info", parent)
         editAction = QAction("&Edit", parent)
         rotateDownAction = QAction("Rotate Down", parent)
@@ -34741,6 +34814,7 @@ class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
         """Causes the QGraphicsItem to become selected."""
 
         self.setSelected(True)
+        self.maybePrintTagsToStatusBar()
 
     def _handleUnselectAction(self):
         """Causes the QGraphicsItem to become unselected."""
@@ -35173,6 +35247,8 @@ class PriceBarChartWidget(QWidget):
         self.graphicsView.mouseLocationUpdate.\
             connect(self._handleMouseLocationUpdate)
         self.graphicsView.statusMessageUpdate.\
+            connect(self.statusMessageUpdate)
+        self.graphicsScene.statusMessageUpdate.\
             connect(self.statusMessageUpdate)
         self.graphicsScene.priceBarChartChanged.\
             connect(self.priceBarChartChanged)
@@ -36742,6 +36818,9 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
     # PriceBarChartArtifactGraphicsItem.
     priceBarChartChanged = QtCore.pyqtSignal()
 
+    # Signal emitted when a status message should be printed.
+    statusMessageUpdate = QtCore.pyqtSignal(str)
+    
     # Signal emitted when the user desires to change astro chart 1.
     astroChart1Update = QtCore.pyqtSignal(datetime.datetime)
     
