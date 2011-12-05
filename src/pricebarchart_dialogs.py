@@ -3839,6 +3839,12 @@ class PriceBarChartTextArtifactEditWidget(QWidget):
         self.yScalingDoubleSpinBox.setMinimum(0.0)
         self.yScalingDoubleSpinBox.setMaximum(999999999.0)
         
+        self.textRotationAngleLabel = QLabel("Text rotation angle (degrees):")
+        self.textRotationAngleSpinBox = QDoubleSpinBox()
+        self.textRotationAngleSpinBox.setDecimals(2)
+        self.textRotationAngleSpinBox.setMinimum(-360.0)
+        self.textRotationAngleSpinBox.setMaximum(360.0)
+
         # Layout for just the font info.
         self.fontLayout = QHBoxLayout()
         self.fontLayout.addWidget(self.fontValueLabel)
@@ -3882,7 +3888,9 @@ class PriceBarChartTextArtifactEditWidget(QWidget):
         self.gridLayout.addWidget(self.yScalingLabel, r, 0, al)
         self.gridLayout.addWidget(self.yScalingDoubleSpinBox, r, 1, al)
         r += 1
-                
+        self.gridLayout.addWidget(self.textRotationAngleLabel, r, 0, al)
+        self.gridLayout.addWidget(self.textRotationAngleSpinBox, r, 1, al)
+        r += 1
         self.groupBox.setLayout(self.gridLayout)
         
         # Buttons at bottom.
@@ -3974,6 +3982,7 @@ class PriceBarChartTextArtifactEditWidget(QWidget):
         self.colorEditPushButton.setEnabled(not self.readOnlyFlag)
         self.xScalingDoubleSpinBox.setEnabled(not self.readOnlyFlag)
         self.yScalingDoubleSpinBox.setEnabled(not self.readOnlyFlag)
+        self.textRotationAngleSpinBox.setEnabled(not self.readOnlyFlag)
         
         # Don't allow the Okay button to be pressed for saving.
         self.okayButton.setEnabled(not self.readOnlyFlag)
@@ -4039,6 +4048,9 @@ class PriceBarChartTextArtifactEditWidget(QWidget):
         self.xScalingDoubleSpinBox.setValue(self.artifact.getTextXScaling())
         self.yScalingDoubleSpinBox.setValue(self.artifact.getTextYScaling())
         
+        self.textRotationAngleSpinBox.\
+            setValue(self.artifact.getTextRotationAngle())
+        
         self.log.debug("Exiting loadValues()")
         
     def saveValues(self):
@@ -4073,6 +4085,7 @@ class PriceBarChartTextArtifactEditWidget(QWidget):
         xScaling = self.xScalingDoubleSpinBox.value()
         yScaling = self.yScalingDoubleSpinBox.value()
 
+        textRotationAngle = self.textRotationAngleSpinBox.value()
         
         # Set the values in the artifact.
         self.artifact.setPos(posF)
@@ -4081,6 +4094,7 @@ class PriceBarChartTextArtifactEditWidget(QWidget):
         self.artifact.setColor(color)
         self.artifact.setTextXScaling(xScaling)
         self.artifact.setTextYScaling(yScaling)
+        self.artifact.setTextRotationAngle(textRotationAngle)
         
         self.log.debug("Exiting saveValues()")
 

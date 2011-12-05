@@ -808,7 +808,12 @@ class TextGraphicsItem(PriceBarChartArtifactGraphicsItem):
         textTransform = QTransform()
         textTransform.scale(self.artifact.getTextXScaling(), \
                             self.artifact.getTextYScaling())
+
+        # Apply the transform.
         self.textItem.setTransform(textTransform)
+
+        # Apply the rotation angle to the text.
+        self.textItem.setRotation(self.artifact.getTextRotationAngle())
 
     def setText(self, text):
         """Sets the text in this graphics item.
@@ -872,8 +877,13 @@ class TextGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.textTransform = QTransform()
             self.textTransform.scale(self.artifact.getTextXScaling(), \
                                      self.artifact.getTextYScaling())
+
+            # Apply the transform.
             self.textItem.setTransform(self.textTransform)
 
+            # Apply the rotation angle to the text.
+            self.textItem.setRotation(self.artifact.getTextRotationAngle())
+        
         else:
             raise TypeError("Expected artifact type: PriceBarChartTextArtifact")
     
@@ -894,6 +904,7 @@ class TextGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.artifact.setColor(self.color)
         self.artifact.setTextXScaling(self.textTransform.m11())
         self.artifact.setTextYScaling(self.textTransform.m22())
+        self.artifact.setTextRotationAngle(self.textItem.rotation())
         
         self.log.debug("Exiting getArtifact()")
         
@@ -934,6 +945,9 @@ class TextGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.textItem.setTransform(self.textTransform)
 
+        self.textItem.setRotation(priceBarChartSettings.\
+                                  textGraphicsItemDefaultRotationAngle)
+        
         # Schedule an update.
         self.prepareGeometryChange()
 
@@ -963,20 +977,17 @@ class TextGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # in local coordinates.  The QRectF returned is relative to
         # this (0, 0) point.
 
-        textItemBoundingRect = self.textItem.boundingRect()
+        return self.shape().boundingRect()
 
-        # Here we need to scale the bounding rect so that
-        # it takes into account the transform that we did.
-        width = textItemBoundingRect.width()
-        height = textItemBoundingRect.height()
+    def shape(self):
+        """Overwrites the QGraphicsItem.shape() function to return a
+        more accurate shape for collision detection, hit tests, etc.
 
-        newWidth = width * self.textTransform.m11()
-        newHeight = height * self.textTransform.m22()
+        Returns:
+        QPainterPath object holding the shape of this QGraphicsItem.
+        """
 
-        textItemBoundingRect.setWidth(newWidth)
-        textItemBoundingRect.setHeight(newHeight)
-        
-        return textItemBoundingRect
+        return self.textItem.mapToParent(self.textItem.shape())
 
     def paint(self, painter, option, widget):
         """Paints this QGraphicsItem.  Assumes that self.textItemPen is set
@@ -1011,11 +1022,11 @@ class TextGraphicsItem(PriceBarChartArtifactGraphicsItem):
             
             painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
             painter.setBrush(Qt.NoBrush)
-            painter.drawRect(boundingRect)
+            painter.drawPath(self.shape())
             
             painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
             painter.setBrush(Qt.NoBrush)
-            painter.drawRect(boundingRect)
+            painter.drawPath(self.shape())
 
     def appendActionsToContextMenu(self, menu, readOnlyMode=False):
         """Modifies the given QMenu object to update the title and add

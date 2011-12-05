@@ -4706,7 +4706,7 @@ class PriceBarChartTextArtifact(PriceBarChartArtifact):
         
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
-        self.classVersion = 1
+        self.classVersion = 2
 
         # Create the logger.
         self.log = \
@@ -4725,13 +4725,17 @@ class PriceBarChartTextArtifact(PriceBarChartArtifact):
         
         # QColor can be pickled   
         self.color = PriceBarChartSettings.defaultTextGraphicsItemDefaultColor
-
+        
         # Scaling the text, to make it bigger or smaller.
         self.textXScaling = \
             PriceBarChartSettings.defaultTextGraphicsItemDefaultXScaling
         self.textYScaling = \
             PriceBarChartSettings.defaultTextGraphicsItemDefaultYScaling
-        
+
+        # Rotation angle, in degrees.
+        self.textRotationAngle = \
+            PriceBarChartSettings.defaultTextGraphicsItemDefaultRotationAngle
+
     def setText(self, text):
         """Sets the text that makes up this PriceBarChartTextArtifact.
 
@@ -4817,6 +4821,23 @@ class PriceBarChartTextArtifact(PriceBarChartArtifact):
 
         return self.textYScaling
         
+    def setTextRotationAngle(self, textRotationAngle):
+        """Sets the text rotation angle.
+
+        Arguments:
+        textRotationAngle - float value for the rotation angle of the text.
+                            0.0 is the same as no rotation.
+        """
+
+        self.textRotationAngle = textRotationAngle
+
+    def getTextRotationAngle(self):
+        """Returns float value for the text rotation angle.  A value
+        of 0.0 refers to no rotation.
+        """
+
+        return self.textRotationAngle
+        
     def __str__(self):
         """Returns the string representation of this object."""
 
@@ -4853,6 +4874,36 @@ class PriceBarChartTextArtifact(PriceBarChartArtifact):
         self.log = \
             logging.getLogger("data_objects.PriceBarChartTextArtifact")
 
+        # Update the object to the most current version if it is not current.
+        if self.classVersion < 2:
+            self.log.info("Detected an old class version of " + \
+                          "PriceBarChartTextArtifact (version {}).  ".\
+                          format(self.classVersion))
+
+            if self.classVersion == 1:
+                # Version 2 added member variable for
+                # TextGraphicsItem default rotation angle.
+                try:
+                    # See if the variable is set.
+                    self.textRotationAngle
+
+                    # If it got here, then the field is already set.
+                    self.log.warn("Hmm, strange.  Version 1 of this " + \
+                                  "class shouldn't have this field.")
+                    
+                except AttributeError:
+                    # Variable was not set.  Set it to the default
+                    # PriceBarChartSettings value.
+                    self.textRotationAngle = \
+                        PriceBarChartSettings.\
+                        defaultTextGraphicsItemDefaultRotationAngle
+
+                    self.log.info("Added field 'textRotationAngle' " + \
+                                  "to the loaded TextGraphicsItem.")
+
+                # Update the class version.
+                self.classVersion = 2
+                
         # Log that we set the state of this object.
         self.log.debug("Set state of a " +
                        PriceBarChartTextArtifact.__name__ +
@@ -13126,6 +13177,9 @@ class PriceBarChartSettings:
     
     # Default text Y scaling for the TextGraphicsItem.
     defaultTextGraphicsItemDefaultYScaling = 1.0
+
+    # Default text rotation angle, in degrees (float).
+    defaultTextGraphicsItemDefaultRotationAngle = 0.0
     
     # Default font description text (this is basically the QFont,
     # serialized to str) for the PriceTimeInfoGraphicsItem.  This
@@ -13782,7 +13836,7 @@ class PriceBarChartSettings:
 
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
-        self.classVersion = 1
+        self.classVersion = 2
 
         # List of scalings used in the PriceBarChartGraphicsView.  
         # This is list of PriceBarChartScaling objects.
@@ -14153,6 +14207,11 @@ class PriceBarChartSettings:
             PriceBarChartSettings.\
             defaultTextGraphicsItemDefaultYScaling
 
+        # TextGraphicsItem default rotation angle.
+        self.textGraphicsItemDefaultRotationAngle = \
+            PriceBarChartSettings.\
+            defaultTextGraphicsItemDefaultRotationAngle
+        
         # Default font description text (this is basically the QFont,
         # serialized to str) for the PriceTimeInfoGraphicsItem.  This
         # includes the font size.
@@ -14964,6 +15023,38 @@ class PriceBarChartSettings:
         # Re-open the logger because it was not pickled.
         self.log = logging.getLogger("data_objects.PriceBarChartSettings")
 
+        # Update the object to the most current version if it is not current.
+        if self.classVersion < 2:
+            self.log.info("Detected an old class version of " + \
+                          "PriceBarChartSettings (version {}).  ".\
+                          format(self.classVersion))
+
+            if self.classVersion == 1:
+                # Version 2 added member variable for
+                # TextGraphicsItem default rotation angle.
+                try:
+                    # See if the variable is set.
+                    self.textGraphicsItemDefaultRotationAngle
+
+                    # If it got here, then the field is already set.
+                    self.log.warn("Hmm, strange.  Version 1 of this " + \
+                                  "class shouldn't have this field.")
+                    
+                except AttributeError:
+                    # Variable was not set.  Set it to the default
+                    # PriceBarChartSettings value.
+                    self.textGraphicsItemDefaultRotationAngle = \
+                        PriceBarChartSettings.\
+                        defaultTextGraphicsItemDefaultRotationAngle
+
+                    self.log.debug("Added field " + \
+                                   "'textGraphicsItemDefaultRotationAngle' " + \
+                                   "to the loaded PriceBarChartSettings.")
+                    
+                # Update the class version.
+                self.classVersion = 2
+        
+        
         # Log that we set the state of this object.
         self.log.debug("Set state of a " + PriceBarChartSettings.__name__ +
                        " object of version {}".format(self.classVersion))

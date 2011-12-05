@@ -13087,6 +13087,9 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.textGraphicsItemDefaultYScalingResetButton.clicked.\
             connect(\
             self._handleTextGraphicsItemDefaultYScalingResetButtonClicked)
+        self.textGraphicsItemDefaultRotationAngleResetButton.clicked.\
+            connect(\
+            self._handleTextGraphicsItemDefaultRotationAngleResetButtonClicked)
         self.priceTimeInfoGraphicsItemDefaultFontResetButton.clicked.\
             connect(\
             self._handlePriceTimeInfoGraphicsItemDefaultFontResetButtonClicked)
@@ -15151,6 +15154,15 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.textGraphicsItemDefaultYScalingResetButton = \
             QPushButton("Reset to default")
                                              
+        # textGraphicsItemDefaultRotationAngle (float).
+        self.textGraphicsItemDefaultRotationAngleLabel = \
+            QLabel("TextGraphicsItem default rotation angle (degrees): ")
+        self.textGraphicsItemDefaultRotationAngleSpinBox = QDoubleSpinBox()
+        self.textGraphicsItemDefaultRotationAngleSpinBox.setMinimum(-360.0)
+        self.textGraphicsItemDefaultRotationAngleSpinBox.setMaximum(360.0)
+        self.textGraphicsItemDefaultRotationAngleResetButton = \
+            QPushButton("Reset to default")
+                                             
         # Grid layout.
         gridLayout = QGridLayout()
         r = 0
@@ -15198,6 +15210,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
                       r, 1, ar)
         gridLayout.addWidget\
             (self.textGraphicsItemDefaultYScalingResetButton, 
+             r, 2, ar)
+        r += 1
+        gridLayout.\
+            addWidget(self.textGraphicsItemDefaultRotationAngleLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.textGraphicsItemDefaultRotationAngleSpinBox, 
+                      r, 1, ar)
+        gridLayout.addWidget\
+            (self.textGraphicsItemDefaultRotationAngleResetButton, 
              r, 2, ar)
         r += 1
 
@@ -19993,6 +20015,11 @@ class PriceBarChartSettingsEditWidget(QWidget):
             setValue(self.priceBarChartSettings.\
                      textGraphicsItemDefaultYScaling)
         
+        # textGraphicsItemDefaultRotationAngle (float).
+        self.textGraphicsItemDefaultRotationAngleSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                     textGraphicsItemDefaultRotationAngle)
+        
         # priceTimeInfoGraphicsItemDefaultFont (QFont)
         self.priceTimeInfoGraphicsItemDefaultFont = QFont()
         self.priceTimeInfoGraphicsItemDefaultFont.\
@@ -21613,6 +21640,10 @@ class PriceBarChartSettingsEditWidget(QWidget):
         # textGraphicsItemDefaultYScaling (float).
         self.priceBarChartSettings.textGraphicsItemDefaultYScaling = \
             float(self.textGraphicsItemDefaultYScalingSpinBox.value())
+        
+        # textGraphicsItemDefaultRotationAngle (float).
+        self.priceBarChartSettings.textGraphicsItemDefaultRotationAngle = \
+            float(self.textGraphicsItemDefaultRotationAngleSpinBox.value())
         
         # priceTimeInfoGraphicsItemDefaultFont (QFont)
         self.priceBarChartSettings.\
@@ -23660,6 +23691,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
                 defaultTextGraphicsItemDefaultYScaling
 
         self.textGraphicsItemDefaultYScalingSpinBox.setValue(value)
+        
+    def _handleTextGraphicsItemDefaultRotationAngleResetButtonClicked(self):
+        """Called when the textGraphicsItemDefaultRotationAngleResetButton is
+        clicked.  Resets the internal value to the default value.
+        """
+
+        value = PriceBarChartSettings.\
+                defaultTextGraphicsItemDefaultRotationAngle
+
+        self.textGraphicsItemDefaultRotationAngleSpinBox.setValue(value)
         
     def _handlePriceTimeInfoGraphicsItemDefaultFontResetButtonClicked(self):
         """Called when the
@@ -27502,6 +27543,7 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._handleTextGraphicsItemDefaultColorResetButtonClicked()
         self._handleTextGraphicsItemDefaultXScalingResetButtonClicked()
         self._handleTextGraphicsItemDefaultYScalingResetButtonClicked()
+        self._handleTextGraphicsItemDefaultRotationAngleResetButtonClicked()
         
         self._handlePriceTimeInfoGraphicsItemDefaultFontResetButtonClicked()
         self._handlePriceTimeInfoGraphicsItemDefaultColorResetButtonClicked()
