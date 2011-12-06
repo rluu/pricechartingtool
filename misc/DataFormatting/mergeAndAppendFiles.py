@@ -7,8 +7,14 @@
 #   then when there is no more data, the new data from the second file
 #   is used.  What is meant here by 'new data' is that the timestamp
 #   for each pricebar of data is unique (timestamp hasn't been
-#   utilized in all the previously read input files).
+#   utilized in all the previously read input files).  Hence, the data
+#   from the files read earlier in the process have precedence over
+#   the data read later.
 #
+#   This script assumes that the input CSV files have the following format:
+#   "Date","Open","High","Low","Close","Volume","OpenInt"
+#   and the date is in the format "MM/DD/YYYY".
+# 
 # Usage:
 #
 #   ./mergeAndAppendFiles.py --help
@@ -93,7 +99,9 @@ parser.add_option("--input-file",
                   type="str",
                   dest="inputFile",
                   default=None,
-                  help="Append an input CSV file to the list of files to read.",
+                  help="Append an input CSV file to the list of " + \
+                       "files to read.  Format of the date field " + \
+                       "in the CSV file is expected to be: \"MM/DD/YYYY\".",
                   metavar="<FILE>")
 
 # Parse the arguments into options.
