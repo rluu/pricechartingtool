@@ -1,5 +1,6 @@
 
-Steps to get data:
+Steps to get data (from various places on the filesystem, not from the
+internet):
 
  - Open and edit getFuturesData_PriceData.bash to change variable
    settings for the desired futures symbol.

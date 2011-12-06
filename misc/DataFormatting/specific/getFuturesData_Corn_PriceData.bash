@@ -23,7 +23,7 @@ SCRIPTS_DIR=$PCT_DIR/misc/DataFormatting
 PRICEDATA_EODFUTURES_SOURCE_DIR=/home/rluu/download/trading/data/futuresData_PriceData/EODFutures
 PRICEDATA_CONTINUOUS_FUTURES_SOURCE_DIR=/home/rluu/download/trading/data/futuresData_PriceData/Cont_contract
 # Trading entity symbol.
-SYMBOL=S
+SYMBOL=C
 
 # Contract month letters.  (If all letters are specified, then if no
 # input files are found for a certain contract month, then the output

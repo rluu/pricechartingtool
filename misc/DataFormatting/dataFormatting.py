@@ -75,6 +75,119 @@ def shutdown(rc):
     logging.shutdown()
     sys.exit(rc)
 
+def lineToComparableNumber(line):
+    """Converts a line of text in the CSV file, to an int number by
+    using the timestamp date value.  This function is used to do
+    comparisons between lines, by timestamp.
+
+    Arguments:
+    line - str value holding a line of text of the CSV file.
+           This value must have the date as the first field
+           in format "MM/DD/YYYY".
+
+    Returns:
+    int value that represents the date.  This number can be used in
+    date comparisons.
+    """
+    
+    # Check the number of fields.
+    fields = line.split(",")
+    numFieldsExpected = 7
+    if len(fields) != numFieldsExpected:
+        return (False, "Line does not have {} data fields".\
+                format(numFieldsExpected))
+
+    dateStr = fields[0] 
+    openStr = fields[1]
+    highStr = fields[2]
+    lowStr = fields[3]
+    closeStr = fields[4]
+    volumeStr = fields[5]
+    openIntStr = fields[6]
+
+    dateStrSplit = dateStr.split("/")
+    if len(dateStrSplit) != 3:
+        log.error("Format of the date was not 'MM/DD/YYYY'.  Line was: {}".\
+              format(line))
+        shutdown(1)
+
+    monthStr = dateStrSplit[0]
+    dayStr = dateStrSplit[1]
+    yearStr = dateStrSplit[2]
+
+    if len(monthStr) != 2:
+        log.error("Month in the date is not two characters long")
+        shutdown(1)
+    if len(dayStr) != 2:
+        log.error("Day in the date is not two characters long")
+        shutdown(1)
+    if len(yearStr) != 4:
+        log.error("Year in the date is not four characters long")
+        shutdown(1)
+
+    try:
+        monthInt = int(monthStr)
+        if monthInt < 1 or monthInt > 12:
+            log.error("Month in the date is not between 1 and 12")
+            shutdown(1)
+    except ValueError as e:
+        log.error("Month in the date is not a number")
+        shutdown(1)
+
+    try:
+        dayInt = int(dayStr)
+        if dayInt < 1 or dayInt > 31:
+            log.error("Day in the date is not between 1 and 31")
+            shutdown(1)
+    except ValueError as e:
+        log.error("Day in the date is not a number")
+        shutdown(1)
+
+    try:
+        yearInt = int(yearStr)
+    except ValueError as e:
+        log.error("Year in the date is not a number")
+        shutdown(1)
+
+    numericalValue = int(yearStr + monthStr + dayStr)
+
+    log.debug("Convert line '{}' to numericalValue: '{}'".\
+          format(line, numericalValue))
+    
+    return numericalValue
+
+def compLines(line1, line2):
+    """Comparison function for a line of text in the CSV files.
+    This analyzes the timestamp date value, which is the first field
+    on a line.
+    """
+    if lineToComparableNumber(line1) < lineToComparableNumber(line2):
+        return -1
+    elif lineToComparableNumber(line1) > lineToComparableNumber(line2):
+        return 1
+    else:
+        return 0
+    
+def cmp_to_key(mycmp):
+    """Converts a cmp= function into a key= function."""
+    class K(object):
+        def __init__(self, obj, *args):
+            self.obj = obj
+        def __lt__(self, other):
+            return mycmp(self.obj, other.obj) < 0
+        def __gt__(self, other):
+            return mycmp(self.obj, other.obj) > 0
+        def __eq__(self, other):
+            return mycmp(self.obj, other.obj) == 0
+        def __le__(self, other):
+            return mycmp(self.obj, other.obj) <= 0  
+        def __ge__(self, other):
+            return mycmp(self.obj, other.obj) >= 0
+        def __ne__(self, other):
+            return mycmp(self.obj, other.obj) != 0
+    return K
+
+
 ##############################################################################
 
 # Create the parser
@@ -192,7 +305,7 @@ for f in os.listdir(sourceDataDirectory):
     log.debug("Basename of file is: {}".format(f))
     sortedListOfFiles.append(fullFilename)
 
-log.debug("sorting list...")
+log.debug("sorting list ...")
 sortedListOfFiles.sort()
 
 log.debug("sorted list is: ")
@@ -207,11 +320,19 @@ sortedListOfFiles = []
 for f in tempList:
     basename = os.path.basename(f)
     numStr = ""
+
+    log.debug("basename == {}".format(basename))
+    
     for i in range(len(basename)):
         if basename[i].isdigit():
             numStr += basename[i]
     if numStr == "":
-        log.warn("numStr is empty for file: {}".format(f))
+        
+        if (not basename.endswith("_Monthly.txt") and \
+            (not basename.endswith("_Weekly.txt"))):
+            
+            # Print a warning and don't append the file.
+            log.warn("numStr is empty for file: {}".format(f))
     else:
         num = int(numStr)
         log.debug("num is: {}".format(num))
@@ -223,11 +344,19 @@ for f in tempList:
 for f in tempList:
     basename = os.path.basename(f)
     numStr = ""
+
+    log.debug("basename == {}".format(basename))
+    
     for i in range(len(basename)):
         if basename[i].isdigit():
             numStr += basename[i]
     if numStr == "":
-        log.warn("Warning: numStr is empty for file: {}".format(f))
+
+        if (not basename.endswith("_Monthly.txt") and \
+            (not basename.endswith("_Weekly.txt"))):
+
+            # Print a warning and don't append the file.
+            log.warn("numStr is empty for file: {}".format(f))
     else:
         num = int(numStr)
         log.debug("num is: {}".format(num))
@@ -254,6 +383,7 @@ for f in tempList:
     for i in range(len(basename)):
         log.debug("basename[{}]: {}".format(i, basename[i]))
         if basename[i].isdigit():
+            log.debug("basename[{}].isdigit() == True".format(i))
             foundDigit = True
             numStr += basename[i]
         else:
@@ -265,6 +395,10 @@ for f in tempList:
 
                     log.debug("found matching contract month.")
                     sortedListOfFiles.append(f)
+                    break
+                else:
+                    # No match.
+                    break
 
 log.debug("Using the following files in the following order: ")
 for f in sortedListOfFiles:
@@ -272,7 +406,6 @@ for f in sortedListOfFiles:
 
 # List of all the lines that will go into the destination file.
 consolidatedDataLines = []
-consolidatedDataLines.append(headerLine)
 
 for filename in sortedListOfFiles:
     log.info("Analyzing file '{}' ...".format(filename))
@@ -289,8 +422,8 @@ for filename in sortedListOfFiles:
                 fields = line.split(",")
                 numFieldsExpected = 7
                 if len(fields) != numFieldsExpected:
-                    log.error("Line does not have {} data fields".\
-                          format(numFieldsExpected))
+                    log.error("Line {} does not have {} data fields.".\
+                          format(i + 1, numFieldsExpected))
                     shutdown(1)
                     
                 dateStr = fields[0] 
@@ -316,20 +449,20 @@ for filename in sortedListOfFiles:
                     consolidatedDataLines.append(line)
             i += 1
 
-log.info("Done reading all the files.")
-log.info("Writing to destination file '{}' ...".format(destinationFilename))
-                    
+log.info("Done reading all the files for contract month {}.".\
+         format(contractMonth))
+
+# Make sure all lines in consolidatedDataLines is sorted by timestamp.
+log.info("Sorting all lines by timestamp ...")
+consolidatedDataLines.sort(key=cmp_to_key(compLines))
+
 # Write to file, truncating if it already exists.
+log.info("Writing to destination file '{}' ...".format(destinationFilename))
 with open(destinationFilename, "w") as f:
+    f.write(headerLine + newline)
+
     for line in consolidatedDataLines:
         f.write(line.rstrip() + newline)
         
 log.info("Done.")
 shutdown(0)
-
-#    statinfo = os.lstat(fullFilename)
-#    self.log.debug("Most recent access time is: {}".\
-#                   format(statinfo.st_atime))
-#    self.log.debug("Most recent mod time is:    {}".\
-#                   format(statinfo.st_atime))
-            

@@ -8,7 +8,6 @@
 #   'dataFormatting.py'.  To use this script, modify the below
 #   variables and run.
 #
-#
 ##############################################################################
 # Global variables
 ##############################################################################
@@ -20,10 +19,10 @@ PCT_DIR=/home/rluu/programming/pricechartingtool
 SCRIPTS_DIR=$PCT_DIR/misc/DataFormatting
 
 # Location where data directories reside.
-PRICEDATA_EODFUTURES_SOURCE_DIR=/home/rluu/download/trading/data/futuresData_PriceData/EODFutures
-PRICEDATA_CONTINUOUS_FUTURES_SOURCE_DIR=/home/rluu/download/trading/data/futuresData_PriceData/Cont_contract
+TFC_EODFUTURES_SOURCE_DIR=/home/rluu/programming/DataScraper_TFCCommodityCharts/data
+
 # Trading entity symbol.
-SYMBOL=S
+SYMBOL=ZW
 
 # Contract month letters.  (If all letters are specified, then if no
 # input files are found for a certain contract month, then the output
@@ -45,27 +44,27 @@ mkdir -p $OUTPUT_DIR
 echo "Gathering and formatting data for monthly contracts of symbol $SYMBOL ..."
 for CONTRACT in $CONTRACTS; do
     # Output filename.
-    OUTPUT_FILE_BASENAME="${SYMBOL}_${CONTRACT}_PriceData.txt"
+    OUTPUT_FILE_BASENAME="${SYMBOL}_${CONTRACT}_TFC.txt"
     OUTPUT_FILE="$PCT_DIR/data/pricebars/futures/$SYMBOL/$OUTPUT_FILE_BASENAME"
 
     # Gather and format data.
-    $SCRIPTS_DIR/dataFormatting.py --source-data-dir="$PRICEDATA_EODFUTURES_SOURCE_DIR/$SYMBOL" --contract-letter=$CONTRACT --output-file="$OUTPUT_FILE"
-
-    # Convert daily data to weekly.
-    INPUT_FILE="$OUTPUT_FILE"
-    OUTPUT_FILE_BASENAME="${SYMBOL}_${CONTRACT}_Weekly_PriceData.txt"
-    OUTPUT_FILE="$PCT_DIR/data/pricebars/futures/$SYMBOL/$OUTPUT_FILE_BASENAME"
-    $SCRIPTS_DIR/convertDailyToWeekly.py --input-file="$INPUT_FILE" --output-file="$OUTPUT_FILE"
+    $SCRIPTS_DIR/dataFormatting.py --source-data-dir="$TFC_EODFUTURES_SOURCE_DIR/$SYMBOL" --contract-letter=$CONTRACT --output-file="$OUTPUT_FILE"
 done
     
-# Copy the continuous contract file.
-echo "Copying data for continous contracts of symbol $SYMBOL ..."
+# Copy the continuous contract files.
+echo "Copying data for continous data of symbol $SYMBOL ..."
 
-# Output filename.
-OUTPUT_FILE_BASENAME="${SYMBOL}_ContinuousContract_PriceData.txt"
-OUTPUT_FILE="$PCT_DIR/data/pricebars/futures/$SYMBOL/$OUTPUT_FILE_BASENAME"
-cp -f $PRICEDATA_CONTINUOUS_FUTURES_SOURCE_DIR/${SYMBOL}.txt "$OUTPUT_FILE"
-chmod 644 "$OUTPUT_FILE"
+# Weekly.
+OUTPUT_FILE_BASENAME=${SYMBOL}_Weekly_TFC.txt
+OUTPUT_FILE=$PCT_DIR/data/pricebars/futures/$SYMBOL/$OUTPUT_FILE_BASENAME
+cp -f $TFC_EODFUTURES_SOURCE_DIR/$SYMBOL/${SYMBOL}_Weekly.txt $OUTPUT_FILE
+chmod 664 "$OUTPUT_FILE"
+
+# Monthly.
+OUTPUT_FILE_BASENAME=${SYMBOL}_Monthly_TFC.txt
+OUTPUT_FILE=$PCT_DIR/data/pricebars/futures/$SYMBOL/$OUTPUT_FILE_BASENAME
+cp -f $TFC_EODFUTURES_SOURCE_DIR/$SYMBOL/${SYMBOL}_Monthly.txt $OUTPUT_FILE
+chmod 664 "$OUTPUT_FILE"
 
 echo "Done."
 

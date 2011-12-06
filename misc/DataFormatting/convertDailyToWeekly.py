@@ -145,6 +145,7 @@ currentWeekIsoYearNumber = -1
 currentWeekIsoWeekNumber = -1
 
 # Read input file.
+log.info("Analyzing file '{}' ...".format(inputFile))
 with open(inputFile) as f:
     i = 0
     for line in f:
@@ -315,6 +316,7 @@ log.debug("Total number of weeks in output file is: {}".\
 convertedLines.insert(0, headerLine)
 
 # Write to file, truncating if it already exists.
+log.info("Writing to destination file '{}' ...".format(outputFile))
 with open(outputFile, "w") as f:
     for line in convertedLines:
         f.write(line + newline)

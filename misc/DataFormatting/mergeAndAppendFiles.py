@@ -131,11 +131,21 @@ else:
     
 ##############################################################################
 
-
-# Converts a line of text in the CSV file, to a int number by using
-# the timestamp date value.  This function is used to do comparisons
-# between lines, by timestamp.
 def lineToComparableNumber(line):
+    """Converts a line of text in the CSV file, to an int number by
+    using the timestamp date value.  This function is used to do
+    comparisons between lines, by timestamp.
+
+    Arguments:
+    line - str value holding a line of text of the CSV file.
+           This value must have the date as the first field
+           in format "MM/DD/YYYY".
+
+    Returns:
+    int value that represents the date.  This number can be used in
+    date comparisons.
+    """
+    
     # Check the number of fields.
     fields = line.split(",")
     numFieldsExpected = 7
@@ -202,10 +212,11 @@ def lineToComparableNumber(line):
     
     return numericalValue
 
-
-# Comparison function for a line of text in the CSV files.
-# This analyzes the timestamp date value, which is the first field on a line.
 def compLines(line1, line2):
+    """Comparison function for a line of text in the CSV files.
+    This analyzes the timestamp date value, which is the first field
+    on a line.
+    """
     if lineToComparableNumber(line1) < lineToComparableNumber(line2):
         return -1
     elif lineToComparableNumber(line1) > lineToComparableNumber(line2):
@@ -213,9 +224,8 @@ def compLines(line1, line2):
     else:
         return 0
 
-    
-# Converts a cmp= function into a key= function.
 def cmp_to_key(mycmp):
+    """Converts a cmp= function into a key= function."""
     class K(object):
         def __init__(self, obj, *args):
             self.obj = obj
@@ -285,10 +295,10 @@ for filename in sourceDataFiles:
                     consolidatedDataLines.append(line)
             i += 1
 
-log.info("Done reading all the files.")
+log.debug("Done reading all the files.")
 
 # Sort the consolidatedDataLines by the timestamp field.
-log.info("Sorting all lines by timestamp...")
+log.info("Sorting all lines by timestamp ...")
 consolidatedDataLines.sort(key=cmp_to_key(compLines))
 
 # Prepend header line.
