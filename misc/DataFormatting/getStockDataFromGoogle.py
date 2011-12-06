@@ -15,10 +15,22 @@
 #
 # Note:
 # 
+#    If possible, prefer to use the Yahoo equivalent of this script
+#    (getStockDataFromGoogle.py).  This is because there are some
+#    caveats the user should be aware of while using this script,
+#    whereas the Yahoo version of this script works without problems.
+#
 #    The Google servers only return a maximum of 4000 price bars at a
 #    time.  This works out to about 15.3 years.  That means if you
 #    want to gather data for a stock with a long history, you need to
 #    run this script several times and then combine the data.
+#
+#    Also, getting the stock indexes from Google doesn't appear to be
+#    working.  Is there a way to do this, or is their service broken
+#    for stock indexes?  If we go to:
+#    http://www.google.com/finance/historical?q=INDEXNASDAQ:.IXIC
+#    It works and it shows the data in a table, but there is no link to
+#    "Download to spreadsheet" like when we access charts.
 #
 ##############################################################################
 
@@ -332,7 +344,8 @@ parser.add_option("--stock-symbol",
                   type="str",
                   dest="stockSymbol",
                   default=None,
-                  help="Specify stock symbol to obtain data for.",
+                  help="Specify stock symbol to obtain data for.  " + \
+                       "This is a required field.",
                   metavar="<SYMBOL>")
 
 parser.add_option("--start-timestamp",
@@ -341,6 +354,7 @@ parser.add_option("--start-timestamp",
                   dest="startTimestamp",
                   default=None,
                   help="Specify starting date of the data.  " + \
+                       "This is a required field.  " + \
                        "Format of this string is 'YYYYMMDD'.",
                   metavar="<TIMESTAMP>")
 
@@ -350,6 +364,7 @@ parser.add_option("--end-timestamp",
                   dest="endTimestamp",
                   default=None,
                   help="Specify ending date of the data.  " + \
+                       "This is a required field.  " + \
                        "Format of this string is 'YYYYMMDD'.",
                   metavar="<TIMESTAMP>")
 
@@ -358,7 +373,7 @@ parser.add_option("--output-file",
                   type="str",
                   dest="outputFile",
                   default=None,
-                  help="Specify output CSV file.",
+                  help="Specify output CSV file.  This is a required field.",
                   metavar="<FILE>")
 
 parser.add_option("--earliest-two-digit-year",
@@ -385,7 +400,7 @@ if options.stockSymbol == None:
     shutdown(1)
 else:
     # Set it to upper-case value.
-    stockSymbol = options.stockSymbol.strip()
+    stockSymbol = options.stockSymbol.strip().upper()
 
 if options.startTimestamp == None:
     log.error("Please specify a starting timestamp to the " + \
@@ -444,9 +459,11 @@ log.info("Processing and reformatting the data ...")
 log.debug(" Data read from {} is: ***{}***".format(url, data))
 outputLines = data.split("\n")
 
+# Get rid of header lines in the Google data file.
 if len(outputLines) > 0:
     index = 0
-    if outputLines[index].find("Date,Open,High,Low,Close,Volume") != -1:
+    googleHeaderLine = "Date,Open,High,Low,Close,Volume"
+    if outputLines[index].find(googleHeaderLine) != -1:
         log.debug("Found header line.")
         outputLines.pop(index)
 
