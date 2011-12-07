@@ -13,6 +13,8 @@
 #     ./getStockDataFromYahoo.py --help
 #     ./getStockDataFromYahoo.py --version
 #
+#     ./getStockDataFromYahoo.py --update --stock-symbol=FSLR --output-file=/tmp/testing.txt
+#
 #     ./getStockDataFromYahoo.py --stock-symbol=FSLR --start-timestamp=20091001 --end-timestamp=20111014 --output-file=/tmp/testing.txt
 #
 #     ./getStockDataFromYahoo.py --stock-symbol=FSLR --output-file=/tmp/testing.txt
@@ -30,6 +32,9 @@
 import os
 import sys 
 import errno
+
+# For dates.
+import datetime
 
 # For regular expressions.
 import re
@@ -57,6 +62,9 @@ VERSION = "0.1"
 # This value is obtained via command-line parameter.
 stockSymbol = ""
 
+# Flag that says we should do an update of the output file.
+updateFlag = False
+
 # Starting timestamp.
 # Format is "YYYYMMDD".
 # This value is obtained via command-line parameter.
@@ -71,8 +79,17 @@ endTimestampStr = ""
 # This value is obtained via command-line parameter.
 outputFile = ""
 
+# Url argument string.
+#   Daily:   g=d
+#   Weekly:  g=w
+#   Monthly: g=m
+formattedTimeUnit = "g=d"
+
 # Header line to put as the first line of text in the destination file.
 headerLine = "\"Date\",\"Open\",\"High\",\"Low\",\"Close\",\"Volume\",\"OpenInt\""
+
+# Number of lines to skip in the file being read.
+numLinesToSkip = 1
 
 # Use Windows newlines in the output file.
 newline = "\r\n"
@@ -540,7 +557,80 @@ def reformatYahooFinanceDataLine(line):
     
     return rv
 
+
+def getPriceBarDataLines():
+    """Returns the price bar data lines of text for a CSV file.
+
+    This function has inputs.  It expects the following global
+    variables to be set:
+
+        stockSymbol
+        startTimestampStr
+        endTimestampStr
+        formattedTimeUnit
     
+    Returns:
+    list of str; each str holds a line containing the price bar data.
+    """
+    
+    log.debug("startTimestampStr == {}".format(startTimestampStr))
+    log.debug("endTimestampStr   == {}".format(endTimestampStr))
+            
+    formattedStartTimestamp = \
+        convertStartTimestampStrToUrlArgsStr(startTimestampStr)
+    formattedEndTimestamp = \
+        convertEndTimestampStrToUrlArgsStr(endTimestampStr)
+    
+    url = "http://ichart.finance.yahoo.com/table.csv?" + \
+          "s={}".format(stockSymbol) + \
+          "&{}".format(formattedStartTimestamp) + \
+          "&{}".format(formattedEndTimestamp) + \
+          "&{}".format(formattedTimeUnit) + \
+          "&ignore=.csv"
+    
+    log.info("Obtaining stock price data by accessing URL: {}".format(url))
+    
+    opener = urllib.request.build_opener()
+    request = urllib.request.Request(url)
+    opener.addheaders = defaultHttpHeaders
+    
+    log.info("Opening HTTP request.")
+    response = opener.open(request)
+    
+    log.info("Reading HTTP response.")
+    data = response.read().decode()
+    
+    log.info("Processing and reformatting the data ...")
+    
+    log.debug(" Data read from {} is: ***{}***".format(url, data))
+    outputLines = data.split("\n")
+    
+    # Get rid of header lines in the Yahoo data file.
+    if len(outputLines) > 0:
+        index = 0
+        yahooHeaderLine = "Date,Open,High,Low,Close,Volume,Adj Close"
+        if outputLines[index].find(yahooHeaderLine) != -1:
+            log.debug("Found header line.")
+            outputLines.pop(index)
+    
+    # Reverse the order of the bars, since we want the lines in our file
+    # to be from oldest to newest.
+    outputLines.reverse()
+    
+    reformattedLines = []
+    for line in outputLines:
+        if line.strip() != "":
+            reformattedLine = reformatYahooFinanceDataLine(line.strip())
+            reformattedLines.append(reformattedLine)
+    
+    log.info("Obtained a total of {} price bars.".format(len(reformattedLines)))
+    
+    if len(reformattedLines) > 0:
+        log.info("Earliest PriceBar is: {}".format(reformattedLines[0]))
+        log.info("Latest   PriceBar is: {}".format(reformattedLines[-1]))
+    
+    return reformattedLines
+
 def isNumber(numStr):
     """Returns True if the string is a number."""
 
@@ -553,6 +643,134 @@ def isNumber(numStr):
 
     return rv
         
+def lineToComparableNumber(line):
+    """Converts a line of text in the CSV file, to an int number by
+    using the timestamp date value.  This function is used to do
+    comparisons between lines, by timestamp.
+
+    Arguments:
+    line - str value holding a line of text of the CSV file.
+           This value must have the date as the first field
+           in format "MM/DD/YYYY".
+
+    Returns:
+    int value that represents the date in the form YYYYMMDD.
+    This number can be used in date comparisons.
+    """
+    
+    # Check the number of fields.
+    fields = line.split(",")
+    numFieldsExpected = 7
+    if len(fields) != numFieldsExpected:
+        return (False, "Line does not have {} data fields".\
+                format(numFieldsExpected))
+
+    dateStr = fields[0] 
+    openStr = fields[1]
+    highStr = fields[2]
+    lowStr = fields[3]
+    closeStr = fields[4]
+    volumeStr = fields[5]
+    openIntStr = fields[6]
+
+    dateStrSplit = dateStr.split("/")
+    if len(dateStrSplit) != 3:
+        log.error("Format of the date was not 'MM/DD/YYYY'.  Line was: {}".\
+              format(line))
+        shutdown(1)
+
+    monthStr = dateStrSplit[0]
+    dayStr = dateStrSplit[1]
+    yearStr = dateStrSplit[2]
+
+    if len(monthStr) != 2:
+        log.error("Month in the date is not two characters long")
+        shutdown(1)
+    if len(dayStr) != 2:
+        log.error("Day in the date is not two characters long")
+        shutdown(1)
+    if len(yearStr) != 4:
+        log.error("Year in the date is not four characters long")
+        shutdown(1)
+
+    try:
+        monthInt = int(monthStr)
+        if monthInt < 1 or monthInt > 12:
+            log.error("Month in the date is not between 1 and 12")
+            shutdown(1)
+    except ValueError as e:
+        log.error("Month in the date is not a number")
+        shutdown(1)
+
+    try:
+        dayInt = int(dayStr)
+        if dayInt < 1 or dayInt > 31:
+            log.error("Day in the date is not between 1 and 31")
+            shutdown(1)
+    except ValueError as e:
+        log.error("Day in the date is not a number")
+        shutdown(1)
+
+    try:
+        yearInt = int(yearStr)
+    except ValueError as e:
+        log.error("Year in the date is not a number")
+        shutdown(1)
+
+    numericalValue = int(yearStr + monthStr + dayStr)
+
+    log.debug("Convert line '{}' to numericalValue: '{}'".\
+          format(line, numericalValue))
+    
+    return numericalValue
+
+def compLines(line1, line2):
+    """Comparison function for a line of text in the CSV files.
+    This analyzes the timestamp date value, which is the first field
+    on a line.
+
+    Arguments:
+    line1 - str value holding a line of text of the CSV file.
+            This value must have the date as the first field
+            in format "MM/DD/YYYY".
+    line2 - str value holding a line of text of the CSV file.
+            This value must have the date as the first field
+            in format "MM/DD/YYYY".
+
+    Returns:
+    int value: -1, 0, or 1 if the first line's timestamp is
+    earlier than, equal to, or later than the second line,
+    respectively.
+    """
+    
+    if lineToComparableNumber(line1) < lineToComparableNumber(line2):
+        return -1
+    elif lineToComparableNumber(line1) > lineToComparableNumber(line2):
+        return 1
+    else:
+        return 0
+    
+def cmp_to_key(mycmp):
+    """Converts a cmp= function into a key= function."""
+    
+    class K(object):
+        def __init__(self, obj, *args):
+            self.obj = obj
+        def __lt__(self, other):
+            return mycmp(self.obj, other.obj) < 0
+        def __gt__(self, other):
+            return mycmp(self.obj, other.obj) > 0
+        def __eq__(self, other):
+            return mycmp(self.obj, other.obj) == 0
+        def __le__(self, other):
+            return mycmp(self.obj, other.obj) <= 0  
+        def __ge__(self, other):
+            return mycmp(self.obj, other.obj) >= 0
+        def __ne__(self, other):
+            return mycmp(self.obj, other.obj) != 0
+    return K
+
+
 ##############################################################################
 
 # Create the parser
@@ -574,13 +792,20 @@ parser.add_option("--stock-symbol",
                        "This is a required field.",
                   metavar="<SYMBOL>")
 
+parser.add_option("--update",
+                  action="store_true",
+                  dest="updateFlag",
+                  default=False,
+                  help="Update the output file with stock price data starting from the last date in that file.  If the output file doesn't exist, then the output file is created and all the available data is saved.  This option doesn't do a check of the existing data to ensure data integrity of the previous pricebars.  Note also that the --update option takes precedence over --start-timestamp and --end-timestamp options.   This is an optional command-line argument.")
+                  
 parser.add_option("--start-timestamp",
                   action="store",
                   type="str",
-                  dest="startTimestamp",
+                  dest="startTimestampStr",
                   default=None,
                   help="Specify starting date of the data.  " + \
-                       "Optional field.  If not specified, the earliest " + \
+                       "This is an optional field.  " + \
+                       "If not specified, the earliest " + \
                        "date of data available is used.  "
                        "Format of this string is 'YYYYMMDD'.",
                   metavar="<TIMESTAMP>")
@@ -588,10 +813,11 @@ parser.add_option("--start-timestamp",
 parser.add_option("--end-timestamp",
                   action="store",
                   type="str",
-                  dest="endTimestamp",
+                  dest="endTimestampStr",
                   default=None,
                   help="Specify ending date of the data.  " + \
-                       "Optional field.  If not specified, the latest " + \
+                       "This is an optional field.  " + \
+                       "If not specified, the latest " + \
                        "date of data is used.  "
                        "Format of this string is 'YYYYMMDD'.",
                   metavar="<TIMESTAMP>")
@@ -620,22 +846,27 @@ if options.stockSymbol == None:
 else:
     # Set it to upper-case value.
     stockSymbol = options.stockSymbol.strip().upper()
-
-if options.startTimestamp == None:
-    startTimestamp = getTimestampStrForEarliestData(stockSymbol)
-    log.info("Start timestamp was not specified.  " + \
-             "Using earliest available date for data ({}).".\
-             format(startTimestamp))
+    
+if options.updateFlag == True:
+    updateFlag = True
 else:
-    startTimestamp = options.startTimestamp
+    updateFlag = False
+    
+    if options.startTimestampStr == None:
+        startTimestampStr = getTimestampStrForEarliestData(stockSymbol)
+        log.info("Start timestamp was not specified.  " + \
+                 "Using earliest available date for data ({}).".\
+                 format(startTimestampStr))
+    else:
+        startTimestampStr = options.startTimestampStr
           
-if options.endTimestamp == None:
-    endTimestamp = getTimestampStrForLatestData(stockSymbol)
-    log.info("End timestamp was not specified.  " + \
-             "Using latest available date for data ({}).".\
-             format(endTimestamp))
-else:
-    endTimestamp = options.endTimestamp
+    if options.endTimestampStr == None:
+        endTimestampStr = getTimestampStrForLatestData(stockSymbol)
+        log.info("End timestamp was not specified.  " + \
+                 "Using latest available date for data ({}).".\
+                 format(endTimestampStr))
+    else:
+        endTimestampStr = options.endTimestampStr
           
 if options.outputFile == None:
     log.error("Please specify an output filename to the " + \
@@ -647,71 +878,149 @@ else:
         
 ##############################################################################
 
-formattedStartTimestamp = convertStartTimestampStrToUrlArgsStr(startTimestamp)
-formattedEndTimestamp = convertEndTimestampStrToUrlArgsStr(endTimestamp)
 
-# Url argument string.
-#   Daily:   g=d
-#   Weekly:  g=w
-#   Monthly: g=m
-formattedTimeUnit = "g=d"
-
-url = "http://ichart.finance.yahoo.com/table.csv?" + \
-      "s={}".format(stockSymbol) + \
-      "&{}".format(formattedStartTimestamp) + \
-      "&{}".format(formattedEndTimestamp) + \
-      "&{}".format(formattedTimeUnit) + \
-      "&ignore=.csv"
-
-log.info("Obtaining stock price data by accessing URL: {}".format(url))
-
-opener = urllib.request.build_opener()
-request = urllib.request.Request(url)
-opener.addheaders = defaultHttpHeaders
-
-log.info("Opening HTTP request.")
-response = opener.open(request)
-
-log.info("Reading HTTP response.")
-data = response.read().decode()
-
-log.info("Processing and reformatting the data ...")
-
-log.debug(" Data read from {} is: ***{}***".format(url, data))
-outputLines = data.split("\n")
-
-# Get rid of header lines in the Yahoo data file.
-if len(outputLines) > 0:
-    index = 0
-    yahooHeaderLine = "Date,Open,High,Low,Close,Volume,Adj Close"
-    if outputLines[index].find(yahooHeaderLine) != -1:
-        log.debug("Found header line.")
-        outputLines.pop(index)
-
-# Reverse the order of the bars, since we want the lines in our file
-# to be from oldest to newest.
-outputLines.reverse()
-
-reformattedLines = []
-for line in outputLines:
-    if line.strip() != "":
-        reformattedLine = reformatYahooFinanceDataLine(line.strip())
-        reformattedLines.append(reformattedLine)
-
-log.info("Obtained a total of {} price bars.".format(len(reformattedLines)))
-
-if len(reformattedLines) > 0:
-    log.info("Earliest PriceBar is: {}".format(reformattedLines[0]))
-    log.info("Latest   PriceBar is: {}".format(reformattedLines[-1]))
-      
-# Write to file, truncating if it already exists.
-log.info("Writing to output file '{}' ...".format(outputFile))
-
-with open(outputFile, "w") as f:
-    f.write(headerLine + newline)
-    for line in reformattedLines:
-        f.write(line + newline)
+if updateFlag == True:
+    # Do an update of the output file.
+    log.debug("Attempting to do an update of the output file.")
+                   
+    # First see if the output file exists.
+    if os.path.isfile(outputFile):
+        log.debug("Output file '{}' exists.  Reading it to get old data.".\
+                  format(outputFile))
         
+        # Read the data that is already in outputFile.
+        oldLines = []
+        i = 0
+        with open(outputFile, "r") as f:
+            for line in f:
+                if i >= numLinesToSkip:
+                    strippedLine = line.rstrip()
+                    if strippedLine != "":
+                        oldLines.append(strippedLine)
+                i += 1
+
+        log.debug("Read {} data lines from the file.".format(len(oldLines)))
+            
+        # See if there is at least one data line.  We check for 2 or
+        # more lines because the first line is the header line.
+        if len(oldLines) >= 2:
+            lastLine = oldLines[-1]
+            log.debug("Last line is: {}".format(lastLine))
+            
+            fields = lastLine.split(",")
+            
+            if len(fields) != 7:
+                log.error("Line that we read from the output file " + \
+                          "isn't in the expected format.  " +\
+                          "Line given is: {}".format(line))
+                shutdown(1)
+
+            dateStr = fields[0]
+            
+            dateFields = dateStr.split("/")
+            
+            monthStr = dateFields[0]
+            dayStr   = dateFields[1]
+            yearStr  = dateFields[2]
+
+            dt = datetime.datetime(year=int(yearStr),
+                                   month=int(monthStr),
+                                   day=int(dayStr))
+            nextDt = dt + datetime.timedelta(days=1)
+
+            # Convert the int values to the desired str values.
+            monthStr = "{:02}".format(nextDt.month)
+            dayStr = "{:02}".format(nextDt.day)
+            yearStr = "{:04}".format(nextDt.year)
+            
+            startTimestampStr = "{}{}{}".format(yearStr, monthStr, dayStr)
+            endTimestampStr = getTimestampStrForLatestData(stockSymbol)
+
+            if startTimestampStr > endTimestampStr:
+                # Start timestamp is after the end timestamp.
+                # This means that the file is already up to date
+                # because we can't query data any later than this.
+                log.info("File '{}' is already up to date.".\
+                         format(outputFile))
+                shutdown(0)
+
+            try:
+                # List of str holding all the lines of price bar data
+                # text that was retrieved.
+                reformattedLines = getPriceBarDataLines()
+            except urllib.error.HTTPError as e:
+                if e.code == 404 and startTimestampStr == endTimestampStr:
+                    # This means that Yahoo doesn't have any more
+                    # pricebars for this timeframe.
+                    log.info("File '{}' is already up to date.".\
+                             format(outputFile))
+                    shutdown(0)
+                else:
+                    log.error("{}".format(e))
+                    shutdown(1)
+                    
+            # Write to file, truncating.
+            log.info("Writing to output file '{}' ...".format(outputFile))
+    
+            with open(outputFile, "w") as f:
+                f.write(headerLine + newline)
+                for line in oldLines:
+                    f.write(line + newline)
+                for line in reformattedLines:
+                    f.write(line + newline)
+        else:
+            # File doesn't have at least 2 lines.  (one for header and
+            # one actual data line).  That means we should just query
+            # for all data and overwrite the output file.
+            startTimestampStr = getTimestampStrForEarliestData(stockSymbol)
+            endTimestampStr = getTimestampStrForLatestData(stockSymbol)
+
+            # List of str holding all the lines of price bar data text that was
+            # retrieved. .
+            reformattedLines = getPriceBarDataLines()
+            
+            # Write to file, truncating.
+            log.info("Writing to output file '{}' ...".format(outputFile))
+    
+            with open(outputFile, "w") as f:
+                f.write(headerLine + newline)
+                for line in reformattedLines:
+                    f.write(line + newline)
+    else:
+        # File doesn't exist already.
+        
+        # Query for all data and overwrite the output file.
+        startTimestampStr = getTimestampStrForEarliestData(stockSymbol)
+        endTimestampStr = getTimestampStrForLatestData(stockSymbol)
+
+        # List of str holding all the lines of price bar data text that was
+        # retrieved. .
+        reformattedLines = getPriceBarDataLines()
+        
+        # Write to file, truncating.
+        log.info("Writing to output file '{}' ...".format(outputFile))
+
+        with open(outputFile, "w") as f:
+            f.write(headerLine + newline)
+            for line in reformattedLines:
+                f.write(line + newline)
+                
+else:
+    # Not doing an update.  Means we just use the start and end timestamps.
+    log.debug("Getting data to create or overwrite output file.")
+
+    # List of str holding all the lines of price bar data text that was
+    # retrieved. .
+    reformattedLines = getPriceBarDataLines()
+    
+    # Write to file, truncating if it already exists.
+    log.info("Writing to output file '{}' ...".format(outputFile))
+    
+    with open(outputFile, "w") as f:
+        f.write(headerLine + newline)
+        for line in reformattedLines:
+            f.write(line + newline)
+
 log.info("Done.")
 shutdown(0)
 

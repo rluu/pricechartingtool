@@ -142,8 +142,8 @@ def lineToComparableNumber(line):
            in format "MM/DD/YYYY".
 
     Returns:
-    int value that represents the date.  This number can be used in
-    date comparisons.
+    int value that represents the date in the form YYYYMMDD.
+    This number can be used in date comparisons.
     """
     
     # Check the number of fields.
@@ -216,6 +216,19 @@ def compLines(line1, line2):
     """Comparison function for a line of text in the CSV files.
     This analyzes the timestamp date value, which is the first field
     on a line.
+
+    Arguments:
+    line1 - str value holding a line of text of the CSV file.
+            This value must have the date as the first field
+            in format "MM/DD/YYYY".
+    line2 - str value holding a line of text of the CSV file.
+            This value must have the date as the first field
+            in format "MM/DD/YYYY".
+
+    Returns:
+    int value: -1, 0, or 1 if the first line's timestamp is
+    earlier than, equal to, or later than the second line,
+    respectively.
     """
     if lineToComparableNumber(line1) < lineToComparableNumber(line2):
         return -1
@@ -226,6 +239,7 @@ def compLines(line1, line2):
 
 def cmp_to_key(mycmp):
     """Converts a cmp= function into a key= function."""
+    
     class K(object):
         def __init__(self, obj, *args):
             self.obj = obj
