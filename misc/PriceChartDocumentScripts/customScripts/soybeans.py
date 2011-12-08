@@ -76,6 +76,8 @@ def processPCDD(pcdd, tag):
     # Return value.
     rv = 0
 
+    priceAvg = (highPrice + lowPrice) / 2
+    
     #success = PlanetaryCombinationsLibrary.\
     #    addHelioVenusJupiter120xVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice)
@@ -100,11 +102,13 @@ def processPCDD(pcdd, tag):
     #success = PlanetaryCombinationsLibrary.\
     #    addGeoMarsSaturn120xVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addGeoMercuryJupiter90xVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice)
+    
     success = PlanetaryCombinationsLibrary.\
-        addGeoMercuryJupiter90xVerticalLines(\
-        pcdd, startDt, endDt, highPrice, lowPrice)
-    
-    
+        addTimeMeasurementAndTiltedTextForNakshatraTransits(
+        pcdd, startDt, endDt, price=priceAvg, planetName="Saturn")
     
     
     #success = PlanetaryCombinationsLibrary.\

@@ -37,7 +37,7 @@ class PlanetaryInfo:
     PlanetaryInfo object.
 
     # Get info for the Sun.
-    p = Ephemeris.getPlanetaryInfo(swe.SUN, datetime.datetime.utcnow())
+    p = Ephemeris.getPlanetaryInfo("Sun", datetime.datetime.utcnow())
 
     # Data fields in 'p':
     p.name      = <Planet Name>
@@ -600,12 +600,80 @@ class Ephemeris:
 
 
     @staticmethod
+    def getPlanetIdForName(planetName):
+        """Returns the planet ID for the given planet name.  This
+        planet ID is the is the int that is used in the Swiss
+        Ephemeris to specify a planet.  If a planet ID is not found
+        for the given planet name, then None is returned.
+        
+        Arguments:
+        planetName - str value for the name of the planet.
+
+        Returns:
+        int value for the planet ID.  If a planet ID could not be
+        found for the given planet name, then None is returned.
+        """
+
+        rv = None
+        
+        if planetName == "Sun":
+            rv = swe.SUN
+        elif planetName == "Moon":
+            rv = swe.MOON
+        elif planetName == "Mercury":
+            rv = swe.MERCURY
+        elif planetName == "Venus":
+            rv = swe.VENUS
+        elif planetName == "Mars":
+            rv = swe.MARS
+        elif planetName == "Jupiter":
+            rv = swe.JUPITER
+        elif planetName == "Saturn":
+            rv = swe.SATURN
+        elif planetName == "Uranus":
+            rv = swe.URANUS
+        elif planetName == "Neptune":
+            rv = swe.NEPTUNE
+        elif planetName == "Pluto":
+            rv = swe.PLUTO
+        elif planetName == "MeanNorthNode":
+            rv = swe.MEAN_NODE
+        elif planetName == "TrueNorthNode":
+            rv = swe.TRUE_NODE
+        elif planetName == "MeanLunarApogee":
+            rv = swe.MEAN_APOG
+        elif planetName == "OsculatingLunarApogee":
+            rv = swe.OSCU_APOG
+        elif planetName == "InterpolatedLunarApogee":
+            rv = swe.INTP_APOG
+        elif planetName == "InterpolatedLunarPerigee":
+            rv = swe.INTP_PERG
+        elif planetName == "Earth":
+            rv = swe.EARTH
+        elif planetName == "Chiron":
+            rv = swe.CHIRON
+        elif planetName == "Pholus":
+            rv = swe.PHOLUS
+        elif planetName == "Ceres":
+            rv = swe.CERES
+        elif planetName == "Pallas":
+            rv = swe.PALLAS
+        elif planetName == "Juno":
+            rv = swe.JUNO
+        elif planetName == "Vesta":
+            rv = swe.VESTA
+        else:
+            rv = None
+
+        return rv
+            
+    @staticmethod
     def getPlanetNameForId(planetId):
         """Returns the string representation of a planet name for the given
         planet ID.
 
         Parameters:
-        planetId - Integer value that maps to a planet ID in the Swiss Ephemeris.
+        planetId - int value that maps to a planet ID in the Swiss Ephemeris.
         """
 
         # Use the Swiss Ephemeris call to get the planet name.
@@ -1661,16 +1729,16 @@ class Ephemeris:
     # other upagrahas.
 
     @staticmethod
-    def getPlanetaryInfo(planet, dt):
+    def getPlanetaryInfo(planetName, dt):
         """Returns a PlanetaryInfo object with a bunch of information about a
         planet at a given date/time.
 
         Parameters:
-        planet    - Integer that maps to a planet in the SwissEph constants.
-        dt        - datetime.datetime object that represents the date and time
-                    for which the info is requested.  This object must 
-                    have the tzinfo attribute defined and it must created 
-                    from pytz.
+        planetName  - str that holds the name of the planet
+        dt          - datetime.datetime object that represents the date and time
+                      for which the info is requested.  This object must 
+                      have the tzinfo attribute defined and it must created 
+                      from pytz.
         
         Returns:
         A PlanetaryInfo object for the given timestamp.
@@ -1681,13 +1749,33 @@ class Ephemeris:
         """
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            debugStr = "Entered getPlanetaryInfo(planet={}, datetime={}"
-            planetName = Ephemeris.getPlanetNameForId(planet)
+            debugStr = "Entered getPlanetaryInfo(planetName={}, datetime={}"
             Ephemeris.log.debug(debugStr.format(planetName, dt))
 
-
-        # Get the planet name.
-        planetName = Ephemeris.getPlanetNameForId(planet)
+        # Get the planet id.
+        planetId = Ephemeris.getPlanetIdForName(planetName)
+        
+        if planetId == None:
+            # This means that it is one of our additional custom
+            # planets (not built into Swiss Ephemeris).
+            # Handle these cases for building PlanetaryInfo separately.
+            if planetName == "MeanOfFive":
+                return Ephemeris.getMeanOfFivePlanetaryInfo(dt)
+            elif planetName == "CycleOfEight":
+                return Ephemeris.getCycleOfEightPlanetaryInfo(dt)
+            elif planetName == "AvgMaJuSaUrNePl":
+                return Ephemeris.getAvgMaJuSaUrNePlPlanetaryInfo(dt)
+            elif planetName == "AvgJuSaUrNe":
+                return Ephemeris.getAvgJuSaUrNePlanetaryInfo(dt)
+            elif planetName == "AvgJuSa":
+                return Ephemeris.getAvgJuSaPlanetaryInfo(dt)
+            else:
+                Ephemeris.log.error("Unknown planetName given to " + \
+                                    "getPlanetaryInfo(): {}".format(planetName))
+                return None
+            
+        # If it got here, then the planet name given is a standard
+        # planet supported by the Swiss Ephemeris.
 
         # Convert time to Julian Day.
         jd = Ephemeris.datetimeToJulianDay(dt)
@@ -1697,7 +1785,7 @@ class Ephemeris:
         Ephemeris.setTropicalZodiac()
         Ephemeris.setEclipticalCoordinateSystemFlag()
         (arg1, arg2, arg3, arg4, arg5, arg6) = \
-                Ephemeris.calc_ut(jd, planet, Ephemeris.iflag)
+                Ephemeris.calc_ut(jd, planetId, Ephemeris.iflag)
         longitude = arg1
         latitude = arg2
         distance = arg3
@@ -1710,7 +1798,7 @@ class Ephemeris:
         Ephemeris.setTropicalZodiac()
         Ephemeris.setEquatorialCoordinateSystemFlag()
         (arg1, arg2, arg3, arg4, arg5, arg6) = \
-                Ephemeris.calc_ut(jd, planet, Ephemeris.iflag)
+                Ephemeris.calc_ut(jd, planetId, Ephemeris.iflag)
         rectascension = arg1
         declination = arg2
         distance = arg3
@@ -1723,7 +1811,7 @@ class Ephemeris:
         Ephemeris.setTropicalZodiac()
         Ephemeris.setRectangularCoordinateSystemFlag()
         (arg1, arg2, arg3, arg4, arg5, arg6) = \
-                Ephemeris.calc_ut(jd, planet, Ephemeris.iflag)
+                Ephemeris.calc_ut(jd, planetId, Ephemeris.iflag)
         x = arg1
         y = arg2
         z = arg3
@@ -1756,7 +1844,7 @@ class Ephemeris:
         Ephemeris.setSiderealZodiac()
         Ephemeris.setEclipticalCoordinateSystemFlag()
         (arg1, arg2, arg3, arg4, arg5, arg6) = \
-                Ephemeris.calc_ut(jd, planet, Ephemeris.iflag)
+                Ephemeris.calc_ut(jd, planetId, Ephemeris.iflag)
         longitude = arg1
         latitude = arg2
         distance = arg3
@@ -1769,7 +1857,7 @@ class Ephemeris:
         Ephemeris.setSiderealZodiac()
         Ephemeris.setEquatorialCoordinateSystemFlag()
         (arg1, arg2, arg3, arg4, arg5, arg6) = \
-                Ephemeris.calc_ut(jd, planet, Ephemeris.iflag)
+                Ephemeris.calc_ut(jd, planetId, Ephemeris.iflag)
         rectascension = arg1
         declination = arg2
         distance = arg3
@@ -1782,7 +1870,7 @@ class Ephemeris:
         Ephemeris.setSiderealZodiac()
         Ephemeris.setRectangularCoordinateSystemFlag()
         (arg1, arg2, arg3, arg4, arg5, arg6) = \
-                Ephemeris.calc_ut(jd, planet, Ephemeris.iflag)
+                Ephemeris.calc_ut(jd, planetId, Ephemeris.iflag)
         x = arg1
         y = arg2
         z = arg3
@@ -1816,7 +1904,7 @@ class Ephemeris:
         Ephemeris.setTropicalZodiac()
         Ephemeris.setEclipticalCoordinateSystemFlag()
         (arg1, arg2, arg3, arg4, arg5, arg6) = \
-                Ephemeris.calc_ut(jd, planet, Ephemeris.iflag)
+                Ephemeris.calc_ut(jd, planetId, Ephemeris.iflag)
         longitude = arg1
         latitude = arg2
         distance = arg3
@@ -1829,7 +1917,7 @@ class Ephemeris:
         Ephemeris.setTropicalZodiac()
         Ephemeris.setEquatorialCoordinateSystemFlag()
         (arg1, arg2, arg3, arg4, arg5, arg6) = \
-                Ephemeris.calc_ut(jd, planet, Ephemeris.iflag)
+                Ephemeris.calc_ut(jd, planetId, Ephemeris.iflag)
         rectascension = arg1
         declination = arg2
         distance = arg3
@@ -1842,7 +1930,7 @@ class Ephemeris:
         Ephemeris.setTropicalZodiac()
         Ephemeris.setRectangularCoordinateSystemFlag()
         (arg1, arg2, arg3, arg4, arg5, arg6) = \
-                Ephemeris.calc_ut(jd, planet, Ephemeris.iflag)
+                Ephemeris.calc_ut(jd, planetId, Ephemeris.iflag)
         x = arg1
         y = arg2
         z = arg3
@@ -1875,7 +1963,7 @@ class Ephemeris:
         Ephemeris.setSiderealZodiac()
         Ephemeris.setEclipticalCoordinateSystemFlag()
         (arg1, arg2, arg3, arg4, arg5, arg6) = \
-                Ephemeris.calc_ut(jd, planet, Ephemeris.iflag)
+                Ephemeris.calc_ut(jd, planetId, Ephemeris.iflag)
         longitude = arg1
         latitude = arg2
         distance = arg3
@@ -1888,7 +1976,7 @@ class Ephemeris:
         Ephemeris.setSiderealZodiac()
         Ephemeris.setEquatorialCoordinateSystemFlag()
         (arg1, arg2, arg3, arg4, arg5, arg6) = \
-                Ephemeris.calc_ut(jd, planet, Ephemeris.iflag)
+                Ephemeris.calc_ut(jd, planetId, Ephemeris.iflag)
         rectascension = arg1
         declination = arg2
         distance = arg3
@@ -1901,7 +1989,7 @@ class Ephemeris:
         Ephemeris.setSiderealZodiac()
         Ephemeris.setRectangularCoordinateSystemFlag()
         (arg1, arg2, arg3, arg4, arg5, arg6) = \
-                Ephemeris.calc_ut(jd, planet, Ephemeris.iflag)
+                Ephemeris.calc_ut(jd, planetId, Ephemeris.iflag)
         x = arg1
         y = arg2
         z = arg3
@@ -1934,7 +2022,7 @@ class Ephemeris:
         Ephemeris.setTropicalZodiac()
         Ephemeris.setEclipticalCoordinateSystemFlag()
         (arg1, arg2, arg3, arg4, arg5, arg6) = \
-                Ephemeris.calc_ut(jd, planet, Ephemeris.iflag)
+                Ephemeris.calc_ut(jd, planetId, Ephemeris.iflag)
         longitude = arg1
         latitude = arg2
         distance = arg3
@@ -1947,7 +2035,7 @@ class Ephemeris:
         Ephemeris.setTropicalZodiac()
         Ephemeris.setEquatorialCoordinateSystemFlag()
         (arg1, arg2, arg3, arg4, arg5, arg6) = \
-                Ephemeris.calc_ut(jd, planet, Ephemeris.iflag)
+                Ephemeris.calc_ut(jd, planetId, Ephemeris.iflag)
         rectascension = arg1
         declination = arg2
         distance = arg3
@@ -1960,7 +2048,7 @@ class Ephemeris:
         Ephemeris.setTropicalZodiac()
         Ephemeris.setRectangularCoordinateSystemFlag()
         (arg1, arg2, arg3, arg4, arg5, arg6) = \
-                Ephemeris.calc_ut(jd, planet, Ephemeris.iflag)
+                Ephemeris.calc_ut(jd, planetId, Ephemeris.iflag)
         x = arg1
         y = arg2
         z = arg3
@@ -1993,7 +2081,7 @@ class Ephemeris:
         Ephemeris.setSiderealZodiac()
         Ephemeris.setEclipticalCoordinateSystemFlag()
         (arg1, arg2, arg3, arg4, arg5, arg6) = \
-                Ephemeris.calc_ut(jd, planet, Ephemeris.iflag)
+                Ephemeris.calc_ut(jd, planetId, Ephemeris.iflag)
         longitude = arg1
         latitude = arg2
         distance = arg3
@@ -2006,7 +2094,7 @@ class Ephemeris:
         Ephemeris.setSiderealZodiac()
         Ephemeris.setEquatorialCoordinateSystemFlag()
         (arg1, arg2, arg3, arg4, arg5, arg6) = \
-                Ephemeris.calc_ut(jd, planet, Ephemeris.iflag)
+                Ephemeris.calc_ut(jd, planetId, Ephemeris.iflag)
         rectascension = arg1
         declination = arg2
         distance = arg3
@@ -2019,7 +2107,7 @@ class Ephemeris:
         Ephemeris.setSiderealZodiac()
         Ephemeris.setRectangularCoordinateSystemFlag()
         (arg1, arg2, arg3, arg4, arg5, arg6) = \
-                Ephemeris.calc_ut(jd, planet, Ephemeris.iflag)
+                Ephemeris.calc_ut(jd, planetId, Ephemeris.iflag)
         x = arg1
         y = arg2
         z = arg3
@@ -2062,7 +2150,7 @@ class Ephemeris:
         # Dictionary holding everything about the planet at the 
         # timestamp given.
         planetaryInfo = PlanetaryInfo(planetName,
-                                      planet,
+                                      planetId,
                                       dt,
                                       jd,
                                       geocentricDict,
@@ -2070,7 +2158,7 @@ class Ephemeris:
                                       heliocentricDict)
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            debugStr = "Leaving getPlanetaryInfo(planet={}, datetime={}"
+            debugStr = "Leaving getPlanetaryInfo(planetName={}, datetime={}"
             Ephemeris.log.debug(debugStr.format(planetName, dt))
 
         return planetaryInfo
@@ -2093,7 +2181,7 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        return Ephemeris.getPlanetaryInfo(swe.SUN, timestamp)
+        return Ephemeris.getPlanetaryInfo("Sun", timestamp)
 
     @staticmethod
     def getMoonPlanetaryInfo(timestamp):
@@ -2110,7 +2198,7 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        return Ephemeris.getPlanetaryInfo(swe.MOON, timestamp)
+        return Ephemeris.getPlanetaryInfo("Moon", timestamp)
 
     @staticmethod
     def getMercuryPlanetaryInfo(timestamp):
@@ -2127,7 +2215,7 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        return Ephemeris.getPlanetaryInfo(swe.MERCURY, timestamp)
+        return Ephemeris.getPlanetaryInfo("Mercury", timestamp)
 
     @staticmethod
     def getVenusPlanetaryInfo(timestamp):
@@ -2144,7 +2232,7 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        return Ephemeris.getPlanetaryInfo(swe.VENUS, timestamp)
+        return Ephemeris.getPlanetaryInfo("Venus", timestamp)
 
     @staticmethod
     def getMarsPlanetaryInfo(timestamp):
@@ -2161,7 +2249,7 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        return Ephemeris.getPlanetaryInfo(swe.MARS, timestamp)
+        return Ephemeris.getPlanetaryInfo("Mars", timestamp)
 
     @staticmethod
     def getJupiterPlanetaryInfo(timestamp):
@@ -2178,7 +2266,7 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        return Ephemeris.getPlanetaryInfo(swe.JUPITER, timestamp)
+        return Ephemeris.getPlanetaryInfo("Jupiter", timestamp)
 
     @staticmethod
     def getSaturnPlanetaryInfo(timestamp):
@@ -2195,7 +2283,7 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        return Ephemeris.getPlanetaryInfo(swe.SATURN, timestamp)
+        return Ephemeris.getPlanetaryInfo("Saturn", timestamp)
 
     @staticmethod
     def getUranusPlanetaryInfo(timestamp):
@@ -2212,7 +2300,7 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        return Ephemeris.getPlanetaryInfo(swe.URANUS, timestamp)
+        return Ephemeris.getPlanetaryInfo("Uranus", timestamp)
 
     @staticmethod
     def getNeptunePlanetaryInfo(timestamp):
@@ -2229,7 +2317,7 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        return Ephemeris.getPlanetaryInfo(swe.NEPTUNE, timestamp)
+        return Ephemeris.getPlanetaryInfo("Neptune", timestamp)
 
     @staticmethod
     def getPlutoPlanetaryInfo(timestamp):
@@ -2246,7 +2334,7 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        return Ephemeris.getPlanetaryInfo(swe.PLUTO, timestamp)
+        return Ephemeris.getPlanetaryInfo("Pluto", timestamp)
 
     @staticmethod
     def getMeanNorthNodePlanetaryInfo(timestamp):
@@ -2263,7 +2351,7 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        return Ephemeris.getPlanetaryInfo(swe.MEAN_NODE, timestamp)
+        return Ephemeris.getPlanetaryInfo("MeanNorthNode", timestamp)
 
     @staticmethod
     def getTrueNorthNodePlanetaryInfo(timestamp):
@@ -2280,7 +2368,7 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        return Ephemeris.getPlanetaryInfo(swe.TRUE_NODE, timestamp)
+        return Ephemeris.getPlanetaryInfo("TrueNorthNode", timestamp)
 
     @staticmethod
     def getMeanLunarApogeePlanetaryInfo(timestamp):
@@ -2297,7 +2385,7 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        return Ephemeris.getPlanetaryInfo(swe.MEAN_APOG, timestamp)
+        return Ephemeris.getPlanetaryInfo("MeanLunarApogee", timestamp)
 
     @staticmethod
     def getOsculatingLunarApogeePlanetaryInfo(timestamp):
@@ -2314,7 +2402,7 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        return Ephemeris.getPlanetaryInfo(swe.OSCU_APOG, timestamp)
+        return Ephemeris.getPlanetaryInfo("OsculatingLunarApogee", timestamp)
 
     @staticmethod
     def getInterpolatedLunarApogeePlanetaryInfo(timestamp):
@@ -2331,7 +2419,7 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        return Ephemeris.getPlanetaryInfo(swe.INTP_APOG, timestamp)
+        return Ephemeris.getPlanetaryInfo("InterpolatedLunarApogee", timestamp)
 
     @staticmethod
     def getInterpolatedLunarPerigeePlanetaryInfo(timestamp):
@@ -2348,7 +2436,7 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        return Ephemeris.getPlanetaryInfo(swe.INTP_PERG, timestamp)
+        return Ephemeris.getPlanetaryInfo("InterpolatedLunarPerigee", timestamp)
 
     @staticmethod
     def getEarthPlanetaryInfo(timestamp):
@@ -2365,7 +2453,7 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        return Ephemeris.getPlanetaryInfo(swe.EARTH, timestamp)
+        return Ephemeris.getPlanetaryInfo("Earth", timestamp)
 
     @staticmethod
     def getChironPlanetaryInfo(timestamp):
@@ -2382,7 +2470,7 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        return Ephemeris.getPlanetaryInfo(swe.CHIRON, timestamp)
+        return Ephemeris.getPlanetaryInfo("Chiron", timestamp)
 
     @staticmethod
     def getPholusPlanetaryInfo(timestamp):
@@ -2399,7 +2487,7 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        return Ephemeris.getPlanetaryInfo(swe.PHOLUS, timestamp)
+        return Ephemeris.getPlanetaryInfo("Pholus", timestamp)
 
     @staticmethod
     def getCeresPlanetaryInfo(timestamp):
@@ -2416,7 +2504,7 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        return Ephemeris.getPlanetaryInfo(swe.CERES, timestamp)
+        return Ephemeris.getPlanetaryInfo("Ceres", timestamp)
 
     @staticmethod
     def getPallasPlanetaryInfo(timestamp):
@@ -2433,7 +2521,7 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        return Ephemeris.getPlanetaryInfo(swe.PALLAS, timestamp)
+        return Ephemeris.getPlanetaryInfo("Pallas", timestamp)
 
     @staticmethod
     def getJunoPlanetaryInfo(timestamp):
@@ -2450,7 +2538,7 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        return Ephemeris.getPlanetaryInfo(swe.JUNO, timestamp)
+        return Ephemeris.getPlanetaryInfo("Juno", timestamp)
 
     @staticmethod
     def getVestaPlanetaryInfo(timestamp):
@@ -2467,10 +2555,10 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        return Ephemeris.getPlanetaryInfo(swe.VESTA, timestamp)
+        return Ephemeris.getPlanetaryInfo("Vesta", timestamp)
 
     @staticmethod
-    def getMOFPlanetaryInfo(timestamp):
+    def getMeanOfFivePlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
         the 'Mean Of Five' (MOF) at the given timestamp.
         
@@ -2503,7 +2591,7 @@ class Ephemeris:
         return rv
 
     @staticmethod
-    def getCOEPlanetaryInfo(timestamp):
+    def getCycleOfEightPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
         the 'Cycle Of Eight' (COE) at the given timestamp.
         This is the average of Mercury, Venus, Mars, Jupiter, Saturn,
@@ -2717,10 +2805,10 @@ def testGetPlanetaryInfos():
     p = Ephemeris.getVestaPlanetaryInfo(now)
     print("    At {}, planet '{}' has the following info: \n{}".\
             format(now, p.name, p.toString()))
-    p = Ephemeris.getMOFPlanetaryInfo(now)
+    p = Ephemeris.getMeanOfFivePlanetaryInfo(now)
     print("    At {}, planet '{}' has the following info: \n{}".\
             format(now, p.name, p.toString()))
-    p = Ephemeris.getCOEPlanetaryInfo(now)
+    p = Ephemeris.getCycleOfEightPlanetaryInfo(now)
     print("    At {}, planet '{}' has the following info: \n{}".\
             format(now, p.name, p.toString()))
     p = Ephemeris.getAvgMaJuSaUrNePlPlanetaryInfo(now)

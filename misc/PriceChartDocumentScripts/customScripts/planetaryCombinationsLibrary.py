@@ -38,12 +38,6 @@ moduleName = globals()['__name__']
 log = logging.getLogger(moduleName)
 log.setLevel(logLevel)
 
-# Default for the maximum time difference between the exact planetary
-# combination timestamp, and the one calculated.  This would define
-# the accuracy of the calculations.  This is a datetime.timedelta object.
-#
-#defaultMaxErrorJd = datetime.timedelta(hours=1)
-
 ##############################################################################
 
 class PlanetaryCombinationsLibrary:
@@ -2816,17 +2810,17 @@ class PlanetaryCombinationsLibrary:
         now = datetime.datetime.now(pytz.utc)
         
         # Get planetary ids that we want to get info for.
-        planetIds = []
-        planetIds.append(Ephemeris.getSunPlanetaryInfo(now).id)
-        #planetIds.append(Ephemeris.getMoonPlanetaryInfo(now).id)
-        planetIds.append(Ephemeris.getMercuryPlanetaryInfo(now).id)
-        planetIds.append(Ephemeris.getVenusPlanetaryInfo(now).id)
-        planetIds.append(Ephemeris.getMarsPlanetaryInfo(now).id)
-        planetIds.append(Ephemeris.getJupiterPlanetaryInfo(now).id)
-        planetIds.append(Ephemeris.getSaturnPlanetaryInfo(now).id)
-        planetIds.append(Ephemeris.getUranusPlanetaryInfo(now).id)
-        planetIds.append(Ephemeris.getNeptunePlanetaryInfo(now).id)
-        planetIds.append(Ephemeris.getPlutoPlanetaryInfo(now).id)
+        planetNames = []
+        planetNames.append(Ephemeris.getSunPlanetaryInfo(now).name)
+        #planetNames.append(Ephemeris.getMoonPlanetaryInfo(now).name)
+        planetNames.append(Ephemeris.getMercuryPlanetaryInfo(now).name)
+        planetNames.append(Ephemeris.getVenusPlanetaryInfo(now).name)
+        planetNames.append(Ephemeris.getMarsPlanetaryInfo(now).name)
+        planetNames.append(Ephemeris.getJupiterPlanetaryInfo(now).name)
+        planetNames.append(Ephemeris.getSaturnPlanetaryInfo(now).name)
+        planetNames.append(Ephemeris.getUranusPlanetaryInfo(now).name)
+        planetNames.append(Ephemeris.getNeptunePlanetaryInfo(now).name)
+        planetNames.append(Ephemeris.getPlutoPlanetaryInfo(now).name)
         
 
         # Cross-over points.
@@ -2859,10 +2853,10 @@ class PlanetaryCombinationsLibrary:
                 elif copIndex == 3:
                     color = QColor(Qt.darkYellow)
             
-            for planetId in planetIds:
+            for planetName in planetNames:
                 log.info(\
-                    "Working on planet {} for cross-over-point {} ({})".\
-                    format(Ephemeris.getPlanetNameForId(planetId),
+                    "Working on planet '{}' for cross-over-point {} ({})".\
+                    format(planetName,
                            AstrologyUtils.\
                            convertLongitudeToStrWithRasiAbbrev(cop),
                            cop))
@@ -2889,7 +2883,7 @@ class PlanetaryCombinationsLibrary:
                     log.debug("Looking at currDt == {} ...".\
                               format(Ephemeris.datetimeToStr(currDt)))
                     
-                    p1 = Ephemeris.getPlanetaryInfo(planetId, currDt)
+                    p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
         
                     #log.debug("{} geocentric sidereal longitude is: {}".\
                     #          format(p1.name,
@@ -2945,7 +2939,8 @@ class PlanetaryCombinationsLibrary:
                         t2 = steps[2]
                         currErrorTd = t2 - t1
         
-                        # Refine the timestamp until it is less than the threshold.
+                        # Refine the timestamp until it is less than
+                        # the threshold.
                         while currErrorTd > maxErrorTd:
                             log.debug("Refining between {} and {}".\
                                       format(Ephemeris.datetimeToStr(t1),
@@ -2957,10 +2952,11 @@ class PlanetaryCombinationsLibrary:
                                 datetime.\
                                 timedelta(days=(diffTd.days / 2.0),
                                           seconds=(diffTd.seconds / 2.0),
-                                          microseconds=(diffTd.microseconds / 2.0))
+                                          microseconds=(diffTd.\
+                                                        microseconds / 2.0))
                             testDt = t1 + halfDiffTd
                             
-                            p1 = Ephemeris.getPlanetaryInfo(planetId, currDt)
+                            p1 = Ephemeris.getPlanetaryInfo(planetName, testDt)
                             
                             diffDeg = \
                                     p1.geocentric['tropical']['longitude'] - cop
@@ -2984,7 +2980,8 @@ class PlanetaryCombinationsLibrary:
                         # Create the artifact at the timestamp.
                         PlanetaryCombinationsLibrary.\
                             addVerticalLine(pcdd, currDt,
-                                            highPrice, lowPrice, tag + "_" + p1.name, color)
+                                            highPrice, lowPrice,
+                                            tag + "_" + p1.name, color)
                         numArtifactsAdded += 1
                         
                     elif diffs[2] > diffs[1] and \
@@ -2994,8 +2991,9 @@ class PlanetaryCombinationsLibrary:
                         # Crossed over to under 'desiredDiffMultiple' while
                         # decreasing under 0.  This can happen when planets
                         # are moving in retrograde motion.
-                        log.debug("Crossed over to under {} while decreasing under 0".\
-                                  format(desiredDiffMultiple))
+                        log.debug("Crossed over to under {} while ".\
+                                  format(desiredDiffMultiple) + \
+                                  "decreasing under 0")
                         
                         # Timestamp is between steps[2] and steps[1].
                         
@@ -3004,7 +3002,8 @@ class PlanetaryCombinationsLibrary:
                         t2 = steps[2]
                         currErrorTd = t2 - t1
         
-                        # Refine the timestamp until it is less than the threshold.
+                        # Refine the timestamp until it is less than
+                        # the threshold.
                         while currErrorTd > maxErrorTd:
                             log.debug("Refining between {} and {}".\
                                       format(Ephemeris.datetimeToStr(t1),
@@ -3016,10 +3015,11 @@ class PlanetaryCombinationsLibrary:
                                 datetime.\
                                 timedelta(days=(diffTd.days / 2.0),
                                           seconds=(diffTd.seconds / 2.0),
-                                          microseconds=(diffTd.microseconds / 2.0))
+                                          microseconds=(diffTd.\
+                                                        microseconds / 2.0))
                             testDt = t1 + halfDiffTd
                             
-                            p1 = Ephemeris.getPlanetaryInfo(planetId, testDt)
+                            p1 = Ephemeris.getPlanetaryInfo(planetName, testDt)
                             
                             diffDeg = \
                                     p1.geocentric['tropical']['longitude'] - cop
@@ -3043,7 +3043,8 @@ class PlanetaryCombinationsLibrary:
                         # Create the artifact at the timestamp.
                         PlanetaryCombinationsLibrary.\
                             addVerticalLine(pcdd, currDt,
-                                            highPrice, lowPrice, tag + "_" + p1.name, color)
+                                            highPrice, lowPrice,
+                                            tag + "_" + p1.name, color)
                         numArtifactsAdded += 1
                         
                     # Prepare for the next iteration.
@@ -3057,3 +3058,474 @@ class PlanetaryCombinationsLibrary:
         log.debug("Exiting " + inspect.stack()[0][3] + "()")
         return rv
 
+    @staticmethod
+    def addTimeMeasurementAndTiltedTextForNakshatraTransits(\
+        pcdd, startDt, endDt,
+        price, planetName,
+        color=None,
+        maxErrorTd=datetime.timedelta(hours=1)):
+        """Adds TimeMeasurementGraphicsItems and TiltedText to
+        locations where a certain planet crosses over the Nakshatra
+        boundaries.  The time measurement boundaries are where the
+        planet is in a certain nakshatra in direct motion or in
+        retrograde motion.  The TextGraphicsItem added will describe
+        what kind of effects is being shown.
+
+        Note: Default tag used for the artifacts added is the name of
+        this function, without the word 'add' at the beginning, and
+        with the str for the relevant planet name appended.
+        
+        Arguments:
+        pcdd       - PriceChartDocumentData object that will be modified.
+        startDt    - datetime.datetime object for the starting timestamp
+                     to do the calculations for artifacts.
+        endDt      - datetime.datetime object for the ending timestamp
+                     to do the calculations for artifacts.
+        price      - float value for price location to drawn the
+                     TimeMeasurementGraphicsItem.
+        planetName - str holding the name of the planet to do the
+                     calculations for.
+        color      - QColor object for what color to draw the lines.
+                     If this is set to None, then the default color will
+                     be used.
+        maxErrorTd - datetime.timedelta object holding the maximum
+                     time difference between the exact planetary
+                     combination timestamp, and the one calculated.
+                     This would define the accuracy of the
+                     calculations.  
+        
+        Returns:
+        True if operation succeeded, False otherwise.
+        """
+
+        log.debug("Entered " + inspect.stack()[0][3] + "()")
+
+        # Return value.
+        rv = True
+
+        # Make sure the inputs are valid.
+        if endDt < startDt:
+            log.error("Invalid input: 'endDt' must be after 'startDt'")
+            rv = False
+            return rv
+        if lowPrice > highPrice:
+            log.error("Invalid input: " +
+                      "'lowPrice' is not less than or equal to 'highPrice'")
+            rv = False
+            return rv
+        
+        # Set the color if it is not already set to something.
+        colorWasSpecifiedFlag = True
+        if color == None:
+            colorWasSpecifiedFlag = False
+            color = AstrologyUtils.getForegroundColorForPlanetName(planetName)
+
+        # Set the tag str.
+        tag = inspect.stack()[0][3]
+        if tag.startswith("add") and len(tag) > 3:
+            tag = tag[3:] + "_" + planetName
+        log.debug("tag == '{}'".format(tag))
+        
+        # Initialize the Ephemeris with the birth location.
+        log.debug("Setting ephemeris location ...")
+        Ephemeris.setGeographicPosition(pcdd.birthInfo.longitudeDegrees,
+                                        pcdd.birthInfo.latitudeDegrees,
+                                        pcdd.birthInfo.elevation)
+
+        # Count of artifacts added.
+        numArtifactsAdded = 0
+        
+        # Set the step size.
+        stepSizeTd = datetime.timedelta(days=1)
+
+        # Timestamp steps saved (list of datetime.datetime).
+        steps = []
+        steps.append(copy.deepcopy(startDt))
+        steps.append(copy.deepcopy(startDt))
+
+        # Longitudes of the steps saved (list of float).
+        longitudes = []
+        longitudes.append(None)
+        longitudes.append(None)
+
+        # Direction of movement of the previous steps (direct or retrograde).
+        directMotion = 1
+        retrogradeMotion = -1
+        unknownMotion = 0
+        motions = []
+        motions.append(unknownMotion)
+        motions.append(unknownMotion)
+
+        # Start and end timestamps used for the location of the
+        # TimeMeasurementGraphicsItem.
+        startTimeMeasurementDt = None
+        endTimeMeasurementDt = None
+
+        # Sub-function that does the adding of the artifacts for this
+        # function, since this is a bit more verbose than usual.
+        def addArtifacts(pcdd,
+                         planetName,
+                         startTimeMeasurementDt,
+                         endTimeMeasurementDt,
+                         tag,
+                         color):
+            
+            startPI = Ephemeris.getPlanetaryInfo(planetName,
+                                                 startTimeMeasurementDt)
+            endPI = Ephemeris.getPlanetaryInfo(planetName,
+                                               endTimeMeasurementDt)
+            
+            y = PlanetaryCombinationsLibrary.\
+                scene.priceToSceneYPos(price)
+            startPointX = PlanetaryCombinationsLibrary.\
+                scene.datetimeToSceneXPos(startTimeMeasurementDt)
+            endPointX = PlanetaryCombinationsLibrary.\
+                scene.datetimeToSceneXPos(endTimeMeasurementDt)
+
+            artifact1 = PriceBarChartTimeMeasurementArtifact()
+            artifact1.addTag(tag)
+            artifact1.setColor(color)
+            artifact1.setshowBarsTextFlag(False)
+            artifact1.setshowSqrtBarsTextFlag(False)
+            artifact1.setshowSqrdBarsTextFlag(False)
+            artifact1.setshowHoursTextFlag(False)
+            artifact1.setshowSqrtHoursTextFlag(False)
+            artifact1.setshowSqrdHoursTextFlag(False)
+            artifact1.setshowDaysTextFlag(False)
+            artifact1.setshowSqrtDaysTextFlag(False)
+            artifact1.setshowSqrdDaysTextFlag(False)
+            artifact1.setshowWeeksTextFlag(False)
+            artifact1.setshowSqrtWeeksTextFlag(False)
+            artifact1.setshowSqrdWeeksTextFlag(False)
+            artifact1.setshowMonthsTextFlag(False)
+            artifact1.setshowSqrtMonthsTextFlag(False)
+            artifact1.setshowSqrdMonthsTextFlag(False)
+            artifact1.setshowTimeRangeTextFlag(False)
+            artifact1.setshowSqrtTimeRangeTextFlag(False)
+            artifact1.setshowSqrdTimeRangeTextFlag(False)
+            artifact1.setshowScaledValueRangeTextFlag(False)
+            artifact1.setshowSqrtScaledValueRangeTextFlag(False)
+            artifact1.setshowSqrdScaledValueRangeTextFlag(False)
+            artifact1.setshowAyanaTextFlag(False)
+            artifact1.setshowSqrtAyanaTextFlag(False)
+            artifact1.setshowSqrdAyanaTextFlag(False)
+            artifact1.setshowMuhurtaTextFlag(False)
+            artifact1.setshowSqrtMuhurtaTextFlag(False)
+            artifact1.setshowSqrdMuhurtaTextFlag(False)
+            artifact1.setshowVaraTextFlag(False)
+            artifact1.setshowSqrtVaraTextFlag(False)
+            artifact1.setshowSqrdVaraTextFlag(False)
+            artifact1.setshowRtuTextFlag(False)
+            artifact1.setshowSqrtRtuTextFlag(False)
+            artifact1.setshowSqrdRtuTextFlag(False)
+            artifact1.setshowMasaTextFlag(False)
+            artifact1.setshowSqrtMasaTextFlag(False)
+            artifact1.setshowSqrdMasaTextFlag(False)
+            artifact1.setshowPaksaTextFlag(False)
+            artifact1.setshowSqrtPaksaTextFlag(False)
+            artifact1.setshowSqrdPaksaTextFlag(False)
+            artifact1.setshowSamaTextFlag(False)
+            artifact1.setshowSqrtSamaTextFlag(False)
+            artifact1.setshowSqrdSamaTextFlag(False)
+            artifact1.setStartPoint(QPointF(startPointX, y))
+            artifact1.setEndPoint(QPointF(endPointX, y))
+            
+            # Append the artifact.
+            log.info("Adding '{}' ".format(tag) + \
+                     "PriceBarChartTimeMeasurementArtifact at " + \
+                     "({} to {}), or ({}, {}) to ({}, {}) ...".\
+                     format(Ephemeris.\
+                            datetimeToStr(startTimeMeasurementDt),
+                            Ephemeris.\
+                            datetimeToStr(endTimeMeasurementDt),
+                            startPointX, y,
+                            endPointX, y))
+            
+            pcdd.priceBarChartArtifacts.append(artifact1)
+            
+            startNakshatraAbbrev = \
+                AstrologyUtils.\
+                convertLongitudeToNakshatraAbbrev(\
+                startPI.geocentric['sidereal']['longitude'])
+            
+            endNakshatraAbbrev = \
+                AstrologyUtils.\
+                convertLongitudeToNakshatraAbbrev(\
+                endPI.geocentric['sidereal']['longitude'])
+            
+            startMotionAbbrev = None
+            if startPI.geocentric['sidereal']['longitude_speed'] < 0:
+                startMotionAbbrev = retrogradeMotion
+            else:
+                startMotionAbbrev = directMotion
+            
+            endMotionAbbrev = None
+            if endPI.geocentric['sidereal']['longitude_speed'] < 0:
+                endMotionAbbrev = retrogradeMotion
+            else:
+                endMotionAbbrev = directMotion
+                
+            text = "{}: {} {} to {} {}".\
+                    format(planetName,
+                           startMotionAbbrev,
+                           startNakshatraAbbrev,
+                           endMotionAbbrev,
+                           endNakshatraAbbrev)
+            textRotationAngle = 90.0
+            
+            x = (startPointX + endPointX) / 2
+            
+            artifact2 = PriceBarChartTextArtifact()
+            artifact2.addTag(tag)
+            artifact2.setColor(color)
+            artifact2.setText(text)
+            artifact2.setTextRotationAngle(textRotationAngle)
+            artifact2.setPos(QPointF(x, y))
+            
+            # Append the artifact.
+            log.info("Adding '{}' PriceBarChartTextArtifact at ".\
+                     format(tag) + \
+                     "({} to {}) or ({}, {}) to ({}, {}) ...".\
+                     format(Ephemeris.\
+                            datetimeToStr(startTimeMeasurementDt),
+                            Ephemeris.\
+                            datetimeToStr(endTimeMeasurementDt),
+                            startPointX, y,
+                            endPointX, y))
+            pcdd.priceBarChartArtifacts.append(artifact2)
+                    
+        
+        # Iterate through, creating artfacts and adding them as we go.
+        log.debug("Stepping through timestamps from {} to {} ...".\
+                  format(Ephemeris.datetimeToStr(startDt),
+                         Ephemeris.datetimeToStr(endDt)))
+        
+        while steps[-1] < endDt:
+            
+            currDt = steps[-1]
+            log.debug("Looking at currDt == {} ...".\
+                      format(Ephemeris.datetimeToStr(currDt)))
+            
+            p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
+            
+            log.debug("{} geocentric sidereal longitude is: {}".\
+                      format(p1.name,
+                             p1.geocentric['sidereal']['longitude']))
+            #log.debug("{} geocentric tropical longitude is: {}".\
+            #          format(p1.name,
+            #                 p1.geocentric['tropical']['longitude']))
+
+            longitudes[-1] = p1.geocentric['sidereal']['longitude']
+            
+            speed = p1.geocentric['sidereal']['longitude_speed']
+            if speed < 0:
+                motions[-1] = retrogradeMotion
+            else:
+                motions[-1] = directMotion
+            
+            # Get the nakshatras of the current and previous steps.
+            currNakshatraIndex = \
+                math.floor(longitudes[-1] / (360 / 27))
+            
+            if prevNakshatraIndex == None:
+                prevNakshatraIndex = currNakshatraIndex
+            else:
+                prevNakshatraIndex = \
+                    math.floor(longitudes[-2] / (360 / 27))
+
+            for i in range(len(steps)):
+                log.debug("steps[{}] == {}".format(i, steps[i]))
+            for i in range(len(longitudes)):
+                log.debug("longitudes[{}] == {}".format(i, longitudes[i]))
+            for i in range(len(motions)):
+                log.debug("motions[{}] == {}".format(i, motions[i]))
+            log.debug("prevNakshatraIndex == {}".format(prevNakshatraIndex))
+            log.debug("currNakshatraIndex == {}".format(currNakshatraIndex))
+
+
+            if currNakshatraIndex != prevNakshatraIndex:
+                # Shifted over a nakshatra.  Now we need to
+                # narrow down onto the timestamp when this happened,
+                # within the maxErrorTd timedelta.
+
+                # Timestamp is between steps[-2] and steps[-1].
+
+                # This is the upper-bound of the error timedelta.
+                t1 = steps[-2]
+                t2 = steps[-1]
+                currErrorTd = t2 - t1
+
+                currLongitude = longitudes[-1]
+                currMotion = motions[-1]
+                
+                # Refine the timestamp until it is less than
+                # the threshold.
+                while currErrorTd > maxErrorTd:
+                    log.debug("Refining between {} and {}".\
+                              format(Ephemeris.datetimeToStr(t1),
+                                     Ephemeris.datetimeToStr(t2)))
+                    
+                    # Check the timestamp between.
+                    diffTd = t2 - t1
+                    halfDiffTd = \
+                        datetime.\
+                        timedelta(days=(diffTd.days / 2.0),
+                                  seconds=(diffTd.seconds / 2.0),
+                                  microseconds=(diffTd.\
+                                                microseconds / 2.0))
+                    testDt = t1 + halfDiffTd
+                    
+                    p1 = Ephemeris.getPlanetaryInfo(planetName, testDt)
+
+                    longitude = p1.geocentric['sidereal']['longitude']
+                    speed = p1.geocentric['sidereal']['longitude_speed']
+                    motion = None
+                    if speed < 0:
+                        motion = retrogradeMotion
+                    else:
+                        motion = directMotion
+                    
+                    if math.floor(longitude / (360 / 27)) == currNakshatraIndex:
+                        t2 = testDt
+
+                        # Update curr values.
+                        currLongitude = longitude
+                        currMotion = motion
+                    else:
+                        t1 = testDt
+                        
+                    currErrorTd = t2 - t1
+
+                # t2 holds the cross-over timestamp that is within
+                # maxErrorTd to the nakshatra cross-over longitude.
+                currDt = t2
+
+                # Make sure the stored values for the steps are saved.
+                steps[-1] = currDt
+                longitudes[-1] = currLongitude
+                motions[-1] = currMotion
+
+                # Check to see if we have a start and end point.  If
+                # yes, then we will be creating a
+                # TimeMeasurementGraphicsItem and a TextGraphicsItem.
+                if startTimeMeasurementDt == None:
+                    startTimeMeasurementDt = currDt
+                else:
+                    endTimeMeasurementDt = currDt
+
+                    # Okay, now create the items since we have the
+                    # start and end timestamps for them.
+                    addArtifacts(pcdd,
+                                 planetName,
+                                 startTimeMeasurementDt,
+                                 endTimeMeasurementDt,
+                                 tag,
+                                 color)
+
+                    # Shift start and end timestamp.  The start is now
+                    # the end, and the end is cleared.
+                    startTimeMeasurement = endTimeMeasurementDt
+                    endTimeMeasurementDt = None
+                
+                    numArtifactsAdded += 2
+                
+            elif motions[-1] != motions[-2]:
+                # Just went from retrograde to direct, or direct to
+                # retrograde.  Now we need to narrow down onto the
+                # timestamp when this happened, within the maxErrorTd
+                # timedelta.
+                
+                # Timestamp is between steps[-2] and steps[-1].
+
+                # This is the upper-bound of the error timedelta.
+                t1 = steps[-2]
+                t2 = steps[-1]
+                currErrorTd = t2 - t1
+
+                currLongitude = longitudes[-1]
+                currMotion = motions[-1]
+                
+                # Refine the timestamp until it is less than
+                # the threshold.
+                while currErrorTd > maxErrorTd:
+                    log.debug("Refining between {} and {}".\
+                              format(Ephemeris.datetimeToStr(t1),
+                                     Ephemeris.datetimeToStr(t2)))
+                    
+                    # Check the timestamp between.
+                    diffTd = t2 - t1
+                    halfDiffTd = \
+                        datetime.\
+                        timedelta(days=(diffTd.days / 2.0),
+                                  seconds=(diffTd.seconds / 2.0),
+                                  microseconds=(diffTd.\
+                                                microseconds / 2.0))
+                    testDt = t1 + halfDiffTd
+                    
+                    p1 = Ephemeris.getPlanetaryInfo(planetName, testDt)
+
+                    longitude = p1.geocentric['sidereal']['longitude']
+                    speed = p1.geocentric['sidereal']['longitude_speed']
+                    motion = None
+                    if speed < 0:
+                        motion = retrogradeMotion
+                    else:
+                        motion = directMotion
+                    
+                    if math.floor(longitude / (360 / 27)) == currNakshatraIndex:
+                        t2 = testDt
+
+                        # Update curr values.
+                        currLongitude = longitude
+                        currMotion = motion
+                    else:
+                        t1 = testDt
+                        
+                    currErrorTd = t2 - t1
+
+                # t2 holds the cross-over timestamp that is within
+                # maxErrorTd to the nakshatra cross-over longitude.
+                currDt = t2
+
+                # Make sure the stored values for the steps are saved.
+                steps[-1] = currDt
+                longitudes[-1] = currLongitude
+                motions[-1] = currMotion
+
+                # Check to see if we have a start and end point.  If
+                # yes, then we will be creating a
+                # TimeMeasurementGraphicsItem and a TextGraphicsItem.
+                if startTimeMeasurementDt == None:
+                    startTimeMeasurementDt = currDt
+                else:
+                    endTimeMeasurementDt = currDt
+
+                    # Okay, now create the items since we have the
+                    # start and end timestamps for them.
+                    addArtifacts(pcdd,
+                                 planetName,
+                                 startTimeMeasurementDt,
+                                 endTimeMeasurementDt,
+                                 tag,
+                                 color)
+                    
+                    numArtifactsAdded += 2
+                
+                    # Shift start and end timestamp.  The start is now
+                    # the end, and the end is cleared.
+                    startTimeMeasurement = endTimeMeasurementDt
+                    endTimeMeasurementDt = None
+                
+            # Prepare for the next iteration.
+            steps.append(copy.deepcopy(steps[-1]) + stepSizeTd)
+            del steps[0]
+            longitudes.append(None)
+            del diffs[0]
+            motions.append(unknownMotion)
+            del motions[0]
+            
+        log.info("Number of artifacts added: {}".format(numArtifactsAdded))
+                
+        log.debug("Exiting " + inspect.stack()[0][3] + "()")
+        return rv
+    
