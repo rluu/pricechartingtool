@@ -232,7 +232,9 @@ parser.add_option("--tag",
                   dest="tag",
                   default=None,
                   help="Specify tag str of the artifacts we plan " + \
-                       "to manipulate.",
+                       "to manipulate.  This field may or may not " + \
+                       "be required; it depends on the script file " + \
+                       "to be executed.",
                   metavar="<STRING>")
 
 parser.add_option("--script-file",

@@ -11,6 +11,9 @@ import copy
 # For logging.
 import logging
 
+# For math.floor()
+import math
+
 # For timestamps and timezone information.
 import datetime
 import pytz
@@ -3108,11 +3111,6 @@ class PlanetaryCombinationsLibrary:
             log.error("Invalid input: 'endDt' must be after 'startDt'")
             rv = False
             return rv
-        if lowPrice > highPrice:
-            log.error("Invalid input: " +
-                      "'lowPrice' is not less than or equal to 'highPrice'")
-            rv = False
-            return rv
         
         # Set the color if it is not already set to something.
         colorWasSpecifiedFlag = True
@@ -3185,61 +3183,61 @@ class PlanetaryCombinationsLibrary:
             artifact1 = PriceBarChartTimeMeasurementArtifact()
             artifact1.addTag(tag)
             artifact1.setColor(color)
-            artifact1.setshowBarsTextFlag(False)
-            artifact1.setshowSqrtBarsTextFlag(False)
-            artifact1.setshowSqrdBarsTextFlag(False)
-            artifact1.setshowHoursTextFlag(False)
-            artifact1.setshowSqrtHoursTextFlag(False)
-            artifact1.setshowSqrdHoursTextFlag(False)
-            artifact1.setshowDaysTextFlag(False)
-            artifact1.setshowSqrtDaysTextFlag(False)
-            artifact1.setshowSqrdDaysTextFlag(False)
-            artifact1.setshowWeeksTextFlag(False)
-            artifact1.setshowSqrtWeeksTextFlag(False)
-            artifact1.setshowSqrdWeeksTextFlag(False)
-            artifact1.setshowMonthsTextFlag(False)
-            artifact1.setshowSqrtMonthsTextFlag(False)
-            artifact1.setshowSqrdMonthsTextFlag(False)
-            artifact1.setshowTimeRangeTextFlag(False)
-            artifact1.setshowSqrtTimeRangeTextFlag(False)
-            artifact1.setshowSqrdTimeRangeTextFlag(False)
-            artifact1.setshowScaledValueRangeTextFlag(False)
-            artifact1.setshowSqrtScaledValueRangeTextFlag(False)
-            artifact1.setshowSqrdScaledValueRangeTextFlag(False)
-            artifact1.setshowAyanaTextFlag(False)
-            artifact1.setshowSqrtAyanaTextFlag(False)
-            artifact1.setshowSqrdAyanaTextFlag(False)
-            artifact1.setshowMuhurtaTextFlag(False)
-            artifact1.setshowSqrtMuhurtaTextFlag(False)
-            artifact1.setshowSqrdMuhurtaTextFlag(False)
-            artifact1.setshowVaraTextFlag(False)
-            artifact1.setshowSqrtVaraTextFlag(False)
-            artifact1.setshowSqrdVaraTextFlag(False)
-            artifact1.setshowRtuTextFlag(False)
-            artifact1.setshowSqrtRtuTextFlag(False)
-            artifact1.setshowSqrdRtuTextFlag(False)
-            artifact1.setshowMasaTextFlag(False)
-            artifact1.setshowSqrtMasaTextFlag(False)
-            artifact1.setshowSqrdMasaTextFlag(False)
-            artifact1.setshowPaksaTextFlag(False)
-            artifact1.setshowSqrtPaksaTextFlag(False)
-            artifact1.setshowSqrdPaksaTextFlag(False)
-            artifact1.setshowSamaTextFlag(False)
-            artifact1.setshowSqrtSamaTextFlag(False)
-            artifact1.setshowSqrdSamaTextFlag(False)
-            artifact1.setStartPoint(QPointF(startPointX, y))
-            artifact1.setEndPoint(QPointF(endPointX, y))
+            artifact1.setShowBarsTextFlag(False)
+            artifact1.setShowSqrtBarsTextFlag(False)
+            artifact1.setShowSqrdBarsTextFlag(False)
+            artifact1.setShowHoursTextFlag(False)
+            artifact1.setShowSqrtHoursTextFlag(False)
+            artifact1.setShowSqrdHoursTextFlag(False)
+            artifact1.setShowDaysTextFlag(False)
+            artifact1.setShowSqrtDaysTextFlag(False)
+            artifact1.setShowSqrdDaysTextFlag(False)
+            artifact1.setShowWeeksTextFlag(False)
+            artifact1.setShowSqrtWeeksTextFlag(False)
+            artifact1.setShowSqrdWeeksTextFlag(False)
+            artifact1.setShowMonthsTextFlag(False)
+            artifact1.setShowSqrtMonthsTextFlag(False)
+            artifact1.setShowSqrdMonthsTextFlag(False)
+            artifact1.setShowTimeRangeTextFlag(False)
+            artifact1.setShowSqrtTimeRangeTextFlag(False)
+            artifact1.setShowSqrdTimeRangeTextFlag(False)
+            artifact1.setShowScaledValueRangeTextFlag(False)
+            artifact1.setShowSqrtScaledValueRangeTextFlag(False)
+            artifact1.setShowSqrdScaledValueRangeTextFlag(False)
+            artifact1.setShowAyanaTextFlag(False)
+            artifact1.setShowSqrtAyanaTextFlag(False)
+            artifact1.setShowSqrdAyanaTextFlag(False)
+            artifact1.setShowMuhurtaTextFlag(False)
+            artifact1.setShowSqrtMuhurtaTextFlag(False)
+            artifact1.setShowSqrdMuhurtaTextFlag(False)
+            artifact1.setShowVaraTextFlag(False)
+            artifact1.setShowSqrtVaraTextFlag(False)
+            artifact1.setShowSqrdVaraTextFlag(False)
+            artifact1.setShowRtuTextFlag(False)
+            artifact1.setShowSqrtRtuTextFlag(False)
+            artifact1.setShowSqrdRtuTextFlag(False)
+            artifact1.setShowMasaTextFlag(False)
+            artifact1.setShowSqrtMasaTextFlag(False)
+            artifact1.setShowSqrdMasaTextFlag(False)
+            artifact1.setShowPaksaTextFlag(False)
+            artifact1.setShowSqrtPaksaTextFlag(False)
+            artifact1.setShowSqrdPaksaTextFlag(False)
+            artifact1.setShowSamaTextFlag(False)
+            artifact1.setShowSqrtSamaTextFlag(False)
+            artifact1.setShowSqrdSamaTextFlag(False)
+            artifact1.setStartPointF(QPointF(startPointX, y))
+            artifact1.setEndPointF(QPointF(endPointX, y))
             
             # Append the artifact.
             log.info("Adding '{}' ".format(tag) + \
                      "PriceBarChartTimeMeasurementArtifact at " + \
-                     "({} to {}), or ({}, {}) to ({}, {}) ...".\
-                     format(Ephemeris.\
+                     "({}, {}) to ({}, {}), or ({} to {}) ...".\
+                     format(startPointX, y,
+                            endPointX, y,
+                            Ephemeris.\
                             datetimeToStr(startTimeMeasurementDt),
                             Ephemeris.\
-                            datetimeToStr(endTimeMeasurementDt),
-                            startPointX, y,
-                            endPointX, y))
+                            datetimeToStr(endTimeMeasurementDt)))
             
             pcdd.priceBarChartArtifacts.append(artifact1)
             
@@ -3255,15 +3253,15 @@ class PlanetaryCombinationsLibrary:
             
             startMotionAbbrev = None
             if startPI.geocentric['sidereal']['longitude_speed'] < 0:
-                startMotionAbbrev = retrogradeMotion
+                startMotionAbbrev = "R"
             else:
-                startMotionAbbrev = directMotion
+                startMotionAbbrev = "D"
             
             endMotionAbbrev = None
             if endPI.geocentric['sidereal']['longitude_speed'] < 0:
-                endMotionAbbrev = retrogradeMotion
+                endMotionAbbrev = "R"
             else:
-                endMotionAbbrev = directMotion
+                endMotionAbbrev = "D"
                 
             text = "{}: {} {} to {} {}".\
                     format(planetName,
@@ -3285,13 +3283,13 @@ class PlanetaryCombinationsLibrary:
             # Append the artifact.
             log.info("Adding '{}' PriceBarChartTextArtifact at ".\
                      format(tag) + \
-                     "({} to {}) or ({}, {}) to ({}, {}) ...".\
-                     format(Ephemeris.\
+                     "           ({}, {}) to ({}, {}), or ({} to {}) ...".\
+                     format(startPointX, y,
+                            endPointX, y,
+                            Ephemeris.\
                             datetimeToStr(startTimeMeasurementDt),
                             Ephemeris.\
-                            datetimeToStr(endTimeMeasurementDt),
-                            startPointX, y,
-                            endPointX, y))
+                            datetimeToStr(endTimeMeasurementDt)))
             pcdd.priceBarChartArtifacts.append(artifact2)
                     
         
@@ -3301,7 +3299,6 @@ class PlanetaryCombinationsLibrary:
                          Ephemeris.datetimeToStr(endDt)))
         
         while steps[-1] < endDt:
-            
             currDt = steps[-1]
             log.debug("Looking at currDt == {} ...".\
                       format(Ephemeris.datetimeToStr(currDt)))
@@ -3324,14 +3321,14 @@ class PlanetaryCombinationsLibrary:
                 motions[-1] = directMotion
             
             # Get the nakshatras of the current and previous steps.
+            # 0 is Aswini.
             currNakshatraIndex = \
                 math.floor(longitudes[-1] / (360 / 27))
-            
-            if prevNakshatraIndex == None:
+            prevNakshatraIndex = None
+            if longitudes[-2] == None:
                 prevNakshatraIndex = currNakshatraIndex
             else:
-                prevNakshatraIndex = \
-                    math.floor(longitudes[-2] / (360 / 27))
+                prevNakshatraIndex = math.floor(longitudes[-2] / (360 / 27))
 
             for i in range(len(steps)):
                 log.debug("steps[{}] == {}".format(i, steps[i]))
@@ -3390,6 +3387,7 @@ class PlanetaryCombinationsLibrary:
 
                         # Update curr values.
                         currLongitude = longitude
+                        currNakshatraIndex = math.floor(longitude / (360 / 27))
                         currMotion = motion
                     else:
                         t1 = testDt
@@ -3424,7 +3422,7 @@ class PlanetaryCombinationsLibrary:
 
                     # Shift start and end timestamp.  The start is now
                     # the end, and the end is cleared.
-                    startTimeMeasurement = endTimeMeasurementDt
+                    startTimeMeasurementDt = endTimeMeasurementDt
                     endTimeMeasurementDt = None
                 
                     numArtifactsAdded += 2
@@ -3472,11 +3470,12 @@ class PlanetaryCombinationsLibrary:
                     else:
                         motion = directMotion
                     
-                    if math.floor(longitude / (360 / 27)) == currNakshatraIndex:
+                    if motion == currMotion:
                         t2 = testDt
 
                         # Update curr values.
                         currLongitude = longitude
+                        currNakshatraIndex = math.floor(longitude / (360 / 27))
                         currMotion = motion
                     else:
                         t1 = testDt
@@ -3513,14 +3512,14 @@ class PlanetaryCombinationsLibrary:
                 
                     # Shift start and end timestamp.  The start is now
                     # the end, and the end is cleared.
-                    startTimeMeasurement = endTimeMeasurementDt
+                    startTimeMeasurementDt = endTimeMeasurementDt
                     endTimeMeasurementDt = None
-                
+
             # Prepare for the next iteration.
             steps.append(copy.deepcopy(steps[-1]) + stepSizeTd)
             del steps[0]
             longitudes.append(None)
-            del diffs[0]
+            del longitudes[0]
             motions.append(unknownMotion)
             del motions[0]
             

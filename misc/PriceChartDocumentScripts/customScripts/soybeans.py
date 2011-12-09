@@ -41,10 +41,13 @@ log = logging.getLogger(moduleName)
 log.setLevel(logLevel)
 
 # Start and ending timestamps for drawing.
-startDt = datetime.datetime(year=1970, month=1, day=1,
+#startDt = datetime.datetime(year=1968, month=1, day=1,
+#                            hour=0, minute=0, second=0,
+#                            tzinfo=pytz.utc)
+startDt = datetime.datetime(year=1972, month=1, day=1,
                             hour=0, minute=0, second=0,
                             tzinfo=pytz.utc)
-endDt   = datetime.datetime(year=1972, month=1, day=1,
+endDt   = datetime.datetime(year=1990, month=1, day=1,
                             hour=0, minute=0, second=0,
                             tzinfo=pytz.utc)
 #endDt   = datetime.datetime(year=2020, month=1, day=1,
@@ -76,7 +79,12 @@ def processPCDD(pcdd, tag):
     # Return value.
     rv = 0
 
-    priceAvg = (highPrice + lowPrice) / 2
+    #success = PlanetaryCombinationsLibrary.\
+    #    addHelioSaturnUranus15xVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addGeoSaturnUranus15xVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice)
     
     #success = PlanetaryCombinationsLibrary.\
     #    addHelioVenusJupiter120xVerticalLines(\
@@ -105,18 +113,35 @@ def processPCDD(pcdd, tag):
     #success = PlanetaryCombinationsLibrary.\
     #    addGeoMercuryJupiter90xVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice)
+
     
+    #success = PlanetaryCombinationsLibrary.\
+    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
+    #    pcdd, startDt, endDt, price=0, planetName="Sun")
+    #success = PlanetaryCombinationsLibrary.\
+    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
+    #    pcdd, startDt, endDt, price=200, planetName="Mercury")
+    #success = PlanetaryCombinationsLibrary.\
+    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
+    #    pcdd, startDt, endDt, price=400, planetName="Venus")
+    #success = PlanetaryCombinationsLibrary.\
+    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
+    #    pcdd, startDt, endDt, price=600, planetName="Mars")
     success = PlanetaryCombinationsLibrary.\
         addTimeMeasurementAndTiltedTextForNakshatraTransits(
-        pcdd, startDt, endDt, price=priceAvg, planetName="Saturn")
-    
-    
-    #success = PlanetaryCombinationsLibrary.\
-    #    addHelioSaturnUranus15xVerticalLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice)
-    #success = PlanetaryCombinationsLibrary.\
-    #    addGeoSaturnUranus15xVerticalLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice)
+        pcdd, startDt, endDt, price=800, planetName="Jupiter")
+    success = PlanetaryCombinationsLibrary.\
+        addTimeMeasurementAndTiltedTextForNakshatraTransits(
+        pcdd, startDt, endDt, price=1000, planetName="Saturn")
+    success = PlanetaryCombinationsLibrary.\
+        addTimeMeasurementAndTiltedTextForNakshatraTransits(
+        pcdd, startDt, endDt, price=1200, planetName="Uranus")
+    success = PlanetaryCombinationsLibrary.\
+        addTimeMeasurementAndTiltedTextForNakshatraTransits(
+        pcdd, startDt, endDt, price=1400, planetName="Neptune")
+    success = PlanetaryCombinationsLibrary.\
+        addTimeMeasurementAndTiltedTextForNakshatraTransits(
+        pcdd, startDt, endDt, price=1600, planetName="Pluto")
     
     if success == True:
         log.debug("Success!")

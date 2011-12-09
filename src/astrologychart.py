@@ -5004,12 +5004,13 @@ class AstrologyChartWidget(QWidget):
              "Saturn",
              "Uranus",
              "Neptune",
-             "Pluto",
-             "MeanOfFive",
-             "CycleOfEight",
-             "AvgMaJuSaUrNePl",
-             "AvgJuSaUrNe",
-             "AvgJuSa"]
+             "Pluto"#,
+             #"MeanOfFive",
+             #"CycleOfEight",
+             #"AvgMaJuSaUrNePl",
+             #"AvgJuSaUrNe",
+             #"AvgJuSa"
+             ]
 
         return toDisplay
         
@@ -5021,41 +5022,42 @@ class AstrologyChartWidget(QWidget):
         """
 
         toDisplay = \
-            ["Ascendant",
-             "Midheaven",
-             "HoraLagna",
-             "GhatiLagna",
+            [#"Ascendant",
+             #"Midheaven",
+             #"HoraLagna",
+             #"GhatiLagna",
              #"MeanLunarApogee",
              #"OsculatingLunarApogee",
              #"InterpolatedLunarApogee",
              #"InterpolatedLunarPerigee",
-             "Sun",
-             "Moon",
-             "Mercury",
-             "Venus",
+             #"Sun",
+             #"Moon",
+             #"Mercury",
+             #"Venus",
              #"Earth",
-             "Mars",
+             #"Mars",
              "Jupiter",
              "Saturn",
              "Uranus",
              "Neptune",
-             "Pluto",
-             "MeanNorthNode",
-             "MeanSouthNode",
-             "TrueNorthNode",
-             "TrueSouthNode",
+             #"Pluto",
+             #"MeanNorthNode",
+             #"MeanSouthNode",
+             #"TrueNorthNode",
+             #"TrueSouthNode",
              #"Ceres",
              #"Pallas",
              #"Juno",
              #"Vesta",
              #"Chiron",
-             "Gulika",
-             "Mandi",
-             "MeanOfFive",
-             "CycleOfEight",
+             #"Gulika",
+             #"Mandi",
+             #"MeanOfFive",
+             #"CycleOfEight",
              "AvgMaJuSaUrNePl",
              "AvgJuSaUrNe",
-             "AvgJuSa"]
+             "AvgJuSa"
+            ]
 
         return toDisplay
 
@@ -5088,10 +5090,10 @@ class AstrologyChartWidget(QWidget):
              #"InterpolatedLunarPerigee",
              #"Sun",
              #"Moon",
-             "Mercury",
-             "Venus",
-             "Earth",
-             "Mars",
+             #"Mercury",
+             #"Venus",
+             #"Earth",
+             #"Mars",
              "Jupiter",
              "Saturn",
              "Uranus",
@@ -5108,11 +5110,12 @@ class AstrologyChartWidget(QWidget):
              #"Chiron",
              #"Gulika",
              #"Mandi",
-             "MeanOfFive",
-             "CycleOfEight",
+             #"MeanOfFive",
+             #"CycleOfEight",
              "AvgMaJuSaUrNePl",
              "AvgJuSaUrNe",
-             "AvgJuSa"]
+             "AvgJuSa"
+            ]
 
         return toDisplay
 
