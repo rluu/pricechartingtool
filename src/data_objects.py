@@ -83,6 +83,53 @@ class Util:
         return rv
             
     @staticmethod
+    def monthAbbrevToNumber(monthAbbrev):
+        """Converts the given month 3-letter abbreviation to the month
+        number.  The monthNumber is 1-based, so 'Jan' will convert to 1.
+
+        Arguments:
+        monthAbbrev - str holding the abbreviation of the month.
+
+        Returns:
+        int value holding the month number.  The number is 1-based,
+        ie. 1 maps to January.  input is invalid, then None is
+        returned.
+        """
+
+        rv = None
+
+        ma = monthAbbrev.lower()
+
+        if ma == "jan":
+            rv = 1
+        elif ma == "feb":
+            rv = 2
+        elif ma == "mar":
+            rv = 3
+        elif ma == "apr":
+            rv = 4
+        elif ma == "may":
+            rv = 5
+        elif ma == "jun":
+            rv = 6
+        elif ma == "jul":
+            rv = 7
+        elif ma == "aug":
+            rv = 8
+        elif ma == "sep":
+            rv = 9
+        elif ma == "oct":
+            rv = 10
+        elif ma == "nov":
+            rv = 11
+        elif ma == "dec":
+            rv = 12
+        else:
+            rv = None
+
+        return rv
+            
+    @staticmethod
     def fuzzyIsEqual(f1, f2, maxDiff=0.000000001):
         """Fuzzy test for floating point values being equal.
         
