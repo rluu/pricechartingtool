@@ -52,6 +52,9 @@ import os
 import sys 
 import errno
 
+# For copy.deepcopy()
+import copy
+
 # For dates.
 import datetime
 
@@ -179,7 +182,8 @@ def convertDateStrToUrlVariableStr(timestampStr):
 
 def reformatBarchartTimestampField(timestampStr):
     """Converts a date string in the format 
-    "Tue. Dec 13, 2011" to "MM/DD/YYYY HH:MM".
+    "Tue. Dec 13 2011" to "MM/DD/YYYY" or
+    "Tue. Dec 13 2011 14:34:00" to "MM/DD/YYYY HH:MM".
     The converted string is returned.
 
     This function does error checking to make sure the input is in the
@@ -188,7 +192,7 @@ def reformatBarchartTimestampField(timestampStr):
     
     timestampFields = timestampStr.split(" ")
     
-    if len(timestampFields) != 4:
+    if len(timestampFields) != 4 and len(timestampFields) != 5:
         log.error("Timestamp from Barchart is not in the expected format.  " + \
                   "timestampStr == {}".format(timestampStr))
         shutdown(1)
@@ -200,7 +204,7 @@ def reformatBarchartTimestampField(timestampStr):
                   "timestampStr == {}".format(timestampStr))
         shutdown(1)
         
-    dayStr = timestampFields[2].rstrip(",")
+    dayStr = timestampFields[2]
     if not dayStr.isdigit():
         log.error("Timestamp from Barchart is not in the expected format.  " + \
                   "dayStr == {}, ".format(dayStr) + \
@@ -213,29 +217,33 @@ def reformatBarchartTimestampField(timestampStr):
                   "yearStr == {}, ".format(yearStr) + \
                   "timestampStr == {}".format(timestampStr))
         shutdown(1)
-        
-    timeStr = timestampFields[4]
+
+    timeStr = None
+    hourStr = None
+    minuteStr = None
+    if len(timestampFields) > 4:
+        timeStr = timestampFields[4]
     
-    timeFields = timeStr.split(":")
-    if len(timeFields) < 2:
-        log.error("Timestamp from Barchart is not in the expected format.  " + \
-                  "timeStr == {}, ".format(timeStr) + \
-                  "timestampStr == {}".format(timestampStr))
-        shutdown(1)
+        timeFields = timeStr.split(":")
+        if len(timeFields) < 2:
+            log.error("Timestamp from Barchart is not in the expected format.  " + \
+                      "timeStr == {}, ".format(timeStr) + \
+                      "timestampStr == {}".format(timestampStr))
+            shutdown(1)
         
-    hourStr = timeFields[0]
-    if len(hourStr) != 2 or not hourStr.isdigit():
-        log.error("Timestamp from Barchart is not in the expected format.  " + \
-                  "hourStr == {}, ".format(hourStr) + \
-                  "timestampStr == {}".format(timestampStr))
-        shutdown(1)
-        
-    minuteStr = timeFields[1]
-    if len(minuteStr) != 2 or not minuteStr.isdigit():
-        log.error("Timestamp from Barchart is not in the expected format.  " + \
-                  "minuteStr == {}, ".format(minuteStr) + \
-                  "timestampStr == {}".format(timestampStr))
-        shutdown(1)
+        hourStr = timeFields[0]
+        if len(hourStr) != 2 or not hourStr.isdigit():
+            log.error("Timestamp from Barchart is not in the expected format.  " + \
+                      "hourStr == {}, ".format(hourStr) + \
+                      "timestampStr == {}".format(timestampStr))
+            shutdown(1)
+            
+        minuteStr = timeFields[1]
+        if len(minuteStr) != 2 or not minuteStr.isdigit():
+            log.error("Timestamp from Barchart is not in the expected format.  " + \
+                      "minuteStr == {}, ".format(minuteStr) + \
+                      "timestampStr == {}".format(timestampStr))
+            shutdown(1)
         
     # Convert month abbreviation to a two character str holding
     # the month number.
@@ -309,31 +317,36 @@ def reformatBarchartTimestampField(timestampStr):
         shutdown(1)
 
     try:
-        hourInt = int(hourStr)
-        if hourInt < 0 or hourInt > 23:
-            log.error("Hour in the timestamp is not in range [00, 23]." + \
-                      "  hourStr == {}".format(hourStr))
-            shutdown(1)
+        if hourStr != None:
+            hourInt = int(hourStr)
+            if hourInt < 0 or hourInt > 23:
+                log.error("Hour in the timestamp is not in range [00, 23]." + \
+                          "  hourStr == {}".format(hourStr))
+                shutdown(1)
     except ValueError as e:
         log.error("Hour in the timestamp is not a number." + \
                   "  hourStr == {}".format(hourStr))
         shutdown(1)
 
     try:
-        minuteInt = int(minuteStr)
-        if minuteInt < 0 or minuteInt > 59:
-            log.error("Minute in the timestamp is not in range [00, 59]." + \
-                      "  minuteStr == {}".format(minuteStr))
-            shutdown(1)
+        if minuteStr != None:
+            minuteInt = int(minuteStr)
+            if minuteInt < 0 or minuteInt > 59:
+                log.error("Minute in the timestamp is not in range " + \
+                          "[00, 59]." + \
+                          "  minuteStr == {}".format(minuteStr))
+                shutdown(1)
     except ValueError as e:
         log.error("Minute in the timestamp is not a number." + \
                   "  minuteStr == {}".format(minuteStr))
         shutdown(1)
 
-    rv = \
-       "{:02}/{:02}/{:04} {:02}:{:02}".\
-       format(monthInt, dayInt, yearInt, hourInt, minuteInt)
-    
+
+    rv = "{:02}/{:02}/{:04}".format(monthInt, dayInt, yearInt)
+       
+    if hourInt != None and minuteInt != None:
+        rv += " {:02}:{:02}".format(hourInt, minuteInt)
+
     return rv
 
 def getPriceBarDataLines():
@@ -422,9 +435,9 @@ def getPriceBarDataLines():
     
     """
 
-    log.debug("futuresSymbol == {}".fomrat(futuresSymbol))
-    log.debug("interval == {}".fomrat(interval))
-    log.debug("intradayBarSize == {}".fomrat(intradayBarSize))
+    log.debug("futuresSymbol == {}".format(futuresSymbol))
+    log.debug("interval == {}".format(interval))
+    log.debug("intradayBarSize == {}".format(intradayBarSize))
     log.debug("startTimestampStr == {}".format(startTimestampStr))
     log.debug("endTimestampStr   == {}".format(endTimestampStr))
 
@@ -456,7 +469,7 @@ def getPriceBarDataLines():
     url += "&log=0" + \
            "&t=BAR" + \
            "&v=2" + \
-           "&g=1" + \
+           "&g=1"
     
     log.info("Obtaining futures price data by accessing URL: {}".format(url))
     
@@ -475,16 +488,20 @@ def getPriceBarDataLines():
     log.debug(" Data read from {} is: ***{}***".format(url, data))
 
     # The data is within the map tag.
-    match = re.search(r"""<map.*?>(.*?)</map>""", data)
-        
-    if not match:
+    mapOpenTagPos = data.find("<map")
+    mapCloseTagPos = data.find("</map>")
+
+    if mapOpenTagPos == -1 or mapCloseTagPos == -1 or \
+       mapOpenTagPos >= mapCloseTagPos:
+
         log.error("Could not get the pricebar data because " + \
-                  "the <map> tag could not be found in the HTML.  " + \
+                  "a valid <map> open and closing tag could not " + \
+                  "be found in the HTML.  " + \
                   "Please investigate why.")
         shutdown(1)
 
     # Get the text between the map tag.
-    mapText = match.groups()[0]
+    mapText = data[mapOpenTagPos:mapCloseTagPos]
     
     # Class holding info related to a PriceBar as retrieved from
     # Barchart.  We need this because in the HTML/Javascript, the
@@ -513,12 +530,12 @@ def getPriceBarDataLines():
         args = match.split(",")
         
         pb = PriceBar()
-        pb.timestampStr = args[2].strip(" '[]")
-        pb.symbolStr = args[3].strip(" '")
-        pb.openStr = args[4].strip(" '")
-        pb.highStr = args[5].strip(" '")
-        pb.lowStr = args[6].strip(" '")
-        pb.closeStr = args[7].strip(" '")
+        pb.timestampStr = (args[2] + args[3]).strip(" '[]")
+        pb.symbolStr = args[4].strip(" '")
+        pb.openStr = args[5].strip(" '")
+        pb.highStr = args[6].strip(" '")
+        pb.lowStr = args[7].strip(" '")
+        pb.closeStr = args[8].strip(" '")
 
         priceBars.append(pb)
 
@@ -531,10 +548,11 @@ def getPriceBarDataLines():
     # that has the same timestamp.
     for match in matchesStudy:
         args = match.split(",")
+
         
-        timestampStr = args[2].strip(" '[]")
-        studyNameStr = args[3].strip(" '")
-        studyValueStr = args[3].strip(" '")
+        timestampStr = (args[2] + args[3]).strip(" '[]")
+        studyNameStr = args[4].strip(" '")
+        studyValueStr = args[5].strip(" '")
 
         log.debug("timestampStr == {}, studyNameStr == {}, studyValueStr == {}".\
                   format(timestampStr, studyNameStr, studyValueStr))
@@ -718,7 +736,7 @@ def lineToComparableNumber(line):
         timeStr = "00:00"
     elif len(timestampStr) == 16:
         # Format of timestamp is 'MM/DD/YYYY HH:MM'.
-        timestampFields = dateStr.split(" ")
+        timestampFields = timestampStr.split(" ")
         
         dateStr = timestampFields[0]
         timeStr = timestampFields[1]
@@ -900,30 +918,31 @@ parser.add_option("--futures-symbol",
 parser.add_option("--interval",
                   action="store",
                   type="str",
-                  dest="interval"
+                  dest="interval",
                   default=None,
                   help="Interval (amount of time) for each pricebar." + \
-                       newline + \
-"                        Valid values:" + newline + \
-"                          'I'  - Intraday chart" + newline + \
-"                          'DO' - Daily contract" + newline + \
-"                          'DN' - Daily nearest" + newline + \
-"                          'DC' - Daily continuous" + newline + \
-"                          'WO' - Weekly contract" + newline + \
-"                          'WN' - Weekly nearest" + newline + \
-"                          'WC' - Weekly continuous" + newline + \
-"                          'MO' - Monthly contract" + newline + \
-"                          'MN' - Monthly nearest" + newline + \
-"                          'MC' - Monthly continuous",
+                       os.linesep + \
+"                        Valid values:               " + os.linesep + \
+"                          'I'  - Intraday chart     " + os.linesep + \
+"                          'DO' - Daily contract     " + os.linesep + \
+"                          'DN' - Daily nearest      " + os.linesep + \
+"                          'DC' - Daily continuous   " + os.linesep + \
+"                          'WO' - Weekly contract    " + os.linesep + \
+"                          'WN' - Weekly nearest     " + os.linesep + \
+"                          'WC' - Weekly continuous  " + os.linesep + \
+"                          'MO' - Monthly contract   " + os.linesep + \
+"                          'MN' - Monthly nearest    " + os.linesep + \
+"                          'MC' - Monthly continuous ",
                   metavar="<INTERVAL>")
                   
 parser.add_option("--intraday-bar-size",
                   action="store",
                   type="int",
-                  dest="intradayBarSize"
+                  dest="intradayBarSize",
                   default=None,
-                  help="Intraday bar time length, in minutes.  " + \
-                  "Examples: '1', '4', '5', '60', '120', etc.).  " + \
+                  help="Intraday bar time length, in minutes.          " + \
+                  os.linesep + \
+                  "Examples: '1', '4', '5', '60', '120', etc.).          " + \
                   "This field is required if the value specified " + \
                   "to the --interval option is 'I' (Intraday).",
                   metavar="<NUM_MINUTES>")
@@ -998,7 +1017,7 @@ if options.version == True:
     print("By Ryan Luu, ryanluu@gmail.com")
     shutdown(0)
 
-if options.futuresymbol == None:
+if options.futuresSymbol == None:
     log.error("Please specify a futures symbol to the " + \
               "--futures-symbol option.")
     shutdown(1)
