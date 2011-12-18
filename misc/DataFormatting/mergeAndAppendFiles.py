@@ -8,12 +8,12 @@
 #   is used.  What is meant here by 'new data' is that the timestamp
 #   for each pricebar of data is unique (timestamp hasn't been
 #   utilized in all the previously read input files).  Hence, the data
-#   from the files read earlier in the process have precedence over
+#   from the files read earlier in the process take precedence over
 #   the data read later.
 #
 #   This script assumes that the input CSV files have the following format:
 #   "Date","Open","High","Low","Close","Volume","OpenInt"
-#   and the date is in the format "MM/DD/YYYY".
+#   and the timestamp is in the format "MM/DD/YYYY" or "MM/DD/YYYY HH:MM".
 # 
 # Usage:
 #
@@ -101,7 +101,8 @@ parser.add_option("--input-file",
                   default=None,
                   help="Append an input CSV file to the list of " + \
                        "files to read.  Format of the date field " + \
-                       "in the CSV file is expected to be: \"MM/DD/YYYY\".",
+                       "in the CSV file is expected to be: \"MM/DD/YYYY\"" + \
+                       "or \"MM/DD/YYYY HH:MM\".",
                   metavar="<FILE>")
 
 # Parse the arguments into options.
@@ -133,27 +134,33 @@ else:
 
 def lineToComparableNumber(line):
     """Converts a line of text in the CSV file, to an int number by
-    using the timestamp date value.  This function is used to do
+    using the timestamp value.  This function is used to do
     comparisons between lines, by timestamp.
 
     Arguments:
     line - str value holding a line of text of the CSV file.
-           This value must have the date as the first field
-           in format "MM/DD/YYYY".
+           This value must have the timestamp as the first field
+           in format "MM/DD/YYYY" or "MM/DD/YYYY HH:MM".
 
     Returns:
-    int value that represents the date in the form YYYYMMDD.
-    This number can be used in date comparisons.
+    int value that represents the timestamp in the form YYYYMMDD0000
+    or YYYYMMDDHHMM.  This number can be used in date comparisons.
     """
+    
+    # str used in reporting errors.
+    lineInfoStr = "  Line was: {}".format(line)
     
     # Check the number of fields.
     fields = line.split(",")
+
     numFieldsExpected = 7
     if len(fields) != numFieldsExpected:
-        return (False, "Line does not have {} data fields".\
-                format(numFieldsExpected))
+        log.error("Line does not have {} data fields.".\
+                  format(numFieldsExpected) + \
+                  lineInfoStr)
+        shutdown(1)
 
-    dateStr = fields[0] 
+    timestampStr = fields[0] 
     openStr = fields[1]
     highStr = fields[2]
     lowStr = fields[3]
@@ -161,39 +168,71 @@ def lineToComparableNumber(line):
     volumeStr = fields[5]
     openIntStr = fields[6]
 
-    dateStrSplit = dateStr.split("/")
-    if len(dateStrSplit) != 3:
-        log.error("Format of the date was not 'MM/DD/YYYY'.  Line was: {}".\
-              format(line))
+    dateStr = None
+    timeStr = None
+    
+    if len(timestampStr) == 10:
+        # Format of timestamp is 'MM/DD/YYYY'.
+        dateStr = timestampStr
+        timeStr = "00:00"
+    elif len(timestampStr) == 16:
+        # Format of timestamp is 'MM/DD/YYYY HH:MM'.
+        timestampFields = timestampStr.split(" ")
+        
+        if len(timestampStrSplit) != 2:
+            log.error("Format of the timestamp was not " + \
+                      "'MM/DD/YYYY' or 'MM/DD/YYYY HH:MM'." + \
+                      lineInfoStr)
+            shutdown(1)
+            
+        dateStr = timestampFields[0]
+        timeStr = timestampFields[1]
+    else:
+        # Invalid number of characters for the timestamp.
+        log.error("Invalid number of characters for the timestamp." + \
+                  lineInfoStr)
+        shutdown(1)
+    
+    dateFields = dateStr.split("/")
+    if len(dateFields) != 3:
+        log.error("Format of the timestamp was not " + \
+                  "'MM/DD/YYYY' or 'MM/DD/YYYY HH:MM'." + \
+                  lineInfoStr)
         shutdown(1)
 
-    monthStr = dateStrSplit[0]
-    dayStr = dateStrSplit[1]
-    yearStr = dateStrSplit[2]
+    monthStr = dateFields[0]
+    dayStr = dateFields[1]
+    yearStr = dateFields[2]
 
     if len(monthStr) != 2:
-        log.error("Month in the date is not two characters long")
+        log.error("Month in the date is not two characters long." + \
+                  lineInfoStr)
         shutdown(1)
     if len(dayStr) != 2:
-        log.error("Day in the date is not two characters long")
+        log.error("Day in the date is not two characters long." + \
+                  lineInfoStr)
         shutdown(1)
     if len(yearStr) != 4:
-        log.error("Year in the date is not four characters long")
+        log.error("Year in the date is not four characters long." + \
+                  lineInfoStr)
         shutdown(1)
 
     try:
         monthInt = int(monthStr)
         if monthInt < 1 or monthInt > 12:
-            log.error("Month in the date is not between 1 and 12")
+            log.error("Month in the date is not between 1 and 12." + \
+                      lineInfoStr)
             shutdown(1)
     except ValueError as e:
-        log.error("Month in the date is not a number")
+        log.error("Month in the date is not a number." + \
+                  lineInfoStr)
         shutdown(1)
 
     try:
         dayInt = int(dayStr)
         if dayInt < 1 or dayInt > 31:
-            log.error("Day in the date is not between 1 and 31")
+            log.error("Day in the date is not between 1 and 31." + \
+                      lineInfoStr)
             shutdown(1)
     except ValueError as e:
         log.error("Day in the date is not a number")
@@ -205,7 +244,50 @@ def lineToComparableNumber(line):
         log.error("Year in the date is not a number")
         shutdown(1)
 
-    numericalValue = int(yearStr + monthStr + dayStr)
+
+
+    timeFields = timeStr.split(":")
+    if len(timeFields) != 2:
+        log.error("Format of the time was not 'HH:MM'." + \
+                  lineInfoStr)
+        shutdown(1)
+
+    hourStr = timeFields[0]
+    minuteStr = timeFields[1]
+
+    if len(hourStr) != 2:
+        log.error("Hour in the timestamp is not two characters long." + \
+                  lineInfoStr)
+        shutdown(1)
+    if len(minuteStr) != 2:
+        log.error("Minute in the timestamp is not two characters long." + \
+                  lineInfoStr)
+        shutdown(1)
+    
+    try:
+        hourInt = int(hourStr)
+        if hourInt < 0 or hourInt > 23:
+            log.error("Hour in the timestamp is not in range [00, 23]." + \
+                      lineInfoStr)
+            shutdown(1)
+    except ValueError as e:
+        log.error("Hour in the timestamp is not a number." + \
+                  lineInfoStr)
+        shutdown(1)
+
+    try:
+        minuteInt = int(minuteStr)
+        if minuteInt < 0 or minuteInt > 59:
+            log.error("Minute in the timestamp is not in range [00, 59]." + \
+                      lineInfoStr)
+            shutdown(1)
+    except ValueError as e:
+        log.error("Minute in the timestamp is not a number." + \
+                  lineInfoStr)
+        shutdown(1)
+
+
+    numericalValue = int(yearStr + monthStr + dayStr + hourStr + minuteStr)
 
     log.debug("Convert line '{}' to numericalValue: '{}'".\
           format(line, numericalValue))
@@ -220,10 +302,10 @@ def compLines(line1, line2):
     Arguments:
     line1 - str value holding a line of text of the CSV file.
             This value must have the date as the first field
-            in format "MM/DD/YYYY".
+            in format "MM/DD/YYYY" or "MM/DD/YYYY HH:MM".
     line2 - str value holding a line of text of the CSV file.
             This value must have the date as the first field
-            in format "MM/DD/YYYY".
+            in format "MM/DD/YYYY" or "MM/DD/YYYY HH:MM".
 
     Returns:
     int value: -1, 0, or 1 if the first line's timestamp is
@@ -286,7 +368,7 @@ for filename in sourceDataFiles:
                           format(numFieldsExpected))
                     shutdown(1)
                     
-                dateStr = fields[0] 
+                timestampStr = fields[0] 
                 #openStr = fields[1]
                 #highStr = fields[2]
                 #lowStr = fields[3]
@@ -294,18 +376,18 @@ for filename in sourceDataFiles:
                 #volumeStr = fields[5]
                 #openIntStr = fields[6]
 
-                log.debug("dateStr == {}".format(dateStr))
+                log.debug("timestampStr == {}".format(timestampStr))
                 
-                dateExistsAlready = False
+                timestampExistsAlready = False
                 for l in consolidatedDataLines:
-                    if l.startswith(dateStr):
-                        log.debug("dateStr '{}' is old.".\
-                              format(dateStr))
-                        dateExistsAlready = True
+                    if l.startswith(timestampStr):
+                        log.debug("timestampStr '{}' is old.".\
+                              format(timestampStr))
+                        timestampExistsAlready = True
                         break
-                if dateExistsAlready == False:
-                    log.debug("dateStr '{}' is new.  Adding to list.".\
-                          format(dateStr))
+                if timestampExistsAlready == False:
+                    log.debug("timestampStr '{}' is new.  Adding to list.".\
+                          format(timestampStr))
                     consolidatedDataLines.append(line)
             i += 1
 

@@ -353,14 +353,22 @@ class LoadDataFileWidget(QWidget):
             QLabel("Please select a file for loading price data." + \
                    os.linesep + os.linesep + \
                    "The selected file must be in CSV format with each " + \
-                   "line of text having fields in the following order: " + \
+                   "line of text having fields in one of the two formats: " + \
                    os.linesep)
         descriptionLabel.setWordWrap(True)
 
-        fileInfoDataDescStr = \
+        fileInfoDataDesc1Str = \
                       "<MM/DD/YYYY>," + \
                       "<OpenPrice>,<HighPrice>,<LowPrice>,<ClosePrice>," + \
                       "<Volume>,<OpenInterest>" + os.linesep
+        
+        fileInfoDataDesc2Str = \
+                      "<MM/DD/YYYY HH:MM>," + \
+                      "<OpenPrice>,<HighPrice>,<LowPrice>,<ClosePrice>," + \
+                      "<Volume>,<OpenInterest>" + os.linesep
+        
+        fileInfoDataDescStr = fileInfoDataDesc1Str + fileInfoDataDesc2Str
+        
         fileInfoLabel = QLabel(fileInfoDataDescStr)
         font = fileInfoLabel.font()
         font.setPointSize(7)
@@ -770,8 +778,9 @@ class LoadDataFileWidget(QWidget):
         If the line of text is found to be not valid, the tuple returns
         False and a string explaining why the validation failed.
 
-        The expected format of 'line' is:
+        The expected format of 'line' is one of the following:
         <MM/DD/YYYY>,<OpenPrice>,<HighPrice>,<LowPrice>,<ClosePrice>,<Volume>,<OpenInterest>
+        <MM/DD/YYYY HH:MM>,<OpenPrice>,<HighPrice>,<LowPrice>,<ClosePrice>,<Volume>,<OpenInterest>
         """
 
         self.log.debug("validateLine(line='{}')".format(line))
@@ -783,7 +792,7 @@ class LoadDataFileWidget(QWidget):
             return (False, "Line does not have {} data fields".\
                     format(numFieldsExpected))
 
-        dateStr = fields[0] 
+        timestampStr = fields[0]
         openStr = fields[1]
         highStr = fields[2]
         lowStr = fields[3]
@@ -791,9 +800,34 @@ class LoadDataFileWidget(QWidget):
         volumeStr = fields[5]
         openIntStr = fields[6]
 
+        dateStr = None
+        timeStr = None
+        
+        if len(timestampStr) == 10:
+            # Format of timestamp is 'MM/DD/YYYY'.
+            dateStr = timestampStr
+            timeStr = None
+            
+        elif len(timestampStr) == 16:
+            # Format of timestamp is 'MM/DD/YYYY HH:MM'.
+            timestampStrSplit = timestampStr.split(" ")
+            
+            if len(timestampStrSplit) != 2:
+                return (False, "Format of the timestamp was not " + \
+                        "'MM/DD/YYYY' or 'MM/DD/YYYY HH:MM'.")
+
+            dateStr = timestampStrSplit[0]
+            timeStr = timestampStrSplit[1]
+            
+        else:
+            # Invalid number of characters for the timestamp.
+            return (False, "Format of the timestamp was not " + \
+                    "'MM/DD/YYYY' or 'MM/DD/YYYY HH:MM'.")
+
         dateStrSplit = dateStr.split("/")
         if len(dateStrSplit) != 3:
-            return (False, "Format of the date was not MM/DD/YYYY")
+            return (False, "Format of the timestamp was not " + \
+                    "'MM/DD/YYYY' or 'MM/DD/YYYY HH:MM'.")
 
         monthStr = dateStrSplit[0]
         dayStr = dateStrSplit[1]
@@ -824,7 +858,59 @@ class LoadDataFileWidget(QWidget):
             yearInt = int(yearStr)
         except ValueError as e:
             return (False, "Year in the date is not a number")
+
+
+        hourStr = None
+        minuteStr = None
+
+        if timeStr != None:
+            timeFields = timeStr.split(":")
+            
+            if len(timeFields) != 2:
+                log.error("Format of the time was not 'HH:MM'." + \
+                          "  timeStr == {}".format(timeStr))
+                shutdown(1)
+
+            hourStr = timeFields[0]
+            minuteStr = timeFields[1]
+
+            if len(hourStr) != 2:
+                log.error("Hour in the timestamp is not " + \
+                          "two characters long." + \
+                          "  timeStr == {}".format(timeStr))
+                shutdown(1)
                 
+            if len(minuteStr) != 2:
+                log.error("Minute in the timestamp is not " + \
+                          "two characters long." + \
+                          "  timeStr == {}".format(timeStr))
+                shutdown(1)
+    
+            try:
+                hourInt = int(hourStr)
+                if hourInt < 0 or hourInt > 23:
+                    log.error("Hour in the timestamp is not in range " + \
+                              "[00, 23]." + \
+                              "  timeStr == {}".format(timeStr))
+                    shutdown(1)
+            except ValueError as e:
+                log.error("Hour in the timestamp is not a number." + \
+                          "  timeStr == {}".format(timeStr))
+                shutdown(1)
+
+            try:
+                minuteInt = int(minuteStr)
+                if minuteInt < 0 or minuteInt > 59:
+                    log.error("Minute in the timestamp is not in " + \
+                              "range [00, 59]." + \
+                              "  timeStr == {}".format(timeStr))
+                shutdown(1)
+            except ValueError as e:
+                log.error("Minute in the timestamp is not a number." + \
+                          "  timeStr == {}".format(timeStr))
+                shutdown(1)
+
+
         try:
             openFloat = float(openStr)
         except ValueError as e:
@@ -864,9 +950,10 @@ class LoadDataFileWidget(QWidget):
     def convertLineToPriceBar(self, line):
         """Convert a line of text from a CSV file to a PriceBar.
 
-        The expected format of 'line' is:
+        The expected format of 'line' one of the following:
         <MM/DD/YYYY>,<OpenPrice>,<HighPrice>,<LowPrice>,<ClosePrice>,<Volume>,<OpenInterest>
-
+        <MM/DD/YYYY HH:MM>,<OpenPrice>,<HighPrice>,<LowPrice>,<ClosePrice>,<Volume>,<OpenInterest>
+        
         Returns:
         PriceBar object from the line of text.  If the text was incorrectly
         formatted, then None is returned.  
@@ -890,7 +977,7 @@ class LoadDataFileWidget(QWidget):
             try:
                 fields = line.split(",")
 
-                dateStr = fields[0] 
+                timestampStr = fields[0]
                 openPrice = float(fields[1])
                 highPrice = float(fields[2])
                 lowPrice = float(fields[3])
@@ -898,20 +985,45 @@ class LoadDataFileWidget(QWidget):
                 volume = float(fields[5])
                 openInt = float(fields[6])
 
+                dateStr = None
+                timeStr = None
+                
+                if len(timestampStr) == 10:
+                    # Format of timestamp is 'MM/DD/YYYY'.
+                    dateStr = timestampStr
+
+                    # Datetime object is set to be in timezone UTC, and the
+                    # timestamp will have a time of 9:30am.
+                    #
+                    # It may not necessarily be true that the timezone is UTC,
+                    # but this widget does not know what else it should be.
+                    # The caller can always modify the timezone of this
+                    # timestamp at a later point in time.
+                    timeStr = "09:30"
+                    
+                elif len(timestampStr) == 16:
+                    # Format of timestamp is 'MM/DD/YYYY HH:MM'.
+                    timestampStrSplit = timestampStr.split(" ")
+                    
+                    dateStr = timestampStrSplit[0]
+                    timeStr = timestampStrSplit[1]
+                    
+                else:
+                    reasonStr = \
+                        "Invalid number of characters in timestampStr."
+                    self.log.debug("Line conversion failed because: {}" + \
+                                   reasonStr)
+                    retVal = None
+                    return retVal
+
                 dateStrSplit = dateStr.split("/")
                 month = int(dateStrSplit[0])
                 day = int(dateStrSplit[1])
                 year = int(dateStrSplit[2])
 
-                # Datetime object is set to be in timezone UTC, and the
-                # timestamp will have a time of 9:30am.
-                #
-                # It may not necessarily be true that the timezone is UTC,
-                # but this widget does not know what else it should be.
-                # The caller can always modify the timezone of this
-                # timestamp at a later point in time.
-                hour = 9
-                minute = 30
+                timeStrSplit = timeStr.split(":")
+                hour = int(timeStrSplit[0])
+                minute = int(timeStrSplit[1])
                 second = 0
                 timestamp = \
                     datetime.datetime(year,

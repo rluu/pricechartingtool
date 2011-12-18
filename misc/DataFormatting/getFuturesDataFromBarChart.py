@@ -738,6 +738,12 @@ def lineToComparableNumber(line):
         # Format of timestamp is 'MM/DD/YYYY HH:MM'.
         timestampFields = timestampStr.split(" ")
         
+        if len(timestampStrSplit) != 2:
+            log.error("Format of the timestamp was not " + \
+                      "'MM/DD/YYYY' or 'MM/DD/YYYY HH:MM'." + \
+                      lineInfoStr)
+            shutdown(1)
+            
         dateStr = timestampFields[0]
         timeStr = timestampFields[1]
     else:
@@ -854,10 +860,10 @@ def compLines(line1, line2):
     Arguments:
     line1 - str value holding a line of text of the CSV file.
             This value must have the date as the first field
-            in format "MM/DD/YYYY".
+            in format "MM/DD/YYYY" or "MM/DD/YYYY HH:MM".
     line2 - str value holding a line of text of the CSV file.
             This value must have the date as the first field
-            in format "MM/DD/YYYY".
+            in format "MM/DD/YYYY" or "MM/DD/YYYY HH:MM".
 
     Returns:
     int value: -1, 0, or 1 if the first line's timestamp is
