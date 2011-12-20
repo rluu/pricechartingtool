@@ -36945,6 +36945,38 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
 
         self.timezone = timezone
     
+    def sceneXPosToJulianDay(self, sceneXPos):
+        """Returns a float julian day for the given X position in
+        scene coordinates.
+
+        Arguments:
+
+        sceneXPos - float value holding the X position in scene coordinates.
+
+        Returns:
+        float holding the julian day equivalent timestamp.
+        """
+
+        #jd = sceneXPos * 100.0
+        jd = sceneXPos
+        
+        return jd
+    
+    def julianDayToSceneXPos(self, jd):
+        """Returns the X position in scene coordinates that maps to the given julian day.
+
+        Arguments:
+        jd - float value holding the julian day timestamp.
+
+        Returns:
+        float value holding the X position in scene coordinates.
+        """
+
+        #sceneXPos = jd * 0.01
+        sceneXPos = jd
+        
+        return sceneXPos
+    
     def sceneXPosToDatetime(self, sceneXPos):
         """Returns a datetime.datetime object for the given X position in
         scene coordinates.
@@ -36961,7 +36993,11 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         before, then the default timezone is pytz.utc.
         """
 
-        return Ephemeris.julianDayToDatetime(sceneXPos, self.timezone)
+        jd = self.sceneXPosToJulianDay(sceneXPos)
+        
+        dt = Ephemeris.julianDayToDatetime(jd, self.timezone)
+
+        return dt
     
     def sceneYPosToPrice(self, sceneYPos):
         """Returns a price value for the given Y position in scene
@@ -36996,7 +37032,11 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         float value for the X position that would match up with this timestamp.
         """
 
-        return Ephemeris.datetimeToJulianDay(dt)
+        jd = Ephemeris.datetimeToJulianDay(dt)
+
+        sceneXPos = self.julianDayToSceneXPos(jd)
+        
+        return sceneXPos
 
     def priceToSceneYPos(self, price):
         """Returns the conversion from price to what we have chosen the Y
@@ -37226,7 +37266,7 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         # Determine the scaled X value.
         birthDatetime = self.getBirthDatetime()
         birthJd = Ephemeris.datetimeToJulianDay(birthDatetime)
-        currJd = sceneX
+        currJd = self.sceneXPosToJulianDay(sceneX)
         jdDiff = currJd - birthJd
         scaledX = jdDiff / self.scaling.getUnitsOfTime()
 
@@ -37269,7 +37309,7 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         birthJd = Ephemeris.datetimeToJulianDay(birthDatetime)
         jdDiff = scaledX * self.scaling.getUnitsOfTime()
         jd = birthJd + jdDiff
-        sceneX = jd
+        sceneX = self.julianDayToSceneXPos(jd)
 
         # Determine the scene Y value.
         sceneY = self.convertScaledValueToPrice(scaledY)
@@ -38139,6 +38179,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
         # the FullViewportUpdate mode, we dont' have many things dynamically
         # updating and changing, so it isn't too big of an issue.
         self.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
+        #self.setViewportUpdateMode(QGraphicsView.MinimalViewportUpdate)
 
     def setPriceBarChartSettings(self, priceBarChartSettings):
         """Stores the reference to PriceBarChartSettings to be used in
@@ -39540,7 +39581,11 @@ class PriceBarChartGraphicsView(QGraphicsView):
             settings.value(self.zoomScaleFactorSettingsKey, \
                            SettingsKeys.zoomScaleFactorSettingsDefValue,
                            type=float)
-        
+                       
+        self.log.debug("Before, Scaling: dx == {}, dy == {}".\
+                       format(self.transform().m11(),
+                              self.transform().m22()))
+                              
         # Actually do the scaling of the view.
         if qwheelevent.delta() > 0:
             # Zoom in.
@@ -39549,6 +39594,10 @@ class PriceBarChartGraphicsView(QGraphicsView):
             # Zoom out.
             self.scale(1.0 / scaleFactor, 1.0 / scaleFactor)
 
+        self.log.debug("After,  Scaling: dx == {}, dy == {}".\
+                       format(self.transform().m11(),
+                              self.transform().m22()))
+        
         # Put the old transformation anchor back.
         self.setTransformationAnchor(oldViewportAnchor)
         
