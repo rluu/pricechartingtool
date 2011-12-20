@@ -1687,7 +1687,8 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
                 diff)
 
         if self.log.isEnabledFor(logging.DEBUG) == True:
-            self.log.debug("self.numAspectMatches == {}".format(self.numAspectMatches))
+            self.log.debug("self.numAspectMatches == {}".\
+                           format(self.numAspectMatches))
         
         if self.numAspectMatches == 0:
             # No matches.  Set all values to None.
@@ -1869,7 +1870,7 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
         # Get the radius.
         radius = 0.0
         parent = self.parentItem()
-        if parent != None and isinstance(parent, RadixChartGraphicsItem) == True:
+        if parent != None and isinstance(parent, RadixChartGraphicsItem):
             radius = parent.getInnerRasiRadius()
             # TODO:  Remove the line below if the above works.
             #radius = parent.getRadiusForWheelNumber(1)
@@ -1901,10 +1902,12 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
         # Get the radius.
         radius = 0.0
         parent = self.parentItem()
-        if parent != None and isinstance(parent, RadixChartGraphicsItem) == True:
+        if parent != None and isinstance(parent, RadixChartGraphicsItem):
+            
             radius = parent.getInnerRasiRadius()
             if self.log.isEnabledFor(logging.DEBUG) == True:
-                self.log.debug("radius obtained from parent is: {}".format(radius))
+                self.log.debug("radius obtained from parent is: {}".\
+                               format(radius))
         else:
             self.log.error("Unsupported parent QGraphicsItem type.")
 
@@ -2288,7 +2291,7 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
             y1 =  1.0 * math.sin(angleRadians * i) * self.innerRasiRadius
             x2 = -1.0 * math.cos(angleRadians * i) * self.outerRasiRadius
             y2 =  1.0 * math.sin(angleRadians * i) * self.outerRasiRadius
-            painter.drawLine(x1, y1, x2, y2)
+            painter.drawLine(QLineF(x1, y1, x2, y2))
 
         # Draw the Rasi labels.
         for i in range(0, 12):
@@ -2340,7 +2343,7 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
             y1 =  1.0 * math.sin(angleRadians * i) * self.innerNakshatraRadius
             x2 = -1.0 * math.cos(angleRadians * i) * self.outerNakshatraRadius
             y2 =  1.0 * math.sin(angleRadians * i) * self.outerNakshatraRadius
-            painter.drawLine(x1, y1, x2, y2)
+            painter.drawLine(QLineF(x1, y1, x2, y2))
 
         # Draw the Nakshatra labels.
         nakshatraAbbrev = ["ASWI",
@@ -2429,7 +2432,7 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
             y1 =  1.0 * math.sin(angleRadians * i) * self.innerNavamsaRadius
             x2 = -1.0 * math.cos(angleRadians * i) * self.outerNavamsaRadius
             y2 =  1.0 * math.sin(angleRadians * i) * self.outerNavamsaRadius
-            painter.drawLine(x1, y1, x2, y2)
+            painter.drawLine(QLineF(x1, y1, x2, y2))
 
         # Draw the Navamsa labels.
         for i in range(0, 108):
@@ -2851,7 +2854,7 @@ class RadixPlanetGraphicsItem(QGraphicsItem):
         y2 =  1.0 * math.sin(math.radians(self.degree)) * \
              self.drawPointTerminalRadius
 
-        painter.drawLine(x1, y1, x2, y2)
+        painter.drawLine(QLineF(x1, y1, x2, y2))
 
         # Draw the text for the planet.
         font = QFont()
@@ -3093,7 +3096,7 @@ class DeclinationChartGraphicsItem(QGraphicsItem):
             y1 = -1.0 * tick
             x2 = 0
             y2 = -1.0 * tick
-            painter.drawLine(x1, y1, x2, y2)
+            painter.drawLine(QLineF(x1, y1, x2, y2))
 
         # Draw big ticks
         start = int(-1.0 * self.rulerHeight / 2.0)
@@ -3106,7 +3109,7 @@ class DeclinationChartGraphicsItem(QGraphicsItem):
             y1 = -1.0 * tick
             x2 = -1.0 * smallTickWidth
             y2 = -1.0 * tick
-            painter.drawLine(x1, y1, x2, y2)
+            painter.drawLine(QLineF(x1, y1, x2, y2))
 
             # Draw the text for the ticks.
             font = QFont()
@@ -3433,7 +3436,7 @@ class PlanetDeclinationGraphicsItem(QGraphicsItem):
         y1 = self.parentChartGraphicsItem.convertDegreeToYValue(self.degree)
         x2 = self.lineEndX
         y2 = self.parentChartGraphicsItem.convertDegreeToYValue(self.degree)
-        painter.drawLine(x1, y1, x2, y2)
+        painter.drawLine(QLineF(x1, y1, x2, y2))
 
         # Draw the text for the planet.
         font = QFont()
@@ -3755,7 +3758,7 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
         y1 = self.convertSpeedToYValue(0)
         x2 = self.rulerWidth
         y2 = y1
-        painter.drawLine(x1, y1, x2, y2)
+        painter.drawLine(QLineF(x1, y1, x2, y2))
         
         # Draw the text for the min, max, and 0 locations on the ruler.
         font = QFont()
@@ -4032,7 +4035,7 @@ class PlanetLongitudeSpeedGraphicsItem(QGraphicsItem):
         y1 = self.parentChartGraphicsItem.convertSpeedToYValue(self.speed)
         x2 = self.lineEndX
         y2 = y1
-        painter.drawLine(x1, y1, x2, y2)
+        painter.drawLine(QLineF(x1, y1, x2, y2))
 
         # Draw the text for the planet.
         font = QFont()

@@ -4,21 +4,21 @@ Outstanding things to work on going forward:
 
 TODO:  
 
-  - Remove Sun from heliocentric astrology chart.
-  - Remove Moon and nodes from heliocentric astrology chart.
-  - Remove Earth from geocentric astrology chart.
+  - Fix bug in zoom functionality.  For some reason, when you zoom in
+    to a certain resolution, it will 'jump' the center location of the
+    screen and cut off QGraphicsItems from being in the scrollable
+    area of the view.  It is unknown why it happens this way.
 
-  - Add MOF, COE, etc. to astrology chart.
+  - Add astrology houses to the astrology chart.  Add to the
+    PlanetaryInfoTable as well.
 
-  - Change display of degrees to use the astrology signs.
+  - Add navamsa and nakshatra pada to the PlanetaryInfoTable.
 
-  - Add lines for astrology aspects on the astrology chart.  Add to
-    app preferences settings for customizing the colors of different
-    aspects, and for orbs for each aspect.
+  - Change display of longitude degrees in the astrology chart to use
+    the longitude degree [0, 30) and the astro sign format.
 
-  - Change the context menu on all artifact graphics items so that
-    'Remove' action can be done via 'r' key when the context menu is
-    present.
+  - Think about ways to improve the performance of calculating/drawing
+    the astrology chart aspects.
 
   - Add to measurement-type artifact graphics items a function that
     will return the distance in scaled units.  When this is done, then
@@ -37,8 +37,9 @@ TODO:
 
   - Improve getStockDataFromGoogle.py so that the user doesn't have to
     manually split up the queries into 15-year chunks, as is the case
-    now.
-
+    now.  Note: getStockDataFromYahoo.py works as we would like, so
+    fixing getStockDataFromGoogle.py is not needed for now.
+    
   - Consider adding the following time measurements to the time
     measurement tool:
 
@@ -193,8 +194,32 @@ TODO's that are done:
 DONE  - Set sensible defaults for TimeMeasurementTool (which text to have
 DONE    displayed by default).
 
+DONE  - Verify that for PriceBarGraphicsItems (PriceBars), that the
+DONE    timestamps are correct for each pricebar.  This means it is placed
+DONE    correctly in the QGraphicsScene, displayed correctly with the
+DONE    mouse cursor location, and also displays correctly, matching the
+DONE    timestamp in the astrology chart.
+
 
 DONE- Measurement in units of the ruling periods for all the
 DONE  planets according to the vedic system.  (e.g. ayana,
 DONE  muhurta, etc.)
+
+
+DONE  - Change the context menu on all artifact graphics items so that
+DONE    'Remove' action can be done via 'r' key when the context menu is
+DONE    present.
+
+
+DONE  - Add lines for astrology aspects on the astrology chart.  Add to
+DONE    app preferences settings for customizing the colors of different
+DONE    aspects, and for orbs for each aspect.
+
+
+DONE  - Remove Sun from heliocentric astrology chart.
+DONE  - Remove Moon and nodes from heliocentric astrology chart.
+DONE  - Remove Earth from geocentric astrology chart.
+
+DONE  - Add MOF, COE, etc. to astrology chart.
+
 

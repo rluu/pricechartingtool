@@ -433,21 +433,21 @@ class PriceBarGraphicsItem(QGraphicsItem):
         y1 = 1.0 * halfPriceRange
         x2 = 0.0
         y2 = -1.0 * halfPriceRange
-        painter.drawLine(x1, y1, x2, y2)
+        painter.drawLine(QLineF(x1, y1, x2, y2))
 
         # Draw the left extension (open price).
         x1 = 0.0
         y1 = -1.0 * (openPrice - priceMidpoint)
         x2 = -1.0 * self.leftExtensionWidth
         y2 = y1
-        painter.drawLine(x1, y1, x2, y2)
+        painter.drawLine(QLineF(x1, y1, x2, y2))
 
         # Draw the right extension (close price).
         x1 = 0.0
         y1 = -1.0 * (closePrice - priceMidpoint)
         x2 = 1.0 * self.rightExtensionWidth
         y2 = y1
-        painter.drawLine(x1, y1, x2, y2)
+        painter.drawLine(QLineF(x1, y1, x2, y2))
 
         # Draw the bounding rect if the item is selected.
         if option.state & QStyle.State_Selected:

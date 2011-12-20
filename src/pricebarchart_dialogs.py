@@ -629,11 +629,13 @@ class PriceBarChartTimeMeasurementArtifactEditWidget(QWidget):
 
         self.xScalingLabel = QLabel("Text X Scaling:")
         self.xScalingDoubleSpinBox = QDoubleSpinBox()
+        self.xScalingDoubleSpinBox.setDecimals(4)
         self.xScalingDoubleSpinBox.setMinimum(0.0)
         self.xScalingDoubleSpinBox.setMaximum(999999999.0)
         
         self.yScalingLabel = QLabel("Text Y Scaling:")
         self.yScalingDoubleSpinBox = QDoubleSpinBox()
+        self.yScalingDoubleSpinBox.setDecimals(4)
         self.yScalingDoubleSpinBox.setMinimum(0.0)
         self.yScalingDoubleSpinBox.setMaximum(999999999.0)
         
@@ -2156,12 +2158,14 @@ class PriceBarChartTimeModalScaleArtifactEditWidget(QWidget):
         self.barHeightValueLabel = \
             QLabel("TimeModalScale bar height:")
         self.barHeightValueSpinBox = QDoubleSpinBox()
+        self.barHeightValueSpinBox.setDecimals(4)
         self.barHeightValueSpinBox.setMinimum(0.0)
         self.barHeightValueSpinBox.setMaximum(999999999.0)
 
         self.textFontSizeValueLabel = \
             QLabel("Text font size:")
         self.textFontSizeValueSpinBox = QDoubleSpinBox()
+        self.textFontSizeValueSpinBox.setDecimals(4)
         self.textFontSizeValueSpinBox.setMinimum(0.0)
         self.textFontSizeValueSpinBox.setMaximum(999999999.0)
 
@@ -3021,12 +3025,14 @@ class PriceBarChartPriceModalScaleArtifactEditWidget(QWidget):
         
         self.barWidthValueLabel = QLabel("PriceModalScale bar width:")
         self.barWidthValueSpinBox = QDoubleSpinBox()
+        self.barWidthValueSpinBox.setDecimals(4)
         self.barWidthValueSpinBox.setMinimum(0.0)
         self.barWidthValueSpinBox.setMaximum(999999999.0)
 
         self.textFontSizeValueLabel = \
             QLabel("Text font size:")
         self.textFontSizeValueSpinBox = QDoubleSpinBox()
+        self.textFontSizeValueSpinBox.setDecimals(4)        
         self.textFontSizeValueSpinBox.setMinimum(0.0)
         self.textFontSizeValueSpinBox.setMaximum(999999999.0)
 
@@ -3831,17 +3837,19 @@ class PriceBarChartTextArtifactEditWidget(QWidget):
 
         self.xScalingLabel = QLabel("X Scaling:")
         self.xScalingDoubleSpinBox = QDoubleSpinBox()
+        self.xScalingDoubleSpinBox.setDecimals(4)
         self.xScalingDoubleSpinBox.setMinimum(0.0)
         self.xScalingDoubleSpinBox.setMaximum(999999999.0)
         
         self.yScalingLabel = QLabel("Y Scaling:")
         self.yScalingDoubleSpinBox = QDoubleSpinBox()
+        self.yScalingDoubleSpinBox.setDecimals(4)
         self.yScalingDoubleSpinBox.setMinimum(0.0)
         self.yScalingDoubleSpinBox.setMaximum(999999999.0)
         
         self.textRotationAngleLabel = QLabel("Text rotation angle (degrees):")
         self.textRotationAngleSpinBox = QDoubleSpinBox()
-        self.textRotationAngleSpinBox.setDecimals(2)
+        self.textRotationAngleSpinBox.setDecimals(4)
         self.textRotationAngleSpinBox.setMinimum(-360.0)
         self.textRotationAngleSpinBox.setMaximum(360.0)
 
@@ -4396,11 +4404,13 @@ class PriceBarChartPriceTimeInfoArtifactEditWidget(QWidget):
 
         self.xScalingLabel = QLabel("X Scaling:")
         self.xScalingDoubleSpinBox = QDoubleSpinBox()
+        self.xScalingDoubleSpinBox.setDecimals(4)
         self.xScalingDoubleSpinBox.setMinimum(0.0)
         self.xScalingDoubleSpinBox.setMaximum(999999999.0)
         
         self.yScalingLabel = QLabel("Y Scaling:")
         self.yScalingDoubleSpinBox = QDoubleSpinBox()
+        self.yScalingDoubleSpinBox.setDecimals(4)
         self.yScalingDoubleSpinBox.setMinimum(0.0)
         self.yScalingDoubleSpinBox.setMaximum(999999999.0)
         
@@ -5099,11 +5109,13 @@ class PriceBarChartPriceMeasurementArtifactEditWidget(QWidget):
 
         self.xScalingLabel = QLabel("Text X Scaling:")
         self.xScalingDoubleSpinBox = QDoubleSpinBox()
+        self.xScalingDoubleSpinBox.setDecimals(4)
         self.xScalingDoubleSpinBox.setMinimum(0.0)
         self.xScalingDoubleSpinBox.setMaximum(999999999.0)
         
         self.yScalingLabel = QLabel("Text Y Scaling:")
         self.yScalingDoubleSpinBox = QDoubleSpinBox()
+        self.yScalingDoubleSpinBox.setDecimals(4)
         self.yScalingDoubleSpinBox.setMinimum(0.0)
         self.yScalingDoubleSpinBox.setMaximum(999999999.0)
         
@@ -5719,11 +5731,13 @@ class PriceBarChartTimeRetracementArtifactEditWidget(QWidget):
 
         self.xScalingLabel = QLabel("Text X Scaling:")
         self.xScalingDoubleSpinBox = QDoubleSpinBox()
+        self.xScalingDoubleSpinBox.setDecimals(4)
         self.xScalingDoubleSpinBox.setMinimum(0.0)
         self.xScalingDoubleSpinBox.setMaximum(999999999.0)
         
         self.yScalingLabel = QLabel("Text Y Scaling:")
         self.yScalingDoubleSpinBox = QDoubleSpinBox()
+        self.yScalingDoubleSpinBox.setDecimals(4)
         self.yScalingDoubleSpinBox.setMinimum(0.0)
         self.yScalingDoubleSpinBox.setMaximum(999999999.0)
         
@@ -6369,11 +6383,13 @@ class PriceBarChartPriceRetracementArtifactEditWidget(QWidget):
 
         self.xScalingLabel = QLabel("Text X Scaling:")
         self.xScalingDoubleSpinBox = QDoubleSpinBox()
+        self.xScalingDoubleSpinBox.setDecimals(4)
         self.xScalingDoubleSpinBox.setMinimum(0.0)
         self.xScalingDoubleSpinBox.setMaximum(999999999.0)
         
         self.yScalingLabel = QLabel("Text Y Scaling:")
         self.yScalingDoubleSpinBox = QDoubleSpinBox()
+        self.yScalingDoubleSpinBox.setDecimals(4)
         self.yScalingDoubleSpinBox.setMinimum(0.0)
         self.yScalingDoubleSpinBox.setMaximum(999999999.0)
         
@@ -7019,11 +7035,13 @@ class PriceBarChartPriceTimeVectorArtifactEditWidget(QWidget):
 
         self.xScalingLabel = QLabel("Text X Scaling:")
         self.xScalingDoubleSpinBox = QDoubleSpinBox()
+        self.xScalingDoubleSpinBox.setDecimals(4)
         self.xScalingDoubleSpinBox.setMinimum(0.0)
         self.xScalingDoubleSpinBox.setMaximum(999999999.0)
         
         self.yScalingLabel = QLabel("Text Y Scaling:")
         self.yScalingDoubleSpinBox = QDoubleSpinBox()
+        self.yScalingDoubleSpinBox.setDecimals(4)
         self.yScalingDoubleSpinBox.setMinimum(0.0)
         self.yScalingDoubleSpinBox.setMaximum(999999999.0)
         
@@ -7691,11 +7709,13 @@ class PriceBarChartLineSegmentArtifactEditWidget(QWidget):
 
         self.xScalingLabel = QLabel("Text X Scaling:")
         self.xScalingDoubleSpinBox = QDoubleSpinBox()
+        self.xScalingDoubleSpinBox.setDecimals(4)
         self.xScalingDoubleSpinBox.setMinimum(0.0)
         self.xScalingDoubleSpinBox.setMaximum(999999999.0)
         
         self.yScalingLabel = QLabel("Text Y Scaling:")
         self.yScalingDoubleSpinBox = QDoubleSpinBox()
+        self.yScalingDoubleSpinBox.setDecimals(4)
         self.yScalingDoubleSpinBox.setMinimum(0.0)
         self.yScalingDoubleSpinBox.setMaximum(999999999.0)
         
@@ -7750,7 +7770,7 @@ class PriceBarChartLineSegmentArtifactEditWidget(QWidget):
         
         self.extendStartPointLabel = QLabel("Extend start point by: ")
         self.extendStartPointSpinBox = QDoubleSpinBox()
-        self.extendStartPointSpinBox.setDecimals(2)
+        self.extendStartPointSpinBox.setDecimals(4)
         self.extendStartPointSpinBox.setMinimum(0.0)
         self.extendStartPointSpinBox.setMaximum(999999999.0)
         self.extendStartPointSpinBox.setValue(initialExtendMultiple)
@@ -7762,7 +7782,7 @@ class PriceBarChartLineSegmentArtifactEditWidget(QWidget):
         
         self.extendEndPointLabel = QLabel("Extend end point by: ")
         self.extendEndPointSpinBox = QDoubleSpinBox()
-        self.extendEndPointSpinBox.setDecimals(2)
+        self.extendEndPointSpinBox.setDecimals(4)
         self.extendEndPointSpinBox.setMinimum(0.0)
         self.extendEndPointSpinBox.setMaximum(999999999.0)
         self.extendEndPointSpinBox.setValue(initialExtendMultiple)
@@ -8512,6 +8532,7 @@ class PriceBarChartOctaveFanArtifactEditWidget(QWidget):
         self.textFontSizeValueLabel = \
             QLabel("Text font size:")
         self.textFontSizeValueSpinBox = QDoubleSpinBox()
+        self.textFontSizeValueSpinBox.setDecimals(4)
         self.textFontSizeValueSpinBox.setMinimum(0.0)
         self.textFontSizeValueSpinBox.setMaximum(999999999.0)
 
@@ -9418,11 +9439,13 @@ class PriceBarChartFibFanArtifactEditWidget(QWidget):
 
         self.xScalingLabel = QLabel("Text X Scaling:")
         self.xScalingDoubleSpinBox = QDoubleSpinBox()
+        self.xScalingDoubleSpinBox.setDecimals(4)
         self.xScalingDoubleSpinBox.setMinimum(0.0)
         self.xScalingDoubleSpinBox.setMaximum(999999999.0)
         
         self.yScalingLabel = QLabel("Text Y Scaling:")
         self.yScalingDoubleSpinBox = QDoubleSpinBox()
+        self.yScalingDoubleSpinBox.setDecimals(4)
         self.yScalingDoubleSpinBox.setMinimum(0.0)
         self.yScalingDoubleSpinBox.setMaximum(999999999.0)
         
@@ -10130,11 +10153,13 @@ class PriceBarChartGannFanArtifactEditWidget(QWidget):
 
         self.xScalingLabel = QLabel("Text X Scaling:")
         self.xScalingDoubleSpinBox = QDoubleSpinBox()
+        self.xScalingDoubleSpinBox.setDecimals(4)
         self.xScalingDoubleSpinBox.setMinimum(0.0)
         self.xScalingDoubleSpinBox.setMaximum(999999999.0)
         
         self.yScalingLabel = QLabel("Text Y Scaling:")
         self.yScalingDoubleSpinBox = QDoubleSpinBox()
+        self.yScalingDoubleSpinBox.setDecimals(4)
         self.yScalingDoubleSpinBox.setMinimum(0.0)
         self.yScalingDoubleSpinBox.setMaximum(999999999.0)
         
@@ -10878,12 +10903,14 @@ class PriceBarChartVimsottariDasaArtifactEditWidget(QWidget):
         self.barHeightValueLabel = \
             QLabel("VimsottariDasa bar height:")
         self.barHeightValueSpinBox = QDoubleSpinBox()
+        self.barHeightValueSpinBox.setDecimals(4)
         self.barHeightValueSpinBox.setMinimum(0.0)
         self.barHeightValueSpinBox.setMaximum(999999999.0)
 
         self.textFontSizeValueLabel = \
             QLabel("Text font size:")
         self.textFontSizeValueSpinBox = QDoubleSpinBox()
+        self.textFontSizeValueSpinBox.setDecimals(4)
         self.textFontSizeValueSpinBox.setMinimum(0.0)
         self.textFontSizeValueSpinBox.setMaximum(999999999.0)
 
@@ -11751,12 +11778,14 @@ class PriceBarChartAshtottariDasaArtifactEditWidget(QWidget):
         self.barHeightValueLabel = \
             QLabel("AshtottariDasa bar height:")
         self.barHeightValueSpinBox = QDoubleSpinBox()
+        self.barHeightValueSpinBox.setDecimals(4)
         self.barHeightValueSpinBox.setMinimum(0.0)
         self.barHeightValueSpinBox.setMaximum(999999999.0)
 
         self.textFontSizeValueLabel = \
             QLabel("Text font size:")
         self.textFontSizeValueSpinBox = QDoubleSpinBox()
+        self.textFontSizeValueSpinBox.setDecimals(4)
         self.textFontSizeValueSpinBox.setMinimum(0.0)
         self.textFontSizeValueSpinBox.setMaximum(999999999.0)
 
@@ -12616,12 +12645,14 @@ class PriceBarChartYoginiDasaArtifactEditWidget(QWidget):
         self.barHeightValueLabel = \
             QLabel("YoginiDasa bar height:")
         self.barHeightValueSpinBox = QDoubleSpinBox()
+        self.barHeightValueSpinBox.setDecimals(4)
         self.barHeightValueSpinBox.setMinimum(0.0)
         self.barHeightValueSpinBox.setMaximum(999999999.0)
 
         self.textFontSizeValueLabel = \
             QLabel("Text font size:")
         self.textFontSizeValueSpinBox = QDoubleSpinBox()
+        self.textFontSizeValueSpinBox.setDecimals(4)
         self.textFontSizeValueSpinBox.setMinimum(0.0)
         self.textFontSizeValueSpinBox.setMaximum(999999999.0)
 
@@ -13481,12 +13512,14 @@ class PriceBarChartDwisaptatiSamaDasaArtifactEditWidget(QWidget):
         self.barHeightValueLabel = \
             QLabel("DwisaptatiSamaDasa bar height:")
         self.barHeightValueSpinBox = QDoubleSpinBox()
+        self.barHeightValueSpinBox.setDecimals(4)
         self.barHeightValueSpinBox.setMinimum(0.0)
         self.barHeightValueSpinBox.setMaximum(999999999.0)
 
         self.textFontSizeValueLabel = \
             QLabel("Text font size:")
         self.textFontSizeValueSpinBox = QDoubleSpinBox()
+        self.textFontSizeValueSpinBox.setDecimals(4)
         self.textFontSizeValueSpinBox.setMinimum(0.0)
         self.textFontSizeValueSpinBox.setMaximum(999999999.0)
 
@@ -14346,12 +14379,14 @@ class PriceBarChartShattrimsaSamaDasaArtifactEditWidget(QWidget):
         self.barHeightValueLabel = \
             QLabel("ShattrimsaSamaDasa bar height:")
         self.barHeightValueSpinBox = QDoubleSpinBox()
+        self.barHeightValueSpinBox.setDecimals(4)
         self.barHeightValueSpinBox.setMinimum(0.0)
         self.barHeightValueSpinBox.setMaximum(999999999.0)
 
         self.textFontSizeValueLabel = \
             QLabel("Text font size:")
         self.textFontSizeValueSpinBox = QDoubleSpinBox()
+        self.textFontSizeValueSpinBox.setDecimals(4)
         self.textFontSizeValueSpinBox.setMinimum(0.0)
         self.textFontSizeValueSpinBox.setMaximum(999999999.0)
 
@@ -15211,12 +15246,14 @@ class PriceBarChartDwadasottariDasaArtifactEditWidget(QWidget):
         self.barHeightValueLabel = \
             QLabel("DwadasottariDasa bar height:")
         self.barHeightValueSpinBox = QDoubleSpinBox()
+        self.barHeightValueSpinBox.setDecimals(4)
         self.barHeightValueSpinBox.setMinimum(0.0)
         self.barHeightValueSpinBox.setMaximum(999999999.0)
 
         self.textFontSizeValueLabel = \
             QLabel("Text font size:")
         self.textFontSizeValueSpinBox = QDoubleSpinBox()
+        self.textFontSizeValueSpinBox.setDecimals(4)
         self.textFontSizeValueSpinBox.setMinimum(0.0)
         self.textFontSizeValueSpinBox.setMaximum(999999999.0)
 
@@ -16076,12 +16113,14 @@ class PriceBarChartChaturaseetiSamaDasaArtifactEditWidget(QWidget):
         self.barHeightValueLabel = \
             QLabel("ChaturaseetiSamaDasa bar height:")
         self.barHeightValueSpinBox = QDoubleSpinBox()
+        self.barHeightValueSpinBox.setDecimals(4)
         self.barHeightValueSpinBox.setMinimum(0.0)
         self.barHeightValueSpinBox.setMaximum(999999999.0)
 
         self.textFontSizeValueLabel = \
             QLabel("Text font size:")
         self.textFontSizeValueSpinBox = QDoubleSpinBox()
+        self.textFontSizeValueSpinBox.setDecimals(4)
         self.textFontSizeValueSpinBox.setMinimum(0.0)
         self.textFontSizeValueSpinBox.setMaximum(999999999.0)
 
@@ -16941,12 +16980,14 @@ class PriceBarChartSataabdikaDasaArtifactEditWidget(QWidget):
         self.barHeightValueLabel = \
             QLabel("SataabdikaDasa bar height:")
         self.barHeightValueSpinBox = QDoubleSpinBox()
+        self.barHeightValueSpinBox.setDecimals(4)
         self.barHeightValueSpinBox.setMinimum(0.0)
         self.barHeightValueSpinBox.setMaximum(999999999.0)
 
         self.textFontSizeValueLabel = \
             QLabel("Text font size:")
         self.textFontSizeValueSpinBox = QDoubleSpinBox()
+        self.textFontSizeValueSpinBox.setDecimals(4)
         self.textFontSizeValueSpinBox.setMinimum(0.0)
         self.textFontSizeValueSpinBox.setMaximum(999999999.0)
 
@@ -17806,12 +17847,14 @@ class PriceBarChartShodasottariDasaArtifactEditWidget(QWidget):
         self.barHeightValueLabel = \
             QLabel("ShodasottariDasa bar height:")
         self.barHeightValueSpinBox = QDoubleSpinBox()
+        self.barHeightValueSpinBox.setDecimals(4)
         self.barHeightValueSpinBox.setMinimum(0.0)
         self.barHeightValueSpinBox.setMaximum(999999999.0)
 
         self.textFontSizeValueLabel = \
             QLabel("Text font size:")
         self.textFontSizeValueSpinBox = QDoubleSpinBox()
+        self.textFontSizeValueSpinBox.setDecimals(4)
         self.textFontSizeValueSpinBox.setMinimum(0.0)
         self.textFontSizeValueSpinBox.setMaximum(999999999.0)
 
@@ -18671,12 +18714,14 @@ class PriceBarChartPanchottariDasaArtifactEditWidget(QWidget):
         self.barHeightValueLabel = \
             QLabel("PanchottariDasa bar height:")
         self.barHeightValueSpinBox = QDoubleSpinBox()
+        self.barHeightValueSpinBox.setDecimals(4)
         self.barHeightValueSpinBox.setMinimum(0.0)
         self.barHeightValueSpinBox.setMaximum(999999999.0)
 
         self.textFontSizeValueLabel = \
             QLabel("Text font size:")
         self.textFontSizeValueSpinBox = QDoubleSpinBox()
+        self.textFontSizeValueSpinBox.setDecimals(4)
         self.textFontSizeValueSpinBox.setMinimum(0.0)
         self.textFontSizeValueSpinBox.setMaximum(999999999.0)
 
@@ -19536,12 +19581,14 @@ class PriceBarChartShashtihayaniDasaArtifactEditWidget(QWidget):
         self.barHeightValueLabel = \
             QLabel("ShashtihayaniDasa bar height:")
         self.barHeightValueSpinBox = QDoubleSpinBox()
+        self.barHeightValueSpinBox.setDecimals(4)
         self.barHeightValueSpinBox.setMinimum(0.0)
         self.barHeightValueSpinBox.setMaximum(999999999.0)
 
         self.textFontSizeValueLabel = \
             QLabel("Text font size:")
         self.textFontSizeValueSpinBox = QDoubleSpinBox()
+        self.textFontSizeValueSpinBox.setDecimals(4)
         self.textFontSizeValueSpinBox.setMinimum(0.0)
         self.textFontSizeValueSpinBox.setMaximum(999999999.0)
 
