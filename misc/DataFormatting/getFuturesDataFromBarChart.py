@@ -738,7 +738,7 @@ def lineToComparableNumber(line):
         # Format of timestamp is 'MM/DD/YYYY HH:MM'.
         timestampFields = timestampStr.split(" ")
         
-        if len(timestampStrSplit) != 2:
+        if len(timestampFields) != 2:
             log.error("Format of the timestamp was not " + \
                       "'MM/DD/YYYY' or 'MM/DD/YYYY HH:MM'." + \
                       lineInfoStr)
@@ -1130,6 +1130,12 @@ if updateFlag == True:
                 # Format of timestamp is 'MM/DD/YYYY HH:MM'.
                 timestampFields = dateStr.split(" ")
                 
+                if len(timestampFields) != 2:
+                    log.error("Format of the timestamp was not " + \
+                              "'MM/DD/YYYY' or 'MM/DD/YYYY HH:MM'." + \
+                              "  Line given is: {}".format(line))
+                    shutdown(1)
+                
                 dateStr = timestampFields[0]
             else:
                 # Invalid number of characters for the timestamp.
@@ -1151,9 +1157,11 @@ if updateFlag == True:
             nowDt = datetime.datetime.now()
             
             # Convert the int values to the desired str values.
-            startTimestampStr = "{:04}{:02}{:02}".format(dt.year, dt.month, dt.day)
-            endTimestampStr = "{:04}{:02}{:02}".format(nowDt.year, nowDt.month, nowDt.day)
-
+            startTimestampStr = \
+                "{:04}{:02}{:02}".format(dt.year, dt.month, dt.day)
+            endTimestampStr = \
+                "{:04}{:02}{:02}".format(nowDt.year, nowDt.month, nowDt.day)
+            
             reformattedLines = []
             try:
                 # List of str holding all the lines of price bar data
