@@ -2952,7 +2952,7 @@ class DeclinationChartGraphicsItem(QGraphicsItem):
             logging.getLogger("astrologychart.DeclinationGraphicsItem")
 
         self.rulerWidth = 40.0
-        self.rulerHeight = 600.0
+        self.rulerHeight = 300.0
 
         # These are on the verical axis.  Ruler height must be evenly
         # divisible by these tick size numbers below.
@@ -4807,7 +4807,7 @@ class AstrologyChartWidget(QWidget):
         self.helioSidRadixChartGraphicsItem.setScale(0.5)
 
         self.declinationChart = DeclinationChartGraphicsItem()
-        self.declinationChart.setScale(0.8)
+        self.declinationChart.setScale(2.0)
 
         # TODO: add these widgets for longitude speeds...?  Maybe it's not worth the effort right now?
         self.longitudeSpeedChart1Mercury = \
@@ -4885,7 +4885,7 @@ class AstrologyChartWidget(QWidget):
         declStartY = y
         self.declinationChartLabel.setPos(x, y)
         x += 36
-        y += 260
+        y += 160
         self.declinationChart.setPos(x, y)
 
         
@@ -5004,7 +5004,7 @@ class AstrologyChartWidget(QWidget):
              "Saturn",
              "Uranus",
              "Neptune",
-             "Pluto"#,
+             "Pluto",
              #"MeanOfFive",
              #"CycleOfEight",
              #"AvgMaJuSaUrNePl",
@@ -5030,18 +5030,18 @@ class AstrologyChartWidget(QWidget):
              #"OsculatingLunarApogee",
              #"InterpolatedLunarApogee",
              #"InterpolatedLunarPerigee",
-             #"Sun",
-             #"Moon",
-             #"Mercury",
-             #"Venus",
+             "Sun",
+             "Moon",
+             "Mercury",
+             "Venus",
              #"Earth",
-             #"Mars",
+             "Mars",
              "Jupiter",
              "Saturn",
              "Uranus",
              "Neptune",
-             #"Pluto",
-             #"MeanNorthNode",
+             "Pluto",
+             "MeanNorthNode",
              #"MeanSouthNode",
              #"TrueNorthNode",
              #"TrueSouthNode",
@@ -5054,9 +5054,9 @@ class AstrologyChartWidget(QWidget):
              #"Mandi",
              #"MeanOfFive",
              #"CycleOfEight",
-             "AvgMaJuSaUrNePl",
-             "AvgJuSaUrNe",
-             "AvgJuSa"
+             #"AvgMaJuSaUrNePl",
+             #"AvgJuSaUrNe",
+             #"AvgJuSa"
             ]
 
         return toDisplay
@@ -5112,9 +5112,9 @@ class AstrologyChartWidget(QWidget):
              #"Mandi",
              #"MeanOfFive",
              #"CycleOfEight",
-             "AvgMaJuSaUrNePl",
-             "AvgJuSaUrNe",
-             "AvgJuSa"
+             #"AvgMaJuSaUrNePl",
+             #"AvgJuSaUrNe",
+             #"AvgJuSa"
             ]
 
         return toDisplay

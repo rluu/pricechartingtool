@@ -124,24 +124,24 @@ def processPCDD(pcdd, tag):
     #success = PlanetaryCombinationsLibrary.\
     #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
     #    pcdd, startDt, endDt, price=400, planetName="Venus")
+    success = PlanetaryCombinationsLibrary.\
+        addTimeMeasurementAndTiltedTextForNakshatraTransits(
+        pcdd, startDt, endDt, price=600, planetName="Mars")
     #success = PlanetaryCombinationsLibrary.\
     #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
-    #    pcdd, startDt, endDt, price=600, planetName="Mars")
-    success = PlanetaryCombinationsLibrary.\
-        addTimeMeasurementAndTiltedTextForNakshatraTransits(
-        pcdd, startDt, endDt, price=800, planetName="Jupiter")
-    success = PlanetaryCombinationsLibrary.\
-        addTimeMeasurementAndTiltedTextForNakshatraTransits(
-        pcdd, startDt, endDt, price=1000, planetName="Saturn")
-    success = PlanetaryCombinationsLibrary.\
-        addTimeMeasurementAndTiltedTextForNakshatraTransits(
-        pcdd, startDt, endDt, price=1200, planetName="Uranus")
-    success = PlanetaryCombinationsLibrary.\
-        addTimeMeasurementAndTiltedTextForNakshatraTransits(
-        pcdd, startDt, endDt, price=1400, planetName="Neptune")
-    success = PlanetaryCombinationsLibrary.\
-        addTimeMeasurementAndTiltedTextForNakshatraTransits(
-        pcdd, startDt, endDt, price=1600, planetName="Pluto")
+    #    pcdd, startDt, endDt, price=800, planetName="Jupiter")
+    #success = PlanetaryCombinationsLibrary.\
+    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
+    #    pcdd, startDt, endDt, price=1000, planetName="Saturn")
+    #success = PlanetaryCombinationsLibrary.\
+    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
+    #    pcdd, startDt, endDt, price=1200, planetName="Uranus")
+    #success = PlanetaryCombinationsLibrary.\
+    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
+    #    pcdd, startDt, endDt, price=1400, planetName="Neptune")
+    #success = PlanetaryCombinationsLibrary.\
+    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
+    #    pcdd, startDt, endDt, price=1600, planetName="Pluto")
     
     if success == True:
         log.debug("Success!")
