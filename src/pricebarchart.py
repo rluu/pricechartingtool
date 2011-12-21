@@ -4298,22 +4298,32 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         ############################################################
         # Set default values for preferences/settings.
 
-        # Color of the graphicsitem bar.
+        # Color of the graphicsitem bar (QColor).
         self.timeModalScaleGraphicsItemColor = \
             PriceBarChartSettings.\
                 defaultTimeModalScaleGraphicsItemBarColor
 
-        # Color of the text that is associated with the graphicsitem.
+        # Color of the text that is associated with the graphicsitem (QColor).
         self.timeModalScaleGraphicsItemTextColor = \
             PriceBarChartSettings.\
                 defaultTimeModalScaleGraphicsItemTextColor
 
-        # X scaling of the text.
+        # TimeModalScaleGraphicsItem bar height (float).
+        self.timeModalScaleGraphicsItemBarHeight = \
+            PriceBarChartSettings.\
+                defaultTimeModalScaleGraphicsItemBarHeight
+
+        # TimeModalScaleGraphicsItem font size (float).
+        self.timeModalScaleGraphicsItemFontSize = \
+            PriceBarChartSettings.\
+                defaultTimeModalScaleGraphicsItemFontSize
+        
+        # X scaling of the text (float).
         self.timeModalScaleTextXScaling = \
             PriceBarChartSettings.\
                 defaultTimeModalScaleGraphicsItemTextXScaling 
 
-        # Y scaling of the text.
+        # Y scaling of the text (float).
         self.timeModalScaleTextYScaling = \
             PriceBarChartSettings.\
                 defaultTimeModalScaleGraphicsItemTextYScaling 
@@ -4446,12 +4456,20 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.timeModalScaleGraphicsItemTextColor = \
             priceBarChartSettings.timeModalScaleGraphicsItemTextColor
         
-        # X scaling of the text.
+        # TimeModalScaleGraphicsItem bar height (float).
+        self.timeModalScaleGraphicsItemBarHeight = \
+            priceBarChartSettings.timeModalScaleGraphicsItemBarHeight
+
+        # TimeModalScaleGraphicsItem font size (float).
+        self.timeModalScaleGraphicsItemFontSize = \
+            priceBarChartSettings.timeModalScaleGraphicsItemFontSize
+        
+        # X scaling of the text (float).
         self.timeModalScaleTextXScaling = \
             priceBarChartSettings.\
                 timeModalScaleGraphicsItemTextXScaling 
 
-        # Y scaling of the text.
+        # Y scaling of the text (float).
         self.timeModalScaleTextYScaling = \
             priceBarChartSettings.\
                 timeModalScaleGraphicsItemTextYScaling 
@@ -4468,6 +4486,8 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.artifact.setMusicalRatios(musicalRatios)
         self.artifact.setColor(self.timeModalScaleGraphicsItemColor)
         self.artifact.setTextColor(self.timeModalScaleGraphicsItemTextColor)
+        self.artifact.setBarHeight(self.timeModalScaleGraphicsItemBarHeight)
+        self.artifact.setFontSize(self.timeModalScaleGraphicsItemFontSize)
         self.artifact.setTextEnabled(textEnabledFlag)
 
         self.setArtifact(self.artifact)
@@ -4744,8 +4764,8 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     textItem.setTransform(textTransform)
                     
                 # Also set the position of the vertical tick line.
-                barHeight = artifact.getBarHeight()
-                self.verticalTickItems[i].setBarHeight(barHeight)
+                self.verticalTickItems[i].\
+                    setBarHeight(self.timeModalScaleGraphicsItemBarHeight)
                 self.verticalTickItems[i].setPos(pointF)
                     
             # Call update on this item since positions and child items
@@ -4970,8 +4990,9 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             setColor(self.artifact.getTextColor())
         self.timeModalScaleTextBrush.\
             setColor(self.artifact.getTextColor())
+        self.timeModalScaleGraphicsItemBarHeight = self.artifact.getBarHeight()
+        self.timeModalScaleGraphicsItemFontSize = self.artifact.getFontSize()
 
-        
         # Need to recalculate the time measurement, since the start and end
         # points have changed.  Note, if no scene has been set for the
         # QGraphicsView, then the measurements will be zero.
@@ -5004,8 +5025,7 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # location.
         
         # The QRectF returned is relative to this (0, 0) point.
-        barHeight = \
-            self.getArtifact().getBarHeight()
+        barHeight = self.timeModalScaleGraphicsItemBarHeight
         
         xTopLeft = 0.0
         yTopLeft = 1.0 * (barHeight * 0.5)
@@ -5077,8 +5097,7 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         QPainterPath object holding the shape of this QGraphicsItem.
         """
 
-        barHeight = \
-            self.getArtifact().getBarHeight()
+        barHeight = self.timeModalScaleGraphicsItemBarHeight
         
         # The QRectF returned is relative to this (0, 0) point.
 
@@ -5121,8 +5140,7 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         if painter.pen() != self.timeModalScalePen:
             painter.setPen(self.timeModalScalePen)
 
-        artifact = self.getArtifact()
-        barHeight = artifact.getBarHeight()
+        barHeight = self.timeModalScaleGraphicsItemBarHeight
 
         # Keep track of x and y values.  We use this to draw the
         # dotted lines later.
@@ -5711,23 +5729,33 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         ############################################################
         # Set default values for preferences/settings.
         
-        # Color of the graphicsitem bar.
+        # Color of the graphicsitem bar (QColor).
         self.priceModalScaleGraphicsItemColor = \
             PriceBarChartSettings.\
                 defaultPriceModalScaleGraphicsItemBarColor
 
         # Color of the text that is associated with the bar count
-        # graphicsitem.
+        # graphicsitem (QColor).
         self.priceModalScaleGraphicsItemTextColor = \
             PriceBarChartSettings.\
                 defaultPriceModalScaleGraphicsItemTextColor
 
-        # X scaling of the text.
+        # PriceModalScaleGraphicsItem bar width (float).
+        self.priceModalScaleGraphicsItemBarWidth = \
+            PriceBarChartSettings.\
+                defaultPriceModalScaleGraphicsItemBarWidth
+
+        # PriceModalScaleGraphicsItem font size (float).
+        self.priceModalScaleGraphicsItemFontSize = \
+            PriceBarChartSettings.\
+                defaultPriceModalScaleGraphicsItemFontSize
+        
+        # X scaling of the text (float).
         self.priceModalScaleTextXScaling = \
             PriceBarChartSettings.\
                 defaultPriceModalScaleGraphicsItemTextXScaling 
 
-        # Y scaling of the text.
+        # Y scaling of the text (float).
         self.priceModalScaleTextYScaling = \
             PriceBarChartSettings.\
                 defaultPriceModalScaleGraphicsItemTextYScaling 
@@ -5759,8 +5787,7 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Set the font of the text.
         self.priceModalScaleTextFont = QFont("Sans Serif")
         self.priceModalScaleTextFont.\
-            setPointSizeF(\
-            self.artifact.getFontSize())
+            setPointSizeF(self.artifact.getFontSize())
 
         # Set the pen color of the text.
         self.priceModalScaleTextPen = self.dummyItem.pen()
@@ -5861,12 +5888,20 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.priceModalScaleGraphicsItemTextColor = \
             priceBarChartSettings.priceModalScaleGraphicsItemTextColor
         
-        # X scaling of the text.
+        # PriceModalScaleGraphicsItem bar width (float).
+        self.priceModalScaleGraphicsItemBarWidth = \
+            priceBarChartSettings.priceModalScaleGraphicsItemBarWidth
+
+        # PriceModalScaleGraphicsItem font size (float).
+        self.priceModalScaleGraphicsItemFontSize = \
+            priceBarChartSettings.priceModalScaleGraphicsItemFontSize
+        
+        # X scaling of the text (float).
         self.priceModalScaleTextXScaling = \
             priceBarChartSettings.\
                 priceModalScaleGraphicsItemTextXScaling 
 
-        # Y scaling of the text.
+        # Y scaling of the text (float).
         self.priceModalScaleTextYScaling = \
             priceBarChartSettings.\
                 priceModalScaleGraphicsItemTextYScaling 
@@ -5883,6 +5918,8 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.artifact.setMusicalRatios(musicalRatios)
         self.artifact.setColor(self.priceModalScaleGraphicsItemColor)
         self.artifact.setTextColor(self.priceModalScaleGraphicsItemTextColor)
+        self.artifact.setBarWidth(self.priceModalScaleGraphicsItemBarWidth)
+        self.artifact.setFontSize(self.priceModalScaleGraphicsItemFontSize)
         self.artifact.setTextEnabled(textEnabledFlag)
 
         self.setArtifact(self.artifact)
@@ -6151,7 +6188,6 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     # each other.
                     offsetY = (textItem.boundingRect().height() * \
                                self.priceModalScaleTextYScaling * 0.95) * j
-                    #offsetY = self.getArtifact().getBarWidth() * 1.0 * j
                     textItem.setPos(QPointF(pointF.x(),
                                             pointF.y() + offsetY))
                     textItem.setFont(self.priceModalScaleTextFont)
@@ -6160,8 +6196,8 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     textItem.setTransform(textTransform)
                     
                 # Also set the position of the horizontal tick line.
-                barWidth = artifact.getBarWidth()
-                self.horizontalTickItems[i].setBarWidth(barWidth)
+                self.horizontalTickItems[i].\
+                    setBarWidth(self.priceModalScaleGraphicsItemBarWidth)
                 self.horizontalTickItems[i].setPos(pointF)
                     
             # Call update on this item since positions and child items
@@ -6351,8 +6387,9 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
             setColor(self.artifact.getTextColor())
         self.priceModalScaleTextBrush.\
             setColor(self.artifact.getTextColor())
+        self.priceModalScaleGraphicsItemBarWidth = self.artifact.getBarWidth()
+        self.priceModalScaleGraphicsItemFontSize = self.artifact.getFontSize()
         
-
         # Need to recalculate the price measurement, since the start and end
         # points have changed.  Note, if no scene has been set for the
         # QGraphicsView, then the measurements will be zero.
@@ -6384,8 +6421,7 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # and represented in scene coordinates as the self.startPointF 
         # location.
         
-        barWidth = \
-            self.getArtifact().getBarWidth()
+        barWidth = self.priceModalScaleGraphicsItemBarWidth
         
         # The QRectF returned is relative to this (0, 0) point.
         xBottomRight = 1.0 * (barWidth * 0.5)
@@ -6458,8 +6494,7 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         QPainterPath object holding the shape of this QGraphicsItem.
         """
 
-        barWidth = \
-            self.getArtifact().getBarWidth()
+        barWidth = self.priceModalScaleGraphicsItemBarWidth
         
         # The QRectF returned is relative to this (0, 0) point.
         xBottomRight = 1.0 * (barWidth * 0.5)
@@ -6502,8 +6537,7 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         if painter.pen() != self.priceModalScalePen:
             painter.setPen(self.priceModalScalePen)
 
-        artifact = self.getArtifact()
-        barWidth = artifact.getBarWidth()
+        barWidth = self.priceModalScaleGraphicsItemBarWidth
 
         # Keep track of x and y values.  We use this to draw the
         # dotted lines later.
@@ -36957,8 +36991,14 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         float holding the julian day equivalent timestamp.
         """
 
+        #jd = sceneXPos
         #jd = sceneXPos * 100.0
-        jd = sceneXPos
+        
+        # Julian day 2396758.5 is Jan 1, 1850.
+        #jd = sceneXPos + 2396758.5
+        
+        # Julian day 2159350.5 is Jan 1, 1200.
+        jd = sceneXPos + 2159350.5
         
         return jd
     
@@ -36973,7 +37013,13 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         """
 
         #sceneXPos = jd * 0.01
-        sceneXPos = jd
+        #sceneXPos = jd
+
+        # Julian day 2396758.5 is Jan 1, 1850.
+        #sceneXPos = jd - 2396758.5
+        
+        # Julian day 2159350.5 is Jan 1, 1200.
+        sceneXPos = jd - 2159350.5
         
         return sceneXPos
     
@@ -40675,6 +40721,18 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     
                     self.clickOnePointF = self.mapToScene(qmouseevent.pos())
 
+                    # If snap is enabled, then find the closest
+                    # pricebar time to the place clicked.
+                    if self.snapEnabledFlag == True:
+                        self.log.debug("Snap is enabled, so snapping to " +
+                                       "closest pricebar X.")
+                        
+                        infoPointF = self.mapToScene(qmouseevent.pos())
+                        x = self.scene().getClosestPriceBarX(infoPointF)
+
+                        # Use this X value.
+                        self.clickOnePointF.setX(x)
+                    
                     # Create the BarCountGraphicsItem and initialize it to
                     # the mouse location.
                     self.barCountGraphicsItem = BarCountGraphicsItem()
@@ -40702,6 +40760,19 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     
                     # Set the end point of the BarCountGraphicsItem.
                     self.clickTwoPointF = self.mapToScene(qmouseevent.pos())
+
+                    # If snap is enabled, then find the closest
+                    # pricebar time to the place clicked.
+                    if self.snapEnabledFlag == True:
+                        self.log.debug("Snap is enabled, so snapping to " +
+                                       "closest pricebar X.")
+                        
+                        infoPointF = self.mapToScene(qmouseevent.pos())
+                        x = self.scene().getClosestPriceBarX(infoPointF)
+
+                        # Use this X value.
+                        self.clickTwoPointF.setX(x)
+                    
                     self.barCountGraphicsItem.setEndPointF(self.clickTwoPointF)
                     self.barCountGraphicsItem.normalizeStartAndEnd()
                     # Call getArtifact() so that the item's artifact

@@ -4,11 +4,9 @@ Outstanding things to work on going forward:
 
 TODO:  
 
-  - Fix bug in zoom functionality.  For some reason, when you zoom in
-    to a certain resolution, it will 'jump' the center location of the
-    screen and cut off QGraphicsItems from being in the scrollable
-    area of the view.  It is unknown why it happens this way.
-
+  - Fix the bug where the Gann Fan lines would sometimes disappear.
+    Currently, it is not known why this happens.
+    
   - Add astrology houses to the astrology chart.  Add to the
     PlanetaryInfoTable as well.
 
@@ -222,4 +220,18 @@ DONE  - Remove Earth from geocentric astrology chart.
 
 DONE  - Add MOF, COE, etc. to astrology chart.
 
+
+DONE  - Fix bug in zoom functionality.  For some reason, when you zoom in
+DONE    to a certain resolution, it will 'jump' the center location of the
+DONE    screen and cut off QGraphicsItems from being in the scrollable
+DONE    area of the view.  It is unknown why it happens this way.
+DONE
+DONE    ---> Done as much as I could for now.  
+DONE         It appearse it is a float value over-flow from the perspective
+DONE         of the qgraphicsview's internal variables, which was caused by
+DONE         zooming in way too much relative to the scene.  Resolution: I
+DONE         shifted the sceneXPos conversion to julian day by a large amount.
+
+DONE  - Add pricebarchartsettings (preferences) for bar height and bar
+DONE    width settings of the timemodalscale and pricemodalscale artifacts.
 

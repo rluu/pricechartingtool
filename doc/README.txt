@@ -106,11 +106,12 @@ Snap key bindings are:
   - Key_W: Turn snap mode off.
 
 Snap key bindings are supported for the following tools:
-  - PriceTimeInfoTool
-  - TimeModalScaleTool
-  - PriceModalScaleTool
+  - BarCountTool
   - TimeMeasurementTool
   - PriceMeasurementTool
+  - TimeModalScaleTool
+  - PriceModalScaleTool
+  - PriceTimeInfoTool
   - TimeRetracementTool
   - PriceRetracementTool
   - PriceTimeVectorTool

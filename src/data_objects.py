@@ -13883,7 +13883,7 @@ class PriceBarChartSettings:
 
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
-        self.classVersion = 2
+        self.classVersion = 3
 
         # List of scalings used in the PriceBarChartGraphicsView.  
         # This is list of PriceBarChartScaling objects.
@@ -14188,6 +14188,16 @@ class PriceBarChartSettings:
             PriceBarChartSettings.\
                 defaultTimeModalScaleGraphicsItemTextColor
 
+        # TimeModalScaleGraphicsItem bar height (float).
+        self.timeModalScaleGraphicsItemBarHeight = \
+            PriceBarChartSettings.\
+                defaultTimeModalScaleGraphicsItemBarHeight
+
+        # TimeModalScaleGraphicsItem font size (float).
+        self.timeModalScaleGraphicsItemFontSize = \
+            PriceBarChartSettings.\
+                defaultTimeModalScaleGraphicsItemFontSize
+        
         # TimeModalScaleGraphicsItem text X scaling (float).
         self.timeModalScaleGraphicsItemTextXScaling = \
             PriceBarChartSettings.\
@@ -14218,6 +14228,16 @@ class PriceBarChartSettings:
             PriceBarChartSettings.\
                 defaultPriceModalScaleGraphicsItemTextColor
 
+        # PriceModalScaleGraphicsItem bar width (float).
+        self.priceModalScaleGraphicsItemBarWidth = \
+            PriceBarChartSettings.\
+                defaultPriceModalScaleGraphicsItemBarWidth
+
+        # PriceModalScaleGraphicsItem font size (float).
+        self.priceModalScaleGraphicsItemFontSize = \
+            PriceBarChartSettings.\
+                defaultPriceModalScaleGraphicsItemFontSize
+        
         # PriceModalScaleGraphicsItem text X scaling (float).
         self.priceModalScaleGraphicsItemTextXScaling = \
             PriceBarChartSettings.\
@@ -15071,20 +15091,24 @@ class PriceBarChartSettings:
         self.log = logging.getLogger("data_objects.PriceBarChartSettings")
 
         # Update the object to the most current version if it is not current.
-        if self.classVersion < 2:
+        if self.classVersion < 3:
             self.log.info("Detected an old class version of " + \
                           "PriceBarChartSettings (version {}).  ".\
                           format(self.classVersion))
-
+            
             if self.classVersion == 1:
-                # Version 2 added member variable for
-                # TextGraphicsItem default rotation angle.
+                # Version 2 added the following member variables:
+                #
+                # self.textGraphicsItemDefaultRotationAngle
+                #
+                
                 try:
                     # See if the variable is set.
                     self.textGraphicsItemDefaultRotationAngle
 
                     # If it got here, then the field is already set.
-                    self.log.warn("Hmm, strange.  Version 1 of this " + \
+                    self.log.warn("Hmm, strange.  Version {} of this ".\
+                                  format(self.classVersion) + \
                                   "class shouldn't have this field.")
                     
                 except AttributeError:
@@ -15100,6 +15124,61 @@ class PriceBarChartSettings:
                     
                 # Update the class version.
                 self.classVersion = 2
+        
+            if self.classVersion == 2:
+                # Version 3 added the following member variables:
+                #
+                # self.timeModalScaleGraphicsItemBarHeight
+                # self.timeModalScaleGraphicsItemFontSize
+                # self.priceModalScaleGraphicsItemBarWidth
+                # self.priceModalScaleGraphicsItemFontSize
+                #
+                
+                try:
+                    # See if the variables are set.
+                    self.timeModalScaleGraphicsItemBarHeight
+                    self.timeModalScaleGraphicsItemFontSize
+                    self.priceModalScaleGraphicsItemBarWidth
+                    self.priceModalScaleGraphicsItemFontSize
+                    
+                    # If it got here, then the fields are already set.
+                    self.log.warn("Hmm, strange.  Version {} of this ".\
+                                  format(self.classVersion) + \
+                                  "class shouldn't have this field.")
+
+                except AttributeError:
+                    # Variable was not set.  Set it to the default
+                    # PriceBarChartSettings value.
+
+                    # TimeModalScaleGraphicsItem bar height (float).
+                    self.timeModalScaleGraphicsItemBarHeight = \
+                        PriceBarChartSettings.\
+                        defaultTimeModalScaleGraphicsItemBarHeight
+
+                    # TimeModalScaleGraphicsItem font size (float).
+                    self.timeModalScaleGraphicsItemFontSize = \
+                        PriceBarChartSettings.\
+                        defaultTimeModalScaleGraphicsItemFontSize
+        
+                    # PriceModalScaleGraphicsItem bar width (float).
+                    self.priceModalScaleGraphicsItemBarWidth = \
+                        PriceBarChartSettings.\
+                        defaultPriceModalScaleGraphicsItemBarWidth
+
+                    # PriceModalScaleGraphicsItem font size (float).
+                    self.priceModalScaleGraphicsItemFontSize = \
+                        PriceBarChartSettings.\
+                        defaultPriceModalScaleGraphicsItemFontSize
+        
+                    self.log.debug("Added fields " + \
+                                   "'timeModalScaleGraphicsItemBarHeight', "
+                                   "'timeModalScaleGraphicsItemFontSize', "
+                                   "'priceModalScaleGraphicsItemBarWidth', "
+                                   "'priceModalScaleGraphicsItemFontSize', "
+                                   "to the loaded PriceBarChartSettings.")
+                    
+                # Update the class version.
+                self.classVersion = 3
         
         
         # Log that we set the state of this object.
