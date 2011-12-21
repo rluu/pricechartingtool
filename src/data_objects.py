@@ -7203,33 +7203,49 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
                 lineToAngleDeg = QLineF(scaledOriginPointF, scaledLeg1PointF)
                 lineToAngleDeg.setAngle(angleDeg)
 
+                #self.log.debug("lineToAngleDeg.p1 == ({}, {})".\
+                #               format(lineToAngleDeg.p1().x(),
+                #                      lineToAngleDeg.p1().y()))
+                #self.log.debug("lineToAngleDeg.p2 == ({}, {})".\
+                #               format(lineToAngleDeg.p2().x(),
+                #                      lineToAngleDeg.p2().y()))
+                
                 # Find the intesections with the line segments in 'lines'.
                 intersectionPoints = []
                 for l in lines:
-                    # Implementation is based on Graphics Gems III's
-                    # "Faster Line Segment Intersection"
-
-                    p1 = lineToAngleDeg.p1()
-                    p2 = lineToAngleDeg.p2()
+                    # Infinite line intersection algorithm taken from:
+                    # http://wiki.processing.org/w/Line-Line_intersection
+                    x1 = lineToAngleDeg.p1().x()
+                    y1 = lineToAngleDeg.p1().y()
+                    x2 = lineToAngleDeg.p2().x()
+                    y2 = lineToAngleDeg.p2().y()
+                    x3 = l.p1().x()
+                    y3 = l.p1().y()
+                    x4 = l.p2().x()
+                    y4 = l.p2().y()
                     
-                    a = p2 - p1
-                    b = l.p1() - l.p2()
-                    c = p1 - l.p1()
+                    bx = x2 - x1
+                    by = y2 - y1
+                    dx = x4 - x3
+                    dy = y4 - y3 
+                    b_dot_d_perp = bx*dy - by*dx
 
-                    denominator = ((a.y() * b.x()) - (a.x() * b.y()))
-                    
-                    if Util.fuzzyIsEqual(denominator, 0.0) or \
-                           denominator == float('inf'):
-                        
-                        # No intersection.
+                    if Util.fuzzyIsEqual(abs(b_dot_d_perp), 0.0):
                         continue
+                    
+                    cx = x3-x1
+                    cy = y3-y1
+                    t = (cx*dy - cy*dx) / b_dot_d_perp
+ 
+                    x = x1+t*bx
+                    y = y1+t*by
 
-                    reciprocal = 1.0 / denominator
-                    na = ((b.y() * c.x()) - (b.x() * c.y())) * reciprocal
-
-                    intersectionPoint = p1 + (a * na)
+                    intersectionPoint = QPointF(x, y)
                     intersectionPoints.append(intersectionPoint)
-
+        
+                    #self.log.debug("Appended intersection point: ({}, {})".\
+                    #               format(intersectionPoint.x(),
+                    #                      intersectionPoint.y()))
 
                 # Normalized angleDeg.
                 normalizedAngleDeg = Util.toNormalizedAngle(angleDeg)
@@ -7239,14 +7255,54 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
                 smallestAngleDiff = None
                 
                 for p in intersectionPoints:
-                    # Only look at intersection points that are within or
-                    # on the edge of 'containingRectF'.
-                    if containingRectF.contains(p):
+                    #self.log.debug("Looking at point: ({}, {})".\
+                    #               format(p.x(), p.y()))
+                    
+                    # Flag that indicates the intersection point is
+                    # also the origin point.
+                    pEqualsOriginPointF = \
+                        Util.fuzzyIsEqual(p.x(), scaledOriginPointF.x()) and \
+                        Util.fuzzyIsEqual(p.y(), scaledOriginPointF.y())
+
+                    #self.log.debug("pEqualsOriginPointF   == {}".\
+                    #               format(pEqualsOriginPointF))
+
+                    # Flag that indicates that p is within or on the
+                    # edge of 'containingRectF'.
+                    xWithinContainingRect = \
+                        (smallestX < p.x() or \
+                         Util.fuzzyIsEqual(p.x(), smallestX)) and \
+                        (p.x() < largestX or \
+                         Util.fuzzyIsEqual(p.x(), largestX))
+                    yWithinContainingRect = \
+                        (smallestY < p.y() or \
+                         Util.fuzzyIsEqual(p.y(), smallestY)) and \
+                        (p.y() < largestY or \
+                         Util.fuzzyIsEqual(p.y(), largestY))
+                    pWithinContainingRect = \
+                        xWithinContainingRect and yWithinContainingRect
+                                          
+                    #self.log.debug("xWithinContainingRect == {}".\
+                    #               format(xWithinContainingRect))
+                    #self.log.debug("yWithinContainingRect == {}".\
+                    #               format(yWithinContainingRect))
+                    #self.log.debug("pWithinContainingRect == {}".\
+                    #               format(pWithinContainingRect))
+
+                    # Only look at intersection points that are not
+                    # the origin and within or on the edge of
+                    # 'containingRectF'.
+                    if pWithinContainingRect and not pEqualsOriginPointF:
 
                         angle = QLineF(scaledOriginPointF, p).angle()
                         diff = abs(normalizedAngleDeg - \
                                    Util.toNormalizedAngle(angle))
 
+                        #self.log.debug("diff in angle is:       {}".\
+                        #               format(diff))
+                        #self.log.debug("smallest angle diff is: {}".\
+                        #               format(diff))
+        
                         if closestPointToCorrectAngle == None and \
                            smallestAngleDiff == None:
 
@@ -7258,11 +7314,15 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
                             closestPointToCorrectAngle = p
                             smallestAngleDiff = diff
 
-                if closestPointToCorrectAngle == None:
+                if len(intersectionPoints) == 0:
                     # Couldn't find any intersection points.
                     self.log.warn("Couldn't find any intersection points!")
                     x = None
                     y = None
+                elif closestPointToCorrectAngle == None:
+                    # Use origin point as the intersection.
+                    x = scaledOriginPointF.x()
+                    y = scaledOriginPointF.y()
                 else:
                     # The closest point it the point we are looking for.
                     x = closestPointToCorrectAngle.x()
@@ -7580,7 +7640,7 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
         coordinates as needed.
         """
 
-        self.log.debug("Entered getXYForRatio({})".format(index))
+        #self.log.debug("Entered getXYForRatio({})".format(index))
 
         # Get the ratios.
         ratios = self.getRatios()
@@ -7833,33 +7893,49 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
                 lineToAngleDeg = QLineF(scaledOriginPointF, scaledLeg1PointF)
                 lineToAngleDeg.setAngle(angleDeg)
 
+                #self.log.debug("lineToAngleDeg.p1 == ({}, {})".\
+                #               format(lineToAngleDeg.p1().x(),
+                #                      lineToAngleDeg.p1().y()))
+                #self.log.debug("lineToAngleDeg.p2 == ({}, {})".\
+                #               format(lineToAngleDeg.p2().x(),
+                #                      lineToAngleDeg.p2().y()))
+                
                 # Find the intesections with the line segments in 'lines'.
                 intersectionPoints = []
                 for l in lines:
-                    # Implementation is based on Graphics Gems III's
-                    # "Faster Line Segment Intersection"
-
-                    p1 = lineToAngleDeg.p1()
-                    p2 = lineToAngleDeg.p2()
+                    # Infinite line intersection algorithm taken from:
+                    # http://wiki.processing.org/w/Line-Line_intersection
+                    x1 = lineToAngleDeg.p1().x()
+                    y1 = lineToAngleDeg.p1().y()
+                    x2 = lineToAngleDeg.p2().x()
+                    y2 = lineToAngleDeg.p2().y()
+                    x3 = l.p1().x()
+                    y3 = l.p1().y()
+                    x4 = l.p2().x()
+                    y4 = l.p2().y()
                     
-                    a = p2 - p1
-                    b = l.p1() - l.p2()
-                    c = p1 - l.p1()
+                    bx = x2 - x1
+                    by = y2 - y1
+                    dx = x4 - x3
+                    dy = y4 - y3 
+                    b_dot_d_perp = bx*dy - by*dx
 
-                    denominator = ((a.y() * b.x()) - (a.x() * b.y()))
-                    
-                    if Util.fuzzyIsEqual(denominator, 0.0) or \
-                           denominator == float('inf'):
-                        
-                        # No intersection.
+                    if Util.fuzzyIsEqual(abs(b_dot_d_perp), 0.0):
                         continue
+                    
+                    cx = x3-x1
+                    cy = y3-y1
+                    t = (cx*dy - cy*dx) / b_dot_d_perp
+ 
+                    x = x1+t*bx
+                    y = y1+t*by
 
-                    reciprocal = 1.0 / denominator
-                    na = ((b.y() * c.x()) - (b.x() * c.y())) * reciprocal
-
-                    intersectionPoint = p1 + (a * na)
+                    intersectionPoint = QPointF(x, y)
                     intersectionPoints.append(intersectionPoint)
-
+        
+                    #self.log.debug("Appended intersection point: ({}, {})".\
+                    #               format(intersectionPoint.x(),
+                    #                      intersectionPoint.y()))
 
                 # Normalized angleDeg.
                 normalizedAngleDeg = Util.toNormalizedAngle(angleDeg)
@@ -7869,14 +7945,51 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
                 smallestAngleDiff = None
                 
                 for p in intersectionPoints:
-                    # Only look at intersection points that are within or
-                    # on the edge of 'containingRectF'.
-                    if containingRectF.contains(p):
+                    #self.log.debug("Looking at point: ({}, {})".\
+                    #               format(p.x(), p.y()))
+                    
+                    # Flag that indicates the intersection point is
+                    # also the origin point.
+                    pEqualsOriginPointF = \
+                        Util.fuzzyIsEqual(p.x(), scaledOriginPointF.x()) and \
+                        Util.fuzzyIsEqual(p.y(), scaledOriginPointF.y())
+
+                    #self.log.debug("pEqualsOriginPointF   == {}".\
+                    #               format(pEqualsOriginPointF))
+
+                    # Flag that indicates that p is within or on the
+                    # edge of 'containingRectF'.
+                    xWithinContainingRect = \
+                        (smallestX < p.x() or \
+                         Util.fuzzyIsEqual(p.x(), smallestX)) and \
+                        (p.x() < largestX or \
+                         Util.fuzzyIsEqual(p.x(), largestX))
+                    yWithinContainingRect = \
+                        (smallestY < p.y() or \
+                         Util.fuzzyIsEqual(p.y(), smallestY)) and \
+                        (p.y() < largestY or \
+                         Util.fuzzyIsEqual(p.y(), largestY))
+                    pWithinContainingRect = \
+                        xWithinContainingRect and yWithinContainingRect
+                                          
+                    #self.log.debug("xWithinContainingRect == {}".\
+                    #               format(xWithinContainingRect))
+                    #self.log.debug("yWithinContainingRect == {}".\
+                    #               format(yWithinContainingRect))
+                    #self.log.debug("pWithinContainingRect == {}".\
+                    #               format(pWithinContainingRect))
+
+                    if pWithinContainingRect and not pEqualsOriginPointF:
 
                         angle = QLineF(scaledOriginPointF, p).angle()
                         diff = abs(normalizedAngleDeg - \
                                    Util.toNormalizedAngle(angle))
 
+                        #self.log.debug("diff in angle is:       {}".\
+                        #               format(diff))
+                        #self.log.debug("smallest angle diff is: {}".\
+                        #               format(diff))
+        
                         if closestPointToCorrectAngle == None and \
                            smallestAngleDiff == None:
 
@@ -7888,11 +8001,15 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
                             closestPointToCorrectAngle = p
                             smallestAngleDiff = diff
 
-                if closestPointToCorrectAngle == None:
+                if len(intersectionPoints) == 0:
                     # Couldn't find any intersection points.
                     self.log.warn("Couldn't find any intersection points!")
                     x = None
                     y = None
+                elif closestPointToCorrectAngle == None:
+                    # Use origin point as the intersection.
+                    x = scaledOriginPointF.x()
+                    y = scaledOriginPointF.y()
                 else:
                     # The closest point it the point we are looking for.
                     x = closestPointToCorrectAngle.x()
@@ -8334,11 +8451,11 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
                 angleDeg = \
                     (angleDegDelta * ratio.getRatio()) - \
                     angleDegOffset
-
+                
                 #self.log.debug("(angleDeg={})".format(angleDeg))
-
+                
                 angleDeg = leg1.angle() + angleDeg
-
+                
                 #self.log.debug("Adjusting to leg point angles, (angleDeg={})".
                 #               format(angleDeg))
 
@@ -8462,33 +8579,49 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
                 lineToAngleDeg = QLineF(scaledOriginPointF, scaledLeg1PointF)
                 lineToAngleDeg.setAngle(angleDeg)
 
+                #self.log.debug("lineToAngleDeg.p1 == ({}, {})".\
+                #               format(lineToAngleDeg.p1().x(),
+                #                      lineToAngleDeg.p1().y()))
+                #self.log.debug("lineToAngleDeg.p2 == ({}, {})".\
+                #               format(lineToAngleDeg.p2().x(),
+                #                      lineToAngleDeg.p2().y()))
+                
                 # Find the intesections with the line segments in 'lines'.
                 intersectionPoints = []
                 for l in lines:
-                    # Implementation is based on Graphics Gems III's
-                    # "Faster Line Segment Intersection"
-
-                    p1 = lineToAngleDeg.p1()
-                    p2 = lineToAngleDeg.p2()
+                    # Infinite line intersection algorithm taken from:
+                    # http://wiki.processing.org/w/Line-Line_intersection
+                    x1 = lineToAngleDeg.p1().x()
+                    y1 = lineToAngleDeg.p1().y()
+                    x2 = lineToAngleDeg.p2().x()
+                    y2 = lineToAngleDeg.p2().y()
+                    x3 = l.p1().x()
+                    y3 = l.p1().y()
+                    x4 = l.p2().x()
+                    y4 = l.p2().y()
                     
-                    a = p2 - p1
-                    b = l.p1() - l.p2()
-                    c = p1 - l.p1()
+                    bx = x2 - x1
+                    by = y2 - y1
+                    dx = x4 - x3
+                    dy = y4 - y3 
+                    b_dot_d_perp = bx*dy - by*dx
 
-                    denominator = ((a.y() * b.x()) - (a.x() * b.y()))
-                    
-                    if Util.fuzzyIsEqual(denominator, 0.0) or \
-                           denominator == float('inf'):
-                        
-                        # No intersection.
+                    if Util.fuzzyIsEqual(abs(b_dot_d_perp), 0.0):
                         continue
+                    
+                    cx = x3-x1
+                    cy = y3-y1
+                    t = (cx*dy - cy*dx) / b_dot_d_perp
+ 
+                    x = x1+t*bx
+                    y = y1+t*by
 
-                    reciprocal = 1.0 / denominator
-                    na = ((b.y() * c.x()) - (b.x() * c.y())) * reciprocal
-
-                    intersectionPoint = p1 + (a * na)
+                    intersectionPoint = QPointF(x, y)
                     intersectionPoints.append(intersectionPoint)
-
+        
+                    #self.log.debug("Appended intersection point: ({}, {})".\
+                    #               format(intersectionPoint.x(),
+                    #                      intersectionPoint.y()))
 
                 # Normalized angleDeg.
                 normalizedAngleDeg = Util.toNormalizedAngle(angleDeg)
@@ -8498,14 +8631,51 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
                 smallestAngleDiff = None
                 
                 for p in intersectionPoints:
-                    # Only look at intersection points that are within or
-                    # on the edge of 'containingRectF'.
-                    if containingRectF.contains(p):
+                    #self.log.debug("Looking at point: ({}, {})".\
+                    #               format(p.x(), p.y()))
+                    
+                    # Flag that indicates the intersection point is
+                    # also the origin point.
+                    pEqualsOriginPointF = \
+                        Util.fuzzyIsEqual(p.x(), scaledOriginPointF.x()) and \
+                        Util.fuzzyIsEqual(p.y(), scaledOriginPointF.y())
+
+                    #self.log.debug("pEqualsOriginPointF   == {}".\
+                    #               format(pEqualsOriginPointF))
+
+                    # Flag that indicates that p is within or on the
+                    # edge of 'containingRectF'.
+                    xWithinContainingRect = \
+                        (smallestX < p.x() or \
+                         Util.fuzzyIsEqual(p.x(), smallestX)) and \
+                        (p.x() < largestX or \
+                         Util.fuzzyIsEqual(p.x(), largestX))
+                    yWithinContainingRect = \
+                        (smallestY < p.y() or \
+                         Util.fuzzyIsEqual(p.y(), smallestY)) and \
+                        (p.y() < largestY or \
+                         Util.fuzzyIsEqual(p.y(), largestY))
+                    pWithinContainingRect = \
+                        xWithinContainingRect and yWithinContainingRect
+                                          
+                    #self.log.debug("xWithinContainingRect == {}".\
+                    #               format(xWithinContainingRect))
+                    #self.log.debug("yWithinContainingRect == {}".\
+                    #               format(yWithinContainingRect))
+                    #self.log.debug("pWithinContainingRect == {}".\
+                    #               format(pWithinContainingRect))
+
+                    if pWithinContainingRect and not pEqualsOriginPointF:
 
                         angle = QLineF(scaledOriginPointF, p).angle()
                         diff = abs(normalizedAngleDeg - \
                                    Util.toNormalizedAngle(angle))
 
+                        #self.log.debug("diff in angle is:       {}".\
+                        #               format(diff))
+                        #self.log.debug("smallest angle diff is: {}".\
+                        #               format(diff))
+        
                         if closestPointToCorrectAngle == None and \
                            smallestAngleDiff == None:
 
@@ -8517,11 +8687,15 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
                             closestPointToCorrectAngle = p
                             smallestAngleDiff = diff
 
-                if closestPointToCorrectAngle == None:
+                if len(intersectionPoints) == 0:
                     # Couldn't find any intersection points.
                     self.log.warn("Couldn't find any intersection points!")
                     x = None
                     y = None
+                elif closestPointToCorrectAngle == None:
+                    # Use origin point as the intersection.
+                    x = scaledOriginPointF.x()
+                    y = scaledOriginPointF.y()
                 else:
                     # The closest point it the point we are looking for.
                     x = closestPointToCorrectAngle.x()

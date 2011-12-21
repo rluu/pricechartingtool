@@ -4,9 +4,6 @@ Outstanding things to work on going forward:
 
 TODO:  
 
-  - Fix the bug where the Gann Fan lines would sometimes disappear.
-    Currently, it is not known why this happens.
-    
   - Add astrology houses to the astrology chart.  Add to the
     PlanetaryInfoTable as well.
 
@@ -235,3 +232,11 @@ DONE         shifted the sceneXPos conversion to julian day by a large amount.
 DONE  - Add pricebarchartsettings (preferences) for bar height and bar
 DONE    width settings of the timemodalscale and pricemodalscale artifacts.
 
+DONE  - Fix the bug where the Gann Fan lines would sometimes disappear.
+DONE    Currently, it is not known why this happens.
+DONE 
+DONE    ---> Fixed.  Bug was due to two reasons: 
+DONE         1) Bad infinite-line intersection algorithm used.
+DONE         2) QRectF.contains() function not matching floats that are 
+DONE            on the edge of the rectangle as being contained within the QRect.
+DONE   

@@ -19546,7 +19546,17 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 sceneEndPointF = \
                     self.convertObj.convertScaledPointToScenePoint(\
                     QPointF(x, y))
-            
+
+                self.log.debug("ratio[{}] sceneEndPointF    == ({}, {})".\
+                               format(i,
+                                      sceneEndPointF.x(),
+                                      sceneEndPointF.y()))
+                self.log.debug("ratio[{}] sceneOriginPointF == ({}, {})".\
+                               format(i,
+                                      sceneOriginPointF.x(),
+                                      sceneOriginPointF.y()))
+                
+                               
                 # Do conversion to local coordinates.
                 localEndPointF = sceneEndPointF - sceneOriginPointF
 

@@ -480,7 +480,7 @@ class MainWindow(QMainWindow):
         # Create the OctaveFanToolAction
         icon = QIcon(":/images/rluu/octaveFan.png")
         self.octaveFanToolAction = \
-            QAction(icon, "Time Modal Scale Tool", self)
+            QAction(icon, "Octave Fan Tool", self)
         self.octaveFanToolAction.setStatusTip("Octave Fan Tool")
         self.octaveFanToolAction.setCheckable(True)
 
@@ -3771,16 +3771,22 @@ Price Modal Scale Tool:
   - Key_G: Rotate the modal scale up.
   - Key_R: Reverse the direction of the modal scale.
 
+Octave Fan Tool:
+  - Key_S: Rotate the modal scale up.
+  - Key_G: Rotate the modal scale down.
+  - Key_R: Reverse the direction of the modal scale.
+
 Snap key bindings are:
   - Key_Q: Turn snap mode on.
   - Key_W: Turn snap mode off.
 
 Snap key bindings are supported for the following tools:
-  - PriceTimeInfoTool
-  - TimeModalScaleTool
-  - PriceModalScaleTool
+  - BarCountTool
   - TimeMeasurementTool
   - PriceMeasurementTool
+  - TimeModalScaleTool
+  - PriceModalScaleTool
+  - PriceTimeInfoTool
   - TimeRetracementTool
   - PriceRetracementTool
   - PriceTimeVectorTool
