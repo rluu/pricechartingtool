@@ -2726,7 +2726,7 @@ class AppPreferencesEditWidget(QWidget):
 
     def _buildNonPlanetSymbolSettingsWidget(self):
         """Builds a QWidget for editing the settings of Non-Planets as
-        displayed in the UI.  This is things like ascendant, and various
+        displayed in the UI.  This is things like h1, and various
         lagnas, etc.
 
         Returned widget is self.nonPlanetSymbolSettingsGroupBox.
@@ -2777,85 +2777,485 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetRetrogradeBackgroundColorLabel,
                    self.planetRetrogradeBackgroundColorEditButton)
 
-        # Ascendant
-        self.planetAscendantGlyphUnicodeLabel = \
-            QLabel("Ascendant unicode glyph:")
-        self.planetAscendantGlyphUnicodeLineEdit = \
+        # H1
+        self.planetH1GlyphUnicodeLabel = \
+            QLabel("H1 unicode glyph:")
+        self.planetH1GlyphUnicodeLineEdit = \
             QLineEdit()
         formLayout.\
-            addRow(self.planetAscendantGlyphUnicodeLabel,
-                   self.planetAscendantGlyphUnicodeLineEdit)
-        self.planetAscendantGlyphFontSizeLabel = \
-            QLabel("Ascendant glyph font size:")
-        self.planetAscendantGlyphFontSizeSpinBox = \
+            addRow(self.planetH1GlyphUnicodeLabel,
+                   self.planetH1GlyphUnicodeLineEdit)
+        self.planetH1GlyphFontSizeLabel = \
+            QLabel("H1 glyph font size:")
+        self.planetH1GlyphFontSizeSpinBox = \
             QDoubleSpinBox()
-        self.planetAscendantGlyphFontSizeSpinBox.setDecimals(4)
-        self.planetAscendantGlyphFontSizeSpinBox.setMinimum(0.01)
-        self.planetAscendantGlyphFontSizeSpinBox.setMaximum(1000)
+        self.planetH1GlyphFontSizeSpinBox.setDecimals(4)
+        self.planetH1GlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetH1GlyphFontSizeSpinBox.setMaximum(1000)
         formLayout.\
-            addRow(self.planetAscendantGlyphFontSizeLabel,
-                   self.planetAscendantGlyphFontSizeSpinBox)
-        self.planetAscendantAbbreviationLabel = \
-            QLabel("Ascendant abbreviation:")
-        self.planetAscendantAbbreviationLineEdit = \
+            addRow(self.planetH1GlyphFontSizeLabel,
+                   self.planetH1GlyphFontSizeSpinBox)
+        self.planetH1AbbreviationLabel = \
+            QLabel("H1 abbreviation:")
+        self.planetH1AbbreviationLineEdit = \
             QLineEdit()
         formLayout.\
-            addRow(self.planetAscendantAbbreviationLabel,
-                   self.planetAscendantAbbreviationLineEdit)
-        self.planetAscendantForegroundColorLabel = \
-            QLabel("Ascendant foreground color:")
-        self.planetAscendantForegroundColorEditButton = \
+            addRow(self.planetH1AbbreviationLabel,
+                   self.planetH1AbbreviationLineEdit)
+        self.planetH1ForegroundColorLabel = \
+            QLabel("H1 foreground color:")
+        self.planetH1ForegroundColorEditButton = \
             ColorEditPushButton()
         formLayout.\
-            addRow(self.planetAscendantForegroundColorLabel,
-                   self.planetAscendantForegroundColorEditButton)
-        self.planetAscendantBackgroundColorLabel = \
-            QLabel("Ascendant background color:")
-        self.planetAscendantBackgroundColorEditButton = \
+            addRow(self.planetH1ForegroundColorLabel,
+                   self.planetH1ForegroundColorEditButton)
+        self.planetH1BackgroundColorLabel = \
+            QLabel("H1 background color:")
+        self.planetH1BackgroundColorEditButton = \
             ColorEditPushButton()
         formLayout.\
-            addRow(self.planetAscendantBackgroundColorLabel,
-                   self.planetAscendantBackgroundColorEditButton)
+            addRow(self.planetH1BackgroundColorLabel,
+                   self.planetH1BackgroundColorEditButton)
 
-        # Midheaven
-        self.planetMidheavenGlyphUnicodeLabel = \
-            QLabel("Midheaven unicode glyph:")
-        self.planetMidheavenGlyphUnicodeLineEdit = \
+        # H2
+        self.planetH2GlyphUnicodeLabel = \
+            QLabel("H2 unicode glyph:")
+        self.planetH2GlyphUnicodeLineEdit = \
             QLineEdit()
         formLayout.\
-            addRow(self.planetMidheavenGlyphUnicodeLabel,
-                   self.planetMidheavenGlyphUnicodeLineEdit)
-        self.planetMidheavenGlyphFontSizeLabel = \
-            QLabel("Midheaven glyph font size:")
-        self.planetMidheavenGlyphFontSizeSpinBox = \
+            addRow(self.planetH2GlyphUnicodeLabel,
+                   self.planetH2GlyphUnicodeLineEdit)
+        self.planetH2GlyphFontSizeLabel = \
+            QLabel("H2 glyph font size:")
+        self.planetH2GlyphFontSizeSpinBox = \
             QDoubleSpinBox()
-        self.planetMidheavenGlyphFontSizeSpinBox.setDecimals(4)
-        self.planetMidheavenGlyphFontSizeSpinBox.setMinimum(0.01)
-        self.planetMidheavenGlyphFontSizeSpinBox.setMaximum(1000)
+        self.planetH2GlyphFontSizeSpinBox.setDecimals(4)
+        self.planetH2GlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetH2GlyphFontSizeSpinBox.setMaximum(1000)
         formLayout.\
-            addRow(self.planetMidheavenGlyphFontSizeLabel,
-                   self.planetMidheavenGlyphFontSizeSpinBox)
-        self.planetMidheavenAbbreviationLabel = \
-            QLabel("Midheaven abbreviation:")
-        self.planetMidheavenAbbreviationLineEdit = \
+            addRow(self.planetH2GlyphFontSizeLabel,
+                   self.planetH2GlyphFontSizeSpinBox)
+        self.planetH2AbbreviationLabel = \
+            QLabel("H2 abbreviation:")
+        self.planetH2AbbreviationLineEdit = \
             QLineEdit()
         formLayout.\
-            addRow(self.planetMidheavenAbbreviationLabel,
-                   self.planetMidheavenAbbreviationLineEdit)
-        self.planetMidheavenForegroundColorLabel = \
-            QLabel("Midheaven foreground color:")
-        self.planetMidheavenForegroundColorEditButton = \
+            addRow(self.planetH2AbbreviationLabel,
+                   self.planetH2AbbreviationLineEdit)
+        self.planetH2ForegroundColorLabel = \
+            QLabel("H2 foreground color:")
+        self.planetH2ForegroundColorEditButton = \
             ColorEditPushButton()
         formLayout.\
-            addRow(self.planetMidheavenForegroundColorLabel,
-                   self.planetMidheavenForegroundColorEditButton)
-        self.planetMidheavenBackgroundColorLabel = \
-            QLabel("Midheaven background color:")
-        self.planetMidheavenBackgroundColorEditButton = \
+            addRow(self.planetH2ForegroundColorLabel,
+                   self.planetH2ForegroundColorEditButton)
+        self.planetH2BackgroundColorLabel = \
+            QLabel("H2 background color:")
+        self.planetH2BackgroundColorEditButton = \
             ColorEditPushButton()
         formLayout.\
-            addRow(self.planetMidheavenBackgroundColorLabel,
-                   self.planetMidheavenBackgroundColorEditButton)
+            addRow(self.planetH2BackgroundColorLabel,
+                   self.planetH2BackgroundColorEditButton)
+
+        # H3
+        self.planetH3GlyphUnicodeLabel = \
+            QLabel("H3 unicode glyph:")
+        self.planetH3GlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetH3GlyphUnicodeLabel,
+                   self.planetH3GlyphUnicodeLineEdit)
+        self.planetH3GlyphFontSizeLabel = \
+            QLabel("H3 glyph font size:")
+        self.planetH3GlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetH3GlyphFontSizeSpinBox.setDecimals(4)
+        self.planetH3GlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetH3GlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetH3GlyphFontSizeLabel,
+                   self.planetH3GlyphFontSizeSpinBox)
+        self.planetH3AbbreviationLabel = \
+            QLabel("H3 abbreviation:")
+        self.planetH3AbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetH3AbbreviationLabel,
+                   self.planetH3AbbreviationLineEdit)
+        self.planetH3ForegroundColorLabel = \
+            QLabel("H3 foreground color:")
+        self.planetH3ForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetH3ForegroundColorLabel,
+                   self.planetH3ForegroundColorEditButton)
+        self.planetH3BackgroundColorLabel = \
+            QLabel("H3 background color:")
+        self.planetH3BackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetH3BackgroundColorLabel,
+                   self.planetH3BackgroundColorEditButton)
+
+        # H4
+        self.planetH4GlyphUnicodeLabel = \
+            QLabel("H4 unicode glyph:")
+        self.planetH4GlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetH4GlyphUnicodeLabel,
+                   self.planetH4GlyphUnicodeLineEdit)
+        self.planetH4GlyphFontSizeLabel = \
+            QLabel("H4 glyph font size:")
+        self.planetH4GlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetH4GlyphFontSizeSpinBox.setDecimals(4)
+        self.planetH4GlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetH4GlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetH4GlyphFontSizeLabel,
+                   self.planetH4GlyphFontSizeSpinBox)
+        self.planetH4AbbreviationLabel = \
+            QLabel("H4 abbreviation:")
+        self.planetH4AbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetH4AbbreviationLabel,
+                   self.planetH4AbbreviationLineEdit)
+        self.planetH4ForegroundColorLabel = \
+            QLabel("H4 foreground color:")
+        self.planetH4ForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetH4ForegroundColorLabel,
+                   self.planetH4ForegroundColorEditButton)
+        self.planetH4BackgroundColorLabel = \
+            QLabel("H4 background color:")
+        self.planetH4BackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetH4BackgroundColorLabel,
+                   self.planetH4BackgroundColorEditButton)
+
+        # H5
+        self.planetH5GlyphUnicodeLabel = \
+            QLabel("H5 unicode glyph:")
+        self.planetH5GlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetH5GlyphUnicodeLabel,
+                   self.planetH5GlyphUnicodeLineEdit)
+        self.planetH5GlyphFontSizeLabel = \
+            QLabel("H5 glyph font size:")
+        self.planetH5GlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetH5GlyphFontSizeSpinBox.setDecimals(4)
+        self.planetH5GlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetH5GlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetH5GlyphFontSizeLabel,
+                   self.planetH5GlyphFontSizeSpinBox)
+        self.planetH5AbbreviationLabel = \
+            QLabel("H5 abbreviation:")
+        self.planetH5AbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetH5AbbreviationLabel,
+                   self.planetH5AbbreviationLineEdit)
+        self.planetH5ForegroundColorLabel = \
+            QLabel("H5 foreground color:")
+        self.planetH5ForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetH5ForegroundColorLabel,
+                   self.planetH5ForegroundColorEditButton)
+        self.planetH5BackgroundColorLabel = \
+            QLabel("H5 background color:")
+        self.planetH5BackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetH5BackgroundColorLabel,
+                   self.planetH5BackgroundColorEditButton)
+
+        # H6
+        self.planetH6GlyphUnicodeLabel = \
+            QLabel("H6 unicode glyph:")
+        self.planetH6GlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetH6GlyphUnicodeLabel,
+                   self.planetH6GlyphUnicodeLineEdit)
+        self.planetH6GlyphFontSizeLabel = \
+            QLabel("H6 glyph font size:")
+        self.planetH6GlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetH6GlyphFontSizeSpinBox.setDecimals(4)
+        self.planetH6GlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetH6GlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetH6GlyphFontSizeLabel,
+                   self.planetH6GlyphFontSizeSpinBox)
+        self.planetH6AbbreviationLabel = \
+            QLabel("H6 abbreviation:")
+        self.planetH6AbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetH6AbbreviationLabel,
+                   self.planetH6AbbreviationLineEdit)
+        self.planetH6ForegroundColorLabel = \
+            QLabel("H6 foreground color:")
+        self.planetH6ForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetH6ForegroundColorLabel,
+                   self.planetH6ForegroundColorEditButton)
+        self.planetH6BackgroundColorLabel = \
+            QLabel("H6 background color:")
+        self.planetH6BackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetH6BackgroundColorLabel,
+                   self.planetH6BackgroundColorEditButton)
+
+        # H7
+        self.planetH7GlyphUnicodeLabel = \
+            QLabel("H7 unicode glyph:")
+        self.planetH7GlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetH7GlyphUnicodeLabel,
+                   self.planetH7GlyphUnicodeLineEdit)
+        self.planetH7GlyphFontSizeLabel = \
+            QLabel("H7 glyph font size:")
+        self.planetH7GlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetH7GlyphFontSizeSpinBox.setDecimals(4)
+        self.planetH7GlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetH7GlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetH7GlyphFontSizeLabel,
+                   self.planetH7GlyphFontSizeSpinBox)
+        self.planetH7AbbreviationLabel = \
+            QLabel("H7 abbreviation:")
+        self.planetH7AbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetH7AbbreviationLabel,
+                   self.planetH7AbbreviationLineEdit)
+        self.planetH7ForegroundColorLabel = \
+            QLabel("H7 foreground color:")
+        self.planetH7ForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetH7ForegroundColorLabel,
+                   self.planetH7ForegroundColorEditButton)
+        self.planetH7BackgroundColorLabel = \
+            QLabel("H7 background color:")
+        self.planetH7BackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetH7BackgroundColorLabel,
+                   self.planetH7BackgroundColorEditButton)
+
+        # H8
+        self.planetH8GlyphUnicodeLabel = \
+            QLabel("H8 unicode glyph:")
+        self.planetH8GlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetH8GlyphUnicodeLabel,
+                   self.planetH8GlyphUnicodeLineEdit)
+        self.planetH8GlyphFontSizeLabel = \
+            QLabel("H8 glyph font size:")
+        self.planetH8GlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetH8GlyphFontSizeSpinBox.setDecimals(4)
+        self.planetH8GlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetH8GlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetH8GlyphFontSizeLabel,
+                   self.planetH8GlyphFontSizeSpinBox)
+        self.planetH8AbbreviationLabel = \
+            QLabel("H8 abbreviation:")
+        self.planetH8AbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetH8AbbreviationLabel,
+                   self.planetH8AbbreviationLineEdit)
+        self.planetH8ForegroundColorLabel = \
+            QLabel("H8 foreground color:")
+        self.planetH8ForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetH8ForegroundColorLabel,
+                   self.planetH8ForegroundColorEditButton)
+        self.planetH8BackgroundColorLabel = \
+            QLabel("H8 background color:")
+        self.planetH8BackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetH8BackgroundColorLabel,
+                   self.planetH8BackgroundColorEditButton)
+
+        # H9
+        self.planetH9GlyphUnicodeLabel = \
+            QLabel("H9 unicode glyph:")
+        self.planetH9GlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetH9GlyphUnicodeLabel,
+                   self.planetH9GlyphUnicodeLineEdit)
+        self.planetH9GlyphFontSizeLabel = \
+            QLabel("H9 glyph font size:")
+        self.planetH9GlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetH9GlyphFontSizeSpinBox.setDecimals(4)
+        self.planetH9GlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetH9GlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetH9GlyphFontSizeLabel,
+                   self.planetH9GlyphFontSizeSpinBox)
+        self.planetH9AbbreviationLabel = \
+            QLabel("H9 abbreviation:")
+        self.planetH9AbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetH9AbbreviationLabel,
+                   self.planetH9AbbreviationLineEdit)
+        self.planetH9ForegroundColorLabel = \
+            QLabel("H9 foreground color:")
+        self.planetH9ForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetH9ForegroundColorLabel,
+                   self.planetH9ForegroundColorEditButton)
+        self.planetH9BackgroundColorLabel = \
+            QLabel("H9 background color:")
+        self.planetH9BackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetH9BackgroundColorLabel,
+                   self.planetH9BackgroundColorEditButton)
+
+        # H10
+        self.planetH10GlyphUnicodeLabel = \
+            QLabel("H10 unicode glyph:")
+        self.planetH10GlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetH10GlyphUnicodeLabel,
+                   self.planetH10GlyphUnicodeLineEdit)
+        self.planetH10GlyphFontSizeLabel = \
+            QLabel("H10 glyph font size:")
+        self.planetH10GlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetH10GlyphFontSizeSpinBox.setDecimals(4)
+        self.planetH10GlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetH10GlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetH10GlyphFontSizeLabel,
+                   self.planetH10GlyphFontSizeSpinBox)
+        self.planetH10AbbreviationLabel = \
+            QLabel("H10 abbreviation:")
+        self.planetH10AbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetH10AbbreviationLabel,
+                   self.planetH10AbbreviationLineEdit)
+        self.planetH10ForegroundColorLabel = \
+            QLabel("H10 foreground color:")
+        self.planetH10ForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetH10ForegroundColorLabel,
+                   self.planetH10ForegroundColorEditButton)
+        self.planetH10BackgroundColorLabel = \
+            QLabel("H10 background color:")
+        self.planetH10BackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetH10BackgroundColorLabel,
+                   self.planetH10BackgroundColorEditButton)
+
+        # H11
+        self.planetH11GlyphUnicodeLabel = \
+            QLabel("H11 unicode glyph:")
+        self.planetH11GlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetH11GlyphUnicodeLabel,
+                   self.planetH11GlyphUnicodeLineEdit)
+        self.planetH11GlyphFontSizeLabel = \
+            QLabel("H11 glyph font size:")
+        self.planetH11GlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetH11GlyphFontSizeSpinBox.setDecimals(4)
+        self.planetH11GlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetH11GlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetH11GlyphFontSizeLabel,
+                   self.planetH11GlyphFontSizeSpinBox)
+        self.planetH11AbbreviationLabel = \
+            QLabel("H11 abbreviation:")
+        self.planetH11AbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetH11AbbreviationLabel,
+                   self.planetH11AbbreviationLineEdit)
+        self.planetH11ForegroundColorLabel = \
+            QLabel("H11 foreground color:")
+        self.planetH11ForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetH11ForegroundColorLabel,
+                   self.planetH11ForegroundColorEditButton)
+        self.planetH11BackgroundColorLabel = \
+            QLabel("H11 background color:")
+        self.planetH11BackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetH11BackgroundColorLabel,
+                   self.planetH11BackgroundColorEditButton)
+
+        # H12
+        self.planetH12GlyphUnicodeLabel = \
+            QLabel("H12 unicode glyph:")
+        self.planetH12GlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetH12GlyphUnicodeLabel,
+                   self.planetH12GlyphUnicodeLineEdit)
+        self.planetH12GlyphFontSizeLabel = \
+            QLabel("H12 glyph font size:")
+        self.planetH12GlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetH12GlyphFontSizeSpinBox.setDecimals(4)
+        self.planetH12GlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetH12GlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetH12GlyphFontSizeLabel,
+                   self.planetH12GlyphFontSizeSpinBox)
+        self.planetH12AbbreviationLabel = \
+            QLabel("H12 abbreviation:")
+        self.planetH12AbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetH12AbbreviationLabel,
+                   self.planetH12AbbreviationLineEdit)
+        self.planetH12ForegroundColorLabel = \
+            QLabel("H12 foreground color:")
+        self.planetH12ForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetH12ForegroundColorLabel,
+                   self.planetH12ForegroundColorEditButton)
+        self.planetH12BackgroundColorLabel = \
+            QLabel("H12 background color:")
+        self.planetH12BackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetH12BackgroundColorLabel,
+                   self.planetH12BackgroundColorEditButton)
 
         # HoraLagna
         self.planetHoraLagnaGlyphUnicodeLabel = \
@@ -5217,76 +5617,436 @@ class AppPreferencesEditWidget(QWidget):
         self.planetRetrogradeBackgroundColorEditButton.\
             setColor(value)
 
-        # Ascendant
-        key = SettingsKeys.planetAscendantGlyphUnicodeKey
+        # H1
+        key = SettingsKeys.planetH1GlyphUnicodeKey
         value = settings.value(key, \
-            SettingsKeys.planetAscendantGlyphUnicodeDefValue,
+            SettingsKeys.planetH1GlyphUnicodeDefValue,
             type=str)
-        self.planetAscendantGlyphUnicodeLineEdit.\
+        self.planetH1GlyphUnicodeLineEdit.\
             setText(value)
 
-        key = SettingsKeys.planetAscendantGlyphFontSizeKey
+        key = SettingsKeys.planetH1GlyphFontSizeKey
         value = settings.value(key, \
-            SettingsKeys.planetAscendantGlyphFontSizeDefValue,
+            SettingsKeys.planetH1GlyphFontSizeDefValue,
             type=float)
-        self.planetAscendantGlyphFontSizeSpinBox.\
+        self.planetH1GlyphFontSizeSpinBox.\
             setValue(value)
 
-        key = SettingsKeys.planetAscendantAbbreviationKey
+        key = SettingsKeys.planetH1AbbreviationKey
         value = settings.value(key, \
-            SettingsKeys.planetAscendantAbbreviationDefValue,
+            SettingsKeys.planetH1AbbreviationDefValue,
             type=str)
-        self.planetAscendantAbbreviationLineEdit.\
+        self.planetH1AbbreviationLineEdit.\
             setText(value)
 
-        key = SettingsKeys.planetAscendantForegroundColorKey
+        key = SettingsKeys.planetH1ForegroundColorKey
         value = settings.value(key, \
-            SettingsKeys.planetAscendantForegroundColorDefValue,
+            SettingsKeys.planetH1ForegroundColorDefValue,
             type=QColor)
-        self.planetAscendantForegroundColorEditButton.\
+        self.planetH1ForegroundColorEditButton.\
             setColor(value)
 
-        key = SettingsKeys.planetAscendantBackgroundColorKey
+        key = SettingsKeys.planetH1BackgroundColorKey
         value = settings.value(key, \
-            SettingsKeys.planetAscendantBackgroundColorDefValue,
+            SettingsKeys.planetH1BackgroundColorDefValue,
             type=QColor)
-        self.planetAscendantBackgroundColorEditButton.\
+        self.planetH1BackgroundColorEditButton.\
             setColor(value)
 
-        # Midheaven
-        key = SettingsKeys.planetMidheavenGlyphUnicodeKey
+        # H2
+        key = SettingsKeys.planetH2GlyphUnicodeKey
         value = settings.value(key, \
-            SettingsKeys.planetMidheavenGlyphUnicodeDefValue,
+            SettingsKeys.planetH2GlyphUnicodeDefValue,
             type=str)
-        self.planetMidheavenGlyphUnicodeLineEdit.\
+        self.planetH2GlyphUnicodeLineEdit.\
             setText(value)
 
-        key = SettingsKeys.planetMidheavenGlyphFontSizeKey
+        key = SettingsKeys.planetH2GlyphFontSizeKey
         value = settings.value(key, \
-            SettingsKeys.planetMidheavenGlyphFontSizeDefValue,
+            SettingsKeys.planetH2GlyphFontSizeDefValue,
             type=float)
-        self.planetMidheavenGlyphFontSizeSpinBox.\
+        self.planetH2GlyphFontSizeSpinBox.\
             setValue(value)
 
-        key = SettingsKeys.planetMidheavenAbbreviationKey
+        key = SettingsKeys.planetH2AbbreviationKey
         value = settings.value(key, \
-            SettingsKeys.planetMidheavenAbbreviationDefValue,
+            SettingsKeys.planetH2AbbreviationDefValue,
             type=str)
-        self.planetMidheavenAbbreviationLineEdit.\
+        self.planetH2AbbreviationLineEdit.\
             setText(value)
 
-        key = SettingsKeys.planetMidheavenForegroundColorKey
+        key = SettingsKeys.planetH2ForegroundColorKey
         value = settings.value(key, \
-            SettingsKeys.planetMidheavenForegroundColorDefValue,
+            SettingsKeys.planetH2ForegroundColorDefValue,
             type=QColor)
-        self.planetMidheavenForegroundColorEditButton.\
+        self.planetH2ForegroundColorEditButton.\
             setColor(value)
 
-        key = SettingsKeys.planetMidheavenBackgroundColorKey
+        key = SettingsKeys.planetH2BackgroundColorKey
         value = settings.value(key, \
-            SettingsKeys.planetMidheavenBackgroundColorDefValue,
+            SettingsKeys.planetH2BackgroundColorDefValue,
             type=QColor)
-        self.planetMidheavenBackgroundColorEditButton.\
+        self.planetH2BackgroundColorEditButton.\
+            setColor(value)
+
+        # H3
+        key = SettingsKeys.planetH3GlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH3GlyphUnicodeDefValue,
+            type=str)
+        self.planetH3GlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetH3GlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH3GlyphFontSizeDefValue,
+            type=float)
+        self.planetH3GlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetH3AbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetH3AbbreviationDefValue,
+            type=str)
+        self.planetH3AbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetH3ForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetH3ForegroundColorDefValue,
+            type=QColor)
+        self.planetH3ForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetH3BackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetH3BackgroundColorDefValue,
+            type=QColor)
+        self.planetH3BackgroundColorEditButton.\
+            setColor(value)
+
+        # H4
+        key = SettingsKeys.planetH4GlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH4GlyphUnicodeDefValue,
+            type=str)
+        self.planetH4GlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetH4GlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH4GlyphFontSizeDefValue,
+            type=float)
+        self.planetH4GlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetH4AbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetH4AbbreviationDefValue,
+            type=str)
+        self.planetH4AbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetH4ForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetH4ForegroundColorDefValue,
+            type=QColor)
+        self.planetH4ForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetH4BackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetH4BackgroundColorDefValue,
+            type=QColor)
+        self.planetH4BackgroundColorEditButton.\
+            setColor(value)
+
+        # H5
+        key = SettingsKeys.planetH5GlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH5GlyphUnicodeDefValue,
+            type=str)
+        self.planetH5GlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetH5GlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH5GlyphFontSizeDefValue,
+            type=float)
+        self.planetH5GlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetH5AbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetH5AbbreviationDefValue,
+            type=str)
+        self.planetH5AbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetH5ForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetH5ForegroundColorDefValue,
+            type=QColor)
+        self.planetH5ForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetH5BackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetH5BackgroundColorDefValue,
+            type=QColor)
+        self.planetH5BackgroundColorEditButton.\
+            setColor(value)
+
+        # H6
+        key = SettingsKeys.planetH6GlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH6GlyphUnicodeDefValue,
+            type=str)
+        self.planetH6GlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetH6GlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH6GlyphFontSizeDefValue,
+            type=float)
+        self.planetH6GlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetH6AbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetH6AbbreviationDefValue,
+            type=str)
+        self.planetH6AbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetH6ForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetH6ForegroundColorDefValue,
+            type=QColor)
+        self.planetH6ForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetH6BackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetH6BackgroundColorDefValue,
+            type=QColor)
+        self.planetH6BackgroundColorEditButton.\
+            setColor(value)
+
+        # H7
+        key = SettingsKeys.planetH7GlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH7GlyphUnicodeDefValue,
+            type=str)
+        self.planetH7GlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetH7GlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH7GlyphFontSizeDefValue,
+            type=float)
+        self.planetH7GlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetH7AbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetH7AbbreviationDefValue,
+            type=str)
+        self.planetH7AbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetH7ForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetH7ForegroundColorDefValue,
+            type=QColor)
+        self.planetH7ForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetH7BackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetH7BackgroundColorDefValue,
+            type=QColor)
+        self.planetH7BackgroundColorEditButton.\
+            setColor(value)
+
+        # H8
+        key = SettingsKeys.planetH8GlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH8GlyphUnicodeDefValue,
+            type=str)
+        self.planetH8GlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetH8GlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH8GlyphFontSizeDefValue,
+            type=float)
+        self.planetH8GlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetH8AbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetH8AbbreviationDefValue,
+            type=str)
+        self.planetH8AbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetH8ForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetH8ForegroundColorDefValue,
+            type=QColor)
+        self.planetH8ForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetH8BackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetH8BackgroundColorDefValue,
+            type=QColor)
+        self.planetH8BackgroundColorEditButton.\
+            setColor(value)
+
+        # H9
+        key = SettingsKeys.planetH9GlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH9GlyphUnicodeDefValue,
+            type=str)
+        self.planetH9GlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetH9GlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH9GlyphFontSizeDefValue,
+            type=float)
+        self.planetH9GlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetH9AbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetH9AbbreviationDefValue,
+            type=str)
+        self.planetH9AbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetH9ForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetH9ForegroundColorDefValue,
+            type=QColor)
+        self.planetH9ForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetH9BackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetH9BackgroundColorDefValue,
+            type=QColor)
+        self.planetH9BackgroundColorEditButton.\
+            setColor(value)
+
+        # H10
+        key = SettingsKeys.planetH10GlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH10GlyphUnicodeDefValue,
+            type=str)
+        self.planetH10GlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetH10GlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH10GlyphFontSizeDefValue,
+            type=float)
+        self.planetH10GlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetH10AbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetH10AbbreviationDefValue,
+            type=str)
+        self.planetH10AbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetH10ForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetH10ForegroundColorDefValue,
+            type=QColor)
+        self.planetH10ForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetH10BackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetH10BackgroundColorDefValue,
+            type=QColor)
+        self.planetH10BackgroundColorEditButton.\
+            setColor(value)
+
+        # H11
+        key = SettingsKeys.planetH11GlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH11GlyphUnicodeDefValue,
+            type=str)
+        self.planetH11GlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetH11GlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH11GlyphFontSizeDefValue,
+            type=float)
+        self.planetH11GlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetH11AbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetH11AbbreviationDefValue,
+            type=str)
+        self.planetH11AbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetH11ForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetH11ForegroundColorDefValue,
+            type=QColor)
+        self.planetH11ForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetH11BackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetH11BackgroundColorDefValue,
+            type=QColor)
+        self.planetH11BackgroundColorEditButton.\
+            setColor(value)
+
+        # H12
+        key = SettingsKeys.planetH12GlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH12GlyphUnicodeDefValue,
+            type=str)
+        self.planetH12GlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetH12GlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH12GlyphFontSizeDefValue,
+            type=float)
+        self.planetH12GlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetH12AbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetH12AbbreviationDefValue,
+            type=str)
+        self.planetH12AbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetH12ForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetH12ForegroundColorDefValue,
+            type=QColor)
+        self.planetH12ForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetH12BackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetH12BackgroundColorDefValue,
+            type=QColor)
+        self.planetH12BackgroundColorEditButton.\
             setColor(value)
 
         # HoraLagna
@@ -7797,10 +8557,10 @@ class AppPreferencesEditWidget(QWidget):
         else:
             settings.setValue(key, newValue)
 
-        # Ascendant
-        key = SettingsKeys.planetAscendantGlyphUnicodeKey
+        # H1
+        key = SettingsKeys.planetH1GlyphUnicodeKey
         newValue = \
-            self.planetAscendantGlyphUnicodeLineEdit.text()
+            self.planetH1GlyphUnicodeLineEdit.text()
         if settings.contains(key):
             oldValue = settings.value(key, type=str)
             if oldValue != newValue:
@@ -7808,9 +8568,9 @@ class AppPreferencesEditWidget(QWidget):
         else:
             settings.setValue(key, newValue)
 
-        key = SettingsKeys.planetAscendantGlyphFontSizeKey
+        key = SettingsKeys.planetH1GlyphFontSizeKey
         newValue = \
-            self.planetAscendantGlyphFontSizeSpinBox.value()
+            self.planetH1GlyphFontSizeSpinBox.value()
         if settings.contains(key):
             oldValue = settings.value(key, type=float)
             if oldValue != newValue:
@@ -7818,9 +8578,9 @@ class AppPreferencesEditWidget(QWidget):
         else:
             settings.setValue(key, newValue)
 
-        key = SettingsKeys.planetAscendantAbbreviationKey
+        key = SettingsKeys.planetH1AbbreviationKey
         newValue = \
-            self.planetAscendantAbbreviationLineEdit.text()
+            self.planetH1AbbreviationLineEdit.text()
         if settings.contains(key):
             oldValue = settings.value(key, type=str)
             if oldValue != newValue:
@@ -7828,9 +8588,9 @@ class AppPreferencesEditWidget(QWidget):
         else:
             settings.setValue(key, newValue)
 
-        key = SettingsKeys.planetAscendantForegroundColorKey
+        key = SettingsKeys.planetH1ForegroundColorKey
         newValue = \
-            self.planetAscendantForegroundColorEditButton.getColor()
+            self.planetH1ForegroundColorEditButton.getColor()
         if settings.contains(key):
             oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
@@ -7838,9 +8598,9 @@ class AppPreferencesEditWidget(QWidget):
         else:
             settings.setValue(key, newValue)
 
-        key = SettingsKeys.planetAscendantBackgroundColorKey
+        key = SettingsKeys.planetH1BackgroundColorKey
         newValue = \
-            self.planetAscendantBackgroundColorEditButton.getColor()
+            self.planetH1BackgroundColorEditButton.getColor()
         if settings.contains(key):
             oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
@@ -7848,10 +8608,10 @@ class AppPreferencesEditWidget(QWidget):
         else:
             settings.setValue(key, newValue)
 
-        # Midheaven
-        key = SettingsKeys.planetMidheavenGlyphUnicodeKey
+        # H2
+        key = SettingsKeys.planetH2GlyphUnicodeKey
         newValue = \
-            self.planetMidheavenGlyphUnicodeLineEdit.text()
+            self.planetH2GlyphUnicodeLineEdit.text()
         if settings.contains(key):
             oldValue = settings.value(key, type=str)
             if oldValue != newValue:
@@ -7859,9 +8619,9 @@ class AppPreferencesEditWidget(QWidget):
         else:
             settings.setValue(key, newValue)
 
-        key = SettingsKeys.planetMidheavenGlyphFontSizeKey
+        key = SettingsKeys.planetH2GlyphFontSizeKey
         newValue = \
-            self.planetMidheavenGlyphFontSizeSpinBox.value()
+            self.planetH2GlyphFontSizeSpinBox.value()
         if settings.contains(key):
             oldValue = settings.value(key, type=float)
             if oldValue != newValue:
@@ -7869,9 +8629,9 @@ class AppPreferencesEditWidget(QWidget):
         else:
             settings.setValue(key, newValue)
 
-        key = SettingsKeys.planetMidheavenAbbreviationKey
+        key = SettingsKeys.planetH2AbbreviationKey
         newValue = \
-            self.planetMidheavenAbbreviationLineEdit.text()
+            self.planetH2AbbreviationLineEdit.text()
         if settings.contains(key):
             oldValue = settings.value(key, type=str)
             if oldValue != newValue:
@@ -7879,9 +8639,9 @@ class AppPreferencesEditWidget(QWidget):
         else:
             settings.setValue(key, newValue)
 
-        key = SettingsKeys.planetMidheavenForegroundColorKey
+        key = SettingsKeys.planetH2ForegroundColorKey
         newValue = \
-            self.planetMidheavenForegroundColorEditButton.getColor()
+            self.planetH2ForegroundColorEditButton.getColor()
         if settings.contains(key):
             oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
@@ -7889,9 +8649,519 @@ class AppPreferencesEditWidget(QWidget):
         else:
             settings.setValue(key, newValue)
 
-        key = SettingsKeys.planetMidheavenBackgroundColorKey
+        key = SettingsKeys.planetH2BackgroundColorKey
         newValue = \
-            self.planetMidheavenBackgroundColorEditButton.getColor()
+            self.planetH2BackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # H3
+        key = SettingsKeys.planetH3GlyphUnicodeKey
+        newValue = \
+            self.planetH3GlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH3GlyphFontSizeKey
+        newValue = \
+            self.planetH3GlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH3AbbreviationKey
+        newValue = \
+            self.planetH3AbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH3ForegroundColorKey
+        newValue = \
+            self.planetH3ForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH3BackgroundColorKey
+        newValue = \
+            self.planetH3BackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # H4
+        key = SettingsKeys.planetH4GlyphUnicodeKey
+        newValue = \
+            self.planetH4GlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH4GlyphFontSizeKey
+        newValue = \
+            self.planetH4GlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH4AbbreviationKey
+        newValue = \
+            self.planetH4AbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH4ForegroundColorKey
+        newValue = \
+            self.planetH4ForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH4BackgroundColorKey
+        newValue = \
+            self.planetH4BackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # H5
+        key = SettingsKeys.planetH5GlyphUnicodeKey
+        newValue = \
+            self.planetH5GlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH5GlyphFontSizeKey
+        newValue = \
+            self.planetH5GlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH5AbbreviationKey
+        newValue = \
+            self.planetH5AbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH5ForegroundColorKey
+        newValue = \
+            self.planetH5ForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH5BackgroundColorKey
+        newValue = \
+            self.planetH5BackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # H6
+        key = SettingsKeys.planetH6GlyphUnicodeKey
+        newValue = \
+            self.planetH6GlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH6GlyphFontSizeKey
+        newValue = \
+            self.planetH6GlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH6AbbreviationKey
+        newValue = \
+            self.planetH6AbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH6ForegroundColorKey
+        newValue = \
+            self.planetH6ForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH6BackgroundColorKey
+        newValue = \
+            self.planetH6BackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # H7
+        key = SettingsKeys.planetH7GlyphUnicodeKey
+        newValue = \
+            self.planetH7GlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH7GlyphFontSizeKey
+        newValue = \
+            self.planetH7GlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH7AbbreviationKey
+        newValue = \
+            self.planetH7AbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH7ForegroundColorKey
+        newValue = \
+            self.planetH7ForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH7BackgroundColorKey
+        newValue = \
+            self.planetH7BackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # H8
+        key = SettingsKeys.planetH8GlyphUnicodeKey
+        newValue = \
+            self.planetH8GlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH8GlyphFontSizeKey
+        newValue = \
+            self.planetH8GlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH8AbbreviationKey
+        newValue = \
+            self.planetH8AbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH8ForegroundColorKey
+        newValue = \
+            self.planetH8ForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH8BackgroundColorKey
+        newValue = \
+            self.planetH8BackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # H9
+        key = SettingsKeys.planetH9GlyphUnicodeKey
+        newValue = \
+            self.planetH9GlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH9GlyphFontSizeKey
+        newValue = \
+            self.planetH9GlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH9AbbreviationKey
+        newValue = \
+            self.planetH9AbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH9ForegroundColorKey
+        newValue = \
+            self.planetH9ForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH9BackgroundColorKey
+        newValue = \
+            self.planetH9BackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # H10
+        key = SettingsKeys.planetH10GlyphUnicodeKey
+        newValue = \
+            self.planetH10GlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH10GlyphFontSizeKey
+        newValue = \
+            self.planetH10GlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH10AbbreviationKey
+        newValue = \
+            self.planetH10AbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH10ForegroundColorKey
+        newValue = \
+            self.planetH10ForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH10BackgroundColorKey
+        newValue = \
+            self.planetH10BackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # H11
+        key = SettingsKeys.planetH11GlyphUnicodeKey
+        newValue = \
+            self.planetH11GlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH11GlyphFontSizeKey
+        newValue = \
+            self.planetH11GlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH11AbbreviationKey
+        newValue = \
+            self.planetH11AbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH11ForegroundColorKey
+        newValue = \
+            self.planetH11ForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH11BackgroundColorKey
+        newValue = \
+            self.planetH11BackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # H12
+        key = SettingsKeys.planetH12GlyphUnicodeKey
+        newValue = \
+            self.planetH12GlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH12GlyphFontSizeKey
+        newValue = \
+            self.planetH12GlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH12AbbreviationKey
+        newValue = \
+            self.planetH12AbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH12ForegroundColorKey
+        newValue = \
+            self.planetH12ForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetH12BackgroundColorKey
+        newValue = \
+            self.planetH12BackgroundColorEditButton.getColor()
         if settings.contains(key):
             oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
@@ -9700,29 +10970,149 @@ class AppPreferencesEditWidget(QWidget):
         self.planetRetrogradeBackgroundColorEditButton.\
             setColor(SettingsKeys.planetRetrogradeBackgroundColorDefValue)
 
-        # Ascendant
-        self.planetAscendantGlyphUnicodeLineEdit.\
-            setText(SettingsKeys.planetAscendantGlyphUnicodeDefValue)
-        self.planetAscendantGlyphFontSizeSpinBox.\
-            setValue(SettingsKeys.planetAscendantGlyphFontSizeDefValue)
-        self.planetAscendantAbbreviationLineEdit.\
-            setText(SettingsKeys.planetAscendantAbbreviationDefValue)
-        self.planetAscendantForegroundColorEditButton.\
-            setColor(SettingsKeys.planetAscendantForegroundColorDefValue)
-        self.planetAscendantBackgroundColorEditButton.\
-            setColor(SettingsKeys.planetAscendantBackgroundColorDefValue)
+        # H1
+        self.planetH1GlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetH1GlyphUnicodeDefValue)
+        self.planetH1GlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetH1GlyphFontSizeDefValue)
+        self.planetH1AbbreviationLineEdit.\
+            setText(SettingsKeys.planetH1AbbreviationDefValue)
+        self.planetH1ForegroundColorEditButton.\
+            setColor(SettingsKeys.planetH1ForegroundColorDefValue)
+        self.planetH1BackgroundColorEditButton.\
+            setColor(SettingsKeys.planetH1BackgroundColorDefValue)
 
-        # Midheaven
-        self.planetMidheavenGlyphUnicodeLineEdit.\
-            setText(SettingsKeys.planetMidheavenGlyphUnicodeDefValue)
-        self.planetMidheavenGlyphFontSizeSpinBox.\
-            setValue(SettingsKeys.planetMidheavenGlyphFontSizeDefValue)
-        self.planetMidheavenAbbreviationLineEdit.\
-            setText(SettingsKeys.planetMidheavenAbbreviationDefValue)
-        self.planetMidheavenForegroundColorEditButton.\
-            setColor(SettingsKeys.planetMidheavenForegroundColorDefValue)
-        self.planetMidheavenBackgroundColorEditButton.\
-            setColor(SettingsKeys.planetMidheavenBackgroundColorDefValue)
+        # H2
+        self.planetH2GlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetH2GlyphUnicodeDefValue)
+        self.planetH2GlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetH2GlyphFontSizeDefValue)
+        self.planetH2AbbreviationLineEdit.\
+            setText(SettingsKeys.planetH2AbbreviationDefValue)
+        self.planetH2ForegroundColorEditButton.\
+            setColor(SettingsKeys.planetH2ForegroundColorDefValue)
+        self.planetH2BackgroundColorEditButton.\
+            setColor(SettingsKeys.planetH2BackgroundColorDefValue)
+
+        # H3
+        self.planetH3GlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetH3GlyphUnicodeDefValue)
+        self.planetH3GlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetH3GlyphFontSizeDefValue)
+        self.planetH3AbbreviationLineEdit.\
+            setText(SettingsKeys.planetH3AbbreviationDefValue)
+        self.planetH3ForegroundColorEditButton.\
+            setColor(SettingsKeys.planetH3ForegroundColorDefValue)
+        self.planetH3BackgroundColorEditButton.\
+            setColor(SettingsKeys.planetH3BackgroundColorDefValue)
+
+        # H4
+        self.planetH4GlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetH4GlyphUnicodeDefValue)
+        self.planetH4GlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetH4GlyphFontSizeDefValue)
+        self.planetH4AbbreviationLineEdit.\
+            setText(SettingsKeys.planetH4AbbreviationDefValue)
+        self.planetH4ForegroundColorEditButton.\
+            setColor(SettingsKeys.planetH4ForegroundColorDefValue)
+        self.planetH4BackgroundColorEditButton.\
+            setColor(SettingsKeys.planetH4BackgroundColorDefValue)
+
+        # H5
+        self.planetH5GlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetH5GlyphUnicodeDefValue)
+        self.planetH5GlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetH5GlyphFontSizeDefValue)
+        self.planetH5AbbreviationLineEdit.\
+            setText(SettingsKeys.planetH5AbbreviationDefValue)
+        self.planetH5ForegroundColorEditButton.\
+            setColor(SettingsKeys.planetH5ForegroundColorDefValue)
+        self.planetH5BackgroundColorEditButton.\
+            setColor(SettingsKeys.planetH5BackgroundColorDefValue)
+
+        # H6
+        self.planetH6GlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetH6GlyphUnicodeDefValue)
+        self.planetH6GlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetH6GlyphFontSizeDefValue)
+        self.planetH6AbbreviationLineEdit.\
+            setText(SettingsKeys.planetH6AbbreviationDefValue)
+        self.planetH6ForegroundColorEditButton.\
+            setColor(SettingsKeys.planetH6ForegroundColorDefValue)
+        self.planetH6BackgroundColorEditButton.\
+            setColor(SettingsKeys.planetH6BackgroundColorDefValue)
+
+        # H7
+        self.planetH7GlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetH7GlyphUnicodeDefValue)
+        self.planetH7GlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetH7GlyphFontSizeDefValue)
+        self.planetH7AbbreviationLineEdit.\
+            setText(SettingsKeys.planetH7AbbreviationDefValue)
+        self.planetH7ForegroundColorEditButton.\
+            setColor(SettingsKeys.planetH7ForegroundColorDefValue)
+        self.planetH7BackgroundColorEditButton.\
+            setColor(SettingsKeys.planetH7BackgroundColorDefValue)
+
+        # H8
+        self.planetH8GlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetH8GlyphUnicodeDefValue)
+        self.planetH8GlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetH8GlyphFontSizeDefValue)
+        self.planetH8AbbreviationLineEdit.\
+            setText(SettingsKeys.planetH8AbbreviationDefValue)
+        self.planetH8ForegroundColorEditButton.\
+            setColor(SettingsKeys.planetH8ForegroundColorDefValue)
+        self.planetH8BackgroundColorEditButton.\
+            setColor(SettingsKeys.planetH8BackgroundColorDefValue)
+
+        # H9
+        self.planetH9GlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetH9GlyphUnicodeDefValue)
+        self.planetH9GlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetH9GlyphFontSizeDefValue)
+        self.planetH9AbbreviationLineEdit.\
+            setText(SettingsKeys.planetH9AbbreviationDefValue)
+        self.planetH9ForegroundColorEditButton.\
+            setColor(SettingsKeys.planetH9ForegroundColorDefValue)
+        self.planetH9BackgroundColorEditButton.\
+            setColor(SettingsKeys.planetH9BackgroundColorDefValue)
+
+        # H10
+        self.planetH10GlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetH10GlyphUnicodeDefValue)
+        self.planetH10GlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetH10GlyphFontSizeDefValue)
+        self.planetH10AbbreviationLineEdit.\
+            setText(SettingsKeys.planetH10AbbreviationDefValue)
+        self.planetH10ForegroundColorEditButton.\
+            setColor(SettingsKeys.planetH10ForegroundColorDefValue)
+        self.planetH10BackgroundColorEditButton.\
+            setColor(SettingsKeys.planetH10BackgroundColorDefValue)
+
+        # H11
+        self.planetH11GlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetH11GlyphUnicodeDefValue)
+        self.planetH11GlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetH11GlyphFontSizeDefValue)
+        self.planetH11AbbreviationLineEdit.\
+            setText(SettingsKeys.planetH11AbbreviationDefValue)
+        self.planetH11ForegroundColorEditButton.\
+            setColor(SettingsKeys.planetH11ForegroundColorDefValue)
+        self.planetH11BackgroundColorEditButton.\
+            setColor(SettingsKeys.planetH11BackgroundColorDefValue)
+
+        # H12
+        self.planetH12GlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetH12GlyphUnicodeDefValue)
+        self.planetH12GlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetH12GlyphFontSizeDefValue)
+        self.planetH12AbbreviationLineEdit.\
+            setText(SettingsKeys.planetH12AbbreviationDefValue)
+        self.planetH12ForegroundColorEditButton.\
+            setColor(SettingsKeys.planetH12ForegroundColorDefValue)
+        self.planetH12BackgroundColorEditButton.\
+            setColor(SettingsKeys.planetH12BackgroundColorDefValue)
 
         # HoraLagna
         self.planetHoraLagnaGlyphUnicodeLineEdit.\

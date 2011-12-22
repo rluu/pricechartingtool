@@ -329,7 +329,7 @@ class Ephemeris:
         # deallocate memory, etc.
         swe.close()
 
-        Ephemeris.log.debug("Leaving closeEphemeris()")
+        Ephemeris.log.debug("Exiting closeEphemeris()")
 
     @staticmethod
     def setGeographicPosition(geoLongitudeDeg, 
@@ -377,7 +377,7 @@ class Ephemeris:
                              Ephemeris.geoAltitudeMeters)
             Ephemeris.log.debug(infoStr)
 
-            Ephemeris.log.debug("Leaving setGeographicPosition()")
+            Ephemeris.log.debug("Exiting setGeographicPosition()")
 
 
     @staticmethod
@@ -426,7 +426,7 @@ class Ephemeris:
                        "jd_et={}, jd_ut={}.  Using jd_ut as julian day."
             Ephemeris.log.debug(debugStr.format(dtUtc, jd_et, jd_ut))
 
-            Ephemeris.log.debug("Leaving datetimeToJulianDay() and " + \
+            Ephemeris.log.debug("Exiting datetimeToJulianDay() and " + \
                                 "returning {}".format(jd))
         return jd
 
@@ -720,7 +720,7 @@ class Ephemeris:
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("iflag after: {}".format(Ephemeris.iflag))
-            Ephemeris.log.debug("Leaving setSiderealZodiac()")
+            Ephemeris.log.debug("Exiting setSiderealZodiac()")
 
     @staticmethod
     def setTropicalZodiac():
@@ -737,7 +737,7 @@ class Ephemeris:
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("iflag after: {}".format(Ephemeris.iflag))
-            Ephemeris.log.debug("Leaving setTropicalZodiac()")
+            Ephemeris.log.debug("Exiting setTropicalZodiac()")
         
 
     @staticmethod
@@ -754,7 +754,7 @@ class Ephemeris:
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("iflag after: {}".format(Ephemeris.iflag))
-            Ephemeris.log.debug("Leaving setTruePlanetaryPositions()")
+            Ephemeris.log.debug("Exiting setTruePlanetaryPositions()")
 
     @staticmethod
     def setApparentPlanetaryPositions():
@@ -769,7 +769,7 @@ class Ephemeris:
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("iflag after: {}".format(Ephemeris.iflag))
-            Ephemeris.log.debug("Leaving setApparentPlanetaryPositions()")
+            Ephemeris.log.debug("Exiting setApparentPlanetaryPositions()")
 
 
     @staticmethod
@@ -818,7 +818,7 @@ class Ephemeris:
                 # Change the name and id fields.
                 rv.name = planetName
                 
-                # Use an invalid ID.
+                # Use an invalid planet ID.
                 #
                 # (Note: The number chosen has no meaning.
                 # I couldn't use -1, because -1 stands for SE_ECL_NUT.
@@ -1333,7 +1333,7 @@ class Ephemeris:
                                            arg1, arg2, arg3, arg4, arg5, arg6)
         
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            Ephemeris.log.debug("Leaving calc_ut(jd={}, planet={}, flag={})".\
+            Ephemeris.log.debug("Exiting calc_ut(jd={}, planet={}, flag={})".\
                                 format(jd, planet, flag))
 
         # Return calculated values.
@@ -1432,7 +1432,7 @@ class Ephemeris:
                                             ascmc)
         
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            Ephemeris.log.debug("Leaving swe_houses_ex(" + \
+            Ephemeris.log.debug("Exiting swe_houses_ex(" + \
                                 "jd={}, ".format(jd) + \
                                 "houseSystem={})".format(houseSystem))
 
@@ -1725,8 +1725,355 @@ class Ephemeris:
 
         return cusps
 
+
+    @staticmethod
+    def getHouseCuspPlanetaryInfo(houseNumber,
+                                  dt,
+                                  houseSystem=HouseSys['Porphyry']):
+        """Returns a PlanetaryInfo containing information about
+        the desired astrological house number at the given timestamp.
+        
+        Parameters:
+        houseNumber - int value for the house number desired.
+                      Value 1 refers to the first house.
+        dt          - datetime.datetime object holding the timestamp at which 
+                      to do the lookup.  Timezone information is automatically
+                      converted to UTC for getting the planetary info.
+        houseSystem - byte string of length 1.  That character is one of:
+
+                      P - Placidus
+                      K - Koch
+                      O - Porphyrius
+                      R - Regiomontanus
+                      C - Campanus
+                      A or E - Equal (cusp 1 is ascendant)
+                      V - Vehlow equal (asc. in middle of house 1)
+                      W - Whole sign
+                      X - Axial rotation system
+                      H - Azimuthal or horizontal system
+                      T - Polich/Page ('topocentric' system)
+                      B - Alcabitus
+                      M - Morinus
+                      U - Krusinski-Pisa
+                      G - Gauquelin sectors
+
+                      For convenience you can use the dict at
+                      Ephemeris.HouseSys to reference the house system you
+                      want.
+
+        Returns:
+        PlanetaryInfo object containing information about
+        the desired astrological house number at the given timestamp.
+        If there is an error or invalid input, None is returned.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug("Entered " + functName + \
+                                "({}, {}, {})".\
+                                format(houseNumber, dt, houseSystem))
+
+        if houseNumber < 1 or houseNumber > 12:
+            Ephemeris.log.error(functName + "(): Invalid houseNumber '{}'".\
+                                format(houseNumber))
+            return None
+
+        # Store some str in variables so they don't get instantiated a
+        # bunch of times.
+        tropicalStr = "tropical"
+        siderealStr = "sidereal"
+        
+        # Planet name.
+        planetName = "H{}".format(houseNumber)
+
+        # Planet ID.
+        # Here we will use an invalid planet ID.
+        #
+        # (Note: The number chosen has no meaning.
+        # I couldn't use -1, because -1 stands for SE_ECL_NUT.
+        # See documentation of the Swiss Ephemeris, in
+        # file: pyswisseph-1.76.00-0/doc/swephprg.htm)
+        #
+        planetId = -9999
+
+        # julian day for the timestamp.
+        jd = Ephemeris.datetimeToJulianDay(dt)
+        
+        # House cusp index.
+        houseCuspIndex = houseNumber - 1
+        
+        # Get the tuple holding values for the house cusps.
+        cusps = Ephemeris.getHouseCusps(dt, houseSystem)
+
+        # Now fill out the dictionaries that go into a PlanetaryInfo object.
+        
+        # Geocentric, Tropical.
+        longitude = cusps[tropicalStr][houseCuspIndex]
+        latitude = 0.0
+        distance = 0.0
+        longitude_speed = 360.0
+        latitude_speed = 0.0
+        distance_speed = 0.0
+        rectascension = 0.0
+        declination = 0.0
+        rectascension_speed = 0.0
+        declination_speed = 0.0
+        distance_speed = 0.0
+        x = 0.0
+        y = 0.0
+        z = 0.0
+        dx = 0.0
+        dy = 0.0
+        dz = 0.0
+        
+        geocentricTropicalDict = \
+                {'longitude': longitude, 
+                 'latitude': latitude,
+                 'distance': distance,
+                 'longitude_speed': longitude_speed,
+                 'latitude_speed': latitude_speed,
+                 'distance_speed': distance_speed,
+                 'rectascension': rectascension, 
+                 'declination': declination,
+                 'distance': distance,
+                 'rectascension_speed': rectascension_speed,
+                 'declination_speed': declination_speed,
+                 'distance_speed': distance_speed,
+                 'X': x,
+                 'Y': y,
+                 'Z': z,
+                 'dX': dx,
+                 'dY': dy,
+                 'dZ': dz}
+
+        # Geocentric, Sidereal.
+        longitude = cusps[siderealStr][houseCuspIndex]
+        latitude = 0.0
+        distance = 0.0
+        longitude_speed = 360.0
+        latitude_speed = 0.0
+        distance_speed = 0.0
+        rectascension = 0.0
+        declination = 0.0
+        rectascension_speed = 0.0
+        declination_speed = 0.0
+        distance_speed = 0.0
+        x = 0.0
+        y = 0.0
+        z = 0.0
+        dx = 0.0
+        dy = 0.0
+        dz = 0.0
+        
+        geocentricSiderealDict = \
+                {'longitude': longitude, 
+                 'latitude': latitude,
+                 'distance': distance,
+                 'longitude_speed': longitude_speed,
+                 'latitude_speed': latitude_speed,
+                 'distance_speed': distance_speed,
+                 'rectascension': rectascension, 
+                 'declination': declination,
+                 'distance': distance,
+                 'rectascension_speed': rectascension_speed,
+                 'declination_speed': declination_speed,
+                 'distance_speed': distance_speed,
+                 'X': x,
+                 'Y': y,
+                 'Z': z,
+                 'dX': dx,
+                 'dY': dy,
+                 'dZ': dz}
+
+        # Topocentric, Tropical.  Not supported, so all values set to 0.0
+        longitude = 0.0
+        latitude = 0.0
+        distance = 0.0
+        longitude_speed = 360.0
+        latitude_speed = 0.0
+        distance_speed = 0.0
+        rectascension = 0.0
+        declination = 0.0
+        rectascension_speed = 0.0
+        declination_speed = 0.0
+        distance_speed = 0.0
+        x = 0.0
+        y = 0.0
+        z = 0.0
+        dx = 0.0
+        dy = 0.0
+        dz = 0.0
+        
+        topocentricTropicalDict = \
+                {'longitude': longitude, 
+                 'latitude': latitude,
+                 'distance': distance,
+                 'longitude_speed': longitude_speed,
+                 'latitude_speed': latitude_speed,
+                 'distance_speed': distance_speed,
+                 'rectascension': rectascension, 
+                 'declination': declination,
+                 'distance': distance,
+                 'rectascension_speed': rectascension_speed,
+                 'declination_speed': declination_speed,
+                 'distance_speed': distance_speed,
+                 'X': x,
+                 'Y': y,
+                 'Z': z,
+                 'dX': dx,
+                 'dY': dy,
+                 'dZ': dz}
+
+        # Topocentric, Sidereal.  Not supported, so all values set to 0.0
+        longitude = 0.0
+        latitude = 0.0
+        distance = 0.0
+        longitude_speed = 360.0
+        latitude_speed = 0.0
+        distance_speed = 0.0
+        rectascension = 0.0
+        declination = 0.0
+        rectascension_speed = 0.0
+        declination_speed = 0.0
+        distance_speed = 0.0
+        x = 0.0
+        y = 0.0
+        z = 0.0
+        dx = 0.0
+        dy = 0.0
+        dz = 0.0
+        
+        topocentricSiderealDict = \
+                {'longitude': longitude, 
+                 'latitude': latitude,
+                 'distance': distance,
+                 'longitude_speed': longitude_speed,
+                 'latitude_speed': latitude_speed,
+                 'distance_speed': distance_speed,
+                 'rectascension': rectascension, 
+                 'declination': declination,
+                 'distance': distance,
+                 'rectascension_speed': rectascension_speed,
+                 'declination_speed': declination_speed,
+                 'distance_speed': distance_speed,
+                 'X': x,
+                 'Y': y,
+                 'Z': z,
+                 'dX': dx,
+                 'dY': dy,
+                 'dZ': dz}
+
+        # Heliocentric, Tropical.  Not supported, so all values set to 0.0
+        longitude = 0.0
+        latitude = 0.0
+        distance = 0.0
+        longitude_speed = 360.0
+        latitude_speed = 0.0
+        distance_speed = 0.0
+        rectascension = 0.0
+        declination = 0.0
+        rectascension_speed = 0.0
+        declination_speed = 0.0
+        distance_speed = 0.0
+        x = 0.0
+        y = 0.0
+        z = 0.0
+        dx = 0.0
+        dy = 0.0
+        dz = 0.0
+        
+        heliocentricTropicalDict = \
+                {'longitude': longitude, 
+                 'latitude': latitude,
+                 'distance': distance,
+                 'longitude_speed': longitude_speed,
+                 'latitude_speed': latitude_speed,
+                 'distance_speed': distance_speed,
+                 'rectascension': rectascension, 
+                 'declination': declination,
+                 'distance': distance,
+                 'rectascension_speed': rectascension_speed,
+                 'declination_speed': declination_speed,
+                 'distance_speed': distance_speed,
+                 'X': x,
+                 'Y': y,
+                 'Z': z,
+                 'dX': dx,
+                 'dY': dy,
+                 'dZ': dz}
+
+        # Heliocentric, Sidereal.  Not supported, so all values set to 0.0
+        longitude = 0.0
+        latitude = 0.0
+        distance = 0.0
+        longitude_speed = 360.0
+        latitude_speed = 0.0
+        distance_speed = 0.0
+        rectascension = 0.0
+        declination = 0.0
+        rectascension_speed = 0.0
+        declination_speed = 0.0
+        distance_speed = 0.0
+        x = 0.0
+        y = 0.0
+        z = 0.0
+        dx = 0.0
+        dy = 0.0
+        dz = 0.0
+        
+        heliocentricSiderealDict = \
+                {'longitude': longitude, 
+                 'latitude': latitude,
+                 'distance': distance,
+                 'longitude_speed': longitude_speed,
+                 'latitude_speed': latitude_speed,
+                 'distance_speed': distance_speed,
+                 'rectascension': rectascension, 
+                 'declination': declination,
+                 'distance': distance,
+                 'rectascension_speed': rectascension_speed,
+                 'declination_speed': declination_speed,
+                 'distance_speed': distance_speed,
+                 'X': x,
+                 'Y': y,
+                 'Z': z,
+                 'dX': dx,
+                 'dY': dy,
+                 'dZ': dz}
+
+        # Dictionary holding all the geocentric information.
+        geocentricDict = {'tropical': geocentricTropicalDict,
+                          'sidereal': geocentricSiderealDict}
+
+        # Dictionary holding all the topocentric information.
+        topocentricDict = {'tropical': topocentricTropicalDict,
+                           'sidereal': topocentricSiderealDict}
+
+        # Dictionary holding all the heliocentric information.
+        heliocentricDict = {'tropical': heliocentricTropicalDict,
+                            'sidereal': heliocentricSiderealDict}
+
+        # Create the PlanetaryInfo object.
+        planetaryInfo = PlanetaryInfo(planetName,
+                                      planetId,
+                                      dt,
+                                      jd,
+                                      geocentricDict,
+                                      topocentricDict,
+                                      heliocentricDict)
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug("Exiting " + functName + \
+                                "({}, {}, {})".\
+                                format(houseNumber, dt, houseSystem))
+        
+        return planetaryInfo
+    
+        
     # TODO:  add functions for getting locations of gulika and mandi and
     # other upagrahas.
+
 
     @staticmethod
     def getPlanetaryInfo(planetName, dt):
@@ -1759,7 +2106,34 @@ class Ephemeris:
             # This means that it is one of our additional custom
             # planets (not built into Swiss Ephemeris).
             # Handle these cases for building PlanetaryInfo separately.
-            if planetName == "MeanOfFive":
+
+            houseSystem = Ephemeris.HouseSys['Porphyry']
+        
+            if planetName == "H1":
+                return Ephemeris.getH1PlanetaryInfo(dt, houseSystem)
+            elif planetName == "H2":
+                return Ephemeris.getH2PlanetaryInfo(dt, houseSystem)
+            elif planetName == "H3":
+                return Ephemeris.getH3PlanetaryInfo(dt, houseSystem)
+            elif planetName == "H4":
+                return Ephemeris.getH4PlanetaryInfo(dt, houseSystem)
+            elif planetName == "H5":
+                return Ephemeris.getH5PlanetaryInfo(dt, houseSystem)
+            elif planetName == "H6":
+                return Ephemeris.getH6PlanetaryInfo(dt, houseSystem)
+            elif planetName == "H7":
+                return Ephemeris.getH7PlanetaryInfo(dt, houseSystem)
+            elif planetName == "H8":
+                return Ephemeris.getH8PlanetaryInfo(dt, houseSystem)
+            elif planetName == "H9":
+                return Ephemeris.getH9PlanetaryInfo(dt, houseSystem)
+            elif planetName == "H10":
+                return Ephemeris.getH10PlanetaryInfo(dt, houseSystem)
+            elif planetName == "H11":
+                return Ephemeris.getH11PlanetaryInfo(dt, houseSystem)
+            elif planetName == "H12":
+                return Ephemeris.getH12PlanetaryInfo(dt, houseSystem)
+            elif planetName == "MeanOfFive":
                 return Ephemeris.getMeanOfFivePlanetaryInfo(dt)
             elif planetName == "CycleOfEight":
                 return Ephemeris.getCycleOfEightPlanetaryInfo(dt)
@@ -2147,8 +2521,7 @@ class Ephemeris:
         heliocentricDict = {'tropical': heliocentricTropicalDict,
                             'sidereal': heliocentricSiderealDict}
 
-        # Dictionary holding everything about the planet at the 
-        # timestamp given.
+        # Create the PlanetaryInfo object.
         planetaryInfo = PlanetaryInfo(planetName,
                                       planetId,
                                       dt,
@@ -2158,7 +2531,7 @@ class Ephemeris:
                                       heliocentricDict)
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            debugStr = "Leaving getPlanetaryInfo(planetName={}, datetime={}"
+            debugStr = "Exiting getPlanetaryInfo(planetName={}, datetime={}"
             Ephemeris.log.debug(debugStr.format(planetName, dt))
 
         return planetaryInfo
@@ -2166,6 +2539,462 @@ class Ephemeris:
 
     ######################################################################
 
+    @staticmethod
+    def getH1PlanetaryInfo(timestamp, houseSystem=HouseSys['Porphyry']):
+        """Returns a PlanetaryInfo containing information about
+        the 'H1' at the given timestamp.
+        
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which 
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        houseSystem - byte string of length 1.  That character is one of:
+
+                      P - Placidus
+                      K - Koch
+                      O - Porphyrius
+                      R - Regiomontanus
+                      C - Campanus
+                      A or E - Equal (cusp 1 is ascendant)
+                      V - Vehlow equal (asc. in middle of house 1)
+                      W - Whole sign
+                      X - Axial rotation system
+                      H - Azimuthal or horizontal system
+                      T - Polich/Page ('topocentric' system)
+                      B - Alcabitus
+                      M - Morinus
+                      U - Krusinski-Pisa
+                      G - Gauquelin sectors
+
+                      For convenience you can use the dict at
+                      Ephemeris.HouseSys to reference the house system you
+                      want.
+        """
+
+        houseNumber = 1
+        
+        return Ephemeris.getHouseCuspPlanetaryInfo(houseNumber,
+                                                    timestamp,
+                                                    houseSystem)
+        
+    @staticmethod
+    def getH2PlanetaryInfo(timestamp, houseSystem=HouseSys['Porphyry']):
+        """Returns a PlanetaryInfo containing information about
+        the 'H2' at the given timestamp.
+        
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which 
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        houseSystem - byte string of length 1.  That character is one of:
+
+                      P - Placidus
+                      K - Koch
+                      O - Porphyrius
+                      R - Regiomontanus
+                      C - Campanus
+                      A or E - Equal (cusp 1 is ascendant)
+                      V - Vehlow equal (asc. in middle of house 1)
+                      W - Whole sign
+                      X - Axial rotation system
+                      H - Azimuthal or horizontal system
+                      T - Polich/Page ('topocentric' system)
+                      B - Alcabitus
+                      M - Morinus
+                      U - Krusinski-Pisa
+                      G - Gauquelin sectors
+
+                      For convenience you can use the dict at
+                      Ephemeris.HouseSys to reference the house system you
+                      want.
+        """
+
+        houseNumber = 2
+        
+        return Ephemeris.getHouseCuspPlanetaryInfo(houseNumber,
+                                                    timestamp,
+                                                    houseSystem)
+        
+    @staticmethod
+    def getH3PlanetaryInfo(timestamp, houseSystem=HouseSys['Porphyry']):
+        """Returns a PlanetaryInfo containing information about
+        the 'H3' at the given timestamp.
+        
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which 
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        houseSystem - byte string of length 1.  That character is one of:
+
+                      P - Placidus
+                      K - Koch
+                      O - Porphyrius
+                      R - Regiomontanus
+                      C - Campanus
+                      A or E - Equal (cusp 1 is ascendant)
+                      V - Vehlow equal (asc. in middle of house 1)
+                      W - Whole sign
+                      X - Axial rotation system
+                      H - Azimuthal or horizontal system
+                      T - Polich/Page ('topocentric' system)
+                      B - Alcabitus
+                      M - Morinus
+                      U - Krusinski-Pisa
+                      G - Gauquelin sectors
+
+                      For convenience you can use the dict at
+                      Ephemeris.HouseSys to reference the house system you
+                      want.
+        """
+
+        houseNumber = 3
+        
+        return Ephemeris.getHouseCuspPlanetaryInfo(houseNumber,
+                                                    timestamp,
+                                                    houseSystem)
+        
+    @staticmethod
+    def getH4PlanetaryInfo(timestamp, houseSystem=HouseSys['Porphyry']):
+        """Returns a PlanetaryInfo containing information about
+        the 'H4' at the given timestamp.
+        
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which 
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        houseSystem - byte string of length 1.  That character is one of:
+
+                      P - Placidus
+                      K - Koch
+                      O - Porphyrius
+                      R - Regiomontanus
+                      C - Campanus
+                      A or E - Equal (cusp 1 is ascendant)
+                      V - Vehlow equal (asc. in middle of house 1)
+                      W - Whole sign
+                      X - Axial rotation system
+                      H - Azimuthal or horizontal system
+                      T - Polich/Page ('topocentric' system)
+                      B - Alcabitus
+                      M - Morinus
+                      U - Krusinski-Pisa
+                      G - Gauquelin sectors
+
+                      For convenience you can use the dict at
+                      Ephemeris.HouseSys to reference the house system you
+                      want.
+        """
+
+        houseNumber = 4
+        
+        return Ephemeris.getHouseCuspPlanetaryInfo(houseNumber,
+                                                    timestamp,
+                                                    houseSystem)
+        
+    @staticmethod
+    def getH5PlanetaryInfo(timestamp, houseSystem=HouseSys['Porphyry']):
+        """Returns a PlanetaryInfo containing information about
+        the 'H5' at the given timestamp.
+        
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which 
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        houseSystem - byte string of length 1.  That character is one of:
+
+                      P - Placidus
+                      K - Koch
+                      O - Porphyrius
+                      R - Regiomontanus
+                      C - Campanus
+                      A or E - Equal (cusp 1 is ascendant)
+                      V - Vehlow equal (asc. in middle of house 1)
+                      W - Whole sign
+                      X - Axial rotation system
+                      H - Azimuthal or horizontal system
+                      T - Polich/Page ('topocentric' system)
+                      B - Alcabitus
+                      M - Morinus
+                      U - Krusinski-Pisa
+                      G - Gauquelin sectors
+
+                      For convenience you can use the dict at
+                      Ephemeris.HouseSys to reference the house system you
+                      want.
+        """
+
+        houseNumber = 5
+        
+        return Ephemeris.getHouseCuspPlanetaryInfo(houseNumber,
+                                                    timestamp,
+                                                    houseSystem)
+        
+    @staticmethod
+    def getH6PlanetaryInfo(timestamp, houseSystem=HouseSys['Porphyry']):
+        """Returns a PlanetaryInfo containing information about
+        the 'H6' at the given timestamp.
+        
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which 
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        houseSystem - byte string of length 1.  That character is one of:
+
+                      P - Placidus
+                      K - Koch
+                      O - Porphyrius
+                      R - Regiomontanus
+                      C - Campanus
+                      A or E - Equal (cusp 1 is ascendant)
+                      V - Vehlow equal (asc. in middle of house 1)
+                      W - Whole sign
+                      X - Axial rotation system
+                      H - Azimuthal or horizontal system
+                      T - Polich/Page ('topocentric' system)
+                      B - Alcabitus
+                      M - Morinus
+                      U - Krusinski-Pisa
+                      G - Gauquelin sectors
+
+                      For convenience you can use the dict at
+                      Ephemeris.HouseSys to reference the house system you
+                      want.
+        """
+
+        houseNumber = 6
+        
+        return Ephemeris.getHouseCuspPlanetaryInfo(houseNumber,
+                                                    timestamp,
+                                                    houseSystem)
+        
+    @staticmethod
+    def getH7PlanetaryInfo(timestamp, houseSystem=HouseSys['Porphyry']):
+        """Returns a PlanetaryInfo containing information about
+        the 'H7' at the given timestamp.
+        
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which 
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        houseSystem - byte string of length 1.  That character is one of:
+
+                      P - Placidus
+                      K - Koch
+                      O - Porphyrius
+                      R - Regiomontanus
+                      C - Campanus
+                      A or E - Equal (cusp 1 is ascendant)
+                      V - Vehlow equal (asc. in middle of house 1)
+                      W - Whole sign
+                      X - Axial rotation system
+                      H - Azimuthal or horizontal system
+                      T - Polich/Page ('topocentric' system)
+                      B - Alcabitus
+                      M - Morinus
+                      U - Krusinski-Pisa
+                      G - Gauquelin sectors
+
+                      For convenience you can use the dict at
+                      Ephemeris.HouseSys to reference the house system you
+                      want.
+        """
+
+        houseNumber = 7
+        
+        return Ephemeris.getHouseCuspPlanetaryInfo(houseNumber,
+                                                    timestamp,
+                                                    houseSystem)
+        
+    @staticmethod
+    def getH8PlanetaryInfo(timestamp, houseSystem=HouseSys['Porphyry']):
+        """Returns a PlanetaryInfo containing information about
+        the 'H8' at the given timestamp.
+        
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which 
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        houseSystem - byte string of length 1.  That character is one of:
+
+                      P - Placidus
+                      K - Koch
+                      O - Porphyrius
+                      R - Regiomontanus
+                      C - Campanus
+                      A or E - Equal (cusp 1 is ascendant)
+                      V - Vehlow equal (asc. in middle of house 1)
+                      W - Whole sign
+                      X - Axial rotation system
+                      H - Azimuthal or horizontal system
+                      T - Polich/Page ('topocentric' system)
+                      B - Alcabitus
+                      M - Morinus
+                      U - Krusinski-Pisa
+                      G - Gauquelin sectors
+
+                      For convenience you can use the dict at
+                      Ephemeris.HouseSys to reference the house system you
+                      want.
+        """
+
+        houseNumber = 8
+        
+        return Ephemeris.getHouseCuspPlanetaryInfo(houseNumber,
+                                                    timestamp,
+                                                    houseSystem)
+        
+    @staticmethod
+    def getH9PlanetaryInfo(timestamp, houseSystem=HouseSys['Porphyry']):
+        """Returns a PlanetaryInfo containing information about
+        the 'H9' at the given timestamp.
+        
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which 
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        houseSystem - byte string of length 1.  That character is one of:
+
+                      P - Placidus
+                      K - Koch
+                      O - Porphyrius
+                      R - Regiomontanus
+                      C - Campanus
+                      A or E - Equal (cusp 1 is ascendant)
+                      V - Vehlow equal (asc. in middle of house 1)
+                      W - Whole sign
+                      X - Axial rotation system
+                      H - Azimuthal or horizontal system
+                      T - Polich/Page ('topocentric' system)
+                      B - Alcabitus
+                      M - Morinus
+                      U - Krusinski-Pisa
+                      G - Gauquelin sectors
+
+                      For convenience you can use the dict at
+                      Ephemeris.HouseSys to reference the house system you
+                      want.
+        """
+
+        houseNumber = 9
+        
+        return Ephemeris.getHouseCuspPlanetaryInfo(houseNumber,
+                                                    timestamp,
+                                                    houseSystem)
+        
+    @staticmethod
+    def getH10PlanetaryInfo(timestamp, houseSystem=HouseSys['Porphyry']):
+        """Returns a PlanetaryInfo containing information about
+        the 'H10' at the given timestamp.
+        
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which 
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        houseSystem - byte string of length 1.  That character is one of:
+
+                      P - Placidus
+                      K - Koch
+                      O - Porphyrius
+                      R - Regiomontanus
+                      C - Campanus
+                      A or E - Equal (cusp 1 is ascendant)
+                      V - Vehlow equal (asc. in middle of house 1)
+                      W - Whole sign
+                      X - Axial rotation system
+                      H - Azimuthal or horizontal system
+                      T - Polich/Page ('topocentric' system)
+                      B - Alcabitus
+                      M - Morinus
+                      U - Krusinski-Pisa
+                      G - Gauquelin sectors
+
+                      For convenience you can use the dict at
+                      Ephemeris.HouseSys to reference the house system you
+                      want.
+        """
+
+        houseNumber = 10
+        
+        return Ephemeris.getHouseCuspPlanetaryInfo(houseNumber,
+                                                    timestamp,
+                                                    houseSystem)
+        
+    @staticmethod
+    def getH11PlanetaryInfo(timestamp, houseSystem=HouseSys['Porphyry']):
+        """Returns a PlanetaryInfo containing information about
+        the 'H11' at the given timestamp.
+        
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which 
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        houseSystem - byte string of length 1.  That character is one of:
+
+                      P - Placidus
+                      K - Koch
+                      O - Porphyrius
+                      R - Regiomontanus
+                      C - Campanus
+                      A or E - Equal (cusp 1 is ascendant)
+                      V - Vehlow equal (asc. in middle of house 1)
+                      W - Whole sign
+                      X - Axial rotation system
+                      H - Azimuthal or horizontal system
+                      T - Polich/Page ('topocentric' system)
+                      B - Alcabitus
+                      M - Morinus
+                      U - Krusinski-Pisa
+                      G - Gauquelin sectors
+
+                      For convenience you can use the dict at
+                      Ephemeris.HouseSys to reference the house system you
+                      want.
+        """
+
+        houseNumber = 11
+        
+        return Ephemeris.getHouseCuspPlanetaryInfo(houseNumber,
+                                                    timestamp,
+                                                    houseSystem)
+        
+    @staticmethod
+    def getH12PlanetaryInfo(timestamp, houseSystem=HouseSys['Porphyry']):
+        """Returns a PlanetaryInfo containing information about
+        the 'H12' at the given timestamp.
+        
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which 
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        houseSystem - byte string of length 1.  That character is one of:
+
+                      P - Placidus
+                      K - Koch
+                      O - Porphyrius
+                      R - Regiomontanus
+                      C - Campanus
+                      A or E - Equal (cusp 1 is ascendant)
+                      V - Vehlow equal (asc. in middle of house 1)
+                      W - Whole sign
+                      X - Axial rotation system
+                      H - Azimuthal or horizontal system
+                      T - Polich/Page ('topocentric' system)
+                      B - Alcabitus
+                      M - Morinus
+                      U - Krusinski-Pisa
+                      G - Gauquelin sectors
+
+                      For convenience you can use the dict at
+                      Ephemeris.HouseSys to reference the house system you
+                      want.
+        """
+
+        houseNumber = 12
+        
+        return Ephemeris.getHouseCuspPlanetaryInfo(houseNumber,
+                                                    timestamp,
+                                                    houseSystem)
+        
     @staticmethod
     def getSunPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the Sun at

@@ -384,13 +384,53 @@ class AstrologyUtils:
         # Return value.
         rv = None
         
-        if planetName == "Ascendant":
-            rv = settings.value(SettingsKeys.planetAscendantGlyphUnicodeKey,
-                                SettingsKeys.planetAscendantGlyphUnicodeDefValue,
+        if planetName == "H1":
+            rv = settings.value(SettingsKeys.planetH1GlyphUnicodeKey,
+                                SettingsKeys.planetH1GlyphUnicodeDefValue,
                                 type=str)
-        elif planetName == "Midheaven":
-            rv = settings.value(SettingsKeys.planetMidheavenGlyphUnicodeKey,
-                                SettingsKeys.planetMidheavenGlyphUnicodeDefValue,
+        elif planetName == "H2":
+            rv = settings.value(SettingsKeys.planetH2GlyphUnicodeKey,
+                                SettingsKeys.planetH2GlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "H3":
+            rv = settings.value(SettingsKeys.planetH3GlyphUnicodeKey,
+                                SettingsKeys.planetH3GlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "H4":
+            rv = settings.value(SettingsKeys.planetH4GlyphUnicodeKey,
+                                SettingsKeys.planetH4GlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "H5":
+            rv = settings.value(SettingsKeys.planetH5GlyphUnicodeKey,
+                                SettingsKeys.planetH5GlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "H6":
+            rv = settings.value(SettingsKeys.planetH6GlyphUnicodeKey,
+                                SettingsKeys.planetH6GlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "H7":
+            rv = settings.value(SettingsKeys.planetH7GlyphUnicodeKey,
+                                SettingsKeys.planetH7GlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "H8":
+            rv = settings.value(SettingsKeys.planetH8GlyphUnicodeKey,
+                                SettingsKeys.planetH8GlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "H9":
+            rv = settings.value(SettingsKeys.planetH9GlyphUnicodeKey,
+                                SettingsKeys.planetH9GlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "H10":
+            rv = settings.value(SettingsKeys.planetH10GlyphUnicodeKey,
+                                SettingsKeys.planetH10GlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "H11":
+            rv = settings.value(SettingsKeys.planetH11GlyphUnicodeKey,
+                                SettingsKeys.planetH11GlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "H12":
+            rv = settings.value(SettingsKeys.planetH12GlyphUnicodeKey,
+                                SettingsKeys.planetH12GlyphUnicodeDefValue,
                                 type=str)
         elif planetName == "HoraLagna":
             rv = settings.value(SettingsKeys.planetHoraLagnaGlyphUnicodeKey,
@@ -548,13 +588,53 @@ class AstrologyUtils:
         # Return value.
         rv = None
         
-        if planetName == "Ascendant":
-            rv = settings.value(SettingsKeys.planetAscendantGlyphFontSizeKey,
-                                SettingsKeys.planetAscendantGlyphFontSizeDefValue,
+        if planetName == "H1":
+            rv = settings.value(SettingsKeys.planetH1GlyphFontSizeKey,
+                                SettingsKeys.planetH1GlyphFontSizeDefValue,
                                 type=float)
-        elif planetName == "Midheaven":
-            rv = settings.value(SettingsKeys.planetMidheavenGlyphFontSizeKey,
-                                SettingsKeys.planetMidheavenGlyphFontSizeDefValue,
+        elif planetName == "H2":
+            rv = settings.value(SettingsKeys.planetH2GlyphFontSizeKey,
+                                SettingsKeys.planetH2GlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "H3":
+            rv = settings.value(SettingsKeys.planetH3GlyphFontSizeKey,
+                                SettingsKeys.planetH3GlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "H4":
+            rv = settings.value(SettingsKeys.planetH4GlyphFontSizeKey,
+                                SettingsKeys.planetH4GlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "H5":
+            rv = settings.value(SettingsKeys.planetH5GlyphFontSizeKey,
+                                SettingsKeys.planetH5GlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "H6":
+            rv = settings.value(SettingsKeys.planetH6GlyphFontSizeKey,
+                                SettingsKeys.planetH6GlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "H7":
+            rv = settings.value(SettingsKeys.planetH7GlyphFontSizeKey,
+                                SettingsKeys.planetH7GlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "H8":
+            rv = settings.value(SettingsKeys.planetH8GlyphFontSizeKey,
+                                SettingsKeys.planetH8GlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "H9":
+            rv = settings.value(SettingsKeys.planetH9GlyphFontSizeKey,
+                                SettingsKeys.planetH9GlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "H10":
+            rv = settings.value(SettingsKeys.planetH10GlyphFontSizeKey,
+                                SettingsKeys.planetH10GlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "H11":
+            rv = settings.value(SettingsKeys.planetH11GlyphFontSizeKey,
+                                SettingsKeys.planetH11GlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "H12":
+            rv = settings.value(SettingsKeys.planetH12GlyphFontSizeKey,
+                                SettingsKeys.planetH12GlyphFontSizeDefValue,
                                 type=float)
         elif planetName == "HoraLagna":
             rv = settings.value(SettingsKeys.planetHoraLagnaGlyphFontSizeKey,
@@ -712,13 +792,53 @@ class AstrologyUtils:
         # Return value.
         rv = None
         
-        if planetName == "Ascendant":
-            rv = settings.value(SettingsKeys.planetAscendantAbbreviationKey,
-                                SettingsKeys.planetAscendantAbbreviationDefValue,
+        if planetName == "H1":
+            rv = settings.value(SettingsKeys.planetH1AbbreviationKey,
+                                SettingsKeys.planetH1AbbreviationDefValue,
                                 type=str)
-        elif planetName == "Midheaven":
-            rv = settings.value(SettingsKeys.planetMidheavenAbbreviationKey,
-                                SettingsKeys.planetMidheavenAbbreviationDefValue,
+        elif planetName == "H2":
+            rv = settings.value(SettingsKeys.planetH2AbbreviationKey,
+                                SettingsKeys.planetH2AbbreviationDefValue,
+                                type=str)
+        elif planetName == "H3":
+            rv = settings.value(SettingsKeys.planetH3AbbreviationKey,
+                                SettingsKeys.planetH3AbbreviationDefValue,
+                                type=str)
+        elif planetName == "H4":
+            rv = settings.value(SettingsKeys.planetH4AbbreviationKey,
+                                SettingsKeys.planetH4AbbreviationDefValue,
+                                type=str)
+        elif planetName == "H5":
+            rv = settings.value(SettingsKeys.planetH5AbbreviationKey,
+                                SettingsKeys.planetH5AbbreviationDefValue,
+                                type=str)
+        elif planetName == "H6":
+            rv = settings.value(SettingsKeys.planetH6AbbreviationKey,
+                                SettingsKeys.planetH6AbbreviationDefValue,
+                                type=str)
+        elif planetName == "H7":
+            rv = settings.value(SettingsKeys.planetH7AbbreviationKey,
+                                SettingsKeys.planetH7AbbreviationDefValue,
+                                type=str)
+        elif planetName == "H8":
+            rv = settings.value(SettingsKeys.planetH8AbbreviationKey,
+                                SettingsKeys.planetH8AbbreviationDefValue,
+                                type=str)
+        elif planetName == "H9":
+            rv = settings.value(SettingsKeys.planetH9AbbreviationKey,
+                                SettingsKeys.planetH9AbbreviationDefValue,
+                                type=str)
+        elif planetName == "H10":
+            rv = settings.value(SettingsKeys.planetH10AbbreviationKey,
+                                SettingsKeys.planetH10AbbreviationDefValue,
+                                type=str)
+        elif planetName == "H11":
+            rv = settings.value(SettingsKeys.planetH11AbbreviationKey,
+                                SettingsKeys.planetH11AbbreviationDefValue,
+                                type=str)
+        elif planetName == "H12":
+            rv = settings.value(SettingsKeys.planetH12AbbreviationKey,
+                                SettingsKeys.planetH12AbbreviationDefValue,
                                 type=str)
         elif planetName == "HoraLagna":
             rv = settings.value(SettingsKeys.planetHoraLagnaAbbreviationKey,
@@ -876,13 +996,53 @@ class AstrologyUtils:
         # Return value.
         rv = None
         
-        if planetName == "Ascendant":
-            rv = settings.value(SettingsKeys.planetAscendantForegroundColorKey,
-                                SettingsKeys.planetAscendantForegroundColorDefValue,\
+        if planetName == "H1":
+            rv = settings.value(SettingsKeys.planetH1ForegroundColorKey,
+                                SettingsKeys.planetH1ForegroundColorDefValue,\
                                 type=QColor)
-        elif planetName == "Midheaven":
-            rv = settings.value(SettingsKeys.planetMidheavenForegroundColorKey,
-                                SettingsKeys.planetMidheavenForegroundColorDefValue,\
+        elif planetName == "H2":
+            rv = settings.value(SettingsKeys.planetH2ForegroundColorKey,
+                                SettingsKeys.planetH2ForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "H3":
+            rv = settings.value(SettingsKeys.planetH3ForegroundColorKey,
+                                SettingsKeys.planetH3ForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "H4":
+            rv = settings.value(SettingsKeys.planetH4ForegroundColorKey,
+                                SettingsKeys.planetH4ForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "H5":
+            rv = settings.value(SettingsKeys.planetH5ForegroundColorKey,
+                                SettingsKeys.planetH5ForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "H6":
+            rv = settings.value(SettingsKeys.planetH6ForegroundColorKey,
+                                SettingsKeys.planetH6ForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "H7":
+            rv = settings.value(SettingsKeys.planetH7ForegroundColorKey,
+                                SettingsKeys.planetH7ForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "H8":
+            rv = settings.value(SettingsKeys.planetH8ForegroundColorKey,
+                                SettingsKeys.planetH8ForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "H9":
+            rv = settings.value(SettingsKeys.planetH9ForegroundColorKey,
+                                SettingsKeys.planetH9ForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "H10":
+            rv = settings.value(SettingsKeys.planetH10ForegroundColorKey,
+                                SettingsKeys.planetH10ForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "H11":
+            rv = settings.value(SettingsKeys.planetH11ForegroundColorKey,
+                                SettingsKeys.planetH11ForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "H12":
+            rv = settings.value(SettingsKeys.planetH12ForegroundColorKey,
+                                SettingsKeys.planetH12ForegroundColorDefValue,\
                                 type=QColor)
         elif planetName == "HoraLagna":
             rv = settings.value(SettingsKeys.planetHoraLagnaForegroundColorKey,
@@ -1040,13 +1200,53 @@ class AstrologyUtils:
         # Return value.
         rv = None
         
-        if planetName == "Ascendant":
-            rv = settings.value(SettingsKeys.planetAscendantBackgroundColorKey,
-                                SettingsKeys.planetAscendantBackgroundColorDefValue,\
+        if planetName == "H1":
+            rv = settings.value(SettingsKeys.planetH1BackgroundColorKey,
+                                SettingsKeys.planetH1BackgroundColorDefValue,\
                                 type=QColor)
-        elif planetName == "Midheaven":
-            rv = settings.value(SettingsKeys.planetMidheavenBackgroundColorKey,
-                                SettingsKeys.planetMidheavenBackgroundColorDefValue,\
+        elif planetName == "H2":
+            rv = settings.value(SettingsKeys.planetH2BackgroundColorKey,
+                                SettingsKeys.planetH2BackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "H3":
+            rv = settings.value(SettingsKeys.planetH3BackgroundColorKey,
+                                SettingsKeys.planetH3BackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "H4":
+            rv = settings.value(SettingsKeys.planetH4BackgroundColorKey,
+                                SettingsKeys.planetH4BackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "H5":
+            rv = settings.value(SettingsKeys.planetH5BackgroundColorKey,
+                                SettingsKeys.planetH5BackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "H6":
+            rv = settings.value(SettingsKeys.planetH6BackgroundColorKey,
+                                SettingsKeys.planetH6BackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "H7":
+            rv = settings.value(SettingsKeys.planetH7BackgroundColorKey,
+                                SettingsKeys.planetH7BackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "H8":
+            rv = settings.value(SettingsKeys.planetH8BackgroundColorKey,
+                                SettingsKeys.planetH8BackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "H9":
+            rv = settings.value(SettingsKeys.planetH9BackgroundColorKey,
+                                SettingsKeys.planetH9BackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "H10":
+            rv = settings.value(SettingsKeys.planetH10BackgroundColorKey,
+                                SettingsKeys.planetH10BackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "H11":
+            rv = settings.value(SettingsKeys.planetH11BackgroundColorKey,
+                                SettingsKeys.planetH11BackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "H12":
+            rv = settings.value(SettingsKeys.planetH12BackgroundColorKey,
+                                SettingsKeys.planetH12BackgroundColorDefValue,\
                                 type=QColor)
         elif planetName == "HoraLagna":
             rv = settings.value(SettingsKeys.planetHoraLagnaBackgroundColorKey,
@@ -4288,8 +4488,18 @@ class PlanetaryInfoTableWidget(QTableWidget):
         """
 
         toDisplay = \
-            ["Ascendant",
-             "Midheaven",
+            ["H1",
+             "H2",
+             "H3",
+             "H4",
+             "H5",
+             "H6",
+             "H7",
+             "H8",
+             "H9",
+             "H10",
+             "H11",
+             "H12",
              #"HoraLagna",
              #"GhatiLagna",
              #"MeanLunarApogee",
@@ -4964,6 +5174,22 @@ class AstrologyChartWidget(QWidget):
         # TODO:  Add more 'planets' (planetary calculations) here as more
         # are available.
 
+        # Astrological house system for getting the house cusps.
+        houseSystem = Ephemeris.HouseSys['Porphyry']
+
+        planets.append(Ephemeris.getH1PlanetaryInfo(dt, houseSystem))
+        planets.append(Ephemeris.getH2PlanetaryInfo(dt, houseSystem))
+        planets.append(Ephemeris.getH3PlanetaryInfo(dt, houseSystem))
+        planets.append(Ephemeris.getH4PlanetaryInfo(dt, houseSystem))
+        planets.append(Ephemeris.getH5PlanetaryInfo(dt, houseSystem))
+        planets.append(Ephemeris.getH6PlanetaryInfo(dt, houseSystem))
+        planets.append(Ephemeris.getH7PlanetaryInfo(dt, houseSystem))
+        planets.append(Ephemeris.getH8PlanetaryInfo(dt, houseSystem))
+        planets.append(Ephemeris.getH9PlanetaryInfo(dt, houseSystem))
+        planets.append(Ephemeris.getH10PlanetaryInfo(dt, houseSystem))
+        planets.append(Ephemeris.getH11PlanetaryInfo(dt, houseSystem))
+        planets.append(Ephemeris.getH12PlanetaryInfo(dt, houseSystem))
+
         planets.append(Ephemeris.getSunPlanetaryInfo(dt))
         planets.append(Ephemeris.getMoonPlanetaryInfo(dt))
         planets.append(Ephemeris.getMercuryPlanetaryInfo(dt))
@@ -4982,6 +5208,7 @@ class AstrologyChartWidget(QWidget):
         planets.append(Ephemeris.getInterpolatedLunarPerigeePlanetaryInfo(dt))
         planets.append(Ephemeris.getEarthPlanetaryInfo(dt))
         planets.append(Ephemeris.getChironPlanetaryInfo(dt))
+        
         planets.append(Ephemeris.getMeanOfFivePlanetaryInfo(dt))
         planets.append(Ephemeris.getCycleOfEightPlanetaryInfo(dt))
         planets.append(Ephemeris.getAvgMaJuSaUrNePlPlanetaryInfo(dt))
@@ -5018,15 +5245,25 @@ class AstrologyChartWidget(QWidget):
         return toDisplay
         
     def _getPlanetNamesToDisplayForGeoSidRadixChart(self):
-        """Function to returna list of planet names that can be
+        """Function to return a list of planet names that can be
         used to display longitude information.  This is used because
         some planets don't make sense in this chart and it just clouds
         up the view.
         """
 
         toDisplay = \
-            [#"Ascendant",
-             #"Midheaven",
+            ["H1",
+             "H2",
+             "H3",
+             "H4",
+             "H5",
+             "H6",
+             "H7",
+             "H8",
+             "H9",
+             "H10",
+             "H11",
+             "H12",
              #"HoraLagna",
              #"GhatiLagna",
              #"MeanLunarApogee",
@@ -5065,7 +5302,7 @@ class AstrologyChartWidget(QWidget):
         return toDisplay
 
     def _getPlanetNamesToDisplayForGeoTropRadixChart(self):
-        """Function to returna list of planet names that can be
+        """Function to return a list of planet names that can be
         used to display longitude information.  This is used because
         some planets don't make sense in this chart and it just clouds
         up the view.
@@ -5076,15 +5313,25 @@ class AstrologyChartWidget(QWidget):
         return self._getPlanetNamesToDisplayForGeoSidRadixChart()
 
     def _getPlanetNamesToDisplayForHelioSidRadixChart(self):
-        """Function to returna list of planet names that can be
+        """Function to return a list of planet names that can be
         used to display longitude information.  This is used because
         some planets don't make sense in this chart and it just clouds
         up the view.
         """
 
         toDisplay = \
-            [#"Ascendant",
-             #"Midheaven",
+            [#"H1",
+             #"H2",
+             #"H3",
+             #"H4",
+             #"H5",
+             #"H6",
+             #"H7",
+             #"H8",
+             #"H9",
+             #"H10",
+             #"H11",
+             #"H12",
              #"HoraLagna",
              #"GhatiLagna",
              #"MeanLunarApogee",

@@ -100,77 +100,447 @@ class SettingsKeys():
 
 
 
-    # QSettings key for the planet glyph unicode of the Ascendant.
-    planetAscendantGlyphUnicodeKey = \
-        "ui/astrology/ascendantGlyphUnicode"
+    # QSettings key for the planet glyph unicode of the H1.
+    planetH1GlyphUnicodeKey = \
+        "ui/astrology/h1GlyphUnicode"
 
-    # QSettings default value for the planet glyph unicode of the Ascendant.
-    planetAscendantGlyphUnicodeDefValue = "As"
+    # QSettings default value for the planet glyph unicode of the H1.
+    planetH1GlyphUnicodeDefValue = "As"
 
-    # QSettings key for the planet glyph font size of the Ascendant.
-    planetAscendantGlyphFontSizeKey = \
-        "ui/astrology/ascendantGlyphFontSize"
+    # QSettings key for the planet glyph font size of the H1.
+    planetH1GlyphFontSizeKey = \
+        "ui/astrology/h1GlyphFontSize"
 
-    # QSettings default value for the planet glyph font size of the Ascendant.
-    planetAscendantGlyphFontSizeDefValue = 10
+    # QSettings default value for the planet glyph font size of the H1.
+    planetH1GlyphFontSizeDefValue = 10
 
-    # QSettings key for the planet abbreviation of the Ascendant.
-    planetAscendantAbbreviationKey = \
-        "ui/astrology/ascendantAbbreviation"
+    # QSettings key for the planet abbreviation of the H1.
+    planetH1AbbreviationKey = \
+        "ui/astrology/h1Abbreviation"
 
-    # QSettings default value for the planet abbreviation of the Ascendant.
-    planetAscendantAbbreviationDefValue = "As"
+    # QSettings default value for the planet abbreviation of the H1.
+    planetH1AbbreviationDefValue = "As"
 
-    # QSettings key for the foreground color of the Ascendant.
-    planetAscendantForegroundColorKey = \
-        "ui/astrology/ascendantForegroundColor"
+    # QSettings key for the foreground color of the H1.
+    planetH1ForegroundColorKey = \
+        "ui/astrology/h1ForegroundColor"
 
-    # QSettings default value for the foreground color of the Ascendant.
-    planetAscendantForegroundColorDefValue = QColor(Qt.black)
+    # QSettings default value for the foreground color of the H1.
+    planetH1ForegroundColorDefValue = QColor(Qt.black)
 
-    # QSettings key for the background color of the Ascendant.
-    planetAscendantBackgroundColorKey = \
-        "ui/astrology/ascendantBackgroundColor"
+    # QSettings key for the background color of the H1.
+    planetH1BackgroundColorKey = \
+        "ui/astrology/h1BackgroundColor"
 
-    # QSettings default value for the background color of the Ascendant.
-    planetAscendantBackgroundColorDefValue = QColor(Qt.transparent)
+    # QSettings default value for the background color of the H1.
+    planetH1BackgroundColorDefValue = QColor(Qt.transparent)
 
 
 
-    # QSettings key for the planet glyph unicode of the Midheaven.
-    planetMidheavenGlyphUnicodeKey = \
-        "ui/astrology/midheavenGlyphUnicode"
+    # QSettings key for the planet glyph unicode of the H2.
+    planetH2GlyphUnicodeKey = \
+        "ui/astrology/h2GlyphUnicode"
 
-    # QSettings default value for the planet glyph unicode of the Midheaven.
-    planetMidheavenGlyphUnicodeDefValue = "MC"
+    # QSettings default value for the planet glyph unicode of the H2.
+    planetH2GlyphUnicodeDefValue = "As"
 
-    # QSettings key for the planet glyph font size of the Midheaven.
-    planetMidheavenGlyphFontSizeKey = \
-        "ui/astrology/midheavenGlyphFontSize"
+    # QSettings key for the planet glyph font size of the H2.
+    planetH2GlyphFontSizeKey = \
+        "ui/astrology/h2GlyphFontSize"
 
-    # QSettings default value for the planet glyph font size of the Midheaven.
-    planetMidheavenGlyphFontSizeDefValue = 10
+    # QSettings default value for the planet glyph font size of the H2.
+    planetH2GlyphFontSizeDefValue = 20
 
-    # QSettings key for the planet abbreviation of the Midheaven.
-    planetMidheavenAbbreviationKey = \
-        "ui/astrology/midheavenAbbreviation"
+    # QSettings key for the planet abbreviation of the H2.
+    planetH2AbbreviationKey = \
+        "ui/astrology/h2Abbreviation"
 
-    # QSettings default value for the planet abbreviation of the Midheaven.
-    planetMidheavenAbbreviationDefValue = "MC"
+    # QSettings default value for the planet abbreviation of the H2.
+    planetH2AbbreviationDefValue = "As"
 
-    # QSettings key for the foreground color of the Midheaven.
-    planetMidheavenForegroundColorKey = \
-        "ui/astrology/midheavenForegroundColor"
+    # QSettings key for the foreground color of the H2.
+    planetH2ForegroundColorKey = \
+        "ui/astrology/h2ForegroundColor"
 
-    # QSettings default value for the foreground color of the Midheaven.
-    planetMidheavenForegroundColorDefValue = QColor(Qt.black)
+    # QSettings default value for the foreground color of the H2.
+    planetH2ForegroundColorDefValue = QColor(Qt.black)
 
-    # QSettings key for the background color of the Midheaven.
-    planetMidheavenBackgroundColorKey = \
-        "ui/astrology/midheavenBackgroundColor"
+    # QSettings key for the background color of the H2.
+    planetH2BackgroundColorKey = \
+        "ui/astrology/h2BackgroundColor"
 
-    # QSettings default value for the background color of the Midheaven.
-    planetMidheavenBackgroundColorDefValue = QColor(Qt.transparent)
+    # QSettings default value for the background color of the H2.
+    planetH2BackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the H3.
+    planetH3GlyphUnicodeKey = \
+        "ui/astrology/h3GlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the H3.
+    planetH3GlyphUnicodeDefValue = "As"
+
+    # QSettings key for the planet glyph font size of the H3.
+    planetH3GlyphFontSizeKey = \
+        "ui/astrology/h3GlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the H3.
+    planetH3GlyphFontSizeDefValue = 30
+
+    # QSettings key for the planet abbreviation of the H3.
+    planetH3AbbreviationKey = \
+        "ui/astrology/h3Abbreviation"
+
+    # QSettings default value for the planet abbreviation of the H3.
+    planetH3AbbreviationDefValue = "As"
+
+    # QSettings key for the foreground color of the H3.
+    planetH3ForegroundColorKey = \
+        "ui/astrology/h3ForegroundColor"
+
+    # QSettings default value for the foreground color of the H3.
+    planetH3ForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the H3.
+    planetH3BackgroundColorKey = \
+        "ui/astrology/h3BackgroundColor"
+
+    # QSettings default value for the background color of the H3.
+    planetH3BackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the H4.
+    planetH4GlyphUnicodeKey = \
+        "ui/astrology/h4GlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the H4.
+    planetH4GlyphUnicodeDefValue = "As"
+
+    # QSettings key for the planet glyph font size of the H4.
+    planetH4GlyphFontSizeKey = \
+        "ui/astrology/h4GlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the H4.
+    planetH4GlyphFontSizeDefValue = 40
+
+    # QSettings key for the planet abbreviation of the H4.
+    planetH4AbbreviationKey = \
+        "ui/astrology/h4Abbreviation"
+
+    # QSettings default value for the planet abbreviation of the H4.
+    planetH4AbbreviationDefValue = "As"
+
+    # QSettings key for the foreground color of the H4.
+    planetH4ForegroundColorKey = \
+        "ui/astrology/h4ForegroundColor"
+
+    # QSettings default value for the foreground color of the H4.
+    planetH4ForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the H4.
+    planetH4BackgroundColorKey = \
+        "ui/astrology/h4BackgroundColor"
+
+    # QSettings default value for the background color of the H4.
+    planetH4BackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the H5.
+    planetH5GlyphUnicodeKey = \
+        "ui/astrology/h5GlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the H5.
+    planetH5GlyphUnicodeDefValue = "As"
+
+    # QSettings key for the planet glyph font size of the H5.
+    planetH5GlyphFontSizeKey = \
+        "ui/astrology/h5GlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the H5.
+    planetH5GlyphFontSizeDefValue = 50
+
+    # QSettings key for the planet abbreviation of the H5.
+    planetH5AbbreviationKey = \
+        "ui/astrology/h5Abbreviation"
+
+    # QSettings default value for the planet abbreviation of the H5.
+    planetH5AbbreviationDefValue = "As"
+
+    # QSettings key for the foreground color of the H5.
+    planetH5ForegroundColorKey = \
+        "ui/astrology/h5ForegroundColor"
+
+    # QSettings default value for the foreground color of the H5.
+    planetH5ForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the H5.
+    planetH5BackgroundColorKey = \
+        "ui/astrology/h5BackgroundColor"
+
+    # QSettings default value for the background color of the H5.
+    planetH5BackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the H6.
+    planetH6GlyphUnicodeKey = \
+        "ui/astrology/h6GlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the H6.
+    planetH6GlyphUnicodeDefValue = "As"
+
+    # QSettings key for the planet glyph font size of the H6.
+    planetH6GlyphFontSizeKey = \
+        "ui/astrology/h6GlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the H6.
+    planetH6GlyphFontSizeDefValue = 60
+
+    # QSettings key for the planet abbreviation of the H6.
+    planetH6AbbreviationKey = \
+        "ui/astrology/h6Abbreviation"
+
+    # QSettings default value for the planet abbreviation of the H6.
+    planetH6AbbreviationDefValue = "As"
+
+    # QSettings key for the foreground color of the H6.
+    planetH6ForegroundColorKey = \
+        "ui/astrology/h6ForegroundColor"
+
+    # QSettings default value for the foreground color of the H6.
+    planetH6ForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the H6.
+    planetH6BackgroundColorKey = \
+        "ui/astrology/h6BackgroundColor"
+
+    # QSettings default value for the background color of the H6.
+    planetH6BackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the H7.
+    planetH7GlyphUnicodeKey = \
+        "ui/astrology/h7GlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the H7.
+    planetH7GlyphUnicodeDefValue = "As"
+
+    # QSettings key for the planet glyph font size of the H7.
+    planetH7GlyphFontSizeKey = \
+        "ui/astrology/h7GlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the H7.
+    planetH7GlyphFontSizeDefValue = 70
+
+    # QSettings key for the planet abbreviation of the H7.
+    planetH7AbbreviationKey = \
+        "ui/astrology/h7Abbreviation"
+
+    # QSettings default value for the planet abbreviation of the H7.
+    planetH7AbbreviationDefValue = "As"
+
+    # QSettings key for the foreground color of the H7.
+    planetH7ForegroundColorKey = \
+        "ui/astrology/h7ForegroundColor"
+
+    # QSettings default value for the foreground color of the H7.
+    planetH7ForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the H7.
+    planetH7BackgroundColorKey = \
+        "ui/astrology/h7BackgroundColor"
+
+    # QSettings default value for the background color of the H7.
+    planetH7BackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the H8.
+    planetH8GlyphUnicodeKey = \
+        "ui/astrology/h8GlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the H8.
+    planetH8GlyphUnicodeDefValue = "As"
+
+    # QSettings key for the planet glyph font size of the H8.
+    planetH8GlyphFontSizeKey = \
+        "ui/astrology/h8GlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the H8.
+    planetH8GlyphFontSizeDefValue = 80
+
+    # QSettings key for the planet abbreviation of the H8.
+    planetH8AbbreviationKey = \
+        "ui/astrology/h8Abbreviation"
+
+    # QSettings default value for the planet abbreviation of the H8.
+    planetH8AbbreviationDefValue = "As"
+
+    # QSettings key for the foreground color of the H8.
+    planetH8ForegroundColorKey = \
+        "ui/astrology/h8ForegroundColor"
+
+    # QSettings default value for the foreground color of the H8.
+    planetH8ForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the H8.
+    planetH8BackgroundColorKey = \
+        "ui/astrology/h8BackgroundColor"
+
+    # QSettings default value for the background color of the H8.
+    planetH8BackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the H9.
+    planetH9GlyphUnicodeKey = \
+        "ui/astrology/h9GlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the H9.
+    planetH9GlyphUnicodeDefValue = "As"
+
+    # QSettings key for the planet glyph font size of the H9.
+    planetH9GlyphFontSizeKey = \
+        "ui/astrology/h9GlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the H9.
+    planetH9GlyphFontSizeDefValue = 90
+
+    # QSettings key for the planet abbreviation of the H9.
+    planetH9AbbreviationKey = \
+        "ui/astrology/h9Abbreviation"
+
+    # QSettings default value for the planet abbreviation of the H9.
+    planetH9AbbreviationDefValue = "As"
+
+    # QSettings key for the foreground color of the H9.
+    planetH9ForegroundColorKey = \
+        "ui/astrology/h9ForegroundColor"
+
+    # QSettings default value for the foreground color of the H9.
+    planetH9ForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the H9.
+    planetH9BackgroundColorKey = \
+        "ui/astrology/h9BackgroundColor"
+
+    # QSettings default value for the background color of the H9.
+    planetH9BackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the H10.
+    planetH10GlyphUnicodeKey = \
+        "ui/astrology/h10GlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the H10.
+    planetH10GlyphUnicodeDefValue = "As"
+
+    # QSettings key for the planet glyph font size of the H10.
+    planetH10GlyphFontSizeKey = \
+        "ui/astrology/h10GlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the H10.
+    planetH10GlyphFontSizeDefValue = 100
+
+    # QSettings key for the planet abbreviation of the H10.
+    planetH10AbbreviationKey = \
+        "ui/astrology/h10Abbreviation"
+
+    # QSettings default value for the planet abbreviation of the H10.
+    planetH10AbbreviationDefValue = "As"
+
+    # QSettings key for the foreground color of the H10.
+    planetH10ForegroundColorKey = \
+        "ui/astrology/h10ForegroundColor"
+
+    # QSettings default value for the foreground color of the H10.
+    planetH10ForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the H10.
+    planetH10BackgroundColorKey = \
+        "ui/astrology/h10BackgroundColor"
+
+    # QSettings default value for the background color of the H10.
+    planetH10BackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the H11.
+    planetH11GlyphUnicodeKey = \
+        "ui/astrology/h11GlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the H11.
+    planetH11GlyphUnicodeDefValue = "As"
+
+    # QSettings key for the planet glyph font size of the H11.
+    planetH11GlyphFontSizeKey = \
+        "ui/astrology/h11GlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the H11.
+    planetH11GlyphFontSizeDefValue = 110
+
+    # QSettings key for the planet abbreviation of the H11.
+    planetH11AbbreviationKey = \
+        "ui/astrology/h11Abbreviation"
+
+    # QSettings default value for the planet abbreviation of the H11.
+    planetH11AbbreviationDefValue = "As"
+
+    # QSettings key for the foreground color of the H11.
+    planetH11ForegroundColorKey = \
+        "ui/astrology/h11ForegroundColor"
+
+    # QSettings default value for the foreground color of the H11.
+    planetH11ForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the H11.
+    planetH11BackgroundColorKey = \
+        "ui/astrology/h11BackgroundColor"
+
+    # QSettings default value for the background color of the H11.
+    planetH11BackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the H12.
+    planetH12GlyphUnicodeKey = \
+        "ui/astrology/h12GlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the H12.
+    planetH12GlyphUnicodeDefValue = "As"
+
+    # QSettings key for the planet glyph font size of the H12.
+    planetH12GlyphFontSizeKey = \
+        "ui/astrology/h12GlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the H12.
+    planetH12GlyphFontSizeDefValue = 120
+
+    # QSettings key for the planet abbreviation of the H12.
+    planetH12AbbreviationKey = \
+        "ui/astrology/h12Abbreviation"
+
+    # QSettings default value for the planet abbreviation of the H12.
+    planetH12AbbreviationDefValue = "As"
+
+    # QSettings key for the foreground color of the H12.
+    planetH12ForegroundColorKey = \
+        "ui/astrology/h12ForegroundColor"
+
+    # QSettings default value for the foreground color of the H12.
+    planetH12ForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the H12.
+    planetH12BackgroundColorKey = \
+        "ui/astrology/h12BackgroundColor"
+
+    # QSettings default value for the background color of the H12.
+    planetH12BackgroundColorDefValue = QColor(Qt.transparent)
 
 
 
