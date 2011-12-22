@@ -98,44 +98,44 @@ class AstrologyUtils:
                            SettingsKeys.signPiscesGlyphUnicodeDefValue,
                            type=str)]
 
-        signAbbreviations = [\
-            settings.value(SettingsKeys.signAriesAbbreviationKey,
-                           SettingsKeys.signAriesAbbreviationDefValue,
-                           type=str),
-            settings.value(SettingsKeys.signTaurusAbbreviationKey,
-                           SettingsKeys.signTaurusAbbreviationDefValue,
-                           type=str),
-            settings.value(SettingsKeys.signGeminiAbbreviationKey,
-                           SettingsKeys.signGeminiAbbreviationDefValue,
-                           type=str),
-            settings.value(SettingsKeys.signCancerAbbreviationKey,
-                           SettingsKeys.signCancerAbbreviationDefValue,
-                           type=str),
-            settings.value(SettingsKeys.signLeoAbbreviationKey,
-                           SettingsKeys.signLeoAbbreviationDefValue,
-                           type=str),
-            settings.value(SettingsKeys.signVirgoAbbreviationKey,
-                           SettingsKeys.signVirgoAbbreviationDefValue,
-                           type=str),
-            settings.value(SettingsKeys.signLibraAbbreviationKey,
-                           SettingsKeys.signLibraAbbreviationDefValue,
-                           type=str),
-            settings.value(SettingsKeys.signScorpioAbbreviationKey,
-                           SettingsKeys.signScorpioAbbreviationDefValue,
-                           type=str),
-            settings.value(SettingsKeys.signSagittariusAbbreviationKey,
-                           SettingsKeys.signSagittariusAbbreviationDefValue,
-                           type=str),
-            settings.value(SettingsKeys.signCapricornAbbreviationKey,
-                           SettingsKeys.signCapricornAbbreviationDefValue,
-                           type=str),
-            settings.value(SettingsKeys.signAquariusAbbreviationKey,
-                           SettingsKeys.signAquariusAbbreviationDefValue,
-                           type=str),
-            settings.value(SettingsKeys.signPiscesAbbreviationKey,
-                           SettingsKeys.signPiscesAbbreviationDefValue,
-                           type=str)]
-
+        #signAbbreviations = [\
+        #    settings.value(SettingsKeys.signAriesAbbreviationKey,
+        #                   SettingsKeys.signAriesAbbreviationDefValue,
+        #                   type=str),
+        #    settings.value(SettingsKeys.signTaurusAbbreviationKey,
+        #                   SettingsKeys.signTaurusAbbreviationDefValue,
+        #                   type=str),
+        #    settings.value(SettingsKeys.signGeminiAbbreviationKey,
+        #                   SettingsKeys.signGeminiAbbreviationDefValue,
+        #                   type=str),
+        #    settings.value(SettingsKeys.signCancerAbbreviationKey,
+        #                   SettingsKeys.signCancerAbbreviationDefValue,
+        #                   type=str),
+        #    settings.value(SettingsKeys.signLeoAbbreviationKey,
+        #                   SettingsKeys.signLeoAbbreviationDefValue,
+        #                   type=str),
+        #    settings.value(SettingsKeys.signVirgoAbbreviationKey,
+        #                   SettingsKeys.signVirgoAbbreviationDefValue,
+        #                   type=str),
+        #    settings.value(SettingsKeys.signLibraAbbreviationKey,
+        #                   SettingsKeys.signLibraAbbreviationDefValue,
+        #                   type=str),
+        #    settings.value(SettingsKeys.signScorpioAbbreviationKey,
+        #                   SettingsKeys.signScorpioAbbreviationDefValue,
+        #                   type=str),
+        #    settings.value(SettingsKeys.signSagittariusAbbreviationKey,
+        #                   SettingsKeys.signSagittariusAbbreviationDefValue,
+        #                   type=str),
+        #    settings.value(SettingsKeys.signCapricornAbbreviationKey,
+        #                   SettingsKeys.signCapricornAbbreviationDefValue,
+        #                   type=str),
+        #    settings.value(SettingsKeys.signAquariusAbbreviationKey,
+        #                   SettingsKeys.signAquariusAbbreviationDefValue,
+        #                   type=str),
+        #    settings.value(SettingsKeys.signPiscesAbbreviationKey,
+        #                   SettingsKeys.signPiscesAbbreviationDefValue,
+        #                   type=str)]
+        
         navamsaSize = 360 / 108.0
         index = math.floor(longitude / navamsaSize) % 12
         
@@ -155,7 +155,7 @@ class AstrologyUtils:
         degrees, or 8 minutes, or 8 seconds, the string will have a
         space prefixing the 8.
         """
-
+        
         # Make sure the longitude is less than 360 and greater than or
         # equal to 0.
         if longitude >= 360.0 or longitude < 0.0:
@@ -216,45 +216,45 @@ class AstrologyUtils:
             settings.value(SettingsKeys.signPiscesGlyphUnicodeKey,
                            SettingsKeys.signPiscesGlyphUnicodeDefValue,
                            type=str)]
-
-        signAbbreviations = [\
-            settings.value(SettingsKeys.signAriesAbbreviationKey,
-                           SettingsKeys.signAriesAbbreviationDefValue,
-                           type=str),
-            settings.value(SettingsKeys.signTaurusAbbreviationKey,
-                           SettingsKeys.signTaurusAbbreviationDefValue,
-                           type=str),
-            settings.value(SettingsKeys.signGeminiAbbreviationKey,
-                           SettingsKeys.signGeminiAbbreviationDefValue,
-                           type=str),
-            settings.value(SettingsKeys.signCancerAbbreviationKey,
-                           SettingsKeys.signCancerAbbreviationDefValue,
-                           type=str),
-            settings.value(SettingsKeys.signLeoAbbreviationKey,
-                           SettingsKeys.signLeoAbbreviationDefValue,
-                           type=str),
-            settings.value(SettingsKeys.signVirgoAbbreviationKey,
-                           SettingsKeys.signVirgoAbbreviationDefValue,
-                           type=str),
-            settings.value(SettingsKeys.signLibraAbbreviationKey,
-                           SettingsKeys.signLibraAbbreviationDefValue,
-                           type=str),
-            settings.value(SettingsKeys.signScorpioAbbreviationKey,
-                           SettingsKeys.signScorpioAbbreviationDefValue,
-                           type=str),
-            settings.value(SettingsKeys.signSagittariusAbbreviationKey,
-                           SettingsKeys.signSagittariusAbbreviationDefValue,
-                           type=str),
-            settings.value(SettingsKeys.signCapricornAbbreviationKey,
-                           SettingsKeys.signCapricornAbbreviationDefValue,
-                           type=str),
-            settings.value(SettingsKeys.signAquariusAbbreviationKey,
-                           SettingsKeys.signAquariusAbbreviationDefValue,
-                           type=str),
-            settings.value(SettingsKeys.signPiscesAbbreviationKey,
-                           SettingsKeys.signPiscesAbbreviationDefValue,
-                           type=str)]
-
+        
+        #signAbbreviations = [\
+        #    settings.value(SettingsKeys.signAriesAbbreviationKey,
+        #                   SettingsKeys.signAriesAbbreviationDefValue,
+        #                   type=str),
+        #    settings.value(SettingsKeys.signTaurusAbbreviationKey,
+        #                   SettingsKeys.signTaurusAbbreviationDefValue,
+        #                   type=str),
+        #    settings.value(SettingsKeys.signGeminiAbbreviationKey,
+        #                   SettingsKeys.signGeminiAbbreviationDefValue,
+        #                   type=str),
+        #    settings.value(SettingsKeys.signCancerAbbreviationKey,
+        #                   SettingsKeys.signCancerAbbreviationDefValue,
+        #                   type=str),
+        #    settings.value(SettingsKeys.signLeoAbbreviationKey,
+        #                   SettingsKeys.signLeoAbbreviationDefValue,
+        #                   type=str),
+        #    settings.value(SettingsKeys.signVirgoAbbreviationKey,
+        #                   SettingsKeys.signVirgoAbbreviationDefValue,
+        #                   type=str),
+        #    settings.value(SettingsKeys.signLibraAbbreviationKey,
+        #                   SettingsKeys.signLibraAbbreviationDefValue,
+        #                   type=str),
+        #    settings.value(SettingsKeys.signScorpioAbbreviationKey,
+        #                   SettingsKeys.signScorpioAbbreviationDefValue,
+        #                   type=str),
+        #    settings.value(SettingsKeys.signSagittariusAbbreviationKey,
+        #                   SettingsKeys.signSagittariusAbbreviationDefValue,
+        #                   type=str),
+        #    settings.value(SettingsKeys.signCapricornAbbreviationKey,
+        #                   SettingsKeys.signCapricornAbbreviationDefValue,
+        #                   type=str),
+        #    settings.value(SettingsKeys.signAquariusAbbreviationKey,
+        #                   SettingsKeys.signAquariusAbbreviationDefValue,
+        #                   type=str),
+        #    settings.value(SettingsKeys.signPiscesAbbreviationKey,
+        #                   SettingsKeys.signPiscesAbbreviationDefValue,
+        #                   type=str)]
+        
         degreesStr = "{: >2}".format(degrees)
         rasiStr = signGlyphs[rasi]
         minutesStr = "{:0>02}".format(minutes)
@@ -4449,32 +4449,45 @@ class PlanetaryInfoTableWidget(QTableWidget):
         self.log = logging.getLogger("widgets.PlanetaryInfoTableWidget")
 
         # Set the font so that it is mono-spaced.
-        courierFont = QFont()
-        courierFont.setFamily("Courier")
-        courierFont.setPointSize(9)
-        self.setFont(courierFont)
+        font = QFont()
+        #font.setFamily("Courier")
+        #font.setFamily("DejaVu Sans Mono")
+        #font.setFamily("Lucida Console")  # Lucida Console isn't monospaced?
+        font.setFamily("Droid Sans Mono")
+        font.setPointSize(10)
+        self.setFont(font)
 
         # Strings for the different types of planetary coordinate systems.
-        geoStr = "Geocentric" + os.linesep
-        topoStr = "Topocentric" + os.linesep
-        helioStr = "Heliocentric" + os.linesep
+        #geoStr = "Geocentric" + os.linesep
+        #topoStr = "Topocentric" + os.linesep
+        #helioStr = "Heliocentric" + os.linesep
+        geoStr = "Geo." + os.linesep
+        topoStr = "Topo." + os.linesep
+        helioStr = "Helio." + os.linesep
 
-        sidStr = "Sidereal" + os.linesep
-        tropStr = "Tropical" + os.linesep
+        #sidStr = "Sidereal" + os.linesep
+        #tropStr = "Tropical" + os.linesep
+        sidStr = "Sid." + os.linesep
+        tropStr = "Trop." + os.linesep
 
         # Different measurements available.
-        longitudeStr = "Longitude"
-        latitudeStr = "Latitude"
-        distanceStr = "Distance"
+        #longitudeStr = "Longitude"
+        #latitudeStr = "Latitude"
+        #distanceStr = "Distance"
+        longitudeStr = "Lon."
+        latitudeStr = "Lat."
+        distanceStr = "Dist."
 
-        longitudeSpeedStr = "Longitude Speed"
-        latitudeSpeedStr = "Latitude Speed"
-        distanceSpeedStr = "Distance Speed"
+        longitudeSpeedStr = "Lon. Speed"
+        latitudeSpeedStr = "Lat. Speed"
+        distanceSpeedStr = "Dist. Speed"
 
-        rectascensionStr = "Rectascension"
-        declinationStr = "Declination"
+        #rectascensionStr = "Rectascension"
+        #declinationStr = "Declination"
+        rectascensionStr = "Rect."
+        declinationStr = "Decl."
 
-        rectascensionSpeedStr = "Rectascension Speed"
+        rectascensionSpeedStr = "Rect. Speed"
         declinationSpeedStr = "Decl. Speed"
 
         xStr = "X Location"
@@ -4499,6 +4512,10 @@ class PlanetaryInfoTableWidget(QTableWidget):
         numTotalFields = 16
         numColumns = numTotalFields + 1
         self.setColumnCount(numColumns)
+
+        # List of column numbers, for which the text should be aligned
+        # in the center.
+        self.alignHCenterColumns = []
         
         # Create all the header QTableWidgetItems.
         col = 0
@@ -4513,36 +4530,40 @@ class PlanetaryInfoTableWidget(QTableWidget):
         item = QTableWidgetItem(geoStr + tropStr + longitudeStr)
         item.setToolTip(longitudeStr + degreesUnitsStr)
         self.setHorizontalHeaderItem(col, item)
-        self.setColumnWidth(col, 90)
+        self.setColumnWidth(col, 98)
         col += 1
         
         item = QTableWidgetItem(geoStr + sidStr + longitudeStr)
         item.setToolTip(longitudeStr + degreesUnitsStr)
         self.setHorizontalHeaderItem(col, item)
-        self.setColumnWidth(col, 90)
+        self.setColumnWidth(col, 98)
         col += 1
 
         item = QTableWidgetItem(geoStr + sidStr + "Navamsa")
         item.setToolTip("Navamsa")
         self.setHorizontalHeaderItem(col, item)
-        self.setColumnWidth(col, 90)
+        self.setColumnWidth(col, 70)
+        self.alignHCenterColumns.append(col)
         col += 1
 
-        item = QTableWidgetItem(geoStr + sidStr + "Nakshatra")
+        item = QTableWidgetItem(geoStr + sidStr + "Nak.")
         item.setToolTip("Nakshatra")
         self.setHorizontalHeaderItem(col, item)
         self.setColumnWidth(col, 70)
+        self.alignHCenterColumns.append(col)
         col += 1
 
         item = QTableWidgetItem(geoStr + sidStr + "Nak. Pada")
         item.setToolTip("Nakshatra Pada")
         self.setHorizontalHeaderItem(col, item)
-        self.setColumnWidth(col, 70)
+        self.setColumnWidth(col, 76)
+        self.alignHCenterColumns.append(col)
         col += 1
 
         item = QTableWidgetItem(geoStr + sidStr + longitudeSpeedStr)
         item.setToolTip(longitudeSpeedStr + degreesPerDayUnitsStr)
         self.setHorizontalHeaderItem(col, item)
+        self.setColumnWidth(col, 80)
         col += 1
 
         item = QTableWidgetItem(geoStr + sidStr + declinationStr)
@@ -4554,7 +4575,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
         item = QTableWidgetItem(geoStr + sidStr + declinationSpeedStr)
         item.setToolTip(declinationSpeedStr + degreesPerDayUnitsStr)
         self.setHorizontalHeaderItem(col, item)
-        self.setColumnWidth(col, 76)
+        self.setColumnWidth(col, 84)
         col += 1
 
         item = QTableWidgetItem(geoStr + sidStr + latitudeStr)
@@ -4566,29 +4587,34 @@ class PlanetaryInfoTableWidget(QTableWidget):
         item = QTableWidgetItem(geoStr + sidStr + latitudeSpeedStr)
         item.setToolTip(latitudeSpeedStr + degreesPerDayUnitsStr)
         self.setHorizontalHeaderItem(col, item)
+        self.setColumnWidth(col, 80)
         col += 1
 
         item = QTableWidgetItem(helioStr + sidStr + longitudeStr)
         item.setToolTip(longitudeStr + degreesUnitsStr)
         self.setHorizontalHeaderItem(col, item)
+        self.setColumnWidth(col, 94)
         col += 1
 
-        item = QTableWidgetItem(geoStr + sidStr + "Navamsa")
+        item = QTableWidgetItem(helioStr + sidStr + "Navamsa")
         item.setToolTip("Navamsa")
         self.setHorizontalHeaderItem(col, item)
-        self.setColumnWidth(col, 90)
+        self.setColumnWidth(col, 70)
+        self.alignHCenterColumns.append(col)
         col += 1
 
-        item = QTableWidgetItem(helioStr + sidStr + "Nakshatra")
+        item = QTableWidgetItem(helioStr + sidStr + "Nak.")
         item.setToolTip("Nakshatra")
         self.setHorizontalHeaderItem(col, item)
-        self.setColumnWidth(col, 80)
+        self.setColumnWidth(col, 70)
+        self.alignHCenterColumns.append(col)
         col += 1
 
         item = QTableWidgetItem(helioStr + sidStr + "Nak. Pada")
         item.setToolTip("Nakshatra Pada")
         self.setHorizontalHeaderItem(col, item)
-        self.setColumnWidth(col, 80)
+        self.setColumnWidth(col, 76)
+        self.alignHCenterColumns.append(col)
         col += 1
 
         item = QTableWidgetItem(helioStr + sidStr + declinationStr)
@@ -4871,6 +4897,11 @@ class PlanetaryInfoTableWidget(QTableWidget):
         item = self.item(row, col)
         if item == None:
             item = QTableWidgetItem()
+
+            # Set alignment.
+            if col in self.alignHCenterColumns:
+                item.setTextAlignment(Qt.AlignVCenter | Qt.AlignHCenter)
+            
             self.setItem(row, col, item)
         item.setText(p.name)
         col += 1
@@ -4994,6 +5025,11 @@ class PlanetaryInfoTableWidget(QTableWidget):
         item = self.item(row, col)
         if item == None:
             item = QTableWidgetItem()
+
+            # Set alignment.
+            if col in self.alignHCenterColumns:
+                item.setTextAlignment(Qt.AlignVCenter | Qt.AlignHCenter)
+            
             self.setItem(row, col, item)
         item.setText(valueStr)
 
