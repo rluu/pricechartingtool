@@ -242,14 +242,6 @@ class MainWindow(QMainWindow):
         ####################
         # Create actions for the Astro Menu.
 
-        self.enableAndShowPlanetaryInfoTableAction = \
-            QAction("Enable Planetary Info Table", self)
-        self.enableAndShowPlanetaryInfoTableAction.setCheckable(True)
-        self.enableAndShowPlanetaryInfoTableAction.\
-            setStatusTip("Enable Planetary Info Table")
-        self.enableAndShowPlanetaryInfoTableAction.triggered.\
-            connect(self._handleEnableAndShowPlanetaryInfoTableAction)
-        
         self.enableAndShowAstrologyChartAction = \
             QAction("Enable AstrologyChart", self)
         self.enableAndShowAstrologyChartAction.setCheckable(True)
@@ -257,6 +249,14 @@ class MainWindow(QMainWindow):
             setStatusTip("Enable AstrologyChart")
         self.enableAndShowAstrologyChartAction.triggered.\
             connect(self._handleEnableAndShowAstrologyChartAction)
+        
+        self.enableAndShowPlanetaryInfoTableAction = \
+            QAction("Enable Planetary Info Table", self)
+        self.enableAndShowPlanetaryInfoTableAction.setCheckable(True)
+        self.enableAndShowPlanetaryInfoTableAction.\
+            setStatusTip("Enable Planetary Info Table")
+        self.enableAndShowPlanetaryInfoTableAction.triggered.\
+            connect(self._handleEnableAndShowPlanetaryInfoTableAction)
         
         self.trackMouseToAstroChart1Action = \
             QAction("Link mouse pos to Astro Chart 1", self)
@@ -731,8 +731,8 @@ class MainWindow(QMainWindow):
 
         # Create the Astro menu.
         self.astroMenu = self.menuBar().addMenu("&Astro")
-        self.astroMenu.addAction(self.enableAndShowPlanetaryInfoTableAction)
         self.astroMenu.addAction(self.enableAndShowAstrologyChartAction)
+        self.astroMenu.addAction(self.enableAndShowPlanetaryInfoTableAction)
         self.astroMenu.addSeparator()
         self.astroMenu.addAction(self.trackMouseToAstroChart1Action)
         self.astroMenu.addAction(self.trackMouseToAstroChart2Action)
@@ -908,8 +908,8 @@ class MainWindow(QMainWindow):
         self.editPriceBarChartSettingsAction.setEnabled(isActive)
         self.editPriceBarChartScalingAction.setEnabled(isActive)
 
-        self.enableAndShowPlanetaryInfoTableAction.setEnabled(isActive)
         self.enableAndShowAstrologyChartAction.setEnabled(isActive)
+        self.enableAndShowPlanetaryInfoTableAction.setEnabled(isActive)
         self.trackMouseToAstroChart1Action.setEnabled(isActive)
         self.trackMouseToAstroChart2Action.setEnabled(isActive)
         self.trackMouseToAstroChart3Action.setEnabled(isActive)
@@ -975,12 +975,12 @@ class MainWindow(QMainWindow):
         # actions are checked, then set the priceChartDocument to
         # correspond to that.
         if isActive:
-            flag = self.enableAndShowPlanetaryInfoTableAction.isChecked()
-            priceChartDocument.setEnableAndShowPlanetaryInfoTable(flag)
-            
             flag = self.enableAndShowAstrologyChartAction.isChecked()
             priceChartDocument.setEnableAndShowAstrologyChart(flag)
 
+            flag = self.enableAndShowPlanetaryInfoTableAction.isChecked()
+            priceChartDocument.setEnableAndShowPlanetaryInfoTable(flag)
+            
             flag = self.trackMouseToAstroChart1Action.isChecked()
             priceChartDocument.setTrackMouseToAstroChart1(flag)
 
@@ -3308,22 +3308,6 @@ class MainWindow(QMainWindow):
 
         self.log.debug("Exiting _editPriceBarChartScaling()")
 
-    def _handleEnableAndShowPlanetaryInfoTableAction(self):
-        """Slot function that is called when the user triggers the
-        QAction 'self.enableAndShowPlanetaryInfoTableAction'.
-        """
-        
-        # This Astro action only makes sense to be triggered if there
-        # is a PriceChartDocument open and active.  Check to make sure
-        # that is true.
-        pcd = self.getActivePriceChartDocument()
-        if pcd == None:
-            return
-
-        flag = self.enableAndShowPlanetaryInfoTableAction.isChecked()
-        
-        pcd.setEnableAndShowPlanetaryInfoTable(flag)
-
     def _handleEnableAndShowAstrologyChartAction(self):
         """Slot function that is called when the user triggers the
         QAction 'self.enableAndShowAstrologyChartAction'.
@@ -3339,6 +3323,22 @@ class MainWindow(QMainWindow):
         flag = self.enableAndShowAstrologyChartAction.isChecked()
         
         pcd.setEnableAndShowAstrologyChart(flag)
+
+    def _handleEnableAndShowPlanetaryInfoTableAction(self):
+        """Slot function that is called when the user triggers the
+        QAction 'self.enableAndShowPlanetaryInfoTableAction'.
+        """
+        
+        # This Astro action only makes sense to be triggered if there
+        # is a PriceChartDocument open and active.  Check to make sure
+        # that is true.
+        pcd = self.getActivePriceChartDocument()
+        if pcd == None:
+            return
+
+        flag = self.enableAndShowPlanetaryInfoTableAction.isChecked()
+        
+        pcd.setEnableAndShowPlanetaryInfoTable(flag)
 
     def _handleTrackMouseToAstroChartAction(self):
         """Slot function that is called when the user triggers the QActions:
@@ -5002,18 +5002,6 @@ class PriceChartDocument(QMdiSubWindow):
         # Pass the command onto the parent MainWindow to handle.
         self.astrologLaunch.emit(dt, birthInfo)
 
-    def setEnableAndShowPlanetaryInfoTable(self, flag):
-        """Shows and sets the link-connection enabled or disabled for
-        the PlanetaryInfoTable.
-
-        Arguments:
-        
-        flag - True if the link is to be enabled and widget shown,
-               False if the link is to be disabled and widget hidden.
-        """
-
-        self.widgets.setEnableAndShowPlanetaryInfoTable(flag)
-        
     def setEnableAndShowAstrologyChart(self, flag):
         """Shows and sets the link-connection enabled or disabled for
         the AstrologyChart.
@@ -5025,6 +5013,18 @@ class PriceChartDocument(QMdiSubWindow):
         """
 
         self.widgets.setEnableAndShowAstrologyChart(flag)
+        
+    def setEnableAndShowPlanetaryInfoTable(self, flag):
+        """Shows and sets the link-connection enabled or disabled for
+        the PlanetaryInfoTable.
+
+        Arguments:
+        
+        flag - True if the link is to be enabled and widget shown,
+               False if the link is to be disabled and widget hidden.
+        """
+
+        self.widgets.setEnableAndShowPlanetaryInfoTable(flag)
         
     def setTrackMouseToAstroChart1(self, flag):
         """Sets the link-connection enabled or disabled for the
@@ -5538,42 +5538,6 @@ class PriceChartDocumentWidget(QWidget):
 
         self.planetaryInfoTableWidget.load(planetaryInfos)
 
-    def setEnableAndShowPlanetaryInfoTable(self, flag):
-        """Shows and sets the link-connection enabled or disabled for
-        the PlanetaryInfoTable.
-        
-        Arguments:
-        
-        flag - True if the link is to be enabled and widget shown,
-        False if the link is to be disabled and widget hidden.
-        """
-        
-        if self.planetaryInfoTableWidgetEnabled == True and flag == False:
-
-            self.priceBarChartWidget.astroChart1Update.\
-                disconnect(self._updatePlanetaryInfoTable)
-            self.priceBarChartWidget.astroChart2Update.\
-                disconnect(self._updatePlanetaryInfoTable)
-            self.priceBarChartWidget.astroChart3Update.\
-                disconnect(self._updatePlanetaryInfoTable)
-            
-            self.planetaryInfoTableWidget.setVisible(flag)
-            
-            self.planetaryInfoTableWidgetEnabled = flag
-            
-        elif self.planetaryInfoTableWidgetEnabled == False and flag == True:
-
-            self.priceBarChartWidget.astroChart1Update.\
-                connect(self._updatePlanetaryInfoTable)
-            self.priceBarChartWidget.astroChart2Update.\
-                connect(self._updatePlanetaryInfoTable)
-            self.priceBarChartWidget.astroChart3Update.\
-                connect(self._updatePlanetaryInfoTable)
-        
-            self.planetaryInfoTableWidget.setVisible(flag)
-            
-            self.planetaryInfoTableWidgetEnabled = flag
-            
     def setEnableAndShowAstrologyChart(self, flag):
         """Shows and sets the link-connection enabled or disabled for
         the AstrologyChart.
@@ -5609,6 +5573,42 @@ class PriceChartDocumentWidget(QWidget):
             self.astrologyChartWidget.setVisible(flag)
             
             self.astrologyChartWidgetEnabled = flag
+            
+    def setEnableAndShowPlanetaryInfoTable(self, flag):
+        """Shows and sets the link-connection enabled or disabled for
+        the PlanetaryInfoTable.
+        
+        Arguments:
+        
+        flag - True if the link is to be enabled and widget shown,
+        False if the link is to be disabled and widget hidden.
+        """
+        
+        if self.planetaryInfoTableWidgetEnabled == True and flag == False:
+
+            self.priceBarChartWidget.astroChart1Update.\
+                disconnect(self._updatePlanetaryInfoTable)
+            self.priceBarChartWidget.astroChart2Update.\
+                disconnect(self._updatePlanetaryInfoTable)
+            self.priceBarChartWidget.astroChart3Update.\
+                disconnect(self._updatePlanetaryInfoTable)
+            
+            self.planetaryInfoTableWidget.setVisible(flag)
+            
+            self.planetaryInfoTableWidgetEnabled = flag
+            
+        elif self.planetaryInfoTableWidgetEnabled == False and flag == True:
+
+            self.priceBarChartWidget.astroChart1Update.\
+                connect(self._updatePlanetaryInfoTable)
+            self.priceBarChartWidget.astroChart2Update.\
+                connect(self._updatePlanetaryInfoTable)
+            self.priceBarChartWidget.astroChart3Update.\
+                connect(self._updatePlanetaryInfoTable)
+        
+            self.planetaryInfoTableWidget.setVisible(flag)
+            
+            self.planetaryInfoTableWidgetEnabled = flag
             
     def setTrackMouseToAstroChart1(self, flag):
         """Sets the link-connection enabled or disabled for the

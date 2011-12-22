@@ -44,10 +44,106 @@ class AstrologyUtils:
     # Number of degrees in a 360-degree Circle. (float)
     degreesInCircle = 360.0
 
-    
+
+    @staticmethod
+    def convertLongitudeToNavamsaStr(longitude):
+        """Takes a float longitude value and converts it to a str that
+        holds the glyph corresponding to its navamsa rasi.
+
+        Arguments:
+        longitude - float value for the longitude of the planet.
+
+        Returns:
+        str value holding the navamsa rasi glyph.
+        """
+
+        # Preference settings.
+        settings = QSettings()
+        
+        signGlyphs = [\
+            settings.value(SettingsKeys.signAriesGlyphUnicodeKey,
+                           SettingsKeys.signAriesGlyphUnicodeDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signTaurusGlyphUnicodeKey,
+                           SettingsKeys.signTaurusGlyphUnicodeDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signGeminiGlyphUnicodeKey,
+                           SettingsKeys.signGeminiGlyphUnicodeDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signCancerGlyphUnicodeKey,
+                           SettingsKeys.signCancerGlyphUnicodeDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signLeoGlyphUnicodeKey,
+                           SettingsKeys.signLeoGlyphUnicodeDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signVirgoGlyphUnicodeKey,
+                           SettingsKeys.signVirgoGlyphUnicodeDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signLibraGlyphUnicodeKey,
+                           SettingsKeys.signLibraGlyphUnicodeDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signScorpioGlyphUnicodeKey,
+                           SettingsKeys.signScorpioGlyphUnicodeDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signSagittariusGlyphUnicodeKey,
+                           SettingsKeys.signSagittariusGlyphUnicodeDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signCapricornGlyphUnicodeKey,
+                           SettingsKeys.signCapricornGlyphUnicodeDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signAquariusGlyphUnicodeKey,
+                           SettingsKeys.signAquariusGlyphUnicodeDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signPiscesGlyphUnicodeKey,
+                           SettingsKeys.signPiscesGlyphUnicodeDefValue,
+                           type=str)]
+
+        signAbbreviations = [\
+            settings.value(SettingsKeys.signAriesAbbreviationKey,
+                           SettingsKeys.signAriesAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signTaurusAbbreviationKey,
+                           SettingsKeys.signTaurusAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signGeminiAbbreviationKey,
+                           SettingsKeys.signGeminiAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signCancerAbbreviationKey,
+                           SettingsKeys.signCancerAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signLeoAbbreviationKey,
+                           SettingsKeys.signLeoAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signVirgoAbbreviationKey,
+                           SettingsKeys.signVirgoAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signLibraAbbreviationKey,
+                           SettingsKeys.signLibraAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signScorpioAbbreviationKey,
+                           SettingsKeys.signScorpioAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signSagittariusAbbreviationKey,
+                           SettingsKeys.signSagittariusAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signCapricornAbbreviationKey,
+                           SettingsKeys.signCapricornAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signAquariusAbbreviationKey,
+                           SettingsKeys.signAquariusAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signPiscesAbbreviationKey,
+                           SettingsKeys.signPiscesAbbreviationDefValue,
+                           type=str)]
+
+        navamsaSize = 360 / 108.0
+        index = math.floor(longitude / navamsaSize) % 12
+        
+        return signGlyphs[index]
+        
     @staticmethod
     def convertLongitudeToStrWithRasiAbbrev(longitude):
-        """Takes a float longitude value and converts it to a string
+        """Takes a float longitude value and converts it to a str
         in the format: 23 <RASI_GLYPH> 24' 14"
         
         Arguments:
@@ -224,8 +320,9 @@ class AstrologyUtils:
             "PBha",
             "UBha",
             "Reva"]
-        
-        index = math.floor(longitude / (360 / 27))
+
+        nakshatraSize = 360 / 27.0
+        index = math.floor(longitude / nakshatraSize)
         
         return nakshatraAbbrevs[index]
 
@@ -2346,6 +2443,37 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
 
         return None
 
+    def _isHouseCuspPlanetName(self, planetName):
+    
+        """Returns True if the planet name given is a house cusp.
+        Planet name is a house cusp if it is in the form "HX" or "HXX",
+        where the letter 'H' is static and the 'X' represents a numerical digit.
+
+        Arguments:
+        planetName - str for the planet name to analyze.
+
+        Returns:
+        True if the planet name represents a astrological house cusp,
+        False otherwise.
+        """
+
+        # Flag as True until found otherwise.
+        isHouseCusp = True
+
+        if 2 <= len(planetName) <= 3:
+            # Name of the planet is 2 or 3 letters.
+            if planetName[0] != "H":
+                isHouseCusp = False
+            if not planetName[1].isdigit():
+                isHouseCusp = False
+            if len(planetName) == 3 and not planetName[2].isdigit():
+                isHouseCusp = False
+        else:
+            isHouseCusp = False
+
+        return isHouseCusp
+
+        
     def redrawAspects(self):
         """If drawing aspects is enabled via Application Preferences
         (QSettings), then this function draws aspects between the
@@ -2398,11 +2526,26 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
                                           p2.degree))
                 
                 if not (p1 is p2):
-                    aspect = RadixChartAspectGraphicsItem(parent=self)
-                    aspect.setForPlanets(p1.getDegree(),
-                                         p2.getDegree(),
-                                         p1.getWheelNumber(),
-                                         p2.getWheelNumber())
+                    # House cusps shouldn't aspect other house cusps
+                    # in the same wheel.  If both planets are house
+                    # cusps and in the same wheel, then don't create
+                    # the RadixChartAspectGraphicsItem.
+                    p1Name = p1.getPlanetName()
+                    p2Name = p2.getPlanetName()
+                    
+                    if self._isHouseCuspPlanetName(p1Name) and \
+                        self._isHouseCuspPlanetName(p2Name) and \
+                        p1.getWheelNumber() == p2.getWheelNumber():
+                        
+                        # Don't create the aspect.
+                        pass
+                    else:
+                        # Create the aspect.
+                        aspect = RadixChartAspectGraphicsItem(parent=self)
+                        aspect.setForPlanets(p1.getDegree(),
+                                             p2.getDegree(),
+                                             p1.getWheelNumber(),
+                                             p2.getWheelNumber())
                     
         if self.log.isEnabledFor(logging.DEBUG) == True:
             self.log.debug("Exiting redrawAspects()")
@@ -4353,7 +4496,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
         planetToolTipStr = "Planet"
 
         # Set the total number of columns.
-        numTotalFields = 12
+        numTotalFields = 16
         numColumns = numTotalFields + 1
         self.setColumnCount(numColumns)
         
@@ -4379,8 +4522,20 @@ class PlanetaryInfoTableWidget(QTableWidget):
         self.setColumnWidth(col, 90)
         col += 1
 
+        item = QTableWidgetItem(geoStr + sidStr + "Navamsa")
+        item.setToolTip("Navamsa")
+        self.setHorizontalHeaderItem(col, item)
+        self.setColumnWidth(col, 90)
+        col += 1
+
         item = QTableWidgetItem(geoStr + sidStr + "Nakshatra")
         item.setToolTip("Nakshatra")
+        self.setHorizontalHeaderItem(col, item)
+        self.setColumnWidth(col, 70)
+        col += 1
+
+        item = QTableWidgetItem(geoStr + sidStr + "Nak. Pada")
+        item.setToolTip("Nakshatra Pada")
         self.setHorizontalHeaderItem(col, item)
         self.setColumnWidth(col, 70)
         col += 1
@@ -4418,8 +4573,20 @@ class PlanetaryInfoTableWidget(QTableWidget):
         self.setHorizontalHeaderItem(col, item)
         col += 1
 
+        item = QTableWidgetItem(geoStr + sidStr + "Navamsa")
+        item.setToolTip("Navamsa")
+        self.setHorizontalHeaderItem(col, item)
+        self.setColumnWidth(col, 90)
+        col += 1
+
         item = QTableWidgetItem(helioStr + sidStr + "Nakshatra")
         item.setToolTip("Nakshatra")
+        self.setHorizontalHeaderItem(col, item)
+        self.setColumnWidth(col, 80)
+        col += 1
+
+        item = QTableWidgetItem(helioStr + sidStr + "Nak. Pada")
+        item.setToolTip("Nakshatra Pada")
         self.setHorizontalHeaderItem(col, item)
         self.setColumnWidth(col, 80)
         col += 1
@@ -4708,26 +4875,8 @@ class PlanetaryInfoTableWidget(QTableWidget):
         item.setText(p.name)
         col += 1
 
-        zodiacs = ['tropical', 'sidereal']
-
-        # Below is all the fields, but we will just use some of the fields,
-        #fields = ['longitude',
-        #          'latitude',
-        #          'distance',
-        #          'longitude_speed',
-        #          'latitude_speed',
-        #          'distance_speed',
-        #          'rectascension',
-        #          'declination',
-        #          'rectascension_speed',
-        #          'declination_speed',
-        #          'X',
-        #          'Y',
-        #          'Z',
-        #          'dX',
-        #          'dY',
-        #          'dZ']
-
+        # We only use some of the fields.
+        
         # While it is possible to do all three types, we just do two here.
         #dicts = [p.geocentric, p.topocentric, p.heliocentric]
         dicts = [p.geocentric, p.heliocentric]
@@ -4738,22 +4887,34 @@ class PlanetaryInfoTableWidget(QTableWidget):
         # Populate the item cells for each column.
         longitude = p.geocentric[tropical]['longitude']
         valueStr = \
-                 AstrologyUtils.\
-                 convertLongitudeToStrWithRasiAbbrev(longitude)
+            AstrologyUtils.\
+            convertLongitudeToStrWithRasiAbbrev(longitude)
         self._setItemAndToolTip(row, col, valueStr)
         col += 1
 
         longitude = p.geocentric[sidereal]['longitude']
         valueStr = \
-                 AstrologyUtils.\
-                 convertLongitudeToStrWithRasiAbbrev(longitude)
+            AstrologyUtils.\
+            convertLongitudeToStrWithRasiAbbrev(longitude)
+        self._setItemAndToolTip(row, col, valueStr)
+        col += 1
+
+        longitude = p.geocentric[sidereal]['longitude']
+        valueStr = AstrologyUtils.convertLongitudeToNavamsaStr(longitude)
         self._setItemAndToolTip(row, col, valueStr)
         col += 1
 
         longitude = p.geocentric[sidereal]['longitude']
         valueStr = \
-                 AstrologyUtils.\
-                 convertLongitudeToNakshatraAbbrev(longitude)
+            AstrologyUtils.\
+            convertLongitudeToNakshatraAbbrev(longitude)
+        self._setItemAndToolTip(row, col, valueStr)
+        col += 1
+
+        longitude = p.geocentric[sidereal]['longitude']
+        padaSize = 360 / 108.0
+        pada = (math.floor(longitude / padaSize) % 4) + 1
+        valueStr = "{}".format(pada)
         self._setItemAndToolTip(row, col, valueStr)
         col += 1
 
@@ -4784,15 +4945,27 @@ class PlanetaryInfoTableWidget(QTableWidget):
 
         longitude = p.heliocentric[sidereal]['longitude']
         valueStr = \
-                 AstrologyUtils.\
-                 convertLongitudeToStrWithRasiAbbrev(longitude)
+            AstrologyUtils.\
+            convertLongitudeToStrWithRasiAbbrev(longitude)
+        self._setItemAndToolTip(row, col, valueStr)
+        col += 1
+
+        longitude = p.heliocentric[sidereal]['longitude']
+        valueStr = AstrologyUtils.convertLongitudeToNavamsaStr(longitude)
         self._setItemAndToolTip(row, col, valueStr)
         col += 1
 
         longitude = p.heliocentric[sidereal]['longitude']
         valueStr = \
-                 AstrologyUtils.\
-                 convertLongitudeToNakshatraAbbrev(longitude)
+            AstrologyUtils.\
+            convertLongitudeToNakshatraAbbrev(longitude)
+        self._setItemAndToolTip(row, col, valueStr)
+        col += 1
+
+        longitude = p.heliocentric[sidereal]['longitude']
+        padaSize = 360 / 108.0
+        pada = (math.floor(longitude / padaSize) % 4) + 1
+        valueStr = "{}".format(pada)
         self._setItemAndToolTip(row, col, valueStr)
         col += 1
 

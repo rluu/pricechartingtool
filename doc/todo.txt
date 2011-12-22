@@ -4,11 +4,6 @@ Outstanding things to work on going forward:
 
 TODO:  
 
-  - Add astrology houses to the astrology chart.  Add to the
-    PlanetaryInfoTable as well.
-
-  - Add navamsa and nakshatra pada to the PlanetaryInfoTable.
-
   - Change display of longitude degrees in the astrology chart to use
     the longitude degree [0, 30) and the astro sign format.
 
@@ -240,3 +235,9 @@ DONE         1) Bad infinite-line intersection algorithm used.
 DONE         2) QRectF.contains() function not matching floats that are 
 DONE            on the edge of the rectangle as being contained within the QRect.
 DONE   
+
+DONE  - Add astrology houses to the astrology chart.  Add to the
+DONE    PlanetaryInfoTable as well.
+
+DONE  - Add navamsa and nakshatra pada to the PlanetaryInfoTable.
+DONE
