@@ -2036,9 +2036,6 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
         True if a match was found, False otherwise.
         """
 
-        if self.log.isEnabledFor(logging.DEBUG) == True:
-            self.log.debug("Entered _matchTest()")
-
         # Return value.
         rv = False
         
@@ -2138,9 +2135,6 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
         else:
             rv = False
 
-        if self.log.isEnabledFor(logging.DEBUG) == True:
-            self.log.debug("Exiting _matchTest()")
-        
         return rv
     
             
@@ -2169,8 +2163,6 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
         parent = self.parentItem()
         if parent != None and isinstance(parent, RadixChartGraphicsItem):
             radius = parent.getInnerRasiRadius()
-            # TODO:  Remove the line below if the above works.
-            #radius = parent.getRadiusForWheelNumber(1)
         else:
             return QRectF()
             
@@ -2186,9 +2178,6 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
     def paint(self, painter, option, widget):
         """Paints this QGraphicsItem. """
 
-        if self.log.isEnabledFor(logging.DEBUG) == True:
-            self.log.debug("Entered paint()")
-        
         # Coordinate (0, 0) is the location where the center of the
         # circular radix chart.  
 
@@ -2233,13 +2222,6 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
         
         # Draw the line.
         painter.drawLine(self.startPointF, self.endPointF)
-
-        if self.log.isEnabledFor(logging.DEBUG) == True:
-            self.log.debug("Line was drawn from: ({}, {}) to ({}, {})".\
-                           format(self.startPointF.x(), self.startPointF.y(),
-                                  self.endPointF.x(), self.endPointF.y()))
-            self.log.debug("Exiting paint()")
-        
 
 class RadixChartGraphicsItem(QGraphicsItem):
     """QGraphicsItem that is the circle astrology chart."""
@@ -4651,10 +4633,10 @@ class PlanetaryInfoTableWidget(QTableWidget):
 
         # Make a list of PlanetaryInfos that will actually be loaded,
         # based on if the planet name matches the ones returned by
-        # self._getPlanetNamesToDisplayForTable().
+        # self._getPlanetNamesToDisplayForPlanetaryInfoTable().
         toLoad = []
         for p in planetaryInfos:
-            if p.name in self._getPlanetNamesToDisplayForTable():
+            if p.name in self._getPlanetNamesToDisplayForPlanetaryInfoTable():
                 toLoad.append(p)
 
         self.setRowCount(len(toLoad))
@@ -4674,60 +4656,334 @@ class PlanetaryInfoTableWidget(QTableWidget):
 
         self.log.debug("Exiting load()")
 
-    def _getPlanetNamesToDisplayForTable(self):
+    def _getPlanetNamesToDisplayForPlanetaryInfoTable(self):
         """Function to return a list of planet names that should be
         used to display in the table cells.  This is to help lessen
         the possibly excessive amount of info in the table.
         """
 
-        toDisplay = \
-            ["H1",
-             "H2",
-             "H3",
-             "H4",
-             "H5",
-             "H6",
-             "H7",
-             "H8",
-             "H9",
-             "H10",
-             "H11",
-             "H12",
-             #"HoraLagna",
-             #"GhatiLagna",
-             #"MeanLunarApogee",
-             #"OsculatingLunarApogee",
-             #"InterpolatedLunarApogee",
-             #"InterpolatedLunarPerigee",
-             "Sun",
-             "Moon",
-             "Mercury",
-             "Venus",
-             "Earth",
-             "Mars",
-             "Jupiter",
-             "Saturn",
-             "Uranus",
-             "Neptune",
-             "Pluto",
-             "MeanNorthNode",
-             "MeanSouthNode",
-             "TrueNorthNode",
-             "TrueSouthNode",
-             #"Ceres",
-             #"Pallas",
-             #"Juno",
-             #"Vesta",
-             #"Chiron",
-             #"Gulika",
-             #"Mandi",
-             "MeanOfFive",
-             "CycleOfEight",
-             "AvgMaJuSaUrNePl",
-             "AvgJuSaUrNe",
-             "AvgJuSa"]
+        # Return value.
+        enabledPlanetNames = []
 
-        return toDisplay
+        settings = QSettings()
+        
+        if settings.value(\
+            SettingsKeys.planetH1EnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetH1EnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H1")
+        
+        if settings.value(\
+            SettingsKeys.planetH2EnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetH2EnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H2")
+        
+        if settings.value(\
+            SettingsKeys.planetH3EnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetH3EnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H3")
+        
+        if settings.value(\
+            SettingsKeys.planetH4EnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetH4EnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H4")
+        
+        if settings.value(\
+            SettingsKeys.planetH5EnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetH5EnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H5")
+        
+        if settings.value(\
+            SettingsKeys.planetH6EnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetH6EnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H6")
+        
+        if settings.value(\
+            SettingsKeys.planetH7EnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetH7EnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H7")
+        
+        if settings.value(\
+            SettingsKeys.planetH8EnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetH8EnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H8")
+        
+        if settings.value(\
+            SettingsKeys.planetH9EnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetH9EnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H9")
+        
+        if settings.value(\
+            SettingsKeys.planetH10EnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetH10EnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H10")
+        
+        if settings.value(\
+            SettingsKeys.planetH11EnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetH11EnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H11")
+        
+        if settings.value(\
+            SettingsKeys.planetH12EnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetH12EnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H12")
+        
+        if settings.value(\
+            SettingsKeys.planetHoraLagnaEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetHoraLagnaEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("HoraLagna")
+        
+        if settings.value(\
+            SettingsKeys.planetGhatiLagnaEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetGhatiLagnaEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("GhatiLagna")
+        
+        if settings.value(\
+            SettingsKeys.planetMeanLunarApogeeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMeanLunarApogeeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeanLunarApogee")
+        
+        if settings.value(\
+            SettingsKeys.planetOsculatingLunarApogeeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetOsculatingLunarApogeeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("OsculatingLunarApogee")
+        
+        if settings.value(\
+            SettingsKeys.planetInterpolatedLunarApogeeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetInterpolatedLunarApogeeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("InterpolatedLunarApogee")
+        
+        if settings.value(\
+            SettingsKeys.planetInterpolatedLunarPerigeeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetInterpolatedLunarPerigeeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("InterpolatedLunarPerigee")
+        
+        if settings.value(\
+            SettingsKeys.planetSunEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetSunEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Sun")
+        
+        if settings.value(\
+            SettingsKeys.planetMoonEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMoonEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Moon")
+        
+        if settings.value(\
+            SettingsKeys.planetMercuryEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMercuryEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Mercury")
+        
+        if settings.value(\
+            SettingsKeys.planetVenusEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetVenusEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Venus")
+        
+        if settings.value(\
+            SettingsKeys.planetEarthEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetEarthEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Earth")
+        
+        if settings.value(\
+            SettingsKeys.planetMarsEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMarsEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Mars")
+        
+        if settings.value(\
+            SettingsKeys.planetJupiterEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetJupiterEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Jupiter")
+        
+        if settings.value(\
+            SettingsKeys.planetSaturnEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetSaturnEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Saturn")
+        
+        if settings.value(\
+            SettingsKeys.planetUranusEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetUranusEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Uranus")
+        
+        if settings.value(\
+            SettingsKeys.planetNeptuneEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetNeptuneEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Neptune")
+        
+        if settings.value(\
+            SettingsKeys.planetPlutoEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetPlutoEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Pluto")
+        
+        if settings.value(\
+            SettingsKeys.planetMeanNorthNodeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMeanNorthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeanNorthNode")
+        
+        if settings.value(\
+            SettingsKeys.planetMeanSouthNodeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMeanSouthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeanSouthNode")
+        
+        if settings.value(\
+            SettingsKeys.planetTrueNorthNodeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetTrueNorthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("TrueNorthNode")
+        
+        if settings.value(\
+            SettingsKeys.planetTrueSouthNodeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetTrueSouthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("TrueSouthNode")
+        
+        if settings.value(\
+            SettingsKeys.planetCeresEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetCeresEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Ceres")
+        
+        if settings.value(\
+            SettingsKeys.planetPallasEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetPallasEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Pallas")
+        
+        if settings.value(\
+            SettingsKeys.planetJunoEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetJunoEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Juno")
+        
+        if settings.value(\
+            SettingsKeys.planetVestaEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetVestaEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Vesta")
+        
+        if settings.value(\
+            SettingsKeys.planetChironEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetChironEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Chiron")
+        
+        if settings.value(\
+            SettingsKeys.planetGulikaEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetGulikaEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Gulika")
+        
+        if settings.value(\
+            SettingsKeys.planetMandiEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMandiEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Mandi")
+        
+        if settings.value(\
+            SettingsKeys.planetMeanOfFiveEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMeanOfFiveEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeanOfFive")
+        
+        if settings.value(\
+            SettingsKeys.planetCycleOfEightEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetCycleOfEightEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("CycleOfEight")
+        
+        if settings.value(\
+            SettingsKeys.planetAvgMaJuSaUrNePlEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetAvgMaJuSaUrNePlEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AvgMaJuSaUrNePl")
+        
+        if settings.value(\
+            SettingsKeys.planetAvgJuSaUrNeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetAvgJuSaUrNeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AvgJuSaUrNe")
+        
+        if settings.value(\
+            SettingsKeys.planetAvgJuSaEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetAvgJuSaEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AvgJuSa")
+
+        
+        return enabledPlanetNames
         
     def _handleCellDoubleClicked(self, row, column):
         """Triggered when an item is double-clicked.  
@@ -5380,78 +5636,664 @@ class AstrologyChartWidget(QWidget):
         # Get planetary info for all the planets.
         planets = []
 
-        # TODO:  Add more 'planets' (planetary calculations) here as more
-        # are available.
-
         # Astrological house system for getting the house cusps.
         houseSystem = Ephemeris.HouseSys['Porphyry']
 
-        planets.append(Ephemeris.getH1PlanetaryInfo(dt, houseSystem))
-        planets.append(Ephemeris.getH2PlanetaryInfo(dt, houseSystem))
-        planets.append(Ephemeris.getH3PlanetaryInfo(dt, houseSystem))
-        planets.append(Ephemeris.getH4PlanetaryInfo(dt, houseSystem))
-        planets.append(Ephemeris.getH5PlanetaryInfo(dt, houseSystem))
-        planets.append(Ephemeris.getH6PlanetaryInfo(dt, houseSystem))
-        planets.append(Ephemeris.getH7PlanetaryInfo(dt, houseSystem))
-        planets.append(Ephemeris.getH8PlanetaryInfo(dt, houseSystem))
-        planets.append(Ephemeris.getH9PlanetaryInfo(dt, houseSystem))
-        planets.append(Ephemeris.getH10PlanetaryInfo(dt, houseSystem))
-        planets.append(Ephemeris.getH11PlanetaryInfo(dt, houseSystem))
-        planets.append(Ephemeris.getH12PlanetaryInfo(dt, houseSystem))
+        settings = QSettings()
+        
+        if settings.value(\
+            SettingsKeys.planetH1CalculationsEnabledKey, \
+            SettingsKeys.planetH1CalculationsEnabledDefValue,
+            type=bool):
 
-        planets.append(Ephemeris.getSunPlanetaryInfo(dt))
-        planets.append(Ephemeris.getMoonPlanetaryInfo(dt))
-        planets.append(Ephemeris.getMercuryPlanetaryInfo(dt))
-        planets.append(Ephemeris.getVenusPlanetaryInfo(dt))
-        planets.append(Ephemeris.getMarsPlanetaryInfo(dt))
-        planets.append(Ephemeris.getJupiterPlanetaryInfo(dt))
-        planets.append(Ephemeris.getSaturnPlanetaryInfo(dt))
-        planets.append(Ephemeris.getUranusPlanetaryInfo(dt))
-        planets.append(Ephemeris.getNeptunePlanetaryInfo(dt))
-        planets.append(Ephemeris.getPlutoPlanetaryInfo(dt))
-        planets.append(Ephemeris.getMeanNorthNodePlanetaryInfo(dt))
-        planets.append(Ephemeris.getTrueNorthNodePlanetaryInfo(dt))
-        planets.append(Ephemeris.getMeanLunarApogeePlanetaryInfo(dt))
-        planets.append(Ephemeris.getOsculatingLunarApogeePlanetaryInfo(dt))
-        planets.append(Ephemeris.getInterpolatedLunarApogeePlanetaryInfo(dt))
-        planets.append(Ephemeris.getInterpolatedLunarPerigeePlanetaryInfo(dt))
-        planets.append(Ephemeris.getEarthPlanetaryInfo(dt))
-        planets.append(Ephemeris.getChironPlanetaryInfo(dt))
+            self.log.debug("Getting house 1 values...")
+            planets.append(Ephemeris.getH1PlanetaryInfo(dt, houseSystem))
         
-        planets.append(Ephemeris.getMeanOfFivePlanetaryInfo(dt))
-        planets.append(Ephemeris.getCycleOfEightPlanetaryInfo(dt))
-        planets.append(Ephemeris.getAvgMaJuSaUrNePlPlanetaryInfo(dt))
-        planets.append(Ephemeris.getAvgJuSaUrNePlanetaryInfo(dt))
-        planets.append(Ephemeris.getAvgJuSaPlanetaryInfo(dt))
+        if settings.value(\
+            SettingsKeys.planetH2CalculationsEnabledKey, \
+            SettingsKeys.planetH2CalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getH2PlanetaryInfo(dt, houseSystem))
         
+        if settings.value(\
+            SettingsKeys.planetH3CalculationsEnabledKey, \
+            SettingsKeys.planetH3CalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getH3PlanetaryInfo(dt, houseSystem))
+
+        if settings.value(\
+            SettingsKeys.planetH4CalculationsEnabledKey, \
+            SettingsKeys.planetH4CalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getH4PlanetaryInfo(dt, houseSystem))
+        
+        if settings.value(\
+            SettingsKeys.planetH5CalculationsEnabledKey, \
+            SettingsKeys.planetH5CalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getH5PlanetaryInfo(dt, houseSystem))
+        
+        if settings.value(\
+            SettingsKeys.planetH6CalculationsEnabledKey, \
+            SettingsKeys.planetH6CalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getH6PlanetaryInfo(dt, houseSystem))
+        
+        if settings.value(\
+            SettingsKeys.planetH7CalculationsEnabledKey, \
+            SettingsKeys.planetH7CalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getH7PlanetaryInfo(dt, houseSystem))
+        
+        if settings.value(\
+            SettingsKeys.planetH8CalculationsEnabledKey, \
+            SettingsKeys.planetH8CalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getH8PlanetaryInfo(dt, houseSystem))
+        
+        if settings.value(\
+            SettingsKeys.planetH9CalculationsEnabledKey, \
+            SettingsKeys.planetH9CalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getH9PlanetaryInfo(dt, houseSystem))
+        
+        if settings.value(\
+            SettingsKeys.planetH10CalculationsEnabledKey, \
+            SettingsKeys.planetH10CalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getH10PlanetaryInfo(dt, houseSystem))
+        
+        if settings.value(\
+            SettingsKeys.planetH11CalculationsEnabledKey, \
+            SettingsKeys.planetH11CalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getH11PlanetaryInfo(dt, houseSystem))
+        
+        if settings.value(\
+            SettingsKeys.planetH12CalculationsEnabledKey, \
+            SettingsKeys.planetH12CalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getH12PlanetaryInfo(dt, houseSystem))
+        
+        if settings.value(\
+            SettingsKeys.planetHoraLagnaCalculationsEnabledKey, \
+            SettingsKeys.planetHoraLagnaCalculationsEnabledDefValue,
+            type=bool):
+
+            pass # TODO:  update for HoraLagna
+            #planets.append(Ephemeris.getHoraLagnaPlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetGhatiLagnaCalculationsEnabledKey, \
+            SettingsKeys.planetGhatiLagnaCalculationsEnabledDefValue,
+            type=bool):
+
+            pass # TODO:  update for GhatiLagna
+            #planets.append(Ephemeris.getGhatiLagnaPlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetMeanLunarApogeeCalculationsEnabledKey, \
+            SettingsKeys.planetMeanLunarApogeeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMeanLunarApogeePlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetOsculatingLunarApogeeCalculationsEnabledKey, \
+            SettingsKeys.planetOsculatingLunarApogeeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getOsculatingLunarApogeePlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetInterpolatedLunarApogeeCalculationsEnabledKey, \
+            SettingsKeys.planetInterpolatedLunarApogeeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getInterpolatedLunarApogeePlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetInterpolatedLunarPerigeeCalculationsEnabledKey, \
+            SettingsKeys.planetInterpolatedLunarPerigeeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getInterpolatedLunarPerigeePlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetSunCalculationsEnabledKey, \
+            SettingsKeys.planetSunCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getSunPlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetMoonCalculationsEnabledKey, \
+            SettingsKeys.planetMoonCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMoonPlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetMercuryCalculationsEnabledKey, \
+            SettingsKeys.planetMercuryCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMercuryPlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetVenusCalculationsEnabledKey, \
+            SettingsKeys.planetVenusCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getVenusPlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetEarthCalculationsEnabledKey, \
+            SettingsKeys.planetEarthCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getEarthPlanetaryInfo(dt))
+            
+        if settings.value(\
+            SettingsKeys.planetMarsCalculationsEnabledKey, \
+            SettingsKeys.planetMarsCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMarsPlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetJupiterCalculationsEnabledKey, \
+            SettingsKeys.planetJupiterCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getJupiterPlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetSaturnCalculationsEnabledKey, \
+            SettingsKeys.planetSaturnCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getSaturnPlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetUranusCalculationsEnabledKey, \
+            SettingsKeys.planetUranusCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getUranusPlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetNeptuneCalculationsEnabledKey, \
+            SettingsKeys.planetNeptuneCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getNeptunePlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetPlutoCalculationsEnabledKey, \
+            SettingsKeys.planetPlutoCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getPlutoPlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetMeanNorthNodeCalculationsEnabledKey, \
+            SettingsKeys.planetMeanNorthNodeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMeanNorthNodePlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetMeanSouthNodeCalculationsEnabledKey, \
+            SettingsKeys.planetMeanSouthNodeCalculationsEnabledDefValue,
+            type=bool):
+
+            pass # TODO:  update for TrueSouthNode
+            #planets.append(Ephemeris.getTrueSouthNodePlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetTrueNorthNodeCalculationsEnabledKey, \
+            SettingsKeys.planetTrueNorthNodeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getTrueNorthNodePlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetTrueSouthNodeCalculationsEnabledKey, \
+            SettingsKeys.planetTrueSouthNodeCalculationsEnabledDefValue,
+            type=bool):
+
+            pass # TODO:  update for TrueSouthNode
+            #planets.append(Ephemeris.getTrueSouthNodePlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetCeresCalculationsEnabledKey, \
+            SettingsKeys.planetCeresCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getCeresPlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetPallasCalculationsEnabledKey, \
+            SettingsKeys.planetPallasCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getPallasPlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetJunoCalculationsEnabledKey, \
+            SettingsKeys.planetJunoCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getJunoPlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetVestaCalculationsEnabledKey, \
+            SettingsKeys.planetVestaCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getVestaPlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetChironCalculationsEnabledKey, \
+            SettingsKeys.planetChironCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getChironPlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetGulikaCalculationsEnabledKey, \
+            SettingsKeys.planetGulikaCalculationsEnabledDefValue,
+            type=bool):
+
+            pass # TODO:  update for Gulika
+            #planets.append(Ephemeris.getGulikaPlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetMandiCalculationsEnabledKey, \
+            SettingsKeys.planetMandiCalculationsEnabledDefValue,
+            type=bool):
+
+            pass # TODO:  update for Mandi
+            #planets.append(Ephemeris.getMandiPlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetMeanOfFiveCalculationsEnabledKey, \
+            SettingsKeys.planetMeanOfFiveCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMeanOfFivePlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetCycleOfEightCalculationsEnabledKey, \
+            SettingsKeys.planetCycleOfEightCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getCycleOfEightPlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetAvgMaJuSaUrNePlCalculationsEnabledKey, \
+            SettingsKeys.planetAvgMaJuSaUrNePlCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getAvgMaJuSaUrNePlPlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetAvgJuSaUrNeCalculationsEnabledKey, \
+            SettingsKeys.planetAvgJuSaUrNeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getAvgJuSaUrNePlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetAvgJuSaCalculationsEnabledKey, \
+            SettingsKeys.planetAvgJuSaCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getAvgJuSaPlanetaryInfo(dt))
+
         return planets
 
     def _getPlanetNamesToDisplayForDeclination(self):
         """Function to return a list of planet names that should be
         used to display declination information.  This is used because
-        some planets don't make sense to chart on declination and it
-        just clouds up the view.
+        some planets don't make sense in this chart and it just clouds
+        up the view.
         """
 
-        toDisplay = \
-            ["Sun",
-             "Moon",
-             "Mercury",
-             "Venus",
-             "Mars",
-             "Jupiter",
-             "Saturn",
-             "Uranus",
-             "Neptune",
-             "Pluto",
-             #"MeanOfFive",
-             #"CycleOfEight",
-             #"AvgMaJuSaUrNePl",
-             #"AvgJuSaUrNe",
-             #"AvgJuSa"
-             ]
+        # Return value.
+        enabledPlanetNames = []
 
-        return toDisplay
+        settings = QSettings()
+        
+        if settings.value(\
+            SettingsKeys.planetH1EnabledForDeclinationKey, \
+            SettingsKeys.planetH1EnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H1")
+        
+        if settings.value(\
+            SettingsKeys.planetH2EnabledForDeclinationKey, \
+            SettingsKeys.planetH2EnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H2")
+        
+        if settings.value(\
+            SettingsKeys.planetH3EnabledForDeclinationKey, \
+            SettingsKeys.planetH3EnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H3")
+        
+        if settings.value(\
+            SettingsKeys.planetH4EnabledForDeclinationKey, \
+            SettingsKeys.planetH4EnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H4")
+        
+        if settings.value(\
+            SettingsKeys.planetH5EnabledForDeclinationKey, \
+            SettingsKeys.planetH5EnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H5")
+        
+        if settings.value(\
+            SettingsKeys.planetH6EnabledForDeclinationKey, \
+            SettingsKeys.planetH6EnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H6")
+        
+        if settings.value(\
+            SettingsKeys.planetH7EnabledForDeclinationKey, \
+            SettingsKeys.planetH7EnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H7")
+        
+        if settings.value(\
+            SettingsKeys.planetH8EnabledForDeclinationKey, \
+            SettingsKeys.planetH8EnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H8")
+        
+        if settings.value(\
+            SettingsKeys.planetH9EnabledForDeclinationKey, \
+            SettingsKeys.planetH9EnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H9")
+        
+        if settings.value(\
+            SettingsKeys.planetH10EnabledForDeclinationKey, \
+            SettingsKeys.planetH10EnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H10")
+        
+        if settings.value(\
+            SettingsKeys.planetH11EnabledForDeclinationKey, \
+            SettingsKeys.planetH11EnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H11")
+        
+        if settings.value(\
+            SettingsKeys.planetH12EnabledForDeclinationKey, \
+            SettingsKeys.planetH12EnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H12")
+        
+        if settings.value(\
+            SettingsKeys.planetHoraLagnaEnabledForDeclinationKey, \
+            SettingsKeys.planetHoraLagnaEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("HoraLagna")
+        
+        if settings.value(\
+            SettingsKeys.planetGhatiLagnaEnabledForDeclinationKey, \
+            SettingsKeys.planetGhatiLagnaEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("GhatiLagna")
+        
+        if settings.value(\
+            SettingsKeys.planetMeanLunarApogeeEnabledForDeclinationKey, \
+            SettingsKeys.planetMeanLunarApogeeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeanLunarApogee")
+        
+        if settings.value(\
+            SettingsKeys.planetOsculatingLunarApogeeEnabledForDeclinationKey, \
+            SettingsKeys.planetOsculatingLunarApogeeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("OsculatingLunarApogee")
+        
+        if settings.value(\
+            SettingsKeys.planetInterpolatedLunarApogeeEnabledForDeclinationKey, \
+            SettingsKeys.planetInterpolatedLunarApogeeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("InterpolatedLunarApogee")
+        
+        if settings.value(\
+            SettingsKeys.planetInterpolatedLunarPerigeeEnabledForDeclinationKey, \
+            SettingsKeys.planetInterpolatedLunarPerigeeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("InterpolatedLunarPerigee")
+        
+        if settings.value(\
+            SettingsKeys.planetSunEnabledForDeclinationKey, \
+            SettingsKeys.planetSunEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Sun")
+        
+        if settings.value(\
+            SettingsKeys.planetMoonEnabledForDeclinationKey, \
+            SettingsKeys.planetMoonEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Moon")
+        
+        if settings.value(\
+            SettingsKeys.planetMercuryEnabledForDeclinationKey, \
+            SettingsKeys.planetMercuryEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Mercury")
+        
+        if settings.value(\
+            SettingsKeys.planetVenusEnabledForDeclinationKey, \
+            SettingsKeys.planetVenusEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Venus")
+        
+        if settings.value(\
+            SettingsKeys.planetEarthEnabledForDeclinationKey, \
+            SettingsKeys.planetEarthEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Earth")
+        
+        if settings.value(\
+            SettingsKeys.planetMarsEnabledForDeclinationKey, \
+            SettingsKeys.planetMarsEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Mars")
+        
+        if settings.value(\
+            SettingsKeys.planetJupiterEnabledForDeclinationKey, \
+            SettingsKeys.planetJupiterEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Jupiter")
+        
+        if settings.value(\
+            SettingsKeys.planetSaturnEnabledForDeclinationKey, \
+            SettingsKeys.planetSaturnEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Saturn")
+        
+        if settings.value(\
+            SettingsKeys.planetUranusEnabledForDeclinationKey, \
+            SettingsKeys.planetUranusEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Uranus")
+        
+        if settings.value(\
+            SettingsKeys.planetNeptuneEnabledForDeclinationKey, \
+            SettingsKeys.planetNeptuneEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Neptune")
+        
+        if settings.value(\
+            SettingsKeys.planetPlutoEnabledForDeclinationKey, \
+            SettingsKeys.planetPlutoEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Pluto")
+        
+        if settings.value(\
+            SettingsKeys.planetMeanNorthNodeEnabledForDeclinationKey, \
+            SettingsKeys.planetMeanNorthNodeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeanNorthNode")
+        
+        if settings.value(\
+            SettingsKeys.planetMeanSouthNodeEnabledForDeclinationKey, \
+            SettingsKeys.planetMeanSouthNodeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeanSouthNode")
+        
+        if settings.value(\
+            SettingsKeys.planetTrueNorthNodeEnabledForDeclinationKey, \
+            SettingsKeys.planetTrueNorthNodeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("TrueNorthNode")
+        
+        if settings.value(\
+            SettingsKeys.planetTrueSouthNodeEnabledForDeclinationKey, \
+            SettingsKeys.planetTrueSouthNodeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("TrueSouthNode")
+        
+        if settings.value(\
+            SettingsKeys.planetCeresEnabledForDeclinationKey, \
+            SettingsKeys.planetCeresEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Ceres")
+        
+        if settings.value(\
+            SettingsKeys.planetPallasEnabledForDeclinationKey, \
+            SettingsKeys.planetPallasEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Pallas")
+        
+        if settings.value(\
+            SettingsKeys.planetJunoEnabledForDeclinationKey, \
+            SettingsKeys.planetJunoEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Juno")
+        
+        if settings.value(\
+            SettingsKeys.planetVestaEnabledForDeclinationKey, \
+            SettingsKeys.planetVestaEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Vesta")
+        
+        if settings.value(\
+            SettingsKeys.planetChironEnabledForDeclinationKey, \
+            SettingsKeys.planetChironEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Chiron")
+        
+        if settings.value(\
+            SettingsKeys.planetGulikaEnabledForDeclinationKey, \
+            SettingsKeys.planetGulikaEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Gulika")
+        
+        if settings.value(\
+            SettingsKeys.planetMandiEnabledForDeclinationKey, \
+            SettingsKeys.planetMandiEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Mandi")
+        
+        if settings.value(\
+            SettingsKeys.planetMeanOfFiveEnabledForDeclinationKey, \
+            SettingsKeys.planetMeanOfFiveEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeanOfFive")
+        
+        if settings.value(\
+            SettingsKeys.planetCycleOfEightEnabledForDeclinationKey, \
+            SettingsKeys.planetCycleOfEightEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("CycleOfEight")
+        
+        if settings.value(\
+            SettingsKeys.planetAvgMaJuSaUrNePlEnabledForDeclinationKey, \
+            SettingsKeys.planetAvgMaJuSaUrNePlEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AvgMaJuSaUrNePl")
+        
+        if settings.value(\
+            SettingsKeys.planetAvgJuSaUrNeEnabledForDeclinationKey, \
+            SettingsKeys.planetAvgJuSaUrNeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AvgJuSaUrNe")
+        
+        if settings.value(\
+            SettingsKeys.planetAvgJuSaEnabledForDeclinationKey, \
+            SettingsKeys.planetAvgJuSaEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AvgJuSa")
+
+
+        return enabledPlanetNames
         
     def _getPlanetNamesToDisplayForGeoSidRadixChart(self):
         """Function to return a list of planet names that can be
@@ -5460,56 +6302,329 @@ class AstrologyChartWidget(QWidget):
         up the view.
         """
 
-        toDisplay = \
-            ["H1",
-             "H2",
-             "H3",
-             "H4",
-             "H5",
-             "H6",
-             "H7",
-             "H8",
-             "H9",
-             "H10",
-             "H11",
-             "H12",
-             #"HoraLagna",
-             #"GhatiLagna",
-             #"MeanLunarApogee",
-             #"OsculatingLunarApogee",
-             #"InterpolatedLunarApogee",
-             #"InterpolatedLunarPerigee",
-             "Sun",
-             "Moon",
-             "Mercury",
-             "Venus",
-             #"Earth",
-             "Mars",
-             "Jupiter",
-             "Saturn",
-             "Uranus",
-             "Neptune",
-             "Pluto",
-             "MeanNorthNode",
-             #"MeanSouthNode",
-             #"TrueNorthNode",
-             #"TrueSouthNode",
-             #"Ceres",
-             #"Pallas",
-             #"Juno",
-             #"Vesta",
-             #"Chiron",
-             #"Gulika",
-             #"Mandi",
-             #"MeanOfFive",
-             #"CycleOfEight",
-             #"AvgMaJuSaUrNePl",
-             #"AvgJuSaUrNe",
-             #"AvgJuSa"
-            ]
+        # Return value.
+        enabledPlanetNames = []
+        
+        settings = QSettings()
+        
+        if settings.value(\
+            SettingsKeys.planetH1EnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetH1EnabledForGeoSidRadixChartDefValue,
+            type=bool):
 
-        return toDisplay
+            enabledPlanetNames.append("H1")
+        
+        if settings.value(\
+            SettingsKeys.planetH2EnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetH2EnabledForGeoSidRadixChartDefValue,
+            type=bool):
 
+            enabledPlanetNames.append("H2")
+        
+        if settings.value(\
+            SettingsKeys.planetH3EnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetH3EnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H3")
+        
+        if settings.value(\
+            SettingsKeys.planetH4EnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetH4EnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H4")
+        
+        if settings.value(\
+            SettingsKeys.planetH5EnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetH5EnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H5")
+        
+        if settings.value(\
+            SettingsKeys.planetH6EnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetH6EnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H6")
+        
+        if settings.value(\
+            SettingsKeys.planetH7EnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetH7EnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H7")
+        
+        if settings.value(\
+            SettingsKeys.planetH8EnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetH8EnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H8")
+        
+        if settings.value(\
+            SettingsKeys.planetH9EnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetH9EnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H9")
+        
+        if settings.value(\
+            SettingsKeys.planetH10EnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetH10EnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H10")
+        
+        if settings.value(\
+            SettingsKeys.planetH11EnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetH11EnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H11")
+        
+        if settings.value(\
+            SettingsKeys.planetH12EnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetH12EnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H12")
+        
+        if settings.value(\
+            SettingsKeys.planetHoraLagnaEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetHoraLagnaEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("HoraLagna")
+        
+        if settings.value(\
+            SettingsKeys.planetGhatiLagnaEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetGhatiLagnaEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("GhatiLagna")
+        
+        if settings.value(\
+            SettingsKeys.planetMeanLunarApogeeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMeanLunarApogeeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeanLunarApogee")
+        
+        if settings.value(\
+            SettingsKeys.planetOsculatingLunarApogeeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetOsculatingLunarApogeeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("OsculatingLunarApogee")
+        
+        if settings.value(\
+            SettingsKeys.planetInterpolatedLunarApogeeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetInterpolatedLunarApogeeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("InterpolatedLunarApogee")
+        
+        if settings.value(\
+            SettingsKeys.planetInterpolatedLunarPerigeeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetInterpolatedLunarPerigeeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("InterpolatedLunarPerigee")
+        
+        if settings.value(\
+            SettingsKeys.planetSunEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetSunEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Sun")
+        
+        if settings.value(\
+            SettingsKeys.planetMoonEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMoonEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Moon")
+        
+        if settings.value(\
+            SettingsKeys.planetMercuryEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMercuryEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Mercury")
+        
+        if settings.value(\
+            SettingsKeys.planetVenusEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetVenusEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Venus")
+        
+        if settings.value(\
+            SettingsKeys.planetEarthEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetEarthEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Earth")
+        
+        if settings.value(\
+            SettingsKeys.planetMarsEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMarsEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Mars")
+        
+        if settings.value(\
+            SettingsKeys.planetJupiterEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetJupiterEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Jupiter")
+        
+        if settings.value(\
+            SettingsKeys.planetSaturnEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetSaturnEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Saturn")
+        
+        if settings.value(\
+            SettingsKeys.planetUranusEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetUranusEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Uranus")
+        
+        if settings.value(\
+            SettingsKeys.planetNeptuneEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetNeptuneEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Neptune")
+        
+        if settings.value(\
+            SettingsKeys.planetPlutoEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetPlutoEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Pluto")
+        
+        if settings.value(\
+            SettingsKeys.planetMeanNorthNodeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMeanNorthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeanNorthNode")
+        
+        if settings.value(\
+            SettingsKeys.planetMeanSouthNodeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMeanSouthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeanSouthNode")
+        
+        if settings.value(\
+            SettingsKeys.planetTrueNorthNodeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetTrueNorthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("TrueNorthNode")
+        
+        if settings.value(\
+            SettingsKeys.planetTrueSouthNodeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetTrueSouthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("TrueSouthNode")
+        
+        if settings.value(\
+            SettingsKeys.planetCeresEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetCeresEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Ceres")
+        
+        if settings.value(\
+            SettingsKeys.planetPallasEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetPallasEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Pallas")
+        
+        if settings.value(\
+            SettingsKeys.planetJunoEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetJunoEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Juno")
+        
+        if settings.value(\
+            SettingsKeys.planetVestaEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetVestaEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Vesta")
+        
+        if settings.value(\
+            SettingsKeys.planetChironEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetChironEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Chiron")
+        
+        if settings.value(\
+            SettingsKeys.planetGulikaEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetGulikaEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Gulika")
+        
+        if settings.value(\
+            SettingsKeys.planetMandiEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMandiEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Mandi")
+        
+        if settings.value(\
+            SettingsKeys.planetMeanOfFiveEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMeanOfFiveEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeanOfFive")
+        
+        if settings.value(\
+            SettingsKeys.planetCycleOfEightEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetCycleOfEightEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("CycleOfEight")
+        
+        if settings.value(\
+            SettingsKeys.planetAvgMaJuSaUrNePlEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetAvgMaJuSaUrNePlEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AvgMaJuSaUrNePl")
+        
+        if settings.value(\
+            SettingsKeys.planetAvgJuSaUrNeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetAvgJuSaUrNeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AvgJuSaUrNe")
+        
+        if settings.value(\
+            SettingsKeys.planetAvgJuSaEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetAvgJuSaEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AvgJuSa")
+
+
+        return enabledPlanetNames
+        
     def _getPlanetNamesToDisplayForGeoTropRadixChart(self):
         """Function to return a list of planet names that can be
         used to display longitude information.  This is used because
@@ -5517,10 +6632,329 @@ class AstrologyChartWidget(QWidget):
         up the view.
         """
 
-        # Use the same values for Geocentric Tropical as used in
-        # Geocentric Sidereal.
-        return self._getPlanetNamesToDisplayForGeoSidRadixChart()
+        # Return value.
+        enabledPlanetNames = []
+        
+        settings = QSettings()
+        
+        if settings.value(\
+            SettingsKeys.planetH1EnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetH1EnabledForGeoTropRadixChartDefValue,
+            type=bool):
 
+            enabledPlanetNames.append("H1")
+        
+        if settings.value(\
+            SettingsKeys.planetH2EnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetH2EnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H2")
+        
+        if settings.value(\
+            SettingsKeys.planetH3EnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetH3EnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H3")
+        
+        if settings.value(\
+            SettingsKeys.planetH4EnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetH4EnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H4")
+        
+        if settings.value(\
+            SettingsKeys.planetH5EnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetH5EnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H5")
+        
+        if settings.value(\
+            SettingsKeys.planetH6EnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetH6EnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H6")
+        
+        if settings.value(\
+            SettingsKeys.planetH7EnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetH7EnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H7")
+        
+        if settings.value(\
+            SettingsKeys.planetH8EnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetH8EnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H8")
+        
+        if settings.value(\
+            SettingsKeys.planetH9EnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetH9EnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H9")
+        
+        if settings.value(\
+            SettingsKeys.planetH10EnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetH10EnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H10")
+        
+        if settings.value(\
+            SettingsKeys.planetH11EnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetH11EnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H11")
+        
+        if settings.value(\
+            SettingsKeys.planetH12EnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetH12EnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H12")
+        
+        if settings.value(\
+            SettingsKeys.planetHoraLagnaEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetHoraLagnaEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("HoraLagna")
+        
+        if settings.value(\
+            SettingsKeys.planetGhatiLagnaEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetGhatiLagnaEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("GhatiLagna")
+        
+        if settings.value(\
+            SettingsKeys.planetMeanLunarApogeeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMeanLunarApogeeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeanLunarApogee")
+        
+        if settings.value(\
+            SettingsKeys.planetOsculatingLunarApogeeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetOsculatingLunarApogeeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("OsculatingLunarApogee")
+        
+        if settings.value(\
+            SettingsKeys.planetInterpolatedLunarApogeeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetInterpolatedLunarApogeeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("InterpolatedLunarApogee")
+        
+        if settings.value(\
+            SettingsKeys.planetInterpolatedLunarPerigeeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetInterpolatedLunarPerigeeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("InterpolatedLunarPerigee")
+        
+        if settings.value(\
+            SettingsKeys.planetSunEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetSunEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Sun")
+        
+        if settings.value(\
+            SettingsKeys.planetMoonEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMoonEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Moon")
+        
+        if settings.value(\
+            SettingsKeys.planetMercuryEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMercuryEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Mercury")
+        
+        if settings.value(\
+            SettingsKeys.planetVenusEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetVenusEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Venus")
+        
+        if settings.value(\
+            SettingsKeys.planetEarthEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetEarthEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Earth")
+        
+        if settings.value(\
+            SettingsKeys.planetMarsEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMarsEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Mars")
+        
+        if settings.value(\
+            SettingsKeys.planetJupiterEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetJupiterEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Jupiter")
+        
+        if settings.value(\
+            SettingsKeys.planetSaturnEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetSaturnEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Saturn")
+        
+        if settings.value(\
+            SettingsKeys.planetUranusEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetUranusEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Uranus")
+        
+        if settings.value(\
+            SettingsKeys.planetNeptuneEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetNeptuneEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Neptune")
+        
+        if settings.value(\
+            SettingsKeys.planetPlutoEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetPlutoEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Pluto")
+        
+        if settings.value(\
+            SettingsKeys.planetMeanNorthNodeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMeanNorthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeanNorthNode")
+        
+        if settings.value(\
+            SettingsKeys.planetMeanSouthNodeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMeanSouthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeanSouthNode")
+        
+        if settings.value(\
+            SettingsKeys.planetTrueNorthNodeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetTrueNorthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("TrueNorthNode")
+        
+        if settings.value(\
+            SettingsKeys.planetTrueSouthNodeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetTrueSouthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("TrueSouthNode")
+        
+        if settings.value(\
+            SettingsKeys.planetCeresEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetCeresEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Ceres")
+        
+        if settings.value(\
+            SettingsKeys.planetPallasEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetPallasEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Pallas")
+        
+        if settings.value(\
+            SettingsKeys.planetJunoEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetJunoEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Juno")
+        
+        if settings.value(\
+            SettingsKeys.planetVestaEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetVestaEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Vesta")
+        
+        if settings.value(\
+            SettingsKeys.planetChironEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetChironEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Chiron")
+        
+        if settings.value(\
+            SettingsKeys.planetGulikaEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetGulikaEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Gulika")
+        
+        if settings.value(\
+            SettingsKeys.planetMandiEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMandiEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Mandi")
+        
+        if settings.value(\
+            SettingsKeys.planetMeanOfFiveEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMeanOfFiveEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeanOfFive")
+        
+        if settings.value(\
+            SettingsKeys.planetCycleOfEightEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetCycleOfEightEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("CycleOfEight")
+        
+        if settings.value(\
+            SettingsKeys.planetAvgMaJuSaUrNePlEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetAvgMaJuSaUrNePlEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AvgMaJuSaUrNePl")
+        
+        if settings.value(\
+            SettingsKeys.planetAvgJuSaUrNeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetAvgJuSaUrNeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AvgJuSaUrNe")
+        
+        if settings.value(\
+            SettingsKeys.planetAvgJuSaEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetAvgJuSaEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AvgJuSa")
+
+        
+        return enabledPlanetNames
+        
     def _getPlanetNamesToDisplayForHelioSidRadixChart(self):
         """Function to return a list of planet names that can be
         used to display longitude information.  This is used because
@@ -5528,56 +6962,329 @@ class AstrologyChartWidget(QWidget):
         up the view.
         """
 
-        toDisplay = \
-            [#"H1",
-             #"H2",
-             #"H3",
-             #"H4",
-             #"H5",
-             #"H6",
-             #"H7",
-             #"H8",
-             #"H9",
-             #"H10",
-             #"H11",
-             #"H12",
-             #"HoraLagna",
-             #"GhatiLagna",
-             #"MeanLunarApogee",
-             #"OsculatingLunarApogee",
-             #"InterpolatedLunarApogee",
-             #"InterpolatedLunarPerigee",
-             #"Sun",
-             #"Moon",
-             #"Mercury",
-             #"Venus",
-             #"Earth",
-             #"Mars",
-             "Jupiter",
-             "Saturn",
-             "Uranus",
-             "Neptune",
-             "Pluto",
-             #"MeanNorthNode",
-             #"MeanSouthNode",
-             #"TrueNorthNode",
-             #"TrueSouthNode",
-             #"Ceres",
-             #"Pallas",
-             #"Juno",
-             #"Vesta",
-             #"Chiron",
-             #"Gulika",
-             #"Mandi",
-             #"MeanOfFive",
-             #"CycleOfEight",
-             #"AvgMaJuSaUrNePl",
-             #"AvgJuSaUrNe",
-             #"AvgJuSa"
-            ]
+        # Return value.
+        enabledPlanetNames = []
+        
+        settings = QSettings()
+        
+        if settings.value(\
+            SettingsKeys.planetH1EnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetH1EnabledForHelioSidRadixChartDefValue,
+            type=bool):
 
-        return toDisplay
+            enabledPlanetNames.append("H1")
+        
+        if settings.value(\
+            SettingsKeys.planetH2EnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetH2EnabledForHelioSidRadixChartDefValue,
+            type=bool):
 
+            enabledPlanetNames.append("H2")
+        
+        if settings.value(\
+            SettingsKeys.planetH3EnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetH3EnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H3")
+        
+        if settings.value(\
+            SettingsKeys.planetH4EnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetH4EnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H4")
+        
+        if settings.value(\
+            SettingsKeys.planetH5EnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetH5EnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H5")
+        
+        if settings.value(\
+            SettingsKeys.planetH6EnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetH6EnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H6")
+        
+        if settings.value(\
+            SettingsKeys.planetH7EnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetH7EnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H7")
+        
+        if settings.value(\
+            SettingsKeys.planetH8EnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetH8EnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H8")
+        
+        if settings.value(\
+            SettingsKeys.planetH9EnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetH9EnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H9")
+        
+        if settings.value(\
+            SettingsKeys.planetH10EnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetH10EnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H10")
+        
+        if settings.value(\
+            SettingsKeys.planetH11EnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetH11EnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H11")
+        
+        if settings.value(\
+            SettingsKeys.planetH12EnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetH12EnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H12")
+        
+        if settings.value(\
+            SettingsKeys.planetHoraLagnaEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetHoraLagnaEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("HoraLagna")
+        
+        if settings.value(\
+            SettingsKeys.planetGhatiLagnaEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetGhatiLagnaEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("GhatiLagna")
+        
+        if settings.value(\
+            SettingsKeys.planetMeanLunarApogeeEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetMeanLunarApogeeEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeanLunarApogee")
+        
+        if settings.value(\
+            SettingsKeys.planetOsculatingLunarApogeeEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetOsculatingLunarApogeeEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("OsculatingLunarApogee")
+        
+        if settings.value(\
+            SettingsKeys.planetInterpolatedLunarApogeeEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetInterpolatedLunarApogeeEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("InterpolatedLunarApogee")
+        
+        if settings.value(\
+            SettingsKeys.planetInterpolatedLunarPerigeeEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetInterpolatedLunarPerigeeEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("InterpolatedLunarPerigee")
+        
+        if settings.value(\
+            SettingsKeys.planetSunEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetSunEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Sun")
+        
+        if settings.value(\
+            SettingsKeys.planetMoonEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetMoonEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Moon")
+        
+        if settings.value(\
+            SettingsKeys.planetMercuryEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetMercuryEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Mercury")
+        
+        if settings.value(\
+            SettingsKeys.planetVenusEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetVenusEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Venus")
+        
+        if settings.value(\
+            SettingsKeys.planetEarthEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetEarthEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Earth")
+        
+        if settings.value(\
+            SettingsKeys.planetMarsEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetMarsEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Mars")
+        
+        if settings.value(\
+            SettingsKeys.planetJupiterEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetJupiterEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Jupiter")
+        
+        if settings.value(\
+            SettingsKeys.planetSaturnEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetSaturnEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Saturn")
+        
+        if settings.value(\
+            SettingsKeys.planetUranusEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetUranusEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Uranus")
+        
+        if settings.value(\
+            SettingsKeys.planetNeptuneEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetNeptuneEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Neptune")
+        
+        if settings.value(\
+            SettingsKeys.planetPlutoEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetPlutoEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Pluto")
+        
+        if settings.value(\
+            SettingsKeys.planetMeanNorthNodeEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetMeanNorthNodeEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeanNorthNode")
+        
+        if settings.value(\
+            SettingsKeys.planetMeanSouthNodeEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetMeanSouthNodeEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeanSouthNode")
+        
+        if settings.value(\
+            SettingsKeys.planetTrueNorthNodeEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetTrueNorthNodeEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("TrueNorthNode")
+        
+        if settings.value(\
+            SettingsKeys.planetTrueSouthNodeEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetTrueSouthNodeEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("TrueSouthNode")
+        
+        if settings.value(\
+            SettingsKeys.planetCeresEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetCeresEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Ceres")
+        
+        if settings.value(\
+            SettingsKeys.planetPallasEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetPallasEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Pallas")
+        
+        if settings.value(\
+            SettingsKeys.planetJunoEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetJunoEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Juno")
+        
+        if settings.value(\
+            SettingsKeys.planetVestaEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetVestaEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Vesta")
+        
+        if settings.value(\
+            SettingsKeys.planetChironEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetChironEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Chiron")
+        
+        if settings.value(\
+            SettingsKeys.planetGulikaEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetGulikaEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Gulika")
+        
+        if settings.value(\
+            SettingsKeys.planetMandiEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetMandiEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Mandi")
+        
+        if settings.value(\
+            SettingsKeys.planetMeanOfFiveEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetMeanOfFiveEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeanOfFive")
+        
+        if settings.value(\
+            SettingsKeys.planetCycleOfEightEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetCycleOfEightEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("CycleOfEight")
+        
+        if settings.value(\
+            SettingsKeys.planetAvgMaJuSaUrNePlEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetAvgMaJuSaUrNePlEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AvgMaJuSaUrNePl")
+        
+        if settings.value(\
+            SettingsKeys.planetAvgJuSaUrNeEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetAvgJuSaUrNeEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AvgJuSaUrNe")
+        
+        if settings.value(\
+            SettingsKeys.planetAvgJuSaEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetAvgJuSaEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AvgJuSa")
+
+        
+        return enabledPlanetNames
+        
     def setAstroChartXDatetime(self, chartNum, dt):
         """Sets the datetime of astrology chart 'chartNum'
         within the radix chart and other charts.
@@ -5590,21 +7297,31 @@ class AstrologyChartWidget(QWidget):
         # Wheel number (chart number) that will be updated.
         wheelNumber = chartNum
 
+        # Get filters for what to display.
+        planetNamesToDisplayForDeclination = \
+            self._getPlanetNamesToDisplayForDeclination()
+        planetNamesToDisplayForGeoSidRadixChart = \
+            self._getPlanetNamesToDisplayForGeoSidRadixChart()
+        planetNamesToDisplayForGeoTropRadixChart = \
+            self._getPlanetNamesToDisplayForGeoTropRadixChart()
+        planetNamesToDisplayForHelioSidRadixChart = \
+            self._getPlanetNamesToDisplayForHelioSidRadixChart()
+
         # Get the PlanetaryInfo objects.
         planets = self.getPlanetaryInfosForDatetime(dt)
-
+        
         # Update the planets' QGraphicsItems on each radix chart.
         for planet in planets:
             # Location label doesn't need to be updated here because
             # it gets updated when the BirthInfo gets set in this
             # widget.
 
-            # Update the declination chart.
-            if planet.name in self._getPlanetNamesToDisplayForDeclination():
-                planetDeclinationGraphicsItem = \
-                    self.declinationChart.\
-                    getPlanetDeclinationGraphicsItem(planet.name, chartNum)
-                
+            # Declination chart.
+            planetDeclinationGraphicsItem = \
+                self.declinationChart.\
+                getPlanetDeclinationGraphicsItem(planet.name, chartNum)
+            
+            if planet.name in planetNamesToDisplayForDeclination:
                 if planetDeclinationGraphicsItem == None:
                     # No PlanetDeclinationGraphicsItem exists yet for
                     # this planet, so create it.
@@ -5626,16 +7343,21 @@ class AstrologyChartWidget(QWidget):
                     degree = planet.geocentric['sidereal']['latitude']
                     velocity = planet.geocentric['sidereal']['longitude_speed']
                     planetDeclinationGraphicsItem.setDegreeAndVelocity(degree, velocity)
+            else:
+                if planetDeclinationGraphicsItem != None:
+                    # Item exists when this planet should not be
+                    # displayed.  The user must have just updated the
+                    # settings, so remove the item.
+                    self.graphicsScene.removeItem(planetDeclinationGraphicsItem)
+        
 
             
             # Geocentric Sidereal.
-            if planet.name in \
-                   self._getPlanetNamesToDisplayForGeoSidRadixChart():
-
-                radixPlanetGraphicsItem = \
-                    self.geoSidRadixChartGraphicsItem.\
-                    getRadixPlanetGraphicsItem(planet.name, wheelNumber)
+            radixPlanetGraphicsItem = \
+                self.geoSidRadixChartGraphicsItem.\
+                getRadixPlanetGraphicsItem(planet.name, wheelNumber)
                 
+            if planet.name in planetNamesToDisplayForGeoSidRadixChart:
                 if radixPlanetGraphicsItem == None:
                     # No RadixPlanetGraphicsItem exists for this planet yet,
                     # so create it.
@@ -5680,15 +7402,20 @@ class AstrologyChartWidget(QWidget):
                     
                     radixPlanetGraphicsItem.\
                         setDegreeAndVelocity(degree, velocity)
+            else:
+                if radixPlanetGraphicsItem != None:
+                    # Item exists when this planet should not be
+                    # displayed.  The user must have just updated the
+                    # settings, so remove the item.
+                    self.graphicsScene.removeItem(radixPlanetGraphicsItem)
+
 
             # Geocentric Tropical.
-            if planet.name in \
-                   self._getPlanetNamesToDisplayForGeoTropRadixChart():
+            radixPlanetGraphicsItem = \
+                self.geoTropRadixChartGraphicsItem.\
+                getRadixPlanetGraphicsItem(planet.name, wheelNumber)
                 
-                radixPlanetGraphicsItem = \
-                    self.geoTropRadixChartGraphicsItem.\
-                    getRadixPlanetGraphicsItem(planet.name, wheelNumber)
-                
+            if planet.name in planetNamesToDisplayForGeoTropRadixChart:
                 if radixPlanetGraphicsItem == None:
                     # No RadixPlanetGraphicsItem exists for this planet yet,
                     # so create it.
@@ -5733,15 +7460,20 @@ class AstrologyChartWidget(QWidget):
                     
                     radixPlanetGraphicsItem.\
                         setDegreeAndVelocity(degree, velocity)
+            else:
+                if radixPlanetGraphicsItem != None:
+                    # Item exists when this planet should not be
+                    # displayed.  The user must have just updated the
+                    # settings, so remove the item.
+                    self.graphicsScene.removeItem(radixPlanetGraphicsItem)
+            
 
             # Heliocentric Sidereal.
-            if planet.name in \
-                   self._getPlanetNamesToDisplayForHelioSidRadixChart():
-                
-                radixPlanetGraphicsItem = \
-                    self.helioSidRadixChartGraphicsItem.\
-                    getRadixPlanetGraphicsItem(planet.name, wheelNumber)
-                
+            radixPlanetGraphicsItem = \
+                self.helioSidRadixChartGraphicsItem.\
+                getRadixPlanetGraphicsItem(planet.name, wheelNumber)
+            
+            if planet.name in planetNamesToDisplayForHelioSidRadixChart:
                 if radixPlanetGraphicsItem == None:
                     # No RadixPlanetGraphicsItem exists for this planet yet,
                     # so create it.
@@ -5790,6 +7522,12 @@ class AstrologyChartWidget(QWidget):
                     
                     radixPlanetGraphicsItem.\
                         setDegreeAndVelocity(degree, velocity)
+            else:
+                if radixPlanetGraphicsItem != None:
+                    # Item exists when this planet should not be
+                    # displayed.  The user must have just updated the
+                    # settings, so remove the item.
+                    self.graphicsScene.removeItem(radixPlanetGraphicsItem)
 
         # Update the aspects for the radix charts.
 
@@ -5900,7 +7638,10 @@ class AstrologyChartWidget(QWidget):
             self.log.warn("Unknown chartNum: {}".format(chartNum))
 
         # Update the declination chart.
-        for planetName in self._getPlanetNamesToDisplayForDeclination():
+        planetNamesToDisplayForDeclination = \
+            self._getPlanetNamesToDisplayForDeclination()
+        
+        for planetName in planetNamesToDisplayForDeclination:
             planetDeclinationGraphicsItem = \
                 self.declinationChart.\
                 getPlanetDeclinationGraphicsItem(planetName, chartNum)
@@ -6362,6 +8103,43 @@ def testPlanetaryInfoTableWidget():
     planets = []
 
     # Get planetary info for all the planets, and print out the info.
+
+    p = Ephemeris.getH1PlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getH2PlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getH3PlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getH4PlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getH5PlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getH6PlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getH7PlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getH8PlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getH9PlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getH10PlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getH11PlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getH12PlanetaryInfo(now)
+    planets.append(p)
+    
     p = Ephemeris.getSunPlanetaryInfo(now)
     planets.append(p)
 
@@ -6416,7 +8194,8 @@ def testPlanetaryInfoTableWidget():
     p = Ephemeris.getChironPlanetaryInfo(now)
     planets.append(p)
 
-
+    # TODO:  add HoraLagna, GhatiLagna, Gulika, Mandi, MeanSouthNode, TrueSouthNode.
+    
     # Various combinations of planets to test.
     widget = PlanetaryInfoTableWidget(planets)
     #widget = PlanetaryInfoTableWidget([])
@@ -6461,6 +8240,43 @@ def testPlanetaryInfoTableGraphicsItem():
     planets = []
 
     # Get planetary info for all the planets, and print out the info.
+
+    p = Ephemeris.getH1PlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getH2PlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getH3PlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getH4PlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getH5PlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getH6PlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getH7PlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getH8PlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getH9PlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getH10PlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getH11PlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getH12PlanetaryInfo(now)
+    planets.append(p)
+    
     p = Ephemeris.getSunPlanetaryInfo(now)
     planets.append(p)
 
@@ -6515,6 +8331,8 @@ def testPlanetaryInfoTableGraphicsItem():
     p = Ephemeris.getChironPlanetaryInfo(now)
     planets.append(p)
 
+    # TODO:  add HoraLagna, GhatiLagna, Gulika, Mandi, MeanSouthNode, TrueSouthNode.
+    
 
     item = PlanetaryInfoTableGraphicsItem(planets)
     #item = PlanetaryInfoTableGraphicsItem()

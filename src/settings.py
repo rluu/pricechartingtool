@@ -2600,3 +2600,2175 @@ class SettingsKeys():
 
 
 
+    # QSettings key for enabled astrologychart calculations for H1.
+    planetH1CalculationsEnabledKey = \
+        "ui/astrology/h1CalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for H1.
+    planetH1CalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for H2.
+    planetH2CalculationsEnabledKey = \
+        "ui/astrology/h2CalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for H2.
+    planetH2CalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for H3.
+    planetH3CalculationsEnabledKey = \
+        "ui/astrology/h3CalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for H3.
+    planetH3CalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for H4.
+    planetH4CalculationsEnabledKey = \
+        "ui/astrology/h4CalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for H4.
+    planetH4CalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for H5.
+    planetH5CalculationsEnabledKey = \
+        "ui/astrology/h5CalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for H5.
+    planetH5CalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for H6.
+    planetH6CalculationsEnabledKey = \
+        "ui/astrology/h6CalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for H6.
+    planetH6CalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for H7.
+    planetH7CalculationsEnabledKey = \
+        "ui/astrology/h7CalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for H7.
+    planetH7CalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for H8.
+    planetH8CalculationsEnabledKey = \
+        "ui/astrology/h8CalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for H8.
+    planetH8CalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for H9.
+    planetH9CalculationsEnabledKey = \
+        "ui/astrology/h9CalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for H9.
+    planetH9CalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for H10.
+    planetH10CalculationsEnabledKey = \
+        "ui/astrology/h10CalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for H10.
+    planetH10CalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for H11.
+    planetH11CalculationsEnabledKey = \
+        "ui/astrology/h11CalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for H11.
+    planetH11CalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for H12.
+    planetH12CalculationsEnabledKey = \
+        "ui/astrology/h12CalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for H12.
+    planetH12CalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for HoraLagna.
+    planetHoraLagnaCalculationsEnabledKey = \
+        "ui/astrology/horaLagnaCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for HoraLagna.
+    planetHoraLagnaCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for GhatiLagna.
+    planetGhatiLagnaCalculationsEnabledKey = \
+        "ui/astrology/ghatiLagnaCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for GhatiLagna.
+    planetGhatiLagnaCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for MeanLunarApogee.
+    planetMeanLunarApogeeCalculationsEnabledKey = \
+        "ui/astrology/meanLunarApogeeCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for MeanLunarApogee.
+    planetMeanLunarApogeeCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for OsculatingLunarApogee.
+    planetOsculatingLunarApogeeCalculationsEnabledKey = \
+        "ui/astrology/osculatingLunarApogeeCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for OsculatingLunarApogee.
+    planetOsculatingLunarApogeeCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for InterpolatedLunarApogee.
+    planetInterpolatedLunarApogeeCalculationsEnabledKey = \
+        "ui/astrology/interpolatedLunarApogeeCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for InterpolatedLunarApogee.
+    planetInterpolatedLunarApogeeCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for InterpolatedLunarPerigee.
+    planetInterpolatedLunarPerigeeCalculationsEnabledKey = \
+        "ui/astrology/interpolatedLunarPerigeeCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for InterpolatedLunarPerigee.
+    planetInterpolatedLunarPerigeeCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for Sun.
+    planetSunCalculationsEnabledKey = \
+        "ui/astrology/sunCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for Sun.
+    planetSunCalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for Moon.
+    planetMoonCalculationsEnabledKey = \
+        "ui/astrology/moonCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for Moon.
+    planetMoonCalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for Mercury.
+    planetMercuryCalculationsEnabledKey = \
+        "ui/astrology/mercuryCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for Mercury.
+    planetMercuryCalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for Venus.
+    planetVenusCalculationsEnabledKey = \
+        "ui/astrology/venusCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for Venus.
+    planetVenusCalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for Earth.
+    planetEarthCalculationsEnabledKey = \
+        "ui/astrology/earthCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for Earth.
+    planetEarthCalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for Mars.
+    planetMarsCalculationsEnabledKey = \
+        "ui/astrology/marsCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for Mars.
+    planetMarsCalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for Jupiter.
+    planetJupiterCalculationsEnabledKey = \
+        "ui/astrology/jupiterCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for Jupiter.
+    planetJupiterCalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for Saturn.
+    planetSaturnCalculationsEnabledKey = \
+        "ui/astrology/saturnCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for Saturn.
+    planetSaturnCalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for Uranus.
+    planetUranusCalculationsEnabledKey = \
+        "ui/astrology/uranusCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for Uranus.
+    planetUranusCalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for Neptune.
+    planetNeptuneCalculationsEnabledKey = \
+        "ui/astrology/neptuneCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for Neptune.
+    planetNeptuneCalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for Pluto.
+    planetPlutoCalculationsEnabledKey = \
+        "ui/astrology/plutoCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for Pluto.
+    planetPlutoCalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for MeanNorthNode.
+    planetMeanNorthNodeCalculationsEnabledKey = \
+        "ui/astrology/meanNorthNodeCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for MeanNorthNode.
+    planetMeanNorthNodeCalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for MeanSouthNode.
+    planetMeanSouthNodeCalculationsEnabledKey = \
+        "ui/astrology/meanSouthNodeCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for MeanSouthNode.
+    planetMeanSouthNodeCalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for TrueNorthNode.
+    planetTrueNorthNodeCalculationsEnabledKey = \
+        "ui/astrology/trueNorthNodeCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for TrueNorthNode.
+    planetTrueNorthNodeCalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for TrueSouthNode.
+    planetTrueSouthNodeCalculationsEnabledKey = \
+        "ui/astrology/trueSouthNodeCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for TrueSouthNode.
+    planetTrueSouthNodeCalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for Ceres.
+    planetCeresCalculationsEnabledKey = \
+        "ui/astrology/ceresCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for Ceres.
+    planetCeresCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for Pallas.
+    planetPallasCalculationsEnabledKey = \
+        "ui/astrology/pallasCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for Pallas.
+    planetPallasCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for Juno.
+    planetJunoCalculationsEnabledKey = \
+        "ui/astrology/junoCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for Juno.
+    planetJunoCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for Vesta.
+    planetVestaCalculationsEnabledKey = \
+        "ui/astrology/vestaCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for Vesta.
+    planetVestaCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for Chiron.
+    planetChironCalculationsEnabledKey = \
+        "ui/astrology/chironCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for Chiron.
+    planetChironCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for Gulika.
+    planetGulikaCalculationsEnabledKey = \
+        "ui/astrology/gulikaCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for Gulika.
+    planetGulikaCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for Mandi.
+    planetMandiCalculationsEnabledKey = \
+        "ui/astrology/mandiCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for Mandi.
+    planetMandiCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for MeanOfFive.
+    planetMeanOfFiveCalculationsEnabledKey = \
+        "ui/astrology/meanOfFiveCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for MeanOfFive.
+    planetMeanOfFiveCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for CycleOfEight.
+    planetCycleOfEightCalculationsEnabledKey = \
+        "ui/astrology/cycleOfEightCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for CycleOfEight.
+    planetCycleOfEightCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for AvgMaJuSaUrNePl.
+    planetAvgMaJuSaUrNePlCalculationsEnabledKey = \
+        "ui/astrology/avgMaJuSaUrNePlCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for AvgMaJuSaUrNePl.
+    planetAvgMaJuSaUrNePlCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for AvgJuSaUrNe.
+    planetAvgJuSaUrNeCalculationsEnabledKey = \
+        "ui/astrology/avgJuSaUrNeCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for AvgJuSaUrNe.
+    planetAvgJuSaUrNeCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for AvgJuSa.
+    planetAvgJuSaCalculationsEnabledKey = \
+        "ui/astrology/avgJuSaCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for AvgJuSa.
+    planetAvgJuSaCalculationsEnabledDefValue = \
+        False
+
+
+
+    # QSettings key for the display flag in PlanetaryInfoTable for H1.
+    planetH1EnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/h1EnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for H1.
+    planetH1EnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for H2.
+    planetH2EnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/h2EnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for H2.
+    planetH2EnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for H3.
+    planetH3EnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/h3EnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for H3.
+    planetH3EnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for H4.
+    planetH4EnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/h4EnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for H4.
+    planetH4EnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for H5.
+    planetH5EnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/h5EnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for H5.
+    planetH5EnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for H6.
+    planetH6EnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/h6EnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for H6.
+    planetH6EnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for H7.
+    planetH7EnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/h7EnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for H7.
+    planetH7EnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for H8.
+    planetH8EnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/h8EnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for H8.
+    planetH8EnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for H9.
+    planetH9EnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/h9EnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for H9.
+    planetH9EnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for H10.
+    planetH10EnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/h10EnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for H10.
+    planetH10EnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for H11.
+    planetH11EnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/h11EnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for H11.
+    planetH11EnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for H12.
+    planetH12EnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/h12EnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for H12.
+    planetH12EnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for HoraLagna.
+    planetHoraLagnaEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/horaLagnaEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for HoraLagna.
+    planetHoraLagnaEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for GhatiLagna.
+    planetGhatiLagnaEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/ghatiLagnaEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for GhatiLagna.
+    planetGhatiLagnaEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for MeanLunarApogee.
+    planetMeanLunarApogeeEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/meanLunarApogeeEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for MeanLunarApogee.
+    planetMeanLunarApogeeEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for OsculatingLunarApogee.
+    planetOsculatingLunarApogeeEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/osculatingLunarApogeeEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for OsculatingLunarApogee.
+    planetOsculatingLunarApogeeEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for InterpolatedLunarApogee.
+    planetInterpolatedLunarApogeeEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/interpolatedLunarApogeeEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for InterpolatedLunarApogee.
+    planetInterpolatedLunarApogeeEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for InterpolatedLunarPerigee.
+    planetInterpolatedLunarPerigeeEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/interpolatedLunarPerigeeEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for InterpolatedLunarPerigee.
+    planetInterpolatedLunarPerigeeEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for Sun.
+    planetSunEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/sunEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for Sun.
+    planetSunEnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for Moon.
+    planetMoonEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/moonEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for Moon.
+    planetMoonEnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for Mercury.
+    planetMercuryEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/mercuryEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for Mercury.
+    planetMercuryEnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for Venus.
+    planetVenusEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/venusEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for Venus.
+    planetVenusEnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for Earth.
+    planetEarthEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/earthEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for Earth.
+    planetEarthEnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for Mars.
+    planetMarsEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/marsEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for Mars.
+    planetMarsEnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for Jupiter.
+    planetJupiterEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/jupiterEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for Jupiter.
+    planetJupiterEnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for Saturn.
+    planetSaturnEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/saturnEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for Saturn.
+    planetSaturnEnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for Uranus.
+    planetUranusEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/uranusEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for Uranus.
+    planetUranusEnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for Neptune.
+    planetNeptuneEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/neptuneEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for Neptune.
+    planetNeptuneEnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for Pluto.
+    planetPlutoEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/plutoEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for Pluto.
+    planetPlutoEnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for MeanNorthNode.
+    planetMeanNorthNodeEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/meanNorthNodeEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for MeanNorthNode.
+    planetMeanNorthNodeEnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for MeanSouthNode.
+    planetMeanSouthNodeEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/meanSouthNodeEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for MeanSouthNode.
+    planetMeanSouthNodeEnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for TrueNorthNode.
+    planetTrueNorthNodeEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/trueNorthNodeEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for TrueNorthNode.
+    planetTrueNorthNodeEnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for TrueSouthNode.
+    planetTrueSouthNodeEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/trueSouthNodeEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for TrueSouthNode.
+    planetTrueSouthNodeEnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for Ceres.
+    planetCeresEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/ceresEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for Ceres.
+    planetCeresEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for Pallas.
+    planetPallasEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/pallasEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for Pallas.
+    planetPallasEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for Juno.
+    planetJunoEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/junoEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for Juno.
+    planetJunoEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for Vesta.
+    planetVestaEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/vestaEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for Vesta.
+    planetVestaEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for Chiron.
+    planetChironEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/chironEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for Chiron.
+    planetChironEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for Gulika.
+    planetGulikaEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/gulikaEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for Gulika.
+    planetGulikaEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for Mandi.
+    planetMandiEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/mandiEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for Mandi.
+    planetMandiEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for MeanOfFive.
+    planetMeanOfFiveEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/meanOfFiveEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for MeanOfFive.
+    planetMeanOfFiveEnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for CycleOfEight.
+    planetCycleOfEightEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/cycleOfEightEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for CycleOfEight.
+    planetCycleOfEightEnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for AvgMaJuSaUrNePl.
+    planetAvgMaJuSaUrNePlEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/avgMaJuSaUrNePlEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for AvgMaJuSaUrNePl.
+    planetAvgMaJuSaUrNePlEnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for AvgJuSaUrNe.
+    planetAvgJuSaUrNeEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/avgJuSaUrNeEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for AvgJuSaUrNe.
+    planetAvgJuSaUrNeEnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for AvgJuSa.
+    planetAvgJuSaEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/avgJuSaEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for AvgJuSa.
+    planetAvgJuSaEnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    
+    
+    # QSettings key for the display flag in Declination for H1.
+    planetH1EnabledForDeclinationKey = \
+        "ui/astrology/h1EnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for H1.
+    planetH1EnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for H2.
+    planetH2EnabledForDeclinationKey = \
+        "ui/astrology/h2EnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for H2.
+    planetH2EnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for H3.
+    planetH3EnabledForDeclinationKey = \
+        "ui/astrology/h3EnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for H3.
+    planetH3EnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for H4.
+    planetH4EnabledForDeclinationKey = \
+        "ui/astrology/h4EnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for H4.
+    planetH4EnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for H5.
+    planetH5EnabledForDeclinationKey = \
+        "ui/astrology/h5EnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for H5.
+    planetH5EnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for H6.
+    planetH6EnabledForDeclinationKey = \
+        "ui/astrology/h6EnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for H6.
+    planetH6EnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for H7.
+    planetH7EnabledForDeclinationKey = \
+        "ui/astrology/h7EnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for H7.
+    planetH7EnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for H8.
+    planetH8EnabledForDeclinationKey = \
+        "ui/astrology/h8EnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for H8.
+    planetH8EnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for H9.
+    planetH9EnabledForDeclinationKey = \
+        "ui/astrology/h9EnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for H9.
+    planetH9EnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for H10.
+    planetH10EnabledForDeclinationKey = \
+        "ui/astrology/h10EnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for H10.
+    planetH10EnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for H11.
+    planetH11EnabledForDeclinationKey = \
+        "ui/astrology/h11EnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for H11.
+    planetH11EnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for H12.
+    planetH12EnabledForDeclinationKey = \
+        "ui/astrology/h12EnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for H12.
+    planetH12EnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for HoraLagna.
+    planetHoraLagnaEnabledForDeclinationKey = \
+        "ui/astrology/horaLagnaEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for HoraLagna.
+    planetHoraLagnaEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for GhatiLagna.
+    planetGhatiLagnaEnabledForDeclinationKey = \
+        "ui/astrology/ghatiLagnaEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for GhatiLagna.
+    planetGhatiLagnaEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for MeanLunarApogee.
+    planetMeanLunarApogeeEnabledForDeclinationKey = \
+        "ui/astrology/meanLunarApogeeEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for MeanLunarApogee.
+    planetMeanLunarApogeeEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for OsculatingLunarApogee.
+    planetOsculatingLunarApogeeEnabledForDeclinationKey = \
+        "ui/astrology/osculatingLunarApogeeEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for OsculatingLunarApogee.
+    planetOsculatingLunarApogeeEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for InterpolatedLunarApogee.
+    planetInterpolatedLunarApogeeEnabledForDeclinationKey = \
+        "ui/astrology/interpolatedLunarApogeeEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for InterpolatedLunarApogee.
+    planetInterpolatedLunarApogeeEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for InterpolatedLunarPerigee.
+    planetInterpolatedLunarPerigeeEnabledForDeclinationKey = \
+        "ui/astrology/interpolatedLunarPerigeeEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for InterpolatedLunarPerigee.
+    planetInterpolatedLunarPerigeeEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for Sun.
+    planetSunEnabledForDeclinationKey = \
+        "ui/astrology/sunEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for Sun.
+    planetSunEnabledForDeclinationDefValue = \
+        True
+    
+    # QSettings key for the display flag in Declination for Moon.
+    planetMoonEnabledForDeclinationKey = \
+        "ui/astrology/moonEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for Moon.
+    planetMoonEnabledForDeclinationDefValue = \
+        True
+    
+    # QSettings key for the display flag in Declination for Mercury.
+    planetMercuryEnabledForDeclinationKey = \
+        "ui/astrology/mercuryEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for Mercury.
+    planetMercuryEnabledForDeclinationDefValue = \
+        True
+    
+    # QSettings key for the display flag in Declination for Venus.
+    planetVenusEnabledForDeclinationKey = \
+        "ui/astrology/venusEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for Venus.
+    planetVenusEnabledForDeclinationDefValue = \
+        True
+    
+    # QSettings key for the display flag in Declination for Earth.
+    planetEarthEnabledForDeclinationKey = \
+        "ui/astrology/earthEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for Earth.
+    planetEarthEnabledForDeclinationDefValue = \
+        True
+    
+    # QSettings key for the display flag in Declination for Mars.
+    planetMarsEnabledForDeclinationKey = \
+        "ui/astrology/marsEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for Mars.
+    planetMarsEnabledForDeclinationDefValue = \
+        True
+    
+    # QSettings key for the display flag in Declination for Jupiter.
+    planetJupiterEnabledForDeclinationKey = \
+        "ui/astrology/jupiterEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for Jupiter.
+    planetJupiterEnabledForDeclinationDefValue = \
+        True
+    
+    # QSettings key for the display flag in Declination for Saturn.
+    planetSaturnEnabledForDeclinationKey = \
+        "ui/astrology/saturnEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for Saturn.
+    planetSaturnEnabledForDeclinationDefValue = \
+        True
+    
+    # QSettings key for the display flag in Declination for Uranus.
+    planetUranusEnabledForDeclinationKey = \
+        "ui/astrology/uranusEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for Uranus.
+    planetUranusEnabledForDeclinationDefValue = \
+        True
+    
+    # QSettings key for the display flag in Declination for Neptune.
+    planetNeptuneEnabledForDeclinationKey = \
+        "ui/astrology/neptuneEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for Neptune.
+    planetNeptuneEnabledForDeclinationDefValue = \
+        True
+    
+    # QSettings key for the display flag in Declination for Pluto.
+    planetPlutoEnabledForDeclinationKey = \
+        "ui/astrology/plutoEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for Pluto.
+    planetPlutoEnabledForDeclinationDefValue = \
+        True
+    
+    # QSettings key for the display flag in Declination for MeanNorthNode.
+    planetMeanNorthNodeEnabledForDeclinationKey = \
+        "ui/astrology/meanNorthNodeEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for MeanNorthNode.
+    planetMeanNorthNodeEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for MeanSouthNode.
+    planetMeanSouthNodeEnabledForDeclinationKey = \
+        "ui/astrology/meanSouthNodeEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for MeanSouthNode.
+    planetMeanSouthNodeEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for TrueNorthNode.
+    planetTrueNorthNodeEnabledForDeclinationKey = \
+        "ui/astrology/trueNorthNodeEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for TrueNorthNode.
+    planetTrueNorthNodeEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for TrueSouthNode.
+    planetTrueSouthNodeEnabledForDeclinationKey = \
+        "ui/astrology/trueSouthNodeEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for TrueSouthNode.
+    planetTrueSouthNodeEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for Ceres.
+    planetCeresEnabledForDeclinationKey = \
+        "ui/astrology/ceresEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for Ceres.
+    planetCeresEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for Pallas.
+    planetPallasEnabledForDeclinationKey = \
+        "ui/astrology/pallasEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for Pallas.
+    planetPallasEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for Juno.
+    planetJunoEnabledForDeclinationKey = \
+        "ui/astrology/junoEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for Juno.
+    planetJunoEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for Vesta.
+    planetVestaEnabledForDeclinationKey = \
+        "ui/astrology/vestaEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for Vesta.
+    planetVestaEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for Chiron.
+    planetChironEnabledForDeclinationKey = \
+        "ui/astrology/chironEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for Chiron.
+    planetChironEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for Gulika.
+    planetGulikaEnabledForDeclinationKey = \
+        "ui/astrology/gulikaEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for Gulika.
+    planetGulikaEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for Mandi.
+    planetMandiEnabledForDeclinationKey = \
+        "ui/astrology/mandiEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for Mandi.
+    planetMandiEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for MeanOfFive.
+    planetMeanOfFiveEnabledForDeclinationKey = \
+        "ui/astrology/meanOfFiveEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for MeanOfFive.
+    planetMeanOfFiveEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for CycleOfEight.
+    planetCycleOfEightEnabledForDeclinationKey = \
+        "ui/astrology/cycleOfEightEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for CycleOfEight.
+    planetCycleOfEightEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for AvgMaJuSaUrNePl.
+    planetAvgMaJuSaUrNePlEnabledForDeclinationKey = \
+        "ui/astrology/avgMaJuSaUrNePlEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for AvgMaJuSaUrNePl.
+    planetAvgMaJuSaUrNePlEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for AvgJuSaUrNe.
+    planetAvgJuSaUrNeEnabledForDeclinationKey = \
+        "ui/astrology/avgJuSaUrNeEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for AvgJuSaUrNe.
+    planetAvgJuSaUrNeEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for AvgJuSa.
+    planetAvgJuSaEnabledForDeclinationKey = \
+        "ui/astrology/avgJuSaEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for AvgJuSa.
+    planetAvgJuSaEnabledForDeclinationDefValue = \
+        False
+    
+
+    
+    # QSettings key for the display flag in GeoSidRadixChart for H1.
+    planetH1EnabledForGeoSidRadixChartKey = \
+        "ui/astrology/h1EnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for H1.
+    planetH1EnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for H2.
+    planetH2EnabledForGeoSidRadixChartKey = \
+        "ui/astrology/h2EnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for H2.
+    planetH2EnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for H3.
+    planetH3EnabledForGeoSidRadixChartKey = \
+        "ui/astrology/h3EnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for H3.
+    planetH3EnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for H4.
+    planetH4EnabledForGeoSidRadixChartKey = \
+        "ui/astrology/h4EnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for H4.
+    planetH4EnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for H5.
+    planetH5EnabledForGeoSidRadixChartKey = \
+        "ui/astrology/h5EnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for H5.
+    planetH5EnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for H6.
+    planetH6EnabledForGeoSidRadixChartKey = \
+        "ui/astrology/h6EnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for H6.
+    planetH6EnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for H7.
+    planetH7EnabledForGeoSidRadixChartKey = \
+        "ui/astrology/h7EnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for H7.
+    planetH7EnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for H8.
+    planetH8EnabledForGeoSidRadixChartKey = \
+        "ui/astrology/h8EnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for H8.
+    planetH8EnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for H9.
+    planetH9EnabledForGeoSidRadixChartKey = \
+        "ui/astrology/h9EnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for H9.
+    planetH9EnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for H10.
+    planetH10EnabledForGeoSidRadixChartKey = \
+        "ui/astrology/h10EnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for H10.
+    planetH10EnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for H11.
+    planetH11EnabledForGeoSidRadixChartKey = \
+        "ui/astrology/h11EnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for H11.
+    planetH11EnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for H12.
+    planetH12EnabledForGeoSidRadixChartKey = \
+        "ui/astrology/h12EnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for H12.
+    planetH12EnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for HoraLagna.
+    planetHoraLagnaEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/horaLagnaEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for HoraLagna.
+    planetHoraLagnaEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for GhatiLagna.
+    planetGhatiLagnaEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/ghatiLagnaEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for GhatiLagna.
+    planetGhatiLagnaEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for MeanLunarApogee.
+    planetMeanLunarApogeeEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/meanLunarApogeeEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for MeanLunarApogee.
+    planetMeanLunarApogeeEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for OsculatingLunarApogee.
+    planetOsculatingLunarApogeeEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/osculatingLunarApogeeEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for OsculatingLunarApogee.
+    planetOsculatingLunarApogeeEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for InterpolatedLunarApogee.
+    planetInterpolatedLunarApogeeEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/interpolatedLunarApogeeEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for InterpolatedLunarApogee.
+    planetInterpolatedLunarApogeeEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for InterpolatedLunarPerigee.
+    planetInterpolatedLunarPerigeeEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/interpolatedLunarPerigeeEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for InterpolatedLunarPerigee.
+    planetInterpolatedLunarPerigeeEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for Sun.
+    planetSunEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/sunEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for Sun.
+    planetSunEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for Moon.
+    planetMoonEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/moonEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for Moon.
+    planetMoonEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for Mercury.
+    planetMercuryEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/mercuryEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for Mercury.
+    planetMercuryEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for Venus.
+    planetVenusEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/venusEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for Venus.
+    planetVenusEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for Earth.
+    planetEarthEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/earthEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for Earth.
+    planetEarthEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for Mars.
+    planetMarsEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/marsEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for Mars.
+    planetMarsEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for Jupiter.
+    planetJupiterEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/jupiterEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for Jupiter.
+    planetJupiterEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for Saturn.
+    planetSaturnEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/saturnEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for Saturn.
+    planetSaturnEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for Uranus.
+    planetUranusEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/uranusEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for Uranus.
+    planetUranusEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for Neptune.
+    planetNeptuneEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/neptuneEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for Neptune.
+    planetNeptuneEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for Pluto.
+    planetPlutoEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/plutoEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for Pluto.
+    planetPlutoEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for MeanNorthNode.
+    planetMeanNorthNodeEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/meanNorthNodeEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for MeanNorthNode.
+    planetMeanNorthNodeEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for MeanSouthNode.
+    planetMeanSouthNodeEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/meanSouthNodeEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for MeanSouthNode.
+    planetMeanSouthNodeEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for TrueNorthNode.
+    planetTrueNorthNodeEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/trueNorthNodeEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for TrueNorthNode.
+    planetTrueNorthNodeEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for TrueSouthNode.
+    planetTrueSouthNodeEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/trueSouthNodeEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for TrueSouthNode.
+    planetTrueSouthNodeEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for Ceres.
+    planetCeresEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/ceresEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for Ceres.
+    planetCeresEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for Pallas.
+    planetPallasEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/pallasEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for Pallas.
+    planetPallasEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for Juno.
+    planetJunoEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/junoEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for Juno.
+    planetJunoEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for Vesta.
+    planetVestaEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/vestaEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for Vesta.
+    planetVestaEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for Chiron.
+    planetChironEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/chironEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for Chiron.
+    planetChironEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for Gulika.
+    planetGulikaEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/gulikaEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for Gulika.
+    planetGulikaEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for Mandi.
+    planetMandiEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/mandiEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for Mandi.
+    planetMandiEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for MeanOfFive.
+    planetMeanOfFiveEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/meanOfFiveEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for MeanOfFive.
+    planetMeanOfFiveEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for CycleOfEight.
+    planetCycleOfEightEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/cycleOfEightEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for CycleOfEight.
+    planetCycleOfEightEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for AvgMaJuSaUrNePl.
+    planetAvgMaJuSaUrNePlEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/avgMaJuSaUrNePlEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for AvgMaJuSaUrNePl.
+    planetAvgMaJuSaUrNePlEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for AvgJuSaUrNe.
+    planetAvgJuSaUrNeEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/avgJuSaUrNeEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for AvgJuSaUrNe.
+    planetAvgJuSaUrNeEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for AvgJuSa.
+    planetAvgJuSaEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/avgJuSaEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for AvgJuSa.
+    planetAvgJuSaEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+
+    
+    # QSettings key for the display flag in GeoTropRadixChart for H1.
+    planetH1EnabledForGeoTropRadixChartKey = \
+        "ui/astrology/h1EnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for H1.
+    planetH1EnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for H2.
+    planetH2EnabledForGeoTropRadixChartKey = \
+        "ui/astrology/h2EnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for H2.
+    planetH2EnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for H3.
+    planetH3EnabledForGeoTropRadixChartKey = \
+        "ui/astrology/h3EnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for H3.
+    planetH3EnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for H4.
+    planetH4EnabledForGeoTropRadixChartKey = \
+        "ui/astrology/h4EnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for H4.
+    planetH4EnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for H5.
+    planetH5EnabledForGeoTropRadixChartKey = \
+        "ui/astrology/h5EnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for H5.
+    planetH5EnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for H6.
+    planetH6EnabledForGeoTropRadixChartKey = \
+        "ui/astrology/h6EnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for H6.
+    planetH6EnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for H7.
+    planetH7EnabledForGeoTropRadixChartKey = \
+        "ui/astrology/h7EnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for H7.
+    planetH7EnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for H8.
+    planetH8EnabledForGeoTropRadixChartKey = \
+        "ui/astrology/h8EnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for H8.
+    planetH8EnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for H9.
+    planetH9EnabledForGeoTropRadixChartKey = \
+        "ui/astrology/h9EnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for H9.
+    planetH9EnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for H10.
+    planetH10EnabledForGeoTropRadixChartKey = \
+        "ui/astrology/h10EnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for H10.
+    planetH10EnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for H11.
+    planetH11EnabledForGeoTropRadixChartKey = \
+        "ui/astrology/h11EnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for H11.
+    planetH11EnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for H12.
+    planetH12EnabledForGeoTropRadixChartKey = \
+        "ui/astrology/h12EnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for H12.
+    planetH12EnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for HoraLagna.
+    planetHoraLagnaEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/horaLagnaEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for HoraLagna.
+    planetHoraLagnaEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for GhatiLagna.
+    planetGhatiLagnaEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/ghatiLagnaEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for GhatiLagna.
+    planetGhatiLagnaEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for MeanLunarApogee.
+    planetMeanLunarApogeeEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/meanLunarApogeeEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for MeanLunarApogee.
+    planetMeanLunarApogeeEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for OsculatingLunarApogee.
+    planetOsculatingLunarApogeeEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/osculatingLunarApogeeEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for OsculatingLunarApogee.
+    planetOsculatingLunarApogeeEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for InterpolatedLunarApogee.
+    planetInterpolatedLunarApogeeEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/interpolatedLunarApogeeEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for InterpolatedLunarApogee.
+    planetInterpolatedLunarApogeeEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for InterpolatedLunarPerigee.
+    planetInterpolatedLunarPerigeeEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/interpolatedLunarPerigeeEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for InterpolatedLunarPerigee.
+    planetInterpolatedLunarPerigeeEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for Sun.
+    planetSunEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/sunEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for Sun.
+    planetSunEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for Moon.
+    planetMoonEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/moonEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for Moon.
+    planetMoonEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for Mercury.
+    planetMercuryEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/mercuryEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for Mercury.
+    planetMercuryEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for Venus.
+    planetVenusEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/venusEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for Venus.
+    planetVenusEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for Earth.
+    planetEarthEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/earthEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for Earth.
+    planetEarthEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for Mars.
+    planetMarsEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/marsEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for Mars.
+    planetMarsEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for Jupiter.
+    planetJupiterEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/jupiterEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for Jupiter.
+    planetJupiterEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for Saturn.
+    planetSaturnEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/saturnEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for Saturn.
+    planetSaturnEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for Uranus.
+    planetUranusEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/uranusEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for Uranus.
+    planetUranusEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for Neptune.
+    planetNeptuneEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/neptuneEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for Neptune.
+    planetNeptuneEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for Pluto.
+    planetPlutoEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/plutoEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for Pluto.
+    planetPlutoEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for MeanNorthNode.
+    planetMeanNorthNodeEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/meanNorthNodeEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for MeanNorthNode.
+    planetMeanNorthNodeEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for MeanSouthNode.
+    planetMeanSouthNodeEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/meanSouthNodeEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for MeanSouthNode.
+    planetMeanSouthNodeEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for TrueNorthNode.
+    planetTrueNorthNodeEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/trueNorthNodeEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for TrueNorthNode.
+    planetTrueNorthNodeEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for TrueSouthNode.
+    planetTrueSouthNodeEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/trueSouthNodeEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for TrueSouthNode.
+    planetTrueSouthNodeEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for Ceres.
+    planetCeresEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/ceresEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for Ceres.
+    planetCeresEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for Pallas.
+    planetPallasEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/pallasEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for Pallas.
+    planetPallasEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for Juno.
+    planetJunoEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/junoEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for Juno.
+    planetJunoEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for Vesta.
+    planetVestaEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/vestaEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for Vesta.
+    planetVestaEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for Chiron.
+    planetChironEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/chironEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for Chiron.
+    planetChironEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for Gulika.
+    planetGulikaEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/gulikaEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for Gulika.
+    planetGulikaEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for Mandi.
+    planetMandiEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/mandiEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for Mandi.
+    planetMandiEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for MeanOfFive.
+    planetMeanOfFiveEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/meanOfFiveEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for MeanOfFive.
+    planetMeanOfFiveEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for CycleOfEight.
+    planetCycleOfEightEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/cycleOfEightEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for CycleOfEight.
+    planetCycleOfEightEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for AvgMaJuSaUrNePl.
+    planetAvgMaJuSaUrNePlEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/avgMaJuSaUrNePlEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for AvgMaJuSaUrNePl.
+    planetAvgMaJuSaUrNePlEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for AvgJuSaUrNe.
+    planetAvgJuSaUrNeEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/avgJuSaUrNeEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for AvgJuSaUrNe.
+    planetAvgJuSaUrNeEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for AvgJuSa.
+    planetAvgJuSaEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/avgJuSaEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for AvgJuSa.
+    planetAvgJuSaEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+
+    
+    # QSettings key for the display flag in HelioSidRadixChart for H1.
+    planetH1EnabledForHelioSidRadixChartKey = \
+        "ui/astrology/h1EnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for H1.
+    planetH1EnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for H2.
+    planetH2EnabledForHelioSidRadixChartKey = \
+        "ui/astrology/h2EnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for H2.
+    planetH2EnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for H3.
+    planetH3EnabledForHelioSidRadixChartKey = \
+        "ui/astrology/h3EnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for H3.
+    planetH3EnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for H4.
+    planetH4EnabledForHelioSidRadixChartKey = \
+        "ui/astrology/h4EnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for H4.
+    planetH4EnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for H5.
+    planetH5EnabledForHelioSidRadixChartKey = \
+        "ui/astrology/h5EnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for H5.
+    planetH5EnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for H6.
+    planetH6EnabledForHelioSidRadixChartKey = \
+        "ui/astrology/h6EnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for H6.
+    planetH6EnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for H7.
+    planetH7EnabledForHelioSidRadixChartKey = \
+        "ui/astrology/h7EnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for H7.
+    planetH7EnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for H8.
+    planetH8EnabledForHelioSidRadixChartKey = \
+        "ui/astrology/h8EnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for H8.
+    planetH8EnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for H9.
+    planetH9EnabledForHelioSidRadixChartKey = \
+        "ui/astrology/h9EnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for H9.
+    planetH9EnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for H10.
+    planetH10EnabledForHelioSidRadixChartKey = \
+        "ui/astrology/h10EnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for H10.
+    planetH10EnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for H11.
+    planetH11EnabledForHelioSidRadixChartKey = \
+        "ui/astrology/h11EnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for H11.
+    planetH11EnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for H12.
+    planetH12EnabledForHelioSidRadixChartKey = \
+        "ui/astrology/h12EnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for H12.
+    planetH12EnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for HoraLagna.
+    planetHoraLagnaEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/horaLagnaEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for HoraLagna.
+    planetHoraLagnaEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for GhatiLagna.
+    planetGhatiLagnaEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/ghatiLagnaEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for GhatiLagna.
+    planetGhatiLagnaEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for MeanLunarApogee.
+    planetMeanLunarApogeeEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/meanLunarApogeeEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for MeanLunarApogee.
+    planetMeanLunarApogeeEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for OsculatingLunarApogee.
+    planetOsculatingLunarApogeeEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/osculatingLunarApogeeEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for OsculatingLunarApogee.
+    planetOsculatingLunarApogeeEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for InterpolatedLunarApogee.
+    planetInterpolatedLunarApogeeEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/interpolatedLunarApogeeEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for InterpolatedLunarApogee.
+    planetInterpolatedLunarApogeeEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for InterpolatedLunarPerigee.
+    planetInterpolatedLunarPerigeeEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/interpolatedLunarPerigeeEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for InterpolatedLunarPerigee.
+    planetInterpolatedLunarPerigeeEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for Sun.
+    planetSunEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/sunEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for Sun.
+    planetSunEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for Moon.
+    planetMoonEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/moonEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for Moon.
+    planetMoonEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for Mercury.
+    planetMercuryEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/mercuryEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for Mercury.
+    planetMercuryEnabledForHelioSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in HelioSidRadixChart for Venus.
+    planetVenusEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/venusEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for Venus.
+    planetVenusEnabledForHelioSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in HelioSidRadixChart for Earth.
+    planetEarthEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/earthEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for Earth.
+    planetEarthEnabledForHelioSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in HelioSidRadixChart for Mars.
+    planetMarsEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/marsEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for Mars.
+    planetMarsEnabledForHelioSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in HelioSidRadixChart for Jupiter.
+    planetJupiterEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/jupiterEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for Jupiter.
+    planetJupiterEnabledForHelioSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in HelioSidRadixChart for Saturn.
+    planetSaturnEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/saturnEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for Saturn.
+    planetSaturnEnabledForHelioSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in HelioSidRadixChart for Uranus.
+    planetUranusEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/uranusEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for Uranus.
+    planetUranusEnabledForHelioSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in HelioSidRadixChart for Neptune.
+    planetNeptuneEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/neptuneEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for Neptune.
+    planetNeptuneEnabledForHelioSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in HelioSidRadixChart for Pluto.
+    planetPlutoEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/plutoEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for Pluto.
+    planetPlutoEnabledForHelioSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in HelioSidRadixChart for MeanNorthNode.
+    planetMeanNorthNodeEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/meanNorthNodeEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for MeanNorthNode.
+    planetMeanNorthNodeEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for MeanSouthNode.
+    planetMeanSouthNodeEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/meanSouthNodeEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for MeanSouthNode.
+    planetMeanSouthNodeEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for TrueNorthNode.
+    planetTrueNorthNodeEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/trueNorthNodeEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for TrueNorthNode.
+    planetTrueNorthNodeEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for TrueSouthNode.
+    planetTrueSouthNodeEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/trueSouthNodeEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for TrueSouthNode.
+    planetTrueSouthNodeEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for Ceres.
+    planetCeresEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/ceresEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for Ceres.
+    planetCeresEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for Pallas.
+    planetPallasEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/pallasEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for Pallas.
+    planetPallasEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for Juno.
+    planetJunoEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/junoEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for Juno.
+    planetJunoEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for Vesta.
+    planetVestaEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/vestaEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for Vesta.
+    planetVestaEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for Chiron.
+    planetChironEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/chironEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for Chiron.
+    planetChironEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for Gulika.
+    planetGulikaEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/gulikaEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for Gulika.
+    planetGulikaEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for Mandi.
+    planetMandiEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/mandiEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for Mandi.
+    planetMandiEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for MeanOfFive.
+    planetMeanOfFiveEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/meanOfFiveEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for MeanOfFive.
+    planetMeanOfFiveEnabledForHelioSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in HelioSidRadixChart for CycleOfEight.
+    planetCycleOfEightEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/cycleOfEightEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for CycleOfEight.
+    planetCycleOfEightEnabledForHelioSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in HelioSidRadixChart for AvgMaJuSaUrNePl.
+    planetAvgMaJuSaUrNePlEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/avgMaJuSaUrNePlEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for AvgMaJuSaUrNePl.
+    planetAvgMaJuSaUrNePlEnabledForHelioSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in HelioSidRadixChart for AvgJuSaUrNe.
+    planetAvgJuSaUrNeEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/avgJuSaUrNeEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for AvgJuSaUrNe.
+    planetAvgJuSaUrNeEnabledForHelioSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in HelioSidRadixChart for AvgJuSa.
+    planetAvgJuSaEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/avgJuSaEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for AvgJuSa.
+    planetAvgJuSaEnabledForHelioSidRadixChartDefValue = \
+        True
+    
+
+    

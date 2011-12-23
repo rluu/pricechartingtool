@@ -4,8 +4,17 @@ Outstanding things to work on going forward:
 
 TODO:  
 
+  - Add to ephemeris, functions to get HoraLagna, GhatiLagna,
+    MeanSouthNode, TrueSouthNode.  Then fix the TODO's for HoraLagna,
+    GhatiLagna, MeanSouthNode, TrueSouthNode.
+
   - Change display of longitude degrees in the astrology chart to use
     the longitude degree [0, 30) and the astro sign format.
+
+  - Add QSettings and app settings dialog for enabling or disabling
+    (via check boxes) the calculations of various planets (in general)
+    or for specific charts such as the astrology chart or the
+    planetary info chart.
 
   - Think about ways to improve the performance of calculating/drawing
     the astrology chart aspects.
@@ -183,36 +192,36 @@ TODO's that are done:
 
 DONE  - Set sensible defaults for TimeMeasurementTool (which text to have
 DONE    displayed by default).
-
+DONE
 DONE  - Verify that for PriceBarGraphicsItems (PriceBars), that the
 DONE    timestamps are correct for each pricebar.  This means it is placed
 DONE    correctly in the QGraphicsScene, displayed correctly with the
 DONE    mouse cursor location, and also displays correctly, matching the
 DONE    timestamp in the astrology chart.
-
-
+DONE
+DONE
 DONE- Measurement in units of the ruling periods for all the
 DONE  planets according to the vedic system.  (e.g. ayana,
 DONE  muhurta, etc.)
-
-
+DONE
+DONE
 DONE  - Change the context menu on all artifact graphics items so that
 DONE    'Remove' action can be done via 'r' key when the context menu is
 DONE    present.
-
-
+DONE
+DONE
 DONE  - Add lines for astrology aspects on the astrology chart.  Add to
 DONE    app preferences settings for customizing the colors of different
 DONE    aspects, and for orbs for each aspect.
-
-
+DONE
+DONE
 DONE  - Remove Sun from heliocentric astrology chart.
 DONE  - Remove Moon and nodes from heliocentric astrology chart.
 DONE  - Remove Earth from geocentric astrology chart.
-
+DONE
 DONE  - Add MOF, COE, etc. to astrology chart.
-
-
+DONE
+DONE
 DONE  - Fix bug in zoom functionality.  For some reason, when you zoom in
 DONE    to a certain resolution, it will 'jump' the center location of the
 DONE    screen and cut off QGraphicsItems from being in the scrollable
@@ -223,21 +232,26 @@ DONE         It appearse it is a float value over-flow from the perspective
 DONE         of the qgraphicsview's internal variables, which was caused by
 DONE         zooming in way too much relative to the scene.  Resolution: I
 DONE         shifted the sceneXPos conversion to julian day by a large amount.
-
+DONE
 DONE  - Add pricebarchartsettings (preferences) for bar height and bar
 DONE    width settings of the timemodalscale and pricemodalscale artifacts.
-
+DONE
 DONE  - Fix the bug where the Gann Fan lines would sometimes disappear.
 DONE    Currently, it is not known why this happens.
 DONE 
 DONE    ---> Fixed.  Bug was due to two reasons: 
 DONE         1) Bad infinite-line intersection algorithm used.
 DONE         2) QRectF.contains() function not matching floats that are 
-DONE            on the edge of the rectangle as being contained within the QRect.
+DONE            on the edge of the rectangle as being contained within 
+DONE            the QRect.
 DONE   
-
+DONE
 DONE  - Add astrology houses to the astrology chart.  Add to the
 DONE    PlanetaryInfoTable as well.
-
+DONE
 DONE  - Add navamsa and nakshatra pada to the PlanetaryInfoTable.
 DONE
+DONE  - Add app preferences for which planets to do calculations for and
+DONE    which planets to display in each of the astrology charts (and
+DONE    planetary info table).
+

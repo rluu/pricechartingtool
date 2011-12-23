@@ -2070,10 +2070,6 @@ class Ephemeris:
         
         return planetaryInfo
     
-        
-    # TODO:  add functions for getting locations of gulika and mandi and
-    # other upagrahas.
-
 
     @staticmethod
     def getPlanetaryInfo(planetName, dt):
@@ -2133,6 +2129,24 @@ class Ephemeris:
                 return Ephemeris.getH11PlanetaryInfo(dt, houseSystem)
             elif planetName == "H12":
                 return Ephemeris.getH12PlanetaryInfo(dt, houseSystem)
+            #elif planetName == "HoraLagna":
+            #    # TODO:  update for HoraLagna.
+            #    return Ephemeris.getHoraLagnaPlanetaryInfo(dt)
+            #elif planetName == "GhatiLagna":
+            #    # TODO:  update for GhatiLagna.
+            #    return Ephemeris.getGhatiLagnaPlanetaryInfo(dt)
+            #elif planetName == "Gulika":
+            #    # TODO:  update for Gulika.
+            #    return Ephemeris.getGulikaPlanetaryInfo(dt)
+            #elif planetName == "Mandi":
+            #    # TODO:  update for Mandi.
+            #    return Ephemeris.getMandiPlanetaryInfo(dt)
+            #elif planetName == "MeanSouthNode":
+            #    # TODO:  update for MeanSouthNode.
+            #    return Ephemeris.getMeanSouthNodePlanetaryInfo(dt)
+            #elif planetName == "TrueSouthNode":
+            #    # TODO:  update for TrueSouthNode.
+            #    return Ephemeris.getTrueSouthNodePlanetaryInfo(dt)
             elif planetName == "MeanOfFive":
                 return Ephemeris.getMeanOfFivePlanetaryInfo(dt)
             elif planetName == "CycleOfEight":
@@ -2994,6 +3008,9 @@ class Ephemeris:
         return Ephemeris.getHouseCuspPlanetaryInfo(houseNumber,
                                                     timestamp,
                                                     houseSystem)
+
+    # TODO:  Add and write function: getHoraLagnaPlanetaryInfo()
+    # TODO:  Add and write function: getGhatiLagnaPlanetaryInfo()
         
     @staticmethod
     def getSunPlanetaryInfo(timestamp):
@@ -3182,6 +3199,8 @@ class Ephemeris:
 
         return Ephemeris.getPlanetaryInfo("MeanNorthNode", timestamp)
 
+    # TODO:  Add and write function: getMeanSouthNodePlanetaryInfo()
+
     @staticmethod
     def getTrueNorthNodePlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
@@ -3199,6 +3218,8 @@ class Ephemeris:
 
         return Ephemeris.getPlanetaryInfo("TrueNorthNode", timestamp)
 
+    # TODO:  Add and write function: getTrueSouthNodePlanetaryInfo()
+    
     @staticmethod
     def getMeanLunarApogeePlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
@@ -3301,6 +3322,9 @@ class Ephemeris:
 
         return Ephemeris.getPlanetaryInfo("Chiron", timestamp)
 
+    # TODO:  Add and write function: getGulikaPlanetaryInfo()
+    # TODO:  Add and write function: getMandiPlanetaryInfo()
+    
     @staticmethod
     def getPholusPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about

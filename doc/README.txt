@@ -41,13 +41,58 @@ Dependencies to build/run this project are:
   - pytz 2010h 
       (Modified version of this release that is compatible with Python 3)
 
-Notes: 
+##############################################################################
+
+Notes for building on the Linux platform: 
 
   If compiling Qt from source on Linux, make sure to include the
   following tags or else the subsequent PyQt compile will fail when
   trying to find phonon header files:
 
      [rluu@vapor qt-src-dir]$ ./configure -phonon -phonon-backend
+
+
+##############################################################################
+
+Notes for building on the Windows platform:
+
+  All the dependencies work with MinGW except for pyswisseph, that we
+  are forced to use Cygwin to compile and run everything.
+  
+  Cygwin website:
+    http://www.cygwin.com/
+
+  Cygwin ports website (for downloading pre-compiled packages for cygwin):
+    http://cygwinports.org/
+
+  Use cygwin and cygwin ports to get:
+    - wget
+    - ssh (for scp)
+    - subversion
+    - python3k
+    - emacs
+
+  Do the manual steps of compiling Qt4 on windows.  Follow the steps
+  in the following webpage, except at the 'make' stage, compile
+  everything via 'make && make install'.
+
+    http://wiki.lyx.org/LyX/LyXOnCygwin
+  
+  A copy of that document also exists in the doc directory:
+
+      pricechartingtool/doc/LyXOnCygwin.html
+
+  Use cygwin and cygwin ports to get:
+    - PyQt4 for python3
+
+  Then compile and install from source: 
+    - pytz
+    - pyswisseph
+
+
+##############################################################################
+
+General info about compiling PyQt with MinGW:
 
   If compiling SIP or PyQt on Windows platform using MinGW, use the following 
   configure command so that the environment can be detected correctly: 
