@@ -34,8 +34,8 @@ Requirements:
 Dependencies to build/run this project are:
 
   - Python 3.1
-  - PyQt 4.8.5
   - Qt 4.7.4
+  - PyQt 4.8.5
   - pyswisseph 1.76
       (Uses Swiss Ephemeris version 1.76.00, which was released Aug. 4, 2009)
   - pytz 2010h 
@@ -54,41 +54,160 @@ Notes for building on the Linux platform:
 
 ##############################################################################
 
+Notes for running on the Windows platform:
+
+  Preferred way to get this going is:
+
+   1) Install Python3 for Windows.
+
+   2) Install the binary PyQt executable for Windows.  (This includes Qt).
+
+   3) Install MinGW/MSYS.
+
+   4) Install pytz.
+
+   5) Install pyswisseph.  See below for the hacks necessary to get
+   this working.
+   
+   6) Run pricechartingtool source code.
+
+##############################################################################
+
 Notes for building on the Windows platform:
 
-  All the dependencies work with MinGW except for pyswisseph, that we
-  are forced to use Cygwin to compile and run everything.
+  Note that these steps include the compiling of Qt and PyQt.  When I
+  went through these steps, it worked on Windows 7, except whenever I
+  would open a pop-up dialog off of the main window, it would crash
+  the program.  It is suspected that it is because of a bad release of
+  PyQt.  The binary installer of PyQt for windows worked fine.
+  Proceed with that in mind.
+
+
+Steps for building on the Windows platform:
   
-  Cygwin website:
-    http://www.cygwin.com/
+  Download and install MinGW.  Also install some additional packages
+  by running the following in a MinGW/MSYS shell.
 
-  Cygwin ports website (for downloading pre-compiled packages for cygwin):
-    http://cygwinports.org/
+    mingw-get install gcc g++ mingw32-make msys-wget msys-zip msys-unzip
 
-  Use cygwin and cygwin ports to get:
-    - wget
-    - ssh (for scp)
-    - subversion
-    - python3k
-    - emacs
+  Download and install Python 3 for Windows.  The rest of this how-to
+  section assumes that Python 3.2 was installed, and to directory
+  C:\Python32.
 
-  Do the manual steps of compiling Qt4 on windows.  Follow the steps
-  in the following webpage, except at the 'make' stage, compile
-  everything via 'make && make install'.
+  Run the following in a MinGW/MSYS shell to add a symbolic link from
+  python.exe to python3.exe.
 
-    http://wiki.lyx.org/LyX/LyXOnCygwin
+    cd /c/Python32/
+    ln -s python.exe python3.exe
+
+  Download and install Qt4 for Windows MinGW.  If the Qt4 installer
+  complains about not being able to find w32api.h, check to make sure
+  it exists in that directory.  If the file is there in the expected
+  location then ignore that warning.
+
+  Add the following paths to the Windows PATH environment variable: 
+
+    C:\MinGW\msys\1.0\bin
+    C:\MinGW\bin
+    C:\Python32
+    C:\Qt\4.7.4\bin
+
+  In MinGW/MSYS, add the following to ~/.bashrc (and change the
+  install paths accordingly):
+
+    export QTDIR=/c/Qt/4.7.4
+    export PATH=/c/Python32:$QTDIR/bin:/mingw/bin:$PATH
+
+  Note that ~/.bashrc does not get sourced by MinGW/MSYS
+  automatically, so it needs to be done each time you open a shell.
   
-  A copy of that document also exists in the doc directory:
+  Next, move the MSYS sh.exe because it confuses mingw32-make.exe when
+  installing SIP and PyQt4 Makefiles.  It should be moved back after
+  the install of those two packages.
+  
+    Open a cmd.exe window and run:
 
-      pricechartingtool/doc/LyXOnCygwin.html
+      mv C:\MinGW\msys\1.0\bin\sh.exe C:\MinGW\msys\1.0\bin\sh_moved.exe
+	   
+  Install SIP:
 
-  Use cygwin and cygwin ports to get:
-    - PyQt4 for python3
+    Open a cmd.exe window and run:
 
-  Then compile and install from source: 
-    - pytz
-    - pyswisseph
+      cd C:\MinGW\msys\1.0\home\rluu\programming\pricechartingtool\tps\pyqt\4.8.5
+      unzip sip-4.12.4.zip
+      cd sip-4.12.4
+      python configure.py -p win32-g++
+      mingw32-make install
 
+  Install PyQt4:
+
+    Open a cmd.exe window and run:
+
+      cd C:\MinGW\msys\1.0\home\rluu\programming\pricechartingtool\tps\pyqt\4.8.5
+      unzip PyQt-win-gpl-4.8.5.zip
+      cd PyQt-win-gpl-4.8.5
+      python configure.py -p win32-g++
+      mingw32-make install
+
+  Install pytz:
+
+    Open a cmd.exe window and run:
+
+      cd C:\MinGW\msys\1.0\home\rluu\programming\pricechartingtool\tps\pytz
+      tar xjvf pytz-2010h.modsForPython3.tar.bz2
+      cd pytz-2010h
+      python setup.py install
+
+  Install pyswisseph (requires the following hacks to build on MinGW):
+
+    Do the following to fix an error that would normally happen during
+    compilation of pyswisseph (and possibly other packages).  
+    The error seen without this fix is: 'error: Unable to find vcvarsall.bat'.
+    
+      Create or edit file C:\Python32\Lib\distutils\distutils.cfg 
+      so that it has the following contents:
+
+        [build]
+        compiler=mingw32
+    
+    Edit C:\Python32\Lib\distutils\cygwinccompiler.py to avoid a gcc
+    compiler error where gcc doesn't know what what the command-line
+    option '-mno-cygwin' is.  Here we will remove all locations where
+    '-mno-cygwin' is found in this file.
+    
+      vim /c/Python32/Lib/distutils/cygwinccompiler.py
+
+        :%s/-mno-cygwin //gc
+        :wq
+
+    Open up a MinGW/MSYS shell window and run the following.
+
+      cd /home/rluu/programming/pricechartingtool/tps/pyswisseph
+      tar xjvf pyswisseph-1.76.00-0.tar.bz2
+      cd pyswisseph-1.76.00-0
+
+    Edit the Makefile and change the CC variable so that it uses gcc
+    instead of cc.
+
+      vim src/Makefile
+
+    Edit file 'pyswisseph.c' and and c-style comments around "#define
+    USE_SWEPHELP".  This has to happen because this part of pyswisseph
+    uses pthread, setenv(), and unsetenv(), which are supported only
+    on POSIX.  Usage of those POSIX features are minimal, so if I
+    wanted to, I could one day modify that code so that it is more
+    platform-independent.
+
+    Edit the top-level setup.py file:
+      
+      Edit 'include_dirs' variable and remove 'swephelp' from that list.
+
+      Edit 'sources' variable and comment out all files listed that
+      start with 'swephelp'.
+
+    Now build pyswisseph and it should work:
+
+      python setup.py install
 
 ##############################################################################
 
@@ -98,7 +217,7 @@ General info about compiling PyQt with MinGW:
   configure command so that the environment can be detected correctly: 
 
      python configure.py -p win32-g++
-
+  
 ##############################################################################
 
 Steps to run the software:
@@ -315,6 +434,4 @@ I do not yet have the calculations and formulas for these ayanamsas so it is
 not currently implemented in this application.
 
 
-
 ##############################################################################
-

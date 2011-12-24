@@ -5,9 +5,6 @@ import os
 # For obtaining information about the operating system platform.
 import platform
 
-# For getting memory usage information.
-import resource
-
 # For comparing timestamps on files.
 import time
 
@@ -1194,20 +1191,28 @@ class MainWindow(QMainWindow):
         settings = QSettings() 
 
         # Window geometry.
-        self.windowGeometry = \
-            settings.value("ui/MainWindow/windowGeometry",
-                           defaultValue=None,
-                           type=QByteArray)
-        if self.windowGeometry == None:
+        key = "ui/MainWindow/windowGeometry"
+        if not settings.contains(key):
             self.windowGeometry = QByteArray()
+        else:
+            self.windowGeometry = \
+                settings.value(key,
+                               defaultValue=None,
+                               type=QByteArray)
+            if self.windowGeometry == None:
+                self.windowGeometry = QByteArray()
             
         # Window state.
-        self.windowState = \
-            settings.value("ui/MainWindow/windowState",
-                           defaultValue=None,
-                           type=QByteArray)
-        if self.windowState == None:
+        key = "ui/MainWindow/windowState"
+        if not settings.contains(key):
             self.windowState = QByteArray()
+        else:
+            self.windowState = \
+                settings.value(key,
+                               defaultValue=None,
+                               type=QByteArray)
+            if self.windowState == None:
+                self.windowState = QByteArray()
 
         self.log.debug("Exiting _readSettings()")
 
@@ -1230,22 +1235,23 @@ class MainWindow(QMainWindow):
         # Only write the settings if the value has changed.
 
         # Window geometry.
-        if settings.value("ui/MainWindow/windowGeometry",
-                          defaultValue=None,
-                          type=QByteArray) != \
-                self.saveGeometry():
-
-            settings.setValue("ui/MainWindow/windowGeometry", 
-                              self.saveGeometry())
+        key = "ui/MainWindow/windowGeometry"
+        if not settings.contains(key) or \
+               settings.value(key,
+                              defaultValue=None,
+                              type=QByteArray) != self.saveGeometry():
+                
+            settings.setValue(key, self.saveGeometry())
+            
 
         # Window state.
-        if settings.value("ui/MainWindow/windowState",
-                          defaultValue=None,
-                          type=QByteArray) != \
-               self.saveState():
-            
-            settings.setValue("ui/MainWindow/windowState",
-                              self.saveState())
+        key = "ui/MainWindow/windowState"
+        if not settings.contains(key) or \
+               settings.value(key,
+                              defaultValue=None,
+                              type=QByteArray) != self.saveState():
+                
+            settings.setValue(key, self.saveState())
 
 
         self.log.debug("Exiting _writeSettings()")
