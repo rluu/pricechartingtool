@@ -25163,12 +25163,12 @@ class PriceBarChartSettingsEditWidget(QWidget):
             connect(\
             self.\
             _handlePriceTimeVectorGraphicsItemDefaultFontResetButtonClicked)
-        self.priceTimeVectorGraphicsItemDefaultColorResetButton.clicked.\
+        self.priceTimeVectorGraphicsItemColorResetButton.clicked.\
             connect(\
-            self._handlePriceTimeVectorGraphicsItemDefaultColorResetButtonClicked)
-        self.priceTimeVectorGraphicsItemDefaultTextColorResetButton.clicked.\
+            self._handlePriceTimeVectorGraphicsItemColorResetButtonClicked)
+        self.priceTimeVectorGraphicsItemTextColorResetButton.clicked.\
             connect(\
-            self._handlePriceTimeVectorGraphicsItemDefaultTextColorResetButtonClicked)
+            self._handlePriceTimeVectorGraphicsItemTextColorResetButtonClicked)
         self.priceTimeVectorGraphicsItemShowDistanceTextFlagResetButton.\
             clicked.\
             connect(\
@@ -25209,12 +25209,12 @@ class PriceBarChartSettingsEditWidget(QWidget):
             connect(\
             self.\
             _handleLineSegmentGraphicsItemDefaultFontResetButtonClicked)
-        self.lineSegmentGraphicsItemDefaultColorResetButton.clicked.\
+        self.lineSegmentGraphicsItemColorResetButton.clicked.\
             connect(\
-            self._handleLineSegmentGraphicsItemDefaultColorResetButtonClicked)
-        self.lineSegmentGraphicsItemDefaultTextColorResetButton.clicked.\
+            self._handleLineSegmentGraphicsItemColorResetButtonClicked)
+        self.lineSegmentGraphicsItemTextColorResetButton.clicked.\
             connect(\
-            self._handleLineSegmentGraphicsItemDefaultTextColorResetButtonClicked)
+            self._handleLineSegmentGraphicsItemTextColorResetButtonClicked)
         self.lineSegmentGraphicsItemTiltedTextFlagResetButton.\
             clicked.\
             connect(\
@@ -28397,20 +28397,20 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.priceTimeVectorGraphicsItemDefaultFontResetButton = \
             QPushButton("Reset to default")
         
-        # priceTimeVectorGraphicsItemDefaultTextColor (QColor)
-        self.priceTimeVectorGraphicsItemDefaultTextColorLabel = \
+        # priceTimeVectorGraphicsItemTextColor (QColor)
+        self.priceTimeVectorGraphicsItemTextColorLabel = \
             QLabel("PriceTimeVectorGraphicsItem default text color:")
-        self.priceTimeVectorGraphicsItemDefaultTextColorEditButton = \
+        self.priceTimeVectorGraphicsItemTextColorEditButton = \
             ColorEditPushButton()
-        self.priceTimeVectorGraphicsItemDefaultTextColorResetButton = \
+        self.priceTimeVectorGraphicsItemTextColorResetButton = \
             QPushButton("Reset to default")
         
-        # priceTimeVectorGraphicsItemDefaultColor (QColor)
-        self.priceTimeVectorGraphicsItemDefaultColorLabel = \
+        # priceTimeVectorGraphicsItemColor (QColor)
+        self.priceTimeVectorGraphicsItemColorLabel = \
             QLabel("PriceTimeVectorGraphicsItem default color:")
-        self.priceTimeVectorGraphicsItemDefaultColorEditButton = \
+        self.priceTimeVectorGraphicsItemColorEditButton = \
             ColorEditPushButton()
-        self.priceTimeVectorGraphicsItemDefaultColorResetButton = \
+        self.priceTimeVectorGraphicsItemColorResetButton = \
             QPushButton("Reset to default")
         
         # priceTimeVectorGraphicsItemShowDistanceTextFlag (bool).
@@ -28533,29 +28533,29 @@ class PriceBarChartSettingsEditWidget(QWidget):
         r += 1
         gridLayout.\
             addWidget(\
-            self.priceTimeVectorGraphicsItemDefaultTextColorLabel, 
+            self.priceTimeVectorGraphicsItemTextColorLabel, 
             r, 0, al)
         gridLayout.\
             addWidget(\
-            self.priceTimeVectorGraphicsItemDefaultTextColorEditButton, 
+            self.priceTimeVectorGraphicsItemTextColorEditButton, 
             r, 1, ar)
         gridLayout.\
             addWidget(\
-            self.priceTimeVectorGraphicsItemDefaultTextColorResetButton, 
+            self.priceTimeVectorGraphicsItemTextColorResetButton, 
             r, 2, ar)
 
         r += 1
         gridLayout.\
             addWidget(\
-            self.priceTimeVectorGraphicsItemDefaultColorLabel, 
+            self.priceTimeVectorGraphicsItemColorLabel, 
             r, 0, al)
         gridLayout.\
             addWidget(\
-            self.priceTimeVectorGraphicsItemDefaultColorEditButton, 
+            self.priceTimeVectorGraphicsItemColorEditButton, 
             r, 1, ar)
         gridLayout.\
             addWidget(\
-            self.priceTimeVectorGraphicsItemDefaultColorResetButton, 
+            self.priceTimeVectorGraphicsItemColorResetButton, 
             r, 2, ar)
 
         r += 1
@@ -28705,20 +28705,20 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.lineSegmentGraphicsItemDefaultFontResetButton = \
             QPushButton("Reset to default")
         
-        # lineSegmentGraphicsItemDefaultTextColor (QColor)
-        self.lineSegmentGraphicsItemDefaultTextColorLabel = \
+        # lineSegmentGraphicsItemTextColor (QColor)
+        self.lineSegmentGraphicsItemTextColorLabel = \
             QLabel("LineSegmentGraphicsItem default text color:")
-        self.lineSegmentGraphicsItemDefaultTextColorEditButton = \
+        self.lineSegmentGraphicsItemTextColorEditButton = \
             ColorEditPushButton()
-        self.lineSegmentGraphicsItemDefaultTextColorResetButton = \
+        self.lineSegmentGraphicsItemTextColorResetButton = \
             QPushButton("Reset to default")
         
-        # lineSegmentGraphicsItemDefaultColor (QColor)
-        self.lineSegmentGraphicsItemDefaultColorLabel = \
+        # lineSegmentGraphicsItemColor (QColor)
+        self.lineSegmentGraphicsItemColorLabel = \
             QLabel("LineSegmentGraphicsItem default color:")
-        self.lineSegmentGraphicsItemDefaultColorEditButton = \
+        self.lineSegmentGraphicsItemColorEditButton = \
             ColorEditPushButton()
-        self.lineSegmentGraphicsItemDefaultColorResetButton = \
+        self.lineSegmentGraphicsItemColorResetButton = \
             QPushButton("Reset to default")
         
         # lineSegmentGraphicsItemTiltedTextFlag (bool).
@@ -28801,29 +28801,29 @@ class PriceBarChartSettingsEditWidget(QWidget):
         r += 1
         gridLayout.\
             addWidget(\
-            self.lineSegmentGraphicsItemDefaultTextColorLabel, 
+            self.lineSegmentGraphicsItemTextColorLabel, 
             r, 0, al)
         gridLayout.\
             addWidget(\
-            self.lineSegmentGraphicsItemDefaultTextColorEditButton, 
+            self.lineSegmentGraphicsItemTextColorEditButton, 
             r, 1, ar)
         gridLayout.\
             addWidget(\
-            self.lineSegmentGraphicsItemDefaultTextColorResetButton, 
+            self.lineSegmentGraphicsItemTextColorResetButton, 
             r, 2, ar)
 
         r += 1
         gridLayout.\
             addWidget(\
-            self.lineSegmentGraphicsItemDefaultColorLabel, 
+            self.lineSegmentGraphicsItemColorLabel, 
             r, 0, al)
         gridLayout.\
             addWidget(\
-            self.lineSegmentGraphicsItemDefaultColorEditButton, 
+            self.lineSegmentGraphicsItemColorEditButton, 
             r, 1, ar)
         gridLayout.\
             addWidget(\
-            self.lineSegmentGraphicsItemDefaultColorResetButton, 
+            self.lineSegmentGraphicsItemColorResetButton, 
             r, 2, ar)
 
         r += 1
@@ -32505,12 +32505,12 @@ class PriceBarChartSettingsEditWidget(QWidget):
                        priceTimeVectorGraphicsItemDefaultFontDescription)
 
         # priceTimeVectorGraphicsItemTextColor (QColor).
-        self.priceTimeVectorGraphicsItemDefaultTextColorEditButton.\
+        self.priceTimeVectorGraphicsItemTextColorEditButton.\
             setColor(self.priceBarChartSettings.\
                      priceTimeVectorGraphicsItemTextColor)
 
         # priceTimeVectorGraphicsItemColor (QColor).
-        self.priceTimeVectorGraphicsItemDefaultColorEditButton.\
+        self.priceTimeVectorGraphicsItemColorEditButton.\
             setColor(self.priceBarChartSettings.\
                      priceTimeVectorGraphicsItemColor)
 
@@ -32596,12 +32596,12 @@ class PriceBarChartSettingsEditWidget(QWidget):
                        lineSegmentGraphicsItemDefaultFontDescription)
 
         # lineSegmentGraphicsItemTextColor (QColor).
-        self.lineSegmentGraphicsItemDefaultTextColorEditButton.\
+        self.lineSegmentGraphicsItemTextColorEditButton.\
             setColor(self.priceBarChartSettings.\
                      lineSegmentGraphicsItemTextColor)
 
         # lineSegmentGraphicsItemColor (QColor).
-        self.lineSegmentGraphicsItemDefaultColorEditButton.\
+        self.lineSegmentGraphicsItemColorEditButton.\
             setColor(self.priceBarChartSettings.\
                      lineSegmentGraphicsItemColor)
 
@@ -34115,16 +34115,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
             priceTimeVectorGraphicsItemDefaultFontDescription = \
             self.priceTimeVectorGraphicsItemDefaultFont.toString()
 
-        # priceTimeVectorGraphicsItemDefaultTextColor (QColor).
+        # priceTimeVectorGraphicsItemTextColor (QColor).
         self.priceBarChartSettings.\
-            priceTimeVectorGraphicsItemDefaultTextColor = \
-            self.priceTimeVectorGraphicsItemDefaultTextColorEditButton.\
+            priceTimeVectorGraphicsItemTextColor = \
+            self.priceTimeVectorGraphicsItemTextColorEditButton.\
             getColor()
 
-        # priceTimeVectorGraphicsItemDefaultColor (QColor).
+        # priceTimeVectorGraphicsItemColor (QColor).
         self.priceBarChartSettings.\
-            priceTimeVectorGraphicsItemDefaultColor = \
-            self.priceTimeVectorGraphicsItemDefaultColorEditButton.\
+            priceTimeVectorGraphicsItemColor = \
+            self.priceTimeVectorGraphicsItemColorEditButton.\
             getColor()
 
         # priceTimeVectorGraphicsItemShowDistanceTextFlag (bool).
@@ -34204,16 +34204,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
             lineSegmentGraphicsItemDefaultFontDescription = \
             self.lineSegmentGraphicsItemDefaultFont.toString()
 
-        # lineSegmentGraphicsItemDefaultTextColor (QColor).
+        # lineSegmentGraphicsItemTextColor (QColor).
         self.priceBarChartSettings.\
-            lineSegmentGraphicsItemDefaultTextColor = \
-            self.lineSegmentGraphicsItemDefaultTextColorEditButton.\
+            lineSegmentGraphicsItemTextColor = \
+            self.lineSegmentGraphicsItemTextColorEditButton.\
             getColor()
 
-        # lineSegmentGraphicsItemDefaultColor (QColor).
+        # lineSegmentGraphicsItemColor (QColor).
         self.priceBarChartSettings.\
-            lineSegmentGraphicsItemDefaultColor = \
-            self.lineSegmentGraphicsItemDefaultColorEditButton.\
+            lineSegmentGraphicsItemColor = \
+            self.lineSegmentGraphicsItemColorEditButton.\
             getColor()
 
         # lineSegmentGraphicsItemTiltedTextFlag (bool).
@@ -36341,30 +36341,30 @@ class PriceBarChartSettingsEditWidget(QWidget):
             fromString(PriceBarChartSettings.\
                        defaultPriceTimeVectorGraphicsItemDefaultFontDescription)
         
-    def _handlePriceTimeVectorGraphicsItemDefaultTextColorResetButtonClicked(self):
+    def _handlePriceTimeVectorGraphicsItemTextColorResetButtonClicked(self):
         """Called when the
-        priceTimeVectorGraphicsItemDefaultTextColorResetButton is clicked.
+        priceTimeVectorGraphicsItemTextColorResetButton is clicked.
         Resets the internal value to the default value.
         """
 
         value = \
               PriceBarChartSettings.\
-              defaultPriceTimeVectorGraphicsItemDefaultTextColor
+              defaultPriceTimeVectorGraphicsItemTextColor
 
-        self.priceTimeVectorGraphicsItemDefaultTextColorEditButton.\
+        self.priceTimeVectorGraphicsItemTextColorEditButton.\
             setColor(value)
 
-    def _handlePriceTimeVectorGraphicsItemDefaultColorResetButtonClicked(self):
+    def _handlePriceTimeVectorGraphicsItemColorResetButtonClicked(self):
         """Called when the
-        priceTimeVectorGraphicsItemDefaultColorResetButton is clicked.
+        priceTimeVectorGraphicsItemColorResetButton is clicked.
         Resets the internal value to the default value.
         """
 
         value = \
               PriceBarChartSettings.\
-              defaultPriceTimeVectorGraphicsItemDefaultColor
+              defaultPriceTimeVectorGraphicsItemColor
 
-        self.priceTimeVectorGraphicsItemDefaultColorEditButton.\
+        self.priceTimeVectorGraphicsItemColorEditButton.\
             setColor(value)
 
     def _handlePriceTimeVectorGraphicsItemShowDistanceTextFlagResetButton(self):
@@ -36513,30 +36513,30 @@ class PriceBarChartSettingsEditWidget(QWidget):
             fromString(PriceBarChartSettings.\
                        defaultLineSegmentGraphicsItemDefaultFontDescription)
         
-    def _handleLineSegmentGraphicsItemDefaultTextColorResetButtonClicked(self):
+    def _handleLineSegmentGraphicsItemTextColorResetButtonClicked(self):
         """Called when the
-        lineSegmentGraphicsItemDefaultTextColorResetButton is clicked.
+        lineSegmentGraphicsItemTextColorResetButton is clicked.
         Resets the internal value to the default value.
         """
 
         value = \
               PriceBarChartSettings.\
-              defaultLineSegmentGraphicsItemDefaultTextColor
+              defaultLineSegmentGraphicsItemTextColor
 
-        self.lineSegmentGraphicsItemDefaultTextColorEditButton.\
+        self.lineSegmentGraphicsItemTextColorEditButton.\
             setColor(value)
 
-    def _handleLineSegmentGraphicsItemDefaultColorResetButtonClicked(self):
+    def _handleLineSegmentGraphicsItemColorResetButtonClicked(self):
         """Called when the
-        lineSegmentGraphicsItemDefaultColorResetButton is clicked.
+        lineSegmentGraphicsItemColorResetButton is clicked.
         Resets the internal value to the default value.
         """
 
         value = \
               PriceBarChartSettings.\
-              defaultLineSegmentGraphicsItemDefaultColor
+              defaultLineSegmentGraphicsItemColor
 
-        self.lineSegmentGraphicsItemDefaultColorEditButton.\
+        self.lineSegmentGraphicsItemColorEditButton.\
             setColor(value)
 
     def _handleLineSegmentGraphicsItemTiltedTextFlagResetButton(self):
@@ -39756,8 +39756,8 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._handlePriceTimeVectorGraphicsItemTextXScalingResetButtonClicked()
         self._handlePriceTimeVectorGraphicsItemTextYScalingResetButtonClicked()
         self._handlePriceTimeVectorGraphicsItemDefaultFontResetButtonClicked()
-        self._handlePriceTimeVectorGraphicsItemDefaultTextColorResetButtonClicked()
-        self._handlePriceTimeVectorGraphicsItemDefaultColorResetButtonClicked()
+        self._handlePriceTimeVectorGraphicsItemTextColorResetButtonClicked()
+        self._handlePriceTimeVectorGraphicsItemColorResetButtonClicked()
         self._handlePriceTimeVectorGraphicsItemShowDistanceTextFlagResetButton()
         self._handlePriceTimeVectorGraphicsItemShowSqrtDistanceTextFlagResetButton()
         self._handlePriceTimeVectorGraphicsItemShowDistanceScaledValueTextFlagResetButton()
@@ -39769,8 +39769,8 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._handleLineSegmentGraphicsItemTextXScalingResetButtonClicked()
         self._handleLineSegmentGraphicsItemTextYScalingResetButtonClicked()
         self._handleLineSegmentGraphicsItemDefaultFontResetButtonClicked()
-        self._handleLineSegmentGraphicsItemDefaultTextColorResetButtonClicked()
-        self._handleLineSegmentGraphicsItemDefaultColorResetButtonClicked()
+        self._handleLineSegmentGraphicsItemTextColorResetButtonClicked()
+        self._handleLineSegmentGraphicsItemColorResetButtonClicked()
         self._handleLineSegmentGraphicsItemTiltedTextFlagResetButton()
         self._handleLineSegmentGraphicsItemAngleTextFlagResetButton()
 
