@@ -7228,6 +7228,9 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
         if self.artifact.getShowTimestampFlag():
             text += "t={}".format(Ephemeris.datetimeToDayStr(dt)) + \
                     os.linesep
+
+            # Comment out this line if you want the timestamp text with time.
+            text = text[:16] + os.linesep
             
         if self.artifact.getShowPriceFlag():
             text += "p={:.4f}".format(price) + os.linesep
@@ -42421,9 +42424,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                             self.clickTwoPointF = leg1PointF
                     
                     self.octaveFanGraphicsItem.\
-                        setLeg1PointF(leg1PointF)
+                        setLeg1PointF(self.clickTwoPointF)
                     self.octaveFanGraphicsItem.\
-                        setLeg2PointF(leg1PointF)
+                        setLeg2PointF(self.clickTwoPointF)
                     
                 elif self.clickOnePointF != None and \
                     self.clickTwoPointF != None and \
@@ -42461,7 +42464,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                             self.clickThreePointF = leg2PointF
                     
                     self.octaveFanGraphicsItem.\
-                        setLeg2PointF(leg2PointF)
+                        setLeg2PointF(self.clickThreePointF)
                     
                     # Call getArtifact() so that the item's artifact
                     # object gets updated and set.
@@ -42684,9 +42687,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                             self.clickTwoPointF = leg1PointF
                     
                     self.fibFanGraphicsItem.\
-                        setLeg1PointF(leg1PointF)
+                        setLeg1PointF(self.clickTwoPointF)
                     self.fibFanGraphicsItem.\
-                        setLeg2PointF(leg1PointF)
+                        setLeg2PointF(self.clickTwoPointF)
                     
                 elif self.clickOnePointF != None and \
                     self.clickTwoPointF != None and \
@@ -42724,7 +42727,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                             self.clickThreePointF = leg2PointF
                     
                     self.fibFanGraphicsItem.\
-                        setLeg2PointF(leg2PointF)
+                        setLeg2PointF(self.clickThreePointF)
                     
                     # Call getArtifact() so that the item's artifact
                     # object gets updated and set.
