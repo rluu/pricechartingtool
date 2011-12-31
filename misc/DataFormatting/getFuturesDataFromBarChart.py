@@ -1128,7 +1128,7 @@ if updateFlag == True:
                 
             elif len(timestampStr) == 16:
                 # Format of timestamp is 'MM/DD/YYYY HH:MM'.
-                timestampFields = dateStr.split(" ")
+                timestampFields = timestampStr.split(" ")
                 
                 if len(timestampFields) != 2:
                     log.error("Format of the timestamp was not " + \
