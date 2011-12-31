@@ -11,11 +11,6 @@ TODO:
   - Change display of longitude degrees in the astrology chart to use
     the longitude degree [0, 30) and the astro sign format.
 
-  - Add QSettings and app settings dialog for enabling or disabling
-    (via check boxes) the calculations of various planets (in general)
-    or for specific charts such as the astrology chart or the
-    planetary info chart.
-
   - Think about ways to improve the performance of calculating/drawing
     the astrology chart aspects.
 
@@ -254,4 +249,10 @@ DONE
 DONE  - Add app preferences for which planets to do calculations for and
 DONE    which planets to display in each of the astrology charts (and
 DONE    planetary info table).
+DONE
+DONE  - Add QSettings and app settings dialog for enabling or disabling
+DONE    (via check boxes) the calculations of various planets (in general)
+DONE    or for specific charts such as the astrology chart or the
+DONE    planetary info chart.
+
 

@@ -10,6 +10,9 @@ import copy
 # For datetimes
 import datetime
 
+# For math.floor()
+import math
+
 # For timezone conversion info.
 import pytz
 
@@ -455,9 +458,15 @@ class Ephemeris:
             Ephemeris.log.debug(debugStr.\
                                 format(year, month, day, hour, mins, secs))
 
+        # Make sure seconds is in a valid range.
+        if secs < 0:
+            secs = 0
+        elif secs >= 60:
+            secs = 59.999999
+
         # Here we need to convert a float seconds to an integer seconds 
-        # plus a integer microseconds.  
-        secsTruncated = int(secs)
+        # plus a integer microseconds.
+        secsTruncated = int(math.floor(secs))
         usecs = int(round((secs - secsTruncated) * 1000000))
         if usecs > 999999:
             usecs = 999999

@@ -23601,7 +23601,7 @@ class PriceBarChartScalingEditWidget(QWidget):
         self.unitsOfTimeLabel = \
             QLabel("Units of time (dx):")
         self.unitsOfTimeSpinBox = QDoubleSpinBox()
-        self.unitsOfTimeSpinBox.setDecimals(4)
+        self.unitsOfTimeSpinBox.setDecimals(6)
         self.unitsOfTimeSpinBox.setMinimum(0.000001)
         self.unitsOfTimeSpinBox.setMaximum(100000.0)
         self.unitsOfTimeSpinBox.setValue(1)
@@ -23610,7 +23610,7 @@ class PriceBarChartScalingEditWidget(QWidget):
         self.unitsOfPriceLabel = \
             QLabel("Units of price (dy):")
         self.unitsOfPriceSpinBox = QDoubleSpinBox()
-        self.unitsOfPriceSpinBox.setDecimals(4)
+        self.unitsOfPriceSpinBox.setDecimals(6)
         self.unitsOfPriceSpinBox.setMinimum(0.000001)
         self.unitsOfPriceSpinBox.setMaximum(100000.0)
         self.unitsOfPriceSpinBox.setValue(1)

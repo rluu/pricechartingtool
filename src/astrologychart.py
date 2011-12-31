@@ -38,6 +38,9 @@ class AstrologyUtils:
     various astrological values and fields.
     """
 
+    # Logger object for this class.
+    log = logging.getLogger("astrologychart.AstrologyUtils")
+
     # Number of degrees in a Biblical Circle. (float)
     degreesInBiblicalCircle = 360.18
 
@@ -350,6 +353,7 @@ class AstrologyUtils:
         
         return biblicalAngle
     
+    @staticmethod
     def convertBiblicalCircleAngleToCircleAngle(biblicalAngle):
         """Converts the given angle in degrees of a 360 degree 10
         minute 48 second circle (A.K.A Biblical Circle) to an angle in
@@ -442,6 +446,7 @@ class AstrologyUtils:
 
         return (degrees, minutes, seconds)
         
+    @staticmethod
     def convertAngleToDegMinSecStr(angle):
         """Converts the given angle as a float and returns a str that
         is the value in the format:  XXX° YY' ZZ"
@@ -663,7 +668,7 @@ class AstrologyUtils:
                                 type=str)
         else:
             rv = "???"
-            self.log.warn("Could not find glyph for planet: " + \
+            AstrologyUtils.log.warn("Could not find glyph for planet: " + \
                           planetName + ".  Using default value " + str(rv))
 
         return rv
@@ -867,8 +872,9 @@ class AstrologyUtils:
                                 type=float)
         else:
             rv = 10.0
-            self.log.warn("Could not find glyph font size for planet: " + \
-                          planetName + ".  Using default value " + str(rv))
+            AstrologyUtils.log.warn(\
+                "Could not find glyph font size for planet: " + \
+                planetName + ".  Using default value " + str(rv))
 
         return rv
 
@@ -1071,8 +1077,9 @@ class AstrologyUtils:
                                 type=str)
         else:
             rv = "???"
-            self.log.warn("Could not find abbreviation for planet: " + \
-                          planetName + ".  Using default value " + str(rv))
+            AstrologyUtils.log.warn(\
+                "Could not find abbreviation for planet: " + \
+                planetName + ".  Using default value " + str(rv))
 
         return rv
 
@@ -1275,8 +1282,9 @@ class AstrologyUtils:
                                 type=QColor)
         else:
             rv = QColor(Qt.black)
-            self.log.warn("Could not find foreground color for planet: " + \
-                          planetName + ".  Using default value " + str(rv))
+            AstrologyUtils.log.warn(\
+                "Could not find foreground color for planet: " + \
+                planetName + ".  Using default value " + str(rv))
 
         return rv
 
@@ -1479,8 +1487,9 @@ class AstrologyUtils:
                                 type=QColor)
         else:
             rv = QColor(Qt.transparent)
-            self.log.warn("Could not find background color for planet: " + \
-                          planetName + ".  Using default value " + str(rv))
+            AstrologyUtils.log.warn(\
+                "Could not find background color for planet: " + \
+                planetName + ".  Using default value " + str(rv))
 
         return rv
     

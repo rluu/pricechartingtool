@@ -7230,7 +7230,7 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     os.linesep
 
             # Comment out this line if you want the timestamp text with time.
-            text = text[:16] + os.linesep
+            #text = text[:16] + os.linesep
             
         if self.artifact.getShowPriceFlag():
             text += "p={:.4f}".format(price) + os.linesep
@@ -20023,7 +20023,7 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             setColor(self.vimsottariDasaGraphicsItemTextColor)
 
         # Degrees of text rotation.
-        self.rotationDegrees = 0.0
+        self.rotationDegrees = 90.0
         
         # Size scaling for the text.
         textTransform = QTransform()
@@ -20400,7 +20400,8 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     # visible.
                     if j == 0:
                         # Dasa lord.
-                        offsetX = (textItem.boundingRect().height() * 0.16)
+                        offsetX = (textItem.boundingRect().height() * \
+                                   self.vimsottariDasaTextXScaling)
                         textItem.setPos(QPointF(pointF.x() + offsetX,
                                                 pointF.y()))
                     elif j == 1:
@@ -21439,7 +21440,7 @@ class AshtottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             setColor(self.ashtottariDasaGraphicsItemTextColor)
 
         # Degrees of text rotation.
-        self.rotationDegrees = 0.0
+        self.rotationDegrees = 90.0
         
         # Size scaling for the text.
         textTransform = QTransform()
@@ -21816,7 +21817,8 @@ class AshtottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     # visible.
                     if j == 0:
                         # Dasa lord.
-                        offsetX = (textItem.boundingRect().height() * 0.16)
+                        offsetX = (textItem.boundingRect().height() * \
+                                   self.ashtottariDasaTextXScaling)
                         textItem.setPos(QPointF(pointF.x() + offsetX,
                                                 pointF.y()))
                     elif j == 1:
@@ -22816,7 +22818,7 @@ class YoginiDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             setColor(self.yoginiDasaGraphicsItemTextColor)
 
         # Degrees of text rotation.
-        self.rotationDegrees = 0.0
+        self.rotationDegrees = 90.0
         
         # Size scaling for the text.
         textTransform = QTransform()
@@ -23193,7 +23195,8 @@ class YoginiDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     # visible.
                     if j == 0:
                         # Dasa lord.
-                        offsetX = (textItem.boundingRect().height() * 0.16)
+                        offsetX = (textItem.boundingRect().height() * \
+                                   self.yoginiDasaTextXScaling)
                         textItem.setPos(QPointF(pointF.x() + offsetX,
                                                 pointF.y()))
                     elif j == 1:
@@ -24193,7 +24196,7 @@ class DwisaptatiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             setColor(self.dwisaptatiSamaDasaGraphicsItemTextColor)
 
         # Degrees of text rotation.
-        self.rotationDegrees = 0.0
+        self.rotationDegrees = 90.0
         
         # Size scaling for the text.
         textTransform = QTransform()
@@ -24570,7 +24573,8 @@ class DwisaptatiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     # visible.
                     if j == 0:
                         # Dasa lord.
-                        offsetX = (textItem.boundingRect().height() * 0.16)
+                        offsetX = (textItem.boundingRect().height() * \
+                                   self.dwisaptatiSamaDasaTextXScaling)
                         textItem.setPos(QPointF(pointF.x() + offsetX,
                                                 pointF.y()))
                     elif j == 1:
@@ -25569,7 +25573,7 @@ class ShattrimsaSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             setColor(self.shattrimsaSamaDasaGraphicsItemTextColor)
 
         # Degrees of text rotation.
-        self.rotationDegrees = 0.0
+        self.rotationDegrees = 90.0
         
         # Size scaling for the text.
         textTransform = QTransform()
@@ -25946,7 +25950,8 @@ class ShattrimsaSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     # visible.
                     if j == 0:
                         # Dasa lord.
-                        offsetX = (textItem.boundingRect().height() * 0.16)
+                        offsetX = (textItem.boundingRect().height() * \
+                                   self.shattrimsaSamaDasaTextXScaling)
                         textItem.setPos(QPointF(pointF.x() + offsetX,
                                                 pointF.y()))
                     elif j == 1:
@@ -26945,7 +26950,7 @@ class DwadasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             setColor(self.dwadasottariDasaGraphicsItemTextColor)
 
         # Degrees of text rotation.
-        self.rotationDegrees = 0.0
+        self.rotationDegrees = 90.0
         
         # Size scaling for the text.
         textTransform = QTransform()
@@ -27322,7 +27327,8 @@ class DwadasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     # visible.
                     if j == 0:
                         # Dasa lord.
-                        offsetX = (textItem.boundingRect().height() * 0.16)
+                        offsetX = (textItem.boundingRect().height() * \
+                                   self.dwadasottariDasaTextXScaling)
                         textItem.setPos(QPointF(pointF.x() + offsetX,
                                                 pointF.y()))
                     elif j == 1:
@@ -28321,7 +28327,7 @@ class ChaturaseetiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             setColor(self.chaturaseetiSamaDasaGraphicsItemTextColor)
 
         # Degrees of text rotation.
-        self.rotationDegrees = 0.0
+        self.rotationDegrees = 90.0
         
         # Size scaling for the text.
         textTransform = QTransform()
@@ -28698,7 +28704,8 @@ class ChaturaseetiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     # visible.
                     if j == 0:
                         # Dasa lord.
-                        offsetX = (textItem.boundingRect().height() * 0.16)
+                        offsetX = (textItem.boundingRect().height() * \
+                                   self.chaturaseetiSamaDasaTextXScaling)
                         textItem.setPos(QPointF(pointF.x() + offsetX,
                                                 pointF.y()))
                     elif j == 1:
@@ -29697,7 +29704,7 @@ class SataabdikaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             setColor(self.sataabdikaDasaGraphicsItemTextColor)
 
         # Degrees of text rotation.
-        self.rotationDegrees = 0.0
+        self.rotationDegrees = 90.0
         
         # Size scaling for the text.
         textTransform = QTransform()
@@ -30074,7 +30081,8 @@ class SataabdikaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     # visible.
                     if j == 0:
                         # Dasa lord.
-                        offsetX = (textItem.boundingRect().height() * 0.16)
+                        offsetX = (textItem.boundingRect().height() * \
+                                   self.sataabdikaDasaTextXScaling)
                         textItem.setPos(QPointF(pointF.x() + offsetX,
                                                 pointF.y()))
                     elif j == 1:
@@ -31075,7 +31083,7 @@ class ShodasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             setColor(self.shodasottariDasaGraphicsItemTextColor)
 
         # Degrees of text rotation.
-        self.rotationDegrees = 0.0
+        self.rotationDegrees = 90.0
         
         # Size scaling for the text.
         textTransform = QTransform()
@@ -31452,7 +31460,8 @@ class ShodasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     # visible.
                     if j == 0:
                         # Dasa lord.
-                        offsetX = (textItem.boundingRect().height() * 0.16)
+                        offsetX = (textItem.boundingRect().height() * \
+                                   self.shodasottariDasaTextXScaling)
                         textItem.setPos(QPointF(pointF.x() + offsetX,
                                                 pointF.y()))
                     elif j == 1:
@@ -32454,7 +32463,7 @@ class PanchottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             setColor(self.panchottariDasaGraphicsItemTextColor)
 
         # Degrees of text rotation.
-        self.rotationDegrees = 0.0
+        self.rotationDegrees = 90.0
         
         # Size scaling for the text.
         textTransform = QTransform()
@@ -32831,7 +32840,8 @@ class PanchottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     # visible.
                     if j == 0:
                         # Dasa lord.
-                        offsetX = (textItem.boundingRect().height() * 0.16)
+                        offsetX = (textItem.boundingRect().height() * \
+                                   self.panchottariDasaTextXScaling)
                         textItem.setPos(QPointF(pointF.x() + offsetX,
                                                 pointF.y()))
                     elif j == 1:
@@ -33830,7 +33840,7 @@ class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
             setColor(self.shashtihayaniDasaGraphicsItemTextColor)
 
         # Degrees of text rotation.
-        self.rotationDegrees = 0.0
+        self.rotationDegrees = 90.0
         
         # Size scaling for the text.
         textTransform = QTransform()
@@ -34207,7 +34217,8 @@ class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     # visible.
                     if j == 0:
                         # Dasa lord.
-                        offsetX = (textItem.boundingRect().height() * 0.16)
+                        offsetX = (textItem.boundingRect().height() * \
+                                   self.shashtihayaniDasaTextXScaling)
                         textItem.setPos(QPointF(pointF.x() + offsetX,
                                                 pointF.y()))
                     elif j == 1:
@@ -36920,7 +36931,8 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         # Set the indexing method to be QGraphicsScene.NoIndex.
         # We need to do this to prevent segmentation faults in Qt's
         # use of a BspTreeIndex.
-        self.setItemIndexMethod(QGraphicsScene.NoIndex)
+        # TODO:  put this back when done checking out declinations
+        #self.setItemIndexMethod(QGraphicsScene.NoIndex)
 
         # Holds references to the highest, lowest, earliest and latest
         # PriceBars.  This is so we don't re-compute it every time we
