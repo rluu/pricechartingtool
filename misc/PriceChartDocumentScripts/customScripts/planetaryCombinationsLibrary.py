@@ -51,7 +51,54 @@ class PlanetaryCombinationsLibrary:
     """
 
     scene = PriceBarChartGraphicsScene()
-    
+
+    @staticmethod
+    def addHorizontalLine(pcdd, startDt, endDt, price, tag, color):
+        """Adds a horizontal line at the given price, from startDt to
+        endDt, with the given tag and color.
+
+        Arguments:
+        pcdd      - PriceChartDocumentData object that will be modified.
+        startDt   - datetime.datetime object for starting timestamp
+                    of the horizontal line.
+        endDt     - datetime.datetime object for ending timestamp
+                    of the horizontal line.
+        price     - float value for the price to draw the horizontal line.
+        tag       - str value for the tag to add to the horizontal line.
+        color     - QColor object for what color to draw the lines.
+                    If this is set to None, then the default color will be used.
+        """
+
+        # Create the artifact at the timestamp.
+        log.debug("Creating line artifact at price: {} ...".\
+                  format(price))
+        
+        lineY = \
+            PlanetaryCombinationsLibrary.scene.priceToSceneYPos(price)
+        lineStartX = \
+            PlanetaryCombinationsLibrary.scene.datetimeToSceneXPos(startDt)
+        lineEndX = \
+            PlanetaryCombinationsLibrary.scene.datetimeToSceneXPos(endDt)
+        
+        item = LineSegmentGraphicsItem()
+        item.loadSettingsFromAppPreferences()
+        item.loadSettingsFromPriceBarChartSettings(\
+            pcdd.priceBarChartSettings)
+        
+        artifact = item.getArtifact()
+        artifact = PriceBarChartLineSegmentArtifact()
+        artifact.addTag(tag)
+        artifact.setTiltedTextFlag(False)
+        artifact.setAngleTextFlag(False)
+        artifact.setColor(color)
+        artifact.setStartPointF(QPointF(lineStartX, lineY))
+        artifact.setEndPointF(QPointF(lineEndX, lineY))
+        
+        # Append the artifact.
+        log.info("Adding '{}' line artifact at price: {} ...".\
+                 format(tag, price))
+        pcdd.priceBarChartArtifacts.append(artifact)
+
     @staticmethod
     def addVerticalLine(pcdd, dt, highPrice, lowPrice, tag, color):
         """Adds a vertical line at the given timestamp, from highPrice
@@ -69,7 +116,7 @@ class PlanetaryCombinationsLibrary:
         """
 
         # Create the artifact at the timestamp.
-        log.debug("Creating line artifact at: {} ...".\
+        log.debug("Creating line artifact at datetime: {} ...".\
                   format(Ephemeris.datetimeToStr(dt)))
         
         lineX = \
@@ -3316,6 +3363,471 @@ class PlanetaryCombinationsLibrary:
 
 
     @staticmethod
+    def addHelioVenusMars90xVerticalLines(\
+        pcdd, startDt, endDt,
+        highPrice, lowPrice,
+        color=None,
+        maxErrorTd=datetime.timedelta(hours=1)):
+        """Adds vertical lines to the PriceChartDocumentData object,
+        at locations where Venus and Mars are multiples of 90
+        degrees apart, heliocentrically.
+        
+        Note: Default tag used for the artifacts added is the name of this
+        function, without the word 'add' at the beginning.
+        
+        Arguments:
+        pcdd      - PriceChartDocumentData object that will be modified.
+        startDt   - datetime.datetime object for the starting timestamp
+                    to do the calculations for artifacts.
+        endDt     - datetime.datetime object for the ending timestamp
+                    to do the calculations for artifacts.
+        highPrice - float value for the high price to end the vertical line.
+        lowPrice  - float value for the low price to end the vertical line.
+        color     - QColor object for what color to draw the lines.
+                    If this is set to None, then the default color will be used.
+        maxErrorTd - datetime.timedelta object holding the maximum
+                     time difference between the exact planetary
+                     combination timestamp, and the one calculated.
+                     This would define the accuracy of the
+                     calculations.  
+        
+        Returns:
+        True if operation succeeded, False otherwise.
+        """
+
+
+        log.debug("Entered " + inspect.stack()[0][3] + "()")
+
+        # Return value.
+        rv = True
+
+        # Make sure the inputs are valid.
+        if endDt < startDt:
+            log.error("Invalid input: 'endDt' must be after 'startDt'")
+            rv = False
+            return rv
+        if lowPrice > highPrice:
+            log.error("Invalid input: " +
+                      "'lowPrice' is not less than or equal to 'highPrice'")
+            rv = False
+            return rv
+        
+        # Set the color if it is not already set to something.
+        colorWasSpecifiedFlag = True
+        if color == None:
+            colorWasSpecifiedFlag = False
+            #color = QColor(Qt.blue)
+
+        # Set the tag str.
+        tag = inspect.stack()[0][3]
+        if tag.startswith("add") and len(tag) > 3:
+            tag = tag[3:]
+        log.debug("tag == '{}'".format(tag))
+        
+        # Initialize the Ephemeris with the birth location.
+        log.debug("Setting ephemeris location ...")
+        Ephemeris.setGeographicPosition(pcdd.birthInfo.longitudeDegrees,
+                                        pcdd.birthInfo.latitudeDegrees,
+                                        pcdd.birthInfo.elevation)
+
+        # Set the step size.
+        stepSizeTd = datetime.timedelta(days=1)
+
+        # Differencial multiple we are looking for, in degrees.
+        #
+        # Note, the below algorithm assumes that 360 is evenly
+        # divisible by 'desiredDiffMultiple'.  Otherwise it will
+        # not catch all cases (e.g. if we are looking for 14
+        # degree multiples, it will catch if the diffDeg is 14,
+        # but not if the diffDeg is -14).
+        desiredDiffMultiple = 90.0
+
+        # Count of artifacts added.
+        numArtifactsAdded = 0
+        
+        # Iterate through, creating artfacts and adding them as we go.
+        prevDt = copy.deepcopy(startDt)
+        currDt = copy.deepcopy(startDt)
+
+        prevDiff = None
+        currDiff = None
+        
+        def getColorBasedOnDiffDeg(diffDeg):
+            if colorWasSpecifiedFlag == False:
+                color = None
+                index = round(diffDeg / desiredDiffMultiple)
+                if index == 0:
+                    color = QColor(Qt.blue)
+                elif index == 1:
+                    color = QColor(Qt.gray)
+                elif index == 2:
+                    color = QColor(Qt.red)
+                elif index == 3:
+                    color = QColor(Qt.green)
+                elif index == 4:
+                    color = QColor(Qt.magenta)
+                elif index == 5:
+                    color = QColor(Qt.darkBlue)
+                elif index == 6:
+                    color = QColor(128, 62, 64)
+                elif index == 7:
+                    color = QColor(255, 170, 0)
+                elif index == 8:
+                    color = QColor(255, 0, 127)
+                elif index == 9:
+                    color = QColor(Qt.darkMagenta)
+                elif index == 10:
+                    color = QColor(35, 123, 128)
+                elif index == 11:
+                    color = QColor(99, 58, 128)
+                elif index == 12:
+                    color = QColor(84, 81, 64)
+                elif index == 13:
+                    color = QColor(128, 73, 71)
+                elif index == 14:
+                    color = QColor(108, 128, 97)
+                elif index == 15:
+                    color = QColor(Qt.darkGray)
+                elif index == 16:
+                    color = QColor(5, 85, 128)
+                elif index == 17:
+                    color = QColor(82, 101, 42)
+                elif index == 18:
+                    color = QColor(255, 170, 255)
+                elif index == 19:
+                    color = QColor(Qt.darkGreen)
+                elif index == 20:
+                    color = QColor(170, 85, 255)
+                elif index == 21:
+                    color = QColor(255, 170, 127)
+                elif index == 22:
+                    color = QColor(Qt.darkRed)
+                elif index == 23:
+                    color = QColor(170, 255, 0)
+                else:
+                    color = QColor(Qt.black)
+                return color
+
+        log.debug("Stepping through timestamps from {} to {} ...".\
+                  format(Ephemeris.datetimeToStr(startDt),
+                         Ephemeris.datetimeToStr(endDt)))
+        
+        while currDt < endDt:
+            log.debug("Looking at currDt == {} ...".\
+                      format(Ephemeris.datetimeToStr(currDt)))
+            
+            p1 = Ephemeris.getVenusPlanetaryInfo(currDt)
+            p2 = Ephemeris.getMarsPlanetaryInfo(currDt)
+
+            log.debug("{} heliocentric sidereal longitude is: {}".\
+                      format(p1.name,
+                             p1.heliocentric['sidereal']['longitude']))
+            log.debug("{} heliocentric sidereal longitude is: {}".\
+                      format(p2.name,
+                             p2.heliocentric['sidereal']['longitude']))
+
+            diffDeg = \
+                p1.heliocentric['sidereal']['longitude'] - \
+                p2.heliocentric['sidereal']['longitude']
+            if diffDeg < 0:
+                diffDeg += 360.0
+
+            log.debug("diffDeg == {}".format(diffDeg))
+            
+            color = getColorBasedOnDiffDeg(diffDeg)
+                    
+            currDiff = diffDeg % desiredDiffMultiple
+
+            if prevDiff == None:
+                prevDiff = currDiff
+
+            log.debug("prevDiff == {}".format(prevDiff))
+            log.debug("currDiff == {}".format(currDiff))
+            
+            # If the currDiff modulus (remainder of the division) is
+            # less the prevDiff modulus, that means between the
+            # previous timestamp and the current one, we passed the
+            # point of exact.  We need to now narrow the point down to
+            # within the 'maxErrorTd' datetime.timedelta.
+            if currDiff < prevDiff:
+                log.debug("Crossed over!")
+                
+                # This is the upper-bound of the error timedelta.
+                t1 = prevDt
+                t2 = currDt
+                currErrorTd = t2 - t1
+
+                # Refine the timestamp until it is less than the threshold.
+                while currErrorTd > maxErrorTd:
+                    log.debug("Refining between {} and {}".\
+                              format(Ephemeris.datetimeToStr(t1),
+                                     Ephemeris.datetimeToStr(t2)))
+                    
+                    # Check the timestamp between.
+                    diffTd = t2 - t1
+                    halfDiffTd = \
+                        datetime.\
+                        timedelta(days=(diffTd.days / 2.0),
+                                  seconds=(diffTd.seconds / 2.0),
+                                  microseconds=(diffTd.microseconds / 2.0))
+                    testDt = t1 + halfDiffTd
+                    
+                    p1 = Ephemeris.getVenusPlanetaryInfo(testDt)
+                    p2 = Ephemeris.getMarsPlanetaryInfo(testDt)
+                    
+                    diffDeg = \
+                            p1.heliocentric['sidereal']['longitude'] - \
+                            p2.heliocentric['sidereal']['longitude']
+                    if diffDeg < 0:
+                        diffDeg += 360.0
+
+                    testDiff = diffDeg % desiredDiffMultiple
+                    if testDiff < currDiff:
+                        t2 = testDt
+
+                        # Update the curr values as the later boundary.
+                        currDt = t2
+                        currDiff = testDiff
+                    else:
+                        t1 = testDt
+                        
+                    currErrorTd = t2 - t1
+                
+                # Create the artifact at the timestamp.
+                PlanetaryCombinationsLibrary.\
+                    addVerticalLine(pcdd, currDt,
+                                    highPrice, lowPrice, tag, color)
+                numArtifactsAdded += 1
+                
+            # Update prevDiff as the currDiff.
+            prevDiff = currDiff
+                
+            # Increment currDt.
+            prevDt = copy.deepcopy(currDt)
+            currDt += stepSizeTd
+
+        log.info("Number of artifacts added: {}".format(numArtifactsAdded))
+        
+        log.debug("Exiting " + inspect.stack()[0][3] + "()")
+        return rv
+
+
+    @staticmethod
+    def addHelioVenus265DegVerticalLines(\
+        pcdd, startDt, endDt,
+        highPrice, lowPrice,
+        color=None,
+        maxErrorTd=datetime.timedelta(hours=1)):
+        """Adds vertical lines to the PriceChartDocumentData object,
+        at locations where Venus and Mars are multiples of 90
+        degrees apart, heliocentrically.
+        
+        Note: Default tag used for the artifacts added is the name of this
+        function, without the word 'add' at the beginning.
+        
+        Arguments:
+        pcdd      - PriceChartDocumentData object that will be modified.
+        startDt   - datetime.datetime object for the starting timestamp
+                    to do the calculations for artifacts.
+        endDt     - datetime.datetime object for the ending timestamp
+                    to do the calculations for artifacts.
+        highPrice - float value for the high price to end the vertical line.
+        lowPrice  - float value for the low price to end the vertical line.
+        color     - QColor object for what color to draw the lines.
+                    If this is set to None, then the default color will be used.
+        maxErrorTd - datetime.timedelta object holding the maximum
+                     time difference between the exact planetary
+                     combination timestamp, and the one calculated.
+                     This would define the accuracy of the
+                     calculations.  
+        
+        Returns:
+        True if operation succeeded, False otherwise.
+        """
+
+
+        log.debug("Entered " + inspect.stack()[0][3] + "()")
+
+        # Return value.
+        rv = True
+
+        # Make sure the inputs are valid.
+        if endDt < startDt:
+            log.error("Invalid input: 'endDt' must be after 'startDt'")
+            rv = False
+            return rv
+        if lowPrice > highPrice:
+            log.error("Invalid input: " +
+                      "'lowPrice' is not less than or equal to 'highPrice'")
+            rv = False
+            return rv
+        
+        # Set the color if it is not already set to something.
+        colorWasSpecifiedFlag = True
+        if color == None:
+            colorWasSpecifiedFlag = False
+            color = QColor(Qt.black)
+
+        # Set the tag str.
+        tag = inspect.stack()[0][3]
+        if tag.startswith("add") and len(tag) > 3:
+            tag = tag[3:]
+        log.debug("tag == '{}'".format(tag))
+        
+        # Initialize the Ephemeris with the birth location.
+        log.debug("Setting ephemeris location ...")
+        Ephemeris.setGeographicPosition(pcdd.birthInfo.longitudeDegrees,
+                                        pcdd.birthInfo.latitudeDegrees,
+                                        pcdd.birthInfo.elevation)
+
+        # Set the step size.
+        stepSizeTd = datetime.timedelta(days=1)
+
+        # Desired degree.
+        desiredDegree = 265.0
+
+        # Count of artifacts added.
+        numArtifactsAdded = 0
+        
+        # Iterate through, creating artfacts and adding them as we go.
+        prevDt = copy.deepcopy(startDt)
+        currDt = copy.deepcopy(startDt)
+
+        prevDiff = None
+        currDiff = None
+        
+        log.debug("Stepping through timestamps from {} to {} ...".\
+                  format(Ephemeris.datetimeToStr(startDt),
+                         Ephemeris.datetimeToStr(endDt)))
+        
+        while currDt < endDt:
+            log.debug("Looking at currDt == {} ...".\
+                      format(Ephemeris.datetimeToStr(currDt)))
+            
+            p1 = Ephemeris.getVenusPlanetaryInfo(currDt)
+
+            log.debug("{} heliocentric sidereal longitude is: {}".\
+                      format(p1.name,
+                             p1.heliocentric['sidereal']['longitude']))
+
+            diffDeg = p1.heliocentric['sidereal']['longitude']
+
+            log.debug("diffDeg == {}".format(diffDeg))
+            
+            currDiff = diffDeg
+
+            if prevDiff == None:
+                prevDiff = currDiff
+
+            log.debug("prevDiff == {}".format(prevDiff))
+            log.debug("currDiff == {}".format(currDiff))
+            
+            if prevDiff < desiredDegree and currDiff >= desiredDegree:
+                log.debug("Crossed over!")
+                
+                # This is the upper-bound of the error timedelta.
+                t1 = prevDt
+                t2 = currDt
+                currErrorTd = t2 - t1
+
+                # Refine the timestamp until it is less than the threshold.
+                while currErrorTd > maxErrorTd:
+                    log.debug("Refining between {} and {}".\
+                              format(Ephemeris.datetimeToStr(t1),
+                                     Ephemeris.datetimeToStr(t2)))
+                    
+                    # Check the timestamp between.
+                    diffTd = t2 - t1
+                    halfDiffTd = \
+                        datetime.\
+                        timedelta(days=(diffTd.days / 2.0),
+                                  seconds=(diffTd.seconds / 2.0),
+                                  microseconds=(diffTd.microseconds / 2.0))
+                    testDt = t1 + halfDiffTd
+                    
+                    p1 = Ephemeris.getVenusPlanetaryInfo(testDt)
+                    
+                    diffDeg = p1.heliocentric['sidereal']['longitude']
+                    
+                    testDiff = diffDeg
+                    if testDiff < desiredDegree:
+                        t1 = testDt
+                    else:
+                        t2 = testDt
+
+                        # Update the curr values.
+                        currDt = t2
+                        currDiff = testDiff
+                        
+                    currErrorTd = t2 - t1
+                
+                # Create the artifact at the timestamp.
+                PlanetaryCombinationsLibrary.\
+                    addVerticalLine(pcdd, currDt,
+                                    highPrice, lowPrice, tag, color)
+                numArtifactsAdded += 1
+                
+            elif prevDiff > desiredDegree and currDiff <= desiredDegree:
+                log.debug("Crossed over!")
+                
+                # This is the upper-bound of the error timedelta.
+                t1 = prevDt
+                t2 = currDt
+                currErrorTd = t2 - t1
+
+                # Refine the timestamp until it is less than the threshold.
+                while currErrorTd > maxErrorTd:
+                    log.debug("Refining between {} and {}".\
+                              format(Ephemeris.datetimeToStr(t1),
+                                     Ephemeris.datetimeToStr(t2)))
+                    
+                    # Check the timestamp between.
+                    diffTd = t2 - t1
+                    halfDiffTd = \
+                        datetime.\
+                        timedelta(days=(diffTd.days / 2.0),
+                                  seconds=(diffTd.seconds / 2.0),
+                                  microseconds=(diffTd.microseconds / 2.0))
+                    testDt = t1 + halfDiffTd
+                    
+                    p1 = Ephemeris.getVenusPlanetaryInfo(testDt)
+                    
+                    diffDeg = p1.heliocentric['sidereal']['longitude']
+                    
+                    testDiff = diffDeg
+                    if testDiff > desiredDegree:
+                        t1 = testDt
+                        
+                    else:
+                        t2 = testDt
+                        
+                        # Update the curr values.
+                        currDt = t2
+                        currDiff = testDiff
+                        
+                        
+                    currErrorTd = t2 - t1
+                
+                # Create the artifact at the timestamp.
+                PlanetaryCombinationsLibrary.\
+                    addVerticalLine(pcdd, currDt,
+                                    highPrice, lowPrice, tag, color)
+                numArtifactsAdded += 1
+                
+            # Update prevDiff as the currDiff.
+            prevDiff = currDiff
+                
+            # Increment currDt.
+            prevDt = copy.deepcopy(currDt)
+            currDt += stepSizeTd
+
+        log.info("Number of artifacts added: {}".format(numArtifactsAdded))
+        
+        log.debug("Exiting " + inspect.stack()[0][3] + "()")
+        return rv
+
+
+    @staticmethod
     def addBayerTimeFactorsAstroVerticalLines(\
         pcdd, startDt, endDt,
         highPrice, lowPrice,
@@ -4311,6 +4823,8 @@ class PlanetaryCombinationsLibrary:
             del declinations[0]
             
             
+        log.info("Number of artifacts added: {}".format(numArtifactsAdded))
+                
         log.debug("Exiting " + inspect.stack()[0][3] + "()")
         return rv
     
@@ -4496,6 +5010,412 @@ class PlanetaryCombinationsLibrary:
             del declinations[0]
             
             
+        log.info("Number of artifacts added: {}".format(numArtifactsAdded))
+                
         log.debug("Exiting " + inspect.stack()[0][3] + "()")
         return rv
     
+
+    @staticmethod
+    def addVelocityLines(\
+        pcdd, startDt, endDt,
+        highPrice, lowPrice,
+        planetName,
+        color=None,
+        stepSizeTd=datetime.timedelta(days=1)):
+        """Adds a bunch of line segments that represent a given
+        planet's longitude speed.  The start and end points of
+        each line segment is 'stepSizeTd' distance away.
+        
+        Arguments:
+        pcdd      - PriceChartDocumentData object that will be modified.
+        startDt   - datetime.datetime object for the starting timestamp
+                    to do the calculations for artifacts.
+        endDt     - datetime.datetime object for the ending timestamp
+                    to do the calculations for artifacts.
+        highPrice - float value for the high price which represents
+                    the location for highest velocity.
+        lowPrice  - float value for the low price which represents
+                    the location for lowest velocity.
+        planetName - str holding the name of the planet to do the
+                     calculations for.
+        color     - QColor object for what color to draw the lines.
+                    If this is set to None, then the default color will be used.
+        stepSizeTd - datetime.timedelta object holding the time
+                     distance between each data sample.
+        
+        Returns:
+        True if operation succeeded, False otherwise.
+        """
+        
+        log.debug("Entered " + inspect.stack()[0][3] + "()")
+
+        # Return value.
+        rv = True
+
+        # Make sure the inputs are valid.
+        if endDt < startDt:
+            log.error("Invalid input: 'endDt' must be after 'startDt'")
+            rv = False
+            return rv
+        if lowPrice > highPrice:
+            log.error("Invalid input: " +
+                      "'lowPrice' is not less than or equal to 'highPrice'")
+            rv = False
+            return rv
+
+        # Calculate the average of the low and high price.  This is
+        # the price location of 0 velocity.
+        avgPrice = (lowPrice + highPrice) / 2.0
+        
+        # Set the color if it is not already set to something.
+        colorWasSpecifiedFlag = True
+        if color == None:
+            colorWasSpecifiedFlag = False
+            color = AstrologyUtils.getForegroundColorForPlanetName(planetName)
+
+        # Set the tag str.
+        tag = inspect.stack()[0][3]
+        if tag.startswith("add") and len(tag) > 3:
+            tag = tag[3:] + "_" + planetName
+        log.debug("tag == '{}'".format(tag))
+        
+        # Initialize the Ephemeris with the birth location.
+        log.debug("Setting ephemeris location ...")
+        Ephemeris.setGeographicPosition(pcdd.birthInfo.longitudeDegrees,
+                                        pcdd.birthInfo.latitudeDegrees,
+                                        pcdd.birthInfo.elevation)
+
+        # Count of artifacts added.
+        numArtifactsAdded = 0
+
+        # Now, in UTC.
+        now = datetime.datetime.now(pytz.utc)
+        
+        # Timestamp steps saved (list of datetime.datetime).
+        steps = []
+        steps.append(copy.deepcopy(startDt))
+        steps.append(copy.deepcopy(startDt))
+
+        # Velocity of the steps saved (list of float).
+        velocitys = []
+        velocitys.append(None)
+        velocitys.append(None)
+
+        # Start and end timestamps used for the location of the
+        # LineSegmentGraphicsItem.
+        startLineSegmentDt = None
+        endLineSegmentDt = None
+
+        # Iterate through, creating artfacts and adding them as we go.
+        log.debug("Stepping through timestamps from {} to {} ...".\
+                  format(Ephemeris.datetimeToStr(startDt),
+                         Ephemeris.datetimeToStr(endDt)))
+
+        
+        maxAbsoluteSpeed = 0.0
+        helioSpeed = 0.0
+        if planetName == "Moon":
+            maxValue = abs(15.3854340872)
+            minValue = abs(0.0)
+            helioSpeed = 0.0
+            if maxValue > minValue:
+                maxAbsoluteSpeed = maxValue
+            else:
+                maxAbsoluteSpeed = minValue
+        elif planetName == "Mercury":
+            maxValue = abs(2.20247915641)
+            minValue = abs(-1.38648011915)
+            helioSpeed = 4.092346062424192
+            if maxValue > minValue:
+                maxAbsoluteSpeed = maxValue
+            else:
+                maxAbsoluteSpeed = minValue
+        elif planetName == "Venus":
+            maxValue = abs(1.25885851698)
+            minValue = abs(-0.631105994856)
+            helioSpeed = 1.6021312618132146
+            if maxValue > minValue:
+                maxAbsoluteSpeed = maxValue
+            else:
+                maxAbsoluteSpeed = minValue
+        elif planetName == "Mars":
+            maxValue = abs(0.791337340289)
+            minValue = abs(-0.400655987562)
+            helioSpeed = 0.5240395882
+            if maxValue > minValue:
+                maxAbsoluteSpeed = maxValue
+            else:
+                maxAbsoluteSpeed = minValue
+        elif planetName == "Jupiter":
+            maxValue = abs(0.242476279714)
+            minValue = abs(-0.13658191218)
+            helioSpeed = 0.08311070438168867
+            if maxValue > minValue:
+                maxAbsoluteSpeed = maxValue
+            else:
+                maxAbsoluteSpeed = minValue
+        elif planetName == "Saturn":
+            maxValue = abs(0.130369662001)
+            minValue = abs(-0.0828733240411)
+            helioSpeed = 0.033459674586075946
+            if maxValue > minValue:
+                maxAbsoluteSpeed = maxValue
+            else:
+                maxAbsoluteSpeed = minValue
+        elif planetName == "Uranus":
+            maxValue = abs(0.063236066386)
+            minValue = abs(-0.0439273105247)
+            helioSpeed = 0.011688655137431798
+            if maxValue > minValue:
+                maxAbsoluteSpeed = maxValue
+            else:
+                maxAbsoluteSpeed = minValue
+        elif planetName == "Neptune":
+            maxValue = abs(0.0380502077148)
+            minValue = abs(-0.0283865987199)
+            helioSpeed = 0.005981059976740323
+            if maxValue > minValue:
+                maxAbsoluteSpeed = maxValue
+            else:
+                maxAbsoluteSpeed = minValue
+        elif planetName == "Pluto":
+            maxValue = abs(0.040535459208)
+            minValue = abs(-0.0282905050242)
+            helioSpeed = 0.003972926492417422
+            if maxValue > minValue:
+                maxAbsoluteSpeed = maxValue
+            else:
+                maxAbsoluteSpeed = minValue
+        elif planetName == "Mean North Node":
+            maxValue = abs(0)
+            minValue = abs(-0.0529539539963)
+            helioSpeed = 0.0
+            if maxValue > minValue:
+                maxAbsoluteSpeed = maxValue
+            else:
+                maxAbsoluteSpeed = minValue
+        elif planetName == "True North Node":
+            maxValue = abs(0.0583335323306)
+            minValue = abs(-0.25912214133)
+            helioSpeed = 0.0
+            if maxValue > minValue:
+                maxAbsoluteSpeed = maxValue
+            else:
+                maxAbsoluteSpeed = minValue
+        elif planetName == "Mean Lunar Apogee":
+            maxValue = abs(0.112068469719)
+            minValue = abs(0)
+            helioSpeed = 0.0
+            if maxValue > minValue:
+                maxAbsoluteSpeed = maxValue
+            else:
+                maxAbsoluteSpeed = minValue
+        elif planetName == "Osculating Lunar Apogee":
+            maxValue = abs(6.34870367365)
+            minValue = abs(-3.61864664224)
+            helioSpeed = 0.0
+            if maxValue > minValue:
+                maxAbsoluteSpeed = maxValue
+            else:
+                maxAbsoluteSpeed = minValue
+        elif planetName == "Interpolated Lunar Apogee":
+            maxValue = abs(0.236734866594)
+            minValue = abs(-0.148972388849)
+            helioSpeed = 0.0
+            if maxValue > minValue:
+                maxAbsoluteSpeed = maxValue
+            else:
+                maxAbsoluteSpeed = minValue
+        elif planetName == "Interpolated Lunar Perigee":
+            maxValue = abs(0.577564192133)
+            minValue = abs(-2.26866537946)
+            helioSpeed = 0.0
+            if maxValue > minValue:
+                maxAbsoluteSpeed = maxValue
+            else:
+                maxAbsoluteSpeed = minValue
+        elif planetName == "Earth":
+            maxValue = abs(0)
+            minValue = abs(0)
+            helioSpeed = 365.256366
+            if maxValue > minValue:
+                maxAbsoluteSpeed = maxValue
+            else:
+                maxAbsoluteSpeed = minValue
+        elif planetName == "Chiron":
+            maxValue = abs(0.145963623727)
+            minValue = abs(-0.0794572071859)
+            helioSpeed = 0.0
+            if maxValue > minValue:
+                maxAbsoluteSpeed = maxValue
+            else:
+                maxAbsoluteSpeed = minValue
+        elif planetName == "Pholus":
+            maxValue = abs(0.0657475495548)
+            minValue = abs(-0.0478856503721)
+            helioSpeed = 0.0
+            if maxValue > minValue:
+                maxAbsoluteSpeed = maxValue
+            else:
+                maxAbsoluteSpeed = minValue
+        elif planetName == "Ceres":
+            maxValue = abs(0.460418804451)
+            minValue = abs(-0.238025771402)
+            helioSpeed = 0.0
+            if maxValue > minValue:
+                maxAbsoluteSpeed = maxValue
+            else:
+                maxAbsoluteSpeed = minValue
+        elif planetName == "Pallas":
+            maxValue = abs(0.598055034244)
+            minValue = abs(-0.342833713135)
+            helioSpeed = 0.0
+            if maxValue > minValue:
+                maxAbsoluteSpeed = maxValue
+            else:
+                maxAbsoluteSpeed = minValue
+        elif planetName == "Juno":
+            maxValue = abs(0.597557822666)
+            minValue = abs(-0.260653543849)
+            helioSpeed = 0.0
+            if maxValue > minValue:
+                maxAbsoluteSpeed = maxValue
+            else:
+                maxAbsoluteSpeed = minValue
+        elif planetName == "Vesta":
+            maxValue = abs(0.541960483784)
+            minValue = abs(-0.265968505255)
+            helioSpeed = 0.0
+            if maxValue > minValue:
+                maxAbsoluteSpeed = maxValue
+            else:
+                maxAbsoluteSpeed = minValue
+        elif planetName == "MeanOfFive":
+            maxValue = abs(0.0907366503314)
+            minValue = abs(-0.0486608813613)
+            helioSpeed = 0.0
+            if maxValue > minValue:
+                maxAbsoluteSpeed = maxValue
+            else:
+                maxAbsoluteSpeed = minValue
+        elif planetName == "CycleOfEight":
+            maxValue = abs(0.562461969991)
+            minValue = abs(-0.239189857922)
+            helioSpeed = 0.0
+            if maxValue > minValue:
+                maxAbsoluteSpeed = maxValue
+            else:
+                maxAbsoluteSpeed = minValue
+        else:
+            maxAbsoluteSpeed = 1.0
+            helioSpeed = 0.0
+
+        
+        while steps[-1] < endDt:
+            currDt = steps[-1]
+            log.debug("Looking at currDt == {} ...".\
+                      format(Ephemeris.datetimeToStr(currDt)))
+            
+            p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
+            
+            log.debug("{} velocity is: {}".\
+                      format(p1.name,
+                             p1.geocentric['sidereal']['longitude_speed']))
+            
+            velocitys[-1] = p1.geocentric['sidereal']['longitude_speed']
+            
+            for i in range(len(steps)):
+                log.debug("steps[{}] == {}".\
+                          format(i, Ephemeris.datetimeToStr(steps[i])))
+            for i in range(len(velocitys)):
+                log.debug("velocitys[{}] == {}".format(i, velocitys[i]))
+
+
+            if velocitys[-2] != None:
+
+                pricePerSpeedDeg = (highPrice - avgPrice) / maxAbsoluteSpeed
+                
+                startPointX = \
+                    PlanetaryCombinationsLibrary.scene.\
+                    datetimeToSceneXPos(steps[-2])
+                endPointX = \
+                    PlanetaryCombinationsLibrary.scene.\
+                    datetimeToSceneXPos(steps[-1])
+        
+                startPointPrice = \
+                    avgPrice + (velocitys[-2] * pricePerSpeedDeg)
+                startPointY = \
+                    PlanetaryCombinationsLibrary.scene.\
+                    priceToSceneYPos(startPointPrice)
+                
+                endPointPrice = \
+                    avgPrice + (velocitys[-1] * pricePerSpeedDeg)
+                endPointY = \
+                    PlanetaryCombinationsLibrary.scene.\
+                    priceToSceneYPos(endPointPrice)
+                
+                item = LineSegmentGraphicsItem()
+                item.loadSettingsFromAppPreferences()
+                item.loadSettingsFromPriceBarChartSettings(\
+                    pcdd.priceBarChartSettings)
+                
+                artifact = item.getArtifact()
+                artifact.addTag(tag)
+                artifact.setTiltedTextFlag(False)
+                artifact.setAngleTextFlag(False)
+                artifact.setColor(color)
+                artifact.setStartPointF(QPointF(startPointX, startPointY))
+                artifact.setEndPointF(QPointF(endPointX, endPointY))
+                
+                # Append the artifact.
+                log.info("Adding '{}' {} at ".\
+                         format(tag, artifact.__class__.__name__) + \
+                         "({}, {}) to ({}, {}), or ({} to {}) ...".\
+                         format(startPointX, startPointY,
+                                endPointX, endPointY,
+                                Ephemeris.datetimeToStr(steps[-2]),
+                                Ephemeris.datetimeToStr(steps[-1])))
+                
+                pcdd.priceBarChartArtifacts.append(artifact)
+                
+                numArtifactsAdded += 1
+
+            # Prepare for the next iteration.
+            steps.append(copy.deepcopy(steps[-1]) + stepSizeTd)
+            del steps[0]
+            velocitys.append(None)
+            del velocitys[0]
+
+
+        # Add a horizontal line for the zero velocity.
+        PlanetaryCombinationsLibrary.\
+            addHorizontalLine(pcdd, startDt, endDt, avgPrice,
+                              tag="VelocityZeroLine_{}".format(planetName),
+                              color=QColor(Qt.black))
+        numArtifactsAdded += 1
+        
+        # Add a horizontal line for the planet's heliocentric speed,
+        # if it is not zero.
+        #if helioSpeed != 0.0:
+            #pricePerSpeedDeg = (highPrice - avgPrice) / maxAbsoluteSpeed
+            #print("avgPrice == {}".format(avgPrice))
+            #print("maxAbsoluteSpeed == {}".format(maxAbsoluteSpeed))
+            #print("pricePerSpeedDeg == {}".format(pricePerSpeedDeg))
+            #
+            #price = avgPrice + (pricePerSpeedDeg * helioSpeed)
+            #print("helioSpeed == {}".format(helioSpeed))
+            #print("price == {}".format(price))
+            #
+            #PlanetaryCombinationsLibrary.\
+            #    addHorizontalLine(pcdd, startDt, endDt, price,
+            #        tag="HelioVelocityLine_{}".format(planetName),
+            #        color=color)
+            #numArtifactsAdded += 1
+        
+        log.info("Number of artifacts added: {}".format(numArtifactsAdded))
+            
+        log.debug("Exiting " + inspect.stack()[0][3] + "()")
+        return rv
+    
+

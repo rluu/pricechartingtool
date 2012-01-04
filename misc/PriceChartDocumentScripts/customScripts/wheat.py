@@ -100,9 +100,16 @@ def processPCDD(pcdd, tag):
     #success = PlanetaryCombinationsLibrary.\
     #    addGeoVenusMars15xVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice)
-    success = PlanetaryCombinationsLibrary.\
-        addHelioVenusMars15xVerticalLines(\
-        pcdd, startDt, endDt, highPrice, lowPrice)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addHelioVenusMars15xVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addHelioVenusMars90xVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addHelioVenus265DegVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice)
+    
     
     #success = PlanetaryCombinationsLibrary.\
     #    addHelioVenusJupiter120xVerticalLines(\
@@ -132,11 +139,37 @@ def processPCDD(pcdd, tag):
     #    addGeoMercuryJupiter90xVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice)
 
-    stepSizeTd = datetime.timedelta(days=1)
+    stepSizeTd = datetime.timedelta(days=3)
     #highPrice = 800.0
     highPrice = 600.0
     #lowPrice = 600.0
     lowPrice = 300.0
+
+    success = PlanetaryCombinationsLibrary.addVelocityLines(\
+        pcdd, startDt, endDt, highPrice, lowPrice,
+        planetName="Mercury", 
+        color=None, stepSizeTd=stepSizeTd)
+    success = PlanetaryCombinationsLibrary.addVelocityLines(\
+        pcdd, startDt, endDt, highPrice, lowPrice,
+        planetName="Venus", 
+        color=None, stepSizeTd=stepSizeTd)
+    success = PlanetaryCombinationsLibrary.addVelocityLines(\
+        pcdd, startDt, endDt, highPrice, lowPrice,
+        planetName="Mars", 
+        color=None, stepSizeTd=stepSizeTd)
+    #success = PlanetaryCombinationsLibrary.addVelocityLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    planetName="Uranus", 
+    #    color=None, stepSizeTd=stepSizeTd)
+    success = PlanetaryCombinationsLibrary.addVelocityLines(\
+        pcdd, startDt, endDt, highPrice, lowPrice,
+        planetName="MeanOfFive", 
+        color=None, stepSizeTd=stepSizeTd)
+    success = PlanetaryCombinationsLibrary.addVelocityLines(\
+        pcdd, startDt, endDt, highPrice, lowPrice,
+        planetName="CycleOfEight", 
+        color=None, stepSizeTd=stepSizeTd)
+
 
     #success = PlanetaryCombinationsLibrary.addDeclinationLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
