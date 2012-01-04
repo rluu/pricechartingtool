@@ -62,6 +62,24 @@ APP_AUTHOR = "Ryan Luu"
 # Application author's email address.
 APP_AUTHOR_EMAIL = "ryanluu@gmail.com"
 
+# Profiler enabled flag.
+# Change this flag to turn on profiling.
+# 
+# Note: When profiling is turned on, the output is printed to
+# stdout at the time Python exits, so make sure you redirect stdout
+# to a file if you want to analyze it!
+# 
+# Also, to look at the output, pipe to sort like as follows:
+#
+#  cat /tmp/profilerOutput.txt | sort -k1 -r -n | less
+#
+# Where -k1 says to sort by the first field.  Change the number to
+# sort by other fields.
+# Where -r says to reverse results (sort by highest to lowest).
+# Where -n says to sort numerically, instead of by text values.
+#
+turnOnProfiler = False
+
 ##############################################################################
 
 def main():
@@ -147,12 +165,6 @@ if __name__=="__main__":
     
     # Program return code.
     exitCode = 0
-
-    # Change this flag to turn on profiling.
-    # Note: When profiling is turned on, the output is printed to
-    # stdout at the time Python exits, so make sure you redirect stdout
-    # to a file if you want to analyze it!
-    turnOnProfiler = False
 
     if turnOnProfiler == True:
         import cProfile
