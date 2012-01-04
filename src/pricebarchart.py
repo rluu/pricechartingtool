@@ -7229,7 +7229,8 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
             text += "t={}".format(Ephemeris.datetimeToDayStr(dt)) + \
                     os.linesep
 
-            # Comment out this line if you want the timestamp text with time.
+            # Uncomment out this line if you want the timestamp text
+            # without time.
             #text = text[:16] + os.linesep
             
         if self.artifact.getShowPriceFlag():
@@ -36931,8 +36932,7 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         # Set the indexing method to be QGraphicsScene.NoIndex.
         # We need to do this to prevent segmentation faults in Qt's
         # use of a BspTreeIndex.
-        # TODO:  put this back when done checking out declinations
-        #self.setItemIndexMethod(QGraphicsScene.NoIndex)
+        self.setItemIndexMethod(QGraphicsScene.NoIndex)
 
         # Holds references to the highest, lowest, earliest and latest
         # PriceBars.  This is so we don't re-compute it every time we
@@ -37016,19 +37016,89 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         float holding the julian day equivalent timestamp.
         """
 
-        #jd = sceneXPos
-        #jd = sceneXPos * 100.0
+        # Flag to enable utilizing intraday minute bars stacked
+        # together (only active trading hours).
+        cbotIntradayMinuteBarsEnabled = False
         
-        # Julian day 2396758.5 is Jan 1, 1850.
-        #jd = sceneXPos + 2396758.5
-        
-        # Julian day 2159350.5 is Jan 1, 1200.
-        jd = sceneXPos + 2159350.5
+        if cbotIntradayMinuteBarsEnabled == True:
+            # Julian day 2159350.5 is Jan 1, 1200.
+            epocOffset = 2159350.5
+
+            # tradingDay is set to hours in a trading day, as a part of a
+            # whole day.  I.e.   17 trading hours / 24 hours == 0.708333.
+            tradingDay = 0.70833333333
+
+            # Need to find out how much of a offset needs to be
+            # applied for timezone.  Use this as a julian day so we
+            # get a close enough value during daylight savings
+            # periods.
+            
+            notReallyJulianDay = (sceneXPos / tradingDay) + epocOffset
+            dt = Ephemeris.julianDayToDatetime(notReallyJulianDay, self.timezone)
+            td = dt.utcoffset()
+            
+            print("tradingDay == {}".format(tradingDay))
+            print("sceneXPos == {}".format(sceneXPos))
+            print("utcoffset timedelta is: {}".format(td))
+            
+            secondsInDay = 86400
+            fractionOfDayUtcOffset = ((td.days * 3600 * 24) + td.seconds) / secondsInDay
+
+            print("utcoffset fraction of a day is: {}".format(fractionOfDayUtcOffset))
+
+            localizedJd = (sceneXPos / tradingDay) - fractionOfDayUtcOffset
+
+            localizedJdWholePortion = math.floor(localizedJd)
+            localizedJdFractionPortion = localizedJd - localizedJdWholePortion
+            
+            partOfDay = localizedJdFractionPortion
+            
+            print("partOfDay == {}".format(partOfDay))
+            
+            adjustment = 0.0
+            
+            jdOffsetFractionalPortion = 0.0
+            
+            if 0.0 <= partOfDay < 0.3020833333333:
+                # In range: [00:00, 07:15).
+                adjustment = 0.0
+                #jdOffsetFractionalPortion = partOfDay
+            elif 0.3020833333333 <= partOfDay < 0.4583333333333333:
+                # In range: [09:30, 13:15).
+                #jdOffsetFractionalPortion = partOfDay + 0.09375
+                adjustment = 0.09375
+            elif 0.4583333333333333 <= partOfDay < tradingDay:
+                # In range: [18:00, 24:00).
+                #jdOffsetFractionalPortion = \
+                #    partOfDay + 0.09375 + 0.19791666666666666
+                adjustment = 0.09375 + 0.19791666666666666
+            else:
+                self.log.error("Unknown part of day: {}".format(partOfDay))
+                jdOffsetFractionalPortion = 0.0
+
+            print("jdOffsetFractionalPortion == {}".\
+                  format(jdOffsetFractionalPortion))
+
+            jd = (sceneXPos / tradingDay) + adjustment + epocOffset
+            
+            #jdOffset = jdOffsetWholePortion + jdOffsetFractionalPortion
+            
+            #print("jdOffset == {}".format(jdOffset))
+            
+            #jd = jdOffset + epocOffset
+            
+            print("jd == {}".format(jd))
+            
+        else:
+            # Julian day 2159350.5 is Jan 1, 1200.
+            epocOffset = 2159350.5
+            jd = sceneXPos + epocOffset
         
         return jd
     
     def julianDayToSceneXPos(self, jd):
-        """Returns the X position in scene coordinates that maps to the given julian day.
+        """Returns the X position in scene coordinates that maps to
+        the given julian day.
 
         Arguments:
         jd - float value holding the julian day timestamp.
@@ -37037,15 +37107,123 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         float value holding the X position in scene coordinates.
         """
 
-        #sceneXPos = jd * 0.01
-        #sceneXPos = jd
+        # Flag to enable utilizing intraday minute bars stacked
+        # together (only active trading hours).
+        cbotIntradayMinuteBarsEnabled = False
 
-        # Julian day 2396758.5 is Jan 1, 1850.
-        #sceneXPos = jd - 2396758.5
-        
-        # Julian day 2159350.5 is Jan 1, 1200.
-        sceneXPos = jd - 2159350.5
-        
+        if cbotIntradayMinuteBarsEnabled == True:
+
+            # Julian day 2159350.5 is Jan 1, 1200.
+            epocOffset = 2159350.5
+            jdOffset = jd - epocOffset
+
+            # tradingDay is set to hours in a trading day, as a part of a
+            # whole day.  I.e.   17 trading hours / 24 hours == 0.708333.
+            tradingDay = 0.70833333333
+            
+            dt = Ephemeris.julianDayToDatetime(jd, self.timezone)
+            
+            print("dt == {}".format(Ephemeris.datetimeToStr(dt)))
+            print("self.timezone is: {}".format(self.timezone))
+            print("jd == {}".format(jd))
+
+            jdOfDayElapsed = \
+                (dt.hour   * 0.041666666666666664) + \
+                (dt.minute * 0.0006944444444444444) + \
+                (dt.second * 0.00001157407407407407)
+
+            partOfDay = jdOfDayElapsed
+
+            adjustment = 0.0
+            
+            if 0.0 <= partOfDay < 0.3020833333333:
+                # In range: [00:00, 07:15).
+                adjustment = 0.0
+                
+                #jdOffsetFractionalPortion = partOfDay
+            elif 0.3958333333333333 <= partOfDay < 0.5520833333333334:
+                # In range: [09:30, 13:15).
+                adjustment = -0.09375
+                
+                #jdOffsetFractionalPortion = partOfDay - 0.09375
+            elif 0.75 <= partOfDay < 1.0:
+                # In range: [18:00, 24:00).
+
+                adjustment = -0.09375 - 0.19791666666666666
+                #jdOffsetFractionalPortion = \
+                #    partOfDay - 0.09375 - 0.19791666666666666
+            else:
+                warnMsg = \
+                    "Julian day is not within normal trading hours.  " + \
+                    "Using 00:00 UTC.  " + \
+                    "Value given was: {} or {}".\
+                    format(jd, Ephemeris.julianDayToDatetime(jd, self.timezone))
+                self.log.warn(warnMsg)
+                #jdOffsetFractionalPortion = 0.0
+                adjustment = 0.0
+
+            #wholeNumberOfDays = jdOffset - jdOfDayElapsed
+            #print("wholeNumberOfDays == {}".format(wholeNumberOfDays))
+            #print("tradingDay == {}".format(tradingDay))
+            #print("partOfDay == {}".format(partOfDay))
+            #print("jdOffsetFractionalPortion == {}".format(jdOffsetFractionalPortion))
+            
+            sceneXPos = \
+                jdOffset + adjustment
+            
+            #print("dt.hour is: {}".format(dt.hour))
+            #print("dt.minute is: {}".format(dt.minute))
+            #print("dt.second is: {}".format(dt.second))
+            #
+            #td = dt.utcoffset()
+            #
+            #print("utcoffset timedelta is: {}".format(td))
+            #
+            #secondsInDay = 86400
+            #fractionOfDayUtcOffset = ((td.days * 3600 * 24) + td.seconds) / secondsInDay
+            #
+            #print("utcoffset fraction of a day is: {}".format(fractionOfDayUtcOffset))
+            #
+            #adjusted = (jdOffset + fractionOfDayUtcOffset)
+            #print("adjusted == {}".format(adjusted))
+            #
+            #jdOfDayElapsed = adjusted - math.floor(adjusted)
+            #print("jdOfDayElapsed == {}".format(jdOfDayElapsed))
+            #partOfDay = jdOfDayElapsed
+            #
+            #if 0.0 <= partOfDay < 0.3020833333333:
+            #    # In range: [00:00, 07:15).
+            #    jdOffsetFractionalPortion = partOfDay
+            #elif 0.3958333333333333 <= partOfDay < 0.5520833333333334:
+            #    # In range: [09:30, 13:15).
+            #    jdOffsetFractionalPortion = partOfDay - 0.09375
+            #elif 0.75 <= partOfDay < 1.0:
+            #    # In range: [18:00, 24:00).
+            #    jdOffsetFractionalPortion = \
+            #        partOfDay - 0.09375 - 0.19791666666666666
+            #else:
+            #    warnMsg = \
+            #        "Julian day is not within normal trading hours.  " + \
+            #        "Using 00:00 UTC.  " + \
+            #        "Value given was: {} or {}".\
+            #        format(jd, Ephemeris.julianDayToDatetime(jd, self.timezone))
+            #    self.log.warn(warnMsg)
+            #    jdOffsetFractionalPortion = 0.0
+            #
+            #wholeNumberOfDays = jdOffset - jdOfDayElapsed
+            #print("wholeNumberOfDays == {}".format(wholeNumberOfDays))
+            #print("tradingDay == {}".format(tradingDay))
+            #print("partOfDay == {}".format(partOfDay))
+            #print("jdOffsetFractionalPortion == {}".format(jdOffsetFractionalPortion))
+            
+            #sceneXPos = \
+            #    (wholeNumberOfDays * tradingDay) + jdOffsetFractionalPortion
+            
+        else:
+            # Julian day 2159350.5 is Jan 1, 1200.
+            epocOffset = 2159350.5
+            sceneXPos = jd - epocOffset
+            
         return sceneXPos
     
     def sceneXPosToDatetime(self, sceneXPos):
@@ -37104,9 +37282,8 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         """
 
         jd = Ephemeris.datetimeToJulianDay(dt)
-
         sceneXPos = self.julianDayToSceneXPos(jd)
-        
+            
         return sceneXPos
 
     def priceToSceneYPos(self, price):
