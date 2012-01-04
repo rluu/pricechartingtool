@@ -1,5 +1,7 @@
 ------------------------
 Running testMinMaxPlanetLongitudeSpeeds()
+    FINAL: maxSpeed of Moon is: 15.3854340872
+    FINAL: minSpeed of Moon is: 0
     FINAL: maxSpeed of Mercury is: 2.20247915641
     FINAL: minSpeed of Mercury is: -1.38648011915
     FINAL: maxSpeed of Venus is: 1.25885851698
@@ -42,4 +44,8 @@ Running testMinMaxPlanetLongitudeSpeeds()
     FINAL: minSpeed of Juno is: -0.260653543849
     FINAL: maxSpeed of Vesta is: 0.541960483784
     FINAL: minSpeed of Vesta is: -0.265968505255
+    FINAL: maxSpeed of MeanOfFive is: 0.0907366503314
+    FINAL: minSpeed of MeanOfFive is: -0.0486608813613
+    FINAL: maxSpeed of CycleOfEight is: 0.562461969991
+    FINAL: minSpeed of CycleOfEight is: -0.239189857922
 Exiting.
