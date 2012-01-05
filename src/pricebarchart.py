@@ -36907,7 +36907,8 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
     # Signal emitted when the user desires to view a datetime.datetime
     # in Astrolog.
     astrologLaunch = QtCore.pyqtSignal(datetime.datetime)
-    
+
+
     def __init__(self, parent=None):
         """Pass-through to the QGraphicsScene constructor."""
 
@@ -36915,6 +36916,10 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
 
         # Logger
         self.log = logging.getLogger("pricebarchart.PriceBarChartGraphicsScene")
+
+        # Flag to enable the conversion algorithm utilizing CBOT intraday
+        # minute bars stacked together (to only display active trading hours).
+        self.cbotIntradayStackedBarsEnabled = False
 
         # Holds the scaling object which is used for scaling-related
         # calculations.
@@ -37016,13 +37021,10 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         float holding the julian day equivalent timestamp.
         """
 
-        # Flag to enable utilizing intraday minute bars stacked
-        # together (only active trading hours).
-        cbotIntradayMinuteBarsEnabled = False
-
-        if cbotIntradayMinuteBarsEnabled == True:
+        if self.cbotIntradayStackedBarsEnabled == True:
             # Epoc datetime.
-            # Must match the baseline value used in julianDayToSceneXPos().
+            # If this is changed, it must match the baseline value
+            # used in julianDayToSceneXPos().
             baseline = datetime.datetime(year=1968, month=1, day=1,
                                          hour=0, minute=0, second=0,
                                          tzinfo=self.timezone)
@@ -37083,13 +37085,10 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         float value holding the X position in scene coordinates.
         """
 
-        # Flag to enable utilizing intraday minute bars stacked
-        # together (only active trading hours).
-        cbotIntradayMinuteBarsEnabled = False
-
-        if cbotIntradayMinuteBarsEnabled == True:
+        if self.cbotIntradayStackedBarsEnabled == True:
             # Epoc datetime.
-            # Must match the baseline value used in sceneXPosToJulianDay().
+            # If this is changed, it must match the baseline value
+            # used in sceneXPosToJulianDay().
             baseline = datetime.datetime(year=1968, month=1, day=1,
                                          hour=0, minute=0, second=0,
                                          tzinfo=self.timezone)
@@ -37132,13 +37131,12 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
                 fractionalPortion = hours / totalTradingDayHours
                 
             else:
-                # TODO:  Should I raise an exception here?  There really shouldn't be any scenarios where a julian day out of normal trading hours is queried if I did it correctly.
-                warnMsg = \
+                errMsg = \
                     "Julian day is not within normal trading hours.  " + \
-                    "Using 00:00 UTC.  " + \
                     "Value given was: {} or {}".\
                     format(jd, Ephemeris.julianDayToDatetime(jd, self.timezone))
-                self.log.warn(warnMsg)
+                self.log.error(errMsg)
+                raise ValueError(errMsg)
                 fractionalPortion = 0.0
 
             dt = Ephemeris.julianDayToDatetime(jd, self.timezone)
