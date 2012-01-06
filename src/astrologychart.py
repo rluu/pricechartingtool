@@ -7538,16 +7538,22 @@ class AstrologyChartWidget(QWidget):
                     # settings, so remove the item.
                     self.graphicsScene.removeItem(radixPlanetGraphicsItem)
 
+        # Call update for the declination chart.
+        self.declinationChart.update()
+        
         # Update the aspects for the radix charts.
 
         # Geocentric Sidereal.
         self.geoSidRadixChartGraphicsItem.redrawAspects()
+        self.geoSidRadixChartGraphicsItem.update()
         
         # Geocentric Tropical.
         self.geoTropRadixChartGraphicsItem.redrawAspects()
+        self.geoTropRadixChartGraphicsItem.update()
 
         # Heliocentric Sidereal.
         self.helioSidRadixChartGraphicsItem.redrawAspects()
+        self.helioSidRadixChartGraphicsItem.update()
 
     def setAstroChart1Datetime(self, dt):
         """Sets the datetime of astrology chart 1 within the radix chart.
@@ -7646,22 +7652,6 @@ class AstrologyChartWidget(QWidget):
         else:
             self.log.warn("Unknown chartNum: {}".format(chartNum))
 
-        # Update the declination chart.
-        planetNamesToDisplayForDeclination = \
-            self._getPlanetNamesToDisplayForDeclination()
-        
-        for planetName in planetNamesToDisplayForDeclination:
-            planetDeclinationGraphicsItem = \
-                self.declinationChart.\
-                getPlanetDeclinationGraphicsItem(planetName, chartNum)
-
-            # If an item is found with the given name on the chart
-            # number, then remove that item.
-            if planetDeclinationGraphicsItem != None:
-                self.graphicsScene.removeItem(planetDeclinationGraphicsItem)
-        
-        # Remove QGraphicsItems on each radix chart.
-        
         # Get the PlanetaryInfo objects.  The location values in this
         # list aren't used.  We only need this so we have a list of
         # planet names used.
@@ -7669,7 +7659,17 @@ class AstrologyChartWidget(QWidget):
             datetime.datetime.now(pytz.utc))
 
         for planet in planets:
+
+            # Remove QGraphicsItems on each chart type.
             
+            # Update the declination chart.
+            planetDeclinationGraphicsItem = \
+                self.declinationChart.\
+                getPlanetDeclinationGraphicsItem(planet.name, chartNum)
+
+            if planetDeclinationGraphicsItem != None:
+                self.graphicsScene.removeItem(planetDeclinationGraphicsItem)
+        
             # Update the Geocentric Sidereal chart.
             radixPlanetGraphicsItem = \
                 self.geoSidRadixChartGraphicsItem.\
@@ -7694,18 +7694,24 @@ class AstrologyChartWidget(QWidget):
             if radixPlanetGraphicsItem != None:
                 self.graphicsScene.removeItem(radixPlanetGraphicsItem)
 
-
+        # Call update for the declination chart.
+        self.declinationChart.update()
+        
         # Update the aspects for the radix charts.
-
+        
         # Geocentric Sidereal.
         self.geoSidRadixChartGraphicsItem.redrawAspects()
+        self.geoSidRadixChartGraphicsItem.update()
         
         # Geocentric Tropical.
         self.geoTropRadixChartGraphicsItem.redrawAspects()
+        self.geoTropRadixChartGraphicsItem.update()
 
         # Heliocentric Sidereal.
         self.helioSidRadixChartGraphicsItem.redrawAspects()
+        self.helioSidRadixChartGraphicsItem.update()
 
+        
     def clearAstroChart1(self):
         """Clears the AstroChart1 of all planet-related objects."""
 
