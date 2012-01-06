@@ -4,6 +4,32 @@ Outstanding things to work on going forward:
 
 TODO:  
 
+  - Widget/area (kinda like a spreadsheet but with filterable choices
+    for selections) to step through certain timestamps in a chart so
+    that it is focused on in the pricebarchart and so that it is
+    displayed in the astrology chart.  All that the user has to do is
+    click the down or up arrow, or highlight the entry in the list.
+    The list has a column for the tag name, a column for the
+    timestamp, and a column for the tag str.  This feature will make
+    it much easier to find aspect cycles and sensitive points in the
+    markets.  Declinations and parallel/contraparallels would still be
+    difficult to see.
+
+      Timestamps include:
+
+        - Tagged pricebars as highs and lows (nonempty, certain tag:
+          H, HH, HHH, etc.)
+
+        - Artifact type (nonempty, certain tag).  Usually this will
+          just be the vertical line.
+
+    Maybe it makes sense to have some kind of 'processing' feature
+    where planet hits at highs and lows are drawn on an astrology
+    chart as an X at a color that is somewhat transparent, and if
+    there are more X's at a location, then the color sum of the hit is
+    displayed, so that if there are many hits to a degree, the drawn
+    area would be much darker than X's in less frequently hit areas.
+
   - Add to ephemeris, functions to get HoraLagna, GhatiLagna,
     MeanSouthNode, TrueSouthNode.  Then fix the TODO's for HoraLagna,
     GhatiLagna, MeanSouthNode, TrueSouthNode.
