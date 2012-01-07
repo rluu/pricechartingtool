@@ -4551,9 +4551,18 @@ if __name__=="__main__":
     Ephemeris.initialize()
 
     # Set the Location (required).
-    Ephemeris.setGeographicPosition(-77.084444, 38.890277)
-    #Ephemeris.setGeographicPosition(-77.084444, 38.890277, -68)
 
+    # Chicago:
+    #lat = -87.627777777777
+    #lon = 41.8819444444444444
+    
+    # Chantilly/Arlington:
+    lat = -77.084444
+    lon = 38.890277
+
+    #Ephemeris.setGeographicPosition(lat, lon, -68)
+    Ephemeris.setGeographicPosition(lat, lon)
+    
     # Different tests that can be run:
     #testGetPlanetaryInfos()
     #testHouseCusps()

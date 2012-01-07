@@ -7342,15 +7342,15 @@ class AstrologyChartWidget(QWidget):
                         AstrologyUtils.getAbbreviationForPlanetName(planet.name),
                         AstrologyUtils.getForegroundColorForPlanetName(planet.name),
                         AstrologyUtils.getBackgroundColorForPlanetName(planet.name),
-                        degree=planet.geocentric['sidereal']['latitude'],
-                        velocity=planet.geocentric['sidereal']['longitude_speed'],
+                        degree=planet.geocentric['tropical']['declination'],
+                        velocity=planet.geocentric['tropical']['declination_speed'],
                         planetGroupNumber=chartNum,
                         parent=self.declinationChart)
                 else:
                     # The PlanetDeclinationGraphicsItem for this planet
                     # already exists for this chartNum.  Just update it.
-                    degree = planet.geocentric['sidereal']['latitude']
-                    velocity = planet.geocentric['sidereal']['longitude_speed']
+                    degree = planet.geocentric['tropical']['declination']
+                    velocity = planet.geocentric['tropical']['declination_speed']
                     planetDeclinationGraphicsItem.setDegreeAndVelocity(degree, velocity)
             else:
                 if planetDeclinationGraphicsItem != None:

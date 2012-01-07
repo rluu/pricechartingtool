@@ -26,8 +26,12 @@ from PyQt4.QtGui import *
 # Include some PriceChartingTool modules.
 from ephemeris import Ephemeris
 from data_objects import *
-from pricebarchart import *
-#from pricebarchart import PriceBarChartGraphicsScene
+
+# Commented out to find out what else I'm using in module pricebarchart.
+#from pricebarchart import *
+from pricebarchart import PriceBarChartGraphicsScene
+
+
 from astrologychart import AstrologyUtils
 
 ##############################################################################
@@ -4951,9 +4955,9 @@ class PlanetaryCombinationsLibrary:
         endDt     - datetime.datetime object for the ending timestamp
                     to do the calculations for artifacts.
         highPrice - float value for the high price which represents
-                    the location for +15 degrees declination.
+                    the location for +25 degrees declination.
         lowPrice  - float value for the low price which represents
-                    the location for -15 degrees declination.
+                    the location for +25 degrees declination.
         planetName - str holding the name of the planet to do the
                      calculations for.
         color     - QColor object for what color to draw the lines.
@@ -4984,6 +4988,9 @@ class PlanetaryCombinationsLibrary:
         # Calculate the average of the low and high price.  This is
         # the price location of 0 degrees declination.
         avgPrice = (lowPrice + highPrice) / 2.0
+
+        # Value for the absolute value of the maximum/minimum declination.
+        absoluteMaxDeclination = 25.0
         
         # Set the color if it is not already set to something.
         colorWasSpecifiedFlag = True
@@ -5038,9 +5045,9 @@ class PlanetaryCombinationsLibrary:
             
             log.debug("{} declination is: {}".\
                       format(p1.name,
-                             p1.geocentric['sidereal']['declination']))
+                             p1.geocentric['tropical']['declination']))
             
-            declinations[-1] = p1.geocentric['sidereal']['declination']
+            declinations[-1] = p1.geocentric['tropical']['declination']
             
             for i in range(len(steps)):
                 log.debug("steps[{}] == {}".\
@@ -5050,8 +5057,8 @@ class PlanetaryCombinationsLibrary:
 
 
             if declinations[-2] != None:
-
-                pricePerDeclDegree = (highPrice - avgPrice) / 15.0
+                pricePerDeclDegree = \
+                    (highPrice - avgPrice) / absoluteMaxDeclination
 
                 
                 startPointX = \
@@ -5132,9 +5139,9 @@ class PlanetaryCombinationsLibrary:
         endDt     - datetime.datetime object for the ending timestamp
                     to do the calculations for artifacts.
         highPrice - float value for the high price which represents
-                    the location for +15 degrees declination.
+                    the location for +25 degrees declination.
         lowPrice  - float value for the low price which represents
-                    the location for -15 degrees declination.
+                    the location for -25 degrees declination.
         planetName - str holding the name of the planet to do the
                      calculations for.
         relativeDeclValue - float value for the relative declination degree
@@ -5167,6 +5174,9 @@ class PlanetaryCombinationsLibrary:
         # Calculate the average of the low and high price.  This is
         # the price location of 0 degrees declination.
         avgPrice = (lowPrice + highPrice) / 2.0
+        
+        # Value for the absolute value of the maximum/minimum declination.
+        absoluteMaxDeclination = 25.0
         
         # Set the color if it is not already set to something.
         colorWasSpecifiedFlag = True
@@ -5221,9 +5231,9 @@ class PlanetaryCombinationsLibrary:
             
             log.debug("{} declination is: {}".\
                       format(p1.name,
-                             p1.geocentric['sidereal']['declination']))
+                             p1.geocentric['tropical']['declination']))
             
-            declinations[-1] = p1.geocentric['sidereal']['declination']
+            declinations[-1] = p1.geocentric['tropical']['declination']
             
             for i in range(len(steps)):
                 log.debug("steps[{}] == {}".\
@@ -5234,8 +5244,8 @@ class PlanetaryCombinationsLibrary:
 
             if declinations[-2] != None:
 
-                pricePerDeclDegree = (highPrice - avgPrice) / 15.0
-                
+                pricePerDeclDegree = \
+                    (highPrice - avgPrice) / absoluteMaxDeclination
                 
                 startPointX = \
                     PlanetaryCombinationsLibrary.scene.\
@@ -5317,9 +5327,9 @@ class PlanetaryCombinationsLibrary:
         endDt     - datetime.datetime object for the ending timestamp
                     to do the calculations for artifacts.
         highPrice - float value for the high price which represents
-                    the location for +15 degrees declination.
+                    the location for +25 degrees declination.
         lowPrice  - float value for the low price which represents
-                    the location for -15 degrees declination.
+                    the location for -25 degrees declination.
         planetName - str holding the name of the planet to do the
                      calculations for.
         color     - QColor object for what color to draw the lines.
@@ -5409,9 +5419,9 @@ class PlanetaryCombinationsLibrary:
             
             log.debug("{} declination is: {}".\
                       format(p1.name,
-                             p1.geocentric['sidereal']['declination']))
+                             p1.geocentric['tropical']['declination']))
             
-            declinations[-1] = p1.geocentric['sidereal']['declination']
+            declinations[-1] = p1.geocentric['tropical']['declination']
             
             for i in range(len(steps)):
                 log.debug("steps[{}] == {}".\
@@ -5446,7 +5456,7 @@ class PlanetaryCombinationsLibrary:
                     
                     p1 = Ephemeris.getPlanetaryInfo(planetName, testDt)
 
-                    diffDeg = p1.geocentric['sidereal']['declination']
+                    diffDeg = p1.geocentric['tropical']['declination']
                     
                     testDiff = diffDeg
                     if testDiff < desiredDegree:
@@ -5499,7 +5509,7 @@ class PlanetaryCombinationsLibrary:
                     
                     p1 = Ephemeris.getPlanetaryInfo(planetName, testDt)
 
-                    diffDeg = p1.geocentric['sidereal']['declination']
+                    diffDeg = p1.geocentric['tropical']['declination']
                     
                     testDiff = diffDeg
                     if testDiff > desiredDegree:
@@ -5558,9 +5568,9 @@ class PlanetaryCombinationsLibrary:
         endDt     - datetime.datetime object for the ending timestamp
                     to do the calculations for artifacts.
         highPrice - float value for the high price which represents
-                    the location for +15 degrees declination.
+                    the location for the top of the vertical line.
         lowPrice  - float value for the low price which represents
-                    the location for -15 degrees declination.
+                    the location for the bottom of the vertical line.
         planetName - str holding the name of the planet to do the
                      calculations for.
         color     - QColor object for what color to draw the lines.
@@ -5653,9 +5663,9 @@ class PlanetaryCombinationsLibrary:
             
             log.debug("{} declination is: {}".\
                       format(p1.name,
-                             p1.geocentric['sidereal']['declination']))
+                             p1.geocentric['tropical']['declination']))
             
-            declinations[-1] = p1.geocentric['sidereal']['declination']
+            declinations[-1] = p1.geocentric['tropical']['declination']
             
             for i in range(len(steps)):
                 log.debug("steps[{}] == {}".\
@@ -5735,9 +5745,9 @@ class PlanetaryCombinationsLibrary:
         endDt     - datetime.datetime object for the ending timestamp
                     to do the calculations for artifacts.
         highPrice - float value for the high price which represents
-                    the location for +15 degrees declination.
+                    the location for the top of the vertical line.
         lowPrice  - float value for the low price which represents
-                    the location for -15 degrees declination.
+                    the location for the bottom of the vertical line.
         planetName - str holding the name of the planet to do the
                      calculations for.
         color     - QColor object for what color to draw the lines.
@@ -6336,3 +6346,335 @@ class PlanetaryCombinationsLibrary:
         return rv
     
 
+    @staticmethod
+    def addContraparallelDeclinationAspectVerticalLines(\
+        pcdd, startDt, endDt,
+        highPrice, lowPrice,
+        planet1Name,
+        planet2Name,
+        color=None,
+        maxErrorTd=datetime.timedelta(hours=1)):
+        """Adds a vertical line segments whenever two planets
+        are contraparallel with each other.
+        
+        Arguments:
+        pcdd      - PriceChartDocumentData object that will be modified.
+        startDt   - datetime.datetime object for the starting timestamp
+                    to do the calculations for artifacts.
+        endDt     - datetime.datetime object for the ending timestamp
+                    to do the calculations for artifacts.
+        highPrice - float value for the high price which represents
+                    the location for the top of the vertical line.
+        lowPrice  - float value for the low price which represents
+                    the location for the bottom of the vertical line.
+        planet1Name - str holding the name of the first planet to do the
+                      calculations for.
+        planet2Name - str holding the name of the second planet to do the
+                      calculations for.
+        color     - QColor object for what color to draw the lines.
+                    If this is set to None, then the default color will be used.
+        maxErrorTd - datetime.timedelta object holding the maximum
+                     time difference between the exact planetary
+                     combination timestamp, and the one calculated.
+                     This would define the accuracy of the
+                     calculations.
+        
+        Returns:
+        True if operation succeeded, False otherwise.
+        """
+        
+        log.debug("Entered " + inspect.stack()[0][3] + "()")
+
+        # Return value.
+        rv = True
+
+        # Make sure the inputs are valid.
+        if endDt < startDt:
+            log.error("Invalid input: 'endDt' must be after 'startDt'")
+            rv = False
+            return rv
+        if lowPrice > highPrice:
+            log.error("Invalid input: " +
+                      "'lowPrice' is not less than or equal to 'highPrice'")
+            rv = False
+            return rv
+
+        # Set the color if it is not already set to something.
+        colorWasSpecifiedFlag = True
+        if color == None:
+            colorWasSpecifiedFlag = False
+            #color = AstrologyUtils.getForegroundColorForPlanetName(planetName)
+            color = QColor(Qt.darkYellow)
+
+        # Set the tag str.
+        tag = inspect.stack()[0][3]
+        if tag.startswith("add") and len(tag) > 3:
+            tag = tag[3:] + "_" + planet1Name + "_" + planet2Name
+        log.debug("tag == '{}'".format(tag))
+        
+        # Initialize the Ephemeris with the birth location.
+        log.debug("Setting ephemeris location ...")
+        Ephemeris.setGeographicPosition(pcdd.birthInfo.longitudeDegrees,
+                                        pcdd.birthInfo.latitudeDegrees,
+                                        pcdd.birthInfo.elevation)
+
+        # Set the step size.
+        # Use maxErrorTd as the step size because I'm lazy and this
+        # won't require us to narrow down the transition point when we
+        # find it.
+        stepSizeTd = maxErrorTd
+
+        # Field name.
+        fieldName = "declination"
+        
+        # Count of artifacts added.
+        numArtifactsAdded = 0
+
+        # Now, in UTC.
+        now = datetime.datetime.now(pytz.utc)
+        
+        # Timestamp steps saved (list of datetime.datetime).
+        steps = []
+        steps.append(copy.deepcopy(startDt))
+        steps.append(copy.deepcopy(startDt))
+
+        # Declination of the steps saved (list of float).
+        declinationsP1 = []
+        declinationsP1.append(None)
+        declinationsP1.append(None)
+
+        declinationsP2 = []
+        declinationsP2.append(None)
+        declinationsP2.append(None)
+
+        # Iterate through, creating artfacts and adding them as we go.
+        log.debug("Stepping through timestamps from {} to {} ...".\
+                  format(Ephemeris.datetimeToStr(startDt),
+                         Ephemeris.datetimeToStr(endDt)))
+        
+        while steps[-1] < endDt:
+            currDt = steps[-1]
+            prevDt = steps[-2]
+            
+            log.debug("Looking at currDt == {} ...".\
+                      format(Ephemeris.datetimeToStr(currDt)))
+            
+            p1 = Ephemeris.getPlanetaryInfo(planet1Name, currDt)
+            p2 = Ephemeris.getPlanetaryInfo(planet2Name, currDt)
+            
+            declinationsP1[-1] = p1.geocentric['tropical'][fieldName]
+            declinationsP2[-1] = p2.geocentric['tropical'][fieldName]
+            
+            for i in range(len(steps)):
+                log.debug("steps[{}] == {}".\
+                          format(i, Ephemeris.datetimeToStr(steps[i])))
+            for i in range(len(declinationsP1)):
+                log.debug("declinationsP1[{}] == {}".\
+                          format(i, declinationsP1[i]))
+            for i in range(len(declinationsP2)):
+                log.debug("declinationsP2[{}] == {}".\
+                          format(i, declinationsP2[i]))
+
+            if (declinationsP1[-1] < 0 and declinationsP2[-1] > 0) or \
+               (declinationsP1[-1] > 0 and declinationsP2[-1] < 0):
+
+                # Declinations are opposite polarity.
+
+                # Get the differences as if they were both positive values.
+                prevAbsDiff = \
+                    abs(declinationsP1[-2]) - abs(declinationsP2[-2])
+                currAbsDiff = \
+                    abs(declinationsP1[-1]) - abs(declinationsP2[-1])
+
+                if (prevAbsDiff < 0 and currAbsDiff > 0) or \
+                   (prevAbsDiff > 0 and currAbsDiff < 0):
+
+                    # Crossed over the contraparallel aspect location.
+
+                    # Create the artifact at the timestamp.
+                    PlanetaryCombinationsLibrary.\
+                        addVerticalLine(pcdd, currDt,
+                                        highPrice, lowPrice, tag, color)
+                    numArtifactsAdded += 1
+                
+            # Prepare for the next iteration.
+            steps.append(copy.deepcopy(steps[-1]) + stepSizeTd)
+            del steps[0]
+            declinationsP1.append(None)
+            del declinationsP1[0]
+            declinationsP2.append(None)
+            del declinationsP2[0]
+            
+            
+        log.info("Number of artifacts added: {}".format(numArtifactsAdded))
+                
+        log.debug("Exiting " + inspect.stack()[0][3] + "()")
+        return rv
+
+        
+    @staticmethod
+    def addParallelDeclinationAspectVerticalLines(\
+        pcdd, startDt, endDt,
+        highPrice, lowPrice,
+        planet1Name,
+        planet2Name,
+        color=None,
+        maxErrorTd=datetime.timedelta(hours=1)):
+        """Adds a vertical line segments whenever two planets
+        are parallel with each other.
+        
+        Arguments:
+        pcdd      - PriceChartDocumentData object that will be modified.
+        startDt   - datetime.datetime object for the starting timestamp
+                    to do the calculations for artifacts.
+        endDt     - datetime.datetime object for the ending timestamp
+                    to do the calculations for artifacts.
+        highPrice - float value for the high price which represents
+                    the location for the top of the vertical line.
+        lowPrice  - float value for the low price which represents
+                    the location for the bottom of the vertical line.
+        planet1Name - str holding the name of the first planet to do the
+                      calculations for.
+        planet2Name - str holding the name of the second planet to do the
+                      calculations for.
+        color     - QColor object for what color to draw the lines.
+                    If this is set to None, then the default color will be used.
+        maxErrorTd - datetime.timedelta object holding the maximum
+                     time difference between the exact planetary
+                     combination timestamp, and the one calculated.
+                     This would define the accuracy of the
+                     calculations.
+        
+        Returns:
+        True if operation succeeded, False otherwise.
+        """
+        
+        log.debug("Entered " + inspect.stack()[0][3] + "()")
+
+        # Return value.
+        rv = True
+
+        # Make sure the inputs are valid.
+        if endDt < startDt:
+            log.error("Invalid input: 'endDt' must be after 'startDt'")
+            rv = False
+            return rv
+        if lowPrice > highPrice:
+            log.error("Invalid input: " +
+                      "'lowPrice' is not less than or equal to 'highPrice'")
+            rv = False
+            return rv
+
+        # Set the color if it is not already set to something.
+        colorWasSpecifiedFlag = True
+        if color == None:
+            colorWasSpecifiedFlag = False
+            #color = AstrologyUtils.getForegroundColorForPlanetName(planetName)
+            color = QColor(Qt.darkCyan)
+        
+        # Set the tag str.
+        tag = inspect.stack()[0][3]
+        if tag.startswith("add") and len(tag) > 3:
+            tag = tag[3:] + "_" + planet1Name + "_" + planet2Name
+        log.debug("tag == '{}'".format(tag))
+        
+        # Initialize the Ephemeris with the birth location.
+        log.debug("Setting ephemeris location ...")
+        Ephemeris.setGeographicPosition(pcdd.birthInfo.longitudeDegrees,
+                                        pcdd.birthInfo.latitudeDegrees,
+                                        pcdd.birthInfo.elevation)
+
+        # Set the step size.
+        # Use maxErrorTd as the step size because I'm lazy and this
+        # won't require us to narrow down the transition point when we
+        # find it.
+        stepSizeTd = maxErrorTd
+
+        # Field name.
+        fieldName = "declination"
+        
+        # Count of artifacts added.
+        numArtifactsAdded = 0
+
+        # Now, in UTC.
+        now = datetime.datetime.now(pytz.utc)
+        
+        # Timestamp steps saved (list of datetime.datetime).
+        steps = []
+        steps.append(copy.deepcopy(startDt))
+        steps.append(copy.deepcopy(startDt))
+
+        # Declination of the steps saved (list of float).
+        declinationsP1 = []
+        declinationsP1.append(None)
+        declinationsP1.append(None)
+
+        declinationsP2 = []
+        declinationsP2.append(None)
+        declinationsP2.append(None)
+
+        # Iterate through, creating artfacts and adding them as we go.
+        log.debug("Stepping through timestamps from {} to {} ...".\
+                  format(Ephemeris.datetimeToStr(startDt),
+                         Ephemeris.datetimeToStr(endDt)))
+        
+        while steps[-1] < endDt:
+            currDt = steps[-1]
+            prevDt = steps[-2]
+            
+            log.debug("Looking at currDt == {} ...".\
+                      format(Ephemeris.datetimeToStr(currDt)))
+            
+            p1 = Ephemeris.getPlanetaryInfo(planet1Name, currDt)
+            p2 = Ephemeris.getPlanetaryInfo(planet2Name, currDt)
+            
+            declinationsP1[-1] = p1.geocentric['tropical'][fieldName]
+            declinationsP2[-1] = p2.geocentric['tropical'][fieldName]
+            
+            for i in range(len(steps)):
+                log.debug("steps[{}] == {}".\
+                          format(i, Ephemeris.datetimeToStr(steps[i])))
+            for i in range(len(declinationsP1)):
+                log.debug("declinationsP1[{}] == {}".\
+                          format(i, declinationsP1[i]))
+            for i in range(len(declinationsP2)):
+                log.debug("declinationsP2[{}] == {}".\
+                          format(i, declinationsP2[i]))
+
+            if (declinationsP1[-1] < 0 and declinationsP2[-1] < 0) or \
+               (declinationsP1[-1] > 0 and declinationsP2[-1] > 0):
+
+                # Declinations are the same polarity.
+
+                # Get the differences as if they were both positive values.
+                prevAbsDiff = \
+                    abs(declinationsP1[-2]) - abs(declinationsP2[-2])
+                currAbsDiff = \
+                    abs(declinationsP1[-1]) - abs(declinationsP2[-1])
+
+                if (prevAbsDiff < 0 and currAbsDiff > 0) or \
+                   (prevAbsDiff > 0 and currAbsDiff < 0):
+
+                    # Crossed over the parallel aspect location.
+
+                    # Create the artifact at the timestamp.
+                    PlanetaryCombinationsLibrary.\
+                        addVerticalLine(pcdd, currDt,
+                                        highPrice, lowPrice, tag, color)
+                    numArtifactsAdded += 1
+                
+            # Prepare for the next iteration.
+            steps.append(copy.deepcopy(steps[-1]) + stepSizeTd)
+            del steps[0]
+            declinationsP1.append(None)
+            del declinationsP1[0]
+            declinationsP2.append(None)
+            del declinationsP2[0]
+            
+            
+        log.info("Number of artifacts added: {}".format(numArtifactsAdded))
+                
+        log.debug("Exiting " + inspect.stack()[0][3] + "()")
+        return rv
+
+        

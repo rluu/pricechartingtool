@@ -434,4 +434,21 @@ I do not yet have the calculations and formulas for these ayanamsas so it is
 not currently implemented in this application.
 
 
+Swiss Ephemeris calculation anomalies found by me (rluu):
+
+1) Calculating the geocentric declination of the Sun when the
+Ephemeris is set to sidereal yields different values than when it is
+queried when set to tropical.  The difference is small, but
+significant since there should not be any differences of declination
+because declination is measured on a different axis.  The different
+seen was about 0.0006 degrees, or over two arc seconds.  Differences
+may be larger when looking at other planets.  In this program I will
+try to use geocentric tropical settings whenever getting declination.
+
+2) Values obtained by quering the heliocentric declination of the
+Earth is not correct.  The results seen appear to be just -1 times the
+geocentric declination of the Sun.  My guess is other heliocentric
+declinations are probably wrong too.
+
+
 ##############################################################################
