@@ -3289,7 +3289,7 @@ class DeclinationChartGraphicsItem(QGraphicsItem):
             logging.getLogger("astrologychart.DeclinationGraphicsItem")
 
         self.rulerWidth = 40.0
-        self.rulerHeight = 300.0
+        self.rulerHeight = 600.0
 
         # These are on the verical axis.  Ruler height must be evenly
         # divisible by these tick size numbers below.
@@ -5494,7 +5494,7 @@ class AstrologyChartWidget(QWidget):
         self.helioSidRadixChartGraphicsItem.setScale(0.5)
 
         self.declinationChart = DeclinationChartGraphicsItem()
-        self.declinationChart.setScale(2.0)
+        self.declinationChart.setScale(0.8)
 
         # TODO: add these widgets for longitude speeds...?  Maybe it's not worth the effort right now?
         self.longitudeSpeedChart1Mercury = \
@@ -5572,7 +5572,7 @@ class AstrologyChartWidget(QWidget):
         declStartY = y
         self.declinationChartLabel.setPos(x, y)
         x += 36
-        y += 160
+        y += 260
         self.declinationChart.setPos(x, y)
 
         

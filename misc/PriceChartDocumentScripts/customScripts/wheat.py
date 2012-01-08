@@ -44,28 +44,29 @@ log.setLevel(logLevel)
 #startDt = datetime.datetime(year=1508, month=1, day=1,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
-startDt = datetime.datetime(year=1968, month=1, day=1,
-                            hour=0, minute=0, second=0,
-                            tzinfo=pytz.utc)
-#startDt = datetime.datetime(year=2010, month=1, day=1,
+#startDt = datetime.datetime(year=1968, month=1, day=1,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
+startDt = datetime.datetime(year=2001, month=1, day=1,
+                            hour=0, minute=0, second=0,
+                            tzinfo=pytz.utc)
 #startDt = datetime.datetime(year=2011, month=12, day=18,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
-endDt   = datetime.datetime(year=2012, month=4, day=1,
-                            hour=0, minute=0, second=0,
-                            tzinfo=pytz.utc)
-#endDt   = datetime.datetime(year=2012, month=4, day=1,
+
+#endDt   = datetime.datetime(year=2013, month=1, day=1,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
+endDt   = datetime.datetime(year=2012, month=1, day=1,
+                            hour=0, minute=0, second=0,
+                            tzinfo=pytz.utc)
 #endDt   = datetime.datetime(year=2020, month=1, day=1,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
 
 # High and low price limits for drawing the vertical lines.
 highPrice = 1200.0
-lowPrice = 100.0
+lowPrice = 300.0
 
 ##############################################################################
 
@@ -141,34 +142,34 @@ def processPCDD(pcdd, tag):
 
     stepSizeTd = datetime.timedelta(days=3)
     #highPrice = 800.0
-    highPrice = 600.0
+    #highPrice = 600.0
     #lowPrice = 600.0
-    lowPrice = 300.0
+    #lowPrice = 300.0
 
-    success = PlanetaryCombinationsLibrary.addVelocityLines(\
-        pcdd, startDt, endDt, highPrice, lowPrice,
-        planetName="Mercury", 
-        color=None, stepSizeTd=stepSizeTd)
-    success = PlanetaryCombinationsLibrary.addVelocityLines(\
-        pcdd, startDt, endDt, highPrice, lowPrice,
-        planetName="Venus", 
-        color=None, stepSizeTd=stepSizeTd)
-    success = PlanetaryCombinationsLibrary.addVelocityLines(\
-        pcdd, startDt, endDt, highPrice, lowPrice,
-        planetName="Mars", 
-        color=None, stepSizeTd=stepSizeTd)
+    #success = PlanetaryCombinationsLibrary.addVelocityLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    planetName="Mercury", 
+    #    color=None, stepSizeTd=stepSizeTd)
+    #success = PlanetaryCombinationsLibrary.addVelocityLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    planetName="Venus", 
+    #    color=None, stepSizeTd=stepSizeTd)
+    #success = PlanetaryCombinationsLibrary.addVelocityLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    planetName="Mars", 
+    #    color=None, stepSizeTd=stepSizeTd)
     #success = PlanetaryCombinationsLibrary.addVelocityLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    planetName="Uranus", 
     #    color=None, stepSizeTd=stepSizeTd)
-    success = PlanetaryCombinationsLibrary.addVelocityLines(\
-        pcdd, startDt, endDt, highPrice, lowPrice,
-        planetName="MeanOfFive", 
-        color=None, stepSizeTd=stepSizeTd)
-    success = PlanetaryCombinationsLibrary.addVelocityLines(\
-        pcdd, startDt, endDt, highPrice, lowPrice,
-        planetName="CycleOfEight", 
-        color=None, stepSizeTd=stepSizeTd)
+    #success = PlanetaryCombinationsLibrary.addVelocityLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    planetName="MeanOfFive", 
+    #    color=None, stepSizeTd=stepSizeTd)
+    #success = PlanetaryCombinationsLibrary.addVelocityLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    planetName="CycleOfEight", 
+    #    color=None, stepSizeTd=stepSizeTd)
 
 
     #success = PlanetaryCombinationsLibrary.addDeclinationLines(\
@@ -208,12 +209,6 @@ def processPCDD(pcdd, tag):
     #    planetName="Pluto", 
     #    color=None, stepSizeTd=stepSizeTd)
 
-    
-    relativeDeclValue = -1.8
-    #success = PlanetaryCombinationsLibrary.addDeclinationDiffLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Mercury", relativeDeclValue=relativeDeclValue,
-    #    color=None, stepSizeTd=stepSizeTd)
     
     p = 1000
     #success = PlanetaryCombinationsLibrary.\
@@ -304,6 +299,35 @@ def processPCDD(pcdd, tag):
     #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
     #    pcdd, startDt, endDt, price=p, planetName="Pluto")
     #p += 200
+
+
+
+    #success = PlanetaryCombinationsLibrary.\
+    #    addZeroDeclinationVerticalLines(
+    #    pcdd, startDt, endDt, highPrice, lowPrice, planetName="Venus")
+    
+    #success = PlanetaryCombinationsLibrary.\
+    #    addDeclinationVelocityPolarityChangeVerticalLines(
+    #    pcdd, startDt, endDt, highPrice, lowPrice, planetName="Venus")
+    
+    #success = PlanetaryCombinationsLibrary.\
+    #    addGeoLongitudeElongationVerticalLines(
+    #    pcdd, startDt, endDt, highPrice, lowPrice, planetName="Venus")
+     
+    #success = PlanetaryCombinationsLibrary.\
+    #    addContraparallelDeclinationAspectVerticalLines(
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    planet1Name="Venus", planet2Name="Mars")
+    
+    #success = PlanetaryCombinationsLibrary.\
+    #    addParallelDeclinationAspectVerticalLines(
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    planet1Name="Venus", planet2Name="Mars")
+    
+    #success = PlanetaryCombinationsLibrary.\
+    #    addPlanetOOBVerticalLines(
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    planetName = "Venus")
     
     if success == True:
         log.debug("Success!")

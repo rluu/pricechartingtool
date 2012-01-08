@@ -4,6 +4,31 @@ Outstanding things to work on going forward:
 
 TODO:  
 
+  - PriceChartDocumentScripts changes:
+
+    - Do latitude calculations for what I've done with declination in
+      PriceChartDocumentScripts.
+
+    - Plot line segments that represent difference in longitude between planet X
+      and planet Y.  Make sure to account for straddling 0 Aries.
+    - Plot vertical lines for the above at turning points from
+      increasing to decreasing or decreasing to increasing.
+  
+    - Plot line segments that represent difference in latitude between planet X
+      and planet Y.  
+    - Plot vertical lines for the above at turning points from
+      increasing to decreasing or decreasing to increasing.
+
+    - Plot line segments that represent difference in declination
+      between planet X and planet Y.
+    - Plot vertical lines for the above at turning points from
+      increasing to decreasing or decreasing to increasing.
+
+
+
+
+  - Fix MOF, COE, etc. to be calculated properly.
+
   - Widget/area (kinda like a spreadsheet but with filterable choices
     for selections) to step through certain timestamps in a chart so
     that it is focused on in the pricebarchart and so that it is
