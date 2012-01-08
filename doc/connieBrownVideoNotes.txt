@@ -1,0 +1,46 @@
+
+Confluence between Sq-of-9 and fibonnaci.
+
+Galileo music theories.
+
+Equal-temperment tuning (Create a tool for this in my program).
+
+'Cents' in music versus cents in dollars.
+
+Pythagorean Intonation.
+
+1:1 - One octave
+1:2 - Two octaves
+1:4 - Three octaves
+1:8 - Four octaves
+
+Fibonnaci relationship found within the musical scale.
+
+Musical systems from all different other cultures.
+
+Greek: Pythagorean Intonation
+Persian: Iszfahan
+Arabic: Rahewi, Sengule
+Semi: Hypophrygian
+1/4: Chinese and Gaels
+
+Tibetan and Japanese scales have Fibonnaci relationship with their scales.
+
+Euler's music work (look at number series).
+http://en.wikipedia.org/wiki/Euler%27s_formula
+
+Number cycles, number series.
+
+e constant
+http://en.wikipedia.org/wiki/E_%28mathematical_constant%29
+
+Euler's equation
+http://www.songho.ca/math/euler/euler.html
+
+Write a mathematical formula for calculating the gann wheels and any
+wheel.  Distance (string length when on any gann wheel) between two numbers.
+
+Confluence area of different fibonnaci extensions to a single price or time.
+
+Fibonnaci extension from a confluence area.
+
