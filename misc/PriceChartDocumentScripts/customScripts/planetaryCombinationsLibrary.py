@@ -4113,7 +4113,6 @@ class PlanetaryCombinationsLibrary:
         log.debug("Exiting " + inspect.stack()[0][3] + "()")
         return rv
 
-
     @staticmethod
     def addBayerTimeFactorsAstroVerticalLines(\
         pcdd, startDt, endDt,
@@ -5120,196 +5119,6 @@ class PlanetaryCombinationsLibrary:
     
 
     @staticmethod
-    def addDeclinationDiffLines(\
-        pcdd, startDt, endDt,
-        highPrice, lowPrice,
-        planetName,
-        relativeDeclValue,
-        color=None,
-        stepSizeTd=datetime.timedelta(days=1)):
-        """Adds a bunch of line segments that represent a given
-        planet's declination degrees' difference from 'diffValue' The
-        start and end points of each line segment is 'stepSizeTd'
-        distance away.
-        
-        Arguments:
-        pcdd      - PriceChartDocumentData object that will be modified.
-        startDt   - datetime.datetime object for the starting timestamp
-                    to do the calculations for artifacts.
-        endDt     - datetime.datetime object for the ending timestamp
-                    to do the calculations for artifacts.
-        highPrice - float value for the high price which represents
-                    the location for +25 degrees declination.
-        lowPrice  - float value for the low price which represents
-                    the location for -25 degrees declination.
-        planetName - str holding the name of the planet to do the
-                     calculations for.
-        relativeDeclValue - float value for the relative declination degree
-                    value to compare the planet's declination to.
-        color     - QColor object for what color to draw the lines.
-                    If this is set to None, then the default color will be used.
-        stepSizeTd - datetime.timedelta object holding the time
-                     distance between each data sample.
-        
-        Returns:
-        True if operation succeeded, False otherwise.
-        """
-        
-        log.debug("Entered " + inspect.stack()[0][3] + "()")
-
-        # Return value.
-        rv = True
-
-        # Make sure the inputs are valid.
-        if endDt < startDt:
-            log.error("Invalid input: 'endDt' must be after 'startDt'")
-            rv = False
-            return rv
-        if lowPrice > highPrice:
-            log.error("Invalid input: " +
-                      "'lowPrice' is not less than or equal to 'highPrice'")
-            rv = False
-            return rv
-
-        # Calculate the average of the low and high price.  This is
-        # the price location of 0 degrees declination.
-        avgPrice = (lowPrice + highPrice) / 2.0
-        
-        # Value for the absolute value of the maximum/minimum declination.
-        absoluteMaxDeclination = 25.0
-        
-        # Set the color if it is not already set to something.
-        colorWasSpecifiedFlag = True
-        if color == None:
-            colorWasSpecifiedFlag = False
-            color = AstrologyUtils.getForegroundColorForPlanetName(planetName)
-
-        # Set the tag str.
-        tag = inspect.stack()[0][3]
-        if tag.startswith("add") and len(tag) > 3:
-            tag = tag[3:] + "_" + planetName
-        log.debug("tag == '{}'".format(tag))
-        
-        # Initialize the Ephemeris with the birth location.
-        log.debug("Setting ephemeris location ...")
-        Ephemeris.setGeographicPosition(pcdd.birthInfo.longitudeDegrees,
-                                        pcdd.birthInfo.latitudeDegrees,
-                                        pcdd.birthInfo.elevation)
-
-        # Count of artifacts added.
-        numArtifactsAdded = 0
-
-        # Now, in UTC.
-        now = datetime.datetime.now(pytz.utc)
-        
-        # Timestamp steps saved (list of datetime.datetime).
-        steps = []
-        steps.append(copy.deepcopy(startDt))
-        steps.append(copy.deepcopy(startDt))
-
-        # Declination of the steps saved (list of float).
-        declinations = []
-        declinations.append(None)
-        declinations.append(None)
-
-        # Start and end timestamps used for the location of the
-        # LineSegmentGraphicsItem.
-        startLineSegmentDt = None
-        endLineSegmentDt = None
-
-        # Iterate through, creating artfacts and adding them as we go.
-        log.debug("Stepping through timestamps from {} to {} ...".\
-                  format(Ephemeris.datetimeToStr(startDt),
-                         Ephemeris.datetimeToStr(endDt)))
-        
-        while steps[-1] < endDt:
-            currDt = steps[-1]
-            log.debug("Looking at currDt == {} ...".\
-                      format(Ephemeris.datetimeToStr(currDt)))
-            
-            p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
-            
-            log.debug("{} declination is: {}".\
-                      format(p1.name,
-                             p1.geocentric['tropical']['declination']))
-            
-            declinations[-1] = p1.geocentric['tropical']['declination']
-            
-            for i in range(len(steps)):
-                log.debug("steps[{}] == {}".\
-                          format(i, Ephemeris.datetimeToStr(steps[i])))
-            for i in range(len(declinations)):
-                log.debug("declinations[{}] == {}".format(i, declinations[i]))
-
-
-            if declinations[-2] != None:
-
-                pricePerDeclDegree = \
-                    (highPrice - avgPrice) / absoluteMaxDeclination
-                
-                startPointX = \
-                    PlanetaryCombinationsLibrary.scene.\
-                    datetimeToSceneXPos(steps[-2])
-                endPointX = \
-                    PlanetaryCombinationsLibrary.scene.\
-                    datetimeToSceneXPos(steps[-1])
-        
-                startPointPrice = \
-                    avgPrice + \
-                    ((relativeDeclValue - declinations[-2]) * \
-                     pricePerDeclDegree)
-                startPointY = \
-                    PlanetaryCombinationsLibrary.scene.\
-                    priceToSceneYPos(startPointPrice)
-                
-                endPointPrice = \
-                    avgPrice + \
-                    ((relativeDeclValue - declinations[-1]) * \
-                     pricePerDeclDegree)
-                endPointY = \
-                    PlanetaryCombinationsLibrary.scene.\
-                    priceToSceneYPos(endPointPrice)
-                
-                item = LineSegmentGraphicsItem()
-                item.loadSettingsFromAppPreferences()
-                item.loadSettingsFromPriceBarChartSettings(\
-                    pcdd.priceBarChartSettings)
-                
-                artifact = item.getArtifact()
-                artifact.addTag(tag)
-                artifact.setTiltedTextFlag(False)
-                artifact.setAngleTextFlag(False)
-                artifact.setColor(color)
-                artifact.setStartPointF(QPointF(startPointX, startPointY))
-                artifact.setEndPointF(QPointF(endPointX, endPointY))
-                
-                # Append the artifact.
-                log.info("Adding '{}' {} at ".\
-                         format(tag, artifact.__class__.__name__) + \
-                         "({}, {}) to ({}, {}), or ({} to {}) ...".\
-                         format(startPointX, startPointY,
-                                endPointX, endPointY,
-                                Ephemeris.datetimeToStr(steps[-2]),
-                                Ephemeris.datetimeToStr(steps[-1])))
-                
-                pcdd.priceBarChartArtifacts.append(artifact)
-                
-                numArtifactsAdded += 1
-
-            # Prepare for the next iteration.
-            steps.append(copy.deepcopy(steps[-1]) + stepSizeTd)
-            del steps[0]
-            declinations.append(None)
-            del declinations[0]
-            
-            
-        log.info("Number of artifacts added: {}".format(numArtifactsAdded))
-                
-        log.debug("Exiting " + inspect.stack()[0][3] + "()")
-        return rv
-    
-
-    @staticmethod
     def addZeroDeclinationVerticalLines(\
         pcdd, startDt, endDt,
         highPrice, lowPrice,
@@ -5639,13 +5448,11 @@ class PlanetaryCombinationsLibrary:
         steps = []
         steps.append(copy.deepcopy(startDt))
         steps.append(copy.deepcopy(startDt))
-        steps.append(copy.deepcopy(startDt))
 
         # Declination of the steps saved (list of float).
-        declinations = []
-        declinations.append(None)
-        declinations.append(None)
-        declinations.append(None)
+        declinationVelocitys = []
+        declinationVelocitys.append(None)
+        declinationVelocitys.append(None)
 
         # Iterate through, creating artfacts and adding them as we go.
         log.debug("Stepping through timestamps from {} to {} ...".\
@@ -5661,28 +5468,26 @@ class PlanetaryCombinationsLibrary:
             
             p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
             
-            log.debug("{} declination is: {}".\
+            log.debug("{} declination speed is: {}".\
                       format(p1.name,
-                             p1.geocentric['tropical']['declination']))
+                             p1.geocentric['tropical']['declination_speed']))
             
-            declinations[-1] = p1.geocentric['tropical']['declination']
+            declinationVelocitys[-1] = \
+                p1.geocentric['tropical']['declination_speed']
             
             for i in range(len(steps)):
                 log.debug("steps[{}] == {}".\
                           format(i, Ephemeris.datetimeToStr(steps[i])))
-            for i in range(len(declinations)):
-                log.debug("declinations[{}] == {}".format(i, declinations[i]))
+            for i in range(len(declinationVelocitys)):
+                log.debug("declinationVelocitys[{}] == {}".\
+                          format(i, declinationVelocitys[i]))
 
-            if declinations[-3] < declinations[-2] and \
-               declinations[-1] < declinations[-2]:
+            if declinationVelocitys[-2] > 0 > declinationVelocitys[-1]:
 
                 # Was increasing, but now decreasing.
                 log.debug("Started decreasing after previously increasing.")
 
-                # Use the middle datetime in our history as the
-                # location, which will ensure it is within the desired
-                # error timedelta.
-                lineDt = steps[-2]
+                lineDt = steps[-1]
                 
                 if colorWasSpecifiedFlag == False:
                     color = QColor(Qt.red)
@@ -5692,17 +5497,13 @@ class PlanetaryCombinationsLibrary:
                     addVerticalLine(pcdd, lineDt,
                                     highPrice, lowPrice, tag, color)
                 numArtifactsAdded += 1
-                
-            elif declinations[-3] > declinations[-2] and \
-               declinations[-1] > declinations[-2]:
+
+            elif declinationVelocitys[-2] < 0 < declinationVelocitys[-1]:
 
                 # Was decreasing, but now increasing.
                 log.debug("Started increasing after previously decreasing.")
 
-                # Use the middle datetime in our history as the
-                # location, which will ensure it is within the desired
-                # error timedelta.
-                lineDt = steps[-2]
+                lineDt = steps[-1]
                 
                 if colorWasSpecifiedFlag == False:
                     color = QColor(Qt.darkRed)
@@ -6439,13 +6240,9 @@ class PlanetaryCombinationsLibrary:
         steps.append(copy.deepcopy(startDt))
 
         # Declination of the steps saved (list of float).
-        declinationsP1 = []
-        declinationsP1.append(None)
-        declinationsP1.append(None)
-
-        declinationsP2 = []
-        declinationsP2.append(None)
-        declinationsP2.append(None)
+        declinationsAvg = []
+        declinationsAvg.append(None)
+        declinationsAvg.append(None)
 
         # Iterate through, creating artfacts and adding them as we go.
         log.debug("Stepping through timestamps from {} to {} ...".\
@@ -6461,50 +6258,36 @@ class PlanetaryCombinationsLibrary:
             
             p1 = Ephemeris.getPlanetaryInfo(planet1Name, currDt)
             p2 = Ephemeris.getPlanetaryInfo(planet2Name, currDt)
-            
-            declinationsP1[-1] = p1.geocentric['tropical'][fieldName]
-            declinationsP2[-1] = p2.geocentric['tropical'][fieldName]
+
+            declinationsAvg[-1] = \
+                (p1.geocentric['tropical'][fieldName] + \
+                 p2.geocentric['tropical'][fieldName]) / 2.0
             
             for i in range(len(steps)):
                 log.debug("steps[{}] == {}".\
                           format(i, Ephemeris.datetimeToStr(steps[i])))
-            for i in range(len(declinationsP1)):
-                log.debug("declinationsP1[{}] == {}".\
-                          format(i, declinationsP1[i]))
-            for i in range(len(declinationsP2)):
-                log.debug("declinationsP2[{}] == {}".\
-                          format(i, declinationsP2[i]))
+            for i in range(len(declinationsAvg)):
+                log.debug("declinationsAvg[{}] == {}".\
+                          format(i, declinationsAvg[i]))
 
-            if (declinationsP1[-1] < 0 and declinationsP2[-1] > 0) or \
-               (declinationsP1[-1] > 0 and declinationsP2[-1] < 0):
+            if (declinationsAvg[-2] < 0 and declinationsAvg[-1] > 0) or \
+               (declinationsAvg[-2] > 0 and declinationsAvg[-1] < 0):
 
-                # Declinations are opposite polarity.
+                # Average crossed from above to below 0, or below to
+                # above 0.  This means these planets crossed over the
+                # contraparallel aspect location.
 
-                # Get the differences as if they were both positive values.
-                prevAbsDiff = \
-                    abs(declinationsP1[-2]) - abs(declinationsP2[-2])
-                currAbsDiff = \
-                    abs(declinationsP1[-1]) - abs(declinationsP2[-1])
-
-                if (prevAbsDiff < 0 and currAbsDiff > 0) or \
-                   (prevAbsDiff > 0 and currAbsDiff < 0):
-
-                    # Crossed over the contraparallel aspect location.
-
-                    # Create the artifact at the timestamp.
-                    PlanetaryCombinationsLibrary.\
-                        addVerticalLine(pcdd, currDt,
-                                        highPrice, lowPrice, tag, color)
-                    numArtifactsAdded += 1
+                # Create the artifact at the timestamp.
+                PlanetaryCombinationsLibrary.\
+                    addVerticalLine(pcdd, currDt,
+                                    highPrice, lowPrice, tag, color)
+                numArtifactsAdded += 1
                 
             # Prepare for the next iteration.
             steps.append(copy.deepcopy(steps[-1]) + stepSizeTd)
             del steps[0]
-            declinationsP1.append(None)
-            del declinationsP1[0]
-            declinationsP2.append(None)
-            del declinationsP2[0]
-            
+            declinationsAvg.append(None)
+            del declinationsAvg[0]
             
         log.info("Number of artifacts added: {}".format(numArtifactsAdded))
                 
@@ -6674,6 +6457,361 @@ class PlanetaryCombinationsLibrary:
             
         log.info("Number of artifacts added: {}".format(numArtifactsAdded))
                 
+        log.debug("Exiting " + inspect.stack()[0][3] + "()")
+        return rv
+
+        
+    @staticmethod
+    def addPlanetOOBVerticalLines(\
+        pcdd, startDt, endDt, highPrice, lowPrice,
+        planetName, 
+        color=None,
+        maxErrorTd=datetime.timedelta(hours=1)):
+        """Adds vertical lines to the PriceChartDocumentData object,
+        at locations where a certain planet crosses a certain degree
+        of longitude.  This function only is valid for the year 300
+        and beyond.
+        
+        Note: Default tag used for the artifacts added is the name of
+        this function, without the word 'add' at the beginning, and with
+        the type of line it is appended (geo/helio, trop/sid, planet name).
+        
+        Arguments:
+        pcdd          - PriceChartDocumentData object that will be modified.
+        startDt       - datetime.datetime object for the starting timestamp
+                        to do the calculations for artifacts.
+        endDt         - datetime.datetime object for the ending timestamp
+                        to do the calculations for artifacts.
+        highPrice     - float value for the high price to end the vertical line.
+        lowPrice      - float value for the low price to end the vertical line.
+        planetName    - str value holding the name fo the planet to do
+                        the search for.
+        color         - QColor object for what color to draw the lines.
+                        If this is set to None, then the default color
+                        will be used.
+        maxErrorTd    - datetime.timedelta object holding the maximum
+                        time difference between the exact planetary
+                        combination timestamp, and the one calculated.
+                        This would define the accuracy of the
+                        calculations.  
+        
+        Returns:
+        True if operation succeeded, False otherwise.
+        """
+
+
+        log.debug("Entered " + inspect.stack()[0][3] + "()")
+
+        # Return value.
+        rv = True
+
+        # Make sure the inputs are valid.
+        if endDt < startDt:
+            log.error("Invalid input: 'endDt' must be after 'startDt'")
+            rv = False
+            return rv
+        if lowPrice > highPrice:
+            log.error("Invalid input: " +
+                      "'lowPrice' is not less than or equal to 'highPrice'")
+            rv = False
+            return rv
+
+        centricityType = "geocentric"
+        longitudeType = "tropical"
+        
+        # Field name we are getting.
+        fieldName = "declination"
+        
+        # Set the color if it is not already set to something.
+        colorWasSpecifiedFlag = True
+        if color == None:
+            colorWasSpecifiedFlag = False
+            color = AstrologyUtils.getForegroundColorForPlanetName(planetName)
+
+
+        # Set the tag str.
+        tag = inspect.stack()[0][3]
+        if tag.startswith("add") and len(tag) > 3:
+            tag = tag[3:]
+
+            tag += "_" + planetName
+            
+        log.debug("tag == '{}'".format(tag))
+        
+        # Initialize the Ephemeris with the birth location.
+        log.debug("Setting ephemeris location ...")
+        Ephemeris.setGeographicPosition(pcdd.birthInfo.longitudeDegrees,
+                                        pcdd.birthInfo.latitudeDegrees,
+                                        pcdd.birthInfo.elevation)
+
+        # Set the step size.
+        stepSizeTd = datetime.timedelta(days=1)
+
+        # Function for getting the max declination for a given datetime.
+        initialDt = datetime.datetime(year=430, month=6, day=1, tzinfo=pytz.utc)
+        initialJd = Ephemeris.datetimeToJulianDay(initialDt)
+        initialMaxSunDeclination = 23.3333333333333
+        incrementPerDay = (1 / 60.0) / (365.25 * 130)
+        def getMaxSunDeclinationForDatetime(dt):
+            jd = Ephemeris.datetimeToJulianDay(dt)
+            return initialMaxSunDeclination + \
+                   ((jd - initialDt) * incrementPerDay)
+        
+        # Count of artifacts added.
+        numArtifactsAdded = 0
+        
+        # Iterate through, creating artfacts and adding them as we go.
+        prevDt = copy.deepcopy(startDt)
+        currDt = copy.deepcopy(startDt)
+
+        prevDiff = None
+        currDiff = None
+
+        def getFieldValue(planetaryInfo, fieldName):
+            pi = planetaryInfo
+            fieldValue = None
+            
+            if centricityType == "geocentric":
+                fieldValue = pi.geocentric[longitudeType][fieldName]
+            elif centricityType.lower() == "topocentric":
+                fieldValue = pi.topocentric[longitudeType][fieldName]
+            elif centricityType.lower() != "heliocentric":
+                fieldValue = pi.heliocentric[longitudeType][fieldName]
+            else:
+                log.error("Unknown centricity type.")
+                fieldValue = None
+
+            return fieldValue
+            
+            
+        log.debug("Stepping through timestamps from {} to {} ...".\
+                  format(Ephemeris.datetimeToStr(startDt),
+                         Ephemeris.datetimeToStr(endDt)))
+        
+        while currDt < endDt:
+            log.debug("Looking at currDt == {} ...".\
+                      format(Ephemeris.datetimeToStr(currDt)))
+            
+            p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
+
+            diffDeg = getFieldValue(p1, fieldName)
+
+            log.debug("{} {} {} {} is: {}".\
+                      format(p1.name, centricityType, longitudeType, fieldName,
+                             diffDeg)
+
+            currMaxSunDeclination = getMaxSunDeclinationForDatetime(currDt)
+            currMinSunDeclination = -1 * currMaxSunDeclination
+            
+            log.debug("diffDeg == {}".format(diffDeg))
+            
+            currDiff = diffDeg
+
+            if prevDiff == None:
+                prevDiff = currDiff
+
+            log.debug("prevDiff == {}".format(prevDiff))
+            log.debug("currDiff == {}".format(currDiff))
+
+            desiredDegree = currMaxSunDeclination
+            if prevDiff < desiredDegree and currDiff >= desiredDegree:
+
+                log.debug("Crossed over max from below to above!")
+                
+                # This is the upper-bound of the error timedelta.
+                t1 = prevDt
+                t2 = currDt
+                currErrorTd = t2 - t1
+                    
+                # Refine the timestamp until it is less than the threshold.
+                while currErrorTd > maxErrorTd:
+                    log.debug("Refining between {} and {}".\
+                              format(Ephemeris.datetimeToStr(t1),
+                                     Ephemeris.datetimeToStr(t2)))
+                    
+                    # Check the timestamp between.
+                    diffTd = t2 - t1
+                    halfDiffTd = \
+                        datetime.\
+                        timedelta(days=(diffTd.days / 2.0),
+                                  seconds=(diffTd.seconds / 2.0),
+                                  microseconds=(diffTd.microseconds / 2.0))
+                    testDt = t1 + halfDiffTd
+                    
+                    p1 = Ephemeris.getPlanetaryInfo(planetName, testDt)
+
+                    diffDeg = getFieldValue(p1, fieldName)
+                    
+                    testDiff = diffDeg
+                    if testDiff < desiredDegree:
+                        t1 = testDt
+                    else:
+                        t2 = testDt
+
+                        # Update the curr values.
+                        currDt = t2
+                        currDiff = testDiff
+                        
+                    currErrorTd = t2 - t1
+                
+                # Create the artifact at the timestamp.
+                PlanetaryCombinationsLibrary.\
+                    addVerticalLine(pcdd, currDt,
+                                    highPrice, lowPrice, tag, color)
+                numArtifactsAdded += 1
+                
+            elif prevDiff > desiredDegree and currDiff <= desiredDegree:
+
+                log.debug("Crossed over max from above to below!")
+                
+                # This is the upper-bound of the error timedelta.
+                t1 = prevDt
+                t2 = currDt
+                currErrorTd = t2 - t1
+
+                # Refine the timestamp until it is less than the threshold.
+                while currErrorTd > maxErrorTd:
+                    log.debug("Refining between {} and {}".\
+                              format(Ephemeris.datetimeToStr(t1),
+                                     Ephemeris.datetimeToStr(t2)))
+                    
+                    # Check the timestamp between.
+                    diffTd = t2 - t1
+                    halfDiffTd = \
+                        datetime.\
+                        timedelta(days=(diffTd.days / 2.0),
+                                  seconds=(diffTd.seconds / 2.0),
+                                  microseconds=(diffTd.microseconds / 2.0))
+                    testDt = t1 + halfDiffTd
+                    
+                    p1 = Ephemeris.getPlanetaryInfo(planetName, testDt)
+
+                    diffDeg = getFieldValue(p1, fieldName)
+                    
+                    testDiff = diffDeg
+                    if testDiff > desiredDegree:
+                        t1 = testDt
+                        
+                    else:
+                        t2 = testDt
+                        
+                        # Update the curr values.
+                        currDt = t2
+                        currDiff = testDiff
+                        
+                        
+                    currErrorTd = t2 - t1
+                
+                # Create the artifact at the timestamp.
+                PlanetaryCombinationsLibrary.\
+                    addVerticalLine(pcdd, currDt,
+                                    highPrice, lowPrice, tag, color)
+                numArtifactsAdded += 1
+                
+            desiredDegree = currMinSunDeclination
+            if prevDiff < desiredDegree and currDiff >= desiredDegree:
+
+                log.debug("Crossed over min from below to above!")
+                
+                # This is the upper-bound of the error timedelta.
+                t1 = prevDt
+                t2 = currDt
+                currErrorTd = t2 - t1
+                    
+                # Refine the timestamp until it is less than the threshold.
+                while currErrorTd > maxErrorTd:
+                    log.debug("Refining between {} and {}".\
+                              format(Ephemeris.datetimeToStr(t1),
+                                     Ephemeris.datetimeToStr(t2)))
+                    
+                    # Check the timestamp between.
+                    diffTd = t2 - t1
+                    halfDiffTd = \
+                        datetime.\
+                        timedelta(days=(diffTd.days / 2.0),
+                                  seconds=(diffTd.seconds / 2.0),
+                                  microseconds=(diffTd.microseconds / 2.0))
+                    testDt = t1 + halfDiffTd
+                    
+                    p1 = Ephemeris.getPlanetaryInfo(planetName, testDt)
+
+                    diffDeg = getFieldValue(p1, fieldName)
+                    
+                    testDiff = diffDeg
+                    if testDiff < desiredDegree:
+                        t1 = testDt
+                    else:
+                        t2 = testDt
+
+                        # Update the curr values.
+                        currDt = t2
+                        currDiff = testDiff
+                        
+                    currErrorTd = t2 - t1
+                
+                # Create the artifact at the timestamp.
+                PlanetaryCombinationsLibrary.\
+                    addVerticalLine(pcdd, currDt,
+                                    highPrice, lowPrice, tag, color)
+                numArtifactsAdded += 1
+                
+            elif prevDiff > desiredDegree and currDiff <= desiredDegree:
+
+                log.debug("Crossed over max from above to below!")
+                
+                # This is the upper-bound of the error timedelta.
+                t1 = prevDt
+                t2 = currDt
+                currErrorTd = t2 - t1
+
+                # Refine the timestamp until it is less than the threshold.
+                while currErrorTd > maxErrorTd:
+                    log.debug("Refining between {} and {}".\
+                              format(Ephemeris.datetimeToStr(t1),
+                                     Ephemeris.datetimeToStr(t2)))
+                    
+                    # Check the timestamp between.
+                    diffTd = t2 - t1
+                    halfDiffTd = \
+                        datetime.\
+                        timedelta(days=(diffTd.days / 2.0),
+                                  seconds=(diffTd.seconds / 2.0),
+                                  microseconds=(diffTd.microseconds / 2.0))
+                    testDt = t1 + halfDiffTd
+                    
+                    p1 = Ephemeris.getPlanetaryInfo(planetName, testDt)
+
+                    diffDeg = getFieldValue(p1, fieldName)
+                    
+                    testDiff = diffDeg
+                    if testDiff > desiredDegree:
+                        t1 = testDt
+                        
+                    else:
+                        t2 = testDt
+                        
+                        # Update the curr values.
+                        currDt = t2
+                        currDiff = testDiff
+                        
+                        
+                    currErrorTd = t2 - t1
+                
+                # Create the artifact at the timestamp.
+                PlanetaryCombinationsLibrary.\
+                    addVerticalLine(pcdd, currDt,
+                                    highPrice, lowPrice, tag, color)
+                numArtifactsAdded += 1
+                
+            # Update prevDiff as the currDiff.
+            prevDiff = currDiff
+                
+            # Increment currDt.
+            prevDt = copy.deepcopy(currDt)
+            currDt += stepSizeTd
+
+        log.info("Number of artifacts added: {}".format(numArtifactsAdded))
+        
         log.debug("Exiting " + inspect.stack()[0][3] + "()")
         return rv
 
