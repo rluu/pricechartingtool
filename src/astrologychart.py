@@ -2435,7 +2435,6 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
         return None
 
     def _isHouseCuspPlanetName(self, planetName):
-    
         """Returns True if the planet name given is a house cusp.
         Planet name is a house cusp if it is in the form "HX" or "HXX",
         where the letter 'H' is static and the 'X' represents a numerical digit.

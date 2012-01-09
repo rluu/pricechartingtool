@@ -140,71 +140,86 @@ def processPCDD(pcdd, tag):
     #    addGeoMercuryJupiter90xVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice)
 
+    #success = PlanetaryCombinationsLibrary.\
+    #    addPlanetCrossingLongitudeDegVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "geocentric", "sidereal", "Venus", 358)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addPlanetCrossingLongitudeDegVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "geocentric", "sidereal", "Mars", 297)
+
+    #success = PlanetaryCombinationsLibrary.\
+    #    addLongitudeAspectVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "Venus", "Mars",
+    #    "geocentric", "sidereal", 45)
+    
     stepSizeTd = datetime.timedelta(days=3)
     #highPrice = 800.0
     #highPrice = 600.0
     #lowPrice = 600.0
     #lowPrice = 300.0
 
-    #success = PlanetaryCombinationsLibrary.addVelocityLines(\
+    #success = PlanetaryCombinationsLibrary.addGeoLongitudeVelocityLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    planetName="Mercury", 
     #    color=None, stepSizeTd=stepSizeTd)
-    #success = PlanetaryCombinationsLibrary.addVelocityLines(\
+    #success = PlanetaryCombinationsLibrary.addGeoLongitudeVelocityLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    planetName="Venus", 
     #    color=None, stepSizeTd=stepSizeTd)
-    #success = PlanetaryCombinationsLibrary.addVelocityLines(\
+    #success = PlanetaryCombinationsLibrary.addGeoLongitudeVelocityLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    planetName="Mars", 
     #    color=None, stepSizeTd=stepSizeTd)
-    #success = PlanetaryCombinationsLibrary.addVelocityLines(\
+    #success = PlanetaryCombinationsLibrary.addGeoLongitudeVelocityLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    planetName="Uranus", 
     #    color=None, stepSizeTd=stepSizeTd)
-    #success = PlanetaryCombinationsLibrary.addVelocityLines(\
+    #success = PlanetaryCombinationsLibrary.addGeoLongitudeVelocityLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    planetName="MeanOfFive", 
     #    color=None, stepSizeTd=stepSizeTd)
-    #success = PlanetaryCombinationsLibrary.addVelocityLines(\
+    #success = PlanetaryCombinationsLibrary.addGeoLongitudeVelocityLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    planetName="CycleOfEight", 
     #    color=None, stepSizeTd=stepSizeTd)
 
 
-    #success = PlanetaryCombinationsLibrary.addDeclinationLines(\
+    #success = PlanetaryCombinationsLibrary.addGeoDeclinationLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    planetName="Moon", 
     #    color=None, stepSizeTd=stepSizeTd)
-    #success = PlanetaryCombinationsLibrary.addDeclinationLines(\
+    #success = PlanetaryCombinationsLibrary.addGeoDeclinationLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    planetName="Mercury", 
     #    color=None, stepSizeTd=stepSizeTd)
-    #success = PlanetaryCombinationsLibrary.addDeclinationLines(\
+    #success = PlanetaryCombinationsLibrary.addGeoDeclinationLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    planetName="Venus", 
     #    color=None, stepSizeTd=stepSizeTd)
-    #success = PlanetaryCombinationsLibrary.addDeclinationLines(\
+    #success = PlanetaryCombinationsLibrary.addGeoDeclinationLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    planetName="Mars", 
     #    color=None, stepSizeTd=stepSizeTd)
-    #success = PlanetaryCombinationsLibrary.addDeclinationLines(\
+    #success = PlanetaryCombinationsLibrary.addGeoDeclinationLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    planetName="Jupiter", 
     #    color=None, stepSizeTd=stepSizeTd)
-    #success = PlanetaryCombinationsLibrary.addDeclinationLines(\
+    #success = PlanetaryCombinationsLibrary.addGeoDeclinationLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    planetName="Saturn", 
     #    color=None, stepSizeTd=stepSizeTd)
-    #success = PlanetaryCombinationsLibrary.addDeclinationLines(\
+    #success = PlanetaryCombinationsLibrary.addGeoDeclinationLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    planetName="Uranus", 
     #    color=None, stepSizeTd=stepSizeTd)
-    #success = PlanetaryCombinationsLibrary.addDeclinationLines(\
+    #success = PlanetaryCombinationsLibrary.addGeoDeclinationLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    planetName="Neptune", 
     #    color=None, stepSizeTd=stepSizeTd)
-    #success = PlanetaryCombinationsLibrary.addDeclinationLines(\
+    #success = PlanetaryCombinationsLibrary.addGeoDeclinationLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    planetName="Pluto", 
     #    color=None, stepSizeTd=stepSizeTd)
@@ -328,7 +343,33 @@ def processPCDD(pcdd, tag):
     #    addPlanetOOBVerticalLines(
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    planetName = "Venus")
+
+    #success =  PlanetaryCombinationsLibrary.\
+    #    addGeoLatitudeLines(
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    planetName = "Venus")
     
+    #success =  PlanetaryCombinationsLibrary.\
+    #    addZeroLatitudeVerticalLines(
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    planetName = "Venus")
+
+    #success = PlanetaryCombinationsLibrary.\
+    #    addLatitudeVelocityPolarityChangeVerticalLines(
+    #    pcdd, startDt, endDt, highPrice, lowPrice, planetName="Venus")
+    
+    #success = PlanetaryCombinationsLibrary.\
+    #    addContraparallelLatitudeAspectVerticalLines(
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    planet1Name="Venus", planet2Name="Mars")
+    
+    #success = PlanetaryCombinationsLibrary.\
+    #    addParallelLatitudeAspectVerticalLines(
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    planet1Name="Venus", planet2Name="Mars")
+    
+    
+
     if success == True:
         log.debug("Success!")
         rv = 0

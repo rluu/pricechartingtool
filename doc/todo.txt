@@ -6,9 +6,13 @@ TODO:
 
   - PriceChartDocumentScripts changes:
 
-    - Do latitude calculations for what I've done with declination in
-      PriceChartDocumentScripts.
-
+    - Add longitude traversal amounts of a certain planet.  Can
+      specify parameter for whether it is geocentric, heliocentric,
+      etc., and also sidereal/tropical.  Also start time is a
+      parameter, and traversal degree increment amount is a parameter too.
+      
+    - Plot line segments for elongation-degree-distances-between-two-planets.
+      
     - Plot line segments that represent difference in longitude between planet X
       and planet Y.  Make sure to account for straddling 0 Aries.
     - Plot vertical lines for the above at turning points from
@@ -24,8 +28,9 @@ TODO:
     - Plot vertical lines for the above at turning points from
       increasing to decreasing or decreasing to increasing.
 
-
-
+    - Consider adding orb functionality for
+      longitude-aspect-between-two-planets.  Gradiants would be drawn
+      on the chart for this feature.
 
   - Fix MOF, COE, etc. to be calculated properly.
 
@@ -305,5 +310,16 @@ DONE  - Add QSettings and app settings dialog for enabling or disabling
 DONE    (via check boxes) the calculations of various planets (in general)
 DONE    or for specific charts such as the astrology chart or the
 DONE    planetary info chart.
+DONE
+DONE    - Do latitude calculations for what I've done with declination in
+DONE      PriceChartDocumentScripts.
+DONE
+DONE    - Add longitude aspect-between-two-planets vertical lines.  
+DONE      It should be parameterized so that we have:
+DONE    
+DONE          - planet1Name
+DONE          - planet2Name
+DONE          - difference in degrees (approaching and leaving amount)
+DONE    
 
 
