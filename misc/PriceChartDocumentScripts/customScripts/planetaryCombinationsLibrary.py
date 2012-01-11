@@ -56,6 +56,38 @@ class PlanetaryCombinationsLibrary:
     scene = PriceBarChartGraphicsScene()
 
     @staticmethod
+    def isHouseCuspPlanetName(planetName):
+        """Returns True if the planet name given is a house cusp.
+        Planet name is a house cusp if it is in the form "HX" or "HXX",
+        where the letter 'H' is static and the 'X' represents a numerical
+        digit.
+
+        Arguments:
+        planetName - str for the planet name to analyze.
+
+        Returns:
+        True if the planet name represents a astrological house cusp,
+        False otherwise.
+        """
+
+        # Flag as True until found otherwise.
+        isHouseCusp = True
+
+        if 2 <= len(planetName) <= 3:
+            # Name of the planet is 2 or 3 letters.
+            if planetName[0] != "H":
+                isHouseCusp = False
+            if not planetName[1].isdigit():
+                isHouseCusp = False
+            if len(planetName) == 3 and not planetName[2].isdigit():
+                isHouseCusp = False
+        else:
+            isHouseCusp = False
+
+        return isHouseCusp
+
+
+    @staticmethod
     def addHorizontalLine(pcdd, startDt, endDt, price, tag, color):
         """Adds a horizontal line at the given price, from startDt to
         endDt, with the given tag and color.
@@ -3736,39 +3768,9 @@ class PlanetaryCombinationsLibrary:
                                         pcdd.birthInfo.latitudeDegrees,
                                         pcdd.birthInfo.elevation)
 
-        def isHouseCuspPlanetName(planetName):
-            """Returns True if the planet name given is a house cusp.
-            Planet name is a house cusp if it is in the form "HX" or "HXX",
-            where the letter 'H' is static and the 'X' represents a numerical
-            digit.
-    
-            Arguments:
-            planetName - str for the planet name to analyze.
-    
-            Returns:
-            True if the planet name represents a astrological house cusp,
-            False otherwise.
-            """
-    
-            # Flag as True until found otherwise.
-            isHouseCusp = True
-    
-            if 2 <= len(planetName) <= 3:
-                # Name of the planet is 2 or 3 letters.
-                if planetName[0] != "H":
-                    isHouseCusp = False
-                if not planetName[1].isdigit():
-                    isHouseCusp = False
-                if len(planetName) == 3 and not planetName[2].isdigit():
-                    isHouseCusp = False
-            else:
-                isHouseCusp = False
-    
-            return isHouseCusp
-
         # Set the step size.
         stepSizeTd = datetime.timedelta(days=1)
-        if isHouseCuspPlanetName(planetName):
+        if PlanetaryCombinationsLibrary.isHouseCuspPlanetName(planetName):
             # House cusps need a smaller step size.
             stepSizeTd = datetime.timedelta(hours=1)
             
@@ -7608,6 +7610,7 @@ class PlanetaryCombinationsLibrary:
         return rv
 
         
+    @staticmethod
     def addLongitudeAspectVerticalLines(\
         pcdd, startDt, endDt, highPrice, lowPrice,
         planet1Name, planet2Name,
@@ -7734,40 +7737,11 @@ class PlanetaryCombinationsLibrary:
                                         pcdd.birthInfo.latitudeDegrees,
                                         pcdd.birthInfo.elevation)
 
-        def isHouseCuspPlanetName(planetName):
-            """Returns True if the planet name given is a house cusp.
-            Planet name is a house cusp if it is in the form "HX" or "HXX",
-            where the letter 'H' is static and the 'X' represents a numerical
-            digit.
-    
-            Arguments:
-            planetName - str for the planet name to analyze.
-    
-            Returns:
-            True if the planet name represents a astrological house cusp,
-            False otherwise.
-            """
-    
-            # Flag as True until found otherwise.
-            isHouseCusp = True
-    
-            if 2 <= len(planetName) <= 3:
-                # Name of the planet is 2 or 3 letters.
-                if planetName[0] != "H":
-                    isHouseCusp = False
-                if not planetName[1].isdigit():
-                    isHouseCusp = False
-                if len(planetName) == 3 and not planetName[2].isdigit():
-                    isHouseCusp = False
-            else:
-                isHouseCusp = False
-    
-            return isHouseCusp
-
         # Set the step size.
         stepSizeTd = datetime.timedelta(days=1)
-        if isHouseCuspPlanetName(planet1Name) or \
-               isHouseCuspPlanetName(planet2Name):
+        if PlanetaryCombinationsLibrary.isHouseCuspPlanetName(planet1Name) or \
+               PlanetaryCombinationsLibrary.isHouseCuspPlanetName(planet2Name):
+            
             # House cusps need a smaller step size.
             stepSizeTd = datetime.timedelta(hours=1)
         
@@ -7838,12 +7812,16 @@ class PlanetaryCombinationsLibrary:
                       format(p2.name, centricityType, longitudeType, fieldName,
                              getFieldValue(p2, fieldName)))
 
-            currDiff = Util.toNormalizedAngle(longitudesP1[-1] - longitudesP2[-1])
+            currDiff = Util.toNormalizedAngle(\
+                longitudesP1[-1] - longitudesP2[-1])
                 
             log.debug("prevDiff == {}".format(prevDiff))
             log.debug("currDiff == {}".format(currDiff))
             
-            if prevDiff != None and longitudesP1[-2] != None and longitudesP2[-2] != None:
+            if prevDiff != None and \
+                   longitudesP1[-2] != None and \
+                   longitudesP2[-2] != None:
+                
                 if abs(prevDiff - currDiff) > 180:
                     # Probably crossed over 0.  Adjust the prevDiff so
                     # that the rest of the algorithm can continue to
@@ -7891,7 +7869,8 @@ class PlanetaryCombinationsLibrary:
                             # Planet 2 hopped over 0 degrees.
                             testValueP2 += 360
 
-                        testDiff = Util.toNormalizedAngle(testValueP1 - testValueP2)
+                        testDiff = Util.toNormalizedAngle(\
+                            testValueP1 - testValueP2)
 
                         if testDiff < desiredDegree:
                             t1 = testDt
@@ -7950,7 +7929,8 @@ class PlanetaryCombinationsLibrary:
                             # Planet 2 hopped over 0 degrees.
                             testValueP2 += 360
 
-                        testDiff = Util.toNormalizedAngle(testValueP1 - testValueP2)
+                        testDiff = Util.toNormalizedAngle(\
+                            testValueP1 - testValueP2)
 
                         if testDiff > desiredDegree:
                             t1 = testDt
@@ -8010,7 +7990,8 @@ class PlanetaryCombinationsLibrary:
                             # Planet 2 hopped over 0 degrees.
                             testValueP2 += 360
 
-                        testDiff = Util.toNormalizedAngle(testValueP1 - testValueP2)
+                        testDiff = Util.toNormalizedAngle(\
+                            testValueP1 - testValueP2)
 
                         if testDiff < desiredDegree:
                             t1 = testDt
@@ -8069,7 +8050,8 @@ class PlanetaryCombinationsLibrary:
                             # Planet 2 hopped over 0 degrees.
                             testValueP2 += 360
 
-                        testDiff = Util.toNormalizedAngle(testValueP1 - testValueP2)
+                        testDiff = Util.toNormalizedAngle(\
+                            testValueP1 - testValueP2)
 
                         if testDiff > desiredDegree:
                             t1 = testDt
@@ -8107,4 +8089,624 @@ class PlanetaryCombinationsLibrary:
         log.debug("Exiting " + inspect.stack()[0][3] + "()")
         return rv
 
+    @staticmethod
+    def _getDatetimesOfElapsedLongitudeDegrees(\
+        pcdd, 
+        planetName, 
+        centricityType,
+        longitudeType,
+        planetEpocDt,
+        desiredDegreesElapsed,
+        maxErrorTd=datetime.timedelta(seconds=2)):
+        """Returns a list of datetime.datetime objects that hold the
+        timestamps when the given planet is at 'degreeElapsed'
+        longitude degrees from the longitude degrees calculated at
+        moment 'planetEpocDt'.
         
+        Arguments:
+        pcdd      - PriceChartDocumentData object that will be modified.
+        planetName - str holding the name of the planet to do the
+                     calculations for.
+        centricityType - str value holding either "geocentric",
+                         "topocentric", or "heliocentric".
+        longitudeType - str value holding either "tropical" or "sidereal".
+        planetEpocDt - datetime.datetime object for the epoc or reference time.
+                       The planet longitude at this moment is taken as
+                       the zero-point.  Increments are started from
+                       this moment in time.
+        desiredDegreesElapsed - float value for the number of longitude degrees
+                        elapsed from the longitude at 'planetEpocDt'.
+        maxErrorTd - datetime.timedelta object holding the maximum
+                     time difference between the exact planetary
+                     combination timestamp, and the one calculated.
+                     This would define the accuracy of the
+                     calculations.  
+        
+        Returns:
+        List of datetime.datetime objects.  The datetime.datetime
+        objects in this list are the timestamps where the planet is at
+        the elapsed number of degrees away from the longitude at
+        'planetEpocDt'.
+        """
+        
+        log.debug("Entered " + inspect.stack()[0][3] + "()")
+
+        # Return value.
+        rv = []
+
+        centricityTypeOrig = centricityType
+        centricityType = centricityType.lower()
+        if centricityType != "geocentric" and \
+           centricityType != "topocentric" and \
+           centricityType != "heliocentric":
+
+            log.error("Invalid input: centricityType is invalid.  " + \
+                      "Value given was: {}".format(centricityTypeOrig))
+            rv = []
+            return rv
+
+        longitudeTypeOrig = longitudeType
+        longitudeType = longitudeType.lower()
+        if longitudeType != "tropical" and \
+           longitudeType != "sidereal":
+
+            log.error("Invalid input: longitudeType is invalid.  " + \
+                      "Value given was: {}".format(longitudeTypeOrig))
+            rv = []
+            return rv
+
+        # Field name we are getting.
+        fieldName = "longitude"
+        
+        # Initialize the Ephemeris with the birth location.
+        log.debug("Setting ephemeris location ...")
+        Ephemeris.setGeographicPosition(pcdd.birthInfo.longitudeDegrees,
+                                        pcdd.birthInfo.latitudeDegrees,
+                                        pcdd.birthInfo.elevation)
+
+        # Set the step size.  Planet should not ever move more than
+        # 120 degrees per step size.
+        stepSizeTd = datetime.timedelta(days=1)
+        if PlanetaryCombinationsLibrary.isHouseCuspPlanetName(planetName):
+            # House cusps need a smaller step size.
+            stepSizeTd = datetime.timedelta(hours=1)
+
+        # Running count of number of full 360-degree circles.
+        numFullCircles = 0
+        
+        # Desired degree.
+        desiredDegree = None
+        
+        # Epoc longitude.
+        planetEpocLongitude = None
+
+        # Iterate through, creating artfacts and adding them as we go.
+        steps = []
+        steps.append(copy.deepcopy(planetEpocDt))
+        steps.append(copy.deepcopy(planetEpocDt))
+
+        longitudesP1 = []
+        longitudesP1.append(None)
+        longitudesP1.append(None)
+        
+        def getFieldValue(planetaryInfo, fieldName):
+            pi = planetaryInfo
+            fieldValue = None
+            
+            if centricityType == "geocentric":
+                fieldValue = pi.geocentric[longitudeType][fieldName]
+            elif centricityType.lower() == "topocentric":
+                fieldValue = pi.topocentric[longitudeType][fieldName]
+            elif centricityType.lower() == "heliocentric":
+                fieldValue = pi.heliocentric[longitudeType][fieldName]
+            else:
+                log.error("Unknown centricity type.")
+                fieldValue = None
+
+            return fieldValue
+            
+        log.debug("Stepping through timestamps from {} ...".\
+                  format(Ephemeris.datetimeToStr(planetEpocDt)))
+
+        currDiff = None
+        prevDiff = None
+
+        # Current and previous number of degrees elapsed.
+        currElapsed = None
+        
+        done = False
+        while not done:
+        
+            currDt = steps[-1]
+            prevDt = steps[-2]
+            
+            log.debug("Looking at currDt == {} ...".\
+                      format(Ephemeris.datetimeToStr(currDt)))
+
+            p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
+
+            if planetEpocLongitude == None:
+                planetEpocLongitude = getFieldValue(p1, fieldName)
+            
+            longitudesP1[-1] = getFieldValue(p1, fieldName)
+            
+            log.debug("{} {} {} {} is: {}".\
+                      format(p1.name, centricityType, longitudeType, fieldName,
+                             getFieldValue(p1, fieldName)))
+            
+            currDiff = Util.toNormalizedAngle(\
+                longitudesP1[-1] - planetEpocLongitude)
+            
+            log.debug("prevDiff == {}".format(prevDiff))
+            log.debug("currDiff == {}".format(currDiff))
+            
+            if prevDiff != None and longitudesP1[-2] != None:
+                
+                if prevDiff > 240 and currDiff < 120:
+                    log.debug("Crossed over epoc longitude {} ".\
+                              format(planetEpocLongitude) + \
+                              "from below to above!")
+
+                    # This is the upper-bound of the error timedelta.
+                    t1 = prevDt
+                    t2 = currDt
+                    currErrorTd = t2 - t1
+                    
+                    # Refine the timestamp until it is less than the threshold.
+                    while currErrorTd > maxErrorTd:
+                        log.debug("Refining between {} and {}".\
+                                  format(Ephemeris.datetimeToStr(t1),
+                                         Ephemeris.datetimeToStr(t2)))
+
+                        # Check the timestamp between.
+                        timeWindowTd = t2 - t1
+                        halfTimeWindowTd = \
+                            datetime.\
+                            timedelta(days=(timeWindowTd.days / 2.0),
+                                seconds=(timeWindowTd.seconds / 2.0),
+                                microseconds=(timeWindowTd.microseconds / 2.0))
+                        testDt = t1 + halfTimeWindowTd
+
+                        p1 = Ephemeris.getPlanetaryInfo(planet1Name, testDt)
+
+                        testValueP1 = getFieldValue(p1, fieldName)
+
+                        testDiff = Util.toNormalizedAngle(\
+                            testValueP1 - planetEpocLongitude)
+
+                        if testDiff < 120:
+                            t2 = testDt
+                            
+                            # Update the curr values.
+                            currDt = t2
+                            currDiff = testDiff
+                        else:
+                            t1 = testDt
+
+                        currErrorTd = t2 - t1
+
+                    # Update our lists.
+                    steps[-1] = currDt
+
+                    # Increment the number of 360-degree circles traversed.
+                    numFullCircles += 1
+
+                elif prevDiff < 120 and currDiff > 240:
+                    log.debug("Crossed over epoc longitude {} ".\
+                              format(planetEpocLongitude) + \
+                              "from above to below!")
+
+                    # This is the upper-bound of the error timedelta.
+                    t1 = prevDt
+                    t2 = currDt
+                    currErrorTd = t2 - t1
+
+                    # Refine the timestamp until it is less than the threshold.
+                    while currErrorTd > maxErrorTd:
+                        log.debug("Refining between {} and {}".\
+                                  format(Ephemeris.datetimeToStr(t1),
+                                         Ephemeris.datetimeToStr(t2)))
+
+                        # Check the timestamp between.
+                        timeWindowTd = t2 - t1
+                        halfTimeWindowTd = \
+                            datetime.\
+                            timedelta(days=(timeWindowTd.days / 2.0),
+                                seconds=(timeWindowTd.seconds / 2.0),
+                                microseconds=(timeWindowTd.microseconds / 2.0))
+                        testDt = t1 + halfTimeWindowTd
+
+                        p1 = Ephemeris.getPlanetaryInfo(planet1Name, testDt)
+
+                        testValueP1 = getFieldValue(p1, fieldName)
+
+                        testDiff = Util.toNormalizedAngle(\
+                            testValueP1 - planetEpocLongitude)
+
+                        if testDiff < 120:
+                            t1 = testDt
+                        else:
+                            t2 = testDt
+                            
+                            # Update the curr values.
+                            currDt = t2
+                            currDiff = testDiff
+
+                        currErrorTd = t2 - t1
+
+                    # Update our lists.
+                    steps[-1] = currDt
+
+                    # Decrement the number of 360-degree circles traversed.
+                    numFullCircles -= 1
+
+                # Calculate the total number of degrees elapsed so far.
+                currElapsed = (numFullCircles * 360.0) + currDiff
+
+                if currElapsed > desiredDegreesElapsed:
+                    # We pased the number of degrees past that we were
+                    # looking for.  Now we have to calculate the exact
+                    # timestamp and find out if there are other
+                    # moments in time where the planet is elapsed this
+                    # many degrees (in the event that the planet goes
+                    # retrograde).
+                    log.debug("Passed the desired number of " + \
+                              "elapsed degrees from below to above.  " + \
+                              "Narrowing down to the exact moment in time ...")
+                    
+                    # Actual degree we are looking for.
+                    desiredDegree = \
+                        Util.toNormalizedAngle(\
+                        planetEpocLongitude + (desiredDegreesElapsed % 360.0))
+
+                    # Check starting from steps[-2] to steps[-1] to
+                    # see exactly when it passes this desiredDegree.
+
+                    # This is the upper-bound of the error timedelta.
+                    t1 = steps[-2]
+                    t2 = steps[-1]
+                    currErrorTd = t2 - t1
+                    
+                    # Refine the timestamp until it is less than the threshold.
+                    while currErrorTd > maxErrorTd:
+                        log.debug("Refining between {} and {}".\
+                                  format(Ephemeris.datetimeToStr(t1),
+                                         Ephemeris.datetimeToStr(t2)))
+
+                        # Check the timestamp between.
+                        timeWindowTd = t2 - t1
+                        halfTimeWindowTd = \
+                            datetime.\
+                            timedelta(days=(timeWindowTd.days / 2.0),
+                                seconds=(timeWindowTd.seconds / 2.0),
+                                microseconds=(timeWindowTd.microseconds / 2.0))
+                        testDt = t1 + halfTimeWindowTd
+
+                        p1 = Ephemeris.getPlanetaryInfo(planet1Name, testDt)
+                        
+                        testValueP1 = getFieldValue(p1, fieldName)
+
+                        testDiff = Util.toNormalizedAngle(\
+                            testValueP1 - desiredDegree)
+                        
+                        if testDiff < 120:
+                            t2 = testDt
+                        else:
+                            t1 = testDt
+
+                        currErrorTd = t2 - t1
+
+                    # t2 holds the moment in time.
+                    rv.append(t2)
+                    
+                    # Now find the the other elapsed points, if they
+                    # exist.  We know it doesn't exist if it traverses
+                    # more than 120 degrees from desiredDegree.
+
+                    startDt = t2
+                    prevDt = startDt
+                    currDt = startDt + stepSizeTd
+                    p1 = Ephemeris.getPlanetaryInfo(planet1Name, prevDt)
+                    prevDiff = Util.toNormalizedAngle(\
+                        getFieldValue(p1, fieldName) - desiredDegree)
+                    currDiff = None
+                        
+                    while prevDiff <= 120:
+                        p1 = Ephemeris.getPlanetaryInfo(planet1Name, currDt)
+                        currDiff = Util.toNormalizedAngle(\
+                            getFieldValue(p1, fieldName) - desiredDegree)
+
+                        if prevDiff < 0 and currDiff >= 0:
+                            log.debug("Passed the desired number of " + \
+                                      "elapsed degrees from " + \
+                                      "below to above.  " + \
+                                      "Narrowing down to the exact moment " + \
+                                      "in time ...")
+                    
+                            # This is the upper-bound of the error timedelta.
+                            t1 = prevDt
+                            t2 = currDt
+                            currErrorTd = t2 - t1
+                            
+                            # Refine the timestamp until it is less
+                            # than the threshold.
+                            while currErrorTd > maxErrorTd:
+                                log.debug("Refining between {} and {}".\
+                                          format(Ephemeris.datetimeToStr(t1),
+                                                 Ephemeris.datetimeToStr(t2)))
+                                
+                                # Check the timestamp between.
+                                timeWindowTd = t2 - t1
+                                halfTimeWindowTd = \
+                                    datetime.\
+                                    timedelta(days=(timeWindowTd.days / 2.0),
+                                        seconds=(timeWindowTd.seconds / 2.0),
+                                        microseconds=\
+                                              (timeWindowTd.microseconds / 2.0))
+                                testDt = t1 + halfTimeWindowTd
+        
+                                p1 = Ephemeris.getPlanetaryInfo(\
+                                    planet1Name, testDt)
+                                
+                                testValueP1 = getFieldValue(p1, fieldName)
+        
+                                testDiff = Util.toNormalizedAngle(\
+                                    testValueP1 - desiredDegree)
+                                
+                                if testDiff < 120:
+                                    t2 = testDt
+
+                                    currDt = t2
+                                    currDiff = testDiff
+                                else:
+                                    t1 = testDt
+        
+                                currErrorTd = t2 - t1
+        
+                            # currDt holds the moment in time.
+                            rv.append(currDt)
+
+                        elif prevDiff > 0 and currDiff <= 0:
+                            log.debug("Passed the desired number of " + \
+                                      "elapsed degrees from " + \
+                                      "above to below.  " + \
+                                      "Narrowing down to the exact moment " + \
+                                      "in time ...")
+                    
+                            # This is the upper-bound of the error timedelta.
+                            t1 = prevDt
+                            t2 = currDt
+                            currErrorTd = t2 - t1
+                            
+                            # Refine the timestamp until it is less
+                            # than the threshold.
+                            while currErrorTd > maxErrorTd:
+                                log.debug("Refining between {} and {}".\
+                                          format(Ephemeris.datetimeToStr(t1),
+                                                 Ephemeris.datetimeToStr(t2)))
+                                
+                                # Check the timestamp between.
+                                timeWindowTd = t2 - t1
+                                halfTimeWindowTd = \
+                                    datetime.\
+                                    timedelta(days=(timeWindowTd.days / 2.0),
+                                        seconds=(timeWindowTd.seconds / 2.0),
+                                        microseconds=\
+                                              (timeWindowTd.microseconds / 2.0))
+                                testDt = t1 + halfTimeWindowTd
+        
+                                p1 = Ephemeris.getPlanetaryInfo(\
+                                    planet1Name, testDt)
+                                
+                                testValueP1 = getFieldValue(p1, fieldName)
+        
+                                testDiff = Util.toNormalizedAngle(\
+                                    testValueP1 - desiredDegree)
+                                
+                                if testDiff > 240:
+                                    t2 = testDt
+
+                                    currDt = t2
+                                    currDiff = testDiff
+                                else:
+                                    t1 = testDt
+        
+                                currErrorTd = t2 - t1
+        
+                            # currDt holds the moment in time.
+                            rv.append(currDt)
+
+                        prevDt = currDt
+                        currDt = copy.deepcopy(currDt) + stepSizeTd
+                        prevDiff = currDiff
+                        currDiff = None
+                        
+                    # We have our timestamps, so we are done.
+                    done = True
+                    
+            # Prepare for the next iteration.
+            steps.append(copy.deepcopy(steps[-1]) + stepSizeTd)
+            del steps[0]
+            longitudesP1.append(None)
+            del longitudesP1[0]
+
+            # Update prevDiff as the currDiff.
+            prevDiff = currDiff
+
+        log.debug("Exiting " + inspect.stack()[0][3] + "()")
+        return rv
+
+        
+    @staticmethod
+    def addPlanetLongitudeTraversalIncrementsVerticalLines(\
+        pcdd, startDt, endDt, highPrice, lowPrice,
+        planetName, 
+        centricityType,
+        longitudeType,
+        planetEpocDt,
+        degreeIncrement,
+        color=None):
+        """Adds vertical lines to the PriceChartDocumentData object,
+        at locations where planet 'planetName' is 'degreeIncrement'
+        degree-increments away from the longitude the planet is at at
+        'planetEpocDt'.
+        
+        Maximum error timedelta is 2 seconds.
+        
+        Note: Default tag used for the artifacts added is the name of this
+        function, without the word 'add' at the beginning.
+
+        Arguments:
+        pcdd      - PriceChartDocumentData object that will be modified.
+        startDt   - datetime.datetime object for the starting timestamp
+                    to do the calculations for artifacts.
+        endDt     - datetime.datetime object for the ending timestamp
+                    to do the calculations for artifacts.
+        highPrice - float value for the high price to end the vertical line.
+        lowPrice  - float value for the low price to end the vertical line.
+        planetName - str holding the name of the planet to do the
+                     calculations for.
+        centricityType - str value holding either "geocentric",
+                         "topocentric", or "heliocentric".
+        longitudeType - str value holding either "tropical" or "sidereal".
+        planetEpocDt - datetime.datetime object for the epoc or reference time.
+                       The planet longitude at this moment is taken as
+                       the zero-point.  Increments are started from
+                       this moment in time.
+        degreeIncrement - float value for the number of longitude degrees
+                          to increment from the longitude at 'planetEpocDt'.
+        color     - QColor object for what color to draw the lines.
+                    If this is set to None, then the default color will be used.
+        
+        Returns:
+        True if operation succeeded, False otherwise.
+        """
+        
+        log.debug("Entered " + inspect.stack()[0][3] + "()")
+
+        # Return value.
+        rv = True
+
+        # Make sure the inputs are valid.
+        if endDt < startDt:
+            log.error("Invalid input: 'endDt' must be after 'startDt'")
+            rv = False
+            return rv
+        if lowPrice > highPrice:
+            log.error("Invalid input: " +
+                      "'lowPrice' is not less than or equal to 'highPrice'")
+            rv = False
+            return rv
+
+
+        centricityTypeOrig = centricityType
+        centricityType = centricityType.lower()
+        if centricityType != "geocentric" and \
+           centricityType != "topocentric" and \
+           centricityType != "heliocentric":
+
+            log.error("Invalid input: centricityType is invalid.  " + \
+                      "Value given was: {}".format(centricityTypeOrig))
+            rv = False
+            return rv
+
+        longitudeTypeOrig = longitudeType
+        longitudeType = longitudeType.lower()
+        if longitudeType != "tropical" and \
+           longitudeType != "sidereal":
+
+            log.error("Invalid input: longitudeType is invalid.  " + \
+                      "Value given was: {}".format(longitudeTypeOrig))
+            rv = False
+            return rv
+
+        # Field name we are getting.
+        fieldName = "longitude"
+        
+        # Set the color if it is not already set to something.
+        colorWasSpecifiedFlag = True
+        if color == None:
+            colorWasSpecifiedFlag = False
+            color = AstrologyUtils.getForegroundColorForPlanetName(planet1Name)
+
+        # Set the tag str.
+        tag = inspect.stack()[0][3]
+        if tag.startswith("add") and len(tag) > 3:
+            tag = tag[3:]
+
+            if centricityType.startswith("geo"):
+                tag += "_Geo"
+            elif centricityType.startswith("topo"):
+                tag += "_Topo"
+            elif centricityType.startswith("helio"):
+                tag += "_Helio"
+
+            if longitudeType.startswith("trop"):
+                tag += "_Trop"
+            elif longitudeType.startswith("sid"):
+                tag += "_Sid"
+
+            tag += "_{}_{}".\
+                   format(degreeIncrement, planetName)
+            
+        log.debug("tag == '{}'".format(tag))
+
+        def getFieldValue(planetaryInfo, fieldName):
+            pi = planetaryInfo
+            fieldValue = None
+            
+            if centricityType == "geocentric":
+                fieldValue = pi.geocentric[longitudeType][fieldName]
+            elif centricityType.lower() == "topocentric":
+                fieldValue = pi.topocentric[longitudeType][fieldName]
+            elif centricityType.lower() == "heliocentric":
+                fieldValue = pi.heliocentric[longitudeType][fieldName]
+            else:
+                log.error("Unknown centricity type.")
+                fieldValue = None
+
+            return fieldValue
+            
+        # Initialize the Ephemeris with the birth location.
+        log.debug("Setting ephemeris location ...")
+        Ephemeris.setGeographicPosition(pcdd.birthInfo.longitudeDegrees,
+                                        pcdd.birthInfo.latitudeDegrees,
+                                        pcdd.birthInfo.elevation)
+
+        # Count of artifacts added.
+        numArtifactsAdded = 0
+
+        currDt = startDt
+
+        # Get the planet longitude at the epoc moment.
+        p1 = Ephemeris.getPlanetaryInfo(planetName, planetEpocDt)
+        planetEpocLongitude = getFieldValue(p1, fieldName)
+        desiredDegreesElapsed = degreeIncrement
+        
+        while currDt < endDt:
+            datetimes = \
+                PlanetaryCombinationsLibrary.\
+                _getDatetimesOfElapsedLongitudeDegrees(\
+                pcdd, planetName, centricityType, longitudeType,
+                planetEpocDt, desiredDegreesElapsed)
+
+            for dt in datetimes:
+                # Create the artifact at the timestamp.
+                PlanetaryCombinationsLibrary.\
+                    addVerticalLine(pcdd, dt,
+                                    highPrice, lowPrice, tag, color)
+                numArtifactsAdded += 1
+
+            if len(datetimes) == 0:
+                log.error("Number of datetimes returned shouldn't be zero.")
+                return False
+            
+            # Prepare for the next iteration.
+            currDt = datetimes[-1]
+            planetEpocDt = currDt
+            
+        log.info("Number of artifacts added: {}".format(numArtifactsAdded))
+        
+        log.debug("Exiting " + inspect.stack()[0][3] + "()")
+        return rv
+
