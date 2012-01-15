@@ -41,7 +41,7 @@ log = logging.getLogger(moduleName)
 log.setLevel(logLevel)
 
 # Start and ending timestamps for drawing.
-#startDt = datetime.datetime(year=1508, month=1, day=1,
+#startDt = datetime.datetime(year=1508, month=1, day=1,n
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
 startDt = datetime.datetime(year=1968, month=1, day=1,
@@ -149,6 +149,13 @@ def processPCDD(pcdd, tag):
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    "geocentric", "sidereal", "Mars", 297)
 
+    degreeValue = 180
+    success = PlanetaryCombinationsLibrary.\
+        addLongitudeAspectVerticalLines(\
+        pcdd, startDt, endDt, highPrice, lowPrice,
+        "Mars", "Uranus",
+        "geocentric", "sidereal", degreeValue)
+
     #divisor = 13
     #incrementSize = 14.4 # 360 / divisor
     #for i in range(divisor):
@@ -183,6 +190,45 @@ def processPCDD(pcdd, tag):
     #        "geocentric", "tropical",
     #        "Venus", degreeValue)
 
+    #divisor = 9
+    #incrementSize = 40 # 360 / divisor
+    #for i in range(divisor):
+    #    degreeValue = (3.3333333333 / 2.0) + (i * incrementSize)
+    #    success = PlanetaryCombinationsLibrary.\
+    #        addPlanetCrossingLongitudeDegVerticalLines(\
+    #        pcdd, startDt, endDt, highPrice, lowPrice,
+    #        "heliocentric", "sidereal",
+    #        "Venus", degreeValue)
+
+    #divisor = 12
+    #incrementSize = 30 # 360 / divisor
+    #for i in range(divisor):
+    #    degreeValue = 15 + (i * incrementSize)
+    #    success = PlanetaryCombinationsLibrary.\
+    #        addPlanetCrossingLongitudeDegVerticalLines(\
+    #        pcdd, startDt, endDt, highPrice, lowPrice,
+    #        "geocentric", "sidereal",
+    #        "Venus", degreeValue)
+
+    #divisor = 24
+    #incrementSize = 360 / divisor # 15
+    #for i in range(divisor):
+    #    degreeValue = i * incrementSize
+    #    success = PlanetaryCombinationsLibrary.\
+    #        addPlanetCrossingLongitudeDegVerticalLines(\
+    #        pcdd, startDt, endDt, highPrice, lowPrice,
+    #        "geocentric", "tropical",
+    #        "Sun", degreeValue)
+    
+    #divisor = 25
+    #incrementSize = 360 / divisor # 15
+    #for i in range(divisor):
+    #    degreeValue = i * incrementSize
+    #    success = PlanetaryCombinationsLibrary.\
+    #        addPlanetCrossingLongitudeDegVerticalLines(\
+    #        pcdd, startDt, endDt, highPrice, lowPrice,
+    #        "geocentric", "tropical",
+    #        "Venus", degreeValue)
     
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
@@ -193,8 +239,68 @@ def processPCDD(pcdd, tag):
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Earth", "Venus",
+    #    "Venus", "Earth",
+    #    "heliocentric", "sidereal", 0)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addLongitudeAspectVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "Venus", "Earth",
+    #    "heliocentric", "sidereal", 15)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addLongitudeAspectVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "Venus", "Earth",
+    #    "heliocentric", "sidereal", 30)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addLongitudeAspectVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "Venus", "Earth",
+    #    "heliocentric", "sidereal", 45)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addLongitudeAspectVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "Venus", "Earth",
+    #    "heliocentric", "sidereal", 60)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addLongitudeAspectVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "Venus", "Earth",
+    #    "heliocentric", "sidereal", 75)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addLongitudeAspectVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "Venus", "Earth",
     #    "heliocentric", "sidereal", 90)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addLongitudeAspectVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "Venus", "Earth",
+    #    "heliocentric", "sidereal", 105)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addLongitudeAspectVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "Venus", "Earth",
+    #    "heliocentric", "sidereal", 120)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addLongitudeAspectVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "Venus", "Earth",
+    #    "heliocentric", "sidereal", 135)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addLongitudeAspectVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "Venus", "Earth",
+    #    "heliocentric", "sidereal", 150)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addLongitudeAspectVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "Venus", "Earth",
+    #    "heliocentric", "sidereal", 165)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addLongitudeAspectVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "Venus", "Earth",
+    #    "heliocentric", "sidereal", 180)
     
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
@@ -389,6 +495,10 @@ def processPCDD(pcdd, tag):
     #    addGeoLongitudeElongationVerticalLines(
     #    pcdd, startDt, endDt, highPrice, lowPrice, planetName="Venus")
      
+    success = PlanetaryCombinationsLibrary.\
+        addGeoLongitudeElongationVerticalLines(
+        pcdd, startDt, endDt, highPrice, lowPrice, planetName="Mercury")
+     
     #success = PlanetaryCombinationsLibrary.\
     #    addContraparallelDeclinationAspectVerticalLines(
     #    pcdd, startDt, endDt, highPrice, lowPrice,
@@ -402,17 +512,17 @@ def processPCDD(pcdd, tag):
     #success = PlanetaryCombinationsLibrary.\
     #    addPlanetOOBVerticalLines(
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName = "Venus")
+    #    planetName="Venus")
     
     #success =  PlanetaryCombinationsLibrary.\
     #    addGeoLatitudeLines(
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName = "Venus")
+    #    planetName="Venus")
     
     #success =  PlanetaryCombinationsLibrary.\
     #    addZeroLatitudeVerticalLines(
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName = "Venus")
+    #    planetName="Venus")
 
     #success = PlanetaryCombinationsLibrary.\
     #    addLatitudeVelocityPolarityChangeVerticalLines(
@@ -428,7 +538,32 @@ def processPCDD(pcdd, tag):
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    planet1Name="Venus", planet2Name="Mars")
     
-    
+    #success = PlanetaryCombinationsLibrary.\
+    #    addPlanetLongitudeTraversalIncrementsVerticalLines(
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "Venus", "geocentric", "sidereal", 
+    #    planetEpocDt=datetime.datetime(year=1976, month=4, day=1,
+    #                                   hour=13, minute=0, second=0,
+    #                                   tzinfo=pytz.utc),
+    #    degreeIncrement=18)
+
+    #success = PlanetaryCombinationsLibrary.\
+    #    addPlanetLongitudeTraversalIncrementsVerticalLines(
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "Venus", "heliocentric", "sidereal", 
+    #    planetEpocDt=datetime.datetime(year=1970, month=3, day=21,
+    #                                   hour=0, minute=0, second=0,
+    #                                   tzinfo=pytz.utc),
+    #    degreeIncrement=30)
+
+    #success = PlanetaryCombinationsLibrary.\
+    #    addPlanetLongitudeTraversalIncrementsVerticalLines(
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "Sun", "geocentric", "tropical", 
+    #    planetEpocDt=datetime.datetime(year=1970, month=3, day=21,
+    #                                   hour=6, minute=0, second=0,
+    #                                   tzinfo=pytz.utc),
+    #    degreeIncrement=15)
 
     if success == True:
         log.debug("Success!")

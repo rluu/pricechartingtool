@@ -8267,7 +8267,7 @@ class PlanetaryCombinationsLibrary:
                                 microseconds=(timeWindowTd.microseconds / 2.0))
                         testDt = t1 + halfTimeWindowTd
 
-                        p1 = Ephemeris.getPlanetaryInfo(planet1Name, testDt)
+                        p1 = Ephemeris.getPlanetaryInfo(planetName, testDt)
 
                         testValueP1 = getFieldValue(p1, fieldName)
 
@@ -8316,7 +8316,7 @@ class PlanetaryCombinationsLibrary:
                                 microseconds=(timeWindowTd.microseconds / 2.0))
                         testDt = t1 + halfTimeWindowTd
 
-                        p1 = Ephemeris.getPlanetaryInfo(planet1Name, testDt)
+                        p1 = Ephemeris.getPlanetaryInfo(planetName, testDt)
 
                         testValueP1 = getFieldValue(p1, fieldName)
 
@@ -8343,6 +8343,10 @@ class PlanetaryCombinationsLibrary:
                 # Calculate the total number of degrees elapsed so far.
                 currElapsed = (numFullCircles * 360.0) + currDiff
 
+                log.debug("currElapsed == {}".format(currElapsed))
+                log.debug("desiredDegreesElapsed == {}".\
+                          format(desiredDegreesElapsed))
+                
                 if currElapsed > desiredDegreesElapsed:
                     # We pased the number of degrees past that we were
                     # looking for.  Now we have to calculate the exact
@@ -8359,6 +8363,8 @@ class PlanetaryCombinationsLibrary:
                         Util.toNormalizedAngle(\
                         planetEpocLongitude + (desiredDegreesElapsed % 360.0))
 
+                    log.debug("desiredDegree == {}".format(desiredDegree))
+                    
                     # Check starting from steps[-2] to steps[-1] to
                     # see exactly when it passes this desiredDegree.
 
@@ -8382,7 +8388,7 @@ class PlanetaryCombinationsLibrary:
                                 microseconds=(timeWindowTd.microseconds / 2.0))
                         testDt = t1 + halfTimeWindowTd
 
-                        p1 = Ephemeris.getPlanetaryInfo(planet1Name, testDt)
+                        p1 = Ephemeris.getPlanetaryInfo(planetName, testDt)
                         
                         testValueP1 = getFieldValue(p1, fieldName)
 
@@ -8398,25 +8404,36 @@ class PlanetaryCombinationsLibrary:
 
                     # t2 holds the moment in time.
                     rv.append(t2)
-                    
+
+                    log.debug("First moment in time found to be: {}".\
+                              format(Ephemeris.datetimeToStr(t2)))
+                              
                     # Now find the the other elapsed points, if they
                     # exist.  We know it doesn't exist if it traverses
                     # more than 120 degrees from desiredDegree.
-
                     startDt = t2
                     prevDt = startDt
                     currDt = startDt + stepSizeTd
-                    p1 = Ephemeris.getPlanetaryInfo(planet1Name, prevDt)
+                    p1 = Ephemeris.getPlanetaryInfo(planetName, prevDt)
                     prevDiff = Util.toNormalizedAngle(\
                         getFieldValue(p1, fieldName) - desiredDegree)
                     currDiff = None
-                        
-                    while prevDiff <= 120:
-                        p1 = Ephemeris.getPlanetaryInfo(planet1Name, currDt)
+
+                    log.debug("desiredDegree == {}".format(desiredDegree))
+                    
+                    while prevDiff <= 120 or prevDiff > 240:
+                        p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
                         currDiff = Util.toNormalizedAngle(\
                             getFieldValue(p1, fieldName) - desiredDegree)
 
-                        if prevDiff < 0 and currDiff >= 0:
+                        log.debug("currDt == {}, ".\
+                                  format(Ephemeris.datetimeToStr(currDt)) + 
+                                  "longitude == {}, ".\
+                                  format(getFieldValue(p1, fieldName)) + \
+                                  "currDiff == {}".\
+                                  format(currDiff))
+
+                        if prevDiff > 240 and currDiff < 120:
                             log.debug("Passed the desired number of " + \
                                       "elapsed degrees from " + \
                                       "below to above.  " + \
@@ -8446,7 +8463,7 @@ class PlanetaryCombinationsLibrary:
                                 testDt = t1 + halfTimeWindowTd
         
                                 p1 = Ephemeris.getPlanetaryInfo(\
-                                    planet1Name, testDt)
+                                    planetName, testDt)
                                 
                                 testValueP1 = getFieldValue(p1, fieldName)
         
@@ -8462,11 +8479,14 @@ class PlanetaryCombinationsLibrary:
                                     t1 = testDt
         
                                 currErrorTd = t2 - t1
-        
+
+
                             # currDt holds the moment in time.
+                            log.debug("Appending moment in time: {}".\
+                                      format(Ephemeris.datetimeToStr(currDt)))
                             rv.append(currDt)
 
-                        elif prevDiff > 0 and currDiff <= 0:
+                        elif prevDiff < 120 and currDiff > 240:
                             log.debug("Passed the desired number of " + \
                                       "elapsed degrees from " + \
                                       "above to below.  " + \
@@ -8496,7 +8516,7 @@ class PlanetaryCombinationsLibrary:
                                 testDt = t1 + halfTimeWindowTd
         
                                 p1 = Ephemeris.getPlanetaryInfo(\
-                                    planet1Name, testDt)
+                                    planetName, testDt)
                                 
                                 testValueP1 = getFieldValue(p1, fieldName)
         
@@ -8514,12 +8534,16 @@ class PlanetaryCombinationsLibrary:
                                 currErrorTd = t2 - t1
         
                             # currDt holds the moment in time.
+                            log.debug("Appending moment in time: {}".\
+                                      format(Ephemeris.datetimeToStr(currDt)))
                             rv.append(currDt)
 
                         prevDt = currDt
                         currDt = copy.deepcopy(currDt) + stepSizeTd
                         prevDiff = currDiff
                         currDiff = None
+
+                    log.debug("Done searching for timestamps.")
                         
                     # We have our timestamps, so we are done.
                     done = True
@@ -8627,7 +8651,7 @@ class PlanetaryCombinationsLibrary:
         colorWasSpecifiedFlag = True
         if color == None:
             colorWasSpecifiedFlag = False
-            color = AstrologyUtils.getForegroundColorForPlanetName(planet1Name)
+            color = AstrologyUtils.getForegroundColorForPlanetName(planetName)
 
         # Set the tag str.
         tag = inspect.stack()[0][3]
@@ -8681,6 +8705,12 @@ class PlanetaryCombinationsLibrary:
         # Get the planet longitude at the epoc moment.
         p1 = Ephemeris.getPlanetaryInfo(planetName, planetEpocDt)
         planetEpocLongitude = getFieldValue(p1, fieldName)
+
+        log.info("Planet epoc datetime  is: {}".\
+                  format(Ephemeris.datetimeToStr(planetEpocDt)))
+        log.info("Planet epoc longitude is: {}".\
+                  format(planetEpocLongitude))
+        
         desiredDegreesElapsed = degreeIncrement
         
         while currDt < endDt:
@@ -8690,6 +8720,9 @@ class PlanetaryCombinationsLibrary:
                 pcdd, planetName, centricityType, longitudeType,
                 planetEpocDt, desiredDegreesElapsed)
 
+            log.debug("{} datetimes returned by helper function.".\
+                      format(len(datetimes)))
+            
             for dt in datetimes:
                 # Create the artifact at the timestamp.
                 PlanetaryCombinationsLibrary.\
