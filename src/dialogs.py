@@ -1403,6 +1403,8 @@ class AppPreferencesEditWidget(QWidget):
             self._buildPlanetEnabledForPlanetaryInfoTableSettingsWidget()
         self.planetEnabledForDeclinationSettingsGroupBox = \
             self._buildPlanetEnabledForDeclinationSettingsWidget()
+        self.planetEnabledForLatitudeSettingsGroupBox = \
+            self._buildPlanetEnabledForLatitudeSettingsWidget()
         self.planetEnabledForGeoSidRadixChartSettingsGroupBox = \
             self._buildPlanetEnabledForGeoSidRadixChartSettingsWidget()
         self.planetEnabledForGeoTropRadixChartSettingsGroupBox = \
@@ -1434,6 +1436,8 @@ class AppPreferencesEditWidget(QWidget):
                               "HelioSidRadixChart")
         self.tabWidget.addTab(self.planetEnabledForDeclinationSettingsGroupBox,
                               "Declination")
+        self.tabWidget.addTab(self.planetEnabledForLatitudeSettingsGroupBox,
+                              "Latitude")
         self.tabWidget.addTab(self.aspectSettingsGroupBox,
                               "Planet Aspects")
         self.tabWidget.addTab(self.planetSymbolSettingsGroupBox,
@@ -1482,6 +1486,8 @@ class AppPreferencesEditWidget(QWidget):
             connect(self._handlePlanetEnabledForPlanetaryInfoTableResetAllToDefaultButtonClicked)
         self.planetEnabledForDeclinationResetAllToDefaultButton.clicked.\
             connect(self._handlePlanetEnabledForDeclinationResetAllToDefaultButtonClicked)
+        self.planetEnabledForLatitudeResetAllToDefaultButton.clicked.\
+            connect(self._handlePlanetEnabledForLatitudeResetAllToDefaultButtonClicked)
         self.planetEnabledForGeoSidRadixChartResetAllToDefaultButton.clicked.\
             connect(self._handlePlanetEnabledForGeoSidRadixChartResetAllToDefaultButtonClicked)
         self.planetEnabledForGeoTropRadixChartResetAllToDefaultButton.clicked.\
@@ -2872,6 +2878,423 @@ class AppPreferencesEditWidget(QWidget):
             setLayout(vlayout)
         
         return self.planetEnabledForDeclinationSettingsGroupBox
+
+    def _buildPlanetEnabledForLatitudeSettingsWidget(self):
+        """Builds a QWidget for editing the settings of what Planets
+        are displayed in the Latitude.
+
+        Returned widget is
+        self.planetEnabledForLatitudeSettingsGroupBox.
+        """
+        
+        # Planet enabled for Latitude.
+        self.planetEnabledForLatitudeSettingsGroupBox = \
+            QGroupBox("Planets in Latitude:")
+        
+        # Split the widgets into two forms, one on the left and one on
+        # the right.
+        planetEnabledForLatitudeLeftFormLayout = QFormLayout()
+        planetEnabledForLatitudeLeftFormLayout.\
+            setLabelAlignment(Qt.AlignLeft)
+
+        planetEnabledForLatitudeRightFormLayout = QFormLayout()
+        planetEnabledForLatitudeRightFormLayout.\
+            setLabelAlignment(Qt.AlignLeft)
+
+        
+        self.planetH1EnabledForLatitudeLabel = \
+            QLabel("H1 enabled:")
+        self.planetH1EnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeLeftFormLayout.\
+            addRow(self.planetH1EnabledForLatitudeLabel,
+                   self.planetH1EnabledForLatitudeCheckBox)
+        
+        self.planetH2EnabledForLatitudeLabel = \
+            QLabel("H2 enabled:")
+        self.planetH2EnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeLeftFormLayout.\
+            addRow(self.planetH2EnabledForLatitudeLabel,
+                   self.planetH2EnabledForLatitudeCheckBox)
+        
+        self.planetH3EnabledForLatitudeLabel = \
+            QLabel("H3 enabled:")
+        self.planetH3EnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeLeftFormLayout.\
+            addRow(self.planetH3EnabledForLatitudeLabel,
+                   self.planetH3EnabledForLatitudeCheckBox)
+        
+        self.planetH4EnabledForLatitudeLabel = \
+            QLabel("H4 enabled:")
+        self.planetH4EnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeLeftFormLayout.\
+            addRow(self.planetH4EnabledForLatitudeLabel,
+                   self.planetH4EnabledForLatitudeCheckBox)
+        
+        self.planetH5EnabledForLatitudeLabel = \
+            QLabel("H5 enabled:")
+        self.planetH5EnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeLeftFormLayout.\
+            addRow(self.planetH5EnabledForLatitudeLabel,
+                   self.planetH5EnabledForLatitudeCheckBox)
+        
+        self.planetH6EnabledForLatitudeLabel = \
+            QLabel("H6 enabled:")
+        self.planetH6EnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeLeftFormLayout.\
+            addRow(self.planetH6EnabledForLatitudeLabel,
+                   self.planetH6EnabledForLatitudeCheckBox)
+        
+        self.planetH7EnabledForLatitudeLabel = \
+            QLabel("H7 enabled:")
+        self.planetH7EnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeLeftFormLayout.\
+            addRow(self.planetH7EnabledForLatitudeLabel,
+                   self.planetH7EnabledForLatitudeCheckBox)
+        
+        self.planetH8EnabledForLatitudeLabel = \
+            QLabel("H8 enabled:")
+        self.planetH8EnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeLeftFormLayout.\
+            addRow(self.planetH8EnabledForLatitudeLabel,
+                   self.planetH8EnabledForLatitudeCheckBox)
+        
+        self.planetH9EnabledForLatitudeLabel = \
+            QLabel("H9 enabled:")
+        self.planetH9EnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeLeftFormLayout.\
+            addRow(self.planetH9EnabledForLatitudeLabel,
+                   self.planetH9EnabledForLatitudeCheckBox)
+        
+        self.planetH10EnabledForLatitudeLabel = \
+            QLabel("H10 enabled:")
+        self.planetH10EnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeLeftFormLayout.\
+            addRow(self.planetH10EnabledForLatitudeLabel,
+                   self.planetH10EnabledForLatitudeCheckBox)
+        
+        self.planetH11EnabledForLatitudeLabel = \
+            QLabel("H11 enabled:")
+        self.planetH11EnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeLeftFormLayout.\
+            addRow(self.planetH11EnabledForLatitudeLabel,
+                   self.planetH11EnabledForLatitudeCheckBox)
+        
+        self.planetH12EnabledForLatitudeLabel = \
+            QLabel("H12 enabled:")
+        self.planetH12EnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeLeftFormLayout.\
+            addRow(self.planetH12EnabledForLatitudeLabel,
+                   self.planetH12EnabledForLatitudeCheckBox)
+
+        self.planetHoraLagnaEnabledForLatitudeLabel = \
+            QLabel("HoraLagna enabled:")
+        self.planetHoraLagnaEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeLeftFormLayout.\
+            addRow(self.planetHoraLagnaEnabledForLatitudeLabel,
+                   self.planetHoraLagnaEnabledForLatitudeCheckBox)
+        
+        self.planetGhatiLagnaEnabledForLatitudeLabel = \
+            QLabel("GhatiLagna enabled:")
+        self.planetGhatiLagnaEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeLeftFormLayout.\
+            addRow(self.planetGhatiLagnaEnabledForLatitudeLabel,
+                   self.planetGhatiLagnaEnabledForLatitudeCheckBox)
+        
+        self.planetMeanLunarApogeeEnabledForLatitudeLabel = \
+            QLabel("MeanLunarApogee enabled:")
+        self.planetMeanLunarApogeeEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeLeftFormLayout.\
+            addRow(self.planetMeanLunarApogeeEnabledForLatitudeLabel,
+                   self.planetMeanLunarApogeeEnabledForLatitudeCheckBox)
+        
+        self.planetOsculatingLunarApogeeEnabledForLatitudeLabel = \
+            QLabel("OsculatingLunarApogee enabled:")
+        self.planetOsculatingLunarApogeeEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeLeftFormLayout.\
+            addRow(self.planetOsculatingLunarApogeeEnabledForLatitudeLabel,
+                   self.planetOsculatingLunarApogeeEnabledForLatitudeCheckBox)
+        
+        self.planetInterpolatedLunarApogeeEnabledForLatitudeLabel = \
+            QLabel("InterpolatedLunarApogee enabled:")
+        self.planetInterpolatedLunarApogeeEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeLeftFormLayout.\
+            addRow(self.planetInterpolatedLunarApogeeEnabledForLatitudeLabel,
+                   self.planetInterpolatedLunarApogeeEnabledForLatitudeCheckBox)
+        
+        self.planetInterpolatedLunarPerigeeEnabledForLatitudeLabel = \
+            QLabel("InterpolatedLunarPerigee enabled:")
+        self.planetInterpolatedLunarPerigeeEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeLeftFormLayout.\
+            addRow(self.planetInterpolatedLunarPerigeeEnabledForLatitudeLabel,
+                   self.planetInterpolatedLunarPerigeeEnabledForLatitudeCheckBox)
+        
+        self.planetSunEnabledForLatitudeLabel = \
+            QLabel("Sun enabled:")
+        self.planetSunEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeRightFormLayout.\
+            addRow(self.planetSunEnabledForLatitudeLabel,
+                   self.planetSunEnabledForLatitudeCheckBox)
+        
+        self.planetMoonEnabledForLatitudeLabel = \
+            QLabel("Moon enabled:")
+        self.planetMoonEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeRightFormLayout.\
+            addRow(self.planetMoonEnabledForLatitudeLabel,
+                   self.planetMoonEnabledForLatitudeCheckBox)
+        
+        self.planetMercuryEnabledForLatitudeLabel = \
+            QLabel("Mercury enabled:")
+        self.planetMercuryEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeRightFormLayout.\
+            addRow(self.planetMercuryEnabledForLatitudeLabel,
+                   self.planetMercuryEnabledForLatitudeCheckBox)
+        
+        self.planetVenusEnabledForLatitudeLabel = \
+            QLabel("Venus enabled:")
+        self.planetVenusEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeRightFormLayout.\
+            addRow(self.planetVenusEnabledForLatitudeLabel,
+                   self.planetVenusEnabledForLatitudeCheckBox)
+        
+        self.planetEarthEnabledForLatitudeLabel = \
+            QLabel("Earth enabled:")
+        self.planetEarthEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeRightFormLayout.\
+            addRow(self.planetEarthEnabledForLatitudeLabel,
+                   self.planetEarthEnabledForLatitudeCheckBox)
+        
+        self.planetMarsEnabledForLatitudeLabel = \
+            QLabel("Mars enabled:")
+        self.planetMarsEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeRightFormLayout.\
+            addRow(self.planetMarsEnabledForLatitudeLabel,
+                   self.planetMarsEnabledForLatitudeCheckBox)
+        
+        self.planetJupiterEnabledForLatitudeLabel = \
+            QLabel("Jupiter enabled:")
+        self.planetJupiterEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeRightFormLayout.\
+            addRow(self.planetJupiterEnabledForLatitudeLabel,
+                   self.planetJupiterEnabledForLatitudeCheckBox)
+        
+        self.planetSaturnEnabledForLatitudeLabel = \
+            QLabel("Saturn enabled:")
+        self.planetSaturnEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeRightFormLayout.\
+            addRow(self.planetSaturnEnabledForLatitudeLabel,
+                   self.planetSaturnEnabledForLatitudeCheckBox)
+        
+        self.planetUranusEnabledForLatitudeLabel = \
+            QLabel("Uranus enabled:")
+        self.planetUranusEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeRightFormLayout.\
+            addRow(self.planetUranusEnabledForLatitudeLabel,
+                   self.planetUranusEnabledForLatitudeCheckBox)
+        
+        self.planetNeptuneEnabledForLatitudeLabel = \
+            QLabel("Neptune enabled:")
+        self.planetNeptuneEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeRightFormLayout.\
+            addRow(self.planetNeptuneEnabledForLatitudeLabel,
+                   self.planetNeptuneEnabledForLatitudeCheckBox)
+        
+        self.planetPlutoEnabledForLatitudeLabel = \
+            QLabel("Pluto enabled:")
+        self.planetPlutoEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeRightFormLayout.\
+            addRow(self.planetPlutoEnabledForLatitudeLabel,
+                   self.planetPlutoEnabledForLatitudeCheckBox)
+        
+        self.planetMeanNorthNodeEnabledForLatitudeLabel = \
+            QLabel("MeanNorthNode enabled:")
+        self.planetMeanNorthNodeEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeRightFormLayout.\
+            addRow(self.planetMeanNorthNodeEnabledForLatitudeLabel,
+                   self.planetMeanNorthNodeEnabledForLatitudeCheckBox)
+        
+        self.planetMeanSouthNodeEnabledForLatitudeLabel = \
+            QLabel("MeanSouthNode enabled:")
+        self.planetMeanSouthNodeEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeRightFormLayout.\
+            addRow(self.planetMeanSouthNodeEnabledForLatitudeLabel,
+                   self.planetMeanSouthNodeEnabledForLatitudeCheckBox)
+        
+        self.planetTrueNorthNodeEnabledForLatitudeLabel = \
+            QLabel("TrueNorthNode enabled:")
+        self.planetTrueNorthNodeEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeRightFormLayout.\
+            addRow(self.planetTrueNorthNodeEnabledForLatitudeLabel,
+                   self.planetTrueNorthNodeEnabledForLatitudeCheckBox)
+        
+        self.planetTrueSouthNodeEnabledForLatitudeLabel = \
+            QLabel("TrueSouthNode enabled:")
+        self.planetTrueSouthNodeEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeRightFormLayout.\
+            addRow(self.planetTrueSouthNodeEnabledForLatitudeLabel,
+                   self.planetTrueSouthNodeEnabledForLatitudeCheckBox)
+        
+        self.planetCeresEnabledForLatitudeLabel = \
+            QLabel("Ceres enabled:")
+        self.planetCeresEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeRightFormLayout.\
+            addRow(self.planetCeresEnabledForLatitudeLabel,
+                   self.planetCeresEnabledForLatitudeCheckBox)
+        
+        self.planetPallasEnabledForLatitudeLabel = \
+            QLabel("Pallas enabled:")
+        self.planetPallasEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeRightFormLayout.\
+            addRow(self.planetPallasEnabledForLatitudeLabel,
+                   self.planetPallasEnabledForLatitudeCheckBox)
+        
+        self.planetJunoEnabledForLatitudeLabel = \
+            QLabel("Juno enabled:")
+        self.planetJunoEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeRightFormLayout.\
+            addRow(self.planetJunoEnabledForLatitudeLabel,
+                   self.planetJunoEnabledForLatitudeCheckBox)
+        
+        self.planetVestaEnabledForLatitudeLabel = \
+            QLabel("Vesta enabled:")
+        self.planetVestaEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeRightFormLayout.\
+            addRow(self.planetVestaEnabledForLatitudeLabel,
+                   self.planetVestaEnabledForLatitudeCheckBox)
+        
+        self.planetChironEnabledForLatitudeLabel = \
+            QLabel("Chiron enabled:")
+        self.planetChironEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeRightFormLayout.\
+            addRow(self.planetChironEnabledForLatitudeLabel,
+                   self.planetChironEnabledForLatitudeCheckBox)
+        
+        self.planetGulikaEnabledForLatitudeLabel = \
+            QLabel("Gulika enabled:")
+        self.planetGulikaEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeRightFormLayout.\
+            addRow(self.planetGulikaEnabledForLatitudeLabel,
+                   self.planetGulikaEnabledForLatitudeCheckBox)
+        
+        self.planetMandiEnabledForLatitudeLabel = \
+            QLabel("Mandi enabled:")
+        self.planetMandiEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeRightFormLayout.\
+            addRow(self.planetMandiEnabledForLatitudeLabel,
+                   self.planetMandiEnabledForLatitudeCheckBox)
+        
+        self.planetMeanOfFiveEnabledForLatitudeLabel = \
+            QLabel("MeanOfFive enabled:")
+        self.planetMeanOfFiveEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeRightFormLayout.\
+            addRow(self.planetMeanOfFiveEnabledForLatitudeLabel,
+                   self.planetMeanOfFiveEnabledForLatitudeCheckBox)
+        
+        self.planetCycleOfEightEnabledForLatitudeLabel = \
+            QLabel("CycleOfEight enabled:")
+        self.planetCycleOfEightEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeRightFormLayout.\
+            addRow(self.planetCycleOfEightEnabledForLatitudeLabel,
+                   self.planetCycleOfEightEnabledForLatitudeCheckBox)
+        
+        self.planetAvgMaJuSaUrNePlEnabledForLatitudeLabel = \
+            QLabel("AvgMaJuSaUrNePl enabled:")
+        self.planetAvgMaJuSaUrNePlEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeRightFormLayout.\
+            addRow(self.planetAvgMaJuSaUrNePlEnabledForLatitudeLabel,
+                   self.planetAvgMaJuSaUrNePlEnabledForLatitudeCheckBox)
+        
+        self.planetAvgJuSaUrNeEnabledForLatitudeLabel = \
+            QLabel("AvgJuSaUrNe enabled:")
+        self.planetAvgJuSaUrNeEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeRightFormLayout.\
+            addRow(self.planetAvgJuSaUrNeEnabledForLatitudeLabel,
+                   self.planetAvgJuSaUrNeEnabledForLatitudeCheckBox)
+        
+        self.planetAvgJuSaEnabledForLatitudeLabel = \
+            QLabel("AvgJuSa enabled:")
+        self.planetAvgJuSaEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeRightFormLayout.\
+            addRow(self.planetAvgJuSaEnabledForLatitudeLabel,
+                   self.planetAvgJuSaEnabledForLatitudeCheckBox)
+
+
+        # Button for resetting all the above edit widgets.
+        self.planetEnabledForLatitudeResetAllToDefaultButton = \
+            QPushButton("Reset all the above to original default values")
+
+        # Layouts.
+        leftFormVLayout = QVBoxLayout()
+        leftFormVLayout.addLayout(planetEnabledForLatitudeLeftFormLayout)
+        leftFormVLayout.addStretch()
+
+        rightFormVLayout = QVBoxLayout()
+        rightFormVLayout.addLayout(planetEnabledForLatitudeRightFormLayout)
+        rightFormVLayout.addStretch()
+
+        formLayout = QHBoxLayout()
+        formLayout.addLayout(leftFormVLayout)
+        formLayout.addLayout(rightFormVLayout)
+
+        hlayout = QHBoxLayout()
+        hlayout.addWidget(\
+            self.planetEnabledForLatitudeResetAllToDefaultButton)
+        hlayout.addStretch()
+
+        # Put the form layouts together.
+        vlayout = QVBoxLayout()
+        vlayout.addLayout(formLayout)
+        vlayout.addSpacing(10)
+        vlayout.addLayout(hlayout)
+        
+        self.planetEnabledForLatitudeSettingsGroupBox.\
+            setLayout(vlayout)
+        
+        return self.planetEnabledForLatitudeSettingsGroupBox
 
     def _buildPlanetEnabledForGeoSidRadixChartSettingsWidget(self):
         """Builds a QWidget for editing the settings of what Planets
@@ -7038,6 +7461,7 @@ class AppPreferencesEditWidget(QWidget):
         self._planetCalculationsLoadValuesFromSettings()
         self._planetEnabledForPlanetaryInfoTableLoadValuesFromSettings()
         self._planetEnabledForDeclinationLoadValuesFromSettings()
+        self._planetEnabledForLatitudeLoadValuesFromSettings()
         self._planetEnabledForGeoSidRadixChartLoadValuesFromSettings()
         self._planetEnabledForGeoTropRadixChartLoadValuesFromSettings()
         self._planetEnabledForHelioSidRadixChartLoadValuesFromSettings()
@@ -7064,6 +7488,7 @@ class AppPreferencesEditWidget(QWidget):
         self._planetCalculationsSaveValuesToSettings()
         self._planetEnabledForPlanetaryInfoTableSaveValuesToSettings()
         self._planetEnabledForDeclinationSaveValuesToSettings()
+        self._planetEnabledForLatitudeSaveValuesToSettings()
         self._planetEnabledForGeoSidRadixChartSaveValuesToSettings()
         self._planetEnabledForGeoTropRadixChartSaveValuesToSettings()
         self._planetEnabledForHelioSidRadixChartSaveValuesToSettings()
@@ -8384,6 +8809,424 @@ class AppPreferencesEditWidget(QWidget):
             self.planetAvgJuSaEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetAvgJuSaEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+    def _planetEnabledForLatitudeLoadValuesFromSettings(self):
+        """Loads the widgets with values from the QSettings object.
+
+        This method uses QSettings and assumes that the
+        calls to QCoreApplication.setOrganizationName(), and
+        QCoreApplication.setApplicationName() have been called previously.
+        This is so that the QSettings constructor can be called without 
+        any parameters specified.
+        """
+
+        settings = QSettings()
+
+        # Planet enabled for Latitude.
+        key = SettingsKeys.planetH1EnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH1EnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetH1EnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH1EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetH2EnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH2EnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetH2EnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH2EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetH3EnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH3EnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetH3EnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH3EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetH4EnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH4EnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetH4EnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH4EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetH5EnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH5EnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetH5EnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH5EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetH6EnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH6EnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetH6EnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH6EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetH7EnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH7EnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetH7EnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH7EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetH8EnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH8EnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetH8EnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH8EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetH9EnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH9EnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetH9EnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH9EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetH10EnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH10EnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetH10EnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH10EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetH11EnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH11EnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetH11EnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH11EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetH12EnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetH12EnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetH12EnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH12EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetHoraLagnaEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetHoraLagnaEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetHoraLagnaEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetHoraLagnaEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetGhatiLagnaEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetGhatiLagnaEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetGhatiLagnaEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetGhatiLagnaEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMeanLunarApogeeEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMeanLunarApogeeEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetMeanLunarApogeeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeanLunarApogeeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetOsculatingLunarApogeeEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetOsculatingLunarApogeeEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetOsculatingLunarApogeeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetOsculatingLunarApogeeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetInterpolatedLunarApogeeEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetInterpolatedLunarApogeeEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetInterpolatedLunarApogeeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetInterpolatedLunarApogeeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetInterpolatedLunarPerigeeEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetInterpolatedLunarPerigeeEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetInterpolatedLunarPerigeeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetInterpolatedLunarPerigeeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSunEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetSunEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetSunEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSunEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoonEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoonEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoonEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoonEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMercuryEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMercuryEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetMercuryEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMercuryEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetVenusEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetVenusEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetVenusEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVenusEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetEarthEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetEarthEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetEarthEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetEarthEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMarsEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMarsEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetMarsEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMarsEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetJupiterEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetJupiterEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetJupiterEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJupiterEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSaturnEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetSaturnEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetSaturnEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaturnEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetUranusEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetUranusEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetUranusEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUranusEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetNeptuneEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetNeptuneEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetNeptuneEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetNeptuneEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetPlutoEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetPlutoEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetPlutoEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetPlutoEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMeanNorthNodeEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMeanNorthNodeEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetMeanNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeanNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMeanSouthNodeEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMeanSouthNodeEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetMeanSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeanSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetTrueNorthNodeEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetTrueNorthNodeEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetTrueSouthNodeEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetTrueSouthNodeEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetCeresEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetCeresEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetCeresEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCeresEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetPallasEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetPallasEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetPallasEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetPallasEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetJunoEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetJunoEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetJunoEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJunoEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetVestaEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetVestaEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetVestaEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVestaEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetChironEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetChironEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetChironEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetChironEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetGulikaEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetGulikaEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetGulikaEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetGulikaEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMandiEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMandiEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetMandiEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMandiEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMeanOfFiveEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMeanOfFiveEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetMeanOfFiveEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeanOfFiveEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetCycleOfEightEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetCycleOfEightEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetCycleOfEightEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCycleOfEightEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAvgMaJuSaUrNePlEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAvgMaJuSaUrNePlEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetAvgMaJuSaUrNePlEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAvgMaJuSaUrNePlEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAvgJuSaUrNeEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAvgJuSaUrNeEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetAvgJuSaUrNeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAvgJuSaUrNeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAvgJuSaEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAvgJuSaEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetAvgJuSaEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAvgJuSaEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
 
     def _planetEnabledForGeoSidRadixChartLoadValuesFromSettings(self):
         """Loads the widgets with values from the QSettings object.
@@ -13961,6 +14804,607 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.planetAvgJuSaEnabledForDeclinationKey
         newValue = \
             self.planetAvgJuSaEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        # Explicitly sync.
+        settings.sync()
+        
+    def _planetEnabledForLatitudeSaveValuesToSettings(self):
+        """Saves the values in the widgets to the QSettings object.
+
+        This method uses QSettings and assumes that the
+        calls to QCoreApplication.setOrganizationName(), and
+        QCoreApplication.setApplicationName() have been called previously
+        This is so that the QSettings constructor can be called without 
+        any parameters specified.
+        """
+
+        settings = QSettings()
+        
+        # Planet enabled for Latitude.
+        key = SettingsKeys.planetH1EnabledForLatitudeKey
+        newValue = \
+            self.planetH1EnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetH2EnabledForLatitudeKey
+        newValue = \
+            self.planetH2EnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetH3EnabledForLatitudeKey
+        newValue = \
+            self.planetH3EnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetH4EnabledForLatitudeKey
+        newValue = \
+            self.planetH4EnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetH5EnabledForLatitudeKey
+        newValue = \
+            self.planetH5EnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetH6EnabledForLatitudeKey
+        newValue = \
+            self.planetH6EnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetH7EnabledForLatitudeKey
+        newValue = \
+            self.planetH7EnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetH8EnabledForLatitudeKey
+        newValue = \
+            self.planetH8EnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetH9EnabledForLatitudeKey
+        newValue = \
+            self.planetH9EnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetH10EnabledForLatitudeKey
+        newValue = \
+            self.planetH10EnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetH11EnabledForLatitudeKey
+        newValue = \
+            self.planetH11EnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetH12EnabledForLatitudeKey
+        newValue = \
+            self.planetH12EnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetHoraLagnaEnabledForLatitudeKey
+        newValue = \
+            self.planetHoraLagnaEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetGhatiLagnaEnabledForLatitudeKey
+        newValue = \
+            self.planetGhatiLagnaEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetMeanLunarApogeeEnabledForLatitudeKey
+        newValue = \
+            self.planetMeanLunarApogeeEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetOsculatingLunarApogeeEnabledForLatitudeKey
+        newValue = \
+            self.planetOsculatingLunarApogeeEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetInterpolatedLunarApogeeEnabledForLatitudeKey
+        newValue = \
+            self.planetInterpolatedLunarApogeeEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetInterpolatedLunarPerigeeEnabledForLatitudeKey
+        newValue = \
+            self.planetInterpolatedLunarPerigeeEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetSunEnabledForLatitudeKey
+        newValue = \
+            self.planetSunEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetMoonEnabledForLatitudeKey
+        newValue = \
+            self.planetMoonEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetMercuryEnabledForLatitudeKey
+        newValue = \
+            self.planetMercuryEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetVenusEnabledForLatitudeKey
+        newValue = \
+            self.planetVenusEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetEarthEnabledForLatitudeKey
+        newValue = \
+            self.planetEarthEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetMarsEnabledForLatitudeKey
+        newValue = \
+            self.planetMarsEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetJupiterEnabledForLatitudeKey
+        newValue = \
+            self.planetJupiterEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetSaturnEnabledForLatitudeKey
+        newValue = \
+            self.planetSaturnEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetUranusEnabledForLatitudeKey
+        newValue = \
+            self.planetUranusEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetNeptuneEnabledForLatitudeKey
+        newValue = \
+            self.planetNeptuneEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetPlutoEnabledForLatitudeKey
+        newValue = \
+            self.planetPlutoEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetMeanNorthNodeEnabledForLatitudeKey
+        newValue = \
+            self.planetMeanNorthNodeEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetMeanSouthNodeEnabledForLatitudeKey
+        newValue = \
+            self.planetMeanSouthNodeEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetTrueNorthNodeEnabledForLatitudeKey
+        newValue = \
+            self.planetTrueNorthNodeEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetTrueSouthNodeEnabledForLatitudeKey
+        newValue = \
+            self.planetTrueSouthNodeEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetCeresEnabledForLatitudeKey
+        newValue = \
+            self.planetCeresEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetPallasEnabledForLatitudeKey
+        newValue = \
+            self.planetPallasEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetJunoEnabledForLatitudeKey
+        newValue = \
+            self.planetJunoEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetVestaEnabledForLatitudeKey
+        newValue = \
+            self.planetVestaEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetChironEnabledForLatitudeKey
+        newValue = \
+            self.planetChironEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetGulikaEnabledForLatitudeKey
+        newValue = \
+            self.planetGulikaEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetMandiEnabledForLatitudeKey
+        newValue = \
+            self.planetMandiEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetMeanOfFiveEnabledForLatitudeKey
+        newValue = \
+            self.planetMeanOfFiveEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetCycleOfEightEnabledForLatitudeKey
+        newValue = \
+            self.planetCycleOfEightEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetAvgMaJuSaUrNePlEnabledForLatitudeKey
+        newValue = \
+            self.planetAvgMaJuSaUrNePlEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetAvgJuSaUrNeEnabledForLatitudeKey
+        newValue = \
+            self.planetAvgJuSaUrNeEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetAvgJuSaEnabledForLatitudeKey
+        newValue = \
+            self.planetAvgJuSaEnabledForLatitudeCheckBox.\
             checkState() == Qt.Checked
         if settings.contains(key):
             oldValue = settings.value(key, type=bool)
@@ -20139,6 +21583,284 @@ class AppPreferencesEditWidget(QWidget):
             self.planetAvgJuSaEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetAvgJuSaEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+    def _handlePlanetEnabledForLatitudeResetAllToDefaultButtonClicked(self):
+        """Called when the
+        planetEnabledForLatitudeResetAllToDefaultButton is
+        clicked.  Resets the all the widget values in this widget tab
+        to the default values.
+        """
+        
+        # Planet enabled for Latitude.
+        value = bool(SettingsKeys.planetH1EnabledForLatitudeDefValue)
+        if value == True:
+            self.planetH1EnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH1EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetH2EnabledForLatitudeDefValue)
+        if value == True:
+            self.planetH2EnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH2EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetH3EnabledForLatitudeDefValue)
+        if value == True:
+            self.planetH3EnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH3EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetH4EnabledForLatitudeDefValue)
+        if value == True:
+            self.planetH4EnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH4EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetH5EnabledForLatitudeDefValue)
+        if value == True:
+            self.planetH5EnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH5EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetH6EnabledForLatitudeDefValue)
+        if value == True:
+            self.planetH6EnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH6EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetH7EnabledForLatitudeDefValue)
+        if value == True:
+            self.planetH7EnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH7EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetH8EnabledForLatitudeDefValue)
+        if value == True:
+            self.planetH8EnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH8EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetH9EnabledForLatitudeDefValue)
+        if value == True:
+            self.planetH9EnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH9EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetH10EnabledForLatitudeDefValue)
+        if value == True:
+            self.planetH10EnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH10EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetH11EnabledForLatitudeDefValue)
+        if value == True:
+            self.planetH11EnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH11EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetH12EnabledForLatitudeDefValue)
+        if value == True:
+            self.planetH12EnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH12EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetHoraLagnaEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetHoraLagnaEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetHoraLagnaEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetGhatiLagnaEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetGhatiLagnaEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetGhatiLagnaEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMeanLunarApogeeEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetMeanLunarApogeeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeanLunarApogeeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetOsculatingLunarApogeeEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetOsculatingLunarApogeeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetOsculatingLunarApogeeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetInterpolatedLunarApogeeEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetInterpolatedLunarApogeeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetInterpolatedLunarApogeeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetInterpolatedLunarPerigeeEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetInterpolatedLunarPerigeeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetInterpolatedLunarPerigeeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSunEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetSunEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSunEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoonEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetMoonEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoonEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMercuryEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetMercuryEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMercuryEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetVenusEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetVenusEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVenusEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetEarthEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetEarthEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetEarthEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMarsEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetMarsEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMarsEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetJupiterEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetJupiterEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJupiterEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSaturnEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetSaturnEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaturnEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetUranusEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetUranusEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUranusEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetNeptuneEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetNeptuneEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetNeptuneEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetPlutoEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetPlutoEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetPlutoEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMeanNorthNodeEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetMeanNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeanNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMeanSouthNodeEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetMeanSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeanSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetTrueNorthNodeEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetTrueSouthNodeEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetCeresEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetCeresEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCeresEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetPallasEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetPallasEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetPallasEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetJunoEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetJunoEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJunoEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetVestaEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetVestaEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVestaEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetChironEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetChironEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetChironEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetGulikaEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetGulikaEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetGulikaEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMandiEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetMandiEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMandiEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMeanOfFiveEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetMeanOfFiveEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeanOfFiveEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetCycleOfEightEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetCycleOfEightEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCycleOfEightEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAvgMaJuSaUrNePlEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetAvgMaJuSaUrNePlEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAvgMaJuSaUrNePlEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAvgJuSaUrNeEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetAvgJuSaUrNeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAvgJuSaUrNeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAvgJuSaEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetAvgJuSaEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAvgJuSaEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
 
     def _handlePlanetEnabledForGeoSidRadixChartResetAllToDefaultButtonClicked(self):
         """Called when the

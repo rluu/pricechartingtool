@@ -3798,7 +3798,532 @@ class PlanetDeclinationGraphicsItem(QGraphicsItem):
         # Restore the old paintbrush and pen.
         painter.setBrush(oldBrush)
         painter.setPen(oldPen)
+
+class LatitudeChartGraphicsItem(QGraphicsItem):
+    """QGraphicsItem that paints a chart for displaying various
+    planets' latitude.
+    """
+
+    def __init__(self, parent=None, scene=None):
+        super().__init__(parent, scene)
+
+        # Logger
+        self.log = \
+            logging.getLogger("astrologychart.LatitudeGraphicsItem")
+
+        self.rulerWidth = 40.0
+        self.rulerHeight = 300.0
+
+        # These are on the verical axis.  Ruler height must be evenly
+        # divisible by these tick size numbers below.
+        self.bigTickSize = 50.0
+        self.smallTickSize = 10.0
+
+        # Value used in getXLocationForPlanetGroupNumber().
+        self.planetLineLength = self.rulerWidth
         
+    def getPlanetLatitudeGraphicsItem(self, planetName, groupNum):
+        """Returns the PlanetLatitudeGraphicsItem with the given
+        planet name and group number.  If no match is found, None is
+        returned.
+
+        Arguments:
+        
+        planetName - str value holding the planet name as set in the
+        RadixPlanetGraphicsItem.
+        
+        groupNum - int value holding the planet group number as set in the
+        RadixPlanetGraphicsItem.
+        """
+
+        # Get the child GraphicsItems.
+        children = self.childItems()
+        
+        # Go through them and look at the ones that are
+        # PlanetLatitudeGraphicsItem.
+        for child in children:
+            if isinstance(child, PlanetLatitudeGraphicsItem):
+                # If the planet name matches then return that
+                # QGraphicsItem.
+                if child.getPlanetName() == planetName and \
+                    child.getPlanetGroupNumber() == groupNum:
+                    
+                    return child
+
+        return None
+
+    def getXLocationForPlanetGroupNumber(self, planetGroupNumber):
+        """Returns the X location away from the origin for
+        the location that the child items should draw their planets'
+        QGraphicsItems.
+
+        Arguments:
+        planetGroupNumber - int value which is an index representing
+                            the set of planets that having their
+                            latitude charted.  This index
+                            value is 1-based, so 1 is the first set
+                            of planets drawn to the right of the ruler.
+
+        Returns:
+        float - Width for where to start drawing the text for a planet.
+        """
+
+        x = self.planetLineLength + \
+            (planetGroupNumber-1) * (2.0 * self.planetLineLength)
+
+        return x
+
+    
+    def convertYValueToDegree(self, y):
+        """Converts a tick Y value to it's equivalent in degrees.
+
+        Arguments:
+        y - float value for the Y coordinate value.
+
+        Returns
+        float - value for the degrees that this Y value represents..
+        """
+
+        # Our algorithm for conversion is to drop an order of magnitude.
+        return (y / -10.0)
+        
+    def convertDegreeToYValue(self, degree):
+        """Converts a degree value it's equivalent Y value in coordinates.
+
+        Arguments:
+        degree - float value for the degree the planet is at.
+
+        Returns
+        float - value for the Y coordinate location for the given degree.
+        """
+
+        # Our algorithm for conversion is the following.
+        return degree * -10.0
+        
+    def boundingRect(self):
+        """Returns the bounding rectangle for this graphicsitem."""
+
+        # Coordinate (0, 0) is the location where the zero-tick
+        # intersects the right side of the ruler.  The painting should
+        # be relative to this point as the center.
+
+        x = -1.0 * self.rulerWidth
+        y = -1.0 * self.rulerHeight / 2.0
+        rectF = QRectF(x, y, self.rulerWidth, self.rulerHeight)
+
+        return rectF
+    
+    def paint(self, painter, option, widget):
+        """Paints this QGraphicsItem. """
+
+        # Coordinate (0, 0) is the location where the zero-tick
+        # intersects the right side of the ruler.  The painting should
+        # be relative to this point as the center.
+
+        # Change the brush and pen in the painter.
+        # We will restore it when done.
+        oldBrush = painter.brush()
+        oldPen = painter.pen()
+        pen = painter.pen()
+        pen.setColor(QColor(Qt.black))
+        pen.setWidthF(0.0)
+        painter.setPen(pen)
+        brush = painter.brush()
+        brush.setColor(QColor(Qt.black))
+        painter.setBrush(brush)
+
+        # Draw the rectangle for the ruler.
+        rectF = self.boundingRect()
+        painter.drawRect(rectF)
+
+        # Now that the rectangle is drawn.  Everything can have a
+        # solid pattern for its brush because we don't paint anything
+        # else we don't want filled in.
+        brush.setStyle(Qt.SolidPattern)
+        painter.setBrush(brush)
+        
+        # Draw small ticks.
+        start = int(-1.0 * self.rulerHeight / 2.0)
+        stop = int(self.rulerHeight / 2.0)
+        step = int(self.smallTickSize)
+        smallTickWidth = self.rulerWidth / 6.0
+        for tick in range(start, stop, step):
+            # Draw the tick line.
+            x1 = -1.0 * smallTickWidth
+            y1 = -1.0 * tick
+            x2 = 0
+            y2 = -1.0 * tick
+            painter.drawLine(QLineF(x1, y1, x2, y2))
+
+        # Draw big ticks
+        start = int(-1.0 * self.rulerHeight / 2.0)
+        stop = int(self.rulerHeight / 2.0)
+        step = int(self.bigTickSize)
+        bigTickWidth = self.rulerWidth / 3.0
+        for tick in range(start, stop, step):
+            # Draw the tick line.
+            x1 = -1.0 * bigTickWidth
+            y1 = -1.0 * tick
+            x2 = -1.0 * smallTickWidth
+            y2 = -1.0 * tick
+            painter.drawLine(QLineF(x1, y1, x2, y2))
+
+            # Draw the text for the ticks.
+            font = QFont()
+            font.setFamily("Lucida Console")
+            font.setPointSize(10)
+            
+            x1 = -1.0 * self.rulerWidth
+            y1 = -1.0 * tick
+            converted = math.floor(-1 * self.convertYValueToDegree(float(tick)))
+            text = "{}\u00b0".format(converted)
+            textPath = QPainterPath()
+            textPath.addText(0, 0, font, text)
+            
+            transform = QTransform()
+            transform.translate(x1, y1)
+            
+            translatedPath = QPainterPath()
+            translatedPath.addPath(transform.map(textPath))
+            
+            painter.drawPath(translatedPath)
+            
+        # Restore old paintbrush and pen.
+        painter.setBrush(oldBrush)
+        painter.setPen(oldPen)
+    
+class PlanetLatitudeGraphicsItem(QGraphicsItem):
+    """QGraphicsItem that is a 'planet' to be drawn with a
+    LatitudeChartGraphicsItem object as its parent QGraphicsItem.
+    """
+
+    def __init__(self,
+                 planetName,
+                 planetGlyphUnicode,
+                 planetGlyphFontSize,
+                 planetAbbreviation,
+                 planetForegroundColor,
+                 planetBackgroundColor,
+                 degree=0.0,
+                 velocity=0.0,
+                 planetGroupNumber=1,
+                 parent=None,
+                 scene=None):
+        """Initializes the object with the given arguments.
+
+        Arguments:
+        planetName - str holding the name of the planet.
+        planetGlyphUnicode - str holding the planet glyph.
+        planetGlyphFontSize - float font size for drawing the glyph.
+        planetAbbreviation - str holding the planet abbreviation.
+        planetForegroundColor - QColor object for the foreground color to
+                                be used for the drawing of the planet.
+        planetBackgroundColor - QColor object for the background color to
+                                be used for the drawing of the planet.
+        degree - float value for the latitude degree location for where this
+                 planet will be drawn.  If the value is not
+                 in the range [-180.0, 180), it will be normalized so that it
+                 is in that range before drawing.
+        velocity - float value for the velocity of the planet, in degrees
+                   per day.  Negative values indicate that the planet
+                   is retrograde (if applicable).
+        planetGroupNumber - int value for the group of planets that this
+                            planet belongs to.  This is so planets of
+                            the same group (timestamp) can be drawn together.
+                            The first group is at number 1.
+        parent - LatitudeChartGraphicsItem that is the parent for this
+                 QGraphicsItem.
+        scene - QGraphicsScene object to draw this QGraphicsItem on.
+        """
+        
+        super().__init__(parent, scene)
+        
+        # Logger
+        self.log = \
+            logging.getLogger("astrologychart.PlanetLatitudeGraphicsItem")
+
+        # Save the parameter values.
+        self.planetName = planetName
+        self.planetGlyphUnicode = planetGlyphUnicode
+        self.planetGlyphFontSize = planetGlyphFontSize
+        self.planetAbbreviation = planetAbbreviation
+        self.planetForegroundColor = planetForegroundColor
+        self.planetBackgroundColor = planetBackgroundColor
+        self.degree = degree
+        self.velocity = velocity
+        self.planetGroupNumber = planetGroupNumber
+        self.parentChartGraphicsItem = parent
+
+        # Location where the line ends and the text begins.  This
+        # value is obtained from the parent
+        # LatitudeChartGraphicsItem object.
+        self.lineEndX = 0.0
+
+        # Call our overwritten self.setParentItem() manually so that
+        # the parent object type can be verified.  This will also
+        # subsequently have the (desired) side effect of
+        # re-calculating self.lineEndX and updating the QGraphicsItem.
+        self.setParentItem(parent)
+
+        
+    def setParentItem(self, parent):
+        """Overwrites QGraphicsItem.setParentItem().  Needed so we can
+        save off the parent in self.parentChartGraphicsItem.
+
+        Arguments:
+        parent -  LatitudeChartGraphicsItem parent object.
+        """
+
+        # Verify parent class.
+        if parent != None and \
+               not isinstance(parent, LatitudeChartGraphicsItem):
+            
+            raise TypeError("Argument 'parent' is not of type " + \
+                            "'LatitudeChartGraphicsItem'")
+        
+        # Save off the parent.
+        self.parentChartGraphicsItem = parent
+
+        # Call self.setPlanetGroupNumber() again so the drawn points
+        # can be recalculated.
+        self.setPlanetGroupNumber(self.planetGroupNumber)
+        
+    def setDegree(self, degree):
+        """Sets the location of the planet in degrees of the zodiac.
+
+        Arguments:
+        
+        degree - float value for the degree location for where this
+                 planet will be drawn on the zodiac.  If the value is not
+                 in the range [0.0, 360), it will be normalized so that it
+                 is in that range before drawing.
+        """
+
+        self.degree = degree
+        self.update()
+        
+    def getDegree(self):
+        """Returns the location of the planet in degrees of the zodiac.
+
+        Returns:
+        float - Value representing the degree location of the planet.
+                The value returned will be between: [0.0, 360).
+        """
+
+        return self.degree
+
+    def setVelocity(self, velocity):
+        """Sets the velocity of the planet, in degrees per day.
+
+        Arguments:
+        velocity - float value for the velocity of the planet, in degrees
+                   per day.  Negative values indicate that the planet
+                   is retrograde (if applicable).
+        """
+
+        self.velocity = velocity
+        self.update()
+
+    def getVelocity(self):
+        """Returns the velocity of the planet, in degrees per day.
+
+        Returns:
+        float - Value for the velocity of the planet, in degrees
+                per day.
+        """
+
+        return self.velocity
+
+    def setDegreeAndVelocity(self, degree, velocity):
+        """Sets the degree location of the planet and the velocity of
+        the planet, all at once.
+
+        Arguments:
+        degree - float value for the degree location for where this
+                 planet will be drawn on the zodiac.  If the value is not
+                 in the range [0.0, 360), it will be normalized so that it
+                 is in that range before drawing.
+        velocity - float value for the velocity of the planet, in degrees
+                   per day.  Negative values indicate that the planet
+                   is retrograde (if applicable).
+        """
+
+        self.degree = degree
+        self.velocity = velocity
+
+        self.update()
+        
+    def setPlanetGroupNumber(self, planetGroupNumber):
+        """Sets the planet group number that this QGraphicsItem is
+        associated with.  The first group is number 1.
+        
+        Arguments:
+        planetGroupNumber - int value for the group of planets that this
+                            planet belongs to.  This is so planets of
+                            the same group (timestamp) can be drawn together.
+                            The first group is at number 1.
+        """
+
+        self.planetGroupNumber = planetGroupNumber
+
+
+        # Update the self.lineEndX location point if we have a parent
+        # chart set.
+        if self.parentChartGraphicsItem != None:
+
+            lineEndX = \
+                self.parentChartGraphicsItem.\
+                getXLocationForPlanetGroupNumber(self.planetGroupNumber)
+
+            # Update variable only if the new value is different.
+            if self.lineEndX != lineEndX:
+                self.lineEndX = lineEndX
+                self.update()
+
+    def getPlanetGroupNumber(self):
+        """Returns the planet group number that this planet is drawn
+        on.  This value represents which group of planets that the
+        planet is associated with when drawn on the chart.  The first
+        planet group is number 1.
+
+        Returns:
+
+        int - Value representing which planet group number the planet
+              is drawn on.  A value of 1 indicates the first group on
+              the right of the ruler.
+        """
+
+        return self.planetGroupNumber
+
+    def getPlanetName(self):
+        """Returns the planet name."""
+
+        return self.planetName
+
+    def getPlanetGlyphUnicode(self):
+        """Returns the planet glyph in unicode."""
+
+        return self.planetGlyphUnicode
+
+    def getPlanetGlyphFontSize(self):
+        """Returns the planet glyph font size."""
+
+        return self.planetGlyphFontSize
+
+    def getPlanetAbbreviation(self):
+        """Returns the planet abbreviation."""
+
+        return self.planetAbbreviation
+
+    def getPlanetForegroundColor(self):
+        """Returns the planet foreground color as a QColor object."""
+
+        return self.planetForegroundColor
+
+    def getPlanetBackgroundColor(self):
+        """Returns the planet background color as a QColor object."""
+
+        return self.planetBackgroundColor
+
+    def boundingRect(self):
+        """Returns the bounding rectangle for this graphicsitem.
+
+        We implement this function by taking all the pieces, and doing
+        an logical OR on the areas covered by their rectangles.  The
+        rectangles are calculated in the same way that paint() is
+        done.  Changes to paint() will required changes to this
+        method.
+        """
+
+        # QRectF for the line.
+        x1 = 0.0
+        y1 = self.parentChartGraphicsItem.convertDegreeToYValue(self.degree)
+        x2 = self.lineEndX
+        y2 = self.parentChartGraphicsItem.convertDegreeToYValue(self.degree)
+        lineRect = QRectF(QPointF(x1, y1), QPointF(x2, y2)).normalized()
+
+        # QRectF for text of the planet glyph and degree.
+        font = QFont()
+        font.setFamily("Lucida Console")
+        font.setPointSize(self.planetGlyphFontSize)
+        text = self.planetGlyphUnicode
+        text += " {:.3f}\u00b0".format(self.degree)
+        textPath = QPainterPath()
+        textPath.addText(0, 0, font, text)
+        transform = QTransform()
+        textX = self.lineEndX
+        textY = self.parentChartGraphicsItem.convertDegreeToYValue(self.degree)
+        transform.translate(textX, textY)
+        transformedTextPath = QPainterPath()
+        transformedTextPath.addPath(transform.map(textPath))
+        textRect = transformedTextPath.boundingRect()
+
+        # Unite all rectangles.
+        rv = lineRect.united(textRect)
+        
+        return rv
+
+    def paint(self, painter, option, widget):
+        """Paints this QGraphicsItem.
+        
+        The painting is done in the following parts:
+        - Paint the line from ruler to the location where the text starts.
+        - Paint the text for the planet glyph and the degree it is at.
+
+        Note: boundingRect() utilizes the same calculations as here,
+        so if this function changes, then boundingRect() will need to
+        be updated as well.
+        """
+
+        # Change the brush and pen in the painter.
+        # We will restore it when done.
+        oldBrush = painter.brush()
+        oldPen = painter.pen()
+        pen = painter.pen()
+        pen.setColor(QColor(self.planetForegroundColor))
+        pen.setWidthF(0.0)
+        painter.setPen(pen)
+        brush = painter.brush()
+        brush.setColor(self.planetForegroundColor)
+        brush.setStyle(Qt.SolidPattern)
+        painter.setBrush(brush)
+
+        # Draw the line.
+        x1 = 0.0
+        y1 = self.parentChartGraphicsItem.convertDegreeToYValue(self.degree)
+        x2 = self.lineEndX
+        y2 = self.parentChartGraphicsItem.convertDegreeToYValue(self.degree)
+        painter.drawLine(QLineF(x1, y1, x2, y2))
+
+        # Draw the text for the planet.
+        font = QFont()
+        font.setFamily("Lucida Console")
+        font.setPointSize(self.planetGlyphFontSize)
+
+        text = self.planetGlyphUnicode
+        text += " {:.3f}\u00b0".format(self.degree)
+        textPath = QPainterPath()
+        textPath.addText(0, 0, font, text)
+        
+        transform = QTransform()
+        textX = self.lineEndX
+        textY = self.parentChartGraphicsItem.convertDegreeToYValue(self.degree)
+        transform.translate(textX, textY)
+        transformedTextPath = QPainterPath()
+        transformedTextPath.addPath(transform.map(textPath))
+        painter.drawPath(transformedTextPath)
+
+        # Uncomment the below few lines of code to paint the boundingRect().
+        # This is here just for future testing purposes.
+        #painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
+        #painter.setBrush(Qt.NoBrush)
+        #painter.drawRect(self.boundingRect())
+        
+        # Restore the old paintbrush and pen.
+        painter.setBrush(oldBrush)
+        painter.setPen(oldPen)
+        
+
 class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
     """QGraphicsItem that paints a chart for displaying various
     planets' longitude speed.
@@ -5495,6 +6020,9 @@ class AstrologyChartWidget(QWidget):
         self.declinationChart = DeclinationChartGraphicsItem()
         self.declinationChart.setScale(0.8)
 
+        self.latitudeChart = LatitudeChartGraphicsItem()
+        self.latitudeChart.setScale(2.0)
+        
         # TODO: add these widgets for longitude speeds...?  Maybe it's not worth the effort right now?
         self.longitudeSpeedChart1Mercury = \
             LongitudeSpeedChartGraphicsItem(maxSpeed=16.0,
@@ -5545,6 +6073,9 @@ class AstrologyChartWidget(QWidget):
         self.declinationChartLabel = QGraphicsProxyWidget()
         self.declinationChartLabel.setWidget(QLabel("Declination"))
         
+        self.latitudeChartLabel = QGraphicsProxyWidget()
+        self.latitudeChartLabel.setWidget(QLabel("Latitude"))
+        
         # Set the positions of the QGraphicsItems then add them to the
         # QGraphicsScene.
         width = SiderealRadixChartGraphicsItem().boundingRect().width()
@@ -5566,14 +6097,23 @@ class AstrologyChartWidget(QWidget):
         y += labelHeight
         y += labelHeight
 
-        declinationWidth = 200
-        declStartX = x
-        declStartY = y
-        self.declinationChartLabel.setPos(x, y)
+        declinationWidth = 400
+        declinationStartX = x
+        declinationStartY = y
+        self.declinationChartLabel.setPos(declinationStartX, declinationStartY)
         x += 36
         y += 260
         self.declinationChart.setPos(x, y)
 
+        latitudeWidth = 600
+        x = declinationStartX + declinationWidth
+        y = declinationStartY
+        latitudeStartX = x
+        latitudeStartY = y
+        self.latitudeChartLabel.setPos(latitudeStartX, latitudeStartY)
+        x += 36
+        y += 260
+        self.latitudeChart.setPos(x, y)
         
         x = 0.0
         y = 0.0
@@ -5600,6 +6140,7 @@ class AstrologyChartWidget(QWidget):
         self.graphicsScene.addItem(self.astroChart3DatetimeLabelProxyWidget)
     
         self.graphicsScene.addItem(self.declinationChart)
+        self.graphicsScene.addItem(self.latitudeChart)
         
         self.graphicsScene.addItem(self.geoSidRadixChartGraphicsItem)
         self.graphicsScene.addItem(self.geoTropRadixChartGraphicsItem)
@@ -6296,6 +6837,336 @@ class AstrologyChartWidget(QWidget):
         if settings.value(\
             SettingsKeys.planetAvgJuSaEnabledForDeclinationKey, \
             SettingsKeys.planetAvgJuSaEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AvgJuSa")
+
+
+        return enabledPlanetNames
+        
+    def _getPlanetNamesToDisplayForLatitude(self):
+        """Function to return a list of planet names that should be
+        used to display latitude information.  This is used because
+        some planets don't make sense in this chart and it just clouds
+        up the view.
+        """
+
+        # Return value.
+        enabledPlanetNames = []
+
+        settings = QSettings()
+        
+        if settings.value(\
+            SettingsKeys.planetH1EnabledForLatitudeKey, \
+            SettingsKeys.planetH1EnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H1")
+        
+        if settings.value(\
+            SettingsKeys.planetH2EnabledForLatitudeKey, \
+            SettingsKeys.planetH2EnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H2")
+        
+        if settings.value(\
+            SettingsKeys.planetH3EnabledForLatitudeKey, \
+            SettingsKeys.planetH3EnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H3")
+        
+        if settings.value(\
+            SettingsKeys.planetH4EnabledForLatitudeKey, \
+            SettingsKeys.planetH4EnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H4")
+        
+        if settings.value(\
+            SettingsKeys.planetH5EnabledForLatitudeKey, \
+            SettingsKeys.planetH5EnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H5")
+        
+        if settings.value(\
+            SettingsKeys.planetH6EnabledForLatitudeKey, \
+            SettingsKeys.planetH6EnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H6")
+        
+        if settings.value(\
+            SettingsKeys.planetH7EnabledForLatitudeKey, \
+            SettingsKeys.planetH7EnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H7")
+        
+        if settings.value(\
+            SettingsKeys.planetH8EnabledForLatitudeKey, \
+            SettingsKeys.planetH8EnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H8")
+        
+        if settings.value(\
+            SettingsKeys.planetH9EnabledForLatitudeKey, \
+            SettingsKeys.planetH9EnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H9")
+        
+        if settings.value(\
+            SettingsKeys.planetH10EnabledForLatitudeKey, \
+            SettingsKeys.planetH10EnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H10")
+        
+        if settings.value(\
+            SettingsKeys.planetH11EnabledForLatitudeKey, \
+            SettingsKeys.planetH11EnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H11")
+        
+        if settings.value(\
+            SettingsKeys.planetH12EnabledForLatitudeKey, \
+            SettingsKeys.planetH12EnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("H12")
+        
+        if settings.value(\
+            SettingsKeys.planetHoraLagnaEnabledForLatitudeKey, \
+            SettingsKeys.planetHoraLagnaEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("HoraLagna")
+        
+        if settings.value(\
+            SettingsKeys.planetGhatiLagnaEnabledForLatitudeKey, \
+            SettingsKeys.planetGhatiLagnaEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("GhatiLagna")
+        
+        if settings.value(\
+            SettingsKeys.planetMeanLunarApogeeEnabledForLatitudeKey, \
+            SettingsKeys.planetMeanLunarApogeeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeanLunarApogee")
+        
+        if settings.value(\
+            SettingsKeys.planetOsculatingLunarApogeeEnabledForLatitudeKey, \
+            SettingsKeys.planetOsculatingLunarApogeeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("OsculatingLunarApogee")
+        
+        if settings.value(\
+            SettingsKeys.planetInterpolatedLunarApogeeEnabledForLatitudeKey, \
+            SettingsKeys.planetInterpolatedLunarApogeeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("InterpolatedLunarApogee")
+        
+        if settings.value(\
+            SettingsKeys.planetInterpolatedLunarPerigeeEnabledForLatitudeKey, \
+            SettingsKeys.planetInterpolatedLunarPerigeeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("InterpolatedLunarPerigee")
+        
+        if settings.value(\
+            SettingsKeys.planetSunEnabledForLatitudeKey, \
+            SettingsKeys.planetSunEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Sun")
+        
+        if settings.value(\
+            SettingsKeys.planetMoonEnabledForLatitudeKey, \
+            SettingsKeys.planetMoonEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Moon")
+        
+        if settings.value(\
+            SettingsKeys.planetMercuryEnabledForLatitudeKey, \
+            SettingsKeys.planetMercuryEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Mercury")
+        
+        if settings.value(\
+            SettingsKeys.planetVenusEnabledForLatitudeKey, \
+            SettingsKeys.planetVenusEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Venus")
+        
+        if settings.value(\
+            SettingsKeys.planetEarthEnabledForLatitudeKey, \
+            SettingsKeys.planetEarthEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Earth")
+        
+        if settings.value(\
+            SettingsKeys.planetMarsEnabledForLatitudeKey, \
+            SettingsKeys.planetMarsEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Mars")
+        
+        if settings.value(\
+            SettingsKeys.planetJupiterEnabledForLatitudeKey, \
+            SettingsKeys.planetJupiterEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Jupiter")
+        
+        if settings.value(\
+            SettingsKeys.planetSaturnEnabledForLatitudeKey, \
+            SettingsKeys.planetSaturnEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Saturn")
+        
+        if settings.value(\
+            SettingsKeys.planetUranusEnabledForLatitudeKey, \
+            SettingsKeys.planetUranusEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Uranus")
+        
+        if settings.value(\
+            SettingsKeys.planetNeptuneEnabledForLatitudeKey, \
+            SettingsKeys.planetNeptuneEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Neptune")
+        
+        if settings.value(\
+            SettingsKeys.planetPlutoEnabledForLatitudeKey, \
+            SettingsKeys.planetPlutoEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Pluto")
+        
+        if settings.value(\
+            SettingsKeys.planetMeanNorthNodeEnabledForLatitudeKey, \
+            SettingsKeys.planetMeanNorthNodeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeanNorthNode")
+        
+        if settings.value(\
+            SettingsKeys.planetMeanSouthNodeEnabledForLatitudeKey, \
+            SettingsKeys.planetMeanSouthNodeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeanSouthNode")
+        
+        if settings.value(\
+            SettingsKeys.planetTrueNorthNodeEnabledForLatitudeKey, \
+            SettingsKeys.planetTrueNorthNodeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("TrueNorthNode")
+        
+        if settings.value(\
+            SettingsKeys.planetTrueSouthNodeEnabledForLatitudeKey, \
+            SettingsKeys.planetTrueSouthNodeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("TrueSouthNode")
+        
+        if settings.value(\
+            SettingsKeys.planetCeresEnabledForLatitudeKey, \
+            SettingsKeys.planetCeresEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Ceres")
+        
+        if settings.value(\
+            SettingsKeys.planetPallasEnabledForLatitudeKey, \
+            SettingsKeys.planetPallasEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Pallas")
+        
+        if settings.value(\
+            SettingsKeys.planetJunoEnabledForLatitudeKey, \
+            SettingsKeys.planetJunoEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Juno")
+        
+        if settings.value(\
+            SettingsKeys.planetVestaEnabledForLatitudeKey, \
+            SettingsKeys.planetVestaEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Vesta")
+        
+        if settings.value(\
+            SettingsKeys.planetChironEnabledForLatitudeKey, \
+            SettingsKeys.planetChironEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Chiron")
+        
+        if settings.value(\
+            SettingsKeys.planetGulikaEnabledForLatitudeKey, \
+            SettingsKeys.planetGulikaEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Gulika")
+        
+        if settings.value(\
+            SettingsKeys.planetMandiEnabledForLatitudeKey, \
+            SettingsKeys.planetMandiEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Mandi")
+        
+        if settings.value(\
+            SettingsKeys.planetMeanOfFiveEnabledForLatitudeKey, \
+            SettingsKeys.planetMeanOfFiveEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeanOfFive")
+        
+        if settings.value(\
+            SettingsKeys.planetCycleOfEightEnabledForLatitudeKey, \
+            SettingsKeys.planetCycleOfEightEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("CycleOfEight")
+        
+        if settings.value(\
+            SettingsKeys.planetAvgMaJuSaUrNePlEnabledForLatitudeKey, \
+            SettingsKeys.planetAvgMaJuSaUrNePlEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AvgMaJuSaUrNePl")
+        
+        if settings.value(\
+            SettingsKeys.planetAvgJuSaUrNeEnabledForLatitudeKey, \
+            SettingsKeys.planetAvgJuSaUrNeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AvgJuSaUrNe")
+        
+        if settings.value(\
+            SettingsKeys.planetAvgJuSaEnabledForLatitudeKey, \
+            SettingsKeys.planetAvgJuSaEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("AvgJuSa")
@@ -7308,6 +8179,8 @@ class AstrologyChartWidget(QWidget):
         # Get filters for what to display.
         planetNamesToDisplayForDeclination = \
             self._getPlanetNamesToDisplayForDeclination()
+        planetNamesToDisplayForLatitude = \
+            self._getPlanetNamesToDisplayForLatitude()
         planetNamesToDisplayForGeoSidRadixChart = \
             self._getPlanetNamesToDisplayForGeoSidRadixChart()
         planetNamesToDisplayForGeoTropRadixChart = \
@@ -7357,6 +8230,42 @@ class AstrologyChartWidget(QWidget):
                     # displayed.  The user must have just updated the
                     # settings, so remove the item.
                     self.graphicsScene.removeItem(planetDeclinationGraphicsItem)
+        
+
+            
+            # Latitude chart.
+            planetLatitudeGraphicsItem = \
+                self.latitudeChart.\
+                getPlanetLatitudeGraphicsItem(planet.name, chartNum)
+            
+            if planet.name in planetNamesToDisplayForLatitude:
+                if planetLatitudeGraphicsItem == None:
+                    # No PlanetLatitudeGraphicsItem exists yet for
+                    # this planet, so create it.
+                    planetLatitudeGraphicsItem = \
+                        PlanetLatitudeGraphicsItem(
+                        planet.name,
+                        AstrologyUtils.getGlyphForPlanetName(planet.name),
+                        AstrologyUtils.getGlyphFontSizeForPlanetName(planet.name),
+                        AstrologyUtils.getAbbreviationForPlanetName(planet.name),
+                        AstrologyUtils.getForegroundColorForPlanetName(planet.name),
+                        AstrologyUtils.getBackgroundColorForPlanetName(planet.name),
+                        degree=planet.geocentric['tropical']['latitude'],
+                        velocity=planet.geocentric['tropical']['latitude_speed'],
+                        planetGroupNumber=chartNum,
+                        parent=self.latitudeChart)
+                else:
+                    # The PlanetLatitudeGraphicsItem for this planet
+                    # already exists for this chartNum.  Just update it.
+                    degree = planet.geocentric['tropical']['latitude']
+                    velocity = planet.geocentric['tropical']['latitude_speed']
+                    planetLatitudeGraphicsItem.setDegreeAndVelocity(degree, velocity)
+            else:
+                if planetLatitudeGraphicsItem != None:
+                    # Item exists when this planet should not be
+                    # displayed.  The user must have just updated the
+                    # settings, so remove the item.
+                    self.graphicsScene.removeItem(planetLatitudeGraphicsItem)
         
 
             
@@ -7540,6 +8449,9 @@ class AstrologyChartWidget(QWidget):
         # Call update for the declination chart.
         self.declinationChart.update()
         
+        # Call update for the latitude chart.
+        self.latitudeChart.update()
+        
         # Update the aspects for the radix charts.
 
         # Geocentric Sidereal.
@@ -7608,7 +8520,7 @@ class AstrologyChartWidget(QWidget):
         Arguments:
         dt - datetime.datetime object holding the new timestamp.
         """
-        
+
         chartNum = 3
 
         # Save the datetime used.
@@ -7669,6 +8581,14 @@ class AstrologyChartWidget(QWidget):
             if planetDeclinationGraphicsItem != None:
                 self.graphicsScene.removeItem(planetDeclinationGraphicsItem)
         
+            # Update the latitude chart.
+            planetLatitudeGraphicsItem = \
+                self.latitudeChart.\
+                getPlanetLatitudeGraphicsItem(planet.name, chartNum)
+
+            if planetLatitudeGraphicsItem != None:
+                self.graphicsScene.removeItem(planetLatitudeGraphicsItem)
+        
             # Update the Geocentric Sidereal chart.
             radixPlanetGraphicsItem = \
                 self.geoSidRadixChartGraphicsItem.\
@@ -7695,6 +8615,9 @@ class AstrologyChartWidget(QWidget):
 
         # Call update for the declination chart.
         self.declinationChart.update()
+        
+        # Call update for the latitude chart.
+        self.latitudeChart.update()
         
         # Update the aspects for the radix charts.
         
@@ -7905,6 +8828,7 @@ def testDeclinationChartGraphicsItem():
 
     dialog.exec_()
 
+
 def testPlanetDeclinationGraphicsItem():
     print("Running " + inspect.stack()[0][3] + "()")
     
@@ -8019,6 +8943,156 @@ def testPlanetDeclinationGraphicsItem():
 
     dialog.exec_()
 
+
+def testPlanetLatitudeGraphicsItem():
+    print("Running " + inspect.stack()[0][3] + "()")
+    
+    from settings import SettingsKeys
+    
+    scene = QGraphicsScene()
+    view = QGraphicsView(scene)
+
+    view.setResizeAnchor(QGraphicsView.AnchorUnderMouse)
+    view.setInteractive(True)
+
+    # Set some rendering settings so things draw nicely.
+    view.setRenderHints(QPainter.Antialiasing | 
+                        QPainter.TextAntialiasing |
+                        QPainter.SmoothPixmapTransform)
+
+    # Set to FullViewportUpdate update mode.
+    #
+    # The default is normally QGraphicsView.MinimalViewportUpdate, but
+    # this caused us to have missing parts of artifacts and missing
+    # parts of pricebars.  And while performance isn't as great in
+    # the FullViewportUpdate mode, we dont' have many things dynamically
+    # updating and changing, so it isn't too big of an issue.
+    view.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
+    
+    chartItem = LatitudeChartGraphicsItem()
+    scene.addItem(chartItem)
+
+    moon = \
+        PlanetLatitudeGraphicsItem(
+        "Moon",
+        SettingsKeys.planetMoonGlyphUnicodeDefValue,
+        SettingsKeys.planetMoonGlyphFontSizeDefValue,
+        SettingsKeys.planetMoonAbbreviationDefValue,
+        QColor(Qt.blue),
+        SettingsKeys.planetMoonBackgroundColorDefValue,
+        degree=17.56,
+        velocity=2.0,
+        planetGroupNumber=1,
+        parent=chartItem)
+    
+    mercury = \
+        PlanetLatitudeGraphicsItem(
+        "Mercury",
+        SettingsKeys.planetMercuryGlyphUnicodeDefValue,
+        SettingsKeys.planetMercuryGlyphFontSizeDefValue,
+        SettingsKeys.planetMercuryAbbreviationDefValue,
+        QColor(Qt.green),
+        SettingsKeys.planetMercuryBackgroundColorDefValue,
+        degree=5.2,
+        velocity=-2.0,
+        planetGroupNumber=1,
+        parent=chartItem)
+
+    jupiter = \
+        PlanetLatitudeGraphicsItem(
+        "Jupiter",
+        SettingsKeys.planetJupiterGlyphUnicodeDefValue,
+        SettingsKeys.planetJupiterGlyphFontSizeDefValue,
+        SettingsKeys.planetJupiterAbbreviationDefValue,
+        QColor(Qt.red),
+        SettingsKeys.planetJupiterBackgroundColorDefValue,
+        degree=-8.0,
+        velocity=3.0,
+        planetGroupNumber=1,
+        parent=chartItem)
+
+    moon = \
+        PlanetLatitudeGraphicsItem(
+        "Moon",
+        SettingsKeys.planetMoonGlyphUnicodeDefValue,
+        SettingsKeys.planetMoonGlyphFontSizeDefValue,
+        SettingsKeys.planetMoonAbbreviationDefValue,
+        QColor(Qt.blue),
+        SettingsKeys.planetMoonBackgroundColorDefValue,
+        degree=5,
+        velocity=2.0,
+        planetGroupNumber=2,
+        parent=chartItem)
+    
+    mercury = \
+        PlanetLatitudeGraphicsItem(
+        "Mercury",
+        SettingsKeys.planetMercuryGlyphUnicodeDefValue,
+        SettingsKeys.planetMercuryGlyphFontSizeDefValue,
+        SettingsKeys.planetMercuryAbbreviationDefValue,
+        QColor(Qt.green),
+        SettingsKeys.planetMercuryBackgroundColorDefValue,
+        degree=-9.2,
+        velocity=-2.0,
+        planetGroupNumber=2,
+        parent=chartItem)
+
+    jupiter = \
+        PlanetLatitudeGraphicsItem(
+        "Jupiter",
+        SettingsKeys.planetJupiterGlyphUnicodeDefValue,
+        SettingsKeys.planetJupiterGlyphFontSizeDefValue,
+        SettingsKeys.planetJupiterAbbreviationDefValue,
+        QColor(Qt.red),
+        SettingsKeys.planetJupiterBackgroundColorDefValue,
+        degree=7.0,
+        velocity=3.0,
+        planetGroupNumber=2,
+        parent=chartItem)
+    
+    layout = QVBoxLayout()
+    layout.addWidget(view)
+    
+    dialog = QDialog()
+    dialog.setLayout(layout)
+
+    dialog.exec_()
+
+
+def testLatitudeChartGraphicsItem():
+    print("Running " + inspect.stack()[0][3] + "()")
+    
+    scene = QGraphicsScene()
+    view = QGraphicsView(scene)
+
+    view.setResizeAnchor(QGraphicsView.AnchorUnderMouse)
+    view.setInteractive(True)
+
+    # Set some rendering settings so things draw nicely.
+    view.setRenderHints(QPainter.Antialiasing | 
+                        QPainter.TextAntialiasing |
+                        QPainter.SmoothPixmapTransform)
+
+    # Set to FullViewportUpdate update mode.
+    #
+    # The default is normally QGraphicsView.MinimalViewportUpdate, but
+    # this caused us to have missing parts of artifacts and missing
+    # parts of pricebars.  And while performance isn't as great in
+    # the FullViewportUpdate mode, we dont' have many things dynamically
+    # updating and changing, so it isn't too big of an issue.
+    view.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
+    
+    chartItem = LatitudeChartGraphicsItem()
+    
+    scene.addItem(chartItem)
+
+    layout = QVBoxLayout()
+    layout.addWidget(view)
+    
+    dialog = QDialog()
+    dialog.setLayout(layout)
+
+    dialog.exec_()
 
 def testLongitudeSpeedChartGraphicsItem():
     print("Running " + inspect.stack()[0][3] + "()")
@@ -8445,6 +9519,8 @@ if __name__=="__main__":
     #testRadixPlanetGraphicsItem()
     #testDeclinationChartGraphicsItem()
     #testPlanetDeclinationGraphicsItem()
+    #testLatitudeChartGraphicsItem()
+    #testPlanetLatitudeGraphicsItem()
     #testLongitudeSpeedChartGraphicsItem()
     #testPlanetLongitudeSpeedGraphicsItem()
     #testPlanetaryInfoTableWidget()

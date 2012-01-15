@@ -39678,9 +39678,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
         QtCore.QObject.connect(setAstro2Action,
                                QtCore.SIGNAL("actionTriggered(QPointF)"),
                                self._handleSetAstro2Action)
-        QtCore.QObject.connect(setAstro2Action,
+        QtCore.QObject.connect(setAstro3Action,
                                QtCore.SIGNAL("actionTriggered(QPointF)"),
-                               self._handleSetAstro2Action)
+                               self._handleSetAstro3Action)
         QtCore.QObject.connect(openJHoraAction,
                                QtCore.SIGNAL("actionTriggered(QPointF)"),
                                self._handleOpenJHoraAction)

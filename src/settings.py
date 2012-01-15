@@ -3685,6 +3685,368 @@ class SettingsKeys():
         False
     
 
+
+    # QSettings key for the display flag in Latitude for H1.
+    planetH1EnabledForLatitudeKey = \
+        "ui/astrology/h1EnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for H1.
+    planetH1EnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for H2.
+    planetH2EnabledForLatitudeKey = \
+        "ui/astrology/h2EnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for H2.
+    planetH2EnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for H3.
+    planetH3EnabledForLatitudeKey = \
+        "ui/astrology/h3EnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for H3.
+    planetH3EnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for H4.
+    planetH4EnabledForLatitudeKey = \
+        "ui/astrology/h4EnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for H4.
+    planetH4EnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for H5.
+    planetH5EnabledForLatitudeKey = \
+        "ui/astrology/h5EnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for H5.
+    planetH5EnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for H6.
+    planetH6EnabledForLatitudeKey = \
+        "ui/astrology/h6EnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for H6.
+    planetH6EnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for H7.
+    planetH7EnabledForLatitudeKey = \
+        "ui/astrology/h7EnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for H7.
+    planetH7EnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for H8.
+    planetH8EnabledForLatitudeKey = \
+        "ui/astrology/h8EnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for H8.
+    planetH8EnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for H9.
+    planetH9EnabledForLatitudeKey = \
+        "ui/astrology/h9EnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for H9.
+    planetH9EnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for H10.
+    planetH10EnabledForLatitudeKey = \
+        "ui/astrology/h10EnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for H10.
+    planetH10EnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for H11.
+    planetH11EnabledForLatitudeKey = \
+        "ui/astrology/h11EnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for H11.
+    planetH11EnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for H12.
+    planetH12EnabledForLatitudeKey = \
+        "ui/astrology/h12EnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for H12.
+    planetH12EnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for HoraLagna.
+    planetHoraLagnaEnabledForLatitudeKey = \
+        "ui/astrology/horaLagnaEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for HoraLagna.
+    planetHoraLagnaEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for GhatiLagna.
+    planetGhatiLagnaEnabledForLatitudeKey = \
+        "ui/astrology/ghatiLagnaEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for GhatiLagna.
+    planetGhatiLagnaEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for MeanLunarApogee.
+    planetMeanLunarApogeeEnabledForLatitudeKey = \
+        "ui/astrology/meanLunarApogeeEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for MeanLunarApogee.
+    planetMeanLunarApogeeEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for OsculatingLunarApogee.
+    planetOsculatingLunarApogeeEnabledForLatitudeKey = \
+        "ui/astrology/osculatingLunarApogeeEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for OsculatingLunarApogee.
+    planetOsculatingLunarApogeeEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for InterpolatedLunarApogee.
+    planetInterpolatedLunarApogeeEnabledForLatitudeKey = \
+        "ui/astrology/interpolatedLunarApogeeEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for InterpolatedLunarApogee.
+    planetInterpolatedLunarApogeeEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for InterpolatedLunarPerigee.
+    planetInterpolatedLunarPerigeeEnabledForLatitudeKey = \
+        "ui/astrology/interpolatedLunarPerigeeEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for InterpolatedLunarPerigee.
+    planetInterpolatedLunarPerigeeEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for Sun.
+    planetSunEnabledForLatitudeKey = \
+        "ui/astrology/sunEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for Sun.
+    planetSunEnabledForLatitudeDefValue = \
+        True
+    
+    # QSettings key for the display flag in Latitude for Moon.
+    planetMoonEnabledForLatitudeKey = \
+        "ui/astrology/moonEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for Moon.
+    planetMoonEnabledForLatitudeDefValue = \
+        True
+    
+    # QSettings key for the display flag in Latitude for Mercury.
+    planetMercuryEnabledForLatitudeKey = \
+        "ui/astrology/mercuryEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for Mercury.
+    planetMercuryEnabledForLatitudeDefValue = \
+        True
+    
+    # QSettings key for the display flag in Latitude for Venus.
+    planetVenusEnabledForLatitudeKey = \
+        "ui/astrology/venusEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for Venus.
+    planetVenusEnabledForLatitudeDefValue = \
+        True
+    
+    # QSettings key for the display flag in Latitude for Earth.
+    planetEarthEnabledForLatitudeKey = \
+        "ui/astrology/earthEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for Earth.
+    planetEarthEnabledForLatitudeDefValue = \
+        True
+    
+    # QSettings key for the display flag in Latitude for Mars.
+    planetMarsEnabledForLatitudeKey = \
+        "ui/astrology/marsEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for Mars.
+    planetMarsEnabledForLatitudeDefValue = \
+        True
+    
+    # QSettings key for the display flag in Latitude for Jupiter.
+    planetJupiterEnabledForLatitudeKey = \
+        "ui/astrology/jupiterEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for Jupiter.
+    planetJupiterEnabledForLatitudeDefValue = \
+        True
+    
+    # QSettings key for the display flag in Latitude for Saturn.
+    planetSaturnEnabledForLatitudeKey = \
+        "ui/astrology/saturnEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for Saturn.
+    planetSaturnEnabledForLatitudeDefValue = \
+        True
+    
+    # QSettings key for the display flag in Latitude for Uranus.
+    planetUranusEnabledForLatitudeKey = \
+        "ui/astrology/uranusEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for Uranus.
+    planetUranusEnabledForLatitudeDefValue = \
+        True
+    
+    # QSettings key for the display flag in Latitude for Neptune.
+    planetNeptuneEnabledForLatitudeKey = \
+        "ui/astrology/neptuneEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for Neptune.
+    planetNeptuneEnabledForLatitudeDefValue = \
+        True
+    
+    # QSettings key for the display flag in Latitude for Pluto.
+    planetPlutoEnabledForLatitudeKey = \
+        "ui/astrology/plutoEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for Pluto.
+    planetPlutoEnabledForLatitudeDefValue = \
+        True
+    
+    # QSettings key for the display flag in Latitude for MeanNorthNode.
+    planetMeanNorthNodeEnabledForLatitudeKey = \
+        "ui/astrology/meanNorthNodeEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for MeanNorthNode.
+    planetMeanNorthNodeEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for MeanSouthNode.
+    planetMeanSouthNodeEnabledForLatitudeKey = \
+        "ui/astrology/meanSouthNodeEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for MeanSouthNode.
+    planetMeanSouthNodeEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for TrueNorthNode.
+    planetTrueNorthNodeEnabledForLatitudeKey = \
+        "ui/astrology/trueNorthNodeEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for TrueNorthNode.
+    planetTrueNorthNodeEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for TrueSouthNode.
+    planetTrueSouthNodeEnabledForLatitudeKey = \
+        "ui/astrology/trueSouthNodeEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for TrueSouthNode.
+    planetTrueSouthNodeEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for Ceres.
+    planetCeresEnabledForLatitudeKey = \
+        "ui/astrology/ceresEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for Ceres.
+    planetCeresEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for Pallas.
+    planetPallasEnabledForLatitudeKey = \
+        "ui/astrology/pallasEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for Pallas.
+    planetPallasEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for Juno.
+    planetJunoEnabledForLatitudeKey = \
+        "ui/astrology/junoEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for Juno.
+    planetJunoEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for Vesta.
+    planetVestaEnabledForLatitudeKey = \
+        "ui/astrology/vestaEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for Vesta.
+    planetVestaEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for Chiron.
+    planetChironEnabledForLatitudeKey = \
+        "ui/astrology/chironEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for Chiron.
+    planetChironEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for Gulika.
+    planetGulikaEnabledForLatitudeKey = \
+        "ui/astrology/gulikaEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for Gulika.
+    planetGulikaEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for Mandi.
+    planetMandiEnabledForLatitudeKey = \
+        "ui/astrology/mandiEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for Mandi.
+    planetMandiEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for MeanOfFive.
+    planetMeanOfFiveEnabledForLatitudeKey = \
+        "ui/astrology/meanOfFiveEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for MeanOfFive.
+    planetMeanOfFiveEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for CycleOfEight.
+    planetCycleOfEightEnabledForLatitudeKey = \
+        "ui/astrology/cycleOfEightEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for CycleOfEight.
+    planetCycleOfEightEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for AvgMaJuSaUrNePl.
+    planetAvgMaJuSaUrNePlEnabledForLatitudeKey = \
+        "ui/astrology/avgMaJuSaUrNePlEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for AvgMaJuSaUrNePl.
+    planetAvgMaJuSaUrNePlEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for AvgJuSaUrNe.
+    planetAvgJuSaUrNeEnabledForLatitudeKey = \
+        "ui/astrology/avgJuSaUrNeEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for AvgJuSaUrNe.
+    planetAvgJuSaUrNeEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for AvgJuSa.
+    planetAvgJuSaEnabledForLatitudeKey = \
+        "ui/astrology/avgJuSaEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for AvgJuSa.
+    planetAvgJuSaEnabledForLatitudeDefValue = \
+        False
+    
+
     
     # QSettings key for the display flag in GeoSidRadixChart for H1.
     planetH1EnabledForGeoSidRadixChartKey = \
