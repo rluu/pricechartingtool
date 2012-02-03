@@ -275,8 +275,7 @@ class AstrologyUtils:
     def convertAngleToStrWithRasiAbbrev(longitude):
         """Alias of convertLongitudeToStrWithRasiAbbrev(longitude)."""
 
-        return AstrologyUtils.convertAngleToStrWithRasiAbbrev(longitude)
-        
+        return AstrologyUtils.convertLongitudeToStrWithRasiAbbrev(longitude)
         
     @staticmethod
     def convertLongitudeToNakshatraAbbrev(longitude):
