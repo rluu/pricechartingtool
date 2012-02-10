@@ -42,7 +42,7 @@ class AstrologyUtils:
     log = logging.getLogger("astrologychart.AstrologyUtils")
 
     # Number of degrees in a Biblical Circle. (float)
-    degreesInBiblicalCircle = 360.18
+    degreesInBiblicalCircle = 368.18
 
     # Number of degrees in a 360-degree Circle. (float)
     degreesInCircle = 360.0
@@ -331,7 +331,7 @@ class AstrologyUtils:
     @staticmethod
     def convertCircleAngleToBiblicalCircleAngle(angle):
         """Converts the given angle in degrees of a 360-degree circle,
-        to an angle in degrees of a 360 degree 10 minute 48 second
+        to an angle in degrees of a 368 degree 10 minute 48 second
         circle (A.K.A Biblical Circle).
 
         Arguments:
@@ -340,7 +340,7 @@ class AstrologyUtils:
 
         Returns:
         float value for the angle in units of degrees in a
-        360 deg 10' 48" Biblical circle.
+        368 deg 10' 48" Biblical circle.
         """
 
         
@@ -354,13 +354,13 @@ class AstrologyUtils:
     
     @staticmethod
     def convertBiblicalCircleAngleToCircleAngle(biblicalAngle):
-        """Converts the given angle in degrees of a 360 degree 10
+        """Converts the given angle in degrees of a 368 degree 10
         minute 48 second circle (A.K.A Biblical Circle) to an angle in
         degrees of a 360-degree circle.
 
         Arguments:
         biblicalAngle - float value for the angle in units of degrees in a
-                        360 deg 10' 48" Biblical circle.
+                        368 deg 10' 48" Biblical circle.
 
         Returns:
         float value for the angle in units of degrees in a 360-degree circle.
@@ -376,14 +376,14 @@ class AstrologyUtils:
         return angle
     
     @staticmethod
-    def convertBiblicalAngleToStrWithRasiAbbrev(biblicalAngle):
+    def convertBiblicalCircleAngleToStrWithRasiAbbrev(biblicalAngle):
         """Takes a angle in Biblical degrees and converts it to a string
         in the format: 23 <RASI_GLYPH> 24' 14" that represents the
         zodiac location for that angle.
         
         Arguments:
         biblicalAngle - float value for the angle in units of degrees in a
-                        360 deg 10' 48" Biblical circle.
+                        368 deg 10' 48" Biblical circle.
 
         Returns:
         str - String that is in the above format.  It will always be a
