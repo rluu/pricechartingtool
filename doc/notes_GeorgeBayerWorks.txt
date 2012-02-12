@@ -1,0 +1,926 @@
+##############################################################################
+# Notes on the works of George Bayer, in relation to the Bible and
+# Astrology as applied to the financial markets.  Includes notes about
+# how to read and understand other ancient works as well.
+#
+# Ryan Luu
+##############################################################################
+
+rluu 20120212 06:47: Something that occurred to me about reading the Bible.  Perhaps I should pay very close attention to when certain words are used that are the definition/meaning of one of the letters of the Hewbrew alphabet.  For example, when they mention Ox (Aleph), It may be related to the 1st book, the 23rd book, or the 45th book.  Same regarding other words like House (Bet), Head (Resh), etc.  This probably would help in decoding what words mean what in the Bible.
+
+
+##############################################################################
+
+Time Factors In The Stock Market
+By George Bayer.
+
+pg. 33, 34.
+Price Laws are subordinate to the Time Laws.
+If time is fixed for a change, the price of the stock must be automatically near a top or a near a bottom.
+
+pg. 46, 47.
+Genesis Chapter 10: Shows big cycle of stock movements.
+Genesis Chapter 5:
+    Adam cycle is 930 years long = 930 degrees of motion of one certain planet.
+
+    After Adam cycle is in operation for 130 degrees, the given age of
+    Adam at the time he begot Seth, another cycle makes its appearance
+    and therefore is in operation already 800 degrees before the
+    former dies out.
+    
+    Jupiter == Adam
+    930 / 30  shows how long the Adam cycle is.
+    
+    Entire family of Adam must be traversed to arrive at Noah.
+
+    Jupiter == Noah.
+
+    Noah to Abraham is another cycle.
+
+    Jupiter == Abraham.
+
+New Testament, St. Mathew, Chapter 1.
+    Has Jupiter cycles starting with Abraham.
+
+    Verse 17: 14 Jupiter cycles up to David.
+              14 Jupiter cycles up to Babylonian time.
+              14 Jupiter cycles up to Christ.
+             
+         Sum: 42 Cycles total.
+              (Repetition runs in 14 cycles)
+
+pg. 53.
+Ecclesiastes, Chapter 3, Verses 1-8.
+    "To every thing there is a season, and a time for every purpose
+    under the heaven... "
+    
+    There is a definite cause for distinguishing 28 times and not 25
+    or 26 times.  rluu: I believe here the Bible is describing different
+    phases of the moon and what is good for each phase.
+
+pg. 55.
+Measuring the market's vibrations is very easy, provided you have a
+point of beginning.
+
+Ecclesiastes, Chapter 1, Verse 10.
+    Talks about repeating cycles of long duration.
+
+pg. 68.
+Numbers in the bible: 7, 12, 40, 70, are degrees of a circle.
+Moses remained 40 days on Mount Sinai == Jupiter moved forward 40 degrees.
+
+Geocentric Jupiter goes 40 degrees in about a year (according to Bayer).
+
+Books of Revelation and Daniel: "A time and times and half a time."
+
+Revelations 12:14
+    "And the woman was given two wings of a great eagle, that she
+    might fly into the wilderness, into her place where she is
+    nourished for a time, and times, and half a time, from the face of
+    the serpent."
+
+pg. 71.
+Time measurements for trend change: 
+    3.5, 7, 29, 35, 70, in days, weeks, months and years.
+
+    [Somewhere later he says that 7 day cycle is due to the Moon.  So
+    test 7 lunations?]
+
+pg. 86.
+Reference to Sir John F. W. Herschel, "Outlines of Astronomy," about the variation of the Moon's eccentricity, in articles 688 and 689.  The image in the pdf file of Time Factors is not very good, so see actual diagram from Herschel's work.
+
+The measurement given for part of an arc is 64 deg 14 min.
+I believe the text says: "P is the point rotating on circle, i.e. Moon."
+
+pg. 88.
+Revelation, Chapter 11, Verse 29.
+    Bayer says to read this.  
+
+    "He that hath an ear, let him hear what the Spirit saith unto the Church."
+
+    rluu: probably related to Hershel's articles 688 and 689.
+
+pg. 112.
+Ezra, Chapter 2, Verse 2-13.
+    Zerubbabel == Jupiter
+    Israel == Jupiter
+
+    Children of Paroah		2172 (Note astronomer's value of 21760)
+    Children of Shephatiah	376
+    Children of Arab		775
+    Children of Pahathmoab	2812
+    Children of Elam		1254
+    Children of Zattu		945
+    Children of Zaccai		760
+    Children of Bani		642
+    Children of Bebai		623
+    Children of Azgad		1222
+    Children of Adonikam	666
+    Total:			12243 or 122 degrees 43'
+
+    This shows the specific cycle of Jupiter divided in its parts, a
+    value which the astronomer found too.
+    
+    The balance of the count refers to 37 deg, 10' and 82 deg 36'
+    cycles, which latter value is shown when adding the tribes as 8196
+    (81 deg 96' = 82 deg 36').  It deals with other cycles.  Adding
+    all together gives us 242 deg 29', which Bayer says should be kept
+    in mind.
+    
+Ezra, Chapter 2, Verse 65.
+
+    Says the total number of men in the community was 42360; omit the
+    0 and you have 42 deg, 36'.
+
+pg. 113.
+Book of Numbers, Chapter 26, Verse 7.
+
+    Tribe of Reuben	 43730
+    Tribe of Simeon	 22200
+    Tribe of Gad	 40500
+    Tribe of Judah	 76500
+    Tribe of Issachar	 64300
+    Tribe of Zebulun	 60500
+    Tribe of Manasseh	 52700
+    Tribe of Ephraim     32500
+    Tribe of Benjamin	 45600
+    Tribe of Dan	 64400
+    Tribe of Asher	 53400
+    Tribe of Naphtali	 45400
+    Total:		601730 people or 601 deg 73' or 602 deg 13'.
+
+    Deduct 360 deg from this value gives you the same above, 243 deg 13'.
+
+Genesis 8, 14.
+    Noah kept a diary for posterity in all his excitement the deluge
+    brought him.  He noted carefully that it was in the 2nd month on
+    the 27th day of the month in the 601st year of his life that the
+    Earth dried.  This value represents nothing but the same cycle as
+    shown above.
+
+Book of Chronicles, Chapter 15, Verse 5.
+    Related to inequialities between Saturn and Jupiter.
+    The number of men that carried the ark:
+
+    Uriel            120
+    Asaiah           220
+    Joel             130
+    Shemaiah         200
+    Eliel             80
+    Amminadabab	     112
+    Total:	     862
+
+    Converting to degrees of a circle containing 368 deg 6' 
+    (actual value is 368 deg 10' 48").
+    
+    Uriel            127 deg 43' 36"
+    Asaiah           224 deg 59' 56"
+    Joel             132 deg 57' 14"
+    Shemaiah         204 deg 32' 40"
+    Eliel             81 deg 49' 04"
+    Amminadabab	     114 deg 32' 41"
+    Total:	     882 deg 35' 11"
+
+    [Continuing from another Bayer article]
+    Reducing this value by two cycles, that is, by 736 degrees 21
+    minutes 36 seconds, we get a remainder of 146 degrees 14 minutes
+    35 seconds, and by converting this into our ordinary equivalents,
+    we have 143 degree 0 minutes 0 seconds.
+    
+    Returning now to our second illustration, where we had a total of
+    601 degrees 73 minutes - or 602 degrees 13 minutes, these totals
+    being identical in value - we may add to it a bit of information
+    from Genesis 8:14.  The Deluge ended in the 601st year, in the
+    second month, and on the 27th day of the month.  This gives us a
+    clue as to the length of the month.  601 years equal our 601
+    degrees, plus one or another of the following factors:
+
+      1 month 27 days must equal:
+      2 degrees 13 minutes, or 173', equaling 2 degrees 53 minutes
+      1 degree 73 minutes
+      1 degree .73 (decimal) which would be 1 degree 44 minutes.
+    
+    Now, inasmuch as 1 month 27 days equals 57 days, with the Moon's
+    Node retrograding 3.177" per day, we may get a definite means of
+    taking a measure.
+
+    Lunar apogee "circulates" in 3232.575343 days.  Let us check this
+    value and see how it fits our 601,730 (illustration No. 2) or our
+    illustration No. 5, which will be developed later in this article,
+    in which the count is 603,550 according to the Bible, but which by
+    actual count is 603,750.  Let us also check how it fits the 601st
+    year, the 2nd month and 27th day- the End of the Deluge.
+
+    At the rate of retreat of 3' 10.64" per day of the Moon's Node, we
+    find it is carried around the entire circumference of the zodiac
+    or ecliptic in 6793.39 mean solar days, which equals about 18.6
+    years.
+
+    Dividing 601,730 by 3232.57 days we obtain 18.615 years.  
+
+    The values dealt with in the last few illustrations, therefore,
+    have to do with the motion of the Moon's Node, and have no direct
+    relation to the motion of Jupiter and Saturn.
+    
+pg. 114.
+Book of Numbers, Chapter 2.
+    Bayer says the writer of this book appears to be doing the work
+    of previous writers all over and found a figure that somewhat
+    deviates from others, and clearly shows that there was checking
+    and rechecking done of these values.
+
+    Judah	 74600
+    Issachar	 54400
+    Zebulun	 57400
+
+      To the East, says the Bible, were 186,400 (186.600)
+
+    Reuben	 46500
+    Sharon	 59300
+    Gad		 45650
+
+      To the South were 151,450
+      Levites - They were not to be counted (Chapter 2:33)
+
+    Ephraim	 40500
+    Manasseh	 32200
+    Benjamin	 35400
+
+      To the West were 108,100.
+
+    Dan	 	 62700
+    Asher	 35400
+    Naphtali	 53400
+
+      To the North were 157,600
+
+    Total:	603750 or 603 deg 75'.
+
+Book of Numbers, Chapter 2, Verse 32.
+    Tells us that there were 603550.
+
+pg. 115.
+    Bayer elaborates on what 601 deg 73' and 603 deg 75' mean.  
+    Lunar apogee circulates in 3232.57 days.  
+    Moon's node has a rate of retreat each day of 3' 10.4".
+    Moon's node is carried around the zodiac in 18.6 years.
+
+    When we divide 601730 by 3232.57, we obtain 18.615 years.
+
+    It indicates that these parts of the Bible have to do with the
+    Moon's motion, or with astronomical laws.  The stories however,
+    that follow and precde have to do with effects of the planets.
+
+    Analysis of the major movements of the market for any one year
+    including most of the intermediate swings can be produced in a
+    less than a week, subject to an occasional rectification of a plus
+    or minus sign, which however, can be detected before the event is
+    due.
+
+##############################################################################
+
+A Treasure House of Bayer
+
+
+"I Beg Your Pardon" 
+By George Bayer.
+
+There are always two rulers for any thing.  The rulers of the various things are so easily detected when the law is known that an error is hardly possible.  Just read it out of the Bible.
+
+Deut. 28 and 29 tells you each one separately.  
+Lev. 11:3, Lev. 11:13, etc. contain other lists of things being ruled.  
+
+Of course, it all is a matter of starting right and the string will run off just as if one unwinds a spool of thread.
+
+If one grasps once the idea that the Bigble is loaded full with rules and laws and it is all there for the one who wants to take them and use them, then the biggest obstacle for astrologers is removed.
+
+Mercury, whose home, according to the Bible, is in Capricorn, and not in Virgo or Gemini as books try to tell, and who is represented in the Bible by Rebecca, the wife of Jacob, ends its cycle each year at 30 degrees Pisces in most cases.
+
+Bayer claims that it is Mars that causes Sun spots.  Speaking of the bible: Of course there are certain books available which show clearly that Mars is the culprit of everything and that the Sun astrologically should be considered as having, only a very minor role in the life of hte Universe, upon human beings, stocks, wheat or anything else.  These books I am speaking of do not tell a lie and they can be found in nearly every home.
+
+A day as explained in the Bible is a certain number of degrees, minutes and seconds in the zodiac and not a thing which has 24 hours and no minutes, no seconds.
+
+Market Analysis for April 1938.
+By George Bayer.
+
+A couple of years ago, wheat made tops and bottoms every time Mars passed 12 deg 16' of any sign.  It did not matter about other aspects.  What mattered was wheat declined until Mars reached 12 deg 16' and it rallied until Mars reached 12 deg 16'.  This is simple, however, when you get busy studying when this will happen again or where this is going to repeat, you will find great difficulties, although it can be done.  [In Time Factors, Bayer says Venus changes wheat when it crosses 23 deg 20', and Mars when it crosses 12 deg 16'.]
+
+In Bible Astrology as well as in Egyptian Astrology, a day is a cycle of a planet and the cycle is dependent in its length upon the rotation of the planet.
+
+The feet astrologically are measured downward and not upward.  Thus, the end of a cycle or of a DAY is never at a top, but always at a bottom, another important law that you must remember.
+
+From [Bayer's] study of the Bible, [he] has discovered that the ancients did not even need exact ephemerides.  They had a way to ascertain definitely at which spot a planet has to become retrograde by following sequences, not of the places of retrogradation, but of the places which they called: Jacktan, Almodad, Sheleph, Hazarmaret, etc., some relatives of Shem.
+
+
+October Market Analysis (1938?)
+By George Bayer.
+
+The main principle for astrologers to observe is this, a planet influences
+
+1) according to its position, i.e., where it is at a certain moment in
+the heaven.
+
+2) According to the angles (degrees, minutes, and seconds) a planet
+forms to some other planet.
+
+3) According to the repetition in its cycle, i.e., checking the effect
+it had at some previous time when the same positions did occur.
+
+
+Bayer uses stock market opening date as May 17, 1792.
+
+He erects a "five-fold horoscope", and progresses the moon based on the rules and regulations.  Sept. 15, 1792 was an eclipse of the Sun to the Moon.  The duration of the eclipse is important.  The period of the eclipse covered the period when the market was closed.
+
+Process: 
+
+In order to figure movements of commodities which seem to have been traded already in the times of Methusela we have no horoscope available.  We have to take recourse to charts of movements as many years back as possible and daily charts only.  Weekly or monthly charts won't do.  They are hard to get.  After that, we must check carefully each top or bottom, look up the complete planetary positions of such day and compare diligently all of them to find:
+
+(1) which aspects are of importance, 
+(2) which planets are of importance, 
+(3) which special positions are important.
+
+Time to search must be no object.  Gradually, relations can be detected; once a hold is taken on an angle or on a position or on a certain planet, we must hold on tenaciously to it and then improve if possible.
+
+On the other hand, figuring out movements without having a "time of beginning" requires checking back of events for years and coordinating all these events to the laws of repetition: the same cause brings the same event.
+
+
+November Market Analysis (1938?)
+By George Bayer.
+
+The Bible is full of individual trades of many commodities.
+
+Thus different methods must be employed to find results when forecasting commodity prices.  They are so complicated and far fetched, at the same time so easy to use that the writer is at a loss that most astrologers have not run onto them yet.  We have to give many thanks to the careful work of our astronomers and compilers of ephemerides who take over 99% of the work to get the results.
+
+
+December Market Analysis 1938
+By George Bayer.
+
+Therefore the point of Longitude is at the same time the point of beginning for measuring the Latitude.  And, after, we have fixed the Longitude of a planet, we can discard completely the idea that it came from 0 Aries.  This gives us a spherical triangle thus:
+
+one side is the length of the latitude.
+one side is the length of declination.
+one side is distance between Equator-declination point and Ecliptic-latitude point.
+
+Now, using the Earth as the center of it all (geocentric view), we connect from this Earth the points:
+
+Planet, Equator-declination point, Ecliptic-latitude point, and we have the body spoken of above.
+
+
+This body has definite fixed qualities at all times due to its being of this certain planet, of this certain longitude, of this certain latitude and of this certain declination.  Any change of position of the planet in one of the three dimensions changes immediately the quality of this body.  Therefore, considering that planets change int heir three dimensions from split second to split second, the quality of the planet changes also constantly.  So it is with all planets.  Each planet has his own body, the size of which varies constantly, due to their change in longitude, declination and latitude.  
+
+In as much as all the planets are measured as seen from the earth, their bodies sometimes conflict with each other, one may even be absorbed by another and at that time the absorbed body will not possess its own qualities, but take the qualities of the other; it is ruled so to say by that other body.  This may be found more often by partial absorption, such as when the latitude of two planets is the same, or when the declination is the same; (this is called parallel).  Else, the longitude may be the same, which is called conjunction.
+
+At all such time* the planet which is more powerful is rulling the less powerful.  Planet size doesn't come into consideration.  There are other rules that govern rulerships.  
+
+With stock prices, grain prices, etc., we also have to contend with three dimensions: Price, volume and time.  Where are the three lines, price, volume and time coming to a "focus"?  Their focus is either the Zero level or else the level of an important low.  Just like a mountain or a pyramid has a base on one side, a peak and a base on the other side, so has a stock a bottom (low price), a peak (big volume), and a bottom (end of cycle).  We therefore cannot really speak of a bull market and a bear market, but of a market cycle which contains both, the center of which represents the peak, the big volume.  The end of the cycle of one phase becomes at the same time automatically the base or bottom of the succeeding cycle.  So that "Time" as used in my explanation is found on the side of the beginning of the upmove as well as on the side where the mountain slope ends; in other words, both sides of the mountain represent Time, or better still, everything is "Time"!  Provided we have time, we have also price and volume at a given moment.  
+
+
+##############################################################################
+
+Forecasts and Articles of George Bayer
+
+########################################
+
+Bible Astrology And the Stock Market.
+
+And I can assure you that each word written in the Bible is true in more than one sense.  The persons named in the Bible, with their journeyings and other activities, represent the planets and their cycles - their transits through the signs and houses of the zodiac.  
+
+Jacob's wife, called Rachel (who represents the planet which we have named Mercury) "dies" in its cycle each year at 29 degrees Pisces.  "She" remains "dead" for 6 degrees, then reawakens (in the Bible narrative, under a different name).  Look at wheat prices at the time when Rachel "dies" - when Mercury reaches 29 Pisces - and then look at the wheat prices when "she" wakes up again -- that is, when Mercury comes to 5 degree Aries.  Each year, when Rachel "dies," wheat prices make a run of 10c to 15c inside of five or six days.
+
+That fellow Jared (Genesis 5:18) was at 23:5 Sagittarius.  Let us watch stocks do when Jupiter completes an aspect to that degree:
+
+August 24, 1921   - Big bear market bottom in stocks.  Jupiter 23:4 Virgo.
+July 8, 1932      - Big bear market bottom in stocks.  Jupiter 23:4 Leo.  
+December 28, 1932 - Big bear market bottom in wheat.   Jupiter 23:4 Virgo.
+
+Mr. Enoch (Genesis 5:21) was born at 14:46 Virgo (that is, the cycle
+of Enoch began at that point).  What happens in the market when
+Jupiter aspects that degree?
+
+September 3, 1929 - Top of the bull market.  Jupiter 14:46 Gemini.
+April 17, 1930 - Top of the bull market.  Jupiter was at 14:46 Gemini again.
+
+Mr. Enos (Genesis 5:9) was born at 19:36 Sagittarius.  What happens in the market when Jupiter aspects this degree?
+
+February 27, 1933 - Bottom of the market just before the banks were closed.  
+                    Jupiter at 19:36 Virgo retrograde.
+July 18, 1933     - Big top from which stocks dropped 30 and more points.  
+                    Jupiter 19:36 Virgo.
+
+Exact mathematical calculations had to be made in order to determine the sensitive points which I have mentioned.  However, since I have given you the foregoing hints as to the factors controlling the major cycles in stocks, wheat, cotton and other comodities, I will append a few suggestions concerning the minor cycles.  
+
+These are the Adam, Shem, Ham and Japhet cycles, mentioned above.  The Adam cycle is much more important than the Shem cycle.  
+
+The Shem cycle covers a sector from 0 Aries to 0 Leo.
+The Japhet cycle covers 0 Leo to 0 Sagittarius.  
+The Ham cycle covers 0 Sagittarius to 0 Aries.  
+
+Thus we see - and demonstrate - that Shem, Ham and Japhet are actually segments of the zodiac.  
+
+Noah is our friend Mars.  He traverses the whole zodiac.  At the height of the "Deluge," we find him sitting up at 0 Taurus (Earth) in the boat he built at 0 Scorpio, which is water.  The waters during the Deludge (imagine the zodiac with Scorpio at the bottom and Taurus at the top) rose on both sides upward until a small place was left over (15 Aries to 15 Taurus), where Mars was all alone.  The windows of heaven, of course, are Cancer and Pisces, while the door which God shut behind him was at 15 Aquarius.  The zodiac points named here are highly sensitive.  
+
+In computing the Adam cycle, I used 6 decimal logarithms.  Through several "generations" I obtained all kinds of degrees, minutes, seconds and decimals of seconds, when suddenly the next one would turn out to be a full degree and minute without any seconds or decimals.  These cycles work into each other.  That is, while the second and third and even fourth "son" is born, the original "father"-cycle is still in operation.  
+
+The Bible astrologers did not work with angles as we know them; what did count with them was the positions of the planets at certain sensitive places in the zodiacal circle.  
+
+
+########################################
+
+Biblical Astrology - Why is the Circle, or Cycle, "Larger" than 360 Degrees?  Who Rules the Earth - Mars or Sun?
+
+Students who wish to delve deeply into the subject of astrology usually try to obtain some of the older texts.  Of these there are a vast number, the single period from about 1200 to 1600 A.D. having produced between two and three hundred volumes which are still extant, either in manuscript or printed form.  
+
+In that 400-year period, as well as later, all scientific writing was done in latin.  Actual making of the manuscripts was done chiefly in the monasteries, or by professors of mathematics and astrology in the great universities and other centers of larning, as indicated on the title-pages of each volume.
+
+Those ancient writers, naturally, knew a great deal about the Bible and its contents, although it may be questioned as to whether they were always fully informed as to its meaning.  
+
+Herschel's Calculations [See Bayer's actual article for these details].
+
+Book of Ezra, Chapter 2, Verse 2.
+People of Israel came with 11 leaders.  
+[See the listing from previous section of notes].
+
+Book of Ezra, Chapter 2, Verse 65.
+Total number of men in the community.
+[See the previous section of notes].
+
+Book of Numbers, Chapter 26, Verse 7 on.
+Tribes and their population.
+[See the listing from previous section of notes].
+
+Numbers 33:39
+"And Aaron was one hundred and twenty and three years old (123) when he died at Mount Hor." 
+Aaron thus equals one third of the Jupiter cycle, which ends at the place in the horoscope called Mount Hor.  
+
+Chronicles I, Chapter 15.
+Number of men who carry the Ark.
+Related to inequialities between Saturn and Jupiter.
+[See the listing from previous section of notes].
+
+Book of Numbers, Chapter 2.
+Gives another count, producing again an explanation of the relationship between lunar apogee and Node under the guise of a population count.
+[See the listing from previous section of notes].
+
+Book of Numbers, Chapter 2, Verse 32.
+    Tells us that there were 603550.
+
+List of principal aspects converted into terms of Biblical measurements:
+
+Instead of:	  	  Use:
+ 30 deg			   30 deg 40' 54"
+ 45 deg			   46 deg 01' 21"
+ 60 deg			   61 deg 21' 48"
+ 90 deg			   92 deg 02' 42"
+120 deg			  122 deg 43' 36"
+135 deg			  138 deg 04' 03"
+130 deg			  132 deg 57' 14"
+150 deg			  153 deg 24' 30"
+180 deg			  184 deg 05' 24"
+(and upward to 360)
+
+(Bayer says it is not 135 at all which causes trouble, but 130.)
+
+
+########################################
+
+Biblical Astrology - The Importance of Mars In Human Affairs
+By George Bayer.
+
+In the Bible, the Sun is credited with only having slight influence
+upon the affairs of this earth or its inhabitants.  Instead, great
+emphasis was placed upon the planet Mars as the Giver of Life.  This
+view is presented many times throughout the Book.
+
+Exodus 9:29-32, we read:
+
+    "And moses said unto him (Pharaoh): As soon as I am gone out of the
+  city, I will spread abroad my hands unto the Lord, and the thunder
+  shall cease, neither shall there be any more hail, that thou mayest
+  know, that the earth is the Lord's.
+    But as for thee, and thy servants, I know that ye will not yet fear
+  the Lord God.
+    And the flax and the barley was smitten; for the barley was in the
+  ear, and the flax was bolled.
+    But the wheat and the rye were not smitten; for they were not grown up."
+
+  Who, astrologically, is Moses?
+  Who is Pharaoh?
+  Where is the city which Moses left?
+  And where did he spread his hands unto the Lord?
+
+  Astrologically, Moses is a specific planet which rotates in the
+  zodiac and which at the time of the events described was "living" in
+  the zodiacal sign whichi belongs to Pharaoh.  Pharaoh also is a
+  specific planet.
+
+  The "city" is a specific point in the zodiac, which point the planet
+  Moses has just transited.
+  
+  Moses reaches with his hands unto the Lord, which also is a specific
+  planet, and, when we construct a picture (see accompanying diagram
+  [rluu: could not find]), we get an idea of what actually transpired.
+
+  The meaning of the next statement is: As soon as the planet
+  represented by Moses touches with his hand (it is always the right
+  hand) that the planet which is represented by the Lord, the price of
+  flax and of barley will rapidly decline, which neither the wheat nor
+  the barley will be affected and their price will remain where it is.
+
+  By the word flax, as used in the Bible, we understand not merely
+  flax but also cotton.  This was illustrated very clearly when
+  during the summer of 1936, cotton made its top on July 10 and then
+  had a big decline, while wheat and rye rose an extra 30 cents.
+
+  rluu: In a Time Factors In the Stock Market, Bayer says Moses is
+  Jupiter.  Is that true in general or just for that example?
+
+  rluu: In Bible interpretation, Bayer says Mars is "God" and "Lord God".
+  In the next Bible Astrology article, Bayer says Mars is the "Lord".
+
+  rluu: Checking the charts for July 10, 1936, there is a major high
+  in July, but the astro does not have anything conclusive (geocentric
+  or heliocentric) that indicates 75 degree separation between any
+  planets.  Does "spread abroad my hands" mean 75 + 75 = 150 degrees?
+  Also, in that case, still nothing exact.
+
+Bayer says for markets going up and down, and of great panics, the
+"causes" are Abram, Isaac, Jacob and Joseph, and all the other
+biblical cycles which "begin" and "end," - the bottoms and tops - in
+stocks, human lives, in wheat and cotton, in business, and in every
+other thing that comes under the rulership of Mars.
+
+########################################
+
+Biblical Astrology - Abraham's Tent.
+By George Bayer.
+
+Genesis Chapter 18, Verses 1.10.
+  Gist of the story from Genesis is:
+
+    Abraham was sitting at the door of his tent at noon of a certain
+  day, when the Lord appeared.  He looked up and saw three men
+  standing against him.  He ran toward them and bowed to the earth.
+  He suggested that he would wash their feet, and that they lean
+  against the tree.  He also offers to bring bread and then they may
+  go.  He says, "That is why you came (all three) to our servant."
+    Abraham ran intot he tent to Sarah and told her to mix three
+  measures of bread flour and make some cake.  Then he ran to the
+  cattle, selected a calf and gave it to the boy to prepare it.
+    He brought butter and milk and of the veal and gave it to the
+  three men by stepping under the tree, and they ate.  They ask him,
+  "Where is Sarah, your wife?"  He replied, "In the tent.".
+    The Lord said, "I shall come again, provided I live yet, then
+  Sarah shall have a son."  And Sarah heard this, "behind the door."
+
+  Abraham represents the Sun.  He was sitting in front of his tent (house) and it was noon.  We know that the Sun's house is Leo, or at least part of Leo, as we shall see presently.  Abraham, or the Sun, was therefore at 0 degrees Leo.  The event must have occurred July 23-24 of our calendar, in a certain year.  The position of the signs must have been so that the Midheaven of a horoscope erected for the time would be about 29:59 Cancer to 0 Leo.
+
+  He looked up and saw three men against him.  "Against him" means opposite his own position.  The three men were thus standing at 0 Aquarius, opposite his door.  See Figure I.  The men were Mars, Jupiter, and Saturn.  The event, as we realize must have been very important because it takes many centuries to find this combination.
+
+  In the Bible, "under earth" is always understood to refer to that section of the zodiac which includes the signs Sagittarius, Capricorn and Aquarius.  (See Genesis 2, verse 4, et seq).  Thus, the meaning of "He bowed to the earth" is: Being at 0 Leo, he could bow downward and reach 0 Aquarius, below the earth.  In Figure 2, I put Mr. Sun in the zodiac.  His head is at 0 Leo, his left heel at 15 Aquarius, his right heel at 15 Capricorn, his left hand at 15 Taurus, his right hand at 15 Libra.  His shoulders are just 15 degrees on either side of his head.
+
+  The suggestion to wash their feet indicates that the sectors 0 Cancer to 15 Cancer, as well as 15 Leo to 0 Virgo, must contain water, else the feet could not be washed.  We know from book astrology that Cancer is a watery sign, but it is probably new to most students that 15 Leo to 0 Virgo is also full of water.
+
+  Now see Figure 3. The head of the Lord is at 0 Aquarius, the feet at 15 Cancer and at 15 Leo.  The men are told to lean against the tree.  This tree, according to Genesis 2:9, is located at 15 Aquarius.  Now, when we look at the Lord and the two other men, we can readily see that they did not have to go far because they actually were already leaning against the tree with their right shoulders.
+  
+  The suggestion to bring bread is rather superfluous, because it is shown in the Bible that wheneer we speak of bread we have to understand the sector from 0 to 30 Aries and more particularly its center, 15 Aries.  Our figure 3 shows, however, that the three men could readily help themselves, because they had their hands right in the bread, while Abraham's hand was 15 Libra and could not give them bread at all.  He himself establishes the fact that, the Sun, is the servant of Mars, Jupiter and Saturn.  This is a very important statement and possibly startling to some students of astrology.
+
+  Now we find that Abraham ran into the tent, to Sarah.  Until now he has been at the tent door, i.e., at 0 Leo.  He tells her to mix three measures of bread flour.  This sentence actually has nothing to do with baking or with cake; it is used to establish the whereabouts of Mrs. Abraham, who is Venus.  Is Genesis, Chapter 5, Verse 3, we are told (by figuring it out mathematically) that one measure equals 1 degree 36 minutes 55:3846 seconds.
+  
+  This is the standard unit used in the Bible.  It may mean years, days, cake measures, depending upon the situation.  Thus, Sarah was at that moment 3 times 1 deg 36' 55:3846" away from the door.  Multiplying, we find Sarah's position to be 4 deg 50' 46:1538" in the sign Leo (see figure 4).  Now, Genesis 1:24 tells us that cattle means Leo, and Genesis 13:2 specifies more clearly where the cattle are to be found within the sign Leo.  It says: 0 Leo to 20 Leo.  Thus we know that the Sun passed the conjunction with Venus, his wife, then continued moving forward into Leo to pick up the calf which he gave to the boy, to prepare it.  The giving process means conjunction.  The boy was Mercury, of course.  The Sun himself brought butter and milk and of the veal as he stepped under the tree.  The tree is at 15 Aquarius, and the shade of the tree therefore is at 15 Leo.  Thus, the completion of this event required about two weeks, or while the Sun was transiting from 0 Leo to 15 Leo.  
+
+  Next, the three men asked, "Where is Sarah, your wife?"  Abraham replied, "In the tent."  This means, astrologically, that the Sun, being at 15 Leo, was now outside the tent, while Venus was still inside.  Since the Sun had conjoined, then passed Venus, he must have been moving at greater speed than Venus.  Too, this must indicate that Venus was moving at less than her normal rate of travel, because the Sun overtook her within the tent and left her behind him.  The conjunction, then, must have occurred when Venus was about to turn retrograde, because according to the Lord's statement, she is to bear a son within a year.  Note that the "begetting" period for Venus therefore is definitely the time of her retrogradation.  
+
+  As to the butter and milk, we get hints here as to when we must expect high and low prices in milk and butter, depending upon the position of the Sun as related to Mars, as well as to the tree.
+
+  The Lord says that he will come again, provided he is alive, and Sarah shall have a son.  This means that Mars must return its present relative position, which indicates a period of about two years until the birth occurs.  Sarah hears this from behind the door.  Figure 6 illustrates the positions of Abraham, Sarah, the door between them, and the Lord on the other side.  The dottedline shows the path Mars must travel through the zodiac to come back to its position at 15 Aquarius.  
+
+  The domain of the Sun is shown, in Figure 7, to extend from one door to the other, i.e., from 0 Leo to 15 Leo, and no further.  Let all astrologers give this statement particular study.  Perhaps it will clarify some of the present difficulties in interpreting Leo.  
+
+  Figure 5 shows where the meal was consumed, with the relative positions of Abraham and the three men.  The positions of the boy and Sarah are, at this moment irrelevant.  
+
+  There are 1284 pages in the standard Bible and great events always occur at the expiration of 1284 days in the markets.  The making of just so many pages to make up one Bible is not a coincidence.  
+
+
+########################################
+
+Previewing the May Stock Market (1937?)
+Your Good and Bad Fortunes as Indicated by Your Birth Mercury and Jupiter.
+By George Bayer.
+
+In Biblical Astrology, Mercury is the "wife" of Mars.  Mercury is now entering a new cycle with Neptune, and this should make "her" the most powerful planet in the heavens for a long period to come.  Mercury is to direct our destinies during this cycle.
+
+But now a new Mercury Cycle is starting and Mercury will have his say.  That is, according to the Bible, the children of Eve, Rebecca and Sarah are getting ready to "make it hot" for the Pharaohs and the Pharisees, the Pharaohs and Pharisees being the Jupiterians.  
+
+Our friend David of the Bible is the little Mercury of astrology.  David walked over the field - Sagittarius-Capricorn - and met the mighty Goliath (Jupiter) somewhere in Capricorn, or maybe in the first degrees of Aquarius.  Remember that Goliath right now is in Capricorn.  You should read up on that story, so that I may save a little space for other things.  The Bible story will tell you what is about to happen, if you will take the trouble to read it.
+
+
+########################################
+
+Previewing the June Stock Market (1937)
+With Pointed Remarks on Buying Stocks and Commodities With an Eye to Their Salability.
+By George Bayer.
+
+You know that certain predictions do not come true because of our lack of knowledge.  For example, the big decline which I had slated when "Rebecca died" a few days prior to this writing (April 2, 1937) caused only a 3 1/2c decline in Chicago wheat and hardly any decline in Winnipeg quotations.  The dates of change I had found correctly, both the beginning and the end, but the distance to be passed through was not at all comparative.  
+    
+########################################
+
+Planetary Correspondences
+Some Oddities of Deduction Which May Be Used In Market Forecasting
+By George Bayer.
+
+The whole story of the Jubilees, the story of Adam and Eve and their descendants - Cain, Abel, Seth, Awan, Azura, Enoch, Enos, Kenan, Mahalel, Jared and Enoch II - shows us that we have in the Adam story ten male births, two female births, seven marriages, one death and one period of mourning - a total of 21 different items.  The "points" are called "mountains" in the Bible, such as Mt. Gilead, Mt. Sinai, etc.
+
+
+##############################################################################
+
+Gold Nuggets for Stock and Commodity Traders
+By George Bayer
+
+rluu: This work may be coded in a certain way.  I'm not sure what the publication date of this work is.  On page 37, he refers to a publication in 1942, and then says 6 years have passed, so I'm assuming it is 1948 when he publishes this work.  George Wollsten was published in 1945 or 1946, so it would appear that Gold Nuggets is one of Bayer's later works.
+
+pg. 7
+Just like one salami is connected with another, only separated by a string, so the cycles of prosperity and depressions follow by immutable precision one to the other.  
+
+pg. 15, 16, 17
+When one has studied carefully some 50 or 60 texts on astrology of all periods, he gradually gets the idea that something very important is missing.  What is is can only be gathered through study of texts which on the surface have not the slightest thing to do with markets nor with astrology nor with anything tangible.  Of such quality are old Poetry, strange Prose works, Fables, Fairy Tales, and related works.  The study of such books gives one ideas, strange feelings of what it is all about, and only years of deep study, and following out all the various performances contained in those stories, will gradually lead one to a path that is not trodden by the public at all.
+
+Fables we must call Tables; Fairy Tales we must call "Very Tales" i.e. true.  If we call tables or fables devils, we are not far wrong either.  
+
+In order to explain the situation clearer, let us take any of the Fables of Aesop or of La Fontaine.  Usually they are animal stories.  We have to put a lot of imagination to use and express everything that is said and done in the story into movement of lines in a chart just the way stocks or grains produce when we plot their price movements on chart paper.  Some of the excited actions, such as when the great big wolf does some naughty work, would be shown in own production as a big strong upmove in the stocks or grains, that takes all the little traders by surprise, who are sitting and waiting in the broker's offices for a reaction.  Before they realize what that wolf is up to, he has eaten everything up (prices went suddenly sky-high).  Before the traders have a chance to even think, it's all over.  In that way all the various fables can be worked through which gets us to realize that the old Greek Aesop wasn't so dumb after all and what we so far considered as childrens stories, have quite a different meaning! and will prove valuable, when plotted out in form of lines and applied to markets!
+
+pg. 18.
+The name devil is here not to be understood in an evil way, but in a way which makes the actors in the fable always do things which normally are not expected.  
+
+pg. 37, 38.
+One of the greatest hoaxes of all times was played by the ancient writers, including all the Greeks, Romans and up the line.  It was the shifting of letters in words, about which I spoke already in one of my works published in 1942.  During those six years that elapsed since then much opportunity was presented to verify these statements in the works of all sorts of ancient writers.  Some few things must have simmered through into the brains of scientists, about what was going on.  Other changes, as they had been made, were so obvious that even a donkey could have seen it.  In short, they said in all their sentences one thing, nay in every word they said one thing, but throughout they meant something else, altogether.  In order to keep up such a farce, they must have had a pattern of something upon which they could work such things quickly and constantly, leaving the readers on edge and in complete darkness as to what they were even talking about.  Whatever they wrote sounded plausible, and interesting, but those writings had the one beauty or rather disadvantage that after reading the whole story carefully, the reader was just as wise as when he began, i.e. one could retain absolutely nothing.  Any such work, whever you find it, is "doctored" with plenty of sense, but belongs to the "untouchable" type.  
+
+pg. 39.
+You may take into these works all those books that are "ancient" or "classic", may of whom have been growing right in our own back yard, such as of Tennyson, Emerson, Van Dyke and many others.
+
+There is one thing sure and positive: All these writers must have had a command of five or six languages other than their own, else they could not make these changes in their style of writing.  They must have devoted many years to the study of ancient works, disecting them just like a student of divity disects the idea what is God or as a surgeon-student cuts a piece of your insideinto so many parts and looks for something that isn't there.
+
+pg 40, 41.
+Good music, Old paintings by masters: Many serious studnets cannot get the warm of color together like the old masters did.  No art or science of the present time has been able to delve into the secret of how it was done.
+
+Paracelsus used to cure all kinds of diseases.  He explains fully the way he has done it, but unfortunately he used that awful hard language spoken of above, that nobody could read nor understand unless he was one of the initiated.
+
+
+Pg. 42.
+Cornelius Agrippa.  They even followed the price movements of all sorts of commodities.  
+
+In the works of 1001 Nights we find that they traded in hides then already.  They even knew when the commodities individually had to rise and when they had to fall and how much they would drop or rise.  
+
+Pg. 44.
+Old Ben Akiba, whoever he was, said once: "Everything had been already.  The answer therefore must lie in the past and cannot lie in the present, neither can it be in the future.  Lying itself implies it must be in the past.
+
+Pg. 47.
+You knowledge can grow with persitent hammering in old texts as long as you are able to add once in a while some new idea which is contained therein, but of which wisely, the ancient astrologers never said booh about it.  The main difficulty should be in the lack of foreign languages which are of absolute necessity, without which nothing of value can be accomplished.  This may sound really strange, but it is true.  
+
+"Paracelus" in its original medieval language.  What a difference!  What struggle through English, when in the old German the words speak of themselves! (at least many of them).  No wonder they want you to know the original Hebrew in order to understand the Bible!
+
+Pg. 48.
+Anyone who has made some studies of these ancient texts, such as those of Greeks or Romans or of our own poets, will have noticed that, whether in prose or in verse, the sentences contain always several adjectives, mostly two only, while other scentences contain long strings of substantives which when properly analyzed show related words, so-called synonyms.  To the average man who is not used to looking closely at the meaning of each word, they would mean all one and the same thing, while there is much difference.  The series can be of a good Nature as well as of a bad Nature, depending upon the sections treated.  We all know that there is a good and a bad, two sides.  The good words must run in the good rhythm, while the evil ones must run on the opposite side of it.  
+
+So that speaking of astrology it may be compared to: one side: 0, 15, 30, 45, 60 up to 180 degrees, the other side: 180, 195, 210, 360, etc., separating into a left hand over the head to the right hand as one unit, while the other unit runs from the left hand downwards to the feet and up again to the right hand.  Who runs and in what rhythm should not be hard to find out.  Suffice to say that this is the way they run.  now, another thing you must consider too: the angles as I show above are only given or mentioned to give you an idea that there are divisions necessary to be made.  They are not just ordinary divisions but they have forms varied, even indentations are needed thereby.  So that, in short the whole picture looks like a butterfly; the two top wings of the butter-fly represent the good side, the lower wings the bad side.  
+
+Pg 51.
+Remember for ever, that the Ancients have written about nothign else than what I just now explained to you, all in covered language.  In short, what they explain is the timing of things, when something makes a beginning, when an end and all that is between.  
+
+pg. 60.
+"Quo vadis" by Scienkiwiscz.  This Latin sentence means: Where do you go? and it just applies to those two places explained here: sidewise movement (at a temporary low) with a sudden one or two days drop bring forth an up move, and the same situation vice versa from a temporary high.
+
+pg. 61.
+It is the old "mene tekel upharism" of the Bible: he saw, took and vanquished.  In short, speaking of the fool's move upwards: He saw sudden a rise, ran likt eh devil to jump on the horse before it got away, but found out that he had jumped on a critter.
+
+##############################################################################
+
+The Egg of Columbus (1942)
+By George Bayer
+
+Foreward: This work attempts to explain the ways to make money in markets by the use of strange, natural, but true cycles.
+
+Some writers have used up 20,000 pages such as Swedenborg did.  
+Athenaeus used for the same about 3,000 pages.
+One old Greek text in my possession used 18 pages to cover the laws.
+
+Swedenborg covers everything of life that possesses a cycle of any kind or description, while we, for practical trading, require but the very common major moves to make money in markets.
+
+pg. 5
+Image: "La Vie des Saints" (life of the Saints) published at Lille France in 1889 by the Abbot Pradier, curator of St. Agne (Dordogne), approved as it says, by the Archbishop of Perigueux (France).  
+
+Athenaeus (Athens, capital of Greece).  Greek philosophers: Aristotle and Plato.  They taught their pupils by "wandering around."  Bayer advises reading all we can about them.  The image referred to has Aristotle and Plato in it.  
+
+Swedenborg's Genesis, volume I, page 374:
+"They who have once conceived opinions, though most false, cling to them so obstinately that they are not even willing to hear anythign that is contrary to them (to the false opinions); so they never suffer themselves to be informed, even if the truth be placed before their eyes."
+
+Swedenborg, who lived from 1688 to 1772 was the only man within that period who knew all about the secret inner meaning of the Bible and his 40 odd volumes on the subject explain it sentence by sentence.  
+
+
+pg. 6.
+The ancient books explain nothing but cyclic movements, whether it be the Bible, or the Koran, Cicero or the Gallic War of Caesar.  Thus all the ancient Hebrew writings, the Egyptian, Greek and Latin writers explain only cyclic movements and their effect upon human beings and NOTHING else.
+
+There is also a Greek work extant, called Athenaeus, the Deipnosophists or the Banquet, similar to Dante's Banquet and many other Banquets that are treated of in Ancient Works.  The meaning of the whole story is: The arrangement of the cycles in correct sequences.
+
+Bayer bought his Athenaeus as a 5-volume set.
+
+pg 7.
+Yes, but don't forget that [earthly animals] perpetuate themselves through progeny, so that, even though the individuals die, they only die AFTER the next progeny or cycle has begun to live.  This means for our purpose, that a certain cycle begins, passes through the cycle, but before it ends, conceives a new cycle and only during the time that the old cycle is about dying off the new one is already running and only after the new one has been running for a while does the old one die of itself.  THIS MUST BE CLEAR.  There is an interweaving of cycles.  (just like the overlapping of ellipses in Bayer's methods).
+
+Egg of Colubus is describing the secrets from Athenaeus, in the 3,000 page work with the title: "Dinner-table".
+
+The cycles of everything consists of a series of cycles, long and short, which series form one whole.  Links form a chain.  We may call these cycles serpents.  The formation of these serpents is represented in things which we eat and in the the rotation how (order and timing) we eat the various foods.
+
+Bayer refers to actual astronomy as shown in the "Handbook of Trend Determination" as having the answer.  
+
+Eat means "up".  Drink means "down".
+
+pg. 15
+General pattern of the dinner is given.  (to be used with ellipses).
+
+
+##############################################################################
+
+Preview of Markets
+By George Bayer
+
+pg. 3
+Related to using Hebrew letters to map the structure of the Markets.  
+For a "V" shaped market, the top is taw, goes to haleph at the bottom, and then from haleph, back to taw at the top again.  
+
+rluu: In Market Analysis for April 1938 (and noted in this document), Bayer says that the end of a cycle or of a DAY is never at a top, but always at a bottom.
+
+On the church steeple of a catholic church we find a cross.  This is the Hebrew letter Taw, or the Greek letter Omega.  It is "on top" of the church because that is where it belongs the same as the letter taw belongs on top of a bull movement at which place the alphabet begins.  When I say of beginning I actualy mean the end of the alphabet, because the letters are written backwards so the beginning is at the back, at the 22nd letter.
+
+rluu: So I should try reading the Bible backwards?
+
+pg. 27
+How to make graphs. 
+Scaling:
+Wheat and all other grains: 1c for one square or 1/4c for each small thin line.
+Cotton: 10 points per square.
+Hides: 12 1/2 points.
+Cottonseed oil: 8 1/3 points per square.
+Copper: 9 points.
+Butter: 1/4c
+Coffee: 15 points per $50 fluctuation.
+Eggs: 3/8c per square
+Cocoa: 17 points.
+Lard: 10 points.
+Rubber: 22 points.
+Silk: 4 points represent a $50 movement.
+Sugar: 4 1/2 points (Bayer says for simplicity take 4 points)
+Wool tops: one square for a single cents movement.
+
+pg. 29
+Preview of Markets for August 1939.
+
+I went over the generations of Adam, because in them, I knew, had to be the timing.  Once, I would know what is a year, the "beginning" was made.  I FOUND THE TIMING, pure and simple, so astonishingly true, that I had to stop for ten minutes to get over the spell that gripped me.  
+
+The point is the beginning of a NEW ERA.  You shall see that it is so.  SInce that moment I have just taken enough time to rest.  I have reached already Jacob as he sleeps under the heavenly ladder on the earth.  This ladder reached to heaven (Genesis 28).
+
+Every word up to that point is absolutely clear to me as to its meaning and what follows will be clear to me within the next two months at the outside.  I have, of course subjected certain parts to tests already, and boys, it is grand, the Grandest thing that could be found.  We shall benefit of it real soon, so have just a little more patience!
+
+rluu: refer also to pages 45 and 47 of Bayer's Previews.
+
+A few highlights of the find:
+1) The Bible is the book explaining the effects of planets.
+2) The effect can never be obtained with what is commonly known as astrology.
+3) The names quoted in the Bible can be angles or points of conjunctions.
+4) The meaning can only be discovered by discarding complately everything that is shown in astrology books, excepting the names of the planets.
+5) He who is well versed in ordinary astrology and who begins to devote his full time, some 14 hours a day, for fully five years may, if he is fortunate, his the spot to know: what is ONE YEAR that is always quoted in the Bible.  Then he can start to build the house which does not take long to do after that, because by that time he has gone through the Bible a hundred times "a-hunting".
+
+  rluu: pg. 46 of Bayer's Previews says about years: 
+        Why do we use a sun year?  Why is it not appropriate to use a
+        Mercury year, or a Jupiter year, or a Saturn year?  Or some
+        other planetary year?
+
+  rluu: Is a 'year' equal to a 'time' which is a third of the Bible (22
+  hebrew letters/bible books)?
+
+  rluu: A year is one book of the bible?  A year is a whole cycle.
+  So 3.5 'times' would be 3.5 times around this 'year' in the book.
+
+  rluu: See page 32 of Bible Wheel for the structure of the Bible.
+
+6) The hieroglyphics of Egypt, the Mohammedan Koran, the Jewish Scriptures, the Christian Scriptures are all one and the same: works that explain the effects of planets to later generations.
+
+7) Every word of the Bible is absolutely true and in its right place; it contains not one unncessary word.
+
+pg. 40
+The great difficulty we are faced with is that Mercury contains some 25 different motions in reference to our earth or to the Sun.  There are motions in the planet Mercury that are used only by astronomers; there are motions that are only used by astrologers, and there are motions in him that are not used by either of them, and these motions seem to be the ones that have to be used in order to detect movements of prices irrespective of who is behind the price, a commodity or a stock.  
+
+pg. 42
+Preview of Markets for September 1939.
+
+The present issue of "Preview" brings additional details of great importance, laying down gradually our philosophy.  Practically all the articles produced so far are not for a one time reading but they can be studied and disected time and again to obtain the deeper meaning hidden therein.
+
+pg. 45
+About ancients and their writings:  They substituted certain words for others, many kept in their original meaning.  They produced a "code" which can be deciphered if enough time is spent on it and the essense of the contents, are grasped.  The Bible is full of parables, and, what may interest you the most is that I found that the word parable means actually a mathematical parable, a parabola and "talk" means: to move.
+
+While we talk about parabolas, we just as well hint for a moment at "fabula" which is the Latin word for "talk" and talk means movement (substantive), so that Aeop's Fables are nothing but movement of Animals, but which ones?  The ones commonly understood or those up above?  That the word "talk" was very cleverly shchosen as a substitute for "walk" may be seen when you read back the first four words of the last sentence: "While we talk about parabolas," meaning by substitution while we move about in cycles.  
+
+pg. 46
+Why do we use a sun year?  Why is it not appropriate to use a Mercury year, or a Jupiter year, or a Saturn year?  Or some other planetary year?
+
+pg. 47
+Picture of a spider web.  
+Bayer says: In the first volume I mentioned the 22 Jewish letters according to which the Lord created the World.  The picture of a spider web, taken outside of my workshop reminded me of these 22 letters too; so the spider is even smarter than a lot of scientists who make faces at Mr. Mars.  This "Spider and his web" knows more about the Bible than they ever will.  Can you see it too?  
+
+rluu: I believe he is referring to the Bible structure, in the form of the 22 hebrew letters as it wraps around, like a scroll.
+
+pg. 49
+Mention about a transit over the "Meridian of Washington" as being important.  
+rluu: What is that?
+
+pg. 54
+List of old text books on astrology:
+1) The Bible and all those works, which are called Scriptures.
+2) All the Egyptian writings on papyri, on tablets or on tombs.
+3) All the old tales (Maerchen) such as the 7 Dwarves.
+4) All the stories of 1001 Nights and other stories from Arabia.
+5) All the myths, be they Greek or Roman.
+
+Bayer saying about events that may have actually happened: True, some of the Emperors might have lived, but the stories printed about them are explaining planetary movements, which were embodied in these persons.
+
+Take the pain and read 1001 Nights.  Note: that the heroes always are absent for one year; sometimes they make it ten years to change the situation some.  However, the meaning is: now, we go one cycle forward.  The story of the "Fisher and the Ghost" for example brings four planetary positions.  It then lists commodities, which should be bought when the second planetary condition is present and so forth.  Later on after discussing the "porter" loaded with the victuals it explains clearly when the various commodities must be sold again, i.e. depending upon other planetary positions.  This story is one of the best to illustrate commodity trading.  Other stories treat about other things of life.  The plots are so cleverly chosen, so intriguing, and revealing the exact laws of astrology.  
+
+THe first Law about mankind: We are just doing what we are told to do according to our moment of birth, singly, as a group (sailors, carpenters, stock traders, doctors) as well as Nations, and finally as a people that belongs into the present era and not into another.  
+
+In all these works note especially the slow and gradual build-up.  First we have to do with one or two persons and with a simple plot; This establishes the "planetary positions."  After this all persons begin to move; they cry and marry and make trips; they laugh and plough the field.  most of these active verbs mean difinite sorts of movements in predefined sectors of the Zodiac, so that one who grasps the meaning of a few words once, will, by trial and error, be able to fasten down additional words until he gets a brand new dictionary.  So that for example, each time I read in any of these books that someone "cries" I merely underline the true word for it: "to move retrograde" and keep on reading.  He, who cries, moves retrograde.  Which planet is meant by it is identified by the name given to the person.  There may be 5000 or even more names found in all these works, just the same we have but 7 planets to use; they are nicely divided among them and I have discovered also the identification of most of these names and which planets are meant, becomes rather easy after a while.
+
+Yes, market movements can be safely traced when we follow Harun Arraschid of the 1001 Nights, at least that is what I found.
+
+pg. 56
+Preview of Markets for October 1939.
+By George Bayer.
+
+Anything that is true will stand for a long time. About the value of religious books, fables, and tales we have enlarged already.
+
+Something of value is usually cheap and not expensive.  You can buy Bibles for a quarter at Woolworth's.  Tales and fables can be had in most second hand bookshops on the nickel counter.
+
+pg. 57
+About finding stocks:  If they prove within a certain time that they act like regular fellows and do not make stunts, which are against common rules, then we may include gradually one or the other to our list of "tested stocks."  Any stock, that moves for any length of time against the general trend, eliminate it irrespective of how fast it moves.  
+
+pg. 58
+If you ever did some work on astrology, you know that all angles formed between two planets act differently, in sign, in longitude, in latitude as well as in declination; therefore we may distinguish thousands of combinations, each having its own effect upon the brains and they are all treated consecutively in 1001 Nights.  
+
+pg. 59
+Mythological texts are much related to the Tales.  They may be Greek or Roman, German or Norse.  All are explaining laws of planetary motion and their effect upon human being as well as upon all the other things.  
+
+Regarding "The Classic Myths" based on "Age of Fables" published in 1855 (Bayer's copy was printed in 1899), Myths are cycles originating at a common center (all are starting at one and the same point).  They exist among the original cycles and cannot be changed.  By "not subject to change" I mean: a planet that starts at 0 Aries will never be prevented by anything to go around the Zodiac 360 degrees and after a predetermined period will again reach that point.  Angles, conjunctions, direct or retrograde motion occurring during such a transit with other planets or of itself matters not.  Thus, such a cycle is meant by a myth.  While by a Fable, we understand cycles which are restrained or rather incidental, such as a conjunction between Mars and Mercury, which does not happen with every round of Mercury, but with each second round only.  Therefore when a fable explains the conjunction Mars to Mercury, we would be wrong to expect its effect each year since it happens but every two years.  I am speaking here of geocentric positions and not of heliocentric movements.  
+
+pg. 60.
+A planetary aspect has but one effect; the one inherent on account of its momentary longitude, latitude and declination; this effect is described in the myth.  The writer of the myth cannot go about and write a big story besides to fill a volume, when all he has to say (as an example): When Venus crosses its Node then this and this will happen to wheat, that and that will happen to rubber or to hides.  He says it and that ends the myth.  In actuality I was exemplifying here a fable since it does not cover all planets, but I cannot possibly give an example of a myth, without giving out the secret of motion, which I found.  There are enough hints herein that some may detect it.
+
+In Jewish Legends, Vol. I of that series, Adam and Eve after leaving Paradise met a man who left his child with them and because the child cried, Adam killed it, cut it up and boiled the little tyke.  He ate it and when the man came back to take the child away again, the child's bones rattled in Adam's stomach and revealed his whereabouts.  Some gruesome tale, but the Hebrew writer just had no other way out to explain the law he was treating but by making a real stew of it.  The Arab stories treated the explanation of the laws in a real nice and refined way.  We all realize that a steak can be cooked tender by one and tough by someone else and both call themselves "cooks."
+
+The myths, the Oriental Tales, the Scriptures (those that describe cycles), can tell you the right time to start something if you study them long enough and also take the right moment to begin with such studies.  
+
+pg. 61, 62.
+This section talks about requirements to decode the ancient scriptures.
+
+1) German language and understand some medieval German.  This applies to all Scriptures including the Oriental "Maerchen" of which I spoke in the last issue.  
+2) Sciences
+3) Physics.  You need physics to learn about motion in general, particularly the parts called mechanics and optics.
+4) Chemistry.  Chemistry is important to know so you recognize the fact that certain atoms join together and other just simply won't join.
+5) Astronomy.  Important because everything is built on planetary motion.  
+6) History.  You need ancient history because most of it must be astrologically interpreted.  
+7) Biology
+8) Languages, modern and ancient.  As many as possible should be mastered so that the relationship of the words of the various languages can be compared.  
+9) All possible and impossible systems of astrology.
+10) Mathematics.
+11) Financial/commodity markets.
+12) Eternal patience.  A fast worker who has thoroughly digested all I have written in these "Previews" may accomplish the job in about ten years.
+13) Zoology.  For example, you need to identify the various animals that occur throughout the Scriptures.  You must know their habits else the name of the animal does not impart to you the hidden meaning that has some connection with the habit and action of such animal.
+14) Geography.  In 1001 Nights, you find right in the first story the mention of Asiatic places, which indicate the place where the story treats.  Use maps showing the world and the cities around the year 1400.  You must know in which country they are located.  
+15) Botany.  There are hundreds and hundreds of trees and flowers, shrubs and perennial flowers mentioned each for a purpose of its own.  Beware if you don't know what kind of grass barley is!
+
+All work should be in writing, keeping notes of all thoguhts and ideas as they develop so that the good thoughts are gradually separated from the chaff.  
+
+On-and-off work on this problem would not get you far since Nature most likely will make you work or suggests that you work just at the time you won't find things.  So the best is uninterrupted hard work so that you work "at the moment" of the right beginning to bring success; since points of beginning reoccur too.
+
+The Oriental Tales without exceptions are a product of Southern Germany and "made in Germany" produced somewhere in Upper Bavaria, around Wasserburg or Wessobrunn, and never have seen Arabia.  
+
+Bayer uses the English texts of Bibles in his research, occasionally, for verification he used the French or the Holland Dutch Bible.  He abandoned the use of the German Bible several years ago since the translations were very poor.
+
+pg. 63
+Had he used the English of version of 1001 Nights, he said he would have failed utterly.  He used the complete works of 1001 Nights, 4 vol. with some 1600 pages written in German.  When Bayer worked on the Koran of Mohammed, he found so many relations and allusions to names that he recalled from childhood having read about them in Oriental Tales printed for children.  He found connections between the two works.  The names were not used in Turkish or Arabian, but with few exceptions.  The names were German with substitutions.  See Bayer's article for the details.  He says: I will not use the Bible for illustration, but when you realize that we have stories about the "poor" in them, it should be hint enough. 
+
+pg. 65
+Some of you may have read parts of the scriptures or all of it.  Some may have read now Oriental Tales or Fairy stories.  I have now found that "each such story" is one complete course of astrology.  So you can see that the rules can be delivered quite compactly.  
+
+You have in the Oriental Tales three stories of the Kalenders, five stories of the Barbers; they illustrate one signle law in several forms.  The Adam and Eve story (Slavonic Text of Vitae Adae et Evae) is printed in Pseudepigrapha on nine pages since on the eighteen pages covering the story we have two versions printed next to each other on separate columns.  Nine pages give in a concentrated form all the secrets of the Universe, if we can read it.  Of course, to arrive at the point and to visualize that this story is one form in which Laws are incorporated takes time and a lot of research in works of many sorts that are not leading to the solution.  Read old books.
+
+Try the Oriental Tales first by guessing, gradually finding the meaning of one word, then of another, until your dictionary is completely covered with as many other meanings as it contains words.  When doing research work, bearin mind that the common verbs, such as read, write, say, talk, go, run, walk, etc., are the most difficult to get their actual meaning.  You may fare much easier locating the Moon and the Sun or Pharaoh or Mohammed or Ali Baba.  
+
+In the last issue I gave you the possible movements (dimensions of measurement) of just one planet (Mercury) and said that we have six more [planets] to use.  To alleviate your anxiety I just say that: go, walk, run, mean about the same, but he who goes is a certain planet, and he who walks is another, and he who runs is again another, so think up a few more words that express a similar motion to cover the renaming planets with.
+
+Stick to one story or version and do not jump from one into another.  Work until you can't get any further sense out of it; then begin another, until you get into a similar difficulties.  Keep this up and rotate until you have to start again with Adam or with Sheherbad.  By the time ten years have gone by you should be very close to the solution of: who is Adam and Eve.  You might not be able to get them to move around at all; they might persistently stay at one and the same place, but with a lot of imagination you can work wonders and suddenly Mr. Adam will walk.  As soon as he does he will also speak and that is important.  Remember that first he was clay and could not walk (it says so) and then he walked and talked all the same time.  Of course, "the bone" is a hard one to solve and would leave the bone till the very last.  You might have erected your temple or your Moschee a long time already and never had a soul to go into it or leave it because the figures are very hard to bring to a move.  Readers who have studied astrology may think different in that they may feel that it just implies the movement of the planet but it is not so.
+
+
+pg. 69
+Bayer makes comments the story of Sinbad, and the story of the blind Baba Abdallah.
+
+pg. 71
+Thijl Uilenspiegel and Lamme Goedzak, a book dealing with conditions in Fladers around the years 1530-1590, is another Law Book dealing with the motions of the Universe.  It is called the Flemish Bible.
+
