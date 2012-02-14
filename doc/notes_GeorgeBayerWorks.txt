@@ -6,13 +6,13 @@
 # Ryan Luu
 ##############################################################################
 
-rluu 20120212 06:47: Something that occurred to me about reading the Bible.  Perhaps I should pay very close attention to when certain words are used that are the definition/meaning of one of the letters of the Hewbrew alphabet.  For example, when they mention Ox (Aleph), It may be related to the 1st book, the 23rd book, or the 45th book.  Same regarding other words like House (Bet), Head (Resh), etc.  This probably would help in decoding what words mean what in the Bible.
+rluu 20120212 06:47: Something that occurred to me about reading the Bible.  Perhaps I should pay very close attention to when certain words are used that are the definition/meaning of one of the letters of the Hebrew alphabet.  For example, when they mention Ox (Aleph), It may be related to the 1st book, the 23rd book, or the 45th book.  Same regarding other words like House (Bet), Head (Resh), etc.  This probably would help in decoding what words mean what in the Bible.
 
 rluu 20120213 02:45: I should just read Bible Wheel first and then make my opinions about the Bible after reading that.
 
 rluu 20120213 02:46: Don't get an English version of 1001 Nights.  Get the German version or perhaps the French version (original language was in French, see wikipedia article on translator 'Antoine Galland' for more on this).  Given, I need to learn those languages first.
 
-
+rluu 20120214 08:03: I need to get the Hebrew Talmud (with both Hebrew and English translation) in order to decode the Bible.  Bayer says the Hebrew Talmud has the definition of the Grammars used in the Bible.
 
 ##############################################################################
 
@@ -44,7 +44,7 @@ Genesis Chapter 5:
 
     Jupiter == Abraham.
 
-New Testament, St. Mathew, Chapter 1.
+New Testament, St. Matthew, Chapter 1.
     Has Jupiter cycles starting with Abraham.
 
     Verse 17: 14 Jupiter cycles up to David.
@@ -587,7 +587,7 @@ Genesis Chapter 18, Verses 1.10.
 
   Now see Figure 3. The head of the Lord is at 0 Aquarius, the feet at 15 Cancer and at 15 Leo.  The men are told to lean against the tree.  This tree, according to Genesis 2:9, is located at 15 Aquarius.  Now, when we look at the Lord and the two other men, we can readily see that they did not have to go far because they actually were already leaning against the tree with their right shoulders.
   
-  The suggestion to bring bread is rather superfluous, because it is shown in the Bible that wheneer we speak of bread we have to understand the sector from 0 to 30 Aries and more particularly its center, 15 Aries.  Our figure 3 shows, however, that the three men could readily help themselves, because they had their hands right in the bread, while Abraham's hand was 15 Libra and could not give them bread at all.  He himself establishes the fact that, the Sun, is the servant of Mars, Jupiter and Saturn.  This is a very important statement and possibly startling to some students of astrology.
+  The suggestion to bring bread is rather superfluous, because it is shown in the Bible that whenever we speak of bread we have to understand the sector from 0 to 30 Aries and more particularly its center, 15 Aries.  Our figure 3 shows, however, that the three men could readily help themselves, because they had their hands right in the bread, while Abraham's hand was 15 Libra and could not give them bread at all.  He himself establishes the fact that, the Sun, is the servant of Mars, Jupiter and Saturn.  This is a very important statement and possibly startling to some students of astrology.
 
   Now we find that Abraham ran into the tent, to Sarah.  Until now he has been at the tent door, i.e., at 0 Leo.  He tells her to mix three measures of bread flour.  This sentence actually has nothing to do with baking or with cake; it is used to establish the whereabouts of Mrs. Abraham, who is Venus.  Is Genesis, Chapter 5, Verse 3, we are told (by figuring it out mathematically) that one measure equals 1 degree 36 minutes 55:3846 seconds.
   
@@ -959,18 +959,60 @@ Conclusions drawn from research made during the summer of 1939:
 5) The laws of how to figure movements of any particular thing alive, are contained in hundreds of ancient works, such as the Bible, the Myths, the Fabled 1001 Nights, Decameron, the Egyptian "Book of the Dead," the Talmud and Al Koran.  
 7) Bayer's conclusion is that all these works were made in Germany between the years 800 and 1500, or even a little later.  The laws might have been known by ancient nations long beforehand, but were only put into story forms in the given period.  
 8) Common methods of astrology never get anyone towards the solution.  Ali Baba says in the story of the 40 Thieves: "Their (the traders) methods were used to make profits, but for such undertakings (of solving the puzzle of motion), one has to approach it in a clever and strange way."
-9) Ali Baba and the 40 Thieves is the complete work of how to figure wheat movements.  At the end of the story he says: "(Since he now understands the rules, what the actual meaning of each word should be, what planets are meant, what type of motion is used, how the movement occurs in teh Zodiac, where the actual beginning of a cycle starts and when it HAS to repeat, etc.) Now he doubted no more that he was the only one in the world who knew the secret of how to open the Cavern so that the entire treatures contained therein were completely at his disposal."  The whole story is only 28 pages and contains under cover all that is to be known about wheat prices for any time, any year, any month or day, clearly though concisely written.
+9) Ali Baba and the 40 Thieves is the complete work of how to figure wheat movements.  At the end of the story he says: "(Since he now understands the rules, what the actual meaning of each word should be, what planets are meant, what type of motion is used, how the movement occurs in the Zodiac, where the actual beginning of a cycle starts and when it HAS to repeat, etc.) Now he doubted no more that he was the only one in the world who knew the secret of how to open the Cavern so that the entire treatures contained therein were completely at his disposal."  The whole story is only 28 pages and contains under cover all that is to be known about wheat prices for any time, any year, any month or day, clearly though concisely written.
 13) They (the ancients) knew all about up-gaps and down-gaps, and even tell how to determine the time when they are due to come.  
 14) The story of Ali Baba and the 40 Thieves ends when the captain of the Thieves takes the name of: Chogia Husein.  This "Husein" I said in the last issues, means: "Haus eins" or "House No. 1".  The story that follows is entitled: "History of Ali Chodjah, Merchant of Bagdad."  Here we find "Chogia," the captain of the Thieves with another name, i.e. "Chodjah."  The Mohamedanization of the Bavarian dialect words or of medieval German words is another art these writers understood.  Profit is coded as "salt".  
 
 pg. 78
 An egg is our number 0, the beginning of all things.  Just check an astronomical ephemeris and see how often important movements begin in all sorts of stocks or commodities when a planet reaches the 'egg' in declination or latitude, or even in longitude.
 
+pg. 83
+Three phases for Venus in people: Morning Star, Combust, and Evening Star.
+The effect of Venus upon the market in each of these three phases is so different that it will surprise you.  When a planet is near the Sun we say: "it is burnt by the Sun."  This is a rather clever saying  At that time the Sun is so powerful in respect to the planet Venus that it seemingly does away with Venus and Venus is not Venus anymore, but it becomes a part of the Sun.  You must have noticed many times, when the weather changes, the moon has a halo.  The Sun also has a halo although not visible to us.  At the time a planet is within the Sun's halo, such a planet is useless and has little or no effect; but on either side beyond the halo, it again has its effect upon human beings as well as on stocks or commodities that it represents.  Halo of the Sun is about 10 degrees on each side of the Sun.  Extreme elongation of Venus fromt he Sun is about 48 degrees.
+
+pg. 85
+Eclipses formed by Sun and Moon affect either Stocks or Wheat, or both.
+
+pg. 87
+Venus groups:
+
+Evening Star group (Group No. 1): 
+Includes the language that is spoken, the music which entertains, the theatre and movies, the circus, automobiles, football and baseball, fights of any kind including war.  Thus, in market language: Moving picture stocks, automobile stocks, steel stocks and even rails should go in here, since they supply means of transportation.  It also includes rubber, silk, copper and other commodities.
+
+Center group (Group No. 2):
+Concerns health and all the circumstances and conditions leading to it or aiding it in a positive or negative way.  Therefore, we can place into this group all pharmaceutical stocks, also all food stocks, which latter had been enumerated already in the first group.  Hospitals, doctors, dentists, undertakers, cemeteries, crutches, artificial limbs, walking canes, Ex-lax, magazines explaining why one should eat three raw cabbages a day, clubs that further outdoor life and nudist colonies belong to this type.  And last but not the least the food commodities sugar, fruits, cocoa and wheat especially.
+
+Morning star group (Group No. 3):
+All lines of business that concern money such as banking, lending money, pawn brokers, credit companies, real estate, governmental affairs (issuers of money), belong in here.  Stocks of this group include bank stocks, bonds, credit company stocks, government bonds and real estate investments.
+
+In order to make money, selection of stocks and commodities of his own group is preferred.  Next preferred is of the neighboring group.  
+
+pg. 88
+Longitude, declination, and latitude are separate entities; they give best results when we are able to use them together (the Trinity).
+
+pg. 98
+The Sun turns around its own axis every 25 days 5 hours and 38 minutes.
+The Sun has two poles upon which to turn around, these poles are inclined toward the Ecliptic at an angle of 7 degrees.
+The longitude of the rising node of the Sun's Equator is 74 deg 36 minutes.
+
+pg. 102
+Revelation: "in time and time and half a time the woman gets... " (i.e. 2.5 times).  
+
+rluu: Since Bayer is referring to the Sun as a 'she', I assume that this woman in Revelation is the Sun.
+
+Bayer says the degrees east and west of the Sun's pole when at extreme position, is at angle 26 deg 15 minutes.  He says the astronomers Madler, Herschel, Newcomb and others are all not too sure of their 26 deg 20 minutes value.  Bayer knows his value is correct due to market movements (price levels).
+
 pg. 103, 104.
 Page about Bacaccio's Decamerone, which deals with the "Black Plague", which Bayer says has to do with planetary effects and how they act during a bear market, such as experienced from 1929 to 1932.  Several characters in the story are all one planet.
 
 Bayer gives some arithmetic about the characters in the story:
 7 girls + 3 men = 10 persons (persons superior).  3 men servants + 4 girl servants = 7 servants (persons inferior).  10 (persons superior) - 7 (persons inferior) = 3 rulers, the Trinity = 1 Unit.
+
+rluu: Note, earlier, Bayer talks about the Trinity in relation to the three dimensions of motion of a planet: longitude, declination, and latitude.  Is this what he is talking about here?  
+rluu: Is 1 Unit a whole full cycle?
+rluu: Are the 7 servants, the "days" in the Bible?
+rluu: The Trinity is the Father, Son, and the Holy Spirit.  Code words used in the Bible!
+
 
 In the "Legends of the Jews" we find quite often "Ish", which equals "God".
 In the Apocrypha we find several daughters whose name was "Isca" or "Isha".
@@ -988,3 +1030,200 @@ In Decamerone, "Love" is a planet.
 pg. 106
 "speak" in the Bible means "move".
 "writing" in the Bible means to draw pictures (Bayer says: which ones?).
+
+pg. 107
+Latin is an artificially produced language.  It was never spoken.  It is an astrological language, produced by combining other languages.  Being an artifical product, they could put their own meaning intot he words they created which is actually the case and which ought to make you understand why the words found in the Scriptures must mean something else than they are supposed to stand for.  
+
+The best astrological book (in regard to hidden grammars used) is the Bible.  
+
+In the Talmud, there are chapters such as: Sabbath, "on Oaths", Blessings, Day of Atonement, etc.  These are nothing but subdivisions, the same as used in grammars: Substantives, Verbs, Adverbs, and Pronouns.  "Blessings" for example means "Pronouns", their individual meanings and "uses".  Just look over scriptures and note the immense quantity of pronouns used: you, he us, ours, and them, to them, for them, at them, above them, with them.  Each pronoun has an individual covered meaning.  The best start any man could get who tries to solve the puzzle, would be to begin with attempting to solve the meaning of the pronouns.  This approach I know now and wish I had known it several years ago.
+
+With Latin, you can put personal pronouns, such as I, you, he, she, etc. behind the verb without making the sentence a question.  They hitched the horse the wrong way, and can ride it.  The scientists of today call such process "Latinism" being one of the peculiarities of the Latin Language.  
+
+pg. 108
+In astrology we always have to do with angular distances between the planets, or in other words, we have to do with the angular distance expressed in angles, 30 degrees, 45 degrees, 60 degrees, etc.  It is always measured from ONE planet, whereby the other planet may be ahead or behind it.  So that to get a little close to the secret, "I" is the middle/the center, while "you" is ahead of this center and "he" is behind this center.  Therefore, knowing constantly the location of the planets by merely using the correct pronoun, it is much more important to know the angle that is formed between them.  This angle is expressed with the verb, witht he right verb, which always means the same size angle and no other size.  Can you see why in the artificial Latin language they could place the planet (the personal pronoun) in front as well as in back?
+
+Let us connect our thoughts with the article of last month (Evening and Morning Star) and say: The planet that controls you or me that has been a Morning star suddenly becomes an evening star.  In that case, the figures in the Bible merely change their names and be done with it.  Abe was first Abram, and then became Abraham; Sara was first Sarai.  Jack was first Jacob; then he became Israel.  This latter's change was so important that a special story had to be made up for it, the story of the wrestling match during the night.  So that when another "angle" gets active with people, they change radically.  
+
+I now want to touch on an idea that is highly valued by present day astrologers.  It is called the prenatal epoch.  To me, it does not mean a thing.  First of all have you ever thoguht about that in maternity hospital you may find in one day twenty births occurring, some of them at one and the same minute or even second.  They may be male or female.  The astrologers have the idea that some hours, what they call planetary hours produce males in male hours and females in female hours.  Humbug.  It depends upon the parents and their grandparents only.  The parent cycle has to create (and not of its free will either) in order to produce at the fixed time a top or a bottom which we shall call male or female.  Only for this reason can we forecast markets, otherwise we could do nothing.  When forecasts do not click, something is wrong with the calculations and not with the planets.  
+
+pg. 109
+Hebrew Talmud.
+
+So what is Homer; what is the Nibelungenlied?  What are all the books on the Index of the Roman Church, prior to the year 1600?  They are all astrological grammars.  Rome does not want anyone to get too close towards recognizing laws, but "forbidden fruit tastes best"!
+
+Why do Kings in Egyptian pictures always carry a stick?  You solve the meaning of that stick and you have solved the puzzle of motion!  "In the balance shall they be weighed"!  By the way, "balance" does not mean "Libra" by any means.
+
+rluu: Perhaps this is related to aspects (of dynamic size?) to the mid-point of two planets?  The aspect size being related to the difference between the two planets.  Something perhaps along these thoughts.  I mention this idea because in one of the old WITS posts, someone said that Bayer used Mercury aspects to Jupiter-Saturn midpoint.  
+
+pg. 114
+About charting declination and latitudes:
+Careful notations of the effect of each of the crossings have to be made into the charts, whether the approach of the line was from north to south or from south to north or whether they were made from, "half-way" points; i.e., when the planets had not reached their extreme declinations or latitudes but turned halfway.  The latter condition you will see quickly when you plot them on charts.  Each time the effect is different, but the effect once established does repeat well.  
+
+Each planet, of course has its own effect again at such crossings.  For example, Saturn crossing southward over Sun in Declination has always one effect upon wheat, but quite a different effect compared to Mercury or Venus doing it.  The slower moving planets have more weight than the flighty ones.  While Mercury and Venus cause the so-called "jiggles", Saturn and Jupiter cause trends.  Anyone who explores these ideas has to get ready for some big surprises the way tops and bottoms develop.
+
+I have not quoted all the points that need watching after the chart is completed, but suffice it to say that when they turn at extreme low declination or latitude, or at extreme high points or at half-way points, important changes also come forth.  
+
+A congregation of several crossings within a day means a real important change, especially so when heavy planets are involved.  They are far apart in time, but when they come they give major changes.
+
+rluu: I should also explore this idea with longitude elongation distances of Mercury and Venus (i.e. whether if they hit their absolute maximum elongation before turning back, or if the current elongation wasn't that far out from the Sun, etc.).
+
+pg. 122
+rluu: In this section, Bayer is measuring the longitude distance traversed by Mercury, including both the direct motion and also the retrograde motion.  Below I rehash what he is doing and also I put my thoughts on the ideas used:
+
+1) Calculate the planet's longitude movement amount from major bottom price to major bottom price.  This includes adding the retrograde traversal movements amounts also.  Then also measure the planet's longitude movements from [prices] low to high, high to low, high to high, low to low, etc.
+
+2) Calculate the amount of longitude traversal in the retrograde motion.  This serves as a 'unit' that may be repeated to cause a turn.
+
+3) Play with the amounts to see what the 'units' of each from step 1 and 2 might be.
+
+4) Determine what a circle or cycle size is (note that both may be different).  For example, a cycle size might be Heliocentric Jupiter-Saturn conjunction to conjunction, which would be a certain number of degrees.  Dividing that amount by 24, (or other divisions), and determines another 'unit' size, and from that unit size, we can calculate the musical scale notes for Mercury's movement or some other planet's movement.  This, I should apply in testing to the geocentric movement.
+
+5) Starting point.  What is the starting point?  A major bottom in price, as Bayer says?  Or perhaps the longitude of a Heliocentric conjunction of certain planets will define the beginning point at which to measure in Geocentric.  Both Bayer and Gann say that the hardest part is finding the correct point of beginning.  
+
+6) Ending point.  What is the ending point (of the cycle)?  By this I am wondering when the cycle stops functioning.  For example, from my testing of wheat, I see that 180 degree-points in the geocentric zodiac influence wheat, which maybe gets reset at the next heliocentric conjunction, so is that conjuction the end where that particular cycle stops functioning?
+
+pg. 123
+Bayer mentions the following regarding cycles of Mercury longitude movement amounts in wheat: In wheat we can decipher three distinct cycles that repeat rather regularly producing tops and bottoms, sometimes bottom to bottom and sometimes top to top.  These values are: 20 deg 30 min, 59 deg 20 min, 140 deg 0 min.
+
+pg. 126
+Bayer has the following copies of the Koran:
+  2 volume-set, by George Sale, printed in London, in 1795.  
+  A copy contained within "Sacred Books", 12 volumes, Published in 1917.
+
+Vocabulary substitution that Bayer used for the Al Koran:
+
+  "act corruptly": to use the wrong way
+  "alms":          arms, lines
+  "believe":       to begin or use the right way
+  "dead":          geocentric
+  "eat":           use geocentric
+  "error":         geocentric astrology
+  "devils":        geocentric planets
+  "Egypt":         geocentric
+  "deceive":       to substitute
+  "direct":        (to direct), to be part of
+  "integrity":     a being that lives on earth
+  "life":          helio
+  "look on":       to come up
+  "man":           a line, an angle
+  "lord":          a certain line
+  "observe":       use
+  "pious":         traders
+  "prophets":      previous cycles
+  "punishment":    losses
+  "Mecca":         the present movement
+  "fear":          to find
+  "fire":          astrology
+  "fewel":         rule of astrology
+  "fool":          he who uses geocentric planet
+  "faith":         heliocentric astrology
+  "hear":          to move retrograde
+  "infidel":       geocentric
+  "impurity":      retrogradation
+  "idolater":      retrograde planet
+  "prayer":        cycle
+  "repent":        change
+  "revelation":    law
+  "spread":        use
+  "serve":         use
+  "stone":         conjunction
+  "stand still":   stationary
+  "see":           move direct
+  "heart":         forward
+  "testimony":     proof
+  "unbeliever":    one who uses geocentric only
+
+rluu: Some other words which I tried to translate while reading Bayer's translation (he didn't list these, and these are untested, so I'm unsure if it is right):
+
+  "day":           cycle
+  "distribute":    draw
+  "God":           "the special line" or "the line" 
+                   (unsure which, or if the're the same)
+  "infirmity"      weakness
+  "light"          planet position, or angles
+  "sealed up":     interferes with
+
+
+pg. 129
+
+Bayer's translation of part of "The Cow" from the "Al Koran".
+
+Below is snippets of the translation:
+"""
+To study the laws of astrology the right way:
+1) Use heliocentric astrology
+2) Use definite cycles
+3) Draw lines and make cycles the way shown.
+
+People, we begin with the laws, we explain them for you, you check carefully what has happened in previous cycles if you have faith in heliocentric astrology.
+
+They are guided by a certain line and with it they will get results.  (By that "line" is not meant what geocentric workers call Ascendant and Descendants neither MC and Nadir.  What it is, I shall let you find for yourself).  The line spoken of interferes with the direct and retrograde motion of their pets (rluu: I assume planets is meant here.); something prevents them to "see" and just for that reason they will constantly get themselves into "hot water" when they use their type of astrology.  There are some who say: "We use that line" and the previous cycle; but just the same, they do not use it right.  They try to substitute or change the line the same way as they try to show those who use helio laws that their geocentric work is better.  
+
+Astrologers of the masses (geocentric astrology) who started to study astrology and when he is all inflamed and excited about that which he thinks he can predict, the "special line" spoken of above makes a change and this change completely changes the effects of all planet's positions, angles and what have you and then their laws don't work at all anymore for a while and they can't understand why this is possible.  
+
+pg. 130
+When a heliocentric line (of a planet) comes downward having as "effect" a major drop, a gap down and a few long lines down (on the charts), they hold their heads since this move was not in their cards; they are afraid this move will never end; the "special line" had crossed geocentric lines.  The break in prices wanted but little of taking away all their funds; whenever it crossed them upward it's OK, but when it crosses downward, hell gets loose; they go retrograde.
+
+0 men of the present generation use the cycle that has started all the troubles as well as the cycles that were before, maybe you will find the line I am talking about, the line which uses geocentric positions below you and heliocentric positions above you and which brings it about that line comes down from the helio part and that way makes conjunctions for your benefit.  Do therefore not substitute any other lines, if you know better.  Should you be in doubt about this law which we explained herewith to the students, try various lines and see if they answer my explanations and check for proofs whether they all work as well as the "special line" which I explain here in hidden words.  Unless you do find this line, give up all astrology, since it is this one line on which everythign that follows is based on.  First, find out that planets affect our lives and bring with the astrology whose rules include angles and conjunctions as used by geocentric astrologers; then switch over to the right work and do heliocentric work, which shall bring results.  Whenever you reach points of geocentric conjunctions, you will say: this is what I have formerly used; there will be several conjunctions that have mutual resemblence to geocentric conjunctions.
+"""
+
+Bayer says he got hold of an ephemeris of 1792 which had heliocentric positions, and wondered for a long time why they would include those positions in it too.  
+And it was these "devilish" ideas (geocentric ideas) that kept me on earth for many years, until, like Enoch, I moved one day up to the heaven (heliocentric) to stay there.  Only once a month I had to come down, writing articles for "Previews," thinking in geocentric terms.  
+
+rluu: So is the terminology "up" referring to heliocentric and "down" referring to geocentric a standard keyword, or is Bayer just using it metaphorically here?
+
+The only books that teach heliocentric astrology are the scriptures and allied works.
+
+pg. 131
+The "special line" is that which throws all ordinary astrological methods at any unexpected time onto confusion.  These old fellows have been trying to find this "special line".  It is the real "gold line".
+
+
+pg. 133
+Regarding the Talmud and Bible:
+
+There is a Rabbi whose name is: "Aba", which means father.
+Bayer here is basically saying to pay attention to the suffixes: 
+  -son and -ion 
+
+rluu: The actual transcribed Previews text says lon, but I think it is supposed to be -ion.
+
+pg. 134
+
+"Moses" is Mercury.
+"Jews" is a name of a planet, maybe even two names since they are always used in the plural form.
+
+"desert" is a certain sector in the Zodiac.
+
+Our own work brings out the true theism and that theism which was taught in the scriptures.  Never forget that there is a God.  Who he is and what he is, that's another story.  But someone moves wheat and Stocks at his will, and it is not the insider groups.
+
+I call the "serpent" the latitude of a planet which winds itself snake-like around.
+
+The earth cannot be round according to the Bible since it is but a certain line (not the Ecliptic nor the Equator), that has to be drawn representing a center line.
+
+Below that line which represents the earth are not human beings, since the lines down below that earth line are dead or inactive ones which get revived when they come above the earth again.  Do you, dear reader, understand what I mean?  Just continue in the line of thought as I explained above and you will get into Eden; you will see Adam and Eve there, you will see the sneaky snake too how she arts (rluu: is this word supposed to be "darts"?) and why and when.
+
+Regarding an inversion that Bayer missed on one of his previous forecasts: That "special line" spoken of in "Al Koran" has something to do with it.
+
+pg. 136
+Regarding two small books:
+The "Vita Nuova" and "The Banquet" (Il Convito) both of Dante Alighieri.
+
+A hint for you to get into the subject is this: 
+"the Latin language" == heliocentric astrology
+"vulgar language" or "Italian" == geocentric astrology
+"Greek" == combination of helio and geo
+"Italian" == latitude
+"German" == declination
+All these in geocentric work.
+
+"Dante" is a planet and not a person.  
+"Hear that discourse I hold within my heart" == Watch the retrograde movement that is found within my forward movement.
+
+"Aristole" == Venus
+"opinion" == movement
+
+Bayer says: Poor Mr. Aristotle, planet Venus, it's too bad that you have two sorts of movements in your body, so that your cycles differ, why do the commentators think Mercury would not know of that?  Mr. Mercury, did you ever run into Venus all these million of years; I know you didn't and they knew it too, but they don't know who you are, nor who Aristotle is.
+
+##############################################################################
+
