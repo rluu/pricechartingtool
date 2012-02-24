@@ -8217,11 +8217,16 @@ class PlanetaryCombinationsLibrary:
             
             # House cusps need a smaller step size.
             stepSizeTd = datetime.timedelta(hours=1)
+
+        log.debug("Step size is: {}".format(stepSizeTd))
         
         # Desired angles.  We need to check for planets at these angles.
         desiredAngleDeg1 = abs(Util.toNormalizedAngle(degreeDifference))
         desiredAngleDeg2 = 360 - abs(Util.toNormalizedAngle(degreeDifference))
 
+        log.debug("desiredAngleDeg1 is: {}".format(desiredAngleDeg1))
+        log.debug("desiredAngleDeg2 is: {}".format(desiredAngleDeg2))
+        
         # Count of artifacts added.
         numArtifactsAdded = 0
         
@@ -8303,6 +8308,14 @@ class PlanetaryCombinationsLibrary:
                         prevDiff -= 360
                     else:
                         prevDiff += 360
+                        
+                    log.debug("After adjustment: prevDiff == {}".\
+                              format(prevDiff))
+                    log.debug("After adjustment: currDiff == {}".\
+                              format(currDiff))
+                    
+                log.debug("Looking at desiredAngleDeg1: {}".\
+                          format(desiredAngleDeg1))
                 
                 desiredDegree = desiredAngleDeg1
                 if prevDiff < desiredDegree and currDiff >= desiredDegree:
@@ -8330,21 +8343,43 @@ class PlanetaryCombinationsLibrary:
                         testDt = t1 + halfTimeWindowTd
 
                         p1 = Ephemeris.getPlanetaryInfo(planet1Name, testDt)
-                        p2 = Ephemeris.getPlanetaryInfo(planet2Name, currDt)
+                        p2 = Ephemeris.getPlanetaryInfo(planet2Name, testDt)
 
                         testValueP1 = getFieldValue(p1, fieldName)
                         testValueP2 = getFieldValue(p2, fieldName)
 
+                        log.debug("testValueP1 == {}".format(testValueP1))
+                        log.debug("testValueP2 == {}".format(testValueP2))
+                        
                         if longitudesP1[-2] > 240 and testValueP1 < 120:
                             # Planet 1 hopped over 0 degrees.
                             testValueP1 += 360
+                        elif longitudesP1[-2] < 120 and testValueP1 > 240:
+                            # Planet 1 hopped over 0 degrees.
+                            testValueP1 -= 360
+                            
                         if longitudesP2[-2] > 240 and testValueP2 < 120:
                             # Planet 2 hopped over 0 degrees.
                             testValueP2 += 360
-
+                        elif longitudesP2[-2] < 120 and testValueP2 > 240:
+                            # Planet 2 hopped over 0 degrees.
+                            testValueP2 -= 360
+                        
                         testDiff = Util.toNormalizedAngle(\
                             testValueP1 - testValueP2)
 
+                        # Handle special cases of degrees 0 and 360.
+                        # Here we adjust testDiff so that it is in the
+                        # expected ranges.
+                        if Util.fuzzyIsEqual(desiredDegree, 0):
+                            if testDiff > 240:
+                                testDiff -= 360
+                        elif Util.fuzzyIsEqual(desiredDegree, 360):
+                            if testDiff < 120:
+                                testDiff += 360
+                        
+                        log.debug("testDiff == {}".format(testDiff))
+                        
                         if testDiff < desiredDegree:
                             t1 = testDt
                         else:
@@ -8354,6 +8389,9 @@ class PlanetaryCombinationsLibrary:
                             currDt = t2
                             currDiff = testDiff
 
+                            longitudesP1[-1] = testValueP1
+                            longitudesP2[-1] = testValueP2
+            
                         currErrorTd = t2 - t1
 
                     # Update our lists.
@@ -8390,21 +8428,43 @@ class PlanetaryCombinationsLibrary:
                         testDt = t1 + halfTimeWindowTd
 
                         p1 = Ephemeris.getPlanetaryInfo(planet1Name, testDt)
-                        p2 = Ephemeris.getPlanetaryInfo(planet2Name, currDt)
+                        p2 = Ephemeris.getPlanetaryInfo(planet2Name, testDt)
 
                         testValueP1 = getFieldValue(p1, fieldName)
                         testValueP2 = getFieldValue(p2, fieldName)
 
+                        log.debug("testValueP1 == {}".format(testValueP1))
+                        log.debug("testValueP2 == {}".format(testValueP2))
+                        
                         if longitudesP1[-2] > 240 and testValueP1 < 120:
                             # Planet 1 hopped over 0 degrees.
                             testValueP1 += 360
+                        elif longitudesP1[-2] < 120 and testValueP1 > 240:
+                            # Planet 1 hopped over 0 degrees.
+                            testValueP1 -= 360
+                            
                         if longitudesP2[-2] > 240 and testValueP2 < 120:
                             # Planet 2 hopped over 0 degrees.
                             testValueP2 += 360
+                        elif longitudesP2[-2] < 120 and testValueP2 > 240:
+                            # Planet 2 hopped over 0 degrees.
+                            testValueP2 -= 360
 
                         testDiff = Util.toNormalizedAngle(\
                             testValueP1 - testValueP2)
 
+                        # Handle special cases of degrees 0 and 360.
+                        # Here we adjust testDiff so that it is in the
+                        # expected ranges.
+                        if Util.fuzzyIsEqual(desiredDegree, 0):
+                            if testDiff > 240:
+                                testDiff -= 360
+                        elif Util.fuzzyIsEqual(desiredDegree, 360):
+                            if testDiff < 120:
+                                testDiff += 360
+                        
+                        log.debug("testDiff == {}".format(testDiff))
+                        
                         if testDiff > desiredDegree:
                             t1 = testDt
                         else:
@@ -8414,6 +8474,9 @@ class PlanetaryCombinationsLibrary:
                             currDt = t2
                             currDiff = testDiff
 
+                            longitudesP1[-1] = testValueP1
+                            longitudesP2[-1] = testValueP2
+                            
                         currErrorTd = t2 - t1
 
                     # Update our lists.
@@ -8424,7 +8487,10 @@ class PlanetaryCombinationsLibrary:
                         addVerticalLine(pcdd, currDt,
                                         highPrice, lowPrice, tag, color)
                     numArtifactsAdded += 1
-                        
+
+                log.debug("Looking at desiredAngleDeg2: {}".\
+                          format(desiredAngleDeg2))
+                
                 desiredDegree = desiredAngleDeg2
                 if prevDiff < desiredDegree and currDiff >= desiredDegree:
                     log.debug("Crossed over {} from below to above!".\
@@ -8451,21 +8517,43 @@ class PlanetaryCombinationsLibrary:
                         testDt = t1 + halfTimeWindowTd
 
                         p1 = Ephemeris.getPlanetaryInfo(planet1Name, testDt)
-                        p2 = Ephemeris.getPlanetaryInfo(planet2Name, currDt)
+                        p2 = Ephemeris.getPlanetaryInfo(planet2Name, testDt)
 
                         testValueP1 = getFieldValue(p1, fieldName)
                         testValueP2 = getFieldValue(p2, fieldName)
 
+                        log.debug("testValueP1 == {}".format(testValueP1))
+                        log.debug("testValueP2 == {}".format(testValueP2))
+                        
                         if longitudesP1[-2] > 240 and testValueP1 < 120:
                             # Planet 1 hopped over 0 degrees.
                             testValueP1 += 360
+                        elif longitudesP1[-2] < 120 and testValueP1 > 240:
+                            # Planet 1 hopped over 0 degrees.
+                            testValueP1 -= 360
+                            
                         if longitudesP2[-2] > 240 and testValueP2 < 120:
                             # Planet 2 hopped over 0 degrees.
                             testValueP2 += 360
+                        elif longitudesP2[-2] < 120 and testValueP2 > 240:
+                            # Planet 2 hopped over 0 degrees.
+                            testValueP2 -= 360
 
                         testDiff = Util.toNormalizedAngle(\
                             testValueP1 - testValueP2)
 
+                        # Handle special cases of degrees 0 and 360.
+                        # Here we adjust testDiff so that it is in the
+                        # expected ranges.
+                        if Util.fuzzyIsEqual(desiredDegree, 0):
+                            if testDiff > 240:
+                                testDiff -= 360
+                        elif Util.fuzzyIsEqual(desiredDegree, 360):
+                            if testDiff < 120:
+                                testDiff += 360
+                        
+                        log.debug("testDiff == {}".format(testDiff))
+                        
                         if testDiff < desiredDegree:
                             t1 = testDt
                         else:
@@ -8475,6 +8563,9 @@ class PlanetaryCombinationsLibrary:
                             currDt = t2
                             currDiff = testDiff
 
+                            longitudesP1[-1] = testValueP1
+                            longitudesP2[-1] = testValueP2
+                            
                         currErrorTd = t2 - t1
 
                     # Update our lists.
@@ -8511,21 +8602,43 @@ class PlanetaryCombinationsLibrary:
                         testDt = t1 + halfTimeWindowTd
 
                         p1 = Ephemeris.getPlanetaryInfo(planet1Name, testDt)
-                        p2 = Ephemeris.getPlanetaryInfo(planet2Name, currDt)
+                        p2 = Ephemeris.getPlanetaryInfo(planet2Name, testDt)
 
                         testValueP1 = getFieldValue(p1, fieldName)
                         testValueP2 = getFieldValue(p2, fieldName)
 
+                        log.debug("testValueP1 == {}".format(testValueP1))
+                        log.debug("testValueP2 == {}".format(testValueP2))
+                        
                         if longitudesP1[-2] > 240 and testValueP1 < 120:
                             # Planet 1 hopped over 0 degrees.
                             testValueP1 += 360
+                        elif longitudesP1[-2] < 120 and testValueP1 > 240:
+                            # Planet 1 hopped over 0 degrees.
+                            testValueP1 -= 360
+                            
                         if longitudesP2[-2] > 240 and testValueP2 < 120:
                             # Planet 2 hopped over 0 degrees.
                             testValueP2 += 360
+                        elif longitudesP2[-2] < 120 and testValueP2 > 240:
+                            # Planet 2 hopped over 0 degrees.
+                            testValueP2 -= 360
 
                         testDiff = Util.toNormalizedAngle(\
                             testValueP1 - testValueP2)
 
+                        # Handle special cases of degrees 0 and 360.
+                        # Here we adjust testDiff so that it is in the
+                        # expected ranges.
+                        if Util.fuzzyIsEqual(desiredDegree, 0):
+                            if testDiff > 240:
+                                testDiff -= 360
+                        elif Util.fuzzyIsEqual(desiredDegree, 360):
+                            if testDiff < 120:
+                                testDiff += 360
+                        
+                        log.debug("testDiff == {}".format(testDiff))
+                        
                         if testDiff > desiredDegree:
                             t1 = testDt
                         else:
@@ -8534,6 +8647,9 @@ class PlanetaryCombinationsLibrary:
                             # Update the curr values.
                             currDt = t2
                             currDiff = testDiff
+
+                            longitudesP1[-1] = testValueP1
+                            longitudesP2[-1] = testValueP2
 
                         currErrorTd = t2 - t1
 
@@ -8547,6 +8663,10 @@ class PlanetaryCombinationsLibrary:
                     numArtifactsAdded += 1
                  
             # Prepare for the next iteration.
+            log.debug("steps[-1] is: {}".\
+                      format(Ephemeris.datetimeToStr(steps[-1])))
+            log.debug("stepSizeTd is: {}".format(stepSizeTd))
+            
             steps.append(copy.deepcopy(steps[-1]) + stepSizeTd)
             del steps[0]
             longitudesP1.append(None)
@@ -8555,7 +8675,7 @@ class PlanetaryCombinationsLibrary:
             del longitudesP2[0]
 
             # Update prevDiff as the currDiff.
-            prevDiff = currDiff
+            prevDiff = Util.toNormalizedAngle(currDiff)
 
         log.info("Number of artifacts added: {}".format(numArtifactsAdded))
         
