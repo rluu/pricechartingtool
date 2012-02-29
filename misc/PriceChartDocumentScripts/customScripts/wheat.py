@@ -295,6 +295,39 @@ def processPCDD(pcdd, tag):
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    "heliocentric", "sidereal",
     #    "Venus", degreeValue)
+
+
+    ####################################################################
+    # Bayer's combinations from George Wollsten
+    #
+    # rluu: They don't really work as described in cleartext.  I need
+    # to decode the text to see if there are deeper meanings and
+    # deeper rules given.
+    ####################################################################
+    #success = PlanetaryCombinationsLibrary.\
+    #    addLongitudeAspectVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "Jupiter", "Mercury",
+    #    "heliocentric", "sidereal", 0)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addLongitudeAspectVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "Saturn", "Mercury",
+    #    "heliocentric", "sidereal", 0)
+    #degreeValue = 0
+    #success = PlanetaryCombinationsLibrary.\
+    #    addPlanetCrossingLongitudeDegVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "heliocentric", "tropical",
+    #    "Mercury", degreeValue)
+    #degreeValue = 180
+    #success = PlanetaryCombinationsLibrary.\
+    #    addPlanetCrossingLongitudeDegVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "heliocentric", "tropical",
+    #    "Mercury", degreeValue)
+    ####################################################################
+
     
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
@@ -302,11 +335,22 @@ def processPCDD(pcdd, tag):
     #    "Venus", "Mars",
     #    "geocentric", "sidereal", 54)
 
+    #success = PlanetaryCombinationsLibrary.\
+    #    addLongitudeAspectVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "Venus", "Mars",
+    #    "heliocentric", "sidereal", 0)
+    
     success = PlanetaryCombinationsLibrary.\
         addLongitudeAspectVerticalLines(\
         pcdd, startDt, endDt, highPrice, lowPrice,
         "Mars", "Earth",
         "heliocentric", "sidereal", 0)
+    success = PlanetaryCombinationsLibrary.\
+        addLongitudeAspectVerticalLines(\
+        pcdd, startDt, endDt, highPrice, lowPrice,
+        "Mars", "Earth",
+        "heliocentric", "sidereal", 180)
     
     success = PlanetaryCombinationsLibrary.\
         addLongitudeAspectVerticalLines(\
@@ -368,11 +412,11 @@ def processPCDD(pcdd, tag):
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    "Venus", "Earth",
     #    "heliocentric", "sidereal", 165)
-    #success = PlanetaryCombinationsLibrary.\
-    #    addLongitudeAspectVerticalLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "Earth",
-    #    "heliocentric", "sidereal", 180)
+    success = PlanetaryCombinationsLibrary.\
+        addLongitudeAspectVerticalLines(\
+        pcdd, startDt, endDt, highPrice, lowPrice,
+        "Venus", "Earth",
+        "heliocentric", "sidereal", 180)
     
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\

@@ -26353,6 +26353,13 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.priceModalScaleGraphicsItemGroupBox = \
             self._buildPriceModalScaleGraphicsItemGroupBox()
 
+        # QGroupBox to hold the edit widgets and form for
+        # PlanetLongitudeMovementMeasurementGraphicsItem.
+        self.planetLongitudeMovementMeasurementGraphicsItemGroupBox1 = \
+            self._buildPlanetLongitudeMovementMeasurementGraphicsItemGroupBox1()
+        self.planetLongitudeMovementMeasurementGraphicsItemGroupBox2 = \
+            self._buildPlanetLongitudeMovementMeasurementGraphicsItemGroupBox2()
+
         # QGroupBox to hold the edit widgets and form for TextGraphicsItem.
         self.textGraphicsItemGroupBox = \
             self._buildTextGraphicsItemGroupBox()
@@ -26461,113 +26468,150 @@ class PriceBarChartSettingsEditWidget(QWidget):
         # widgets.
         self.tabWidget = QTabWidget()
         
-        self.tabWidget.addTab(self.priceBarGraphicsItemGroupBox,
-                              QIcon(":/images/rluu/priceBar.png"),
-                              "")
+        self.tabWidget.addTab(\
+            self.priceBarGraphicsItemGroupBox,
+            QIcon(":/images/rluu/priceBar.png"),
+            "")
 
-        self.tabWidget.addTab(self.barCountGraphicsItemGroupBox,
-                              QIcon(":/images/rluu/barCount.png"),
-                              "")
+        self.tabWidget.addTab(\
+            self.barCountGraphicsItemGroupBox,
+            QIcon(":/images/rluu/barCount.png"),
+            "")
         
-        self.tabWidget.addTab(self.timeMeasurementGraphicsItemGroupBox1,
-                              QIcon(":/images/rluu/timeMeasurement.png"),
-                              "(1)")
+        self.tabWidget.addTab(\
+            self.timeMeasurementGraphicsItemGroupBox1,
+            QIcon(":/images/rluu/timeMeasurement.png"),
+            "(1)")
         
-        self.tabWidget.addTab(self.timeMeasurementGraphicsItemGroupBox2,
-                              QIcon(":/images/rluu/timeMeasurement.png"),
-                              "(2)")
+        self.tabWidget.addTab(\
+            self.timeMeasurementGraphicsItemGroupBox2,
+            QIcon(":/images/rluu/timeMeasurement.png"),
+            "(2)")
 
-        self.tabWidget.addTab(self.timeModalScaleGraphicsItemGroupBox,
-                              QIcon(":/images/rluu/timeModalScale.png"),
-                              "")
+        self.tabWidget.addTab(\
+            self.timeModalScaleGraphicsItemGroupBox,
+            QIcon(":/images/rluu/timeModalScale.png"),
+            "")
 
-        self.tabWidget.addTab(self.priceModalScaleGraphicsItemGroupBox,
-                              QIcon(":/images/rluu/priceModalScale.png"),
-                              "")
+        self.tabWidget.addTab(\
+            self.priceModalScaleGraphicsItemGroupBox,
+            QIcon(":/images/rluu/priceModalScale.png"),
+            "")
 
-        self.tabWidget.addTab(self.textGraphicsItemGroupBox,
-                              QIcon(":/images/tango-icon-theme-0.8.90/32x32/mimetypes/font-x-generic.png"),
-                              "")
+        self.tabWidget.addTab(\
+            self.planetLongitudeMovementMeasurementGraphicsItemGroupBox1,
+            QIcon(), # TODO:  add icon
+            "(1)")
+        
+        self.tabWidget.addTab(\
+            self.planetLongitudeMovementMeasurementGraphicsItemGroupBox2,
+            QIcon(), # TODO:  add icon
+            "(2)")
 
-        self.tabWidget.addTab(self.priceTimeInfoGraphicsItemGroupBox,
-                              QIcon(":/images/rluu/priceTimeInfo.png"),
-                              "")
+        self.tabWidget.addTab(\
+            self.textGraphicsItemGroupBox,
+            QIcon(":/images/tango-icon-theme-0.8.90/32x32/mimetypes/font-x-generic.png"),
+            "")
 
-        self.tabWidget.addTab(self.priceMeasurementGraphicsItemGroupBox,
-                              QIcon(":/images/rluu/priceMeasurement.png"),
-                              "")
+        self.tabWidget.addTab(\
+            self.priceTimeInfoGraphicsItemGroupBox,
+            QIcon(":/images/rluu/priceTimeInfo.png"),
+            "")
 
-        self.tabWidget.addTab(self.timeRetracementGraphicsItemGroupBox,
-                              QIcon(":/images/rluu/timeRetracement.png"),
-                              "")
+        self.tabWidget.addTab(\
+            self.priceMeasurementGraphicsItemGroupBox,
+            QIcon(":/images/rluu/priceMeasurement.png"),
+            "")
 
-        self.tabWidget.addTab(self.priceRetracementGraphicsItemGroupBox,
-                              QIcon(":/images/rluu/priceRetracement.png"),
-                              "")
+        self.tabWidget.addTab(\
+            self.timeRetracementGraphicsItemGroupBox,
+            QIcon(":/images/rluu/timeRetracement.png"),
+            "")
 
-        self.tabWidget.addTab(self.priceTimeVectorGraphicsItemGroupBox,
-                              QIcon(":/images/rluu/ptv.png"),
-                              "")
+        self.tabWidget.addTab(\
+            self.priceRetracementGraphicsItemGroupBox,
+            QIcon(":/images/rluu/priceRetracement.png"),
+            "")
 
-        self.tabWidget.addTab(self.lineSegmentGraphicsItemGroupBox,
-                              QIcon(":/images/rluu/lineSegment.png"),
-                              "")
+        self.tabWidget.addTab(\
+            self.priceTimeVectorGraphicsItemGroupBox,
+            QIcon(":/images/rluu/ptv.png"),
+            "")
 
-        self.tabWidget.addTab(self.octaveFanGraphicsItemGroupBox,
-                              QIcon(":/images/rluu/octaveFan.png"),
-                              "")
+        self.tabWidget.addTab(\
+            self.lineSegmentGraphicsItemGroupBox,
+            QIcon(":/images/rluu/lineSegment.png"),
+            "")
 
-        self.tabWidget.addTab(self.fibFanGraphicsItemGroupBox,
-                              QIcon(":/images/rluu/fibFan.png"),
-                              "")
+        self.tabWidget.addTab(\
+            self.octaveFanGraphicsItemGroupBox,
+            QIcon(":/images/rluu/octaveFan.png"),
+            "")
 
-        self.tabWidget.addTab(self.gannFanGraphicsItemGroupBox,
-                              QIcon(":/images/rluu/gannFan.png"),
-                              "")
+        self.tabWidget.addTab(\
+            self.fibFanGraphicsItemGroupBox,
+            QIcon(":/images/rluu/fibFan.png"),
+            "")
 
-        self.tabWidget.addTab(self.vimsottariDasaGraphicsItemGroupBox,
-                              QIcon(":/images/rluu/vimsottariDasa.png"),
-                              "")
+        self.tabWidget.addTab(\
+            self.gannFanGraphicsItemGroupBox,
+            QIcon(":/images/rluu/gannFan.png"),
+            "")
 
-        self.tabWidget.addTab(self.ashtottariDasaGraphicsItemGroupBox,
-                              QIcon(":/images/rluu/ashtottariDasa.png"),
-                              "")
+        self.tabWidget.addTab(\
+            self.vimsottariDasaGraphicsItemGroupBox,
+            QIcon(":/images/rluu/vimsottariDasa.png"),
+            "")
 
-        self.tabWidget.addTab(self.yoginiDasaGraphicsItemGroupBox,
-                              QIcon(":/images/rluu/yoginiDasa.png"),
-                              "")
+        self.tabWidget.addTab(\
+            self.ashtottariDasaGraphicsItemGroupBox,
+            QIcon(":/images/rluu/ashtottariDasa.png"),
+            "")
 
-        self.tabWidget.addTab(self.dwisaptatiSamaDasaGraphicsItemGroupBox,
-                              QIcon(":/images/rluu/dwisaptatiSamaDasa.png"),
-                              "")
+        self.tabWidget.addTab(\
+            self.yoginiDasaGraphicsItemGroupBox,
+            QIcon(":/images/rluu/yoginiDasa.png"),
+            "")
 
-        self.tabWidget.addTab(self.shattrimsaSamaDasaGraphicsItemGroupBox,
-                              QIcon(":/images/rluu/shattrimsaSamaDasa.png"),
-                              "")
+        self.tabWidget.addTab(\
+            self.dwisaptatiSamaDasaGraphicsItemGroupBox,
+            QIcon(":/images/rluu/dwisaptatiSamaDasa.png"),
+            "")
 
-        self.tabWidget.addTab(self.dwadasottariDasaGraphicsItemGroupBox,
-                              QIcon(":/images/rluu/dwadasottariDasa.png"),
-                              "")
+        self.tabWidget.addTab(\
+            self.shattrimsaSamaDasaGraphicsItemGroupBox,
+            QIcon(":/images/rluu/shattrimsaSamaDasa.png"),
+            "")
 
-        self.tabWidget.addTab(self.chaturaseetiSamaDasaGraphicsItemGroupBox,
-                              QIcon(":/images/rluu/chaturaseetiSamaDasa.png"),
-                              "")
+        self.tabWidget.addTab(\
+            self.dwadasottariDasaGraphicsItemGroupBox,
+            QIcon(":/images/rluu/dwadasottariDasa.png"),
+            "")
 
-        self.tabWidget.addTab(self.sataabdikaDasaGraphicsItemGroupBox,
-                              QIcon(":/images/rluu/sataabdikaDasa.png"),
-                              "")
+        self.tabWidget.addTab(\
+            self.chaturaseetiSamaDasaGraphicsItemGroupBox,
+            QIcon(":/images/rluu/chaturaseetiSamaDasa.png"),
+            "")
 
-        self.tabWidget.addTab(self.shodasottariDasaGraphicsItemGroupBox,
-                              QIcon(":/images/rluu/shodasottariDasa.png"),
-                              "")
+        self.tabWidget.addTab(\
+            self.sataabdikaDasaGraphicsItemGroupBox,
+            QIcon(":/images/rluu/sataabdikaDasa.png"),
+            "")
 
-        self.tabWidget.addTab(self.panchottariDasaGraphicsItemGroupBox,
-                              QIcon(":/images/rluu/panchottariDasa.png"),
-                              "")
+        self.tabWidget.addTab(\
+            self.shodasottariDasaGraphicsItemGroupBox,
+            QIcon(":/images/rluu/shodasottariDasa.png"),
+            "")
 
-        self.tabWidget.addTab(self.shashtihayaniDasaGraphicsItemGroupBox,
-                              QIcon(":/images/rluu/shashtihayaniDasa.png"),
-                              "")
+        self.tabWidget.addTab(\
+            self.panchottariDasaGraphicsItemGroupBox,
+            QIcon(":/images/rluu/panchottariDasa.png"),
+            "")
+
+        self.tabWidget.addTab(\
+            self.shashtihayaniDasaGraphicsItemGroupBox,
+            QIcon(":/images/rluu/shashtihayaniDasa.png"),
+            "")
 
         # Buttons at bottom.
         self.resetAllToDefaultButton = \
@@ -26598,6 +26642,10 @@ class PriceBarChartSettingsEditWidget(QWidget):
             connect(\
             self.\
             _handleTimeMeasurementGraphicsItemDefaultFontModifyButtonClicked)
+        self.planetLongitudeMovementMeasurementGraphicsItemDefaultFontModifyButton.clicked.\
+            connect(\
+            self.\
+            _handlePlanetLongitudeMovementMeasurementGraphicsItemDefaultFontModifyButtonClicked)
         self.textGraphicsItemDefaultFontModifyButton.clicked.connect(\
             self._handleTextGraphicsItemDefaultFontModifyButtonClicked)
         self.priceTimeInfoGraphicsItemDefaultFontModifyButton.clicked.connect(\
@@ -26729,6 +26777,32 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.priceModalScaleGraphicsItemTextEnabledFlagResetButton.clicked.\
             connect(\
             self._handlePriceModalScaleGraphicsItemTextEnabledFlagResetButtonClicked)
+        self.planetLongitudeMovementMeasurementGraphicsItemBarHeightResetButton.clicked.\
+            connect(\
+            self._handlePlanetLongitudeMovementMeasurementGraphicsItemBarHeightResetButtonClicked)
+        self.planetLongitudeMovementMeasurementGraphicsItemTextRotationAngleResetButton.clicked.\
+            connect(\
+            self._handlePlanetLongitudeMovementMeasurementGraphicsItemTextRotationAngleResetButtonClicked)
+        self.planetLongitudeMovementMeasurementGraphicsItemTextXScalingResetButton.clicked.\
+            connect(\
+            self.\
+            _handlePlanetLongitudeMovementMeasurementGraphicsItemTextXScalingResetButtonClicked)
+        self.planetLongitudeMovementMeasurementGraphicsItemTextYScalingResetButton.clicked.\
+            connect(\
+            self.\
+            _handlePlanetLongitudeMovementMeasurementGraphicsItemTextYScalingResetButtonClicked)
+        self.planetLongitudeMovementMeasurementGraphicsItemDefaultFontResetButton.clicked.\
+            connect(\
+            self.\
+            _handlePlanetLongitudeMovementMeasurementGraphicsItemDefaultFontResetButtonClicked)
+        self.planetLongitudeMovementMeasurementGraphicsItemDefaultTextColorResetButton.clicked.\
+            connect(\
+            self.\
+            _handlePlanetLongitudeMovementMeasurementGraphicsItemDefaultTextColorResetButtonClicked)
+        self.planetLongitudeMovementMeasurementGraphicsItemDefaultColorResetButton.clicked.\
+            connect(\
+            self.\
+            _handlePlanetLongitudeMovementMeasurementGraphicsItemDefaultColorResetButtonClicked)
         self.textGraphicsItemDefaultFontResetButton.clicked.\
             connect(self._handleTextGraphicsItemDefaultFontResetButtonClicked)
         self.textGraphicsItemDefaultColorResetButton.clicked.\
@@ -28863,6 +28937,1217 @@ class PriceBarChartSettingsEditWidget(QWidget):
         
         return self.priceModalScaleGraphicsItemGroupBox
 
+    def _buildPlanetLongitudeMovementMeasurementGraphicsItemGroupBox1(self):
+        """Builds the groupbox containing info to edit the
+        PriceBarChartSettings related to a
+        PlanetLongitudeMovementMeasurementGraphicsItem.
+
+        Returns:
+        QGroupBox obj containing all the created widgets.
+        """
+
+        self.planetLongitudeMovementMeasurementGraphicsItemGroupBox1 = \
+            QGroupBox("PlanetLongitudeMovementMeasurementGraphicsItem settings (page 1):")
+
+        # planetLongitudeMovementMeasurementGraphicsItemBarHeight (float).
+        self.planetLongitudeMovementMeasurementGraphicsItemBarHeightLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem bar height: ")
+        self.planetLongitudeMovementMeasurementGraphicsItemBarHeightSpinBox = QDoubleSpinBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemBarHeightSpinBox.setDecimals(4)
+        self.planetLongitudeMovementMeasurementGraphicsItemBarHeightSpinBox.setMinimum(0.0)
+        self.planetLongitudeMovementMeasurementGraphicsItemBarHeightSpinBox.setMaximum(1000.0)
+        self.planetLongitudeMovementMeasurementGraphicsItemBarHeightResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # planetLongitudeMovementMeasurementGraphicsItemTextRotationAngle (float).
+        self.planetLongitudeMovementMeasurementGraphicsItemTextRotationAngleLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem text rotation angle: ")
+        self.planetLongitudeMovementMeasurementGraphicsItemTextRotationAngleSpinBox = QDoubleSpinBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemTextRotationAngleSpinBox.setDecimals(4)
+        self.planetLongitudeMovementMeasurementGraphicsItemTextRotationAngleSpinBox.setMinimum(-360.0)
+        self.planetLongitudeMovementMeasurementGraphicsItemTextRotationAngleSpinBox.setMaximum(360.0)
+        self.planetLongitudeMovementMeasurementGraphicsItemTextRotationAngleResetButton = \
+            QPushButton("Reset to default")
+        
+        # planetLongitudeMovementMeasurementGraphicsItemTextXScaling (float).
+        self.planetLongitudeMovementMeasurementGraphicsItemTextXScalingLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem text X scaling: ")
+        self.planetLongitudeMovementMeasurementGraphicsItemTextXScalingSpinBox = QDoubleSpinBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemTextXScalingSpinBox.setDecimals(4)
+        self.planetLongitudeMovementMeasurementGraphicsItemTextXScalingSpinBox.setMinimum(0.0001)
+        self.planetLongitudeMovementMeasurementGraphicsItemTextXScalingSpinBox.setMaximum(1000.0)
+        self.planetLongitudeMovementMeasurementGraphicsItemTextXScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # planetLongitudeMovementMeasurementGraphicsItemTextYScaling (float).
+        self.planetLongitudeMovementMeasurementGraphicsItemTextYScalingLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem text Y scaling: ")
+        self.planetLongitudeMovementMeasurementGraphicsItemTextYScalingSpinBox = QDoubleSpinBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemTextYScalingSpinBox.setDecimals(4)
+        self.planetLongitudeMovementMeasurementGraphicsItemTextYScalingSpinBox.setMinimum(0.0001)
+        self.planetLongitudeMovementMeasurementGraphicsItemTextYScalingSpinBox.setMaximum(1000.0)
+        self.planetLongitudeMovementMeasurementGraphicsItemTextYScalingResetButton = \
+            QPushButton("Reset to default")
+
+        # planetLongitudeMovementMeasurementGraphicsItemDefaultFont (QFont)
+        self.planetLongitudeMovementMeasurementGraphicsItemDefaultFont = QFont()
+        self.planetLongitudeMovementMeasurementGraphicsItemDefaultFont.\
+            fromString(PriceBarChartSettings.\
+                       defaultPlanetLongitudeMovementMeasurementGraphicsItemDefaultFontDescription)
+        self.planetLongitudeMovementMeasurementGraphicsItemDefaultFontLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem default font:")
+        self.planetLongitudeMovementMeasurementGraphicsItemDefaultFontModifyButton = \
+            QPushButton("Modify")
+        self.planetLongitudeMovementMeasurementGraphicsItemDefaultFontResetButton = \
+            QPushButton("Reset to default")
+        
+        # planetLongitudeMovementMeasurementGraphicsItemDefaultTextColor (QColor)
+        self.planetLongitudeMovementMeasurementGraphicsItemDefaultTextColorLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem default text color:")
+        self.planetLongitudeMovementMeasurementGraphicsItemDefaultTextColorEditButton = \
+            ColorEditPushButton()
+        self.planetLongitudeMovementMeasurementGraphicsItemDefaultTextColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # planetLongitudeMovementMeasurementGraphicsItemDefaultColor (QColor)
+        self.planetLongitudeMovementMeasurementGraphicsItemDefaultColorLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem default color:")
+        self.planetLongitudeMovementMeasurementGraphicsItemDefaultColorEditButton = \
+            ColorEditPushButton()
+        self.planetLongitudeMovementMeasurementGraphicsItemDefaultColorResetButton = \
+            QPushButton("Reset to default")
+
+        # planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsZeroTextFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsZeroTextFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem show geocentric retro as zero text:")
+        self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsZeroTextFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsZeroTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsPositiveTextFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsPositiveTextFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem show geocentric retro as positive text:")
+        self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsPositiveTextFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsPositiveTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem show geocentric retro as negative text:")
+        self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemShowHeliocentricTextFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemShowHeliocentricTextFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem show heliocentric text:")
+        self.planetLongitudeMovementMeasurementGraphicsItemShowHeliocentricTextFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemShowHeliocentricTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemTropicalZodiacFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemTropicalZodiacFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem use tropical zodiac:")
+        self.planetLongitudeMovementMeasurementGraphicsItemTropicalZodiacFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemTropicalZodiacFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem use sidereal zodiac:")
+        self.planetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabledLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem measurement unit degrees:")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabledCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabledLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem measurement unit circles:")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabledCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+        
+        # Grid layout.
+        gridLayout = QGridLayout()
+        r = 0
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemBarHeightLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(self.planetLongitudeMovementMeasurementGraphicsItemBarHeightSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemBarHeightResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemTextRotationAngleLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(self.planetLongitudeMovementMeasurementGraphicsItemTextRotationAngleSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemTextRotationAngleResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemTextXScalingLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(self.planetLongitudeMovementMeasurementGraphicsItemTextXScalingSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemTextXScalingResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemTextYScalingLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(self.planetLongitudeMovementMeasurementGraphicsItemTextYScalingSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemTextYScalingResetButton, 
+            r, 2, ar)
+        
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemDefaultFontLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(self.planetLongitudeMovementMeasurementGraphicsItemDefaultFontModifyButton, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemDefaultFontResetButton, 
+            r, 2, ar)
+        
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemDefaultTextColorLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemDefaultTextColorEditButton, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemDefaultTextColorResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemDefaultColorLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemDefaultColorEditButton, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemDefaultColorResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsZeroTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsZeroTextFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsPositiveTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsPositiveTextFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemShowHeliocentricTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemShowHeliocentricTextFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemTropicalZodiacFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemTropicalZodiacFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabledLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabledCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabledLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabledCheckBox, 
+            r, 1, ar)
+
+        groupBox1Layout = QVBoxLayout()
+        groupBox1Layout.addLayout(gridLayout)
+        groupBox1Layout.addStretch()
+        
+        self.planetLongitudeMovementMeasurementGraphicsItemGroupBox1.setLayout(groupBox1Layout)
+        
+        return self.planetLongitudeMovementMeasurementGraphicsItemGroupBox1
+    
+    def _buildPlanetLongitudeMovementMeasurementGraphicsItemGroupBox2(self):
+        """Builds the groupbox containing info to edit the
+        PriceBarChartSettings related to a PlanetLongitudeMovementMeasurementGraphicsItem.
+
+        Returns:
+        QGroupBox obj containing all the created widgets.
+        """
+
+        self.planetLongitudeMovementMeasurementGraphicsItemGroupBox2 = \
+            QGroupBox("PlanetLongitudeMovementMeasurementGraphicsItem settings (page 2):")
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet H1 enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet H2 enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet H3 enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet H4 enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet H5 enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet H6 enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet H7 enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet H8 enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet H9 enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet H10 enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet H11 enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet H12 enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet HoraLagna enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet GhatiLagna enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet MeanLunarApogee enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet OsculatingLunarApogee enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet InterpolatedLunarApogee enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet InterpolatedLunarPerigee enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet Sun enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet Moon enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet Mercury enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet Venus enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet Earth enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet Mars enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet Jupiter enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet Saturn enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet Uranus enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet Neptune enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet Pluto enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet MeanNorthNode enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet MeanSouthNode enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet TrueNorthNode enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet TrueSouthNode enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet Ceres enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet Pallas enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet Juno enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet Vesta enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet Chiron enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet Gulika enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet Mandi enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet MeanOfFive enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet CycleOfEight enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet AvgMaJuSaUrNePl enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet AvgJuSaUrNe enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlagLabel = \
+            QLabel("PlanetLongitudeMovementMeasurementGraphicsItem " +
+                   "planet AvgJuSa enabled:")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlagCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # Grid layout.
+        gridLayout = QGridLayout()
+        r = 0
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlagCheckBox, 
+            r, 1, ar)
+
+        r += 1
+
+        groupBox2Layout = QVBoxLayout()
+        groupBox2Layout.addLayout(gridLayout)
+        groupBox2Layout.addStretch()
+        
+        self.planetLongitudeMovementMeasurementGraphicsItemGroupBox2.setLayout(groupBox2Layout)
+        
+        return self.planetLongitudeMovementMeasurementGraphicsItemGroupBox2
+    
     def _buildTextGraphicsItemGroupBox(self):
         """Builds the groupbox containing info to edit the
         PriceBarChartSettings related to a TextGraphicsItem.
@@ -33822,6 +35107,572 @@ class PriceBarChartSettingsEditWidget(QWidget):
                           priceModalScaleGraphicsItemMusicalRatios)
         self._priceModalScaleGraphicsItemReloadMusicalRatiosGrid(\
             self.priceModalScaleGraphicsItemMusicalRatios)
+
+        # planetLongitudeMovementMeasurementGraphicsItemBarHeight (float).
+        self.planetLongitudeMovementMeasurementGraphicsItemBarHeightSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        planetLongitudeMovementMeasurementGraphicsItemBarHeight)
+
+        # planetLongitudeMovementMeasurementGraphicsItemTextRotationAngle (float).
+        self.planetLongitudeMovementMeasurementGraphicsItemTextRotationAngleSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        planetLongitudeMovementMeasurementGraphicsItemTextRotationAngle)
+
+        # planetLongitudeMovementMeasurementGraphicsItemTextXScaling (float).
+        self.planetLongitudeMovementMeasurementGraphicsItemTextXScalingSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        planetLongitudeMovementMeasurementGraphicsItemTextXScaling)
+
+        # planetLongitudeMovementMeasurementGraphicsItemTextYScaling (float).
+        self.planetLongitudeMovementMeasurementGraphicsItemTextYScalingSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        planetLongitudeMovementMeasurementGraphicsItemTextYScaling)
+
+        # planetLongitudeMovementMeasurementGraphicsItemDefaultFontDescription (str)
+        self.planetLongitudeMovementMeasurementGraphicsItemDefaultFont = QFont()
+        self.planetLongitudeMovementMeasurementGraphicsItemDefaultFont.\
+            fromString(self.priceBarChartSettings.\
+                       planetLongitudeMovementMeasurementGraphicsItemDefaultFontDescription)
+
+        # planetLongitudeMovementMeasurementGraphicsItemDefaultTextColor (QColor).
+        self.planetLongitudeMovementMeasurementGraphicsItemDefaultTextColorEditButton.\
+            setColor(self.priceBarChartSettings.\
+                     planetLongitudeMovementMeasurementGraphicsItemDefaultTextColor)
+
+        # planetLongitudeMovementMeasurementGraphicsItemDefaultColor (QColor).
+        self.planetLongitudeMovementMeasurementGraphicsItemDefaultColorEditButton.\
+            setColor(self.priceBarChartSettings.\
+                     planetLongitudeMovementMeasurementGraphicsItemDefaultColor)
+
+        # planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsZeroTextFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsZeroTextFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsZeroTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsZeroTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsPositiveTextFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsPositiveTextFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsPositiveTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsPositiveTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemShowHeliocentricTextFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemShowHeliocentricTextFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemShowHeliocentricTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemShowHeliocentricTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemTropicalZodiacFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemTropicalZodiacFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemTropicalZodiacFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemTropicalZodiacFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabled == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabled == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
         
         # textGraphicsItemDefaultFont (QFont)
         self.textGraphicsItemDefaultFont = QFont()
@@ -35468,7 +37319,570 @@ class PriceBarChartSettingsEditWidget(QWidget):
         # priceModalScaleGraphicsItemMusicalRatios (list of MusicalRatio)
         self.priceBarChartSettings.priceModalScaleGraphicsItemMusicalRatios = \
             self.priceModalScaleGraphicsItemMusicalRatios
-           
+
+        # planetLongitudeMovementMeasurementGraphicsItemBarHeight (float).
+        self.priceBarChartSettings.planetLongitudeMovementMeasurementGraphicsItemBarHeight = \
+            float(self.planetLongitudeMovementMeasurementGraphicsItemBarHeightSpinBox.value())
+
+        # planetLongitudeMovementMeasurementGraphicsItemTextRotationAngle (float).
+        self.priceBarChartSettings.planetLongitudeMovementMeasurementGraphicsItemTextRotationAngle = \
+            float(self.planetLongitudeMovementMeasurementGraphicsItemTextRotationAngleSpinBox.value())
+
+        # planetLongitudeMovementMeasurementGraphicsItemTextXScaling (float).
+        self.priceBarChartSettings.planetLongitudeMovementMeasurementGraphicsItemTextXScaling = \
+            float(self.planetLongitudeMovementMeasurementGraphicsItemTextXScalingSpinBox.value())
+
+        # planetLongitudeMovementMeasurementGraphicsItemTextYScaling (float).
+        self.priceBarChartSettings.planetLongitudeMovementMeasurementGraphicsItemTextYScaling = \
+            float(self.planetLongitudeMovementMeasurementGraphicsItemTextYScalingSpinBox.value())
+
+        # planetLongitudeMovementMeasurementGraphicsItemDefaultFontDescription (str)
+        self.priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemDefaultFontDescription = \
+            self.planetLongitudeMovementMeasurementGraphicsItemDefaultFont.toString()
+
+        # planetLongitudeMovementMeasurementGraphicsItemDefaultTextColor (QColor).
+        self.priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemDefaultTextColor = \
+            self.planetLongitudeMovementMeasurementGraphicsItemDefaultTextColorEditButton.\
+            getColor()
+
+        # planetLongitudeMovementMeasurementGraphicsItemDefaultColor (QColor).
+        self.priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemDefaultColor = \
+            self.planetLongitudeMovementMeasurementGraphicsItemDefaultColorEditButton.\
+            getColor()
+
+        # planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsZeroTextFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsZeroTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsZeroTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsZeroTextFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsPositiveTextFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsPositiveTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsPositiveTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsPositiveTextFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemShowHeliocentricTextFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemShowHeliocentricTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemShowHeliocentricTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemShowHeliocentricTextFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemTropicalZodiacFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemTropicalZodiacFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemTropicalZodiacFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemTropicalZodiacFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag = False
+
         # textGraphicsItemDefaultFont (QFont)
         self.priceBarChartSettings.\
             textGraphicsItemDefaultFontDescription = \
@@ -36444,6 +38858,21 @@ class PriceBarChartSettingsEditWidget(QWidget):
         if rv == QDialog.Accepted:
             # Store the font in the member variable (not in the artifact).
             self.timeMeasurementGraphicsItemDefaultFont = dialog.selectedFont()
+        
+    def _handlePlanetLongitudeMovementMeasurementGraphicsItemDefaultFontModifyButtonClicked(self):
+        """Called when the
+        self.planetLongitudeMovementMeasurementGraphicsItemDefaultFontModifyButton button is
+        clicked.  Brings up a dialog for editing the font, and saves
+        it if the dialog is accepted.
+        """
+
+        dialog = QFontDialog(self.planetLongitudeMovementMeasurementGraphicsItemDefaultFont)
+
+        rv = dialog.exec_()
+
+        if rv == QDialog.Accepted:
+            # Store the font in the member variable (not in the artifact).
+            self.planetLongitudeMovementMeasurementGraphicsItemDefaultFont = dialog.selectedFont()
         
     def _handleTextGraphicsItemDefaultFontModifyButtonClicked(self):
         """Called when the
@@ -37540,6 +39969,87 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._priceModalScaleGraphicsItemReloadMusicalRatiosGrid(\
             self.priceModalScaleGraphicsItemMusicalRatios)
         
+    def _handlePlanetLongitudeMovementMeasurementGraphicsItemBarHeightResetButtonClicked(self):
+        """Called when the planetLongitudeMovementMeasurementGraphicsItemBarHeightResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultPlanetLongitudeMovementMeasurementGraphicsItemBarHeight
+
+        self.planetLongitudeMovementMeasurementGraphicsItemBarHeightSpinBox.setValue(value)
+
+    def _handlePlanetLongitudeMovementMeasurementGraphicsItemTextRotationAngleResetButtonClicked(self):
+        """Called when the planetLongitudeMovementMeasurementGraphicsItemTextRotationAngleResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultPlanetLongitudeMovementMeasurementGraphicsItemTextRotationAngle
+
+        self.planetLongitudeMovementMeasurementGraphicsItemTextRotationAngleSpinBox.setValue(value)
+
+    def _handlePlanetLongitudeMovementMeasurementGraphicsItemTextXScalingResetButtonClicked(self):
+        """Called when the planetLongitudeMovementMeasurementGraphicsItemTextXScalingResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultPlanetLongitudeMovementMeasurementGraphicsItemTextXScaling
+
+        self.planetLongitudeMovementMeasurementGraphicsItemTextXScalingSpinBox.setValue(value)
+
+    def _handlePlanetLongitudeMovementMeasurementGraphicsItemTextYScalingResetButtonClicked(self):
+        """Called when the planetLongitudeMovementMeasurementGraphicsItemTextYScalingResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultPlanetLongitudeMovementMeasurementGraphicsItemTextYScaling
+
+        self.planetLongitudeMovementMeasurementGraphicsItemTextYScalingSpinBox.setValue(value)
+
+    def _handlePlanetLongitudeMovementMeasurementGraphicsItemDefaultFontResetButtonClicked(self):
+        """Called when the
+        planetLongitudeMovementMeasurementGraphicsItemDefaultFontResetButton is clicked.
+        Resets the internal value to the default value.
+        """
+
+        self.planetLongitudeMovementMeasurementGraphicsItemDefaultFont = QFont()
+        self.planetLongitudeMovementMeasurementGraphicsItemDefaultFont.\
+            fromString(PriceBarChartSettings.\
+                       defaultPlanetLongitudeMovementMeasurementGraphicsItemDefaultFontDescription)
+        
+    def _handlePlanetLongitudeMovementMeasurementGraphicsItemDefaultTextColorResetButtonClicked(self):
+        """Called when the
+        planetLongitudeMovementMeasurementGraphicsItemDefaultTextColorResetButton is clicked.
+        Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultPlanetLongitudeMovementMeasurementGraphicsItemDefaultTextColor
+
+        self.planetLongitudeMovementMeasurementGraphicsItemDefaultTextColorEditButton.\
+            setColor(value)
+
+    def _handlePlanetLongitudeMovementMeasurementGraphicsItemDefaultColorResetButtonClicked(self):
+        """Called when the
+        planetLongitudeMovementMeasurementGraphicsItemDefaultColorResetButton is clicked.
+        Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultPlanetLongitudeMovementMeasurementGraphicsItemDefaultColor
+
+        self.planetLongitudeMovementMeasurementGraphicsItemDefaultColorEditButton.\
+            setColor(value)
+
     def _handleTextGraphicsItemDefaultFontResetButtonClicked(self):
         """Called when the textGraphicsItemDefaultFontResetButton is clicked.
         Resets the internal value to the default value.
@@ -41431,6 +43941,14 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._handlePriceModalScaleGraphicsItemTextYScalingResetButtonClicked()
         self._handlePriceModalScaleGraphicsItemTextEnabledFlagResetButtonClicked()
         self._handlePriceModalScaleGraphicsItemMusicalRatiosResetButtonClicked()
+        
+        self._handlePlanetLongitudeMovementMeasurementGraphicsItemBarHeightResetButtonClicked()
+        self._handlePlanetLongitudeMovementMeasurementGraphicsItemTextRotationAngleResetButtonClicked()
+        self._handlePlanetLongitudeMovementMeasurementGraphicsItemTextXScalingResetButtonClicked()
+        self._handlePlanetLongitudeMovementMeasurementGraphicsItemTextYScalingResetButtonClicked()
+        self._handlePlanetLongitudeMovementMeasurementGraphicsItemDefaultFontResetButtonClicked()
+        self._handlePlanetLongitudeMovementMeasurementGraphicsItemDefaultTextColorResetButtonClicked()
+        self._handlePlanetLongitudeMovementMeasurementGraphicsItemDefaultColorResetButtonClicked()
         
         self._handleTextGraphicsItemDefaultFontResetButtonClicked()
         self._handleTextGraphicsItemDefaultColorResetButtonClicked()

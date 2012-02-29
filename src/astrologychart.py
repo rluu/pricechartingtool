@@ -6116,18 +6116,18 @@ class AstrologyChartWidget(QWidget):
         
         x = 0.0
         y = 0.0
-        self.geoSidRadixChartGraphicsItem.setPos(x, y)
-        x += radixLength
         self.geoTropRadixChartGraphicsItem.setPos(x, y)
+        x += radixLength
+        self.geoSidRadixChartGraphicsItem.setPos(x, y)
         x += radixLength
         self.helioSidRadixChartGraphicsItem.setPos(x, y)
         x += radixLength
         
         x = -0.45 * radixLength
         y = -0.45 * radixLength
-        self.geoSidRadixChartLabel.setPos(x, y)
-        x += radixLength
         self.geoTropRadixChartLabel.setPos(x, y)
+        x += radixLength
+        self.geoSidRadixChartLabel.setPos(x, y)
         x += radixLength
         self.helioSidRadixChartLabel.setPos(x, y)
         x += radixLength
@@ -6141,12 +6141,12 @@ class AstrologyChartWidget(QWidget):
         self.graphicsScene.addItem(self.declinationChart)
         self.graphicsScene.addItem(self.latitudeChart)
         
-        self.graphicsScene.addItem(self.geoSidRadixChartGraphicsItem)
         self.graphicsScene.addItem(self.geoTropRadixChartGraphicsItem)
+        self.graphicsScene.addItem(self.geoSidRadixChartGraphicsItem)
         self.graphicsScene.addItem(self.helioSidRadixChartGraphicsItem)
         
-        self.graphicsScene.addItem(self.geoSidRadixChartLabel)
         self.graphicsScene.addItem(self.geoTropRadixChartLabel)
+        self.graphicsScene.addItem(self.geoSidRadixChartLabel)
         self.graphicsScene.addItem(self.helioSidRadixChartLabel)
 
         self.graphicsScene.addItem(self.declinationChartLabel)

@@ -26,6 +26,7 @@ from data_objects import PriceBarChartBarCountArtifact
 from data_objects import PriceBarChartTimeMeasurementArtifact
 from data_objects import PriceBarChartTimeModalScaleArtifact
 from data_objects import PriceBarChartPriceModalScaleArtifact
+from data_objects import PriceBarChartPlanetLongitudeMovementMeasurementArtifact
 from data_objects import PriceBarChartTextArtifact
 from data_objects import PriceBarChartPriceTimeInfoArtifact
 from data_objects import PriceBarChartPriceMeasurementArtifact
@@ -3751,6 +3752,1414 @@ class PriceBarChartPriceModalScaleArtifactEditDialog(QDialog):
             return self.editWidget.getArtifact()
         else:
             return self.artifact
+
+    
+class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget):
+    """QWidget for editing some of the member objects in a
+    PriceBarChartPlanetLongitudeMovementMeasurementArtifact within the context of a
+    PriceBarChart.  This means that fields that are editable in the
+    widgets are not actually a one-to-one mapping with the members in
+    a PriceBarChartPlanetLongitudeMovementMeasurementArtifact.  They are derivatives of it such
+    that the user can modify it without having to do the underlying
+    conversions.
+    """
+
+    # Signal emitted when the Okay button is clicked and 
+    # validation succeeded.
+    okayButtonClicked = QtCore.pyqtSignal()
+
+    # Signal emitted when the Cancel button is clicked.
+    cancelButtonClicked = QtCore.pyqtSignal()
+
+    def __init__(self,
+                 artifact,
+                 convertObj,
+                 readOnlyFlag=False,
+                 parent=None):
+        """QWidget for editing some of the fields of a
+        PriceBarChartPlanetLongitudeMovementMeasurementArtifact object.
+
+        Arguments:
+        artifact - PriceBarChartPlanetLongitudeMovementMeasurementArtifact object to edit.
+        convertObj - PriceBarChartGraphicsScene object that is used for
+                unit conversions (x position to time, y position to price).
+        readOnlyFlag - bool value used to set the widgets in readonly mode.
+        """
+
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger("pricebarchart_dialogs.PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget")
+
+        # Save off the artifact object.
+        self.artifact = artifact
+
+        # Save off the scene object used for unit conversions.
+        self.convertObj = convertObj
+        
+        # Save off the readOnlyFlag
+        self.readOnlyFlag = readOnlyFlag
+
+        # QGroupBox to hold the edit widgets and form.
+        self.groupBoxPage1 = self._createGroupBoxPage1()
+        self.groupBoxPage2 = self._createGroupBoxPage2()
+        self.groupBoxPage3 = self._createGroupBoxPage3()
+
+        # Create a QTabWidget to stack all the QGroupBox that have our
+        # edit widgets.
+        self.tabWidget = QTabWidget()
+        self.tabWidget.addTab(self.groupBoxPage1, "Page 1")
+        self.tabWidget.addTab(self.groupBoxPage2, "Page 2")
+        self.tabWidget.addTab(self.groupBoxPage3, "Page 3")
+        
+        # Buttons at bottom.
+        self.okayButton = QPushButton("&Okay")
+        self.cancelButton = QPushButton("&Cancel")
+        self.buttonsAtBottomLayout = QHBoxLayout()
+        self.buttonsAtBottomLayout.addStretch()
+        self.buttonsAtBottomLayout.addWidget(self.okayButton)
+        self.buttonsAtBottomLayout.addWidget(self.cancelButton)
+
+        
+        # Put all layouts/groupboxes together into the widget.
+        self.mainLayout = QVBoxLayout()
+        self.mainLayout.addWidget(self.tabWidget)
+        self.mainLayout.addSpacing(10)
+        self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
+
+        self.setLayout(self.mainLayout)
+        
+        self.setReadOnly(self.readOnlyFlag)
+        
+        # Now that all the widgets are created, load the values from the
+        # artifact object.
+        self.loadValues(self.artifact)
+
+        # Connect signals and slots.
+
+        self.fontEditButton.clicked.connect(\
+            self._handleFontEditButtonClicked)
+        
+        # Connect okay and cancel buttons.
+        self.okayButton.clicked.connect(self._handleOkayButtonClicked)
+        self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
+
+
+    def _createGroupBoxPage1(self):
+        """Creates a QGroupBox (and the widgets within it) for page1
+        of the edit widget, and then returns it.
+        """
+
+
+        self.groupBoxPage1 = \
+            QGroupBox("PriceBarChartPlanetLongitudeMovementMeasurementArtifact Data (page 1):")
+        
+        lineEditWidth = 420
+
+        # Create the edit widgets that will go on this page.
+        
+        self.internalNameLabel = QLabel("Internal name:")
+        self.internalNameLineEdit = QLineEdit()
+        self.internalNameLineEdit.setMinimumWidth(lineEditWidth)
+
+        self.uuidLabel = QLabel("Uuid:")
+        self.uuidLineEdit = QLineEdit()
+        self.uuidLineEdit.setMinimumWidth(lineEditWidth)
+
+        self.xScalingLabel = QLabel("Text X Scaling:")
+        self.xScalingDoubleSpinBox = QDoubleSpinBox()
+        self.xScalingDoubleSpinBox.setDecimals(4)
+        self.xScalingDoubleSpinBox.setMinimum(0.0)
+        self.xScalingDoubleSpinBox.setMaximum(999999999.0)
+        
+        self.yScalingLabel = QLabel("Text Y Scaling:")
+        self.yScalingDoubleSpinBox = QDoubleSpinBox()
+        self.yScalingDoubleSpinBox.setDecimals(4)
+        self.yScalingDoubleSpinBox.setMinimum(0.0)
+        self.yScalingDoubleSpinBox.setMaximum(999999999.0)
+        
+        self.font = QFont()
+        self.fontLabel = QLabel("Font:")
+        self.fontValueLabel = QLabel(self.font.toString())
+        self.fontEditButton = QPushButton("Modify")
+
+        self.colorLabel = QLabel("Color: ")
+        self.colorEditButton = ColorEditPushButton()
+
+        self.textColorLabel = QLabel("Text color: ")
+        self.textColorEditButton = ColorEditPushButton()
+        
+        self.barHeightValueLabel = QLabel("Bar height:")
+        self.barHeightValueSpinBox = QDoubleSpinBox()
+        self.barHeightValueSpinBox.setDecimals(4)
+        self.barHeightValueSpinBox.setMinimum(0.0)
+        self.barHeightValueSpinBox.setMaximum(999999999.0)
+
+        self.textRotationAngleValueLabel = QLabel("Text rotation angle:")
+        self.textRotationAngleValueSpinBox = QDoubleSpinBox()
+        self.textRotationAngleValueSpinBox.setDecimals(4)
+        self.textRotationAngleValueSpinBox.setMinimum(-360.0)
+        self.textRotationAngleValueSpinBox.setMaximum(360.0)
+
+        self.priceLocationValueLabel = QLabel("Artifact location (in price):")
+        self.priceLocationValueSpinBox = QDoubleSpinBox()
+        self.priceLocationValueSpinBox.setDecimals(4)
+        self.priceLocationValueSpinBox.setMinimum(-999999999.0)
+        self.priceLocationValueSpinBox.setMaximum(999999999.0)
+
+        self.startPointDatetimeLocationWidget = TimestampEditWidget()
+        self.startPointDatetimeLocationWidget.groupBox.\
+            setTitle("PlanetLongitudeMovementMeasurement Start Point (in time)")
+        self.startPointDatetimeLocationWidget.okayButton.setVisible(False)
+        self.startPointDatetimeLocationWidget.cancelButton.setVisible(False)
+        
+        self.endPointDatetimeLocationWidget = TimestampEditWidget()
+        self.endPointDatetimeLocationWidget.groupBox.\
+            setTitle("PlanetLongitudeMovementMeasurement End Point (in time)")
+        self.endPointDatetimeLocationWidget.okayButton.setVisible(False)
+        self.endPointDatetimeLocationWidget.cancelButton.setVisible(False)
+        
+        # Layout for just the font info.
+        self.fontLayout = QHBoxLayout()
+        self.fontLayout.addWidget(self.fontValueLabel)
+        self.fontLayout.addStretch()
+        self.fontLayout.addWidget(self.fontEditButton)
+
+        # Layout.
+        gridLayout = QGridLayout()
+
+        # Row.
+        r = 0
+
+        # Alignments.
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        gridLayout.addWidget(self.internalNameLabel, r, 0, al)
+        gridLayout.addWidget(self.internalNameLineEdit, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.uuidLabel, r, 0, al)
+        gridLayout.addWidget(self.uuidLineEdit, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.xScalingLabel, r, 0, al)
+        gridLayout.addWidget(self.xScalingDoubleSpinBox, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.yScalingLabel, r, 0, al)
+        gridLayout.addWidget(self.yScalingDoubleSpinBox, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.fontLabel, r, 0, al)
+        gridLayout.addLayout(self.fontLayout, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.colorLabel, r, 0, al)
+        gridLayout.addWidget(self.colorEditButton, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.textColorLabel, r, 0, al)
+        gridLayout.addWidget(self.textColorEditButton, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.barHeightValueLabel, r, 0, al)
+        gridLayout.addWidget(self.barHeightValueSpinBox, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.textRotationAngleValueLabel, r, 0, al)
+        gridLayout.addWidget(self.textRotationAngleValueSpinBox, r, 1, al)
+        r += 1
+        gridLayout.addWidget(self.priceLocationValueLabel, r, 0, al)
+        gridLayout.addWidget(self.priceLocationValueSpinBox, r, 1, al)
+        r += 1
+
+        # Put all the layouts together.
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addWidget(self.startPointDatetimeLocationWidget)
+        layout.addWidget(self.endPointDatetimeLocationWidget)
+        
+        self.groupBoxPage1.setLayout(layout)
+        
+        return self.groupBoxPage1
+        
+
+    def _createGroupBoxPage2(self):
+        """Creates a QGroupBox (and the widgets within it) for page2
+        of the edit widget, and then returns it.
+        """
+
+        self.groupBoxPage2 = \
+            QGroupBox("PriceBarChartPlanetLongitudeMovementMeasurementArtifact Data (page 2):")
+
+        # Create the QCheckBox widgets going on this page.
+        self.showGeocentricRetroAsZeroTextFlagCheckBox = \
+            QCheckBox("Show Geocentric Retro as Zero Text")
+        self.showGeocentricRetroAsPositiveTextFlagCheckBox = \
+            QCheckBox("Show Geocentric Retro as Positive Text")
+        self.showGeocentricRetroAsNegativeTextFlagCheckBox = \
+            QCheckBox("Show Geocentric Retro as Negative Text")
+        self.showHeliocentricTextFlagCheckBox = \
+            QCheckBox("Show Heliocentric Text")
+        self.tropicalZodiacFlagCheckBox = \
+            QCheckBox("Use tropical zodiac in measurements")
+        self.siderealZodiacFlagCheckBox = \
+            QCheckBox("Use sidereal zodiac in measurements")
+        self.measurementUnitDegreesEnabledCheckBox = \
+            QCheckBox("Show measurements in degrees")
+        self.measurementUnitCirclesEnabledCheckBox = \
+            QCheckBox("Show measurements in circles")
+
+        # Layout on the left side holding about half of the checkboxes
+        # for this page.
+        showTextCheckBoxesLeftLayout = QVBoxLayout()
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.showGeocentricRetroAsZeroTextFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.showGeocentricRetroAsPositiveTextFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.showGeocentricRetroAsNegativeTextFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.showHeliocentricTextFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addStretch()
+
+        # Layout on the right side holding about half of the checkboxes
+        # for this page.
+        showTextCheckBoxesRightLayout = QVBoxLayout()
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.tropicalZodiacFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.siderealZodiacFlagCheckBox)
+        showTextCheckBoxesRightLayout.addSpacing(10)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.measurementUnitDegreesEnabledCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.measurementUnitCirclesEnabledCheckBox)
+        showTextCheckBoxesRightLayout.addStretch()
+        
+        # Layout for all the checkboxes.
+        checkBoxesLayout = QHBoxLayout()
+        checkBoxesLayout.addLayout(showTextCheckBoxesLeftLayout)
+        checkBoxesLayout.addLayout(showTextCheckBoxesRightLayout)
+        
+        # Layout for this groupbox page.
+        layout = QVBoxLayout()
+        layout.addLayout(checkBoxesLayout)
+
+        self.groupBoxPage2.setLayout(layout)
+
+        return self.groupBoxPage2
+
+    
+    def _createGroupBoxPage3(self):
+        """Creates a QGroupBox (and the widgets within it) for page3
+        of the edit widget, and then returns it.
+        """
+
+        self.groupBoxPage3 = \
+            QGroupBox("PriceBarChartPlanetLongitudeMovementMeasurementArtifact Data (page 3):")
+
+        # Create the QCheckBox widgets going on this page.
+        self.planetH1EnabledFlagCheckBox = \
+            QCheckBox("Planet H1 enabled")
+        self.planetH2EnabledFlagCheckBox = \
+            QCheckBox("Planet H2 enabled")
+        self.planetH3EnabledFlagCheckBox = \
+            QCheckBox("Planet H3 enabled")
+        self.planetH4EnabledFlagCheckBox = \
+            QCheckBox("Planet H4 enabled")
+        self.planetH5EnabledFlagCheckBox = \
+            QCheckBox("Planet H5 enabled")
+        self.planetH6EnabledFlagCheckBox = \
+            QCheckBox("Planet H6 enabled")
+        self.planetH7EnabledFlagCheckBox = \
+            QCheckBox("Planet H7 enabled")
+        self.planetH8EnabledFlagCheckBox = \
+            QCheckBox("Planet H8 enabled")
+        self.planetH9EnabledFlagCheckBox = \
+            QCheckBox("Planet H9 enabled")
+        self.planetH10EnabledFlagCheckBox = \
+            QCheckBox("Planet H10 enabled")
+        self.planetH11EnabledFlagCheckBox = \
+            QCheckBox("Planet H11 enabled")
+        self.planetH12EnabledFlagCheckBox = \
+            QCheckBox("Planet H12 enabled")
+        self.planetHoraLagnaEnabledFlagCheckBox = \
+            QCheckBox("Planet HoraLagna enabled")
+        self.planetGhatiLagnaEnabledFlagCheckBox = \
+            QCheckBox("Planet GhatiLagna enabled")
+        self.planetMeanLunarApogeeEnabledFlagCheckBox = \
+            QCheckBox("Planet MeanLunarApogee enabled")
+        self.planetOsculatingLunarApogeeEnabledFlagCheckBox = \
+            QCheckBox("Planet OsculatingLunarApogee enabled")
+        self.planetInterpolatedLunarApogeeEnabledFlagCheckBox = \
+            QCheckBox("Planet InterpolatedLunarApogee enabled")
+        self.planetInterpolatedLunarPerigeeEnabledFlagCheckBox = \
+            QCheckBox("Planet InterpolatedLunarPerigee enabled")
+        self.planetSunEnabledFlagCheckBox = \
+            QCheckBox("Planet Sun enabled")
+        self.planetMoonEnabledFlagCheckBox = \
+            QCheckBox("Planet Moon enabled")
+        self.planetMercuryEnabledFlagCheckBox = \
+            QCheckBox("Planet Mercury enabled")
+        self.planetVenusEnabledFlagCheckBox = \
+            QCheckBox("Planet Venus enabled")
+        self.planetEarthEnabledFlagCheckBox = \
+            QCheckBox("Planet Earth enabled")
+        self.planetMarsEnabledFlagCheckBox = \
+            QCheckBox("Planet Mars enabled")
+        self.planetJupiterEnabledFlagCheckBox = \
+            QCheckBox("Planet Jupiter enabled")
+        self.planetSaturnEnabledFlagCheckBox = \
+            QCheckBox("Planet Saturn enabled")
+        self.planetUranusEnabledFlagCheckBox = \
+            QCheckBox("Planet Uranus enabled")
+        self.planetNeptuneEnabledFlagCheckBox = \
+            QCheckBox("Planet Neptune enabled")
+        self.planetPlutoEnabledFlagCheckBox = \
+            QCheckBox("Planet Pluto enabled")
+        self.planetMeanNorthNodeEnabledFlagCheckBox = \
+            QCheckBox("Planet MeanNorthNode enabled")
+        self.planetMeanSouthNodeEnabledFlagCheckBox = \
+            QCheckBox("Planet MeanSouthNode enabled")
+        self.planetTrueNorthNodeEnabledFlagCheckBox = \
+            QCheckBox("Planet TrueNorthNode enabled")
+        self.planetTrueSouthNodeEnabledFlagCheckBox = \
+            QCheckBox("Planet TrueSouthNode enabled")
+        self.planetCeresEnabledFlagCheckBox = \
+            QCheckBox("Planet Ceres enabled")
+        self.planetPallasEnabledFlagCheckBox = \
+            QCheckBox("Planet Pallas enabled")
+        self.planetJunoEnabledFlagCheckBox = \
+            QCheckBox("Planet Juno enabled")
+        self.planetVestaEnabledFlagCheckBox = \
+            QCheckBox("Planet Vesta enabled")
+        self.planetChironEnabledFlagCheckBox = \
+            QCheckBox("Planet Chiron enabled")
+        self.planetGulikaEnabledFlagCheckBox = \
+            QCheckBox("Planet Gulika enabled")
+        self.planetMandiEnabledFlagCheckBox = \
+            QCheckBox("Planet Mandi enabled")
+        self.planetMeanOfFiveEnabledFlagCheckBox = \
+            QCheckBox("Planet MeanOfFive enabled")
+        self.planetCycleOfEightEnabledFlagCheckBox = \
+            QCheckBox("Planet CycleOfEight enabled")
+        self.planetAvgMaJuSaUrNePlEnabledFlagCheckBox = \
+            QCheckBox("Planet AvgMaJuSaUrNePl enabled")
+        self.planetAvgJuSaUrNeEnabledFlagCheckBox = \
+            QCheckBox("Planet AvgJuSaUrNe enabled")
+        self.planetAvgJuSaEnabledFlagCheckBox = \
+            QCheckBox("Planet AvgJuSa enabled")
+        
+        # Layout on the left side holding about half of the checkboxes
+        # for this page.
+        showTextCheckBoxesLeftLayout = QVBoxLayout()
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetH1EnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetH2EnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetH3EnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetH4EnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetH5EnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetH6EnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetH7EnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetH8EnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetH9EnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetH10EnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetH11EnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetH12EnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetHoraLagnaEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetGhatiLagnaEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetMeanLunarApogeeEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetOsculatingLunarApogeeEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetInterpolatedLunarApogeeEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetInterpolatedLunarPerigeeEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addStretch()
+        
+        # Layout on the right side holding about half of the checkboxes
+        # for this page.
+        showTextCheckBoxesRightLayout = QVBoxLayout()
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetSunEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetMoonEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetMercuryEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetVenusEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetEarthEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetMarsEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetJupiterEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetSaturnEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetUranusEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetNeptuneEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetPlutoEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetMeanNorthNodeEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetMeanSouthNodeEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetTrueNorthNodeEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetTrueSouthNodeEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetCeresEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetPallasEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetJunoEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetVestaEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetChironEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetGulikaEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetMandiEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetMeanOfFiveEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetCycleOfEightEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetAvgMaJuSaUrNePlEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetAvgJuSaUrNeEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetAvgJuSaEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addStretch()
+
+        # Layout for all the checkboxes.
+        checkBoxesLayout = QHBoxLayout()
+        checkBoxesLayout.addLayout(showTextCheckBoxesLeftLayout)
+        checkBoxesLayout.addLayout(showTextCheckBoxesRightLayout)
+
+        # Layout for this groupbox page.
+        layout = QVBoxLayout()
+        layout.addLayout(checkBoxesLayout)
+
+        self.groupBoxPage3.setLayout(layout)
+
+        return self.groupBoxPage3
+        
+        
+    def setConvertObj(self, convertObj):
+        """Sets the object that is used for the conversion between
+        scene position and timestamp or price.
+
+        Arguments:
+        convertObj - PriceBarChartGraphicsScene object that is used
+                     for scene position conversions of X point to
+                     timestamp and Y point to price.
+        """
+
+        self.convertObj = convertObj
+
+        # Need to reload the artifact, so that the proper conversion
+        # is done with the new conversion object.
+        self.loadValues(self.artifact)
+        
+    def getConvertObj(self):
+        """Returns the object used for conversion calculations between
+        scene position point and timestamp or price.
+
+        Returns:
+        PriceBarChartGraphicsScene object that is used
+        for scene position conversions of X point to
+        timestamp and Y point to price.
+        """
+
+        return self.convertObj
+    
+        
+    def getArtifact(self):
+        """Returns the internally stored artifact object.
+
+        Note: If saveValues() was called previously, then this object
+        was updated with the values from the edit widgets.
+        """
+
+        return self.artifact
+        
+    def setReadOnly(self, readOnlyFlag):
+        """Sets the internal edit widgets to be read only or not
+        depending on the bool state of readOnlyFlag.
+
+        Arguments:
+        readOnlyFlag - bool value indicating whether the widget is in
+        ReadOnly mode.
+        """
+
+        self.readOnlyFlag = readOnlyFlag
+
+        # Set the internal widgets as readonly or not depending on this flag.
+        
+        self.internalNameLineEdit.setReadOnly(True)
+        self.uuidLineEdit.setReadOnly(True)
+        self.xScalingDoubleSpinBox.setEnabled(not self.readOnlyFlag)
+        self.yScalingDoubleSpinBox.setEnabled(not self.readOnlyFlag)
+        self.fontEditButton.setEnabled(not self.readOnlyFlag)
+        self.colorEditButton.setEnabled(not self.readOnlyFlag)
+        self.textColorEditButton.setEnabled(not self.readOnlyFlag)
+        self.barHeightValueSpinBox.setEnabled(not self.readOnlyFlag)
+        self.textRotationAngleValueSpinBox.setEnabled(not self.readOnlyFlag)
+        self.priceLocationValueSpinBox.setEnabled(not self.readOnlyFlag)
+        self.startPointDatetimeLocationWidget.setReadOnly(self.readOnlyFlag)
+        self.endPointDatetimeLocationWidget.setReadOnly(self.readOnlyFlag)
+
+        self.showGeocentricRetroAsZeroTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.showGeocentricRetroAsPositiveTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.showGeocentricRetroAsNegativeTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.showHeliocentricTextFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.tropicalZodiacFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.siderealZodiacFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.measurementUnitDegreesEnabledCheckBox.setEnabled(not self.readOnlyFlag)
+        self.measurementUnitCirclesEnabledCheckBox.setEnabled(not self.readOnlyFlag)
+
+        self.planetH1EnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetH2EnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetH3EnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetH4EnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetH5EnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetH6EnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetH7EnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetH8EnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetH9EnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetH10EnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetH11EnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetH12EnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetHoraLagnaEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetGhatiLagnaEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetMeanLunarApogeeEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetOsculatingLunarApogeeEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetInterpolatedLunarApogeeEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetInterpolatedLunarPerigeeEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetSunEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetMoonEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetMercuryEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetVenusEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetEarthEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetMarsEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetJupiterEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetSaturnEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetUranusEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetNeptuneEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetPlutoEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetMeanNorthNodeEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetMeanSouthNodeEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetTrueNorthNodeEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetTrueSouthNodeEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetCeresEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetPallasEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetJunoEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetVestaEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetChironEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetGulikaEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetMandiEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetMeanOfFiveEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetCycleOfEightEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetAvgMaJuSaUrNePlEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetAvgJuSaUrNeEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetAvgJuSaEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        
+        # Don't allow the Okay button to be pressed for saving.
+        self.okayButton.setEnabled(not self.readOnlyFlag)
+        
+    def getReadOnly(self):
+        """Returns the flag that indicates that this widget is in
+        read-only mode.  If the returned value is True, then it means
+        the user cannot edit any of the fields in the PriceBar.
+        """
+        
+        return self.readOnlyFlag
+
+    def loadValues(self, artifact):
+        """Loads the widgets with values from the given
+        PriceBarChartPlanetLongitudeMovementMeasurementArtifact.
+
+        Note: Upon calling saveValues(), the edit widget overwrites
+        the values in the object pointed to by 'artifact' with the
+        values in the edit widgets.
+
+        Arguments:
+        
+        artifact - PriceBarChartPlanetLongitudeMovementMeasurementArtifact object to load the
+        values into the edit widgets.  
+        """
+
+        self.log.debug("Entered loadValues()")
+
+        # Check inputs.
+        if artifact == None:
+            self.log.error("Invalid parameter to " + \
+                           "loadValues().  artifact can't be None.")
+            self.log.debug("Exiting loadValues()")
+            return
+        else:
+            self.artifact = artifact
+
+        # Set the widgets.
+        self.internalNameLineEdit.\
+            setText(self.artifact.getInternalName())
+        
+        self.uuidLineEdit.\
+            setText(str(self.artifact.getUuid()))
+        
+        self.xScalingDoubleSpinBox.setValue(self.artifact.getTextXScaling())
+        self.yScalingDoubleSpinBox.setValue(self.artifact.getTextYScaling())
+
+        self.font = self.artifact.getFont()
+        self.fontValueLabel.setText(\
+            self._convertFontToNiceText(self.font))
+        
+        self.colorEditButton.setColor(self.artifact.getColor())
+        
+        self.textColorEditButton.setColor(self.artifact.getTextColor())
+
+        barHeightValue = self.artifact.getBarHeight()
+        self.barHeightValueSpinBox.setValue(barHeightValue)
+
+        textRotationAngleValue = self.artifact.getTextRotationAngle()
+        self.textRotationAngleValueSpinBox.setValue(textRotationAngleValue)
+        
+        locationPointY = self.artifact.startPointF.y()
+        locationPointPrice = self.convertObj.sceneYPosToPrice(locationPointY)
+        self.priceLocationValueSpinBox.setValue(locationPointPrice)
+        
+        startPointX = self.artifact.startPointF.x()
+        startPointDatetime = self.convertObj.sceneXPosToDatetime(startPointX)
+        self.startPointDatetimeLocationWidget.\
+            loadTimestamp(startPointDatetime)
+        
+        endPointX = self.artifact.endPointF.x()
+        endPointDatetime = self.convertObj.sceneXPosToDatetime(endPointX)
+        self.endPointDatetimeLocationWidget.\
+            loadTimestamp(endPointDatetime)
+
+        if self.artifact.getGeocentricRetroAsZeroTextFlag() == True:
+            self.showGeocentricRetroAsZeroTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showGeocentricRetroAsZeroTextFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getGeocentricRetroAsPositiveTextFlag() == True:
+            self.showGeocentricRetroAsPositiveTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showGeocentricRetroAsPositiveTextFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getGeocentricRetroAsNegativeTextFlag() == True:
+            self.showGeocentricRetroAsNegativeTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showGeocentricRetroAsNegativeTextFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getHeliocentricTextFlag() == True:
+            self.showHeliocentricTextFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.showHeliocentricTextFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getTropicalZodiacFlag() == True:
+            self.tropicalZodiacFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.tropicalZodiacFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getSiderealZodiacFlag() == True:
+            self.siderealZodiacFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.siderealZodiacFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getMeasurementUnitDegreesEnabled() == True:
+            self.measurementUnitDegreesEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.measurementUnitDegreesEnabledCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getMeasurementUnitCirclesEnabled() == True:
+            self.measurementUnitCirclesEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.measurementUnitCirclesEnabledCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getPlanetH1EnabledFlag() == True:
+            self.planetH1EnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH1EnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getPlanetH2EnabledFlag() == True:
+            self.planetH2EnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH2EnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getPlanetH3EnabledFlag() == True:
+            self.planetH3EnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH3EnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getPlanetH4EnabledFlag() == True:
+            self.planetH4EnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH4EnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getPlanetH5EnabledFlag() == True:
+            self.planetH5EnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH5EnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getPlanetH6EnabledFlag() == True:
+            self.planetH6EnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH6EnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getPlanetH7EnabledFlag() == True:
+            self.planetH7EnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH7EnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getPlanetH8EnabledFlag() == True:
+            self.planetH8EnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH8EnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getPlanetH9EnabledFlag() == True:
+            self.planetH9EnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH9EnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getPlanetH10EnabledFlag() == True:
+            self.planetH10EnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH10EnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetH11EnabledFlag() == True:
+            self.planetH11EnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH11EnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetH12EnabledFlag() == True:
+            self.planetH12EnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetH12EnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetHoraLagnaEnabledFlag() == True:
+            self.planetHoraLagnaEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetHoraLagnaEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetGhatiLagnaEnabledFlag() == True:
+            self.planetGhatiLagnaEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetGhatiLagnaEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getPlanetMeanLunarApogeeEnabledFlag() == True:
+            self.planetMeanLunarApogeeEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeanLunarApogeeEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getPlanetOsculatingLunarApogeeEnabledFlag() == True:
+            self.planetOsculatingLunarApogeeEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetOsculatingLunarApogeeEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetInterpolatedLunarApogeeEnabledFlag() == True:
+            self.planetInterpolatedLunarApogeeEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetInterpolatedLunarApogeeEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetInterpolatedLunarPerigeeEnabledFlag() == True:
+            self.planetInterpolatedLunarPerigeeEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetInterpolatedLunarPerigeeEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetSunEnabledFlag() == True:
+            self.planetSunEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSunEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetMoonEnabledFlag() == True:
+            self.planetMoonEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoonEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetMercuryEnabledFlag() == True:
+            self.planetMercuryEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMercuryEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetVenusEnabledFlag() == True:
+            self.planetVenusEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVenusEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetEarthEnabledFlag() == True:
+            self.planetEarthEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetEarthEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetMarsEnabledFlag() == True:
+            self.planetMarsEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMarsEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetJupiterEnabledFlag() == True:
+            self.planetJupiterEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJupiterEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetSaturnEnabledFlag() == True:
+            self.planetSaturnEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaturnEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetUranusEnabledFlag() == True:
+            self.planetUranusEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUranusEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetNeptuneEnabledFlag() == True:
+            self.planetNeptuneEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetNeptuneEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetPlutoEnabledFlag() == True:
+            self.planetPlutoEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetPlutoEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetMeanNorthNodeEnabledFlag() == True:
+            self.planetMeanNorthNodeEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeanNorthNodeEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetMeanSouthNodeEnabledFlag() == True:
+            self.planetMeanSouthNodeEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeanSouthNodeEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetTrueNorthNodeEnabledFlag() == True:
+            self.planetTrueNorthNodeEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetTrueNorthNodeEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetTrueSouthNodeEnabledFlag() == True:
+            self.planetTrueSouthNodeEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetTrueSouthNodeEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetCeresEnabledFlag() == True:
+            self.planetCeresEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCeresEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetPallasEnabledFlag() == True:
+            self.planetPallasEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetPallasEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetJunoEnabledFlag() == True:
+            self.planetJunoEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJunoEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetVestaEnabledFlag() == True:
+            self.planetVestaEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVestaEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetChironEnabledFlag() == True:
+            self.planetChironEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetChironEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetGulikaEnabledFlag() == True:
+            self.planetGulikaEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetGulikaEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetMandiEnabledFlag() == True:
+            self.planetMandiEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMandiEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetMeanOfFiveEnabledFlag() == True:
+            self.planetMeanOfFiveEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeanOfFiveEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetCycleOfEightEnabledFlag() == True:
+            self.planetCycleOfEightEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCycleOfEightEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetAvgMaJuSaUrNePlEnabledFlag() == True:
+            self.planetAvgMaJuSaUrNePlEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAvgMaJuSaUrNePlEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetAvgJuSaUrNeEnabledFlag() == True:
+            self.planetAvgJuSaUrNeEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAvgJuSaUrNeEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetAvgJuSaEnabledFlag() == True:
+            self.planetAvgJuSaEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAvgJuSaEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        self.log.debug("Exiting loadValues()")
+        
+    def saveValues(self):
+        """Saves the values in the widgets to the
+        PriceBarChartPlanetLongitudeMovementMeasurementArtifact object passed in this class's
+        constructor or the loadValues() function.
+        """
+    
+        self.log.debug("Entered saveValues()")
+
+        # Call save on the timestamp widgets.
+        self.startPointDatetimeLocationWidget.saveTimestamp()
+        self.endPointDatetimeLocationWidget.saveTimestamp()
+        
+        # Position and start point should be the same values.
+
+        price = self.priceLocationValueSpinBox.value()
+        y = self.convertObj.priceToSceneYPos(price)
+
+        textXScaling = self.xScalingDoubleSpinBox.value()
+        textYScaling = self.yScalingDoubleSpinBox.value()
+
+        startPointDatetime = \
+            self.startPointDatetimeLocationWidget.getTimestamp()
+        endPointDatetime = \
+            self.endPointDatetimeLocationWidget.getTimestamp()
+
+        color = self.colorEditButton.getColor()
+        textColor = self.textColorEditButton.getColor()
+
+        barHeightValue = self.barHeightValueSpinBox.value()
+        textRotationAngleValue = self.textRotationAngleValueSpinBox.value()
+        
+        startPointX = self.convertObj.datetimeToSceneXPos(startPointDatetime)
+        endPointX = self.convertObj.datetimeToSceneXPos(endPointDatetime)
+
+        posF = QPointF(startPointX, y)
+        startPointF = QPointF(startPointX, y)
+        endPointF = QPointF(endPointX, y)
+
+        showGeocentricRetroAsZeroTextFlag = \
+            (self.showGeocentricRetroAsZeroTextFlagCheckBox.\
+             checkState() == Qt.Checked)
+        showGeocentricRetroAsPositiveTextFlag = \
+            (self.showGeocentricRetroAsPositiveTextFlagCheckBox.\
+             checkState() == Qt.Checked)
+        showGeocentricRetroAsNegativeTextFlag = \
+            (self.showGeocentricRetroAsNegativeTextFlagCheckBox.\
+             checkState() == Qt.Checked)
+        showHeliocentricTextFlag = \
+            (self.showHeliocentricTextFlagCheckBox.\
+             checkState() == Qt.Checked)
+        tropicalZodiacFlag = \
+            (self.tropicalZodiacFlagCheckBox.\
+             checkState() == Qt.Checked)
+        siderealZodiacFlag = \
+            (self.siderealZodiacFlagCheckBox.\
+             checkState() == Qt.Checked)
+        measurementUnitDegreesEnabled = \
+            (self.measurementUnitDegreesEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        measurementUnitCirclesEnabled = \
+            (self.measurementUnitCirclesEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        planetH1EnabledFlag = \
+            (self.planetH1EnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetH2EnabledFlag = \
+            (self.planetH2EnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetH3EnabledFlag = \
+            (self.planetH3EnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetH4EnabledFlag = \
+            (self.planetH4EnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetH5EnabledFlag = \
+            (self.planetH5EnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetH6EnabledFlag = \
+            (self.planetH6EnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetH7EnabledFlag = \
+            (self.planetH7EnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetH8EnabledFlag = \
+            (self.planetH8EnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetH9EnabledFlag = \
+            (self.planetH9EnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetH10EnabledFlag = \
+            (self.planetH10EnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetH11EnabledFlag = \
+            (self.planetH11EnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetH12EnabledFlag = \
+            (self.planetH12EnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetHoraLagnaEnabledFlag = \
+            (self.planetHoraLagnaEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetGhatiLagnaEnabledFlag = \
+            (self.planetGhatiLagnaEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetMeanLunarApogeeEnabledFlag = \
+            (self.planetMeanLunarApogeeEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetOsculatingLunarApogeeEnabledFlag = \
+            (self.planetOsculatingLunarApogeeEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetInterpolatedLunarApogeeEnabledFlag = \
+            (self.planetInterpolatedLunarApogeeEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetInterpolatedLunarPerigeeEnabledFlag = \
+            (self.planetInterpolatedLunarPerigeeEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetSunEnabledFlag = \
+            (self.planetSunEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetMoonEnabledFlag = \
+            (self.planetMoonEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetMercuryEnabledFlag = \
+            (self.planetMercuryEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetVenusEnabledFlag = \
+            (self.planetVenusEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetEarthEnabledFlag = \
+            (self.planetEarthEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetMarsEnabledFlag = \
+            (self.planetMarsEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetJupiterEnabledFlag = \
+            (self.planetJupiterEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetSaturnEnabledFlag = \
+            (self.planetSaturnEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetUranusEnabledFlag = \
+            (self.planetUranusEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetNeptuneEnabledFlag = \
+            (self.planetNeptuneEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetPlutoEnabledFlag = \
+            (self.planetPlutoEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetMeanNorthNodeEnabledFlag = \
+            (self.planetMeanNorthNodeEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetMeanSouthNodeEnabledFlag = \
+            (self.planetMeanSouthNodeEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetTrueNorthNodeEnabledFlag = \
+            (self.planetTrueNorthNodeEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetTrueSouthNodeEnabledFlag = \
+            (self.planetTrueSouthNodeEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetCeresEnabledFlag = \
+            (self.planetCeresEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetPallasEnabledFlag = \
+            (self.planetPallasEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetJunoEnabledFlag = \
+            (self.planetJunoEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetVestaEnabledFlag = \
+            (self.planetVestaEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetChironEnabledFlag = \
+            (self.planetChironEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetGulikaEnabledFlag = \
+            (self.planetGulikaEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetMandiEnabledFlag = \
+            (self.planetMandiEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetMeanOfFiveEnabledFlag = \
+            (self.planetMeanOfFiveEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetCycleOfEightEnabledFlag = \
+            (self.planetCycleOfEightEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetAvgMaJuSaUrNePlEnabledFlag = \
+            (self.planetAvgMaJuSaUrNePlEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetAvgJuSaUrNeEnabledFlag = \
+            (self.planetAvgJuSaUrNeEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetAvgJuSaEnabledFlag = \
+            (self.planetAvgJuSaEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        
+        # Set the values in the artifact.
+        self.artifact.setPos(posF)
+        self.artifact.setFont(self.font)
+        self.artifact.setTextXScaling(textXScaling)
+        self.artifact.setTextYScaling(textYScaling)
+        self.artifact.setColor(color)
+        self.artifact.setTextColor(textColor)
+        self.artifact.setBarHeight(barHeightValue)
+        self.artifact.setTextRotationAngleValue(textRotationAngleValue)
+        self.artifact.setStartPointF(startPointF)
+        self.artifact.setEndPointF(endPointF)
+        self.artifact.setGeocentricRetroAsZeroTextFlag(showGeocentricRetroAsZeroTextFlag)
+        self.artifact.setGeocentricRetroAsPositiveTextFlag(showGeocentricRetroAsPositiveTextFlag)
+        self.artifact.setGeocentricRetroAsNegativeTextFlag(showGeocentricRetroAsNegativeTextFlag)
+        self.artifact.setHeliocentricTextFlag(showHeliocentricTextFlag)
+        self.artifact.setTropicalZodiacFlag(tropicalZodiacFlag)
+        self.artifact.setSiderealZodiacFlag(siderealZodiacFlag)
+        self.artifact.setMeasurementUnitDegreesEnabled(measurementUnitDegreesEnabled)
+        self.artifact.setMeasurementUnitCirclesEnabled(measurementUnitCirclesEnabled)
+        self.artifact.setPlanetH1EnabledFlag(planetH1EnabledFlag)
+        self.artifact.setPlanetH2EnabledFlag(planetH2EnabledFlag)
+        self.artifact.setPlanetH3EnabledFlag(planetH3EnabledFlag)
+        self.artifact.setPlanetH4EnabledFlag(planetH4EnabledFlag)
+        self.artifact.setPlanetH5EnabledFlag(planetH5EnabledFlag)
+        self.artifact.setPlanetH6EnabledFlag(planetH6EnabledFlag)
+        self.artifact.setPlanetH7EnabledFlag(planetH7EnabledFlag)
+        self.artifact.setPlanetH8EnabledFlag(planetH8EnabledFlag)
+        self.artifact.setPlanetH9EnabledFlag(planetH9EnabledFlag)
+        self.artifact.setPlanetH10EnabledFlag(planetH10EnabledFlag)
+        self.artifact.setPlanetH11EnabledFlag(planetH11EnabledFlag)
+        self.artifact.setPlanetH12EnabledFlag(planetH12EnabledFlag)
+        self.artifact.setPlanetHoraLagnaEnabledFlag(planetHoraLagnaEnabledFlag)
+        self.artifact.setPlanetGhatiLagnaEnabledFlag(planetGhatiLagnaEnabledFlag)
+        self.artifact.setPlanetMeanLunarApogeeEnabledFlag(planetMeanLunarApogeeEnabledFlag)
+        self.artifact.setPlanetOsculatingLunarApogeeEnabledFlag(planetOsculatingLunarApogeeEnabledFlag)
+        self.artifact.setPlanetInterpolatedLunarApogeeEnabledFlag(planetInterpolatedLunarApogeeEnabledFlag)
+        self.artifact.setPlanetInterpolatedLunarPerigeeEnabledFlag(planetInterpolatedLunarPerigeeEnabledFlag)
+        self.artifact.setPlanetSunEnabledFlag(planetSunEnabledFlag)
+        self.artifact.setPlanetMoonEnabledFlag(planetMoonEnabledFlag)
+        self.artifact.setPlanetMercuryEnabledFlag(planetMercuryEnabledFlag)
+        self.artifact.setPlanetVenusEnabledFlag(planetVenusEnabledFlag)
+        self.artifact.setPlanetEarthEnabledFlag(planetEarthEnabledFlag)
+        self.artifact.setPlanetMarsEnabledFlag(planetMarsEnabledFlag)
+        self.artifact.setPlanetJupiterEnabledFlag(planetJupiterEnabledFlag)
+        self.artifact.setPlanetSaturnEnabledFlag(planetSaturnEnabledFlag)
+        self.artifact.setPlanetUranusEnabledFlag(planetUranusEnabledFlag)
+        self.artifact.setPlanetNeptuneEnabledFlag(planetNeptuneEnabledFlag)
+        self.artifact.setPlanetPlutoEnabledFlag(planetPlutoEnabledFlag)
+        self.artifact.setPlanetMeanNorthNodeEnabledFlag(planetMeanNorthNodeEnabledFlag)
+        self.artifact.setPlanetMeanSouthNodeEnabledFlag(planetMeanSouthNodeEnabledFlag)
+        self.artifact.setPlanetTrueNorthNodeEnabledFlag(planetTrueNorthNodeEnabledFlag)
+        self.artifact.setPlanetTrueSouthNodeEnabledFlag(planetTrueSouthNodeEnabledFlag)
+        self.artifact.setPlanetCeresEnabledFlag(planetCeresEnabledFlag)
+        self.artifact.setPlanetPallasEnabledFlag(planetPallasEnabledFlag)
+        self.artifact.setPlanetJunoEnabledFlag(planetJunoEnabledFlag)
+        self.artifact.setPlanetVestaEnabledFlag(planetVestaEnabledFlag)
+        self.artifact.setPlanetChironEnabledFlag(planetChironEnabledFlag)
+        self.artifact.setPlanetGulikaEnabledFlag(planetGulikaEnabledFlag)
+        self.artifact.setPlanetMandiEnabledFlag(planetMandiEnabledFlag)
+        self.artifact.setPlanetMeanOfFiveEnabledFlag(planetMeanOfFiveEnabledFlag)
+        self.artifact.setPlanetCycleOfEightEnabledFlag(planetCycleOfEightEnabledFlag)
+        self.artifact.setPlanetAvgMaJuSaUrNePlEnabledFlag(planetAvgMaJuSaUrNePlEnabledFlag)
+        self.artifact.setPlanetAvgJuSaUrNeEnabledFlag(planetAvgJuSaUrNeEnabledFlag)
+        self.artifact.setPlanetAvgJuSaEnabledFlag(planetAvgJuSaEnabledFlag)
+        
+        self.log.debug("Exiting saveValues()")
+
+
+    def _convertFontToNiceText(self, font):
+        """Converts the given QFont to some nice str for decribing in a label.
+        """
+
+        rv = "Family: {}".format(font.family()) + os.linesep + \
+             "Size: {}".format(font.pointSizeF())
+
+        return rv
+
+    def _handleFontEditButtonClicked(self):
+        """Called when the self.fontEditButton is clicked."""
+
+        dialog = QFontDialog(self.font)
+
+        rv = dialog.exec_()
+
+        if rv == QDialog.Accepted:
+            # Store the font in the member variable (not in the artifact).
+            self.font = dialog.selectedFont()
+            self.fontValueLabel.setText(self._convertFontToNiceText(self.font))
+
+    def _handleOkayButtonClicked(self):
+        """Called when the okay button is clicked."""
+
+        self.saveValues()
+        self.okayButtonClicked.emit()
+
+    def _handleCancelButtonClicked(self):
+        """Called when the cancel button is clicked."""
+
+        self.cancelButtonClicked.emit()
+
+
+class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditDialog(QDialog):
+    """QDialog for editing some of the members objects in a 
+    PriceBarChartPlanetLongitudeMovementMeasurementArtifact.
+    """
+
+    def __init__(self,
+                 priceBarChartPlanetLongitudeMovementMeasurementArtifact,
+                 convertObj,
+                 readOnlyFlag=False,
+                 parent=None):
+        """Initializes the dialog and internal widget with the values
+        from the given PriceBarChartPlanetLongitudeMovementMeasurementArtifact.
+        
+        Note: The 'priceBarChartPlanetLongitudeMovementMeasurementArtifact'
+        object gets modified if the user clicks the 'Okay' button.
+
+        Arguments:
+        artifact - PriceBarChartPlanetLongitudeMovementMeasurementArtifact object to edit.
+                   This object gets modified if the user clicks the
+                   'Okay' button.
+        convertObj - PriceBarChartGraphicsScene object that is used for
+                unit conversions (x position to time, y position to price).
+        readOnlyFlag - bool value used to set the widgets in readonly mode.
+        """
+
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger("pricebarchart_dialogs.PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditDialog")
+
+        self.setWindowTitle("Edit PriceBarChartPlanetLongitudeMovementMeasurementArtifact Data")
+
+        # Check input.
+        if not isinstance(priceBarChartPlanetLongitudeMovementMeasurementArtifact,
+                          PriceBarChartPlanetLongitudeMovementMeasurementArtifact):
+            self.log.error("Input type invalid to " +
+                           self.__class__.__name__ +
+                           " constructor.")
+            return
+
+        # Save a reference to the artifact object.
+        self.artifact = priceBarChartPlanetLongitudeMovementMeasurementArtifact
+
+        # Save a reference to the conversion object.
+        self.convertObj = convertObj
+        
+        # Save the readOnlyFlag value.
+        self.readOnlyFlag = readOnlyFlag
+        
+        # Create the contents.
+        self.editWidget = \
+            PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(self.artifact,
+                                                    self.convertObj,
+                                                    self.readOnlyFlag)
+        
+        # Setup the layout.
+        layout = QVBoxLayout()
+        layout.addWidget(self.editWidget)
+        self.setLayout(layout)
+
+        self.editWidget.okayButtonClicked.connect(self.accept)
+        self.editWidget.cancelButtonClicked.connect(self.reject)
+
+    def setReadOnly(self, readOnlyFlag):
+        """Sets the internal edit widgets to be read only or not
+        depending on the bool state of readOnlyFlag.
+
+        Arguments:
+        readOnlyFlag - bool value indicating whether the widget is in
+                       ReadOnly mode.
+        """
+
+        self.readOnlyFlag = readOnlyFlag
+
+        self.editWidget.setReadOnly(self.readOnlyFlag)
+        
+    def getReadOnly(self):
+        """Returns the flag that indicates that this widget is in
+        read-only mode.  If the returned value is True, then it means
+        the user cannot edit any of the fields.
+        """
+        
+        return self.readOnlyFlag
+
+    def setConvertObj(self, convertObj):
+        """Sets the object that is used for the conversion between
+        scene position and timestamp or price.
+
+        Arguments:
+        convertObj - PriceBarChartGraphicsScene object that is used
+                     for scene position conversions of X point to
+                     timestamp and Y point to price.
+        """
+
+        self.convertObj = convertObj
+
+        self.editWidget.setConvertObj(self.convertObj)
+        
+    def getConvertObj(self):
+        """Returns the object used for conversion calculations between
+        scene position point and timestamp or price.
+
+        Returns:
+        PriceBarChartGraphicsScene object that is used
+        for scene position conversions of X point to
+        timestamp and Y point to price.
+        """
+
+        return self.convertObj
+    
+    def setArtifact(self, artifact):
+        """Loads the edit widget with the given artifact object.
+        
+        Note:  Upon clicking 'Okay' this object will be modified.
+
+        Arguments:
+        artifact - PriceBarChartPlanetLongitudeMovementMeasurementArtifact object to load the
+                   widgets with.
+        """
+
+        # Check input.
+        if not isinstance(artifact,
+                          PriceBarChartPlanetLongitudeMovementMeasurementArtifact):
+            self.log.error("Input type invalid to " +
+                           self.__class__.__name__ +
+                           ".setArtifact()")
+            return
+
+        self.artifact = artifact
+
+        self.editWidget.loadValues(self.artifact)
+
+    def getArtifact(self):
+        """Returns a reference to the internally stored artifact object.
+        
+        Note: If the 'Okay' button was previously clicked, then this
+        object is modified with the widget's values, otherwise it is
+        unchanged.
+        """
+
+        return self.artifact
 
 
 class PriceBarChartTextArtifactEditWidget(QWidget):
@@ -20522,6 +21931,61 @@ def testPriceBarChartPriceModalScaleArtifactEditDialog():
           "PriceBarChartPriceModalScaleArtifact: {}".\
           format(artifact.toString()))
     
+def testPriceBarChartPlanetLongitudeMovementMeasurementArtifactEditDialog():
+    print("Running " + inspect.stack()[0][3] + "()")
+    
+    # Create an artifact.
+    artifact = PriceBarChartPlanetLongitudeMovementMeasurementArtifact()
+
+    # Set the artifact's position and start/end points.  It needs to
+    # be at a position where the converted datetime.datetime is
+    # greater than the datetime.datetime.MINYEAR.
+    # A X value of 2450000 is in year 1995.
+    pos = QPointF(2450000, -1000)
+    artifact.setPos(pos)
+    artifact.setStartPointF(pos)
+    artifact.setEndPointF(QPoint(pos.x() + 1000, pos.y()))
+
+    # Create an object for doing unit conversions.
+    eastern = pytz.timezone('US/Eastern')
+    from pricebarchart import PriceBarChartGraphicsScene
+    convertObj = PriceBarChartGraphicsScene()
+    convertObj.setTimezone(eastern)
+    
+    # Run the dialog in readonly mode.
+    print("Before (readonly), " +
+          "PriceBarChartPlanetLongitudeMovementMeasurementArtifact: {}".\
+          format(artifact.toString()))
+    dialog = PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditDialog(artifact,
+                                                     convertObj,
+                                                     readOnlyFlag=True)
+    rv = dialog.exec_()
+    if rv == QDialog.Accepted:
+        print("Accepted")
+    else:
+        print("Rejected")
+    print("After  (readonly), " +
+          "PriceBarChartPlanetLongitudeMovementMeasurementArtifact: {}".\
+          format(artifact.toString()))
+
+    
+    # Run the dialog in non-readonly mode.
+    print("Before (not readonly), " +
+          "PriceBarChartPlanetLongitudeMovementMeasurementArtifact: {}".\
+          format(artifact.toString()))
+    dialog = PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditDialog(artifact,
+                                                     convertObj,
+                                                     readOnlyFlag=False)
+    rv = dialog.exec_()
+    if rv == QDialog.Accepted:
+        print("Accepted")
+    else:
+        print("Rejected")
+    print("After  (not readonly), " +
+          "PriceBarChartPlanetLongitudeMovementMeasurementArtifact: {}".\
+          format(artifact.toString()))
+    
+
 def testPriceBarChartTextArtifactEditDialog():
     print("Running " + inspect.stack()[0][3] + "()")
     
@@ -21688,6 +23152,7 @@ if __name__=="__main__":
     #testPriceBarChartTimeMeasurementArtifactEditDialog()
     #testPriceBarChartTimeModalScaleArtifactEditDialog()
     #testPriceBarChartPriceModalScaleArtifactEditDialog()
+    testPriceBarChartPlanetLongitudeMovementMeasurementArtifactEditDialog()
     #testPriceBarChartTextArtifactEditDialog()
     #testPriceBarChartPriceTimeInfoArtifactEditDialog()
     #testPriceBarChartPriceMeasurementArtifactEditDialog()
@@ -21696,19 +23161,19 @@ if __name__=="__main__":
     #testPriceBarChartPriceTimeVectorArtifactEditDialog()
     #testPriceBarChartLineSegmentArtifactEditDialog()
     #testPriceBarChartOctaveFanArtifactEditDialog()
-    testPriceBarChartFibFanArtifactEditDialog()
-    testPriceBarChartGannFanArtifactEditDialog()
-    testPriceBarChartVimsottariDasaArtifactEditDialog()
-    testPriceBarChartAshtottariDasaArtifactEditDialog()
-    testPriceBarChartYoginiDasaArtifactEditDialog()
-    testPriceBarChartDwisaptatiSamaDasaArtifactEditDialog()
-    testPriceBarChartShattrimsaSamaDasaArtifactEditDialog()
-    testPriceBarChartDwadasottariDasaArtifactEditDialog()
-    testPriceBarChartChaturaseetiSamaDasaArtifactEditDialog()
-    testPriceBarChartSataabdikaDasaArtifactEditDialog()
-    testPriceBarChartShodasottariDasaArtifactEditDialog()
-    testPriceBarChartPanchottariDasaArtifactEditDialog()
-    testPriceBarChartShashtihayaniDasaArtifactEditDialog()
+    #testPriceBarChartFibFanArtifactEditDialog()
+    #testPriceBarChartGannFanArtifactEditDialog()
+    #testPriceBarChartVimsottariDasaArtifactEditDialog()
+    #testPriceBarChartAshtottariDasaArtifactEditDialog()
+    #testPriceBarChartYoginiDasaArtifactEditDialog()
+    #testPriceBarChartDwisaptatiSamaDasaArtifactEditDialog()
+    #testPriceBarChartShattrimsaSamaDasaArtifactEditDialog()
+    #testPriceBarChartDwadasottariDasaArtifactEditDialog()
+    #testPriceBarChartChaturaseetiSamaDasaArtifactEditDialog()
+    #testPriceBarChartSataabdikaDasaArtifactEditDialog()
+    #testPriceBarChartShodasottariDasaArtifactEditDialog()
+    #testPriceBarChartPanchottariDasaArtifactEditDialog()
+    #testPriceBarChartShashtihayaniDasaArtifactEditDialog()
     
     # Exit the app when all windows are closed.
     app.connect(app, SIGNAL("lastWindowClosed()"), logging.shutdown)

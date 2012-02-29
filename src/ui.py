@@ -431,7 +431,15 @@ class MainWindow(QMainWindow):
             QAction(icon, "Price Modal Scale Tool", self)
         self.priceModalScaleToolAction.setStatusTip("Price Modal Scale Tool")
         self.priceModalScaleToolAction.setCheckable(True)
-
+        
+        # Create the PlanetLongitudeMovementMeasurementToolAction
+        icon = QIcon() # TODO:  set icon path.
+        self.planetLongitudeMovementMeasurementToolAction = \
+            QAction(icon, "Planet Longitude Movement Measurement Tool", self)
+        self.planetLongitudeMovementMeasurementToolAction.\
+            setStatusTip("Planet Longitude Movement Measurement Tool")
+        self.planetLongitudeMovementMeasurementToolAction.setCheckable(True)
+        
         # Create the TextToolAction
         icon = QIcon(":/images/tango-icon-theme-0.8.90/32x32/mimetypes/font-x-generic.png")
         self.textToolAction = \
@@ -599,6 +607,8 @@ class MainWindow(QMainWindow):
         self.toolActionGroup.addAction(self.priceModalScaleToolAction)
         self.toolActionGroup.addAction(self.timeRetracementToolAction)
         self.toolActionGroup.addAction(self.priceRetracementToolAction)
+        self.toolActionGroup.\
+            addAction(self.planetLongitudeMovementMeasurementToolAction)
         self.toolActionGroup.addAction(self.textToolAction)
         self.toolActionGroup.addAction(self.priceTimeInfoToolAction)
         self.toolActionGroup.addAction(self.priceTimeVectorToolAction)
@@ -769,6 +779,8 @@ class MainWindow(QMainWindow):
         self.toolsMenu.addAction(self.priceModalScaleToolAction)
         self.toolsMenu.addAction(self.timeRetracementToolAction)
         self.toolsMenu.addAction(self.priceRetracementToolAction)
+        self.toolsMenu.\
+            addAction(self.planetLongitudeMovementMeasurementToolAction)
         self.toolsMenu.addAction(self.textToolAction)
         self.toolsMenu.addAction(self.priceTimeInfoToolAction)
         self.toolsMenu.addAction(self.priceTimeVectorToolAction)
@@ -843,6 +855,8 @@ class MainWindow(QMainWindow):
         self.toolsToolBar.addAction(self.priceModalScaleToolAction)
         self.toolsToolBar.addAction(self.timeRetracementToolAction)
         self.toolsToolBar.addAction(self.priceRetracementToolAction)
+        self.toolsToolBar.\
+            addAction(self.planetLongitudeMovementMeasurementToolAction)
         self.toolsToolBar.addAction(self.textToolAction)
         self.toolsToolBar.addAction(self.priceTimeInfoToolAction)
         self.toolsToolBar.addAction(self.priceTimeVectorToolAction)
@@ -935,6 +949,7 @@ class MainWindow(QMainWindow):
         self.timeMeasurementToolAction.setEnabled(isActive)
         self.timeModalScaleToolAction.setEnabled(isActive)
         self.priceModalScaleToolAction.setEnabled(isActive)
+        self.planetLongitudeMovementMeasurementToolAction.setEnabled(isActive)
         self.textToolAction.setEnabled(isActive)
         self.priceTimeInfoToolAction.setEnabled(isActive)
         self.priceMeasurementToolAction.setEnabled(isActive)
@@ -1008,6 +1023,9 @@ class MainWindow(QMainWindow):
                 priceChartDocument.toTimeModalScaleToolMode()
             elif self.priceModalScaleToolAction.isChecked():
                 priceChartDocument.toPriceModalScaleToolMode()
+            elif self.planetLongitudeMovementMeasurementToolAction.isChecked():
+                priceChartDocument.\
+                    toPlanetLongitudeMovementMeasurementToolMode()
             elif self.textToolAction.isChecked():
                 priceChartDocument.toTextToolMode()
             elif self.priceTimeInfoToolAction.isChecked():
@@ -3614,6 +3632,11 @@ class MainWindow(QMainWindow):
             self.log.debug("priceModalScaleToolAction triggered.")
             self.mostRecentGraphicsItemToolModeAction = qaction
             pcd.toPriceModalScaleToolMode()
+        elif qaction == self.planetLongitudeMovementMeasurementToolAction:
+            self.log.debug(\
+                "planetLongitudeMovementMeasurementToolAction triggered.")
+            self.mostRecentGraphicsItemToolModeAction = qaction
+            pcd.toPlanetLongitudeMovementMeasurementToolMode()
         elif qaction == self.textToolAction:
             self.log.debug("textToolAction triggered.")
             self.mostRecentGraphicsItemToolModeAction = qaction
@@ -4871,6 +4894,12 @@ class PriceChartDocument(QMdiSubWindow):
 
         self.widgets.toPriceModalScaleToolMode()
 
+    def toPlanetLongitudeMovementMeasurementToolMode(self):
+        """Changes the tool mode to be the
+        PlanetLongitudeMovementMeasurementTool."""
+
+        self.widgets.toPlanetLongitudeMovementMeasurementToolMode()
+
     def toTextToolMode(self):
         """Changes the tool mode to be the TextTool."""
 
@@ -5419,6 +5448,13 @@ class PriceChartDocumentWidget(QWidget):
         """Changes the tool mode to be the PriceModalScaleTool."""
 
         self.priceBarChartWidget.toPriceModalScaleToolMode()
+
+    def toPlanetLongitudeMovementMeasurementToolMode(self):
+        """Changes the tool mode to be the
+        PlanetLongitudeMovementMeasurementTool."""
+        
+        self.priceBarChartWidget.\
+            toPlanetLongitudeMovementMeasurementToolMode()
 
     def toTextToolMode(self):
         """Changes the tool mode to be the TextTool."""

@@ -280,6 +280,7 @@ Snap key bindings are supported for the following tools:
   - PriceMeasurementTool
   - TimeModalScaleTool
   - PriceModalScaleTool
+  - PlanetLongitudeMovementMeasurementToolMode
   - PriceTimeInfoTool
   - TimeRetracementTool
   - PriceRetracementTool

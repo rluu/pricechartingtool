@@ -37,6 +37,7 @@ from data_objects import PriceBarChartBarCountArtifact
 from data_objects import PriceBarChartTimeMeasurementArtifact
 from data_objects import PriceBarChartTimeModalScaleArtifact
 from data_objects import PriceBarChartPriceModalScaleArtifact
+from data_objects import PriceBarChartPlanetLongitudeMovementMeasurementArtifact
 from data_objects import PriceBarChartTextArtifact
 from data_objects import PriceBarChartPriceTimeInfoArtifact
 from data_objects import PriceBarChartPriceMeasurementArtifact
@@ -71,6 +72,7 @@ from pricebarchart_dialogs import PriceBarChartBarCountArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartTimeMeasurementArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartTimeModalScaleArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartPriceModalScaleArtifactEditDialog
+from pricebarchart_dialogs import PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartTextArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartPriceTimeInfoArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartPriceMeasurementArtifactEditDialog
@@ -3181,7 +3183,7 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.numScaledValueRange = \
                 abs(scene.convertDatetimeToScaledValue(endTimestamp) -
                     scene.convertDatetimeToScaledValue(startTimestamp))
-
+            
             # Calculate number of ayanas (6 months).
             # Ayana is half of a tropical year (solstice to solstice).
             daysInAyana = daysInTropicalYear / 2.0
@@ -4928,7 +4930,7 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                 self.scene().sceneXPosToDatetime(x)
                             timestampText = \
                                 Ephemeris.datetimeToDayStr(timestamp)
-                            # TODO:  This below has been temporarily commented out.  Uncomment when done working without timestamps.
+                            # TODO:  This below has been temporarily commented out.  Uncomment if I want the timestamps to be displayed.
                             #textItem.setText(timestampText)
 
                     # Also enable and set the vertical tick line.
@@ -7039,6 +7041,1924 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.scene().openAstrolog(self.startPointF.x())
         
         
+class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
+    """QGraphicsItem that visualizes a time measurement in the GraphicsView.
+
+    This item uses the origin point (0, 0) in item coordinates as the
+    center point height bar, on the start point (left part) of the bar ruler.
+
+    That means when a user creates a new PlanetLongitudeMovementMeasurementGraphicsItem
+    the position and points can be consistently set.
+    """
+    
+    def __init__(self, parent=None, scene=None):
+        super().__init__(parent, scene)
+
+        # Logger
+        self.log = \
+            logging.getLogger("pricebarchart.PlanetLongitudeMovementMeasurementGraphicsItem")
+        
+        self.log.debug("Entered __init__().")
+
+        ############################################################
+        # Set default values for preferences/settings.
+        
+        # Height of the vertical bar drawn.
+        self.planetLongitudeMovementMeasurementGraphicsItemBarHeight = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemBarHeight 
+ 
+        # Text rotation angle, in degrees (float).
+        self.planetLongitudeMovementMeasurementGraphicsItemTextRotationAngle = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemTextRotationAngle 
+ 
+        # X scaling of the text.
+        self.planetLongitudeMovementMeasurementTextXScaling = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemTextXScaling 
+
+        # Y scaling of the text.
+        self.planetLongitudeMovementMeasurementTextYScaling = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemTextYScaling 
+
+        # Font.
+        self.planetLongitudeMovementMeasurementTextFont = QFont()
+        self.planetLongitudeMovementMeasurementTextFont.fromString(\
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemDefaultFontDescription)
+        
+        # Color of the text that is associated with the graphicsitem.
+        self.planetLongitudeMovementMeasurementGraphicsItemTextColor = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemDefaultTextColor
+
+        # Color of the item.
+        self.planetLongitudeMovementMeasurementGraphicsItemColor = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemDefaultColor
+
+        # Flag for measuring planet geocentric longitude movement,
+        # where retrograde movements count as zero.
+        self.showGeocentricRetroAsZeroTextFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsZeroTextFlag
+        
+        # Flag for measuring planet geocentric longitude movement,
+        # where retrograde movements count as positive values.
+        self.showGeocentricRetroAsPositiveTextFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsPositiveTextFlag
+        
+        # Flag for measuring planet geocentric longitude movement,
+        # where retrograde movements count as negative values.
+        self.showGeocentricRetroAsNegativeTextFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlag
+        
+        # Flag for measuring planet heliocentric longitude movement.
+        self.showHeliocentricTextFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemShowHeliocentricTextFlag
+        
+        # Flag for using the tropical zodiac in measurements.
+        self.tropicalZodiacFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemTropicalZodiacFlag
+        
+        # Flag for using the sidereal zodiac in measurements.
+        self.siderealZodiacFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlag
+        
+        # Flag for displaying measurements in degrees.
+        self.measurementUnitDegreesEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabled
+        
+        # Flag for displaying measurements in number of 360-degree circles.
+        self.measurementUnitCirclesEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabled
+        
+        # Flag for measurement of planet H1 enabled.
+        self.planetH1EnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag
+        
+        # Flag for measurement of planet H2 enabled.
+        self.planetH2EnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlag
+        
+        # Flag for measurement of planet H3 enabled.
+        self.planetH3EnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlag
+        
+        # Flag for measurement of planet H4 enabled.
+        self.planetH4EnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlag
+        
+        # Flag for measurement of planet H5 enabled.
+        self.planetH5EnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlag
+        
+        # Flag for measurement of planet H6 enabled.
+        self.planetH6EnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlag
+        
+        # Flag for measurement of planet H7 enabled.
+        self.planetH7EnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlag
+        
+        # Flag for measurement of planet H8 enabled.
+        self.planetH8EnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlag
+        
+        # Flag for measurement of planet H9 enabled.
+        self.planetH9EnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlag
+        
+        # Flag for measurement of planet H10 enabled.
+        self.planetH10EnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlag
+        
+        # Flag for measurement of planet H11 enabled.
+        self.planetH11EnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlag
+        
+        # Flag for measurement of planet H12 enabled.
+        self.planetH12EnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag
+        
+        # Flag for measurement of planet HoraLagna enabled.
+        self.planetHoraLagnaEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag
+        
+        # Flag for measurement of planet GhatiLagna enabled.
+        self.planetGhatiLagnaEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlag
+        
+        # Flag for measurement of planet MeanLunarApogee enabled.
+        self.planetMeanLunarApogeeEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlag
+        
+        # Flag for measurement of planet OsculatingLunarApogee enabled.
+        self.planetOsculatingLunarApogeeEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlag
+        
+        # Flag for measurement of planet InterpolatedLunarApogee enabled.
+        self.planetInterpolatedLunarApogeeEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlag
+        
+        # Flag for measurement of planet InterpolatedLunarPerigee enabled.
+        self.planetInterpolatedLunarPerigeeEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlag
+        
+        # Flag for measurement of planet Sun enabled.
+        self.planetSunEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlag
+        
+        # Flag for measurement of planet Moon enabled.
+        self.planetMoonEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlag
+        
+        # Flag for measurement of planet Mercury enabled.
+        self.planetMercuryEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlag
+        
+        # Flag for measurement of planet Venus enabled.
+        self.planetVenusEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlag
+        
+        # Flag for measurement of planet Earth enabled.
+        self.planetEarthEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlag
+        
+        # Flag for measurement of planet Mars enabled.
+        self.planetMarsEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlag
+        
+        # Flag for measurement of planet Jupiter enabled.
+        self.planetJupiterEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlag
+        
+        # Flag for measurement of planet Saturn enabled.
+        self.planetSaturnEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlag
+        
+        # Flag for measurement of planet Uranus enabled.
+        self.planetUranusEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlag
+        
+        # Flag for measurement of planet Neptune enabled.
+        self.planetNeptuneEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlag
+        
+        # Flag for measurement of planet Pluto enabled.
+        self.planetPlutoEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlag
+        
+        # Flag for measurement of planet MeanNorthNode enabled.
+        self.planetMeanNorthNodeEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlag
+        
+        # Flag for measurement of planet MeanSouthNode enabled.
+        self.planetMeanSouthNodeEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlag
+        
+        # Flag for measurement of planet TrueNorthNode enabled.
+        self.planetTrueNorthNodeEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlag
+        
+        # Flag for measurement of planet TrueSouthNode enabled.
+        self.planetTrueSouthNodeEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlag
+        
+        # Flag for measurement of planet Ceres enabled.
+        self.planetCeresEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlag
+        
+        # Flag for measurement of planet Pallas enabled.
+        self.planetPallasEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlag
+        
+        # Flag for measurement of planet Juno enabled.
+        self.planetJunoEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlag
+        
+        # Flag for measurement of planet Vesta enabled.
+        self.planetVestaEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag
+        
+        # Flag for measurement of planet Chiron enabled.
+        self.planetChironEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag
+        
+        # Flag for measurement of planet Gulika enabled.
+        self.planetGulikaEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlag
+        
+        # Flag for measurement of planet Mandi enabled.
+        self.planetMandiEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlag
+        
+        # Flag for measurement of planet MeanOfFive enabled.
+        self.planetMeanOfFiveEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlag
+        
+        # Flag for measurement of planet CycleOfEight enabled.
+        self.planetCycleOfEightEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlag
+        
+        # Flag for measurement of planet AvgMaJuSaUrNePl enabled.
+        self.planetAvgMaJuSaUrNePlEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlag
+        
+        # Flag for measurement of planet AvgJuSaUrNe enabled.
+        self.planetAvgJuSaUrNeEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlag
+        
+        # Flag for measurement of planet AvgJuSa enabled.
+        self.planetAvgJuSaEnabledFlag =
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag
+        
+        ############################################################
+
+        # Internal storage object, used for loading/saving (serialization).
+        self.artifact = PriceBarChartPlanetLongitudeMovementMeasurementArtifact()
+
+        # Read the QSettings preferences for the various parameters of
+        # this price bar.
+        self.loadSettingsFromAppPreferences()
+        
+        # Pen which is used to do the painting of the bar ruler.
+        self.planetLongitudeMovementMeasurementPenWidth = 0.0
+        self.planetLongitudeMovementMeasurementPen = QPen()
+        self.planetLongitudeMovementMeasurementPen.\
+            setColor(self.planetLongitudeMovementMeasurementGraphicsItemColor)
+        self.planetLongitudeMovementMeasurementPen.\
+            setWidthF(self.planetLongitudeMovementMeasurementPenWidth)
+        
+        # Starting point, in scene coordinates.
+        self.startPointF = QPointF(0, 0)
+        
+        # Ending point, in scene coordinates.
+        self.endPointF = QPointF(0, 0)
+        
+        # Internal QGraphicsItem that holds the text of the measurement.
+        # Initialize to blank and set at the end point.
+        self.textItem = QGraphicsSimpleTextItem("", self)
+        self.textItem.setPos(self.endPointF)
+        
+        # Transform object applied to the text item.
+        self.textTransform = QTransform()
+        
+        # Set the text item with the properties we want it to have.
+        self.reApplyTextItemAttributes(self.textItem)
+        
+        # Flag that indicates that vertical dotted lines should be drawn.
+        self.drawVerticalDottedLinesFlag = False
+        
+        # Flags that indicate that the user is dragging either the start
+        # or end point of the QGraphicsItem.
+        self.draggingStartPointFlag = False
+        self.draggingEndPointFlag = False
+        self.clickScenePointF = None
+
+    def reApplyTextItemAttributes(self, textItem):
+        """Takes the given text item and reapplies the pen, brush,
+        transform, etc. that should be set for the text item.
+        """
+
+        # Set properties of the text item.
+        
+        # Set the font of the text.
+        textItem.setFont(self.planetLongitudeMovementMeasurementTextFont)
+        
+        # Set the pen color of the text.
+        self.planetLongitudeMovementMeasurementTextPen = textItem.pen()
+        self.planetLongitudeMovementMeasurementTextPen.\
+            setColor(self.planetLongitudeMovementMeasurementGraphicsItemTextColor)
+            
+        textItem.setPen(self.planetLongitudeMovementMeasurementTextPen)
+
+        # Set the brush color of the text.
+        self.planetLongitudeMovementMeasurementTextBrush = textItem.brush()
+        self.planetLongitudeMovementMeasurementTextBrush.\
+            setColor(self.planetLongitudeMovementMeasurementGraphicsItemTextColor)
+            
+        textItem.setBrush(self.planetLongitudeMovementMeasurementTextBrush)
+
+        # Apply some size scaling to the text.
+        self.textTransform = QTransform()
+        self.textTransform.scale(\
+            self.planetLongitudeMovementMeasurementTextXScaling, \
+            self.planetLongitudeMovementMeasurementTextYScaling)
+        self.textTransform.rotate(\
+            self.planetLongitudeMovementMeasurementGraphicsItemTextRotationAngle)
+        textItem.setTransform(self.textTransform)
+        
+    def setDrawVerticalDottedLinesFlag(self, flag):
+        """If flag is set to true, then the vertical dotted lines are drawn.
+        """
+
+        self.drawVerticalDottedLinesFlag = flag
+
+        # Need to call this because the bounding box is updated with
+        # all the extra vertical lines being drawn.
+        self.prepareGeometryChange()
+        
+    def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings):
+        """Reads some of the parameters/settings of this
+        PriceBarGraphicsItem from the given PriceBarChartSettings object.
+        """
+
+        self.log.debug("Entered loadSettingsFromPriceBarChartSettings()")
+        
+        # Height of the vertical bar drawn.
+        self.planetLongitudeMovementMeasurementGraphicsItemBarHeight = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemBarHeight 
+ 
+        # Text rotation angle, in degrees (float).
+        self.planetLongitudeMovementMeasurementGraphicsItemTextRotationAngle = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemTextRotationAngle
+ 
+        # X scaling of the text.
+        self.planetLongitudeMovementMeasurementTextXScaling = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemTextXScaling 
+
+        # Y scaling of the text.
+        self.planetLongitudeMovementMeasurementTextYScaling = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemTextYScaling 
+
+        # Font.
+        self.planetLongitudeMovementMeasurementTextFont = QFont()
+        self.planetLongitudeMovementMeasurementTextFont.fromString(\
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemDefaultFontDescription)
+        
+        # Color of the text that is associated with the graphicsitem.
+        self.planetLongitudeMovementMeasurementGraphicsItemTextColor = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemDefaultTextColor
+
+        # Color of the item.
+        self.planetLongitudeMovementMeasurementGraphicsItemColor = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemDefaultColor
+
+        # Flag for measuring planet geocentric longitude movement,
+        # where retrograde movements count as zero.
+        self.showGeocentricRetroAsZeroTextFlag = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsZeroTextFlag
+        
+        # Flag for measuring planet geocentric longitude movement,
+        # where retrograde movements count as positive values.
+        self.showGeocentricRetroAsPositiveTextFlag = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsPositiveTextFlag
+        
+        # Flag for measuring planet geocentric longitude movement,
+        # where retrograde movements count as negative values.
+        self.showGeocentricRetroAsNegativeTextFlag = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlag
+        
+        # Flag for measuring planet heliocentric longitude movement.
+        self.showHeliocentricTextFlag = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemShowHeliocentricTextFlag
+        
+        # Flag for using the tropical zodiac in measurements.
+        self.tropicalZodiacFlag = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemTropicalZodiacFlag
+        
+        # Flag for using the sidereal zodiac in measurements.
+        self.siderealZodiacFlag = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlag
+        
+        # Flag for displaying measurements in degrees.
+        self.measurementUnitDegreesEnabled = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabled
+        
+        # Flag for displaying measurements in number of 360-degree circles.
+        self.measurementUnitCirclesEnabled = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabled
+        
+        # Flag for measurement of planet H1 enabled.
+        self.planetH1EnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag
+        
+        # Flag for measurement of planet H2 enabled.
+        self.planetH2EnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlag
+        
+        # Flag for measurement of planet H3 enabled.
+        self.planetH3EnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlag
+        
+        # Flag for measurement of planet H4 enabled.
+        self.planetH4EnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlag
+        
+        # Flag for measurement of planet H5 enabled.
+        self.planetH5EnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlag
+        
+        # Flag for measurement of planet H6 enabled.
+        self.planetH6EnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlag
+        
+        # Flag for measurement of planet H7 enabled.
+        self.planetH7EnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlag
+        
+        # Flag for measurement of planet H8 enabled.
+        self.planetH8EnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlag
+        
+        # Flag for measurement of planet H9 enabled.
+        self.planetH9EnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlag
+        
+        # Flag for measurement of planet H10 enabled.
+        self.planetH10EnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlag
+        
+        # Flag for measurement of planet H11 enabled.
+        self.planetH11EnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlag
+        
+        # Flag for measurement of planet H12 enabled.
+        self.planetH12EnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag
+        
+        # Flag for measurement of planet HoraLagna enabled.
+        self.planetHoraLagnaEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag
+        
+        # Flag for measurement of planet GhatiLagna enabled.
+        self.planetGhatiLagnaEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlag
+        
+        # Flag for measurement of planet MeanLunarApogee enabled.
+        self.planetMeanLunarApogeeEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlag
+        
+        # Flag for measurement of planet OsculatingLunarApogee enabled.
+        self.planetOsculatingLunarApogeeEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlag
+        
+        # Flag for measurement of planet InterpolatedLunarApogee enabled.
+        self.planetInterpolatedLunarApogeeEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlag
+        
+        # Flag for measurement of planet InterpolatedLunarPerigee enabled.
+        self.planetInterpolatedLunarPerigeeEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlag
+        
+        # Flag for measurement of planet Sun enabled.
+        self.planetSunEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlag
+        
+        # Flag for measurement of planet Moon enabled.
+        self.planetMoonEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlag
+        
+        # Flag for measurement of planet Mercury enabled.
+        self.planetMercuryEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlag
+        
+        # Flag for measurement of planet Venus enabled.
+        self.planetVenusEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlag
+        
+        # Flag for measurement of planet Earth enabled.
+        self.planetEarthEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlag
+        
+        # Flag for measurement of planet Mars enabled.
+        self.planetMarsEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlag
+        
+        # Flag for measurement of planet Jupiter enabled.
+        self.planetJupiterEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlag
+        
+        # Flag for measurement of planet Saturn enabled.
+        self.planetSaturnEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlag
+        
+        # Flag for measurement of planet Uranus enabled.
+        self.planetUranusEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlag
+        
+        # Flag for measurement of planet Neptune enabled.
+        self.planetNeptuneEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlag
+        
+        # Flag for measurement of planet Pluto enabled.
+        self.planetPlutoEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlag
+        
+        # Flag for measurement of planet MeanNorthNode enabled.
+        self.planetMeanNorthNodeEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlag
+        
+        # Flag for measurement of planet MeanSouthNode enabled.
+        self.planetMeanSouthNodeEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlag
+        
+        # Flag for measurement of planet TrueNorthNode enabled.
+        self.planetTrueNorthNodeEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlag
+        
+        # Flag for measurement of planet TrueSouthNode enabled.
+        self.planetTrueSouthNodeEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlag
+        
+        # Flag for measurement of planet Ceres enabled.
+        self.planetCeresEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlag
+        
+        # Flag for measurement of planet Pallas enabled.
+        self.planetPallasEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlag
+        
+        # Flag for measurement of planet Juno enabled.
+        self.planetJunoEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlag
+        
+        # Flag for measurement of planet Vesta enabled.
+        self.planetVestaEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag
+        
+        # Flag for measurement of planet Chiron enabled.
+        self.planetChironEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag
+        
+        # Flag for measurement of planet Gulika enabled.
+        self.planetGulikaEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlag
+        
+        # Flag for measurement of planet Mandi enabled.
+        self.planetMandiEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlag
+        
+        # Flag for measurement of planet MeanOfFive enabled.
+        self.planetMeanOfFiveEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlag
+        
+        # Flag for measurement of planet CycleOfEight enabled.
+        self.planetCycleOfEightEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlag
+        
+        # Flag for measurement of planet AvgMaJuSaUrNePl enabled.
+        self.planetAvgMaJuSaUrNePlEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlag
+        
+        # Flag for measurement of planet AvgJuSaUrNe enabled.
+        self.planetAvgJuSaUrNeEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlag
+        
+        # Flag for measurement of planet AvgJuSa enabled.
+        self.planetAvgJuSaEnabledFlag =
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag
+        
+        ####################################################################
+
+        # Update the text item with the new settings.
+        self.reApplyTextItemAttributes(self.textItem)
+
+        # Update the time measurement calculations since scaling could
+        # have changed.
+        self.recalculatePlanetLongitudeMovementMeasurement()
+        
+        # Update the planetLongitudeMovementMeasurement text item position.
+        self._updateTextItemPositions()
+        
+        # Set the new color of the pen for drawing the bar.
+        self.planetLongitudeMovementMeasurementPen.\
+            setColor(self.planetLongitudeMovementMeasurementGraphicsItemColor)
+        
+        # Schedule an update.
+        self.prepareGeometryChange()
+
+        self.log.debug("Exiting loadSettingsFromPriceBarChartSettings()")
+        
+    def loadSettingsFromAppPreferences(self):
+        """Reads some of the parameters/settings of this
+        GraphicsItem from the QSettings object. 
+        """
+
+        # No settings.
+        
+    def setPos(self, pos):
+        """Overwrites the QGraphicsItem setPos() function.
+
+        Here we use the new position to re-set the self.startPointF and
+        self.endPointF.
+
+        Arguments:
+        pos - QPointF holding the new position.
+        """
+        self.log.debug("Entered setPos()")
+        
+        super().setPos(pos)
+
+        newScenePos = pos
+
+        posDelta = newScenePos - self.startPointF
+
+        # Update the start and end points accordingly. 
+        self.startPointF = self.startPointF + posDelta
+        self.endPointF = self.endPointF + posDelta
+
+        if self.scene() != None:
+            self.recalculatePlanetLongitudeMovementMeasurement()
+            self.prepareGeometryChange()
+
+        self.log.debug("Exiting setPos()")
+        
+    def mousePressEvent(self, event):
+        """Overwrites the QGraphicsItem mousePressEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+
+        self.log.debug("Entered mousePressEvent()")
+        
+        # If the item is in read-only mode, simply call the parent
+        # implementation of this function.
+        if self.getReadOnlyFlag() == True:
+            super().mousePressEvent(event)
+        else:
+            # If the mouse press is within 1/5th of the bar length to the
+            # beginning or end points, then the user is trying to adjust
+            # the starting or ending points of the bar counter ruler.
+            scenePosX = event.scenePos().x()
+            self.log.debug("DEBUG: scenePosX={}".format(scenePosX))
+            
+            startingPointX = self.startPointF.x()
+            self.log.debug("DEBUG: startingPointX={}".format(startingPointX))
+            endingPointX = self.endPointF.x()
+            self.log.debug("DEBUG: endingPointX={}".format(endingPointX))
+            
+            diff = endingPointX - startingPointX
+            self.log.debug("DEBUG: diff={}".format(diff))
+
+            startThreshold = startingPointX + (diff * (1.0 / 5))
+            endThreshold = endingPointX - (diff * (1.0 / 5))
+
+            self.log.debug("DEBUG: startThreshold={}".format(startThreshold))
+            self.log.debug("DEBUG: endThreshold={}".format(endThreshold))
+
+            if startingPointX <= scenePosX <= startThreshold or \
+                   startingPointX >= scenePosX >= startThreshold:
+                
+                self.draggingStartPointFlag = True
+                self.log.debug("DEBUG: self.draggingStartPointFlag={}".
+                               format(self.draggingStartPointFlag))
+                
+            elif endingPointX <= scenePosX <= endThreshold or \
+                   endingPointX >= scenePosX >= endThreshold:
+                
+                self.draggingEndPointFlag = True
+                self.log.debug("DEBUG: self.draggingEndPointFlag={}".
+                               format(self.draggingEndPointFlag))
+            else:
+                # The mouse has clicked the middle part of the
+                # QGraphicsItem, so pass the event to the parent, because
+                # the user wants to either select or drag-move the
+                # position of the QGraphicsItem.
+                self.log.debug("DEBUG:  Middle part clicked.  " + \
+                               "Passing to super().")
+
+                # Save the click position, so that if it is a drag, we
+                # can have something to reference from for setting the
+                # start and end positions when the user finally
+                # releases the mouse button.
+                self.clickScenePointF = event.scenePos()
+                
+                super().mousePressEvent(event)
+
+        self.log.debug("Leaving mousePressEvent()")
+        
+    def mouseMoveEvent(self, event):
+        """Overwrites the QGraphicsItem mouseMoveEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+
+        if event.buttons() & Qt.LeftButton:
+            if self.getReadOnlyFlag() == False:
+                if self.draggingStartPointFlag == True:
+                    self.log.debug("DEBUG: self.draggingStartPointFlag={}".
+                                   format(self.draggingStartPointFlag))
+                    self.setStartPointF(QPointF(event.scenePos().x(),
+                                                self.startPointF.y()))
+                    self.prepareGeometryChange()
+                elif self.draggingEndPointFlag == True:
+                    self.log.debug("DEBUG: self.draggingEndPointFlag={}".
+                                   format(self.draggingEndPointFlag))
+                    self.setEndPointF(QPointF(event.scenePos().x(),
+                                              self.endPointF.y()))
+                    self.prepareGeometryChange()
+                else:
+                    # This means that the user is dragging the whole
+                    # ruler.
+
+                    # Do the move.
+                    super().mouseMoveEvent(event)
+                    
+                    # Emit that the PriceBarChart has changed.
+                    self.scene().priceBarChartChanged.emit()
+            else:
+                super().mouseMoveEvent(event)
+        else:
+            super().mouseMoveEvent(event)
+
+    def mouseReleaseEvent(self, event):
+        """Overwrites the QGraphicsItem mouseReleaseEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+        
+        self.log.debug("Entered mouseReleaseEvent()")
+
+        if self.draggingStartPointFlag == True:
+            self.log.debug("mouseReleaseEvent() when previously dragging " + \
+                           "startPoint.")
+            
+            self.draggingStartPointFlag = False
+
+            # Make sure the starting point is to the left of the
+            # ending point.
+            self.normalizeStartAndEnd()
+
+            self.prepareGeometryChange()
+            
+            self.scene().priceBarChartChanged.emit()
+            
+        elif self.draggingEndPointFlag == True:
+            self.log.debug("mouseReleaseEvent() when previously dragging " +
+                           "endPoint.")
+            
+            self.draggingEndPointFlag = False
+
+            # Make sure the starting point is to the left of the
+            # ending point.
+            self.normalizeStartAndEnd()
+
+            self.prepareGeometryChange()
+            
+            self.scene().priceBarChartChanged.emit()
+            
+        else:
+            self.log.debug("mouseReleaseEvent() when NOT previously " + \
+                           "dragging an end.")
+
+            if self.getReadOnlyFlag() == False:
+                # Update the start and end positions.
+                self.log.debug("DEBUG: scenePos: x={}, y={}".
+                               format(event.scenePos().x(),
+                                      event.scenePos().y()))
+
+                # Calculate the difference between where the user released
+                # the button and where the user first clicked the item.
+                delta = event.scenePos() - self.clickScenePointF
+
+                self.log.debug("DEBUG: delta: x={}, y={}".
+                               format(delta.x(), delta.y()))
+
+                # If the delta is not zero, then update the start and
+                # end points by calling setPos() on the new calculated
+                # position.
+                if delta.x() != 0.0 and delta.y() != 0.0:
+                    newPos = self.startPointF + delta
+                    self.setPos(newPos)
+            
+            super().mouseReleaseEvent(event)
+
+        self.log.debug("Exiting mouseReleaseEvent()")
+
+    def setReadOnlyFlag(self, flag):
+        """Overwrites the PriceBarChartArtifactGraphicsItem setReadOnlyFlag()
+        function.
+        """
+
+        # Call the parent's function so that the flag gets set.
+        super().setReadOnlyFlag(flag)
+
+        # Make sure the drag flags are disabled.
+        if flag == True:
+            self.draggingStartPointFlag = False
+            self.draggingEndPointFlag = False
+
+    def _updateTextItemPositions(self):
+        """Updates the location of the internal text items based on
+        where the start and end points are.
+        """
+        
+        # Update the planetLongitudeMovementMeasurement label position.
+        
+        # TODO: determine if I need to do anything here to account for
+        # the text rotation angle.  (my guess is not, since
+        # boundingRect() called below should handle everything fine,
+        # but I need to verify)
+
+        # Changes in x and y.
+        deltaX = self.endPointF.x() - self.startPointF.x()
+        deltaY = self.endPointF.y() - self.startPointF.y()
+        
+        # Get bounding rectangle of text item.
+        boundingRect = self.textItem.boundingRect()
+
+        # Find largest text height and width.
+        largestTextHeight = boundingRect.height()
+        largestTextWidth = boundingRect.width()
+
+        # Now replace the above with the scaled version of it. 
+        largestTextHeight = largestTextHeight * self.textTransform.m22()
+        largestTextWidth = largestTextWidth * self.textTransform.m11()
+
+        self.log.debug("largestTextHeight = {}".format(largestTextHeight))
+        self.log.debug("largestTextWidth = {}".format(largestTextWidth))
+        
+        # Get the x and y of the point to place the text, referenced
+        # on the line from start point to end point, but offset by a
+        # certain amount such that the largest text would be centered
+        # on the line.
+        midX = self.mapFromScene(\
+            QPointF(self.startPointF.x() + (deltaX * 0.5), 0.0)).x()
+        midY = self.mapFromScene(\
+            QPointF(0.0, self.startPointF.y() + (deltaY * 0.5))).y()
+
+        self.log.debug("midX={}, midY={}".format(midX, midY))
+                       
+        startX = midX
+        startY = midY
+
+        # Amount to mutiply to get a largest offset from startY.
+        offsetY = largestTextHeight
+        offsetX = (largestTextWidth / 2.0)
+        
+        x = startX - offsetX
+        y = startY - offsetY
+        
+        self.textItem.setPos(QPointF(x, y))
+                    
+    def setStartPointF(self, pointF):
+        """Sets the starting point of the bar count.  The value passed in
+        is the mouse location in scene coordinates.  
+        """
+
+        x = pointF.x()
+
+        newValue = QPointF(x, self.endPointF.y())
+
+        if self.startPointF != newValue: 
+            self.startPointF = newValue
+
+            self.setPos(self.startPointF)
+
+            # Update the planetLongitudeMovementMeasurement text item position.
+            self._updateTextItemPositions()
+            
+            if self.scene() != None:
+                # Re-calculate the timemeasurement.
+                self.recalculatePlanetLongitudeMovementMeasurement()
+                self.prepareGeometryChange()
+                
+    def setEndPointF(self, pointF):
+        """Sets the ending point of the bar count.  The value passed in
+        is the mouse location in scene coordinates.  
+        """
+
+        x = pointF.x()
+
+        newValue = QPointF(x, self.startPointF.y())
+
+        if self.endPointF != newValue:
+            self.endPointF = newValue
+
+            # Update the planetLongitudeMovementMeasurement text item position.
+            self._updateTextItemPositions()
+            
+            if self.scene() != None:
+                # Re-calculate the timemeasurement.
+                self.recalculatePlanetLongitudeMovementMeasurement()
+                self.prepareGeometryChange()
+
+    def normalizeStartAndEnd(self):
+        """Sets the starting point X location to be less than the ending
+        point X location.
+        """
+
+        if self.startPointF.x() > self.endPointF.x():
+            self.log.debug("Normalization of PlanetLongitudeMovementMeasurementGraphicsItem " +
+                           "required.")
+            
+            # Swap the points.
+            temp = self.startPointF
+            self.startPointF = self.endPointF
+            self.endPointF = temp
+
+            self.recalculatePlanetLongitudeMovementMeasurement()
+            
+            # Update the planetLongitudeMovementMeasurement text item position.
+            self._updateTextItemPositions()
+            
+            super().setPos(self.startPointF)
+            
+
+    def recalculatePlanetLongitudeMovementMeasurement(self):
+        """Does calculations to determine the planetary measurements
+        between the start and end points.
+        """
+
+        scene = self.scene()
+
+        # Text to set in the text item.
+        text = ""
+
+        if scene != None:
+            # Get all the QGraphicsItems.
+            graphicsItems = scene.items()
+
+            # Calculate the number of (calendar) days.
+            startTimestamp = \
+                scene.sceneXPosToDatetime(self.startPointF.x())
+            
+            timestampStr = Ephemeris.datetimeToDayStr(startTimestamp)
+            self.log.debug("startTimestamp: " + timestampStr)
+            
+            endTimestamp = \
+                scene.sceneXPosToDatetime(self.endPointF.x())
+            
+            timestampStr = Ephemeris.datetimeToDayStr(endTimestamp)
+            self.log.debug("endTimestamp: " + timestampStr)
+            
+            # TODO:  Here, do calculations here for measuring planet movements.
+            # For each measurement that is completed, append text.
+            # 
+            # Make sure I have the location of the timezone set in the
+            # Ephemeris before using the Ephemeris to query planet
+            # positions!  I need to make sure this is guaranteed
+            # because the user could switch subwindows between charts
+            # that have different timezones and birth dates.  Perhaps
+            # this kind of information should be set right when a
+            # subwindow (PCD document) gets activated?
+            #
+            # 
+            
+        text = text.rstrip()
+        self.textItem.setText(text)
+        
+    def setArtifact(self, artifact):
+        """Loads a given PriceBarChartPlanetLongitudeMovementMeasurementArtifact object's data
+        into this QGraphicsItem.
+
+        Arguments:
+        artifact - PriceBarChartPlanetLongitudeMovementMeasurementArtifact object with information
+                   about this TextGraphisItem
+        """
+
+        self.log.debug("Entering setArtifact()")
+
+        if isinstance(artifact, PriceBarChartPlanetLongitudeMovementMeasurementArtifact):
+            self.artifact = artifact
+        else:
+            raise TypeError("Expected artifact type: " + \
+                            "PriceBarChartPlanetLongitudeMovementMeasurementArtifact")
+
+        # Extract and set the internals according to the info 
+        # in this artifact object.
+
+        # Grab the points from the artifact so that the values don't
+        # change while we set them in this item.
+        startPointF = self.artifact.getStartPointF()
+        endPointF = self.artifact.getEndPointF()
+        self.setPos(startPointF)
+        self.setStartPointF(startPointF)
+        self.setEndPointF(endPointF)
+        
+        self.planetLongitudeMovementMeasurementTextXScaling = self.artifact.getTextXScaling()
+        self.planetLongitudeMovementMeasurementTextYScaling = self.artifact.getTextYScaling()
+        self.planetLongitudeMovementMeasurementTextFont = self.artifact.getFont()
+        self.planetLongitudeMovementMeasurementGraphicsItemTextColor = self.artifact.getTextColor()
+        self.planetLongitudeMovementMeasurementPen.setColor(self.artifact.getColor())
+        
+        self.planetLongitudeMovementMeasurementGraphicsItemBarHeight = \
+            self.artifact.getBarHeight()
+        self.planetLongitudeMovementMeasurementGraphicsItemTextRotationAngle = \
+            self.artifact.getTextRotationAngle()
+
+        self.showGeocentricRetroAsZeroTextFlag = \
+            self.artifact.getGeocentricRetroAsZeroTextFlag()
+        self.showGeocentricRetroAsPositiveTextFlag = \
+            self.artifact.getGeocentricRetroAsPositiveTextFlag()
+        self.showGeocentricRetroAsNegativeTextFlag = \
+            self.artifact.getGeocentricRetroAsNegativeTextFlag()
+        self.showHeliocentricTextFlag = \
+            self.artifact.getHeliocentricTextFlag()
+        self.tropicalZodiacFlag = \
+            self.artifact.getTropicalZodiacFlag()
+        self.siderealZodiacFlag = \
+            self.artifact.getSiderealZodiacFlag()
+        self.measurementUnitDegreesEnabled = \
+            self.artifact.getMeasurementUnitDegreesEnabled()
+        self.measurementUnitCirclesEnabled = \
+            self.artifact.getMeasurementUnitCirclesEnabled()
+        
+        self.planetH1EnabledFlag = \
+            self.artifact.getPlanetH1EnabledFlag()
+        self.planetH2EnabledFlag = \
+            self.artifact.getPlanetH2EnabledFlag()
+        self.planetH3EnabledFlag = \
+            self.artifact.getPlanetH3EnabledFlag()
+        self.planetH4EnabledFlag = \
+            self.artifact.getPlanetH4EnabledFlag()
+        self.planetH5EnabledFlag = \
+            self.artifact.getPlanetH5EnabledFlag()
+        self.planetH6EnabledFlag = \
+            self.artifact.getPlanetH6EnabledFlag()
+        self.planetH7EnabledFlag = \
+            self.artifact.getPlanetH7EnabledFlag()
+        self.planetH8EnabledFlag = \
+            self.artifact.getPlanetH8EnabledFlag()
+        self.planetH9EnabledFlag = \
+            self.artifact.getPlanetH9EnabledFlag()
+        self.planetH10EnabledFlag = \
+            self.artifact.getPlanetH10EnabledFlag()
+        self.planetH11EnabledFlag = \
+            self.artifact.getPlanetH11EnabledFlag()
+        self.planetH12EnabledFlag = \
+            self.artifact.getPlanetH12EnabledFlag()
+        self.planetHoraLagnaEnabledFlag = \
+            self.artifact.getPlanetHoraLagnaEnabledFlag()
+        self.planetGhatiLagnaEnabledFlag = \
+            self.artifact.getPlanetGhatiLagnaEnabledFlag()
+        self.planetMeanLunarApogeeEnabledFlag = \
+            self.artifact.getPlanetMeanLunarApogeeEnabledFlag()
+        self.planetOsculatingLunarApogeeEnabledFlag = \
+            self.artifact.getPlanetOsculatingLunarApogeeEnabledFlag()
+        self.planetInterpolatedLunarApogeeEnabledFlag = \
+            self.artifact.getPlanetInterpolatedLunarApogeeEnabledFlag()
+        self.planetInterpolatedLunarPerigeeEnabledFlag = \
+            self.artifact.getPlanetInterpolatedLunarPerigeeEnabledFlag()
+        self.planetSunEnabledFlag = \
+            self.artifact.getPlanetSunEnabledFlag()
+        self.planetMoonEnabledFlag = \
+            self.artifact.getPlanetMoonEnabledFlag()
+        self.planetMercuryEnabledFlag = \
+            self.artifact.getPlanetMercuryEnabledFlag()
+        self.planetVenusEnabledFlag = \
+            self.artifact.getPlanetVenusEnabledFlag()
+        self.planetEarthEnabledFlag = \
+            self.artifact.getPlanetEarthEnabledFlag()
+        self.planetMarsEnabledFlag = \
+            self.artifact.getPlanetMarsEnabledFlag()
+        self.planetJupiterEnabledFlag = \
+            self.artifact.getPlanetJupiterEnabledFlag()
+        self.planetSaturnEnabledFlag = \
+            self.artifact.getPlanetSaturnEnabledFlag()
+        self.planetUranusEnabledFlag = \
+            self.artifact.getPlanetUranusEnabledFlag()
+        self.planetNeptuneEnabledFlag = \
+            self.artifact.getPlanetNeptuneEnabledFlag()
+        self.planetPlutoEnabledFlag = \
+            self.artifact.getPlanetPlutoEnabledFlag()
+        self.planetMeanNorthNodeEnabledFlag = \
+            self.artifact.getPlanetMeanNorthNodeEnabledFlag()
+        self.planetMeanSouthNodeEnabledFlag = \
+            self.artifact.getPlanetMeanSouthNodeEnabledFlag()
+        self.planetTrueNorthNodeEnabledFlag = \
+            self.artifact.getPlanetTrueNorthNodeEnabledFlag()
+        self.planetTrueSouthNodeEnabledFlag = \
+            self.artifact.getPlanetTrueSouthNodeEnabledFlag()
+        self.planetCeresEnabledFlag = \
+            self.artifact.getPlanetCeresEnabledFlag()
+        self.planetPallasEnabledFlag = \
+            self.artifact.getPlanetPallasEnabledFlag()
+        self.planetJunoEnabledFlag = \
+            self.artifact.getPlanetJunoEnabledFlag()
+        self.planetVestaEnabledFlag = \
+            self.artifact.getPlanetVestaEnabledFlag()
+        self.planetChironEnabledFlag = \
+            self.artifact.getPlanetChironEnabledFlag()
+        self.planetGulikaEnabledFlag = \
+            self.artifact.getPlanetGulikaEnabledFlag()
+        self.planetMandiEnabledFlag = \
+            self.artifact.getPlanetMandiEnabledFlag()
+        self.planetMeanOfFiveEnabledFlag = \
+            self.artifact.getPlanetMeanOfFiveEnabledFlag()
+        self.planetCycleOfEightEnabledFlag = \
+            self.artifact.getPlanetCycleOfEightEnabledFlag()
+        self.planetAvgMaJuSaUrNePlEnabledFlag = \
+            self.artifact.getPlanetAvgMaJuSaUrNePlEnabledFlag()
+        self.planetAvgJuSaUrNeEnabledFlag = \
+            self.artifact.getPlanetAvgJuSaUrNeEnabledFlag()
+        self.planetAvgJuSaEnabledFlag = \
+            self.artifact.getPlanetAvgJuSaEnabledFlag()
+        
+
+        #############
+
+        # Update all the text item with the new settings.
+        self.reApplyTextItemAttributes(self.textItem)
+
+        # Need to recalculate the time measurement, since the start and end
+        # points have changed.  Note, if no scene has been set for the
+        # QGraphicsView, then the time measurements will be zero, since it
+        # can't look up PriceBarGraphicsItems in the scene.
+        self.recalculatePlanetLongitudeMovementMeasurement()
+        
+        # Update the planetLongitudeMovementMeasurement text item position.
+        self._updateTextItemPositions()
+        
+        self.log.debug("Exiting setArtifact()")
+
+    def getArtifact(self):
+        """Returns a PriceBarChartPlanetLongitudeMovementMeasurementArtifact for this
+        QGraphicsItem so that it may be pickled.
+        """
+        
+        self.log.debug("Entered getArtifact()")
+        
+        # Update the internal self.priceBarChartPlanetLongitudeMovementMeasurementArtifact 
+        # to be current, then return it.
+
+        self.artifact.setPos(self.pos())
+        self.artifact.setStartPointF(self.startPointF)
+        self.artifact.setEndPointF(self.endPointF)
+        
+        self.artifact.setTextXScaling(self.planetLongitudeMovementMeasurementTextXScaling)
+        self.artifact.setTextYScaling(self.planetLongitudeMovementMeasurementTextYScaling)
+        self.artifact.setFont(self.planetLongitudeMovementMeasurementTextFont)
+        self.artifact.setTextColor(self.planetLongitudeMovementMeasurementGraphicsItemTextColor)
+        self.artifact.setColor(self.planetLongitudeMovementMeasurementPen.color())
+
+        self.artifact.setBarHeight(\
+            self.planetLongitudeMovementMeasurementGraphicsItemBarHeight)
+        self.artifact.setTextRotationAngle(\
+            self.planetLongitudeMovementMeasurementGraphicsItemTextRotationAngle)
+
+        self.artifact.setGeocentricRetroAsZeroTextFlag(\
+            self.showGeocentricRetroAsZeroTextFlag)
+        self.artifact.setGeocentricRetroAsPositiveTextFlag(\
+            self.showGeocentricRetroAsPositiveTextFlag)
+        self.artifact.setGeocentricRetroAsNegativeTextFlag(\
+            self.showGeocentricRetroAsNegativeTextFlag)
+        self.artifact.setHeliocentricTextFlag(\
+            self.showHeliocentricTextFlag)
+        self.artifact.setTropicalZodiacFlag(\
+            self.tropicalZodiacFlag)
+        self.artifact.setSiderealZodiacFlag(\
+            self.siderealZodiacFlag)
+        self.artifact.setMeasurementUnitDegreesEnabled(\
+            self.measurementUnitDegreesEnabled)
+        self.artifact.setMeasurementUnitCirclesEnabled(\
+            self.measurementUnitCirclesEnabled)
+        
+        self.artifact.setPlanetH1EnabledFlag(\
+            self.planetH1EnabledFlag)
+        self.artifact.setPlanetH2EnabledFlag(\
+            self.planetH2EnabledFlag)
+        self.artifact.setPlanetH3EnabledFlag(\
+            self.planetH3EnabledFlag)
+        self.artifact.setPlanetH4EnabledFlag(\
+            self.planetH4EnabledFlag)
+        self.artifact.setPlanetH5EnabledFlag(\
+            self.planetH5EnabledFlag)
+        self.artifact.setPlanetH6EnabledFlag(\
+            self.planetH6EnabledFlag)
+        self.artifact.setPlanetH7EnabledFlag(\
+            self.planetH7EnabledFlag)
+        self.artifact.setPlanetH8EnabledFlag(\
+            self.planetH8EnabledFlag)
+        self.artifact.setPlanetH9EnabledFlag(\
+            self.planetH9EnabledFlag)
+        self.artifact.setPlanetH10EnabledFlag(\
+            self.planetH10EnabledFlag)
+        self.artifact.setPlanetH11EnabledFlag(\
+            self.planetH11EnabledFlag)
+        self.artifact.setPlanetH12EnabledFlag(\
+            self.planetH12EnabledFlag)
+        self.artifact.setPlanetHoraLagnaEnabledFlag(\
+            self.planetHoraLagnaEnabledFlag)
+        self.artifact.setPlanetGhatiLagnaEnabledFlag(\
+            self.planetGhatiLagnaEnabledFlag)
+        self.artifact.setPlanetMeanLunarApogeeEnabledFlag(\
+            self.planetMeanLunarApogeeEnabledFlag)
+        self.artifact.setPlanetOsculatingLunarApogeeEnabledFlag(\
+            self.planetOsculatingLunarApogeeEnabledFlag)
+        self.artifact.setPlanetInterpolatedLunarApogeeEnabledFlag(\
+            self.planetInterpolatedLunarApogeeEnabledFlag)
+        self.artifact.setPlanetInterpolatedLunarPerigeeEnabledFlag(\
+            self.planetInterpolatedLunarPerigeeEnabledFlag)
+        self.artifact.setPlanetSunEnabledFlag(\
+            self.planetSunEnabledFlag)
+        self.artifact.setPlanetMoonEnabledFlag(\
+            self.planetMoonEnabledFlag)
+        self.artifact.setPlanetMercuryEnabledFlag(\
+            self.planetMercuryEnabledFlag)
+        self.artifact.setPlanetVenusEnabledFlag(\
+            self.planetVenusEnabledFlag)
+        self.artifact.setPlanetEarthEnabledFlag(\
+            self.planetEarthEnabledFlag)
+        self.artifact.setPlanetMarsEnabledFlag(\
+            self.planetMarsEnabledFlag)
+        self.artifact.setPlanetJupiterEnabledFlag(\
+            self.planetJupiterEnabledFlag)
+        self.artifact.setPlanetSaturnEnabledFlag(\
+            self.planetSaturnEnabledFlag)
+        self.artifact.setPlanetUranusEnabledFlag(\
+            self.planetUranusEnabledFlag)
+        self.artifact.setPlanetNeptuneEnabledFlag(\
+            self.planetNeptuneEnabledFlag)
+        self.artifact.setPlanetPlutoEnabledFlag(\
+            self.planetPlutoEnabledFlag)
+        self.artifact.setPlanetMeanNorthNodeEnabledFlag(\
+            self.planetMeanNorthNodeEnabledFlag)
+        self.artifact.setPlanetMeanSouthNodeEnabledFlag(\
+            self.planetMeanSouthNodeEnabledFlag)
+        self.artifact.setPlanetTrueNorthNodeEnabledFlag(\
+            self.planetTrueNorthNodeEnabledFlag)
+        self.artifact.setPlanetTrueSouthNodeEnabledFlag(\
+            self.planetTrueSouthNodeEnabledFlag)
+        self.artifact.setPlanetCeresEnabledFlag(\
+            self.planetCeresEnabledFlag)
+        self.artifact.setPlanetPallasEnabledFlag(\
+            self.planetPallasEnabledFlag)
+        self.artifact.setPlanetJunoEnabledFlag(\
+            self.planetJunoEnabledFlag)
+        self.artifact.setPlanetVestaEnabledFlag(\
+            self.planetVestaEnabledFlag)
+        self.artifact.setPlanetChironEnabledFlag(\
+            self.planetChironEnabledFlag)
+        self.artifact.setPlanetGulikaEnabledFlag(\
+            self.planetGulikaEnabledFlag)
+        self.artifact.setPlanetMandiEnabledFlag(\
+            self.planetMandiEnabledFlag)
+        self.artifact.setPlanetMeanOfFiveEnabledFlag(\
+            self.planetMeanOfFiveEnabledFlag)
+        self.artifact.setPlanetCycleOfEightEnabledFlag(\
+            self.planetCycleOfEightEnabledFlag)
+        self.artifact.setPlanetAvgMaJuSaUrNePlEnabledFlag(\
+            self.planetAvgMaJuSaUrNePlEnabledFlag)
+        self.artifact.setPlanetAvgJuSaUrNeEnabledFlag(\
+            self.planetAvgJuSaUrNeEnabledFlag)
+        self.artifact.setPlanetAvgJuSaEnabledFlag(\
+            self.planetAvgJuSaEnabledFlag)
+        
+        self.log.debug("Exiting getArtifact()")
+        
+        return self.artifact
+
+    def boundingRect(self):
+        """Returns the bounding rectangle for this graphicsitem."""
+
+        # Coordinate (0, 0) in local coordinates is the center of 
+        # the vertical bar that is at the left portion of this widget,
+        # and represented in scene coordinates as the self.startPointF 
+        # location.
+
+        # The QRectF returned is relative to this (0, 0) point.
+
+        # Get the QRectF with just the lines.
+        xDelta = self.endPointF.x() - self.startPointF.x()
+
+        topLeft = \
+            QPointF(0.0, -1.0 *
+                    (self.planetLongitudeMovementMeasurementGraphicsItemBarHeight * 0.5))
+        
+        bottomRight = \
+            QPointF(xDelta, 1.0 *
+                    (self.planetLongitudeMovementMeasurementGraphicsItemBarHeight * 0.5))
+
+        # Initalize to the above boundaries.  We will set them below.
+        localHighY = topLeft.y()
+        localLowY = bottomRight.y()
+        if self.drawVerticalDottedLinesFlag or self.isSelected():
+            # Get the highest high, and lowest low PriceBar in local
+            # coordinates.
+            highestPriceBar = self.scene().getHighestPriceBar()
+            if highestPriceBar != None:
+                highestPrice = highestPriceBar.high
+                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
+                localHighestPriceBarY = \
+                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+
+                # Overwrite the high if it is larger.
+                if localHighestPriceBarY > localHighY:
+                    localHighY = localHighestPriceBarY
+
+            lowestPriceBar = self.scene().getLowestPriceBar()
+            if lowestPriceBar != None:
+                lowestPrice = lowestPriceBar.low
+                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                localLowestPriceBarY = \
+                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+            
+                # Overwrite the low if it is smaller.
+                if localLowestPriceBarY < localLowY:
+                    localLowY = localLowestPriceBarY
+                
+        xValues = []
+        xValues.append(topLeft.x())
+        xValues.append(bottomRight.x())
+
+        yValues = []
+        yValues.append(topLeft.y())
+        yValues.append(bottomRight.y())
+        yValues.append(localHighY)
+        yValues.append(localLowY)
+
+        xValues.sort()
+        yValues.sort()
+        
+        # Find the smallest x and y.
+        smallestX = xValues[0]
+        smallestY = yValues[0]
+        
+        # Find the largest x and y.
+        largestX = xValues[-1]
+        largestY = yValues[-1]
+            
+        rv = QRectF(QPointF(smallestX, smallestY),
+                    QPointF(largestX, largestY))
+
+        return rv
+
+    def shape(self):
+        """Overwrites the QGraphicsItem.shape() function to return a
+        more accurate shape for collision detection, hit tests, etc.
+
+        Returns:
+        QPainterPath object holding the shape of this QGraphicsItem.
+        """
+
+        # Get the QRectF with just the lines.
+        xDelta = self.endPointF.x() - self.startPointF.x()
+        
+        topLeft = \
+            QPointF(0.0, -1.0 *
+                    (self.planetLongitudeMovementMeasurementGraphicsItemBarHeight * 0.5))
+        
+        bottomRight = \
+            QPointF(xDelta, 1.0 *
+                    (self.planetLongitudeMovementMeasurementGraphicsItemBarHeight * 0.5))
+
+        rectWithoutText = QRectF(topLeft, bottomRight)
+
+        painterPath = QPainterPath()
+        painterPath.addRect(rectWithoutText)
+
+        return painterPath
+        
+    def paint(self, painter, option, widget):
+        """Paints this QGraphicsItem.  Assumes that
+        self.planetLongitudeMovementMeasurementPen is set to what we want for the drawing
+        style.
+        """
+
+        if painter.pen() != self.planetLongitudeMovementMeasurementPen:
+            painter.setPen(self.planetLongitudeMovementMeasurementPen)
+        
+        # Keep track of x and y values.  We use this to draw the
+        # dotted lines later.
+        xValues = []
+        yValues = []
+        
+        # Draw the left vertical bar part.
+        x1 = 0.0
+        y1 = 1.0 * (self.planetLongitudeMovementMeasurementGraphicsItemBarHeight * 0.5)
+        x2 = 0.0
+        y2 = -1.0 * (self.planetLongitudeMovementMeasurementGraphicsItemBarHeight * 0.5)
+        painter.drawLine(QLineF(x1, y1, x2, y2))
+
+        xValues.append(x1)
+        xValues.append(x2)
+        yValues.append(y1)
+        yValues.append(y2)
+        
+        # Draw the right vertical bar part.
+        xDelta = self.endPointF.x() - self.startPointF.x()
+        x1 = 0.0 + xDelta
+        y1 = 1.0 * (self.planetLongitudeMovementMeasurementGraphicsItemBarHeight * 0.5)
+        x2 = 0.0 + xDelta
+        y2 = -1.0 * (self.planetLongitudeMovementMeasurementGraphicsItemBarHeight * 0.5)
+        painter.drawLine(QLineF(x1, y1, x2, y2))
+
+        xValues.append(x1)
+        xValues.append(x2)
+        yValues.append(y1)
+        yValues.append(y2)
+        
+        # Draw the middle horizontal line.
+        x1 = 0.0
+        y1 = 0.0
+        x2 = xDelta
+        y2 = 0.0
+        painter.drawLine(QLineF(x1, y1, x2, y2))
+
+        xValues.append(x1)
+        xValues.append(x2)
+        yValues.append(y1)
+        yValues.append(y2)
+        
+        # Draw vertical dotted lines at each enabled tick area if the
+        # flag is set to do so, or if it is selected.
+        if self.drawVerticalDottedLinesFlag == True or \
+           option.state & QStyle.State_Selected:
+
+            if self.scene() != None:
+                pad = self.planetLongitudeMovementMeasurementPen.widthF() * 0.5;
+                penWidth = 0.0
+                fgcolor = option.palette.windowText().color()
+                # Ensure good contrast against fgcolor.
+                r = 255
+                g = 255
+                b = 255
+                if fgcolor.red() > 127:
+                    r = 0
+                if fgcolor.green() > 127:
+                    g = 0
+                if fgcolor.blue() > 127:
+                    b = 0
+                bgcolor = QColor(r, g, b)
+    
+                # Get the highest high, and lowest low PriceBar in local
+                # coordinates.
+                highestPriceBar = self.scene().getHighestPriceBar()
+                if highestPriceBar != None:
+                    highestPrice = highestPriceBar.high
+                    highestPriceBarY = \
+                        self.scene().priceToSceneYPos(highestPrice)
+                    localHighY = \
+                        self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                    yValues.append(localHighY)
+                
+                lowestPriceBar = self.scene().getLowestPriceBar()
+                if lowestPriceBar != None:
+                    lowestPrice = lowestPriceBar.low
+                    lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                    localLowY = \
+                        self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                    yValues.append(localLowY)
+
+                # We have all y values now, so sort them to get the
+                # low and high.
+                yValues.sort()
+                smallestY = yValues[0]
+                largestY = yValues[-1]
+        
+                # Vertical line at the beginning.
+                localPosX = 0.0
+                startPoint = QPointF(localPosX, largestY)
+                endPoint = QPointF(localPosX, smallestY)
+                        
+                painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+                painter.setBrush(Qt.NoBrush)
+                painter.drawLine(startPoint, endPoint)
+                
+                painter.setPen(QPen(option.palette.windowText(), 0,
+                                    Qt.DashLine))
+                painter.setBrush(Qt.NoBrush)
+                painter.drawLine(startPoint, endPoint)
+            
+                # Vertical line at the end.
+                localPosX = 0.0 + xDelta
+                startPoint = QPointF(localPosX, largestY)
+                endPoint = QPointF(localPosX, smallestY)
+                        
+                painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+                painter.setBrush(Qt.NoBrush)
+                painter.drawLine(startPoint, endPoint)
+                
+                painter.setPen(QPen(option.palette.windowText(), 0,
+                                    Qt.DashLine))
+                painter.setBrush(Qt.NoBrush)
+                painter.drawLine(startPoint, endPoint)
+                
+        # Draw the bounding rect if the item is selected.
+        if option.state & QStyle.State_Selected:
+            pad = self.planetLongitudeMovementMeasurementPen.widthF() * 0.5;
+            penWidth = 0.0
+            fgcolor = option.palette.windowText().color()
+            
+            # Ensure good contrast against fgcolor.
+            r = 255
+            g = 255
+            b = 255
+            if fgcolor.red() > 127:
+                r = 0
+            if fgcolor.green() > 127:
+                g = 0
+            if fgcolor.blue() > 127:
+                b = 0
+            
+            bgcolor = QColor(r, g, b)
+            
+            painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawPath(self.shape())
+            
+            painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawPath(self.shape())
+
+    def appendActionsToContextMenu(self, menu, readOnlyMode=False):
+        """Modifies the given QMenu object to update the title and add
+        actions relevant to this PlanetLongitudeMovementMeasurementGraphicsItem.  Actions that
+        are triggered from this menu run various methods in the
+        PlanetLongitudeMovementMeasurementGraphicsItem to handle the desired functionality.
+        
+        Arguments:
+        menu - QMenu object to modify.
+        readOnlyMode - bool value that indicates the actions are to be
+                       readonly actions.
+        """
+
+        menu.setTitle(self.artifact.getInternalName())
+        
+        # These are the QActions that are in the menu.
+        parent = menu
+        selectAction = QAction("&Select", parent)
+        unselectAction = QAction("&Unselect", parent)
+        removeAction = QAction("&Remove", parent)
+        infoAction = QAction("&Info", parent)
+        editAction = QAction("&Edit", parent)
+        
+        setStartOnAstro1Action = \
+            QAction("Set start timestamp on Astro Chart &1", parent)
+        setStartOnAstro2Action = \
+            QAction("Set start timestamp on Astro Chart &2", parent)
+        setStartOnAstro3Action = \
+            QAction("Set start timestamp on Astro Chart &3", parent)
+        openStartInJHoraAction = \
+            QAction("Open JHor&a with start timestamp", parent)
+        openStartInAstrologAction = \
+            QAction("Open As&trolog with start timestamp", parent)
+        
+        setEndOnAstro1Action = \
+            QAction("Set end timestamp on Astro Chart 1", parent)
+        setEndOnAstro2Action = \
+            QAction("Set end timestamp on Astro Chart 2", parent)
+        setEndOnAstro3Action = \
+            QAction("Set end timestamp on Astro Chart 3", parent)
+        openEndInJHoraAction = \
+            QAction("Open JHora with end timestamp", parent)
+        openEndInAstrologAction = \
+            QAction("Open Astrolog with end timestamp", parent)
+        
+        selectAction.triggered.\
+            connect(self._handleSelectAction)
+        unselectAction.triggered.\
+            connect(self._handleUnselectAction)
+        removeAction.triggered.\
+            connect(self._handleRemoveAction)
+        infoAction.triggered.\
+            connect(self._handleInfoAction)
+        editAction.triggered.\
+            connect(self._handleEditAction)
+        setStartOnAstro1Action.triggered.\
+            connect(self._handleSetStartOnAstro1Action)
+        setStartOnAstro2Action.triggered.\
+            connect(self._handleSetStartOnAstro2Action)
+        setStartOnAstro3Action.triggered.\
+            connect(self._handleSetStartOnAstro3Action)
+        openStartInJHoraAction.triggered.\
+            connect(self._handleOpenStartInJHoraAction)
+        openStartInAstrologAction.triggered.\
+            connect(self._handleOpenStartInAstrologAction)
+        setEndOnAstro1Action.triggered.\
+            connect(self._handleSetEndOnAstro1Action)
+        setEndOnAstro2Action.triggered.\
+            connect(self._handleSetEndOnAstro2Action)
+        setEndOnAstro3Action.triggered.\
+            connect(self._handleSetEndOnAstro3Action)
+        openEndInJHoraAction.triggered.\
+            connect(self._handleOpenEndInJHoraAction)
+        openEndInAstrologAction.triggered.\
+            connect(self._handleOpenEndInAstrologAction)
+        
+        # Enable or disable actions.
+        selectAction.setEnabled(True)
+        unselectAction.setEnabled(True)
+        removeAction.setEnabled(not readOnlyMode)
+        infoAction.setEnabled(True)
+        editAction.setEnabled(not readOnlyMode)
+        setStartOnAstro1Action.setEnabled(True)
+        setStartOnAstro2Action.setEnabled(True)
+        setStartOnAstro3Action.setEnabled(True)
+        openStartInJHoraAction.setEnabled(True)
+        openStartInAstrologAction.setEnabled(True)
+        setEndOnAstro1Action.setEnabled(True)
+        setEndOnAstro2Action.setEnabled(True)
+        setEndOnAstro3Action.setEnabled(True)
+        openEndInJHoraAction.setEnabled(True)
+        openEndInAstrologAction.setEnabled(True)
+
+        # Add the QActions to the menu.
+        menu.addAction(selectAction)
+        menu.addAction(unselectAction)
+        menu.addSeparator()
+        menu.addAction(removeAction)
+        menu.addSeparator()
+        menu.addAction(infoAction)
+        menu.addAction(editAction)
+        menu.addSeparator()
+        menu.addAction(setStartOnAstro1Action)
+        menu.addAction(setStartOnAstro2Action)
+        menu.addAction(setStartOnAstro3Action)
+        menu.addAction(openStartInJHoraAction)
+        menu.addAction(openStartInAstrologAction)
+        menu.addSeparator()
+        menu.addAction(setEndOnAstro1Action)
+        menu.addAction(setEndOnAstro2Action)
+        menu.addAction(setEndOnAstro3Action)
+        menu.addAction(openEndInJHoraAction)
+        menu.addAction(openEndInAstrologAction)
+
+    def _handleSelectAction(self):
+        """Causes the QGraphicsItem to become selected."""
+
+        self.setSelected(True)
+        self.maybePrintTagsToStatusBar()
+
+    def _handleUnselectAction(self):
+        """Causes the QGraphicsItem to become unselected."""
+
+        self.setSelected(False)
+
+    def _handleRemoveAction(self):
+        """Causes the QGraphicsItem to be removed from the scene."""
+        
+        scene = self.scene()
+        if scene != None:
+            scene.removeItem(self)
+
+            # Emit signal to show that an item is removed.
+            # This sets the dirty flag.
+            scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+        
+    def _handleInfoAction(self):
+        """Causes a dialog to be executed to show information about
+        the QGraphicsItem.
+        """
+
+        artifact = self.getArtifact()
+        dialog = PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditDialog(artifact,
+                                                         self.scene(),
+                                                         readOnlyFlag=True)
+        
+        # Run the dialog.  We don't care about what is returned
+        # because the dialog is read-only.
+        rv = dialog.exec_()
+        
+    def _handleEditAction(self):
+        """Causes a dialog to be executed to edit information about
+        the QGraphicsItem.
+        """
+
+        artifact = self.getArtifact()
+        dialog = PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditDialog(artifact,
+                                                         self.scene(),
+                                                         readOnlyFlag=False)
+        
+        rv = dialog.exec_()
+        
+        if rv == QDialog.Accepted:
+            # If the dialog is accepted then the underlying artifact
+            # object was modified.  Set the artifact to this
+            # PriceBarChartArtifactGraphicsItem, which will cause it to be
+            # reloaded in the scene.
+            self.setArtifact(artifact)
+
+            # Flag that a redraw of this QGraphicsItem is required.
+            self.prepareGeometryChange()
+
+            # Emit that the PriceBarChart has changed so that the
+            # dirty flag can be set.
+            self.scene().priceBarChartChanged.emit()
+        else:
+            # The user canceled so don't change anything.
+            pass
+        
+    def _handleSetStartOnAstro1Action(self):
+        """Causes the astro chart 1 to be set with the timestamp
+        of the start the PlanetLongitudeMovementMeasurementGraphicsItem.
+        """
+
+        self.scene().setAstroChart1(self.startPointF.x())
+        
+    def _handleSetStartOnAstro2Action(self):
+        """Causes the astro chart 2 to be set with the timestamp
+        of the start the PlanetLongitudeMovementMeasurementGraphicsItem.
+        """
+
+        self.scene().setAstroChart2(self.startPointF.x())
+        
+    def _handleSetStartOnAstro3Action(self):
+        """Causes the astro chart 3 to be set with the timestamp
+        of the start the PlanetLongitudeMovementMeasurementGraphicsItem.
+        """
+
+        self.scene().setAstroChart3(self.startPointF.x())
+        
+    def _handleOpenStartInJHoraAction(self):
+        """Causes the the timestamp of the start the
+        PlanetLongitudeMovementMeasurementGraphicsItem to be opened in JHora.
+        """
+
+        self.scene().openJHora(self.startPointF.x())
+        
+    def _handleOpenStartInAstrologAction(self):
+        """Causes the the timestamp of the start the
+        PlanetLongitudeMovementMeasurementGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.startPointF.x())
+        
+    def _handleSetEndOnAstro1Action(self):
+        """Causes the astro chart 1 to be set with the timestamp
+        of the end the PlanetLongitudeMovementMeasurementGraphicsItem.
+        """
+
+        self.scene().setAstroChart1(self.endPointF.x())
+
+    def _handleSetEndOnAstro2Action(self):
+        """Causes the astro chart 2 to be set with the timestamp
+        of the end the PlanetLongitudeMovementMeasurementGraphicsItem.
+        """
+
+        self.scene().setAstroChart2(self.endPointF.x())
+
+    def _handleSetEndOnAstro3Action(self):
+        """Causes the astro chart 3 to be set with the timestamp
+        of the end the PlanetLongitudeMovementMeasurementGraphicsItem.
+        """
+
+        self.scene().setAstroChart3(self.endPointF.x())
+
+    def _handleOpenEndInJHoraAction(self):
+        """Causes the the timestamp of the end the
+        PlanetLongitudeMovementMeasurementGraphicsItem to be opened in JHora.
+        """
+
+        self.scene().openJHora(self.endPointF.x())
+        
+    def _handleOpenEndInAstrologAction(self):
+        """Causes the the timestamp of the end the
+        PlanetLongitudeMovementMeasurementGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.endPointF.x())
+        
 class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
     """QGraphicsItem that visualizes a PriceBarChartPriceTimeInfoArtifact."""
     
@@ -7231,7 +9151,7 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
             # Uncomment out this line if you want the timestamp text
             # without time.
-            #text = text[:16] + os.linesep
+            text = text[:16] + os.linesep
             
         if self.artifact.getShowPriceFlag():
             text += "p={:.4f}".format(price) + os.linesep
@@ -9073,35 +10993,35 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         
     def _handleSetStartOnAstro1Action(self):
         """Causes the astro chart 1 to be set with the timestamp
-        of the start the TimeMeasurementGraphicsItem.
+        of the start the PriceMeasurementGraphicsItem.
         """
 
         self.scene().setAstroChart1(self.startPointF.x())
         
     def _handleSetStartOnAstro2Action(self):
         """Causes the astro chart 2 to be set with the timestamp
-        of the start the TimeMeasurementGraphicsItem.
+        of the start the PriceMeasurementGraphicsItem.
         """
 
         self.scene().setAstroChart2(self.startPointF.x())
         
     def _handleSetStartOnAstro3Action(self):
         """Causes the astro chart 3 to be set with the timestamp
-        of the start the TimeMeasurementGraphicsItem.
+        of the start the PriceMeasurementGraphicsItem.
         """
 
         self.scene().setAstroChart3(self.startPointF.x())
         
     def _handleOpenStartInJHoraAction(self):
         """Causes the the timestamp of the start the
-        TimeMeasurementGraphicsItem to be opened in JHora.
+        PriceMeasurementGraphicsItem to be opened in JHora.
         """
 
         self.scene().openJHora(self.startPointF.x())
         
     def _handleOpenStartInAstrologAction(self):
         """Causes the the timestamp of the start the
-        TimeMeasurementGraphicsItem to be opened in Astrolog.
+        PriceMeasurementGraphicsItem to be opened in Astrolog.
         """
 
         self.scene().openAstrolog(self.startPointF.x())
@@ -35206,7 +37126,8 @@ class PriceBarChartWidget(QWidget):
                 "SataabdikaDasaTool"       : 26,
                 "ShodasottariDasaTool"     : 27,
                 "PanchottariDasaTool"      : 28,
-                "ShashtihayaniDasaTool"    : 29 }
+                "ShashtihayaniDasaTool"    : 29,
+                "PlanetLongitudeMovementMeasurementTool"    : 30 }
 
 
     def __init__(self, parent=None):
@@ -35698,6 +37619,26 @@ class PriceBarChartWidget(QWidget):
                 # Need to recalculate musicalRatios in the scale,
                 # since it wasn't in the QGraphicsScene until now.
                 newItem.refreshTextItems()
+        
+                addedItemFlag = True
+
+            elif isinstance(artifact, PriceBarChartPlanetLongitudeMovementMeasurementArtifact):
+                self.log.debug("Loading artifact: " + artifact.toString())
+                
+                newItem = PlanetLongitudeMovementMeasurementGraphicsItem()
+                newItem.loadSettingsFromPriceBarChartSettings(\
+                    self.priceBarChartSettings)
+                newItem.setArtifact(artifact)
+
+                # Add the item.
+                self.graphicsScene.addItem(newItem)
+                
+                # Make sure the proper flags are set for the mode we're in.
+                self.graphicsView.setGraphicsItemFlagsPerCurrToolMode(newItem)
+
+                # Need to recalculate time measurement, since it wasn't in
+                # the QGraphicsScene until now.
+                newItem.recalculatePlanetLongitudeMovementMeasurement()
         
                 addedItemFlag = True
 
@@ -36323,6 +38264,9 @@ class PriceBarChartWidget(QWidget):
             elif isinstance(item, PriceModalScaleGraphicsItem):
                 self.log.debug("Not applying settings to " +
                                "PriceModalScaleGraphicsItem.")
+            elif isinstance(item, PlanetLongitudeMovementMeasurementGraphicsItem):
+                self.log.debug("Not applying settings to " +
+                               "PlanetLongitudeMovementMeasurementGraphicsItem.")
             elif isinstance(item, TextGraphicsItem):
                 self.log.debug("Not applying settings to " +
                                "TextGraphicsItem.")
@@ -36524,6 +38468,18 @@ class PriceBarChartWidget(QWidget):
             self.graphicsView.toPriceModalScaleToolMode()
 
         self.log.debug("Exiting toPriceModalScaleToolMode()")
+
+    def toPlanetLongitudeMovementMeasurementToolMode(self):
+        """Changes the tool mode to be the PlanetLongitudeMovementMeasurementTool."""
+
+        self.log.debug("Entered toPlanetLongitudeMovementMeasurementToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != PriceBarChartWidget.ToolMode['PlanetLongitudeMovementMeasurementTool']:
+            self.toolMode = PriceBarChartWidget.ToolMode['PlanetLongitudeMovementMeasurementTool']
+            self.graphicsView.toPlanetLongitudeMovementMeasurementToolMode()
+
+        self.log.debug("Exiting toPlanetLongitudeMovementMeasurementToolMode()")
 
     def toTextToolMode(self):
         """Changes the tool mode to be the TextTool."""
@@ -38161,7 +40117,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 "SataabdikaDasaTool"       : 26,
                 "ShodasottariDasaTool"     : 27,
                 "PanchottariDasaTool"      : 28,
-                "ShashtihayaniDasaTool"    : 29 }
+                "ShashtihayaniDasaTool"    : 29,
+                "PlanetLongitudeMovementMeasurementTool"      : 30 }
 
     # Signal emitted when the mouse moves within the QGraphicsView.
     # The position emitted is in QGraphicsScene x, y, float coordinates.
@@ -38214,6 +40171,10 @@ class PriceBarChartGraphicsView(QGraphicsView):
         # Variable used for storing the new PriceModalScaleGraphicsItem,
         # as it is modified in PriceModalScaleToolMode.
         self.priceModalScaleGraphicsItem = None
+
+        # Variable used for storing the new PlanetLongitudeMovementMeasurementGraphicsItem,
+        # as it is modified in PlanetLongitudeMovementMeasurementToolMode.
+        self.planetLongitudeMovementMeasurementGraphicsItem = None
 
         # Variable used for storing the new TextGraphicsItem,
         # as it is modified in TextToolMode.
@@ -38303,11 +40264,13 @@ class PriceBarChartGraphicsView(QGraphicsView):
         # high or low is enabled.
         #
         # Used in:
-        #   - PriceTimeInfoTool
-        #   - TimeModalScaleTool
-        #   - PriceModalScaleTool
+        #   - BarCountTool
         #   - TimeMeasurementTool
         #   - PriceMeasurementTool
+        #   - TimeModalScaleTool
+        #   - PriceModalScaleTool
+        #   - PlanetLongitudeMovementMeasurementToolMode
+        #   - PriceTimeInfoTool
         #   - TimeRetracementTool
         #   - PriceRetracementTool
         #   - PriceTimeVectorTool
@@ -38464,6 +40427,15 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PriceModalScaleTool']:
+
+            if isinstance(item, PriceBarGraphicsItem):
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+            elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                item.setReadOnlyFlag(True)
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['PlanetLongitudeMovementMeasurementTool']:
 
             if isinstance(item, PriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
@@ -38915,6 +40887,36 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.setGraphicsItemFlagsPerCurrToolMode(item)
                     
         self.log.debug("Exiting toPriceModalScaleToolMode()")
+
+    def toPlanetLongitudeMovementMeasurementToolMode(self):
+        """Changes the tool mode to be the PlanetLongitudeMovementMeasurementTool."""
+
+        self.log.debug("Entered toPlanetLongitudeMovementMeasurementToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != \
+                PriceBarChartGraphicsView.ToolMode['PlanetLongitudeMovementMeasurementTool']:
+
+            self.toolMode = \
+                PriceBarChartGraphicsView.ToolMode['PlanetLongitudeMovementMeasurementTool']
+
+            self.setCursor(QCursor(Qt.ArrowCursor))
+            self.setDragMode(QGraphicsView.NoDrag)
+
+            # Clear out internal working variables.
+            self.clickOnePointF = None
+            self.clickTwoPointF = None
+            self.planetLongitudeMovementMeasurementGraphicsItem = None
+
+            scene = self.scene()
+            if scene != None:
+                scene.clearSelection()
+
+                items = scene.items()
+                for item in items:
+                    self.setGraphicsItemFlagsPerCurrToolMode(item)
+                    
+        self.log.debug("Exiting toPlanetLongitudeMovementMeasurementToolMode()")
 
     def toTextToolMode(self):
         """Changes the tool mode to be the TextTool."""
@@ -39688,9 +41690,6 @@ class PriceBarChartGraphicsView(QGraphicsView):
                                QtCore.SIGNAL("actionTriggered(QPointF)"),
                                self._handleOpenAstrologAction)
 
-        # TODO: add more options here for showing the sq-of-9,
-        # etc. for this price/time.
-
         menu.addAction(setAstro1Action)
         menu.addAction(setAstro2Action)
         menu.addAction(setAstro3Action)
@@ -40122,6 +42121,34 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
                 self.priceModalScaleGraphicsItem = None
+            elif qkeyevent.key() == Qt.Key_Q:
+                # Turn on snap functionality.
+                self.snapEnabledFlag = True
+                self.log.debug("Snap mode enabled.")
+                self.statusMessageUpdate.emit("Snap mode enabled")
+            elif qkeyevent.key() == Qt.Key_W:
+                # Turn off snap functionality.
+                self.snapEnabledFlag = False
+                self.log.debug("Snap mode disabled.")
+                self.statusMessageUpdate.emit("Snap mode disabled")
+            else:
+                super().keyPressEvent(qkeyevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['PlanetLongitudeMovementMeasurementTool']:
+
+            if qkeyevent.key() == Qt.Key_Escape:
+                # Escape key causes any currently edited item to
+                # be removed and cleared out.  Temporary variables used
+                # are cleared out too.
+                if self.planetLongitudeMovementMeasurementGraphicsItem != None:
+                    if self.planetLongitudeMovementMeasurementGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.planetLongitudeMovementMeasurementGraphicsItem)
+
+                self.clickOnePointF = None
+                self.clickTwoPointF = None
+                self.planetLongitudeMovementMeasurementGraphicsItem = None
             elif qkeyevent.key() == Qt.Key_Q:
                 # Turn on snap functionality.
                 self.snapEnabledFlag = True
@@ -41434,6 +43461,159 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 else:
                     self.log.warn("Unexpected state reached.")
 
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['PlanetLongitudeMovementMeasurementTool']:
+            
+            self.log.debug("Current toolMode is: PlanetLongitudeMovementMeasurementTool")
+
+            if qmouseevent.button() & Qt.LeftButton:
+                self.log.debug("Qt.LeftButton")
+                
+                if self.clickOnePointF == None:
+                    self.log.debug("clickOnePointF == None")
+                
+                    self.clickOnePointF = self.mapToScene(qmouseevent.pos())
+
+                    # If snap is enabled, then find the closest
+                    # pricebar time to the place clicked.
+                    if self.snapEnabledFlag == True:
+                        self.log.debug("Snap is enabled, so snapping to " +
+                                       "closest pricebar X.")
+                        
+                        infoPointF = self.mapToScene(qmouseevent.pos())
+                        x = self.scene().getClosestPriceBarX(infoPointF)
+
+                        # Use this X value.
+                        self.clickOnePointF.setX(x)
+                    
+                    # Create the PlanetLongitudeMovementMeasurementGraphicsItem and
+                    # initialize it to the mouse location.
+                    self.planetLongitudeMovementMeasurementGraphicsItem = \
+                        PlanetLongitudeMovementMeasurementGraphicsItem()
+                    self.planetLongitudeMovementMeasurementGraphicsItem.\
+                        loadSettingsFromPriceBarChartSettings(\
+                            self.priceBarChartSettings)
+        
+                    # Set the flag that indicates we should draw
+                    # dotted vertical lines at the tick areas.  We
+                    # will turn these off after the user fully
+                    # finishes adding the item.
+                    self.planetLongitudeMovementMeasurementGraphicsItem.\
+                        setDrawVerticalDottedLinesFlag(True)
+        
+                    self.planetLongitudeMovementMeasurementGraphicsItem.setPos(self.clickOnePointF)
+                    self.planetLongitudeMovementMeasurementGraphicsItem.\
+                        setStartPointF(self.clickOnePointF)
+                    self.planetLongitudeMovementMeasurementGraphicsItem.\
+                        setEndPointF(self.clickOnePointF)
+                    self.scene().addItem(self.planetLongitudeMovementMeasurementGraphicsItem)
+                    
+                    # Make sure the proper flags are set for the mode we're in.
+                    self.setGraphicsItemFlagsPerCurrToolMode(\
+                        self.planetLongitudeMovementMeasurementGraphicsItem)
+
+                elif self.clickOnePointF != None and \
+                    self.clickTwoPointF == None and \
+                    self.planetLongitudeMovementMeasurementGraphicsItem != None:
+
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "planetLongitudeMovementMeasurementGraphicsItem != None.")
+                    
+                    # Set the end point of the PlanetLongitudeMovementMeasurementGraphicsItem.
+                    self.clickTwoPointF = self.mapToScene(qmouseevent.pos())
+
+                    # If snap is enabled, then find the closest
+                    # pricebar time to the place clicked.
+                    if self.snapEnabledFlag == True:
+                        self.log.debug("Snap is enabled, so snapping to " +
+                                       "closest pricebar X.")
+                        
+                        infoPointF = self.mapToScene(qmouseevent.pos())
+                        x = self.scene().getClosestPriceBarX(infoPointF)
+
+                        # Use this X value.
+                        self.clickTwoPointF.setX(x)
+                    
+                    self.planetLongitudeMovementMeasurementGraphicsItem.\
+                        setEndPointF(self.clickTwoPointF)
+                    self.planetLongitudeMovementMeasurementGraphicsItem.normalizeStartAndEnd()
+        
+                    # Call getArtifact() so that the item's artifact
+                    # object gets updated and set.
+                    self.planetLongitudeMovementMeasurementGraphicsItem.getArtifact()
+                                                
+                    # Unset the flag that indicates we should draw
+                    # dotted vertical lines at the tick areas.
+                    self.planetLongitudeMovementMeasurementGraphicsItem.\
+                        setDrawVerticalDottedLinesFlag(False)
+                    
+                    # Emit that the PriceBarChart has changed.
+                    self.scene().priceBarChartArtifactGraphicsItemAdded.\
+                        emit(self.planetLongitudeMovementMeasurementGraphicsItem)
+                    
+                    sceneBoundingRect = \
+                        self.planetLongitudeMovementMeasurementGraphicsItem.sceneBoundingRect()
+                    
+                    self.log.debug("planetLongitudeMovementMeasurementGraphicsItem " +
+                                   "officially added.  " +
+                                   "Its sceneBoundingRect is: {}.  ".\
+                                   format(sceneBoundingRect) +
+                                   "Its x range is: {} to {}.  ".\
+                                   format(sceneBoundingRect.left(),
+                                          sceneBoundingRect.right()) +
+                                   "Its y range is: {} to {}.  ".\
+                                   format(sceneBoundingRect.top(),
+                                          sceneBoundingRect.bottom()))
+                                   
+                    # Clear out working variables.
+                    self.clickOnePointF = None
+                    self.clickTwoPointF = None
+                    self.planetLongitudeMovementMeasurementGraphicsItem = None
+                    
+                else:
+                    self.log.warn("Unexpected state reached.")
+                    
+            elif qmouseevent.button() & Qt.RightButton:
+                
+                self.log.debug("Qt.RightButton")
+                
+                if self.clickOnePointF != None and \
+                   self.clickTwoPointF == None and \
+                   self.planetLongitudeMovementMeasurementGraphicsItem != None:
+
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "planetLongitudeMovementMeasurementGraphicsItem != None.")
+                    
+                    # Right-click during setting the PlanetLongitudeMovementMeasurementGraphicsItem
+                    # causes the currently edited bar count item to be
+                    # removed and cleared out.  Temporary variables used
+                    # are cleared out too.
+                    if self.planetLongitudeMovementMeasurementGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.planetLongitudeMovementMeasurementGraphicsItem)
+
+                    self.clickOnePointF = None
+                    self.clickTwoPointF = None
+                    self.planetLongitudeMovementMeasurementGraphicsItem = None
+                    
+                elif self.clickOnePointF == None and \
+                     self.clickTwoPointF == None and \
+                     self.planetLongitudeMovementMeasurementGraphicsItem == None:
+                    
+                    self.log.debug("clickOnePointF == None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "planetLongitudeMovementMeasurementGraphicsItem == None.")
+                    
+                    # Open a context menu at this location, in readonly mode.
+                    clickPosF = self.mapToScene(qmouseevent.pos())
+                    menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
+                    menu.exec_(qmouseevent.globalPos())
+                    
+                else:
+                    self.log.warn("Unexpected state reached.")
+                    
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['TextTool']:
             
@@ -44961,6 +47141,12 @@ class PriceBarChartGraphicsView(QGraphicsView):
             super().mouseReleaseEvent(qmouseevent)
 
         elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['PlanetLongitudeMovementMeasurementTool']:
+
+            self.log.debug("Current toolMode is: PlanetLongitudeMovementMeasurementTool")
+            super().mouseReleaseEvent(qmouseevent)
+
+        elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['TextTool']:
 
             self.log.debug("Current toolMode is: TextTool")
@@ -45186,6 +47372,20 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     QPointF(self.priceModalScaleGraphicsItem.endPointF.x(),
                             pos.y())
                 self.priceModalScaleGraphicsItem.setEndPointF(newEndPointF)
+            else:
+                super().mouseMoveEvent(qmouseevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['PlanetLongitudeMovementMeasurementTool']:
+
+            if self.clickOnePointF != None and \
+                self.planetLongitudeMovementMeasurementGraphicsItem != None:
+
+                pos = self.mapToScene(qmouseevent.pos())
+                
+                # Update the end point of the current
+                # PlanetLongitudeMovementMeasurementGraphicsItem.
+                self.planetLongitudeMovementMeasurementGraphicsItem.setEndPointF(pos)
             else:
                 super().mouseMoveEvent(qmouseevent)
 
@@ -45683,6 +47883,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
             self.setCursor(QCursor(Qt.ArrowCursor))
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PriceModalScaleTool']:
+            self.setCursor(QCursor(Qt.ArrowCursor))
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['PlanetLongitudeMovementMeasurementTool']:
             self.setCursor(QCursor(Qt.ArrowCursor))
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['TextTool']:
