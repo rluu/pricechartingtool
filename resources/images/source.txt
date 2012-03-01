@@ -30,6 +30,22 @@ provided that a link is provided back to AAA - Banners.
 
 ------------------------------------------------------------------------------
 
+freedesign4.me/free-solar-system-planets-icons.jpg
+
+from:
+http://www.freedesign4.me/icons/free-solar-system-planet-icons/
+
+Website says:
+
+Free Solar System Planet Icons
+Posted at Thursday, April 1, 2010 in Icons
+Great collection of quality 512×512 pixel icons. Planets and moons include: Pluto, Saturn, Earth, Sun, Mars, Ceres, Jupiter, Moon, Venus, Neptune, Eris, Mercury, Pluto and Uranus icons.
+
+Author’s homepage: http://www.danwiersema.com/
+Download here
+
+------------------------------------------------------------------------------
+
 MLHotKey.icon.gif
 
 from:
@@ -97,6 +113,7 @@ rluu/lineSegment.png
 rluu/logo_ryan_d1.png
 rluu/octaveFan.png
 rluu/panchottariDasa.png
+rluu/planetLongitudeMovementMeasurement.png  (Adapted an image from freedesign4)
 rluu/pointerPencil.png   (Modified an image from iconspedia)
 rluu/priceBar.png
 rluu/priceMeasurement.png

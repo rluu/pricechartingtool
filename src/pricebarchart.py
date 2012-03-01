@@ -8002,7 +8002,7 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             # We need to set this each time because there is no
             # guarantee that the last use of the Ephemeris was with
             # this location.
-            birthInfo = self.graphicsScene.getBirthInfo()
+            birthInfo = scene.getBirthInfo()
             Ephemeris.setGeographicPosition(birthInfo.longitudeDegrees,
                                             birthInfo.latitudeDegrees,
                                             birthInfo.elevation)
@@ -8061,9 +8061,9 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                     
                     stepSizeTd = datetime.timedelta(days=2)
                 
-                log.debug("Stepping through timestamps from {} to {} ...".\
-                          format(Ephemeris.datetimeToStr(startTimestamp),
-                                 Ephemeris.datetimeToStr(endTimestamp)))
+                self.log.debug("Stepping through from {} to {} ...".\
+                               format(Ephemeris.datetimeToStr(startTimestamp),
+                                      Ephemeris.datetimeToStr(endTimestamp)))
                 
                 # Current datetime as we step through all the
                 # timestamps between the start and end timestamp.
@@ -8109,7 +8109,7 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                             currErrorTd = t2 - t1
                             
                             while currErrorTd > maxErrorTd:
-                                log.debug("Refining between {} and {}".\
+                                self.log.debug("Refining between {} and {}".\
                                           format(Ephemeris.datetimeToStr(t1),
                                                  Ephemeris.datetimeToStr(t2)))
                                 
@@ -8192,7 +8192,7 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                     # TODO: Remove the below test when I'm satisfied the logic is correct.
                     for i in range(len(planetData)):
                         if i != 0:
-                            if planetData[i-1].dt >= planetData[i]:
+                            if planetData[i-1].dt >= planetData[i].dt:
                                 raise AssertionError("THE PLANETARYINFO LIST IS NOT SORTED BY TIMESTAMP.  LOGIC ERROR!!!!")
 
                     # Do summations to determine the measurements.
@@ -8240,19 +8240,19 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                             if self.measurementUnitDegreesEnabled == True and \
                                self.measurementUnitCirclesEnabled == True:
                                 
-                                line = "Geo Trop {} moves {} deg or {} circles (retro as 0)".\
+                                line = "Geo Trop {} moves {:.2f} deg or {:.3f} circles (retro as 0)".\
                                        format(planetName, totalDegrees, numCircles)
                             
                             elif self.measurementUnitDegreesEnabled == True and \
                                self.measurementUnitCirclesEnabled == False:
                                 
-                                line = "Geo Trop {} moves {} deg (retro as 0)".\
+                                line = "Geo Trop {} moves {:.2f} deg (retro as 0)".\
                                        format(planetName, totalDegrees)
                                 
                             elif self.measurementUnitDegreesEnabled == False and \
                                self.measurementUnitCirclesEnabled == True:
                                 
-                                line = "Geo Trop {} moves {} circles (retro as 0)".\
+                                line = "Geo Trop {} moves {:.3f} circles (retro as 0)".\
                                        format(planetName, totalDegrees)
                                 
                             text += line + os.linesep
@@ -8299,19 +8299,19 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                             if self.measurementUnitDegreesEnabled == True and \
                                self.measurementUnitCirclesEnabled == True:
 
-                                line = "Geo Sid {} moves {} deg or {} circles (retro as 0)".\
+                                line = "Geo Sid {} moves {:.2f} deg or {:.3f} circles (retro as 0)".\
                                        format(planetName, totalDegrees, numCircles)
                             
                             elif self.measurementUnitDegreesEnabled == True and \
                                self.measurementUnitCirclesEnabled == False:
 
-                                line = "Geo Sid {} moves {} deg (retro as 0)".\
+                                line = "Geo Sid {} moves {:.2f} deg (retro as 0)".\
                                        format(planetName, totalDegrees)
                                 
                             elif self.measurementUnitDegreesEnabled == False and \
                                self.measurementUnitCirclesEnabled == True:
 
-                                line = "Geo Sid {} moves {} circles (retro as 0)".\
+                                line = "Geo Sid {} moves {:.3f} circles (retro as 0)".\
                                        format(planetName, totalDegrees)
 
                             text += line + os.linesep
@@ -8375,19 +8375,19 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                             if self.measurementUnitDegreesEnabled == True and \
                                self.measurementUnitCirclesEnabled == True:
                                 
-                                line = "Geo Trop {} moves {} deg or {} circles (retro as +)".\
+                                line = "Geo Trop {} moves {:.2f} deg or {:.3f} circles (retro as +)".\
                                        format(planetName, totalDegrees, numCircles)
                             
                             elif self.measurementUnitDegreesEnabled == True and \
                                self.measurementUnitCirclesEnabled == False:
                                 
-                                line = "Geo Trop {} moves {} deg (retro as +)".\
+                                line = "Geo Trop {} moves {:.2f} deg (retro as +)".\
                                        format(planetName, totalDegrees)
                                 
                             elif self.measurementUnitDegreesEnabled == False and \
                                self.measurementUnitCirclesEnabled == True:
                                 
-                                line = "Geo Trop {} moves {} circles (retro as +)".\
+                                line = "Geo Trop {} moves {:.3f} circles (retro as +)".\
                                        format(planetName, totalDegrees)
                                 
                             text += line + os.linesep
@@ -8450,19 +8450,19 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                             if self.measurementUnitDegreesEnabled == True and \
                                self.measurementUnitCirclesEnabled == True:
 
-                                line = "Geo Sid {} moves {} deg or {} circles (retro as +)".\
+                                line = "Geo Sid {} moves {:.2f} deg or {:.3f} circles (retro as +)".\
                                        format(planetName, totalDegrees, numCircles)
                             
                             elif self.measurementUnitDegreesEnabled == True and \
                                self.measurementUnitCirclesEnabled == False:
 
-                                line = "Geo Sid {} moves {} deg (retro as +)".\
+                                line = "Geo Sid {} moves {:.2f} deg (retro as +)".\
                                        format(planetName, totalDegrees)
                                 
                             elif self.measurementUnitDegreesEnabled == False and \
                                self.measurementUnitCirclesEnabled == True:
 
-                                line = "Geo Sid {} moves {} circles (retro as +)".\
+                                line = "Geo Sid {} moves {:.3f} circles (retro as +)".\
                                        format(planetName, totalDegrees)
 
                             text += line + os.linesep
@@ -8521,19 +8521,19 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                             if self.measurementUnitDegreesEnabled == True and \
                                self.measurementUnitCirclesEnabled == True:
                                 
-                                line = "Geo Trop {} moves {} deg or {} circles (retro as -)".\
+                                line = "Geo Trop {} moves {:.2f} deg or {:.3f} circles (retro as -)".\
                                        format(planetName, totalDegrees, numCircles)
                             
                             elif self.measurementUnitDegreesEnabled == True and \
                                self.measurementUnitCirclesEnabled == False:
                                 
-                                line = "Geo Trop {} moves {} deg (retro as -)".\
+                                line = "Geo Trop {} moves {:.2f} deg (retro as -)".\
                                        format(planetName, totalDegrees)
                                 
                             elif self.measurementUnitDegreesEnabled == False and \
                                self.measurementUnitCirclesEnabled == True:
                                 
-                                line = "Geo Trop {} moves {} circles (retro as -)".\
+                                line = "Geo Trop {} moves {:.3f} circles (retro as -)".\
                                        format(planetName, totalDegrees)
                                 
                             text += line + os.linesep
@@ -8591,19 +8591,19 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                             if self.measurementUnitDegreesEnabled == True and \
                                self.measurementUnitCirclesEnabled == True:
                                 
-                                line = "Geo Sid {} moves {} deg or {} circles (retro as -)".\
+                                line = "Geo Sid {} moves {:.2f} deg or {:.3f} circles (retro as -)".\
                                        format(planetName, totalDegrees, numCircles)
                             
                             elif self.measurementUnitDegreesEnabled == True and \
                                self.measurementUnitCirclesEnabled == False:
 
-                                line = "Geo Sid {} moves {} deg (retro as -)".\
+                                line = "Geo Sid {} moves {:.2f} deg (retro as -)".\
                                        format(planetName, totalDegrees)
                                 
                             elif self.measurementUnitDegreesEnabled == False and \
                                self.measurementUnitCirclesEnabled == True:
 
-                                line = "Geo Sid {} moves {} circles (retro as -)".\
+                                line = "Geo Sid {} moves {:.3f} circles (retro as -)".\
                                        format(planetName, totalDegrees)
                             
                             text += line + os.linesep
@@ -8663,19 +8663,19 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                         if self.measurementUnitDegreesEnabled == True and \
                            self.measurementUnitCirclesEnabled == True:
                             
-                            line = "Helio Trop {} moves {} deg or {} circles".\
+                            line = "Helio Trop {} moves {:.2f} deg or {:.3f} circles".\
                                    format(planetName, totalDegrees, numCircles)
                             
                         elif self.measurementUnitDegreesEnabled == True and \
                            self.measurementUnitCirclesEnabled == False:
                             
-                            line = "Helio Trop {} moves {} deg".\
+                            line = "Helio Trop {} moves {:.2f} deg".\
                                    format(planetName, totalDegrees)
                             
                         elif self.measurementUnitDegreesEnabled == False and \
                            self.measurementUnitCirclesEnabled == True:
                             
-                            line = "Helio Trop {} moves {} circles".\
+                            line = "Helio Trop {} moves {:.3f} circles".\
                                    format(planetName, totalDegrees)
                             
                         text += line + os.linesep
@@ -8733,19 +8733,19 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                         if self.measurementUnitDegreesEnabled == True and \
                            self.measurementUnitCirclesEnabled == True:
                             
-                            line = "Helio Sid {} moves {} deg or {} circles".\
+                            line = "Helio Sid {} moves {:.2f} deg or {:.3f} circles".\
                                    format(planetName, totalDegrees, numCircles)
                             
                         elif self.measurementUnitDegreesEnabled == True and \
                            self.measurementUnitCirclesEnabled == False:
                             
-                            line = "Helio Sid {} moves {} deg".\
+                            line = "Helio Sid {} moves {:.2f} deg".\
                                    format(planetName, totalDegrees)
                             
                         elif self.measurementUnitDegreesEnabled == False and \
                            self.measurementUnitCirclesEnabled == True:
                             
-                            line = "Helio Sid {} moves {} circles".\
+                            line = "Helio Sid {} moves {:.3f} circles".\
                                    format(planetName, totalDegrees)
                             
                         text += line + os.linesep
@@ -8812,98 +8812,98 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
         
         # Remove contents of the list and retrieve the list of enabled
         # planets from priceBarChartSettings.
-        del self.planetList[:]
+        del self.planetNamesEnabled[:]
         
         if self.artifact.getPlanetH1EnabledFlag():
-            self.planetList.append("H1")
+            self.planetNamesEnabled.append("H1")
         if self.artifact.getPlanetH2EnabledFlag():
-            self.planetList.append("H2")
+            self.planetNamesEnabled.append("H2")
         if self.artifact.getPlanetH3EnabledFlag():
-            self.planetList.append("H3")
+            self.planetNamesEnabled.append("H3")
         if self.artifact.getPlanetH4EnabledFlag():
-            self.planetList.append("H4")
+            self.planetNamesEnabled.append("H4")
         if self.artifact.getPlanetH5EnabledFlag():
-            self.planetList.append("H5")
+            self.planetNamesEnabled.append("H5")
         if self.artifact.getPlanetH6EnabledFlag():
-            self.planetList.append("H6")
+            self.planetNamesEnabled.append("H6")
         if self.artifact.getPlanetH7EnabledFlag():
-            self.planetList.append("H7")
+            self.planetNamesEnabled.append("H7")
         if self.artifact.getPlanetH8EnabledFlag():
-            self.planetList.append("H8")
+            self.planetNamesEnabled.append("H8")
         if self.artifact.getPlanetH9EnabledFlag():
-            self.planetList.append("H9")
+            self.planetNamesEnabled.append("H9")
         if self.artifact.getPlanetH10EnabledFlag():
-            self.planetList.append("H10")
+            self.planetNamesEnabled.append("H10")
         if self.artifact.getPlanetH11EnabledFlag():
-            self.planetList.append("H11")
+            self.planetNamesEnabled.append("H11")
         if self.artifact.getPlanetH12EnabledFlag():
-            self.planetList.append("H12")
+            self.planetNamesEnabled.append("H12")
         if self.artifact.getPlanetHoraLagnaEnabledFlag():
-            self.planetList.append("HoraLagna")
+            self.planetNamesEnabled.append("HoraLagna")
         if self.artifact.getPlanetGhatiLagnaEnabledFlag():
-            self.planetList.append("GhatiLagna")
+            self.planetNamesEnabled.append("GhatiLagna")
         if self.artifact.getPlanetMeanLunarApogeeEnabledFlag():
-            self.planetList.append("MeanLunarApogee")
+            self.planetNamesEnabled.append("MeanLunarApogee")
         if self.artifact.getPlanetOsculatingLunarApogeeEnabledFlag():
-            self.planetList.append("OsculatingLunarApogee")
+            self.planetNamesEnabled.append("OsculatingLunarApogee")
         if self.artifact.getPlanetInterpolatedLunarApogeeEnabledFlag():
-            self.planetList.append("InterpolatedLunarApogee")
+            self.planetNamesEnabled.append("InterpolatedLunarApogee")
         if self.artifact.getPlanetInterpolatedLunarPerigeeEnabledFlag():
-            self.planetList.append("InterpolatedLunarPerigee")
+            self.planetNamesEnabled.append("InterpolatedLunarPerigee")
         if self.artifact.getPlanetSunEnabledFlag():
-            self.planetList.append("Sun")
+            self.planetNamesEnabled.append("Sun")
         if self.artifact.getPlanetMoonEnabledFlag():
-            self.planetList.append("Moon")
+            self.planetNamesEnabled.append("Moon")
         if self.artifact.getPlanetMercuryEnabledFlag():
-            self.planetList.append("Mercury")
+            self.planetNamesEnabled.append("Mercury")
         if self.artifact.getPlanetVenusEnabledFlag():
-            self.planetList.append("Venus")
+            self.planetNamesEnabled.append("Venus")
         if self.artifact.getPlanetEarthEnabledFlag():
-            self.planetList.append("Earth")
+            self.planetNamesEnabled.append("Earth")
         if self.artifact.getPlanetMarsEnabledFlag():
-            self.planetList.append("Mars")
+            self.planetNamesEnabled.append("Mars")
         if self.artifact.getPlanetJupiterEnabledFlag():
-            self.planetList.append("Jupiter")
+            self.planetNamesEnabled.append("Jupiter")
         if self.artifact.getPlanetSaturnEnabledFlag():
-            self.planetList.append("Saturn")
+            self.planetNamesEnabled.append("Saturn")
         if self.artifact.getPlanetUranusEnabledFlag():
-            self.planetList.append("Uranus")
+            self.planetNamesEnabled.append("Uranus")
         if self.artifact.getPlanetNeptuneEnabledFlag():
-            self.planetList.append("Neptune")
+            self.planetNamesEnabled.append("Neptune")
         if self.artifact.getPlanetPlutoEnabledFlag():
-            self.planetList.append("Pluto")
+            self.planetNamesEnabled.append("Pluto")
         if self.artifact.getPlanetMeanNorthNodeEnabledFlag():
-            self.planetList.append("MeanNorthNode")
+            self.planetNamesEnabled.append("MeanNorthNode")
         if self.artifact.getPlanetMeanSouthNodeEnabledFlag():
-            self.planetList.append("MeanSouthNode")
+            self.planetNamesEnabled.append("MeanSouthNode")
         if self.artifact.getPlanetTrueNorthNodeEnabledFlag():
-            self.planetList.append("TrueNorthNode")
+            self.planetNamesEnabled.append("TrueNorthNode")
         if self.artifact.getPlanetTrueSouthNodeEnabledFlag():
-            self.planetList.append("TrueSouthNode")
+            self.planetNamesEnabled.append("TrueSouthNode")
         if self.artifact.getPlanetCeresEnabledFlag():
-            self.planetList.append("Ceres")
+            self.planetNamesEnabled.append("Ceres")
         if self.artifact.getPlanetPallasEnabledFlag():
-            self.planetList.append("Pallas")
+            self.planetNamesEnabled.append("Pallas")
         if self.artifact.getPlanetJunoEnabledFlag():
-            self.planetList.append("Juno")
+            self.planetNamesEnabled.append("Juno")
         if self.artifact.getPlanetVestaEnabledFlag():
-            self.planetList.append("Vesta")
+            self.planetNamesEnabled.append("Vesta")
         if self.artifact.getPlanetChironEnabledFlag():
-            self.planetList.append("Chiron")
+            self.planetNamesEnabled.append("Chiron")
         if self.artifact.getPlanetGulikaEnabledFlag():
-            self.planetList.append("Gulika")
+            self.planetNamesEnabled.append("Gulika")
         if self.artifact.getPlanetMandiEnabledFlag():
-            self.planetList.append("Mandi")
+            self.planetNamesEnabled.append("Mandi")
         if self.artifact.getPlanetMeanOfFiveEnabledFlag():
-            self.planetList.append("MeanOfFive")
+            self.planetNamesEnabled.append("MeanOfFive")
         if self.artifact.getPlanetCycleOfEightEnabledFlag():
-            self.planetList.append("CycleOfEight")
+            self.planetNamesEnabled.append("CycleOfEight")
         if self.artifact.getPlanetAvgMaJuSaUrNePlEnabledFlag():
-            self.planetList.append("AvgMaJuSaUrNePl")
+            self.planetNamesEnabled.append("AvgMaJuSaUrNePl")
         if self.artifact.getPlanetAvgJuSaUrNeEnabledFlag():
-            self.planetList.append("AvgJuSaUrNe")
+            self.planetNamesEnabled.append("AvgJuSaUrNe")
         if self.artifact.getPlanetAvgJuSaEnabledFlag():
-            self.planetList.append("AvgJuSa")
+            self.planetNamesEnabled.append("AvgJuSa")
 
         #############
 
@@ -8964,95 +8964,95 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             self.measurementUnitCirclesEnabled)
         
         self.artifact.setPlanetH1EnabledFlag(\
-            "H1" in self.planetList)
+            "H1" in self.planetNamesEnabled)
         self.artifact.setPlanetH2EnabledFlag(\
-            "H2" in self.planetList)
+            "H2" in self.planetNamesEnabled)
         self.artifact.setPlanetH3EnabledFlag(\
-            "H3" in self.planetList)
+            "H3" in self.planetNamesEnabled)
         self.artifact.setPlanetH4EnabledFlag(\
-            "H4" in self.planetList)
+            "H4" in self.planetNamesEnabled)
         self.artifact.setPlanetH5EnabledFlag(\
-            "H5" in self.planetList)
+            "H5" in self.planetNamesEnabled)
         self.artifact.setPlanetH6EnabledFlag(\
-            "H6" in self.planetList)
+            "H6" in self.planetNamesEnabled)
         self.artifact.setPlanetH7EnabledFlag(\
-            "H7" in self.planetList)
+            "H7" in self.planetNamesEnabled)
         self.artifact.setPlanetH8EnabledFlag(\
-            "H8" in self.planetList)
+            "H8" in self.planetNamesEnabled)
         self.artifact.setPlanetH9EnabledFlag(\
-            "H9" in self.planetList)
+            "H9" in self.planetNamesEnabled)
         self.artifact.setPlanetH10EnabledFlag(\
-            "H10" in self.planetList)
+            "H10" in self.planetNamesEnabled)
         self.artifact.setPlanetH11EnabledFlag(\
-            "H11" in self.planetList)
+            "H11" in self.planetNamesEnabled)
         self.artifact.setPlanetH12EnabledFlag(\
-            "H12" in self.planetList)
+            "H12" in self.planetNamesEnabled)
         self.artifact.setPlanetHoraLagnaEnabledFlag(\
-            "HoraLagna" in self.planetList)
+            "HoraLagna" in self.planetNamesEnabled)
         self.artifact.setPlanetGhatiLagnaEnabledFlag(\
-            "GhatiLagna" in self.planetList)
+            "GhatiLagna" in self.planetNamesEnabled)
         self.artifact.setPlanetMeanLunarApogeeEnabledFlag(\
-            "MeanLunarApogee" in self.planetList)
+            "MeanLunarApogee" in self.planetNamesEnabled)
         self.artifact.setPlanetOsculatingLunarApogeeEnabledFlag(\
-            "OsculatingLunarApogee" in self.planetList)
+            "OsculatingLunarApogee" in self.planetNamesEnabled)
         self.artifact.setPlanetInterpolatedLunarApogeeEnabledFlag(\
-            "InterpolatedLunarApogee" in self.planetList)
+            "InterpolatedLunarApogee" in self.planetNamesEnabled)
         self.artifact.setPlanetInterpolatedLunarPerigeeEnabledFlag(\
-            "InterpolatedLunarPerigee" in self.planetList)
+            "InterpolatedLunarPerigee" in self.planetNamesEnabled)
         self.artifact.setPlanetSunEnabledFlag(\
-            "Sun" in self.planetList)
+            "Sun" in self.planetNamesEnabled)
         self.artifact.setPlanetMoonEnabledFlag(\
-            "Moon" in self.planetList)
+            "Moon" in self.planetNamesEnabled)
         self.artifact.setPlanetMercuryEnabledFlag(\
-            "Mercury" in self.planetList)
+            "Mercury" in self.planetNamesEnabled)
         self.artifact.setPlanetVenusEnabledFlag(\
-            "Venus" in self.planetList)
+            "Venus" in self.planetNamesEnabled)
         self.artifact.setPlanetEarthEnabledFlag(\
-            "Earth" in self.planetList)
+            "Earth" in self.planetNamesEnabled)
         self.artifact.setPlanetMarsEnabledFlag(\
-            "Mars" in self.planetList)
+            "Mars" in self.planetNamesEnabled)
         self.artifact.setPlanetJupiterEnabledFlag(\
-            "Jupiter" in self.planetList)
+            "Jupiter" in self.planetNamesEnabled)
         self.artifact.setPlanetSaturnEnabledFlag(\
-            "Saturn" in self.planetList)
+            "Saturn" in self.planetNamesEnabled)
         self.artifact.setPlanetUranusEnabledFlag(\
-            "Uranus" in self.planetList)
+            "Uranus" in self.planetNamesEnabled)
         self.artifact.setPlanetNeptuneEnabledFlag(\
-            "Neptune" in self.planetList)
+            "Neptune" in self.planetNamesEnabled)
         self.artifact.setPlanetPlutoEnabledFlag(\
-            "Pluto" in self.planetList)
+            "Pluto" in self.planetNamesEnabled)
         self.artifact.setPlanetMeanNorthNodeEnabledFlag(\
-            "MeanNorthNode" in self.planetList)
+            "MeanNorthNode" in self.planetNamesEnabled)
         self.artifact.setPlanetMeanSouthNodeEnabledFlag(\
-            "MeanSouthNode" in self.planetList)
+            "MeanSouthNode" in self.planetNamesEnabled)
         self.artifact.setPlanetTrueNorthNodeEnabledFlag(\
-            "TrueNorthNode" in self.planetList)
+            "TrueNorthNode" in self.planetNamesEnabled)
         self.artifact.setPlanetTrueSouthNodeEnabledFlag(\
-            "TrueSouthNode" in self.planetList)
+            "TrueSouthNode" in self.planetNamesEnabled)
         self.artifact.setPlanetCeresEnabledFlag(\
-            "Ceres" in self.planetList)
+            "Ceres" in self.planetNamesEnabled)
         self.artifact.setPlanetPallasEnabledFlag(\
-            "Pallas" in self.planetList)
+            "Pallas" in self.planetNamesEnabled)
         self.artifact.setPlanetJunoEnabledFlag(\
-            "Juno" in self.planetList)
+            "Juno" in self.planetNamesEnabled)
         self.artifact.setPlanetVestaEnabledFlag(\
-            "Vesta" in self.planetList)
+            "Vesta" in self.planetNamesEnabled)
         self.artifact.setPlanetChironEnabledFlag(\
-            "Chiron" in self.planetList)
+            "Chiron" in self.planetNamesEnabled)
         self.artifact.setPlanetGulikaEnabledFlag(\
-            "Gulika" in self.planetList)
+            "Gulika" in self.planetNamesEnabled)
         self.artifact.setPlanetMandiEnabledFlag(\
-            "Mandi" in self.planetList)
+            "Mandi" in self.planetNamesEnabled)
         self.artifact.setPlanetMeanOfFiveEnabledFlag(\
-            "MeanOfFive" in self.planetList)
+            "MeanOfFive" in self.planetNamesEnabled)
         self.artifact.setPlanetCycleOfEightEnabledFlag(\
-            "CycleOfEight" in self.planetList)
+            "CycleOfEight" in self.planetNamesEnabled)
         self.artifact.setPlanetAvgMaJuSaUrNePlEnabledFlag(\
-            "AvgMaJuSaUrNePl" in self.planetList)
+            "AvgMaJuSaUrNePl" in self.planetNamesEnabled)
         self.artifact.setPlanetAvgJuSaUrNeEnabledFlag(\
-            "AvgJuSaUrNe" in self.planetList)
+            "AvgJuSaUrNe" in self.planetNamesEnabled)
         self.artifact.setPlanetAvgJuSaEnabledFlag(\
-            "AvgJuSa" in self.planetList)
+            "AvgJuSa" in self.planetNamesEnabled)
         
         self.log.debug("Exiting getArtifact()")
         

@@ -5,16 +5,18 @@ Outstanding things to work on going forward:
 TODO:  
 
   - PlanetLongitudeMovementMeasurementTool
-   
-    The following files must be edited:
-    - pricebarchart.py --> See the TODO locations.
 
+    Calculations need for measurements to be checked and validated to
+    be fully correct before depending on them.
+
+    DONE The following files must be edited:
+    - DONE pricebarchart.py
     - DONE data_objects.py
     - DONE dialogs.py
     - DONE pricebarchart_dialogs.py
     - DONE ui.py
 
-    Create and add an icon, and set the path of it in the code.
+    DONE Create and add an icon, and set the path of it in the code.
 
   - PlanetLatitudeMovementMeasurementTool
 

@@ -433,7 +433,7 @@ class MainWindow(QMainWindow):
         self.priceModalScaleToolAction.setCheckable(True)
         
         # Create the PlanetLongitudeMovementMeasurementToolAction
-        icon = QIcon() # TODO:  set icon path.
+        icon = QIcon(":/images/rluu/planetLongitudeMovementMeasurement.png")
         self.planetLongitudeMovementMeasurementToolAction = \
             QAction(icon, "Planet Longitude Movement Measurement Tool", self)
         self.planetLongitudeMovementMeasurementToolAction.\
