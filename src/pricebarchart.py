@@ -7987,7 +7987,12 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             timestampStr = Ephemeris.datetimeToDayStr(endTimestamp)
             self.log.debug("endTimestamp: " + timestampStr)
 
-            # If startTimestamp is after endTimestamp, then swap their values.
+            # If startTimestamp is after endTimestamp, then swap their
+            # values.  This can happen if the person is measuring
+            # 'backwards' from the future towards the past.  We have
+            # to swap the values or else some of the measurements
+            # would be totally invalid (due to how we subtract and
+            # normalize to get elapsed longitude).
             if startTimestamp > endTimestamp:
                 temp = startTimestamp
                 startTimestamp = endTimestamp
