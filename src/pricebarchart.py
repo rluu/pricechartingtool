@@ -7047,8 +7047,9 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
     This item uses the origin point (0, 0) in item coordinates as the
     center point height bar, on the start point (left part) of the bar ruler.
 
-    That means when a user creates a new PlanetLongitudeMovementMeasurementGraphicsItem
-    the position and points can be consistently set.
+    That means when a user creates a new
+    PlanetLongitudeMovementMeasurementGraphicsItem the position and
+    points can be consistently set.
     """
     
     def __init__(self, parent=None, scene=None):
@@ -7137,235 +7138,148 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabled
         
-        # Flag for displaying measurements in number of 360-degree circles.
+        # Flag for displaying measurements in number of circles.
         self.measurementUnitCirclesEnabled = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabled
-        
-        # Flag for measurement of planet H1 enabled.
-        self.planetH1EnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag
-        
-        # Flag for measurement of planet H2 enabled.
-        self.planetH2EnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlag
-        
-        # Flag for measurement of planet H3 enabled.
-        self.planetH3EnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlag
-        
-        # Flag for measurement of planet H4 enabled.
-        self.planetH4EnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlag
-        
-        # Flag for measurement of planet H5 enabled.
-        self.planetH5EnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlag
-        
-        # Flag for measurement of planet H6 enabled.
-        self.planetH6EnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlag
-        
-        # Flag for measurement of planet H7 enabled.
-        self.planetH7EnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlag
-        
-        # Flag for measurement of planet H8 enabled.
-        self.planetH8EnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlag
-        
-        # Flag for measurement of planet H9 enabled.
-        self.planetH9EnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlag
-        
-        # Flag for measurement of planet H10 enabled.
-        self.planetH10EnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlag
-        
-        # Flag for measurement of planet H11 enabled.
-        self.planetH11EnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlag
-        
-        # Flag for measurement of planet H12 enabled.
-        self.planetH12EnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag
-        
-        # Flag for measurement of planet HoraLagna enabled.
-        self.planetHoraLagnaEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag
-        
-        # Flag for measurement of planet GhatiLagna enabled.
-        self.planetGhatiLagnaEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlag
-        
-        # Flag for measurement of planet MeanLunarApogee enabled.
-        self.planetMeanLunarApogeeEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlag
-        
-        # Flag for measurement of planet OsculatingLunarApogee enabled.
-        self.planetOsculatingLunarApogeeEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlag
-        
-        # Flag for measurement of planet InterpolatedLunarApogee enabled.
-        self.planetInterpolatedLunarApogeeEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlag
-        
-        # Flag for measurement of planet InterpolatedLunarPerigee enabled.
-        self.planetInterpolatedLunarPerigeeEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlag
-        
-        # Flag for measurement of planet Sun enabled.
-        self.planetSunEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlag
-        
-        # Flag for measurement of planet Moon enabled.
-        self.planetMoonEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlag
-        
-        # Flag for measurement of planet Mercury enabled.
-        self.planetMercuryEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlag
-        
-        # Flag for measurement of planet Venus enabled.
-        self.planetVenusEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlag
-        
-        # Flag for measurement of planet Earth enabled.
-        self.planetEarthEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlag
-        
-        # Flag for measurement of planet Mars enabled.
-        self.planetMarsEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlag
-        
-        # Flag for measurement of planet Jupiter enabled.
-        self.planetJupiterEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlag
-        
-        # Flag for measurement of planet Saturn enabled.
-        self.planetSaturnEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlag
-        
-        # Flag for measurement of planet Uranus enabled.
-        self.planetUranusEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlag
-        
-        # Flag for measurement of planet Neptune enabled.
-        self.planetNeptuneEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlag
-        
-        # Flag for measurement of planet Pluto enabled.
-        self.planetPlutoEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlag
-        
-        # Flag for measurement of planet MeanNorthNode enabled.
-        self.planetMeanNorthNodeEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlag
-        
-        # Flag for measurement of planet MeanSouthNode enabled.
-        self.planetMeanSouthNodeEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlag
-        
-        # Flag for measurement of planet TrueNorthNode enabled.
-        self.planetTrueNorthNodeEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlag
-        
-        # Flag for measurement of planet TrueSouthNode enabled.
-        self.planetTrueSouthNodeEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlag
-        
-        # Flag for measurement of planet Ceres enabled.
-        self.planetCeresEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlag
-        
-        # Flag for measurement of planet Pallas enabled.
-        self.planetPallasEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlag
-        
-        # Flag for measurement of planet Juno enabled.
-        self.planetJunoEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlag
-        
-        # Flag for measurement of planet Vesta enabled.
-        self.planetVestaEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag
-        
-        # Flag for measurement of planet Chiron enabled.
-        self.planetChironEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag
-        
-        # Flag for measurement of planet Gulika enabled.
-        self.planetGulikaEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlag
-        
-        # Flag for measurement of planet Mandi enabled.
-        self.planetMandiEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlag
-        
-        # Flag for measurement of planet MeanOfFive enabled.
-        self.planetMeanOfFiveEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlag
-        
-        # Flag for measurement of planet CycleOfEight enabled.
-        self.planetCycleOfEightEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlag
-        
-        # Flag for measurement of planet AvgMaJuSaUrNePl enabled.
-        self.planetAvgMaJuSaUrNePlEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlag
-        
-        # Flag for measurement of planet AvgJuSaUrNe enabled.
-        self.planetAvgJuSaUrNeEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlag
-        
-        # Flag for measurement of planet AvgJuSa enabled.
-        self.planetAvgJuSaEnabledFlag =
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag
+
+        # List of names of the enabled planets.
+        self.planetNamesEnabled = []
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag == True:
+            self.planetNamesEnabled.append("H1")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlag == True:
+            self.planetNamesEnabled.append("H2")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlag == True:
+            self.planetNamesEnabled.append("H3")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlag == True:
+            self.planetNamesEnabled.append("H4")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlag == True:
+            self.planetNamesEnabled.append("H5")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlag == True:
+            self.planetNamesEnabled.append("H6")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlag == True:
+            self.planetNamesEnabled.append("H7")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlag == True:
+            self.planetNamesEnabled.append("H8")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlag == True:
+            self.planetNamesEnabled.append("H9")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlag == True:
+            self.planetNamesEnabled.append("H10")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlag == True:
+            self.planetNamesEnabled.append("H11")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag == True:
+            self.planetNamesEnabled.append("H12")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag == True:
+            self.planetNamesEnabled.append("HoraLagna")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlag == True:
+            self.planetNamesEnabled.append("GhatiLagna")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlag == True:
+            self.planetNamesEnabled.append("MeanLunarApogee")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlag == True:
+            self.planetNamesEnabled.append("OsculatingLunarApogee")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlag == True:
+            self.planetNamesEnabled.append("InterpolatedLunarApogee")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlag == True:
+            self.planetNamesEnabled.append("InterpolatedLunarPerigee")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlag == True:
+            self.planetNamesEnabled.append("Sun")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlag == True:
+            self.planetNamesEnabled.append("Moon")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlag == True:
+            self.planetNamesEnabled.append("Mercury")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlag == True:
+            self.planetNamesEnabled.append("Venus")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlag == True:
+            self.planetNamesEnabled.append("Earth")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlag == True:
+            self.planetNamesEnabled.append("Mars")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlag == True:
+            self.planetNamesEnabled.append("Jupiter")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlag == True:
+            self.planetNamesEnabled.append("Saturn")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlag == True:
+            self.planetNamesEnabled.append("Uranus")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlag == True:
+            self.planetNamesEnabled.append("Neptune")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlag == True:
+            self.planetNamesEnabled.append("Pluto")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("MeanNorthNode")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("MeanSouthNode")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("TrueNorthNode")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("TrueSouthNode")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlag == True:
+            self.planetNamesEnabled.append("Ceres")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlag == True:
+            self.planetNamesEnabled.append("Pallas")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlag == True:
+            self.planetNamesEnabled.append("Juno")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag == True:
+            self.planetNamesEnabled.append("Vesta")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag == True:
+            self.planetNamesEnabled.append("Chiron")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlag == True:
+            self.planetNamesEnabled.append("Gulika")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlag == True:
+            self.planetNamesEnabled.append("Mandi")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlag == True:
+            self.planetNamesEnabled.append("MeanOfFive")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlag == True:
+            self.planetNamesEnabled.append("CycleOfEight")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlag == True:
+            self.planetNamesEnabled.append("AvgMaJuSaUrNePl")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlag == True:
+            self.planetNamesEnabled.append("AvgJuSaUrNe")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag == True:
+            self.planetNamesEnabled.append("AvgJuSa")
         
         ############################################################
 
@@ -7400,7 +7314,7 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
         
         # Set the text item with the properties we want it to have.
         self.reApplyTextItemAttributes(self.textItem)
-        
+
         # Flag that indicates that vertical dotted lines should be drawn.
         self.drawVerticalDottedLinesFlag = False
         
@@ -7534,245 +7448,156 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             priceBarChartSettings.\
             planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabled
         
-        # Flag for displaying measurements in number of 360-degree circles.
+        # Flag for displaying measurements in number of circles.
         self.measurementUnitCirclesEnabled = \
             priceBarChartSettings.\
             planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabled
+
+        # Remove contents of the list and retrieve the list of enabled
+        # planets from priceBarChartSettings.
+        del self.planetNamesEnabled[:]
         
-        # Flag for measurement of planet H1 enabled.
-        self.planetH1EnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag
-        
-        # Flag for measurement of planet H2 enabled.
-        self.planetH2EnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlag
-        
-        # Flag for measurement of planet H3 enabled.
-        self.planetH3EnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlag
-        
-        # Flag for measurement of planet H4 enabled.
-        self.planetH4EnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlag
-        
-        # Flag for measurement of planet H5 enabled.
-        self.planetH5EnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlag
-        
-        # Flag for measurement of planet H6 enabled.
-        self.planetH6EnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlag
-        
-        # Flag for measurement of planet H7 enabled.
-        self.planetH7EnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlag
-        
-        # Flag for measurement of planet H8 enabled.
-        self.planetH8EnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlag
-        
-        # Flag for measurement of planet H9 enabled.
-        self.planetH9EnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlag
-        
-        # Flag for measurement of planet H10 enabled.
-        self.planetH10EnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlag
-        
-        # Flag for measurement of planet H11 enabled.
-        self.planetH11EnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlag
-        
-        # Flag for measurement of planet H12 enabled.
-        self.planetH12EnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag
-        
-        # Flag for measurement of planet HoraLagna enabled.
-        self.planetHoraLagnaEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag
-        
-        # Flag for measurement of planet GhatiLagna enabled.
-        self.planetGhatiLagnaEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlag
-        
-        # Flag for measurement of planet MeanLunarApogee enabled.
-        self.planetMeanLunarApogeeEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlag
-        
-        # Flag for measurement of planet OsculatingLunarApogee enabled.
-        self.planetOsculatingLunarApogeeEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlag
-        
-        # Flag for measurement of planet InterpolatedLunarApogee enabled.
-        self.planetInterpolatedLunarApogeeEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlag
-        
-        # Flag for measurement of planet InterpolatedLunarPerigee enabled.
-        self.planetInterpolatedLunarPerigeeEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlag
-        
-        # Flag for measurement of planet Sun enabled.
-        self.planetSunEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlag
-        
-        # Flag for measurement of planet Moon enabled.
-        self.planetMoonEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlag
-        
-        # Flag for measurement of planet Mercury enabled.
-        self.planetMercuryEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlag
-        
-        # Flag for measurement of planet Venus enabled.
-        self.planetVenusEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlag
-        
-        # Flag for measurement of planet Earth enabled.
-        self.planetEarthEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlag
-        
-        # Flag for measurement of planet Mars enabled.
-        self.planetMarsEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlag
-        
-        # Flag for measurement of planet Jupiter enabled.
-        self.planetJupiterEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlag
-        
-        # Flag for measurement of planet Saturn enabled.
-        self.planetSaturnEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlag
-        
-        # Flag for measurement of planet Uranus enabled.
-        self.planetUranusEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlag
-        
-        # Flag for measurement of planet Neptune enabled.
-        self.planetNeptuneEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlag
-        
-        # Flag for measurement of planet Pluto enabled.
-        self.planetPlutoEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlag
-        
-        # Flag for measurement of planet MeanNorthNode enabled.
-        self.planetMeanNorthNodeEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlag
-        
-        # Flag for measurement of planet MeanSouthNode enabled.
-        self.planetMeanSouthNodeEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlag
-        
-        # Flag for measurement of planet TrueNorthNode enabled.
-        self.planetTrueNorthNodeEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlag
-        
-        # Flag for measurement of planet TrueSouthNode enabled.
-        self.planetTrueSouthNodeEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlag
-        
-        # Flag for measurement of planet Ceres enabled.
-        self.planetCeresEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlag
-        
-        # Flag for measurement of planet Pallas enabled.
-        self.planetPallasEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlag
-        
-        # Flag for measurement of planet Juno enabled.
-        self.planetJunoEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlag
-        
-        # Flag for measurement of planet Vesta enabled.
-        self.planetVestaEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag
-        
-        # Flag for measurement of planet Chiron enabled.
-        self.planetChironEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag
-        
-        # Flag for measurement of planet Gulika enabled.
-        self.planetGulikaEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlag
-        
-        # Flag for measurement of planet Mandi enabled.
-        self.planetMandiEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlag
-        
-        # Flag for measurement of planet MeanOfFive enabled.
-        self.planetMeanOfFiveEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlag
-        
-        # Flag for measurement of planet CycleOfEight enabled.
-        self.planetCycleOfEightEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlag
-        
-        # Flag for measurement of planet AvgMaJuSaUrNePl enabled.
-        self.planetAvgMaJuSaUrNePlEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlag
-        
-        # Flag for measurement of planet AvgJuSaUrNe enabled.
-        self.planetAvgJuSaUrNeEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlag
-        
-        # Flag for measurement of planet AvgJuSa enabled.
-        self.planetAvgJuSaEnabledFlag =
-            priceBarChartSettings.\
-            planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag == True:
+            self.planetNamesEnabled.append("H1")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlag == True:
+            self.planetNamesEnabled.append("H2")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlag == True:
+            self.planetNamesEnabled.append("H3")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlag == True:
+            self.planetNamesEnabled.append("H4")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlag == True:
+            self.planetNamesEnabled.append("H5")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlag == True:
+            self.planetNamesEnabled.append("H6")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlag == True:
+            self.planetNamesEnabled.append("H7")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlag == True:
+            self.planetNamesEnabled.append("H8")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlag == True:
+            self.planetNamesEnabled.append("H9")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlag == True:
+            self.planetNamesEnabled.append("H10")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlag == True:
+            self.planetNamesEnabled.append("H11")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag == True:
+            self.planetNamesEnabled.append("H12")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag == True:
+            self.planetNamesEnabled.append("HoraLagna")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlag == True:
+            self.planetNamesEnabled.append("GhatiLagna")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlag == True:
+            self.planetNamesEnabled.append("MeanLunarApogee")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlag == True:
+            self.planetNamesEnabled.append("OsculatingLunarApogee")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlag == True:
+            self.planetNamesEnabled.append("InterpolatedLunarApogee")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlag == True:
+            self.planetNamesEnabled.append("InterpolatedLunarPerigee")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlag == True:
+            self.planetNamesEnabled.append("Sun")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlag == True:
+            self.planetNamesEnabled.append("Moon")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlag == True:
+            self.planetNamesEnabled.append("Mercury")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlag == True:
+            self.planetNamesEnabled.append("Venus")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlag == True:
+            self.planetNamesEnabled.append("Earth")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlag == True:
+            self.planetNamesEnabled.append("Mars")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlag == True:
+            self.planetNamesEnabled.append("Jupiter")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlag == True:
+            self.planetNamesEnabled.append("Saturn")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlag == True:
+            self.planetNamesEnabled.append("Uranus")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlag == True:
+            self.planetNamesEnabled.append("Neptune")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlag == True:
+            self.planetNamesEnabled.append("Pluto")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("MeanNorthNode")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("MeanSouthNode")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("TrueNorthNode")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("TrueSouthNode")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlag == True:
+            self.planetNamesEnabled.append("Ceres")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlag == True:
+            self.planetNamesEnabled.append("Pallas")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlag == True:
+            self.planetNamesEnabled.append("Juno")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag == True:
+            self.planetNamesEnabled.append("Vesta")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag == True:
+            self.planetNamesEnabled.append("Chiron")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlag == True:
+            self.planetNamesEnabled.append("Gulika")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlag == True:
+            self.planetNamesEnabled.append("Mandi")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlag == True:
+            self.planetNamesEnabled.append("MeanOfFive")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlag == True:
+            self.planetNamesEnabled.append("CycleOfEight")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlag == True:
+            self.planetNamesEnabled.append("AvgMaJuSaUrNePl")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlag == True:
+            self.planetNamesEnabled.append("AvgJuSaUrNe")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag == True:
+            self.planetNamesEnabled.append("AvgJuSa")
         
         ####################################################################
 
         # Update the text item with the new settings.
         self.reApplyTextItemAttributes(self.textItem)
 
-        # Update the time measurement calculations since scaling could
-        # have changed.
-        self.recalculatePlanetLongitudeMovementMeasurement()
-        
         # Update the planetLongitudeMovementMeasurement text item position.
         self._updateTextItemPositions()
         
@@ -7782,7 +7607,7 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
         
         # Schedule an update.
         self.prepareGeometryChange()
-
+        
         self.log.debug("Exiting loadSettingsFromPriceBarChartSettings()")
         
     def loadSettingsFromAppPreferences(self):
@@ -8121,6 +7946,27 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
 
         scene = self.scene()
 
+        # maxErrorTd - datetime.timedelta object holding the maximum
+        #              time difference between the exact planetary
+        #              timestamp for the phenomena, and the one
+        #              calculated.  This would define the accuracy of
+        #              the calculations.
+        #
+        # TODO: Perhaps I should put this setting into QSettings?
+        maxErrorTd = datetime.timedelta(seconds=4)
+
+        # Size of a circle, in degrees.
+        #
+        # TODO: Perhaps I should put this setting into QSettings?  I
+        # suppose this could be different from 360.0 degrees if I
+        # wanted to see how many 7-circle cycles (or other degree
+        # sizes, etc.) that there are instead of a traditional amount
+        # of degreees when we think of a circle.  If I do end up
+        # putting this in QSettings, it would have to be a setting
+        # ONLY for this QGraphicsItem though, and not for modifying
+        # what would otherwise be a constant!
+        circleSizeInDegrees = 360.0
+
         # Text to set in the text item.
         text = ""
 
@@ -8140,30 +7986,776 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             
             timestampStr = Ephemeris.datetimeToDayStr(endTimestamp)
             self.log.debug("endTimestamp: " + timestampStr)
+
+            # If startTimestamp is after endTimestamp, then swap their values.
+            if startTimestamp > endTimestamp:
+                temp = startTimestamp
+                startTimestamp = endTimestamp
+                endTimestamp = temp
             
-            # TODO:  Here, do calculations here for measuring planet movements.
-            # For each measurement that is completed, append text.
-            # 
-            # Make sure I have the location of the timezone set in the
-            # Ephemeris before using the Ephemeris to query planet
-            # positions!  I need to make sure this is guaranteed
-            # because the user could switch subwindows between charts
-            # that have different timezones and birth dates.  Perhaps
-            # this kind of information should be set right when a
-            # subwindow (PCD document) gets activated?
-            #
-            # 
+            # Set the birth location in the Ephemeris.
+            # We need to set this each time because there is no
+            # guarantee that the last use of the Ephemeris was with
+            # this location.
+            birthInfo = self.graphicsScene.getBirthInfo()
+            Ephemeris.setGeographicPosition(birthInfo.longitudeDegrees,
+                                            birthInfo.latitudeDegrees,
+                                            birthInfo.elevation)
             
+            # Based on what kind of options are selected, compute and
+            # make measurements of the planet(s) movement.
+            
+            for planetName in self.planetNamesEnabled:
+                
+                # If the start and end timestamps are the same, then
+                # don't do any calculations.
+                if startTimestamp == endTimestamp:
+                    break
+
+                # If at least one of the zodiacs are not selected,
+                # then don't do any calculations.
+                if self.tropicalZodiacFlag == False and \
+                   self.siderealZodiacFlag == False:
+                    break
+                
+                # If there are no measurement unit types specified,
+                # then don't do calculations for any planets.
+                if self.measurementUnitDegreesEnabled == False and \
+                   self.measurementUnitCirclesEnabled == False:
+                    break
+                
+                # List of PlanetaryInfos, sorted by timestamp.
+                planetData = []
+                
+                # Step size to use in populating the data list with PlanetaryInfos.
+                
+                # The step size should cause the planet to move less
+                # than 120 degrees in all cases, and idealy much less
+                # than this, that way we can easily narrow down when
+                # the planet passes the 0 degree or 360 degree
+                # threshold, and also so it is easier to narrow down
+                # when retrograde periods happen.  If the step size is
+                # too large, it is possible that we would miss a whole
+                # time window of retrograde movement, so discretion
+                # has to be used in determining what to use for this value.
+                stepSizeTd = datetime.timedelta(days=1)
+                
+                # If the planet name is a house cusp then shrink the
+                # step size so we will get the correct resolution.  If
+                # the planet name is an outer planet with a large
+                # period, we can increase the step size slightly to
+                # improve performance.
+                if Ephemeris.isHouseCuspPlanetName(planetName):
+                    stepSizeTd = datetime.timedelta(hours=1)
+                    
+                elif planetName == "Jupiter" or \
+                     planetName == "Saturn" or \
+                     planetName == "Neptune" or \
+                     planetName == "Uranus" or \
+                     planetName == "Pluto":
+                    
+                    stepSizeTd = datetime.timedelta(days=2)
+                
+                log.debug("Stepping through timestamps from {} to {} ...".\
+                          format(Ephemeris.datetimeToStr(startTimestamp),
+                                 Ephemeris.datetimeToStr(endTimestamp)))
+                
+                # Current datetime as we step through all the
+                # timestamps between the start and end timestamp.
+                currDt = copy.deepcopy(startTimestamp)
+                
+                # Step through the timestamps, calculating the planet positions.
+                while currDt < endTimestamp:
+                    p = Ephemeris.getPlanetaryInfo(planetName, currDt)
+                    planetData.append(p)
+                    
+                    # Increment step size.
+                    currDt += stepSizeTd
+                    
+                # Append also the planet calculation for the end timestamp.
+                p = Ephemeris.getPlanetaryInfo(planetName, endTimestamp)
+                planetData.append(p)
+                
+                # Geocentric measurement.
+                if self.showGeocentricRetroAsZeroTextFlag == True or \
+                    self.showGeocentricRetroAsPositiveTextFlag == True or \
+                    self.showGeocentricRetroAsNegativeTextFlag == True:
+
+                    # Get the PlanetaryInfos for the timestamps of the
+                    # planet at the moment right after the
+                    # longitude_speed polarity changes.
+                    additionalPlanetaryInfos = []
+                    
+                    prevLongitudeSpeed = None
+                    
+                    for i in range(len(planetData)):
+                        currLongitudeSpeed = \
+                            planetData[i].geocentric['tropical']['longitude_speed']
+                        
+                        if prevLongitudeSpeed != None and \
+                           ((prevLongitudeSpeed < 0 and currLongitudeSpeed >= 0) or \
+                           (prevLongitudeSpeed >= 0 and currLongitudeSpeed < 0)):
+                            
+                            # Polarity changed.
+                            # Try to narrow down the exact moment in
+                            # time when this occured.
+                            t1 = planetData[i-1].dt
+                            t2 = planetData[i].dt
+                            currErrorTd = t2 - t1
+                            
+                            while currErrorTd > maxErrorTd:
+                                log.debug("Refining between {} and {}".\
+                                          format(Ephemeris.datetimeToStr(t1),
+                                                 Ephemeris.datetimeToStr(t2)))
+                                
+                                # Check the timestamp between.
+                                diffTd = t2 - t1
+                                halfDiffTd = \
+                                    datetime.\
+                                    timedelta(days=(diffTd.days / 2.0),
+                                              seconds=(diffTd.seconds / 2.0),
+                                              microseconds=(diffTd.\
+                                                            microseconds / 2.0))
+                                testDt = t1 + halfDiffTd
+
+                                p = Ephemeris.getPlanetaryInfo(planetName, testDt)
+                                testLongitudeSpeed = \
+                                    p.geocentric['sidereal']['longitude_speed']
+
+                                if ((prevLongitudeSpeed < 0 and \
+                                     testLongitudeSpeed >= 0) or \
+                                    (prevLongitudeSpeed >= 0 and \
+                                     testLongitudeSpeed < 0)):
+
+                                    # Polarity change at the test timestamp.
+                                    t2 = testDt
+
+                                else:
+                                    # No polarity change yet.
+                                    t1 = testDt
+
+                                # Update the currErrorTd.
+                                currErrorTd = t2 - t1
+                                
+                            # Timestamp at t2 is now within the time error
+                            # threshold of the polarity change.
+                            # Append this value to the list.
+                            p = Ephemeris.getPlanetaryInfo(planetName, t2)
+                            additionalPlanetaryInfos.append(p)
+
+                            # There is no need to update
+                            # currLongitudeSpeed here, because the
+                            # longitude_speed for 'p' should be the
+                            # same polarity.
+                            
+                        # Update prevLongitudeSpeed.
+                        prevLongitudeSpeed = currLongitudeSpeed
+
+                    # Sort by timestamp.
+                    additionalPlanetaryInfos = sorted(additionalPlanetaryInfos, key=lambda c: c.dt)
+
+                    # Insert PlanetaryInfos from
+                    # 'additionalPlanetaryInfos' into 'planetData' at
+                    # the timestamp-ordered location.
+                    currLoc = 0
+                    for i in range(len(additionalPlanetaryInfos)):
+                        pi = additionalPlanetaryInfos[i]
+
+                        insertedFlag = False
+                        
+                        while currLoc < len(planetData):
+                            if pi.dt < planetData[currLoc].dt:
+                                planetData.insert(currLoc, pi)
+                                insertedFlag = True
+                                currLoc += 1
+                                break
+                            else:
+                                currLoc += 1
+                        
+                        if insertedFlag == False:
+                            # PlanetaryInfo 'pi' has a timestamp that
+                            # is later than the last PlanetaryInfo in
+                            # 'planetData', so just append it.
+                            planetData.append(pi)
+
+                            # Increment currLoc so that the rest of
+                            # the PlanetaryInfos in
+                            # 'additionalPlanetaryInfos' can be
+                            # appended without doing anymore timestamp tests.
+                            currLoc += 1
+
+                    # TODO: Remove the below test when I'm satisfied the logic is correct.
+                    for i in range(len(planetData)):
+                        if i != 0:
+                            if planetData[i-1].dt >= planetData[i]:
+                                raise AssertionError("THE PLANETARYINFO LIST IS NOT SORTED BY TIMESTAMP.  LOGIC ERROR!!!!")
+
+                    # Do summations to determine the measurements.
+                    
+                    if self.showGeocentricRetroAsZeroTextFlag == True:
+                        if self.tropicalZodiacFlag == True:
+                            totalDegrees = 0
+                            zodiacType = "tropical"
+                            
+                            for i in range(len(planetData)):
+                                if i != 0:
+                                    prevPi = planetData[i-1]
+                                    currPi = planetData[i]
+
+                                    if prevPi.geocentric[zodiacType]['longitude_speed'] >= 0:
+                                        # Direct motion.
+                                        # Elapsed amount for this segment should be positive.
+                                        
+                                        # Find the amount of longitude elasped.
+                                        longitudeElapsed = \
+                                            currPi.geocentric[zodiacType]['longitude'] - \
+                                            prevPi.geocentric[zodiacType]['longitude']
+                                        
+                                        # See if there was a crossing of the
+                                        # 0 degree point or the 360 degree point.
+                                        # If so, make the necessary adjustments
+                                        # so that the longitude elapsed is
+                                        # correct.
+                                        longitudeElapsed = \
+                                            Util.toNormalizedAngle(longitudeElapsed)
+
+                                        totalDegrees += longitudeElapsed
+                                    else:
+                                        # Retrograde motion.
+                                        # Elapsed amount for this segment should be negative.
+
+                                        # Retrograde movements are considered as zero.
+                                        longitudeElapsed = 0
+                                        totalDegrees += longitudeElapsed
+                                    
+                            # Append text for the calculated number of total degrees.
+                            line = ""
+                            numCircles = totalDegrees / circleSizeInDegrees
+                            
+                            if self.measurementUnitDegreesEnabled == True and \
+                               self.measurementUnitCirclesEnabled == True:
+                                
+                                line = "Geo Trop {} moves {} deg or {} circles (retro as 0)".\
+                                       format(planetName, totalDegrees, numCircles)
+                            
+                            elif self.measurementUnitDegreesEnabled == True and \
+                               self.measurementUnitCirclesEnabled == False:
+                                
+                                line = "Geo Trop {} moves {} deg (retro as 0)".\
+                                       format(planetName, totalDegrees)
+                                
+                            elif self.measurementUnitDegreesEnabled == False and \
+                               self.measurementUnitCirclesEnabled == True:
+                                
+                                line = "Geo Trop {} moves {} circles (retro as 0)".\
+                                       format(planetName, totalDegrees)
+                                
+                            text += line + os.linesep
+                            
+                        if self.siderealZodiacFlag == True:
+                            totalDegrees = 0
+                            zodiacType = "sidereal"
+                            
+                            for i in range(len(planetData)):
+                                if i != 0:
+                                    prevPi = planetData[i-1]
+                                    currPi = planetData[i]
+
+                                    if prevPi.geocentric[zodiacType]['longitude_speed'] >= 0:
+                                        # Direct motion.
+                                        # Elapsed amount for this segment should be positive.
+                                        
+                                        # Find the amount of longitude elasped.
+                                        longitudeElapsed = \
+                                            currPi.geocentric[zodiacType]['longitude'] - \
+                                            prevPi.geocentric[zodiacType]['longitude']
+                                        
+                                        # See if there was a crossing of the
+                                        # 0 degree point or the 360 degree point.
+                                        # If so, make the necessary adjustments
+                                        # so that the longitude elapsed is
+                                        # correct.
+                                        longitudeElapsed = \
+                                            Util.toNormalizedAngle(longitudeElapsed)
+
+                                        totalDegrees += longitudeElapsed
+                                    else:
+                                        # Retrograde motion.
+                                        # Elapsed amount for this segment should be negative.
+
+                                        # Retrograde movements are considered as zero.
+                                        longitudeElapsed = 0
+                                        totalDegrees += longitudeElapsed
+                                    
+                            # Append text for the calculated number of total degrees.
+                            line = ""
+                            numCircles = totalDegrees / circleSizeInDegrees
+                            
+                            if self.measurementUnitDegreesEnabled == True and \
+                               self.measurementUnitCirclesEnabled == True:
+
+                                line = "Geo Sid {} moves {} deg or {} circles (retro as 0)".\
+                                       format(planetName, totalDegrees, numCircles)
+                            
+                            elif self.measurementUnitDegreesEnabled == True and \
+                               self.measurementUnitCirclesEnabled == False:
+
+                                line = "Geo Sid {} moves {} deg (retro as 0)".\
+                                       format(planetName, totalDegrees)
+                                
+                            elif self.measurementUnitDegreesEnabled == False and \
+                               self.measurementUnitCirclesEnabled == True:
+
+                                line = "Geo Sid {} moves {} circles (retro as 0)".\
+                                       format(planetName, totalDegrees)
+
+                            text += line + os.linesep
+                            
+                    if self.showGeocentricRetroAsPositiveTextFlag == True:
+                        if self.tropicalZodiacFlag == True:
+                            totalDegrees = 0
+                            zodiacType = "tropical"
+                            
+                            for i in range(len(planetData)):
+                                if i != 0:
+                                    prevPi = planetData[i-1]
+                                    currPi = planetData[i]
+
+                                    if prevPi.geocentric[zodiacType]['longitude_speed'] >= 0:
+                                        # Direct motion.
+                                        # Elapsed amount for this segment should be positive.
+                                        
+                                        # Find the amount of longitude elasped.
+                                        longitudeElapsed = \
+                                            currPi.geocentric[zodiacType]['longitude'] - \
+                                            prevPi.geocentric[zodiacType]['longitude']
+                                        
+                                        # See if there was a crossing of the
+                                        # 0 degree point or the 360 degree point.
+                                        # If so, make the necessary adjustments
+                                        # so that the longitude elapsed is
+                                        # correct.
+                                        longitudeElapsed = \
+                                            Util.toNormalizedAngle(longitudeElapsed)
+
+                                        totalDegrees += longitudeElapsed
+                                    else:
+                                        # Retrograde motion.
+                                        # Elapsed amount for this segment should be negative.
+                                        
+                                        # Find the amount of longitude elasped.
+                                        longitudeElapsed = \
+                                            currPi.geocentric[zodiacType]['longitude'] - \
+                                            prevPi.geocentric[zodiacType]['longitude']
+
+                                        # See if there was a crossing of the
+                                        # 0 degree point or the 360 degree point.
+                                        # If so, make the necessary adjustments
+                                        # so that the longitude elapsed is
+                                        # correct.
+                                        if longitudeElapsed > 0:
+                                            longitudeElapsed -= 360
+
+                                        # Since this is retrograde
+                                        # movement, as we are counting
+                                        # retrograde movements as
+                                        # positive values, negate it
+                                        # before adding.
+                                        totalDegrees += abs(longitudeElapsed)
+                                    
+                            # Append text for the calculated number of total degrees.
+                            line = ""
+                            numCircles = totalDegrees / circleSizeInDegrees
+                            
+                            if self.measurementUnitDegreesEnabled == True and \
+                               self.measurementUnitCirclesEnabled == True:
+                                
+                                line = "Geo Trop {} moves {} deg or {} circles (retro as +)".\
+                                       format(planetName, totalDegrees, numCircles)
+                            
+                            elif self.measurementUnitDegreesEnabled == True and \
+                               self.measurementUnitCirclesEnabled == False:
+                                
+                                line = "Geo Trop {} moves {} deg (retro as +)".\
+                                       format(planetName, totalDegrees)
+                                
+                            elif self.measurementUnitDegreesEnabled == False and \
+                               self.measurementUnitCirclesEnabled == True:
+                                
+                                line = "Geo Trop {} moves {} circles (retro as +)".\
+                                       format(planetName, totalDegrees)
+                                
+                            text += line + os.linesep
+                            
+                        if self.siderealZodiacFlag == True:
+                            totalDegrees = 0
+                            zodiacType = "sidereal"
+                            
+                            for i in range(len(planetData)):
+                                if i != 0:
+                                    prevPi = planetData[i-1]
+                                    currPi = planetData[i]
+
+                                    if prevPi.geocentric[zodiacType]['longitude_speed'] >= 0:
+                                        # Direct motion.
+                                        # Elapsed amount for this segment should be positive.
+                                        
+                                        # Find the amount of longitude elasped.
+                                        longitudeElapsed = \
+                                            currPi.geocentric[zodiacType]['longitude'] - \
+                                            prevPi.geocentric[zodiacType]['longitude']
+                                        
+                                        # See if there was a crossing of the
+                                        # 0 degree point or the 360 degree point.
+                                        # If so, make the necessary adjustments
+                                        # so that the longitude elapsed is
+                                        # correct.
+                                        longitudeElapsed = \
+                                            Util.toNormalizedAngle(longitudeElapsed)
+
+                                        totalDegrees += longitudeElapsed
+                                    else:
+                                        # Retrograde motion.
+                                        # Elapsed amount for this segment should be negative.
+                                        
+                                        # Find the amount of longitude elasped.
+                                        longitudeElapsed = \
+                                            currPi.geocentric[zodiacType]['longitude'] - \
+                                            prevPi.geocentric[zodiacType]['longitude']
+
+                                        # See if there was a crossing of the
+                                        # 0 degree point or the 360 degree point.
+                                        # If so, make the necessary adjustments
+                                        # so that the longitude elapsed is
+                                        # correct.
+                                        if longitudeElapsed > 0:
+                                            longitudeElapsed -= 360
+
+                                        # Since this is retrograde
+                                        # movement, as we are counting
+                                        # retrograde movements as
+                                        # positive values, negate it
+                                        # before adding.
+                                        totalDegrees += abs(longitudeElapsed)
+                                    
+                            # Append text for the calculated number of total degrees.
+                            line = ""
+                            numCircles = totalDegrees / circleSizeInDegrees
+                            
+                            if self.measurementUnitDegreesEnabled == True and \
+                               self.measurementUnitCirclesEnabled == True:
+
+                                line = "Geo Sid {} moves {} deg or {} circles (retro as +)".\
+                                       format(planetName, totalDegrees, numCircles)
+                            
+                            elif self.measurementUnitDegreesEnabled == True and \
+                               self.measurementUnitCirclesEnabled == False:
+
+                                line = "Geo Sid {} moves {} deg (retro as +)".\
+                                       format(planetName, totalDegrees)
+                                
+                            elif self.measurementUnitDegreesEnabled == False and \
+                               self.measurementUnitCirclesEnabled == True:
+
+                                line = "Geo Sid {} moves {} circles (retro as +)".\
+                                       format(planetName, totalDegrees)
+
+                            text += line + os.linesep
+                            
+                    if self.showGeocentricRetroAsNegativeTextFlag == True:
+                        if self.tropicalZodiacFlag == True:
+                            totalDegrees = 0
+                            zodiacType = "tropical"
+                            
+                            for i in range(len(planetData)):
+                                if i != 0:
+                                    prevPi = planetData[i-1]
+                                    currPi = planetData[i]
+
+                                    if prevPi.geocentric[zodiacType]['longitude_speed'] >= 0:
+                                        # Direct motion.
+                                        # Elapsed amount for this segment should be positive.
+                                        
+                                        # Find the amount of longitude elasped.
+                                        longitudeElapsed = \
+                                            currPi.geocentric[zodiacType]['longitude'] - \
+                                            prevPi.geocentric[zodiacType]['longitude']
+                                        
+                                        # See if there was a crossing of the
+                                        # 0 degree point or the 360 degree point.
+                                        # If so, make the necessary adjustments
+                                        # so that the longitude elapsed is
+                                        # correct.
+                                        longitudeElapsed = \
+                                            Util.toNormalizedAngle(longitudeElapsed)
+
+                                        totalDegrees += longitudeElapsed
+                                    else:
+                                        # Retrograde motion.
+                                        # Elapsed amount for this segment should be negative.
+                                        
+                                        # Find the amount of longitude elasped.
+                                        longitudeElapsed = \
+                                            currPi.geocentric[zodiacType]['longitude'] - \
+                                            prevPi.geocentric[zodiacType]['longitude']
+
+                                        # See if there was a crossing of the
+                                        # 0 degree point or the 360 degree point.
+                                        # If so, make the necessary adjustments
+                                        # so that the longitude elapsed is
+                                        # correct.
+                                        if longitudeElapsed > 0:
+                                            longitudeElapsed -= 360
+
+                                        totalDegrees += longitudeElapsed
+                                    
+                            # Append text for the calculated number of total degrees.
+                            line = ""
+                            numCircles = totalDegrees / circleSizeInDegrees
+                            
+                            if self.measurementUnitDegreesEnabled == True and \
+                               self.measurementUnitCirclesEnabled == True:
+                                
+                                line = "Geo Trop {} moves {} deg or {} circles (retro as -)".\
+                                       format(planetName, totalDegrees, numCircles)
+                            
+                            elif self.measurementUnitDegreesEnabled == True and \
+                               self.measurementUnitCirclesEnabled == False:
+                                
+                                line = "Geo Trop {} moves {} deg (retro as -)".\
+                                       format(planetName, totalDegrees)
+                                
+                            elif self.measurementUnitDegreesEnabled == False and \
+                               self.measurementUnitCirclesEnabled == True:
+                                
+                                line = "Geo Trop {} moves {} circles (retro as -)".\
+                                       format(planetName, totalDegrees)
+                                
+                            text += line + os.linesep
+                            
+                        if self.siderealZodiacFlag == True:
+                            totalDegrees = 0
+                            zodiacType = "sidereal"
+                            
+                            for i in range(len(planetData)):
+                                if i != 0:
+                                    prevPi = planetData[i-1]
+                                    currPi = planetData[i]
+
+                                    if prevPi.geocentric[zodiacType]['longitude_speed'] >= 0:
+                                        # Direct motion.
+                                        # Elapsed amount for this segment should be positive.
+                                        
+                                        # Find the amount of longitude elasped.
+                                        longitudeElapsed = \
+                                            currPi.geocentric[zodiacType]['longitude'] - \
+                                            prevPi.geocentric[zodiacType]['longitude']
+                                        
+                                        # See if there was a crossing of the
+                                        # 0 degree point or the 360 degree point.
+                                        # If so, make the necessary adjustments
+                                        # so that the longitude elapsed is
+                                        # correct.
+                                        longitudeElapsed = \
+                                            Util.toNormalizedAngle(longitudeElapsed)
+
+                                        totalDegrees += longitudeElapsed
+                                    else:
+                                        # Retrograde motion.
+                                        # Elapsed amount for this segment should be negative.
+                                        
+                                        # Find the amount of longitude elasped.
+                                        longitudeElapsed = \
+                                            currPi.geocentric[zodiacType]['longitude'] - \
+                                            prevPi.geocentric[zodiacType]['longitude']
+
+                                        # See if there was a crossing of the
+                                        # 0 degree point or the 360 degree point.
+                                        # If so, make the necessary adjustments
+                                        # so that the longitude elapsed is
+                                        # correct.
+                                        if longitudeElapsed > 0:
+                                            longitudeElapsed -= 360
+
+                                        totalDegrees += longitudeElapsed
+                                    
+                            # Append text for the calculated number of total degrees.
+                            line = ""
+                            numCircles = totalDegrees / circleSizeInDegrees
+                            
+                            if self.measurementUnitDegreesEnabled == True and \
+                               self.measurementUnitCirclesEnabled == True:
+                                
+                                line = "Geo Sid {} moves {} deg or {} circles (retro as -)".\
+                                       format(planetName, totalDegrees, numCircles)
+                            
+                            elif self.measurementUnitDegreesEnabled == True and \
+                               self.measurementUnitCirclesEnabled == False:
+
+                                line = "Geo Sid {} moves {} deg (retro as -)".\
+                                       format(planetName, totalDegrees)
+                                
+                            elif self.measurementUnitDegreesEnabled == False and \
+                               self.measurementUnitCirclesEnabled == True:
+
+                                line = "Geo Sid {} moves {} circles (retro as -)".\
+                                       format(planetName, totalDegrees)
+                            
+                            text += line + os.linesep
+                            
+                if self.showHeliocentricTextFlag == True:
+                    
+                    if self.tropicalZodiacFlag == True:
+                        totalDegrees = 0
+                        zodiacType = "tropical"
+                        
+                        for i in range(len(planetData)):
+                            if i != 0:
+                                prevPi = planetData[i-1]
+                                currPi = planetData[i]
+                                
+                                if prevPi.heliocentric[zodiacType]['longitude_speed'] >= 0:
+                                    # Direct motion.
+                                    # Elapsed amount for this segment should be positive.
+                                    
+                                    # Find the amount of longitude elasped.
+                                    longitudeElapsed = \
+                                        currPi.heliocentric[zodiacType]['longitude'] - \
+                                        prevPi.heliocentric[zodiacType]['longitude']
+                                    
+                                    # See if there was a crossing of the
+                                    # 0 degree point or the 360 degree point.
+                                    # If so, make the necessary adjustments
+                                    # so that the longitude elapsed is
+                                    # correct.
+                                    longitudeElapsed = \
+                                        Util.toNormalizedAngle(longitudeElapsed)
+                                    
+                                    totalDegrees += longitudeElapsed
+                                else:
+                                    # Retrograde motion.
+                                    # Elapsed amount for this segment should be negative.
+                                    
+                                    # Find the amount of longitude elasped.
+                                    longitudeElapsed = \
+                                        currPi.heliocentric[zodiacType]['longitude'] - \
+                                        prevPi.heliocentric[zodiacType]['longitude']
+                                    
+                                    # See if there was a crossing of the
+                                    # 0 degree point or the 360 degree point.
+                                    # If so, make the necessary adjustments
+                                    # so that the longitude elapsed is
+                                    # correct.
+                                    if longitudeElapsed > 0:
+                                        longitudeElapsed -= 360
+                                        
+                                    totalDegrees += longitudeElapsed
+                                    
+                        # Append text for the calculated number of total degrees.
+                        line = ""
+                        numCircles = totalDegrees / circleSizeInDegrees
+                        
+                        if self.measurementUnitDegreesEnabled == True and \
+                           self.measurementUnitCirclesEnabled == True:
+                            
+                            line = "Helio Trop {} moves {} deg or {} circles".\
+                                   format(planetName, totalDegrees, numCircles)
+                            
+                        elif self.measurementUnitDegreesEnabled == True and \
+                           self.measurementUnitCirclesEnabled == False:
+                            
+                            line = "Helio Trop {} moves {} deg".\
+                                   format(planetName, totalDegrees)
+                            
+                        elif self.measurementUnitDegreesEnabled == False and \
+                           self.measurementUnitCirclesEnabled == True:
+                            
+                            line = "Helio Trop {} moves {} circles".\
+                                   format(planetName, totalDegrees)
+                            
+                        text += line + os.linesep
+                        
+                    if self.siderealZodiacFlag == True:
+                        totalDegrees = 0
+                        zodiacType = "sidereal"
+                        
+                        for i in range(len(planetData)):
+                            if i != 0:
+                                prevPi = planetData[i-1]
+                                currPi = planetData[i]
+                                
+                                if prevPi.heliocentric[zodiacType]['longitude_speed'] >= 0:
+                                    # Direct motion.
+                                    # Elapsed amount for this segment should be positive.
+                                    
+                                    # Find the amount of longitude elasped.
+                                    longitudeElapsed = \
+                                        currPi.heliocentric[zodiacType]['longitude'] - \
+                                        prevPi.heliocentric[zodiacType]['longitude']
+                                    
+                                    # See if there was a crossing of the
+                                    # 0 degree point or the 360 degree point.
+                                    # If so, make the necessary adjustments
+                                    # so that the longitude elapsed is
+                                    # correct.
+                                    longitudeElapsed = \
+                                        Util.toNormalizedAngle(longitudeElapsed)
+                                    
+                                    totalDegrees += longitudeElapsed
+                                else:
+                                    # Retrograde motion.
+                                    # Elapsed amount for this segment should be negative.
+                                    
+                                    # Find the amount of longitude elasped.
+                                    longitudeElapsed = \
+                                        currPi.heliocentric[zodiacType]['longitude'] - \
+                                        prevPi.heliocentric[zodiacType]['longitude']
+                                    
+                                    # See if there was a crossing of the
+                                    # 0 degree point or the 360 degree point.
+                                    # If so, make the necessary adjustments
+                                    # so that the longitude elapsed is
+                                    # correct.
+                                    if longitudeElapsed > 0:
+                                        longitudeElapsed -= 360
+                                        
+                                    totalDegrees += longitudeElapsed
+                                    
+                        # Append text for the calculated number of total degrees.
+                        line = ""
+                        numCircles = totalDegrees / circleSizeInDegrees
+                        
+                        if self.measurementUnitDegreesEnabled == True and \
+                           self.measurementUnitCirclesEnabled == True:
+                            
+                            line = "Helio Sid {} moves {} deg or {} circles".\
+                                   format(planetName, totalDegrees, numCircles)
+                            
+                        elif self.measurementUnitDegreesEnabled == True and \
+                           self.measurementUnitCirclesEnabled == False:
+                            
+                            line = "Helio Sid {} moves {} deg".\
+                                   format(planetName, totalDegrees)
+                            
+                        elif self.measurementUnitDegreesEnabled == False and \
+                           self.measurementUnitCirclesEnabled == True:
+                            
+                            line = "Helio Sid {} moves {} circles".\
+                                   format(planetName, totalDegrees)
+                            
+                        text += line + os.linesep
+        
         text = text.rstrip()
         self.textItem.setText(text)
         
     def setArtifact(self, artifact):
-        """Loads a given PriceBarChartPlanetLongitudeMovementMeasurementArtifact object's data
-        into this QGraphicsItem.
+        """Loads a given
+        PriceBarChartPlanetLongitudeMovementMeasurementArtifact
+        object's data into this QGraphicsItem.
 
         Arguments:
-        artifact - PriceBarChartPlanetLongitudeMovementMeasurementArtifact object with information
-                   about this TextGraphisItem
+        artifact - PriceBarChartPlanetLongitudeMovementMeasurementArtifact
+                   object with information about this TextGraphisItem
         """
 
         self.log.debug("Entering setArtifact()")
@@ -8213,97 +8805,100 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
         self.measurementUnitCirclesEnabled = \
             self.artifact.getMeasurementUnitCirclesEnabled()
         
-        self.planetH1EnabledFlag = \
-            self.artifact.getPlanetH1EnabledFlag()
-        self.planetH2EnabledFlag = \
-            self.artifact.getPlanetH2EnabledFlag()
-        self.planetH3EnabledFlag = \
-            self.artifact.getPlanetH3EnabledFlag()
-        self.planetH4EnabledFlag = \
-            self.artifact.getPlanetH4EnabledFlag()
-        self.planetH5EnabledFlag = \
-            self.artifact.getPlanetH5EnabledFlag()
-        self.planetH6EnabledFlag = \
-            self.artifact.getPlanetH6EnabledFlag()
-        self.planetH7EnabledFlag = \
-            self.artifact.getPlanetH7EnabledFlag()
-        self.planetH8EnabledFlag = \
-            self.artifact.getPlanetH8EnabledFlag()
-        self.planetH9EnabledFlag = \
-            self.artifact.getPlanetH9EnabledFlag()
-        self.planetH10EnabledFlag = \
-            self.artifact.getPlanetH10EnabledFlag()
-        self.planetH11EnabledFlag = \
-            self.artifact.getPlanetH11EnabledFlag()
-        self.planetH12EnabledFlag = \
-            self.artifact.getPlanetH12EnabledFlag()
-        self.planetHoraLagnaEnabledFlag = \
-            self.artifact.getPlanetHoraLagnaEnabledFlag()
-        self.planetGhatiLagnaEnabledFlag = \
-            self.artifact.getPlanetGhatiLagnaEnabledFlag()
-        self.planetMeanLunarApogeeEnabledFlag = \
-            self.artifact.getPlanetMeanLunarApogeeEnabledFlag()
-        self.planetOsculatingLunarApogeeEnabledFlag = \
-            self.artifact.getPlanetOsculatingLunarApogeeEnabledFlag()
-        self.planetInterpolatedLunarApogeeEnabledFlag = \
-            self.artifact.getPlanetInterpolatedLunarApogeeEnabledFlag()
-        self.planetInterpolatedLunarPerigeeEnabledFlag = \
-            self.artifact.getPlanetInterpolatedLunarPerigeeEnabledFlag()
-        self.planetSunEnabledFlag = \
-            self.artifact.getPlanetSunEnabledFlag()
-        self.planetMoonEnabledFlag = \
-            self.artifact.getPlanetMoonEnabledFlag()
-        self.planetMercuryEnabledFlag = \
-            self.artifact.getPlanetMercuryEnabledFlag()
-        self.planetVenusEnabledFlag = \
-            self.artifact.getPlanetVenusEnabledFlag()
-        self.planetEarthEnabledFlag = \
-            self.artifact.getPlanetEarthEnabledFlag()
-        self.planetMarsEnabledFlag = \
-            self.artifact.getPlanetMarsEnabledFlag()
-        self.planetJupiterEnabledFlag = \
-            self.artifact.getPlanetJupiterEnabledFlag()
-        self.planetSaturnEnabledFlag = \
-            self.artifact.getPlanetSaturnEnabledFlag()
-        self.planetUranusEnabledFlag = \
-            self.artifact.getPlanetUranusEnabledFlag()
-        self.planetNeptuneEnabledFlag = \
-            self.artifact.getPlanetNeptuneEnabledFlag()
-        self.planetPlutoEnabledFlag = \
-            self.artifact.getPlanetPlutoEnabledFlag()
-        self.planetMeanNorthNodeEnabledFlag = \
-            self.artifact.getPlanetMeanNorthNodeEnabledFlag()
-        self.planetMeanSouthNodeEnabledFlag = \
-            self.artifact.getPlanetMeanSouthNodeEnabledFlag()
-        self.planetTrueNorthNodeEnabledFlag = \
-            self.artifact.getPlanetTrueNorthNodeEnabledFlag()
-        self.planetTrueSouthNodeEnabledFlag = \
-            self.artifact.getPlanetTrueSouthNodeEnabledFlag()
-        self.planetCeresEnabledFlag = \
-            self.artifact.getPlanetCeresEnabledFlag()
-        self.planetPallasEnabledFlag = \
-            self.artifact.getPlanetPallasEnabledFlag()
-        self.planetJunoEnabledFlag = \
-            self.artifact.getPlanetJunoEnabledFlag()
-        self.planetVestaEnabledFlag = \
-            self.artifact.getPlanetVestaEnabledFlag()
-        self.planetChironEnabledFlag = \
-            self.artifact.getPlanetChironEnabledFlag()
-        self.planetGulikaEnabledFlag = \
-            self.artifact.getPlanetGulikaEnabledFlag()
-        self.planetMandiEnabledFlag = \
-            self.artifact.getPlanetMandiEnabledFlag()
-        self.planetMeanOfFiveEnabledFlag = \
-            self.artifact.getPlanetMeanOfFiveEnabledFlag()
-        self.planetCycleOfEightEnabledFlag = \
-            self.artifact.getPlanetCycleOfEightEnabledFlag()
-        self.planetAvgMaJuSaUrNePlEnabledFlag = \
-            self.artifact.getPlanetAvgMaJuSaUrNePlEnabledFlag()
-        self.planetAvgJuSaUrNeEnabledFlag = \
-            self.artifact.getPlanetAvgJuSaUrNeEnabledFlag()
-        self.planetAvgJuSaEnabledFlag = \
-            self.artifact.getPlanetAvgJuSaEnabledFlag()
+        # Remove contents of the list and retrieve the list of enabled
+        # planets from priceBarChartSettings.
+        del self.planetList[:]
         
+        if self.artifact.getPlanetH1EnabledFlag():
+            self.planetList.append("H1")
+        if self.artifact.getPlanetH2EnabledFlag():
+            self.planetList.append("H2")
+        if self.artifact.getPlanetH3EnabledFlag():
+            self.planetList.append("H3")
+        if self.artifact.getPlanetH4EnabledFlag():
+            self.planetList.append("H4")
+        if self.artifact.getPlanetH5EnabledFlag():
+            self.planetList.append("H5")
+        if self.artifact.getPlanetH6EnabledFlag():
+            self.planetList.append("H6")
+        if self.artifact.getPlanetH7EnabledFlag():
+            self.planetList.append("H7")
+        if self.artifact.getPlanetH8EnabledFlag():
+            self.planetList.append("H8")
+        if self.artifact.getPlanetH9EnabledFlag():
+            self.planetList.append("H9")
+        if self.artifact.getPlanetH10EnabledFlag():
+            self.planetList.append("H10")
+        if self.artifact.getPlanetH11EnabledFlag():
+            self.planetList.append("H11")
+        if self.artifact.getPlanetH12EnabledFlag():
+            self.planetList.append("H12")
+        if self.artifact.getPlanetHoraLagnaEnabledFlag():
+            self.planetList.append("HoraLagna")
+        if self.artifact.getPlanetGhatiLagnaEnabledFlag():
+            self.planetList.append("GhatiLagna")
+        if self.artifact.getPlanetMeanLunarApogeeEnabledFlag():
+            self.planetList.append("MeanLunarApogee")
+        if self.artifact.getPlanetOsculatingLunarApogeeEnabledFlag():
+            self.planetList.append("OsculatingLunarApogee")
+        if self.artifact.getPlanetInterpolatedLunarApogeeEnabledFlag():
+            self.planetList.append("InterpolatedLunarApogee")
+        if self.artifact.getPlanetInterpolatedLunarPerigeeEnabledFlag():
+            self.planetList.append("InterpolatedLunarPerigee")
+        if self.artifact.getPlanetSunEnabledFlag():
+            self.planetList.append("Sun")
+        if self.artifact.getPlanetMoonEnabledFlag():
+            self.planetList.append("Moon")
+        if self.artifact.getPlanetMercuryEnabledFlag():
+            self.planetList.append("Mercury")
+        if self.artifact.getPlanetVenusEnabledFlag():
+            self.planetList.append("Venus")
+        if self.artifact.getPlanetEarthEnabledFlag():
+            self.planetList.append("Earth")
+        if self.artifact.getPlanetMarsEnabledFlag():
+            self.planetList.append("Mars")
+        if self.artifact.getPlanetJupiterEnabledFlag():
+            self.planetList.append("Jupiter")
+        if self.artifact.getPlanetSaturnEnabledFlag():
+            self.planetList.append("Saturn")
+        if self.artifact.getPlanetUranusEnabledFlag():
+            self.planetList.append("Uranus")
+        if self.artifact.getPlanetNeptuneEnabledFlag():
+            self.planetList.append("Neptune")
+        if self.artifact.getPlanetPlutoEnabledFlag():
+            self.planetList.append("Pluto")
+        if self.artifact.getPlanetMeanNorthNodeEnabledFlag():
+            self.planetList.append("MeanNorthNode")
+        if self.artifact.getPlanetMeanSouthNodeEnabledFlag():
+            self.planetList.append("MeanSouthNode")
+        if self.artifact.getPlanetTrueNorthNodeEnabledFlag():
+            self.planetList.append("TrueNorthNode")
+        if self.artifact.getPlanetTrueSouthNodeEnabledFlag():
+            self.planetList.append("TrueSouthNode")
+        if self.artifact.getPlanetCeresEnabledFlag():
+            self.planetList.append("Ceres")
+        if self.artifact.getPlanetPallasEnabledFlag():
+            self.planetList.append("Pallas")
+        if self.artifact.getPlanetJunoEnabledFlag():
+            self.planetList.append("Juno")
+        if self.artifact.getPlanetVestaEnabledFlag():
+            self.planetList.append("Vesta")
+        if self.artifact.getPlanetChironEnabledFlag():
+            self.planetList.append("Chiron")
+        if self.artifact.getPlanetGulikaEnabledFlag():
+            self.planetList.append("Gulika")
+        if self.artifact.getPlanetMandiEnabledFlag():
+            self.planetList.append("Mandi")
+        if self.artifact.getPlanetMeanOfFiveEnabledFlag():
+            self.planetList.append("MeanOfFive")
+        if self.artifact.getPlanetCycleOfEightEnabledFlag():
+            self.planetList.append("CycleOfEight")
+        if self.artifact.getPlanetAvgMaJuSaUrNePlEnabledFlag():
+            self.planetList.append("AvgMaJuSaUrNePl")
+        if self.artifact.getPlanetAvgJuSaUrNeEnabledFlag():
+            self.planetList.append("AvgJuSaUrNe")
+        if self.artifact.getPlanetAvgJuSaEnabledFlag():
+            self.planetList.append("AvgJuSa")
 
         #############
 
@@ -8364,95 +8959,95 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             self.measurementUnitCirclesEnabled)
         
         self.artifact.setPlanetH1EnabledFlag(\
-            self.planetH1EnabledFlag)
+            "H1" in self.planetList)
         self.artifact.setPlanetH2EnabledFlag(\
-            self.planetH2EnabledFlag)
+            "H2" in self.planetList)
         self.artifact.setPlanetH3EnabledFlag(\
-            self.planetH3EnabledFlag)
+            "H3" in self.planetList)
         self.artifact.setPlanetH4EnabledFlag(\
-            self.planetH4EnabledFlag)
+            "H4" in self.planetList)
         self.artifact.setPlanetH5EnabledFlag(\
-            self.planetH5EnabledFlag)
+            "H5" in self.planetList)
         self.artifact.setPlanetH6EnabledFlag(\
-            self.planetH6EnabledFlag)
+            "H6" in self.planetList)
         self.artifact.setPlanetH7EnabledFlag(\
-            self.planetH7EnabledFlag)
+            "H7" in self.planetList)
         self.artifact.setPlanetH8EnabledFlag(\
-            self.planetH8EnabledFlag)
+            "H8" in self.planetList)
         self.artifact.setPlanetH9EnabledFlag(\
-            self.planetH9EnabledFlag)
+            "H9" in self.planetList)
         self.artifact.setPlanetH10EnabledFlag(\
-            self.planetH10EnabledFlag)
+            "H10" in self.planetList)
         self.artifact.setPlanetH11EnabledFlag(\
-            self.planetH11EnabledFlag)
+            "H11" in self.planetList)
         self.artifact.setPlanetH12EnabledFlag(\
-            self.planetH12EnabledFlag)
+            "H12" in self.planetList)
         self.artifact.setPlanetHoraLagnaEnabledFlag(\
-            self.planetHoraLagnaEnabledFlag)
+            "HoraLagna" in self.planetList)
         self.artifact.setPlanetGhatiLagnaEnabledFlag(\
-            self.planetGhatiLagnaEnabledFlag)
+            "GhatiLagna" in self.planetList)
         self.artifact.setPlanetMeanLunarApogeeEnabledFlag(\
-            self.planetMeanLunarApogeeEnabledFlag)
+            "MeanLunarApogee" in self.planetList)
         self.artifact.setPlanetOsculatingLunarApogeeEnabledFlag(\
-            self.planetOsculatingLunarApogeeEnabledFlag)
+            "OsculatingLunarApogee" in self.planetList)
         self.artifact.setPlanetInterpolatedLunarApogeeEnabledFlag(\
-            self.planetInterpolatedLunarApogeeEnabledFlag)
+            "InterpolatedLunarApogee" in self.planetList)
         self.artifact.setPlanetInterpolatedLunarPerigeeEnabledFlag(\
-            self.planetInterpolatedLunarPerigeeEnabledFlag)
+            "InterpolatedLunarPerigee" in self.planetList)
         self.artifact.setPlanetSunEnabledFlag(\
-            self.planetSunEnabledFlag)
+            "Sun" in self.planetList)
         self.artifact.setPlanetMoonEnabledFlag(\
-            self.planetMoonEnabledFlag)
+            "Moon" in self.planetList)
         self.artifact.setPlanetMercuryEnabledFlag(\
-            self.planetMercuryEnabledFlag)
+            "Mercury" in self.planetList)
         self.artifact.setPlanetVenusEnabledFlag(\
-            self.planetVenusEnabledFlag)
+            "Venus" in self.planetList)
         self.artifact.setPlanetEarthEnabledFlag(\
-            self.planetEarthEnabledFlag)
+            "Earth" in self.planetList)
         self.artifact.setPlanetMarsEnabledFlag(\
-            self.planetMarsEnabledFlag)
+            "Mars" in self.planetList)
         self.artifact.setPlanetJupiterEnabledFlag(\
-            self.planetJupiterEnabledFlag)
+            "Jupiter" in self.planetList)
         self.artifact.setPlanetSaturnEnabledFlag(\
-            self.planetSaturnEnabledFlag)
+            "Saturn" in self.planetList)
         self.artifact.setPlanetUranusEnabledFlag(\
-            self.planetUranusEnabledFlag)
+            "Uranus" in self.planetList)
         self.artifact.setPlanetNeptuneEnabledFlag(\
-            self.planetNeptuneEnabledFlag)
+            "Neptune" in self.planetList)
         self.artifact.setPlanetPlutoEnabledFlag(\
-            self.planetPlutoEnabledFlag)
+            "Pluto" in self.planetList)
         self.artifact.setPlanetMeanNorthNodeEnabledFlag(\
-            self.planetMeanNorthNodeEnabledFlag)
+            "MeanNorthNode" in self.planetList)
         self.artifact.setPlanetMeanSouthNodeEnabledFlag(\
-            self.planetMeanSouthNodeEnabledFlag)
+            "MeanSouthNode" in self.planetList)
         self.artifact.setPlanetTrueNorthNodeEnabledFlag(\
-            self.planetTrueNorthNodeEnabledFlag)
+            "TrueNorthNode" in self.planetList)
         self.artifact.setPlanetTrueSouthNodeEnabledFlag(\
-            self.planetTrueSouthNodeEnabledFlag)
+            "TrueSouthNode" in self.planetList)
         self.artifact.setPlanetCeresEnabledFlag(\
-            self.planetCeresEnabledFlag)
+            "Ceres" in self.planetList)
         self.artifact.setPlanetPallasEnabledFlag(\
-            self.planetPallasEnabledFlag)
+            "Pallas" in self.planetList)
         self.artifact.setPlanetJunoEnabledFlag(\
-            self.planetJunoEnabledFlag)
+            "Juno" in self.planetList)
         self.artifact.setPlanetVestaEnabledFlag(\
-            self.planetVestaEnabledFlag)
+            "Vesta" in self.planetList)
         self.artifact.setPlanetChironEnabledFlag(\
-            self.planetChironEnabledFlag)
+            "Chiron" in self.planetList)
         self.artifact.setPlanetGulikaEnabledFlag(\
-            self.planetGulikaEnabledFlag)
+            "Gulika" in self.planetList)
         self.artifact.setPlanetMandiEnabledFlag(\
-            self.planetMandiEnabledFlag)
+            "Mandi" in self.planetList)
         self.artifact.setPlanetMeanOfFiveEnabledFlag(\
-            self.planetMeanOfFiveEnabledFlag)
+            "MeanOfFive" in self.planetList)
         self.artifact.setPlanetCycleOfEightEnabledFlag(\
-            self.planetCycleOfEightEnabledFlag)
+            "CycleOfEight" in self.planetList)
         self.artifact.setPlanetAvgMaJuSaUrNePlEnabledFlag(\
-            self.planetAvgMaJuSaUrNePlEnabledFlag)
+            "AvgMaJuSaUrNePl" in self.planetList)
         self.artifact.setPlanetAvgJuSaUrNeEnabledFlag(\
-            self.planetAvgJuSaUrNeEnabledFlag)
+            "AvgJuSaUrNe" in self.planetList)
         self.artifact.setPlanetAvgJuSaEnabledFlag(\
-            self.planetAvgJuSaEnabledFlag)
+            "AvgJuSa" in self.planetList)
         
         self.log.debug("Exiting getArtifact()")
         

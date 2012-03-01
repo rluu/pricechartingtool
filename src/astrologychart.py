@@ -2433,36 +2433,6 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
 
         return None
 
-    def _isHouseCuspPlanetName(self, planetName):
-        """Returns True if the planet name given is a house cusp.
-        Planet name is a house cusp if it is in the form "HX" or "HXX",
-        where the letter 'H' is static and the 'X' represents a numerical digit.
-
-        Arguments:
-        planetName - str for the planet name to analyze.
-
-        Returns:
-        True if the planet name represents a astrological house cusp,
-        False otherwise.
-        """
-
-        # Flag as True until found otherwise.
-        isHouseCusp = True
-
-        if 2 <= len(planetName) <= 3:
-            # Name of the planet is 2 or 3 letters.
-            if planetName[0] != "H":
-                isHouseCusp = False
-            if not planetName[1].isdigit():
-                isHouseCusp = False
-            if len(planetName) == 3 and not planetName[2].isdigit():
-                isHouseCusp = False
-        else:
-            isHouseCusp = False
-
-        return isHouseCusp
-
-        
     def redrawAspects(self):
         """If drawing aspects is enabled via Application Preferences
         (QSettings), then this function draws aspects between the
@@ -2522,8 +2492,8 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
                     p1Name = p1.getPlanetName()
                     p2Name = p2.getPlanetName()
                     
-                    if self._isHouseCuspPlanetName(p1Name) and \
-                        self._isHouseCuspPlanetName(p2Name) and \
+                    if Ephemeris.isHouseCuspPlanetName(p1Name) and \
+                        Ephemeris.isHouseCuspPlanetName(p2Name) and \
                         p1.getWheelNumber() == p2.getWheelNumber():
                         
                         # Don't create the aspect.

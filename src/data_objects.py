@@ -4838,7 +4838,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabled
         
-        # Flag for displaying measurements in number of 360-degree circles.
+        # Flag for displaying measurements in number of circles.
         self.measurementUnitCirclesEnabled = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabled

@@ -58,38 +58,6 @@ class PlanetaryCombinationsLibrary:
     scene = PriceBarChartGraphicsScene()
 
     @staticmethod
-    def isHouseCuspPlanetName(planetName):
-        """Returns True if the planet name given is a house cusp.
-        Planet name is a house cusp if it is in the form "HX" or "HXX",
-        where the letter 'H' is static and the 'X' represents a numerical
-        digit.
-
-        Arguments:
-        planetName - str for the planet name to analyze.
-
-        Returns:
-        True if the planet name represents a astrological house cusp,
-        False otherwise.
-        """
-
-        # Flag as True until found otherwise.
-        isHouseCusp = True
-
-        if 2 <= len(planetName) <= 3:
-            # Name of the planet is 2 or 3 letters.
-            if planetName[0] != "H":
-                isHouseCusp = False
-            if not planetName[1].isdigit():
-                isHouseCusp = False
-            if len(planetName) == 3 and not planetName[2].isdigit():
-                isHouseCusp = False
-        else:
-            isHouseCusp = False
-
-        return isHouseCusp
-
-
-    @staticmethod
     def addHorizontalLine(pcdd, startDt, endDt, price, tag, color):
         """Adds a horizontal line at the given price, from startDt to
         endDt, with the given tag and color.
@@ -4243,7 +4211,7 @@ class PlanetaryCombinationsLibrary:
 
         # Set the step size.
         stepSizeTd = datetime.timedelta(days=1)
-        if PlanetaryCombinationsLibrary.isHouseCuspPlanetName(planetName):
+        if Ephemeris.isHouseCuspPlanetName(planetName):
             # House cusps need a smaller step size.
             stepSizeTd = datetime.timedelta(hours=1)
             
@@ -8212,8 +8180,8 @@ class PlanetaryCombinationsLibrary:
 
         # Set the step size.
         stepSizeTd = datetime.timedelta(days=1)
-        if PlanetaryCombinationsLibrary.isHouseCuspPlanetName(planet1Name) or \
-               PlanetaryCombinationsLibrary.isHouseCuspPlanetName(planet2Name):
+        if Ephemeris.isHouseCuspPlanetName(planet1Name) or \
+               Ephemeris.isHouseCuspPlanetName(planet2Name):
             
             # House cusps need a smaller step size.
             stepSizeTd = datetime.timedelta(hours=1)
@@ -8760,7 +8728,7 @@ class PlanetaryCombinationsLibrary:
         # Set the step size.  Planet should not ever move more than
         # 120 degrees per step size.
         stepSizeTd = datetime.timedelta(days=1)
-        if PlanetaryCombinationsLibrary.isHouseCuspPlanetName(planetName):
+        if Ephemeris.isHouseCuspPlanetName(planetName):
             # House cusps need a smaller step size.
             stepSizeTd = datetime.timedelta(hours=1)
 
