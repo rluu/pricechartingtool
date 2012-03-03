@@ -177,8 +177,9 @@ def processPCDD(pcdd, tag):
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Mars", "Uranus",
-    #    "geocentric", "sidereal", degreeValue)
+    #    "Mars", "geocentric", "sidereal",
+    #    "Uranus", "geocentric", "sidereal",
+    #    degreeValue)
 
     #divisor = 13
     #incrementSize = 14.4 # 360 / divisor
@@ -189,8 +190,9 @@ def processPCDD(pcdd, tag):
     #    success = PlanetaryCombinationsLibrary.\
     #        addLongitudeAspectVerticalLines(\
     #        pcdd, startDt, endDt, highPrice, lowPrice,
-    #        "Venus", "Mars",
-    #        "geocentric", "sidereal", degreeValue)
+    #        "Venus", "geocentric", "sidereal",
+    #        "Mars", "geocentric", "sidereal",
+    #        degreeValue)
     
     #divisor = 5
     #incrementSize = 72 # 360 / divisor
@@ -201,8 +203,9 @@ def processPCDD(pcdd, tag):
     #    success = PlanetaryCombinationsLibrary.\
     #        addLongitudeAspectVerticalLines(\
     #        pcdd, startDt, endDt, highPrice, lowPrice,
-    #        "Venus", "Mars",
-    #        "geocentric", "sidereal", degreeValue)
+    #        "Venus", "geocentric", "sidereal",
+    #        "Mars", "geocentric", "sidereal",
+    #        degreeValue)
     
     #divisor = 12
     #incrementSize = 30 # 360 / divisor
@@ -213,8 +216,9 @@ def processPCDD(pcdd, tag):
     #    success = PlanetaryCombinationsLibrary.\
     #        addLongitudeAspectVerticalLines(\
     #        pcdd, startDt, endDt, highPrice, lowPrice,
-    #        "Saturn", "TrueNorthNode",
-    #        "geocentric", "sidereal", degreeValue)
+    #        "Saturn", "geocentric", "sidereal",
+    #        "TrueNorthNode", "geocentric", "sidereal",
+    #        degreeValue)
     
     #divisor = 12
     #incrementSize = 30 # 360 / divisor
@@ -223,8 +227,9 @@ def processPCDD(pcdd, tag):
     #    success = PlanetaryCombinationsLibrary.\
     #        addLongitudeAspectVerticalLines(\
     #        pcdd, startDt, endDt, highPrice, lowPrice,
-    #        "Jupiter", "Saturn",
-    #        "heliocentric", "sidereal", degreeValue)
+    #        "Jupiter", "heliocentric", "sidereal",
+    #        "Saturn", "heliocentric", "sidereal",
+    #        degreeValue)
     
     #divisor = 9
     #incrementSize = 40 # 360 / divisor
@@ -307,13 +312,13 @@ def processPCDD(pcdd, tag):
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Jupiter", "Mercury",
-    #    "heliocentric", "sidereal", 0)
+    #    "Jupiter", "heliocentric", "sidereal",
+    #    "Mercury", "heliocentric", "sidereal", 0)
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Saturn", "Mercury",
-    #    "heliocentric", "sidereal", 0)
+    #    "Saturn", "heliocentric", "sidereal",
+    #    "Mercury", "heliocentric", "sidereal", 0)
     #degreeValue = 0
     #success = PlanetaryCombinationsLibrary.\
     #    addPlanetCrossingLongitudeDegVerticalLines(\
@@ -332,199 +337,236 @@ def processPCDD(pcdd, tag):
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "Mars",
-    #    "geocentric", "sidereal", 54)
+    #    "Venus", "geocentric", "sidereal",
+    #    "Mars", "geocentric", "sidereal",
+    #    54)
 
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "Mars",
-    #    "heliocentric", "sidereal", 0)
+    #    "Venus", "heliocentric", "sidereal",
+    #    "Mars", "heliocentric", "sidereal",
+    #    0)
     
     success = PlanetaryCombinationsLibrary.\
         addLongitudeAspectVerticalLines(\
         pcdd, startDt, endDt, highPrice, lowPrice,
-        "Mars", "Earth",
-        "heliocentric", "sidereal", 0)
+        "Mars", "heliocentric", "sidereal",
+        "Earth", "heliocentric", "sidereal",
+        0)
     success = PlanetaryCombinationsLibrary.\
         addLongitudeAspectVerticalLines(\
         pcdd, startDt, endDt, highPrice, lowPrice,
-        "Mars", "Earth",
-        "heliocentric", "sidereal", 180)
+        "Mars", "heliocentric", "sidereal",
+        "Earth", "heliocentric", "sidereal",
+        180)
     
     success = PlanetaryCombinationsLibrary.\
         addLongitudeAspectVerticalLines(\
         pcdd, startDt, endDt, highPrice, lowPrice,
-        "Venus", "Earth",
-        "heliocentric", "sidereal", 0)
+        "Venus", "heliocentric", "sidereal",
+        "Earth", "heliocentric", "sidereal",
+        0)
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "Earth",
-    #    "heliocentric", "sidereal", 15)
+    #    "Venus", "heliocentric", "sidereal",
+    #    "Earth", "heliocentric", "sidereal",
+    #    15)
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "Earth",
-    #    "heliocentric", "sidereal", 30)
+    #    "Venus", "heliocentric", "sidereal",
+    #    "Earth", "heliocentric", "sidereal",
+    #    30)
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "Earth",
-    #    "heliocentric", "sidereal", 45)
+    #    "Venus", "heliocentric", "sidereal",
+    #    "Earth", "heliocentric", "sidereal",
+    #    45)
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "Earth",
-    #    "heliocentric", "sidereal", 60)
+    #    "Venus", "heliocentric", "sidereal",
+    #    "Earth", "heliocentric", "sidereal",
+    #    60)
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "Earth",
-    #    "heliocentric", "sidereal", 75)
+    #    "Venus", "heliocentric", "sidereal",
+    #    "Earth", "heliocentric", "sidereal",
+    #    75)
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "Earth",
-    #    "heliocentric", "sidereal", 90)
+    #    "Venus", "heliocentric", "sidereal",
+    #    "Earth", "heliocentric", "sidereal",
+    #    90)
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "Earth",
-    #    "heliocentric", "sidereal", 105)
+    #    "Venus", "heliocentric", "sidereal",
+    #    "Earth", "heliocentric", "sidereal",
+    #    105)
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "Earth",
-    #    "heliocentric", "sidereal", 120)
+    #    "Venus", "heliocentric", "sidereal",
+    #    "Earth", "heliocentric", "sidereal",
+    #    120)
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "Earth",
-    #    "heliocentric", "sidereal", 135)
+    #    "Venus", "heliocentric", "sidereal",
+    #    "Earth", "heliocentric", "sidereal",
+    #    135)
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "Earth",
-    #    "heliocentric", "sidereal", 150)
+    #    "Venus", "heliocentric", "sidereal",
+    #    "Earth", "heliocentric", "sidereal",
+    #    150)
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "Earth",
-    #    "heliocentric", "sidereal", 165)
+    #    "Venus", "heliocentric", "sidereal",
+    #    "Earth", "heliocentric", "sidereal",
+    #    165)
     success = PlanetaryCombinationsLibrary.\
         addLongitudeAspectVerticalLines(\
         pcdd, startDt, endDt, highPrice, lowPrice,
-        "Venus", "Earth",
-        "heliocentric", "sidereal", 180)
+        "Venus", "heliocentric", "sidereal",
+        "Earth", "heliocentric", "sidereal",
+        180)
     
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Jupiter", "Uranus",
-    #    "heliocentric", "sidereal", 0)
+    #    "Jupiter", "heliocentric", "sidereal",
+    #    "Uranus", "heliocentric", "sidereal",
+    #    0)
     
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "Earth",
-    #    "heliocentric", "sidereal", 10)
+    #    "Venus", "heliocentric", "sidereal",
+    #    "Earth", "heliocentric", "sidereal",
+    #    10)
     
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "Mars",
-    #    "geocentric", "sidereal", 17.5)
+    #    "Venus", "geocentric", "sidereal",
+    #    "Mars", "geocentric", "sidereal",
+    #    17.5)
     
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "Sun",
-    #    "geocentric", "sidereal", 0)
+    #    "Venus", "geocentric", "sidereal",
+    #    "Sun", "geocentric", "sidereal",
+    #    0)
     
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Mars", "Uranus",
-    #    "geocentric", "sidereal", 180)
+    #    "Mars", "geocentric", "sidereal",
+    #    "Uranus", "geocentric", "sidereal",
+    #    180)
 
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Uranus", "Venus",
-    #    "geocentric", "sidereal", 72)
+    #    "Uranus", "geocentric", "sidereal",
+    #    "Venus", "geocentric", "sidereal",
+    #    72)
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Uranus", "Venus",
-    #    "geocentric", "sidereal", 144)
+    #    "Uranus", "geocentric", "sidereal",
+    #    "Venus", "geocentric", "sidereal",
+    #    144)
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Uranus", "Venus",
-    #    "geocentric", "sidereal", 216)
+    #    "Uranus", "geocentric", "sidereal",
+    #    "Venus", "geocentric", "sidereal",
+    #    216)
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Uranus", "Venus",
-    #    "geocentric", "sidereal", 288)
+    #    "Uranus", "geocentric", "sidereal",
+    #    "Venus", "geocentric", "sidereal",
+    #    288)
     
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "Uranus",
-    #    "geocentric", "sidereal", 0)
+    #    "Venus", "geocentric", "sidereal",
+    #    "Uranus", "geocentric", "sidereal",
+    #    0)
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "Uranus",
-    #    "geocentric", "sidereal", 30)
+    #    "Venus", "geocentric", "sidereal",
+    #    "Uranus", "geocentric", "sidereal",
+    #    30)
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "Uranus",
-    #    "geocentric", "sidereal", 60)
+    #    "Venus", "geocentric", "sidereal",
+    #    "Uranus", "geocentric", "sidereal",
+    #    60)
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "Uranus",
-    #    "geocentric", "sidereal", 90)
+    #    "Venus", "geocentric", "sidereal",
+    #    "Uranus", "geocentric", "sidereal",
+    #    90)
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "Uranus",
-    #    "geocentric", "sidereal", 120)
+    #    "Venus", "geocentric", "sidereal",
+    #    "Uranus", "geocentric", "sidereal",
+    #    120)
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "Uranus",
-    #    "geocentric", "sidereal", 150)
+    #    "Venus", "geocentric", "sidereal",
+    #    "Uranus", "geocentric", "sidereal",
+    #    150)
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "Uranus",
-    #    "geocentric", "sidereal", 180)
+    #    "Venus", "geocentric", "sidereal",
+    #    "Uranus", "geocentric", "sidereal",
+    #    180)
     
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "Mars",
-    #    "geocentric", "sidereal", 90)
+    #    "Venus", "geocentric", "sidereal",
+    #    "Mars", "geocentric", "sidereal",
+    #    90)
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Saturn", "Pluto",
-    #    "geocentric", "sidereal", 0)
+    #    "Saturn", "geocentric", "sidereal",
+    #    "Pluto", "geocentric", "sidereal",
+    #    0)
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Saturn", "Pluto",
-    #    "geocentric", "sidereal", 90)
+    #    "Saturn", "geocentric", "sidereal",
+    #    "Pluto", "geocentric", "sidereal",
+    #    90)
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Saturn", "Pluto",
-    #    "geocentric", "sidereal", 180)
+    #    "Saturn", "geocentric", "sidereal",
+    #    "Pluto", "geocentric", "sidereal",
+    #    180)
     
     stepSizeTd = datetime.timedelta(days=3)
     #highPrice = 800.0

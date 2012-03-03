@@ -8054,9 +8054,12 @@ class PlanetaryCombinationsLibrary:
     @staticmethod
     def addLongitudeAspectVerticalLines(\
         pcdd, startDt, endDt, highPrice, lowPrice,
-        planet1Name, planet2Name,
-        centricityType,
-        longitudeType,
+        planet1Name,
+        planet1CentricityType,
+        planet1LongitudeType,
+        planet2Name,
+        planet2CentricityType,
+        planet2LongitudeType,
         degreeDifference,
         color=None,
         maxErrorTd=datetime.timedelta(hours=1)):
@@ -8084,11 +8087,18 @@ class PlanetaryCombinationsLibrary:
         lowPrice  - float value for the low price to end the vertical line.
         planet1Name - str holding the name of the first planet to do the
                       calculations for.
+        planet1CentricityType
+                    - str value holding either "geocentric",
+                      "topocentric", or "heliocentric".
+        planet1LongitudeType
+                    - str value holding either "tropical" or "sidereal".
         planet2Name - str holding the name of the second planet to do the
                       calculations for.
-        centricityType - str value holding either "geocentric",
-                         "topocentric", or "heliocentric".
-        longitudeType - str value holding either "tropical" or "sidereal".
+        planet2CentricityType
+                    - str value holding either "geocentric",
+                      "topocentric", or "heliocentric".
+        planet2LongitudeType
+                    - str value holding either "tropical" or "sidereal".
         degreeDifference - float value for the number of degrees of
                            separation for this aspect.
         color     - QColor object for what color to draw the lines.
@@ -8119,25 +8129,47 @@ class PlanetaryCombinationsLibrary:
             rv = False
             return rv
 
+        # Check inputs for centricity type.
+        planet1CentricityTypeOrig = planet1CentricityType
+        planet1CentricityType = planet1CentricityType.lower()
+        if planet1CentricityType != "geocentric" and \
+           planet1CentricityType != "topocentric" and \
+           planet1CentricityType != "heliocentric":
 
-        centricityTypeOrig = centricityType
-        centricityType = centricityType.lower()
-        if centricityType != "geocentric" and \
-           centricityType != "topocentric" and \
-           centricityType != "heliocentric":
-
-            log.error("Invalid input: centricityType is invalid.  " + \
-                      "Value given was: {}".format(centricityTypeOrig))
+            log.error("Invalid input: planet1CentricityType is invalid.  " + \
+                      "Value given was: {}".format(planet1CentricityTypeOrig))
             rv = False
             return rv
 
-        longitudeTypeOrig = longitudeType
-        longitudeType = longitudeType.lower()
-        if longitudeType != "tropical" and \
-           longitudeType != "sidereal":
+        planet2CentricityTypeOrig = planet2CentricityType
+        planet2CentricityType = planet2CentricityType.lower()
+        if planet2CentricityType != "geocentric" and \
+           planet2CentricityType != "topocentric" and \
+           planet2CentricityType != "heliocentric":
 
-            log.error("Invalid input: longitudeType is invalid.  " + \
-                      "Value given was: {}".format(longitudeTypeOrig))
+            log.error("Invalid input: planet2CentricityType is invalid.  " + \
+                      "Value given was: {}".format(planet2CentricityTypeOrig))
+            rv = False
+            return rv
+
+        # Check inputs for longitude type.
+        planet1LongitudeTypeOrig = planet1LongitudeType
+        planet1LongitudeType = planet1LongitudeType.lower()
+        if planet1LongitudeType != "tropical" and \
+           planet1LongitudeType != "sidereal":
+
+            log.error("Invalid input: planet1LongitudeType is invalid.  " + \
+                      "Value given was: {}".format(planet1LongitudeTypeOrig))
+            rv = False
+            return rv
+
+        planet2LongitudeTypeOrig = planet2LongitudeType
+        planet2LongitudeType = planet2LongitudeType.lower()
+        if planet2LongitudeType != "tropical" and \
+           planet2LongitudeType != "sidereal":
+
+            log.error("Invalid input: planet2LongitudeType is invalid.  " + \
+                      "Value given was: {}".format(planet2LongitudeTypeOrig))
             rv = False
             return rv
 
@@ -8155,20 +8187,36 @@ class PlanetaryCombinationsLibrary:
         if tag.startswith("add") and len(tag) > 3:
             tag = tag[3:]
 
-            if centricityType.startswith("geo"):
+            if planet1CentricityType.startswith("geo"):
                 tag += "_Geo"
-            elif centricityType.startswith("topo"):
+            elif planet1CentricityType.startswith("topo"):
                 tag += "_Topo"
-            elif centricityType.startswith("helio"):
+            elif planet1CentricityType.startswith("helio"):
                 tag += "_Helio"
 
-            if longitudeType.startswith("trop"):
+            if planet1LongitudeType.startswith("trop"):
                 tag += "_Trop"
-            elif longitudeType.startswith("sid"):
+            elif planet1LongitudeType.startswith("sid"):
                 tag += "_Sid"
 
-            tag += "_{}_DegreeAspect_{}_{}".\
+            tag += "_" + planet1Name
+            
+            tag += "_{}_DegreeAspect".\
                    format(degreeDifference, planet1Name, planet2Name)
+
+            if planet2CentricityType.startswith("geo"):
+                tag += "_Geo"
+            elif planet2CentricityType.startswith("topo"):
+                tag += "_Topo"
+            elif planet2CentricityType.startswith("helio"):
+                tag += "_Helio"
+
+            if planet2LongitudeType.startswith("trop"):
+                tag += "_Trop"
+            elif planet2LongitudeType.startswith("sid"):
+                tag += "_Sid"
+
+            tag += "_" + planet2Name
             
         log.debug("tag == '{}'".format(tag))
         
@@ -8211,23 +8259,39 @@ class PlanetaryCombinationsLibrary:
         longitudesP2.append(None)
         longitudesP2.append(None)
         
-        def getFieldValue(planetaryInfo, fieldName):
+        def getP1FieldValue(planetaryInfo, fieldName):
             pi = planetaryInfo
             fieldValue = None
             
-            if centricityType == "geocentric":
-                fieldValue = pi.geocentric[longitudeType][fieldName]
-            elif centricityType.lower() == "topocentric":
-                fieldValue = pi.topocentric[longitudeType][fieldName]
-            elif centricityType.lower() == "heliocentric":
-                fieldValue = pi.heliocentric[longitudeType][fieldName]
+            if planet1CentricityType == "geocentric":
+                fieldValue = pi.geocentric[planet1LongitudeType][fieldName]
+            elif planet1CentricityType.lower() == "topocentric":
+                fieldValue = pi.topocentric[planet1LongitudeType][fieldName]
+            elif planet1CentricityType.lower() == "heliocentric":
+                fieldValue = pi.heliocentric[planet1LongitudeType][fieldName]
             else:
-                log.error("Unknown centricity type.")
+                log.error("Unknown centricity type: {}".\
+                          format(planet1CentricityType))
                 fieldValue = None
 
             return fieldValue
             
+        def getP2FieldValue(planetaryInfo, fieldName):
+            pi = planetaryInfo
+            fieldValue = None
             
+            if planet2CentricityType == "geocentric":
+                fieldValue = pi.geocentric[planet2LongitudeType][fieldName]
+            elif planet2CentricityType.lower() == "topocentric":
+                fieldValue = pi.topocentric[planet2LongitudeType][fieldName]
+            elif planet2CentricityType.lower() == "heliocentric":
+                fieldValue = pi.heliocentric[planet2LongitudeType][fieldName]
+            else:
+                log.error("Unknown centricity type: {}".\
+                          format(planet2CentricityType))
+                fieldValue = None
+
+            return fieldValue
             
         log.debug("Stepping through timestamps from {} to {} ...".\
                   format(Ephemeris.datetimeToStr(startDt),
@@ -8248,15 +8312,17 @@ class PlanetaryCombinationsLibrary:
             p1 = Ephemeris.getPlanetaryInfo(planet1Name, currDt)
             p2 = Ephemeris.getPlanetaryInfo(planet2Name, currDt)
             
-            longitudesP1[-1] = getFieldValue(p1, fieldName)
-            longitudesP2[-1] = getFieldValue(p2, fieldName)
+            longitudesP1[-1] = getP1FieldValue(p1, fieldName)
+            longitudesP2[-1] = getP2FieldValue(p2, fieldName)
             
             log.debug("{} {} {} {} is: {}".\
-                      format(p1.name, centricityType, longitudeType, fieldName,
-                             getFieldValue(p1, fieldName)))
+                      format(p1.name, planet1CentricityType,
+                             planet1LongitudeType, fieldName,
+                             longitudesP1[-1])
             log.debug("{} {} {} {} is: {}".\
-                      format(p2.name, centricityType, longitudeType, fieldName,
-                             getFieldValue(p2, fieldName)))
+                      format(p2.name, planet2CentricityType,
+                             planet2LongitudeType, fieldName,
+                             longitudesP2[-1])
 
             currDiff = Util.toNormalizedAngle(\
                 longitudesP1[-1] - longitudesP2[-1])
@@ -8313,8 +8379,8 @@ class PlanetaryCombinationsLibrary:
                         p1 = Ephemeris.getPlanetaryInfo(planet1Name, testDt)
                         p2 = Ephemeris.getPlanetaryInfo(planet2Name, testDt)
 
-                        testValueP1 = getFieldValue(p1, fieldName)
-                        testValueP2 = getFieldValue(p2, fieldName)
+                        testValueP1 = getP1FieldValue(p1, fieldName)
+                        testValueP2 = getP2FieldValue(p2, fieldName)
 
                         log.debug("testValueP1 == {}".format(testValueP1))
                         log.debug("testValueP2 == {}".format(testValueP2))
@@ -8398,8 +8464,8 @@ class PlanetaryCombinationsLibrary:
                         p1 = Ephemeris.getPlanetaryInfo(planet1Name, testDt)
                         p2 = Ephemeris.getPlanetaryInfo(planet2Name, testDt)
 
-                        testValueP1 = getFieldValue(p1, fieldName)
-                        testValueP2 = getFieldValue(p2, fieldName)
+                        testValueP1 = getP1FieldValue(p1, fieldName)
+                        testValueP2 = getP2FieldValue(p2, fieldName)
 
                         log.debug("testValueP1 == {}".format(testValueP1))
                         log.debug("testValueP2 == {}".format(testValueP2))
@@ -8487,8 +8553,8 @@ class PlanetaryCombinationsLibrary:
                         p1 = Ephemeris.getPlanetaryInfo(planet1Name, testDt)
                         p2 = Ephemeris.getPlanetaryInfo(planet2Name, testDt)
 
-                        testValueP1 = getFieldValue(p1, fieldName)
-                        testValueP2 = getFieldValue(p2, fieldName)
+                        testValueP1 = getP1FieldValue(p1, fieldName)
+                        testValueP2 = getP2FieldValue(p2, fieldName)
 
                         log.debug("testValueP1 == {}".format(testValueP1))
                         log.debug("testValueP2 == {}".format(testValueP2))
@@ -8572,8 +8638,8 @@ class PlanetaryCombinationsLibrary:
                         p1 = Ephemeris.getPlanetaryInfo(planet1Name, testDt)
                         p2 = Ephemeris.getPlanetaryInfo(planet2Name, testDt)
 
-                        testValueP1 = getFieldValue(p1, fieldName)
-                        testValueP2 = getFieldValue(p2, fieldName)
+                        testValueP1 = getP1FieldValue(p1, fieldName)
+                        testValueP2 = getP2FieldValue(p2, fieldName)
 
                         log.debug("testValueP1 == {}".format(testValueP1))
                         log.debug("testValueP2 == {}".format(testValueP2))
