@@ -2,7 +2,342 @@
 # Notes on "George Wollsten" by George Bayer.
 ##############################################################################
 
+##############################################################################
+
 New York City coordinates (lat, lon):
 40 deg 47' North , 73 deg 58' West
 
 
+Page 21 has the first general year dates in the book.
+
+Page 30 has the first actual date in the book: May 25, 1908.  From this date, we can work backwards to the beginning, and forwards.
+
+Search for the word "timestamp" for timestamps in GeorgeWollsten_edited.txt
+
+Search for the word "rluu" for my comments about planetary combinations or other notes.
+
+When is Lincoln's birthday (date of the year)?
+
+##############################################################################
+
+
+Foreword:
+
+The story covers a market period of 1909 to 1911, inclusive.
+Everything brought in the book is "home-grown" (written in veiled language).
+
+Dated: 
+Carmel, California
+November 24, 1945
+
+
+Table of Contents:
+
+Illustrations:
+
+Chart for Daily Wheat from 1909 to 1911 was not included in the PDF version of this book, but is included in the hardcopy.  Is it worth trying to get this?
+
+
+Synopsis:
+
+While the story itself is interesting, the main subject “how to trade and avoid all the pitfalls of the Pit and of Wall Street” is developed slowly without complicated explanations. Everything is worked up naturally, just like a normal person would go about to take a walk up to a mountain – to success in Wall Street and in the Pit.
+
+
+Characters:
+
+Jim Wollsten - Farmer that immigrated from Europe.
+
+George Wollsten - Immigrated from Europe, helps Jim on the farm but gradually shifts into trading wheat.  He learns how to "square the circle".
+
+rluu: Wollsten sounds like "Rolls-Ten" (rolls of ten?).
+
+Grete - Wife of Jim Wollsten
+
+Gusty - Wife of George Wollsten
+
+Mr. Schafer - Prosperous farmer of Upper Red Hook.  
+
+Sepp Muller - (=Moon) In the story, he thinks he knows the market.  rluu: Sounds like "Sap Puller", i.e. the moon.
+
+Julius Holten - Man that helps Jim get set up on a farm.  
+rluu: "Holten" sounds like "Whole Ten" or "Hold Ten" or "Hole ten".
+
+Robert 
+
+Paula
+
+
+Directions:
+
+Keyword: North
+Keyword: East
+Keyword: West
+Keyword: South (=bottom of a zodiac sign when in reference to a place? Or below another planet?)
+
+
+Colors:
+Keyword: Red
+Keyword: Black
+Keyword: White
+Keyword: Blue
+Keyword: Yellow
+Keyword: Green
+Keyword: Brown
+
+
+
+Keyword: Upper Red Hook (location)
+
+Keyword: New York (location) - Cancer
+
+Apple orchards, whose fruit represented the main income of the community, were barren and desolate.  (rluu: Leo is a barren sign?)  
+
+Keyword: Orchard
+
+Cattle that used to graze on land not planted in orchards had been taken to their warm stables to await Spring, even more than Spring, since it takes grass and herbs some time to grow after Spring has arrived.
+
+Keyword: Grass
+
+Keyword: Cattle or Cow
+
+rluu: Spring is a keyword?  Why is it capitalized?  The word 'summer' later is not capitalized.
+
+pg. 2
+Nature is barren.
+
+Keyword: Nature
+rluu: The word 'Nature' is capitalized everywhere.
+
+Keyword: Barn
+
+"Paula and Robert, the couple that helped at Wollsten’s, were up already. So was Jim Wollsten, because lights in the two houses betrayed them. Jim and Robert were already n the barn, airing it to avoid overheating. Last Fall they had stored the best of their apple crop in it to hold for better market prices."
+
+Keyword: Light (or lights)
+
+Keyword: Air
+
+Keyword: Fall (as a verb or otherwise?)
+
+Keyword: Egg
+
+Keyword: Apple (=wheat?)
+
+Keyword: Write (verb)
+
+"Before she would have to attend to everything herself – to the household, the cooking, and to the chickens as well as the many others things a woman on a farm must look after."
+
+Keyword: Chicken / Chick
+
+Keyword: Farm
+
+Keyword: New World
+
+Keyword: World
+
+Keyword: Country
+
+Keyword: City
+
+Keyword: Beer
+
+Keyword: Suit (suitcase, suit case, suitable?) - Cancer: see page 25.
+
+Keyword: Grand
+
+Keyword: Telegram
+
+Keyword: walk (verb)
+
+Keyword: sit / sat (verb)
+
+Keyword: Town
+
+"boll weevil" (p 88, p 202)
+
+Keyword: Devil
+
+Keyword: Bridge
+
+Keyword: Village
+
+Keyword: Broker's office
+
+Keyword: YMCA
+
+Keyword: Lobby (location)
+
+Keyword: America (location)
+
+Keyword: Train
+
+Keyword: Letter
+
+Keyword: Coffee
+
+Keyword: Cake (pancake, etc.)
+
+Keyword: Jump (verb)
+
+Keyword: Milk
+
+Keyword: Bread
+
+Keyword: Piece
+
+Keyword: Serpentine
+
+Keyword: Tape
+
+Keyword: Wheel
+
+Keyword: Seed
+
+Keyword: Shoe
+
+Keyword: See / Saw (verb) - (pg. 28, Oppositon referring to Statue of Liberty, Libra?)
+
+Keyword: Wine
+
+Keyword: Talk
+
+Keyword: Gate
+
+Keyword: Meal
+
+Keyword: Smoke: Either Mars or Pluto.
+
+Keyword: Street
+
+Keyword: Tree
+
+Keyword: Fruit
+
+Keyword: Leave (verb)
+
+Keyword: Baby
+
+Keyword: Hotel
+
+Keyword: Sleep / Slept (verb)
+
+Keyword: Stamp
+
+Keyword: Love
+
+Keyword: Shirt
+
+Keyword: Snow
+
+Keyword: Flag
+
+Keyword: Horse
+
+Keyword: Bee (hive?)
+
+Keyword: Event
+
+Keyword: Window
+
+Keyword: Order (verb or noun)
+
+Keyword: Boat
+
+Keyword: Gloria
+
+Keyword: Ship (verb or noun)
+
+Keyword: Roast
+
+Keyword: Genoa (location)
+
+Keyword: Wall
+
+Keyword: Bag
+
+Keyword: Cement
+
+Keyword: Package
+
+Keyword: Pound (measurement unit)
+
+Keyword: Stand (verb)
+
+Keyword: Station
+
+Keyword: Food
+
+Keyword: Animal
+
+Keyword: Plan (verb, adjective, or noun)
+
+Keyword: Garden
+
+Keyword: Potato
+
+Keyword: Pine Plains (or Pine-Plains) (rluu: just search for "pine" only).
+
+Keyword: Queen
+
+Keyword: Dinner
+
+Keyword: Verona (location)
+
+Keyword: Sail
+
+Keyword: Gold
+
+Keyword: Neighbor
+
+Keyword: Fellow
+
+Keyword: Book
+
+Keyword: Lake
+
+Keyword: Finger
+
+Keyword: Ring
+
+Keyword: Island
+
+Keyword: Park (location)
+
+Keyword: German
+
+Keyword: Man (rluu: as opposed to German?)
+
+Keyword: Waiter
+
+Keyword: Stranger
+
+Keyword: Bill (billiet, billows, etc.)
+
+Keyword: Bed
+
+Keyword: Hunger / Hungry
+
+Keyword: Eat (verb)
+
+Keyword: Table
+
+Keyword: Trip
+
+Keyword: Come (verb)
+
+Keyword: Boil
+
+Keyword: Hudson
+
+Keyword: River
+
+Keyword: Lie / Lying (verb)
+
+Keyword: Brook
+
+Keyword: Push (verb)
+
+Keyword: Arm
+
+Keyword: Pier (location) - Zodiac sign junction.
+
+Keyword: Barren
