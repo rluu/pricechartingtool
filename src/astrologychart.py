@@ -8385,7 +8385,7 @@ class AstrologyChartWidget(QWidget):
                     velocity = \
                         planet.heliocentric['sidereal']['longitude_speed']
                     parent = self.helioSidRadixChartGraphicsItem
-    
+                    
                     # Create the RadixPlanetGraphicsItem.
                     radixPlanetGraphicsItem = \
                         RadixPlanetGraphicsItem(planet.name,

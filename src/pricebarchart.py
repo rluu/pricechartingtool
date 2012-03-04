@@ -7979,13 +7979,15 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                 scene.sceneXPosToDatetime(self.startPointF.x())
             
             timestampStr = Ephemeris.datetimeToDayStr(startTimestamp)
-            self.log.debug("startTimestamp: " + timestampStr)
+            if self.log.isEnabledFor(logging.DEBUG) == True:
+                self.log.debug("startTimestamp: " + timestampStr)
             
             endTimestamp = \
                 scene.sceneXPosToDatetime(self.endPointF.x())
             
             timestampStr = Ephemeris.datetimeToDayStr(endTimestamp)
-            self.log.debug("endTimestamp: " + timestampStr)
+            if self.log.isEnabledFor(logging.DEBUG) == True:
+                self.log.debug("endTimestamp: " + timestampStr)
 
             # If startTimestamp is after endTimestamp, then swap their
             # values.  This can happen if the person is measuring
@@ -8032,8 +8034,9 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                 # List of PlanetaryInfos, sorted by timestamp.
                 planetData = []
                 
-                # Step size to use in populating the data list with PlanetaryInfos.
-                
+                # Step size to use in populating the data list with
+                # PlanetaryInfos.
+                #
                 # The step size should cause the planet to move less
                 # than 120 degrees in all cases, and idealy much less
                 # than this, that way we can easily narrow down when
@@ -8043,16 +8046,17 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                 # too large, it is possible that we would miss a whole
                 # time window of retrograde movement, so discretion
                 # has to be used in determining what to use for this value.
+                #
+                # Here we will set it to 1 day for the default case,
+                # but if the planet name is a house cusp then shrink
+                # the step size so we will get the correct resolution.
+                # Also, if the planet name is an outer planet with a
+                # large period, we can increase the step size slightly
+                # to improve performance.
                 stepSizeTd = datetime.timedelta(days=1)
                 
-                # If the planet name is a house cusp then shrink the
-                # step size so we will get the correct resolution.  If
-                # the planet name is an outer planet with a large
-                # period, we can increase the step size slightly to
-                # improve performance.
                 if Ephemeris.isHouseCuspPlanetName(planetName):
                     stepSizeTd = datetime.timedelta(hours=1)
-                    
                 elif planetName == "Jupiter" or \
                      planetName == "Saturn" or \
                      planetName == "Neptune" or \
@@ -8061,9 +8065,10 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                     
                     stepSizeTd = datetime.timedelta(days=2)
                 
-                self.log.debug("Stepping through from {} to {} ...".\
-                               format(Ephemeris.datetimeToStr(startTimestamp),
-                                      Ephemeris.datetimeToStr(endTimestamp)))
+                if self.log.isEnabledFor(logging.DEBUG) == True:
+                    self.log.debug("Stepping through from {} to {} ...".\
+                                   format(Ephemeris.datetimeToStr(startTimestamp),
+                                          Ephemeris.datetimeToStr(endTimestamp)))
                 
                 # Current datetime as we step through all the
                 # timestamps between the start and end timestamp.
@@ -8085,17 +8090,24 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                 if self.showGeocentricRetroAsZeroTextFlag == True or \
                     self.showGeocentricRetroAsPositiveTextFlag == True or \
                     self.showGeocentricRetroAsNegativeTextFlag == True:
-
+                    
                     # Get the PlanetaryInfos for the timestamps of the
                     # planet at the moment right after the
                     # longitude_speed polarity changes.
                     additionalPlanetaryInfos = []
-                    
+
+                    # Note: All references to longitude_speed need to
+                    # be from tropical zodiac measurements!  If I use
+                    # sidereal zodiac measurements for getting the
+                    # longitude_speed, then the measurements from the
+                    # Swiss Ephemeris do not yield the correct values.
+                    # I use the following variable in these locations.
+                    zodiacTypeForLongitudeSpeed = "tropical"
                     prevLongitudeSpeed = None
                     
                     for i in range(len(planetData)):
                         currLongitudeSpeed = \
-                            planetData[i].geocentric['tropical']['longitude_speed']
+                            planetData[i].geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed']
                         
                         if prevLongitudeSpeed != None and \
                            ((prevLongitudeSpeed < 0 and currLongitudeSpeed >= 0) or \
@@ -8109,9 +8121,10 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                             currErrorTd = t2 - t1
                             
                             while currErrorTd > maxErrorTd:
-                                self.log.debug("Refining between {} and {}".\
-                                          format(Ephemeris.datetimeToStr(t1),
-                                                 Ephemeris.datetimeToStr(t2)))
+                                if self.log.isEnabledFor(logging.DEBUG) == True:
+                                    self.log.debug("Refining between {} and {}".\
+                                                   format(Ephemeris.datetimeToStr(t1),
+                                                          Ephemeris.datetimeToStr(t2)))
                                 
                                 # Check the timestamp between.
                                 diffTd = t2 - t1
@@ -8125,7 +8138,7 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
 
                                 p = Ephemeris.getPlanetaryInfo(planetName, testDt)
                                 testLongitudeSpeed = \
-                                    p.geocentric['sidereal']['longitude_speed']
+                                    p.geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed']
 
                                 if ((prevLongitudeSpeed < 0 and \
                                      testLongitudeSpeed >= 0) or \
@@ -8141,13 +8154,40 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
 
                                 # Update the currErrorTd.
                                 currErrorTd = t2 - t1
-                                
+                            
+                            self.log.debug("Broke out of loop to find " + \
+                                           "velocity polarity change.  " + \
+                                           "currErrorTd is: {}, ".\
+                                           format(currErrorTd))
+                                           
                             # Timestamp at t2 is now within the time error
                             # threshold of the polarity change.
                             # Append this value to the list.
                             p = Ephemeris.getPlanetaryInfo(planetName, t2)
                             additionalPlanetaryInfos.append(p)
 
+                            t1pi = planetData[i-1]
+                            t2pi = Ephemeris.getPlanetaryInfo(planetName, t2)
+                            
+                            if self.log.isEnabledFor(logging.DEBUG) == True:
+                                self.log.debug("t1 == {}, ".\
+                                           format(Ephemeris.datetimeToStr(t1pi.dt)) + \
+                                           "longitude(tropical) == {}, ".\
+                                           format(t1pi.geocentric['tropical']['longitude']) + \
+                                           "longitude(sidereal) == {}, ".\
+                                           format(t1pi.geocentric['sidereal']['longitude']) + \
+                                           "longitude_speed == {}, ".\
+                                           format(t1pi.geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed']))
+                                
+                                self.log.debug("t2 == {}, ".\
+                                           format(Ephemeris.datetimeToStr(t2pi.dt)) + \
+                                           "longitude(tropical) == {}, ".\
+                                           format(t2pi.geocentric['tropical']['longitude']) + \
+                                           "longitude(sidereal) == {}, ".\
+                                           format(t2pi.geocentric['sidereal']['longitude']) + \
+                                           "longitude_speed == {}, ".\
+                                           format(t2pi.geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed']))
+                            
                             # There is no need to update
                             # currLongitudeSpeed here, because the
                             # longitude_speed for 'p' should be the
@@ -8156,8 +8196,9 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                         # Update prevLongitudeSpeed.
                         prevLongitudeSpeed = currLongitudeSpeed
 
-                    # Sort by timestamp.
-                    additionalPlanetaryInfos = sorted(additionalPlanetaryInfos, key=lambda c: c.dt)
+                    # Sort all the extra PlanetaryInfo objects by timestamp.
+                    additionalPlanetaryInfos = \
+                        sorted(additionalPlanetaryInfos, key=lambda c: c.dt)
 
                     # Insert PlanetaryInfos from
                     # 'additionalPlanetaryInfos' into 'planetData' at
@@ -8189,12 +8230,6 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                             # appended without doing anymore timestamp tests.
                             currLoc += 1
 
-                    # TODO: Remove the below test when I'm satisfied the logic is correct.
-                    for i in range(len(planetData)):
-                        if i != 0:
-                            if planetData[i-1].dt >= planetData[i].dt:
-                                raise AssertionError("THE PLANETARYINFO LIST IS NOT SORTED BY TIMESTAMP.  LOGIC ERROR!!!!")
-
                     # Do summations to determine the measurements.
                     
                     if self.showGeocentricRetroAsZeroTextFlag == True:
@@ -8207,7 +8242,7 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                     prevPi = planetData[i-1]
                                     currPi = planetData[i]
 
-                                    if prevPi.geocentric[zodiacType]['longitude_speed'] >= 0:
+                                    if prevPi.geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0:
                                         # Direct motion.
                                         # Elapsed amount for this segment should be positive.
                                         
@@ -8266,7 +8301,7 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                     prevPi = planetData[i-1]
                                     currPi = planetData[i]
 
-                                    if prevPi.geocentric[zodiacType]['longitude_speed'] >= 0:
+                                    if prevPi.geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0:
                                         # Direct motion.
                                         # Elapsed amount for this segment should be positive.
                                         
@@ -8326,7 +8361,22 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                     prevPi = planetData[i-1]
                                     currPi = planetData[i]
 
-                                    if prevPi.geocentric[zodiacType]['longitude_speed'] >= 0:
+                                    if self.log.isEnabledFor(logging.DEBUG) == True:
+                                        self.log.debug("-------------------------------------------------")
+                                        self.log.debug("  planetData[{}] ({}): lon == {}, speed == {}".\
+                                                       format(i-1,
+                                                              Ephemeris.datetimeToStr(planetData[i-1].dt),
+                                                              planetData[i-1].geocentric[zodiacType]['longitude'],
+                                                              planetData[i-1].geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed']
+                                                              ))
+                                        self.log.debug("  planetData[{}] ({}): lon == {}, speed == {}".\
+                                                       format(i,
+                                                              Ephemeris.datetimeToStr(planetData[i].dt),
+                                                              planetData[i].geocentric[zodiacType]['longitude'],
+                                                              planetData[i].geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed']
+                                                              ))
+                                    
+                                    if prevPi.geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0:
                                         # Direct motion.
                                         # Elapsed amount for this segment should be positive.
                                         
@@ -8334,6 +8384,12 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                         longitudeElapsed = \
                                             currPi.geocentric[zodiacType]['longitude'] - \
                                             prevPi.geocentric[zodiacType]['longitude']
+
+                                        if self.log.isEnabledFor(logging.DEBUG) == True:
+                                            self.log.debug("Direct motion: " + \
+                                                           "longitudeElapsed " + \
+                                                           "(before reduction): {}".\
+                                                           format(longitudeElapsed))
                                         
                                         # See if there was a crossing of the
                                         # 0 degree point or the 360 degree point.
@@ -8342,8 +8398,12 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                         # correct.
                                         longitudeElapsed = \
                                             Util.toNormalizedAngle(longitudeElapsed)
-
+                                        
                                         totalDegrees += longitudeElapsed
+                                        
+                                        if self.log.isEnabledFor(logging.DEBUG) == True:
+                                            self.log.debug("Direct motion: Added amount: {}".\
+                                                           format(longitudeElapsed))
                                     else:
                                         # Retrograde motion.
                                         # Elapsed amount for this segment should be negative.
@@ -8353,6 +8413,12 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                             currPi.geocentric[zodiacType]['longitude'] - \
                                             prevPi.geocentric[zodiacType]['longitude']
 
+                                        if self.log.isEnabledFor(logging.DEBUG) == True:
+                                            self.log.debug("Retrograde motion: " + \
+                                                           "longitudeElapsed " + \
+                                                           "(before reduction): {}".\
+                                                           format(longitudeElapsed))
+                                        
                                         # See if there was a crossing of the
                                         # 0 degree point or the 360 degree point.
                                         # If so, make the necessary adjustments
@@ -8367,7 +8433,11 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                         # positive values, negate it
                                         # before adding.
                                         totalDegrees += abs(longitudeElapsed)
-                                    
+
+                                        if self.log.isEnabledFor(logging.DEBUG) == True:
+                                            self.log.debug("Retrograde motion: Added amount: {}".\
+                                                           format(abs(longitudeElapsed)))
+                                        
                             # Append text for the calculated number of total degrees.
                             line = ""
                             numCircles = totalDegrees / circleSizeInDegrees
@@ -8401,7 +8471,7 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                     prevPi = planetData[i-1]
                                     currPi = planetData[i]
 
-                                    if prevPi.geocentric[zodiacType]['longitude_speed'] >= 0:
+                                    if prevPi.geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0:
                                         # Direct motion.
                                         # Elapsed amount for this segment should be positive.
                                         
@@ -8477,7 +8547,7 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                     prevPi = planetData[i-1]
                                     currPi = planetData[i]
 
-                                    if prevPi.geocentric[zodiacType]['longitude_speed'] >= 0:
+                                    if prevPi.geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0:
                                         # Direct motion.
                                         # Elapsed amount for this segment should be positive.
                                         
@@ -8547,7 +8617,7 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                     prevPi = planetData[i-1]
                                     currPi = planetData[i]
 
-                                    if prevPi.geocentric[zodiacType]['longitude_speed'] >= 0:
+                                    if prevPi.geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0:
                                         # Direct motion.
                                         # Elapsed amount for this segment should be positive.
                                         
@@ -8619,7 +8689,7 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                 prevPi = planetData[i-1]
                                 currPi = planetData[i]
                                 
-                                if prevPi.heliocentric[zodiacType]['longitude_speed'] >= 0:
+                                if prevPi.heliocentric[zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0:
                                     # Direct motion.
                                     # Elapsed amount for this segment should be positive.
                                     
@@ -8689,7 +8759,7 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                 prevPi = planetData[i-1]
                                 currPi = planetData[i]
                                 
-                                if prevPi.heliocentric[zodiacType]['longitude_speed'] >= 0:
+                                if prevPi.heliocentric[zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0:
                                     # Direct motion.
                                     # Elapsed amount for this segment should be positive.
                                     

@@ -47,15 +47,15 @@ log.setLevel(logLevel)
 #startDt = datetime.datetime(year=1704, month=1, day=1,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
-startDt = datetime.datetime(year=1968, month=1, day=1,
-                            hour=0, minute=0, second=0,
-                            tzinfo=pytz.utc)
+#startDt = datetime.datetime(year=1968, month=1, day=1,
+#                            hour=0, minute=0, second=0,
+#                            tzinfo=pytz.utc)
 #startDt = datetime.datetime(year=2001, month=1, day=1,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
-#startDt = datetime.datetime(year=2011, month=12, day=18,
-#                            hour=0, minute=0, second=0,
-#                            tzinfo=pytz.utc)
+startDt = datetime.datetime(year=2009, month=1, day=1,
+                            hour=0, minute=0, second=0,
+                            tzinfo=pytz.utc)
 
 #endDt   = datetime.datetime(year=2008, month=1, day=1,
 #                            hour=0, minute=0, second=0,
@@ -348,31 +348,27 @@ def processPCDD(pcdd, tag):
     #    "Mars", "heliocentric", "sidereal",
     #    0)
     
-    success = PlanetaryCombinationsLibrary.\
-        addLongitudeAspectVerticalLines(\
-        pcdd, startDt, endDt, highPrice, lowPrice,
-        "Mars", "heliocentric", "sidereal",
-        "Earth", "heliocentric", "sidereal",
-        0)
-    success = PlanetaryCombinationsLibrary.\
-        addLongitudeAspectVerticalLines(\
-        pcdd, startDt, endDt, highPrice, lowPrice,
-        "Mars", "heliocentric", "sidereal",
-        "Earth", "heliocentric", "sidereal",
-        180)
-    
-    success = PlanetaryCombinationsLibrary.\
-        addLongitudeAspectVerticalLines(\
-        pcdd, startDt, endDt, highPrice, lowPrice,
-        "Venus", "heliocentric", "sidereal",
-        "Earth", "heliocentric", "sidereal",
-        0)
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "heliocentric", "sidereal",
-    #    "Earth", "heliocentric", "sidereal",
-    #    15)
+    #    "Mars", "Earth",
+    #    "heliocentric", "sidereal", 0)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addLongitudeAspectVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "Mars", "Earth",
+    #    "heliocentric", "sidereal", 180)
+    
+    #success = PlanetaryCombinationsLibrary.\
+    #    addLongitudeAspectVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "Venus", "Earth",
+    #    "heliocentric", "sidereal", 0)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addLongitudeAspectVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "Venus", "Earth",
+    #    "heliocentric", "sidereal", 15)
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
@@ -433,12 +429,11 @@ def processPCDD(pcdd, tag):
     #    "Venus", "heliocentric", "sidereal",
     #    "Earth", "heliocentric", "sidereal",
     #    165)
-    success = PlanetaryCombinationsLibrary.\
-        addLongitudeAspectVerticalLines(\
-        pcdd, startDt, endDt, highPrice, lowPrice,
-        "Venus", "heliocentric", "sidereal",
-        "Earth", "heliocentric", "sidereal",
-        180)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addLongitudeAspectVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "Venus", "Earth",
+    #    "heliocentric", "sidereal", 180)
     
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
@@ -826,6 +821,18 @@ def processPCDD(pcdd, tag):
     #                                   hour=6, minute=0, second=0,
     #                                   tzinfo=pytz.utc),
     #    degreeIncrement=15)
+
+    #success = PlanetaryCombinationsLibrary.\
+    #    addGeoLongitudeVelocityPolarityChangeVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "Mercury")
+
+    success = PlanetaryCombinationsLibrary.\
+        addLongitudeAspectVerticalLines(\
+        pcdd, startDt, endDt, highPrice, lowPrice,
+        "Venus", "geocentric", "sidereal",
+        "Venus", "heliocentric", "sidereal",
+        0)
 
     if success == True:
         log.debug("Success!")

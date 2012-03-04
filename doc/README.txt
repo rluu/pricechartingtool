@@ -451,5 +451,12 @@ Earth is not correct.  The results seen appear to be just -1 times the
 geocentric declination of the Sun.  My guess is other heliocentric
 declinations are probably wrong too.
 
+3) Values obtained of planet longitude_speed need to be from tropical
+zodiac measurements only!  If I try to use sidereal zodiac
+measurements for getting the longitude_speed, then the measurements
+from the Swiss Ephemeris do not yield the correct values relative to
+the longitude measurements.  Technically, the longitude_speed of
+planets should be the same regardless of whether the measurement is
+used from the tropical zodiac or the sidereal zodiac.
 
 ##############################################################################
