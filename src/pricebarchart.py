@@ -8275,19 +8275,19 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                             if self.measurementUnitDegreesEnabled == True and \
                                self.measurementUnitCirclesEnabled == True:
                                 
-                                line = "Geo Trop {} moves {:.2f} deg or {:.3f} circles (retro as 0)".\
+                                line = "G T {} moves {:.2f} deg or {:.3f} circles (r as 0)".\
                                        format(planetName, totalDegrees, numCircles)
                             
                             elif self.measurementUnitDegreesEnabled == True and \
                                self.measurementUnitCirclesEnabled == False:
                                 
-                                line = "Geo Trop {} moves {:.2f} deg (retro as 0)".\
+                                line = "G T {} moves {:.2f} deg (r as 0)".\
                                        format(planetName, totalDegrees)
                                 
                             elif self.measurementUnitDegreesEnabled == False and \
                                self.measurementUnitCirclesEnabled == True:
                                 
-                                line = "Geo Trop {} moves {:.3f} circles (retro as 0)".\
+                                line = "G T {} moves {:.3f} circles (r as 0)".\
                                        format(planetName, totalDegrees)
                                 
                             text += line + os.linesep
@@ -8334,19 +8334,19 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                             if self.measurementUnitDegreesEnabled == True and \
                                self.measurementUnitCirclesEnabled == True:
 
-                                line = "Geo Sid {} moves {:.2f} deg or {:.3f} circles (retro as 0)".\
+                                line = "G S {} moves {:.2f} deg or {:.3f} circles (r as 0)".\
                                        format(planetName, totalDegrees, numCircles)
                             
                             elif self.measurementUnitDegreesEnabled == True and \
                                self.measurementUnitCirclesEnabled == False:
 
-                                line = "Geo Sid {} moves {:.2f} deg (retro as 0)".\
+                                line = "G S {} moves {:.2f} deg (r as 0)".\
                                        format(planetName, totalDegrees)
                                 
                             elif self.measurementUnitDegreesEnabled == False and \
                                self.measurementUnitCirclesEnabled == True:
 
-                                line = "Geo Sid {} moves {:.3f} circles (retro as 0)".\
+                                line = "G S {} moves {:.3f} circles (r as 0)".\
                                        format(planetName, totalDegrees)
 
                             text += line + os.linesep
@@ -8445,19 +8445,19 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                             if self.measurementUnitDegreesEnabled == True and \
                                self.measurementUnitCirclesEnabled == True:
                                 
-                                line = "Geo Trop {} moves {:.2f} deg or {:.3f} circles (retro as +)".\
+                                line = "G T {} moves {:.2f} deg or {:.3f} circles (r as +)".\
                                        format(planetName, totalDegrees, numCircles)
                             
                             elif self.measurementUnitDegreesEnabled == True and \
                                self.measurementUnitCirclesEnabled == False:
                                 
-                                line = "Geo Trop {} moves {:.2f} deg (retro as +)".\
+                                line = "G T {} moves {:.2f} deg (r as +)".\
                                        format(planetName, totalDegrees)
                                 
                             elif self.measurementUnitDegreesEnabled == False and \
                                self.measurementUnitCirclesEnabled == True:
                                 
-                                line = "Geo Trop {} moves {:.3f} circles (retro as +)".\
+                                line = "G T {} moves {:.3f} circles (r as +)".\
                                        format(planetName, totalDegrees)
                                 
                             text += line + os.linesep
@@ -8520,19 +8520,19 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                             if self.measurementUnitDegreesEnabled == True and \
                                self.measurementUnitCirclesEnabled == True:
 
-                                line = "Geo Sid {} moves {:.2f} deg or {:.3f} circles (retro as +)".\
+                                line = "G S {} moves {:.2f} deg or {:.3f} circles (r as +)".\
                                        format(planetName, totalDegrees, numCircles)
                             
                             elif self.measurementUnitDegreesEnabled == True and \
                                self.measurementUnitCirclesEnabled == False:
 
-                                line = "Geo Sid {} moves {:.2f} deg (retro as +)".\
+                                line = "G S {} moves {:.2f} deg (r as +)".\
                                        format(planetName, totalDegrees)
                                 
                             elif self.measurementUnitDegreesEnabled == False and \
                                self.measurementUnitCirclesEnabled == True:
 
-                                line = "Geo Sid {} moves {:.3f} circles (retro as +)".\
+                                line = "G S {} moves {:.3f} circlescles (r as +)".\
                                        format(planetName, totalDegrees)
 
                             text += line + os.linesep
@@ -8591,19 +8591,19 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                             if self.measurementUnitDegreesEnabled == True and \
                                self.measurementUnitCirclesEnabled == True:
                                 
-                                line = "Geo Trop {} moves {:.2f} deg or {:.3f} circles (retro as -)".\
+                                line = "G T {} moves {:.2f} deg or {:.3f} circles (r as -)".\
                                        format(planetName, totalDegrees, numCircles)
                             
                             elif self.measurementUnitDegreesEnabled == True and \
                                self.measurementUnitCirclesEnabled == False:
                                 
-                                line = "Geo Trop {} moves {:.2f} deg (retro as -)".\
+                                line = "G T {} moves {:.2f} deg (r as -)".\
                                        format(planetName, totalDegrees)
                                 
                             elif self.measurementUnitDegreesEnabled == False and \
                                self.measurementUnitCirclesEnabled == True:
                                 
-                                line = "Geo Trop {} moves {:.3f} circles (retro as -)".\
+                                line = "G T {} moves {:.3f} circles (r as -)".\
                                        format(planetName, totalDegrees)
                                 
                             text += line + os.linesep
@@ -8661,19 +8661,19 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                             if self.measurementUnitDegreesEnabled == True and \
                                self.measurementUnitCirclesEnabled == True:
                                 
-                                line = "Geo Sid {} moves {:.2f} deg or {:.3f} circles (retro as -)".\
+                                line = "G S {} moves {:.2f} deg or {:.3f} circles (r as -)".\
                                        format(planetName, totalDegrees, numCircles)
                             
                             elif self.measurementUnitDegreesEnabled == True and \
                                self.measurementUnitCirclesEnabled == False:
 
-                                line = "Geo Sid {} moves {:.2f} deg (retro as -)".\
+                                line = "G S {} moves {:.2f} deg (r as -)".\
                                        format(planetName, totalDegrees)
                                 
                             elif self.measurementUnitDegreesEnabled == False and \
                                self.measurementUnitCirclesEnabled == True:
 
-                                line = "Geo Sid {} moves {:.3f} circles (retro as -)".\
+                                line = "G S {} moves {:.3f} circles (r as -)".\
                                        format(planetName, totalDegrees)
                             
                             text += line + os.linesep
@@ -8733,19 +8733,19 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                         if self.measurementUnitDegreesEnabled == True and \
                            self.measurementUnitCirclesEnabled == True:
                             
-                            line = "Helio Trop {} moves {:.2f} deg or {:.3f} circles".\
+                            line = "H T {} moves {:.2f} deg or {:.3f} circles".\
                                    format(planetName, totalDegrees, numCircles)
                             
                         elif self.measurementUnitDegreesEnabled == True and \
                            self.measurementUnitCirclesEnabled == False:
                             
-                            line = "Helio Trop {} moves {:.2f} deg".\
+                            line = "H T {} moves {:.2f} deg".\
                                    format(planetName, totalDegrees)
                             
                         elif self.measurementUnitDegreesEnabled == False and \
                            self.measurementUnitCirclesEnabled == True:
                             
-                            line = "Helio Trop {} moves {:.3f} circles".\
+                            line = "H T {} moves {:.3f} circles".\
                                    format(planetName, totalDegrees)
                             
                         text += line + os.linesep
@@ -8803,19 +8803,19 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                         if self.measurementUnitDegreesEnabled == True and \
                            self.measurementUnitCirclesEnabled == True:
                             
-                            line = "Helio Sid {} moves {:.2f} deg or {:.3f} circles".\
+                            line = "H S {} moves {:.2f} deg or {:.3f} circles".\
                                    format(planetName, totalDegrees, numCircles)
                             
                         elif self.measurementUnitDegreesEnabled == True and \
                            self.measurementUnitCirclesEnabled == False:
                             
-                            line = "Helio Sid {} moves {:.2f} deg".\
+                            line = "H S {} moves {:.2f} deg".\
                                    format(planetName, totalDegrees)
                             
                         elif self.measurementUnitDegreesEnabled == False and \
                            self.measurementUnitCirclesEnabled == True:
                             
-                            line = "Helio Sid {} moves {:.3f} circles".\
+                            line = "H S {} moves {:.3f} circles".\
                                    format(planetName, totalDegrees)
                             
                         text += line + os.linesep

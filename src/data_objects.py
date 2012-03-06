@@ -15061,7 +15061,7 @@ class PriceBarChartSettings:
     
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # text rotation angle, in degrees (float).
-    defaultPlanetLongitudeMovementMeasurementGraphicsItemTextRotationAngle = 0.0
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemTextRotationAngle = 90.0
     
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # text X scaling (float).
