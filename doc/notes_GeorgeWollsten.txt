@@ -5,7 +5,7 @@
 ##############################################################################
 
 New York City coordinates (lat, lon):
-40 deg 47' North , 73 deg 58' West
+40 deg 47' North, 73 deg 58' West
 
 
 Page 21 has the first general year dates in the book.
