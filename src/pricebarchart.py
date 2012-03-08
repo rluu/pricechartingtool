@@ -8288,7 +8288,7 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                self.measurementUnitCirclesEnabled == True:
                                 
                                 line = "G T {} moves {:.3f} circles (r as 0)".\
-                                       format(planetName, totalDegrees)
+                                       format(planetName, numCircles)
                                 
                             text += line + os.linesep
                             
@@ -8347,7 +8347,7 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                self.measurementUnitCirclesEnabled == True:
 
                                 line = "G S {} moves {:.3f} circles (r as 0)".\
-                                       format(planetName, totalDegrees)
+                                       format(planetName, numCircles)
 
                             text += line + os.linesep
                             
@@ -8458,7 +8458,7 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                self.measurementUnitCirclesEnabled == True:
                                 
                                 line = "G T {} moves {:.3f} circles (r as +)".\
-                                       format(planetName, totalDegrees)
+                                       format(planetName, numCircles)
                                 
                             text += line + os.linesep
                             
@@ -8532,8 +8532,8 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                             elif self.measurementUnitDegreesEnabled == False and \
                                self.measurementUnitCirclesEnabled == True:
 
-                                line = "G S {} moves {:.3f} circlescles (r as +)".\
-                                       format(planetName, totalDegrees)
+                                line = "G S {} moves {:.3f} circles (r as +)".\
+                                       format(planetName, numCircles)
 
                             text += line + os.linesep
                             
@@ -8604,7 +8604,7 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                self.measurementUnitCirclesEnabled == True:
                                 
                                 line = "G T {} moves {:.3f} circles (r as -)".\
-                                       format(planetName, totalDegrees)
+                                       format(planetName, numCircles)
                                 
                             text += line + os.linesep
                             
@@ -8674,7 +8674,7 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                self.measurementUnitCirclesEnabled == True:
 
                                 line = "G S {} moves {:.3f} circles (r as -)".\
-                                       format(planetName, totalDegrees)
+                                       format(planetName, numCircles)
                             
                             text += line + os.linesep
                             
@@ -8746,7 +8746,7 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                            self.measurementUnitCirclesEnabled == True:
                             
                             line = "H T {} moves {:.3f} circles".\
-                                   format(planetName, totalDegrees)
+                                   format(planetName, numCircles)
                             
                         text += line + os.linesep
                         
@@ -8816,7 +8816,7 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                            self.measurementUnitCirclesEnabled == True:
                             
                             line = "H S {} moves {:.3f} circles".\
-                                   format(planetName, totalDegrees)
+                                   format(planetName, numCircles)
                             
                         text += line + os.linesep
         
