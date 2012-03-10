@@ -7967,6 +7967,14 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
         # what would otherwise be a constant!
         circleSizeInDegrees = 360.0
 
+        # All references to longitude_speed need to
+        # be from tropical zodiac measurements!  If I use
+        # sidereal zodiac measurements for getting the
+        # longitude_speed, then the measurements from the
+        # Swiss Ephemeris do not yield the correct values.
+        # I use the following variable in these locations.
+        zodiacTypeForLongitudeSpeed = "tropical"
+
         # Text to set in the text item.
         text = ""
 
@@ -8096,13 +8104,6 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                     # longitude_speed polarity changes.
                     additionalPlanetaryInfos = []
 
-                    # Note: All references to longitude_speed need to
-                    # be from tropical zodiac measurements!  If I use
-                    # sidereal zodiac measurements for getting the
-                    # longitude_speed, then the measurements from the
-                    # Swiss Ephemeris do not yield the correct values.
-                    # I use the following variable in these locations.
-                    zodiacTypeForLongitudeSpeed = "tropical"
                     prevLongitudeSpeed = None
                     
                     for i in range(len(planetData)):
