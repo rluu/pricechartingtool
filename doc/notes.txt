@@ -1042,3 +1042,24 @@ Interestingly, I get a feeling that this technology is exactly the same as what 
 # End Notes added Nov 16, 2010.
 ##############################################################################
 
+##############################################################################
+# Start Notes added Mar 11, 2012.
+##############################################################################
+
+Something to keep in mind while studying TTTA and using its pdf:
+
+Acrobat reader (acroread on Linux) is smart enough to connect
+hyphenated words across line boundaries whereas okular is not smart
+enough to do that.
+
+In the 'TTTA_paragraph_unfilled.txt' document, I have removed many
+hyphenated words that spanned lines or pages, and shifted split words
+from a page to the one before, if it made sense.  The keyword phrases
+I also tried to connect between pages.  Still, it would be smart to
+use both the script I created called 'TTTA_WordCountPageNumberScript.py' 
+and acroread, to count instances of word phrases.
+
+##############################################################################
+# End Notes added Mar 11, 2012.
+##############################################################################
+
