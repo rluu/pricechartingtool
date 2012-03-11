@@ -12,7 +12,7 @@
 #
 #     # Generate the planet positions from January 1900 to December 1930,
 #     # and write the output to a file.
-#     ./getFuturesDataFromBarChart.py --start-timestamp=190001 --end-timestamp=193012 --output-file=/tmp/testing.tex
+#     ./createLatitudeLatexFile.py --start-timestamp=190001 --end-timestamp=193012 --output-file=/tmp/testing.tex
 #
 #
 ##############################################################################
