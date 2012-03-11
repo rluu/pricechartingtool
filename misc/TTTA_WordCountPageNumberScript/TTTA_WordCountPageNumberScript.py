@@ -10,7 +10,7 @@
 #     ./TTTA_WordCountPageNumberScript.py --help
 #     ./TTTA_WordCountPageNumberScript.py --version
 #
-#     ./TTTA_WordCountPageNumberScript.py --input-file=../../doc/TTTA_paragraph_unfilled.txt --word="sleeping gas"
+#     ./TTTA_WordCountPageNumberScript.py --input-file="../../doc/TTTA_paragraph_unfilled.txt" --word="sleeping gas"
 # 
 # Note:
 #
