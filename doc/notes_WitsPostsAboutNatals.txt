@@ -1,0 +1,591 @@
+##############################################################################
+# Notes on WITS posts about Natals.
+##############################################################################
+
+Description: 
+This set of notes is on my collection of WITS posts about natals and
+rectifying natals.  See the binder of WITS posts that I have printed out.
+
+##############################################################################
+
+Post #10426:
+BA: First trade date is not the correct natal chart for most companies.
+The correct natal date needs to be rectified.
+Candidates:
+1) Incorporation date.
+2) First trade date.
+
+Price vibrates off of the TRUE natal.  
+
+Post #10436:
+BA: The correct natal will give you your turns.  It will give you the "cause" of the turns.  It is absolutely tradable and consistently profitable.
+
+Look at time and isolate why the turns are occuring.
+
+Post #11082:
+TAC's natal for RIO:
+7:33 am, 29 March 1873, London, England.
+The RIO natal happens to be the first date of incorporation of RIO Tinto in the UK.
+
+Post #11187:
+BA: 
+Lets say you have a natal chart and understand Longitude and
+Declination. Individuals have made millions with a simple technique
+I will give to you below.
+
+We would want to propose a theory. Like every time Mars
+conjuncts the Ascendant of the natal we get a rise lasting 10 days.
+Why 10 days? This is somewhat Random but Mars in 10 days travels
+approximately "6" degrees. We would then go back through the data
+(we would want 40 years worth at least, to test on this)…looking for
+confirmation. We would test every time that Mars conjuncts that ASC
+and note what the price did in the following 3, 5, 10 days. We
+would make a list of this. Lets say we found that 3 days after the
+price was higher 82% of the time, 5 days after price is higher 74% of
+time and price is higher after 10 days 65% of the time. This 82% is
+a good number. This tells us if we were to put on a 3 day trade
+every time Mars was conjunct the ASC we would be right (make money) 4
+out 5 times. We would loose on one in 5 trades.
+
+Further we could go back and see what type of profits to expect.
+We would do this by going back through are list of Mars Conj. Asc.
+And see "how" higher the price was at the end of the third day. The
+following is random but would look similar:
+
+5%
+7.5%
+2%
+3%
+.5%
+5%
+7.5%
+2%
+3%
+.5%
+5%
+7.5%
+2%
+3%
+.5%
+5%
+7.5%
+2%
+3%
+.5%
+Now if we took all these and averaged them we would find that price
+(on average) was 3.6% higher 3 days after Mars conj Asc. Lets take a
+look at this 3.6%, which seems small.
+
+Lets say we took 4 trades and made the 3.6% each time. Starting with
+1000.00 (commissions not included)
+
+First 1036.00
+Second 1073.00
+Third 1111.00
+Fourth 1151.00
+
+Lets say that we also found in our investigations that Venus conj.
+The MC produced the following results 3 days up, 5 days up, 10 days
+up. 3 days 85%, 5 days 79%, 10 days 52%…BUT we then found that the
+average of the 3 days up was a whopping 6.7% price increase. If we
+started out with 1000.00 after 4 trades we would have 1295.00.
+Do these opportunities exist? ABSOLUTELY!
+
+You may say "well Brian this is all good but Mars only conjuncts the
+ASC about 1 time every 2 years." You would be correct. However,
+what about things like Mars opposed ASC, Mars Maximum North
+Declination, Mars square MC also this is just one stock under
+investigation.
+
+Results ranging from 80% to 90% are NOT at all uncommon! You have to
+search them out. The key here is to have enough data to do it. You
+have heard TAC talk about the importance of data. Data is mission
+critical! Gann: "Get the data as far back as you can".
+
+The 2 main components to natal system trading are your "hit rate"
+percentage of moves in the right direction and average return as
+demonstrated above. Say if you found a 90% hit rate with a 10%
+return. These would be more infrequent but who would not trade
+that! Say it only happened once every 2 years…heck, write it on the
+calendar! Millions upon Millions have been made consistently using
+this method over the years!
+
+
+Post #11093:
+TAC: TAC had over 40 candidate dates, from:
+- Possible "original" companies
+- Mergers
+- Acquisitions
+- Holding companies
+
+Learn the process to take to find a stock's natal.  Then practice it.
+
+Post #11190:
+BA: BA says that BLH's wheat natal is the correct natal. 
+rluu: But in one of the webinars (LOV webinar), BA said that Lorin says that BLH has the wrong wheat natal.
+
+Post #11191:
+BA: "Another thing you could test: Say in our example of Venus conjuncting ASC.  Look at the price movement before the exact aspect, ... i.e. in what percentage of the time was price moving up before the exact aspect... or down for that matter."
+
+Post #11727:
+BA: George Bayer gives us a little trick with natals that works quite well.  He noticed that Venus making a 15 degree aspect (i.e. 15, 30, 45, 60, 75, 90, 105, etc.) to a certain point in the natal, we get turns using Geocentric longitude.  Different stocks/commodities have their own (i.e. instead of Venus).  Of course there is much more really going on with these natals, but this technique is simple.
+
+Post #11839:
+astraltramp812: What happens to the Dow when Venus transits 11 deg 57 m or 26 deg 57 m of any given sign?  This is one half of a rule Bayer slipped in to 400 years of astrology.  Refer to Jensen's NYSE natal TIME, and if you have a data feed like TC2000, you can test this all the way back to 1915.
+
+Post #11842:
+albiddinger: In checking Venus transit 11 deg 57 m of any sign, I found that buying 6 days before Venus made its transit over this point and selling 9 days after the "hit" was associated with an average return of 4.62% per event!  The overal return from trading the Dow from 1915 to 2000 using this rule alone was 4,960.22% for 1073 trades.  Even better results were possible if you examined (and eliminated) the location(s) which were associated with losing trades.
+
+Post #11843:
+TAC: Useful posts:
+1) astraltramp812's post (rluu: #11839, shown above).
+2) BA's series on Mundane astrology (rluu: See other binder with these printed).
+3) Stuart D's post series on Diurnals (rluu: See binder where I printed these).
+
+Post #11862:
+TAC: Gann grouped together stocks based on when they would turn.  This is because the natals of these stocks had sensitive points that were all near the same degrees (of a sign) in each of their natals.  Then we see that these sensitive points also happen to be matching something in the NYSE natal (or 15-degrees from something in the natal).  
+
+TAC says that for the NYSE natal, Jensen has the planets in the wrong position, so we need to cast our own chart.
+
+Post #14067:
+TAC: For investigating progressions, to develop a trading methodology, Sepharial's "Manual of Astrology" is invaluable.
+
+Post #14477:
+BA: Talks about how there is something off about Jensen's rectified chart of NYSE.  
+
+Post #14917:
+BA: Study and explore Transpluto.  Jensen talks about it on pg. 26 of ACSM.  Transpluto has a period of about 660 years.  The TAC team used Transpluto in rectification.
+
+Post #15251:
+TAC: Sources of information that TAC found very valuable:
+1) BA's "6" book.  It has the subtitle "The Proper Background".  It provides the correct background, and references the appropriate texts for study.
+2) Jensen's ACSM.
+3) WITS posts.
+
+Post #16998:
+Lorin: Lorin pays no attention to ASC or MC in position trading.  If he was trading intraday and watching time closely, then maybe they would be important.  He uses the natal planet positions to find the CIT.  If it is working, then why spend the (possibly massive) time to rectify it?  He says he has not found the need to rectify the chart to the exact second.  
+
+Post #19603:
+BA: BA rectifies the natal by hand using Solar Fire.  He acknowledges that TAC and others use Excel.  
+
+BA looks at transiting planets hitting points on the natal chart.  
+Transiting planets leave "signatures" at the highs and lows.
+
+Post #21543:
+Lorrie:
+"The next step after a horoscope is rectified is to test back and find which planet transits of which natal planet cause trend changes.  
+
+Each stock and index is sensitive to its own planets.  There are probably common ones like Saturn, Jupiter, Mars, but also ones like Venus and Mercury.  The key is spending the time back checking prior turns to see which transit caused which turn.  This is what Gann meant when he said to study your stock and its past.
+
+By knowing the natal, you have the a ground work for which degrees should be sensitive and can better determine which planets cause a change.  Also, just in the process of rectification you should have a list of trend change dates and the planets that were involved in them.  That is a good place to start.  once you have one planet event, go back farther and see if it always causes a downtrend, uptrend, or if it alternates.  And if it alternates, see if there is another contributing factor like a different sign, another planet involved, or aspected to your reference planet, or another planet is in another sign/place that may affect your change. "
+
+Post #21586:
+Lorrie:
+Rectifying natal: Check sharp turns against the natal candidate you have.  If your turns occur on Asc, MH, Sun, Moon or other planets, then you are okay, otherwise you need to rectify.
+
+Sepharial's "Law of Values" discuses the important parts of rectification.  As for any other planet being important, it would only show during the "standard natal" verification process.  As Gann often said, every stock has its own vibration rate, meaning that some stocks respond to some planets and not to others.  Othe rthan the general 4 (planets) above (Asc, MH, Sun, Moon), the rest are determined by backtesting.  
+
+I guess you could say the chart doesn't say a thing about what is useful until it is backtested.  Either way, I have realized there is no short cut, but the time invested is well worth the returns.
+
+
+From printout of "Rectifying George Bayer" by Daniel T. Ferrera:
+He tries to rectify the NYSE natal used by Bayer based on progressed planets hitting an eclipse that causes the NYSE to shut down.  Doing normal rectification to match the progressed Moon and Sun, he gets May 16th, 1792, at 11:27 pm.  But then with further closer analysis and rectification, the finaltime he gets is: Wednesday, May 16th, 1792, at 10:35 pm.
+
+Post #24118:
+Lorin: Rectify all markets you trade.
+
+Post #24235:
+BA: 
+1) Get a list of turn dates, and natal candidates.
+2) Then tweak natal candidates if need be, to match natal hotspots.
+
+Post #24331:
+nasdaqtradestock: For rectifying, at first, take out the Asc, MC, and possibly some faster planets as well (because exact times are mostly unknown/unreliable until rectified).  
+
+Bear in mind for an index, sometimes it responds to several natals (e.g. chart of the USA, NYSE, etc.) and not just its own natal.
+
+Post #24821:
+Lorrie:
+The key is to find the sensitivity of a stock to certain degrees of the zodiac.
+The natal will help you see where those sensitive points are faster. Or you can go off historical highs and lows and eventually develop the list of sensitive points.  This listing of degrees will help you learn the cycles faster.
+
+Aspects must be tied to the stocks.  In tying them to teh stocks, you will know when an "aspect" will affect your stock and when it won't.  The same goes for other celestial events that happen every day.  If you don't know which will affect your stock, you will never be able to forecast your stock correctly.
+
+There is an older book I have (A J Pearc, Textbook of Astrology) that has some rectification work that might help give a different view to rectification than BA gives.  Getting multiple views of a process might help.  
+
+Post #25075:
+skiwoka:
+From "Stocks for the Long Run" by Jeremy J. Siegel, 2nd edition:
+pg. 61. S&P index was inaugurated on March 4, 1957.
+
+From "How to Buy Stocks" by Louis Engel & Brendan Boyd, 7th edition 1982:
+pg. 186:
+For many years S&P had published other indexes - 90 stock daily index, and a 480 stock weekly index, but it wasn't until 1957 that the S&P decided to lock horns decisively with Dow Jones.
+
+From S&P website:
+S&P 500 dates back to 1923, when S&P introduced an index covering 233 companies.  The index as known today was introduced in 1957 when it was expanded to include 500 companies.
+
+pg. 188. NASDAQ Composite Index was introduced on February 5, 1971.  
+
+pg. 55. Charles Dow created the Dow-Jones averages in the late 19th century.  On February 16, 1885, he began publishing a daily average of 12 stocks.  DJIA was created on May 26, 1896 from 12 stocks.  The old index created in 1889 was reconstituted and renamed Rail average on October 26, 1896.  In 1916, the Industrial average was increased to 20 stocks and in 1928 the number was expanded to 30.  The Rail Average, whose name was changed in 1970 to Transportation Average, is comprised of 20 stocks, as it has been for over a century.  
+
+Post #25212:
+BA: Natal for Ebay: September 4, 1995, 10:52 am, San Jose, California.
+
+Make sure you have the data vibrating to the correct date, which may not be the incorporation date.  Price ALWAYS points the way.  Price tells all and never lies.  
+
+Post #25210:
+BA: BA mentions taking the 30-year cycle and breaking it down into smaller harmonics.  With this, you can narrow down a turn to the day.
+
+Post #25223:
+BA: With experience, one may come across a 'quick method' to rectify a natal with just a few years worth of data, instead of needing a big data set.  
+
+Post #26453:
+pj: For rectifying natals, there are other factors to consider than just hte actual aspect itself.  You can have a bullet in teh chamber of a gun, but without someone to pull the trigger then nothing happens.  
+
+Post #26730:
+BA: The technique that Jensen used to rectify was based on faulty ephemeris calculations.  BA rectified the NYSE natal using his own methods and came up with a time that was 2 minutes different than George Bayer.  
+
+Post #28180:
+TAC: "Having studied diurnals courtesy of the material available within the WITS files area, we made successful market calls within WITS.  Our confidence soared!  Not only did astro work, not only did the technique accurately predict turns; we could understand and apply it!  Similarly, we learnt not only how to rectify and validate our own natals, we learnt to develop the natal for RIO, a UK and Australian based resources company, and validated that natal to better than 88% accuracy!  This stuff works!! And the knowledge and resources are available, and can be mastered."
+
+rluu: What files in WITS teaches about diurnals?  I need to study this topic.
+
+Post #29481:
+ganndi1: Rectified NYSE natal: 
+Dow
+11 May 1869 AD GC
+11:26:26 am
+EDT +04:00
+New York, NY, USA
+Geocentric, Tropical, Placidus, True Node.
+
+Rectification from Slew & Sml.  Copyright December 1988.
+
+ganndi1 uses this instead of the May 17, 1792 natal for the NYSE.  
+
+
+Post #29490:
+ganndi1: Agrees with the given ASX natal posted by Kulnura:
+
+ASX
+April 1, 1987
+9:49:50
+
+Kulnura says: 
+"When rectifying, I had the Asc, Vertex and MC locking into three prominent sensitive axis'."
+
+
+Post #30811:
+edatwork2000: 
+"However, I've had more success with natals than all those other systems I've described.  Natals will give future turn dates."
+
+"Knowing the correct natal date will allow you to use other types of systems to forecast turns.  Diurnals, Solar Arcs, Solar Returns, Progressions are such systems that require that you have the actual date that the price data is vibrating to.  One does not necessarily need to know the actual natal date to forecast turns.  One can just use the active points that are brought to the surface through the procedure described in "12".  It's not the end of it.  Once you know those points, you have to figure what planets are active in producing turns, and why a turn occurs when there is a natal hit one time, and why no turn when we get the hit again logitudinally at some other future point in time (e.g. Mars 180 ascendant).  That and the issue of orb is the other challenge.  "
+
+Post #30840:
+BA: "Johndro developed the Vertex point (or at least everything points back to him).  It is this Vertex point that enables natals to be CONSISTENTLY and accurantely rectified. "
+
+Post #30846:
+ganndi1: "If a thing is chartable then look at the chart for the Natal information.  Major lows and highs will 'talk' to you.  They are 'silent witnesses' to the birth of that particular charts' natal data on display.  Then look at the smaller swings fro the 'Inner Circles'.  Spend time 'torturing' the data.  It will be very rewarding for you."
+
+
+Post #30856:
+TAC: 
+"Charles Jayne wrote on the Vertex, since when Jhondro discovered this point.  Jhondro discussed the Vertex with Jayne at some length."
+
+"A search of the web will produce a number of sites wherein a mathematical approach to determining the Vertex can be found.  This point refers to the intersection of the ecliptic and the prime vertical in the heavens.  Sometimes the Vertex is also called the Third Angle of the chart. 
+
+From: http://finblake.home.mindspring.com/bfvertex.htm
+"According to the Larousse Encyclopedia of Astrology, edited by Charles Jayne, "to find the Vertex, first determine the colatitude, i.e. subtract the terrestrial latitude from 90 deg.  Then consider the Imum Coeli as the Midheaven and look up the Ascendant in a table of houses under this new "Midheaven" for the colatitude."
+
+Post #30858:
+ganndi1:
+"I have placed a PDF file in the Files section regarding Vertex Jayne and Johndro that the group may find of interest.
+
+There is also an Antivertex.  The opposite to the Vertex.  The anti-vertex was called the Electrical Ascendant by L. Edward Johndro.
+
+Johndro was responsible for the Vertex from a Electro Dynamic point of view.  Jayne was more interested in the "Point of Fate" in a chart."
+
+Post #30862:
+TAC: 
+Insofar as the booklet I reffered to is concerned, it is
+titled "Progressions & Directions" by Charles Jayne, available from
+the American Federation of Astrologers. There are some great
+drawings within its covers that help explain the angles, including
+the Vertex.
+
+From page 31 of that book:
+"After having mastered several methods of Progression and Direction,
+especially Secondary Progression and the new directions in Longitude
+and the Solar Arc in R.A., you are recommended to study my THE
+TECHNIQUE OF RECTIFICATION since there is no more vitally important
+technique for any astrologer."
+
+The book Jayne refered to, TECHNIQUE OF RECTIFICATION, is included
+within the book "The Best of Charles Jayne".
+ISBN 0-86690-449-2, my copy published by the American Federation of
+Astrologers.
+
+The introduction to "The Best of Charles Jayne" is written by his
+wife, Vivia Jayne, and is dated as recently as 1995. I do not know
+if she is alive today. Vivias book "Aspects to Horoscope Angles"
+also available from the American Federation of Astrologers, is a
+worthwhile purchase too.
+
+From this booklet, Vivia has this to say about the Vertex:
+
+"The Prime Vertical is the third local plane running east and west
+at right angles to both the Horizon and the Meridian. When the Sun
+crosses the West Wall (Prime Vertical) and is due West it is at the
+Vertex--sometimes this is below the horizon and sometimes it is
+above it. It is at the antivertex (see Ganndi's PDF in the files
+area) when it crosses the East Wall (Prime Vertical) and is due
+East.The Sun moves in the ecliptic plane so that the three "angles"
+are formed by its intersection with each of the three local planes."
+
+Post #30872:
+BA: RTA was of course a fake name for a guy in Michigan who, during the 20s-40's had a consistancy exceeding 90%.  His only writings were put into "12".  
+
+Months in advance, while the DOW declined, he picked a handful of stocks that would go up.  While the general market declined all of his stocks did indeed go up! RTA stands for "Right Trend Always".  He did in fact use a system coming off the natal. No need to worry, he was quite wealthy ;-) That system can still be used today.
+
+
+Post #30879:
+alcinoe: 
+
+To those interested I have been asked how one includes the Vertex in natal charts with Solar Fire.
+ 
+On the Main Page under 'Current Settings', click 'Displayed Points' 'Edit', then you will see 'Selected Points' and 'Unselected Points'.  This allows you to edit what you want to see on your charts.  Thus if the vertex is not on your selected list, just click it on the unselected list and it will jump over to selected list.  Save.  Erect a new chart and you'll find the Vertex (Vx)
+ 
+Just some pointers:
+The Vertex is based on accurate birth time, like Asc, Mc and Part of Fortune, so it is not really valid if you're using Midday charts, for example.
+ 
+As a fated point, you can look back to the past in your life when it was activated by transits of Jupiter, Saturn, Uranus, Eclipses and record what happened.  This is why it can be quite a powerful tool for rectification.
+ 
+My teacher Doris Greaves also used it for Financial Astrology and its midpoints.
+ 
+If you have an event in your life with the exact time you can then determine what the transiting Vertex triggered in your natal chart.
+
+
+Post #30880:
+ganndi1 to alcinoe regarding post #30879:
+"I also like looking at the Anti Vertex at times and those Mid Points
+as you have pointed out."
+
+Post #30965:
+BA:
+The Vertex in rectification of financial markets is the critical element because it gives us 2 elements to work with instead of 1.  If we exclude the Vertex we are left with only one element to rectify and that is the Asc which would make it impossible.
+
+Post #31365:
+Lorin: Lorin is applying the NYSE natal to Sepharial's Arcana, even though Sepharial used the midday time.  Lorin is using the 8:52 time for the NYSE, which was the time rectified by some very experienced astrologers (Jensen).  
+
+
+Post #32129:
+JFH28: Information on Google:
+
+Google is headquartered in Calif and the active incorporation date listed in Calif for Google Inc. is 11.7.2002.
+
+Goog however  is a Delaware Corp as are most big companies and the active date listed in Delaware is 10.22.2002. So those using the registered date listed by Calif will be almost 2 weeks off.
+
+Google Inc was not the original corporate name. The first registered name was Google Technology Inc. The company website lists a founding date of Monday, 9.7.1998. Problem with this date is that it was incorporated originally as a Calif corp and Calif registered it on Friday, 9.4.1998.
+
+The story goes that the 2 Google founders first tried to sell the idea to Yahoo. Yahoo founder suggested that they develop it further themselves and get back to him. So Google guys went looking for an investor.
+
+They met with one potential investor early one morning on the front porch of a faculty members house at a nearby college. Pressed for time the investor watched a limited demo of the software. After viewing he said he really didn’t have anymore time to talk further and had to leave. How about if he just wrote them a check. He made out a check for $100,000 and handed it to them.
+
+Problem was the check was made out to “Google” and they had no way to cash it as Google didn’t exist yet. So for the next couple of weeks they created the legal company Google so they could cash the check. And that would be the 9.4.1998 date. I believe that Google was founded that morning on the front porch when the check was handed over but have not had time to rectify the natal to confirm that. Perhaps someone else would be interested in doing so.
+
+
+Post #32138:
+MC (yourlaughing): About Google:
+
+Originally the search engine used the Stanford University website with the domain google.stanford.edu. The domain google.com was registered on September 14, 1997, and the company was incorporated as Google Inc. on September 7, 1998 at a friend's garage in Menlo Park, California. The total initial investment raised for the new company eventually amounted to almost US$1.1 million, including a $100,000 check by Andy Bechtolsheim, one of the founders of Sun Microsystems.
+
+Post #32494:
+MC (yourlaughing): Regarding rectification techniques in "12".
+
+Martin began the rectification process; it took a couple of weeks but he successfully rectified the natal from the stock data using the method.
+
+The natal times all of the major historical tops and bottoms in that particular stock.  Rectification is not simple even under the best circumstances.
+
+Martin: Absolutley Lorin. The method in "12" laid it all out.  Together with "12" and the assistance of some fine people in WITS, I was able to do it.  I am working on techniques now for interpretation.  I can tell you though, having the right natal, means the difference in meaningful research. I would NEVER have gotten it if it wasn't for "12".  Which I would never have gotten if it weren't for WITS...
+
+Post #33396:
+BA: BA's response to edatwork2000.
+
+edatwork2000: 
+I stumbled across this accidentally. "12" describes the Boil down method and has been really helpful to me in setting up certain tests.  If you include too many planets all at once in a test setup, it will tend to cloud your judgement as well as give you many headaches.  Keep things simple and slowly formulate testable hypotheses. Brian always told me to keep things simple at first and then slowly build on it.
+
+Testing is the way to get ahead in this field. Once you get some knowledge, or a bright idea, test it.
+
+BA:
+"Many people fail to test everything independently. They mix too many
+variables. To get results you must test with as few factors as
+possible. I have seen this over and over and over through the years,
+students with just too many variables which destroys the validity of
+the tests. 
+
+One level up from that in the "stumbling blocks" category
+is failure to realize that when something is responsible for a turn
+but DOES NOT PRODUCE another turn you must isolate what was present
+at the first one and not present at the other. How is this done.
+Here is the secret: Get long list of occurances!"
+
+Post #34217:
+MC (yourlaughing): About "12":
+
+Martin rectified a stock natal to the second.
+
+It took him time to learn to interpret:
+1) The natal.
+2) Transits.
+3) Solar arcs.
+4) Lunar arcs.
+5) Secondary progressions.
+
+All the info you need is within WITS.
+
+The book "12" teaches us about:
+1) The 15 degree axis
+2) Active "hot spots" in the natal
+3) How to build a trading system. 
+4) A ton of other things. 
+
+Post #35463:
+super_romeman quoting BA's posts:
+
+"...you need an intimate understanding of how a specific stock vibrates. This will take some time to learn but pays very very well. Involved in this is the natal of the stock." 
+
+People generally believe that the natal is
+1) First trading day 
+2) incorporation day. 
+3) Inc. date set for noon. 
+
+So we have 3 possibilies that the 'Gann public' is aware of. Which one is correct? If one was to cast the wrong chart it would not work.
+
+"What TAC did went far beyond anything I have ever seen in a book written on the subject. They went and got all this data THEN let the stock tell them which one was correct! They let the vibrations of the stocks price tell them the exact natal.  
+
+The mistake many make is that they 'assume' they have the correct natal. 
+
+"So. I would like to recommend a 'next step' to you. Get a very long stream of data for the stock or commodity you are interested in. When I worked with a few individuals to rectify At&T they had about 100 years of daily data. This was sweet. Made the whole thing a big cake walk. Yes, 60-70 years will suffice but the more the better."
+
+"I just wanted to expand on one point here. As I am sure you personally know by now it is 'critical' to let the data tell you which date is correct. "
+
+Certain planetary hits to the natal will also have more of any impact then other planetary hits so once you believe you have the correct natal (or at least a set of operable points) you want to go through the planets one by one. You want to do this by hand to get a 'feel' of how different (transiting) planets produce turns or the lack there of. Some astro gurus have publicly stated that Commodities can not have natals. Being since you were at the seminar you know this to be incorrect as mathematical proof was shown. Saying something 'does not have a natal' is saying it 'has no origin'."
+
+"The CORRECT natal is a very powerful trading tool."
+
+"From before this group was founded I have been saying the following because of the argument between first trade/ incorporation that astrologers propound:
+ 
+"'A natal chart must be proved out; DO NOT ASSUME ANY NATAL'
+ 
+"By that I mean the price action MUST be found to vibrate to the proposed natal.
+
+"Furthermore I have rectified or assisted in rectification of dozens and dozens of natals. In all that NOT ONE has vibrated to a first trade date. I then realized this was illegal in the US and I will tell you why. In the US BEFORE, BEFORE a stock can be publicly traded the underlying company MUST have transacted business. A natal is a beginning afirst trade is NOT a beginning OF THE UNDERLYING company." 
+
+
+Post #35474:
+TAC:
+"We found also that there was actually more work involved in coming up
+with candidate dates for the natal than there was in developing the
+hot spots themselves. As a rule, the data is relatively easy to come
+by, although we would hasten to add that reading years and years of
+microfiched newspaper reports is tedious at best.
+
+The effort involved in determining meeting dates, incorporations and
+the like can be painstaking, particularly if the company was
+established many decades ago and records difficult to find."
+
+Post #35810:
+Anthony Tsousis:
+
+These may seem impressive stats, but if you buy on the earlier
+date and sell on the latest date you can still lose your
+shirt.  This, I think, demonstates in a real way the significance of an orb of
+influence of Mars.  The trick is to find a way of nailing the cit date with
+other cycles ie faster moving planets that may trigger the above events
+either on their own or in concert with Mars."
+
+"I have done other stuff, diurnals, that proves the Natal is accurate and reliable."
+
+Post #35812:
+Anthony Tsousis:
+
+I've used it in both Jensen ( solar return) and Sepharial( the
+same natal time every day) diurnals to achieve some decent results.  Treating
+each as a horary as well as Sepharials rules and a book on diurnals and
+decumbitures by deMello who adds to Sepharials methods.  I guess it may not be
+too scientific because of the subjective and interpretive nature of the
+process but it seems to yield results better so than the Feb 83 date.
+
+Post #35857:
+trlewis:
+The Rogers wheat data can be purchased in a set of 6 books that you can
+type into excel. Doesn't that sound fun. And the Rogers data isn't really daily data as we know it today.
+
+Does the data have to be daily? Well, there is a few hundred years of
+weekly data burried deep in Bonnie's site (not the cycle foundation
+data). It's a little tough to get to but it is publicly available.
+
+Hmmmm. I guess if weekly is all you had then you could just look at
+what was going on on Wednesday of that week. Not the best situation but
+I found that the same sensitive axis in daily cbot wheat futures was
+also present in 200 years of weekly wheat turns from the 1500-1700s.
+
+Post #35866:
+TAC:
+Agree with you on Solar Arcs beng useful in proving a natal. I used
+this technique in rectifying my own natal, after reading about noted
+astrologers doing the same. Thus far it seems to me, based on reading
+the works of Robson, George, Jensen, Sklenka etc, that arcs back to
+the angles in the natal are particularly significant. This would
+concur with what we see in erecting say a stock natal. The 3 angles
+provide hot spots within the natal chart. If transits to these points
+cause turns, then a solar arc must too.
+
+What I haven't explored yet is Converse Solar Arcs. Thus far I have
+used solar arcs by way of advancing the chart 1 year for each day of
+the Sun's movement forward from the natal date. That is to say, each
+planet and angle is advanced forward, in the direction of the zodiac,
+from its position in the natal.
+
+I have read of noted astrologers using the converse technique, that
+is to say, they take the planets and angles back at the 1 day for a
+year rate, opposite to the direction of the zodiac from where they
+are in the natal and work the arcs that way. Have not looked at this
+yet for either personal or financial astro.
+
+Charles Jayne also talked about Declination and Ascendant arcs.
+
+And of course Noah had a lot to say about Arcs too.
+
+Post #35925:
+gdel: Asking for help.
+ 
+In jensens acsm p. 51, it shows a chart for liverpool grain exchange August 28, 1201.  Has anyone been able to check this date?  I can't find anything on the www.  I do note however that using a date of 28 aug(OldStyle)/4 Sept New Style) 1202 instead of the 1201 date  gives 239760 days from the 18 feb 1859 CBOT date - this is 666x360?
+ 
+For natal work on wheat, I note that the extreme highs and lows of different contracts show up on different dates - as does cash - Does this imply a separate natal for each contract?
+ 
+Post #35949:
+trlewis:
+Several on WITS are claiming very profitable systems derived from 1st trades.  I believe them and can attest to their accurate predictions.  There is more than one way to skin a cat.  
+
+rluu: Note that sometimes the first trade is connected to the actual natal.
+
+Post #38178:
+bumik:
+"Try to see declination as a line rather than a factor.  This is 'a' secret Bayer wants us to figure out.  He instructs the student to be creative."
+
+
+Post #42736:
+TAC: Regarding rectification techniques from "12".
+
+"What is the key message here...there are 2 different methods
+discussed....one is to rectify a natal, the other to find a strong
+axis point on a stock. It is likely that the axis point is one of the
+key natal points, hence why the method in "12" is used.
+
+No matter which approach is taken, the axis points should be tested
+and not taken as gospel....hey anyone can make a mistake....easy.
+Testing your axis is the best way to know when you have it correct.
+Let the market tell you if you're right."
+
