@@ -2,6 +2,8 @@
 # Notes on WITS posts about Natals.
 ##############################################################################
 
+Filename: notes_WitsPostsAboutNatals.txt
+
 Description: 
 This set of notes is on my collection of WITS posts about natals and
 rectifying natals.  See the binder of WITS posts that I have printed out.
