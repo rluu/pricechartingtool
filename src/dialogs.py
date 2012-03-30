@@ -1947,6 +1947,22 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetVestaCalculationsEnabledLabel,
                    self.planetVestaCalculationsEnabledCheckBox)
         
+        self.planetIsisCalculationsEnabledLabel = \
+            QLabel("Isis enabled:")
+        self.planetIsisCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledRightFormLayout.\
+            addRow(self.planetIsisCalculationsEnabledLabel,
+                   self.planetIsisCalculationsEnabledCheckBox)
+        
+        self.planetNibiruCalculationsEnabledLabel = \
+            QLabel("Nibiru enabled:")
+        self.planetNibiruCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledRightFormLayout.\
+            addRow(self.planetNibiruCalculationsEnabledLabel,
+                   self.planetNibiruCalculationsEnabledCheckBox)
+        
         self.planetChironCalculationsEnabledLabel = \
             QLabel("Chiron enabled:")
         self.planetChironCalculationsEnabledCheckBox = \
@@ -2363,6 +2379,22 @@ class AppPreferencesEditWidget(QWidget):
         planetEnabledForPlanetaryInfoTableRightFormLayout.\
             addRow(self.planetVestaEnabledForPlanetaryInfoTableLabel,
                    self.planetVestaEnabledForPlanetaryInfoTableCheckBox)
+        
+        self.planetIsisEnabledForPlanetaryInfoTableLabel = \
+            QLabel("Isis enabled:")
+        self.planetIsisEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableRightFormLayout.\
+            addRow(self.planetIsisEnabledForPlanetaryInfoTableLabel,
+                   self.planetIsisEnabledForPlanetaryInfoTableCheckBox)
+        
+        self.planetNibiruEnabledForPlanetaryInfoTableLabel = \
+            QLabel("Nibiru enabled:")
+        self.planetNibiruEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableRightFormLayout.\
+            addRow(self.planetNibiruEnabledForPlanetaryInfoTableLabel,
+                   self.planetNibiruEnabledForPlanetaryInfoTableCheckBox)
         
         self.planetChironEnabledForPlanetaryInfoTableLabel = \
             QLabel("Chiron enabled:")
@@ -2781,6 +2813,22 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetVestaEnabledForDeclinationLabel,
                    self.planetVestaEnabledForDeclinationCheckBox)
         
+        self.planetIsisEnabledForDeclinationLabel = \
+            QLabel("Isis enabled:")
+        self.planetIsisEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationRightFormLayout.\
+            addRow(self.planetIsisEnabledForDeclinationLabel,
+                   self.planetIsisEnabledForDeclinationCheckBox)
+        
+        self.planetNibiruEnabledForDeclinationLabel = \
+            QLabel("Nibiru enabled:")
+        self.planetNibiruEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationRightFormLayout.\
+            addRow(self.planetNibiruEnabledForDeclinationLabel,
+                   self.planetNibiruEnabledForDeclinationCheckBox)
+        
         self.planetChironEnabledForDeclinationLabel = \
             QLabel("Chiron enabled:")
         self.planetChironEnabledForDeclinationCheckBox = \
@@ -3197,6 +3245,22 @@ class AppPreferencesEditWidget(QWidget):
         planetEnabledForLatitudeRightFormLayout.\
             addRow(self.planetVestaEnabledForLatitudeLabel,
                    self.planetVestaEnabledForLatitudeCheckBox)
+        
+        self.planetIsisEnabledForLatitudeLabel = \
+            QLabel("Isis enabled:")
+        self.planetIsisEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeRightFormLayout.\
+            addRow(self.planetIsisEnabledForLatitudeLabel,
+                   self.planetIsisEnabledForLatitudeCheckBox)
+        
+        self.planetNibiruEnabledForLatitudeLabel = \
+            QLabel("Nibiru enabled:")
+        self.planetNibiruEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeRightFormLayout.\
+            addRow(self.planetNibiruEnabledForLatitudeLabel,
+                   self.planetNibiruEnabledForLatitudeCheckBox)
         
         self.planetChironEnabledForLatitudeLabel = \
             QLabel("Chiron enabled:")
@@ -3615,6 +3679,22 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetVestaEnabledForGeoSidRadixChartLabel,
                    self.planetVestaEnabledForGeoSidRadixChartCheckBox)
         
+        self.planetIsisEnabledForGeoSidRadixChartLabel = \
+            QLabel("Isis enabled:")
+        self.planetIsisEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartRightFormLayout.\
+            addRow(self.planetIsisEnabledForGeoSidRadixChartLabel,
+                   self.planetIsisEnabledForGeoSidRadixChartCheckBox)
+        
+        self.planetNibiruEnabledForGeoSidRadixChartLabel = \
+            QLabel("Nibiru enabled:")
+        self.planetNibiruEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartRightFormLayout.\
+            addRow(self.planetNibiruEnabledForGeoSidRadixChartLabel,
+                   self.planetNibiruEnabledForGeoSidRadixChartCheckBox)
+        
         self.planetChironEnabledForGeoSidRadixChartLabel = \
             QLabel("Chiron enabled:")
         self.planetChironEnabledForGeoSidRadixChartCheckBox = \
@@ -4032,6 +4112,22 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetVestaEnabledForGeoTropRadixChartLabel,
                    self.planetVestaEnabledForGeoTropRadixChartCheckBox)
         
+        self.planetIsisEnabledForGeoTropRadixChartLabel = \
+            QLabel("Isis enabled:")
+        self.planetIsisEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartRightFormLayout.\
+            addRow(self.planetIsisEnabledForGeoTropRadixChartLabel,
+                   self.planetIsisEnabledForGeoTropRadixChartCheckBox)
+        
+        self.planetNibiruEnabledForGeoTropRadixChartLabel = \
+            QLabel("Nibiru enabled:")
+        self.planetNibiruEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartRightFormLayout.\
+            addRow(self.planetNibiruEnabledForGeoTropRadixChartLabel,
+                   self.planetNibiruEnabledForGeoTropRadixChartCheckBox)
+        
         self.planetChironEnabledForGeoTropRadixChartLabel = \
             QLabel("Chiron enabled:")
         self.planetChironEnabledForGeoTropRadixChartCheckBox = \
@@ -4448,6 +4544,22 @@ class AppPreferencesEditWidget(QWidget):
         planetEnabledForHelioSidRadixChartRightFormLayout.\
             addRow(self.planetVestaEnabledForHelioSidRadixChartLabel,
                    self.planetVestaEnabledForHelioSidRadixChartCheckBox)
+        
+        self.planetIsisEnabledForHelioSidRadixChartLabel = \
+            QLabel("Isis enabled:")
+        self.planetIsisEnabledForHelioSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioSidRadixChartRightFormLayout.\
+            addRow(self.planetIsisEnabledForHelioSidRadixChartLabel,
+                   self.planetIsisEnabledForHelioSidRadixChartCheckBox)
+        
+        self.planetNibiruEnabledForHelioSidRadixChartLabel = \
+            QLabel("Nibiru enabled:")
+        self.planetNibiruEnabledForHelioSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioSidRadixChartRightFormLayout.\
+            addRow(self.planetNibiruEnabledForHelioSidRadixChartLabel,
+                   self.planetNibiruEnabledForHelioSidRadixChartCheckBox)
         
         self.planetChironEnabledForHelioSidRadixChartLabel = \
             QLabel("Chiron enabled:")
@@ -5318,6 +5430,86 @@ class AppPreferencesEditWidget(QWidget):
         formLayout.\
             addRow(self.planetVestaBackgroundColorLabel,
                    self.planetVestaBackgroundColorEditButton)
+
+        # Isis
+        self.planetIsisGlyphUnicodeLabel = \
+            QLabel("Isis unicode glyph:")
+        self.planetIsisGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetIsisGlyphUnicodeLabel,
+                   self.planetIsisGlyphUnicodeLineEdit)
+        self.planetIsisGlyphFontSizeLabel = \
+            QLabel("Isis glyph font size:")
+        self.planetIsisGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetIsisGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetIsisGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetIsisGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetIsisGlyphFontSizeLabel,
+                   self.planetIsisGlyphFontSizeSpinBox)
+        self.planetIsisAbbreviationLabel = \
+            QLabel("Isis abbreviation:")
+        self.planetIsisAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetIsisAbbreviationLabel,
+                   self.planetIsisAbbreviationLineEdit)
+        self.planetIsisForegroundColorLabel = \
+            QLabel("Isis foreground color:")
+        self.planetIsisForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetIsisForegroundColorLabel,
+                   self.planetIsisForegroundColorEditButton)
+        self.planetIsisBackgroundColorLabel = \
+            QLabel("Isis background color:")
+        self.planetIsisBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetIsisBackgroundColorLabel,
+                   self.planetIsisBackgroundColorEditButton)
+
+        # Nibiru
+        self.planetNibiruGlyphUnicodeLabel = \
+            QLabel("Nibiru unicode glyph:")
+        self.planetNibiruGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetNibiruGlyphUnicodeLabel,
+                   self.planetNibiruGlyphUnicodeLineEdit)
+        self.planetNibiruGlyphFontSizeLabel = \
+            QLabel("Nibiru glyph font size:")
+        self.planetNibiruGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetNibiruGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetNibiruGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetNibiruGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetNibiruGlyphFontSizeLabel,
+                   self.planetNibiruGlyphFontSizeSpinBox)
+        self.planetNibiruAbbreviationLabel = \
+            QLabel("Nibiru abbreviation:")
+        self.planetNibiruAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetNibiruAbbreviationLabel,
+                   self.planetNibiruAbbreviationLineEdit)
+        self.planetNibiruForegroundColorLabel = \
+            QLabel("Nibiru foreground color:")
+        self.planetNibiruForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetNibiruForegroundColorLabel,
+                   self.planetNibiruForegroundColorEditButton)
+        self.planetNibiruBackgroundColorLabel = \
+            QLabel("Nibiru background color:")
+        self.planetNibiruBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetNibiruBackgroundColorLabel,
+                   self.planetNibiruBackgroundColorEditButton)
 
         # Chiron
         self.planetChironGlyphUnicodeLabel = \
@@ -7893,6 +8085,24 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetVestaCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
 
+        key = SettingsKeys.planetIsisCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetIsisCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetIsisCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetIsisCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetNibiruCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetNibiruCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetNibiruCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetNibiruCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
         key = SettingsKeys.planetChironCalculationsEnabledKey
         value = settings.value(key, \
             SettingsKeys.planetChironCalculationsEnabledDefValue,
@@ -8320,6 +8530,24 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetVestaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
 
+        key = SettingsKeys.planetIsisEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetIsisEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetIsisEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetIsisEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetNibiruEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetNibiruEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetNibiruEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetNibiruEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
         key = SettingsKeys.planetChironEnabledForPlanetaryInfoTableKey
         value = settings.value(key, \
             SettingsKeys.planetChironEnabledForPlanetaryInfoTableDefValue,
@@ -8737,6 +8965,24 @@ class AppPreferencesEditWidget(QWidget):
             self.planetVestaEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetVestaEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetIsisEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetIsisEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetIsisEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetIsisEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetNibiruEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetNibiruEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetNibiruEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetNibiruEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetChironEnabledForDeclinationKey
         value = settings.value(key, \
@@ -9156,6 +9402,24 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetVestaEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
 
+        key = SettingsKeys.planetIsisEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetIsisEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetIsisEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetIsisEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetNibiruEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetNibiruEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetNibiruEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetNibiruEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
         key = SettingsKeys.planetChironEnabledForLatitudeKey
         value = settings.value(key, \
             SettingsKeys.planetChironEnabledForLatitudeDefValue,
@@ -9573,6 +9837,24 @@ class AppPreferencesEditWidget(QWidget):
             self.planetVestaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetVestaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetIsisEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetIsisEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetIsisEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetIsisEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetNibiruEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetNibiruEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetNibiruEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetNibiruEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetChironEnabledForGeoSidRadixChartKey
         value = settings.value(key, \
@@ -9992,6 +10274,24 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetVestaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
+        key = SettingsKeys.planetIsisEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetIsisEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetIsisEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetIsisEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetNibiruEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetNibiruEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetNibiruEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetNibiruEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
         key = SettingsKeys.planetChironEnabledForGeoTropRadixChartKey
         value = settings.value(key, \
             SettingsKeys.planetChironEnabledForGeoTropRadixChartDefValue,
@@ -10409,6 +10709,24 @@ class AppPreferencesEditWidget(QWidget):
             self.planetVestaEnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetVestaEnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetIsisEnabledForHelioSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetIsisEnabledForHelioSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetIsisEnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetIsisEnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetNibiruEnabledForHelioSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetNibiruEnabledForHelioSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetNibiruEnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetNibiruEnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetChironEnabledForHelioSidRadixChartKey
         value = settings.value(key, \
@@ -11176,6 +11494,78 @@ class AppPreferencesEditWidget(QWidget):
             SettingsKeys.planetVestaBackgroundColorDefValue,
             type=QColor)
         self.planetVestaBackgroundColorEditButton.\
+            setColor(value)
+
+        # Isis
+        key = SettingsKeys.planetIsisGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetIsisGlyphUnicodeDefValue,
+            type=str)
+        self.planetIsisGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetIsisGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetIsisGlyphFontSizeDefValue,
+            type=float)
+        self.planetIsisGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetIsisAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetIsisAbbreviationDefValue,
+            type=str)
+        self.planetIsisAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetIsisForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetIsisForegroundColorDefValue,
+            type=QColor)
+        self.planetIsisForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetIsisBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetIsisBackgroundColorDefValue,
+            type=QColor)
+        self.planetIsisBackgroundColorEditButton.\
+            setColor(value)
+
+        # Nibiru
+        key = SettingsKeys.planetNibiruGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetNibiruGlyphUnicodeDefValue,
+            type=str)
+        self.planetNibiruGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetNibiruGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetNibiruGlyphFontSizeDefValue,
+            type=float)
+        self.planetNibiruGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetNibiruAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetNibiruAbbreviationDefValue,
+            type=str)
+        self.planetNibiruAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetNibiruForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetNibiruForegroundColorDefValue,
+            type=QColor)
+        self.planetNibiruForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetNibiruBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetNibiruBackgroundColorDefValue,
+            type=QColor)
+        self.planetNibiruBackgroundColorEditButton.\
             setColor(value)
 
         # Chiron
@@ -13495,6 +13885,32 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
 
+        key = SettingsKeys.planetIsisCalculationsEnabledKey
+        newValue = \
+            self.planetIsisCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetNibiruCalculationsEnabledKey
+        newValue = \
+            self.planetNibiruCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
         key = SettingsKeys.planetChironCalculationsEnabledKey
         newValue = \
             self.planetChironCalculationsEnabledCheckBox.\
@@ -14109,6 +14525,32 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
         
+        key = SettingsKeys.planetIsisEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetIsisEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetNibiruEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetNibiruEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
         key = SettingsKeys.planetChironEnabledForPlanetaryInfoTableKey
         newValue = \
             self.planetChironEnabledForPlanetaryInfoTableCheckBox.\
@@ -14700,6 +15142,32 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.planetVestaEnabledForDeclinationKey
         newValue = \
             self.planetVestaEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetIsisEnabledForDeclinationKey
+        newValue = \
+            self.planetIsisEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetNibiruEnabledForDeclinationKey
+        newValue = \
+            self.planetNibiruEnabledForDeclinationCheckBox.\
             checkState() == Qt.Checked
         if settings.contains(key):
             oldValue = settings.value(key, type=bool)
@@ -15311,6 +15779,32 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
         
+        key = SettingsKeys.planetIsisEnabledForLatitudeKey
+        newValue = \
+            self.planetIsisEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetNibiruEnabledForLatitudeKey
+        newValue = \
+            self.planetNibiruEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
         key = SettingsKeys.planetChironEnabledForLatitudeKey
         newValue = \
             self.planetChironEnabledForLatitudeCheckBox.\
@@ -15902,6 +16396,32 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.planetVestaEnabledForGeoSidRadixChartKey
         newValue = \
             self.planetVestaEnabledForGeoSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetIsisEnabledForGeoSidRadixChartKey
+        newValue = \
+            self.planetIsisEnabledForGeoSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetNibiruEnabledForGeoSidRadixChartKey
+        newValue = \
+            self.planetNibiruEnabledForGeoSidRadixChartCheckBox.\
             checkState() == Qt.Checked
         if settings.contains(key):
             oldValue = settings.value(key, type=bool)
@@ -16513,6 +17033,32 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
         
+        key = SettingsKeys.planetIsisEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetIsisEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetNibiruEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetNibiruEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
         key = SettingsKeys.planetChironEnabledForGeoTropRadixChartKey
         newValue = \
             self.planetChironEnabledForGeoTropRadixChartCheckBox.\
@@ -17104,6 +17650,32 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.planetVestaEnabledForHelioSidRadixChartKey
         newValue = \
             self.planetVestaEnabledForHelioSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetIsisEnabledForHelioSidRadixChartKey
+        newValue = \
+            self.planetIsisEnabledForHelioSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetNibiruEnabledForHelioSidRadixChartKey
+        newValue = \
+            self.planetNibiruEnabledForHelioSidRadixChartCheckBox.\
             checkState() == Qt.Checked
         if settings.contains(key):
             oldValue = settings.value(key, type=bool)
@@ -18195,6 +18767,108 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.planetVestaBackgroundColorKey
         newValue = \
             self.planetVestaBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Isis
+        key = SettingsKeys.planetIsisGlyphUnicodeKey
+        newValue = \
+            self.planetIsisGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetIsisGlyphFontSizeKey
+        newValue = \
+            self.planetIsisGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetIsisAbbreviationKey
+        newValue = \
+            self.planetIsisAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetIsisForegroundColorKey
+        newValue = \
+            self.planetIsisForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetIsisBackgroundColorKey
+        newValue = \
+            self.planetIsisBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Nibiru
+        key = SettingsKeys.planetNibiruGlyphUnicodeKey
+        newValue = \
+            self.planetNibiruGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetNibiruGlyphFontSizeKey
+        newValue = \
+            self.planetNibiruGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetNibiruAbbreviationKey
+        newValue = \
+            self.planetNibiruAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetNibiruForegroundColorKey
+        newValue = \
+            self.planetNibiruForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetNibiruBackgroundColorKey
+        newValue = \
+            self.planetNibiruBackgroundColorEditButton.getColor()
         if settings.contains(key):
             oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
@@ -20974,6 +21648,18 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetVestaCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
 
+        value = bool(SettingsKeys.planetIsisCalculationsEnabledDefValue)
+        if value == True:
+            self.planetIsisCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetIsisCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetNibiruCalculationsEnabledDefValue)
+        if value == True:
+            self.planetNibiruCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetNibiruCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
         value = bool(SettingsKeys.planetChironCalculationsEnabledDefValue)
         if value == True:
             self.planetChironCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
@@ -21258,6 +21944,18 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetVestaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
 
+        value = bool(SettingsKeys.planetIsisEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetIsisEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetIsisEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetNibiruEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetNibiruEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetNibiruEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
         value = bool(SettingsKeys.planetChironEnabledForPlanetaryInfoTableDefValue)
         if value == True:
             self.planetChironEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
@@ -21535,6 +22233,18 @@ class AppPreferencesEditWidget(QWidget):
             self.planetVestaEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetVestaEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetIsisEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetIsisEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetIsisEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetNibiruEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetNibiruEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetNibiruEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetChironEnabledForDeclinationDefValue)
         if value == True:
@@ -21814,6 +22524,18 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetVestaEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
 
+        value = bool(SettingsKeys.planetIsisEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetIsisEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetIsisEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetNibiruEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetNibiruEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetNibiruEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
         value = bool(SettingsKeys.planetChironEnabledForLatitudeDefValue)
         if value == True:
             self.planetChironEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
@@ -22091,6 +22813,18 @@ class AppPreferencesEditWidget(QWidget):
             self.planetVestaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetVestaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetIsisEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetIsisEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetIsisEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetNibiruEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetNibiruEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetNibiruEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetChironEnabledForGeoSidRadixChartDefValue)
         if value == True:
@@ -22370,6 +23104,18 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetVestaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
+        value = bool(SettingsKeys.planetIsisEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetIsisEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetIsisEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetNibiruEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetNibiruEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetNibiruEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
         value = bool(SettingsKeys.planetChironEnabledForGeoTropRadixChartDefValue)
         if value == True:
             self.planetChironEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
@@ -22647,6 +23393,18 @@ class AppPreferencesEditWidget(QWidget):
             self.planetVestaEnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetVestaEnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetIsisEnabledForHelioSidRadixChartDefValue)
+        if value == True:
+            self.planetIsisEnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetIsisEnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetNibiruEnabledForHelioSidRadixChartDefValue)
+        if value == True:
+            self.planetNibiruEnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetNibiruEnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetChironEnabledForHelioSidRadixChartDefValue)
         if value == True:
@@ -22930,6 +23688,30 @@ class AppPreferencesEditWidget(QWidget):
             setColor(SettingsKeys.planetVestaForegroundColorDefValue)
         self.planetVestaBackgroundColorEditButton.\
             setColor(SettingsKeys.planetVestaBackgroundColorDefValue)
+
+        # Isis
+        self.planetIsisGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetIsisGlyphUnicodeDefValue)
+        self.planetIsisGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetIsisGlyphFontSizeDefValue)
+        self.planetIsisAbbreviationLineEdit.\
+            setText(SettingsKeys.planetIsisAbbreviationDefValue)
+        self.planetIsisForegroundColorEditButton.\
+            setColor(SettingsKeys.planetIsisForegroundColorDefValue)
+        self.planetIsisBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetIsisBackgroundColorDefValue)
+
+        # Nibiru
+        self.planetNibiruGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetNibiruGlyphUnicodeDefValue)
+        self.planetNibiruGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetNibiruGlyphFontSizeDefValue)
+        self.planetNibiruAbbreviationLineEdit.\
+            setText(SettingsKeys.planetNibiruAbbreviationDefValue)
+        self.planetNibiruForegroundColorEditButton.\
+            setColor(SettingsKeys.planetNibiruForegroundColorDefValue)
+        self.planetNibiruBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetNibiruBackgroundColorDefValue)
 
         # Chiron
         self.planetChironGlyphUnicodeLineEdit.\
@@ -29502,6 +30284,18 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlagCheckBox.\
             setCheckState(Qt.Unchecked)
     
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlagCheckBox = \
+            QCheckBox("Planet Isis enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlagCheckBox = \
+            QCheckBox("Planet Nibiru enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
         # planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlagCheckBox = \
             QCheckBox("Planet Chiron enabled")
@@ -29633,6 +30427,10 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.planetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlagCheckBox)
         rightLayout.addWidget(\
             self.planetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlagCheckBox)
+        rightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlagCheckBox)
+        rightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlagCheckBox)
         rightLayout.addWidget(\
             self.planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlagCheckBox)
         rightLayout.addWidget(\
@@ -35105,6 +35903,26 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.planetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
         
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
         # planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag (bool).
         if self.priceBarChartSettings.\
            planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag == True:
@@ -37313,6 +38131,26 @@ class PriceBarChartSettingsEditWidget(QWidget):
         else:
             self.priceBarChartSettings.\
                 planetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlag = False
 
         # planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag (bool).
         if self.planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlagCheckBox.\

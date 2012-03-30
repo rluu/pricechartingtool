@@ -7257,6 +7257,12 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag == True:
             self.planetNamesEnabled.append("Vesta")
         if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlag == True:
+            self.planetNamesEnabled.append("Isis")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlag == True:
+            self.planetNamesEnabled.append("Nibiru")
+        if PriceBarChartSettings.\
                defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag == True:
             self.planetNamesEnabled.append("Chiron")
         if PriceBarChartSettings.\
@@ -7568,6 +7574,12 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
         if priceBarChartSettings.\
                planetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag == True:
             self.planetNamesEnabled.append("Vesta")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlag == True:
+            self.planetNamesEnabled.append("Isis")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlag == True:
+            self.planetNamesEnabled.append("Nibiru")
         if priceBarChartSettings.\
                planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag == True:
             self.planetNamesEnabled.append("Chiron")
@@ -8959,6 +8971,10 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             self.planetNamesEnabled.append("Juno")
         if self.artifact.getPlanetVestaEnabledFlag():
             self.planetNamesEnabled.append("Vesta")
+        if self.artifact.getPlanetIsisEnabledFlag():
+            self.planetNamesEnabled.append("Isis")
+        if self.artifact.getPlanetNibiruEnabledFlag():
+            self.planetNamesEnabled.append("Nibiru")
         if self.artifact.getPlanetChironEnabledFlag():
             self.planetNamesEnabled.append("Chiron")
         if self.artifact.getPlanetGulikaEnabledFlag():
@@ -9108,6 +9124,10 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             "Juno" in self.planetNamesEnabled)
         self.artifact.setPlanetVestaEnabledFlag(\
             "Vesta" in self.planetNamesEnabled)
+        self.artifact.setPlanetIsisEnabledFlag(\
+            "Isis" in self.planetNamesEnabled)
+        self.artifact.setPlanetNibiruEnabledFlag(\
+            "Nibiru" in self.planetNamesEnabled)
         self.artifact.setPlanetChironEnabledFlag(\
             "Chiron" in self.planetNamesEnabled)
         self.artifact.setPlanetGulikaEnabledFlag(\

@@ -633,6 +633,14 @@ class AstrologyUtils:
             rv = settings.value(SettingsKeys.planetVestaGlyphUnicodeKey,
                                 SettingsKeys.planetVestaGlyphUnicodeDefValue,
                                 type=str)
+        elif planetName == "Isis":
+            rv = settings.value(SettingsKeys.planetIsisGlyphUnicodeKey,
+                                SettingsKeys.planetIsisGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "Nibiru":
+            rv = settings.value(SettingsKeys.planetNibiruGlyphUnicodeKey,
+                                SettingsKeys.planetNibiruGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "Chiron":
             rv = settings.value(SettingsKeys.planetChironGlyphUnicodeKey,
                                 SettingsKeys.planetChironGlyphUnicodeDefValue,
@@ -836,6 +844,14 @@ class AstrologyUtils:
         elif planetName == "Vesta":
             rv = settings.value(SettingsKeys.planetVestaGlyphFontSizeKey,
                                 SettingsKeys.planetVestaGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "Isis":
+            rv = settings.value(SettingsKeys.planetIsisGlyphFontSizeKey,
+                                SettingsKeys.planetIsisGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "Nibiru":
+            rv = settings.value(SettingsKeys.planetNibiruGlyphFontSizeKey,
+                                SettingsKeys.planetNibiruGlyphFontSizeDefValue,
                                 type=float)
         elif planetName == "Chiron":
             rv = settings.value(SettingsKeys.planetChironGlyphFontSizeKey,
@@ -1042,6 +1058,14 @@ class AstrologyUtils:
             rv = settings.value(SettingsKeys.planetVestaAbbreviationKey,
                                 SettingsKeys.planetVestaAbbreviationDefValue,
                                 type=str)
+        elif planetName == "Isis":
+            rv = settings.value(SettingsKeys.planetIsisAbbreviationKey,
+                                SettingsKeys.planetIsisAbbreviationDefValue,
+                                type=str)
+        elif planetName == "Nibiru":
+            rv = settings.value(SettingsKeys.planetNibiruAbbreviationKey,
+                                SettingsKeys.planetNibiruAbbreviationDefValue,
+                                type=str)
         elif planetName == "Chiron":
             rv = settings.value(SettingsKeys.planetChironAbbreviationKey,
                                 SettingsKeys.planetChironAbbreviationDefValue,
@@ -1247,6 +1271,14 @@ class AstrologyUtils:
             rv = settings.value(SettingsKeys.planetVestaForegroundColorKey,
                                 SettingsKeys.planetVestaForegroundColorDefValue,\
                                 type=QColor)
+        elif planetName == "Isis":
+            rv = settings.value(SettingsKeys.planetIsisForegroundColorKey,
+                                SettingsKeys.planetIsisForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "Nibiru":
+            rv = settings.value(SettingsKeys.planetNibiruForegroundColorKey,
+                                SettingsKeys.planetNibiruForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "Chiron":
             rv = settings.value(SettingsKeys.planetChironForegroundColorKey,
                                 SettingsKeys.planetChironForegroundColorDefValue,\
@@ -1451,6 +1483,14 @@ class AstrologyUtils:
         elif planetName == "Vesta":
             rv = settings.value(SettingsKeys.planetVestaBackgroundColorKey,
                                 SettingsKeys.planetVestaBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "Isis":
+            rv = settings.value(SettingsKeys.planetIsisBackgroundColorKey,
+                                SettingsKeys.planetIsisBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "Nibiru":
+            rv = settings.value(SettingsKeys.planetNibiruBackgroundColorKey,
+                                SettingsKeys.planetNibiruBackgroundColorDefValue,\
                                 type=QColor)
         elif planetName == "Chiron":
             rv = settings.value(SettingsKeys.planetChironBackgroundColorKey,
@@ -5429,6 +5469,20 @@ class PlanetaryInfoTableWidget(QTableWidget):
             enabledPlanetNames.append("Vesta")
         
         if settings.value(\
+            SettingsKeys.planetIsisEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetIsisEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Isis")
+        
+        if settings.value(\
+            SettingsKeys.planetNibiruEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetNibiruEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Nibiru")
+        
+        if settings.value(\
             SettingsKeys.planetChironEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetChironEnabledForPlanetaryInfoTableDefValue,
             type=bool):
@@ -6424,6 +6478,20 @@ class AstrologyChartWidget(QWidget):
             planets.append(Ephemeris.getVestaPlanetaryInfo(dt))
         
         if settings.value(\
+            SettingsKeys.planetIsisCalculationsEnabledKey, \
+            SettingsKeys.planetIsisCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getIsisPlanetaryInfo(dt))
+        
+        if settings.value(\
+            SettingsKeys.planetNibiruCalculationsEnabledKey, \
+            SettingsKeys.planetNibiruCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getNibiruPlanetaryInfo(dt))
+        
+        if settings.value(\
             SettingsKeys.planetChironCalculationsEnabledKey, \
             SettingsKeys.planetChironCalculationsEnabledDefValue,
             type=bool):
@@ -6753,6 +6821,20 @@ class AstrologyChartWidget(QWidget):
             type=bool):
 
             enabledPlanetNames.append("Vesta")
+        
+        if settings.value(\
+            SettingsKeys.planetIsisEnabledForDeclinationKey, \
+            SettingsKeys.planetIsisEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Isis")
+        
+        if settings.value(\
+            SettingsKeys.planetNibiruEnabledForDeclinationKey, \
+            SettingsKeys.planetNibiruEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Nibiru")
         
         if settings.value(\
             SettingsKeys.planetChironEnabledForDeclinationKey, \
@@ -7085,6 +7167,20 @@ class AstrologyChartWidget(QWidget):
             enabledPlanetNames.append("Vesta")
         
         if settings.value(\
+            SettingsKeys.planetIsisEnabledForLatitudeKey, \
+            SettingsKeys.planetIsisEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Isis")
+        
+        if settings.value(\
+            SettingsKeys.planetNibiruEnabledForLatitudeKey, \
+            SettingsKeys.planetNibiruEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Nibiru")
+        
+        if settings.value(\
             SettingsKeys.planetChironEnabledForLatitudeKey, \
             SettingsKeys.planetChironEnabledForLatitudeDefValue,
             type=bool):
@@ -7413,6 +7509,20 @@ class AstrologyChartWidget(QWidget):
             type=bool):
 
             enabledPlanetNames.append("Vesta")
+        
+        if settings.value(\
+            SettingsKeys.planetIsisEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetIsisEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Isis")
+        
+        if settings.value(\
+            SettingsKeys.planetNibiruEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetNibiruEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Nibiru")
         
         if settings.value(\
             SettingsKeys.planetChironEnabledForGeoSidRadixChartKey, \
@@ -7745,6 +7855,20 @@ class AstrologyChartWidget(QWidget):
             enabledPlanetNames.append("Vesta")
         
         if settings.value(\
+            SettingsKeys.planetIsisEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetIsisEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Isis")
+        
+        if settings.value(\
+            SettingsKeys.planetNibiruEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetNibiruEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Nibiru")
+        
+        if settings.value(\
             SettingsKeys.planetChironEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetChironEnabledForGeoTropRadixChartDefValue,
             type=bool):
@@ -8073,6 +8197,20 @@ class AstrologyChartWidget(QWidget):
             type=bool):
 
             enabledPlanetNames.append("Vesta")
+        
+        if settings.value(\
+            SettingsKeys.planetIsisEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetIsisEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Isis")
+        
+        if settings.value(\
+            SettingsKeys.planetNibiruEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetNibiruEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Nibiru")
         
         if settings.value(\
             SettingsKeys.planetChironEnabledForHelioSidRadixChartKey, \

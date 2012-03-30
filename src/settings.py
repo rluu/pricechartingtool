@@ -1469,6 +1469,80 @@ class SettingsKeys():
 
 
 
+    # QSettings key for the planet glyph unicode of the Isis.
+    planetIsisGlyphUnicodeKey = \
+        "ui/astrology/isisGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the Isis.
+    planetIsisGlyphUnicodeDefValue = "\u26b6"
+
+    # QSettings key for the planet glyph font size of the Isis.
+    planetIsisGlyphFontSizeKey = \
+        "ui/astrology/isisGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the Isis.
+    planetIsisGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the Isis.
+    planetIsisAbbreviationKey = \
+        "ui/astrology/isisAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the Isis.
+    planetIsisAbbreviationDefValue = "Ves"
+
+    # QSettings key for the foreground color of the Isis.
+    planetIsisForegroundColorKey = \
+        "ui/astrology/isisForegroundColor"
+
+    # QSettings default value for the foreground color of the Isis.
+    planetIsisForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the Isis.
+    planetIsisBackgroundColorKey = \
+        "ui/astrology/isisBackgroundColor"
+
+    # QSettings default value for the background color of the Isis.
+    planetIsisBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the Nibiru.
+    planetNibiruGlyphUnicodeKey = \
+        "ui/astrology/nibiruGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the Nibiru.
+    planetNibiruGlyphUnicodeDefValue = "\u26b6"
+
+    # QSettings key for the planet glyph font size of the Nibiru.
+    planetNibiruGlyphFontSizeKey = \
+        "ui/astrology/nibiruGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the Nibiru.
+    planetNibiruGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the Nibiru.
+    planetNibiruAbbreviationKey = \
+        "ui/astrology/nibiruAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the Nibiru.
+    planetNibiruAbbreviationDefValue = "Ves"
+
+    # QSettings key for the foreground color of the Nibiru.
+    planetNibiruForegroundColorKey = \
+        "ui/astrology/nibiruForegroundColor"
+
+    # QSettings default value for the foreground color of the Nibiru.
+    planetNibiruForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the Nibiru.
+    planetNibiruBackgroundColorKey = \
+        "ui/astrology/nibiruBackgroundColor"
+
+    # QSettings default value for the background color of the Nibiru.
+    planetNibiruBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
     # QSettings key for the planet glyph unicode of the Chiron.
     planetChironGlyphUnicodeKey = \
         "ui/astrology/chironGlyphUnicode"
@@ -2896,6 +2970,22 @@ class SettingsKeys():
     planetVestaCalculationsEnabledDefValue = \
         False
 
+    # QSettings key for enabled astrologychart calculations for Isis.
+    planetIsisCalculationsEnabledKey = \
+        "ui/astrology/isisCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for Isis.
+    planetIsisCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for Nibiru.
+    planetNibiruCalculationsEnabledKey = \
+        "ui/astrology/nibiruCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for Nibiru.
+    planetNibiruCalculationsEnabledDefValue = \
+        False
+
     # QSettings key for enabled astrologychart calculations for Chiron.
     planetChironCalculationsEnabledKey = \
         "ui/astrology/chironCalculationsEnabled"
@@ -3256,6 +3346,22 @@ class SettingsKeys():
     
     # QSettings default value for the display flag in PlanetaryInfoTable for Vesta.
     planetVestaEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for Isis.
+    planetIsisEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/isisEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for Isis.
+    planetIsisEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for Nibiru.
+    planetNibiruEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/nibiruEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for Nibiru.
+    planetNibiruEnabledForPlanetaryInfoTableDefValue = \
         False
     
     # QSettings key for the display flag in PlanetaryInfoTable for Chiron.
@@ -3620,6 +3726,22 @@ class SettingsKeys():
     planetVestaEnabledForDeclinationDefValue = \
         False
     
+    # QSettings key for the display flag in Declination for Isis.
+    planetIsisEnabledForDeclinationKey = \
+        "ui/astrology/isisEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for Isis.
+    planetIsisEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for Nibiru.
+    planetNibiruEnabledForDeclinationKey = \
+        "ui/astrology/nibiruEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for Nibiru.
+    planetNibiruEnabledForDeclinationDefValue = \
+        False
+    
     # QSettings key for the display flag in Declination for Chiron.
     planetChironEnabledForDeclinationKey = \
         "ui/astrology/chironEnabledForDeclination"
@@ -3980,6 +4102,22 @@ class SettingsKeys():
     
     # QSettings default value for the display flag in Latitude for Vesta.
     planetVestaEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for Isis.
+    planetIsisEnabledForLatitudeKey = \
+        "ui/astrology/isisEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for Isis.
+    planetIsisEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for Nibiru.
+    planetNibiruEnabledForLatitudeKey = \
+        "ui/astrology/nibiruEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for Nibiru.
+    planetNibiruEnabledForLatitudeDefValue = \
         False
     
     # QSettings key for the display flag in Latitude for Chiron.
@@ -4344,6 +4482,22 @@ class SettingsKeys():
     planetVestaEnabledForGeoSidRadixChartDefValue = \
         True
     
+    # QSettings key for the display flag in GeoSidRadixChart for Isis.
+    planetIsisEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/isisEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for Isis.
+    planetIsisEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for Nibiru.
+    planetNibiruEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/nibiruEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for Nibiru.
+    planetNibiruEnabledForGeoSidRadixChartDefValue = \
+        True
+    
     # QSettings key for the display flag in GeoSidRadixChart for Chiron.
     planetChironEnabledForGeoSidRadixChartKey = \
         "ui/astrology/chironEnabledForGeoSidRadixChart"
@@ -4706,6 +4860,22 @@ class SettingsKeys():
     planetVestaEnabledForGeoTropRadixChartDefValue = \
         True
     
+    # QSettings key for the display flag in GeoTropRadixChart for Isis.
+    planetIsisEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/isisEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for Isis.
+    planetIsisEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for Nibiru.
+    planetNibiruEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/nibiruEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for Nibiru.
+    planetNibiruEnabledForGeoTropRadixChartDefValue = \
+        True
+    
     # QSettings key for the display flag in GeoTropRadixChart for Chiron.
     planetChironEnabledForGeoTropRadixChartKey = \
         "ui/astrology/chironEnabledForGeoTropRadixChart"
@@ -5066,6 +5236,22 @@ class SettingsKeys():
     
     # QSettings default value for the display flag in HelioSidRadixChart for Vesta.
     planetVestaEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for Isis.
+    planetIsisEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/isisEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for Isis.
+    planetIsisEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for Nibiru.
+    planetNibiruEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/nibiruEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for Nibiru.
+    planetNibiruEnabledForHelioSidRadixChartDefValue = \
         False
     
     # QSettings key for the display flag in HelioSidRadixChart for Chiron.

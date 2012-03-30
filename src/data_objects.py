@@ -5028,6 +5028,16 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag
         
+        # Flag for measurement of planet Isis enabled.
+        self.planetIsisEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlag
+        
+        # Flag for measurement of planet Nibiru enabled.
+        self.planetNibiruEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlag
+        
         # Flag for measurement of planet Chiron enabled.
         self.planetChironEnabledFlag = \
             PriceBarChartSettings.\
@@ -6194,6 +6204,50 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         return self.showPlanetVestaEnabledFlag
+
+    def setPlanetIsisEnabledFlag(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.showPlanetIsisEnabledFlag = flag
+        
+    def getPlanetIsisEnabledFlag(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.showPlanetIsisEnabledFlag
+
+    def setPlanetNibiruEnabledFlag(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.showPlanetNibiruEnabledFlag = flag
+        
+    def getPlanetNibiruEnabledFlag(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.showPlanetNibiruEnabledFlag
 
     def setPlanetChironEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -15265,6 +15319,14 @@ class PriceBarChartSettings:
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag = False
         
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # planetIsisEnabledFlag (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlag = False
+        
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # planetNibiruEnabledFlag (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlag = False
+        
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetChironEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag = False
         
@@ -16649,6 +16711,18 @@ class PriceBarChartSettings:
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag
         
         # PlanetLongitudeMovementMeasurementGraphicsItem
+        # planetIsisEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlag
+        
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # planetNibiruEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlag
+        
+        # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetChironEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag = \
             PriceBarChartSettings.\
@@ -17678,6 +17752,8 @@ class PriceBarChartSettings:
                 # self.planetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlag
                 # self.planetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlag
                 # self.planetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlag
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlag
                 # self.planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag
                 # self.planetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlag
                 # self.planetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlag
@@ -17742,6 +17818,8 @@ class PriceBarChartSettings:
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlag
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlag
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlag
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlag
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlag
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlag
@@ -18069,6 +18147,18 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag
                     
                     # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # planetIsisEnabledFlag (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlag
+                    
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # planetNibiruEnabledFlag (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlag
+                    
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetChironEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag = \
                         PriceBarChartSettings.\
@@ -18170,6 +18260,8 @@ class PriceBarChartSettings:
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlag', " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlag', " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlag', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlag', " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag', " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlag', " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlag', " + \

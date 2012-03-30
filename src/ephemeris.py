@@ -671,6 +671,10 @@ class Ephemeris:
             rv = swe.JUNO
         elif planetName == "Vesta":
             rv = swe.VESTA
+        elif planetName == "Isis":
+            rv = swe.ISIS
+        elif planetName == "Nibiru":
+            rv = swe.NIBIRU
         else:
             rv = None
 
@@ -3452,6 +3456,40 @@ class Ephemeris:
         return Ephemeris.getPlanetaryInfo("Vesta", timestamp)
 
     @staticmethod
+    def getIsisPlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about
+        the Isis at the given timestamp.
+        
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which to
+                    do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        return Ephemeris.getPlanetaryInfo("Isis", timestamp)
+
+    @staticmethod
+    def getNibiruPlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about
+        the Nibiru at the given timestamp.
+        
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which to
+                    do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        return Ephemeris.getPlanetaryInfo("Nibiru", timestamp)
+
+    @staticmethod
     def getMeanOfFivePlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
         the 'Mean Of Five' (MOF) at the given timestamp.
@@ -3703,6 +3741,12 @@ def testGetPlanetaryInfos():
     print("    At {}, planet '{}' has the following info: \n{}".\
             format(now, p.name, p.toString()))
     p = Ephemeris.getVestaPlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getIsisPlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getNibiruPlanetaryInfo(now)
     print("    At {}, planet '{}' has the following info: \n{}".\
             format(now, p.name, p.toString()))
     p = Ephemeris.getMeanOfFivePlanetaryInfo(now)
@@ -4549,6 +4593,74 @@ def testMinMaxPlanetLongitudeSpeeds():
         print("    FINAL: minSpeed of {} is: {}".\
               format(p.name, minSpeed))
 
+    # Isis.
+    if False:
+        start = datetime.datetime.now(eastern)
+        increment = datetime.timedelta(hours=1)
+        years = 60
+        finishDelta = datetime.timedelta(days=years*365)
+        end = start + finishDelta
+        curr = start
+        maxSpeed = 0
+        minSpeed = 0
+        while curr < end:
+            newMaxSpeedFlag = 0
+            newMinSpeedFlag = 0
+            p = Ephemeris.getIsisPlanetaryInfo(curr)
+            if p.geocentric['sidereal']['longitude_speed'] > maxSpeed:
+                maxSpeed = p.geocentric['sidereal']['longitude_speed']
+                newMaxSpeedFlag = 1
+            if p.geocentric['sidereal']['longitude_speed'] < minSpeed:
+                minSpeed = p.geocentric['sidereal']['longitude_speed']
+                newMinSpeedFlag = 1
+            #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
+            #    print("    curr is: {}".format(curr))
+            #    if newMaxSpeedFlag == 1:
+            #        print("    new maxSpeed of {} is: ".format(p.name) +
+            #              str(maxSpeed))
+            #    if newMinSpeedFlag == 1:
+            #        print("    new minSpeed of {} is: ".format(p.name) +
+            #              str(minSpeed))
+            curr += increment
+        print("    FINAL: maxSpeed of {} is: {}".\
+              format(p.name, maxSpeed))
+        print("    FINAL: minSpeed of {} is: {}".\
+              format(p.name, minSpeed))
+
+    # Nibiru.
+    if False:
+        start = datetime.datetime.now(eastern)
+        increment = datetime.timedelta(hours=1)
+        years = 60
+        finishDelta = datetime.timedelta(days=years*365)
+        end = start + finishDelta
+        curr = start
+        maxSpeed = 0
+        minSpeed = 0
+        while curr < end:
+            newMaxSpeedFlag = 0
+            newMinSpeedFlag = 0
+            p = Ephemeris.getNibiruPlanetaryInfo(curr)
+            if p.geocentric['sidereal']['longitude_speed'] > maxSpeed:
+                maxSpeed = p.geocentric['sidereal']['longitude_speed']
+                newMaxSpeedFlag = 1
+            if p.geocentric['sidereal']['longitude_speed'] < minSpeed:
+                minSpeed = p.geocentric['sidereal']['longitude_speed']
+                newMinSpeedFlag = 1
+            #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
+            #    print("    curr is: {}".format(curr))
+            #    if newMaxSpeedFlag == 1:
+            #        print("    new maxSpeed of {} is: ".format(p.name) +
+            #              str(maxSpeed))
+            #    if newMinSpeedFlag == 1:
+            #        print("    new minSpeed of {} is: ".format(p.name) +
+            #              str(minSpeed))
+            curr += increment
+        print("    FINAL: maxSpeed of {} is: {}".\
+              format(p.name, maxSpeed))
+        print("    FINAL: minSpeed of {} is: {}".\
+              format(p.name, minSpeed))
+
     # MeanOfFive.
     if True:
         start = datetime.datetime.now(eastern)
@@ -5375,6 +5487,74 @@ def testMinMaxPlanetLatitude():
         print("    FINAL: minLatitude of {} is: {}".\
               format(p.name, minLatitude))
 
+    # Isis.
+    if True:
+        start = datetime.datetime.now(eastern)
+        increment = datetime.timedelta(hours=1)
+        years = 60
+        finishDelta = datetime.timedelta(days=years*365)
+        end = start + finishDelta
+        curr = start
+        maxLatitude = 0
+        minLatitude = 0
+        while curr < end:
+            newMaxLatitudeFlag = 0
+            newMinLatitudeFlag = 0
+            p = Ephemeris.getIsisPlanetaryInfo(curr)
+            if p.geocentric['tropical']['latitude'] > maxLatitude:
+                maxLatitude = p.geocentric['tropical']['latitude']
+                newMaxLatitudeFlag = 1
+            if p.geocentric['tropical']['latitude'] < minLatitude:
+                minLatitude = p.geocentric['tropical']['latitude']
+                newMinLatitudeFlag = 1
+            #if newMaxLatitudeFlag == 1 or newMinLatitudeFlag == 1:
+            #    print("    curr is: {}".format(curr))
+            #    if newMaxLatitudeFlag == 1:
+            #        print("    new maxLatitude of {} is: ".format(p.name) +
+            #              str(maxLatitude))
+            #    if newMinLatitudeFlag == 1:
+            #        print("    new minLatitude of {} is: ".format(p.name) +
+            #              str(minLatitude))
+            curr += increment
+        print("    FINAL: maxLatitude of {} is: {}".\
+              format(p.name, maxLatitude))
+        print("    FINAL: minLatitude of {} is: {}".\
+              format(p.name, minLatitude))
+
+    # Nibiru.
+    if True:
+        start = datetime.datetime.now(eastern)
+        increment = datetime.timedelta(hours=1)
+        years = 60
+        finishDelta = datetime.timedelta(days=years*365)
+        end = start + finishDelta
+        curr = start
+        maxLatitude = 0
+        minLatitude = 0
+        while curr < end:
+            newMaxLatitudeFlag = 0
+            newMinLatitudeFlag = 0
+            p = Ephemeris.getNibiruPlanetaryInfo(curr)
+            if p.geocentric['tropical']['latitude'] > maxLatitude:
+                maxLatitude = p.geocentric['tropical']['latitude']
+                newMaxLatitudeFlag = 1
+            if p.geocentric['tropical']['latitude'] < minLatitude:
+                minLatitude = p.geocentric['tropical']['latitude']
+                newMinLatitudeFlag = 1
+            #if newMaxLatitudeFlag == 1 or newMinLatitudeFlag == 1:
+            #    print("    curr is: {}".format(curr))
+            #    if newMaxLatitudeFlag == 1:
+            #        print("    new maxLatitude of {} is: ".format(p.name) +
+            #              str(maxLatitude))
+            #    if newMinLatitudeFlag == 1:
+            #        print("    new minLatitude of {} is: ".format(p.name) +
+            #              str(minLatitude))
+            curr += increment
+        print("    FINAL: maxLatitude of {} is: {}".\
+              format(p.name, maxLatitude))
+        print("    FINAL: minLatitude of {} is: {}".\
+              format(p.name, minLatitude))
+
     # MeanOfFive.
     if True:
         start = datetime.datetime.now(eastern)
@@ -6181,6 +6361,74 @@ def testMinMaxPlanetDeclination():
             newMaxDeclinationFlag = 0
             newMinDeclinationFlag = 0
             p = Ephemeris.getVestaPlanetaryInfo(curr)
+            if p.geocentric['tropical']['declination'] > maxDeclination:
+                maxDeclination = p.geocentric['tropical']['declination']
+                newMaxDeclinationFlag = 1
+            if p.geocentric['tropical']['declination'] < minDeclination:
+                minDeclination = p.geocentric['tropical']['declination']
+                newMinDeclinationFlag = 1
+            #if newMaxDeclinationFlag == 1 or newMinDeclinationFlag == 1:
+            #    print("    curr is: {}".format(curr))
+            #    if newMaxDeclinationFlag == 1:
+            #        print("    new maxDeclination of {} is: ".format(p.name) +
+            #              str(maxDeclination))
+            #    if newMinDeclinationFlag == 1:
+            #        print("    new minDeclination of {} is: ".format(p.name) +
+            #              str(minDeclination))
+            curr += increment
+        print("    FINAL: maxDeclination of {} is: {}".\
+              format(p.name, maxDeclination))
+        print("    FINAL: minDeclination of {} is: {}".\
+              format(p.name, minDeclination))
+
+    # Isis.
+    if True:
+        start = datetime.datetime.now(eastern)
+        increment = datetime.timedelta(hours=1)
+        years = 60
+        finishDelta = datetime.timedelta(days=years*365)
+        end = start + finishDelta
+        curr = start
+        maxDeclination = 0
+        minDeclination = 0
+        while curr < end:
+            newMaxDeclinationFlag = 0
+            newMinDeclinationFlag = 0
+            p = Ephemeris.getIsisPlanetaryInfo(curr)
+            if p.geocentric['tropical']['declination'] > maxDeclination:
+                maxDeclination = p.geocentric['tropical']['declination']
+                newMaxDeclinationFlag = 1
+            if p.geocentric['tropical']['declination'] < minDeclination:
+                minDeclination = p.geocentric['tropical']['declination']
+                newMinDeclinationFlag = 1
+            #if newMaxDeclinationFlag == 1 or newMinDeclinationFlag == 1:
+            #    print("    curr is: {}".format(curr))
+            #    if newMaxDeclinationFlag == 1:
+            #        print("    new maxDeclination of {} is: ".format(p.name) +
+            #              str(maxDeclination))
+            #    if newMinDeclinationFlag == 1:
+            #        print("    new minDeclination of {} is: ".format(p.name) +
+            #              str(minDeclination))
+            curr += increment
+        print("    FINAL: maxDeclination of {} is: {}".\
+              format(p.name, maxDeclination))
+        print("    FINAL: minDeclination of {} is: {}".\
+              format(p.name, minDeclination))
+
+    # Nibiru.
+    if True:
+        start = datetime.datetime.now(eastern)
+        increment = datetime.timedelta(hours=1)
+        years = 60
+        finishDelta = datetime.timedelta(days=years*365)
+        end = start + finishDelta
+        curr = start
+        maxDeclination = 0
+        minDeclination = 0
+        while curr < end:
+            newMaxDeclinationFlag = 0
+            newMinDeclinationFlag = 0
+            p = Ephemeris.getNibiruPlanetaryInfo(curr)
             if p.geocentric['tropical']['declination'] > maxDeclination:
                 maxDeclination = p.geocentric['tropical']['declination']
                 newMaxDeclinationFlag = 1

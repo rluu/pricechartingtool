@@ -4128,6 +4128,10 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
             QCheckBox("Planet Juno enabled")
         self.planetVestaEnabledFlagCheckBox = \
             QCheckBox("Planet Vesta enabled")
+        self.planetIsisEnabledFlagCheckBox = \
+            QCheckBox("Planet Isis enabled")
+        self.planetNibiruEnabledFlagCheckBox = \
+            QCheckBox("Planet Nibiru enabled")
         self.planetChironEnabledFlagCheckBox = \
             QCheckBox("Planet Chiron enabled")
         self.planetGulikaEnabledFlagCheckBox = \
@@ -4227,6 +4231,10 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
             self.planetJunoEnabledFlagCheckBox)
         showTextCheckBoxesRightLayout.addWidget(\
             self.planetVestaEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetIsisEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetNibiruEnabledFlagCheckBox)
         showTextCheckBoxesRightLayout.addWidget(\
             self.planetChironEnabledFlagCheckBox)
         showTextCheckBoxesRightLayout.addWidget(\
@@ -4369,6 +4377,8 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
         self.planetPallasEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.planetJunoEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.planetVestaEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetIsisEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetNibiruEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.planetChironEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.planetGulikaEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.planetMandiEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
@@ -4677,6 +4687,16 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
         else:
             self.planetVestaEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
 
+        if self.artifact.getPlanetIsisEnabledFlag() == True:
+            self.planetIsisEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetIsisEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetNibiruEnabledFlag() == True:
+            self.planetNibiruEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetNibiruEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
         if self.artifact.getPlanetChironEnabledFlag() == True:
             self.planetChironEnabledFlagCheckBox.setCheckState(Qt.Checked)
         else:
@@ -4892,6 +4912,12 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
         planetVestaEnabledFlag = \
             (self.planetVestaEnabledFlagCheckBox.\
              checkState() == Qt.Checked)
+        planetIsisEnabledFlag = \
+            (self.planetIsisEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetNibiruEnabledFlag = \
+            (self.planetNibiruEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
         planetChironEnabledFlag = \
             (self.planetChironEnabledFlagCheckBox.\
              checkState() == Qt.Checked)
@@ -4973,6 +4999,8 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
         self.artifact.setPlanetPallasEnabledFlag(planetPallasEnabledFlag)
         self.artifact.setPlanetJunoEnabledFlag(planetJunoEnabledFlag)
         self.artifact.setPlanetVestaEnabledFlag(planetVestaEnabledFlag)
+        self.artifact.setPlanetIsisEnabledFlag(planetIsisEnabledFlag)
+        self.artifact.setPlanetNibiruEnabledFlag(planetNibiruEnabledFlag)
         self.artifact.setPlanetChironEnabledFlag(planetChironEnabledFlag)
         self.artifact.setPlanetGulikaEnabledFlag(planetGulikaEnabledFlag)
         self.artifact.setPlanetMandiEnabledFlag(planetMandiEnabledFlag)
