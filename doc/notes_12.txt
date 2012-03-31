@@ -1,0 +1,164 @@
+##############################################################################
+# Notes on the book "12" by Gregory M. Carpenter
+##############################################################################
+
+pg. 3.
+Respected authors: Gann, Bayer, and Jensen.
+
+pg. 4.
+Allan Blakstad: "There is a lot happening at Highs and Lows."
+
+There is information on time cycles in the WITS group and in TTTA, but you won't find them in this (12) book.
+
+It takes faith in yourself (i.e. faith in your abilities), and persistence, to succeed.
+
+pg. 5.
+Price is found via the use of time cycles; this is why you need the cycles before you forecast price.
+
+You must know the cycles before you can use the (Gann) squares.
+
+pg. 6.
+Your real goal: Understand the cycles in Gann's book: TTTA.
+
+You have to get those cycles; cycles lead you to success.
+
+pg. 7.
+This work will teach you how to identify the transiting planets that are affecting your market.  You will learn how to rectify any natal quickly and efficiently.  You will observe how the correct natal produced turns and how you can develop a system for profits on an intermediate level.  You will see in no uncertain terms, the cause of the business cycle and factors that enhance it.  You will learn the factors that are impacting you, creating success or failure depending on your location on the globe.
+
+pg. 11.
+Pyramid of the trading field:
+  Numbers
+  Squares
+  Time Factors and Cycles
+  Natals
+  Aspects and Eclipses.
+
+
+Gann's TTTA covers the top 5.
+Bayer covers Squares, Time Factors, and Natals.
+Jensen covers Aspects, Eclipses, Natals and Time Cycles in his writings.
+R.T.A. covers aspects and natals.
+
+The squares operate off of Time Cycles, and Number is "shorthand" for these cycles.  Therefore the key is to focus on Time Factors and Cycles.  Information for this is in TTTA by Gann and "Time Factors" by Bayer.  There are also many posts on WITS.
+
+Time Cycles have the problem of not being exact.  This is where the natal comes in handy; it allows you pin the orb down to the exact day or two.  
+
+pg. 12.
+Previously they said: To solve orb, look at Jupiter and Saturn 45's.
+While you can do it that way, there is a much better way and that is to have a "fixed point" and one planet.  That way you are working with one variable and not two. Active points in a natal count as a fixed point.  
+
+For example:
+If the actual point is Saturn transiting over 13 deg 52, but the market turns 13 deg 44, 13 deg 42, and 13 deg 46, thus the market is 'firing' early.  So we createa  'swath' (range) of when the turn will happen.  Saturn transverses these points in one day!
+
+Fusing this principle with Time Cycles is the "Golden Key".
+
+pg. 13
+Every stock or commodity responds to ITS OWN aspects.  An aspect between Uranus and Jupiter may turn one market but not another.  So for any market you trade in, you should identify which aspects affect (turn) that market.  You simply go through the aspects one at a time to find which ones work.
+
+List of 'required reading' books:
+1) A to Z horoscope Maker Delineator (Llewellyn George)
+2) Astro Cycles & Speculative Markets  (Luther Jensen)
+3) The Tunnel Thru The Air (W. D. Gann)
+4) Kabala of Numbers (Sepharial)
+5) Power of Number (Numero)
+6) Periodicity (Jos. Buchanan)
+7) Key to Bible and Heaven (Ludwig Larson)
+
+pg. 14
+Gann used both Helio and Geo.
+
+TTTA: 
+Regarding the war in the air:  Look at the dates of battles in the book and compare that to what was occuring in the Dow Jones at that time. 
+
+This book is all about cycles, many different types of cycles and understanding this will save you time.
+
+The way to succeed is to master TTTA.
+
+pg. 15
+Regarding software: Solar Fire if you can afford it.
+Avoid paying big money for software.  All you need is a cheap ephemeris.
+
+Chiron rules Taurus.
+Transpluto rules Virgo.
+
+Always use True Node (and not Mean Node).  
+
+pg. 16.
+Use aspect sizes of 15 degree increments.  
+(i.e. Increments of 1/24th of a circle).
+
+pg. 19
+Books by Johndro to study after learning Astrology and Astronomy:
+1) Earth in the Heavens
+2) Fixed Stars
+
+It is in these two books that astrology and astronomy come together. 
+
+There is a critical error in Johndro's book "Earth in the Heavens".  He later recanted one aspect of the book.  The Midheaves of the locality charts are FIXED; they are not precessional.  "The actual zodiac used in interpretation is right in step with the equinoctial precession and always has been.  Therefore each country and city has the exact same rulership as it always has."  
+
+From page 51 of "Earth in the Heavens":
+"To the dates of eclipses, planetary stationaries, great conjunctions and oppositions, new moons and events."
+
+From page 53 of "The Stars":
+Eclipse configurations are the principle indicators of the great events of the year, through the Ingress, Stationary positions and great conjunctions and oppositions of the planets should receive attention.  These two examples are pointing the way on how to combine the two fields (astrology and astronomy).
+
+pg. 20
+
+From page 50 of "The Stars":
+Listed is a few of the 50-odd stars influencing New York and the stock exchange fluctuations.
+
+An aspect of longitude occurs at a specific Time and in a specific Season (of the year).  This is described in the BLH lecture.
+
+pg. 21.
+
+Use the 15-degree increments between the separation of two planets (synodic to synodic), and test these with the yearly season as a filter parameter.
+
+pg. 22
+
+Orb: "There is no orb."
+Reference to Jensen's ACSM page 38, and to Jayne about declination.
+
+Use a certain orb, then narrow it down via declination.  
+
+Those that have not solved orb yet, should use about 10 minutes of longitudinal arc on either side of exact.
+
+Include planets Transpluto and Chiron in our research.
+
+pg. 23.
+
+Aspects are unique to each market.
+
+pg. 24
+
+ACSM, page 82: 
+Keep in mind specific angular relationships of Jupiter, Saturn, Uranus are the key to stock in the bullish or bearish directions.  Each commodity has its own combination of one or two of the foregoing, PLUS either Mercury, Venus or Mars.
+
+After the inner planets (are tested), test declination (transiting to transiting) between planets.  Use parallels and contra-parallels.
+
+In NYSE stock General Motors, parallels and contra-parallels of transiting Geocentric Mercury and Sun produces turns at about 83%, with a turn allowance of 1 day.
+
+
+pg. 27
+
+The business cycle is correlated with the sunspot cycle and seasons of a year.  It is connected with weather. 
+
+Gann has on his reading list:
+"Sunspots and Weather" by W.T. Foster.  It shows how to forecast sunspots.
+
+pg. 29
+You have to combine sunspot cycle with planetary confgiurations.  
+
+In "Law of Values" by Sepharial, on pages 16 and 17, states that countries are tied to certain signs of the zodiac.  An example is the United States and Gemini.  Thus transiting Saturn through Gemini will depress the value of securities in the US. Always be cognizant of planets in the signs, in relation to the country whose securities you are trading in or holding.
+
+pg. 30
+Testing i teh Golden Key to this field.  It is what will get you ahead.
+
+Test for only a single element at a time.  Many individuals put too many factors into a test, which invalidates that test.
+
+Pages 30-36 has instructions on how to do testing.
+
+pg. 37-58
+Information about locality-based astrology.  
+How to calculate geographic Asc and MC.
+
+
