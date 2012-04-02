@@ -687,6 +687,30 @@ def processPCDD(pcdd, tag):
     #p += 20
     #success = PlanetaryCombinationsLibrary.\
     #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
+    #    pcdd, startDt, endDt, price=p, planetName="ARMC")
+    #p += 20
+    #success = PlanetaryCombinationsLibrary.\
+    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
+    #    pcdd, startDt, endDt, price=p, planetName="Vertex")
+    #p += 20
+    #success = PlanetaryCombinationsLibrary.\
+    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
+    #    pcdd, startDt, endDt, price=p, planetName="EquatorialAscendant")
+    #p += 20
+    #success = PlanetaryCombinationsLibrary.\
+    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
+    #    pcdd, startDt, endDt, price=p, planetName="CoAscendant1")
+    #p += 20
+    #success = PlanetaryCombinationsLibrary.\
+    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
+    #    pcdd, startDt, endDt, price=p, planetName="CoAscendant2")
+    #p += 20
+    #success = PlanetaryCombinationsLibrary.\
+    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
+    #    pcdd, startDt, endDt, price=p, planetName="PolarAscendant")
+    #p += 20
+    #success = PlanetaryCombinationsLibrary.\
+    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
     #    pcdd, startDt, endDt, price=p, planetName="Sun")
     #p += 200
     #success = PlanetaryCombinationsLibrary.\

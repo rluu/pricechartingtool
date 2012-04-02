@@ -102,35 +102,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the H1.
     planetH1GlyphUnicodeKey = \
-        "ui/astrology/h1GlyphUnicode"
+        "ui/astrology/H1GlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the H1.
     planetH1GlyphUnicodeDefValue = "As"
 
     # QSettings key for the planet glyph font size of the H1.
     planetH1GlyphFontSizeKey = \
-        "ui/astrology/h1GlyphFontSize"
+        "ui/astrology/H1GlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the H1.
     planetH1GlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the H1.
     planetH1AbbreviationKey = \
-        "ui/astrology/h1Abbreviation"
+        "ui/astrology/H1Abbreviation"
 
     # QSettings default value for the planet abbreviation of the H1.
     planetH1AbbreviationDefValue = "As"
 
     # QSettings key for the foreground color of the H1.
     planetH1ForegroundColorKey = \
-        "ui/astrology/h1ForegroundColor"
+        "ui/astrology/H1ForegroundColor"
 
     # QSettings default value for the foreground color of the H1.
     planetH1ForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the H1.
     planetH1BackgroundColorKey = \
-        "ui/astrology/h1BackgroundColor"
+        "ui/astrology/H1BackgroundColor"
 
     # QSettings default value for the background color of the H1.
     planetH1BackgroundColorDefValue = QColor(Qt.transparent)
@@ -139,35 +139,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the H2.
     planetH2GlyphUnicodeKey = \
-        "ui/astrology/h2GlyphUnicode"
+        "ui/astrology/H2GlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the H2.
     planetH2GlyphUnicodeDefValue = "H2"
 
     # QSettings key for the planet glyph font size of the H2.
     planetH2GlyphFontSizeKey = \
-        "ui/astrology/h2GlyphFontSize"
+        "ui/astrology/H2GlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the H2.
     planetH2GlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the H2.
     planetH2AbbreviationKey = \
-        "ui/astrology/h2Abbreviation"
+        "ui/astrology/H2Abbreviation"
 
     # QSettings default value for the planet abbreviation of the H2.
     planetH2AbbreviationDefValue = "H2"
 
     # QSettings key for the foreground color of the H2.
     planetH2ForegroundColorKey = \
-        "ui/astrology/h2ForegroundColor"
+        "ui/astrology/H2ForegroundColor"
 
     # QSettings default value for the foreground color of the H2.
     planetH2ForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the H2.
     planetH2BackgroundColorKey = \
-        "ui/astrology/h2BackgroundColor"
+        "ui/astrology/H2BackgroundColor"
 
     # QSettings default value for the background color of the H2.
     planetH2BackgroundColorDefValue = QColor(Qt.transparent)
@@ -176,35 +176,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the H3.
     planetH3GlyphUnicodeKey = \
-        "ui/astrology/h3GlyphUnicode"
+        "ui/astrology/H3GlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the H3.
     planetH3GlyphUnicodeDefValue = "H3"
 
     # QSettings key for the planet glyph font size of the H3.
     planetH3GlyphFontSizeKey = \
-        "ui/astrology/h3GlyphFontSize"
+        "ui/astrology/H3GlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the H3.
     planetH3GlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the H3.
     planetH3AbbreviationKey = \
-        "ui/astrology/h3Abbreviation"
+        "ui/astrology/H3Abbreviation"
 
     # QSettings default value for the planet abbreviation of the H3.
     planetH3AbbreviationDefValue = "H3"
 
     # QSettings key for the foreground color of the H3.
     planetH3ForegroundColorKey = \
-        "ui/astrology/h3ForegroundColor"
+        "ui/astrology/H3ForegroundColor"
 
     # QSettings default value for the foreground color of the H3.
     planetH3ForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the H3.
     planetH3BackgroundColorKey = \
-        "ui/astrology/h3BackgroundColor"
+        "ui/astrology/H3BackgroundColor"
 
     # QSettings default value for the background color of the H3.
     planetH3BackgroundColorDefValue = QColor(Qt.transparent)
@@ -213,35 +213,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the H4.
     planetH4GlyphUnicodeKey = \
-        "ui/astrology/h4GlyphUnicode"
+        "ui/astrology/H4GlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the H4.
     planetH4GlyphUnicodeDefValue = "H4"
 
     # QSettings key for the planet glyph font size of the H4.
     planetH4GlyphFontSizeKey = \
-        "ui/astrology/h4GlyphFontSize"
+        "ui/astrology/H4GlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the H4.
     planetH4GlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the H4.
     planetH4AbbreviationKey = \
-        "ui/astrology/h4Abbreviation"
+        "ui/astrology/H4Abbreviation"
 
     # QSettings default value for the planet abbreviation of the H4.
     planetH4AbbreviationDefValue = "H4"
 
     # QSettings key for the foreground color of the H4.
     planetH4ForegroundColorKey = \
-        "ui/astrology/h4ForegroundColor"
+        "ui/astrology/H4ForegroundColor"
 
     # QSettings default value for the foreground color of the H4.
     planetH4ForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the H4.
     planetH4BackgroundColorKey = \
-        "ui/astrology/h4BackgroundColor"
+        "ui/astrology/H4BackgroundColor"
 
     # QSettings default value for the background color of the H4.
     planetH4BackgroundColorDefValue = QColor(Qt.transparent)
@@ -250,35 +250,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the H5.
     planetH5GlyphUnicodeKey = \
-        "ui/astrology/h5GlyphUnicode"
+        "ui/astrology/H5GlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the H5.
     planetH5GlyphUnicodeDefValue = "H5"
 
     # QSettings key for the planet glyph font size of the H5.
     planetH5GlyphFontSizeKey = \
-        "ui/astrology/h5GlyphFontSize"
+        "ui/astrology/H5GlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the H5.
     planetH5GlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the H5.
     planetH5AbbreviationKey = \
-        "ui/astrology/h5Abbreviation"
+        "ui/astrology/H5Abbreviation"
 
     # QSettings default value for the planet abbreviation of the H5.
     planetH5AbbreviationDefValue = "H5"
 
     # QSettings key for the foreground color of the H5.
     planetH5ForegroundColorKey = \
-        "ui/astrology/h5ForegroundColor"
+        "ui/astrology/H5ForegroundColor"
 
     # QSettings default value for the foreground color of the H5.
     planetH5ForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the H5.
     planetH5BackgroundColorKey = \
-        "ui/astrology/h5BackgroundColor"
+        "ui/astrology/H5BackgroundColor"
 
     # QSettings default value for the background color of the H5.
     planetH5BackgroundColorDefValue = QColor(Qt.transparent)
@@ -287,35 +287,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the H6.
     planetH6GlyphUnicodeKey = \
-        "ui/astrology/h6GlyphUnicode"
+        "ui/astrology/H6GlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the H6.
     planetH6GlyphUnicodeDefValue = "H6"
 
     # QSettings key for the planet glyph font size of the H6.
     planetH6GlyphFontSizeKey = \
-        "ui/astrology/h6GlyphFontSize"
+        "ui/astrology/H6GlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the H6.
     planetH6GlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the H6.
     planetH6AbbreviationKey = \
-        "ui/astrology/h6Abbreviation"
+        "ui/astrology/H6Abbreviation"
 
     # QSettings default value for the planet abbreviation of the H6.
     planetH6AbbreviationDefValue = "H6"
 
     # QSettings key for the foreground color of the H6.
     planetH6ForegroundColorKey = \
-        "ui/astrology/h6ForegroundColor"
+        "ui/astrology/H6ForegroundColor"
 
     # QSettings default value for the foreground color of the H6.
     planetH6ForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the H6.
     planetH6BackgroundColorKey = \
-        "ui/astrology/h6BackgroundColor"
+        "ui/astrology/H6BackgroundColor"
 
     # QSettings default value for the background color of the H6.
     planetH6BackgroundColorDefValue = QColor(Qt.transparent)
@@ -324,35 +324,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the H7.
     planetH7GlyphUnicodeKey = \
-        "ui/astrology/h7GlyphUnicode"
+        "ui/astrology/H7GlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the H7.
     planetH7GlyphUnicodeDefValue = "H7"
 
     # QSettings key for the planet glyph font size of the H7.
     planetH7GlyphFontSizeKey = \
-        "ui/astrology/h7GlyphFontSize"
+        "ui/astrology/H7GlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the H7.
     planetH7GlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the H7.
     planetH7AbbreviationKey = \
-        "ui/astrology/h7Abbreviation"
+        "ui/astrology/H7Abbreviation"
 
     # QSettings default value for the planet abbreviation of the H7.
     planetH7AbbreviationDefValue = "H7"
 
     # QSettings key for the foreground color of the H7.
     planetH7ForegroundColorKey = \
-        "ui/astrology/h7ForegroundColor"
+        "ui/astrology/H7ForegroundColor"
 
     # QSettings default value for the foreground color of the H7.
     planetH7ForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the H7.
     planetH7BackgroundColorKey = \
-        "ui/astrology/h7BackgroundColor"
+        "ui/astrology/H7BackgroundColor"
 
     # QSettings default value for the background color of the H7.
     planetH7BackgroundColorDefValue = QColor(Qt.transparent)
@@ -361,35 +361,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the H8.
     planetH8GlyphUnicodeKey = \
-        "ui/astrology/h8GlyphUnicode"
+        "ui/astrology/H8GlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the H8.
     planetH8GlyphUnicodeDefValue = "H8"
 
     # QSettings key for the planet glyph font size of the H8.
     planetH8GlyphFontSizeKey = \
-        "ui/astrology/h8GlyphFontSize"
+        "ui/astrology/H8GlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the H8.
     planetH8GlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the H8.
     planetH8AbbreviationKey = \
-        "ui/astrology/h8Abbreviation"
+        "ui/astrology/H8Abbreviation"
 
     # QSettings default value for the planet abbreviation of the H8.
     planetH8AbbreviationDefValue = "H8"
 
     # QSettings key for the foreground color of the H8.
     planetH8ForegroundColorKey = \
-        "ui/astrology/h8ForegroundColor"
+        "ui/astrology/H8ForegroundColor"
 
     # QSettings default value for the foreground color of the H8.
     planetH8ForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the H8.
     planetH8BackgroundColorKey = \
-        "ui/astrology/h8BackgroundColor"
+        "ui/astrology/H8BackgroundColor"
 
     # QSettings default value for the background color of the H8.
     planetH8BackgroundColorDefValue = QColor(Qt.transparent)
@@ -398,35 +398,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the H9.
     planetH9GlyphUnicodeKey = \
-        "ui/astrology/h9GlyphUnicode"
+        "ui/astrology/H9GlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the H9.
     planetH9GlyphUnicodeDefValue = "H9"
 
     # QSettings key for the planet glyph font size of the H9.
     planetH9GlyphFontSizeKey = \
-        "ui/astrology/h9GlyphFontSize"
+        "ui/astrology/H9GlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the H9.
     planetH9GlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the H9.
     planetH9AbbreviationKey = \
-        "ui/astrology/h9Abbreviation"
+        "ui/astrology/H9Abbreviation"
 
     # QSettings default value for the planet abbreviation of the H9.
     planetH9AbbreviationDefValue = "H9"
 
     # QSettings key for the foreground color of the H9.
     planetH9ForegroundColorKey = \
-        "ui/astrology/h9ForegroundColor"
+        "ui/astrology/H9ForegroundColor"
 
     # QSettings default value for the foreground color of the H9.
     planetH9ForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the H9.
     planetH9BackgroundColorKey = \
-        "ui/astrology/h9BackgroundColor"
+        "ui/astrology/H9BackgroundColor"
 
     # QSettings default value for the background color of the H9.
     planetH9BackgroundColorDefValue = QColor(Qt.transparent)
@@ -435,35 +435,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the H10.
     planetH10GlyphUnicodeKey = \
-        "ui/astrology/h10GlyphUnicode"
+        "ui/astrology/H10GlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the H10.
     planetH10GlyphUnicodeDefValue = "H10"
 
     # QSettings key for the planet glyph font size of the H10.
     planetH10GlyphFontSizeKey = \
-        "ui/astrology/h10GlyphFontSize"
+        "ui/astrology/H10GlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the H10.
     planetH10GlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the H10.
     planetH10AbbreviationKey = \
-        "ui/astrology/h10Abbreviation"
+        "ui/astrology/H10Abbreviation"
 
     # QSettings default value for the planet abbreviation of the H10.
     planetH10AbbreviationDefValue = "H10"
 
     # QSettings key for the foreground color of the H10.
     planetH10ForegroundColorKey = \
-        "ui/astrology/h10ForegroundColor"
+        "ui/astrology/H10ForegroundColor"
 
     # QSettings default value for the foreground color of the H10.
     planetH10ForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the H10.
     planetH10BackgroundColorKey = \
-        "ui/astrology/h10BackgroundColor"
+        "ui/astrology/H10BackgroundColor"
 
     # QSettings default value for the background color of the H10.
     planetH10BackgroundColorDefValue = QColor(Qt.transparent)
@@ -472,35 +472,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the H11.
     planetH11GlyphUnicodeKey = \
-        "ui/astrology/h11GlyphUnicode"
+        "ui/astrology/H11GlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the H11.
     planetH11GlyphUnicodeDefValue = "H11"
 
     # QSettings key for the planet glyph font size of the H11.
     planetH11GlyphFontSizeKey = \
-        "ui/astrology/h11GlyphFontSize"
+        "ui/astrology/H11GlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the H11.
     planetH11GlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the H11.
     planetH11AbbreviationKey = \
-        "ui/astrology/h11Abbreviation"
+        "ui/astrology/H11Abbreviation"
 
     # QSettings default value for the planet abbreviation of the H11.
     planetH11AbbreviationDefValue = "H11"
 
     # QSettings key for the foreground color of the H11.
     planetH11ForegroundColorKey = \
-        "ui/astrology/h11ForegroundColor"
+        "ui/astrology/H11ForegroundColor"
 
     # QSettings default value for the foreground color of the H11.
     planetH11ForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the H11.
     planetH11BackgroundColorKey = \
-        "ui/astrology/h11BackgroundColor"
+        "ui/astrology/H11BackgroundColor"
 
     # QSettings default value for the background color of the H11.
     planetH11BackgroundColorDefValue = QColor(Qt.transparent)
@@ -509,72 +509,294 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the H12.
     planetH12GlyphUnicodeKey = \
-        "ui/astrology/h12GlyphUnicode"
+        "ui/astrology/H12GlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the H12.
     planetH12GlyphUnicodeDefValue = "H12"
 
     # QSettings key for the planet glyph font size of the H12.
     planetH12GlyphFontSizeKey = \
-        "ui/astrology/h12GlyphFontSize"
+        "ui/astrology/H12GlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the H12.
     planetH12GlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the H12.
     planetH12AbbreviationKey = \
-        "ui/astrology/h12Abbreviation"
+        "ui/astrology/H12Abbreviation"
 
     # QSettings default value for the planet abbreviation of the H12.
     planetH12AbbreviationDefValue = "H12"
 
     # QSettings key for the foreground color of the H12.
     planetH12ForegroundColorKey = \
-        "ui/astrology/h12ForegroundColor"
+        "ui/astrology/H12ForegroundColor"
 
     # QSettings default value for the foreground color of the H12.
     planetH12ForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the H12.
     planetH12BackgroundColorKey = \
-        "ui/astrology/h12BackgroundColor"
+        "ui/astrology/H12BackgroundColor"
 
     # QSettings default value for the background color of the H12.
     planetH12BackgroundColorDefValue = QColor(Qt.transparent)
 
 
 
+    # QSettings key for the planet glyph unicode of the ARMC.
+    planetARMCGlyphUnicodeKey = \
+        "ui/astrology/ARMCGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the ARMC.
+    planetARMCGlyphUnicodeDefValue = "ARMC"
+
+    # QSettings key for the planet glyph font size of the ARMC.
+    planetARMCGlyphFontSizeKey = \
+        "ui/astrology/ARMCGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the ARMC.
+    planetARMCGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the ARMC.
+    planetARMCAbbreviationKey = \
+        "ui/astrology/ARMCAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the ARMC.
+    planetARMCAbbreviationDefValue = "ARMC"
+
+    # QSettings key for the foreground color of the ARMC.
+    planetARMCForegroundColorKey = \
+        "ui/astrology/ARMCForegroundColor"
+
+    # QSettings default value for the foreground color of the ARMC.
+    planetARMCForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the ARMC.
+    planetARMCBackgroundColorKey = \
+        "ui/astrology/ARMCBackgroundColor"
+
+    # QSettings default value for the background color of the ARMC.
+    planetARMCBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the Vertex.
+    planetVertexGlyphUnicodeKey = \
+        "ui/astrology/VertexGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the Vertex.
+    planetVertexGlyphUnicodeDefValue = "Vertex"
+
+    # QSettings key for the planet glyph font size of the Vertex.
+    planetVertexGlyphFontSizeKey = \
+        "ui/astrology/VertexGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the Vertex.
+    planetVertexGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the Vertex.
+    planetVertexAbbreviationKey = \
+        "ui/astrology/VertexAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the Vertex.
+    planetVertexAbbreviationDefValue = "Vertex"
+
+    # QSettings key for the foreground color of the Vertex.
+    planetVertexForegroundColorKey = \
+        "ui/astrology/VertexForegroundColor"
+
+    # QSettings default value for the foreground color of the Vertex.
+    planetVertexForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the Vertex.
+    planetVertexBackgroundColorKey = \
+        "ui/astrology/VertexBackgroundColor"
+
+    # QSettings default value for the background color of the Vertex.
+    planetVertexBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the EquatorialAscendant.
+    planetEquatorialAscendantGlyphUnicodeKey = \
+        "ui/astrology/EquatorialAscendantGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the EquatorialAscendant.
+    planetEquatorialAscendantGlyphUnicodeDefValue = "EquatorialAscendant"
+
+    # QSettings key for the planet glyph font size of the EquatorialAscendant.
+    planetEquatorialAscendantGlyphFontSizeKey = \
+        "ui/astrology/EquatorialAscendantGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the EquatorialAscendant.
+    planetEquatorialAscendantGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the EquatorialAscendant.
+    planetEquatorialAscendantAbbreviationKey = \
+        "ui/astrology/EquatorialAscendantAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the EquatorialAscendant.
+    planetEquatorialAscendantAbbreviationDefValue = "EquatorialAscendant"
+
+    # QSettings key for the foreground color of the EquatorialAscendant.
+    planetEquatorialAscendantForegroundColorKey = \
+        "ui/astrology/EquatorialAscendantForegroundColor"
+
+    # QSettings default value for the foreground color of the EquatorialAscendant.
+    planetEquatorialAscendantForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the EquatorialAscendant.
+    planetEquatorialAscendantBackgroundColorKey = \
+        "ui/astrology/EquatorialAscendantBackgroundColor"
+
+    # QSettings default value for the background color of the EquatorialAscendant.
+    planetEquatorialAscendantBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the CoAscendant1.
+    planetCoAscendant1GlyphUnicodeKey = \
+        "ui/astrology/CoAscendant1GlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the CoAscendant1.
+    planetCoAscendant1GlyphUnicodeDefValue = "CoAscendant1"
+
+    # QSettings key for the planet glyph font size of the CoAscendant1.
+    planetCoAscendant1GlyphFontSizeKey = \
+        "ui/astrology/CoAscendant1GlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the CoAscendant1.
+    planetCoAscendant1GlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the CoAscendant1.
+    planetCoAscendant1AbbreviationKey = \
+        "ui/astrology/CoAscendant1Abbreviation"
+
+    # QSettings default value for the planet abbreviation of the CoAscendant1.
+    planetCoAscendant1AbbreviationDefValue = "CoAscendant1"
+
+    # QSettings key for the foreground color of the CoAscendant1.
+    planetCoAscendant1ForegroundColorKey = \
+        "ui/astrology/CoAscendant1ForegroundColor"
+
+    # QSettings default value for the foreground color of the CoAscendant1.
+    planetCoAscendant1ForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the CoAscendant1.
+    planetCoAscendant1BackgroundColorKey = \
+        "ui/astrology/CoAscendant1BackgroundColor"
+
+    # QSettings default value for the background color of the CoAscendant1.
+    planetCoAscendant1BackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the CoAscendant2.
+    planetCoAscendant2GlyphUnicodeKey = \
+        "ui/astrology/CoAscendant2GlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the CoAscendant2.
+    planetCoAscendant2GlyphUnicodeDefValue = "CoAscendant2"
+
+    # QSettings key for the planet glyph font size of the CoAscendant2.
+    planetCoAscendant2GlyphFontSizeKey = \
+        "ui/astrology/CoAscendant2GlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the CoAscendant2.
+    planetCoAscendant2GlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the CoAscendant2.
+    planetCoAscendant2AbbreviationKey = \
+        "ui/astrology/CoAscendant2Abbreviation"
+
+    # QSettings default value for the planet abbreviation of the CoAscendant2.
+    planetCoAscendant2AbbreviationDefValue = "CoAscendant2"
+
+    # QSettings key for the foreground color of the CoAscendant2.
+    planetCoAscendant2ForegroundColorKey = \
+        "ui/astrology/CoAscendant2ForegroundColor"
+
+    # QSettings default value for the foreground color of the CoAscendant2.
+    planetCoAscendant2ForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the CoAscendant2.
+    planetCoAscendant2BackgroundColorKey = \
+        "ui/astrology/CoAscendant2BackgroundColor"
+
+    # QSettings default value for the background color of the CoAscendant2.
+    planetCoAscendant2BackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the PolarAscendant.
+    planetPolarAscendantGlyphUnicodeKey = \
+        "ui/astrology/PolarAscendantGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the PolarAscendant.
+    planetPolarAscendantGlyphUnicodeDefValue = "PolarAscendant"
+
+    # QSettings key for the planet glyph font size of the PolarAscendant.
+    planetPolarAscendantGlyphFontSizeKey = \
+        "ui/astrology/PolarAscendantGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the PolarAscendant.
+    planetPolarAscendantGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the PolarAscendant.
+    planetPolarAscendantAbbreviationKey = \
+        "ui/astrology/PolarAscendantAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the PolarAscendant.
+    planetPolarAscendantAbbreviationDefValue = "PolarAscendant"
+
+    # QSettings key for the foreground color of the PolarAscendant.
+    planetPolarAscendantForegroundColorKey = \
+        "ui/astrology/PolarAscendantForegroundColor"
+
+    # QSettings default value for the foreground color of the PolarAscendant.
+    planetPolarAscendantForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the PolarAscendant.
+    planetPolarAscendantBackgroundColorKey = \
+        "ui/astrology/PolarAscendantBackgroundColor"
+
+    # QSettings default value for the background color of the PolarAscendant.
+    planetPolarAscendantBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
     # QSettings key for the planet glyph unicode of the HoraLagna.
     planetHoraLagnaGlyphUnicodeKey = \
-        "ui/astrology/horaLagnaGlyphUnicode"
+        "ui/astrology/HoraLagnaGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the HoraLagna.
     planetHoraLagnaGlyphUnicodeDefValue = "HL"
 
     # QSettings key for the planet glyph font size of the HoraLagna.
     planetHoraLagnaGlyphFontSizeKey = \
-        "ui/astrology/horaLagnaGlyphFontSize"
+        "ui/astrology/HoraLagnaGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the HoraLagna.
     planetHoraLagnaGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the HoraLagna.
     planetHoraLagnaAbbreviationKey = \
-        "ui/astrology/horaLagnaAbbreviation"
+        "ui/astrology/HoraLagnaAbbreviation"
 
     # QSettings default value for the planet abbreviation of the HoraLagna.
     planetHoraLagnaAbbreviationDefValue = "HL"
 
     # QSettings key for the foreground color of the HoraLagna.
     planetHoraLagnaForegroundColorKey = \
-        "ui/astrology/horaLagnaForegroundColor"
+        "ui/astrology/HoraLagnaForegroundColor"
 
     # QSettings default value for the foreground color of the HoraLagna.
     planetHoraLagnaForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the HoraLagna.
     planetHoraLagnaBackgroundColorKey = \
-        "ui/astrology/horaLagnaBackgroundColor"
+        "ui/astrology/HoraLagnaBackgroundColor"
 
     # QSettings default value for the background color of the HoraLagna.
     planetHoraLagnaBackgroundColorDefValue = QColor(Qt.white)
@@ -583,35 +805,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the GhatiLagna.
     planetGhatiLagnaGlyphUnicodeKey = \
-        "ui/astrology/ghatiLagnaGlyphUnicode"
+        "ui/astrology/GhatiLagnaGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the GhatiLagna.
     planetGhatiLagnaGlyphUnicodeDefValue = "GL"
 
     # QSettings key for the planet glyph font size of the GhatiLagna.
     planetGhatiLagnaGlyphFontSizeKey = \
-        "ui/astrology/ghatiLagnaGlyphFontSize"
+        "ui/astrology/GhatiLagnaGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the GhatiLagna.
     planetGhatiLagnaGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the GhatiLagna.
     planetGhatiLagnaAbbreviationKey = \
-        "ui/astrology/ghatiLagnaAbbreviation"
+        "ui/astrology/GhatiLagnaAbbreviation"
 
     # QSettings default value for the planet abbreviation of the GhatiLagna.
     planetGhatiLagnaAbbreviationDefValue = "GL"
 
     # QSettings key for the foreground color of the GhatiLagna.
     planetGhatiLagnaForegroundColorKey = \
-        "ui/astrology/ghatiLagnaForegroundColor"
+        "ui/astrology/GhatiLagnaForegroundColor"
 
     # QSettings default value for the foreground color of the GhatiLagna.
     planetGhatiLagnaForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the GhatiLagna.
     planetGhatiLagnaBackgroundColorKey = \
-        "ui/astrology/ghatiLagnaBackgroundColor"
+        "ui/astrology/GhatiLagnaBackgroundColor"
 
     # QSettings default value for the background color of the GhatiLagna.
     planetGhatiLagnaBackgroundColorDefValue = QColor(Qt.transparent)
@@ -620,35 +842,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the MeanLunarApogee.
     planetMeanLunarApogeeGlyphUnicodeKey = \
-        "ui/astrology/meanLunarApogeeGlyphUnicode"
+        "ui/astrology/MeanLunarApogeeGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the MeanLunarApogee.
     planetMeanLunarApogeeGlyphUnicodeDefValue = "MLA"
 
     # QSettings key for the planet glyph font size of the MeanLunarApogee.
     planetMeanLunarApogeeGlyphFontSizeKey = \
-        "ui/astrology/meanLunarApogeeGlyphFontSize"
+        "ui/astrology/MeanLunarApogeeGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the MeanLunarApogee.
     planetMeanLunarApogeeGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the MeanLunarApogee.
     planetMeanLunarApogeeAbbreviationKey = \
-        "ui/astrology/meanLunarApogeeAbbreviation"
+        "ui/astrology/MeanLunarApogeeAbbreviation"
 
     # QSettings default value for the planet abbreviation of the MeanLunarApogee.
     planetMeanLunarApogeeAbbreviationDefValue = "MLA"
 
     # QSettings key for the foreground color of the MeanLunarApogee.
     planetMeanLunarApogeeForegroundColorKey = \
-        "ui/astrology/meanLunarApogeeForegroundColor"
+        "ui/astrology/MeanLunarApogeeForegroundColor"
 
     # QSettings default value for the foreground color of the MeanLunarApogee.
     planetMeanLunarApogeeForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the MeanLunarApogee.
     planetMeanLunarApogeeBackgroundColorKey = \
-        "ui/astrology/meanLunarApogeeBackgroundColor"
+        "ui/astrology/MeanLunarApogeeBackgroundColor"
 
     # QSettings default value for the background color of the MeanLunarApogee.
     planetMeanLunarApogeeBackgroundColorDefValue = QColor(Qt.transparent)
@@ -657,35 +879,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the OsculatingLunarApogee.
     planetOsculatingLunarApogeeGlyphUnicodeKey = \
-        "ui/astrology/osculatingLunarApogeeGlyphUnicode"
+        "ui/astrology/OsculatingLunarApogeeGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the OsculatingLunarApogee.
     planetOsculatingLunarApogeeGlyphUnicodeDefValue = "OLA"
 
     # QSettings key for the planet glyph font size of the OsculatingLunarApogee.
     planetOsculatingLunarApogeeGlyphFontSizeKey = \
-        "ui/astrology/osculatingLunarApogeeGlyphFontSize"
+        "ui/astrology/OsculatingLunarApogeeGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the OsculatingLunarApogee.
     planetOsculatingLunarApogeeGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the OsculatingLunarApogee.
     planetOsculatingLunarApogeeAbbreviationKey = \
-        "ui/astrology/osculatingLunarApogeeAbbreviation"
+        "ui/astrology/OsculatingLunarApogeeAbbreviation"
 
     # QSettings default value for the planet abbreviation of the OsculatingLunarApogee.
     planetOsculatingLunarApogeeAbbreviationDefValue = "OLA"
 
     # QSettings key for the foreground color of the OsculatingLunarApogee.
     planetOsculatingLunarApogeeForegroundColorKey = \
-        "ui/astrology/osculatingLunarApogeeForegroundColor"
+        "ui/astrology/OsculatingLunarApogeeForegroundColor"
 
     # QSettings default value for the foreground color of the OsculatingLunarApogee.
     planetOsculatingLunarApogeeForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the OsculatingLunarApogee.
     planetOsculatingLunarApogeeBackgroundColorKey = \
-        "ui/astrology/osculatingLunarApogeeBackgroundColor"
+        "ui/astrology/OsculatingLunarApogeeBackgroundColor"
 
     # QSettings default value for the background color of the OsculatingLunarApogee.
     planetOsculatingLunarApogeeBackgroundColorDefValue = QColor(Qt.transparent)
@@ -694,35 +916,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the InterpolatedLunarApogee.
     planetInterpolatedLunarApogeeGlyphUnicodeKey = \
-        "ui/astrology/interpolatedLunarApogeeGlyphUnicode"
+        "ui/astrology/InterpolatedLunarApogeeGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the InterpolatedLunarApogee.
     planetInterpolatedLunarApogeeGlyphUnicodeDefValue = "ILA"
 
     # QSettings key for the planet glyph font size of the InterpolatedLunarApogee.
     planetInterpolatedLunarApogeeGlyphFontSizeKey = \
-        "ui/astrology/interpolatedLunarApogeeGlyphFontSize"
+        "ui/astrology/InterpolatedLunarApogeeGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the InterpolatedLunarApogee.
     planetInterpolatedLunarApogeeGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the InterpolatedLunarApogee.
     planetInterpolatedLunarApogeeAbbreviationKey = \
-        "ui/astrology/interpolatedLunarApogeeAbbreviation"
+        "ui/astrology/InterpolatedLunarApogeeAbbreviation"
 
     # QSettings default value for the planet abbreviation of the InterpolatedLunarApogee.
     planetInterpolatedLunarApogeeAbbreviationDefValue = "ILA"
 
     # QSettings key for the foreground color of the InterpolatedLunarApogee.
     planetInterpolatedLunarApogeeForegroundColorKey = \
-        "ui/astrology/interpolatedLunarApogeeForegroundColor"
+        "ui/astrology/InterpolatedLunarApogeeForegroundColor"
 
     # QSettings default value for the foreground color of the InterpolatedLunarApogee.
     planetInterpolatedLunarApogeeForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the InterpolatedLunarApogee.
     planetInterpolatedLunarApogeeBackgroundColorKey = \
-        "ui/astrology/interpolatedLunarApogeeBackgroundColor"
+        "ui/astrology/InterpolatedLunarApogeeBackgroundColor"
 
     # QSettings default value for the background color of the InterpolatedLunarApogee.
     planetInterpolatedLunarApogeeBackgroundColorDefValue = QColor(Qt.transparent)
@@ -731,35 +953,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the InterpolatedLunarPerigee.
     planetInterpolatedLunarPerigeeGlyphUnicodeKey = \
-        "ui/astrology/interpolatedLunarPerigeeGlyphUnicode"
+        "ui/astrology/InterpolatedLunarPerigeeGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the InterpolatedLunarPerigee.
     planetInterpolatedLunarPerigeeGlyphUnicodeDefValue = "ILP"
 
     # QSettings key for the planet glyph font size of the InterpolatedLunarPerigee.
     planetInterpolatedLunarPerigeeGlyphFontSizeKey = \
-        "ui/astrology/interpolatedLunarPerigeeGlyphFontSize"
+        "ui/astrology/InterpolatedLunarPerigeeGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the InterpolatedLunarPerigee.
     planetInterpolatedLunarPerigeeGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the InterpolatedLunarPerigee.
     planetInterpolatedLunarPerigeeAbbreviationKey = \
-        "ui/astrology/interpolatedLunarPerigeeAbbreviation"
+        "ui/astrology/InterpolatedLunarPerigeeAbbreviation"
 
     # QSettings default value for the planet abbreviation of the InterpolatedLunarPerigee.
     planetInterpolatedLunarPerigeeAbbreviationDefValue = "ILP"
 
     # QSettings key for the foreground color of the InterpolatedLunarPerigee.
     planetInterpolatedLunarPerigeeForegroundColorKey = \
-        "ui/astrology/interpolatedLunarPerigeeForegroundColor"
+        "ui/astrology/InterpolatedLunarPerigeeForegroundColor"
 
     # QSettings default value for the foreground color of the InterpolatedLunarPerigee.
     planetInterpolatedLunarPerigeeForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the InterpolatedLunarPerigee.
     planetInterpolatedLunarPerigeeBackgroundColorKey = \
-        "ui/astrology/interpolatedLunarPerigeeBackgroundColor"
+        "ui/astrology/InterpolatedLunarPerigeeBackgroundColor"
 
     # QSettings default value for the background color of the InterpolatedLunarPerigee.
     planetInterpolatedLunarPerigeeBackgroundColorDefValue = QColor(Qt.transparent)
@@ -768,35 +990,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the Sun.
     planetSunGlyphUnicodeKey = \
-        "ui/astrology/sunGlyphUnicode"
+        "ui/astrology/SunGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the Sun.
     planetSunGlyphUnicodeDefValue = "\u2609"
 
     # QSettings key for the planet glyph font size of the Sun.
     planetSunGlyphFontSizeKey = \
-        "ui/astrology/sunGlyphFontSize"
+        "ui/astrology/SunGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the Sun.
     planetSunGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the Sun.
     planetSunAbbreviationKey = \
-        "ui/astrology/sunAbbreviation"
+        "ui/astrology/SunAbbreviation"
 
     # QSettings default value for the planet abbreviation of the Sun.
     planetSunAbbreviationDefValue = "Su"
 
     # QSettings key for the foreground color of the Sun.
     planetSunForegroundColorKey = \
-        "ui/astrology/sunForegroundColor"
+        "ui/astrology/SunForegroundColor"
 
     # QSettings default value for the foreground color of the Sun.
     planetSunForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Sun.
     planetSunBackgroundColorKey = \
-        "ui/astrology/sunBackgroundColor"
+        "ui/astrology/SunBackgroundColor"
 
     # QSettings default value for the background color of the Sun.
     planetSunBackgroundColorDefValue = QColor(Qt.transparent)
@@ -805,35 +1027,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the Moon.
     planetMoonGlyphUnicodeKey = \
-        "ui/astrology/moonGlyphUnicode"
+        "ui/astrology/MoonGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the Moon.
     planetMoonGlyphUnicodeDefValue = "\u263d"
 
     # QSettings key for the planet glyph font size of the Moon.
     planetMoonGlyphFontSizeKey = \
-        "ui/astrology/moonGlyphFontSize"
+        "ui/astrology/MoonGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the Moon.
     planetMoonGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the Moon.
     planetMoonAbbreviationKey = \
-        "ui/astrology/moonAbbreviation"
+        "ui/astrology/MoonAbbreviation"
 
     # QSettings default value for the planet abbreviation of the Moon.
     planetMoonAbbreviationDefValue = "Mo"
 
     # QSettings key for the foreground color of the Moon.
     planetMoonForegroundColorKey = \
-        "ui/astrology/moonForegroundColor"
+        "ui/astrology/MoonForegroundColor"
 
     # QSettings default value for the foreground color of the Moon.
     planetMoonForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Moon.
     planetMoonBackgroundColorKey = \
-        "ui/astrology/moonBackgroundColor"
+        "ui/astrology/MoonBackgroundColor"
 
     # QSettings default value for the background color of the Moon.
     planetMoonBackgroundColorDefValue = QColor(Qt.transparent)
@@ -842,35 +1064,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the Mercury.
     planetMercuryGlyphUnicodeKey = \
-        "ui/astrology/mercuryGlyphUnicode"
+        "ui/astrology/MercuryGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the Mercury.
     planetMercuryGlyphUnicodeDefValue = "\u263f"
 
     # QSettings key for the planet glyph font size of the Mercury.
     planetMercuryGlyphFontSizeKey = \
-        "ui/astrology/mercuryGlyphFontSize"
+        "ui/astrology/MercuryGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the Mercury.
     planetMercuryGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the Mercury.
     planetMercuryAbbreviationKey = \
-        "ui/astrology/mercuryAbbreviation"
+        "ui/astrology/MercuryAbbreviation"
 
     # QSettings default value for the planet abbreviation of the Mercury.
     planetMercuryAbbreviationDefValue = "Me"
 
     # QSettings key for the foreground color of the Mercury.
     planetMercuryForegroundColorKey = \
-        "ui/astrology/mercuryForegroundColor"
+        "ui/astrology/MercuryForegroundColor"
 
     # QSettings default value for the foreground color of the Mercury.
     planetMercuryForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Mercury.
     planetMercuryBackgroundColorKey = \
-        "ui/astrology/mercuryBackgroundColor"
+        "ui/astrology/MercuryBackgroundColor"
 
     # QSettings default value for the background color of the Mercury.
     planetMercuryBackgroundColorDefValue = QColor(Qt.transparent)
@@ -879,35 +1101,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the Venus.
     planetVenusGlyphUnicodeKey = \
-        "ui/astrology/venusGlyphUnicode"
+        "ui/astrology/VenusGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the Venus.
     planetVenusGlyphUnicodeDefValue = "\u2640"
 
     # QSettings key for the planet glyph font size of the Venus.
     planetVenusGlyphFontSizeKey = \
-        "ui/astrology/venusGlyphFontSize"
+        "ui/astrology/VenusGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the Venus.
     planetVenusGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the Venus.
     planetVenusAbbreviationKey = \
-        "ui/astrology/venusAbbreviation"
+        "ui/astrology/VenusAbbreviation"
 
     # QSettings default value for the planet abbreviation of the Venus.
     planetVenusAbbreviationDefValue = "Ve"
 
     # QSettings key for the foreground color of the Venus.
     planetVenusForegroundColorKey = \
-        "ui/astrology/venusForegroundColor"
+        "ui/astrology/VenusForegroundColor"
 
     # QSettings default value for the foreground color of the Venus.
     planetVenusForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Venus.
     planetVenusBackgroundColorKey = \
-        "ui/astrology/venusBackgroundColor"
+        "ui/astrology/VenusBackgroundColor"
 
     # QSettings default value for the background color of the Venus.
     planetVenusBackgroundColorDefValue = QColor(Qt.transparent)
@@ -916,35 +1138,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the Earth.
     planetEarthGlyphUnicodeKey = \
-        "ui/astrology/earthGlyphUnicode"
+        "ui/astrology/EarthGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the Earth.
     planetEarthGlyphUnicodeDefValue = "\u2d32"
 
     # QSettings key for the planet glyph font size of the Earth.
     planetEarthGlyphFontSizeKey = \
-        "ui/astrology/earthGlyphFontSize"
+        "ui/astrology/EarthGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the Earth.
     planetEarthGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the Earth.
     planetEarthAbbreviationKey = \
-        "ui/astrology/earthAbbreviation"
+        "ui/astrology/EarthAbbreviation"
 
     # QSettings default value for the planet abbreviation of the Earth.
     planetEarthAbbreviationDefValue = "Ea"
 
     # QSettings key for the foreground color of the Earth.
     planetEarthForegroundColorKey = \
-        "ui/astrology/earthForegroundColor"
+        "ui/astrology/EarthForegroundColor"
 
     # QSettings default value for the foreground color of the Earth.
     planetEarthForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Earth.
     planetEarthBackgroundColorKey = \
-        "ui/astrology/earthBackgroundColor"
+        "ui/astrology/EarthBackgroundColor"
 
     # QSettings default value for the background color of the Earth.
     planetEarthBackgroundColorDefValue = QColor(Qt.transparent)
@@ -953,35 +1175,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the Mars.
     planetMarsGlyphUnicodeKey = \
-        "ui/astrology/marsGlyphUnicode"
+        "ui/astrology/MarsGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the Mars.
     planetMarsGlyphUnicodeDefValue = "\u2642"
 
     # QSettings key for the planet glyph font size of the Mars.
     planetMarsGlyphFontSizeKey = \
-        "ui/astrology/marsGlyphFontSize"
+        "ui/astrology/MarsGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the Mars.
     planetMarsGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the Mars.
     planetMarsAbbreviationKey = \
-        "ui/astrology/marsAbbreviation"
+        "ui/astrology/MarsAbbreviation"
 
     # QSettings default value for the planet abbreviation of the Mars.
     planetMarsAbbreviationDefValue = "Ma"
 
     # QSettings key for the foreground color of the Mars.
     planetMarsForegroundColorKey = \
-        "ui/astrology/marsForegroundColor"
+        "ui/astrology/MarsForegroundColor"
 
     # QSettings default value for the foreground color of the Mars.
     planetMarsForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Mars.
     planetMarsBackgroundColorKey = \
-        "ui/astrology/marsBackgroundColor"
+        "ui/astrology/MarsBackgroundColor"
 
     # QSettings default value for the background color of the Mars.
     planetMarsBackgroundColorDefValue = QColor(Qt.transparent)
@@ -990,35 +1212,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the Jupiter.
     planetJupiterGlyphUnicodeKey = \
-        "ui/astrology/jupiterGlyphUnicode"
+        "ui/astrology/JupiterGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the Jupiter.
     planetJupiterGlyphUnicodeDefValue = "\u2643"
 
     # QSettings key for the planet glyph font size of the Jupiter.
     planetJupiterGlyphFontSizeKey = \
-        "ui/astrology/jupiterGlyphFontSize"
+        "ui/astrology/JupiterGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the Jupiter.
     planetJupiterGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the Jupiter.
     planetJupiterAbbreviationKey = \
-        "ui/astrology/jupiterAbbreviation"
+        "ui/astrology/JupiterAbbreviation"
 
     # QSettings default value for the planet abbreviation of the Jupiter.
     planetJupiterAbbreviationDefValue = "Ju"
 
     # QSettings key for the foreground color of the Jupiter.
     planetJupiterForegroundColorKey = \
-        "ui/astrology/jupiterForegroundColor"
+        "ui/astrology/JupiterForegroundColor"
 
     # QSettings default value for the foreground color of the Jupiter.
     planetJupiterForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Jupiter.
     planetJupiterBackgroundColorKey = \
-        "ui/astrology/jupiterBackgroundColor"
+        "ui/astrology/JupiterBackgroundColor"
 
     # QSettings default value for the background color of the Jupiter.
     planetJupiterBackgroundColorDefValue = QColor(Qt.transparent)
@@ -1027,35 +1249,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the Saturn.
     planetSaturnGlyphUnicodeKey = \
-        "ui/astrology/saturnGlyphUnicode"
+        "ui/astrology/SaturnGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the Saturn.
     planetSaturnGlyphUnicodeDefValue = "\u2644"
 
     # QSettings key for the planet glyph font size of the Saturn.
     planetSaturnGlyphFontSizeKey = \
-        "ui/astrology/saturnGlyphFontSize"
+        "ui/astrology/SaturnGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the Saturn.
     planetSaturnGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the Saturn.
     planetSaturnAbbreviationKey = \
-        "ui/astrology/saturnAbbreviation"
+        "ui/astrology/SaturnAbbreviation"
 
     # QSettings default value for the planet abbreviation of the Saturn.
     planetSaturnAbbreviationDefValue = "Sa"
 
     # QSettings key for the foreground color of the Saturn.
     planetSaturnForegroundColorKey = \
-        "ui/astrology/saturnForegroundColor"
+        "ui/astrology/SaturnForegroundColor"
 
     # QSettings default value for the foreground color of the Saturn.
     planetSaturnForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Saturn.
     planetSaturnBackgroundColorKey = \
-        "ui/astrology/saturnBackgroundColor"
+        "ui/astrology/SaturnBackgroundColor"
 
     # QSettings default value for the background color of the Saturn.
     planetSaturnBackgroundColorDefValue = QColor(Qt.transparent)
@@ -1064,35 +1286,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the Uranus.
     planetUranusGlyphUnicodeKey = \
-        "ui/astrology/uranusGlyphUnicode"
+        "ui/astrology/UranusGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the Uranus.
     planetUranusGlyphUnicodeDefValue = "\u2645"
 
     # QSettings key for the planet glyph font size of the Uranus.
     planetUranusGlyphFontSizeKey = \
-        "ui/astrology/uranusGlyphFontSize"
+        "ui/astrology/UranusGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the Uranus.
     planetUranusGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the Uranus.
     planetUranusAbbreviationKey = \
-        "ui/astrology/uranusAbbreviation"
+        "ui/astrology/UranusAbbreviation"
 
     # QSettings default value for the planet abbreviation of the Uranus.
     planetUranusAbbreviationDefValue = "Ur"
 
     # QSettings key for the foreground color of the Uranus.
     planetUranusForegroundColorKey = \
-        "ui/astrology/uranusForegroundColor"
+        "ui/astrology/UranusForegroundColor"
 
     # QSettings default value for the foreground color of the Uranus.
     planetUranusForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Uranus.
     planetUranusBackgroundColorKey = \
-        "ui/astrology/uranusBackgroundColor"
+        "ui/astrology/UranusBackgroundColor"
 
     # QSettings default value for the background color of the Uranus.
     planetUranusBackgroundColorDefValue = QColor(Qt.transparent)
@@ -1101,35 +1323,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the Neptune.
     planetNeptuneGlyphUnicodeKey = \
-        "ui/astrology/neptuneGlyphUnicode"
+        "ui/astrology/NeptuneGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the Neptune.
     planetNeptuneGlyphUnicodeDefValue = "\u2646"
 
     # QSettings key for the planet glyph font size of the Neptune.
     planetNeptuneGlyphFontSizeKey = \
-        "ui/astrology/neptuneGlyphFontSize"
+        "ui/astrology/NeptuneGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the Neptune.
     planetNeptuneGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the Neptune.
     planetNeptuneAbbreviationKey = \
-        "ui/astrology/neptuneAbbreviation"
+        "ui/astrology/NeptuneAbbreviation"
 
     # QSettings default value for the planet abbreviation of the Neptune.
     planetNeptuneAbbreviationDefValue = "Ne"
 
     # QSettings key for the foreground color of the Neptune.
     planetNeptuneForegroundColorKey = \
-        "ui/astrology/neptuneForegroundColor"
+        "ui/astrology/NeptuneForegroundColor"
 
     # QSettings default value for the foreground color of the Neptune.
     planetNeptuneForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Neptune.
     planetNeptuneBackgroundColorKey = \
-        "ui/astrology/neptuneBackgroundColor"
+        "ui/astrology/NeptuneBackgroundColor"
 
     # QSettings default value for the background color of the Neptune.
     planetNeptuneBackgroundColorDefValue = QColor(Qt.transparent)
@@ -1138,35 +1360,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the Pluto.
     planetPlutoGlyphUnicodeKey = \
-        "ui/astrology/plutoGlyphUnicode"
+        "ui/astrology/PlutoGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the Pluto.
     planetPlutoGlyphUnicodeDefValue = "\u2647"
 
     # QSettings key for the planet glyph font size of the Pluto.
     planetPlutoGlyphFontSizeKey = \
-        "ui/astrology/plutoGlyphFontSize"
+        "ui/astrology/PlutoGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the Pluto.
     planetPlutoGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the Pluto.
     planetPlutoAbbreviationKey = \
-        "ui/astrology/plutoAbbreviation"
+        "ui/astrology/PlutoAbbreviation"
 
     # QSettings default value for the planet abbreviation of the Pluto.
     planetPlutoAbbreviationDefValue = "Pl"
 
     # QSettings key for the foreground color of the Pluto.
     planetPlutoForegroundColorKey = \
-        "ui/astrology/plutoForegroundColor"
+        "ui/astrology/PlutoForegroundColor"
 
     # QSettings default value for the foreground color of the Pluto.
     planetPlutoForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Pluto.
     planetPlutoBackgroundColorKey = \
-        "ui/astrology/plutoBackgroundColor"
+        "ui/astrology/PlutoBackgroundColor"
 
     # QSettings default value for the background color of the Pluto.
     planetPlutoBackgroundColorDefValue = QColor(Qt.transparent)
@@ -1175,35 +1397,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the MeanNorthNode.
     planetMeanNorthNodeGlyphUnicodeKey = \
-        "ui/astrology/meanNorthNodeGlyphUnicode"
+        "ui/astrology/MeanNorthNodeGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the MeanNorthNode.
     planetMeanNorthNodeGlyphUnicodeDefValue = "\u260a"
 
     # QSettings key for the planet glyph font size of the MeanNorthNode.
     planetMeanNorthNodeGlyphFontSizeKey = \
-        "ui/astrology/meanNorthNodeGlyphFontSize"
+        "ui/astrology/MeanNorthNodeGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the MeanNorthNode.
     planetMeanNorthNodeGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the MeanNorthNode.
     planetMeanNorthNodeAbbreviationKey = \
-        "ui/astrology/meanNorthNodeAbbreviation"
+        "ui/astrology/MeanNorthNodeAbbreviation"
 
     # QSettings default value for the planet abbreviation of the MeanNorthNode.
     planetMeanNorthNodeAbbreviationDefValue = "Ra"
 
     # QSettings key for the foreground color of the MeanNorthNode.
     planetMeanNorthNodeForegroundColorKey = \
-        "ui/astrology/meanNorthNodeForegroundColor"
+        "ui/astrology/MeanNorthNodeForegroundColor"
 
     # QSettings default value for the foreground color of the MeanNorthNode.
     planetMeanNorthNodeForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the MeanNorthNode.
     planetMeanNorthNodeBackgroundColorKey = \
-        "ui/astrology/meanNorthNodeBackgroundColor"
+        "ui/astrology/MeanNorthNodeBackgroundColor"
 
     # QSettings default value for the background color of the MeanNorthNode.
     planetMeanNorthNodeBackgroundColorDefValue = QColor(Qt.transparent)
@@ -1212,35 +1434,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the MeanSouthNode.
     planetMeanSouthNodeGlyphUnicodeKey = \
-        "ui/astrology/meanSouthNodeGlyphUnicode"
+        "ui/astrology/MeanSouthNodeGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the MeanSouthNode.
     planetMeanSouthNodeGlyphUnicodeDefValue = "\u260b"
 
     # QSettings key for the planet glyph font size of the MeanSouthNode.
     planetMeanSouthNodeGlyphFontSizeKey = \
-        "ui/astrology/meanSouthNodeGlyphFontSize"
+        "ui/astrology/MeanSouthNodeGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the MeanSouthNode.
     planetMeanSouthNodeGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the MeanSouthNode.
     planetMeanSouthNodeAbbreviationKey = \
-        "ui/astrology/meanSouthNodeAbbreviation"
+        "ui/astrology/MeanSouthNodeAbbreviation"
 
     # QSettings default value for the planet abbreviation of the MeanSouthNode.
     planetMeanSouthNodeAbbreviationDefValue = "Ke"
 
     # QSettings key for the foreground color of the MeanSouthNode.
     planetMeanSouthNodeForegroundColorKey = \
-        "ui/astrology/meanSouthNodeForegroundColor"
+        "ui/astrology/MeanSouthNodeForegroundColor"
 
     # QSettings default value for the foreground color of the MeanSouthNode.
     planetMeanSouthNodeForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the MeanSouthNode.
     planetMeanSouthNodeBackgroundColorKey = \
-        "ui/astrology/meanSouthNodeBackgroundColor"
+        "ui/astrology/MeanSouthNodeBackgroundColor"
 
     # QSettings default value for the background color of the MeanSouthNode.
     planetMeanSouthNodeBackgroundColorDefValue = QColor(Qt.transparent)
@@ -1249,35 +1471,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the TrueNorthNode.
     planetTrueNorthNodeGlyphUnicodeKey = \
-        "ui/astrology/trueNorthNodeGlyphUnicode"
+        "ui/astrology/TrueNorthNodeGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the TrueNorthNode.
     planetTrueNorthNodeGlyphUnicodeDefValue = "\u260a"
 
     # QSettings key for the planet glyph font size of the TrueNorthNode.
     planetTrueNorthNodeGlyphFontSizeKey = \
-        "ui/astrology/trueNorthNodeGlyphFontSize"
+        "ui/astrology/TrueNorthNodeGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the TrueNorthNode.
     planetTrueNorthNodeGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the TrueNorthNode.
     planetTrueNorthNodeAbbreviationKey = \
-        "ui/astrology/trueNorthNodeAbbreviation"
+        "ui/astrology/TrueNorthNodeAbbreviation"
 
     # QSettings default value for the planet abbreviation of the TrueNorthNode.
     planetTrueNorthNodeAbbreviationDefValue = "TrueNNode"
 
     # QSettings key for the foreground color of the TrueNorthNode.
     planetTrueNorthNodeForegroundColorKey = \
-        "ui/astrology/trueNorthNodeForegroundColor"
+        "ui/astrology/TrueNorthNodeForegroundColor"
 
     # QSettings default value for the foreground color of the TrueNorthNode.
     planetTrueNorthNodeForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the TrueNorthNode.
     planetTrueNorthNodeBackgroundColorKey = \
-        "ui/astrology/trueNorthNodeBackgroundColor"
+        "ui/astrology/TrueNorthNodeBackgroundColor"
 
     # QSettings default value for the background color of the TrueNorthNode.
     planetTrueNorthNodeBackgroundColorDefValue = QColor(Qt.transparent)
@@ -1286,35 +1508,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the TrueSouthNode.
     planetTrueSouthNodeGlyphUnicodeKey = \
-        "ui/astrology/trueSouthNodeGlyphUnicode"
+        "ui/astrology/TrueSouthNodeGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the TrueSouthNode.
     planetTrueSouthNodeGlyphUnicodeDefValue = "\u260b"
 
     # QSettings key for the planet glyph font size of the TrueSouthNode.
     planetTrueSouthNodeGlyphFontSizeKey = \
-        "ui/astrology/trueSouthNodeGlyphFontSize"
+        "ui/astrology/TrueSouthNodeGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the TrueSouthNode.
     planetTrueSouthNodeGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the TrueSouthNode.
     planetTrueSouthNodeAbbreviationKey = \
-        "ui/astrology/trueSouthNodeAbbreviation"
+        "ui/astrology/TrueSouthNodeAbbreviation"
 
     # QSettings default value for the planet abbreviation of the TrueSouthNode.
     planetTrueSouthNodeAbbreviationDefValue = "TrueSNode"
 
     # QSettings key for the foreground color of the TrueSouthNode.
     planetTrueSouthNodeForegroundColorKey = \
-        "ui/astrology/trueSouthNodeForegroundColor"
+        "ui/astrology/TrueSouthNodeForegroundColor"
 
     # QSettings default value for the foreground color of the TrueSouthNode.
     planetTrueSouthNodeForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the TrueSouthNode.
     planetTrueSouthNodeBackgroundColorKey = \
-        "ui/astrology/trueSouthNodeBackgroundColor"
+        "ui/astrology/TrueSouthNodeBackgroundColor"
 
     # QSettings default value for the background color of the TrueSouthNode.
     planetTrueSouthNodeBackgroundColorDefValue = QColor(Qt.transparent)
@@ -1323,35 +1545,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the Ceres.
     planetCeresGlyphUnicodeKey = \
-        "ui/astrology/ceresGlyphUnicode"
+        "ui/astrology/CeresGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the Ceres.
     planetCeresGlyphUnicodeDefValue = "\u26b3"
 
     # QSettings key for the planet glyph font size of the Ceres.
     planetCeresGlyphFontSizeKey = \
-        "ui/astrology/ceresGlyphFontSize"
+        "ui/astrology/CeresGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the Ceres.
     planetCeresGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the Ceres.
     planetCeresAbbreviationKey = \
-        "ui/astrology/ceresAbbreviation"
+        "ui/astrology/CeresAbbreviation"
 
     # QSettings default value for the planet abbreviation of the Ceres.
     planetCeresAbbreviationDefValue = "Ce"
 
     # QSettings key for the foreground color of the Ceres.
     planetCeresForegroundColorKey = \
-        "ui/astrology/ceresForegroundColor"
+        "ui/astrology/CeresForegroundColor"
 
     # QSettings default value for the foreground color of the Ceres.
     planetCeresForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Ceres.
     planetCeresBackgroundColorKey = \
-        "ui/astrology/ceresBackgroundColor"
+        "ui/astrology/CeresBackgroundColor"
 
     # QSettings default value for the background color of the Ceres.
     planetCeresBackgroundColorDefValue = QColor(Qt.transparent)
@@ -1360,35 +1582,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the Pallas.
     planetPallasGlyphUnicodeKey = \
-        "ui/astrology/pallasGlyphUnicode"
+        "ui/astrology/PallasGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the Pallas.
     planetPallasGlyphUnicodeDefValue = "\u26b4"
 
     # QSettings key for the planet glyph font size of the Pallas.
     planetPallasGlyphFontSizeKey = \
-        "ui/astrology/pallasGlyphFontSize"
+        "ui/astrology/PallasGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the Pallas.
     planetPallasGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the Pallas.
     planetPallasAbbreviationKey = \
-        "ui/astrology/pallasAbbreviation"
+        "ui/astrology/PallasAbbreviation"
 
     # QSettings default value for the planet abbreviation of the Pallas.
     planetPallasAbbreviationDefValue = "Pa"
 
     # QSettings key for the foreground color of the Pallas.
     planetPallasForegroundColorKey = \
-        "ui/astrology/pallasForegroundColor"
+        "ui/astrology/PallasForegroundColor"
 
     # QSettings default value for the foreground color of the Pallas.
     planetPallasForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Pallas.
     planetPallasBackgroundColorKey = \
-        "ui/astrology/pallasBackgroundColor"
+        "ui/astrology/PallasBackgroundColor"
 
     # QSettings default value for the background color of the Pallas.
     planetPallasBackgroundColorDefValue = QColor(Qt.transparent)
@@ -1397,35 +1619,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the Juno.
     planetJunoGlyphUnicodeKey = \
-        "ui/astrology/junoGlyphUnicode"
+        "ui/astrology/JunoGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the Juno.
     planetJunoGlyphUnicodeDefValue = "\u26b5"
 
     # QSettings key for the planet glyph font size of the Juno.
     planetJunoGlyphFontSizeKey = \
-        "ui/astrology/junoGlyphFontSize"
+        "ui/astrology/JunoGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the Juno.
     planetJunoGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the Juno.
     planetJunoAbbreviationKey = \
-        "ui/astrology/junoAbbreviation"
+        "ui/astrology/JunoAbbreviation"
 
     # QSettings default value for the planet abbreviation of the Juno.
     planetJunoAbbreviationDefValue = "Jun"
 
     # QSettings key for the foreground color of the Juno.
     planetJunoForegroundColorKey = \
-        "ui/astrology/junoForegroundColor"
+        "ui/astrology/JunoForegroundColor"
 
     # QSettings default value for the foreground color of the Juno.
     planetJunoForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Juno.
     planetJunoBackgroundColorKey = \
-        "ui/astrology/junoBackgroundColor"
+        "ui/astrology/JunoBackgroundColor"
 
     # QSettings default value for the background color of the Juno.
     planetJunoBackgroundColorDefValue = QColor(Qt.transparent)
@@ -1434,35 +1656,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the Vesta.
     planetVestaGlyphUnicodeKey = \
-        "ui/astrology/vestaGlyphUnicode"
+        "ui/astrology/VestaGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the Vesta.
     planetVestaGlyphUnicodeDefValue = "\u26b6"
 
     # QSettings key for the planet glyph font size of the Vesta.
     planetVestaGlyphFontSizeKey = \
-        "ui/astrology/vestaGlyphFontSize"
+        "ui/astrology/VestaGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the Vesta.
     planetVestaGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the Vesta.
     planetVestaAbbreviationKey = \
-        "ui/astrology/vestaAbbreviation"
+        "ui/astrology/VestaAbbreviation"
 
     # QSettings default value for the planet abbreviation of the Vesta.
     planetVestaAbbreviationDefValue = "Ves"
 
     # QSettings key for the foreground color of the Vesta.
     planetVestaForegroundColorKey = \
-        "ui/astrology/vestaForegroundColor"
+        "ui/astrology/VestaForegroundColor"
 
     # QSettings default value for the foreground color of the Vesta.
     planetVestaForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Vesta.
     planetVestaBackgroundColorKey = \
-        "ui/astrology/vestaBackgroundColor"
+        "ui/astrology/VestaBackgroundColor"
 
     # QSettings default value for the background color of the Vesta.
     planetVestaBackgroundColorDefValue = QColor(Qt.transparent)
@@ -1471,35 +1693,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the Isis.
     planetIsisGlyphUnicodeKey = \
-        "ui/astrology/isisGlyphUnicode"
+        "ui/astrology/IsisGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the Isis.
     planetIsisGlyphUnicodeDefValue = "\u26b6"
 
     # QSettings key for the planet glyph font size of the Isis.
     planetIsisGlyphFontSizeKey = \
-        "ui/astrology/isisGlyphFontSize"
+        "ui/astrology/IsisGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the Isis.
     planetIsisGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the Isis.
     planetIsisAbbreviationKey = \
-        "ui/astrology/isisAbbreviation"
+        "ui/astrology/IsisAbbreviation"
 
     # QSettings default value for the planet abbreviation of the Isis.
     planetIsisAbbreviationDefValue = "Ves"
 
     # QSettings key for the foreground color of the Isis.
     planetIsisForegroundColorKey = \
-        "ui/astrology/isisForegroundColor"
+        "ui/astrology/IsisForegroundColor"
 
     # QSettings default value for the foreground color of the Isis.
     planetIsisForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Isis.
     planetIsisBackgroundColorKey = \
-        "ui/astrology/isisBackgroundColor"
+        "ui/astrology/IsisBackgroundColor"
 
     # QSettings default value for the background color of the Isis.
     planetIsisBackgroundColorDefValue = QColor(Qt.transparent)
@@ -1508,35 +1730,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the Nibiru.
     planetNibiruGlyphUnicodeKey = \
-        "ui/astrology/nibiruGlyphUnicode"
+        "ui/astrology/NibiruGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the Nibiru.
     planetNibiruGlyphUnicodeDefValue = "\u26b6"
 
     # QSettings key for the planet glyph font size of the Nibiru.
     planetNibiruGlyphFontSizeKey = \
-        "ui/astrology/nibiruGlyphFontSize"
+        "ui/astrology/NibiruGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the Nibiru.
     planetNibiruGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the Nibiru.
     planetNibiruAbbreviationKey = \
-        "ui/astrology/nibiruAbbreviation"
+        "ui/astrology/NibiruAbbreviation"
 
     # QSettings default value for the planet abbreviation of the Nibiru.
     planetNibiruAbbreviationDefValue = "Ves"
 
     # QSettings key for the foreground color of the Nibiru.
     planetNibiruForegroundColorKey = \
-        "ui/astrology/nibiruForegroundColor"
+        "ui/astrology/NibiruForegroundColor"
 
     # QSettings default value for the foreground color of the Nibiru.
     planetNibiruForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Nibiru.
     planetNibiruBackgroundColorKey = \
-        "ui/astrology/nibiruBackgroundColor"
+        "ui/astrology/NibiruBackgroundColor"
 
     # QSettings default value for the background color of the Nibiru.
     planetNibiruBackgroundColorDefValue = QColor(Qt.transparent)
@@ -1545,35 +1767,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the Chiron.
     planetChironGlyphUnicodeKey = \
-        "ui/astrology/chironGlyphUnicode"
+        "ui/astrology/ChironGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the Chiron.
     planetChironGlyphUnicodeDefValue = "\u26b7"
 
     # QSettings key for the planet glyph font size of the Chiron.
     planetChironGlyphFontSizeKey = \
-        "ui/astrology/chironGlyphFontSize"
+        "ui/astrology/ChironGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the Chiron.
     planetChironGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the Chiron.
     planetChironAbbreviationKey = \
-        "ui/astrology/chironAbbreviation"
+        "ui/astrology/ChironAbbreviation"
 
     # QSettings default value for the planet abbreviation of the Chiron.
     planetChironAbbreviationDefValue = "Chi"
 
     # QSettings key for the foreground color of the Chiron.
     planetChironForegroundColorKey = \
-        "ui/astrology/chironForegroundColor"
+        "ui/astrology/ChironForegroundColor"
 
     # QSettings default value for the foreground color of the Chiron.
     planetChironForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Chiron.
     planetChironBackgroundColorKey = \
-        "ui/astrology/chironBackgroundColor"
+        "ui/astrology/ChironBackgroundColor"
 
     # QSettings default value for the background color of the Chiron.
     planetChironBackgroundColorDefValue = QColor(Qt.transparent)
@@ -1582,35 +1804,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the Gulika.
     planetGulikaGlyphUnicodeKey = \
-        "ui/astrology/gulikaGlyphUnicode"
+        "ui/astrology/GulikaGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the Gulika.
     planetGulikaGlyphUnicodeDefValue = "Gk"
 
     # QSettings key for the planet glyph font size of the Gulika.
     planetGulikaGlyphFontSizeKey = \
-        "ui/astrology/gulikaGlyphFontSize"
+        "ui/astrology/GulikaGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the Gulika.
     planetGulikaGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the Gulika.
     planetGulikaAbbreviationKey = \
-        "ui/astrology/gulikaAbbreviation"
+        "ui/astrology/GulikaAbbreviation"
 
     # QSettings default value for the planet abbreviation of the Gulika.
     planetGulikaAbbreviationDefValue = "Gk"
 
     # QSettings key for the foreground color of the Gulika.
     planetGulikaForegroundColorKey = \
-        "ui/astrology/gulikaForegroundColor"
+        "ui/astrology/GulikaForegroundColor"
 
     # QSettings default value for the foreground color of the Gulika.
     planetGulikaForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Gulika.
     planetGulikaBackgroundColorKey = \
-        "ui/astrology/gulikaBackgroundColor"
+        "ui/astrology/GulikaBackgroundColor"
 
     # QSettings default value for the background color of the Gulika.
     planetGulikaBackgroundColorDefValue = QColor(Qt.transparent)
@@ -1619,35 +1841,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the Mandi.
     planetMandiGlyphUnicodeKey = \
-        "ui/astrology/mandiGlyphUnicode"
+        "ui/astrology/MandiGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the Mandi.
     planetMandiGlyphUnicodeDefValue = "Md"
 
     # QSettings key for the planet glyph font size of the Mandi.
     planetMandiGlyphFontSizeKey = \
-        "ui/astrology/mandiGlyphFontSize"
+        "ui/astrology/MandiGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the Mandi.
     planetMandiGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the Mandi.
     planetMandiAbbreviationKey = \
-        "ui/astrology/mandiAbbreviation"
+        "ui/astrology/MandiAbbreviation"
 
     # QSettings default value for the planet abbreviation of the Mandi.
     planetMandiAbbreviationDefValue = "Md"
 
     # QSettings key for the foreground color of the Mandi.
     planetMandiForegroundColorKey = \
-        "ui/astrology/mandiForegroundColor"
+        "ui/astrology/MandiForegroundColor"
 
     # QSettings default value for the foreground color of the Mandi.
     planetMandiForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Mandi.
     planetMandiBackgroundColorKey = \
-        "ui/astrology/mandiBackgroundColor"
+        "ui/astrology/MandiBackgroundColor"
 
     # QSettings default value for the background color of the Mandi.
     planetMandiBackgroundColorDefValue = QColor(Qt.transparent)
@@ -1656,35 +1878,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the MeanOfFive.
     planetMeanOfFiveGlyphUnicodeKey = \
-        "ui/astrology/meanOfFiveGlyphUnicode"
+        "ui/astrology/MeanOfFiveGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the MeanOfFive.
     planetMeanOfFiveGlyphUnicodeDefValue = "MOF"
 
     # QSettings key for the planet glyph font size of the MeanOfFive.
     planetMeanOfFiveGlyphFontSizeKey = \
-        "ui/astrology/meanOfFiveGlyphFontSize"
+        "ui/astrology/MeanOfFiveGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the MeanOfFive.
     planetMeanOfFiveGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the MeanOfFive.
     planetMeanOfFiveAbbreviationKey = \
-        "ui/astrology/meanOfFiveAbbreviation"
+        "ui/astrology/MeanOfFiveAbbreviation"
 
     # QSettings default value for the planet abbreviation of the MeanOfFive.
     planetMeanOfFiveAbbreviationDefValue = "MOF"
 
     # QSettings key for the foreground color of the MeanOfFive.
     planetMeanOfFiveForegroundColorKey = \
-        "ui/astrology/meanOfFiveForegroundColor"
+        "ui/astrology/MeanOfFiveForegroundColor"
 
     # QSettings default value for the foreground color of the MeanOfFive.
     planetMeanOfFiveForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the MeanOfFive.
     planetMeanOfFiveBackgroundColorKey = \
-        "ui/astrology/meanOfFiveBackgroundColor"
+        "ui/astrology/MeanOfFiveBackgroundColor"
 
     # QSettings default value for the background color of the MeanOfFive.
     planetMeanOfFiveBackgroundColorDefValue = QColor(Qt.transparent)
@@ -1693,35 +1915,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the CycleOfEight.
     planetCycleOfEightGlyphUnicodeKey = \
-        "ui/astrology/cycleOfEightGlyphUnicode"
+        "ui/astrology/CycleOfEightGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the CycleOfEight.
     planetCycleOfEightGlyphUnicodeDefValue = "COE"
 
     # QSettings key for the planet glyph font size of the CycleOfEight.
     planetCycleOfEightGlyphFontSizeKey = \
-        "ui/astrology/cycleOfEightGlyphFontSize"
+        "ui/astrology/CycleOfEightGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the CycleOfEight.
     planetCycleOfEightGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the CycleOfEight.
     planetCycleOfEightAbbreviationKey = \
-        "ui/astrology/cycleOfEightAbbreviation"
+        "ui/astrology/CycleOfEightAbbreviation"
 
     # QSettings default value for the planet abbreviation of the CycleOfEight.
     planetCycleOfEightAbbreviationDefValue = "COE"
 
     # QSettings key for the foreground color of the CycleOfEight.
     planetCycleOfEightForegroundColorKey = \
-        "ui/astrology/cycleOfEightForegroundColor"
+        "ui/astrology/CycleOfEightForegroundColor"
 
     # QSettings default value for the foreground color of the CycleOfEight.
     planetCycleOfEightForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the CycleOfEight.
     planetCycleOfEightBackgroundColorKey = \
-        "ui/astrology/cycleOfEightBackgroundColor"
+        "ui/astrology/CycleOfEightBackgroundColor"
 
     # QSettings default value for the background color of the CycleOfEight.
     planetCycleOfEightBackgroundColorDefValue = QColor(Qt.transparent)
@@ -1730,35 +1952,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the AvgMaJuSaUrNePl.
     planetAvgMaJuSaUrNePlGlyphUnicodeKey = \
-        "ui/astrology/avgMaJuSaUrNePlGlyphUnicode"
+        "ui/astrology/AvgMaJuSaUrNePlGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the AvgMaJuSaUrNePl.
     planetAvgMaJuSaUrNePlGlyphUnicodeDefValue = "AvgMaJuSaUrNePl"
 
     # QSettings key for the planet glyph font size of the AvgMaJuSaUrNePl.
     planetAvgMaJuSaUrNePlGlyphFontSizeKey = \
-        "ui/astrology/avgMaJuSaUrNePlGlyphFontSize"
+        "ui/astrology/AvgMaJuSaUrNePlGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the AvgMaJuSaUrNePl.
     planetAvgMaJuSaUrNePlGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the AvgMaJuSaUrNePl.
     planetAvgMaJuSaUrNePlAbbreviationKey = \
-        "ui/astrology/avgMaJuSaUrNePlAbbreviation"
+        "ui/astrology/AvgMaJuSaUrNePlAbbreviation"
 
     # QSettings default value for the planet abbreviation of the AvgMaJuSaUrNePl.
     planetAvgMaJuSaUrNePlAbbreviationDefValue = "AvgMaJuSaUrNePl"
 
     # QSettings key for the foreground color of the AvgMaJuSaUrNePl.
     planetAvgMaJuSaUrNePlForegroundColorKey = \
-        "ui/astrology/avgMaJuSaUrNePlForegroundColor"
+        "ui/astrology/AvgMaJuSaUrNePlForegroundColor"
 
     # QSettings default value for the foreground color of the AvgMaJuSaUrNePl.
     planetAvgMaJuSaUrNePlForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the AvgMaJuSaUrNePl.
     planetAvgMaJuSaUrNePlBackgroundColorKey = \
-        "ui/astrology/avgMaJuSaUrNePlBackgroundColor"
+        "ui/astrology/AvgMaJuSaUrNePlBackgroundColor"
 
     # QSettings default value for the background color of the AvgMaJuSaUrNePl.
     planetAvgMaJuSaUrNePlBackgroundColorDefValue = QColor(Qt.transparent)
@@ -1767,35 +1989,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the AvgJuSaUrNe.
     planetAvgJuSaUrNeGlyphUnicodeKey = \
-        "ui/astrology/avgJuSaUrNeGlyphUnicode"
+        "ui/astrology/AvgJuSaUrNeGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the AvgJuSaUrNe.
     planetAvgJuSaUrNeGlyphUnicodeDefValue = "AvgJuSaUrNe"
 
     # QSettings key for the planet glyph font size of the AvgJuSaUrNe.
     planetAvgJuSaUrNeGlyphFontSizeKey = \
-        "ui/astrology/avgJuSaUrNeGlyphFontSize"
+        "ui/astrology/AvgJuSaUrNeGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the AvgJuSaUrNe.
     planetAvgJuSaUrNeGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the AvgJuSaUrNe.
     planetAvgJuSaUrNeAbbreviationKey = \
-        "ui/astrology/avgJuSaUrNeAbbreviation"
+        "ui/astrology/AvgJuSaUrNeAbbreviation"
 
     # QSettings default value for the planet abbreviation of the AvgJuSaUrNe.
     planetAvgJuSaUrNeAbbreviationDefValue = "AvgJuSaUrNe"
 
     # QSettings key for the foreground color of the AvgJuSaUrNe.
     planetAvgJuSaUrNeForegroundColorKey = \
-        "ui/astrology/avgJuSaUrNeForegroundColor"
+        "ui/astrology/AvgJuSaUrNeForegroundColor"
 
     # QSettings default value for the foreground color of the AvgJuSaUrNe.
     planetAvgJuSaUrNeForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the AvgJuSaUrNe.
     planetAvgJuSaUrNeBackgroundColorKey = \
-        "ui/astrology/avgJuSaUrNeBackgroundColor"
+        "ui/astrology/AvgJuSaUrNeBackgroundColor"
 
     # QSettings default value for the background color of the AvgJuSaUrNe.
     planetAvgJuSaUrNeBackgroundColorDefValue = QColor(Qt.transparent)
@@ -1804,35 +2026,35 @@ class SettingsKeys():
 
     # QSettings key for the planet glyph unicode of the AvgJuSa.
     planetAvgJuSaGlyphUnicodeKey = \
-        "ui/astrology/avgJuSaGlyphUnicode"
+        "ui/astrology/AvgJuSaGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the AvgJuSa.
     planetAvgJuSaGlyphUnicodeDefValue = "AvgJuSa"
 
     # QSettings key for the planet glyph font size of the AvgJuSa.
     planetAvgJuSaGlyphFontSizeKey = \
-        "ui/astrology/avgJuSaGlyphFontSize"
+        "ui/astrology/AvgJuSaGlyphFontSize"
 
     # QSettings default value for the planet glyph font size of the AvgJuSa.
     planetAvgJuSaGlyphFontSizeDefValue = 10
 
     # QSettings key for the planet abbreviation of the AvgJuSa.
     planetAvgJuSaAbbreviationKey = \
-        "ui/astrology/avgJuSaAbbreviation"
+        "ui/astrology/AvgJuSaAbbreviation"
 
     # QSettings default value for the planet abbreviation of the AvgJuSa.
     planetAvgJuSaAbbreviationDefValue = "AvgJuSa"
 
     # QSettings key for the foreground color of the AvgJuSa.
     planetAvgJuSaForegroundColorKey = \
-        "ui/astrology/avgJuSaForegroundColor"
+        "ui/astrology/AvgJuSaForegroundColor"
 
     # QSettings default value for the foreground color of the AvgJuSa.
     planetAvgJuSaForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the AvgJuSa.
     planetAvgJuSaBackgroundColorKey = \
-        "ui/astrology/avgJuSaBackgroundColor"
+        "ui/astrology/AvgJuSaBackgroundColor"
 
     # QSettings default value for the background color of the AvgJuSa.
     planetAvgJuSaBackgroundColorDefValue = QColor(Qt.transparent)
@@ -1841,35 +2063,35 @@ class SettingsKeys():
 
     # QSettings key for the sign glyph unicode of the Aries.
     signAriesGlyphUnicodeKey = \
-        "ui/astrology/ariesGlyphUnicode"
+        "ui/astrology/AriesGlyphUnicode"
 
     # QSettings default value for the sign glyph unicode of the Aries.
     signAriesGlyphUnicodeDefValue = "\u2648"
 
     # QSettings key for the sign glyph font size of the Aries.
     signAriesGlyphFontSizeKey = \
-        "ui/astrology/ariesGlyphFontSize"
+        "ui/astrology/AriesGlyphFontSize"
 
     # QSettings default value for the sign glyph font size of the Aries.
     signAriesGlyphFontSizeDefValue = 10
 
     # QSettings key for the sign abbreviation of the Aries.
     signAriesAbbreviationKey = \
-        "ui/astrology/ariesAbbreviation"
+        "ui/astrology/AriesAbbreviation"
 
     # QSettings default value for the sign abbreviation of the Aries.
     signAriesAbbreviationDefValue = "Ar"
 
     # QSettings key for the foreground color of the Aries.
     signAriesForegroundColorKey = \
-        "ui/astrology/ariesForegroundColor"
+        "ui/astrology/AriesForegroundColor"
 
     # QSettings default value for the foreground color of the Aries.
     signAriesForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Aries.
     signAriesBackgroundColorKey = \
-        "ui/astrology/ariesBackgroundColor"
+        "ui/astrology/AriesBackgroundColor"
 
     # QSettings default value for the background color of the Aries.
     signAriesBackgroundColorDefValue = QColor(Qt.transparent)
@@ -1878,35 +2100,35 @@ class SettingsKeys():
 
     # QSettings key for the sign glyph unicode of the Taurus.
     signTaurusGlyphUnicodeKey = \
-        "ui/astrology/taurusGlyphUnicode"
+        "ui/astrology/TaurusGlyphUnicode"
 
     # QSettings default value for the sign glyph unicode of the Taurus.
     signTaurusGlyphUnicodeDefValue = "\u2649"
 
     # QSettings key for the sign glyph font size of the Taurus.
     signTaurusGlyphFontSizeKey = \
-        "ui/astrology/taurusGlyphFontSize"
+        "ui/astrology/TaurusGlyphFontSize"
 
     # QSettings default value for the sign glyph font size of the Taurus.
     signTaurusGlyphFontSizeDefValue = 10
 
     # QSettings key for the sign abbreviation of the Taurus.
     signTaurusAbbreviationKey = \
-        "ui/astrology/taurusAbbreviation"
+        "ui/astrology/TaurusAbbreviation"
 
     # QSettings default value for the sign abbreviation of the Taurus.
     signTaurusAbbreviationDefValue = "Ta"
 
     # QSettings key for the foreground color of the Taurus.
     signTaurusForegroundColorKey = \
-        "ui/astrology/taurusForegroundColor"
+        "ui/astrology/TaurusForegroundColor"
 
     # QSettings default value for the foreground color of the Taurus.
     signTaurusForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Taurus.
     signTaurusBackgroundColorKey = \
-        "ui/astrology/taurusBackgroundColor"
+        "ui/astrology/TaurusBackgroundColor"
 
     # QSettings default value for the background color of the Taurus.
     signTaurusBackgroundColorDefValue = QColor(Qt.transparent)
@@ -1915,35 +2137,35 @@ class SettingsKeys():
 
     # QSettings key for the sign glyph unicode of the Gemini.
     signGeminiGlyphUnicodeKey = \
-        "ui/astrology/geminiGlyphUnicode"
+        "ui/astrology/GeminiGlyphUnicode"
 
     # QSettings default value for the sign glyph unicode of the Gemini.
     signGeminiGlyphUnicodeDefValue = "\u264a"
 
     # QSettings key for the sign glyph font size of the Gemini.
     signGeminiGlyphFontSizeKey = \
-        "ui/astrology/geminiGlyphFontSize"
+        "ui/astrology/GeminiGlyphFontSize"
 
     # QSettings default value for the sign glyph font size of the Gemini.
     signGeminiGlyphFontSizeDefValue = 10
 
     # QSettings key for the sign abbreviation of the Gemini.
     signGeminiAbbreviationKey = \
-        "ui/astrology/geminiAbbreviation"
+        "ui/astrology/GeminiAbbreviation"
 
     # QSettings default value for the sign abbreviation of the Gemini.
     signGeminiAbbreviationDefValue = "Ge"
 
     # QSettings key for the foreground color of the Gemini.
     signGeminiForegroundColorKey = \
-        "ui/astrology/geminiForegroundColor"
+        "ui/astrology/GeminiForegroundColor"
 
     # QSettings default value for the foreground color of the Gemini.
     signGeminiForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Gemini.
     signGeminiBackgroundColorKey = \
-        "ui/astrology/geminiBackgroundColor"
+        "ui/astrology/GeminiBackgroundColor"
 
     # QSettings default value for the background color of the Gemini.
     signGeminiBackgroundColorDefValue = QColor(Qt.transparent)
@@ -1952,35 +2174,35 @@ class SettingsKeys():
 
     # QSettings key for the sign glyph unicode of the Cancer.
     signCancerGlyphUnicodeKey = \
-        "ui/astrology/cancerGlyphUnicode"
+        "ui/astrology/CancerGlyphUnicode"
 
     # QSettings default value for the sign glyph unicode of the Cancer.
     signCancerGlyphUnicodeDefValue = "\u264b"
 
     # QSettings key for the sign glyph font size of the Cancer.
     signCancerGlyphFontSizeKey = \
-        "ui/astrology/cancerGlyphFontSize"
+        "ui/astrology/CancerGlyphFontSize"
 
     # QSettings default value for the sign glyph font size of the Cancer.
     signCancerGlyphFontSizeDefValue = 10
 
     # QSettings key for the sign abbreviation of the Cancer.
     signCancerAbbreviationKey = \
-        "ui/astrology/cancerAbbreviation"
+        "ui/astrology/CancerAbbreviation"
 
     # QSettings default value for the sign abbreviation of the Cancer.
     signCancerAbbreviationDefValue = "Ca"
 
     # QSettings key for the foreground color of the Cancer.
     signCancerForegroundColorKey = \
-        "ui/astrology/cancerForegroundColor"
+        "ui/astrology/CancerForegroundColor"
 
     # QSettings default value for the foreground color of the Cancer.
     signCancerForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Cancer.
     signCancerBackgroundColorKey = \
-        "ui/astrology/cancerBackgroundColor"
+        "ui/astrology/CancerBackgroundColor"
 
     # QSettings default value for the background color of the Cancer.
     signCancerBackgroundColorDefValue = QColor(Qt.transparent)
@@ -1989,35 +2211,35 @@ class SettingsKeys():
 
     # QSettings key for the sign glyph unicode of the Leo.
     signLeoGlyphUnicodeKey = \
-        "ui/astrology/leoGlyphUnicode"
+        "ui/astrology/LeoGlyphUnicode"
 
     # QSettings default value for the sign glyph unicode of the Leo.
     signLeoGlyphUnicodeDefValue = "\u264c"
 
     # QSettings key for the sign glyph font size of the Leo.
     signLeoGlyphFontSizeKey = \
-        "ui/astrology/leoGlyphFontSize"
+        "ui/astrology/LeoGlyphFontSize"
 
     # QSettings default value for the sign glyph font size of the Leo.
     signLeoGlyphFontSizeDefValue = 10
 
     # QSettings key for the sign abbreviation of the Leo.
     signLeoAbbreviationKey = \
-        "ui/astrology/leoAbbreviation"
+        "ui/astrology/LeoAbbreviation"
 
     # QSettings default value for the sign abbreviation of the Leo.
     signLeoAbbreviationDefValue = "Le"
 
     # QSettings key for the foreground color of the Leo.
     signLeoForegroundColorKey = \
-        "ui/astrology/leoForegroundColor"
+        "ui/astrology/LeoForegroundColor"
 
     # QSettings default value for the foreground color of the Leo.
     signLeoForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Leo.
     signLeoBackgroundColorKey = \
-        "ui/astrology/leoBackgroundColor"
+        "ui/astrology/LeoBackgroundColor"
 
     # QSettings default value for the background color of the Leo.
     signLeoBackgroundColorDefValue = QColor(Qt.transparent)
@@ -2026,35 +2248,35 @@ class SettingsKeys():
 
     # QSettings key for the sign glyph unicode of the Virgo.
     signVirgoGlyphUnicodeKey = \
-        "ui/astrology/virgoGlyphUnicode"
+        "ui/astrology/VirgoGlyphUnicode"
 
     # QSettings default value for the sign glyph unicode of the Virgo.
     signVirgoGlyphUnicodeDefValue = "\u264d"
 
     # QSettings key for the sign glyph font size of the Virgo.
     signVirgoGlyphFontSizeKey = \
-        "ui/astrology/virgoGlyphFontSize"
+        "ui/astrology/VirgoGlyphFontSize"
 
     # QSettings default value for the sign glyph font size of the Virgo.
     signVirgoGlyphFontSizeDefValue = 10
 
     # QSettings key for the sign abbreviation of the Virgo.
     signVirgoAbbreviationKey = \
-        "ui/astrology/virgoAbbreviation"
+        "ui/astrology/VirgoAbbreviation"
 
     # QSettings default value for the sign abbreviation of the Virgo.
     signVirgoAbbreviationDefValue = "Vi"
 
     # QSettings key for the foreground color of the Virgo.
     signVirgoForegroundColorKey = \
-        "ui/astrology/virgoForegroundColor"
+        "ui/astrology/VirgoForegroundColor"
 
     # QSettings default value for the foreground color of the Virgo.
     signVirgoForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Virgo.
     signVirgoBackgroundColorKey = \
-        "ui/astrology/virgoBackgroundColor"
+        "ui/astrology/VirgoBackgroundColor"
 
     # QSettings default value for the background color of the Virgo.
     signVirgoBackgroundColorDefValue = QColor(Qt.transparent)
@@ -2063,35 +2285,35 @@ class SettingsKeys():
 
     # QSettings key for the sign glyph unicode of the Libra.
     signLibraGlyphUnicodeKey = \
-        "ui/astrology/libraGlyphUnicode"
+        "ui/astrology/LibraGlyphUnicode"
 
     # QSettings default value for the sign glyph unicode of the Libra.
     signLibraGlyphUnicodeDefValue = "\u264e"
 
     # QSettings key for the sign glyph font size of the Libra.
     signLibraGlyphFontSizeKey = \
-        "ui/astrology/libraGlyphFontSize"
+        "ui/astrology/LibraGlyphFontSize"
 
     # QSettings default value for the sign glyph font size of the Libra.
     signLibraGlyphFontSizeDefValue = 10
 
     # QSettings key for the sign abbreviation of the Libra.
     signLibraAbbreviationKey = \
-        "ui/astrology/libraAbbreviation"
+        "ui/astrology/LibraAbbreviation"
 
     # QSettings default value for the sign abbreviation of the Libra.
     signLibraAbbreviationDefValue = "Li"
 
     # QSettings key for the foreground color of the Libra.
     signLibraForegroundColorKey = \
-        "ui/astrology/libraForegroundColor"
+        "ui/astrology/LibraForegroundColor"
 
     # QSettings default value for the foreground color of the Libra.
     signLibraForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Libra.
     signLibraBackgroundColorKey = \
-        "ui/astrology/libraBackgroundColor"
+        "ui/astrology/LibraBackgroundColor"
 
     # QSettings default value for the background color of the Libra.
     signLibraBackgroundColorDefValue = QColor(Qt.transparent)
@@ -2100,35 +2322,35 @@ class SettingsKeys():
 
     # QSettings key for the sign glyph unicode of the Scorpio.
     signScorpioGlyphUnicodeKey = \
-        "ui/astrology/scorpioGlyphUnicode"
+        "ui/astrology/ScorpioGlyphUnicode"
 
     # QSettings default value for the sign glyph unicode of the Scorpio.
     signScorpioGlyphUnicodeDefValue = "\u264f"
 
     # QSettings key for the sign glyph font size of the Scorpio.
     signScorpioGlyphFontSizeKey = \
-        "ui/astrology/scorpioGlyphFontSize"
+        "ui/astrology/ScorpioGlyphFontSize"
 
     # QSettings default value for the sign glyph font size of the Scorpio.
     signScorpioGlyphFontSizeDefValue = 10
 
     # QSettings key for the sign abbreviation of the Scorpio.
     signScorpioAbbreviationKey = \
-        "ui/astrology/scorpioAbbreviation"
+        "ui/astrology/ScorpioAbbreviation"
 
     # QSettings default value for the sign abbreviation of the Scorpio.
     signScorpioAbbreviationDefValue = "Sc"
 
     # QSettings key for the foreground color of the Scorpio.
     signScorpioForegroundColorKey = \
-        "ui/astrology/scorpioForegroundColor"
+        "ui/astrology/ScorpioForegroundColor"
 
     # QSettings default value for the foreground color of the Scorpio.
     signScorpioForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Scorpio.
     signScorpioBackgroundColorKey = \
-        "ui/astrology/scorpioBackgroundColor"
+        "ui/astrology/ScorpioBackgroundColor"
 
     # QSettings default value for the background color of the Scorpio.
     signScorpioBackgroundColorDefValue = QColor(Qt.transparent)
@@ -2137,35 +2359,35 @@ class SettingsKeys():
 
     # QSettings key for the sign glyph unicode of the Sagittarius.
     signSagittariusGlyphUnicodeKey = \
-        "ui/astrology/sagittariusGlyphUnicode"
+        "ui/astrology/SagittariusGlyphUnicode"
 
     # QSettings default value for the sign glyph unicode of the Sagittarius.
     signSagittariusGlyphUnicodeDefValue = "\u2650"
 
     # QSettings key for the sign glyph font size of the Sagittarius.
     signSagittariusGlyphFontSizeKey = \
-        "ui/astrology/sagittariusGlyphFontSize"
+        "ui/astrology/SagittariusGlyphFontSize"
 
     # QSettings default value for the sign glyph font size of the Sagittarius.
     signSagittariusGlyphFontSizeDefValue = 10
 
     # QSettings key for the sign abbreviation of the Sagittarius.
     signSagittariusAbbreviationKey = \
-        "ui/astrology/sagittariusAbbreviation"
+        "ui/astrology/SagittariusAbbreviation"
 
     # QSettings default value for the sign abbreviation of the Sagittarius.
     signSagittariusAbbreviationDefValue = "Sa"
 
     # QSettings key for the foreground color of the Sagittarius.
     signSagittariusForegroundColorKey = \
-        "ui/astrology/sagittariusForegroundColor"
+        "ui/astrology/SagittariusForegroundColor"
 
     # QSettings default value for the foreground color of the Sagittarius.
     signSagittariusForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Sagittarius.
     signSagittariusBackgroundColorKey = \
-        "ui/astrology/sagittariusBackgroundColor"
+        "ui/astrology/SagittariusBackgroundColor"
 
     # QSettings default value for the background color of the Sagittarius.
     signSagittariusBackgroundColorDefValue = QColor(Qt.transparent)
@@ -2174,35 +2396,35 @@ class SettingsKeys():
 
     # QSettings key for the sign glyph unicode of the Capricorn.
     signCapricornGlyphUnicodeKey = \
-        "ui/astrology/capricornGlyphUnicode"
+        "ui/astrology/CapricornGlyphUnicode"
 
     # QSettings default value for the sign glyph unicode of the Capricorn.
     signCapricornGlyphUnicodeDefValue = "\u2651"
 
     # QSettings key for the sign glyph font size of the Capricorn.
     signCapricornGlyphFontSizeKey = \
-        "ui/astrology/capricornGlyphFontSize"
+        "ui/astrology/CapricornGlyphFontSize"
 
     # QSettings default value for the sign glyph font size of the Capricorn.
     signCapricornGlyphFontSizeDefValue = 10
 
     # QSettings key for the sign abbreviation of the Capricorn.
     signCapricornAbbreviationKey = \
-        "ui/astrology/capricornAbbreviation"
+        "ui/astrology/CapricornAbbreviation"
 
     # QSettings default value for the sign abbreviation of the Capricorn.
     signCapricornAbbreviationDefValue = "Cp"
 
     # QSettings key for the foreground color of the Capricorn.
     signCapricornForegroundColorKey = \
-        "ui/astrology/capricornForegroundColor"
+        "ui/astrology/CapricornForegroundColor"
 
     # QSettings default value for the foreground color of the Capricorn.
     signCapricornForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Capricorn.
     signCapricornBackgroundColorKey = \
-        "ui/astrology/capricornBackgroundColor"
+        "ui/astrology/CapricornBackgroundColor"
 
     # QSettings default value for the background color of the Capricorn.
     signCapricornBackgroundColorDefValue = QColor(Qt.transparent)
@@ -2211,35 +2433,35 @@ class SettingsKeys():
 
     # QSettings key for the sign glyph unicode of the Aquarius.
     signAquariusGlyphUnicodeKey = \
-        "ui/astrology/aquariusGlyphUnicode"
+        "ui/astrology/AquariusGlyphUnicode"
 
     # QSettings default value for the sign glyph unicode of the Aquarius.
     signAquariusGlyphUnicodeDefValue = "\u2652"
 
     # QSettings key for the sign glyph font size of the Aquarius.
     signAquariusGlyphFontSizeKey = \
-        "ui/astrology/aquariusGlyphFontSize"
+        "ui/astrology/AquariusGlyphFontSize"
 
     # QSettings default value for the sign glyph font size of the Aquarius.
     signAquariusGlyphFontSizeDefValue = 10
 
     # QSettings key for the sign abbreviation of the Aquarius.
     signAquariusAbbreviationKey = \
-        "ui/astrology/aquariusAbbreviation"
+        "ui/astrology/AquariusAbbreviation"
 
     # QSettings default value for the sign abbreviation of the Aquarius.
     signAquariusAbbreviationDefValue = "Aq"
 
     # QSettings key for the foreground color of the Aquarius.
     signAquariusForegroundColorKey = \
-        "ui/astrology/aquariusForegroundColor"
+        "ui/astrology/AquariusForegroundColor"
 
     # QSettings default value for the foreground color of the Aquarius.
     signAquariusForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Aquarius.
     signAquariusBackgroundColorKey = \
-        "ui/astrology/aquariusBackgroundColor"
+        "ui/astrology/AquariusBackgroundColor"
 
     # QSettings default value for the background color of the Aquarius.
     signAquariusBackgroundColorDefValue = QColor(Qt.transparent)
@@ -2248,35 +2470,35 @@ class SettingsKeys():
 
     # QSettings key for the sign glyph unicode of the Pisces.
     signPiscesGlyphUnicodeKey = \
-        "ui/astrology/piscesGlyphUnicode"
+        "ui/astrology/PiscesGlyphUnicode"
 
     # QSettings default value for the sign glyph unicode of the Pisces.
     signPiscesGlyphUnicodeDefValue = "\u2653"
 
     # QSettings key for the sign glyph font size of the Pisces.
     signPiscesGlyphFontSizeKey = \
-        "ui/astrology/piscesGlyphFontSize"
+        "ui/astrology/PiscesGlyphFontSize"
 
     # QSettings default value for the sign glyph font size of the Pisces.
     signPiscesGlyphFontSizeDefValue = 10
 
     # QSettings key for the sign abbreviation of the Pisces.
     signPiscesAbbreviationKey = \
-        "ui/astrology/piscesAbbreviation"
+        "ui/astrology/PiscesAbbreviation"
 
     # QSettings default value for the sign abbreviation of the Pisces.
     signPiscesAbbreviationDefValue = "Pi"
 
     # QSettings key for the foreground color of the Pisces.
     signPiscesForegroundColorKey = \
-        "ui/astrology/piscesForegroundColor"
+        "ui/astrology/PiscesForegroundColor"
 
     # QSettings default value for the foreground color of the Pisces.
     signPiscesForegroundColorDefValue = QColor(Qt.black)
 
     # QSettings key for the background color of the Pisces.
     signPiscesBackgroundColorKey = \
-        "ui/astrology/piscesBackgroundColor"
+        "ui/astrology/PiscesBackgroundColor"
 
     # QSettings default value for the background color of the Pisces.
     signPiscesBackgroundColorDefValue = QColor(Qt.transparent)
@@ -2676,7 +2898,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for H1.
     planetH1CalculationsEnabledKey = \
-        "ui/astrology/h1CalculationsEnabled"
+        "ui/astrology/H1CalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for H1.
     planetH1CalculationsEnabledDefValue = \
@@ -2684,7 +2906,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for H2.
     planetH2CalculationsEnabledKey = \
-        "ui/astrology/h2CalculationsEnabled"
+        "ui/astrology/H2CalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for H2.
     planetH2CalculationsEnabledDefValue = \
@@ -2692,7 +2914,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for H3.
     planetH3CalculationsEnabledKey = \
-        "ui/astrology/h3CalculationsEnabled"
+        "ui/astrology/H3CalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for H3.
     planetH3CalculationsEnabledDefValue = \
@@ -2700,7 +2922,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for H4.
     planetH4CalculationsEnabledKey = \
-        "ui/astrology/h4CalculationsEnabled"
+        "ui/astrology/H4CalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for H4.
     planetH4CalculationsEnabledDefValue = \
@@ -2708,7 +2930,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for H5.
     planetH5CalculationsEnabledKey = \
-        "ui/astrology/h5CalculationsEnabled"
+        "ui/astrology/H5CalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for H5.
     planetH5CalculationsEnabledDefValue = \
@@ -2716,7 +2938,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for H6.
     planetH6CalculationsEnabledKey = \
-        "ui/astrology/h6CalculationsEnabled"
+        "ui/astrology/H6CalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for H6.
     planetH6CalculationsEnabledDefValue = \
@@ -2724,7 +2946,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for H7.
     planetH7CalculationsEnabledKey = \
-        "ui/astrology/h7CalculationsEnabled"
+        "ui/astrology/H7CalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for H7.
     planetH7CalculationsEnabledDefValue = \
@@ -2732,7 +2954,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for H8.
     planetH8CalculationsEnabledKey = \
-        "ui/astrology/h8CalculationsEnabled"
+        "ui/astrology/H8CalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for H8.
     planetH8CalculationsEnabledDefValue = \
@@ -2740,7 +2962,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for H9.
     planetH9CalculationsEnabledKey = \
-        "ui/astrology/h9CalculationsEnabled"
+        "ui/astrology/H9CalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for H9.
     planetH9CalculationsEnabledDefValue = \
@@ -2748,7 +2970,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for H10.
     planetH10CalculationsEnabledKey = \
-        "ui/astrology/h10CalculationsEnabled"
+        "ui/astrology/H10CalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for H10.
     planetH10CalculationsEnabledDefValue = \
@@ -2756,7 +2978,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for H11.
     planetH11CalculationsEnabledKey = \
-        "ui/astrology/h11CalculationsEnabled"
+        "ui/astrology/H11CalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for H11.
     planetH11CalculationsEnabledDefValue = \
@@ -2764,15 +2986,63 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for H12.
     planetH12CalculationsEnabledKey = \
-        "ui/astrology/h12CalculationsEnabled"
+        "ui/astrology/H12CalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for H12.
     planetH12CalculationsEnabledDefValue = \
         True
 
+    # QSettings key for enabled astrologychart calculations for ARMC.
+    planetARMCCalculationsEnabledKey = \
+        "ui/astrology/ARMCCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for ARMC.
+    planetARMCCalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for Vertex.
+    planetVertexCalculationsEnabledKey = \
+        "ui/astrology/VertexCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for Vertex.
+    planetVertexCalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for EquatorialAscendant.
+    planetEquatorialAscendantCalculationsEnabledKey = \
+        "ui/astrology/EquatorialAscendantCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for EquatorialAscendant.
+    planetEquatorialAscendantCalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for CoAscendant1.
+    planetCoAscendant1CalculationsEnabledKey = \
+        "ui/astrology/CoAscendant1CalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for CoAscendant1.
+    planetCoAscendant1CalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for CoAscendant2.
+    planetCoAscendant2CalculationsEnabledKey = \
+        "ui/astrology/CoAscendant2CalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for CoAscendant2.
+    planetCoAscendant2CalculationsEnabledDefValue = \
+        True
+
+    # QSettings key for enabled astrologychart calculations for PolarAscendant.
+    planetPolarAscendantCalculationsEnabledKey = \
+        "ui/astrology/PolarAscendantCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for PolarAscendant.
+    planetPolarAscendantCalculationsEnabledDefValue = \
+        True
+
     # QSettings key for enabled astrologychart calculations for HoraLagna.
     planetHoraLagnaCalculationsEnabledKey = \
-        "ui/astrology/horaLagnaCalculationsEnabled"
+        "ui/astrology/HoraLagnaCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for HoraLagna.
     planetHoraLagnaCalculationsEnabledDefValue = \
@@ -2780,7 +3050,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for GhatiLagna.
     planetGhatiLagnaCalculationsEnabledKey = \
-        "ui/astrology/ghatiLagnaCalculationsEnabled"
+        "ui/astrology/GhatiLagnaCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for GhatiLagna.
     planetGhatiLagnaCalculationsEnabledDefValue = \
@@ -2788,7 +3058,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for MeanLunarApogee.
     planetMeanLunarApogeeCalculationsEnabledKey = \
-        "ui/astrology/meanLunarApogeeCalculationsEnabled"
+        "ui/astrology/MeanLunarApogeeCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for MeanLunarApogee.
     planetMeanLunarApogeeCalculationsEnabledDefValue = \
@@ -2796,7 +3066,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for OsculatingLunarApogee.
     planetOsculatingLunarApogeeCalculationsEnabledKey = \
-        "ui/astrology/osculatingLunarApogeeCalculationsEnabled"
+        "ui/astrology/OsculatingLunarApogeeCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for OsculatingLunarApogee.
     planetOsculatingLunarApogeeCalculationsEnabledDefValue = \
@@ -2804,7 +3074,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for InterpolatedLunarApogee.
     planetInterpolatedLunarApogeeCalculationsEnabledKey = \
-        "ui/astrology/interpolatedLunarApogeeCalculationsEnabled"
+        "ui/astrology/InterpolatedLunarApogeeCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for InterpolatedLunarApogee.
     planetInterpolatedLunarApogeeCalculationsEnabledDefValue = \
@@ -2812,7 +3082,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for InterpolatedLunarPerigee.
     planetInterpolatedLunarPerigeeCalculationsEnabledKey = \
-        "ui/astrology/interpolatedLunarPerigeeCalculationsEnabled"
+        "ui/astrology/InterpolatedLunarPerigeeCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for InterpolatedLunarPerigee.
     planetInterpolatedLunarPerigeeCalculationsEnabledDefValue = \
@@ -2820,7 +3090,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for Sun.
     planetSunCalculationsEnabledKey = \
-        "ui/astrology/sunCalculationsEnabled"
+        "ui/astrology/SunCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for Sun.
     planetSunCalculationsEnabledDefValue = \
@@ -2828,7 +3098,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for Moon.
     planetMoonCalculationsEnabledKey = \
-        "ui/astrology/moonCalculationsEnabled"
+        "ui/astrology/MoonCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for Moon.
     planetMoonCalculationsEnabledDefValue = \
@@ -2836,7 +3106,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for Mercury.
     planetMercuryCalculationsEnabledKey = \
-        "ui/astrology/mercuryCalculationsEnabled"
+        "ui/astrology/MercuryCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for Mercury.
     planetMercuryCalculationsEnabledDefValue = \
@@ -2844,7 +3114,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for Venus.
     planetVenusCalculationsEnabledKey = \
-        "ui/astrology/venusCalculationsEnabled"
+        "ui/astrology/VenusCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for Venus.
     planetVenusCalculationsEnabledDefValue = \
@@ -2852,7 +3122,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for Earth.
     planetEarthCalculationsEnabledKey = \
-        "ui/astrology/earthCalculationsEnabled"
+        "ui/astrology/EarthCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for Earth.
     planetEarthCalculationsEnabledDefValue = \
@@ -2860,7 +3130,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for Mars.
     planetMarsCalculationsEnabledKey = \
-        "ui/astrology/marsCalculationsEnabled"
+        "ui/astrology/MarsCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for Mars.
     planetMarsCalculationsEnabledDefValue = \
@@ -2868,7 +3138,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for Jupiter.
     planetJupiterCalculationsEnabledKey = \
-        "ui/astrology/jupiterCalculationsEnabled"
+        "ui/astrology/JupiterCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for Jupiter.
     planetJupiterCalculationsEnabledDefValue = \
@@ -2876,7 +3146,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for Saturn.
     planetSaturnCalculationsEnabledKey = \
-        "ui/astrology/saturnCalculationsEnabled"
+        "ui/astrology/SaturnCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for Saturn.
     planetSaturnCalculationsEnabledDefValue = \
@@ -2884,7 +3154,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for Uranus.
     planetUranusCalculationsEnabledKey = \
-        "ui/astrology/uranusCalculationsEnabled"
+        "ui/astrology/UranusCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for Uranus.
     planetUranusCalculationsEnabledDefValue = \
@@ -2892,7 +3162,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for Neptune.
     planetNeptuneCalculationsEnabledKey = \
-        "ui/astrology/neptuneCalculationsEnabled"
+        "ui/astrology/NeptuneCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for Neptune.
     planetNeptuneCalculationsEnabledDefValue = \
@@ -2900,7 +3170,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for Pluto.
     planetPlutoCalculationsEnabledKey = \
-        "ui/astrology/plutoCalculationsEnabled"
+        "ui/astrology/PlutoCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for Pluto.
     planetPlutoCalculationsEnabledDefValue = \
@@ -2908,7 +3178,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for MeanNorthNode.
     planetMeanNorthNodeCalculationsEnabledKey = \
-        "ui/astrology/meanNorthNodeCalculationsEnabled"
+        "ui/astrology/MeanNorthNodeCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for MeanNorthNode.
     planetMeanNorthNodeCalculationsEnabledDefValue = \
@@ -2916,7 +3186,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for MeanSouthNode.
     planetMeanSouthNodeCalculationsEnabledKey = \
-        "ui/astrology/meanSouthNodeCalculationsEnabled"
+        "ui/astrology/MeanSouthNodeCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for MeanSouthNode.
     planetMeanSouthNodeCalculationsEnabledDefValue = \
@@ -2924,7 +3194,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for TrueNorthNode.
     planetTrueNorthNodeCalculationsEnabledKey = \
-        "ui/astrology/trueNorthNodeCalculationsEnabled"
+        "ui/astrology/TrueNorthNodeCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for TrueNorthNode.
     planetTrueNorthNodeCalculationsEnabledDefValue = \
@@ -2932,7 +3202,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for TrueSouthNode.
     planetTrueSouthNodeCalculationsEnabledKey = \
-        "ui/astrology/trueSouthNodeCalculationsEnabled"
+        "ui/astrology/TrueSouthNodeCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for TrueSouthNode.
     planetTrueSouthNodeCalculationsEnabledDefValue = \
@@ -2940,7 +3210,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for Ceres.
     planetCeresCalculationsEnabledKey = \
-        "ui/astrology/ceresCalculationsEnabled"
+        "ui/astrology/CeresCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for Ceres.
     planetCeresCalculationsEnabledDefValue = \
@@ -2948,7 +3218,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for Pallas.
     planetPallasCalculationsEnabledKey = \
-        "ui/astrology/pallasCalculationsEnabled"
+        "ui/astrology/PallasCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for Pallas.
     planetPallasCalculationsEnabledDefValue = \
@@ -2956,7 +3226,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for Juno.
     planetJunoCalculationsEnabledKey = \
-        "ui/astrology/junoCalculationsEnabled"
+        "ui/astrology/JunoCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for Juno.
     planetJunoCalculationsEnabledDefValue = \
@@ -2964,7 +3234,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for Vesta.
     planetVestaCalculationsEnabledKey = \
-        "ui/astrology/vestaCalculationsEnabled"
+        "ui/astrology/VestaCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for Vesta.
     planetVestaCalculationsEnabledDefValue = \
@@ -2972,7 +3242,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for Isis.
     planetIsisCalculationsEnabledKey = \
-        "ui/astrology/isisCalculationsEnabled"
+        "ui/astrology/IsisCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for Isis.
     planetIsisCalculationsEnabledDefValue = \
@@ -2980,7 +3250,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for Nibiru.
     planetNibiruCalculationsEnabledKey = \
-        "ui/astrology/nibiruCalculationsEnabled"
+        "ui/astrology/NibiruCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for Nibiru.
     planetNibiruCalculationsEnabledDefValue = \
@@ -2988,7 +3258,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for Chiron.
     planetChironCalculationsEnabledKey = \
-        "ui/astrology/chironCalculationsEnabled"
+        "ui/astrology/ChironCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for Chiron.
     planetChironCalculationsEnabledDefValue = \
@@ -2996,7 +3266,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for Gulika.
     planetGulikaCalculationsEnabledKey = \
-        "ui/astrology/gulikaCalculationsEnabled"
+        "ui/astrology/GulikaCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for Gulika.
     planetGulikaCalculationsEnabledDefValue = \
@@ -3004,7 +3274,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for Mandi.
     planetMandiCalculationsEnabledKey = \
-        "ui/astrology/mandiCalculationsEnabled"
+        "ui/astrology/MandiCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for Mandi.
     planetMandiCalculationsEnabledDefValue = \
@@ -3012,7 +3282,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for MeanOfFive.
     planetMeanOfFiveCalculationsEnabledKey = \
-        "ui/astrology/meanOfFiveCalculationsEnabled"
+        "ui/astrology/MeanOfFiveCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for MeanOfFive.
     planetMeanOfFiveCalculationsEnabledDefValue = \
@@ -3020,7 +3290,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for CycleOfEight.
     planetCycleOfEightCalculationsEnabledKey = \
-        "ui/astrology/cycleOfEightCalculationsEnabled"
+        "ui/astrology/CycleOfEightCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for CycleOfEight.
     planetCycleOfEightCalculationsEnabledDefValue = \
@@ -3028,7 +3298,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for AvgMaJuSaUrNePl.
     planetAvgMaJuSaUrNePlCalculationsEnabledKey = \
-        "ui/astrology/avgMaJuSaUrNePlCalculationsEnabled"
+        "ui/astrology/AvgMaJuSaUrNePlCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for AvgMaJuSaUrNePl.
     planetAvgMaJuSaUrNePlCalculationsEnabledDefValue = \
@@ -3036,7 +3306,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for AvgJuSaUrNe.
     planetAvgJuSaUrNeCalculationsEnabledKey = \
-        "ui/astrology/avgJuSaUrNeCalculationsEnabled"
+        "ui/astrology/AvgJuSaUrNeCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for AvgJuSaUrNe.
     planetAvgJuSaUrNeCalculationsEnabledDefValue = \
@@ -3044,7 +3314,7 @@ class SettingsKeys():
 
     # QSettings key for enabled astrologychart calculations for AvgJuSa.
     planetAvgJuSaCalculationsEnabledKey = \
-        "ui/astrology/avgJuSaCalculationsEnabled"
+        "ui/astrology/AvgJuSaCalculationsEnabled"
 
     # QSettings default value for enabled astrologychart calculations for AvgJuSa.
     planetAvgJuSaCalculationsEnabledDefValue = \
@@ -3054,7 +3324,7 @@ class SettingsKeys():
 
     # QSettings key for the display flag in PlanetaryInfoTable for H1.
     planetH1EnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/h1EnabledForPlanetaryInfoTable"
+        "ui/astrology/H1EnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for H1.
     planetH1EnabledForPlanetaryInfoTableDefValue = \
@@ -3062,7 +3332,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for H2.
     planetH2EnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/h2EnabledForPlanetaryInfoTable"
+        "ui/astrology/H2EnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for H2.
     planetH2EnabledForPlanetaryInfoTableDefValue = \
@@ -3070,7 +3340,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for H3.
     planetH3EnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/h3EnabledForPlanetaryInfoTable"
+        "ui/astrology/H3EnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for H3.
     planetH3EnabledForPlanetaryInfoTableDefValue = \
@@ -3078,7 +3348,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for H4.
     planetH4EnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/h4EnabledForPlanetaryInfoTable"
+        "ui/astrology/H4EnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for H4.
     planetH4EnabledForPlanetaryInfoTableDefValue = \
@@ -3086,7 +3356,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for H5.
     planetH5EnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/h5EnabledForPlanetaryInfoTable"
+        "ui/astrology/H5EnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for H5.
     planetH5EnabledForPlanetaryInfoTableDefValue = \
@@ -3094,7 +3364,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for H6.
     planetH6EnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/h6EnabledForPlanetaryInfoTable"
+        "ui/astrology/H6EnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for H6.
     planetH6EnabledForPlanetaryInfoTableDefValue = \
@@ -3102,7 +3372,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for H7.
     planetH7EnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/h7EnabledForPlanetaryInfoTable"
+        "ui/astrology/H7EnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for H7.
     planetH7EnabledForPlanetaryInfoTableDefValue = \
@@ -3110,7 +3380,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for H8.
     planetH8EnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/h8EnabledForPlanetaryInfoTable"
+        "ui/astrology/H8EnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for H8.
     planetH8EnabledForPlanetaryInfoTableDefValue = \
@@ -3118,7 +3388,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for H9.
     planetH9EnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/h9EnabledForPlanetaryInfoTable"
+        "ui/astrology/H9EnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for H9.
     planetH9EnabledForPlanetaryInfoTableDefValue = \
@@ -3126,7 +3396,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for H10.
     planetH10EnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/h10EnabledForPlanetaryInfoTable"
+        "ui/astrology/H10EnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for H10.
     planetH10EnabledForPlanetaryInfoTableDefValue = \
@@ -3134,7 +3404,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for H11.
     planetH11EnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/h11EnabledForPlanetaryInfoTable"
+        "ui/astrology/H11EnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for H11.
     planetH11EnabledForPlanetaryInfoTableDefValue = \
@@ -3142,15 +3412,63 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for H12.
     planetH12EnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/h12EnabledForPlanetaryInfoTable"
+        "ui/astrology/H12EnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for H12.
     planetH12EnabledForPlanetaryInfoTableDefValue = \
         True
     
+    # QSettings key for the display flag in PlanetaryInfoTable for ARMC.
+    planetARMCEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/ARMCEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for ARMC.
+    planetARMCEnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for Vertex.
+    planetVertexEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/VertexEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for Vertex.
+    planetVertexEnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for EquatorialAscendant.
+    planetEquatorialAscendantEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/EquatorialAscendantEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for EquatorialAscendant.
+    planetEquatorialAscendantEnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for CoAscendant1.
+    planetCoAscendant1EnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/CoAscendant1EnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for CoAscendant1.
+    planetCoAscendant1EnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for CoAscendant2.
+    planetCoAscendant2EnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/CoAscendant2EnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for CoAscendant2.
+    planetCoAscendant2EnabledForPlanetaryInfoTableDefValue = \
+        True
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for PolarAscendant.
+    planetPolarAscendantEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/PolarAscendantEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for PolarAscendant.
+    planetPolarAscendantEnabledForPlanetaryInfoTableDefValue = \
+        True
+    
     # QSettings key for the display flag in PlanetaryInfoTable for HoraLagna.
     planetHoraLagnaEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/horaLagnaEnabledForPlanetaryInfoTable"
+        "ui/astrology/HoraLagnaEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for HoraLagna.
     planetHoraLagnaEnabledForPlanetaryInfoTableDefValue = \
@@ -3158,7 +3476,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for GhatiLagna.
     planetGhatiLagnaEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/ghatiLagnaEnabledForPlanetaryInfoTable"
+        "ui/astrology/GhatiLagnaEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for GhatiLagna.
     planetGhatiLagnaEnabledForPlanetaryInfoTableDefValue = \
@@ -3166,7 +3484,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for MeanLunarApogee.
     planetMeanLunarApogeeEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/meanLunarApogeeEnabledForPlanetaryInfoTable"
+        "ui/astrology/MeanLunarApogeeEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for MeanLunarApogee.
     planetMeanLunarApogeeEnabledForPlanetaryInfoTableDefValue = \
@@ -3174,7 +3492,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for OsculatingLunarApogee.
     planetOsculatingLunarApogeeEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/osculatingLunarApogeeEnabledForPlanetaryInfoTable"
+        "ui/astrology/OsculatingLunarApogeeEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for OsculatingLunarApogee.
     planetOsculatingLunarApogeeEnabledForPlanetaryInfoTableDefValue = \
@@ -3182,7 +3500,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for InterpolatedLunarApogee.
     planetInterpolatedLunarApogeeEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/interpolatedLunarApogeeEnabledForPlanetaryInfoTable"
+        "ui/astrology/InterpolatedLunarApogeeEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for InterpolatedLunarApogee.
     planetInterpolatedLunarApogeeEnabledForPlanetaryInfoTableDefValue = \
@@ -3190,7 +3508,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for InterpolatedLunarPerigee.
     planetInterpolatedLunarPerigeeEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/interpolatedLunarPerigeeEnabledForPlanetaryInfoTable"
+        "ui/astrology/InterpolatedLunarPerigeeEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for InterpolatedLunarPerigee.
     planetInterpolatedLunarPerigeeEnabledForPlanetaryInfoTableDefValue = \
@@ -3198,7 +3516,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for Sun.
     planetSunEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/sunEnabledForPlanetaryInfoTable"
+        "ui/astrology/SunEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for Sun.
     planetSunEnabledForPlanetaryInfoTableDefValue = \
@@ -3206,7 +3524,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for Moon.
     planetMoonEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/moonEnabledForPlanetaryInfoTable"
+        "ui/astrology/MoonEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for Moon.
     planetMoonEnabledForPlanetaryInfoTableDefValue = \
@@ -3214,7 +3532,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for Mercury.
     planetMercuryEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/mercuryEnabledForPlanetaryInfoTable"
+        "ui/astrology/MercuryEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for Mercury.
     planetMercuryEnabledForPlanetaryInfoTableDefValue = \
@@ -3222,7 +3540,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for Venus.
     planetVenusEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/venusEnabledForPlanetaryInfoTable"
+        "ui/astrology/VenusEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for Venus.
     planetVenusEnabledForPlanetaryInfoTableDefValue = \
@@ -3230,7 +3548,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for Earth.
     planetEarthEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/earthEnabledForPlanetaryInfoTable"
+        "ui/astrology/EarthEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for Earth.
     planetEarthEnabledForPlanetaryInfoTableDefValue = \
@@ -3238,7 +3556,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for Mars.
     planetMarsEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/marsEnabledForPlanetaryInfoTable"
+        "ui/astrology/MarsEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for Mars.
     planetMarsEnabledForPlanetaryInfoTableDefValue = \
@@ -3246,7 +3564,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for Jupiter.
     planetJupiterEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/jupiterEnabledForPlanetaryInfoTable"
+        "ui/astrology/JupiterEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for Jupiter.
     planetJupiterEnabledForPlanetaryInfoTableDefValue = \
@@ -3254,7 +3572,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for Saturn.
     planetSaturnEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/saturnEnabledForPlanetaryInfoTable"
+        "ui/astrology/SaturnEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for Saturn.
     planetSaturnEnabledForPlanetaryInfoTableDefValue = \
@@ -3262,7 +3580,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for Uranus.
     planetUranusEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/uranusEnabledForPlanetaryInfoTable"
+        "ui/astrology/UranusEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for Uranus.
     planetUranusEnabledForPlanetaryInfoTableDefValue = \
@@ -3270,7 +3588,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for Neptune.
     planetNeptuneEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/neptuneEnabledForPlanetaryInfoTable"
+        "ui/astrology/NeptuneEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for Neptune.
     planetNeptuneEnabledForPlanetaryInfoTableDefValue = \
@@ -3278,7 +3596,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for Pluto.
     planetPlutoEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/plutoEnabledForPlanetaryInfoTable"
+        "ui/astrology/PlutoEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for Pluto.
     planetPlutoEnabledForPlanetaryInfoTableDefValue = \
@@ -3286,7 +3604,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for MeanNorthNode.
     planetMeanNorthNodeEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/meanNorthNodeEnabledForPlanetaryInfoTable"
+        "ui/astrology/MeanNorthNodeEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for MeanNorthNode.
     planetMeanNorthNodeEnabledForPlanetaryInfoTableDefValue = \
@@ -3294,7 +3612,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for MeanSouthNode.
     planetMeanSouthNodeEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/meanSouthNodeEnabledForPlanetaryInfoTable"
+        "ui/astrology/MeanSouthNodeEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for MeanSouthNode.
     planetMeanSouthNodeEnabledForPlanetaryInfoTableDefValue = \
@@ -3302,7 +3620,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for TrueNorthNode.
     planetTrueNorthNodeEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/trueNorthNodeEnabledForPlanetaryInfoTable"
+        "ui/astrology/TrueNorthNodeEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for TrueNorthNode.
     planetTrueNorthNodeEnabledForPlanetaryInfoTableDefValue = \
@@ -3310,7 +3628,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for TrueSouthNode.
     planetTrueSouthNodeEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/trueSouthNodeEnabledForPlanetaryInfoTable"
+        "ui/astrology/TrueSouthNodeEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for TrueSouthNode.
     planetTrueSouthNodeEnabledForPlanetaryInfoTableDefValue = \
@@ -3318,7 +3636,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for Ceres.
     planetCeresEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/ceresEnabledForPlanetaryInfoTable"
+        "ui/astrology/CeresEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for Ceres.
     planetCeresEnabledForPlanetaryInfoTableDefValue = \
@@ -3326,7 +3644,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for Pallas.
     planetPallasEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/pallasEnabledForPlanetaryInfoTable"
+        "ui/astrology/PallasEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for Pallas.
     planetPallasEnabledForPlanetaryInfoTableDefValue = \
@@ -3334,7 +3652,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for Juno.
     planetJunoEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/junoEnabledForPlanetaryInfoTable"
+        "ui/astrology/JunoEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for Juno.
     planetJunoEnabledForPlanetaryInfoTableDefValue = \
@@ -3342,7 +3660,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for Vesta.
     planetVestaEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/vestaEnabledForPlanetaryInfoTable"
+        "ui/astrology/VestaEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for Vesta.
     planetVestaEnabledForPlanetaryInfoTableDefValue = \
@@ -3350,7 +3668,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for Isis.
     planetIsisEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/isisEnabledForPlanetaryInfoTable"
+        "ui/astrology/IsisEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for Isis.
     planetIsisEnabledForPlanetaryInfoTableDefValue = \
@@ -3358,7 +3676,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for Nibiru.
     planetNibiruEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/nibiruEnabledForPlanetaryInfoTable"
+        "ui/astrology/NibiruEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for Nibiru.
     planetNibiruEnabledForPlanetaryInfoTableDefValue = \
@@ -3366,7 +3684,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for Chiron.
     planetChironEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/chironEnabledForPlanetaryInfoTable"
+        "ui/astrology/ChironEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for Chiron.
     planetChironEnabledForPlanetaryInfoTableDefValue = \
@@ -3374,7 +3692,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for Gulika.
     planetGulikaEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/gulikaEnabledForPlanetaryInfoTable"
+        "ui/astrology/GulikaEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for Gulika.
     planetGulikaEnabledForPlanetaryInfoTableDefValue = \
@@ -3382,7 +3700,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for Mandi.
     planetMandiEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/mandiEnabledForPlanetaryInfoTable"
+        "ui/astrology/MandiEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for Mandi.
     planetMandiEnabledForPlanetaryInfoTableDefValue = \
@@ -3390,7 +3708,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for MeanOfFive.
     planetMeanOfFiveEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/meanOfFiveEnabledForPlanetaryInfoTable"
+        "ui/astrology/MeanOfFiveEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for MeanOfFive.
     planetMeanOfFiveEnabledForPlanetaryInfoTableDefValue = \
@@ -3398,7 +3716,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for CycleOfEight.
     planetCycleOfEightEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/cycleOfEightEnabledForPlanetaryInfoTable"
+        "ui/astrology/CycleOfEightEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for CycleOfEight.
     planetCycleOfEightEnabledForPlanetaryInfoTableDefValue = \
@@ -3406,7 +3724,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for AvgMaJuSaUrNePl.
     planetAvgMaJuSaUrNePlEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/avgMaJuSaUrNePlEnabledForPlanetaryInfoTable"
+        "ui/astrology/AvgMaJuSaUrNePlEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for AvgMaJuSaUrNePl.
     planetAvgMaJuSaUrNePlEnabledForPlanetaryInfoTableDefValue = \
@@ -3414,7 +3732,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for AvgJuSaUrNe.
     planetAvgJuSaUrNeEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/avgJuSaUrNeEnabledForPlanetaryInfoTable"
+        "ui/astrology/AvgJuSaUrNeEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for AvgJuSaUrNe.
     planetAvgJuSaUrNeEnabledForPlanetaryInfoTableDefValue = \
@@ -3422,7 +3740,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in PlanetaryInfoTable for AvgJuSa.
     planetAvgJuSaEnabledForPlanetaryInfoTableKey = \
-        "ui/astrology/avgJuSaEnabledForPlanetaryInfoTable"
+        "ui/astrology/AvgJuSaEnabledForPlanetaryInfoTable"
     
     # QSettings default value for the display flag in PlanetaryInfoTable for AvgJuSa.
     planetAvgJuSaEnabledForPlanetaryInfoTableDefValue = \
@@ -3432,7 +3750,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for H1.
     planetH1EnabledForDeclinationKey = \
-        "ui/astrology/h1EnabledForDeclination"
+        "ui/astrology/H1EnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for H1.
     planetH1EnabledForDeclinationDefValue = \
@@ -3440,7 +3758,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for H2.
     planetH2EnabledForDeclinationKey = \
-        "ui/astrology/h2EnabledForDeclination"
+        "ui/astrology/H2EnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for H2.
     planetH2EnabledForDeclinationDefValue = \
@@ -3448,7 +3766,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for H3.
     planetH3EnabledForDeclinationKey = \
-        "ui/astrology/h3EnabledForDeclination"
+        "ui/astrology/H3EnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for H3.
     planetH3EnabledForDeclinationDefValue = \
@@ -3456,7 +3774,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for H4.
     planetH4EnabledForDeclinationKey = \
-        "ui/astrology/h4EnabledForDeclination"
+        "ui/astrology/H4EnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for H4.
     planetH4EnabledForDeclinationDefValue = \
@@ -3464,7 +3782,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for H5.
     planetH5EnabledForDeclinationKey = \
-        "ui/astrology/h5EnabledForDeclination"
+        "ui/astrology/H5EnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for H5.
     planetH5EnabledForDeclinationDefValue = \
@@ -3472,7 +3790,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for H6.
     planetH6EnabledForDeclinationKey = \
-        "ui/astrology/h6EnabledForDeclination"
+        "ui/astrology/H6EnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for H6.
     planetH6EnabledForDeclinationDefValue = \
@@ -3480,7 +3798,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for H7.
     planetH7EnabledForDeclinationKey = \
-        "ui/astrology/h7EnabledForDeclination"
+        "ui/astrology/H7EnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for H7.
     planetH7EnabledForDeclinationDefValue = \
@@ -3488,7 +3806,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for H8.
     planetH8EnabledForDeclinationKey = \
-        "ui/astrology/h8EnabledForDeclination"
+        "ui/astrology/H8EnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for H8.
     planetH8EnabledForDeclinationDefValue = \
@@ -3496,7 +3814,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for H9.
     planetH9EnabledForDeclinationKey = \
-        "ui/astrology/h9EnabledForDeclination"
+        "ui/astrology/H9EnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for H9.
     planetH9EnabledForDeclinationDefValue = \
@@ -3504,7 +3822,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for H10.
     planetH10EnabledForDeclinationKey = \
-        "ui/astrology/h10EnabledForDeclination"
+        "ui/astrology/H10EnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for H10.
     planetH10EnabledForDeclinationDefValue = \
@@ -3512,7 +3830,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for H11.
     planetH11EnabledForDeclinationKey = \
-        "ui/astrology/h11EnabledForDeclination"
+        "ui/astrology/H11EnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for H11.
     planetH11EnabledForDeclinationDefValue = \
@@ -3520,15 +3838,63 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for H12.
     planetH12EnabledForDeclinationKey = \
-        "ui/astrology/h12EnabledForDeclination"
+        "ui/astrology/H12EnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for H12.
     planetH12EnabledForDeclinationDefValue = \
         False
     
+    # QSettings key for the display flag in Declination for ARMC.
+    planetARMCEnabledForDeclinationKey = \
+        "ui/astrology/ARMCEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for ARMC.
+    planetARMCEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for Vertex.
+    planetVertexEnabledForDeclinationKey = \
+        "ui/astrology/VertexEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for Vertex.
+    planetVertexEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for EquatorialAscendant.
+    planetEquatorialAscendantEnabledForDeclinationKey = \
+        "ui/astrology/EquatorialAscendantEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for EquatorialAscendant.
+    planetEquatorialAscendantEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for CoAscendant1.
+    planetCoAscendant1EnabledForDeclinationKey = \
+        "ui/astrology/CoAscendant1EnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for CoAscendant1.
+    planetCoAscendant1EnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for CoAscendant2.
+    planetCoAscendant2EnabledForDeclinationKey = \
+        "ui/astrology/CoAscendant2EnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for CoAscendant2.
+    planetCoAscendant2EnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for PolarAscendant.
+    planetPolarAscendantEnabledForDeclinationKey = \
+        "ui/astrology/PolarAscendantEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for PolarAscendant.
+    planetPolarAscendantEnabledForDeclinationDefValue = \
+        False
+    
     # QSettings key for the display flag in Declination for HoraLagna.
     planetHoraLagnaEnabledForDeclinationKey = \
-        "ui/astrology/horaLagnaEnabledForDeclination"
+        "ui/astrology/HoraLagnaEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for HoraLagna.
     planetHoraLagnaEnabledForDeclinationDefValue = \
@@ -3536,7 +3902,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for GhatiLagna.
     planetGhatiLagnaEnabledForDeclinationKey = \
-        "ui/astrology/ghatiLagnaEnabledForDeclination"
+        "ui/astrology/GhatiLagnaEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for GhatiLagna.
     planetGhatiLagnaEnabledForDeclinationDefValue = \
@@ -3544,7 +3910,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for MeanLunarApogee.
     planetMeanLunarApogeeEnabledForDeclinationKey = \
-        "ui/astrology/meanLunarApogeeEnabledForDeclination"
+        "ui/astrology/MeanLunarApogeeEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for MeanLunarApogee.
     planetMeanLunarApogeeEnabledForDeclinationDefValue = \
@@ -3552,7 +3918,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for OsculatingLunarApogee.
     planetOsculatingLunarApogeeEnabledForDeclinationKey = \
-        "ui/astrology/osculatingLunarApogeeEnabledForDeclination"
+        "ui/astrology/OsculatingLunarApogeeEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for OsculatingLunarApogee.
     planetOsculatingLunarApogeeEnabledForDeclinationDefValue = \
@@ -3560,7 +3926,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for InterpolatedLunarApogee.
     planetInterpolatedLunarApogeeEnabledForDeclinationKey = \
-        "ui/astrology/interpolatedLunarApogeeEnabledForDeclination"
+        "ui/astrology/InterpolatedLunarApogeeEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for InterpolatedLunarApogee.
     planetInterpolatedLunarApogeeEnabledForDeclinationDefValue = \
@@ -3568,7 +3934,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for InterpolatedLunarPerigee.
     planetInterpolatedLunarPerigeeEnabledForDeclinationKey = \
-        "ui/astrology/interpolatedLunarPerigeeEnabledForDeclination"
+        "ui/astrology/InterpolatedLunarPerigeeEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for InterpolatedLunarPerigee.
     planetInterpolatedLunarPerigeeEnabledForDeclinationDefValue = \
@@ -3576,7 +3942,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for Sun.
     planetSunEnabledForDeclinationKey = \
-        "ui/astrology/sunEnabledForDeclination"
+        "ui/astrology/SunEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for Sun.
     planetSunEnabledForDeclinationDefValue = \
@@ -3584,7 +3950,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for Moon.
     planetMoonEnabledForDeclinationKey = \
-        "ui/astrology/moonEnabledForDeclination"
+        "ui/astrology/MoonEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for Moon.
     planetMoonEnabledForDeclinationDefValue = \
@@ -3592,7 +3958,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for Mercury.
     planetMercuryEnabledForDeclinationKey = \
-        "ui/astrology/mercuryEnabledForDeclination"
+        "ui/astrology/MercuryEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for Mercury.
     planetMercuryEnabledForDeclinationDefValue = \
@@ -3600,7 +3966,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for Venus.
     planetVenusEnabledForDeclinationKey = \
-        "ui/astrology/venusEnabledForDeclination"
+        "ui/astrology/VenusEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for Venus.
     planetVenusEnabledForDeclinationDefValue = \
@@ -3608,7 +3974,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for Earth.
     planetEarthEnabledForDeclinationKey = \
-        "ui/astrology/earthEnabledForDeclination"
+        "ui/astrology/EarthEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for Earth.
     planetEarthEnabledForDeclinationDefValue = \
@@ -3616,7 +3982,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for Mars.
     planetMarsEnabledForDeclinationKey = \
-        "ui/astrology/marsEnabledForDeclination"
+        "ui/astrology/MarsEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for Mars.
     planetMarsEnabledForDeclinationDefValue = \
@@ -3624,7 +3990,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for Jupiter.
     planetJupiterEnabledForDeclinationKey = \
-        "ui/astrology/jupiterEnabledForDeclination"
+        "ui/astrology/JupiterEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for Jupiter.
     planetJupiterEnabledForDeclinationDefValue = \
@@ -3632,7 +3998,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for Saturn.
     planetSaturnEnabledForDeclinationKey = \
-        "ui/astrology/saturnEnabledForDeclination"
+        "ui/astrology/SaturnEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for Saturn.
     planetSaturnEnabledForDeclinationDefValue = \
@@ -3640,7 +4006,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for Uranus.
     planetUranusEnabledForDeclinationKey = \
-        "ui/astrology/uranusEnabledForDeclination"
+        "ui/astrology/UranusEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for Uranus.
     planetUranusEnabledForDeclinationDefValue = \
@@ -3648,7 +4014,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for Neptune.
     planetNeptuneEnabledForDeclinationKey = \
-        "ui/astrology/neptuneEnabledForDeclination"
+        "ui/astrology/NeptuneEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for Neptune.
     planetNeptuneEnabledForDeclinationDefValue = \
@@ -3656,7 +4022,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for Pluto.
     planetPlutoEnabledForDeclinationKey = \
-        "ui/astrology/plutoEnabledForDeclination"
+        "ui/astrology/PlutoEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for Pluto.
     planetPlutoEnabledForDeclinationDefValue = \
@@ -3664,7 +4030,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for MeanNorthNode.
     planetMeanNorthNodeEnabledForDeclinationKey = \
-        "ui/astrology/meanNorthNodeEnabledForDeclination"
+        "ui/astrology/MeanNorthNodeEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for MeanNorthNode.
     planetMeanNorthNodeEnabledForDeclinationDefValue = \
@@ -3672,7 +4038,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for MeanSouthNode.
     planetMeanSouthNodeEnabledForDeclinationKey = \
-        "ui/astrology/meanSouthNodeEnabledForDeclination"
+        "ui/astrology/MeanSouthNodeEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for MeanSouthNode.
     planetMeanSouthNodeEnabledForDeclinationDefValue = \
@@ -3680,7 +4046,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for TrueNorthNode.
     planetTrueNorthNodeEnabledForDeclinationKey = \
-        "ui/astrology/trueNorthNodeEnabledForDeclination"
+        "ui/astrology/TrueNorthNodeEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for TrueNorthNode.
     planetTrueNorthNodeEnabledForDeclinationDefValue = \
@@ -3688,7 +4054,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for TrueSouthNode.
     planetTrueSouthNodeEnabledForDeclinationKey = \
-        "ui/astrology/trueSouthNodeEnabledForDeclination"
+        "ui/astrology/TrueSouthNodeEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for TrueSouthNode.
     planetTrueSouthNodeEnabledForDeclinationDefValue = \
@@ -3696,7 +4062,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for Ceres.
     planetCeresEnabledForDeclinationKey = \
-        "ui/astrology/ceresEnabledForDeclination"
+        "ui/astrology/CeresEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for Ceres.
     planetCeresEnabledForDeclinationDefValue = \
@@ -3704,7 +4070,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for Pallas.
     planetPallasEnabledForDeclinationKey = \
-        "ui/astrology/pallasEnabledForDeclination"
+        "ui/astrology/PallasEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for Pallas.
     planetPallasEnabledForDeclinationDefValue = \
@@ -3712,7 +4078,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for Juno.
     planetJunoEnabledForDeclinationKey = \
-        "ui/astrology/junoEnabledForDeclination"
+        "ui/astrology/JunoEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for Juno.
     planetJunoEnabledForDeclinationDefValue = \
@@ -3720,7 +4086,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for Vesta.
     planetVestaEnabledForDeclinationKey = \
-        "ui/astrology/vestaEnabledForDeclination"
+        "ui/astrology/VestaEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for Vesta.
     planetVestaEnabledForDeclinationDefValue = \
@@ -3728,7 +4094,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for Isis.
     planetIsisEnabledForDeclinationKey = \
-        "ui/astrology/isisEnabledForDeclination"
+        "ui/astrology/IsisEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for Isis.
     planetIsisEnabledForDeclinationDefValue = \
@@ -3736,7 +4102,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for Nibiru.
     planetNibiruEnabledForDeclinationKey = \
-        "ui/astrology/nibiruEnabledForDeclination"
+        "ui/astrology/NibiruEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for Nibiru.
     planetNibiruEnabledForDeclinationDefValue = \
@@ -3744,7 +4110,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for Chiron.
     planetChironEnabledForDeclinationKey = \
-        "ui/astrology/chironEnabledForDeclination"
+        "ui/astrology/ChironEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for Chiron.
     planetChironEnabledForDeclinationDefValue = \
@@ -3752,7 +4118,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for Gulika.
     planetGulikaEnabledForDeclinationKey = \
-        "ui/astrology/gulikaEnabledForDeclination"
+        "ui/astrology/GulikaEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for Gulika.
     planetGulikaEnabledForDeclinationDefValue = \
@@ -3760,7 +4126,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for Mandi.
     planetMandiEnabledForDeclinationKey = \
-        "ui/astrology/mandiEnabledForDeclination"
+        "ui/astrology/MandiEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for Mandi.
     planetMandiEnabledForDeclinationDefValue = \
@@ -3768,7 +4134,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for MeanOfFive.
     planetMeanOfFiveEnabledForDeclinationKey = \
-        "ui/astrology/meanOfFiveEnabledForDeclination"
+        "ui/astrology/MeanOfFiveEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for MeanOfFive.
     planetMeanOfFiveEnabledForDeclinationDefValue = \
@@ -3776,7 +4142,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for CycleOfEight.
     planetCycleOfEightEnabledForDeclinationKey = \
-        "ui/astrology/cycleOfEightEnabledForDeclination"
+        "ui/astrology/CycleOfEightEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for CycleOfEight.
     planetCycleOfEightEnabledForDeclinationDefValue = \
@@ -3784,7 +4150,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for AvgMaJuSaUrNePl.
     planetAvgMaJuSaUrNePlEnabledForDeclinationKey = \
-        "ui/astrology/avgMaJuSaUrNePlEnabledForDeclination"
+        "ui/astrology/AvgMaJuSaUrNePlEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for AvgMaJuSaUrNePl.
     planetAvgMaJuSaUrNePlEnabledForDeclinationDefValue = \
@@ -3792,7 +4158,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for AvgJuSaUrNe.
     planetAvgJuSaUrNeEnabledForDeclinationKey = \
-        "ui/astrology/avgJuSaUrNeEnabledForDeclination"
+        "ui/astrology/AvgJuSaUrNeEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for AvgJuSaUrNe.
     planetAvgJuSaUrNeEnabledForDeclinationDefValue = \
@@ -3800,7 +4166,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Declination for AvgJuSa.
     planetAvgJuSaEnabledForDeclinationKey = \
-        "ui/astrology/avgJuSaEnabledForDeclination"
+        "ui/astrology/AvgJuSaEnabledForDeclination"
     
     # QSettings default value for the display flag in Declination for AvgJuSa.
     planetAvgJuSaEnabledForDeclinationDefValue = \
@@ -3810,7 +4176,7 @@ class SettingsKeys():
 
     # QSettings key for the display flag in Latitude for H1.
     planetH1EnabledForLatitudeKey = \
-        "ui/astrology/h1EnabledForLatitude"
+        "ui/astrology/H1EnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for H1.
     planetH1EnabledForLatitudeDefValue = \
@@ -3818,7 +4184,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for H2.
     planetH2EnabledForLatitudeKey = \
-        "ui/astrology/h2EnabledForLatitude"
+        "ui/astrology/H2EnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for H2.
     planetH2EnabledForLatitudeDefValue = \
@@ -3826,7 +4192,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for H3.
     planetH3EnabledForLatitudeKey = \
-        "ui/astrology/h3EnabledForLatitude"
+        "ui/astrology/H3EnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for H3.
     planetH3EnabledForLatitudeDefValue = \
@@ -3834,7 +4200,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for H4.
     planetH4EnabledForLatitudeKey = \
-        "ui/astrology/h4EnabledForLatitude"
+        "ui/astrology/H4EnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for H4.
     planetH4EnabledForLatitudeDefValue = \
@@ -3842,7 +4208,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for H5.
     planetH5EnabledForLatitudeKey = \
-        "ui/astrology/h5EnabledForLatitude"
+        "ui/astrology/H5EnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for H5.
     planetH5EnabledForLatitudeDefValue = \
@@ -3850,7 +4216,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for H6.
     planetH6EnabledForLatitudeKey = \
-        "ui/astrology/h6EnabledForLatitude"
+        "ui/astrology/H6EnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for H6.
     planetH6EnabledForLatitudeDefValue = \
@@ -3858,7 +4224,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for H7.
     planetH7EnabledForLatitudeKey = \
-        "ui/astrology/h7EnabledForLatitude"
+        "ui/astrology/H7EnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for H7.
     planetH7EnabledForLatitudeDefValue = \
@@ -3866,7 +4232,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for H8.
     planetH8EnabledForLatitudeKey = \
-        "ui/astrology/h8EnabledForLatitude"
+        "ui/astrology/H8EnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for H8.
     planetH8EnabledForLatitudeDefValue = \
@@ -3874,7 +4240,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for H9.
     planetH9EnabledForLatitudeKey = \
-        "ui/astrology/h9EnabledForLatitude"
+        "ui/astrology/H9EnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for H9.
     planetH9EnabledForLatitudeDefValue = \
@@ -3882,7 +4248,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for H10.
     planetH10EnabledForLatitudeKey = \
-        "ui/astrology/h10EnabledForLatitude"
+        "ui/astrology/H10EnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for H10.
     planetH10EnabledForLatitudeDefValue = \
@@ -3890,7 +4256,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for H11.
     planetH11EnabledForLatitudeKey = \
-        "ui/astrology/h11EnabledForLatitude"
+        "ui/astrology/H11EnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for H11.
     planetH11EnabledForLatitudeDefValue = \
@@ -3898,15 +4264,63 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for H12.
     planetH12EnabledForLatitudeKey = \
-        "ui/astrology/h12EnabledForLatitude"
+        "ui/astrology/H12EnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for H12.
     planetH12EnabledForLatitudeDefValue = \
         False
     
+    # QSettings key for the display flag in Latitude for ARMC.
+    planetARMCEnabledForLatitudeKey = \
+        "ui/astrology/ARMCEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for ARMC.
+    planetARMCEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for Vertex.
+    planetVertexEnabledForLatitudeKey = \
+        "ui/astrology/VertexEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for Vertex.
+    planetVertexEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for EquatorialAscendant.
+    planetEquatorialAscendantEnabledForLatitudeKey = \
+        "ui/astrology/EquatorialAscendantEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for EquatorialAscendant.
+    planetEquatorialAscendantEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for CoAscendant1.
+    planetCoAscendant1EnabledForLatitudeKey = \
+        "ui/astrology/CoAscendant1EnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for CoAscendant1.
+    planetCoAscendant1EnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for CoAscendant2.
+    planetCoAscendant2EnabledForLatitudeKey = \
+        "ui/astrology/CoAscendant2EnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for CoAscendant2.
+    planetCoAscendant2EnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for PolarAscendant.
+    planetPolarAscendantEnabledForLatitudeKey = \
+        "ui/astrology/PolarAscendantEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for PolarAscendant.
+    planetPolarAscendantEnabledForLatitudeDefValue = \
+        False
+    
     # QSettings key for the display flag in Latitude for HoraLagna.
     planetHoraLagnaEnabledForLatitudeKey = \
-        "ui/astrology/horaLagnaEnabledForLatitude"
+        "ui/astrology/HoraLagnaEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for HoraLagna.
     planetHoraLagnaEnabledForLatitudeDefValue = \
@@ -3914,7 +4328,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for GhatiLagna.
     planetGhatiLagnaEnabledForLatitudeKey = \
-        "ui/astrology/ghatiLagnaEnabledForLatitude"
+        "ui/astrology/GhatiLagnaEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for GhatiLagna.
     planetGhatiLagnaEnabledForLatitudeDefValue = \
@@ -3922,7 +4336,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for MeanLunarApogee.
     planetMeanLunarApogeeEnabledForLatitudeKey = \
-        "ui/astrology/meanLunarApogeeEnabledForLatitude"
+        "ui/astrology/MeanLunarApogeeEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for MeanLunarApogee.
     planetMeanLunarApogeeEnabledForLatitudeDefValue = \
@@ -3930,7 +4344,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for OsculatingLunarApogee.
     planetOsculatingLunarApogeeEnabledForLatitudeKey = \
-        "ui/astrology/osculatingLunarApogeeEnabledForLatitude"
+        "ui/astrology/OsculatingLunarApogeeEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for OsculatingLunarApogee.
     planetOsculatingLunarApogeeEnabledForLatitudeDefValue = \
@@ -3938,7 +4352,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for InterpolatedLunarApogee.
     planetInterpolatedLunarApogeeEnabledForLatitudeKey = \
-        "ui/astrology/interpolatedLunarApogeeEnabledForLatitude"
+        "ui/astrology/InterpolatedLunarApogeeEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for InterpolatedLunarApogee.
     planetInterpolatedLunarApogeeEnabledForLatitudeDefValue = \
@@ -3946,7 +4360,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for InterpolatedLunarPerigee.
     planetInterpolatedLunarPerigeeEnabledForLatitudeKey = \
-        "ui/astrology/interpolatedLunarPerigeeEnabledForLatitude"
+        "ui/astrology/InterpolatedLunarPerigeeEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for InterpolatedLunarPerigee.
     planetInterpolatedLunarPerigeeEnabledForLatitudeDefValue = \
@@ -3954,7 +4368,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for Sun.
     planetSunEnabledForLatitudeKey = \
-        "ui/astrology/sunEnabledForLatitude"
+        "ui/astrology/SunEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for Sun.
     planetSunEnabledForLatitudeDefValue = \
@@ -3962,7 +4376,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for Moon.
     planetMoonEnabledForLatitudeKey = \
-        "ui/astrology/moonEnabledForLatitude"
+        "ui/astrology/MoonEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for Moon.
     planetMoonEnabledForLatitudeDefValue = \
@@ -3970,7 +4384,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for Mercury.
     planetMercuryEnabledForLatitudeKey = \
-        "ui/astrology/mercuryEnabledForLatitude"
+        "ui/astrology/MercuryEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for Mercury.
     planetMercuryEnabledForLatitudeDefValue = \
@@ -3978,7 +4392,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for Venus.
     planetVenusEnabledForLatitudeKey = \
-        "ui/astrology/venusEnabledForLatitude"
+        "ui/astrology/VenusEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for Venus.
     planetVenusEnabledForLatitudeDefValue = \
@@ -3986,7 +4400,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for Earth.
     planetEarthEnabledForLatitudeKey = \
-        "ui/astrology/earthEnabledForLatitude"
+        "ui/astrology/EarthEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for Earth.
     planetEarthEnabledForLatitudeDefValue = \
@@ -3994,7 +4408,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for Mars.
     planetMarsEnabledForLatitudeKey = \
-        "ui/astrology/marsEnabledForLatitude"
+        "ui/astrology/MarsEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for Mars.
     planetMarsEnabledForLatitudeDefValue = \
@@ -4002,7 +4416,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for Jupiter.
     planetJupiterEnabledForLatitudeKey = \
-        "ui/astrology/jupiterEnabledForLatitude"
+        "ui/astrology/JupiterEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for Jupiter.
     planetJupiterEnabledForLatitudeDefValue = \
@@ -4010,7 +4424,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for Saturn.
     planetSaturnEnabledForLatitudeKey = \
-        "ui/astrology/saturnEnabledForLatitude"
+        "ui/astrology/SaturnEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for Saturn.
     planetSaturnEnabledForLatitudeDefValue = \
@@ -4018,7 +4432,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for Uranus.
     planetUranusEnabledForLatitudeKey = \
-        "ui/astrology/uranusEnabledForLatitude"
+        "ui/astrology/UranusEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for Uranus.
     planetUranusEnabledForLatitudeDefValue = \
@@ -4026,7 +4440,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for Neptune.
     planetNeptuneEnabledForLatitudeKey = \
-        "ui/astrology/neptuneEnabledForLatitude"
+        "ui/astrology/NeptuneEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for Neptune.
     planetNeptuneEnabledForLatitudeDefValue = \
@@ -4034,7 +4448,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for Pluto.
     planetPlutoEnabledForLatitudeKey = \
-        "ui/astrology/plutoEnabledForLatitude"
+        "ui/astrology/PlutoEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for Pluto.
     planetPlutoEnabledForLatitudeDefValue = \
@@ -4042,7 +4456,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for MeanNorthNode.
     planetMeanNorthNodeEnabledForLatitudeKey = \
-        "ui/astrology/meanNorthNodeEnabledForLatitude"
+        "ui/astrology/MeanNorthNodeEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for MeanNorthNode.
     planetMeanNorthNodeEnabledForLatitudeDefValue = \
@@ -4050,7 +4464,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for MeanSouthNode.
     planetMeanSouthNodeEnabledForLatitudeKey = \
-        "ui/astrology/meanSouthNodeEnabledForLatitude"
+        "ui/astrology/MeanSouthNodeEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for MeanSouthNode.
     planetMeanSouthNodeEnabledForLatitudeDefValue = \
@@ -4058,7 +4472,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for TrueNorthNode.
     planetTrueNorthNodeEnabledForLatitudeKey = \
-        "ui/astrology/trueNorthNodeEnabledForLatitude"
+        "ui/astrology/TrueNorthNodeEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for TrueNorthNode.
     planetTrueNorthNodeEnabledForLatitudeDefValue = \
@@ -4066,7 +4480,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for TrueSouthNode.
     planetTrueSouthNodeEnabledForLatitudeKey = \
-        "ui/astrology/trueSouthNodeEnabledForLatitude"
+        "ui/astrology/TrueSouthNodeEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for TrueSouthNode.
     planetTrueSouthNodeEnabledForLatitudeDefValue = \
@@ -4074,7 +4488,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for Ceres.
     planetCeresEnabledForLatitudeKey = \
-        "ui/astrology/ceresEnabledForLatitude"
+        "ui/astrology/CeresEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for Ceres.
     planetCeresEnabledForLatitudeDefValue = \
@@ -4082,7 +4496,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for Pallas.
     planetPallasEnabledForLatitudeKey = \
-        "ui/astrology/pallasEnabledForLatitude"
+        "ui/astrology/PallasEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for Pallas.
     planetPallasEnabledForLatitudeDefValue = \
@@ -4090,7 +4504,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for Juno.
     planetJunoEnabledForLatitudeKey = \
-        "ui/astrology/junoEnabledForLatitude"
+        "ui/astrology/JunoEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for Juno.
     planetJunoEnabledForLatitudeDefValue = \
@@ -4098,7 +4512,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for Vesta.
     planetVestaEnabledForLatitudeKey = \
-        "ui/astrology/vestaEnabledForLatitude"
+        "ui/astrology/VestaEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for Vesta.
     planetVestaEnabledForLatitudeDefValue = \
@@ -4106,7 +4520,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for Isis.
     planetIsisEnabledForLatitudeKey = \
-        "ui/astrology/isisEnabledForLatitude"
+        "ui/astrology/IsisEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for Isis.
     planetIsisEnabledForLatitudeDefValue = \
@@ -4114,7 +4528,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for Nibiru.
     planetNibiruEnabledForLatitudeKey = \
-        "ui/astrology/nibiruEnabledForLatitude"
+        "ui/astrology/NibiruEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for Nibiru.
     planetNibiruEnabledForLatitudeDefValue = \
@@ -4122,7 +4536,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for Chiron.
     planetChironEnabledForLatitudeKey = \
-        "ui/astrology/chironEnabledForLatitude"
+        "ui/astrology/ChironEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for Chiron.
     planetChironEnabledForLatitudeDefValue = \
@@ -4130,7 +4544,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for Gulika.
     planetGulikaEnabledForLatitudeKey = \
-        "ui/astrology/gulikaEnabledForLatitude"
+        "ui/astrology/GulikaEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for Gulika.
     planetGulikaEnabledForLatitudeDefValue = \
@@ -4138,7 +4552,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for Mandi.
     planetMandiEnabledForLatitudeKey = \
-        "ui/astrology/mandiEnabledForLatitude"
+        "ui/astrology/MandiEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for Mandi.
     planetMandiEnabledForLatitudeDefValue = \
@@ -4146,7 +4560,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for MeanOfFive.
     planetMeanOfFiveEnabledForLatitudeKey = \
-        "ui/astrology/meanOfFiveEnabledForLatitude"
+        "ui/astrology/MeanOfFiveEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for MeanOfFive.
     planetMeanOfFiveEnabledForLatitudeDefValue = \
@@ -4154,7 +4568,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for CycleOfEight.
     planetCycleOfEightEnabledForLatitudeKey = \
-        "ui/astrology/cycleOfEightEnabledForLatitude"
+        "ui/astrology/CycleOfEightEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for CycleOfEight.
     planetCycleOfEightEnabledForLatitudeDefValue = \
@@ -4162,7 +4576,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for AvgMaJuSaUrNePl.
     planetAvgMaJuSaUrNePlEnabledForLatitudeKey = \
-        "ui/astrology/avgMaJuSaUrNePlEnabledForLatitude"
+        "ui/astrology/AvgMaJuSaUrNePlEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for AvgMaJuSaUrNePl.
     planetAvgMaJuSaUrNePlEnabledForLatitudeDefValue = \
@@ -4170,7 +4584,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for AvgJuSaUrNe.
     planetAvgJuSaUrNeEnabledForLatitudeKey = \
-        "ui/astrology/avgJuSaUrNeEnabledForLatitude"
+        "ui/astrology/AvgJuSaUrNeEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for AvgJuSaUrNe.
     planetAvgJuSaUrNeEnabledForLatitudeDefValue = \
@@ -4178,7 +4592,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in Latitude for AvgJuSa.
     planetAvgJuSaEnabledForLatitudeKey = \
-        "ui/astrology/avgJuSaEnabledForLatitude"
+        "ui/astrology/AvgJuSaEnabledForLatitude"
     
     # QSettings default value for the display flag in Latitude for AvgJuSa.
     planetAvgJuSaEnabledForLatitudeDefValue = \
@@ -4188,7 +4602,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for H1.
     planetH1EnabledForGeoSidRadixChartKey = \
-        "ui/astrology/h1EnabledForGeoSidRadixChart"
+        "ui/astrology/H1EnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for H1.
     planetH1EnabledForGeoSidRadixChartDefValue = \
@@ -4196,7 +4610,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for H2.
     planetH2EnabledForGeoSidRadixChartKey = \
-        "ui/astrology/h2EnabledForGeoSidRadixChart"
+        "ui/astrology/H2EnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for H2.
     planetH2EnabledForGeoSidRadixChartDefValue = \
@@ -4204,7 +4618,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for H3.
     planetH3EnabledForGeoSidRadixChartKey = \
-        "ui/astrology/h3EnabledForGeoSidRadixChart"
+        "ui/astrology/H3EnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for H3.
     planetH3EnabledForGeoSidRadixChartDefValue = \
@@ -4212,7 +4626,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for H4.
     planetH4EnabledForGeoSidRadixChartKey = \
-        "ui/astrology/h4EnabledForGeoSidRadixChart"
+        "ui/astrology/H4EnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for H4.
     planetH4EnabledForGeoSidRadixChartDefValue = \
@@ -4220,7 +4634,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for H5.
     planetH5EnabledForGeoSidRadixChartKey = \
-        "ui/astrology/h5EnabledForGeoSidRadixChart"
+        "ui/astrology/H5EnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for H5.
     planetH5EnabledForGeoSidRadixChartDefValue = \
@@ -4228,7 +4642,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for H6.
     planetH6EnabledForGeoSidRadixChartKey = \
-        "ui/astrology/h6EnabledForGeoSidRadixChart"
+        "ui/astrology/H6EnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for H6.
     planetH6EnabledForGeoSidRadixChartDefValue = \
@@ -4236,7 +4650,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for H7.
     planetH7EnabledForGeoSidRadixChartKey = \
-        "ui/astrology/h7EnabledForGeoSidRadixChart"
+        "ui/astrology/H7EnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for H7.
     planetH7EnabledForGeoSidRadixChartDefValue = \
@@ -4244,7 +4658,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for H8.
     planetH8EnabledForGeoSidRadixChartKey = \
-        "ui/astrology/h8EnabledForGeoSidRadixChart"
+        "ui/astrology/H8EnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for H8.
     planetH8EnabledForGeoSidRadixChartDefValue = \
@@ -4252,7 +4666,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for H9.
     planetH9EnabledForGeoSidRadixChartKey = \
-        "ui/astrology/h9EnabledForGeoSidRadixChart"
+        "ui/astrology/H9EnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for H9.
     planetH9EnabledForGeoSidRadixChartDefValue = \
@@ -4260,7 +4674,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for H10.
     planetH10EnabledForGeoSidRadixChartKey = \
-        "ui/astrology/h10EnabledForGeoSidRadixChart"
+        "ui/astrology/H10EnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for H10.
     planetH10EnabledForGeoSidRadixChartDefValue = \
@@ -4268,7 +4682,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for H11.
     planetH11EnabledForGeoSidRadixChartKey = \
-        "ui/astrology/h11EnabledForGeoSidRadixChart"
+        "ui/astrology/H11EnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for H11.
     planetH11EnabledForGeoSidRadixChartDefValue = \
@@ -4276,15 +4690,63 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for H12.
     planetH12EnabledForGeoSidRadixChartKey = \
-        "ui/astrology/h12EnabledForGeoSidRadixChart"
+        "ui/astrology/H12EnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for H12.
     planetH12EnabledForGeoSidRadixChartDefValue = \
         True
     
+    # QSettings key for the display flag in GeoSidRadixChart for ARMC.
+    planetARMCEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/ARMCEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for ARMC.
+    planetARMCEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for Vertex.
+    planetVertexEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/VertexEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for Vertex.
+    planetVertexEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for EquatorialAscendant.
+    planetEquatorialAscendantEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/EquatorialAscendantEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for EquatorialAscendant.
+    planetEquatorialAscendantEnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for CoAscendant1.
+    planetCoAscendant1EnabledForGeoSidRadixChartKey = \
+        "ui/astrology/CoAscendant1EnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for CoAscendant1.
+    planetCoAscendant1EnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for CoAscendant2.
+    planetCoAscendant2EnabledForGeoSidRadixChartKey = \
+        "ui/astrology/CoAscendant2EnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for CoAscendant2.
+    planetCoAscendant2EnabledForGeoSidRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for PolarAscendant.
+    planetPolarAscendantEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/PolarAscendantEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for PolarAscendant.
+    planetPolarAscendantEnabledForGeoSidRadixChartDefValue = \
+        True
+    
     # QSettings key for the display flag in GeoSidRadixChart for HoraLagna.
     planetHoraLagnaEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/horaLagnaEnabledForGeoSidRadixChart"
+        "ui/astrology/HoraLagnaEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for HoraLagna.
     planetHoraLagnaEnabledForGeoSidRadixChartDefValue = \
@@ -4292,7 +4754,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for GhatiLagna.
     planetGhatiLagnaEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/ghatiLagnaEnabledForGeoSidRadixChart"
+        "ui/astrology/GhatiLagnaEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for GhatiLagna.
     planetGhatiLagnaEnabledForGeoSidRadixChartDefValue = \
@@ -4300,7 +4762,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for MeanLunarApogee.
     planetMeanLunarApogeeEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/meanLunarApogeeEnabledForGeoSidRadixChart"
+        "ui/astrology/MeanLunarApogeeEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for MeanLunarApogee.
     planetMeanLunarApogeeEnabledForGeoSidRadixChartDefValue = \
@@ -4308,7 +4770,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for OsculatingLunarApogee.
     planetOsculatingLunarApogeeEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/osculatingLunarApogeeEnabledForGeoSidRadixChart"
+        "ui/astrology/OsculatingLunarApogeeEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for OsculatingLunarApogee.
     planetOsculatingLunarApogeeEnabledForGeoSidRadixChartDefValue = \
@@ -4316,7 +4778,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for InterpolatedLunarApogee.
     planetInterpolatedLunarApogeeEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/interpolatedLunarApogeeEnabledForGeoSidRadixChart"
+        "ui/astrology/InterpolatedLunarApogeeEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for InterpolatedLunarApogee.
     planetInterpolatedLunarApogeeEnabledForGeoSidRadixChartDefValue = \
@@ -4324,7 +4786,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for InterpolatedLunarPerigee.
     planetInterpolatedLunarPerigeeEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/interpolatedLunarPerigeeEnabledForGeoSidRadixChart"
+        "ui/astrology/InterpolatedLunarPerigeeEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for InterpolatedLunarPerigee.
     planetInterpolatedLunarPerigeeEnabledForGeoSidRadixChartDefValue = \
@@ -4332,7 +4794,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for Sun.
     planetSunEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/sunEnabledForGeoSidRadixChart"
+        "ui/astrology/SunEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for Sun.
     planetSunEnabledForGeoSidRadixChartDefValue = \
@@ -4340,7 +4802,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for Moon.
     planetMoonEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/moonEnabledForGeoSidRadixChart"
+        "ui/astrology/MoonEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for Moon.
     planetMoonEnabledForGeoSidRadixChartDefValue = \
@@ -4348,7 +4810,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for Mercury.
     planetMercuryEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/mercuryEnabledForGeoSidRadixChart"
+        "ui/astrology/MercuryEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for Mercury.
     planetMercuryEnabledForGeoSidRadixChartDefValue = \
@@ -4356,7 +4818,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for Venus.
     planetVenusEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/venusEnabledForGeoSidRadixChart"
+        "ui/astrology/VenusEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for Venus.
     planetVenusEnabledForGeoSidRadixChartDefValue = \
@@ -4364,7 +4826,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for Earth.
     planetEarthEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/earthEnabledForGeoSidRadixChart"
+        "ui/astrology/EarthEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for Earth.
     planetEarthEnabledForGeoSidRadixChartDefValue = \
@@ -4372,7 +4834,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for Mars.
     planetMarsEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/marsEnabledForGeoSidRadixChart"
+        "ui/astrology/MarsEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for Mars.
     planetMarsEnabledForGeoSidRadixChartDefValue = \
@@ -4380,7 +4842,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for Jupiter.
     planetJupiterEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/jupiterEnabledForGeoSidRadixChart"
+        "ui/astrology/JupiterEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for Jupiter.
     planetJupiterEnabledForGeoSidRadixChartDefValue = \
@@ -4388,7 +4850,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for Saturn.
     planetSaturnEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/saturnEnabledForGeoSidRadixChart"
+        "ui/astrology/SaturnEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for Saturn.
     planetSaturnEnabledForGeoSidRadixChartDefValue = \
@@ -4396,7 +4858,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for Uranus.
     planetUranusEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/uranusEnabledForGeoSidRadixChart"
+        "ui/astrology/UranusEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for Uranus.
     planetUranusEnabledForGeoSidRadixChartDefValue = \
@@ -4404,7 +4866,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for Neptune.
     planetNeptuneEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/neptuneEnabledForGeoSidRadixChart"
+        "ui/astrology/NeptuneEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for Neptune.
     planetNeptuneEnabledForGeoSidRadixChartDefValue = \
@@ -4412,7 +4874,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for Pluto.
     planetPlutoEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/plutoEnabledForGeoSidRadixChart"
+        "ui/astrology/PlutoEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for Pluto.
     planetPlutoEnabledForGeoSidRadixChartDefValue = \
@@ -4420,7 +4882,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for MeanNorthNode.
     planetMeanNorthNodeEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/meanNorthNodeEnabledForGeoSidRadixChart"
+        "ui/astrology/MeanNorthNodeEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for MeanNorthNode.
     planetMeanNorthNodeEnabledForGeoSidRadixChartDefValue = \
@@ -4428,7 +4890,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for MeanSouthNode.
     planetMeanSouthNodeEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/meanSouthNodeEnabledForGeoSidRadixChart"
+        "ui/astrology/MeanSouthNodeEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for MeanSouthNode.
     planetMeanSouthNodeEnabledForGeoSidRadixChartDefValue = \
@@ -4436,7 +4898,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for TrueNorthNode.
     planetTrueNorthNodeEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/trueNorthNodeEnabledForGeoSidRadixChart"
+        "ui/astrology/TrueNorthNodeEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for TrueNorthNode.
     planetTrueNorthNodeEnabledForGeoSidRadixChartDefValue = \
@@ -4444,7 +4906,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for TrueSouthNode.
     planetTrueSouthNodeEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/trueSouthNodeEnabledForGeoSidRadixChart"
+        "ui/astrology/TrueSouthNodeEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for TrueSouthNode.
     planetTrueSouthNodeEnabledForGeoSidRadixChartDefValue = \
@@ -4452,7 +4914,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for Ceres.
     planetCeresEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/ceresEnabledForGeoSidRadixChart"
+        "ui/astrology/CeresEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for Ceres.
     planetCeresEnabledForGeoSidRadixChartDefValue = \
@@ -4460,7 +4922,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for Pallas.
     planetPallasEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/pallasEnabledForGeoSidRadixChart"
+        "ui/astrology/PallasEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for Pallas.
     planetPallasEnabledForGeoSidRadixChartDefValue = \
@@ -4468,7 +4930,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for Juno.
     planetJunoEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/junoEnabledForGeoSidRadixChart"
+        "ui/astrology/JunoEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for Juno.
     planetJunoEnabledForGeoSidRadixChartDefValue = \
@@ -4476,7 +4938,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for Vesta.
     planetVestaEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/vestaEnabledForGeoSidRadixChart"
+        "ui/astrology/VestaEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for Vesta.
     planetVestaEnabledForGeoSidRadixChartDefValue = \
@@ -4484,7 +4946,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for Isis.
     planetIsisEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/isisEnabledForGeoSidRadixChart"
+        "ui/astrology/IsisEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for Isis.
     planetIsisEnabledForGeoSidRadixChartDefValue = \
@@ -4492,7 +4954,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for Nibiru.
     planetNibiruEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/nibiruEnabledForGeoSidRadixChart"
+        "ui/astrology/NibiruEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for Nibiru.
     planetNibiruEnabledForGeoSidRadixChartDefValue = \
@@ -4500,7 +4962,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for Chiron.
     planetChironEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/chironEnabledForGeoSidRadixChart"
+        "ui/astrology/ChironEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for Chiron.
     planetChironEnabledForGeoSidRadixChartDefValue = \
@@ -4508,7 +4970,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for Gulika.
     planetGulikaEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/gulikaEnabledForGeoSidRadixChart"
+        "ui/astrology/GulikaEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for Gulika.
     planetGulikaEnabledForGeoSidRadixChartDefValue = \
@@ -4516,7 +4978,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for Mandi.
     planetMandiEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/mandiEnabledForGeoSidRadixChart"
+        "ui/astrology/MandiEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for Mandi.
     planetMandiEnabledForGeoSidRadixChartDefValue = \
@@ -4524,7 +4986,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for MeanOfFive.
     planetMeanOfFiveEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/meanOfFiveEnabledForGeoSidRadixChart"
+        "ui/astrology/MeanOfFiveEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for MeanOfFive.
     planetMeanOfFiveEnabledForGeoSidRadixChartDefValue = \
@@ -4532,7 +4994,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for CycleOfEight.
     planetCycleOfEightEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/cycleOfEightEnabledForGeoSidRadixChart"
+        "ui/astrology/CycleOfEightEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for CycleOfEight.
     planetCycleOfEightEnabledForGeoSidRadixChartDefValue = \
@@ -4540,7 +5002,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for AvgMaJuSaUrNePl.
     planetAvgMaJuSaUrNePlEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/avgMaJuSaUrNePlEnabledForGeoSidRadixChart"
+        "ui/astrology/AvgMaJuSaUrNePlEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for AvgMaJuSaUrNePl.
     planetAvgMaJuSaUrNePlEnabledForGeoSidRadixChartDefValue = \
@@ -4548,7 +5010,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for AvgJuSaUrNe.
     planetAvgJuSaUrNeEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/avgJuSaUrNeEnabledForGeoSidRadixChart"
+        "ui/astrology/AvgJuSaUrNeEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for AvgJuSaUrNe.
     planetAvgJuSaUrNeEnabledForGeoSidRadixChartDefValue = \
@@ -4556,7 +5018,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoSidRadixChart for AvgJuSa.
     planetAvgJuSaEnabledForGeoSidRadixChartKey = \
-        "ui/astrology/avgJuSaEnabledForGeoSidRadixChart"
+        "ui/astrology/AvgJuSaEnabledForGeoSidRadixChart"
     
     # QSettings default value for the display flag in GeoSidRadixChart for AvgJuSa.
     planetAvgJuSaEnabledForGeoSidRadixChartDefValue = \
@@ -4566,7 +5028,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for H1.
     planetH1EnabledForGeoTropRadixChartKey = \
-        "ui/astrology/h1EnabledForGeoTropRadixChart"
+        "ui/astrology/H1EnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for H1.
     planetH1EnabledForGeoTropRadixChartDefValue = \
@@ -4574,7 +5036,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for H2.
     planetH2EnabledForGeoTropRadixChartKey = \
-        "ui/astrology/h2EnabledForGeoTropRadixChart"
+        "ui/astrology/H2EnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for H2.
     planetH2EnabledForGeoTropRadixChartDefValue = \
@@ -4582,7 +5044,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for H3.
     planetH3EnabledForGeoTropRadixChartKey = \
-        "ui/astrology/h3EnabledForGeoTropRadixChart"
+        "ui/astrology/H3EnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for H3.
     planetH3EnabledForGeoTropRadixChartDefValue = \
@@ -4590,7 +5052,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for H4.
     planetH4EnabledForGeoTropRadixChartKey = \
-        "ui/astrology/h4EnabledForGeoTropRadixChart"
+        "ui/astrology/H4EnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for H4.
     planetH4EnabledForGeoTropRadixChartDefValue = \
@@ -4598,7 +5060,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for H5.
     planetH5EnabledForGeoTropRadixChartKey = \
-        "ui/astrology/h5EnabledForGeoTropRadixChart"
+        "ui/astrology/H5EnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for H5.
     planetH5EnabledForGeoTropRadixChartDefValue = \
@@ -4606,7 +5068,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for H6.
     planetH6EnabledForGeoTropRadixChartKey = \
-        "ui/astrology/h6EnabledForGeoTropRadixChart"
+        "ui/astrology/H6EnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for H6.
     planetH6EnabledForGeoTropRadixChartDefValue = \
@@ -4614,7 +5076,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for H7.
     planetH7EnabledForGeoTropRadixChartKey = \
-        "ui/astrology/h7EnabledForGeoTropRadixChart"
+        "ui/astrology/H7EnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for H7.
     planetH7EnabledForGeoTropRadixChartDefValue = \
@@ -4622,7 +5084,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for H8.
     planetH8EnabledForGeoTropRadixChartKey = \
-        "ui/astrology/h8EnabledForGeoTropRadixChart"
+        "ui/astrology/H8EnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for H8.
     planetH8EnabledForGeoTropRadixChartDefValue = \
@@ -4630,7 +5092,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for H9.
     planetH9EnabledForGeoTropRadixChartKey = \
-        "ui/astrology/h9EnabledForGeoTropRadixChart"
+        "ui/astrology/H9EnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for H9.
     planetH9EnabledForGeoTropRadixChartDefValue = \
@@ -4638,7 +5100,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for H10.
     planetH10EnabledForGeoTropRadixChartKey = \
-        "ui/astrology/h10EnabledForGeoTropRadixChart"
+        "ui/astrology/H10EnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for H10.
     planetH10EnabledForGeoTropRadixChartDefValue = \
@@ -4646,7 +5108,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for H11.
     planetH11EnabledForGeoTropRadixChartKey = \
-        "ui/astrology/h11EnabledForGeoTropRadixChart"
+        "ui/astrology/H11EnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for H11.
     planetH11EnabledForGeoTropRadixChartDefValue = \
@@ -4654,15 +5116,63 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for H12.
     planetH12EnabledForGeoTropRadixChartKey = \
-        "ui/astrology/h12EnabledForGeoTropRadixChart"
+        "ui/astrology/H12EnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for H12.
     planetH12EnabledForGeoTropRadixChartDefValue = \
         True
     
+    # QSettings key for the display flag in GeoTropRadixChart for ARMC.
+    planetARMCEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/ARMCEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for ARMC.
+    planetARMCEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for Vertex.
+    planetVertexEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/VertexEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for Vertex.
+    planetVertexEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for EquatorialAscendant.
+    planetEquatorialAscendantEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/EquatorialAscendantEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for EquatorialAscendant.
+    planetEquatorialAscendantEnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for CoAscendant1.
+    planetCoAscendant1EnabledForGeoTropRadixChartKey = \
+        "ui/astrology/CoAscendant1EnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for CoAscendant1.
+    planetCoAscendant1EnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for CoAscendant2.
+    planetCoAscendant2EnabledForGeoTropRadixChartKey = \
+        "ui/astrology/CoAscendant2EnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for CoAscendant2.
+    planetCoAscendant2EnabledForGeoTropRadixChartDefValue = \
+        True
+    
+    # QSettings key for the display flag in GeoTropRadixChart for PolarAscendant.
+    planetPolarAscendantEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/PolarAscendantEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for PolarAscendant.
+    planetPolarAscendantEnabledForGeoTropRadixChartDefValue = \
+        True
+    
     # QSettings key for the display flag in GeoTropRadixChart for HoraLagna.
     planetHoraLagnaEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/horaLagnaEnabledForGeoTropRadixChart"
+        "ui/astrology/HoraLagnaEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for HoraLagna.
     planetHoraLagnaEnabledForGeoTropRadixChartDefValue = \
@@ -4670,7 +5180,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for GhatiLagna.
     planetGhatiLagnaEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/ghatiLagnaEnabledForGeoTropRadixChart"
+        "ui/astrology/GhatiLagnaEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for GhatiLagna.
     planetGhatiLagnaEnabledForGeoTropRadixChartDefValue = \
@@ -4678,7 +5188,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for MeanLunarApogee.
     planetMeanLunarApogeeEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/meanLunarApogeeEnabledForGeoTropRadixChart"
+        "ui/astrology/MeanLunarApogeeEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for MeanLunarApogee.
     planetMeanLunarApogeeEnabledForGeoTropRadixChartDefValue = \
@@ -4686,7 +5196,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for OsculatingLunarApogee.
     planetOsculatingLunarApogeeEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/osculatingLunarApogeeEnabledForGeoTropRadixChart"
+        "ui/astrology/OsculatingLunarApogeeEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for OsculatingLunarApogee.
     planetOsculatingLunarApogeeEnabledForGeoTropRadixChartDefValue = \
@@ -4694,7 +5204,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for InterpolatedLunarApogee.
     planetInterpolatedLunarApogeeEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/interpolatedLunarApogeeEnabledForGeoTropRadixChart"
+        "ui/astrology/InterpolatedLunarApogeeEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for InterpolatedLunarApogee.
     planetInterpolatedLunarApogeeEnabledForGeoTropRadixChartDefValue = \
@@ -4702,7 +5212,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for InterpolatedLunarPerigee.
     planetInterpolatedLunarPerigeeEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/interpolatedLunarPerigeeEnabledForGeoTropRadixChart"
+        "ui/astrology/InterpolatedLunarPerigeeEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for InterpolatedLunarPerigee.
     planetInterpolatedLunarPerigeeEnabledForGeoTropRadixChartDefValue = \
@@ -4710,7 +5220,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for Sun.
     planetSunEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/sunEnabledForGeoTropRadixChart"
+        "ui/astrology/SunEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for Sun.
     planetSunEnabledForGeoTropRadixChartDefValue = \
@@ -4718,7 +5228,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for Moon.
     planetMoonEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/moonEnabledForGeoTropRadixChart"
+        "ui/astrology/MoonEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for Moon.
     planetMoonEnabledForGeoTropRadixChartDefValue = \
@@ -4726,7 +5236,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for Mercury.
     planetMercuryEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/mercuryEnabledForGeoTropRadixChart"
+        "ui/astrology/MercuryEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for Mercury.
     planetMercuryEnabledForGeoTropRadixChartDefValue = \
@@ -4734,7 +5244,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for Venus.
     planetVenusEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/venusEnabledForGeoTropRadixChart"
+        "ui/astrology/VenusEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for Venus.
     planetVenusEnabledForGeoTropRadixChartDefValue = \
@@ -4742,7 +5252,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for Earth.
     planetEarthEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/earthEnabledForGeoTropRadixChart"
+        "ui/astrology/EarthEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for Earth.
     planetEarthEnabledForGeoTropRadixChartDefValue = \
@@ -4750,7 +5260,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for Mars.
     planetMarsEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/marsEnabledForGeoTropRadixChart"
+        "ui/astrology/MarsEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for Mars.
     planetMarsEnabledForGeoTropRadixChartDefValue = \
@@ -4758,7 +5268,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for Jupiter.
     planetJupiterEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/jupiterEnabledForGeoTropRadixChart"
+        "ui/astrology/JupiterEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for Jupiter.
     planetJupiterEnabledForGeoTropRadixChartDefValue = \
@@ -4766,7 +5276,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for Saturn.
     planetSaturnEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/saturnEnabledForGeoTropRadixChart"
+        "ui/astrology/SaturnEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for Saturn.
     planetSaturnEnabledForGeoTropRadixChartDefValue = \
@@ -4774,7 +5284,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for Uranus.
     planetUranusEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/uranusEnabledForGeoTropRadixChart"
+        "ui/astrology/UranusEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for Uranus.
     planetUranusEnabledForGeoTropRadixChartDefValue = \
@@ -4782,7 +5292,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for Neptune.
     planetNeptuneEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/neptuneEnabledForGeoTropRadixChart"
+        "ui/astrology/NeptuneEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for Neptune.
     planetNeptuneEnabledForGeoTropRadixChartDefValue = \
@@ -4790,7 +5300,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for Pluto.
     planetPlutoEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/plutoEnabledForGeoTropRadixChart"
+        "ui/astrology/PlutoEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for Pluto.
     planetPlutoEnabledForGeoTropRadixChartDefValue = \
@@ -4798,7 +5308,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for MeanNorthNode.
     planetMeanNorthNodeEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/meanNorthNodeEnabledForGeoTropRadixChart"
+        "ui/astrology/MeanNorthNodeEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for MeanNorthNode.
     planetMeanNorthNodeEnabledForGeoTropRadixChartDefValue = \
@@ -4806,7 +5316,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for MeanSouthNode.
     planetMeanSouthNodeEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/meanSouthNodeEnabledForGeoTropRadixChart"
+        "ui/astrology/MeanSouthNodeEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for MeanSouthNode.
     planetMeanSouthNodeEnabledForGeoTropRadixChartDefValue = \
@@ -4814,7 +5324,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for TrueNorthNode.
     planetTrueNorthNodeEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/trueNorthNodeEnabledForGeoTropRadixChart"
+        "ui/astrology/TrueNorthNodeEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for TrueNorthNode.
     planetTrueNorthNodeEnabledForGeoTropRadixChartDefValue = \
@@ -4822,7 +5332,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for TrueSouthNode.
     planetTrueSouthNodeEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/trueSouthNodeEnabledForGeoTropRadixChart"
+        "ui/astrology/TrueSouthNodeEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for TrueSouthNode.
     planetTrueSouthNodeEnabledForGeoTropRadixChartDefValue = \
@@ -4830,7 +5340,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for Ceres.
     planetCeresEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/ceresEnabledForGeoTropRadixChart"
+        "ui/astrology/CeresEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for Ceres.
     planetCeresEnabledForGeoTropRadixChartDefValue = \
@@ -4838,7 +5348,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for Pallas.
     planetPallasEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/pallasEnabledForGeoTropRadixChart"
+        "ui/astrology/PallasEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for Pallas.
     planetPallasEnabledForGeoTropRadixChartDefValue = \
@@ -4846,7 +5356,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for Juno.
     planetJunoEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/junoEnabledForGeoTropRadixChart"
+        "ui/astrology/JunoEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for Juno.
     planetJunoEnabledForGeoTropRadixChartDefValue = \
@@ -4854,7 +5364,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for Vesta.
     planetVestaEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/vestaEnabledForGeoTropRadixChart"
+        "ui/astrology/VestaEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for Vesta.
     planetVestaEnabledForGeoTropRadixChartDefValue = \
@@ -4862,7 +5372,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for Isis.
     planetIsisEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/isisEnabledForGeoTropRadixChart"
+        "ui/astrology/IsisEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for Isis.
     planetIsisEnabledForGeoTropRadixChartDefValue = \
@@ -4870,7 +5380,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for Nibiru.
     planetNibiruEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/nibiruEnabledForGeoTropRadixChart"
+        "ui/astrology/NibiruEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for Nibiru.
     planetNibiruEnabledForGeoTropRadixChartDefValue = \
@@ -4878,7 +5388,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for Chiron.
     planetChironEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/chironEnabledForGeoTropRadixChart"
+        "ui/astrology/ChironEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for Chiron.
     planetChironEnabledForGeoTropRadixChartDefValue = \
@@ -4886,7 +5396,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for Gulika.
     planetGulikaEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/gulikaEnabledForGeoTropRadixChart"
+        "ui/astrology/GulikaEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for Gulika.
     planetGulikaEnabledForGeoTropRadixChartDefValue = \
@@ -4894,7 +5404,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for Mandi.
     planetMandiEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/mandiEnabledForGeoTropRadixChart"
+        "ui/astrology/MandiEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for Mandi.
     planetMandiEnabledForGeoTropRadixChartDefValue = \
@@ -4902,7 +5412,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for MeanOfFive.
     planetMeanOfFiveEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/meanOfFiveEnabledForGeoTropRadixChart"
+        "ui/astrology/MeanOfFiveEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for MeanOfFive.
     planetMeanOfFiveEnabledForGeoTropRadixChartDefValue = \
@@ -4910,7 +5420,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for CycleOfEight.
     planetCycleOfEightEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/cycleOfEightEnabledForGeoTropRadixChart"
+        "ui/astrology/CycleOfEightEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for CycleOfEight.
     planetCycleOfEightEnabledForGeoTropRadixChartDefValue = \
@@ -4918,7 +5428,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for AvgMaJuSaUrNePl.
     planetAvgMaJuSaUrNePlEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/avgMaJuSaUrNePlEnabledForGeoTropRadixChart"
+        "ui/astrology/AvgMaJuSaUrNePlEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for AvgMaJuSaUrNePl.
     planetAvgMaJuSaUrNePlEnabledForGeoTropRadixChartDefValue = \
@@ -4926,7 +5436,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for AvgJuSaUrNe.
     planetAvgJuSaUrNeEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/avgJuSaUrNeEnabledForGeoTropRadixChart"
+        "ui/astrology/AvgJuSaUrNeEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for AvgJuSaUrNe.
     planetAvgJuSaUrNeEnabledForGeoTropRadixChartDefValue = \
@@ -4934,7 +5444,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in GeoTropRadixChart for AvgJuSa.
     planetAvgJuSaEnabledForGeoTropRadixChartKey = \
-        "ui/astrology/avgJuSaEnabledForGeoTropRadixChart"
+        "ui/astrology/AvgJuSaEnabledForGeoTropRadixChart"
     
     # QSettings default value for the display flag in GeoTropRadixChart for AvgJuSa.
     planetAvgJuSaEnabledForGeoTropRadixChartDefValue = \
@@ -4944,7 +5454,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for H1.
     planetH1EnabledForHelioSidRadixChartKey = \
-        "ui/astrology/h1EnabledForHelioSidRadixChart"
+        "ui/astrology/H1EnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for H1.
     planetH1EnabledForHelioSidRadixChartDefValue = \
@@ -4952,7 +5462,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for H2.
     planetH2EnabledForHelioSidRadixChartKey = \
-        "ui/astrology/h2EnabledForHelioSidRadixChart"
+        "ui/astrology/H2EnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for H2.
     planetH2EnabledForHelioSidRadixChartDefValue = \
@@ -4960,7 +5470,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for H3.
     planetH3EnabledForHelioSidRadixChartKey = \
-        "ui/astrology/h3EnabledForHelioSidRadixChart"
+        "ui/astrology/H3EnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for H3.
     planetH3EnabledForHelioSidRadixChartDefValue = \
@@ -4968,7 +5478,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for H4.
     planetH4EnabledForHelioSidRadixChartKey = \
-        "ui/astrology/h4EnabledForHelioSidRadixChart"
+        "ui/astrology/H4EnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for H4.
     planetH4EnabledForHelioSidRadixChartDefValue = \
@@ -4976,7 +5486,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for H5.
     planetH5EnabledForHelioSidRadixChartKey = \
-        "ui/astrology/h5EnabledForHelioSidRadixChart"
+        "ui/astrology/H5EnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for H5.
     planetH5EnabledForHelioSidRadixChartDefValue = \
@@ -4984,7 +5494,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for H6.
     planetH6EnabledForHelioSidRadixChartKey = \
-        "ui/astrology/h6EnabledForHelioSidRadixChart"
+        "ui/astrology/H6EnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for H6.
     planetH6EnabledForHelioSidRadixChartDefValue = \
@@ -4992,7 +5502,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for H7.
     planetH7EnabledForHelioSidRadixChartKey = \
-        "ui/astrology/h7EnabledForHelioSidRadixChart"
+        "ui/astrology/H7EnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for H7.
     planetH7EnabledForHelioSidRadixChartDefValue = \
@@ -5000,7 +5510,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for H8.
     planetH8EnabledForHelioSidRadixChartKey = \
-        "ui/astrology/h8EnabledForHelioSidRadixChart"
+        "ui/astrology/H8EnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for H8.
     planetH8EnabledForHelioSidRadixChartDefValue = \
@@ -5008,7 +5518,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for H9.
     planetH9EnabledForHelioSidRadixChartKey = \
-        "ui/astrology/h9EnabledForHelioSidRadixChart"
+        "ui/astrology/H9EnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for H9.
     planetH9EnabledForHelioSidRadixChartDefValue = \
@@ -5016,7 +5526,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for H10.
     planetH10EnabledForHelioSidRadixChartKey = \
-        "ui/astrology/h10EnabledForHelioSidRadixChart"
+        "ui/astrology/H10EnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for H10.
     planetH10EnabledForHelioSidRadixChartDefValue = \
@@ -5024,7 +5534,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for H11.
     planetH11EnabledForHelioSidRadixChartKey = \
-        "ui/astrology/h11EnabledForHelioSidRadixChart"
+        "ui/astrology/H11EnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for H11.
     planetH11EnabledForHelioSidRadixChartDefValue = \
@@ -5032,15 +5542,63 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for H12.
     planetH12EnabledForHelioSidRadixChartKey = \
-        "ui/astrology/h12EnabledForHelioSidRadixChart"
+        "ui/astrology/H12EnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for H12.
     planetH12EnabledForHelioSidRadixChartDefValue = \
         False
     
+    # QSettings key for the display flag in HelioSidRadixChart for ARMC.
+    planetARMCEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/ARMCEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for ARMC.
+    planetARMCEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for Vertex.
+    planetVertexEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/VertexEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for Vertex.
+    planetVertexEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for EquatorialAscendant.
+    planetEquatorialAscendantEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/EquatorialAscendantEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for EquatorialAscendant.
+    planetEquatorialAscendantEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for CoAscendant1.
+    planetCoAscendant1EnabledForHelioSidRadixChartKey = \
+        "ui/astrology/CoAscendant1EnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for CoAscendant1.
+    planetCoAscendant1EnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for CoAscendant2.
+    planetCoAscendant2EnabledForHelioSidRadixChartKey = \
+        "ui/astrology/CoAscendant2EnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for CoAscendant2.
+    planetCoAscendant2EnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for PolarAscendant.
+    planetPolarAscendantEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/PolarAscendantEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for PolarAscendant.
+    planetPolarAscendantEnabledForHelioSidRadixChartDefValue = \
+        False
+    
     # QSettings key for the display flag in HelioSidRadixChart for HoraLagna.
     planetHoraLagnaEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/horaLagnaEnabledForHelioSidRadixChart"
+        "ui/astrology/HoraLagnaEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for HoraLagna.
     planetHoraLagnaEnabledForHelioSidRadixChartDefValue = \
@@ -5048,7 +5606,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for GhatiLagna.
     planetGhatiLagnaEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/ghatiLagnaEnabledForHelioSidRadixChart"
+        "ui/astrology/GhatiLagnaEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for GhatiLagna.
     planetGhatiLagnaEnabledForHelioSidRadixChartDefValue = \
@@ -5056,7 +5614,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for MeanLunarApogee.
     planetMeanLunarApogeeEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/meanLunarApogeeEnabledForHelioSidRadixChart"
+        "ui/astrology/MeanLunarApogeeEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for MeanLunarApogee.
     planetMeanLunarApogeeEnabledForHelioSidRadixChartDefValue = \
@@ -5064,7 +5622,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for OsculatingLunarApogee.
     planetOsculatingLunarApogeeEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/osculatingLunarApogeeEnabledForHelioSidRadixChart"
+        "ui/astrology/OsculatingLunarApogeeEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for OsculatingLunarApogee.
     planetOsculatingLunarApogeeEnabledForHelioSidRadixChartDefValue = \
@@ -5072,7 +5630,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for InterpolatedLunarApogee.
     planetInterpolatedLunarApogeeEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/interpolatedLunarApogeeEnabledForHelioSidRadixChart"
+        "ui/astrology/InterpolatedLunarApogeeEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for InterpolatedLunarApogee.
     planetInterpolatedLunarApogeeEnabledForHelioSidRadixChartDefValue = \
@@ -5080,7 +5638,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for InterpolatedLunarPerigee.
     planetInterpolatedLunarPerigeeEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/interpolatedLunarPerigeeEnabledForHelioSidRadixChart"
+        "ui/astrology/InterpolatedLunarPerigeeEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for InterpolatedLunarPerigee.
     planetInterpolatedLunarPerigeeEnabledForHelioSidRadixChartDefValue = \
@@ -5088,7 +5646,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for Sun.
     planetSunEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/sunEnabledForHelioSidRadixChart"
+        "ui/astrology/SunEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for Sun.
     planetSunEnabledForHelioSidRadixChartDefValue = \
@@ -5096,7 +5654,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for Moon.
     planetMoonEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/moonEnabledForHelioSidRadixChart"
+        "ui/astrology/MoonEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for Moon.
     planetMoonEnabledForHelioSidRadixChartDefValue = \
@@ -5104,7 +5662,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for Mercury.
     planetMercuryEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/mercuryEnabledForHelioSidRadixChart"
+        "ui/astrology/MercuryEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for Mercury.
     planetMercuryEnabledForHelioSidRadixChartDefValue = \
@@ -5112,7 +5670,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for Venus.
     planetVenusEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/venusEnabledForHelioSidRadixChart"
+        "ui/astrology/VenusEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for Venus.
     planetVenusEnabledForHelioSidRadixChartDefValue = \
@@ -5120,7 +5678,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for Earth.
     planetEarthEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/earthEnabledForHelioSidRadixChart"
+        "ui/astrology/EarthEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for Earth.
     planetEarthEnabledForHelioSidRadixChartDefValue = \
@@ -5128,7 +5686,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for Mars.
     planetMarsEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/marsEnabledForHelioSidRadixChart"
+        "ui/astrology/MarsEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for Mars.
     planetMarsEnabledForHelioSidRadixChartDefValue = \
@@ -5136,7 +5694,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for Jupiter.
     planetJupiterEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/jupiterEnabledForHelioSidRadixChart"
+        "ui/astrology/JupiterEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for Jupiter.
     planetJupiterEnabledForHelioSidRadixChartDefValue = \
@@ -5144,7 +5702,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for Saturn.
     planetSaturnEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/saturnEnabledForHelioSidRadixChart"
+        "ui/astrology/SaturnEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for Saturn.
     planetSaturnEnabledForHelioSidRadixChartDefValue = \
@@ -5152,7 +5710,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for Uranus.
     planetUranusEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/uranusEnabledForHelioSidRadixChart"
+        "ui/astrology/UranusEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for Uranus.
     planetUranusEnabledForHelioSidRadixChartDefValue = \
@@ -5160,7 +5718,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for Neptune.
     planetNeptuneEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/neptuneEnabledForHelioSidRadixChart"
+        "ui/astrology/NeptuneEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for Neptune.
     planetNeptuneEnabledForHelioSidRadixChartDefValue = \
@@ -5168,7 +5726,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for Pluto.
     planetPlutoEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/plutoEnabledForHelioSidRadixChart"
+        "ui/astrology/PlutoEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for Pluto.
     planetPlutoEnabledForHelioSidRadixChartDefValue = \
@@ -5176,7 +5734,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for MeanNorthNode.
     planetMeanNorthNodeEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/meanNorthNodeEnabledForHelioSidRadixChart"
+        "ui/astrology/MeanNorthNodeEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for MeanNorthNode.
     planetMeanNorthNodeEnabledForHelioSidRadixChartDefValue = \
@@ -5184,7 +5742,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for MeanSouthNode.
     planetMeanSouthNodeEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/meanSouthNodeEnabledForHelioSidRadixChart"
+        "ui/astrology/MeanSouthNodeEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for MeanSouthNode.
     planetMeanSouthNodeEnabledForHelioSidRadixChartDefValue = \
@@ -5192,7 +5750,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for TrueNorthNode.
     planetTrueNorthNodeEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/trueNorthNodeEnabledForHelioSidRadixChart"
+        "ui/astrology/TrueNorthNodeEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for TrueNorthNode.
     planetTrueNorthNodeEnabledForHelioSidRadixChartDefValue = \
@@ -5200,7 +5758,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for TrueSouthNode.
     planetTrueSouthNodeEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/trueSouthNodeEnabledForHelioSidRadixChart"
+        "ui/astrology/TrueSouthNodeEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for TrueSouthNode.
     planetTrueSouthNodeEnabledForHelioSidRadixChartDefValue = \
@@ -5208,7 +5766,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for Ceres.
     planetCeresEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/ceresEnabledForHelioSidRadixChart"
+        "ui/astrology/CeresEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for Ceres.
     planetCeresEnabledForHelioSidRadixChartDefValue = \
@@ -5216,7 +5774,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for Pallas.
     planetPallasEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/pallasEnabledForHelioSidRadixChart"
+        "ui/astrology/PallasEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for Pallas.
     planetPallasEnabledForHelioSidRadixChartDefValue = \
@@ -5224,7 +5782,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for Juno.
     planetJunoEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/junoEnabledForHelioSidRadixChart"
+        "ui/astrology/JunoEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for Juno.
     planetJunoEnabledForHelioSidRadixChartDefValue = \
@@ -5232,7 +5790,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for Vesta.
     planetVestaEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/vestaEnabledForHelioSidRadixChart"
+        "ui/astrology/VestaEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for Vesta.
     planetVestaEnabledForHelioSidRadixChartDefValue = \
@@ -5240,7 +5798,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for Isis.
     planetIsisEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/isisEnabledForHelioSidRadixChart"
+        "ui/astrology/IsisEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for Isis.
     planetIsisEnabledForHelioSidRadixChartDefValue = \
@@ -5248,7 +5806,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for Nibiru.
     planetNibiruEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/nibiruEnabledForHelioSidRadixChart"
+        "ui/astrology/NibiruEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for Nibiru.
     planetNibiruEnabledForHelioSidRadixChartDefValue = \
@@ -5256,7 +5814,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for Chiron.
     planetChironEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/chironEnabledForHelioSidRadixChart"
+        "ui/astrology/ChironEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for Chiron.
     planetChironEnabledForHelioSidRadixChartDefValue = \
@@ -5264,7 +5822,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for Gulika.
     planetGulikaEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/gulikaEnabledForHelioSidRadixChart"
+        "ui/astrology/GulikaEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for Gulika.
     planetGulikaEnabledForHelioSidRadixChartDefValue = \
@@ -5272,7 +5830,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for Mandi.
     planetMandiEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/mandiEnabledForHelioSidRadixChart"
+        "ui/astrology/MandiEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for Mandi.
     planetMandiEnabledForHelioSidRadixChartDefValue = \
@@ -5280,7 +5838,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for MeanOfFive.
     planetMeanOfFiveEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/meanOfFiveEnabledForHelioSidRadixChart"
+        "ui/astrology/MeanOfFiveEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for MeanOfFive.
     planetMeanOfFiveEnabledForHelioSidRadixChartDefValue = \
@@ -5288,7 +5846,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for CycleOfEight.
     planetCycleOfEightEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/cycleOfEightEnabledForHelioSidRadixChart"
+        "ui/astrology/CycleOfEightEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for CycleOfEight.
     planetCycleOfEightEnabledForHelioSidRadixChartDefValue = \
@@ -5296,7 +5854,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for AvgMaJuSaUrNePl.
     planetAvgMaJuSaUrNePlEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/avgMaJuSaUrNePlEnabledForHelioSidRadixChart"
+        "ui/astrology/AvgMaJuSaUrNePlEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for AvgMaJuSaUrNePl.
     planetAvgMaJuSaUrNePlEnabledForHelioSidRadixChartDefValue = \
@@ -5304,7 +5862,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for AvgJuSaUrNe.
     planetAvgJuSaUrNeEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/avgJuSaUrNeEnabledForHelioSidRadixChart"
+        "ui/astrology/AvgJuSaUrNeEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for AvgJuSaUrNe.
     planetAvgJuSaUrNeEnabledForHelioSidRadixChartDefValue = \
@@ -5312,7 +5870,7 @@ class SettingsKeys():
     
     # QSettings key for the display flag in HelioSidRadixChart for AvgJuSa.
     planetAvgJuSaEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/avgJuSaEnabledForHelioSidRadixChart"
+        "ui/astrology/AvgJuSaEnabledForHelioSidRadixChart"
     
     # QSettings default value for the display flag in HelioSidRadixChart for AvgJuSa.
     planetAvgJuSaEnabledForHelioSidRadixChartDefValue = \

@@ -1747,6 +1747,54 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetH12CalculationsEnabledLabel,
                    self.planetH12CalculationsEnabledCheckBox)
 
+        self.planetARMCCalculationsEnabledLabel = \
+            QLabel("ARMC enabled:")
+        self.planetARMCCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledLeftFormLayout.\
+            addRow(self.planetARMCCalculationsEnabledLabel,
+                   self.planetARMCCalculationsEnabledCheckBox)
+
+        self.planetVertexCalculationsEnabledLabel = \
+            QLabel("Vertex enabled:")
+        self.planetVertexCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledLeftFormLayout.\
+            addRow(self.planetVertexCalculationsEnabledLabel,
+                   self.planetVertexCalculationsEnabledCheckBox)
+
+        self.planetEquatorialAscendantCalculationsEnabledLabel = \
+            QLabel("EquatorialAscendant enabled:")
+        self.planetEquatorialAscendantCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledLeftFormLayout.\
+            addRow(self.planetEquatorialAscendantCalculationsEnabledLabel,
+                   self.planetEquatorialAscendantCalculationsEnabledCheckBox)
+
+        self.planetCoAscendant1CalculationsEnabledLabel = \
+            QLabel("CoAscendant1 enabled:")
+        self.planetCoAscendant1CalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledLeftFormLayout.\
+            addRow(self.planetCoAscendant1CalculationsEnabledLabel,
+                   self.planetCoAscendant1CalculationsEnabledCheckBox)
+
+        self.planetCoAscendant2CalculationsEnabledLabel = \
+            QLabel("CoAscendant2 enabled:")
+        self.planetCoAscendant2CalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledLeftFormLayout.\
+            addRow(self.planetCoAscendant2CalculationsEnabledLabel,
+                   self.planetCoAscendant2CalculationsEnabledCheckBox)
+
+        self.planetPolarAscendantCalculationsEnabledLabel = \
+            QLabel("PolarAscendant enabled:")
+        self.planetPolarAscendantCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledLeftFormLayout.\
+            addRow(self.planetPolarAscendantCalculationsEnabledLabel,
+                   self.planetPolarAscendantCalculationsEnabledCheckBox)
+
         self.planetHoraLagnaCalculationsEnabledLabel = \
             QLabel("HoraLagna enabled:")
         self.planetHoraLagnaCalculationsEnabledCheckBox = \
@@ -2179,6 +2227,54 @@ class AppPreferencesEditWidget(QWidget):
         planetEnabledForPlanetaryInfoTableLeftFormLayout.\
             addRow(self.planetH12EnabledForPlanetaryInfoTableLabel,
                    self.planetH12EnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetARMCEnabledForPlanetaryInfoTableLabel = \
+            QLabel("ARMC enabled:")
+        self.planetARMCEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableLeftFormLayout.\
+            addRow(self.planetARMCEnabledForPlanetaryInfoTableLabel,
+                   self.planetARMCEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetVertexEnabledForPlanetaryInfoTableLabel = \
+            QLabel("Vertex enabled:")
+        self.planetVertexEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableLeftFormLayout.\
+            addRow(self.planetVertexEnabledForPlanetaryInfoTableLabel,
+                   self.planetVertexEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetEquatorialAscendantEnabledForPlanetaryInfoTableLabel = \
+            QLabel("EquatorialAscendant enabled:")
+        self.planetEquatorialAscendantEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableLeftFormLayout.\
+            addRow(self.planetEquatorialAscendantEnabledForPlanetaryInfoTableLabel,
+                   self.planetEquatorialAscendantEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetCoAscendant1EnabledForPlanetaryInfoTableLabel = \
+            QLabel("CoAscendant1 enabled:")
+        self.planetCoAscendant1EnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableLeftFormLayout.\
+            addRow(self.planetCoAscendant1EnabledForPlanetaryInfoTableLabel,
+                   self.planetCoAscendant1EnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetCoAscendant2EnabledForPlanetaryInfoTableLabel = \
+            QLabel("CoAscendant2 enabled:")
+        self.planetCoAscendant2EnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableLeftFormLayout.\
+            addRow(self.planetCoAscendant2EnabledForPlanetaryInfoTableLabel,
+                   self.planetCoAscendant2EnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetPolarAscendantEnabledForPlanetaryInfoTableLabel = \
+            QLabel("PolarAscendant enabled:")
+        self.planetPolarAscendantEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableLeftFormLayout.\
+            addRow(self.planetPolarAscendantEnabledForPlanetaryInfoTableLabel,
+                   self.planetPolarAscendantEnabledForPlanetaryInfoTableCheckBox)
 
         self.planetHoraLagnaEnabledForPlanetaryInfoTableLabel = \
             QLabel("HoraLagna enabled:")
@@ -2613,6 +2709,54 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetH12EnabledForDeclinationLabel,
                    self.planetH12EnabledForDeclinationCheckBox)
 
+        self.planetARMCEnabledForDeclinationLabel = \
+            QLabel("ARMC enabled:")
+        self.planetARMCEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationLeftFormLayout.\
+            addRow(self.planetARMCEnabledForDeclinationLabel,
+                   self.planetARMCEnabledForDeclinationCheckBox)
+
+        self.planetVertexEnabledForDeclinationLabel = \
+            QLabel("Vertex enabled:")
+        self.planetVertexEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationLeftFormLayout.\
+            addRow(self.planetVertexEnabledForDeclinationLabel,
+                   self.planetVertexEnabledForDeclinationCheckBox)
+
+        self.planetEquatorialAscendantEnabledForDeclinationLabel = \
+            QLabel("EquatorialAscendant enabled:")
+        self.planetEquatorialAscendantEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationLeftFormLayout.\
+            addRow(self.planetEquatorialAscendantEnabledForDeclinationLabel,
+                   self.planetEquatorialAscendantEnabledForDeclinationCheckBox)
+
+        self.planetCoAscendant1EnabledForDeclinationLabel = \
+            QLabel("CoAscendant1 enabled:")
+        self.planetCoAscendant1EnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationLeftFormLayout.\
+            addRow(self.planetCoAscendant1EnabledForDeclinationLabel,
+                   self.planetCoAscendant1EnabledForDeclinationCheckBox)
+
+        self.planetCoAscendant2EnabledForDeclinationLabel = \
+            QLabel("CoAscendant2 enabled:")
+        self.planetCoAscendant2EnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationLeftFormLayout.\
+            addRow(self.planetCoAscendant2EnabledForDeclinationLabel,
+                   self.planetCoAscendant2EnabledForDeclinationCheckBox)
+
+        self.planetPolarAscendantEnabledForDeclinationLabel = \
+            QLabel("PolarAscendant enabled:")
+        self.planetPolarAscendantEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationLeftFormLayout.\
+            addRow(self.planetPolarAscendantEnabledForDeclinationLabel,
+                   self.planetPolarAscendantEnabledForDeclinationCheckBox)
+
         self.planetHoraLagnaEnabledForDeclinationLabel = \
             QLabel("HoraLagna enabled:")
         self.planetHoraLagnaEnabledForDeclinationCheckBox = \
@@ -3045,6 +3189,54 @@ class AppPreferencesEditWidget(QWidget):
         planetEnabledForLatitudeLeftFormLayout.\
             addRow(self.planetH12EnabledForLatitudeLabel,
                    self.planetH12EnabledForLatitudeCheckBox)
+
+        self.planetARMCEnabledForLatitudeLabel = \
+            QLabel("ARMC enabled:")
+        self.planetARMCEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeLeftFormLayout.\
+            addRow(self.planetARMCEnabledForLatitudeLabel,
+                   self.planetARMCEnabledForLatitudeCheckBox)
+
+        self.planetVertexEnabledForLatitudeLabel = \
+            QLabel("Vertex enabled:")
+        self.planetVertexEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeLeftFormLayout.\
+            addRow(self.planetVertexEnabledForLatitudeLabel,
+                   self.planetVertexEnabledForLatitudeCheckBox)
+
+        self.planetEquatorialAscendantEnabledForLatitudeLabel = \
+            QLabel("EquatorialAscendant enabled:")
+        self.planetEquatorialAscendantEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeLeftFormLayout.\
+            addRow(self.planetEquatorialAscendantEnabledForLatitudeLabel,
+                   self.planetEquatorialAscendantEnabledForLatitudeCheckBox)
+
+        self.planetCoAscendant1EnabledForLatitudeLabel = \
+            QLabel("CoAscendant1 enabled:")
+        self.planetCoAscendant1EnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeLeftFormLayout.\
+            addRow(self.planetCoAscendant1EnabledForLatitudeLabel,
+                   self.planetCoAscendant1EnabledForLatitudeCheckBox)
+
+        self.planetCoAscendant2EnabledForLatitudeLabel = \
+            QLabel("CoAscendant2 enabled:")
+        self.planetCoAscendant2EnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeLeftFormLayout.\
+            addRow(self.planetCoAscendant2EnabledForLatitudeLabel,
+                   self.planetCoAscendant2EnabledForLatitudeCheckBox)
+
+        self.planetPolarAscendantEnabledForLatitudeLabel = \
+            QLabel("PolarAscendant enabled:")
+        self.planetPolarAscendantEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeLeftFormLayout.\
+            addRow(self.planetPolarAscendantEnabledForLatitudeLabel,
+                   self.planetPolarAscendantEnabledForLatitudeCheckBox)
 
         self.planetHoraLagnaEnabledForLatitudeLabel = \
             QLabel("HoraLagna enabled:")
@@ -3479,6 +3671,54 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetH12EnabledForGeoSidRadixChartLabel,
                    self.planetH12EnabledForGeoSidRadixChartCheckBox)
 
+        self.planetARMCEnabledForGeoSidRadixChartLabel = \
+            QLabel("ARMC enabled:")
+        self.planetARMCEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartLeftFormLayout.\
+            addRow(self.planetARMCEnabledForGeoSidRadixChartLabel,
+                   self.planetARMCEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetVertexEnabledForGeoSidRadixChartLabel = \
+            QLabel("Vertex enabled:")
+        self.planetVertexEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartLeftFormLayout.\
+            addRow(self.planetVertexEnabledForGeoSidRadixChartLabel,
+                   self.planetVertexEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetEquatorialAscendantEnabledForGeoSidRadixChartLabel = \
+            QLabel("EquatorialAscendant enabled:")
+        self.planetEquatorialAscendantEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartLeftFormLayout.\
+            addRow(self.planetEquatorialAscendantEnabledForGeoSidRadixChartLabel,
+                   self.planetEquatorialAscendantEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetCoAscendant1EnabledForGeoSidRadixChartLabel = \
+            QLabel("CoAscendant1 enabled:")
+        self.planetCoAscendant1EnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartLeftFormLayout.\
+            addRow(self.planetCoAscendant1EnabledForGeoSidRadixChartLabel,
+                   self.planetCoAscendant1EnabledForGeoSidRadixChartCheckBox)
+
+        self.planetCoAscendant2EnabledForGeoSidRadixChartLabel = \
+            QLabel("CoAscendant2 enabled:")
+        self.planetCoAscendant2EnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartLeftFormLayout.\
+            addRow(self.planetCoAscendant2EnabledForGeoSidRadixChartLabel,
+                   self.planetCoAscendant2EnabledForGeoSidRadixChartCheckBox)
+
+        self.planetPolarAscendantEnabledForGeoSidRadixChartLabel = \
+            QLabel("PolarAscendant enabled:")
+        self.planetPolarAscendantEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartLeftFormLayout.\
+            addRow(self.planetPolarAscendantEnabledForGeoSidRadixChartLabel,
+                   self.planetPolarAscendantEnabledForGeoSidRadixChartCheckBox)
+
         self.planetHoraLagnaEnabledForGeoSidRadixChartLabel = \
             QLabel("HoraLagna enabled:")
         self.planetHoraLagnaEnabledForGeoSidRadixChartCheckBox = \
@@ -3912,6 +4152,54 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetH12EnabledForGeoTropRadixChartLabel,
                    self.planetH12EnabledForGeoTropRadixChartCheckBox)
 
+        self.planetARMCEnabledForGeoTropRadixChartLabel = \
+            QLabel("ARMC enabled:")
+        self.planetARMCEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartLeftFormLayout.\
+            addRow(self.planetARMCEnabledForGeoTropRadixChartLabel,
+                   self.planetARMCEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetVertexEnabledForGeoTropRadixChartLabel = \
+            QLabel("Vertex enabled:")
+        self.planetVertexEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartLeftFormLayout.\
+            addRow(self.planetVertexEnabledForGeoTropRadixChartLabel,
+                   self.planetVertexEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetEquatorialAscendantEnabledForGeoTropRadixChartLabel = \
+            QLabel("EquatorialAscendant enabled:")
+        self.planetEquatorialAscendantEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartLeftFormLayout.\
+            addRow(self.planetEquatorialAscendantEnabledForGeoTropRadixChartLabel,
+                   self.planetEquatorialAscendantEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetCoAscendant1EnabledForGeoTropRadixChartLabel = \
+            QLabel("CoAscendant1 enabled:")
+        self.planetCoAscendant1EnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartLeftFormLayout.\
+            addRow(self.planetCoAscendant1EnabledForGeoTropRadixChartLabel,
+                   self.planetCoAscendant1EnabledForGeoTropRadixChartCheckBox)
+
+        self.planetCoAscendant2EnabledForGeoTropRadixChartLabel = \
+            QLabel("CoAscendant2 enabled:")
+        self.planetCoAscendant2EnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartLeftFormLayout.\
+            addRow(self.planetCoAscendant2EnabledForGeoTropRadixChartLabel,
+                   self.planetCoAscendant2EnabledForGeoTropRadixChartCheckBox)
+
+        self.planetPolarAscendantEnabledForGeoTropRadixChartLabel = \
+            QLabel("PolarAscendant enabled:")
+        self.planetPolarAscendantEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartLeftFormLayout.\
+            addRow(self.planetPolarAscendantEnabledForGeoTropRadixChartLabel,
+                   self.planetPolarAscendantEnabledForGeoTropRadixChartCheckBox)
+
         self.planetHoraLagnaEnabledForGeoTropRadixChartLabel = \
             QLabel("HoraLagna enabled:")
         self.planetHoraLagnaEnabledForGeoTropRadixChartCheckBox = \
@@ -4344,6 +4632,54 @@ class AppPreferencesEditWidget(QWidget):
         planetEnabledForHelioSidRadixChartLeftFormLayout.\
             addRow(self.planetH12EnabledForHelioSidRadixChartLabel,
                    self.planetH12EnabledForHelioSidRadixChartCheckBox)
+
+        self.planetARMCEnabledForHelioSidRadixChartLabel = \
+            QLabel("ARMC enabled:")
+        self.planetARMCEnabledForHelioSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioSidRadixChartLeftFormLayout.\
+            addRow(self.planetARMCEnabledForHelioSidRadixChartLabel,
+                   self.planetARMCEnabledForHelioSidRadixChartCheckBox)
+
+        self.planetVertexEnabledForHelioSidRadixChartLabel = \
+            QLabel("Vertex enabled:")
+        self.planetVertexEnabledForHelioSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioSidRadixChartLeftFormLayout.\
+            addRow(self.planetVertexEnabledForHelioSidRadixChartLabel,
+                   self.planetVertexEnabledForHelioSidRadixChartCheckBox)
+
+        self.planetEquatorialAscendantEnabledForHelioSidRadixChartLabel = \
+            QLabel("EquatorialAscendant enabled:")
+        self.planetEquatorialAscendantEnabledForHelioSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioSidRadixChartLeftFormLayout.\
+            addRow(self.planetEquatorialAscendantEnabledForHelioSidRadixChartLabel,
+                   self.planetEquatorialAscendantEnabledForHelioSidRadixChartCheckBox)
+
+        self.planetCoAscendant1EnabledForHelioSidRadixChartLabel = \
+            QLabel("CoAscendant1 enabled:")
+        self.planetCoAscendant1EnabledForHelioSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioSidRadixChartLeftFormLayout.\
+            addRow(self.planetCoAscendant1EnabledForHelioSidRadixChartLabel,
+                   self.planetCoAscendant1EnabledForHelioSidRadixChartCheckBox)
+
+        self.planetCoAscendant2EnabledForHelioSidRadixChartLabel = \
+            QLabel("CoAscendant2 enabled:")
+        self.planetCoAscendant2EnabledForHelioSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioSidRadixChartLeftFormLayout.\
+            addRow(self.planetCoAscendant2EnabledForHelioSidRadixChartLabel,
+                   self.planetCoAscendant2EnabledForHelioSidRadixChartCheckBox)
+
+        self.planetPolarAscendantEnabledForHelioSidRadixChartLabel = \
+            QLabel("PolarAscendant enabled:")
+        self.planetPolarAscendantEnabledForHelioSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioSidRadixChartLeftFormLayout.\
+            addRow(self.planetPolarAscendantEnabledForHelioSidRadixChartLabel,
+                   self.planetPolarAscendantEnabledForHelioSidRadixChartCheckBox)
 
         self.planetHoraLagnaEnabledForHelioSidRadixChartLabel = \
             QLabel("HoraLagna enabled:")
@@ -6400,6 +6736,246 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetH12BackgroundColorLabel,
                    self.planetH12BackgroundColorEditButton)
 
+        # ARMC
+        self.planetARMCGlyphUnicodeLabel = \
+            QLabel("ARMC unicode glyph:")
+        self.planetARMCGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetARMCGlyphUnicodeLabel,
+                   self.planetARMCGlyphUnicodeLineEdit)
+        self.planetARMCGlyphFontSizeLabel = \
+            QLabel("ARMC glyph font size:")
+        self.planetARMCGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetARMCGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetARMCGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetARMCGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetARMCGlyphFontSizeLabel,
+                   self.planetARMCGlyphFontSizeSpinBox)
+        self.planetARMCAbbreviationLabel = \
+            QLabel("ARMC abbreviation:")
+        self.planetARMCAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetARMCAbbreviationLabel,
+                   self.planetARMCAbbreviationLineEdit)
+        self.planetARMCForegroundColorLabel = \
+            QLabel("ARMC foreground color:")
+        self.planetARMCForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetARMCForegroundColorLabel,
+                   self.planetARMCForegroundColorEditButton)
+        self.planetARMCBackgroundColorLabel = \
+            QLabel("ARMC background color:")
+        self.planetARMCBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetARMCBackgroundColorLabel,
+                   self.planetARMCBackgroundColorEditButton)
+
+        # Vertex
+        self.planetVertexGlyphUnicodeLabel = \
+            QLabel("Vertex unicode glyph:")
+        self.planetVertexGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetVertexGlyphUnicodeLabel,
+                   self.planetVertexGlyphUnicodeLineEdit)
+        self.planetVertexGlyphFontSizeLabel = \
+            QLabel("Vertex glyph font size:")
+        self.planetVertexGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetVertexGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetVertexGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetVertexGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetVertexGlyphFontSizeLabel,
+                   self.planetVertexGlyphFontSizeSpinBox)
+        self.planetVertexAbbreviationLabel = \
+            QLabel("Vertex abbreviation:")
+        self.planetVertexAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetVertexAbbreviationLabel,
+                   self.planetVertexAbbreviationLineEdit)
+        self.planetVertexForegroundColorLabel = \
+            QLabel("Vertex foreground color:")
+        self.planetVertexForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetVertexForegroundColorLabel,
+                   self.planetVertexForegroundColorEditButton)
+        self.planetVertexBackgroundColorLabel = \
+            QLabel("Vertex background color:")
+        self.planetVertexBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetVertexBackgroundColorLabel,
+                   self.planetVertexBackgroundColorEditButton)
+
+        # EquatorialAscendant
+        self.planetEquatorialAscendantGlyphUnicodeLabel = \
+            QLabel("EquatorialAscendant unicode glyph:")
+        self.planetEquatorialAscendantGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetEquatorialAscendantGlyphUnicodeLabel,
+                   self.planetEquatorialAscendantGlyphUnicodeLineEdit)
+        self.planetEquatorialAscendantGlyphFontSizeLabel = \
+            QLabel("EquatorialAscendant glyph font size:")
+        self.planetEquatorialAscendantGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetEquatorialAscendantGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetEquatorialAscendantGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetEquatorialAscendantGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetEquatorialAscendantGlyphFontSizeLabel,
+                   self.planetEquatorialAscendantGlyphFontSizeSpinBox)
+        self.planetEquatorialAscendantAbbreviationLabel = \
+            QLabel("EquatorialAscendant abbreviation:")
+        self.planetEquatorialAscendantAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetEquatorialAscendantAbbreviationLabel,
+                   self.planetEquatorialAscendantAbbreviationLineEdit)
+        self.planetEquatorialAscendantForegroundColorLabel = \
+            QLabel("EquatorialAscendant foreground color:")
+        self.planetEquatorialAscendantForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetEquatorialAscendantForegroundColorLabel,
+                   self.planetEquatorialAscendantForegroundColorEditButton)
+        self.planetEquatorialAscendantBackgroundColorLabel = \
+            QLabel("EquatorialAscendant background color:")
+        self.planetEquatorialAscendantBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetEquatorialAscendantBackgroundColorLabel,
+                   self.planetEquatorialAscendantBackgroundColorEditButton)
+
+        # CoAscendant1
+        self.planetCoAscendant1GlyphUnicodeLabel = \
+            QLabel("CoAscendant1 unicode glyph:")
+        self.planetCoAscendant1GlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetCoAscendant1GlyphUnicodeLabel,
+                   self.planetCoAscendant1GlyphUnicodeLineEdit)
+        self.planetCoAscendant1GlyphFontSizeLabel = \
+            QLabel("CoAscendant1 glyph font size:")
+        self.planetCoAscendant1GlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetCoAscendant1GlyphFontSizeSpinBox.setDecimals(4)
+        self.planetCoAscendant1GlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetCoAscendant1GlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetCoAscendant1GlyphFontSizeLabel,
+                   self.planetCoAscendant1GlyphFontSizeSpinBox)
+        self.planetCoAscendant1AbbreviationLabel = \
+            QLabel("CoAscendant1 abbreviation:")
+        self.planetCoAscendant1AbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetCoAscendant1AbbreviationLabel,
+                   self.planetCoAscendant1AbbreviationLineEdit)
+        self.planetCoAscendant1ForegroundColorLabel = \
+            QLabel("CoAscendant1 foreground color:")
+        self.planetCoAscendant1ForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetCoAscendant1ForegroundColorLabel,
+                   self.planetCoAscendant1ForegroundColorEditButton)
+        self.planetCoAscendant1BackgroundColorLabel = \
+            QLabel("CoAscendant1 background color:")
+        self.planetCoAscendant1BackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetCoAscendant1BackgroundColorLabel,
+                   self.planetCoAscendant1BackgroundColorEditButton)
+
+        # CoAscendant2
+        self.planetCoAscendant2GlyphUnicodeLabel = \
+            QLabel("CoAscendant2 unicode glyph:")
+        self.planetCoAscendant2GlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetCoAscendant2GlyphUnicodeLabel,
+                   self.planetCoAscendant2GlyphUnicodeLineEdit)
+        self.planetCoAscendant2GlyphFontSizeLabel = \
+            QLabel("CoAscendant2 glyph font size:")
+        self.planetCoAscendant2GlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetCoAscendant2GlyphFontSizeSpinBox.setDecimals(4)
+        self.planetCoAscendant2GlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetCoAscendant2GlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetCoAscendant2GlyphFontSizeLabel,
+                   self.planetCoAscendant2GlyphFontSizeSpinBox)
+        self.planetCoAscendant2AbbreviationLabel = \
+            QLabel("CoAscendant2 abbreviation:")
+        self.planetCoAscendant2AbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetCoAscendant2AbbreviationLabel,
+                   self.planetCoAscendant2AbbreviationLineEdit)
+        self.planetCoAscendant2ForegroundColorLabel = \
+            QLabel("CoAscendant2 foreground color:")
+        self.planetCoAscendant2ForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetCoAscendant2ForegroundColorLabel,
+                   self.planetCoAscendant2ForegroundColorEditButton)
+        self.planetCoAscendant2BackgroundColorLabel = \
+            QLabel("CoAscendant2 background color:")
+        self.planetCoAscendant2BackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetCoAscendant2BackgroundColorLabel,
+                   self.planetCoAscendant2BackgroundColorEditButton)
+
+        # PolarAscendant
+        self.planetPolarAscendantGlyphUnicodeLabel = \
+            QLabel("PolarAscendant unicode glyph:")
+        self.planetPolarAscendantGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetPolarAscendantGlyphUnicodeLabel,
+                   self.planetPolarAscendantGlyphUnicodeLineEdit)
+        self.planetPolarAscendantGlyphFontSizeLabel = \
+            QLabel("PolarAscendant glyph font size:")
+        self.planetPolarAscendantGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetPolarAscendantGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetPolarAscendantGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetPolarAscendantGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetPolarAscendantGlyphFontSizeLabel,
+                   self.planetPolarAscendantGlyphFontSizeSpinBox)
+        self.planetPolarAscendantAbbreviationLabel = \
+            QLabel("PolarAscendant abbreviation:")
+        self.planetPolarAscendantAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetPolarAscendantAbbreviationLabel,
+                   self.planetPolarAscendantAbbreviationLineEdit)
+        self.planetPolarAscendantForegroundColorLabel = \
+            QLabel("PolarAscendant foreground color:")
+        self.planetPolarAscendantForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetPolarAscendantForegroundColorLabel,
+                   self.planetPolarAscendantForegroundColorEditButton)
+        self.planetPolarAscendantBackgroundColorLabel = \
+            QLabel("PolarAscendant background color:")
+        self.planetPolarAscendantBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetPolarAscendantBackgroundColorLabel,
+                   self.planetPolarAscendantBackgroundColorEditButton)
+
         # HoraLagna
         self.planetHoraLagnaGlyphUnicodeLabel = \
             QLabel("HoraLagna unicode glyph:")
@@ -7860,6 +8436,60 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetH12CalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
 
+        key = SettingsKeys.planetARMCCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetARMCCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetARMCCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetARMCCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetVertexCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetVertexCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetVertexCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVertexCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetEquatorialAscendantCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetEquatorialAscendantCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetEquatorialAscendantCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetEquatorialAscendantCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetCoAscendant1CalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetCoAscendant1CalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetCoAscendant1CalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant1CalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetCoAscendant2CalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetCoAscendant2CalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetCoAscendant2CalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant2CalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetPolarAscendantCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetPolarAscendantCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetPolarAscendantCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetPolarAscendantCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
         key = SettingsKeys.planetHoraLagnaCalculationsEnabledKey
         value = settings.value(key, \
             SettingsKeys.planetHoraLagnaCalculationsEnabledDefValue,
@@ -8305,6 +8935,60 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetH12EnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
 
+        key = SettingsKeys.planetARMCEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetARMCEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetARMCEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetARMCEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetVertexEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetVertexEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetVertexEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVertexEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetEquatorialAscendantEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetEquatorialAscendantEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetEquatorialAscendantEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetEquatorialAscendantEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetCoAscendant1EnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetCoAscendant1EnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetCoAscendant1EnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant1EnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetCoAscendant2EnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetCoAscendant2EnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetCoAscendant2EnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant2EnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetPolarAscendantEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetPolarAscendantEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetPolarAscendantEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetPolarAscendantEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
         key = SettingsKeys.planetHoraLagnaEnabledForPlanetaryInfoTableKey
         value = settings.value(key, \
             SettingsKeys.planetHoraLagnaEnabledForPlanetaryInfoTableDefValue,
@@ -8740,6 +9424,60 @@ class AppPreferencesEditWidget(QWidget):
             self.planetH12EnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetH12EnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetARMCEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetARMCEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetARMCEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetARMCEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetVertexEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetVertexEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetVertexEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVertexEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetEquatorialAscendantEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetEquatorialAscendantEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetEquatorialAscendantEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetEquatorialAscendantEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetCoAscendant1EnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetCoAscendant1EnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetCoAscendant1EnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant1EnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetCoAscendant2EnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetCoAscendant2EnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetCoAscendant2EnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant2EnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetPolarAscendantEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetPolarAscendantEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetPolarAscendantEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetPolarAscendantEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetHoraLagnaEnabledForDeclinationKey
         value = settings.value(key, \
@@ -9177,6 +9915,60 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetH12EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
 
+        key = SettingsKeys.planetARMCEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetARMCEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetARMCEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetARMCEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetVertexEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetVertexEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetVertexEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVertexEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetEquatorialAscendantEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetEquatorialAscendantEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetEquatorialAscendantEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetEquatorialAscendantEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetCoAscendant1EnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetCoAscendant1EnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetCoAscendant1EnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant1EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetCoAscendant2EnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetCoAscendant2EnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetCoAscendant2EnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant2EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetPolarAscendantEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetPolarAscendantEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetPolarAscendantEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetPolarAscendantEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
         key = SettingsKeys.planetHoraLagnaEnabledForLatitudeKey
         value = settings.value(key, \
             SettingsKeys.planetHoraLagnaEnabledForLatitudeDefValue,
@@ -9612,6 +10404,60 @@ class AppPreferencesEditWidget(QWidget):
             self.planetH12EnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetH12EnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetARMCEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetARMCEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetARMCEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetARMCEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetVertexEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetVertexEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetVertexEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVertexEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetEquatorialAscendantEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetEquatorialAscendantEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetEquatorialAscendantEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetEquatorialAscendantEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetCoAscendant1EnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetCoAscendant1EnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetCoAscendant1EnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant1EnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetCoAscendant2EnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetCoAscendant2EnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetCoAscendant2EnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant2EnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetPolarAscendantEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetPolarAscendantEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetPolarAscendantEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetPolarAscendantEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetHoraLagnaEnabledForGeoSidRadixChartKey
         value = settings.value(key, \
@@ -10049,6 +10895,60 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetH12EnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
+        key = SettingsKeys.planetARMCEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetARMCEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetARMCEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetARMCEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetVertexEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetVertexEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetVertexEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVertexEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetEquatorialAscendantEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetEquatorialAscendantEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetEquatorialAscendantEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetEquatorialAscendantEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetCoAscendant1EnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetCoAscendant1EnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetCoAscendant1EnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant1EnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetCoAscendant2EnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetCoAscendant2EnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetCoAscendant2EnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant2EnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetPolarAscendantEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetPolarAscendantEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetPolarAscendantEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetPolarAscendantEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
         key = SettingsKeys.planetHoraLagnaEnabledForGeoTropRadixChartKey
         value = settings.value(key, \
             SettingsKeys.planetHoraLagnaEnabledForGeoTropRadixChartDefValue,
@@ -10484,6 +11384,60 @@ class AppPreferencesEditWidget(QWidget):
             self.planetH12EnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetH12EnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetARMCEnabledForHelioSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetARMCEnabledForHelioSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetARMCEnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetARMCEnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetVertexEnabledForHelioSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetVertexEnabledForHelioSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetVertexEnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVertexEnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetEquatorialAscendantEnabledForHelioSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetEquatorialAscendantEnabledForHelioSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetEquatorialAscendantEnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetEquatorialAscendantEnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetCoAscendant1EnabledForHelioSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetCoAscendant1EnabledForHelioSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetCoAscendant1EnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant1EnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetCoAscendant2EnabledForHelioSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetCoAscendant2EnabledForHelioSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetCoAscendant2EnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant2EnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetPolarAscendantEnabledForHelioSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetPolarAscendantEnabledForHelioSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetPolarAscendantEnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetPolarAscendantEnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetHoraLagnaEnabledForHelioSidRadixChartKey
         value = settings.value(key, \
@@ -12336,6 +13290,222 @@ class AppPreferencesEditWidget(QWidget):
         self.planetH12BackgroundColorEditButton.\
             setColor(value)
 
+        # ARMC
+        key = SettingsKeys.planetARMCGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetARMCGlyphUnicodeDefValue,
+            type=str)
+        self.planetARMCGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetARMCGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetARMCGlyphFontSizeDefValue,
+            type=float)
+        self.planetARMCGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetARMCAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetARMCAbbreviationDefValue,
+            type=str)
+        self.planetARMCAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetARMCForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetARMCForegroundColorDefValue,
+            type=QColor)
+        self.planetARMCForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetARMCBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetARMCBackgroundColorDefValue,
+            type=QColor)
+        self.planetARMCBackgroundColorEditButton.\
+            setColor(value)
+
+        # Vertex
+        key = SettingsKeys.planetVertexGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetVertexGlyphUnicodeDefValue,
+            type=str)
+        self.planetVertexGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetVertexGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetVertexGlyphFontSizeDefValue,
+            type=float)
+        self.planetVertexGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetVertexAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetVertexAbbreviationDefValue,
+            type=str)
+        self.planetVertexAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetVertexForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetVertexForegroundColorDefValue,
+            type=QColor)
+        self.planetVertexForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetVertexBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetVertexBackgroundColorDefValue,
+            type=QColor)
+        self.planetVertexBackgroundColorEditButton.\
+            setColor(value)
+
+        # EquatorialAscendant
+        key = SettingsKeys.planetEquatorialAscendantGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetEquatorialAscendantGlyphUnicodeDefValue,
+            type=str)
+        self.planetEquatorialAscendantGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetEquatorialAscendantGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetEquatorialAscendantGlyphFontSizeDefValue,
+            type=float)
+        self.planetEquatorialAscendantGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetEquatorialAscendantAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetEquatorialAscendantAbbreviationDefValue,
+            type=str)
+        self.planetEquatorialAscendantAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetEquatorialAscendantForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetEquatorialAscendantForegroundColorDefValue,
+            type=QColor)
+        self.planetEquatorialAscendantForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetEquatorialAscendantBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetEquatorialAscendantBackgroundColorDefValue,
+            type=QColor)
+        self.planetEquatorialAscendantBackgroundColorEditButton.\
+            setColor(value)
+
+        # CoAscendant1
+        key = SettingsKeys.planetCoAscendant1GlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetCoAscendant1GlyphUnicodeDefValue,
+            type=str)
+        self.planetCoAscendant1GlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetCoAscendant1GlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetCoAscendant1GlyphFontSizeDefValue,
+            type=float)
+        self.planetCoAscendant1GlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetCoAscendant1AbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetCoAscendant1AbbreviationDefValue,
+            type=str)
+        self.planetCoAscendant1AbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetCoAscendant1ForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetCoAscendant1ForegroundColorDefValue,
+            type=QColor)
+        self.planetCoAscendant1ForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetCoAscendant1BackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetCoAscendant1BackgroundColorDefValue,
+            type=QColor)
+        self.planetCoAscendant1BackgroundColorEditButton.\
+            setColor(value)
+
+        # CoAscendant2
+        key = SettingsKeys.planetCoAscendant2GlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetCoAscendant2GlyphUnicodeDefValue,
+            type=str)
+        self.planetCoAscendant2GlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetCoAscendant2GlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetCoAscendant2GlyphFontSizeDefValue,
+            type=float)
+        self.planetCoAscendant2GlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetCoAscendant2AbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetCoAscendant2AbbreviationDefValue,
+            type=str)
+        self.planetCoAscendant2AbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetCoAscendant2ForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetCoAscendant2ForegroundColorDefValue,
+            type=QColor)
+        self.planetCoAscendant2ForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetCoAscendant2BackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetCoAscendant2BackgroundColorDefValue,
+            type=QColor)
+        self.planetCoAscendant2BackgroundColorEditButton.\
+            setColor(value)
+
+        # PolarAscendant
+        key = SettingsKeys.planetPolarAscendantGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetPolarAscendantGlyphUnicodeDefValue,
+            type=str)
+        self.planetPolarAscendantGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetPolarAscendantGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetPolarAscendantGlyphFontSizeDefValue,
+            type=float)
+        self.planetPolarAscendantGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetPolarAscendantAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetPolarAscendantAbbreviationDefValue,
+            type=str)
+        self.planetPolarAscendantAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetPolarAscendantForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetPolarAscendantForegroundColorDefValue,
+            type=QColor)
+        self.planetPolarAscendantForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetPolarAscendantBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetPolarAscendantBackgroundColorDefValue,
+            type=QColor)
+        self.planetPolarAscendantBackgroundColorEditButton.\
+            setColor(value)
+
         # HoraLagna
         key = SettingsKeys.planetHoraLagnaGlyphUnicodeKey
         value = settings.value(key, \
@@ -13560,6 +14730,84 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
 
+        key = SettingsKeys.planetARMCCalculationsEnabledKey
+        newValue = \
+            self.planetARMCCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVertexCalculationsEnabledKey
+        newValue = \
+            self.planetVertexCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetEquatorialAscendantCalculationsEnabledKey
+        newValue = \
+            self.planetEquatorialAscendantCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetCoAscendant1CalculationsEnabledKey
+        newValue = \
+            self.planetCoAscendant1CalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetCoAscendant2CalculationsEnabledKey
+        newValue = \
+            self.planetCoAscendant2CalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetPolarAscendantCalculationsEnabledKey
+        newValue = \
+            self.planetPolarAscendantCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
         key = SettingsKeys.planetHoraLagnaCalculationsEnabledKey
         newValue = \
             self.planetHoraLagnaCalculationsEnabledCheckBox.\
@@ -14200,6 +15448,84 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
         
+        key = SettingsKeys.planetARMCEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetARMCEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetVertexEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetVertexEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetEquatorialAscendantEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetEquatorialAscendantEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetCoAscendant1EnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetCoAscendant1EnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetCoAscendant2EnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetCoAscendant2EnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetPolarAscendantEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetPolarAscendantEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
         key = SettingsKeys.planetHoraLagnaEnabledForPlanetaryInfoTableKey
         newValue = \
             self.planetHoraLagnaEnabledForPlanetaryInfoTableCheckBox.\
@@ -14817,6 +16143,84 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.planetH12EnabledForDeclinationKey
         newValue = \
             self.planetH12EnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetARMCEnabledForDeclinationKey
+        newValue = \
+            self.planetARMCEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetVertexEnabledForDeclinationKey
+        newValue = \
+            self.planetVertexEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetEquatorialAscendantEnabledForDeclinationKey
+        newValue = \
+            self.planetEquatorialAscendantEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetCoAscendant1EnabledForDeclinationKey
+        newValue = \
+            self.planetCoAscendant1EnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetCoAscendant2EnabledForDeclinationKey
+        newValue = \
+            self.planetCoAscendant2EnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetPolarAscendantEnabledForDeclinationKey
+        newValue = \
+            self.planetPolarAscendantEnabledForDeclinationCheckBox.\
             checkState() == Qt.Checked
         if settings.contains(key):
             oldValue = settings.value(key, type=bool)
@@ -15454,6 +16858,84 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
         
+        key = SettingsKeys.planetARMCEnabledForLatitudeKey
+        newValue = \
+            self.planetARMCEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetVertexEnabledForLatitudeKey
+        newValue = \
+            self.planetVertexEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetEquatorialAscendantEnabledForLatitudeKey
+        newValue = \
+            self.planetEquatorialAscendantEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetCoAscendant1EnabledForLatitudeKey
+        newValue = \
+            self.planetCoAscendant1EnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetCoAscendant2EnabledForLatitudeKey
+        newValue = \
+            self.planetCoAscendant2EnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetPolarAscendantEnabledForLatitudeKey
+        newValue = \
+            self.planetPolarAscendantEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
         key = SettingsKeys.planetHoraLagnaEnabledForLatitudeKey
         newValue = \
             self.planetHoraLagnaEnabledForLatitudeCheckBox.\
@@ -16071,6 +17553,84 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.planetH12EnabledForGeoSidRadixChartKey
         newValue = \
             self.planetH12EnabledForGeoSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetARMCEnabledForGeoSidRadixChartKey
+        newValue = \
+            self.planetARMCEnabledForGeoSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetVertexEnabledForGeoSidRadixChartKey
+        newValue = \
+            self.planetVertexEnabledForGeoSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetEquatorialAscendantEnabledForGeoSidRadixChartKey
+        newValue = \
+            self.planetEquatorialAscendantEnabledForGeoSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetCoAscendant1EnabledForGeoSidRadixChartKey
+        newValue = \
+            self.planetCoAscendant1EnabledForGeoSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetCoAscendant2EnabledForGeoSidRadixChartKey
+        newValue = \
+            self.planetCoAscendant2EnabledForGeoSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetPolarAscendantEnabledForGeoSidRadixChartKey
+        newValue = \
+            self.planetPolarAscendantEnabledForGeoSidRadixChartCheckBox.\
             checkState() == Qt.Checked
         if settings.contains(key):
             oldValue = settings.value(key, type=bool)
@@ -16708,6 +18268,84 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
         
+        key = SettingsKeys.planetARMCEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetARMCEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetVertexEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetVertexEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetEquatorialAscendantEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetEquatorialAscendantEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetCoAscendant1EnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetCoAscendant1EnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetCoAscendant2EnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetCoAscendant2EnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetPolarAscendantEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetPolarAscendantEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
         key = SettingsKeys.planetHoraLagnaEnabledForGeoTropRadixChartKey
         newValue = \
             self.planetHoraLagnaEnabledForGeoTropRadixChartCheckBox.\
@@ -17325,6 +18963,84 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.planetH12EnabledForHelioSidRadixChartKey
         newValue = \
             self.planetH12EnabledForHelioSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetARMCEnabledForHelioSidRadixChartKey
+        newValue = \
+            self.planetARMCEnabledForHelioSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetVertexEnabledForHelioSidRadixChartKey
+        newValue = \
+            self.planetVertexEnabledForHelioSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetEquatorialAscendantEnabledForHelioSidRadixChartKey
+        newValue = \
+            self.planetEquatorialAscendantEnabledForHelioSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetCoAscendant1EnabledForHelioSidRadixChartKey
+        newValue = \
+            self.planetCoAscendant1EnabledForHelioSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetCoAscendant2EnabledForHelioSidRadixChartKey
+        newValue = \
+            self.planetCoAscendant2EnabledForHelioSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetPolarAscendantEnabledForHelioSidRadixChartKey
+        newValue = \
+            self.planetPolarAscendantEnabledForHelioSidRadixChartCheckBox.\
             checkState() == Qt.Checked
         if settings.contains(key):
             oldValue = settings.value(key, type=bool)
@@ -19962,6 +21678,312 @@ class AppPreferencesEditWidget(QWidget):
         else:
             settings.setValue(key, newValue)
 
+        # ARMC
+        key = SettingsKeys.planetARMCGlyphUnicodeKey
+        newValue = \
+            self.planetARMCGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetARMCGlyphFontSizeKey
+        newValue = \
+            self.planetARMCGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetARMCAbbreviationKey
+        newValue = \
+            self.planetARMCAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetARMCForegroundColorKey
+        newValue = \
+            self.planetARMCForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetARMCBackgroundColorKey
+        newValue = \
+            self.planetARMCBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Vertex
+        key = SettingsKeys.planetVertexGlyphUnicodeKey
+        newValue = \
+            self.planetVertexGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVertexGlyphFontSizeKey
+        newValue = \
+            self.planetVertexGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVertexAbbreviationKey
+        newValue = \
+            self.planetVertexAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVertexForegroundColorKey
+        newValue = \
+            self.planetVertexForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVertexBackgroundColorKey
+        newValue = \
+            self.planetVertexBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # EquatorialAscendant
+        key = SettingsKeys.planetEquatorialAscendantGlyphUnicodeKey
+        newValue = \
+            self.planetEquatorialAscendantGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetEquatorialAscendantGlyphFontSizeKey
+        newValue = \
+            self.planetEquatorialAscendantGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetEquatorialAscendantAbbreviationKey
+        newValue = \
+            self.planetEquatorialAscendantAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetEquatorialAscendantForegroundColorKey
+        newValue = \
+            self.planetEquatorialAscendantForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetEquatorialAscendantBackgroundColorKey
+        newValue = \
+            self.planetEquatorialAscendantBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # CoAscendant1
+        key = SettingsKeys.planetCoAscendant1GlyphUnicodeKey
+        newValue = \
+            self.planetCoAscendant1GlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetCoAscendant1GlyphFontSizeKey
+        newValue = \
+            self.planetCoAscendant1GlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetCoAscendant1AbbreviationKey
+        newValue = \
+            self.planetCoAscendant1AbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetCoAscendant1ForegroundColorKey
+        newValue = \
+            self.planetCoAscendant1ForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetCoAscendant1BackgroundColorKey
+        newValue = \
+            self.planetCoAscendant1BackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # CoAscendant2
+        key = SettingsKeys.planetCoAscendant2GlyphUnicodeKey
+        newValue = \
+            self.planetCoAscendant2GlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetCoAscendant2GlyphFontSizeKey
+        newValue = \
+            self.planetCoAscendant2GlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetCoAscendant2AbbreviationKey
+        newValue = \
+            self.planetCoAscendant2AbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetCoAscendant2ForegroundColorKey
+        newValue = \
+            self.planetCoAscendant2ForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetCoAscendant2BackgroundColorKey
+        newValue = \
+            self.planetCoAscendant2BackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # PolarAscendant
+        key = SettingsKeys.planetPolarAscendantGlyphUnicodeKey
+        newValue = \
+            self.planetPolarAscendantGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetPolarAscendantGlyphFontSizeKey
+        newValue = \
+            self.planetPolarAscendantGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetPolarAscendantAbbreviationKey
+        newValue = \
+            self.planetPolarAscendantAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetPolarAscendantForegroundColorKey
+        newValue = \
+            self.planetPolarAscendantForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetPolarAscendantBackgroundColorKey
+        newValue = \
+            self.planetPolarAscendantBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
         # HoraLagna
         key = SettingsKeys.planetHoraLagnaGlyphUnicodeKey
         newValue = \
@@ -21498,6 +23520,42 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetH12CalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
 
+        value = bool(SettingsKeys.planetARMCCalculationsEnabledDefValue)
+        if value == True:
+            self.planetARMCCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetARMCCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetVertexCalculationsEnabledDefValue)
+        if value == True:
+            self.planetVertexCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVertexCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetEquatorialAscendantCalculationsEnabledDefValue)
+        if value == True:
+            self.planetEquatorialAscendantCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetEquatorialAscendantCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetCoAscendant1CalculationsEnabledDefValue)
+        if value == True:
+            self.planetCoAscendant1CalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant1CalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetCoAscendant2CalculationsEnabledDefValue)
+        if value == True:
+            self.planetCoAscendant2CalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant2CalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetPolarAscendantCalculationsEnabledDefValue)
+        if value == True:
+            self.planetPolarAscendantCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetPolarAscendantCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
         value = bool(SettingsKeys.planetHoraLagnaCalculationsEnabledDefValue)
         if value == True:
             self.planetHoraLagnaCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
@@ -21794,6 +23852,42 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetH12EnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
 
+        value = bool(SettingsKeys.planetARMCEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetARMCEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetARMCEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetVertexEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetVertexEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVertexEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetEquatorialAscendantEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetEquatorialAscendantEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetEquatorialAscendantEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetCoAscendant1EnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetCoAscendant1EnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant1EnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetCoAscendant2EnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetCoAscendant2EnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant2EnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetPolarAscendantEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetPolarAscendantEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetPolarAscendantEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
         value = bool(SettingsKeys.planetHoraLagnaEnabledForPlanetaryInfoTableDefValue)
         if value == True:
             self.planetHoraLagnaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
@@ -22083,6 +24177,42 @@ class AppPreferencesEditWidget(QWidget):
             self.planetH12EnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetH12EnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetARMCEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetARMCEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetARMCEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetVertexEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetVertexEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVertexEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetEquatorialAscendantEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetEquatorialAscendantEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetEquatorialAscendantEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetCoAscendant1EnabledForDeclinationDefValue)
+        if value == True:
+            self.planetCoAscendant1EnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant1EnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetCoAscendant2EnabledForDeclinationDefValue)
+        if value == True:
+            self.planetCoAscendant2EnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant2EnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetPolarAscendantEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetPolarAscendantEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetPolarAscendantEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetHoraLagnaEnabledForDeclinationDefValue)
         if value == True:
@@ -22374,6 +24504,42 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetH12EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
 
+        value = bool(SettingsKeys.planetARMCEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetARMCEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetARMCEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetVertexEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetVertexEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVertexEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetEquatorialAscendantEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetEquatorialAscendantEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetEquatorialAscendantEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetCoAscendant1EnabledForLatitudeDefValue)
+        if value == True:
+            self.planetCoAscendant1EnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant1EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetCoAscendant2EnabledForLatitudeDefValue)
+        if value == True:
+            self.planetCoAscendant2EnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant2EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetPolarAscendantEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetPolarAscendantEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetPolarAscendantEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
         value = bool(SettingsKeys.planetHoraLagnaEnabledForLatitudeDefValue)
         if value == True:
             self.planetHoraLagnaEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
@@ -22663,6 +24829,42 @@ class AppPreferencesEditWidget(QWidget):
             self.planetH12EnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetH12EnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetARMCEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetARMCEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetARMCEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetVertexEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetVertexEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVertexEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetEquatorialAscendantEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetEquatorialAscendantEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetEquatorialAscendantEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetCoAscendant1EnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetCoAscendant1EnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant1EnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetCoAscendant2EnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetCoAscendant2EnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant2EnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetPolarAscendantEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetPolarAscendantEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetPolarAscendantEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetHoraLagnaEnabledForGeoSidRadixChartDefValue)
         if value == True:
@@ -22954,6 +25156,42 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetH12EnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
+        value = bool(SettingsKeys.planetARMCEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetARMCEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetARMCEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetVertexEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetVertexEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVertexEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetEquatorialAscendantEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetEquatorialAscendantEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetEquatorialAscendantEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetCoAscendant1EnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetCoAscendant1EnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant1EnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetCoAscendant2EnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetCoAscendant2EnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant2EnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetPolarAscendantEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetPolarAscendantEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetPolarAscendantEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
         value = bool(SettingsKeys.planetHoraLagnaEnabledForGeoTropRadixChartDefValue)
         if value == True:
             self.planetHoraLagnaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
@@ -23243,6 +25481,42 @@ class AppPreferencesEditWidget(QWidget):
             self.planetH12EnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetH12EnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetARMCEnabledForHelioSidRadixChartDefValue)
+        if value == True:
+            self.planetARMCEnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetARMCEnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetVertexEnabledForHelioSidRadixChartDefValue)
+        if value == True:
+            self.planetVertexEnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVertexEnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetEquatorialAscendantEnabledForHelioSidRadixChartDefValue)
+        if value == True:
+            self.planetEquatorialAscendantEnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetEquatorialAscendantEnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetCoAscendant1EnabledForHelioSidRadixChartDefValue)
+        if value == True:
+            self.planetCoAscendant1EnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant1EnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetCoAscendant2EnabledForHelioSidRadixChartDefValue)
+        if value == True:
+            self.planetCoAscendant2EnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant2EnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetPolarAscendantEnabledForHelioSidRadixChartDefValue)
+        if value == True:
+            self.planetPolarAscendantEnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetPolarAscendantEnabledForHelioSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetHoraLagnaEnabledForHelioSidRadixChartDefValue)
         if value == True:
@@ -23971,6 +26245,78 @@ class AppPreferencesEditWidget(QWidget):
             setColor(SettingsKeys.planetH12ForegroundColorDefValue)
         self.planetH12BackgroundColorEditButton.\
             setColor(SettingsKeys.planetH12BackgroundColorDefValue)
+
+        # ARMC
+        self.planetARMCGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetARMCGlyphUnicodeDefValue)
+        self.planetARMCGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetARMCGlyphFontSizeDefValue)
+        self.planetARMCAbbreviationLineEdit.\
+            setText(SettingsKeys.planetARMCAbbreviationDefValue)
+        self.planetARMCForegroundColorEditButton.\
+            setColor(SettingsKeys.planetARMCForegroundColorDefValue)
+        self.planetARMCBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetARMCBackgroundColorDefValue)
+
+        # Vertex
+        self.planetVertexGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetVertexGlyphUnicodeDefValue)
+        self.planetVertexGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetVertexGlyphFontSizeDefValue)
+        self.planetVertexAbbreviationLineEdit.\
+            setText(SettingsKeys.planetVertexAbbreviationDefValue)
+        self.planetVertexForegroundColorEditButton.\
+            setColor(SettingsKeys.planetVertexForegroundColorDefValue)
+        self.planetVertexBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetVertexBackgroundColorDefValue)
+
+        # EquatorialAscendant
+        self.planetEquatorialAscendantGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetEquatorialAscendantGlyphUnicodeDefValue)
+        self.planetEquatorialAscendantGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetEquatorialAscendantGlyphFontSizeDefValue)
+        self.planetEquatorialAscendantAbbreviationLineEdit.\
+            setText(SettingsKeys.planetEquatorialAscendantAbbreviationDefValue)
+        self.planetEquatorialAscendantForegroundColorEditButton.\
+            setColor(SettingsKeys.planetEquatorialAscendantForegroundColorDefValue)
+        self.planetEquatorialAscendantBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetEquatorialAscendantBackgroundColorDefValue)
+
+        # CoAscendant1
+        self.planetCoAscendant1GlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetCoAscendant1GlyphUnicodeDefValue)
+        self.planetCoAscendant1GlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetCoAscendant1GlyphFontSizeDefValue)
+        self.planetCoAscendant1AbbreviationLineEdit.\
+            setText(SettingsKeys.planetCoAscendant1AbbreviationDefValue)
+        self.planetCoAscendant1ForegroundColorEditButton.\
+            setColor(SettingsKeys.planetCoAscendant1ForegroundColorDefValue)
+        self.planetCoAscendant1BackgroundColorEditButton.\
+            setColor(SettingsKeys.planetCoAscendant1BackgroundColorDefValue)
+
+        # CoAscendant2
+        self.planetCoAscendant2GlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetCoAscendant2GlyphUnicodeDefValue)
+        self.planetCoAscendant2GlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetCoAscendant2GlyphFontSizeDefValue)
+        self.planetCoAscendant2AbbreviationLineEdit.\
+            setText(SettingsKeys.planetCoAscendant2AbbreviationDefValue)
+        self.planetCoAscendant2ForegroundColorEditButton.\
+            setColor(SettingsKeys.planetCoAscendant2ForegroundColorDefValue)
+        self.planetCoAscendant2BackgroundColorEditButton.\
+            setColor(SettingsKeys.planetCoAscendant2BackgroundColorDefValue)
+
+        # PolarAscendant
+        self.planetPolarAscendantGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetPolarAscendantGlyphUnicodeDefValue)
+        self.planetPolarAscendantGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetPolarAscendantGlyphFontSizeDefValue)
+        self.planetPolarAscendantAbbreviationLineEdit.\
+            setText(SettingsKeys.planetPolarAscendantAbbreviationDefValue)
+        self.planetPolarAscendantForegroundColorEditButton.\
+            setColor(SettingsKeys.planetPolarAscendantForegroundColorDefValue)
+        self.planetPolarAscendantBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetPolarAscendantBackgroundColorDefValue)
 
         # HoraLagna
         self.planetHoraLagnaGlyphUnicodeLineEdit.\
@@ -30134,6 +32480,42 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlagCheckBox.\
             setCheckState(Qt.Unchecked)
     
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlagCheckBox = \
+            QCheckBox("Planet ARMC enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlagCheckBox = \
+            QCheckBox("Planet Vertex enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlagCheckBox = \
+            QCheckBox("Planet EquatorialAscendant enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlagCheckBox = \
+            QCheckBox("Planet CoAscendant1 enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlagCheckBox = \
+            QCheckBox("Planet CoAscendant2 enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlagCheckBox = \
+            QCheckBox("Planet PolarAscendant enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
         # planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlagCheckBox = \
             QCheckBox("Planet HoraLagna enabled")
@@ -30372,6 +32754,18 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.planetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlagCheckBox)
         leftLayout.addWidget(\
             self.planetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlagCheckBox)
+        leftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlagCheckBox)
+        leftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlagCheckBox)
+        leftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlagCheckBox)
+        leftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlagCheckBox)
+        leftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlagCheckBox)
+        leftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlagCheckBox)
         leftLayout.addWidget(\
             self.planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlagCheckBox)
         leftLayout.addWidget(\
@@ -35653,6 +38047,66 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.planetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
         
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
         # planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag (bool).
         if self.priceBarChartSettings.\
            planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag == True:
@@ -37881,6 +40335,66 @@ class PriceBarChartSettingsEditWidget(QWidget):
         else:
             self.priceBarChartSettings.\
                 planetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlag = False
 
         # planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag (bool).
         if self.planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlagCheckBox.\

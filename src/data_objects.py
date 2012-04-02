@@ -4903,6 +4903,36 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag
         
+        # Flag for measurement of planet ARMC enabled.
+        self.planetARMCEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlag
+        
+        # Flag for measurement of planet Vertex enabled.
+        self.planetVertexEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlag
+        
+        # Flag for measurement of planet EquatorialAscendant enabled.
+        self.planetEquatorialAscendantEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlag
+        
+        # Flag for measurement of planet CoAscendant1 enabled.
+        self.planetCoAscendant1EnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlag
+        
+        # Flag for measurement of planet CoAscendant2 enabled.
+        self.planetCoAscendant2EnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlag
+        
+        # Flag for measurement of planet PolarAscendant enabled.
+        self.planetPolarAscendantEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlag
+        
         # Flag for measurement of planet HoraLagna enabled.
         self.planetHoraLagnaEnabledFlag = \
             PriceBarChartSettings.\
@@ -5654,6 +5684,138 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         return self.showPlanetH12EnabledFlag
+
+    def setPlanetARMCEnabledFlag(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.showPlanetARMCEnabledFlag = flag
+        
+    def getPlanetARMCEnabledFlag(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.showPlanetARMCEnabledFlag
+
+    def setPlanetVertexEnabledFlag(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.showPlanetVertexEnabledFlag = flag
+        
+    def getPlanetVertexEnabledFlag(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.showPlanetVertexEnabledFlag
+
+    def setPlanetEquatorialAscendantEnabledFlag(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.showPlanetEquatorialAscendantEnabledFlag = flag
+        
+    def getPlanetEquatorialAscendantEnabledFlag(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.showPlanetEquatorialAscendantEnabledFlag
+
+    def setPlanetCoAscendant1EnabledFlag(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.showPlanetCoAscendant1EnabledFlag = flag
+        
+    def getPlanetCoAscendant1EnabledFlag(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.showPlanetCoAscendant1EnabledFlag
+
+    def setPlanetCoAscendant2EnabledFlag(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.showPlanetCoAscendant2EnabledFlag = flag
+        
+    def getPlanetCoAscendant2EnabledFlag(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.showPlanetCoAscendant2EnabledFlag
+
+    def setPlanetPolarAscendantEnabledFlag(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.showPlanetPolarAscendantEnabledFlag = flag
+        
+    def getPlanetPolarAscendantEnabledFlag(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.showPlanetPolarAscendantEnabledFlag
 
     def setPlanetHoraLagnaEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -15219,6 +15381,30 @@ class PriceBarChartSettings:
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag = False
         
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # planetARMCEnabledFlag (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlag = False
+        
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # planetVertexEnabledFlag (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlag = False
+        
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # planetEquatorialAscendantEnabledFlag (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlag = False
+        
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # planetCoAscendant1EnabledFlag (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlag = False
+        
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # planetCoAscendant2EnabledFlag (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlag = False
+        
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # planetPolarAscendantEnabledFlag (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlag = False
+        
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetHoraLagnaEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag = False
         
@@ -16561,6 +16747,42 @@ class PriceBarChartSettings:
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag
         
         # PlanetLongitudeMovementMeasurementGraphicsItem
+        # planetARMCEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlag
+        
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # planetVertexEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlag
+        
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # planetEquatorialAscendantEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlag
+        
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # planetCoAscendant1EnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlag
+        
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # planetCoAscendant2EnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlag
+        
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # planetPolarAscendantEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlag
+        
+        # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetHoraLagnaEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag = \
             PriceBarChartSettings.\
@@ -17727,6 +17949,12 @@ class PriceBarChartSettings:
                 # self.planetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlag
                 # self.planetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlag
                 # self.planetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlag
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlag
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlag
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlag
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlag
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlag
                 # self.planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag
                 # self.planetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlag
                 # self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlag
@@ -17793,6 +18021,12 @@ class PriceBarChartSettings:
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlag
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlag
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlag
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlag
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlag
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlag
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlag
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlag
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlag
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlag
@@ -17995,6 +18229,42 @@ class PriceBarChartSettings:
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag
+                    
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # planetARMCEnabledFlag (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlag
+                    
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # planetVertexEnabledFlag (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlag
+                    
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # planetEquatorialAscendantEnabledFlag (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlag
+                    
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # planetCoAscendant1EnabledFlag (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlag
+                    
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # planetCoAscendant2EnabledFlag (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlag
+                    
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # planetPolarAscendantEnabledFlag (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlag
                     
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetHoraLagnaEnabledFlag (bool).
@@ -18235,6 +18505,12 @@ class PriceBarChartSettings:
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlag', " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlag', " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlag', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlag', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlag', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlag', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlag', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlag', " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag', " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlag', " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlag', " + \

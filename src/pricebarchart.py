@@ -7182,6 +7182,24 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag == True:
             self.planetNamesEnabled.append("H12")
         if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlag == True:
+            self.planetNamesEnabled.append("ARMC")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlag == True:
+            self.planetNamesEnabled.append("Vertex")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlag == True:
+            self.planetNamesEnabled.append("EquatorialAscendant")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlag == True:
+            self.planetNamesEnabled.append("CoAscendant1")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlag == True:
+            self.planetNamesEnabled.append("CoAscendant2")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlag == True:
+            self.planetNamesEnabled.append("PolarAscendant")
+        if PriceBarChartSettings.\
                defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag == True:
             self.planetNamesEnabled.append("HoraLagna")
         if PriceBarChartSettings.\
@@ -7499,6 +7517,24 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
         if priceBarChartSettings.\
                planetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag == True:
             self.planetNamesEnabled.append("H12")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlag == True:
+            self.planetNamesEnabled.append("ARMC")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlag == True:
+            self.planetNamesEnabled.append("Vertex")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlag == True:
+            self.planetNamesEnabled.append("EquatorialAscendant")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlag == True:
+            self.planetNamesEnabled.append("CoAscendant1")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlag == True:
+            self.planetNamesEnabled.append("CoAscendant2")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlag == True:
+            self.planetNamesEnabled.append("PolarAscendant")
         if priceBarChartSettings.\
                planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag == True:
             self.planetNamesEnabled.append("HoraLagna")
@@ -8921,6 +8957,18 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             self.planetNamesEnabled.append("H11")
         if self.artifact.getPlanetH12EnabledFlag():
             self.planetNamesEnabled.append("H12")
+        if self.artifact.getPlanetARMCEnabledFlag():
+            self.planetNamesEnabled.append("ARMC")
+        if self.artifact.getPlanetVertexEnabledFlag():
+            self.planetNamesEnabled.append("Vertex")
+        if self.artifact.getPlanetEquatorialAscendantEnabledFlag():
+            self.planetNamesEnabled.append("EquatorialAscendant")
+        if self.artifact.getPlanetCoAscendant1EnabledFlag():
+            self.planetNamesEnabled.append("CoAscendant1")
+        if self.artifact.getPlanetCoAscendant2EnabledFlag():
+            self.planetNamesEnabled.append("CoAscendant2")
+        if self.artifact.getPlanetPolarAscendantEnabledFlag():
+            self.planetNamesEnabled.append("PolarAscendant")
         if self.artifact.getPlanetHoraLagnaEnabledFlag():
             self.planetNamesEnabled.append("HoraLagna")
         if self.artifact.getPlanetGhatiLagnaEnabledFlag():
@@ -9074,6 +9122,18 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             "H11" in self.planetNamesEnabled)
         self.artifact.setPlanetH12EnabledFlag(\
             "H12" in self.planetNamesEnabled)
+        self.artifact.setPlanetARMCEnabledFlag(\
+            "ARMC" in self.planetNamesEnabled)
+        self.artifact.setPlanetVertexEnabledFlag(\
+            "Vertex" in self.planetNamesEnabled)
+        self.artifact.setPlanetEquatorialAscendantEnabledFlag(\
+            "EquatorialAscendant" in self.planetNamesEnabled)
+        self.artifact.setPlanetCoAscendant1EnabledFlag(\
+            "CoAscendant1" in self.planetNamesEnabled)
+        self.artifact.setPlanetCoAscendant2EnabledFlag(\
+            "CoAscendant2" in self.planetNamesEnabled)
+        self.artifact.setPlanetPolarAscendantEnabledFlag(\
+            "PolarAscendant" in self.planetNamesEnabled)
         self.artifact.setPlanetHoraLagnaEnabledFlag(\
             "HoraLagna" in self.planetNamesEnabled)
         self.artifact.setPlanetGhatiLagnaEnabledFlag(\

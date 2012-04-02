@@ -4078,6 +4078,18 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
             QCheckBox("Planet H11 enabled")
         self.planetH12EnabledFlagCheckBox = \
             QCheckBox("Planet H12 enabled")
+        self.planetARMCEnabledFlagCheckBox = \
+            QCheckBox("Planet ARMC enabled")
+        self.planetVertexEnabledFlagCheckBox = \
+            QCheckBox("Planet Vertex enabled")
+        self.planetEquatorialAscendantEnabledFlagCheckBox = \
+            QCheckBox("Planet EquatorialAscendant enabled")
+        self.planetCoAscendant1EnabledFlagCheckBox = \
+            QCheckBox("Planet CoAscendant1 enabled")
+        self.planetCoAscendant2EnabledFlagCheckBox = \
+            QCheckBox("Planet CoAscendant2 enabled")
+        self.planetPolarAscendantEnabledFlagCheckBox = \
+            QCheckBox("Planet PolarAscendant enabled")
         self.planetHoraLagnaEnabledFlagCheckBox = \
             QCheckBox("Planet HoraLagna enabled")
         self.planetGhatiLagnaEnabledFlagCheckBox = \
@@ -4176,6 +4188,18 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
             self.planetH11EnabledFlagCheckBox)
         showTextCheckBoxesLeftLayout.addWidget(\
             self.planetH12EnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetARMCEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetVertexEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetEquatorialAscendantEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetCoAscendant1EnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetCoAscendant2EnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetPolarAscendantEnabledFlagCheckBox)
         showTextCheckBoxesLeftLayout.addWidget(\
             self.planetHoraLagnaEnabledFlagCheckBox)
         showTextCheckBoxesLeftLayout.addWidget(\
@@ -4352,6 +4376,12 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
         self.planetH10EnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.planetH11EnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.planetH12EnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetARMCEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetVertexEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetEquatorialAscendantEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetCoAscendant1EnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetCoAscendant2EnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetPolarAscendantEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.planetHoraLagnaEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.planetGhatiLagnaEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.planetMeanLunarApogeeEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
@@ -4561,6 +4591,36 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
             self.planetH12EnabledFlagCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetH12EnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetARMCEnabledFlag() == True:
+            self.planetARMCEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetARMCEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetVertexEnabledFlag() == True:
+            self.planetVertexEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVertexEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetEquatorialAscendantEnabledFlag() == True:
+            self.planetEquatorialAscendantEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetEquatorialAscendantEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetCoAscendant1EnabledFlag() == True:
+            self.planetCoAscendant1EnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant1EnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetCoAscendant2EnabledFlag() == True:
+            self.planetCoAscendant2EnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetCoAscendant2EnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetPolarAscendantEnabledFlag() == True:
+            self.planetPolarAscendantEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetPolarAscendantEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
 
         if self.artifact.getPlanetHoraLagnaEnabledFlag() == True:
             self.planetHoraLagnaEnabledFlagCheckBox.setCheckState(Qt.Checked)
@@ -4837,6 +4897,24 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
         planetH12EnabledFlag = \
             (self.planetH12EnabledFlagCheckBox.\
              checkState() == Qt.Checked)
+        planetARMCEnabledFlag = \
+            (self.planetARMCEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetVertexEnabledFlag = \
+            (self.planetVertexEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetEquatorialAscendantEnabledFlag = \
+            (self.planetEquatorialAscendantEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetCoAscendant1EnabledFlag = \
+            (self.planetCoAscendant1EnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetCoAscendant2EnabledFlag = \
+            (self.planetCoAscendant2EnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetPolarAscendantEnabledFlag = \
+            (self.planetPolarAscendantEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
         planetHoraLagnaEnabledFlag = \
             (self.planetHoraLagnaEnabledFlagCheckBox.\
              checkState() == Qt.Checked)
@@ -4974,6 +5052,12 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
         self.artifact.setPlanetH10EnabledFlag(planetH10EnabledFlag)
         self.artifact.setPlanetH11EnabledFlag(planetH11EnabledFlag)
         self.artifact.setPlanetH12EnabledFlag(planetH12EnabledFlag)
+        self.artifact.setPlanetARMCEnabledFlag(planetARMCEnabledFlag)
+        self.artifact.setPlanetVertexEnabledFlag(planetVertexEnabledFlag)
+        self.artifact.setPlanetEquatorialAscendantEnabledFlag(planetEquatorialAscendantEnabledFlag)
+        self.artifact.setPlanetCoAscendant1EnabledFlag(planetCoAscendant1EnabledFlag)
+        self.artifact.setPlanetCoAscendant2EnabledFlag(planetCoAscendant2EnabledFlag)
+        self.artifact.setPlanetPolarAscendantEnabledFlag(planetPolarAscendantEnabledFlag)
         self.artifact.setPlanetHoraLagnaEnabledFlag(planetHoraLagnaEnabledFlag)
         self.artifact.setPlanetGhatiLagnaEnabledFlag(planetGhatiLagnaEnabledFlag)
         self.artifact.setPlanetMeanLunarApogeeEnabledFlag(planetMeanLunarApogeeEnabledFlag)

@@ -533,6 +533,30 @@ class AstrologyUtils:
             rv = settings.value(SettingsKeys.planetH12GlyphUnicodeKey,
                                 SettingsKeys.planetH12GlyphUnicodeDefValue,
                                 type=str)
+        elif planetName == "ARMC":
+            rv = settings.value(SettingsKeys.planetARMCGlyphUnicodeKey,
+                                SettingsKeys.planetARMCGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "Vertex":
+            rv = settings.value(SettingsKeys.planetVertexGlyphUnicodeKey,
+                                SettingsKeys.planetVertexGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "EquatorialAscendant":
+            rv = settings.value(SettingsKeys.planetEquatorialAscendantGlyphUnicodeKey,
+                                SettingsKeys.planetEquatorialAscendantGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "CoAscendant1":
+            rv = settings.value(SettingsKeys.planetCoAscendant1GlyphUnicodeKey,
+                                SettingsKeys.planetCoAscendant1GlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "CoAscendant2":
+            rv = settings.value(SettingsKeys.planetCoAscendant2GlyphUnicodeKey,
+                                SettingsKeys.planetCoAscendant2GlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "PolarAscendant":
+            rv = settings.value(SettingsKeys.planetPolarAscendantGlyphUnicodeKey,
+                                SettingsKeys.planetPolarAscendantGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "HoraLagna":
             rv = settings.value(SettingsKeys.planetHoraLagnaGlyphUnicodeKey,
                                 SettingsKeys.planetHoraLagnaGlyphUnicodeDefValue,
@@ -744,6 +768,30 @@ class AstrologyUtils:
         elif planetName == "H12":
             rv = settings.value(SettingsKeys.planetH12GlyphFontSizeKey,
                                 SettingsKeys.planetH12GlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "ARMC":
+            rv = settings.value(SettingsKeys.planetARMCGlyphFontSizeKey,
+                                SettingsKeys.planetARMCGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "Vertex":
+            rv = settings.value(SettingsKeys.planetVertexGlyphFontSizeKey,
+                                SettingsKeys.planetVertexGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "EquatorialAscendant":
+            rv = settings.value(SettingsKeys.planetEquatorialAscendantGlyphFontSizeKey,
+                                SettingsKeys.planetEquatorialAscendantGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "CoAscendant1":
+            rv = settings.value(SettingsKeys.planetCoAscendant1GlyphFontSizeKey,
+                                SettingsKeys.planetCoAscendant1GlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "CoAscendant2":
+            rv = settings.value(SettingsKeys.planetCoAscendant2GlyphFontSizeKey,
+                                SettingsKeys.planetCoAscendant2GlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "PolarAscendant":
+            rv = settings.value(SettingsKeys.planetPolarAscendantGlyphFontSizeKey,
+                                SettingsKeys.planetPolarAscendantGlyphFontSizeDefValue,
                                 type=float)
         elif planetName == "HoraLagna":
             rv = settings.value(SettingsKeys.planetHoraLagnaGlyphFontSizeKey,
@@ -958,6 +1006,30 @@ class AstrologyUtils:
             rv = settings.value(SettingsKeys.planetH12AbbreviationKey,
                                 SettingsKeys.planetH12AbbreviationDefValue,
                                 type=str)
+        elif planetName == "ARMC":
+            rv = settings.value(SettingsKeys.planetARMCAbbreviationKey,
+                                SettingsKeys.planetARMCAbbreviationDefValue,
+                                type=str)
+        elif planetName == "Vertex":
+            rv = settings.value(SettingsKeys.planetVertexAbbreviationKey,
+                                SettingsKeys.planetVertexAbbreviationDefValue,
+                                type=str)
+        elif planetName == "EquatorialAscendant":
+            rv = settings.value(SettingsKeys.planetEquatorialAscendantAbbreviationKey,
+                                SettingsKeys.planetEquatorialAscendantAbbreviationDefValue,
+                                type=str)
+        elif planetName == "CoAscendant1":
+            rv = settings.value(SettingsKeys.planetCoAscendant1AbbreviationKey,
+                                SettingsKeys.planetCoAscendant1AbbreviationDefValue,
+                                type=str)
+        elif planetName == "CoAscendant2":
+            rv = settings.value(SettingsKeys.planetCoAscendant2AbbreviationKey,
+                                SettingsKeys.planetCoAscendant2AbbreviationDefValue,
+                                type=str)
+        elif planetName == "PolarAscendant":
+            rv = settings.value(SettingsKeys.planetPolarAscendantAbbreviationKey,
+                                SettingsKeys.planetPolarAscendantAbbreviationDefValue,
+                                type=str)
         elif planetName == "HoraLagna":
             rv = settings.value(SettingsKeys.planetHoraLagnaAbbreviationKey,
                                 SettingsKeys.planetHoraLagnaAbbreviationDefValue,
@@ -1171,6 +1243,30 @@ class AstrologyUtils:
             rv = settings.value(SettingsKeys.planetH12ForegroundColorKey,
                                 SettingsKeys.planetH12ForegroundColorDefValue,\
                                 type=QColor)
+        elif planetName == "ARMC":
+            rv = settings.value(SettingsKeys.planetARMCForegroundColorKey,
+                                SettingsKeys.planetARMCForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "Vertex":
+            rv = settings.value(SettingsKeys.planetVertexForegroundColorKey,
+                                SettingsKeys.planetVertexForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "EquatorialAscendant":
+            rv = settings.value(SettingsKeys.planetEquatorialAscendantForegroundColorKey,
+                                SettingsKeys.planetEquatorialAscendantForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "CoAscendant1":
+            rv = settings.value(SettingsKeys.planetCoAscendant1ForegroundColorKey,
+                                SettingsKeys.planetCoAscendant1ForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "CoAscendant2":
+            rv = settings.value(SettingsKeys.planetCoAscendant2ForegroundColorKey,
+                                SettingsKeys.planetCoAscendant2ForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "PolarAscendant":
+            rv = settings.value(SettingsKeys.planetPolarAscendantForegroundColorKey,
+                                SettingsKeys.planetPolarAscendantForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "HoraLagna":
             rv = settings.value(SettingsKeys.planetHoraLagnaForegroundColorKey,
                                 SettingsKeys.planetHoraLagnaForegroundColorDefValue,\
@@ -1383,6 +1479,34 @@ class AstrologyUtils:
         elif planetName == "H12":
             rv = settings.value(SettingsKeys.planetH12BackgroundColorKey,
                                 SettingsKeys.planetH12BackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "ARMC":
+            rv = settings.value(SettingsKeys.planetARMCBackgroundColorKey,
+                                SettingsKeys.planetARMCBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "Vertex":
+            rv = settings.value(SettingsKeys.planetVertexBackgroundColorKey,
+                                SettingsKeys.planetVertexBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "EquatorialAscendant":
+            rv = settings.value(SettingsKeys.planetEquatorialAscendantBackgroundColorKey,
+                                SettingsKeys.planetEquatorialAscendantBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "CoAscendant1":
+            rv = settings.value(SettingsKeys.planetCoAscendant1BackgroundColorKey,
+                                SettingsKeys.planetCoAscendant1BackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "CoAscendant1":
+            rv = settings.value(SettingsKeys.planetCoAscendant1BackgroundColorKey,
+                                SettingsKeys.planetCoAscendant1BackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "CoAscendant2":
+            rv = settings.value(SettingsKeys.planetCoAscendant2BackgroundColorKey,
+                                SettingsKeys.planetCoAscendant2BackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "PolarAscendant":
+            rv = settings.value(SettingsKeys.planetPolarAscendantBackgroundColorKey,
+                                SettingsKeys.planetPolarAscendantBackgroundColorDefValue,\
                                 type=QColor)
         elif planetName == "HoraLagna":
             rv = settings.value(SettingsKeys.planetHoraLagnaBackgroundColorKey,
@@ -5294,6 +5418,48 @@ class PlanetaryInfoTableWidget(QTableWidget):
             enabledPlanetNames.append("H12")
         
         if settings.value(\
+            SettingsKeys.planetARMCEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetARMCEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("ARMC")
+        
+        if settings.value(\
+            SettingsKeys.planetVertexEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetVertexEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Vertex")
+        
+        if settings.value(\
+            SettingsKeys.planetEquatorialAscendantEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetEquatorialAscendantEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EquatorialAscendant")
+        
+        if settings.value(\
+            SettingsKeys.planetCoAscendant1EnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetCoAscendant1EnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("CoAscendant1")
+        
+        if settings.value(\
+            SettingsKeys.planetCoAscendant2EnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetCoAscendant2EnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("CoAscendant2")
+        
+        if settings.value(\
+            SettingsKeys.planetPolarAscendantEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetPolarAscendantEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("PolarAscendant")
+        
+        if settings.value(\
             SettingsKeys.planetHoraLagnaEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetHoraLagnaEnabledForPlanetaryInfoTableDefValue,
             type=bool):
@@ -6299,6 +6465,48 @@ class AstrologyChartWidget(QWidget):
             planets.append(Ephemeris.getH12PlanetaryInfo(dt, houseSystem))
         
         if settings.value(\
+            SettingsKeys.planetARMCCalculationsEnabledKey, \
+            SettingsKeys.planetARMCCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getARMCPlanetaryInfo(dt, houseSystem))
+        
+        if settings.value(\
+            SettingsKeys.planetVertexCalculationsEnabledKey, \
+            SettingsKeys.planetVertexCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getVertexPlanetaryInfo(dt, houseSystem))
+        
+        if settings.value(\
+            SettingsKeys.planetEquatorialAscendantCalculationsEnabledKey, \
+            SettingsKeys.planetEquatorialAscendantCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getEquatorialAscendantPlanetaryInfo(dt, houseSystem))
+        
+        if settings.value(\
+            SettingsKeys.planetCoAscendant1CalculationsEnabledKey, \
+            SettingsKeys.planetCoAscendant1CalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getCoAscendant1PlanetaryInfo(dt, houseSystem))
+        
+        if settings.value(\
+            SettingsKeys.planetCoAscendant2CalculationsEnabledKey, \
+            SettingsKeys.planetCoAscendant2CalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getCoAscendant2PlanetaryInfo(dt, houseSystem))
+        
+        if settings.value(\
+            SettingsKeys.planetPolarAscendantCalculationsEnabledKey, \
+            SettingsKeys.planetPolarAscendantCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getPolarAscendantPlanetaryInfo(dt, houseSystem))
+        
+        if settings.value(\
             SettingsKeys.planetHoraLagnaCalculationsEnabledKey, \
             SettingsKeys.planetHoraLagnaCalculationsEnabledDefValue,
             type=bool):
@@ -6648,6 +6856,48 @@ class AstrologyChartWidget(QWidget):
             enabledPlanetNames.append("H12")
         
         if settings.value(\
+            SettingsKeys.planetARMCEnabledForDeclinationKey, \
+            SettingsKeys.planetARMCEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("ARMC")
+        
+        if settings.value(\
+            SettingsKeys.planetVertexEnabledForDeclinationKey, \
+            SettingsKeys.planetVertexEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Vertex")
+        
+        if settings.value(\
+            SettingsKeys.planetEquatorialAscendantEnabledForDeclinationKey, \
+            SettingsKeys.planetEquatorialAscendantEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EquatorialAscendant")
+        
+        if settings.value(\
+            SettingsKeys.planetCoAscendant1EnabledForDeclinationKey, \
+            SettingsKeys.planetCoAscendant1EnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("CoAscendant1")
+        
+        if settings.value(\
+            SettingsKeys.planetCoAscendant2EnabledForDeclinationKey, \
+            SettingsKeys.planetCoAscendant2EnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("CoAscendant2")
+        
+        if settings.value(\
+            SettingsKeys.planetPolarAscendantEnabledForDeclinationKey, \
+            SettingsKeys.planetPolarAscendantEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("PolarAscendant")
+        
+        if settings.value(\
             SettingsKeys.planetHoraLagnaEnabledForDeclinationKey, \
             SettingsKeys.planetHoraLagnaEnabledForDeclinationDefValue,
             type=bool):
@@ -6990,6 +7240,48 @@ class AstrologyChartWidget(QWidget):
             type=bool):
 
             enabledPlanetNames.append("H12")
+        
+        if settings.value(\
+            SettingsKeys.planetARMCEnabledForLatitudeKey, \
+            SettingsKeys.planetARMCEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("ARMC")
+        
+        if settings.value(\
+            SettingsKeys.planetVertexEnabledForLatitudeKey, \
+            SettingsKeys.planetVertexEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Vertex")
+        
+        if settings.value(\
+            SettingsKeys.planetEquatorialAscendantEnabledForLatitudeKey, \
+            SettingsKeys.planetEquatorialAscendantEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EquatorialAscendant")
+        
+        if settings.value(\
+            SettingsKeys.planetCoAscendant1EnabledForLatitudeKey, \
+            SettingsKeys.planetCoAscendant1EnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("CoAscendant1")
+        
+        if settings.value(\
+            SettingsKeys.planetCoAscendant2EnabledForLatitudeKey, \
+            SettingsKeys.planetCoAscendant2EnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("CoAscendant2")
+        
+        if settings.value(\
+            SettingsKeys.planetPolarAscendantEnabledForLatitudeKey, \
+            SettingsKeys.planetPolarAscendantEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("PolarAscendant")
         
         if settings.value(\
             SettingsKeys.planetHoraLagnaEnabledForLatitudeKey, \
@@ -7336,6 +7628,48 @@ class AstrologyChartWidget(QWidget):
             enabledPlanetNames.append("H12")
         
         if settings.value(\
+            SettingsKeys.planetARMCEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetARMCEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("ARMC")
+        
+        if settings.value(\
+            SettingsKeys.planetVertexEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetVertexEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Vertex")
+        
+        if settings.value(\
+            SettingsKeys.planetEquatorialAscendantEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetEquatorialAscendantEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EquatorialAscendant")
+        
+        if settings.value(\
+            SettingsKeys.planetCoAscendant1EnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetCoAscendant1EnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("CoAscendant1")
+        
+        if settings.value(\
+            SettingsKeys.planetCoAscendant2EnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetCoAscendant2EnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("CoAscendant2")
+        
+        if settings.value(\
+            SettingsKeys.planetPolarAscendantEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetPolarAscendantEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("PolarAscendant")
+        
+        if settings.value(\
             SettingsKeys.planetHoraLagnaEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetHoraLagnaEnabledForGeoSidRadixChartDefValue,
             type=bool):
@@ -7680,6 +8014,48 @@ class AstrologyChartWidget(QWidget):
             enabledPlanetNames.append("H12")
         
         if settings.value(\
+            SettingsKeys.planetARMCEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetARMCEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("ARMC")
+        
+        if settings.value(\
+            SettingsKeys.planetVertexEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetVertexEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Vertex")
+        
+        if settings.value(\
+            SettingsKeys.planetEquatorialAscendantEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetEquatorialAscendantEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EquatorialAscendant")
+        
+        if settings.value(\
+            SettingsKeys.planetCoAscendant1EnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetCoAscendant1EnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("CoAscendant1")
+        
+        if settings.value(\
+            SettingsKeys.planetCoAscendant2EnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetCoAscendant2EnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("CoAscendant2")
+        
+        if settings.value(\
+            SettingsKeys.planetPolarAscendantEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetPolarAscendantEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("PolarAscendant")
+        
+        if settings.value(\
             SettingsKeys.planetHoraLagnaEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetHoraLagnaEnabledForGeoTropRadixChartDefValue,
             type=bool):
@@ -8022,6 +8398,48 @@ class AstrologyChartWidget(QWidget):
             type=bool):
 
             enabledPlanetNames.append("H12")
+        
+        if settings.value(\
+            SettingsKeys.planetARMCEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetARMCEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("ARMC")
+        
+        if settings.value(\
+            SettingsKeys.planetVertexEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetVertexEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("Vertex")
+        
+        if settings.value(\
+            SettingsKeys.planetEquatorialAscendantEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetEquatorialAscendantEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EquatorialAscendant")
+        
+        if settings.value(\
+            SettingsKeys.planetCoAscendant1EnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetCoAscendant1EnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("CoAscendant1")
+        
+        if settings.value(\
+            SettingsKeys.planetCoAscendant2EnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetCoAscendant2EnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("CoAscendant2")
+        
+        if settings.value(\
+            SettingsKeys.planetPolarAscendantEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetPolarAscendantEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("PolarAscendant")
         
         if settings.value(\
             SettingsKeys.planetHoraLagnaEnabledForHelioSidRadixChartKey, \
@@ -9335,6 +9753,24 @@ def testPlanetaryInfoTableWidget():
     p = Ephemeris.getH12PlanetaryInfo(now)
     planets.append(p)
     
+    p = Ephemeris.getARMCPlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getVertexPlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getEquatorialAscendantPlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getCoAscendant1PlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getCoAscendant2PlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getPolarAscendantPlanetaryInfo(now)
+    planets.append(p)
+    
     p = Ephemeris.getSunPlanetaryInfo(now)
     planets.append(p)
 
@@ -9470,6 +9906,24 @@ def testPlanetaryInfoTableGraphicsItem():
     planets.append(p)
     
     p = Ephemeris.getH12PlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getARMCPlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getVertexPlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getEquatorialAscendantPlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getCoAscendant1PlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getCoAscendant2PlanetaryInfo(now)
+    planets.append(p)
+    
+    p = Ephemeris.getPolarAscendantPlanetaryInfo(now)
     planets.append(p)
     
     p = Ephemeris.getSunPlanetaryInfo(now)
