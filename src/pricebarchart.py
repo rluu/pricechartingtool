@@ -8111,8 +8111,11 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                 # to improve performance.
                 stepSizeTd = datetime.timedelta(days=1)
                 
-                if Ephemeris.isHouseCuspPlanetName(planetName):
+                if Ephemeris.isHouseCuspPlanetName(planetName) or \
+                       Ephemeris.isAscmcPlanetName(planetName):
+                    
                     stepSizeTd = datetime.timedelta(hours=1)
+                    
                 elif planetName == "Jupiter" or \
                      planetName == "Saturn" or \
                      planetName == "Neptune" or \

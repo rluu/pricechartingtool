@@ -4211,8 +4211,10 @@ class PlanetaryCombinationsLibrary:
 
         # Set the step size.
         stepSizeTd = datetime.timedelta(days=1)
-        if Ephemeris.isHouseCuspPlanetName(planetName):
-            # House cusps need a smaller step size.
+        if Ephemeris.isHouseCuspPlanetName(planetName) or \
+               Ephemeris.isAscmcPlanetName(planetName):
+            
+            # House cusps and ascmc planets need a smaller step size.
             stepSizeTd = datetime.timedelta(hours=1)
             
         # Count of artifacts added.
@@ -6512,8 +6514,10 @@ class PlanetaryCombinationsLibrary:
 
         # Set the step size.
         stepSizeTd = datetime.timedelta(days=1)
-        if Ephemeris.isHouseCuspPlanetName(planetName):
-            # House cusps need a smaller step size.
+        if Ephemeris.isHouseCuspPlanetName(planetName) or \
+               Ephemeris.isAscmcPlanetName(planetName):
+
+            # House cusps and ascmc planets need a smaller step size.
             stepSizeTd = datetime.timedelta(hours=1)
         
         # Calculate the average of the low and high price.  This is
@@ -8484,9 +8488,11 @@ class PlanetaryCombinationsLibrary:
         # Set the step size.
         stepSizeTd = datetime.timedelta(days=1)
         if Ephemeris.isHouseCuspPlanetName(planet1Name) or \
-               Ephemeris.isHouseCuspPlanetName(planet2Name):
+               Ephemeris.isAscmcPlanetName(planet1Name) or \
+               Ephemeris.isHouseCuspPlanetName(planet2Name) or \
+               Ephemeris.isAscmcPlanetName(planet2Name):
             
-            # House cusps need a smaller step size.
+            # House cusps and ascmc planets need a smaller step size.
             stepSizeTd = datetime.timedelta(hours=1)
 
         log.debug("Step size is: {}".format(stepSizeTd))
@@ -9049,8 +9055,10 @@ class PlanetaryCombinationsLibrary:
         # Set the step size.  Planet should not ever move more than
         # 120 degrees per step size.
         stepSizeTd = datetime.timedelta(days=1)
-        if Ephemeris.isHouseCuspPlanetName(planetName):
-            # House cusps need a smaller step size.
+        if Ephemeris.isHouseCuspPlanetName(planetName) or \
+               Ephemeris.isAscmcPlanetName(planetName):
+
+            # House cusps and ascmc planets need a smaller step size.
             stepSizeTd = datetime.timedelta(hours=1)
 
         # Running count of number of full 360-degree circles.
