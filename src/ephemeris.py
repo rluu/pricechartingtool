@@ -4815,7 +4815,7 @@ def testMinMaxPlanetLongitudeSpeeds():
     # Pick a time and calculate the min and max speeds over X years.
 
     # Moon.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 30
@@ -4837,15 +4837,15 @@ def testMinMaxPlanetLongitudeSpeeds():
             #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
             #    print("    curr is: {}".format(curr))
             #    if newMaxSpeedFlag == 1:
-            #        print("    new maxSpeed of {} is: ".format(p.name) +
-            #              str(maxSpeed))
+            #        print("    new geocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
             #    if newMinSpeedFlag == 1:
-            #        print("    new minSpeed of {} is: ".format(p.name) +
-            #              str(minSpeed))
+            #        print("    new geocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
             curr += increment
-        print("    FINAL: maxSpeed of {} is: {}".\
+        print("    FINAL: geocentric   maxSpeed of {} is: {}".\
               format(p.name, maxSpeed))
-        print("    FINAL: minSpeed of {} is: {}".\
+        print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
 
     # Mercury.
@@ -4871,15 +4871,42 @@ def testMinMaxPlanetLongitudeSpeeds():
             #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
             #    print("    curr is: {}".format(curr))
             #    if newMaxSpeedFlag == 1:
-            #        print("    new maxSpeed of {} is: ".format(p.name) +
-            #              str(maxSpeed))
+            #        print("    new geocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
             #    if newMinSpeedFlag == 1:
-            #        print("    new minSpeed of {} is: ".format(p.name) +
-            #              str(minSpeed))
+            #        print("    new geocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
             curr += increment
-        print("    FINAL: maxSpeed of {} is: {}".\
+        print("    FINAL: geocentric   maxSpeed of {} is: {}".\
               format(p.name, maxSpeed))
-        print("    FINAL: minSpeed of {} is: {}".\
+        print("    FINAL: geocentric   minSpeed of {} is: {}".\
+              format(p.name, minSpeed))
+
+        curr = start
+        maxSpeed = 0
+        minSpeed = 0
+        while curr < end:
+            newMaxSpeedFlag = 0
+            newMinSpeedFlag = 0
+            p = Ephemeris.getMercuryPlanetaryInfo(curr)
+            if p.heliocentric['sidereal']['longitude_speed'] > maxSpeed:
+                maxSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMaxSpeedFlag = 1
+            if p.heliocentric['sidereal']['longitude_speed'] < minSpeed:
+                minSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMinSpeedFlag = 1
+            #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
+            #    print("    curr is: {}".format(curr))
+            #    if newMaxSpeedFlag == 1:
+            #        print("    new heliocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
+            #    if newMinSpeedFlag == 1:
+            #        print("    new heliocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
+            curr += increment
+        print("    FINAL: heliocentric maxSpeed of {} is: {}".\
+              format(p.name, maxSpeed))
+        print("    FINAL: heliocentric minSpeed of {} is: {}".\
               format(p.name, minSpeed))
 
     # Venus.
@@ -4905,17 +4932,44 @@ def testMinMaxPlanetLongitudeSpeeds():
             #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
             #    print("    curr is: {}".format(curr))
             #    if newMaxSpeedFlag == 1:
-            #        print("    new maxSpeed of {} is: ".format(p.name) +
-            #              str(maxSpeed))
+            #        print("    new geocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
             #    if newMinSpeedFlag == 1:
-            #        print("    new minSpeed of {} is: ".format(p.name) +
-            #              str(minSpeed))
+            #        print("    new geocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
             curr += increment
-        print("    FINAL: maxSpeed of {} is: {}".\
+        print("    FINAL: geocentric   maxSpeed of {} is: {}".\
               format(p.name, maxSpeed))
-        print("    FINAL: minSpeed of {} is: {}".\
+        print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
         
+        curr = start
+        maxSpeed = 0
+        minSpeed = 0
+        while curr < end:
+            newMaxSpeedFlag = 0
+            newMinSpeedFlag = 0
+            p = Ephemeris.getVenusPlanetaryInfo(curr)
+            if p.heliocentric['sidereal']['longitude_speed'] > maxSpeed:
+                maxSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMaxSpeedFlag = 1
+            if p.heliocentric['sidereal']['longitude_speed'] < minSpeed:
+                minSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMinSpeedFlag = 1
+            #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
+            #    print("    curr is: {}".format(curr))
+            #    if newMaxSpeedFlag == 1:
+            #        print("    new heliocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
+            #    if newMinSpeedFlag == 1:
+            #        print("    new heliocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
+            curr += increment
+        print("    FINAL: heliocentric maxSpeed of {} is: {}".\
+              format(p.name, maxSpeed))
+        print("    FINAL: heliocentric minSpeed of {} is: {}".\
+              format(p.name, minSpeed))
+
     # Mars.
     if False:
         start = datetime.datetime.now(eastern)
@@ -4939,17 +4993,44 @@ def testMinMaxPlanetLongitudeSpeeds():
             #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
             #    print("    curr is: {}".format(curr))
             #    if newMaxSpeedFlag == 1:
-            #        print("    new maxSpeed of {} is: ".format(p.name) +
-            #              str(maxSpeed))
+            #        print("    new geocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
             #    if newMinSpeedFlag == 1:
-            #        print("    new minSpeed of {} is: ".format(p.name) +
-            #              str(minSpeed))
+            #        print("    new geocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
             curr += increment
-        print("    FINAL: maxSpeed of {} is: {}".\
+        print("    FINAL: geocentric   maxSpeed of {} is: {}".\
               format(p.name, maxSpeed))
-        print("    FINAL: minSpeed of {} is: {}".\
+        print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
         
+        curr = start
+        maxSpeed = 0
+        minSpeed = 0
+        while curr < end:
+            newMaxSpeedFlag = 0
+            newMinSpeedFlag = 0
+            p = Ephemeris.getMarsPlanetaryInfo(curr)
+            if p.heliocentric['sidereal']['longitude_speed'] > maxSpeed:
+                maxSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMaxSpeedFlag = 1
+            if p.heliocentric['sidereal']['longitude_speed'] < minSpeed:
+                minSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMinSpeedFlag = 1
+            #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
+            #    print("    curr is: {}".format(curr))
+            #    if newMaxSpeedFlag == 1:
+            #        print("    new heliocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
+            #    if newMinSpeedFlag == 1:
+            #        print("    new heliocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
+            curr += increment
+        print("    FINAL: heliocentric maxSpeed of {} is: {}".\
+              format(p.name, maxSpeed))
+        print("    FINAL: heliocentric minSpeed of {} is: {}".\
+              format(p.name, minSpeed))
+
     # Jupiter.
     if False:
         start = datetime.datetime.now(eastern)
@@ -4973,17 +5054,44 @@ def testMinMaxPlanetLongitudeSpeeds():
             #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
             #    print("    curr is: {}".format(curr))
             #    if newMaxSpeedFlag == 1:
-            #        print("    new maxSpeed of {} is: ".format(p.name) +
-            #              str(maxSpeed))
+            #        print("    new geocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
             #    if newMinSpeedFlag == 1:
-            #        print("    new minSpeed of {} is: ".format(p.name) +
-            #              str(minSpeed))
+            #        print("    new geocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
             curr += increment
-        print("    FINAL: maxSpeed of {} is: {}".\
+        print("    FINAL: geocentric   maxSpeed of {} is: {}".\
               format(p.name, maxSpeed))
-        print("    FINAL: minSpeed of {} is: {}".\
+        print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
         
+        curr = start
+        maxSpeed = 0
+        minSpeed = 0
+        while curr < end:
+            newMaxSpeedFlag = 0
+            newMinSpeedFlag = 0
+            p = Ephemeris.getJupiterPlanetaryInfo(curr)
+            if p.heliocentric['sidereal']['longitude_speed'] > maxSpeed:
+                maxSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMaxSpeedFlag = 1
+            if p.heliocentric['sidereal']['longitude_speed'] < minSpeed:
+                minSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMinSpeedFlag = 1
+            #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
+            #    print("    curr is: {}".format(curr))
+            #    if newMaxSpeedFlag == 1:
+            #        print("    new heliocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
+            #    if newMinSpeedFlag == 1:
+            #        print("    new heliocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
+            curr += increment
+        print("    FINAL: heliocentric maxSpeed of {} is: {}".\
+              format(p.name, maxSpeed))
+        print("    FINAL: heliocentric minSpeed of {} is: {}".\
+              format(p.name, minSpeed))
+
     # Saturn.
     if False:
         start = datetime.datetime.now(eastern)
@@ -5007,17 +5115,44 @@ def testMinMaxPlanetLongitudeSpeeds():
             #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
             #    print("    curr is: {}".format(curr))
             #    if newMaxSpeedFlag == 1:
-            #        print("    new maxSpeed of {} is: ".format(p.name) +
-            #              str(maxSpeed))
+            #        print("    new geocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
             #    if newMinSpeedFlag == 1:
-            #        print("    new minSpeed of {} is: ".format(p.name) +
-            #              str(minSpeed))
+            #        print("    new geocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
             curr += increment
-        print("    FINAL: maxSpeed of {} is: {}".\
+        print("    FINAL: geocentric   maxSpeed of {} is: {}".\
               format(p.name, maxSpeed))
-        print("    FINAL: minSpeed of {} is: {}".\
+        print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
         
+        curr = start
+        maxSpeed = 0
+        minSpeed = 0
+        while curr < end:
+            newMaxSpeedFlag = 0
+            newMinSpeedFlag = 0
+            p = Ephemeris.getSaturnPlanetaryInfo(curr)
+            if p.heliocentric['sidereal']['longitude_speed'] > maxSpeed:
+                maxSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMaxSpeedFlag = 1
+            if p.heliocentric['sidereal']['longitude_speed'] < minSpeed:
+                minSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMinSpeedFlag = 1
+            #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
+            #    print("    curr is: {}".format(curr))
+            #    if newMaxSpeedFlag == 1:
+            #        print("    new heliocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
+            #    if newMinSpeedFlag == 1:
+            #        print("    new heliocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
+            curr += increment
+        print("    FINAL: heliocentric maxSpeed of {} is: {}".\
+              format(p.name, maxSpeed))
+        print("    FINAL: heliocentric minSpeed of {} is: {}".\
+              format(p.name, minSpeed))
+
     # Uranus.
     if False:
         start = datetime.datetime.now(eastern)
@@ -5041,17 +5176,44 @@ def testMinMaxPlanetLongitudeSpeeds():
             #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
             #    print("    curr is: {}".format(curr))
             #    if newMaxSpeedFlag == 1:
-            #        print("    new maxSpeed of {} is: ".format(p.name) +
-            #              str(maxSpeed))
+            #        print("    new geocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
             #    if newMinSpeedFlag == 1:
-            #        print("    new minSpeed of {} is: ".format(p.name) +
-            #              str(minSpeed))
+            #        print("    new geocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
             curr += increment
-        print("    FINAL: maxSpeed of {} is: {}".\
+        print("    FINAL: geocentric   maxSpeed of {} is: {}".\
               format(p.name, maxSpeed))
-        print("    FINAL: minSpeed of {} is: {}".\
+        print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
         
+        curr = start
+        maxSpeed = 0
+        minSpeed = 0
+        while curr < end:
+            newMaxSpeedFlag = 0
+            newMinSpeedFlag = 0
+            p = Ephemeris.getUranusPlanetaryInfo(curr)
+            if p.heliocentric['sidereal']['longitude_speed'] > maxSpeed:
+                maxSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMaxSpeedFlag = 1
+            if p.heliocentric['sidereal']['longitude_speed'] < minSpeed:
+                minSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMinSpeedFlag = 1
+            #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
+            #    print("    curr is: {}".format(curr))
+            #    if newMaxSpeedFlag == 1:
+            #        print("    new heliocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
+            #    if newMinSpeedFlag == 1:
+            #        print("    new heliocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
+            curr += increment
+        print("    FINAL: heliocentric maxSpeed of {} is: {}".\
+              format(p.name, maxSpeed))
+        print("    FINAL: heliocentric minSpeed of {} is: {}".\
+              format(p.name, minSpeed))
+
     # Neptune.
     if False:
         start = datetime.datetime.now(eastern)
@@ -5075,17 +5237,44 @@ def testMinMaxPlanetLongitudeSpeeds():
             #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
             #    print("    curr is: {}".format(curr))
             #    if newMaxSpeedFlag == 1:
-            #        print("    new maxSpeed of {} is: ".format(p.name) +
-            #              str(maxSpeed))
+            #        print("    new geocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
             #    if newMinSpeedFlag == 1:
-            #        print("    new minSpeed of {} is: ".format(p.name) +
-            #              str(minSpeed))
+            #        print("    new geocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
             curr += increment
-        print("    FINAL: maxSpeed of {} is: {}".\
+        print("    FINAL: geocentric   maxSpeed of {} is: {}".\
               format(p.name, maxSpeed))
-        print("    FINAL: minSpeed of {} is: {}".\
+        print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
         
+        curr = start
+        maxSpeed = 0
+        minSpeed = 0
+        while curr < end:
+            newMaxSpeedFlag = 0
+            newMinSpeedFlag = 0
+            p = Ephemeris.getNeptunePlanetaryInfo(curr)
+            if p.heliocentric['sidereal']['longitude_speed'] > maxSpeed:
+                maxSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMaxSpeedFlag = 1
+            if p.heliocentric['sidereal']['longitude_speed'] < minSpeed:
+                minSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMinSpeedFlag = 1
+            #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
+            #    print("    curr is: {}".format(curr))
+            #    if newMaxSpeedFlag == 1:
+            #        print("    new heliocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
+            #    if newMinSpeedFlag == 1:
+            #        print("    new heliocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
+            curr += increment
+        print("    FINAL: heliocentric maxSpeed of {} is: {}".\
+              format(p.name, maxSpeed))
+        print("    FINAL: heliocentric minSpeed of {} is: {}".\
+              format(p.name, minSpeed))
+
     # Pluto.
     if False:
         start = datetime.datetime.now(eastern)
@@ -5109,17 +5298,44 @@ def testMinMaxPlanetLongitudeSpeeds():
             #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
             #    print("    curr is: {}".format(curr))
             #    if newMaxSpeedFlag == 1:
-            #        print("    new maxSpeed of {} is: ".format(p.name) +
-            #              str(maxSpeed))
+            #        print("    new geocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
             #    if newMinSpeedFlag == 1:
-            #        print("    new minSpeed of {} is: ".format(p.name) +
-            #              str(minSpeed))
+            #        print("    new geocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
             curr += increment
-        print("    FINAL: maxSpeed of {} is: {}".\
+        print("    FINAL: geocentric   maxSpeed of {} is: {}".\
               format(p.name, maxSpeed))
-        print("    FINAL: minSpeed of {} is: {}".\
+        print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
         
+        curr = start
+        maxSpeed = 0
+        minSpeed = 0
+        while curr < end:
+            newMaxSpeedFlag = 0
+            newMinSpeedFlag = 0
+            p = Ephemeris.getPlutoPlanetaryInfo(curr)
+            if p.heliocentric['sidereal']['longitude_speed'] > maxSpeed:
+                maxSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMaxSpeedFlag = 1
+            if p.heliocentric['sidereal']['longitude_speed'] < minSpeed:
+                minSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMinSpeedFlag = 1
+            #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
+            #    print("    curr is: {}".format(curr))
+            #    if newMaxSpeedFlag == 1:
+            #        print("    new heliocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
+            #    if newMinSpeedFlag == 1:
+            #        print("    new heliocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
+            curr += increment
+        print("    FINAL: heliocentric maxSpeed of {} is: {}".\
+              format(p.name, maxSpeed))
+        print("    FINAL: heliocentric minSpeed of {} is: {}".\
+              format(p.name, minSpeed))
+
     # MeanNorthNode.
     if False:
         start = datetime.datetime.now(eastern)
@@ -5143,15 +5359,15 @@ def testMinMaxPlanetLongitudeSpeeds():
             #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
             #    print("    curr is: {}".format(curr))
             #    if newMaxSpeedFlag == 1:
-            #        print("    new maxSpeed of {} is: ".format(p.name) +
-            #              str(maxSpeed))
+            #        print("    new geocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
             #    if newMinSpeedFlag == 1:
-            #        print("    new minSpeed of {} is: ".format(p.name) +
-            #              str(minSpeed))
+            #        print("    new geocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
             curr += increment
-        print("    FINAL: maxSpeed of {} is: {}".\
+        print("    FINAL: geocentric   maxSpeed of {} is: {}".\
               format(p.name, maxSpeed))
-        print("    FINAL: minSpeed of {} is: {}".\
+        print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
         
     # TrueNorthNode.
@@ -5177,15 +5393,15 @@ def testMinMaxPlanetLongitudeSpeeds():
             #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
             #    print("    curr is: {}".format(curr))
             #    if newMaxSpeedFlag == 1:
-            #        print("    new maxSpeed of {} is: ".format(p.name) +
-            #              str(maxSpeed))
+            #        print("    new geocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
             #    if newMinSpeedFlag == 1:
-            #        print("    new minSpeed of {} is: ".format(p.name) +
-            #              str(minSpeed))
+            #        print("    new geocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
             curr += increment
-        print("    FINAL: maxSpeed of {} is: {}".\
+        print("    FINAL: geocentric   maxSpeed of {} is: {}".\
               format(p.name, maxSpeed))
-        print("    FINAL: minSpeed of {} is: {}".\
+        print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
         
     # MeanLunarApogee.
@@ -5211,15 +5427,15 @@ def testMinMaxPlanetLongitudeSpeeds():
             #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
             #    print("    curr is: {}".format(curr))
             #    if newMaxSpeedFlag == 1:
-            #        print("    new maxSpeed of {} is: ".format(p.name) +
-            #              str(maxSpeed))
+            #        print("    new geocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
             #    if newMinSpeedFlag == 1:
-            #        print("    new minSpeed of {} is: ".format(p.name) +
-            #              str(minSpeed))
+            #        print("    new geocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
             curr += increment
-        print("    FINAL: maxSpeed of {} is: {}".\
+        print("    FINAL: geocentric   maxSpeed of {} is: {}".\
               format(p.name, maxSpeed))
-        print("    FINAL: minSpeed of {} is: {}".\
+        print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
         
     # OsculatingLunarApogee.
@@ -5245,15 +5461,15 @@ def testMinMaxPlanetLongitudeSpeeds():
             #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
             #    print("    curr is: {}".format(curr))
             #    if newMaxSpeedFlag == 1:
-            #        print("    new maxSpeed of {} is: ".format(p.name) +
-            #              str(maxSpeed))
+            #        print("    new geocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
             #    if newMinSpeedFlag == 1:
-            #        print("    new minSpeed of {} is: ".format(p.name) +
-            #              str(minSpeed))
+            #        print("    new geocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
             curr += increment
-        print("    FINAL: maxSpeed of {} is: {}".\
+        print("    FINAL: geocentric   maxSpeed of {} is: {}".\
               format(p.name, maxSpeed))
-        print("    FINAL: minSpeed of {} is: {}".\
+        print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
         
     # InterpolatedLunarApogee.
@@ -5279,15 +5495,15 @@ def testMinMaxPlanetLongitudeSpeeds():
             #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
             #    print("    curr is: {}".format(curr))
             #    if newMaxSpeedFlag == 1:
-            #        print("    new maxSpeed of {} is: ".format(p.name) +
-            #              str(maxSpeed))
+            #        print("    new geocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
             #    if newMinSpeedFlag == 1:
-            #        print("    new minSpeed of {} is: ".format(p.name) +
-            #              str(minSpeed))
+            #        print("    new geocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
             curr += increment
-        print("    FINAL: maxSpeed of {} is: {}".\
+        print("    FINAL: geocentric   maxSpeed of {} is: {}".\
               format(p.name, maxSpeed))
-        print("    FINAL: minSpeed of {} is: {}".\
+        print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
         
     # InterpolatedLunarPerigee.
@@ -5313,15 +5529,15 @@ def testMinMaxPlanetLongitudeSpeeds():
             #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
             #    print("    curr is: {}".format(curr))
             #    if newMaxSpeedFlag == 1:
-            #        print("    new maxSpeed of {} is: ".format(p.name) +
-            #              str(maxSpeed))
+            #        print("    new geocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
             #    if newMinSpeedFlag == 1:
-            #        print("    new minSpeed of {} is: ".format(p.name) +
-            #              str(minSpeed))
+            #        print("    new geocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
             curr += increment
-        print("    FINAL: maxSpeed of {} is: {}".\
+        print("    FINAL: geocentric   maxSpeed of {} is: {}".\
               format(p.name, maxSpeed))
-        print("    FINAL: minSpeed of {} is: {}".\
+        print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
         
     # Earth.
@@ -5347,17 +5563,44 @@ def testMinMaxPlanetLongitudeSpeeds():
             #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
             #    print("    curr is: {}".format(curr))
             #    if newMaxSpeedFlag == 1:
-            #        print("    new maxSpeed of {} is: ".format(p.name) +
-            #              str(maxSpeed))
+            #        print("    new geocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
             #    if newMinSpeedFlag == 1:
-            #        print("    new minSpeed of {} is: ".format(p.name) +
-            #              str(minSpeed))
+            #        print("    new geocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
             curr += increment
-        print("    FINAL: maxSpeed of {} is: {}".\
+        print("    FINAL: geocentric   maxSpeed of {} is: {}".\
               format(p.name, maxSpeed))
-        print("    FINAL: minSpeed of {} is: {}".\
+        print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
         
+        curr = start
+        maxSpeed = 0
+        minSpeed = 0
+        while curr < end:
+            newMaxSpeedFlag = 0
+            newMinSpeedFlag = 0
+            p = Ephemeris.getEarthPlanetaryInfo(curr)
+            if p.heliocentric['sidereal']['longitude_speed'] > maxSpeed:
+                maxSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMaxSpeedFlag = 1
+            if p.heliocentric['sidereal']['longitude_speed'] < minSpeed:
+                minSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMinSpeedFlag = 1
+            #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
+            #    print("    curr is: {}".format(curr))
+            #    if newMaxSpeedFlag == 1:
+            #        print("    new heliocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
+            #    if newMinSpeedFlag == 1:
+            #        print("    new heliocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
+            curr += increment
+        print("    FINAL: heliocentric maxSpeed of {} is: {}".\
+              format(p.name, maxSpeed))
+        print("    FINAL: heliocentric minSpeed of {} is: {}".\
+              format(p.name, minSpeed))
+
     # Chiron.
     if False:
         start = datetime.datetime.now(eastern)
@@ -5381,17 +5624,44 @@ def testMinMaxPlanetLongitudeSpeeds():
             #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
             #    print("    curr is: {}".format(curr))
             #    if newMaxSpeedFlag == 1:
-            #        print("    new maxSpeed of {} is: ".format(p.name) +
-            #              str(maxSpeed))
+            #        print("    new geocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
             #    if newMinSpeedFlag == 1:
-            #        print("    new minSpeed of {} is: ".format(p.name) +
-            #              str(minSpeed))
+            #        print("    new geocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
             curr += increment
-        print("    FINAL: maxSpeed of {} is: {}".\
+        print("    FINAL: geocentric   maxSpeed of {} is: {}".\
               format(p.name, maxSpeed))
-        print("    FINAL: minSpeed of {} is: {}".\
+        print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
         
+        curr = start
+        maxSpeed = 0
+        minSpeed = 0
+        while curr < end:
+            newMaxSpeedFlag = 0
+            newMinSpeedFlag = 0
+            p = Ephemeris.getChironPlanetaryInfo(curr)
+            if p.heliocentric['sidereal']['longitude_speed'] > maxSpeed:
+                maxSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMaxSpeedFlag = 1
+            if p.heliocentric['sidereal']['longitude_speed'] < minSpeed:
+                minSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMinSpeedFlag = 1
+            #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
+            #    print("    curr is: {}".format(curr))
+            #    if newMaxSpeedFlag == 1:
+            #        print("    new heliocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
+            #    if newMinSpeedFlag == 1:
+            #        print("    new heliocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
+            curr += increment
+        print("    FINAL: heliocentric maxSpeed of {} is: {}".\
+              format(p.name, maxSpeed))
+        print("    FINAL: heliocentric minSpeed of {} is: {}".\
+              format(p.name, minSpeed))
+
     # Pholus.
     if False:
         start = datetime.datetime.now(eastern)
@@ -5415,17 +5685,44 @@ def testMinMaxPlanetLongitudeSpeeds():
             #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
             #    print("    curr is: {}".format(curr))
             #    if newMaxSpeedFlag == 1:
-            #        print("    new maxSpeed of {} is: ".format(p.name) +
-            #              str(maxSpeed))
+            #        print("    new geocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
             #    if newMinSpeedFlag == 1:
-            #        print("    new minSpeed of {} is: ".format(p.name) +
-            #              str(minSpeed))
+            #        print("    new geocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
             curr += increment
-        print("    FINAL: maxSpeed of {} is: {}".\
+        print("    FINAL: geocentric   maxSpeed of {} is: {}".\
               format(p.name, maxSpeed))
-        print("    FINAL: minSpeed of {} is: {}".\
+        print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
         
+        curr = start
+        maxSpeed = 0
+        minSpeed = 0
+        while curr < end:
+            newMaxSpeedFlag = 0
+            newMinSpeedFlag = 0
+            p = Ephemeris.getPholusPlanetaryInfo(curr)
+            if p.heliocentric['sidereal']['longitude_speed'] > maxSpeed:
+                maxSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMaxSpeedFlag = 1
+            if p.heliocentric['sidereal']['longitude_speed'] < minSpeed:
+                minSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMinSpeedFlag = 1
+            #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
+            #    print("    curr is: {}".format(curr))
+            #    if newMaxSpeedFlag == 1:
+            #        print("    new heliocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
+            #    if newMinSpeedFlag == 1:
+            #        print("    new heliocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
+            curr += increment
+        print("    FINAL: heliocentric maxSpeed of {} is: {}".\
+              format(p.name, maxSpeed))
+        print("    FINAL: heliocentric minSpeed of {} is: {}".\
+              format(p.name, minSpeed))
+
     # Ceres.
     if False:
         start = datetime.datetime.now(eastern)
@@ -5449,17 +5746,44 @@ def testMinMaxPlanetLongitudeSpeeds():
             #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
             #    print("    curr is: {}".format(curr))
             #    if newMaxSpeedFlag == 1:
-            #        print("    new maxSpeed of {} is: ".format(p.name) +
-            #              str(maxSpeed))
+            #        print("    new geocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
             #    if newMinSpeedFlag == 1:
-            #        print("    new minSpeed of {} is: ".format(p.name) +
-            #              str(minSpeed))
+            #        print("    new geocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
             curr += increment
-        print("    FINAL: maxSpeed of {} is: {}".\
+        print("    FINAL: geocentric   maxSpeed of {} is: {}".\
               format(p.name, maxSpeed))
-        print("    FINAL: minSpeed of {} is: {}".\
+        print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
         
+        curr = start
+        maxSpeed = 0
+        minSpeed = 0
+        while curr < end:
+            newMaxSpeedFlag = 0
+            newMinSpeedFlag = 0
+            p = Ephemeris.getCeresPlanetaryInfo(curr)
+            if p.heliocentric['sidereal']['longitude_speed'] > maxSpeed:
+                maxSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMaxSpeedFlag = 1
+            if p.heliocentric['sidereal']['longitude_speed'] < minSpeed:
+                minSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMinSpeedFlag = 1
+            #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
+            #    print("    curr is: {}".format(curr))
+            #    if newMaxSpeedFlag == 1:
+            #        print("    new heliocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
+            #    if newMinSpeedFlag == 1:
+            #        print("    new heliocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
+            curr += increment
+        print("    FINAL: heliocentric maxSpeed of {} is: {}".\
+              format(p.name, maxSpeed))
+        print("    FINAL: heliocentric minSpeed of {} is: {}".\
+              format(p.name, minSpeed))
+
     # Pallas.
     if False:
         start = datetime.datetime.now(eastern)
@@ -5483,17 +5807,44 @@ def testMinMaxPlanetLongitudeSpeeds():
             #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
             #    print("    curr is: {}".format(curr))
             #    if newMaxSpeedFlag == 1:
-            #        print("    new maxSpeed of {} is: ".format(p.name) +
-            #              str(maxSpeed))
+            #        print("    new geocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
             #    if newMinSpeedFlag == 1:
-            #        print("    new minSpeed of {} is: ".format(p.name) +
-            #              str(minSpeed))
+            #        print("    new geocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
             curr += increment
-        print("    FINAL: maxSpeed of {} is: {}".\
+        print("    FINAL: geocentric   maxSpeed of {} is: {}".\
               format(p.name, maxSpeed))
-        print("    FINAL: minSpeed of {} is: {}".\
+        print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
         
+        curr = start
+        maxSpeed = 0
+        minSpeed = 0
+        while curr < end:
+            newMaxSpeedFlag = 0
+            newMinSpeedFlag = 0
+            p = Ephemeris.getPallasPlanetaryInfo(curr)
+            if p.heliocentric['sidereal']['longitude_speed'] > maxSpeed:
+                maxSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMaxSpeedFlag = 1
+            if p.heliocentric['sidereal']['longitude_speed'] < minSpeed:
+                minSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMinSpeedFlag = 1
+            #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
+            #    print("    curr is: {}".format(curr))
+            #    if newMaxSpeedFlag == 1:
+            #        print("    new heliocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
+            #    if newMinSpeedFlag == 1:
+            #        print("    new heliocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
+            curr += increment
+        print("    FINAL: heliocentric maxSpeed of {} is: {}".\
+              format(p.name, maxSpeed))
+        print("    FINAL: heliocentric minSpeed of {} is: {}".\
+              format(p.name, minSpeed))
+
     # Juno.
     if False:
         start = datetime.datetime.now(eastern)
@@ -5517,17 +5868,44 @@ def testMinMaxPlanetLongitudeSpeeds():
             #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
             #    print("    curr is: {}".format(curr))
             #    if newMaxSpeedFlag == 1:
-            #        print("    new maxSpeed of {} is: ".format(p.name) +
-            #              str(maxSpeed))
+            #        print("    new geocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
             #    if newMinSpeedFlag == 1:
-            #        print("    new minSpeed of {} is: ".format(p.name) +
-            #              str(minSpeed))
+            #        print("    new geocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
             curr += increment
-        print("    FINAL: maxSpeed of {} is: {}".\
+        print("    FINAL: geocentric   maxSpeed of {} is: {}".\
               format(p.name, maxSpeed))
-        print("    FINAL: minSpeed of {} is: {}".\
+        print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
         
+        curr = start
+        maxSpeed = 0
+        minSpeed = 0
+        while curr < end:
+            newMaxSpeedFlag = 0
+            newMinSpeedFlag = 0
+            p = Ephemeris.getJunoPlanetaryInfo(curr)
+            if p.heliocentric['sidereal']['longitude_speed'] > maxSpeed:
+                maxSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMaxSpeedFlag = 1
+            if p.heliocentric['sidereal']['longitude_speed'] < minSpeed:
+                minSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMinSpeedFlag = 1
+            #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
+            #    print("    curr is: {}".format(curr))
+            #    if newMaxSpeedFlag == 1:
+            #        print("    new heliocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
+            #    if newMinSpeedFlag == 1:
+            #        print("    new heliocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
+            curr += increment
+        print("    FINAL: heliocentric maxSpeed of {} is: {}".\
+              format(p.name, maxSpeed))
+        print("    FINAL: heliocentric minSpeed of {} is: {}".\
+              format(p.name, minSpeed))
+
     # Vesta.
     if False:
         start = datetime.datetime.now(eastern)
@@ -5551,22 +5929,50 @@ def testMinMaxPlanetLongitudeSpeeds():
             #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
             #    print("    curr is: {}".format(curr))
             #    if newMaxSpeedFlag == 1:
-            #        print("    new maxSpeed of {} is: ".format(p.name) +
-            #              str(maxSpeed))
+            #        print("    new geocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
             #    if newMinSpeedFlag == 1:
-            #        print("    new minSpeed of {} is: ".format(p.name) +
-            #              str(minSpeed))
+            #        print("    new geocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
             curr += increment
-        print("    FINAL: maxSpeed of {} is: {}".\
+        print("    FINAL: geocentric   maxSpeed of {} is: {}".\
               format(p.name, maxSpeed))
-        print("    FINAL: minSpeed of {} is: {}".\
+        print("    FINAL: geocentric   minSpeed of {} is: {}".\
+              format(p.name, minSpeed))
+
+        curr = start
+        maxSpeed = 0
+        minSpeed = 0
+        while curr < end:
+            newMaxSpeedFlag = 0
+            newMinSpeedFlag = 0
+            p = Ephemeris.getVestaPlanetaryInfo(curr)
+            if p.heliocentric['sidereal']['longitude_speed'] > maxSpeed:
+                maxSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMaxSpeedFlag = 1
+            if p.heliocentric['sidereal']['longitude_speed'] < minSpeed:
+                minSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMinSpeedFlag = 1
+            #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
+            #    print("    curr is: {}".format(curr))
+            #    if newMaxSpeedFlag == 1:
+            #        print("    new heliocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
+            #    if newMinSpeedFlag == 1:
+            #        print("    new heliocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
+            curr += increment
+        print("    FINAL: heliocentric maxSpeed of {} is: {}".\
+              format(p.name, maxSpeed))
+        print("    FINAL: heliocentric minSpeed of {} is: {}".\
               format(p.name, minSpeed))
 
     # Isis.
     if False:
-        start = datetime.datetime.now(eastern)
-        increment = datetime.timedelta(hours=1)
-        years = 60
+        start = datetime.datetime.now(eastern) - \
+                datetime.timedelta(days=1500*365)
+        increment = datetime.timedelta(hours=4)
+        years = 3000
         finishDelta = datetime.timedelta(days=years*365)
         end = start + finishDelta
         curr = start
@@ -5585,22 +5991,50 @@ def testMinMaxPlanetLongitudeSpeeds():
             #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
             #    print("    curr is: {}".format(curr))
             #    if newMaxSpeedFlag == 1:
-            #        print("    new maxSpeed of {} is: ".format(p.name) +
-            #              str(maxSpeed))
+            #        print("    new geocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
             #    if newMinSpeedFlag == 1:
-            #        print("    new minSpeed of {} is: ".format(p.name) +
-            #              str(minSpeed))
+            #        print("    new geocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
             curr += increment
-        print("    FINAL: maxSpeed of {} is: {}".\
+        print("    FINAL: geocentric   maxSpeed of {} is: {}".\
               format(p.name, maxSpeed))
-        print("    FINAL: minSpeed of {} is: {}".\
+        print("    FINAL: geocentric   minSpeed of {} is: {}".\
+              format(p.name, minSpeed))
+        
+        curr = start
+        maxSpeed = 0
+        minSpeed = 0
+        while curr < end:
+            newMaxSpeedFlag = 0
+            newMinSpeedFlag = 0
+            p = Ephemeris.getIsisPlanetaryInfo(curr)
+            if p.heliocentric['sidereal']['longitude_speed'] > maxSpeed:
+                maxSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMaxSpeedFlag = 1
+            if p.heliocentric['sidereal']['longitude_speed'] < minSpeed:
+                minSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMinSpeedFlag = 1
+            #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
+            #    print("    curr is: {}".format(curr))
+            #    if newMaxSpeedFlag == 1:
+            #        print("    new heliocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
+            #    if newMinSpeedFlag == 1:
+            #        print("    new heliocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
+            curr += increment
+        print("    FINAL: heliocentric maxSpeed of {} is: {}".\
+              format(p.name, maxSpeed))
+        print("    FINAL: heliocentric minSpeed of {} is: {}".\
               format(p.name, minSpeed))
 
     # Nibiru.
     if False:
-        start = datetime.datetime.now(eastern)
-        increment = datetime.timedelta(hours=1)
-        years = 60
+        start = datetime.datetime.now(eastern) - \
+                datetime.timedelta(days=1500*365)
+        increment = datetime.timedelta(hours=4)
+        years = 3000
         finishDelta = datetime.timedelta(days=years*365)
         end = start + finishDelta
         curr = start
@@ -5619,22 +6053,50 @@ def testMinMaxPlanetLongitudeSpeeds():
             #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
             #    print("    curr is: {}".format(curr))
             #    if newMaxSpeedFlag == 1:
-            #        print("    new maxSpeed of {} is: ".format(p.name) +
-            #              str(maxSpeed))
+            #        print("    new geocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
             #    if newMinSpeedFlag == 1:
-            #        print("    new minSpeed of {} is: ".format(p.name) +
-            #              str(minSpeed))
+            #        print("    new geocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
             curr += increment
-        print("    FINAL: maxSpeed of {} is: {}".\
+        print("    FINAL: geocentric   maxSpeed of {} is: {}".\
               format(p.name, maxSpeed))
-        print("    FINAL: minSpeed of {} is: {}".\
+        print("    FINAL: geocentric   minSpeed of {} is: {}".\
+              format(p.name, minSpeed))
+
+        curr = start
+        maxSpeed = 0
+        minSpeed = 0
+        while curr < end:
+            newMaxSpeedFlag = 0
+            newMinSpeedFlag = 0
+            p = Ephemeris.getNibiruPlanetaryInfo(curr)
+            if p.heliocentric['sidereal']['longitude_speed'] > maxSpeed:
+                maxSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMaxSpeedFlag = 1
+            if p.heliocentric['sidereal']['longitude_speed'] < minSpeed:
+                minSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMinSpeedFlag = 1
+            #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
+            #    print("    curr is: {}".format(curr))
+            #    if newMaxSpeedFlag == 1:
+            #        print("    new heliocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
+            #    if newMinSpeedFlag == 1:
+            #        print("    new heliocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
+            curr += increment
+        print("    FINAL: heliocentric maxSpeed of {} is: {}".\
+              format(p.name, maxSpeed))
+        print("    FINAL: heliocentric minSpeed of {} is: {}".\
               format(p.name, minSpeed))
 
     # MeanOfFive.
-    if True:
-        start = datetime.datetime.now(eastern)
+    if False:
+        start = datetime.datetime.now(eastern) - \
+                datetime.timedelta(days=200*365)
         increment = datetime.timedelta(hours=1)
-        years = 60
+        years = 400
         finishDelta = datetime.timedelta(days=years*365)
         end = start + finishDelta
         curr = start
@@ -5653,22 +6115,50 @@ def testMinMaxPlanetLongitudeSpeeds():
             #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
             #    print("    curr is: {}".format(curr))
             #    if newMaxSpeedFlag == 1:
-            #        print("    new maxSpeed of {} is: ".format(p.name) +
-            #              str(maxSpeed))
+            #        print("    new geocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
             #    if newMinSpeedFlag == 1:
-            #        print("    new minSpeed of {} is: ".format(p.name) +
-            #              str(minSpeed))
+            #        print("    new geocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
             curr += increment
-        print("    FINAL: maxSpeed of {} is: {}".\
+        print("    FINAL: geocentric   maxSpeed of {} is: {}".\
               format(p.name, maxSpeed))
-        print("    FINAL: minSpeed of {} is: {}".\
+        print("    FINAL: geocentric   minSpeed of {} is: {}".\
+              format(p.name, minSpeed))
+
+        curr = start
+        maxSpeed = 0
+        minSpeed = 0
+        while curr < end:
+            newMaxSpeedFlag = 0
+            newMinSpeedFlag = 0
+            p = Ephemeris.getMeanOfFivePlanetaryInfo(curr)
+            if p.heliocentric['sidereal']['longitude_speed'] > maxSpeed:
+                maxSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMaxSpeedFlag = 1
+            if p.heliocentric['sidereal']['longitude_speed'] < minSpeed:
+                minSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMinSpeedFlag = 1
+            #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
+            #    print("    curr is: {}".format(curr))
+            #    if newMaxSpeedFlag == 1:
+            #        print("    new heliocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
+            #    if newMinSpeedFlag == 1:
+            #        print("    new heliocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
+            curr += increment
+        print("    FINAL: heliocentric maxSpeed of {} is: {}".\
+              format(p.name, maxSpeed))
+        print("    FINAL: heliocentric minSpeed of {} is: {}".\
               format(p.name, minSpeed))
 
     # CycleOfEight.
-    if True:
-        start = datetime.datetime.now(eastern)
+    if False:
+        start = datetime.datetime.now(eastern) - \
+                datetime.timedelta(days=200*365)
         increment = datetime.timedelta(hours=1)
-        years = 60
+        years = 400
         finishDelta = datetime.timedelta(days=years*365)
         end = start + finishDelta
         curr = start
@@ -5687,15 +6177,42 @@ def testMinMaxPlanetLongitudeSpeeds():
             #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
             #    print("    curr is: {}".format(curr))
             #    if newMaxSpeedFlag == 1:
-            #        print("    new maxSpeed of {} is: ".format(p.name) +
-            #              str(maxSpeed))
+            #        print("    new geocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
             #    if newMinSpeedFlag == 1:
-            #        print("    new minSpeed of {} is: ".format(p.name) +
-            #              str(minSpeed))
+            #        print("    new geocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
             curr += increment
-        print("    FINAL: maxSpeed of {} is: {}".\
+        print("    FINAL: geocentric   maxSpeed of {} is: {}".\
               format(p.name, maxSpeed))
-        print("    FINAL: minSpeed of {} is: {}".\
+        print("    FINAL: geocentric   minSpeed of {} is: {}".\
+              format(p.name, minSpeed))
+
+        curr = start
+        maxSpeed = 0
+        minSpeed = 0
+        while curr < end:
+            newMaxSpeedFlag = 0
+            newMinSpeedFlag = 0
+            p = Ephemeris.getCycleOfEightPlanetaryInfo(curr)
+            if p.heliocentric['sidereal']['longitude_speed'] > maxSpeed:
+                maxSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMaxSpeedFlag = 1
+            if p.heliocentric['sidereal']['longitude_speed'] < minSpeed:
+                minSpeed = p.heliocentric['sidereal']['longitude_speed']
+                newMinSpeedFlag = 1
+            #if newMaxSpeedFlag == 1 or newMinSpeedFlag == 1:
+            #    print("    curr is: {}".format(curr))
+            #    if newMaxSpeedFlag == 1:
+            #        print("    new heliocentric maxSpeed of {} is: ".\
+            #              format(p.name) + str(maxSpeed))
+            #    if newMinSpeedFlag == 1:
+            #        print("    new heliocentric minSpeed of {} is: ".\
+            #              format(p.name) + str(minSpeed))
+            curr += increment
+        print("    FINAL: heliocentric maxSpeed of {} is: {}".\
+              format(p.name, maxSpeed))
+        print("    FINAL: heliocentric minSpeed of {} is: {}".\
               format(p.name, minSpeed))
 
 
@@ -5709,7 +6226,7 @@ def testMinMaxPlanetLatitude():
     # Pick a time and calculate the min and max speeds over X years.
 
     # Moon.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 30
@@ -5743,7 +6260,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, minLatitude))
 
     # Mercury.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 30
@@ -5777,7 +6294,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, minLatitude))
 
     # Venus.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -5811,7 +6328,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, minLatitude))
         
     # Mars.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -5845,7 +6362,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, minLatitude))
         
     # Jupiter.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=2)
         years = 120
@@ -5879,7 +6396,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, minLatitude))
         
     # Saturn.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=2)
         years = 240
@@ -5913,7 +6430,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, minLatitude))
         
     # Uranus.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=2)
         years = 240
@@ -5947,7 +6464,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, minLatitude))
         
     # Neptune.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=2)
         years = 480
@@ -5981,7 +6498,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, minLatitude))
         
     # Pluto.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=2)
         years = 840
@@ -6015,7 +6532,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, minLatitude))
         
     # MeanNorthNode.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -6049,7 +6566,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, minLatitude))
         
     # TrueNorthNode.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -6083,7 +6600,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, minLatitude))
         
     # MeanLunarApogee.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -6117,7 +6634,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, minLatitude))
         
     # OsculatingLunarApogee.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -6151,7 +6668,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, minLatitude))
         
     # InterpolatedLunarApogee.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -6185,7 +6702,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, minLatitude))
         
     # InterpolatedLunarPerigee.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -6219,7 +6736,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, minLatitude))
         
     # Earth.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -6253,7 +6770,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, minLatitude))
         
     # Chiron.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -6287,7 +6804,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, minLatitude))
         
     # Pholus.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -6321,7 +6838,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, minLatitude))
         
     # Ceres.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -6355,7 +6872,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, minLatitude))
         
     # Pallas.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -6389,7 +6906,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, minLatitude))
         
     # Juno.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -6423,7 +6940,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, minLatitude))
         
     # Vesta.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -6457,10 +6974,11 @@ def testMinMaxPlanetLatitude():
               format(p.name, minLatitude))
 
     # Isis.
-    if True:
-        start = datetime.datetime.now(eastern)
-        increment = datetime.timedelta(hours=1)
-        years = 60
+    if False:
+        start = datetime.datetime.now(eastern) - \
+                datetime.timedelta(days=1500*365)
+        increment = datetime.timedelta(days=1)
+        years = 3000
         finishDelta = datetime.timedelta(days=years*365)
         end = start + finishDelta
         curr = start
@@ -6491,10 +7009,11 @@ def testMinMaxPlanetLatitude():
               format(p.name, minLatitude))
 
     # Nibiru.
-    if True:
-        start = datetime.datetime.now(eastern)
-        increment = datetime.timedelta(hours=1)
-        years = 60
+    if False:
+        start = datetime.datetime.now(eastern) - \
+                datetime.timedelta(days=1500*365)
+        increment = datetime.timedelta(days=1)
+        years = 3000
         finishDelta = datetime.timedelta(days=years*365)
         end = start + finishDelta
         curr = start
@@ -6525,7 +7044,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, minLatitude))
 
     # MeanOfFive.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -6559,7 +7078,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, minLatitude))
 
     # CycleOfEight.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -6603,7 +7122,7 @@ def testMinMaxPlanetDeclination():
     # Pick a time and calculate the min and max speeds over X years.
 
     # Moon.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 30
@@ -6637,7 +7156,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, minDeclination))
 
     # Mercury.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 30
@@ -6671,7 +7190,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, minDeclination))
 
     # Venus.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -6705,7 +7224,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, minDeclination))
         
     # Mars.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -6739,7 +7258,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, minDeclination))
         
     # Jupiter.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=2)
         years = 120
@@ -6773,7 +7292,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, minDeclination))
         
     # Saturn.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=2)
         years = 240
@@ -6807,7 +7326,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, minDeclination))
         
     # Uranus.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=2)
         years = 240
@@ -6841,7 +7360,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, minDeclination))
         
     # Neptune.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=2)
         years = 480
@@ -6875,7 +7394,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, minDeclination))
         
     # Pluto.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=2)
         years = 840
@@ -6909,7 +7428,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, minDeclination))
         
     # MeanNorthNode.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -6943,7 +7462,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, minDeclination))
         
     # TrueNorthNode.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -6977,7 +7496,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, minDeclination))
         
     # MeanLunarApogee.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -7011,7 +7530,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, minDeclination))
         
     # OsculatingLunarApogee.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -7045,7 +7564,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, minDeclination))
         
     # InterpolatedLunarApogee.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -7079,7 +7598,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, minDeclination))
         
     # InterpolatedLunarPerigee.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -7113,7 +7632,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, minDeclination))
         
     # Earth.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -7147,7 +7666,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, minDeclination))
         
     # Chiron.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -7181,7 +7700,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, minDeclination))
         
     # Pholus.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -7215,7 +7734,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, minDeclination))
         
     # Ceres.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -7249,7 +7768,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, minDeclination))
         
     # Pallas.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -7283,7 +7802,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, minDeclination))
         
     # Juno.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -7317,7 +7836,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, minDeclination))
         
     # Vesta.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -7351,10 +7870,11 @@ def testMinMaxPlanetDeclination():
               format(p.name, minDeclination))
 
     # Isis.
-    if True:
-        start = datetime.datetime.now(eastern)
-        increment = datetime.timedelta(hours=1)
-        years = 60
+    if False:
+        start = datetime.datetime.now(eastern) - \
+                datetime.timedelta(days=1500*365)
+        increment = datetime.timedelta(days=1)
+        years = 3000
         finishDelta = datetime.timedelta(days=years*365)
         end = start + finishDelta
         curr = start
@@ -7385,10 +7905,11 @@ def testMinMaxPlanetDeclination():
               format(p.name, minDeclination))
 
     # Nibiru.
-    if True:
-        start = datetime.datetime.now(eastern)
-        increment = datetime.timedelta(hours=1)
-        years = 60
+    if False:
+        start = datetime.datetime.now(eastern) - \
+                datetime.timedelta(days=1500*365)
+        increment = datetime.timedelta(days=1)
+        years = 3000
         finishDelta = datetime.timedelta(days=years*365)
         end = start + finishDelta
         curr = start
@@ -7419,7 +7940,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, minDeclination))
 
     # MeanOfFive.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -7453,7 +7974,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, minDeclination))
 
     # CycleOfEight.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(hours=1)
         years = 60
@@ -7521,7 +8042,7 @@ if __name__=="__main__":
     # These tests will take a long time, so I've commented it out.
     #testMinMaxPlanetLongitudeSpeeds()
     #testMinMaxPlanetLatitude()
-    testMinMaxPlanetDeclination()
+    #testMinMaxPlanetDeclination()
     
     # Close the Ephemeris so it can do necessary cleanups.
     Ephemeris.closeEphemeris()

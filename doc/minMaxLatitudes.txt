@@ -1,51 +1,55 @@
 ------------------------
 Running testMinMaxPlanetLatitude()
-    FINAL: maxLatitude of Moon is: 5.30330774262
-    FINAL: minLatitude of Moon is: -5.30192492436
-    FINAL: maxLatitude of Mercury is: 3.7241444117
-    FINAL: minLatitude of Mercury is: -4.97457923065
-    FINAL: maxLatitude of Venus is: 8.80063403521
-    FINAL: minLatitude of Venus is: -8.1783106642
-    FINAL: maxLatitude of Mars is: 4.56202034061
-    FINAL: minLatitude of Mars is: -6.85868244623
-    FINAL: maxLatitude of Jupiter is: 1.59017773181
-    FINAL: minLatitude of Jupiter is: -1.63118820656
-    FINAL: maxLatitude of Saturn is: 2.77050496533
-    FINAL: minLatitude of Saturn is: -2.78354559073
-    FINAL: maxLatitude of Uranus is: 0.819941402613
-    FINAL: minLatitude of Uranus is: -0.815569643656
-    FINAL: maxLatitude of Neptune is: 1.81855838703
-    FINAL: minLatitude of Neptune is: -1.82663125116
-    FINAL: maxLatitude of Pluto is: 17.7045307355
-    FINAL: minLatitude of Pluto is: -17.4945233317
+    FINAL: maxLatitude of Moon is: 5.30334989116
+    FINAL: minLatitude of Moon is: -5.30192449869
+    FINAL: maxLatitude of Mercury is: 3.72413859109
+    FINAL: minLatitude of Mercury is: -4.97458102537
+    FINAL: maxLatitude of Venus is: 8.80063348683
+    FINAL: minLatitude of Venus is: -8.17831155139
+    FINAL: maxLatitude of Mars is: 4.56202057465
+    FINAL: minLatitude of Mars is: -6.85868240246
+    FINAL: maxLatitude of Jupiter is: 1.59017778569
+    FINAL: minLatitude of Jupiter is: -1.63118811239
+    FINAL: maxLatitude of Saturn is: 2.77050497281
+    FINAL: minLatitude of Saturn is: -2.78354559321
+    FINAL: maxLatitude of Uranus is: 0.819941399788
+    FINAL: minLatitude of Uranus is: -0.815569637981
+    FINAL: maxLatitude of Neptune is: 1.8185584013
+    FINAL: minLatitude of Neptune is: -1.82663125468
+    FINAL: maxLatitude of Pluto is: 17.7045308059
+    FINAL: minLatitude of Pluto is: -17.4945232804
     FINAL: maxLatitude of MeanNorthNode is: 0
     FINAL: minLatitude of MeanNorthNode is: 0
     FINAL: maxLatitude of TrueNorthNode is: 0
     FINAL: minLatitude of TrueNorthNode is: 0
-    FINAL: maxLatitude of MeanLunarApogee is: 5.1453964
-    FINAL: minLatitude of MeanLunarApogee is: -5.14539639987
-    FINAL: maxLatitude of OsculatingLunarApogee is: 5.28656962619
-    FINAL: minLatitude of OsculatingLunarApogee is: -5.28624264956
-    FINAL: maxLatitude of InterpolatedLunarApogee is: 5.28690304939
-    FINAL: minLatitude of InterpolatedLunarApogee is: -5.28283662772
-    FINAL: maxLatitude of InterpolatedLunarPerigee is: 5.28239954089
-    FINAL: minLatitude of InterpolatedLunarPerigee is: -5.28655301986
+    FINAL: maxLatitude of MeanLunarApogee is: 5.14539639997
+    FINAL: minLatitude of MeanLunarApogee is: -5.14539639981
+    FINAL: maxLatitude of OsculatingLunarApogee is: 5.28656996619
+    FINAL: minLatitude of OsculatingLunarApogee is: -5.28624372313
+    FINAL: maxLatitude of InterpolatedLunarApogee is: 5.28690303099
+    FINAL: minLatitude of InterpolatedLunarApogee is: -5.28283660731
+    FINAL: maxLatitude of InterpolatedLunarPerigee is: 5.28239996219
+    FINAL: minLatitude of InterpolatedLunarPerigee is: -5.28655233936
     FINAL: maxLatitude of Earth is: 0
     FINAL: minLatitude of Earth is: 0
-    FINAL: maxLatitude of Chiron is: 7.49272706013
-    FINAL: minLatitude of Chiron is: -7.66230086965
-    FINAL: maxLatitude of Pholus is: 17.5988973161
-    FINAL: minLatitude of Pholus is: -22.6521208086
-    FINAL: maxLatitude of Ceres is: 17.0936295254
-    FINAL: minLatitude of Ceres is: -15.8987507389
-    FINAL: maxLatitude of Pallas is: 48.8590991542
-    FINAL: minLatitude of Pallas is: -56.4302371457
-    FINAL: maxLatitude of Juno is: 18.6697840929
-    FINAL: minLatitude of Juno is: -24.8324617458
-    FINAL: maxLatitude of Vesta is: 12.8302594054
-    FINAL: minLatitude of Vesta is: -12.0094502517
-    FINAL: maxLatitude of MeanOfFive is: 0.915846019534
-    FINAL: minLatitude of MeanOfFive is: -4.04361069632
-    FINAL: maxLatitude of CycleOfEight is: 2.02253970789
-    FINAL: minLatitude of CycleOfEight is: -3.78800054392
+    FINAL: maxLatitude of Chiron is: 7.49272706905
+    FINAL: minLatitude of Chiron is: -7.66230083365
+    FINAL: maxLatitude of Pholus is: 17.5988972937
+    FINAL: minLatitude of Pholus is: -22.6521207957
+    FINAL: maxLatitude of Ceres is: 17.093629555
+    FINAL: minLatitude of Ceres is: -15.8987507535
+    FINAL: maxLatitude of Pallas is: 48.8590998102
+    FINAL: minLatitude of Pallas is: -56.4302382121
+    FINAL: maxLatitude of Juno is: 18.6697838638
+    FINAL: minLatitude of Juno is: -24.8324625274
+    FINAL: maxLatitude of Vesta is: 12.8302594355
+    FINAL: minLatitude of Vesta is: -12.0094502515
+    FINAL: maxLatitude of Isis is: 0.169948954822
+    FINAL: minLatitude of Isis is: -0.190171757917
+    FINAL: maxLatitude of Nibiru is: 0
+    FINAL: minLatitude of Nibiru is: -21.3900977618
+    FINAL: maxLatitude of MeanOfFive is: 0.91584602159
+    FINAL: minLatitude of MeanOfFive is: -4.04361068802
+    FINAL: maxLatitude of CycleOfEight is: 2.02254047341
+    FINAL: minLatitude of CycleOfEight is: -3.78800027637
 Exiting.

@@ -6334,6 +6334,22 @@ class PlanetaryCombinationsLibrary:
                 maxAbsoluteSpeed = maxValue
             else:
                 maxAbsoluteSpeed = minValue
+        elif planetName == "Isis":
+            maxValue = abs(0.0206735201795)
+            minValue = abs(-0.0155312857467)
+            helioSpeed = 0.0
+            if maxValue > minValue:
+                maxAbsoluteSpeed = maxValue
+            else:
+                maxAbsoluteSpeed = minValue
+        elif planetName == "Nibiru":
+            maxValue = abs(0.0776441794168)
+            minValue = abs(-0.489747301768)
+            helioSpeed = 0.0
+            if maxValue > minValue:
+                maxAbsoluteSpeed = maxValue
+            else:
+                maxAbsoluteSpeed = minValue
         elif planetName == "MeanOfFive":
             maxValue = abs(0.0907366503314)
             minValue = abs(-0.0486608813613)
