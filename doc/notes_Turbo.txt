@@ -836,5 +836,159 @@ rluu: Dwight's CD of this has the following WITS Post numbers written on it:
 
 Turbo 5 is called: Cycle Hunter
 
+Gann stated in many places that there is a relationship between highs and lows.  Truth is, that the highs and lows are connected via cycles.  The key to this field is cycles.  
+
+Turbo 2 lists the different types of cycles.  Of those cycle types, we'll deal with the type known as transiting-to-transiting.  Traders often unknowingly mix attributes from different cycles.  This complicates the testing process.  No matter which cycle you are working with, list the attributes of that cycle.  
+
+Transiting-to-transiting has these attributes:
+1) Involves two planets.
+2) Uses longitude of two planets.
+3) Uses 15-degree aspects, set between the two planets.  
+
+Where can this information be found?  Make sure you have read Jensen's ACSM.  Jensen, Gann and Bayer all wrote about the same things.  You can find all this information in their books.  Jensen comes outright and tells you, whereas Gann and Bayer are a little bit trickier.  
+
+Then read WITS post 12735.  Become familiar with posts 12705, 12732 and 12828.
+
+Now according to Jensen's book, two planets in aspect need a trigger, which is a faster moving planet coming into aspect with the two other planets.  
+
+Example: 
+Let's say we have transiting Jupiter and transiting Saturn, ... and they are about to conjunct.  Meaning they are going to occupy the same degree of the zodiac.  This will take several months to come in and come out; realize the actual conjunction is an exact moment in time, but there is a bit of space between when they are coming in and coming out.  During that approach and separation, Jensen is saying that a faster moving planet, such as Mars, conjuncting that conjunction will set that off.  This means that Mars can be used as a trigger.  
+
+Post 12828 is about triggering area of these cycles.  
+
+Great post is: 12870, accompanied by post 13323.
+While you can clearly see that there's an interplay between geocentric Jupiter, Uranus and Saturn, in post 13323, you can also see that 87% had a trigger, usually mars, rarely mercury.  This is significiant, but there is a overwhelming problem in this great post.  The problem is one of the biggest causes of failures in this field.  Here it is: There are too many factors here.  
+
+This post was originally put into WITS to show that on these big large turns, you are consistently seeing triggers being set up (triggers to these other planets).  The post wasn't structured to go any further than that.  So what you have there is a compendium of all these cycles... you've got Jupiter, Uranus, and Saturn.  You've got them all mixed together.  In reality when you test, that's just too many cycles, and too many factors.  You can't do that; you have to boil all the indegredients down to the bare essentials.  The more variables you have in these tests, the more skewed the scientific basis will be.  Each factor must be tested for independently.  This is mission critical!  Each factor must be tested for independently.
+
+How would we do this?  See we have a mix of aspects between Jupiter and Saturn, Saturn and Uranus, and Jupiter and Uranus.  We can clearly see that these aspects are prevalent in the Dow.  The question then becomes, to what degree?  And that's the area that we're going to get into.  In post 13323, you can see aspects made by Jupiter and Saturn, aspects made by Saturn and Uranus, and aspects made by Jupiter and Uranus.  They are all around those great highs and lows made in that post.  We have to take each one of those cycles and work with it independently.  We have to just use one, we can't use three.  
+
+This is how we set up tests.  First we want to make sure we use the least amount of factors.  So let's use Jupiter and Saturn only, and let's use the 15-degree aspect class.  For those that don't know, the 15-degree aspect class is when the angular separation between two planets reaches 0, 15, 30, 60, 75, 90, 105, 120, 135, 150, 165, and 180 degrees on both sides of the circle.  Astrologers, and this is their downfall, they typically go into this field and come into it with limited scope.  They don't use aspects that they are not aware of.  We're looking for a relationship here between highs and lows.  
+
+We need an ephemeris.  Let's take the years May 1990 through December 1999, and look when the angular distance between Jupiter and Saturn hit one of those on the 15-degree axis.  We make a list of the exact positions every day for Jupiter and Saturn.  Then every day, we subtract one planetary position from the other planetary position.  If you get an angular separation greater than 180 degrees, then switch the two planets around to get a result below 180 degrees.  Always make sure the value is below 180, at least for our testing. 
+
+I've done this for you.  I'm going to give these dates to you, so you can write them down.  Of course, these are geocentric.  I'm also going to give you the angular distance between them too.
+
+Date                Angular separation           Significant turn w/i 1 week
+---------------     ------------------           ---------------------------
+May 18, 1990        165                          No Turn
+July 13, 1990       180                          Top       7/17
+September 6, 1990   165                          Top       9/10
+January 7, 1991     165                          Low       1/14
+March 16, 1991      180                          Low       3/22
+May 16, 1991        180                          Low       5/15
+July 22, 1991       165                          Low       7/25
+Sept 14, 1991       150                          Low       9/13
+Feb 16, 1992        150                          Low       2/18
+Aug 2, 1992         150                          High      7/31
+Sept 27, 1992       135                          No Turn
+March 23, 1993      135                          High      3/19
+August 16, 1993     135                          No Turn
+Oct 12, 1993        120                          Low       10/8
+April 28, 1994      120                          High      5/3
+August 28, 1994     120                          High      8/31
+October 28, 1994    105                          High      11/3
+June 11, 1995       105                          Low       6/9
+Sept 4, 1995        105                          Low       8/29
+Nov 11, 1995         90                          No Turn
+Feb 9, 1996          75                          High      2/13
+Nov. 11, 1996        75                          No Turn
+Feb 9, 1997          60                          Low       2/6
+July 15, 1997        60                          Low       7/21
+Nov. 15, 1997        60                          Low       11/13
+Feb 9, 1998          45                          No Turn
+Feb 3, 1999          30                          High      2/1
+June 13, 1999        15                          Low       6/11
+Oct. 26, 1999        15                          High      10/29
+
+
+Now that we have our dates, we need to define the parameters around these dates.  Jensen says to use 6 degrees either side of exact.  You can go to WITS and check post 12705 and 12732.  These posts are vitally important at this point.  Let's say we have no experience with this whole 'orb' thing, therefore we will look for a turn 1 week either side of exact, so we have about a 2 week window.  Let's be reasonable, Jupiter and Saturn move slow, so our turns need to be tradable, not a small blip (i.e. it shouldn't be a small move).  
+
+I'd do these by hand, that way it gives you more a personal touch or feel.  
+
+In summary, out of 29 occurrances of the cycle, we have 23 turns occuring without our parameters.  79.3% within our parameters.   I didn't do the statistics, but it looks like about 35%-40% is within the 3 day + or - range.  Not bad, but we can go further.  There are ways to narrow this down.  We have a problem, our window is too big for trading.  We're going to have to narrow it down somewhere.  I'm going to leave some of the work for you.  There are ways.  
+
+This field is all about cycles.  You can't use geometry alone.  You can't have highs and lows that are geometrically connected, and randomly.  There has got to be the use of cycles.  Without the cycles, the geometry is coincidence.  
+
+Gann, Jensen, and Bayers' books are all about cycles, but they don't come right out and tell you.  You have to have the background to start extracting the cycles from their book.  That's what this field is about.  Without the cycles, you have nothing.  
+
+Our goal at this particular point is not to narrow down these turns.  We're cycle hunting.  Our goal is to find cycles.  You can test the triggers yourself.  There are examples of triggers in those yahoo posts.  You can test those yourself.  I encourage you to do that.  These cycles can be timed down further, but that's not the function of Turbo 5.  Turbo 5 is cycle hunter.  We need more cycles.  
+
+Also be aware that the larger cycle has a 2 week window, there are smaller cycles with a lot smaller window.  There are smaller cycles out there, and you should use a smaller window for these.  Find these smaller cycles.  Jensen writes about these smaller cycles in his book.  
+
+Let's talk about two points that are related within the Jupiter-Saturn geocentric cycle.  Let's take only the 45-degree aspect between these two planets, and just use them.  Notice we're going down to even less factors.  We're testing a specific angle between two planets.  We're using the transiting-to-transiting cycle type.  Between 1915 and 2003, there were 18 occurances of this cycle.  I'm going to stop you right here.  Although this is a large time range, there are other cycles, and this is only one aspect between these two planets.  There's a lot more aspects between these two planets that we can test, and then we can move on to other cycles.  This is mission critical to understand.  I'm giving you a small point, and I'm shining a flashlight in a small tunnel, and I'm illuminating a much bigger world for you.  What I'm giving you is a small slice of a gigantic pie.  We're going to use Jupiter-Saturn 45-degree aspects.  We're going to use 5 days either side of exact.  Before we used 7 days, but now we're using 5 days.  
+
+Date                Angular separation           Significant turn w/i 5 days
+---------------     ------------------           ---------------------------
+Jul  6, 1918        45                           High    7/6
+Feb 23, 1924        45                           Low     2/26
+July 14, 1924       45                           High    7/12
+Nov 10, 1924        45                           No Turn
+April 3, 1938       45                           Big Low 3/31
+June 29, 1938       45                           High    7/2
+Dec 8, 1938.        45                           Low     12/9
+Nov. 17, 1942       45                           No Turn
+Dec 28, 1942        45                           Big Low 12/23
+Aug 7, 1943         45                           Low     8/6
+Oct 5, 1958         45                           No Turn
+May 6, 1963         45                           Low     5/7
+June 5, 1978        45                           Top     6/6
+Jan 21, 1984        45                           No Turn
+Feb 9, 1998         45                           No Turn
+Oct 14, 2002        45                           Big Low 10/10
+Mar 27, 2003        45                           Low     3/31
+July 9, 2003        45                           No Turn
+
+
+There were 18 occurances within that period.  Parameter is a turn within 5 days, making a total window or 10 days.  Here we've accounted for 67% of the turns.  These are good sharp moves... I like'em.  There's a lot of meat to this.  So for the last 80-something years or so, we have got 18 turns and 66 % of which produced turns within a 5 day window.  
+
+Let's look at the dates of the 33% where there was no turn.  They were dates:
+Nov. 10, 1924
+Nov. 17, 1942
+Oct 5, 1958
+Jan 21, 1984
+Feb 8, 1998
+July 9, 2003
+
+Since we used the 45 degree aspect between Jupiter and Saturn, we can see if there's a quintile, why?  Because 5 * 9 = 45.  So we turn to page 135 of Jensen's ACSM, at about the 5th line, where he states: "All orbs of the quintile series are limited to 2 degrees."   Let's go back and take a look at these 6 that we supposedly missed.  
+
+rluu: Actually a quintile aspect is 72 degrees, not 45.  I suppose the point here is that we are to look at degrees of orb, instead of just a fixed time orb.  
+
+Nov. 10, 1924: There was a high Nov. 18, 1924, 8 days out.  But the high occured when Jupiter and Saturn were at 45.8 degrees.  Well within the 2 degree orb.  
+
+Nov. 17, 1942: There's a high at Nov. 9, which is 8 days out.  The angular distance on that day is 45.5.  Only half a degree away.  The planets were moving slow, and that's why it was off.  
+
+Oct. 5, 1958: High on Oct 13, which is 8 days out.  Angular separation was 43.8. This was 1.2 degrees away from 45. 
+
+Jan 21, 1984: High on Jan 13, which is 8 days.  43.8 degrees, whcih is 1.2 degrees away from 45, within 2 degree limit. 
+
+Feb 9, 1998: Low on Jan 23.  This is a complete miss, 47.6 degrees difference.  
+
+July 9, 2003: Turn 8 days earlier, July 1, 2003.  44.5 degrees, which is 0.5 degrees and within parameters of 2 degrees separation.  
+
+So, within Jensen's parameters of the 18 turns in this cycles, only 17 can be accounted for, only 1 cannot.  That rate exceeds 94%.  
+
+Even though same are 8 days, there's ways to narrow that down.  
+
+Take a look at the market data between 1915 to 2003.  Can you tell between the dates July 6, 1918, and June 5, 1978, that there is a relationship there?  That's where the geometry guys fail.  There's a connection between these dates.  They are both Jupiter-Saturn 45-degree aspects.  The only way to see the connection between these dates is to know the underlying cycle.  That's the secret to this field.  You have to know which dates are connected to what before you can do any kind of analysis (or further your analysis).  When you start working with Gann's price methods, you absolutely have to know which dates are related to each other.  If you do not know this, there's no way that the squares (square of 9, 90, 52, 144) will work for you.  
+
+Again, I want to remind you... we only looked at the 45 degree aspect between Jupiter and Saturn.  Obviously there's a lot more between those two planets.  You do the tests.  Set them up exactly as I've showed you.  Listen to these Turbos over and over again.  
+
+The 45 degree of aspect between Jupiter and Saturn... that's not even the tip of the iceburg.  This is a huge field.  You can do incredible things with it.  Take that process, and start doing other angles.  Throw in other planets.  Throw in faster moving planets.  It's up to you; you do the testing.  
+
+I'm going to show you a trick.  Astrologers are not aware of this.  It's for commodities, but it's actually universal.  We'll take a look at the commodity called Soybeans: US Soybeans.  We'll use the period of 1949 through 2004, which is 55 years.  Use a maximum window of 2 days to exact.  Notice we're narrowing this window down.  Why?  Because we're using Jupiter and Uranus.  The Jupiter-Saturn cycle is a 20 year cycle.  The Jupiter-Uranus geocentric cycle is 14 years, which means this is a faster cycle.  So we don't want to use such a big window for this smaller cycle.  We're using the 15-degree aspect class for geocentric Jupiter and Uranus.  During this period, Jupiter and Uranus has 185 occurances of the angular distance hitting an angle that's in our 15-degree list.  Of those 185 occurance, 122 produce turns in our 4-day total window (2-days on each side of exact).  This is a rate of 65.9%.  Not bad by some standards.  
+
+We're going to zero-in and see if we can get that percentage up.  This is the secret.  We're going to take this cycle, and divide it into 4 seasons.  Meaning, if the Jupiter-Uranus hit during the spring, then we'll put it in a separate bin.  If it hit in the summer, then we'll put it in a separate bin.  If it hit in the fall, then we'll put it in a separate bin.  If it hit in the winter, then we'll put it in a separate bin.  So we're going to divide the year up into 4 parts, the way it naturally is.  The reason for doing this is that around these occurances, this aspect, when it happens, certain news will come out, and the news will be different, but there will be an underlying theme.  
+
+Let's say, as an example, that every time this aspect occurs, let's say we get a drought.  That's not the case, but just speaking as an example.  If the aspect occurs in the fall after the harvest, then it's not going to matter.   If happens in the winter, then there's no plants in the ground, so you dont' care.  In the spring and summer you would care.  So the aspect will bring a certain news to the market, and that may affect the market.  Our goal is to ferret that out.  
+
+50 occurances happened in the Spring, which produced 38 turns, within our 2 day on either side window.  This is 76%.   51 occurances occured in the summer and there were 31 turns.  That's 61.7%.  There were 32 occurances in the fall, with 21 turns.  That's 65.6%.  52 occurances in the winter, with 22 turns.  That's 42.3%.  Meaning that when this aspect occurs in the winter, you'll going to get a hit rate much less.  This process needs to be done with more aspects.  
+
+You need to do this for each market, and to find the planets that work for each market.  Now this is a 2 day window.  How can we get this more exact?  Yes.  We need to bring other elements in to actually pull the trigger on the trade.  That's not the job of Turbo 5.  The job of Turbo 5 is to give you these cycles, so you can extract the cycles out any stocks or commodities that you are trading.  Without these cycles, there's no way to really understand what Gann was doing.  
+
+I'm going to leave you with this.  WITS has a lot of valuable information in it.  I would highly recommend you listen to Turbo again carefully.  If you are new to this, start here.  Keep working on this until you get this working for yourself.  With this you'll be able to know within a certain degree of accuracy when a turn will happen.  What I've given you here is give you a tiny foundation.  With time, you'll be able to make connections that aren't even included in here.  There's a ton more going on.  You're so much more advanced having grasped the foundation given here.  
+
+I'm very thankful to a lot of people: Alblak, PJ, Lorin, Tommy, Michael, Ed, Stuart.  There's too many people.  If I had to name a guy that really is a powerhouse behind WITS, it's PJ.  [audio cuts off here].
+
 
 ##############################################################################
