@@ -1,0 +1,203 @@
+------------------------
+Running testMinMaxPlanetLongitudeSpeeds()
+    FINAL: geocentric   maxSpeed of Moon is: 15.3854474127
+    FINAL: geocentric   minSpeed of Moon is: 0
+    FINAL: geocentric   maxSpeed of Mercury is: 2.20247900871
+    FINAL: geocentric   minSpeed of Mercury is: -1.38648016156
+    FINAL: heliocentric maxSpeed of Mercury is: 6.32373475804
+    FINAL: heliocentric minSpeed of Mercury is: 0
+    FINAL: geocentric   maxSpeed of Venus is: 1.25885851706
+    FINAL: geocentric   minSpeed of Venus is: -0.631105901829
+    FINAL: heliocentric maxSpeed of Venus is: 1.62565148612
+    FINAL: heliocentric minSpeed of Venus is: 0
+    FINAL: geocentric   maxSpeed of Mars is: 0.791337340316
+    FINAL: geocentric   minSpeed of Mars is: -0.400655967271
+    FINAL: heliocentric maxSpeed of Mars is: 0.635335136595
+    FINAL: heliocentric minSpeed of Mars is: 0
+    FINAL: geocentric   maxSpeed of Jupiter is: 0.242476272437
+    FINAL: geocentric   minSpeed of Jupiter is: -0.136581999508
+    FINAL: heliocentric maxSpeed of Jupiter is: 0.0918236209157
+    FINAL: heliocentric minSpeed of Jupiter is: 0
+    FINAL: geocentric   maxSpeed of Saturn is: 0.130369676703
+    FINAL: geocentric   minSpeed of Saturn is: -0.0828732954132
+    FINAL: heliocentric maxSpeed of Saturn is: 0.0374197623281
+    FINAL: heliocentric minSpeed of Saturn is: 0
+    FINAL: geocentric   maxSpeed of Uranus is: 0.063236071357
+    FINAL: geocentric   minSpeed of Uranus is: -0.043927318921
+    FINAL: heliocentric maxSpeed of Uranus is: 0.0129850755865
+    FINAL: heliocentric minSpeed of Uranus is: 0
+    FINAL: geocentric   maxSpeed of Neptune is: 0.0380502047109
+    FINAL: geocentric   minSpeed of Neptune is: -0.0283866017914
+    FINAL: heliocentric maxSpeed of Neptune is: 0.00614348885805
+    FINAL: heliocentric minSpeed of Neptune is: 0
+    FINAL: geocentric   maxSpeed of Pluto is: 0.0405354557031
+    FINAL: geocentric   minSpeed of Pluto is: -0.0282905099063
+    FINAL: heliocentric maxSpeed of Pluto is: 0.00711132769998
+    FINAL: heliocentric minSpeed of Pluto is: 0
+    FINAL: geocentric   maxSpeed of MeanNorthNode is: 0
+    FINAL: geocentric   minSpeed of MeanNorthNode is: -0.0529539534874
+    FINAL: geocentric   maxSpeed of TrueNorthNode is: 0.0772001595009
+    FINAL: geocentric   minSpeed of TrueNorthNode is: -0.259122992294
+    FINAL: geocentric   maxSpeed of MeanLunarApogee is: 0.11206846201
+    FINAL: geocentric   minSpeed of MeanLunarApogee is: 0
+    FINAL: geocentric   maxSpeed of OsculatingLunarApogee is: 6.3488153689
+    FINAL: geocentric   minSpeed of OsculatingLunarApogee is: -3.61863092083
+    FINAL: geocentric   maxSpeed of InterpolatedLunarApogee is: 0.236734869117
+    FINAL: geocentric   minSpeed of InterpolatedLunarApogee is: -0.148972483749
+    FINAL: geocentric   maxSpeed of InterpolatedLunarPerigee is: 0.577564282214
+    FINAL: geocentric   minSpeed of InterpolatedLunarPerigee is: -2.26865419353
+    FINAL: geocentric   maxSpeed of Earth is: 0
+    FINAL: geocentric   minSpeed of Earth is: 0
+    FINAL: heliocentric maxSpeed of Earth is: 1.0197242427
+    FINAL: heliocentric minSpeed of Earth is: 0
+    FINAL: geocentric   maxSpeed of Chiron is: 0.145963622022
+    FINAL: geocentric   minSpeed of Chiron is: -0.0794571986921
+    FINAL: heliocentric maxSpeed of Chiron is: 0.0467794089181
+    FINAL: heliocentric minSpeed of Chiron is: 0
+    FINAL: geocentric   maxSpeed of Pholus is: 0.0697925034232
+    FINAL: geocentric   minSpeed of Pholus is: -0.0502096450251
+    FINAL: heliocentric maxSpeed of Pholus is: 0.0128102819904
+    FINAL: heliocentric minSpeed of Pholus is: 0
+    FINAL: geocentric   maxSpeed of Ceres is: 0.460418803979
+    FINAL: geocentric   minSpeed of Ceres is: -0.23802581401
+    FINAL: heliocentric maxSpeed of Ceres is: 0.25601912196
+    FINAL: heliocentric minSpeed of Ceres is: 0
+    FINAL: geocentric   maxSpeed of Pallas is: 0.598055033283
+    FINAL: geocentric   minSpeed of Pallas is: -0.342833815467
+    FINAL: heliocentric maxSpeed of Pallas is: 0.402139359393
+    FINAL: heliocentric minSpeed of Pallas is: 0
+    FINAL: geocentric   maxSpeed of Juno is: 0.597557823866
+    FINAL: geocentric   minSpeed of Juno is: -0.260653510115
+    FINAL: heliocentric maxSpeed of Juno is: 0.40655041472
+    FINAL: heliocentric minSpeed of Juno is: 0
+    FINAL: geocentric   maxSpeed of Vesta is: 0.541960483313
+    FINAL: geocentric   minSpeed of Vesta is: -0.265968480801
+    FINAL: heliocentric maxSpeed of Vesta is: 0.326027692678
+    FINAL: heliocentric minSpeed of Vesta is: 0
+    FINAL: geocentric   maxSpeed of Isis is: 0.0206544015298
+    FINAL: geocentric   minSpeed of Isis is: -0.0155313526055
+    FINAL: heliocentric maxSpeed of Isis is: 0.00283592143567
+    FINAL: heliocentric minSpeed of Isis is: 0
+    FINAL: geocentric   maxSpeed of Nibiru is: 0.00728791844368
+    FINAL: geocentric   minSpeed of Nibiru is: -0.00787293107624
+    FINAL: heliocentric maxSpeed of Nibiru is: 2.39305621218e-05
+    FINAL: heliocentric minSpeed of Nibiru is: -0.000123564732621
+    FINAL: geocentric   maxSpeed of MeanOfFive is: 0.0937542637502
+    FINAL: geocentric   minSpeed of MeanOfFive is: -0.055207589284
+    FINAL: heliocentric maxSpeed of MeanOfFive is: 0.0308050523278
+    FINAL: heliocentric minSpeed of MeanOfFive is: 0
+    FINAL: geocentric   maxSpeed of CycleOfEight is: 0.56889861311
+    FINAL: geocentric   minSpeed of CycleOfEight is: -0.23918965376
+    FINAL: heliocentric maxSpeed of CycleOfEight is: 1.09138417314
+    FINAL: heliocentric minSpeed of CycleOfEight is: 0
+------------------------
+Running testMinMaxPlanetDeclination()
+    FINAL: maxDeclination of Moon is: 28.7166377341
+    FINAL: minDeclination of Moon is: -28.7255978091
+    FINAL: maxDeclination of Mercury is: 25.660493887
+    FINAL: minDeclination of Mercury is: -25.8696625244
+    FINAL: maxDeclination of Venus is: 27.8241177628
+    FINAL: minDeclination of Venus is: -27.753799345
+    FINAL: maxDeclination of Mars is: 27.2079958989
+    FINAL: minDeclination of Mars is: -28.6304084669
+    FINAL: maxDeclination of Jupiter is: 23.4561502904
+    FINAL: minDeclination of Jupiter is: -23.4630295926
+    FINAL: maxDeclination of Saturn is: 22.7657699777
+    FINAL: minDeclination of Saturn is: -22.7713405572
+    FINAL: maxDeclination of Uranus is: 23.694777335
+    FINAL: minDeclination of Uranus is: -23.6860071255
+    FINAL: maxDeclination of Neptune is: 22.3290610233
+    FINAL: minDeclination of Neptune is: -22.2999707346
+    FINAL: maxDeclination of Pluto is: 23.1560558239
+    FINAL: minDeclination of Pluto is: -23.7937776771
+    FINAL: maxDeclination of MeanNorthNode is: 23.4365105329
+    FINAL: minDeclination of MeanNorthNode is: -23.4356090081
+    FINAL: maxDeclination of TrueNorthNode is: 23.436612872
+    FINAL: minDeclination of TrueNorthNode is: -23.4356211999
+    FINAL: maxDeclination of MeanLunarApogee is: 27.0388153973
+    FINAL: minDeclination of MeanLunarApogee is: -28.5703166722
+    FINAL: maxDeclination of OsculatingLunarApogee is: 27.5028706903
+    FINAL: minDeclination of OsculatingLunarApogee is: -28.7108692353
+    FINAL: maxDeclination of InterpolatedLunarApogee is: 27.0728604465
+    FINAL: minDeclination of InterpolatedLunarApogee is: -28.6774914138
+    FINAL: maxDeclination of InterpolatedLunarPerigee is: 28.7075558199
+    FINAL: minDeclination of InterpolatedLunarPerigee is: -27.4886815333
+    FINAL: maxDeclination of Earth is: 0
+    FINAL: minDeclination of Earth is: 0
+    FINAL: maxDeclination of Chiron is: 18.2044381161
+    FINAL: minDeclination of Chiron is: -18.3691854179
+    FINAL: maxDeclination of Pholus is: 0
+    FINAL: minDeclination of Pholus is: -24.4548530424
+    FINAL: maxDeclination of Ceres is: 32.5555522749
+    FINAL: minDeclination of Ceres is: -31.944023643
+    FINAL: maxDeclination of Pallas is: 26.7703906728
+    FINAL: minDeclination of Pallas is: -33.1160057542
+    FINAL: maxDeclination of Juno is: 15.2072122701
+    FINAL: minDeclination of Juno is: -14.4000486283
+    FINAL: maxDeclination of Vesta is: 26.2421653707
+    FINAL: minDeclination of Vesta is: -26.7412983146
+    FINAL: maxDeclination of Isis is: 23.4560448597
+    FINAL: minDeclination of Isis is: -23.4536737899
+    FINAL: maxDeclination of Nibiru is: 2.07600797971
+    FINAL: minDeclination of Nibiru is: -3.4922092186
+    FINAL: maxDeclination of MeanOfFive is: 9.46340915454
+    FINAL: minDeclination of MeanOfFive is: -12.5428043669
+    FINAL: maxDeclination of CycleOfEight is: 14.7083757598
+    FINAL: minDeclination of CycleOfEight is: -15.5626997009
+------------------------
+Running testMinMaxPlanetLatitude()
+    FINAL: maxLatitude of Moon is: 5.30334989116
+    FINAL: minLatitude of Moon is: -5.30192449869
+    FINAL: maxLatitude of Mercury is: 3.72413859109
+    FINAL: minLatitude of Mercury is: -4.97458102537
+    FINAL: maxLatitude of Venus is: 8.80063348683
+    FINAL: minLatitude of Venus is: -8.17831155139
+    FINAL: maxLatitude of Mars is: 4.56202057465
+    FINAL: minLatitude of Mars is: -6.85868240246
+    FINAL: maxLatitude of Jupiter is: 1.59017778569
+    FINAL: minLatitude of Jupiter is: -1.63118811239
+    FINAL: maxLatitude of Saturn is: 2.77050497281
+    FINAL: minLatitude of Saturn is: -2.78354559321
+    FINAL: maxLatitude of Uranus is: 0.819941399788
+    FINAL: minLatitude of Uranus is: -0.815569637981
+    FINAL: maxLatitude of Neptune is: 1.8185584013
+    FINAL: minLatitude of Neptune is: -1.82663125468
+    FINAL: maxLatitude of Pluto is: 17.7045308059
+    FINAL: minLatitude of Pluto is: -17.4945232804
+    FINAL: maxLatitude of MeanNorthNode is: 0
+    FINAL: minLatitude of MeanNorthNode is: 0
+    FINAL: maxLatitude of TrueNorthNode is: 0
+    FINAL: minLatitude of TrueNorthNode is: 0
+    FINAL: maxLatitude of MeanLunarApogee is: 5.14539639997
+    FINAL: minLatitude of MeanLunarApogee is: -5.14539639981
+    FINAL: maxLatitude of OsculatingLunarApogee is: 5.28656996619
+    FINAL: minLatitude of OsculatingLunarApogee is: -5.28624372313
+    FINAL: maxLatitude of InterpolatedLunarApogee is: 5.28690303099
+    FINAL: minLatitude of InterpolatedLunarApogee is: -5.28283660731
+    FINAL: maxLatitude of InterpolatedLunarPerigee is: 5.28239996219
+    FINAL: minLatitude of InterpolatedLunarPerigee is: -5.28655233936
+    FINAL: maxLatitude of Earth is: 0
+    FINAL: minLatitude of Earth is: 0
+    FINAL: maxLatitude of Chiron is: 7.49272706905
+    FINAL: minLatitude of Chiron is: -7.66230083365
+    FINAL: maxLatitude of Pholus is: 17.5988972937
+    FINAL: minLatitude of Pholus is: -22.6521207957
+    FINAL: maxLatitude of Ceres is: 17.093629555
+    FINAL: minLatitude of Ceres is: -15.8987507535
+    FINAL: maxLatitude of Pallas is: 48.8590998102
+    FINAL: minLatitude of Pallas is: -56.4302382121
+    FINAL: maxLatitude of Juno is: 18.6697838638
+    FINAL: minLatitude of Juno is: -24.8324625274
+    FINAL: maxLatitude of Vesta is: 12.8302594355
+    FINAL: minLatitude of Vesta is: -12.0094502515
+    FINAL: maxLatitude of Isis is: 0.169948954822
+    FINAL: minLatitude of Isis is: -0.190171757917
+    FINAL: maxLatitude of Nibiru is: 0
+    FINAL: minLatitude of Nibiru is: -21.3900977618
+    FINAL: maxLatitude of MeanOfFive is: 0.91584602159
+    FINAL: minLatitude of MeanOfFive is: -4.04361068802
+    FINAL: maxLatitude of CycleOfEight is: 2.02254047341
+    FINAL: minLatitude of CycleOfEight is: -3.78800027637
+------------------------
+Exiting.
+------------------------
