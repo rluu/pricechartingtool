@@ -1,0 +1,201 @@
+##############################################################################
+Cosmic Symbolism Notes
+##############################################################################
+
+This is a continuation of notes that were taken on paper.  
+Page 15 was the last page of notes on paper.
+
+February 15, 2012
+
+##############################################################################
+
+
+pg. 167
+General significations of planets:
+
+Sun:
+father, ruler, or person in authority, gold, health, life, matters relating to government, preferment, honours, inaugurations and constitutions, male life generally, the daytime.
+
+Moon:
+mother, public bodies, silver, white fabrics such as linen; changes, matters relating to public affairs, women, the night, and female life generally.
+
+Mars:
+all youths and marriageable men, fire, iron and steel, anger, strife, muscular force, cuts, burns and wounds, blood, death, things that are scarlet or red, fevers, enterrises, operations, incisions, soldiers and pioneers.
+
+Mercury:
+boys and scholars, writings, papers, short journeys, buying and selling, deeds of writing, food, clothing, furniture and personal equipment, trade, profession, speech, quotations.
+
+Jupiter:
+justice, gain, increase, expansion, lawyers, insurance, religion, philosophy, affairs of grandeur and display, hopes and fears, whiches, expectations, money and success.
+
+Venus:
+young women of a marriagable age, to engagements, births, weddings, social functions, pleasures, theatres, music, art, peace, rest and happiness.
+
+Saturn:
+privation, darkness, solitude, coldness, hatred, jealousy, heavy weights, gravity, soberness, gloom, doubts, difficulties, falling, loss, sickness, aged people, old associations, memories, black and sombre solours, mourning, death.
+
+
+In a word, the characteristics of a letter or event will be (in the planetary hour):
+Sun: Honours
+Moon: Changes
+Mars: Strife
+Mercury: Business
+Jupiter: Gain
+Venus: Pleasure
+Saturn: Loss
+
+
+Chapter 17.
+
+Polarity of quadrants of a day:
+Quadrant from sunrise to noon is positive.
+Quadrant from noon to sunset is negative.
+Quadrant from sunset to midnight is positive.
+Quadrant from midnight to sunrise is negative.
+
+Polarity of the houses:
+H1: Negative
+H2: Positive
+H3: Negative
+H4: Positive
+H5: Negative
+H6: Positive
+H7: Negative
+H8: Positive
+H9: Negative
+H10: Positive
+H11: Negative
+H12: Positive
+
+Polarity of the hours:
+H1: Negative
+H2: Positive
+H3: Negative
+H4: Positive
+H5: Negative
+H6: Positive
+H7: Negative
+H8: Positive
+H9: Negative
+H10: Positive
+H11: Negative
+H12: Positive
+H13: Negative
+H14: Positive
+H15: Negative
+H16: Positive
+H17: Negative
+H18: Positive
+H19: Negative
+H20: Positive
+H21: Negative
+H22: Positive
+H23: Negative
+H24: Positive
+
+
+Carl von Reichenbach
+
+Colors of the 12 houses:
+H1: Grey
+H2: Blue-grey
+H3: Blue with red rays, Violet
+H4: Blue
+H5: Dark Green
+H6: Light Green
+H7: Yellow
+H8: Golden
+H9: Orange
+H10: Red
+H11: Violet-red, purple
+H12: Grey-red or dull red.
+
+
+Chapter 18.
+Vulcan: Also known as Hephaestus, son of Jupiter and Juno, is the artificer of human bonds.
+
+The symbol of humanity is the number 9, and this is the number of the planet Mars.
+
+Chapter 19.
+
+"Tetrabiblos" or "Four Books on the Influence of the Stars" By Claudius Ptolemy
+The best translation is by Ashmand.
+
+Planetary periods (duration) of life By Ptolemy:
+Moon:     4 years
+Mercury: 10 years
+Venus:    8 years
+Sun:     19 years
+Mars:    15 years
+Jupiter: 12 years
+Saturn:  30 years
+
+
+Sepharial lists his own planetary period system, as well as one from
+the orient.  (See pages 192 and 193 of Cosmic Symbolism if interested).
+
+Sepharial talks about some predictions of Lilly, where he uses ingress of aphelion location of planets.  rluu: find a table of this information, plus their rates of motion.
+
+Chapter 21.
+
+Planetary Hour Sub-periods:
+Subperiods are 7 in number.  To get the length of the subperiods, divide the length of the planetary hour by 7.  Assign the subperiods to each of the 7 planets, starting with the ruler of the planetary hour.  The order of the planets in this assignment is in the Chaldean order.
+
+Law of Vibration system:
+
+Find the event time, and the planetary hour and planetary subperiod in that hour.  The winner should be one that has the name sounds, reduced to numbers, then reduced to 1 digit.  That one digit should match one of either the planetary hour or planetary subperiod.
+
+rluu: Upon looking at how he obtained his values, it doesn't look like this system works very well at all.  Too many possibilities are left open.
+
+Chapter 22.
+
+"Hipparchus" - He was an astronomer
+
+Chapter 23.
+
+Lunar influence:
+Influences the ocean tides.  Affects fluidic life.  Appreciably affects the sap-cells of plants and trees.  Affects blood pressure, brain and nervous system.  Excites a variety of passions and impluses depending on influences on the moon.  The moon rules the general populace.  Also controls weather. 
+
+The moon does not act directly upon the weather, but by a tidal action upon the Earth's atmospheric envelope, which accordingly depends upon the time of the Moon's syzygies and quadratures.  
+
+The lunar weather theory is: The nearer to midnight any phase of hte Moon may occur, the finer will be the weather during the ensuing week, and consequently the nearer to midday it may occur, the more humid will be the weather.  The barometer which shows the atmospheric pressure at a mean altitude will consequently be affected in terms of the above statements, and as it ranges from 28 degrees to 30 degrees over these islands, we may also indicate the state of the barometer from the Moon's phases.  For it will be seen that, so long as there is but moderate wind, the barometer will answer to the Moon's phases in harmony with the weather.  Very strong winds without rainfall will affect the barometer and register a fall.  
+
+See the summary diagram of the Moon's action on weather on page 232.
+
+"Tidal point": The point midway between the Sun and Moon at any time.
+
+Astral Tide occurs exactly at the time of the transit of the tide-point, and this fact is of the highest importance to these who would avail themselves of celestial influences and take that tide at the flood which "leads to fortune."
+
+There is an old adage which says: "Who takes the Tide takes all"
+
+If, therefore, we take the difference in longitude between the Sun and Moon at any time, which distance is called the Moon's elongation, and divide this by two, we shall obtain a point which passes the meridian at a time represented by this quantity multiplied by four minutes, before or after the Sun's transit of the meridian, according as the moon is increasing or decreasing in light.  
+
+Example is given on page 236.
+
+rluu: Re-read these notes about the astral tide and try to follow the example on page 236.  This could be potentially very powerful knowledge to know.  
+
+Swedenberg has said that all children come from the Moon.  There is a Greek legend which associates Selene and Selion, confounding the Moon with the parsley plant, and old women today tell their inquisitive grandchildren that they were brought from the parsley bed.  In the Greek Mysteries, the soul passes through the sphere of the Moon in its descent to the Earth, taking upon itself a silver vestment, which is the astral or lunar body, as distinguished from teh imperishable solar body proper to the incarnating ego.
+
+Chapter 24.
+
+Sun is the source of Light and Heat, and these two properties are the ultimate expressions of the Wisdom and Love of the Creator.  See the following gradient of differentiation.
+
+WISDOM      Divine         LOVE
+Truth       Spiritual      Charity
+Knowledge   Intellectual   Affection
+Thoguht     Psychic        Feeling
+Speech      Physical       Action
+
+
+As the cosmic centre, the Sun represents the Heart or seat of vitality in the Microcosm.  It is the source of Vitality or Life.
+
+The Sun represents the organic constitution in the same way that the Moon represents the functional powers.
+
+
+Chapter 27.
+
+When we speak of chemical affinity, of magnetism, of polarity, we are really speaking in terms of sex.
+
+
+##############################################################################
+
