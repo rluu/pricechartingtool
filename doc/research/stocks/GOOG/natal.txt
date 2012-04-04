@@ -1,0 +1,39 @@
+##############################################################################
+# Natal information for:
+# 
+# Company:            Google Inc
+# Stock symbol:       GOOG
+# Trades on exchange: NASDAQ
+##############################################################################
+
+Natal Candidate:
+
+Source: 
+
+rluu: This natal has not been verified by me.  
+
+Notes:
+
+From JFH28's WITS post #32129:
+Information on Google:
+
+Google is headquartered in Calif and the active incorporation date listed in Calif for Google Inc. is 11.7.2002.
+
+Goog however  is a Delaware Corp as are most big companies and the active date listed in Delaware is 10.22.2002. So those using the registered date listed by Calif will be almost 2 weeks off.
+
+Google Inc was not the original corporate name. The first registered name was Google Technology Inc. The company website lists a founding date of Monday, 9.7.1998. Problem with this date is that it was incorporated originally as a Calif corp and Calif registered it on Friday, 9.4.1998.
+
+The story goes that the 2 Google founders first tried to sell the idea to Yahoo. Yahoo founder suggested that they develop it further themselves and get back to him. So Google guys went looking for an investor.
+
+They met with one potential investor early one morning on the front porch of a faculty members house at a nearby college. Pressed for time the investor watched a limited demo of the software. After viewing he said he really didn’t have anymore time to talk further and had to leave. How about if he just wrote them a check. He made out a check for $100,000 and handed it to them.
+
+Problem was the check was made out to “Google” and they had no way to cash it as Google didn’t exist yet. So for the next couple of weeks they created the legal company Google so they could cash the check. And that would be the 9.4.1998 date. I believe that Google was founded that morning on the front porch when the check was handed over but have not had time to rectify the natal to confirm that. Perhaps someone else would be interested in doing so.
+
+
+From WITS post #32138:
+MC (yourlaughing): About Google:
+
+Originally the search engine used the Stanford University website with the domain google.stanford.edu. The domain google.com was registered on September 14, 1997, and the company was incorporated as Google Inc. on September 7, 1998 at a friend's garage in Menlo Park, California. The total initial investment raised for the new company eventually amounted to almost US$1.1 million, including a $100,000 check by Andy Bechtolsheim, one of the founders of Sun Microsystems.
+
+##############################################################################
+

@@ -1,0 +1,29 @@
+##############################################################################
+# Natal information for:
+# 
+# Company:            Rio Tinto plc (ADR)
+# Stock symbol:       RIO
+# Trades on exchange: NYSE
+##############################################################################
+
+Natal Candidate:
+
+Source: TAC, from WITS post #11082.
+
+March 29, 1873
+7:33 am
+London, England
+
+rluu: This natal has not been verified by me.  
+
+Notes:
+The RIO natal happens to be the first date of incorporation of RIO Tinto in the UK.
+
+From WITS post #11093:
+TAC originally had over 40 candidate dates for the natal, from:
+ - Possible "original" companies
+ - Mergers
+ - Acquisitions
+ - Holding companies
+
+##############################################################################
