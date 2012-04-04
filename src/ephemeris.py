@@ -1704,8 +1704,8 @@ class Ephemeris:
         
     @staticmethod
     def getHouseCusps(dt, houseSystem=HouseSys['Porphyry']):
-        """Returns a list of floats that are the degree locations
-        of the house cusps.  
+        """Returns a the degree locations of the house cusps, for both
+        the tropical zodiac and the sidereal zodiac.
 
         Preconditions: 
 
@@ -2161,7 +2161,8 @@ class Ephemeris:
 
     @staticmethod
     def getAscmc(dt, houseSystem=HouseSys['Porphyry']):
-        """Returns a list of floats that are the degree locations of:
+        """Returns a dictionary that contains floats that are the
+        degree locations of:
         
             Ascendant
             MC
@@ -2211,23 +2212,23 @@ class Ephemeris:
 
         Dictionary holding the following values.
 
-        ascmc['tropical'][0]  = Ascendant
-        ascmc['tropical'][1]  = MC
-        ascmc['tropical'][2]  = ARMC
-        ascmc['tropical'][3]  = Vertex
-        ascmc['tropical'][4]  = "Equatorial ascendant"
-        ascmc['tropical'][5]  = "Co-ascendant" (Walter Koch)
-        ascmc['tropical'][6]  = "Co-ascendant" (Michael Munkasey)
-        ascmc['tropical'][7]  = "Polar ascendant" (M. Munkasey)
+        ascmc['tropical']['Ascendant']           = Ascendant
+        ascmc['tropical']['MC']                  = MC
+        ascmc['tropical']['ARMC']                = ARMC
+        ascmc['tropical']['Vertex']              = Vertex
+        ascmc['tropical']['EquatorialAscendant'] = "Equatorial ascendant"
+        ascmc['tropical']['CoAscendant1']        = "Co-ascendant" (Walter Koch)
+        ascmc['tropical']['CoAscendant2']   = "Co-ascendant" (Michael Munkasey)
+        ascmc['tropical']['PolarAscendant'] = "Polar ascendant" (M. Munkasey)
         
-        ascmc['sidereal'][0]  = Ascendant
-        ascmc['sidereal'][1]  = MC
-        ascmc['sidereal'][2]  = ARMC
-        ascmc['sidereal'][3]  = Vertex
-        ascmc['sidereal'][4]  = "Equatorial ascendant"
-        ascmc['sidereal'][5]  = "Co-ascendant" (Walter Koch)
-        ascmc['sidereal'][6]  = "Co-ascendant" (Michael Munkasey)
-        ascmc['sidereal'][7]  = "Polar ascendant" (M. Munkasey)
+        ascmc['sidereal']['Ascendant']           = Ascendant
+        ascmc['sidereal']['MC']                  = MC
+        ascmc['sidereal']['ARMC']                = ARMC
+        ascmc['sidereal']['Vertex']              = Vertex
+        ascmc['sidereal']['EquatorialAscendant'] = "Equatorial ascendant"
+        ascmc['sidereal']['CoAscendant1']        = "Co-ascendant" (Walter Koch)
+        ascmc['sidereal']['CoAscendant2']   = "Co-ascendant" (Michael Munkasey)
+        ascmc['sidereal']['PolarAscendant'] = "Polar ascendant" (M. Munkasey)
         """
 
         # Validate input.
@@ -2264,12 +2265,33 @@ class Ephemeris:
                                     houseSystem,
                                     Ephemeris.iflag)
 
-        ascmc = {'tropical' : tropicalAscmc,
-                 'sidereal' : siderealAscmc}
+        # Put the values into dictionaries.
+        tropicalAscmcDict = \
+            dict(Ascendant           = tropicalAscmc[0],
+                 MC                  = tropicalAscmc[1],
+                 ARMC                = tropicalAscmc[2],
+                 Vertex              = tropicalAscmc[3],
+                 EquatorialAscendant = tropicalAscmc[4],
+                 CoAscendant1        = tropicalAscmc[5],
+                 CoAscendant2        = tropicalAscmc[6],
+                 PolarAscendant      = tropicalAscmc[7])
+        
+        siderealAscmcDict = \
+            dict(Ascendant           = siderealAscmc[0],
+                 MC                  = siderealAscmc[1],
+                 ARMC                = siderealAscmc[2],
+                 Vertex              = siderealAscmc[3],
+                 EquatorialAscendant = siderealAscmc[4],
+                 CoAscendant1        = siderealAscmc[5],
+                 CoAscendant2        = siderealAscmc[6],
+                 PolarAscendant      = siderealAscmc[7])
+        
+        ascmc = {'tropical' : tropicalAscmcDict,
+                 'sidereal' : siderealAscmcDict}
 
         return ascmc
-
-
+    
+    
     @staticmethod
     def getAscmcPlanetaryInfo(planetName,
                               dt,
@@ -2328,7 +2350,7 @@ class Ephemeris:
                                 format(planetName,
                                        Ephemeris.datetimeToStr(dt),
                                        houseSystem))
-        
+            
         validPlanetNames = [\
             "Ascendant",
             "MC",
@@ -2339,14 +2361,8 @@ class Ephemeris:
             "CoAscendant2",          # "Co-ascendant" (Michael Munkasey)
             "PolarAscendant"]        # "Polar ascendant" (M. Munkasey)
 
-        # Find what the index of 'planetName' is in 'validPlanetNames'.
-        ascmcIndex = -1
-        for i in range(len(validPlanetNames)):
-            if planetName == validPlanetNames[i]:
-                ascmcIndex = i
-                break
-            
-        if ascmcIndex == -1:
+        # Check the input 'planetName' to make sure it is supported.
+        if planetName not in validPlanetNames:
             # Planet name was not found.
             functName = inspect.stack()[0][3]
             Ephemeris.log.error(functName + \
@@ -2377,7 +2393,7 @@ class Ephemeris:
         # Now fill out the dictionaries that go into a PlanetaryInfo object.
         
         # Geocentric, Tropical.
-        longitude = ascmc[tropicalStr][ascmcIndex]
+        longitude = ascmc[tropicalStr][planetName]
         latitude = 0.0
         distance = 0.0
         longitude_speed = 360.0
@@ -2414,9 +2430,9 @@ class Ephemeris:
                  'dX': dx,
                  'dY': dy,
                  'dZ': dz}
-
+        
         # Geocentric, Sidereal.
-        longitude = ascmc[siderealStr][ascmcIndex]
+        longitude = ascmc[siderealStr][planetName]
         latitude = 0.0
         distance = 0.0
         longitude_speed = 360.0
@@ -4755,8 +4771,34 @@ def testHouseCusps():
     
     for i in range(len(cusps['sidereal'])):
         print("    House {}:    {}".format(i, cusps['sidereal'][i]))
+    
+    
+def testAscmc():
+    print("Running " + inspect.stack()[0][3] + "()")
 
+    Ephemeris.setGeographicPosition(-77.084444, 38.890277)
 
+    # Get the current time, which we will use to get planetary info.
+    #now = datetime.datetime.utcnow()
+    eastern = pytz.timezone('US/Eastern')
+    now = datetime.datetime.now(eastern)
+    print("    now is: {}".format(now))
+    
+    ascmc = Ephemeris.getAscmc(now, Ephemeris.HouseSys['Porphyry'])
+    
+    zodiacType = "tropical"
+    print("    Tropical ascmc planets are: {}".format(ascmc[zodiacType]))
+    for key, value, in ascmc[zodiacType].items():
+        print("    ascmc[\'{}\'][\'{}\'] == {}".\
+              format(zodiacType, key, value))
+    
+    zodiacType = "sidereal"
+    print("    Sidereal ascmc planets are: {}".format(ascmc[zodiacType]))
+    for key, value, in ascmc[zodiacType].items():
+        print("    ascmc[\'{}\'][\'{}\'] == {}".\
+              format(zodiacType, key, value))
+    
+    
 def testPlanetTopicalLongitude():
     print("Running " + inspect.stack()[0][3] + "()")
     
@@ -8036,6 +8078,7 @@ if __name__=="__main__":
     # Different tests that can be run:
     #testGetPlanetaryInfos()
     #testHouseCusps()
+    testAscmc()
     #testPlanetTopicalLongitude()
     #testDatetimeJulianPrecisionLoss()
 
