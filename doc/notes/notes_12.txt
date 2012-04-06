@@ -162,3 +162,110 @@ Information about locality-based astrology.
 How to calculate geographic Asc and MC.
 
 
+pg. 59
+Solar arcs: A symbolic method where all radix points are progressed by the yearly addition of the motion fo the Sun, i.e. the motion of the Sun during one day = movement of all radix points after 1 year (a day for a year principle).  Radical relations are maintained.
+
+pg. 60
+
+Figure 1 shows directed solar arc after 15 years. 
+
+Also from Sepharial's Arcana:
+Prime Significator (PS): Planet that rules the sign in which the sun is found (in radix, solar arc, transit?)
+Secondary Significator (SS): Planet that rules the decanate of the Prime Significator.
+
+pg. 61
+
+Lunar arcs: General monthly influences are obtained from "Minor directions" (i.e. lunar arc), which is based on the motion of the moon.  According to Robson. 
+
+Declination arcs: A three dimensional technique developed by Jayne and Heseltine.  Declination is measured from teh celestial equator, i.e. It is an Earth based system. 
+
+Transit-solar arc: This is a system where aspects between actual transiting points and arc-ed points are considered.  
+
+Sepharial says to use the mean motion of the Sun (59'08" per year).  This is called the mean rate of progression.  Valentine Naibod originally advocated this system in 16th century.  There is also the apparent rate of progression.  
+
+To work with solar and lunar arcs, you need:
+  - Extensive database (greater than 100 years of market data)
+  - Correct natal.
+  - Proper software / ephemeris.
+
+Conclusions of this seminar paper:
+  - Important to understand the differences between personal and
+    financial astrology.
+  - Due to contradictions in literature, extensive testing is required.
+  - Important to choose right progression rate for the sun and for the moon.
+  - Using correct natal and enough data is the basis to start working with 
+      solar and lunar arcs 
+
+pg. 62
+
+Workplan for researching solar and lunar arcs is given.  
+
+Hypothesis list for testing is given.
+
+pg. 63
+
+Methods to reduce noise:
+Instead of using a fixed orb, you can study orb and use it for evaluating the system according to the following simple model:
+
+  - Turn date
+  - Astro event
+  - Astro date
+  - Calculated orb
+
+If you follow this setup, you may later sort for what you want to study, for example you can study all teh events with an orb < x days and you can study each type of event separately.  
+
+Inactivity or activity can then be based upon orb; you can calculate mean orb for a specific event.  You will start to see patterns you couldn't see before; "Noise can be reduced.  
+
+pg. 64
+
+Shows how to test for declination arcs.  
+
+pg. 65
+
+Conclusions:
+  - Test everything.  Eliminating a factor is also a positive result.
+  - If you do not reduce the number of testing parameters, you may not
+    see the correct solution.
+  - Working with calculated orbs allows you to see new patterns.
+
+Books referenced:
+  - Jayne, Charles, 1995, "The Best of Charles Jayne"
+  - Jensen, "Astro Cycles and Speculative Markets"
+  - Bonnie Lee Hill video
+  - Meridian, Bill, 2001 "Johndro's Astrology" The Mountain Astrologer, 
+    June/July 2001
+  - Robson, Vivian "The Radix System"
+  - Sepharial, "The Arcana or Stock and Share Key".
+
+pg. 66-75
+
+Natals charts of the following are discussed:
+
+  - Bank of England chart
+  - Jensen's United States chart
+  - Rectified United States chart [by authors of "12", with reasons]
+  - Jensen's Chicago Board of Trade (CBOT) chart 
+  - Chicago Mercantile Exchange (CME) chart
+  - New York Stock Exchange (NYSE) chart
+  - American Express (AXP) chart
+  - 3M (MMM) chart
+  - The Goodyear Tire & Rubber Company (GT) chart
+
+pg. 76-79
+
+Process used to rectify the Chicago Mercantile Exchange (CME) is shown.  The final natal arrived at is given also.
+
+pg. 81-85
+
+Process used to rectify EBAY is shown.  The final natal arrived at is given also.
+
+pg. 84
+
+The process of "scanning" is described on this page.  "Scanning" is the process used to find the exact natal time of a stock after one has the sensitive zodiac points on the 15-degree axis.  The process is done by slowly incrementing the natal time-of-day by an amount to move the ascendant a certain amount of longitude distance so that it hits the next increment of a sensitive point on the 15-degree axis.  Then it is checked to see if the MC or Vertex line up also with the other sensitive zodiac points on the 15-degree axis.
+
+When two points are locked in, there is a very high probability that the true natal has been found.  
+
+pg. 86
+
+[rluu: Continue taking notes starting here.]
+

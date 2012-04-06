@@ -1,0 +1,45 @@
+##############################################################################
+# Natal information for:
+# 
+# Entity:             United States of America
+# Stock symbol:       
+# Trades on exchange: 
+##############################################################################
+
+Natal Candidate:
+
+Source: Jensen's ACSM, page 49.  
+
+July 4, 1776
+12:20 pm LMT (+5:00:32)
+Philadelphia, PA
+40 deg N 00'24", 75 deg W 08'05"
+
+Ascendant: 14 Libra 35
+
+rluu: This natal has not been verified by me.  
+
+Notes:
+Mercury is listed to second in Jensen's natal chart in his book.  It is shown as Mercury at 24 deg Cancer 10'30".
+
+##############################################################################
+
+Natal Candidate:
+
+Source: "12", page 69.
+
+July 4, 1776
+4:07:11 am LMT (+5:00:32)
+Philadelphia, PA
+40 deg N 00'24", 75 deg W 08'05"
+
+Ascendant: 5 Cancer 29'
+Mercury:  24 Cancer 26'
+
+rluu: This natal has not been verified by me.  
+
+Notes:
+Mercury is listed to second in Jensen's natal chart in his book.  It is shown as Mercury at 24 deg Cancer 10'30".
+
+##############################################################################
+

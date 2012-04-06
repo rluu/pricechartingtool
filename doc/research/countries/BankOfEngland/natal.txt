@@ -1,0 +1,25 @@
+##############################################################################
+# Natal information for:
+# 
+# Company:            Bank of England
+# Stock symbol:       
+# Trades on exchange: 
+##############################################################################
+
+Natal Candidate:
+
+Source: Jensen's ACSM, page 52.  
+
+April 25, 1694 ("Old Style" date)
+May    5, 1694 ("New Style" date)
+12:00 pm LMT (+0:00:40)
+London, England
+
+Ascendant: 27 Leo 30 (The book "12" has it as 27 Leo 33).
+
+rluu: This natal has not been verified by me.  
+
+Notes:
+This natal is referenced in "12" on page 66.  The information above about coordinates, new style date, etc. was obtained from "12".
+
+##############################################################################

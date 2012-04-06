@@ -1,0 +1,32 @@
+##############################################################################
+# Natal information for:
+# 
+# Company:            CME Group Inc (Formerly: Chicago Mercantile Exchange)
+# Also known as:      The "Merc"
+# Stock symbol:       CME
+# Trades on exchange: NYSE
+##############################################################################
+
+Natal Candidate:
+
+Source: "12", page 71, 76-79.
+
+Sep 26, 1919
+12:54 pm CST (+6:00)
+Chicago, IL
+
+Ascendant: 27 Sag 43'
+Vertex:     9 Leo 09'
+
+rluu: This natal has not been verified by me.  
+
+Notes: 
+"12" on page 71, highlights that the Vertex of this chart is at 9 Leo 09, which is a link to the US natal Mercury.  
+
+Note that although this is a company that is an exchange, it is also publically traded on the NYSE.  
+
+"12" on pages 76-79 shows how this natal was rectified, and the reasons.  "12" says that the original charter was on May 5, 1898, and the amended charter was on September 26, 1919.  
+
+"12" says that it is interesting that the Moon for the CBOT chart on page 53 of Jensen's ACSM is at 16 Virgo 52, which is close on the 15-degree axis to CME's natal Moon position of 1 Scoprio 58.
+
+##############################################################################
