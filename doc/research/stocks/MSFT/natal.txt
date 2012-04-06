@@ -1,0 +1,30 @@
+##############################################################################
+# Natal information for:
+# 
+# Company:            Microsoft Corporation
+# Stock symbol:       MSFT
+# Trades on exchange: NASDAQ
+##############################################################################
+
+Natal Candidate:
+
+Source: "12", pages 100-108.
+
+september 23, 1975
+9:04:45 am
+Albuquerque, New Mexico
+Ascendant: 26 Libra 07
+Vertex: 7 Gemini 21
+
+rluu: This natal has not been verified by me.  
+
+Notes:
+"12" on pages 107 and 108 gives the important 15-degree axis points as around:
+7 deg 23'
+11 deg 14'
+The Ascendant and vertex of this natal satisfy these points.
+
+From "12", page 108:
+"Now there are a lot of dates for Microsoft's forming etc. but we want to start with the founding data.  We went to the company's website and they had just celebrated their 30th 'anniversary' on September 23, 2005.  So we subtracted the 30 years out and got September 23, 1975.  We began scanning the times from 6:00 am on that date set for Albuquerque, New Mexico.  A time of 9:04:45 puts the ascendant at 26 Libra 07 and the Vertex at 7 Gemini 21, fulfilling both axis points from our price data."
+
+##############################################################################

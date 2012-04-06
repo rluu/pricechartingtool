@@ -151,7 +151,7 @@ You have to combine sunspot cycle with planetary confgiurations.
 In "Law of Values" by Sepharial, on pages 16 and 17, states that countries are tied to certain signs of the zodiac.  An example is the United States and Gemini.  Thus transiting Saturn through Gemini will depress the value of securities in the US. Always be cognizant of planets in the signs, in relation to the country whose securities you are trading in or holding.
 
 pg. 30
-Testing i teh Golden Key to this field.  It is what will get you ahead.
+Testing the Golden Key to this field.  It is what will get you ahead.
 
 Test for only a single element at a time.  Many individuals put too many factors into a test, which invalidates that test.
 
@@ -177,7 +177,7 @@ pg. 61
 
 Lunar arcs: General monthly influences are obtained from "Minor directions" (i.e. lunar arc), which is based on the motion of the moon.  According to Robson. 
 
-Declination arcs: A three dimensional technique developed by Jayne and Heseltine.  Declination is measured from teh celestial equator, i.e. It is an Earth based system. 
+Declination arcs: A three dimensional technique developed by Jayne and Heseltine.  Declination is measured from the celestial equator, i.e. It is an Earth based system. 
 
 Transit-solar arc: This is a system where aspects between actual transiting points and arc-ed points are considered.  
 
@@ -212,7 +212,7 @@ Instead of using a fixed orb, you can study orb and use it for evaluating the sy
   - Astro date
   - Calculated orb
 
-If you follow this setup, you may later sort for what you want to study, for example you can study all teh events with an orb < x days and you can study each type of event separately.  
+If you follow this setup, you may later sort for what you want to study, for example you can study all the events with an orb < x days and you can study each type of event separately.  
 
 Inactivity or activity can then be based upon orb; you can calculate mean orb for a specific event.  You will start to see patterns you couldn't see before; "Noise can be reduced.  
 
@@ -267,5 +267,126 @@ When two points are locked in, there is a very high probability that the true na
 
 pg. 86
 
-[rluu: Continue taking notes starting here.]
+Shortcut technique is given for converting a floating point number of degrees to degrees and minutes.  Take the floating point portion, divide by 10 and multiply by 6.  Example:  For 0.75, divide by 10 to get 0.075, then multiply by 6 to get 0.45, which stands for 45 minutes.  
 
+Using decimal format for the planetary longitude location makes it easier to do excel formulas and math on the numbers.  For example, to convert from longitude degrees (out of 360) to the 15 degree axis is just a mod 15 operation.  
+
+pg. 86-89
+
+On these pages, the rectification of the natal chart of NYSE is covered.  The final natal arrived at is given also.  The solar arc of major events on the exchange, such as the 1987 crash day is used to verify.  Uranus in 1987, via solar arc, opposed the ascendant of the rectified chart.
+
+pg. 89-90
+
+Rectification of the natal chart for Amazon (AMZN) is covered.  The final natal arrived at is given also.  
+
+pg. 90-91
+
+Secret tips for finding the founding date quickly:
+
+If one is seaching for the founding data for the Solaris Company:
+
+1) Go to a search engine and type one of the following:
+
+  Solaris + founded on
+  Solaris + founded on + date
+
+Usually you will have to go through a few pages.  
+
+2) Sometimes you can get lucky and find the founding date on the company's website.  Just go to the site and see if they have any of the following:
+
+  Corporate information
+  History
+  Timeline
+
+3) Sometimes the year that it was founded is the only thing that the company lists and we need both the location and the date.  Say for example, they list 1967 as "the founding", then use that and go back to the search engine and type:
+
+  Solaris + date + 1967
+
+In some cases we have not found a thing as far as a date and location so we move onto the next stock or commodity.  
+
+4) If the above techniques have failed and you are determined to get the information.  There is another technique but it takes more tie.  Go to the company's website and get their phone number.  Call them and ask them on what date they were founded.  Buy a couple of books.  Go to the library and research it, etc.
+
+5) The website: www.answers.com has a TON of founding dates.  Go there and type in the company name and then click on answers.  Then scroll down for the information.  
+
+pg. 91
+
+Putting the rectification technique into a defined process:
+1) Go to a stock and take 12 of its' largest turns.  This book has done that for stocks that have been around for 50 years or more.  It is best to avoid turns like the market crash of 1987 and other long-term market dates, and instead focus in on unique turns.  In summary: Try to use turns that are unique to the stock or commodity when doing rectification.  
+
+pg. 91-92
+
+Rectification of the natal chart of 3M (MMM) is on these pages.
+
+pg. 93
+
+Rectification of the natal chart of American Expresss (AXP) is on this page.
+
+Rectification of the natal chart of The Goodyear Tire & Rubber Company (GT) is on this page.
+
+pg. 94
+
+The start of the rectification process (turns are given) for Proctor and Gamble (PG) is on this page.  The final natal was not given for this stock.  
+
+pg. 95
+
+The start of the rectification process for The Walt Disney Company (DIS).  The final natal was not given for this stock.  Enough information was given to be able to find two important points on the 15-degree axis', and thus to be able to rectify the stock.  
+
+pg. 96
+
+The start of the rectification process for General Electric (GE).  The final natal was not given for this stock.  Enough information was given to be able to find two important points on the 15-degree axis', and thus to be able to rectify the stock.  
+
+Of the stocks given in "12":
+ About 25% are vibrating to their incorporation date.
+ About 70% are vibrating to their founding date.
+ About  5% are vibrating to mergers and other special activity.
+
+pg. 97-99.
+Rectification of the natal chart of McDonalds (MCD) is on these pages.
+
+pg. 99-100
+Rectification of the natal chart of Wal-Mart Stores, Inc. (WMT) is on these pages.
+
+pg. 100-108
+Rectification of the natal chart of Microsoft Corporation (MSFT) is on these pages.  
+
+Two different techniques were used to rectify the MSFT natal.  One was the long method (using 65 turns), using the traditional way.  The other was the short method, using '12' turns and expanding the number of turns if required.  
+
+The long method:
+The long method analyzed the planet positions (Jupiter, Saturn, Uranus, Neptune, Pluto, Chiron and Transpluto), putting each planet location into buckets.  The buckets are for locating the important points on the 15-degree axis, and thus all the buckets together span the range of [0, 15) degrees.  The bucket sizes are 10 minutes of arc each.  After all planet locations on each of the turns are put into the buckets, the highest sum of three consecutive buckets are located.  This gives us the approximate important 15-degree axis points.  
+
+The short method:
+Gather 12 sharp, clear turns, as large as possible.  Write down the planetary positions on the dates of those turns for Jupiter, Saturn, Uranus, Neptune, Pluto, Chiron and Transpluto.  From the 12 turns, you should be able to account for at least 50% of the 12 turns using a minimum of 4 hits to an axis.  If this is not the case either do 1 of 2 things.  Either go back and grab more turns from teh same data, or abandon this stock or commodity and move on to another, which will be more fruitful.  From those axis test the 'founding data' as well as the incorporation date or other focus by scanning the times to coincide with the axis.  
+
+Important concepts and tips scattered among the natal rectification pages:
+
+pg. 94
+"When we do not feel confident about our [15-degree axis] points, as is with the case with Proctor and Gamble (PG) above, we scrap that project and go back through using smaller turns."
+
+pg. 95
+Look at the turns with the longitude position listing of the 7 planets:
+  - Jupiter
+  - Saturn
+  - Uranus
+  - Neptune
+  - Pluto
+  - TransPluto
+  - Chiron
+
+pg. 95
+With the process of looking at 12 turns, we would want to have two 15-degree axis points with at least 5 hits a piece.  
+
+pg. 96-67
+Sometimes discerning exactly which bar is the top can be a pain.  Each top/bottom should be studied to try to understand exactly where the turn occurred.  There are some tricks we use such as if you are looking for a top, look closely at the highest close.  Sometimes a stock will have the exact high or low 2 days in a row.  If this is the case, we use the second day.  It is best in the beginning to deal only with very sharp turns; later, once experience takes hold, deal with turns that are a little trickier.  Never use a roving top or bottom. 
+
+Regarding rectification: In America since 2000 through 2005, the stock market has been sideways and choppy.  While this activity has put most traders to sleep, it makes finding highs and lows easier as the turns are more pronounced due to the lack of trend.  Therefore it makes stocks with less history easier than in a trending market.  
+
+pg. 99
+"You will find that some stocks/commodities are easier to rectify than others.  Likewise you will find that some stocks/commodities are more profitable than others."
+
+pg. 108
+"Be cognizant that there were some stocks Gann could not make money in and some that he could, the same rules apply to you."
+
+pg. 109
+[rluu: Continue taking notes, starting from here.]
+
+##############################################################################

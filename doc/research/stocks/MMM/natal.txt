@@ -12,7 +12,7 @@ Source: "12", page 74
 
 Jun 13, 1902
 9:32 am CST (+6:00)
-Two Harbors, MN
+Two Harbors, MN (Minnesota)
 47 deg N 01'49", 91 deg W 40'32"
 
 Ascendant: 24 Leo 43'
@@ -21,6 +21,8 @@ rluu: This natal has not been verified by me.
 
 Notes:
 "12" on page 73, points out the ascendant is on the 15-degree axis with US natal Mercury.
+
+"12" on page 91-92, has some details on rectifying this stock.
 
 Additional information from the 3M company website:
 http://solutions.3m.com/wps/portal/3M/en_US/3M-Company/Information/Resources/History/

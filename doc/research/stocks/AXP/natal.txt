@@ -8,7 +8,7 @@
 
 Natal Candidate:
 
-Source: "12", page 73
+Source: "12", page 73, page 93.
 
 Mar 18, 1850 ("New Style" date)
 12:44:30 pm LMT (+4:55:48)
@@ -22,6 +22,8 @@ Notes:
 "12" on page 73, points out the ascendant of AXP is on the 15-degree axis with US natal Mercury.
 
 In "12" the title of the solar fire astrology chart that is shown is "AMX".  On the NYSE, "AMX" is not actually the symbol for American Express, but instead "AMX" is the symbol for America Movil SAB de CV (ADR).  This error is either a typo, or the author typed AMX as a short name for American Express.
+
+"12" on page 93, gives additional information on the details of this natal rectification.  
 
 Looking at American Express's website:
 http://ir.americanexpress.com/phoenix.zhtml?c=64467&p=irol-faq#19937
@@ -37,7 +39,6 @@ http://ir.americanexpress.com/phoenix.zhtml?c=64467&p=irol-faq#19937
 
 4.	What is American Express’ ticker symbol?
  	The Company’s common stock is traded on the NYSE with the symbol AXP.
-
 
 5.	What is the history of stock splits for American Express?
  	Stock Splits are as follows:

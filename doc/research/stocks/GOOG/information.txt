@@ -1,18 +1,10 @@
 ##############################################################################
-# Natal information for:
+# General company information for:
 # 
 # Company:            Google Inc
 # Stock symbol:       GOOG
 # Trades on exchange: NASDAQ
 ##############################################################################
-
-Natal Candidate:
-
-Source: 
-
-rluu: This natal has not been verified by me.  
-
-Notes:
 
 From JFH28's WITS post #32129:
 Information on Google:
@@ -36,4 +28,3 @@ MC (yourlaughing): About Google:
 Originally the search engine used the Stanford University website with the domain google.stanford.edu. The domain google.com was registered on September 14, 1997, and the company was incorporated as Google Inc. on September 7, 1998 at a friend's garage in Menlo Park, California. The total initial investment raised for the new company eventually amounted to almost US$1.1 million, including a $100,000 check by Andy Bechtolsheim, one of the founders of Sun Microsystems.
 
 ##############################################################################
-
