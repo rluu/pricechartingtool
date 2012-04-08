@@ -1,5 +1,5 @@
 ##############################################################################
-# Notes on the book "12" by Gregory M. Carpenter
+# Notes on the book "12" by Gregory M. Carpenter (and other WITS members)
 ##############################################################################
 
 pg. 3.
@@ -386,7 +386,228 @@ pg. 99
 pg. 108
 "Be cognizant that there were some stocks Gann could not make money in and some that he could, the same rules apply to you."
 
-pg. 109
+pg. 109-110
+
+J.H. Nelson found that:
+
+  - Disruptions in trans-Atlantic radio signals occur when the outer planets (Jupiter outwards) are 90, 180, and 0 degrees apart Heliocentrically.
+
+  - The triggering mechanism would be a fast planet (Mercury, Venus, and Mars) coming into aspect with the other 2 planets.  
+
+  - Jupiter and Saturn had a more pronounced affect than the other planets.
+
+  - When Juiter and Saturn were in an angular relation of 60 or 120 degrees, radio signals were uncharacteristically clear.  
+
+
+It has been said that a stock's price is influenced in the following manner:
+
+  - 60% Trend of entire market
+  - 20% Trend of the industry of which the stock is a member.
+  - 20% Individual trend.
+
+Of the 60% that trends with the entire market, the movements are broken down into the following:
+
+  - Major Trend (lasting years)
+  - Intermediate Trend (lasting months)
+  - Minor Trend (lasting days and weeks)
+
+From Luther Jensen in American Astrology Magazine, August 1948 to January 1950:
+Factors influencing Jensen's results:
+August 1948: "An extremely bearish cyclical convergence (cycle) will not mark a decline unless the TECHNICAL POSITION is vulnerable" ... and vice versa.
+
+June 1949, regarding accuracy of his forecasts: 
+"The research error factor on day to day trend prospects can be high... the TECHNICAL POSITION 4 months ahead is obviously an unknown quantity."
+
+This means he is aware his predictions may be off, and we should still listen to what he has to say.  
+
+pg. 116
+
+Jensen's point #1:
+In all three examples, Jensen uses the "Significator" of the aspect between the outer planets.  The Significator is the fastest moving planet of the 2 in aspect. 
+
+Examples:
+For an aspect between Saturn and Uranus, Saturn is the Significator.
+For an aspect between Saturn and Jupiter, Jupiter is the Significator.
+
+An aspect between outer planets can be triggered by faster moving planets/points, i.e. the Sun, Mercury, Venus and Mars. 
+
+pg. 120-121.
+
+Jensen's point #2 and #3:
+Saturn in bad aspect to the Moon's True North Node will cause bearish psychology.
+
+The sign that the planets are in influences psychology thus:
+  - Look at the sign that Jupiter, Saturn, and Uranus are in.  Sextile signs give a bullish psychology as due trine.  Signs that are square or opposed would give a bearish psychology.  
+
+February 1949, Jensen writes:
+"Cyclical indicators are severely potent one time and appear to operate very mildly at others.  The degree of their operation depends on the state of public psychology and the technical position of the markets involved."
+
+September 1948: "... protend investment support in heavy industries aircrafts and steels."
+
+These are keywords.  From page 41 of Jensen's ACSM, we find the keywords attached to the following planets:
+
+  Steel    ==> Mars
+  Aircraft ==> Uranus
+  Oil      ==> Neptune
+
+Jensen's point #4:
+To get indications, (positive or negative) for a particular industry, find that industries' ruling planet, such as Neptune for oil, etc. listed on page 41 of his book.  
+
+Then watch aspects to that planet:
+  - Trines/sextiles will be beneficial to that industry.
+  - Squares/oppositions will be harmful to that industry.
+  - Conjunctions for good or bad are based on planets in conjunction.  
+    It is best to check back for past effects.
+
+pg. 125
+Jensen's point #5:
+When both a good and bad aspect are occurring at the same time, it depends on the technical position of the market as to which aspect will be more dominating.  
+
+For investor sentiment, it is helpful to look at Investor's Business Daily's "economic optimism index" which one can find at:
+http://www.pollingreport.com/consumer.htm
+
+pg. 130
+Jensen's point #6:
+Watch the retrograde period of Mercury.  
+
+pg. 132
+Jensen's point #7:
+The effects of bad aspects by the outer planets can be retriggered by inner planets/Sun.  Thus there would be continuing negative effect on each retrigger.
+
+pg. 133
+Jensen's point #8:
+There are two factors:
+  - There are aspects between the outer planets for bullish or bearish trends.
+  - There is the perceived optimism/pessimism 
+    (see Investor's Business Daily's "economic optimism index" which was 
+    mentioned previously).
+
+Therefore fast moves will occur when the above two are in sync.  
+
+Bullish aspect and bullish optimism = bull move.
+Bearish aspect and bearish pessimism = bear move.
+Bullish aspect and bearish pessimism, or vice versa = mixed market.
+
+pg. 135
+Jensen's point #9:
+The 3 factors are:
+  1) Cycical Indicators (asepcts between outer planets)
+  2) Public psychology; confidence, optimism and pessimism.
+  3) Technical position.
+
+pg. 136
+Jensen's point #10:
+Eclipses have a definite impact on financial markets.  Some eclipses are more important than others.  
+
+pg. 139
+Jensen's point #11:
+Ingresses affect the minor trend.  
+
+
+pg. 139-141
+
+It is known that Jensen has scattered elements throughout all of his writings.  The first step is to acquire these writings.  The next step is to cross reference for similar material in order to build a case (for a rule).
+
+Jensen, January 1950:
+"We known that a cyclical wave of about 4.5 years marks the general trend from highs to lows and from lows to highs.  In recent years this is apparent from 1932 to 1937, the decline from 1937 to 1942 and the rise from 1942 to 1946..."
+
+ACSM, page 78:
+"There are the 41 to 43 month cycles, the 4.5 year, 9 year, 10 year, 18 year, or 3 times 18 for the 54 year affair... the real core is apparent in the cycle of the Node.  But to get back to our May 1942 Washington figure..."
+
+ACSM, page 126:
+"Often there is a search for repeating cycles by statistics and then there is the constant reference to the economic cycle.  The former is often heard of 9 year cycle, 11 year cycle, 18 year cycle, or the 54 year cycle.  Recently the low of 1976 in sun-spot activity, and the wide range effects related to weather, harvests and humans, has relegated its average 11 year cycle to prospects of an 80-90 year cycle... the latter or what is labeled the economic cycle avoids being trapped by a time factor."
+
+Extracting from these excerpts, we have the following dates which are related to each other:
+
+7/8/1932 (L)
+3/10/1937 (H)
+4/27/1942 (L)
+5/29/1946 (H)
+
+We suspect a cycle of 54, divided by 3 = 18, divided by 2 = 9, divided by 2 = 4.5.
+
+From Sepharial's "Cosmic Symbolism", page 98:
+"Another very interesting cosmically cycle is that of the eclipse period.  The initial value of this is 18 years 11 days 7 hours 42 minutes and 35 seconds, being the mean interval between an eclipse and its reoccurrence.  In three cycles, the eclipse has moved through one sign of the zodiac, and in 12 x 3 or 36 cycles, it will have moved through the entire zodiac and come to its original occurrence.   Then 18 x 3 x 12 = 648 years, to which we add 1 for the precesssional increment and obtain 649 years as the eclipse cycle, after which the phenomena occurs in teh same part of the zodiac."
+
+Jensen, May 1949:
+"During the past 15 months, the commodity price index has reversed to a downward trend and confirmed that reversal.  Comparable conditions have occurred in 1815, 1865 and in 1920.  After each of these zones comparable to the 19471948 commodity price reversal because they follow years of excessive war demand and inflation, the major trends held downward for 13 to 15 years: half a Saturn cycle.  The decline from 1815 made a low in 1830, 1865 peak to low in 1879 and the 1920 peak a low in 1933. "
+
+What he states is during war, commodity prices get pushed up and inflated.  Then after the war peak, there is a downward cycle of 13 to 15 years, which is half of a Saturn cycle of 29 years. 
+
+This is not the only place in his writings where he mentions 15 years.  Let's take a look at material that is private and extremely rare:
+
+Jensen writes:
+"In the tracing of planetary interaction an adequate key is apparent.  Incidentally, there is sufficient evidence to show that Sun-spot activity is caused directly by the planetary interaction and therefore is na indicator secondary to planetary positions.  For general purposes, the changing relationships within a 360-degree spectrum, of Jupiter, Saturn and uranus reflect cyclical timing indicators of economic ebb and flow.  The half circle or 180-degree, reflects interruptions in the time factors appearing as interruptions in teh primary or major trend of the business index.  Because of differing speeds around the 360-degree spectrum by Saturn, Uranus, and Jupiter, they are in conjunct at varying intervals -- Jupiter and Saturn every twenty years, etc.
+
+When the number of luncations (new Moons are added to the varying peaks of 180 degree, 90 degree, 60 degree, 45 degree and 30 degree angular relationships, between the constantly varying positions of these major planets in relation to the earth, timing elements become relatively precise.  For 180 lunations is just short of fifteen years, and 90 lunations is about seven and a half years.
+
+For example, the beginning of another major downward cycle is assumed in stock market prices from the fall of 1929.  Being downward the 90, 45, 22.5, etc. lesser cycles apply -- upward major cycles are marked by 60, 30, 15, etc. time units.  In tracing the trend since, we find that 90 months elapsed from teh 1929 top to the 1937 high.  Major lows to major highs hold in the same adequate average: The summer of 1929 to early 1933 and from early 1933 to 1937, etc."
+
+pg. 143
+
+Jensen's point #12:
+In a triangle technical pattern, watch for the breakout at [or near] the apex.
+
+pg. 144
+
+For the last 100+ years, the major recessions have been tied to Jupiter-Saturn conjunctions and oppositions.  Years ending in 0 or 1 have felt the full force of this.  Get some long-term data and go back through history to prove this to yourself.  
+
+pg. 144-146
+
+Quick-and-dirty "12" method is used to find the active transiting-to-transiting important 15-degree axis points.  The method is used on an example using dates from Gann's October Egg courses.  
+
+pg. 147-158
+
+Systemization:
+After having the important points on the 15-degree axis, one would want to re-analyze the turn dates we originally compiled and check the planet longitude data on an individual planetary level.  The first first step in this is to determine which planets were more prominent when they hit the axis.  
+
+Example used was on Walmart.  The 2 axis were:
+4 deg 12
+11 deg 54
+
+Starting with the Jupiter column, modulus 15 operation was done.  Then the values were observed to see which fell on the axis (using roughly 10 minutes of orb either side of exact).
+
+The data shows there was 1 hit to the 11 deg 54 axis and 3 hits to the 4 deg 12 axis.  Let's start with the 4 deg 12 axis.
+
+Our next step is to test a bach to see what type of results are obtained, over a period of time, when Jupiter hits the 4 deg 12 axis.  [List of dates for this criteria are listed from 1990 to 2005].
+
+Next we need to check what occurred on these dates in our Walmart stock price.  [List of dates follows with a column indicating if there was a High, Low, or nn (not noticable)].
+
+Summary: Out of 41 possible, 22 produced significant turns or 53.6%.
+
+Jupiter hit the 11 deg 54 axis on the following dates. [List of dates for this criteria are listed from 1990 to 2005].
+
+Again, we need to check what occurred on these dates in our Walmart stock price.  [List of dates follows with a column indicating if there was a High, Low, or nn (not noticable)].
+
+Summary: Out of 56 possible, 24 produced turns, or a rate of 24.8%
+
+We need to go through the other outer planets in the same manner.  In doing so, we get the following: [table with results are shown, see page 154].
+
+Now most individuals that have made it this far woudl probably give up, but we want to purpose that we continue.  Let's have a look at our worst one.  That would be 16 hits by Pluto to the 4 deg 12 axis, of which only 4 produced notable turns.  The 4 dates that did produce turns need to be pulled aside and studied.  We want to see what other hits to the same axis were occurring at these times.  
+
+1/12/1979:  Mercury and Venus were at 4 deg 12, 
+            Neptune and Pluto were at 19 deg 12.
+1/30/1979:  Mercury was at 4 deg 12, 
+            Pluto was at 19 deg 12.
+12/26/1996: Sun was at 4 deg 12,
+            Pluto was at 4 deg 12
+10/25/1997: Venus and Mars were at 19 deg 12,
+            Pluto was at 4 deg 12, 
+            Node was at 19 deg 01
+
+Using this idea of simultaneous hits to the same axis, we can begin to investigate different combinations.  
+
+The following chart shows the combination of all the outer planets from Jan 2001 to Dec 2003, hits to 11 deg 54 axis.  Notice that there is an 'alignment' in 2 places. [pricebar chart is shown on page 155].
+
+On top of that, we added in Sun and Venus hits to the 11 deg 54 axis, these were chosen at random.  [pricebar chart is shown on page 156].
+
+Now from that we used Venus as the trigger and looked at hits by the outer others (Sun and outers) within 1 day.  This produced the following.  [pricebar chart is shown on page 157].  Out of the dates, only 3 were not tradable turns.  [list of dates tradable and not tradable is given on page 158.]
+
+pg. 159-220.
+Articles and Market Forecasts by R.T.A.
+
+
+
 [rluu: Continue taking notes, starting from here.]
 
 ##############################################################################
