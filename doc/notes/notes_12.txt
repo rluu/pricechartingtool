@@ -2,6 +2,10 @@
 # Notes on the book "12" by Gregory M. Carpenter (and other WITS members)
 ##############################################################################
 
+This document's filename: notes_12.txt
+
+##############################################################################
+
 pg. 3.
 Respected authors: Gann, Bayer, and Jensen.
 
