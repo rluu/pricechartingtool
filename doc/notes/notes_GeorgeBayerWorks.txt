@@ -1,9 +1,33 @@
 ﻿##############################################################################
-# Notes on the works of George Bayer, in relation to the Bible and
-# Astrology as applied to the financial markets.  Includes notes about
-# how to read and understand other ancient works as well.
-#
-# Ryan Luu
+# Notes on the works of George Bayer
+##############################################################################
+
+Filename: notes_GeorgeBayerWorks.txt
+
+Description:
+This document contains my notes on the works of George Bayer, in
+relation to the Bible and Astrology as applied to the financial
+markets.  This includes notes about how to read and understand other
+ancient works as well.
+
+The works of George Bayer covered in this document include:
+  - Time Factors In The Stock Market
+  - A Treasure House of Bayer 
+  - Forecasts and Articles of George Bayer:
+      - Bible Astrology And the Stock Market.
+      - Biblical Astrology: 
+          Why is the Circle, or Cycle, "Larger" than 360 Degrees?  
+          Who Rules the Earth - Mars or Sun?
+      - Biblical Astrology: The Importance of Mars In Human Affairs
+      - Biblical Astrology: Abraham's Tent.
+  - Previewing the May Stock Market (1937)
+  - Previewing the June Stock Market (1937)
+  - Planetary Correspondences: 
+      Some Oddities of Deduction Which May Be Used In Market Forecasting
+  - Gold Nuggets for Stock and Commodity Traders (1948)
+  - The Egg of Columbus (1942)
+  - Preview of Markets (1939)
+
 ##############################################################################
 
 rluu 20120212 06:47: Something that occurred to me about reading the Bible.  Perhaps I should pay very close attention to when certain words are used that are the definition/meaning of one of the letters of the Hebrew alphabet.  For example, when they mention Ox (Aleph), It may be related to the 1st book, the 23rd book, or the 45th book.  Same regarding other words like House (Bet), Head (Resh), etc.  This probably would help in decoding what words mean what in the Bible.
