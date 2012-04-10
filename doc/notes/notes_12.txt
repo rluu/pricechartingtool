@@ -1,4 +1,4 @@
-##############################################################################
+﻿##############################################################################
 # Notes on the book "12" by Gregory M. Carpenter (and other WITS members)
 ##############################################################################
 
@@ -48,12 +48,12 @@ Previously they said: To solve orb, look at Jupiter and Saturn 45's.
 While you can do it that way, there is a much better way and that is to have a "fixed point" and one planet.  That way you are working with one variable and not two. Active points in a natal count as a fixed point.  
 
 For example:
-If the actual point is Saturn transiting over 13 deg 52, but the market turns 13 deg 44, 13 deg 42, and 13 deg 46, thus the market is 'firing' early.  So we createa  'swath' (range) of when the turn will happen.  Saturn transverses these points in one day!
+If the actual point is Saturn transiting over 13 deg 52, but the market turns 13 deg 44, 13 deg 42, and 13 deg 46, thus the market is 'firing' early.  So we create a  'swath' (range) of when the turn will happen.  Saturn transverses these points in one day!
 
 Fusing this principle with Time Cycles is the "Golden Key".
 
 pg. 13
-Every stock or commodity responds to ITS OWN aspects.  An aspect between Uranus and Jupiter may turn one market but not another.  So for any market you trade in, you should identify which aspects affect (turn) that market.  You simply go through the aspects one at a time to find which ones work.
+Every stock or commodity responds to ITS OWN aspects.  An aspect between Uranus and Jupiter may turn one market but not another.  So for any market you trade in, you should identify which aspects affect (turn) that market.  You simply go through the aspects one at a time to find which one's work.
 
 List of 'required reading' books:
 1) A to Z horoscope Maker Delineator (Llewellyn George)
@@ -68,7 +68,7 @@ pg. 14
 Gann used both Helio and Geo.
 
 TTTA: 
-Regarding the war in the air:  Look at the dates of battles in the book and compare that to what was occuring in the Dow Jones at that time. 
+Regarding the war in the air:  Look at the dates of battles in the book and compare that to what was occurring in the Dow Jones at that time. 
 
 This book is all about cycles, many different types of cycles and understanding this will save you time.
 
@@ -94,7 +94,7 @@ Books by Johndro to study after learning Astrology and Astronomy:
 
 It is in these two books that astrology and astronomy come together. 
 
-There is a critical error in Johndro's book "Earth in the Heavens".  He later recanted one aspect of the book.  The Midheaves of the locality charts are FIXED; they are not precessional.  "The actual zodiac used in interpretation is right in step with the equinoctial precession and always has been.  Therefore each country and city has the exact same rulership as it always has."  
+There is a critical error in Johndro's book "Earth in the Heavens".  He later recanted one aspect of the book.  The Midheaven of the locality charts are FIXED; they are not precessional.  "The actual zodiac used in interpretation is right in step with the equinoctial precession and always has been.  Therefore each country and city has the exact same rulership as it always has."  
 
 From page 51 of "Earth in the Heavens":
 "To the dates of eclipses, planetary stationaries, great conjunctions and oppositions, new moons and events."
@@ -146,7 +146,7 @@ Gann has on his reading list:
 "Sunspots and Weather" by W.T. Foster.  It shows how to forecast sunspots.
 
 pg. 29
-You have to combine sunspot cycle with planetary confgiurations.  
+You have to combine sunspot cycle with planetary configurations.  
 
 In "Law of Values" by Sepharial, on pages 16 and 17, states that countries are tied to certain signs of the zodiac.  An example is the United States and Gemini.  Thus transiting Saturn through Gemini will depress the value of securities in the US. Always be cognizant of planets in the signs, in relation to the country whose securities you are trading in or holding.
 
@@ -163,7 +163,7 @@ How to calculate geographic Asc and MC.
 
 
 pg. 59
-Solar arcs: A symbolic method where all radix points are progressed by the yearly addition of the motion fo the Sun, i.e. the motion of the Sun during one day = movement of all radix points after 1 year (a day for a year principle).  Radical relations are maintained.
+Solar arcs: A symbolic method where all radix points are progressed by the yearly addition of the motion of the Sun, i.e. the motion of the Sun during one day = movement of all radix points after 1 year (a day for a year principle).  Radical relations are maintained.
 
 pg. 60
 
@@ -198,7 +198,7 @@ Conclusions of this seminar paper:
 
 pg. 62
 
-Workplan for researching solar and lunar arcs is given.  
+Work plan for researching solar and lunar arcs is given.  
 
 Hypothesis list for testing is given.
 
@@ -253,11 +253,11 @@ Natals charts of the following are discussed:
 
 pg. 76-79
 
-Process used to rectify the Chicago Mercantile Exchange (CME) is shown.  The final natal arrived at is given also.
+Process used to rectify the Chicago Mercantile Exchange (CME) is shown.  The final natal arrived at is given as well.
 
 pg. 81-85
 
-Process used to rectify EBAY is shown.  The final natal arrived at is given also.
+Process used to rectify EBAY is shown.  The final natal arrived at is given as well.
 
 pg. 84
 
@@ -273,17 +273,17 @@ Using decimal format for the planetary longitude location makes it easier to do 
 
 pg. 86-89
 
-On these pages, the rectification of the natal chart of NYSE is covered.  The final natal arrived at is given also.  The solar arc of major events on the exchange, such as the 1987 crash day is used to verify.  Uranus in 1987, via solar arc, opposed the ascendant of the rectified chart.
+On these pages, the rectification of the natal chart of NYSE is covered.  The final natal arrived at is given as well.  The solar arc of major events on the exchange, such as the 1987 crash day is used to verify.  Uranus in 1987, via solar arc, opposed the ascendant of the rectified chart.
 
 pg. 89-90
 
-Rectification of the natal chart for Amazon (AMZN) is covered.  The final natal arrived at is given also.  
+Rectification of the natal chart for Amazon (AMZN) is covered.  The final natal arrived at is given as well.  
 
 pg. 90-91
 
 Secret tips for finding the founding date quickly:
 
-If one is seaching for the founding data for the Solaris Company:
+If one is searching for the founding data for the Solaris Company:
 
 1) Go to a search engine and type one of the following:
 
@@ -319,7 +319,7 @@ Rectification of the natal chart of 3M (MMM) is on these pages.
 
 pg. 93
 
-Rectification of the natal chart of American Expresss (AXP) is on this page.
+Rectification of the natal chart of American Express (AXP) is on this page.
 
 Rectification of the natal chart of The Goodyear Tire & Rubber Company (GT) is on this page.
 
@@ -341,7 +341,7 @@ Of the stocks given in "12":
  About  5% are vibrating to mergers and other special activity.
 
 pg. 97-99.
-Rectification of the natal chart of McDonalds (MCD) is on these pages.
+Rectification of the natal chart of McDonald’s (MCD) is on these pages.
 
 pg. 99-100
 Rectification of the natal chart of Wal-Mart Stores, Inc. (WMT) is on these pages.
@@ -355,7 +355,7 @@ The long method:
 The long method analyzed the planet positions (Jupiter, Saturn, Uranus, Neptune, Pluto, Chiron and Transpluto), putting each planet location into buckets.  The buckets are for locating the important points on the 15-degree axis, and thus all the buckets together span the range of [0, 15) degrees.  The bucket sizes are 10 minutes of arc each.  After all planet locations on each of the turns are put into the buckets, the highest sum of three consecutive buckets are located.  This gives us the approximate important 15-degree axis points.  
 
 The short method:
-Gather 12 sharp, clear turns, as large as possible.  Write down the planetary positions on the dates of those turns for Jupiter, Saturn, Uranus, Neptune, Pluto, Chiron and Transpluto.  From the 12 turns, you should be able to account for at least 50% of the 12 turns using a minimum of 4 hits to an axis.  If this is not the case either do 1 of 2 things.  Either go back and grab more turns from the same data, or abandon this stock or commodity and move on to another, which will be more fruitful.  From those axis test the 'founding data' as well as the incorporation date or other focus by scanning the times to coincide with the axis.  
+Gather 12 sharp, clear turns, as large as possible.  Write down the planetary positions on the dates of those turns for Jupiter, Saturn, Uranus, Neptune, Pluto, Chiron and Transpluto.  From the 12 turns, you should be able to account for at least 50% of the 12 turns using a minimum of 4 hits to an axis.  If this is not the case either do 1 of 2 things.  Either go back and grab more turns from the same data, or abandon this stock or commodity and move on to another, which will be more fruitful.  From those axises test the 'founding data' as well as the incorporation date or other focus by scanning the times to coincide with the axis.  
 
 Important concepts and tips scattered among the natal rectification pages:
 
@@ -396,7 +396,7 @@ J.H. Nelson found that:
 
   - Jupiter and Saturn had a more pronounced affect than the other planets.
 
-  - When Juiter and Saturn were in an angular relation of 60 or 120 degrees, radio signals were uncharacteristically clear.  
+  - When Jupiter and Saturn were in an angular relation of 60 or 120 degrees, radio signals were uncharacteristically clear.  
 
 
 It has been said that a stock's price is influenced in the following manner:
@@ -442,7 +442,7 @@ The sign that the planets are in influences psychology thus:
 February 1949, Jensen writes:
 "Cyclical indicators are severely potent one time and appear to operate very mildly at others.  The degree of their operation depends on the state of public psychology and the technical position of the markets involved."
 
-September 1948: "... protend investment support in heavy industries aircrafts and steels."
+September 1948: "... portend investment support in heavy industries aircrafts and steels."
 
 These are keywords.  From page 41 of Jensen's ACSM, we find the keywords attached to the following planets:
 
@@ -491,7 +491,7 @@ Bullish aspect and bearish pessimism, or vice versa = mixed market.
 pg. 135
 Jensen's point #9:
 The 3 factors are:
-  1) Cycical Indicators (asepcts between outer planets)
+  1) Cyclical Indicators (aspects between outer planets)
   2) Public psychology; confidence, optimism and pessimism.
   3) Technical position.
 
@@ -509,7 +509,7 @@ pg. 139-141
 It is known that Jensen has scattered elements throughout all of his writings.  The first step is to acquire these writings.  The next step is to cross reference for similar material in order to build a case (for a rule).
 
 Jensen, January 1950:
-"We known that a cyclical wave of about 4.5 years marks the general trend from highs to lows and from lows to highs.  In recent years this is apparent from 1932 to 1937, the decline from 1937 to 1942 and the rise from 1942 to 1946..."
+"We know that a cyclical wave of about 4.5 years marks the general trend from highs to lows and from lows to highs.  In recent years this is apparent from 1932 to 1937, the decline from 1937 to 1942 and the rise from 1942 to 1946..."
 
 ACSM, page 78:
 "There are the 41 to 43 month cycles, the 4.5 year, 9 year, 10 year, 18 year, or 3 times 18 for the 54 year affair... the real core is apparent in the cycle of the Node.  But to get back to our May 1942 Washington figure..."
@@ -537,9 +537,9 @@ What he states is during war, commodity prices get pushed up and inflated.  Then
 This is not the only place in his writings where he mentions 15 years.  Let's take a look at material that is private and extremely rare:
 
 Jensen writes:
-"In the tracing of planetary interaction an adequate key is apparent.  Incidentally, there is sufficient evidence to show that Sun-spot activity is caused directly by the planetary interaction and therefore is na indicator secondary to planetary positions.  For general purposes, the changing relationships within a 360-degree spectrum, of Jupiter, Saturn and uranus reflect cyclical timing indicators of economic ebb and flow.  The half circle or 180-degree, reflects interruptions in the time factors appearing as interruptions in the primary or major trend of the business index.  Because of differing speeds around the 360-degree spectrum by Saturn, Uranus, and Jupiter, they are in conjunct at varying intervals -- Jupiter and Saturn every twenty years, etc.
+"In the tracing of planetary interaction an adequate key is apparent.  Incidentally, there is sufficient evidence to show that Sun-spot activity is caused directly by the planetary interaction and therefore is an indicator secondary to planetary positions.  For general purposes, the changing relationships within a 360-degree spectrum, of Jupiter, Saturn and Uranus reflect cyclical timing indicators of economic ebb and flow.  The half circle or 180-degree, reflects interruptions in the time factors appearing as interruptions in the primary or major trend of the business index.  Because of differing speeds around the 360-degree spectrum by Saturn, Uranus, and Jupiter, they are in conjunct at varying intervals -- Jupiter and Saturn every twenty years, etc.
 
-When the number of luncations (new Moons are added to the varying peaks of 180 degree, 90 degree, 60 degree, 45 degree and 30 degree angular relationships, between the constantly varying positions of these major planets in relation to the earth, timing elements become relatively precise.  For 180 lunations is just short of fifteen years, and 90 lunations is about seven and a half years.
+When the number of lunations (new Moons are added to the varying peaks of 180 degree, 90 degree, 60 degree, 45 degree and 30 degree angular relationships, between the constantly varying positions of these major planets in relation to the earth, timing elements become relatively precise.  For 180 lunations is just short of fifteen years, and 90 lunations is about seven and a half years.
 
 For example, the beginning of another major downward cycle is assumed in stock market prices from the fall of 1929.  Being downward the 90, 45, 22.5, etc. lesser cycles apply -- upward major cycles are marked by 60, 30, 15, etc. time units.  In tracing the trend since, we find that 90 months elapsed from the 1929 top to the 1937 high.  Major lows to major highs hold in the same adequate average: The summer of 1929 to early 1933 and from early 1933 to 1937, etc."
 
@@ -559,7 +559,7 @@ Quick-and-dirty "12" method is used to find the active transiting-to-transiting 
 pg. 147-158
 
 Systemization:
-After having the important points on the 15-degree axis, one would want to re-analyze the turn dates we originally compiled and check the planet longitude data on an individual planetary level.  The first first step in this is to determine which planets were more prominent when they hit the axis.  
+After having the important points on the 15-degree axis, one would want to re-analyze the turn dates we originally compiled and check the planet longitude data on an individual planetary level.  The first step in this is to determine which planets were more prominent when they hit the axis.  
 
 Example used was on Walmart.  The 2 axis were:
 4 deg 12
@@ -569,21 +569,21 @@ Starting with the Jupiter column, modulus 15 operation was done.  Then the value
 
 The data shows there was 1 hit to the 11 deg 54 axis and 3 hits to the 4 deg 12 axis.  Let's start with the 4 deg 12 axis.
 
-Our next step is to test a bach to see what type of results are obtained, over a period of time, when Jupiter hits the 4 deg 12 axis.  [List of dates for this criteria are listed from 1990 to 2005].
+Our next step is to test a batch to see what type of results are obtained, over a period of time, when Jupiter hits the 4 deg 12 axis.  [List of dates for this criteria are listed from 1990 to 2005].
 
-Next we need to check what occurred on these dates in our Walmart stock price.  [List of dates follows with a column indicating if there was a High, Low, or nn (not noticable)].
+Next we need to check what occurred on these dates in our Walmart stock price.  [List of dates follows with a column indicating if there was a High, Low, or nn (not noticeable)].
 
 Summary: Out of 41 possible, 22 produced significant turns or 53.6%.
 
 Jupiter hit the 11 deg 54 axis on the following dates. [List of dates for this criteria are listed from 1990 to 2005].
 
-Again, we need to check what occurred on these dates in our Walmart stock price.  [List of dates follows with a column indicating if there was a High, Low, or nn (not noticable)].
+Again, we need to check what occurred on these dates in our Walmart stock price.  [List of dates follows with a column indicating if there was a High, Low, or nn (not noticeable)].
 
 Summary: Out of 56 possible, 24 produced turns, or a rate of 24.8%
 
 We need to go through the other outer planets in the same manner.  In doing so, we get the following: [table with results are shown, see page 154].
 
-Now most individuals that have made it this far woudl probably give up, but we want to purpose that we continue.  Let's have a look at our worst one.  That would be 16 hits by Pluto to the 4 deg 12 axis, of which only 4 produced notable turns.  The 4 dates that did produce turns need to be pulled aside and studied.  We want to see what other hits to the same axis were occurring at these times.  
+Now most individuals that have made it this far would probably give up, but we want to purpose that we continue.  Let's have a look at our worst one.  That would be 16 hits by Pluto to the 4 deg 12 axis, of which only 4 produced notable turns.  The 4 dates that did produce turns need to be pulled aside and studied.  We want to see what other hits to the same axis were occurring at these times.  
 
 1/12/1979:  Mercury and Venus were at 4 deg 12, 
             Neptune and Pluto were at 19 deg 12.
@@ -607,9 +607,9 @@ pg. 159-220.
 Articles and Market Forecasts by R.T.A.
 
 pg. 160
-RTA: Saturn and Uranus semi-sextile: A bullish market usually concincides with this aspect.  
+RTA: Saturn and Uranus semi-sextile: A bullish market usually coincides with this aspect.  
 
-RTA: "On the new Moon February 19th, Mercury is also conjunct the Sun.  This i sa signal for a topping off of a move on large volume if the move has previously been up."
+RTA: "On the new Moon February 19th, Mercury is also conjunct the Sun.  This is a signal for a topping off of a move on large volume if the move has previously been up."
 
 RTA: Sun making square to Uranus is bearish.
 
@@ -617,12 +617,12 @@ pg. 164
 RTA, Mar 1939: "During the first week of March, the Sun is conjunction Jupiter and both of them are sextile Uranus.  This is a good sign of rising prices, but a finish of a move.  Remember that if the market is going up and there is a good aspect like this one, the market will make a top."
 
 pg. 176
-RTA, Aug 1939: "Jupiter starts a semisquare to Uranus the first of June, and hardly moves out of orb until the firs tweek of September.  This acts in reverse order to the cycle of Uranus and Neptune [trine], making a great contest between the two forces.  This may cause another temporary down trend or hesitation, to be followed later by an up trend."
+RTA, Aug 1939: "Jupiter starts a semisquare to Uranus the first of June, and hardly moves out of orb until the first week of September.  This acts in reverse order to the cycle of Uranus and Neptune [trine], making a great contest between the two forces.  This may cause another temporary down trend or hesitation, to be followed later by an up trend."
 
 pg. 179
 RTA, Sep 1939: "Uranus is semi-square Jupiter and square Mercury on the first of September, starting the month off with negative cycles and a down trend.  on the second, Mars is sesquiquadrate (135 deg) to the Sun and Sesqui-quadrate Venus on the third, which are further coordinated with the Moon square Mars.  These aspects are negative and occasion a declining market."
 
-RTA, Sep 1939: "On September 5th, the day starts with the Sun in conjunction with Venus, which may bring a temporary rally.  On the 6th, the aspects turn negative again, with the Moon square Venus and the Sun, and sesquiquadrate Saturn, which is the beginning of two serious Saturn aspects on the 8th, when again Saturn is 135 degfrom both Venus and the Sun."
+RTA, Sep 1939: "On September 5th, the day starts with the Sun in conjunction with Venus, which may bring a temporary rally.  On the 6th, the aspects turn negative again, with the Moon square Venus and the Sun, and sesquiquadrate Saturn, which is the beginning of two serious Saturn aspects on the 8th, when again Saturn is 135 deg from both Venus and the Sun."
 
 pg. 184
 
@@ -652,12 +652,12 @@ RTA: The five fears (or pitfalls):
 pg. 187.
 RTA, Dec 1939: "Watch for an upset condition in the international exchange around December 18th, 1939, when the Sun is square Neptune."
 
-RTA, Dec 1939: "On the 22nd, the Sun is square Jupiter, and on the 28th Mars is square Neptune.  With these adverse cycles, it is quite evident that hte last two weeks of the month indicate a down trend for most groups."
+RTA, Dec 1939: "On the 22nd, the Sun is square Jupiter, and on the 28th Mars is square Neptune.  With these adverse cycles, it is quite evident that the last two weeks of the month indicate a down trend for most groups."
 
 RTA, Dec 1939: "From December 4th through to the 13th, Mercury is trine Jupiter.  This is not a very powerful cycle, but it may mark sharp rallies in the communication and rubber stocks.  Watch these days for large volume after a rise for a chance to take profits."
 
 pg. 190
-RTA, Jan 1940: "The year 1940 starts out with strenuous cycles operating.  Both Jupiter and Mars cross into Aries in conjunction with each toher, and on the 7th are squared by Mercury.  This configuration usually brings activity in the market, but is likely to cause peopel to do the wrong thing.  
+RTA, Jan 1940: "The year 1940 starts out with strenuous cycles operating.  Both Jupiter and Mars cross into Aries in conjunction with each other, and on the 7th are squared by Mercury.  This configuration usually brings activity in the market, but is likely to cause people to do the wrong thing.  
 
 If the market is driven down sharply on the 6th and 8th, one might find stocks that are good buys, because on the 9th the Sun makes a trine aspect to Uranus.  This is an urge to buy the market and shove prices up.  This is followed in a few days by the Sun trine Neptune, on the 16th, which is also helpful.  
 
@@ -693,7 +693,7 @@ On this page, RTA says to keep charts up so that the major, intermediate and min
 
 That way you can see if the trends are conflicting on different time frames.
 
-RTA on training required: "The writer recognizes the training required to follow the trend properly and overcome the psychologicl and cyclical influences successfully.  Until you have studied sufficiently, the following advice is in order.  Before you are well trained and have overcome fear, buy 1/3 of your quota at a time.  Dont' gamble in the stock market, because the commissions are too high.  Learn how first unless you are a millionaire.  keep calm, because worry doesn't help you make money.  Don't expect too much, because that makes you overbuy."
+RTA on training required: "The writer recognizes the training required to follow the trend properly and overcome the psychological and cyclical influences successfully.  Until you have studied sufficiently, the following advice is in order.  Before you are well trained and have overcome fear, buy 1/3 of your quota at a time.  Don't gamble in the stock market, because the commissions are too high.  Learn how first unless you are a millionaire.  keep calm, because worry doesn't help you make money.  Don't expect too much, because that makes you overbuy."
 
 pg. 198
 RTA: "During the first 10 days of March 1940, there are three fairly constructive cycles:
@@ -713,7 +713,7 @@ This combination of cycles seems to be the dominant factor for a large portion o
 pg. 199-200
 RTA: "Our major object is to be right on the yearly trend.  We change the weekly and monthly trends as often as necessary, because it is out of these two trends that the yearly trend is made."
 
-RTA: "The forcasts given are not limited alone to security markets, but are even more useful and effective in the forecasting of trends of business activity, production and real estate."
+RTA: "The forecasts given are not limited alone to security markets, but are even more useful and effective in the forecasting of trends of business activity, production and real estate."
 
 Trend-Caster Cycle Graph (pg. 199):
 The long curve represents the yearly trend.
@@ -722,11 +722,11 @@ The shortest curve represents the weekly trend.
 rluu: This is basically a chart of [planetary] cycle summation.  
 
 pg. 203-205
-RTA gives chart with his yearly trendcast for the years 1940-1944, inclusive.  The chart has 4 important cyles on it.  They are:
+RTA gives chart with his yearly trendcast for the years 1940-1944, inclusive.  The chart has 4 important cycles on it.  They are:
 
 1) Real Estate Cycle.  This cycle is 18 years long.  Generally speaking, it is 11 years up, and 7 years down.  The years shown are from 1922 to 1926, inclusive.  This period was the 'Coolidge Prosperity."
 
-2) World savior cycle.  The years shown are from 1879 to 1883, inclusive.  Thi wwas the 'Gold Resumption Prosperity."  This is the nearest typical period of Uranus trine Neptune that I have been able to find to reproduce.  
+2) World savior cycle.  The years shown are from 1879 to 1883, inclusive.  This was the 'Gold Resumption Prosperity."  This is the nearest typical period of Uranus trine Neptune that I have been able to find to reproduce.  
 
 3) Business activity cycle (cycle number 3 on the chart).  The chart shows activity for the years 1895 to 1899 inclusive.  The first part of period was the "Silver Campaign Depression" and the last part of the period was the "Merger Prosperity."  This cycle repeats when Uranus and Saturn are in conjunction.
 
@@ -735,7 +735,7 @@ RTA gives chart with his yearly trendcast for the years 1940-1944, inclusive.  T
 Every 84 years (in America):
 1523 - The Spanish planted their first colony in America.
 1607 - The first English settlement was made in Jamestown.
-1691 - The upheavel in the colonies came, called by Wilson, "The Revolution."
+1691 - The upheaval in the colonies came, called by Wilson, "The Revolution."
 1775 - The beginning of the American Revolution.
 1859 - The beginning of the Civil War period.
 1943 - Current period [of the article written by RTA]
@@ -773,7 +773,7 @@ Animals in the market place:
 
 pg. 208-209
 RTA, Jun 1940:
-"The market trend in June is overshadowed by two major cycles.  The one cycle, which is bullish up to and including June with diminishing strength is the World Savior, the large trine between uranus and Neptune.  The other cycle which starts to operate in June is bearish and just begins to take hold during this month, but gradually becomes most effective during the month of August.  This is the conjunction and parallel between Saturn and Jupiter."
+"The market trend in June is overshadowed by two major cycles.  The one cycle, which is bullish up to and including June with diminishing strength is the World Savior, the large trine between Uranus and Neptune.  The other cycle which starts to operate in June is bearish and just begins to take hold during this month, but gradually becomes most effective during the month of August.  This is the conjunction and parallel between Saturn and Jupiter."
 
 RTA: The conjunction between Saturn and Jupiter occurs every twenty years and has a dominant effect upon economic conditions as well as political movements.  
 
@@ -787,17 +787,17 @@ RTA: Market cycles:
 Sun square Neptune, almost without exception, causes a decline in the stock market.  
 
 RTA:
-"Jupiter and Saturn are currently parallel to each other but not yet in conjunction.  When they reach conjunction, I should anticipate a serious decline in the stock market.  I have chcked the influences of Saturn aspecting Jupiter for the last 100 years.  The conjunctions, squares, and oppositions almost invariably cause declines.  There was one notable exception, and that was during March and April, 1881, when they were in conjunction in Taurus, which is exactly the same position they have this year.  There was practically no decline then because Uranus and Neptune were trining each other, which is exactly the condition this year.  
+"Jupiter and Saturn are currently parallel to each other but not yet in conjunction.  When they reach conjunction, I should anticipate a serious decline in the stock market.  I have checked the influences of Saturn aspecting Jupiter for the last 100 years.  The conjunctions, squares, and oppositions almost invariably cause declines.  There was one notable exception, and that was during March and April, 1881, when they were in conjunction in Taurus, which is exactly the same position they have this year.  There was practically no decline then because Uranus and Neptune were trining each other, which is exactly the condition this year.  
 To be safe, it seems entirely reasonable to sell at least a portion of one's holdings on any sharp rise during June and July.  Because of these contrary forces, some securities are likely to continue going up, while others will go down very seriously.  This difference can be ascertained in the final analysis only by a study of the individual issue.  We have made such a study on a large list, giving current buying and selling prices.  "
 
 pg. 210-212
 RTA, July 1940:
-"During the first week of the month, the Sun makes a sextile ot Jupiter and Saturn.  This includes the new moon of July 5th.  The most important period of this month is running through the 15th to the 20th, when the Sun makes a sextile to both Neptune and Uranus.  This coordinates or brings together more actively the laarge cycle of Uranus trine Neptune.  This combinationhas a farreaching influence.  The stocks that have had an extensive rise may reach a top at this time.  This is especially true if these stocks have large volumes."
+"During the first week of the month, the Sun makes a sextile to Jupiter and Saturn.  This includes the new moon of July 5th.  The most important period of this month is running through the 15th to the 20th, when the Sun makes a sextile to both Neptune and Uranus.  This coordinates or brings together more actively the large cycle of Uranus trine Neptune.  This combination has a far reaching influence.  The stocks that have had an extensive rise may reach a top at this time.  This is especially true if these stocks have large volumes."
 
-"From the 22nd to the 25th of the month, Mars mkes square aspects to both Jupiter and Saturn, at a time when they are approach an exact conjunction.  I consider this unfavorable, therefore it is likely to mark a decline in the market into August.  Thi sis further accentuated by the Sun, making a square to both Jupiter and Saturn during the first part of August.  Before the month of August is over, the Sun and Mars both square Uranus.  This chain of aspects creates a cycle that will cause a lot of people to lose their money in the markets if they are not very careful."
+"From the 22nd to the 25th of the month, Mars makes square aspects to both Jupiter and Saturn, at a time when they are approach an exact conjunction.  I consider this unfavorable, therefore it is likely to mark a decline in the market into August.  This is further accentuated by the Sun, making a square to both Jupiter and Saturn during the first part of August.  Before the month of August is over, the Sun and Mars both square Uranus.  This chain of aspects creates a cycle that will cause a lot of people to lose their money in the markets if they are not very careful."
 
 RTA, on Leadership:
-"One of the most desirable things in the indiciating of trend is leadership.  It would be a distinct advantage to find one outstanding company which would lead the rest of the securities through the business cycle trends.  It would be also a distinct advantage to find one city in the United States that responded more quickly to business conditions than other cities.  Then the business man could watch the trend of this city or this company and have advance notice of trends that would finally come in the rest of the country or other companies.  This would become the barometer of trends."
+"One of the most desirable things in the indicating of trend is leadership.  It would be a distinct advantage to find one outstanding company which would lead the rest of the securities through the business cycle trends.  It would be also a distinct advantage to find one city in the United States that responded more quickly to business conditions than other cities.  Then the business man could watch the trend of this city or this company and have advance notice of trends that would finally come in the rest of the country or other companies.  This would become the barometer of trends."
 
 At the time of writing [1940], the Automobile Industry and Airline Industry has become the leader, and General Motors, and Chrysler were the leading companies.  Detroit is the leading city to watch [in 1940].  Previously, for many years, Railroad stocks and U.S. Steel were considered the market leaders.  
 
@@ -806,12 +806,12 @@ rluu: Thus, find out what industry is leading the stock market, and also which p
 rluu: Is there a [planet] cycle that controls when a new industry will come into focus and when old ones mature or leave focus?  Think about the industries that have come and gone in the U.S. and what might be causing new ones to rise and old ones to fall.  Around the years 2008-2011, airlines and car manufacturers have been struggling and going out of business.  The city of Detroit is in a massive depression, so obviously there is great affliction to an industry that used to be the leader in the United States.  
 
 pg. 213-214
-RTA, Aug 1940: "The decline coincided with the transit of Mercury into Taurus, May 7th, and Jupiter into Taurus, May 16th, both square luto in the first degrees of Leo.  
+RTA, Aug 1940: "The decline coincided with the transit of Mercury into Taurus, May 7th, and Jupiter into Taurus, May 16th, both square Pluto in the first degrees of Leo.  
 
 pg. 216
-RTA, Aug 1940: "August promises to be a historical month.  The planet Mars forms a whole series of violent aspects, starting around the 20th of July and going righ tthrough to the end of August.  He makes a square aspect to Jupiter, Saturn and Uranus, a parallel aspect to Jupiter, Saturn, Uranus and the Sun.  He is also conjunction the Sun the last two weeks in August.  To make things doubly hot, the Sun starts in during the second week of August and makes all the above aspects which Mars makes.  The Sun squares Jupiter, Saturn, and Uranus, and parallels Jupiter, Saturn, Uranus and Mars.
+RTA, Aug 1940: "August promises to be a historical month.  The planet Mars forms a whole series of violent aspects, starting around the 20th of July and going right through to the end of August.  He makes a square aspect to Jupiter, Saturn and Uranus, a parallel aspect to Jupiter, Saturn, Uranus and the Sun.  He is also conjunction the Sun the last two weeks in August.  To make things doubly hot, the Sun starts in during the second week of August and makes all the above aspects which Mars makes.  The Sun squares Jupiter, Saturn, and Uranus, and parallels Jupiter, Saturn, Uranus and Mars.
 
-During a large part of this year, Jupiter and Saturn are conjunction and parallel.  These two planets got to working surprisingly early during the second week fo May when the parallel Mercury aspect pulled them together.  This was from what appeared to be a wide orb between them.  This aspect is a powerful force in either direction, depending upon the motive and the will of the individual."
+During a large part of this year, Jupiter and Saturn are conjunction and parallel.  These two planets got to working surprisingly early during the second week of May when the parallel Mercury aspect pulled them together.  This was from what appeared to be a wide orb between them.  This aspect is a powerful force in either direction, depending upon the motive and the will of the individual."
 
 pg. 219
 RTA: A double top usually marks the finish of a move.
@@ -819,7 +819,7 @@ RTA: A double top usually marks the finish of a move.
 RTA: It is necessary to decide upon some form of policy regarding which trend we are trying to follow.  Whether it is the major trend (yearly), intermediate trend (monthly), or minor trend (weekly or daily).
 
 pg. 220
-RTA: "The market eithe rmakes a top or a bottom on a cycle depending upon teh mechanical trend of the market itself.  If it was declining, it will make a bottom at the time of an important aspect, and start to reverse.  If it was rising, it will make a top at the time of an important aspect, and start to reverse."
+RTA: "The market either makes a top or a bottom on a cycle depending upon the mechanical trend of the market itself.  If it was declining, it will make a bottom at the time of an important aspect, and start to reverse.  If it was rising, it will make a top at the time of an important aspect, and start to reverse."
 
 pg. 221-235
 These pages cover the overview of R.T.A. articles by the authors of "12".
@@ -828,7 +828,7 @@ pg. 221
 RTA, Feb 1939:
 "Sunspots as well as the urge to manufacture products, are both effects of planetary influence, either directly or indirectly.  This is the secret of the whole subject.  Another fact to be remembered by the technical students, is that the sunspots in the Sun's central zone (Earth's zone) are the effective ones.  This will account for the seeming discrepancy between the reported appearance of spots and the actual responses in quotations."
 
-"Another point to to remember is that it takes time to bring about economic changes.  (The sun starts north before Christmas, but there is little demand for straw hats until about Easter.)  The change comes gradually."
+"Another point to remember is that it takes time to bring about economic changes.  (The sun starts north before Christmas, but there is little demand for straw hats until about Easter.)  The change comes gradually."
 
 pg. 228-229
 RTA, Feb 1939:
@@ -850,7 +850,7 @@ Greyhound Corp he states:  "Venus is conjunct Sun and Mercury trine Jupiter.
 
 Paramount Pictures he states: "One grand cycle is favoring this corporation."
 
-Likewise he also lists 2 incomine producing stocks:
+Likewise he also lists 2 income producing stocks:
 McIntyre Porcupine Mines Limited (Incorporated: March 16, 1911): "This stock has 2 major aspects of the Sun (Gold) operating now." [where Now == Feb 1939]
 
 Minneapolis-Moline Power Implement Company (Incorporated: March 30, 1929): "With Mars sextile Jupiter and Mercury conjunct Sun by progression, this should be tops."
@@ -866,7 +866,7 @@ RTA, March 1939:
 Rule: In a parallel aspect that your market responds to, the parallel aspect between the two planets must be triggered by a faster moving planet.  
 
 RTA, Apr 1939:
-"Those who follow market cycles must learn to buy on bad cycles and sell on good ones.  This is a very difficult thing to do.  It is perfectly normal and natural for peopel to buy on good cycles and sell on bad ones, and, because most peopel are normal, naturally they buy at the top on good cycles and sell at the bottom on bad cycles."
+"Those who follow market cycles must learn to buy on bad cycles and sell on good ones.  This is a very difficult thing to do.  It is perfectly normal and natural for people to buy on good cycles and sell on bad ones, and, because most people are normal, naturally they buy at the top on good cycles and sell at the bottom on bad cycles."
 
 pg. 229-230
 RTA, May 1939:
@@ -1001,15 +1001,15 @@ We want to make our system mechanical in order to take the emotions out of it.  
 Example given:
 [chart given with turns generated with Venus as trigger and either outer planet or Sun.]
 
-Starting out simple, set the parameters fo rhte following system:
+Starting out simple, set the parameters of the following system:
 
   - Entry is to be at close on day of Venus hit to 11 deg 54 axis.
   - If day of hit is a weekend, then the next market day close is entry point.
-  - Trade is contra-trend (i.e. a short position would be taken if prises were rising into the trade, and vice versa).
+  - Trade is contra-trend (i.e. a short position would be taken if prices were rising into the trade, and vice versa).
   - A one (1) point stop above the position entry price is used.  
   - Exit is close 5 days later.
 
-[table of profitable results results is given.]
+[table of profitable results is given.]
 
 It is noted that some form of leverage could be harnessed.
 
