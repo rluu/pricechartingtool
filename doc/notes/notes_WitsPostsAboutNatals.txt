@@ -6,9 +6,10 @@ Filename: notes_WitsPostsAboutNatals.txt
 
 Description: 
 This set of notes is on my collection of WITS posts about natals and
-rectifying natals.
+rectifying natals.  
 
-Note: Some quotes below are not a perfect rendition of the WITS post.
+Note: 
+Some quotes below are not a perfect rendition of the post in WITS.
 I spell-checked the document and it caught some misspellings by the
 posters.
 
@@ -254,8 +255,6 @@ BA: The technique that Jensen used to rectify was based on faulty ephemeris calc
 
 Post #28180:
 TAC: "Having studied diurnals courtesy of the material available within the WITS files area, we made successful market calls within WITS.  Our confidence soared!  Not only did astro work, not only did the technique accurately predict turns; we could understand and apply it!  Similarly, we learnt not only how to rectify and validate our own natals, we learnt to develop the natal for RIO, a UK and Australian based resources company, and validated that natal to better than 88% accuracy!  This stuff works!! And the knowledge and resources are available, and can be mastered."
-
-rluu: What files in WITS teaches about diurnals?  I need to study this topic.
 
 Post #29481:
 ganndi1: Rectified NYSE natal: 
@@ -595,3 +594,4 @@ and not taken as gospel....hey anyone can make a mistake....easy.
 Testing your axis is the best way to know when you have it correct.
 Let the market tell you if you're right."
 
+##############################################################################
