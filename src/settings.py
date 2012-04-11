@@ -586,7 +586,7 @@ class SettingsKeys():
         "ui/astrology/VertexGlyphUnicode"
 
     # QSettings default value for the planet glyph unicode of the Vertex.
-    planetVertexGlyphUnicodeDefValue = "Vertex"
+    planetVertexGlyphUnicodeDefValue = "Vx"
 
     # QSettings key for the planet glyph font size of the Vertex.
     planetVertexGlyphFontSizeKey = \
