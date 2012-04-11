@@ -1992,6 +1992,10 @@ class MainWindow(QMainWindow):
         
         self.log.debug("dt at input is: " + Ephemeris.datetimeToStr(dt))
 
+        # Flag that indicates that the given timestamp matches the
+        # birth timestamp.
+        dtEqualsBirthDt = self._datetimeEqualsAdjustedBirthDt(dt, birthInfo)
+        
         # Datetime 'dt' needs to be localized to the timezone used in
         # birthInfo so that we may have it if we need it.  Assuming
         # 'dt' is already localized to UTC, GMT, or some other
@@ -2003,32 +2007,36 @@ class MainWindow(QMainWindow):
         
         # <1>: Month as an integer.
         field1 = ""
-        if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
-            field1 = "{}".format(relocalizedDt.month)
+        if dtEqualsBirthDt == True:
+            field1 = "{}".format(birthInfo.month)
         else:
             field1 = "{}".format(dt.month)
+        self.log.debug("field1 is: {}".format(field1))
         
         # <2>: Day-of-month as an integer.
         field2 = ""
-        if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
-            field2 = "{}".format(relocalizedDt.day)
+        if dtEqualsBirthDt == True:
+            field2 = "{}".format(birthInfo.day)
         else:
             field2 = "{}".format(dt.day)
+        self.log.debug("field2 is: {}".format(field2))
 
         # <3>: Year as an integer.
         field3 = ""
-        if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
-            field3 = "{}".format(relocalizedDt.year)
+        if dtEqualsBirthDt == True:
+            field3 = "{}".format(birthInfo.year)
         else:
             field3 = "{}".format(dt.year)
+        self.log.debug("field3 is: {}".format(field3))
 
         # <4>: Hour as an integer.
         field4 = ""
-        if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
-            field4 = "{}".format(relocalizedDt.hour)
+        if dtEqualsBirthDt == True:
+            field4 = "{}".format(birthInfo.hour)
         else:
             field4 = "{}".format(dt.hour)
-
+        self.log.debug("field4 is: {}".format(field4))
+        
         # <5>: Minutes.  This includes the seconds as a float
         #      within it, but with no decimals.  This value is 15
         #      characters long.
@@ -2038,9 +2046,9 @@ class MainWindow(QMainWindow):
         #        -  5 minutes and 37 seconds would be: "056166666666666"
         # 
         field5 = ""
-        if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
-            minutes = float(relocalizedDt.minute) + \
-                      float(relocalizedDt.second / 60.0)
+        if dtEqualsBirthDt == True:
+            minutes = float(birthInfo.minute) + \
+                      float(birthInfo.second / 60.0)
             minutes *= 10000000000000
             minutes = int(minutes)
             field5 = "{}".format(minutes)
@@ -2050,10 +2058,9 @@ class MainWindow(QMainWindow):
             minutes *= 10000000000000
             minutes = int(minutes)
             field5 = "{}".format(minutes)
-
         self.log.debug("field5 is: {}".format(field5))
         
-        # <6>: Hours of timezone offset in standard time, as an int.
+        # <6>: Hours of timezone offset, as an int.
         #      Negative values represent East of GMT, and
         #      positive values represent West of GMT.
         #
@@ -2063,14 +2070,51 @@ class MainWindow(QMainWindow):
         #
         field6 = ""
         totalMinutesOffset = 0
+
+        if dtEqualsBirthDt == True:
+            if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
+                hoursTimezoneOffset = 0
+                minutesTimezoneOffset = 0
             
-        if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
-            hoursTimezoneOffset = 0
-            minutesTimezoneOffset = 0
-
-            offsetTimedelta = relocalizedDt.utcoffset()
+                offsetTimedelta = relocalizedDt.utcoffset()
+                self.log.debug("offsetTimedelta == {}".format(offsetTimedelta))
+            
+                totalMinutesOffset = \
+                    int(round((offsetTimedelta.days * 60 * 24) + \
+                              (offsetTimedelta.seconds / 60)))
+                hoursTimezoneOffset = abs(totalMinutesOffset) // 60
+                
+                if totalMinutesOffset > 0 and hoursTimezoneOffset != 0:
+                    hoursTimezoneOffset *= -1
+                
+                field6 = "{}".format(hoursTimezoneOffset)
+                
+            elif birthInfo.timeOffsetManualEntryRadioButtonState == True:
+                totalMinutesOffset = \
+                    (birthInfo.timezoneManualEntryHours * 60) + \
+                    (birthInfo.timezoneManualEntryMinutes)
+                    
+                if birthInfo.timezoneManualEntryEastWestComboBoxValue == "E":
+                    totalMinutesOffset *= -1
+                        
+                hoursTimezoneOffset = abs(totalMinutesOffset) // 60
+                if totalMinutesOffset < 0 and hoursTimezoneOffset != 0:
+                    hoursTimezoneOffset *= -1
+                field6 = "{}".format(hoursTimezoneOffset)
+                
+            elif birthInfo.timeOffsetLMTRadioButtonState == True:
+                ratioOfDay = birthInfo.longitudeDegrees / 360.0
+                minutesInDay = 60 * 24
+                totalMinutesOffset = ratioOfDay * minutesInDay
+                    
+                hoursTimezoneOffset = abs(totalMinutesOffset) // 60
+                if totalMinutesOffset < 0 and hoursTimezoneOffset != 0:
+                    hoursTimezoneOffset *= -1
+                field6 = "{}".format(hoursTimezoneOffset)
+        else:
+            offsetTimedelta = dt.utcoffset()            
             self.log.debug("offsetTimedelta == {}".format(offsetTimedelta))
-
+            
             totalMinutesOffset = \
                 int(round((offsetTimedelta.days * 60 * 24) + \
                           (offsetTimedelta.seconds / 60)))
@@ -2080,33 +2124,8 @@ class MainWindow(QMainWindow):
                 hoursTimezoneOffset *= -1
             
             field6 = "{}".format(hoursTimezoneOffset)
-            
-        elif birthInfo.timeOffsetManualEntryRadioButtonState == True:
-            totalMinutesOffset = \
-                (birthInfo.timezoneManualEntryHours * 60) + \
-                (birthInfo.timezoneManualEntryMinutes)
-                
-            if birthInfo.timezoneManualEntryEastWestComboBoxValue == "E":
-                totalMinutesOffset *= -1
-                    
-            hoursTimezoneOffset = abs(totalMinutesOffset) // 60
-            if totalMinutesOffset < 0 and hoursTimezoneOffset != 0:
-                hoursTimezoneOffset *= -1
-            field6 = "{}".format(hoursTimezoneOffset)
-            
-        elif birthInfo.timeOffsetLMTRadioButtonState == True:
-            ratioOfDay = birthInfo.longitudeDegrees / 360.0
-            minutesInDay = 60 * 24
-            totalMinutesOffset = ratioOfDay * minutesInDay
-                
-            hoursTimezoneOffset = abs(totalMinutesOffset) // 60
-            if totalMinutesOffset < 0 and hoursTimezoneOffset != 0:
-                hoursTimezoneOffset *= -1
-            field6 = "{}".format(hoursTimezoneOffset)
-            
         self.log.debug("field6 is: {}".format(field6))
-                
-
+        
         # <7>: Minutes of timezone offset in standard time, as an
         #      float multiplied by 10000, with no decimal.  Note
         #      when times are in LMT, digits past the first 2
@@ -2184,7 +2203,10 @@ class MainWindow(QMainWindow):
         #        "9.833333" for 9 Hours 50 Minutes West of GMT
         #
 
-        # Utilizes 'totalMinutesOffset' calculated earlier in field 6.
+        offsetTimedelta = Ephemeris.getUtcOffsetForStandardTime(dt.tzinfo)
+        totalMinutesOffset = \
+            int(round((offsetTimedelta.days * 60 * 24) + \
+                      (offsetTimedelta.seconds / 60)))
         hoursTimezoneOffsetFloat = -1 * totalMinutesOffset / 60.0
         field13 = "{:.6}".format(hoursTimezoneOffsetFloat)
         self.log.debug("field13 is: " + field13)
@@ -2195,12 +2217,26 @@ class MainWindow(QMainWindow):
         #      string <13>.
         #
         field14 = ""
-        if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
-            # This value is calculated for relocalizedDt, as opposed
-            # to previous calculations where done on the birthInfo
-            # timezone information.
-
-            offsetTimedelta = relocalizedDt.utcoffset()
+        if dtEqualsBirthDt == True:
+            if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
+                # This value is calculated for relocalizedDt, as opposed
+                # to previous calculations where done on the birthInfo
+                # timezone information.
+    
+                offsetTimedelta = relocalizedDt.utcoffset()
+                self.log.debug("offsetTimedelta == {}".format(offsetTimedelta))
+                
+                totalMinutesOffset = \
+                    int(round((offsetTimedelta.days * 60 * 24) + \
+                              (offsetTimedelta.seconds / 60)))
+                hoursTimezoneOffsetFloat = -1 * totalMinutesOffset / 60.0
+                field14 = "{:.6}".format(hoursTimezoneOffsetFloat)
+            else:
+                # User-specified timezone offset or LMT, so use the
+                # value in field13.
+                field14 = field13
+        else:
+            offsetTimedelta = dt.utcoffset()
             self.log.debug("offsetTimedelta == {}".format(offsetTimedelta))
             
             totalMinutesOffset = \
@@ -2208,10 +2244,6 @@ class MainWindow(QMainWindow):
                           (offsetTimedelta.seconds / 60)))
             hoursTimezoneOffsetFloat = -1 * totalMinutesOffset / 60.0
             field14 = "{:.6}".format(hoursTimezoneOffsetFloat)
-        else:
-            # User-specified timezone offset or LMT, so use the
-            # value in field13.
-            field14 = field13
             
         self.log.debug("field14 is: " + field14)
 
@@ -2678,7 +2710,6 @@ class MainWindow(QMainWindow):
             self.log.warn("Operating system unsupported: " + os.name)
 
         
-        
     def _generateAstrologFileText(self, dt, birthInfo):
         """Generates the text that would be in a Astrolog .txt file, for
         the information given in the specified datetime.datetime and
@@ -2773,6 +2804,10 @@ class MainWindow(QMainWindow):
         
         self.log.debug("dt at input is: " + Ephemeris.datetimeToStr(dt))
 
+        # Flag that indicates that the given timestamp matches the
+        # birth timestamp.
+        dtEqualsBirthDt = self._datetimeEqualsAdjustedBirthDt(dt, birthInfo)
+        
         # Datetime 'dt' needs to be localized to the timezone used in
         # birthInfo so that we may have it if we need it.  Assuming
         # 'dt' is already localized to UTC, GMT, or some other
@@ -2784,22 +2819,22 @@ class MainWindow(QMainWindow):
             
         # <1>: Month as a 3-letter string with the first letter capitalized.
         field1 = ""
-        if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
-            field1 = Util.monthNumberToAbbrev(relocalizedDt.month)
+        if dtEqualsBirthDt == True:
+            field1 = Util.monthNumberToAbbrev(birthInfo.month)
         else:
             field1 = Util.monthNumberToAbbrev(dt.month)
         
         # <2>: Day-of-month as an integer.
         field2 = ""
-        if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
-            field2 = "{}".format(relocalizedDt.day)
+        if dtEqualsBirthDt == True:
+            field2 = "{}".format(birthInfo.day)
         else:
             field2 = "{}".format(dt.day)
 
         # <3>: Year as an integer.
         field3 = ""
-        if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
-            field3 = "{}".format(relocalizedDt.year)
+        if dtEqualsBirthDt == True:
+            field3 = "{}".format(birthInfo.year)
         else:
             field3 = "{}".format(dt.year)
 
@@ -2811,8 +2846,8 @@ class MainWindow(QMainWindow):
         #      "pm" if in the second half of the day.
         field6 = ""
         hourToUse = None
-        if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
-            hourToUse = relocalizedDt.hour
+        if dtEqualsBirthDt == True:
+            hourToUse = birthInfo.hour
         else:
             hourToUse = dt.hour
             
@@ -2830,9 +2865,9 @@ class MainWindow(QMainWindow):
 
         # <5>: Minutes, as a two-digit number.
         field5 = ""
-        if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
-            minutes = float(relocalizedDt.minute) + \
-                      float(relocalizedDt.second / 60.0)
+        if dtEqualsBirthDt == True:
+            minutes = float(birthInfo.minute) + \
+                      float(birthInfo.second / 60.0)
             minutes = round(minutes)
             field5 = "{}".format(minutes)
         else:
@@ -2848,10 +2883,25 @@ class MainWindow(QMainWindow):
         # <7>: "ST" if in standard time (not daylight savings).
         #      "DT" if in daylight time.
         field7 = ""
-        if relocalizedDt.timetuple().tm_isdst == True:
-            field7 = "DT"
+        if dtEqualsBirthDt == True:
+            if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
+                if relocalizedDt.timetuple().tm_isdst == True:
+                    field7 = "DT"
+                else:
+                    field7 = "ST"
+            else:
+                field7 = "ST"
         else:
-            field7 = "ST"
+            if dt.timetuple().tm_isdst == True:
+                field7 = "DT"
+            else:
+                field7 = "ST"
+        #if relocalizedDt.timetuple().tm_isdst == True:
+        #    field7 = "DT"
+        #else:
+        #    field7 = "ST"
+
+        self.log.debug("field 7 is: {}".format(field7))
             
         # <8>: Time offset from GMT when in standard time (i.e. when
         #      not in daylight savings time).  Format is:
@@ -2870,35 +2920,43 @@ class MainWindow(QMainWindow):
         # 
         field8 = ""
         totalMinutesOffset = 0
-            
-        if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
-            hoursTimezoneOffset = 0
-            minutesTimezoneOffset = 0
-            
-            tzinfoObj = pytz.timezone(birthInfo.timezoneName)
-            self.log.debug("birthInfo.timezoneName is: " + \
-                           birthInfo.timezoneName)
 
-            offsetTimedelta = tzinfoObj._utcoffset
-            self.log.debug("During standard time, offsetTimedelta == {}".\
-                           format(offsetTimedelta))
+        if dtEqualsBirthDt == True:
+            if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
+                hoursTimezoneOffset = 0
+                minutesTimezoneOffset = 0
+                
+                tzinfoObj = pytz.timezone(birthInfo.timezoneName)
+                self.log.debug("birthInfo.timezoneName is: " + \
+                               birthInfo.timezoneName)
+    
+                offsetTimedelta = tzinfoObj._utcoffset
+                self.log.debug("During standard time, offsetTimedelta == {}".\
+                               format(offsetTimedelta))
+                
+                totalMinutesOffset = \
+                    int(round((offsetTimedelta.days * 60 * 24) + \
+                              (offsetTimedelta.seconds / 60)))
+                
+            elif birthInfo.timeOffsetManualEntryRadioButtonState == True:
+                totalMinutesOffset = \
+                    (birthInfo.timezoneManualEntryHours * 60) + \
+                    (birthInfo.timezoneManualEntryMinutes)
+                    
+                if birthInfo.timezoneManualEntryEastWestComboBoxValue == "W":
+                    totalMinutesOffset *= -1
+                
+            elif birthInfo.timeOffsetLMTRadioButtonState == True:
+                ratioOfDay = birthInfo.longitudeDegrees / 360.0
+                minutesInDay = 60 * 24
+                totalMinutesOffset = ratioOfDay * minutesInDay
+        else:
+            offsetTimedelta = Ephemeris.getUtcOffsetForStandardTime(dt.tzinfo)
+            self.log.debug("offsetTimedelta == {}".format(offsetTimedelta))
             
             totalMinutesOffset = \
                 int(round((offsetTimedelta.days * 60 * 24) + \
                           (offsetTimedelta.seconds / 60)))
-            
-        elif birthInfo.timeOffsetManualEntryRadioButtonState == True:
-            totalMinutesOffset = \
-                (birthInfo.timezoneManualEntryHours * 60) + \
-                (birthInfo.timezoneManualEntryMinutes)
-                
-            if birthInfo.timezoneManualEntryEastWestComboBoxValue == "E":
-                totalMinutesOffset *= -1
-                    
-        elif birthInfo.timeOffsetLMTRadioButtonState == True:
-            ratioOfDay = birthInfo.longitudeDegrees / 360.0
-            minutesInDay = 60 * 24
-            totalMinutesOffset = ratioOfDay * minutesInDay
             
         hoursTimezoneOffset = abs(totalMinutesOffset) // 60
             
@@ -3057,7 +3115,57 @@ class MainWindow(QMainWindow):
         
         self.log.debug("Exiting removeOldTemporaryAstrologFiles()")
         
+
+    def _datetimeEqualsAdjustedBirthDt(self, dt, birthInfo):
+        """Returns True if the datetime is given is equal to the
+        adjusted birth datetime.
+        """
+
+        self.log.debug("Entered _datetimeEqualsAdjustedBirthDt()")
+        self.log.debug("dt == {}".format(Ephemeris.datetimeToStr(dt)))
+        self.log.debug("birthInfo == {}".format(birthInfo.toString()))
         
+        # Return value.
+        rv = False
+        
+        # Get the localized datetime of birth.
+        localizedDt = birthInfo.getBirthLocalizedDatetime()
+
+        # Adjust datetime 'dt' back to an unadjusted UTC datetime if
+        # the birthInfo is not set to be autodetected.
+        if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
+            # Nothing extra needs to be done.
+            pass
+        
+        elif birthInfo.timeOffsetManualEntryRadioButtonState == True:
+            totalMinutesOffset = \
+                (birthInfo.timezoneManualEntryHours * 60) + \
+                (birthInfo.timezoneManualEntryMinutes)
+                
+            if birthInfo.timezoneManualEntryEastWestComboBoxValue == "E":
+                totalMinutesOffset *= -1
+
+            localizedDt = \
+                localizedDt - datetime.timedelta(minutes=totalMinutesOffset)
+            
+        elif birthInfo.timeOffsetLMTRadioButtonState == True:
+            # Use 4 minutes of time offset for each longitude degree away
+            # from 0.
+            timeShiftMinutes = self.longitudeDegrees * -4.0
+        
+            localizedDt = \
+                localizedDt - datetime.timedelta(minutes=totalMinutesOffset)
+
+        self.log.debug("localizedDt == {}".format(Ephemeris.datetimeToStr(dt)))
+        if localizedDt == dt:
+            rv = True
+        else:
+            rv = False
+
+        self.log.debug("Exiting _datetimeEqualsAdjustedBirthDt(), " + \
+                       "rv == {}".format(rv))
+        return rv
+
     def _print(self):
         """Opens up a dialog for printing the current selected document."""
 
@@ -3430,9 +3538,37 @@ class MainWindow(QMainWindow):
         # active chart.
         birthInfo = pcd.getBirthInfo()
 
+        # Datetime to send to JHora.
+        dt = None
+        
         # Get the localized datetime of birth.
         localizedDt = birthInfo.getBirthLocalizedDatetime()
 
+        # Adjust datetime 'dt' back to an unadjusted UTC datetime if
+        # the birthInfo is not set to be autodetected.
+        if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
+            # Nothing extra needs to be done.
+            pass
+        
+        elif birthInfo.timeOffsetManualEntryRadioButtonState == True:
+            totalMinutesOffset = \
+                (birthInfo.timezoneManualEntryHours * 60) + \
+                (birthInfo.timezoneManualEntryMinutes)
+                
+            if birthInfo.timezoneManualEntryEastWestComboBoxValue == "E":
+                totalMinutesOffset *= -1
+
+            localizedDt = \
+                localizedDt - datetime.timedelta(minutes=totalMinutesOffset)
+            
+        elif birthInfo.timeOffsetLMTRadioButtonState == True:
+            # Use 4 minutes of time offset for each longitude degree away
+            # from 0.
+            timeShiftMinutes = self.longitudeDegrees * -4.0
+        
+            localizedDt = \
+                localizedDt - datetime.timedelta(minutes=totalMinutesOffset)
+        
         # Open JHora with these values.
         self.handleJhoraLaunch(localizedDt, birthInfo)
 
@@ -3475,12 +3611,33 @@ class MainWindow(QMainWindow):
         # Get the BirthInfo (location, timezone, etc.) for the current
         # active chart.
         birthInfo = pcd.getBirthInfo()
-        tzinfoObj = pytz.timezone(birthInfo.timezoneName)
 
-        # Localize the birth timestamp.
-        utcBirthDt = birthInfo.getBirthUtcDatetime()
-        localizedDt = tzinfoObj.normalize(utcBirthDt.astimezone(tzinfoObj))
+        # Get the localized datetime of birth.
+        localizedDt = birthInfo.getBirthLocalizedDatetime()
 
+        # Adjust datetime 'dt' back to an unadjusted UTC datetime if
+        # the birthInfo is not set to be autodetected.
+        if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
+            # Nothing extra needs to be done.
+            pass
+        elif birthInfo.timeOffsetManualEntryRadioButtonState == True:
+            totalMinutesOffset = \
+                (birthInfo.timezoneManualEntryHours * 60) + \
+                (birthInfo.timezoneManualEntryMinutes)
+                
+            if birthInfo.timezoneManualEntryEastWestComboBoxValue == "E":
+                totalMinutesOffset *= -1
+
+            localizedDt = \
+                localizedDt - datetime.timedelta(minutes=totalMinutesOffset)
+        elif birthInfo.timeOffsetLMTRadioButtonState == True:
+            # Use 4 minutes of time offset for each longitude degree away
+            # from 0.
+            timeShiftMinutes = self.longitudeDegrees * -4.0
+        
+            localizedDt = \
+                localizedDt - datetime.timedelta(minutes=totalMinutesOffset)
+        
         # Open Astrolog with these values.
         self.handleAstrologLaunch(localizedDt, birthInfo)
 
@@ -5689,13 +5846,9 @@ class PriceChartDocumentWidget(QWidget):
         """Sets AstroChart1 with the info in the BirthInfo of this document.
         """
         
-        # Get the timezone for the BirthInfo.
-        tzinfoObj = pytz.timezone(self.birthInfo.timezoneName)
-            
-        # Localize the birth timestamp.
-        utcBirthDt = self.birthInfo.getBirthUtcDatetime()
-        localizedDt = tzinfoObj.normalize(utcBirthDt.astimezone(tzinfoObj))
-            
+        # Get the localized datetime of birth.
+        localizedDt = self.birthInfo.getBirthLocalizedDatetime()
+
         if self.astrologyChartWidgetEnabled:
             # Open AstroChart1 with this value.
             self.astrologyChartWidget.setAstroChart1Datetime(localizedDt)
@@ -5708,13 +5861,9 @@ class PriceChartDocumentWidget(QWidget):
         """Sets AstroChart2 with the info in the BirthInfo of this document.
         """
         
-        # Get the timezone for the BirthInfo.
-        tzinfoObj = pytz.timezone(self.birthInfo.timezoneName)
-        
-        # Localize the birth timestamp.
-        utcBirthDt = self.birthInfo.getBirthUtcDatetime()
-        localizedDt = tzinfoObj.normalize(utcBirthDt.astimezone(tzinfoObj))
-        
+        # Get the localized datetime of birth.
+        localizedDt = self.birthInfo.getBirthLocalizedDatetime()
+
         if self.astrologyChartWidgetEnabled:
             # Open AstroChart2 with this value.
             self.astrologyChartWidget.setAstroChart2Datetime(localizedDt)
@@ -5727,13 +5876,9 @@ class PriceChartDocumentWidget(QWidget):
         """Sets AstroChart3 with the info in the BirthInfo of this document.
         """
         
-        # Get the timezone for the BirthInfo.
-        tzinfoObj = pytz.timezone(self.birthInfo.timezoneName)
-            
-        # Localize the birth timestamp.
-        utcBirthDt = self.birthInfo.getBirthUtcDatetime()
-        localizedDt = tzinfoObj.normalize(utcBirthDt.astimezone(tzinfoObj))
-            
+        # Get the localized datetime of birth.
+        localizedDt = self.birthInfo.getBirthLocalizedDatetime()
+
         if self.astrologyChartWidgetEnabled:
             # Open AstroChart3 with this value.
             self.astrologyChartWidget.setAstroChart3Datetime(localizedDt)

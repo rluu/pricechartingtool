@@ -49025,13 +49025,13 @@ if __name__=="__main__":
     #testPriceChartDocumentLocationTimezoneWizardPage()
     #testLocationTimezoneEditWidget()
     #testBirthInfoEditWidget()
-    #testBirthInfoEditDialog()
+    testBirthInfoEditDialog()
     #testPriceChartDocumentWizard()
     #testPriceBarChartScalingsListEditDialog()
     #testTimestampEditDialog()
     #testPriceBarTagEditDialog()
     #testPriceBarEditDialog()
-    testPriceBarsCompareDialog()
+    #testPriceBarsCompareDialog()
 
     # Exit the app when all windows are closed.
     app.connect(app, SIGNAL("lastWindowClosed()"), logging.shutdown)

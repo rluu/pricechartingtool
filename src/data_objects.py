@@ -421,12 +421,17 @@ class BirthInfo:
             # Set the datetime.datetime to the return value.
             datetimeObj = localizedDatetimeObj
 
+            self.log.debug("datetimeObj == {}".\
+                           format(Ephemeris.datetimeToStr(datetimeObj)))
+            
         elif self.timeOffsetManualEntryRadioButtonState == True:
             self.log.debug("timeOffsetManualEntryRadioButtonState == True")
             
             # Localize the datetime.datetime as UTC.
             utcDatetimeObj = pytz.utc.localize(nativeDatetimeObj)
-
+            self.log.debug("utcDatetimeObj == {}".\
+                           format(Ephemeris.datetimeToStr(utcDatetimeObj)))
+            
             # Add the offset.  We can do this type of arithmetic
             # because the datetime.datetime is now in UTC and there
             # are no daylight savings shifts to worry about.
@@ -437,8 +442,12 @@ class BirthInfo:
             if self.timezoneManualEntryEastWestComboBoxValue == 'E':
                 numSeconds *= -1
 
+            self.log.debug("numSeconds == {}".format(numSeconds))
+            
             datetimeObj = \
                 utcDatetimeObj + datetime.timedelta(seconds=numSeconds)
+            self.log.debug("datetimeObj == {}".\
+                           format(Ephemeris.datetimeToStr(datetimeObj)))
             
         elif self.timeOffsetLMTRadioButtonState == True:
             self.log.debug("timeOffsetLMTRadioButtonState == True")
@@ -456,7 +465,9 @@ class BirthInfo:
 
             # Localize the datetime.datetime as UTC.
             utcDatetimeObj = pytz.utc.localize(nativeDatetimeObj)
-
+            self.log.debug("utcDatetimeObj == {}".\
+                           format(Ephemeris.datetimeToStr(utcDatetimeObj)))
+            
             # Use 4 minutes of time offset for each longitude degree away
             # from 0.
             timeShiftMinutes = self.longitudeDegrees * -4.0
@@ -464,6 +475,8 @@ class BirthInfo:
             # Add the time delta and use that as the datetime.
             datetimeObj = \
                 utcDatetimeObj + datetime.timedelta(minutes=timeShiftMinutes)
+            self.log.debug("datetimeObj == {}".\
+                           format(Ephemeris.datetimeToStr(datetimeObj)))
         else:
             # Log an error.  This should never happen since we checked
             # the inputs in __init__().

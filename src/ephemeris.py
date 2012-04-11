@@ -382,7 +382,35 @@ class Ephemeris:
 
             Ephemeris.log.debug("Exiting setGeographicPosition()")
 
+    @staticmethod
+    def getUtcOffsetForStandardTime(timezoneObj):
+        """Utility function for getting the utcoffset of the standard
+        time of a given pytz.timezone object.
+        
+        Returns:
+        datetime.timedelta object holding what would be the timezone
+        offset for standard time.
+        """
 
+        rv = None
+        
+        if timezoneObj == None:
+            self.log.error("timezoneObj cannot be None.")
+            return None
+
+        # TODO: Figure out how to get the standard time offset for a given timezone.
+        
+        # HACK: Here as a workaround since I don't know how to do
+        # this; I am just taking the UTC offset on Christmas, since it
+        # is shortest day of the year for the northern hemisphere.  I
+        # am hoping that all the timezones that I care about uses standard
+        # time on that date.
+        nativeDt = datetime.datetime(2001, 12, 25, 0, 0, tzinfo=None)
+        localizedDt = timezoneObj.localize(nativeDt)
+        rv = localizedDt.utcoffset()
+        
+        return rv
+        
     @staticmethod
     def datetimeToJulianDay(dt):
         """Utility function for converting a datetime.datetime object 
