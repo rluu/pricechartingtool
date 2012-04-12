@@ -29397,7 +29397,7 @@ class PriceBarChartScalingsListEditDialog(QDialog):
 
         # Create the contents.
         self.priceBarChartScalingsListEditWidget = \
-            PriceBarChartScalingsListEditWidget(priceBarChartScalings,
+            PriceBarChartScalingsListEditWidget(list(priceBarChartScalings),
                                                 priceBarChartScalingsIndex)
 
         # Setup the layout.
@@ -48077,8 +48077,8 @@ class PriceBarTagEditDialog(QDialog):
 
         self.setWindowTitle("PriceBar Tags")
 
-        # Save a reference to the PriceBarChartScaling object.
-        self.tags = tags
+        # Save a reference to the tags.
+        self.tags = list(tags)
 
         # Create the contents.
         self.editWidget = PriceBarTagEditWidget(self.tags)
@@ -48530,10 +48530,10 @@ class PriceBarsCompareDialog(QDialog):
         
         self.setWindowTitle("PriceBars Comparison")
 
-        # Save references to each of the PriceBar lists.
-        self.priceBarsOrig = priceBarsOrig
-        self.priceBarsNew = priceBarsNew
-
+        # Save each of the PriceBar lists.
+        self.priceBarsOrig = list(priceBarsOrig)
+        self.priceBarsNew = list(priceBarsNew)
+        
         # Index where the two PriceBar lists start to deviate.  This
         # value is calculated and set with
         # self.getIndexOfDifference(), and is only valid if the two

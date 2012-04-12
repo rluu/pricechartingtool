@@ -5093,8 +5093,8 @@ class PlanetaryInfoTableWidget(QTableWidget):
         super().__init__(parent)
         self.setContextMenuPolicy(Qt.DefaultContextMenu)
 
-        self.planetaryInfos = planetaryInfos
-
+        self.planetaryInfos = list(planetaryInfos)
+        
         self.log = logging.getLogger("widgets.PlanetaryInfoTableWidget")
 
         # Set the font so that it is mono-spaced.
@@ -6336,7 +6336,7 @@ class PlanetaryInfoTableGraphicsItem(QGraphicsProxyWidget):
 
         # Create the internal widget object.
         self.planetaryInfoTableWidget = \
-            PlanetaryInfoTableWidget(planetaryInfos)
+            PlanetaryInfoTableWidget(list(planetaryInfos))
 
         # Set the widget for this proxy widget item.
         self.setWidget(self.planetaryInfoTableWidget)
