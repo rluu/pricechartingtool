@@ -645,7 +645,7 @@ class PriceBar:
         - oi is the open interest for the PriceBar, as a float
         - vol is the volume of trade for the PriceBar, as a float
         - timestamp is a datetime.datetime object
-        - tags is a list of strings.
+        - tags is a list of str.
         """
 
         self.log = logging.getLogger("data_objects.PriceBar")
@@ -660,7 +660,7 @@ class PriceBar:
         self.close = close
         self.oi = oi
         self.vol = vol
-        self.tags = tags
+        self.tags = list(tags)
 
         # Do a bit of error checking.
         if high != None and low != None:

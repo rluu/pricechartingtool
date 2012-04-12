@@ -1075,7 +1075,7 @@ if options.outputFile == None:
           "--output-file option.")
     shutdown(1)
 else:
-    outputFile = options.outputFile
+    outputFile = os.path.abspath(options.outputFile)
 
         
 ##############################################################################

@@ -421,7 +421,7 @@ if options.outputFile == None:
           "--output-file option.")
     shutdown(1)
 else:
-    outputFile = options.outputFile
+    outputFile = os.path.abspath(options.outputFile)
 
 if options.earliestTwoDigitYear != None:
     if not (0 <= options.earliestTwoDigitYear < 100):
