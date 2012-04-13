@@ -58,6 +58,8 @@ from ephemeris import Ephemeris
 from data_objects import *
 from pricebarchart import PriceBarChartGraphicsScene
 
+from swing import SwingFileData
+
 ##############################################################################
 # Global Variables
 ##############################################################################
@@ -69,7 +71,7 @@ VERSION = "0.1"
 # This value is specified via command-line option.
 pcdFile = ""
 
-# Flag that indicates that the output should be to stdout instead of to a file.
+# Flag that indicates that we should output to stdout.
 # This value is specified via command-line option.
 printFlag = False
 
@@ -181,80 +183,6 @@ def unpicklePriceChartDocumentDataFromFile(filename):
     
     return rv
 
-class SwingFileData(object):
-    """Contains information about a set of swing pivots for a certain
-    trading entity.
-    """
-    
-    def __init__(self):
-        # Description of the trading entity, extracted from the PCD file.
-        self.tradingEntityDescription = ""
-
-        # Text describing the parameters used in extracting the swing
-        # pivots.  This includes time range the pivots were extracted
-        # from, as well as what constitutes a short-term high versus a
-        # intermediate-term high, etc.
-        self.swingFileDescription = ""
-        
-        # Filename that holds the source PCD file the data was extracted from.
-        # This is blank if a PCD file was not used to derive the data.
-        self.sourcePcdFilename = ""
-        
-        # Filename that holds the original source of the pricebar data.
-        # Usually this is a CSV text file.
-        self.sourcePriceBarDataFilename = ""
-
-        # BirthInfo object for natal birth information.
-        self.birthInfo = BirthInfo()
-        
-        # List of PriceBar objects that represent the swings, sorted
-        # by timestamp.  This pricebars have their tags set according
-        # to certains strings, according to whether the PriceBar is a
-        # high or a low.  For example:
-        # H, HH, HHH, L, LL, LLL, etc.
-        #
-        self.priceBars = []
-        
-        # Configuration for the timezone used.  
-        # This is the pytz.timezone object that is a subclass of 
-        # datetime.tzinfo.
-        self.locationTimezone = pytz.utc
-        
-        # Notes text extracted from the source PCD file.
-        self.userNotes = ""
-
-    def loadPriceChartDocumentData(self, pcdFile, pcdd):
-        """Extracts the relevant data we care about from the given
-        PriceChartDocumentData file.
-
-        Arguments:
-        pcdFile - str object holding the path to the PCD file.
-        pcdd    - PriceChartDocumentData object from which to
-                  extract information from for our data fields.
-        """
-        
-        self.tradingEntityDescription = pcdd.description
-        self.swingFileDescription = "PriceBars have not been tagged."
-        self.sourcePcdFilename = pcdFile
-        self.sourcePriceBarDataFilename = pcdd.priceBarsFileFilename
-        self.birthInfo = pcdd.birthInfo
-        self.priceBars = pcdd.priceBars
-        self.locationTimezone = pcdd.locationTimezone
-        self.userNotes = pcdd.userNotes
-        
-    def toString(self):
-        """Returns the string representation of this object."""
-
-        rv = Util.objToString(self)
-        return rv
-        
-    def __str__(self):
-        """Returns the string representation of most of the attributes in this
-        PriceChartDocumentData object.
-        """
-        
-        return self.toString()
-    
 def processSwingFileData(swingFileData):
     """Processes the given SwingFileData.
     
@@ -604,141 +532,148 @@ def processSwingFileData(swingFileData):
 
 ##############################################################################
 
-# Create the parser
-parser = OptionParser()
-
-# Specify all valid options.
-parser.add_option("-v", "--version",
-                  action="store_true",
-                  dest="version",
-                  default=False,
-                  help="Display script version info and author contact.")
-
-parser.add_option("--pcd-file",
-                  action="store",
-                  type="str",
-                  dest="pcdFile",
-                  default=None,
-                  help="Specify the PriceChartDocument (.pcd) file " + \
-                       "to modify.",
-                  metavar="<FILE>")
-
-parser.add_option("--print",
-                  action="store_true",
-                  dest="printFlag",
-                  default=False,
-                  help="Print the swing file's contents.")
-
-parser.add_option("--output-file",
-                  action="store",
-                  type="str",
-                  dest="outputFile",
-                  default=None,
-                  help="Specify an output filename for the swing file.  " + \
-                       "The swing file data is pickled to this file.",
-                  metavar="<FILE>")
-
-# Parse the arguments into options.
-(options, args) = parser.parse_args()
-
-# Print version information if the flag was used.
-if (options.version == True):
-    print(os.path.basename(sys.argv[0]) + " (Version " + VERSION + ")")
-    print("By Ryan Luu, ryanluu@gmail.com")
+def main():
+    # Create the parser
+    parser = OptionParser()
+    
+    # Specify all valid options.
+    parser.add_option("-v", "--version",
+                      action="store_true",
+                      dest="version",
+                      default=False,
+                      help="Display script version info and author contact.")
+    
+    parser.add_option("--pcd-file",
+                      action="store",
+                      type="str",
+                      dest="pcdFile",
+                      default=None,
+                      help="Specify the PriceChartDocument (.pcd) file " + \
+                           "to modify.",
+                      metavar="<FILE>")
+    
+    parser.add_option("--print",
+                      action="store_true",
+                      dest="printFlag",
+                      default=False,
+                      help="Print the swing file's contents.")
+    
+    parser.add_option("--output-file",
+                      action="store",
+                      type="str",
+                      dest="outputFile",
+                      default=None,
+                      help="Specify an output filename for the swing file." + \
+                           "  The swing file data is pickled to this file.",
+                      metavar="<FILE>")
+    
+    # Parse the arguments into options.
+    (options, args) = parser.parse_args()
+    
+    # Print version information if the flag was used.
+    if (options.version == True):
+        print(os.path.basename(sys.argv[0]) + " (Version " + VERSION + ")")
+        print("By Ryan Luu, ryanluu@gmail.com")
+        shutdown(0)
+    
+    # Get the pcd filename.
+    if (options.pcdFile == None):
+        log.error("Please specify a PriceChartDocument (.pcd) file with " +
+                  "the --pcd-file option.")
+        shutdown(1)
+    else:
+        log.debug("options.pcdFile == {}".format(options.pcdFile))
+        pcdFile = os.path.abspath(options.pcdFile)
+        log.debug("pcdFile == {}".format(pcdFile))
+    
+    # Get the print flag.
+    printFlag = options.printFlag
+    log.debug("printFlag == {}".format(printFlag))
+    
+    # Get the output filename.
+    if (options.outputFile != None):
+        log.debug("options.outputFile == {}".format(options.outputFile))
+        outputFile = os.path.abspath(options.outputFile)
+    else:
+        log.debug("outputFile was not specified.")
+    
+    # Check to make sure either --print or --pcd-file was specified.
+    if outputFile == "" and printFlag == False:
+        log.error("Please specify either the --print option or " +
+                  "the --pcd-file option.")
+        shutdown(1)
+    
+    ######################################
+    
+    # Initialize Ephemeris (required).
+    Ephemeris.initialize()
+    
+    # Set application details so the we can use QSettings default
+    # constructor later.
+    appAuthor = "Ryan Luu"
+    appName = "PriceChartingTool"
+    QCoreApplication.setOrganizationName(appAuthor)
+    QCoreApplication.setApplicationName(appName)
+    
+    # Create the Qt application.
+    app = QApplication(sys.argv)
+    app.setApplicationName(appName)
+    
+    # Open the PriceChartDocument file.
+    log.info("Loading PriceChartDocument '{}' ...".format(pcdFile))
+    priceChartDocumentData = unpicklePriceChartDocumentDataFromFile(pcdFile)
+    if priceChartDocumentData == None:
+        # Retrieval failed.  An error message should have been logged.
+        shutdown(1)
+    
+    log.info("Creating a new SwingFileData object ...")
+             
+    # Create SwingFileData object.
+    swingFileData = SwingFileData()
+    
+    log.info("Extracting data from PriceChartDocumentData ...")
+             
+    # Load the PriceChartDocumentData into it.
+    swingFileData.loadPriceChartDocumentData(pcdFile, priceChartDocumentData)
+    
+    log.info("Processing SwingFileData object for highs and lows ...")
+             
+    # Process the PriceBars in the SwingFileData object, tagging the
+    # highs and lows.
+    processSwingFileData(swingFileData)
+    
+    log.info("Processing complete.")
+    
+    # Print the contents if the print flag is set.
+    if printFlag == True:
+        log.info("Printing SwingFileData ...")
+        print("Python object toString() output: " + os.linesep)
+        print(swingFileData.toString())
+    
+    # Write to file.
+    if outputFile != "":
+        log.info("Writing to output file '{}' ...".format(outputFile))
+        with open(outputFile, "wb") as f:
+            try:
+                pickle.dump(swingFileData, f)
+                log.info("File successfully written.")
+            except pickle.PickleError as pe:
+                log.error("Error while pickling a " +
+                          "SwingFileData object to file " + 
+                          outputFile + 
+                          ".  Error is: {}".format(pe) +
+                          ".  SwingFileData object " + 
+                          "has the following info: " + 
+                          swingFileData.toString())
+                shutdown(1)
+    
+    # Execution completed.
+    log.info("Done.")
     shutdown(0)
 
-# Get the pcd filename.
-if (options.pcdFile == None):
-    log.error("Please specify a PriceChartDocument (.pcd) file with " +
-              "the --pcd-file option.")
-    shutdown(1)
-else:
-    log.debug("options.pcdFile == {}".format(options.pcdFile))
-    pcdFile = os.path.abspath(options.pcdFile)
-    log.debug("pcdFile == {}".format(pcdFile))
-
-# Get the print flag.
-printFlag = options.printFlag
-log.debug("printFlag == {}".format(printFlag))
-
-# Get the output filename.
-if (options.outputFile != None):
-    log.debug("options.outputFile == {}".format(options.outputFile))
-    outputFile = os.path.abspath(options.outputFile)
-else:
-    log.debug("outputFile was not specified.")
-
-# Check to make sure either --print or --pcd-file was specified.
-if outputFile == "" and printFlag == False:
-    log.error("Please specify either the --print option or " +
-              "the --pcd-file option.")
-    shutdown(1)
-
+##############################################################################
+    
+if __name__ == "__main__":
+    main()
 
 ##############################################################################
-
-# Initialize Ephemeris (required).
-Ephemeris.initialize()
-
-# Set application details so the we can use QSettings default
-# constructor later.
-appAuthor = "Ryan Luu"
-appName = "PriceChartingTool"
-QCoreApplication.setOrganizationName(appAuthor)
-QCoreApplication.setApplicationName(appName)
-
-# Create the Qt application.
-app = QApplication(sys.argv)
-app.setApplicationName(appName)
-
-# Open the PriceChartDocument file.
-log.info("Loading PriceChartDocument '{}' ...".format(pcdFile))
-priceChartDocumentData = unpicklePriceChartDocumentDataFromFile(pcdFile)
-if priceChartDocumentData == None:
-    # Retrieval failed.  An error message should have been logged.
-    shutdown(1)
-
-log.info("Creating a new SwingFileData object ...")
-         
-# Create SwingFileData object.
-swingFileData = SwingFileData()
-
-log.info("Extracting data from PriceChartDocumentData ...")
-         
-# Load the PriceChartDocumentData into it.
-swingFileData.loadPriceChartDocumentData(pcdFile, priceChartDocumentData)
-
-log.info("Processing SwingFileData object for highs and lows ...")
-         
-# Process the PriceBars in the SwingFileData object, tagging the highs and lows.
-processSwingFileData(swingFileData)
-
-log.info("Processing complete.")
-
-# Print the contents if the print flag is set.
-if printFlag == True:
-    log.info("Printing SwingFileData ...")
-    print("Python object toString() output: " + os.linesep)
-    print(swingFileData.toString())
-
-# Write to file.
-if outputFile != "":
-    log.info("Writing to output file '{}' ...".format(outputFile))
-    with open(outputFile, "wb") as f:
-        try:
-            pickle.dump(swingFileData, f)
-            log.info("File successfully written.")
-        except pickle.PickleError as pe:
-            log.error("Error while pickling a " +
-                      "SwingFileData object to file " + 
-                      outputFile + 
-                      ".  Error is: {}".format(pe) +
-                      ".  SwingFileData object " + 
-                      "has the following info: " + 
-                      swingFileData.toString())
-            shutdown(1)
-
-# Execution completed.
-log.info("Done.")
-shutdown(0)
-
