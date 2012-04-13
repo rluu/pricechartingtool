@@ -6068,7 +6068,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
         if value != None:
             valueStr = \
                 AstrologyUtils.\
-                convertLongitudeToNakshatraAbbrev(longitude)
+                convertLongitudeToNakshatraAbbrev(value)
         self._setItemAndToolTip(row, col, valueStr)
         col += 1
 
