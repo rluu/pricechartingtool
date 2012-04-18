@@ -13,9 +13,9 @@
 #   in the source code below.
 #
 # Dependencies:
-#   src/ephemeris.py
-#   src/data_objects.py
 #   src/astrologychart.py
+#   src/data_objects.py
+#   src/ephemeris.py
 #
 # Usage:
 # 
@@ -91,6 +91,44 @@ def shutdown(rc):
     Ephemeris.closeEphemeris()
     logging.shutdown()
     sys.exit(rc)
+
+def picklePriceChartDocumentDataToFile(pcdd, filename):
+    """Pickles the given PriceChartDocumentData object to the given
+    filename.
+
+    Arguments:
+    pcdd     - PriceChartDocumentData object to save.
+    filename - str holding the full path of the PriceChartDocument (.pcd) file.
+    
+    Returns:
+    True if the write operation succeeded without problems, False otherwise.
+    """
+
+    log.debug("Entered picklePriceChartDocumentDataToFile()")
+
+    # Return value.
+    rv = True
+
+    priceChartDocumentData = pcdd
+
+    # Pickle to file.
+    with open(filename, "wb") as fh:
+        try:
+            pickle.dump(priceChartDocumentData, fh) 
+            rv = True
+        except pickle.PickleError as pe:
+            log.error("Error while pickling a " +
+                      "PriceChartDocumentData to file " + 
+                      filename + 
+                      ".  Error is: {}".format(pe) +
+                      ".  PriceChartDocumentData object " + 
+                      "has the following info: " + 
+                      priceChartDocumentData.toString())
+            rv = False
+
+    log.debug("Exiting picklePriceChartDocumentDataToFile(), " + \
+              "rv == {}".format(rv))
+    return rv
 
 def unpickleSwingFileDataFromFile(filename):
     """Un-Pickles a SwingFileData object from file.
