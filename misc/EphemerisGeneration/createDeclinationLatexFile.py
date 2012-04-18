@@ -334,7 +334,7 @@ parser.add_option("--end-timestamp",
                   default=None,
                   help=\
                   "Specify ending year and month of the data.  " + \
-                  "Format of this string is 'YYYYMMDD'.",
+                  "Format of this string is 'YYYYMM'.",
                   metavar="<TIMESTAMP>")
 
 parser.add_option("--output-file",
