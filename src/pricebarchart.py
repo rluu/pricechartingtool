@@ -39623,7 +39623,7 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         """Pass-through to the QGraphicsScene constructor."""
 
         super().__init__(parent)
-
+        
         # Logger
         self.log = logging.getLogger("pricebarchart.PriceBarChartGraphicsScene")
 

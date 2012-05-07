@@ -1195,7 +1195,7 @@ class AstrologyUtils:
 
         # Return value.
         rv = None
-        
+
         if planetName == "H1":
             rv = settings.value(SettingsKeys.planetH1ForegroundColorKey,
                                 SettingsKeys.planetH1ForegroundColorDefValue,\
@@ -1412,7 +1412,7 @@ class AstrologyUtils:
             rv = QColor(Qt.black)
             AstrologyUtils.log.warn(\
                 "Could not find foreground color for planet: " + \
-                planetName + ".  Using default value " + str(rv))
+                planetName + ".  Using default value " + str(rv.name()))
 
         return rv
 
