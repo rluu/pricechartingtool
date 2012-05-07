@@ -4,19 +4,14 @@
 #
 # Description:
 
-#   This script takes the following fields related to PriceBars and
-#   copies it from the input PriceChartDocument (.pcd) file to the
-#   output PriceChartDocument (.pcd) file, overwriting values.
+#   This script takes two input PriceChartDocument (.pcd) files and
+#   generates a third PriceChartDocument (.pcd) file from those two.
 #
-#   The PriceChartDocumentData object fields that will be copied are:
-#     self.priceBars
-#     self.locationTimezone
-#     self.priceBarsFileFilename
-#     self.priceBarsFileNumLinesToSkip
-# 
-#   Both the input and output PriceChartDocument files specified must
-#   be existing files.
+#   From the first input file, all fields are copied.
+#   From the second input file, all the tagged artifacts are copied.
 #
+#   Those values are all put together in a 3rd output file.
+#   
 # Dependencies:
 #   src/ephemeris.py
 #   src/data_objects.py
@@ -26,7 +21,8 @@
 #   ./copyPriceBars.py --help
 #   ./copyPriceBars.py --version
 #
-#   ./copyPriceBars.py --input-file=/tmp/input.pcd \
+#   ./copyPriceBars.py --template-input-file=/tmp/input1.pcd \
+#                      --artifact-input-file=/tmp/input2.pcd \
 #                      --output-file=/tmp/output.pcd
 #
 ##############################################################################
@@ -64,9 +60,14 @@ from pricebarchart import PriceBarChartGraphicsScene
 # Version string.
 VERSION = "0.1"
 
-# PriceChartDocument (.pcd) file that we are reading from.
+# PriceChartDocument (.pcd) file that we are reading from for the template.
 # This value is specified via command-line option.
-inputPcdFile = ""
+inputTemplatePcdFile = ""
+
+# PriceChartDocument (.pcd) file that we are reading from for the
+# additional tagged artifacts.
+# This value is specified via command-line option.
+inputArtifactPcdFile = ""
 
 # PriceChartDocument (.pcd) file that we are writing to.
 # This value is specified via command-line option.
@@ -189,13 +190,22 @@ parser.add_option("-v", "--version",
                   default=False,
                   help="Display script version info and author contact.")
     
-parser.add_option("--input-file",
+parser.add_option("--template-input-file",
                   action="store",
                   type="str",
-                  dest="inputPcdFile",
+                  dest="inputTemplatePcdFile",
                   default=None,
                   help="Specify the PriceChartDocument (.pcd) file " + \
-                       "to read PriceBars from.",
+                       "to read from as a template.",
+                  metavar="<FILE>")
+
+parser.add_option("--artifact-input-file",
+                  action="store",
+                  type="str",
+                  dest="inputArtifactPcdFile",
+                  default=None,
+                  help="Specify the PriceChartDocument (.pcd) file " + \
+                       "to read from for tagged artifacts to append.",
                   metavar="<FILE>")
 
 parser.add_option("--output-file",
@@ -204,7 +214,7 @@ parser.add_option("--output-file",
                   dest="outputPcdFile",
                   default=None,
                   help="Specify the PriceChartDocument (.pcd) file " + \
-                       "to write PriceBars to.",
+                       "that is the output file.",
                   metavar="<FILE>")
 
 # Parse the arguments into options.
@@ -216,20 +226,42 @@ if (options.version == True):
     print("By Ryan Luu, ryanluu@gmail.com")
     shutdown(0)
 
-# Get the input pcd filename.
-if (options.inputPcdFile == None):
+# Get the inputTemplatePcdFile.
+if (options.inputTemplatePcdFile == None):
     log.error("Please specify a PriceChartDocument (.pcd) file with " +
-              "the --input-file option.")
+              "the --template-input-file option.")
     shutdown(1)
 else:
-    log.debug("options.inputPcdFile == {}".format(options.inputPcdFile))
-    inputPcdFile = os.path.abspath(options.inputPcdFile)
-    log.debug("inputPcdFile == {}".format(inputPcdFile))
+    log.debug("options.inputTemplatePcdFile == {}".\
+              format(options.inputTemplatePcdFile))
+    inputTemplatePcdFile = os.path.abspath(options.inputTemplatePcdFile)
+    log.debug("inputTemplatePcdFile == {}".format(inputTemplatePcdFile))
 
-    if os.path.exists(inputPcdFile) and os.path.isfile(inputPcdFile):
-        log.debug("The inputPcdFile path exists, and it is a file.")
+    if os.path.exists(inputTemplatePcdFile) and \
+           os.path.isfile(inputTemplatePcdFile):
+        log.debug("The inputTemplatePcdFile path exists, and it is a file.")
     else:
-        log.error("The input PCD file either does not exist or is not a file.")
+        log.error("The inputTemplatePcdFile either does not exist or " + \
+                  "is not a file.")
+        shutdown(1)
+        
+# Get the inputArtifactPcdFile.
+if (options.inputArtifactPcdFile == None):
+    log.error("Please specify a PriceChartDocument (.pcd) file with " +
+              "the --artifact-input-file option.")
+    shutdown(1)
+else:
+    log.debug("options.inputArtifactPcdFile == {}".\
+              format(options.inputArtifactPcdFile))
+    inputArtifactPcdFile = os.path.abspath(options.inputArtifactPcdFile)
+    log.debug("inputArtifactPcdFile == {}".format(inputArtifactPcdFile))
+
+    if os.path.exists(inputArtifactPcdFile) and \
+           os.path.isfile(inputArtifactPcdFile):
+        log.debug("The inputArtifactPcdFile path exists, and it is a file.")
+    else:
+        log.error("The inputArtifactPcdFile either does not exist or " + \
+                  "is not a file.")
         shutdown(1)
         
 # Get the output pcd filename.
@@ -264,28 +296,32 @@ QCoreApplication.setApplicationName(appName)
 app = QApplication(sys.argv)
 app.setApplicationName(appName)
 
-# Open the input PriceChartDocument file.
-log.info("Loading input  PriceChartDocument '{}' ...".format(inputPcdFile))
-inputPcdd = unpicklePriceChartDocumentDataFromFile(inputPcdFile)
-if inputPcdd == None:
+# Open the input PriceChartDocument files.
+log.info("Loading input template PriceChartDocument '{}' ...".\
+         format(inputTemplatePcdFile))
+inputTemplatePcdd = \
+    unpicklePriceChartDocumentDataFromFile(inputTemplatePcdFile)
+if inputTemplatePcdd == None:
     # Retrieval failed.  An error message should have been logged.
     shutdown(1)
-
-# Open the output PriceChartDocument file.
-log.info("Loading output PriceChartDocument '{}' ...".format(outputPcdFile))
-outputPcdd = unpicklePriceChartDocumentDataFromFile(outputPcdFile)
-if outputPcdd == None:
+    
+log.info("Loading input artifact  PriceChartDocument '{}' ...".\
+         format(inputArtifactPcdFile))
+inputArtifactPcdd = \
+    unpicklePriceChartDocumentDataFromFile(inputArtifactPcdFile)
+if inputArtifactPcdd == None:
     # Retrieval failed.  An error message should have been logged.
     shutdown(1)
 
 # Change the fields of outputPcdd.
-outputPcdd.priceBars = inputPcdd.priceBars
-outputPcdd.locationTimezone = inputPcdd.locationTimezone
-outputPcdd.priceBarsFileFilename = inputPcdd.priceBarsFileFilename
-outputPcdd.priceBarsFileNumLinesToSkip = inputPcdd.priceBarsFileNumLinesToSkip
+outputPcdd = inputTemplatePcdd
+for artifact in inputArtifactPcdd.priceBarChartArtifacts:
+    # Append any artifacts non-empty tags.
+    if len(artifact.getTags()) > 0:
+        outputPcdd.priceBarChartArtifacts.append(artifact)
 
 # Write to the output file.
-log.info("Saving  output PriceChartDocument '{}' ...".format(outputPcdFile))
+log.info("Writing to output PriceChartDocument '{}' ...".format(outputPcdFile))
 success = picklePriceChartDocumentDataToFile(outputPcdd, outputPcdFile)
 
 if success == True:

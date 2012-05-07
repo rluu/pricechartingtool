@@ -41,7 +41,8 @@ from astrologychart import AstrologyUtils
 
 # For logging.
 #logLevel = logging.DEBUG
-logLevel = logging.INFO
+#logLevel = logging.INFO
+logLevel = logging.ERROR
 logging.basicConfig(format='%(levelname)s: %(message)s')
 moduleName = globals()['__name__']
 log = logging.getLogger(moduleName)
@@ -56,7 +57,7 @@ class PlanetaryCombinationsLibrary:
     """
 
     scene = PriceBarChartGraphicsScene()
-
+    
     @staticmethod
     def addHorizontalLine(pcdd, startDt, endDt, price, tag, color):
         """Adds a horizontal line at the given price, from startDt to
@@ -7051,7 +7052,6 @@ class PlanetaryCombinationsLibrary:
                 
         log.debug("Exiting " + inspect.stack()[0][3] + "()")
         return rv
-
         
     @staticmethod
     def addPlanetOOBVerticalLines(\
@@ -8391,14 +8391,16 @@ class PlanetaryCombinationsLibrary:
         
         if len(planet1ParamsList) > 1:
             tag += "Avg("
-        for t in planet1ParamsList:
+        for i in range(len(planet1ParamsList)):
+            t = planet1ParamsList[i]
+            
             planetName = t[0]
             centricityType = t[1]
             longitudeType = t[2]
         
             # If it's not the first planet in the list, add an
             # underscore to separate the planets.
-            if tag[-1] != "(":
+            if i != 0:
                 tag += "_"
             
             if centricityType.startswith("geo"):
@@ -8422,14 +8424,16 @@ class PlanetaryCombinationsLibrary:
 
         if len(planet2ParamsList) > 1:
             tag += "Avg("
-        for t in planet2ParamsList:
+        for i in range(len(planet2ParamsList)):
+            t = planet2ParamsList[i]
+            
             planetName = t[0]
             centricityType = t[1]
             longitudeType = t[2]
             
             # If it's not the first planet in the list, add an
             # underscore to separate the planets.
-            if tag[-1] != "(":
+            if i != 0:
                 tag += "_"
             
             if centricityType.startswith("geo"):
@@ -8567,10 +8571,6 @@ class PlanetaryCombinationsLibrary:
         if endDt < startDt:
             log.error("Invalid input: 'endDt' must be after 'startDt'")
             return None
-        if lowPrice > highPrice:
-            log.error("Invalid input: " +
-                      "'lowPrice' is not less than or equal to 'highPrice'")
-            return None
 
         # Check to make sure planet lists were given.
         if len(planet1ParamsList) == 0:
@@ -8579,6 +8579,11 @@ class PlanetaryCombinationsLibrary:
         if len(planet2ParamsList) == 0:
             log.error("planet2ParamsList must contain at least 1 tuple.")
             return None
+
+        log.debug("planet1ParamsList passed in is: {}".\
+                  format(planet1ParamsList))
+        log.debug("planet2ParamsList passed in is: {}".\
+                  format(planet2ParamsList))
         
         # Check for valid inputs in each of the planet parameter lists.
         for planetTuple in planet1ParamsList + planet2ParamsList:
@@ -8628,17 +8633,32 @@ class PlanetaryCombinationsLibrary:
                 
                 # House cusps and ascmc planets need a smaller step size.
                 stepSizeTd = datetime.timedelta(hours=1)
+            elif planetName == "Moon":
+                # Use a smaller step size for the moon so we can catch
+                # smaller aspect sizes.
+                stepSizeTd = datetime.timedelta(hours=3)
         
         log.debug("Step size is: {}".format(stepSizeTd))
         
         # Desired angles.  We need to check for planets at these angles.
+        desiredAngleDegList = []
+
         desiredAngleDeg1 = Util.toNormalizedAngle(degreeDifference)
-        desiredAngleDeg2 = None
+        desiredAngleDegList.append(desiredAngleDeg1)
+        if Util.fuzzyIsEqual(desiredAngleDeg1, 0):
+            desiredAngleDegList.append(360)
+        
         if uniDirectionalAspectsFlag == False:
             desiredAngleDeg2 = \
                 360 - Util.toNormalizedAngle(degreeDifference)
-        log.debug("desiredAngleDeg1 is: {}".format(desiredAngleDeg1))
-        log.debug("desiredAngleDeg2 is: {}".format(desiredAngleDeg2))
+            if desiredAngleDeg2 not in desiredAngleDegList:
+                desiredAngleDegList.append(desiredAngleDeg2)
+
+        # Debug output.
+        anglesStr = ""
+        for angle in desiredAngleDegList:
+            anglesStr += "{} ".format(angle)
+        log.debug("Angles in desiredAngleDegList: " + anglesStr)
 
         # Iterate through, appending to aspectTimestamps list as we go.
         steps = []
@@ -8658,16 +8678,23 @@ class PlanetaryCombinationsLibrary:
             planetParamsList and returns the value of the field
             desired.
             """
-
+        
+            log.debug("planetParamsList passed in is: {}".\
+                      format(planetParamsList))
+        
             unAveragedFieldValues = []
             
             for t in planetParamsList:
-                planetName = planetTuple[0]
-                centricityType = planetTuple[1]
-                longitudeType = planetTuple[2]
+                planetName = t[0]
+                centricityType = t[1]
+                longitudeType = t[2]
                 
                 pi = Ephemeris.getPlanetaryInfo(planetName, dt)
-                
+
+                log.debug("Planet {} has geo sid longitude: {}".\
+                          format(planetName,
+                                 pi.geocentric["sidereal"]["longitude"]))
+            
                 fieldValue = None
                 
                 if centricityType.lower() == "geocentric":
@@ -8683,12 +8710,18 @@ class PlanetaryCombinationsLibrary:
 
                 unAveragedFieldValues.append(fieldValue)
 
+            log.debug("unAveragedFieldValues is: {}".\
+                      format(unAveragedFieldValues))
+        
             # Average the field values.
             total = 0.0
             for v in unAveragedFieldValues:
                 total += v
             averagedFieldValue = total / len(unAveragedFieldValues)
             
+            log.debug("averagedFieldValue is: {}".\
+                      format(averagedFieldValue))
+        
             return averagedFieldValue
             
         log.debug("Stepping through timestamps from {} to {} ...".\
@@ -8743,12 +8776,13 @@ class PlanetaryCombinationsLibrary:
                               format(prevDiff))
                     log.debug("After adjustment: currDiff == {}".\
                               format(currDiff))
-                    
-                log.debug("Looking at desiredAngleDeg1: {}".\
-                          format(desiredAngleDeg1))
 
-                if desiredAngleDeg1 != None:
-                    desiredDegree = desiredAngleDeg1
+                for desiredAngleDeg in desiredAngleDegList:
+                    log.debug("Looking at desiredAngleDeg: {}".\
+                              format(desiredAngleDeg))
+                    
+                    desiredDegree = desiredAngleDeg
+                    
                     if prevDiff < desiredDegree and currDiff >= desiredDegree:
                         log.debug("Crossed over {} from below to above!".\
                                   format(desiredDegree))
@@ -8911,181 +8945,6 @@ class PlanetaryCombinationsLibrary:
                                 longitudesP1[-1] = testValueP1
                                 longitudesP2[-1] = testValueP2
                                 
-                            currErrorTd = t2 - t1
-    
-                        # Update our lists.
-                        steps[-1] = currDt
-    
-                        # Store the aspect timestamp.
-                        aspectTimestamps.append(currDt)
-                     
-                log.debug("Looking at desiredAngleDeg2: {}".\
-                          format(desiredAngleDeg2))
-                
-                if desiredAngleDeg2 != None:
-                    desiredDegree = desiredAngleDeg2
-                    if prevDiff < desiredDegree and currDiff >= desiredDegree:
-                        log.debug("Crossed over {} from below to above!".\
-                                  format(desiredDegree))
-    
-                        # This is the upper-bound of the error timedelta.
-                        t1 = prevDt
-                        t2 = currDt
-                        currErrorTd = t2 - t1
-    
-                        # Refine the timestamp until it is less than
-                        # the threshold.
-                        while currErrorTd > maxErrorTd:
-                            log.debug("Refining between {} and {}".\
-                                      format(Ephemeris.datetimeToStr(t1),
-                                             Ephemeris.datetimeToStr(t2)))
-    
-                            # Check the timestamp between.
-                            timeWindowTd = t2 - t1
-                            halfTimeWindowTd = \
-                                datetime.\
-                                timedelta(days=(timeWindowTd.days / 2.0),
-                                    seconds=(timeWindowTd.seconds / 2.0),
-                                    microseconds=\
-                                          (timeWindowTd.microseconds / 2.0))
-                            testDt = t1 + halfTimeWindowTd
-    
-                            testValueP1 = \
-                                Util.toNormalizedAngle(getFieldValue(\
-                                testDt, planet1ParamsList, fieldName))
-                            testValueP2 = \
-                                Util.toNormalizedAngle(getFieldValue(\
-                                testDt, planet2ParamsList, fieldName))
-    
-                            log.debug("testValueP1 == {}".format(testValueP1))
-                            log.debug("testValueP2 == {}".format(testValueP2))
-                            
-                            if longitudesP1[-2] > 240 and testValueP1 < 120:
-                                # Planet 1 hopped over 0 degrees.
-                                testValueP1 += 360
-                            elif longitudesP1[-2] < 120 and testValueP1 > 240:
-                                # Planet 1 hopped over 0 degrees.
-                                testValueP1 -= 360
-                                
-                            if longitudesP2[-2] > 240 and testValueP2 < 120:
-                                # Planet 2 hopped over 0 degrees.
-                                testValueP2 += 360
-                            elif longitudesP2[-2] < 120 and testValueP2 > 240:
-                                # Planet 2 hopped over 0 degrees.
-                                testValueP2 -= 360
-    
-                            testDiff = Util.toNormalizedAngle(\
-                                testValueP1 - testValueP2)
-    
-                            # Handle special cases of degrees 0 and 360.
-                            # Here we adjust testDiff so that it is in the
-                            # expected ranges.
-                            if Util.fuzzyIsEqual(desiredDegree, 0):
-                                if testDiff > 240:
-                                    testDiff -= 360
-                            elif Util.fuzzyIsEqual(desiredDegree, 360):
-                                if testDiff < 120:
-                                    testDiff += 360
-                            
-                            log.debug("testDiff == {}".format(testDiff))
-                            
-                            if testDiff < desiredDegree:
-                                t1 = testDt
-                            else:
-                                t2 = testDt
-    
-                                # Update the curr values.
-                                currDt = t2
-                                currDiff = testDiff
-    
-                                longitudesP1[-1] = testValueP1
-                                longitudesP2[-1] = testValueP2
-                                
-                            currErrorTd = t2 - t1
-    
-                        # Update our lists.
-                        steps[-1] = currDt
-    
-                        # Store the aspect timestamp.
-                        aspectTimestamps.append(currDt)
-    
-                    elif prevDiff > desiredDegree and currDiff <= desiredDegree:
-                        log.debug("Crossed over {} from above to below!".\
-                                  format(desiredDegree))
-    
-                        # This is the upper-bound of the error timedelta.
-                        t1 = prevDt
-                        t2 = currDt
-                        currErrorTd = t2 - t1
-    
-                        # Refine the timestamp until it is less than
-                        # the threshold.
-                        while currErrorTd > maxErrorTd:
-                            log.debug("Refining between {} and {}".\
-                                      format(Ephemeris.datetimeToStr(t1),
-                                             Ephemeris.datetimeToStr(t2)))
-    
-                            # Check the timestamp between.
-                            timeWindowTd = t2 - t1
-                            halfTimeWindowTd = \
-                                datetime.\
-                                timedelta(days=(timeWindowTd.days / 2.0),
-                                    seconds=(timeWindowTd.seconds / 2.0),
-                                    microseconds=\
-                                          (timeWindowTd.microseconds / 2.0))
-                            testDt = t1 + halfTimeWindowTd
-    
-                            testValueP1 = \
-                                Util.toNormalizedAngle(getFieldValue(\
-                                testDt, planet1ParamsList, fieldName))
-                            testValueP2 = \
-                                Util.toNormalizedAngle(getFieldValue(\
-                                testDt, planet2ParamsList, fieldName))
-    
-                            log.debug("testValueP1 == {}".format(testValueP1))
-                            log.debug("testValueP2 == {}".format(testValueP2))
-                            
-                            if longitudesP1[-2] > 240 and testValueP1 < 120:
-                                # Planet 1 hopped over 0 degrees.
-                                testValueP1 += 360
-                            elif longitudesP1[-2] < 120 and testValueP1 > 240:
-                                # Planet 1 hopped over 0 degrees.
-                                testValueP1 -= 360
-                                
-                            if longitudesP2[-2] > 240 and testValueP2 < 120:
-                                # Planet 2 hopped over 0 degrees.
-                                testValueP2 += 360
-                            elif longitudesP2[-2] < 120 and testValueP2 > 240:
-                                # Planet 2 hopped over 0 degrees.
-                                testValueP2 -= 360
-    
-                            testDiff = Util.toNormalizedAngle(\
-                                testValueP1 - testValueP2)
-    
-                            # Handle special cases of degrees 0 and 360.
-                            # Here we adjust testDiff so that it is in the
-                            # expected ranges.
-                            if Util.fuzzyIsEqual(desiredDegree, 0):
-                                if testDiff > 240:
-                                    testDiff -= 360
-                            elif Util.fuzzyIsEqual(desiredDegree, 360):
-                                if testDiff < 120:
-                                    testDiff += 360
-                            
-                            log.debug("testDiff == {}".format(testDiff))
-                            
-                            if testDiff > desiredDegree:
-                                t1 = testDt
-                            else:
-                                t2 = testDt
-    
-                                # Update the curr values.
-                                currDt = t2
-                                currDiff = testDiff
-    
-                                longitudesP1[-1] = testValueP1
-                                longitudesP2[-1] = testValueP2
-    
                             currErrorTd = t2 - t1
     
                         # Update our lists.

@@ -50,12 +50,12 @@ log.setLevel(logLevel)
 #startDt = datetime.datetime(year=1968, month=1, day=1,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
-#startDt = datetime.datetime(year=2001, month=1, day=1,
-#                            hour=0, minute=0, second=0,
-#                            tzinfo=pytz.utc)
-startDt = datetime.datetime(year=2009, month=1, day=1,
+startDt = datetime.datetime(year=2001, month=1, day=1,
                             hour=0, minute=0, second=0,
                             tzinfo=pytz.utc)
+#startDt = datetime.datetime(year=2009, month=1, day=1,
+#                            hour=0, minute=0, second=0,
+#                            tzinfo=pytz.utc)
 
 #endDt   = datetime.datetime(year=2008, month=1, day=1,
 #                            hour=0, minute=0, second=0,
@@ -359,81 +359,16 @@ def processPCDD(pcdd, tag):
     #    "Mars", "Earth",
     #    "heliocentric", "sidereal", 180)
     
-    #success = PlanetaryCombinationsLibrary.\
-    #    addLongitudeAspectVerticalLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "Earth",
-    #    "heliocentric", "sidereal", 0)
-    #success = PlanetaryCombinationsLibrary.\
-    #    addLongitudeAspectVerticalLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "Earth",
-    #    "heliocentric", "sidereal", 15)
-    #success = PlanetaryCombinationsLibrary.\
-    #    addLongitudeAspectVerticalLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "heliocentric", "sidereal",
-    #    "Earth", "heliocentric", "sidereal",
-    #    30)
-    #success = PlanetaryCombinationsLibrary.\
-    #    addLongitudeAspectVerticalLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "heliocentric", "sidereal",
-    #    "Earth", "heliocentric", "sidereal",
-    #    45)
-    #success = PlanetaryCombinationsLibrary.\
-    #    addLongitudeAspectVerticalLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "heliocentric", "sidereal",
-    #    "Earth", "heliocentric", "sidereal",
-    #    60)
-    #success = PlanetaryCombinationsLibrary.\
-    #    addLongitudeAspectVerticalLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "heliocentric", "sidereal",
-    #    "Earth", "heliocentric", "sidereal",
-    #    75)
-    #success = PlanetaryCombinationsLibrary.\
-    #    addLongitudeAspectVerticalLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "heliocentric", "sidereal",
-    #    "Earth", "heliocentric", "sidereal",
-    #    90)
-    #success = PlanetaryCombinationsLibrary.\
-    #    addLongitudeAspectVerticalLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "heliocentric", "sidereal",
-    #    "Earth", "heliocentric", "sidereal",
-    #    105)
-    #success = PlanetaryCombinationsLibrary.\
-    #    addLongitudeAspectVerticalLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "heliocentric", "sidereal",
-    #    "Earth", "heliocentric", "sidereal",
-    #    120)
-    #success = PlanetaryCombinationsLibrary.\
-    #    addLongitudeAspectVerticalLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "heliocentric", "sidereal",
-    #    "Earth", "heliocentric", "sidereal",
-    #    135)
-    #success = PlanetaryCombinationsLibrary.\
-    #    addLongitudeAspectVerticalLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "heliocentric", "sidereal",
-    #    "Earth", "heliocentric", "sidereal",
-    #    150)
-    #success = PlanetaryCombinationsLibrary.\
-    #    addLongitudeAspectVerticalLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "heliocentric", "sidereal",
-    #    "Earth", "heliocentric", "sidereal",
-    #    165)
-    #success = PlanetaryCombinationsLibrary.\
-    #    addLongitudeAspectVerticalLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "Earth",
-    #    "heliocentric", "sidereal", 180)
+    #step = 15
+    #start = 0
+    #stop = 180 + step # Add step to make it inclusive.
+    #for degreeDifference in range(start, stop, step):
+    #    success = PlanetaryCombinationsLibrary.\
+    #        addLongitudeAspectVerticalLines(\
+    #        pcdd, startDt, endDt, highPrice, lowPrice,
+    #        "Venus", "heliocentric", "sidereal",
+    #        "Earth", "heliocentric", "sidereal",
+    #        degreeDifference)
     
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
@@ -851,13 +786,117 @@ def processPCDD(pcdd, tag):
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    "Mercury")
 
-    success = PlanetaryCombinationsLibrary.\
-        addLongitudeAspectVerticalLines(\
-        pcdd, startDt, endDt, highPrice, lowPrice,
-        "Venus", "geocentric", "sidereal",
-        "Venus", "heliocentric", "sidereal",
-        0)
+    #success = PlanetaryCombinationsLibrary.\
+    #    addLongitudeAspectVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "Venus", "geocentric", "sidereal",
+    #    "Venus", "heliocentric", "sidereal",
+    #    0)
 
+
+    # Doesn't work well for wheat.
+    if False:
+        step = 360 / 7.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Venus", "geocentric", "tropical",
+                "Uranus", "geocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+
+    # Aligns with some turns but misses with many others.
+    # Needs some refinement.  
+    if False:
+        step = 360 / 7.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Venus", "geocentric", "tropical",
+                "Pluto", "geocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+            
+    if False:
+        step = 360 / 5.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Venus", "geocentric", "tropical",
+                "Pluto", "geocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+            
+    
+    if False:
+        step = 360 / 7.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Venus", "geocentric", "tropical",
+                "Mars", "geocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+            
+    if False:
+        step = 360 / 7.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Venus", "heliocentric", "tropical",
+                "Mars", "heliocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+
+    # Does not work that well for wheat.
+    if False:
+        step = 360 / 5.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Venus", "geocentric", "tropical",
+                "Mars", "geocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+            
+    if False:
+        step = 360 / 8.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Venus", "geocentric", "tropical",
+                "Mars", "geocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+            
     if success == True:
         log.debug("Success!")
         rv = 0

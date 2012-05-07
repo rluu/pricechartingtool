@@ -34,8 +34,8 @@ import pickle
 # For parsing command-line options
 from optparse import OptionParser  
 
-# For Process, Queue, current_process, freeze_support
-import  multiprocessing
+# For Process, Queue, current_process, freeze_support.
+import multiprocessing
 
 # For logging.
 import logging
@@ -45,23 +45,46 @@ from PyQt4 import QtCore
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+# Do initialization of Qt stuff for usage of Qt objects.  This stuff
+# was originally at the bottom of this script near the rest of main
+# script functionality, but importing planetaryCombinationsLibrary was
+# crashing because of Qt's PriceBarChartGraphicsScene constructor
+# wanting a QApplication created previous to it's invocation.
+# So here we have it!
+# 
+# Set application details so the we can use QSettings default
+# constructor later.
+appAuthor = "Ryan Luu"
+appName = "PriceChartingTool"
+QCoreApplication.setOrganizationName(appAuthor)
+QCoreApplication.setApplicationName(appName)
+
+# Create the Qt application.
+app = QApplication(sys.argv)
+app.setApplicationName(appName)
+
+
+
 # Include some PriceChartingTool modules.
 # This assumes that the relative directory from this script is: ../../src
 thisScriptDir = os.path.dirname(os.path.abspath(__file__))
 srcDir = os.path.dirname(os.path.dirname(thisScriptDir)) + os.sep + "src"
 if srcDir not in sys.path:
     sys.path.insert(0, srcDir)
+
+from astrologychart import AstrologyUtils
+from ephemeris import Ephemeris
+from data_objects import *
+
+# Add the customScripts directory so that we can import the
+# planetaryCombinationsLibrary module.
 customScriptsDir = thisScriptDir + os.sep + "customScripts"
 if customScriptsDir not in sys.path:
     sys.path.insert(0, customScriptsDir)
     
-from astrologychart import AstrologyUtils
-from ephemeris import Ephemeris
-from data_objects import *
-from pricebarchart import PriceBarChartGraphicsScene
-
 # Holds functions for adding artifacts for various aspects.
 from planetaryCombinationsLibrary import PlanetaryCombinationsLibrary
+
 
 ##############################################################################
 # Global Variables
@@ -88,8 +111,8 @@ taskQueue = multiprocessing.Queue()
 resultQueue = multiprocessing.Queue()
 
 # For logging.
-#logLevel = logging.DEBUG
-logLevel = logging.INFO
+logLevel = logging.DEBUG
+#logLevel = logging.INFO
 logging.basicConfig(format='%(levelname)s: %(message)s')
 moduleName = globals()['__name__']
 log = logging.getLogger(moduleName)
@@ -106,7 +129,7 @@ def shutdown(rc):
     Ephemeris.closeEphemeris()
 
     # Tell spawned processes to end.
-    for i in numProcesses:
+    for i in range(numProcesses):
         taskQueue.put("STOP")
     
     logging.shutdown()
@@ -238,6 +261,69 @@ def ensureDirectoryExists(dirPath):
                 shutdown(1)
 
 
+def shouldSkipCalculations(planet1Name,
+                           planet1CentricityType,
+                           planet1LongitudeType,
+                           planet2Name,
+                           planet2CentricityType,
+                           planet2LongitudeType):
+    """Returns True if we should skip calculations for this
+    combination of planetName, centricityType, and longitudeType.
+    """
+
+    # Return value.
+    rv = False
+
+    # If all three are the same between the two
+    # planets, then continue on, otherwise,
+    # process it.
+    if planet1Name == planet2Name and \
+           planet1CentricityType == planet2CentricityType and \
+           planet1LongitudeType == planet2LongitudeType:
+        
+        rv = True
+    
+    # Comparing the planet with the same centricity will always have a
+    # difference of whatever the ayanamsa (precessional amount) is.
+    if planet1Name == planet2Name and \
+       planet1CentricityType == planet2CentricityType:
+        
+        rv = True
+    
+    ignoredHelioPlanets = []
+    ignoredHelioPlanets.append("Sun")
+    ignoredHelioPlanets.append("Moon")
+    ignoredHelioPlanets.append("MeanNorthNode")
+    ignoredHelioPlanets.append("TrueNorthNode")
+    ignoredHelioPlanets.append("MeanLunarApogee")
+    ignoredHelioPlanets.append("OsculatingLunarApogee")
+    ignoredHelioPlanets.append("InterpolatedLunarApogee")
+    ignoredHelioPlanets.append("InterpolatedLunarPerigee")
+    
+    for planetName in ignoredHelioPlanets:
+        if (planet1Name == planetName and \
+            planet1CentricityType == "heliocentric") or \
+            (planet2Name == planetName and \
+             planet2CentricityType == "heliocentric"):
+            
+            rv = True
+            break
+        
+    ignoredGeoPlanets = []
+    ignoredGeoPlanets.append("Earth")
+    
+    for planetName in ignoredGeoPlanets:
+        if (planet1Name == planetName and \
+            planet1CentricityType == "geocentric") or \
+            (planet2Name == planetName and \
+             planet2CentricityType == "geocentric"):
+            
+            rv = True
+            break
+    
+    return rv
+    
+    
 def worker(taskQueue, resultQueue):
     """Function run by worker processes.  This basically calls
     functions in the taskQueue, and puts the result in resultQueue.
@@ -260,7 +346,7 @@ def worker(taskQueue, resultQueue):
         result = func(*args)
         resultQueue.put(result)
     
-def getHighestLowestEarliestLatestPriceBarPricesAndTimestamps(pcdd, self):
+def getHighestLowestEarliestLatestPriceBarPricesAndTimestamps(pcdd):
     """Goes through all the PriceBars, finding the highest price,
     lowest price, earliest timestamp, and latest timestamp of all the
     PriceBars.  These values are returned.
@@ -311,7 +397,7 @@ def getColorForPlanetParamsList(planetParamsList):
     color = None
     
     if planetParamsList != None:
-        planetName = planetParamsList[0]
+        planetName = planetParamsList[0][0]
         planetColor = \
             AstrologyUtils.getForegroundColorForPlanetName(planetName)
         color = planetColor
@@ -418,7 +504,7 @@ def processAspectsCalculationTask(pcdd,
         degreeAspectStrPos = tag.find(searchStr)
         if degreeAspectStrPos != -1:
             # Find the position of the first "_" before the searchStr.
-            underscorePos = tag.rfind("_", start=0, end=degreeAspectStrPos)
+            underscorePos = tag.rfind("_", 0, degreeAspectStrPos)
 
             if underscorePos != -1:
                 # Finally, assemble what we want the basename to be,
@@ -429,7 +515,7 @@ def processAspectsCalculationTask(pcdd,
                       ".pcd"
             else:
                 log.warn("Couldn't find the str '_' before str " + \
-                         "'{}' in the tag '{}'."
+                         "'{}' in the tag '{}'.".\
                          format(searchStr, tag))
                 basename = tag + ".pcd"
 
@@ -466,7 +552,9 @@ parser.add_option("--num-processes",
                   dest="numProcesses",
                   default=None,
                   help="Set the number of processes used.  " + \
-                  "Default value is the number of CPUs in the system.")
+                  "This field is optional.  " + \
+                  "Default value is the number of CPUs in the system.",
+                  metavar="<INTEGER>")
 
 parser.add_option("--input-file",
                   action="store",
@@ -540,26 +628,29 @@ else:
 # Add support for when a program which uses multiprocessing to be
 # frozen to produce a Windows executable. (Supported for py2exe,
 # PyInstaller and cx_Freeze.)
-freeze_support()
+multiprocessing.freeze_support()
 
 # Initialize Ephemeris (required).
 Ephemeris.initialize()
 
+# Note: The below initialization for Qt was moved to the top import
+# area, so that imports of Qt-related stuff wouldn't crash.
+#
 # Set application details so the we can use QSettings default
 # constructor later.
-appAuthor = "Ryan Luu"
-appName = "PriceChartingTool"
-QCoreApplication.setOrganizationName(appAuthor)
-QCoreApplication.setApplicationName(appName)
-
+#appAuthor = "Ryan Luu"
+#appName = "PriceChartingTool"
+#QCoreApplication.setOrganizationName(appAuthor)
+#QCoreApplication.setApplicationName(appName)
+#
 # Create the Qt application.
-app = QApplication(sys.argv)
-app.setApplicationName(appName)
+#app = QApplication(sys.argv)
+#app.setApplicationName(appName)
 
 # Open the PriceChartDocument file.
-log.info("Loading PriceChartDocument '{}' ...".format(pcdFile))
-priceChartDocumentData = unpicklePriceChartDocumentDataFromFile(pcdFile)
-if priceChartDocumentData == None:
+log.info("Loading PriceChartDocument '{}' ...".format(inputFile))
+pcdd = unpicklePriceChartDocumentDataFromFile(inputFile)
+if pcdd == None:
     # Retrieval failed.  An error message should have been logged.
     shutdown(1)
 
@@ -631,9 +722,9 @@ centricityTypes.append("geocentric")
 centricityTypes.append("heliocentric")
 
 # List of zodiac longitude types used.
-longitudeType = []
-longitudeType.append("tropical")
-longitudeType.append("sidereal")
+longitudeTypes = []
+longitudeTypes.append("tropical")
+#longitudeTypes.append("sidereal")
 
 # Flag that indicates that aspects are unidirectional.
 uniDirectionalAspectsFlag = False
@@ -736,18 +827,21 @@ for i in range(len(planetNames)):
                         planet2Name = planetNames[j]
                         planet1CentricityType = centricityTypes[k]
                         planet2CentricityType = centricityTypes[l]
-                        planet1LongitudeType = longitudeTypes[k]
-                        planet2LongitudeType = longitudeTypes[l]
+                        planet1LongitudeType = longitudeTypes[m]
+                        planet2LongitudeType = longitudeTypes[n]
 
-                        # If all three are the same between the two
-                        # planets, then continue on, otherwise,
-                        # process it.
-                        if planet1Name == planet2Name and \
-                           planet1CentricityType == planet2CentricityType and \
-                           planet1LongitudeType == planet2LongitudeType:
+                        # Determine if we should skip this combination
+                        # of planets and centricity type and longitude type.
+                        if shouldSkipCalculations(\
+                            planet1Name,
+                            planet1CentricityType,
+                            planet1LongitudeType,
+                            planet2Name,
+                            planet2CentricityType,
+                            planet2LongitudeType) == True:
 
                             continue
-
+                        
                         planet1ParamsList = \
                             [(planet1Name,
                               planet1CentricityType,
@@ -761,7 +855,7 @@ for i in range(len(planetNames)):
                             task = (processAspectsCalculationTask,
                                     (pcdd,
                                      planet1ParamsList,
-                                     planet2ParamsList
+                                     planet2ParamsList,
                                      aspectGroup))
                             tasks.append(task)
 
