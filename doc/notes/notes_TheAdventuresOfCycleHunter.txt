@@ -1,0 +1,154 @@
+##############################################################################
+Notes on:
+
+'The Adventures Of Cycle Hunter', "The Cyclist"
+Copyright 2008, Craig Bttlc
+
+rluu 20120508 17:34: Continue taking notes starting from page 26.
+
+##############################################################################
+
+Apple Cycle dates:
+pg. 3
+Oct.  5, 2007 - No indication for Apple around this turn date.
+Oct. 13, 2007 - Showed no indication, except Mercury going retrograde Oct. 11, 2007.  This was very close to indication, close enough for me anyways.  
+
+rluu: 'Indication' means a trigger for the cycle?  Or perhaps it means circumstances for a turn?
+
+Oct. 11 came, and market was up about 4.
+
+December 26th came and Venus gave me indication so I bought 3 January 2008 puts at 240 a piece.  Apple was selling at 200.50 and my cycle pointed down.  Strike price on the puts was 195.  Usually with my trading account at this level, I would have bought 5 or 6 of those puts, but I wanted to test the water afte rthat Saturn transit.  [pg. 23-24].
+
+Mercury gives indication on January 4, so that is my target date for exit.  I was very nervous about the trade; it felt alien to me but I knew I had to get back into it.  [pg. 24].
+
+Friday found me home for lunch as Mercury gave indication to close the trade.  I hopped on teh computer and could not believe my eyes.  Apple was selling at 184 and my puts were $1200 a piece. Sold them out for a total, bottom line of $2880 profit.  I am back in a big way!  This was an incredible victory.  [pg. 25].
+
+Monday I was home from lunch, Apple was down 175 so I had to dump thte calls as my stop had been hit on my chart.  Sold 4 calls at $25 a piece, exited the position with a $700 loss.  It looks like I may have gotten in too early. [pg. 26]
+
+####################
+
+Solar returns:
+Every year, at an exact instant the transiting sun is at the same degree, minute and second of longitude as your natal sun.  This point in time, this return, is known as your Solar Return.  What is key to this is that at that second of the return, the chart with all the planets and houses is 'frozen' until the next Solar Return.  Houses are areas of life.  Planets have good and bad qualities which come out depending on the aspects they receive from other planets.  
+
+Because little information is out there on Chiron and Transpluto, I will share with you what they do when positioned in a house.  Chiron "heals" the area of life it is found in, in the Solar Return.  Transpluto brings into focus, in order to better define and assimilate the area of life corresponding to the house it is located at in the Solar Return.  You need to include these because they do have an affect and only a few astrologers are keenly aware of them.  
+
+The Solar Return begins to operate about 3 months before your birthday.  If you look back on the 3-month periods before your birthday, you will see the changes that took place.  You see in the 3 months period the old return starts to "burn out" while the new return begins to exert influence, building up until it 'locks in' on your birthday.  If you watch this period, while it unfolds, you will see the profoundness of it.  A great book on this is the one I started out with: Solar Returns by Mary Fortier Shea.
+[pg. 7-9].  
+
+
+####################
+
+Sources:
+
+Source B - Checked the author's natal info.  Said he was running Saturn square in his life (happens every 7 years out of the 29.5 years), which is not meant to be for trading, and to focus on Tunnel during this time.  [pg. 5].  Asked about where the author took his solar return. [pg. 6].  Mentions about name change based on Numero book. [pg. 14].  I know Source B; he is into making sure his mind is clear for trading.  [pg. 21].  
+
+
+Source R - Great researcher and cycle master who is also cluey on price.  Friend who the author met at the St. Louis seminar from the Netherlands.  [pg. 5].
+
+Source Q - Author emailed him to see if he could give any clues on TTTA. [pg. 6].  [pg. 9].
+
+
+####################
+
+TTTA clues/information:
+
+There are cycles running through the book.  Cycles of the type you have been trading.  You see, the war in the back of the book is actually applicable to the Dow.  There are cycles in the Dow so therefore there are cycles in the Tunnel Book.  Gann hid his methods in that book and primarily that book.  The cities or 'battles' take place at cycle pivots, therefore his discoveries and inventions are trading tools used to overcome the problems traders have with cycles.  For instance, when Japan attacks that means something.  It has special significance, begin working there.  Now I know the cycles that you trade with on different instruments; you have yet to use larger cycles, but they are important as well, not only in your trading but in your understanding and Tunnel.  Japan here is the clue that I need to begin working on the book.  [pg. 9].
+
+Author says: the answers cloaked would have to be: price, orb, inversions.  All I have to do is get the cycles operating adn see what Gann is trying to tell us.
+
+Author says: It hit me to take the dates in the book and compare them to the Dow to see what was happening at those points, of course, that is where the solution must be.  Author wrote it down to investigate it.  [pg. 11].  
+
+
+Author says: It occured to me that these cycles go: High, Low, High, Low, like tracks or 'foot-prints'.  Therefore to identify which track is which, Gann must have used some sort of coding.  When I originally read through Tunnel years ago, I would write down the page number of what stood out along with the event.  There was no order to it, meaning I never looked for ways to connect certain events; I had never tried to organize it.  Since there are cycles running through that book, there has to be a connectiveness through certain events.  Given that, I am going to have to try and connect events.  Then take those dates and try and find a cycle.  We'll have to take what I know and run different planetary combinations.  The more I went over this idea, this method, I began to visualize the process or route that I needed to go.  [pg. 12].
+
+I started writing down dates and events from the book based on my old notes, 'arranging' them, so to speak.  Noticed that Japan specifically attacked in a few instances.  From page 279, Japan attacked L.A. in the middle of May (May 15, 1930).  Page 279 connects L.A. with San Francisco.  San Francisco was attacked September 11, 1930.  Decided to start with these 2 dates, unfortunately was out of time for the evening.  [pg. 12].
+
+Take those Tunnel dates and look at the digital ephemeris.  Use Excel, and have calculations between planets.  The first pass through the Tunnel dates that were originally singled out yielded nothing.  These could be non-related dates or there was something that was missed on the original pass through.  Went through it again, and this time a couple of possibilities stuck out, again nothing definite.  Pondering over the problem, he realized that if the dates were truly related, which he felt very strongly they were, where is the problem.  An idea hit and it was to take the possibilities that I found, run them forward using the Dow.  [pg. 15].  
+
+Went over to the computer, took the potential cycles and ran them forward.  The first one, too many misses highs where lows should be, lows where highs should be.  Other pivots were unnoticeable in teh middle of trends.  No way was this a cycle.  Began to work on the 2nd potential cycle, which is the last potential cycle that had been 'found'.  Ran it out but was not convinced with this one.  I reworked it with a different 'possibile number' than the last number.  BOOM.  This baby is sweet.  Ran it ou tabout 36 pivots, hit like clockwork.  Unfricking-believeable.  Man what a rush as I checked and it hit hte Cairo and Detroit dates!  [pg. 16]
+
+
+Source Q: Well done.  Be aware that there are larger cycles involved in Tunnel and in markets.  You should specifically look for these, of the nature Jensen had outlined in his book.  Spend serious time on this, as it is very rewarding.   [pg. 16].
+
+I studied my Tunnel notes, looking for more cycles; matching dates to events, finding concurrent events, looking for similarities, similar things with dates.  When I believed there was something there, the next step was to look at the digital ephemeris, to see if there was a potential cycle there.  Repeated this process many times.  Twice I thoguht I ahd something, but when I tried to run teh cycles out, on the Dow, starting from teh Tunnel dates it was bogus.  Went over tot eh thinking couch to try and figure out where I was going wrong.  It was late so I decided to write Source Q and run over my method, to see where I was going wrong; I had already written him earlier so I felt like I needed to apologize for the consecutive emails.  Source Q replied and said where you are going wrong is you are only searching a Heliocentric ephemeris only, and that you are not looking for larger cycles caused by the slower moving planets."  Thus, I needed to look for larger cycles and also use a geocentric ephemeris; I guess here he means like Saturn Uranus or something of that nature.  
+
+Headed back to build a geocentric master ephemeris.  Used the following combinations from 1980 to current.  Jupiter/Saturn, Jupiter/Uranus, Jupiter/Neptune, Saturn/Uranus, Saturn/Neptune, and Uranus/Neptune.  I chose 1980 as a random start date because with these larger cycles, they are going to pivot less frequently, so I needed a bigger data set, i.e. longer ephemeris files.  Then in order to accommodate the Tunnel dates, I did the same planetary combinations starting January 1, 1906 through January 1, 1933.  I did not want to miss any events.  One thing I was quickly learning is studying Tunnel without ephemeris files is like showing up to a Chirstmas party in pajamas, finding the nearest bed, and going to sleep... you get nothing out of it.  [pg. 22]
+
+While I did not find a substanctial cycle, I did feel I was beginning to understand Tunnel better because of the time I had spent focusing on it.  Had been grouping certain dates together, organizing and reorganizing them.  [pg. 23].
+
+It was about a quarter after midnight when I found what appeared to be something significant.  It was Jupiter/uranus, ran it forward in teh Dow through the 1930's period.  There it was!  Felt the hair stand up on the back of my neck.  This was the second cycle that I had found in the book.  Wanted to run it out further, bring it up to modern day, but was out of time, tired, exhausted, and exhilarated.  [Later,] I figured out how to start it in 1990, running it forward from there, all the way to current in the Dow.  Man what a great cycle, just beautiful.  [pg. 24].  
+
+
+
+####################
+  
+About cycles: 
+
+It is indeed ironic that traditional astrologers believe that the cycles have to start from conjunctions when in reality they do not.  Another thing stopping the astrologers is that they are unaware that it's not just the 15 degree separation but there can be other numbers.  [pg. 10].
+
+Source R says you can't get price until you fully master cycles.  Source R says  at one time his walls were covered with geometry, but those were torn down and replaced with cycles.  I had all sorts of problems mostly deciding which high and low went with the cycle I was working with.  As I went and found out there were different ways to refine or define exactly where a turn came in.  Then you have to go back and work with those dates.  It's a long a laborious job.  [pg. 15]
+
+Now all I have to do is take this software and do a dump into excel.  From there it can be manipulated.  This makes it so simple, what an incredible advantage over Gann.  I have made a master sheet so the calculations between planets are already done.  Did that from 1990 through to 2012, did it once, backed it up so computer crashes won't put me back.  Once the file was created, it becomes a simple matter of searching the different combinations, fast and easy.  [pg. 15].
+
+Source Q: Well done.  Be aware that there are larger cycles involved in Tunnel and in markets.  You should specifically look for these, of the nature Jensen had outlined in his book.  Spend serious time on this, as it is very rewarding.  [pg. 16]
+
+Source R: The smaller cycles that you have been working with use a price system that does not work the same as on the larger cycles.  Larger cycles, say like a Jupiter Saturn 6 degree, have a price system that is much more geometric in nature.  I ahve also learned that it is very dangerous trading only the larger cycles without knowing what is going on with the smaller ones.
+
+Headed back to build a geocentric master ephemeris.  Used the following combinations from 1980 to current.  Jupiter/Saturn, Jupiter/Uranus, Jupiter/Neptune, Saturn/Uranus, Saturn/Neptune, and Uranus/Neptune.  I chose 1980 as a random start date because with these larger cycles, they are going to pivot less frequently, so I needed a bigger data set, i.e. longer ephemeris files.  [pg. 22]
+
+Source B: Take a look at the Coffee letter.  the first thing you have to do there is go through and correct all his typos.  Why the typos?  Gann was making it difficult for the guy, while instructing him at the same time.  Was Gann deriving pleasure from seeing others painstakingly correct the errors?  No, Gann knew that they needed to work hard.  Things have changed since Ganns days.  Today we have many more distractions than they did back then, so shortcuts are good, but one still needs to do the work.  Gann put in decades of hard core research, he reaped what he sowed.  
+
+The weekend was spent primarily cycle hunting.  Found this particular cycle with 10 degrees of separation.  Knew it was in the data that was being worked on but the inversion rate was catastrophic; sky high.  I just could not figure this one out.  Went over to that thinking couch for a bit, the possible solution hit me.  Half the number; go from a 10 to a 5, so I jumped up to do just that; rerun the cycle with a 5 degree instead of 10.  This cycle was absolutely beautiful, when I backed off and took a look my small cycle hit 50% of the major highs and lows.  This was another factor that I had used in the past to determine if I had found a cycle or coincidence.  Source B and others had told me in teh past that all highs and lows are caused by cycles.  Therefore my goal shifts, when cycle hunting; to one of accounting for highs and lows.  One takes a small cycle through, what should be occuring is that it should hit roughly 50% or so of the major high and low pivots.  My 10-degree separation did not do that; it had a very high inversion rate, but because it was an even number (10), I could half it.  Now I have a great cycle here for this stock.  [pg. 26].  [rluu: Throughout this, he basically says he is only focusing on Apple stock.  So maybe this cycle he found applies to Apple.  I need to test it.]
+
+The next few days found me watching Apple.  I know the cycle was pointing up, but we were moving sideways.  Source B had told me that to a cycle trader, this was extremely important because it shows the cycle is getting a lot of sheer and that when the cycle pivots high, there would be a quick move down most times.  [pg. 26].
+
+
+
+
+####################
+
+Research in the field is critical; research in our own lives, to seek the truth is also essential.  
+
+####################
+
+
+About name change: 
+
+Source B talked about his name equated to Saturn, and that Mercury would be a more productive fit.  Recommends "Power of Numbers" by Numero.  The way to change one's name is to go to a judge and get the middle name changed.  [pg. 15].  Look into the legal procedures and the costs associated with changing my middle name, so that the combination of first, middle, along with last would equal Mercury.  It's much easier to change the middle name instead of the first or last.  He found that a lawyer was not needed, just a filing fee and court costs of $250.  Simple, filled out the paperwork and filed, and was given a court date 3 weeks from now.  [pg. 15].  At the court appointment: When they called my name, I went up to the front and stood in front of the judge.  He asked me one question.  "Why do you want to change your middle name?"  My reply, which I had practiced, was "Your honor, my uncle, who is now deceased, had a great impact on my life.  If it were not for him, I would not have had the success in my life that I have had.  I am doing this to honor him, kind of a tribute."  The judge responded, "I grant the change," and signed off on it.  [pg. 19].  The life changes came immediately: Promotion, and new, better co-workers.
+
+
+
+About turning around resistances in life:
+
+Source B talked about book 'The Millionaires Secrets" by Mark Fisher.  This book is the sequel to the book mentioned previously [rluu: Where?, I didn't see the other book.]  This is a very powerful book for those that are meeting with resistance in their lives, for those that feel they should be further along than what they are.  The reasons that are holding you or anyone else back, can be found in that book.  You see, there are many thigns that stop individuals from becoming truly successful.  There is one 'root' factor that is found in that book.  You are ready at this point in your life for this particular book.  [pg. 16].
+
+
+Regarding important health topics and experiences [pg. 17-19]:
+
+I will give you one small example of a much larger picture.  Anyone with allergies in teh fall is usually afflicted by Ragweed, Pollen.  The medical community (traditional and otherwise) is well aware of this connection; it is nothing new.  I am personally extremely sensitive to ragweed, pollen that produces a condition in my body called asthma.  Ragweed is seasonal, usually August through November so for those 4 months I had to rely on strong medications costing me thousands of dollars.  Asthma is a trained response in the body, asthma is a symptom, and the expensive medications were only treating the symptoms, why?  Because if they treated the cause, they would not make any more money; I would not have the terrible bedridden affliction.  Each fall season would cost me over a thousand dollars.  I decided that I must take my market research dedication and temporarily shift it to solve this dilemma.  I began studying, digging, for the solution.  
+
+My first break came when studying the 21,000 readings given by Edgar Cayce.  In one specific reading, Cayce states that a the woman should chew the leaf of the small ragweed plant.  He said specifically not to eat it, but to masticate it and spit it out.  The juice left in teh mouth is then swallowed.  For over a year I tried a leaf of the small ragweed plant, but did not notice enough difference while in a full-blown asthma attack.  Eventually with more research, I came across a company called Bio P Sciences Institute out of Minneapolis Minnesota.  They essentially extract some of the leaf into a solution and I only had to put a few drops on teh tongue.  Results; no asthma through the season.  Cost 14 dollars including shipping, saved me close to a thousand dollars.  
+
+Fearing that the company won't be around when the secret gets out, took the recipe off the company's website.  Think about the millions of dollars these guys are going to save common folk.  That won't happen, it's all about those profits by big companies.  Think of how that recipe changed and enhanced the quality of my life.  
+
+I will tell you what got me into looking for my own solutions.  Like I told you I had asthma in the fall.  Had to go to the doctor to get those meds.  At one point, the doctors suggested we also do a cholesterol test.  I agreed to the test, also I need to tell you that the doctor had had me on a super low fat diet because I was overweight.  Went in to have the blood drawn for the test, jumped on a place and flew to France on business.  
+
+Got a frantic call from my wife while still in France that the doctor wanted to see me as soon as I returned, tha tthe numbers came in way too high.  The wife had told the doctor that I was in France; the response was not to eat any high fat food.  High fat food is all that is in France.  The phone call sounded detrimental, like I had a few days left type of thing.  I began eating cakes and pies figuring that I might as well enjoy my last few days.  
+
+When I returned home, I went straight to the doctor for a repeat of the tests (the initial ones showed greatly elevated cholesterol levels, over 700, and triglycerides so high they almost could not measure them.  The second set of tests done after returning from France showed cholesterol level of under 350 and triglycerides almost normal.  The doctor was stunned.  No explanation was offered; it appeared the levels were returning to almost normal!  
+
+I was given 5 prescriptions, which I took once, felt like crap, and threw them all in teh trash.  I began investigating.  This is what I found.  A 1995 medical report that stated when teh body is deprived of fats, it senses a 'fat famine' and takes the carbohydrates coming into the system through food and stores them as triglycerides and then elevates the cholesterol to deal with the triglycerides.  You see, the doctor had me on a low fat diet.  When I went to France and ate the high fat cakes and pies, the body started flushing out the triglycerides, simultaneously lowering the cholesterol, the body was getting the fats it needed!
+
+When I approached the doctor with this, she was evasivve at first, then tried to tell me I may be bipolar.  I had known a bipolar person and was nothing like that.  I got pissed, walked out, and never went back.  
+
+Also stay away from high frutose corn syrup, because it causes obesity.  
+
+My point is that the average Joe does not have a chance at researching.  You can't scratch the surface, you have to really dig, along with being acutely aware there is a lot of bad information out there.  Since these days I have spent a large portion of my available free time studying Native American healing, Chinese medicine and modern day naturopathy, in all of that I have found many truths and techniques.  
+
+I will leave you with one last example.  Soybeans, the health food craze, or marketing blitz.  Soybeans have been consumed for thousands of eyars, true, but older cultures only ate them fermented in teh form of Miso or Tempah.  The reason for this is that soybeans contain anti-nutrients.  It works like this, you eat soybeans, and they go into your body and take nutrients out.  Soy products increase intestinal problems and bring overall lethargy.  It caused a marked increase in infirmary (health problem) visits.
+
+Another book related to health [pg. 21], recommended by Source B:
+When it comes to health, get Kevin Trudeau's books, if you don't already have them.  Every word in those is gold.  
+
+
+####################
