@@ -4,7 +4,9 @@ Notes on:
 'The Adventures Of Cycle Hunter', "The Cyclist"
 Copyright 2008, Craig Bttlc
 
-rluu 20120508 17:34: Continue taking notes starting from page 30.
+##############################################################################
+
+rluu 20120509: I think there might be something more to the commentary of the author's life and people in it within this book.  Strangely, the number 5 is mentioned so many times in this book throughout.  And then two kids keep popping up.  And mentioning that he hadn't heard of X person in Y years.  Etc.  Maybe he is giving the cycles that he is using for Apple?
 
 ##############################################################################
 
@@ -119,7 +121,7 @@ With so many variables, teh book made me sick years ago when I originally read i
 
 I noticed a few areas Gann is trying to describe something, that bicycle story, on water, looks too odd.  Something must be there, but what, there has to be a logic here.  What I came up with was that at some point later, he would have to attach it somehow, maybe to allude to it in some form.  [pg. 33].
 
-
+Got into some Tunnel study; continued to study the dates of events that coincided with the cycles I had found.  Some of the battles did not match any of my cycles.  What this told me was that there are other cycles in here I have not yet found.  [pg. 41].
 
 ####################
   
@@ -149,6 +151,26 @@ Studying Apple stock, the goal (now) was to find larger cycles on it, based on J
 
 Finally I had what I believed to be a great cycle working using Jupiter-Saturn.  What had taken me the most time was shifting from a smaller perspective into a larger perspective because of the time between teh pivots.  Then there was an orb problem here.  This cycle can be 10 days off either side, so to really use this thing, it is going to have to be brought under control somehow.  Then ran it back to the beginning of the data.  There were turns not accounted for, so tried working on Saturn-Uranus cycle for that, focusing on dates that weren't accounted for.  I had figured that since the pivots were coming about twice the distance on average orb was twice the distance at least.  Worked this cycle out; it was sweet!  I had noticed that some of the Saturn Uranus pivots had tied into the Jupiter Saturn pivots.  Ran these cycles back to the beginning o the stock.  It was sweet.  Next was to study how the two cycles acted together.  Found areas when both cycles pointed up or down, wrote down teh percetnage gain or loss, during those periods.  I loved the results.  Of course, this orb problem is going to have to be overcome here.   [pg. 34-35].
 
+20-year cycle is conjunction cycle of Jupiter and Saturn.
+10-year cycle is the conjunction and opposition cycle of Jupiter and Saturn.
+This 10-year cycle shows itself in the years ending in 00 and 01.  It is a recession cycle.  Look at the your markets in teh years 2000-2001, 1990-91, 1980-81, 1970-71, 1960-61, etc.  Now the next appearance in this cycle is 2010 and 2011, expect recession.  However this time, there is another dynamic at play, the Saturn Uranus cycle.  [pg. 36].
+
+45 year cycle is the conjunction cycle of Saturn and Uranus.
+Gann wrote a book called '45 Years on Wall Street' which is about another method, but needs to be pointed out here.  1/2 of this is (roughly) the 22.5 year cycle.  Let's go back to 1988.  Stocks topped the year before (1987) much lower prices.  1966, massive, fast sell off.  1942 very bad conditions.  1919 stocks have another massive sell off into a deep recession.  The next occurrance is the opposition in 2009 and 2010.  [pg. 36].
+
+Thus these 2 cycles occur at the same time between 2009 and 2011.  
+
+Started working on the orb issue on these big boys (big cycles).  One of the Sources said that if he took a couple of smaller cycles through a stock, he could hit almost all the of the turns.  What that meant was these larger cycles did not necessarily make their own marks but instead were timed by the smaller cycles, tha tmeans that if I understand how that works then it makes logical sense the orb issue could be understood like that.  Like if I had a cycle say with 7 days orb either side of exact, that is a 15-day winow, but if I was expecting say a High for that cycles' pivot, then I would look inside that 15-day window for what my smaller cycles are doing.  Say if in that 15-day window, I had a cycle that pivoted about every 10 days and it made a high and a low in that time frame.  Logically the larger cycle would sync with the high because it was also pivoting high; this was my thinking and I was setting out to prove it.  [pg. 36-37].
+
+During the Great Depression, at least in the period from 1929 high to 1932 low, there was a T-square between Saturn-Uranus and Jupiter.  That was what made it so severe for so many.  The coming times (2009-2011) don't have a T-square but we do have 2 very bad cycles.  During 1929 to 1932 period, they raised the tax rate, and this made it extremely hard on them.  It is well documented that when you lower taxes, you get more income coming into the state treasuries.  Reagan lowered taxes; the so-called 'Reagan Tax Cuts' setting off a huge boom in America, which resulted in teh materialism of the 1980s.  Expect tax increases in the coming years.  There is a silver lining for traders here; the 5 largest percentage gains ever were in teh period 1929 to 1932, creating a fast up and a fast down market... period of ACTIVITY.  [pg. 37].
+
+Source R:  I will explain to you a little something about price.  you know like you have a cycle with a 2-day orb either side, so say your turn is expected on a Wednesday and it can come in Monday through Friday; that is a big window.  You are currently using the natal to give indication as to what day that the turn will come in.  That is a good method, but there are also other methods that are much better.  There is a price method, when it comes to actual trading.  This is how it works; let's say, as an example that our cycle was due on a Wednesday, giving Monday through Friday with orb included.  The last pivot of this cycle was a low, no inversion is due so we would be expecting this pivot to be a high.  We did our price calculations and we have come up with 2 possibilities; either price is going to 76 or 88 for this cycle pivot.  Monday opens up and we are at a price of 84.  This would indicate a price of 88, not the 76.  Why?  Because we are expecting our cycle to pivot high, this means we must go UP to the 88, not down to 76.  When 88 is hit the orb problem is solved.  That would be your trigger point.  Where we went from that point depends on the particulars of that cycle interlaced with the other cycles.  This may sound crazy, however it is easily understandable.  That 84 is a big number, it runs all the way from 84.00 to 84.99.  Gan could zero it in to know more exactly the price.  There is documented evidence of that.  he may be off just a hair though, that is called lost motion, but that is just a tiny fraction.  Also a warning, in fast moving markets, sometimes a safeguard is required . Have also heard of certain people that use number counts to overcome orb.  All these systems have their merits.  You must learn what is right for you.  [pg. 39].
+
+What I was finding with experimentation on geocentric cycles, was  that retrograde presents certain problems.  Like say if your next pivot has an angular separation of 72 degrees between the planets and you retrograde back 74, 73, and then you stall out at 72.3, never actually touching 72.  What I learned was that the 72.3 will not count for a pivot.  It must pass through the pivot point, like 74, 73, 72, then say it stalls out at 71.5.  This passed through the pivot point of 72 (exactly), and we will get a turn.  It will stall out, move slowly, then we will get another turn when it hits 72 again, which it will do very slowly.  So the next fundamental I worked ith in retrograde was say if it was around 72 for a month or more, where would the turn come?  The precise turn would come when 72.000 is precisely hit, with the usual orb allowance.  This simplifies things.  [pg. 42].
+
+Luther Jensen worked with Gann until Gann's death in 1955.  Jensen wrote a pamphlet called "The Locust Years."  In there, he takes the September 1929 market top and adds 90 months to it, just missing the 1938 top.  The 1938 top, Jensen originally forecasted would be higher than the 1929 market top although this did not work out.  Half of 90 is 45; according to Jensen we add the 45 months to the 1938 position and this will give us an important low.  [pg. 42].
+
+Watch the sunspot cycle related to economic activity.  [pg. 42].
 
 
 ####################
@@ -156,6 +178,10 @@ Finally I had what I believed to be a great cycle working using Jupiter-Saturn. 
 Research in the field is critical; research in our own lives, to seek the truth is also essential.  
 
 "Gann" burn out is really an out of balance problem: too much time studying and too little time with family and friends.  [pg. 35].
+
+Source B: When it comes to the decision of trading versus studying, you must do what you feel is right, of course.  Spend time formulating a plan for what you want to achieve over the next few months.  [pg. 42].
+
+Source Q: So you see, I am sure you wish to get back to your trading, but giving up your study now will slow you down in the future.  Remember, no one can take knowledge from you, it is the most rarest and precious commodity.  [pg. 42].
 
 
 ####################
@@ -198,6 +224,8 @@ I will leave you with one last example.  Soybeans, the health food craze, or mar
 
 Another book related to health [pg. 21], recommended by Source B:
 When it comes to health, get Kevin Trudeau's books, if you don't already have them.  Every word in those is gold.  
+
+Source B: I have been doing additional research on Mercury.  A quick look at any site on teh internet will tell you that Mercury is a toxic heavy metal.  It is a poison.  The body does not process it, meaning that when you ingest it, say through eating catfish, it accumulates in your body.  Medical doctors all agree on this.  Signs of Mercury poisoning are numerous, including neurological damage.  Obviously everyone should stay far away from Mercury.  yet tens of millions of Americans are injecting it right into their bloodstream each year.  How?  99% of so-called immunizations contain something called Thimerisal which is a Mercury derivative, hell, they are pumping it right into babies.  Do this, when you go and get a flu shot, by law, the pharmaceutical companies must provide an indications pamphlet with the injection.  Get that and read it; it states Thimerisol, contains Mercury.  Their argument: "it is a low dose."  Yes, but it accumulates in the body, shot after shot our little children are being pumped Mercury.  Also from Tuna and other fish we eat.  I started to investigate how to get all this fucking Mercury out of my body.  I found Clathration, more specifically an Oral Peptide Clathration Agent, PCA for short.  Bought some from Awaken Nutrition called PCA-Rx.  [pg. 37-38].
 
 
 ####################
