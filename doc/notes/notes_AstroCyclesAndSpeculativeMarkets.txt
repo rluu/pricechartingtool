@@ -1,0 +1,200 @@
+##############################################################################
+# Notes on Luther Jensen's Astro-Cycles and Speculative Markets
+##############################################################################
+
+This document contains a continuation of hand-written notes on Jensen's ACSM.  
+Notes here are on the book starting at page 35.
+
+rluu 20120514: Start taking notes starting from page 86 in ACSM.
+
+##############################################################################
+
+General information:
+
+Planets are in constant angular relationship to one another and to the earth.  Each angle is a different facet or blend of the vibratory forces invovled and results in a different psychological motivation than another angle.  Every degree of 360 deg has its specific nature.  [pg. 35].
+
+Primary aspects:
+30, 60, 90, 120, 150, 180 on both sides of the circle.
+45 and 135.
+30, 60 and 120 are favorable, the 150 doubtful, the remainder unfavorable.  [pg. 35].
+
+Briefly, two classes of angles dominate; one is the 90 deg span of 90, 45, 22.5, etc.; the other is the 120 deg group of 120, 60, 30, 15, etc.  Sometimes both occur interlocked at one time such 3 15's making a 45.  These related degrees are with inherent planet qualities, intensely important and often supersede the various complete chart figures.  [pg. 64].
+
+Close grasp of the significance and operation of angular relationships are very important.  In the concluding section of this work, these angles become the foundation of the program used to define probable market trends as to prices and timing of swings and probable amplitude, using the daily, weekly, and monthly price ranges of stocks and commodities.  
+  
+The change from one sign to another by a planet coincides with change in trend and general psychology, depending on the magnitude and speed of the planet.  Mercury changing signs is a powerful market factor, for instance, in this connection.  [pg. 36].
+
+When an aspect appears to be stronger before exact or after exact, this is caused by the mean obliquity of the Ecliptic.  In 1936, this is 23 deg 26' 51".40; the difference between the earther's poles and the ecliptic's poles.  This obviously throws every point of the zodiac measured at the Equator, except Aries and Libra degrees, off in declination from one to four degrees.  Depending on the declination depends whether the approaching, exact, or passed aspect is most powerful.  Such a situation can delay a market turn, marked by an aspect of slow moving planets, as much as several months; and in the case of an aspect of rapidly moving planets, several days (and of course, conversely, ahead of hte ephemeral positions).  This is particularly noticable in 1935 when the important aspects involving Gemini, Cancer, and Leo practically all were strongest when approaching or ahead of time, while those involving Sagittarius and Capricorn were behind time.  This is a problem to involve careful consideration by observers.  [pg. 38].
+
+Planet houses for mundane and corporation charts: [pg. 39-40].
+
+Planet keywords for interpretation of the planets: [pg. 40-41].
+
+Process of casting mundane charts: [pg. 45].
+
+Planetary signs, dignities, rulerships, decans, time periods, etc.: [pg. 57-60].
+
+Planetary periods [pg. 58]:
+  Moon:       4 years
+  Mercury:   10 years
+  Venus:      8 years
+  Sun:       19 years
+  Mars:      15 years
+  Jupiter:   12 years
+  Saturn:    40 years
+  Uranus:    90 years
+  Neptune:  180 years
+
+Critical degrees (planets or house cusps in these degrees have intensified effects) [pg. 58]:
+  Aries:        1, 13, 26
+  Cancer:       1, 13, 26
+  Libra:        1, 13, 26
+  Capricorn:    1, 13, 26
+  Taurus:       9, 21
+  Leo:          9, 21
+  Scorpio:      9, 21
+  Aquarius:     9, 21
+  Gemini:       4, 17
+  Virgo:        4, 17
+  Sagittarius:  4, 17
+  Pisces:       4, 17
+
+Sign types are: Cardinal, Fixed, Mutable. (squares)  [pg. 68].
+Sign types are: Fire, Earth, Air, Water.  (trines)   [pg. 68].
+
+Groups of aspects:
+  Square group (generally unfavorable/bearish) [pg. 68]: 
+      0 deg - Conjunction
+     45 deg - Semi-square
+     90 deg - Square
+    135 deg - Sesquiquadrate
+    180 deg - Opposition
+
+  Trine group (generally favorable/bullish) [pg. 68]:
+      0 deg - Conjunction (under certain conditions)
+     30 deg - Semi-sextile
+     60 deg - Sextile
+    120 deg - Trine
+    150 deg - Quincunx or inconjunct
+
+  Quintile group [pg 80]:
+     72 deg - Quintile
+    144 deg 
+    216 deg 
+    288 deg
+    
+     18 deg - Circle of 360 deg has 20 divisions of 18 deg.
+     36 deg - Circle of 360 deg has 10 divisions of 36 deg.
+     54 deg - Circle of 360 deg has 6.66666 divisions of 54 deg.
+     72 deg - Circle of 360 deg has  5 divisions of 72 deg.
+
+  Parallels depend on the planets involved.  
+
+Generally the most useful aspects are the fourths/squares, the triology/trines and the fifths/quintiles.  The squares in general are classed as bearish, unfavorable, and activating.  The trines are bullish, favorable, serene, constructive and the expansion urge.  The fifths or quintiles are generally ignore, but in mundane work covering markets and economic affairs they are very significant.  Trend reversals usually are lost in the trine and the squares, but are timed by the fifths.  Quintiles often are turning or resolving areas.  An upward market trend marked by a trine aspect situation which si waning comes to a quintile aspect (the trine changes to quintile) and the decline appears; if followed by a waxing square type of aspect, declining or bearish trends are confirmed.  The rule continues to keep it simple; in general stay with the potent aspects of the three groups and avoid trying to include every minor aspect.  [pg. 80-81].
+
+Apparent contradiction is adjusted by noting the nature of the planets involved; a benefic such as Jupiter and Venus would have an aspect of the bullish tendencies.  [pg. 80].
+
+Often, to keep data clarified, it is well to consider waxing and waning aspects;  As the angular relationship narrows it is waxing; as it widens it is waning.  For example, a waxing trine is labeled 120 deg, while a waning trine is labeled 240 deg.  [pg. 80].
+
+There are specific answers to such problems of the general thumb rules failing, but it becomes rather involved with more advnace studies involving sign location of a planet and its Detriment, Exaltation, Fall, Critical degrees, and orb of aspect.  [pg. 68].
+
+Expecting a precise market action, such a peak at the day and hour an aspect becomes exat may often fail.  Often the reason is that an orb of aspect should be allowed, about 2 to 5% usually is general, PLUS a trigger.  A trigger is a fast moving planet coming into the major aspect, particularly Mars, sometimes Mercury.  Hindsight will discover it on study, from which experience will develop so that advnace interpretation can take place.  No two situations are ever alike.  [pg. 68].
+
+##############################################################################
+
+General business conditions and markets:
+
+In estimating business and market trends, the primary or major swings are involved in the Great Mutation of 240 years portent.  Set a Solar Return figure based on this radix each year.  For day-today indications, use the diurnal method already discussed.  The radix and the diurnals are set for the capital of the country in question.  A synthesis of the relationships by aspect and sign positions of Jupiter, Saturn and Uranus, plus the Sun Spot cycle is the framework upon which to project the primary trends of business and markets.  [pg. 35-36].
+
+An 'Over' simplified method of astro-cycle interpretation [pg. 65-67].  This covers examples of usage of the 3 major planets (Jupiter, Saturn, and Uranus), planet ingresses, Moon's node, Pluto, and the Jupiter-Saturn link.  The Jupiter-Saturn conjunction is the 20-year cycle.  For more than 100 years of business and investment market statistics, beginning in 1812, the booms and depressions were geared to the angular relation of Jupiter and Saturn.  [pg. 65-67].
+
+In the 1930's and 1940's, the usual pattern (of Jupiter and Saturn, as presented by James Mars Langham) started to break up, due to Uranus aspects becoming potent.  The Some of the phenomena of the Uranus 84 year cycle was detailed in Section I.  Also important is the cycle data of the Moon's North Node.  North American continental point of 7-9 deg Gemini is important for intensifying or cushioning the interaction patterns of Jupiter, Saturn and Uranus.  [pg. 68].
+
+From aspects between the Moon's Node and the 7-9 deg Gemini point to form sextiles, squares, trines, etc., the major market trend takes form.  The squares approximate major lows.  This happened in 1961, 1970, and 1979.  For study, it is suggested, beginning with the square following the sextile in 1932, process each year of the stock market with the Moon's Node aspects in order to grasp the method yourself.  [pg. 69].  Jensen notes that there is a difference between the approaching square and the separating square to that 7-9 deg Gemini point.  [pg. 71].
+
+Another element in our chain of factors is the probable effects of Pluto.  Jensen says for many reasons (not given in ACSM) that it may rule Aries.  [pg. 69].
+
+Make sure to study the transit chart at Washington D.C. and notes on page 76.
+Node is in Virgo, square 9 deg Gemini.
+Saturn and Uranus are conjunct at 0 deg Gemini.  (sign ingress).
+New moon (Moon conj. Sun) at 24 deg Taurus, which is sextile to Jupiter at 24 deg Gemini.
+rluu: What is meant by Jupiter nearing 26 deg from Saturn?  [pg. 76].
+Jensen says after this low, there is nothing to stop the uptrend until 1946. [pg. 78].
+
+Adverse or negative aspects between Jupiter, Saturn and Uranus depress, in one form or another, business activity and markets.  A conjunction involving Saturn is notably severe.  Such an event occurred when Jupiter was conjunct Saturn early in 1941 and then the saturn Uranus conjunction in 1942.  Relief from these depressing factors began to wane (angle relationships widened) as soon as the conjunction became completed.  Late in May 1942, Jupiter was approaching 26 deg away from Saturn, a bullish index, with little of bearish importance until 90 deg difference between Jupiter and Saturn appears.  It occurs May 5th, 1946, whcih approximates the high in markets since 1942.  From early 1946, factors were sustaining but not bullish until 1949, etc. [pg. 78].
+
+Jensen mentions static cycle lengths that the mainstream cyclists find that is really connected to the cycle of the Moon's North Node [pg. 78]:
+  41-43 month cycle
+  4.5 year
+  9 year
+  10 year
+  18 year
+  54 year (3 * 18 year)
+
+Next, we would proceed and get into Ingress and Lunation charts, the part of Parallels and the details fo interpretive method.  [pg. 78].
+
+General process of the 'Over-Simplified' method.  [pg. 78].
+1) First, scan the ephemeris positions for the period involved to note the interaction of Uranus, Saturn, Jupiter and the Node.  
+2) Then we trasnlate the positions into sign-house and house-sign notes.  
+3) We can stop there and record when interaction occurs at critical angles of favorable and unfavorable aspects.  
+4) Then a trend prospect can be concluded.  
+
+Recap of the steps for estimating market trends [pg. 82]:
+1) We become familiar with planets in their natural house-signs and then sign-houses (reference to pages 59 and 60).  
+2) The zodiac is divided into 12 divisions or houses adn we become familiar with each house meaning (reference to page 39).
+3) Geographical locality computing is learned (the complications of Ingresses, lunations, etc. are avoided).
+4) We synthesize plaents in house locations and use sign rulership (reference to page 59) as in Horary methods for general estimates of a chart. 
+5) Then natural house signs, plus sign-house interpretation are added to consideration of rulerships and the planetary powers for detailed data.  
+6) Keep in mind specific angular relationships of Jupiter, Saturn and Uranus are key to stocks in the plus or minus, bullish or bearish, critical degrees noted in the text.  Each commodity has its own combination of one or two of the foregoing plus either Mercury, Venus or Mars.  
+
+The more advanced method adds on the 'Over-Simplified' method by placing the positions in a locality chart.  [pg. 82].  
+
+##############################################################################
+
+Commodtiy markets:
+
+In commodity markets, the Moon is important in marking turns.  The time of the New Moon, or Lunation, and the Full Moon, are critical commodity points, and if a commodity makes a high or low on one key day, it will maintain its new trend until the next key day.  Ocasionally key days develop simultaneously and thereby mark extremely critical points.  Those days termed key days are when the Moon is in square aspect to either Mercury, Mars or Venus.  Another factor of importance, particularly in commodity markets, are the planetary hours of each day.  This use in hour to hour observations is of great value.  [pg. 36].
+
+In the Jupiter-Saturn Rotational Radix (see pg. 48), the point of wheat is found by subtracting the postiion of the Sun (at the conjunction moment) from the position of the conjunction and adding the Ascendant.  This is a radix point entered and used much in the same manner as Pars Fortuna is used in a natal chart.  In the 1901 figure for London, this point feel in the second house in conjunction with the Moon at 12 deg 36' Cancer, and opposing the point of conjunction at 14 deg 0' 18" Capricorn.  This figure included the period of the War, when wheat shortages were intense.  In the 1921 conjunction (Jupiter-Saturn) at London, the point of wheat is in 10 deg 43' Leo in conjunction with Neptune and Venus.  This point of barley is found by subtracting the place of the Moon from the place of Jupiter and adding the ascendant; rye by subtracting Mercury from Saturn and adding ascendant; cotton by subtracting Mercury from Mars and adding ascendant.  These "points" are to use for supplemental purposes, however, for though they work in a unique manner, the scientific basis for them is not clear.  The basic idea was suggestd by Pallicus in an unpublished manuscript now in the British Museum.  [pg. 37].
+
+##############################################################################
+
+Individual stocks:
+
+For corporation events, and the probable activity of their securities, use a radix chart the mundane house positions described in Chapter One; and the methods of Chapter Two set for the date of incorporation and located at the place of the home office.  If the exact data is known set the diurnals according to the Sidereal Time of the exact Solar Return.  If not, it is best to watch the interaction of the transits in connection with the incorporation radix set for the home office location and its radix positions and progressions, according to mundane rulership cusps.  [pg. 37].
+
+Some success can be attained by using the diurnals based on the Solar Return of the New York Stock Exchange radix at the corporation home office location and super-imposing the corporation radix positions on the diurnals.  In the matter of markets, however, it must be stressed that technical market factors, and particularly the statistical market charts, are the yardsticks of market action.  Motivating influences are reflected by the planetary positions, but there must be a yardstick first.  [pg. 37].
+
+##############################################################################
+
+Books or authors recommended or referenced:
+
+seven lessons on Mundane Astrology, issued by the Brotherhood of Light at Los Angeles. [pg. 38].
+
+Reference to Alan Leo's technique of 'memory co-ordination'.  [pg. 43].
+
+Sidney K. Bennet developed several texts on interpretation along these lines which are of enormous interpretive value, to both the student and the professional, and decidedly worth their published price to both layman and student.  [pg. 43].
+
+Regarding references material for mundane interpretation [pg. 44]: 
+Raphael's "Mundane Astrology" and 
+A. J. Pearce's "Textbook of Astrology"
+
+Jupiter-Saturn relationship was explored in the 1930's and presented in a book by James Mars Langham.  [pg. 67].
+
+##############################################################################
+
+Radix charts included in the book:
+
+The Great Mutation of 1842 [pg. 47].
+Rotational Conjunction Jupiter-Saturn of 1921 [pg. 48].
+United States chart (Declaration of Independence) [pg. 49].
+New York Stock Exchange [pg. 50].
+Liverpool Grain Exchange [pg. 51].
+Bank of England [pg. 52].
+Chicago Board of Trade [pg. 53].
+United States Steel Corporation [pg. 54].
+
+Transit chart at Washington, D.C., for May 15th, 1942, at a major market low. [pg. 76].
+
+
+##############################################################################
