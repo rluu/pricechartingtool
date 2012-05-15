@@ -6481,8 +6481,7 @@ class PlanetaryCombinationsLibrary:
 
     @staticmethod
     def addGeoLongitudeVelocityPolarityChangeVerticalLines(\
-        pcdd, startDt, endDt,
-        highPrice, lowPrice,
+        pcdd, startDt, endDt, highPrice, lowPrice,
         planetName,
         color=None,
         maxErrorTd=datetime.timedelta(minutes=4)):
@@ -6548,9 +6547,13 @@ class PlanetaryCombinationsLibrary:
 
         # Set the color if it is not already set to something.
         colorWasSpecifiedFlag = True
+        darkerColor = None
         if color == None:
             colorWasSpecifiedFlag = False
             color = AstrologyUtils.getForegroundColorForPlanetName(planetName)
+            darkerColor = color.darker()
+        else:
+            darkerColor = color
         
         # Set the tag str.
         tag = inspect.stack()[0][3]
@@ -6673,7 +6676,9 @@ class PlanetaryCombinationsLibrary:
                     # Create the artifact at the timestamp.
                     PlanetaryCombinationsLibrary.\
                         addVerticalLine(pcdd, currDt,
-                                        highPrice, lowPrice, tag, color)
+                                        highPrice, lowPrice,
+                                        tag + "_Direct",
+                                        darkerColor)
                     numArtifactsAdded += 1
                     
                 elif prevValue >= desiredVelocity and currValue < desiredVelocity:
@@ -6721,7 +6726,9 @@ class PlanetaryCombinationsLibrary:
                     # Create the artifact at the timestamp.
                     PlanetaryCombinationsLibrary.\
                         addVerticalLine(pcdd, currDt,
-                                        highPrice, lowPrice, tag, color)
+                                        highPrice, lowPrice,
+                                        tag + "_Retrograde",
+                                        color)
                     numArtifactsAdded += 1
             
             # Prepare for the next iteration.

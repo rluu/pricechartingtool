@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 ##############################################################################
-# Script:  swingFileToCsvFile.py
+# Script:  swingFileToCsvFile2.py
 #
 # Description:
 #   Takes a SwingFile (.swg) and outputs most of the fields to a CSV file.
+#   The outputted CSV file will also have geocentric planetary coordinate data.
 #
 # Dependencies:
+#   src/astrologychart.py
 #   src/ephemeris.py
 #   src/data_objects.py
 #
@@ -23,6 +25,16 @@
 #   ./swingFileToCsvFile.py --swing-file=/tmp/inputSwingFile.swg \
 #                           --output-file=swings.csv
 #                           --print
+#
+# Note:
+#   After running the script, you can narrow down the results by
+#   using grep in the following manner.
+#
+#     # Get the column headers.
+#     head -n 3 swings.csv > filtered_swings.csv
+#
+#     # Get lines that have LLL or HHH in them, which are tags.
+#     cat swings.csv | grep "LLL\|HHH" >> filtered_swings.csv
 #
 ##############################################################################
 
@@ -55,6 +67,7 @@ if srcDir not in sys.path:
 from ephemeris import Ephemeris
 from data_objects import *
 from pricebarchart import PriceBarChartGraphicsScene
+from astrologychart import AstrologyUtils
 
 from swing import SwingFileData
 
@@ -143,10 +156,93 @@ def unpickleSwingFileDataFromFile(filename):
     
     return rv
 
+def getPlanetaryInfosForDatetime(dt, birthInfo):
+    """Helper function for getting a list of PlanetaryInfo objects
+    to display in the astrology chart.
+    """
+
+    # Set the location again (required).
+    Ephemeris.setGeographicPosition(birthInfo.longitudeDegrees,
+                                    birthInfo.latitudeDegrees,
+                                    birthInfo.elevation)
+    
+    # Get planetary info for all the planets.
+    planets = []
+    
+    # Astrological house system for getting the house cusps.
+    houseSystem = Ephemeris.HouseSys['Porphyry']
+    
+    #planets.append(Ephemeris.getH1PlanetaryInfo(dt, houseSystem))
+    #planets.append(Ephemeris.getH2PlanetaryInfo(dt, houseSystem))
+    #planets.append(Ephemeris.getH3PlanetaryInfo(dt, houseSystem))
+    #planets.append(Ephemeris.getH4PlanetaryInfo(dt, houseSystem))
+    #planets.append(Ephemeris.getH5PlanetaryInfo(dt, houseSystem))
+    #planets.append(Ephemeris.getH6PlanetaryInfo(dt, houseSystem))
+    #planets.append(Ephemeris.getH7PlanetaryInfo(dt, houseSystem))
+    #planets.append(Ephemeris.getH8PlanetaryInfo(dt, houseSystem))
+    #planets.append(Ephemeris.getH9PlanetaryInfo(dt, houseSystem))
+    #planets.append(Ephemeris.getH10PlanetaryInfo(dt, houseSystem))
+    #planets.append(Ephemeris.getH11PlanetaryInfo(dt, houseSystem))
+    #planets.append(Ephemeris.getH12PlanetaryInfo(dt, houseSystem))
+    #planets.append(Ephemeris.getARMCPlanetaryInfo(dt, houseSystem))
+    #planets.append(Ephemeris.getVertexPlanetaryInfo(dt, houseSystem))
+    #planets.append(Ephemeris.getEquatorialAscendantPlanetaryInfo(dt, houseSystem))
+    #planets.append(Ephemeris.getCoAscendant1PlanetaryInfo(dt, houseSystem))
+    #planets.append(Ephemeris.getCoAscendant2PlanetaryInfo(dt, houseSystem))
+    #planets.append(Ephemeris.getPolarAscendantPlanetaryInfo(dt, houseSystem))
+    #planets.append(Ephemeris.getHoraLagnaPlanetaryInfo(dt))
+    #planets.append(Ephemeris.getGhatiLagnaPlanetaryInfo(dt))
+    #planets.append(Ephemeris.getMeanLunarApogeePlanetaryInfo(dt))
+    #planets.append(Ephemeris.getOsculatingLunarApogeePlanetaryInfo(dt))
+    #planets.append(Ephemeris.getInterpolatedLunarApogeePlanetaryInfo(dt))
+    #planets.append(Ephemeris.getInterpolatedLunarPerigeePlanetaryInfo(dt))
+    planets.append(Ephemeris.getSunPlanetaryInfo(dt))
+    planets.append(Ephemeris.getMoonPlanetaryInfo(dt))
+    planets.append(Ephemeris.getMercuryPlanetaryInfo(dt))
+    planets.append(Ephemeris.getVenusPlanetaryInfo(dt))
+    planets.append(Ephemeris.getEarthPlanetaryInfo(dt))
+    planets.append(Ephemeris.getMarsPlanetaryInfo(dt))
+    planets.append(Ephemeris.getJupiterPlanetaryInfo(dt))
+    planets.append(Ephemeris.getSaturnPlanetaryInfo(dt))
+    planets.append(Ephemeris.getUranusPlanetaryInfo(dt))
+    planets.append(Ephemeris.getNeptunePlanetaryInfo(dt))
+    planets.append(Ephemeris.getPlutoPlanetaryInfo(dt))
+    planets.append(Ephemeris.getMeanNorthNodePlanetaryInfo(dt))
+    #planets.append(Ephemeris.getTrueSouthNodePlanetaryInfo(dt))
+    planets.append(Ephemeris.getTrueNorthNodePlanetaryInfo(dt))
+    #planets.append(Ephemeris.getTrueSouthNodePlanetaryInfo(dt))
+    #planets.append(Ephemeris.getCeresPlanetaryInfo(dt))
+    #planets.append(Ephemeris.getPallasPlanetaryInfo(dt))
+    #planets.append(Ephemeris.getJunoPlanetaryInfo(dt))
+    #planets.append(Ephemeris.getVestaPlanetaryInfo(dt))
+    planets.append(Ephemeris.getIsisPlanetaryInfo(dt))
+    #planets.append(Ephemeris.getNibiruPlanetaryInfo(dt))
+    planets.append(Ephemeris.getChironPlanetaryInfo(dt))
+    #planets.append(Ephemeris.getGulikaPlanetaryInfo(dt))
+    #planets.append(Ephemeris.getMandiPlanetaryInfo(dt))
+    planets.append(Ephemeris.getMeanOfFivePlanetaryInfo(dt))
+    planets.append(Ephemeris.getCycleOfEightPlanetaryInfo(dt))
+    planets.append(Ephemeris.getAvgMaJuSaUrNePlPlanetaryInfo(dt))
+    planets.append(Ephemeris.getAvgJuSaUrNePlanetaryInfo(dt))
+    planets.append(Ephemeris.getAvgJuSaPlanetaryInfo(dt))
+
+    return planets
+
 def convertSwingFileDataToCsvStr(swingFileData):
     """Takes a SwingFileData and generates a CSV str containing most
     of the swing file data.
     """
+
+    geocentricPlanetNameList = [\
+        "Jupiter",
+        "Saturn",
+        "Uranus",
+        "Neptune",
+        "Pluto",
+        "Chiron",
+        "TrueNorthNode",
+        #"Isis",
+        ]
 
     endl = "\r\n"
     
@@ -165,8 +261,19 @@ def convertSwingFileDataToCsvStr(swingFileData):
     #rv += "Source PriceBar data filename: {}".\
     #      format(swingFileData.sourcePriceBarDataFilename) + endl
 
-    rv += "jd,day,date,time,timezone,tags,open,high,low,close,volume,oi" + endl
+    # Column headers.
+    rv += "jd,day,date,time,timezone,tags,open,high,low,close,volume,oi"
 
+    # Add the columns headers for the Geocentric planets' longitude.
+    # Here we do it twice because the first set is the 15-degree axis
+    # reduction, and the second set is the actual planet positions.
+    for planetName in geocentricPlanetNameList:
+        rv += ",G." + planetName
+    for planetName in geocentricPlanetNameList:
+        rv += ",G." + planetName
+
+    rv += endl
+    
     for pb in swingFileData.priceBars:
         # Field: jd
         rv += "{}".format(Ephemeris.datetimeToJulianDay(pb.timestamp))
@@ -237,7 +344,30 @@ def convertSwingFileDataToCsvStr(swingFileData):
         rv += "{}".format(pb.oi)
         rv += ","
 
+        # Get PlanetaryInfos for this timestamp.
+        planetaryInfos = \
+            getPlanetaryInfosForDatetime(pb.timestamp,
+                                         swingFileData.birthInfo)
 
+        # Fields of the geocentric planets' longitude 15-degree axis points.
+        for planetName in geocentricPlanetNameList:
+            for pi in planetaryInfos:
+                if pi.name == planetName:
+                    lon = pi.geocentric['tropical']['longitude']
+                    rv += "{:6.3f},".format(lon % 15.0)
+                    break
+            
+        # Fields of the geocentric planets' longitude.
+        for planetName in geocentricPlanetNameList:
+            for pi in planetaryInfos:
+                if pi.name == planetName:
+                    lon = pi.geocentric['tropical']['longitude']
+                    valueStr = AstrologyUtils.\
+                               convertLongitudeToStrWithRasiAbbrev(lon)
+                    rv += "{},".format(valueStr)
+                    break
+
+        # Chop off the last trailing comma.
         rv = rv[:-1]
         rv += endl
         

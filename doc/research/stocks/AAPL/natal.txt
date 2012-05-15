@@ -1,0 +1,37 @@
+##############################################################################
+# Natal information for:
+# 
+# Company:            Apple Inc. (Formerly Apple Computer, Inc.)
+# Stock symbol:       AAPL
+# Trades on exchange: NASDAQ
+##############################################################################
+
+Natal Candidate:
+
+April 1, 1976
+Cupertino, California
+
+
+Source: 
+
+
+rluu: This natal has not been verified by me.  
+
+Notes:
+
+Wikipedia says:
+http://en.wikipedia.org/wiki/Apple_Inc.
+
+Founded on: April 1, 1976
+Incorporated January 3, 1977 as Apple Computer, Inc.
+
+Founder(s):
+    Steve Jobs
+    Steve Wozniak
+    Ronald Wayne
+
+Established on April 1, 1976 in Cupertino, California, and incorporated January 3, 1977,[18] the company was named Apple Computer, Inc. for its first 30 years. The word "Computer" was removed from its name on January 9, 2007,[19] as its traditional focus on personal computers shifted towards consumer electronics.[20]
+
+
+
+##############################################################################

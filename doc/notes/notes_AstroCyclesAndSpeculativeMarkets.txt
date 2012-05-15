@@ -199,7 +199,75 @@ United States Steel Corporation [pg. 54].
 
 Transit charts and their features/highlights:
 
-Transit chart at Washington, D.C., for May 15th, 1942, at a major low in morale and values. [pg. 76].
+Transit chart at Washington, D.C., for May 15th, 1942, at a major low in morale and values. [pg. 76].  Features:
+  - Saturn-Uranus conjunction.
+  - Node exactly square 9 deg Gemini.
+  - Jupiter nearing 26 deg from Saturn.  
+    [rluu: Is there any special significance to this?]
 
+Transit chart at NYC, August 18, 1976.  [pg. 83].  Features:
+  - Uranus square Saturn [rluu: at 6 degree orb here], 
+    reflects doubts over business outlook.  
+  - Saturn and Jupiter, with Jupiter now out of Gemini into Taurus,
+    approach 72 deg, which is a bearish point.  Stocks are bearish.
+
+Transit chart at NYC, January 15, 1956.  [pg. 87].  Features:
+  - Saturn square Jupiter.  Usually very bearish, but here it is brief and Jupiter is retrograde, weakening it.  
+  - Saturn/Mars trine Uranus.  This is weak too since Uranus is retrograde.
+  - North Node not at a critical point.
+
+Transit chart at NYC, March 6, 1962.  [pg. 88].  Features:
+  - Jupiter-Saturn 18 deg.  (bearish) [rluu: on 18 deg axis].
+  - Mars conjunct Jupiter opposition Uranus.  [rluu: Mars as trigger.]
+    [rluu: On the chart, Jensen has Mars and Jupiter labeled with 
+           the wrong degrees, but describes the correct astrological aspect.  
+           Is he trying to highlight something here?]
+  - Pluto square 7-9 deg Gemini point.
+  - Initial downside objective late July when Node sextile 9 deg Gemini point.
+  - September, "Jupiter Saturn of bullish 27 deg point".  
+    [rluu: What is meant by this?  
+           Note that ascendant (for NYC) is at 27 deg, and 
+           for this chart, Uranus happens to be at 27 deg Leo.
+           Checking the chart for September 15, 1962, 
+           Jupiter is at about 6 Pisces, and Saturn at about 6 Aquarius.
+           I don't see anything connected to the 27 degrees mentioned 
+           between Jupiter and Saturn...].
+  - New moon (Sun conj. Moon) at 150 deg to N.Node.
+
+Transit chart at NYC, May 1, 1956.  [pg. 89].  Features:
+  - Node opposite 9 deg Gemini point.  Market top index.
+  - Neptune square Uranus: heavy distribution.  
+    [rluu: On the chart, Jensen has these drawn in swapped locations.
+           Is he trying to highlight something here?]
+  - Nothing bullish.  
+  - Look for downside confirmation at Jupiter-Saturn 72 deg point in mid July.
+  - Probable low November 1957 when Node reaches 150 deg to 9 deg Gemini point,
+    and Jupiter Saturn sextile confirmed.  
+  - rluu: Mercury was opposite Saturn as a trigger.
+  - rluu: Moon was opposite Uranus also.
+
+Transit chart of NYC, November 24, 1968.  [pg. 91].  Features:
+  - Jupiter near conjunct Uranus, with both opposed by Saturn.  
+    Major bearish index.
+    [rluu: The Saturn opposition here is pretty far off.  More like 150 deg.].
+
+Transit chart at NYC, January 1, 1970.  [pg. 92].  Features:
+  - September 1969 rally under Jupiter-Saturn 150 deg now exhausted with 
+    bearish Jupiter-Saturn 180 deg.
+  - Technical structure very weak and nothing bullish until Node 
+    reaches 9 deg in late April 1970.
+
+Transit chart at NYC, April 28, 1970.  [pg. 93].  Features:
+  - Node at 9 Pisces, in square to Gemini 9 deg point.  Due is an important low.
+  - Industrials have declined 368 points, more than 30% since late 1968.
+  - Technical rebound would carry to March 24, 1971 
+    for 162 deg Jupiter-Saturn withi Jupiter stationary.  
+    [rluu: Note that 162 deg Jupiter-Saturn is on the 18 degree axis.  
+           18 degree axis was given in chart example on pg. 88].
+    Such a pattern would offer a low in early November 1971 with 
+    Node at 9 deg Aquarius, trine to 9 deg Gemini.
+  - [rluu: In this chart, he gives the moon at 27 deg Capricorn.  
+           In all the other examples, he leaves out the Moon, 
+           but he decided to include it this time.  Any special reason why?]
 
 ##############################################################################

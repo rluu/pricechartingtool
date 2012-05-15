@@ -250,22 +250,22 @@ def processSwingFileData(swingFileData):
     #      "window" : [] })
     scanVars.append(\
         { "tag" : "HH",
-          "priceRangeRequired" : 0.05,
-          "param" : 10,
+          "priceRangeRequired" : 0.10,
+          "param" : 20,
           "window" : [] })
     scanVars.append(\
         { "tag" : "HHH",
-          "priceRangeRequired" : 0.05,
+          "priceRangeRequired" : 0.20,
           "param" : 30,
           "window" : [] })
     scanVars.append(\
         { "tag" : "HHHH",
-          "priceRangeRequired" : 0.05,
+          "priceRangeRequired" : 0.25,
           "param" : 80,
           "window" : [] })
     scanVars.append(\
         { "tag" : "HHHHH",
-          "priceRangeRequired" : 0.05,
+          "priceRangeRequired" : 0.30,
           "param" : 160,
           "window" : [] })
 
@@ -276,22 +276,22 @@ def processSwingFileData(swingFileData):
     #      "window" : [] })
     scanVars.append(\
         { "tag" : "LL",
-          "priceRangeRequired" : 0.05,
-          "param" : 10,
+          "priceRangeRequired" : 0.10,
+          "param" : 20,
           "window" : [] })
     scanVars.append(\
         { "tag" : "LLL",
-          "priceRangeRequired" : 0.05,
+          "priceRangeRequired" : 0.20,
           "param" : 30,
           "window" : [] })
     scanVars.append(\
         { "tag" : "LLLL",
-          "priceRangeRequired" : 0.05,
+          "priceRangeRequired" : 0.25,
           "param" : 80,
           "window" : [] })
     scanVars.append(\
         { "tag" : "LLLLL",
-          "priceRangeRequired" : 0.05,
+          "priceRangeRequired" : 0.30,
           "param" : 160,
           "window" : [] })
 
@@ -427,7 +427,7 @@ def processSwingFileData(swingFileData):
                                   format(currIndex, window[currIndex].low))
                         log.debug("window[{}].low == {}".\
                                   format(currIndex+1, window[currIndex+1].low))
-                        if window[currIndex+1].low < window[currIndex].low:
+                        if window[currIndex+1].low <= window[currIndex].low:
                             currIndexIsTheLowest = False
                             log.debug("currIndexIsTheLowest == False")
 
@@ -465,7 +465,7 @@ def processSwingFileData(swingFileData):
                                   format(currIndex, window[currIndex].high))
                         log.debug("window[{}].high == {}".\
                                   format(currIndex+1, window[currIndex+1].high))
-                        if window[currIndex+1].high > window[currIndex].high:
+                        if window[currIndex+1].high >= window[currIndex].high:
                             currIndexIsTheHighest = False
                             log.debug("currIndexIsTheHighest == False")
 

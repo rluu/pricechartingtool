@@ -178,6 +178,18 @@ rluu: Romeman and others say actually we are supposed to get the prices first, a
 Post #16998:
 Lorin: Lorin pays no attention to ASC or MC in position trading.  If he was trading intraday and watching time closely, then maybe they would be important.  He uses the natal planet positions to find the CIT.  If it is working, then why spend the (possibly massive) time to rectify it?  He says he has not found the need to rectify the chart to the exact second.  
 
+Post #19314
+Sean Kehoe: 
+Look for transiting planets in opposition to natal planet positions.
+This will cause the stock to go down.
+Backtest this to see for yourself.
+
+Post #19319
+r2d2 (Serge) gives some things to try:
+Have you tried using Helio Natal and Right Ascension equatorial coordinates ? 
+and how do you find they compare with ordinary Geo ?
+Have you come across the work of John Young , using Helio Natal in stocks ?
+
 Post #19603:
 BA: BA rectifies the natal by hand using Solar Fire.  He acknowledges that TAC and others use Excel.  
 

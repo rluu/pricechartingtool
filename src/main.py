@@ -108,6 +108,15 @@ def main():
     app.setApplicationName(APP_NAME)
     app.setWindowIcon(QIcon(":/images/rluu/appIcon.png"))
 
+    # Turn off UIEffects so that the application runs faster when doing
+    # X11 forwarding.
+    app.setEffectEnabled(Qt.UI_AnimateMenu, False)
+    app.setEffectEnabled(Qt.UI_FadeMenu, False)
+    app.setEffectEnabled(Qt.UI_AnimateCombo, False)
+    app.setEffectEnabled(Qt.UI_AnimateTooltip, False)
+    app.setEffectEnabled(Qt.UI_FadeTooltip, False)
+    app.setEffectEnabled(Qt.UI_AnimateToolBox, False)
+    
     # Initialize the Ephemeris.
     Ephemeris.initialize()
 
