@@ -5,7 +5,9 @@
 This document contains a continuation of hand-written notes on Jensen's ACSM.  
 Notes here are on the book starting at page 35.
 
-rluu 20120514: Start taking notes starting from page 86 in ACSM.
+rluu 20120515: I am skipping taking notes on the section on charting the geometric method.  I did that because that section is more 'applied' knowledge.  This is the section from pages 107-118, and 124-126.  After I have the cycles worked out to a decent level of confidence, then return back to this section for further study.  I extracted the cycles mentioned from these sections.  
+
+rluu 20120515: TODO:  Work through the dates and astro that is described in pages 121 to 122.  Add notes on these to the 'Transit charts' section of these notes.   
 
 ##############################################################################
 
@@ -18,10 +20,12 @@ Primary aspects:
 45 and 135.
 30, 60 and 120 are favorable, the 150 doubtful, the remainder unfavorable.  [pg. 35].
 
-Briefly, two classes of angles dominate; one is the 90 deg span of 90, 45, 22.5, etc.; the other is the 120 deg group of 120, 60, 30, 15, etc.  Sometimes both occur interlocked at one time such 3 15's making a 45.  These related degrees are with inherent planet qualities, intensely important and often supersede the various complete chart figures.  [pg. 64].
+Briefly, two classes of angles dominate; one is the 90 deg span of 90, 45, 22.5, etc.; the other is the 120 deg group of 120, 60, 30, 15, etc.  Sometimes both occur interlocked at one time such 3 15's making a 45.  These related degrees are with inherent planet qualities, intensely important and often supersede the various complete chart figures.  [pg. 64].  [pg. 107-109].
 
 Close grasp of the significance and operation of angular relationships are very important.  In the concluding section of this work, these angles become the foundation of the program used to define probable market trends as to prices and timing of swings and probable amplitude, using the daily, weekly, and monthly price ranges of stocks and commodities.  
   
+0 degrees is always the beginning or place of origin, and the positive pole (top).  180 degrees is the negative pole (bottom).  The symbol of opposition and alternative.  All degrees which divide 90 equally are related to 'resistance'.  The 120 deg angles, and their harmonical divisons, relate to co-ordination, harmony and balance.  They are unifying and bring adjustment which relates to the ideal.  In market charts, these units mark areas of market adjustment or areas of consolidation in time and price.  [pg. 104].  
+
 The change from one sign to another by a planet coincides with change in trend and general psychology, depending on the magnitude and speed of the planet.  Mercury changing signs is a powerful market factor, for instance, in this connection.  [pg. 36].
 
 When an aspect appears to be stronger before exact or after exact, this is caused by the mean obliquity of the Ecliptic.  In 1936, this is 23 deg 26' 51".40; the difference between the earther's poles and the ecliptic's poles.  This obviously throws every point of the zodiac measured at the Equator, except Aries and Libra degrees, off in declination from one to four degrees.  Depending on the declination depends whether the approaching, exact, or passed aspect is most powerful.  Such a situation can delay a market turn, marked by an aspect of slow moving planets, as much as several months; and in the case of an aspect of rapidly moving planets, several days (and of course, conversely, ahead of hte ephemeral positions).  This is particularly noticable in 1935 when the important aspects involving Gemini, Cancer, and Leo practically all were strongest when approaching or ahead of time, while those involving Sagittarius and Capricorn were behind time.  This is a problem to involve careful consideration by observers.  [pg. 38].
@@ -90,7 +94,7 @@ Groups of aspects:
 
   Parallels depend on the planets involved.  
 
-Generally the most useful aspects are the fourths/squares, the triology/trines and the fifths/quintiles.  The squares in general are classed as bearish, unfavorable, and activating.  The trines are bullish, favorable, serene, constructive and the expansion urge.  The fifths or quintiles are generally ignore, but in mundane work covering markets and economic affairs they are very significant.  Trend reversals usually are lost in the trine and the squares, but are timed by the fifths.  Quintiles often are turning or resolving areas.  An upward market trend marked by a trine aspect situation which si waning comes to a quintile aspect (the trine changes to quintile) and the decline appears; if followed by a waxing square type of aspect, declining or bearish trends are confirmed.  The rule continues to keep it simple; in general stay with the potent aspects of the three groups and avoid trying to include every minor aspect.  [pg. 80-81].
+Generally the most useful aspects are the fourths/squares, the triology/trines and the fifths/quintiles.  The squares in general are classed as bearish, unfavorable, and activating.  The trines are bullish, favorable, serene, constructive and the expansion urge.  The fifths or quintiles are generally ignore, but in mundane work covering markets and economic affairs they are very significant.  Trend reversals usually are lost in the trine and the squares, but are timed by the fifths.  Quintiles often are turning or resolving areas.  An upward market trend marked by a trine aspect situation which is waning comes to a quintile aspect (the trine changes to quintile) and the decline appears; if followed by a waxing square type of aspect, declining or bearish trends are confirmed.  The rule continues to keep it simple; in general stay with the potent aspects of the three groups and avoid trying to include every minor aspect.  [pg. 80-81].
 
 Apparent contradiction is adjusted by noting the nature of the planets involved; a benefic such as Jupiter and Venus would have an aspect of the bullish tendencies.  [pg. 80].
 
@@ -99,6 +103,21 @@ Often, to keep data clarified, it is well to consider waxing and waning aspects;
 There are specific answers to such problems of the general thumb rules failing, but it becomes rather involved with more advnace studies involving sign location of a planet and its Detriment, Exaltation, Fall, Critical degrees, and orb of aspect.  [pg. 68].
 
 Expecting a precise market action, such a peak at the day and hour an aspect becomes exat may often fail.  Often the reason is that an orb of aspect should be allowed, about 2 to 5% usually is general, PLUS a trigger.  A trigger is a fast moving planet coming into the major aspect, particularly Mars, sometimes Mercury.  Hindsight will discover it on study, from which experience will develop so that advnace interpretation can take place.  No two situations are ever alike.  [pg. 68].
+
+Examples of intermediate trends [pg. 121].: 
+  - 1932 to 1937, Upward trend.
+  - 1937 to 1942, Downward trend.
+
+An intermediate trend usually has 5 phases, three in its direction and two corrective minor trends.  The typical structure of it is [pg. 121]:
+
+1) Small initial upward phase.            (Example: Jul. 1932 to Sep. 1932)
+2) Minor downard trend of varying length. (Example: Sep. 1932 to Feb. 1933)
+3) Second upswing minor trend.            (Example: Mar. 1933 to Jul. 1933)
+4) Second setback.                        (Example: Jul. 1933 to end of 1934)
+5) Third upswing and blow-off phase.      (Example: End of 1934 to early 1937)
+
+It is almost axiomatic that the third phase of an intermediate uptrend is the largest and longest because by that time people feel the future profit prospects are both unlimited and assured.  [pg. 121].  [rluu: I think the end (highs) of the intermediate trends are related to the 120 degree aspect.  Some degree measurements to think about: 18 * 5 = 90, 24 * 5 = 120.].
+
 
 ##############################################################################
 
@@ -156,6 +175,8 @@ Commodtiy markets:
 In commodity markets, the Moon is important in marking turns.  The time of the New Moon, or Lunation, and the Full Moon, are critical commodity points, and if a commodity makes a high or low on one key day, it will maintain its new trend until the next key day.  Ocasionally key days develop simultaneously and thereby mark extremely critical points.  Those days termed key days are when the Moon is in square aspect to either Mercury, Mars or Venus.  Another factor of importance, particularly in commodity markets, are the planetary hours of each day.  This use in hour to hour observations is of great value.  [pg. 36].
 
 In the Jupiter-Saturn Rotational Radix (see pg. 48), the point of wheat is found by subtracting the postiion of the Sun (at the conjunction moment) from the position of the conjunction and adding the Ascendant.  This is a radix point entered and used much in the same manner as Pars Fortuna is used in a natal chart.  In the 1901 figure for London, this point feel in the second house in conjunction with the Moon at 12 deg 36' Cancer, and opposing the point of conjunction at 14 deg 0' 18" Capricorn.  This figure included the period of the War, when wheat shortages were intense.  In the 1921 conjunction (Jupiter-Saturn) at London, the point of wheat is in 10 deg 43' Leo in conjunction with Neptune and Venus.  This point of barley is found by subtracting the place of the Moon from the place of Jupiter and adding the ascendant; rye by subtracting Mercury from Saturn and adding ascendant; cotton by subtracting Mercury from Mars and adding ascendant.  These "points" are to use for supplemental purposes, however, for though they work in a unique manner, the scientific basis for them is not clear.  The basic idea was suggestd by Pallicus in an unpublished manuscript now in the British Museum.  [pg. 37].
+
+Each commodity has its own combination of one or two of the foregoing (Jupiter, Saturn and/or Uranus) plus either Mercury, Venus or Mars.  [pg. 82].
 
 ##############################################################################
 
@@ -269,5 +290,99 @@ Transit chart at NYC, April 28, 1970.  [pg. 93].  Features:
   - [rluu: In this chart, he gives the moon at 27 deg Capricorn.  
            In all the other examples, he leaves out the Moon, 
            but he decided to include it this time.  Any special reason why?]
+
+##############################################################################
+
+On Geometry:
+
+The foundation of the geometric method is as old as mathematics and philosophy.  The techniques are part of those ancient laws which form the foundation of modern science.  [pg. 98].
+
+The geometrical rules presented in the text cannot be compromised at all; obey the rules without the slghtest deviation.  And adhere strictly to the market action revealed in teh graphs, not rumors.  [pg. 99].
+
+Of all of the methods I have examined and used, the geometrical approach is the only form that enables the student to co-ordindate the fundamental laws of supply and demand, the element of time, the problem of resistance and objective and the basis of price, with the astro-economic cyclical factors.  [pg. 100].
+
+Partners/associates of Luther Jensen [pg. 100]:
+  Mr. George E. Liggett
+  Mr. Virgil Moore (A.K.A "The Moon Man" in the grain markets)
+
+Virgil Moore's phenomenal forecasts will long be remembered.  His interpretation of markets was based almost entirely on the various phases of the geometrical method of charting.  [pg. 100].  [rluu: Note the mention that there are different phases of the geometric method; this may be the same concept as covered in Gann's Ticker interview.].
+
+It is necessary, however, so as to clarify phases of the geometrical method of charting, to refer to some of the fundamental data.  Practically all modern 'discoveries' are new applications and new variations of things which have gone before.  [pg. 101].
+
+Examples which form much of the basis of mathematical science in modern times [pg. 102]:
+  - The observations of Thales of Miletus in 600 B.C.
+  - The work of Democritus in Ancient Greece
+  - Leucretius in Ancient Rome
+
+Euclid, the father of geometry, and Pythagoras, who is credited with raising mathematics to a science, presented tenets and observations which have never been refuted down through centuries of research and observation.  [pg. 102].
+
+As Tyndall quotes them, they are the foundation of modern scientific thought.  One principle is that "Nothing happens by chance.  Every occurrence has its cause from which it follows by necessity."  [pg. 102].
+
+Kepler's doctrine of concurrence of aprallels at a single point at infinity, and his principle of continuity in relation to the infinitely great, relates to all geometrical figures.  This thesis, as applied to natural law, was amplified by Descartes and Newton.  There is no reason why charts of market statistics, if drawn according to geometrical design, cannot be another application of these premises.  [pg. 102].
+
+A Pythagorean proposition is that all things consist of three -- the trinity of proportions, or the:
+  1) Arithmetical
+  2) Geometrical
+  3) Harmonical
+In market terms, this is a clue to the relationship which exists between the angle of lift in charted prices; the prices, and the extent, or time of market activity in days, weeks, months, etc. [pg. 102].
+
+Pythagoras taught futher that there is a numerical relation in all phenomena: the harmonic intervals of numbers with sounds; the pythagorean formula of a right triangle, and more importantly, that angles of a sphere have specifically corresponding numbers, which are sensitive to those angles in space, infinity and time.  The lift of charted prices does coincide with numbers at specific points in space, corresponding to price and time.  In these observations is the entire basis of geometrical charts.  [pg. 102].  [rluu: Interestingly, he says 'sphere' and not 'circle'.].
+
+In geometrical charting, the primary rule is that there must be an identical unit to represent both time and price.  [pg. 103].
+
+Carry charts on the daily, weekly, monthly and yearly for any interested trading entiites.  When charting days, you must chart all calendar days, including the weekends.  [pg. 105].  
+
+Scaling [pg. 106]: 
+  Grains: 1 unit of price: 1 cent
+          1 unit of time:  1 day / 1 week / 1 month / 1 year
+  Stocks: 1 unit of price: 1 dollar
+          1 unit of time:  1 day / 1 week / 1 month / 1 year
+
+Keep the entire gamut of these critical degree points of all the groups in mind, not only when computing time by days or weeks, but in computing price and resistance.  Think in numbers rather than angles.  [pg. 108].
+
+The points which are harmonical with the square of 90 signal resistance, and points of trend reversal, as their connecting lines extend to axial highs or lows.  In time measure, all harmonic points of 90, or from 0 to 360, represent days, weeks, or months of resistance, from a major high or low.  This coincides with the 88, 44, and 22, days cycles of Mercury.  
+
+The points harmonical with the trines also mark important areas in time and price, but the levels they indicate are related to that type of market action that accompanies periods of adjustment or consolidation.  The trine points tie up in the approximate 365 day cycle of the Sun which markets 1 year.  
+
+The critical points of the two groups (square and trine) operate from 0, and also from any beginning, vis, a major low at 11 would locate the 45 point at 56 (11 + 45) and not 45.
+
+
+##############################################################################
+
+Cycles given by Jensen:
+
+Sun Spot cycle [pg. 35-36]
+Jupiter-Saturn Great Mutation [pg. 35-36].
+Diurnal method (based on solar return) [pg. 35-36, 37].
+Jupiter-Saturn conjunction is the 20-year cycle.  [pg. 65-67
+Jupiter, Saturn, and Uranus (angles between these, for stocks) [pg. 65-67].
+Moon's node at aspects to 9 degrees Gemini. [pg. 68].
+Pluto [pg. 65-67].
+Planet ingresses [pg. 65-67, pg. 78].
+New Moon.  [pg. 65-67, pg. 78].
+Solar return for stocks.  [pg. 37].
+Hinting at 18-degree steps between Jupiter and Saturn for stocks.  [pg. 88].
+Diurnal movement of Earth on the axis. [pg. 103].
+28 day cycle of the Moon around the Earth. [pg. 103]
+Heliocentric cycles. [pg. 103].
+88, 44, and 22 day cycles of Mercury [pg. 108].
+365 day cycle of the Sun which marks 1 year [pg. 108].
+
+See also, section of notes on commodity markets.  
+
+Jensen mentions static cycle lengths that the mainstream cyclists/statistics find that is really connected to the cycle of the Moon's North Node [pg. 78]:
+  - 41-43 month cycle
+  - 4.5 year
+  - 9 year
+  - 10 year
+  - 18 year
+  - 54 year (3 * 18 year)
+
+Other static cycle lengths that Jensen mentions are found by statistics, with indifferent success. [pg. 126]:
+  -  9 year cycle
+  - 11 year cycle (Sunspot cycle)
+  - 18 year cycle
+  - 54 year cycle 
+  - 80-90 years major cycle (Made up of several Sunspot cycles)
 
 ##############################################################################
