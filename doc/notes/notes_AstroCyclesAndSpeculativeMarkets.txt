@@ -5,9 +5,15 @@
 This document contains a continuation of hand-written notes on Jensen's ACSM.  
 Notes here are on the book starting at page 35.
 
-rluu 20120515: I am skipping taking notes on the section on charting the geometric method.  I did that because that section is more 'applied' knowledge.  This is the section from pages 107-118, and 124-126.  After I have the cycles worked out to a decent level of confidence, then return back to this section for further study.  I extracted the cycles mentioned from these sections.  
+##############################################################################
+
+rluu 20120515: I am skipping taking notes on the section on charting the geometric method.  I did that because that section is more 'applied' knowledge.  This is the section from pages 107-118, 124-131.  After I have the cycles worked out to a decent level of confidence, then return back to this section for further study.  I extracted the cycles mentioned from these sections.  
 
 rluu 20120515: TODO:  Work through the dates and astro that is described in pages 121 to 122.  Add notes on these to the 'Transit charts' section of these notes.   
+
+rluu 20120516: I wonder if the chart examples (dates) Jensen is giving related to the markets are highlighting certain cycles or time factors.
+
+rluu 20120516: I read through, but did not take notes on Jensen's earthquake technique either.  This is on pages 137-142.  Probably not needed for trading and market work.
 
 ##############################################################################
 
@@ -67,30 +73,54 @@ Sign types are: Cardinal, Fixed, Mutable. (squares)  [pg. 68].
 Sign types are: Fire, Earth, Air, Water.  (trines)   [pg. 68].
 
 Groups of aspects:
-  Square group (generally unfavorable/bearish) [pg. 68]: 
-      0 deg - Conjunction
-     45 deg - Semi-square
-     90 deg - Square
-    135 deg - Sesquiquadrate
-    180 deg - Opposition
+  Square group (generally unfavorable/bearish/activating aspects) [pg. 68] [pg. 135]: 
+      0 deg: Conjunction (of the planet's natures)
+   22.5 deg: [No aspect name given]
+     45 deg: Semi-square
+     90 deg: Square
+    135 deg: Sesquiquadrate
+    180 deg: Opposition
 
-  Trine group (generally favorable/bullish) [pg. 68]:
-      0 deg - Conjunction (under certain conditions)
-     30 deg - Semi-sextile
-     60 deg - Sextile
-    120 deg - Trine
-    150 deg - Quincunx or inconjunct
+  Trine group (generally favorable/bullish/harmonizing aspects) [pg. 68], [pg. 135]:
+      0 deg: Conjunction (under certain conditions) (of the planet's natures)
+     30 deg: Semi-sextile
+     60 deg: Sextile
+    120 deg: Trine
+    150 deg: Quincunx or inconjunct
 
-  Quintile group [pg 80]:
-     72 deg - Quintile
+  Quintile group (triggering aspects) [pg. 80]:
+     72 deg: Quintile
     144 deg 
     216 deg 
     288 deg
-    
-     18 deg - Circle of 360 deg has 20 divisions of 18 deg.
-     36 deg - Circle of 360 deg has 10 divisions of 36 deg.
-     54 deg - Circle of 360 deg has 6.66666 divisions of 54 deg.
-     72 deg - Circle of 360 deg has  5 divisions of 72 deg.
+
+     18 deg: Circle of 360 deg has 20 divisions of 18 deg.
+     36 deg: Circle of 360 deg has 10 divisions of 36 deg.
+     54 deg: Circle of 360 deg has 6.66666 divisions of 54 deg.
+     72 deg: Circle of 360 deg has  5 divisions of 72 deg.
+
+   Quintile group, first series (triggering aspects) [pg. 135]:
+
+      9 deg: The root
+     18 deg: 9 * 2
+     36 deg: 18 * 2
+     72 deg: 36 * 2
+     90 deg: 72 + 18
+    144 deg: 72 * 2 (Particularly in weather and seismic data)
+    162 deg: 72 + 90
+    180 deg: 162 + 18
+
+     Except for the latter [rluu: Referencing 180 deg?], this series
+     [quintile group] is useful in estimating peaks of intensity
+     between major planets in close aspect. [pg. 135].
+
+   Quintile group, second series 
+     (Market trend lows appear at these angles between planets) [pg. 135]:
+
+     27 deg: 18 + 9
+     54 deg: 27 * 2
+    126 deg: 54 + 72
+    180 deg: 126 + 54
 
   Parallels depend on the planets involved.  
 
@@ -100,9 +130,18 @@ Apparent contradiction is adjusted by noting the nature of the planets involved;
 
 Often, to keep data clarified, it is well to consider waxing and waning aspects;  As the angular relationship narrows it is waxing; as it widens it is waning.  For example, a waxing trine is labeled 120 deg, while a waning trine is labeled 240 deg.  [pg. 80].
 
+The activity of aspects may appear confusing as the three classes actively used overlap or are in teh same degree.  Interpretation experience quickly develops the application in a specific situation.  [pg. 135].
+
 There are specific answers to such problems of the general thumb rules failing, but it becomes rather involved with more advnace studies involving sign location of a planet and its Detriment, Exaltation, Fall, Critical degrees, and orb of aspect.  [pg. 68].
 
+A general rule is an orb of 5% each side of center, (e.g. For 90 deg 4.5 deg, etc.).  The opposition (180 deg) is 9 deg each side of center, and the conjunction is the same.  All orbs in the quintile series are limited to 2 deg.  [pg. 135].
+
 Expecting a precise market action, such a peak at the day and hour an aspect becomes exat may often fail.  Often the reason is that an orb of aspect should be allowed, about 2 to 5% usually is general, PLUS a trigger.  A trigger is a fast moving planet coming into the major aspect, particularly Mars, sometimes Mercury.  Hindsight will discover it on study, from which experience will develop so that advnace interpretation can take place.  No two situations are ever alike.  [pg. 68].
+
+Sometimes indications are observed which seem to indicate an important change in local weather and nothing occurs.  The forces might be compared to a loaded gun which has all the elements to produce a shooting bullet.  Nothing happens without trigger action.  Note carefully trigger aspects conjunct or close aspects from the quintile group to the angle house cusps, exact degrees of the preceding lunation, and occasionally the parallel shift from North to South and South to North of Mercury, Venus and Mars.  [pg. 134].
+
+Generally ignored biquintile group [rluu: Did Jensen mean 'quintile' here?] are the action triggering group, second only to the conjunctions to the 1st, 4th, 7th, and 10th house cusps (Asc., Nadir, Desc., and M.C.) [for weather in a locality chart]. [pg. 133].  Procedure to examine the business prospect of a specific area follows much the same methods we have applied to weather estimatess.  Major difference is that house positions become more significant and the angles (1st, 4th, 7th, 10th) recede from dominance.  [pg. 136].
+
 
 Examples of intermediate trends [pg. 121].: 
   - 1932 to 1937, Upward trend.
@@ -117,7 +156,6 @@ An intermediate trend usually has 5 phases, three in its direction and two corre
 5) Third upswing and blow-off phase.      (Example: End of 1934 to early 1937)
 
 It is almost axiomatic that the third phase of an intermediate uptrend is the largest and longest because by that time people feel the future profit prospects are both unlimited and assured.  [pg. 121].  [rluu: I think the end (highs) of the intermediate trends are related to the 120 degree aspect.  Some degree measurements to think about: 18 * 5 = 90, 24 * 5 = 120.].
-
 
 ##############################################################################
 
@@ -166,7 +204,9 @@ Recap of the steps for estimating market trends [pg. 82]:
 5) Then natural house signs, plus sign-house interpretation are added to consideration of rulerships and the planetary powers for detailed data.  
 6) Keep in mind specific angular relationships of Jupiter, Saturn and Uranus are key to stocks in the plus or minus, bullish or bearish, critical degrees noted in the text.  Each commodity has its own combination of one or two of the foregoing plus either Mercury, Venus or Mars.  
 
-The more advanced method adds on the 'Over-Simplified' method by placing the positions in a locality chart.  [pg. 82].  
+The more advanced method adds on the 'Over-Simplified' method by placing the positions in a locality chart.  [pg. 82].  In a locality chart, the house each planet is in may be significant.  And when a planet is in aspect to one or more other planets, its potency is enhanced.  So-called good or bad aspects are of little significance.  The square and the trines are significant but are of differing values according to the natures of the planets involved.  An opposition of Venus and Jupiter lacks the activation of such an aspect as Mars to Saturn, for example.  [pg. 133].  
+
+
 
 ##############################################################################
 
@@ -226,18 +266,18 @@ Transit chart at Washington, D.C., for May 15th, 1942, at a major low in morale 
   - Jupiter nearing 26 deg from Saturn.  
     [rluu: Is there any special significance to this?]
 
-Transit chart at NYC, August 18, 1976.  [pg. 83].  Features:
+Transit locality chart at NYC, August 18, 1976.  [pg. 83].  Features:
   - Uranus square Saturn [rluu: at 6 degree orb here], 
     reflects doubts over business outlook.  
   - Saturn and Jupiter, with Jupiter now out of Gemini into Taurus,
     approach 72 deg, which is a bearish point.  Stocks are bearish.
 
-Transit chart at NYC, January 15, 1956.  [pg. 87].  Features:
+Transit locality chart at NYC, January 15, 1956.  [pg. 87].  Features:
   - Saturn square Jupiter.  Usually very bearish, but here it is brief and Jupiter is retrograde, weakening it.  
   - Saturn/Mars trine Uranus.  This is weak too since Uranus is retrograde.
   - North Node not at a critical point.
 
-Transit chart at NYC, March 6, 1962.  [pg. 88].  Features:
+Transit locality chart at NYC, March 6, 1962.  [pg. 88].  Features:
   - Jupiter-Saturn 18 deg.  (bearish) [rluu: on 18 deg axis].
   - Mars conjunct Jupiter opposition Uranus.  [rluu: Mars as trigger.]
     [rluu: On the chart, Jensen has Mars and Jupiter labeled with 
@@ -255,7 +295,7 @@ Transit chart at NYC, March 6, 1962.  [pg. 88].  Features:
            between Jupiter and Saturn...].
   - New moon (Sun conj. Moon) at 150 deg to N.Node.
 
-Transit chart at NYC, May 1, 1956.  [pg. 89].  Features:
+Transit locality chart at NYC, May 1, 1956.  [pg. 89].  Features:
   - Node opposite 9 deg Gemini point.  Market top index.
   - Neptune square Uranus: heavy distribution.  
     [rluu: On the chart, Jensen has these drawn in swapped locations.
@@ -267,22 +307,22 @@ Transit chart at NYC, May 1, 1956.  [pg. 89].  Features:
   - rluu: Mercury was opposite Saturn as a trigger.
   - rluu: Moon was opposite Uranus also.
 
-Transit chart of NYC, November 24, 1968.  [pg. 91].  Features:
+Transit locality chart of NYC, November 24, 1968.  [pg. 91].  Features:
   - Jupiter near conjunct Uranus, with both opposed by Saturn.  
     Major bearish index.
     [rluu: The Saturn opposition here is pretty far off.  More like 150 deg.].
 
-Transit chart at NYC, January 1, 1970.  [pg. 92].  Features:
+Transit locality chart at NYC, January 1, 1970.  [pg. 92].  Features:
   - September 1969 rally under Jupiter-Saturn 150 deg now exhausted with 
     bearish Jupiter-Saturn 180 deg.
   - Technical structure very weak and nothing bullish until Node 
     reaches 9 deg in late April 1970.
 
-Transit chart at NYC, April 28, 1970.  [pg. 93].  Features:
+Transit locality chart at NYC, April 28, 1970.  [pg. 93].  Features:
   - Node at 9 Pisces, in square to Gemini 9 deg point.  Due is an important low.
   - Industrials have declined 368 points, more than 30% since late 1968.
   - Technical rebound would carry to March 24, 1971 
-    for 162 deg Jupiter-Saturn withi Jupiter stationary.  
+    for 162 deg Jupiter-Saturn with Jupiter stationary.  
     [rluu: Note that 162 deg Jupiter-Saturn is on the 18 degree axis.  
            18 degree axis was given in chart example on pg. 88].
     Such a pattern would offer a low in early November 1971 with 
@@ -290,6 +330,40 @@ Transit chart at NYC, April 28, 1970.  [pg. 93].  Features:
   - [rluu: In this chart, he gives the moon at 27 deg Capricorn.  
            In all the other examples, he leaves out the Moon, 
            but he decided to include it this time.  Any special reason why?]
+
+Transit locality chart at Pgh. Pa, January 23, 1977.  Example given is for weather, but should affect business trends also.  [pg. 133].  Features:
+  - Saturn in Leo.
+  - Mercury and Mars in Capricorn.
+  - Mercury 144 deg (biquintile) aspect to Saturn.
+  - Mercury transits to sextile Uranus on the 26th.  
+  - Mercury-Uranus at sensitive chart points always indicate wind and 
+    when closely aspected are the key to tornado paths.  Saturn indicated cold.
+  - Feb 2, Mars at 24 deg and Mercury at 18 deg triggered the Saturn
+    in Leo aspected array on the MC Leo locality zone.
+
+Transit locality chart for the depression period 1928 to 1933, of house positions for a half-dozen centers across the USA, such as YC, Detroit, Chicago, etc.  [pg. 136].  Features:
+  - For quick review, note the positions of Jupiter, Saturn and Uranus only on these charts beginning in 1928.  
+  - Saturn is in the MC area of Sagittarius MC charts of the West and is moving East.  Late in 1929 it is established in Capricorn moving to the square of Uranus in Aries, in a first house ruling the 12th.  
+  - In 1930, Saturn clings to Capricorn in square to Uranus and Jupiter moves into Cancer squaring Uranus and opposing Saturn.  Through 1931, the situation hangs on until early in 1932 with Saturn moving East to Aquarius out of Capricorn.  
+  - In 1952, there was a somewhat related situation of square and opposition, but it occurred in entirely different sectors than the 1930's in sign position and locality houses.  
+  - Saturn at MC is the clue to the depression of the 1930's.  
+
+##############################################################################
+
+On individual charts and locality:
+
+Incidently, if a person super-imposes a chart of birth on a selected locaity, the effects of that environment often will be indicated.  To illustrate locality factors, refer to data on the mid-1930s for the upper mid-west.  Saturn by forward and apparent retrograde was on the Ascendant opposing Neptune, Uranus afflicted also but in the second house, etc.; it was depression compounded by drought situations.  Many ultimately profited immensely but the majority suffered, particularly those with their personal chart positions related to the Saturn in Pisces locality chart.  Some years ago a person who consistently experiencd living and career problems in New York City, with an afflicted 4th house at the NYC MC in Capricorn, moved to Idaho where the Sagittarius MC was conunct his Jupiter.  In the subsequent several years he realized excellent business, health, and social success.  Of most value though is the means to adjust to the problems of a locality through an insight into area syndromes, in relation to the aspiration of the person exploring the situation.  [pg. 136-137].
+
+##############################################################################
+
+On weather:
+
+Saturn in Leo causes winter storms; weather influences human behavior. [pg. 132].
+
+Jupiter (rain) [pg. 135].
+Saturn (cold) [pg. 135].
+
+Keywords for signs and decans related to weather conditions are in a table on page 134.
 
 ##############################################################################
 
@@ -338,6 +412,8 @@ Scaling [pg. 106]:
   Stocks: 1 unit of price: 1 dollar
           1 unit of time:  1 day / 1 week / 1 month / 1 year
 
+[rluu: On pages 127 and 129, Jensen is using the same scaling for the Dow as he says to use for stocks.]
+
 Keep the entire gamut of these critical degree points of all the groups in mind, not only when computing time by days or weeks, but in computing price and resistance.  Think in numbers rather than angles.  [pg. 108].
 
 The points which are harmonical with the square of 90 signal resistance, and points of trend reversal, as their connecting lines extend to axial highs or lows.  In time measure, all harmonic points of 90, or from 0 to 360, represent days, weeks, or months of resistance, from a major high or low.  This coincides with the 88, 44, and 22, days cycles of Mercury.  
@@ -346,11 +422,32 @@ The points harmonical with the trines also mark important areas in time and pric
 
 The critical points of the two groups (square and trine) operate from 0, and also from any beginning, vis, a major low at 11 would locate the 45 point at 56 (11 + 45) and not 45.
 
+The weekly price ranges (bar chart) comprises the secret of the geometric method.  Be sure to include the week's close on the bar.  [pg. 130].
 
 ##############################################################################
 
 Cycles given by Jensen:
 
+Vibration Spectrum [pg. 5]:
+  - 30 Hz         (Musical note 'B', four octaves below middle C).
+  - 5,120 Hz      (High musical note 'E').
+  - 16,000 Hz     (Approximate starting frequency of sound that 
+                   is inaudible by humans).
+  - 500,000000,000,000 Hz  (Color yellow, center of visible spectrum by humans).
+
+Precession of the equinoxes 25,920 years, or 1 sign in 2,160 years [pg. 10].
+Planet revolutions [pg. 10]::
+  Earth:              365 days 7 hours.
+  Mercury:             88 days
+  Venus:              244 days
+  Mars:       1 year  322 days
+  Jupiter:   11 years 314 days
+  Saturn:    29 years 167 days
+  Uranus:    84 years
+  Neptune:  164 years 167 days
+  Moon:                28 days
+
+Planetary time periods [pg. 58] [rluu: Similar to the periods given by Ptolemy/Sepharial and Raphael].
 Sun Spot cycle [pg. 35-36]
 Jupiter-Saturn Great Mutation [pg. 35-36].
 Diurnal method (based on solar return) [pg. 35-36, 37].
@@ -367,6 +464,21 @@ Diurnal movement of Earth on the axis. [pg. 103].
 Heliocentric cycles. [pg. 103].
 88, 44, and 22 day cycles of Mercury [pg. 108].
 365 day cycle of the Sun which marks 1 year [pg. 108].
+Jupiter 12 year cycle (geocentric) [pg. 126].
+Saturn in Leo (causes winter storms; weather influences human behavior) [pg. 132].
+
+
+Most of the tentative cycle rhythms usually relate to the following geocentric planetary conjunctions:
+  - Saturn-Uranus     44+  years
+  - Jupiter-Uranus    13+  years
+  - Jupiter-Saturn    20   years
+  - Jupiter-Pluto     12.5 years     
+  - Uranus-Pluto     127   years
+  - Saturn-Pluto      33.5 years
+  - Saturn-Neptune    36   years
+  - Jupiter-Neptune   12+  years
+  - Uranus-Neptune   171   years
+  - Pluto-Neptune    492   years
 
 See also, section of notes on commodity markets.  
 
@@ -384,5 +496,12 @@ Other static cycle lengths that Jensen mentions are found by statistics, with in
   - 18 year cycle
   - 54 year cycle 
   - 80-90 years major cycle (Made up of several Sunspot cycles)
+
+Time factor: One factor sprouting another, until the "cycle" runs its course.  Its greatest problem is a trail of bad judgement.  Statistical cycles constantly skate the surface trying to average a factor from past statistical ebb and flow.  The factors become overwhelming by their large number instaed of being sifted down to potent and workable simplicity.  [pg. 126].  
+
+And markets reflect timing factors which are not precisely symmetrical as mathematical cycles, a statement which seems elementary but is noted here because a degree of elasticity has to be accepted (time orb).  [pg. 126-127].
+
+The Earth takes 365 days to go around the Sun and the Moon makes 13 revolutions around the Earth in 365 days, or 7 revolutions in 91 days.  A satisfactory graphic presentation is to use the 360 deg circle, divide it in four 90 deg parts, and keep repeating the 90 deg square at highs and lows.  Related is the phenomenon of markets staging price surges of 11 calendar days (9 market days) which relates to the 88 day cycle of Mercury interlaced with the 365 deg and 28 deg and 91 deg factors.  [pg. 127].
+
 
 ##############################################################################
