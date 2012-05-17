@@ -9,11 +9,11 @@ Notes here are on the book starting at page 35.
 
 rluu 20120515: I am skipping taking notes on the section on charting the geometric method.  I did that because that section is more 'applied' knowledge.  This is the section from pages 107-118, 124-131.  After I have the cycles worked out to a decent level of confidence, then return back to this section for further study.  I extracted the cycles mentioned from these sections.  
 
-rluu 20120515: TODO:  Work through the dates and astro that is described in pages 121 to 122.  Add notes on these to the 'Transit charts' section of these notes.   
-
-rluu 20120516: I wonder if the chart examples (dates) Jensen is giving related to the markets are highlighting certain cycles or time factors.
+rluu 20120516: I wonder if the chart examples (dates) Jensen is giving related to the markets are highlighting certain cycles or time factors.  Also, the "54 years of research" and "45 years as a professional analyst" on page 131 sounds like he is hinting at numbers rather than giving information about himself.  
 
 rluu 20120516: I read through, but did not take notes on Jensen's earthquake technique either.  This is on pages 137-142.  Probably not needed for trading and market work.
+
+rluu 20120516: I still need to work through the time factors and numbers given by Jensen.  
 
 ##############################################################################
 
@@ -73,20 +73,37 @@ Sign types are: Cardinal, Fixed, Mutable. (squares)  [pg. 68].
 Sign types are: Fire, Earth, Air, Water.  (trines)   [pg. 68].
 
 Groups of aspects:
-  Square group (generally unfavorable/bearish/activating aspects) [pg. 68] [pg. 135]: 
-      0 deg: Conjunction (of the planet's natures)
-   22.5 deg: [No aspect name given]
-     45 deg: Semi-square
-     90 deg: Square
-    135 deg: Sesquiquadrate
-    180 deg: Opposition
+  Square group (generally unfavorable/bearish/activating aspects) [pg. 68] [pg. 108] [pg. 135]: 
+      0  deg: Conjunction (Depends on the planet's natures)
+   11.25 deg: [No aspect name given] [pg. 108]
+   22.5  deg: [No aspect name given] [pg. 108]
+     45  deg: Semi-square
+   67.5  deg: (45 + 22.5 or 90 - 22.5) [No aspect name given] [pg. 108]
+     90  deg: Square
+    135  deg: Sesquiquadrate
+    180  deg: Opposition
+
+     [rluu: For the aspects on page 108, he is basically giving the 
+            11.25-degree axis values related to the diagram on page 108.]
 
   Trine group (generally favorable/bullish/harmonizing aspects) [pg. 68], [pg. 135]:
-      0 deg: Conjunction (under certain conditions) (of the planet's natures)
+      0 deg: Conjunction (under certain conditions) 
+                         (Depends on the planets' natures)
      30 deg: Semi-sextile
      60 deg: Sextile
     120 deg: Trine
     150 deg: Quincunx or inconjunct
+
+  Trine group given again (different degrees) [pg. 108]:
+     15 deg: [No aspect name given]
+     30 deg: Semi-sextile
+     45 deg: Semi-square
+     60 deg: Sextile
+     75 deg: [No aspect name given]
+     90 deg: [No aspect name given]
+     etc.
+     [rluu: For the aspects on page 108, he is basically giving the 
+            15-degree axis values related to the diagram on page 109.]
 
   Quintile group (triggering aspects) [pg. 80]:
      72 deg: Quintile
@@ -468,7 +485,7 @@ Jupiter 12 year cycle (geocentric) [pg. 126].
 Saturn in Leo (causes winter storms; weather influences human behavior) [pg. 132].
 
 
-Most of the tentative cycle rhythms usually relate to the following geocentric planetary conjunctions:
+Most of the tentative cycle rhythms usually relate to the following geocentric planetary conjunctions [pg. 135]:
   - Saturn-Uranus     44+  years
   - Jupiter-Uranus    13+  years
   - Jupiter-Saturn    20   years
@@ -501,7 +518,7 @@ Time factor: One factor sprouting another, until the "cycle" runs its course.  I
 
 And markets reflect timing factors which are not precisely symmetrical as mathematical cycles, a statement which seems elementary but is noted here because a degree of elasticity has to be accepted (time orb).  [pg. 126-127].
 
-The Earth takes 365 days to go around the Sun and the Moon makes 13 revolutions around the Earth in 365 days, or 7 revolutions in 91 days.  A satisfactory graphic presentation is to use the 360 deg circle, divide it in four 90 deg parts, and keep repeating the 90 deg square at highs and lows.  Related is the phenomenon of markets staging price surges of 11 calendar days (9 market days) which relates to the 88 day cycle of Mercury interlaced with the 365 deg and 28 deg and 91 deg factors.  [pg. 127].
+The Earth takes 365 days to go around the Sun and the Moon makes 13 revolutions around the Earth in 365 days, or 7 revolutions in 91 days.  A satisfactory graphic presentation is to use the 360 deg circle, divide it in four 90 deg parts, and keep repeating the 90 deg square at highs and lows.  Related is the phenomenon of markets staging price surges of 11 calendar days (9 market days) which relates to the 88 day cycle of Mercury interlaced with the 365 deg and 28 deg and 91 deg factors.  [pg. 127].  [rluu: BA says there is an error here and it is done on purpose to give us numbers.]
 
 
 ##############################################################################

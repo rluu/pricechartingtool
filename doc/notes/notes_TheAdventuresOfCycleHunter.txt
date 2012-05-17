@@ -10,53 +10,63 @@ rluu 20120509: I think there might be something more to the commentary of the au
 
 rluu 20120509: At the beginning part of the Apple trades, he makes the impression that he is using only heliocentric astrology.  And then as trades go on, he adds geocentric astrology.  I need to test that theory though.
 
+rluu 20120511: After studying his Apple trades, I will describe below what I think he is doing.  Note, in all the trades given, there was at least one planet described as a trigger which I could not figure out.  So here is what I think he is doing:
+
+    Cycle:   5 deg steps between H. Venus and H. Earth.
+    Trigger: G. Mars, G. Venus, G. Mercury or G. Sun hitting anything at
+             24 deg 31' and 10 deg 24' of any sign.  
+
+             There was at least one planet used as trigger that
+             allowed for degrees also on the 15-degree axis of these
+             points, so I'm not sure how lenient he was with his system.
+
+             The trigger is active within 2 calendar days of the cycle.
+             
+
 ##############################################################################
 
 Apple Cycle dates:
 
 Oct.  5, 2007 - No indication for Apple around this turn date. [pg. 3]
-Oct. 13, 2007 - The next date was October 13, which showed no indication, except Mercury going retrograde Oct. 11, 2007.  This was very close to indication, close enough for me anyways.  [pg. 3]
-
-rluu: 'Indication' means a trigger for the cycle?  Or perhaps it means circumstances for a turn?
+Oct. 13, 2007 - The next date was October 13, which showed no indication, except Mercury going retrograde Oct. 11, 2007.  This was very close to indication, close enough for me anyways.  [pg. 3] 
+[rluu: Within 2 day orb of cycle]
+[rluu: 'Indication' means a trigger for the cycle?  Or perhaps it means circumstances for a turn?]
 
 Oct. 11, 2007 - Time came for my Apple trade.  Apple trading down at 156, bought 7 November puts at a strike price of 155.  Checking later, the market was up about 4.  Error was accidently bought puts instead of calls, which was the original intention.  [pg. 4]
 
-December 26th came and Venus gave me indication so I bought 3 January 2008 puts at 240 a piece.  Apple was selling at 200.50 and my cycle pointed down.  Strike price on the puts was 195.  Usually with my trading account at this level, I would have bought 5 or 6 of those puts, but I wanted to test the water after that Saturn transit.  [pg. 23-24].
+December 26th came and Venus [rluu: Venus at approx. 24 Sco 50'.] gave me indication so I bought 3 January 2008 puts at 240 a piece.  Apple was selling at 200.50 and my cycle pointed down.  Strike price on the puts was 195.  Usually with my trading account at this level, I would have bought 5 or 6 of those puts, but I wanted to test the water after that Saturn transit.  [pg. 23-24].
 
-Mercury gives indication on January 4, so that is my target date for exit.  I was very nervous about the trade; it felt alien to me but I knew I had to get back into it.  [pg. 24].
+Mercury [rluu: Mercury at approx. 24 Cap.] gives indication on January 4 [2008], so that is my target date for exit.  I was very nervous about the trade; it felt alien to me but I knew I had to get back into it.  [pg. 24].  Friday [January 4, 2008] found me home for lunch as Mercury gave indication to close the trade.  I hopped on the computer and could not believe my eyes.  Apple was selling at 184 and my puts were $1200 a piece. Sold them out for a total, bottom line of $2880 profit.  I am back in a big way!  This was an incredible victory.  [pg. 25].
 
-Friday found me home for lunch as Mercury gave indication to close the trade.  I hopped on the computer and could not believe my eyes.  Apple was selling at 184 and my puts were $1200 a piece. Sold them out for a total, bottom line of $2880 profit.  I am back in a big way!  This was an incredible victory.  [pg. 25].
+Monday [January 14, 2008] I was home from lunch, Apple was down 175 so I had to dump the calls as my stop had been hit on my chart.  Sold 4 calls at $25 a piece, exited the position with a $700 loss.  It looks like I may have gotten in too early. [pg. 26]
 
-Monday I was home from lunch, Apple was down 175 so I had to dump the calls as my stop had been hit on my chart.  Sold 4 calls at $25 a piece, exited the position with a $700 loss.  It looks like I may have gotten in too early. [pg. 26]
-
-Monday January 14, 2008 came and along with it Mercury gave indication.  Apple was selling at 177, bought 5 puts with a strike price of 170.  These were February puts, so I had to pay a time premium.  5 puts at $265 a piece or 1325.  Had January 23 with both Mars and Venus giving indication.  Apple prices went down to January 16, then started moving up for a couple of days.  Indication was not until 23rd, so there was nervousness.  Monday came and Apple went shooting down, or had opened down.  The day of indication, the 5 puts were sold for $5310 each.  It was a $25150 profit.  [pg. 26-27]
+Monday January 14, 2008 came and along with it Mercury gave indication.  [rluu: Mercury was at 10 Aqu.].  Apple was selling at 177, bought 5 puts with a strike price of 170.  These were February puts, so I had to pay a time premium.  5 puts at $265 a piece or 1325.  Had January 23 with both Mars [rluu: Mars was at 24 Gem 26'] and Venus [rluu: Venus was at approx. 29 Sag 00'.  (28 deg 20' to 29 deg 35').  I don't know how this is a trigger yet.] giving indication.  Apple prices went down to January 16, then started moving up for a couple of days.  Indication was not until 23rd, so there was nervousness.  Monday came and Apple went shooting down, or had opened down.  The day of indication, the 5 puts were sold for $5310 each.  It was a $25150 profit.  [pg. 26-27]
 
 Bought 14 February calls with a strike of 140 as Apple was selling at 131.388; got them for 115 a piece.  [pg. 27]
 
-February 1, 2008 came around with Venus giving indication, got out with Apple selling at 134.3 and options were selling at 1.50, meaning 150 dollars a contract.  Profit on the trade was $490.  Bought February puts with a strike price of $125.  Got 18 puts for 1.20 a piece, which is $120.  [pg. 28]
+February 1, 2008 came around with Venus [rluu: Venus was at approx. 10 Cap.] giving indication, got out with Apple selling at 134.3 and options were selling at 1.50, meaning 150 dollars a contract.  Profit on the trade was $490.  Bought February puts with a strike price of $125.  Got 18 puts for 1.20 a piece, which is $120.  [pg. 28]
 
-Mars gave indication on Feb 8, 2008.  Sold the puts out while Apple was selling at 123.2, sold them for 255 a piece times 18 equals 4590, cost was 2160, for a profit of $2430. [pg. 28]
+Mars [rluu: Mars was at 24 Gem 31']  gave indication on Feb 8, 2008.  Sold the puts out while Apple was selling at 123.2, sold them for 255 a piece times 18 equals 4590, cost was 2160, for a profit of $2430. [pg. 28]
 
-Bought 15 March calls for 1.70 a piece.  Strike price of 130.  Geocentric Venus, Earth and Mercury all gave indication of the 13th of February, the day before my trip, got out with Apple selling at 128.86, options were selling at 225 a piece, 225 times 15 equals 3375, cost of 2550, profit on trade, 825 dollars.  Did not buy puts due to vacation but next indication would have been on the 25th.  Suspected Apple would be down to a cycle pivot low on the 25th of February.  Hindsight showed that this would have been a profitable trade too.  [pg. 28]
+Bought 15 March calls for 1.70 a piece.  Strike price of 130.  Geocentric Venus [rluu: Venus at approx. 24 Cap 40'], Earth [rluu: Helio Earth at approx 24 Leo 31'] and Mercury [rluu: Mercury at approx. 10 Aqu 20', Mercury-Sun parallel] all gave indication of the 13th of February, the day before my trip, got out with Apple selling at 128.86, options were selling at 225 a piece, 225 times 15 equals 3375, cost of 2550, profit on trade, 825 dollars.  Did not buy puts due to vacation but next indication would have been on the 25th.  Suspected Apple would be down to a cycle pivot low on the 25th of February [2008].  Hindsight showed that this would have been a profitable trade too.  [pg. 28]
 
-Mercury gave indication on the 25th of February, 2008.  Bought 25 March call at 105.  The Sun gave indication on February 29.  Call home for lunch, Apple was selling at 127.9, my calls were not 325 a piece.  Sold out for a profit of 5500 dollars, another great trade!
+Mercury [rluu: Mercury at approx. 10 Aqu 24'] gave indication on the 25th of February, 2008.  Bought 25 March call at 105.  The Sun [rluu: Sun at approx 10 Pis 15'] gave indication on February 29.  Call home for lunch, Apple was selling at 127.9, my calls were not 325 a piece.  Sold out for a profit of 5500 dollars, another great trade!
 
-Bought 30 puts with a strike of 120 at 95 dollars a piece.  Mercury gave indication March 10, while Sun gave indication on the 14th.  The system says take first indication.  March 10th bailed out with Apple selling at 121.6, my options were 1.05... profit on trade 300 dollars, small but still a profit.  
+Bought 30 puts with a strike of 120 at 95 dollars a piece.  Mercury [rluu: Mercury at approx. 24 Aqu 7' (next day midnight is 24 Aqu 45)] gave indication March 10, while Sun [rluu; Sun at approx. 24 Pis 17'] gave indication on the 14th.  The system says take first indication.  March 10th [2008] bailed out with Apple selling at 121.6, my options were 1.05... profit on trade 300 dollars, small but still a profit.  [rluu: Note the two-day window on either side.].
 
-Bought 20 April calls at strike of 125 for 180 a piece.  Mercury gave indication over the weekend so Friday at lunch I bailed out with Apple selling at 1323... my calls were now 8.25 a piece.  Profit on trade 12900.  I could not believe this; my simple system using a cycle combined with indications from the natal was simply incredible.  Also, I realized that this was a beginner system and much better systems lie ahead, thus the importance of my continued study.  
+Bought 20 April calls at strike of 125 for 180 a piece.  Mercury [rluu: Mercury goes through 10 deg over the weekend.] gave indication over the weekend so Friday [March 21, 2008] at lunch I bailed out with Apple selling at 1323... my calls were now 8.25 a piece.  Profit on trade 12900.  I could not believe this; my simple system using a cycle combined with indications from the natal was simply incredible.  Also, I realized that this was a beginner system and much better systems lie ahead, thus the importance of my continued study.  
 
-Bought 40 April puts with a strike of 125 at 95 dollars a piece.  Monday came along, home for lunch, Apple was up to 140, which is past my mental stop, quickly sold out, got a price of $55 for a loss of $1600.  Could not figure out what was going on.  Inversions, which can be seen in the past, quickly were ruled out, no inversion can occur with this pivot, it's impossible.  Decided to wait and see until next indication, which was Mercury on March 30, 2008.  After that Monday, price continued up for a couple of more days then went sideways.  What I had learned from Source B was that this was sheer, caused by larger cycles pointing up.  Which I still need to work on.  This meant that when my cycle pivoted low, it would mean a fast move up.  [pg. 29]
+Bought 40 April puts with a strike of 125 at 95 dollars a piece.  Monday came along, home for lunch, Apple was up to 140, which is past my mental stop, quickly sold out, got a price of $55 for a loss of $1600.  Could not figure out what was going on.  Inversions, which can be seen in the past, quickly were ruled out, no inversion can occur with this pivot, it's impossible.  Decided to wait and see until next indication, which was Mercury [rluu: Mercury at approx. 24 Pis 15'] on [Sunday] March 30, 2008.  After that Monday, price continued up for a couple of more days then went sideways.  What I had learned from Source B was that this was sheer, caused by larger cycles pointing up.  Which I still need to work on.  This meant that when my cycle pivoted low, it would mean a fast move up.  [pg. 29]
 
-In order to catch this better, I will put up an additional 1000 for the options, because of what this sheer tells me.  Indication was on a Sunday, by Mercury; March 30, 2008.  When the market opened, Apple was at 143.3, bought 50 April calls, with a strike of 150, got them at 105 dollars a piece.  Went to work, then home for lunch, the options were down to 90 with not much movement in the stocks price, had I waited till lunch I would have gotten them cheaper.  Oh well.  [pg. 30]
+In order to catch this better, I will put up an additional 1000 for the options, because of what this sheer tells me.  Indication was on a Sunday, March 30, 2008, by Mercury [rluu: Mercury at approx. 24 Pis 15'].  When the market opened, Apple was at 143.3, bought 50 April calls, with a strike of 150, got them at 105 dollars a piece.  Went to work, then home for lunch, the options were down to 90 with not much movement in the stocks price, had I waited till lunch I would have gotten them cheaper.  Oh well.  [pg. 30]
 
-Mercury gave indication on April 7.  Apple was selling at 157.3.  Bailed over lunch; these 50 options were now selling at 800 a piece!  Profit was $34,750 dollars.  Bought puts, was careful because I was unsure if the larger cycles had topped out yet, knew they were responsible for this great up move.  Bought 30 May puts for 160 a piece, strike was 150.  [pg. 30]
+Mercury [rluu: G. Mercury at approx. 8 Aries 45' to 9 Aries 45'ish.  The end part of this would fall on the 15-degree axis, if he allows for the 15-degree axis.  Helio Mercury at approx 14 Pis 57'.  Mercury was +2 deg 07' declination, and not parallel or contraparallel anything.] gave indication on [Monday] April 7.  Apple was selling at 157.3.  Bailed over lunch; these 50 options were now selling at 800 a piece!  Profit was $34,750 dollars.  Bought puts, was careful because I was unsure if the larger cycles had topped out yet, knew they were responsible for this great up move.  Bought 30 May puts for 160 a piece, strike was 150.  [pg. 30]
 
-Next indication was Sun of April 13th and Mercury, also Venus, on the 14th; the system says take first indication, in this case April 13th, which was over the weekend, decided to get out on Friday the 11th.  Came home for lunch Apple was selling at 148.9, bailed out with the options selling at 225 dollars for a profit of 1950 dollars.  Bought 35 May calls at 155 a piece, strike was 155.  [pg. 30]
+Next indication was Sun [rluu: Sun at approx. 23 Aries 56'.  Sun crosses 24 Aries 31' late at night.  Sun is at +9 deg 23' declination.] of [Sunday] April 13th and Mercury [rluu: Mercury at approx 22 Aries 50 (21 Aries 52' to 23 Aries 56').  Mercury was at +7 deg 24' Declination, Helio Mercury at approx 18 Aries 30'.  G. Mercury sextile G. Neptune.  I don't know why Mercury is given as a trigger here.], also Venus [rluu: Venus at approx 10 Aries 15' (9 Aries to 11 Aries)], on the 14th; the system says take first indication, in this case April 13th, which was over the weekend, decided to get out on Friday the 11th.  Came home for lunch Apple was selling at 148.9, bailed out with the options selling at 225 dollars for a profit of 1950 dollars.  Bought 35 May calls at 155 a piece, strike was 155.  [pg. 30]
 
 Monday we were down to 146.3 over lunch.  I told myself it is probably continuation of trend, should get a rebound over next couple of days, which we did.
 
-Next indication was Mercury on the 22nd of April.  Home for lunch, Apple was selling at 165.229.  Sold the calls for 1180 a piece.  Profit on trade was 35,875.
-
+Next indication was Mercury [rluu: Mercury at approx. 9 Tau 47' (8 Tau 44' to 10 Tau 51')] on the 22nd of April.  Home for lunch, Apple was selling at 165.229.  Sold the calls for 1180 a piece.  Profit on trade was 35,875.
 
 
 ####################
