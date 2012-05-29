@@ -1,0 +1,77 @@
+##############################################################################
+# Notes on BA's WITS video called BRONZECONTINUED.wmv
+##############################################################################
+
+Video is length: 11:09  (11 mins, 9 secs).
+
+This is the second video of 'Bronze Key To Cycles'.
+This video anazlyes the chart of stock symbol VLO from March 2005 to 
+
+##############################################################################
+
+This video covers a cycle you can't use day counts for.  It's of a different nature.  BA has these dates he has written down.  
+
+Cycle due dates:
+03/09/2005
+03/18/2005
+03/28/2005
+04/07/2005
+04/17/2005
+04/27/2005
+05/18/2005
+05/28/2005  [BA: Has the one-day pivot.  Look at how price movement goes up so strongly.  Then when it cuts back, you can see the price dynamic which tells you that it's a low and not a high.  The price movement that follows shows hints too which pivots are correct and whether a low or high makes more sense.  ]
+
+06/08/2005
+06/19/2005
+06/30/2005
+07/11/2005
+07/22/2005
+08/02/2005
+08/13/2005
+08/25/2005
+09/16/2005
+09/28/2005
+10/09/2005
+10/21/2005
+11/02/2005
+11/15/2005
+
+BA:  What we have to do is actually go and draw in the lines for the actual pivot highs and lows of the actual turns.  The cycle due dates just tell us around what dates to look for.  
+
+Some of the actual turns (some of the sequence dates missing):
+03/24/2005 [actually during the weekend]
+04/25/2005
+05/04/2005
+05/16/2005 [inversion]
+06/20/2005
+06/29/2005
+07/12/2005
+07/21/2005 [low]
+08/01/2005 [inversion to low]
+08/12/2005 [high]
+08/26/2005 [low]
+?          [high]
+09/16/2005 [low]
+09/29/2005 [high]
+10/06/2005 [low.  3 days off, but I can use it because I [BA] understand the cycle dynamics.  Occcasionally this one will be 3 days off.  They tell me that there is a cause for it.]
+10/20/2005 [inversion to low].
+11/03/2005 [high]
+11/16/2005 [low, hard to see, but it's there.]
+
+
+See the video screen shot at about 04:57 to see the lines of the pivots actually drawn for the cycle, and which ones that were inversions.  Another screenshot at 07:10.  Another at 08:40.  Another at 10:44.
+
+06:01
+BA:  So I need to figure out what happened here [08/02/2005].  We were unsure if 08/02/2005 was our pivot high or low.  It looks like a funny low, but it is a low from this point [the high just right before].  I knew it was from my own experience, but you won't have that experience.  So what we do is look at our next pivot after that, and see what is going on that it is a high.  
+
+Depending on how a low comes out (08/01/2005) (price activity before) can be very revealing about how the next few price bars will play out; it'll shoot up fast.  For 08/01/2005, there is a lot of upward momentum for that low compared to the previous low, so we know that the next pivot high will be really fast and high.  
+
+
+BA:  That one day pop, such as after 10/06/2005 pivot, (a counter-trend move) is always so revealing.  It is important; I use that all the time, it's just incredible.  If you identify some kind of cause for these, you could know when and where they happened, and you could play them.  Yes, that's nice.  
+
+
+BA's conclusion for this video: 
+The point of this video is that you don't draw in your lines for cycle pivots at your cycle due dates.  You draw them in at the actual pivots.  All the due dates do is show you where to look, according to your cycle parameters (for this case, + or - 2 days).  
+
+
+##############################################################################

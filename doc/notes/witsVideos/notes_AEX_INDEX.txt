@@ -1,0 +1,59 @@
+##############################################################################
+# Notes on BA's WITS video called AEX_INDEX.wmv
+##############################################################################
+
+Video is length: 17:57  (17 mins, 57 secs).
+
+This video anazlyes the chart of AEX, a Swedish index.
+
+Using a cycle averaging 6 to 10 days. 
+
+BA basically is eye-balling and drawing in the cycle pivots (actual pivots, not the expected dates) of a small cycle and then going back to draw in a medium term cycle.  The value in this video is to see how he chooses his highs and lows (his criteria for choosing), and seeing how his eye sees how cycles combine.  
+
+##############################################################################
+
+HIGH 11/03/2003 to LOW 6 bars later
+LOW             to LOW  11/20/2003 [inversion]
+LOW  11/20/2003 to HIGH 11/25/2003
+HIGH 11/25/2003 to HIGH 12/04/2003 [inversion]
+HIGH 12/04/2003 to LOW  12/10/2003
+LOW  12/10/2003 to LOW  12/17/2003 [inversion]
+LOW  12/17/2003 to HIGH 12/31/2003 [weekend gap 12/31 to 1/2]
+...
+[more dates follow, but not written down in notes.  See screenshots of the following video timestamps to see the drawing of pivots.]
+
+See screenshot of video at 4:43ish.
+See screenshot of video at 6:30ish.
+See screenshot of video at 7:58.
+See screenshot of video at 11:38.
+
+
+07:05
+At some pivots that are not clear, when you go up fast, and then go sideways for a few days, it generally means something happened at that day when the change happened, thus probably a cycle pivot.
+
+
+8:26
+BA: These small cycles are..., some of them can be difficult to work with.  There are small, medium and large cycles.  With these small cycles, the weekend can really throw you off... you can have a whole move disappear over a holiday weekend.   You have a lot of practice to really understand what is going on here.  Jensen states in his book that the larger cycles can cut off or neutralize the smaller cycles, and that's so true here.  We see a lot of that, so the cycle gets pushed around a lot... it's still there.  You got a cycle that's really active, and it'll be there, but at some point it's a little harder to see.  Ideally, you'd want pivots to be high-low-high, etc., but this cycle is being impacted by other cycles, so that will throw you off unless you really know how to read the price structure.  
+
+
+10:40
+Watch out for errors in the data, like the huge gap high bar and then back.  
+
+11:40
+Now what I want to do is go back and put one of the larger cycles in.
+
+See: 
+HIGH 07/16/1999 to LOW beginning of October 1999. 
+LOW beginning of October 1999  to HIGH 02/09/2000 [See how it acts there, between these two, (trend line and touches to it), it is very telling].
+
+12:51
+Failure to have a significant run upwards, because the longer cycle is pointing down.  See screenshot at video 12:42.
+
+
+Additional pivots: See screenshot at 13:04, 13:21, 13:40, 13:47, 13:58, 14:19, 14:41, 14:55, 15:24, 15:57, 16:15, 17:05, 17:40, 17:52.
+
+Note how the two cycles combine to show price action.  
+
+##############################################################################
+
+
