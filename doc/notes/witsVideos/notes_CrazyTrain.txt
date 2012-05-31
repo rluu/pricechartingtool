@@ -1,0 +1,87 @@
+##############################################################################
+# Notes on BA's WITS video called CRAZYTRAIN.wmv
+##############################################################################
+
+Video is length: 24:24  (24 mins, 24 secs).
+
+This video covers a cycle in the Dow.
+
+##############################################################################
+
+Question a lot people ask is where do these cycles start?  Well, they start at hte beginning of the stock trading.  Basically, the same cycle can be taken back to the beginning of the stock or index.  Now for the Dow, they change out the components of the Dow.  I won't get into that but it does cause a little bit of slippage when you do these cycles back for years and years and years.  
+
+Looking at the Dow starting in 1903.  We're going to take our cycles on it.  
+
+Pivots: 
+
+LOW mid April 1903 to HIGH June 30, 1903
+HIGH June 30, 1903 to LOW August 8, 1903.
+LOW August 8, 1903 to HIGH 2/15/1904.
+HIGH 2/15/1904 to LOW May 18, 1904.
+LOW May 18, 1904 to LOW late June 1904 (inversion)
+LOW late June 1904 to HIGH October 1st 1904 (early October)
+HIGH October 1st 1904 (early October) to HIGH early April 1905 (around 8th?)
+HIGH early April 1905 to LOW around 20th of May 1905
+LOW around 20th of May 1905 to HIGH end of July 1905
+HIGH end of July 1905 to LOW mid November 1905   (sideways action)
+LOW mid November 1905 to HIGH mid April 1906
+HIGH mid April 1906 to LOW late June 1906 or beginning of July 1906
+LOW late June 1906 or beginning of July 1906 to HIGH around 20th of August 1906
+HIGH around 20th of August 1906 to LOW around 25th of December 1906
+LOW around 25th of December 1906 to LOW late May 1907 (inversion)
+LOW late May 1907 to HIGH late July 1907
+
+Note the sideways price action until the pivot, then a fast move after
+the pivot.
+
+
+Now we're going to take the same cycle and use it in modern day Dow.  
+
+Pivots:
+HIGH 02/19/1997 to LOW 12/26/1997 [Sideways move because many cycles moving up, so a low higher than the high].
+LOW 12/26/1997 to HIGH around the 20th of March 1998.
+HIGH around the 20th of March 1998 to LOW mid June 1998
+LOW mid June 1998 to LOW late August or early September 1998 (inversion).  (same structure of moves from early Dow period).
+LOW late August or early September 1998 to HIGH late January or early February 1999.
+HIGH late January or early February 1999 to HIGH very early May 1999 (inversion).
+HIGH very early May 1999 to LOW about the 20th of June 1999
+LOW about the 20th of June 1999 to HIGH about the 20th of November 1999 [Important concept: See how the speed of price movement upwards from mid-october to about the 20th of November, this area shows 2 cycles supporting the upmove, but after around the 20th of November, the cycle pivots downwards by one of the cycles, but not the other, so that's why the move upwards slowed down.]
+HIGH about the 20th of November 1999 to LOW about the 10th of March 2000
+LOW about the 10th of March 2000 to HIGH May 16, 2000.
+HIGH May 16, 2000 to LOW July 28, 2000
+LOW July 28, 2000 to HIGH early January 2001
+HIGH early January 2001 to LOW early April 2001
+LOW early April 2001 to HIGH around the 12th of June 2001
+HIGH around the 12th of June 2001 to LOW mid August 2001
+LOW mid August 2001 to HIGH early January 2002
+HIGH early January 2002 to LOW about the 7th of May 2002
+LOW about the 7th of May 2002 to LOW July 27, 2002 (inversion)
+LOW July 27, 2002 to HIGH about the 10th of September, 2002
+HIGH about the 10th of September, 2002 to LOW around the 15th of February 2003
+LOW around the 15th of February 2003 to HIGH mid June 2003
+HIGH mid June 2003 to LOW about the 25th of August 2003
+LOW about the 25th of August 2003 to HIGH about the 7th of November 2003
+HIGH about the 7th of November 2003 to HIGH 11th of Feb 2004 (inversion)
+HIGH 11th of Feb 2004 to LOW about the 5th of August 2004
+LOW about the 5th of August 2004 to HIGH early October 2004
+HIGH early October 2004 to LOW around the 14th of May 2005
+LOW around the 14th of May 2005 to HIGH around the 12th of July 2005
+HIGH around the 12th of July 2005 to LOW about the 20th of September 2005
+LOW about the 20th of September 2005 to HIGH around the 25th of November 2005
+HIGH around the 25th of November 2005 to HIGH around May 10th 2006 (inversion)
+HIGH around May 10th 2006 to LOW about August 22nd 2006
+LOW about August 22nd 2006 to HIGH about the 24th of October 2006
+HIGH about the 24th of October 2006 to LOW about the 17th of January 2007
+LOW about the 17th of January 2007 to HIGH about May 7th 2007
+HIGH about May 7th 2007 to HIGH about October 12th 2007 (inversion)
+HIGH about October 12th 2007 to LOW mid December 2007
+
+
+If your cycle pivot doesn't catch your high, it's because it's caused by the other cycle.  
+
+
+Where we go from here is to realize that this same cycle was present in 90 years of data.  We could have ran it over the periods we didn't cover, and it'd still be there.  
+
+To answer your question, how do I know where to start the cycle?  Well, once you find it, you can start it from any point.  The cycle goes on and on and on (it doesn't disappear).  It's the same cycle from the beginning.  You can jump in from anywhere.  
+
+##############################################################################
