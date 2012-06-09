@@ -1,0 +1,10 @@
+##############################################################################
+# This document contains typos that I've found that are in the
+# PDF version of TTTA from GannStudyGroup.
+##############################################################################
+
+Page 261, line 14, "like" instead of the word "line" that is used in the electronic version.
+
+Page 271, line 11, "confidence" instead of the word "confident" that is used in the electronic version.
+
+##############################################################################
