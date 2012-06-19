@@ -44,15 +44,18 @@ log.setLevel(logLevel)
 #startDt = datetime.datetime(year=1968, month=1, day=1,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
-startDt = datetime.datetime(year=1972, month=1, day=1,
-                            hour=0, minute=0, second=0,
-                            tzinfo=pytz.utc)
-endDt   = datetime.datetime(year=1990, month=1, day=1,
-                            hour=0, minute=0, second=0,
-                            tzinfo=pytz.utc)
-#endDt   = datetime.datetime(year=2020, month=1, day=1,
+#startDt = datetime.datetime(year=1972, month=1, day=1,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
+startDt = datetime.datetime(year=2009, month=1, day=1,
+                            hour=0, minute=0, second=0,
+                            tzinfo=pytz.utc)
+#endDt   = datetime.datetime(year=1990, month=1, day=1,
+#                            hour=0, minute=0, second=0,
+#                            tzinfo=pytz.utc)
+endDt   = datetime.datetime(year=2013, month=1, day=1,
+                            hour=0, minute=0, second=0,
+                            tzinfo=pytz.utc)
 
 # High and low price limits for drawing the vertical lines.
 highPrice = 2000.0
@@ -79,6 +82,30 @@ def processPCDD(pcdd, tag):
     # Return value.
     rv = 0
 
+    # Works very well as a cycle.  Worth refining with sensitive points.
+    #success = PlanetaryCombinationsLibrary.\
+    #    addLongitudeAspectVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "Saturn", "heliocentric", "tropical",
+    #    "Mercury", "heliocentric", "tropical",
+    #    90)
+
+    # Investigate further.
+    #success = PlanetaryCombinationsLibrary.\
+    #    addLongitudeAspectVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "Mercury", "heliocentric", "tropical",
+    #    "Jupiter", "heliocentric", "tropical",
+    #    90)
+    
+    #success = PlanetaryCombinationsLibrary.\
+    #    addLongitudeAspectVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice,
+    #    "Mercury", "heliocentric", "tropical",
+    #    "Uranus", "heliocentric", "tropical",
+    #    90)
+    
+    
     #success = PlanetaryCombinationsLibrary.\
     #    addHelioSaturnUranus15xVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice)
@@ -124,9 +151,9 @@ def processPCDD(pcdd, tag):
     #success = PlanetaryCombinationsLibrary.\
     #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
     #    pcdd, startDt, endDt, price=400, planetName="Venus")
-    success = PlanetaryCombinationsLibrary.\
-        addTimeMeasurementAndTiltedTextForNakshatraTransits(
-        pcdd, startDt, endDt, price=600, planetName="Mars")
+    #success = PlanetaryCombinationsLibrary.\
+    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
+    #    pcdd, startDt, endDt, price=600, planetName="Mars")
     #success = PlanetaryCombinationsLibrary.\
     #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
     #    pcdd, startDt, endDt, price=800, planetName="Jupiter")
@@ -143,6 +170,7 @@ def processPCDD(pcdd, tag):
     #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
     #    pcdd, startDt, endDt, price=1600, planetName="Pluto")
     
+
     if success == True:
         log.debug("Success!")
         rv = 0

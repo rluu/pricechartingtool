@@ -3,8 +3,7 @@
 # Description:
 #
 #   Module for adding various PriceBarChartArtifacts to a
-#   PriceChartDocumentData object that are relevant to a PAAS
-#   chart.
+#   PriceChartDocumentData object that are relevant to stocks.
 #
 ##############################################################################
 
@@ -41,20 +40,20 @@ log = logging.getLogger(moduleName)
 log.setLevel(logLevel)
 
 # Start and ending timestamps for drawing.
-startDt = datetime.datetime(year=1995, month=1, day=1,
-                            hour=0, minute=0, second=0,
-                            tzinfo=pytz.utc)
-#startDt = datetime.datetime(year=2008, month=1, day=1,
+#startDt = datetime.datetime(year=2009, month=1, day=1,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
+startDt = datetime.datetime(year=1952, month=1, day=1,
+                            hour=0, minute=0, second=0,
+                            tzinfo=pytz.utc)
 
-endDt   = datetime.datetime(year=2012, month=4, day=1,
+endDt   = datetime.datetime(year=1986, month=4, day=1,
                             hour=0, minute=0, second=0,
                             tzinfo=pytz.utc)
 
 # High and low price limits for drawing the vertical lines.
-highPrice = 50.0
-lowPrice = 1.0
+highPrice = 1500.0
+lowPrice = 240.0
 
 ##############################################################################
 
@@ -86,25 +85,9 @@ def processPCDD(pcdd, tag):
     #lowPrice = 600.0
     #lowPrice = 300.0
 
-
-    #######################################
-    # From my paper notes dated April 21, 2012 on PAAS, it gives the
-    # following about PAAS that works somewhat well and is worth of
-    # investigating further.
-    #
-    # Mars-Venus connection (would need to apply a filter)
-    # Venus-MeanNode connection.
-    # 45-degree increments of Uranus-Earth Heliocentric.
-    # 51.X-degree increments of Venus-Pluto, Geocentric.
-    # Mars 51.X to natal Venus.
-    # TrueNorthNode 3-degree increments to natal Venus.
-    # May want to check out Venus-Chiron Geocentric.
-    # Test more planet transits to natal positions.
-    #######################################
-    
-    # This is a cycle in PAAS.
+    # Works well.
     if False:
-        step = 360 / 14.0
+        step = 360 / 20.0
         start = 0
         stop = 180
         degreeDiff = start
@@ -112,12 +95,103 @@ def processPCDD(pcdd, tag):
             success = PlanetaryCombinationsLibrary.\
                 addLongitudeAspectVerticalLines(\
                 pcdd, startDt, endDt, highPrice, lowPrice,
-                "Sun", "geocentric", "tropical",
-                "TrueNorthNode", "geocentric", "tropical",
+                "Jupiter", "geocentric", "tropical",
+                "Saturn", "geocentric", "tropical",
                 degreeDiff)
             degreeDiff += step
-            
-    # This is a cycle in PAAS.
+
+    # Works well.  
+    if False:
+        step = 360 / 16.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Jupiter", "geocentric", "tropical",
+                "Saturn", "geocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+
+    # Works well.
+    if False:
+        step = 360 / 16.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Jupiter", "heliocentric", "tropical",
+                "Saturn", "heliocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+
+    # Works pretty well.
+    if False:
+        step = 360 / 24.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Jupiter", "geocentric", "tropical",
+                "Uranus", "geocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+
+    # Meh.
+    if False:
+        step = 360 / 18.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Jupiter", "geocentric", "tropical",
+                "Uranus", "geocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+
+    # Works well.
+    if False:
+        step = 360 / 24.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Saturn", "geocentric", "tropical",
+                "Uranus", "geocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+
+    # Catches some highs and lows, many small ones also, so it isn't
+    # that that great.
+    if False:
+        step = 360 / 20.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Saturn", "geocentric", "tropical",
+                "Uranus", "geocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+
+    # Did not work well.
     if False:
         step = 360 / 7.0
         start = 0
@@ -127,12 +201,147 @@ def processPCDD(pcdd, tag):
             success = PlanetaryCombinationsLibrary.\
                 addLongitudeAspectVerticalLines(\
                 pcdd, startDt, endDt, highPrice, lowPrice,
-                "Venus", "geocentric", "tropical",
+                "Saturn", "geocentric", "tropical",
+                "Uranus", "geocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+
+    # Did not work work.
+    if False:
+        step = 360 / 24.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Saturn", "geocentric", "tropical",
                 "TrueNorthNode", "geocentric", "tropical",
                 degreeDiff)
             degreeDiff += step
+
+    # Caught some small turns, but then some looks like a handful of misses too.
+    if False:
+        step = 360 / 24.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Jupiter", "geocentric", "tropical",
+                "TrueNorthNode", "geocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+
+    if False:
+        step = 360 / 14.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Saturn", "geocentric", "tropical",
+                "TrueNorthNode", "geocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+
+    if False:
+        step = 360 / 14.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Jupiter", "geocentric", "tropical",
+                "TrueNorthNode", "geocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+
+    # Catches some bottoms very nicely, other turns probably need
+    # other planets contributing.
+    if False:
+        step = 360 / 14.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Jupiter", "geocentric", "tropical",
+                "Saturn", "geocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+
+    #########################################################################
+    # The below entries were copied from my studies of stock LVS, so the comments may not be accurate.
             
-    # Investigate this one more closely.
+    # This works well.  You can see the pulses of energy with this.
+    if False:
+        step = 360 / 16.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Venus", "heliocentric", "tropical",
+                "Saturn", "heliocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+
+    # Did not work well.
+    if False:
+        step = 360 / 8.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Jupiter", "geocentric", "tropical",
+                "Saturn", "geocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+    # Did not work well.
+    if False:
+        step = 360 / 16.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Jupiter", "geocentric", "tropical",
+                "Saturn", "geocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+
+    # May be worth investigating further (or looking at different numbers).  
+    if False:
+        step = 360 / 28.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Saturn", "geocentric", "tropical",
+                "Uranus", "geocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+
     if False:
         step = 360 / 24.0
         start = 0
@@ -147,9 +356,11 @@ def processPCDD(pcdd, tag):
                 degreeDiff)
             degreeDiff += step
 
-    # Definitely worth keeping an eye on.  
+    # Venus-Uranus didn't have much show up.
+
+    # Planets may be related but this did not work well.
     if False:
-        step = 360 / 5.0
+        step = 360 / 24.0
         start = 0
         stop = 180
         degreeDiff = start
@@ -157,11 +368,56 @@ def processPCDD(pcdd, tag):
             success = PlanetaryCombinationsLibrary.\
                 addLongitudeAspectVerticalLines(\
                 pcdd, startDt, endDt, highPrice, lowPrice,
-                "Mars", "geocentric", "tropical",
-                "Venus", "geocentric", "tropical",
+                "Venus", "heliocentric", "tropical",
+                "Saturn", "heliocentric", "tropical",
                 degreeDiff)
             degreeDiff += step
 
+    # This combination of planets is worth looking more closely at.
+    if False:
+        step = 360 / 24.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Venus", "geocentric", "tropical",
+                "Saturn", "geocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+
+    if False:
+        step = 360 / 18.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Venus", "geocentric", "tropical",
+                "Saturn", "geocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+
+    # Worked okay, but need to half this interval.
+    if False:
+        step = 360 / 8.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Venus", "geocentric", "tropical",
+                "Saturn", "geocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+
+    # DId not work well.  
     if False:
         step = 360 / 14.0
         start = 0
@@ -172,12 +428,43 @@ def processPCDD(pcdd, tag):
                 addLongitudeAspectVerticalLines(\
                 pcdd, startDt, endDt, highPrice, lowPrice,
                 "Venus", "geocentric", "tropical",
-                "TrueNorthNode", "geocentric", "tropical",
+                "Saturn", "geocentric", "tropical",
                 degreeDiff)
             degreeDiff += step
-            
+
+    # Did not work well.
     if False:
-        step = 360 / 42.0
+        step = 360 / 24.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Mars", "heliocentric", "tropical",
+                "Venus", "heliocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+
+    # Did not work well.
+    if False:
+        step = 360 / 24.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Sun", "geocentric", "tropical",
+                "Jupiter", "geocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+
+    # Did not work well.  
+    if False:
+        step = 360 / 24.0
         start = 0
         stop = 180
         degreeDiff = start
@@ -189,7 +476,7 @@ def processPCDD(pcdd, tag):
                 "TrueNorthNode", "geocentric", "tropical",
                 degreeDiff)
             degreeDiff += step
-            
+    
     if False:
         step = 360 / 24.0
         start = 0
@@ -200,12 +487,54 @@ def processPCDD(pcdd, tag):
                 addLongitudeAspectVerticalLines(\
                 pcdd, startDt, endDt, highPrice, lowPrice,
                 "Mercury", "geocentric", "tropical",
-                "Mars", "geocentric", "tropical",
+                "TrueNorthNode", "geocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+    
+    if False:
+        step = 360 / 24.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Venus", "geocentric", "tropical",
+                "TrueNorthNode", "geocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+    
+    if False:
+        step = 360 / 24.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Mercury", "geocentric", "tropical",
+                "Uranus", "geocentric", "tropical",
+                degreeDiff)
+            degreeDiff += step
+
+    if False:
+        step = 360 / 24.0
+        start = 0
+        stop = 180
+        degreeDiff = start
+        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Mercury", "heliocentric", "tropical",
+                "Mars", "heliocentric", "tropical",
                 degreeDiff)
             degreeDiff += step
             
     if False:
-        step = 360 / 8.0
+        step = 360 / 24.0
         start = 0
         stop = 180
         degreeDiff = start
@@ -287,8 +616,7 @@ def processPCDD(pcdd, tag):
                 "TrueNorthNode", "geocentric", "tropical",
                 degreeDiff)
             degreeDiff += step
-
-    # Investigate further.
+            
     if False:
         step = 360 / 8.0
         start = 0
@@ -359,106 +687,16 @@ def processPCDD(pcdd, tag):
                 degreeDiff)
             degreeDiff += step
 
-    # Investigate more closely.
     if False:
-        step = 360 / 8.0
-        start = 0
-        stop = 180
-        degreeDiff = start
-        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
-            success = PlanetaryCombinationsLibrary.\
-                addLongitudeAspectVerticalLines(\
-                pcdd, startDt, endDt, highPrice, lowPrice,
-                "Venus", "heliocentric", "tropical",
-                "Mars", "heliocentric", "tropical",
-                degreeDiff)
-            degreeDiff += step
-
-    
-    if True:
-        step = 360 / 8.0
-        start = 0
-        stop = 180
-        degreeDiff = start
-        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
-            success = PlanetaryCombinationsLibrary.\
-                addLongitudeAspectVerticalLines(\
-                pcdd, startDt, endDt, highPrice, lowPrice,
-                "Venus", "geocentric", "tropical",
-                "Chiron", "geocentric", "tropical",
-                degreeDiff)
-            degreeDiff += step
-            
-    if False:
-        step = 360 / 7.0
-        start = 0
-        stop = 180
-        degreeDiff = start
-        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
-            success = PlanetaryCombinationsLibrary.\
-                addLongitudeAspectVerticalLines(\
-                pcdd, startDt, endDt, highPrice, lowPrice,
-                "Venus", "geocentric", "tropical",
-                "Pluto", "geocentric", "tropical",
-                degreeDiff)
-            degreeDiff += step
-        
-    if False:
-        step = 360 / 8.0
-        start = 0
-        stop = 180
-        degreeDiff = start
-        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
-            success = PlanetaryCombinationsLibrary.\
-                addLongitudeAspectVerticalLines(\
-                pcdd, startDt, endDt, highPrice, lowPrice,
-                "Venus", "geocentric", "tropical",
-                "Jupiter", "geocentric", "tropical",
-                degreeDiff)
-            degreeDiff += step
-        
-    if False:
-        step = 360 / 7.0
-        start = 0
-        stop = 180
-        degreeDiff = start
-        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
-            success = PlanetaryCombinationsLibrary.\
-                addLongitudeAspectVerticalLines(\
-                pcdd, startDt, endDt, highPrice, lowPrice,
-                "Venus", "geocentric", "tropical",
-                "Jupiter", "geocentric", "tropical",
-                degreeDiff)
-            degreeDiff += step
-
-    # Did not work well.
-    if False:
-        step = 360 / 24.0
-        start = 0
-        stop = 180
-        degreeDiff = start
-        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
-            success = PlanetaryCombinationsLibrary.\
-                addLongitudeAspectVerticalLines(\
-                pcdd, startDt, endDt, highPrice, lowPrice,
-                "Venus", "geocentric", "tropical",
-                "Uranus", "geocentric", "tropical",
-                degreeDiff)
-            degreeDiff += step
-        
-    if False:
-        # The below natal positions are for the date March 7, 1979.
-        
         #start = 16.6666 + (11 * 30) # Sun position
-        start = 4.5333 + (10 * 30) # Venus position
+        #start = 4.5333 + (10 * 30) # Venus position
         #start = 4.6 # Mercury position
         #start = 28.89 + (10 * 30) # Mars Helio position
         #start = (3 * 30) + 8.4 # Moon position.
         #start = (5 * 30) + 10.066 # Saturn position
         #start = (5 * 30) + 17.5 # TNode position
         #divisor = 5
-        #divisor = 2
-        divisor = 7
+        divisor = 2
         #divisor = 8
         #divisor = 24
         #divisor = 25
@@ -468,171 +706,8 @@ def processPCDD(pcdd, tag):
             success = PlanetaryCombinationsLibrary.\
                       addPlanetCrossingLongitudeDegVerticalLines(\
                 pcdd, startDt, endDt, highPrice, lowPrice,
-                "geocentric", "tropical",
-                #"heliocentric", "tropical",
+                "heliocentric", "tropical",
                 "Mars", degreeValue)
-                #"TrueNorthNode", degreeValue)
-
-
-    ####################################################################
-
-    # DId not work as well as I would have liked. 
-    if False:
-        step = 360 / 28.0
-        start = 0
-        stop = 180
-        degreeDiff = start
-        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
-            success = PlanetaryCombinationsLibrary.\
-                addLongitudeAspectVerticalLines(\
-                pcdd, startDt, endDt, highPrice, lowPrice,
-                "Jupiter", "geocentric", "tropical",
-                "Saturn", "geocentric", "tropical",
-                degreeDiff)
-            degreeDiff += step
-
-    if False:
-        step = 360 / 16.0
-        start = 0
-        stop = 180
-        degreeDiff = start
-        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
-            success = PlanetaryCombinationsLibrary.\
-                addLongitudeAspectVerticalLines(\
-                pcdd, startDt, endDt, highPrice, lowPrice,
-                "Jupiter", "geocentric", "tropical",
-                "Saturn", "geocentric", "tropical",
-                degreeDiff)
-            degreeDiff += step
-
-    # Worth investigating more closely.
-    if False:
-        step = 360 / 16.0
-        start = 0
-        stop = 180
-        degreeDiff = start
-        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
-            success = PlanetaryCombinationsLibrary.\
-                addLongitudeAspectVerticalLines(\
-                pcdd, startDt, endDt, highPrice, lowPrice,
-                "Venus", "geocentric", "tropical",
-                "Saturn", "geocentric", "tropical",
-                degreeDiff)
-            degreeDiff += step
-
-    if False:
-        step = 360 / 7.0
-        start = 0
-        stop = 180
-        degreeDiff = start
-        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
-            success = PlanetaryCombinationsLibrary.\
-                addLongitudeAspectVerticalLines(\
-                pcdd, startDt, endDt, highPrice, lowPrice,
-                "Venus", "geocentric", "tropical",
-                "Pluto", "geocentric", "tropical",
-                degreeDiff)
-            degreeDiff += step
-
-    if False:
-        step = 360 / 28.0
-        start = 0
-        stop = 180
-        degreeDiff = start
-        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
-            success = PlanetaryCombinationsLibrary.\
-                addLongitudeAspectVerticalLines(\
-                pcdd, startDt, endDt, highPrice, lowPrice,
-                "Jupiter", "geocentric", "tropical",
-                "Uranus", "geocentric", "tropical",
-                degreeDiff)
-            degreeDiff += step
-
-    # THis works kinda well.
-    if False:
-        step = 360 / 24.0
-        start = 0
-        stop = 180
-        degreeDiff = start
-        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
-            success = PlanetaryCombinationsLibrary.\
-                addLongitudeAspectVerticalLines(\
-                pcdd, startDt, endDt, highPrice, lowPrice,
-                "Jupiter", "geocentric", "tropical",
-                "Uranus", "geocentric", "tropical",
-                degreeDiff)
-            degreeDiff += step
-
-    # This works pretty well.
-    if False:
-        step = 360 / 24.0
-        start = 0
-        stop = 180
-        degreeDiff = start
-        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
-            success = PlanetaryCombinationsLibrary.\
-                addLongitudeAspectVerticalLines(\
-                pcdd, startDt, endDt, highPrice, lowPrice,
-                "Saturn", "geocentric", "tropical",
-                "Uranus", "geocentric", "tropical",
-                degreeDiff)
-            degreeDiff += step
-
-    if False:
-        step = 360 / 24.0
-        start = 0
-        stop = 180
-        degreeDiff = start
-        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
-            success = PlanetaryCombinationsLibrary.\
-                addLongitudeAspectVerticalLines(\
-                pcdd, startDt, endDt, highPrice, lowPrice,
-                "Saturn", "geocentric", "tropical",
-                "TrueNorthNode", "geocentric", "tropical",
-                degreeDiff)
-            degreeDiff += step
-
-    if False:
-        step = 360 / 14.0
-        start = 0
-        stop = 180
-        degreeDiff = start
-        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
-            success = PlanetaryCombinationsLibrary.\
-                addLongitudeAspectVerticalLines(\
-                pcdd, startDt, endDt, highPrice, lowPrice,
-                "Saturn", "geocentric", "tropical",
-                "TrueNorthNode", "geocentric", "tropical",
-                degreeDiff)
-            degreeDiff += step
-
-    if False:
-        step = 360 / 14.0
-        start = 0
-        stop = 180
-        degreeDiff = start
-        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
-            success = PlanetaryCombinationsLibrary.\
-                addLongitudeAspectVerticalLines(\
-                pcdd, startDt, endDt, highPrice, lowPrice,
-                "Jupiter", "geocentric", "tropical",
-                "TrueNorthNode", "geocentric", "tropical",
-                degreeDiff)
-            degreeDiff += step
-
-    if False:
-        step = 360 / 24.0
-        start = 0
-        stop = 180
-        degreeDiff = start
-        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
-            success = PlanetaryCombinationsLibrary.\
-                addLongitudeAspectVerticalLines(\
-                pcdd, startDt, endDt, highPrice, lowPrice,
-                "Jupiter", "geocentric", "tropical",
-                "TrueNorthNode", "geocentric", "tropical",
-                degreeDiff)
-            degreeDiff += step
     
     #success = PlanetaryCombinationsLibrary.addGeoLongitudeVelocityLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
