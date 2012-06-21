@@ -36,4 +36,22 @@ Capricorn: India
 Aquarius: Russia
 Pisces: Portugal
 
+
+Senitive points for various cities, as given by Sepharial in his 'Law of Values' [pg. 10]:
+
+City            Midheaven    Ascendant
+----------      -----------  -----------
+London          Gemini 9     Virgo 14
+St. Petersburg  Cancer 9     Libra 6
+Paris           Gemini 11    Virgo 14
+Tokio           Libra 29     Capricorn 7
+Berlin          Gemini 22    Virgo 24
+New York        Pisces 24    Cancer 14
+Calcutta        Virgo 7      Sagittarius 2
+Bombay          Leo 22       Scorpio 20
+Sydney          Scorpio 10   Aquarius 16
+Rome            Gemini 22    Virgo 23
+Peking          Libra 6      Sagittarius 16
+Cape Town       Gemini 27    Virgo 25
+
 ##############################################################################
