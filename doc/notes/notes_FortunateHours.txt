@@ -6,58 +6,58 @@ Originally published in 1924.
 Aliases for the planets, from the notes below (given here for convenience).
 
 Sun == The Life Giver
-    == Soverign Ruler
-    == The Father of Light
+Sun == Soverign Ruler
+Sun == The Father of Light
 
 Moon == Goddess of Night
-     == Luna (Latin)
+Moon == Luna (Latin)
 
 Mars == The God of War
-     == Son of Zeus and Juno
+Mars == Son of Zeus and Juno
 
 Mercury == Messenger of the Gods
-        == Moses
-        == Hermes
+Mercury == Moses
+Mercury == Hermes
 
 Jupiter == The Preserver
-        == The God of Fortune
-        == Lord of Heaven (Romans)
-        == Prince of Light (Romans)
-        == God of mammon [pg. 40]
-        == Jove [pg. 68]
-        == The Father or Lord of Heaven [pg. 68]
-        == God of rain storms, thunder and lightning. [pg. 68]
-        == The eagle [pg. 68]
-        == The king of the air [pg. 68]
-        == Thor (Scandinavians) [pg. 69]
+Jupiter == The God of Fortune
+Jupiter == Lord of Heaven (Romans)
+Jupiter == Prince of Light (Romans)
+Jupiter == God of mammon [pg. 40]
+Jupiter == Jove [pg. 68]
+Jupiter == The Father or Lord of Heaven [pg. 68]
+Jupiter == God of rain storms, thunder and lightning. [pg. 68]
+Jupiter == The eagle [pg. 68]
+Jupiter == The king of the air [pg. 68]
+Jupiter == Thor (Scandinavians) [pg. 69]
 
 Venus == The Goddess of Love and Beauty
-      == Goddess of passion
-      == Aphrodite (Greeks)
-      == Astoreth (Phoenecians)
-      == Ishtar (Assyrians)
-      == Ashtaroth (Hebrews)
-      == Freya (Scandinavians)
-      == Freya Lakshmi, the wife of Vishnu (Hindus)
+Venus == Goddess of passion
+Venus == Aphrodite (Greeks)
+Venus == Astoreth (Phoenecians)
+Venus == Ishtar (Assyrians)
+Venus == Ashtaroth (Hebrews)
+Venus == Freya (Scandinavians)
+Venus == Freya Lakshmi, the wife of Vishnu (Hindus)
 
 Saturn == The Reaper
-       == Chronos
-       == old Father Time
-       == Satan (the tempter)
-       == The Devil
-       == The Guardian
-       == The Strength of the Lord
-       == son of Neptune (Greeks?) [pg. 47]
-       == Guardian of the Threshold [pg. 72]
+Saturn == Chronos
+Saturn == old Father Time
+Saturn == Satan (the tempter)
+Saturn == The Devil
+Saturn == The Guardian
+Saturn == The Strength of the Lord
+Saturn == son of Neptune (Greeks?) [pg. 47]
+Saturn == Guardian of the Threshold [pg. 72]
 
 Uranus == The God of the Air (Greeks)
-       == Ouranos (Greeks)
-       == Herschel (named after the discoverer)
+Uranus == Ouranos (Greeks)
+Uranus == Herschel (named after the discoverer)
 
 Neptune == Neptune (Greeks)
-        == Poseidon (Greeks/Atlantis)
-        == The original Old Father Time
-        == father of Saturn (Greeks?) [pg. 47]
+Neptune == Poseidon (Greeks/Atlantis)
+Neptune == The original Old Father Time
+Neptune == father of Saturn (Greeks?) [pg. 47]
 
 ##############################################################################
 
@@ -293,7 +293,9 @@ Four periods in every month when the Sun is not in a good position for any under
 
 Solar hours are more potent from July 23 to August 23, when the Sun is in Leo.
 
-Gold is the metal ruled by the sun.  Color ruled by the Sun is orange.  
+Sun rules the body parts: The sides, back, and articulatory faculties, th health and vital principles, the right eye of a male, teh left eye of a female and the solar plexus.  
+Sun rules the metal: Gold
+Sun rules the color: Orange.  
 
 pg. 60, 61, 62
 
@@ -313,6 +315,7 @@ It is a negative hour and conversation is apt to be about trivial things general
 
 Four periods in every month when the Moon is not in a good position for any undertaking: New moon, opposition (full moon), and first and last quarter.  Great care should be taken not to start any new undertaking during a Sun or Moon hour occuring at these periods.  
 
+Moon rules the body parts: Brain, stomach, breasts, left eye of male, right eye of female.  
 Moon rules the metal: Silver
 Moon rules the color: Pale green or pale yellowish white.  
 
@@ -330,6 +333,7 @@ Do not start anything of a peaceful nature during the hour of Mars.  A journey s
 
 While it is a good hour for dealing with surgeons, dentists, and all dealing with sharp instruments, it is a dangerous hour to commence a surgical or dental operation.  Woulds, fevers, and inflammable conditions are more marked at this time.  
 
+Mars rules the body parts: Muscular system, sex organs, bladder, face, left ear, sense of touch.  
 Mars rules the metals: iron and steel
 Mars rules the color: Red
 
@@ -351,10 +355,8 @@ It is a good hour for borrowing or lending short time loads, to start a short jo
 
 Mercury hours are strongest during the months of June and December, and on Sunday.  
 
-Mercury rules the nervous system.  
-
+Mercury rules the body parts: The nervous system, speech, sight, perception, the bowels, arms, hands, lungs and tongue.
 Mercury rules the metal: quicksilver, the metal that responds quickly to all atmospheric achanges.
-
 Mercury rules the color: Azure and spotted mixtures.
 
 pg. 68, 69
@@ -375,7 +377,7 @@ Jupiter hours are strongest in December and March, and especially benefic if thi
 
 Jupiter was named after Thor, the Scandinavian name for Jupiter. 
 
-Jupiter rules the blood, liver, arteries, and thighs.
+Jupiter rules the body parts: blood, liver, arteries, and thighs.
 Jupiter rules the metal: Tin
 Jupiter rules the color: Indigo, or light blue.
 
@@ -393,7 +395,7 @@ It is a good hour to put on a new suit of clothes, engage domestic servants, col
 
 Everything in this hour is in more pleasant harmony.  Feelings and emotions are more humous, more easily and happily aroused and respond more readily to affection, friendship, sympathy.  It is good for a pleasant social hour with someone.  
 
-Venus rules the skin, throat, kidneys, and internal generative system.  
+Venus rules the body parts: skin, throat, kidneys, and internal generative system.  
 
 Venus rules the metal: Copper
 Venus rules the color: Blue
@@ -418,7 +420,7 @@ Never take medicine in a Saturn hour, for it will produce harm rather than good.
 
 It is an unfavorable hour for most general purposes.  
 
-Saturn rules the bones, knees and sense of hearing.
+Saturn rules the body parts: bones, knees and sense of hearing.
 Saturn rules the metal: lead and dross
 Saturn rules the color: black and sombre shades
 
