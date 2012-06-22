@@ -2,7 +2,7 @@
 Notes on the book "The Law Of Values", by Sepharial
 ##############################################################################
 
-Notes started on June 21, 2012.
+Notes below were taken on June 21, 2012.
 
 ##############################################################################
 
@@ -28,7 +28,6 @@ Aquarius: Russia
 Pisces: Portugal
 
 Note: There is a conflict for the rulership of the country Germany.  In 'Law of Values', Aries is given for Germany, and in 'Hebrew Astrology', Cancer is given for Germany.  
-
 
 pg. 4
 
@@ -79,7 +78,6 @@ If a full Moon occurs within 12 deg 24' of the Node, there will be an eclipse of
 
 The magnitude of the eclipse will be in inverse ratio to the distance.  If within five degrees the eclipse will be total.
 
-
 pg. 8, 9
 
 Except where the inherent natures of conjoined planets are mutually antagonistic, as Saturn and Mars, Neptune and Uranus, or Mars and Jupiter, we may consider the conjunction as being beneficial in its tendency.
@@ -87,7 +85,6 @@ Except where the inherent natures of conjoined planets are mutually antagonistic
 The opposition of the planets are uniformly evil on their effects upon securities, and a fall in the share values is always to be seen when the major planets oppose one another.
 
 The quadratures are, of course, evil in their effects, as the trines and sextiles are good. But we lay chief stress upon the nature of the planet occupying a sign, for if Saturn be in a sign whatsoever, the securities related to that sign will not advance, even though Saturn may be well aspected.
-
 
 
 General planet effects from their natures:
@@ -115,7 +112,6 @@ Neptune and Jupiter produce unsound flotations, the creation of bogus funds, fra
 
 Mars and Jupiter bring about strong enthusiasms and demonstrations. So far as the markets are concerned, their influence is reflected in a strong "bull" tendency, highly speculative buying, and a run on stocks and shares governed by the sign they occupy.
 
-
 pg. 10
 
 Sensitive Points: The degree of the zodiac occupying the midheaven or meridian and that occupying the horizon, are sensitive points. It is found that the transits of the planets over these points are productive of very marked effects which influence the financial world to the greatest possible extent.
@@ -142,5 +138,50 @@ pg. 10, 11
 
 Sepharial gives examples of transits over sensitive points.  
 
-[rluu: Continue reading and taking notes starting from page 10.]
+pg. 11
 
+The Egyptian campaign and the fall of Khartoum, with the death of General Gordon took place in 1884-5, when Saturn was in the midheaven of the horoscope of London, Saturn being in Gemini 9 deg in April, 1884.
+
+The stationary positions of the major planets in these degrees are far more effective than mere transits, and great crises always attend the stay of a planet in a sensitive degree. 
+
+pg. 12
+
+Rules for investing:
+
+1) Make sure that the security is well founded, and readily dealth in on the open market.  Make sure the market responds to the sign through which Saturn last made transit [check history].  
+
+2) Affirm the following: 
+
+   - No eclipses occur in the ruling sign of the stock during the period for which investment is proposed to be made.  
+
+   - No transit of Saturn, Uranus or Neptune occurs in that sign during that period.
+
+   - Jupiter will pass through the sign during the period.
+
+3) To buy cheaply, find a market which responds to the sign through which Saturn last made transit.  
+
+4) Buy and hold until after Jupiter has made his transit through the same sign.  Then sell.
+
+If for example one holds Peru stocks (ruling sign Aries), one should sell them the moment Saturn enters Aries.  
+
+Basically the process is buy after transit of Saturn and sell after the Jupiter transit.  Sepharial says that all one has to do is keep his eye on the major planets and the eclipses.  This is a technique for investors, and not speculators.
+
+For spectulators, he mentions that day-to-day activity can be accurately foretold.  They have secondary causes and constitue the master-key to the Stock and Share market.  He says there are primary laws, when properly understood, will instruct a man what to do and when to it.  
+
+pg. 13
+
+Sepharial's method of averaging is: 
+Take the highest and lowest prices of a stock for yeach year during a period fo 7 or more years.  Average the 7 highest prices and average the 7 lowest prices.  The results added together adn divided by 2 gives the true average, below which it is safe to buy under NORMAL conditions of the market.  
+
+pg. 15
+
+The rise and fall of the great civilizations of the world can be determined with the great cyclic law of periodicity.  
+
+Sepharial says he has respect for the greatest of astrological Kabalists, Michael Nostradamus.  
+
+pg. 16
+
+Sepharial makes a prediction that in 1913 will bring international and political crisis in Europe.  
+
+
+#######################################
