@@ -50,7 +50,7 @@ Many people have used with great success, the values attached to numbers by the 
 The 22 Major Keys are given briefly on page 27.
 
 pg. 30
-Hebraic, Pythagorean and phonetic values are given.
+Hebraic, Pythagorean and phonetic values for the letters and numbers are given.
 
 pg. 31
 The ancient writers veiled their secrets by employed one of three methods:
@@ -67,7 +67,7 @@ Finally, they had a secret writing, which was based upon the Temurah.  The pytha
 Example of the use of this technique is shown on page 34.  
 
 pg. 38, 39
-System employing the Hebrew values of letters to a person's signature.  See page 39.  
+System employing the Hebrew values of letters to a person's signature.  See page 39.  The procedure is not as clearly explained here, but it is explained on page 62, with an example on page 63.  
 
 pg. 40
 Two techniques given for determing the signature of the year:
@@ -94,9 +94,130 @@ Table of numbers and their meanings are given for this system:
 8. Corruption, disease, death, decay, loss, hurt, imperfection, obstruction, privation.  
 9. Freedom, energy, keenness, acumen, zeal, penetration, fire, fever.  
 
+pg. 54
+Sepharial says the system of numerical kabalism he is here unfolding is linked up with other subjects through an astrological tradition. 
+[rluu: "Here" as in in this chapter or as in in this book?  The current chapter spans from pages 54 to 61.]
+
+Numbers have a signification or symbolical value irrespective of:
+a) Our recognition of their symbolism
+b) What we are led to recognize as natural causation.
+
+Law of permutations: ((2^n) - 1)
+
+Thus, possible combinations of any three principles, sounds, or colors, = 2 x 2 x 2 - 1 = 7.
+
+You may or may not read the signal, but that does not in any way alter either the law expressed by the formula or the truth of the expression.  
+
+[rluu: Sepharial emphasizes this as if it is extremely important.]
+[rluu: Is 'n' in the formula the number of letters?  Or perhaps the birth name or birth date numbers, or maybe the Sun position at birth?]
+
+pg. 55
+Sepharial has already affirmed the universe as a symbol.  It exists, and has existed for immense ages as a symbol.  Symbol is the language of nature.  
+
+After the Triune Deity, the ancients placed the seven great powers or archangels.  "The One produced the Three, the Three produced the seven.  These ten are all things."
+
+[rluu: Where is this quote from?  What is this quote saying?]
+
+Scorpio, has associated symbols Serpentarius and Draconis, nocturnal, poisonful, and death-dealing.  
+
+After the 7th day of creation or unfoldment, death makes its appearance in teh world.  That is to say after the universe has attained its fullness of evolution, it will begin to devolve.
 
 
-[rluu: TODO: Continue taking notes starting on page 54. ]
+There is no natural sequence between the number 8 and the things that number signifies to us [sinister and unfortunate things, death, decay, ruin]. We may affirm that it [rluu: the number 8?] exists apart from natural causation, for there is no causative relation between the occurrence of a number in a man's name or the date of his birth, and any event or characteristic we may associate with such a number.  
+
+pg. 57
+In this kabalism system, the ancients had a conception of the relations of man to the universe, calling him, in fact, the microcosm.  They divided the microcosm into four principles:
+
+1) The imperishable soul, which reflected the Trinity of Deific Powers. (Venus & Mercury).
+2) The rational soul.
+3) The animal soul.
+4) The gross body.
+
+These they related to the cosmic bodies, conceiving them to be enveloped by an aura which defined their sphere of action and maintained their relationship, just as they held that the solar system was limited by a crystalline sphere.  
+
+The cosmos was thus completed, the surrounding and enfolding sphere of Jupiter, which they called the auric body.  
+
+pg. 59
+
+The sum of the numbers (1 through 9) is 45 = 15 * 3.  The triple name [Hebrew word for "Jah", see book pg. 59], in the understanding of which we are exhorted to praise.  
+
+[rluu: Is this "3" here the 3 days and 3 nights of the Jonah riddle?  Thus 3 days and 3 nights would be 90 degrees?]
+
+[rluu: 
+From http://www.greateststoryevertold.org/jah.html
+Jah (Yahh in Hebrew)
+is a contraction of the root word Jehovah (Yehovah in Hebrew),meaning "the existing one", the proper name of the one true God. This is the only time Jah is used in the King James Version of the Bible. This word is used and translated as LORD 45 other times in the Old Testament, KJV.
+
+From http://concordances.org/hebrew/3050.htm
+Yah: the name of the God of Israel
+Original Word: יָהּ
+Part of Speech: Proper Name
+Transliteration: Yah
+Phonetic Spelling: (yaw)
+Short Definition: LORD
+Definition: the name of the God of Israel
+NASB Translation: GOD (1), LORD (49).
+]
+
+The planetary forms (for the numbers):
+9: Associated with all sharp, keen, and pointed things, such as are made of steel and iron, spears, lances, scalpels, swords, knives, flints, tongues of flame, etc.
+8: Symbol fo involution, and represents all serpentine adn scroll forms, the convolute [spiral] and double convolute [2 spirals in the shape of a backward 'S'], the letter s, and all sibilant sounds, as in hissing.  
+7: Represented by crescent forms, dexter curves, and horned shapes.  
+6: Associated with symmetrical and well-formed bodies, graceful curves and rounded figures, in which symmetry and balance are the prevailing feature.  
+5: Related to sharp but disjointed forms, articulations, links and jointed bodies.  
+4: Connected with square bodies, rectangles, crosses, and horizontal lines.  
+3: With triangles, tripodds, and bodies having three divisions; also with integumenta, envelopes, and spheroids, ovals, and bodies capable of expansion and contraction.  
+2: Number associated with sinister curves, forms having round bases, as bowls, vases, etc., parallels and pairs of things, such as pillars, etc.
+1: represents upright columns, monoliths, spheres, circles, perpendicular lines, and orifices.  
+
+pg. 60
+
+The colors associated with the planets, numbers, and forms, are:
+9: Red or crimson
+8: Black or deep brown
+7: Silver or opalescence
+6: Pale blue or turquoise.
+5: Indigo or dark blue.
+4: Orange or ruddy gold.
+3: Violet.
+2: Yellow or cream.
+1: White.
+
+The notes, or sounds answering ot hte planetary and therefore alos the numerical powers, and their appropriate colors, are as follows:
+
+C : Sun     : 1 or 4
+D : Saturn  : 8
+E : Mercury : 5
+F : Moon    : 7 or 2
+G : Mars    : 9
+A : Venus   : 6
+B : Jupiter : 3
+
+
+Sepharial says that he is certain that Shakespeare was neither Kabalist or Rosicrucian, but he employs knowledge of both faculties.  
+
+pg. 61.
+Deitic height of evolution is up to: 
+6 + 9 = 15
+which we need not aspire, contenting ourselves by "filling up the spaces in between".  
+[rluu: Is this the breakdown of a day in the Jonah 3 days and 3 nights riddle?]
+
+pg. 62, 63
+System shown for analyzing the name according to the Kabala, using the 22 Major Keys of Tarot.  This is the same method as shown on pg. 38, 39, but with a better explanation.  On page 62 and 63 however, he does not explicitly mention that the method be applied only to a signature.  Example is given on page 63.  
+
+pg. 62.
+Each of the Tarotic numbers has a fourfold interpretation:
+1) spiritual
+2) intellectual
+3) psychic
+4) physical
+The correspondence of which running from the world of principles to that of causes, thence to the world of effects, terminating in teh world of ultimates, which is the concrete world of physical phenomena.  
+
+Sepharial says he gives the full interpreation of the twenty two Major Keys of the Tarot in his 'Manual of Occultism'.
+
+pg. 64
+[rluu: Continue reading and taking notes from here.]
+
 
 
 ##############################################################################
