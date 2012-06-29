@@ -1063,3 +1063,25 @@ and acroread, to count instances of word phrases.
 # End Notes added Mar 11, 2012.
 ##############################################################################
 
+##############################################################################
+# Start Notes added June 29, 2012.
+##############################################################################
+
+List of volatile stocks to explore later (found with Google's stock screener):
+    Symbols:
+      ATLS
+      HL
+      WYN
+      AIG
+
+About the Jonah puzzle:
+
+For the puzzle/riddle of "sign of the times" in Jonah 3 days and 3 nights, 
+is "sign" like a signature?  "SIGN" numerologically in the pythagoras system is 1975.  What is the Hebrew work used for this?  What does the concordance say for that hebrew word and numbers (in the various systems)?  Note that Lorrie Bennett makes a pretty good list of things to investigate for this puzzle.  
+Also, is "times" referring to a heliocentric cycle, so that 3 days is 3 iterations of synodic conjunctions?  See also Petter's TTTA post about this as in the Assyerian link that he says is more credible, and also about how 18 degrees is the amount of longitude that the moon is dark at a new moon (for 3 days and 3 nights) and also look at Haytham's writing on this and also my notes on Sepharial's Kabala of Numbers (see document notes_BibleNumbers.txt).  
+
+
+##############################################################################
+# End Notes added June 29, 2012.
+##############################################################################
+
