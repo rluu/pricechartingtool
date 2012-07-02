@@ -991,6 +991,11 @@ def processPCDD(pcdd, tag):
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    "Mercury")
 
+
+    #success = PlanetaryCombinationsLibrary.\
+    #    addBayerTimeFactorsAstroVerticalLines(\
+    #    pcdd, startDt, endDt, highPrice, lowPrice)
+    
     ############################################################################
 
     # Testing new functions for longitude aspect timestamps.
