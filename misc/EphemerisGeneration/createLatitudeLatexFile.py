@@ -89,8 +89,10 @@ planetNames = [\
     "Jupiter",
     "Saturn",
     "Uranus",
+    "Neptune",
     "Pluto",
-    "Chiron"]
+    "Chiron",
+    "Isis"]
 
 # Starting timestamp.
 # Format is "YYYYMM".
