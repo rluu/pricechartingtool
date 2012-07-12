@@ -1,7 +1,7 @@
 ##############################################################################
 Notes on the book "The Kabala Of Numbers, Book 1", by Sepharial
 
-rluu 20120626: I took 3 pages of paper notes on this book.  The below notes are a continuation of that starting from page 17.
+rluu 20120626: I took 3 pages of paper notes on this book already.  The below electronic notes are a continuation of those paper notes starting from page 17 of the book.
 
 ##############################################################################
 
@@ -218,7 +218,96 @@ The correspondence of which running from the world of principles to that of caus
 Sepharial says he gives the full interpreation of the twenty two Major Keys of the Tarot in his 'Manual of Occultism'.
 
 pg. 64
-[rluu: Continue reading and taking notes from here.]
+Francis Bacon used anagram, cryptogram and a numerical kabala in his works.  
+Example of his use of it is given (see text).
+
+pg. 65
+Pythagorean kabala is given, but Sepharial says that this system does not lend itself well to symbolism.
+
+pg. 66
+Symbolism can be seen with:
+Hebrew code in connection with the Tarot.
+Planetary [number] code in connection with astrology.
+
+pg. 67
+Sepharial says the "Secret Progression" kabala is published in the "Manual of Occultism".  
+
+pg. 68
+The "Secret Progression", when perfected, answers four tests:
+1) The minor additive
+2) The major additive
+3) The minor differential
+4) The major differential.
+
+Examples of each of these tests follows in the text.
+
+pg. 72
+Law of numerical sequence == correlated successiveness. [Example given on pg. 71 with Kings and their reigning periods.]  This law of numerical sequence follows through cosmic relations also.  
+
+Kepler's laws of planetary motion:
+1) The orbins of the planets are ellipses with the Sun as one focus.
+2) A line from the planet to the Sun sweeps over equal areas in equal intervals of time.
+3) A planet's orbital period squared is proportional to its average distance from the Sun cubed.
+
+A projectile force varies inversely as the square of the distance.  
+
+
+Bode's law: The law relates the mean distances of the planets from the sun to a simple mathematic progression of numbers.  To find the mean distances of the planets, beginning with the following simple sequence of numbers: 0, 3, 6, 12, 24, 48, 96, 192, 384.  With the exception of the first two, the others are simple twice the value of the preceding number.  Add 4 to each number, and then divide each by 10.  The resulting sequence is very close to the distribution of mean distances of the planets from the Sun.  See webpage: http://www.astro.cornell.edu/academics/courses/astro201/bodes_law.htm
+
+pg. 75
+
+Sepharial says the theory of gravity may not be correct, because the facts do not answer to the theory of attraction.  When it is seen that intermolecular ether is negative to spatial ether, it may be found convenient to look at the obverse side of the door, that is, bodies may be impelled toward the earth by the "push" of spatial ether instead of being drawn to the earth by the "pull" of the earth's mass.  
+
+pg. 76
+The universe regarded as man: The Rosicrucians called it "Adam Kadmon", Swedenborg called it the "Grand Man", the Macroprosopus.
+
+pg. 78
+
+Mars-Saturn cycle: 265 years, the two planets perform 9 revolutions and return to nearly the same place in the zodiac.  When they conjunct in a sign, the countries ruled by that sign suffer ill effects.  
+
+Country rulerships (Sepharial says according to ancient observations):
+
+Sagittarius: Spain, Italy
+Gemini: United States
+Capricorn: India
+Aquarius: Russia
+Pisces: Portugal
+Aries: England
+Taurus: Ireland
+Cancer: Scotland, Holland
+Leo: France
+
+pg. 81
+
+Hindus say that the period of 120 years is the sum of a human life.
+
+Ptolemy ascribed the periods of the planets as follows:
+Moon: 4 years
+Mercury: 10 years
+Venus: 8 years
+Mars: 15 years
+Jupiter: 12 years
+Saturn: 30 years
+
+These values are all evenly divisible into 120.
+
+Moon:     4 years into 120 = 30
+Saturn:  30 years into 120 =  4
+Moon and Saturn are opposed to one another in nature, and rule opposite signs.
+
+Mercury: 10 years into 120 = 12
+Jupiter: 12 years into 120 = 10
+Jupiter and Mercury are opposed to one another, and rule opposite signs.
+
+Venus:    8 years into 120 = 15
+Mars:    15 years into 120 =  8
+Jupiter and Mercury are opposed to one another, and rule opposite signs.
+
+pg. 82
+
+In one day, the Sun completes its apparent circuit of the heavens and advances 1 degree, making 361 degrees.  This quantity is 19 x 19, and Ptolemy gives the period of the Sun as 19 years.  
+
+Sun and Moon are conjoined in the same point in the Zodiac every 19 years.  
 
 
 
