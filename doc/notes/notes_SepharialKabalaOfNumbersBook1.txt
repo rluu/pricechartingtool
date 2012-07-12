@@ -233,7 +233,7 @@ pg. 67
 Sepharial says the "Secret Progression" kabala is published in the "Manual of Occultism".  
 
 pg. 68
-The "Secret Progression", when perfected, answers four tests:
+The "Secret Progression" (for lottery), when perfected, answers four tests:
 1) The minor additive
 2) The major additive
 3) The minor differential
@@ -308,6 +308,104 @@ pg. 82
 In one day, the Sun completes its apparent circuit of the heavens and advances 1 degree, making 361 degrees.  This quantity is 19 x 19, and Ptolemy gives the period of the Sun as 19 years.  
 
 Sun and Moon are conjoined in the same point in the Zodiac every 19 years.  
+
+pg. 83
+
+There are 3 keys:
+1) Astral key
+2) Name key
+3) Number key
+
+pg. 84
+
+Astral key is planetary hours.  
+
+The day hours (local sunrise to local sunset) is divided by 12 to get the length of each day planetary hours.
+
+The day hours (local sunset to local sunrise) is divided by 12 to get the length of each night planetary hours.
+
+The order of rulerships of planetary hours is:
+Sun, Venus, Mercury, Moon, Saturn, Jupiter, Mars.
+
+The name of the day (of the week) is ruled by the planet lording of the first hour of that day.
+
+pg. 89
+
+For use with planetary numbers:
+The 6 planetary hours from sunrise to noon are POSITIVE.
+The 6 planetary hours from noon to sunset  are NEGATIVE.
+
+pg. 90
+
+Planetary numbers for the planets:
+
+Planet   Positive #    Negative #    Sum, reduced
+------   ----------    ----------    ------------
+Sun      1             4             5
+Moon     7             2             9
+Saturn   8             1             9
+Jupiter  3             6             9
+Mars     9             5             5
+Venus    6             3             9
+Mercury  5             9             5
+
+
+The positive and negative values of all planets add to a sum whose unit value is 5 or 9, whence we have the kabalistic value 5 + 9 = 14, i.e. the two aspects (male and female, positive and negative) of the Sevenfold Powers.
+
+[rluu: The positive numbers are a number sequence, and the negative numbers are a number sequence.]
+
+pg. 91
+
+Each planetary hour is divided into 7 equal parts, where the first subdivision of the hour is lorded by the same planet as the hour.  The subdivisions are in the same order as the planetary hours.  
+
+[rluu: Is Sepharial dividing the noon to the sunset by 6 to get the lengths of evening planetary hours?  Why not do sunrise to sunset divided by 12?  Is it because he is actually using local noon time [Sun at MC, or highest place in sky]?]
+
+pg. 92, 93
+Horse racing example given, using phonetic values of the names of the horses.  These numbers are compared with the number related to the planetary period.  
+
+[rluu: The phonetic values used by Sepharial in some places seems a bit subjective.]
+
+The circle == infinity or zero, since all circles are equal to one another and converge in the point at the center.  
+
+pg. 98, 99
+
+If Nature employs a numerical symbolism, we may conformably employ certain numbers as symbols, and indeed all numbers, by reference to their components or their unit values.  When I [Sepharial] said that Nature uses a symoblism, and that it has consciousness of us as individuals, I regarded it mediately as the expression of Divine Intelligence.  It is in reality the Deity, who is conscious in and through Nature, as man is conscious in and through his body.  
+
+Nature is a symbol, and it attains signification for us only when we understand it.  
+
+pg. 102
+Thought has two orders:
+Conscious thought
+Unconscious/Subconscious thought
+
+Every brain, while functioning, creates definite vibrations or waves in the etheric ambient.  These waves impinge upon the brains of others, and, if in syntonic relations with them, will cause an apperception of personality, so that the individuals affected will immediately create a mental image of the person whose thought is projected.  
+
+pg. 104
+Each of us is connected to the world-soul (planetary or earth consciousness), and the world-soul is linked to the universal soul (solar sphere).  
+
+The geometrical relations of thought are such that every idea is capable of numerical expression. 
+
+pg. 107
+
+From the Bible: "The sceptre shall not depart from Judah, nor the law-giver from between his feet, until Shiloh shall come."
+
+"The sceptre" == Regulus
+"the law-giver" == Cepheus
+"Shiloh" or "Shuleh" == Cor Scorpio
+
+Cor Scorpio, whose rising is the signal for Regulus to depart fromt he mid-heaven with its opposition point of Cepheus from the nadir.  
+
+pg. 111
+
+Technique of thought-reading (or resolution of questions) by numbers:
+
+The mind having been fixed upon the question to be asked or the matter upon which information is sought, nine numbers are set down, to which 3 is added, and the numbers in the sun is then referred to for the nature of the question.  
+
+Then look up the answer in the table given on pages 111 to 118.  
+
+pg. 120
+
+Technique given for locating lost things by numbers.  See table on pages 120 to 126.
 
 
 
