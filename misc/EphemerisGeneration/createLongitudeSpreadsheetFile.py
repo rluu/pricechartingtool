@@ -103,6 +103,7 @@ planetNames = [\
     "Moon",
     "Mercury",
     "Venus",
+    "Earth",
     "Mars",
     "Jupiter",
     "Saturn",
@@ -111,7 +112,8 @@ planetNames = [\
     "Pluto",
     "TrueNorthNode",
     "Chiron",
-    "Isis"]
+    "Isis"
+    ]
 
 # Starting timestamp.
 # Format is "YYYYMM".
@@ -532,7 +534,7 @@ parser.add_option("--output-file",
                   type="str",
                   dest="outputFile",
                   default=None,
-                  help="Specify output latex file.  This is a required field.",
+                  help="Specify output CSV file.  This is a required field.",
                   metavar="<FILE>")
 
 # Parse the arguments into options.
@@ -553,6 +555,16 @@ if options.centricityTypeStr.lower() != "geocentric" and \
     shutdown(1)
 else:
     centricityType = options.centricityTypeStr.lower()
+
+# Remove planet names that don't make sense for the chosen centricity type.
+if centricityType == "geocentric" or centricityType == "topocentric":
+    if "Earth" in planetNames:
+        planetNames.remove("Earth")
+if centricityType == "heliocentric":
+    if "Sun" in planetNames:
+        planetNames.remove("Sun")
+    if "TrueNorthNode" in planetNames:
+        planetNames.remove("TrueNorthNode")
 
 if options.zodiacTypeStr.lower() != "tropical" and \
    options.zodiacTypeStr.lower() != "sidereal":
