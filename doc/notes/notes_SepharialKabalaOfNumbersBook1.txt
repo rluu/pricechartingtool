@@ -74,7 +74,7 @@ Two techniques given for determing the signature of the year:
 
 1) The signature of each year can be obtained by adding the key number to the current year, and then reducing, and then checking the Tarot card corresponding to that value.  
 
-2) The signature of each year can be obtained by adding the age of the person to the current year.  The value reduced and checked against the Tarot corresponding to that value.  
+2) The signature of each year can be obtained by adding the age of the person to the current year.  The value reduced and checked against the Tarot corresponding to that value.  [This technique and examples of it are given on pages 130 and 133].
 
 pg. 41 through 53 showing the use of the 3 by 3 square with numbers, and examples.  [rluu: In the examples, I haven't figured out exactly how he is getting the planets he is getting.  Some of the combinations with planets that I think should be there for the technique I think he is doing, he does not list sometimes.]
 
@@ -406,6 +406,88 @@ Then look up the answer in the table given on pages 111 to 118.
 pg. 120
 
 Technique given for locating lost things by numbers.  See table on pages 120 to 126.
+
+pg. 129
+
+The decimal system of enumeration, which proceeds from one to nine, was an implicit recognition of the law of cyclic recurrence.  The Hebrews may be said to think in twelves but count in tens.  
+
+According to Kabalism of cyclic law, all events are in terms of 9.  
+
+pg. 130
+
+For any number reduced to its unit value, the addition of the number 9 to the original number will produce the same unit value.  Hence, in the conception of those who see significance in numbers, the application of any factor to this cyclic series must have some special pointing.  
+
+Such a factor is to be found in the numerical value of a person's name.  And this, when applied tot he year in which that person was born, or in which any great crisis was reached, is found to have a kabalistic significance when reduced to terms of the Tarot.  [Examples given.]
+
+pg. 131
+
+The cyclic recurrence of certain like incidents observed in several cases appears to have led to the construction of what are called "Alfridary"/"Alfridaries".
+
+pg. 132
+
+Description and example is given. 
+
+pg. 133
+
+Sepharial says Alfridary/Alfridaries do not work!
+
+Mendelieff has shown the atomic weights of the elements follow the natural octave.
+
+pg. 134
+
+Sir William Crookes, whose 'Genesis of the Elements' develop the same idea in regard to the differentiation of the protyle via the hydrogen base by a graduation of the vibration frequency and a proportionate diminishing of the mean free path or play-space of the various atoms.  
+
+In human life, we observe that there is a tendency of any action to automatically repeat itself, so that what was a primarily voluntary act tends to fall into the region of the automatic, and so become a habit.  
+
+Periodic law is another name for numerical sequence.  We call it a law because it responds to a numerical sequence, not because we pretend to an understanding of its causation.  
+
+Lunations and eclipses run in cycles, as also do the conjunctions and the oppositions of the planets of the system.  There is a 19-year cycle of the lunation, at the end of which they recur in the same part of the zodiac -- that is to say, at the same distance from the equinox on the same day of the year.  If any effects of a physical nature can be rightly attributed to the combined action of the luminaries, then such effects will follow a cyclic repetition every nineteen years.  The phenomenon of the tides is an example.  
+
+pg. 134, 135
+
+Conjunctions and oppositions of other bodies are cyclical too and have their effects:
+
+Mars and Mercury:   conjunctions in the same part of the zodiac every 79 years.
+Saturn and Mars:    conjunctions in the same part of the zodiac every 30 years.
+Jupiter and Saturn: conjunctions in the same part of the zodiac every 60 years.
+etc.
+
+pg. 136
+
+Comets and star showers have a great effect also.  Their great velocity must produce terrific perturbations in spactial ether, and that these these visitants affect our atmosphere is evident from their luminosity.  Similarly, they may produce great heat and consequent drought and famine, and also they may affect men's minds.  
+
+pg. 137.
+
+Comets and star showers may be symbols or signs by which something we do not quite understand is signalled to us by the Great Intelligence.  If we study them we may find out their meaning.  
+
+If Nature is the book of God, and the revelation of God to man, then, by the deciphering of natural symbols, we may arrive at an understanding of the divine language, the will and intention it expresses, and the purpose of creation with which God has been trying to impress us through the ages.  
+
+Eventually we may find that in the study of the universal language we are realizing ourselves, entering into the history and future of our own evolution, and then it will appear that cosmic laws are human laws, as well economic and social as moral and spiritual, and that the universe is man, the embodiment of divine thought, the expression of a perfect geometry, a complex mathematical formula which, when resolved will be found to follow the numerical resolution:
+
+1/7 = 0.142857
+2/7 = 0.285714
+3/7 = 0.428571
+4/7 = 0.571428
+5/7 = 0.714285
+6/7 = 0.857142
+  1 = 0.999999 to infinity (i.e. a recurring decimal in terms of unity.)
+
+pg. 138
+
+Every man is, in fine, a Number.  He is embodied number.  That is to say, the mass-chord of his whole constitution is in terms of a signle digit, to which he answers in the gamut of life.  
+
+Sepharial references the "Minor Key" Kabala system which is given on page 9.
+
+
+If the name of a person should appear too slender an argument for differences of faculty and function, differences of fortune and of character, then let the date of birth stand as symbol of the man (in regard to his dominant characteristics and faculty).  [rluu: Name takes precedence, then date.]
+
+
+
+Key number of an individual is: The result of adding together the day, month, and year of birth.  
+
+pg. 141
+
+
 
 
 
