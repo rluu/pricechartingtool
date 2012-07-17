@@ -30,7 +30,7 @@ import errno
 
 # Lines of text that will go into the output file.
 outputFileLines = []
-outputFileLines.append("Date,Day,Earth,Mars,Saturn,Mars - Saturn,(Mars - Saturn) % 360")
+outputFileLines.append("Date,Day,Earth,Mars,Saturn,Mars - Saturn + Earth,(Mars - Saturn + Earth) % 360")
 
 
 print("Processing input file...")
@@ -52,16 +52,18 @@ with open(inputFilename) as f:
             marsLongitude = float(fieldValues[3])
             saturnLongitude = float(fieldValues[4])
                                 
-            diffMarsSaturn = marsLongitude - saturnLongitude
-            diffMarsSaturnMod360 = diffMarsSaturn % 360
+            diffMarsSaturnPlusEarth = \
+                marsLongitude - saturnLongitude + earthLongitude
+            
+            diffMarsSaturnPlusEarthMod360 = diffMarsSaturnPlusEarth % 360
         
             outputLine = fieldValues[0] + "," + \
                          fieldValues[1] + "," + \
                          fieldValues[2] + "," + \
                          fieldValues[3] + "," + \
                          fieldValues[4] + "," + \
-                         str(diffMarsSaturn) + "," + \
-                         str(diffMarsSaturnMod360)
+                         str(diffMarsSaturnPlusEarth) + "," + \
+                         str(diffMarsSaturnPlusEarthMod360)
             
             outputFileLines.append(outputLine)
 
