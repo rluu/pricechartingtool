@@ -468,7 +468,7 @@ Planetary time periods [pg. 58] [rluu: Similar to the periods given by Ptolemy/S
 Sun Spot cycle [pg. 35-36]
 Jupiter-Saturn Great Mutation [pg. 35-36].
 Diurnal method (based on solar return) [pg. 35-36, 37].
-Jupiter-Saturn conjunction is the 20-year cycle.  [pg. 65-67
+Jupiter-Saturn conjunction is the 20-year cycle.  [pg. 65-67].
 Jupiter, Saturn, and Uranus (angles between these, for stocks) [pg. 65-67].
 Moon's node at aspects to 9 degrees Gemini. [pg. 68].
 Pluto [pg. 65-67].
@@ -519,7 +519,7 @@ Time factor: One factor sprouting another, until the "cycle" runs its course.  I
 And markets reflect timing factors which are not precisely symmetrical as mathematical cycles, a statement which seems elementary but is noted here because a degree of elasticity has to be accepted (time orb).  [pg. 126-127].
 
 The Earth takes 365 days to go around the Sun and the Moon makes 13 revolutions around the Earth in 364 days, or 7 revolutions in 91 days.  A satisfactory graphic presentation is to use the 360 deg circle, divide it in four 90 deg parts, and keep repeating the 90 deg square at highs and lows.  Related is the phenomenon of markets staging price surges of 11 calendar days (9 market days) which relates to the 88 day cycle of Mercury interlaced with the 365 deg and 28 deg and 91 deg factors.  [pg. 127].  
-[rluu: BA says there is an error here and it is done on purpose to give us numbers.]
+[rluu: BA says there is an error in this section here and it is done on purpose to give us numbers.]
 
 
 ##############################################################################
