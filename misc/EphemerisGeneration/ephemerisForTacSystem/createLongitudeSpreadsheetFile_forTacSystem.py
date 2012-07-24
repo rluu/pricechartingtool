@@ -584,6 +584,8 @@ if centricityType == "geocentric" or centricityType == "topocentric":
 if centricityType == "heliocentric":
     if "Sun" in planetNames:
         planetNames.remove("Sun")
+    if "Moon" in planetNames:
+        planetNames.remove("Moon")
     if "TrueNorthNode" in planetNames:
         planetNames.remove("TrueNorthNode")
 
