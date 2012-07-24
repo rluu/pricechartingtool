@@ -185,7 +185,7 @@ The colors associated with the planets, numbers, and forms, are:
 2: Yellow or cream.
 1: White.
 
-The notes, or sounds answering ot hte planetary and therefore alos the numerical powers, and their appropriate colors, are as follows:
+The notes, or sounds answering ot the planetary and therefore alos the numerical powers, and their appropriate colors, are as follows:
 
 C : Sun     : 1 or 4
 D : Saturn  : 8
@@ -487,7 +487,85 @@ Key number of an individual is: The result of adding together the day, month, an
 
 pg. 141
 
+rluu: An example of a date and time of birth is given, and a number is derived from that information, but I don't know how Sepharial got that number.  
 
+
+Mention of the kabala of the 'Table of Three'.  
+
+[rluu: This table was never introduced... is it just the numerical unit value of the sum of the day, month, and year of birth?]
+
+pg. 142
+
+Knowing a person's number, a man may make numerical selections in his environment which will reinforce and uphold his effectiveness.  
+
+pg. 144
+
+Nature has more regard to potentiality than to potency, to future possibilities than to present circumstance. Consequently, we find that nature's expressions of value are not fixed, but have always a cumulative adjunct represented by +x^n, which we understand to mean indefinite evolution -- as, for example, Adam = 1 + 4 + 4 = 9 + x^n.
+
+[rluu: Conceptually, this might be kind of like putting the base of the Square of 144 at a certain number on a stock chart.  In this case, using 'Adam' as 9, the base would be at 9.  (This is just my guess at interpreting what Sepharial is trying to say).]
+
+pg. 146
+
+Suggestion is given by several authors that nothing exists for us save in our consciousness, all things being related to use through our senses and our thoughts.  Whatever affects the consciousness affects the man, and in an intimate sense IS man.  This is the idea of all Nature being a "disguised humanity".  
+
+pg. 147
+
+It is not what man has, but what he wants, that shapes his course and determines his efforts.  
+
+Law of action and reaction, which is responsible for the stability of the universe.  
+
+pg. 148
+
+Earth's number is 4 (materiality).  
+The Moon, has numbers 7 (increasing moon) and 2 (decreasing moon).  
+
+In 1898, there was war between Spain and the United States.  This was causedby Saturn in Sagittarius (Spain being ruled by Sagittarius).  1898 = 1 + 8 + 9 + 8 = 26 = 8 (Saturn).
+
+pg. 149
+
+Russo-Japanese war took place in 1905, and coincided with the Saturn transit through Aquarius (Russia's ruling sign is Aquarius).  Mars was also transiting that sign.  
+
+Portugal's ruling sign is Pisces.  The Saturn transit through Pisces gave trouble to Portugal.  
+
+Securities (stocks) in these countries during their Saturn transit are depressed.  
+
+pg. 150
+
+Japan is ruled by Libra.  
+
+pg. 151
+
+Oedipus Judaicus by William Drummond: 
+In the book, Drummond seeks possible sources of the Biblical writings, from the Temple of Denderah to parallels with the Roman gods, dealing primarily with the 49th chapter of Genesis and the book of Joshua to draw his conclusions.
+http://en.wikipedia.org/wiki/Oedipus_Judaicus
+
+Authors that talked about zodiacal symbolism in relation to the great epochs of human history:
+C. Massey
+E. V. Kenealy
+J Mackay
+Capt. Drayton
+
+In each of these, some glimpeses of the system of interpretation are to be found.
+
+pg. 152
+
+It is the recurrence of planetary periods, and luni-solar cycles that constitutes the ebb and flow of human affairs and the corresponding changes or fluctuations in values.  
+
+Cycle lengths:
+
+Saturn: 30 years
+Jupiter: 12 years
+Mars: 15 years
+Sun: 19 years
+Venus: 8 years
+Mercury: 10 years
+Moon: 4 years
+
+The Saros or eclipse cycle is 18 years 10 and 1/2 days.
+3 eclipse cycles amounts to 54 years 1 month.
+36 eclipse cycles amounts to 649 years, after which the eclipses begin again and recur on the same days of the year.  
+
+There is marked physical effects due to, and coincident with the central eclipse, especially when the Moon is in perigee (nearest distance from the Earth).  
 
 
 
