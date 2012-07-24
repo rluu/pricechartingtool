@@ -121,7 +121,7 @@ Chapter 19.
 "Tetrabiblos" or "Four Books on the Influence of the Stars" By Claudius Ptolemy
 The best translation is by Ashmand.
 
-Planetary periods (duration) of life By Ptolemy:
+Planetary periods (duration) of life By Ptolemy [pg. 192]:
 Moon:     4 years
 Mercury: 10 years
 Venus:    8 years
