@@ -56,47 +56,73 @@ log.setLevel(logLevel)
 # This is the column number in the CSV file from which to read values
 # from.  The values in this column will have a modulus operation done
 # on them.
+#
+# For 2-planet cycle used in IBM.
 columnNumber = 5
+# For 3-planet cycle used in IBM.
+#columnNumber = 8
+
+# Modulus amount.
+#
+# For 2-planet cycle used in IBM.
+modulusAmt = 12
+# For 3-planet cycle used in IBM.
+#modulusAmt = 10      
+
+# moddedHitValue.
+# After doing the modulus operation, we look for the value closest to
+# this value to yield dates.
+# 
+# For 2-planet cycle used in IBM, based on November 1, 2005.
+moddedHitValue = 1.152887198
+# For 3-planet cycle used in IBM, based on November 3, 2005.
+#moddedHitValue = 9.604528504
+
+
+# Color to use when drawing the vertical lines.
+
+# For 2-planet cycle used in IBM.
+color = QColor(Qt.cyan)
+# For 3-planet cycle used in IBM.
+#color = QColor(Qt.yellow)
+
+
+
+# Input CSV Ephemeris filename.
+inputCsvFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/ephemerisForTacSystem/TacEphemeris2.csv"
+
+# Timezone used for the data in the CSV spreadsheet.
+inputCsvTimezone = pytz.timezone("US/Eastern")
 
 # Column number for the date or timestamp.
 timestampColumnNumber = 0
 
-# Modulus amount.
-modulusAmt = 12
+# Flag to save the added vertical lines to PCD file or not.
+modifyPcddFlag = True
+
+# Flag to print out the cycle hit points to log.debug().
+printCycleTurnPointsFlag = False
+
+# Start and ending timestamps for analyzing and drawing vertical lines.
+#startDt = datetime.datetime(year=1962, month=1, day=1,
+#                            hour=0, minute=0, second=0,
+#                            tzinfo=pytz.utc)
+startDt = datetime.datetime(year=1990, month=1, day=1,
+                            hour=0, minute=0, second=0,
+                            tzinfo=pytz.utc)
+endDt   = datetime.datetime(year=2013, month=12, day=31,
+                            hour=0, minute=0, second=0,
+                            tzinfo=pytz.utc)
+
+# High and low price limits for drawing the vertical lines.
+highPrice = 700.0
+lowPrice = 10.0
 
 # Number of lines to skip before reading the data in the CSV file.
 linesToSkip = 1
 
 # Delimiter in the CSV file.
 delimiter = ","
-
-# Input CSV Ephemeris filename.
-inputCsvFilename = "~rluu/programming/pricechartingtool/misc/EphemerisGeneration/ephemerisForTacSystem/TacEphemeris2.csv"
-
-# After doing the modulus operation, we look for the value closest to
-# this value to yield dates.
-moddedHitValue = 1.113
-
-# Color to use when drawing the vertical lines.
-color = QColor(Qt.blue)
-
-# Flag to save the added vertical lines to PCD file or not.
-modifyPcddFlag = False
-
-# Flag to print out the cycle hit points to log.debug().
-printCycleTurnPointsFlag = True
-
-# Start and ending timestamps for analyzing and drawing vertical lines.
-startDt = datetime.datetime(year=1952, month=1, day=1,
-                            hour=0, minute=0, second=0,
-                            tzinfo=pytz.utc)
-endDt   = datetime.datetime(year=1986, month=4, day=1,
-                            hour=0, minute=0, second=0,
-                            tzinfo=pytz.utc)
-
-# High and low price limits for drawing the vertical lines.
-highPrice = 200.0
-lowPrice = 10.0
 
 ##############################################################################
 
@@ -117,19 +143,21 @@ def convertTimestampStrToDatetime(timestampStr):
     # Check input string for correct formatting.
     if len(timestampStr) != len("YYYY-MM-DD"):
         log.error("Read a timestamp from the CSV file that is " + \
-                  "not in the correct format.")
+                  "not in the correct format.  timestampStr == '{}'".\
+                  format(timestampStr))
         return None
     
     elif timestampStr[4] != "-" or timestampStr[7] != "-":
         log.error("Read a timestamp from the CSV file that is " + \
-                  "not in the correct format.")
+                  "not in the correct format.  timestampStr == '{}'".\
+                  format(timestampStr))
         return None
 
 
     yearStr = timestampStr[0:4]
     monthStr = timestampStr[5:7]
     dayStr = timestampStr[8:10]
-
+    
     # Test to make sure all the str values are digits before
     # converting to int values.
     for letter in yearStr:
@@ -156,9 +184,9 @@ def convertTimestampStrToDatetime(timestampStr):
     # Time of day is hardcoded to 12 noon.
     hour = 12
     minute = 0
-
-
-    rv = datetime.datetime(year, month, day, hour, minute)
+    
+    rv = datetime.datetime(year, month, day, hour, minute, \
+                           tzinfo=inputCsvTimezone)
     
     return rv
 
@@ -199,16 +227,6 @@ def processPCDD(pcdd, tag):
         return rv
     
 
-    # Make sure the file exists.
-    if not os.exists(inputCsvFilename) or not os.isfile(inputCsvFilename):
-        log.error("Please check to make sure input CSV file '{}'".\
-                  format(inputCsvFilename) + \
-                  " is a file and exists.")
-
-        # Don't save pcdd.
-        rv = 1
-        return rv
-
     # Ephemeris earliest timestamp.  
     ephemerisEarliestTimestamp = None
     
@@ -230,247 +248,265 @@ def processPCDD(pcdd, tag):
 
     # Column name.  This is obtained from the first line in the CSV file.
     columnName = ""
-    
-    with open(inputCsvFilename) as f:
-        for line in f:
 
-            # First line has the column headers.
-            if lineNum == 0:
+
+    try:
+        with open(inputCsvFilename) as f:
+
+            for line in f:
                 line = line.strip()
-                fieldValues = line.split(delimiter)
-                                
-                # Make sure we have enough columns of data.
-                if columnNumber >= len(fieldValues):
-                    log.error("The input CSV file does not have enough " + \
-                              "columns.  Could not read column {}".\
-                              format(columnNumber))
-                    # Don't save pcdd.
-                    rv = 1
-                    return rv
-
-                # Get the column name.
-                columnName = fieldValues[columnNumber]
+                #log.debug("Looking at line [{}]: {}".format(lineNum, line))
                 
-            if lineNum >= linesToSkip:
-                line = line.strip()
-                fieldValues = line.split(delimiter)
-
-                # Make sure we have enough columns of data.
-                if columnNumber >= len(fieldValues):
-                    log.error("The input CSV file does not have enough " + \
-                              "columns.  Could not read column {}".\
-                              format(columnNumber))
-                    # Don't save pcdd.
-                    rv = 1
-                    return rv
-
-                # Get the date from this line of text and convert to a datetime.
-                timestampStr = fieldValues[columnNumber]
-                currDt = convertTimestampStrToDatetime(timestampStr)
-                
-                # If conversion failed then don't save.
-                if currDt == None:
-                    # Don't save pcdd.
-                    rv = 1
-                    return rv
-
-                # Store the earliest and latest timestamps of the
-                # Ephemeris from the CSV file, as read so far.
-                if ephemerisEarliestTimestamp == None:
-                    ephemerisEarliestTimestamp = currDt
-                elif currDt < ephemerisEarliestTimestamp:
-                    ephemerisEarliestTimestamp = currDt
-
-                if ephemerisLatestTimestamp == None:
-                    ephemerisLatestTimestamp = currDt
-                elif currDt > ephemerisLatestTimestamp:
-                    ephemerisLatestTimestamp = currDt
-                
-                # Continue only if the currDt is between the start and
-                # end timestamps.
-                if startDt < currDt < endDt:
-                    
-                    currUnmoddedValue = float(fieldValues[columnNumber])
-                    currModdedValue = currUnmoddedValue % modulusAmt
-                    
-                    if prevDt != None and prevValue != None:
-                        # Assuming heliocentric cycles, so values change
-                        # in only one direction.
+                # First line has the column headers.
+                if lineNum == 0:
+                    line = line.strip()
+                    fieldValues = line.split(delimiter)
+                                    
+                    # Make sure we have enough columns of data.
+                    if columnNumber >= len(fieldValues):
+                        log.error("The input CSV file does not have enough " + \
+                                  "columns.  Could not read column {}".\
+                                  format(columnNumber))
+                        # Don't save pcdd.
+                        rv = 1
+                        return rv
     
-                        prevModdedValue = prevUnmoddedValue % modulusAmt
+                    # Get the column name.
+                    columnName = fieldValues[columnNumber]
+                    
+                if lineNum >= linesToSkip:
+                    line = line.strip()
+                    fieldValues = line.split(delimiter)
+    
+                    # Make sure we have enough columns of data.
+                    if columnNumber >= len(fieldValues):
+                        log.error("The input CSV file does not have enough " + \
+                                  "columns.  Could not read column {}".\
+                                  format(columnNumber))
+                        # Don't save pcdd.
+                        rv = 1
+                        return rv
+        
+                    # Get the date from this line of text and convert
+                    # to a datetime.
+                    timestampStr = fieldValues[0]
+                    currDt = convertTimestampStrToDatetime(timestampStr)
+                    
+                    # If conversion failed then don't save.
+                    if currDt == None:
+                        # Don't save pcdd.
+                        rv = 1
+                        return rv
+    
+                    # Store the earliest and latest timestamps of the
+                    # Ephemeris from the CSV file, as read so far.
+                    if ephemerisEarliestTimestamp == None:
+                        ephemerisEarliestTimestamp = currDt
+                    elif currDt < ephemerisEarliestTimestamp:
+                        ephemerisEarliestTimestamp = currDt
+    
+                    if ephemerisLatestTimestamp == None:
+                        ephemerisLatestTimestamp = currDt
+                    elif currDt > ephemerisLatestTimestamp:
+                        ephemerisLatestTimestamp = currDt
+                    
+                    # Continue only if the currDt is between the start and
+                    # end timestamps.
+                    if startDt < currDt < endDt:
                         
-                        if prevUnmoddedValue < currUnmoddedValue:
-                            # Increasing values.
+                        currUnmoddedValue = float(fieldValues[columnNumber])
+                        currModdedValue = currUnmoddedValue % modulusAmt
+                        
+                        if prevDt != None and prevUnmoddedValue != None:
+                            # Assuming heliocentric cycles, so values change
+                            # in only one direction.
+        
+                            prevModdedValue = prevUnmoddedValue % modulusAmt
                             
-                            if prevModdedValue < currModdedValue:
-                                # Curr value has not looped over the
-                                # modulus amount.  This is the normal case.
+                            if prevUnmoddedValue < currUnmoddedValue:
+                                # Increasing values.
                                 
-                                if prevModdedValue < moddedHitValue and \
-                                       moddedHitValue <= currModdedValue:
-                                    # We crossed over the moddedHitValue.
+                                if prevModdedValue < currModdedValue:
+                                    # Curr value has not looped over the
+                                    # modulus amount.  This is the normal case.
                                     
-                                    # Check to see whether the
-                                    # previous or the current is
-                                    # closer to the moddedHitValue.
-
-                                    prevDiff = abs(moddedHitValue - \
-                                                   prevModdedValue)
-
-                                    currDiff = abs(currModdedValue - \
-                                                   moddedHitValue)
-
-                                    if prevDiff < currDiff:
-                                        # Prev is closer.
-                                        cycleHitTimestamps.append(prevDt)
-                                    else:
-                                        # Curr is closer.
-                                        cycleHitTimestamps.append(currDt)
+                                    if prevModdedValue < moddedHitValue and \
+                                           moddedHitValue <= currModdedValue:
+                                        # We crossed over the moddedHitValue.
                                         
-                            elif prevModdedValue > currModdedValue:
-                                # Curr value has looped over the modulus
-                                # amount.  We must make an adjustment when
-                                # doing calculations.
+                                        # Check to see whether the
+                                        # previous or the current is
+                                        # closer to the moddedHitValue.
+    
+                                        prevDiff = abs(moddedHitValue - \
+                                                       prevModdedValue)
+    
+                                        currDiff = abs(currModdedValue - \
+                                                       moddedHitValue)
+    
+                                        if prevDiff < currDiff:
+                                            # Prev is closer.
+                                            cycleHitTimestamps.append(prevDt)
+                                        else:
+                                            # Curr is closer.
+                                            cycleHitTimestamps.append(currDt)
+                                            
+                                elif prevModdedValue > currModdedValue:
+                                    # Curr value has looped over the modulus
+                                    # amount.  We must make an adjustment when
+                                    # doing calculations.
+                                    
+                                    if prevModdedValue < moddedHitValue:
+                                        # We crossed over the moddedHitValue.
+                                        
+                                        # Check to see whether the
+                                        # previous or the current is
+                                        # closer to the moddedHitValue.
+    
+                                        prevDiff = abs(moddedHitValue - \
+                                                       prevModdedValue)
+    
+                                        currDiff = abs(currModdedValue + \
+                                                       modulusAmt - \
+                                                       moddedHitValue)
+                                        
+                                        if prevDiff < currDiff:
+                                            # Prev is closer.
+                                            cycleHitTimestamps.append(prevDt)
+                                        else:
+                                            # Curr is closer.
+                                            cycleHitTimestamps.append(currDt)
+                                            
+                                    elif moddedHitValue <= currModdedValue:
+                                        # We crossed over the moddedHitValue.
+                                        
+                                        # Check to see whether the
+                                        # previous or the current is
+                                        # closer to the moddedHitValue.
+    
+                                        prevDiff = abs(moddedHitValue + \
+                                                       modulusAmt - \
+                                                       prevModdedValue)
+    
+                                        currDiff = abs(currModdedValue - \
+                                                       moddedHitValue)
+    
+                                        if prevDiff < currDiff:
+                                            # Prev is closer.
+                                            cycleHitTimestamps.append(prevDt)
+                                        else:
+                                            # Curr is closer.
+                                            cycleHitTimestamps.append(currDt)
+                                            
+                            elif prevUnmoddedValue > currUnmoddedValue:
+                                # Decreasing values.
                                 
-                                if prevModdedValue < moddedHitValue:
-                                    # We crossed over the moddedHitValue.
+                                if currModdedValue < prevModdedValue:
+                                    # Curr value has not looped over 0.
+                                    # This is the normal case.
                                     
-                                    # Check to see whether the
-                                    # previous or the current is
-                                    # closer to the moddedHitValue.
-
-                                    prevDiff = abs(moddedHitValue - \
-                                                   prevModdedValue)
-
-                                    currDiff = abs(currModdedValue + \
-                                                   modulusAmt - \
-                                                   moddedHitValue)
-                                    
-                                    if prevDiff < currDiff:
-                                        # Prev is closer.
-                                        cycleHitTimestamps.append(prevDt)
-                                    else:
-                                        # Curr is closer.
-                                        cycleHitTimestamps.append(currDt)
+                                    if currModdedValue <= moddedHitValue and \
+                                           moddedHitValue < prevModdedValue:
+                                        # We crossed over the moddedHitValue.
                                         
-                                elif moddedHitValue <= currModdedValue:
-                                    # We crossed over the moddedHitValue.
+                                        # Check to see whether the
+                                        # previous or the current is
+                                        # closer to the moddedHitValue.
+    
+                                        currDiff = abs(moddedHitValue - \
+                                                       currModdedValue)
+    
+                                        prevDiff = abs(prevModdedValue - \
+                                                       moddedHitValue)
+    
+                                        if prevDiff < currDiff:
+                                            # Prev is closer.
+                                            cycleHitTimestamps.append(prevDt)
+                                        else:
+                                            # Curr is closer.
+                                            cycleHitTimestamps.append(currDt)
+                                            
+                                elif currModdedValue > prevModdedValue:
+                                    # Curr value has looped over 0.
+                                    # We must make an adjustment when
+                                    # doing calculations.
                                     
-                                    # Check to see whether the
-                                    # previous or the current is
-                                    # closer to the moddedHitValue.
-
-                                    prevDiff = abs(moddedHitValue + \
-                                                   modulusAmt - \
-                                                   prevModdedValue)
-
-                                    currDiff = abs(currModdedValue - \
-                                                   moddedHitValue)
-
-                                    if prevDiff < currDiff:
-                                        # Prev is closer.
-                                        cycleHitTimestamps.append(prevDt)
-                                    else:
-                                        # Curr is closer.
-                                        cycleHitTimestamps.append(currDt)
+                                    if currModdedValue <= moddedHitValue:
+                                        # We crossed over the moddedHitValue.
                                         
-                        else if prevUnmoddedValue > currUnmoddedValue:
-                            # Decreasing values.
-                            
-                            if currModdedValue < prevModdedValue:
-                                # Curr value has not looped over 0.
-                                # This is the normal case.
-                                
-                                if currModdedValue <= moddedHitValue and \
-                                       moddedHitValue < prevModdedValue:
-                                    # We crossed over the moddedHitValue.
-                                    
-                                    # Check to see whether the
-                                    # previous or the current is
-                                    # closer to the moddedHitValue.
-
-                                    currDiff = abs(moddedHitValue - \
-                                                   currModdedValue)
-
-                                    prevDiff = abs(prevModdedValue - \
-                                                   moddedHitValue)
-
-                                    if prevDiff < currDiff:
-                                        # Prev is closer.
-                                        cycleHitTimestamps.append(prevDt)
-                                    else:
-                                        # Curr is closer.
-                                        cycleHitTimestamps.append(currDt)
+                                        # Check to see whether the
+                                        # previous or the current is
+                                        # closer to the moddedHitValue.
+    
+                                        currDiff = abs(moddedHitValue - \
+                                                       currModdedValue)
+    
+                                        prevDiff = abs(prevModdedValue + \
+                                                       modulusAmt - \
+                                                       moddedHitValue)
                                         
-                            elif currModdedValue > prevModdedValue:
-                                # Curr value has looped over 0.
-                                # We must make an adjustment when
-                                # doing calculations.
-                                
-                                if currModdedValue <= moddedHitValue:
-                                    # We crossed over the moddedHitValue.
-                                    
-                                    # Check to see whether the
-                                    # previous or the current is
-                                    # closer to the moddedHitValue.
-
-                                    currDiff = abs(moddedHitValue - \
-                                                   currModdedValue)
-
-                                    prevDiff = abs(prevModdedValue + \
-                                                   modulusAmt - \
-                                                   moddedHitValue)
-                                    
-                                    if prevDiff < currDiff:
-                                        # Prev is closer.
-                                        cycleHitTimestamps.append(prevDt)
-                                    else:
-                                        # Curr is closer.
-                                        cycleHitTimestamps.append(currDt)
+                                        if prevDiff < currDiff:
+                                            # Prev is closer.
+                                            cycleHitTimestamps.append(prevDt)
+                                        else:
+                                            # Curr is closer.
+                                            cycleHitTimestamps.append(currDt)
+                                            
+                                    elif moddedHitValue < prevModdedValue:
+                                        # We crossed over the moddedHitValue.
                                         
-                                elif moddedHitValue < prevModdedValue:
-                                    # We crossed over the moddedHitValue.
-                                    
-                                    # Check to see whether the
-                                    # previous or the current is
-                                    # closer to the moddedHitValue.
+                                        # Check to see whether the
+                                        # previous or the current is
+                                        # closer to the moddedHitValue.
+    
+                                        currDiff = abs(moddedHitValue + \
+                                                       modulusAmt - \
+                                                       currModdedValue)
+    
+                                        prevDiff = abs(prevModdedValue - \
+                                                       moddedHitValue)
+    
+                                        if prevDiff < currDiff:
+                                            # Prev is closer.
+                                            cycleHitTimestamps.append(prevDt)
+                                        else:
+                                            # Curr is closer.
+                                            cycleHitTimestamps.append(currDt)
+                                            
+                            else:
+                                # Value is the same.  This is an error.
+                                log.error("Found two values in column {} ".\
+                                          format(columnNumber) + \
+                                          "that are the same value.  " + \
+                                          "See line {} in file '{}'".\
+                                          format(lineNum, inputCsvFilename))
+                
+                # Update variables for reading the next line.
+                prevDt = currDt
+                currDt = None
+                
+                prevUnmoddedValue = currUnmoddedValue
+                currUnmoddedValue = None
 
-                                    currDiff = abs(moddedHitValue + \
-                                                   modulusAmt - \
-                                                   currModdedValue)
+                lineNum += 1
 
-                                    prevDiff = abs(prevModdedValue - \
-                                                   moddedHitValue)
+    except IOError as e:
+        log.error("Please check to make sure input CSV file '{}'".\
+                  format(inputCsvFilename) + \
+                  " is a file and exists.")
+        
+        # Don't save pcdd.
+        rv = 1
+        return rv
 
-                                    if prevDiff < currDiff:
-                                        # Prev is closer.
-                                        cycleHitTimestamps.append(prevDt)
-                                    else:
-                                        # Curr is closer.
-                                        cycleHitTimestamps.append(currDt)
-                                        
-                        else:
-                            # Value is the same.  This is an error.
-                            log.error("Found two values in column {} ".\
-                                      format(columnNumber) + \
-                                      "that are the same value.  See line " + \
-                                      "{} in file '{}'".\
-                                      format(lineNum, inputCsvFilename))
-            
-            # Update variables for reading the next line.
-            prevDt = currDt
-            currDt = None
-            
-            prevUnmoddedValue = currUnmoddedValue
-            currUnmoddedValue = None
-
+    
+    
     # We now have all the cycle hit timestamps that are in the time
-    # range desired.
+    # range desired.  All these timestamps should be in the list
+    # 'cycleHitTimestamps'.
 
     # Replace spaces in the column name with underscores.
-    for i in range(len(columnName)):
-        if columnName[i] == " ":
-            columnName[i] = "_"
+    columnName = columnName.replace(" ", "_")
     
     # Set the tag name that will be used for the vertical lines.
     tag = "{}_Mod_{}_HitTo_{}".\
@@ -522,7 +558,21 @@ def processPCDD(pcdd, tag):
 
     # Calculate the average.
     if len(cycleHitTimestamps) > 1:
-        averageDiffTd = totalDiffTd / (len(cycleHitTimestamps) - 1)
+
+        # Convert the timedelta to seconds.
+        totalDiffSecs = \
+            (totalDiffTd.microseconds + \
+             (totalDiffTd.seconds + (totalDiffTd.days * 24 * 3600)) * 10**6) \
+             / 10**6
+
+        # Compute the average.
+        averageDiffSec = totalDiffSecs / (len(cycleHitTimestamps) - 1)
+        
+        log.debug("totalDiffSecs == {}".format(totalDiffSecs))
+        log.debug("averageDiffSec == {}".format(averageDiffSec))
+
+        # Turn the average number of seconds to a timedelta.
+        averageDiffTd = datetime.timedelta(seconds=averageDiffSec)
     
     # Print information about parameters and cycle hit timestamps that
     # were found.
@@ -533,11 +583,11 @@ def processPCDD(pcdd, tag):
              format(ephemerisEarliestTimestamp))
     log.info("Ephemeris latest   timestamp: {}".\
              format(ephemerisLatestTimestamp))
-    log.info("Modulus amount:   {}".format(modulusAmt))
-    log.info("Modded hit value: {}".format(moddedHitValue))
-    log.info("Search startDt:   {}".format(startDt))
-    log.info("Search endDt:     {}".format(endDt))
-    log.info("modifyPcddFlag:   {}".format(modifyPcddFlag))
+    log.info("Modulus amount:    {}".format(modulusAmt))
+    log.info("Modded hit value:  {}".format(moddedHitValue))
+    log.info("startDt parameter: {}".format(startDt))
+    log.info("endDt   parameter: {}".format(endDt))
+    log.info("modifyPcddFlag:    {}".format(modifyPcddFlag))
     #log.info("highPrice:        {}".format(highPrice))
     #log.info("lowPrice:         {}".format(lowPrice))
     log.info("Number of cycle hit points: {}".format(len(cycleHitTimestamps)))
@@ -554,7 +604,7 @@ def processPCDD(pcdd, tag):
         log.debug("Cycle hit points:")
         log.debug("----------------------------------------------------")
         for dt in cycleHitTimestamps:
-            log.debug(Ephemeris.datetimeToStr(dt))
+            log.debug("{}    {}".format(Ephemeris.datetimeToStr(dt), tag))
         log.debug("----------------------------------------------------")
     
     if modifyPcddFlag == True:
