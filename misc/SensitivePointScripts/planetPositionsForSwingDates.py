@@ -84,8 +84,6 @@ from data_objects import *
 from pricebarchart import PriceBarChartGraphicsScene
 from astrologychart import AstrologyUtils
 
-from swing import SwingFileData
-
 ##############################################################################
 # Global Variables
 ##############################################################################
@@ -136,7 +134,7 @@ def shutdown(rc):
     logging.shutdown()
     sys.exit(rc)
 
-def validateLine(self, line):
+def validateLine(line):
     """Validates a line of text is a valid CSV data line.
     
     Arguments:
@@ -327,7 +325,7 @@ def validateLine(self, line):
     return (True, "")
 
 
-def convertLineToPriceBar(self, line):
+def convertLineToPriceBar(line):
     """Convert a line of text from a CSV file to a PriceBar.
     
     The expected format of 'line' one of the following:
@@ -345,7 +343,7 @@ def convertLineToPriceBar(self, line):
     retVal = None
     
     # Do validation on the line first.
-    (validFlag, reasonStr) = self.validateLine(line)
+    (validFlag, reasonStr) = validateLine(line)
     
     if validFlag == False:
         log.debug("Line conversion failed because: {}" + reasonStr)
@@ -523,6 +521,10 @@ def generateOutputFileCsvStr(priceBars, descriptionStr):
     """
     
     geocentricPlanetNameList = [\
+        "Sun",
+        "Mercury",
+        "Venus",
+        "Mars",
         "Jupiter",
         "Saturn",
         "Uranus",
@@ -693,7 +695,7 @@ if __name__ == "__main__":
                       default=None,
                       help="Specify text that will be used as the " + \
                       "description text in the output CSV file.",
-                      metavar="<TEXT>")
+                      metavar="<STRING>")
     
     # Parse the arguments into options.
     (options, args) = parser.parse_args()
@@ -752,7 +754,7 @@ if __name__ == "__main__":
     priceBars = []
 
     try:
-        with io.open(inputFilename, "r") as f:
+        with open(inputFilename, "r") as f:
             # Go through each line of the file.
             i = 0
             for line in f:
@@ -761,7 +763,7 @@ if __name__ == "__main__":
                 # Skip over empty lines and lines before 
                 # line number 'numLinesToSkip'.
                 if i > numLinesToSkip and line.strip() != "":
-                    (lineValid, reason) = self.validateLine(line)
+                    (lineValid, reason) = validateLine(line)
                     if lineValid == False:
                         # Invalid line in the file.
                         validationStr = \
@@ -786,7 +788,7 @@ if __name__ == "__main__":
     csvStr = generateOutputFileCsvStr(priceBars, descriptionStr)
     
     # Write to file.
-    if outputFile != "":
+    if outputFilename != "":
         log.info("Writing to output file '{}' ...".format(outputFilename))
         with open(outputFilename, "w") as f:
             f.write(csvStr)

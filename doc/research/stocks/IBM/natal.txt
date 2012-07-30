@@ -1,0 +1,43 @@
+##############################################################################
+# Natal information for:
+# 
+# Company:            International Business Machines Corp.
+# Stock symbol:       IBM
+# Trades on exchange: NYSE
+##############################################################################
+
+Natal Candidate:
+
+
+June 16, 1911
+
+
+February 14, 1924
+
+
+
+Notes:
+
+-------------
+
+Press release on IBM's website:
+http://www-03.ibm.com/press/us/en/presskit/32887.wss
+
+IBM is marking the 100-year anniversary of its founding on June 16, 1911, with a year-long global initiative. 
+
+-------------
+
+From IBM's timeline on their website:
+http://www-03.ibm.com/ibm/history/history/decade_1880.html
+First Dial Recorder
+
+Although IBM was incorporated in the state of New York on June 16, 1911 as the Computing- Tabulating- Recording Company (C-T-R), its origins can be traced back to developments at the close of the 19th century. For example, the first dial recorder was invented by Dr. Alexander Dey in 1888, and Dey's business became one of the building blocks of C-T-R. Similarly, the Bundy Manufacturing Company was incorporated in 1889 as the first time recording company in the world, and it, too, later became a key component of C-T-R.
+
+-------------
+
+From IBM's timeline on their website:
+http://www-03.ibm.com/ibm/history/history/decade_1920.html
+
+The growth and extension of C-T-R's activities made the old name of the company too limited, and, on February 14, 1924, C-T-R's name was formally changed to International Business Machines Corporation. By then, the company's business had expanded both geographically and functionally, including the completion of three manufacturing facilities in Europe.
+
+##############################################################################
