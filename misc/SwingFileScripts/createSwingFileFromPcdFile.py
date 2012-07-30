@@ -596,6 +596,7 @@ def main():
         outputFile = os.path.abspath(options.outputFile)
     else:
         log.debug("outputFile was not specified.")
+        outputFile = ""
     
     # Check to make sure either --print or --pcd-file was specified.
     if outputFile == "" and printFlag == False:
