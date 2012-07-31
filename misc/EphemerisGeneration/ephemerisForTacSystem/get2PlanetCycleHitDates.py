@@ -2,33 +2,16 @@
 ##############################################################################
 # Description:
 #
-#   Module for drawing veritcal lines at cycle turn dates.  These turn
-#   dates are determined based various input parameters and an input
-#   Ephemeris CSV file that contains composite calculated planetary
-#   combinations.
-#
-#   In this script's current state, it is a custom script that reads
-#   in an Ephemeris file made for the IBM trading system given by TAC,
-#   and generates the hit points that should be the expected 2-planet
-#   or 3-planet cycle pivots in this system.  (See global variables
-#   below that can be tweaked to allow it to work with other trading
-#   entities).  This input file is the output from running the
-#   following scripts:
+#   This is a custom script that reads in an Ephemeris file made for
+#   the IBM trading system given by TAC, and generates the hit points
+#   that should be expected 2-planet cycle pivots in this system.
+#   This input file is the output from running the following scripts:
 #
 #     createLongitudeSpreadsheetFile_forTacSystem.py
 #     readCsvFileAndAddFields.py
 #   
 #   See the documentation for these scripts for how to use them to
 #   generate the required input to this script.
-#
-# Usage:
-#
-#   First make sure the global variables are set according to what you want.
-#
-#   Then run the following:
-#
-#     ./modifyPriceChartDocument.py --pcd-file=/home/rluu/programming/pricechartingtool/data/PriceChartDocumentFiles/IBM.pcd --script-file=./customScripts/addVerticalLinesForCsvFileEphemerisCycle.py
-#
 #
 # WARNING:
 #
@@ -64,12 +47,18 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 # Include some PriceChartingTool modules.
+# This assumes that the relative directory from this script is: ../../src
+thisScriptDir = os.path.dirname(os.path.abspath(__file__))
+srcDir = os.path.dirname(os.path.dirname(os.path.dirname(thisScriptDir))) + os.sep + "src"
+if srcDir not in sys.path:
+    sys.path.insert(0, srcDir)
+    
 from ephemeris import Ephemeris
 from data_objects import *
 from pricebarchart import PriceBarChartGraphicsScene
 
 # Holds functions for adding artifacts for various aspects.
-from planetaryCombinationsLibrary import PlanetaryCombinationsLibrary
+#from planetaryCombinationsLibrary import PlanetaryCombinationsLibrary
 
 ##############################################################################
 # Global variables
@@ -116,14 +105,18 @@ moddedHitValue = 1.152887198
 # Color to use when drawing the vertical lines.
 
 # For 2-planet cycle used in IBM.
-color = QColor(Qt.cyan)
+#color = QColor(Qt.cyan)
 # For 3-planet cycle used in IBM.
 #color = QColor(Qt.yellow)
 
 
-
 # Input CSV Ephemeris filename.
 inputCsvFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/ephemerisForTacSystem/TacEphemeris2.csv"
+
+# Output CSV filename.
+outputCsvFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/ephemerisForTacSystem/cycleHitDates2P.csv"
+#outputCsvFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/ephemerisForTacSystem/cycleHitDates3P.csv"
+
 
 # Timezone used for the data in the CSV spreadsheet.
 inputCsvTimezone = pytz.timezone("US/Eastern")
@@ -132,25 +125,25 @@ inputCsvTimezone = pytz.timezone("US/Eastern")
 timestampColumnNumber = 0
 
 # Flag to save the added vertical lines to PCD file or not.
-modifyPcddFlag = True
+modifyPcddFlag = False
 
 # Flag to print out the cycle hit points to log.debug().
 printCycleTurnPointsFlag = False
 
 # Start and ending timestamps for analyzing and drawing vertical lines.
-#startDt = datetime.datetime(year=1962, month=1, day=1,
-#                            hour=0, minute=0, second=0,
-#                            tzinfo=pytz.utc)
-startDt = datetime.datetime(year=1990, month=1, day=1,
+startDt = datetime.datetime(year=1962, month=1, day=1,
                             hour=0, minute=0, second=0,
                             tzinfo=pytz.utc)
-endDt   = datetime.datetime(year=2013, month=12, day=31,
+#startDt = datetime.datetime(year=1990, month=1, day=1,
+#                            hour=0, minute=0, second=0,
+#                            tzinfo=pytz.utc)
+endDt   = datetime.datetime(year=2014, month=12, day=31,
                             hour=0, minute=0, second=0,
                             tzinfo=pytz.utc)
 
 # High and low price limits for drawing the vertical lines.
-highPrice = 700.0
-lowPrice = 10.0
+#highPrice = 700.0
+#lowPrice = 10.0
 
 # Number of lines to skip before reading the data in the CSV file.
 linesToSkip = 1
@@ -159,6 +152,34 @@ linesToSkip = 1
 delimiter = ","
 
 ##############################################################################
+
+def formatToDateStr(dt):
+    """Returns a date string in the format that we want it in."""
+
+    dateStr = ""
+    
+    if dt.year < 10:
+        dateStr += "000{}".format(dt.year)
+    elif dt.year < 100:
+        dateStr += "00{}".format(dt.year)
+    elif dt.year < 1000:
+        dateStr += "0{}".format(dt.year)
+    else:
+        dateStr += "{}".format(dt.year)
+
+    dateStr += "-"
+    if dt.month < 10:
+        dateStr += "0{}".format(dt.month)
+    else:
+        dateStr += "{}".format(dt.month)
+    
+    dateStr += "-"
+    if dt.day < 10:
+        dateStr += "0{}".format(dt.day)
+    else:
+        dateStr += "{}".format(dt.day)
+    
+    return dateStr
 
 def convertTimestampStrToDatetime(timestampStr):
     """Converts a timestamp str from the CSV file to a datetime, and
@@ -225,21 +246,12 @@ def convertTimestampStrToDatetime(timestampStr):
     return rv
 
 
-def processPCDD(pcdd, tag):
+def main():
     """
-    
-    Arguments:
-    pcdd - PriceChartDocumentData object that will be modified.
-    tag  - str containing the tag.  
-           This implementation does not use this value.
-
-    Returns:
-    0 if the changes are to be saved to file.
-    1 if the changes are NOT to be saved to file.
     """
 
-    global highPrice
-    global lowPrice
+    #global highPrice
+    #global lowPrice
 
     
     # Return value.
@@ -538,19 +550,39 @@ def processPCDD(pcdd, tag):
     # We now have all the cycle hit timestamps that are in the time
     # range desired.  All these timestamps should be in the list
     # 'cycleHitTimestamps'.
-
+    
+    
     # Replace spaces in the column name with underscores.
     columnName = columnName.replace(" ", "_")
-    
+
     # Set the tag name that will be used for the vertical lines.
     tag = "{}_Mod_{}_HitTo_{}".\
           format(columnName, modulusAmt, moddedHitValue)
 
-    # Add the vertical lines at these timestamps.
+    # Newline.
+    endl = "\r\n"
+    
+    # Write results to a CSV file.
+    outputFileLines = []
+
+    # Add column headers.
+    outputFileLines.append("Cycle hit dates for: " + tag + endl)
+
     for dt in cycleHitTimestamps:
-        PlanetaryCombinationsLibrary.\
-            addVerticalLine(pcdd, dt,
-                            highPrice, lowPrice, tag, color)
+        dateStr = formatToDateStr(dt)
+        outputFileLines.append(dateStr + endl)
+
+    # Write to file.
+    with open(outputCsvFilename, "w") as f:
+        for line in outputFileLines:
+            f.write(line)
+    log.info("Finished writing the cycle hit dates to CSV file.")
+    
+    # Add the vertical lines at these timestamps.
+    #for dt in cycleHitTimestamps:
+    #    PlanetaryCombinationsLibrary.\
+    #        addVerticalLine(pcdd, dt,
+    #                        highPrice, lowPrice, tag, color)
 
     # Calculate the minimum, maximum and average length of time
     # between the cycle hit timestamps.
@@ -621,7 +653,7 @@ def processPCDD(pcdd, tag):
     log.info("Modded hit value:  {}".format(moddedHitValue))
     log.info("startDt parameter: {}".format(startDt))
     log.info("endDt   parameter: {}".format(endDt))
-    log.info("modifyPcddFlag:    {}".format(modifyPcddFlag))
+    #log.info("modifyPcddFlag:    {}".format(modifyPcddFlag))
     #log.info("highPrice:        {}".format(highPrice))
     #log.info("lowPrice:         {}".format(lowPrice))
     log.info("Number of cycle hit points: {}".format(len(cycleHitTimestamps)))
@@ -649,5 +681,10 @@ def processPCDD(pcdd, tag):
         rv = 1
 
     return rv
+
+##############################################################################
+
+# Run main.
+main()
 
 ##############################################################################

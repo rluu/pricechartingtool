@@ -2,8 +2,8 @@
 ##############################################################################
 # Description:
 #
-# Run the following to create the Ephemeris for the system described
-# by TAC in WITS post #61757 and #61777.  
+# Run the following to create the Ephemeris for the IBM trading system
+# described by TAC in WITS post #61757 and #61777.
 #
 #
 #  ./createLongitudeSpreadsheetFile_forTacSystem.py --centricity=heliocentric --zodiac=tropical --calculate-midpoints=false --start-timestamp=199001 --end-timestamp=201312 --output-file=TacEphemeris.csv

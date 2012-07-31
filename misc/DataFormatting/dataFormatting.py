@@ -10,7 +10,7 @@
 #   ./dataFormatting.py --help
 #   ./dataFormatting.py --version
 #
-#   ./dataFormatting.py --source-data-dir="/Users/rluu/programming/pricechartingtool/misc/DataFormatting/SB" --contract-letter="N" --output-file="/tmp/SB_N.txt" --earliest-two-digit-year=28
+#   ./dataFormatting.py --source-data-dir="/home/rluu/programming/pricechartingtool/misc/DataFormatting/SB" --contract-letter="N" --output-file="/tmp/SB_N.txt" --earliest-two-digit-year=28
 #   
 ##############################################################################
 
