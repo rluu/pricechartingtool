@@ -1708,7 +1708,7 @@ class Ephemeris:
         Ephemeris.log.debug(prefix + " returns: ")
 
         # House cusps.
-        for i in len(cusps):
+        for i in range(len(cusps)):
             Ephemeris.log.debug(prefix + " cusps[{}]={}".format(i, cusps[i]))
 
         # Other miscellaneous cusps.
