@@ -59,6 +59,7 @@ thisScriptDir = os.path.dirname(thisScriptDir)
 srcDir = os.path.dirname(os.path.dirname(thisScriptDir)) + os.sep + "src"
 if srcDir not in sys.path:
     sys.path.insert(0, srcDir)
+from astrologychart import AstrologyUtils
 from ephemeris import Ephemeris
 from data_objects import *
 
@@ -145,7 +146,7 @@ declinationPlanetNames = [\
 
 # Input file:
 #  - IBM.txt (IBM pricebar data CSV file).
-priceBarDataCsvFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/ephemerisForTacSystem/IBM_TAC_system_full.csv"
+priceBarDataCsvFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/stocks/IBM/IBM.txt"
 priceBarDataCsvFileLinesToSkip = 1
 
 # Input file:
@@ -167,11 +168,11 @@ cycleHitDates3PlanetCsvFileLinesToSkip = 1
 outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/ephemerisForTacSystem/IBM_TAC_system_full.csv"
 
 # For logging.
-#logging.basicConfig(level=logging.DEBUG,
-logging.basicConfig(level=logging.INFO,
-                    format='%(levelname)s: %(message)s')
+logging.basicConfig(format='%(levelname)s: %(message)s')
 moduleName = globals()['__name__']
 log = logging.getLogger(moduleName)
+log.setLevel(logging.DEBUG)
+#log.setLevel(logging.INFO)
 
 ##############################################################################
 
@@ -663,7 +664,7 @@ def getPlanetaryInfosForDatetime(dt):
     #planets.append(Ephemeris.getH11PlanetaryInfo(dt, houseSystem))
     #planets.append(Ephemeris.getH12PlanetaryInfo(dt, houseSystem))
     #planets.append(Ephemeris.getARMCPlanetaryInfo(dt, houseSystem))
-    planets.append(Ephemeris.getVertexPlanetaryInfo(dt, houseSystem))
+    #planets.append(Ephemeris.getVertexPlanetaryInfo(dt, houseSystem))
     #planets.append(Ephemeris.getEquatorialAscendantPlanetaryInfo(dt, houseSystem))
     #planets.append(Ephemeris.getCoAscendant1PlanetaryInfo(dt, houseSystem))
     #planets.append(Ephemeris.getCoAscendant2PlanetaryInfo(dt, houseSystem))
@@ -698,16 +699,16 @@ def getPlanetaryInfosForDatetime(dt):
     planets.append(Ephemeris.getChironPlanetaryInfo(dt))
     #planets.append(Ephemeris.getGulikaPlanetaryInfo(dt))
     #planets.append(Ephemeris.getMandiPlanetaryInfo(dt))
-    planets.append(Ephemeris.getMeanOfFivePlanetaryInfo(dt))
-    planets.append(Ephemeris.getCycleOfEightPlanetaryInfo(dt))
-    planets.append(Ephemeris.getAvgMaJuSaUrNePlPlanetaryInfo(dt))
-    planets.append(Ephemeris.getAvgJuSaUrNePlanetaryInfo(dt))
-    planets.append(Ephemeris.getAvgJuSaPlanetaryInfo(dt))
+    #planets.append(Ephemeris.getMeanOfFivePlanetaryInfo(dt))
+    #planets.append(Ephemeris.getCycleOfEightPlanetaryInfo(dt))
+    #planets.append(Ephemeris.getAvgMaJuSaUrNePlPlanetaryInfo(dt))
+    #planets.append(Ephemeris.getAvgJuSaUrNePlanetaryInfo(dt))
+    #planets.append(Ephemeris.getAvgJuSaPlanetaryInfo(dt))
 
     return planets
 
 
-def getEarliestDateFromData(priceBars, tacEphemerisData, cycleHitDates2PlanetSystem, cycleHitDates3PlanetSystem):
+def getEarliestTimestampFromData(priceBars, tacEphemerisData, cycleHitDates2PlanetSystem, cycleHitDates3PlanetSystem):
     """Obtains the earliest date referenced from the various input
     arguments.  
 
@@ -761,11 +762,11 @@ def getEarliestDateFromData(priceBars, tacEphemerisData, cycleHitDates2PlanetSys
             earliestDatetime = dt
 
     rv = copy.deepcopy(earliestDatetime)
-    
+
     return rv
 
 
-def getLatestDateFromData(priceBars, tacEphemerisData, cycleHitDates2PlanetSystem, cycleHitDates3PlanetSystem):
+def getLatestTimestampFromData(priceBars, tacEphemerisData, cycleHitDates2PlanetSystem, cycleHitDates3PlanetSystem):
     """Obtains the latest date referenced from the various input
     arguments.  For efficiency's sake, this function assumes that the
     data in these input arguments is ordered from earliest timestamp
@@ -842,6 +843,8 @@ def getTimestampInfoDataLine(dt):
         
     """
 
+    # Return value.
+    rv = ""
     
     # Field: jd
     rv += "{}".format(Ephemeris.datetimeToJulianDay(dt))
@@ -917,7 +920,7 @@ def getPriceBarDataLineForDate(priceBars, dt):
     # Find the PriceBar object with the same timestamp date.
     pb = None
     for priceBar in priceBars:
-        if priceBar.timestamp().date() == dt.date():
+        if priceBar.timestamp.date() == dt.date():
             pb = priceBar
             break
 
@@ -1075,10 +1078,15 @@ def getEphemerisDataLineForDatetime(dt):
     str in CSV format. Since there are a lot of fields, please See the
     section of code where we write the header info str for the format.
     """
-    
-    
+
+    # Return value.
+    rv = ""
+
     planetaryInfos = getPlanetaryInfosForDatetime(dt)
 
+    log.debug("Just obtained planetaryInfos for timestamp: {}".\
+              format(Ephemeris.datetimeToStr(dt)))
+    
     # Planet geocentric longitude 15-degree axis points.
     for planetName in geocentricPlanetNames:
         for pi in planetaryInfos:
@@ -1166,8 +1174,17 @@ try:
         i = 0
         
         for line in f:
+            line = line.strip()
+            
+            #log.debug("Looking at pricebar data, line {}.  Text is: {}".\
+            #          format(i + 1, line))
+            
             if i < linesToSkip:
                 # Skip this line.
+
+                # Increment the index for the next iteration.
+                i += 1
+                
                 continue
 
             # Conver the str a PriceBar, and append it.
@@ -1208,9 +1225,15 @@ try:
         i = 0
         
         for line in f:
+            line = line.strip()
+            
             if i < linesToSkip:
                 # This is a header line.
                 tacEphemerisHeaderFields = line
+
+                # Increment the index for the next iteration.
+                i += 1
+                
                 continue
 
             fieldValues = line.split(",")
@@ -1229,7 +1252,7 @@ try:
             else:
                 tacEphemerisData.append((dt, line))
 
-            # Increment hte index for the next iteration.
+            # Increment the index for the next iteration.
             i += 1
         
 except IOError as e:
@@ -1254,8 +1277,14 @@ try:
         i = 0
         
         for line in f:
+            line = line.strip()
+
             if i < linesToSkip:
                 # Skip this line.
+
+                # Increment the index for the next iteration.
+                i += 1
+                
                 continue
 
             fieldValues = line.split(",")
@@ -1293,8 +1322,14 @@ try:
         i = 0
         
         for line in f:
+            line = line.strip()
+
             if i < linesToSkip:
                 # Skip this line.
+
+                # Increment the index for the next iteration.
+                i += 1
+
                 continue
 
             fieldValues = line.split(",")
@@ -1364,31 +1399,30 @@ for planetName in declinationPlanetNames:
 headerLine = headerLine[:-1]
 
 # Get the earliest date.
-earliestDate = getEarliestDateFromData(priceBars,
-                                       tacEphemerisData,
-                                       cycleHitDates2PlanetSystem,
-                                       cycleHitDates3PlanetSystem)
+earliestDt = getEarliestTimestampFromData(priceBars,
+                                          tacEphemerisData,
+                                          cycleHitDates2PlanetSystem,
+                                          cycleHitDates3PlanetSystem)
 
 log.debug("Earliest timestamp in all the files is: {}".\
-          format(Ephemeris.datetimeToStr(earliestDate))
+          format(Ephemeris.datetimeToStr(earliestDt)))
 
-latestDate = getEarliestDateFromData(priceBars,
-                                     tacEphemerisData,
-                                     cycleHitDates2PlanetSystem,
-                                     cycleHitDates3PlanetSystem)
+latestDt = getLatestTimestampFromData(priceBars,
+                                      tacEphemerisData,
+                                      cycleHitDates2PlanetSystem,
+                                      cycleHitDates3PlanetSystem)
 
 log.debug("Latest timestamp in all the files is: {}".\
-          format(Ephemeris.datetimeToStr(earliestDate))
+          format(Ephemeris.datetimeToStr(latestDt)))
 
 
-startDt = earliestDate
-endDt = latestDate
+startDt = earliestDt
+endDt = latestDt
 
 # Initialize the currDt to the start date.  Manually set the hour and
 # minute so we get the ephemeris at noon localized time.
 currDt = copy.deepcopy(startDt)
-currDt.hour = hourOfDay
-currDt.minute = minuteOfHour
+currDt = currDt.replace(hour=hourOfDay, minute=minuteOfHour)
 
 stepSizeTd = datetime.timedelta(days=1)
 
@@ -1402,11 +1436,11 @@ while currDt.date() < endDt.date():
     line += getTimestampInfoDataLine(currDt) + ","
     line += getPriceBarDataLineForDate(priceBars, currDt) + ","
     line += getCycleHitDate2PlanetSystemDataLineForDate(\
-        cycleHitDates2PlanetSystem, dt) + ","
+        cycleHitDates2PlanetSystem, currDt) + ","
     line += getCycleHitDate3PlanetSystemDataLineForDate(\
-        cycleHitDates3PlanetSystem, dt) + ","
+        cycleHitDates3PlanetSystem, currDt) + ","
     line += getTacEphemerisDataLineForDate(tacEphemerisData, currDt) + ","
-    line += getEphemerisDataLineForDatetime(dt) + ","
+    line += getEphemerisDataLineForDatetime(currDt) + ","
     
     # Remove the last trailing comma. 
     line = line[:-1]
@@ -1417,8 +1451,7 @@ while currDt.date() < endDt.date():
     # Increment the currDt by the step size for the next iteration.
     # Also, make sure the time is set.
     currDt = currDt + stepSizeTd
-    currDt.hour = hourOfDay
-    currDt.minute = minuteOfHour
+    currDt = currDt.replace(hour=hourOfDay, minute=minuteOfHour)
     
     
 # Write outputLines to output file.

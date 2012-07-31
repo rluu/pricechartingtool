@@ -747,7 +747,7 @@ text += getHeaderText()
 
 startDt = getStartDatetime()
 endDt = getEndDatetime()
-currDt = startDt
+currDt = copy.deepcopy(startDt)
 prevDt = None
 
 # Note: The algorithm used in this program requires that the step size
@@ -772,7 +772,7 @@ while currDt < endDt:
     
     # Prepare currDt for the next iteration.
     prevDt = currDt
-    currDt = copy.deepcopy(currDt) + stepSizeTd
+    currDt = currDt + stepSizeTd
     currDt = currDt.replace(hour=hourOfDay, minute=minuteOfHour)
 
     prevPlanetaryInfosDict = currPlanetaryInfosDict

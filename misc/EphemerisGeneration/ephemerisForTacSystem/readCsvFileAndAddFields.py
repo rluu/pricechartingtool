@@ -51,7 +51,7 @@ outputFileLines.append(\
     "[13] (Mars - Saturn) % 360," + \
     "[14] (Mars - Saturn) % 12," + \
     "[15] Mars - Saturn + Earth," + \
-    "[16] (Mars - Saturn + Earth) % 360" + \
+    "[16] (Mars - Saturn + Earth) % 360," + \
     "[17] (Mars - Saturn + Earth) % 10")
 
 

@@ -65,8 +65,8 @@ from pricebarchart import PriceBarChartGraphicsScene
 ##############################################################################
 
 # For logging.
-logLevel = logging.DEBUG
-#logLevel = logging.INFO
+#logLevel = logging.DEBUG
+logLevel = logging.INFO
 logging.basicConfig(format='%(levelname)s: %(message)s')
 moduleName = globals()['__name__']
 log = logging.getLogger(moduleName)
@@ -99,7 +99,8 @@ modulusAmt = 10
 # For 2-planet cycle used in IBM, based on November 1, 2005.
 #moddedHitValue = 1.152887198
 # For 3-planet cycle used in IBM, based on November 3, 2005.
-moddedHitValue = 9.604528504
+#moddedHitValue = 9.604528504
+moddedHitValue = 9.0
 
 
 # Color to use when drawing the vertical lines.

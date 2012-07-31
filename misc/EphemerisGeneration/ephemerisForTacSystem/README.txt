@@ -48,6 +48,7 @@ Create a CSV file with price data, ephemeris data, composite planet data for cyc
 Steps:
 
 # Generate ephemeris.
+# This below will produce TacEphemeris2.csv
 
 ./createLongitudeSpreadsheetFile_forTacSystem.py --centricity=heliocentric --zodiac=tropical --calculate-midpoints=false --start-timestamp=196201 --end-timestamp=201412 --output-file=TacEphemeris.csv
 
