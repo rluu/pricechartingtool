@@ -6210,6 +6210,22 @@ class PlanetaryInfoTableWidget(QTableWidget):
             p.heliocentric[sidereal]['latitude'] = None
             p.heliocentric[sidereal]['latitude_speed'] = None
 
+        elif p.name == "Moon":
+            
+            p.heliocentric[tropical]['longitude'] = None
+            p.heliocentric[tropical]['longitude_speed'] = None
+            p.heliocentric[tropical]['declination'] = None
+            p.heliocentric[tropical]['declination_speed'] = None
+            p.heliocentric[tropical]['latitude'] = None
+            p.heliocentric[tropical]['latitude_speed'] = None
+            
+            p.heliocentric[sidereal]['longitude'] = None
+            p.heliocentric[sidereal]['longitude_speed'] = None
+            p.heliocentric[sidereal]['declination'] = None
+            p.heliocentric[sidereal]['declination_speed'] = None
+            p.heliocentric[sidereal]['latitude'] = None
+            p.heliocentric[sidereal]['latitude_speed'] = None
+
         elif p.name == "MeanNorthNode" or \
             p.name == "TrueNorthNode" or \
             p.name == "MeanLunarApogee" or \
