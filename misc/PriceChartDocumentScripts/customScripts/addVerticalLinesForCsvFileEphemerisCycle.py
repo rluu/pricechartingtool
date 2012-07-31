@@ -92,9 +92,9 @@ log.setLevel(logLevel)
 # on them.
 #
 # For 2-planet cycle used in IBM.
-columnNumber = 5
+columnNumber = 12
 # For 3-planet cycle used in IBM.
-#columnNumber = 8
+#columnNumber = 15
 
 # Modulus amount.
 #
@@ -158,39 +158,72 @@ linesToSkip = 1
 # Delimiter in the CSV file.
 delimiter = ","
 
+# Defaults for hour and minute of day for the timestamp from the input
+# file when only the date is given.
+defaultHourOfDay = 12
+defaultMinuteOfHour = 0
+
 ##############################################################################
 
-def convertTimestampStrToDatetime(timestampStr):
-    """Converts a timestamp str from the CSV file to a datetime, and
-    returns that datetime object.  If an error occurs in the
-    conversion process, then None is returned.  This function assumes
-    that for a date given, the timestamp will be 12:00 pm (noon).
+def convertEphemerisTimestampStrToDatetime(timestampStr):
+    """Converts a timestamp str given in the one of the two formats to
+    a datetime.datetime object.  If no time of day is given in the
+    str, then the default time and timezone will be used.  See global
+    variables.
 
-    Parameters:
-    timestampStr - str input value in the format of "YYYY-MM-DD".
+    Arguments:
+    timestampStr - str in one of the following formats:
+    
+                   YYYY-MM-DD
+                   YYYY-MM-DD HH:MM
 
-    Return value:
-    datetime.datetime object containing the equivalent timestamp.
-    None is returned if an error occured during hte conversion process.
+                   Where HH is a value in range [00, 23].
+                   
+    Returns:
+    datetime.datetime object representing the timestamp given in the str.
+    If the format is invalid, then None is returned.
     """
 
+    dateOnlyFormat = "YYYY-MM-DD"
+    dateAndTimeFormat = "YYYY-MM-DD HH:MM"
+
     # Check input string for correct formatting.
-    if len(timestampStr) != len("YYYY-MM-DD"):
-        log.error("Read a timestamp from the CSV file that is " + \
-                  "not in the correct format.  timestampStr == '{}'".\
-                  format(timestampStr))
-        return None
-    
-    elif timestampStr[4] != "-" or timestampStr[7] != "-":
+    if len(timestampStr) != len(dateOnlyFormat) and \
+           len(timestampStr) != len(dateAndTimeFormat):
         log.error("Read a timestamp from the CSV file that is " + \
                   "not in the correct format.  timestampStr == '{}'".\
                   format(timestampStr))
         return None
 
+    elif len(timestampStr) == len(dateOnlyFormat):
+        if timestampStr[4] != "-" or timestampStr[7] != "-":
+            log.error("Read a timestamp from the CSV file that is " + \
+                      "not in the correct format.  timestampStr == '{}'".\
+                      format(timestampStr))
+            return None
+        
+    elif len(timestampStr) == len(dateAndTimeFormat):
+        if timestampStr[4] != "-" or timestampStr[7] != "-" or \
+               timestampStr[10] != " " or timestampStr[13] != ":":
+            
+            log.error("Read a timestamp from the CSV file that is " + \
+                      "not in the correct format.  timestampStr == '{}'".\
+                      format(timestampStr))
+            return None
+        
 
     yearStr = timestampStr[0:4]
     monthStr = timestampStr[5:7]
     dayStr = timestampStr[8:10]
+
+    hourStr = None
+    minuteStr = None
+    if len(timestampStr) == len(dateAndTimeFormat):
+        hourStr = timestampStr[11:13]
+        minuteStr = timestampStr[14:16]
+    else:
+        hourStr   = "{:02}".format(defaultHourOfDay)
+        minuteStr = "{:02}".format(defaultMinuteOfHour)
     
     # Test to make sure all the str values are digits before
     # converting to int values.
@@ -210,20 +243,30 @@ def convertTimestampStrToDatetime(timestampStr):
                       "timestampStr '{}'".format(timestampStr))
             return None
 
+    for letter in hourStr:
+        if not letter.isdigit():
+            log.error("There is a non-digit day value found in " + \
+                      "timestampStr '{}'".format(timestampStr))
+            return None
+
+    for letter in minuteStr:
+        if not letter.isdigit():
+            log.error("There is a non-digit day value found in " + \
+                      "timestampStr '{}'".format(timestampStr))
+            return None
+    
     # Convert the substrings to int values for the parts of the date/time.
     year = int(yearStr)
     month = int(monthStr)
     day = int(dayStr)
 
-    # Time of day is hardcoded to 12 noon.
-    hour = 12
-    minute = 0
+    hour = int(hourStr)
+    minute = int(minuteStr)
     
     rv = datetime.datetime(year, month, day, hour, minute, \
                            tzinfo=inputCsvTimezone)
     
     return rv
-
 
 def processPCDD(pcdd, tag):
     """

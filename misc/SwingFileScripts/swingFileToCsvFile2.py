@@ -294,11 +294,11 @@ def convertSwingFileDataToCsvStr(swingFileData):
         rv += ","
 
         # Field: date
-        rv += "{}-{:02}-{:02}".\
+        rv += "{:04}-{:02}-{:02}".\
               format(datetimeObj.year,
                      datetimeObj.month,
                      datetimeObj.day)
-        #rv += "{:02}/{:02}/{}".\
+        #rv += "{:02}/{:02}/{:04}".\
         #      format(datetimeObj.month,
         #             datetimeObj.day,
         #             datetimeObj.year)

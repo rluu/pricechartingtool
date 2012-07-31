@@ -37,15 +37,22 @@ outputFileLines = []
 outputFileLines.append(\
     "[0] Date," + \
     "[1] Day," + \
-    "[2] Earth," + \
-    "[3] Mars," + \
-    "[4] Saturn," + \
-    "[5] Mars - Saturn," + \
-    "[6] (Mars - Saturn) % 360," + \
-    "[7] (Mars - Saturn) % 12," + \
-    "[8] Mars - Saturn + Earth," + \
-    "[9] (Mars - Saturn + Earth) % 360" + \
-    "[10] (Mars - Saturn + Earth) % 10")
+    "[2] Mercury," + \
+    "[3] Venus," + \
+    "[4] Earth," + \
+    "[5] Mars," + \
+    "[6] Jupiter," + \
+    "[7] Saturn," + \
+    "[8] Uranus," + \
+    "[9] Neptune," + \
+    "[10] Pluto," + \
+    "[11] Isis," + \
+    "[12] Mars - Saturn," + \
+    "[13] (Mars - Saturn) % 360," + \
+    "[14] (Mars - Saturn) % 12," + \
+    "[15] Mars - Saturn + Earth," + \
+    "[16] (Mars - Saturn + Earth) % 360" + \
+    "[17] (Mars - Saturn + Earth) % 10")
 
 
 print("Processing input file...")
@@ -59,14 +66,26 @@ with open(inputFilename) as f:
             line = line.strip()
             fieldValues = line.split(delimiter)
 
-            # Make a special manual +360 adjustment for Mars, just so
-            # the subtraction will come out positive.
-            fieldValues[3] = str(float(fieldValues[3]) + 360.0)
+            # Make a special manual +360 adjustments for planets, so
+            # composite calculations will come out positive.  Each
+            # faster planet gets another multiple of 360 added to its
+            # longitude.
+            j = 0
+            for i in range(len(fieldValues) - 1, 1, -1):
+                fieldValues[i] = str(float(fieldValues[i]) + (360.0 * j))
+                j += 1
 
-            earthLongitude = float(fieldValues[2])
-            marsLongitude = float(fieldValues[3])
-            saturnLongitude = float(fieldValues[4])
-
+            mercuryLongitude = float(fieldValues[2])
+            venusLongitude = float(fieldValues[3])
+            earthLongitude = float(fieldValues[4])
+            marsLongitude = float(fieldValues[5])
+            jupiterLongitude = float(fieldValues[6])
+            saturnLongitude = float(fieldValues[7])
+            uranusLongitude = float(fieldValues[8])
+            neptuneLongitude = float(fieldValues[9])
+            plutoLongitude = float(fieldValues[10])
+            isisLongitude = float(fieldValues[11])
+            
             diffMarsSaturn = marsLongitude - saturnLongitude
             diffMarsSaturnMod360 = diffMarsSaturn % 360
             diffMarsSaturnMod12 = diffMarsSaturn % 12
@@ -76,18 +95,18 @@ with open(inputFilename) as f:
             
             diffMarsSaturnPlusEarthMod360 = diffMarsSaturnPlusEarth % 360
             diffMarsSaturnPlusEarthMod10 = diffMarsSaturnPlusEarth % 10
-            
-            outputLine = fieldValues[0] + "," + \
-                         fieldValues[1] + "," + \
-                         fieldValues[2] + "," + \
-                         fieldValues[3] + "," + \
-                         fieldValues[4] + "," + \
-                         str(diffMarsSaturn) + "," + \
-                         str(diffMarsSaturnMod360) + "," + \
-                         str(diffMarsSaturnMod12) + "," + \
-                         str(diffMarsSaturnPlusEarth) + "," + \
-                         str(diffMarsSaturnPlusEarthMod360) + "," + \
-                         str(diffMarsSaturnPlusEarthMod10)
+
+            outputLine = ""
+            for i in range(len(fieldValues)):
+                outputLine += fieldValues[i] + ","
+                
+            outputLine += \
+                       str(diffMarsSaturn) + "," + \
+                       str(diffMarsSaturnMod360) + "," + \
+                       str(diffMarsSaturnMod12) + "," + \
+                       str(diffMarsSaturnPlusEarth) + "," + \
+                       str(diffMarsSaturnPlusEarthMod360) + "," + \
+                       str(diffMarsSaturnPlusEarthMod10)
             
             outputFileLines.append(outputLine)
 

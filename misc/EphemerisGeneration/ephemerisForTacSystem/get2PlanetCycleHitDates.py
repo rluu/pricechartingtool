@@ -81,9 +81,9 @@ log.setLevel(logLevel)
 # on them.
 #
 # For 2-planet cycle used in IBM.
-columnNumber = 5
+columnNumber = 12
 # For 3-planet cycle used in IBM.
-#columnNumber = 8
+#columnNumber = 15
 
 # Modulus amount.
 #

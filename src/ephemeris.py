@@ -587,7 +587,7 @@ class Ephemeris:
             Ephemeris.getTimezoneOffsetFromDatetime(datetimeObj)
             
         # Return value.
-        rv = "{} {}-{:02}-{:02} {:02}:{:02}:{:02} {}{}".\
+        rv = "{} {:04}-{:02}-{:02} {:02}:{:02}:{:02} {}{}".\
              format(dayOfWeekStr,
                     datetimeObj.year,
                     datetimeObj.month,

@@ -70,7 +70,10 @@ python3 get2PlanetCycleHitDates.py
 python3 get3PlanetCycleHitDates.py
 
 
-# Run the following to combine all the outputted CSV files:
+# Open the "createFullSpreadsheetForTacSystem.py" script and make sure
+# that all the global variables are set correctly (input and output filenames).
+#
+# Then run the script.  It will combine data from the outputted CSV files:
 #  - IBM.txt (IBM pricebar data CSV file).
 #  - TacEphemeris2.csv
 #  - cycleHitDates2P.csv
@@ -78,3 +81,10 @@ python3 get3PlanetCycleHitDates.py
 #
 # This script will also add ephemeris planet positions to the spreadsheet.  
 #
+# This will produce file IBM_TAC_system_full.csv
+
+python3 ./createFullSpreadsheetForTacSystem.py
+
+
+
+##############################################################################

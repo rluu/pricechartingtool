@@ -122,18 +122,18 @@ calculateMidpointsFlag = True
 planetNames = [\
 #    "Sun",
 #    "Moon",
-#    "Mercury",
-#    "Venus",
+    "Mercury",
+    "Venus",
     "Earth",
     "Mars",
-#    "Jupiter",
+    "Jupiter",
     "Saturn",
-#    "Uranus",
-#    "Neptune",
-#    "Pluto",
+    "Uranus",
+    "Neptune",
+    "Pluto",
 #    "TrueNorthNode",
 #    "Chiron",
-#    "Isis"
+    "Isis"
     ]
 
 # Starting timestamp.
