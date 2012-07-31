@@ -18,10 +18,7 @@
 #        1) MARS - SATURN           (absolute) (mod 360) (mod 12)
 #        1) MARS - SATURN + EARTH   (absolute) (mod 360) (mod 10)
 #
-#   3) Ephemeris of other planets:
-#        - Geocentric
-#        - Heliocentric
-#        - Declination
+#   3) Ephemeris planet fields.
 #
 # Usage:
 #   1) Make sure the input files have been created or generated.
@@ -163,6 +160,11 @@ cycleHitDates2PlanetCsvFileLinesToSkip = 1
 #  - cycleHitDates3P.csv
 cycleHitDates3PlanetCsvFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/ephemerisForTacSystem/cycleHitDates3P.csv"
 cycleHitDates3PlanetCsvFileLinesToSkip = 1
+
+# Input file:
+#  - generic_daily_ephemeris_nyc_noon.csv
+genericEphemerisCsvFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/ephemerisForTacSystem/generic_daily_ephemeris_nyc_noon.csv"
+genericEphemerisCsvFileLinesToSkip = 1
 
 # Destination output CSV file.
 outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/ephemerisForTacSystem/IBM_TAC_system_full.csv"
@@ -313,28 +315,8 @@ def formatToDateStr(dt):
     str object holding the date in format "YYYY-MM-DD".
     """
 
-    dateStr = ""
-    
-    if dt.year < 10:
-        dateStr += "000{}".format(dt.year)
-    elif dt.year < 100:
-        dateStr += "00{}".format(dt.year)
-    elif dt.year < 1000:
-        dateStr += "0{}".format(dt.year)
-    else:
-        dateStr += "{}".format(dt.year)
-
-    dateStr += "-"
-    if dt.month < 10:
-        dateStr += "0{}".format(dt.month)
-    else:
-        dateStr += "{}".format(dt.month)
-    
-    dateStr += "-"
-    if dt.day < 10:
-        dateStr += "0{}".format(dt.day)
-    else:
-        dateStr += "{}".format(dt.day)
+    dateStr = "{:04}-{:02}-{:02}".\
+              format(dt.year, dt.month, dt.day)
     
     return dateStr
 
@@ -708,7 +690,7 @@ def getPlanetaryInfosForDatetime(dt):
     return planets
 
 
-def getEarliestTimestampFromData(priceBars, tacEphemerisData, cycleHitDates2PlanetSystem, cycleHitDates3PlanetSystem):
+def getEarliestTimestampFromData(priceBars, tacEphemerisData, cycleHitDates2PlanetSystem, cycleHitDates3PlanetSystem, genericEphemerisData):
     """Obtains the earliest date referenced from the various input
     arguments.  
 
@@ -726,6 +708,12 @@ def getEarliestTimestampFromData(priceBars, tacEphemerisData, cycleHitDates2Plan
     
       cycleHitDates3PlanetSystem - list of datetime.datetime objects.
     
+      genericEphemerisData - list of tuples.
+         Each item in this list is a tuple: (datetime.datetime, str)
+         The first variable in the tuple is the timestamp for the line.
+         The second variable in the tuple is the str of CSV text for
+         this timestamp.
+
     Returns:
     datetime.datetime object that is the earliest timestamp.
     If no dates are in any of these objects, then None is returned.
@@ -761,12 +749,20 @@ def getEarliestTimestampFromData(priceBars, tacEphemerisData, cycleHitDates2Plan
         elif dt < earliestDatetime:
             earliestDatetime = dt
 
+    for genericEphemerisDataTuple in genericEphemerisData:
+        dt = genericEphemerisDataTuple[0]
+        
+        if earliestDatetime == None:
+            earliestDatetime = dt
+        elif dt < earliestDatetime:
+            earliestDatetime = dt
+
     rv = copy.deepcopy(earliestDatetime)
 
     return rv
 
 
-def getLatestTimestampFromData(priceBars, tacEphemerisData, cycleHitDates2PlanetSystem, cycleHitDates3PlanetSystem):
+def getLatestTimestampFromData(priceBars, tacEphemerisData, cycleHitDates2PlanetSystem, cycleHitDates3PlanetSystem, genericEphemerisData):
     """Obtains the latest date referenced from the various input
     arguments.  For efficiency's sake, this function assumes that the
     data in these input arguments is ordered from earliest timestamp
@@ -786,6 +782,12 @@ def getLatestTimestampFromData(priceBars, tacEphemerisData, cycleHitDates2Planet
     
       cycleHitDates3PlanetSystem - list of datetime.datetime objects.
     
+      genericEphemerisData - list of tuples.
+         Each item in this list is a tuple: (datetime.datetime, str)
+         The first variable in the tuple is the timestamp for the line.
+         The second variable in the tuple is the str of CSV text for
+         this timestamp.
+
     Returns:
     datetime.datetime object that is the earliest timestamp.
     If no dates are in any of these objects, then None is returned.
@@ -821,14 +823,22 @@ def getLatestTimestampFromData(priceBars, tacEphemerisData, cycleHitDates2Planet
         elif dt > latestDatetime:
             latestDatetime = dt
 
+    for genericEphemerisDataTuple in genericEphemerisData:
+        dt = genericEphemerisDataTuple[0]
+        
+        if latestDatetime == None:
+            latestDatetime = dt
+        elif dt > latestDatetime:
+            latestDatetime = dt
+
     rv = copy.deepcopy(latestDatetime)
     
     return rv
 
 
 def getTimestampInfoDataLine(dt):
-    """Obtains the line of CSV text that describes this datetime.datetime
-    time.
+    """Takes the timestamp described by the given datetime.datetime,
+    and returns a str in CSV format, describing this timestamp.
 
     Arguments:
     
@@ -1067,85 +1077,55 @@ def getCycleHitDate3PlanetSystemDataLineForDate(cycleHitDates3PlanetSystem, dt):
 
     return rv
     
-def getEphemerisDataLineForDatetime(dt):
-    """Obtains the line of CSV text of planetary position data.
-
+def getGenericEphemerisDataLineForDate(genericEphemerisData, dt):
+    """Obtains the line of CSV text of planetary position data
+    at the date given.
+    
     Arguments:
-    dt - datetime.datetime object with the timestamp seeked.  
+      genericEphemerisData - list of tuples.
+         Each item in this list is a tuple: (datetime.datetime, str)
+         The first variable in the tuple is the timestamp for the line.
+         The second variable in the tuple is the str of CSV text for
+         this timestamp.
+
+      dt - datetime.datetime object with the timestamp seeked.  
     
     Returns:
-    
-    str in CSV format. Since there are a lot of fields, please See the
-    section of code where we write the header info str for the format.
+    str in CSV format.  If no values for the given date timestamp then
+    blank CSV values are returned (set of commas).
     """
 
     # Return value.
-    rv = ""
+    rv = None
 
-    planetaryInfos = getPlanetaryInfosForDatetime(dt)
+    for genericEphemerisDataTuple in genericEphemerisData:
+        genericEphemerisDt = genericEphemerisDataTuple[0]
+        
+        if genericEphemerisDt.date() == dt.date():
+            rv = genericEphemerisDataTuple[1]
+            break
 
-    log.debug("Just obtained planetaryInfos for timestamp: {}".\
-              format(Ephemeris.datetimeToStr(dt)))
-    
-    # Planet geocentric longitude 15-degree axis points.
-    for planetName in geocentricPlanetNames:
-        for pi in planetaryInfos:
-            if pi.name == planetName:
-                lon = pi.geocentric['tropical']['longitude']
-                rv += "{:6.3f},".format(lon % 15.0)
-                    
-    # Planet geocentric longitude.
-    for planetName in geocentricPlanetNames:
-        for pi in planetaryInfos:
-            if pi.name == planetName:
-                lon = pi.geocentric['tropical']['longitude']
-                rv += "{:6.3f},".format(lon)
-                    
-    # Planet geocentric longitude in zodiac str format.
-    for planetName in geocentricPlanetNames:
-        for pi in planetaryInfos:
-            if pi.name == planetName:
-                lon = pi.geocentric['tropical']['longitude']
-                valueStr = \
-                         AstrologyUtils.\
-                         convertLongitudeToStrWithRasiAbbrev(lon)
-                rv += valueStr + ","
-                
-    # Planet heliocentric longitude 15-degree axis points.
-    for planetName in heliocentricPlanetNames:
-        for pi in planetaryInfos:
-            if pi.name == planetName:
-                lon = pi.heliocentric['tropical']['longitude']
-                rv += "{:6.3f},".format(lon % 15.0)
-                    
-    # Planet heliocentric longitude.
-    for planetName in heliocentricPlanetNames:
-        for pi in planetaryInfos:
-            if pi.name == planetName:
-                lon = pi.heliocentric['tropical']['longitude']
-                rv += "{:6.3f},".format(lon)
-                    
-    # Planet heliocentric longitude in zodiac str format.
-    for planetName in heliocentricPlanetNames:
-        for pi in planetaryInfos:
-            if pi.name == planetName:
-                lon = pi.heliocentric['tropical']['longitude']
-                valueStr = \
-                         AstrologyUtils.\
-                         convertLongitudeToStrWithRasiAbbrev(lon)
-                rv += valueStr + ","
-                
-    # Planet declination.
-    for planetName in declinationPlanetNames:
-        for pi in planetaryInfos:
-            if pi.name == planetName:
-                declination = pi.geocentric['tropical']['declination']
-                rv += "{:6.3f},".format(declination)
-    
+    if rv == None:
+        # No matching dates.
 
-    # Remove trailing comma.
-    rv = rv[:-1]
+        # Return a set of commas, but to do that we need to know how
+        # many fields there are for the generic ephemeris.  For that we'll
+        # check the first tuple element in the list.  If the list is
+        # empty, then we'll return an empty string.
 
+        if len(genericEphemerisData) == 0:
+            rv = ""
+        else:
+            csvText = genericEphemerisData[0][1]
+            fieldValues = csvText.split(",")
+            
+            rv = ""
+            for i in range(len(fieldValues)):
+                rv += ","
+
+            # Remove trailing comma.
+            rv = rv[:-1]
+            
     return rv
 
 
@@ -1359,41 +1339,69 @@ except IOError as e:
 
 
 
+# Generic ephemeris header fields.  We will read this in from the file.
+genericEphemerisHeaderFields = ""
+
+# Generic ephemeris list of data.
+#
+# Each item in this list is a tuple: (datetime.datetime, str)
+# The first variable in the tuple is the timestamp for the line.
+# The second variable in the tuple is the str of text for this timestamp.
+#
+genericEphemerisData = []
+
+inputFilename = genericEphemerisCsvFilename
+linesToSkip = genericEphemerisCsvFileLinesToSkip
+try:
+    with open(inputFilename, "r") as f:
+        # Line number index.
+        i = 0
+        
+        for line in f:
+            line = line.strip()
+            
+            if i < linesToSkip:
+                # This is a header line.
+                genericEphemerisHeaderFields = line
+
+                # Increment the index for the next iteration.
+                i += 1
+                
+                continue
+
+            fieldValues = line.split(",")
+            
+            # It is assumed that the first field is the timestamp.
+            timestampStr = fieldValues[0]
+            
+            dt = convertEphemerisTimestampStrToDatetime(timestampStr)
+
+            if dt == None:
+                # Could not convert because of invalid format.
+                log.error("Failed to convert a timestamp str to datetime " + \
+                          "on line {} of '{}'".\
+                          format(i + 1, inputFilename))
+                shutdown(1)
+            else:
+                genericEphemerisData.append((dt, line))
+
+            # Increment the index for the next iteration.
+            i += 1
+        
+except IOError as e:
+    errStr = "I/O Error while trying to read file '" + \
+             inputFilename + "':" + os.linesep + str(e)
+    log.error(errStr)
+    shutdown(1)
+
+    
 
 # Compile the header line text.
 headerLine = ""
 headerLine += "jd,day,date,time,timezone,open,high,low,close,volumn,oi,"
 headerLine += "CycleHit2P,CycleHit3P,"
 headerLine += tacEphemerisHeaderFields + ","
-
-# Planet geocentric longitude mod 15.
-for planetName in geocentricPlanetNames:
-    headerLine += "G." + planetName + ","
-
-# Planet geocentric longitude.
-for planetName in geocentricPlanetNames:
-    headerLine += "G." + planetName + ","
-
-# Planet geocentric longitude in zodiac str format.
-for planetName in geocentricPlanetNames:
-    headerLine += "G." + planetName + ","
-
-
-# Planet heliocentric longitude mod 15.
-for planetName in heliocentricPlanetNames:
-    headerLine += "H." + planetName + ","
-
-# Planet heliocentric longitude.
-for planetName in heliocentricPlanetNames:
-    headerLine += "H." + planetName + ","
-
-# Planet heliocentric longitude in zodiac str form.
-for planetName in heliocentricPlanetNames:
-    headerLine += "H." + planetName + ","
-
-# Planet declination.
-for planetName in declinationPlanetNames:
-    headerLine += "D." + planetName + ","
+headerLine += genericEphemerisHeaderFields + ","
 
 # Remove the trailing comma.
 headerLine = headerLine[:-1]
@@ -1402,7 +1410,8 @@ headerLine = headerLine[:-1]
 earliestDt = getEarliestTimestampFromData(priceBars,
                                           tacEphemerisData,
                                           cycleHitDates2PlanetSystem,
-                                          cycleHitDates3PlanetSystem)
+                                          cycleHitDates3PlanetSystem,
+                                          tacEphemerisData)
 
 log.debug("Earliest timestamp in all the files is: {}".\
           format(Ephemeris.datetimeToStr(earliestDt)))
@@ -1410,7 +1419,8 @@ log.debug("Earliest timestamp in all the files is: {}".\
 latestDt = getLatestTimestampFromData(priceBars,
                                       tacEphemerisData,
                                       cycleHitDates2PlanetSystem,
-                                      cycleHitDates3PlanetSystem)
+                                      cycleHitDates3PlanetSystem,
+                                      tacEphemerisData)
 
 log.debug("Latest timestamp in all the files is: {}".\
           format(Ephemeris.datetimeToStr(latestDt)))
@@ -1440,7 +1450,7 @@ while currDt.date() < endDt.date():
     line += getCycleHitDate3PlanetSystemDataLineForDate(\
         cycleHitDates3PlanetSystem, currDt) + ","
     line += getTacEphemerisDataLineForDate(tacEphemerisData, currDt) + ","
-    line += getEphemerisDataLineForDatetime(currDt) + ","
+    line += getGenericEphemerisDataLineForDate(genericEphemerisData, currDt) + ","
     
     # Remove the last trailing comma. 
     line = line[:-1]

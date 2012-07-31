@@ -3,8 +3,9 @@
 # Description:
 #
 # Run the following to create the Ephemeris for the IBM trading system
-# described by TAC in WITS post #61757 and #61777.
-#
+# described by TAC in WITS post #61757 and #61777.  This script, when
+# called with heliocentric settings will create an ephemeris that has
+# incrementing planet longitude values.  (It never rolls over from 359 to 0).
 #
 #  ./createLongitudeSpreadsheetFile_forTacSystem.py --centricity=heliocentric --zodiac=tropical --calculate-midpoints=false --start-timestamp=199001 --end-timestamp=201312 --output-file=TacEphemeris.csv
 #

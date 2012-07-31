@@ -71,6 +71,12 @@ python3 get2PlanetCycleHitDates.py
 python3 get3PlanetCycleHitDates.py
 
 
+# Run the following to produce a generic ephemeris CSV spreadsheet.
+# This will produce file generic_daily_ephemeris_nyc_noon.csv
+
+python3 createGenericEphemerisSpreadsheet.py
+
+
 # Open the "createFullSpreadsheetForTacSystem.py" script and make sure
 # that all the global variables are set correctly (input and output filenames).
 #
@@ -79,8 +85,7 @@ python3 get3PlanetCycleHitDates.py
 #  - TacEphemeris2.csv
 #  - cycleHitDates2P.csv
 #  - cycleHitDates3P.csv
-#
-# This script will also add ephemeris planet positions to the spreadsheet.  
+#  - generic_daily_ephemeris_nyc_noon.csv
 #
 # This will produce file IBM_TAC_system_full.csv
 
