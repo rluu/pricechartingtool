@@ -1,0 +1,126 @@
+##############################################################################
+Notes on the audio series called 'Nucleo'.
+##############################################################################
+
+##############################################################################
+Nucleo 1
+##############################################################################
+
+Taking someone who has the basic understanding of astro, and start working with those concepts in a market-based situation.
+
+We are going to walk through 'Handbook of Trend Determination', by George Bayer.
+
+Intro.
+
+This video is for new to intermediate WITS members. 
+
+BA's silver of choice is Silver.
+
+BA has been helping traders since 1998.
+BA has been trading since 1995.
+
+We want to emulate the successful traders.
+
+You have to get yourself an astrolonomy background.
+
+This is a commit to this field for your own success in this field.  You have to put in the time and effort in order to succeed.  
+
+
+Intro BA has written:
+Many come into this field because W.D. Gann's trading record.  W.D. Gann put his system in the book, TTTA.  It is written in a vieled language.  
+
+One needs to know astrolonomy in order to decode that book.  It is a fusion of astrology and astronomy.  Gann used this.
+
+WITS has many tools to obtain the proper background.
+
+Nucleo is to get you that background.
+
+
+7-part Astrolonomy audio series on the WITS solaris site.
+Genoa series: WITS Post #36358
+Cycle hunter #4: WITS Post #45363, #45364
+Cycle videos: Basic starter, cycle videos.  WITS Post #46447
+
+
+
+Since TTTA is cryptic, it's best to start with 'Handbook of Trend Determination' by George Bayer.  George Bayer used the same tools.  While Gann put them all in one book (TTTA), Bayer spreads them all out throughout his works.  
+
+BA is walking us through how to do 'Handbook of Trend Determination', written in 1940.
+
+Rules section (part 2, page 9):
+
+Rule 1:
+Speed of Mercury in geocentric longitude.
+Extreme speed of Mercury is 2 deg 12'; sometimes the extreme speed is 2 deg 4'.
+
+
+You would go to the market and see what Bayer was talking about at that time (for those dates).  If you don't have the data for those dates, you can still check the rule with current data.
+
+Rule 2:
+Mars Mercury speed differential of 59 minutes.
+
+
+##############################################################################
+Nucleo 2
+##############################################################################
+
+Rule 3:
+Mars-Mercury longitude difference of 161 deg 32' 18".
+
+Rule 4:
+Mercury retrograde position of one year and its effect a year later on the same date.  
+
+Rule 5:
+Mercury's retrograde position and its zodiacal value at that time compared to the same mercury position a year ago.
+
+Rule 6:
+Mars in geocentric longitude plus 330 degrees.
+
+Time factor is 330 here.
+
+BA: This is not a magical trading tool.  What he is doing is he is referencing something, an idea, from another area.  Any time factor that you have over 180 (degrees), it will be going backwards every time it repeats (in the zodiac).  
+
+Rule 7:
+The effect of perihelium of Mars and Venus.
+
+Aphelium == "afar"
+
+For the perihelium and aphelium, Google the values.
+
+Rule 8:
+The effect of perihelium by using heliocentric positions.
+
+BA knows people who use this in their trading, but he is unaware of Gann using it in TTTA. 
+
+Rule 9:
+Mercury geocentric passing over 19 deg 36' Scorpio and Sagittarius, also over 24 deg 14' Capricorn produces big changes.  
+
+He mentions the oppositing places also bring changes.
+
+
+Rule 10:
+Heliocentric latitude of Saturn units of 1 deg 21".2
+
+BA:  Back then (1940), you had to be extremely precise to making these calculations.  He is testing the limits of people's abilities here.  Latitude of Saturn to the .2 of a minute?  Really?  
+
+BA:  It brings up a point.  Why are we testing these things?  It's because Gann in TTTA has certain elements that tie into this book.  BA is trying to give clues and hints here.  If you don't know background astronomy, then you can't decode TTTA.
+
+
+
+##############################################################################
+Nucleo 3
+##############################################################################
+
+Rule 11:
+The 6 inch ellipse and its use.
+
+BA: Any form of geometry (ellipse or Gann angle) is useless without the cycles.
+BA; We are skipping rule 11.
+
+Rule: 12
+
+rluu: Make note about the number of pages spoken about on pg. 18 of Handbook of Trend Determination.
+rluu: Start taking notes here from 4:26 of Nucleo 3.
+
+
+
