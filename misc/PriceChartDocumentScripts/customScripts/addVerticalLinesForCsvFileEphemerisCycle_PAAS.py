@@ -7,27 +7,13 @@
 #   Ephemeris CSV file that contains composite calculated planetary
 #   combinations.
 #
-#   In this script's current state, it is a custom script that reads
-#   in an Ephemeris file made for the IBM trading system given by TAC,
-#   and generates the hit points that should be the expected 2-planet
-#   or 3-planet cycle pivots in this system.  (See global variables
-#   below that can be tweaked to allow it to work with other trading
-#   entities).  This input file is the output from running the
-#   following scripts:
-#
-#     createLongitudeSpreadsheetFile_forTacSystem.py
-#     readCsvFileAndAddFields.py
-#   
-#   See the documentation for these scripts for how to use them to
-#   generate the required input to this script.
-#
 # Usage:
 #
 #   First make sure the global variables are set according to what you want.
 #
 #   Then run the following:
 #
-#     ./modifyPriceChartDocument.py --pcd-file=/home/rluu/programming/pricechartingtool/data/PriceChartDocumentFiles/IBM.pcd --script-file=./customScripts/addVerticalLinesForCsvFileEphemerisCycle.py
+#     ./modifyPriceChartDocument.py --pcd-file=/home/rluu/programming/pricechartingtool/data/PriceChartDocumentFiles/IBM.pcd --script-file=./customScripts/addVerticalLinesForCsvFileEphemerisCycle_IBM.py
 #
 #
 # WARNING:
@@ -83,6 +69,20 @@ moduleName = globals()['__name__']
 log = logging.getLogger(moduleName)
 log.setLevel(logLevel)
 
+# Worth looking at more closely:
+# Col 27, Mod 10, Hit 0.
+
+# Maybe some variation of this (Venus - Pluto + Mercury)?
+# Col 57, Mod 10, Hit 0
+
+# Work worked kind of well (Venus - Mars + Mercury) for the short cycle. 
+# Col 58, Mod 24, Hit 0.
+
+# May need tweaking for larger cycle (Venus - Mars + Mercury).
+# Col 58, Mod 120, Hit 0. 
+
+# Uranus-Earth 60 deg combination in Natal.
+# Col 32, Mod 60, Hit 0.
 
 # Column number that has the planetary data we seek to analyze.  This
 # value is 0-based (column 0 is the first column).
@@ -91,39 +91,26 @@ log.setLevel(logLevel)
 # from.  The values in this column will have a modulus operation done
 # on them.
 #
-# For 2-planet cycle used in IBM.
-columnNumber = 12
-# For 3-planet cycle used in IBM.
-#columnNumber = 15
+columnNumber = 22
 
 # Modulus amount.
 #
-# For 2-planet cycle used in IBM.
-modulusAmt = 12
-# For 3-planet cycle used in IBM.
-#modulusAmt = 10      
+modulusAmt = 15
 
 # moddedHitValue.
 # After doing the modulus operation, we look for the value closest to
 # this value to yield dates.
 # 
-# For 2-planet cycle used in IBM, based on November 1, 2005.
-moddedHitValue = 1.152887198
-# For 3-planet cycle used in IBM, based on November 3, 2005.
-#moddedHitValue = 9.604528504
+moddedHitValue = 0
 
 
 # Color to use when drawing the vertical lines.
-
-# For 2-planet cycle used in IBM.
 color = QColor(Qt.cyan)
-# For 3-planet cycle used in IBM.
-#color = QColor(Qt.yellow)
 
 
 
 # Input CSV Ephemeris filename.
-inputCsvFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/ephemerisForTacSystem/TacEphemeris2.csv"
+inputCsvFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleHuntingForPAAS/PAAS_Ephemeris2.csv"
 
 # Timezone used for the data in the CSV spreadsheet.
 inputCsvTimezone = pytz.timezone("US/Eastern")
@@ -141,16 +128,16 @@ printCycleTurnPointsFlag = False
 #startDt = datetime.datetime(year=1962, month=1, day=1,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
-startDt = datetime.datetime(year=1990, month=1, day=1,
+startDt = datetime.datetime(year=1995, month=6, day=1,
                             hour=0, minute=0, second=0,
                             tzinfo=pytz.utc)
-endDt   = datetime.datetime(year=2013, month=12, day=31,
+endDt   = datetime.datetime(year=2014, month=12, day=31,
                             hour=0, minute=0, second=0,
                             tzinfo=pytz.utc)
 
 # High and low price limits for drawing the vertical lines.
-highPrice = 700.0
-lowPrice = 10.0
+highPrice = 48.0
+lowPrice = 0.0
 
 # Number of lines to skip before reading the data in the CSV file.
 linesToSkip = 1
@@ -367,7 +354,7 @@ def processPCDD(pcdd, tag):
                     # Get the date from this line of text and convert
                     # to a datetime.
                     timestampStr = fieldValues[0]
-                    currDt = convertTimestampStrToDatetime(timestampStr)
+                    currDt = convertEphemerisTimestampStrToDatetime(timestampStr)
                     
                     # If conversion failed then don't save.
                     if currDt == None:

@@ -103,7 +103,7 @@ def processPCDD(pcdd, tag):
     #######################################
     
     # This is a cycle in PAAS.
-    if False:
+    if True:
         step = 360 / 14.0
         start = 0
         stop = 180
@@ -133,7 +133,7 @@ def processPCDD(pcdd, tag):
             degreeDiff += step
             
     # Investigate this one more closely.
-    if False:
+    if True:
         step = 360 / 24.0
         start = 0
         stop = 180
@@ -375,7 +375,7 @@ def processPCDD(pcdd, tag):
             degreeDiff += step
 
     
-    if True:
+    if False:
         step = 360 / 8.0
         start = 0
         stop = 180

@@ -51,7 +51,7 @@ startDt = datetime.datetime(year=1984, month=8, day=1,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
 
-endDt   = datetime.datetime(year=2012, month=6, day=1,
+endDt   = datetime.datetime(year=2014, month=12, day=31,
                             hour=0, minute=0, second=0,
                             tzinfo=pytz.utc)
 
@@ -117,7 +117,7 @@ def processPCDD(pcdd, tag):
                 degreeDiff)
             degreeDiff += step
 
-    if True:
+    if False:
         success = PlanetaryCombinationsLibrary.\
             addGeoLongitudeVelocityPolarityChangeVerticalLines(\
             pcdd, startDt, endDt, highPrice, lowPrice,
@@ -231,7 +231,7 @@ def processPCDD(pcdd, tag):
             degreeDiff += step
     
     # Investigate further.
-    if False:
+    if True:
         step = 360 / 72 # 5 deg steps.
         start = 0
         stop = 180
