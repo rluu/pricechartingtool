@@ -152,11 +152,12 @@ endTimestampStr = ""
 outputFile = ""
 
 # For logging.
-#logging.basicConfig(level=logging.DEBUG,
-logging.basicConfig(level=logging.INFO,
-                    format='%(levelname)s: %(message)s')
+logging.basicConfig(format='%(levelname)s: %(message)s')
 moduleName = globals()['__name__']
 log = logging.getLogger(moduleName)
+#log.setLevel(logging.DEBUG)
+log.setLevel(logging.INFO)
+
 
 ##############################################################################
 
@@ -487,6 +488,85 @@ def isNumber(numStr):
 
     return rv
         
+def getStartDatetime():
+    """Returns the starting timestamp as a datetime.datetime of when
+    to start calculating planetary positions.  This object has its
+    timezone information set.  The information is gathered from the
+    global variables.
+    """
+    
+    # Get starting datetime information.
+    startTimestampYear = int(startTimestampStr[0:4])
+    startTimestampMonth = int(startTimestampStr[4:6])
+    startTimestampDay = 1
+    
+    # Start timestamp.
+    startTimestamp = datetime.datetime(year=startTimestampYear,
+                                       month=startTimestampMonth,
+                                       day=startTimestampDay,
+                                       hour=hourOfDay,
+                                       minute=minuteOfHour,
+                                       tzinfo=timezone)
+    
+    return startTimestamp
+
+def getEndDatetime():
+    """Returns the ending timestamp as a datetime.datetime of when to
+    stop calculating planetary positions (exclusive).  This object has
+    its timezone information set.  The information is gathered from
+    the global variables.
+    """
+    
+    # Get ending year, month and day.
+    endTimestampYear = int(endTimestampStr[0:4])
+    endTimestampMonth = int(endTimestampStr[4:6])
+    if endTimestampMonth == 12:
+        # Cross-over from December to January.
+        endTimestampYear += 1
+        endTimestampMonth = 1
+    else:
+        # Some other month.  Just increment the month.
+        endTimestampMonth += 1
+    endTimestampDay = 1
+        
+    # End timestamp.
+    endTimestamp = datetime.datetime(year=endTimestampYear,
+                                     month=endTimestampMonth,
+                                     day=endTimestampDay,
+                                     hour=0,
+                                     minute=0,
+                                     tzinfo=timezone)
+
+    return endTimestamp
+
+def formatToDateStr(dt):
+    """Returns a date string in the format that we want it in."""
+
+    dateStr = ""
+    
+    if dt.year < 10:
+        dateStr += "000{}".format(dt.year)
+    elif dt.year < 100:
+        dateStr += "00{}".format(dt.year)
+    elif dt.year < 1000:
+        dateStr += "0{}".format(dt.year)
+    else:
+        dateStr += "{}".format(dt.year)
+
+    dateStr += "-"
+    if dt.month < 10:
+        dateStr += "0{}".format(dt.month)
+    else:
+        dateStr += "{}".format(dt.month)
+    
+    dateStr += "-"
+    if dt.day < 10:
+        dateStr += "0{}".format(dt.day)
+    else:
+        dateStr += "{}".format(dt.day)
+    
+    return dateStr
+
 ##############################################################################
 
 # Create the parser
@@ -653,85 +733,6 @@ if options.outputFile == None:
 else:
     outputFile = options.outputFile
 
-
-def getStartDatetime():
-    """Returns the starting timestamp as a datetime.datetime of when
-    to start calculating planetary positions.  This object has its
-    timezone information set.  The information is gathered from the
-    global variables.
-    """
-    
-    # Get starting datetime information.
-    startTimestampYear = int(startTimestampStr[0:4])
-    startTimestampMonth = int(startTimestampStr[4:6])
-    startTimestampDay = 1
-    
-    # Start timestamp.
-    startTimestamp = datetime.datetime(year=startTimestampYear,
-                                       month=startTimestampMonth,
-                                       day=startTimestampDay,
-                                       hour=hourOfDay,
-                                       minute=minuteOfHour,
-                                       tzinfo=timezone)
-    
-    return startTimestamp
-
-def getEndDatetime():
-    """Returns the ending timestamp as a datetime.datetime of when to
-    stop calculating planetary positions (exclusive).  This object has
-    its timezone information set.  The information is gathered from
-    the global variables.
-    """
-    
-    # Get ending year, month and day.
-    endTimestampYear = int(endTimestampStr[0:4])
-    endTimestampMonth = int(endTimestampStr[4:6])
-    if endTimestampMonth == 12:
-        # Cross-over from December to January.
-        endTimestampYear += 1
-        endTimestampMonth = 1
-    else:
-        # Some other month.  Just increment the month.
-        endTimestampMonth += 1
-    endTimestampDay = 1
-        
-    # End timestamp.
-    endTimestamp = datetime.datetime(year=endTimestampYear,
-                                     month=endTimestampMonth,
-                                     day=endTimestampDay,
-                                     hour=0,
-                                     minute=0,
-                                     tzinfo=timezone)
-
-    return endTimestamp
-
-def formatToDateStr(dt):
-    """Returns a date string in the format that we want it in."""
-
-    dateStr = ""
-    
-    if dt.year < 10:
-        dateStr += "000{}".format(dt.year)
-    elif dt.year < 100:
-        dateStr += "00{}".format(dt.year)
-    elif dt.year < 1000:
-        dateStr += "0{}".format(dt.year)
-    else:
-        dateStr += "{}".format(dt.year)
-
-    dateStr += "-"
-    if dt.month < 10:
-        dateStr += "0{}".format(dt.month)
-    else:
-        dateStr += "{}".format(dt.month)
-    
-    dateStr += "-"
-    if dt.day < 10:
-        dateStr += "0{}".format(dt.day)
-    else:
-        dateStr += "{}".format(dt.day)
-    
-    return dateStr
 
 ##############################################################################
 
