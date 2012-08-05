@@ -117,10 +117,165 @@ The 6 inch ellipse and its use.
 BA: Any form of geometry (ellipse or Gann angle) is useless without the cycles.
 BA; We are skipping rule 11.
 
-Rule: 12
+Rule: 12: Geometry again, so we'll skip that, since it's outside our scope.
+
+Bayer: Whenever you read a book, note that the following pages are of the greatest importance: 
+page 40-42
+page 70-72
+page 80-82
+page 123
+page 144
+
+BA: The gist of the story is lying in these pages.
+
+To get better explanations of certain pages, I merely went 100 pages further and obtained much clarification of the page one hundred pages before.  
+
+BA: It's actually 104 pages, not 100.
+
 
 rluu: Make note about the number of pages spoken about on pg. 18 of Handbook of Trend Determination.
 rluu: Start taking notes here from 4:26 of Nucleo 3.
 
+Rule 13: Neptune and its true distance from the Earth.
+
+BA: Gann did not use logrithms or distances in TTTA, to BA's knowledge.  BA does not use logorithms in the markets.  
+
+Rule 14: Venus movements in geocentric longitude using a unit of 1 deg 9' 13". 
+
+BA: Venus moves this distance in about a day.  So what's going on here?  That kind of precision with seconds is insane... come on.
+
+
+1 time: 1 deg 9' 13"
+5 times: 6 deg 55' 18"
+25 times: 34 deg 36' 30"
+
+BA: A lot of what he's doing is he's trying to throw you off.  There's a reason why he's doing that in this book.
+
+
+BA: In the financial markets there is no set static... on what he's doing here.
+
+Rule 15:
+Venus latitude at extreme and least speeds.
+
+BA: Bayer is using Venus latitudes: min, max, and 0 north and 0 south.
+
+BA: Gann does have something very similar in TTTA.  Bayer has skewed it off a little bit here.  Venus latitude is important.  (That is also true in TTTA that latitude is important).
+
+Rule 16: 80 years cycle.
+
+BA: 80 years for time cycles?  No.  You don't have to have 80 years of data.  For many things you don't have 80 years of data.  The repeats aren't 80 years.  What Bayer is saying is there ARE repeats in time.  
+
+Rule 17: Mercury geocentric at 15 Aquarius and 15 Leo and the passage of all others over these points. 
+
+Rule 18: Venus at 15 Aquarius geocentric, using ellipse.  
+
+BA: We're not going to get into this, since it deals with geometry.
+
+Rule: 19
+Venus in geocentric position passing the conjunction of the Sun geocentric.
+(Venus going direct, and 1 deg 43' 50.7" in front of the Sun.).
+
+##############################################################################
+Nucleo 4
+##############################################################################
+
+Rule 20: Mercury passing 17 deg 18' 27" Cancer geocentric (more details in the text).
+
+
+BA covering an important principle: If you go to Venus heliocentric, one year of Venus is roughly 224 days.  Five years of Venus is roughly 1120 days.  To find out how much Earth time it is, you divide by 365.24.  So there are 5 Venus periods in a little over 3 Earth years.  So in the Gann field, a year can mean anything.  It can mean 88 days.  It can mean 224 days in the case of Venus.  And you can take this principle and expand it.  It is a very important principle.  
+
+
+Rule 21:
+Venus in retrograde motion making a conjunction with Mercury.
+Move lasts 5 to 8 days.
+
+
+BA:  Bayer mentions "consult the ellipse with this rule."  Is he trying to give a clue that the ellipse is anchored at the conjunction?  This is what you have to start thinking about, these types of concepts.  That's something to think about and explore here.  
+
+BA:  When you test any of these rules, you will want many more test points (a long period of time).  Bayer only gives you like 3 dates.  You'll want at least 20 test points or so.
+
+
+Rule 22:
+Mercury retrograde passes over the Sun.
+
+BA: If wheat is not your market.  How would you approach it?  You would take a high or low, and see if any of these Bayer rules occured there.  And if you found that, then you would look to see if it was a good rule for that entity.  That's all there is to it.  You need to remember also to be aware of polarity (if Bayer says a top will happen, and your market has been going down, then obviously it won't be a top).  
+
+Rule 23:
+One fifth of a second differential in motion of Saturn heliocentric latitude produces tops and bottoms of important.
+
+BA: 1/5th of a section?  No, Gann in TTTA doesn't do anything like that, to BA's knowledge.  Nor does any other good Gann traders he knows.  
+
+Rule 24:
+Wheat versus man.
+
+BA: This section talks about Bayer philosophy.  I will tell you that many people use the circle of 24 for wheat.  It's perhaps not coincidence that Bayer uses rule 24 to talk about Bayer philosphy.
+
+Rule 25:
+The rule of 4 3/8, 8 3/4, 17 1/2 and 35.  
+Covered also in "Time Factors" (for stocks).
+
+Rule 26:
+Gaps
+
+Rule 27:
+Mercury speed in longitude geocentric of 59' and 1 deg 58'.
+(These are mean motions of the Sun and double that).
+
+BA: Mercury rules the brains/thinking, communication.
+
+BA: If you get multiple consective dates for the hit, then take the middle date.
+
+Rule 28:
+Saturn heliocentric latitude unit 5' 46.15"
+
+BA: Uhh.. no.  We're not going to get into this, because again here we have complicated calculations.  I'm not saying that latitude isn't important, but the way it does it here, it could be confusion.  Do I use that, or any form of that?  No.
+
+Rule 29:
+Movements of Saturn in heliocentric longitude of 34'36.9".
+
+BA: For the dates given, this looks like a cycle, but it's not.  
+
+BA: I don't use this rule and I don't know anyone who does.  
+
+##############################################################################
+Nucleo 5
+##############################################################################
+
+Rule 30:
+Venus declination passing the extreme declination of the Sun, 23 deg 26' 51".
+Causes change of trend.
+
+BA: Whenever a planet exceeds 23 deg 27', it is called "Out of Bounds", or OOB.
+
+
+Rule 31:
+Venus declination making an extreme declination beyond 23 deg 26' 51".
+
+BA:  Basically he is saying to use the maximums when the maximums are Out Of Bounds (OOB).
+
+Rule 32:
+Mercury's geocentric longitude 126 deg 30' after the Sun (at the point at a important top or bottom).
+
+BA:  What is he saying here?  This is one of his best rules and he lays it aside and just forgets about it!  What is he doing?  What he's alluding to is that this book is a little different from other books.  So you can't read it through like a general scholar would (modern day academia).  There are some real gems in this, and so much of it is very very close to what is really going on.  In fact, one of the parts that we're not covering in the beginning... he basically just gives it away.  It is a very brilliantly written book.  What he's doing is writing this book for people who want to do his forecasts.  It's a great book to allow you to sink your teeth into it.  What he's actually doing here in this part of the text, he's starting you off down a path.  How to take these rules and start to look at financial markets.  So we can start to look at things based on our astrolonomy background.  
+
+BA:  Here in the text, he is talking about the importance of having an idea about duration.  The cycles will tell you that.  The serious Gann analyst will be looking for the time of the move.
+
+Rule 33:
+Mars in geocentric longitude passing 16 deg 55' 46".
+
+Rule 34:
+Venus daily variation of heliocentric longitude plus or minus 7 seconds.
+
+BA: Okay Bayer... yeah, we're not going to do this.
+
+Rule 35:
+Venus in its extreme speeds in daily variation of heliocentric longitude.
+(Heliocentric Venus speeds min and max).
+
+BA: Why did Bayer do this to us?  The planet has differences in speeds due to the elliptic orbit, but the difference is very minute.  
+
+##############################################################################
+Nucleo 6
+##############################################################################
 
 
