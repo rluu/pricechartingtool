@@ -155,7 +155,7 @@ BA: A lot of what he's doing is he's trying to throw you off.  There's a reason 
 BA: In the financial markets there is no set static... on what he's doing here.
 
 Rule 15:
-Venus latitude at extreme and least speeds.
+Venus heliocentric latitude at extreme and least speeds.
 
 BA: Bayer is using Venus latitudes: min, max, and 0 north and 0 south.
 
@@ -278,4 +278,76 @@ BA: Why did Bayer do this to us?  The planet has differences in speeds due to th
 Nucleo 6
 ##############################################################################
 
+
+Rule 36: Sun-Mercury conjunctions plus 60 deg in geocentric positions.
+Four steps:
+1) Locate conjunction of Sun-Mercury
+2) Project Mercury 60 deg beyond this conjunction.
+3) Use Venus from the latter place and project also 60 deg.
+4) Continue with Venus by projecting it an extra 12 deg.
+
+Rule 37: Sun-Venus conjunctions plus 60 deg.
+Four steps:
+1) Locate conjunction of Sun-Venus
+2) Project Venus 60 deg beyond this conjunction.
+3) Use Mercury from the latter place and project also 60 deg.
+4) Continue with Mercury by projecting it an extra 12 deg.
+
+BA: Bayer is doing a roundabout thing.  
+
+Rule 38: Mercury latitude heliocentric.
+Change in trend when Mercury passes:
+0, 3 deg 21, 6 deg 42, 7 deg 0.
+
+
+
+Rule 39: Logorithms of Venus Heliocentric radius vector.
+BA: BA says he does not use logorithms.
+
+Rule 40: 
+Venus Heliocentric Latitude divided into parts. 
+
+Rule 41:
+Mercury's daily speed in geocentric longitude.
+(Bad for wheat when speed of Mercury zigzags when speed is above 59' per day).
+
+
+BA: Regarding 144, there's a specific reason for that number.  It's not just a random square.  There's a reason why you use it.  And you only use it in some markets, because it ties into something else.  
+
+
+Rule 42:
+Venus reduction to orbit.  Value + 2 deg 42'.
+
+BA: I'm not going to worry about this, because Solar Fire does not do it.  And traders don't really use it.  
+
+Rule 43:
+Venus heliocentric latitudes 0 deg, 2 deg 16', and 3 deg 32'.
+
+Rule 44:
+Mercury halfway retrograde place.
+
+
+##############################################################################
+Nucleo 7
+##############################################################################
+
+Rule 45:
+Price Levels of Wheat established with logorithms of the planets true distance from Earth.
+
+BA: BA does not do this.  You can do it on your own if you want and see where that takes you.  My understanding is the price a little different from what he gives you. 
+
+Rule 46:
+Venus Reduction to Orbit: 0 deg, 1 deg 50', 3 deg 1'.
+
+BA: We're not going to do any Reduction to Orbit.
+
+Rule 47:
+Mercury Reduction to orbit of previous year using extreme value of 12' 52".
+
+BA: We're not going to do any Reduction to Orbit.
+
+Rule 48:
+Jupiter in right ascension, differential of 1h 21m 45s.
+
+[rluu: Start taking notes from 0:55 of Nucleo 7].
 
