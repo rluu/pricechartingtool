@@ -349,5 +349,84 @@ BA: We're not going to do any Reduction to Orbit.
 Rule 48:
 Jupiter in right ascension, differential of 1h 21m 45s.
 
-[rluu: Start taking notes from 0:55 of Nucleo 7].
+BA: I'm not going to do this, but I'm going to tell you about RA and Declination, and longitude and latitude.  
 
+
+Longitude and latitude uses the ecliptic system.
+RA and declination uses the equatoral system.
+
+It is important to know the difference between the two systems.  
+
+BA:  The bulk of W.D. Gann book TTTA is written under the ecliptic system.
+
+Part 3, rules for Hides.
+Rule 1a: Venus daily variation of logarithm radius vector.
+
+BA:  No, we're not going to this.
+
+Rule 2a:
+Venus latitude hleiocentric 4 deg 58' (4 deg 52') differences.
+
+Bayer's low: Dec 30, 1937:  0 deg 11
+Max reached: Feb 23, 1937:  3 deg 24
+Distanced traveled:         3 deg 13
+George Bayer "Turn Factor": 4 deg 58
+Distanced needed to go, byond the Feb 23, 1937 max: 1 deg 45
+
+Max reached on Feb 23, which needs 1 deg 45 subtracted from it for final answer: 3 deg 24
+
+Venus latitude hit off of Bayer's Rule: 1 deg 39
+
+
+BA: This kind of calculation is good practice for you.
+
+Rule 3a:
+Mercury conjunction to Saturn and Jupiter of 80 years ago.
+
+Rule 4a:
+Mercury 80 years ago.
+
+Rule 5a:
+Mercury half-way position between retrograde and direct.
+
+Rule 6a:
+Mars declination heliocentric 19 deg 51' 00".
+
+BA:  All he's doing is declination hits of Mars of 19 deg 51'.
+
+Rule 7a:
+Mars right ascension 19 h 20 m differential.
+
+BA: We're not big on RA, and we're going to avoid RA in Nucleo.
+
+Rule 8a:
+Mars right ascension 11 h 20 m differential
+
+BA: We're skipping this.
+
+Rule 9a:
+Mars right ascension at full hours.
+
+BA: We're skipping this.
+
+Rule 10a:
+Mars right ascension plus daily variation of Venus heliocentric extreme longitude (1 deg 37' 32").
+
+BA: We're skipping this.
+
+Rule 11a:
+Venus R.A. plus 4 times the daily extreme variation of Venus longitude (1 deg 37' 32")
+
+BA: No thanks Bayer.
+
+
+
+
+
+BA: Overview of what we've done here: We've come to learn some astrolonomy through the files.  We need to learn how to apply.  It's relevance is it that this is the path.  Bayer is leading us into that with this book.  This is the beginning.  I'm not saying that these rules will make you a millionaire, but I'm saying this is a great place to start.  You will need to start setting up some tests.  Get a list of 20 dates for the hits and go to the financial markets, were there actually turns there?  See if they work in your own market.  We talked about how to bend these rules to test and work for your own market.
+
+BA: Does the affect of a combination work for many turns or was it just a fluke?
+
+BA: Be aware of the weekend affect (i.e. aspect happening on Friday, but the high occured on Monday).  That can really throw people off.  You want to take that into account.  
+
+##############################################################################
