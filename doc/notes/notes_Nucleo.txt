@@ -85,10 +85,10 @@ The effect of perihelium of Mars and Venus.
 
 Aphelium == "afar"
 
-For the perihelium and aphelium, Google the values.
+For the perihelion and aphelion, Google the values.
 
 Rule 8:
-The effect of perihelium by using heliocentric positions.
+The effect of perihelion by using heliocentric positions.
 
 BA knows people who use this in their trading, but he is unaware of Gann using it in TTTA. 
 
