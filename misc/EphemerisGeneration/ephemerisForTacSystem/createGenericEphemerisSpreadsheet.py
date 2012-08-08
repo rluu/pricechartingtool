@@ -80,6 +80,9 @@ startDt = datetime.datetime(year=1962, month=1, day=1,
 endDt   = datetime.datetime(year=2014, month=12, day=31,
                             hour=hourOfDay, minute=minuteOfHour, tzinfo=timezone)
 
+# Destination output CSV file.
+outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/ephemerisForTacSystem/generic_daily_ephemeris_nyc_noon.csv"
+
 # Planet names to do calculations for.
 geocentricPlanetNames = [\
     "Sun",
@@ -134,9 +137,6 @@ declinationPlanetNames = [\
     "Isis"
     ]
 
-
-# Destination output CSV file.
-outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/ephemerisForTacSystem/generic_daily_ephemeris_nyc_noon.csv"
 
 # For logging.
 logging.basicConfig(format='%(levelname)s: %(message)s')
@@ -254,7 +254,7 @@ def getPlanetaryInfosForDatetime(dt):
     planets.append(Ephemeris.getUranusPlanetaryInfo(dt))
     planets.append(Ephemeris.getNeptunePlanetaryInfo(dt))
     planets.append(Ephemeris.getPlutoPlanetaryInfo(dt))
-    planets.append(Ephemeris.getMeanNorthNodePlanetaryInfo(dt))
+    #planets.append(Ephemeris.getMeanNorthNodePlanetaryInfo(dt))
     #planets.append(Ephemeris.getTrueSouthNodePlanetaryInfo(dt))
     planets.append(Ephemeris.getTrueNorthNodePlanetaryInfo(dt))
     #planets.append(Ephemeris.getTrueSouthNodePlanetaryInfo(dt))
