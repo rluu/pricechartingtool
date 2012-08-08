@@ -13,7 +13,7 @@
 #
 #   Then run the following:
 #
-#     ./modifyPriceChartDocument.py --pcd-file=/home/rluu/programming/pricechartingtool/data/PriceChartDocumentFiles/IBM.pcd --script-file=./customScripts/addVerticalLinesForCsvFileEphemerisCycle_IBM.py
+#     ./modifyPriceChartDocument.py --pcd-file=/home/rluu/programming/pricechartingtool/data/PriceChartDocumentFiles/Wheat.pcd --script-file=./customScripts/addVerticalLinesForCsvFileEphemerisCycle_Wheat.py
 #
 #
 # WARNING:
