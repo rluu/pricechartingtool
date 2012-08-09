@@ -1,0 +1,21 @@
+##############################################################################
+# Cycles for:
+# 
+# Company:            United States Steel Corporation
+# Stock symbol:       X
+# Trades on exchange: NYSE
+##############################################################################
+
+
+##############################################################################
+
+Cycle found on 20120809: 
+
+5 degree steps of G.Venus/G.Saturn:
+
+Formula is: 
+((G.Venus) + 360 - (G.Saturn)) % 10, at values 0 deg and 5 deg.
+
+Produces turns about 4 to 5 days apart.
+
+##############################################################################
