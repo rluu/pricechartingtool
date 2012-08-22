@@ -2,6 +2,23 @@
 # Notes on TTTA.
 ##############################################################################
 
+import datetime
+
+peaceConferenceDate = datetime.datetime(year=1932,month=8,day=30)
+forewardDate = datetime.datetime(year=1927,month=5,day=9)
+rgBirthDate = datetime.datetime(year=1906,month=6,day=9)
+usEntryIntoWW1 = datetime.datetime(year=1917, month=4, day=6)
+armisticeDay = datetime.datetime(year=1918, month=11, day=11)
+firstTunnelDateAfterRGBirth = datetime.datetime(year=1926,month=10,day=23)
+lindberghFlight = datetime.datetime(year=1927, month=5, day=21)
+marieDisappearance = datetime.datetime(year=1927, month=6, day=5, hour=3)
+
+peaceConferenceDate - forwardDate
+
+
+
+##############################################################################
+
 Event: Birth of Robert Gordon
 Page: 1
 Date: June 9, 1906
