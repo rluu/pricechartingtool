@@ -1,0 +1,256 @@
+##############################################################################
+Notes on the WITS webinar "Numbers, Gann and the Law of Vibration".
+Webinar was presented on February 27, 2012, by BA.
+##############################################################################
+
+The cover of TTTA has Gann's Masonic signature.  It is in the angles of the planes wings.
+
+The four elements: 
+Arithmetic/Mathematics
+Geometry
+Music
+Astronomy
+
+
+TTTA, pg. 75:
+"In making my predictions I use geometry and mathematics just as the astronomer does."
+
+TTTA, pg. 75:
+"My calculations are based on cycle theory and mathematical sequences."
+
+TTTA, pg. 75:
+"In order to know and predict the future of anything you only have to look up what happened in the past and get the correct base or beginning point."
+
+TTTA, pg. 76:
+"In making my calculations on the stock market, or any future event, I get the past history and find out what cycle we are in and then predict the CURVE for the future"
+
+In a logarithmic spiral:
+1) Radial angle increases in an arithmetic progression.
+2) Radius increases in a geometric progression.
+3) Carries retention of past time.
+
+
+From Gann's Master Stock Course, about the US Steel name chart:
+---------
+  The name, "United States Steel", contains 17 letters.  Therefore to make up a Permanent Square for United States Steel, according to its name, will require 17 x 17, or a Square of 289. Therefore, 17, which is really 2-1/2 times the lowest price at which Steel ever sold is an important point.
+
+  The prices 34, 51, 68, 85, 102, 119, 136, 153, 170, 187, 204, 221, 238, 255, 272 are all important because they strike important vibrations on the name and angles of US Steel.
+
+  The basic number or low point, for example, 9, the lowest digit on US Steel, and [separately] it's vibrations according to its name, all cause slight variations at times from other stocks, because each stock works according to its own base, beginning point, numbers and name.
+
+  US Steel works good to natural angles and Master Chart, because its digit is 9 and comes out on exactly 9 vibrations all the way through, finishing at 261, which was 28 nines from its beginning point, or lowest level.
+--------
+
+
+[BA is reading this page.  See screenshot.]
+
+BA: What does he mean by lowest digit as 9?  Let's say he added everything up and it adds up to... uh, 27, then he would do 2 + 7 and that is 9.  That's the digit 9 he is talking about.  And to him, that's important.  We'll see that coming up.  
+
+
+BA: 261 is very close to the pythagorean middle C.  
+
+
+
+How do you make a permanent square for an instrument?  
+Answer: You count the letters in the name.
+Example: "New York Stock Exchange".  20 letters.
+
+
+[See screenshot of the NYSE Permanent Chart.]
+
+
+BA: To draw it, you draw a "Square within the square".  Where else can we see this "Square within the Square"?  It is in Luther Jensen's book ACSM, pg. 110.
+
+
+In fact, squares have some interesting properties.  Squares, like circles, can be divided harmonically.  Let's take a look at that.  
+
+The Master 360 Circle Chart . 
+
+[See the screenshot.  This chart is in table form, numbers incrementing by upwards, by 15's, starting from 15, up to 360.  Then the next column is from 375 to 720.  There are 12 columns and then it starts at column 1 again.]
+
+
+The Square of 90.
+
+[See the screenshot.]
+
+BA: Do, re, mi, fa, so... (for the fractions of the square).
+
+
+The Square of 52.
+
+[See the screenshot.]
+
+BA: Along the side, 1/4, 1/2... etc.  But he doesn't have the 3rds marked.  He only has it dotted: 52/3 = 17.3333, and (52/3) * 2 = 34.6666.
+
+BA: Along the bottom he also has 13, 26, and 39 marked.  Harmonic divisions of a square...
+
+
+Gann also mentions "numbers and name".  Let's explore Gann on that.
+
+"I have made a study of President Coolidge's date of birth, name and numbers." ...
+
+"Since God requires that which is past, then past cycles and events in the history of the United States MUST repeat.  We look up the names and dates of birth to determine when certain names or initial letters shoudl repeat.  The letter "C" is one which repeats in event of the US as shown by the election of Grover Cleveland the second time in 1892.  President Calvin Coolidge, with the "C" strong in both names, succeeded President HJarding, August 2, 1923, and was elected in 1924.  This was really a repetition of the letter "C" the same as Cleveland's second election, and in the view of the fact that President Coolidge has served about 6 years, the letter "C" is not due to repeat its vibration in 1928, but might repeat in 1932 when President Coolidge could possibly be elected again following the war and troublesome times." 
+
+BA:  This war he is talking about is the war in the stock market, not the physical WWII.  
+
+
+"The most favorable letters for the Republican Party which could repeat in 1928 are B, J, F, and L. In view of the cycle which indicates war from 1928 to 1932, there is a strong indication that the letter "L" will repeat as it did during the Civil War when Lincoln was President. This might mean the nomination of Borah, Butler, Johnson or Lowden. I haven't the dates of birth of any of these men, therefore, am unable to say before the nominations take place and we know whom their opponents will be, whether any of them would be elected or not."
+
+
+Gann on Numbers and Name from Newspaper Articles.
+
+Excerpts from post 52546 in WITS Yahoo group:
+Newspaper reporter:
+"This is the secret of the law of vibration:
+Find exactly by a study of geometrical angles what is meant by each letter in a man's name and his destiny is at once an open book to you. The same goes in regard to countries and rulers. That is all there is to it."
+
+"Mr. Gann is modest and unassuming and looks more like a deep student than the financier as the public mind usually portrays him. When asked about his discovery and his predictions he tried to evade the subject at first, but finally agreed to tell something about his work. He made his discovery about 20 years ago, after weeks and months of research into geometry and mathematics in ancient books"
+
+"Mr. Gann erects his geometrical figures. He has a big ponderous volume filled with these figures -- squares, angles, pyramids and circles -- and whenever he wants to know anything he turns to a certain geometrical figure and puts his finger on the answer."
+
+"Vibration is fundamental; nothing is exempt from this law; it is universal, therefore applicable to every class of phenomena, animate or inanimate, on the globe." -- W.D. Gann
+
+"The fact that the ancients wrote their numbers and letters in geometrical figures opened the way to his discovery of the law that rules all things. He found that every letter and every number was written in a geometrical angle that determined the power of its vibration. Knowing this vibration in the letters of an individual's name, in the letters contained in the name of a stock or in the letters of the name of a country or a ruler, the destiny of that individual, that stock or that ruler and country can be correctly seen."
+
+"Everything is based absolutely on geometry and mathematics. You have got to prove everything in a circle, in a square or in an angle. You have got to know how a pyramid stands to a circle, a circle to a square and how they all 'match up.'"
+
+"[Those with simply a powerful name] will more or less play an important part in their various spheres, but the date of birth is what determines the other angle and also complete the circle or the square. From all this data Mr. Gann calculates the "key number" which governs him through life. That "key number" is the whole secret of Mr. Gann's discovery, and this secret he keeps within himself. For instance, the "key number" of President Wilson's name is "28," and curiously enough he is the twenty-eighth president of the United States. Therefore, the numbers "2" and "8," or their total "10," will show events of importance in Mr. Wilson's career.
+
+BA: This means one angle comes from the name, the other from the date of birth.
+
+
+
+
+From the Journal of Commerce:
+
+"Mr. Gann has made noteworthy prognostications of the markets which proved to be true in the course of time.  His calculations are based on the Science of Letters, Numbers and Astrology."
+
+
+Excerpts from post 52548 in WITS Yahoo group:
+ 
+"The President elected in 1936 will be the third-third President of the United States. 'Thirty-three' is a number that works strong with 'sixteen' and the letter 'L' strongly opposes the letter 'R.' The letter 'A' in Alfred opposes 'F' and 'D' in Roosevelt's name. President Franklin D. Roosevelt was born January 30, 1882 and Governor Alfred M. Landon was born September 9, 1887. The month of September contains nine letters. Landon was born on the 9th day of the 9th month and the year 1887 reduced to its lowest digit is six. The numbers 'three,' 'six,' and 'nine' are fortunate and eventful for him. 1936 is the 36th year in the Twentieth Century. Thirty-six added together equals nine. This is Landon's year and Landon's vibration. During the month of Setpember, 1936, soon after Governor Landon's birthday, he will make some speech or say something that will cause the tide to turn strongly in his favor."
+
+BA: Gann uses the terminology "lowest digit", which is really the number reduced to a single digit (1887 --> 24 --> 6).  
+
+"Franklin Delano Roosevelt first took oath of office as President of the United States in 1933, a year called by the ancients as the double "3." He will run for office again in 1944, the year known as the double "4." He has had three terms or 12 years in office. He will not serve a fourth term, as the cycle for the "oo" has run out and the time cycles and the science of numbers do not promise for President Roosevelt a fourth term in office."
+ 
+"From the time Theodore Roosevelt was elected vice-president in 1900 to the election of Franklin D. Roosevelt in 1932 was 32 years. From the first election of Theodore Roosevelt to the last election of Franklin D. Roosevelt in 1940 was 40 years. This cycle indicates the end of the Roosevelts in the office of President of the United States."
+
+"The month of September contains nine letters." -- W.D. Gann.
+
+BA: Note here AGAIN, we have Gann counting the total letters.  Remember United States Steel?  Remember New York Stock Exchange.
+
+
+
+Something strange is going on here.  We now have a few 'pieces' that suggest W.D. Gann was indeed into numerology.  If Gann was into numerology, we will need to study numerology in order to emulate him.  The seeker immediately is confronted with a problem.  With the various numerical systems described in teh other books, how is one to know which system W.D. Gann used?  
+
+Solution: Enter Robert Gordon.
+
+Master Key: The systems from the books must be applied to Robert Gordon's name and numbers.  
+
+Secret: Gann put various "markets" in the book TTTA, to let you know you are on teh right track.  After all, poor Robbie did not get into an automobile accident for nothing! 
+
+Where to learn which systems to test?  That is now the key question.
+
+In the book TTTA, RG's best friend and childhood chum is Walter.  Sepharial's real name is Walter.  Sepharial has a book called "Kabala of Numbers", which is free to WITS members.  
+
+
+But before we get to the book Kabala, lets back up and take a look at an individual known as "Mrs. Cochran" and her Aso-Neith system.  
+
+Two files referenced: 
+THE ASO-NEITH CRYPTOGRAM[1].pdf
+Lou Clement - The Ancient Science of Numbers.pdf
+
+
+From "THE ASO-NEITH CRYPTOGRAM[1].pdf", pg. 7:
+
+As an illustration, take the name and birth dates of Pope Leo XIII. The letters of his first name, Joachim, are represented by the following numbers: 1, 6, 1, 3, 8, 9, 4. Add these, and the sum is 32. Add again, as all numbers are reduced to a digit, and the sum is 5. In the last name, Pecci, the letters represent 7, 5, 3, 3, 9. The sum of these numbers is 27. Adding again to get the digit, and we have 9. March is the third month, and the Pope was born the second day of that month, 1810. Adding the numbers of the year, and we have 10. This makes the numbers from which the concord is determined, 5 and 9, which represent the name, and 3, 2, 10 the birth.
+
+
+Mrs. Cochran did the following to get the number for a mundane business: She took name of the street (reduced to digit), street number, and office number
+
+
+[Two other quotes from this PDF.]
+
+
+
+The author further states that she sometimes finds that a person has outlived his name and birth numbers, has completed certain things and achieved others and has begun a new cycle. In this case the concord is determined by observing the RECURRENCE OF CERTAIN EVENTS, or perhaps it would be more correct to say, a certain kind of events, on certain dates. By noting which are propitious and which the reverse, the numbers which make the new concord can be determined.
+
+
+[rluu: stopped the video at 19:13].
+
+
+The basic idea of the system -- Mrs. Cochran says it is a science, and not a creed or a religion -- is that the universe is controlled and governed by a law of vibrations. Vibrations vibrate, and that is what makes everything happen that does happen. If you get your ego into tune with these vibrations, your life will be harmonious. If you persist in living in the wrong pitch, or the wrong key, or dancing to the wrong measure, the result is inharmonious discord, and the sacred symphony of life turns into a ridiculous ragtime.
+
+That is what is behind it all. But there is much more to it than merely that.  The rate at which all these vibrations vibrate, and the kind of vibrations which you personally should get into tune with can be detected by a mathematical system, says Mrs. Cochran, just as easily as a pound of cheese can be weighed or the length of a bolt of crepe de chine determined by application of a tape measure.
+
+In short, there is a mathematical key to the secret of the universe, and Mrs.  Cochran has that key. She told an Eagle reporter that she got it out of much study of the Bible. [Just like Gann.]
+
+Mrs. Cochran refers to 3 days and 3 nights.
+
+
+Haytham's WITS post #1755, on Oct. 5, 2011:
+
+Take all the dates, Numbers,and throw the rest in the garbage then
+subcategorize the dates into Financial Astrology, Personal Astrology,
+Mundane Astrology and STUDY all the dates as per Bonnie instructions
+in the tape...that is the best way to learn Gann hidden info in TTA...
+
+There is a "key" you must find in the bible..there is ONE number in
+the TTA and ONE sign in the bible both are the same when you put them
+together you will unlock "entire" code for all the numbers mentioned
+in TTA, the order of these numbers are very important..TTA gives the
+right date for all the major cycles..
+
+Regards,
+Haytham
+
+
+"In the geometrical formation of letters and numbers, the angles, curves, etc., are not due to any accident, but brought about by the operation of a perfect divine plan, so as to enable the human mind to learn and properly understand all forms of truths. The Aso-Neith cryptogram teaches: The divine law of mathematical vibration of each letter of the alphabet.  
+
+"The color of each letter and number, and the relation each individual bears to the universal chromatic spectrum of being. The geometrical symbol to which every person corresponds in the universal Temple of God.
+
+
+BA: This is the same stuff that Gann is doing.  
+
+Does Sepharial in the 'Kabala of Numbers' say anything about this system?
+Yes, on page 65, the same table of numbers to letters is given.  
+
+Kabala of Numbers, pg. 140:
+The key number of an individual is the result of adding together the day, month, and year of birth.  In this scheme the year is generic, the month specific, and the day individualistic.  
+
+
+BA:  In TTTA, RG begins to have health concerns on page 239.  He then flies off to Paris and well, one things leads to another and along comes Dr. Descartes (page 244).  The Doctor's first name is Rene.  In fact, Rene wrote 'Compendium Musicae' in 1618.  Unknown to many, when RG visits Paris, that event is a "hub" or tie in of several key factors in the book.
+
+That's very important.  
+
+BA: FYI, Rene also wrote books on mathematics and geometry. 
+
+
+RG is not the only one that is interested in Dr. Descartes' miraculous cures.  Descartes is mentioned in Jensen's ACSM, on page 102.  
+
+[BA reads from page 102 of ACSM; video is at approximately 31 min 12 sec.].
+
+[BA continues reading from page 103 to 112.]
+
+BA: The "Line of 90" in ACSM is really just the 45 degree angle.
+
+pg. 110
+Note the minor resistance 33 1/3 and 66 2/3 in price, and over 11 1/4 days/weeks/months and 22 1/2 days/weeks/months.  [Screenshot has red arrows at these two points.]  So it can be readily observed that the Pythagorean postulate proves out... that there is a harmonical relationship between angles and numbers, which in terms of market charts ties up the lift of the market structure with time and resistance.
+
+
+BA is offering his 'Day of the Month Kit' Excel spreadsheet for free.
+
+Input fields: 
+Birth date
+Current year
+Current month
+
+It computes the compound number for each day in the current month.  BA describes how to use this Excel spreadsheet in the video.
+
+
+[rluu: The recorded video excluded a portion at the end in the live presentation.  This was the portion where BA says that the key is "SEVEN" (BA spelled it out), "one word, seven".]
+
+
+
+##############################################################################
