@@ -5401,7 +5401,15 @@ class PlanetaryCombinationsLibrary:
             declinations.append(None)
             del declinations[0]
             
-            
+        
+        # Add a horizontal line for the zero velocity.
+        PlanetaryCombinationsLibrary.\
+            addHorizontalLine(pcdd, startDt, endDt, avgPrice,
+                              tag="DeclinationZeroLine",
+                              color=QColor(Qt.black))
+        numArtifactsAdded += 1
+
+        
         log.info("Number of artifacts added: {}".format(numArtifactsAdded))
                 
         log.debug("Exiting " + inspect.stack()[0][3] + "()")
@@ -6117,7 +6125,7 @@ class PlanetaryCombinationsLibrary:
         if color == None:
             colorWasSpecifiedFlag = False
             color = AstrologyUtils.getForegroundColorForPlanetName(planetName)
-
+            
         # Set the tag str.
         tag = inspect.stack()[0][3]
         if tag.startswith("add") and len(tag) > 3:
@@ -6449,29 +6457,318 @@ class PlanetaryCombinationsLibrary:
 
 
         # Add a horizontal line for the zero velocity.
-        PlanetaryCombinationsLibrary.\
-            addHorizontalLine(pcdd, startDt, endDt, avgPrice,
-                              tag="VelocityZeroLine_{}".format(planetName),
-                              color=QColor(Qt.black))
-        numArtifactsAdded += 1
-        
+        if True:
+            PlanetaryCombinationsLibrary.\
+                addHorizontalLine(pcdd, startDt, endDt, avgPrice,
+                                  tag="VelocityZeroLine_{}".format(planetName),
+                                  color=QColor(Qt.black))
+            numArtifactsAdded += 1
+
+        # Add a horizontal line for speed of:
+        #   SunSpeed * -1,
+        #   SunSpeed * 1,
+        #   SunSpeed * 2,
+        if True:
+            sunSpeed = 1.014555555555555
+            
+            pricePerSpeedDeg = (highPrice - avgPrice) / maxAbsoluteSpeed
+            #log.debug("avgPrice == {}".format(avgPrice))
+            #log.debug("maxAbsoluteSpeed == {}".format(maxAbsoluteSpeed))
+            #log.debug("pricePerSpeedDeg == {}".format(pricePerSpeedDeg))
+
+            if planetName == "Mercury":
+                for i in [-1, -0.5, 0.5, 1, 2]:
+                    speedToDraw = sunSpeed * i
+                    price = avgPrice + (pricePerSpeedDeg * speedToDraw)
+                    #log.debug("speedToDraw == {}".format(speedToDraw))
+                    #log.debug("price == {}".format(price))
+                    PlanetaryCombinationsLibrary.\
+                        addHorizontalLine(pcdd, startDt, endDt, price,
+                            tag="SunSpeed_x_{}_for_{}".\
+                                format(speedToDraw, planetName),
+                            color=color)
+                    numArtifactsAdded += 1
+
+            elif planetName == "Venus":
+                for i in [-1, -0.5, 0.5, 1]:
+                    speedToDraw = sunSpeed * i
+                    price = avgPrice + (pricePerSpeedDeg * speedToDraw)
+                    #log.debug("speedToDraw == {}".format(speedToDraw))
+                    #log.debug("price == {}".format(price))
+                    PlanetaryCombinationsLibrary.\
+                        addHorizontalLine(pcdd, startDt, endDt, price,
+                            tag="SunSpeed_x_{}_for_{}".\
+                                format(speedToDraw, planetName),
+                            color=color)
+                    numArtifactsAdded += 1
+            
+            elif planetName == "Mars":
+                for i in [-0.5, 0.5, 1]:
+                    speedToDraw = sunSpeed * i
+                    price = avgPrice + (pricePerSpeedDeg * speedToDraw)
+                    #log.debug("speedToDraw == {}".format(speedToDraw))
+                    #log.debug("price == {}".format(price))
+                    PlanetaryCombinationsLibrary.\
+                        addHorizontalLine(pcdd, startDt, endDt, price,
+                            tag="SunSpeed_x_{}_for_{}".\
+                                format(speedToDraw, planetName),
+                            color=color)
+                    numArtifactsAdded += 1
+            
         # Add a horizontal line for the planet's heliocentric speed,
         # if it is not zero.
         #if helioSpeed != 0.0:
             #pricePerSpeedDeg = (highPrice - avgPrice) / maxAbsoluteSpeed
-            #print("avgPrice == {}".format(avgPrice))
-            #print("maxAbsoluteSpeed == {}".format(maxAbsoluteSpeed))
-            #print("pricePerSpeedDeg == {}".format(pricePerSpeedDeg))
+            #log.debug("avgPrice == {}".format(avgPrice))
+            #log.debug("maxAbsoluteSpeed == {}".format(maxAbsoluteSpeed))
+            #log.debug("pricePerSpeedDeg == {}".format(pricePerSpeedDeg))
             #
             #price = avgPrice + (pricePerSpeedDeg * helioSpeed)
-            #print("helioSpeed == {}".format(helioSpeed))
-            #print("price == {}".format(price))
+            #log.debug("helioSpeed == {}".format(helioSpeed))
+            #log.debug("price == {}".format(price))
             #
             #PlanetaryCombinationsLibrary.\
             #    addHorizontalLine(pcdd, startDt, endDt, price,
             #        tag="HelioVelocityLine_{}".format(planetName),
             #        color=color)
             #numArtifactsAdded += 1
+        
+        log.info("Number of artifacts added: {}".format(numArtifactsAdded))
+            
+        log.debug("Exiting " + inspect.stack()[0][3] + "()")
+        return rv
+    
+
+    @staticmethod
+    def addGeoLongitudeVelocityLinesNonScaled(\
+        pcdd, startDt, endDt,
+        highPrice, lowPrice,
+        planetName,
+        color=None,
+        stepSizeTd=datetime.timedelta(days=1)):
+        """Adds a bunch of line segments that represent a given
+        planet's longitude speed.  The start and end points of
+        each line segment is 'stepSizeTd' distance away.
+        
+        Arguments:
+        pcdd      - PriceChartDocumentData object that will be modified.
+        startDt   - datetime.datetime object for the starting timestamp
+                    to do the calculations for artifacts.
+        endDt     - datetime.datetime object for the ending timestamp
+                    to do the calculations for artifacts.
+        highPrice - float value for the high price which represents
+                    the location for highest velocity.
+        lowPrice  - float value for the low price which represents
+                    the location for lowest velocity.
+        planetName - str holding the name of the planet to do the
+                     calculations for.
+        color     - QColor object for what color to draw the lines.
+                    If this is set to None, then the default color will be used.
+        stepSizeTd - datetime.timedelta object holding the time
+                     distance between each data sample.
+        
+        Returns:
+        True if operation succeeded, False otherwise.
+        """
+        
+        log.debug("Entered " + inspect.stack()[0][3] + "()")
+
+        # Return value.
+        rv = True
+
+        # Make sure the inputs are valid.
+        if endDt < startDt:
+            log.error("Invalid input: 'endDt' must be after 'startDt'")
+            rv = False
+            return rv
+        if lowPrice > highPrice:
+            log.error("Invalid input: " +
+                      "'lowPrice' is not less than or equal to 'highPrice'")
+            rv = False
+            return rv
+
+        # Calculate the average of the low and high price.  This is
+        # the price location of 0 velocity.
+        avgPrice = (lowPrice + highPrice) / 2.0
+        
+        # Set the color if it is not already set to something.
+        colorWasSpecifiedFlag = True
+        if color == None:
+            colorWasSpecifiedFlag = False
+            color = AstrologyUtils.getForegroundColorForPlanetName(planetName)
+            
+        # Set the tag str.
+        tag = inspect.stack()[0][3]
+        if tag.startswith("add") and len(tag) > 3:
+            tag = tag[3:] + "_" + planetName
+        log.debug("tag == '{}'".format(tag))
+        
+        # Initialize the Ephemeris with the birth location.
+        log.debug("Setting ephemeris location ...")
+        Ephemeris.setGeographicPosition(pcdd.birthInfo.longitudeDegrees,
+                                        pcdd.birthInfo.latitudeDegrees,
+                                        pcdd.birthInfo.elevation)
+
+        # Count of artifacts added.
+        numArtifactsAdded = 0
+
+        # Now, in UTC.
+        now = datetime.datetime.now(pytz.utc)
+        
+        # Timestamp steps saved (list of datetime.datetime).
+        steps = []
+        steps.append(copy.deepcopy(startDt))
+        steps.append(copy.deepcopy(startDt))
+
+        # Velocity of the steps saved (list of float).
+        velocitys = []
+        velocitys.append(None)
+        velocitys.append(None)
+
+        # Start and end timestamps used for the location of the
+        # LineSegmentGraphicsItem.
+        startLineSegmentDt = None
+        endLineSegmentDt = None
+
+        # Iterate through, creating artfacts and adding them as we go.
+        log.debug("Stepping through timestamps from {} to {} ...".\
+                  format(Ephemeris.datetimeToStr(startDt),
+                         Ephemeris.datetimeToStr(endDt)))
+
+        # We will use Mercury's fastest speed as the upper and lower
+        # bounds for all the other planets.
+        mercuryMaxSpeed = abs(2.20247915641)
+        maxAbsoluteSpeed = mercuryMaxSpeed
+        
+        if planetName == "Mercury":
+            helioSpeed = 4.092346062424192
+        elif planetName == "Venus":
+            helioSpeed = 1.6021312618132146
+        elif planetName == "Mars":
+            helioSpeed = 0.5240395882
+        elif planetName == "Jupiter":
+            helioSpeed = 0.08311070438168867
+        elif planetName == "Saturn":
+            helioSpeed = 0.033459674586075946
+        elif planetName == "Uranus":
+            helioSpeed = 0.011688655137431798
+        elif planetName == "Neptune":
+            helioSpeed = 0.005981059976740323
+        elif planetName == "Pluto":
+            helioSpeed = 0.003972926492417422
+        else:
+            helioSpeed = 0.0
+        
+        while steps[-1] < endDt:
+            currDt = steps[-1]
+            log.debug("Looking at currDt == {} ...".\
+                      format(Ephemeris.datetimeToStr(currDt)))
+            
+            p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
+            
+            log.debug("{} velocity is: {}".\
+                      format(p1.name,
+                             p1.geocentric['tropical']['longitude_speed']))
+            
+            velocitys[-1] = p1.geocentric['tropical']['longitude_speed']
+            
+            for i in range(len(steps)):
+                log.debug("steps[{}] == {}".\
+                          format(i, Ephemeris.datetimeToStr(steps[i])))
+            for i in range(len(velocitys)):
+                log.debug("velocitys[{}] == {}".format(i, velocitys[i]))
+
+
+            if velocitys[-2] != None:
+                
+                pricePerSpeedDeg = (highPrice - avgPrice) / maxAbsoluteSpeed
+                
+                startPointX = \
+                    PlanetaryCombinationsLibrary.scene.\
+                    datetimeToSceneXPos(steps[-2])
+                endPointX = \
+                    PlanetaryCombinationsLibrary.scene.\
+                    datetimeToSceneXPos(steps[-1])
+        
+                startPointPrice = \
+                    avgPrice + (velocitys[-2] * pricePerSpeedDeg)
+                startPointY = \
+                    PlanetaryCombinationsLibrary.scene.\
+                    priceToSceneYPos(startPointPrice)
+                
+                endPointPrice = \
+                    avgPrice + (velocitys[-1] * pricePerSpeedDeg)
+                endPointY = \
+                    PlanetaryCombinationsLibrary.scene.\
+                    priceToSceneYPos(endPointPrice)
+                
+                item = LineSegmentGraphicsItem()
+                item.loadSettingsFromAppPreferences()
+                item.loadSettingsFromPriceBarChartSettings(\
+                    pcdd.priceBarChartSettings)
+                
+                artifact = item.getArtifact()
+                artifact.addTag(tag)
+                artifact.setTiltedTextFlag(False)
+                artifact.setAngleTextFlag(False)
+                artifact.setColor(color)
+                artifact.setStartPointF(QPointF(startPointX, startPointY))
+                artifact.setEndPointF(QPointF(endPointX, endPointY))
+                
+                # Append the artifact.
+                log.info("Adding '{}' {} at ".\
+                         format(tag, artifact.__class__.__name__) + \
+                         "({}, {}) to ({}, {}), or ({} to {}) ...".\
+                         format(startPointX, startPointY,
+                                endPointX, endPointY,
+                                Ephemeris.datetimeToStr(steps[-2]),
+                                Ephemeris.datetimeToStr(steps[-1])))
+                
+                pcdd.priceBarChartArtifacts.append(artifact)
+                
+                numArtifactsAdded += 1
+
+            # Prepare for the next iteration.
+            steps.append(copy.deepcopy(steps[-1]) + stepSizeTd)
+            del steps[0]
+            velocitys.append(None)
+            del velocitys[0]
+
+
+        # Add a horizontal line for various fixed velocities.
+        if True:
+            sunSpeed = 1.014555555555555
+
+            pricePerSpeedDeg = (highPrice - avgPrice) / maxAbsoluteSpeed
+            
+            for n in [-1.0, -0.5, 0.0, 0.5, 1.0, 2.0]:
+                speedToDraw = sunSpeed * n
+                price = avgPrice + (pricePerSpeedDeg * speedToDraw)
+                log.debug("speedToDraw == {}".format(speedToDraw))
+                log.debug("price == {}".format(price))
+                PlanetaryCombinationsLibrary.\
+                    addHorizontalLine(pcdd, startDt, endDt, price,
+                        tag="AvgSunSpeed_times_{}".format(n),
+                        color=QColor(Qt.black))
+                numArtifactsAdded += 1
+        
+        # Add a horizontal line for the planet's heliocentric speed,
+        # if it is not zero.
+        if helioSpeed != 0.0:
+            pricePerSpeedDeg = (highPrice - avgPrice) / maxAbsoluteSpeed
+            log.debug("avgPrice == {}".format(avgPrice))
+            log.debug("maxAbsoluteSpeed == {}".format(maxAbsoluteSpeed))
+            log.debug("pricePerSpeedDeg == {}".format(pricePerSpeedDeg))
+            
+            price = avgPrice + (pricePerSpeedDeg * helioSpeed)
+            log.debug("helioSpeed == {}".format(helioSpeed))
+            log.debug("price == {}".format(price))
+            
+            PlanetaryCombinationsLibrary.\
+                addHorizontalLine(pcdd, startDt, endDt, price,
+                    tag="HelioVelocityLine_{}".format(planetName),
+                    color=color)
+            numArtifactsAdded += 1
         
         log.info("Number of artifacts added: {}".format(numArtifactsAdded))
             

@@ -15,8 +15,9 @@
 #   entities).  This input file is the output from running the
 #   following scripts:
 #
-#     createLongitudeSpreadsheetFile_forTacSystem.py
-#     readCsvFileAndAddFields.py
+#     /home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/ephemerisForTacSystem/createLongitudeSpreadsheetFile_forTacSystem.py
+#
+#     /home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/ephemerisForTacSystem/readCsvFileAndAddFields.py
 #   
 #   See the documentation for these scripts for how to use them to
 #   generate the required input to this script.

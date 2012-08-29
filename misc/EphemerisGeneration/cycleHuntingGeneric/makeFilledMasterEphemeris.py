@@ -324,15 +324,15 @@ listOfDataValues = doCalculationsForColumns(listOfDataValues,
                                             fasterPlanetColumn,
                                             slowerPlanetColumn)
 
-# G.Mercury/G.Isis
-columnName = "G.Mercury/G.Isis"
-headerLine += "," + columnName
-log.info("Calculating data for column: {}".format(columnName))
-fasterPlanetColumn = planetGeocentricLongitudeColumn["Mercury"]
-slowerPlanetColumn = planetGeocentricLongitudeColumn["Isis"]
-listOfDataValues = doCalculationsForColumns(listOfDataValues,
-                                            fasterPlanetColumn,
-                                            slowerPlanetColumn)
+## G.Mercury/G.Isis
+#columnName = "G.Mercury/G.Isis"
+#headerLine += "," + columnName
+#log.info("Calculating data for column: {}".format(columnName))
+#fasterPlanetColumn = planetGeocentricLongitudeColumn["Mercury"]
+#slowerPlanetColumn = planetGeocentricLongitudeColumn["Isis"]
+#listOfDataValues = doCalculationsForColumns(listOfDataValues,
+#                                            fasterPlanetColumn,
+#                                            slowerPlanetColumn)
 
 # G.Venus/G.Sun
 columnName = "G.Venus/G.Sun"
@@ -424,15 +424,15 @@ listOfDataValues = doCalculationsForColumns(listOfDataValues,
                                             fasterPlanetColumn,
                                             slowerPlanetColumn)
 
-# G.Venus/G.Isis
-columnName = "G.Venus/G.Isis"
-headerLine += "," + columnName
-log.info("Calculating data for column: {}".format(columnName))
-fasterPlanetColumn = planetGeocentricLongitudeColumn["Venus"]
-slowerPlanetColumn = planetGeocentricLongitudeColumn["Isis"]
-listOfDataValues = doCalculationsForColumns(listOfDataValues,
-                                            fasterPlanetColumn,
-                                            slowerPlanetColumn)
+## G.Venus/G.Isis
+#columnName = "G.Venus/G.Isis"
+#headerLine += "," + columnName
+#log.info("Calculating data for column: {}".format(columnName))
+#fasterPlanetColumn = planetGeocentricLongitudeColumn["Venus"]
+#slowerPlanetColumn = planetGeocentricLongitudeColumn["Isis"]
+#listOfDataValues = doCalculationsForColumns(listOfDataValues,
+#                                            fasterPlanetColumn,
+#                                            slowerPlanetColumn)
 
 # G.Sun/G.Mars
 columnName = "G.Sun/G.Mars"
@@ -514,15 +514,15 @@ listOfDataValues = doCalculationsForColumns(listOfDataValues,
                                             fasterPlanetColumn,
                                             slowerPlanetColumn)
 
-# G.Sun/G.Isis
-columnName = "G.Sun/G.Isis"
-headerLine += "," + columnName
-log.info("Calculating data for column: {}".format(columnName))
-fasterPlanetColumn = planetGeocentricLongitudeColumn["Sun"]
-slowerPlanetColumn = planetGeocentricLongitudeColumn["Isis"]
-listOfDataValues = doCalculationsForColumns(listOfDataValues,
-                                            fasterPlanetColumn,
-                                            slowerPlanetColumn)
+## G.Sun/G.Isis
+#columnName = "G.Sun/G.Isis"
+#headerLine += "," + columnName
+#log.info("Calculating data for column: {}".format(columnName))
+#fasterPlanetColumn = planetGeocentricLongitudeColumn["Sun"]
+#slowerPlanetColumn = planetGeocentricLongitudeColumn["Isis"]
+#listOfDataValues = doCalculationsForColumns(listOfDataValues,
+#                                            fasterPlanetColumn,
+#                                            slowerPlanetColumn)
 
 # G.Mars/G.Jupiter
 columnName = "G.Mars/G.Jupiter"
@@ -594,15 +594,15 @@ listOfDataValues = doCalculationsForColumns(listOfDataValues,
                                             fasterPlanetColumn,
                                             slowerPlanetColumn)
 
-# G.Mars/G.Isis
-columnName = "G.Mars/G.Isis"
-headerLine += "," + columnName
-log.info("Calculating data for column: {}".format(columnName))
-fasterPlanetColumn = planetGeocentricLongitudeColumn["Mars"]
-slowerPlanetColumn = planetGeocentricLongitudeColumn["Isis"]
-listOfDataValues = doCalculationsForColumns(listOfDataValues,
-                                            fasterPlanetColumn,
-                                            slowerPlanetColumn)
+## G.Mars/G.Isis
+#columnName = "G.Mars/G.Isis"
+#headerLine += "," + columnName
+#log.info("Calculating data for column: {}".format(columnName))
+#fasterPlanetColumn = planetGeocentricLongitudeColumn["Mars"]
+#slowerPlanetColumn = planetGeocentricLongitudeColumn["Isis"]
+#listOfDataValues = doCalculationsForColumns(listOfDataValues,
+#                                            fasterPlanetColumn,
+#                                            slowerPlanetColumn)
 
 # G.Jupiter/G.TrueNorthNode
 columnName = "G.Jupiter/G.TrueNorthNode"
@@ -664,15 +664,15 @@ listOfDataValues = doCalculationsForColumns(listOfDataValues,
                                             fasterPlanetColumn,
                                             slowerPlanetColumn)
 
-# G.Jupiter/G.Isis
-columnName = "G.Jupiter/G.Isis"
-headerLine += "," + columnName
-log.info("Calculating data for column: {}".format(columnName))
-fasterPlanetColumn = planetGeocentricLongitudeColumn["Jupiter"]
-slowerPlanetColumn = planetGeocentricLongitudeColumn["Isis"]
-listOfDataValues = doCalculationsForColumns(listOfDataValues,
-                                            fasterPlanetColumn,
-                                            slowerPlanetColumn)
+## G.Jupiter/G.Isis
+#columnName = "G.Jupiter/G.Isis"
+#headerLine += "," + columnName
+#log.info("Calculating data for column: {}".format(columnName))
+#fasterPlanetColumn = planetGeocentricLongitudeColumn["Jupiter"]
+#slowerPlanetColumn = planetGeocentricLongitudeColumn["Isis"]
+#listOfDataValues = doCalculationsForColumns(listOfDataValues,
+#                                            fasterPlanetColumn,
+#                                            slowerPlanetColumn)
 
 # G.TrueNorthNode/G.Saturn
 columnName = "G.TrueNorthNode/G.Saturn"
@@ -724,15 +724,15 @@ listOfDataValues = doCalculationsForColumns(listOfDataValues,
                                             fasterPlanetColumn,
                                             slowerPlanetColumn)
 
-# G.TrueNorthNode/G.Isis
-columnName = "G.TrueNorthNode/G.Isis"
-headerLine += "," + columnName
-log.info("Calculating data for column: {}".format(columnName))
-fasterPlanetColumn = planetGeocentricLongitudeColumn["TrueNorthNode"]
-slowerPlanetColumn = planetGeocentricLongitudeColumn["Isis"]
-listOfDataValues = doCalculationsForColumns(listOfDataValues,
-                                            fasterPlanetColumn,
-                                            slowerPlanetColumn)
+## G.TrueNorthNode/G.Isis
+#columnName = "G.TrueNorthNode/G.Isis"
+#headerLine += "," + columnName
+#log.info("Calculating data for column: {}".format(columnName))
+#fasterPlanetColumn = planetGeocentricLongitudeColumn["TrueNorthNode"]
+#slowerPlanetColumn = planetGeocentricLongitudeColumn["Isis"]
+#listOfDataValues = doCalculationsForColumns(listOfDataValues,
+#                                            fasterPlanetColumn,
+#                                            slowerPlanetColumn)
 
 # G.Saturn/G.Chiron
 columnName = "G.Saturn/G.Chiron"
@@ -774,15 +774,15 @@ listOfDataValues = doCalculationsForColumns(listOfDataValues,
                                             fasterPlanetColumn,
                                             slowerPlanetColumn)
 
-# G.Saturn/G.Isis
-columnName = "G.Saturn/G.Isis"
-headerLine += "," + columnName
-log.info("Calculating data for column: {}".format(columnName))
-fasterPlanetColumn = planetGeocentricLongitudeColumn["Saturn"]
-slowerPlanetColumn = planetGeocentricLongitudeColumn["Isis"]
-listOfDataValues = doCalculationsForColumns(listOfDataValues,
-                                            fasterPlanetColumn,
-                                            slowerPlanetColumn)
+## G.Saturn/G.Isis
+#columnName = "G.Saturn/G.Isis"
+#headerLine += "," + columnName
+#log.info("Calculating data for column: {}".format(columnName))
+#fasterPlanetColumn = planetGeocentricLongitudeColumn["Saturn"]
+#slowerPlanetColumn = planetGeocentricLongitudeColumn["Isis"]
+#listOfDataValues = doCalculationsForColumns(listOfDataValues,
+#                                            fasterPlanetColumn,
+#                                            slowerPlanetColumn)
 
 # G.Chiron/G.Uranus
 columnName = "G.Chiron/G.Uranus"
@@ -814,15 +814,15 @@ listOfDataValues = doCalculationsForColumns(listOfDataValues,
                                             fasterPlanetColumn,
                                             slowerPlanetColumn)
 
-# G.Chiron/G.Isis
-columnName = "G.Chiron/G.Isis"
-headerLine += "," + columnName
-log.info("Calculating data for column: {}".format(columnName))
-fasterPlanetColumn = planetGeocentricLongitudeColumn["Chiron"]
-slowerPlanetColumn = planetGeocentricLongitudeColumn["Isis"]
-listOfDataValues = doCalculationsForColumns(listOfDataValues,
-                                            fasterPlanetColumn,
-                                            slowerPlanetColumn)
+## G.Chiron/G.Isis
+#columnName = "G.Chiron/G.Isis"
+#headerLine += "," + columnName
+#log.info("Calculating data for column: {}".format(columnName))
+#fasterPlanetColumn = planetGeocentricLongitudeColumn["Chiron"]
+#slowerPlanetColumn = planetGeocentricLongitudeColumn["Isis"]
+#listOfDataValues = doCalculationsForColumns(listOfDataValues,
+#                                            fasterPlanetColumn,
+#                                            slowerPlanetColumn)
 
 # G.Uranus/G.Neptune
 columnName = "G.Uranus/G.Neptune"
@@ -844,15 +844,15 @@ listOfDataValues = doCalculationsForColumns(listOfDataValues,
                                             fasterPlanetColumn,
                                             slowerPlanetColumn)
 
-# G.Uranus/G.Isis
-columnName = "G.Uranus/G.Isis"
-headerLine += "," + columnName
-log.info("Calculating data for column: {}".format(columnName))
-fasterPlanetColumn = planetGeocentricLongitudeColumn["Uranus"]
-slowerPlanetColumn = planetGeocentricLongitudeColumn["Isis"]
-listOfDataValues = doCalculationsForColumns(listOfDataValues,
-                                            fasterPlanetColumn,
-                                            slowerPlanetColumn)
+## G.Uranus/G.Isis
+#columnName = "G.Uranus/G.Isis"
+#headerLine += "," + columnName
+#log.info("Calculating data for column: {}".format(columnName))
+#fasterPlanetColumn = planetGeocentricLongitudeColumn["Uranus"]
+#slowerPlanetColumn = planetGeocentricLongitudeColumn["Isis"]
+#listOfDataValues = doCalculationsForColumns(listOfDataValues,
+#                                            fasterPlanetColumn,
+#                                            slowerPlanetColumn)
 
 # G.Neptune/G.Pluto
 columnName = "G.Neptune/G.Pluto"
@@ -864,25 +864,25 @@ listOfDataValues = doCalculationsForColumns(listOfDataValues,
                                             fasterPlanetColumn,
                                             slowerPlanetColumn)
 
-# G.Neptune/G.Isis
-columnName = "G.Neptune/G.Isis"
-headerLine += "," + columnName
-log.info("Calculating data for column: {}".format(columnName))
-fasterPlanetColumn = planetGeocentricLongitudeColumn["Neptune"]
-slowerPlanetColumn = planetGeocentricLongitudeColumn["Isis"]
-listOfDataValues = doCalculationsForColumns(listOfDataValues,
-                                            fasterPlanetColumn,
-                                            slowerPlanetColumn)
+## G.Neptune/G.Isis
+#columnName = "G.Neptune/G.Isis"
+#headerLine += "," + columnName
+#log.info("Calculating data for column: {}".format(columnName))
+#fasterPlanetColumn = planetGeocentricLongitudeColumn["Neptune"]
+#slowerPlanetColumn = planetGeocentricLongitudeColumn["Isis"]
+#listOfDataValues = doCalculationsForColumns(listOfDataValues,
+#                                            fasterPlanetColumn,
+#                                            slowerPlanetColumn)
 
-# G.Pluto/G.Isis
-columnName = "G.Pluto/G.Isis"
-headerLine += "," + columnName
-log.info("Calculating data for column: {}".format(columnName))
-fasterPlanetColumn = planetGeocentricLongitudeColumn["Pluto"]
-slowerPlanetColumn = planetGeocentricLongitudeColumn["Isis"]
-listOfDataValues = doCalculationsForColumns(listOfDataValues,
-                                            fasterPlanetColumn,
-                                            slowerPlanetColumn)
+## G.Pluto/G.Isis
+#columnName = "G.Pluto/G.Isis"
+#headerLine += "," + columnName
+#log.info("Calculating data for column: {}".format(columnName))
+#fasterPlanetColumn = planetGeocentricLongitudeColumn["Pluto"]
+#slowerPlanetColumn = planetGeocentricLongitudeColumn["Isis"]
+#listOfDataValues = doCalculationsForColumns(listOfDataValues,
+#                                            fasterPlanetColumn,
+#                                            slowerPlanetColumn)
 
 # H.Mercury/H.Venus
 columnName = "H.Mercury/H.Venus"
@@ -974,15 +974,15 @@ listOfDataValues = doCalculationsForColumns(listOfDataValues,
                                             fasterPlanetColumn,
                                             slowerPlanetColumn)
 
-# H.Mercury/H.Isis
-columnName = "H.Mercury/H.Isis"
-headerLine += "," + columnName
-log.info("Calculating data for column: {}".format(columnName))
-fasterPlanetColumn = planetHeliocentricLongitudeColumn["Mercury"]
-slowerPlanetColumn = planetHeliocentricLongitudeColumn["Isis"]
-listOfDataValues = doCalculationsForColumns(listOfDataValues,
-                                            fasterPlanetColumn,
-                                            slowerPlanetColumn)
+## H.Mercury/H.Isis
+#columnName = "H.Mercury/H.Isis"
+#headerLine += "," + columnName
+#log.info("Calculating data for column: {}".format(columnName))
+#fasterPlanetColumn = planetHeliocentricLongitudeColumn["Mercury"]
+#slowerPlanetColumn = planetHeliocentricLongitudeColumn["Isis"]
+#listOfDataValues = doCalculationsForColumns(listOfDataValues,
+#                                            fasterPlanetColumn,
+#                                            slowerPlanetColumn)
 
 # H.Venus/H.Earth
 columnName = "H.Venus/H.Earth"
@@ -1064,15 +1064,15 @@ listOfDataValues = doCalculationsForColumns(listOfDataValues,
                                             fasterPlanetColumn,
                                             slowerPlanetColumn)
 
-# H.Venus/H.Isis
-columnName = "H.Venus/H.Isis"
-headerLine += "," + columnName
-log.info("Calculating data for column: {}".format(columnName))
-fasterPlanetColumn = planetHeliocentricLongitudeColumn["Venus"]
-slowerPlanetColumn = planetHeliocentricLongitudeColumn["Isis"]
-listOfDataValues = doCalculationsForColumns(listOfDataValues,
-                                            fasterPlanetColumn,
-                                            slowerPlanetColumn)
+## H.Venus/H.Isis
+#columnName = "H.Venus/H.Isis"
+#headerLine += "," + columnName
+#log.info("Calculating data for column: {}".format(columnName))
+#fasterPlanetColumn = planetHeliocentricLongitudeColumn["Venus"]
+#slowerPlanetColumn = planetHeliocentricLongitudeColumn["Isis"]
+#listOfDataValues = doCalculationsForColumns(listOfDataValues,
+#                                            fasterPlanetColumn,
+#                                            slowerPlanetColumn)
 
 # H.Earth/H.Mars
 columnName = "H.Earth/H.Mars"
@@ -1144,15 +1144,15 @@ listOfDataValues = doCalculationsForColumns(listOfDataValues,
                                             fasterPlanetColumn,
                                             slowerPlanetColumn)
 
-# H.Earth/H.Isis
-columnName = "H.Earth/H.Isis"
-headerLine += "," + columnName
-log.info("Calculating data for column: {}".format(columnName))
-fasterPlanetColumn = planetHeliocentricLongitudeColumn["Earth"]
-slowerPlanetColumn = planetHeliocentricLongitudeColumn["Isis"]
-listOfDataValues = doCalculationsForColumns(listOfDataValues,
-                                            fasterPlanetColumn,
-                                            slowerPlanetColumn)
+## H.Earth/H.Isis
+#columnName = "H.Earth/H.Isis"
+#headerLine += "," + columnName
+#log.info("Calculating data for column: {}".format(columnName))
+#fasterPlanetColumn = planetHeliocentricLongitudeColumn["Earth"]
+#slowerPlanetColumn = planetHeliocentricLongitudeColumn["Isis"]
+#listOfDataValues = doCalculationsForColumns(listOfDataValues,
+#                                            fasterPlanetColumn,
+#                                            slowerPlanetColumn)
 
 # H.Mars/H.Jupiter
 columnName = "H.Mars/H.Jupiter"
@@ -1214,15 +1214,15 @@ listOfDataValues = doCalculationsForColumns(listOfDataValues,
                                             fasterPlanetColumn,
                                             slowerPlanetColumn)
 
-# H.Mars/H.Isis
-columnName = "H.Mars/H.Isis"
-headerLine += "," + columnName
-log.info("Calculating data for column: {}".format(columnName))
-fasterPlanetColumn = planetHeliocentricLongitudeColumn["Mars"]
-slowerPlanetColumn = planetHeliocentricLongitudeColumn["Isis"]
-listOfDataValues = doCalculationsForColumns(listOfDataValues,
-                                            fasterPlanetColumn,
-                                            slowerPlanetColumn)
+## H.Mars/H.Isis
+#columnName = "H.Mars/H.Isis"
+#headerLine += "," + columnName
+#log.info("Calculating data for column: {}".format(columnName))
+#fasterPlanetColumn = planetHeliocentricLongitudeColumn["Mars"]
+#slowerPlanetColumn = planetHeliocentricLongitudeColumn["Isis"]
+#listOfDataValues = doCalculationsForColumns(listOfDataValues,
+#                                            fasterPlanetColumn,
+#                                            slowerPlanetColumn)
 
 # H.Jupiter/H.Chiron
 columnName = "H.Jupiter/H.Chiron"
@@ -1274,15 +1274,15 @@ listOfDataValues = doCalculationsForColumns(listOfDataValues,
                                             fasterPlanetColumn,
                                             slowerPlanetColumn)
 
-# H.Chiron/H.Isis
-columnName = "H.Chiron/H.Isis"
-headerLine += "," + columnName
-log.info("Calculating data for column: {}".format(columnName))
-fasterPlanetColumn = planetHeliocentricLongitudeColumn["Chiron"]
-slowerPlanetColumn = planetHeliocentricLongitudeColumn["Isis"]
-listOfDataValues = doCalculationsForColumns(listOfDataValues,
-                                            fasterPlanetColumn,
-                                            slowerPlanetColumn)
+## H.Jupiter/H.Isis
+#columnName = "H.Jupiter/H.Isis"
+#headerLine += "," + columnName
+#log.info("Calculating data for column: {}".format(columnName))
+#fasterPlanetColumn = planetHeliocentricLongitudeColumn["Jupiter"]
+#slowerPlanetColumn = planetHeliocentricLongitudeColumn["Isis"]
+#listOfDataValues = doCalculationsForColumns(listOfDataValues,
+#                                            fasterPlanetColumn,
+#                                            slowerPlanetColumn)
 
 # H.Chiron/H.Saturn
 columnName = "H.Chiron/H.Saturn"
@@ -1324,15 +1324,15 @@ listOfDataValues = doCalculationsForColumns(listOfDataValues,
                                             fasterPlanetColumn,
                                             slowerPlanetColumn)
 
-# H.Chiron/H.Isis
-columnName = "H.Chiron/H.Isis"
-headerLine += "," + columnName
-log.info("Calculating data for column: {}".format(columnName))
-fasterPlanetColumn = planetHeliocentricLongitudeColumn["Chiron"]
-slowerPlanetColumn = planetHeliocentricLongitudeColumn["Isis"]
-listOfDataValues = doCalculationsForColumns(listOfDataValues,
-                                            fasterPlanetColumn,
-                                            slowerPlanetColumn)
+## H.Chiron/H.Isis
+#columnName = "H.Chiron/H.Isis"
+#headerLine += "," + columnName
+#log.info("Calculating data for column: {}".format(columnName))
+#fasterPlanetColumn = planetHeliocentricLongitudeColumn["Chiron"]
+#slowerPlanetColumn = planetHeliocentricLongitudeColumn["Isis"]
+#listOfDataValues = doCalculationsForColumns(listOfDataValues,
+#                                            fasterPlanetColumn,
+#                                            slowerPlanetColumn)
 
 # H.Saturn/H.Uranus
 columnName = "H.Saturn/H.Uranus"
@@ -1364,15 +1364,15 @@ listOfDataValues = doCalculationsForColumns(listOfDataValues,
                                             fasterPlanetColumn,
                                             slowerPlanetColumn)
 
-# H.Saturn/H.Isis
-columnName = "H.Saturn/H.Isis"
-headerLine += "," + columnName
-log.info("Calculating data for column: {}".format(columnName))
-fasterPlanetColumn = planetHeliocentricLongitudeColumn["Saturn"]
-slowerPlanetColumn = planetHeliocentricLongitudeColumn["Isis"]
-listOfDataValues = doCalculationsForColumns(listOfDataValues,
-                                            fasterPlanetColumn,
-                                            slowerPlanetColumn)
+## H.Saturn/H.Isis
+#columnName = "H.Saturn/H.Isis"
+#headerLine += "," + columnName
+#log.info("Calculating data for column: {}".format(columnName))
+#fasterPlanetColumn = planetHeliocentricLongitudeColumn["Saturn"]
+#slowerPlanetColumn = planetHeliocentricLongitudeColumn["Isis"]
+#listOfDataValues = doCalculationsForColumns(listOfDataValues,
+#                                            fasterPlanetColumn,
+#                                            slowerPlanetColumn)
 
 # H.Uranus/H.Neptune
 columnName = "H.Uranus/H.Neptune"
@@ -1394,15 +1394,15 @@ listOfDataValues = doCalculationsForColumns(listOfDataValues,
                                             fasterPlanetColumn,
                                             slowerPlanetColumn)
 
-# H.Uranus/H.Isis
-columnName = "H.Uranus/H.Isis"
-headerLine += "," + columnName
-log.info("Calculating data for column: {}".format(columnName))
-fasterPlanetColumn = planetHeliocentricLongitudeColumn["Uranus"]
-slowerPlanetColumn = planetHeliocentricLongitudeColumn["Isis"]
-listOfDataValues = doCalculationsForColumns(listOfDataValues,
-                                            fasterPlanetColumn,
-                                            slowerPlanetColumn)
+## H.Uranus/H.Isis
+#columnName = "H.Uranus/H.Isis"
+#headerLine += "," + columnName
+#log.info("Calculating data for column: {}".format(columnName))
+#fasterPlanetColumn = planetHeliocentricLongitudeColumn["Uranus"]
+#slowerPlanetColumn = planetHeliocentricLongitudeColumn["Isis"]
+#listOfDataValues = doCalculationsForColumns(listOfDataValues,
+#                                            fasterPlanetColumn,
+#                                            slowerPlanetColumn)
 
 # H.Neptune/H.Pluto
 columnName = "H.Neptune/H.Pluto"
@@ -1414,25 +1414,25 @@ listOfDataValues = doCalculationsForColumns(listOfDataValues,
                                             fasterPlanetColumn,
                                             slowerPlanetColumn)
 
-# H.Neptune/H.Isis
-columnName = "H.Neptune/H.Isis"
-headerLine += "," + columnName
-log.info("Calculating data for column: {}".format(columnName))
-fasterPlanetColumn = planetHeliocentricLongitudeColumn["Neptune"]
-slowerPlanetColumn = planetHeliocentricLongitudeColumn["Isis"]
-listOfDataValues = doCalculationsForColumns(listOfDataValues,
-                                            fasterPlanetColumn,
-                                            slowerPlanetColumn)
+## H.Neptune/H.Isis
+#columnName = "H.Neptune/H.Isis"
+#headerLine += "," + columnName
+#log.info("Calculating data for column: {}".format(columnName))
+#fasterPlanetColumn = planetHeliocentricLongitudeColumn["Neptune"]
+#slowerPlanetColumn = planetHeliocentricLongitudeColumn["Isis"]
+#listOfDataValues = doCalculationsForColumns(listOfDataValues,
+#                                            fasterPlanetColumn,
+#                                            slowerPlanetColumn)
 
-# H.Pluto/H.Isis
-columnName = "H.Pluto/H.Isis"
-headerLine += "," + columnName
-log.info("Calculating data for column: {}".format(columnName))
-fasterPlanetColumn = planetHeliocentricLongitudeColumn["Pluto"]
-slowerPlanetColumn = planetHeliocentricLongitudeColumn["Isis"]
-listOfDataValues = doCalculationsForColumns(listOfDataValues,
-                                            fasterPlanetColumn,
-                                            slowerPlanetColumn)
+## H.Pluto/H.Isis
+#columnName = "H.Pluto/H.Isis"
+#headerLine += "," + columnName
+#log.info("Calculating data for column: {}".format(columnName))
+#fasterPlanetColumn = planetHeliocentricLongitudeColumn["Pluto"]
+#slowerPlanetColumn = planetHeliocentricLongitudeColumn["Isis"]
+#listOfDataValues = doCalculationsForColumns(listOfDataValues,
+#                                            fasterPlanetColumn,
+#                                            slowerPlanetColumn)
 
 
 

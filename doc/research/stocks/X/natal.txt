@@ -13,11 +13,16 @@ Jensen, ACSM, pg. 54:
 February 25, 1901
 10:30 am
 Trenton, N.J.
-
 Ascendant: 3 Gemini 21'
 MC: 10 Aquarius 05'
 
 
+
+Cycle Hunter 1, pg. 11:
+February 25, 1901
+Sensitive points on 15-deg axis: 
+1 deg 15 min
+8 deg 30 min
 
 
 
@@ -29,6 +34,23 @@ Notes:
 #######################################
 
 Cycle Hunter 1, pg. 11, talks about U.S. Steel and says that it might be born at 1:15 or 8:30.  (am or pm not given).  I'm not sure if this is referring to the actual natal or perhaps something else.  
+
+[rluu: In WITS post #39059, Joe Schmoe says that 23 deg 24 min is one of US Steel's axis points.  ]
+
+
+Using a time of 1:15 pm, yields:
+Asc.    13 deg 31' Cancer.
+MC:     23 deg 22' Pisces.
+Vertex:  0 deg 15' Sagittarius
+
+Using a time of 8:30 am, yields:
+Asc.    21 deg 06' Aries.
+MC:     11 deg 27' Capricorn.
+Vertex: 08 deg 58' Libra
+
+
+[rluu: On further study, in Cycle Hunter 1, I think he is saying 1 deg 15 min and 8 deg 30 min are the sensitive axis points.]
+
 
 #######################################
 
