@@ -39631,6 +39631,14 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         # minute bars stacked together (to only display active trading hours).
         self.cbotIntradayStackedBarsEnabled = False
 
+        # Flag to enable the conversion algorithm utilizing NYSE intraday
+        # minute bars stacked together (to only display active trading hours).
+        self.nyseIntradayStackedBarsEnabled = False
+
+        # Flag to enable the conversion algorithm utilizing trading
+        # days only.  (Monday through Friday, weekends ignored).
+        self.ignoreWeekendsEnabled = False
+
         # Holds the scaling object which is used for scaling-related
         # calculations.
         self.scaling = PriceBarChartScaling()
@@ -39762,14 +39770,25 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
             elif 0.4264705882352941 <= fractionalPortion < 0.6470588235294118:
                 # In range: [09:30, 13:15).
                 hours = fractionalPortion * totalTradingDayHours
-                partOfDayJd = (2.25 + hours) / 24
+
+                # Numer of hours in range [07:15, 09:30) where no
+                # trading happens.
+                closedMarketDuration = 9.5 - 7.25
+                
+                partOfDayJd = (closedMarketDuration + hours) / 24
                 
                 jd += partOfDayJd
                  
             elif 0.6470588235294118 <= fractionalPortion < 1.0:
                 # In range: [18:00, 24:00).
+
+                # Numer of hours in range [13:15, 18:00) where no
+                # trading happens.
+                closedMarketDuration = 18.0 - 13.25
+                
+                # Hours between 
                 hours = fractionalPortion * totalTradingDayHours
-                partOfDayJd = (2.25 + 4.75 + hours) / 24
+                partOfDayJd = (closedMarketDuration + hours) / 24
 
                 jd += partOfDayJd
                  
@@ -39777,8 +39796,66 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
                 # Should never get here.
                 raise ValueError("Invalid part of day: {}".format(partOfDay))
             
+        elif self.nyseIntradayStackedBarsEnabled == True:
+            # Epoc datetime.
+            # If this is changed, it must match the baseline value
+            # used in julianDayToSceneXPos().
+            baseline = datetime.datetime(year=1968, month=1, day=1,
+                                         hour=0, minute=0, second=0,
+                                         tzinfo=self.timezone)
+            
+            # tradingDay is set to hours in a trading day, as a part of a
+            # whole day.
+            #
+            # Since we get pricebar timestamps at both 9:30 and 16:00,
+            # the total duration we'll use is not quite 6.5 hours, but
+            # one extra minute about that.
+            #
+            # Thus, we use: 6.5 hours * 60 minutes + 1 = 391 minutes.
+            # 
+            # So for the trading day:
+            # (391 minutes / 60) / 24 hours == 0.27152777777777776.
+            tradingDay = 0.27152777777777776
+            totalTradingDayMinutes = (6.5 * 60) + 1
+            totalTradingDayHours = totalTradingDayMinutes / 60.0
+            
+            flooredSceneXPos = math.floor(sceneXPos)
+            fractionalPortion = sceneXPos - flooredSceneXPos
+            
+            td = datetime.timedelta(days=flooredSceneXPos)
+            dt = baseline + td
+            
+            jd = Ephemeris.datetimeToJulianDay(dt)
+
+            # The timestamps of the pricebars are always within the
+            # range: [09:30, 16:01).
+            # This is in range of a day [9.5, 16.00666666666666).
+            hours = fractionalPortion * totalTradingDayHours
+            
+            # Numer of hours in range [00:00, 09:30) where no
+            # trading happens.
+            closedMarketDuration = 9.5 - 0.0
+            
+            partOfDayJd = (closedMarketDuration + hours) / 24
+            
+            jd += partOfDayJd
+            
+        elif self.ignoreWeekendsEnabled == True:
+            # Set an arbitrary Monday at midnight as our epoc.
+            epocDt = datetime.datetime(year=1900, month=1, day=1,
+                                         hour=0, minute=0, second=0,
+                                         tzinfo=self.timezone)
+            epocJd = Ephemeris.datetimeToJulianDay(epocDt)
+
+            # These values are floats.
+            numWeeks = math.floor(sceneXPos / 5)
+            julianDaysFromMondayMidnight = sceneXPos % 5
+
+            # Do conversion to Julian Day.
+            jd = epocJd + (numWeeks * 7) + julianDaysFromMondayMidnight
+            
         else:
-            # Julian day 2159350.5 is Jan 1, 1200.
+            # Julian day 2159350.5 is Jan 1, 1200.  (This is arbitrary.)
             epocOffset = 2159350.5
             jd = sceneXPos + epocOffset
 
@@ -39815,6 +39892,13 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
             fractionOfDayUtcOffset = \
                 ((td.days * 3600 * 24) + td.seconds) / secondsInDay
 
+            # This will yield a value in range [0.0, 1.0), for the
+            # part of the day elapsed.
+            #
+            # The numbers used below are obtained via:
+            # 1.0 day / 24 hours = 0.041666666666666664
+            # 1.0 day / (24 hours * 60 min) = 0.0006944444444444444
+            # 1.0 day / (24 hours * 60 min * 60 secs) = 0.00001157407407407407
             jdOfDayElapsed = \
                 (dt.hour   * 0.041666666666666664) + \
                 (dt.minute * 0.0006944444444444444) + \
@@ -39832,15 +39916,26 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         
             elif 0.3958333333333333 <= partOfDay < 0.5520833333333334:
                 # In range: [09:30, 13:15).
-                hours = (partOfDay - 0.09375) * 24
+
+                # Fractional part of the day that the market is closed.
+                # 2.25 hours out of 24 hours.
+                closedMarketPartOfDay = 2.25 / 24.0
+                
+                hours = (partOfDay - closedMarketPartOfDay) * 24
                 fractionalPortion = hours / totalTradingDayHours
                 
             elif 0.75 <= partOfDay < 1.0:
                 # In range: [18:00, 24:00).
-                hours = (partOfDay - 0.09375 - 0.19791666666666666) * 24
+
+                # Fractional part of the day that the market is closed.
+                # (2.25 hours + 4.75 hours) out of 24 hours.
+                closedMarketPartOfDay = (2.25 + 4.75) / 24.0
+                
+                hours = (partOfDay - closedMarketPartOfDay) * 24
                 fractionalPortion = hours / totalTradingDayHours
                 
             else:
+                # Invalid partOfDay.
                 errMsg = \
                     "Julian day is not within normal trading hours.  " + \
                     "Value given was: {} or {}".\
@@ -39855,8 +39950,124 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
             
             sceneXPos = td.days + fractionalPortion
             
+        elif self.nyseIntradayStackedBarsEnabled == True:
+            # Epoc datetime.
+            # If this is changed, it must match the baseline value
+            # used in sceneXPosToJulianDay().
+            baseline = datetime.datetime(year=1968, month=1, day=1,
+                                         hour=0, minute=0, second=0,
+                                         tzinfo=self.timezone)
+            
+            # tradingDay is set to hours in a trading day, as a part of a
+            # whole day.
+            #
+            # Since we get pricebar timestamps at both 9:30 and 16:00,
+            # the total duration we'll use is not quite 6.5 hours, but
+            # one extra minute about that.
+            #
+            # Thus, we use: 6.5 hours * 60 minutes + 1 = 391 minutes.
+            # 
+            # So for the trading day:
+            # (391 minutes / 60) / 24 hours == 0.27152777777777776.
+            tradingDay = 0.27152777777777776
+            totalTradingDayMinutes = (6.5 * 60) + 1
+            totalTradingDayHours = totalTradingDayMinutes / 60.0
+            
+            dt = Ephemeris.julianDayToDatetime(jd, self.timezone)
+            td = dt.utcoffset()
+            
+            secondsInDay = 86400
+            fractionOfDayUtcOffset = \
+                ((td.days * 3600 * 24) + td.seconds) / secondsInDay
+
+            # This will yield a value in range [0.0, 1.0), for the
+            # part of the day elapsed.
+            #
+            # The numbers used below are obtained via:
+            # 1.0 day / 24 hours = 0.041666666666666664
+            # 1.0 day / (24 hours * 60 min) = 0.0006944444444444444
+            # 1.0 day / (24 hours * 60 min * 60 secs) = 0.00001157407407407407
+            jdOfDayElapsed = \
+                (dt.hour   * 0.041666666666666664) + \
+                (dt.minute * 0.0006944444444444444) + \
+                (dt.second * 0.00001157407407407407)
+            
+            partOfDay = jdOfDayElapsed
+            
+            fractionalPortion = 0.0
+            
+            # Scale up to fill the missing space.
+            if 0.0 <= partOfDay < 0.3958333333333333:
+                # In range: [00:00, 09:30).
+                errMsg = \
+                    "Julian day is not within normal trading hours.  " + \
+                    "Value given was: {} or {}".\
+                    format(jd, Ephemeris.julianDayToDatetime(jd, self.timezone))
+                self.log.error(errMsg)
+                raise ValueError(errMsg)
+                fractionalPortion = 0.0
+            
+            elif 0.3958333333333333 <= partOfDay < 0.6669444444444445:
+                # In range: [09:30, 16:01).
+                
+                # Fractional part of the day that the market is closed.
+                # 9.5 hours out of 24 hours.
+                closedMarketPartOfDay = 9.5 / 24.0
+                
+                hours = (partOfDay - closedMarketPartOfDay) * 24
+                fractionalPortion = hours / totalTradingDayHours
+                
+            elif 0.6669444444444445 <= partOfDay < 1.0:
+                # In range: [16:01, 24:00).
+                errMsg = \
+                    "Julian day is not within normal trading hours.  " + \
+                    "Value given was: {} or {}".\
+                    format(jd, Ephemeris.julianDayToDatetime(jd, self.timezone))
+                self.log.error(errMsg)
+                raise ValueError(errMsg)
+                fractionalPortion = 0.0
+            else:
+                # Invalid partOfDay.
+                errMsg = \
+                    "Julian day is not within normal trading hours.  " + \
+                    "Value given was: {} or {}".\
+                    format(jd, Ephemeris.julianDayToDatetime(jd, self.timezone))
+                self.log.error(errMsg)
+                raise ValueError(errMsg)
+                fractionalPortion = 0.0
+            
+            dt = Ephemeris.julianDayToDatetime(jd, self.timezone)
+            dt = dt.replace(hour=0, minute=0, second=0, microsecond=0)
+            td = dt - baseline
+            
+            sceneXPos = td.days + fractionalPortion
+            
+        elif self.ignoreWeekendsEnabled == True:
+            # Set an arbitrary Monday at midnight as our epoc.
+            epocDt = datetime.datetime(year=1900, month=1, day=1,
+                                         hour=0, minute=0, second=0,
+                                         tzinfo=self.timezone)
+            epocJd = Ephemeris.datetimeToJulianDay(epocDt)
+            
+            
+            julianDaysFromMondayMidnight = jd - epocJd
+            
+            numWeeks = math.floor(julianDaysFromMondayMidnight / 7)
+            tradingDaysFromMondayMidnight = julianDaysFromMondayMidnight % 7
+            
+            if tradingDaysFromMondayMidnight >= 5:
+                errMsg = \
+                    "Julian day is not a weekday trading day (M-F).  " + \
+                    "Value given was: {} or {}".\
+                    format(jd, Ephemeris.datetimeToDayStr(\
+                    Ephemeris.julianDayToDatetime(jd, self.timezone)))
+                self.log.error(errMsg)
+                raise ValueError(errMsg)
+            
+            sceneXPos = (numWeeks * 5) + tradingDaysFromMondayMidnight
+            
         else:
-            # Julian day 2159350.5 is Jan 1, 1200.
+            # Julian day 2159350.5 is Jan 1, 1200.  (This is arbitrary.)
             epocOffset = 2159350.5
             sceneXPos = jd - epocOffset
             
@@ -40015,6 +40226,9 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         given scaled value.
         """
 
+        birthDatetime = self.getBirthDatetime()
+        birthJd = Ephemeris.datetimeToJulianDay(birthDatetime)
+        
         jdDiff = scaledValue * self.scaling.getUnitsOfTime()
         jd = birthJd + jdDiff
         
@@ -40146,14 +40360,14 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
 
         # Instead, we will just do the multiply ourselves, manually,
         # and not use the ephemeris.
-
+        
         # Determine the scaled X value.
         birthDatetime = self.getBirthDatetime()
         birthJd = Ephemeris.datetimeToJulianDay(birthDatetime)
         currJd = self.sceneXPosToJulianDay(sceneX)
         jdDiff = currJd - birthJd
         scaledX = jdDiff / self.scaling.getUnitsOfTime()
-
+        
         # Determine the scaled Y value.
         scaledY = sceneY / self.scaling.getUnitsOfPrice()
         
@@ -40179,22 +40393,23 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
         # we get an exception when using high scaling values:
         #
         # ValueError: year is out of range
-        
+        #
         #dt = self.convertScaledValueToDatetime(scaledX)
         #price = self.convertScaledValueToPrice(scaledY)
         #sceneX = self.datetimeToSceneXPos(dt)
         #sceneY = self.priceToSceneYPos(price)
-
+        
         # Instead, we will just do the multiply ourselves, manually,
         # and not use the ephemeris.
-
+         
         # Determine the scene X value.
         birthDatetime = self.getBirthDatetime()
         birthJd = Ephemeris.datetimeToJulianDay(birthDatetime)
         jdDiff = scaledX * self.scaling.getUnitsOfTime()
         jd = birthJd + jdDiff
+        
         sceneX = self.julianDayToSceneXPos(jd)
-
+         
         # Determine the scene Y value.
         sceneY = self.convertScaledValueToPrice(scaledY)
         
