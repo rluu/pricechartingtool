@@ -197,7 +197,7 @@ Jensen says after this low, there is nothing to stop the uptrend until 1946. [pg
 
 Adverse or negative aspects between Jupiter, Saturn and Uranus depress, in one form or another, business activity and markets.  A conjunction involving Saturn is notably severe.  Such an event occurred when Jupiter was conjunct Saturn early in 1941 and then the saturn Uranus conjunction in 1942.  Relief from these depressing factors began to wane (angle relationships widened) as soon as the conjunction became completed.  Late in May 1942, Jupiter was approaching 26 deg away from Saturn, a bullish index, with little of bearish importance until 90 deg difference between Jupiter and Saturn appears.  It occurs May 5th, 1946, whcih approximates the high in markets since 1942.  From early 1946, factors were sustaining but not bullish until 1949, etc. [pg. 78].
 
-Jensen mentions static cycle lengths that the mainstream cyclists find that is really connected to the cycle of the Moon's North Node [pg. 78]:
+Jensen mentions static cycle lengths that are averages, but acceptable by mathematical standards.  Jensen says the core is apparent in the cycle of the Moon's North Node. [pg. 78]:
   41-43 month cycle
   4.5 year
   9 year
@@ -205,12 +205,12 @@ Jensen mentions static cycle lengths that the mainstream cyclists find that is r
   18 year
   54 year (3 * 18 year)
 
-Next, we would proceed and get into Ingress and Lunation charts, the part of Parallels and the details fo interpretive method.  [pg. 78].
+Next, we would proceed and get into Ingress and Lunation charts, the part of Parallels and the details of interpretive method.  [pg. 78].
 
 General process of the 'Over-Simplified' method.  [pg. 78].
 1) First, scan the ephemeris positions for the period involved to note the interaction of Uranus, Saturn, Jupiter and the Node.  
 2) Then we trasnlate the positions into sign-house and house-sign notes.  
-3) We can stop there and record when interaction occurs at critical angles of favorable and unfavorable aspects.  
+3) We can stop there and RECORD WHEN interaction occurs at critical angles of favorable and unfavorable aspects.  
 4) Then a trend prospect can be concluded.  
 
 Recap of the steps for estimating market trends [pg. 82]:
@@ -499,7 +499,7 @@ Most of the tentative cycle rhythms usually relate to the following geocentric p
 
 See also, section of notes on commodity markets.  
 
-Jensen mentions static cycle lengths that the mainstream cyclists/statistics find that is really connected to the cycle of the Moon's North Node [pg. 78]:
+Jensen mentions static cycle lengths that are averages, but acceptable by mathematical standards.  Jensen says the core is apparent in the cycle of the Moon's North Node. [pg. 78]:
   - 41-43 month cycle
   - 4.5 year
   - 9 year
