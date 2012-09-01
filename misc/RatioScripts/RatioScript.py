@@ -34,11 +34,13 @@ VERSION = "0.1"
 global options
 global roots
 global powers
+global fractionalRatios
 global musicalRatios
 global numbers
 
 roots = list()
 powers = list()
+fractionalRatios = list()
 musicalRatios = list()
 numbers = list()
 
@@ -104,6 +106,20 @@ def getSpecialPowers(begin, end):
         reciprocal = 1 / value
         reciprocalDesc = "1 / pow(phi, {})".format(power)
         powers.append(Power(reciprocal, reciprocalDesc))
+
+def getFractionalRatios():
+    global fractionalRatios
+
+    # Septimal ratios.
+    begin = 1
+    end = 7
+    denominator = 7
+    
+    for i in range(begin, end):
+        value = i / denominator
+        valueDesc = "{} / {}".format(i, denominator)
+        
+        fractionalRatios.append(Number(value, valueDesc))
 
 def getMusicalRatios():
     global musicalRatios
@@ -391,6 +407,7 @@ for i in range(1, 7):
 for i in range(1, 7):
     getPowers(i, 1, 64)
 getSpecialPowers(1, 64)
+getFractionalRatios()
 getMusicalRatios()
 
 # Append results to 'numbers' list.
@@ -398,6 +415,8 @@ for root in roots:
     numbers.append(root)
 for power in powers:
     numbers.append(power)
+for ratio in fractionalRatios:
+    numbers.append(ratio)
 for ratio in musicalRatios:
     numbers.append(ratio)
 
@@ -408,3 +427,5 @@ closestNumbers = findClosestNumbers(numToCompare, numNumbersToReturn)
 print("Closest numbers to {} are: ".format(numToCompare))
 for num in closestNumbers:
     print(num.toString())
+
+##############################################################################

@@ -298,6 +298,17 @@ if (options.version == True):
     print("By Ryan Luu, ryanluu@gmail.com")
     sys.exit(0)
 
+if not options.JustIntonationIntervals and \
+   not options.JustIntonationIntervalsInverted and \
+   not options.PythagoreanIntervals and \
+   not options.PythagoreanIntervalsInverted:
+
+    # No options were given.  
+    print("ERROR: No options were given.")
+    print("Please use the --help option for usage information.")
+    sys.exit(1)
+
+
 if (options.JustIntonationIntervals == True):
     # Clear out values in musicalRatios list.
     musicalRatios = list()
