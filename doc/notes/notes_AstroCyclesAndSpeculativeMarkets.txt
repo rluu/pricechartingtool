@@ -456,7 +456,7 @@ Precession of the equinoxes 25,920 years, or 1 sign in 2,160 years [pg. 10].
 Planet revolutions [pg. 10]::
   Earth:              365 days 7 hours.
   Mercury:             88 days
-  Venus:              244 days
+  Venus:              224 days
   Mars:       1 year  322 days
   Jupiter:   11 years 314 days
   Saturn:    29 years 167 days
