@@ -26,15 +26,15 @@ Desire is the root of all action, and is the fire that, acting on the fluidic bo
 pg. 17, 18
 Significance is attached to the numbers 3, 7, 12, and multiples of these, in all theologies.  
 
-By a number of deft manipulations of figures, the Rabbinical experts were able to read an entirely new and mystical meaning into the Hebrew Scripture, and this they embodied in a work which was called Zohar.  But whereas they made use of three distinct forms of computation, they were faithful to the text and to the traditional values of the Hebrew letters, and also to their methods, so that it is surprising they should have evolved so perfect a system.  
+By a number of deft manipulations of figures, the Rabbinical experts were able to read an entirely new and mystical meaning into the Hebrew Scripture, and this they embodied in a work which was called "Zohar".  But whereas they made use of three distinct forms of computation, they were faithful to the text and to the traditional values of the Hebrew letters, and also to their methods, so that it is surprising they should have evolved so perfect a system.  
 
 pg. 18
 
 It is open to us to believe either that the authors of the Scriptures deliberately planned the glyph and communicated the key to the Kabala, or that the writing of the Scripture was effected under the operation of the Law of Mind, which finds its interpretation in the mystical science of numbers.  
 
-Having given a permanent value to the letters of the alphabet, teh consistent Kabalist proceededby three methods to give a new value to every word or group of letters, adn thus a new meaning to every sentence.  
+Having given a permanent value to the letters of the alphabet, the consistent Kabalist proceededby three methods to give a new value to every word or group of letters, adn thus a new meaning to every sentence.  
 
-By the 'Notaricon' method, he extracted the letters from teh beginning of words, from the ends of words and by a regular sequence thus obtained certain letters which, being brought together and divided into words, gave a new sentence that was not only intelligible in itself, but highly pertinent to the meaning of the text from which it was drawn.  
+By the 'Notaricon' method, he extracted the letters from the beginning of words, from the ends of words and by a regular sequence thus obtained certain letters which, being brought together and divided into words, gave a new sentence that was not only intelligible in itself, but highly pertinent to the meaning of the text from which it was drawn.  
 
 By 'Gemetria', he gave a value to each letter in a word and then reduced the whole word to its unit value, dealing thus successively with the words of the text, so that finally he had a number of figures which, being converted into letters gave an oracular key to the meaning of the text.  
 
@@ -182,7 +182,244 @@ They are found to have direct relation to the nature of our thought by their cor
 
 pg. 48
 
-What we know in science as the law of periodicity is but another instance of the rhythmic sequence of vibrations, another name for teh Kabalistic doctrine of numerical sequence.  [rluu: TODO:  Start taking notes from here.]
+Nature is subject to the law of numerical sequence.  Numbers, or their sound equivalents follow one another in rotation.  
+
+The law of periodicity is but another instance of the rhythmic sequence of vibrations, another name for the Kabalistic doctrine of numerical sequence.  
+
+In astronomy, we have a law of cycles by which the orderly sequence of celestial phenomena can be followed.
+
+Metonic Cycle: 19 years, lunations will recur.
+
+Saros: 18 years 10-11 days, enables us to trace the sequence of eclipses. 
+
+649 years, gives us the entire range of all eclipses, and after this period, they recur in the same order and in teh same part of the zodiac.  
+
+pg. 48, 49
+
+Cycles or series of changes in man are proportional to his average span of years.  Whereas Nature has cycle of 870 years, man has one of 8.7 years [rluu: The dot/period in "8.7" is at the middle of the line in the text.]
+
+pg. 49
+
+The Egyptian Alfridary is described:
+
+They divided the stream of life into two branches called Sun and Moon, or the Light and Dark Paths.  If a child is born during the daytime, he is under the influence of the Sun and follows the Sun Path; but if born at night he follows the Moon Path.  Daytime is understood as the period from sunrise to sunset, and night is the period from sunset to sunrise.  Then they divide the life into periods of five years each, which they set under the planets in their Chaldean order, and from the combined action of the two sets of planetary influence, the Solar and hte Lunar, they determine certain climacteric periods in the life of the child then born.  The table of the Sun and Moon Paths, showing the ages at which the planets rule according the Egyptian scheme is shown on page 50.  
+
+Years 1, 4, 8, 11, 15, 18, 22, etc., are formative and creative, involving organic changes.  
+Years 5, 7, 12, 14, 19, 21, etc., are chaotic and destructive.  
+Years 8, 13, 20, etc., are increscent and beneficial.  
+
+
+pg. 50, 51
+
+Seven Ages of Man (successive periods of 4, 8, 10, 19, 15, 12, and 30 years, in the order of planet velocities):
+
+     1 -  4 years: Childhood     : Variablility : Moon
+     4 - 12 years: Schooling     : Knowledge    : Mercury
+    12 - 22 years: Courtship     : Love         : Venus
+    22 - 41 years: Ambition      : Virility     : Sun
+    41 - 56 years: Concentration : Intensity    : Mars
+    56 - 68 years: Fulfilment    : Maturity     : Jupiter
+    68 - 98 years: Decline       : Senility     : Saturn
+
+
+pg. 51
+
+All the phenomena of life answers to numerical sequenece.  
+
+pg. 52
+
+The eidophone and phonograph produce definite records of sound, and it has been found that the same forms are constantly reproduced from the same sounds.  
+
+pg. 53
+
+The whole of visible Nature is an embodiment of vibrations, and the ancient belief was that the first forms were produced by the Logos or Word, by which all things were created.  "And God said: Let there be ----, and it was so."
+
+pg. 53, 54
+
+The semaphore and helioscope are less in vogue than the telephone and phonograph, and they are very clumsy in comparison with them.  
+
+pg. 54
+
+In regards to feeling, which in effect is all there is of life, or in it, the language of music and hte language of words are of equal value.  
+
+pg. 55
+
+The natural scale bears a definite relation to cosmical factors, between sound, color and number.
+
+Planet:      Note:    Color:    Number:
+--------     -----    ------    -------
+Saturn       D        Indigo    8
+Jupiter      B        Violet    3
+Mars         G        Red       9
+Sun          C        Orange    1 or 4
+Venus        A        Blue      6
+Mercury      E        Yellow    5
+Moon         F        Green     7 or 2
+
+
+Sepharial says the values above differ from the ones given in Kabala 1.  The values here in Kabala 2 is correct in regard to the primary relations of color and number.
+
+pg. 58
+
+Color, form, etc., have no qualities per se, but it is we who invest them with qualities because of the influence they exert upon our emotions.  Music is simply a series of rhythmic vibrations, but can move us emotionally.  
+
+pg. 59
+
+Ptolemy, in his "Tetrabliblos", says tha thte Moon governs the natural or animal soul and Mercury the human or rational soul, the "epithemia" and "phren" of the Greek classification.
+
+pg. 60
+
+Hermes and Aphrodite, Mercury and Venus, unite to form hermaphrodite, or natural man.  
+
+pg. 61
+
+By the alchemy of the mind, represented by Hermetic Art, we transmute feeling into thought and thought into feeling.  It is through the intelligence principle, therefore, that number as represented by Mercury is capable of a direct correspondence with feeling.  The number of Mercury is 5, and it is the Nature-number which stands for embodied humanity.  
+
+Moon (negative): 2
+Moon (positive): 7
+
+Moon when conjunction with Sun ==> Negative : 2
+Moon when opposition  to   Sun ==> Positive : 7
+
+pg. 62
+
+The number of the Moon, being 2, it denotes relativity, vacillation, change; but as 7 it denotes fullness, stability.  
+
+The Moon's body was called "Lebenah" by the Hebrews, the soul of it was "Gebur" -- one being "the fair", and the other "the strong".  
+
+pg. 62, 63
+
+In the Kabalists interpretation:
+
+Egypt is the physical body (Capricorn = Saturn), the House of Bondage and darkness.
+
+The wilderness is the period of probation in the world. 
+
+The Hivites, Perizzites, Gergashites, Jebuzites, and Amalekites are the various passions and evil principles that "he who would prevail" (Israel) has to overcome before he can pass through the baptism of Jordan (yar-din), or River of Spiritual Knowledge, and enter the Promised Land of his spiritual heritage.  
+
+Therefore, in the Yetzirah, or Transformations, they trace man through the cadence of his incarnations from the Sun (the spiritual state) to Saturn (the state of spiritual darkenss), and then back again from Saturn to the Sun.  
+
+pg. 64
+
+Scheme of correspondences in diagram form is given on this page.  
+
+Saturn (indigo), Mars (red), Jupiter (violet).
+Venus (blue), Mercury (yellow), Moon (green).
+
+
+pg. 64, 65
+
+Sepharial gives Hindu relationships of Prajapatis/Lords and Shaktis/female counterparts:
+
+Brahma : Jupiter
+Vishnu : Mars
+Shiva  : Saturn
+
+Saraswati : Mercury
+Lakshmi   : Venus
+Parvati   : Moon
+
+pg. 66
+
+Scheme presented of colors and numbers in relation to Thought and Feeling:
+
+Jupiter : Violet : 3 -- Hope, optimism, expansion.
+Saturn  : Indigo : 8 -- Contemplation, philosophy.
+Venus   : Blue   : 6 -- Purity, spirituality, peace.
+Moon    : Green  : 2 -- Sensation, variability.
+Mercury : Yellow : 5 -- Mind, intellection, perception.
+Sun     : Orange : 4 -- Vitality, force.
+Mars    : Red    : 9 -- Zeal, energy, intensity.
+
+pg. 67
+
+Number is more immediately connected with science.
+Color is more immediately connected with art.
+
+Therefore:
+Science (Mercury) is considered as masculine and exterior.
+Art (Venus) is considered as feminine and interior.
+
+pg. 68
+
+Bringing color and number into line with what has been observed regarding sound, the correspondence of primaries is:
+
+Planet:      Note:    Color:    Number:
+--------     -----    ------    -------
+Sun          C        Orange    1 or 4
+Saturn       D        Indigo    8
+Mercury      E        Yellow    5
+Moon         F        Green     7 or 2
+Mars         G        Red       9
+Venus        A        Blue      6
+Jupiter      B        Violet    3
+
+
+[rluu: This is the same as given on page 55.]
+
+pg. 70
+
+Scale of Correspondences, showing the related pairs of principles on the Divine, spiritual and human planes: 
+
+    Life
+    Wisdom -- Love
+    Volition
+    Truth -- Charity
+    Desire
+    Knowledge -- Affection
+    Thought -- Feeling
+    Speech -- Action
+    Character
+
+pg. 71
+
+I [Sepharial] have already shown in Kabala I, chapter 4, that man answers to a certain numerical plan known as the "Square of Three".  He is embodied cosmos, and, being compounded of cosmic elements, he responds to the planets of the solar system, and to the numbers, colors, sounds, and forms associated with them. 
+
+pg. 72
+
+The sign occupied by the Moon at the birth of a person is that which, by its planetary and numerical affinity, controls or determins the particular charactertic that is dominant in that person. 
+
+pg. 73
+
+Aries and Scorpio, signs of Mars, answer to number 9.
+Taurus and Libra, signs of Venus, answer to number 6.
+Gemini and Virgo, signs of Mercury, answer to number 5.
+Cancer, sign of Moon, answer to numbers 2 and 7.
+Leo, sign of Sun, answer to numbers 1 and 4.
+Sagittarius and Pisces, signs of Jupiter, answer to number 3.
+Capricorn and Aquarius, signs of Saturn, answer to number 8.
+
+pg. 73-76
+
+Sepharial applies these numbers to the sign location of the Moon at birth.  In the examples, he is doing the following:
+
+1) Sepharial looks at the sign that the Moon is in for the first number.
+2) Sepharial looks at the sign that the despositor of the Moon is in for the second number.  
+
+Both these numbers have influence according to the qualities of the number (and the corresponding planet for that number).
+
+pg. 76, 77.
+
+3) For the third number, Sepharial adds the Moon number to the first two numbers, and reduces.  He only does this if the Moon sign is not in its own sign.  If it is in it's own sign then only the Moon's number is taken as the number.  
+
+pg. 77
+
+The planets which hold the four angles of a horoscope (Midheaven, Ascendant, Descendant, and Nadir), have the most marked effect on the character and destiny of individuals.
+
+pg. 81
+
+Saturn 8, rules Capricorn; and the Moon 2, rules Cancer, the opposite sign.  Similarly, we have the dark blue of Saturn opposed to the yellow of the Moon.
+
+[rluu: Here it appears Sepharial is now talking about planet colors.]
+
+pg. 82
+
+Table of Planetary Variants is given.
+
+pg. 83
+
+
+[rluu: TODO:  Start taking notes from here.]
 
 
 ##############################################################################
