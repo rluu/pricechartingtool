@@ -108,21 +108,129 @@ def shutdown(rc):
     sys.exit(rc)
 
 
-def doCalculationsForColumns(listOfDataValues,
-                             fasterPlanetColumn,
-                             slowerPlanetColumn):
-    """Does a calculation using the formula:
+def doCalculationsForColumn(listOfDataValues,
+                            planetColumn):
+    """Calculations for single-planet movement.  This method can work for
+    both geocentric and heliocentric planet longitude.
+    The data values computed are for a column of data in the spreadsheet.
     
-      (faster planet) + 360 - (slower planet).
+    The data in this column is the planet longitude such that the
+    values have a 360 degrees added each time the longitude crosses 0 from
+    below to above, and 360 degrees removed each time the longitude crosses
+    0 from above to below.  That way the formula can work for both
+    geocentric and heliocentric longitudes.
 
-    The result is then placed as text into 'listOfDataValues' in an
+    The calculated value is placed as text into 'listOfDataValues' in an
     appended column.
+
+    Arguments:
+    listOfDataValues - list of lists.  Each item in the list is a row of data.
+
+    planetColumn - int value holding the column number (index value)
+                   of the planet to do calculations for.  Input values are
+                   read from this column.
     
     Returns:
     Reference to the modified 'listOfDataValues'.
     """
     
     # Holds the calculated value for the previous row.
+    # This is needed so we can determine if we crossed 360 degrees,
+    # and in what direction we crossed it.
+    prevCalculatedValue = None
+    
+    # Values increasing or decreasing day to day, should not exceed this value.
+    maximumIncrement = 330
+
+    
+    for i in range(len(listOfDataValues)):
+
+        log.debug("Curr timestamp is: {}".format(listOfDataValues[i][0]))
+        
+        planetLongitude = float(listOfDataValues[i][planetColumn])
+        
+        log.debug("planetLongitude == {}".format(planetLongitude))
+        
+        currCalculatedValue = planetLongitude
+        
+        log.debug("prevCalculatedValue == {}".format(prevCalculatedValue))
+        log.debug("currCalculatedValue == {}".format(currCalculatedValue))
+        
+        # See if we need to make any adjustments to the calculated value.
+        if prevCalculatedValue == None:
+            # No need for any adjustment.
+            pass
+            
+        elif prevCalculatedValue < currCalculatedValue - maximumIncrement:
+            # Adjustment required.
+            while prevCalculatedValue < currCalculatedValue - maximumIncrement:
+                currCalculatedValue -= 360.0
+            
+        elif prevCalculatedValue >= currCalculatedValue + maximumIncrement:
+            # Adjustment required.
+            while prevCalculatedValue >= currCalculatedValue + maximumIncrement:
+                currCalculatedValue += 360.0
+
+        else:
+            # Adjustment not required.
+            pass
+
+        log.debug("After adj.: prevCalculatedValue == {}".\
+                  format(prevCalculatedValue))
+        log.debug("After adj.: currCalculatedValue == {}".\
+                  format(currCalculatedValue))
+        
+
+        # Any required adjustments should have now been made.
+        
+        # Store the result as text.
+        listOfDataValues[i].append("{}".format(currCalculatedValue))
+        
+        # Save the calculated value for the next iteration.
+        prevCalculatedValue = currCalculatedValue
+        currCalculatedValue = None
+        
+    return listOfDataValues
+
+    
+def doCalculationsForColumns(listOfDataValues,
+                             fasterPlanetColumn,
+                             slowerPlanetColumn):
+    """Does a calculation for a 2-planet combination.  This function
+    works for both geocentric and heliocentric.
+
+    The generic formula used is:
+    
+      (faster planet) + 360 - (slower planet).
+
+    The result is then placed as text into 'listOfDataValues' in an
+    appended column.
+
+    The data in this column is the 2-planet longitude calculation such
+    that the values have a 360 degrees added each time the computed
+    longitude value crosses 0 from below to above, and 360 degrees
+    removed each time the computed longitude value crosses 0 from
+    above to below.  That way the formula can work for both
+    geocentric and heliocentric.
+
+    Arguments:
+    listOfDataValues - list of lists.  Each item in the list is a row of data.
+
+    fasterPlanetColumn - int value holding the column number (index value)
+                         of the faster-moving planet.  Input values are
+                         read from this column.
+    
+    slowerPlanetColumn - int value holding the column number (index value)
+                         of the faster-moving planet.  Input values are
+                         read from this column.
+    
+    Returns:
+    Reference to the modified 'listOfDataValues'.
+    """
+    
+    # Holds the calculated value for the previous row.
+    # This is needed so we can determine if we crossed 360 degrees,
+    # and in what direction we crossed it.
     prevCalculatedValue = None
     
     # Values increasing or decreasing day to day, should not exceed this value.
@@ -162,7 +270,7 @@ def doCalculationsForColumns(listOfDataValues,
                 currCalculatedValue += 360.0
 
         else:
-            # Typical case.  Adjustment not required.
+            # Adjustment not required.
             pass
 
         log.debug("After adj.: prevCalculatedValue == {}".\
@@ -223,6 +331,198 @@ except IOError as e:
 
 # Do each planet combination.
 log.info("Doing planet calculations...")
+
+# G.Moon
+columnName = "G.Moon"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+planetColumn = planetGeocentricLongitudeColumn["Moon"]
+listOfDataValues = doCalculationsForColumn(listOfDataValues,
+                                           planetColumn)
+
+# G.Mercury
+columnName = "G.Mercury"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+planetColumn = planetGeocentricLongitudeColumn["Mercury"]
+listOfDataValues = doCalculationsForColumn(listOfDataValues,
+                                           planetColumn)
+
+# G.Venus
+columnName = "G.Venus"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+planetColumn = planetGeocentricLongitudeColumn["Venus"]
+listOfDataValues = doCalculationsForColumn(listOfDataValues,
+                                           planetColumn)
+
+# G.Sun
+columnName = "G.Sun"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+planetColumn = planetGeocentricLongitudeColumn["Sun"]
+listOfDataValues = doCalculationsForColumn(listOfDataValues,
+                                           planetColumn)
+
+# G.Mars
+columnName = "G.Mars"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+planetColumn = planetGeocentricLongitudeColumn["Mars"]
+listOfDataValues = doCalculationsForColumn(listOfDataValues,
+                                           planetColumn)
+
+# G.Jupiter
+columnName = "G.Jupiter"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+planetColumn = planetGeocentricLongitudeColumn["Jupiter"]
+listOfDataValues = doCalculationsForColumn(listOfDataValues,
+                                           planetColumn)
+
+# G.TrueNorthNode
+columnName = "G.TrueNorthNode"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+planetColumn = planetGeocentricLongitudeColumn["TrueNorthNode"]
+listOfDataValues = doCalculationsForColumn(listOfDataValues,
+                                           planetColumn)
+
+# G.Saturn
+columnName = "G.Saturn"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+planetColumn = planetGeocentricLongitudeColumn["Saturn"]
+listOfDataValues = doCalculationsForColumn(listOfDataValues,
+                                           planetColumn)
+
+# G.Chiron
+columnName = "G.Chiron"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+planetColumn = planetGeocentricLongitudeColumn["Chiron"]
+listOfDataValues = doCalculationsForColumn(listOfDataValues,
+                                           planetColumn)
+
+# G.Uranus
+columnName = "G.Uranus"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+planetColumn = planetGeocentricLongitudeColumn["Uranus"]
+listOfDataValues = doCalculationsForColumn(listOfDataValues,
+                                           planetColumn)
+
+# G.Neptune
+columnName = "G.Neptune"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+planetColumn = planetGeocentricLongitudeColumn["Neptune"]
+listOfDataValues = doCalculationsForColumn(listOfDataValues,
+                                           planetColumn)
+
+# G.Pluto
+columnName = "G.Pluto"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+planetColumn = planetGeocentricLongitudeColumn["Pluto"]
+listOfDataValues = doCalculationsForColumn(listOfDataValues,
+                                           planetColumn)
+
+# G.Isis
+columnName = "G.Isis"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+planetColumn = planetGeocentricLongitudeColumn["Isis"]
+listOfDataValues = doCalculationsForColumn(listOfDataValues,
+                                           planetColumn)
+
+# H.Mercury
+columnName = "H.Mercury"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+planetColumn = planetHeliocentricLongitudeColumn["Mercury"]
+listOfDataValues = doCalculationsForColumn(listOfDataValues,
+                                           planetColumn)
+
+# H.Venus
+columnName = "H.Venus"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+planetColumn = planetHeliocentricLongitudeColumn["Venus"]
+listOfDataValues = doCalculationsForColumn(listOfDataValues,
+                                           planetColumn)
+
+# H.Earth
+columnName = "H.Earth"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+planetColumn = planetHeliocentricLongitudeColumn["Earth"]
+listOfDataValues = doCalculationsForColumn(listOfDataValues,
+                                           planetColumn)
+
+# H.Mars
+columnName = "H.Mars"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+planetColumn = planetHeliocentricLongitudeColumn["Mars"]
+listOfDataValues = doCalculationsForColumn(listOfDataValues,
+                                           planetColumn)
+
+# H.Jupiter
+columnName = "H.Jupiter"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+planetColumn = planetHeliocentricLongitudeColumn["Jupiter"]
+listOfDataValues = doCalculationsForColumn(listOfDataValues,
+                                           planetColumn)
+
+# H.Saturn
+columnName = "H.Saturn"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+planetColumn = planetHeliocentricLongitudeColumn["Saturn"]
+listOfDataValues = doCalculationsForColumn(listOfDataValues,
+                                           planetColumn)
+
+# H.Chiron
+columnName = "H.Chiron"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+planetColumn = planetHeliocentricLongitudeColumn["Chiron"]
+listOfDataValues = doCalculationsForColumn(listOfDataValues,
+                                           planetColumn)
+
+# H.Uranus
+columnName = "H.Uranus"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+planetColumn = planetHeliocentricLongitudeColumn["Uranus"]
+listOfDataValues = doCalculationsForColumn(listOfDataValues,
+                                           planetColumn)
+
+# H.Neptune
+columnName = "H.Neptune"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+planetColumn = planetHeliocentricLongitudeColumn["Neptune"]
+listOfDataValues = doCalculationsForColumn(listOfDataValues,
+                                           planetColumn)
+
+# H.Pluto
+columnName = "H.Pluto"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+planetColumn = planetHeliocentricLongitudeColumn["Pluto"]
+listOfDataValues = doCalculationsForColumn(listOfDataValues,
+                                           planetColumn)
+
+# H.Isis
+columnName = "H.Isis"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+planetColumn = planetHeliocentricLongitudeColumn["Isis"]
+listOfDataValues = doCalculationsForColumn(listOfDataValues,
+                                           planetColumn)
 
 # G.Mercury/G.Venus
 columnName = "G.Mercury/G.Venus"

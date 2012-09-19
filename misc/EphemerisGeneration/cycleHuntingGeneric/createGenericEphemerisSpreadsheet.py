@@ -75,11 +75,21 @@ hourOfDay = 12
 minuteOfHour = 0
 
 
-startDt = datetime.datetime(year=1890, month=1, day=1,
-                            hour=hourOfDay, minute=minuteOfHour, tzinfo=timezone)
+#startDt = datetime.datetime(year=1890, month=1, day=1,
+#                            hour=hourOfDay, minute=minuteOfHour,
+#                            tzinfo=timezone)
+startDt = datetime.datetime(year=1985, month=1, day=1,
+                            hour=hourOfDay, minute=minuteOfHour,
+                            tzinfo=timezone)
 
-endDt   = datetime.datetime(year=1940, month=12, day=31,
-                            hour=hourOfDay, minute=minuteOfHour, tzinfo=timezone)
+
+#endDt   = datetime.datetime(year=1940, month=12, day=31,
+#                            hour=hourOfDay, minute=minuteOfHour,
+#                            tzinfo=timezone)
+endDt   = datetime.datetime(year=2015, month=12, day=31,
+                            hour=hourOfDay, minute=minuteOfHour,
+                            tzinfo=timezone)
+
 
 # Destination output CSV file.
 outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleHuntingGeneric/generic_daily_ephemeris_nyc_noon.csv"
