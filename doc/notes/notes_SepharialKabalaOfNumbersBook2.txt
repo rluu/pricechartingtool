@@ -414,10 +414,321 @@ Saturn 8, rules Capricorn; and the Moon 2, rules Cancer, the opposite sign.  Sim
 
 pg. 82
 
-Table of Planetary Variants is given.
+Table of Planetary Variants is given.  This expresses the polarities between the planets. 
 
 pg. 83
 
+Polarities:
+
+Saturn  is polarized by the Moon.
+Mars    is polarized by the Venus.
+Jupiter is polarized by the Mercury.
+
+This is conveyed by the astrological paradigm of the Seal of Solomon (two triangles interlaced, one of them being inverted).  One triangle represents the spiritual and the other the material.  The positive trigon (upward pointing triangle) is represented by Saturn-Jupiter-Mars, the male planets.  The negative trigon (downward pointing triangle) is represented by Venus-Mercury-Moon, the female planets.  
+
+pg. 84
+
+The vital principle, Sun (4), is the fulcrum of manifestation.
+
+pg. 86
+
+Reference to Emanuel Swedenborg's "Earths of the Universe".
+
+pg. 87, 88
+
+Number series from 0 to 9 is analyzed, reduced similarly to how is done by Numero (numbers reduced downward in a tree-like fashion).  Sepharial notes that in rows, there are certain patterns, and that certain numbers appear, disappear, and re-appear.  
+
+The last two numbers before the final row are 7 and 2, two moon numbers, (positive and negative).  
+
+pg. 88
+
+The number series finally resolves itself to the number 9, which is the symbolical expression of the Adamic race, the 12 x 12 or 144, indicated by the values ADM = 144, according to the Hebraic Kabala.  
+
+pg. 89
+
+Humanity = 9.
+
+Numerical polarizations:
+9 = Sun (positive) 1 + Saturn 8
+9 = Jupiter 3 + Venus 6
+9 = Mercury 5 + Sun (negative) 4
+
+Mars = 9, the tonic of our scale.  
+Moon, the variable factor, 7 (positive) and 2 (negative).
+
+
+pg. 90
+
+10 is regarded as the Perfect Number.
+ 5 is regarded as the number of discrimation, discernment, intellection.
+
+Characteristics of the expression of numbers:
+
+Dignity       1  Pride
+Flexibility   2  Vacillation
+Generosity    3  Extravagance
+Practicality  4  Ostentation
+Discernment   5  Inquisitiveness
+Gentleness    6  Laxity
+Purpose       7  Prejudice
+Discretion    8  Timidity
+Zeal          9  Bigotry
+
+pg. 91-95
+
+Kabala of the Square of Three (3x3) (also mentioned in Kabala I, chap 4) is described.
+
+Examples given for St. Louis, Napoleon I, Milton, Cagliostro, Louis XVI.
+
+pg. 95-98
+
+Sepharial suggests that to be consistent with the use of numbers:
+
+Instead of taking the month of birth as 1 for January, 2 for February, etc., to instead take the value of the planet ruling the sign in which the Sun is at the time.  If the Sun is in Cancer, then 7 is taken for a male birth and 2 is taken for a female birth.  If the Sun is in Leo, then 1 is taken for a male birth and 4 is taken for a female birth.  
+
+Also, to be consistent, we would take the actual day of the week, and use the value of the planet ruling that day.  
+
+
+Days of the week:
+The day of the week begins at noon for each day.
+
+Day       Ruler    Number
+------    -----    ------
+Sunday    Sun      1 when Sun is in odd sign, 4 when Sun is in even sign.
+Monday    Moon     7 when Moon is in odd sign, 2 when Moon is in even sign.
+Tuesday   Mars     9
+Wednesday Mercury  5
+Thursday  Jupiter  3
+Friday    Venus    6
+Saturn    Saturn   8
+
+pg. 98, 99
+
+Sepharial says Sound Value evaluation is satisfactory for names.  Each system has to be employed with its own method of interpretation (you can't mix them).
+
+Hebrew method is employed for the Kabalistic interpretation of the Scripture, as in the Zohar.
+
+pg. 100
+
+A scheme of letters to numbers is given.  
+
+[rluu: My guess is that Sepharial is trying to show the Pythagorean system, but the formatting of the text shows letters not aligned with the numbers.]
+
+Scheme of zodiac signs to letters:
+
+Aries: AN
+Taurus: BO
+Gemini: CP
+Cancer: DQ
+Leo: ER
+Virgo: FS
+Libra: GT
+Scorpio: HU
+Sagittarius: IJVW
+Capricorn: KX
+Aquarius: LY
+Pisces: MZ
+
+pg. 101
+
+In Sepharial's example, Moon is white, Mars is red.  
+
+pg. 103
+
+Law of periodicity.
+
+Particular factors are bound to recur at stated and predictable intervals.  
+
+pg. 104
+
+Two factors given for this argument:  Sun and Moon.
+
+New moon corresponds to Spring Tides.
+Full moon corresponds to Neap Tides.
+
+[rluu: Confirm this.]
+
+
+Common formula is used (in almanacs [for tides?]):   t * (d / 2)
+
+This has a numerical significance which is quite appreciable and has a constant value for the same day of the Moon's age for every month in the year.  
+
+[rluu: What is meant by the "Moon's age"?]
+
+pg. 105
+
+The tidal energy has an equivalent in regard to animate life.  
+
+The Sun maintains approiximately the same relations with a given meridian at the same time each day, but the Moon does not do so, and it is to her variability that the gradual recession of the tides upon a meridian is due.  
+
+Defintion of Elongation: The longitude distance between the Moon and the Sun.
+
+pg. 106
+
+*** VERY IMPORTANT:
+The Moon is the variable factor we must look to in connection with any periodicity.
+
+
+High tide would come at this amount of time (in minutes) after noon:
+
+  (Sun longitude) - (Moon longitude) * 4
+
+Except that there are local disturbing causes.  With these, we are not now concerned.  
+
+[rluu: What are these local disturbing causes?]
+
+pg. 107
+
+Factors:
+
+Division of circle into 12ths (30 deg angles).
+Division of circle into 6ths  (60 deg angles).
+Division of each quadrant into 6 hours and 7 subsections for each hour
+  (4 quadrants * 6 hours * 7 subsections = 168 units).
+  (42 units per quadrant).
+
+[rluu: See the diagram of 2 interleaved triangles (one right-side-up and one inverted).]
+
+
+In taking the relations of the three factors into account and applying the tidal law, we arrive at a periodicity of results that have a direct weight relation to one another.  Sepharial says he won't explain the law further; he has hinted at the method of procedure.
+
+pg. 108
+
+Sunrise time is: Sun's true center rising on the celestial horizon at the location.
+
+[rluu: Sepharial says he gave the incorrect rule for sunrise time calculation in 'Kabala of Numbers, Book 2', page 85.]
+
+pg. 110
+
+[rluu: Sepharial calculates the hour based on the formula: (Noon - Sunrise) / 6.  Then he uses the same hour length for each hour from Noon to Sunset.  Is this correct?  Verify this.]
+
+Each hour divided by 7 to get the subperiods within that hour.  For each hour, the subperiod starts with the same planet as the current hour lord, and proceeds in the Chaldean order (Sun, Venus, Mercury, Moon, Saturn, Jupiter, Mars).
+
+pg. 112, 113
+
+In analyzing the horse races, since the races were all in the afternoon, negative values for periods' lords should be used.  
+
+[For the positive and negative numbers of the planets, see page 90 of 'Kabala of Numbers, Book 1'.]
+
+
+The winning horse has matching phonetic numerical value that is equal to the period's ruling planet's negative number.  In the cases where the rule failed, the winner matched the negative number of the planet in whose sign the ruler of the period is found.  
+
+When the events do not fall into line with this law, the races are won by the number represented by the SIGN the Moon is in.  This is invariably the case when the Moon is the sub-period planet and there is no number 2 present among the competitors.
+
+Negative numbers of the signs:
+
+Aries:        5
+Taurus:       3
+Gemini:       9
+Cancer:       2
+Leo:          4
+Virgo:        9
+Libra:        3
+Scorpio:      5
+Sagittarius:  6
+Capricorn:    1
+Aquarius:     1
+Pisces:       6
+
+
+[rluu: See my hand-written notes and annotations on the printed pages of 'The Law Of Periodicity' from this book.  Some of the race results are not consistent with the rules.]
+
+pg. 115
+
+Another system: Hebrew system rulership.
+
+This system employs the positive numbers of the planets.  
+The Hebrew day starts at Noon and not Sunrise.
+
+The planet giving its name to the day takes rule over the first hour after noon, and is followed in the Chaldean order by the other planets.  
+
+Each hour is 60 minutes.  Each hour is subdivided into 15 parts of 4 minutes each.  The first 4-minute subperiod is ruled by the same planet as the day, and proceeds in the same Chaldean order.  
+
+pg. 116
+
+Table of hours and subperiods of the week, counted from noon each day (per this second Hebrew system):
+
+Day:       Ruler sesquence, by positive number:
+---------  ------------------------------------
+Sunday     1657839  [recurring]
+Monday     7839165  [recurring]
+Tuesday    9165783  [recurring]
+Wednesday  5783916  [recurring]
+Thursday   3916578  [recurring]
+Friday     6578391  [recurring]
+Saturday   8391657  [recurring]
+
+
+
+The technique for analyzing horses uses 3 factors:
+1) Day ruler
+2) Hour ruler
+3) Subperiod ruler.
+
+Add the positive numbers of the ruler for each of the factors.  Then reduce that sum to its unit value.  The winner of the race should have this unit value.  
+
+pg. 117
+
+Results given in the book are in accord, but sometimes the alternate planet for the unit-value planet wins.  
+
+Mars and Moon are alternates.
+Sun and Saturn are alternates.
+
+pg. 118
+
+Hebrew phonetic coding is used for converting the name to numbers, and to the single unit value.  
+
+
+Rule exception is noted:
+"Variability" of the moon: Moon's despositor can win the race.
+
+
+It is repeatedly observed that the Moon can win in any period whose mass (tide) value (as above [rluu: above?]) agrees with the planet ruling the sign it is in, as follows:
+
+Aries:        9
+Taurus:       6
+Gemini:       5
+Cancer:       2 / 7
+Leo:          4 / 1
+Virgo:        5
+Libra:        6
+Scorpio:      9
+Sagittarius:  3
+Capricorn:    8
+Aquarius:     8
+Pisces:       3
+
+pg. 119
+
+Correct sunrise time is essential for hour calculations.  
+
+
+Summary of important points in the Chapter on 'The Law of Periodicity':
+
+The three factors (divisions of a circle):
+  Division of circle into 12ths (30 deg angles).
+  Division of circle into 6ths  (60 deg angles).
+  Division of each quadrant into 6 hours and 7 subsections for each hour
+    (4 quadrants * 6 hours * 7 subsections = 168 units).
+    (42 units per quadrant).
+
+Importance of correct sunrise time:
+  Center of Sun rising is taken as sunrise time.
+
+How to divide the day into hours:
+  Sunrise to Noon / 6.
+  Noon to Sunset / 6.
+  Sunset to Midnight / 6.
+  Midnight to Sunrise / 6.
+
+Two different divisions of an hour into subperiods: 
+  - Hour divided into 7 subperiods.
+  - Hour divided into 15 subperiods.
+
+Various rulers of subperiods, their order of ruling, and the numbers related to them.  
+
+
+pg. 120
 
 [rluu: TODO:  Start taking notes from here.]
 

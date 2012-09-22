@@ -76,7 +76,11 @@ Two techniques given for determing the signature of the year:
 
 2) The signature of each year can be obtained by adding the age of the person to the current year.  The value reduced and checked against the Tarot corresponding to that value.  [This technique and examples of it are given on pages 130 and 133].
 
-pg. 41 through 53 showing the use of the 3 by 3 square with numbers, and examples.  [rluu: In the examples, I haven't figured out exactly how he is getting the planets he is getting.  Some of the combinations with planets that I think should be there for the technique I think he is doing, he does not list sometimes.]
+pg. 41 through 53 showing the use of the 3 by 3 square with numbers, and examples.  
+
+[rluu: In the examples, I haven't figured out exactly how he is getting the planets he is getting.  Some of the combinations with planets that I think should be there for the technique I think he is doing, he does not list sometimes.]
+
+[rluu: Sepharial also covers this 3x3 square also in Kabala of Numbers, book 2, on pages 91-95.  Perhaps how the technique works can be gleamed from the examples in this other book.]
 
 pg. 43
 The technique is to take the date on which a person is born, emploing always the date at noon preceding the hour of birth, for this is the true solar date, bing 12 hours behind the secular date.  Thus, 26th June, at 5:40 pm = 26th, while 26th June at 9:00 am === 25th.  
@@ -330,6 +334,8 @@ The order of rulerships of planetary hours is:
 Sun, Venus, Mercury, Moon, Saturn, Jupiter, Mars.
 
 The name of the day (of the week) is ruled by the planet lording of the first hour of that day.
+
+[rluu: Regarding page 85, Sepharial on page 108 of 'Kabala of Numbers, Book 2' says he transposed the rule for sunrise time incorrectly.  See pg. 108 of 'Kabala of Numbers, Book 2' for the correct way to calculate sunrise.]
 
 pg. 89
 
