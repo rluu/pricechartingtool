@@ -7,9 +7,15 @@ Also known as: Cycle Hunter 1
 
 ##############################################################################
 
+pg. 3
+
+The second major item that is holding people back is actually software. The reliance on software. Buying expensive software is definitely the wrong thing to do. People who are truly succeeding with GANN are making their discoveries with little, if any, software. This has been a major issue for years. I have been in a position to observe the patterns of people succeeding against those that are not. People ate genuine successes with little or no software in all cases and I mean all. The correct way to use software is to first find method, and then automate it with the software. There are “levels of success.” I am talking about the “upper levels of success.” Half -measures and systems are good for people who can use them but I am talking about that upper level of success, software is to automate a process. The exception here is charting software to “see” prices and digital ephemeris to check planetary positions.
+
 pg. 4
 
-Your real goal is to understand the cycles working in your makret.  Jensen, Gann, and Bayer all wrote about cycles.  If you do not understand the cycles in your market, then you don't have a chance.  As is explained in Turbo 2, there are different types of cycles.  The cycles work differently and some are tied together.  So your goal is cycles.  It all works off of cycles.  You must understand cycles.  Once you do, doors begin to open up and lights come on.
+TTTA is where Gann's system really is.
+
+Your real goal is to understand the cycles working in your market.  Jensen, Gann, and Bayer all wrote about cycles.  If you do not understand the cycles in your market, then you don't have a chance.  As is explained in Turbo 2, there are different types of cycles.  The cycles work differently and some are tied together.  So your goal is cycles.  It all works off of cycles.  You must understand cycles.  Once you do, doors begin to open up and lights come on.
 
 Gann specifically talks cycles in TTTA.  The war in the back of the book is the Dow, the "attacks by enemy" as well as the "good news" can directly be linked up with cycles.  Cycles are what you are after.  Spend you time studying cycles.  
 
@@ -32,153 +38,6 @@ Sensitive 15-degree axis points for IBM:
 
 He takes planet positions degrees of Sun, Mercury, Venus and Mars.  For Mars he writes down to the minutes.  
 
-pg. 8
-
-Australian XJO:
-The degree numbers of a sign (for the sensitive points) are 6, 9, 21, and 24.
-
-pg. 9
-
-
-
-Connected dates for XJO (Gann angle 4x1, to the upside):
-
-2000-05-24,Low,Mercury at 21 Gemini
-2000-07-31,Low,Sun at 9 Leo and Mercury at 21 Cancer next day
-2000-08-31,Price falls down through the Gann angle.
-
-
-2001-04-02,Low,Mercury at 24 Pisces
-2001-07-05,Price cuts through the Gann angle to the downside.
-2001-07-16,Price rallies and rechallenges Gann angle.,Mercury at 6 Cancer
-
-
-2001-12-17,Low,Mars 6 Pisces 35
-2002-02-07,Low,Venus 24 Aquarius
-2002-02-20,Price falls down through the Gann angle.
-2002-03-07,Price rallies and rechallenges Gann angle.,Mercury at 24 Aquarius
-
-
-1995-06-16,Low,Mercury at 9 Gemini
-1995-07-04,Low,Mercury at 21 Gemini
-1995-08-15,Low,After this date prce breaks the Gann angle.,Mercury at 9 Virgo
-
-pg. 10
-
-1998-10-16,Low,Mercury 6 Scorpio
-1999-04-06,Price bounces on top of line., Mercury at 21 Pisces.
-1999-05-07,Price falls down through the Gann angle.
-1999-05-14,Price rallies and rechallenges Gann angle., Venus at 6 Cancer and a day before Mercury was at 9 Taurus.
-
-
-2001-07-27,Low. Price rallies after this.,Venus at 24 Gemini and Mercury 24 Cancer.
-2001-08-16,Price falls down through the Gann angle.
-2001-08-27,Price rallies and rechallenges Gann angle, Mercury at 24 Virgo.
-
-
-
-pg. 11
-
-Connected dates for XJO (Gann angle 4x1, to the downside):
-
-1995-05-09,High,Venus 21 Aries and Mercury 9 Gemini.,Price falls after the high and then later rallies up through the Gann angle.,
-1995-06-16,Low,Price falls and rechallenges the Gann angle, Mercury at 9 Gemini again.
-
-[rluu: Note that retrograde Mercury happened here.].
-
-
-
-
-Uncle Sam Steely [rluu: U.S. Steel] is a thug.
-
-Has 4 children. [rluu: 4 different cycles?  4 different planets influencing?].
-
-Younger two the author does not know that well.  
-The older two are named Satie and Marcia.
-
-Satie is a drunk and prefers women.
-
-[rluu: Sounds like Saturn.]
-
-What time was Uncle Sam Steely born?  One said 1:15 while the other stated 8:30.
-
-[rluu: These are sensitive points on the 15 deg axis.  1 deg 15 min, 8 deg 30 min.]
-
-
-Marcia was the most beautiful girl.
-
-[rluu: Sounds like Venus.]
-
-
-
-Marcia and Satie argue uncontrollably.
-They live next door to a nun.
-
-1994-01-09, Sunday, Low, 
-1994-01-21, Friday, High, (Nun calls the police, who quieted everything down for 5 days.)
-1994-01-26, Wednesday, Low,  
-1994-02-10, Thursday, High, (Officer Urn makes arrests).
-
-[rluu: What planet is Officer Urn?]
-
-pg. 12
-
-
-Time and a season (in this story's case, and/or for Saturn): 
-29.5 years + 6 years = approximately 35.5 yeras.
-
-
-Satie went to college for a couple of years.
-
-
-Came back home mid 2005, and it was not long before fighting started with good old Marcia.  
-
-
-2005-08-05, Friday, Low (Marcia's new boyfriend showed up.  His name was Enos.  This made Satie jealous, and after Enos left, things escalated.)
-2005-08-12, Friday, High (two sisters got into a fight over cars, then the war ends between them two.  Then they rest for 5 days.)
-2005-08-27, Saturday, Low.  (This argument between the two sisters related to something Mercurial.)
-2005-09-08, Thursday, High (Nun again calls the police).
-
-[rluu: Enos was a Bible character from Genesis that lived 905 years.]
-
-
-[rluu: I've found a cycle in US Steel.  It is: G.Venus/G.Saturn: 5 degree steps.  Formula is: ((G.Venus) + 360 - (G.Saturn)) % 10, at values around 0 deg or 5 deg.  Trigger for the hits to natal needs to be added to this.]
-
-
-
-Double-quoted words in the story are:
-"family appearances" [pg. 11]
-"saw her" [pg. 11]
-"social ladders" [pg. 11]
-"big one" [pg. 11]
-"Daddy" [pg. 11]
-"hustle" [pg. 11]
-"Corporate World" [pg. 12]
-
-
-pg. 12
-
-Connected dates for XJO (Gann angle 4x1, to the downside):
-
-2004-08-31,High,Mercury at 23 Virgo, price falls below the line.
-1994-10-04,High,Price rallies and challenges the Gann line., Sun at 9 Libra.
-1994-12-28,Mercury at 21 Libra, Prices go down.
-1995-01-31,Price opens above the line,Venus at 24 Sagittarius.
-
-
-1995-05-09,High,Mercury at 9 Gemini, price falls below the line.
-1995-05-24,High,Price opened up above the line, then falls down.
-1995-06-16,Mercury exactly back at 9 Gemini, Venus at 6 Gemini, Sun at 24 Gemini.
-
-
-1996-03-04,High,Mercury at 24 Aquarius,
-1996-03-12,Low,Cycles pull price down until this date.  Then we went back up and road the line down.
-1996-04-10,Low,Price road the line down until this date., Venus at 6 Gemini.
-1996-04-29,High,Sun at 98 and Venus 21 Gemini.  Then we ride the line down again.
-1996-07-17,Low,Price rides the line down (4x1) until this date., Sun at 24 Cancer, Mars at 24 Gemini.
-
-
-
 pg. 13
 
 Jensen's book was really about this method [rluu: which method?], cleverly disguised.  The system is readily apparent in the charts on pages 87-93, and these were added later to show the pattern that Jensen wants you to find in his book.  After finding the pattern, you then use page 82 of his book.  If you don't have this pattern, it is difficultto trade consistently with success.
@@ -192,40 +51,25 @@ The goal is to discern a pattern out of a stock or commodity.  Isolate something
 Before understanding Gann squares, signs and numbers, you must find osmething that repeats and is predictable.  The geometry in the back of Jensen's book is not to be applied without something that repeats.  
 
 
+pg. 13
 
-Connected dates for XJO (Gann angle 4x1, to the downside):
+Source F wrote me saying that "there are cycles in stocks and commodities and when you look at the chart of prices you are looking at the cycles". This intrigued me because I had just been working on XJO and did not realize that there were cycles running through it in this manner. He went on stating "All highs and lows are created by a cycle". I reasoned that if this was the case eventually I am going to have to isolate a cycle so I can begin to study its personality.
 
-1997-07-02,High,Mars at 6 Libra.  Then prices go down and come back up, riding the line down.
-1997-09-02,Low,Price rides the line until this date., Mercury at 6 Virgo.
-1998-09-17,High,Mercury at 21 Leo, Sun at 24 Cancer, then price goes down.
-1998-09-24,High,Venus at 21 Virgo, Mars at 21 Leo.
+All highs and lows are created by a cycle.  Every turn is caused by a cycle.  
 
+Regarding cycles: There must be a way to say "this must happen". I have made a thorough study of Ganns works and predictions, at several points he states "price must go there". 
 
-All highs and lows are created by a cycle.
 
 You have to isolate a cycle so you can begin to study its personality.
 
-
 pg. 14
-
-Connected dates for XJO (Gann angle 4x1, to the downside):
-
-2002-09-06,High,Mercury at 9 Scorpio (choppy, sideways market)
-2003-03-13,Low,Sun at 21 Pisces.  Author could not find any other occurances of this angle.
-
-
-Connected dates for XJO (Gann angle 2x1, to the upside):
-
-1997-04-01,Low,Mars at 21 Virgo,Price starts to move up.
-1997-09-03,Low,Price comes down to test the line on this date.,Mercury at 6 Virgo.
-2000-09-22,Low,Mercury at 21 Libra, then we eventually move sideways.
-2001-02-04,Sideways movement until this date., Mercury at 24 Scorpio.
-
 
 Then the author descides to begin to start to look for cycles, comparing highs and lows in XJO.  There must be a way to find patterns.
 
 
 One must test both geocentric and heliocentric planet positions.
+
+Author comes up with a Geocentric Worksheet and a Heliocentric worksheet.
 
 Heliocentric:
 Earth
@@ -257,7 +101,7 @@ Chiron
 [rluu: It is every 2-planet combination for the original list of planets follows.]
 
 
-Take highs and lows, and compare the distance traveled of all the planets.  
+Next, the author says to take highs and lows, and compare the DISTANCE TRAVELED of all the planets.  
 
 pg. 18
 
@@ -283,94 +127,56 @@ Since it is XJO, an Australian stock, use Australian time.
 pg. 29
 Then combine the planets.  Make sure the numbers are positive for heliocentric.
 
-pg. 69
+[Many pages of tables of planet positions at the chosen pivot dates are given.]
+
+pg. 71-72
+
+I checked my email and there were several. I started with Source B. He stated that he had been experimenting with the “Factors of Location”, out of the work “12”. He had found out that if there was a planet in the 5th house of a natal and that planet squares the locality MC that individual will have a difficult go at trading in that location. Likewise if there is a planet in the 5th house and it is trine or sextile that locality MC the individual will have a much better go at trading. Furthermore look at the position of the ruler of the 5th house. Say you have Leo ruling your 5th. The Sun rules Leo, so you would look at the position of the Sun in regards to the locality MC in a square or opposition expect difficult, trine or sextile expect a much easier go. This seems to be the master indicator of long-term success in the field.
 
 
-Story of Paul Ordincanaries.
+The next email was from Source F saying that he had spoken with Source G and Gann was all about cycles. There is much proof of that, from the cycles running through Ganns master courses but take a look specifically at page 197 of the Tunnel book; ”working out his cycles for stocks grain and cotton. “the page goes on then there was the day he made a discovery of a time factor. So Gann clearly used cycles.
 
-[rluu: Sounds like "All Ordinaries Index" (ASX: AU:XAO), which tradings and vibrates almost exactly the same as S&P ASX200 (XJO).]
+pg. 72
 
-[rluu: TODO: Take more notes later., I am jumping to page 76 where he charts angles on U.S. Steel.]
+This whole time factor had me confused. Do I need time factor to find cycles? I reasoned that I did not because Robert was working out his cycles when he discovers a time factor. Therefore he did not need the time factor to understand his cycles.
+
+The next email that day was from source Q. I had written him asking about cycles and Bayer because he had made such a thorough study of Bayer. He stated that Bayer “absolutely used cycles” and that cycles run through his time factors book. He went on Adamantly declaring that the cycles were key. He stated that post 39059 was made off of cycles and that it was a very important post for the information it contained. I thought about all of this for a moment and decided that this was probably the correct path to success and I should determine more on how I was going to go about analyzing my data.
+
+It was at this time that source F emailed me stating that the secret key to the cycles in Jensen’s book could be found on page 135 where it starts “ The triggering aspects...” He also stated that due to Jensen’s mixing up of the components of his book his explanation of orb does not apply to the type of cycles in markets that he is pointing at in his book. I wrote back a nice thank you for this extremely valuable tip. 
+
+pg. 73
+
+It was at this point source F told me I should not focus on an index but to try an individual stock or commodity. I decided to give the American Stock U.S. Steel a try. He also stated to keep track of my losing trades. Certain spots in a chart can give indication before hand.
+
+He gave an example lets say you had a series of losing trades and Saturn was at 5 to 7 degrees Gemini. On another losing trade you had Mercury at 7 Gemini and on yet another trade that lost Mars was at 6 Gemini. This would give good indication to not trade when that point 5-7 degrees Gemini gets hit! Along time ago, from an old source, I learned that studying this field can be hard if the Mercury (mind) in the natal is in bad aspect to the locality MC presented in “12”. It gives a disadvantage.
+
+Then there are the solar returns. Originally I felt that these were not that significant but now I know that to be wrong. There is a secret key; use the Return in conjunction with the numerical year governor. This is calculated thus: say you were born in 1967 in the year 2007 you will turn 40. Add this 40 to the year 2007 which gives 2047. 2+0+4+7=13 for interpretation of this 13 refer to Sepharials book “Kabala of Numbers” to tarot card 13. Another example is person born 1950 will turn 57 in 2007. Add 57 and 2007 together and you get 2064. 2+0+6+4=12. There are good and bad tarot numbers. This is a very powerful indicator when compared to the actual Solar Return for the year. The number cannot be controlled(you get what you get), to a great extent the Solar Return can be (by changing location). Being at a different location at the exact moment of the Solar Return influences that year. If you are married the spouses chart will have an affect on you as well, one way or another. That part works like this. Saturn shuts down the house (area of life) it is in. Lets say that your spouse has Saturn in the mental 3rd conjunction Solar Return Sun, this would be an indicator of depression for the year. Your spouse having depression episodes all year is going to weigh on you. If your spouse is dependent on you for income keep Saturn out of your spouses 8th house in the Solar Return. Jensen wrote on Solar Returns in the magazine “ Astrological Bulletina” from the 1930’s through mid 1950’s.
+
+The Solar Return for the year begins 3 months before your birthday when the transiting Sun squares your natal position. From that point until your birthday is the period when the new Solar Return comes in and the old one loses its grip. Those 3 months will see big shifts and changes. Look back and you will see this is so. If you are a career individual keep Saturn out of your 10th. If you are a trader keep Saturn out of your 5th. Saturn shuts down the area of life it is in, during your Solar Return.
+
+pg. 73-75
+
+Story of Stanley Poor (S&P 500).
 
 pg. 76
 
-Connected dates for US Steel (X) (1x8 upwards, or 1 unit rise to 8 units run):
-
-1995-10-09,Low,Sun 16 Libra,Price goes sideways, then rockets up.
-1995-11-25,High,Sun 1 Sagittarius.
-
-2004-05-08,Low,Mercury 23 Aries,Mars 1 Cancer,then sideways action.
-2004-08-06,Bounced off line,Mercury 8 Virgo.
-
-2005-06-16,Venus at 16 Cancer, 180 Degrees Venus at 16 Capricorn on 2006-02-06, our line again stopped price.
-
-
-2005-12-01,High, Venus 23 Capricorn, Mars 8 Cancer 2, our line stopped price on 2006-06-29 with Sun at 8 Cancer Mars 16 Leo.
-
-Connected dates for US Steel (X) (1x8 downwards):
-
-1995-01-17,High,Mars 1 Scorpio 12, price quickly collapses.
-1995-03-29,Price cuts the Gann line on the upside
-1995-04-05,Price bounces off the line with Sun 16 Aries.
-1995-05-08,Price bounces off the line with Mercury 8 Gemini and Mars 23 Leo.
-
-1999-07-24,High,Sun 1 Leo, price goes down, levels off, then charges through our line on teh upside, makes a high, then months later rests on it until the cycles take it up on 1999-10-22 with Mercury 23 Virgo.
+Another email comes in, Its from source B. It tells me that there is a definite connection between an individual and the stock/commodity they trade. It said to give him a call so that is what I did. He told me that if you are trading something and you are a consistent loser in it, stay away from it, no matter how much you want to trade it. He stated that there were people out there that are consistently making money and have absolutely no idea what they are doing. The secret he told me, was that they hold a good connection with that particular instrument, the ONE they can consistently make money in.
 
 pg. 77
 
-1999-12-31,High,Mercury at 1 Capricorn, Venus at 1 Sagittarius, prices falls for months, picks up some energy that re-crosses on the upside only to come back down and pivot 2000-04-17 with Mercury 8 Aries.
+The minute they tried another instrument they lost money, because their connection was not adequate to that specific instrument, although they have consecutive winners on the other that they are successful in. I told source B that I found this conversation very inspiring and his reply caught me off guard. I recall, his words exactly “ when you feel worn down or frustrated it is only a sign that you have lost faith in your own abilities. Gann talks in Tunnel about the adepts of India and the sub- conscience mind. “These principles can be found in a book by Mark Fisher entitled ‘The Instant Millionaire’.
 
-2004-11-30,High,Sun at 8 Sagittarius, price makes a beautiful high in March
-2005-05-13,Price comes down to pivot off our line, Sun 23 Taurus.
+You must adapt the sayings to fit your needs, try (I do understand cycles). In doing this you will counter your feelings of frustration and burnout, your thinking will change and you will meet success quickly. Sometimes we have everything we need to succeed right in front of us but we can not see it, so success alludes us.” I quickly jotted down the name of the book and the saying realizing that the best way to become successful is to follow in the fast steps of someone who is.
 
-
-Connected dates for US Steel (X) (1x4 downwards):
-
-1995-01-17,High,Mercury 16 Aquarius,then price rockets down, comes up.
-1995-03-17,Low,Price low on our line,Sun 16 Pisces.
-2003-11-04,Pause in the uptrend,Mars 8 Pisces 47.
-2003-11-17,Prices go down to this date,Mercury 8 Sagittarius.  THIS DATE HAS SPECIAL SIGNIFICANCE.
-
-2004-11-29,High,Venus 8 Scorpio, price coems down, pivots, runs up through the line, tops and comes down to a low on ...
-2005-01-11, with Mercury conjunct Venus at 1 Capricorn, right on our axis.
-2005-09-16, Sun conjunct Mercury at 23 Virgo, right on our axis again, price collapses, makes a nice low, then up through our line, makes a final pivot low Sun 16 Scorpio, then big move up.
-
+Source F again e-mails me. This one is again helpful because he states that he found out from source G that orb for the type of cycles I am going to be analyzing is 20 % either side of the day count. That is if the cycle was 8 days the 8 X .20= 1.6 so 2 days either side. Then what he wrote struck me: that there is a definite solution to this so it can be overcome, but in the beginning work without it. The solution involves very little basic math and is very simple.
 
 pg. 78
 
-Connected dates for US Steel (X) (1x4 upwards):
-
-1995-07-26,Low,Mercury 1,Leo
-1995-08-06,Mercury at 23 Leo, "probably an important move".
-
-1995-08-24,Low,Sun conjunct Venus at 1 Virgo,Mercury 23 Virgo
-1995-09-08,Top,Mars 1 Virgo.
-1997-10-20,Low,Mercury 1 Scorpio whipsaw.
-1997-11-10,Price came up to our line,Mars 1 Capricorn.
-
-1995-11-01,Low,Mars 8 Sagittarius, then we cut our line and made a low.
-1995-11-24,High,Top of move right on our line,Sun 1 Sagittarius.
-
-2003-11-04,Mars at 8 Pisces 47
-2003-11-17,Low,Mercury 8 Sagittarius
-
-1999-10-21,Low,Mercury 23 Scorpio, after a move up sideways, we cut our line.
-1999-12-05,High,Mercury 23 Scorpio (same position).
+I got a response to my thank you to Source Q about “Price” it read “....in addition a commodity contracts price is difficult to the beginner because of the commodity roll overs. This is where Cash can be important until the cyclist can better understand the workings and how to handle the rollover. There is a very specific method that enables success but is hard on the beginner and not advised. A stock split is a man made occurrence, it is advised the beginner factor these out, like if it was a 2 for 1 you would multiply by 2. One final caveat, disregard the charts in Jensen’s book pages 125 and 127 until you have already mastered price. “ I decided that to follow this information as I know that source Q knows his stuff.
 
 
-2002-11-13,Venus 1 Scorpio.
-2002-11-19,High,Venus 1 Scorpio.
+pg. 79 to the end of Cycle Hunter 1 book.
 
-2004-05-09,Low,Mars 1 Cancer
-2004-07-19,High,Mercury 23 Leo,Mars 16 Leo.
+[Over 100 charts of the S&P and Australian All Ordinaries is shown.  These charts are referred to in the Cycle Hunter 2 book.]
 
-2005-01-12,Low,Sun 23 Capricorn,goes up to a top, then down to a lower top on...
-2005-03-22,Lower Top, Sun 1 Aries, on our line, then down.
-
-2005-10-19,Low,Mercury 16 Scorpio, price walks up our line.
-2006-01-20,Low,Sun 1 Aquarius, then up from our line.
-2006-03-06,High,Mars 8 Gemini 40, Sun 16 Pisces.
-
-2006-08-11,Low,Price went sidesways, then up.
-2006-12-11,Price at the line,Venus 1 Capricorn.
-
+##############################################################################
