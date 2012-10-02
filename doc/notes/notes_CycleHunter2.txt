@@ -3,16 +3,24 @@ Notes on "Cycle Hunter 2: The Analyst"
 ##############################################################################
 
 Pages about XJO (which I didn't take notes about).
-Pages 1-4 have dates and info about XJO.
-Page 17
-Page 18 [Saw tooth cycle found].
-Page 20-21 [Story of people for XJO].
-Page 23
-Page 27-28 [XJO helio cycle hunting].
+pg. 1-4 have dates and info about XJO.
+pg. 17
+pg. 18    [Saw tooth cycle found in XJO].
+pg. 20-21 [Story of characters for cycle in XJO].
+pg. 23    [More cycle hunting in XJO turns.]
+pg. 27-28 [XJO helio cycle hunting].
+pg. 30-51 [Several XJO charts, explanations of cycle concepts, and helio cycle.]
+pg. 53    [XJO helio cycle hunting dates].
+pg. 57    [XJO helio cycle hunting - helio cycle found] [See also Cycle Hunter 3, pg. 1].
 
 
-Pages about National Australian Bank (NAB):
-9-13
+Pages about National Australian Bank (NAB) (which I didn't take notes about):
+pg. 9-13
+
+Pages about Coffee (which I didn't take notes about):
+pg. 53-57
+
+
 
 Books recommended:
 "The Instant millionaire!", by Mark Fisher
@@ -173,11 +181,6 @@ pg. 20
 
 The author could sense that he would succeed someday in financial markets and be a great trader.  He never missed a day of repeating his words (mantra).  
 
-
-pg. 20, 21
-
-Story of characters for XJO starts on these pages (pages 20-21).
-
 pg. 22
 
 About cycle mechanics:
@@ -185,11 +188,6 @@ About cycle mechanics:
 Source Q: "Right, you are definitely on the right track, these cycles run all through stocks and commodities. There are cycles that are operating in the Wheat market today that I have found operating exactly the same in data back in the 1800’s. The cycles keep making there marks decade after decade, this means once you have found a strong cycle operating in a stock/commodity you can track it all the way back. No cycle exists by itself; the cycles operating simultaneously in your stock/commodity are constantly impacting each other. You may find that one pivot of your stock/commodity is a strong, well pronounced turn, the next pivot may be say a high coming in but a larger cycle makes a low three days prior. That high will be there but it will be distorted, harder to find, less pronounced. In the beginning, finding these cycles can be a bit of an art form but once certain principles are discovered and adhered to the road smoothes out and becomes extremely simple. It’s getting to that point, the struggle, the uncertainty, that stops so many, the lack of focus on understanding cycles, and yet this is key. Without any form of cycle you have chaos, it is difficult if not impossible to trade chaos as most find out the hard way.
 
 Gann, Jensen and Bayer all wrote about cycles.  Cycles are where you make your money.  
-
-
-pg. 23
-
-More cycle hunting in XJO turns.
 
 pg. 23, 24
 
@@ -236,10 +234,6 @@ About cycles:
 If there were say 7 cycles in a stock or commodity that control that instrument then it makes great sense that once these are properly known and their "tracks" understood, that prediction can follow. Recalled that I have been told many times that stocks/commodities contain both Heliocentric and Geocentric cycles, sometimes working side by side. 
 
 
-pg. 27, 28
-
-XJO helio cycle hunting on these pages (pages 27-28).  
-
 pg. 29, 30
 
 Causes of self-sabbatage or causes for people not succeeding:
@@ -250,12 +244,44 @@ Causes of self-sabbatage or causes for people not succeeding:
 
 pg. 30-51
 
-Several charts are included and explanations for each of them.  This is basically showing concepts related to cycles and how they look.
-
-[rluu: Study these charts very carefully, to understand them all.]
+[Several charts are included and explanations for each of them.  This is basically showing concepts related to cycles and how they look.  There is a helio cycle in this and the solution is given on page 53 and 57.]
 
 
-[rluu: Start reading and taking notes starting on this page.]
+pg. 52
+
+How do you know you are on the right track?  
+Answer: As long as your focus remains on cycles, you are on teh right track.  
+
+There are different types of cycles.  Some types work together or overlap in a unique manner.  Some can be used or combined with others to increase overall effectiveness.  Your eventual goal is to find these connections, find the interactions, and understand how everything works together in one large symphony. Trading through, trading can commence before everything is fully understood on these levels. For so many the first objective is to get to the point where you can trade and this is rightly so, then, the next goal is to improve, continue to improve and refine your system.
+
+pg. 53
+
+XJO dates for helio cycle testing:
+09-15-2000 High
+09-22-2000 Low
+10-03-2000 High
+
+pg. 57
+
+I ran those 3 dates [for a helio cycle in XJO, page 53] forward and man it started to hit really good. After I had more hits I kept checking back with the ephemeris, this went on for quite sometime, ephemeris turn, ephemeris turn. The same number kept popping up so I took the average and ran that forward; high boom, low boom, right where my ephemeris said that they would be. Holy Hell this is a cycle! 
+
+After work the following day I hit the cycle again, wanted to work with it more, become better acquainted, high, low, high etc. I got to an area and projected out, my target date was 05-15-02 but looking at that point is the turn on the 17th as a high or is it on the 13th as a low? What I had grown accustomed to doing was going to the next pivot of the cycle and seeing what it was. Like if you had a High, then high, you know the question mark was a low. If you had low, then low then you know the question mark was a high. If you have a low, then High it could be either, haven’t figured this out yet. So when I came across it I just put a question mark there and pick the cycle up a pivot or so later. 
+
+This particular pivot held my interest. Went to the couch to try and mentally work it out. Sent an email to source Q: ”How can you know for sure which one of these turns actually belongs to my heliocentric cycle? Oh, and by the way, I found my first Heliocentric cycle!” 
+
+Source Q wrote back. What the email said not only shocked me, it set the course of my studies: 
+
+"You have a valid point, how to determine which one of these points is the actual turn in your cycle. The truthful answer is that each cycle has it own price points, given that, only one of those 2 points should tie in with that cycle. What I am telling you is that once you have an understanding of price you will know which point belongs in your cycle, from your current point of understanding you will have to pass on that pivot, come back later when you have more understanding.
+
+pg. 58
+
+[Source Q's email, cont.]
+
+The main drawback to success for those studying the markets is that most try to tell the market what it should be doing, like say you have an allowable acceptance of being 2 days off on a cycle and come across a pivot that is 3 days out. If you respond that it can’t do that you are telling the market what it should be doing instead of isolating why that happened. In order to put the whole system together you will have to accept some things up front, then come back to them and refine them on a different level, an example of this being the 2 points that you emailed me about.
+
+Another point is orb. In reality there is not orb. For these types of cycles when you understand price you will have then, at that point, the solution to orb. In Jensen’s book he talks about ‘depending on the declination’ that does not apply to what I am leading you to with the cycle we have here, though it does apply to something else. So here, in this particular cycle you need to make a thorough study of it. Work with your pivots and refine them look for additional connections. I will repeat, when you understand price you will understand orb. Although orb is not price or the actual price point there is something you need to understand to get price, with that understanding you will have orb.
+
+This may sound like a twisting of words but you can also use price itself as a trade trigger down the road, though when you get to this point you won’t need to. What is this something else? It is a special way that a cycle works. Finding a cycle and understanding it’s secrets are different. Study it until you find the secrets within..."
 
 
 ##############################################################################
