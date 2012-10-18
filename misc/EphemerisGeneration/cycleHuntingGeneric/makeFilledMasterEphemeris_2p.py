@@ -24,7 +24,7 @@
 #
 #   2) Simply run the script from the directory:
 #
-#      python3 makeFilledMasterEphemeris.py
+#      python3 makeFilledMasterEphemeris_2p.py
 #
 ##############################################################################
 
@@ -55,6 +55,7 @@ outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGenerat
 linesToSkip = 1
 
 # Dictionary for input column values for each planet.
+# Cell values in these columns are in range [0, 360).
 planetGeocentricLongitudeColumn = \
 {
     "Sun"           : 14,
@@ -72,6 +73,8 @@ planetGeocentricLongitudeColumn = \
     "Isis"          : 26,
   }
 
+# Dictionary for input column values for each planet.
+# Cell values in these columns are in range [0, 360).
 planetHeliocentricLongitudeColumn = \
 {
     "Mercury" : 51,
