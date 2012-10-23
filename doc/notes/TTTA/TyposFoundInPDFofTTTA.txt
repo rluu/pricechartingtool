@@ -1,12 +1,18 @@
 ##############################################################################
-# This document contains typos that I've found that are in the
-# PDF version of TTTA from GannStudyGroup.
+# This document contains typos found in the PDF version of TTTA
+# that was obtained from the GannStudyGroup Yahoo group.
 ##############################################################################
 
-Page 261, line 14, "like" instead of the word "line" that is used in the electronic version.
+Page 261, line 14:
+Actual text has: "like" 
+PDF version has: "line"
 
-Page 271, line 11, "confidence" instead of the word "confident" that is used in the electronic version.
+Page 271, line 11:
+Actual text has: "confidence"
+PDF version has: "confident"
 
-Page 349, line 16-17, "approaching" instead of the word "approching" that is used in the electronic version.
+Page 349, line 16-17:
+Actual text has: "approaching"
+PDF version has: "approching"
 
 ##############################################################################
