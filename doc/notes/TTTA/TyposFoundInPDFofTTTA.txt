@@ -15,4 +15,8 @@ Page 349, line 16-17:
 Actual text has: "approaching"
 PDF version has: "approching"
 
+Page 403, line 14:
+Actual text has: "Commander"
+PDF version has: "Cormnander"
+
 ##############################################################################
