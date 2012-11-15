@@ -15,6 +15,10 @@ Page 349, line 16-17:
 Actual text has: "approaching"
 PDF version has: "approching"
 
+Page 397, line 32 (last line on the page):
+Actual text has: "finished"
+PDF version has: "flnished"
+
 Page 403, line 14:
 Actual text has: "Commander"
 PDF version has: "Cormnander"
