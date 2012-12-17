@@ -743,6 +743,19 @@ listOfDataValues = doCalculationsForColumns(listOfDataValues,
                                             planetCombinationColumn,
                                             thirdPlanetColumn)
 
+# H.Venus/H.Mars + H.Earth
+columnName = \
+    "H." + planetGlyph["Venus"] + "/" + \
+    "H." + planetGlyph["Mars"] + " + " + \
+    "H." + planetGlyph["Earth"]
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+planetCombinationColumn = planet2PlanetLongitudeColumn["H.Venus/H.Mars"]
+thirdPlanetColumn = planetHeliocentricLongitudeColumn["Earth"]
+listOfDataValues = doCalculationsForColumns(listOfDataValues,
+                                            planetCombinationColumn,
+                                            thirdPlanetColumn)
+
 # H.Earth/H.Mars + H.Mercury
 columnName = \
     "H." + planetGlyph["Earth"] + "/" + \
