@@ -878,21 +878,21 @@ def processPCDD(pcdd, tag):
     #    planetName="Uranus", stepSizeTd=datetime.timedelta(days=7))
     
     #success =  PlanetaryCombinationsLibrary.\
-    #    addZeroLatitudeVerticalLines(
+    #    addZeroGeoLatitudeVerticalLines(
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    planetName="Venus")
 
     #success = PlanetaryCombinationsLibrary.\
-    #    addLatitudeVelocityPolarityChangeVerticalLines(
+    #    addGeoLatitudeVelocityPolarityChangeVerticalLines(
     #    pcdd, startDt, endDt, highPrice, lowPrice, planetName="Venus")
     
     #success = PlanetaryCombinationsLibrary.\
-    #    addContraparallelLatitudeAspectVerticalLines(
+    #    addContraparallelGeoLatitudeAspectVerticalLines(
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    planet1Name="Venus", planet2Name="Mars")
     
     #success = PlanetaryCombinationsLibrary.\
-    #    addParallelLatitudeAspectVerticalLines(
+    #    addParallelGeoLatitudeAspectVerticalLines(
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    planet1Name="Venus", planet2Name="Mars")
     

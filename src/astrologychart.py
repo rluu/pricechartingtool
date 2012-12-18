@@ -5301,13 +5301,13 @@ class PlanetaryInfoTableWidget(QTableWidget):
         self.setColumnWidth(col, 84)
         col += 1
 
-        item = QTableWidgetItem(geoStr + tropStr + latitudeStr)
+        item = QTableWidgetItem(helioStr + tropStr + latitudeStr)
         item.setToolTip(latitudeStr + degreesUnitsStr)
         self.setHorizontalHeaderItem(col, item)
         self.setColumnWidth(col, 80)
         col += 1
 
-        item = QTableWidgetItem(geoStr + tropStr + latitudeSpeedStr)
+        item = QTableWidgetItem(helioStr + tropStr + latitudeSpeedStr)
         item.setToolTip(latitudeSpeedStr + degreesPerDayUnitsStr)
         self.setHorizontalHeaderItem(col, item)
         self.setColumnWidth(col, 80)
@@ -6102,14 +6102,14 @@ class PlanetaryInfoTableWidget(QTableWidget):
         self._setItemAndToolTip(row, col, valueStr)
         col += 1
 
-        value = p.geocentric[tropical]['latitude']
+        value = p.heliocentric[tropical]['latitude']
         valueStr = ""
         if value != None:
             valueStr = "{: 7.3f}".format(value)
         self._setItemAndToolTip(row, col, valueStr)
         col += 1
 
-        value = p.geocentric[tropical]['latitude_speed']
+        value = p.heliocentric[tropical]['latitude_speed']
         valueStr = ""
         if value != None:
             valueStr = "{: 7.3f}".format(value)
@@ -9060,15 +9060,15 @@ class AstrologyChartWidget(QWidget):
                         AstrologyUtils.getAbbreviationForPlanetName(planet.name),
                         AstrologyUtils.getForegroundColorForPlanetName(planet.name),
                         AstrologyUtils.getBackgroundColorForPlanetName(planet.name),
-                        degree=planet.geocentric['tropical']['latitude'],
-                        velocity=planet.geocentric['tropical']['latitude_speed'],
+                        degree=planet.heliocentric['tropical']['latitude'],
+                        velocity=planet.heliocentric['tropical']['latitude_speed'],
                         planetGroupNumber=chartNum,
                         parent=self.latitudeChart)
                 else:
                     # The PlanetLatitudeGraphicsItem for this planet
                     # already exists for this chartNum.  Just update it.
-                    degree = planet.geocentric['tropical']['latitude']
-                    velocity = planet.geocentric['tropical']['latitude_speed']
+                    degree = planet.heliocentric['tropical']['latitude']
+                    velocity = planet.heliocentric['tropical']['latitude_speed']
                     planetLatitudeGraphicsItem.setDegreeAndVelocity(degree, velocity)
             else:
                 if planetLatitudeGraphicsItem != None:

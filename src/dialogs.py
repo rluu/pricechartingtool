@@ -1437,7 +1437,7 @@ class AppPreferencesEditWidget(QWidget):
         self.tabWidget.addTab(self.planetEnabledForDeclinationSettingsGroupBox,
                               "Declination")
         self.tabWidget.addTab(self.planetEnabledForLatitudeSettingsGroupBox,
-                              "Latitude")
+                              "HelioLatitude")
         self.tabWidget.addTab(self.aspectSettingsGroupBox,
                               "Planet Aspects")
         self.tabWidget.addTab(self.planetSymbolSettingsGroupBox,
@@ -3081,7 +3081,7 @@ class AppPreferencesEditWidget(QWidget):
         
         # Planet enabled for Latitude.
         self.planetEnabledForLatitudeSettingsGroupBox = \
-            QGroupBox("Planets in Latitude:")
+            QGroupBox("Planets in Heliocentric Latitude:")
         
         # Split the widgets into two forms, one on the left and one on
         # the right.

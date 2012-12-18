@@ -2,17 +2,17 @@
 ##############################################################################
 # Description:
 #
-#   Script to create the a Latex file containing declination positions
+#   Script to create the a Latex file containing latitude positions
 #   of the planets.
 #
 # Usage:
 #
-#     ./createDeclinationLatexFile.py --help
-#     ./createDeclinationLatexFile.py --version
+#     ./createLatitudeLatexFile.py --help
+#     ./createLatitudeLatexFile.py --version
 #
 #     # Generate the planet positions from January 1900 to December 1930,
 #     # and write the output to a file.
-#     ./createDeclinationLatexFile.py --start-timestamp=190001 --end-timestamp=193012 --output-file=/tmp/testing.tex
+#     ./createLatitudeLatexFile.py --start-timestamp=190001 --end-timestamp=193012 --output-file=/tmp/testing.tex
 #
 #
 ##############################################################################
@@ -71,13 +71,13 @@ hourOfDay = 12
 minuteOfHour = 0
 
 # Description string.
-descriptionStr = "Geocentric Tropical Declination: US/Eastern @ 12:00"
+descriptionStr = "Geocentric Tropical Latitude: US/Eastern @ 12:00"
 
 # Zodiac type.
 zodiacType = "tropical"
 
 # Field name.
-fieldName = "declination"
+fieldName = "latitude"
 
 # Planet names to do calculations for.
 planetNames = [\
@@ -336,7 +336,7 @@ parser.add_option("--end-timestamp",
                   default=None,
                   help=\
                   "Specify ending year and month of the data.  " + \
-                  "Format of this string is 'YYYYMM'.",
+                  "Format of this string is 'YYYYMMDD'.",
                   metavar="<TIMESTAMP>")
 
 parser.add_option("--output-file",

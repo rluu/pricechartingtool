@@ -7719,7 +7719,7 @@ class PlanetaryCombinationsLibrary:
         color=None,
         stepSizeTd=datetime.timedelta(days=1)):
         """Adds a bunch of line segments that represent a given
-        planet's latitude degrees.  The start and end points of
+        planet's geocentric latitude degrees.  The start and end points of
         each line segment is 'stepSizeTd' distance away.
         
         Arguments:
@@ -7894,14 +7894,14 @@ class PlanetaryCombinationsLibrary:
     
 
     @staticmethod
-    def addZeroLatitudeVerticalLines(\
+    def addZeroGeoLatitudeVerticalLines(\
         pcdd, startDt, endDt,
         highPrice, lowPrice,
         planetName,
         color=None,
         maxErrorTd=datetime.timedelta(hours=1)):
         """Adds a vertical line segments whenever a planet's
-        latitude changes from increasing to decreasing or
+        geocentric latitude changes from increasing to decreasing or
         decreasing to increasing.
         
         Arguments:
@@ -8143,13 +8143,13 @@ class PlanetaryCombinationsLibrary:
 
         
     @staticmethod
-    def addLatitudeVelocityPolarityChangeVerticalLines(\
+    def addGeoLatitudeVelocityPolarityChangeVerticalLines(\
         pcdd, startDt, endDt,
         highPrice, lowPrice,
         planetName,
         color=None,
         maxErrorTd=datetime.timedelta(hours=1)):
-        """Adds a vertical line segments whenever a planet's
+        """Adds a vertical line segments whenever a planet's geocentric
         latitude changes from increasing to decreasing or
         decreasing to increasing.
         
@@ -8313,7 +8313,7 @@ class PlanetaryCombinationsLibrary:
 
 
     @staticmethod
-    def addContraparallelLatitudeAspectVerticalLines(\
+    def addContraparallelGeoLatitudeAspectVerticalLines(\
         pcdd, startDt, endDt,
         highPrice, lowPrice,
         planet1Name,
@@ -8321,7 +8321,7 @@ class PlanetaryCombinationsLibrary:
         color=None,
         maxErrorTd=datetime.timedelta(hours=1)):
         """Adds a vertical line segments whenever two planets
-        are contraparallel with each other.
+        are contraparallel with each other in geocentric latitude.
         
         Arguments:
         pcdd      - PriceChartDocumentData object that will be modified.
@@ -8463,7 +8463,7 @@ class PlanetaryCombinationsLibrary:
 
         
     @staticmethod
-    def addParallelLatitudeAspectVerticalLines(\
+    def addParallelGeoLatitudeAspectVerticalLines(\
         pcdd, startDt, endDt,
         highPrice, lowPrice,
         planet1Name,
@@ -8471,7 +8471,7 @@ class PlanetaryCombinationsLibrary:
         color=None,
         maxErrorTd=datetime.timedelta(hours=1)):
         """Adds a vertical line segments whenever two planets
-        are parallel with each other.
+        are parallel with each other in geocentric latitude.
         
         Arguments:
         pcdd      - PriceChartDocumentData object that will be modified.

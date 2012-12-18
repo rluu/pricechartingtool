@@ -59,8 +59,8 @@ VERSION = "0.1"
 
 # Location information to use with the Ephemeris.
 locationName = "New York City"
-locationLongitude = 40.783
-locationLatitude = 73.97
+locationLongitude = -74.0064
+locationLatitude = 40.7142
 locationElevation = 0
 
 # Timezone information to use with the Ephemeris.
@@ -71,7 +71,7 @@ hourOfDay = 12
 minuteOfHour = 0
 
 # Description string.
-descriptionStr = "Geocentric Tropical Latitude: US/Eastern @ 12:00"
+descriptionStr = "Heliocentric Tropical Latitude: US/Eastern @ 12:00"
 
 # Zodiac type.
 zodiacType = "tropical"
@@ -81,10 +81,9 @@ fieldName = "latitude"
 
 # Planet names to do calculations for.
 planetNames = [\
-    "Sun",
-    "Moon",
     "Mercury",
     "Venus",
+    "Earth",
     "Mars",
     "Jupiter",
     "Saturn",
@@ -265,19 +264,19 @@ def convertPlanetaryInfosToLine(dateStr, planetaryInfosDict):
 
     def convertPiToValueStr(pi):
         polarityStr = ""
-        if pi.geocentric[zodiacType][fieldName] < 0:
+        if pi.heliocentric[zodiacType][fieldName] < 0:
             polarityStr = "-"
         else:
             polarityStr = "+"
             
-        degrees = math.floor(abs(pi.geocentric[zodiacType][fieldName]))
+        degrees = math.floor(abs(pi.heliocentric[zodiacType][fieldName]))
         degreesStr = str(degrees)
         if degrees < 10:
             degreesStr = "0" + degreesStr
 
         minutes = \
             math.floor(\
-            (abs(pi.geocentric[zodiacType][fieldName]) - degrees) * 60)
+            (abs(pi.heliocentric[zodiacType][fieldName]) - degrees) * 60)
         minutesStr = str(minutes)
         if minutes < 10:
             minutesStr = "0" + minutesStr
@@ -477,8 +476,8 @@ def formatToDateStr(dt):
 Ephemeris.initialize()
 
 # Set the Location (required).
-Ephemeris.setGeographicPosition(locationLatitude,
-                                locationLongitude,
+Ephemeris.setGeographicPosition(locationLongitude,
+                                locationLatitude,
                                 locationElevation)
 
 text = ""

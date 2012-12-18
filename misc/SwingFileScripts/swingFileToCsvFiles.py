@@ -959,11 +959,11 @@ class HelioSidNakshatraPadaField(TableFieldInfo):
             valueStr = "{}".format(pada)
         return valueStr
     
-class HelioSidLatitudeField(TableFieldInfo):
+class HelioTropLatitudeField(TableFieldInfo):
     def __init__(self, isEnabled):
         super().__init__(\
             headerStr=str(TableFieldInfo.helioStr +
-                          TableFieldInfo.sidStr +
+                          TableFieldInfo.tropStr +
                           TableFieldInfo.latitudeStr),
             isEnabled=isEnabled)
 
@@ -973,7 +973,27 @@ class HelioSidLatitudeField(TableFieldInfo):
         p - PlanetaryInfo object for this row.
         """
         
-        value = p.heliocentric[TableFieldInfo.sidereal]['latitude']
+        value = p.heliocentric[TableFieldInfo.tropical]['latitude']
+        valueStr = ""
+        if value != None:
+            valueStr = "{: 7.3f}".format(value)
+        return valueStr
+    
+class HelioTropLatitudeSpeedField(TableFieldInfo):
+    def __init__(self, isEnabled):
+        super().__init__(\
+            headerStr=str(TableFieldInfo.helioStr +
+                          TableFieldInfo.tropStr +
+                          TableFieldInfo.latitudeSpeedStr),
+            isEnabled=isEnabled)
+
+    def getValue(self, p):
+        """Virtual function that returns a string for the field value.
+        Arguments:
+        p - PlanetaryInfo object for this row.
+        """
+        
+        value = p.heliocentric[TableFieldInfo.tropical]['latitude_speed']
         valueStr = ""
         if value != None:
             valueStr = "{: 7.3f}".format(value)
@@ -1022,7 +1042,8 @@ def createCsvFiles(swingFileData, outputDirectory):
     tableFieldInfos.append(HelioSidNavamsaField(isEnabled=True))
     tableFieldInfos.append(HelioSidNakshatraField(isEnabled=True))
     tableFieldInfos.append(HelioSidNakshatraPadaField(isEnabled=True))
-    tableFieldInfos.append(HelioSidLatitudeField(isEnabled=True))
+    tableFieldInfos.append(HelioTropLatitudeField(isEnabled=True))
+    tableFieldInfos.append(HelioTropLatitudeSpeedField(isEnabled=True))
 
     
     endl = "\r\n"

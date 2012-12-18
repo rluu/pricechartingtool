@@ -446,12 +446,7 @@ seen was about 0.0006 degrees, or over two arc seconds.  Differences
 may be larger when looking at other planets.  In this program I will
 try to use geocentric tropical settings whenever getting declination.
 
-2) Values obtained by quering the heliocentric declination of the
-Earth is not correct.  The results seen appear to be just -1 times the
-geocentric declination of the Sun.  My guess is other heliocentric
-declinations are probably wrong too.
-
-3) Values obtained of planet longitude_speed need to be from tropical
+2) Values obtained of planet longitude_speed need to be from tropical
 zodiac measurements only!  If I try to use sidereal zodiac
 measurements for getting the longitude_speed, then the measurements
 from the Swiss Ephemeris do not yield the correct values relative to

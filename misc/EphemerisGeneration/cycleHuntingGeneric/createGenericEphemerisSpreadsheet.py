@@ -63,8 +63,8 @@ VERSION = "0.1"
 
 # Location information to use with the Ephemeris.
 locationName = "New York City"
-locationLongitude = 40.783
-locationLatitude = 73.97
+locationLongitude = -74.0064
+locationLatitude = 40.7142
 locationElevation = 0
 
 # Timezone information to use with the Ephemeris.
@@ -149,12 +149,30 @@ declinationPlanetNames = [\
     ]
 
 # Planet names to do calculations for.
-latitudePlanetNames = [\
+geocentricLatitudePlanetNames = [\
     "Sun",
     "Moon",
     "Mercury",
     "Venus",
     #"Earth",
+    "Mars",
+    "Jupiter",
+    "Saturn",
+    "Uranus",
+    "Neptune",
+    "Pluto",
+    #"TrueNorthNode",
+    "Chiron",
+    "Isis"
+    ]
+
+# Planet names to do calculations for.
+heliocentricLatitudePlanetNames = [\
+    #"Sun",
+    #"Moon",
+    "Mercury",
+    "Venus",
+    "Earth",
     "Mars",
     "Jupiter",
     "Saturn",
@@ -380,11 +398,18 @@ def getEphemerisDataLineForDatetime(dt):
                 declination = pi.geocentric['tropical']['declination']
                 rv += "{:6.3f},".format(declination)
     
-    # Planet latitude.
-    for planetName in latitudePlanetNames:
+    # Planet geocentric latitude.
+    for planetName in geocentricLatitudePlanetNames:
         for pi in planetaryInfos:
             if pi.name == planetName:
                 latitude = pi.geocentric['tropical']['latitude']
+                rv += "{:6.3f},".format(latitude)
+    
+    # Planet heliocentric latitude.
+    for planetName in heliocentricLatitudePlanetNames:
+        for pi in planetaryInfos:
+            if pi.name == planetName:
+                latitude = pi.heliocentric['tropical']['latitude']
                 rv += "{:6.3f},".format(latitude)
     
     
@@ -402,8 +427,8 @@ def getEphemerisDataLineForDatetime(dt):
 Ephemeris.initialize()
 
 # Set the Location (required).
-Ephemeris.setGeographicPosition(locationLatitude,
-                                locationLongitude,
+Ephemeris.setGeographicPosition(locationLongitude,
+                                locationLatitude,
                                 locationElevation)
 
 # Compile the header line text.
@@ -439,9 +464,13 @@ for planetName in heliocentricPlanetNames:
 for planetName in declinationPlanetNames:
     headerLine += "D." + planetName + ","
 
-# Planet latitude.
-for planetName in latitudePlanetNames:
-    headerLine += "L." + planetName + ","
+# Planet geocentric latitude.
+for planetName in geocentricLatitudePlanetNames:
+    headerLine += "G.L." + planetName + ","
+
+# Planet heliocentric latitude.
+for planetName in heliocentricLatitudePlanetNames:
+    headerLine += "H.L." + planetName + ","
 
 # Remove the trailing comma.
 headerLine = headerLine[:-1]

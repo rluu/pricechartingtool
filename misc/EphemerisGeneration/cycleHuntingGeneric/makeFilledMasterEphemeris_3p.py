@@ -114,7 +114,7 @@ planetHeliocentricLongitudeColumn = \
 # Dictionary for input column values for each 2-planet combination.
 # Cell values in these columns are in range [0, infinity).
 planet2PlanetLongitudeColumn = {}
-i = 122
+i = 133
 planet2PlanetLongitudeColumn["G.Mercury/G.Venus"] = i
 i += 1
 planet2PlanetLongitudeColumn["G.Mercury/G.Sun"] = i

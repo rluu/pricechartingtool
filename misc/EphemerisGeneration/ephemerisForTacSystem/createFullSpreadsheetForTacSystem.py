@@ -70,8 +70,8 @@ VERSION = "0.1"
 
 # Location information to use with the Ephemeris.
 locationName = "New York City"
-locationLongitude = 40.783
-locationLatitude = 73.97
+locationLongitude = -74.0064
+locationLatitude = 40.7142
 locationElevation = 0
 
 # Timezone information to use with the Ephemeris.
@@ -1137,8 +1137,8 @@ def getGenericEphemerisDataLineForDate(genericEphemerisData, dt):
 Ephemeris.initialize()
 
 # Set the Location (required).
-Ephemeris.setGeographicPosition(locationLatitude,
-                                locationLongitude,
+Ephemeris.setGeographicPosition(locationLongitude,
+                                locationLatitude,
                                 locationElevation)
 
 # Get the pricebar data as a list of PriceBar objects.
