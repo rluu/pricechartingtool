@@ -1,0 +1,29 @@
+##############################################################################
+Notes on the book ""Astronomy For Astrologers", by John Filbey and Peter Filbey.
+
+The notes below are only for certain parts and sections of the book that I skimmed through and read.  They are the parts that I felt were important for my understanding from where I am currently, knowledge-wise.
+
+##############################################################################
+
+
+pg. 46-54
+
+[These pages describe astronomy (ecliptic and equatorial systems).  There are many very diagrams on these pages for the different planes and reference points.]
+
+
+pg. 106
+
+[Table with measurement information of the planets.  This table includes distance from Sun, periods of revolution, diameter, period of rotation, inclination of orbit to the ecliptic, eccentricity of orbit, etc.]
+
+pg. 109-116
+
+[Contains information about the Moon].
+
+[rluu: TODO: add notes on this section here.]
+
+
+pg. 205
+
+[Contains information about how to calculate Right Ascension.]
+
+##############################################################################
