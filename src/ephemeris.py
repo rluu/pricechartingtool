@@ -6604,7 +6604,7 @@ def testMinMaxPlanetLatitude():
         
         
     # MeanNorthNode.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(minutes=30)
         years = 60
@@ -6638,7 +6638,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, minLatitude))
         
     # TrueNorthNode.
-    if True:
+    if False:
         start = datetime.datetime.now(eastern)
         increment = datetime.timedelta(minutes=30)
         years = 60
@@ -8117,9 +8117,9 @@ if __name__=="__main__":
     #testDatetimeJulianPrecisionLoss()
 
     # These tests will take a long time, so I've commented it out.
-    testMinMaxPlanetLongitudeSpeeds()
-    testMinMaxPlanetLatitude()
-    testMinMaxPlanetDeclination()
+    #testMinMaxPlanetLongitudeSpeeds()
+    #testMinMaxPlanetLatitude()
+    #testMinMaxPlanetDeclination()
     
     # Close the Ephemeris so it can do necessary cleanups.
     Ephemeris.closeEphemeris()
