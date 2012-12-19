@@ -5162,7 +5162,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
         planetToolTipStr = "Planet"
 
         # Set the total number of columns.
-        numTotalFields = 24
+        numTotalFields = 25
         numColumns = numTotalFields + 1
         self.setColumnCount(numColumns)
 
@@ -5285,6 +5285,12 @@ class PlanetaryInfoTableWidget(QTableWidget):
 
         item = QTableWidgetItem(geoStr + tropStr + longitudeSpeedStr)
         item.setToolTip(longitudeSpeedStr + degreesPerDayUnitsStr)
+        self.setHorizontalHeaderItem(col, item)
+        self.setColumnWidth(col, 80)
+        col += 1
+
+        item = QTableWidgetItem(geoStr + tropStr + rectascensionStr)
+        item.setToolTip(rectascensionStr + degreesUnitsStr)
         self.setHorizontalHeaderItem(col, item)
         self.setColumnWidth(col, 80)
         col += 1
@@ -6088,6 +6094,13 @@ class PlanetaryInfoTableWidget(QTableWidget):
         self._setItemAndToolTip(row, col, valueStr)
         col += 1
 
+        value = p.geocentric[tropical]['rectascension']
+        valueStr = ""
+        if value != None:
+            valueStr = "{:5.2f}".format(value)
+        self._setItemAndToolTip(row, col, valueStr)
+        col += 1
+
         value = p.geocentric[tropical]['declination']
         valueStr = ""
         if value != None:
@@ -6170,11 +6183,15 @@ class PlanetaryInfoTableWidget(QTableWidget):
                Ephemeris.isAscmcPlanetName(p.name):
 
             p.geocentric[tropical]['longitude_speed'] = None
+            p.geocentric[tropical]['rectascension'] = None
+            p.geocentric[tropical]['rectascension_speed'] = None
             p.geocentric[tropical]['declination'] = None
             p.geocentric[tropical]['declination_speed'] = None
             p.geocentric[tropical]['latitude'] = None
             p.geocentric[tropical]['latitude_speed'] = None
             p.geocentric[sidereal]['longitude_speed'] = None
+            p.geocentric[sidereal]['rectascension'] = None
+            p.geocentric[sidereal]['rectascension_speed'] = None
             p.geocentric[sidereal]['declination'] = None
             p.geocentric[sidereal]['declination_speed'] = None
             p.geocentric[sidereal]['latitude'] = None
@@ -6182,6 +6199,8 @@ class PlanetaryInfoTableWidget(QTableWidget):
             
             p.heliocentric[tropical]['longitude'] = None
             p.heliocentric[tropical]['longitude_speed'] = None
+            p.heliocentric[tropical]['rectascension'] = None
+            p.heliocentric[tropical]['rectascension_speed'] = None
             p.heliocentric[tropical]['declination'] = None
             p.heliocentric[tropical]['declination_speed'] = None
             p.heliocentric[tropical]['latitude'] = None
@@ -6189,6 +6208,8 @@ class PlanetaryInfoTableWidget(QTableWidget):
             
             p.heliocentric[sidereal]['longitude'] = None
             p.heliocentric[sidereal]['longitude_speed'] = None
+            p.heliocentric[sidereal]['rectascension'] = None
+            p.heliocentric[sidereal]['rectascension_speed'] = None
             p.heliocentric[sidereal]['declination'] = None
             p.heliocentric[sidereal]['declination_speed'] = None
             p.heliocentric[sidereal]['latitude'] = None
@@ -6198,6 +6219,8 @@ class PlanetaryInfoTableWidget(QTableWidget):
             
             p.heliocentric[tropical]['longitude'] = None
             p.heliocentric[tropical]['longitude_speed'] = None
+            p.heliocentric[tropical]['rectascension'] = None
+            p.heliocentric[tropical]['rectascension_speed'] = None
             p.heliocentric[tropical]['declination'] = None
             p.heliocentric[tropical]['declination_speed'] = None
             p.heliocentric[tropical]['latitude'] = None
@@ -6205,6 +6228,8 @@ class PlanetaryInfoTableWidget(QTableWidget):
             
             p.heliocentric[sidereal]['longitude'] = None
             p.heliocentric[sidereal]['longitude_speed'] = None
+            p.heliocentric[sidereal]['rectascension'] = None
+            p.heliocentric[sidereal]['rectascension_speed'] = None
             p.heliocentric[sidereal]['declination'] = None
             p.heliocentric[sidereal]['declination_speed'] = None
             p.heliocentric[sidereal]['latitude'] = None
@@ -6214,6 +6239,8 @@ class PlanetaryInfoTableWidget(QTableWidget):
             
             p.heliocentric[tropical]['longitude'] = None
             p.heliocentric[tropical]['longitude_speed'] = None
+            p.heliocentric[tropical]['rectascension'] = None
+            p.heliocentric[tropical]['rectascension_speed'] = None
             p.heliocentric[tropical]['declination'] = None
             p.heliocentric[tropical]['declination_speed'] = None
             p.heliocentric[tropical]['latitude'] = None
@@ -6221,6 +6248,8 @@ class PlanetaryInfoTableWidget(QTableWidget):
             
             p.heliocentric[sidereal]['longitude'] = None
             p.heliocentric[sidereal]['longitude_speed'] = None
+            p.heliocentric[sidereal]['rectascension'] = None
+            p.heliocentric[sidereal]['rectascension_speed'] = None
             p.heliocentric[sidereal]['declination'] = None
             p.heliocentric[sidereal]['declination_speed'] = None
             p.heliocentric[sidereal]['latitude'] = None
@@ -6244,6 +6273,8 @@ class PlanetaryInfoTableWidget(QTableWidget):
             
             p.heliocentric[tropical]['longitude'] = None
             p.heliocentric[tropical]['longitude_speed'] = None
+            p.heliocentric[tropical]['rectascension'] = None
+            p.heliocentric[tropical]['rectascension_speed'] = None
             p.heliocentric[tropical]['declination'] = None
             p.heliocentric[tropical]['declination_speed'] = None
             p.heliocentric[tropical]['latitude'] = None
@@ -6251,6 +6282,8 @@ class PlanetaryInfoTableWidget(QTableWidget):
             
             p.heliocentric[sidereal]['longitude'] = None
             p.heliocentric[sidereal]['longitude_speed'] = None
+            p.heliocentric[sidereal]['rectascension'] = None
+            p.heliocentric[sidereal]['rectascension_speed'] = None
             p.heliocentric[sidereal]['declination'] = None
             p.heliocentric[sidereal]['declination_speed'] = None
             p.heliocentric[sidereal]['latitude'] = None
@@ -6260,6 +6293,8 @@ class PlanetaryInfoTableWidget(QTableWidget):
             
             p.geocentric[tropical]['longitude'] = None
             p.geocentric[tropical]['longitude_speed'] = None
+            p.geocentric[tropical]['rectascension'] = None
+            p.geocentric[tropical]['rectascension_speed'] = None
             p.geocentric[tropical]['declination'] = None
             p.geocentric[tropical]['declination_speed'] = None
             p.geocentric[tropical]['latitude'] = None
@@ -6267,6 +6302,8 @@ class PlanetaryInfoTableWidget(QTableWidget):
             
             p.geocentric[sidereal]['longitude'] = None
             p.geocentric[sidereal]['longitude_speed'] = None
+            p.geocentric[sidereal]['rectascension'] = None
+            p.geocentric[sidereal]['rectascension_speed'] = None
             p.geocentric[sidereal]['declination'] = None
             p.geocentric[sidereal]['declination_speed'] = None
             p.geocentric[sidereal]['latitude'] = None
