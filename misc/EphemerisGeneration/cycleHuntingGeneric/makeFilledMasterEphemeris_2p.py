@@ -527,6 +527,26 @@ planetColumn = planetHeliocentricLongitudeColumn["Isis"]
 listOfDataValues = doCalculationsForColumn(listOfDataValues,
                                            planetColumn)
 
+# G.Moon/G.Sun
+columnName = "G.Moon/G.Sun"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+fasterPlanetColumn = planetGeocentricLongitudeColumn["Moon"]
+slowerPlanetColumn = planetGeocentricLongitudeColumn["Sun"]
+listOfDataValues = doCalculationsForColumns(listOfDataValues,
+                                            fasterPlanetColumn,
+                                            slowerPlanetColumn)
+
+# G.Moon/G.TrueNorthNode
+columnName = "G.Moon/G.TrueNorthNode"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+fasterPlanetColumn = planetGeocentricLongitudeColumn["Moon"]
+slowerPlanetColumn = planetGeocentricLongitudeColumn["TrueNorthNode"]
+listOfDataValues = doCalculationsForColumns(listOfDataValues,
+                                            fasterPlanetColumn,
+                                            slowerPlanetColumn)
+
 # G.Mercury/G.Venus
 columnName = "G.Mercury/G.Venus"
 headerLine += "," + columnName
