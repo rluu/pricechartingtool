@@ -237,14 +237,14 @@ Sidereal Year: The period of revolution of the Earth around the Sun with respect
 
 Tropical Year (A.K.A. Equinoctial Year, Seasonal Year, Astronomical year, Natural Year): The interval between two successive passages of the Sun through the Vernal Equinox (First Point of Aries), which is the intersection of the Ecliptic and the Equtor.  The Vernal Equinox is not a fixed point in the Ecliptic due to to precession.  The Tropical Year is 365.2422 mean solar days, making the Tropical Year just over 20 minutes shorter than the Sidereal Year. 
 
-Anomalistic Year: The interval between two successive perihelion passages of the Earth -- or the interval between succcessive passages of the Sun in the apparent orbit through perigee.  Its length is 365 days, 6 hours, 13 minutes, 53 seconds (365.2596 mean solar days).  It differs from the Sidereal Year because the majoraxis of the Earth's orbit slowly shifts in the plane of the Earth's orbital revolution due to perturbations by the other planets.  
+Anomalistic Year: The interval between two successive perihelion passages of the Earth -- or the interval between successive passages of the Sun in the apparent orbit through perigee.  Its length is 365 days, 6 hours, 13 minutes, 53 seconds (365.2596 mean solar days).  It differs from the Sidereal Year because the majoraxis of the Earth's orbit slowly shifts in the plane of the Earth's orbital revolution due to perturbations by the other planets.  
 
 Eclipse Year: The interval between successive returns of the Sun to the same node of the Moon's orbit.  This interval is 346.6203 days.  
 19 Eclipse years = 6585.78 days
 average synodic month or lunation = 29.5306 days
 223 lunations = 6585.3
 223 lunations very closely equals 19 revolutions of the Sun with respect to a node, 18 years 11 days approximately.  The "Saros cycle" is this period of 18 years 11 days.
-235 lunations = 19 years of 365.25 days (19 * 365.25 = 6939.75 days), (235 * 29.5306 = 6939.69 days).  This is the "Metonic cycle".  After a period of 19 years, the phases of the Moon will recur on the same calendar date and wihin two hours of the same time.  The discovery of this cycle was made by Meton of Athens in 432 B.C.
+235 lunations = 19 years of 365.25 days (19 * 365.25 = 6939.75 days), (235 * 29.5306 = 6939.69 days).  This is the "Metonic cycle".  After a period of 19 years, the phases of the Moon will recur on the same calendar date and within two hours of the same time.  The discovery of this cycle was made by Meton of Athens in 432 B.C.
 
 
 Besselian Year: Used to define the instant, according to civil reckoning, at which the trpical year is assumed to commence.  it is the general astronomical practice to define the beginning of the tropical year (solar year) as the instant when the right ascension of the mean sun is exactly 18 hours 40 minutes.  This instant falls near the begininning of the civil year, and the year defined in this way is the Besselian year, named after the German astronomer Bessel who first introduced it into astronomical practice.  The year defined in this way is used to deriving precessional and other corrections relating to the heavenly bodies.  It is customary to denote the beginning of any Besselian year by the notation '0', as for example 1980.0, 1981.0, and so on.  
