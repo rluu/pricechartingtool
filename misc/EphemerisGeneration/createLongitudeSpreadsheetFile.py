@@ -130,11 +130,12 @@ endTimestampStr = ""
 outputFile = ""
 
 # For logging.
-#logging.basicConfig(level=logging.DEBUG,
-logging.basicConfig(level=logging.INFO,
-                    format='%(levelname)s: %(message)s')
+logging.basicConfig(format='%(levelname)s: %(message)s')
 moduleName = globals()['__name__']
 log = logging.getLogger(moduleName)
+#log.setLevel(logging.DEBUG)
+log.setLevel(logging.INFO)
+
 
 ##############################################################################
 

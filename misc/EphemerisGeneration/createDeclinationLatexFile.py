@@ -91,8 +91,7 @@ planetNames = [\
     "Uranus",
     "Neptune",
     "Pluto",
-    "Chiron",
-    "Isis"]
+    "Chiron"]
 
 # Starting timestamp.
 # Format is "YYYYMM".
@@ -109,10 +108,11 @@ endTimestampStr = ""
 outputFile = ""
 
 # For logging.
-logging.basicConfig(level=logging.INFO,
-                    format='%(levelname)s: %(message)s')
+logging.basicConfig(format='%(levelname)s: %(message)s')
 moduleName = globals()['__name__']
 log = logging.getLogger(moduleName)
+#log.setLevel(logging.DEBUG)
+log.setLevel(logging.INFO)
 
 ##############################################################################
 
@@ -182,7 +182,7 @@ def getHeaderText():
     rv += "\\author{Ryan Le Luu}" + os.linesep
     rv += os.linesep
     rv += "\\usepackage[" + \
-          "hmargin=0.8in," + \
+          "hmargin=0.5in," + \
           "vmargin=0.8in," + \
           "marginparwidth=0.0in]" + \
           "{geometry}" + os.linesep
@@ -229,7 +229,16 @@ def getTableHeaderText(dt):
             str(dt.year) + "}" + \
             os.linesep + os.linesep
     
-    text += "\\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}" + os.linesep
+    text += "\\begin{tabular}{"
+
+    # Column for the timestamp.
+    text += "|c|"
+    
+    # Columns for each of the planets.
+    for i in range(0, len(planetNames)):
+        text += "c|"
+        
+    text += "}" + os.linesep
 
     text += "  \\hline" + os.linesep + " "
     
