@@ -11,10 +11,18 @@
 #
 #   The output CSV file thus will have format as follows:
 #
-#   <Timestamp>,<Longitude>,<HighPrice>,<LowPrice>,
-#   [this set of column headers repeat again, once for each repetition or 'repeat'.]
+#     <Timestamp>,<Longitude>,<HighPrice>,<LowPrice>,
+#     [this set of column headers repeat again, once for each repetition or 'repeat'.]
 #
-#   Usage steps:
+# Background information:
+#
+#   This script was created because of the homework that was part of
+#   BA ACCE5S lesson G (January 2013).  I decided to create this
+#   script so that I could do that homework, and also so that similar
+#   spreadsheets could be created with this script later, for various
+#   other planet combinations.
+# 
+# Usage steps:
 #
 #     1) Open the CSV file that contains the input ephemeris spreadsheet.
 #
