@@ -130,8 +130,8 @@ outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGenerat
 logging.basicConfig(format='%(levelname)s: %(message)s')
 moduleName = globals()['__name__']
 log = logging.getLogger(moduleName)
-log.setLevel(logging.DEBUG)
-#log.setLevel(logging.INFO)
+#log.setLevel(logging.DEBUG)
+log.setLevel(logging.INFO)
 
 ##############################################################################
 
@@ -500,7 +500,7 @@ log.info("We have found {} complete repeats in this data.".\
          format(len(listOfOutputEphemerisColumns)))
 log.info("Each repeat is the elapsing of {} degrees (or {} full circles).".\
          format(numDegreesElapsedForRepeat,
-                numDegreesElapsedForRepeat / 360))
+                numDegreesElapsedForRepeat / 360.0))
          
 # At this point, we've gone through all the rows in our input
 # ephemeris file.  There may be rows that didn't complete a full
