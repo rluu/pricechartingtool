@@ -91,7 +91,7 @@ ephemerisInputFileTimestampColumn = 0
 #
 # Note: Helper script '/home/rluu/programming/pricechartingtool/misc/SpreadsheetColumnLetterNumberConversion/columnLettersToColumnIndex.py' can be used to convert between column letters and column index numbers.
 #
-ephemerisInputFileLongitudeColumn = 109 # 109 corresponds to column DF, G.Moon.
+ephemerisInputFileLongitudeColumn = 113 # 113 corresponds to column DF, G.Moon.
 
 # Filename location of the market data input CSV file.
 # This is optional.  If the below path is "", then this parameter is ignored.

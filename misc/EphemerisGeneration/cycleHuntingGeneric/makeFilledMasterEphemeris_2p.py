@@ -58,36 +58,36 @@ linesToSkip = 1
 # Cell values in these columns are in range [0, 360).
 planetGeocentricLongitudeColumn = \
 {
-    "Sun"           : 14,
-    "Moon"          : 15,
-    "Mercury"       : 16,
-    "Venus"         : 17,
-    "Mars"          : 18,
-    "Jupiter"       : 19,
-    "Saturn"        : 20,
-    "Uranus"        : 21,
-    "Neptune"       : 22,
-    "Pluto"         : 23,
-    "TrueNorthNode" : 24,
-    "Chiron"        : 25,
-    "Isis"          : 26,
+    "Sun"           : 18,
+    "Moon"          : 19,
+    "Mercury"       : 20,
+    "Venus"         : 21,
+    "Mars"          : 22,
+    "Jupiter"       : 23,
+    "Saturn"        : 24,
+    "Uranus"        : 25,
+    "Neptune"       : 26,
+    "Pluto"         : 27,
+    "TrueNorthNode" : 28,
+    "Chiron"        : 29,
+    "Isis"          : 30,
   }
 
 # Dictionary for input column values for each planet.
 # Cell values in these columns are in range [0, 360).
 planetHeliocentricLongitudeColumn = \
 {
-    "Mercury" : 51,
-    "Venus"   : 52,
-    "Earth"   : 53,
-    "Mars"    : 54,
-    "Jupiter" : 55,
-    "Saturn"  : 56,
-    "Uranus"  : 57,
-    "Neptune" : 58,
-    "Pluto"   : 59,
-    "Chiron"  : 60,
-    "Isis"    : 61,
+    "Mercury" : 55,
+    "Venus"   : 56,
+    "Earth"   : 57,
+    "Mars"    : 58,
+    "Jupiter" : 59,
+    "Saturn"  : 60,
+    "Uranus"  : 61,
+    "Neptune" : 62,
+    "Pluto"   : 63,
+    "Chiron"  : 64,
+    "Isis"    : 65,
   }
 
 

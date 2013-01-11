@@ -2,10 +2,16 @@
 These steps below create a master generic ephemeris for noon at NYC.
 
 This ephemeris will have the following data:
-  planet geocentric positions
-  planet heliocentric positions
+  date and time
+  day of the week
+  day count
+  week count
+  month count
+  planet geocentric longitude positions
+  planet heliocentric longitude positions
   planet declination position
-  planet latitude position
+  planet geocentric latitude position
+  planet heliocentric latitude position
   2-planet geocentric combinations
   2-planet heliocentric combinations
   3-planet geocentric combinations

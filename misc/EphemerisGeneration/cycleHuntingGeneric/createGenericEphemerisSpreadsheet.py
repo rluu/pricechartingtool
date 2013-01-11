@@ -75,20 +75,20 @@ hourOfDay = 12
 minuteOfHour = 0
 
 
-#startDt = datetime.datetime(year=1890, month=1, day=1,
-#                            hour=hourOfDay, minute=minuteOfHour,
-#                            tzinfo=timezone)
-startDt = datetime.datetime(year=1985, month=1, day=1,
+startDt = datetime.datetime(year=1906, month=1, day=1,
                             hour=hourOfDay, minute=minuteOfHour,
                             tzinfo=timezone)
-
-
-#endDt   = datetime.datetime(year=1940, month=12, day=31,
+#startDt = datetime.datetime(year=1985, month=1, day=1,
 #                            hour=hourOfDay, minute=minuteOfHour,
 #                            tzinfo=timezone)
-endDt   = datetime.datetime(year=2015, month=12, day=31,
+
+
+endDt   = datetime.datetime(year=1932, month=12, day=31,
                             hour=hourOfDay, minute=minuteOfHour,
                             tzinfo=timezone)
+#endDt   = datetime.datetime(year=2015, month=12, day=31,
+#                            hour=hourOfDay, minute=minuteOfHour,
+#                            tzinfo=timezone)
 
 
 # Destination output CSV file.
@@ -433,7 +433,11 @@ Ephemeris.setGeographicPosition(locationLongitude,
 
 # Compile the header line text.
 headerLine = ""
-headerLine += "date" + ","
+headerLine += "Date" + ","
+headerLine += "Day of week" + ","
+headerLine += "Day count" + ","
+headerLine += "Week count" + ","
+headerLine += "Month count" + ","
 
 # Planet geocentric longitude mod 15.
 for planetName in geocentricPlanetNames:
@@ -486,10 +490,74 @@ stepSizeTd = datetime.timedelta(days=1)
 outputLines = []
 outputLines.append(headerLine)
 
+prevDate = None
+dayCount = 0
+weekCount = 0
+monthCount = 0
+
+
 while currDt.date() < endDt.date():
     line = ""
-    
+
+    # Get date and time str.
     line += formatToDateAndTimeStr(currDt) + ","
+
+    # Get day of the week str, as 3-letter str.
+    line += currDt.date().ctime()[0:3] + ","
+
+    # Get the day count, week count, and month count.
+    if prevDate == None:
+        # This is first iteration in this while loop.  All counts
+        # should be zero.
+
+        # Day count.
+        line += "{}".format(dayCount) + ","
+
+        # Week count.
+        line += "{}".format(weekCount) + ","
+
+        # Month count.
+        line += "{}".format(monthCount) + ","
+        
+    else:
+        # There is a previous date stored, so check to see if we are
+        # on a new day now.
+        if prevDate != currDt.date():
+            # Date changed, increment the day count.
+            dayCount += 1
+            
+            # Day count.
+            line += "{}".format(dayCount) + ","
+
+            # See if the week changed.  Weeks start with Sunday.
+            if currDt.date().isoweekday() == 7:
+                # It is a Sunday.  A new week has arrived, so increment.
+                weekCount += 1
+
+            # Week count.
+            line += "{}".format(weekCount) + ","
+
+            # See if the month changed.  Months start on the 1st of the month.
+            if prevDate.month != currDt.date().month:
+                # A new month has arrived, so increment.
+                monthCount += 1
+
+            # Month count.
+            line += "{}".format(monthCount) + ","
+            
+        else:
+            # Date did not change, so print out the same counts as the
+            # last loop iteration.
+    
+            # Day count.
+            line += "{}".format(dayCount) + ","
+
+            # Week count.
+            line += "{}".format(weekCount) + ","
+
+            # Month count.
+            line += "{}".format(monthCount) + ","
+        
     line += getEphemerisDataLineForDatetime(currDt) + ","
     
     # Remove the last trailing comma. 
@@ -497,6 +565,10 @@ while currDt.date() < endDt.date():
     
     # Append to the output lines.
     outputLines.append(line)
+
+    # Save the date for the next iteration, so we can maintain our
+    # time-keeping for day, week, and month counts.
+    prevDate = currDt.date()
     
     # Increment the currDt by the step size for the next iteration.
     # Also, make sure the time is set.
