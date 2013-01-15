@@ -3,6 +3,10 @@
 # that was obtained from the GannStudyGroup Yahoo group.
 ##############################################################################
 
+Page 200, line 5:
+Actual text has: "money" italicized.
+PDF version has: "money" not italicized.
+
 Page 261, line 14:
 Actual text has: "like" 
 PDF version has: "line"
