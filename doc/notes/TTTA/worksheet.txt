@@ -1,0 +1,71 @@
+##############################################################################
+Worksheet of how to work on TTTA and things to check for when making
+new findings.
+
+
+Document created: Fri Mar  1 03:27:40 EST 2013
+Last modified:    Fri Mar  1 03:27:40 EST 2013
+##############################################################################
+
+Page numbers:
+
+- Add all digits of that are in the page number. 
+- Page number with the number 7.  (for age or length of a cycle).
+- Page number with decimal place shifted.
+- Difference between page numbers that have a connection (referencing the subject or topic).
+- Reflecting that many pages again from two pages that have a connection.
+- Page number anagram: try looking at other pages that have the same numbers in the page number.  
+
+Pages:
+
+- Count the number of times that a particular word is mentioned on a page, and consecutive pages.  The starting page where this occurance happens may be important.  (e.g. "love" showing up 37 times on pages 33 and 34, "faith" on pg. 211).
+
+Words:
+
+- Any word that follows the word "great" or "greatest" is an important word that means something special.
+- What words are capitalized?  Are there any words that stand out as being peculiar in usage?
+- First letter of each capitalized word as a number (numerology).
+- Are there any italicized words?
+- Are there any words that are differently typeset?
+- Are the words "and" and "or" used?  Add or multiply the number of letters in those words.
+- Count the words within a poem or letter.  The word number could be associated with the word.  (e.g. Marie's letter on pg. 120, or Marie's telegraph on pg. 38).
+- The Bible words and terms don't use english/pythagorean numerology, but Gann explains what they mean somewhere in TTTA.
+
+Locations:
+- Pay attention to locations written on the letters.
+
+Numbers:
+
+- Numbers in written form.
+- Numbers on the page.  
+- Money values give numbers.
+- Bible verses give numbers:
+  - Take segments of the numbers shown to see a number.
+  - Add the Bible verse numbers to see a number.
+
+Lines:
+
+- Line number of the page.
+- Line number of a poem.  (Haven't seen this done in a letter yet).
+- Numbering of verses/stanzas in a poem.
+
+Sentences:
+
+- Do any sentences in a paragraph seem not to fit?
+- Do any of the sentences read funny?
+- Does it seem like he is using funny phrasing in a round-about way?
+
+Quotes:
+
+- Count the number of words in a quote.
+- Count the number of letters in a quote.
+- Quotes may relate to other quotes around the same page/area (in terms of numbers of words and letters).  
+
+Chapter:
+
+- What chapter are we in?  It seems like Gann used themes within certain chapters.
+- Where does it fit in in terms of the book story line?  (and cycle structure in general).
+
+
+
+##############################################################################
