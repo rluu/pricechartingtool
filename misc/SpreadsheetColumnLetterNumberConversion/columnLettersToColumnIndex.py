@@ -5,7 +5,7 @@
 #   This script is a helper script to help converting the column
 #   letters to column index numbers, and vice versa, in various Excel
 #   or LibreOffice spreadsheets.  The column index numbers are
-#   0-based, i.e. the first column index is 0.
+#   1-based, i.e. the first column index is 1.
 #
 # Usage:
 #
@@ -13,9 +13,9 @@
 #   ./columnLettersToColumnIndex.py --column="AB"
 #   ./columnLettersToColumnIndex.py --column="AAA"
 #
-#   ./columnLettersToColumnIndex.py --column="0"
-#   ./columnLettersToColumnIndex.py --column="52"
-#   ./columnLettersToColumnIndex.py --column="702"
+#   ./columnLettersToColumnIndex.py --column="1"
+#   ./columnLettersToColumnIndex.py --column="28"
+#   ./columnLettersToColumnIndex.py --column="703"
 #
 ##############################################################################
 
@@ -79,13 +79,13 @@ def getNumberValueForLetter(letter):
 def convertFromLettersToIndexNumber(letters):
     """Converts the given str of letters to a index number that
     corresponds to that column.
-    "A" corresponds to "0", "B" corresponds to "1", etc.
+    "A" corresponds to "1", "B" corresponds to "2", etc.
 
     Arguments:
     letters - str value holding one or more letters.
 
     Returns:
-    str value holding the equivalent in index number (0-based).
+    str value holding the equivalent in index number (1-based).
     If an invalid argument is given, then None is returned.
     """
 
@@ -126,10 +126,10 @@ def convertFromLettersToIndexNumber(letters):
 
         # Update the currPower for the next letter.
         currPower -= 1
-    
-    # Subtract 1 from the final sum obtained to get the zero-based
-    # index number that we want.
-    indexValue = sumValue - 1
+
+    # If we wanted a zero-based index number, then we would subtract 1
+    # from sumValue.
+    indexValue = sumValue
     
     log.debug("After completing the loop, the index number obtained is: {}".\
               format(indexValue))
@@ -141,7 +141,7 @@ def convertFromIndexNumberToLetters(value):
     that correspond to that index number.
 
     Arguments:
-    value - int value that contains the index number (0-based).
+    value - int value that contains the index number (1-based).
 
     Returns:
     str - str value containing the letters that correspond to that index
@@ -159,8 +159,7 @@ def convertFromIndexNumberToLetters(value):
                   "value given was: '{}'".format(value))
         return None
     
-    # Add 1 to make it not 0-based, which helps us in our calculations.
-    valueRemaining = value + 1
+    valueRemaining = value
     
     currPower = 1
 
@@ -219,8 +218,8 @@ parser.add_option("--column",
                   default=None,
                   help=\
                   "Specify the column letter(s) or column index for " + \
-                  "conversion.  Note: Column index numbers are 0-based, " + \
-                  "i.e. 0 is the first index.  This argument is required.  ",
+                  "conversion.  Note: Column index numbers are 1-based, " + \
+                  "i.e. 1 is the first index.  This argument is required.  ",
                   metavar="<Column letter(s) or column index number>")
 
 # Parse the arguments into options.
