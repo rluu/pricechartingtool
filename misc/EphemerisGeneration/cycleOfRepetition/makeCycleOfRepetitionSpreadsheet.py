@@ -4,10 +4,12 @@
 #
 #   This takes as input, a ephemeris spreadsheet CSV file as
 #   produced by /home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleHuntingGeneric/makeFilledMasterEphemeris_3p.py, and then orders the
-#   longitude measurements in a column according to a repeat of a
-#   certain number of degrees.  It also places the trading-entity's
-#   daily high and low prices, connected to each date, in columns next to the
-#   planetary measurement.
+#   longitude measurements of a certain planet or planet combination
+#   in a column according to a repeat of a certain number of degrees.
+#   It also places the trading-entity's daily high and low prices,
+#   connected to each date, in columns next to the planetary
+#   measurement.  This script works for both heliocentric and
+#   geocentric planets and planet combinations.
 #
 #   The output CSV file thus will have format as follows:
 #
@@ -67,7 +69,8 @@ import logging
 # This should be a CSV file similar to something output by the script
 # 'makeFilledMasterEphemeris_3p.py'.
 #
-ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleHuntingGeneric/master_3p_ephemeris_nyc_noon.csv"
+#ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleHuntingGeneric/master_3p_ephemeris_nyc_noon.csv"
+ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/doc/notes/TTTA/ephemeris_studies/master_3p_ephemeris_nyc_noon.csv"
 
 # Timezone used in input ephemeris CSV file.
 defaultInputFileTimezone = pytz.timezone("US/Eastern")
@@ -89,14 +92,14 @@ ephemerisInputFileTimestampColumn = 0
 # always-increasing.  It is assumed that this information is on a
 # daily basis.
 #
-# Note: Helper script '/home/rluu/programming/pricechartingtool/misc/SpreadsheetColumnLetterNumberConversion/columnLettersToColumnIndex.py' can be used to convert between column letters and column index numbers.
+# Note: Helper script '/home/rluu/programming/pricechartingtool/misc/SpreadsheetColumnLetterNumberConversion/columnLettersToColumnIndex.py' can be used to convert between column letters and column index numbers, but note that this script returns values that are 1-based indexes, so you will need to subtract 1 to get the actual index that is 0-based for the variable below.
 #
-ephemerisInputFileLongitudeColumn = 113 # 113 corresponds to column DF, G.Moon.
+ephemerisInputFileLongitudeColumn = 129 # 113 corresponds to column DJ, G.Moon.
 
 # Filename location of the market data input CSV file.
 # This is optional.  If the below path is "", then this parameter is ignored.
-#marketDataInputFilename = ""
-marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/stocks/DJIA/DJIA.txt"
+marketDataInputFilename = ""
+#marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/stocks/DJIA/DJIA.txt"
 
 # Column number for the timestamp.  The timestamp in this column is
 # expected to be in the format "MM/DD/YYYY".
@@ -117,14 +120,45 @@ marketDataInputFileLowPriceColumn = 3
 
 # Starting longitude degree in the format of always-increasing longitude.
 # This is the starting longitude value of the first 'repeat'.
-startingLongitude = 53280  # G.Moon at 0 deg Aries on 1996-01-24.
+# Use a value just slightly before the starting date's longitude.
+#
+#startingLongitude = 53280  # G.Moon at 0 deg Aries on 1996-01-24.
+#
+#startingLongitude = 92733.47  # G.Moon/G.Sun on 1926-10-23.
+#startingLongitude = 100143  # G.Moon on 1926-10-23.
+#startingLongitude = 7790  # G.Mercury on 1926-10-23.
+#startingLongitude = 7762  # G.Venus on 1926-10-23.
+#startingLongitude = 7769.5  # G.Sun on 1926-10-23.
+#startingLongitude = 4365.2  # G.Mars on 1926-10-23.
+#startingLongitude = 667.465  # G.Jupiter on 1926-10-23.
+#startingLongitude = 595.295  # G.Saturn on 1926-10-23.
+#startingLongitude = 31240  # H.Mercury on 1926-10-23.
+#startingLongitude = 12432  # H.Venus on 1926-10-23.
+#startingLongitude = 7589.53  # H.Earth on 1926-10-23.
+#startingLongitude = 3994.47  # H.Mars on 1926-10-23.
+#
+#startingLongitude = 2097.08  # G.Moon on 1906-06-09.
+#startingLongitude = 2019.16  # G.Moon/G.Sun on 1906-06-09.
+#startingLongitude = 438.94  # G.Mercury on 1906-06-09.
+#startingLongitude = 466.84  # G.Venus on 1906-06-09.
+#startingLongitude = 437.92  # G.Sun on 1906-06-09.
+#startingLongitude = 448.6  # G.Mars on 1906-06-09.
+#startingLongitude = 78.6  # G.Jupiter on 1906-06-09.
+#startingLongitude = 344.79  # G.Saturn on 1906-06-09.
+#startingLongitude = 802.31  # H.Mercury on 1906-06-09.
+#startingLongitude = 510  # H.Venus on 1906-06-09.
+#startingLongitude = 257.92  # H.Earth on 1906-06-09.
+startingLongitude = 95.41  # H.Mars on 1906-06-09.
+
+
 
 # Number of degrees elapsed for each repeat.  A new set of columns in the
 # output file will be created after this amount of degrees has been elapsed.
-numDegreesElapsedForRepeat = 33 * 360
+numDegreesElapsedForRepeat = 180
 
 # Ouptut CSV file.  
-outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/G.Moon_sheet_of_33_or_11880_deg.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/G.Moon_360_deg_repeats.csv"
+outputFilename = "/home/rluu/programming/pricechartingtool/doc/notes/TTTA/ephemeris_studies/CountingWheelsFrom_19060609/H.Mars_180_deg_repeats.csv"
 
 # For logging.
 logging.basicConfig(format='%(levelname)s: %(message)s')
@@ -415,6 +449,11 @@ if marketDataInputFilename != "":
 # 'numDegreesElapsedForRepeat' degrees.
 listOfOutputEphemerisColumns = []
 
+# Number of cycles.  This is a counter variable that holds the number
+# of complete cycle repeat.  If a geocentric planet is retrograde and
+# revisits a degree, that doesn't count as a complete cycle.
+numFullCycles = 0
+
 # List of lists.  This list holds all the rows for a
 # particular repeat of 'numDegreesElapsedForRepeat' degrees.
 # Each item in this list is a list of values [timestamp, longitude value % 360].
@@ -428,6 +467,7 @@ currRepeatRowsList = []
 # On the first 'repeat', this starting value is equal to 'startingLongitude'.
 # 
 startingValue = None
+
 
 # Previous value of the always-increasing longitude value.
 prevValue = None
@@ -474,11 +514,49 @@ for i in range(0, len(listOfEphemerisDataValues)):
             # We have elapsed our desired number of degrees for a 'repeat'.
             # Append all the information for the previous repeat.
             listOfOutputEphemerisColumns.append(currRepeatRowsList)
+
+            numFullCycles += 1
             
             # Calculate the new startingValue for the next 'repeat'.
             startingValue = startingValue + numDegreesElapsedForRepeat
 
             # We have a new startingValue, so clear out the currRepeatRowsList.
+            currRepeatRowsList = []
+
+        elif currValue < startingValue and prevValue > startingValue:
+            
+            # Geocentric planet is retrograde:
+            # 
+            # The planet crossed from over to under the previous repeat degree.
+
+            # Note: This algorithm may miss some hits if the
+            # day-resolution is not fine enough for fast planets like
+            # G.Mercury.
+            
+            # We have elapsed our desired number of degrees that
+            # matches a 'repeat'.  
+            # Append all the information for the previous repeat.
+            listOfOutputEphemerisColumns.append(currRepeatRowsList)
+
+            # No need to update 'startingValue' variable.
+
+            # Clear out the currRepeatRowsList since we hit the repeat degree.
+            currRepeatRowsList = []
+
+        elif currValue > startingValue and prevValue < startingValue:
+            
+            # Geocentric planet is direct:
+            # 
+            # The planet crossed from under to over the previous repeat degree.
+
+            # We have elapsed our desired number of degrees that
+            # matches a 'repeat'.  Append all the information for the
+            # previous repeat.
+            listOfOutputEphemerisColumns.append(currRepeatRowsList)
+
+            # No need to update 'startingValue' variable.
+
+            # Clear out the currRepeatRowsList since we hit the repeat degree.
             currRepeatRowsList = []
 
         # Add an entry for the current row and values.
@@ -496,11 +574,16 @@ for i in range(0, len(listOfEphemerisDataValues)):
     prevValue = currValue
     currValue = None
 
-log.info("We have found {} complete repeats in this data.".\
-         format(len(listOfOutputEphemerisColumns)))
+log.info("We have found {} complete cycle repeats in this data.".\
+         format(numFullCycles))
 log.info("Each repeat is the elapsing of {} degrees (or {} full circles).".\
          format(numDegreesElapsedForRepeat,
                 numDegreesElapsedForRepeat / 360.0))
+
+if numFullCycles != len(listOfOutputEphemerisColumns):
+    log.info("We have found {} hits to the repeat degree in this data.  ".\
+             format(len(listOfOutputEphemerisColumns)) + \
+             "(This can happen for geocentric planets).")
          
 # At this point, we've gone through all the rows in our input
 # ephemeris file.  There may be rows that didn't complete a full
@@ -684,13 +767,14 @@ try:
             # Increment the repeatRowIndex.
             repeatRowIndex += 1
             
-    log.info("Done.")
-    
 except IOError as e:
     errStr = "I/O Error while trying to write file '" + \
              outputFilename + "':" + os.linesep + str(e)
     log.error(errStr)
     shutdown(1)
 
+
+log.info("Done.")
+shutdown(0)
 
 ##############################################################################

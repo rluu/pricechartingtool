@@ -240,7 +240,7 @@ if options.columnStr != None:
         index = convertFromLettersToIndexNumber(columnStr)
 
         if index != None:
-            log.info("Index value for column '{}' is: {}".\
+            log.info("Index value (1-based) for column '{}' is: {}".\
                      format(columnStr, index))
         else:
             # An error message should have already been printed, so
@@ -251,7 +251,7 @@ if options.columnStr != None:
         letters = convertFromIndexNumberToLetters(int(columnStr))
 
         if letters != None:
-            log.info("Letters for column index number {} is: '{}'".\
+            log.info("Letters for column index number (1-based) {} is: '{}'".\
                      format(columnStr, letters))
         else:
             # An error message should have already been printed, so

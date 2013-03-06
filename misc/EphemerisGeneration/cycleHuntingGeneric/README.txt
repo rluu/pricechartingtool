@@ -16,6 +16,7 @@ This ephemeris will have the following data:
   2-planet heliocentric combinations
   3-planet geocentric combinations
   3-planet heliocentric combinations
+  mod 360 and div 360 columns for all 1, 2, and 3 planet combinations.
 
 ##############################################################################
 
@@ -62,6 +63,17 @@ python3 makeFilledMasterEphemeris_3p.py
 
 
 # Step 5:
+#
+# Create the ephemeris spreadsheet with mod 360 and div 360 columns.
+# 
+# This should read in file: "master_3p_ephemeris_nyc_noon.csv".
+# This should produce file: "master_3p_ephemeris_nyc_noon_with_mod_360_and_div_360.csv".
+#
+
+python3 mod_360_and_div_360.py
+
+
+# Step 6:
 #
 # If you modified the default location when running the first script
 # for ephemeris generation, then at this point, you can rename the

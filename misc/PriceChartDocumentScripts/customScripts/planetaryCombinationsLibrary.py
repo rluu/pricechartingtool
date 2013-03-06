@@ -9120,7 +9120,7 @@ class PlanetaryCombinationsLibrary:
         colorWasSpecifiedFlag = True
         if color == None:
             colorWasSpecifiedFlag = False
-            #color = AstrologyUtils.getForegroundColorForPlanetName(planetName)
+            color = AstrologyUtils.getForegroundColorForPlanetName(planetName)
 
         # Set the tag str.
         tag = inspect.stack()[0][3]
@@ -9193,8 +9193,8 @@ class PlanetaryCombinationsLibrary:
     
                     lineDt = steps[-1]
                     
-                    if colorWasSpecifiedFlag == False:
-                        color = QColor(Qt.red)
+                    #if colorWasSpecifiedFlag == False:
+                    #    color = QColor(Qt.red)
                         
                     # Create the artifact at the timestamp.
                     PlanetaryCombinationsLibrary.\
@@ -9209,8 +9209,8 @@ class PlanetaryCombinationsLibrary:
     
                     lineDt = steps[-1]
                     
-                    if colorWasSpecifiedFlag == False:
-                        color = QColor(Qt.darkRed)
+                    #if colorWasSpecifiedFlag == False:
+                    #    color = QColor(Qt.darkRed)
                         
                     # Create the artifact at the timestamp.
                     PlanetaryCombinationsLibrary.\

@@ -527,6 +527,26 @@ planetColumn = planetHeliocentricLongitudeColumn["Isis"]
 listOfDataValues = doCalculationsForColumn(listOfDataValues,
                                            planetColumn)
 
+# G.Moon/G.Mercury
+columnName = "G.Moon/G.Mercury"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+fasterPlanetColumn = planetGeocentricLongitudeColumn["Moon"]
+slowerPlanetColumn = planetGeocentricLongitudeColumn["Mercury"]
+listOfDataValues = doCalculationsForColumns(listOfDataValues,
+                                            fasterPlanetColumn,
+                                            slowerPlanetColumn)
+
+# G.Moon/G.Venus
+columnName = "G.Moon/G.Venus"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+fasterPlanetColumn = planetGeocentricLongitudeColumn["Moon"]
+slowerPlanetColumn = planetGeocentricLongitudeColumn["Venus"]
+listOfDataValues = doCalculationsForColumns(listOfDataValues,
+                                            fasterPlanetColumn,
+                                            slowerPlanetColumn)
+
 # G.Moon/G.Sun
 columnName = "G.Moon/G.Sun"
 headerLine += "," + columnName
@@ -537,12 +557,52 @@ listOfDataValues = doCalculationsForColumns(listOfDataValues,
                                             fasterPlanetColumn,
                                             slowerPlanetColumn)
 
+# G.Moon/G.Mars
+columnName = "G.Moon/G.Mars"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+fasterPlanetColumn = planetGeocentricLongitudeColumn["Moon"]
+slowerPlanetColumn = planetGeocentricLongitudeColumn["Mars"]
+listOfDataValues = doCalculationsForColumns(listOfDataValues,
+                                            fasterPlanetColumn,
+                                            slowerPlanetColumn)
+
+# G.Moon/G.Jupiter
+columnName = "G.Moon/G.Jupiter"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+fasterPlanetColumn = planetGeocentricLongitudeColumn["Moon"]
+slowerPlanetColumn = planetGeocentricLongitudeColumn["Jupiter"]
+listOfDataValues = doCalculationsForColumns(listOfDataValues,
+                                            fasterPlanetColumn,
+                                            slowerPlanetColumn)
+
 # G.Moon/G.TrueNorthNode
 columnName = "G.Moon/G.TrueNorthNode"
 headerLine += "," + columnName
 log.info("Calculating data for column: {}".format(columnName))
 fasterPlanetColumn = planetGeocentricLongitudeColumn["Moon"]
 slowerPlanetColumn = planetGeocentricLongitudeColumn["TrueNorthNode"]
+listOfDataValues = doCalculationsForColumns(listOfDataValues,
+                                            fasterPlanetColumn,
+                                            slowerPlanetColumn)
+
+# G.Moon/G.Saturn
+columnName = "G.Moon/G.Saturn"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+fasterPlanetColumn = planetGeocentricLongitudeColumn["Moon"]
+slowerPlanetColumn = planetGeocentricLongitudeColumn["Saturn"]
+listOfDataValues = doCalculationsForColumns(listOfDataValues,
+                                            fasterPlanetColumn,
+                                            slowerPlanetColumn)
+
+# G.Moon/G.Uranus
+columnName = "G.Moon/G.Uranus"
+headerLine += "," + columnName
+log.info("Calculating data for column: {}".format(columnName))
+fasterPlanetColumn = planetGeocentricLongitudeColumn["Moon"]
+slowerPlanetColumn = planetGeocentricLongitudeColumn["Uranus"]
 listOfDataValues = doCalculationsForColumns(listOfDataValues,
                                             fasterPlanetColumn,
                                             slowerPlanetColumn)
