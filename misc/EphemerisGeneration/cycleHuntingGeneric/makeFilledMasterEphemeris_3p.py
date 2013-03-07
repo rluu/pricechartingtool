@@ -474,7 +474,7 @@ try:
         for line in f:
             line = line.strip()
             if line == "":
-                # Empty line, do nothing for thi sline.
+                # Empty line, do nothing for this line.
                 # Go to next line.
                 i += 1
             elif i < linesToSkip:
