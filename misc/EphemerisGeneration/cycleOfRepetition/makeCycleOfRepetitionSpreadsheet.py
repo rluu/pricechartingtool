@@ -69,8 +69,8 @@ import logging
 # This should be a CSV file similar to something output by the script
 # 'makeFilledMasterEphemeris_3p.py'.
 #
-#ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleHuntingGeneric/master_3p_ephemeris_nyc_noon.csv"
-ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/doc/notes/TTTA/ephemeris_studies/master_3p_ephemeris_nyc_noon.csv"
+ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleHuntingGeneric/master_3p_ephemeris_nyc_noon.csv"
+#ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/doc/notes/TTTA/ephemeris_studies/master_3p_ephemeris_nyc_noon.csv"
 
 # Timezone used in input ephemeris CSV file.
 defaultInputFileTimezone = pytz.timezone("US/Eastern")
@@ -85,21 +85,22 @@ linesToSkip = 1
 # timestamp in format "YYYY-MM-DD HH:MM" or "YYYY-MM-DD".
 ephemerisInputFileTimestampColumn = 0
 
-# Column number for the longitude of a certain planet, or planet
+# Column number (0-based) for the longitude of a certain planet, or planet
 # combination, in the input CSV file.  Currently this script only
 # works for planets that move straight forward only (i.e. no
 # retrograde).  This column must be in the format of
 # always-increasing.  It is assumed that this information is on a
 # daily basis.
 #
-# Note: Helper script '/home/rluu/programming/pricechartingtool/misc/SpreadsheetColumnLetterNumberConversion/columnLettersToColumnIndex.py' can be used to convert between column letters and column index numbers, but note that this script returns values that are 1-based indexes, so you will need to subtract 1 to get the actual index that is 0-based for the variable below.
+# Note: Helper script '/home/rluu/programming/pricechartingtool/misc/SpreadsheetColumnLetterNumberConversion/columnLettersToColumnIndex.py' can be used to convert between column letters and column index numbers, but note that this script returns values that are 1-based indexes, so you will need to subtract 1 to get the actual index that is 0-based used for the variable below.
 #
-ephemerisInputFileLongitudeColumn = 129 # 113 corresponds to column DJ, G.Moon.
+ephemerisInputFileLongitudeColumn = 210 # 113 corresponds to column DJ, G.Moon.
 
 # Filename location of the market data input CSV file.
 # This is optional.  If the below path is "", then this parameter is ignored.
-marketDataInputFilename = ""
+#marketDataInputFilename = ""
 #marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/stocks/DJIA/DJIA.txt"
+marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/stocks/TDW/TDW.txt"
 
 # Column number for the timestamp.  The timestamp in this column is
 # expected to be in the format "MM/DD/YYYY".
@@ -148,17 +149,20 @@ marketDataInputFileLowPriceColumn = 3
 #startingLongitude = 802.31  # H.Mercury on 1906-06-09.
 #startingLongitude = 510  # H.Venus on 1906-06-09.
 #startingLongitude = 257.92  # H.Earth on 1906-06-09.
-startingLongitude = 95.41  # H.Mars on 1906-06-09.
+#startingLongitude = 95.41  # H.Mars on 1906-06-09.
+
+startingLongitude = 720.0
 
 
 
 # Number of degrees elapsed for each repeat.  A new set of columns in the
 # output file will be created after this amount of degrees has been elapsed.
-numDegreesElapsedForRepeat = 180
+numDegreesElapsedForRepeat = 360
 
 # Ouptut CSV file.  
 #outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/G.Moon_360_deg_repeats.csv"
-outputFilename = "/home/rluu/programming/pricechartingtool/doc/notes/TTTA/ephemeris_studies/CountingWheelsFrom_19060609/H.Mars_180_deg_repeats.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/doc/notes/TTTA/ephemeris_studies/CountingWheelsFrom_19060609/H.Mars_180_deg_repeats.csv"
+outputFilename = "/home/rluu/programming/pricechartingtool/doc/research/stocks/TDW/H.Venus_H.Mars_360_deg_repeats.csv"
 
 # For logging.
 logging.basicConfig(format='%(levelname)s: %(message)s')
