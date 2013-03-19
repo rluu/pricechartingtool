@@ -2,7 +2,7 @@
 ##############################################################################
 # Description:
 #
-#   Adds various sets of artifacts to the Soybeans chart.
+#   Adds various sets of artifacts related to planetary combinations.
 #
 ##############################################################################
 

@@ -327,7 +327,7 @@ def shouldSkipCalculations(planet1Name,
 def worker(taskQueue, resultQueue):
     """Function run by worker processes.  This basically calls
     functions in the taskQueue, and puts the result in resultQueue.
-    If the str 'STOP' is encountered in teh taskQueue, then the worker
+    If the str 'STOP' is encountered in the taskQueue, then the worker
     stops processing tasks in the taskQueue.
     
     Arguments:
@@ -704,9 +704,9 @@ planetNames.append("TrueNorthNode")
 #planetNames.append("Pallas")
 #planetNames.append("Juno")
 #planetNames.append("Vesta")
-planetNames.append("Isis")
+#planetNames.append("Isis")
 #planetNames.append("Nibiru")
-planetNames.append("Chiron")
+#planetNames.append("Chiron")
 #planetNames.append("Gulika")
 #planetNames.append("Mandi")
 #planetNames.append("MeanOfFive")
@@ -727,49 +727,93 @@ longitudeTypes.append("tropical")
 #longitudeTypes.append("sidereal")
 
 # Flag that indicates that aspects are unidirectional.
-uniDirectionalAspectsFlag = False
+uniDirectionalAspectsFlag = True
 
 # List of list of aspects.
 aspectGroupLists = []
+
+# 15-degree increments.
+aspectGroup = []
+step = 360 / 24.0
+start = 0
+stop = 360
+degreeDiff = start
+while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+    aspectGroup.append(degreeDiff)
+    degreeDiff += step
+aspectGroupLists.append(aspectGroup)
+
+## 11.25-degree increments.
+#aspectGroup = []
+#step = 360 / 32.0
+#start = 0
+#stop = 360
+#degreeDiff = start
+#while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+#    aspectGroup.append(degreeDiff)
+#    degreeDiff += step
+#aspectGroupLists.append(aspectGroup)
+
+# 22.5-degree increments.
+aspectGroup = []
+step = 360 / 16.0
+start = 0
+stop = 360
+degreeDiff = start
+while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+    aspectGroup.append(degreeDiff)
+    degreeDiff += step
+aspectGroupLists.append(aspectGroup)
+
+# 18-degree increments
+aspectGroup = []
+step = 360 / 20.0
+start = 0
+stop = 360
+degreeDiff = start
+while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+    aspectGroup.append(degreeDiff)
+    degreeDiff += step
+aspectGroupLists.append(aspectGroup)
 
 # Square group.
 aspectGroup = []
 step = 90
 start = 0
-stop = 180
+stop = 360
 degreeDiff = start
 while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
     aspectGroup.append(degreeDiff)
     degreeDiff += step
 aspectGroupLists.append(aspectGroup)
 
-# Semi-square group.
-aspectGroup = []
-step = 45
-start = 0
-stop = 180
-degreeDiff = start
-while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
-    aspectGroup.append(degreeDiff)
-    degreeDiff += step
-aspectGroupLists.append(aspectGroup)
+## Semi-square group.
+#aspectGroup = []
+#step = 45
+#start = 0
+#stop = 360
+#degreeDiff = start
+#while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+#    aspectGroup.append(degreeDiff)
+#    degreeDiff += step
+#aspectGroupLists.append(aspectGroup)
 
-# Trine group.
-aspectGroup = []
-step = 120
-start = 0
-stop = 180
-degreeDiff = start
-while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
-    aspectGroup.append(degreeDiff)
-    degreeDiff += step
-aspectGroupLists.append(aspectGroup)
+## Trine group.
+#aspectGroup = []
+#step = 120
+#start = 0
+#stop = 360
+#degreeDiff = start
+#while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+#    aspectGroup.append(degreeDiff)
+#    degreeDiff += step
+#aspectGroupLists.append(aspectGroup)
 
 # Quintile group.
 aspectGroup = []
 step = 360 / 5.0
 start = 0
-stop = 180
+stop = 360
 degreeDiff = start
 while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
     aspectGroup.append(degreeDiff)
@@ -780,7 +824,18 @@ aspectGroupLists.append(aspectGroup)
 aspectGroup = []
 step = 360 / 7.0
 start = 0
-stop = 180
+stop = 360
+degreeDiff = start
+while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+    aspectGroup.append(degreeDiff)
+    degreeDiff += step
+aspectGroupLists.append(aspectGroup)
+
+# 40-degree increments
+aspectGroup = []
+step = 360 / 9.0
+start = 0
+stop = 360
 degreeDiff = start
 while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
     aspectGroup.append(degreeDiff)
@@ -791,23 +846,23 @@ aspectGroupLists.append(aspectGroup)
 aspectGroup = []
 step = 180
 start = 0
-stop = 180
+stop = 360
 degreeDiff = start
 while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
     aspectGroup.append(degreeDiff)
     degreeDiff += step
 aspectGroupLists.append(aspectGroup)
 
-# Conjunctions.
-aspectGroup = []
-step = 360
-start = 0
-stop = 180
-degreeDiff = start
-while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
-    aspectGroup.append(degreeDiff)
-    degreeDiff += step
-aspectGroupLists.append(aspectGroup)
+## Conjunctions.
+#aspectGroup = []
+#step = 360
+#start = 0
+#stop = 180
+#degreeDiff = start
+#while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
+#    aspectGroup.append(degreeDiff)
+#    degreeDiff += step
+#aspectGroupLists.append(aspectGroup)
 
 # List of tasks
 tasks = []
@@ -861,6 +916,13 @@ for i in range(len(planetNames)):
 
 # TODO: add task for adding vertical lines for when a geocentric planet moves from retrograde to direct and direct to retrograde.
 
+# TODO: add task for minimum, maximum, and zero declination lines.
+# TODO: add task for minimum, maximum, and zero geocentric latitude lines.
+# TODO: add task for minimum, maximum, and zero heliocentric latitude lines.
+# TODO: add task for parallel and contraparallel geocentric latitude.
+# TODO: add task for parallel and contraparallel heliocentric latitude.
+
+# TODO:  add aspects for 3-planet combinations.
 
 # Start the worker processes.
 log.info("Spawning {} processes to complete {} tasks.".\
