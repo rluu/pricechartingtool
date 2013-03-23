@@ -75,20 +75,20 @@ hourOfDay = 12
 minuteOfHour = 0
 
 
-startDt = datetime.datetime(year=1906, month=1, day=1,
-                            hour=hourOfDay, minute=minuteOfHour,
-                            tzinfo=timezone)
-#startDt = datetime.datetime(year=1985, month=1, day=1,
+#startDt = datetime.datetime(year=1906, month=1, day=1,
 #                            hour=hourOfDay, minute=minuteOfHour,
 #                            tzinfo=timezone)
-
-
-endDt   = datetime.datetime(year=1935, month=12, day=31,
+startDt = datetime.datetime(year=1984, month=1, day=1,
                             hour=hourOfDay, minute=minuteOfHour,
                             tzinfo=timezone)
-#endDt   = datetime.datetime(year=2015, month=12, day=31,
+
+
+#endDt   = datetime.datetime(year=1935, month=12, day=31,
 #                            hour=hourOfDay, minute=minuteOfHour,
 #                            tzinfo=timezone)
+endDt   = datetime.datetime(year=2015, month=12, day=31,
+                            hour=hourOfDay, minute=minuteOfHour,
+                            tzinfo=timezone)
 
 
 # Destination output CSV file.
@@ -577,14 +577,21 @@ while currDt.date() < endDt.date():
     
     
 # Write outputLines to output file.
-with open(outputFilename, "w") as f:
-    log.info("Writing to output file '{}' ...".format(outputFilename))
-    
-    endl = "\r\n"
-    
-    for line in outputLines:
-        f.write(line + endl)
-    
+try:
+    with open(outputFilename, "w") as f:
+        log.info("Writing to output file '{}' ...".format(outputFilename))
+        
+        endl = "\r\n"
+        
+        for line in outputLines:
+            f.write(line + endl)
+        
+except IOError as e:
+    errStr = "I/O Error while trying to write file '" + \
+             outputFilename + "':" + os.linesep + str(e)
+    log.error(errStr)
+    shutdown(1)
+
 log.info("Done.")
 shutdown(0)
 

@@ -1836,13 +1836,15 @@ try:
 
             f.write(line + endl)
 
-    log.info("Done.")
-    
 except IOError as e:
     errStr = "I/O Error while trying to write file '" + \
              outputFilename + "':" + os.linesep + str(e)
     log.error(errStr)
     shutdown(1)
 
+
+log.info("Done.")
+shutdown(0)
+    
 
 ##############################################################################

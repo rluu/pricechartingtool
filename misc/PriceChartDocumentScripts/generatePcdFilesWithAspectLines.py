@@ -289,7 +289,9 @@ def shouldSkipCalculations(planet1Name,
        planet1CentricityType == planet2CentricityType:
         
         rv = True
-    
+
+
+    # Ignore planets that don't make sense for heliocentric reference point.
     ignoredHelioPlanets = []
     ignoredHelioPlanets.append("Sun")
     ignoredHelioPlanets.append("Moon")
@@ -309,6 +311,7 @@ def shouldSkipCalculations(planet1Name,
             rv = True
             break
         
+    # Ignore planets that don't make sense for geocentric reference point.
     ignoredGeoPlanets = []
     ignoredGeoPlanets.append("Earth")
     
@@ -320,6 +323,14 @@ def shouldSkipCalculations(planet1Name,
             
             rv = True
             break
+
+    # Ignore comparisons of geocentric planets with heliocentric planets.
+    if (planet1CentricityType == "geocentric" and \
+        planet2CentricityType == "heliocentric") or\
+        (planet1CentricityType == "heliocentric" and \
+        planet2CentricityType == "geocentric"):
+
+        rv = True
     
     return rv
     
@@ -686,7 +697,7 @@ planetNames = []
 #planetNames.append("InterpolatedLunarApogee")
 #planetNames.append("InterpolatedLunarPerigee")
 planetNames.append("Sun")
-planetNames.append("Moon")
+#planetNames.append("Moon")
 planetNames.append("Mercury")
 planetNames.append("Venus")
 planetNames.append("Earth")
