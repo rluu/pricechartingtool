@@ -147,6 +147,27 @@ Fire:  2, 4, 8.
 Water: 1, 5, 7.
 Air:   3, 6, 9.
 
+pg. 32
+
+Numbers used in the equation:
+  - Day number of the month of birth, summed and reduced.
+      Example: March 21.  The number would be 21, and reduces to 3.  
+      This 3 number is kept.
+  - Numbers of the letters of the first name.
+      Example: George.  756975, sums to 39, reduces to 3.
+      This 3 number is kept.
+  - Age of the person.  
+      Example: Age of 35.  Sums and reduces to 8.
+      This number 8 is kept.
+
+These digits are to be summed up and reduced.
+  3 + 3 + 8 = 14   ---->   5.
+
+[rluu: The text then says that this person which was used as an example is a 5 number, and is part of the 1-5-7 water group, and thus their temperment is watery.]
+
+[The text says that every 5 years he will have a change of some sort in his life which will bring him either good luck or bad luck.]
+
+[rluu: I have a problem with this.  So for each age of the person, their number changes?  If this 5 year cycle periods are connected to the 5 that was deduced from the 3 input numbers, then how can every 5 years something happen, if one of the inputs is his age?  Or this 5 generic and not specifically applicable to George?]
 
 pg. 34
 
