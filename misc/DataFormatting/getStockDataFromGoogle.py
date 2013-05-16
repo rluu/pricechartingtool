@@ -16,7 +16,7 @@
 # Note:
 # 
 #    If possible, prefer to use the Yahoo equivalent of this script
-#    (getStockDataFromGoogle.py).  This is because there are some
+#    (getStockDataFromYahoo.py).  This is because there are some
 #    caveats the user should be aware of while using this script,
 #    whereas the Yahoo version of this script works without problems.
 #

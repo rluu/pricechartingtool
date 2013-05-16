@@ -42,6 +42,8 @@
 #     # latest timestamp of data availble.
 #     ./getStockDataFromBarChart.py --stock-symbol=AAPL --interval=DO --output-file=/tmp/testing.txt
 #
+#     # Get data for the Dow Industrials average.
+#     ./getStockDataFromBarChart.py --stock-symbol="\$DOWI" --interval=DO --output-file=/tmp/djia.txt
 #
 ##############################################################################
 
