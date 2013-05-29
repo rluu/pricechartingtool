@@ -1,0 +1,61 @@
+##############################################################################
+
+Description:
+   This document is a collection of thoughts on what I think the "1940" in
+   the TTTA title could mean.
+
+##############################################################################
+
+The full title of the book is:
+
+"The Tunnel Thru The Air 
+           or
+Looking Back From 1940"
+
+
+Number of letters in the 1st line is: 19
+Number of letters in the 2nd line is:  2
+Number of letters in the 3rd line is: 19
+
+19 + 2 + 19 = 40
+
+##############################################################################
+
+The eclipse cycle is 6940 days, which is equal to: 5000 + 1940.
+
+##############################################################################
+
+In the Sumerian King list, see the list of Gutian rulers.
+
+They ruled for 3 years without any famous kings, then the named kings are listed.  There are 19 named kings in total, the last king ruling for 40 years.
+
+So the 19th king ruled for 40 years, which is the last king.  Here we have the numbers 19 and 40 at the end of the sequence.
+
+##############################################################################
+
+In the Sumerian King list, see the list of Isin rulers.
+
+In the list of 14 kings:
+  - The last 3 kings (kings 12-14) add up to 19.
+  - The 4 kings before that (kings 8-11) add up to 40.
+
+Thus, going backwards in time periods, we have 19, and 40.  
+That is for the grouping of 7, which totals 59.
+
+The 7 kings before this grouping, which are the first 7 kings (kings 1-7) total 153 years, which is the number of fishes.
+
+
+
+Note, in the Isin dynasty king list, some lists show 15 kings total, and some show 14.  Thus, the 15th king is shown with an asterisk.
+
+
+##############################################################################
+
+The day count difference between the last date of TTTA and the Foreword date is exactly 1940 days.
+
+H.Mercury is at  0 degrees Aries  on the Foreword date.
+G.Sun     is at 18 degrees Taurus on the Foreword date.
+G.Moon    is at  0 degrees Virgo  on the Foreword date.
+
+
+##############################################################################
