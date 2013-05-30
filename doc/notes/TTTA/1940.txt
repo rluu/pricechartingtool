@@ -1,7 +1,7 @@
 ##############################################################################
 
 Description:
-   This document is a collection of thoughts on what I think the "1940" in
+   This document is a collection of notes on what I think the "1940" in
    the TTTA title could mean.
 
 ##############################################################################
@@ -22,6 +22,14 @@ Number of letters in the 3rd line is: 19
 ##############################################################################
 
 The eclipse cycle is 6940 days, which is equal to: 5000 + 1940.
+
+##############################################################################
+
+In the 4th Kish Dynasty, the length is either 491 or 506 (due to an extra king that is not listed in all the king lists).
+
+If it is 491, then this would be 1940 backwards (194.0 backwards is 491).
+The sum total of the Kish Dynasty (using 491) is: 3000 + 491 = 3491.
+
 
 ##############################################################################
 
