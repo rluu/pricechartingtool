@@ -1,76 +1,76 @@
 ##############################################################################
+Information about the number 1940.
+##############################################################################
 
-Description:
-   This document is a collection of notes on what I think the "1940" in
-   the TTTA title could mean.
+
+1940 is the number of days between the Foreword of TTTA and the last date in TTTA.
+
+
+The Foreword is written when H.Mercury is at 0 Aries.  
 
 ##############################################################################
 
-The full title of the book is:
+19 * 40 = 760 = 360 + 400
 
-"The Tunnel Thru The Air 
-           or
-Looking Back From 1940"
+[rluu: The emphasis is on the 400.  Remember, the Bhagavata Purana is 18,000 verses, from the 400,000 verses from the 18 mahapuranas.]
 
-
-Number of letters in the 1st line is: 19
-Number of letters in the 2nd line is:  2
-Number of letters in the 3rd line is: 19
-
-19 + 2 + 19 = 40
-
-##############################################################################
-
-The synodic period of Venus divided by three:
-
-584 / 3 = 194.6666
 
 
 ##############################################################################
 
-The eclipse cycle is 6940 days, which is equal to: 5000 + 1940.
+1960 = 490 * 4
+1940 = 490 + 490 + 490 + 470
 
-##############################################################################
+where 470 = 360 + 110
 
-In the 4th Kish Dynasty, the length is either 491 or 506 (due to an extra king that is not listed in all the king lists).
-
-If it is 491, then this would be 1940 backwards (194.0 backwards is 491).
-The sum total of the Kish Dynasty (using 491) is: 3000 + 491 = 3491.
-
-
-##############################################################################
-
-In the Sumerian King list, see the list of Gutian rulers.
-
-They ruled for 3 years without any famous kings, then the named kings are listed.  There are 19 named kings in total, the last king ruling for 40 years.
-
-So the 19th king ruled for 40 years, which is the last king.  Here we have the numbers 19 and 40 at the end of the sequence.
-
-##############################################################################
-
-In the Sumerian King list, see the list of Isin rulers.
-
-In the list of 14 kings:
-  - The last 3 kings (kings 12-14) add up to 19.
-  - The 4 kings before that (kings 8-11) add up to 40.
-
-Thus, going backwards in time periods, we have 19, and 40.  
-That is for the grouping of 7, which totals 59.
-
-The 7 kings before this grouping, which are the first 7 kings (kings 1-7) total 153 years, which is the number of fishes.
+The number 110 shows up many times in TTTA.
 
 
 
-Note, in the Isin dynasty king list, some lists show 15 kings total, and some show 14.  Thus, the 15th king is shown with an asterisk.
+I wrote the "1960 = 490 * 4" above because in E. W. Bullinger's book "Number in Scripture", he talks about 4 periods of 490 in the timeline of the Bible.  
 
 
 ##############################################################################
 
-The day count difference between the last date of TTTA and the Foreword date is exactly 1940 days.
+Another possibility is that Gann is giving us two numbers, 19 and 40, both are important Bible and cycle numbers.  
 
-H.Mercury is at  0 degrees Aries  on the Foreword date.
-G.Sun     is at 18 degrees Taurus on the Foreword date.
-G.Moon    is at  0 degrees Virgo  on the Foreword date.
+##############################################################################
 
+Another possibility is that it is a Bible verse that is being referenced?  Or perhaps an answer/hint to a riddle that is in TTTA?  
+
+Note that Jonah is in Matthew 12:40.  12 is 7 less than 19.  Matthew chapter 19 has only 30 verses though.  Perhaps 19:4 is being referred to?  
+
+
+Psalm 19:4 says: 
+"Their line is gone out through all the earth, and their words to the end of the world.  In them hath he set a tabernacle for the sun."
+
+[rluu: Hmm, this Psalm 19 is very interesting.  I should make a closer study of this chapter.]
+
+
+##############################################################################
+
+Metonic cycle:
+
+The Greek astronomer Meton of Athens (fifth century BCE) observed that a period of 19 years is almost exactly equal to 235 synodic months, and rounded to full days counts 6940 days. The difference between the two periods (of 19 years and 235 synodic months) is only a few hours, depending on the definition of the year.
+
+Considering a year to be 1⁄19 of this 6940-day cycle gives a year length of 365 + 1⁄4 + 1⁄76 days (the unrounded cycle is much more accurate), which is slightly more than 12 synodic months. To keep a 12-month lunar year in pace with the solar year, an intercalary 13th month would have to be added on seven occasions during the nineteen-year period (235 = 19 × 12 + 7). Meton introduced the cycle in circa 432 BCE, but it was actually known earlier by Babylonian astronomers.
+
+
+[*****rluu: Note that: 6940 - 1940 = 1500 days.]
+
+
+The Metonic cycle is related to two less accurate subcycles:
+
+    8 years = 99 lunations (an Octaeteris) to within 1.5 days, i.e. an error of one day in 5 years; and
+    11 years = 136 lunations within 1.5 days, i.e. an error of one day in 7.3 years.
+
+By combining appropriate numbers of 11-year and 19-year periods, it is possible to generate ever more accurate cycles. For example simple arithmetic shows that:
+
+    687 tropical years = 250921.39 days;
+    8497 lunations = 250921.41 days;
+
+giving an error of only about half an hour in 687 years (2.5 seconds a year), although this is subject to secular variation in the length of the tropical year and the lunation.
+
+Meton of Athens approximated the cycle to a whole number (6940) of days, obtained by 125 long months of 30 days and 110 short months of 29 days. During the next century Callippus developed the Callippic cycle of four 19-year periods for a 76-year cycle with a mean year of exactly 365.25 days.
 
 ##############################################################################
