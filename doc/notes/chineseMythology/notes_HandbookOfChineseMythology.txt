@@ -1,23 +1,40 @@
 ##############################################################################
 Notes on the book "Handbook of Chinese Mythology" by Lihui Yang and Deming An.
 
-pg. 173
-Tao Tree = Peach tree  [see Kuafu's stick taht transformed into a peach tree.] [pg. 173]
-Li tree  = Plum tree.  [pg. 173]
-Fusang tree = [Leaning] Mulberry tree of height 300.  Located in the great wilderness.
+##############################################################################
 
 
 TODO:  Study/add:
- - Shaohao [pg.187]
- - Qi [pg. 186]
- - Shennong [pg. 190]
+ - Kunlun mountain, celestial ladder. [pg. 160]
+
+
+Make a timeline of the "The Three Sovereigns and Five Emperors" and/or the 3 August Ones.  This is a timeline of life, longevity, and events of their lives.  
+
+
+Done:
+ - Shennong (Divine farmer, of sowing and reaping.  9 wells.   [pg. 190]
+    - Make spreadsheet notes on story on pg. 197-198.
  - Xiwangmu (Queen mother of the west who has exliir of immortality) [pg. 218]
  - Gonggong (water god that bumped into Mount Buzhou (mt. "not full")) [pg. 124]
- - Kunlun mountain, celestial ladder. [pg. 160]
  - Khulong ("Torch shaddow" or "torch dragon")
 
 
+
 What are the 10 Heavenly Stems and teh 12 Earthly Branches? [pg. 143]
+
+
+##############################################################################
+Tree types:
+
+pg. 173
+
+Tao Tree = Peach tree  [see Kuafu's stick taht transformed into a peach tree.] [pg. 173]  [Peach tree was also on Dushuo Mountain, with branches reaching 3,000 li.  see pg. 200]  [3 sorts of peaches are used at the Saucer Peach Banquet: ripening at 3,000 years, 6,000 years, and 9,000 years.  See pg. 222]
+
+Li tree  = Plum tree.  [pg. 173]
+
+Fusang tree = [Leaning] Mulberry tree of height 300.  Located in the great wilderness.
+
+Mulberry tree: 8,000 feet in height, producing fruit every 10,000 years. [pg. 187]
 
 
 ##############################################################################
@@ -32,22 +49,16 @@ Di Ku has 2 sons that fought every day and became star gods:
 1) Ebo: Got moved to Shangqiu and assigned charge fo the Chen star.
 2) Shichen: Got moved to Daxia and assigned charge of the Shen star.
 
-[rluu: Implicatino from my reading is that these stars were at opposite sides of the circle.  Is this 2 pentagons inverted in each other?]
+[rluu: Implication from my reading is that these stars were on opposite sides of the circle.  Is this 2 pentagons inverted in each other?]
 
 
 
-Qi means "the Abandoned".  [rluu: Sounds like Moses.]
+Qi means "the Abandoned". [pg. 152] [rluu: Sounds like Moses?]
 
 
 Di Ku had 4 consorts:
 
-1) Jiang Yuan: Gave birth to Houji, the god of grain and agriculture, by stepping in a giant toe-print in a field.  
-[rluu: I think Houji is connected to Tammuz (Hebrew) and Dumuzi (Sumerian).
-    Dumuzid of Bad-tibira, the shepherd (reigning 36 000 years), the fifth King before the Flood.
-    Dumuzid of Kuara, the fisherman (reigning 100 years), the third King of the first dynasty of Uruk, reigning between Lugalbanda and Gilgamesh.
-]
-
-
+1) Jiang Yuan: Gave birth to Houji, the god of grain and agriculture, by stepping in a giant toe-print in a field.  Houji's original name was Qi (棄, lit. "the Abandoned One").
 
 2) Jiandi:     Gave birth to Qi by swallowing a [colorful] swallow egg.  (there were 2 eggs in some stories).  
 
@@ -77,7 +88,7 @@ The 9 Dragon offspring and their abilities:
 
 5) Bi'an: which hates criminals and therefore its figure often ornaments the gates of prisons.
 
-6) Suanni: Keen on smoke and fire so taht its figure often appears ont eh lid of icense burners.
+6) Suanni: Keen on smoke and fire so taht its figure often appears on the lid of incense burners.
 
 7) Baxia: Likes water very much so that its figure is usually carves on the guardrails of bridges.
 
@@ -180,7 +191,7 @@ Every March 3 of the lunar calendar there is a huge temple fair for Pangu.  Thes
 It typically is only the supreme god, Jade Emperor, that has the right to send rain, but occasionally other gods who have made great contributions to gods or mankind will be given special permission by the Supreme God to create rain several times a year.  Pangu belongs to this group.  
 
 
-A deity recorded in two texts in Shanhaijing is thought to be the prototype of the Pangu figure.  This deity is called Zhulong ("Torch Dragon") or Zhuyin ("Torch Shadow").  He was a god with a human face and serpent's trunk, and his body was 1,000 miles in length.  When his eyes opened there was daylight and when they closed it became night.  His hard breath made winter and his hot exhalation made summer.  His appearance and abilities are almost hte same as Pangu's.  
+A deity recorded in two texts in Shanhaijing is thought to be the prototype of the Pangu figure.  This deity is called Zhulong ("Torch Dragon") or Zhuyin ("Torch Shadow").  He was a god with a human face and serpent's trunk, and his body was 1,000 miles in length.  When his eyes opened there was daylight and when they closed it became night.  His hard breath made winter and his hot exhalation made summer.  His appearance and abilities are almost the same as Pangu's.  
 
 
 [rluu: Pillar might mean something that supports between heaven and earth.]
@@ -291,7 +302,7 @@ Cords are tied to the earth to prevent it from collapsing.  Usually the holder i
 
 In some ancient texts, earth cords were said to have been broken off during a war in the remote past.  
 
-Nuwa melted stones of 5 different colors to repair the defective sky, and cut the legs from a huge tortoise and set them up to suppor thte four extremities of the sky.  
+Nuwa melted stones of 5 different colors to repair the defective sky, and cut the legs from a huge tortoise and set them up to support the four extremities of the sky.  
 
 [rluu-TODO: Read the wikipedia article on this.  This is related to the flood and starting over again.]
 
@@ -410,8 +421,8 @@ Sovereign series (帝王世系) says they are:
 Heavenly Sovereign:
 -------------------
 According to Book of History (史記),
-    After the heaven and the earth were founded, there was Tiānhuáng who had twelve heads, cast his magic to fill the earth with water. He lived until his age of eighteen thousand.
-    Or, Tiānhuáng was a king of many achievements, lived to eighteen thousand years old. His twelve children supported him in reigning the world.
+    After the heaven and the earth were founded, there was Tiānhuáng who had 12 heads, cast his magic to fill the earth with water. He lived until his age of 18,000.
+    Or, Tiānhuáng was a king of many achievements, lived to 18,000 years old. His 12 children supported him in reigning the world.
 
 His greatest achievement was suppressing all the chaos, divided the world to many tribes with choosing the best person to rule his tribe.
 
@@ -425,8 +436,8 @@ Was the second Chinese legendary king after Pangu's era. According to Yiwen Leij
 
 According to Book of History (史記),
 
-    Dìhuáng had eleven heads, was the king of Fire (火德王, Huǒdéwáng).
-    Or, Dìhuáng was a king of many achievements, was of eleven brothers, lived to eighteen thousand years old.
+    Dìhuáng had 11 heads, was the king of Fire (火德王, Huǒdéwáng).
+    Or, Dìhuáng was a king of many achievements, was of 11 brothers, lived to 18,000 years old.
 
 After he was born, the world was filled in chaos. That year, the sun and the moon born from two eyes of Pangu, the stars from his hairs couldn't move smoothly and correctly, which caused many days without sun, or many days with the sun shined all over each day, or many dangerous fallen star accidents. With his power, Dìhuáng corrected the false. He made the sun, the moon move correctly, and stipulated the days of a month, the months of a year.
 
@@ -443,9 +454,9 @@ Was the third Chinese legendary king after Pangu's era. According to Yiwen Leiju
 
 According to Book of History (史記),
 
-    Rénhuáng had seven heads, rode a cloudy chariot, coughed out rice from his mouth. He was of nine brothers. They led nine provinces, each founded his own citadel. Their dynasty ruled through one hundred and fifty (150) generations, lasted forty-five thousand (45,000) years.
+    Rénhuáng had 7 heads, rode a cloudy chariot, coughed out rice from his mouth. He was of 9 brothers. They led 9 provinces, each founded his own citadel. Their dynasty ruled through one hundred and fifty (150) generations, lasted forty-five thousand (45,000) years.
 
-His greatest achievement was dividing China to nine provinces, built the united dynasty lasting forty-five thousand years.
+His greatest achievement was dividing China to 9 provinces, built the united dynasty lasting 45,000 thousand years.
 
 
 [rluu: 7 heads.  Was of 9 brothers.  Led 9 provinces.  Ruled for 150 generations.  Lasted for 45,000 years.]
@@ -461,11 +472,11 @@ His greatest achievement was dividing China to nine provinces, built the united 
 The Five Emperors according to:
 Records of the Grand Historian (史記)
 
-1) Yellow Emperor (黃帝), 
+1) Yellow Emperor (Huang Di) (黃帝), 
 2) Zhuanxu (顓頊), 
-3) Emperor Ku (嚳), 
-4) Emperor Yao (堯), 
-5) Shun (舜)
+3) Emperor Ku (Di Ku) (rluu_calc: 70 years of reign: 2436 BC to c. 2366 BC), 
+4) Emperor Yao (100 years of reign: 2333 BC - 2234 BC)
+5) Shun (Di Shun) (Recieved mantle of leadership from Emperor Yao at age 53, and died at age of 100. At death, he reliquished his seat of power to yu.  Another source says: Shun began to reign at the age of 30, reigned with Yao for 30 years, and reigned 50 years after Yao's death [pentecost], then Shun died.[14])  See timeline of his life.  You can see the 33rd year = omer count.  
 
 
 In the Sovereign Series (帝王世紀), 
@@ -495,6 +506,44 @@ Upon his death he rose into the heavens and became a Xian (or Hsien), an immorta
 
 ----------------
 
+pg. 187
+
+Shaohao
+
+One of the most notable supreme gods in Chinese mythology.  Shaohao founded his capital in the east, but later was known as the god who reigns over the west and controls the season of autumn.  
+
+[rluu: Autumn season, reigns over the West.]
+
+
+Other aliases:
+  - Jintianshi (literally "Metal Sky").  
+  - Zhi
+  - Zhuxuan
+  - Baidi ("White God; accounting to the theory of 5 elements and 5 colors, the west belongs to metal, and its color is white).
+
+
+Birth story:
+During the time of Huang Di, a big star shining like a rainbow fell down to the Hua Islet.  A divine lady named Nujie caught it in her dream.  Then she got pregnant and later gave birth to Shaohao (Zhuxuan).  
+
+Another version maintains that he was the son of Jin Xing (the planet Venus) and a beautiful divine lady named Huang'e.  
+
+The book Shiyiji states that Shaohao's mother, Huang'e (litterally meaning a beautiful divine woman), lived in a jade palace and wove at night.  Sometimes, during the day, she traveled far away by a raft to the boundless reach of Qiongsang, which, in that story, was located on teh shore of the west sea.  There was a mulberry tree on the shore.  It was 8000 feet in height, and it produced fruit every 10,000 years.  If one ate its fruit, one was able to live longer than heaven.  At that time, there was a handsome child-god named "the Son of White God" (here Shaohao became the grandson of the White God instead of being the White God himself) who actually was the spirit of Jin Xing (the planet Venus) descended at Qionsang.  He feasted and played with Huang'e.  They floated on the sea; meanwhile they played fantastic music and sang songs in response to each other.  To discern the wind direction, they set up a mast in the front of their raft, tied thatched grass to the mast as a flag, and carved a jade cuckoo bird on the top of the mast, because the cuckoo bird knew the 4 seasons.  What they did originated the custom of xiangfeng (whereby peopel carve a wooden or copper bird and then put it on teh top of their roofs or masts to discern the wind direction).  Later Huang'e gave birth to Shaohao.  He was also named Qiongsangshi or Jintianshi (shi here is a respectful title for gods and nobles).  Since 5-colored phoenixes came to his yard when he was born, he was also called Fengniaoshi (meaning "Phoenix Bird").
+
+Though the text from Shiyiji asserts that Shaohao was born in the west, some ancient writings show that he perhaps originated from the east.  
+
+Text in Zuozhuan says that when Shaohao founded his state, phoenixes appeared.  He thus decided to give his subordinates bird names.  For example:
+ - Fengniaoshi (meaning "Phoenix Bird") took charge of the calendar.
+ - Xuanniaoshi ("Swallow") took charge of the equinoxes.
+ - Bozhaoshi ("Butcherbird") took care of the summer and winter solstices.
+ - Qingniaoshi ("Green Bird") took charge of the beginnings of spring and summer
+ - Danniaoshi ("Red Bird") took charge of the beginnings of autumn and winter.
+
+[Text then lists in addition to the 5 bird names for officials, also, 5 Jiu (5 kinds of doves), 5 Zhi (5 kinds of pheasants), and 9 Hu birds (to preside over agriculture).]
+
+[rluu: Thus by my count: 5 + 5 + 5 + 9 = 24]
+
+
+From wikipedia:
 
 Shaohao
 
@@ -706,7 +755,7 @@ Another version asserts that Chiyou could stir up clouds and mist.  When he foug
 
 [rluu: Compass cart is the "South Pointing Chariot".  see pg. 142 and wikipedia.]
 
-Some versions maintain that after Huang Di fought against HCiyou many times, and still could not win, he retreated with his army to Mount Tai.  There was a thick fog lasting for 3 days.  In the fog, Huang Di saw a lady with a woman's head and a serpent's body.  he kowtowed, bowed twice, flattened himself against the ground and did not dare stand up.  The lady said, "I am Xuan Nu (litterally "Dark Lady")".  Huang Di asks for 'myriad attacks', myriad wins.  So the goddess taught himt eh art of war, and he defeated Chiyou in the end.  
+Some versions maintain that after Huang Di fought against Chiyou many times, and still could not win, he retreated with his army to Mount Tai.  There was a thick fog lasting for 3 days.  In the fog, Huang Di saw a lady with a woman's head and a serpent's body.  he kowtowed, bowed twice, flattened himself against the ground and did not dare stand up.  The lady said, "I am Xuan Nu (litterally "Dark Lady")".  Huang Di asks for 'myriad attacks', myriad wins.  So the goddess taught himt eh art of war, and he defeated Chiyou in the end.  
 
 [rluu: Dark Lady is Kali.  See my timeline of Hindu holidays with the Kali connection to 3 days.]
 
@@ -847,11 +896,21 @@ Poem from "Shijing" text:
 
 The first birth of our people was from Jiang Yuan.  How did she give birth to a person?  She had offered a sacrifice to the Supreme Divinity, to ward off the misfortune of childlessness.  By chance, she stepped into a huge toe-print made by the Supreme Divinity, and her body was stirred.  She then began to live in a separate room undistrubed.  Jiang Yuan became pregnant, and she behaved even more devoutly and solemnly.  She gave birth to a son who was Houji.  When her birth had come to full-term, she delivered as easy as the birth of a lamb.  Then she abandoned her son on a narrow lane, but the sheep and oxen protected him and fed him.  She tried to place him in a forest, but gave up there because there happened to be many wood-cutters there.  She then threw him away on cold ice, and a bird sheltered and supported him with its wings.  When the bird flew away, Houji began to wail.  His cry was so long and loud, that his voice filled all his surroundings [...] [pg. 150-151]
 
-[rluu: I think Houji is connected to Tammuz (Hebrew) and Dumuzi (Sumerian).
-    Dumuzid of Bad-tibira, the shepherd (reigning 36 000 years), the fifth King before the Flood.
-    Dumuzid of Kuara, the fisherman (reigning 100 years), the third King of the first dynasty of Uruk, reigning between Lugalbanda and Gilgamesh.
-]
 
+Houji per wikipedia:
+http://en.wikipedia.org/wiki/Houji
+
+Houji (Chinese: 后稷, p Hòujì) was a legendary Chinese culture hero credited with introducing millet to humanity during the time of the Xia dynasty.[1] (Millet was the original staple grain of northern China, prior to the introduction of wheat.) His name translates directly as Lord of Millet and was a posthumous name bestowed on him by King Tang, the first of the Shang dynasty.
+Houji was credited with developing the philosophy of Agriculturalism and with service during the Great Flood in the reign of Yao; he was also claimed as the ancestor of the Ji clan that became the ruling family of the Zhou dynasty.
+
+Houji's original name was Qi (棄, lit. "the Abandoned One").
+
+Two separate versions of his origin were common. In Chinese mythology, he was said to have been supernaturally conceived when his mother Jiang Yuan, a previously barren wife of the emperor Ku, stepped into a footprint left by Shangdi, the supreme sky god of the early Chinese pantheon.[2][3] Other accounts simply make him one of Ku's four sons, each prophesied to father a family of emperors over China. This origin allowed his descendents to claim a lineage from the Yellow Emperor as well.[4]
+He was held to have been repeatedly abandoned by his mother, but saved each time – in the street, by draft animals; in the forest, by woodcutters; on the ice, by a great bird.[3] He later became famous for his luxuriant crops of beans, rice, hemp, gourds, and several kinds of millet and was credited with the introduction of the spring ritual sacrifice of fermented millet beer, roasted sheep, and the herb southernwood.[3]
+
+
+
+pg. 151-153
 
 Another legend says that when Jiang was still a young girl, one snowy day in winter she went to the threshing ground to fetch some firewood.  The snow was so heavy that she could hardly walk.  Then she found 2 lines of huge footprints along the road where she should go, and she stepped in them.  Because the footprints were made by a god, she got pregnant by stepping in them.  When she was ready to give birth and was going to be brought to bed in her home, her mother made her ride a mule and go tot he field to give birth since she felt shamed by her daughter's pregnancy.  When the baby was ready to appear, the mule also happened to be ready to give birth.  Worried that this might distrub her own childbirth, Goddess Jiang used a gold needle to block the mule's birth canal.  From then on the mule could no longer bear offspring.  When the baby came out, she threw it into a pool.  It was in June, but the pool water suddenly iced up.  While the baby lay on the ice, birds flew over to cover and warm him.  Since that time, the pool would ice up every June.  Meanwhile, Jiang's sister-in-law sent a pot of dough drop soup to the field, but the pot was broken halfway there, and teh soup flowed down a local hillside, so it later was called "the Hillside of Dough Drop Soup."  Believing that Jiang's miraculous conception woudl bring misfortune to the village, some of her neighbors chased after her and tried to beat her.  Goddess Jiang ran away.  When they had almost caught her, there suddenly came a gale that blew for three days.  When the gale stopped, the people found that Goddess Jiang had disappeared and that a mausoleum appeared in her place.  They called the building "Jiang Yuan's Mausoleum".  
 
@@ -904,6 +963,331 @@ Kui lived on Mount Liubo (literally "flowing wave") in the east sea.  It looked 
 Later it was caught by Huang Di, who made a drum by using its hide as the cover.  When struck with the bone of the Thunder God, the drum made a great sound that could be heard over 500 miles away.  Huang Di used the drum to show his power ot the whole world.  In some versions, this drum made by Kui's skin played an important role in the battle between Huang Di and Chiyou.  
 
 Other versions depict Kui as a 1-legged horned dragon.  Its scales shone like the sun and moon.  If it happened to be seen, it would bring a drought to the place where it was seen.  Sometimes Kui was said to look like a monkey with a man's face and had the abilityt o talk.  Kui was also described as a drum-shaped animal with one leg.  It was the spirit of the mountain.  If one called its name, then it could help one to catch the tiger and panther. 
+
+------------
+
+pg. 186
+
+Qi
+
+Qi was the founder of the Shang people and the son of Di Ku.
+Qi was miraculously born by Jiandi after she ingested a swallow's egg adn became pregnant.  
+
+According to text Shiji:
+Qi's mother was Jiandi, who was the 2nd concubine of Di Ku.  One day Jiandi went out to take a bath with Di Ku and another person [rluu: 3 people total?] , and she saw a swallow dropping an egg.  She picked it up and swallowed it.  Then she inexplicably became pregnant and later gave birth to Qi.  When Qi grew up, he helped Yu restrain the great flood.  As a result, he was bestowed the fief of Shang by the sage king Shun.  Later he and his state became very powerful and prosperous.  
+
+According to another version in the Shiyiji text:
+At the beginning of the Shang dynasty, a divine woman named Jiandi traveled in teh field.  She found a black bird dropping its only egg.  There were two colorful words written on it: "800".  Jiandi picked it up, covered it with a red silk belt, and protected it under a jade basket.  During that night, she dreamed that a mother goddess told her, "You possesss this egg, adn thus you will give birth to a great son.  He will inherit the emblem of Metal".  (according to the theory of 5 elements, the Shang dynasty belongs to metal, "jin").  Jiandi then held the egg to her bosom.  After one year, she became pregnant.  After 14 more months, she gave birth to Qi, the founder of the Shang dynasty.  As the goddess predicted, teh Shang dynasty lasted for 800 years.  
+
+Other versions say that Qi was so distinctive and extraordinary, like Yu and Houji, that when he was born, he came out from his mother's back, or breast, instead of her belly.
+
+--------------
+
+pg. 190
+
+Shennong
+
+Shennong is one of the 3 Divine Sovereigns along with Fuxi and Huang Di (names differ according to texts; some groups include the goddess Nuwa).  
+
+The name "shen" means "divine" or "sacred", and "nong" means "farmer".  Therefore he can be called the Divine Farmer.
+
+
+Accomplishments: 
+
+He is a popular culture hero who started agriculture, Chinese medicine, the market, the Zhaji Sacrificial Rite, and also invented many farm tools and musical instruments. 
+
+
+At the end of the Warring States era, Shennong was confused with another renowned god, Yan Di.  An example of this confusion can be found in "Shiben" txt.  The two gods were mixed together to make a new prominent god named Yan Di Shennongshi.  This combination is fairly loose, and it influences the Shennong myth less than it does the Yan Di myth.  
+
+Yan Di gradually takes Shennong's basic mythological functions as his won.  Thus Yan Di shows up in later tradition not only as a God of the South and Spring, the half brother of Huang who fought against Huang Di at Banquan, but also as the God of Agriculture and Medicine by teh title Yan Di Shennongshi.  
+
+
+
+Shennong is often portrayed as having a head of a dragon or sometime sthe head of an ox.  One myth states that SHennong's mother was Shaodian's wife (here we can find elements of the Yan Di myth mixed together with teh Shennong myth).  Her name was Andeng (or Nudeng in other versions).  One day, when she played in Huayang, a divine dragon copulated with her at the place of Changyang.  She became pregnant and later gave birth to Shennong.  Shennong had a human's face and a dragon's head.  He liked to farm very much, so he was called the Divine Farmer.  
+
+Some versions say that when Shennong was born, 9 connecting wells were suddenly and unexpectedly excavated.  if one drew water from one of them, the water in the other 8 wells would ripple.  
+
+Others say that when Shennong was:
+      3 days old   : he could talk
+after 5 days       : he could walk
+      7 days later : he had fully grown teeth
+after 3 years      : he knew everything about sowing and reaping.  
+
+
+One version of his myth appearing in Guanzi (chapter 64) holds that Shennong taught peopel to sow and to grow grain.
+
+Another version in the same book (chapter 84) maintains that Shennong planted grain to the south of Mount Qi.  From then on, people around the world began to understand the uses of grain and used grain for subsistence.  
+
+According to text from Huainanzi (chapter 19), Shennong taught people to sow the 5 grains.
+
+pg. 192
+
+According to Xinyu text, it states that in ancient times peopel took flesh and blood as their food and drink, and raw animal fur as their cloth.  When it came to Shennong's time, things began to chnge.  Shennong felt that it was very hard for humans to live on reptiles and beasts.  So he went out to look for better food.  He tasted the fruits of hundreds of plants and grasses and recognized their sour or bitter flavors.  After this process, he then taught people to take the 5 grains as their food.  
+
+He invented the calendar and "jieqi".  (According to the Chinese lunar calendar, teh solar year can be divided into 24 seasonal divisions, referred to as "jieqi", which indicate hte change of climate and timing for agricultural activities.  They are of great significance to agriculture and are still widely used in rural areas in China.  
+
+pg. 193
+
+Shennong's other contribution is that he created Chinese medicine.  
+
+Shennong once consumed 70 poisonous plants in one day.  According ot a text from Shoushenji, Shennong thrashed hundreds of herbs with a reddish-brown whip.  
+
+A text in Shuyiji states taht the tripod caldron that Shennong used to taste medicine could be found on the Shenfugang (literally meaning the "Sacred Cauldron Hill") of Taiyuan.  On Mount Chengyang, there is a place where Shennong purportedly whipped the herbs.  The spot came to be known as "Shennong Plain" and the mountain was sometimes called "Mount Medicinal Herb"
+
+Shennong is also credited with inventing the Zhaji Sacrificial Rite (later it was called the Laji Rite), which was held at the end of each year in order to thank all teh gods for enabling the harvest and to pray for another godo harvest in the coming year.  
+
+He taught people to plant mulberry and hemp trees.  People could then make clothes from cloth and silk.  
+
+He made the bow and arrow, adn the whole world was shocked by them.  
+
+Shennong invented some of the most important ancient Chinese musical instruments, such as qin (7-stringed plucked instrument), and se (25-stringed plucked instrument).  
+
+He created the 64 diagrams for divination.  
+
+He also started a market for trading -- he told all peopel to come to a certain place at midday with items that they could exchange for others.  
+
+
+"Shennong's time" came to become a symbol of the ideal dynasty and golden era in mythical ancient Chinese history.  This era was thoguht to be happy, peaceful, stable, and self-sufficient.  According to text Zhuangzi, the Shennong era was so fantastic that when people slept, they were very quiet; when they were awake, they were happy.  They only knew their mother, and had no idea of their father.  They lived alongside elk.  They sowed and then ate; they weaved and then were clothed.  They never thought of doing harm to others, which was the best virtue.  
+
+pg. 195
+
+A more modern myth from the 1970's: When humans first populated the earth, they did not know how to cook.  They always ate raw animals and plants, so they often became isck.  Shennong wanted to help them.  He decided to taste everything he saw and identify what peopel could take as food and what they could use as drugs to cure their diseases.  So he carried 2 bags along with him.  He put those plants that could function as food in the left bag, and those plants that could function as medicine int eh right bag.  Shennong was very uncommon because he had a crystal stomach and he could see clearly every thing and every change in his internal organs.  
+
+1st plant:  The first plant he tasted was a piece of green leaf.  After he ate it, he found that it cleaned everything up and down in his stomach.  Since it went up and down in his internal organs like it was going on a tour of inspection, Shennong named it "cha" (literally meaning "inspection").  People later incorrectly called it "cha" (meaning "tea"; the same phonetic sound, but with a different character).  Shennong put tea into his left bag.  
+
+2nd plant: Next he tasted a piece of licorice (Glycyrrhiza).  He put it in his right bag.  
+
+3rd plant: He tasted a small green flower.  It was bitter and sour.  When it came into his stomach, Shennong found that it butted everywhere and his knees became swollen.  He hurried to consume some tea and was detoxified.  Thus he found another medicine, the Achyranthes root. 
+
+In this way, Shennong tasted hundreds of herbs and was poisoned almost every day, and the tea always helped him to be detoxified.  Day by day, the plants and herbs in his two bags greatly increased.  
+
+There were  47,000 plants [functioning as food]     in the left bag.
+There were 398,000 plants [functioning as medicine] in the right bag.  
+
+One day, Shennong tasted a yellow flower.  As soon as he swallowed it, he watched his intestine break into pieces.  He died before he was able to make some tea.  Later this herb was popularly known as Duanchangcao, the Intestine-breaking Weed. 
+
+pg. 196
+
+Story of Shennong, Ginger and white gourd:
+
+In the ancient past, ginger was extremely poisonous.  If one touched it, one's hand would decay; if one smelled it, one's nose would rot.  All peopel therefore hated it.  whenever they found it, they would dig it up and place it in the sun to die.  Because of this, ginger was almost extinct.  It fled from here to there, tryng to escape being dug out of the ground.  One day, ginger fled to a garden.  It found many plants flourishing, and an old farmer was irrigating the garden.  Ginger admired thos garden plants very much, so it asked a white gourd who the old farmer was.  The white gourd said that it was Shennong, and it was he who dug them from teh wild an dplanted them in teh garden and took watchful care of them.  They lived there happily along with many of their family members.  Ginger then complained to Shennong of his injustice for not collecting it as well.  Shennong asked ginger its function.  When he learned that could do nothing except poison people, Shennong disliked it too.  He wanted to step on ginger and exterminate it.  Ginger was smart.  It quickly went into the ground.  As it did this, it lost all of its poison.  After a half a year (0.5 year), Shennong found a new seedling in the garden.  He tasted a piece of it.  It tasted a little hot.  He felt pleased that he had found a new plant that could detoxify and produce heat, and could be used as both food and medicine.  From then on, ginger became a companion to humans an it was able to stay with many of its family members in the garden.  
+
+
+pg. 196
+
+Story of Shennong and the ladder from the Shennongjia area:
+("jia" means "ladder"; the name Shennongjia came from a legend that Shennong set up a rattan ladder and climbed onto a high mountain to gather herbs;  later the rattan ladder turned into a vast primitive forest, which was called Shennongjia).  
+
+
+pg. 196-197
+
+Story of Shennong and plagues:
+
+This story states that Emperor Sehnnong is also named Yan Di.  He was the son of Shaodian and Andeng.  Since he grew up on Lie Mountain, he was also called Lieshanshi.  He taught people to cultivate land and rear silkworms.  During his time, peopel suffered greatly from plagues.  To cure the plagues, Sehnnong went into mountains and forests to look for medicines.  He tasted hundreds of herbs.  He met 72 poisonous plants, and he neutralized these poisons himself by consuming 72 other plants and herbs.  So he gathered these helpful herbs to cure people's diseases.  However, there were 36 or 37 poisonous plants that fled into deep forests.  That is why today poisonous plants are more likely to be found in mountains and forests while good herbs are found in the plains.  After he cured the plagues he went on to seek the 5 grains.  
+
+[rluu: Numbers 72 poisonous, 72 herbs, 36 or 37 poisonous, 5 grains.]
+
+
+pg. 197-198
+
+Poem/story with all important stories about Shennong are compounded and combined into an integrated full story:
+
+Shennong climbed onto mount Yangtou,
+He looked carefully, he examined carefully,
+Then he found a seed of millet.
+He left it with the Chinese date tree,
+And he went to open up a wasteland.  
+He planted the seed 8 times,
+Then it produced fruit.
+And from then on humans were able to eat millet.
+He sought for the rice seed on Mount Daliang,
+The seed was hiding in grasses.  
+he left it with teh willow tree,
+And he went to open up a paddy field.
+He planted the seed 7 times,
+Then it produced fruit.
+And from then on humans were able to eat rice.  
+He sought from teh adzuki bean seed,
+And left it with a plum tree.
+He planted it 1 time.
+The adzuki bean was easy to plant and was able to grow in infertile fields.
+The soybean was produced on Mount Weishi,
+So it was difficult for Shennong to get its seeds.
+He left 1 seed of it with a peach tree,
+He planted it 5 times,
+Then it produced fruit,
+and later tofu was able to be made south of the Huai River.
+Barley and wheat were produced on Mount Zhushi,
+Shennong was pleased that he got 2 seeds of them.
+He left them witha  peach tree,
+And he planted them 12 times,
+The later peopel were able to eat pastry food.
+He sought the sesame seed on Mount Wuzhi,
+He left the seed with brambles.
+He planted it 1 time.
+Then later peopel were able to fry dishes in sesame oil.
+Shennong planted the 5 grains and they all survived,
+Because they were helped by the 6 species of trees.
+Shennong taught people to trade,
+Then people received convenience by the way of barter.
+Shennong cut wood and made the plough to till,
+And that started agriculture...
+Shennong established his capital at Chenzhou,
+Which was Chouzhou City in Henan Province.
+He was on the throne for 140 years,
+And he died at Chalin County, Changsha City in Hunan Province.
+
+
+In the above poem, Shennong is not only identified with Yan Di, the son of Shaodian and Andeng (or, alternatively, Nudeng), but the last paragraph about him suggests that he is also confused with another famous god, Fuxi, who founded the capital of his mythical kingdom in Chenzhou, now the Huaiyang County in Henan Province.  
+
+[rluu: It appears poem above encapsulates an entire cycle.  I should keep this nearby in my studies of TTTA.]
+
+[rluu: See my spreadsheet notes of seeds, trees, times planted, etc. from this story.]
+
+
+Every lunar April 8, a big festival is held to commemorate Yan Di Shennong.
+
+Birthday of Shennong is lunar April 26.  Festivals are usually held on this day in his temples to celebrate his birthday.  [There is a more formal ritual and offering of sacrifice for Shennong].
+
+[rluu: For April 26: 26th of the lunar month is 15 + 11, or Krishna Ekadashi.]
+
+-------------------
+
+pg. 218
+
+Xiwangmu
+
+She was owner of the elixir of immortality and the divine peaches that can endow longevity on one who eats them.  
+
+pg. 219
+
+The Xiwangmu myth appears early in the book Shanhaijing, which depicts Xiwangmu as a wild and fearsome spirit whose gender is quite unclear.  Many Chinese scholars maintain that Xiwangmu's image in Shanhaijing illustrates that she possessed both female and male features.  
+
+One account (chap. 2) describes Xiwangmu as a deity of disaster, disease, and punishment.  She dwelled ont eh Jade Mountain, which is very close to Kunlun Mountain, the erthly residence of Supreme Divinity and a paradise for deities and immortals.  She looked like a human but had a panther's tail and tiger's teeth.  She was good at roaring, and wore a jade 'sheng' on her head.  Many Chinese scholars interpret sheng to be a hair ornament, but some argue that wearing a sheng meant "cutting off the animal's hide and wearing it".  Sheng can also be interpreted as a speial part of a loom, which illustrates Xiwangmu's original connection with sericulture.  
+
+In another text from Shanhaijing (chapt. 12), Xiwangmu leans against a small table, wearing a jade sheng on her head.  To the south of her, 3 green birds were fetching food for her (in some versions, a single 3-legged crow fetched her food).  They were all situated north of Kunlun Mountain.  
+
+Another text of the same book (chapt. 16) states that Kunlun Mountain was located south of the west sea, on teh shore of Liusha, behind the Red River and in front of the Black River.  The Weak River (whose water was so weak that it could not float even a feather) circled the bottom of the mountain, and a flaming mountain surrounded it.  A spirit dwelledin the mountain.  It was a human-headed creature with a tiger's body and white spotted tail.  Xiwangmu inhabited a cave there.  She wore a sheng and had tiger's teeth and a panther's tail.  
+
+
+She became a popularly known keeper of the exlixir of immortality, which ahs the magic power of keeping one's vitality and preventing death.  A well-known myth about the elixir is the story fo Yi and Chang'e.  
+
+Story of Yi and Chang'e: In the early Han book Huainazi, the hero Yi is said to have asked for the elixir of immortality from Xiwangmu, and she gave it to him.  But his wife Chang'e stole it, then flew to the moon and became the spirit of the moon.  
+
+pg. 220
+
+In the Han dynasty, Xiwangmu is popualrly depicted to have a consort named Dongwanggong, King Father of the East.  According to a tet in Shenyijing, there was a bronze pillar on Kunlun Mountain.  It was so big and high that it reached the sky.  In fact, it was a pillar of the sky.  On top of it there was a huge bird named Xiyou (literally meaning "rare").  Opening its left wing, it covered Dongwanggong;  opening the right one, it covered Xiwangmu.  When Xiwangmu met Dongwanggong, she had to climb onto its wing.  In another account, Dongwanggong lived in a big stone house on the East Wild Mountain.  He was about 10 feet high, and his hair was as white as snow.  He looked like a man but had a bird's face and a tiger's tail.  he rode a black bear.  With a Jade Maiden he often played a game by throwing chips into a pot.  When he threw chips into the pot, heaven sighed; when he failed, heaven laughed.  
+
+pg. 221
+
+In inscriptions on bronze mirrors from this era, Xiwangmu's and Dongwanggong's names frequently appear together.  
+
+On funerary stones and brick bas-reliefs, Xiwangmu is sometimes shown alone, and someties she is accompanied by Dongwangggong.  She is typically shown as a respectable goddess, sitting on a cloud or a seat made of a dragon and a tiger.  She is often surrounded by Jade Rabbit, a toad, birds, or sometimes a 3-legged crow, a deer, a dragong, a 9-tailed fox, and immortal servants with wings.  The rabbit (sometimes the immortal servants also) usually is pounding the elixir in a mortar in front of Xiwangmu and Dongwanggong.  
+
+
+She also is widely knwon as the owner of the divine saucer peach, a fruit that has the magic power of endowing longevity.  She gave four saucer peaches to the emperor (who reigned from 156 to 87 BC).  Since the peaches tasted so good, the emperor kept the pits, hoping to plant them when he came back to the central land.  But Xiwangmu told him that this kind of peach needed to be harvested for 3,000 years before yielding ripe peaches.  The emperor felt disappointed and gave up.  
+
+After the tang and Song dyansties, Xiwangmu becomes more common in folk tradition.  She often appears in a later-formed pantheon (far from orderly and stable) as the consort of Yu Di, the Jade Emperor, the highest ruler of heaven adn gods.  one of their daughters is the famous Zhi Nu, or Weaving Maiden.  In legends she is said to secretly descend to the world and marry a cowherd.  Her mother felt quite annoyed so she pulled out her hairpin and made a line in the air.  The line then turned into the Milky Way that divided the lovers on teh two sides  of the shore.  From then on, on every lunar July 7, the lovers were allowed to meet each other.  Magpies would fly over to make the bridge fro them.  
+
+pg. 221-222
+
+In a renowned mythic novel Xiyouji ("Journey to the West"), Xiwangmu is addressed as Wangmu Niangniang, the bearer of peaches that gave immortality to whoever ate them.  She often invited other immortals and gods to Saucer Peach Banquet.  The peaches she used for the banquet were classified into 3 sorts:
+
+1) The first one ripened every 3,000 years and could make the person who ate it healthy.
+2) The second one ripened every 6,000 years and could bring the one who ate it a long life.
+3) The third one ripened every 9,000 years and could make the one who ate it as long-lived as heaven and the earth.
+
+In the novel, the Monkey King ate many of the best peaches and distrubed the banquet because he was not invited.  
+
+pg. 222-223
+
+A myth collected in 1986 in a village of Zhongning County, Ningxia Province, northwest China, attributes the contribution of repairing the broken sky and the earth to Wangmu Niangniang and Lishan Laomu (who sometimes is identified as Nuwa).  It holds that Wangmu Niangniang was Lishan Laomu's younger sister.  Both of them were good helpers of their elder brother Fuxi.  One year, Gonggong fought Zhurong and destroyed the sky pillar mount Buzhou.  The sky then tilted towards the Northwest, the earth was damaged at the Southeast, and flood-water overflowed everywhere.  The two sisters felt sympathetic to humans and decided to repair the damaged sky and earth.  They gathered and melted stones of 5 different colors to patch the sky at the site of Mount Li (now in Shaanxi Province).  The firelight they made was absorbed by the sun.  Thus it could illuminate the world with sunlight.  The fire also melted ice on the earth, so it became a hot spring.  The sisters cooperated to accomplish the huge project.  Wangmu Niangniang took care of the fire while Lishan Laomu kneaded the stone paste adn made numerous stone cakes.  She then struck them in the broken sky.  To prevent the stone cakes from falling down fromt eh sky, Lishan Laomu cut the legs off a huge tortoise and set them up to support the 4 extremities of the sky.  Wangmu Niangniang then used the ashes to fill in the flaws on the earth.  After their arduous labor, the world was restored again.  After they died, people built a temple at Mount Li to commemorate their tremendous accomplishment.  
+
+
+pg. 224
+
+At Tai Mountain in Shandong Province can be found a temple complex named Wangmu Pool.  Most of it was built during the Qing dynasty.  Every lunar March 3, a Saucer Peach Festival is held to celebrate Wangmu Niangniang's birthday.  
+
+[rluu: Lunar March 3 is Wangmu Niangniang's birthday.  
+       It is celebrated as "Saucer Peach Festival"]
+
+---------------
+
+pg. 124
+
+Gonggong
+Also known as Kanghui.
+
+Gonggong is the water god who caused a flood disaster and bumped into Mount Buzhou, giving rise to cosmic disorder.  
+
+He is often portrayed as having a man's head with red hair, and the body of a serpent.  
+
+From poem Tianwen:
+"Why did the earth tilt toward the southeast during Kanghui's rage?"
+
+Gonggong is said to have fought with the god Zhuanxu (or Zhurong, Di Ku, or Shengnong; various names are given in different versions) to be the Supreme Divinity in remote times, but he failed. In his fury, he bumped against one of the sky pillars, Mount Buzhou, and damaged it.  The cords of the earth also broke during this event.  his blunder brought cosmic disruption.  
+
+
+According to "Lunheng" and "Bu shiji Sanhuang Benji" (Biographies of the Tree Sovereigns: A Supplement to the Historical Records"), the Gonggong story is followed by that of Nuwa.  Gonggong was described as a rebllious nobleman.  He ruled with tyranny instead of benevolence.  Toward the end of Nuwa's reign, Gonggong fought with Zhurong, the God of Fire, but he failed.  He was so angry that he struck his head against Mount Buzhou and caused this sky pillar to collapse, snapping the cords of the earth.  To repair this damage, Nuwa melted stones of 5 different colors to mend the sky.  She cut off the legs off a huge tortoise and set them up to support the 4 corners of the sky.  Then she colletected ashes of reeds to stop the flood.  Through her effort, Nuwa cleared up the chaos and put hte world in order again.
+
+According to texts "Liezi" and "Bowuzhi", the chronological order of these two stories is reversed.  That is, Nuwa repaired a defect in teh cosmos first, and later Gonggong fought with the god Zhurong and upset the normal established order.  Gonggong's damage often served as an etiological myth of the current Chinese topography.  Since then, heaven tils toward the Northwest, adn that is why the sun, moon, and stars move in that direction.  Earth sinks toward the southeast, and that is why the rivers of China flow toward the ocean in the east.  
+
+Gongong is not only the destroyed of the sky pillar cords of the earth but also plays a chief role in a disasterous flood.  
+
+Another version from Huainazi (chapt. 8), the Gongong story is linked with that of the mythical sovereigns Shun and Yu.  In Shun's time, Gonggong created a flood that swept near the place of Kongsang.  At that time, the mountains Longmeng (meaning "Dragon Gate") and Luliang did not open up and hence blocked the channels.  So the flood spread everywhere, and rivers throughout the land joined together.  People had to climb the mountains and trees to escape from teh vast deluge.  Then shun ordered Yu to dredge teh rivers and lakes, open up the waterways, and channel the flood to the east sea.  As a result, the flood ran out and the world became dry, and people became settled again.
+
+After his failure, Gonggong came to a sticky end.  One version of the myth states that he was killed by the god Zhuanxu because he created the flood idsaster.  Other verisons state that he was killed by Di Ku or Yao because of his tyranical and conceited domination.  A popular story says that he was banished by Yu when Yu brought an end to the flood.  But other variants state that Gonggong was exiled to the place of Youzhou by Shun, or, in another version, by Yao because Yao wanted to give the throne to Shun but Gonggong opposed this.  
+
+-----------
+
+Khulong ("Torch shaddow" or "torch dragon")
+
+Zhulong (Chinese: 燭龍; pinyin: zhúlóng; Wade–Giles: chu-lung; literally "torch dragon") or Zhuyin (Chinese: 燭陰; pinyin: zhúyīn; Wade–Giles: chu-yin; literally "illuminating darkness", or "Torch Shadow") was a giant red draconic solar deity in Chinese mythology. It supposedly had a human's face and snake's body, created day and night by opening and closing its eyes, and created seasonal winds by breathing.
+
+
+[rluu: His body is 1000 leagues long.]
+[rluu: He is scarlet color.]
+[rluu: He enlightens the 9 yin (darknesses, 9 directions)]
+
+
+
+"The Classic of Regions Beyond the Seas: The North" section (8) describes Zhuyin 燭陰 on Mount Zhong 鍾山.
+
+    The deity of Mount Bell is named Torch Shade. When this deity's eyes look out there is daylight, and when he shuts his eyes there is night. When he blows it is winter, and when the calls out it is summer. He neither drinks, nor eats, nor breathes. If this god does breathe, there are gales. His body is a thousand leagues long. Torch Shade is east of the country of Nolegcalf. He has a human face and a snake's body, and he is scarlet in colour. The god lives on the lower slopes of Mount Bell. (tr. Birrell 2000:121)
+
+Visser (1913:62-3) renders Zhuyin as "Enlightener of the Darkness" and translates the commentary of Guo Pu (276-324 CE).
+
+    'Enlightener' is a dragon; he enlightens the nine yin (darknesses, i.e. the nine points of the compass at the opposite, dark side of the earth, which is a flat disk; these nine points are North, South, East, West, North-east, North-west, South-east, South-west, and the Centre)". (tr. Visser 1913:62)
+
+"The Classic of the Great Wilderness: The North" section (17) describes Zhulong 燭龍 living on Mount Zhangwei 章尾山.
+
+    Beyond the northwest seas, north of the River Scarlet there is Mount Brillianttail. There is a god-human here with a human face and a snake's body, and he is scarlet. He has vertical eyes that are in a straight seam. When this deity closes his eyes, there is darkness. When the deity look with his eyes, there is light. He neither eats, nor sleeps, nor breathes. The wind and the rain are at his beck and call. This deity shines his torch over the ninefold darkness. This deity is Torch Dragon. (tr. Birrell 2000:188)
+
+The yin in this jiuyin 九陰 "ninefold darkness" context explains using the "dragon" name Zhulong instead of "darkeness" name Zhuyin. Guo Pu quotes a legend from a no longer extant Shijing commentary (tr. Major 1993:204), "The sky is insufficient to cover the northwest, so there is no ebb and flow of yang and yin. Therefore a dragon carries a torch in its mouth to light up the sky."
+
+
+
+The Tianwen 天問 "Heavenly Questions" section (3, cf. Bashe) asks about Zhulong. Compare these translations:
+
+    "What land does the sun not shine on and how does the Torch Dragon light it?" (Hawkes 1985:128)
+    "Where does the sun not rise, How does the Torch Dragon flame?" (Field 1986:44)
+    "The Torch Dragon flares where the sun does not reach [where? how?]" (Major 1993:203)
+
+The Dazhao 大招 "Great Summons" section (10, tr. Hawkes 1985:234) uses the alternate name Zhuolong 逴龍 or 趠龍 "distant/quarreling dragon": "In the north are the Frozen Mountain, and the Torch Dragon, glaring red."
+
+
+
+    Lighting Darkness and Candle-Gleam are on an island in the Yellow River; they illumine an area of one thousand li. The Dragon Gate is in the depths of the Yellow River. … The Torch Dragon dwells north of Wild Goose Gate. He hides himself in Abandoned Wings Mountain and never sees the sun. This god has a human face and a dragon body, but no feet. (tr. Major 1993:196)
+
+The commentary of Gao You 高誘 (ca. 168-212 CE, tr. Major 1993:163) explains, "Weiyu is the name of a mountain … in the shade of the northern limit, the sun cannot be seen." Mount Weiyu 委羽, notes Major, might mean "abandoned wings," "broken wings," "shed feathers," or something else.
+
+
+The Dongmingji 洞冥記 "Record of Penetrating the Mysteries", which describes ritual activities of Emperor Wu of Han (r. 141-87 BCE), is traditionally attributed to Guo Xian 郭憲 (fl. 25-57 CE) but probably dates (Smith 2008:368) from around the 6th century. Although this text does not mention Zhuyin or Zhulong, Wu's Daoist advisor Dongfang Shuo describes a mythical northern qinglong 青龍 "Azure Dragon" with a zhu 燭 "torch".
+
+    … in the year 99 before our era the emperor Wu convoked a meeting of magicians and learned men, at which Tung Fang-soh spoke as follows: "I made a journey to the north pole, and came to a mountain planted with fire, which neither the sun, nor the moon ever illumines, but which is lighted to its uttermost bounds by a blue dragon by means of a torch which it holds in its jaws. I found in that mountain gardens, fields, and parks with ponds, all studded with strange trees and curious plants, and with shrubs which had luminiferous stalks, seeming at night to be lamps of gold. These stalks could be broken off and used as torches, in the light of which the spectres were visible. Ning-fung, the immortal had always eaten this plant, the consequence being that in the darkness of the night there beamed light out of his belly. It is called the herb which pierces darkness. (tr. Groot 1910 6:1167)
+
+This namesake torch-like plant is called dongmingcao 洞冥草 "penetrating the mysteries herb".
+
 
 
 ##############################################################################
