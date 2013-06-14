@@ -22,6 +22,11 @@ Ask, and it shall be given you; seek, and ye shall find; knock, and it shall be 
 [rluu: The emphasis is on the 400.  Remember, the Bhagavata Purana is 18,000 verses, from the 400,000 verses from the 18 mahapuranas.]
 
 
+##############################################################################
+
+The synodic period of Venus divided by three:
+
+584 / 3 = 194.6666
 
 ##############################################################################
 
@@ -63,7 +68,7 @@ The Greek astronomer Meton of Athens (fifth century BCE) observed that a period 
 Considering a year to be 1⁄19 of this 6940-day cycle gives a year length of 365 + 1⁄4 + 1⁄76 days (the unrounded cycle is much more accurate), which is slightly more than 12 synodic months. To keep a 12-month lunar year in pace with the solar year, an intercalary 13th month would have to be added on seven occasions during the nineteen-year period (235 = 19 × 12 + 7). Meton introduced the cycle in circa 432 BCE, but it was actually known earlier by Babylonian astronomers.
 
 
-[*****rluu: Note that: 6940 - 1940 = 1500 days.]
+[*****rluu: The eclipse cycle is 6940 days = 5000 + 1940]
 
 
 The Metonic cycle is related to two less accurate subcycles:
