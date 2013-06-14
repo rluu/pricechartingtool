@@ -847,7 +847,6 @@ Numbers:
 or 
 115 + 110 + 500 + 39 = 764 = 191 * 4
 
-Shennong-shi lived 197 years.
 
 
 ------
@@ -1292,3 +1291,30 @@ This namesake torch-like plant is called dongmingcao 洞冥草 "penetrating the 
 
 ##############################################################################
 
+http://en.wikipedia.org/wiki/N%C3%BCwa
+Alternate story of Nuwa.
+
+Appearance in Fengshen Yanyi
+
+Nüwa is featured within the famed Ming dynasty novel Fengshen Bang. As featured within this novel, Nüwa is very highly respected since the time of the Xia Dynasty for being the daughter of the Jade Emperor; Nüwa is also regularly called the "Snake Goddess". After the Shang Dynasty had been created, Nüwa created the five-colored stones to protect the dynasty with occasional seasonal rains and other enhancing qualities. Thus in time, Shang Rong asked King Zhou of Shang to pay her a visit as a sign of deep respect. After Zhou was completely overcome with lust at the very sight of the beautiful ancient goddess Nüwa (who had been sitting behind a light curtain), he would write a small poem on a neighboring wall and take his leave. When Nüwa later returned to her temple after visiting the Yellow Emperor, Nüwa would see the foulness of Zhou's words. In her anger, she swore that the Shang Dynasty will end in payment for his foulness. In her rage, Nüwa would personally ascend to the palace in an attempt to kill the king, but was suddenly struck back by two large beams of red light.
+
+
+After Nüwa realized that King Zhou was already destined to rule the kingdom for twenty-six more years, Nüwa would summon her three subordinates—the Thousand-Year Vixen (later becoming Daji), the Jade Pipa, and the Nine-Headed Pheasant. With these words, Nüwa would bring destined chaos to the Shang Dynasty, "The luck Cheng Tang won six hundred years ago is dimming. I speak to you of a new mandate of heaven which sets the destiny for all. You three are to enter King Zhou's palace, where you are to bewitch him. Whatever you do, do not harm anyone else. If you do my bidding, and do it well, you will be permitted to reincarnate as human beings." Thus, with these words, Nüwa would never be heard of again, but would still be a major indirect factor towards the Shang Dynasty's fall.
+
+
+[Summary number components:
+
+  Nuwa ascended to the palace and saw 2 beams of red light.
+
+  King Zhou to rule the kingdom for 26 more years.
+
+  3 subordinates of Nuwa summoned:
+    - 1000-year Vixen (later becoming Daji)
+    - The Jade Pipa
+    - The 9-headed Pheasant.
+
+  It is 600 years since Cheng Tang began his luck.  His luck to dim.
+]
+
+
+##############################################################################
