@@ -45,10 +45,10 @@ python3 createGenericEphemerisSpreadsheet.py
 # This will calculate and produce a column for the moon phases also.
 # 
 # This should read in file: "sun_moon_node_ephemeris_nyc.csv".
-# This should produce file: "moon_phases_ephemeris_nyc.csv".
+# This should produce file: "moon_30_phases_ephemeris_nyc.csv".
 #
 
-python3 makeFilledMasterEphemeris_2p.py
+python3 makeFilledMasterEphemeris_2p_moon30.py
 
 
 # Step 4:

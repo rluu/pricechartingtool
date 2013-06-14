@@ -49,10 +49,10 @@ import logging
 # Global variables
 
 # Input CSV file.  
-inputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/moonPhases/sun_moon_node_ephemeris.csv"
+inputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/moonPhases/moon_30_phases/sun_moon_node_ephemeris.csv"
 
 # Ouptut CSV file.  
-outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/moonPhases/moon_phases_ephemeris.csv"
+outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/moonPhases/moon_30_phases/moon_30_phases_ephemeris.csv"
 
 # Lines to skip in the input file.
 linesToSkip = 1

@@ -43,8 +43,9 @@ import logging
 import math
 
 # Include some PriceChartingTool modules.
-# This assumes that the relative directory from this script is: ../../../src
+# This assumes that the relative directory from this script is: ../../../../src
 thisScriptDir = os.path.dirname(os.path.abspath(__file__))
+thisScriptDir = os.path.dirname(thisScriptDir)
 thisScriptDir = os.path.dirname(thisScriptDir)
 srcDir = os.path.dirname(os.path.dirname(thisScriptDir)) + os.sep + "src"
 if srcDir not in sys.path:
@@ -98,7 +99,7 @@ endDt   = datetime.datetime(year=1936, month=12, day=31,
 
 
 # Destination output CSV file.
-outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/moonPhases/sun_moon_node_ephemeris.csv"
+outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/moonPhases/moon_28_phases/sun_moon_node_ephemeris.csv"
 
 # Planet names to do calculations for.
 geocentricPlanetNames = [\
@@ -1051,9 +1052,10 @@ monthCount = 0
 
 
 
-# Moon has 30 phases.
+# Moon normally has 30 phases, BUT, here we are doing calculations
+# as if it has 28 phases. 
 degreesInCircle = 360.0
-numMoonPhases = 30
+numMoonPhases = 28
 increment = degreesInCircle / numMoonPhases
 
 # Planet parameters.
