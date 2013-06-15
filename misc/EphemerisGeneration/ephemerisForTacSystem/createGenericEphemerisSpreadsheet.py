@@ -301,14 +301,14 @@ def getEphemerisDataLineForDatetime(dt):
         for pi in planetaryInfos:
             if pi.name == planetName:
                 lon = pi.geocentric['tropical']['longitude']
-                rv += "{:6.3f},".format(lon % 15.0)
+                rv += "{:.3f},".format(lon % 15.0)
                     
     # Planet geocentric longitude.
     for planetName in geocentricPlanetNames:
         for pi in planetaryInfos:
             if pi.name == planetName:
                 lon = pi.geocentric['tropical']['longitude']
-                rv += "{:6.3f},".format(lon)
+                rv += "{:.3f},".format(lon)
                     
     # Planet geocentric longitude in zodiac str format.
     for planetName in geocentricPlanetNames:
@@ -325,14 +325,14 @@ def getEphemerisDataLineForDatetime(dt):
         for pi in planetaryInfos:
             if pi.name == planetName:
                 lon = pi.heliocentric['tropical']['longitude']
-                rv += "{:6.3f},".format(lon % 15.0)
+                rv += "{:.3f},".format(lon % 15.0)
                     
     # Planet heliocentric longitude.
     for planetName in heliocentricPlanetNames:
         for pi in planetaryInfos:
             if pi.name == planetName:
                 lon = pi.heliocentric['tropical']['longitude']
-                rv += "{:6.3f},".format(lon)
+                rv += "{:.3f},".format(lon)
                     
     # Planet heliocentric longitude in zodiac str format.
     for planetName in heliocentricPlanetNames:
@@ -349,7 +349,7 @@ def getEphemerisDataLineForDatetime(dt):
         for pi in planetaryInfos:
             if pi.name == planetName:
                 declination = pi.geocentric['tropical']['declination']
-                rv += "{:6.3f},".format(declination)
+                rv += "{:.3f},".format(declination)
     
 
     # Remove trailing comma.

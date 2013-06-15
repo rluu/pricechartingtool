@@ -169,7 +169,7 @@ def doCalculationsForColumn(listOfDataValues,
         # Any required adjustments should have now been made.
         
         # Store the result as text.
-        listOfDataValues[i].append("{}".format(currCalculatedValue))
+        listOfDataValues[i].append("{:.3f}".format(currCalculatedValue))
         
         # Save the calculated value for the next iteration.
         prevCalculatedValue = currCalculatedValue
@@ -267,7 +267,7 @@ def doCalculationsForColumns(listOfDataValues,
         # Any required adjustments should have now been made.
         
         # Store the result as text.
-        listOfDataValues[i].append("{}".format(currCalculatedValue))
+        listOfDataValues[i].append("{:.3f}".format(currCalculatedValue))
         
         # Save the calculated value for the next iteration.
         prevCalculatedValue = currCalculatedValue
@@ -301,9 +301,9 @@ def doMod360ForColumn(listOfDataValues,
         log.debug("planetLongitude == {}".format(planetLongitude))
         
         currCalculatedValue = planetLongitude % 360
-        
+
         # Store the result as text.
-        listOfDataValues[i].append("{}".format(currCalculatedValue))
+        listOfDataValues[i].append("{:.3f}".format(currCalculatedValue))
         
     return listOfDataValues
 
