@@ -1657,3 +1657,21 @@ It matches the idea that astrology and angles of "lights" (planets) cause person
 # End Notes added June 14, 2013.
 ##############################################################################
 
+##############################################################################
+# Start Notes added June 20, 2013.
+##############################################################################
+
+Cycles I found in December wheat (Found on June 19, 2013 and June 20, 2013):
+
+Starting from 33 deg. after Easter full moon: H. Mars 60 degrees.
+Starting from 33 deg. after Easter full moon: H.Earth every 40 degrees.
+Starting from 50 deg. after Easter full moon: H.Venus every 15 degrees.
+Kind of works: Starting from 33 deg. after Easter full moon: H.Mars every 15 deg.
+
+To test: 
+  - From Easter full moon: H. Earth every 60 degrees.
+  - Test other measurements starting from X days away from Easter also.  
+
+##############################################################################
+# End Notes added June 20, 2013.
+##############################################################################
