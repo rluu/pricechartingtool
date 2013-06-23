@@ -3805,6 +3805,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
         self.groupBoxPage1 = self._createGroupBoxPage1()
         self.groupBoxPage2 = self._createGroupBoxPage2()
         self.groupBoxPage3 = self._createGroupBoxPage3()
+        self.groupBoxPage4 = self._createGroupBoxPage4()
 
         # Create a QTabWidget to stack all the QGroupBox that have our
         # edit widgets.
@@ -3812,6 +3813,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
         self.tabWidget.addTab(self.groupBoxPage1, "Page 1")
         self.tabWidget.addTab(self.groupBoxPage2, "Page 2")
         self.tabWidget.addTab(self.groupBoxPage3, "Page 3")
+        self.tabWidget.addTab(self.groupBoxPage4, "Page 4")
         
         # Buttons at bottom.
         self.okayButton = QPushButton("&Okay")
@@ -4164,6 +4166,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
         # Layout on the left side holding about half of the checkboxes
         # for this page.
         showTextCheckBoxesLeftLayout = QVBoxLayout()
+        
         showTextCheckBoxesLeftLayout.addWidget(\
             self.planetH1EnabledFlagCheckBox)
         showTextCheckBoxesLeftLayout.addWidget(\
@@ -4212,11 +4215,13 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
             self.planetInterpolatedLunarApogeeEnabledFlagCheckBox)
         showTextCheckBoxesLeftLayout.addWidget(\
             self.planetInterpolatedLunarPerigeeEnabledFlagCheckBox)
+
         showTextCheckBoxesLeftLayout.addStretch()
         
         # Layout on the right side holding about half of the checkboxes
         # for this page.
         showTextCheckBoxesRightLayout = QVBoxLayout()
+        
         showTextCheckBoxesRightLayout.addWidget(\
             self.planetSunEnabledFlagCheckBox)
         showTextCheckBoxesRightLayout.addWidget(\
@@ -4275,6 +4280,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
             self.planetAvgJuSaUrNeEnabledFlagCheckBox)
         showTextCheckBoxesRightLayout.addWidget(\
             self.planetAvgJuSaEnabledFlagCheckBox)
+
         showTextCheckBoxesRightLayout.addStretch()
 
         # Layout for all the checkboxes.
@@ -4289,6 +4295,192 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
         self.groupBoxPage3.setLayout(layout)
 
         return self.groupBoxPage3
+        
+        
+    def _createGroupBoxPage4(self):
+        """Creates a QGroupBox (and the widgets within it) for page4
+        of the edit widget, and then returns it.
+        """
+
+        self.groupBoxPage4 = \
+            QGroupBox("PriceBarChartPlanetLongitudeMovementMeasurementArtifact Data (page 4):")
+
+        # Create the QCheckBox widgets going on this page.
+        self.planetMeVeEnabledFlagCheckBox = \
+            QCheckBox("Planet MeVe enabled")
+        self.planetMeEaEnabledFlagCheckBox = \
+            QCheckBox("Planet MeEa enabled")
+        self.planetMeMaEnabledFlagCheckBox = \
+            QCheckBox("Planet MeMa enabled")
+        self.planetMeJuEnabledFlagCheckBox = \
+            QCheckBox("Planet MeJu enabled")
+        self.planetMeSaEnabledFlagCheckBox = \
+            QCheckBox("Planet MeSa enabled")
+        self.planetMeUrEnabledFlagCheckBox = \
+            QCheckBox("Planet MeUr enabled")
+        self.planetVeEaEnabledFlagCheckBox = \
+            QCheckBox("Planet VeEa enabled")
+        self.planetVeMaEnabledFlagCheckBox = \
+            QCheckBox("Planet VeMa enabled")
+        self.planetVeJuEnabledFlagCheckBox = \
+            QCheckBox("Planet VeJu enabled")
+        self.planetVeSaEnabledFlagCheckBox = \
+            QCheckBox("Planet VeSa enabled")
+        self.planetVeUrEnabledFlagCheckBox = \
+            QCheckBox("Planet VeUr enabled")
+        self.planetEaMaEnabledFlagCheckBox = \
+            QCheckBox("Planet EaMa enabled")
+        self.planetEaJuEnabledFlagCheckBox = \
+            QCheckBox("Planet EaJu enabled")
+        self.planetEaSaEnabledFlagCheckBox = \
+            QCheckBox("Planet EaSa enabled")
+        self.planetEaUrEnabledFlagCheckBox = \
+            QCheckBox("Planet EaUr enabled")
+        self.planetMaJuEnabledFlagCheckBox = \
+            QCheckBox("Planet MaJu enabled")
+        self.planetMaSaEnabledFlagCheckBox = \
+            QCheckBox("Planet MaSa enabled")
+        self.planetMaUrEnabledFlagCheckBox = \
+            QCheckBox("Planet MaUr enabled")
+        self.planetJuSaEnabledFlagCheckBox = \
+            QCheckBox("Planet JuSa enabled")
+        self.planetJuUrEnabledFlagCheckBox = \
+            QCheckBox("Planet JuUr enabled")
+        self.planetSaUrEnabledFlagCheckBox = \
+            QCheckBox("Planet SaUr enabled")
+        self.planetMeVeEaEnabledFlagCheckBox = \
+            QCheckBox("Planet MeVeEa enabled")
+        self.planetMeVeMaEnabledFlagCheckBox = \
+            QCheckBox("Planet MeVeMa enabled")
+        self.planetVeEaMeEnabledFlagCheckBox = \
+            QCheckBox("Planet VeEaMe enabled")
+        self.planetVeEaMaEnabledFlagCheckBox = \
+            QCheckBox("Planet VeEaMa enabled")
+        self.planetVeMaMeEnabledFlagCheckBox = \
+            QCheckBox("Planet VeMaMe enabled")
+        self.planetVeMaEaEnabledFlagCheckBox = \
+            QCheckBox("Planet VeMaEa enabled")
+        self.planetEaMaMeEnabledFlagCheckBox = \
+            QCheckBox("Planet EaMaMe enabled")
+        self.planetEaMaVeEnabledFlagCheckBox = \
+            QCheckBox("Planet EaMaVe enabled")
+        self.planetMaJuMeEnabledFlagCheckBox = \
+            QCheckBox("Planet MaJuMe enabled")
+        self.planetMaJuVeEnabledFlagCheckBox = \
+            QCheckBox("Planet MaJuVe enabled")
+        self.planetMaJuEaEnabledFlagCheckBox = \
+            QCheckBox("Planet MaJuEa enabled")
+        self.planetEaJuMeEnabledFlagCheckBox = \
+            QCheckBox("Planet EaJuMe enabled")
+        self.planetEaJuVeEnabledFlagCheckBox = \
+            QCheckBox("Planet EaJuVe enabled")
+        self.planetEaSaMeEnabledFlagCheckBox = \
+            QCheckBox("Planet EaSaMe enabled")
+        self.planetEaSaVeEnabledFlagCheckBox = \
+            QCheckBox("Planet EaSaVe enabled")
+        self.planetEaSaMaEnabledFlagCheckBox = \
+            QCheckBox("Planet EaSaMa enabled")
+        
+        # Layout on the left side holding about half of the checkboxes
+        # for this page.
+        showTextCheckBoxesLeftLayout = QVBoxLayout()
+        
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetMeVeEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetMeEaEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetMeMaEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetMeJuEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetMeSaEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetMeUrEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetVeEaEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetVeMaEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetVeJuEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetVeSaEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetVeUrEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetEaMaEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetEaJuEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetEaSaEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetEaUrEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetMaJuEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetMaSaEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetMaUrEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetJuSaEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetJuUrEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetSaUrEnabledFlagCheckBox)
+
+        showTextCheckBoxesLeftLayout.addStretch()
+        
+        # Layout on the right side holding about half of the checkboxes
+        # for this page.
+        showTextCheckBoxesRightLayout = QVBoxLayout()
+        
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetMeVeEaEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetMeVeMaEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetVeEaMeEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetVeEaMaEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetVeMaMeEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetVeMaEaEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetEaMaMeEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetEaMaVeEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetMaJuMeEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetMaJuVeEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetMaJuEaEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetEaJuMeEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetEaJuVeEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetEaSaMeEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetEaSaVeEnabledFlagCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.planetEaSaMaEnabledFlagCheckBox)
+
+        showTextCheckBoxesRightLayout.addStretch()
+
+        # Layout for all the checkboxes.
+        checkBoxesLayout = QHBoxLayout()
+        checkBoxesLayout.addLayout(showTextCheckBoxesLeftLayout)
+        checkBoxesLayout.addLayout(showTextCheckBoxesRightLayout)
+
+        # Layout for this groupbox page.
+        layout = QVBoxLayout()
+        layout.addLayout(checkBoxesLayout)
+
+        self.groupBoxPage4.setLayout(layout)
+
+        return self.groupBoxPage4
         
         
     def setConvertObj(self, convertObj):
@@ -4417,6 +4609,43 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
         self.planetAvgMaJuSaUrNePlEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.planetAvgJuSaUrNeEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.planetAvgJuSaEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetMeVeEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetMeEaEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetMeMaEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetMeJuEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetMeSaEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetMeUrEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetVeEaEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetVeMaEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetVeJuEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetVeSaEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetVeUrEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetEaMaEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetEaJuEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetEaSaEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetEaUrEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetMaJuEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetMaSaEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetMaUrEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetJuSaEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetJuUrEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetSaUrEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetMeVeEaEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetMeVeMaEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetVeEaMeEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetVeEaMaEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetVeMaMeEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetVeMaEaEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetEaMaMeEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetEaMaVeEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetMaJuMeEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetMaJuVeEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetMaJuEaEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetEaJuMeEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetEaJuVeEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetEaSaMeEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetEaSaVeEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetEaSaMaEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
         
         # Don't allow the Okay button to be pressed for saving.
         self.okayButton.setEnabled(not self.readOnlyFlag)
@@ -4797,6 +5026,191 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
         else:
             self.planetAvgJuSaEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
         
+        if self.artifact.getPlanetMeVeEnabledFlag() == True:
+            self.planetMeVeEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeVeEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetMeEaEnabledFlag() == True:
+            self.planetMeEaEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeEaEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetMeMaEnabledFlag() == True:
+            self.planetMeMaEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeMaEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetMeJuEnabledFlag() == True:
+            self.planetMeJuEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeJuEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetMeSaEnabledFlag() == True:
+            self.planetMeSaEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeSaEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetMeUrEnabledFlag() == True:
+            self.planetMeUrEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeUrEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetVeEaEnabledFlag() == True:
+            self.planetVeEaEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeEaEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetVeMaEnabledFlag() == True:
+            self.planetVeMaEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeMaEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetVeJuEnabledFlag() == True:
+            self.planetVeJuEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeJuEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetVeSaEnabledFlag() == True:
+            self.planetVeSaEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeSaEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetVeUrEnabledFlag() == True:
+            self.planetVeUrEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeUrEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetEaMaEnabledFlag() == True:
+            self.planetEaMaEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetEaMaEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetEaJuEnabledFlag() == True:
+            self.planetEaJuEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetEaJuEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetEaSaEnabledFlag() == True:
+            self.planetEaSaEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetEaSaEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetEaUrEnabledFlag() == True:
+            self.planetEaUrEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetEaUrEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetMaJuEnabledFlag() == True:
+            self.planetMaJuEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaJuEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetMaSaEnabledFlag() == True:
+            self.planetMaSaEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaSaEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetMaUrEnabledFlag() == True:
+            self.planetMaUrEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaUrEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetJuSaEnabledFlag() == True:
+            self.planetJuSaEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuSaEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetJuUrEnabledFlag() == True:
+            self.planetJuUrEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuUrEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetSaUrEnabledFlag() == True:
+            self.planetSaUrEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaUrEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetMeVeEaEnabledFlag() == True:
+            self.planetMeVeEaEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeVeEaEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetMeVeMaEnabledFlag() == True:
+            self.planetMeVeMaEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeVeMaEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetVeEaMeEnabledFlag() == True:
+            self.planetVeEaMeEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeEaMeEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetVeEaMaEnabledFlag() == True:
+            self.planetVeEaMaEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeEaMaEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetVeMaMeEnabledFlag() == True:
+            self.planetVeMaMeEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeMaMeEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetVeMaEaEnabledFlag() == True:
+            self.planetVeMaEaEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeMaEaEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetEaMaMeEnabledFlag() == True:
+            self.planetEaMaMeEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetEaMaMeEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetEaMaVeEnabledFlag() == True:
+            self.planetEaMaVeEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetEaMaVeEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetMaJuMeEnabledFlag() == True:
+            self.planetMaJuMeEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaJuMeEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetMaJuVeEnabledFlag() == True:
+            self.planetMaJuVeEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaJuVeEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetMaJuEaEnabledFlag() == True:
+            self.planetMaJuEaEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaJuEaEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetEaJuMeEnabledFlag() == True:
+            self.planetEaJuMeEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetEaJuMeEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetEaJuVeEnabledFlag() == True:
+            self.planetEaJuVeEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetEaJuVeEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetEaSaMeEnabledFlag() == True:
+            self.planetEaSaMeEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetEaSaMeEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetEaSaVeEnabledFlag() == True:
+            self.planetEaSaVeEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetEaSaVeEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
+        if self.artifact.getPlanetEaSaMaEnabledFlag() == True:
+            self.planetEaSaMaEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetEaSaMaEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+        
         self.log.debug("Exiting loadValues()")
         
     def saveValues(self):
@@ -5020,6 +5434,117 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
         planetAvgJuSaEnabledFlag = \
             (self.planetAvgJuSaEnabledFlagCheckBox.\
              checkState() == Qt.Checked)
+        planetMeVeEnabledFlag = \
+            (self.planetMeVeEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetMeEaEnabledFlag = \
+            (self.planetMeEaEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetMeMaEnabledFlag = \
+            (self.planetMeMaEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetMeJuEnabledFlag = \
+            (self.planetMeJuEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetMeSaEnabledFlag = \
+            (self.planetMeSaEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetMeUrEnabledFlag = \
+            (self.planetMeUrEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetVeEaEnabledFlag = \
+            (self.planetVeEaEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetVeMaEnabledFlag = \
+            (self.planetVeMaEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetVeJuEnabledFlag = \
+            (self.planetVeJuEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetVeSaEnabledFlag = \
+            (self.planetVeSaEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetVeUrEnabledFlag = \
+            (self.planetVeUrEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetEaMaEnabledFlag = \
+            (self.planetEaMaEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetEaJuEnabledFlag = \
+            (self.planetEaJuEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetEaSaEnabledFlag = \
+            (self.planetEaSaEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetEaUrEnabledFlag = \
+            (self.planetEaUrEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetMaJuEnabledFlag = \
+            (self.planetMaJuEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetMaSaEnabledFlag = \
+            (self.planetMaSaEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetMaUrEnabledFlag = \
+            (self.planetMaUrEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetJuSaEnabledFlag = \
+            (self.planetJuSaEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetJuUrEnabledFlag = \
+            (self.planetJuUrEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetSaUrEnabledFlag = \
+            (self.planetSaUrEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetMeVeEaEnabledFlag = \
+            (self.planetMeVeEaEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetMeVeMaEnabledFlag = \
+            (self.planetMeVeMaEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetVeEaMeEnabledFlag = \
+            (self.planetVeEaMeEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetVeEaMaEnabledFlag = \
+            (self.planetVeEaMaEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetVeMaMeEnabledFlag = \
+            (self.planetVeMaMeEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetVeMaEaEnabledFlag = \
+            (self.planetVeMaEaEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetEaMaMeEnabledFlag = \
+            (self.planetEaMaMeEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetEaMaVeEnabledFlag = \
+            (self.planetEaMaVeEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetMaJuMeEnabledFlag = \
+            (self.planetMaJuMeEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetMaJuVeEnabledFlag = \
+            (self.planetMaJuVeEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetMaJuEaEnabledFlag = \
+            (self.planetMaJuEaEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetEaJuMeEnabledFlag = \
+            (self.planetEaJuMeEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetEaJuVeEnabledFlag = \
+            (self.planetEaJuVeEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetEaSaMeEnabledFlag = \
+            (self.planetEaSaMeEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetEaSaVeEnabledFlag = \
+            (self.planetEaSaVeEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetEaSaMaEnabledFlag = \
+            (self.planetEaSaMaEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
         
         # Set the values in the artifact.
         self.artifact.setPos(posF)
@@ -5093,6 +5618,43 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
         self.artifact.setPlanetAvgMaJuSaUrNePlEnabledFlag(planetAvgMaJuSaUrNePlEnabledFlag)
         self.artifact.setPlanetAvgJuSaUrNeEnabledFlag(planetAvgJuSaUrNeEnabledFlag)
         self.artifact.setPlanetAvgJuSaEnabledFlag(planetAvgJuSaEnabledFlag)
+        self.artifact.setPlanetMeVeEnabledFlag(planetMeVeEnabledFlag)
+        self.artifact.setPlanetMeEaEnabledFlag(planetMeEaEnabledFlag)
+        self.artifact.setPlanetMeMaEnabledFlag(planetMeMaEnabledFlag)
+        self.artifact.setPlanetMeJuEnabledFlag(planetMeJuEnabledFlag)
+        self.artifact.setPlanetMeSaEnabledFlag(planetMeSaEnabledFlag)
+        self.artifact.setPlanetMeUrEnabledFlag(planetMeUrEnabledFlag)
+        self.artifact.setPlanetVeEaEnabledFlag(planetVeEaEnabledFlag)
+        self.artifact.setPlanetVeMaEnabledFlag(planetVeMaEnabledFlag)
+        self.artifact.setPlanetVeJuEnabledFlag(planetVeJuEnabledFlag)
+        self.artifact.setPlanetVeSaEnabledFlag(planetVeSaEnabledFlag)
+        self.artifact.setPlanetVeUrEnabledFlag(planetVeUrEnabledFlag)
+        self.artifact.setPlanetEaMaEnabledFlag(planetEaMaEnabledFlag)
+        self.artifact.setPlanetEaJuEnabledFlag(planetEaJuEnabledFlag)
+        self.artifact.setPlanetEaSaEnabledFlag(planetEaSaEnabledFlag)
+        self.artifact.setPlanetEaUrEnabledFlag(planetEaUrEnabledFlag)
+        self.artifact.setPlanetMaJuEnabledFlag(planetMaJuEnabledFlag)
+        self.artifact.setPlanetMaSaEnabledFlag(planetMaSaEnabledFlag)
+        self.artifact.setPlanetMaUrEnabledFlag(planetMaUrEnabledFlag)
+        self.artifact.setPlanetJuSaEnabledFlag(planetJuSaEnabledFlag)
+        self.artifact.setPlanetJuUrEnabledFlag(planetJuUrEnabledFlag)
+        self.artifact.setPlanetSaUrEnabledFlag(planetSaUrEnabledFlag)
+        self.artifact.setPlanetMeVeEaEnabledFlag(planetMeVeEaEnabledFlag)
+        self.artifact.setPlanetMeVeMaEnabledFlag(planetMeVeMaEnabledFlag)
+        self.artifact.setPlanetVeEaMeEnabledFlag(planetVeEaMeEnabledFlag)
+        self.artifact.setPlanetVeEaMaEnabledFlag(planetVeEaMaEnabledFlag)
+        self.artifact.setPlanetVeMaMeEnabledFlag(planetVeMaMeEnabledFlag)
+        self.artifact.setPlanetVeMaEaEnabledFlag(planetVeMaEaEnabledFlag)
+        self.artifact.setPlanetEaMaMeEnabledFlag(planetEaMaMeEnabledFlag)
+        self.artifact.setPlanetEaMaVeEnabledFlag(planetEaMaVeEnabledFlag)
+        self.artifact.setPlanetMaJuMeEnabledFlag(planetMaJuMeEnabledFlag)
+        self.artifact.setPlanetMaJuVeEnabledFlag(planetMaJuVeEnabledFlag)
+        self.artifact.setPlanetMaJuEaEnabledFlag(planetMaJuEaEnabledFlag)
+        self.artifact.setPlanetEaJuMeEnabledFlag(planetEaJuMeEnabledFlag)
+        self.artifact.setPlanetEaJuVeEnabledFlag(planetEaJuVeEnabledFlag)
+        self.artifact.setPlanetEaSaMeEnabledFlag(planetEaSaMeEnabledFlag)
+        self.artifact.setPlanetEaSaVeEnabledFlag(planetEaSaVeEnabledFlag)
+        self.artifact.setPlanetEaSaMaEnabledFlag(planetEaSaMaEnabledFlag)
         
         self.log.debug("Exiting saveValues()")
 

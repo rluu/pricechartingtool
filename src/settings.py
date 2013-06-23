@@ -2061,6 +2061,1967 @@ class SettingsKeys():
 
 
 
+    # QSettings key for the planet glyph unicode of the MeVe.
+    planetMeVeGlyphUnicodeKey = \
+        "ui/astrology/MeVeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the MeVe.
+    planetMeVeGlyphUnicodeDefValue = "MeVe"
+
+    # QSettings key for the planet glyph font size of the MeVe.
+    planetMeVeGlyphFontSizeKey = \
+        "ui/astrology/MeVeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the MeVe.
+    planetMeVeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the MeVe.
+    planetMeVeAbbreviationKey = \
+        "ui/astrology/MeVeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the MeVe.
+    planetMeVeAbbreviationDefValue = "MeVe"
+
+    # QSettings key for the foreground color of the MeVe.
+    planetMeVeForegroundColorKey = \
+        "ui/astrology/MeVeForegroundColor"
+
+    # QSettings default value for the foreground color of the MeVe.
+    planetMeVeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the MeVe.
+    planetMeVeBackgroundColorKey = \
+        "ui/astrology/MeVeBackgroundColor"
+
+    # QSettings default value for the background color of the MeVe.
+    planetMeVeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the MeEa.
+    planetMeEaGlyphUnicodeKey = \
+        "ui/astrology/MeEaGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the MeEa.
+    planetMeEaGlyphUnicodeDefValue = "MeEa"
+
+    # QSettings key for the planet glyph font size of the MeEa.
+    planetMeEaGlyphFontSizeKey = \
+        "ui/astrology/MeEaGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the MeEa.
+    planetMeEaGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the MeEa.
+    planetMeEaAbbreviationKey = \
+        "ui/astrology/MeEaAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the MeEa.
+    planetMeEaAbbreviationDefValue = "MeEa"
+
+    # QSettings key for the foreground color of the MeEa.
+    planetMeEaForegroundColorKey = \
+        "ui/astrology/MeEaForegroundColor"
+
+    # QSettings default value for the foreground color of the MeEa.
+    planetMeEaForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the MeEa.
+    planetMeEaBackgroundColorKey = \
+        "ui/astrology/MeEaBackgroundColor"
+
+    # QSettings default value for the background color of the MeEa.
+    planetMeEaBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the MeMa.
+    planetMeMaGlyphUnicodeKey = \
+        "ui/astrology/MeMaGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the MeMa.
+    planetMeMaGlyphUnicodeDefValue = "MeMa"
+
+    # QSettings key for the planet glyph font size of the MeMa.
+    planetMeMaGlyphFontSizeKey = \
+        "ui/astrology/MeMaGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the MeMa.
+    planetMeMaGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the MeMa.
+    planetMeMaAbbreviationKey = \
+        "ui/astrology/MeMaAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the MeMa.
+    planetMeMaAbbreviationDefValue = "MeMa"
+
+    # QSettings key for the foreground color of the MeMa.
+    planetMeMaForegroundColorKey = \
+        "ui/astrology/MeMaForegroundColor"
+
+    # QSettings default value for the foreground color of the MeMa.
+    planetMeMaForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the MeMa.
+    planetMeMaBackgroundColorKey = \
+        "ui/astrology/MeMaBackgroundColor"
+
+    # QSettings default value for the background color of the MeMa.
+    planetMeMaBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the MeJu.
+    planetMeJuGlyphUnicodeKey = \
+        "ui/astrology/MeJuGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the MeJu.
+    planetMeJuGlyphUnicodeDefValue = "MeJu"
+
+    # QSettings key for the planet glyph font size of the MeJu.
+    planetMeJuGlyphFontSizeKey = \
+        "ui/astrology/MeJuGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the MeJu.
+    planetMeJuGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the MeJu.
+    planetMeJuAbbreviationKey = \
+        "ui/astrology/MeJuAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the MeJu.
+    planetMeJuAbbreviationDefValue = "MeJu"
+
+    # QSettings key for the foreground color of the MeJu.
+    planetMeJuForegroundColorKey = \
+        "ui/astrology/MeJuForegroundColor"
+
+    # QSettings default value for the foreground color of the MeJu.
+    planetMeJuForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the MeJu.
+    planetMeJuBackgroundColorKey = \
+        "ui/astrology/MeJuBackgroundColor"
+
+    # QSettings default value for the background color of the MeJu.
+    planetMeJuBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the MeSa.
+    planetMeSaGlyphUnicodeKey = \
+        "ui/astrology/MeSaGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the MeSa.
+    planetMeSaGlyphUnicodeDefValue = "MeSa"
+
+    # QSettings key for the planet glyph font size of the MeSa.
+    planetMeSaGlyphFontSizeKey = \
+        "ui/astrology/MeSaGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the MeSa.
+    planetMeSaGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the MeSa.
+    planetMeSaAbbreviationKey = \
+        "ui/astrology/MeSaAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the MeSa.
+    planetMeSaAbbreviationDefValue = "MeSa"
+
+    # QSettings key for the foreground color of the MeSa.
+    planetMeSaForegroundColorKey = \
+        "ui/astrology/MeSaForegroundColor"
+
+    # QSettings default value for the foreground color of the MeSa.
+    planetMeSaForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the MeSa.
+    planetMeSaBackgroundColorKey = \
+        "ui/astrology/MeSaBackgroundColor"
+
+    # QSettings default value for the background color of the MeSa.
+    planetMeSaBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the MeUr.
+    planetMeUrGlyphUnicodeKey = \
+        "ui/astrology/MeUrGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the MeUr.
+    planetMeUrGlyphUnicodeDefValue = "MeUr"
+
+    # QSettings key for the planet glyph font size of the MeUr.
+    planetMeUrGlyphFontSizeKey = \
+        "ui/astrology/MeUrGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the MeUr.
+    planetMeUrGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the MeUr.
+    planetMeUrAbbreviationKey = \
+        "ui/astrology/MeUrAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the MeUr.
+    planetMeUrAbbreviationDefValue = "MeUr"
+
+    # QSettings key for the foreground color of the MeUr.
+    planetMeUrForegroundColorKey = \
+        "ui/astrology/MeUrForegroundColor"
+
+    # QSettings default value for the foreground color of the MeUr.
+    planetMeUrForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the MeUr.
+    planetMeUrBackgroundColorKey = \
+        "ui/astrology/MeUrBackgroundColor"
+
+    # QSettings default value for the background color of the MeUr.
+    planetMeUrBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the VeEa.
+    planetVeEaGlyphUnicodeKey = \
+        "ui/astrology/VeEaGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the VeEa.
+    planetVeEaGlyphUnicodeDefValue = "VeEa"
+
+    # QSettings key for the planet glyph font size of the VeEa.
+    planetVeEaGlyphFontSizeKey = \
+        "ui/astrology/VeEaGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the VeEa.
+    planetVeEaGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the VeEa.
+    planetVeEaAbbreviationKey = \
+        "ui/astrology/VeEaAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the VeEa.
+    planetVeEaAbbreviationDefValue = "VeEa"
+
+    # QSettings key for the foreground color of the VeEa.
+    planetVeEaForegroundColorKey = \
+        "ui/astrology/VeEaForegroundColor"
+
+    # QSettings default value for the foreground color of the VeEa.
+    planetVeEaForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the VeEa.
+    planetVeEaBackgroundColorKey = \
+        "ui/astrology/VeEaBackgroundColor"
+
+    # QSettings default value for the background color of the VeEa.
+    planetVeEaBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the VeMa.
+    planetVeMaGlyphUnicodeKey = \
+        "ui/astrology/VeMaGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the VeMa.
+    planetVeMaGlyphUnicodeDefValue = "VeMa"
+
+    # QSettings key for the planet glyph font size of the VeMa.
+    planetVeMaGlyphFontSizeKey = \
+        "ui/astrology/VeMaGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the VeMa.
+    planetVeMaGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the VeMa.
+    planetVeMaAbbreviationKey = \
+        "ui/astrology/VeMaAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the VeMa.
+    planetVeMaAbbreviationDefValue = "VeMa"
+
+    # QSettings key for the foreground color of the VeMa.
+    planetVeMaForegroundColorKey = \
+        "ui/astrology/VeMaForegroundColor"
+
+    # QSettings default value for the foreground color of the VeMa.
+    planetVeMaForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the VeMa.
+    planetVeMaBackgroundColorKey = \
+        "ui/astrology/VeMaBackgroundColor"
+
+    # QSettings default value for the background color of the VeMa.
+    planetVeMaBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the VeJu.
+    planetVeJuGlyphUnicodeKey = \
+        "ui/astrology/VeJuGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the VeJu.
+    planetVeJuGlyphUnicodeDefValue = "VeJu"
+
+    # QSettings key for the planet glyph font size of the VeJu.
+    planetVeJuGlyphFontSizeKey = \
+        "ui/astrology/VeJuGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the VeJu.
+    planetVeJuGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the VeJu.
+    planetVeJuAbbreviationKey = \
+        "ui/astrology/VeJuAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the VeJu.
+    planetVeJuAbbreviationDefValue = "VeJu"
+
+    # QSettings key for the foreground color of the VeJu.
+    planetVeJuForegroundColorKey = \
+        "ui/astrology/VeJuForegroundColor"
+
+    # QSettings default value for the foreground color of the VeJu.
+    planetVeJuForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the VeJu.
+    planetVeJuBackgroundColorKey = \
+        "ui/astrology/VeJuBackgroundColor"
+
+    # QSettings default value for the background color of the VeJu.
+    planetVeJuBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the VeSa.
+    planetVeSaGlyphUnicodeKey = \
+        "ui/astrology/VeSaGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the VeSa.
+    planetVeSaGlyphUnicodeDefValue = "VeSa"
+
+    # QSettings key for the planet glyph font size of the VeSa.
+    planetVeSaGlyphFontSizeKey = \
+        "ui/astrology/VeSaGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the VeSa.
+    planetVeSaGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the VeSa.
+    planetVeSaAbbreviationKey = \
+        "ui/astrology/VeSaAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the VeSa.
+    planetVeSaAbbreviationDefValue = "VeSa"
+
+    # QSettings key for the foreground color of the VeSa.
+    planetVeSaForegroundColorKey = \
+        "ui/astrology/VeSaForegroundColor"
+
+    # QSettings default value for the foreground color of the VeSa.
+    planetVeSaForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the VeSa.
+    planetVeSaBackgroundColorKey = \
+        "ui/astrology/VeSaBackgroundColor"
+
+    # QSettings default value for the background color of the VeSa.
+    planetVeSaBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the VeUr.
+    planetVeUrGlyphUnicodeKey = \
+        "ui/astrology/VeUrGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the VeUr.
+    planetVeUrGlyphUnicodeDefValue = "VeUr"
+
+    # QSettings key for the planet glyph font size of the VeUr.
+    planetVeUrGlyphFontSizeKey = \
+        "ui/astrology/VeUrGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the VeUr.
+    planetVeUrGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the VeUr.
+    planetVeUrAbbreviationKey = \
+        "ui/astrology/VeUrAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the VeUr.
+    planetVeUrAbbreviationDefValue = "VeUr"
+
+    # QSettings key for the foreground color of the VeUr.
+    planetVeUrForegroundColorKey = \
+        "ui/astrology/VeUrForegroundColor"
+
+    # QSettings default value for the foreground color of the VeUr.
+    planetVeUrForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the VeUr.
+    planetVeUrBackgroundColorKey = \
+        "ui/astrology/VeUrBackgroundColor"
+
+    # QSettings default value for the background color of the VeUr.
+    planetVeUrBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the EaMa.
+    planetEaMaGlyphUnicodeKey = \
+        "ui/astrology/EaMaGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the EaMa.
+    planetEaMaGlyphUnicodeDefValue = "EaMa"
+
+    # QSettings key for the planet glyph font size of the EaMa.
+    planetEaMaGlyphFontSizeKey = \
+        "ui/astrology/EaMaGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the EaMa.
+    planetEaMaGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the EaMa.
+    planetEaMaAbbreviationKey = \
+        "ui/astrology/EaMaAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the EaMa.
+    planetEaMaAbbreviationDefValue = "EaMa"
+
+    # QSettings key for the foreground color of the EaMa.
+    planetEaMaForegroundColorKey = \
+        "ui/astrology/EaMaForegroundColor"
+
+    # QSettings default value for the foreground color of the EaMa.
+    planetEaMaForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the EaMa.
+    planetEaMaBackgroundColorKey = \
+        "ui/astrology/EaMaBackgroundColor"
+
+    # QSettings default value for the background color of the EaMa.
+    planetEaMaBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the EaJu.
+    planetEaJuGlyphUnicodeKey = \
+        "ui/astrology/EaJuGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the EaJu.
+    planetEaJuGlyphUnicodeDefValue = "EaJu"
+
+    # QSettings key for the planet glyph font size of the EaJu.
+    planetEaJuGlyphFontSizeKey = \
+        "ui/astrology/EaJuGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the EaJu.
+    planetEaJuGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the EaJu.
+    planetEaJuAbbreviationKey = \
+        "ui/astrology/EaJuAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the EaJu.
+    planetEaJuAbbreviationDefValue = "EaJu"
+
+    # QSettings key for the foreground color of the EaJu.
+    planetEaJuForegroundColorKey = \
+        "ui/astrology/EaJuForegroundColor"
+
+    # QSettings default value for the foreground color of the EaJu.
+    planetEaJuForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the EaJu.
+    planetEaJuBackgroundColorKey = \
+        "ui/astrology/EaJuBackgroundColor"
+
+    # QSettings default value for the background color of the EaJu.
+    planetEaJuBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the EaSa.
+    planetEaSaGlyphUnicodeKey = \
+        "ui/astrology/EaSaGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the EaSa.
+    planetEaSaGlyphUnicodeDefValue = "EaSa"
+
+    # QSettings key for the planet glyph font size of the EaSa.
+    planetEaSaGlyphFontSizeKey = \
+        "ui/astrology/EaSaGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the EaSa.
+    planetEaSaGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the EaSa.
+    planetEaSaAbbreviationKey = \
+        "ui/astrology/EaSaAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the EaSa.
+    planetEaSaAbbreviationDefValue = "EaSa"
+
+    # QSettings key for the foreground color of the EaSa.
+    planetEaSaForegroundColorKey = \
+        "ui/astrology/EaSaForegroundColor"
+
+    # QSettings default value for the foreground color of the EaSa.
+    planetEaSaForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the EaSa.
+    planetEaSaBackgroundColorKey = \
+        "ui/astrology/EaSaBackgroundColor"
+
+    # QSettings default value for the background color of the EaSa.
+    planetEaSaBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the EaUr.
+    planetEaUrGlyphUnicodeKey = \
+        "ui/astrology/EaUrGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the EaUr.
+    planetEaUrGlyphUnicodeDefValue = "EaUr"
+
+    # QSettings key for the planet glyph font size of the EaUr.
+    planetEaUrGlyphFontSizeKey = \
+        "ui/astrology/EaUrGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the EaUr.
+    planetEaUrGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the EaUr.
+    planetEaUrAbbreviationKey = \
+        "ui/astrology/EaUrAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the EaUr.
+    planetEaUrAbbreviationDefValue = "EaUr"
+
+    # QSettings key for the foreground color of the EaUr.
+    planetEaUrForegroundColorKey = \
+        "ui/astrology/EaUrForegroundColor"
+
+    # QSettings default value for the foreground color of the EaUr.
+    planetEaUrForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the EaUr.
+    planetEaUrBackgroundColorKey = \
+        "ui/astrology/EaUrBackgroundColor"
+
+    # QSettings default value for the background color of the EaUr.
+    planetEaUrBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the MaJu.
+    planetMaJuGlyphUnicodeKey = \
+        "ui/astrology/MaJuGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the MaJu.
+    planetMaJuGlyphUnicodeDefValue = "MaJu"
+
+    # QSettings key for the planet glyph font size of the MaJu.
+    planetMaJuGlyphFontSizeKey = \
+        "ui/astrology/MaJuGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the MaJu.
+    planetMaJuGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the MaJu.
+    planetMaJuAbbreviationKey = \
+        "ui/astrology/MaJuAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the MaJu.
+    planetMaJuAbbreviationDefValue = "MaJu"
+
+    # QSettings key for the foreground color of the MaJu.
+    planetMaJuForegroundColorKey = \
+        "ui/astrology/MaJuForegroundColor"
+
+    # QSettings default value for the foreground color of the MaJu.
+    planetMaJuForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the MaJu.
+    planetMaJuBackgroundColorKey = \
+        "ui/astrology/MaJuBackgroundColor"
+
+    # QSettings default value for the background color of the MaJu.
+    planetMaJuBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the MaSa.
+    planetMaSaGlyphUnicodeKey = \
+        "ui/astrology/MaSaGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the MaSa.
+    planetMaSaGlyphUnicodeDefValue = "MaSa"
+
+    # QSettings key for the planet glyph font size of the MaSa.
+    planetMaSaGlyphFontSizeKey = \
+        "ui/astrology/MaSaGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the MaSa.
+    planetMaSaGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the MaSa.
+    planetMaSaAbbreviationKey = \
+        "ui/astrology/MaSaAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the MaSa.
+    planetMaSaAbbreviationDefValue = "MaSa"
+
+    # QSettings key for the foreground color of the MaSa.
+    planetMaSaForegroundColorKey = \
+        "ui/astrology/MaSaForegroundColor"
+
+    # QSettings default value for the foreground color of the MaSa.
+    planetMaSaForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the MaSa.
+    planetMaSaBackgroundColorKey = \
+        "ui/astrology/MaSaBackgroundColor"
+
+    # QSettings default value for the background color of the MaSa.
+    planetMaSaBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the MaUr.
+    planetMaUrGlyphUnicodeKey = \
+        "ui/astrology/MaUrGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the MaUr.
+    planetMaUrGlyphUnicodeDefValue = "MaUr"
+
+    # QSettings key for the planet glyph font size of the MaUr.
+    planetMaUrGlyphFontSizeKey = \
+        "ui/astrology/MaUrGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the MaUr.
+    planetMaUrGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the MaUr.
+    planetMaUrAbbreviationKey = \
+        "ui/astrology/MaUrAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the MaUr.
+    planetMaUrAbbreviationDefValue = "MaUr"
+
+    # QSettings key for the foreground color of the MaUr.
+    planetMaUrForegroundColorKey = \
+        "ui/astrology/MaUrForegroundColor"
+
+    # QSettings default value for the foreground color of the MaUr.
+    planetMaUrForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the MaUr.
+    planetMaUrBackgroundColorKey = \
+        "ui/astrology/MaUrBackgroundColor"
+
+    # QSettings default value for the background color of the MaUr.
+    planetMaUrBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the JuSa.
+    planetJuSaGlyphUnicodeKey = \
+        "ui/astrology/JuSaGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the JuSa.
+    planetJuSaGlyphUnicodeDefValue = "JuSa"
+
+    # QSettings key for the planet glyph font size of the JuSa.
+    planetJuSaGlyphFontSizeKey = \
+        "ui/astrology/JuSaGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the JuSa.
+    planetJuSaGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the JuSa.
+    planetJuSaAbbreviationKey = \
+        "ui/astrology/JuSaAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the JuSa.
+    planetJuSaAbbreviationDefValue = "JuSa"
+
+    # QSettings key for the foreground color of the JuSa.
+    planetJuSaForegroundColorKey = \
+        "ui/astrology/JuSaForegroundColor"
+
+    # QSettings default value for the foreground color of the JuSa.
+    planetJuSaForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the JuSa.
+    planetJuSaBackgroundColorKey = \
+        "ui/astrology/JuSaBackgroundColor"
+
+    # QSettings default value for the background color of the JuSa.
+    planetJuSaBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the JuUr.
+    planetJuUrGlyphUnicodeKey = \
+        "ui/astrology/JuUrGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the JuUr.
+    planetJuUrGlyphUnicodeDefValue = "JuUr"
+
+    # QSettings key for the planet glyph font size of the JuUr.
+    planetJuUrGlyphFontSizeKey = \
+        "ui/astrology/JuUrGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the JuUr.
+    planetJuUrGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the JuUr.
+    planetJuUrAbbreviationKey = \
+        "ui/astrology/JuUrAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the JuUr.
+    planetJuUrAbbreviationDefValue = "JuUr"
+
+    # QSettings key for the foreground color of the JuUr.
+    planetJuUrForegroundColorKey = \
+        "ui/astrology/JuUrForegroundColor"
+
+    # QSettings default value for the foreground color of the JuUr.
+    planetJuUrForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the JuUr.
+    planetJuUrBackgroundColorKey = \
+        "ui/astrology/JuUrBackgroundColor"
+
+    # QSettings default value for the background color of the JuUr.
+    planetJuUrBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the SaUr.
+    planetSaUrGlyphUnicodeKey = \
+        "ui/astrology/SaUrGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the SaUr.
+    planetSaUrGlyphUnicodeDefValue = "SaUr"
+
+    # QSettings key for the planet glyph font size of the SaUr.
+    planetSaUrGlyphFontSizeKey = \
+        "ui/astrology/SaUrGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the SaUr.
+    planetSaUrGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the SaUr.
+    planetSaUrAbbreviationKey = \
+        "ui/astrology/SaUrAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the SaUr.
+    planetSaUrAbbreviationDefValue = "SaUr"
+
+    # QSettings key for the foreground color of the SaUr.
+    planetSaUrForegroundColorKey = \
+        "ui/astrology/SaUrForegroundColor"
+
+    # QSettings default value for the foreground color of the SaUr.
+    planetSaUrForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the SaUr.
+    planetSaUrBackgroundColorKey = \
+        "ui/astrology/SaUrBackgroundColor"
+
+    # QSettings default value for the background color of the SaUr.
+    planetSaUrBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the SaUr.
+    planetSaUrGlyphUnicodeKey = \
+        "ui/astrology/SaUrGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the SaUr.
+    planetSaUrGlyphUnicodeDefValue = "SaUr"
+
+    # QSettings key for the planet glyph font size of the SaUr.
+    planetSaUrGlyphFontSizeKey = \
+        "ui/astrology/SaUrGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the SaUr.
+    planetSaUrGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the SaUr.
+    planetSaUrAbbreviationKey = \
+        "ui/astrology/SaUrAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the SaUr.
+    planetSaUrAbbreviationDefValue = "SaUr"
+
+    # QSettings key for the foreground color of the SaUr.
+    planetSaUrForegroundColorKey = \
+        "ui/astrology/SaUrForegroundColor"
+
+    # QSettings default value for the foreground color of the SaUr.
+    planetSaUrForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the SaUr.
+    planetSaUrBackgroundColorKey = \
+        "ui/astrology/SaUrBackgroundColor"
+
+    # QSettings default value for the background color of the SaUr.
+    planetSaUrBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the MeVeEa.
+    planetMeVeEaGlyphUnicodeKey = \
+        "ui/astrology/MeVeEaGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the MeVeEa.
+    planetMeVeEaGlyphUnicodeDefValue = "MeVeEa"
+
+    # QSettings key for the planet glyph font size of the MeVeEa.
+    planetMeVeEaGlyphFontSizeKey = \
+        "ui/astrology/MeVeEaGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the MeVeEa.
+    planetMeVeEaGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the MeVeEa.
+    planetMeVeEaAbbreviationKey = \
+        "ui/astrology/MeVeEaAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the MeVeEa.
+    planetMeVeEaAbbreviationDefValue = "MeVeEa"
+
+    # QSettings key for the foreground color of the MeVeEa.
+    planetMeVeEaForegroundColorKey = \
+        "ui/astrology/MeVeEaForegroundColor"
+
+    # QSettings default value for the foreground color of the MeVeEa.
+    planetMeVeEaForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the MeVeEa.
+    planetMeVeEaBackgroundColorKey = \
+        "ui/astrology/MeVeEaBackgroundColor"
+
+    # QSettings default value for the background color of the MeVeEa.
+    planetMeVeEaBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the MeVeEa.
+    planetMeVeEaGlyphUnicodeKey = \
+        "ui/astrology/MeVeEaGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the MeVeEa.
+    planetMeVeEaGlyphUnicodeDefValue = "MeVeEa"
+
+    # QSettings key for the planet glyph font size of the MeVeEa.
+    planetMeVeEaGlyphFontSizeKey = \
+        "ui/astrology/MeVeEaGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the MeVeEa.
+    planetMeVeEaGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the MeVeEa.
+    planetMeVeEaAbbreviationKey = \
+        "ui/astrology/MeVeEaAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the MeVeEa.
+    planetMeVeEaAbbreviationDefValue = "MeVeEa"
+
+    # QSettings key for the foreground color of the MeVeEa.
+    planetMeVeEaForegroundColorKey = \
+        "ui/astrology/MeVeEaForegroundColor"
+
+    # QSettings default value for the foreground color of the MeVeEa.
+    planetMeVeEaForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the MeVeEa.
+    planetMeVeEaBackgroundColorKey = \
+        "ui/astrology/MeVeEaBackgroundColor"
+
+    # QSettings default value for the background color of the MeVeEa.
+    planetMeVeEaBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the MeVeMa.
+    planetMeVeMaGlyphUnicodeKey = \
+        "ui/astrology/MeVeMaGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the MeVeMa.
+    planetMeVeMaGlyphUnicodeDefValue = "MeVeMa"
+
+    # QSettings key for the planet glyph font size of the MeVeMa.
+    planetMeVeMaGlyphFontSizeKey = \
+        "ui/astrology/MeVeMaGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the MeVeMa.
+    planetMeVeMaGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the MeVeMa.
+    planetMeVeMaAbbreviationKey = \
+        "ui/astrology/MeVeMaAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the MeVeMa.
+    planetMeVeMaAbbreviationDefValue = "MeVeMa"
+
+    # QSettings key for the foreground color of the MeVeMa.
+    planetMeVeMaForegroundColorKey = \
+        "ui/astrology/MeVeMaForegroundColor"
+
+    # QSettings default value for the foreground color of the MeVeMa.
+    planetMeVeMaForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the MeVeMa.
+    planetMeVeMaBackgroundColorKey = \
+        "ui/astrology/MeVeMaBackgroundColor"
+
+    # QSettings default value for the background color of the MeVeMa.
+    planetMeVeMaBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the MeVeMa.
+    planetMeVeMaGlyphUnicodeKey = \
+        "ui/astrology/MeVeMaGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the MeVeMa.
+    planetMeVeMaGlyphUnicodeDefValue = "MeVeMa"
+
+    # QSettings key for the planet glyph font size of the MeVeMa.
+    planetMeVeMaGlyphFontSizeKey = \
+        "ui/astrology/MeVeMaGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the MeVeMa.
+    planetMeVeMaGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the MeVeMa.
+    planetMeVeMaAbbreviationKey = \
+        "ui/astrology/MeVeMaAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the MeVeMa.
+    planetMeVeMaAbbreviationDefValue = "MeVeMa"
+
+    # QSettings key for the foreground color of the MeVeMa.
+    planetMeVeMaForegroundColorKey = \
+        "ui/astrology/MeVeMaForegroundColor"
+
+    # QSettings default value for the foreground color of the MeVeMa.
+    planetMeVeMaForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the MeVeMa.
+    planetMeVeMaBackgroundColorKey = \
+        "ui/astrology/MeVeMaBackgroundColor"
+
+    # QSettings default value for the background color of the MeVeMa.
+    planetMeVeMaBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the VeEaMe.
+    planetVeEaMeGlyphUnicodeKey = \
+        "ui/astrology/VeEaMeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the VeEaMe.
+    planetVeEaMeGlyphUnicodeDefValue = "VeEaMe"
+
+    # QSettings key for the planet glyph font size of the VeEaMe.
+    planetVeEaMeGlyphFontSizeKey = \
+        "ui/astrology/VeEaMeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the VeEaMe.
+    planetVeEaMeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the VeEaMe.
+    planetVeEaMeAbbreviationKey = \
+        "ui/astrology/VeEaMeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the VeEaMe.
+    planetVeEaMeAbbreviationDefValue = "VeEaMe"
+
+    # QSettings key for the foreground color of the VeEaMe.
+    planetVeEaMeForegroundColorKey = \
+        "ui/astrology/VeEaMeForegroundColor"
+
+    # QSettings default value for the foreground color of the VeEaMe.
+    planetVeEaMeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the VeEaMe.
+    planetVeEaMeBackgroundColorKey = \
+        "ui/astrology/VeEaMeBackgroundColor"
+
+    # QSettings default value for the background color of the VeEaMe.
+    planetVeEaMeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the VeEaMe.
+    planetVeEaMeGlyphUnicodeKey = \
+        "ui/astrology/VeEaMeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the VeEaMe.
+    planetVeEaMeGlyphUnicodeDefValue = "VeEaMe"
+
+    # QSettings key for the planet glyph font size of the VeEaMe.
+    planetVeEaMeGlyphFontSizeKey = \
+        "ui/astrology/VeEaMeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the VeEaMe.
+    planetVeEaMeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the VeEaMe.
+    planetVeEaMeAbbreviationKey = \
+        "ui/astrology/VeEaMeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the VeEaMe.
+    planetVeEaMeAbbreviationDefValue = "VeEaMe"
+
+    # QSettings key for the foreground color of the VeEaMe.
+    planetVeEaMeForegroundColorKey = \
+        "ui/astrology/VeEaMeForegroundColor"
+
+    # QSettings default value for the foreground color of the VeEaMe.
+    planetVeEaMeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the VeEaMe.
+    planetVeEaMeBackgroundColorKey = \
+        "ui/astrology/VeEaMeBackgroundColor"
+
+    # QSettings default value for the background color of the VeEaMe.
+    planetVeEaMeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the VeEaMa.
+    planetVeEaMaGlyphUnicodeKey = \
+        "ui/astrology/VeEaMaGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the VeEaMa.
+    planetVeEaMaGlyphUnicodeDefValue = "VeEaMa"
+
+    # QSettings key for the planet glyph font size of the VeEaMa.
+    planetVeEaMaGlyphFontSizeKey = \
+        "ui/astrology/VeEaMaGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the VeEaMa.
+    planetVeEaMaGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the VeEaMa.
+    planetVeEaMaAbbreviationKey = \
+        "ui/astrology/VeEaMaAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the VeEaMa.
+    planetVeEaMaAbbreviationDefValue = "VeEaMa"
+
+    # QSettings key for the foreground color of the VeEaMa.
+    planetVeEaMaForegroundColorKey = \
+        "ui/astrology/VeEaMaForegroundColor"
+
+    # QSettings default value for the foreground color of the VeEaMa.
+    planetVeEaMaForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the VeEaMa.
+    planetVeEaMaBackgroundColorKey = \
+        "ui/astrology/VeEaMaBackgroundColor"
+
+    # QSettings default value for the background color of the VeEaMa.
+    planetVeEaMaBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the VeEaMa.
+    planetVeEaMaGlyphUnicodeKey = \
+        "ui/astrology/VeEaMaGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the VeEaMa.
+    planetVeEaMaGlyphUnicodeDefValue = "VeEaMa"
+
+    # QSettings key for the planet glyph font size of the VeEaMa.
+    planetVeEaMaGlyphFontSizeKey = \
+        "ui/astrology/VeEaMaGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the VeEaMa.
+    planetVeEaMaGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the VeEaMa.
+    planetVeEaMaAbbreviationKey = \
+        "ui/astrology/VeEaMaAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the VeEaMa.
+    planetVeEaMaAbbreviationDefValue = "VeEaMa"
+
+    # QSettings key for the foreground color of the VeEaMa.
+    planetVeEaMaForegroundColorKey = \
+        "ui/astrology/VeEaMaForegroundColor"
+
+    # QSettings default value for the foreground color of the VeEaMa.
+    planetVeEaMaForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the VeEaMa.
+    planetVeEaMaBackgroundColorKey = \
+        "ui/astrology/VeEaMaBackgroundColor"
+
+    # QSettings default value for the background color of the VeEaMa.
+    planetVeEaMaBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the VeMaMe.
+    planetVeMaMeGlyphUnicodeKey = \
+        "ui/astrology/VeMaMeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the VeMaMe.
+    planetVeMaMeGlyphUnicodeDefValue = "VeMaMe"
+
+    # QSettings key for the planet glyph font size of the VeMaMe.
+    planetVeMaMeGlyphFontSizeKey = \
+        "ui/astrology/VeMaMeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the VeMaMe.
+    planetVeMaMeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the VeMaMe.
+    planetVeMaMeAbbreviationKey = \
+        "ui/astrology/VeMaMeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the VeMaMe.
+    planetVeMaMeAbbreviationDefValue = "VeMaMe"
+
+    # QSettings key for the foreground color of the VeMaMe.
+    planetVeMaMeForegroundColorKey = \
+        "ui/astrology/VeMaMeForegroundColor"
+
+    # QSettings default value for the foreground color of the VeMaMe.
+    planetVeMaMeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the VeMaMe.
+    planetVeMaMeBackgroundColorKey = \
+        "ui/astrology/VeMaMeBackgroundColor"
+
+    # QSettings default value for the background color of the VeMaMe.
+    planetVeMaMeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the VeMaMe.
+    planetVeMaMeGlyphUnicodeKey = \
+        "ui/astrology/VeMaMeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the VeMaMe.
+    planetVeMaMeGlyphUnicodeDefValue = "VeMaMe"
+
+    # QSettings key for the planet glyph font size of the VeMaMe.
+    planetVeMaMeGlyphFontSizeKey = \
+        "ui/astrology/VeMaMeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the VeMaMe.
+    planetVeMaMeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the VeMaMe.
+    planetVeMaMeAbbreviationKey = \
+        "ui/astrology/VeMaMeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the VeMaMe.
+    planetVeMaMeAbbreviationDefValue = "VeMaMe"
+
+    # QSettings key for the foreground color of the VeMaMe.
+    planetVeMaMeForegroundColorKey = \
+        "ui/astrology/VeMaMeForegroundColor"
+
+    # QSettings default value for the foreground color of the VeMaMe.
+    planetVeMaMeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the VeMaMe.
+    planetVeMaMeBackgroundColorKey = \
+        "ui/astrology/VeMaMeBackgroundColor"
+
+    # QSettings default value for the background color of the VeMaMe.
+    planetVeMaMeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the VeMaEa.
+    planetVeMaEaGlyphUnicodeKey = \
+        "ui/astrology/VeMaEaGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the VeMaEa.
+    planetVeMaEaGlyphUnicodeDefValue = "VeMaEa"
+
+    # QSettings key for the planet glyph font size of the VeMaEa.
+    planetVeMaEaGlyphFontSizeKey = \
+        "ui/astrology/VeMaEaGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the VeMaEa.
+    planetVeMaEaGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the VeMaEa.
+    planetVeMaEaAbbreviationKey = \
+        "ui/astrology/VeMaEaAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the VeMaEa.
+    planetVeMaEaAbbreviationDefValue = "VeMaEa"
+
+    # QSettings key for the foreground color of the VeMaEa.
+    planetVeMaEaForegroundColorKey = \
+        "ui/astrology/VeMaEaForegroundColor"
+
+    # QSettings default value for the foreground color of the VeMaEa.
+    planetVeMaEaForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the VeMaEa.
+    planetVeMaEaBackgroundColorKey = \
+        "ui/astrology/VeMaEaBackgroundColor"
+
+    # QSettings default value for the background color of the VeMaEa.
+    planetVeMaEaBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the VeMaEa.
+    planetVeMaEaGlyphUnicodeKey = \
+        "ui/astrology/VeMaEaGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the VeMaEa.
+    planetVeMaEaGlyphUnicodeDefValue = "VeMaEa"
+
+    # QSettings key for the planet glyph font size of the VeMaEa.
+    planetVeMaEaGlyphFontSizeKey = \
+        "ui/astrology/VeMaEaGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the VeMaEa.
+    planetVeMaEaGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the VeMaEa.
+    planetVeMaEaAbbreviationKey = \
+        "ui/astrology/VeMaEaAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the VeMaEa.
+    planetVeMaEaAbbreviationDefValue = "VeMaEa"
+
+    # QSettings key for the foreground color of the VeMaEa.
+    planetVeMaEaForegroundColorKey = \
+        "ui/astrology/VeMaEaForegroundColor"
+
+    # QSettings default value for the foreground color of the VeMaEa.
+    planetVeMaEaForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the VeMaEa.
+    planetVeMaEaBackgroundColorKey = \
+        "ui/astrology/VeMaEaBackgroundColor"
+
+    # QSettings default value for the background color of the VeMaEa.
+    planetVeMaEaBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the EaMaMe.
+    planetEaMaMeGlyphUnicodeKey = \
+        "ui/astrology/EaMaMeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the EaMaMe.
+    planetEaMaMeGlyphUnicodeDefValue = "EaMaMe"
+
+    # QSettings key for the planet glyph font size of the EaMaMe.
+    planetEaMaMeGlyphFontSizeKey = \
+        "ui/astrology/EaMaMeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the EaMaMe.
+    planetEaMaMeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the EaMaMe.
+    planetEaMaMeAbbreviationKey = \
+        "ui/astrology/EaMaMeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the EaMaMe.
+    planetEaMaMeAbbreviationDefValue = "EaMaMe"
+
+    # QSettings key for the foreground color of the EaMaMe.
+    planetEaMaMeForegroundColorKey = \
+        "ui/astrology/EaMaMeForegroundColor"
+
+    # QSettings default value for the foreground color of the EaMaMe.
+    planetEaMaMeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the EaMaMe.
+    planetEaMaMeBackgroundColorKey = \
+        "ui/astrology/EaMaMeBackgroundColor"
+
+    # QSettings default value for the background color of the EaMaMe.
+    planetEaMaMeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the EaMaMe.
+    planetEaMaMeGlyphUnicodeKey = \
+        "ui/astrology/EaMaMeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the EaMaMe.
+    planetEaMaMeGlyphUnicodeDefValue = "EaMaMe"
+
+    # QSettings key for the planet glyph font size of the EaMaMe.
+    planetEaMaMeGlyphFontSizeKey = \
+        "ui/astrology/EaMaMeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the EaMaMe.
+    planetEaMaMeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the EaMaMe.
+    planetEaMaMeAbbreviationKey = \
+        "ui/astrology/EaMaMeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the EaMaMe.
+    planetEaMaMeAbbreviationDefValue = "EaMaMe"
+
+    # QSettings key for the foreground color of the EaMaMe.
+    planetEaMaMeForegroundColorKey = \
+        "ui/astrology/EaMaMeForegroundColor"
+
+    # QSettings default value for the foreground color of the EaMaMe.
+    planetEaMaMeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the EaMaMe.
+    planetEaMaMeBackgroundColorKey = \
+        "ui/astrology/EaMaMeBackgroundColor"
+
+    # QSettings default value for the background color of the EaMaMe.
+    planetEaMaMeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the EaMaVe.
+    planetEaMaVeGlyphUnicodeKey = \
+        "ui/astrology/EaMaVeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the EaMaVe.
+    planetEaMaVeGlyphUnicodeDefValue = "EaMaVe"
+
+    # QSettings key for the planet glyph font size of the EaMaVe.
+    planetEaMaVeGlyphFontSizeKey = \
+        "ui/astrology/EaMaVeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the EaMaVe.
+    planetEaMaVeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the EaMaVe.
+    planetEaMaVeAbbreviationKey = \
+        "ui/astrology/EaMaVeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the EaMaVe.
+    planetEaMaVeAbbreviationDefValue = "EaMaVe"
+
+    # QSettings key for the foreground color of the EaMaVe.
+    planetEaMaVeForegroundColorKey = \
+        "ui/astrology/EaMaVeForegroundColor"
+
+    # QSettings default value for the foreground color of the EaMaVe.
+    planetEaMaVeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the EaMaVe.
+    planetEaMaVeBackgroundColorKey = \
+        "ui/astrology/EaMaVeBackgroundColor"
+
+    # QSettings default value for the background color of the EaMaVe.
+    planetEaMaVeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the EaMaVe.
+    planetEaMaVeGlyphUnicodeKey = \
+        "ui/astrology/EaMaVeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the EaMaVe.
+    planetEaMaVeGlyphUnicodeDefValue = "EaMaVe"
+
+    # QSettings key for the planet glyph font size of the EaMaVe.
+    planetEaMaVeGlyphFontSizeKey = \
+        "ui/astrology/EaMaVeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the EaMaVe.
+    planetEaMaVeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the EaMaVe.
+    planetEaMaVeAbbreviationKey = \
+        "ui/astrology/EaMaVeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the EaMaVe.
+    planetEaMaVeAbbreviationDefValue = "EaMaVe"
+
+    # QSettings key for the foreground color of the EaMaVe.
+    planetEaMaVeForegroundColorKey = \
+        "ui/astrology/EaMaVeForegroundColor"
+
+    # QSettings default value for the foreground color of the EaMaVe.
+    planetEaMaVeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the EaMaVe.
+    planetEaMaVeBackgroundColorKey = \
+        "ui/astrology/EaMaVeBackgroundColor"
+
+    # QSettings default value for the background color of the EaMaVe.
+    planetEaMaVeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the MaJuMe.
+    planetMaJuMeGlyphUnicodeKey = \
+        "ui/astrology/MaJuMeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the MaJuMe.
+    planetMaJuMeGlyphUnicodeDefValue = "MaJuMe"
+
+    # QSettings key for the planet glyph font size of the MaJuMe.
+    planetMaJuMeGlyphFontSizeKey = \
+        "ui/astrology/MaJuMeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the MaJuMe.
+    planetMaJuMeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the MaJuMe.
+    planetMaJuMeAbbreviationKey = \
+        "ui/astrology/MaJuMeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the MaJuMe.
+    planetMaJuMeAbbreviationDefValue = "MaJuMe"
+
+    # QSettings key for the foreground color of the MaJuMe.
+    planetMaJuMeForegroundColorKey = \
+        "ui/astrology/MaJuMeForegroundColor"
+
+    # QSettings default value for the foreground color of the MaJuMe.
+    planetMaJuMeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the MaJuMe.
+    planetMaJuMeBackgroundColorKey = \
+        "ui/astrology/MaJuMeBackgroundColor"
+
+    # QSettings default value for the background color of the MaJuMe.
+    planetMaJuMeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the MaJuMe.
+    planetMaJuMeGlyphUnicodeKey = \
+        "ui/astrology/MaJuMeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the MaJuMe.
+    planetMaJuMeGlyphUnicodeDefValue = "MaJuMe"
+
+    # QSettings key for the planet glyph font size of the MaJuMe.
+    planetMaJuMeGlyphFontSizeKey = \
+        "ui/astrology/MaJuMeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the MaJuMe.
+    planetMaJuMeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the MaJuMe.
+    planetMaJuMeAbbreviationKey = \
+        "ui/astrology/MaJuMeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the MaJuMe.
+    planetMaJuMeAbbreviationDefValue = "MaJuMe"
+
+    # QSettings key for the foreground color of the MaJuMe.
+    planetMaJuMeForegroundColorKey = \
+        "ui/astrology/MaJuMeForegroundColor"
+
+    # QSettings default value for the foreground color of the MaJuMe.
+    planetMaJuMeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the MaJuMe.
+    planetMaJuMeBackgroundColorKey = \
+        "ui/astrology/MaJuMeBackgroundColor"
+
+    # QSettings default value for the background color of the MaJuMe.
+    planetMaJuMeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the MaJuVe.
+    planetMaJuVeGlyphUnicodeKey = \
+        "ui/astrology/MaJuVeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the MaJuVe.
+    planetMaJuVeGlyphUnicodeDefValue = "MaJuVe"
+
+    # QSettings key for the planet glyph font size of the MaJuVe.
+    planetMaJuVeGlyphFontSizeKey = \
+        "ui/astrology/MaJuVeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the MaJuVe.
+    planetMaJuVeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the MaJuVe.
+    planetMaJuVeAbbreviationKey = \
+        "ui/astrology/MaJuVeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the MaJuVe.
+    planetMaJuVeAbbreviationDefValue = "MaJuVe"
+
+    # QSettings key for the foreground color of the MaJuVe.
+    planetMaJuVeForegroundColorKey = \
+        "ui/astrology/MaJuVeForegroundColor"
+
+    # QSettings default value for the foreground color of the MaJuVe.
+    planetMaJuVeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the MaJuVe.
+    planetMaJuVeBackgroundColorKey = \
+        "ui/astrology/MaJuVeBackgroundColor"
+
+    # QSettings default value for the background color of the MaJuVe.
+    planetMaJuVeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the MaJuVe.
+    planetMaJuVeGlyphUnicodeKey = \
+        "ui/astrology/MaJuVeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the MaJuVe.
+    planetMaJuVeGlyphUnicodeDefValue = "MaJuVe"
+
+    # QSettings key for the planet glyph font size of the MaJuVe.
+    planetMaJuVeGlyphFontSizeKey = \
+        "ui/astrology/MaJuVeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the MaJuVe.
+    planetMaJuVeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the MaJuVe.
+    planetMaJuVeAbbreviationKey = \
+        "ui/astrology/MaJuVeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the MaJuVe.
+    planetMaJuVeAbbreviationDefValue = "MaJuVe"
+
+    # QSettings key for the foreground color of the MaJuVe.
+    planetMaJuVeForegroundColorKey = \
+        "ui/astrology/MaJuVeForegroundColor"
+
+    # QSettings default value for the foreground color of the MaJuVe.
+    planetMaJuVeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the MaJuVe.
+    planetMaJuVeBackgroundColorKey = \
+        "ui/astrology/MaJuVeBackgroundColor"
+
+    # QSettings default value for the background color of the MaJuVe.
+    planetMaJuVeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the MaJuEa.
+    planetMaJuEaGlyphUnicodeKey = \
+        "ui/astrology/MaJuEaGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the MaJuEa.
+    planetMaJuEaGlyphUnicodeDefValue = "MaJuEa"
+
+    # QSettings key for the planet glyph font size of the MaJuEa.
+    planetMaJuEaGlyphFontSizeKey = \
+        "ui/astrology/MaJuEaGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the MaJuEa.
+    planetMaJuEaGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the MaJuEa.
+    planetMaJuEaAbbreviationKey = \
+        "ui/astrology/MaJuEaAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the MaJuEa.
+    planetMaJuEaAbbreviationDefValue = "MaJuEa"
+
+    # QSettings key for the foreground color of the MaJuEa.
+    planetMaJuEaForegroundColorKey = \
+        "ui/astrology/MaJuEaForegroundColor"
+
+    # QSettings default value for the foreground color of the MaJuEa.
+    planetMaJuEaForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the MaJuEa.
+    planetMaJuEaBackgroundColorKey = \
+        "ui/astrology/MaJuEaBackgroundColor"
+
+    # QSettings default value for the background color of the MaJuEa.
+    planetMaJuEaBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the MaJuEa.
+    planetMaJuEaGlyphUnicodeKey = \
+        "ui/astrology/MaJuEaGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the MaJuEa.
+    planetMaJuEaGlyphUnicodeDefValue = "MaJuEa"
+
+    # QSettings key for the planet glyph font size of the MaJuEa.
+    planetMaJuEaGlyphFontSizeKey = \
+        "ui/astrology/MaJuEaGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the MaJuEa.
+    planetMaJuEaGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the MaJuEa.
+    planetMaJuEaAbbreviationKey = \
+        "ui/astrology/MaJuEaAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the MaJuEa.
+    planetMaJuEaAbbreviationDefValue = "MaJuEa"
+
+    # QSettings key for the foreground color of the MaJuEa.
+    planetMaJuEaForegroundColorKey = \
+        "ui/astrology/MaJuEaForegroundColor"
+
+    # QSettings default value for the foreground color of the MaJuEa.
+    planetMaJuEaForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the MaJuEa.
+    planetMaJuEaBackgroundColorKey = \
+        "ui/astrology/MaJuEaBackgroundColor"
+
+    # QSettings default value for the background color of the MaJuEa.
+    planetMaJuEaBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the EaJuMe.
+    planetEaJuMeGlyphUnicodeKey = \
+        "ui/astrology/EaJuMeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the EaJuMe.
+    planetEaJuMeGlyphUnicodeDefValue = "EaJuMe"
+
+    # QSettings key for the planet glyph font size of the EaJuMe.
+    planetEaJuMeGlyphFontSizeKey = \
+        "ui/astrology/EaJuMeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the EaJuMe.
+    planetEaJuMeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the EaJuMe.
+    planetEaJuMeAbbreviationKey = \
+        "ui/astrology/EaJuMeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the EaJuMe.
+    planetEaJuMeAbbreviationDefValue = "EaJuMe"
+
+    # QSettings key for the foreground color of the EaJuMe.
+    planetEaJuMeForegroundColorKey = \
+        "ui/astrology/EaJuMeForegroundColor"
+
+    # QSettings default value for the foreground color of the EaJuMe.
+    planetEaJuMeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the EaJuMe.
+    planetEaJuMeBackgroundColorKey = \
+        "ui/astrology/EaJuMeBackgroundColor"
+
+    # QSettings default value for the background color of the EaJuMe.
+    planetEaJuMeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the EaJuMe.
+    planetEaJuMeGlyphUnicodeKey = \
+        "ui/astrology/EaJuMeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the EaJuMe.
+    planetEaJuMeGlyphUnicodeDefValue = "EaJuMe"
+
+    # QSettings key for the planet glyph font size of the EaJuMe.
+    planetEaJuMeGlyphFontSizeKey = \
+        "ui/astrology/EaJuMeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the EaJuMe.
+    planetEaJuMeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the EaJuMe.
+    planetEaJuMeAbbreviationKey = \
+        "ui/astrology/EaJuMeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the EaJuMe.
+    planetEaJuMeAbbreviationDefValue = "EaJuMe"
+
+    # QSettings key for the foreground color of the EaJuMe.
+    planetEaJuMeForegroundColorKey = \
+        "ui/astrology/EaJuMeForegroundColor"
+
+    # QSettings default value for the foreground color of the EaJuMe.
+    planetEaJuMeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the EaJuMe.
+    planetEaJuMeBackgroundColorKey = \
+        "ui/astrology/EaJuMeBackgroundColor"
+
+    # QSettings default value for the background color of the EaJuMe.
+    planetEaJuMeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the EaJuVe.
+    planetEaJuVeGlyphUnicodeKey = \
+        "ui/astrology/EaJuVeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the EaJuVe.
+    planetEaJuVeGlyphUnicodeDefValue = "EaJuVe"
+
+    # QSettings key for the planet glyph font size of the EaJuVe.
+    planetEaJuVeGlyphFontSizeKey = \
+        "ui/astrology/EaJuVeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the EaJuVe.
+    planetEaJuVeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the EaJuVe.
+    planetEaJuVeAbbreviationKey = \
+        "ui/astrology/EaJuVeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the EaJuVe.
+    planetEaJuVeAbbreviationDefValue = "EaJuVe"
+
+    # QSettings key for the foreground color of the EaJuVe.
+    planetEaJuVeForegroundColorKey = \
+        "ui/astrology/EaJuVeForegroundColor"
+
+    # QSettings default value for the foreground color of the EaJuVe.
+    planetEaJuVeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the EaJuVe.
+    planetEaJuVeBackgroundColorKey = \
+        "ui/astrology/EaJuVeBackgroundColor"
+
+    # QSettings default value for the background color of the EaJuVe.
+    planetEaJuVeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the EaJuVe.
+    planetEaJuVeGlyphUnicodeKey = \
+        "ui/astrology/EaJuVeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the EaJuVe.
+    planetEaJuVeGlyphUnicodeDefValue = "EaJuVe"
+
+    # QSettings key for the planet glyph font size of the EaJuVe.
+    planetEaJuVeGlyphFontSizeKey = \
+        "ui/astrology/EaJuVeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the EaJuVe.
+    planetEaJuVeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the EaJuVe.
+    planetEaJuVeAbbreviationKey = \
+        "ui/astrology/EaJuVeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the EaJuVe.
+    planetEaJuVeAbbreviationDefValue = "EaJuVe"
+
+    # QSettings key for the foreground color of the EaJuVe.
+    planetEaJuVeForegroundColorKey = \
+        "ui/astrology/EaJuVeForegroundColor"
+
+    # QSettings default value for the foreground color of the EaJuVe.
+    planetEaJuVeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the EaJuVe.
+    planetEaJuVeBackgroundColorKey = \
+        "ui/astrology/EaJuVeBackgroundColor"
+
+    # QSettings default value for the background color of the EaJuVe.
+    planetEaJuVeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the EaSaMe.
+    planetEaSaMeGlyphUnicodeKey = \
+        "ui/astrology/EaSaMeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the EaSaMe.
+    planetEaSaMeGlyphUnicodeDefValue = "EaSaMe"
+
+    # QSettings key for the planet glyph font size of the EaSaMe.
+    planetEaSaMeGlyphFontSizeKey = \
+        "ui/astrology/EaSaMeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the EaSaMe.
+    planetEaSaMeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the EaSaMe.
+    planetEaSaMeAbbreviationKey = \
+        "ui/astrology/EaSaMeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the EaSaMe.
+    planetEaSaMeAbbreviationDefValue = "EaSaMe"
+
+    # QSettings key for the foreground color of the EaSaMe.
+    planetEaSaMeForegroundColorKey = \
+        "ui/astrology/EaSaMeForegroundColor"
+
+    # QSettings default value for the foreground color of the EaSaMe.
+    planetEaSaMeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the EaSaMe.
+    planetEaSaMeBackgroundColorKey = \
+        "ui/astrology/EaSaMeBackgroundColor"
+
+    # QSettings default value for the background color of the EaSaMe.
+    planetEaSaMeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the EaSaMe.
+    planetEaSaMeGlyphUnicodeKey = \
+        "ui/astrology/EaSaMeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the EaSaMe.
+    planetEaSaMeGlyphUnicodeDefValue = "EaSaMe"
+
+    # QSettings key for the planet glyph font size of the EaSaMe.
+    planetEaSaMeGlyphFontSizeKey = \
+        "ui/astrology/EaSaMeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the EaSaMe.
+    planetEaSaMeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the EaSaMe.
+    planetEaSaMeAbbreviationKey = \
+        "ui/astrology/EaSaMeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the EaSaMe.
+    planetEaSaMeAbbreviationDefValue = "EaSaMe"
+
+    # QSettings key for the foreground color of the EaSaMe.
+    planetEaSaMeForegroundColorKey = \
+        "ui/astrology/EaSaMeForegroundColor"
+
+    # QSettings default value for the foreground color of the EaSaMe.
+    planetEaSaMeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the EaSaMe.
+    planetEaSaMeBackgroundColorKey = \
+        "ui/astrology/EaSaMeBackgroundColor"
+
+    # QSettings default value for the background color of the EaSaMe.
+    planetEaSaMeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the EaSaVe.
+    planetEaSaVeGlyphUnicodeKey = \
+        "ui/astrology/EaSaVeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the EaSaVe.
+    planetEaSaVeGlyphUnicodeDefValue = "EaSaVe"
+
+    # QSettings key for the planet glyph font size of the EaSaVe.
+    planetEaSaVeGlyphFontSizeKey = \
+        "ui/astrology/EaSaVeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the EaSaVe.
+    planetEaSaVeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the EaSaVe.
+    planetEaSaVeAbbreviationKey = \
+        "ui/astrology/EaSaVeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the EaSaVe.
+    planetEaSaVeAbbreviationDefValue = "EaSaVe"
+
+    # QSettings key for the foreground color of the EaSaVe.
+    planetEaSaVeForegroundColorKey = \
+        "ui/astrology/EaSaVeForegroundColor"
+
+    # QSettings default value for the foreground color of the EaSaVe.
+    planetEaSaVeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the EaSaVe.
+    planetEaSaVeBackgroundColorKey = \
+        "ui/astrology/EaSaVeBackgroundColor"
+
+    # QSettings default value for the background color of the EaSaVe.
+    planetEaSaVeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the EaSaVe.
+    planetEaSaVeGlyphUnicodeKey = \
+        "ui/astrology/EaSaVeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the EaSaVe.
+    planetEaSaVeGlyphUnicodeDefValue = "EaSaVe"
+
+    # QSettings key for the planet glyph font size of the EaSaVe.
+    planetEaSaVeGlyphFontSizeKey = \
+        "ui/astrology/EaSaVeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the EaSaVe.
+    planetEaSaVeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the EaSaVe.
+    planetEaSaVeAbbreviationKey = \
+        "ui/astrology/EaSaVeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the EaSaVe.
+    planetEaSaVeAbbreviationDefValue = "EaSaVe"
+
+    # QSettings key for the foreground color of the EaSaVe.
+    planetEaSaVeForegroundColorKey = \
+        "ui/astrology/EaSaVeForegroundColor"
+
+    # QSettings default value for the foreground color of the EaSaVe.
+    planetEaSaVeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the EaSaVe.
+    planetEaSaVeBackgroundColorKey = \
+        "ui/astrology/EaSaVeBackgroundColor"
+
+    # QSettings default value for the background color of the EaSaVe.
+    planetEaSaVeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the EaSaMa.
+    planetEaSaMaGlyphUnicodeKey = \
+        "ui/astrology/EaSaMaGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the EaSaMa.
+    planetEaSaMaGlyphUnicodeDefValue = "EaSaMa"
+
+    # QSettings key for the planet glyph font size of the EaSaMa.
+    planetEaSaMaGlyphFontSizeKey = \
+        "ui/astrology/EaSaMaGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the EaSaMa.
+    planetEaSaMaGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the EaSaMa.
+    planetEaSaMaAbbreviationKey = \
+        "ui/astrology/EaSaMaAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the EaSaMa.
+    planetEaSaMaAbbreviationDefValue = "EaSaMa"
+
+    # QSettings key for the foreground color of the EaSaMa.
+    planetEaSaMaForegroundColorKey = \
+        "ui/astrology/EaSaMaForegroundColor"
+
+    # QSettings default value for the foreground color of the EaSaMa.
+    planetEaSaMaForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the EaSaMa.
+    planetEaSaMaBackgroundColorKey = \
+        "ui/astrology/EaSaMaBackgroundColor"
+
+    # QSettings default value for the background color of the EaSaMa.
+    planetEaSaMaBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
     # QSettings key for the sign glyph unicode of the Aries.
     signAriesGlyphUnicodeKey = \
         "ui/astrology/AriesGlyphUnicode"
@@ -3320,6 +5281,302 @@ class SettingsKeys():
     planetAvgJuSaCalculationsEnabledDefValue = \
         False
 
+    # QSettings key for enabled astrologychart calculations for MeVe.
+    planetMeVeCalculationsEnabledKey = \
+        "ui/astrology/MeVeCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for MeVe.
+    planetMeVeCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for MeEa.
+    planetMeEaCalculationsEnabledKey = \
+        "ui/astrology/MeEaCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for MeEa.
+    planetMeEaCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for MeMa.
+    planetMeMaCalculationsEnabledKey = \
+        "ui/astrology/MeMaCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for MeMa.
+    planetMeMaCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for MeJu.
+    planetMeJuCalculationsEnabledKey = \
+        "ui/astrology/MeJuCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for MeJu.
+    planetMeJuCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for MeSa.
+    planetMeSaCalculationsEnabledKey = \
+        "ui/astrology/MeSaCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for MeSa.
+    planetMeSaCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for MeUr.
+    planetMeUrCalculationsEnabledKey = \
+        "ui/astrology/MeUrCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for MeUr.
+    planetMeUrCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for VeEa.
+    planetVeEaCalculationsEnabledKey = \
+        "ui/astrology/VeEaCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for VeEa.
+    planetVeEaCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for VeMa.
+    planetVeMaCalculationsEnabledKey = \
+        "ui/astrology/VeMaCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for VeMa.
+    planetVeMaCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for VeJu.
+    planetVeJuCalculationsEnabledKey = \
+        "ui/astrology/VeJuCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for VeJu.
+    planetVeJuCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for VeSa.
+    planetVeSaCalculationsEnabledKey = \
+        "ui/astrology/VeSaCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for VeSa.
+    planetVeSaCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for VeUr.
+    planetVeUrCalculationsEnabledKey = \
+        "ui/astrology/VeUrCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for VeUr.
+    planetVeUrCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for EaMa.
+    planetEaMaCalculationsEnabledKey = \
+        "ui/astrology/EaMaCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for EaMa.
+    planetEaMaCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for EaJu.
+    planetEaJuCalculationsEnabledKey = \
+        "ui/astrology/EaJuCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for EaJu.
+    planetEaJuCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for EaSa.
+    planetEaSaCalculationsEnabledKey = \
+        "ui/astrology/EaSaCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for EaSa.
+    planetEaSaCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for EaUr.
+    planetEaUrCalculationsEnabledKey = \
+        "ui/astrology/EaUrCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for EaUr.
+    planetEaUrCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for MaJu.
+    planetMaJuCalculationsEnabledKey = \
+        "ui/astrology/MaJuCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for MaJu.
+    planetMaJuCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for MaSa.
+    planetMaSaCalculationsEnabledKey = \
+        "ui/astrology/MaSaCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for MaSa.
+    planetMaSaCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for MaUr.
+    planetMaUrCalculationsEnabledKey = \
+        "ui/astrology/MaUrCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for MaUr.
+    planetMaUrCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for JuSa.
+    planetJuSaCalculationsEnabledKey = \
+        "ui/astrology/JuSaCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for JuSa.
+    planetJuSaCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for JuUr.
+    planetJuUrCalculationsEnabledKey = \
+        "ui/astrology/JuUrCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for JuUr.
+    planetJuUrCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for SaUr.
+    planetSaUrCalculationsEnabledKey = \
+        "ui/astrology/SaUrCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for SaUr.
+    planetSaUrCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for MeVeEa.
+    planetMeVeEaCalculationsEnabledKey = \
+        "ui/astrology/MeVeEaCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for MeVeEa.
+    planetMeVeEaCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for MeVeMa.
+    planetMeVeMaCalculationsEnabledKey = \
+        "ui/astrology/MeVeMaCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for MeVeMa.
+    planetMeVeMaCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for VeEaMe.
+    planetVeEaMeCalculationsEnabledKey = \
+        "ui/astrology/VeEaMeCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for VeEaMe.
+    planetVeEaMeCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for VeEaMa.
+    planetVeEaMaCalculationsEnabledKey = \
+        "ui/astrology/VeEaMaCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for VeEaMa.
+    planetVeEaMaCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for VeMaMe.
+    planetVeMaMeCalculationsEnabledKey = \
+        "ui/astrology/VeMaMeCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for VeMaMe.
+    planetVeMaMeCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for VeMaEa.
+    planetVeMaEaCalculationsEnabledKey = \
+        "ui/astrology/VeMaEaCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for VeMaEa.
+    planetVeMaEaCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for EaMaMe.
+    planetEaMaMeCalculationsEnabledKey = \
+        "ui/astrology/EaMaMeCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for EaMaMe.
+    planetEaMaMeCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for EaMaVe.
+    planetEaMaVeCalculationsEnabledKey = \
+        "ui/astrology/EaMaVeCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for EaMaVe.
+    planetEaMaVeCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for MaJuMe.
+    planetMaJuMeCalculationsEnabledKey = \
+        "ui/astrology/MaJuMeCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for MaJuMe.
+    planetMaJuMeCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for MaJuVe.
+    planetMaJuVeCalculationsEnabledKey = \
+        "ui/astrology/MaJuVeCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for MaJuVe.
+    planetMaJuVeCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for MaJuEa.
+    planetMaJuEaCalculationsEnabledKey = \
+        "ui/astrology/MaJuEaCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for MaJuEa.
+    planetMaJuEaCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for EaJuMe.
+    planetEaJuMeCalculationsEnabledKey = \
+        "ui/astrology/EaJuMeCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for EaJuMe.
+    planetEaJuMeCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for EaJuVe.
+    planetEaJuVeCalculationsEnabledKey = \
+        "ui/astrology/EaJuVeCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for EaJuVe.
+    planetEaJuVeCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for EaSaMe.
+    planetEaSaMeCalculationsEnabledKey = \
+        "ui/astrology/EaSaMeCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for EaSaMe.
+    planetEaSaMeCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for EaSaVe.
+    planetEaSaVeCalculationsEnabledKey = \
+        "ui/astrology/EaSaVeCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for EaSaVe.
+    planetEaSaVeCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for EaSaMa.
+    planetEaSaMaCalculationsEnabledKey = \
+        "ui/astrology/EaSaMaCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for EaSaMa.
+    planetEaSaMaCalculationsEnabledDefValue = \
+        False
+
 
 
     # QSettings key for the display flag in PlanetaryInfoTable for H1.
@@ -3746,6 +6003,302 @@ class SettingsKeys():
     planetAvgJuSaEnabledForPlanetaryInfoTableDefValue = \
         True
     
+    # QSettings key for the display flag in PlanetaryInfoTable for MeVe.
+    planetMeVeEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/MeVeEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for MeVe.
+    planetMeVeEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for MeEa.
+    planetMeEaEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/MeEaEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for MeEa.
+    planetMeEaEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for MeMa.
+    planetMeMaEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/MeMaEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for MeMa.
+    planetMeMaEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for MeJu.
+    planetMeJuEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/MeJuEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for MeJu.
+    planetMeJuEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for MeSa.
+    planetMeSaEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/MeSaEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for MeSa.
+    planetMeSaEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for MeUr.
+    planetMeUrEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/MeUrEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for MeUr.
+    planetMeUrEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for VeEa.
+    planetVeEaEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/VeEaEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for VeEa.
+    planetVeEaEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for VeMa.
+    planetVeMaEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/VeMaEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for VeMa.
+    planetVeMaEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for VeJu.
+    planetVeJuEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/VeJuEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for VeJu.
+    planetVeJuEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for VeSa.
+    planetVeSaEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/VeSaEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for VeSa.
+    planetVeSaEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for VeUr.
+    planetVeUrEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/VeUrEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for VeUr.
+    planetVeUrEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for EaMa.
+    planetEaMaEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/EaMaEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for EaMa.
+    planetEaMaEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for EaJu.
+    planetEaJuEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/EaJuEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for EaJu.
+    planetEaJuEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for EaSa.
+    planetEaSaEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/EaSaEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for EaSa.
+    planetEaSaEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for EaUr.
+    planetEaUrEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/EaUrEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for EaUr.
+    planetEaUrEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for MaJu.
+    planetMaJuEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/MaJuEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for MaJu.
+    planetMaJuEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for MaSa.
+    planetMaSaEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/MaSaEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for MaSa.
+    planetMaSaEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for MaUr.
+    planetMaUrEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/MaUrEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for MaUr.
+    planetMaUrEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for JuSa.
+    planetJuSaEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/JuSaEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for JuSa.
+    planetJuSaEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for JuUr.
+    planetJuUrEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/JuUrEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for JuUr.
+    planetJuUrEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for SaUr.
+    planetSaUrEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/SaUrEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for SaUr.
+    planetSaUrEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for MeVeEa.
+    planetMeVeEaEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/MeVeEaEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for MeVeEa.
+    planetMeVeEaEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for MeVeMa.
+    planetMeVeMaEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/MeVeMaEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for MeVeMa.
+    planetMeVeMaEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for VeEaMe.
+    planetVeEaMeEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/VeEaMeEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for VeEaMe.
+    planetVeEaMeEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for VeEaMa.
+    planetVeEaMaEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/VeEaMaEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for VeEaMa.
+    planetVeEaMaEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for VeMaMe.
+    planetVeMaMeEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/VeMaMeEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for VeMaMe.
+    planetVeMaMeEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for VeMaEa.
+    planetVeMaEaEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/VeMaEaEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for VeMaEa.
+    planetVeMaEaEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for EaMaMe.
+    planetEaMaMeEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/EaMaMeEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for EaMaMe.
+    planetEaMaMeEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for EaMaVe.
+    planetEaMaVeEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/EaMaVeEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for EaMaVe.
+    planetEaMaVeEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for MaJuMe.
+    planetMaJuMeEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/MaJuMeEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for MaJuMe.
+    planetMaJuMeEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for MaJuVe.
+    planetMaJuVeEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/MaJuVeEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for MaJuVe.
+    planetMaJuVeEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for MaJuEa.
+    planetMaJuEaEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/MaJuEaEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for MaJuEa.
+    planetMaJuEaEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for EaJuMe.
+    planetEaJuMeEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/EaJuMeEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for EaJuMe.
+    planetEaJuMeEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for EaJuVe.
+    planetEaJuVeEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/EaJuVeEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for EaJuVe.
+    planetEaJuVeEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for EaSaMe.
+    planetEaSaMeEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/EaSaMeEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for EaSaMe.
+    planetEaSaMeEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for EaSaVe.
+    planetEaSaVeEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/EaSaVeEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for EaSaVe.
+    planetEaSaVeEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for EaSaMa.
+    planetEaSaMaEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/EaSaMaEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for EaSaMa.
+    planetEaSaMaEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
     
     
     # QSettings key for the display flag in Declination for H1.
@@ -4170,6 +6723,302 @@ class SettingsKeys():
     
     # QSettings default value for the display flag in Declination for AvgJuSa.
     planetAvgJuSaEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for MeVe.
+    planetMeVeEnabledForDeclinationKey = \
+        "ui/astrology/MeVeEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for MeVe.
+    planetMeVeEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for MeEa.
+    planetMeEaEnabledForDeclinationKey = \
+        "ui/astrology/MeEaEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for MeEa.
+    planetMeEaEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for MeMa.
+    planetMeMaEnabledForDeclinationKey = \
+        "ui/astrology/MeMaEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for MeMa.
+    planetMeMaEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for MeJu.
+    planetMeJuEnabledForDeclinationKey = \
+        "ui/astrology/MeJuEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for MeJu.
+    planetMeJuEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for MeSa.
+    planetMeSaEnabledForDeclinationKey = \
+        "ui/astrology/MeSaEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for MeSa.
+    planetMeSaEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for MeUr.
+    planetMeUrEnabledForDeclinationKey = \
+        "ui/astrology/MeUrEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for MeUr.
+    planetMeUrEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for VeEa.
+    planetVeEaEnabledForDeclinationKey = \
+        "ui/astrology/VeEaEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for VeEa.
+    planetVeEaEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for VeMa.
+    planetVeMaEnabledForDeclinationKey = \
+        "ui/astrology/VeMaEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for VeMa.
+    planetVeMaEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for VeJu.
+    planetVeJuEnabledForDeclinationKey = \
+        "ui/astrology/VeJuEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for VeJu.
+    planetVeJuEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for VeSa.
+    planetVeSaEnabledForDeclinationKey = \
+        "ui/astrology/VeSaEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for VeSa.
+    planetVeSaEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for VeUr.
+    planetVeUrEnabledForDeclinationKey = \
+        "ui/astrology/VeUrEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for VeUr.
+    planetVeUrEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for EaMa.
+    planetEaMaEnabledForDeclinationKey = \
+        "ui/astrology/EaMaEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for EaMa.
+    planetEaMaEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for EaJu.
+    planetEaJuEnabledForDeclinationKey = \
+        "ui/astrology/EaJuEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for EaJu.
+    planetEaJuEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for EaSa.
+    planetEaSaEnabledForDeclinationKey = \
+        "ui/astrology/EaSaEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for EaSa.
+    planetEaSaEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for EaUr.
+    planetEaUrEnabledForDeclinationKey = \
+        "ui/astrology/EaUrEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for EaUr.
+    planetEaUrEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for MaJu.
+    planetMaJuEnabledForDeclinationKey = \
+        "ui/astrology/MaJuEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for MaJu.
+    planetMaJuEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for MaSa.
+    planetMaSaEnabledForDeclinationKey = \
+        "ui/astrology/MaSaEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for MaSa.
+    planetMaSaEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for MaUr.
+    planetMaUrEnabledForDeclinationKey = \
+        "ui/astrology/MaUrEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for MaUr.
+    planetMaUrEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for JuSa.
+    planetJuSaEnabledForDeclinationKey = \
+        "ui/astrology/JuSaEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for JuSa.
+    planetJuSaEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for JuUr.
+    planetJuUrEnabledForDeclinationKey = \
+        "ui/astrology/JuUrEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for JuUr.
+    planetJuUrEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for SaUr.
+    planetSaUrEnabledForDeclinationKey = \
+        "ui/astrology/SaUrEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for SaUr.
+    planetSaUrEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for MeVeEa.
+    planetMeVeEaEnabledForDeclinationKey = \
+        "ui/astrology/MeVeEaEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for MeVeEa.
+    planetMeVeEaEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for MeVeMa.
+    planetMeVeMaEnabledForDeclinationKey = \
+        "ui/astrology/MeVeMaEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for MeVeMa.
+    planetMeVeMaEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for VeEaMe.
+    planetVeEaMeEnabledForDeclinationKey = \
+        "ui/astrology/VeEaMeEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for VeEaMe.
+    planetVeEaMeEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for VeEaMa.
+    planetVeEaMaEnabledForDeclinationKey = \
+        "ui/astrology/VeEaMaEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for VeEaMa.
+    planetVeEaMaEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for VeMaMe.
+    planetVeMaMeEnabledForDeclinationKey = \
+        "ui/astrology/VeMaMeEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for VeMaMe.
+    planetVeMaMeEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for VeMaEa.
+    planetVeMaEaEnabledForDeclinationKey = \
+        "ui/astrology/VeMaEaEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for VeMaEa.
+    planetVeMaEaEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for EaMaMe.
+    planetEaMaMeEnabledForDeclinationKey = \
+        "ui/astrology/EaMaMeEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for EaMaMe.
+    planetEaMaMeEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for EaMaVe.
+    planetEaMaVeEnabledForDeclinationKey = \
+        "ui/astrology/EaMaVeEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for EaMaVe.
+    planetEaMaVeEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for MaJuMe.
+    planetMaJuMeEnabledForDeclinationKey = \
+        "ui/astrology/MaJuMeEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for MaJuMe.
+    planetMaJuMeEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for MaJuVe.
+    planetMaJuVeEnabledForDeclinationKey = \
+        "ui/astrology/MaJuVeEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for MaJuVe.
+    planetMaJuVeEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for MaJuEa.
+    planetMaJuEaEnabledForDeclinationKey = \
+        "ui/astrology/MaJuEaEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for MaJuEa.
+    planetMaJuEaEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for EaJuMe.
+    planetEaJuMeEnabledForDeclinationKey = \
+        "ui/astrology/EaJuMeEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for EaJuMe.
+    planetEaJuMeEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for EaJuVe.
+    planetEaJuVeEnabledForDeclinationKey = \
+        "ui/astrology/EaJuVeEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for EaJuVe.
+    planetEaJuVeEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for EaSaMe.
+    planetEaSaMeEnabledForDeclinationKey = \
+        "ui/astrology/EaSaMeEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for EaSaMe.
+    planetEaSaMeEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for EaSaVe.
+    planetEaSaVeEnabledForDeclinationKey = \
+        "ui/astrology/EaSaVeEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for EaSaVe.
+    planetEaSaVeEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for EaSaMa.
+    planetEaSaMaEnabledForDeclinationKey = \
+        "ui/astrology/EaSaMaEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for EaSaMa.
+    planetEaSaMaEnabledForDeclinationDefValue = \
         False
     
 
@@ -4598,6 +7447,302 @@ class SettingsKeys():
     planetAvgJuSaEnabledForLatitudeDefValue = \
         False
     
+    # QSettings key for the display flag in Latitude for MeVe.
+    planetMeVeEnabledForLatitudeKey = \
+        "ui/astrology/MeVeEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for MeVe.
+    planetMeVeEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for MeEa.
+    planetMeEaEnabledForLatitudeKey = \
+        "ui/astrology/MeEaEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for MeEa.
+    planetMeEaEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for MeMa.
+    planetMeMaEnabledForLatitudeKey = \
+        "ui/astrology/MeMaEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for MeMa.
+    planetMeMaEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for MeJu.
+    planetMeJuEnabledForLatitudeKey = \
+        "ui/astrology/MeJuEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for MeJu.
+    planetMeJuEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for MeSa.
+    planetMeSaEnabledForLatitudeKey = \
+        "ui/astrology/MeSaEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for MeSa.
+    planetMeSaEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for MeUr.
+    planetMeUrEnabledForLatitudeKey = \
+        "ui/astrology/MeUrEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for MeUr.
+    planetMeUrEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for VeEa.
+    planetVeEaEnabledForLatitudeKey = \
+        "ui/astrology/VeEaEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for VeEa.
+    planetVeEaEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for VeMa.
+    planetVeMaEnabledForLatitudeKey = \
+        "ui/astrology/VeMaEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for VeMa.
+    planetVeMaEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for VeJu.
+    planetVeJuEnabledForLatitudeKey = \
+        "ui/astrology/VeJuEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for VeJu.
+    planetVeJuEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for VeSa.
+    planetVeSaEnabledForLatitudeKey = \
+        "ui/astrology/VeSaEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for VeSa.
+    planetVeSaEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for VeUr.
+    planetVeUrEnabledForLatitudeKey = \
+        "ui/astrology/VeUrEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for VeUr.
+    planetVeUrEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for EaMa.
+    planetEaMaEnabledForLatitudeKey = \
+        "ui/astrology/EaMaEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for EaMa.
+    planetEaMaEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for EaJu.
+    planetEaJuEnabledForLatitudeKey = \
+        "ui/astrology/EaJuEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for EaJu.
+    planetEaJuEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for EaSa.
+    planetEaSaEnabledForLatitudeKey = \
+        "ui/astrology/EaSaEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for EaSa.
+    planetEaSaEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for EaUr.
+    planetEaUrEnabledForLatitudeKey = \
+        "ui/astrology/EaUrEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for EaUr.
+    planetEaUrEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for MaJu.
+    planetMaJuEnabledForLatitudeKey = \
+        "ui/astrology/MaJuEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for MaJu.
+    planetMaJuEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for MaSa.
+    planetMaSaEnabledForLatitudeKey = \
+        "ui/astrology/MaSaEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for MaSa.
+    planetMaSaEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for MaUr.
+    planetMaUrEnabledForLatitudeKey = \
+        "ui/astrology/MaUrEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for MaUr.
+    planetMaUrEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for JuSa.
+    planetJuSaEnabledForLatitudeKey = \
+        "ui/astrology/JuSaEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for JuSa.
+    planetJuSaEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for JuUr.
+    planetJuUrEnabledForLatitudeKey = \
+        "ui/astrology/JuUrEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for JuUr.
+    planetJuUrEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for SaUr.
+    planetSaUrEnabledForLatitudeKey = \
+        "ui/astrology/SaUrEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for SaUr.
+    planetSaUrEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for MeVeEa.
+    planetMeVeEaEnabledForLatitudeKey = \
+        "ui/astrology/MeVeEaEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for MeVeEa.
+    planetMeVeEaEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for MeVeMa.
+    planetMeVeMaEnabledForLatitudeKey = \
+        "ui/astrology/MeVeMaEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for MeVeMa.
+    planetMeVeMaEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for VeEaMe.
+    planetVeEaMeEnabledForLatitudeKey = \
+        "ui/astrology/VeEaMeEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for VeEaMe.
+    planetVeEaMeEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for VeEaMa.
+    planetVeEaMaEnabledForLatitudeKey = \
+        "ui/astrology/VeEaMaEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for VeEaMa.
+    planetVeEaMaEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for VeMaMe.
+    planetVeMaMeEnabledForLatitudeKey = \
+        "ui/astrology/VeMaMeEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for VeMaMe.
+    planetVeMaMeEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for VeMaEa.
+    planetVeMaEaEnabledForLatitudeKey = \
+        "ui/astrology/VeMaEaEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for VeMaEa.
+    planetVeMaEaEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for EaMaMe.
+    planetEaMaMeEnabledForLatitudeKey = \
+        "ui/astrology/EaMaMeEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for EaMaMe.
+    planetEaMaMeEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for EaMaVe.
+    planetEaMaVeEnabledForLatitudeKey = \
+        "ui/astrology/EaMaVeEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for EaMaVe.
+    planetEaMaVeEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for MaJuMe.
+    planetMaJuMeEnabledForLatitudeKey = \
+        "ui/astrology/MaJuMeEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for MaJuMe.
+    planetMaJuMeEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for MaJuVe.
+    planetMaJuVeEnabledForLatitudeKey = \
+        "ui/astrology/MaJuVeEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for MaJuVe.
+    planetMaJuVeEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for MaJuEa.
+    planetMaJuEaEnabledForLatitudeKey = \
+        "ui/astrology/MaJuEaEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for MaJuEa.
+    planetMaJuEaEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for EaJuMe.
+    planetEaJuMeEnabledForLatitudeKey = \
+        "ui/astrology/EaJuMeEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for EaJuMe.
+    planetEaJuMeEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for EaJuVe.
+    planetEaJuVeEnabledForLatitudeKey = \
+        "ui/astrology/EaJuVeEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for EaJuVe.
+    planetEaJuVeEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for EaSaMe.
+    planetEaSaMeEnabledForLatitudeKey = \
+        "ui/astrology/EaSaMeEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for EaSaMe.
+    planetEaSaMeEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for EaSaVe.
+    planetEaSaVeEnabledForLatitudeKey = \
+        "ui/astrology/EaSaVeEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for EaSaVe.
+    planetEaSaVeEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for EaSaMa.
+    planetEaSaMaEnabledForLatitudeKey = \
+        "ui/astrology/EaSaMaEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for EaSaMa.
+    planetEaSaMaEnabledForLatitudeDefValue = \
+        False
+    
 
     
     # QSettings key for the display flag in GeoSidRadixChart for H1.
@@ -5023,6 +8168,302 @@ class SettingsKeys():
     # QSettings default value for the display flag in GeoSidRadixChart for AvgJuSa.
     planetAvgJuSaEnabledForGeoSidRadixChartDefValue = \
         True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for MeVe.
+    planetMeVeEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/MeVeEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for MeVe.
+    planetMeVeEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for MeEa.
+    planetMeEaEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/MeEaEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for MeEa.
+    planetMeEaEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for MeMa.
+    planetMeMaEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/MeMaEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for MeMa.
+    planetMeMaEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for MeJu.
+    planetMeJuEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/MeJuEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for MeJu.
+    planetMeJuEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for MeSa.
+    planetMeSaEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/MeSaEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for MeSa.
+    planetMeSaEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for MeUr.
+    planetMeUrEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/MeUrEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for MeUr.
+    planetMeUrEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for VeEa.
+    planetVeEaEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/VeEaEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for VeEa.
+    planetVeEaEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for VeMa.
+    planetVeMaEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/VeMaEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for VeMa.
+    planetVeMaEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for VeJu.
+    planetVeJuEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/VeJuEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for VeJu.
+    planetVeJuEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for VeSa.
+    planetVeSaEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/VeSaEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for VeSa.
+    planetVeSaEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for VeUr.
+    planetVeUrEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/VeUrEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for VeUr.
+    planetVeUrEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for EaMa.
+    planetEaMaEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/EaMaEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for EaMa.
+    planetEaMaEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for EaJu.
+    planetEaJuEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/EaJuEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for EaJu.
+    planetEaJuEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for EaSa.
+    planetEaSaEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/EaSaEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for EaSa.
+    planetEaSaEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for EaUr.
+    planetEaUrEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/EaUrEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for EaUr.
+    planetEaUrEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for MaJu.
+    planetMaJuEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/MaJuEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for MaJu.
+    planetMaJuEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for MaSa.
+    planetMaSaEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/MaSaEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for MaSa.
+    planetMaSaEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for MaUr.
+    planetMaUrEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/MaUrEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for MaUr.
+    planetMaUrEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for JuSa.
+    planetJuSaEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/JuSaEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for JuSa.
+    planetJuSaEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for JuUr.
+    planetJuUrEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/JuUrEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for JuUr.
+    planetJuUrEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for SaUr.
+    planetSaUrEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/SaUrEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for SaUr.
+    planetSaUrEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for MeVeEa.
+    planetMeVeEaEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/MeVeEaEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for MeVeEa.
+    planetMeVeEaEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for MeVeMa.
+    planetMeVeMaEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/MeVeMaEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for MeVeMa.
+    planetMeVeMaEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for VeEaMe.
+    planetVeEaMeEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/VeEaMeEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for VeEaMe.
+    planetVeEaMeEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for VeEaMa.
+    planetVeEaMaEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/VeEaMaEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for VeEaMa.
+    planetVeEaMaEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for VeMaMe.
+    planetVeMaMeEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/VeMaMeEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for VeMaMe.
+    planetVeMaMeEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for VeMaEa.
+    planetVeMaEaEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/VeMaEaEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for VeMaEa.
+    planetVeMaEaEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for EaMaMe.
+    planetEaMaMeEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/EaMaMeEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for EaMaMe.
+    planetEaMaMeEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for EaMaVe.
+    planetEaMaVeEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/EaMaVeEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for EaMaVe.
+    planetEaMaVeEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for MaJuMe.
+    planetMaJuMeEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/MaJuMeEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for MaJuMe.
+    planetMaJuMeEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for MaJuVe.
+    planetMaJuVeEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/MaJuVeEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for MaJuVe.
+    planetMaJuVeEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for MaJuEa.
+    planetMaJuEaEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/MaJuEaEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for MaJuEa.
+    planetMaJuEaEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for EaJuMe.
+    planetEaJuMeEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/EaJuMeEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for EaJuMe.
+    planetEaJuMeEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for EaJuVe.
+    planetEaJuVeEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/EaJuVeEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for EaJuVe.
+    planetEaJuVeEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for EaSaMe.
+    planetEaSaMeEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/EaSaMeEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for EaSaMe.
+    planetEaSaMeEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for EaSaVe.
+    planetEaSaVeEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/EaSaVeEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for EaSaVe.
+    planetEaSaVeEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for EaSaMa.
+    planetEaSaMaEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/EaSaMaEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for EaSaMa.
+    planetEaSaMaEnabledForGeoSidRadixChartDefValue = \
+        False
     
 
     
@@ -5450,6 +8891,302 @@ class SettingsKeys():
     planetAvgJuSaEnabledForGeoTropRadixChartDefValue = \
         True
     
+    # QSettings key for the display flag in GeoTropRadixChart for MeVe.
+    planetMeVeEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/MeVeEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for MeVe.
+    planetMeVeEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for MeEa.
+    planetMeEaEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/MeEaEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for MeEa.
+    planetMeEaEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for MeMa.
+    planetMeMaEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/MeMaEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for MeMa.
+    planetMeMaEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for MeJu.
+    planetMeJuEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/MeJuEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for MeJu.
+    planetMeJuEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for MeSa.
+    planetMeSaEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/MeSaEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for MeSa.
+    planetMeSaEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for MeUr.
+    planetMeUrEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/MeUrEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for MeUr.
+    planetMeUrEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for VeEa.
+    planetVeEaEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/VeEaEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for VeEa.
+    planetVeEaEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for VeMa.
+    planetVeMaEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/VeMaEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for VeMa.
+    planetVeMaEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for VeJu.
+    planetVeJuEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/VeJuEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for VeJu.
+    planetVeJuEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for VeSa.
+    planetVeSaEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/VeSaEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for VeSa.
+    planetVeSaEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for VeUr.
+    planetVeUrEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/VeUrEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for VeUr.
+    planetVeUrEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for EaMa.
+    planetEaMaEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/EaMaEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for EaMa.
+    planetEaMaEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for EaJu.
+    planetEaJuEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/EaJuEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for EaJu.
+    planetEaJuEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for EaSa.
+    planetEaSaEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/EaSaEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for EaSa.
+    planetEaSaEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for EaUr.
+    planetEaUrEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/EaUrEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for EaUr.
+    planetEaUrEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for MaJu.
+    planetMaJuEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/MaJuEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for MaJu.
+    planetMaJuEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for MaSa.
+    planetMaSaEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/MaSaEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for MaSa.
+    planetMaSaEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for MaUr.
+    planetMaUrEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/MaUrEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for MaUr.
+    planetMaUrEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for JuSa.
+    planetJuSaEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/JuSaEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for JuSa.
+    planetJuSaEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for JuUr.
+    planetJuUrEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/JuUrEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for JuUr.
+    planetJuUrEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for SaUr.
+    planetSaUrEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/SaUrEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for SaUr.
+    planetSaUrEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for MeVeEa.
+    planetMeVeEaEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/MeVeEaEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for MeVeEa.
+    planetMeVeEaEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for MeVeMa.
+    planetMeVeMaEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/MeVeMaEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for MeVeMa.
+    planetMeVeMaEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for VeEaMe.
+    planetVeEaMeEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/VeEaMeEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for VeEaMe.
+    planetVeEaMeEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for VeEaMa.
+    planetVeEaMaEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/VeEaMaEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for VeEaMa.
+    planetVeEaMaEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for VeMaMe.
+    planetVeMaMeEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/VeMaMeEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for VeMaMe.
+    planetVeMaMeEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for VeMaEa.
+    planetVeMaEaEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/VeMaEaEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for VeMaEa.
+    planetVeMaEaEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for EaMaMe.
+    planetEaMaMeEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/EaMaMeEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for EaMaMe.
+    planetEaMaMeEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for EaMaVe.
+    planetEaMaVeEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/EaMaVeEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for EaMaVe.
+    planetEaMaVeEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for MaJuMe.
+    planetMaJuMeEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/MaJuMeEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for MaJuMe.
+    planetMaJuMeEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for MaJuVe.
+    planetMaJuVeEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/MaJuVeEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for MaJuVe.
+    planetMaJuVeEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for MaJuEa.
+    planetMaJuEaEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/MaJuEaEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for MaJuEa.
+    planetMaJuEaEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for EaJuMe.
+    planetEaJuMeEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/EaJuMeEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for EaJuMe.
+    planetEaJuMeEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for EaJuVe.
+    planetEaJuVeEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/EaJuVeEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for EaJuVe.
+    planetEaJuVeEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for EaSaMe.
+    planetEaSaMeEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/EaSaMeEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for EaSaMe.
+    planetEaSaMeEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for EaSaVe.
+    planetEaSaVeEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/EaSaVeEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for EaSaVe.
+    planetEaSaVeEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for EaSaMa.
+    planetEaSaMaEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/EaSaMaEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for EaSaMa.
+    planetEaSaMaEnabledForGeoTropRadixChartDefValue = \
+        False
+    
 
     
     # QSettings key for the display flag in HelioSidRadixChart for H1.
@@ -5876,5 +9613,302 @@ class SettingsKeys():
     planetAvgJuSaEnabledForHelioSidRadixChartDefValue = \
         True
     
+    # QSettings key for the display flag in HelioSidRadixChart for MeVe.
+    planetMeVeEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/MeVeEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for MeVe.
+    planetMeVeEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for MeEa.
+    planetMeEaEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/MeEaEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for MeEa.
+    planetMeEaEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for MeMa.
+    planetMeMaEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/MeMaEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for MeMa.
+    planetMeMaEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for MeJu.
+    planetMeJuEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/MeJuEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for MeJu.
+    planetMeJuEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for MeSa.
+    planetMeSaEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/MeSaEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for MeSa.
+    planetMeSaEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for MeUr.
+    planetMeUrEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/MeUrEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for MeUr.
+    planetMeUrEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for VeEa.
+    planetVeEaEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/VeEaEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for VeEa.
+    planetVeEaEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for VeMa.
+    planetVeMaEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/VeMaEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for VeMa.
+    planetVeMaEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for VeJu.
+    planetVeJuEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/VeJuEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for VeJu.
+    planetVeJuEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for VeSa.
+    planetVeSaEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/VeSaEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for VeSa.
+    planetVeSaEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for VeUr.
+    planetVeUrEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/VeUrEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for VeUr.
+    planetVeUrEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for EaMa.
+    planetEaMaEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/EaMaEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for EaMa.
+    planetEaMaEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for EaJu.
+    planetEaJuEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/EaJuEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for EaJu.
+    planetEaJuEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for EaSa.
+    planetEaSaEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/EaSaEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for EaSa.
+    planetEaSaEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for EaUr.
+    planetEaUrEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/EaUrEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for EaUr.
+    planetEaUrEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for MaJu.
+    planetMaJuEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/MaJuEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for MaJu.
+    planetMaJuEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for MaSa.
+    planetMaSaEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/MaSaEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for MaSa.
+    planetMaSaEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for MaUr.
+    planetMaUrEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/MaUrEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for MaUr.
+    planetMaUrEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for JuSa.
+    planetJuSaEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/JuSaEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for JuSa.
+    planetJuSaEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for JuUr.
+    planetJuUrEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/JuUrEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for JuUr.
+    planetJuUrEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for SaUr.
+    planetSaUrEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/SaUrEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for SaUr.
+    planetSaUrEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for MeVeEa.
+    planetMeVeEaEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/MeVeEaEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for MeVeEa.
+    planetMeVeEaEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for MeVeMa.
+    planetMeVeMaEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/MeVeMaEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for MeVeMa.
+    planetMeVeMaEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for VeEaMe.
+    planetVeEaMeEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/VeEaMeEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for VeEaMe.
+    planetVeEaMeEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for VeEaMa.
+    planetVeEaMaEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/VeEaMaEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for VeEaMa.
+    planetVeEaMaEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for VeMaMe.
+    planetVeMaMeEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/VeMaMeEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for VeMaMe.
+    planetVeMaMeEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for VeMaEa.
+    planetVeMaEaEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/VeMaEaEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for VeMaEa.
+    planetVeMaEaEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for EaMaMe.
+    planetEaMaMeEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/EaMaMeEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for EaMaMe.
+    planetEaMaMeEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for EaMaVe.
+    planetEaMaVeEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/EaMaVeEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for EaMaVe.
+    planetEaMaVeEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for MaJuMe.
+    planetMaJuMeEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/MaJuMeEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for MaJuMe.
+    planetMaJuMeEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for MaJuVe.
+    planetMaJuVeEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/MaJuVeEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for MaJuVe.
+    planetMaJuVeEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for MaJuEa.
+    planetMaJuEaEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/MaJuEaEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for MaJuEa.
+    planetMaJuEaEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for EaJuMe.
+    planetEaJuMeEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/EaJuMeEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for EaJuMe.
+    planetEaJuMeEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for EaJuVe.
+    planetEaJuVeEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/EaJuVeEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for EaJuVe.
+    planetEaJuVeEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for EaSaMe.
+    planetEaSaMeEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/EaSaMeEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for EaSaMe.
+    planetEaSaMeEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for EaSaVe.
+    planetEaSaVeEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/EaSaVeEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for EaSaVe.
+    planetEaSaVeEnabledForHelioSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioSidRadixChart for EaSaMa.
+    planetEaSaMaEnabledForHelioSidRadixChartKey = \
+        "ui/astrology/EaSaMaEnabledForHelioSidRadixChart"
+    
+    # QSettings default value for the display flag in HelioSidRadixChart for EaSaMa.
+    planetEaSaMaEnabledForHelioSidRadixChartDefValue = \
+        False
+    
 
     
+##############################################################################

@@ -698,6 +698,154 @@ class AstrologyUtils:
             rv = settings.value(SettingsKeys.planetAvgJuSaGlyphUnicodeKey,
                                 SettingsKeys.planetAvgJuSaGlyphUnicodeDefValue,
                                 type=str)
+        elif planetName == "MeVe":
+            rv = settings.value(SettingsKeys.planetMeVeGlyphUnicodeKey,
+                                SettingsKeys.planetMeVeGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "MeEa":
+            rv = settings.value(SettingsKeys.planetMeEaGlyphUnicodeKey,
+                                SettingsKeys.planetMeEaGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "MeMa":
+            rv = settings.value(SettingsKeys.planetMeMaGlyphUnicodeKey,
+                                SettingsKeys.planetMeMaGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "MeJu":
+            rv = settings.value(SettingsKeys.planetMeJuGlyphUnicodeKey,
+                                SettingsKeys.planetMeJuGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "MeSa":
+            rv = settings.value(SettingsKeys.planetMeSaGlyphUnicodeKey,
+                                SettingsKeys.planetMeSaGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "MeUr":
+            rv = settings.value(SettingsKeys.planetMeUrGlyphUnicodeKey,
+                                SettingsKeys.planetMeUrGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "VeEa":
+            rv = settings.value(SettingsKeys.planetVeEaGlyphUnicodeKey,
+                                SettingsKeys.planetVeEaGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "VeMa":
+            rv = settings.value(SettingsKeys.planetVeMaGlyphUnicodeKey,
+                                SettingsKeys.planetVeMaGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "VeJu":
+            rv = settings.value(SettingsKeys.planetVeJuGlyphUnicodeKey,
+                                SettingsKeys.planetVeJuGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "VeSa":
+            rv = settings.value(SettingsKeys.planetVeSaGlyphUnicodeKey,
+                                SettingsKeys.planetVeSaGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "VeUr":
+            rv = settings.value(SettingsKeys.planetVeUrGlyphUnicodeKey,
+                                SettingsKeys.planetVeUrGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "EaMa":
+            rv = settings.value(SettingsKeys.planetEaMaGlyphUnicodeKey,
+                                SettingsKeys.planetEaMaGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "EaJu":
+            rv = settings.value(SettingsKeys.planetEaJuGlyphUnicodeKey,
+                                SettingsKeys.planetEaJuGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "EaSa":
+            rv = settings.value(SettingsKeys.planetEaSaGlyphUnicodeKey,
+                                SettingsKeys.planetEaSaGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "EaUr":
+            rv = settings.value(SettingsKeys.planetEaUrGlyphUnicodeKey,
+                                SettingsKeys.planetEaUrGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "MaJu":
+            rv = settings.value(SettingsKeys.planetMaJuGlyphUnicodeKey,
+                                SettingsKeys.planetMaJuGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "MaSa":
+            rv = settings.value(SettingsKeys.planetMaSaGlyphUnicodeKey,
+                                SettingsKeys.planetMaSaGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "MaUr":
+            rv = settings.value(SettingsKeys.planetMaUrGlyphUnicodeKey,
+                                SettingsKeys.planetMaUrGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "JuSa":
+            rv = settings.value(SettingsKeys.planetJuSaGlyphUnicodeKey,
+                                SettingsKeys.planetJuSaGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "JuUr":
+            rv = settings.value(SettingsKeys.planetJuUrGlyphUnicodeKey,
+                                SettingsKeys.planetJuUrGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "SaUr":
+            rv = settings.value(SettingsKeys.planetSaUrGlyphUnicodeKey,
+                                SettingsKeys.planetSaUrGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "MeVeEa":
+            rv = settings.value(SettingsKeys.planetMeVeEaGlyphUnicodeKey,
+                                SettingsKeys.planetMeVeEaGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "MeVeMa":
+            rv = settings.value(SettingsKeys.planetMeVeMaGlyphUnicodeKey,
+                                SettingsKeys.planetMeVeMaGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "VeEaMe":
+            rv = settings.value(SettingsKeys.planetVeEaMeGlyphUnicodeKey,
+                                SettingsKeys.planetVeEaMeGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "VeEaMa":
+            rv = settings.value(SettingsKeys.planetVeEaMaGlyphUnicodeKey,
+                                SettingsKeys.planetVeEaMaGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "VeMaMe":
+            rv = settings.value(SettingsKeys.planetVeMaMeGlyphUnicodeKey,
+                                SettingsKeys.planetVeMaMeGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "VeMaEa":
+            rv = settings.value(SettingsKeys.planetVeMaEaGlyphUnicodeKey,
+                                SettingsKeys.planetVeMaEaGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "EaMaMe":
+            rv = settings.value(SettingsKeys.planetEaMaMeGlyphUnicodeKey,
+                                SettingsKeys.planetEaMaMeGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "EaMaVe":
+            rv = settings.value(SettingsKeys.planetEaMaVeGlyphUnicodeKey,
+                                SettingsKeys.planetEaMaVeGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "MaJuMe":
+            rv = settings.value(SettingsKeys.planetMaJuMeGlyphUnicodeKey,
+                                SettingsKeys.planetMaJuMeGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "MaJuVe":
+            rv = settings.value(SettingsKeys.planetMaJuVeGlyphUnicodeKey,
+                                SettingsKeys.planetMaJuVeGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "MaJuEa":
+            rv = settings.value(SettingsKeys.planetMaJuEaGlyphUnicodeKey,
+                                SettingsKeys.planetMaJuEaGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "EaJuMe":
+            rv = settings.value(SettingsKeys.planetEaJuMeGlyphUnicodeKey,
+                                SettingsKeys.planetEaJuMeGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "EaJuVe":
+            rv = settings.value(SettingsKeys.planetEaJuVeGlyphUnicodeKey,
+                                SettingsKeys.planetEaJuVeGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "EaSaMe":
+            rv = settings.value(SettingsKeys.planetEaSaMeGlyphUnicodeKey,
+                                SettingsKeys.planetEaSaMeGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "EaSaVe":
+            rv = settings.value(SettingsKeys.planetEaSaVeGlyphUnicodeKey,
+                                SettingsKeys.planetEaSaVeGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "EaSaMa":
+            rv = settings.value(SettingsKeys.planetEaSaMaGlyphUnicodeKey,
+                                SettingsKeys.planetEaSaMaGlyphUnicodeDefValue,
+                                type=str)
         else:
             rv = "???"
             AstrologyUtils.log.warn("Could not find glyph for planet: " + \
@@ -933,6 +1081,154 @@ class AstrologyUtils:
         elif planetName == "AvgJuSa":
             rv = settings.value(SettingsKeys.planetAvgJuSaGlyphFontSizeKey,
                                 SettingsKeys.planetAvgJuSaGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "MeVe":
+            rv = settings.value(SettingsKeys.planetMeVeGlyphFontSizeKey,
+                                SettingsKeys.planetMeVeGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "MeEa":
+            rv = settings.value(SettingsKeys.planetMeEaGlyphFontSizeKey,
+                                SettingsKeys.planetMeEaGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "MeMa":
+            rv = settings.value(SettingsKeys.planetMeMaGlyphFontSizeKey,
+                                SettingsKeys.planetMeMaGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "MeJu":
+            rv = settings.value(SettingsKeys.planetMeJuGlyphFontSizeKey,
+                                SettingsKeys.planetMeJuGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "MeSa":
+            rv = settings.value(SettingsKeys.planetMeSaGlyphFontSizeKey,
+                                SettingsKeys.planetMeSaGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "MeUr":
+            rv = settings.value(SettingsKeys.planetMeUrGlyphFontSizeKey,
+                                SettingsKeys.planetMeUrGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "VeEa":
+            rv = settings.value(SettingsKeys.planetVeEaGlyphFontSizeKey,
+                                SettingsKeys.planetVeEaGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "VeMa":
+            rv = settings.value(SettingsKeys.planetVeMaGlyphFontSizeKey,
+                                SettingsKeys.planetVeMaGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "VeJu":
+            rv = settings.value(SettingsKeys.planetVeJuGlyphFontSizeKey,
+                                SettingsKeys.planetVeJuGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "VeSa":
+            rv = settings.value(SettingsKeys.planetVeSaGlyphFontSizeKey,
+                                SettingsKeys.planetVeSaGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "VeUr":
+            rv = settings.value(SettingsKeys.planetVeUrGlyphFontSizeKey,
+                                SettingsKeys.planetVeUrGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "EaMa":
+            rv = settings.value(SettingsKeys.planetEaMaGlyphFontSizeKey,
+                                SettingsKeys.planetEaMaGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "EaJu":
+            rv = settings.value(SettingsKeys.planetEaJuGlyphFontSizeKey,
+                                SettingsKeys.planetEaJuGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "EaSa":
+            rv = settings.value(SettingsKeys.planetEaSaGlyphFontSizeKey,
+                                SettingsKeys.planetEaSaGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "EaUr":
+            rv = settings.value(SettingsKeys.planetEaUrGlyphFontSizeKey,
+                                SettingsKeys.planetEaUrGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "MaJu":
+            rv = settings.value(SettingsKeys.planetMaJuGlyphFontSizeKey,
+                                SettingsKeys.planetMaJuGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "MaSa":
+            rv = settings.value(SettingsKeys.planetMaSaGlyphFontSizeKey,
+                                SettingsKeys.planetMaSaGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "MaUr":
+            rv = settings.value(SettingsKeys.planetMaUrGlyphFontSizeKey,
+                                SettingsKeys.planetMaUrGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "JuSa":
+            rv = settings.value(SettingsKeys.planetJuSaGlyphFontSizeKey,
+                                SettingsKeys.planetJuSaGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "JuUr":
+            rv = settings.value(SettingsKeys.planetJuUrGlyphFontSizeKey,
+                                SettingsKeys.planetJuUrGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "SaUr":
+            rv = settings.value(SettingsKeys.planetSaUrGlyphFontSizeKey,
+                                SettingsKeys.planetSaUrGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "MeVeEa":
+            rv = settings.value(SettingsKeys.planetMeVeEaGlyphFontSizeKey,
+                                SettingsKeys.planetMeVeEaGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "MeVeMa":
+            rv = settings.value(SettingsKeys.planetMeVeMaGlyphFontSizeKey,
+                                SettingsKeys.planetMeVeMaGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "VeEaMe":
+            rv = settings.value(SettingsKeys.planetVeEaMeGlyphFontSizeKey,
+                                SettingsKeys.planetVeEaMeGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "VeEaMa":
+            rv = settings.value(SettingsKeys.planetVeEaMaGlyphFontSizeKey,
+                                SettingsKeys.planetVeEaMaGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "VeMaMe":
+            rv = settings.value(SettingsKeys.planetVeMaMeGlyphFontSizeKey,
+                                SettingsKeys.planetVeMaMeGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "VeMaEa":
+            rv = settings.value(SettingsKeys.planetVeMaEaGlyphFontSizeKey,
+                                SettingsKeys.planetVeMaEaGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "EaMaMe":
+            rv = settings.value(SettingsKeys.planetEaMaMeGlyphFontSizeKey,
+                                SettingsKeys.planetEaMaMeGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "EaMaVe":
+            rv = settings.value(SettingsKeys.planetEaMaVeGlyphFontSizeKey,
+                                SettingsKeys.planetEaMaVeGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "MaJuMe":
+            rv = settings.value(SettingsKeys.planetMaJuMeGlyphFontSizeKey,
+                                SettingsKeys.planetMaJuMeGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "MaJuVe":
+            rv = settings.value(SettingsKeys.planetMaJuVeGlyphFontSizeKey,
+                                SettingsKeys.planetMaJuVeGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "MaJuEa":
+            rv = settings.value(SettingsKeys.planetMaJuEaGlyphFontSizeKey,
+                                SettingsKeys.planetMaJuEaGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "EaJuMe":
+            rv = settings.value(SettingsKeys.planetEaJuMeGlyphFontSizeKey,
+                                SettingsKeys.planetEaJuMeGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "EaJuVe":
+            rv = settings.value(SettingsKeys.planetEaJuVeGlyphFontSizeKey,
+                                SettingsKeys.planetEaJuVeGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "EaSaMe":
+            rv = settings.value(SettingsKeys.planetEaSaMeGlyphFontSizeKey,
+                                SettingsKeys.planetEaSaMeGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "EaSaVe":
+            rv = settings.value(SettingsKeys.planetEaSaVeGlyphFontSizeKey,
+                                SettingsKeys.planetEaSaVeGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "EaSaMa":
+            rv = settings.value(SettingsKeys.planetEaSaMaGlyphFontSizeKey,
+                                SettingsKeys.planetEaSaMaGlyphFontSizeDefValue,
                                 type=float)
         else:
             rv = 10.0
@@ -1171,6 +1467,154 @@ class AstrologyUtils:
             rv = settings.value(SettingsKeys.planetAvgJuSaAbbreviationKey,
                                 SettingsKeys.planetAvgJuSaAbbreviationDefValue,
                                 type=str)
+        elif planetName == "MeVe":
+            rv = settings.value(SettingsKeys.planetMeVeAbbreviationKey,
+                                SettingsKeys.planetMeVeAbbreviationDefValue,
+                                type=str)
+        elif planetName == "MeEa":
+            rv = settings.value(SettingsKeys.planetMeEaAbbreviationKey,
+                                SettingsKeys.planetMeEaAbbreviationDefValue,
+                                type=str)
+        elif planetName == "MeMa":
+            rv = settings.value(SettingsKeys.planetMeMaAbbreviationKey,
+                                SettingsKeys.planetMeMaAbbreviationDefValue,
+                                type=str)
+        elif planetName == "MeJu":
+            rv = settings.value(SettingsKeys.planetMeJuAbbreviationKey,
+                                SettingsKeys.planetMeJuAbbreviationDefValue,
+                                type=str)
+        elif planetName == "MeSa":
+            rv = settings.value(SettingsKeys.planetMeSaAbbreviationKey,
+                                SettingsKeys.planetMeSaAbbreviationDefValue,
+                                type=str)
+        elif planetName == "MeUr":
+            rv = settings.value(SettingsKeys.planetMeUrAbbreviationKey,
+                                SettingsKeys.planetMeUrAbbreviationDefValue,
+                                type=str)
+        elif planetName == "VeEa":
+            rv = settings.value(SettingsKeys.planetVeEaAbbreviationKey,
+                                SettingsKeys.planetVeEaAbbreviationDefValue,
+                                type=str)
+        elif planetName == "VeMa":
+            rv = settings.value(SettingsKeys.planetVeMaAbbreviationKey,
+                                SettingsKeys.planetVeMaAbbreviationDefValue,
+                                type=str)
+        elif planetName == "VeJu":
+            rv = settings.value(SettingsKeys.planetVeJuAbbreviationKey,
+                                SettingsKeys.planetVeJuAbbreviationDefValue,
+                                type=str)
+        elif planetName == "VeSa":
+            rv = settings.value(SettingsKeys.planetVeSaAbbreviationKey,
+                                SettingsKeys.planetVeSaAbbreviationDefValue,
+                                type=str)
+        elif planetName == "VeUr":
+            rv = settings.value(SettingsKeys.planetVeUrAbbreviationKey,
+                                SettingsKeys.planetVeUrAbbreviationDefValue,
+                                type=str)
+        elif planetName == "EaMa":
+            rv = settings.value(SettingsKeys.planetEaMaAbbreviationKey,
+                                SettingsKeys.planetEaMaAbbreviationDefValue,
+                                type=str)
+        elif planetName == "EaJu":
+            rv = settings.value(SettingsKeys.planetEaJuAbbreviationKey,
+                                SettingsKeys.planetEaJuAbbreviationDefValue,
+                                type=str)
+        elif planetName == "EaSa":
+            rv = settings.value(SettingsKeys.planetEaSaAbbreviationKey,
+                                SettingsKeys.planetEaSaAbbreviationDefValue,
+                                type=str)
+        elif planetName == "EaUr":
+            rv = settings.value(SettingsKeys.planetEaUrAbbreviationKey,
+                                SettingsKeys.planetEaUrAbbreviationDefValue,
+                                type=str)
+        elif planetName == "MaJu":
+            rv = settings.value(SettingsKeys.planetMaJuAbbreviationKey,
+                                SettingsKeys.planetMaJuAbbreviationDefValue,
+                                type=str)
+        elif planetName == "MaSa":
+            rv = settings.value(SettingsKeys.planetMaSaAbbreviationKey,
+                                SettingsKeys.planetMaSaAbbreviationDefValue,
+                                type=str)
+        elif planetName == "MaUr":
+            rv = settings.value(SettingsKeys.planetMaUrAbbreviationKey,
+                                SettingsKeys.planetMaUrAbbreviationDefValue,
+                                type=str)
+        elif planetName == "JuSa":
+            rv = settings.value(SettingsKeys.planetJuSaAbbreviationKey,
+                                SettingsKeys.planetJuSaAbbreviationDefValue,
+                                type=str)
+        elif planetName == "JuUr":
+            rv = settings.value(SettingsKeys.planetJuUrAbbreviationKey,
+                                SettingsKeys.planetJuUrAbbreviationDefValue,
+                                type=str)
+        elif planetName == "SaUr":
+            rv = settings.value(SettingsKeys.planetSaUrAbbreviationKey,
+                                SettingsKeys.planetSaUrAbbreviationDefValue,
+                                type=str)
+        elif planetName == "MeVeEa":
+            rv = settings.value(SettingsKeys.planetMeVeEaAbbreviationKey,
+                                SettingsKeys.planetMeVeEaAbbreviationDefValue,
+                                type=str)
+        elif planetName == "MeVeMa":
+            rv = settings.value(SettingsKeys.planetMeVeMaAbbreviationKey,
+                                SettingsKeys.planetMeVeMaAbbreviationDefValue,
+                                type=str)
+        elif planetName == "VeEaMe":
+            rv = settings.value(SettingsKeys.planetVeEaMeAbbreviationKey,
+                                SettingsKeys.planetVeEaMeAbbreviationDefValue,
+                                type=str)
+        elif planetName == "VeEaMa":
+            rv = settings.value(SettingsKeys.planetVeEaMaAbbreviationKey,
+                                SettingsKeys.planetVeEaMaAbbreviationDefValue,
+                                type=str)
+        elif planetName == "VeMaMe":
+            rv = settings.value(SettingsKeys.planetVeMaMeAbbreviationKey,
+                                SettingsKeys.planetVeMaMeAbbreviationDefValue,
+                                type=str)
+        elif planetName == "VeMaEa":
+            rv = settings.value(SettingsKeys.planetVeMaEaAbbreviationKey,
+                                SettingsKeys.planetVeMaEaAbbreviationDefValue,
+                                type=str)
+        elif planetName == "EaMaMe":
+            rv = settings.value(SettingsKeys.planetEaMaMeAbbreviationKey,
+                                SettingsKeys.planetEaMaMeAbbreviationDefValue,
+                                type=str)
+        elif planetName == "EaMaVe":
+            rv = settings.value(SettingsKeys.planetEaMaVeAbbreviationKey,
+                                SettingsKeys.planetEaMaVeAbbreviationDefValue,
+                                type=str)
+        elif planetName == "MaJuMe":
+            rv = settings.value(SettingsKeys.planetMaJuMeAbbreviationKey,
+                                SettingsKeys.planetMaJuMeAbbreviationDefValue,
+                                type=str)
+        elif planetName == "MaJuVe":
+            rv = settings.value(SettingsKeys.planetMaJuVeAbbreviationKey,
+                                SettingsKeys.planetMaJuVeAbbreviationDefValue,
+                                type=str)
+        elif planetName == "MaJuEa":
+            rv = settings.value(SettingsKeys.planetMaJuEaAbbreviationKey,
+                                SettingsKeys.planetMaJuEaAbbreviationDefValue,
+                                type=str)
+        elif planetName == "EaJuMe":
+            rv = settings.value(SettingsKeys.planetEaJuMeAbbreviationKey,
+                                SettingsKeys.planetEaJuMeAbbreviationDefValue,
+                                type=str)
+        elif planetName == "EaJuVe":
+            rv = settings.value(SettingsKeys.planetEaJuVeAbbreviationKey,
+                                SettingsKeys.planetEaJuVeAbbreviationDefValue,
+                                type=str)
+        elif planetName == "EaSaMe":
+            rv = settings.value(SettingsKeys.planetEaSaMeAbbreviationKey,
+                                SettingsKeys.planetEaSaMeAbbreviationDefValue,
+                                type=str)
+        elif planetName == "EaSaVe":
+            rv = settings.value(SettingsKeys.planetEaSaVeAbbreviationKey,
+                                SettingsKeys.planetEaSaVeAbbreviationDefValue,
+                                type=str)
+        elif planetName == "EaSaMa":
+            rv = settings.value(SettingsKeys.planetEaSaMaAbbreviationKey,
+                                SettingsKeys.planetEaSaMaAbbreviationDefValue,
+                                type=str)
         else:
             rv = "???"
             AstrologyUtils.log.warn(\
@@ -1407,6 +1851,154 @@ class AstrologyUtils:
         elif planetName == "AvgJuSa":
             rv = settings.value(SettingsKeys.planetAvgJuSaForegroundColorKey,
                                 SettingsKeys.planetAvgJuSaForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MeVe":
+            rv = settings.value(SettingsKeys.planetMeVeForegroundColorKey,
+                                SettingsKeys.planetMeVeForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MeEa":
+            rv = settings.value(SettingsKeys.planetMeEaForegroundColorKey,
+                                SettingsKeys.planetMeEaForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MeMa":
+            rv = settings.value(SettingsKeys.planetMeMaForegroundColorKey,
+                                SettingsKeys.planetMeMaForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MeJu":
+            rv = settings.value(SettingsKeys.planetMeJuForegroundColorKey,
+                                SettingsKeys.planetMeJuForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MeSa":
+            rv = settings.value(SettingsKeys.planetMeSaForegroundColorKey,
+                                SettingsKeys.planetMeSaForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MeUr":
+            rv = settings.value(SettingsKeys.planetMeUrForegroundColorKey,
+                                SettingsKeys.planetMeUrForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "VeEa":
+            rv = settings.value(SettingsKeys.planetVeEaForegroundColorKey,
+                                SettingsKeys.planetVeEaForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "VeMa":
+            rv = settings.value(SettingsKeys.planetVeMaForegroundColorKey,
+                                SettingsKeys.planetVeMaForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "VeJu":
+            rv = settings.value(SettingsKeys.planetVeJuForegroundColorKey,
+                                SettingsKeys.planetVeJuForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "VeSa":
+            rv = settings.value(SettingsKeys.planetVeSaForegroundColorKey,
+                                SettingsKeys.planetVeSaForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "VeUr":
+            rv = settings.value(SettingsKeys.planetVeUrForegroundColorKey,
+                                SettingsKeys.planetVeUrForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "EaMa":
+            rv = settings.value(SettingsKeys.planetEaMaForegroundColorKey,
+                                SettingsKeys.planetEaMaForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "EaJu":
+            rv = settings.value(SettingsKeys.planetEaJuForegroundColorKey,
+                                SettingsKeys.planetEaJuForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "EaSa":
+            rv = settings.value(SettingsKeys.planetEaSaForegroundColorKey,
+                                SettingsKeys.planetEaSaForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "EaUr":
+            rv = settings.value(SettingsKeys.planetEaUrForegroundColorKey,
+                                SettingsKeys.planetEaUrForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MaJu":
+            rv = settings.value(SettingsKeys.planetMaJuForegroundColorKey,
+                                SettingsKeys.planetMaJuForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MaSa":
+            rv = settings.value(SettingsKeys.planetMaSaForegroundColorKey,
+                                SettingsKeys.planetMaSaForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MaUr":
+            rv = settings.value(SettingsKeys.planetMaUrForegroundColorKey,
+                                SettingsKeys.planetMaUrForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "JuSa":
+            rv = settings.value(SettingsKeys.planetJuSaForegroundColorKey,
+                                SettingsKeys.planetJuSaForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "JuUr":
+            rv = settings.value(SettingsKeys.planetJuUrForegroundColorKey,
+                                SettingsKeys.planetJuUrForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "SaUr":
+            rv = settings.value(SettingsKeys.planetSaUrForegroundColorKey,
+                                SettingsKeys.planetSaUrForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MeVeEa":
+            rv = settings.value(SettingsKeys.planetMeVeEaForegroundColorKey,
+                                SettingsKeys.planetMeVeEaForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MeVeMa":
+            rv = settings.value(SettingsKeys.planetMeVeMaForegroundColorKey,
+                                SettingsKeys.planetMeVeMaForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "VeEaMe":
+            rv = settings.value(SettingsKeys.planetVeEaMeForegroundColorKey,
+                                SettingsKeys.planetVeEaMeForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "VeEaMa":
+            rv = settings.value(SettingsKeys.planetVeEaMaForegroundColorKey,
+                                SettingsKeys.planetVeEaMaForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "VeMaMe":
+            rv = settings.value(SettingsKeys.planetVeMaMeForegroundColorKey,
+                                SettingsKeys.planetVeMaMeForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "VeMaEa":
+            rv = settings.value(SettingsKeys.planetVeMaEaForegroundColorKey,
+                                SettingsKeys.planetVeMaEaForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "EaMaMe":
+            rv = settings.value(SettingsKeys.planetEaMaMeForegroundColorKey,
+                                SettingsKeys.planetEaMaMeForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "EaMaVe":
+            rv = settings.value(SettingsKeys.planetEaMaVeForegroundColorKey,
+                                SettingsKeys.planetEaMaVeForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MaJuMe":
+            rv = settings.value(SettingsKeys.planetMaJuMeForegroundColorKey,
+                                SettingsKeys.planetMaJuMeForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MaJuVe":
+            rv = settings.value(SettingsKeys.planetMaJuVeForegroundColorKey,
+                                SettingsKeys.planetMaJuVeForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MaJuEa":
+            rv = settings.value(SettingsKeys.planetMaJuEaForegroundColorKey,
+                                SettingsKeys.planetMaJuEaForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "EaJuMe":
+            rv = settings.value(SettingsKeys.planetEaJuMeForegroundColorKey,
+                                SettingsKeys.planetEaJuMeForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "EaJuVe":
+            rv = settings.value(SettingsKeys.planetEaJuVeForegroundColorKey,
+                                SettingsKeys.planetEaJuVeForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "EaSaMe":
+            rv = settings.value(SettingsKeys.planetEaSaMeForegroundColorKey,
+                                SettingsKeys.planetEaSaMeForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "EaSaVe":
+            rv = settings.value(SettingsKeys.planetEaSaVeForegroundColorKey,
+                                SettingsKeys.planetEaSaVeForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "EaSaMa":
+            rv = settings.value(SettingsKeys.planetEaSaMaForegroundColorKey,
+                                SettingsKeys.planetEaSaMaForegroundColorDefValue,\
                                 type=QColor)
         else:
             rv = QColor(Qt.black)
@@ -1648,6 +2240,154 @@ class AstrologyUtils:
         elif planetName == "AvgJuSa":
             rv = settings.value(SettingsKeys.planetAvgJuSaBackgroundColorKey,
                                 SettingsKeys.planetAvgJuSaBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MeVe":
+            rv = settings.value(SettingsKeys.planetMeVeBackgroundColorKey,
+                                SettingsKeys.planetMeVeBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MeEa":
+            rv = settings.value(SettingsKeys.planetMeEaBackgroundColorKey,
+                                SettingsKeys.planetMeEaBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MeMa":
+            rv = settings.value(SettingsKeys.planetMeMaBackgroundColorKey,
+                                SettingsKeys.planetMeMaBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MeJu":
+            rv = settings.value(SettingsKeys.planetMeJuBackgroundColorKey,
+                                SettingsKeys.planetMeJuBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MeSa":
+            rv = settings.value(SettingsKeys.planetMeSaBackgroundColorKey,
+                                SettingsKeys.planetMeSaBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MeUr":
+            rv = settings.value(SettingsKeys.planetMeUrBackgroundColorKey,
+                                SettingsKeys.planetMeUrBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "VeEa":
+            rv = settings.value(SettingsKeys.planetVeEaBackgroundColorKey,
+                                SettingsKeys.planetVeEaBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "VeMa":
+            rv = settings.value(SettingsKeys.planetVeMaBackgroundColorKey,
+                                SettingsKeys.planetVeMaBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "VeJu":
+            rv = settings.value(SettingsKeys.planetVeJuBackgroundColorKey,
+                                SettingsKeys.planetVeJuBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "VeSa":
+            rv = settings.value(SettingsKeys.planetVeSaBackgroundColorKey,
+                                SettingsKeys.planetVeSaBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "VeUr":
+            rv = settings.value(SettingsKeys.planetVeUrBackgroundColorKey,
+                                SettingsKeys.planetVeUrBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "EaMa":
+            rv = settings.value(SettingsKeys.planetEaMaBackgroundColorKey,
+                                SettingsKeys.planetEaMaBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "EaJu":
+            rv = settings.value(SettingsKeys.planetEaJuBackgroundColorKey,
+                                SettingsKeys.planetEaJuBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "EaSa":
+            rv = settings.value(SettingsKeys.planetEaSaBackgroundColorKey,
+                                SettingsKeys.planetEaSaBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "EaUr":
+            rv = settings.value(SettingsKeys.planetEaUrBackgroundColorKey,
+                                SettingsKeys.planetEaUrBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MaJu":
+            rv = settings.value(SettingsKeys.planetMaJuBackgroundColorKey,
+                                SettingsKeys.planetMaJuBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MaSa":
+            rv = settings.value(SettingsKeys.planetMaSaBackgroundColorKey,
+                                SettingsKeys.planetMaSaBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MaUr":
+            rv = settings.value(SettingsKeys.planetMaUrBackgroundColorKey,
+                                SettingsKeys.planetMaUrBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "JuSa":
+            rv = settings.value(SettingsKeys.planetJuSaBackgroundColorKey,
+                                SettingsKeys.planetJuSaBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "JuUr":
+            rv = settings.value(SettingsKeys.planetJuUrBackgroundColorKey,
+                                SettingsKeys.planetJuUrBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "SaUr":
+            rv = settings.value(SettingsKeys.planetSaUrBackgroundColorKey,
+                                SettingsKeys.planetSaUrBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MeVeEa":
+            rv = settings.value(SettingsKeys.planetMeVeEaBackgroundColorKey,
+                                SettingsKeys.planetMeVeEaBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MeVeMa":
+            rv = settings.value(SettingsKeys.planetMeVeMaBackgroundColorKey,
+                                SettingsKeys.planetMeVeMaBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "VeEaMe":
+            rv = settings.value(SettingsKeys.planetVeEaMeBackgroundColorKey,
+                                SettingsKeys.planetVeEaMeBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "VeEaMa":
+            rv = settings.value(SettingsKeys.planetVeEaMaBackgroundColorKey,
+                                SettingsKeys.planetVeEaMaBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "VeMaMe":
+            rv = settings.value(SettingsKeys.planetVeMaMeBackgroundColorKey,
+                                SettingsKeys.planetVeMaMeBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "VeMaEa":
+            rv = settings.value(SettingsKeys.planetVeMaEaBackgroundColorKey,
+                                SettingsKeys.planetVeMaEaBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "EaMaMe":
+            rv = settings.value(SettingsKeys.planetEaMaMeBackgroundColorKey,
+                                SettingsKeys.planetEaMaMeBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "EaMaVe":
+            rv = settings.value(SettingsKeys.planetEaMaVeBackgroundColorKey,
+                                SettingsKeys.planetEaMaVeBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MaJuMe":
+            rv = settings.value(SettingsKeys.planetMaJuMeBackgroundColorKey,
+                                SettingsKeys.planetMaJuMeBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MaJuVe":
+            rv = settings.value(SettingsKeys.planetMaJuVeBackgroundColorKey,
+                                SettingsKeys.planetMaJuVeBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MaJuEa":
+            rv = settings.value(SettingsKeys.planetMaJuEaBackgroundColorKey,
+                                SettingsKeys.planetMaJuEaBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "EaJuMe":
+            rv = settings.value(SettingsKeys.planetEaJuMeBackgroundColorKey,
+                                SettingsKeys.planetEaJuMeBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "EaJuVe":
+            rv = settings.value(SettingsKeys.planetEaJuVeBackgroundColorKey,
+                                SettingsKeys.planetEaJuVeBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "EaSaMe":
+            rv = settings.value(SettingsKeys.planetEaSaMeBackgroundColorKey,
+                                SettingsKeys.planetEaSaMeBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "EaSaVe":
+            rv = settings.value(SettingsKeys.planetEaSaVeBackgroundColorKey,
+                                SettingsKeys.planetEaSaVeBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "EaSaMa":
+            rv = settings.value(SettingsKeys.planetEaSaMaBackgroundColorKey,
+                                SettingsKeys.planetEaSaMaBackgroundColorDefValue,\
                                 type=QColor)
         else:
             rv = QColor(Qt.transparent)
@@ -5773,6 +6513,265 @@ class PlanetaryInfoTableWidget(QTableWidget):
 
             enabledPlanetNames.append("AvgJuSa")
 
+        if settings.value(\
+            SettingsKeys.planetMeVeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMeVeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeVe")
+
+        if settings.value(\
+            SettingsKeys.planetMeEaEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMeEaEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeEa")
+
+        if settings.value(\
+            SettingsKeys.planetMeMaEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMeMaEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeMa")
+
+        if settings.value(\
+            SettingsKeys.planetMeJuEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMeJuEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeJu")
+
+        if settings.value(\
+            SettingsKeys.planetMeSaEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMeSaEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeSa")
+
+        if settings.value(\
+            SettingsKeys.planetMeUrEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMeUrEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeUr")
+
+        if settings.value(\
+            SettingsKeys.planetVeEaEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetVeEaEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeEa")
+
+        if settings.value(\
+            SettingsKeys.planetVeMaEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetVeMaEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeMa")
+
+        if settings.value(\
+            SettingsKeys.planetVeJuEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetVeJuEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeJu")
+
+        if settings.value(\
+            SettingsKeys.planetVeSaEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetVeSaEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeSa")
+
+        if settings.value(\
+            SettingsKeys.planetVeUrEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetVeUrEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeUr")
+
+        if settings.value(\
+            SettingsKeys.planetEaMaEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetEaMaEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaMa")
+
+        if settings.value(\
+            SettingsKeys.planetEaJuEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetEaJuEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaJu")
+
+        if settings.value(\
+            SettingsKeys.planetEaSaEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetEaSaEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaSa")
+
+        if settings.value(\
+            SettingsKeys.planetEaUrEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetEaUrEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaUr")
+
+        if settings.value(\
+            SettingsKeys.planetMaJuEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMaJuEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaJu")
+
+        if settings.value(\
+            SettingsKeys.planetMaSaEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMaSaEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaSa")
+
+        if settings.value(\
+            SettingsKeys.planetMaUrEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMaUrEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaUr")
+
+        if settings.value(\
+            SettingsKeys.planetJuSaEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetJuSaEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("JuSa")
+
+        if settings.value(\
+            SettingsKeys.planetJuUrEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetJuUrEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("JuUr")
+
+        if settings.value(\
+            SettingsKeys.planetSaUrEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetSaUrEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SaUr")
+
+        if settings.value(\
+            SettingsKeys.planetMeVeEaEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMeVeEaEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeVeEa")
+
+        if settings.value(\
+            SettingsKeys.planetMeVeMaEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMeVeMaEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeVeMa")
+
+        if settings.value(\
+            SettingsKeys.planetVeEaMeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetVeEaMeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeEaMe")
+
+        if settings.value(\
+            SettingsKeys.planetVeEaMaEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetVeEaMaEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeEaMa")
+
+        if settings.value(\
+            SettingsKeys.planetVeMaMeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetVeMaMeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeMaMe")
+
+        if settings.value(\
+            SettingsKeys.planetVeMaEaEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetVeMaEaEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeMaEa")
+
+        if settings.value(\
+            SettingsKeys.planetEaMaMeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetEaMaMeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaMaMe")
+
+        if settings.value(\
+            SettingsKeys.planetEaMaVeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetEaMaVeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaMaVe")
+
+        if settings.value(\
+            SettingsKeys.planetMaJuMeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMaJuMeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaJuMe")
+
+        if settings.value(\
+            SettingsKeys.planetMaJuVeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMaJuVeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaJuVe")
+
+        if settings.value(\
+            SettingsKeys.planetMaJuEaEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMaJuEaEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaJuEa")
+
+        if settings.value(\
+            SettingsKeys.planetEaJuMeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetEaJuMeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaJuMe")
+
+        if settings.value(\
+            SettingsKeys.planetEaJuVeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetEaJuVeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaJuVe")
+
+        if settings.value(\
+            SettingsKeys.planetEaSaMeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetEaSaMeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaSaMe")
+
+        if settings.value(\
+            SettingsKeys.planetEaSaVeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetEaSaVeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaSaVe")
+
+        if settings.value(\
+            SettingsKeys.planetEaSaMaEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetEaSaMaEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaSaMa")
+
         
         return enabledPlanetNames
         
@@ -7079,6 +8078,265 @@ class AstrologyChartWidget(QWidget):
 
             planets.append(Ephemeris.getAvgJuSaPlanetaryInfo(dt))
 
+        if settings.value(\
+            SettingsKeys.planetMeVeCalculationsEnabledKey, \
+            SettingsKeys.planetMeVeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMeVePlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetMeEaCalculationsEnabledKey, \
+            SettingsKeys.planetMeEaCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMeEaPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetMeMaCalculationsEnabledKey, \
+            SettingsKeys.planetMeMaCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMeMaPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetMeJuCalculationsEnabledKey, \
+            SettingsKeys.planetMeJuCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMeJuPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetMeSaCalculationsEnabledKey, \
+            SettingsKeys.planetMeSaCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMeSaPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetMeUrCalculationsEnabledKey, \
+            SettingsKeys.planetMeUrCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMeUrPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetVeEaCalculationsEnabledKey, \
+            SettingsKeys.planetVeEaCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getVeEaPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetVeMaCalculationsEnabledKey, \
+            SettingsKeys.planetVeMaCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getVeMaPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetVeJuCalculationsEnabledKey, \
+            SettingsKeys.planetVeJuCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getVeJuPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetVeSaCalculationsEnabledKey, \
+            SettingsKeys.planetVeSaCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getVeSaPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetVeUrCalculationsEnabledKey, \
+            SettingsKeys.planetVeUrCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getVeUrPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetEaMaCalculationsEnabledKey, \
+            SettingsKeys.planetEaMaCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getEaMaPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetEaJuCalculationsEnabledKey, \
+            SettingsKeys.planetEaJuCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getEaJuPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetEaSaCalculationsEnabledKey, \
+            SettingsKeys.planetEaSaCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getEaSaPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetEaUrCalculationsEnabledKey, \
+            SettingsKeys.planetEaUrCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getEaUrPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetMaJuCalculationsEnabledKey, \
+            SettingsKeys.planetMaJuCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMaJuPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetMaSaCalculationsEnabledKey, \
+            SettingsKeys.planetMaSaCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMaSaPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetMaUrCalculationsEnabledKey, \
+            SettingsKeys.planetMaUrCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMaUrPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetJuSaCalculationsEnabledKey, \
+            SettingsKeys.planetJuSaCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getJuSaPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetJuUrCalculationsEnabledKey, \
+            SettingsKeys.planetJuUrCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getJuUrPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetSaUrCalculationsEnabledKey, \
+            SettingsKeys.planetSaUrCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getSaUrPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetMeVeEaCalculationsEnabledKey, \
+            SettingsKeys.planetMeVeEaCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMeVeEaPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetMeVeMaCalculationsEnabledKey, \
+            SettingsKeys.planetMeVeMaCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMeVeMaPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetVeEaMeCalculationsEnabledKey, \
+            SettingsKeys.planetVeEaMeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getVeEaMePlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetVeEaMaCalculationsEnabledKey, \
+            SettingsKeys.planetVeEaMaCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getVeEaMaPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetVeMaMeCalculationsEnabledKey, \
+            SettingsKeys.planetVeMaMeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getVeMaMePlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetVeMaEaCalculationsEnabledKey, \
+            SettingsKeys.planetVeMaEaCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getVeMaEaPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetEaMaMeCalculationsEnabledKey, \
+            SettingsKeys.planetEaMaMeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getEaMaMePlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetEaMaVeCalculationsEnabledKey, \
+            SettingsKeys.planetEaMaVeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getEaMaVePlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetMaJuMeCalculationsEnabledKey, \
+            SettingsKeys.planetMaJuMeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMaJuMePlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetMaJuVeCalculationsEnabledKey, \
+            SettingsKeys.planetMaJuVeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMaJuVePlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetMaJuEaCalculationsEnabledKey, \
+            SettingsKeys.planetMaJuEaCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMaJuEaPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetEaJuMeCalculationsEnabledKey, \
+            SettingsKeys.planetEaJuMeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getEaJuMePlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetEaJuVeCalculationsEnabledKey, \
+            SettingsKeys.planetEaJuVeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getEaJuVePlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetEaSaMeCalculationsEnabledKey, \
+            SettingsKeys.planetEaSaMeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getEaSaMePlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetEaSaVeCalculationsEnabledKey, \
+            SettingsKeys.planetEaSaVeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getEaSaVePlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetEaSaMaCalculationsEnabledKey, \
+            SettingsKeys.planetEaSaMaCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getEaSaMaPlanetaryInfo(dt))
+
         return planets
 
     def _getPlanetNamesToDisplayForDeclination(self):
@@ -7463,6 +8721,265 @@ class AstrologyChartWidget(QWidget):
             type=bool):
 
             enabledPlanetNames.append("AvgJuSa")
+
+        if settings.value(\
+            SettingsKeys.planetMeVeEnabledForDeclinationKey, \
+            SettingsKeys.planetMeVeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeVe")
+
+        if settings.value(\
+            SettingsKeys.planetMeEaEnabledForDeclinationKey, \
+            SettingsKeys.planetMeEaEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeEa")
+
+        if settings.value(\
+            SettingsKeys.planetMeMaEnabledForDeclinationKey, \
+            SettingsKeys.planetMeMaEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeMa")
+
+        if settings.value(\
+            SettingsKeys.planetMeJuEnabledForDeclinationKey, \
+            SettingsKeys.planetMeJuEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeJu")
+
+        if settings.value(\
+            SettingsKeys.planetMeSaEnabledForDeclinationKey, \
+            SettingsKeys.planetMeSaEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeSa")
+
+        if settings.value(\
+            SettingsKeys.planetMeUrEnabledForDeclinationKey, \
+            SettingsKeys.planetMeUrEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeUr")
+
+        if settings.value(\
+            SettingsKeys.planetVeEaEnabledForDeclinationKey, \
+            SettingsKeys.planetVeEaEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeEa")
+
+        if settings.value(\
+            SettingsKeys.planetVeMaEnabledForDeclinationKey, \
+            SettingsKeys.planetVeMaEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeMa")
+
+        if settings.value(\
+            SettingsKeys.planetVeJuEnabledForDeclinationKey, \
+            SettingsKeys.planetVeJuEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeJu")
+
+        if settings.value(\
+            SettingsKeys.planetVeSaEnabledForDeclinationKey, \
+            SettingsKeys.planetVeSaEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeSa")
+
+        if settings.value(\
+            SettingsKeys.planetVeUrEnabledForDeclinationKey, \
+            SettingsKeys.planetVeUrEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeUr")
+
+        if settings.value(\
+            SettingsKeys.planetEaMaEnabledForDeclinationKey, \
+            SettingsKeys.planetEaMaEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaMa")
+
+        if settings.value(\
+            SettingsKeys.planetEaJuEnabledForDeclinationKey, \
+            SettingsKeys.planetEaJuEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaJu")
+
+        if settings.value(\
+            SettingsKeys.planetEaSaEnabledForDeclinationKey, \
+            SettingsKeys.planetEaSaEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaSa")
+
+        if settings.value(\
+            SettingsKeys.planetEaUrEnabledForDeclinationKey, \
+            SettingsKeys.planetEaUrEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaUr")
+
+        if settings.value(\
+            SettingsKeys.planetMaJuEnabledForDeclinationKey, \
+            SettingsKeys.planetMaJuEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaJu")
+
+        if settings.value(\
+            SettingsKeys.planetMaSaEnabledForDeclinationKey, \
+            SettingsKeys.planetMaSaEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaSa")
+
+        if settings.value(\
+            SettingsKeys.planetMaUrEnabledForDeclinationKey, \
+            SettingsKeys.planetMaUrEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaUr")
+
+        if settings.value(\
+            SettingsKeys.planetJuSaEnabledForDeclinationKey, \
+            SettingsKeys.planetJuSaEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("JuSa")
+
+        if settings.value(\
+            SettingsKeys.planetJuUrEnabledForDeclinationKey, \
+            SettingsKeys.planetJuUrEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("JuUr")
+
+        if settings.value(\
+            SettingsKeys.planetSaUrEnabledForDeclinationKey, \
+            SettingsKeys.planetSaUrEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SaUr")
+
+        if settings.value(\
+            SettingsKeys.planetMeVeEaEnabledForDeclinationKey, \
+            SettingsKeys.planetMeVeEaEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeVeEa")
+
+        if settings.value(\
+            SettingsKeys.planetMeVeMaEnabledForDeclinationKey, \
+            SettingsKeys.planetMeVeMaEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeVeMa")
+
+        if settings.value(\
+            SettingsKeys.planetVeEaMeEnabledForDeclinationKey, \
+            SettingsKeys.planetVeEaMeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeEaMe")
+
+        if settings.value(\
+            SettingsKeys.planetVeEaMaEnabledForDeclinationKey, \
+            SettingsKeys.planetVeEaMaEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeEaMa")
+
+        if settings.value(\
+            SettingsKeys.planetVeMaMeEnabledForDeclinationKey, \
+            SettingsKeys.planetVeMaMeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeMaMe")
+
+        if settings.value(\
+            SettingsKeys.planetVeMaEaEnabledForDeclinationKey, \
+            SettingsKeys.planetVeMaEaEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeMaEa")
+
+        if settings.value(\
+            SettingsKeys.planetEaMaMeEnabledForDeclinationKey, \
+            SettingsKeys.planetEaMaMeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaMaMe")
+
+        if settings.value(\
+            SettingsKeys.planetEaMaVeEnabledForDeclinationKey, \
+            SettingsKeys.planetEaMaVeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaMaVe")
+
+        if settings.value(\
+            SettingsKeys.planetMaJuMeEnabledForDeclinationKey, \
+            SettingsKeys.planetMaJuMeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaJuMe")
+
+        if settings.value(\
+            SettingsKeys.planetMaJuVeEnabledForDeclinationKey, \
+            SettingsKeys.planetMaJuVeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaJuVe")
+
+        if settings.value(\
+            SettingsKeys.planetMaJuEaEnabledForDeclinationKey, \
+            SettingsKeys.planetMaJuEaEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaJuEa")
+
+        if settings.value(\
+            SettingsKeys.planetEaJuMeEnabledForDeclinationKey, \
+            SettingsKeys.planetEaJuMeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaJuMe")
+
+        if settings.value(\
+            SettingsKeys.planetEaJuVeEnabledForDeclinationKey, \
+            SettingsKeys.planetEaJuVeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaJuVe")
+
+        if settings.value(\
+            SettingsKeys.planetEaSaMeEnabledForDeclinationKey, \
+            SettingsKeys.planetEaSaMeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaSaMe")
+
+        if settings.value(\
+            SettingsKeys.planetEaSaVeEnabledForDeclinationKey, \
+            SettingsKeys.planetEaSaVeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaSaVe")
+
+        if settings.value(\
+            SettingsKeys.planetEaSaMaEnabledForDeclinationKey, \
+            SettingsKeys.planetEaSaMaEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaSaMa")
 
 
         return enabledPlanetNames
@@ -7850,6 +9367,265 @@ class AstrologyChartWidget(QWidget):
 
             enabledPlanetNames.append("AvgJuSa")
 
+        if settings.value(\
+            SettingsKeys.planetMeVeEnabledForLatitudeKey, \
+            SettingsKeys.planetMeVeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeVe")
+
+        if settings.value(\
+            SettingsKeys.planetMeEaEnabledForLatitudeKey, \
+            SettingsKeys.planetMeEaEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeEa")
+
+        if settings.value(\
+            SettingsKeys.planetMeMaEnabledForLatitudeKey, \
+            SettingsKeys.planetMeMaEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeMa")
+
+        if settings.value(\
+            SettingsKeys.planetMeJuEnabledForLatitudeKey, \
+            SettingsKeys.planetMeJuEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeJu")
+
+        if settings.value(\
+            SettingsKeys.planetMeSaEnabledForLatitudeKey, \
+            SettingsKeys.planetMeSaEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeSa")
+
+        if settings.value(\
+            SettingsKeys.planetMeUrEnabledForLatitudeKey, \
+            SettingsKeys.planetMeUrEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeUr")
+
+        if settings.value(\
+            SettingsKeys.planetVeEaEnabledForLatitudeKey, \
+            SettingsKeys.planetVeEaEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeEa")
+
+        if settings.value(\
+            SettingsKeys.planetVeMaEnabledForLatitudeKey, \
+            SettingsKeys.planetVeMaEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeMa")
+
+        if settings.value(\
+            SettingsKeys.planetVeJuEnabledForLatitudeKey, \
+            SettingsKeys.planetVeJuEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeJu")
+
+        if settings.value(\
+            SettingsKeys.planetVeSaEnabledForLatitudeKey, \
+            SettingsKeys.planetVeSaEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeSa")
+
+        if settings.value(\
+            SettingsKeys.planetVeUrEnabledForLatitudeKey, \
+            SettingsKeys.planetVeUrEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeUr")
+
+        if settings.value(\
+            SettingsKeys.planetEaMaEnabledForLatitudeKey, \
+            SettingsKeys.planetEaMaEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaMa")
+
+        if settings.value(\
+            SettingsKeys.planetEaJuEnabledForLatitudeKey, \
+            SettingsKeys.planetEaJuEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaJu")
+
+        if settings.value(\
+            SettingsKeys.planetEaSaEnabledForLatitudeKey, \
+            SettingsKeys.planetEaSaEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaSa")
+
+        if settings.value(\
+            SettingsKeys.planetEaUrEnabledForLatitudeKey, \
+            SettingsKeys.planetEaUrEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaUr")
+
+        if settings.value(\
+            SettingsKeys.planetMaJuEnabledForLatitudeKey, \
+            SettingsKeys.planetMaJuEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaJu")
+
+        if settings.value(\
+            SettingsKeys.planetMaSaEnabledForLatitudeKey, \
+            SettingsKeys.planetMaSaEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaSa")
+
+        if settings.value(\
+            SettingsKeys.planetMaUrEnabledForLatitudeKey, \
+            SettingsKeys.planetMaUrEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaUr")
+
+        if settings.value(\
+            SettingsKeys.planetJuSaEnabledForLatitudeKey, \
+            SettingsKeys.planetJuSaEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("JuSa")
+
+        if settings.value(\
+            SettingsKeys.planetJuUrEnabledForLatitudeKey, \
+            SettingsKeys.planetJuUrEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("JuUr")
+
+        if settings.value(\
+            SettingsKeys.planetSaUrEnabledForLatitudeKey, \
+            SettingsKeys.planetSaUrEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SaUr")
+
+        if settings.value(\
+            SettingsKeys.planetMeVeEaEnabledForLatitudeKey, \
+            SettingsKeys.planetMeVeEaEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeVeEa")
+
+        if settings.value(\
+            SettingsKeys.planetMeVeMaEnabledForLatitudeKey, \
+            SettingsKeys.planetMeVeMaEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeVeMa")
+
+        if settings.value(\
+            SettingsKeys.planetVeEaMeEnabledForLatitudeKey, \
+            SettingsKeys.planetVeEaMeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeEaMe")
+
+        if settings.value(\
+            SettingsKeys.planetVeEaMaEnabledForLatitudeKey, \
+            SettingsKeys.planetVeEaMaEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeEaMa")
+
+        if settings.value(\
+            SettingsKeys.planetVeMaMeEnabledForLatitudeKey, \
+            SettingsKeys.planetVeMaMeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeMaMe")
+
+        if settings.value(\
+            SettingsKeys.planetVeMaEaEnabledForLatitudeKey, \
+            SettingsKeys.planetVeMaEaEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeMaEa")
+
+        if settings.value(\
+            SettingsKeys.planetEaMaMeEnabledForLatitudeKey, \
+            SettingsKeys.planetEaMaMeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaMaMe")
+
+        if settings.value(\
+            SettingsKeys.planetEaMaVeEnabledForLatitudeKey, \
+            SettingsKeys.planetEaMaVeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaMaVe")
+
+        if settings.value(\
+            SettingsKeys.planetMaJuMeEnabledForLatitudeKey, \
+            SettingsKeys.planetMaJuMeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaJuMe")
+
+        if settings.value(\
+            SettingsKeys.planetMaJuVeEnabledForLatitudeKey, \
+            SettingsKeys.planetMaJuVeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaJuVe")
+
+        if settings.value(\
+            SettingsKeys.planetMaJuEaEnabledForLatitudeKey, \
+            SettingsKeys.planetMaJuEaEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaJuEa")
+
+        if settings.value(\
+            SettingsKeys.planetEaJuMeEnabledForLatitudeKey, \
+            SettingsKeys.planetEaJuMeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaJuMe")
+
+        if settings.value(\
+            SettingsKeys.planetEaJuVeEnabledForLatitudeKey, \
+            SettingsKeys.planetEaJuVeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaJuVe")
+
+        if settings.value(\
+            SettingsKeys.planetEaSaMeEnabledForLatitudeKey, \
+            SettingsKeys.planetEaSaMeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaSaMe")
+
+        if settings.value(\
+            SettingsKeys.planetEaSaVeEnabledForLatitudeKey, \
+            SettingsKeys.planetEaSaVeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaSaVe")
+
+        if settings.value(\
+            SettingsKeys.planetEaSaMaEnabledForLatitudeKey, \
+            SettingsKeys.planetEaSaMaEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaSaMa")
+
 
         return enabledPlanetNames
         
@@ -8235,6 +10011,265 @@ class AstrologyChartWidget(QWidget):
             type=bool):
 
             enabledPlanetNames.append("AvgJuSa")
+
+        if settings.value(\
+            SettingsKeys.planetMeVeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMeVeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeVe")
+
+        if settings.value(\
+            SettingsKeys.planetMeEaEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMeEaEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeEa")
+
+        if settings.value(\
+            SettingsKeys.planetMeMaEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMeMaEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeMa")
+
+        if settings.value(\
+            SettingsKeys.planetMeJuEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMeJuEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeJu")
+
+        if settings.value(\
+            SettingsKeys.planetMeSaEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMeSaEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeSa")
+
+        if settings.value(\
+            SettingsKeys.planetMeUrEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMeUrEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeUr")
+
+        if settings.value(\
+            SettingsKeys.planetVeEaEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetVeEaEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeEa")
+
+        if settings.value(\
+            SettingsKeys.planetVeMaEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetVeMaEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeMa")
+
+        if settings.value(\
+            SettingsKeys.planetVeJuEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetVeJuEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeJu")
+
+        if settings.value(\
+            SettingsKeys.planetVeSaEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetVeSaEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeSa")
+
+        if settings.value(\
+            SettingsKeys.planetVeUrEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetVeUrEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeUr")
+
+        if settings.value(\
+            SettingsKeys.planetEaMaEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetEaMaEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaMa")
+
+        if settings.value(\
+            SettingsKeys.planetEaJuEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetEaJuEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaJu")
+
+        if settings.value(\
+            SettingsKeys.planetEaSaEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetEaSaEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaSa")
+
+        if settings.value(\
+            SettingsKeys.planetEaUrEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetEaUrEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaUr")
+
+        if settings.value(\
+            SettingsKeys.planetMaJuEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMaJuEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaJu")
+
+        if settings.value(\
+            SettingsKeys.planetMaSaEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMaSaEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaSa")
+
+        if settings.value(\
+            SettingsKeys.planetMaUrEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMaUrEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaUr")
+
+        if settings.value(\
+            SettingsKeys.planetJuSaEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetJuSaEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("JuSa")
+
+        if settings.value(\
+            SettingsKeys.planetJuUrEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetJuUrEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("JuUr")
+
+        if settings.value(\
+            SettingsKeys.planetSaUrEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetSaUrEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SaUr")
+
+        if settings.value(\
+            SettingsKeys.planetMeVeEaEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMeVeEaEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeVeEa")
+
+        if settings.value(\
+            SettingsKeys.planetMeVeMaEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMeVeMaEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeVeMa")
+
+        if settings.value(\
+            SettingsKeys.planetVeEaMeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetVeEaMeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeEaMe")
+
+        if settings.value(\
+            SettingsKeys.planetVeEaMaEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetVeEaMaEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeEaMa")
+
+        if settings.value(\
+            SettingsKeys.planetVeMaMeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetVeMaMeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeMaMe")
+
+        if settings.value(\
+            SettingsKeys.planetVeMaEaEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetVeMaEaEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeMaEa")
+
+        if settings.value(\
+            SettingsKeys.planetEaMaMeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetEaMaMeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaMaMe")
+
+        if settings.value(\
+            SettingsKeys.planetEaMaVeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetEaMaVeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaMaVe")
+
+        if settings.value(\
+            SettingsKeys.planetMaJuMeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMaJuMeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaJuMe")
+
+        if settings.value(\
+            SettingsKeys.planetMaJuVeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMaJuVeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaJuVe")
+
+        if settings.value(\
+            SettingsKeys.planetMaJuEaEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMaJuEaEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaJuEa")
+
+        if settings.value(\
+            SettingsKeys.planetEaJuMeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetEaJuMeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaJuMe")
+
+        if settings.value(\
+            SettingsKeys.planetEaJuVeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetEaJuVeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaJuVe")
+
+        if settings.value(\
+            SettingsKeys.planetEaSaMeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetEaSaMeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaSaMe")
+
+        if settings.value(\
+            SettingsKeys.planetEaSaVeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetEaSaVeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaSaVe")
+
+        if settings.value(\
+            SettingsKeys.planetEaSaMaEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetEaSaMaEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaSaMa")
 
 
         return enabledPlanetNames
@@ -8622,6 +10657,265 @@ class AstrologyChartWidget(QWidget):
 
             enabledPlanetNames.append("AvgJuSa")
 
+        if settings.value(\
+            SettingsKeys.planetMeVeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMeVeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeVe")
+
+        if settings.value(\
+            SettingsKeys.planetMeEaEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMeEaEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeEa")
+
+        if settings.value(\
+            SettingsKeys.planetMeMaEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMeMaEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeMa")
+
+        if settings.value(\
+            SettingsKeys.planetMeJuEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMeJuEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeJu")
+
+        if settings.value(\
+            SettingsKeys.planetMeSaEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMeSaEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeSa")
+
+        if settings.value(\
+            SettingsKeys.planetMeUrEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMeUrEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeUr")
+
+        if settings.value(\
+            SettingsKeys.planetVeEaEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetVeEaEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeEa")
+
+        if settings.value(\
+            SettingsKeys.planetVeMaEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetVeMaEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeMa")
+
+        if settings.value(\
+            SettingsKeys.planetVeJuEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetVeJuEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeJu")
+
+        if settings.value(\
+            SettingsKeys.planetVeSaEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetVeSaEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeSa")
+
+        if settings.value(\
+            SettingsKeys.planetVeUrEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetVeUrEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeUr")
+
+        if settings.value(\
+            SettingsKeys.planetEaMaEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetEaMaEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaMa")
+
+        if settings.value(\
+            SettingsKeys.planetEaJuEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetEaJuEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaJu")
+
+        if settings.value(\
+            SettingsKeys.planetEaSaEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetEaSaEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaSa")
+
+        if settings.value(\
+            SettingsKeys.planetEaUrEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetEaUrEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaUr")
+
+        if settings.value(\
+            SettingsKeys.planetMaJuEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMaJuEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaJu")
+
+        if settings.value(\
+            SettingsKeys.planetMaSaEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMaSaEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaSa")
+
+        if settings.value(\
+            SettingsKeys.planetMaUrEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMaUrEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaUr")
+
+        if settings.value(\
+            SettingsKeys.planetJuSaEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetJuSaEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("JuSa")
+
+        if settings.value(\
+            SettingsKeys.planetJuUrEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetJuUrEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("JuUr")
+
+        if settings.value(\
+            SettingsKeys.planetSaUrEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetSaUrEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SaUr")
+
+        if settings.value(\
+            SettingsKeys.planetMeVeEaEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMeVeEaEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeVeEa")
+
+        if settings.value(\
+            SettingsKeys.planetMeVeMaEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMeVeMaEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeVeMa")
+
+        if settings.value(\
+            SettingsKeys.planetVeEaMeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetVeEaMeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeEaMe")
+
+        if settings.value(\
+            SettingsKeys.planetVeEaMaEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetVeEaMaEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeEaMa")
+
+        if settings.value(\
+            SettingsKeys.planetVeMaMeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetVeMaMeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeMaMe")
+
+        if settings.value(\
+            SettingsKeys.planetVeMaEaEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetVeMaEaEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeMaEa")
+
+        if settings.value(\
+            SettingsKeys.planetEaMaMeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetEaMaMeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaMaMe")
+
+        if settings.value(\
+            SettingsKeys.planetEaMaVeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetEaMaVeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaMaVe")
+
+        if settings.value(\
+            SettingsKeys.planetMaJuMeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMaJuMeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaJuMe")
+
+        if settings.value(\
+            SettingsKeys.planetMaJuVeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMaJuVeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaJuVe")
+
+        if settings.value(\
+            SettingsKeys.planetMaJuEaEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMaJuEaEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaJuEa")
+
+        if settings.value(\
+            SettingsKeys.planetEaJuMeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetEaJuMeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaJuMe")
+
+        if settings.value(\
+            SettingsKeys.planetEaJuVeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetEaJuVeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaJuVe")
+
+        if settings.value(\
+            SettingsKeys.planetEaSaMeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetEaSaMeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaSaMe")
+
+        if settings.value(\
+            SettingsKeys.planetEaSaVeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetEaSaVeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaSaVe")
+
+        if settings.value(\
+            SettingsKeys.planetEaSaMaEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetEaSaMaEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaSaMa")
+
         
         return enabledPlanetNames
         
@@ -9007,6 +11301,265 @@ class AstrologyChartWidget(QWidget):
             type=bool):
 
             enabledPlanetNames.append("AvgJuSa")
+
+        if settings.value(\
+            SettingsKeys.planetMeVeEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetMeVeEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeVe")
+
+        if settings.value(\
+            SettingsKeys.planetMeEaEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetMeEaEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeEa")
+
+        if settings.value(\
+            SettingsKeys.planetMeMaEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetMeMaEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeMa")
+
+        if settings.value(\
+            SettingsKeys.planetMeJuEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetMeJuEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeJu")
+
+        if settings.value(\
+            SettingsKeys.planetMeSaEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetMeSaEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeSa")
+
+        if settings.value(\
+            SettingsKeys.planetMeUrEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetMeUrEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeUr")
+
+        if settings.value(\
+            SettingsKeys.planetVeEaEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetVeEaEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeEa")
+
+        if settings.value(\
+            SettingsKeys.planetVeMaEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetVeMaEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeMa")
+
+        if settings.value(\
+            SettingsKeys.planetVeJuEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetVeJuEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeJu")
+
+        if settings.value(\
+            SettingsKeys.planetVeSaEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetVeSaEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeSa")
+
+        if settings.value(\
+            SettingsKeys.planetVeUrEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetVeUrEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeUr")
+
+        if settings.value(\
+            SettingsKeys.planetEaMaEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetEaMaEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaMa")
+
+        if settings.value(\
+            SettingsKeys.planetEaJuEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetEaJuEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaJu")
+
+        if settings.value(\
+            SettingsKeys.planetEaSaEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetEaSaEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaSa")
+
+        if settings.value(\
+            SettingsKeys.planetEaUrEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetEaUrEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaUr")
+
+        if settings.value(\
+            SettingsKeys.planetMaJuEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetMaJuEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaJu")
+
+        if settings.value(\
+            SettingsKeys.planetMaSaEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetMaSaEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaSa")
+
+        if settings.value(\
+            SettingsKeys.planetMaUrEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetMaUrEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaUr")
+
+        if settings.value(\
+            SettingsKeys.planetJuSaEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetJuSaEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("JuSa")
+
+        if settings.value(\
+            SettingsKeys.planetJuUrEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetJuUrEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("JuUr")
+
+        if settings.value(\
+            SettingsKeys.planetSaUrEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetSaUrEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SaUr")
+
+        if settings.value(\
+            SettingsKeys.planetMeVeEaEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetMeVeEaEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeVeEa")
+
+        if settings.value(\
+            SettingsKeys.planetMeVeMaEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetMeVeMaEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeVeMa")
+
+        if settings.value(\
+            SettingsKeys.planetVeEaMeEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetVeEaMeEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeEaMe")
+
+        if settings.value(\
+            SettingsKeys.planetVeEaMaEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetVeEaMaEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeEaMa")
+
+        if settings.value(\
+            SettingsKeys.planetVeMaMeEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetVeMaMeEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeMaMe")
+
+        if settings.value(\
+            SettingsKeys.planetVeMaEaEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetVeMaEaEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeMaEa")
+
+        if settings.value(\
+            SettingsKeys.planetEaMaMeEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetEaMaMeEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaMaMe")
+
+        if settings.value(\
+            SettingsKeys.planetEaMaVeEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetEaMaVeEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaMaVe")
+
+        if settings.value(\
+            SettingsKeys.planetMaJuMeEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetMaJuMeEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaJuMe")
+
+        if settings.value(\
+            SettingsKeys.planetMaJuVeEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetMaJuVeEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaJuVe")
+
+        if settings.value(\
+            SettingsKeys.planetMaJuEaEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetMaJuEaEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaJuEa")
+
+        if settings.value(\
+            SettingsKeys.planetEaJuMeEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetEaJuMeEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaJuMe")
+
+        if settings.value(\
+            SettingsKeys.planetEaJuVeEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetEaJuVeEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaJuVe")
+
+        if settings.value(\
+            SettingsKeys.planetEaSaMeEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetEaSaMeEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaSaMe")
+
+        if settings.value(\
+            SettingsKeys.planetEaSaVeEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetEaSaVeEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaSaVe")
+
+        if settings.value(\
+            SettingsKeys.planetEaSaMaEnabledForHelioSidRadixChartKey, \
+            SettingsKeys.planetEaSaMaEnabledForHelioSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("EaSaMa")
 
         
         return enabledPlanetNames
