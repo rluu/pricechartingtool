@@ -4764,7 +4764,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
-        self.classVersion = 1
+        self.classVersion = 2
 
         # Create the logger.
         self.log = \
@@ -5584,7 +5584,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showMeasurementUnitDegreesEnabled = flag
+        self.measurementUnitDegreesEnabled = flag
         
     def getMeasurementUnitDegreesEnabled(self):
         """Returns the flag that indicates that the planet geocentric
@@ -5595,7 +5595,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showMeasurementUnitDegreesEnabled
+        return self.measurementUnitDegreesEnabled
 
     def setMeasurementUnitCirclesEnabled(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -5606,7 +5606,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showMeasurementUnitCirclesEnabled = flag
+        self.measurementUnitCirclesEnabled = flag
         
     def getMeasurementUnitCirclesEnabled(self):
         """Returns the flag that indicates that the planet geocentric
@@ -5617,7 +5617,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showMeasurementUnitCirclesEnabled
+        return self.measurementUnitCirclesEnabled
 
     def setPlanetH1EnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -5628,7 +5628,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetH1EnabledFlag = flag
+        self.planetH1EnabledFlag = flag
         
     def getPlanetH1EnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -5639,7 +5639,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetH1EnabledFlag
+        return self.planetH1EnabledFlag
 
     def setPlanetH2EnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -5650,7 +5650,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetH2EnabledFlag = flag
+        self.planetH2EnabledFlag = flag
         
     def getPlanetH2EnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -5661,7 +5661,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetH2EnabledFlag
+        return self.planetH2EnabledFlag
 
     def setPlanetH3EnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -5672,7 +5672,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetH3EnabledFlag = flag
+        self.planetH3EnabledFlag = flag
         
     def getPlanetH3EnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -5683,7 +5683,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetH3EnabledFlag
+        return self.planetH3EnabledFlag
 
     def setPlanetH4EnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -5694,7 +5694,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetH4EnabledFlag = flag
+        self.planetH4EnabledFlag = flag
         
     def getPlanetH4EnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -5705,7 +5705,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetH4EnabledFlag
+        return self.planetH4EnabledFlag
 
     def setPlanetH5EnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -5716,7 +5716,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetH5EnabledFlag = flag
+        self.planetH5EnabledFlag = flag
         
     def getPlanetH5EnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -5727,7 +5727,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetH5EnabledFlag
+        return self.planetH5EnabledFlag
 
     def setPlanetH6EnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -5738,7 +5738,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetH6EnabledFlag = flag
+        self.planetH6EnabledFlag = flag
         
     def getPlanetH6EnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -5749,7 +5749,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetH6EnabledFlag
+        return self.planetH6EnabledFlag
 
     def setPlanetH7EnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -5760,7 +5760,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetH7EnabledFlag = flag
+        self.planetH7EnabledFlag = flag
         
     def getPlanetH7EnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -5771,7 +5771,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetH7EnabledFlag
+        return self.planetH7EnabledFlag
 
     def setPlanetH8EnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -5782,7 +5782,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetH8EnabledFlag = flag
+        self.planetH8EnabledFlag = flag
         
     def getPlanetH8EnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -5793,7 +5793,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetH8EnabledFlag
+        return self.planetH8EnabledFlag
 
     def setPlanetH9EnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -5804,7 +5804,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetH9EnabledFlag = flag
+        self.planetH9EnabledFlag = flag
         
     def getPlanetH9EnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -5815,7 +5815,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetH9EnabledFlag
+        return self.planetH9EnabledFlag
 
     def setPlanetH10EnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -5826,7 +5826,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetH10EnabledFlag = flag
+        self.planetH10EnabledFlag = flag
         
     def getPlanetH10EnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -5837,7 +5837,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetH10EnabledFlag
+        return self.planetH10EnabledFlag
 
     def setPlanetH11EnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -5848,7 +5848,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetH11EnabledFlag = flag
+        self.planetH11EnabledFlag = flag
         
     def getPlanetH11EnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -5859,7 +5859,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetH11EnabledFlag
+        return self.planetH11EnabledFlag
 
     def setPlanetH12EnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -5870,7 +5870,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetH12EnabledFlag = flag
+        self.planetH12EnabledFlag = flag
         
     def getPlanetH12EnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -5881,7 +5881,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetH12EnabledFlag
+        return self.planetH12EnabledFlag
 
     def setPlanetARMCEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -5892,7 +5892,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetARMCEnabledFlag = flag
+        self.planetARMCEnabledFlag = flag
         
     def getPlanetARMCEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -5903,7 +5903,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetARMCEnabledFlag
+        return self.planetARMCEnabledFlag
 
     def setPlanetVertexEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -5914,7 +5914,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetVertexEnabledFlag = flag
+        self.planetVertexEnabledFlag = flag
         
     def getPlanetVertexEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -5925,7 +5925,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetVertexEnabledFlag
+        return self.planetVertexEnabledFlag
 
     def setPlanetEquatorialAscendantEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -5936,7 +5936,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetEquatorialAscendantEnabledFlag = flag
+        self.planetEquatorialAscendantEnabledFlag = flag
         
     def getPlanetEquatorialAscendantEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -5947,7 +5947,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetEquatorialAscendantEnabledFlag
+        return self.planetEquatorialAscendantEnabledFlag
 
     def setPlanetCoAscendant1EnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -5958,7 +5958,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetCoAscendant1EnabledFlag = flag
+        self.planetCoAscendant1EnabledFlag = flag
         
     def getPlanetCoAscendant1EnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -5969,7 +5969,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetCoAscendant1EnabledFlag
+        return self.planetCoAscendant1EnabledFlag
 
     def setPlanetCoAscendant2EnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -5980,7 +5980,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetCoAscendant2EnabledFlag = flag
+        self.planetCoAscendant2EnabledFlag = flag
         
     def getPlanetCoAscendant2EnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -5991,7 +5991,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetCoAscendant2EnabledFlag
+        return self.planetCoAscendant2EnabledFlag
 
     def setPlanetPolarAscendantEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6002,7 +6002,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetPolarAscendantEnabledFlag = flag
+        self.planetPolarAscendantEnabledFlag = flag
         
     def getPlanetPolarAscendantEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6013,7 +6013,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetPolarAscendantEnabledFlag
+        return self.planetPolarAscendantEnabledFlag
 
     def setPlanetHoraLagnaEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6024,7 +6024,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetHoraLagnaEnabledFlag = flag
+        self.planetHoraLagnaEnabledFlag = flag
         
     def getPlanetHoraLagnaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6035,7 +6035,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetHoraLagnaEnabledFlag
+        return self.planetHoraLagnaEnabledFlag
 
     def setPlanetGhatiLagnaEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6046,7 +6046,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetGhatiLagnaEnabledFlag = flag
+        self.planetGhatiLagnaEnabledFlag = flag
         
     def getPlanetGhatiLagnaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6057,7 +6057,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetGhatiLagnaEnabledFlag
+        return self.planetGhatiLagnaEnabledFlag
 
     def setPlanetMeanLunarApogeeEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6068,7 +6068,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetMeanLunarApogeeEnabledFlag = flag
+        self.planetMeanLunarApogeeEnabledFlag = flag
         
     def getPlanetMeanLunarApogeeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6079,7 +6079,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetMeanLunarApogeeEnabledFlag
+        return self.planetMeanLunarApogeeEnabledFlag
 
     def setPlanetOsculatingLunarApogeeEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6090,7 +6090,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetOsculatingLunarApogeeEnabledFlag = flag
+        self.planetOsculatingLunarApogeeEnabledFlag = flag
         
     def getPlanetOsculatingLunarApogeeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6101,7 +6101,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetOsculatingLunarApogeeEnabledFlag
+        return self.planetOsculatingLunarApogeeEnabledFlag
 
     def setPlanetInterpolatedLunarApogeeEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6112,7 +6112,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetInterpolatedLunarApogeeEnabledFlag = flag
+        self.planetInterpolatedLunarApogeeEnabledFlag = flag
         
     def getPlanetInterpolatedLunarApogeeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6123,7 +6123,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetInterpolatedLunarApogeeEnabledFlag
+        return self.planetInterpolatedLunarApogeeEnabledFlag
 
     def setPlanetInterpolatedLunarPerigeeEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6134,7 +6134,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetInterpolatedLunarPerigeeEnabledFlag = flag
+        self.planetInterpolatedLunarPerigeeEnabledFlag = flag
         
     def getPlanetInterpolatedLunarPerigeeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6145,7 +6145,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetInterpolatedLunarPerigeeEnabledFlag
+        return self.planetInterpolatedLunarPerigeeEnabledFlag
 
     def setPlanetSunEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6156,7 +6156,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetSunEnabledFlag = flag
+        self.planetSunEnabledFlag = flag
         
     def getPlanetSunEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6167,7 +6167,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetSunEnabledFlag
+        return self.planetSunEnabledFlag
 
     def setPlanetMoonEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6178,7 +6178,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetMoonEnabledFlag = flag
+        self.planetMoonEnabledFlag = flag
         
     def getPlanetMoonEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6189,7 +6189,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetMoonEnabledFlag
+        return self.planetMoonEnabledFlag
 
     def setPlanetMercuryEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6200,7 +6200,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetMercuryEnabledFlag = flag
+        self.planetMercuryEnabledFlag = flag
         
     def getPlanetMercuryEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6211,7 +6211,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetMercuryEnabledFlag
+        return self.planetMercuryEnabledFlag
 
     def setPlanetVenusEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6222,7 +6222,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetVenusEnabledFlag = flag
+        self.planetVenusEnabledFlag = flag
         
     def getPlanetVenusEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6233,7 +6233,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetVenusEnabledFlag
+        return self.planetVenusEnabledFlag
 
     def setPlanetEarthEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6244,7 +6244,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetEarthEnabledFlag = flag
+        self.planetEarthEnabledFlag = flag
         
     def getPlanetEarthEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6255,7 +6255,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetEarthEnabledFlag
+        return self.planetEarthEnabledFlag
 
     def setPlanetMarsEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6266,7 +6266,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetMarsEnabledFlag = flag
+        self.planetMarsEnabledFlag = flag
         
     def getPlanetMarsEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6277,7 +6277,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetMarsEnabledFlag
+        return self.planetMarsEnabledFlag
 
     def setPlanetJupiterEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6288,7 +6288,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetJupiterEnabledFlag = flag
+        self.planetJupiterEnabledFlag = flag
         
     def getPlanetJupiterEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6299,7 +6299,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetJupiterEnabledFlag
+        return self.planetJupiterEnabledFlag
 
     def setPlanetSaturnEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6310,7 +6310,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetSaturnEnabledFlag = flag
+        self.planetSaturnEnabledFlag = flag
         
     def getPlanetSaturnEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6321,7 +6321,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetSaturnEnabledFlag
+        return self.planetSaturnEnabledFlag
 
     def setPlanetUranusEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6332,7 +6332,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetUranusEnabledFlag = flag
+        self.planetUranusEnabledFlag = flag
         
     def getPlanetUranusEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6343,7 +6343,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetUranusEnabledFlag
+        return self.planetUranusEnabledFlag
 
     def setPlanetNeptuneEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6354,7 +6354,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetNeptuneEnabledFlag = flag
+        self.planetNeptuneEnabledFlag = flag
         
     def getPlanetNeptuneEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6365,7 +6365,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetNeptuneEnabledFlag
+        return self.planetNeptuneEnabledFlag
 
     def setPlanetPlutoEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6376,7 +6376,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetPlutoEnabledFlag = flag
+        self.planetPlutoEnabledFlag = flag
         
     def getPlanetPlutoEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6387,7 +6387,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetPlutoEnabledFlag
+        return self.planetPlutoEnabledFlag
 
     def setPlanetMeanNorthNodeEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6398,7 +6398,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetMeanNorthNodeEnabledFlag = flag
+        self.planetMeanNorthNodeEnabledFlag = flag
         
     def getPlanetMeanNorthNodeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6409,7 +6409,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetMeanNorthNodeEnabledFlag
+        return self.planetMeanNorthNodeEnabledFlag
 
     def setPlanetMeanSouthNodeEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6420,7 +6420,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetMeanSouthNodeEnabledFlag = flag
+        self.planetMeanSouthNodeEnabledFlag = flag
         
     def getPlanetMeanSouthNodeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6431,7 +6431,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetMeanSouthNodeEnabledFlag
+        return self.planetMeanSouthNodeEnabledFlag
 
     def setPlanetTrueNorthNodeEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6442,7 +6442,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetTrueNorthNodeEnabledFlag = flag
+        self.planetTrueNorthNodeEnabledFlag = flag
         
     def getPlanetTrueNorthNodeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6453,7 +6453,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetTrueNorthNodeEnabledFlag
+        return self.planetTrueNorthNodeEnabledFlag
 
     def setPlanetTrueSouthNodeEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6464,7 +6464,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetTrueSouthNodeEnabledFlag = flag
+        self.planetTrueSouthNodeEnabledFlag = flag
         
     def getPlanetTrueSouthNodeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6475,7 +6475,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetTrueSouthNodeEnabledFlag
+        return self.planetTrueSouthNodeEnabledFlag
 
     def setPlanetCeresEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6486,7 +6486,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetCeresEnabledFlag = flag
+        self.planetCeresEnabledFlag = flag
         
     def getPlanetCeresEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6497,7 +6497,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetCeresEnabledFlag
+        return self.planetCeresEnabledFlag
 
     def setPlanetPallasEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6508,7 +6508,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetPallasEnabledFlag = flag
+        self.planetPallasEnabledFlag = flag
         
     def getPlanetPallasEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6519,7 +6519,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetPallasEnabledFlag
+        return self.planetPallasEnabledFlag
 
     def setPlanetJunoEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6530,7 +6530,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetJunoEnabledFlag = flag
+        self.planetJunoEnabledFlag = flag
         
     def getPlanetJunoEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6541,7 +6541,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetJunoEnabledFlag
+        return self.planetJunoEnabledFlag
 
     def setPlanetVestaEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6552,7 +6552,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetVestaEnabledFlag = flag
+        self.planetVestaEnabledFlag = flag
         
     def getPlanetVestaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6563,7 +6563,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetVestaEnabledFlag
+        return self.planetVestaEnabledFlag
 
     def setPlanetIsisEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6574,7 +6574,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetIsisEnabledFlag = flag
+        self.planetIsisEnabledFlag = flag
         
     def getPlanetIsisEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6585,7 +6585,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetIsisEnabledFlag
+        return self.planetIsisEnabledFlag
 
     def setPlanetNibiruEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6596,7 +6596,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetNibiruEnabledFlag = flag
+        self.planetNibiruEnabledFlag = flag
         
     def getPlanetNibiruEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6607,7 +6607,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetNibiruEnabledFlag
+        return self.planetNibiruEnabledFlag
 
     def setPlanetChironEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6618,7 +6618,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetChironEnabledFlag = flag
+        self.planetChironEnabledFlag = flag
         
     def getPlanetChironEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6629,7 +6629,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetChironEnabledFlag
+        return self.planetChironEnabledFlag
 
     def setPlanetGulikaEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6640,7 +6640,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetGulikaEnabledFlag = flag
+        self.planetGulikaEnabledFlag = flag
         
     def getPlanetGulikaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6651,7 +6651,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetGulikaEnabledFlag
+        return self.planetGulikaEnabledFlag
 
     def setPlanetMandiEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6662,7 +6662,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetMandiEnabledFlag = flag
+        self.planetMandiEnabledFlag = flag
         
     def getPlanetMandiEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6673,7 +6673,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetMandiEnabledFlag
+        return self.planetMandiEnabledFlag
 
     def setPlanetMeanOfFiveEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6684,7 +6684,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetMeanOfFiveEnabledFlag = flag
+        self.planetMeanOfFiveEnabledFlag = flag
         
     def getPlanetMeanOfFiveEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6695,7 +6695,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetMeanOfFiveEnabledFlag
+        return self.planetMeanOfFiveEnabledFlag
 
     def setPlanetCycleOfEightEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6706,7 +6706,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetCycleOfEightEnabledFlag = flag
+        self.planetCycleOfEightEnabledFlag = flag
         
     def getPlanetCycleOfEightEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6717,7 +6717,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetCycleOfEightEnabledFlag
+        return self.planetCycleOfEightEnabledFlag
 
     def setPlanetAvgMaJuSaUrNePlEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6728,7 +6728,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetAvgMaJuSaUrNePlEnabledFlag = flag
+        self.planetAvgMaJuSaUrNePlEnabledFlag = flag
         
     def getPlanetAvgMaJuSaUrNePlEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6739,7 +6739,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetAvgMaJuSaUrNePlEnabledFlag
+        return self.planetAvgMaJuSaUrNePlEnabledFlag
 
     def setPlanetAvgJuSaUrNeEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6750,7 +6750,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetAvgJuSaUrNeEnabledFlag = flag
+        self.planetAvgJuSaUrNeEnabledFlag = flag
         
     def getPlanetAvgJuSaUrNeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6761,7 +6761,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetAvgJuSaUrNeEnabledFlag
+        return self.planetAvgJuSaUrNeEnabledFlag
 
     def setPlanetAvgJuSaEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6772,7 +6772,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetAvgJuSaEnabledFlag = flag
+        self.planetAvgJuSaEnabledFlag = flag
         
     def getPlanetAvgJuSaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6783,7 +6783,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetAvgJuSaEnabledFlag
+        return self.planetAvgJuSaEnabledFlag
 
     def setPlanetMeVeEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6794,7 +6794,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetMeVeEnabledFlag = flag
+        self.planetMeVeEnabledFlag = flag
         
     def getPlanetMeVeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6805,7 +6805,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetMeVeEnabledFlag
+        return self.planetMeVeEnabledFlag
 
     def setPlanetMeEaEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6816,7 +6816,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetMeEaEnabledFlag = flag
+        self.planetMeEaEnabledFlag = flag
         
     def getPlanetMeEaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6827,7 +6827,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetMeEaEnabledFlag
+        return self.planetMeEaEnabledFlag
 
     def setPlanetMeMaEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6838,7 +6838,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetMeMaEnabledFlag = flag
+        self.planetMeMaEnabledFlag = flag
         
     def getPlanetMeMaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6849,7 +6849,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetMeMaEnabledFlag
+        return self.planetMeMaEnabledFlag
 
     def setPlanetMeJuEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6860,7 +6860,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetMeJuEnabledFlag = flag
+        self.planetMeJuEnabledFlag = flag
         
     def getPlanetMeJuEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6871,7 +6871,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetMeJuEnabledFlag
+        return self.planetMeJuEnabledFlag
 
     def setPlanetMeSaEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6882,7 +6882,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetMeSaEnabledFlag = flag
+        self.planetMeSaEnabledFlag = flag
         
     def getPlanetMeSaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6893,7 +6893,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetMeSaEnabledFlag
+        return self.planetMeSaEnabledFlag
 
     def setPlanetMeUrEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6904,7 +6904,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetMeUrEnabledFlag = flag
+        self.planetMeUrEnabledFlag = flag
         
     def getPlanetMeUrEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6915,7 +6915,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetMeUrEnabledFlag
+        return self.planetMeUrEnabledFlag
 
     def setPlanetVeEaEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6926,7 +6926,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetVeEaEnabledFlag = flag
+        self.planetVeEaEnabledFlag = flag
         
     def getPlanetVeEaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6937,7 +6937,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetVeEaEnabledFlag
+        return self.planetVeEaEnabledFlag
 
     def setPlanetVeMaEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6948,7 +6948,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetVeMaEnabledFlag = flag
+        self.planetVeMaEnabledFlag = flag
         
     def getPlanetVeMaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6959,7 +6959,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetVeMaEnabledFlag
+        return self.planetVeMaEnabledFlag
 
     def setPlanetVeJuEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6970,7 +6970,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetVeJuEnabledFlag = flag
+        self.planetVeJuEnabledFlag = flag
         
     def getPlanetVeJuEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -6981,7 +6981,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetVeJuEnabledFlag
+        return self.planetVeJuEnabledFlag
 
     def setPlanetVeSaEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -6992,7 +6992,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetVeSaEnabledFlag = flag
+        self.planetVeSaEnabledFlag = flag
         
     def getPlanetVeSaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -7003,7 +7003,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetVeSaEnabledFlag
+        return self.planetVeSaEnabledFlag
 
     def setPlanetVeUrEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -7014,7 +7014,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetVeUrEnabledFlag = flag
+        self.planetVeUrEnabledFlag = flag
         
     def getPlanetVeUrEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -7025,7 +7025,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetVeUrEnabledFlag
+        return self.planetVeUrEnabledFlag
 
     def setPlanetEaMaEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -7036,7 +7036,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetEaMaEnabledFlag = flag
+        self.planetEaMaEnabledFlag = flag
         
     def getPlanetEaMaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -7047,7 +7047,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetEaMaEnabledFlag
+        return self.planetEaMaEnabledFlag
 
     def setPlanetEaJuEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -7058,7 +7058,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetEaJuEnabledFlag = flag
+        self.planetEaJuEnabledFlag = flag
         
     def getPlanetEaJuEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -7069,7 +7069,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetEaJuEnabledFlag
+        return self.planetEaJuEnabledFlag
 
     def setPlanetEaSaEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -7080,7 +7080,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetEaSaEnabledFlag = flag
+        self.planetEaSaEnabledFlag = flag
         
     def getPlanetEaSaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -7091,7 +7091,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetEaSaEnabledFlag
+        return self.planetEaSaEnabledFlag
 
     def setPlanetEaUrEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -7102,7 +7102,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetEaUrEnabledFlag = flag
+        self.planetEaUrEnabledFlag = flag
         
     def getPlanetEaUrEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -7113,7 +7113,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetEaUrEnabledFlag
+        return self.planetEaUrEnabledFlag
 
     def setPlanetMaJuEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -7124,7 +7124,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetMaJuEnabledFlag = flag
+        self.planetMaJuEnabledFlag = flag
         
     def getPlanetMaJuEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -7135,7 +7135,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetMaJuEnabledFlag
+        return self.planetMaJuEnabledFlag
 
     def setPlanetMaSaEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -7146,7 +7146,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetMaSaEnabledFlag = flag
+        self.planetMaSaEnabledFlag = flag
         
     def getPlanetMaSaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -7157,7 +7157,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetMaSaEnabledFlag
+        return self.planetMaSaEnabledFlag
 
     def setPlanetMaUrEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -7168,7 +7168,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetMaUrEnabledFlag = flag
+        self.planetMaUrEnabledFlag = flag
         
     def getPlanetMaUrEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -7179,7 +7179,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetMaUrEnabledFlag
+        return self.planetMaUrEnabledFlag
 
     def setPlanetJuSaEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -7190,7 +7190,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetJuSaEnabledFlag = flag
+        self.planetJuSaEnabledFlag = flag
         
     def getPlanetJuSaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -7201,7 +7201,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetJuSaEnabledFlag
+        return self.planetJuSaEnabledFlag
 
     def setPlanetJuUrEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -7212,7 +7212,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetJuUrEnabledFlag = flag
+        self.planetJuUrEnabledFlag = flag
         
     def getPlanetJuUrEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -7223,7 +7223,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetJuUrEnabledFlag
+        return self.planetJuUrEnabledFlag
 
     def setPlanetSaUrEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -7234,7 +7234,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetSaUrEnabledFlag = flag
+        self.planetSaUrEnabledFlag = flag
         
     def getPlanetSaUrEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -7245,7 +7245,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetSaUrEnabledFlag
+        return self.planetSaUrEnabledFlag
 
     def setPlanetMeVeEaEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -7256,7 +7256,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetMeVeEaEnabledFlag = flag
+        self.planetMeVeEaEnabledFlag = flag
         
     def getPlanetMeVeEaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -7267,7 +7267,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetMeVeEaEnabledFlag
+        return self.planetMeVeEaEnabledFlag
 
     def setPlanetMeVeMaEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -7278,7 +7278,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetMeVeMaEnabledFlag = flag
+        self.planetMeVeMaEnabledFlag = flag
         
     def getPlanetMeVeMaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -7289,7 +7289,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetMeVeMaEnabledFlag
+        return self.planetMeVeMaEnabledFlag
 
     def setPlanetVeEaMeEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -7300,7 +7300,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetVeEaMeEnabledFlag = flag
+        self.planetVeEaMeEnabledFlag = flag
         
     def getPlanetVeEaMeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -7311,7 +7311,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetVeEaMeEnabledFlag
+        return self.planetVeEaMeEnabledFlag
 
     def setPlanetVeEaMaEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -7322,7 +7322,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetVeEaMaEnabledFlag = flag
+        self.planetVeEaMaEnabledFlag = flag
         
     def getPlanetVeEaMaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -7333,7 +7333,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetVeEaMaEnabledFlag
+        return self.planetVeEaMaEnabledFlag
 
     def setPlanetVeMaMeEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -7344,7 +7344,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetVeMaMeEnabledFlag = flag
+        self.planetVeMaMeEnabledFlag = flag
         
     def getPlanetVeMaMeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -7355,7 +7355,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetVeMaMeEnabledFlag
+        return self.planetVeMaMeEnabledFlag
 
     def setPlanetVeMaEaEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -7366,7 +7366,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetVeMaEaEnabledFlag = flag
+        self.planetVeMaEaEnabledFlag = flag
         
     def getPlanetVeMaEaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -7377,7 +7377,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetVeMaEaEnabledFlag
+        return self.planetVeMaEaEnabledFlag
 
     def setPlanetEaMaMeEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -7388,7 +7388,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetEaMaMeEnabledFlag = flag
+        self.planetEaMaMeEnabledFlag = flag
         
     def getPlanetEaMaMeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -7399,7 +7399,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetEaMaMeEnabledFlag
+        return self.planetEaMaMeEnabledFlag
 
     def setPlanetEaMaVeEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -7410,7 +7410,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetEaMaVeEnabledFlag = flag
+        self.planetEaMaVeEnabledFlag = flag
         
     def getPlanetEaMaVeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -7421,7 +7421,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetEaMaVeEnabledFlag
+        return self.planetEaMaVeEnabledFlag
 
     def setPlanetMaJuMeEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -7432,7 +7432,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetMaJuMeEnabledFlag = flag
+        self.planetMaJuMeEnabledFlag = flag
         
     def getPlanetMaJuMeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -7443,7 +7443,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetMaJuMeEnabledFlag
+        return self.planetMaJuMeEnabledFlag
 
     def setPlanetMaJuVeEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -7454,7 +7454,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetMaJuVeEnabledFlag = flag
+        self.planetMaJuVeEnabledFlag = flag
         
     def getPlanetMaJuVeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -7465,7 +7465,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetMaJuVeEnabledFlag
+        return self.planetMaJuVeEnabledFlag
 
     def setPlanetMaJuEaEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -7476,7 +7476,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetMaJuEaEnabledFlag = flag
+        self.planetMaJuEaEnabledFlag = flag
         
     def getPlanetMaJuEaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -7487,7 +7487,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetMaJuEaEnabledFlag
+        return self.planetMaJuEaEnabledFlag
 
     def setPlanetEaJuMeEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -7498,7 +7498,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetEaJuMeEnabledFlag = flag
+        self.planetEaJuMeEnabledFlag = flag
         
     def getPlanetEaJuMeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -7509,7 +7509,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetEaJuMeEnabledFlag
+        return self.planetEaJuMeEnabledFlag
 
     def setPlanetEaJuVeEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -7520,7 +7520,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetEaJuVeEnabledFlag = flag
+        self.planetEaJuVeEnabledFlag = flag
         
     def getPlanetEaJuVeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -7531,7 +7531,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetEaJuVeEnabledFlag
+        return self.planetEaJuVeEnabledFlag
 
     def setPlanetEaSaMeEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -7542,7 +7542,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetEaSaMeEnabledFlag = flag
+        self.planetEaSaMeEnabledFlag = flag
         
     def getPlanetEaSaMeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -7553,7 +7553,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetEaSaMeEnabledFlag
+        return self.planetEaSaMeEnabledFlag
 
     def setPlanetEaSaVeEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -7564,7 +7564,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetEaSaVeEnabledFlag = flag
+        self.planetEaSaVeEnabledFlag = flag
         
     def getPlanetEaSaVeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -7575,7 +7575,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetEaSaVeEnabledFlag
+        return self.planetEaSaVeEnabledFlag
 
     def setPlanetEaSaMaEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -7586,7 +7586,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        self.showPlanetEaSaMaEnabledFlag = flag
+        self.planetEaSaMaEnabledFlag = flag
         
     def getPlanetEaSaMaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
@@ -7597,7 +7597,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         flag - bool value for the enabled flag.
         """
 
-        return self.showPlanetEaSaMaEnabledFlag
+        return self.planetEaSaMaEnabledFlag
 
     def __str__(self):
         """Returns the string representation of this object."""
@@ -7635,6 +7635,969 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
             logging.getLogger(\
             "data_objects.PriceBarChartPlanetLongitudeMovementMeasurementArtifact")
 
+        # Update the object to the most current version if it is not current.
+        if self.classVersion < 2:
+            self.log.info("Detected an old class version of " + \
+                          "PriceBarChartPlanetLongitudeMovementMeasurementArtifact (version {}).  ".\
+                          format(self.classVersion))
+            
+            # Version 2 fixed the mis-named variables for enabling
+            # various planets.  These incorrect names had "show" in
+            # the front, and were not declared in the initialization
+            # function.
+            # 
+            # Version 2 also adds the following member variables:
+            #
+            # self.planetMeVeEnabledFlag
+            # self.planetMeEaEnabledFlag
+            # self.planetMeMaEnabledFlag
+            # self.planetMeJuEnabledFlag
+            # self.planetMeSaEnabledFlag
+            # self.planetMeUrEnabledFlag
+            # self.planetVeEaEnabledFlag
+            # self.planetVeMaEnabledFlag
+            # self.planetVeJuEnabledFlag
+            # self.planetVeSaEnabledFlag
+            # self.planetVeUrEnabledFlag
+            # self.planetEaMaEnabledFlag
+            # self.planetEaJuEnabledFlag
+            # self.planetEaSaEnabledFlag
+            # self.planetEaUrEnabledFlag
+            # self.planetMaJuEnabledFlag
+            # self.planetMaSaEnabledFlag
+            # self.planetMaUrEnabledFlag
+            # self.planetJuSaEnabledFlag
+            # self.planetJuUrEnabledFlag
+            # self.planetSaUrEnabledFlag
+            # self.planetMeVeEaEnabledFlag
+            # self.planetMeVeMaEnabledFlag
+            # self.planetVeEaMeEnabledFlag
+            # self.planetVeEaMaEnabledFlag
+            # self.planetVeMaMeEnabledFlag
+            # self.planetVeMaEaEnabledFlag
+            # self.planetEaMaMeEnabledFlag
+            # self.planetEaMaVeEnabledFlag
+            # self.planetMaJuMeEnabledFlag
+            # self.planetMaJuVeEnabledFlag
+            # self.planetMaJuEaEnabledFlag
+            # self.planetEaJuMeEnabledFlag
+            # self.planetEaJuVeEnabledFlag
+            # self.planetEaSaMeEnabledFlag
+            # self.planetEaSaVeEnabledFlag
+            # self.planetEaSaMaEnabledFlag
+            #
+
+            
+            # Fix variables to use more correct names.
+
+            try:
+                # Copy over the value to the new variable.
+                self.measurementUnitDegreesEnabled = \
+                    self.showMeasurementUnitDegreesEnabled
+                del(self.showMeasurementUnitDegreesEnabled)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.measurementUnitDegreesEnabled = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabled
+            
+            try:
+                # Copy over the value to the new variable.
+                self.measurementUnitCirclesEnabled = \
+                    self.showMeasurementUnitCirclesEnabled
+                del(self.showMeasurementUnitCirclesEnabled)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.measurementUnitCirclesEnabled = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabled
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetH1EnabledFlag = \
+                    self.showPlanetH1EnabledFlag
+                del(self.showPlanetH1EnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetH1EnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetH2EnabledFlag = \
+                    self.showPlanetH2EnabledFlag
+                del(self.showPlanetH2EnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetH2EnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetH3EnabledFlag = \
+                    self.showPlanetH3EnabledFlag
+                del(self.showPlanetH3EnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetH3EnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetH4EnabledFlag = \
+                    self.showPlanetH4EnabledFlag
+                del(self.showPlanetH4EnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetH4EnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetH5EnabledFlag = \
+                    self.showPlanetH5EnabledFlag
+                del(self.showPlanetH5EnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetH5EnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetH6EnabledFlag = \
+                    self.showPlanetH6EnabledFlag
+                del(self.showPlanetH6EnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetH6EnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetH7EnabledFlag = \
+                    self.showPlanetH7EnabledFlag
+                del(self.showPlanetH7EnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetH7EnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetH8EnabledFlag = \
+                    self.showPlanetH8EnabledFlag
+                del(self.showPlanetH8EnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetH8EnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetH9EnabledFlag = \
+                    self.showPlanetH9EnabledFlag
+                del(self.showPlanetH9EnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetH9EnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetH10EnabledFlag = \
+                    self.showPlanetH10EnabledFlag
+                del(self.showPlanetH10EnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetH10EnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetH11EnabledFlag = \
+                    self.showPlanetH11EnabledFlag
+                del(self.showPlanetH11EnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetH11EnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetH12EnabledFlag = \
+                    self.showPlanetH12EnabledFlag
+                del(self.showPlanetH12EnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetH12EnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetARMCEnabledFlag = \
+                    self.showPlanetARMCEnabledFlag
+                del(self.showPlanetARMCEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetARMCEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetVertexEnabledFlag = \
+                    self.showPlanetVertexEnabledFlag
+                del(self.showPlanetVertexEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetVertexEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetEquatorialAscendantEnabledFlag = \
+                    self.showPlanetEquatorialAscendantEnabledFlag
+                del(self.showPlanetEquatorialAscendantEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetEquatorialAscendantEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetCoAscendant1EnabledFlag = \
+                    self.showPlanetCoAscendant1EnabledFlag
+                del(self.showPlanetCoAscendant1EnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetCoAscendant1EnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetCoAscendant2EnabledFlag = \
+                    self.showPlanetCoAscendant2EnabledFlag
+                del(self.showPlanetCoAscendant2EnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetCoAscendant2EnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlag
+
+            try:
+                # Copy over the value to the new variable.
+                self.planetPolarAscendantEnabledFlag = \
+                    self.showPlanetPolarAscendantEnabledFlag
+                del(self.showPlanetPolarAscendantEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetPolarAscendantEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetHoraLagnaEnabledFlag = \
+                    self.showPlanetHoraLagnaEnabledFlag
+                del(self.showPlanetHoraLagnaEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetHoraLagnaEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetGhatiLagnaEnabledFlag = \
+                    self.showPlanetGhatiLagnaEnabledFlag
+                del(self.showPlanetGhatiLagnaEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetGhatiLagnaEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetMeanLunarApogeeEnabledFlag = \
+                    self.showPlanetMeanLunarApogeeEnabledFlag
+                del(self.showPlanetMeanLunarApogeeEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetMeanLunarApogeeEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetOsculatingLunarApogeeEnabledFlag = \
+                    self.showPlanetOsculatingLunarApogeeEnabledFlag
+                del(self.showPlanetOsculatingLunarApogeeEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetOsculatingLunarApogeeEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetInterpolatedLunarApogeeEnabledFlag = \
+                    self.showPlanetInterpolatedLunarApogeeEnabledFlag
+                del(self.showPlanetInterpolatedLunarApogeeEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetInterpolatedLunarApogeeEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetInterpolatedLunarPerigeeEnabledFlag = \
+                    self.showPlanetInterpolatedLunarPerigeeEnabledFlag
+                del(self.showPlanetInterpolatedLunarPerigeeEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetInterpolatedLunarPerigeeEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetSunEnabledFlag = \
+                    self.showPlanetSunEnabledFlag
+                del(self.showPlanetSunEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetSunEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetMoonEnabledFlag = \
+                    self.showPlanetMoonEnabledFlag
+                del(self.showPlanetMoonEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetMoonEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetMercuryEnabledFlag = \
+                    self.showPlanetMercuryEnabledFlag
+                del(self.showPlanetMercuryEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetMercuryEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetVenusEnabledFlag = \
+                    self.showPlanetVenusEnabledFlag
+                del(self.showPlanetVenusEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetVenusEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetEarthEnabledFlag = \
+                    self.showPlanetEarthEnabledFlag
+                del(self.showPlanetEarthEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetEarthEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetMarsEnabledFlag = \
+                    self.showPlanetMarsEnabledFlag
+                del(self.showPlanetMarsEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetMarsEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetJupiterEnabledFlag = \
+                    self.showPlanetJupiterEnabledFlag
+                del(self.showPlanetJupiterEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetJupiterEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetSaturnEnabledFlag = \
+                    self.showPlanetSaturnEnabledFlag
+                del(self.showPlanetSaturnEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetSaturnEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetUranusEnabledFlag = \
+                    self.showPlanetUranusEnabledFlag
+                del(self.showPlanetUranusEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetUranusEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetNeptuneEnabledFlag = \
+                    self.showPlanetNeptuneEnabledFlag
+                del(self.showPlanetNeptuneEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetNeptuneEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetPlutoEnabledFlag = \
+                    self.showPlanetPlutoEnabledFlag
+                del(self.showPlanetPlutoEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetPlutoEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetMeanNorthNodeEnabledFlag = \
+                    self.showPlanetMeanNorthNodeEnabledFlag
+                del(self.showPlanetMeanNorthNodeEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetMeanNorthNodeEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetMeanSouthNodeEnabledFlag = \
+                    self.showPlanetMeanSouthNodeEnabledFlag
+                del(self.showPlanetMeanSouthNodeEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetMeanSouthNodeEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetTrueNorthNodeEnabledFlag = \
+                    self.showPlanetTrueNorthNodeEnabledFlag
+                del(self.showPlanetTrueNorthNodeEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetTrueNorthNodeEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetTrueSouthNodeEnabledFlag = \
+                    self.showPlanetTrueSouthNodeEnabledFlag
+                del(self.showPlanetTrueSouthNodeEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetTrueSouthNodeEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetCeresEnabledFlag = \
+                    self.showPlanetCeresEnabledFlag
+                del(self.showPlanetCeresEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetCeresEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetPallasEnabledFlag = \
+                    self.showPlanetPallasEnabledFlag
+                del(self.showPlanetPallasEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetPallasEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetJunoEnabledFlag = \
+                    self.showPlanetJunoEnabledFlag
+                del(self.showPlanetJunoEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetJunoEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetVestaEnabledFlag = \
+                    self.showPlanetVestaEnabledFlag
+                del(self.showPlanetVestaEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetVestaEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetIsisEnabledFlag = \
+                    self.showPlanetIsisEnabledFlag
+                del(self.showPlanetIsisEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetIsisEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetNibiruEnabledFlag = \
+                    self.showPlanetNibiruEnabledFlag
+                del(self.showPlanetNibiruEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetNibiruEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetChironEnabledFlag = \
+                    self.showPlanetChironEnabledFlag
+                del(self.showPlanetChironEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetChironEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetGulikaEnabledFlag = \
+                    self.showPlanetGulikaEnabledFlag
+                del(self.showPlanetGulikaEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetGulikaEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetMandiEnabledFlag = \
+                    self.showPlanetMandiEnabledFlag
+                del(self.showPlanetMandiEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetMandiEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetMeanOfFiveEnabledFlag = \
+                    self.showPlanetMeanOfFiveEnabledFlag
+                del(self.showPlanetMeanOfFiveEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetMeanOfFiveEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetCycleOfEightEnabledFlag = \
+                    self.showPlanetCycleOfEightEnabledFlag
+                del(self.showPlanetCycleOfEightEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetCycleOfEightEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetAvgMaJuSaUrNePlEnabledFlag = \
+                    self.showPlanetAvgMaJuSaUrNePlEnabledFlag
+                del(self.showPlanetAvgMaJuSaUrNePlEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetAvgMaJuSaUrNePlEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetAvgJuSaUrNeEnabledFlag = \
+                    self.showPlanetAvgJuSaUrNeEnabledFlag
+                del(self.showPlanetAvgJuSaUrNeEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetAvgJuSaUrNeEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlag
+            
+            try:
+                # Copy over the value to the new variable.
+                self.planetAvgJuSaEnabledFlag = \
+                    self.showPlanetAvgJuSaEnabledFlag
+                del(self.showPlanetAvgJuSaEnabledFlag)
+            except AttributeError:
+                # Member variable doesn't exist or is not set yet.
+                # Use the default value.
+                self.planetAvgJuSaEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag
+            
+
+            # Handle variables that were added in this version.
+            try:
+                # See if the variables are set.
+                self.planetMeVeEnabledFlag
+                self.planetMeEaEnabledFlag
+                self.planetMeMaEnabledFlag
+                self.planetMeJuEnabledFlag
+                self.planetMeSaEnabledFlag
+                self.planetMeUrEnabledFlag
+                self.planetVeEaEnabledFlag
+                self.planetVeMaEnabledFlag
+                self.planetVeJuEnabledFlag
+                self.planetVeSaEnabledFlag
+                self.planetVeUrEnabledFlag
+                self.planetEaMaEnabledFlag
+                self.planetEaJuEnabledFlag
+                self.planetEaSaEnabledFlag
+                self.planetEaUrEnabledFlag
+                self.planetMaJuEnabledFlag
+                self.planetMaSaEnabledFlag
+                self.planetMaUrEnabledFlag
+                self.planetJuSaEnabledFlag
+                self.planetJuUrEnabledFlag
+                self.planetSaUrEnabledFlag
+                self.planetMeVeEaEnabledFlag
+                self.planetMeVeMaEnabledFlag
+                self.planetVeEaMeEnabledFlag
+                self.planetVeEaMaEnabledFlag
+                self.planetVeMaMeEnabledFlag
+                self.planetVeMaEaEnabledFlag
+                self.planetEaMaMeEnabledFlag
+                self.planetEaMaVeEnabledFlag
+                self.planetMaJuMeEnabledFlag
+                self.planetMaJuVeEnabledFlag
+                self.planetMaJuEaEnabledFlag
+                self.planetEaJuMeEnabledFlag
+                self.planetEaJuVeEnabledFlag
+                self.planetEaSaMeEnabledFlag
+                self.planetEaSaVeEnabledFlag
+                self.planetEaSaMaEnabledFlag
+                
+                # If it got here, then the fields are already set.
+                self.log.warn("Hmm, strange.  Version {} of this ".\
+                              format(self.classVersion) + \
+                              "class shouldn't have these fields.")
+                
+            except AttributeError:
+                # Variables were not set.  Set them to the default
+                # values.
+                
+                self.planetMeVeEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlag
+                
+                self.planetMeEaEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeEaEnabledFlag
+                
+                self.planetMeMaEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeMaEnabledFlag
+                
+                self.planetMeJuEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeJuEnabledFlag
+                
+                self.planetMeSaEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeSaEnabledFlag
+                
+                self.planetMeUrEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeUrEnabledFlag
+                
+                self.planetVeEaEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaEnabledFlag
+                
+                self.planetVeMaEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEnabledFlag
+                
+                self.planetVeJuEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeJuEnabledFlag
+                
+                self.planetVeSaEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeSaEnabledFlag
+                
+                self.planetVeUrEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeUrEnabledFlag
+                
+                self.planetEaMaEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaEnabledFlag
+                
+                self.planetEaJuEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaJuEnabledFlag
+                
+                self.planetEaSaEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaEnabledFlag
+                
+                self.planetEaUrEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaUrEnabledFlag
+                
+                self.planetMaJuEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEnabledFlag
+                
+                self.planetMaSaEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaSaEnabledFlag
+                
+                self.planetMaUrEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaUrEnabledFlag
+                
+                self.planetJuSaEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJuSaEnabledFlag
+                
+                self.planetJuUrEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJuUrEnabledFlag
+                
+                self.planetSaUrEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSaUrEnabledFlag
+                
+                self.planetMeVeEaEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEaEnabledFlag
+                
+                self.planetMeVeMaEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeMaEnabledFlag
+                
+                self.planetVeEaMeEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMeEnabledFlag
+                
+                self.planetVeEaMaEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMaEnabledFlag
+                
+                self.planetVeMaMeEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeMaMeEnabledFlag
+                
+                self.planetVeMaEaEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEaEnabledFlag
+                
+                self.planetEaMaMeEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaMeEnabledFlag
+                
+                self.planetEaMaVeEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaVeEnabledFlag
+                
+                self.planetMaJuMeEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuMeEnabledFlag
+                
+                self.planetMaJuVeEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuVeEnabledFlag
+                
+                self.planetMaJuEaEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEaEnabledFlag
+                
+                self.planetEaJuMeEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaJuMeEnabledFlag
+                
+                self.planetEaJuVeEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaJuVeEnabledFlag
+                
+                self.planetEaSaMeEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMeEnabledFlag
+                
+                self.planetEaSaVeEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaVeEnabledFlag
+                
+                self.planetEaSaMaEnabledFlag = \
+                    PriceBarChartSettings.\
+                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMaEnabledFlag
+                
+                self.log.debug("Added fields " + \
+                               "'self.planetMeVeEnabledFlag', " + \
+                               "'self.planetMeEaEnabledFlag', " + \
+                               "'self.planetMeMaEnabledFlag', " + \
+                               "'self.planetMeJuEnabledFlag', " + \
+                               "'self.planetMeSaEnabledFlag', " + \
+                               "'self.planetMeUrEnabledFlag', " + \
+                               "'self.planetVeEaEnabledFlag', " + \
+                               "'self.planetVeMaEnabledFlag', " + \
+                               "'self.planetVeJuEnabledFlag', " + \
+                               "'self.planetVeSaEnabledFlag', " + \
+                               "'self.planetVeUrEnabledFlag', " + \
+                               "'self.planetEaMaEnabledFlag', " + \
+                               "'self.planetEaJuEnabledFlag', " + \
+                               "'self.planetEaSaEnabledFlag', " + \
+                               "'self.planetEaUrEnabledFlag', " + \
+                               "'self.planetMaJuEnabledFlag', " + \
+                               "'self.planetMaSaEnabledFlag', " + \
+                               "'self.planetMaUrEnabledFlag', " + \
+                               "'self.planetJuSaEnabledFlag', " + \
+                               "'self.planetJuUrEnabledFlag', " + \
+                               "'self.planetSaUrEnabledFlag', " + \
+                               "'self.planetMeVeEaEnabledFlag', " + \
+                               "'self.planetMeVeMaEnabledFlag', " + \
+                               "'self.planetVeEaMeEnabledFlag', " + \
+                               "'self.planetVeEaMaEnabledFlag', " + \
+                               "'self.planetVeMaMeEnabledFlag', " + \
+                               "'self.planetVeMaEaEnabledFlag', " + \
+                               "'self.planetEaMaMeEnabledFlag', " + \
+                               "'self.planetEaMaVeEnabledFlag', " + \
+                               "'self.planetMaJuMeEnabledFlag', " + \
+                               "'self.planetMaJuVeEnabledFlag', " + \
+                               "'self.planetMaJuEaEnabledFlag', " + \
+                               "'self.planetEaJuMeEnabledFlag', " + \
+                               "'self.planetEaJuVeEnabledFlag', " + \
+                               "'self.planetEaSaMeEnabledFlag', " + \
+                               "'self.planetEaSaVeEnabledFlag', " + \
+                               "'self.planetEaSaMaEnabledFlag', " + \
+                               "to the loaded object.")
+
+            
+            # Update the class version.
+            prevClassVersion = self.classVersion
+            self.classVersion = 2
+                              
+            self.log.info("Object has been updated from " + \
+                          "version {} to version {}.".\
+                          format(prevClassVersion, self.classVersion))
+            
         # Log that we set the state of this object.
         self.log.debug("Set state of a " +
                        PriceBarChartPlanetLongitudeMovementMeasurementArtifact.__name__ +
@@ -7845,11 +8808,16 @@ class PriceBarChartTextArtifact(PriceBarChartArtifact):
                         PriceBarChartSettings.\
                         defaultTextGraphicsItemDefaultRotationAngle
 
-                    self.log.info("Added field 'textRotationAngle' " + \
-                                  "to the loaded TextGraphicsItem.")
+                    self.log.debug("Added field 'textRotationAngle' " + \
+                                  "to the loaded PriceBarChartTextArtifact.")
 
                 # Update the class version.
+                prevClassVersion = self.classVersion
                 self.classVersion = 2
+                
+                self.log.info("Object has been updated from " + \
+                              "version {} to version {}.".\
+                              format(prevClassVersion, self.classVersion))
                 
         # Log that we set the state of this object.
         self.log.debug("Set state of a " +
@@ -17378,7 +18346,7 @@ class PriceBarChartSettings:
 
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
-        self.classVersion = 4
+        self.classVersion = 5
 
         # List of scalings used in the PriceBarChartGraphicsView.  
         # This is list of PriceBarChartScaling objects.
@@ -19244,8 +20212,13 @@ class PriceBarChartSettings:
                                    "to the loaded PriceBarChartSettings.")
                     
                 # Update the class version.
+                prevClassVersion = self.classVersion
                 self.classVersion = 2
         
+                self.log.info("Object has been updated from " + \
+                              "version {} to version {}.".\
+                              format(prevClassVersion, self.classVersion))
+                
             if self.classVersion == 2:
                 # Version 3 added the following member variables:
                 #
@@ -19299,8 +20272,13 @@ class PriceBarChartSettings:
                                    "to the loaded PriceBarChartSettings.")
                     
                 # Update the class version.
+                prevClassVersion = self.classVersion
                 self.classVersion = 3
         
+                self.log.info("Object has been updated from " + \
+                              "version {} to version {}.".\
+                              format(prevClassVersion, self.classVersion))
+                
             if self.classVersion == 3:
                 # Version 4 added the following member variables:
                 #
@@ -19931,8 +20909,13 @@ class PriceBarChartSettings:
                         "to the loaded PriceBarChartSettings.")
                     
                 # Update the class version.
+                prevClassVersion = self.classVersion
                 self.classVersion = 4
         
+                self.log.info("Object has been updated from " + \
+                              "version {} to version {}.".\
+                              format(prevClassVersion, self.classVersion))
+                
             if self.classVersion == 4:
                 # Version 5 added the following member variables:
                 #
@@ -20031,7 +21014,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20042,7 +21025,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeEaEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMeEaEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20053,7 +21036,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeMaEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMeMaEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20064,7 +21047,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeJuEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMeJuEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20075,7 +21058,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeSaEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMeSaEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20086,7 +21069,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeUrEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMeUrEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20097,7 +21080,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20108,7 +21091,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20119,7 +21102,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeJuEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetVeJuEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20130,7 +21113,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeSaEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetVeSaEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20141,7 +21124,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeUrEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetVeUrEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20152,7 +21135,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20163,7 +21146,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaJuEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetEaJuEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20174,7 +21157,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20185,7 +21168,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaUrEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetEaUrEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20196,7 +21179,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20207,7 +21190,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaSaEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMaSaEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20218,7 +21201,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaUrEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMaUrEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20229,7 +21212,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJuSaEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetJuSaEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20240,7 +21223,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJuUrEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetJuUrEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20251,7 +21234,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSaUrEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetSaUrEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20262,7 +21245,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEaEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEaEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20273,7 +21256,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeMaEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeMaEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20284,7 +21267,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMeEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMeEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20295,7 +21278,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMaEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMaEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20306,7 +21289,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeMaMeEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetVeMaMeEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20317,7 +21300,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEaEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEaEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20328,7 +21311,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaMeEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaMeEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20339,7 +21322,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaVeEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaVeEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20350,7 +21333,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuMeEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuMeEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20361,7 +21344,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuVeEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuVeEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20372,7 +21355,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEaEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEaEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20383,7 +21366,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaJuMeEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetEaJuMeEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20394,7 +21377,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaJuVeEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetEaJuVeEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20405,7 +21388,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMeEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMeEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20416,7 +21399,7 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaVeEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaVeEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
@@ -20427,13 +21410,18 @@ class PriceBarChartSettings:
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMaEnabledFlag
                     
                     self.log.debug(\
-                        "Added fields " + \
+                        "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMaEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
                 # Update the class version.
+                prevClassVersion = self.classVersion
                 self.classVersion = 5
         
+                self.log.info("Object has been updated from " + \
+                              "version {} to version {}.".\
+                              format(prevClassVersion, self.classVersion))
+                
         # Log that we set the state of this object.
         self.log.debug("Set state of a " + PriceBarChartSettings.__name__ +
                        " object of version {}".format(self.classVersion))
