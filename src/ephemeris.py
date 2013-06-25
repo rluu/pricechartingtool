@@ -637,6 +637,26 @@ class Ephemeris:
 
 
     @staticmethod
+    def __toNormalizedAngle(angleDeg):
+        """Normalizes the given angle to a value in the range [0, 360).
+
+        Arguments:
+        angleDeg - float value in degrees of an angle to normalize.
+
+        Returns:
+        float value holding the equivalent angle, but in the range [0, 360).
+        """
+
+        a = float(angleDeg)
+        
+        while a < 0.0:
+            a += 360.0
+        while a >= 360.0:
+            a -= 360.0
+
+        return a
+    
+    @staticmethod
     def getPlanetIdForName(planetName):
         """Returns the planet ID for the given planet name.  This
         planet ID is the is the int that is used in the Swiss
@@ -938,7 +958,7 @@ class Ephemeris:
                 # (Note: The number chosen has no meaning.
                 # I couldn't use -1, because -1 stands for SE_ECL_NUT.
                 # See documentation of the Swiss Ephemeris, in
-                # file: pyswisseph-1.76.00-0/doc/swephprg.htm)
+                # file: pyswisseph-1.77.00-0/doc/swephprg.htm)
                 #
                 rv.id = -9999
                 
@@ -1306,6 +1326,10 @@ class Ephemeris:
         In the created PlanetaryInfo object, the 'id' field will be
         set to an invalid ID.
 
+        Resulting longitude values are normalized after each step of
+        the combining.  This way the longitudes are always in the
+        range [0, 360).
+
         Arguments:
         planetName     - Name of the new PlanetaryInfo to create.
         planetaryInfos - list of PlanetaryInfo objects that will be
@@ -1340,7 +1364,7 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.warn("Passed a list ONE PlanetaryInfo to " + \
                                functName + "()")
-
+            
             # Get the first PlanetaryInfo in the list and make a deep copy.
             rv = copy.deepcopy(p)
             
@@ -1352,12 +1376,12 @@ class Ephemeris:
             # (Note: The number chosen has no meaning.
             # I couldn't use -1, because -1 stands for SE_ECL_NUT.
             # See documentation of the Swiss Ephemeris, in
-            # file: pyswisseph-1.76.00-0/doc/swephprg.htm)
+            # file: pyswisseph-1.77.00-0/doc/swephprg.htm)
             #
             rv.id = -9999
-
+            
             return rv
-
+        
         # At this point we know there is at least 2 PlanetaryInfos in
         # the list from which to create a combination PlanetaryInfo.
             
@@ -1386,7 +1410,7 @@ class Ephemeris:
                 # (Note: The number chosen has no meaning.
                 # I couldn't use -1, because -1 stands for SE_ECL_NUT.
                 # See documentation of the Swiss Ephemeris, in
-                # file: pyswisseph-1.76.00-0/doc/swephprg.htm)
+                # file: pyswisseph-1.77.00-0/doc/swephprg.htm)
                 #
                 currCombinedPI.id = -9999
                 
@@ -1397,7 +1421,7 @@ class Ephemeris:
                 # Start with the current PlanetaryInfo and then modify
                 # that as we go.
                 newCombinedPI = copy.deepcopy(currCombinedPI)
-
+                
                 
                 p = planetaryInfos[i]
                 
@@ -1732,6 +1756,32 @@ class Ephemeris:
                     p.heliocentric['sidereal']['dZ'] - \
                     currCombinedPI.heliocentric['sidereal']['dZ']
 
+
+                # Normalize the all the longitude values that resulted
+                # from the combining.  All longitude values will
+                # always be in the range [0, 360).
+                newCombinedPI.geocentric['tropical']['longitude'] = \
+                    Ephemeris.__toNormalizedAngle(\
+                    newCombinedPI.geocentric['tropical']['longitude'])
+                newCombinedPI.geocentric['sidereal']['longitude'] = \
+                    Ephemeris.__toNormalizedAngle(\
+                    newCombinedPI.geocentric['sidereal']['longitude'])
+                
+                newCombinedPI.topocentric['tropical']['longitude'] = \
+                    Ephemeris.__toNormalizedAngle(\
+                    newCombinedPI.topocentric['tropical']['longitude'])
+                newCombinedPI.topocentric['sidereal']['longitude'] = \
+                    Ephemeris.__toNormalizedAngle(\
+                    newCombinedPI.topocentric['sidereal']['longitude'])
+                
+                newCombinedPI.heliocentric['tropical']['longitude'] = \
+                    Ephemeris.__toNormalizedAngle(\
+                    newCombinedPI.heliocentric['tropical']['longitude'])
+                newCombinedPI.heliocentric['sidereal']['longitude'] = \
+                    Ephemeris.__toNormalizedAngle(\
+                    newCombinedPI.heliocentric['sidereal']['longitude'])
+                
+                
                 # Set the new combined PlanetaryInfo as the current one.
                 currCombinedPI = newCombinedPI
 
@@ -2368,7 +2418,7 @@ class Ephemeris:
         # (Note: The number chosen has no meaning.
         # I couldn't use -1, because -1 stands for SE_ECL_NUT.
         # See documentation of the Swiss Ephemeris, in
-        # file: pyswisseph-1.76.00-0/doc/swephprg.htm)
+        # file: pyswisseph-1.77.00-0/doc/swephprg.htm)
         #
         planetId = -9999
 
@@ -2868,7 +2918,7 @@ class Ephemeris:
         # (Note: The number chosen has no meaning.
         # I couldn't use -1, because -1 stands for SE_ECL_NUT.
         # See documentation of the Swiss Ephemeris, in
-        # file: pyswisseph-1.76.00-0/doc/swephprg.htm)
+        # file: pyswisseph-1.77.00-0/doc/swephprg.htm)
         #
         planetId = -9999
         

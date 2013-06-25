@@ -36,8 +36,8 @@ Dependencies to build/run this project are:
   - Python 3.1
   - Qt 4.7.4
   - PyQt 4.8.5
-  - pyswisseph 1.76
-      (Uses Swiss Ephemeris version 1.76.00, which was released Aug. 4, 2009)
+  - pyswisseph 1.77
+      (Uses Swiss Ephemeris version 1.77.00, which was released Jan. 26, 2010)
   - pytz 2010h 
       (Modified version of this release that is compatible with Python 3)
 
@@ -183,8 +183,8 @@ Steps for building on the Windows platform:
     Open up a MinGW/MSYS shell window and run the following.
 
       cd /home/rluu/programming/pricechartingtool/tps/pyswisseph
-      tar xjvf pyswisseph-1.76.00-0.tar.bz2
-      cd pyswisseph-1.76.00-0
+      tar xjvf pyswisseph-1.77.00-0.tar.bz2
+      cd pyswisseph-1.77.00-0
 
     Edit the Makefile and change the CC variable so that it uses gcc
     instead of cc.

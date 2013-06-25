@@ -8227,14 +8227,6 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
 
         # Size of a circle, in degrees.
         #
-        # TODO: Perhaps I should put this setting into QSettings?  I
-        # suppose this could be different from 360.0 degrees if I
-        # wanted to see how many 7-circle cycles (or other degree
-        # sizes, etc.) that there are instead of a traditional amount
-        # of degreees when we think of a circle.  If I do end up
-        # putting this in QSettings, it would have to be a setting
-        # ONLY for this QGraphicsItem though, and not for modifying
-        # what would otherwise be a constant!
         circleSizeInDegrees = 360.0
 
         # All references to longitude_speed need to
@@ -8252,7 +8244,8 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             # Get all the QGraphicsItems.
             graphicsItems = scene.items()
 
-            # Calculate the number of (calendar) days.
+            # Determine the start and end timestamps from the
+            # start and end points.
             startTimestamp = \
                 scene.sceneXPosToDatetime(self.startPointF.x())
             
@@ -8377,7 +8370,7 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                     # planet at the moment right after the
                     # longitude_speed polarity changes.
                     additionalPlanetaryInfos = []
-
+                    
                     prevLongitudeSpeed = None
                     
                     for i in range(len(planetData)):
@@ -8435,8 +8428,9 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                            "currErrorTd is: {}, ".\
                                            format(currErrorTd))
                                            
-                            # Timestamp at t2 is now within the time error
-                            # threshold of the polarity change.
+                            # Timestamp at t2 is now within the amount
+                            # of the time error threshold ('maxErrorTd')
+                            # following the polarity change.
                             # Append this value to the list.
                             p = Ephemeris.getPlanetaryInfo(planetName, t2)
                             additionalPlanetaryInfos.append(p)
@@ -8470,11 +8464,11 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                             
                         # Update prevLongitudeSpeed.
                         prevLongitudeSpeed = currLongitudeSpeed
-
+                        
                     # Sort all the extra PlanetaryInfo objects by timestamp.
                     additionalPlanetaryInfos = \
                         sorted(additionalPlanetaryInfos, key=lambda c: c.dt)
-
+                    
                     # Insert PlanetaryInfos from
                     # 'additionalPlanetaryInfos' into 'planetData' at
                     # the timestamp-ordered location.
