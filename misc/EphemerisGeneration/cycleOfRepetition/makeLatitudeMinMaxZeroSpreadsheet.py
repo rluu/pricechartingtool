@@ -11,12 +11,6 @@
 #   the timestamps and measurements are extracted and dates placed in
 #   an output CSV file.
 #
-#   WARNING: This script doesn't work for slow planets like Jupiter,
-#   Saturn, Uranus, and Neptune, etc.  I originally thought the reason
-#   was because I would need to add more data points to my algorithm,
-#   but there may be some other issue with it.  It seems to work
-#   correctly and reliably for G.D.Sun, G.L.Moon, H.L.Mercury, and
-#   H.L.Venus.
 #
 # Usage steps:
 #
@@ -59,8 +53,8 @@ import logging
 # This should be a CSV file similar to something output by the script
 # 'makeFilledMasterEphemeris_3p.py'.
 #
-ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleHuntingGeneric/master_3p_ephemeris_nyc_noon.csv"
-#ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/doc/notes/TTTA/ephemeris_studies/master_3p_ephemeris_nyc_noon.csv"
+#ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleHuntingGeneric/master_3p_ephemeris_nyc_noon.csv"
+ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/doc/notes/TTTA/ephemeris_studies/master_3p_ephemeris_nyc_noon.csv"
 
 # Timezone used in input ephemeris CSV file.
 defaultInputFileTimezone = pytz.timezone("US/Eastern")
@@ -82,15 +76,15 @@ ephemerisInputFileTimestampColumn = 0
 #
 ephemerisInputFileLatitudeColumns = []
 ephemerisInputFileLatitudeColumns.append(77)  # G.D.Sun
-#ephemerisInputFileLatitudeColumns.append(78)  # G.D.Moon
-#ephemerisInputFileLatitudeColumns.append(91)  # G.L.Moon
+ephemerisInputFileLatitudeColumns.append(78)  # G.D.Moon
+ephemerisInputFileLatitudeColumns.append(91)  # G.L.Moon
 ephemerisInputFileLatitudeColumns.append(102) # H.L.Mercury
 ephemerisInputFileLatitudeColumns.append(103) # H.L.Venus
-#ephemerisInputFileLatitudeColumns.append(105) # H.L.Mars
-#ephemerisInputFileLatitudeColumns.append(106) # H.L.Jupiter
-#ephemerisInputFileLatitudeColumns.append(107) # H.L.Saturn
-#ephemerisInputFileLatitudeColumns.append(108) # H.L.Uranus
-#ephemerisInputFileLatitudeColumns.append(109) # H.L.Neptune
+ephemerisInputFileLatitudeColumns.append(105) # H.L.Mars
+ephemerisInputFileLatitudeColumns.append(106) # H.L.Jupiter
+ephemerisInputFileLatitudeColumns.append(107) # H.L.Saturn
+ephemerisInputFileLatitudeColumns.append(108) # H.L.Uranus
+ephemerisInputFileLatitudeColumns.append(109) # H.L.Neptune
 
 
 # Ouptut CSV file.  
@@ -98,8 +92,8 @@ outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGenerat
 
 
 # Output format choice.  (Set to either 1 or 2).
-#outputFormat = 1
-outputFormat = 2
+outputFormat = 1
+#outputFormat = 2
 
 
 # For logging.
@@ -381,7 +375,15 @@ for column in ephemerisInputFileLatitudeColumns:
 
     headerRow = ["Timestamp", headerStrForPlanetMeasurement]
     resultsList.append(headerRow)
-    
+
+    # Variable holding whatever the previous and current movement was
+    # for planet declination/latitude.
+    #
+    # Possible values:
+    #    1 for planet moving from negative to positive declination/latitude.
+    #   -1 for planet moving from positive to negative declination/latitude.
+    prevDeclinationOrLatitudeMovement = None
+    currDeclinationOrLatitudeMovement = None
     
     for i in range(len(listOfEphemerisDataValues)):
 
@@ -406,6 +408,10 @@ for column in ephemerisInputFileLatitudeColumns:
                 lat1 = float(historicalValues[-1])
                 lat2 = float(historicalValues[-2])
                 lat3 = float(historicalValues[-3])
+                
+                log.debug("lat3 = {}, lat2 = {}, lat1 = {}".\
+                          format(lat3, lat2, lat1))
+                
             except ValueError as e:
                 errStr = "ValueError encountered while trying to convert " + \
                          "CSV values to float.  " + \
@@ -415,7 +421,50 @@ for column in ephemerisInputFileLatitudeColumns:
                 log.error(errStr)
                 shutdown(1)
 
+            # Determine if the planet is increasing or decreasing in
+            # declination/latitude.
+            if lat3 <= lat2 <= lat1 and not lat3 == lat2 == lat1:
+                # Increasing.
+                currDeclinationOrLatitudeMovement = 1
+            elif lat3 >= lat2 >= lat1 and not lat3 == lat2 == lat1:
+                # Decreasing.
+                currDeclinationOrLatitudeMovement = -1
+            elif lat3 == lat2 == lat1:
+                # Use whatever the previous determination was.  Note
+                # that if the previous movement was not determined yet
+                # (and thus is None), then the current value will be
+                # None also (and that's okay: It just means we haven't
+                # determined the direction of movement yet).
+                currDeclinationOrLatitudeMovement = \
+                    prevDeclinationOrLatitudeMovement
 
+            # See if we changed directions in declination/latitude.
+            if currDeclinationOrLatitudeMovement != None and \
+                prevDeclinationOrLatitudeMovement != None:
+
+                if currDeclinationOrLatitudeMovement == -1 and \
+                    prevDeclinationOrLatitudeMovement == 1:
+                    
+                    # We just went from increasing to decreasing.
+                    dataRow = [historicalDates[-2], historicalValues[-2]]
+                    resultsList.append(dataRow)
+                
+                    log.debug(headerStrForPlanetMeasurement + \
+                              " went from increasing to decreasing, at: " + \
+                              historicalDates[-2])
+
+                elif currDeclinationOrLatitudeMovement == 1 and \
+                    prevDeclinationOrLatitudeMovement == -1:
+
+                    # We just went from decreasing to increasing.
+                    dataRow = [historicalDates[-2], historicalValues[-2]]
+                    resultsList.append(dataRow)
+                    
+                    log.debug(headerStrForPlanetMeasurement + \
+                              " went from decreasing to increasing, at: " + \
+                              historicalDates[-2])
+
+            # See if we passed zero declination/latitude.
             if lat3 < 0 and lat2 < 0 and lat1 >= 0:
                 # Crossed from below 0 to above 0.
                 dataRow = [historicalDates[-1], historicalValues[-1]]
@@ -434,23 +483,6 @@ for column in ephemerisInputFileLatitudeColumns:
                           " crossed from above 0 to below 0, at: " + \
                           historicalDates[-1])
                 
-            elif lat3 <= lat2 and  lat1 < lat2:
-                # We just went from increasing to decreasing.
-                dataRow = [historicalDates[-2], historicalValues[-2]]
-                resultsList.append(dataRow)
-                
-                log.debug(headerStrForPlanetMeasurement + \
-                          " went from increasing to decreasing, at: " + \
-                          historicalDates[-2])
-
-            elif lat3 >= lat2 and  lat1 > lat2:
-                # We just went from decreasing to increasing.
-                dataRow = [historicalDates[-2], historicalValues[-2]]
-                resultsList.append(dataRow)
-                
-                log.debug(headerStrForPlanetMeasurement + \
-                          " went from decreasing to increasing, at: " + \
-                          historicalDates[-2])
                 
         # Update the historical values for the next iteration of the loop.
 
@@ -461,6 +493,9 @@ for column in ephemerisInputFileLatitudeColumns:
         historicalValues.pop(-3)
         historicalValues.append(None)
     
+        # Update the prevDeclinationOrLatitudeMovement for the next iteration.
+        prevDeclinationOrLatitudeMovement = currDeclinationOrLatitudeMovement
+
 
     # Completed results for this planet.
     resultsForAllPlanets.append(resultsList)
