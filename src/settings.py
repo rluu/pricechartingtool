@@ -9189,724 +9189,724 @@ class SettingsKeys():
     
 
     
-    # QSettings key for the display flag in HelioSidRadixChart for H1.
-    planetH1EnabledForHelioSidRadixChartKey = \
-        "ui/astrology/H1EnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for H1.
+    planetH1EnabledForHelioTropRadixChartKey = \
+        "ui/astrology/H1EnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for H1.
-    planetH1EnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for H1.
+    planetH1EnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for H2.
-    planetH2EnabledForHelioSidRadixChartKey = \
-        "ui/astrology/H2EnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for H2.
+    planetH2EnabledForHelioTropRadixChartKey = \
+        "ui/astrology/H2EnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for H2.
-    planetH2EnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for H2.
+    planetH2EnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for H3.
-    planetH3EnabledForHelioSidRadixChartKey = \
-        "ui/astrology/H3EnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for H3.
+    planetH3EnabledForHelioTropRadixChartKey = \
+        "ui/astrology/H3EnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for H3.
-    planetH3EnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for H3.
+    planetH3EnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for H4.
-    planetH4EnabledForHelioSidRadixChartKey = \
-        "ui/astrology/H4EnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for H4.
+    planetH4EnabledForHelioTropRadixChartKey = \
+        "ui/astrology/H4EnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for H4.
-    planetH4EnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for H4.
+    planetH4EnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for H5.
-    planetH5EnabledForHelioSidRadixChartKey = \
-        "ui/astrology/H5EnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for H5.
+    planetH5EnabledForHelioTropRadixChartKey = \
+        "ui/astrology/H5EnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for H5.
-    planetH5EnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for H5.
+    planetH5EnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for H6.
-    planetH6EnabledForHelioSidRadixChartKey = \
-        "ui/astrology/H6EnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for H6.
+    planetH6EnabledForHelioTropRadixChartKey = \
+        "ui/astrology/H6EnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for H6.
-    planetH6EnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for H6.
+    planetH6EnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for H7.
-    planetH7EnabledForHelioSidRadixChartKey = \
-        "ui/astrology/H7EnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for H7.
+    planetH7EnabledForHelioTropRadixChartKey = \
+        "ui/astrology/H7EnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for H7.
-    planetH7EnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for H7.
+    planetH7EnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for H8.
-    planetH8EnabledForHelioSidRadixChartKey = \
-        "ui/astrology/H8EnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for H8.
+    planetH8EnabledForHelioTropRadixChartKey = \
+        "ui/astrology/H8EnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for H8.
-    planetH8EnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for H8.
+    planetH8EnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for H9.
-    planetH9EnabledForHelioSidRadixChartKey = \
-        "ui/astrology/H9EnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for H9.
+    planetH9EnabledForHelioTropRadixChartKey = \
+        "ui/astrology/H9EnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for H9.
-    planetH9EnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for H9.
+    planetH9EnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for H10.
-    planetH10EnabledForHelioSidRadixChartKey = \
-        "ui/astrology/H10EnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for H10.
+    planetH10EnabledForHelioTropRadixChartKey = \
+        "ui/astrology/H10EnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for H10.
-    planetH10EnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for H10.
+    planetH10EnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for H11.
-    planetH11EnabledForHelioSidRadixChartKey = \
-        "ui/astrology/H11EnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for H11.
+    planetH11EnabledForHelioTropRadixChartKey = \
+        "ui/astrology/H11EnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for H11.
-    planetH11EnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for H11.
+    planetH11EnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for H12.
-    planetH12EnabledForHelioSidRadixChartKey = \
-        "ui/astrology/H12EnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for H12.
+    planetH12EnabledForHelioTropRadixChartKey = \
+        "ui/astrology/H12EnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for H12.
-    planetH12EnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for H12.
+    planetH12EnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for ARMC.
-    planetARMCEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/ARMCEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for ARMC.
+    planetARMCEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/ARMCEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for ARMC.
-    planetARMCEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for ARMC.
+    planetARMCEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for Vertex.
-    planetVertexEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/VertexEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for Vertex.
+    planetVertexEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/VertexEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for Vertex.
-    planetVertexEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for Vertex.
+    planetVertexEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for EquatorialAscendant.
-    planetEquatorialAscendantEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/EquatorialAscendantEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for EquatorialAscendant.
+    planetEquatorialAscendantEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/EquatorialAscendantEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for EquatorialAscendant.
-    planetEquatorialAscendantEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for EquatorialAscendant.
+    planetEquatorialAscendantEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for CoAscendant1.
-    planetCoAscendant1EnabledForHelioSidRadixChartKey = \
-        "ui/astrology/CoAscendant1EnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for CoAscendant1.
+    planetCoAscendant1EnabledForHelioTropRadixChartKey = \
+        "ui/astrology/CoAscendant1EnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for CoAscendant1.
-    planetCoAscendant1EnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for CoAscendant1.
+    planetCoAscendant1EnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for CoAscendant2.
-    planetCoAscendant2EnabledForHelioSidRadixChartKey = \
-        "ui/astrology/CoAscendant2EnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for CoAscendant2.
+    planetCoAscendant2EnabledForHelioTropRadixChartKey = \
+        "ui/astrology/CoAscendant2EnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for CoAscendant2.
-    planetCoAscendant2EnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for CoAscendant2.
+    planetCoAscendant2EnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for PolarAscendant.
-    planetPolarAscendantEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/PolarAscendantEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for PolarAscendant.
+    planetPolarAscendantEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/PolarAscendantEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for PolarAscendant.
-    planetPolarAscendantEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for PolarAscendant.
+    planetPolarAscendantEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for HoraLagna.
-    planetHoraLagnaEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/HoraLagnaEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for HoraLagna.
+    planetHoraLagnaEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/HoraLagnaEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for HoraLagna.
-    planetHoraLagnaEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for HoraLagna.
+    planetHoraLagnaEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for GhatiLagna.
-    planetGhatiLagnaEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/GhatiLagnaEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for GhatiLagna.
+    planetGhatiLagnaEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/GhatiLagnaEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for GhatiLagna.
-    planetGhatiLagnaEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for GhatiLagna.
+    planetGhatiLagnaEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for MeanLunarApogee.
-    planetMeanLunarApogeeEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/MeanLunarApogeeEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for MeanLunarApogee.
+    planetMeanLunarApogeeEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/MeanLunarApogeeEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for MeanLunarApogee.
-    planetMeanLunarApogeeEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for MeanLunarApogee.
+    planetMeanLunarApogeeEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for OsculatingLunarApogee.
-    planetOsculatingLunarApogeeEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/OsculatingLunarApogeeEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for OsculatingLunarApogee.
+    planetOsculatingLunarApogeeEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/OsculatingLunarApogeeEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for OsculatingLunarApogee.
-    planetOsculatingLunarApogeeEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for OsculatingLunarApogee.
+    planetOsculatingLunarApogeeEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for InterpolatedLunarApogee.
-    planetInterpolatedLunarApogeeEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/InterpolatedLunarApogeeEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for InterpolatedLunarApogee.
+    planetInterpolatedLunarApogeeEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/InterpolatedLunarApogeeEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for InterpolatedLunarApogee.
-    planetInterpolatedLunarApogeeEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for InterpolatedLunarApogee.
+    planetInterpolatedLunarApogeeEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for InterpolatedLunarPerigee.
-    planetInterpolatedLunarPerigeeEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/InterpolatedLunarPerigeeEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for InterpolatedLunarPerigee.
+    planetInterpolatedLunarPerigeeEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/InterpolatedLunarPerigeeEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for InterpolatedLunarPerigee.
-    planetInterpolatedLunarPerigeeEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for InterpolatedLunarPerigee.
+    planetInterpolatedLunarPerigeeEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for Sun.
-    planetSunEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/SunEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for Sun.
+    planetSunEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/SunEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for Sun.
-    planetSunEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for Sun.
+    planetSunEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for Moon.
-    planetMoonEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/MoonEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for Moon.
+    planetMoonEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/MoonEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for Moon.
-    planetMoonEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for Moon.
+    planetMoonEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for Mercury.
-    planetMercuryEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/MercuryEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for Mercury.
+    planetMercuryEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/MercuryEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for Mercury.
-    planetMercuryEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for Mercury.
+    planetMercuryEnabledForHelioTropRadixChartDefValue = \
         True
     
-    # QSettings key for the display flag in HelioSidRadixChart for Venus.
-    planetVenusEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/VenusEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for Venus.
+    planetVenusEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/VenusEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for Venus.
-    planetVenusEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for Venus.
+    planetVenusEnabledForHelioTropRadixChartDefValue = \
         True
     
-    # QSettings key for the display flag in HelioSidRadixChart for Earth.
-    planetEarthEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/EarthEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for Earth.
+    planetEarthEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/EarthEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for Earth.
-    planetEarthEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for Earth.
+    planetEarthEnabledForHelioTropRadixChartDefValue = \
         True
     
-    # QSettings key for the display flag in HelioSidRadixChart for Mars.
-    planetMarsEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/MarsEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for Mars.
+    planetMarsEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/MarsEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for Mars.
-    planetMarsEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for Mars.
+    planetMarsEnabledForHelioTropRadixChartDefValue = \
         True
     
-    # QSettings key for the display flag in HelioSidRadixChart for Jupiter.
-    planetJupiterEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/JupiterEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for Jupiter.
+    planetJupiterEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/JupiterEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for Jupiter.
-    planetJupiterEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for Jupiter.
+    planetJupiterEnabledForHelioTropRadixChartDefValue = \
         True
     
-    # QSettings key for the display flag in HelioSidRadixChart for Saturn.
-    planetSaturnEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/SaturnEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for Saturn.
+    planetSaturnEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/SaturnEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for Saturn.
-    planetSaturnEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for Saturn.
+    planetSaturnEnabledForHelioTropRadixChartDefValue = \
         True
     
-    # QSettings key for the display flag in HelioSidRadixChart for Uranus.
-    planetUranusEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/UranusEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for Uranus.
+    planetUranusEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/UranusEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for Uranus.
-    planetUranusEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for Uranus.
+    planetUranusEnabledForHelioTropRadixChartDefValue = \
         True
     
-    # QSettings key for the display flag in HelioSidRadixChart for Neptune.
-    planetNeptuneEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/NeptuneEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for Neptune.
+    planetNeptuneEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/NeptuneEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for Neptune.
-    planetNeptuneEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for Neptune.
+    planetNeptuneEnabledForHelioTropRadixChartDefValue = \
         True
     
-    # QSettings key for the display flag in HelioSidRadixChart for Pluto.
-    planetPlutoEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/PlutoEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for Pluto.
+    planetPlutoEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/PlutoEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for Pluto.
-    planetPlutoEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for Pluto.
+    planetPlutoEnabledForHelioTropRadixChartDefValue = \
         True
     
-    # QSettings key for the display flag in HelioSidRadixChart for MeanNorthNode.
-    planetMeanNorthNodeEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/MeanNorthNodeEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for MeanNorthNode.
+    planetMeanNorthNodeEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/MeanNorthNodeEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for MeanNorthNode.
-    planetMeanNorthNodeEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for MeanNorthNode.
+    planetMeanNorthNodeEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for MeanSouthNode.
-    planetMeanSouthNodeEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/MeanSouthNodeEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for MeanSouthNode.
+    planetMeanSouthNodeEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/MeanSouthNodeEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for MeanSouthNode.
-    planetMeanSouthNodeEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for MeanSouthNode.
+    planetMeanSouthNodeEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for TrueNorthNode.
-    planetTrueNorthNodeEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/TrueNorthNodeEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for TrueNorthNode.
+    planetTrueNorthNodeEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/TrueNorthNodeEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for TrueNorthNode.
-    planetTrueNorthNodeEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for TrueNorthNode.
+    planetTrueNorthNodeEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for TrueSouthNode.
-    planetTrueSouthNodeEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/TrueSouthNodeEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for TrueSouthNode.
+    planetTrueSouthNodeEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/TrueSouthNodeEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for TrueSouthNode.
-    planetTrueSouthNodeEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for TrueSouthNode.
+    planetTrueSouthNodeEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for Ceres.
-    planetCeresEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/CeresEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for Ceres.
+    planetCeresEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/CeresEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for Ceres.
-    planetCeresEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for Ceres.
+    planetCeresEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for Pallas.
-    planetPallasEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/PallasEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for Pallas.
+    planetPallasEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/PallasEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for Pallas.
-    planetPallasEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for Pallas.
+    planetPallasEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for Juno.
-    planetJunoEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/JunoEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for Juno.
+    planetJunoEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/JunoEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for Juno.
-    planetJunoEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for Juno.
+    planetJunoEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for Vesta.
-    planetVestaEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/VestaEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for Vesta.
+    planetVestaEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/VestaEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for Vesta.
-    planetVestaEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for Vesta.
+    planetVestaEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for Isis.
-    planetIsisEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/IsisEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for Isis.
+    planetIsisEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/IsisEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for Isis.
-    planetIsisEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for Isis.
+    planetIsisEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for Nibiru.
-    planetNibiruEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/NibiruEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for Nibiru.
+    planetNibiruEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/NibiruEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for Nibiru.
-    planetNibiruEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for Nibiru.
+    planetNibiruEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for Chiron.
-    planetChironEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/ChironEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for Chiron.
+    planetChironEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/ChironEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for Chiron.
-    planetChironEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for Chiron.
+    planetChironEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for Gulika.
-    planetGulikaEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/GulikaEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for Gulika.
+    planetGulikaEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/GulikaEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for Gulika.
-    planetGulikaEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for Gulika.
+    planetGulikaEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for Mandi.
-    planetMandiEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/MandiEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for Mandi.
+    planetMandiEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/MandiEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for Mandi.
-    planetMandiEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for Mandi.
+    planetMandiEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for MeanOfFive.
-    planetMeanOfFiveEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/MeanOfFiveEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for MeanOfFive.
+    planetMeanOfFiveEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/MeanOfFiveEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for MeanOfFive.
-    planetMeanOfFiveEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for MeanOfFive.
+    planetMeanOfFiveEnabledForHelioTropRadixChartDefValue = \
         True
     
-    # QSettings key for the display flag in HelioSidRadixChart for CycleOfEight.
-    planetCycleOfEightEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/CycleOfEightEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for CycleOfEight.
+    planetCycleOfEightEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/CycleOfEightEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for CycleOfEight.
-    planetCycleOfEightEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for CycleOfEight.
+    planetCycleOfEightEnabledForHelioTropRadixChartDefValue = \
         True
     
-    # QSettings key for the display flag in HelioSidRadixChart for AvgMaJuSaUrNePl.
-    planetAvgMaJuSaUrNePlEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/AvgMaJuSaUrNePlEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for AvgMaJuSaUrNePl.
+    planetAvgMaJuSaUrNePlEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/AvgMaJuSaUrNePlEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for AvgMaJuSaUrNePl.
-    planetAvgMaJuSaUrNePlEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for AvgMaJuSaUrNePl.
+    planetAvgMaJuSaUrNePlEnabledForHelioTropRadixChartDefValue = \
         True
     
-    # QSettings key for the display flag in HelioSidRadixChart for AvgJuSaUrNe.
-    planetAvgJuSaUrNeEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/AvgJuSaUrNeEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for AvgJuSaUrNe.
+    planetAvgJuSaUrNeEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/AvgJuSaUrNeEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for AvgJuSaUrNe.
-    planetAvgJuSaUrNeEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for AvgJuSaUrNe.
+    planetAvgJuSaUrNeEnabledForHelioTropRadixChartDefValue = \
         True
     
-    # QSettings key for the display flag in HelioSidRadixChart for AvgJuSa.
-    planetAvgJuSaEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/AvgJuSaEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for AvgJuSa.
+    planetAvgJuSaEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/AvgJuSaEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for AvgJuSa.
-    planetAvgJuSaEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for AvgJuSa.
+    planetAvgJuSaEnabledForHelioTropRadixChartDefValue = \
         True
     
-    # QSettings key for the display flag in HelioSidRadixChart for MeVe.
-    planetMeVeEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/MeVeEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for MeVe.
+    planetMeVeEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/MeVeEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for MeVe.
-    planetMeVeEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for MeVe.
+    planetMeVeEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for MeEa.
-    planetMeEaEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/MeEaEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for MeEa.
+    planetMeEaEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/MeEaEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for MeEa.
-    planetMeEaEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for MeEa.
+    planetMeEaEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for MeMa.
-    planetMeMaEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/MeMaEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for MeMa.
+    planetMeMaEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/MeMaEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for MeMa.
-    planetMeMaEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for MeMa.
+    planetMeMaEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for MeJu.
-    planetMeJuEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/MeJuEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for MeJu.
+    planetMeJuEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/MeJuEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for MeJu.
-    planetMeJuEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for MeJu.
+    planetMeJuEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for MeSa.
-    planetMeSaEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/MeSaEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for MeSa.
+    planetMeSaEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/MeSaEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for MeSa.
-    planetMeSaEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for MeSa.
+    planetMeSaEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for MeUr.
-    planetMeUrEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/MeUrEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for MeUr.
+    planetMeUrEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/MeUrEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for MeUr.
-    planetMeUrEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for MeUr.
+    planetMeUrEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for VeEa.
-    planetVeEaEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/VeEaEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for VeEa.
+    planetVeEaEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/VeEaEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for VeEa.
-    planetVeEaEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for VeEa.
+    planetVeEaEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for VeMa.
-    planetVeMaEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/VeMaEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for VeMa.
+    planetVeMaEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/VeMaEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for VeMa.
-    planetVeMaEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for VeMa.
+    planetVeMaEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for VeJu.
-    planetVeJuEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/VeJuEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for VeJu.
+    planetVeJuEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/VeJuEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for VeJu.
-    planetVeJuEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for VeJu.
+    planetVeJuEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for VeSa.
-    planetVeSaEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/VeSaEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for VeSa.
+    planetVeSaEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/VeSaEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for VeSa.
-    planetVeSaEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for VeSa.
+    planetVeSaEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for VeUr.
-    planetVeUrEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/VeUrEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for VeUr.
+    planetVeUrEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/VeUrEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for VeUr.
-    planetVeUrEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for VeUr.
+    planetVeUrEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for EaMa.
-    planetEaMaEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/EaMaEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for EaMa.
+    planetEaMaEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/EaMaEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for EaMa.
-    planetEaMaEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for EaMa.
+    planetEaMaEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for EaJu.
-    planetEaJuEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/EaJuEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for EaJu.
+    planetEaJuEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/EaJuEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for EaJu.
-    planetEaJuEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for EaJu.
+    planetEaJuEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for EaSa.
-    planetEaSaEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/EaSaEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for EaSa.
+    planetEaSaEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/EaSaEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for EaSa.
-    planetEaSaEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for EaSa.
+    planetEaSaEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for EaUr.
-    planetEaUrEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/EaUrEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for EaUr.
+    planetEaUrEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/EaUrEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for EaUr.
-    planetEaUrEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for EaUr.
+    planetEaUrEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for MaJu.
-    planetMaJuEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/MaJuEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for MaJu.
+    planetMaJuEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/MaJuEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for MaJu.
-    planetMaJuEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for MaJu.
+    planetMaJuEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for MaSa.
-    planetMaSaEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/MaSaEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for MaSa.
+    planetMaSaEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/MaSaEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for MaSa.
-    planetMaSaEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for MaSa.
+    planetMaSaEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for MaUr.
-    planetMaUrEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/MaUrEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for MaUr.
+    planetMaUrEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/MaUrEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for MaUr.
-    planetMaUrEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for MaUr.
+    planetMaUrEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for JuSa.
-    planetJuSaEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/JuSaEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for JuSa.
+    planetJuSaEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/JuSaEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for JuSa.
-    planetJuSaEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for JuSa.
+    planetJuSaEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for JuUr.
-    planetJuUrEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/JuUrEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for JuUr.
+    planetJuUrEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/JuUrEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for JuUr.
-    planetJuUrEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for JuUr.
+    planetJuUrEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for SaUr.
-    planetSaUrEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/SaUrEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for SaUr.
+    planetSaUrEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/SaUrEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for SaUr.
-    planetSaUrEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for SaUr.
+    planetSaUrEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for MeVeEa.
-    planetMeVeEaEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/MeVeEaEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for MeVeEa.
+    planetMeVeEaEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/MeVeEaEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for MeVeEa.
-    planetMeVeEaEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for MeVeEa.
+    planetMeVeEaEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for MeVeMa.
-    planetMeVeMaEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/MeVeMaEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for MeVeMa.
+    planetMeVeMaEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/MeVeMaEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for MeVeMa.
-    planetMeVeMaEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for MeVeMa.
+    planetMeVeMaEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for VeEaMe.
-    planetVeEaMeEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/VeEaMeEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for VeEaMe.
+    planetVeEaMeEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/VeEaMeEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for VeEaMe.
-    planetVeEaMeEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for VeEaMe.
+    planetVeEaMeEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for VeEaMa.
-    planetVeEaMaEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/VeEaMaEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for VeEaMa.
+    planetVeEaMaEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/VeEaMaEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for VeEaMa.
-    planetVeEaMaEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for VeEaMa.
+    planetVeEaMaEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for VeMaMe.
-    planetVeMaMeEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/VeMaMeEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for VeMaMe.
+    planetVeMaMeEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/VeMaMeEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for VeMaMe.
-    planetVeMaMeEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for VeMaMe.
+    planetVeMaMeEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for VeMaEa.
-    planetVeMaEaEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/VeMaEaEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for VeMaEa.
+    planetVeMaEaEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/VeMaEaEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for VeMaEa.
-    planetVeMaEaEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for VeMaEa.
+    planetVeMaEaEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for EaMaMe.
-    planetEaMaMeEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/EaMaMeEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for EaMaMe.
+    planetEaMaMeEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/EaMaMeEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for EaMaMe.
-    planetEaMaMeEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for EaMaMe.
+    planetEaMaMeEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for EaMaVe.
-    planetEaMaVeEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/EaMaVeEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for EaMaVe.
+    planetEaMaVeEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/EaMaVeEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for EaMaVe.
-    planetEaMaVeEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for EaMaVe.
+    planetEaMaVeEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for MaJuMe.
-    planetMaJuMeEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/MaJuMeEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for MaJuMe.
+    planetMaJuMeEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/MaJuMeEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for MaJuMe.
-    planetMaJuMeEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for MaJuMe.
+    planetMaJuMeEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for MaJuVe.
-    planetMaJuVeEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/MaJuVeEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for MaJuVe.
+    planetMaJuVeEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/MaJuVeEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for MaJuVe.
-    planetMaJuVeEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for MaJuVe.
+    planetMaJuVeEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for MaJuEa.
-    planetMaJuEaEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/MaJuEaEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for MaJuEa.
+    planetMaJuEaEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/MaJuEaEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for MaJuEa.
-    planetMaJuEaEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for MaJuEa.
+    planetMaJuEaEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for EaJuMe.
-    planetEaJuMeEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/EaJuMeEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for EaJuMe.
+    planetEaJuMeEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/EaJuMeEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for EaJuMe.
-    planetEaJuMeEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for EaJuMe.
+    planetEaJuMeEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for EaJuVe.
-    planetEaJuVeEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/EaJuVeEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for EaJuVe.
+    planetEaJuVeEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/EaJuVeEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for EaJuVe.
-    planetEaJuVeEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for EaJuVe.
+    planetEaJuVeEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for EaSaMe.
-    planetEaSaMeEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/EaSaMeEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for EaSaMe.
+    planetEaSaMeEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/EaSaMeEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for EaSaMe.
-    planetEaSaMeEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for EaSaMe.
+    planetEaSaMeEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for EaSaVe.
-    planetEaSaVeEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/EaSaVeEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for EaSaVe.
+    planetEaSaVeEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/EaSaVeEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for EaSaVe.
-    planetEaSaVeEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for EaSaVe.
+    planetEaSaVeEnabledForHelioTropRadixChartDefValue = \
         False
     
-    # QSettings key for the display flag in HelioSidRadixChart for EaSaMa.
-    planetEaSaMaEnabledForHelioSidRadixChartKey = \
-        "ui/astrology/EaSaMaEnabledForHelioSidRadixChart"
+    # QSettings key for the display flag in HelioTropRadixChart for EaSaMa.
+    planetEaSaMaEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/EaSaMaEnabledForHelioTropRadixChart"
     
-    # QSettings default value for the display flag in HelioSidRadixChart for EaSaMa.
-    planetEaSaMaEnabledForHelioSidRadixChartDefValue = \
+    # QSettings default value for the display flag in HelioTropRadixChart for EaSaMa.
+    planetEaSaMaEnabledForHelioTropRadixChartDefValue = \
         False
     
 
