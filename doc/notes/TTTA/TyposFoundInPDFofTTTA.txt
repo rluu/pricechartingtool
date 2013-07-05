@@ -15,6 +15,10 @@ Page 271, line 11:
 Actual text has: "confidence"
 PDF version has: "confident"
 
+Page 316, line 17: 
+Actual text has no comma after the word "losing".
+PDF version has a  comma after the word "losing".
+
 Page 349, line 16-17:
 Actual text has: "approaching"
 PDF version has: "approching"
