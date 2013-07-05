@@ -23,6 +23,10 @@ Page 349, line 16-17:
 Actual text has: "approaching"
 PDF version has: "approching"
 
+Page 380, line 13:
+Actual text has: "New York City".
+PDF version has: "New York Citv".
+
 Page 397, line 32 (last line on the page):
 Actual text has: "finished"
 PDF version has: "flnished"
