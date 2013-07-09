@@ -4,7 +4,14 @@ new findings.
 
 
 Document created: Fri Mar  1 03:27:40 EST 2013
-Last modified:    Fri Mar  1 03:27:40 EST 2013
+Last modified:    Tue Jul  9 14:41:49 EDT 2013
+
+##############################################################################
+
+How to guide:
+
+Take the below elements that are on the page or page(s) where the puzzle is at.  There may be connections to other pages where additional elements or explanations need to be brought in also.  Put them all into a list.  Try to decipher what is being spoken about.  
+
 ##############################################################################
 
 Page numbers:
@@ -25,19 +32,37 @@ Words:
 - Any word that follows the word "great" or "greatest" is an important word that means something special.
 - What words are capitalized?  Are there any words that stand out as being peculiar in usage?
 - First letter of each capitalized word as a number (numerology).
-- Are there any italicized words?
+- Are there any italicized words?  Italicized words may be keywords.
+- Are there any all-capitalized words?  All-caps words may be keywords.
 - Are there any words that are differently typeset?
 - Are the words "and" and "or" used?  Add or multiply the number of letters in those words.
-- Count the words within a poem or letter.  The word number could be associated with the word.  (e.g. Marie's letter on pg. 120, or Marie's telegraph on pg. 38).
-- The Bible words and terms don't use english/pythagorean numerology, but Gann explains what they mean somewhere in TTTA.
+- Count the words within a poem or letter or message or telegram.  The word number could be associated with the word.  (e.g. Marie's letter on pg. 120, or Marie's telegraph on pg. 38).
+- The Bible words and terms that have been translated into English probably can't have english/pythagorean numerology applied.  Gann probably explains what each of these words mean somewhere in TTTA though.
+- Check the line number and word number.  (e.g. line 4, word 9, might mean 49.  Or line 5, word 5, would be a square of 5.).
+- Are there any mis-spelled words.  Are there words that are spelled differently in different places?  (e.g. Thru/Through, Savior/Saviour).
+- Capitalized words may be words of focus.  
+- Are any of the words astrological words?  (i.e. "direct", "station[ed]", altitude, etc.)
+- Body parts.
+- Metals or gemstones.
+- Colors.
 
 Locations:
 - Pay attention to locations written on the letters.
+
+Names:
+- Look for names on the page.  The first or last name or a substring of the name might be used in other places as a connection.  (e.g. Southey, TennySON).
+- Name might be somewhere else in TTTA, in the Bible, or it might be a person connected to information that needs to be researched and ferreted out.  (e.g. Lindbergh, John Wanamaker for St. John in the Bible, Herbert Kaufman for RG's brother Herbert).
 
 Numbers:
 
 - Numbers in written form.
 - Numbers on the page.  
+  - Try to do some operations on the numbers given.
+     - Numerology reduction.
+     - Square of 9, or Circle of X, or degrees.
+     - Add, subtract, multiply or divide operations.  
+         These may yield a sacred geometry number, or 
+         some other important number.  
 - Money values give numbers.
 - Bible verses give numbers:
   - Take segments of the numbers shown to see a number.
@@ -46,6 +71,10 @@ Numbers:
 Lines:
 
 - Line number of the page.
+    (Include all lines, including the page number line, 
+     chapter number line, article name line, etc.).
+- Line number of the chapter. 
+    (This is counting the lines starting from the beginning of the chapter.)
 - Line number of a poem.  (Haven't seen this done in a letter yet).
 - Numbering of verses/stanzas in a poem.
 
@@ -54,6 +83,7 @@ Sentences:
 - Do any sentences in a paragraph seem not to fit?
 - Do any of the sentences read funny?
 - Does it seem like he is using funny phrasing in a round-about way?
+- Look at the writing and wording before and after the puzzle.
 
 Quotes:
 
@@ -66,6 +96,23 @@ Chapter:
 - What chapter are we in?  It seems like Gann used themes within certain chapters.
 - Where does it fit in in terms of the book story line?  (and cycle structure in general).
 
+Geographical organization by groupings:
+- California.
+- Battle lines.
+- Central US.
+- Eastern US.
+- Foreign countries.  
+- Allied Enemy.
 
+Character rank:
+- As different planets.
+
+TTTA title and Foreword:
+- Does anything connect into the Foreword of the book?
+- Does anything connect into the Title of the book?
+
+Integration:
+- Does this part connect to other parts?  How much is it referred to?
+- How does this puzzle or information integrate into the story line?  
 
 ##############################################################################
