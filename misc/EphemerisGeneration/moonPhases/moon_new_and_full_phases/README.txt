@@ -1,5 +1,6 @@
 ##############################################################################
-These steps below create an ephemeris containing the Moon phases.
+These steps below create an ephemeris containing the 
+following Moon phases: New and Full Moons only.
 
 
 This resulting ephemeris will have the following data:
@@ -45,10 +46,10 @@ python3 createGenericEphemerisSpreadsheet.py
 # This will calculate and produce a column for the moon phases also.
 # 
 # This should read in file: "sun_moon_node_ephemeris_nyc.csv".
-# This should produce file: "moon_30_phases_ephemeris_nyc.csv".
+# This should produce file: "moon_new_and_full_phases_ephemeris_nyc.csv".
 #
 
-python3 makeFilledMasterEphemeris_2p_moon30.py
+python3 makeFilledMasterEphemeris_2p_moon_new_and_full_phases.py
 
 
 # Step 4:

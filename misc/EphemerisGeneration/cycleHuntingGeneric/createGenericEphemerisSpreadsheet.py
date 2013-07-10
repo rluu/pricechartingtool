@@ -431,6 +431,13 @@ Ephemeris.setGeographicPosition(locationLongitude,
                                 locationLatitude,
                                 locationElevation)
 
+# Log the parameters that are being used.
+log.info("Location used is: {}  (lat={}, lon={})".\
+         format(locationName, locationLatitude, locationLongitude))
+log.info("Timezone used is: {}".format(timezone.zone))
+log.info("Start timestamp:  {}".format(Ephemeris.datetimeToStr(startDt)))
+log.info("End   timestamp:  {}".format(Ephemeris.datetimeToStr(endDt)))
+
 # Compile the header line text.
 headerLine = ""
 headerLine += "Date" + ","
@@ -495,6 +502,7 @@ dayCount = 0
 weekCount = 0
 monthCount = 0
 
+log.info("Doing ephemeris calculations ...")
 
 while currDt.date() < endDt.date():
     line = ""

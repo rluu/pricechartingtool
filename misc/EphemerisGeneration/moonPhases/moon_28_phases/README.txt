@@ -33,7 +33,7 @@ This resulting ephemeris will have the following data:
 # Step 2:
 # 
 # Run the script to generate an ephemeris with just the 1-planet combinations.
-# This should produce file: "sun_moon_node_ephemeris.csv".
+# This should produce file: "sun_moon_node_ephemeris_nyc.csv".
 #
 
 python3 createGenericEphemerisSpreadsheet.py

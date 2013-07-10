@@ -4,11 +4,7 @@
 #
 # Script for creating a generic spreadsheet of the Sun, Moon, and TrueNorthNode.
 # The timestamp of each line entry is at the exact moment (within an error
-# threshold of 1 minute) of each of the 28 moon phases.
-#
-# Note: Normally there are 30 moon phases, but this script is to get
-#       the timestamps as if there are 28 moon phases.  So the
-#       lunation steps divided by 28.
+# threshold of 1 minute) of the moon phases: new and full moons only.
 #
 # Data included is:
 #
@@ -106,7 +102,7 @@ endDt   = datetime.datetime(year=1936, month=12, day=31,
 
 
 # Destination output CSV file.
-outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/moonPhases/moon_28_phases/sun_moon_node_ephemeris_nyc.csv"
+outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/moonPhases/moon_new_and_full_phases/sun_moon_node_ephemeris_nyc.csv"
 
 # Planet names to do calculations for.
 geocentricPlanetNames = [\
@@ -1065,10 +1061,10 @@ monthCount = 0
 
 log.info("Doing ephemeris calculations ...")
 
-# Moon normally has 30 phases, BUT, here we are doing calculations
-# as if it has 28 phases. 
+# Moon has 30 phases normally, but here we will only get the new and full moons.
+# Thus we will 2 as the number of Moon phases.
 degreesInCircle = 360.0
-numMoonPhases = 28
+numMoonPhases = 2
 increment = degreesInCircle / numMoonPhases
 
 # Planet parameters.
@@ -1081,7 +1077,7 @@ aspectDegrees = []
 
 for i in range(0, numMoonPhases):
     aspectDegrees.append(i * (degreesInCircle / numMoonPhases))
-
+    
 for degreeDifference in aspectDegrees:
     timestamps.extend(\
         getLongitudeAspectTimestamps(\

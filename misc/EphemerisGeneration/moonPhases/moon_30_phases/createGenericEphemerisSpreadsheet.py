@@ -2,8 +2,11 @@
 ##############################################################################
 # Description:
 #
-# Script for creating a generic spreadsheet containing an daily ephemeris of
-# the main planets:
+# Script for creating a generic spreadsheet of the Sun, Moon, and TrueNorthNode.
+# The timestamp of each line entry is at the exact moment (within an error
+# threshold of 1 minute) of each of the 30 moon phases.
+#
+# Data included is:
 #
 #        - Geocentric
 #        - Heliocentric
@@ -99,7 +102,7 @@ endDt   = datetime.datetime(year=1936, month=12, day=31,
 
 
 # Destination output CSV file.
-outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/moonPhases/moon_30_phases/sun_moon_node_ephemeris.csv"
+outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/moonPhases/moon_30_phases/sun_moon_node_ephemeris_nyc.csv"
 
 # Planet names to do calculations for.
 geocentricPlanetNames = [\
@@ -985,6 +988,13 @@ Ephemeris.setGeographicPosition(locationLongitude,
                                 locationLatitude,
                                 locationElevation)
 
+# Log the parameters that are being used.
+log.info("Location used is: {}  (lat={}, lon={})".\
+         format(locationName, locationLatitude, locationLongitude))
+log.info("Timezone used is: {}".format(timezone.zone))
+log.info("Start timestamp:  {}".format(Ephemeris.datetimeToStr(startDt)))
+log.info("End   timestamp:  {}".format(Ephemeris.datetimeToStr(endDt)))
+
 # Compile the header line text.
 headerLine = ""
 headerLine += "Date" + ","
@@ -1049,7 +1059,7 @@ dayCount = 0
 weekCount = 0
 monthCount = 0
 
-
+log.info("Doing ephemeris calculations ...")
 
 # Moon has 30 phases.
 degreesInCircle = 360.0

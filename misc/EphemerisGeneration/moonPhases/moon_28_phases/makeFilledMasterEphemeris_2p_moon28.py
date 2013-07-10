@@ -27,7 +27,7 @@
 #
 #   2) Simply run the script from the directory:
 #
-#      python3 makeFilledMasterEphemeris_2p.py
+#      python3 makeFilledMasterEphemeris_2p_moon28.py
 #
 ##############################################################################
 
@@ -49,10 +49,10 @@ import logging
 # Global variables
 
 # Input CSV file.  
-inputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/moonPhases/moon_28_phases/sun_moon_node_ephemeris.csv"
+inputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/moonPhases/moon_28_phases/sun_moon_node_ephemeris_nyc.csv"
 
 # Ouptut CSV file.  
-outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/moonPhases/moon_28_phases/moon_28_phases_ephemeris.csv"
+outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/moonPhases/moon_28_phases/moon_28_phases_ephemeris_nyc.csv"
 
 # Lines to skip in the input file.
 linesToSkip = 1
