@@ -14,7 +14,7 @@
 #   Adjustments are required periodically when there is a 'gap' in
 #   the calculated value for the planet combination.
 #
-#   This script will also calculate the Moon phases.
+#   This script will also calculate the Moon synodic month phases.
 #   The moon phases are values in the range: [1, 30].
 #
 # Usage:
@@ -27,7 +27,7 @@
 #
 #   2) Simply run the script from the directory:
 #
-#      python3 makeFilledMasterEphemeris_2p_moon_new_and_full_phases.py
+#      python3 makeFilledMasterEphemeris_2p_moon_synodic_new_and_full_phases.py
 #
 ##############################################################################
 
@@ -49,10 +49,13 @@ import logging
 # Global variables
 
 # Input CSV file.  
-inputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/moonPhases/moon_new_and_full_phases/sun_moon_node_ephemeris_nyc.csv"
+inputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/moonPhases/moon_synodic_new_and_full_phases/sun_moon_node_ephemeris_nyc.csv"
 
 # Ouptut CSV file.  
-outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/moonPhases/moon_new_and_full_phases/moon_new_and_full_phases_ephemeris_nyc.csv"
+outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/moonPhases/moon_synodic_new_and_full_phases/moon_synodic_new_and_full_phases_ephemeris_nyc.csv"
+
+# Number of moon phases.
+numMoonPhases = 30
 
 # Lines to skip in the input file.
 linesToSkip = 1
@@ -334,17 +337,18 @@ def doMoonPhaseCalculationForColumn(listOfDataValues,
         log.debug("planetLongitude == {}".format(planetLongitude))
 
         # Number of degrees per G.Moon phase.
-        numDegreesPerMoonPhase = 12.0
+        numDegreesPerMoonPhase = 360 / numMoonPhases
 
         ## New moon is labeled "1":
         #currCalculatedValue = \
         #    round((planetLongitude % 360) / numDegreesPerMoonPhase) + 1
 
-        # New moon is labeled "30", and full moon is labeled "15".
+        # New moon is labeled 'numMoonPhases', and
+        # full moon is labeled 'numMoonPhases / 2'.
         currCalculatedValue = \
             round((planetLongitude % 360) / numDegreesPerMoonPhase)
         if currCalculatedValue == 0:
-            currCalculatedValue = 30
+            currCalculatedValue = numMoonPhases
         
         # Store the result as text.
         listOfDataValues[i].append("{}".format(currCalculatedValue))
@@ -436,8 +440,8 @@ planetColumn = len(headerLine.split(",")) - 2     # Previous column.
 listOfDataValues = doMod360ForColumn(listOfDataValues,
                                      planetColumn)
 
-# MoonPhase
-columnName = "G.Moon_Phase"
+# G.Moon_Synodic_Month_Phase
+columnName = "G.Moon_Synodic_Month_Phase"
 headerLine += "," + columnName
 log.info("Calculating data for column: {}".format(columnName))
 planetColumn = len(headerLine.split(",")) - 2     # Previous column.

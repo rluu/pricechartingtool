@@ -4,7 +4,8 @@
 #
 # Script for creating a generic spreadsheet of the Sun, Moon, and TrueNorthNode.
 # The timestamp of each line entry is at the exact moment (within an error
-# threshold of 1 minute) of the moon phases: new and full moons only.
+# threshold of 1 minute) of the moon Draconic month phases:
+# new and full moons only (0 deg. and 180 deg.).
 #
 # Data included is:
 #
@@ -90,9 +91,12 @@ startDt = datetime.datetime(year=1906, month=1, day=1,
 #                            tzinfo=timezone)
 
 
-endDt   = datetime.datetime(year=1936, month=12, day=31,
+endDt   = datetime.datetime(year=1906, month=5, day=31,
                             hour=hourOfDay, minute=minuteOfHour,
                             tzinfo=timezone)
+#endDt   = datetime.datetime(year=1936, month=12, day=31,
+#                            hour=hourOfDay, minute=minuteOfHour,
+#                            tzinfo=timezone)
 #endDt   = datetime.datetime(year=2015, month=12, day=31,
 #                            hour=hourOfDay, minute=minuteOfHour,
 #                            tzinfo=timezone)
@@ -102,7 +106,7 @@ endDt   = datetime.datetime(year=1936, month=12, day=31,
 
 
 # Destination output CSV file.
-outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/moonPhases/moon_new_and_full_phases/sun_moon_node_ephemeris_nyc.csv"
+outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/moonPhases/moon_draconic_new_and_full_phases/sun_moon_node_ephemeris_nyc.csv"
 
 # Planet names to do calculations for.
 geocentricPlanetNames = [\
@@ -1061,15 +1065,16 @@ monthCount = 0
 
 log.info("Doing ephemeris calculations ...")
 
-# Moon has 30 phases normally, but here we will only get the new and full moons.
-# Thus we will 2 as the number of Moon phases.
+# Moon Draconic month has 30 phases normally, but here we will only
+# get the new and full moons (0 deg. and 180 deg.).  Thus we will 2 as
+# the number of Moon phases.
 degreesInCircle = 360.0
 numMoonPhases = 2
 increment = degreesInCircle / numMoonPhases
 
 # Planet parameters.
 planet1ParamsList = [("Moon", "geocentric", "tropical")]
-planet2ParamsList = [("Sun",  "geocentric", "tropical")]
+planet2ParamsList = [("TrueNorthNode",  "geocentric", "tropical")]
 
 timestamps = []
 

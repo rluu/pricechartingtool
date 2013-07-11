@@ -1,6 +1,6 @@
 ##############################################################################
-These steps below create an ephemeris containing the 
-following Moon phases: New and Full Moons only.
+These steps below create an ephemeris containing 
+30 phases of a G.Moon Synodic month.
 
 
 This resulting ephemeris will have the following data:
@@ -14,7 +14,7 @@ This resulting ephemeris will have the following data:
 
   G.Moon/G.Sun
   G.Moon/G.Sun % 360
-  G.Moon_Phase (Values in range: [1, 30])
+  G.Moon_Synodic_Month_Phase (Values in range: [1, 30])
 
   planet declination position
   planet geocentric latitude position
@@ -46,10 +46,10 @@ python3 createGenericEphemerisSpreadsheet.py
 # This will calculate and produce a column for the moon phases also.
 # 
 # This should read in file: "sun_moon_node_ephemeris_nyc.csv".
-# This should produce file: "moon_new_and_full_phases_ephemeris_nyc.csv".
+# This should produce file: "moon_synodic_30_phases_ephemeris_nyc.csv".
 #
 
-python3 makeFilledMasterEphemeris_2p_moon_new_and_full_phases.py
+python3 makeFilledMasterEphemeris_2p_moon_synodic_30_phases.py
 
 
 # Step 4:
