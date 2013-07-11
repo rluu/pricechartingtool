@@ -314,7 +314,7 @@ def doMod360ForColumn(listOfDataValues,
 def doMoonPhaseCalculationForColumn(listOfDataValues,
                                     planetColumn):
     """Calculates the moon phase based on the value in the
-    "G.Moon/G.Sun" column.  The calculated value is then placed as
+    "G.Moon/G.TrueNorthNode" column.  The calculated value is then placed as
     text into 'listOfDataValues' in an appended column.
 
     Arguments:

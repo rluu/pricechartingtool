@@ -27,7 +27,7 @@
 #
 #   2) Simply run the script from the directory:
 #
-#      python3 makeFilledMasterEphemeris_2p_moon_draconic_30_phases.py
+#      python3 makeFilledMasterEphemeris_2p_moon_draconic_new_and_full_phases.py
 #
 ##############################################################################
 
@@ -49,10 +49,10 @@ import logging
 # Global variables
 
 # Input CSV file.  
-inputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/moonPhases/moon_draconic_30_phases/sun_moon_node_ephemeris_nyc.csv"
+inputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/moonPhases/moon_draconic_new_and_full_phases/sun_moon_node_ephemeris_nyc.csv"
 
 # Ouptut CSV file.  
-outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/moonPhases/moon_draconic_30_phases/moon_draconic_30_phases_ephemeris_nyc.csv"
+outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/moonPhases/moon_draconic_new_and_full_phases/moon_draconic_new_and_full_phases_ephemeris_nyc.csv"
 
 # Number of moon phases.
 numMoonPhases = 30
@@ -314,7 +314,7 @@ def doMod360ForColumn(listOfDataValues,
 def doMoonPhaseCalculationForColumn(listOfDataValues,
                                     planetColumn):
     """Calculates the moon phase based on the value in the
-    "G.Moon/G.Sun" column.  The calculated value is then placed as
+    "G.Moon/G.TrueNorthNode" column.  The calculated value is then placed as
     text into 'listOfDataValues' in an appended column.
 
     Arguments:
