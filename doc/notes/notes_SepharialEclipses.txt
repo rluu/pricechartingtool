@@ -1,0 +1,63 @@
+##############################################################################
+Notes on the book "Eclipses" by Sepharial.
+
+rluu_20130710: Notes below taken on July 10, 2013.  They are not complete.
+
+##############################################################################
+
+pg. 10
+Moon min and max latitude is about:
+5 deg 35 min
+
+This happens at 90 degrees from the Node.  The latitude will therefore depend on the distance of the Moon from the Node.
+
+
+"Dragon's Head" (Latin: Caput Draconis): North node.  
+                                         Moon's passage from South to North.
+"Dragon's Tail" (Latin: Cauda Draconis): South node.
+                                         Moon's passage from North to South.
+
+pg. 11
+
+Solar eclipses:
+
+Total eclipse:   Whole disc of the Sun is covered.
+
+Annular eclipse: Small outer ring of the Sun is left uncovered.  Here the word "annular" means "like a ring" from the latin word "annulus".
+
+
+
+Apparent semidiameters of the Sun and Moon:
+
+Sun (mean):  16 min  6 sec
+Sun (min.):  15 min 50 sec
+Sun (max.):  16 min 23 sec
+
+Moon (mean): 15 min 41 sec
+Moon (min.): 14 min 54 sec
+Moon (max.): 16 min 39 sec
+
+
+pg. 12
+
+Apogee:  Furthest point from earth.  ("afar")
+Perigee: Closest  point from earth.
+
+pg. 13
+
+Moon's Node retrogrades at a rate of:
+19 deg 20 min per year.
+
+Sun and Moon conjunct at the same part of the zodiac every 19 years.  
+
+Lunation: 29.5 days.
+Draconic month: 27.2 days.
+Moon transit from Node to Node again: 27.1 days.
+
+Sun transit from Moon's Node to Moon's Node again: 346.6 days.
+
+##############################################################################
+
+[rluu: Continue taking notes, starting from this page].
+
+##############################################################################
