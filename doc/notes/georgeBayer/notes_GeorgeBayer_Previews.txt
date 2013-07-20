@@ -207,8 +207,10 @@ The laws are mentioned in hundreds of ancient works, such as:
 pg. 76
 
 Alibaba and the 40 Thieves is a complete work of how to figure wheat movements.
+
 [Bayer says the story comprises of 28 pages, and contains all that is to be known about wheat prices for any time, any year, any month or day, clearly though concisely written.]
 
+[Bayer on page 79 says this story tells the important movements, and not the small "jiggles".]
 
 pg. 77
 
@@ -218,12 +220,27 @@ Footnote vol. III, pg. 221 (3 + 221 = 224 (Venus)):
 
 [rluu: So "salt" means Venus?]
 
+Chogia Husein = "Haus eins" or "House No. 1".
+              = The name that the captain of the thieves takes at the
+                end of the story.
+
+Chogia = Chodjah  (Another name covering the same person).
+
+
+Bayer says to find the true beginning and build on it.  
+
 pg. 78
 
 An egg is our number 0, the beginning of all things.  
 
 See how often important movements begin when a planet reaches the "egg" in declination or latitude, or even longitude!
 
+pg. 79
+
+"thieves" means profit hunters.
+Their captain means "the trainder".
+
+"Sesame" = wheat.
 
 ##############################################################################
 
@@ -347,5 +364,112 @@ I have not quoted all the points that need watching after the chart is completed
 A congregation of several crossings within a day means a real important change, especially so when heavy planets are involved.  They are far apart in time, but when they come they give major changes.  
 
 
+pg. 115
+
+Bayer mentions use of a "centerline", which is called the zero line.  
+
+These pages talk about using a weighted moving average.
+
 
 ##############################################################################
+
+pg. 122-123
+
+Measurements of movements of planets shown for analyzing US Steel.
+[rluu: I think he is doing something else here, showing cycles, but in code.]
+
+rluu: My handwritten comments in the book says:
+My rehash and ideas/thoughts:
+
+ - Full movement amount (includes retro and direct).
+ - Retro movement amount.
+ - Units of each.
+ - Circle/cycle size (and division).
+ - Starting point.
+ - Ending point.
+
+
+pg. 123
+
+Bayer says:
+In wheat, we can decipher 3 distinct cycles that repeat rather regularly producing tops and bottoms, sometimes bottom-bottom also top-top.  These values are: 
+
+ 20 deg 30 min
+ 59 deg 20 min
+140 deg 00 min
+
+[rluu: Adding the digits, these values give: 50, 79, 140.
+       Or half of these values give: 25, ~40, 70.]
+
+pg. 124
+
+Commodities that Bayer appears to be tracking:
+- Stocks
+- Wheat
+- Cotton
+- Hides
+- Butter
+- Eggs
+- Cocoa
+- Rubber
+- Barley, Rye, Corn and Oats.
+
+##############################################################################
+
+pg. 127
+
+Vocabulary used for the Koran.
+
+Act corruptly: To use the wrong way.
+Alms: arms, lines
+Believe: to begin or use the right way.
+Dead: geocentric
+Eat: Use geocentric.
+Error: geocentric astrology
+Devils: geocentric planets.
+Egypt: Geocentric
+Deceive: To substitute
+Direct: (to direct), to be part of
+Integrity: a being that lives on earth.
+Life: Helio
+Look on: to come up.
+Man: A line, an angle.
+Lord: A certain line.
+Observe: Use
+Pious: Traders
+Prophets: Previous cycles.
+Punishment: Losses.
+Mecca: The present movement.
+Fear: To find.
+Fire: astrology.
+Fewel: Rule of astrology
+Fool: He who uses geocentric planet.
+Faith: Heliocentric astrology.
+Hear: To move retrograde.
+Infidel: geocentric.
+Impurity: Retrogradation.
+Idolater: Retrograde planet.
+Prayer: Cycle.
+Repent: Change.
+Revelation: Law.
+Spread: Use.
+Serve: Use.
+Stone: Conjunction.
+Stand still: Stationary.
+See: Move direct.
+Heart: Forward.
+Testimony: Proof.
+Unbeliever: One who uses geocentric only.
+
+##############################################################################
+
+pg. 129
+
+Bayer's translation of Part of "The Cow" from the Al Koran.
+
+Here Bayer talks about the SPECIAL LINE.  
+
+rluu: Here is my copying of what I felt are the important parts:
+
+##############################################################################
+
