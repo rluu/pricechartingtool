@@ -41,7 +41,9 @@ So time periods between each are:
 7 + 123 = 130 days total.
 
 
-Note: 130 is the total, and this information about St. John is highlighted in TTTA on page 130.  Also in Bayer's "Turn 400 Years...", he starts his part 3 of the book on page 130.  So we have a confluence of the importance of the number 130.  What does this number refer to?  And how is it used?
+Note: 130 is the total, and this information about St. John is highlighted in TTTA on page 130.  Also in Bayer's "Turn 400 Years...", he starts his part 3 of the book on page 130.  So we have a confluence of the importance of the number 130.  In Bayer's "Time Factors", his last method, method #6, (3 days and 3 nights?) ends on pg. 130, and the book ends on pg. 131.  What does this number refer to?  And how is it used?
+
+
 
 Feast of "St John before the Latin Gate", associated with a tradition recounted by Saint Jerome that St John was brought to Rome during the reign of the Emperor Domitian, and was thrown in a vat of boiling oil, from which he was miraculously preserved unharmed.
 
@@ -49,9 +51,23 @@ Feast of "St John before the Latin Gate", associated with a tradition recounted 
 Other time periods for St. John:
 Nativity of St. John: June 24
 Octave of St. John the baptist, from nativity to: July 1.
-Beheading of St. John, feast: August 29.
+Beheading of St. John, (fast): August 29.
+First finding of the head of St. John the Baptist: February 24.
+Second finding of the head of St. John the Baptist: February 24.
+Third finding of the head of St. John the Baptist: May 25.
 
 Time period difference between Nativity and Beheading: 66 days
+Time period difference between Beheading and first finding: 179 days.
+Time period difference between first and second finding: [360 deg. multiple]
+Time period difference between second and third finding: 90 days. (or 91 days in leap years)
+
+From beheading to 3rd finding: (1.75 * 360) + 360x
+So it could be 1.75 or 2.75 or 3.75, etc. circles.
+
+If we take into account the "time, times and half a time" of Revelations 12:14, then the beheaddings would fit very well into the measurements of the findings of his head when a "time" = 180 degrees.
+
+Time period difference between Feast Before the Latin Gate and beheading: 115 days.
+
 
 
 Attributes of Apostle and St. John: 
@@ -67,6 +83,14 @@ The Eastern Orthodox Church and those Eastern Catholic Churches which follow the
 Difference in time period: 224 days
 
 
+
+More dates according to tradition:
+
+    According to tradition, Luke the Evangelist went to the city of Sebaste, from which he took the right hand of the Forerunner (the hand that baptized Jesus) and brought it to Antioch, his home city, where it performed miracles. It is reported that the relic would be brought out and shown to the faithful on the Feast of the Exaltation of the Cross (September 14). If the fingers of the hand were open, it was interpreted as a sign of a bountiful year; if the hand was closed, it would be a poor harvest (September 1 was the beginning of the liturgical year and the harvest season).
+
+    On January 7, the Orthodox Church celebrates the Feast of the Transfer of the Right Hand of the Holy Forerunner from Antioch to Constantinople in 956 and the Miracle of Saint John the Forerunner against the Hagarines at Chios.
+
+
 ##############################################################################
 
 In the above, it does appear that 123 could be an approximation for the angle mentioned in the book of Jonah.  
@@ -80,4 +104,29 @@ Multiplying this value by 4 would yield: 491, which is 1940 backwards, per the t
 
 So the actual angle for Jonah is highly likely to be 122.75.
 
-In George Bayer's "Time Factors", [TODO:  continue writing this and adding more information here.]
+In George Bayer's "Time Factors", Bayer gives the size of a circle as:
+368 deg 10 min 48 sec. [pg. 69],  1/3 of a circle being: 122 deg 43 min 36 sec.
+368 deg  6 min         [pg. 111], 1/3 of a circle being: 122 deg 42 min.
+
+Bayer then proceeds to use this value with a handful of number sequences referenced from the Bible.  
+- Book of Ezra 2:2  (11 names)  (Values Bayer gives: 37 deg 10 min and 82 deg 36 min. [rluu: I think these are number sequences Bayer is giving.  37, 10, 82, 36.  Note: 37 + 82 = 119].)
+- Book of Ezra 2:65 (Number of men is 42360, Bayer gives 42 deg 36 min.]
+- Book of Numbers 26:7 (12 tribes) (Bayer gives sum as: 601730, or 601 deg 73 min, or 602 deg 13 min.) [rluu: I think the number highlighted here is 73, but it could be 173 also.]
+- Book of Chronicles: 15:5, number of the men that carried the ark (These are the chiefs of the fathers of the Levites.): [pg. 113]
+   - 120
+   - 220
+   - 130
+   - 200
+   -  80
+   - 112
+   Total: 862
+- Book of Numbers, Chapter 2, and Chapter 2 verse 32:
+   Total: 603750
+   [rluu: I think the number highlighted here is 375 deg.  Or perhaps it is just 75 deg.]
+
+On pg. 119, Bayer writes:
+Trying all sorts of divisions of the circle so as to get to a point of beginning (the same difficulty is faced in all such work), and to prove this ancient wisdom is not a myth, and to appy its rules, if any, to market movements I finally discovered that the number 27 was the number to use.  Twenty seven is not a division of the circle, but some work of Nature.  (This particular paragraph was written a few years ago in its present wording; since then I found the circle to be 368 deg 10 min and therefore 1/14 part of that circle!!).
+
+[rluu: Something about 27 and the word "Nature".  or 14 and parts to a circle?
+
+##############################################################################
