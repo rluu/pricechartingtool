@@ -130,7 +130,7 @@ class Util:
         return rv
             
     @staticmethod
-    def fuzzyIsEqual(f1, f2, maxDiff=0.000000001):
+    def fuzzyIsEqual(f1, f2, maxDiff=0.00000001):
         """Fuzzy test for floating point values being equal.
         
         Arguments:
@@ -847,7 +847,8 @@ class Ratio:
     def __init__(self,
                  ratio,
                  description="",
-                 enabled=True):
+                 enabled=True,
+                 mathDescription=""):
         """Initializes the PriceBar object.  
 
         Arguments are as follows:
@@ -855,10 +856,12 @@ class Ratio:
         ratio - float value holding the ratio.
         description - str value holding the description of the ratio.
         enabled - bool flag indicating if the ratio is enabled or not.
+        mathDescription - str value holding the mathematical
+                          description of the ratio value.
         """
 
         # Class version stored for pickling and unpickling.
-        self.classVersion = 1
+        self.classVersion = 2
 
         # Logger object.
         self.log = logging.getLogger("data_objects.Ratio")
@@ -866,11 +869,230 @@ class Ratio:
         self.ratio = ratio
         self.description = description
         self.enabled = enabled
+        self.mathDescription = mathDescription
+
+    @staticmethod
+    def getSupportedRetracementRatios():
+        """Returns a list of Ratio objects that we plan on supporting
+        in this application for TimeRetracementArtifacts and
+        PriceRetracementArtifacts.
+
+        For the source of these ratios below, see the following books:
+        Geometry of Markets (beginning of the book before first numbered page).
+        Geometry of Markets (Chapter 2, Page 9).
+        Geometry of Markets (Chapter 6, Page 50).
+        Geometry of Markets II (pg. 8)
+        """
+
+        # Return value.
+        ratios = []
+
+        # Append each of the Fibonnaci ratios.
+        ratios.extend(Ratio.getSupportedFibRatios())
+
+        # Append other ratios that are geometric or harmonic.
+
+        ############
         
+        # 0 / 1
+        ratios.append(Ratio(ratio=0.0,
+                            description="0.000",
+                            enabled=True,
+                            mathDescription="0 / 1"))
+
+        # 1 / 8
+        ratios.append(Ratio(ratio=0.125,
+                            description="0.125",
+                            enabled=False,
+                            mathDescription="1 / 8"))
+
+        # 1 / 4
+        ratios.append(Ratio(ratio=0.25,
+                            description="0.250",
+                            enabled=True,
+                            mathDescription="1 / 4"))
+
+        # 3 / 8
+        ratios.append(Ratio(ratio=0.375,
+                            description="0.375",
+                            enabled=False,
+                            mathDescription="3 / 8"))
+
+        # 1 / 3
+        ratios.append(Ratio(ratio=0.333333333333333,
+                            description="0.333",
+                            enabled=True,
+                            mathDescription="1 / 3"))
+
+        # 1 / 2
+        ratios.append(Ratio(ratio=0.5,
+                            description="0.500",
+                            enabled=True,
+                            mathDescription="1 / 2"))
+        
+        # 5 / 8
+        ratios.append(Ratio(ratio=0.625,
+                            description="0.625",
+                            enabled=False,
+                            mathDescription="5 / 8"))
+
+        # 2 / 3
+        ratios.append(Ratio(ratio=0.66666666666666,
+                            description="0.666",
+                            enabled=True,
+                            mathDescription="2 / 3"))
+        
+        # 3 / 4
+        ratios.append(Ratio(ratio=0.75,
+                            description="0.750",
+                            enabled=True,
+                            mathDescription="3 / 4"))
+
+        # 7 / 8
+        ratios.append(Ratio(ratio=0.875,
+                            description="0.875",
+                            enabled=False,
+                            mathDescription="7 / 8"))
+
+        # 1 / 1
+        ratios.append(Ratio(ratio=1.0,
+                            description="1.000",
+                            enabled=True,
+                            mathDescription="1"))
+        
+        # 4 / 3
+        ratios.append(Ratio(ratio=1.333333333333,
+                            description="1.333",
+                            enabled=True,
+                            mathDescription="4 / 3"))
+        
+        # 3 / 2
+        ratios.append(Ratio(ratio=1.5,
+                            description="1.500",
+                            enabled=True,
+                            mathDescription="3 / 2"))
+        
+        # 2 / 1
+        ratios.append(Ratio(ratio=2.0,
+                            description="2.000",
+                            enabled=True,
+                            mathDescription="2 / 1"))
+        
+        # 3 / 1
+        ratios.append(Ratio(ratio=3.0,
+                            description="3.000",
+                            enabled=True,
+                            mathDescription="3 / 1"))
+        
+        # 4 / 1
+        ratios.append(Ratio(ratio=4.0,
+                            description="4.000",
+                            enabled=False,
+                            mathDescription="4 / 1"))
+        
+        # 5 / 1
+        ratios.append(Ratio(ratio=5.0,
+                            description="5.000",
+                            enabled=False,
+                            mathDescription="5 / 1"))
+        
+        # 6 / 1
+        ratios.append(Ratio(ratio=6.0,
+                            description="6.000",
+                            enabled=False,
+                            mathDescription="6 / 1"))
+        
+        # 7 / 1
+        ratios.append(Ratio(ratio=7.0,
+                            description="7.000",
+                            enabled=False,
+                            mathDescription="7 / 1"))
+        
+        # 8 / 1
+        ratios.append(Ratio(ratio=8.0,
+                            description="8.000",
+                            enabled=False,
+                            mathDescription="8 / 1"))
+        
+        ############
+        
+        # 1 / (2 * math.sqrt(2))
+        ratios.append(Ratio(ratio=0.353553390593274,
+                            description="0.354",
+                            enabled=True,
+                            mathDescription="1 / (2 * math.sqrt(2))"))
+        
+        # 1 / math.sqrt(5)
+        ratios.append(Ratio(ratio=0.447213595499958,
+                            description="0.447",
+                            enabled=True,
+                            mathDescription="1 / math.sqrt(5)"))
+        
+        # 1 / math.sqrt(3)
+        ratios.append(Ratio(ratio=0.577350269189626,
+                            description="0.577",
+                            enabled=True,
+                            mathDescription="1 / math.sqrt(3)"))
+        
+        # 1 / math.sqrt(2)
+        ratios.append(Ratio(ratio=0.577350269189626,
+                            description="0.577",
+                            enabled=True,
+                            mathDescription="1 / math.sqrt(2)"))
+        
+        # math.sqrt(2)
+        ratios.append(Ratio(ratio=1.4142135623731,
+                            description="1.414",
+                            enabled=True,
+                            mathDescription="math.sqrt(2)"))
+        
+        # math.sqrt(3)
+        ratios.append(Ratio(ratio=1.73205080756888,
+                            description="1.732",
+                            enabled=True,
+                            mathDescription="math.sqrt(3)"))
+        
+        # math.sqrt(5)
+        ratios.append(Ratio(ratio=2.2360679775,
+                            description="2.236",
+                            enabled=True,
+                            mathDescription="math.sqrt(5)"))
+
+        ############
+
+        # Sort by ratio value.
+        ratios.sort(key=lambda r: r.ratio)
+        
+        # Put the unique ratios in a new list called 'ratios_unique'.
+        ratios_unique = []
+        for i in range(len(ratios)):
+            currRatio = ratios[i]
+            
+            if i == 0:
+                ratios_unique.append(currRatio)
+            else:
+                prevRatio = ratios[i-1]
+
+                if not Util.fuzzyIsEqual(currRatio.ratio, prevRatio.ratio):
+                    # Ratio is different from the one before it, so append.
+                    ratios_unique.append(currRatio)
+
+
+        # Store the unique ratios as the ratios to be returned.
+        ratios = ratios_unique
+
+        return ratios
+    
     @staticmethod
     def getSupportedFibRatios():
         """Returns a list of Fibonacci Ratio objects that we plan on
         supporting in this application.
+
+        For the source of these ratios below, see the following books:
+        Geometry of Markets (beginning of the book before first numbered page).
+        Geometry of Markets (Chapter 2, Page 9).
+        Geometry of Markets (Chapter 6, Page 50).
+        Geometry of Markets II (pg. 8)
         """
 
         # Return value.
@@ -878,62 +1100,105 @@ class Ratio:
 
         # 0
         ratios.append(Ratio(ratio=0.000,
-                               description="0.000",
-                               enabled=True))
-
-        # 1 / (phi^3)
+                            description="0.000",
+                            enabled=True,
+                            mathDescription="0"))
+        
+        # (1 / phi)^4
+        ratios.append(Ratio(ratio=0.14589803375,
+                            description="0.146",
+                            enabled=True,
+                            mathDescription="(1 / phi)^4"))
+        
+        # (1 / phi)^3
         ratios.append(Ratio(ratio=0.23606797695,
-                               description="0.236",
-                               enabled=True))
-        # 1 / (phi^2)
+                            description="0.236",
+                            enabled=True,
+                            mathDescription="(1 / phi)^3"))
+        
+        # (1 / phi)^2
         ratios.append(Ratio(ratio=0.38196601066,
-                               description="0.382",
-                               enabled=True))
+                            description="0.382",
+                            enabled=True,
+                            mathDescription="(1 / phi)^2"))
         
-        # 1 / phi
+        # (1 / phi)^1
         ratios.append(Ratio(ratio=0.61803398827,
-                               description="0.618",
-                               enabled=True))
+                            description="0.618",
+                            enabled=True,
+                            mathDescription="(1 / phi)^1"))
         
-        # 1 / math.pow(phi, 1/2)
+        # math.sqrt(1 / phi)
         ratios.append(Ratio(ratio=0.78615137745,
-                               description="0.786",
-                               enabled=True))
+                            description="0.786",
+                            enabled=True,
+                            mathDescription="math.sqrt(1 / phi)"))
         
-        # 1 / math.pow(phi, 1/3)
+        # math.pow((1 / phi), 1/3)
         ratios.append(Ratio(ratio=0.85179964186,
-                               description="0.852",
-                               enabled=True))
+                            description="0.852",
+                            enabled=True,
+                            mathDescription="math.pow((1 / phi), 1/3)"))
         
         # 1
         ratios.append(Ratio(ratio=1.000,
-                               description="1.000",
-                               enabled=True))
-
+                            description="1.000",
+                            enabled=True,
+                            mathDescription="1"))
+        
+        # 0.5 + (1 / phi)
+        ratios.append(Ratio(ratio=1.11803398875,
+                            description="1.118",
+                            enabled=True,
+                            mathDescription="0.5 + (1 / phi)"))
+        
         # math.pow(phi, 1/3)
         ratios.append(Ratio(ratio=1.17398499701,
-                               description="1.174",
-                               enabled=True))
+                            description="1.174",
+                            enabled=True,
+                            mathDescription="math.pow(phi, 1/3)"))
         
-        # math.pow(phi, 1/2)
+        # math.sqrt(phi)
         ratios.append(Ratio(ratio=1.27201965001,
-                               description="1.272",
-                               enabled=True))
+                            description="1.272",
+                            enabled=True,
+                            mathDescription="math.sqrt(phi)"))
         
-        # phi
+        # math.sqrt(phi)^2
         ratios.append(Ratio(ratio=1.61803398875,
-                               description="1.618",
-                               enabled=True))
-
-        # phi^2
-        ratios.append(Ratio(ratio=2.61803398859,
-                               description="2.618",
-                               enabled=True))
+                            description="1.618",
+                            enabled=True,
+                            mathDescription="math.sqrt(phi)^2"))
         
-        # phi^3
-        ratios.append(Ratio(ratio=4.23606797711,
-                               description="4.236",
-                               enabled=False))
+        # math.sqrt(1^2 + phi^2)
+        ratios.append(Ratio(ratio=1.90211303259,
+                            description="1.902",
+                            enabled=True,
+                            mathDescription="math.sqrt(1^2 + phi^2)"))
+        
+        # math.sqrt(phi)^3
+        ratios.append(Ratio(ratio=2.05817102727,
+                            description="2.058",
+                            enabled=True,
+                            mathDescription="math.sqrt(phi)^3"))
+        
+        # math.sqrt(phi)^4
+        ratios.append(Ratio(ratio=2.61803398859,
+                            description="2.618",
+                            enabled=True,
+                            mathDescription="math.sqrt(phi)^4"))
+        
+        # math.sqrt(phi)^5
+        ratios.append(Ratio(ratio=3.33019067679,
+                            description="3.330",
+                            enabled=True,
+                            mathDescription="math.sqrt(phi)^5"))
+        
+        # math.sqrt(phi)^6
+        ratios.append(Ratio(ratio=4.2360679775,
+                            description="4.236",
+                            enabled=False,
+                            mathDescription="math.sqrt(phi)^6"))
         
         return ratios
     
@@ -946,61 +1211,66 @@ class Ratio:
         # Return value.
         ratios = []
 
+
+        # These ratios below are multiplied by 90 degrees to get the
+        # angle that will be drawn in the QGraphicsItem.
+        
+        
         # 0
         ratios.append(Ratio(ratio=0.000,
-                               description="0x1",
-                               enabled=True))
-
+                            description="0x1",
+                            enabled=True))
+        
         # 1 / 8
         ratios.append(Ratio(ratio=0.125,
-                               description="1x4",
-                               enabled=True))
+                            description="1x4",
+                            enabled=True))
         
         # 1 / 6
         ratios.append(Ratio(ratio=1.0/6.0,
-                               description="1x3",
-                               enabled=True))
+                            description="1x3",
+                            enabled=True))
         
         # 1 / 4
         ratios.append(Ratio(ratio=0.250,
-                               description="1x2",
-                               enabled=True))
+                            description="1x2",
+                            enabled=True))
         
         # 1 / 3
         ratios.append(Ratio(ratio=1.0/3.0,
-                               description="1x1.5",
-                               enabled=True))
+                            description="1x1.5",
+                            enabled=True))
         
         # 1 / 2
         ratios.append(Ratio(ratio=0.500,
-                               description="1x1",
-                               enabled=True))
+                            description="1x1",
+                            enabled=True))
         
         # 2 / 3
         ratios.append(Ratio(ratio=2.0/3.0,
-                               description="1.5x1",
-                               enabled=True))
+                            description="1.5x1",
+                            enabled=True))
         
         # 3 / 4
         ratios.append(Ratio(ratio=0.750,
-                               description="2x1",
-                               enabled=True))
+                            description="2x1",
+                            enabled=True))
         
         # 5 / 6
         ratios.append(Ratio(ratio=5.0/6.0,
-                               description="3x1",
-                               enabled=True))
+                            description="3x1",
+                            enabled=True))
         
         # 7 / 8
         ratios.append(Ratio(ratio=0.875,
-                               description="4x1",
-                               enabled=True))
+                            description="4x1",
+                            enabled=True))
         
         # 1
         ratios.append(Ratio(ratio=1.000,
-                               description="1x0",
-                               enabled=True))
-
+                            description="1x0",
+                            enabled=True))
+        
         return ratios
     
     def getRatio(self):
@@ -1054,6 +1324,21 @@ class Ratio:
         
         self.enabled = enabled
     
+    def getMathDescription(self):
+        """Returns the str mathDescription value.
+        """
+
+        return self.mathDescription
+
+    def setMathDescription(self, mathDescription):
+        """Sets the mathDescription.
+        
+        Arguments:
+        mathDescription - str value for the mathDescription.
+        """
+        
+        self.mathDescription = mathDescription
+    
     def toString(self):
         """Returns the string representation of the data."""
 
@@ -1089,6 +1374,42 @@ class Ratio:
         # Re-open the logger because it was not pickled.
         self.log = logging.getLogger("data_objects.Ratio")
 
+        # Update the object to the most current version if it is not current.
+        if self.classVersion < 2:
+            self.log.info("Detected an old class version of " + \
+                          "Ratio (version {}).  ".\
+                          format(self.classVersion))
+            
+            # Version 2 added the following member variables:
+            #
+            # self.mathDescription
+            #
+            
+            try:
+                # See if the variable is set.
+                self.mathDescription
+
+                # If it got here, then the field is already set.
+                self.log.warn("Hmm, strange.  Version {} of this ".\
+                              format(self.classVersion) + \
+                              "class shouldn't have this field.")
+                
+            except AttributeError:
+                # Variable was not set.  Set it to the default value.
+                self.mathDescription = ""
+                
+                self.log.debug("Added field 'mathDescription' " + \
+                               "to the loaded Ratio.")
+                
+                # Update the class version.
+                prevClassVersion = self.classVersion
+                self.classVersion = 2
+        
+                self.log.info("Object has been updated from " + \
+                              "version {} to version {}.".\
+                              format(prevClassVersion, self.classVersion))
+                
+            
         # Log that we set the state of this object.
         self.log.debug("Set state of a " + Ratio.__name__ +
                        " object of version {}".format(self.classVersion))
@@ -17821,7 +18142,8 @@ class PriceBarChartSettings:
     
     # Default value for the TimeRetracementGraphicsItem
     # ratios (list of Ratio).
-    defaultTimeRetracementGraphicsItemRatios = Ratio.getSupportedFibRatios()
+    defaultTimeRetracementGraphicsItemRatios = \
+        Ratio.getSupportedRetracementRatios()
     
     # Default value for the PriceRetracementGraphicsItem bar width (float).
     defaultPriceRetracementGraphicsItemBarWidth = 4.0
@@ -17859,7 +18181,8 @@ class PriceBarChartSettings:
     
     # Default value for the PriceRetracementGraphicsItem
     # ratios (list of Ratio).
-    defaultPriceRetracementGraphicsItemRatios = Ratio.getSupportedFibRatios()
+    defaultPriceRetracementGraphicsItemRatios = \
+        Ratio.getSupportedRetracementRatios()
 
     # Default color for the bar of a PriceTimeVectorGraphicsItem (QColor).
     defaultPriceTimeVectorGraphicsItemColor = QColor(Qt.black)
@@ -18346,7 +18669,7 @@ class PriceBarChartSettings:
 
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
-        self.classVersion = 5
+        self.classVersion = 6
 
         # List of scalings used in the PriceBarChartGraphicsView.  
         # This is list of PriceBarChartScaling objects.
@@ -20180,7 +20503,7 @@ class PriceBarChartSettings:
         self.log = logging.getLogger("data_objects.PriceBarChartSettings")
 
         # Update the object to the most current version if it is not current.
-        if self.classVersion < 5:
+        if self.classVersion < 6:
             self.log.info("Detected an old class version of " + \
                           "PriceBarChartSettings (version {}).  ".\
                           format(self.classVersion))
@@ -21422,6 +21745,97 @@ class PriceBarChartSettings:
                               "version {} to version {}.".\
                               format(prevClassVersion, self.classVersion))
                 
+            if self.classVersion == 5:
+                # Version 6 added the following:
+                #
+                #   Many more supported Ratios for:
+                #     self.priceRetracementGraphicsItemRatios
+                #     self.timeRetracementGraphicsItemRatios
+                #
+                
+                # See if the number of Ratios is the same.
+                if len(self.timeRetracementGraphicsItemRatios) == \
+                       len(PriceBarChartSettings.defaultTimeRetracementGraphicsItemRatios) \
+                       and \
+                       len(self.priceRetracementGraphicsItemRatios) == \
+                       len(PriceBarChartSettings.defaultPriceRetracementGraphicsItemRatios):
+                    
+                    # If it got here, then the fields are already set.
+                    self.log.warn("Hmm, strange.  Version {} of this ".\
+                                  format(self.classVersion) + \
+                                  "class shouldn't have these fields.")
+                else:
+                    # Add any Ratios in
+                    # PriceBarChartSettings.defaultTimeRetracementGraphicsItemRatios
+                    # that are not already in
+                    # self.timeRetracementGraphicsItemRatios.
+                    
+                    for defaultRatio in PriceBarChartSettings.defaultTimeRetracementGraphicsItemRatios:
+                        alreadyAddedFlag = False
+                        
+                        # Go through the ratios and see if
+                        # defaultRatio is already in there.
+                        for ratio in self.timeRetracementGraphicsItemRatios:
+                            if Util.fuzzyIsEqual(ratio.ratio, defaultRatio.ratio):
+                                alreadyAddedFlag = True
+
+                                # We won't change the preference for
+                                # if it is enabled or not, but we will
+                                # overwrite the 'description' and
+                                # 'mathDescription' fields for this
+                                # ratio so that they are updated.
+                                ratio.setDescription(defaultRatio.getDescription())
+                                ratio.setMathDescription(defaultRatio.getMathDescription())
+                                
+                        if alreadyAddedFlag != True:
+                            # This ratio is not in the current list
+                            # and should be added.
+                            self.timeRetracementGraphicsItemRatios.append(defaultRatio)
+                            
+                    # Sort by ratio value.
+                    self.timeRetracementGraphicsItemRatios.sort(key=lambda r: r.ratio)
+
+
+                    # Add any Ratios in
+                    # PriceBarChartSettings.defaultPriceRetracementGraphicsItemRatios
+                    # that are not already in
+                    # self.priceRetracementGraphicsItemRatios.
+                    
+                    for defaultRatio in PriceBarChartSettings.defaultPriceRetracementGraphicsItemRatios:
+                        alreadyAddedFlag = False
+
+                        # Go through the ratios and see if
+                        # defaultRatio is already in there.
+                        for ratio in self.priceRetracementGraphicsItemRatios:
+                            if Util.fuzzyIsEqual(ratio.ratio, defaultRatio.ratio):
+                                alreadyAddedFlag = True
+
+                                # We won't change the preference for
+                                # if it is enabled or not, but we will
+                                # overwrite the 'description' and
+                                # 'mathDescription' fields for this
+                                # ratio so that they are updated.
+                                ratio.setDescription(defaultRatio.getDescription())
+                                ratio.setMathDescription(defaultRatio.getMathDescription())
+                                
+                        if alreadyAddedFlag != True:
+                            # This ratio is not in the current list
+                            # and should be added.
+                            self.priceRetracementGraphicsItemRatios.append(defaultRatio)
+                            
+                    # Sort by ratio value.
+                    self.priceRetracementGraphicsItemRatios.sort(key=lambda r: r.ratio)
+
+
+                # Update the class version.
+                prevClassVersion = self.classVersion
+                self.classVersion = 6
+        
+                self.log.info("Object has been updated from " + \
+                              "version {} to version {}.".\
+                              format(prevClassVersion, self.classVersion))
+                    
+                    
         # Log that we set the state of this object.
         self.log.debug("Set state of a " + PriceBarChartSettings.__name__ +
                        " object of version {}".format(self.classVersion))

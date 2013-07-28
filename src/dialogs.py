@@ -48521,18 +48521,23 @@ class PriceBarChartSettingsEditWidget(QWidget):
             QPushButton("Reset to default")
 
         # TimeRetracement Ratios.
-        # There are no reset buttons for the ratios, just labels and checkboxes.
-        self.timeRetracementGraphicsItemRatioLabels = []
+        # There are no reset buttons for the ratios, just checkboxes.
         self.timeRetracementGraphicsItemRatioCheckBoxes = []
         
         for ratio in \
             self.priceBarChartSettings.timeRetracementGraphicsItemRatios:
 
-            label = QLabel("TimeRetracementGraphicsItem ratio " +
-                           ratio.getDescription() + " enabled:")
-            checkBox = QCheckBox()
+            labelStr = ""
+            
+            # Utilize the math description in the label if it is available.
+            if ratio.getMathDescription() != "":
+                labelStr = "Ratio " + ratio.getDescription() + " enabled.  " + \
+                           "A.K.A: {}".format(ratio.getMathDescription())
+            else:
+                labelStr = "Ratio " + ratio.getDescription() + " enabled"
+            
 
-            self.timeRetracementGraphicsItemRatioLabels.append(label)
+            checkBox = QCheckBox(labelStr)
             self.timeRetracementGraphicsItemRatioCheckBoxes.append(checkBox)
         
 
@@ -48663,22 +48668,39 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.timeRetracementGraphicsItemShowPercentTextFlagResetButton, 
             r, 2, ar)
 
-        r += 1
-        for i in range(len(self.priceBarChartSettings.\
-                           timeRetracementGraphicsItemRatios)):
-            gridLayout.\
-                addWidget(\
-                self.timeRetracementGraphicsItemRatioLabels[i], 
-                r, 0, al)
-            gridLayout.\
-                addWidget(\
-                self.timeRetracementGraphicsItemRatioCheckBoxes[i],
-                r, 1, ar)
-            r += 1
+        
+        # Layouts for ratio check boxes.
+        ratioCheckBoxesLeftLayout = QVBoxLayout()
+        ratioCheckBoxesMiddleLayout = QVBoxLayout()
+        ratioCheckBoxesRightLayout = QVBoxLayout()
 
+        numRatioCheckBoxes = \
+            len(self.timeRetracementGraphicsItemRatioCheckBoxes)
+        
+        for i in range(numRatioCheckBoxes):
+            checkBox = self.timeRetracementGraphicsItemRatioCheckBoxes[i]
+
+            # Put one third of the checkboxes in each of the different layouts.
+            if i < (1/3.0) * numRatioCheckBoxes:
+                ratioCheckBoxesLeftLayout.addWidget(checkBox)
+            elif i < (2/3.0) * numRatioCheckBoxes:
+                ratioCheckBoxesMiddleLayout.addWidget(checkBox)
+            else:
+                ratioCheckBoxesRightLayout.addWidget(checkBox)
+
+        ratioCheckBoxesLeftLayout.addStretch()
+        ratioCheckBoxesMiddleLayout.addStretch()
+        ratioCheckBoxesRightLayout.addStretch()
+        
+        ratioCheckBoxesLayout = QHBoxLayout()
+        ratioCheckBoxesLayout.addLayout(ratioCheckBoxesLeftLayout)
+        ratioCheckBoxesLayout.addLayout(ratioCheckBoxesMiddleLayout)
+        ratioCheckBoxesLayout.addLayout(ratioCheckBoxesRightLayout)
         
         layout = QVBoxLayout()
         layout.addLayout(gridLayout)
+        layout.addSpacing(10)
+        layout.addLayout(ratioCheckBoxesLayout)
         layout.addStretch()
         
         self.timeRetracementGraphicsItemGroupBox.setLayout(layout)
@@ -48785,18 +48807,23 @@ class PriceBarChartSettingsEditWidget(QWidget):
             QPushButton("Reset to default")
 
         # PriceRetracement Ratios.
-        # There are no reset buttons for the ratios, just labels and checkboxes.
-        self.priceRetracementGraphicsItemRatioLabels = []
+        # There are no reset buttons for the ratios, just checkboxes.
         self.priceRetracementGraphicsItemRatioCheckBoxes = []
         
         for ratio in \
             self.priceBarChartSettings.priceRetracementGraphicsItemRatios:
 
-            label = QLabel("PriceRetracementGraphicsItem ratio " +
-                           ratio.getDescription() + " enabled:")
-            checkBox = QCheckBox()
+            labelStr = ""
+            
+            # Utilize the math description in the label if it is available.
+            if ratio.getMathDescription() != "":
+                labelStr = "Ratio " + ratio.getDescription() + " enabled.  " + \
+                           "A.K.A: {}".format(ratio.getMathDescription())
+            else:
+                labelStr = "Ratio " + ratio.getDescription() + " enabled"
+            
 
-            self.priceRetracementGraphicsItemRatioLabels.append(label)
+            checkBox = QCheckBox(labelStr)
             self.priceRetracementGraphicsItemRatioCheckBoxes.append(checkBox)
         
 
@@ -48927,22 +48954,38 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceRetracementGraphicsItemShowPercentTextFlagResetButton, 
             r, 2, ar)
 
-        r += 1
-        for i in range(len(self.priceBarChartSettings.\
-                           priceRetracementGraphicsItemRatios)):
-            gridLayout.\
-                addWidget(\
-                self.priceRetracementGraphicsItemRatioLabels[i], 
-                r, 0, al)
-            gridLayout.\
-                addWidget(\
-                self.priceRetracementGraphicsItemRatioCheckBoxes[i],
-                r, 1, ar)
-            r += 1
+        # Layouts for ratio check boxes.
+        ratioCheckBoxesLeftLayout = QVBoxLayout()
+        ratioCheckBoxesMiddleLayout = QVBoxLayout()
+        ratioCheckBoxesRightLayout = QVBoxLayout()
 
+        numRatioCheckBoxes = \
+            len(self.priceRetracementGraphicsItemRatioCheckBoxes)
+        
+        for i in range(numRatioCheckBoxes):
+            checkBox = self.priceRetracementGraphicsItemRatioCheckBoxes[i]
+
+            # Put one third of the checkboxes in each of the different layouts.
+            if i < (1/3.0) * numRatioCheckBoxes:
+                ratioCheckBoxesLeftLayout.addWidget(checkBox)
+            elif i < (2/3.0) * numRatioCheckBoxes:
+                ratioCheckBoxesMiddleLayout.addWidget(checkBox)
+            else:
+                ratioCheckBoxesRightLayout.addWidget(checkBox)
+
+        ratioCheckBoxesLeftLayout.addStretch()
+        ratioCheckBoxesMiddleLayout.addStretch()
+        ratioCheckBoxesRightLayout.addStretch()
+        
+        ratioCheckBoxesLayout = QHBoxLayout()
+        ratioCheckBoxesLayout.addLayout(ratioCheckBoxesLeftLayout)
+        ratioCheckBoxesLayout.addLayout(ratioCheckBoxesMiddleLayout)
+        ratioCheckBoxesLayout.addLayout(ratioCheckBoxesRightLayout)
         
         layout = QVBoxLayout()
         layout.addLayout(gridLayout)
+        layout.addSpacing(10)
+        layout.addLayout(ratioCheckBoxesLayout)
         layout.addStretch()
         
         self.priceRetracementGraphicsItemGroupBox.setLayout(layout)

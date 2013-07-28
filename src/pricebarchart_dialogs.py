@@ -7882,8 +7882,16 @@ class PriceBarChartTimeRetracementArtifactEditWidget(QWidget):
         
         self.ratioCheckBoxes = []
         for ratio in artifact.getRatios():
-            checkBox = \
-                QCheckBox("Ratio " + ratio.getDescription() + " enabled")
+            labelStr = ""
+            
+            # Utilize the math description in the label if it is available.
+            if ratio.getMathDescription() != "":
+                labelStr = "Ratio " + ratio.getDescription() + " enabled.  " + \
+                           "A.K.A: {}".format(ratio.getMathDescription())
+            else:
+                labelStr = "Ratio " + ratio.getDescription() + " enabled"
+                
+            checkBox = QCheckBox(labelStr)
             self.ratioCheckBoxes.append(checkBox)
         
         # Layout for just the font info.
@@ -7932,8 +7940,7 @@ class PriceBarChartTimeRetracementArtifactEditWidget(QWidget):
                                   r, 1, al)
         r += 1
 
-        # Layout just for the checkboxes for showing lines/text, and
-        # for enabled ratios.
+        # Layout just for the checkboxes for showing lines/text, etc.
         self.checkBoxesLayout = QVBoxLayout()
         self.checkBoxesLayout.addWidget(\
             self.showFullLinesFlagCheckBox)
@@ -7941,17 +7948,38 @@ class PriceBarChartTimeRetracementArtifactEditWidget(QWidget):
             self.showTimeTextFlagCheckBox)
         self.checkBoxesLayout.addWidget(\
             self.showPercentTextFlagCheckBox)
-        for checkBox in self.ratioCheckBoxes:
-            self.checkBoxesLayout.addWidget(checkBox)
-        tempLayout = self.checkBoxesLayout
-        self.checkBoxesLayout = QHBoxLayout()
-        self.checkBoxesLayout.addLayout(tempLayout)
-        self.checkBoxesLayout.addStretch()
 
+        # Layouts for ratio check boxes.
+        self.ratioCheckBoxesLeftLayout = QVBoxLayout()
+        self.ratioCheckBoxesMiddleLayout = QVBoxLayout()
+        self.ratioCheckBoxesRightLayout = QVBoxLayout()
+        
+        for i in range(len(self.ratioCheckBoxes)):
+            checkBox = self.ratioCheckBoxes[i]
+
+            # Put one third of the checkboxes in each of the different layouts.
+            if i < (1/3.0) * len(self.ratioCheckBoxes):
+                self.ratioCheckBoxesLeftLayout.addWidget(checkBox)
+            elif i < (2/3.0) * len(self.ratioCheckBoxes):
+                self.ratioCheckBoxesMiddleLayout.addWidget(checkBox)
+            else:
+                self.ratioCheckBoxesRightLayout.addWidget(checkBox)
+
+        self.ratioCheckBoxesLeftLayout.addStretch()
+        self.ratioCheckBoxesMiddleLayout.addStretch()
+        self.ratioCheckBoxesRightLayout.addStretch()
+        
+        self.ratioCheckBoxesLayout = QHBoxLayout()
+        self.ratioCheckBoxesLayout.addLayout(self.ratioCheckBoxesLeftLayout)
+        self.ratioCheckBoxesLayout.addLayout(self.ratioCheckBoxesMiddleLayout)
+        self.ratioCheckBoxesLayout.addLayout(self.ratioCheckBoxesRightLayout)
+        
         # Put all the layouts together.
         self.layout = QVBoxLayout()
         self.layout.addLayout(self.gridLayout)
         self.layout.addLayout(self.checkBoxesLayout)
+        self.layout.addSpacing(10)
+        self.layout.addLayout(self.ratioCheckBoxesLayout)
         self.groupBox.setLayout(self.layout)
 
         # Buttons at bottom.
@@ -8534,8 +8562,16 @@ class PriceBarChartPriceRetracementArtifactEditWidget(QWidget):
         
         self.ratioCheckBoxes = []
         for ratio in artifact.getRatios():
-            checkBox = \
-                QCheckBox("Ratio " + ratio.getDescription() + " enabled")
+            labelStr = ""
+            
+            # Utilize the math description in the label if it is available.
+            if ratio.getMathDescription() != "":
+                labelStr = "Ratio " + ratio.getDescription() + " enabled.  " + \
+                           "A.K.A: {}".format(ratio.getMathDescription())
+            else:
+                labelStr = "Ratio " + ratio.getDescription() + " enabled"
+                
+            checkBox = QCheckBox(labelStr)
             self.ratioCheckBoxes.append(checkBox)
         
         # Layout for just the font info.
@@ -8593,17 +8629,38 @@ class PriceBarChartPriceRetracementArtifactEditWidget(QWidget):
             self.showPriceTextFlagCheckBox)
         self.checkBoxesLayout.addWidget(\
             self.showPercentTextFlagCheckBox)
-        for checkBox in self.ratioCheckBoxes:
-            self.checkBoxesLayout.addWidget(checkBox)
-        tempLayout = self.checkBoxesLayout
-        self.checkBoxesLayout = QHBoxLayout()
-        self.checkBoxesLayout.addLayout(tempLayout)
-        self.checkBoxesLayout.addStretch()
+        
+        # Layouts for ratio check boxes.
+        self.ratioCheckBoxesLeftLayout = QVBoxLayout()
+        self.ratioCheckBoxesMiddleLayout = QVBoxLayout()
+        self.ratioCheckBoxesRightLayout = QVBoxLayout()
+        
+        for i in range(len(self.ratioCheckBoxes)):
+            checkBox = self.ratioCheckBoxes[i]
 
+            # Put one third of the checkboxes in each of the different layouts.
+            if i < (1/3.0) * len(self.ratioCheckBoxes):
+                self.ratioCheckBoxesLeftLayout.addWidget(checkBox)
+            elif i < (2/3.0) * len(self.ratioCheckBoxes):
+                self.ratioCheckBoxesMiddleLayout.addWidget(checkBox)
+            else:
+                self.ratioCheckBoxesRightLayout.addWidget(checkBox)
+
+        self.ratioCheckBoxesLeftLayout.addStretch()
+        self.ratioCheckBoxesMiddleLayout.addStretch()
+        self.ratioCheckBoxesRightLayout.addStretch()
+        
+        self.ratioCheckBoxesLayout = QHBoxLayout()
+        self.ratioCheckBoxesLayout.addLayout(self.ratioCheckBoxesLeftLayout)
+        self.ratioCheckBoxesLayout.addLayout(self.ratioCheckBoxesMiddleLayout)
+        self.ratioCheckBoxesLayout.addLayout(self.ratioCheckBoxesRightLayout)
+        
         # Put all the layouts together.
         self.layout = QVBoxLayout()
         self.layout.addLayout(self.gridLayout)
         self.layout.addLayout(self.checkBoxesLayout)
+        self.layout.addSpacing(10)
+        self.layout.addLayout(self.ratioCheckBoxesLayout)
         self.groupBox.setLayout(self.layout)
 
         # Buttons at bottom.
