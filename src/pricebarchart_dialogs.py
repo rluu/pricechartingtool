@@ -4005,6 +4005,8 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
             QCheckBox("Show measurements in degrees")
         self.measurementUnitCirclesEnabledCheckBox = \
             QCheckBox("Show measurements in circles")
+        self.measurementUnitBiblicalCirclesEnabledCheckBox = \
+            QCheckBox("Show measurements in biblical circles")
 
         # Layout on the left side holding about half of the checkboxes
         # for this page.
@@ -4031,6 +4033,8 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
             self.measurementUnitDegreesEnabledCheckBox)
         showTextCheckBoxesRightLayout.addWidget(\
             self.measurementUnitCirclesEnabledCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.measurementUnitBiblicalCirclesEnabledCheckBox)
         showTextCheckBoxesRightLayout.addStretch()
         
         # Layout for all the checkboxes.
@@ -4555,6 +4559,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
         self.siderealZodiacFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.measurementUnitDegreesEnabledCheckBox.setEnabled(not self.readOnlyFlag)
         self.measurementUnitCirclesEnabledCheckBox.setEnabled(not self.readOnlyFlag)
+        self.measurementUnitBiblicalCirclesEnabledCheckBox.setEnabled(not self.readOnlyFlag)        
 
         self.planetH1EnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.planetH2EnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
@@ -4760,6 +4765,11 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
             self.measurementUnitCirclesEnabledCheckBox.setCheckState(Qt.Checked)
         else:
             self.measurementUnitCirclesEnabledCheckBox.setCheckState(Qt.Unchecked)
+            
+        if self.artifact.getMeasurementUnitBiblicalCirclesEnabled() == True:
+            self.measurementUnitBiblicalCirclesEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.measurementUnitBiblicalCirclesEnabledCheckBox.setCheckState(Qt.Unchecked)
             
         if self.artifact.getPlanetH1EnabledFlag() == True:
             self.planetH1EnabledFlagCheckBox.setCheckState(Qt.Checked)
@@ -5275,6 +5285,9 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
         measurementUnitCirclesEnabled = \
             (self.measurementUnitCirclesEnabledCheckBox.\
              checkState() == Qt.Checked)
+        measurementUnitBiblicalCirclesEnabled = \
+            (self.measurementUnitBiblicalCirclesEnabledCheckBox.\
+             checkState() == Qt.Checked)
         planetH1EnabledFlag = \
             (self.planetH1EnabledFlagCheckBox.\
              checkState() == Qt.Checked)
@@ -5565,6 +5578,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
         self.artifact.setSiderealZodiacFlag(siderealZodiacFlag)
         self.artifact.setMeasurementUnitDegreesEnabled(measurementUnitDegreesEnabled)
         self.artifact.setMeasurementUnitCirclesEnabled(measurementUnitCirclesEnabled)
+        self.artifact.setMeasurementUnitBiblicalCirclesEnabled(measurementUnitBiblicalCirclesEnabled)
         self.artifact.setPlanetH1EnabledFlag(planetH1EnabledFlag)
         self.artifact.setPlanetH2EnabledFlag(planetH2EnabledFlag)
         self.artifact.setPlanetH3EnabledFlag(planetH3EnabledFlag)

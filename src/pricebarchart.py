@@ -29,6 +29,9 @@ import resources
 # For QSettings keys.
 from settings import SettingsKeys
 
+# For constants used.
+from astrologychart import AstrologyUtils
+
 # For PriceBars and artifacts in the chart.
 from data_objects import BirthInfo
 from data_objects import PriceBar
@@ -7143,6 +7146,11 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabled
 
+        # Flag for displaying measurements in number of biblical circles.
+        self.measurementUnitBiblicalCirclesEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled
+
         # List of names of the enabled planets.
         self.planetNamesEnabled = []
         if PriceBarChartSettings.\
@@ -7587,6 +7595,11 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
         self.measurementUnitCirclesEnabled = \
             priceBarChartSettings.\
             planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabled
+
+        # Flag for displaying measurements in number of biblical circles.
+        self.measurementUnitBiblicalCirclesEnabled = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled
 
         # Remove contents of the list and retrieve the list of enabled
         # planets from priceBarChartSettings.
@@ -8227,8 +8240,11 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
 
         # Size of a circle, in degrees.
         #
+        # Here we define our own value instead of using the value in
+        # AstrologyUtils.degreesInCircle because it is possible we may
+        # want to test different sizes of a 'circle'.
         circleSizeInDegrees = 360.0
-
+        
         # All references to longitude_speed need to
         # be from tropical zodiac measurements!  If I use
         # sidereal zodiac measurements for getting the
@@ -8299,7 +8315,8 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                 # If there are no measurement unit types specified,
                 # then don't do calculations for any planets.
                 if self.measurementUnitDegreesEnabled == False and \
-                   self.measurementUnitCirclesEnabled == False:
+                   self.measurementUnitCirclesEnabled == False and \
+                   self.measurementUnitBiblicalCirclesEnabled == False:
                     break
                 
                 # List of PlanetaryInfo objects for this particular
@@ -8537,28 +8554,41 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                         longitudeElapsed = 0
                                         totalDegrees += longitudeElapsed
                                     
-                            # Append text for the calculated number of total degrees.
-                            line = ""
+                            # Line of text.  We append measurements to
+                            # this line of text depending on what
+                            # measurements are enabled.
+                            line = "G T {} moves ".format(planetName)
+                            
                             numCircles = totalDegrees / circleSizeInDegrees
+                            numBiblicalCircles = \
+                                totalDegrees / AstrologyUtils.degreesInBiblicalCircle
+
+                            # Flag that indicates at least one
+                            # measurement unit type is already
+                            # appended to the line of text.
+                            atLeastOneMeasurementAlreadyAddedFlag = False
                             
-                            if self.measurementUnitDegreesEnabled == True and \
-                               self.measurementUnitCirclesEnabled == True:
+                            if self.measurementUnitDegreesEnabled == True:
+                                if atLeastOneMeasurementAlreadyAddedFlag == True:
+                                    line += "or "
+                                line += "{:.2f} deg ".format(totalDegrees)
+                                atLeastOneMeasurementAlreadyAddedFlag = True
                                 
-                                line = "G T {} moves {:.2f} deg or {:.3f} circles (r as 0)".\
-                                       format(planetName, totalDegrees, numCircles)
+                            if self.measurementUnitCirclesEnabled == True:
+                                if atLeastOneMeasurementAlreadyAddedFlag == True:
+                                    line += "or "
+                                line += "{:.3f} cir ".format(numCircles)
+                                atLeastOneMeasurementAlreadyAddedFlag = True
+
+                            if self.measurementUnitBiblicalCirclesEnabled == True:
+                                if atLeastOneMeasurementAlreadyAddedFlag == True:
+                                    line += "or "
+                                line += "{:.3f} bcir ".format(numBiblicalCircles)
+                                atLeastOneMeasurementAlreadyAddedFlag = True
+
+                            # Append last part of the line.
+                            line += "(r as 0)"
                             
-                            elif self.measurementUnitDegreesEnabled == True and \
-                               self.measurementUnitCirclesEnabled == False:
-                                
-                                line = "G T {} moves {:.2f} deg (r as 0)".\
-                                       format(planetName, totalDegrees)
-                                
-                            elif self.measurementUnitDegreesEnabled == False and \
-                               self.measurementUnitCirclesEnabled == True:
-                                
-                                line = "G T {} moves {:.3f} circles (r as 0)".\
-                                       format(planetName, numCircles)
-                                
                             text += line + os.linesep
                             
                         if self.siderealZodiacFlag == True:
@@ -8596,28 +8626,41 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                         longitudeElapsed = 0
                                         totalDegrees += longitudeElapsed
                                     
-                            # Append text for the calculated number of total degrees.
-                            line = ""
+                            # Line of text.  We append measurements to
+                            # this line of text depending on what
+                            # measurements are enabled.
+                            line = "G S {} moves ".format(planetName)
+                            
                             numCircles = totalDegrees / circleSizeInDegrees
+                            numBiblicalCircles = \
+                                totalDegrees / AstrologyUtils.degreesInBiblicalCircle
                             
-                            if self.measurementUnitDegreesEnabled == True and \
-                               self.measurementUnitCirclesEnabled == True:
-
-                                line = "G S {} moves {:.2f} deg or {:.3f} circles (r as 0)".\
-                                       format(planetName, totalDegrees, numCircles)
+                            # Flag that indicates at least one
+                            # measurement unit type is already
+                            # appended to the line of text.
+                            atLeastOneMeasurementAlreadyAddedFlag = False
                             
-                            elif self.measurementUnitDegreesEnabled == True and \
-                               self.measurementUnitCirclesEnabled == False:
-
-                                line = "G S {} moves {:.2f} deg (r as 0)".\
-                                       format(planetName, totalDegrees)
+                            if self.measurementUnitDegreesEnabled == True:
+                                if atLeastOneMeasurementAlreadyAddedFlag == True:
+                                    line += "or "
+                                line += "{:.2f} deg ".format(totalDegrees)
+                                atLeastOneMeasurementAlreadyAddedFlag = True
                                 
-                            elif self.measurementUnitDegreesEnabled == False and \
-                               self.measurementUnitCirclesEnabled == True:
+                            if self.measurementUnitCirclesEnabled == True:
+                                if atLeastOneMeasurementAlreadyAddedFlag == True:
+                                    line += "or "
+                                line += "{:.3f} cir ".format(numCircles)
+                                atLeastOneMeasurementAlreadyAddedFlag = True
 
-                                line = "G S {} moves {:.3f} circles (r as 0)".\
-                                       format(planetName, numCircles)
+                            if self.measurementUnitBiblicalCirclesEnabled == True:
+                                if atLeastOneMeasurementAlreadyAddedFlag == True:
+                                    line += "or "
+                                line += "{:.3f} bcir ".format(numBiblicalCircles)
+                                atLeastOneMeasurementAlreadyAddedFlag = True
 
+                            # Append last part of the line.
+                            line += "(r as 0)"
+                            
                             text += line + os.linesep
                             
                     if self.showGeocentricRetroAsPositiveTextFlag == True:
@@ -8707,28 +8750,41 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                             self.log.debug("Retrograde motion: Added amount: {}".\
                                                            format(abs(longitudeElapsed)))
                                         
-                            # Append text for the calculated number of total degrees.
-                            line = ""
+                            # Line of text.  We append measurements to
+                            # this line of text depending on what
+                            # measurements are enabled.
+                            line = "G T {} moves ".format(planetName)
+                            
                             numCircles = totalDegrees / circleSizeInDegrees
+                            numBiblicalCircles = \
+                                totalDegrees / AstrologyUtils.degreesInBiblicalCircle
                             
-                            if self.measurementUnitDegreesEnabled == True and \
-                               self.measurementUnitCirclesEnabled == True:
-                                
-                                line = "G T {} moves {:.2f} deg or {:.3f} circles (r as +)".\
-                                       format(planetName, totalDegrees, numCircles)
+                            # Flag that indicates at least one
+                            # measurement unit type is already
+                            # appended to the line of text.
+                            atLeastOneMeasurementAlreadyAddedFlag = False
                             
-                            elif self.measurementUnitDegreesEnabled == True and \
-                               self.measurementUnitCirclesEnabled == False:
+                            if self.measurementUnitDegreesEnabled == True:
+                                if atLeastOneMeasurementAlreadyAddedFlag == True:
+                                    line += "or "
+                                line += "{:.2f} deg ".format(totalDegrees)
+                                atLeastOneMeasurementAlreadyAddedFlag = True
                                 
-                                line = "G T {} moves {:.2f} deg (r as +)".\
-                                       format(planetName, totalDegrees)
-                                
-                            elif self.measurementUnitDegreesEnabled == False and \
-                               self.measurementUnitCirclesEnabled == True:
-                                
-                                line = "G T {} moves {:.3f} circles (r as +)".\
-                                       format(planetName, numCircles)
-                                
+                            if self.measurementUnitCirclesEnabled == True:
+                                if atLeastOneMeasurementAlreadyAddedFlag == True:
+                                    line += "or "
+                                line += "{:.3f} cir ".format(numCircles)
+                                atLeastOneMeasurementAlreadyAddedFlag = True
+
+                            if self.measurementUnitBiblicalCirclesEnabled == True:
+                                if atLeastOneMeasurementAlreadyAddedFlag == True:
+                                    line += "or "
+                                line += "{:.3f} bcir ".format(numBiblicalCircles)
+                                atLeastOneMeasurementAlreadyAddedFlag = True
+
+                            # Append last part of the line.
+                            line += "(r as +)"
+                            
                             text += line + os.linesep
                             
                         if self.siderealZodiacFlag == True:
@@ -8782,28 +8838,41 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                         # before adding.
                                         totalDegrees += abs(longitudeElapsed)
                                     
-                            # Append text for the calculated number of total degrees.
-                            line = ""
+                            # Line of text.  We append measurements to
+                            # this line of text depending on what
+                            # measurements are enabled.
+                            line = "G S {} moves ".format(planetName)
+                            
                             numCircles = totalDegrees / circleSizeInDegrees
+                            numBiblicalCircles = \
+                                totalDegrees / AstrologyUtils.degreesInBiblicalCircle
                             
-                            if self.measurementUnitDegreesEnabled == True and \
-                               self.measurementUnitCirclesEnabled == True:
-
-                                line = "G S {} moves {:.2f} deg or {:.3f} circles (r as +)".\
-                                       format(planetName, totalDegrees, numCircles)
+                            # Flag that indicates at least one
+                            # measurement unit type is already
+                            # appended to the line of text.
+                            atLeastOneMeasurementAlreadyAddedFlag = False
                             
-                            elif self.measurementUnitDegreesEnabled == True and \
-                               self.measurementUnitCirclesEnabled == False:
-
-                                line = "G S {} moves {:.2f} deg (r as +)".\
-                                       format(planetName, totalDegrees)
+                            if self.measurementUnitDegreesEnabled == True:
+                                if atLeastOneMeasurementAlreadyAddedFlag == True:
+                                    line += "or "
+                                line += "{:.2f} deg ".format(totalDegrees)
+                                atLeastOneMeasurementAlreadyAddedFlag = True
                                 
-                            elif self.measurementUnitDegreesEnabled == False and \
-                               self.measurementUnitCirclesEnabled == True:
+                            if self.measurementUnitCirclesEnabled == True:
+                                if atLeastOneMeasurementAlreadyAddedFlag == True:
+                                    line += "or "
+                                line += "{:.3f} cir ".format(numCircles)
+                                atLeastOneMeasurementAlreadyAddedFlag = True
 
-                                line = "G S {} moves {:.3f} circles (r as +)".\
-                                       format(planetName, numCircles)
+                            if self.measurementUnitBiblicalCirclesEnabled == True:
+                                if atLeastOneMeasurementAlreadyAddedFlag == True:
+                                    line += "or "
+                                line += "{:.3f} bcir ".format(numBiblicalCircles)
+                                atLeastOneMeasurementAlreadyAddedFlag = True
 
+                            # Append last part of the line.
+                            line += "(r as +)"
+                            
                             text += line + os.linesep
                             
                     if self.showGeocentricRetroAsNegativeTextFlag == True:
@@ -8853,28 +8922,41 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
 
                                         totalDegrees += longitudeElapsed
                                     
-                            # Append text for the calculated number of total degrees.
-                            line = ""
+                            # Line of text.  We append measurements to
+                            # this line of text depending on what
+                            # measurements are enabled.
+                            line = "G T {} moves ".format(planetName)
+
                             numCircles = totalDegrees / circleSizeInDegrees
+                            numBiblicalCircles = \
+                                totalDegrees / AstrologyUtils.degreesInBiblicalCircle
                             
-                            if self.measurementUnitDegreesEnabled == True and \
-                               self.measurementUnitCirclesEnabled == True:
-                                
-                                line = "G T {} moves {:.2f} deg or {:.3f} circles (r as -)".\
-                                       format(planetName, totalDegrees, numCircles)
+                            # Flag that indicates at least one
+                            # measurement unit type is already
+                            # appended to the line of text.
+                            atLeastOneMeasurementAlreadyAddedFlag = False
                             
-                            elif self.measurementUnitDegreesEnabled == True and \
-                               self.measurementUnitCirclesEnabled == False:
+                            if self.measurementUnitDegreesEnabled == True:
+                                if atLeastOneMeasurementAlreadyAddedFlag == True:
+                                    line += "or "
+                                line += "{:.2f} deg ".format(totalDegrees)
+                                atLeastOneMeasurementAlreadyAddedFlag = True
                                 
-                                line = "G T {} moves {:.2f} deg (r as -)".\
-                                       format(planetName, totalDegrees)
-                                
-                            elif self.measurementUnitDegreesEnabled == False and \
-                               self.measurementUnitCirclesEnabled == True:
-                                
-                                line = "G T {} moves {:.3f} circles (r as -)".\
-                                       format(planetName, numCircles)
-                                
+                            if self.measurementUnitCirclesEnabled == True:
+                                if atLeastOneMeasurementAlreadyAddedFlag == True:
+                                    line += "or "
+                                line += "{:.3f} cir ".format(numCircles)
+                                atLeastOneMeasurementAlreadyAddedFlag = True
+
+                            if self.measurementUnitBiblicalCirclesEnabled == True:
+                                if atLeastOneMeasurementAlreadyAddedFlag == True:
+                                    line += "or "
+                                line += "{:.3f} bcir ".format(numBiblicalCircles)
+                                atLeastOneMeasurementAlreadyAddedFlag = True
+
+                            # Append last part of the line.
+                            line += "(r as -)"
+                            
                             text += line + os.linesep
                             
                         if self.siderealZodiacFlag == True:
@@ -8923,27 +9005,40 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
 
                                         totalDegrees += longitudeElapsed
                                     
-                            # Append text for the calculated number of total degrees.
-                            line = ""
+                            # Line of text.  We append measurements to
+                            # this line of text depending on what
+                            # measurements are enabled.
+                            line = "G T {} moves ".format(planetName)
+                            
                             numCircles = totalDegrees / circleSizeInDegrees
+                            numBiblicalCircles = \
+                                totalDegrees / AstrologyUtils.degreesInBiblicalCircle
                             
-                            if self.measurementUnitDegreesEnabled == True and \
-                               self.measurementUnitCirclesEnabled == True:
-                                
-                                line = "G S {} moves {:.2f} deg or {:.3f} circles (r as -)".\
-                                       format(planetName, totalDegrees, numCircles)
+                            # Flag that indicates at least one
+                            # measurement unit type is already
+                            # appended to the line of text.
+                            atLeastOneMeasurementAlreadyAddedFlag = False
                             
-                            elif self.measurementUnitDegreesEnabled == True and \
-                               self.measurementUnitCirclesEnabled == False:
-
-                                line = "G S {} moves {:.2f} deg (r as -)".\
-                                       format(planetName, totalDegrees)
+                            if self.measurementUnitDegreesEnabled == True:
+                                if atLeastOneMeasurementAlreadyAddedFlag == True:
+                                    line += "or "
+                                line += "{:.2f} deg ".format(totalDegrees)
+                                atLeastOneMeasurementAlreadyAddedFlag = True
                                 
-                            elif self.measurementUnitDegreesEnabled == False and \
-                               self.measurementUnitCirclesEnabled == True:
+                            if self.measurementUnitCirclesEnabled == True:
+                                if atLeastOneMeasurementAlreadyAddedFlag == True:
+                                    line += "or "
+                                line += "{:.3f} cir ".format(numCircles)
+                                atLeastOneMeasurementAlreadyAddedFlag = True
 
-                                line = "G S {} moves {:.3f} circles (r as -)".\
-                                       format(planetName, numCircles)
+                            if self.measurementUnitBiblicalCirclesEnabled == True:
+                                if atLeastOneMeasurementAlreadyAddedFlag == True:
+                                    line += "or "
+                                line += "{:.3f} bcir ".format(numBiblicalCircles)
+                                atLeastOneMeasurementAlreadyAddedFlag = True
+                            
+                            # Append last part of the line.
+                            line += "(r as -)"
                             
                             text += line + os.linesep
                             
@@ -8995,28 +9090,38 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                         
                                     totalDegrees += longitudeElapsed
                                     
-                        # Append text for the calculated number of total degrees.
-                        line = ""
+                        # Line of text.  We append measurements to
+                        # this line of text depending on what
+                        # measurements are enabled.
+                        line = "H T {} moves ".format(planetName)
+                            
                         numCircles = totalDegrees / circleSizeInDegrees
+                        numBiblicalCircles = \
+                            totalDegrees / AstrologyUtils.degreesInBiblicalCircle
                         
-                        if self.measurementUnitDegreesEnabled == True and \
-                           self.measurementUnitCirclesEnabled == True:
+                        # Flag that indicates at least one
+                        # measurement unit type is already
+                        # appended to the line of text.
+                        atLeastOneMeasurementAlreadyAddedFlag = False
+                        
+                        if self.measurementUnitDegreesEnabled == True:
+                            if atLeastOneMeasurementAlreadyAddedFlag == True:
+                                line += "or "
+                            line += "{:.2f} deg ".format(totalDegrees)
+                            atLeastOneMeasurementAlreadyAddedFlag = True
+                                
+                        if self.measurementUnitCirclesEnabled == True:
+                            if atLeastOneMeasurementAlreadyAddedFlag == True:
+                                line += "or "
+                            line += "{:.3f} cir ".format(numCircles)
+                            atLeastOneMeasurementAlreadyAddedFlag = True
                             
-                            line = "H T {} moves {:.2f} deg or {:.3f} circles".\
-                                   format(planetName, totalDegrees, numCircles)
-                            
-                        elif self.measurementUnitDegreesEnabled == True and \
-                           self.measurementUnitCirclesEnabled == False:
-                            
-                            line = "H T {} moves {:.2f} deg".\
-                                   format(planetName, totalDegrees)
-                            
-                        elif self.measurementUnitDegreesEnabled == False and \
-                           self.measurementUnitCirclesEnabled == True:
-                            
-                            line = "H T {} moves {:.3f} circles".\
-                                   format(planetName, numCircles)
-                            
+                        if self.measurementUnitBiblicalCirclesEnabled == True:
+                            if atLeastOneMeasurementAlreadyAddedFlag == True:
+                                line += "or "
+                            line += "{:.3f} bcir ".format(numBiblicalCircles)
+                            atLeastOneMeasurementAlreadyAddedFlag = True
+
                         text += line + os.linesep
                         
                     if self.siderealZodiacFlag == True:
@@ -9065,27 +9170,37 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                         
                                     totalDegrees += longitudeElapsed
                                     
-                        # Append text for the calculated number of total degrees.
-                        line = ""
-                        numCircles = totalDegrees / circleSizeInDegrees
+                        # Line of text.  We append measurements to
+                        # this line of text depending on what
+                        # measurements are enabled.
+                        line = "H S {} moves ".format(planetName)
                         
-                        if self.measurementUnitDegreesEnabled == True and \
-                           self.measurementUnitCirclesEnabled == True:
+                        numCircles = totalDegrees / circleSizeInDegrees
+                        numBiblicalCircles = \
+                            totalDegrees / AstrologyUtils.degreesInBiblicalCircle
+                        
+                        # Flag that indicates at least one
+                        # measurement unit type is already
+                        # appended to the line of text.
+                        atLeastOneMeasurementAlreadyAddedFlag = False
+                        
+                        if self.measurementUnitDegreesEnabled == True:
+                            if atLeastOneMeasurementAlreadyAddedFlag == True:
+                                line += "or "
+                            line += "{:.2f} deg ".format(totalDegrees)
+                            atLeastOneMeasurementAlreadyAddedFlag = True
                             
-                            line = "H S {} moves {:.2f} deg or {:.3f} circles".\
-                                   format(planetName, totalDegrees, numCircles)
+                        if self.measurementUnitCirclesEnabled == True:
+                            if atLeastOneMeasurementAlreadyAddedFlag == True:
+                                line += "or "
+                            line += "{:.3f} cir ".format(numCircles)
+                            atLeastOneMeasurementAlreadyAddedFlag = True
                             
-                        elif self.measurementUnitDegreesEnabled == True and \
-                           self.measurementUnitCirclesEnabled == False:
-                            
-                            line = "H S {} moves {:.2f} deg".\
-                                   format(planetName, totalDegrees)
-                            
-                        elif self.measurementUnitDegreesEnabled == False and \
-                           self.measurementUnitCirclesEnabled == True:
-                            
-                            line = "H S {} moves {:.3f} circles".\
-                                   format(planetName, numCircles)
+                        if self.measurementUnitBiblicalCirclesEnabled == True:
+                            if atLeastOneMeasurementAlreadyAddedFlag == True:
+                                line += "or "
+                            line += "{:.3f} bcir ".format(numBiblicalCircles)
+                            atLeastOneMeasurementAlreadyAddedFlag = True
                             
                         text += line + os.linesep
         
@@ -9148,6 +9263,8 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             self.artifact.getMeasurementUnitDegreesEnabled()
         self.measurementUnitCirclesEnabled = \
             self.artifact.getMeasurementUnitCirclesEnabled()
+        self.measurementUnitBiblicalCirclesEnabled = \
+            self.artifact.getMeasurementUnitBiblicalCirclesEnabled()
         
         # Remove contents of the list and retrieve the list of enabled
         # planets from priceBarChartSettings.
@@ -9391,6 +9508,8 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             self.measurementUnitDegreesEnabled)
         self.artifact.setMeasurementUnitCirclesEnabled(\
             self.measurementUnitCirclesEnabled)
+        self.artifact.setMeasurementUnitBiblicalCirclesEnabled(\
+            self.measurementUnitBiblicalCirclesEnabled)
         
         self.artifact.setPlanetH1EnabledFlag(\
             "H1" in self.planetNamesEnabled)

@@ -43,7 +43,13 @@ class AstrologyUtils:
     log = logging.getLogger("astrologychart.AstrologyUtils")
 
     # Number of degrees in a Biblical Circle. (float)
-    degreesInBiblicalCircle = 368.18
+    #
+    # 368 deg 10' 48" per George Bayer in his book, "Time Factors".
+    #degreesInBiblicalCircle = 368.18
+    #
+    # rluu_20130728: Below value was obtained per pg. 130 of TTTA.
+    # I believe this value to be the population of the city of Nineveh (Jonah).
+    degreesInBiblicalCircle = 122.75
 
     # Number of degrees in a 360-degree Circle. (float)
     degreesInCircle = 360.0
@@ -332,8 +338,8 @@ class AstrologyUtils:
     @staticmethod
     def convertCircleAngleToBiblicalCircleAngle(angle):
         """Converts the given angle in degrees of a 360-degree circle,
-        to an angle in degrees of a 368 degree 10 minute 48 second
-        circle (A.K.A Biblical Circle).
+        to an angle in degrees of a "Biblical Circle" of size
+        AstrologyUtils.degreesInBiblicalCircle.
 
         Arguments:
         angle - float value for the angle in units of degrees in a
@@ -341,7 +347,7 @@ class AstrologyUtils:
 
         Returns:
         float value for the angle in units of degrees in a
-        368 deg 10' 48" Biblical circle.
+        Biblical circle.
         """
 
         
@@ -355,13 +361,12 @@ class AstrologyUtils:
     
     @staticmethod
     def convertBiblicalCircleAngleToCircleAngle(biblicalAngle):
-        """Converts the given angle in degrees of a 368 degree 10
-        minute 48 second circle (A.K.A Biblical Circle) to an angle in
-        degrees of a 360-degree circle.
+        """Converts the given angle in degrees of a "Biblical Circle"
+        to an angle in degrees of a 360-degree circle.
 
         Arguments:
         biblicalAngle - float value for the angle in units of degrees in a
-                        368 deg 10' 48" Biblical circle.
+                        Biblical circle.
 
         Returns:
         float value for the angle in units of degrees in a 360-degree circle.
@@ -384,7 +389,7 @@ class AstrologyUtils:
         
         Arguments:
         biblicalAngle - float value for the angle in units of degrees in a
-                        368 deg 10' 48" Biblical circle.
+                        Biblical circle.
 
         Returns:
         str - String that is in the above format.  It will always be a

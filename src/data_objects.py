@@ -5085,7 +5085,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
-        self.classVersion = 2
+        self.classVersion = 3
 
         # Create the logger.
         self.log = \
@@ -5176,6 +5176,11 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         self.measurementUnitCirclesEnabled = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabled
+        
+        # Flag for displaying measurements in number of biblical circles.
+        self.measurementUnitBiblicalCirclesEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled
         
         # Flag for measurement of planet H1 enabled.
         self.planetH1EnabledFlag = \
@@ -5939,6 +5944,28 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         return self.measurementUnitCirclesEnabled
+
+    def setMeasurementUnitBiblicalCirclesEnabled(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of biblical circles.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.measurementUnitBiblicalCirclesEnabled = flag
+        
+    def getMeasurementUnitBiblicalCirclesEnabled(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of biblical circles.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.measurementUnitBiblicalCirclesEnabled
 
     def setPlanetH1EnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -7957,968 +7984,998 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
             "data_objects.PriceBarChartPlanetLongitudeMovementMeasurementArtifact")
 
         # Update the object to the most current version if it is not current.
-        if self.classVersion < 2:
+        if self.classVersion < 3:
             self.log.info("Detected an old class version of " + \
                           "PriceBarChartPlanetLongitudeMovementMeasurementArtifact (version {}).  ".\
                           format(self.classVersion))
-            
-            # Version 2 fixed the mis-named variables for enabling
-            # various planets.  These incorrect names had "show" in
-            # the front, and were not declared in the initialization
-            # function.
-            # 
-            # Version 2 also adds the following member variables:
-            #
-            # self.planetMeVeEnabledFlag
-            # self.planetMeEaEnabledFlag
-            # self.planetMeMaEnabledFlag
-            # self.planetMeJuEnabledFlag
-            # self.planetMeSaEnabledFlag
-            # self.planetMeUrEnabledFlag
-            # self.planetVeEaEnabledFlag
-            # self.planetVeMaEnabledFlag
-            # self.planetVeJuEnabledFlag
-            # self.planetVeSaEnabledFlag
-            # self.planetVeUrEnabledFlag
-            # self.planetEaMaEnabledFlag
-            # self.planetEaJuEnabledFlag
-            # self.planetEaSaEnabledFlag
-            # self.planetEaUrEnabledFlag
-            # self.planetMaJuEnabledFlag
-            # self.planetMaSaEnabledFlag
-            # self.planetMaUrEnabledFlag
-            # self.planetJuSaEnabledFlag
-            # self.planetJuUrEnabledFlag
-            # self.planetSaUrEnabledFlag
-            # self.planetMeVeEaEnabledFlag
-            # self.planetMeVeMaEnabledFlag
-            # self.planetVeEaMeEnabledFlag
-            # self.planetVeEaMaEnabledFlag
-            # self.planetVeMaMeEnabledFlag
-            # self.planetVeMaEaEnabledFlag
-            # self.planetEaMaMeEnabledFlag
-            # self.planetEaMaVeEnabledFlag
-            # self.planetMaJuMeEnabledFlag
-            # self.planetMaJuVeEnabledFlag
-            # self.planetMaJuEaEnabledFlag
-            # self.planetEaJuMeEnabledFlag
-            # self.planetEaJuVeEnabledFlag
-            # self.planetEaSaMeEnabledFlag
-            # self.planetEaSaVeEnabledFlag
-            # self.planetEaSaMaEnabledFlag
-            #
 
-            
-            # Fix variables to use more correct names.
-
-            try:
-                # Copy over the value to the new variable.
-                self.measurementUnitDegreesEnabled = \
-                    self.showMeasurementUnitDegreesEnabled
-                del(self.showMeasurementUnitDegreesEnabled)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.measurementUnitDegreesEnabled = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabled
-            
-            try:
-                # Copy over the value to the new variable.
-                self.measurementUnitCirclesEnabled = \
-                    self.showMeasurementUnitCirclesEnabled
-                del(self.showMeasurementUnitCirclesEnabled)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.measurementUnitCirclesEnabled = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabled
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetH1EnabledFlag = \
-                    self.showPlanetH1EnabledFlag
-                del(self.showPlanetH1EnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetH1EnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetH2EnabledFlag = \
-                    self.showPlanetH2EnabledFlag
-                del(self.showPlanetH2EnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetH2EnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetH3EnabledFlag = \
-                    self.showPlanetH3EnabledFlag
-                del(self.showPlanetH3EnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetH3EnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetH4EnabledFlag = \
-                    self.showPlanetH4EnabledFlag
-                del(self.showPlanetH4EnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetH4EnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetH5EnabledFlag = \
-                    self.showPlanetH5EnabledFlag
-                del(self.showPlanetH5EnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetH5EnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetH6EnabledFlag = \
-                    self.showPlanetH6EnabledFlag
-                del(self.showPlanetH6EnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetH6EnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetH7EnabledFlag = \
-                    self.showPlanetH7EnabledFlag
-                del(self.showPlanetH7EnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetH7EnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetH8EnabledFlag = \
-                    self.showPlanetH8EnabledFlag
-                del(self.showPlanetH8EnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetH8EnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetH9EnabledFlag = \
-                    self.showPlanetH9EnabledFlag
-                del(self.showPlanetH9EnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetH9EnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetH10EnabledFlag = \
-                    self.showPlanetH10EnabledFlag
-                del(self.showPlanetH10EnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetH10EnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetH11EnabledFlag = \
-                    self.showPlanetH11EnabledFlag
-                del(self.showPlanetH11EnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetH11EnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetH12EnabledFlag = \
-                    self.showPlanetH12EnabledFlag
-                del(self.showPlanetH12EnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetH12EnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetARMCEnabledFlag = \
-                    self.showPlanetARMCEnabledFlag
-                del(self.showPlanetARMCEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetARMCEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetVertexEnabledFlag = \
-                    self.showPlanetVertexEnabledFlag
-                del(self.showPlanetVertexEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetVertexEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetEquatorialAscendantEnabledFlag = \
-                    self.showPlanetEquatorialAscendantEnabledFlag
-                del(self.showPlanetEquatorialAscendantEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetEquatorialAscendantEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetCoAscendant1EnabledFlag = \
-                    self.showPlanetCoAscendant1EnabledFlag
-                del(self.showPlanetCoAscendant1EnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetCoAscendant1EnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetCoAscendant2EnabledFlag = \
-                    self.showPlanetCoAscendant2EnabledFlag
-                del(self.showPlanetCoAscendant2EnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetCoAscendant2EnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlag
-
-            try:
-                # Copy over the value to the new variable.
-                self.planetPolarAscendantEnabledFlag = \
-                    self.showPlanetPolarAscendantEnabledFlag
-                del(self.showPlanetPolarAscendantEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetPolarAscendantEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetHoraLagnaEnabledFlag = \
-                    self.showPlanetHoraLagnaEnabledFlag
-                del(self.showPlanetHoraLagnaEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetHoraLagnaEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetGhatiLagnaEnabledFlag = \
-                    self.showPlanetGhatiLagnaEnabledFlag
-                del(self.showPlanetGhatiLagnaEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetGhatiLagnaEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetMeanLunarApogeeEnabledFlag = \
-                    self.showPlanetMeanLunarApogeeEnabledFlag
-                del(self.showPlanetMeanLunarApogeeEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetMeanLunarApogeeEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetOsculatingLunarApogeeEnabledFlag = \
-                    self.showPlanetOsculatingLunarApogeeEnabledFlag
-                del(self.showPlanetOsculatingLunarApogeeEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetOsculatingLunarApogeeEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetInterpolatedLunarApogeeEnabledFlag = \
-                    self.showPlanetInterpolatedLunarApogeeEnabledFlag
-                del(self.showPlanetInterpolatedLunarApogeeEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetInterpolatedLunarApogeeEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetInterpolatedLunarPerigeeEnabledFlag = \
-                    self.showPlanetInterpolatedLunarPerigeeEnabledFlag
-                del(self.showPlanetInterpolatedLunarPerigeeEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetInterpolatedLunarPerigeeEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetSunEnabledFlag = \
-                    self.showPlanetSunEnabledFlag
-                del(self.showPlanetSunEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetSunEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetMoonEnabledFlag = \
-                    self.showPlanetMoonEnabledFlag
-                del(self.showPlanetMoonEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetMoonEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetMercuryEnabledFlag = \
-                    self.showPlanetMercuryEnabledFlag
-                del(self.showPlanetMercuryEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetMercuryEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetVenusEnabledFlag = \
-                    self.showPlanetVenusEnabledFlag
-                del(self.showPlanetVenusEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetVenusEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetEarthEnabledFlag = \
-                    self.showPlanetEarthEnabledFlag
-                del(self.showPlanetEarthEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetEarthEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetMarsEnabledFlag = \
-                    self.showPlanetMarsEnabledFlag
-                del(self.showPlanetMarsEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetMarsEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetJupiterEnabledFlag = \
-                    self.showPlanetJupiterEnabledFlag
-                del(self.showPlanetJupiterEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetJupiterEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetSaturnEnabledFlag = \
-                    self.showPlanetSaturnEnabledFlag
-                del(self.showPlanetSaturnEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetSaturnEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetUranusEnabledFlag = \
-                    self.showPlanetUranusEnabledFlag
-                del(self.showPlanetUranusEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetUranusEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetNeptuneEnabledFlag = \
-                    self.showPlanetNeptuneEnabledFlag
-                del(self.showPlanetNeptuneEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetNeptuneEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetPlutoEnabledFlag = \
-                    self.showPlanetPlutoEnabledFlag
-                del(self.showPlanetPlutoEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetPlutoEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetMeanNorthNodeEnabledFlag = \
-                    self.showPlanetMeanNorthNodeEnabledFlag
-                del(self.showPlanetMeanNorthNodeEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetMeanNorthNodeEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetMeanSouthNodeEnabledFlag = \
-                    self.showPlanetMeanSouthNodeEnabledFlag
-                del(self.showPlanetMeanSouthNodeEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetMeanSouthNodeEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetTrueNorthNodeEnabledFlag = \
-                    self.showPlanetTrueNorthNodeEnabledFlag
-                del(self.showPlanetTrueNorthNodeEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetTrueNorthNodeEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetTrueSouthNodeEnabledFlag = \
-                    self.showPlanetTrueSouthNodeEnabledFlag
-                del(self.showPlanetTrueSouthNodeEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetTrueSouthNodeEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetCeresEnabledFlag = \
-                    self.showPlanetCeresEnabledFlag
-                del(self.showPlanetCeresEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetCeresEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetPallasEnabledFlag = \
-                    self.showPlanetPallasEnabledFlag
-                del(self.showPlanetPallasEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetPallasEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetJunoEnabledFlag = \
-                    self.showPlanetJunoEnabledFlag
-                del(self.showPlanetJunoEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetJunoEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetVestaEnabledFlag = \
-                    self.showPlanetVestaEnabledFlag
-                del(self.showPlanetVestaEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetVestaEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetIsisEnabledFlag = \
-                    self.showPlanetIsisEnabledFlag
-                del(self.showPlanetIsisEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetIsisEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetNibiruEnabledFlag = \
-                    self.showPlanetNibiruEnabledFlag
-                del(self.showPlanetNibiruEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetNibiruEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetChironEnabledFlag = \
-                    self.showPlanetChironEnabledFlag
-                del(self.showPlanetChironEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetChironEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetGulikaEnabledFlag = \
-                    self.showPlanetGulikaEnabledFlag
-                del(self.showPlanetGulikaEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetGulikaEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetMandiEnabledFlag = \
-                    self.showPlanetMandiEnabledFlag
-                del(self.showPlanetMandiEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetMandiEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetMeanOfFiveEnabledFlag = \
-                    self.showPlanetMeanOfFiveEnabledFlag
-                del(self.showPlanetMeanOfFiveEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetMeanOfFiveEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetCycleOfEightEnabledFlag = \
-                    self.showPlanetCycleOfEightEnabledFlag
-                del(self.showPlanetCycleOfEightEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetCycleOfEightEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetAvgMaJuSaUrNePlEnabledFlag = \
-                    self.showPlanetAvgMaJuSaUrNePlEnabledFlag
-                del(self.showPlanetAvgMaJuSaUrNePlEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetAvgMaJuSaUrNePlEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetAvgJuSaUrNeEnabledFlag = \
-                    self.showPlanetAvgJuSaUrNeEnabledFlag
-                del(self.showPlanetAvgJuSaUrNeEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetAvgJuSaUrNeEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlag
-            
-            try:
-                # Copy over the value to the new variable.
-                self.planetAvgJuSaEnabledFlag = \
-                    self.showPlanetAvgJuSaEnabledFlag
-                del(self.showPlanetAvgJuSaEnabledFlag)
-            except AttributeError:
-                # Member variable doesn't exist or is not set yet.
-                # Use the default value.
-                self.planetAvgJuSaEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag
-            
-
-            # Handle variables that were added in this version.
-            try:
-                # See if the variables are set.
-                self.planetMeVeEnabledFlag
-                self.planetMeEaEnabledFlag
-                self.planetMeMaEnabledFlag
-                self.planetMeJuEnabledFlag
-                self.planetMeSaEnabledFlag
-                self.planetMeUrEnabledFlag
-                self.planetVeEaEnabledFlag
-                self.planetVeMaEnabledFlag
-                self.planetVeJuEnabledFlag
-                self.planetVeSaEnabledFlag
-                self.planetVeUrEnabledFlag
-                self.planetEaMaEnabledFlag
-                self.planetEaJuEnabledFlag
-                self.planetEaSaEnabledFlag
-                self.planetEaUrEnabledFlag
-                self.planetMaJuEnabledFlag
-                self.planetMaSaEnabledFlag
-                self.planetMaUrEnabledFlag
-                self.planetJuSaEnabledFlag
-                self.planetJuUrEnabledFlag
-                self.planetSaUrEnabledFlag
-                self.planetMeVeEaEnabledFlag
-                self.planetMeVeMaEnabledFlag
-                self.planetVeEaMeEnabledFlag
-                self.planetVeEaMaEnabledFlag
-                self.planetVeMaMeEnabledFlag
-                self.planetVeMaEaEnabledFlag
-                self.planetEaMaMeEnabledFlag
-                self.planetEaMaVeEnabledFlag
-                self.planetMaJuMeEnabledFlag
-                self.planetMaJuVeEnabledFlag
-                self.planetMaJuEaEnabledFlag
-                self.planetEaJuMeEnabledFlag
-                self.planetEaJuVeEnabledFlag
-                self.planetEaSaMeEnabledFlag
-                self.planetEaSaVeEnabledFlag
-                self.planetEaSaMaEnabledFlag
+            if self.classVersion == 1:
+                # Version 2 fixed the mis-named variables for enabling
+                # various planets.  These incorrect names had "show" in
+                # the front, and were not declared in the initialization
+                # function.
+                # 
+                # Version 2 also adds the following member variables:
+                #
+                # self.planetMeVeEnabledFlag
+                # self.planetMeEaEnabledFlag
+                # self.planetMeMaEnabledFlag
+                # self.planetMeJuEnabledFlag
+                # self.planetMeSaEnabledFlag
+                # self.planetMeUrEnabledFlag
+                # self.planetVeEaEnabledFlag
+                # self.planetVeMaEnabledFlag
+                # self.planetVeJuEnabledFlag
+                # self.planetVeSaEnabledFlag
+                # self.planetVeUrEnabledFlag
+                # self.planetEaMaEnabledFlag
+                # self.planetEaJuEnabledFlag
+                # self.planetEaSaEnabledFlag
+                # self.planetEaUrEnabledFlag
+                # self.planetMaJuEnabledFlag
+                # self.planetMaSaEnabledFlag
+                # self.planetMaUrEnabledFlag
+                # self.planetJuSaEnabledFlag
+                # self.planetJuUrEnabledFlag
+                # self.planetSaUrEnabledFlag
+                # self.planetMeVeEaEnabledFlag
+                # self.planetMeVeMaEnabledFlag
+                # self.planetVeEaMeEnabledFlag
+                # self.planetVeEaMaEnabledFlag
+                # self.planetVeMaMeEnabledFlag
+                # self.planetVeMaEaEnabledFlag
+                # self.planetEaMaMeEnabledFlag
+                # self.planetEaMaVeEnabledFlag
+                # self.planetMaJuMeEnabledFlag
+                # self.planetMaJuVeEnabledFlag
+                # self.planetMaJuEaEnabledFlag
+                # self.planetEaJuMeEnabledFlag
+                # self.planetEaJuVeEnabledFlag
+                # self.planetEaSaMeEnabledFlag
+                # self.planetEaSaVeEnabledFlag
+                # self.planetEaSaMaEnabledFlag
+                #
+    
                 
-                # If it got here, then the fields are already set.
-                self.log.warn("Hmm, strange.  Version {} of this ".\
-                              format(self.classVersion) + \
-                              "class shouldn't have these fields.")
+                # Fix variables to use more correct names.
+    
+                try:
+                    # Copy over the value to the new variable.
+                    self.measurementUnitDegreesEnabled = \
+                        self.showMeasurementUnitDegreesEnabled
+                    del(self.showMeasurementUnitDegreesEnabled)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.measurementUnitDegreesEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabled
                 
-            except AttributeError:
-                # Variables were not set.  Set them to the default
-                # values.
+                try:
+                    # Copy over the value to the new variable.
+                    self.measurementUnitCirclesEnabled = \
+                        self.showMeasurementUnitCirclesEnabled
+                    del(self.showMeasurementUnitCirclesEnabled)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.measurementUnitCirclesEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabled
                 
-                self.planetMeVeEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetH1EnabledFlag = \
+                        self.showPlanetH1EnabledFlag
+                    del(self.showPlanetH1EnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetH1EnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag
                 
-                self.planetMeEaEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeEaEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetH2EnabledFlag = \
+                        self.showPlanetH2EnabledFlag
+                    del(self.showPlanetH2EnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetH2EnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlag
                 
-                self.planetMeMaEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeMaEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetH3EnabledFlag = \
+                        self.showPlanetH3EnabledFlag
+                    del(self.showPlanetH3EnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetH3EnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlag
                 
-                self.planetMeJuEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeJuEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetH4EnabledFlag = \
+                        self.showPlanetH4EnabledFlag
+                    del(self.showPlanetH4EnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetH4EnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlag
                 
-                self.planetMeSaEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeSaEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetH5EnabledFlag = \
+                        self.showPlanetH5EnabledFlag
+                    del(self.showPlanetH5EnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetH5EnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlag
                 
-                self.planetMeUrEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeUrEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetH6EnabledFlag = \
+                        self.showPlanetH6EnabledFlag
+                    del(self.showPlanetH6EnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetH6EnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlag
                 
-                self.planetVeEaEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetH7EnabledFlag = \
+                        self.showPlanetH7EnabledFlag
+                    del(self.showPlanetH7EnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetH7EnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlag
                 
-                self.planetVeMaEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetH8EnabledFlag = \
+                        self.showPlanetH8EnabledFlag
+                    del(self.showPlanetH8EnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetH8EnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlag
                 
-                self.planetVeJuEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeJuEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetH9EnabledFlag = \
+                        self.showPlanetH9EnabledFlag
+                    del(self.showPlanetH9EnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetH9EnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlag
                 
-                self.planetVeSaEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeSaEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetH10EnabledFlag = \
+                        self.showPlanetH10EnabledFlag
+                    del(self.showPlanetH10EnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetH10EnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlag
                 
-                self.planetVeUrEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeUrEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetH11EnabledFlag = \
+                        self.showPlanetH11EnabledFlag
+                    del(self.showPlanetH11EnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetH11EnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlag
                 
-                self.planetEaMaEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetH12EnabledFlag = \
+                        self.showPlanetH12EnabledFlag
+                    del(self.showPlanetH12EnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetH12EnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag
                 
-                self.planetEaJuEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaJuEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetARMCEnabledFlag = \
+                        self.showPlanetARMCEnabledFlag
+                    del(self.showPlanetARMCEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetARMCEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlag
                 
-                self.planetEaSaEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetVertexEnabledFlag = \
+                        self.showPlanetVertexEnabledFlag
+                    del(self.showPlanetVertexEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetVertexEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlag
                 
-                self.planetEaUrEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaUrEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetEquatorialAscendantEnabledFlag = \
+                        self.showPlanetEquatorialAscendantEnabledFlag
+                    del(self.showPlanetEquatorialAscendantEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetEquatorialAscendantEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlag
                 
-                self.planetMaJuEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetCoAscendant1EnabledFlag = \
+                        self.showPlanetCoAscendant1EnabledFlag
+                    del(self.showPlanetCoAscendant1EnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetCoAscendant1EnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlag
                 
-                self.planetMaSaEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaSaEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetCoAscendant2EnabledFlag = \
+                        self.showPlanetCoAscendant2EnabledFlag
+                    del(self.showPlanetCoAscendant2EnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetCoAscendant2EnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlag
+    
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetPolarAscendantEnabledFlag = \
+                        self.showPlanetPolarAscendantEnabledFlag
+                    del(self.showPlanetPolarAscendantEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetPolarAscendantEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlag
                 
-                self.planetMaUrEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaUrEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetHoraLagnaEnabledFlag = \
+                        self.showPlanetHoraLagnaEnabledFlag
+                    del(self.showPlanetHoraLagnaEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetHoraLagnaEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag
                 
-                self.planetJuSaEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJuSaEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetGhatiLagnaEnabledFlag = \
+                        self.showPlanetGhatiLagnaEnabledFlag
+                    del(self.showPlanetGhatiLagnaEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetGhatiLagnaEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlag
                 
-                self.planetJuUrEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJuUrEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetMeanLunarApogeeEnabledFlag = \
+                        self.showPlanetMeanLunarApogeeEnabledFlag
+                    del(self.showPlanetMeanLunarApogeeEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetMeanLunarApogeeEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlag
                 
-                self.planetSaUrEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSaUrEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetOsculatingLunarApogeeEnabledFlag = \
+                        self.showPlanetOsculatingLunarApogeeEnabledFlag
+                    del(self.showPlanetOsculatingLunarApogeeEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetOsculatingLunarApogeeEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlag
                 
-                self.planetMeVeEaEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEaEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetInterpolatedLunarApogeeEnabledFlag = \
+                        self.showPlanetInterpolatedLunarApogeeEnabledFlag
+                    del(self.showPlanetInterpolatedLunarApogeeEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetInterpolatedLunarApogeeEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlag
                 
-                self.planetMeVeMaEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeMaEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetInterpolatedLunarPerigeeEnabledFlag = \
+                        self.showPlanetInterpolatedLunarPerigeeEnabledFlag
+                    del(self.showPlanetInterpolatedLunarPerigeeEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetInterpolatedLunarPerigeeEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlag
                 
-                self.planetVeEaMeEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMeEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetSunEnabledFlag = \
+                        self.showPlanetSunEnabledFlag
+                    del(self.showPlanetSunEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetSunEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlag
                 
-                self.planetVeEaMaEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMaEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetMoonEnabledFlag = \
+                        self.showPlanetMoonEnabledFlag
+                    del(self.showPlanetMoonEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetMoonEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlag
                 
-                self.planetVeMaMeEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeMaMeEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetMercuryEnabledFlag = \
+                        self.showPlanetMercuryEnabledFlag
+                    del(self.showPlanetMercuryEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetMercuryEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlag
                 
-                self.planetVeMaEaEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEaEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetVenusEnabledFlag = \
+                        self.showPlanetVenusEnabledFlag
+                    del(self.showPlanetVenusEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetVenusEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlag
                 
-                self.planetEaMaMeEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaMeEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetEarthEnabledFlag = \
+                        self.showPlanetEarthEnabledFlag
+                    del(self.showPlanetEarthEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetEarthEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlag
                 
-                self.planetEaMaVeEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaVeEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetMarsEnabledFlag = \
+                        self.showPlanetMarsEnabledFlag
+                    del(self.showPlanetMarsEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetMarsEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlag
                 
-                self.planetMaJuMeEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuMeEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetJupiterEnabledFlag = \
+                        self.showPlanetJupiterEnabledFlag
+                    del(self.showPlanetJupiterEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetJupiterEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlag
                 
-                self.planetMaJuVeEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuVeEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetSaturnEnabledFlag = \
+                        self.showPlanetSaturnEnabledFlag
+                    del(self.showPlanetSaturnEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetSaturnEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlag
                 
-                self.planetMaJuEaEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEaEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetUranusEnabledFlag = \
+                        self.showPlanetUranusEnabledFlag
+                    del(self.showPlanetUranusEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetUranusEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlag
                 
-                self.planetEaJuMeEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaJuMeEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetNeptuneEnabledFlag = \
+                        self.showPlanetNeptuneEnabledFlag
+                    del(self.showPlanetNeptuneEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetNeptuneEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlag
                 
-                self.planetEaJuVeEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaJuVeEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetPlutoEnabledFlag = \
+                        self.showPlanetPlutoEnabledFlag
+                    del(self.showPlanetPlutoEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetPlutoEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlag
                 
-                self.planetEaSaMeEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMeEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetMeanNorthNodeEnabledFlag = \
+                        self.showPlanetMeanNorthNodeEnabledFlag
+                    del(self.showPlanetMeanNorthNodeEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetMeanNorthNodeEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlag
                 
-                self.planetEaSaVeEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaVeEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetMeanSouthNodeEnabledFlag = \
+                        self.showPlanetMeanSouthNodeEnabledFlag
+                    del(self.showPlanetMeanSouthNodeEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetMeanSouthNodeEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlag
                 
-                self.planetEaSaMaEnabledFlag = \
-                    PriceBarChartSettings.\
-                    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMaEnabledFlag
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetTrueNorthNodeEnabledFlag = \
+                        self.showPlanetTrueNorthNodeEnabledFlag
+                    del(self.showPlanetTrueNorthNodeEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetTrueNorthNodeEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlag
                 
-                self.log.debug("Added fields " + \
-                               "'self.planetMeVeEnabledFlag', " + \
-                               "'self.planetMeEaEnabledFlag', " + \
-                               "'self.planetMeMaEnabledFlag', " + \
-                               "'self.planetMeJuEnabledFlag', " + \
-                               "'self.planetMeSaEnabledFlag', " + \
-                               "'self.planetMeUrEnabledFlag', " + \
-                               "'self.planetVeEaEnabledFlag', " + \
-                               "'self.planetVeMaEnabledFlag', " + \
-                               "'self.planetVeJuEnabledFlag', " + \
-                               "'self.planetVeSaEnabledFlag', " + \
-                               "'self.planetVeUrEnabledFlag', " + \
-                               "'self.planetEaMaEnabledFlag', " + \
-                               "'self.planetEaJuEnabledFlag', " + \
-                               "'self.planetEaSaEnabledFlag', " + \
-                               "'self.planetEaUrEnabledFlag', " + \
-                               "'self.planetMaJuEnabledFlag', " + \
-                               "'self.planetMaSaEnabledFlag', " + \
-                               "'self.planetMaUrEnabledFlag', " + \
-                               "'self.planetJuSaEnabledFlag', " + \
-                               "'self.planetJuUrEnabledFlag', " + \
-                               "'self.planetSaUrEnabledFlag', " + \
-                               "'self.planetMeVeEaEnabledFlag', " + \
-                               "'self.planetMeVeMaEnabledFlag', " + \
-                               "'self.planetVeEaMeEnabledFlag', " + \
-                               "'self.planetVeEaMaEnabledFlag', " + \
-                               "'self.planetVeMaMeEnabledFlag', " + \
-                               "'self.planetVeMaEaEnabledFlag', " + \
-                               "'self.planetEaMaMeEnabledFlag', " + \
-                               "'self.planetEaMaVeEnabledFlag', " + \
-                               "'self.planetMaJuMeEnabledFlag', " + \
-                               "'self.planetMaJuVeEnabledFlag', " + \
-                               "'self.planetMaJuEaEnabledFlag', " + \
-                               "'self.planetEaJuMeEnabledFlag', " + \
-                               "'self.planetEaJuVeEnabledFlag', " + \
-                               "'self.planetEaSaMeEnabledFlag', " + \
-                               "'self.planetEaSaVeEnabledFlag', " + \
-                               "'self.planetEaSaMaEnabledFlag', " + \
-                               "to the loaded object.")
-
-            
-            # Update the class version.
-            prevClassVersion = self.classVersion
-            self.classVersion = 2
-                              
-            self.log.info("Object has been updated from " + \
-                          "version {} to version {}.".\
-                          format(prevClassVersion, self.classVersion))
-            
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetTrueSouthNodeEnabledFlag = \
+                        self.showPlanetTrueSouthNodeEnabledFlag
+                    del(self.showPlanetTrueSouthNodeEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetTrueSouthNodeEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlag
+                
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetCeresEnabledFlag = \
+                        self.showPlanetCeresEnabledFlag
+                    del(self.showPlanetCeresEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetCeresEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlag
+                
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetPallasEnabledFlag = \
+                        self.showPlanetPallasEnabledFlag
+                    del(self.showPlanetPallasEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetPallasEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlag
+                
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetJunoEnabledFlag = \
+                        self.showPlanetJunoEnabledFlag
+                    del(self.showPlanetJunoEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetJunoEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlag
+                
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetVestaEnabledFlag = \
+                        self.showPlanetVestaEnabledFlag
+                    del(self.showPlanetVestaEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetVestaEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag
+                
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetIsisEnabledFlag = \
+                        self.showPlanetIsisEnabledFlag
+                    del(self.showPlanetIsisEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetIsisEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlag
+                
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetNibiruEnabledFlag = \
+                        self.showPlanetNibiruEnabledFlag
+                    del(self.showPlanetNibiruEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetNibiruEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlag
+                
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetChironEnabledFlag = \
+                        self.showPlanetChironEnabledFlag
+                    del(self.showPlanetChironEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetChironEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag
+                
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetGulikaEnabledFlag = \
+                        self.showPlanetGulikaEnabledFlag
+                    del(self.showPlanetGulikaEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetGulikaEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlag
+                
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetMandiEnabledFlag = \
+                        self.showPlanetMandiEnabledFlag
+                    del(self.showPlanetMandiEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetMandiEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlag
+                
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetMeanOfFiveEnabledFlag = \
+                        self.showPlanetMeanOfFiveEnabledFlag
+                    del(self.showPlanetMeanOfFiveEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetMeanOfFiveEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlag
+                
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetCycleOfEightEnabledFlag = \
+                        self.showPlanetCycleOfEightEnabledFlag
+                    del(self.showPlanetCycleOfEightEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetCycleOfEightEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlag
+                
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetAvgMaJuSaUrNePlEnabledFlag = \
+                        self.showPlanetAvgMaJuSaUrNePlEnabledFlag
+                    del(self.showPlanetAvgMaJuSaUrNePlEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetAvgMaJuSaUrNePlEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlag
+                
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetAvgJuSaUrNeEnabledFlag = \
+                        self.showPlanetAvgJuSaUrNeEnabledFlag
+                    del(self.showPlanetAvgJuSaUrNeEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetAvgJuSaUrNeEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlag
+                
+                try:
+                    # Copy over the value to the new variable.
+                    self.planetAvgJuSaEnabledFlag = \
+                        self.showPlanetAvgJuSaEnabledFlag
+                    del(self.showPlanetAvgJuSaEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.planetAvgJuSaEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag
+                
+    
+                # Handle variables that were added in this version.
+                try:
+                    # See if the variables are set.
+                    self.planetMeVeEnabledFlag
+                    self.planetMeEaEnabledFlag
+                    self.planetMeMaEnabledFlag
+                    self.planetMeJuEnabledFlag
+                    self.planetMeSaEnabledFlag
+                    self.planetMeUrEnabledFlag
+                    self.planetVeEaEnabledFlag
+                    self.planetVeMaEnabledFlag
+                    self.planetVeJuEnabledFlag
+                    self.planetVeSaEnabledFlag
+                    self.planetVeUrEnabledFlag
+                    self.planetEaMaEnabledFlag
+                    self.planetEaJuEnabledFlag
+                    self.planetEaSaEnabledFlag
+                    self.planetEaUrEnabledFlag
+                    self.planetMaJuEnabledFlag
+                    self.planetMaSaEnabledFlag
+                    self.planetMaUrEnabledFlag
+                    self.planetJuSaEnabledFlag
+                    self.planetJuUrEnabledFlag
+                    self.planetSaUrEnabledFlag
+                    self.planetMeVeEaEnabledFlag
+                    self.planetMeVeMaEnabledFlag
+                    self.planetVeEaMeEnabledFlag
+                    self.planetVeEaMaEnabledFlag
+                    self.planetVeMaMeEnabledFlag
+                    self.planetVeMaEaEnabledFlag
+                    self.planetEaMaMeEnabledFlag
+                    self.planetEaMaVeEnabledFlag
+                    self.planetMaJuMeEnabledFlag
+                    self.planetMaJuVeEnabledFlag
+                    self.planetMaJuEaEnabledFlag
+                    self.planetEaJuMeEnabledFlag
+                    self.planetEaJuVeEnabledFlag
+                    self.planetEaSaMeEnabledFlag
+                    self.planetEaSaVeEnabledFlag
+                    self.planetEaSaMaEnabledFlag
+                    
+                    # If it got here, then the fields are already set.
+                    self.log.warn("Hmm, strange.  Version {} of this ".\
+                                  format(self.classVersion) + \
+                                  "class shouldn't have these fields.")
+                    
+                except AttributeError:
+                    # Variables were not set.  Set them to the default
+                    # values.
+                    
+                    self.planetMeVeEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlag
+                    
+                    self.planetMeEaEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeEaEnabledFlag
+                    
+                    self.planetMeMaEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeMaEnabledFlag
+                    
+                    self.planetMeJuEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeJuEnabledFlag
+                    
+                    self.planetMeSaEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeSaEnabledFlag
+                    
+                    self.planetMeUrEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeUrEnabledFlag
+                    
+                    self.planetVeEaEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaEnabledFlag
+                    
+                    self.planetVeMaEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEnabledFlag
+                    
+                    self.planetVeJuEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeJuEnabledFlag
+                    
+                    self.planetVeSaEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeSaEnabledFlag
+                    
+                    self.planetVeUrEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeUrEnabledFlag
+                    
+                    self.planetEaMaEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaEnabledFlag
+                    
+                    self.planetEaJuEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaJuEnabledFlag
+                    
+                    self.planetEaSaEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaEnabledFlag
+                    
+                    self.planetEaUrEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaUrEnabledFlag
+                    
+                    self.planetMaJuEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEnabledFlag
+                    
+                    self.planetMaSaEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaSaEnabledFlag
+                    
+                    self.planetMaUrEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaUrEnabledFlag
+                    
+                    self.planetJuSaEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJuSaEnabledFlag
+                    
+                    self.planetJuUrEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJuUrEnabledFlag
+                    
+                    self.planetSaUrEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSaUrEnabledFlag
+                    
+                    self.planetMeVeEaEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEaEnabledFlag
+                    
+                    self.planetMeVeMaEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeMaEnabledFlag
+                    
+                    self.planetVeEaMeEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMeEnabledFlag
+                    
+                    self.planetVeEaMaEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMaEnabledFlag
+                    
+                    self.planetVeMaMeEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeMaMeEnabledFlag
+                    
+                    self.planetVeMaEaEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEaEnabledFlag
+                    
+                    self.planetEaMaMeEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaMeEnabledFlag
+                    
+                    self.planetEaMaVeEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaVeEnabledFlag
+                    
+                    self.planetMaJuMeEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuMeEnabledFlag
+                    
+                    self.planetMaJuVeEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuVeEnabledFlag
+                    
+                    self.planetMaJuEaEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEaEnabledFlag
+                    
+                    self.planetEaJuMeEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaJuMeEnabledFlag
+                    
+                    self.planetEaJuVeEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaJuVeEnabledFlag
+                    
+                    self.planetEaSaMeEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMeEnabledFlag
+                    
+                    self.planetEaSaVeEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaVeEnabledFlag
+                    
+                    self.planetEaSaMaEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMaEnabledFlag
+                    
+                    self.log.debug("Added fields " + \
+                                   "'self.planetMeVeEnabledFlag', " + \
+                                   "'self.planetMeEaEnabledFlag', " + \
+                                   "'self.planetMeMaEnabledFlag', " + \
+                                   "'self.planetMeJuEnabledFlag', " + \
+                                   "'self.planetMeSaEnabledFlag', " + \
+                                   "'self.planetMeUrEnabledFlag', " + \
+                                   "'self.planetVeEaEnabledFlag', " + \
+                                   "'self.planetVeMaEnabledFlag', " + \
+                                   "'self.planetVeJuEnabledFlag', " + \
+                                   "'self.planetVeSaEnabledFlag', " + \
+                                   "'self.planetVeUrEnabledFlag', " + \
+                                   "'self.planetEaMaEnabledFlag', " + \
+                                   "'self.planetEaJuEnabledFlag', " + \
+                                   "'self.planetEaSaEnabledFlag', " + \
+                                   "'self.planetEaUrEnabledFlag', " + \
+                                   "'self.planetMaJuEnabledFlag', " + \
+                                   "'self.planetMaSaEnabledFlag', " + \
+                                   "'self.planetMaUrEnabledFlag', " + \
+                                   "'self.planetJuSaEnabledFlag', " + \
+                                   "'self.planetJuUrEnabledFlag', " + \
+                                   "'self.planetSaUrEnabledFlag', " + \
+                                   "'self.planetMeVeEaEnabledFlag', " + \
+                                   "'self.planetMeVeMaEnabledFlag', " + \
+                                   "'self.planetVeEaMeEnabledFlag', " + \
+                                   "'self.planetVeEaMaEnabledFlag', " + \
+                                   "'self.planetVeMaMeEnabledFlag', " + \
+                                   "'self.planetVeMaEaEnabledFlag', " + \
+                                   "'self.planetEaMaMeEnabledFlag', " + \
+                                   "'self.planetEaMaVeEnabledFlag', " + \
+                                   "'self.planetMaJuMeEnabledFlag', " + \
+                                   "'self.planetMaJuVeEnabledFlag', " + \
+                                   "'self.planetMaJuEaEnabledFlag', " + \
+                                   "'self.planetEaJuMeEnabledFlag', " + \
+                                   "'self.planetEaJuVeEnabledFlag', " + \
+                                   "'self.planetEaSaMeEnabledFlag', " + \
+                                   "'self.planetEaSaVeEnabledFlag', " + \
+                                   "'self.planetEaSaMaEnabledFlag', " + \
+                                   "to the loaded object.")
+    
+                
+                # Update the class version.
+                prevClassVersion = self.classVersion
+                self.classVersion = 2
+                                  
+                self.log.info("Object has been updated from " + \
+                              "version {} to version {}.".\
+                              format(prevClassVersion, self.classVersion))
+                
+            if self.classVersion == 2:
+                # Version 3 adds the following member variables:
+                #
+                # self.measurementUnitBiblicalCirclesEnabled
+                #
+    
+                try:
+                    # See if the variable is set.
+                    self.measurementUnitBiblicalCirclesEnabled
+    
+                    # If it got here, then the field is already set.
+                    self.log.warn("Hmm, strange.  Version {} of this ".\
+                                  format(self.classVersion) + \
+                                  "class shouldn't have this field.")
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # Use the default value.
+                    self.measurementUnitBiblicalCirclesEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled
+    
+                # Update the class version.
+                prevClassVersion = self.classVersion
+                self.classVersion = 3
+                                  
+                self.log.info("Object has been updated from " + \
+                              "version {} to version {}.".\
+                              format(prevClassVersion, self.classVersion))
+                
         # Log that we set the state of this object.
         self.log.debug("Set state of a " +
                        PriceBarChartPlanetLongitudeMovementMeasurementArtifact.__name__ +
@@ -17634,6 +17691,10 @@ class PriceBarChartSettings:
     defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabled = True
 
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # measurementUnitBiblicalCirclesEnabled (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetH1EnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag = False
         
@@ -18669,7 +18730,7 @@ class PriceBarChartSettings:
 
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
-        self.classVersion = 6
+        self.classVersion = 7
 
         # List of scalings used in the PriceBarChartGraphicsView.  
         # This is list of PriceBarChartScaling objects.
@@ -19124,6 +19185,12 @@ class PriceBarChartSettings:
         self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabled = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabled
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # measurementUnitBiblicalCirclesEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled
 
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetH1EnabledFlag (bool).
@@ -20503,7 +20570,7 @@ class PriceBarChartSettings:
         self.log = logging.getLogger("data_objects.PriceBarChartSettings")
 
         # Update the object to the most current version if it is not current.
-        if self.classVersion < 6:
+        if self.classVersion < 7:
             self.log.info("Detected an old class version of " + \
                           "PriceBarChartSettings (version {}).  ".\
                           format(self.classVersion))
@@ -21835,7 +21902,43 @@ class PriceBarChartSettings:
                               "version {} to version {}.".\
                               format(prevClassVersion, self.classVersion))
                     
+            if self.classVersion == 6:
+                # Version 7 added the following member variables:
+                #
+                # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled
+                #
+                
+                try:
+                    # See if the variable is set already.
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled
                     
+                    # If it got here, then the fields are already set.
+                    self.log.warn("Hmm, strange.  Version {} of this ".\
+                                  format(self.classVersion) + \
+                                  "class shouldn't have these fields.")
+
+                except AttributeError:
+                    # Variable was not set.  Set it to the default
+                    # PriceBarChartSettings value.
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # measurementUnitBiblicalCirclesEnabled (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled
+                    
+                    self.log.debug("Added field(s): " + \
+                                   "'planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled', " + \
+                                   "to the loaded PriceBarChartSettings.")
+                    
+                # Update the class version.
+                prevClassVersion = self.classVersion
+                self.classVersion = 7
+        
+                self.log.info("Object has been updated from " + \
+                              "version {} to version {}.".\
+                              format(prevClassVersion, self.classVersion))
+                
         # Log that we set the state of this object.
         self.log.debug("Set state of a " + PriceBarChartSettings.__name__ +
                        " object of version {}".format(self.classVersion))

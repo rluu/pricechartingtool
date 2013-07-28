@@ -46793,6 +46793,14 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabledCheckBox.\
             setCheckState(Qt.Unchecked)
         
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabledLabel = \
+            QLabel("Measurement unit biblical circles:")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabledCheckBox = \
+            QCheckBox()
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+        
         # Grid layout.
         gridLayout = QGridLayout()
         r = 0
@@ -46969,6 +46977,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
         gridLayout.\
             addWidget(\
             self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabledCheckBox, 
+            r, 1, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabledLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabledCheckBox, 
             r, 1, ar)
 
         r += 1
@@ -52865,6 +52883,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabledCheckBox.\
                 setCheckState(Qt.Unchecked)
 
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
         # planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag (bool).
         if self.priceBarChartSettings.\
            planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag == True:
@@ -55523,6 +55551,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
         else:
             self.priceBarChartSettings.\
                 planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled = False
 
         # planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag (bool).
         if self.planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlagCheckBox.\
