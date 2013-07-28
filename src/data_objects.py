@@ -1379,36 +1379,36 @@ class Ratio:
             self.log.info("Detected an old class version of " + \
                           "Ratio (version {}).  ".\
                           format(self.classVersion))
-            
-            # Version 2 added the following member variables:
-            #
-            # self.mathDescription
-            #
-            
-            try:
-                # See if the variable is set.
-                self.mathDescription
 
-                # If it got here, then the field is already set.
-                self.log.warn("Hmm, strange.  Version {} of this ".\
-                              format(self.classVersion) + \
-                              "class shouldn't have this field.")
+            if self.classVersion == 1:
+                # Version 2 added the following member variables:
+                #
+                # self.mathDescription
+                #
                 
-            except AttributeError:
-                # Variable was not set.  Set it to the default value.
-                self.mathDescription = ""
-                
-                self.log.debug("Added field 'mathDescription' " + \
-                               "to the loaded Ratio.")
-                
-                # Update the class version.
-                prevClassVersion = self.classVersion
-                self.classVersion = 2
-        
-                self.log.info("Object has been updated from " + \
-                              "version {} to version {}.".\
-                              format(prevClassVersion, self.classVersion))
-                
+                try:
+                    # See if the variable is set.
+                    self.mathDescription
+    
+                    # If it got here, then the field is already set.
+                    self.log.warn("Hmm, strange.  Version {} of this ".\
+                                  format(self.classVersion) + \
+                                  "class shouldn't have this field.")
+                    
+                except AttributeError:
+                    # Variable was not set.  Set it to the default value.
+                    self.mathDescription = ""
+                    
+                    self.log.debug("Added field 'mathDescription' " + \
+                                   "to the loaded Ratio.")
+                    
+                    # Update the class version.
+                    prevClassVersion = self.classVersion
+                    self.classVersion = 2
+            
+                    self.log.info("Object has been updated from " + \
+                                  "version {} to version {}.".\
+                                  format(prevClassVersion, self.classVersion))
             
         # Log that we set the state of this object.
         self.log.debug("Set state of a " + Ratio.__name__ +
