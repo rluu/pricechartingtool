@@ -50,12 +50,15 @@ log.setLevel(logLevel)
 #startDt = datetime.datetime(year=1968, month=1, day=1,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
-startDt = datetime.datetime(year=2001, month=1, day=1,
-                            hour=0, minute=0, second=0,
-                            tzinfo=pytz.utc)
+#startDt = datetime.datetime(year=2002, month=1, day=1,
+#                            hour=0, minute=0, second=0,
+#                            tzinfo=pytz.utc)
 #startDt = datetime.datetime(year=2009, month=1, day=1,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
+startDt = datetime.datetime(year=1970, month=1, day=1,
+                            hour=0, minute=0, second=0,
+                            tzinfo=pytz.utc)
 
 #endDt   = datetime.datetime(year=2008, month=1, day=1,
 #                            hour=0, minute=0, second=0,
@@ -63,12 +66,15 @@ startDt = datetime.datetime(year=2001, month=1, day=1,
 #endDt   = datetime.datetime(year=2012, month=1, day=1,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
-endDt   = datetime.datetime(year=2013, month=1, day=1,
-                            hour=0, minute=0, second=0,
-                            tzinfo=pytz.utc)
+#endDt   = datetime.datetime(year=2014, month=1, day=1,
+#                            hour=0, minute=0, second=0,
+#                            tzinfo=pytz.utc)
 #endDt   = datetime.datetime(year=2020, month=1, day=1,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
+endDt = datetime.datetime(year=2002, month=1, day=1,
+                          hour=0, minute=0, second=0,
+                          tzinfo=pytz.utc)
 
 # High and low price limits for drawing the vertical lines.
 highPrice = 1200.0
@@ -333,6 +339,23 @@ def processPCDD(pcdd, tag):
     #    "Mercury", degreeValue)
     ####################################################################
 
+    if False:
+        degreeValue = 0
+        success = PlanetaryCombinationsLibrary.\
+            addLongitudeAspectVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Moon", "geocentric", "tropical",
+            "Sun", "geocentric", "tropical",
+            degreeValue, color=QColor(Qt.blue))
+    
+    if False:
+        degreeValue = 180
+        success = PlanetaryCombinationsLibrary.\
+            addLongitudeAspectVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Moon", "geocentric", "tropical",
+            "Sun", "geocentric", "tropical",
+            degreeValue, color=QColor(Qt.red))
     
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\

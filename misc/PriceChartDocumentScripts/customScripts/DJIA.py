@@ -43,17 +43,22 @@ log.setLevel(logLevel)
 #startDt = datetime.datetime(year=2009, month=1, day=1,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
-startDt = datetime.datetime(year=1952, month=1, day=1,
+#startDt = datetime.datetime(year=1952, month=1, day=1,
+#                            hour=0, minute=0, second=0,
+#                            tzinfo=pytz.utc)
+startDt = datetime.datetime(year=1926, month=1, day=1,
                             hour=0, minute=0, second=0,
                             tzinfo=pytz.utc)
 
-endDt   = datetime.datetime(year=1986, month=4, day=1,
+endDt   = datetime.datetime(year=1936, month=1, day=1,
                             hour=0, minute=0, second=0,
                             tzinfo=pytz.utc)
 
 # High and low price limits for drawing the vertical lines.
-highPrice = 1500.0
-lowPrice = 240.0
+#highPrice = 1500.0
+highPrice = 400.0
+#lowPrice = 240.0
+lowPrice = 35.0
 
 ##############################################################################
 
@@ -84,6 +89,26 @@ def processPCDD(pcdd, tag):
     #highPrice = 600.0
     #lowPrice = 600.0
     #lowPrice = 300.0
+
+    
+    if False:
+        degreeValue = 0
+        success = PlanetaryCombinationsLibrary.\
+            addLongitudeAspectVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Moon", "geocentric", "tropical",
+            "Sun", "geocentric", "tropical",
+            degreeValue, color=QColor(Qt.blue))
+    
+    if False:
+        degreeValue = 180
+        success = PlanetaryCombinationsLibrary.\
+            addLongitudeAspectVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Moon", "geocentric", "tropical",
+            "Sun", "geocentric", "tropical",
+            degreeValue, color=QColor(Qt.red))
+    
 
     # Works well.
     if False:
