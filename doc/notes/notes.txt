@@ -1691,3 +1691,35 @@ There is a link to the heart and sweet-heart, etc.
 # End Notes added September 3, 2013.
 ##############################################################################
 
+##############################################################################
+# Start Notes added September 7, 2013.
+##############################################################################
+
+Today Kjell told me about a special hidden meaning behind the 153 fishes of St. John 21.
+
+In a pythagorean right triangle, with sides, a, b, c, 
+a = 3
+b = 12
+c = 12.36931687685298
+
+Thus the area of squares of each side of the triangle is:
+a^2 + b^2 = c^2
+  9 + 144 = 153
+
+
+The value of one 'unit' in the triangle is one lunation.  
+The value of variable 'c' is the number of lunations in one solar year!!!
+
+As a test:
+12.36931687685298 * 19 = 235.01702066020664
+
+
+Thus, that is why the 3x3 = 9 and 12x12 = 144 is so sacred.  Because it is triangularly harmonious with the ratio between the Sun and the Moon.
+
+
+I've drawn the triangle out on paper and color-coded the squares.  The geometry and proportion is absolutely beautiful.
+
+##############################################################################
+# End Notes added September 7, 2013.
+##############################################################################
+
