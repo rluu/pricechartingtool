@@ -1385,6 +1385,7 @@ Calendar:
      christmastide, eastertide, halloween, carnival, etc.
   Marriage rites, ceremony elements.
   Honeymoon.  (Honey/sweetness + moon).  (what is the origin and meaning?)
+  Sweetheart.
   Marriage ring.  Marriage convenant/agreement.  Diamond.
 
 
@@ -1719,7 +1720,21 @@ Thus, that is why the 3x3 = 9 and 12x12 = 144 is so sacred.  Because it is trian
 
 I've drawn the triangle out on paper and color-coded the squares.  The geometry and proportion is absolutely beautiful.
 
+----
+
+Relating to the Tav cross on TTTA pg. 194 (which is pg. 47 + (49 * 3)),
+I am seeing how a previous WITS poster (was it VanessaLaural? or Lorrie?) had said that his whole system is based off of squares.  In this case, 49 is a square of 7.  I think it is not just squares but cubes that are built with cubes.  
+
+Also, 49 is just one of the squares.  There are other numbers that should be mapped out accordingly.  I should try out the other Bible/TTTA numbers mentioned:
+
+ 5 -->  25 -->  125  
+11 --> 121 --> 1331  (=1335 of Daniel ?)
+19 --> 361 --> 6859
+
+And perhaps all number squares?
+
+So perhaps the hidden meaning of a 'thing' is more generic, and the real meaning is just a square number?  Or is it only the number 49 and 72 degrees?
+
 ##############################################################################
 # End Notes added September 7, 2013.
 ##############################################################################
-
