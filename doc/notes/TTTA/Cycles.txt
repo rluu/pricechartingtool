@@ -88,19 +88,39 @@ Note: 21 revolutions / 6 = 3.5
 
 ##############################################################################
 
+Marie and Robert.
 
 
-pg. 113. Saturday, June 4, 1927.
-pg. 123. Nearly 12 o'clock noon [Sunday, June 5, 1927].
-pg. 163. Thursday, June 9, 1927, 2:00 [pm].  [Walter Congratulates on Marriage.]
-pg. 165.  "Last five days had been five years."  
+pg. 111. Monday afternoon goodbye [May 30, 1927].  Counting minutes starts.
+
+pg. 111. Monday forenoon "great feat" (feet) of Lindbergh and afternoon goodbye, [May 30, 1927].  Connection to pg. 187 (date and event is given on this page: June 13, [1927]) and pg. 188 (Lindbergh's feet).  188 - 111 = 77.  Difference in days: 14 days.... but it's in 'slow time' of 14 days as 14 years.  .
+
+pg. 187. Lindbergh was a great achievement, and what it meant to the world, especially to the U.S.  rluu: Therefore use this cycle with the US Govt. cycle.   (the 7 days and 7 days).
+
 pg. 187. Monday, June 13, [1927].  Colonel Lindbergh's march up Broadway.
          Airplanes conquer the world an bring peace.
 
+
+##############################################################################
+
+
+pg. 123.  1 hour = 1 year.
+pg. 113. Saturday, June 4, 1927.   [rluu_20130911: This date may not be relevant.]
+pg. 123. Nearly 12 o'clock noon [Sunday, June 5, 1927].  [Clock tower, hope begins waning, Each time the clock tolled, it seemed that the blood from his heart was slowly trickling away.  Hope giving way to despair.  Patience waning.  He must trust to the word of God.  As the last stroke of the clock DIED slowly away, RG started to think again. ]
+
+pg. 163. Thursday, June 9, 1927, 2:00 [pm].  [Clock tower, hopes begins waning, RG is heart-sick.]
+pg. 165.  "Last five days had been five years."  [rluu_20130911: Then the text talks about eyes closing for the night.]
+
+
+
 pg. 123 repeats pg. 163.
-Difference: 50 revolutions of some planet.
+Difference: 50 hours has passed.
+
+According to coding given on pg. 123, 50 hours would be 50 years, thus:
+50 revolutions of some planet.
 50 * 360 = 18000 degrees.
 
+rluu_20130912: Note that pg. 108 has $18,000, so there may be a connection.  180 and 108 contain the same numbers and Ezekiel plane is mentioned on both pages.  
 
 If it's Mercury:
 50 * 88 / 365.25 = 12.0465 Earth years.
