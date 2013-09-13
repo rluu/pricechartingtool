@@ -5,6 +5,7 @@ new findings.
 
 Document created: Fri Mar  1 03:27:40 EST 2013
 Last modified:    Tue Jul  9 14:41:49 EDT 2013
+Last modified:    Fri Sep  6 05:11:10 EDT 2013
 
 ##############################################################################
 
@@ -16,12 +17,13 @@ Take the below elements that are on the page or page(s) where the puzzle is at. 
 
 Page numbers:
 
-- Add all digits of that are in the page number. 
+- Add all digits of that are in the page number. (i.e. Page 153: 1 + 5 + 3 = 9.)
 - Page number with the number 7.  (for age or length of a cycle).
 - Page number with decimal place shifted.
 - Difference between page numbers that have a connection (referencing the subject or topic).
 - Reflecting that many pages again from two pages that have a connection.
 - Page number anagram: try looking at other pages that have the same numbers in the page number.  
+- Is there a poem (word count) or Name (numerology) that matches that page number?  If yes, then they may be linked.
 
 Pages:
 
@@ -37,6 +39,7 @@ Words:
 - Are there any words that are differently typeset?
 - Are the words "and" and "or" used?  Add or multiply the number of letters in those words.
 - Count the words within a poem or letter or message or telegram.  The word number could be associated with the word.  (e.g. Marie's letter on pg. 120, or Marie's telegraph on pg. 38).
+- Number of words within a poem.  Go to that page number in TTTA and look there.
 - The Bible words and terms that have been translated into English probably can't have english/pythagorean numerology applied.  Gann probably explains what each of these words mean somewhere in TTTA though.
 - Check the line number and word number.  (e.g. line 4, word 9, might mean 49.  Or line 5, word 5, would be a square of 5.).
 - Are there any mis-spelled words.  Are there words that are spelled differently in different places?  (e.g. Thru/Through, Savior/Saviour).
@@ -52,6 +55,7 @@ Locations:
 Names:
 - Look for names on the page.  The first or last name or a substring of the name might be used in other places as a connection.  (e.g. Southey, TennySON).
 - Name might be somewhere else in TTTA, in the Bible, or it might be a person connected to information that needs to be researched and ferreted out.  (e.g. Lindbergh, John Wanamaker for St. John in the Bible, Herbert Kaufman for RG's brother Herbert).
+- Numerology on the name (first letters, or whole name).  Look at the page number that matches that number.  
 
 Numbers:
 
