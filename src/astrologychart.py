@@ -5865,8 +5865,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
         tropStr = "Trop." + os.linesep
 
         # Modulus operations.
-        mod15LonStr = "Mod 15 Lon."
-        mod40LonStr = "Mod 40 Lon."
+        mod360LonStr = "Mod 360 Lon."
         
         # Different measurements available.
         #longitudeStr = "Longitude"
@@ -5907,7 +5906,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
         planetToolTipStr = "Planet"
 
         # Set the total number of columns.
-        numTotalFields = 25
+        numTotalFields = 14
         numColumns = numTotalFields + 1
         self.setColumnCount(numColumns)
 
@@ -5937,29 +5936,15 @@ class PlanetaryInfoTableWidget(QTableWidget):
         self.setColumnWidth(col, 94)
         col += 1
 
-        item = QTableWidgetItem(geoStr + tropStr + mod15LonStr)
-        item.setToolTip(mod15LonStr + degreesUnitsStr)
+        item = QTableWidgetItem(geoStr + tropStr + mod360LonStr)
+        item.setToolTip(mod360LonStr + degreesUnitsStr)
         self.setHorizontalHeaderItem(col, item)
         self.alignHCenterColumns.append(col)
         self.setColumnWidth(col, 88)
         col += 1
 
-        item = QTableWidgetItem(helioStr + tropStr + mod15LonStr)
-        item.setToolTip(mod15LonStr + degreesUnitsStr)
-        self.setHorizontalHeaderItem(col, item)
-        self.alignHCenterColumns.append(col)
-        self.setColumnWidth(col, 88)
-        col += 1
-
-        item = QTableWidgetItem(geoStr + tropStr + mod40LonStr)
-        item.setToolTip(mod40LonStr + degreesUnitsStr)
-        self.setHorizontalHeaderItem(col, item)
-        self.alignHCenterColumns.append(col)
-        self.setColumnWidth(col, 88)
-        col += 1
-
-        item = QTableWidgetItem(helioStr + tropStr + mod40LonStr)
-        item.setToolTip(mod40LonStr + degreesUnitsStr)
+        item = QTableWidgetItem(helioStr + tropStr + mod360LonStr)
+        item.setToolTip(mod360LonStr + degreesUnitsStr)
         self.setHorizontalHeaderItem(col, item)
         self.alignHCenterColumns.append(col)
         self.setColumnWidth(col, 88)
@@ -5979,53 +5964,18 @@ class PlanetaryInfoTableWidget(QTableWidget):
         self.setColumnWidth(col, 94)
         col += 1
 
-        item = QTableWidgetItem(geoStr + sidStr + mod15LonStr)
-        item.setToolTip(mod15LonStr + degreesUnitsStr)
+        item = QTableWidgetItem(geoStr + sidStr + mod360LonStr)
+        item.setToolTip(mod360LonStr + degreesUnitsStr)
         self.setHorizontalHeaderItem(col, item)
         self.alignHCenterColumns.append(col)
         self.setColumnWidth(col, 88)
         col += 1
 
-        item = QTableWidgetItem(helioStr + sidStr + mod15LonStr)
-        item.setToolTip(mod15LonStr + degreesUnitsStr)
+        item = QTableWidgetItem(helioStr + sidStr + mod360LonStr)
+        item.setToolTip(mod360LonStr + degreesUnitsStr)
         self.setHorizontalHeaderItem(col, item)
         self.alignHCenterColumns.append(col)
         self.setColumnWidth(col, 88)
-        col += 1
-
-        item = QTableWidgetItem(geoStr + sidStr + mod40LonStr)
-        item.setToolTip(mod40LonStr + degreesUnitsStr)
-        self.setHorizontalHeaderItem(col, item)
-        self.alignHCenterColumns.append(col)
-        self.setColumnWidth(col, 88)
-        col += 1
-
-        item = QTableWidgetItem(helioStr + sidStr + mod40LonStr)
-        item.setToolTip(mod40LonStr + degreesUnitsStr)
-        self.setHorizontalHeaderItem(col, item)
-        self.alignHCenterColumns.append(col)
-        self.setColumnWidth(col, 88)
-        col += 1
-
-        item = QTableWidgetItem(geoStr + sidStr + "Navamsa")
-        item.setToolTip("Navamsa")
-        self.setHorizontalHeaderItem(col, item)
-        self.setColumnWidth(col, 64)
-        self.alignHCenterColumns.append(col)
-        col += 1
-
-        item = QTableWidgetItem(geoStr + sidStr + "Nak.")
-        item.setToolTip("Nakshatra")
-        self.setHorizontalHeaderItem(col, item)
-        self.setColumnWidth(col, 68)
-        self.alignHCenterColumns.append(col)
-        col += 1
-
-        item = QTableWidgetItem(geoStr + sidStr + "Nak. Pada")
-        item.setToolTip("Nakshatra Pada")
-        self.setHorizontalHeaderItem(col, item)
-        self.setColumnWidth(col, 76)
-        self.alignHCenterColumns.append(col)
         col += 1
 
         item = QTableWidgetItem(geoStr + tropStr + longitudeSpeedStr)
@@ -6062,33 +6012,6 @@ class PlanetaryInfoTableWidget(QTableWidget):
         item.setToolTip(latitudeSpeedStr + degreesPerDayUnitsStr)
         self.setHorizontalHeaderItem(col, item)
         self.setColumnWidth(col, 80)
-        col += 1
-
-        item = QTableWidgetItem(helioStr + sidStr + "Navamsa")
-        item.setToolTip("Navamsa")
-        self.setHorizontalHeaderItem(col, item)
-        self.setColumnWidth(col, 64)
-        self.alignHCenterColumns.append(col)
-        col += 1
-
-        item = QTableWidgetItem(helioStr + sidStr + "Nak.")
-        item.setToolTip("Nakshatra")
-        self.setHorizontalHeaderItem(col, item)
-        self.setColumnWidth(col, 68)
-        self.alignHCenterColumns.append(col)
-        col += 1
-
-        item = QTableWidgetItem(helioStr + sidStr + "Nak. Pada")
-        item.setToolTip("Nakshatra Pada")
-        self.setHorizontalHeaderItem(col, item)
-        self.setColumnWidth(col, 76)
-        self.alignHCenterColumns.append(col)
-        col += 1
-
-        item = QTableWidgetItem(helioStr + sidStr + latitudeStr)
-        item.setToolTip(latitudeStr + degreesUnitsStr)
-        self.setHorizontalHeaderItem(col, item)
-        self.setColumnWidth(col, 84)
         col += 1
 
         # Now that all the headers are created, load the PlanetaryInfos.
@@ -6985,7 +6908,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
         value = p.geocentric[tropical]['longitude']
         valueStr = ""
         if value != None:
-            value = value % 15.0
+            value = value % 360.0
             valueStr = "{:5.2f}".format(value)
         self._setItemAndToolTip(row, col, valueStr)
         col += 1
@@ -6993,23 +6916,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
         value = p.heliocentric[tropical]['longitude']
         valueStr = ""
         if value != None:
-            value = value % 15.0
-            valueStr = "{:5.2f}".format(value)
-        self._setItemAndToolTip(row, col, valueStr)
-        col += 1
-
-        value = p.geocentric[tropical]['longitude']
-        valueStr = ""
-        if value != None:
-            value = value % 40.0
-            valueStr = "{:5.2f}".format(value)
-        self._setItemAndToolTip(row, col, valueStr)
-        col += 1
-
-        value = p.heliocentric[tropical]['longitude']
-        valueStr = ""
-        if value != None:
-            value = value % 40.0
+            value = value % 360.0
             valueStr = "{:5.2f}".format(value)
         self._setItemAndToolTip(row, col, valueStr)
         col += 1
@@ -7035,7 +6942,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
         value = p.geocentric[sidereal]['longitude']
         valueStr = ""
         if value != None:
-            value = value % 15.0
+            value = value % 360.0
             valueStr = "{:5.2f}".format(value)
         self._setItemAndToolTip(row, col, valueStr)
         col += 1
@@ -7043,51 +6950,8 @@ class PlanetaryInfoTableWidget(QTableWidget):
         value = p.heliocentric[sidereal]['longitude']
         valueStr = ""
         if value != None:
-            value = value % 15.0
+            value = value % 360.0
             valueStr = "{:5.2f}".format(value)
-        self._setItemAndToolTip(row, col, valueStr)
-        col += 1
-
-        value = p.geocentric[sidereal]['longitude']
-        valueStr = ""
-        if value != None:
-            value = value % 40.0
-            valueStr = "{:5.2f}".format(value)
-        self._setItemAndToolTip(row, col, valueStr)
-        col += 1
-
-        value = p.heliocentric[sidereal]['longitude']
-        valueStr = ""
-        if value != None:
-            value = value % 40.0
-            valueStr = "{:5.2f}".format(value)
-        self._setItemAndToolTip(row, col, valueStr)
-        col += 1
-
-        value = p.geocentric[sidereal]['longitude']
-        valueStr = ""
-        if value != None:
-            valueStr = \
-                AstrologyUtils.\
-                convertLongitudeToNavamsaStr(value)
-        self._setItemAndToolTip(row, col, valueStr)
-        col += 1
-
-        value = p.geocentric[sidereal]['longitude']
-        valueStr = ""
-        if value != None:
-            valueStr = \
-                AstrologyUtils.\
-                convertLongitudeToNakshatraAbbrev(value)
-        self._setItemAndToolTip(row, col, valueStr)
-        col += 1
-
-        value = p.geocentric[sidereal]['longitude']
-        valueStr = ""
-        if value != None:
-            padaSize = 360 / 108.0
-            pada = (math.floor(value / padaSize) % 4) + 1
-            valueStr = "{}".format(pada)
         self._setItemAndToolTip(row, col, valueStr)
         col += 1
 
@@ -7127,40 +6991,6 @@ class PlanetaryInfoTableWidget(QTableWidget):
         col += 1
 
         value = p.heliocentric[tropical]['latitude_speed']
-        valueStr = ""
-        if value != None:
-            valueStr = "{: 7.3f}".format(value)
-        self._setItemAndToolTip(row, col, valueStr)
-        col += 1
-
-        value = p.heliocentric[sidereal]['longitude']
-        valueStr = ""
-        if value != None:
-            valueStr = \
-                AstrologyUtils.\
-                convertLongitudeToNavamsaStr(value)
-        self._setItemAndToolTip(row, col, valueStr)
-        col += 1
-
-        value = p.heliocentric[sidereal]['longitude']
-        valueStr = ""
-        if value != None:
-            valueStr = \
-                AstrologyUtils.\
-                convertLongitudeToNakshatraAbbrev(value)
-        self._setItemAndToolTip(row, col, valueStr)
-        col += 1
-        
-        value = p.heliocentric[sidereal]['longitude']
-        valueStr = ""
-        if value != None:
-            padaSize = 360 / 108.0
-            pada = (math.floor(value / padaSize) % 4) + 1
-            valueStr = "{}".format(pada)
-        self._setItemAndToolTip(row, col, valueStr)
-        col += 1
-
-        value = p.heliocentric[sidereal]['latitude']
         valueStr = ""
         if value != None:
             valueStr = "{: 7.3f}".format(value)

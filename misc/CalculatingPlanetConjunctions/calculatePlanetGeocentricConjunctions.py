@@ -99,8 +99,8 @@ geocentricPlanetNames = [\
     "Jupiter",
     "Saturn",
     "Uranus",
-    "Neptune",
-    "Pluto",
+    #"Neptune",
+    #"Pluto",
     #"TrueNorthNode",
     #"Chiron",
     #"Isis"

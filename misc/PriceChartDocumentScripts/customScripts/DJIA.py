@@ -40,25 +40,33 @@ log = logging.getLogger(moduleName)
 log.setLevel(logLevel)
 
 # Start and ending timestamps for drawing.
-#startDt = datetime.datetime(year=2009, month=1, day=1,
+
+#startDt = datetime.datetime(year=1980, month=1, day=1,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
-#startDt = datetime.datetime(year=1952, month=1, day=1,
-#                            hour=0, minute=0, second=0,
-#                            tzinfo=pytz.utc)
-startDt = datetime.datetime(year=1926, month=1, day=1,
+startDt = datetime.datetime(year=1995, month=1, day=1,
+                            hour=0, minute=0, second=0,
+                            tzinfo=pytz.utc)
+endDt = datetime.datetime(year=2014, month=1, day=1,
                             hour=0, minute=0, second=0,
                             tzinfo=pytz.utc)
 
-endDt   = datetime.datetime(year=1936, month=1, day=1,
-                            hour=0, minute=0, second=0,
-                            tzinfo=pytz.utc)
+#startDt = datetime.datetime(year=1926, month=1, day=1,
+#                            hour=0, minute=0, second=0,
+#                            tzinfo=pytz.utc)
+#endDt   = datetime.datetime(year=1936, month=1, day=1,
+#                            hour=0, minute=0, second=0,
+#                            tzinfo=pytz.utc)
 
 # High and low price limits for drawing the vertical lines.
-#highPrice = 1500.0
-highPrice = 400.0
+highPrice = 15000.0
+#highPrice = 4500.0
+#highPrice = 400.0
 #lowPrice = 240.0
-lowPrice = 35.0
+#lowPrice = 35.0
+#lowPrice = 800.0
+lowPrice = 4500.0
+
 
 ##############################################################################
 
@@ -91,7 +99,7 @@ def processPCDD(pcdd, tag):
     #lowPrice = 300.0
 
     
-    if False:
+    if True:
         degreeValue = 0
         success = PlanetaryCombinationsLibrary.\
             addLongitudeAspectVerticalLines(\
@@ -100,7 +108,7 @@ def processPCDD(pcdd, tag):
             "Sun", "geocentric", "tropical",
             degreeValue, color=QColor(Qt.blue))
     
-    if False:
+    if True:
         degreeValue = 180
         success = PlanetaryCombinationsLibrary.\
             addLongitudeAspectVerticalLines(\
