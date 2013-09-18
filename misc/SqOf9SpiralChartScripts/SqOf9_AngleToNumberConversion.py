@@ -265,7 +265,7 @@ fullCircles = math.floor(inputAngle / 360)
 angleMod360 = inputAngle % 360
 
 # Print results.
-log.info("Angle {} degrees (or {} circle(s) and {} degrees)".\
+log.info("Angle {} degrees (or {} circle(s) plus {} degrees)".\
          format(inputAngle, fullCircles, angleMod360) + \
          " in the spiral has number: {}".\
          format(number))
