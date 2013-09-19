@@ -102,12 +102,8 @@ def getNumberForAngleOnSpiral(inputAngle, baseNumber=1):
       float for the number on the spiral at the desired angle.
     """
 
-    # Each time around the spiral has an increment of 8 over the
-    # increment of the previous circle.
-    incrementExtraPerCircle = 8
-
     # For now, we will assume base number of 1.  We will apply offsets
-    # to it to use the actual base number later.
+    # to it to use the actual base number at the end of this function.
 
 
     # Initialize variables.

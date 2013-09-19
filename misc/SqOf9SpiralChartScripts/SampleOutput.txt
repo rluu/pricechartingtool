@@ -1,0 +1,46 @@
+
+##############################################################################
+# Sample output for converting from angle to number:
+##############################################################################
+
+python3 SqOf9_AngleToNumberConversion.py --degrees=45
+INFO: Angle 45.0 degrees (or 0 circle(s) plus 45.0 degrees) in the spiral has number: 2.0
+
+python3 SqOf9_AngleToNumberConversion.py --degrees=360
+INFO: Angle 360.0 degrees (or 1 circle(s) plus 0.0 degrees) in the spiral has number: 9.0
+
+python3 SqOf9_AngleToNumberConversion.py --degrees=720
+INFO: Angle 720.0 degrees (or 2 circle(s) plus 0.0 degrees) in the spiral has number: 25.0
+
+python3 SqOf9_AngleToNumberConversion.py --circles=2 --degrees=45
+INFO: Angle 765.0 degrees (or 2 circle(s) plus 45.0 degrees) in the spiral has number: 28.0
+
+python3 SqOf9_AngleToNumberConversion.py --circles=3.5
+INFO: Angle 1260.0 degrees (or 3 circle(s) plus 180.0 degrees) in the spiral has number: 65.0
+
+python3 SqOf9_AngleToNumberConversion.py --base-number=44 --circles=2
+INFO: Using customized base number: 44
+INFO: Angle 720.0 degrees (or 2 circle(s) plus 0.0 degrees) in the spiral has number: 68.0
+
+
+##############################################################################
+# Sample output for converting from number to angle:
+##############################################################################
+
+python3 SqOf9_NumberToAngleConversion.py --number=69
+INFO: Number '69.0' in the spiral has angle: 1305.0 degrees
+INFO: Number '69.0' in the spiral has angle: 3 circle(s) plus 225.0 degrees
+INFO: Number '69.0' in the spiral has angle: 3.625 circle(s)
+
+python3 SqOf9_NumberToAngleConversion.py --number=190
+INFO: Number '190.0' in the spiral has angle: 2295.0 degrees
+INFO: Number '190.0' in the spiral has angle: 6 circle(s) plus 135.0 degrees
+INFO: Number '190.0' in the spiral has angle: 6.375 circle(s)
+python3 SqOf9_NumberToAngleConversion.py --base-number=44 --number=66
+
+INFO: Using customized base number: 44
+INFO: Number '66.0' in the spiral has angle: 675.0 degrees
+INFO: Number '66.0' in the spiral has angle: 1 circle(s) plus 315.0 degrees
+INFO: Number '66.0' in the spiral has angle: 1.875 circle(s)
+
+##############################################################################
